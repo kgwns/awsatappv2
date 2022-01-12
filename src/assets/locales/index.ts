@@ -1,0 +1,5 @@
+import {englishUs} from 'src/assets/locales/en_us/common-us';
+import {spanish} from 'src/assets/locales/es_sp/common-sp';
+
+export const enUs = {common: englishUs};
+export const sp = {common: spanish};

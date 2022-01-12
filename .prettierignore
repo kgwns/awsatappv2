@@ -1,0 +1,13 @@
+# Ignore artifacts:
+build
+coverage
+.scannerwork
+.vscode
+android
+fastlane
+ios
+node_modules
+reports
+
+# Ignore all HTML files:
+*.html
