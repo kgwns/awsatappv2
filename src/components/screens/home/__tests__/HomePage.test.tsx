@@ -1,6 +1,6 @@
 import 'react-native';
 import React from 'react';
-import {HomePage} from 'src/components/pages/home/HomePage';
+import {HomePage} from '~/components/screens/home/HomePage';
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
