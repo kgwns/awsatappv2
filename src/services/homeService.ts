@@ -1,5 +1,5 @@
-import {BASE_URL, USERS} from 'src/services/apiUrls';
-import {postApiRequest,getApiRequest} from 'src/services/api';
+import { BASE_URL, TODOS } from 'src/services/apiUrls';
+import { getApiRequest } from 'src/services/api';
 import {
   HomeBodyType,
   HomeSuccessPayloadType,
@@ -8,14 +8,14 @@ import {
 export const requestHomeApi = async (body: HomeBodyType) => {
   try {
     const response: string = await getApiRequest(
-      `${BASE_URL}${USERS}`,
+      `${BASE_URL}${TODOS}`,
     );
     console.log(
-      `homeService url: ${BASE_URL}${USERS} body: ${JSON.stringify(
+      `homeService url: ${BASE_URL}${TODOS} body: ${JSON.stringify(
         body,
       )} response: ${JSON.stringify(response)}`,
     );
-    const responseData: HomeSuccessPayloadType = {homeData: response};
+    const responseData: HomeSuccessPayloadType = { homeData: response };
     return responseData;
   } catch (error) {
     console.log(`error: ${error}`);

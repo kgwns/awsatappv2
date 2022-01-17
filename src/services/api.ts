@@ -9,7 +9,7 @@ export const getApiRequest = (
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: 'Bearer exmbxo5jkds8sstq3dp92si5d3m56b9v',
+        Authorization: 'Bearer some_token',
       },
       ...config,
     })

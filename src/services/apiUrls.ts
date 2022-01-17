@@ -1,2 +1,2 @@
-export const BASE_URL = 'https://reqres.in/api/';
-export const USERS = 'users';
+export const BASE_URL = 'https://jsonplaceholder.typicode.com/';
+export const TODOS = 'todos';

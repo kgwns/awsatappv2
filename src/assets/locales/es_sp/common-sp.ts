@@ -1,8 +1,4 @@
 export const spanish = {
-  label: {
-    seeMore: 'See More',
-    by: 'By',
-  },
   bottomTabBar: {
     tab1: 'Home',
     tab2: 'Refer',

@@ -21,7 +21,6 @@ enum TextAlign {
 }
 export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   h2: {
-    fontFamily: fonts.Poppins_SemiBold,
     fontStyle: FontStyle.NORMAL,
     fontSize: 18,
     lineHeight: 25,
@@ -29,7 +28,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.greyDark,
   },
   h3: {
-    fontFamily: fonts.Poppins_SemiBold,
     fontStyle: FontStyle.NORMAL,
     fontSize: 16,
     lineHeight: 25,
@@ -39,7 +37,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   content: {
     width: 365,
     color: colors.greyLight,
-    fontFamily: fonts.Poppins_Regular,
     fontSize: 12,
     letterSpacing: 0,
     lineHeight: 19,
@@ -47,7 +44,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     marginBottom: 10,
   },
   h4: {
-    fontFamily: fonts.Poppins_SemiBold,
     fontStyle: FontStyle.NORMAL,
     fontSize: 14,
     lineHeight: 22,
@@ -55,7 +51,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.greyDark,
   },
   h5: {
-    fontFamily: fonts.Poppins_SemiBold,
     fontStyle: FontStyle.NORMAL,
     fontSize: 12,
     lineHeight: 18,
@@ -63,7 +58,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.blue,
   },
   h6: {
-    fontFamily: fonts.Poppins_SemiBold,
     fontStyle: FontStyle.NORMAL,
     fontSize: 11,
     lineHeight: 17,
@@ -71,7 +65,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.greyDark,
   },
   h8: {
-    fontFamily: fonts.Poppins_SemiBold,
     fontStyle: FontStyle.NORMAL,
     fontSize: 9,
     lineHeight: 13,
@@ -79,7 +72,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.white,
   },
   caption6: {
-    fontFamily: fonts.Poppins_Regular,
     fontStyle: FontStyle.NORMAL,
     fontSize: 10,
     lineHeight: 16,
@@ -87,7 +79,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.greyDark,
   },
   caption7: {
-    fontFamily: fonts.Poppins_Regular,
     fontStyle: FontStyle.NORMAL,
     fontSize: 9,
     lineHeight: 13,
@@ -95,7 +86,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.greyDark,
   },
   caption5: {
-    fontFamily: fonts.Poppins_Regular,
     fontStyle: FontStyle.NORMAL,
     fontSize: 11,
     lineHeight: 17,
@@ -103,7 +93,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.greyLight,
   },
   caption4: {
-    fontFamily: fonts.Poppins_Regular,
     fontStyle: FontStyle.NORMAL,
     fontSize: 12,
     lineHeight: 18,
@@ -111,7 +100,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.blue,
   },
   caption2: {
-    fontFamily: fonts.Poppins_Regular,
     fontStyle: FontStyle.NORMAL,
     fontSize: 22,
     lineHeight: 33,
@@ -119,7 +107,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.white,
   },
   caption9: {
-    fontFamily: fonts.Poppins_Regular,
     fontStyle: FontStyle.NORMAL,
     fontSize: 16,
     lineHeight: 25,
@@ -127,7 +114,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.blue,
   },
   caption8: {
-    fontFamily: fonts.Poppins_Regular,
     fontStyle: FontStyle.NORMAL,
     fontSize: 14,
     lineHeight: 21,
@@ -135,7 +121,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.greyDark,
   },
   p3: {
-    fontFamily: fonts.Poppins_Medium,
     fontStyle: FontStyle.NORMAL,
     fontSize: 14,
     lineHeight: 21,
@@ -143,7 +128,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.white,
   },
   p4: {
-    fontFamily: fonts.Poppins_Medium,
     fontStyle: FontStyle.NORMAL,
     fontSize: 12,
     lineHeight: 18,
@@ -151,7 +135,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.red,
   },
   p5: {
-    fontFamily: fonts.Poppins_Medium,
     fontStyle: FontStyle.NORMAL,
     fontSize: 11,
     lineHeight: 17,
@@ -159,7 +142,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.greyDark,
   },
   p6: {
-    fontFamily: fonts.Poppins_Medium,
     fontStyle: FontStyle.NORMAL,
     fontSize: 10,
     lineHeight: 16,
@@ -167,27 +149,23 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.red,
   },
   h1: {
-    fontFamily: fonts.Poppins_SemiBold,
     fontStyle: FontStyle.NORMAL,
     fontSize: normalize(28),
     textAlign: TextAlign.LEFT,
   },
   caption3: {
-    fontFamily: fonts.Poppins_Regular,
     fontStyle: FontStyle.NORMAL,
     fontSize: normalize(18),
     textAlign: TextAlign.LEFT,
     color: colors.greyLight,
   },
   default: {
-    fontFamily: fonts.Poppins_Regular,
     fontStyle: FontStyle.NORMAL,
     fontSize: 12,
     lineHeight: 13,
     fontWeight: FontWeight.REGULAR,
   },
   label10: {
-    fontFamily: fonts.Poppins_Light,
     fontStyle: FontStyle.NORMAL,
     fontSize: 10,
     lineHeight: 13,
@@ -195,7 +173,6 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
     color: colors.greyLight,
   },
   underlinedTitle: {
-    fontFamily: fonts.Poppins_Medium,
     fontStyle: FontStyle.NORMAL,
     fontSize: 12,
     lineHeight: 18,
