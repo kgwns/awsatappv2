@@ -71,6 +71,7 @@ package-lock.json
 
 # test coverage
 coverage
+reports
 
 # VS Code settings
 settings.json
