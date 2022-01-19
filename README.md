@@ -19,6 +19,8 @@ enter the command "pod install".
 Then follow Running your React Native application step in the shared link
 
 
+**Bundle ID :com.srmg.ashaeqalawsat.iphoneapp**
+
 
 
 # AWSATAPP
