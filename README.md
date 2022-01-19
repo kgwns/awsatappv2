@@ -1,4 +1,7 @@
 # README
+
+**FOR IOS **
+
 Node Js Version 12 
 
 
@@ -14,6 +17,8 @@ go to the ios folder inside the project directory (i.e, documents -> awsatapp ->
 enter the command "pod install".
 
 Then follow Running your React Native application step in the shared link
+
+
 
 
 # AWSATAPP
