@@ -16,4 +16,8 @@ const normalize = (size: sizeProp, based = 'width') => {
   return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
 };
 
-export {screenWidth, screenHeight, isIOS, normalize};
+const normalizeBy320 = (size: sizeProp, based = 'width') => {
+  return size / 320 * (based === 'height' ? scaleHeight : screenWidth)
+}
+
+export { screenWidth, screenHeight, isIOS, normalize, normalizeBy320 };
