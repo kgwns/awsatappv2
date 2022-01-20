@@ -16,7 +16,7 @@ const AppNavigator = () => {
         <Stack.Screen
           name={ScreensConstants.HOME_SCREEN}
           component={TabNavigator}
-          options={hideHeader}
+          options={{...hideHeader}}
         />
       </Stack.Navigator>
     </NavigationContainer>
