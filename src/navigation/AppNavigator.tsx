@@ -7,6 +7,8 @@ import TabNavigator from './TabNavigator';
 
 const Stack = createStackNavigator();
 
+const hideHeader = { headerShown: false }
+
 const AppNavigator = () => {
   return (
     <NavigationContainer>
@@ -14,7 +16,7 @@ const AppNavigator = () => {
         <Stack.Screen
           name={ScreensConstants.HOME_SCREEN}
           component={TabNavigator}
-          options={{ headerShown: false }}
+          options={hideHeader}
         />
       </Stack.Navigator>
     </NavigationContainer>

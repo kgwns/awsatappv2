@@ -5,7 +5,7 @@
   "scripts": {
     "android": "npx react-native run-android",
     "ios": "npx react-native run-ios",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint .",
     "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.host.url=$host -Dsonar.login=$login",
@@ -38,6 +38,7 @@
     "react-native-reanimated": "^1.13.3",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0",
+    "react-native-splash-screen": "^3.3.0",
     "react-native-swiper-flatlist": "^3.0.16",
     "react-native-vector-icons": "^9.0.0",
     "react-navigation-drawer": "^2.7.1",

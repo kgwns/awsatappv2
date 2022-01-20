@@ -9,7 +9,6 @@ import {
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { colors } from '../../../shared/styles/colors';
 
-
 export const MostReadScreen = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
