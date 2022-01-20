@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { useHome } from 'src/hooks';
 
-export const HomePage = () => {
+const HomePage = () => {
   const [t] = useTranslation();
   const { fetchHomeRequest, isLoading, homeError, homeData } = useHome();
   useEffect(() => {
@@ -31,3 +31,5 @@ export const HomePage = () => {
     </SafeAreaView>
   );
 };
+
+export default HomePage

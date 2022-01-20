@@ -1,20 +1,21 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-
-import {HomePage} from '../components/screens/home/HomePage';
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { RoutesName, Routes } from '../navigation/index'
 
 const Stack = createStackNavigator();
+
+const hideHeader = { headerShown: false }
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName={RoutesName.HOME}>
         <Stack.Screen
-          name="Home"
-          component={HomePage}
-          options={{title: 'Home'}}
+          name={RoutesName.HOME}
+          component={Routes.Home}
+          options={{ ...hideHeader }}
         />
       </Stack.Navigator>
     </NavigationContainer>
