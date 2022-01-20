@@ -26,4 +26,5 @@ export const colors = {
   yellow: '#FFBA49',
   black10: '#0000001A',
   whiteTitle: '#EAEAEA',
+  forestGreen: '#228B22'
 };

@@ -1,6 +1,13 @@
 import React, {FunctionComponent} from 'react';
 import {StyleProp, Text, TextStyle, TextProps} from 'react-native';
-import {Styles} from 'src/shared/styles';
+import {Styles} from 'src/shared/styles'
+
+export enum LabelTypeProp {
+  h1 = 'h1',
+  h2 = 'h2',
+  h3 = 'h3',
+  p3 = 'p3'
+}
 
 export type LabelType =
   | 'h1'

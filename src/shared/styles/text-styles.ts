@@ -22,17 +22,17 @@ enum TextAlign {
 export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   h2: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: 18,
-    lineHeight: 25,
-    textAlign: TextAlign.LEFT,
-    color: colors.greyDark,
+    fontSize: normalize(20),
+    lineHeight: normalize(24),
+    textAlign: TextAlign.RIGHT,
+    paddingVertical: normalize(8)
   },
   h3: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: 16,
-    lineHeight: 25,
-    textAlign: TextAlign.LEFT,
-    color: colors.greyDark,
+    fontSize: normalize(16),
+    lineHeight: normalize(18),
+    textAlign: TextAlign.RIGHT,
+    color: colors.black,
   },
   content: {
     width: 365,
@@ -122,10 +122,10 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   },
   p3: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: 14,
-    lineHeight: 21,
-    textAlign: TextAlign.CENTER,
-    color: colors.white,
+    fontSize: normalize(14),
+    lineHeight: normalize(18),
+    textAlign: TextAlign.RIGHT,
+    color: colors.greyDark,
   },
   p4: {
     fontStyle: FontStyle.NORMAL,
@@ -155,9 +155,9 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   },
   caption3: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: normalize(18),
-    textAlign: TextAlign.LEFT,
-    color: colors.greyLight,
+    fontSize: normalize(16),
+    textAlign: TextAlign.RIGHT,
+    color: colors.white
   },
   default: {
     fontStyle: FontStyle.NORMAL,
