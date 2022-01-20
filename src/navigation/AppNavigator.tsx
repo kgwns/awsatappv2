@@ -1,8 +1,9 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import { RoutesName, Routes } from '../navigation/index'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { ScreensConstants } from '../constants/ScreenConstants';
+import TabNavigator from './TabNavigator';
 
 const Stack = createStackNavigator();
 
@@ -11,11 +12,11 @@ const hideHeader = { headerShown: false }
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={RoutesName.HOME}>
+      <Stack.Navigator initialRouteName={ScreensConstants.HOME_SCREEN}>
         <Stack.Screen
-          name={RoutesName.HOME}
-          component={Routes.Home}
-          options={{ ...hideHeader }}
+          name={ScreensConstants.HOME_SCREEN}
+          component={TabNavigator}
+          options={{...hideHeader}}
         />
       </Stack.Navigator>
     </NavigationContainer>
