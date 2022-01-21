@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { normalize } from 'react-native-elements'
+import { Styles } from '../../../shared/styles'
 import { ImagesName } from '../../../shared/styles/images'
 import { CaptionWithImage, ImageName } from '../../atoms'
 import { Image } from '../../atoms'
@@ -25,7 +26,7 @@ const ArticleFooter = ({
   style
 }: articleFooterProps) => {
   const [saveState, setSaveState] = useState(false)
-  const storySaveIcon = saveState ? ImagesName.save : ImagesName.blackBdrBookMark
+  const storySaveIcon = saveState ? ImagesName.bookmarkActive : ImagesName.blackBdrBookMark
 
   const onPressSave = () => {
     setSaveState(!saveState)
@@ -56,5 +57,7 @@ const articleFooterStyle = StyleSheet.create({
     paddingTop: normalize(15)
   },
   verticalDivider: {
+    color: Styles.color.silverChalice,
+    paddingTop: normalize(2)
   }
 })

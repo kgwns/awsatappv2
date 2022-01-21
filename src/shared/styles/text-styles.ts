@@ -145,7 +145,7 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   p5: {
     fontStyle: FontStyle.NORMAL,
     fontSize: normalize(14),
-    lineHeight: 17,
+    lineHeight: normalize(18),
     textAlign: TextAlign.LEFT,
     color: colors.greyDark,
   },

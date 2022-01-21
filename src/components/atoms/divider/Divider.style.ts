@@ -5,9 +5,9 @@ import { normalize } from '../../../shared/utils';
 
 export const dividerStyle = StyleSheet.create({
   container: {
-    backgroundColor: Styles.color.greyLight,
+    backgroundColor: Styles.color.smokeyGrey,
     width: '100%',
-    height: normalizeBy320(1),
+    height: normalizeBy320(0.4),
     marginVertical: normalize(20)
   },
-});
+})

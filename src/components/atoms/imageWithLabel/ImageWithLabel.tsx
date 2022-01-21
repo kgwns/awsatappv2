@@ -37,7 +37,7 @@ const imageWithLabelStyle = StyleSheet.create({
     tagContainer: {
         position: 'absolute',
         left: 0,
-        backgroundColor: Styles.color.forestGreen,
+        backgroundColor: Styles.color.greenishBlue,
         flexWrap: 'wrap',
     },
     tagText: {

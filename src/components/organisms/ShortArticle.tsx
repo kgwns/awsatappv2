@@ -37,9 +37,9 @@ const shortArticleData: shortArticleProps[] = [
 const shortArticleFooterSample: articleFooterProps = {
   leftTitle: 'يتحمل',
   leftIcon: ImagesName.clock,
-  leftTitleColor: Styles.color.greyDark,
+  leftTitleColor: Styles.color.silverChalice,
   rightTitle: 'وتمجيد',
-  rightTitleColor: Styles.color.greyDark
+  rightTitleColor: Styles.color.silverChalice
 }
 
 const ShortArticle = () => {

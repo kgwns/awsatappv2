@@ -21,22 +21,22 @@ const articleSectionData: articleProps[] = [
         image: 'https://picsum.photos/200/300',
         title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
         description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'الألم'
+        tagName: 'مجما'
     },
     {
         image: 'https://picsum.photos/200/300',
         title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
         description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'الألم'
+        tagName: 'الحكومة'
     }
 ]
 
 const articleFooterSample: articleFooterProps = {
     leftTitle: 'وتمجيد',
-    leftTitleColor: Styles.color.forestGreen,
+    leftTitleColor: Styles.color.greenishBlue,
     rightTitle: 'يتحمل',
     rightIcon: ImagesName.clock,
-    rightTitleColor: Styles.color.greyDark,
+    rightTitleColor: Styles.color.silverChalice,
 }
 
 const ArticleSection = () => {
@@ -44,7 +44,7 @@ const ArticleSection = () => {
         return <View >
             <ImageWithLabel url={item.image} tagName={item.tagName} />
             <Label labelType={LabelTypeProp.h2} children={item.title} numberOfLines={2}/>
-            <Label labelType={LabelTypeProp.p3} children={item.description} />
+            <Label labelType={LabelTypeProp.p3} children={item.description} color={Styles.color.davyGrey} />
             <View style={{ flex: 1,paddingTop: normalize(10) }}>
                 <ArticleFooter {...articleFooterSample} />
             </View>

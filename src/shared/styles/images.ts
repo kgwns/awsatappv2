@@ -1,6 +1,6 @@
-import save from 'src/assets/images/save-instagram.png'
-import blackBdrBookMark from 'src/assets/images/bookmark-black-bdr.png'
-import clock from 'src/assets/images/clock-icon.png'
+import bookmarkActive from 'src/assets/images/latest_tab/bookmark_active.png'
+import blackBdrBookMark from 'src/assets/images/latest_tab/bookmark-black-bdr.png'
+import clock from 'src/assets/images/latest_tab/clock-icon.png'
 
 // tabbar icons
 import newsIcon from 'src/assets/images/tabIcons/news_icon.png';
@@ -23,7 +23,7 @@ export enum ImagesName {
   favoriteActiveIcon = 'favoriteActiveIcon',
   homeIcon = 'homeIcon',
   Image = 'Image',
-  save = 'save',
+  bookmarkActive = 'bookmarkActive',
   blackBdrBookMark = 'blackBdrBookMark',
   clock = 'clock'
 }
@@ -37,7 +37,7 @@ export const images = {
   mostReadActiveIcon,
   favoriteIcon,
   favoriteActiveIcon,
-  save,
+  bookmarkActive,
   blackBdrBookMark,
   clock
 };
