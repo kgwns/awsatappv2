@@ -9,6 +9,7 @@ import { ArticleFooter } from '../molecules'
 import { articleFooterProps } from '../molecules/articleFooter/ArticleFooter'
 import { ImagesName } from '../../shared/styles/images';
 import { ImageResize } from '../../shared/styles/text-styles';
+import { flatListUniqueKey } from '../../constants';
 
 interface shortArticleProps {
   image: string,
@@ -44,7 +45,7 @@ const shortArticleFooterSample: articleFooterProps = {
 
 const ShortArticle = () => {
   const renderItem = (item: shortArticleProps, index: number) => {
-    return <View>
+    return <View key={flatListUniqueKey.SHORT_ARTICLE + index}>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 1, paddingRight: normalize(15) }}>
           <Label labelType={LabelTypeProp.h3} children={item.title} numberOfLines={2} />
@@ -62,6 +63,8 @@ const ShortArticle = () => {
     <View style={ShortArticleStyle.container}>
       <FlatList
         style={ShortArticleStyle.listContainer}
+        keyExtractor={(_,index) => index.toString()}
+        listKey={flatListUniqueKey.SHORT_ARTICLE}
         data={shortArticleData}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => renderItem(item, index)}

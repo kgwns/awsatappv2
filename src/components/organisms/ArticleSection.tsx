@@ -8,6 +8,7 @@ import { ImageWithLabel } from '../atoms'
 import { ArticleFooter } from '../molecules'
 import { articleFooterProps } from '../molecules/articleFooter/ArticleFooter'
 import { ImagesName } from '../../shared/styles/images'
+import { flatListUniqueKey } from '../../constants'
 
 interface articleProps {
    image: string,
@@ -41,7 +42,7 @@ const articleFooterSample: articleFooterProps = {
 
 const ArticleSection = () => {
     const renderItem = (item: articleProps, index: number) => {
-        return <View >
+        return <View key={flatListUniqueKey.ARTICLE_SECTION + index}>
             <ImageWithLabel url={item.image} tagName={item.tagName} />
             <Label labelType={LabelTypeProp.h2} children={item.title} numberOfLines={2}/>
             <Label labelType={LabelTypeProp.p3} children={item.description} color={Styles.color.davyGrey} />
@@ -54,6 +55,8 @@ const ArticleSection = () => {
     return (
         <View style={articleSectionStyle.container}>
             <FlatList
+                keyExtractor={(_,index) => index.toString()}
+                listKey={flatListUniqueKey.ARTICLE_SECTION}
                 style={articleSectionStyle.listContainer}
                 data={articleSectionData}
                 showsVerticalScrollIndicator={false}

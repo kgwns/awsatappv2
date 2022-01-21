@@ -1,14 +1,15 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Edge, SafeAreaView } from 'react-native-safe-area-context'
 
 export interface ScreenContainerProps {
-  children: any
+  children: any,
+  edge?: Edge[]
 }
 
-export const ScreenContainer = ({ children }: ScreenContainerProps) => {
+export const ScreenContainer = ({ children, edge }: ScreenContainerProps) => {
   return (
-    <SafeAreaView style={{ ...styles.container }}>
+    <SafeAreaView style={{ ...styles.container }} edges={edge ? edge : ['left', 'right']}>
       {children}
     </SafeAreaView>
   )

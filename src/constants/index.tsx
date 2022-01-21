@@ -1,7 +1,9 @@
 import { ScreensConstants } from './ScreenConstants';
 import { TabConstants } from './TabConstants';
+import { flatListUniqueKey } from './organismsConstants';
 
-export default {
+export {
     ScreensConstants,
-    TabConstants
+    TabConstants,
+    flatListUniqueKey
 }

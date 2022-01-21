@@ -1,0 +1,4 @@
+export enum flatListUniqueKey {
+    ARTICLE_SECTION = 'ArticleSection',
+    SHORT_ARTICLE = 'shortArticle'
+}
