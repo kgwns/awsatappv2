@@ -31,5 +31,8 @@ export const colors = {
   silverChalice: '#AFAFAF',
   davyGrey: '#555555',
   smokeyGrey: '#707070',
-  greenishBlue: '#2C8A82'
+  greenishBlue: '#2C8A82',
+  transparent: 'transparent',
+  lightToneGreen: '#90A3A2',
+  fauxGreen: '#2C8A82',
 };
