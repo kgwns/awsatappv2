@@ -8,6 +8,11 @@ import mostReadActiveIcon from 'src/assets/images/tabIcons/mostread_active_icon.
 import favoriteIcon from 'src/assets/images/tabIcons/favorite_icon.png';
 import favoriteActiveIcon from 'src/assets/images/tabIcons/favorite_active_icon.png';
 
+// Header icons
+import searchIcon from 'src/assets/images/headerIcons/search_icon.png';
+import headerLogo from 'src/assets/images/headerIcons/header_logo.png';
+import menuIcon from 'src/assets/images/headerIcons/menu_icon.png';
+
 export const images = {
   newsIcon,
   newsActiveIcon,
@@ -17,6 +22,9 @@ export const images = {
   mostReadActiveIcon,
   favoriteIcon,
   favoriteActiveIcon,
+  headerLogo,
+  searchIcon,
+  menuIcon,
 };
 
 export type ImageName = keyof typeof images;

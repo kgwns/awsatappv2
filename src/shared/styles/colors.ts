@@ -27,5 +27,8 @@ export const colors = {
   black10: '#0000001A',
   whiteTitle: '#EAEAEA',
   dim_gray: '#707070',
-  aquaHaze: '#F7FAFA'
+  aquaHaze: '#F7FAFA',
+  transparent: 'transparent',
+  lightToneGreen: '#90A3A2',
+  fauxGreen: '#2C8A82',
 };
