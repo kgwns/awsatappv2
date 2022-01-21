@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Image, ImageName } from '../image/Image'
-import { Label } from '..'
+import { Label,LabelTypeProp } from '..'
 import { normalize } from '../../../shared/utils'
 
 interface captionWithImageProps {
@@ -12,11 +12,11 @@ interface captionWithImageProps {
 
 const CaptionWithImage = ({ title, icon, color }: captionWithImageProps) => {
     return (
-        <View style={{ flexDirection: 'row-reverse', paddingHorizontal: normalize(7) }}>
+        <View style={{ flexDirection: 'row', paddingHorizontal: normalize(7) }}>
             {icon &&
-                <Image name={icon} size={normalize(14)} />
+                <Image name={icon} size={normalize(14)} style={{marginRight: normalize(5)}}/>
             }
-            <Label children={title} color={color} />
+            <Label children={title} color={color} labelType={LabelTypeProp.p5}/>
         </View>
     )
 }

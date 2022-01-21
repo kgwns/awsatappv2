@@ -1,6 +1,6 @@
 import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
-import { screenWidth } from '../../shared/utils'
+import { normalize, screenWidth } from '../../shared/utils'
 import { Divider } from '../atoms/divider/Divider'
 import { Styles } from '../../shared/styles'
 import { Label, LabelTypeProp } from '../atoms'
@@ -19,22 +19,22 @@ interface articleProps {
 const articleSectionData: articleProps[] = [
     {
         image: 'https://picsum.photos/200/300',
-        title: `Punjab CM Channi says ED raids meant to frame him for PM Modi's trip fiasco`,
-        description: `Punjab chief minister Charanjit Singh Channi said his nephew Bhupinder Singh ‘Honey’ was being tortured to take his name`,
-        tagName: 'chennai'
+        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+        description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+        tagName: 'الألم'
     },
     {
         image: 'https://picsum.photos/200/300',
-        title: `India vs South Africa LIVE: On-song Bavuma, vd Dussen take SA past 200`,
-        description: `Punjab chief minister Charanjit Singh Channi said his nephew Bhupinder Singh ‘Honey’ was being tortured to take his name`,
-        tagName: 'coimbatore'
+        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+        description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+        tagName: 'الألم'
     }
 ]
 
 const articleFooterSample: articleFooterProps = {
-    leftTitle: 'Author',
+    leftTitle: 'وتمجيد',
     leftTitleColor: Styles.color.forestGreen,
-    rightTitle: '3hour ago',
+    rightTitle: 'يتحمل',
     rightIcon: ImagesName.clock,
     rightTitleColor: Styles.color.greyDark,
 }
@@ -43,9 +43,9 @@ const ArticleSection = () => {
     const renderItem = (item: articleProps, index: number) => {
         return <View >
             <ImageWithLabel url={item.image} tagName={item.tagName} />
-            <Label labelType={LabelTypeProp.h2} children={item.title} />
+            <Label labelType={LabelTypeProp.h2} children={item.title} numberOfLines={2}/>
             <Label labelType={LabelTypeProp.p3} children={item.description} />
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1,paddingTop: normalize(10) }}>
                 <ArticleFooter {...articleFooterSample} />
             </View>
             <Divider />

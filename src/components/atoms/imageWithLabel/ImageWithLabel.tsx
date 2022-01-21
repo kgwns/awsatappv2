@@ -4,6 +4,7 @@ import { Image } from '../image/Image'
 import { normalize, screenWidth } from '../../../shared/utils'
 import { ImageName } from '..'
 import { Styles } from '../../../shared/styles'
+import { ImageResize } from '../../../shared/styles/text-styles'
 
 export interface ImageLabelProps {
     name?: ImageName,
@@ -15,7 +16,7 @@ export interface ImageLabelProps {
 export const ImageWithLabel = ({ name, url, tagName }: ImageLabelProps) => {
     return (
         <View>
-            <Image name={name} url={url} style={imageWithLabelStyle.articleImage} />
+            <Image name={name} url={url} style={imageWithLabelStyle.articleImage} resizeMode={ImageResize.COVER}/>
             {tagName &&
                 <View style={imageWithLabelStyle.tagContainer}>
                     <Text children={tagName}
@@ -31,11 +32,11 @@ export const ImageWithLabel = ({ name, url, tagName }: ImageLabelProps) => {
 const imageWithLabelStyle = StyleSheet.create({
     articleImage: {
         width: screenWidth,
-        height: 0.5 * screenWidth
+        height: 0.52 * screenWidth
     },
     tagContainer: {
         position: 'absolute',
-        right: 0,
+        left: 0,
         backgroundColor: Styles.color.forestGreen,
         flexWrap: 'wrap',
     },

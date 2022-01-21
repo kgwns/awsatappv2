@@ -6,7 +6,8 @@ export enum LabelTypeProp {
   h1 = 'h1',
   h2 = 'h2',
   h3 = 'h3',
-  p3 = 'p3'
+  p3 = 'p3',
+  p5 = 'p5'
 }
 
 export type LabelType =

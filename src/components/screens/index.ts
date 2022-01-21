@@ -1,2 +1,5 @@
-export { default as HomePage } from './home/HomePage'
-export { default as ScreenContainer } from './ScreenContainer/ScreenContainer'
+export { ScreenContainer } from './ScreenContainer/ScreenContainer'
+export { FavoriteScreen } from './favorite/FavoriteScreen';
+export { MostReadScreen } from './most_read/MostReadScreen';
+export { SectionsScreen } from './sections/SectionsScreen';
+export { LatestNewsScreen } from './latest_news/LatestNewsScreen';

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { I18nManager } from 'react-native';
 import AppNavigator from 'src/navigation/AppNavigator';
 import { store, persistor } from 'src/redux/store';
 import { Provider } from 'react-redux';
@@ -8,10 +9,9 @@ import 'src/i18n';
 
 const App = () => {
   useEffect(() => {
-    setTimeout(() => {
-      SplashScreen.hide()
-    }, 1000)
-  },[])
+    I18nManager.forceRTL(true)
+    SplashScreen.hide()
+  }, [])
 
   return (
     <Provider store={store}>

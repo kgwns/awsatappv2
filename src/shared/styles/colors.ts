@@ -26,5 +26,7 @@ export const colors = {
   yellow: '#FFBA49',
   black10: '#0000001A',
   whiteTitle: '#EAEAEA',
-  forestGreen: '#228B22'
+  forestGreen: '#228B22',
+  dim_gray: '#707070',
+  aquaHaze: '#F7FAFA'
 };

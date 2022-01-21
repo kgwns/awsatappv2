@@ -33,13 +33,13 @@ const ArticleFooter = ({
 
   return (
     <View style={{ ...articleFooterStyle.container, ...style }}>
-      <View style={{ flexDirection: 'row-reverse' }}>
+      <View style={{ flexDirection: 'row' }}>
         <CaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} />
         <Text children={'|'} style={articleFooterStyle.verticalDivider} />
         <CaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} />
       </View>
       <TouchableOpacity activeOpacity={0.8} onPress={onPressSave}>
-        <Image name={storySaveIcon} size={normalize(16)}
+        <Image name={storySaveIcon} size={normalize(20)}
         />
       </TouchableOpacity>
     </View>
@@ -50,10 +50,10 @@ export default ArticleFooter
 
 const articleFooterStyle = StyleSheet.create({
   container: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: normalize(10)
+    paddingTop: normalize(15)
   },
   verticalDivider: {
   }

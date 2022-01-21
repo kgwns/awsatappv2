@@ -6,15 +6,13 @@ export interface ScreenContainerProps {
   children: any
 }
 
-const ScreenContainer = ({ children }: ScreenContainerProps) => {
+export const ScreenContainer = ({ children }: ScreenContainerProps) => {
   return (
     <SafeAreaView style={{ ...styles.container }}>
       {children}
     </SafeAreaView>
   )
 }
-
-export default ScreenContainer
 
 const styles = StyleSheet.create({
   container: {

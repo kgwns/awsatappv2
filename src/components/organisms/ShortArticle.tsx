@@ -8,6 +8,7 @@ import { Label, LabelTypeProp } from '../atoms'
 import { ArticleFooter } from '../molecules'
 import { articleFooterProps } from '../molecules/articleFooter/ArticleFooter'
 import { ImagesName } from '../../shared/styles/images';
+import { ImageResize } from '../../shared/styles/text-styles';
 
 interface shortArticleProps {
   image: string,
@@ -17,27 +18,27 @@ interface shortArticleProps {
 const shortArticleData: shortArticleProps[] = [
   {
     image: 'https://picsum.photos/200/300',
-    title: `Punjab CM Channi says ED raids meant to frame him`
+    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
   },
   {
     image: 'https://picsum.photos/200/300',
-    title: `India vs South Africa LIVE: On-song Bavuma`
+    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
   },
   {
     image: 'https://picsum.photos/200/300',
-    title: `Punjab CM Channi says ED raids meant to frame him`
+    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
   },
   {
     image: 'https://picsum.photos/200/300',
-    title: `India vs South Africa LIVE: On-song Bavuma`
+    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
   }
 ]
 
 const shortArticleFooterSample: articleFooterProps = {
-  leftTitle: '3hour ago',
+  leftTitle: 'يتحمل',
   leftIcon: ImagesName.clock,
   leftTitleColor: Styles.color.greyDark,
-  rightTitle: 'Author',
+  rightTitle: 'وتمجيد',
   rightTitleColor: Styles.color.greyDark
 }
 
@@ -45,11 +46,13 @@ const ShortArticle = () => {
   const renderItem = (item: shortArticleProps, index: number) => {
     return <View>
       <View style={{ flexDirection: 'row' }}>
-        <Image url={item.image} size={normalize(80)} />
-        <View style={{ flex: 1, paddingLeft: normalize(15) }}>
-          <Label labelType={LabelTypeProp.h3} children={item.title} />
-          <ArticleFooter {...shortArticleFooterSample} />
+        <View style={{ flex: 1, paddingRight: normalize(15) }}>
+          <Label labelType={LabelTypeProp.h3} children={item.title} numberOfLines={2} />
+          <View style={ShortArticleStyle.footerContainer}>
+            <ArticleFooter {...shortArticleFooterSample} />
+          </View>
         </View>
+        <Image url={item.image} style={{ width: normalize(110), height: normalize(85) }} resizeMode={ImageResize.COVER} />
       </View>
       <Divider />
     </View>
@@ -75,6 +78,13 @@ const ShortArticleStyle = StyleSheet.create({
   },
   listContainer: {
 
+  },
+  footerContainer: {
+    flex: 1,
+    width: '100%',
+    position: 'absolute',
+    left: 0,
+    bottom: 0
   }
 })
 

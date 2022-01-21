@@ -3,11 +3,17 @@ import {fonts} from 'src/shared/styles/fonts';
 import {colors} from 'src/shared/styles/colors';
 import {normalize} from 'src/shared/utils/dimensions';
 
+export enum ImageResize {
+  CONTAIN = 'contain',
+  COVER = 'cover'
+}
+
 enum FontWeight {
   REGULAR = 'normal',
   MEDIUM = '500',
   SEMI_BOLD = '600',
   EXTRA_BOLD = '800',
+  BOLD = 'bold'
 }
 
 enum FontStyle {
@@ -23,15 +29,17 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   h2: {
     fontStyle: FontStyle.NORMAL,
     fontSize: normalize(20),
-    lineHeight: normalize(24),
-    textAlign: TextAlign.RIGHT,
+    lineHeight: normalize(30),
+    textAlign: TextAlign.LEFT,
+    fontWeight: FontWeight.SEMI_BOLD,
     paddingVertical: normalize(8)
   },
   h3: {
     fontStyle: FontStyle.NORMAL,
     fontSize: normalize(16),
-    lineHeight: normalize(18),
-    textAlign: TextAlign.RIGHT,
+    lineHeight: normalize(22),
+    textAlign: TextAlign.LEFT,
+    fontWeight: FontWeight.SEMI_BOLD,
     color: colors.black,
   },
   content: {
@@ -122,9 +130,9 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   },
   p3: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: normalize(14),
-    lineHeight: normalize(18),
-    textAlign: TextAlign.RIGHT,
+    fontSize: normalize(16),
+    lineHeight: normalize(22),
+    textAlign: TextAlign.LEFT,
     color: colors.greyDark,
   },
   p4: {
@@ -136,7 +144,7 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   },
   p5: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: 11,
+    fontSize: normalize(14),
     lineHeight: 17,
     textAlign: TextAlign.LEFT,
     color: colors.greyDark,
@@ -155,7 +163,7 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   },
   caption3: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: normalize(16),
+    fontSize: normalize(12),
     textAlign: TextAlign.RIGHT,
     color: colors.white
   },

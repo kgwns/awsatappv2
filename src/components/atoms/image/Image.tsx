@@ -28,7 +28,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   style,
   backgroundColor = 'transparent',
   type = 'standard',
-  resizeMode = 'cover',
+  resizeMode = 'contain',
   placeholderStyle,
   url,
   ...props
