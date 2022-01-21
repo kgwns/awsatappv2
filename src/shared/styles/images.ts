@@ -1,5 +1,5 @@
 import save from 'src/assets/images/save-instagram.png'
-import unSave from 'src/assets/images/bookmark-black-bdr.png'
+import blackBdrBookMark from 'src/assets/images/bookmark-black-bdr.png'
 import clock from 'src/assets/images/clock-icon.png'
 
 // tabbar icons
@@ -24,7 +24,7 @@ export enum ImagesName {
   homeIcon = 'homeIcon',
   Image = 'Image',
   save = 'save',
-  unSave = 'unSave',
+  blackBdrBookMark = 'blackBdrBookMark',
   clock = 'clock'
 }
 
@@ -38,7 +38,7 @@ export const images = {
   favoriteIcon,
   favoriteActiveIcon,
   save,
-  unSave,
+  blackBdrBookMark,
   clock
 };
 

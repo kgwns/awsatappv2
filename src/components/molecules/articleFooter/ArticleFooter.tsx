@@ -25,7 +25,7 @@ const ArticleFooter = ({
   style
 }: articleFooterProps) => {
   const [saveState, setSaveState] = useState(false)
-  const storySaveIcon = saveState ? ImagesName.save : ImagesName.unSave
+  const storySaveIcon = saveState ? ImagesName.save : ImagesName.blackBdrBookMark
 
   const onPressSave = () => {
     setSaveState(!saveState)
