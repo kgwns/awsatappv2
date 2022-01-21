@@ -20,7 +20,7 @@ const buildTabIcon = (name: ImageName, style: object) => (
 )
 
 const Search = () => buildTabIcon(ImagesName.searchIcon, headerStyles.search)
-const HeaderLogo = () => buildTabIcon(ImagesName.headerLogo, headerStyles.logo)
+const HeaderLogo = () => <Image style={headerStyles.logo} name={ImagesName.headerLogo} />
 const Menu = () => buildTabIcon(ImagesName.menuIcon, headerStyles.menu)
 
 const AppNavigator = () => {
