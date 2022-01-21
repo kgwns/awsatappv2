@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { TabConstants } from '../constants/TabConstants';
 import { Image, Label } from '../components/atoms';
 import { Routes, ScreenList } from '../navigation/';
+import { colors } from '../shared/styles/colors';
 
 const Tab = createBottomTabNavigator<ScreenList>();
 
@@ -70,7 +71,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                                 />
                             </View>
                         </TouchableOpacity>
-                        <Label labelType={'label10'}>{route.name}</Label>
+                        <Label color={isFocused ? colors.fauxGreen : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
                     </View>
                 );
             })}
@@ -94,7 +95,7 @@ const TabNavigatorStyle = StyleSheet.create({
     tabIcon: {
         width: 25,
         height: 25
-    } 
+    }
 });
 
 export default TabNavigator;
