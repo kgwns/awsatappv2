@@ -10,7 +10,7 @@ import { articleFooterProps } from '../molecules/articleFooter/ArticleFooter'
 import { ImagesName } from '../../shared/styles/images'
 import { flatListUniqueKey } from '../../constants'
 
-interface articleProps {
+export interface articleProps {
    image: string,
    title: string,
    description: string,

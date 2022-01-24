@@ -2,17 +2,22 @@ import React from 'react';
 import {
   StatusBar,
   useColorScheme,
-  FlatList
+  FlatList,
+  View
 } from 'react-native';
-import { ArticleSection, ShortArticle } from '../../../components/organisms'
+import { ArticleSection, CarouselSlider, ShortArticle } from '../../../components/organisms'
 import { ScreenContainer } from '..'
+import { normalize, screenWidth } from '../../../shared/utils'
 
 export const LatestNewsScreen = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
+  //TODO: need to remove once pod cast added
   const renderItem = () => (
     <>
-     <ArticleSection />
+      <CarouselSlider />
+      <View style={{ width: screenWidth, height: normalize(20) }} />
+      <ArticleSection />
       <ShortArticle />
     </>
   )

@@ -72,7 +72,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                                 />
                             </View>
                         </TouchableOpacity>
-                        <Label color={isFocused ? colors.fauxGreen : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
+                        <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
                     </View>
                 );
             })}
