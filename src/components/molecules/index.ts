@@ -1,0 +1,1 @@
+export { default as ArticleFooter } from '../molecules/articleFooter/ArticleFooter'

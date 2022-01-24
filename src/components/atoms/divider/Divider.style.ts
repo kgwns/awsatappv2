@@ -1,8 +1,13 @@
 import {StyleSheet} from 'react-native';
 import {Styles} from 'src/shared/styles';
+import { normalizeBy320 } from '../../../shared/utils/dimensions';
+import { normalize } from '../../../shared/utils';
 
 export const dividerStyle = StyleSheet.create({
   container: {
-    backgroundColor: Styles.color.greyLight,
+    backgroundColor: Styles.color.smokeyGrey,
+    width: '100%',
+    height: normalizeBy320(0.4),
+    marginVertical: normalize(20)
   },
-});
+})

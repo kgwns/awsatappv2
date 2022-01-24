@@ -1,3 +1,4 @@
+export { ScreenContainer } from './ScreenContainer/ScreenContainer'
 export { FavoriteScreen } from './favorite/FavoriteScreen';
 export { MostReadScreen } from './most_read/MostReadScreen';
 export { SectionsScreen } from './sections/SectionsScreen';

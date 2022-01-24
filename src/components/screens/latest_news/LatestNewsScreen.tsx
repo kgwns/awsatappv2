@@ -1,26 +1,31 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
-  View,
-  Text,
-  SafeAreaView,
   StatusBar,
-  useColorScheme
+  useColorScheme,
+  FlatList
 } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { colors } from '../../../shared/styles/colors';
+import { ArticleSection, ShortArticle } from '../../../components/organisms'
+import { ScreenContainer } from '..'
 
 export const LatestNewsScreen = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const isDarkMode = useColorScheme() === 'dark'
 
+  const renderItem = () => (
+    <>
+     <ArticleSection />
+      <ShortArticle />
+    </>
+  )
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <ScreenContainer>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View style={{ height: '100%', width: '100%', alignItems: "center", justifyContent: "center", backgroundColor: colors.aquaHaze }}>
-        <Text >{"Latest News"}</Text>
-      </View>
-    </SafeAreaView>
-  );
-};
+      <FlatList
+        style={{ flex: 1, height: '100%' }}
+        data={[{}]}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={({ }) => renderItem()}
+        showsVerticalScrollIndicator={false}
+      />
+    </ScreenContainer>
+  )
+}

@@ -23,3 +23,18 @@ export type ScreenList = {
   SectionsScreen: undefined;
   LatestNewsScreen: undefined;
 };
+
+
+export type ScreenName = keyof undefined
+
+const favoriteScreen = 'favoriteScreen' as ScreenName
+const mostReadScreen = 'mostReadScreen' as ScreenName
+const sectionsScreen = 'sectionsScreen' as ScreenName
+const latestNewsScreen = 'latestNewsScreen' as ScreenName
+
+export const RoutesName = {
+  favoriteScreen,
+  mostReadScreen,
+  sectionsScreen,
+  latestNewsScreen
+}

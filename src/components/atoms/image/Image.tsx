@@ -7,7 +7,7 @@ import {
 
 import {Styles} from 'src/shared/styles';
 
-const DEFAULT_IMAGE_SIZE = 50;
+const DEFAULT_IMAGE_SIZE = 24;
 const DEFAULT_RADIUS_DIVIDER = 2;
 
 export type ImageName = keyof typeof Styles.image;
@@ -28,7 +28,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   style,
   backgroundColor = 'transparent',
   type = 'standard',
-  resizeMode = 'center',
+  resizeMode = 'contain',
   placeholderStyle,
   url,
   ...props

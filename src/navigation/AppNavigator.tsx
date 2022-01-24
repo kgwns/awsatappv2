@@ -4,48 +4,38 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ScreensConstants } from '../constants/ScreenConstants';
 import TabNavigator from './TabNavigator';
+import { RoutesName } from './index'
 import { StyleSheet } from 'react-native';
-import { Image } from '../components/atoms';
+import { Image, ImageName } from '../components/atoms';
 import { colors } from '../shared/styles/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ImagesName } from '../shared/styles/images';
 
 const Stack = createStackNavigator();
 
-const Search = () => {
-  return (
-    <TouchableOpacity>
-      <Image resizeMode='contain' style={headerStyles.search} name={ScreensConstants.SEARCH_ICON} />
-    </TouchableOpacity>
-  )
-}
+const buildTabIcon = (name: ImageName, style: object) => (
+  <TouchableOpacity>
+    <Image style={style} name={name} />
+  </TouchableOpacity>
+)
 
-const HeaderLogo = () => {
-  return (
-    <Image resizeMode='contain' style={headerStyles.logo} name={ScreensConstants.HEADER_LOGO} />
-  )
-}
-
-const Menu = () => {
-  return (
-    <TouchableOpacity>
-      <Image resizeMode='contain' style={headerStyles.menu} name={ScreensConstants.MENU_ICON} />
-    </TouchableOpacity>
-  )
-}
+const Search = () => buildTabIcon(ImagesName.searchIcon, headerStyles.search)
+const HeaderLogo = () => <Image style={headerStyles.logo} name={ImagesName.headerLogo} />
+const Menu = () => buildTabIcon(ImagesName.menuIcon, headerStyles.menu)
 
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={ScreensConstants.HOME_SCREEN}>
+      <Stack.Navigator initialRouteName={RoutesName.latestNewsScreen}>
         <Stack.Screen
           name={ScreensConstants.HOME_SCREEN}
           component={TabNavigator}
           options={{
             headerStyle: headerStyles.container,
-            headerLeft: Search,
+            headerLeft: Menu,
             headerTitle: HeaderLogo,
             headerTitleAlign: 'center',
-            headerRight: Menu,
+            headerRight: Search,
           }}
         />
       </Stack.Navigator>
