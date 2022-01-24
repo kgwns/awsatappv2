@@ -1,6 +1,9 @@
+//Latest Tab Icons
 import bookmarkActive from 'src/assets/images/latest_tab/bookmark_active.png'
 import blackBdrBookMark from 'src/assets/images/latest_tab/bookmark-black-bdr.png'
 import clock from 'src/assets/images/latest_tab/clock-icon.png'
+import bookMarkWhiteBdr from 'src/assets/images/latest_tab/bookmark_white_bdr.png'
+import bookMarkActiveWhite from 'src/assets/images/latest_tab/bookmark_active_white.png'
 
 // tabbar icons
 import newsIcon from 'src/assets/images/tabIcons/news_icon.png';
@@ -35,6 +38,8 @@ export enum ImagesName {
   headerLogo = 'headerLogo',
   searchIcon= 'searchIcon',
   menuIcon = 'menuIcon',
+  bookMarkWhiteBdr = 'bookMarkWhiteBdr',
+  bookMarkActiveWhite = 'bookMarkActiveWhite'
 }
 
 export const images = {
@@ -52,6 +57,8 @@ export const images = {
   headerLogo,
   searchIcon,
   menuIcon,
+  bookMarkWhiteBdr,
+  bookMarkActiveWhite
 };
 
 export type ImageName = keyof typeof images;

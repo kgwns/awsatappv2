@@ -33,6 +33,5 @@ export const colors = {
   smokeyGrey: '#707070',
   greenishBlue: '#2C8A82',
   transparent: 'transparent',
-  lightToneGreen: '#90A3A2',
-  fauxGreen: '#2C8A82',
+  lightToneGreen: '#90A3A2'
 };

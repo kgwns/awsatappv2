@@ -11,3 +11,5 @@ export const Styles = {
   view: viewStyles,
   text: textStyles,
 };
+
+export { ImagesName } from 'src/shared/styles/images'

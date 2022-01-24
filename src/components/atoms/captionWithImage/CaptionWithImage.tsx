@@ -14,7 +14,7 @@ const CaptionWithImage = ({ title, icon, color }: captionWithImageProps) => {
     return (
         <View style={captionImageStyle.container}>
             {icon &&
-                <Image name={icon} size={normalize(14)} style={{ marginRight: normalize(5) }} />
+                <Image name={icon} size={normalize(12)} style={{ marginRight: normalize(5) }} />
             }
             <Label children={title} color={color} labelType={LabelTypeProp.p5} />
         </View>
