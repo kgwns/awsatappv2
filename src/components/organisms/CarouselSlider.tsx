@@ -7,6 +7,7 @@ import { Image, Label, LabelTypeProp } from '../atoms'
 import { ArticleFooter } from '../molecules'
 import { articleFooterProps, BookMarkColorType } from '../molecules/articleFooter/ArticleFooter'
 import { articleProps } from './ArticleSection'
+import { Overlay } from '../atoms'
 
 const sampleCarouselData: articleProps[] = [
     {
@@ -33,6 +34,7 @@ const CarouselSlider = () => {
             <Image url={item.image} style={carouselSliderStyle.image}
                    resizeMode={ImageResize.COVER}
             />
+            <Overlay />
             <View style={carouselSliderStyle.slideContent}>
                 <Label labelType={LabelTypeProp.h1} children={item.title} color={Styles.color.white} />
                 <ArticleFooter {...carouselFooterSample} />

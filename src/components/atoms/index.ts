@@ -11,3 +11,4 @@ export {LoadingState} from 'src/components/atoms/loading/LoadingState';
 export {InputTextArea} from 'src/components/atoms/input-text-area/InputTextArea';
 export { ImageWithLabel } from '../atoms/imageWithLabel/ImageWithLabel'
 export { default as CaptionWithImage } from '../atoms/captionWithImage/CaptionWithImage'
+export { Overlay } from 'src/components/atoms/overlay/Overlay'
