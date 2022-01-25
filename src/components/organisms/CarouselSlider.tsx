@@ -7,7 +7,9 @@ import { Image, Label, LabelTypeProp } from '../atoms'
 import { ArticleFooter } from '../molecules'
 import { articleFooterProps, BookMarkColorType } from '../molecules/articleFooter/ArticleFooter'
 import { articleProps } from './ArticleSection'
-import { Overlay } from '../atoms'
+import { Overlay,TextWithFlag } from '../atoms'
+import { flatListUniqueKey } from '../../constants'
+import { sampleTextWithFlag } from '../../constants/SampleData'
 
 const sampleCarouselData: articleProps[] = [
     {
@@ -44,10 +46,20 @@ const CarouselSlider = () => {
 
     return (
         <View>
+            <View style={carouselSliderStyle.headNewsContainer}>
+                <TextWithFlag title={sampleTextWithFlag.title}
+                    titleColor={sampleTextWithFlag.titleColor}
+                    flag={sampleTextWithFlag.flag}
+                    flagColor={sampleTextWithFlag.flagColor} 
+                    barColor={sampleTextWithFlag.barColor}
+                    labelType={sampleTextWithFlag.labelType}
+                    numberOfLines={2} />
+            </View>
             <FlatList
                 ref={sliderRef}
                 data={sampleCarouselData}
                 keyExtractor={(_, index) => index.toString()}
+                listKey={flatListUniqueKey.CAROUSEL_WIDGET}
                 horizontal={true}
                 pagingEnabled={true}
                 showsHorizontalScrollIndicator={false}
@@ -75,5 +87,9 @@ const carouselSliderStyle = StyleSheet.create({
         paddingHorizontal: normalize(8),
         alignSelf: 'center',
         paddingVertical: normalize(15)
+    },
+    headNewsContainer: {
+       paddingHorizontal: 0.04 * screenWidth,
+       paddingVertical: normalize(10)
     }
 })
