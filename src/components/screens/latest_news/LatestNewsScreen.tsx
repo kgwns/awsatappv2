@@ -7,6 +7,7 @@ import { ArticleSection, CarouselSlider, ShortArticle } from '../../../component
 import { ScreenContainer } from '..'
 import { normalize, screenWidth } from '../../../shared/utils'
 import { shortArticleData, shortArticleWithTagData } from '../../../constants/SampleData';
+import { AuthorWidget } from '../../../components/organisms';
 
 export const LatestNewsScreen = () => {
 
@@ -19,6 +20,7 @@ export const LatestNewsScreen = () => {
       <ShortArticle data={shortArticleWithTagData} />
       <View style={{ width: screenWidth, height: normalize(20) }} />
       <ShortArticle data={shortArticleData}/>
+      <AuthorWidget />
     </>
   )
 

@@ -2,9 +2,8 @@ import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react';
 import { Image } from '../atoms/image/Image'
 import { normalize, screenWidth } from '../../shared/utils'
-import { Divider } from '../atoms/divider/Divider'
 import { Styles } from '../../shared/styles'
-import { TextWithFlag } from '../atoms'
+import { TextWithFlag, Divider } from '../atoms'
 import { ArticleFooter } from '../molecules'
 import { articleFooterProps } from '../molecules/articleFooter/ArticleFooter'
 import { ImagesName } from '../../shared/styles/images';
@@ -20,16 +19,16 @@ const shortArticleFooterSample: articleFooterProps = {
   rightTitleColor: Styles.color.silverChalice
 }
 
-const ShortArticle = ({data} : {data: ShortArticleProps[]}) => {
+const ShortArticle = ({ data }: { data: ShortArticleProps[] }) => {
   const renderItem = (item: ShortArticleProps, index: number) => {
     return <View key={flatListUniqueKey.SHORT_ARTICLE + index}>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 1, paddingRight: normalize(15) }}>
-          <TextWithFlag 
-          title={item.title} titleColor={item.titleColor}
-          flag={item.flag} flagColor={item.flagColor}
-          barColor={item.barColor} numberOfLines={2}
-          labelType={item.labelType}
+          <TextWithFlag
+            title={item.title} titleColor={item.titleColor}
+            flag={item.flag} flagColor={item.flagColor}
+            barColor={item.barColor} numberOfLines={2}
+            labelType={item.labelType}
           />
           <View style={ShortArticleStyle.footerContainer}>
             <ArticleFooter {...shortArticleFooterSample} />
@@ -45,7 +44,7 @@ const ShortArticle = ({data} : {data: ShortArticleProps[]}) => {
     <View style={ShortArticleStyle.container}>
       <FlatList
         style={ShortArticleStyle.listContainer}
-        keyExtractor={(_,index) => index.toString()}
+        keyExtractor={(_, index) => index.toString()}
         listKey={flatListUniqueKey.SHORT_ARTICLE + new Date().getTime().toString()}
         data={data}
         showsVerticalScrollIndicator={false}

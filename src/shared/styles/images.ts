@@ -4,6 +4,8 @@ import blackBdrBookMark from 'src/assets/images/latest_tab/bookmark-black-bdr.pn
 import clock from 'src/assets/images/latest_tab/clock-icon.png'
 import bookMarkWhiteBdr from 'src/assets/images/latest_tab/bookmark_white_bdr.png'
 import bookMarkActiveWhite from 'src/assets/images/latest_tab/bookmark_active_white.png'
+import arrowLeftFaced from 'src/assets/images/latest_tab/arrow_left_faced.png'
+import greenPlayIcon from 'src/assets/images/latest_tab/green_play_icon.png'
 
 // tabbar icons
 import newsIcon from 'src/assets/images/tabIcons/news_icon.png';
@@ -39,7 +41,9 @@ export enum ImagesName {
   searchIcon= 'searchIcon',
   menuIcon = 'menuIcon',
   bookMarkWhiteBdr = 'bookMarkWhiteBdr',
-  bookMarkActiveWhite = 'bookMarkActiveWhite'
+  bookMarkActiveWhite = 'bookMarkActiveWhite',
+  arrowLeftFaced = 'arrowLeftFaced',
+  greenPlayIcon = 'greenPlayIcon'
 }
 
 export const images = {
@@ -58,7 +62,9 @@ export const images = {
   searchIcon,
   menuIcon,
   bookMarkWhiteBdr,
-  bookMarkActiveWhite
+  bookMarkActiveWhite,
+  arrowLeftFaced,
+  greenPlayIcon
 };
 
 export type ImageName = keyof typeof images;
