@@ -16,9 +16,7 @@ export const LatestNewsScreen = () => {
   const renderItem = () => (
     <View style={{ backgroundColor: colors.aquaHaze }}>
       <CarouselSlider />
-      <View style={{ width: screenWidth, height: normalize(20) }} />
       <PodcastWidget />
-      <View style={{ width: screenWidth, height: normalize(20) }} />
       <ArticleSection />
       <ShortArticle data={shortArticleWithTagData} />
       <View style={{ width: screenWidth, height: normalize(20) }} />

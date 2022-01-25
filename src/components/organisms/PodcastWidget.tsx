@@ -7,6 +7,7 @@ import {
 import { Image, Label } from '../atoms';
 import { colors } from '../../shared/styles/colors';
 import { ImagesName } from '../../shared/styles';
+import { normalize, screenWidth } from '../../shared/utils';
 
 const PodcastWidget = () => {
     return (
@@ -28,7 +29,8 @@ const PodcastWidget = () => {
 
 const PodcastWidgetStyle = StyleSheet.create({
     container: {
-        marginHorizontal: 15,
+        marginHorizontal: 0.04 * screenWidth,
+        marginVertical: normalize(15),
         backgroundColor: colors.cyanGreen,
         flexDirection: 'row',
         height: 72,

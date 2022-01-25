@@ -20,8 +20,8 @@ const AuthorItem = ({
     index
 }: AuthorItemProps) => {
     return (
-        <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <View>
+        <View key={index} style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1 }}>
                 <Label children={author} labelType={LabelTypeProp.p4}
                     color={Styles.color.greenishBlue} numberOfLines={1} />
                 <Label children={description} labelType={LabelTypeProp.h3}
@@ -45,7 +45,8 @@ export default AuthorItem
 
 const authorItemStyle = StyleSheet.create({
     description: {
-        paddingVertical: normalize(10)
+        paddingVertical: normalize(10),
+        paddingRight: normalize(5)
     },
     durationLabel: {
         paddingHorizontal: normalize(10)

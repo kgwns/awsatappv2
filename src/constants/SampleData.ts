@@ -17,18 +17,22 @@ export const shortArticleData: ShortArticleProps[] = [
   {
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
+    labelType: LabelTypeProp.h3
   },
   {
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
+    labelType: LabelTypeProp.h3
   },
   {
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
+    labelType: LabelTypeProp.h3
   },
   {
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
+    labelType: LabelTypeProp.h3
   }
 ]
 
