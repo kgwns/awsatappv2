@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  StatusBar,
-  useColorScheme,
   FlatList,
   View
 } from 'react-native';
@@ -11,7 +9,6 @@ import { normalize, screenWidth } from '../../../shared/utils'
 import { shortArticleData, shortArticleWithTagData } from '../../../constants/SampleData';
 
 export const LatestNewsScreen = () => {
-  const isDarkMode = useColorScheme() === 'dark'
 
   //TODO: need to remove view component once pod cast added
   const renderItem = () => (
@@ -27,7 +24,6 @@ export const LatestNewsScreen = () => {
 
   return (
     <ScreenContainer>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <FlatList
         style={{ flex: 1, height: '100%' }}
         data={[{}]}
