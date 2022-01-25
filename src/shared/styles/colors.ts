@@ -34,5 +34,7 @@ export const colors = {
   greenishBlue: '#2C8A82',
   transparent: 'transparent',
   lightToneGreen: '#90A3A2',
-  darkSlateGray: '#253C3A'
+  darkSlateGray: '#253C3A',
+  cyanGreen: '#ECF4F3',
+  spanishGray: '#929898',
 };

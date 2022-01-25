@@ -20,6 +20,8 @@ import searchIcon from 'src/assets/images/headerIcons/search_icon.png';
 import headerLogo from 'src/assets/images/headerIcons/header_logo.png';
 import menuIcon from 'src/assets/images/headerIcons/menu_icon.png';
 
+//podcast
+import widgetPlayIcon from 'src/assets/images/podcast/widgetPlay.png';
 
 export enum ImagesName {
   newsIcon = 'newsIcon',
@@ -39,7 +41,8 @@ export enum ImagesName {
   searchIcon= 'searchIcon',
   menuIcon = 'menuIcon',
   bookMarkWhiteBdr = 'bookMarkWhiteBdr',
-  bookMarkActiveWhite = 'bookMarkActiveWhite'
+  bookMarkActiveWhite = 'bookMarkActiveWhite',
+  widgetPlayIcon = 'widgetPlayIcon',
 }
 
 export const images = {
@@ -58,7 +61,8 @@ export const images = {
   searchIcon,
   menuIcon,
   bookMarkWhiteBdr,
-  bookMarkActiveWhite
+  bookMarkActiveWhite,
+  widgetPlayIcon,
 };
 
 export type ImageName = keyof typeof images;
