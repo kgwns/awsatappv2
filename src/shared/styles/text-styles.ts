@@ -137,7 +137,7 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   },
   p4: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: 12,
+    fontSize: normalize(14),
     lineHeight: 18,
     textAlign: TextAlign.RIGHT,
     color: colors.red,

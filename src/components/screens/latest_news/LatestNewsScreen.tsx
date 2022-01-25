@@ -8,19 +8,23 @@ import {
 import { ArticleSection, CarouselSlider, ShortArticle } from '../../../components/organisms'
 import { ScreenContainer } from '..'
 import { normalize, screenWidth } from '../../../shared/utils'
+import { shortArticleData, shortArticleWithTagData } from '../../../constants/SampleData';
 
 export const LatestNewsScreen = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
-  //TODO: need to remove once pod cast added
+  //TODO: need to remove view component once pod cast added
   const renderItem = () => (
     <>
       <CarouselSlider />
       <View style={{ width: screenWidth, height: normalize(20) }} />
       <ArticleSection />
-      <ShortArticle />
+      <ShortArticle data={shortArticleWithTagData} />
+      <View style={{ width: screenWidth, height: normalize(20) }} />
+      <ShortArticle data={shortArticleData}/>
     </>
   )
+
   return (
     <ScreenContainer>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />

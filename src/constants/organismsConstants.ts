@@ -1,4 +1,5 @@
 export enum flatListUniqueKey {
     ARTICLE_SECTION = 'ArticleSection',
-    SHORT_ARTICLE = 'shortArticle'
+    SHORT_ARTICLE = 'shortArticle',
+    CAROUSEL_WIDGET = 'carousel'
 }

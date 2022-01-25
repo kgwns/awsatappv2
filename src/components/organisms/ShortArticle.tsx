@@ -4,36 +4,13 @@ import { Image } from '../atoms/image/Image'
 import { normalize, screenWidth } from '../../shared/utils'
 import { Divider } from '../atoms/divider/Divider'
 import { Styles } from '../../shared/styles'
-import { Label, LabelTypeProp } from '../atoms'
+import { TextWithFlag } from '../atoms'
 import { ArticleFooter } from '../molecules'
 import { articleFooterProps } from '../molecules/articleFooter/ArticleFooter'
 import { ImagesName } from '../../shared/styles/images';
 import { ImageResize } from '../../shared/styles/text-styles';
 import { flatListUniqueKey } from '../../constants';
-
-interface shortArticleProps {
-  image: string,
-  title: string
-}
-
-const shortArticleData: shortArticleProps[] = [
-  {
-    image: 'https://picsum.photos/200/300',
-    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-  }
-]
+import { ShortArticleProps } from '../../constants/types'
 
 const shortArticleFooterSample: articleFooterProps = {
   leftTitle: 'يتحمل',
@@ -43,12 +20,17 @@ const shortArticleFooterSample: articleFooterProps = {
   rightTitleColor: Styles.color.silverChalice
 }
 
-const ShortArticle = () => {
-  const renderItem = (item: shortArticleProps, index: number) => {
+const ShortArticle = ({data} : {data: ShortArticleProps[]}) => {
+  const renderItem = (item: ShortArticleProps, index: number) => {
     return <View key={flatListUniqueKey.SHORT_ARTICLE + index}>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 1, paddingRight: normalize(15) }}>
-          <Label labelType={LabelTypeProp.h3} children={item.title} numberOfLines={2} />
+          <TextWithFlag 
+          title={item.title} titleColor={item.titleColor}
+          flag={item.flag} flagColor={item.flagColor}
+          barColor={item.barColor} numberOfLines={2}
+          labelType={item.labelType}
+          />
           <View style={ShortArticleStyle.footerContainer}>
             <ArticleFooter {...shortArticleFooterSample} />
           </View>
@@ -64,8 +46,8 @@ const ShortArticle = () => {
       <FlatList
         style={ShortArticleStyle.listContainer}
         keyExtractor={(_,index) => index.toString()}
-        listKey={flatListUniqueKey.SHORT_ARTICLE}
-        data={shortArticleData}
+        listKey={flatListUniqueKey.SHORT_ARTICLE + new Date().getTime().toString()}
+        data={data}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => renderItem(item, index)}
       />

@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Edge, SafeAreaView } from 'react-native-safe-area-context'
+import { Styles } from '../../../shared/styles'
 
 export interface ScreenContainerProps {
   children: any,
@@ -17,6 +18,7 @@ export const ScreenContainer = ({ children, edge }: ScreenContainerProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: Styles.color.aquaHaze
   }
 })
