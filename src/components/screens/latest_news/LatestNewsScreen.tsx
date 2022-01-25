@@ -3,25 +3,28 @@ import {
   FlatList,
   View
 } from 'react-native';
-import { ArticleSection, CarouselSlider, ShortArticle } from '../../../components/organisms'
+import { ArticleSection, CarouselSlider, PodcastWidget, ShortArticle } from '../../../components/organisms'
 import { ScreenContainer } from '..'
 import { normalize, screenWidth } from '../../../shared/utils'
 import { shortArticleData, shortArticleWithTagData } from '../../../constants/SampleData';
 import { AuthorWidget } from '../../../components/organisms';
+import { colors } from '../../../shared/styles/colors';
 
 export const LatestNewsScreen = () => {
 
   //TODO: need to remove view component once pod cast added
   const renderItem = () => (
-    <>
+    <View style={{ backgroundColor: colors.aquaHaze }}>
       <CarouselSlider />
+      <View style={{ width: screenWidth, height: normalize(20) }} />
+      <PodcastWidget />
       <View style={{ width: screenWidth, height: normalize(20) }} />
       <ArticleSection />
       <ShortArticle data={shortArticleWithTagData} />
       <View style={{ width: screenWidth, height: normalize(20) }} />
-      <ShortArticle data={shortArticleData}/>
+      <ShortArticle data={shortArticleData} />
       <AuthorWidget />
-    </>
+    </View>
   )
 
   return (

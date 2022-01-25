@@ -22,7 +22,6 @@ import searchIcon from 'src/assets/images/headerIcons/search_icon.png';
 import headerLogo from 'src/assets/images/headerIcons/header_logo.png';
 import menuIcon from 'src/assets/images/headerIcons/menu_icon.png';
 
-
 export enum ImagesName {
   newsIcon = 'newsIcon',
   newsActiveIcon = 'newsActiveIcon',
