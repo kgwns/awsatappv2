@@ -1,4 +1,5 @@
 import { Alert } from "react-native"
+import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE } from "../../constants/SharedConstants"
 
 export interface CustomAlertProps {
     title?: string,
