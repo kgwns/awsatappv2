@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Image, ImageName, Label, LabelTypeProp } from '..'
-import { CustomAlert, normalize } from '../../../shared/utils'
+import { normalize } from '../../../shared/utils'
 
 export interface HeaderElementProps {
     title?: string,
@@ -37,7 +37,7 @@ const HeaderElement = ({
 }: HeaderElementProps) => {
     return (
         <TouchableOpacity disabled={!clickable} activeOpacity={0.8}
-            onPress={() => CustomAlert({})}
+            onPress={() => console.log('Pressed :::::')}
             style={widgetHeaderStyle.headerElementContainer}>
             <Label children={title} color={color} labelType={labelType} />
             {icon &&

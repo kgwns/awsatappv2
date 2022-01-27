@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Image, Label, LabelTypeProp } from '../atoms'
-import { normalize, CustomAlert } from '../../shared/utils'
+import { normalize } from '../../shared/utils'
 import { ImagesName, Styles } from '../../shared/styles'
 
 export interface AuthorItemProps {
@@ -26,11 +26,12 @@ const AuthorItem = ({
                     color={Styles.color.greenishBlue} numberOfLines={1} />
                 <Label children={description} labelType={LabelTypeProp.h3}
                     numberOfLines={1} style={authorItemStyle.description} />
-                <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity onPress={() => CustomAlert({})}>
+                <View style={{ flexDirection: 'row',alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => console.log('Pressed :::::')}>
                         <Image name={ImagesName.greenPlayIcon} size={normalize(14)} />
                     </TouchableOpacity>
-                    <Label children={'استمع الي المقالة'} style={authorItemStyle.durationLabel} />
+                    <Label children={'استمع الي المقالة'} style={authorItemStyle.durationLabel} 
+                      labelType={LabelTypeProp.h3} color={Styles.color.greenishBlue}/>
                     <Label children={duration} style={authorItemStyle.durationLabel} />
                 </View>
             </View>
