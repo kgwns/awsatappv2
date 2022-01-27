@@ -1,17 +1,19 @@
+import { ImageName } from "~/components/atoms";
+
 const LATEST_NEWS = 'Latest News';
 const SECTIONS = 'Sections';
 const MOST_READ = 'Most Read';
 const FAVORITE = 'Your News';
 
 const TABICONS = {
-    NEWS: 'newsIcon',
-    NEWS_ACTIVE: 'newsActiveIcon',
-    SECTIONS: 'sectionsIcon',
-    SECTIONS_ACTIVE: 'sectionsActiveIcon',
-    MOST_READ: 'mostReadIcon',
-    MOST_READ_ACTIVE: 'mostReadActiveIcon',
-    FAVORITE: 'favoriteIcon',
-    FAVORITE_ACTIVE: 'favoriteActiveIcon',
+    NEWS: 'newsIcon' as ImageName,
+    NEWS_ACTIVE: 'newsActiveIcon' as ImageName,
+    SECTIONS: 'sectionsIcon' as ImageName,
+    SECTIONS_ACTIVE: 'sectionsActiveIcon' as ImageName,
+    MOST_READ: 'mostReadIcon' as ImageName,
+    MOST_READ_ACTIVE: 'mostReadActiveIcon' as ImageName,
+    FAVORITE: 'favoriteIcon' as ImageName,
+    FAVORITE_ACTIVE: 'favoriteActiveIcon' as ImageName,
 }
 
 export const TabConstants = {

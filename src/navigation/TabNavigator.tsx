@@ -7,10 +7,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { TabConstants } from '../constants/TabConstants';
 import { Image, Label } from '../components/atoms';
-import { Routes, ScreenList } from '../navigation/';
+import { Routes, ScreenName } from '../navigation/';
 import { colors } from '../shared/styles/colors';
+import { ImageName } from '~/shared/styles/images';
 
-const Tab = createBottomTabNavigator<ScreenList>();
+const Tab = createBottomTabNavigator<ScreenName>();
 
 const TabNavigator = () => {
     return (
@@ -39,7 +40,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                     }
                 };
 
-                const getImageIcon = () => {
+                const getImageIcon = () : ImageName | undefined => {
                     let imageSource;
                     switch (route.name) {
                         case TabConstants.LATEST_NEWS:
@@ -71,7 +72,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                                 />
                             </View>
                         </TouchableOpacity>
-                        <Label color={isFocused ? colors.fauxGreen : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
+                        <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
                     </View>
                 );
             })}

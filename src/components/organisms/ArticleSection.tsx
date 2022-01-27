@@ -1,16 +1,15 @@
 import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
 import { normalize, screenWidth } from '../../shared/utils'
-import { Divider } from '../atoms/divider/Divider'
 import { Styles } from '../../shared/styles'
 import { Label, LabelTypeProp } from '../atoms'
-import { ImageWithLabel } from '../atoms'
+import { ImageWithLabel,Divider } from '../atoms'
 import { ArticleFooter } from '../molecules'
 import { articleFooterProps } from '../molecules/articleFooter/ArticleFooter'
 import { ImagesName } from '../../shared/styles/images'
 import { flatListUniqueKey } from '../../constants'
 
-interface articleProps {
+export interface articleProps {
    image: string,
    title: string,
    description: string,

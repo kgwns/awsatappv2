@@ -28,16 +28,16 @@ enum TextAlign {
 export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   h2: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: normalize(20),
-    lineHeight: normalize(30),
+    fontSize: normalize(16),
+    lineHeight: normalize(26),
     textAlign: TextAlign.LEFT,
     fontWeight: FontWeight.SEMI_BOLD,
     paddingVertical: normalize(8)
   },
   h3: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: normalize(16),
-    lineHeight: normalize(22),
+    fontSize: normalize(14),
+    lineHeight: normalize(23),
     textAlign: TextAlign.LEFT,
     fontWeight: FontWeight.SEMI_BOLD,
     color: colors.black,
@@ -130,22 +130,22 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   },
   p3: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: normalize(16),
-    lineHeight: normalize(22),
+    fontSize: normalize(15),
+    lineHeight: normalize(25),
     textAlign: TextAlign.LEFT,
     color: colors.greyDark,
   },
   p4: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: 12,
+    fontSize: normalize(14),
     lineHeight: 18,
-    textAlign: TextAlign.RIGHT,
-    color: colors.red,
+    textAlign: TextAlign.LEFT,
+    color: colors.smokeyGrey,
   },
   p5: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: normalize(14),
-    lineHeight: normalize(18),
+    fontSize: normalize(12),
+    lineHeight: normalize(16),
     textAlign: TextAlign.LEFT,
     color: colors.greyDark,
   },
@@ -158,8 +158,11 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   },
   h1: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: normalize(28),
+    fontSize: normalize(21),
+    lineHeight: normalize(33),
     textAlign: TextAlign.LEFT,
+    fontWeight: FontWeight.SEMI_BOLD,
+    color: colors.black,
   },
   caption3: {
     fontStyle: FontStyle.NORMAL,

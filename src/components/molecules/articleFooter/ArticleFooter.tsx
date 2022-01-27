@@ -6,6 +6,11 @@ import { ImagesName } from '../../../shared/styles/images'
 import { CaptionWithImage, ImageName } from '../../atoms'
 import { Image } from '../../atoms'
 
+export enum BookMarkColorType {
+  WHITE = 'white',
+  BLACK = 'black'
+}
+
 export interface articleFooterProps {
   leftTitle?: string,
   leftIcon?: ImageName,
@@ -13,7 +18,8 @@ export interface articleFooterProps {
   rightTitle?: string,
   rightIcon?: ImageName,
   rightTitleColor?: string,
-  style?: object
+  style?: object,
+  bookMarkColorType?: string
 }
 
 const ArticleFooter = ({
@@ -23,10 +29,15 @@ const ArticleFooter = ({
   rightTitle,
   rightIcon,
   rightTitleColor,
-  style
+  style,
+  bookMarkColorType = BookMarkColorType.BLACK
 }: articleFooterProps) => {
   const [saveState, setSaveState] = useState(false)
-  const storySaveIcon = saveState ? ImagesName.bookmarkActive : ImagesName.blackBdrBookMark
+  let storySaveIcon = saveState ? ImagesName.bookmarkActive : ImagesName.blackBdrBookMark
+
+  if(bookMarkColorType == BookMarkColorType.WHITE) {
+    storySaveIcon = saveState ? ImagesName.bookMarkActiveWhite : ImagesName.bookMarkWhiteBdr
+  }
 
   const onPressSave = () => {
     setSaveState(!saveState)

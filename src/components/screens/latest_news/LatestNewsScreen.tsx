@@ -1,24 +1,33 @@
 import React from 'react';
 import {
-  StatusBar,
-  useColorScheme,
-  FlatList
+  FlatList,
+  View
 } from 'react-native';
-import { ArticleSection, ShortArticle } from '../../../components/organisms'
+import { ArticleSection, CarouselSlider, PodcastWidget, ShortArticle, StoryWidget } from '../../../components/organisms'
 import { ScreenContainer } from '..'
+import { normalize, screenWidth } from '../../../shared/utils'
+import { shortArticleData, shortArticleWithTagData } from '../../../constants/SampleData';
+import { AuthorWidget } from '../../../components/organisms';
+import { colors } from '../../../shared/styles/colors';
 
 export const LatestNewsScreen = () => {
-  const isDarkMode = useColorScheme() === 'dark'
 
+  //TODO: need to remove view component once pod cast added
   const renderItem = () => (
-    <>
-     <ArticleSection />
-      <ShortArticle />
-    </>
+    <View style={{ backgroundColor: colors.aquaHaze }}>
+      <CarouselSlider />
+      <PodcastWidget />
+      <ArticleSection />
+      <ShortArticle data={shortArticleWithTagData} />
+      <View style={{ width: screenWidth, height: normalize(20) }} />
+      <ShortArticle data={shortArticleData} />
+      <AuthorWidget />
+      <StoryWidget />
+    </View>
   )
+
   return (
     <ScreenContainer>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <FlatList
         style={{ flex: 1, height: '100%' }}
         data={[{}]}
