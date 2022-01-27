@@ -22,7 +22,12 @@ describe('<Caption with Image', () => {
         instance = render(component)
     })
 
-    test('Check render method',() => {
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    test('Check render method', () => {
         expect(instance).toBeDefined()
     })
 })
