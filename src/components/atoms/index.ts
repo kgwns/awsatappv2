@@ -1,9 +1,6 @@
-export {BottomTabIcon} from 'src/components/atoms/BottomTabIcon/BottomTabIcon';
 export { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
 export {Image, ImageName, ImageProps} from 'src/components/atoms/image/Image';
-export {LinkButton} from 'src/components/atoms/LinkButton/LinkButton';
 export {InputField} from 'src/components/atoms/input-field/InputField';
-export {ButtonWide} from 'src/components/atoms/button-wide/ButtonWide';
 export {ButtonTab} from 'src/components/atoms/button-tab/ButtonTab';
 export {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
 export {CheckBox} from 'src/components/atoms/CheckBox/checkBox';
