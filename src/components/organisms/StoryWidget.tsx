@@ -44,7 +44,7 @@ const StoryWidget = () => {
     return (
       <View style={StoryWidgetStyle.storyContainer} key={flatListUniqueKey.STORY_WIDGET + index}>
         <View style={StoryWidgetStyle.circleContainer}>
-          <StoryCircle storyImage={item.storyImage} />
+          <StoryCircle storyImageUrl={item.storyImage} onPress={() => console.log('story pressed')} />
         </View>
         <View style={StoryWidgetStyle.titleContainer}>
           <StoryTitle storyTitle={item.storyTitle} />

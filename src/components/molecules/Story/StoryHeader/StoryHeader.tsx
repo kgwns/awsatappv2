@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import {
     View,
     StyleSheet
@@ -6,7 +6,11 @@ import {
 import { Label } from '../../../atoms';
 import { colors } from '../../../../shared/styles/colors';
 
-const StoryHeader = ({ headerTitle }: any) => {
+interface StoryHeaderProps {
+    headerTitle: string;
+}
+
+const StoryHeader: FunctionComponent<StoryHeaderProps> = ({ headerTitle }) => {
     return (
         <View style={StoryHeaderStyle.headerContainer}>
             <Label children={headerTitle} labelType='caption9' color={colors.greenishBlue} />

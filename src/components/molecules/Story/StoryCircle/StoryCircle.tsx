@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import {
     View,
     StyleSheet
@@ -6,15 +6,26 @@ import {
 
 import { Image } from '../../../atoms';
 import { colors } from '../../../../shared/styles/colors';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const StoryCircle = ({ storyImage }: any) => {
+interface StoryCircleProps {
+    storyImageUrl: string;
+    onPress: () => void;
+}
+
+const StoryCircle: FunctionComponent<StoryCircleProps> = ({
+    storyImageUrl,
+    onPress
+}) => {
     return (
         <View style={StoryCircleStyle.container}>
-            <View style={StoryCircleStyle.outerCircle} >
-                <View style={StoryCircleStyle.innerCircle} >
-                    <Image resizeMode='cover' url={storyImage} style={StoryCircleStyle.storyImage} />
+            <TouchableOpacity onPress={onPress}>
+                <View style={StoryCircleStyle.outerCircle} >
+                    <View style={StoryCircleStyle.innerCircle} >
+                        <Image resizeMode='cover' url={storyImageUrl} style={StoryCircleStyle.storyImage} />
+                    </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         </View>
     )
 }
