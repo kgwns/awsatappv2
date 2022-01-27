@@ -1,0 +1,1 @@
+export const STORE_APP_THEME = 'STORE_APP_THEME'

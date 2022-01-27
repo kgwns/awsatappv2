@@ -1,4 +1,5 @@
-import { Alert } from "react-native"
+import { Alert, ColorSchemeName } from "react-native"
+import { Theme } from "../../redux/appCommon/types"
 import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE } from "../../constants/SharedConstants"
 
 export interface CustomAlertProps {
@@ -11,4 +12,8 @@ export const CustomAlert = ({ title = DEFAULT_ALERT_TITLE, message = DEFAULT_ALE
     setTimeout(() => {
         Alert.alert(title, message)
     }, delay)
+}
+
+export const isDarkTheme = (colorScheme: ColorSchemeName) => {
+    return colorScheme == Theme.DARK
 }

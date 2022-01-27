@@ -1,7 +1,8 @@
 import React from 'react'
-import { StyleSheet,StatusBar,
-  useColorScheme } from 'react-native'
+import { StyleSheet, StatusBar } from 'react-native'
 import { Edge, SafeAreaView } from 'react-native-safe-area-context'
+import { isDarkTheme } from '../../../shared/utils'
+import { useAppCommon } from '../../../hooks/useAppCommon'
 import { Styles } from '../../../shared/styles'
 
 export interface ScreenContainerProps {
@@ -10,7 +11,8 @@ export interface ScreenContainerProps {
 }
 
 export const ScreenContainer = ({ children, edge }: ScreenContainerProps) => {
-  const isDarkMode = useColorScheme() === 'dark'
+  const { theme } = useAppCommon()
+  const isDarkMode = isDarkTheme(theme)
 
   return (
     <SafeAreaView style={{ ...styles.container }} edges={edge ? edge : ['left', 'right']}>
