@@ -3,7 +3,7 @@ import {
   FlatList,
   View
 } from 'react-native';
-import { ArticleSection, CarouselSlider, PodcastWidget, ShortArticle } from '../../../components/organisms'
+import { ArticleSection, CarouselSlider, PodcastWidget, ShortArticle, StoryWidget } from '../../../components/organisms'
 import { ScreenContainer } from '..'
 import { normalize, screenWidth } from '../../../shared/utils'
 import { shortArticleData, shortArticleWithTagData } from '../../../constants/SampleData';
@@ -22,6 +22,7 @@ export const LatestNewsScreen = () => {
       <View style={{ width: screenWidth, height: normalize(20) }} />
       <ShortArticle data={shortArticleData} />
       <AuthorWidget />
+      <StoryWidget />
     </View>
   )
 
