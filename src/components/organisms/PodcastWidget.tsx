@@ -7,6 +7,7 @@ import {
 import { Image, Label } from '../atoms';
 import { colors } from '../../shared/styles/colors';
 import { ImagesName } from '../../shared/styles';
+import { normalize, screenWidth } from '../../shared/utils';
 
 const PodcastWidget = () => {
     return (
@@ -18,7 +19,7 @@ const PodcastWidget = () => {
                 <Label color={colors.black} style={PodcastWidgetStyle.podcastTitle} children={'استمع لبودكاست آخر أخبار اليوم'} />
                 <View style={PodcastWidgetStyle.durationContainer}>
                     <Label color={colors.greenishBlue} children={'استمع الي البودكاست '} style={PodcastWidgetStyle.authorTitle} />
-                    <Image name={ImagesName.widgetPlayIcon} style={PodcastWidgetStyle.playIcon} />
+                    <Image name={ImagesName.greenPlayIcon} style={PodcastWidgetStyle.playIcon} />
                     <Label color={colors.spanishGray} children={'3:22'} style={PodcastWidgetStyle.duration} />
                 </View>
             </View>
@@ -28,7 +29,8 @@ const PodcastWidget = () => {
 
 const PodcastWidgetStyle = StyleSheet.create({
     container: {
-        marginHorizontal: 15,
+        marginHorizontal: 0.04 * screenWidth,
+        marginVertical: normalize(15),
         backgroundColor: colors.cyanGreen,
         flexDirection: 'row',
         height: 72,

@@ -7,6 +7,7 @@ import {
 import { Image } from '../../../atoms';
 import { colors } from '../../../../shared/styles/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ImageResize } from '../../../../shared/styles/text-styles';
 
 interface StoryCircleProps {
     storyImageUrl: string;
@@ -22,7 +23,7 @@ const StoryCircle: FunctionComponent<StoryCircleProps> = ({
             <TouchableOpacity onPress={onPress}>
                 <View style={StoryCircleStyle.outerCircle} >
                     <View style={StoryCircleStyle.innerCircle} >
-                        <Image resizeMode='cover' url={storyImageUrl} style={StoryCircleStyle.storyImage} />
+                        <Image resizeMode={ImageResize.COVER} url={storyImageUrl} style={StoryCircleStyle.storyImage} />
                     </View>
                 </View>
             </TouchableOpacity>

@@ -7,6 +7,7 @@ import { ArticleSection, CarouselSlider, PodcastWidget, ShortArticle, StoryWidge
 import { ScreenContainer } from '..'
 import { normalize, screenWidth } from '../../../shared/utils'
 import { shortArticleData, shortArticleWithTagData } from '../../../constants/SampleData';
+import { AuthorWidget } from '../../../components/organisms';
 import { colors } from '../../../shared/styles/colors';
 
 export const LatestNewsScreen = () => {
@@ -15,13 +16,12 @@ export const LatestNewsScreen = () => {
   const renderItem = () => (
     <View style={{ backgroundColor: colors.aquaHaze }}>
       <CarouselSlider />
-      <View style={{ width: screenWidth, height: normalize(20) }} />
       <PodcastWidget />
-      <View style={{ width: screenWidth, height: normalize(20) }} />
       <ArticleSection />
       <ShortArticle data={shortArticleWithTagData} />
       <View style={{ width: screenWidth, height: normalize(20) }} />
       <ShortArticle data={shortArticleData} />
+      <AuthorWidget />
       <StoryWidget />
     </View>
   )
