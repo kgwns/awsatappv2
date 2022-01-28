@@ -7,5 +7,6 @@ export {
 } from 'src/shared/utils/dimensions';
 
 export {
-  CustomAlert
+  CustomAlert,
+  isDarkTheme
 } from 'src/shared/utils/utilities'
