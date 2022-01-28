@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { Image, Label, LabelTypeProp } from '../atoms'
+import { View, StyleSheet } from 'react-native'
+import { ButtonImage, Image, Label, LabelTypeProp } from '../atoms'
 import { normalize } from '../../shared/utils'
 import { ImagesName, Styles } from '../../shared/styles'
 
@@ -27,9 +27,8 @@ const AuthorItem = ({
                 <Label children={description} labelType={LabelTypeProp.h3}
                     numberOfLines={1} style={authorItemStyle.description} />
                 <View style={{ flexDirection: 'row',alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => console.log('Pressed :::::')}>
-                        <Image name={ImagesName.greenPlayIcon} size={normalize(14)} />
-                    </TouchableOpacity>
+                    <ButtonImage image={ImagesName.greenPlayIcon} size={normalize(14)}
+                        onPress={() => console.log('Pressed :::::')} />
                     <Label children={'استمع الي المقالة'} style={authorItemStyle.durationLabel} 
                       labelType={LabelTypeProp.h3} color={Styles.color.greenishBlue}/>
                     <Label children={duration} style={authorItemStyle.durationLabel} />

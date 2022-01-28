@@ -1,7 +1,7 @@
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
-import { Image, ImageName, Label, LabelTypeProp } from '..'
-import { normalize } from '../../../shared/utils'
+import { ImageName, LabelTypeProp } from '..'
+import { WidgetHeaderElement } from '../index'
 
 export interface HeaderElementProps {
     title?: string,
@@ -22,35 +22,8 @@ export const WidgetHeader = ({
 }: WidgetHeaderProps) => {
     return (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            {headerLeft && <HeaderElement {...headerLeft} />}
-            {headerRight && <HeaderElement {...headerRight} />}
+            {headerLeft && <WidgetHeaderElement {...headerLeft} />}
+            {headerRight && <WidgetHeaderElement {...headerRight} />}
         </View>
     )
 }
-
-const HeaderElement = ({
-    title,
-    icon,
-    color,
-    labelType = LabelTypeProp.p5,
-    clickable = false
-}: HeaderElementProps) => {
-    return (
-        <TouchableOpacity disabled={!clickable} activeOpacity={0.8}
-            onPress={() => console.log('Pressed :::::')}
-            style={widgetHeaderStyle.headerElementContainer}>
-            <Label children={title} color={color} labelType={labelType} />
-            {icon &&
-                <Image name={icon} size={normalize(12)} style={{ marginLeft: normalize(10) }} />
-            }
-        </TouchableOpacity>
-    )
-}
-
-const widgetHeaderStyle = StyleSheet.create({
-    headerElementContainer: {
-        flexDirection: 'row',
-        paddingHorizontal: normalize(7),
-        alignItems: 'center'
-    }
-})
