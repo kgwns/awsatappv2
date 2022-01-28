@@ -1,11 +1,14 @@
-import {Dimensions, Platform, PixelRatio} from 'react-native';
+import { Dimensions, Platform, PixelRatio } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 
-const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 const isIOS = Platform.OS === 'ios';
 
-const scale = screenWidth / 375;
-const scaleHeight = screenHeight / 667;
+const isTab = DeviceInfo.isTablet();
+
+const scale = isTab ? screenWidth / 768 : screenWidth / 375;
+const scaleHeight = isTab ? screenHeight / 1024 : screenHeight / 667;
 
 type sizeProp = number;
 const normalize = (size: sizeProp, based = 'width') => {
