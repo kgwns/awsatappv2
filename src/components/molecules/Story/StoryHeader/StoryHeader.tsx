@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { Label } from '../../../atoms';
 import { colors } from '../../../../shared/styles/colors';
+import { normalize } from '../../../../shared/utils';
 
 interface StoryHeaderProps {
     headerTitle: string;
@@ -13,7 +14,7 @@ interface StoryHeaderProps {
 const StoryHeader: FunctionComponent<StoryHeaderProps> = ({ headerTitle }) => {
     return (
         <View style={StoryHeaderStyle.headerContainer}>
-            <Label children={headerTitle} labelType='caption9' color={colors.greenishBlue} />
+            <Label style={StoryHeaderStyle.title} children={headerTitle} labelType='caption9' color={colors.greenishBlue} />
         </View>
     )
 }
@@ -21,9 +22,11 @@ const StoryHeader: FunctionComponent<StoryHeaderProps> = ({ headerTitle }) => {
 const StoryHeaderStyle = StyleSheet.create({
     headerContainer: {
         justifyContent: 'flex-end',
-        marginLeft: 15,
-        marginTop: 10
+        marginTop: normalize(10)
     },
+    title: {
+        marginLeft: '5%'
+    }
 })
 
 export default StoryHeader;

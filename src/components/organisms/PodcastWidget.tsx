@@ -33,7 +33,7 @@ const PodcastWidgetStyle = StyleSheet.create({
         marginVertical: normalize(15),
         backgroundColor: colors.cyanGreen,
         flexDirection: 'row',
-        height: 72,
+        height: normalize(71),
         alignContent: 'center'
     },
     podcastImageContainer: {
@@ -48,10 +48,10 @@ const PodcastWidgetStyle = StyleSheet.create({
         width: '78%'
     },
     podcastTitle: {
-        marginTop: 20,
-        marginBottom: 10,
+        marginTop: normalize(19),
+        marginBottom: normalize(10),
         alignSelf: 'flex-start',
-        marginLeft: 10,
+        marginLeft: normalize(10),
         fontSize: 15
     },
     durationContainer: {
@@ -60,15 +60,15 @@ const PodcastWidgetStyle = StyleSheet.create({
         alignSelf: 'flex-start'
     },
     authorTitle: {
-        marginLeft: 10
+        marginLeft: normalize(10)
     },
     playIcon: {
-        width: 14,
-        height: 14,
-        marginLeft: 20
+        width: normalize(13),
+        height: normalize(13),
+        marginLeft: normalize(19)
     },
     duration: {
-        marginLeft: 20
+        marginLeft: normalize(19)
     }
 })
 

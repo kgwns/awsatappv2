@@ -3,6 +3,7 @@ import React from 'react';
 import { flatListUniqueKey } from '../../constants';
 import { StoryCircle, StoryTitle, StoryHeader } from '../molecules';
 import { colors } from '../../shared/styles/colors';
+import { normalize } from '../../shared/utils';
 
 const data = [
   {
@@ -73,20 +74,20 @@ export default StoryWidget;
 const StoryWidgetStyle = StyleSheet.create({
   container: {
     width: '100%',
-    height: 177,
+    height: normalize(170),
     backgroundColor: colors.white
   },
   storyContainer: {
-    width: 74,
+    width: normalize(71),
     justifyContent: 'flex-end',
-    marginVertical: 10,
-    marginLeft: 15
+    marginVertical: normalize(10),
+    marginLeft: normalize(14)
   },
   circleContainer: {
     height: '50%'
   },
   titleContainer: {
     height: '25%',
-    marginTop: 25
+    marginTop: normalize(24)
   }
 })

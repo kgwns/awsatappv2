@@ -8,6 +8,7 @@ import { Image } from '../../../atoms';
 import { colors } from '../../../../shared/styles/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ImageResize } from '../../../../shared/styles/text-styles';
+import { normalize } from '../../../../shared/utils/dimensions';
 
 interface StoryCircleProps {
     storyImageUrl: string;
@@ -19,7 +20,7 @@ const StoryCircle: FunctionComponent<StoryCircleProps> = ({
     onPress
 }) => {
     return (
-        <View style={StoryCircleStyle.container}>
+        <View>
             <TouchableOpacity onPress={onPress}>
                 <View style={StoryCircleStyle.outerCircle} >
                     <View style={StoryCircleStyle.innerCircle} >
@@ -32,23 +33,19 @@ const StoryCircle: FunctionComponent<StoryCircleProps> = ({
 }
 
 const StoryCircleStyle = StyleSheet.create({
-    container: {
-        width: '100%',
-        height: 177
-    },
     outerCircle: {
-        height: 74,
-        width: 74,
-        borderRadius: 74 / 2,
+        height: normalize(71),
+        width: normalize(71),
+        borderRadius: normalize(71) / 2,
         borderWidth: 2,
         borderColor: colors.red,
         justifyContent: 'center',
         alignItems: 'center'
     },
     innerCircle: {
-        height: 66,
-        width: 66,
-        borderRadius: 66 / 2,
+        height: normalize(63),
+        width: normalize(63),
+        borderRadius: normalize(63) / 2,
         overflow: 'hidden'
     },
     storyImage: {
