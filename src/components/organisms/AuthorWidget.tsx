@@ -6,6 +6,7 @@ import { AuthorItem } from '../molecules'
 import { AuthorItemProps } from '../molecules/AuthorItem'
 import { normalize, screenWidth } from '../../shared/utils'
 import { Styles } from '../../shared/styles'
+import { flatListUniqueKey } from '../../constants'
 
 const AuthorWidget = () => {
     const renderItem = (item: AuthorItemProps, index: number) => (
@@ -18,6 +19,7 @@ const AuthorWidget = () => {
             <FlatList
                 style={authorWidgetStyle.listContainer}
                 keyExtractor={(_, index) => index.toString()}
+                listKey={flatListUniqueKey.AUTHOR_WIDGET}
                 data={authorWidgetData}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
