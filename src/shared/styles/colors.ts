@@ -37,4 +37,5 @@ export const colors = {
   darkSlateGray: '#253C3A',
   cyanGreen: '#ECF4F3',
   spanishGray: '#929898',
+  grayNurse: '#E3EBE6'
 };

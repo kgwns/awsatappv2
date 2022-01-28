@@ -1,19 +1,14 @@
 import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
-import { normalize, screenWidth } from '../../shared/utils'
-import { Styles } from '../../shared/styles'
-import { Label, LabelTypeProp } from '../atoms'
-import { ImageWithLabel,Divider } from '../atoms'
-import { ArticleFooter } from '../molecules'
-import { articleFooterProps } from '../molecules/articleFooter/ArticleFooter'
-import { ImagesName } from '../../shared/styles/images'
+import { screenWidth } from '../../shared/utils'
 import { flatListUniqueKey } from '../../constants'
+import { ArticleItem } from '../molecules'
 
 export interface articleProps {
-   image: string,
+   image?: string,
    title: string,
    description: string,
-   tagName: string
+   tagName?: string
 }
 
 const articleSectionData: articleProps[] = [
@@ -31,25 +26,10 @@ const articleSectionData: articleProps[] = [
     }
 ]
 
-const articleFooterSample: articleFooterProps = {
-    leftTitle: 'وتمجيد',
-    leftTitleColor: Styles.color.greenishBlue,
-    rightTitle: 'يتحمل',
-    rightIcon: ImagesName.clock,
-    rightTitleColor: Styles.color.silverChalice,
-}
 
 const ArticleSection = () => {
     const renderItem = (item: articleProps, index: number) => {
-        return <View key={flatListUniqueKey.ARTICLE_SECTION + index}>
-            <ImageWithLabel url={item.image} tagName={item.tagName} />
-            <Label labelType={LabelTypeProp.h2} children={item.title} numberOfLines={2}/>
-            <Label labelType={LabelTypeProp.p3} children={item.description} color={Styles.color.davyGrey} />
-            <View style={{ flex: 1,paddingTop: normalize(10) }}>
-                <ArticleFooter {...articleFooterSample} />
-            </View>
-            <Divider />
-        </View>
+        return <ArticleItem {...item} index={index}/>
     }
     return (
         <View style={articleSectionStyle.container}>

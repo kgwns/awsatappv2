@@ -1,13 +1,9 @@
 import React, { useRef } from 'react'
 import { View, FlatList, StyleSheet } from 'react-native'
-import { ImageResize } from '../../shared/styles/text-styles'
-import { Styles, ImagesName } from '../../shared/styles'
 import { normalize, screenWidth } from '../../shared/utils'
-import { Image, Label, LabelTypeProp } from '../atoms'
-import { ArticleFooter } from '../molecules'
-import { articleFooterProps, BookMarkColorType } from '../molecules/articleFooter/ArticleFooter'
+import { ImageArticle } from '../molecules'
 import { articleProps } from './ArticleSection'
-import { Overlay,TextWithFlag } from '../atoms'
+import { TextWithFlag } from '../atoms'
 import { flatListUniqueKey } from '../../constants'
 import { sampleTextWithFlag } from '../../constants/SampleData'
 
@@ -20,28 +16,12 @@ const sampleCarouselData: articleProps[] = [
     }
 ]
 
-const carouselFooterSample: articleFooterProps = {
-    leftTitle: 'وتمجيد',
-    leftTitleColor: Styles.color.white,
-    rightTitle: 'يتحمل',
-    rightIcon: ImagesName.clock,
-    rightTitleColor: Styles.color.smokeyGrey,
-    bookMarkColorType: BookMarkColorType.WHITE
-}
+
 
 const CarouselSlider = () => {
     const sliderRef = useRef<FlatList<articleProps>>(null)
     const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
-        return <View style={carouselSliderStyle.sliderItemContainer}>
-            <Image url={item.image} style={carouselSliderStyle.image}
-                   resizeMode={ImageResize.COVER}
-            />
-            <Overlay />
-            <View style={carouselSliderStyle.slideContent}>
-                <Label labelType={LabelTypeProp.h1} children={item.title} color={Styles.color.white} />
-                <ArticleFooter {...carouselFooterSample} />
-            </View>
-        </View>
+        return <ImageArticle image={item.image} title={item.title}/>
     }
 
     return (
@@ -73,21 +53,6 @@ const CarouselSlider = () => {
 export default CarouselSlider
 
 const carouselSliderStyle = StyleSheet.create({
-    sliderItemContainer: {
-        width: screenWidth,
-        height: 1.05 * screenWidth
-    },
-    image: {
-        width: '100%',
-        height: '100%'
-    },
-    slideContent: {
-        position: 'absolute',
-        bottom: 0,
-        paddingHorizontal: normalize(8),
-        alignSelf: 'center',
-        paddingVertical: normalize(15)
-    },
     headNewsContainer: {
        paddingHorizontal: 0.04 * screenWidth,
        paddingVertical: normalize(10)

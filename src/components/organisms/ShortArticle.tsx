@@ -11,7 +11,7 @@ import { ImageResize } from '../../shared/styles/text-styles';
 import { flatListUniqueKey } from '../../constants';
 import { ShortArticleProps } from '../../constants/types'
 
-const shortArticleFooterSample: articleFooterProps = {
+export const shortArticleFooterSample: articleFooterProps = {
   leftTitle: 'يتحمل',
   leftIcon: ImagesName.clock,
   leftTitleColor: Styles.color.silverChalice,
