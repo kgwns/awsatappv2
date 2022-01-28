@@ -8,6 +8,7 @@ import { ScreenContainer } from '..'
 import { shortArticleData, shortArticleWithTagData } from '../../../constants/SampleData';
 import { AuthorWidget } from '../../../components/organisms';
 import { colors } from '../../../shared/styles/colors';
+import { BannerArticleSection } from '../../../components/organisms'
 
 export const LatestNewsScreen = () => {
 
@@ -19,6 +20,7 @@ export const LatestNewsScreen = () => {
       <ShortArticle data={shortArticleWithTagData} />
       <StoryWidget />
       <ShortArticle data={shortArticleData} />
+      <BannerArticleSection />
       <AuthorWidget />
     </View>
   )

@@ -3,6 +3,7 @@ import { LabelTypeProp } from "../components/atoms";
 import { ImagesName, Styles } from "../shared/styles";
 import { ShortArticleProps, TextWithFlagProps } from "./types";
 import { AuthorItemProps } from "../components/molecules/AuthorItem";
+import { articleFooterProps } from "../components/molecules/articleFooter/ArticleFooter";
 
 export const sampleTextWithFlag: TextWithFlagProps = {
   title: ' يدمّر مسيّرتين بالأجواء اليمنية أُطلقت نحو المملكة',
@@ -107,3 +108,11 @@ export const authorWidgetData: AuthorItemProps[] = [
     image: 'https://picsum.photos/200/300'
   },
 ]
+
+export const articleFooterSample: articleFooterProps = {
+  leftTitle: 'وتمجيد',
+  leftTitleColor: Styles.color.greenishBlue,
+  rightTitle: 'يتحمل',
+  rightIcon: ImagesName.clock,
+  rightTitleColor: Styles.color.silverChalice,
+}
