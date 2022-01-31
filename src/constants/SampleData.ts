@@ -4,6 +4,20 @@ import { ImagesName, Styles } from "../shared/styles";
 import { ShortArticleProps, TextWithFlagProps } from "./types";
 import { AuthorItemProps } from "../components/molecules/AuthorItem";
 import { articleFooterProps } from "../components/molecules/articleFooter/ArticleFooter";
+import { Theme } from "../redux/appCommon/types";
+import configureStore from 'redux-mock-store';
+
+const mockStore = configureStore();
+export const storeSampleData = mockStore({
+  appCommon: {
+    theme: Theme.LIGHT
+  },
+  home: {
+    isLoading: false,
+    homeData: null,
+    error: ''
+  }
+})
 
 export const sampleTextWithFlag: TextWithFlagProps = {
   title: ' يدمّر مسيّرتين بالأجواء اليمنية أُطلقت نحو المملكة',

@@ -1,11 +1,12 @@
 import { ScreensConstants } from './ScreenConstants';
 import { TabConstants } from './TabConstants';
 import { flatListUniqueKey } from './organismsConstants';
-import { atomTestID } from './TestIDConstants'
+import { atomTestID, moleculesTestID } from './TestIDConstants'
 
 export {
     ScreensConstants,
     TabConstants,
     flatListUniqueKey,
-    atomTestID   
+    atomTestID,
+    moleculesTestID
 }

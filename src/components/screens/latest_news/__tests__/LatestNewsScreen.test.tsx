@@ -1,17 +1,16 @@
 import React from 'react'
 import { render, RenderAPI } from '@testing-library/react-native'
-import { ScreenContainer } from '../ScreenContainer'
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData'
+import { LatestNewsScreen } from '../LatestNewsScreen'
 
-describe('<Screen Container>', () => {
+describe('<LatestNewsScreen>', () => {
     let instance: RenderAPI
-    const screenComponent = <></>
 
     beforeEach(() => {
         const component = 
             <Provider store={storeSampleData}>
-                <ScreenContainer children={screenComponent} />
+                <LatestNewsScreen />
             </Provider> 
         instance = render(component)
     })
