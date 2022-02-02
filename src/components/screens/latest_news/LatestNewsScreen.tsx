@@ -1,14 +1,12 @@
 import React from 'react';
+import { FlatList, View } from 'react-native';
 import {
-  FlatList,
-  View
-} from 'react-native';
-import { ArticleSection, CarouselSlider, PodcastWidget, ShortArticle, StoryWidget } from '../../../components/organisms'
+  ArticleSection, CarouselSlider, PodcastWidget,
+  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection
+} from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleData, shortArticleWithTagData } from '../../../constants/SampleData';
-import { AuthorWidget } from '../../../components/organisms';
-import { colors } from '../../../shared/styles/colors';
-import { BannerArticleSection } from '../../../components/organisms'
+import { articleSectionData, shortArticleData, shortArticleWithTagData } from 'src/constants/SampleData';
+import { colors } from 'src/shared/styles/colors';
 
 export const LatestNewsScreen = () => {
 
@@ -16,7 +14,7 @@ export const LatestNewsScreen = () => {
     <View style={{ backgroundColor: colors.aquaHaze }}>
       <CarouselSlider />
       <PodcastWidget />
-      <ArticleSection />
+      <ArticleSection data={articleSectionData}/>
       <ShortArticle data={shortArticleWithTagData} />
       <StoryWidget />
       <ShortArticle data={shortArticleData} />

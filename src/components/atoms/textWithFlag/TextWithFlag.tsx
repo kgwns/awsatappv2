@@ -1,7 +1,17 @@
 import React from 'react'
-import { Text } from 'react-native'
-import { TextWithFlagProps } from '../../../constants/types'
+import { StyleSheet, Text } from 'react-native'
 import { Label, LabelTypeProp } from '..'
+import { normalize } from 'src/shared/utils'
+
+export interface TextWithFlagProps {
+    title: string,
+    titleColor?: string,
+    barColor?: string,
+    flag?: string,
+    flagColor?: string,
+    labelType?: LabelTypeProp,
+    numberOfLines?: number,
+}
 
 export const TextWithFlag = ({
     flag,
@@ -13,10 +23,18 @@ export const TextWithFlag = ({
     numberOfLines = 2
 }: TextWithFlagProps) => {
     return (
-        <Text style={{textAlign: 'left', flexWrap: 'wrap'}} numberOfLines={numberOfLines} >
-            {flag && <Label style={[{color: flagColor}]} children={`${flag}`} labelType={labelType} />}
-            {flag && <Label style={[{color: barColor}]} children={`   |    `} labelType={labelType} />}
+        <Text style={textWithFlagStyle.container} numberOfLines={numberOfLines} >
+            {flag && <Label style={[{ color: flagColor }]} children={`${flag}`} labelType={labelType} />}
+            {flag && <Label style={[{ color: barColor }]} children={`   |    `} labelType={labelType} />}
             <Label children={title} labelType={labelType} color={titleColor} />
         </Text>
     )
 }
+
+const textWithFlagStyle = StyleSheet.create({
+    container: {
+        textAlign: 'left',
+        flexWrap: 'wrap',
+        paddingVertical: normalize(8)
+    }
+})

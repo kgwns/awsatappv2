@@ -1,26 +1,29 @@
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import { Image } from '../image/Image'
-import { normalize, screenWidth } from '../../../shared/utils'
-import { ImageName } from '..'
-import { Styles } from '../../../shared/styles'
-import { ImageResize } from '../../../shared/styles/text-styles'
+import { normalize, screenWidth } from 'src/shared/utils'
+import { ImageName, Label, LabelTypeProp } from '..'
+import { Styles } from 'src/shared/styles'
+import { ImageResize } from 'src/shared/styles/text-styles'
 
 export interface ImageLabelProps {
     name?: ImageName,
     url?: string,
     tagName?: string,
-    style?: string
+    style?: string,
+    tagStyle?: object,
+    tagLabelType?: LabelTypeProp
 }
 
-export const ImageWithLabel = ({ name, url, tagName }: ImageLabelProps) => {
+export const ImageWithLabel = ({ name, url, tagName,tagStyle,tagLabelType = LabelTypeProp.caption3 }: ImageLabelProps) => {
     return (
         <View>
             <Image name={name} url={url} style={imageWithLabelStyle.articleImage} resizeMode={ImageResize.COVER}/>
             {tagName &&
-                <View style={imageWithLabelStyle.tagContainer}>
-                    <Text children={tagName}
-                        style={{ ...Styles.text.caption3, ...imageWithLabelStyle.tagText }}
+                <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
+                    <Label children={tagName}
+                        style={imageWithLabelStyle.tagText}
+                        labelType={tagLabelType}
                     />
                 </View>
             }
@@ -42,6 +45,7 @@ const imageWithLabelStyle = StyleSheet.create({
     },
     tagText: {
         paddingVertical: normalize(3),
-        paddingHorizontal: normalize(7)
+        paddingHorizontal: normalize(7),
+        color: Styles.color.white
     }
 })

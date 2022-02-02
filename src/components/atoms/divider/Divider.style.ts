@@ -8,6 +8,6 @@ export const dividerStyle = StyleSheet.create({
     backgroundColor: Styles.color.smokeyGrey,
     width: '100%',
     height: normalizeBy320(0.4),
-    marginVertical: normalize(20)
+    marginTop: normalize(20)
   },
 })

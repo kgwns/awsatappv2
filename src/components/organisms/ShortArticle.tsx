@@ -1,15 +1,16 @@
 import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react';
-import { Image } from '../atoms/image/Image'
-import { normalize, screenWidth } from '../../shared/utils'
-import { Styles } from '../../shared/styles'
-import { TextWithFlag, Divider } from '../atoms'
-import { ArticleFooter } from '../molecules'
-import { articleFooterProps } from '../molecules/articleFooter/ArticleFooter'
-import { ImagesName } from '../../shared/styles/images';
-import { ImageResize } from '../../shared/styles/text-styles';
-import { flatListUniqueKey } from '../../constants';
-import { ShortArticleProps } from '../../constants/types'
+import { normalize, screenWidth } from 'src/shared/utils'
+import { Styles } from 'src/shared/styles'
+import { TextWithFlag, Divider, TextWithFlagProps,Image } from '../atoms'
+import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
+import { ImagesName } from 'src/shared/styles/images';
+import { ImageResize } from 'src/shared/styles/text-styles';
+import { flatListUniqueKey } from 'src/constants';
+
+export interface ShortArticleProps extends TextWithFlagProps {
+  image: string
+}
 
 export const shortArticleFooterSample: articleFooterProps = {
   leftTitle: 'يتحمل',
@@ -21,7 +22,7 @@ export const shortArticleFooterSample: articleFooterProps = {
 
 const ShortArticle = ({ data }: { data: ShortArticleProps[] }) => {
   const renderItem = (item: ShortArticleProps, index: number) => {
-    return <View key={flatListUniqueKey.SHORT_ARTICLE + index}>
+    return <View key={flatListUniqueKey.SHORT_ARTICLE + index} style={{paddingBottom: normalize(20)}}>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 1, paddingRight: normalize(15) }}>
           <TextWithFlag

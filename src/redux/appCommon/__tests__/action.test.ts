@@ -7,7 +7,7 @@ describe('<App Common Action>', () => {
         const nextState = storeAppTheme(
             Theme.DARK
         )
-        expect(nextState).toBe({
+        expect(nextState).toStrictEqual({
             type: STORE_APP_THEME,
             payload: { theme: Theme.DARK }
         })

@@ -66,7 +66,7 @@ const articleFooterStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: normalize(15)
+    paddingTop: normalize(10)
   },
   verticalDivider: {
     color: Styles.color.silverChalice,

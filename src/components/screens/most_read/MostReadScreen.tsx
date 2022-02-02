@@ -1,26 +1,20 @@
-import React, { useEffect } from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StatusBar,
-  useColorScheme
-} from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { colors } from '../../../shared/styles/colors';
+import React from 'react';
+import { View } from 'react-native'
+import { MostReadList } from 'src/components/organisms';
+import { ScreenContainer } from '..'
+import { mostReadData } from 'src/constants/SampleData';
+import { Label, LabelTypeProp } from 'src/components/atoms';
+import { MOST_READ } from 'src/constants/SharedConstants';
+import { Styles } from 'src/shared/styles';
+import { normalize } from 'src/shared/utils';
 
 export const MostReadScreen = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View style={{ height: '100%', width: '100%', alignItems: "center", justifyContent: "center", backgroundColor: colors.aquaHaze }}>
-        <Text >{"Most Read"}</Text>
+    <ScreenContainer>
+      <View style={{ paddingLeft: normalize(20), paddingVertical: normalize(5) }}>
+        <Label children={MOST_READ} labelType={LabelTypeProp.h2} color={Styles.color.greenishBlue} />
       </View>
-    </SafeAreaView>
-  );
-};
+      <MostReadList data={mostReadData}/>
+    </ScreenContainer>
+  )
+}

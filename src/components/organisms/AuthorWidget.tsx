@@ -23,7 +23,7 @@ const AuthorWidget = () => {
                 data={authorWidgetData}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
-                ItemSeparatorComponent={() => <Divider />}
+                ItemSeparatorComponent={() => <Divider style={{ marginBottom: normalize(20) }} />}
                 bounces={false}
             />
         </View>

@@ -8,7 +8,8 @@ export enum LabelTypeProp {
   h3 = 'h3',
   p3 = 'p3',
   p4 = 'p4',
-  p5 = 'p5'
+  p5 = 'p5',
+  caption3 = 'caption3'
 }
 
 export type LabelType =

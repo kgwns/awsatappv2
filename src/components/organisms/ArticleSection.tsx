@@ -3,31 +3,20 @@ import React from 'react'
 import { screenWidth } from '../../shared/utils'
 import { flatListUniqueKey } from '../../constants'
 import { ArticleItem } from '../molecules'
+import { ArticleWithOutImageProps } from '../molecules/ArticleWithOutImage'
+import { ImageLabelProps } from '../atoms/imageWithLabel/ImageWithLabel'
 
-export interface articleProps {
+export interface articleProps extends ImageLabelProps,ArticleWithOutImageProps {
    image?: string,
-   title: string,
-   description: string,
-   tagName?: string
+   description: string
 }
 
-const articleSectionData: articleProps[] = [
-    {
-        image: 'https://picsum.photos/200/300',
-        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-        description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'مجما'
-    },
-    {
-        image: 'https://picsum.photos/200/300',
-        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-        description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'الحكومة'
-    }
-]
+export interface ArticleSectionProps {
+    data: articleProps[]
+}
 
 
-const ArticleSection = () => {
+const ArticleSection = ({ data }: ArticleSectionProps) => {
     const renderItem = (item: articleProps, index: number) => {
         return <ArticleItem {...item} index={index}/>
     }
@@ -37,7 +26,7 @@ const ArticleSection = () => {
                 keyExtractor={(_,index) => index.toString()}
                 listKey={flatListUniqueKey.ARTICLE_SECTION}
                 style={articleSectionStyle.listContainer}
-                data={articleSectionData}
+                data={data}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
             />

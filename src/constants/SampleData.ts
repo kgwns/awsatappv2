@@ -1,11 +1,11 @@
-import { WidgetHeaderProps } from "../components/atoms/widgetHeader/WidgetHeader";
-import { LabelTypeProp } from "../components/atoms";
-import { ImagesName, Styles } from "../shared/styles";
-import { ShortArticleProps, TextWithFlagProps } from "./types";
-import { AuthorItemProps } from "../components/molecules/AuthorItem";
-import { articleFooterProps } from "../components/molecules/articleFooter/ArticleFooter";
-import { Theme } from "../redux/appCommon/types";
+import { WidgetHeaderProps } from "src/components/atoms/widgetHeader/WidgetHeader";
+import { LabelTypeProp,TextWithFlagProps } from "src/components/atoms";
+import { ImagesName, Styles } from "src/shared/styles";
+import { AuthorItemProps,articleFooterProps } from "src/components/molecules";
+import { Theme } from "src/redux/appCommon/types";
 import configureStore from 'redux-mock-store';
+import { articleProps, ShortArticleProps } from "src/components/organisms"
+import { normalize } from "src/shared/utils"
 
 const mockStore = configureStore();
 export const storeSampleData = mockStore({
@@ -130,3 +130,74 @@ export const articleFooterSample: articleFooterProps = {
   rightIcon: ImagesName.clock,
   rightTitleColor: Styles.color.silverChalice,
 }
+
+export const articleSectionData: articleProps[] = [
+  {
+      image: 'https://picsum.photos/200/300',
+      title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+      description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+      tagName: 'مجما'
+  },
+  {
+      image: 'https://picsum.photos/200/300',
+      title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+      description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+      tagName: 'الحكومة'
+  }
+]
+
+const mostReadItem = {
+  image: 'https://picsum.photos/200/300',
+  title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+  description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+  flag: 'استنكار',
+  flagColor: Styles.color.greenishBlue,
+  barColor: Styles.color.greenishBlue,
+  labelType: LabelTypeProp.h3,
+  tagStyle: {marginLeft: normalize(16)},
+  tagLabelType: LabelTypeProp.p3,
+  showDivider: false
+}
+
+export const mostReadData: articleProps[] = [
+  {
+    tagName: '1',
+    ...mostReadItem
+  },
+  {
+    tagName: '2',
+    ...mostReadItem
+  },
+  {
+    tagName: '3',
+    ...mostReadItem
+  },
+  {
+    tagName: '4',
+    ...mostReadItem
+  },
+  {
+    tagName: '5',
+    ...mostReadItem
+  },
+  {
+    tagName: '6',
+    ...mostReadItem
+  },
+  {
+    tagName: '7',
+    ...mostReadItem
+  },
+  {
+    tagName: '8',
+    ...mostReadItem
+  },
+  {
+    tagName: '9',
+    ...mostReadItem
+  },
+  {
+    tagName: '10',
+    ...mostReadItem
+  }
+]

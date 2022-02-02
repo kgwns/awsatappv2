@@ -3,5 +3,6 @@ export enum flatListUniqueKey {
     SHORT_ARTICLE = 'shortArticle',
     CAROUSEL_WIDGET = 'carousel',
     STORY_WIDGET = 'StoryWidget',
-    AUTHOR_WIDGET = 'AuthorWidget'
+    AUTHOR_WIDGET = 'AuthorWidget',
+    MOST_READ_LIST = 'MostReadList'
 }
