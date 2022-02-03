@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { storeAppTheme } from 'src/redux/appCommon/action'
 import { Theme } from 'src/redux/appCommon/types'
 import { isDarkTheme } from '../shared/utils'
-import AppNavigator from './AppNavigator'
+import AppStackContainer from './AppStackContainer'
 
 const SplashNavigation = () => {
     const dispatch = useDispatch()
@@ -33,7 +33,7 @@ const SplashNavigation = () => {
         SplashScreen.hide()
     }, [])
 
-    return <AppNavigator />
+    return <AppStackContainer />
 }
 
 export default SplashNavigation

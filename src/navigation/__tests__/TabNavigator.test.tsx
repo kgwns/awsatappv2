@@ -1,21 +1,20 @@
 import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import AppNavigator from 'src/navigation/AppNavigator';
+import TabNavigator from '../TabNavigator';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../constants/SampleData';
 
-describe('<AppNavigator>', () => {
+describe('<TabNavigator>', () => {
   let instance: RenderAPI;
-
-  describe('when AppNavigator only', () => {
+  describe('when TabNavigator only', () => {
     beforeEach(() => {
       const component = (
-        <NavigationContainer independent={true}>
+        <NavigationContainer>
           <Provider store={storeSampleData}>
-            <AppNavigator />
+            <TabNavigator />
           </Provider>
-      </NavigationContainer>
+        </NavigationContainer>
       );
       instance = render(component);
     });
@@ -24,7 +23,7 @@ describe('<AppNavigator>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    it('Should render AppNavigator', () => {
+    it('Should render TabNavigator', () => {
       expect(instance).toBeDefined();
     });
   });

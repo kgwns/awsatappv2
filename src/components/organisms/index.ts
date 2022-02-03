@@ -5,4 +5,5 @@ export { default as PodcastWidget } from './PodcastWidget';
 export { default as AuthorWidget } from './AuthorWidget'
 export { default as StoryWidget } from './StoryWidget';
 export { default as BannerArticleSection } from './BannerArticleSection'
+export { SocialButtonSection } from './auth/SocialButtonSection'
 export { default as MostReadList } from './MostReadList'

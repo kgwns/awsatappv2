@@ -138,7 +138,7 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   p4: {
     fontStyle: FontStyle.NORMAL,
     fontSize: normalize(14),
-    lineHeight: 18,
+    lineHeight: normalize(18),
     textAlign: TextAlign.LEFT,
     color: colors.smokeyGrey,
   },
@@ -185,8 +185,8 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   },
   underlinedTitle: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: 12,
-    lineHeight: 18,
+    fontSize: normalize(12),
+    lineHeight: normalize(18),
     fontWeight: FontWeight.REGULAR,
     textDecorationLine: 'underline',
     borderBottomColor: colors.blue,

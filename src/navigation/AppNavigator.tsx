@@ -1,6 +1,5 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ScreensConstants } from '../constants/ScreenConstants';
 import TabNavigator from './TabNavigator';
@@ -25,7 +24,6 @@ const Menu = () => buildTabIcon(ImagesName.menuIcon, headerStyles.menu)
 
 const AppNavigator = () => {
   return (
-    <NavigationContainer>
       <Stack.Navigator initialRouteName={RoutesName.latestNewsScreen}>
         <Stack.Screen
           name={ScreensConstants.HOME_SCREEN}
@@ -39,7 +37,6 @@ const AppNavigator = () => {
           }}
         />
       </Stack.Navigator>
-    </NavigationContainer>
   );
 };
 

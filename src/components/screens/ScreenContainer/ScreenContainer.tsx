@@ -15,7 +15,7 @@ export const ScreenContainer = ({ children, edge }: ScreenContainerProps) => {
   const isDarkMode = isDarkTheme(theme)
 
   return (
-    <SafeAreaView style={{ ...styles.container }} edges={edge ? edge : ['left', 'right']}>
+    <SafeAreaView style={{ ...styles.container }} edges={edge ? edge : ['left', 'right','top']}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       {children}
     </SafeAreaView>

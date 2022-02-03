@@ -22,6 +22,12 @@ import searchIcon from 'src/assets/images/headerIcons/search_icon.png';
 import headerLogo from 'src/assets/images/headerIcons/header_logo.png';
 import menuIcon from 'src/assets/images/headerIcons/menu_icon.png';
 
+//social icons
+import googleIcon from 'src/assets/images/socialButton/google-icon-logo.png';
+import appleIcon from 'src/assets/images/socialButton/apple-logo.png';
+import facebookIcon from 'src/assets/images/socialButton/facebook-icon.png';
+import mailIcon from 'src/assets/images/socialButton/Mail-icon.png';
+
 export enum ImagesName {
   newsIcon = 'newsIcon',
   newsActiveIcon = 'newsActiveIcon',
@@ -42,7 +48,11 @@ export enum ImagesName {
   bookMarkWhiteBdr = 'bookMarkWhiteBdr',
   bookMarkActiveWhite = 'bookMarkActiveWhite',
   arrowLeftFaced = 'arrowLeftFaced',
-  greenPlayIcon = 'greenPlayIcon'
+  greenPlayIcon = 'greenPlayIcon',
+  googleIcon = 'googleIcon',
+  appleIcon = 'appleIcon',
+  facebookIcon = 'facebookIcon',
+  mailIcon = 'mailIcon',
 }
 
 export const images = {
@@ -63,7 +73,11 @@ export const images = {
   bookMarkWhiteBdr,
   bookMarkActiveWhite,
   arrowLeftFaced,
-  greenPlayIcon
+  greenPlayIcon,
+  googleIcon,
+  appleIcon,
+  facebookIcon,
+  mailIcon,
 };
 
 export type ImageName = keyof typeof images;

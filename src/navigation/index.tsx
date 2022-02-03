@@ -3,13 +3,19 @@ import {
   MostReadScreen,
   SectionsScreen,
   LatestNewsScreen,
+  AuthPage,
 } from '../components/screens';
+import AppNavigator from 'src/navigation/AppNavigator';
+import AuthNavigator from 'src/navigation/AuthNavigator';
 
 export const Routes = {
   FavoriteScreen,
   MostReadScreen,
   SectionsScreen,
   LatestNewsScreen,
+  AuthPage,
+  AppNavigator,
+  AuthNavigator,
 };
 
 /**
@@ -22,6 +28,9 @@ export type ScreenList = {
   MostReadScreen: undefined;
   SectionsScreen: undefined;
   LatestNewsScreen: undefined;
+  AuthPage: undefined;
+  AppNavigator: undefined;
+  AuthNavigator: undefined;
 };
 
 
@@ -31,10 +40,16 @@ const favoriteScreen = 'favoriteScreen' as ScreenName
 const mostReadScreen = 'mostReadScreen' as ScreenName
 const sectionsScreen = 'sectionsScreen' as ScreenName
 const latestNewsScreen = 'latestNewsScreen' as ScreenName
+const authPage = 'authPage' as ScreenName
+const appNavigator = 'appNavigator' as ScreenName;
+const authNavigator = 'authNavigator' as ScreenName;
 
 export const RoutesName = {
   favoriteScreen,
   mostReadScreen,
   sectionsScreen,
-  latestNewsScreen
+  latestNewsScreen,
+  authPage,
+  appNavigator,
+  authNavigator,
 }
