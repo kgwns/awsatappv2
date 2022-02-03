@@ -9,6 +9,7 @@ import { Image, ImageName } from '../components/atoms';
 import { colors } from '../shared/styles/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ImagesName } from '../shared/styles/images';
+import DrawerNavigator from './DrawerNavigator';
 
 const Stack = createStackNavigator();
 
@@ -27,13 +28,9 @@ const AppNavigator = () => {
       <Stack.Navigator initialRouteName={RoutesName.latestNewsScreen}>
         <Stack.Screen
           name={ScreensConstants.HOME_SCREEN}
-          component={TabNavigator}
+          component={DrawerNavigator}
           options={{
-            headerStyle: headerStyles.container,
-            headerLeft: Menu,
-            headerTitle: HeaderLogo,
-            headerTitleAlign: 'center',
-            headerRight: Search,
+           headerShown: false
           }}
         />
       </Stack.Navigator>

@@ -14,3 +14,4 @@ export { Divider } from 'src/components/atoms/divider/Divider'
 export { WidgetHeaderElement } from 'src/components/atoms/widgetHeader/WidgetHeaderElement'
 export { BannerImageWithOverlay } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 export { SocialLoginButton } from 'src/components/atoms/social-login-button/SocialLoginButton'
+export { ButtonList } from './button-list/ButtonList';
