@@ -15,3 +15,4 @@ export { WidgetHeaderElement } from 'src/components/atoms/widgetHeader/WidgetHea
 export { BannerImageWithOverlay } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 export { SocialLoginButton } from 'src/components/atoms/social-login-button/SocialLoginButton'
 export { ButtonList } from './button-list/ButtonList';
+export { ButtonOutline } from './button-outline/ButtonOutline';

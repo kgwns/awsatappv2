@@ -5,8 +5,9 @@ import {normalize} from 'src/shared/utils';
 
 interface ButtonImageProps {
   onPress: () => void;
-  image: ImageName;
+  image?: ImageName;
   style?: StyleProp<ViewStyle>;
+  icon?: () => void;
   size?: number;
 }
 
@@ -15,10 +16,12 @@ export const ButtonImage: FunctionComponent<ButtonImageProps> = ({
   image,
   style,
   size = normalize(64),
+  icon
 }) => {
   return (
     <TouchableOpacity style={style} onPress={onPress}>
-      <Image name={image} size={size} />
+      {image && <Image name={image} size={size} />}
+      {icon && icon()}
     </TouchableOpacity>
   );
 };
