@@ -1,26 +1,24 @@
-import React, { useEffect } from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StatusBar,
-  useColorScheme
-} from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { colors } from '../../../shared/styles/colors';
+import React, { useState } from 'react';
+import { Text } from 'react-native';
+import { ScreenContainer } from '..';
+import { TabBarComponent } from 'src/components/molecules';
+import { sectionTabItem } from 'src/constants/SampleData';
 
 export const SectionsScreen = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0)
+  const onPressTabItem = (index: number) => {
+    sectionTabItem[tabSelectedIndex].isSelected = false
+    sectionTabItem[index].isSelected = true
+    setTabSelectedIndex(index)
+  }
+
+  const renderTabBarComponent = () => <TabBarComponent tabItem={sectionTabItem}
+    onPressTabItem={onPressTabItem} />
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View style={{ height: '100%', width: '100%', alignItems: "center", justifyContent: "center", backgroundColor: colors.aquaHaze }}>
-        <Text >{"Sections"}</Text>
-      </View>
-    </SafeAreaView>
-  );
-};
+    <ScreenContainer>
+      {renderTabBarComponent()}
+      <Text style={{ flex: 1 }}>{"Sections"}</Text>
+    </ScreenContainer>
+  )
+}

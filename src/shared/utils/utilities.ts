@@ -17,3 +17,7 @@ export const CustomAlert = ({ title = DEFAULT_ALERT_TITLE, message = DEFAULT_ALE
 export const isDarkTheme = (colorScheme: ColorSchemeName) => {
     return colorScheme == Theme.DARK
 }
+
+export const testProps = (testID: string | undefined) => {
+    return { testID: testID, accessibilityLabel: testID }
+}

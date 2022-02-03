@@ -1,7 +1,7 @@
 import { WidgetHeaderProps } from "src/components/atoms/widgetHeader/WidgetHeader";
 import { LabelTypeProp,TextWithFlagProps } from "src/components/atoms";
 import { ImagesName, Styles } from "src/shared/styles";
-import { AuthorItemProps,articleFooterProps } from "src/components/molecules";
+import { AuthorItemProps,articleFooterProps, TabBarDataProps } from "src/components/molecules";
 import { Theme } from "src/redux/appCommon/types";
 import configureStore from 'redux-mock-store';
 import { articleProps, ShortArticleProps } from "src/components/organisms"
@@ -199,5 +199,44 @@ export const mostReadData: articleProps[] = [
   {
     tagName: '10',
     ...mostReadItem
+  }
+]
+
+export const sectionTabItem: TabBarDataProps[]  = [
+  {
+    tabName: 'العالم العربي',
+    isSelected: true
+  },
+  {
+    tabName: 'الرأي',
+    isSelected: false
+  },
+  {
+    tabName: 'بودكاست',
+    isSelected: false
+  },
+  {
+    tabName: 'أولى',
+    isSelected: false
+  },
+  {
+    tabName: 'فيديو',
+    isSelected: false
+  },
+  {
+    tabName: 'يوميات الشرق',
+    isSelected: false
+  },
+  {
+    tabName: 'العالم العربي',
+    isSelected: false
+  },
+  {
+    tabName: 'العالم العربي',
+    isSelected: false
+  },
+  {
+    tabName: 'العالم العربي',
+    isSelected: false
   }
 ]

@@ -53,9 +53,10 @@ export const textStyles = StyleSheet.create<Record<string, TextStyle>>({
   },
   h4: {
     fontStyle: FontStyle.NORMAL,
-    fontSize: 14,
-    lineHeight: 22,
-    textAlign: TextAlign.CENTER,
+    fontSize: normalize(13),
+    fontWeight: FontWeight.BOLD,
+    lineHeight: normalize(13),
+    textAlign: TextAlign.LEFT,
     color: colors.greyDark,
   },
   h5: {
