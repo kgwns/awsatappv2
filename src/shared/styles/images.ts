@@ -1,11 +1,11 @@
 //Latest Tab Icons
-import bookmarkActive from 'src/assets/images/latest_tab/bookmark_active.png'
-import blackBdrBookMark from 'src/assets/images/latest_tab/bookmark-black-bdr.png'
-import clock from 'src/assets/images/latest_tab/clock-icon.png'
-import bookMarkWhiteBdr from 'src/assets/images/latest_tab/bookmark_white_bdr.png'
-import bookMarkActiveWhite from 'src/assets/images/latest_tab/bookmark_active_white.png'
-import arrowLeftFaced from 'src/assets/images/latest_tab/arrow_left_faced.png'
-import greenPlayIcon from 'src/assets/images/latest_tab/green_play_icon.png'
+import bookmarkActive from 'src/assets/images/latest_tab/bookmark_active.png';
+import blackBdrBookMark from 'src/assets/images/latest_tab/bookmark-black-bdr.png';
+import clock from 'src/assets/images/latest_tab/clock-icon.png';
+import bookMarkWhiteBdr from 'src/assets/images/latest_tab/bookmark_white_bdr.png';
+import bookMarkActiveWhite from 'src/assets/images/latest_tab/bookmark_active_white.png';
+import arrowLeftFaced from 'src/assets/images/latest_tab/arrow_left_faced.png';
+import greenPlayIcon from 'src/assets/images/latest_tab/green_play_icon.png';
 
 // tabbar icons
 import newsIcon from 'src/assets/images/tabIcons/news_icon.png';
@@ -21,6 +21,14 @@ import favoriteActiveIcon from 'src/assets/images/tabIcons/favorite_active_icon.
 import searchIcon from 'src/assets/images/headerIcons/search_icon.png';
 import headerLogo from 'src/assets/images/headerIcons/header_logo.png';
 import menuIcon from 'src/assets/images/headerIcons/menu_icon.png';
+
+// Follow your favorite book
+import authorItemActive from 'src/assets/images/favorite_author/author_item_active.png';
+import authorItem from 'src/assets/images/favorite_author/author_item.png';
+
+// OnBoard Screen
+import arrowPrev from 'src/assets/images/onBoardScreen/arrow_prev.png';
+import arrowNext from 'src/assets/images/onBoardScreen/arrow_next.png';
 
 //social icons
 import googleIcon from 'src/assets/images/socialButton/google-icon-logo.png';
@@ -43,12 +51,16 @@ export enum ImagesName {
   blackBdrBookMark = 'blackBdrBookMark',
   clock = 'clock',
   headerLogo = 'headerLogo',
-  searchIcon= 'searchIcon',
+  searchIcon = 'searchIcon',
   menuIcon = 'menuIcon',
   bookMarkWhiteBdr = 'bookMarkWhiteBdr',
   bookMarkActiveWhite = 'bookMarkActiveWhite',
   arrowLeftFaced = 'arrowLeftFaced',
   greenPlayIcon = 'greenPlayIcon',
+  authorItem = 'authorItem',
+  authorItemActive = 'authorItemActive',
+  arrowPrev = 'arrowPrev',
+  arrowNext = 'arrowNext',
   googleIcon = 'googleIcon',
   appleIcon = 'appleIcon',
   facebookIcon = 'facebookIcon',
@@ -74,6 +86,10 @@ export const images = {
   bookMarkActiveWhite,
   arrowLeftFaced,
   greenPlayIcon,
+  authorItemActive,
+  authorItem,
+  arrowPrev,
+  arrowNext,
   googleIcon,
   appleIcon,
   facebookIcon,

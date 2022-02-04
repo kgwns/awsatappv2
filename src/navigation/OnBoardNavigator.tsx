@@ -1,52 +1,54 @@
-import 'react-native-gesture-handler';
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {ScreensConstants} from '../constants/ScreenConstants';
-import {RoutesName} from './index';
-import {StyleSheet} from 'react-native';
-import {Image, ImageName, Label} from '../components/atoms';
-import {colors} from '../shared/styles/colors';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {ImagesName} from '../shared/styles/images';
-import DrawerNavigator from './DrawerNavigator';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
+import {RoutesName, Routes, ScreenList} from './index';
+import {colors} from 'src/shared/styles/colors';
 import {normalize} from 'src/shared/utils';
+import {StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Image, Label} from 'src/components/atoms';
+import {ImagesName} from 'src/shared/styles';
+import {useTranslation} from 'react-i18next';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<ScreenList>();
 
-const buildTabIcon = (name: ImageName, style: object) => (
-  <TouchableOpacity>
-    <Image style={style} name={name} />
-  </TouchableOpacity>
-);
-
-const Search = () => buildTabIcon(ImagesName.searchIcon, headerStyles.search);
+const defaultScreenOptions: StackNavigationOptions = {
+  gestureEnabled: false,
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  headerShown: true,
+};
 const HeaderLogo = () => (
   <Image style={headerStyles.logo} name={ImagesName.headerLogo} />
 );
-const Menu = () => buildTabIcon(ImagesName.menuIcon, headerStyles.menu);
-
-const onBoardNext = () => (
-  <TouchableOpacity onPress={() => console.log('Next')}>
-    <Label style={headerStyles.onBoardNext}>تخطي</Label>
+const onBoardSkip = () => (
+  <TouchableOpacity onPress={() => console.log('skip')}>
+    <Label style={headerStyles.onBoardSkip}>تخطي</Label>
   </TouchableOpacity>
 );
-const onBoardPrev = () => (
+const onBoardReturn = () => (
   <TouchableOpacity
-    style={headerStyles.onBoardPrev}
-    onPress={() => console.log('Prev')}>
+    style={headerStyles.onBoardReturn}
+    onPress={() => console.log('return')}>
     <Label style={headerStyles.onBoardPrevTitle}>الرجوع</Label>
     <Image name="arrowPrev" style={headerStyles.onBoardPrevIcon} />
   </TouchableOpacity>
 );
 
-const AppNavigator = () => {
+const OnBoardNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={RoutesName.latestNewsScreen}>
+    <Stack.Navigator screenOptions={defaultScreenOptions}>
       <Stack.Screen
-        name={ScreensConstants.HOME_SCREEN}
-        component={DrawerNavigator}
+        name={RoutesName.followFavoriteAuthorScreen}
+        component={Routes.FollowFavoriteAuthorScreen}
         options={{
-          headerShown: false,
+          headerStyle: headerStyles.container,
+          headerLeft: onBoardReturn,
+          headerTitle: HeaderLogo,
+          headerTitleAlign: 'center',
+          headerRight: onBoardSkip,
         }}
       />
     </Stack.Navigator>
@@ -73,7 +75,7 @@ const headerStyles = StyleSheet.create({
     width: 22,
     marginHorizontal: 20,
   },
-  onBoardPrev: {
+  onBoardReturn: {
     flexDirection: 'row-reverse',
     alignItems: 'center',
     marginEnd: normalize(10),
@@ -87,7 +89,7 @@ const headerStyles = StyleSheet.create({
     height: normalize(8.8),
     marginEnd: normalize(5),
   },
-  onBoardNext: {
+  onBoardSkip: {
     alignItems: 'center',
     textDecorationLine: 'underline',
     color: colors.greenishBlue,
@@ -97,4 +99,4 @@ const headerStyles = StyleSheet.create({
   },
 });
 
-export default AppNavigator;
+export default OnBoardNavigator;

@@ -1,13 +1,13 @@
 import React, {FunctionComponent} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {RoutesName} from 'src/navigation';
-import { ScreenContainer } from '..'
+import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import { colors } from '../../../shared/styles/colors';
-import { normalize } from '../../../shared/utils';
-import { Label, Image } from '../../atoms';
-import { ImagesName } from '../../../shared/styles/images';
-import { SocialButtonSection } from '../../../components/organisms/';
+import {colors} from '../../../shared/styles/colors';
+import {normalize} from '../../../shared/utils';
+import {Label, Image} from '../../atoms';
+import {ImagesName} from '../../../shared/styles/images';
+import {SocialButtonSection} from '../../../components/organisms/';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -21,58 +21,94 @@ export enum NavigateTypes {
 export const AuthPage: FunctionComponent = () => {
   const navigation = useNavigation();
 
-  const navigateToSection = (type:string) => {
+  const navigateToSection = (type: string) => {
     switch (type) {
       case NavigateTypes.google:
-        return
+        return;
       case NavigateTypes.apple:
-        return
+        return;
       case NavigateTypes.facebook:
-        return
+        return;
       case NavigateTypes.email:
-        return
+        return;
       case NavigateTypes.termsAndConditions:
-        return
+        return;
       case NavigateTypes.signinPage:
-        return
+        return;
       default:
-        navigation.reset({
-          index: 0,
-          routes: [{name: RoutesName.appNavigator}],
-        });
+        navigation.navigate(RoutesName.onBoardNavigator);
     }
   };
 
   return (
     <ScreenContainer>
-        <View style={styles.container}>
-          <View style={styles.headerStyle}>
-            <TouchableOpacity testID='signin_skip' accessibilityLabel='signin_skip' onPress={()=>navigateToSection('')}>
-              <Label children={'تخطى'}  labelType='underlinedTitle' color={colors.greenishBlue} style={styles.headerLabelStyle}/>
+      <View style={styles.container}>
+        <View style={styles.headerStyle}>
+          <TouchableOpacity
+            testID="signin_skip"
+            accessibilityLabel="signin_skip"
+            onPress={() => navigateToSection('')}>
+            <Label
+              children={'تخطى'}
+              labelType="underlinedTitle"
+              color={colors.greenishBlue}
+              style={styles.headerLabelStyle}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.containerStyle}>
+          <Image style={styles.logo} name={ImagesName.headerLogo} />
+          <SocialButtonSection
+            style={styles.sectionStyle}
+            onButtonPress={navigateToSection}
+          />
+          <View style={styles.footerLabelContainer}>
+            <Label
+              children={'لديك حساب بالفعل؟'}
+              labelType="p4"
+              color={colors.greyDark50}
+            />
+            <TouchableOpacity
+              testID="signin_button"
+              accessibilityLabel="signin_button"
+              onPress={() => navigateToSection('SIGNINPAGE')}>
+              <Label
+                children={'تسجيل الدخول'}
+                labelType="p4"
+                color={colors.greenishBlue}
+              />
             </TouchableOpacity>
           </View>
-
-          <View style={styles.containerStyle}>
-            <Image style={styles.logo} name={ImagesName.headerLogo} />
-            <SocialButtonSection style={styles.sectionStyle} onButtonPress={navigateToSection} />
-            <View style={styles.footerLabelContainer}>
-              <Label children={'لديك حساب بالفعل؟'} labelType='p4' color={colors.greyDark50} />
-              <TouchableOpacity testID='signin_button' accessibilityLabel='signin_button' onPress={()=>navigateToSection(('SIGNINPAGE'))}>
-                <Label children={'تسجيل الدخول'} labelType='p4' color={colors.greenishBlue} />
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View style={styles.footerStyle}>
-            <View style={styles.footerLabelContainer}>
-              <Label children={'عن طريق تسجيل الدخول تكون قد وافقت على'} labelType='p5' color={colors.greyDark50} />
-              <TouchableOpacity testID='terms_and_conditions' accessibilityLabel='terms_and_conditions' onPress={()=>navigateToSection('TERMSANDCONDITIONS')}>
-                <Label children={'القواعد و الشروط'} labelType='p5' color={colors.greenishBlue} />
-              </TouchableOpacity>
-            </View>
-            <Label children={'لاستخدام التطبيق و باقي حقوق الملكية و الموافقه للبراجراف'} labelType='p5' color={colors.greyDark50} />
-          </View>
         </View>
+
+        <View style={styles.footerStyle}>
+          <View style={styles.footerLabelContainer}>
+            <Label
+              children={'عن طريق تسجيل الدخول تكون قد وافقت على'}
+              labelType="p5"
+              color={colors.greyDark50}
+            />
+            <TouchableOpacity
+              testID="terms_and_conditions"
+              accessibilityLabel="terms_and_conditions"
+              onPress={() => navigateToSection('TERMSANDCONDITIONS')}>
+              <Label
+                children={'القواعد و الشروط'}
+                labelType="p5"
+                color={colors.greenishBlue}
+              />
+            </TouchableOpacity>
+          </View>
+          <Label
+            children={
+              'لاستخدام التطبيق و باقي حقوق الملكية و الموافقه للبراجراف'
+            }
+            labelType="p5"
+            color={colors.greyDark50}
+          />
+        </View>
+      </View>
     </ScreenContainer>
   );
 };
@@ -117,6 +153,4 @@ const styles = StyleSheet.create({
   sectionStyle: {
     marginTop: normalize(50),
   },
-})
-
-
+});

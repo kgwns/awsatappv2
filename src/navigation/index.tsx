@@ -4,9 +4,11 @@ import {
   SectionsScreen,
   LatestNewsScreen,
   AuthPage,
+  FollowFavoriteAuthorScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
+import OnBoardNavigator from './OnBoardNavigator';
 
 export const Routes = {
   FavoriteScreen,
@@ -16,6 +18,8 @@ export const Routes = {
   AuthPage,
   AppNavigator,
   AuthNavigator,
+  OnBoardNavigator,
+  FollowFavoriteAuthorScreen,
 };
 
 /**
@@ -31,18 +35,21 @@ export type ScreenList = {
   AuthPage: undefined;
   AppNavigator: undefined;
   AuthNavigator: undefined;
+  OnBoardNavigator: undefined;
+  FollowFavoriteAuthorScreen: undefined;
 };
 
+export type ScreenName = keyof undefined;
 
-export type ScreenName = keyof undefined
-
-const favoriteScreen = 'favoriteScreen' as ScreenName
-const mostReadScreen = 'mostReadScreen' as ScreenName
-const sectionsScreen = 'sectionsScreen' as ScreenName
-const latestNewsScreen = 'latestNewsScreen' as ScreenName
-const authPage = 'authPage' as ScreenName
+const favoriteScreen = 'favoriteScreen' as ScreenName;
+const mostReadScreen = 'mostReadScreen' as ScreenName;
+const sectionsScreen = 'sectionsScreen' as ScreenName;
+const latestNewsScreen = 'latestNewsScreen' as ScreenName;
+const authPage = 'authPage' as ScreenName;
 const appNavigator = 'appNavigator' as ScreenName;
 const authNavigator = 'authNavigator' as ScreenName;
+const onBoardNavigator = 'onBoardNavigator' as ScreenName;
+const followFavoriteAuthorScreen = 'followFavoriteAuthorScreen' as ScreenName;
 
 export const RoutesName = {
   favoriteScreen,
@@ -52,4 +59,6 @@ export const RoutesName = {
   authPage,
   appNavigator,
   authNavigator,
-}
+  onBoardNavigator,
+  followFavoriteAuthorScreen,
+};

@@ -27,6 +27,10 @@ const AppStackContainer = () => {
           component={Routes.AuthNavigator}
         />
         <Stack.Screen
+          name={RoutesName.onBoardNavigator}
+          component={Routes.OnBoardNavigator}
+        />
+        <Stack.Screen
           name={RoutesName.appNavigator}
           component={Routes.AppNavigator}
         />
