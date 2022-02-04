@@ -6,8 +6,8 @@ import {normalize} from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import {ImagesName} from 'src/shared/styles';
 import {useNavigation} from '@react-navigation/native';
-import {RoutesName} from 'src/navigation';
 import {useTranslation} from 'react-i18next';
+import { ScreensConstants } from 'src/constants';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
@@ -29,7 +29,7 @@ export const FollowFavoriteAuthorScreen = () => {
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{name: RoutesName.appNavigator}],
+            routes: [{name: ScreensConstants.AppNavigator}],
           })
         }
       />

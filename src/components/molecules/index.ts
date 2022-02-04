@@ -7,6 +7,7 @@ export { default as ImageArticle } from './ImageArticle';
 export { default as ArticleItem } from './ArticleItem';
 export { default as ArticleWithOutImage,ArticleWithOutImageProps } from './ArticleWithOutImage';
 export { TabBarComponent } from './tabWithBarItem/TabBarComponent'
+export { SearchBar } from './searchBar/SearchBar';
 export { TabWithBarItem, TabBarItemProps, TabBarDataProps } from './tabWithBarItem/TabWithBarItem'
 export {default as FollowFavoriteAuthor} from 'src/components/molecules/followFavoriteAuthor/FollowFavoriteAuthor';
 

@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {RoutesName} from 'src/navigation';
+import {ScreensConstants} from 'src/constants';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
@@ -36,7 +36,7 @@ export const AuthPage: FunctionComponent = () => {
       case NavigateTypes.signinPage:
         return;
       default:
-        navigation.navigate(RoutesName.onBoardNavigator);
+        navigation.navigate(ScreensConstants.OnBoardNavigator);
     }
   };
 

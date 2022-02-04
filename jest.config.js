@@ -11,6 +11,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '^src(\\/?.*)$': '<rootDir>/src/$1',
+    '\\.svg': '<rootDir>/__mocks__/svgMock.js'
   },
   coverageThreshold: {
     global: {

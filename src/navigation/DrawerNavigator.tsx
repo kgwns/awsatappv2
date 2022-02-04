@@ -7,26 +7,30 @@ import {ImagesName} from '../shared/styles/images';
 import {Image, ImageName} from '../components/atoms';
 import {colors} from '../shared/styles/colors';
 import CustomDrawerContent from './CustomDrawerContent';
+import {ScreensConstants} from '../constants/ScreenConstants';
 
 
 
 const DrawerNavigator = () => {
   const navigation = useNavigation();
 
-  const buildTabIcon = (name: ImageName, style: object) => (
+  const buildTabIcon = (name: ImageName, style: object, screenName: string) => (
     <TouchableOpacity
       onPress={() => {
+        if(screenName==ScreensConstants.SearchScreen){
+          return navigation.navigate(ScreensConstants.SearchScreen);
+        }
         navigation.dispatch(DrawerActions.toggleDrawer());
       }}>
       <Image style={style} name={name} />
     </TouchableOpacity>
   );
 
-  const Search = () => buildTabIcon(ImagesName.searchIcon, headerStyles.search);
+  const Search = () => buildTabIcon(ImagesName.searchIcon, headerStyles.search, ScreensConstants.SearchScreen);
   const HeaderLogo = () => (
     <Image style={headerStyles.logo} name={ImagesName.headerLogo} />
   );
-  const Menu = () => buildTabIcon(ImagesName.menuIcon, headerStyles.menu);
+  const Menu = () => buildTabIcon(ImagesName.menuIcon, headerStyles.menu,'');
   const Drawer = createDrawerNavigator();
   return (
     <Drawer.Navigator

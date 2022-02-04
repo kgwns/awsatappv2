@@ -4,7 +4,8 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import {RoutesName, Routes, ScreenList} from './index';
+import { Routes, ScreenList } from './index'
+import { ScreensConstants } from 'src/constants';
 
 const Stack = createStackNavigator<ScreenList>();
 const defaultScreenOptions: StackNavigationOptions = {
@@ -16,7 +17,7 @@ const defaultScreenOptions: StackNavigationOptions = {
 const AuthNavigator = () => {
   return (
     <Stack.Navigator screenOptions={defaultScreenOptions}>
-      <Stack.Screen name={RoutesName.authPage} component={Routes.AuthPage} />
+      <Stack.Screen name={ScreensConstants.AuthPage} component={Routes.AuthPage} />
     </Stack.Navigator>
   );
 };

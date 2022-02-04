@@ -4,6 +4,7 @@ import {
   SectionsScreen,
   LatestNewsScreen,
   AuthPage,
+  SearchScreen,
   FollowFavoriteAuthorScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
@@ -18,6 +19,7 @@ export const Routes = {
   AuthPage,
   AppNavigator,
   AuthNavigator,
+  SearchScreen,
   OnBoardNavigator,
   FollowFavoriteAuthorScreen,
 };
@@ -35,6 +37,7 @@ export type ScreenList = {
   AuthPage: undefined;
   AppNavigator: undefined;
   AuthNavigator: undefined;
+  SearchScreen: undefined;
   OnBoardNavigator: undefined;
   FollowFavoriteAuthorScreen: undefined;
 };

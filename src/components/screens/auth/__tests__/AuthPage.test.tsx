@@ -4,12 +4,21 @@ import {AuthPage} from '../AuthPage';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
 import { SocialButtonSection } from '../../../organisms/';
+import {useNavigation} from '@react-navigation/native';
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+}));
 
 describe('<AuthPage>', () => {
   let instance: RenderAPI;
+  const navigation = {
+    navigate: jest.fn()
+  }
   describe('when AuthPage only', () => {
     beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       const component = (
         <Provider store={storeSampleData}>
           <AuthPage  />
@@ -28,7 +37,7 @@ describe('<AuthPage>', () => {
     it('When Press Skip Button', () => {
       const testID = instance.getByTestId('signin_skip');
       fireEvent(testID, 'onPress')
-      expect(testID).toBeTruthy();
+      expect(navigation.navigate).toBeTruthy();
     });
     it('When Press SignIn Button', () => {
       const testID = instance.getByTestId('signin_button');

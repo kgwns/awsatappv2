@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ScreensConstants} from '../constants/ScreenConstants';
-import {RoutesName} from './index';
+import {Routes, RoutesName} from './index';
 import {StyleSheet} from 'react-native';
 import {Image, ImageName, Label} from '../components/atoms';
 import {colors} from '../shared/styles/colors';
@@ -41,15 +41,22 @@ const onBoardPrev = () => (
 
 const AppNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={RoutesName.latestNewsScreen}>
-      <Stack.Screen
-        name={ScreensConstants.HOME_SCREEN}
-        component={DrawerNavigator}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack.Navigator>
+      <Stack.Navigator initialRouteName={RoutesName.latestNewsScreen}>
+        <Stack.Screen
+          name={ScreensConstants.HOME_SCREEN}
+          component={DrawerNavigator}
+          options={{
+           headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name={ScreensConstants.SearchScreen}
+          component={Routes.SearchScreen}
+          options={{
+           headerShown: false
+          }}
+        />
+      </Stack.Navigator>
   );
 };
 

@@ -6,7 +6,8 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import {ScreenList, Routes, RoutesName} from 'src/navigation';
+import {ScreenList, Routes} from 'src/navigation';
+import { ScreensConstants } from 'src/constants';
 
 const Stack = createStackNavigator<ScreenList>();
 
@@ -21,17 +22,17 @@ const AppStackContainer = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={defaultScreenOptions}
-        initialRouteName={RoutesName.authNavigator}>
+        initialRouteName={ScreensConstants.AuthNavigator}>
         <Stack.Screen
-          name={RoutesName.authNavigator}
+          name={ScreensConstants.AuthNavigator}
           component={Routes.AuthNavigator}
         />
         <Stack.Screen
-          name={RoutesName.onBoardNavigator}
+          name={ScreensConstants.OnBoardNavigator}
           component={Routes.OnBoardNavigator}
         />
         <Stack.Screen
-          name={RoutesName.appNavigator}
+          name={ScreensConstants.AppNavigator}
           component={Routes.AppNavigator}
         />
       </Stack.Navigator>

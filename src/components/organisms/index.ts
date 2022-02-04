@@ -6,6 +6,7 @@ export { default as AuthorWidget } from './AuthorWidget'
 export { default as StoryWidget } from './StoryWidget';
 export { default as BannerArticleSection } from './BannerArticleSection'
 export { SocialButtonSection } from './auth/SocialButtonSection'
+export { SearchList, SearchResultsProps } from './search_list/SearchList';
 export { default as MostReadList } from './MostReadList'
 export {default as FollowFavoriteAuthorWidget} from 'src/components/organisms/FollowFavoriteAuthorWidget';
 

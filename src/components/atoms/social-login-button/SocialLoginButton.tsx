@@ -21,19 +21,14 @@ const linkButtonStyle = StyleSheet.create({
     fontSize: normalize(14),
     lineHeight: normalize(15),
   },
-  imageContainer: {
-    flex: 0.2,
-    justifyContent:'center',
-    alignItems:'center',
-  },
   labelContainer: {
-    flex: 0.8,
+    flex: 1,
     justifyContent:'center',
     alignItems:'center',
   },
 });
 
-const {container, textStyle, imageContainer,labelContainer} = linkButtonStyle;
+const {container, textStyle, labelContainer} = linkButtonStyle;
 
 interface SocialLoginButtonProps {
   label: string;
@@ -67,7 +62,7 @@ export const SocialLoginButton: FunctionComponent<SocialLoginButtonProps> = ({
       </Label>
     </View>
     {icon &&
-      <View style={[imageContainer, style]}>
+      <View >
         <Image name={icon} size={normalize(25)} />
       </View>
       }
