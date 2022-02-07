@@ -1,9 +1,10 @@
 import { View, StyleSheet, ScrollView, FlatList } from 'react-native';
 import React from 'react';
-import { colors } from '../../shared/styles/colors';
 import { BorderLabel } from '../atoms/BorderLabel/BorderLabel';
 import { normalize, screenWidth } from 'src/shared/utils';
 import { flatListUniqueKey } from 'src/constants';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { CustomThemeType } from 'src/shared/styles/colors'
 
 
 const data = [
@@ -385,8 +386,9 @@ const data = [
   },
 
 ]
+
 const InterestSection = () => {
-  console.log(data.length)
+  const style = useThemeAwareObject(customInterestStyle)
   let totalLengthOfElements = 0
   let arrayOfLengths = []
   let splicedArray = []
@@ -429,6 +431,7 @@ const InterestSection = () => {
       lengthOfElementsInRow = 0
     }
   }
+
   const isSetSelected = (item: any, isSelected: boolean) => {
     for (let i = 0; i < data.length; i++) {
       if (item.id == data[i].id) {
@@ -439,7 +442,7 @@ const InterestSection = () => {
   const renderItem = (item: string, index: number) => {
     return (
       <View key={flatListUniqueKey.INTEREST_SECTION + index}>
-        <View style={interestSectionStyle.interestContainer} >
+        <View style={style.interestContainer} >
           <BorderLabel label={item}
             onPress={(isSelected) => { isSetSelected(item, isSelected) }}
           />
@@ -449,7 +452,7 @@ const InterestSection = () => {
   }
   const renderer = (item: any, index: number) => {
     return (
-      <View style={interestSectionStyle.rowContainer} key={index}>
+      <View style={style.rowContainer} key={index}>
         <FlatList
           inverted={true}
           scrollEnabled={false}
@@ -467,8 +470,8 @@ const InterestSection = () => {
   console.log(data.length)
   console.log(splicedArray.length)
   return (
-    <ScrollView style={interestSectionStyle.container} horizontal={true} showsHorizontalScrollIndicator={false}>
-      <ScrollView style={interestSectionStyle.container} horizontal={false} scrollEnabled={false}>
+    <ScrollView style={style.container} horizontal={true} showsHorizontalScrollIndicator={false}>
+      <ScrollView style={style.container} horizontal={false} scrollEnabled={false}>
         {splicedArray.map((items, index) => renderer(items, index))}
       </ScrollView>
     </ScrollView>
@@ -477,27 +480,25 @@ const InterestSection = () => {
 };;
 
 export default InterestSection;
+const customInterestStyle = (theme: CustomThemeType) => {
+  const interestSectionStyle = StyleSheet.create({
+    container: {
+      width: '100%',
+      backgroundColor: theme.backgroundColor,
+      alignSelf: 'flex-end',
+    },
+    interestContainer: {
+      marginVertical: normalize(7),
+      marginLeft: normalize(10),
+      alignSelf: 'flex-start',
+    },
+    rowContainer: {
+      width: '100%',
+      alignSelf: 'flex-end',
+      marginEnd: normalize(5),
+      marginStart: 0.04 * screenWidth,
 
-const interestSectionStyle = StyleSheet.create({
-
-
-  container: {
-    width: '100%',
-    backgroundColor: colors.aquaHaze,
-    alignSelf: 'flex-end',
-
-
-  },
-  interestContainer: {
-    marginVertical: normalize(7),
-    marginLeft: normalize(10),
-    alignSelf: 'flex-start',
-  },
-  rowContainer: {
-    width: '100%',
-    alignSelf: 'flex-end',
-    marginEnd: normalize(5),
-    marginStart: 0.04 * screenWidth,
-
-  },
-})
+    },
+  })
+  return interestSectionStyle
+}
