@@ -9,4 +9,5 @@ export { SocialButtonSection } from './auth/SocialButtonSection'
 export { SearchList, SearchResultsProps } from './search_list/SearchList';
 export { default as MostReadList } from './MostReadList'
 export {default as FollowFavoriteAuthorWidget} from 'src/components/organisms/FollowFavoriteAuthorWidget';
+export { default as InterestSection } from 'src/components/organisms/InterestSection';
 

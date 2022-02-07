@@ -29,6 +29,9 @@ const onBoardSkip = (navigation: any, translation: any, routesName: any) => (
   <TouchableOpacity
     onPress={() => {
       switch (routesName) {
+        case RoutesName.followFavoriteAuthorScreen:
+          navigation.navigate(RoutesName.followFavoriteAuthorScreen);
+          return;
         case RoutesName.keepNotifiedScreen:
           navigation.navigate(RoutesName.keepNotifiedScreen);
           return;
@@ -66,6 +69,17 @@ const OnBoardNavigator = () => {
   const [t] = useTranslation();
   return (
     <Stack.Navigator screenOptions={defaultScreenOptions}>
+      <Stack.Screen
+        name={RoutesName.selectInterestScreen}
+        component={Routes.SelectInterestScreen}
+        options={{
+          headerStyle: headerStyles.container,
+          headerTitle: HeaderLogo,
+          headerTitleAlign: 'center',
+          headerRight: () =>
+            onBoardSkip(navigation, t, RoutesName.followFavoriteAuthorScreen),
+        }}
+      />
       <Stack.Screen
         name={RoutesName.followFavoriteAuthorScreen}
         component={Routes.FollowFavoriteAuthorScreen}

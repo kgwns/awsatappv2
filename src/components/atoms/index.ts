@@ -16,3 +16,4 @@ export { BannerImageWithOverlay } from 'src/components/atoms/bannerImageWithOver
 export { SocialLoginButton } from 'src/components/atoms/social-login-button/SocialLoginButton'
 export { ButtonList } from './button-list/ButtonList';
 export { ButtonOutline } from './button-outline/ButtonOutline';
+export { BorderLabel } from 'src/components/atoms/BorderLabel/BorderLabel';
