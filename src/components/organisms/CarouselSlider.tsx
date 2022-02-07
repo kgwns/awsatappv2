@@ -6,6 +6,7 @@ import { articleProps } from './ArticleSection'
 import { TextWithFlag } from '../atoms'
 import { flatListUniqueKey } from '../../constants'
 import { sampleTextWithFlag } from '../../constants/SampleData'
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 const sampleCarouselData: articleProps[] = [
     {
@@ -19,6 +20,8 @@ const sampleCarouselData: articleProps[] = [
 
 
 const CarouselSlider = () => {
+    const { themeData } = useTheme()
+
     const sliderRef = useRef<FlatList<articleProps>>(null)
     const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
         return <ImageArticle image={item.image} title={item.title}/>
@@ -27,12 +30,9 @@ const CarouselSlider = () => {
     return (
         <View>
             <View style={carouselSliderStyle.headNewsContainer}>
-                <TextWithFlag title={sampleTextWithFlag.title}
-                    titleColor={sampleTextWithFlag.titleColor}
-                    flag={sampleTextWithFlag.flag}
-                    flagColor={sampleTextWithFlag.flagColor} 
-                    barColor={sampleTextWithFlag.barColor}
-                    labelType={sampleTextWithFlag.labelType}
+                <TextWithFlag {...sampleTextWithFlag}
+                    flagColor={themeData.secondaryDarkSlate}
+                    titleColor={themeData.secondaryDavyGrey}
                     numberOfLines={2} />
             </View>
             <FlatList

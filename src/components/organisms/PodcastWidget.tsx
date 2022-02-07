@@ -5,72 +5,80 @@ import {
 } from 'react-native';
 
 import { Image, Label } from '../atoms';
-import { colors } from '../../shared/styles/colors';
-import { ImagesName } from '../../shared/styles';
-import { normalize, screenWidth } from '../../shared/utils';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { ImagesName } from 'src/shared/styles';
+import { normalize, screenWidth } from 'src/shared/utils';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 const PodcastWidget = () => {
+    const {themeData} = useTheme()
+    const style = useThemeAwareObject(createStyles)
+
     return (
-        <View style={PodcastWidgetStyle.container}>
-            <View style={PodcastWidgetStyle.podcastImageContainer}>
-                <Image resizeMode='stretch' url={'https://picsum.photos/200'} style={PodcastWidgetStyle.podcastImage} />
+        <View style={style.container}>
+            <View style={style.podcastImageContainer}>
+                <Image resizeMode='stretch' url={'https://picsum.photos/200'} style={style.podcastImage} />
             </View>
-            <View style={PodcastWidgetStyle.descriptionContainer}>
-                <Label color={colors.black} style={PodcastWidgetStyle.podcastTitle} children={'استمع لبودكاست آخر أخبار اليوم'} />
-                <View style={PodcastWidgetStyle.durationContainer}>
-                    <Label color={colors.greenishBlue} children={'استمع الي البودكاست '} style={PodcastWidgetStyle.authorTitle} />
-                    <Image name={ImagesName.greenPlayIcon} style={PodcastWidgetStyle.playIcon} />
-                    <Label color={colors.spanishGray} children={'3:22'} style={PodcastWidgetStyle.duration} />
+            <View style={style.descriptionContainer}>
+                <Label color={themeData.primaryBlack} style={style.podcastTitle} children={'استمع لبودكاست آخر أخبار اليوم'} />
+                <View style={style.durationContainer}>
+                    <Label color={colors.greenishBlue} children={'استمع الي البودكاست '} style={style.authorTitle} />
+                    <Image name={ImagesName.greenPlayIcon} style={style.playIcon} />
+                    <Label color={colors.spanishGray} children={'3:22'} style={style.duration} />
                 </View>
             </View>
         </View>
     )
 }
 
-const PodcastWidgetStyle = StyleSheet.create({
-    container: {
-        marginHorizontal: 0.04 * screenWidth,
-        marginVertical: normalize(15),
-        backgroundColor: colors.cyanGreen,
-        flexDirection: 'row',
-        height: normalize(71),
-        alignContent: 'center'
-    },
-    podcastImageContainer: {
-        width: '22%'
-    },
-    podcastImage: {
-        width: '100%',
-        height: '100%'
-    },
-    descriptionContainer: {
-        overflow: 'hidden',
-        width: '78%'
-    },
-    podcastTitle: {
-        marginTop: normalize(19),
-        marginBottom: normalize(10),
-        alignSelf: 'flex-start',
-        marginLeft: normalize(10),
-        fontSize: 15
-    },
-    durationContainer: {
-        width: '75%',
-        flexDirection: 'row',
-        alignSelf: 'flex-start'
-    },
-    authorTitle: {
-        marginLeft: normalize(10)
-    },
-    playIcon: {
-        width: normalize(13),
-        height: normalize(13),
-        marginLeft: normalize(19)
-    },
-    duration: {
-        marginLeft: normalize(19)
-    }
-})
 
+const createStyles = (theme: CustomThemeType) => {
+    const podcastWidgetStyle = StyleSheet.create({
+        container: {
+            marginHorizontal: 0.04 * screenWidth,
+            marginVertical: normalize(15),
+            backgroundColor: theme.secondaryGreen,
+            flexDirection: 'row',
+            height: normalize(71),
+            alignContent: 'center'
+        },
+        podcastImageContainer: {
+            width: '22%'
+        },
+        podcastImage: {
+            width: '100%',
+            height: '100%'
+        },
+        descriptionContainer: {
+            overflow: 'hidden',
+            width: '78%'
+        },
+        podcastTitle: {
+            marginTop: normalize(19),
+            marginBottom: normalize(10),
+            alignSelf: 'flex-start',
+            marginLeft: normalize(10),
+            fontSize: 15
+        },
+        durationContainer: {
+            width: '75%',
+            flexDirection: 'row',
+            alignSelf: 'flex-start'
+        },
+        authorTitle: {
+            marginLeft: normalize(10)
+        },
+        playIcon: {
+            width: normalize(13),
+            height: normalize(13),
+            marginLeft: normalize(19)
+        },
+        duration: {
+            marginLeft: normalize(19)
+        }
+    })
+    return podcastWidgetStyle
+}
 
 export default PodcastWidget;

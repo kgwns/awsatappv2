@@ -1,6 +1,7 @@
 import { Alert, ColorSchemeName } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
 import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE } from "../../constants/SharedConstants"
+import { Edge } from "react-native-safe-area-context"
 
 export interface CustomAlertProps {
     title?: string,
@@ -21,3 +22,5 @@ export const isDarkTheme = (colorScheme: ColorSchemeName) => {
 export const testProps = (testID: string | undefined) => {
     return { testID: testID, accessibilityLabel: testID }
 }
+
+export const horizontalEdge: Edge[] = ['left','right']

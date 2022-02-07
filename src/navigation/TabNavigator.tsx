@@ -9,7 +9,8 @@ import { TabConstants } from '../constants/TabConstants';
 import { Image, Label } from '../components/atoms';
 import { Routes, ScreenName } from '../navigation/';
 import { colors } from '../shared/styles/colors';
-import { ImageName } from '~/shared/styles/images';
+import { ImageName } from 'src/shared/styles/images';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
@@ -29,8 +30,9 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
     navigation,
 }) => {
     const [t] = useTranslation();
+    const { themeData } = useTheme()
     return (
-        <View style={TabNavigatorStyle.bottomBar}>
+        <View style={[TabNavigatorStyle.bottomBar, { backgroundColor: themeData.secondaryWhite }]}>
             {state.routes.map((route, index) => {
                 const isFocused = state.index === index;
 

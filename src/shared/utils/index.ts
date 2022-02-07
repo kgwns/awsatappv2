@@ -9,5 +9,6 @@ export {
 export {
   CustomAlert,
   isDarkTheme,
-  testProps
+  testProps,
+  horizontalEdge
 } from 'src/shared/utils/utilities'

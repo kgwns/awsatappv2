@@ -38,5 +38,57 @@ export const colors = {
   cyanGreen: '#ECF4F3',
   spanishGray: '#929898',
   grayNurse: '#E3EBE6',
-  doveGray: '#717171'
+  doveGray: '#717171',
+  codGray: '#070606',
+  nightBlack: '#080808',
+  onyx: '#101010',
+  jasper: '#CE4242',
+  mountainMist: '#929898',
+  gableGreen: '#1A3333'
 };
+
+export interface CustomThemeType {
+  id: string,
+  primary: string,
+  primaryBlack: string,
+  primaryDarkSlateGray: string,
+  secondaryGreen: string,
+  secondaryWhite: string,
+  secondaryDavyGrey: string,
+  secondaryDarkSlate: string,
+  backgroundColor: string,
+  whiteSurface: string,
+  danger: string
+}
+
+export const LIGHT_THEME_ID = 'light'
+export const DARK_THEME_ID = 'dark'
+
+export const DEFAULT_LIGHT_THEME: CustomThemeType = {
+  id: LIGHT_THEME_ID,
+  primary: colors.greenishBlue,
+  primaryBlack: colors.black,
+  primaryDarkSlateGray: colors.darkSlateGray,
+  secondaryGreen: colors.cyanGreen,
+  secondaryWhite: colors.white,
+  secondaryDavyGrey: colors.davyGrey,
+  secondaryDarkSlate: colors.darkSlateGray,
+  backgroundColor: colors.aquaHaze,
+  whiteSurface: colors.white,
+  danger: colors.jasper
+}
+
+export const DEFAULT_DARK_THEME: CustomThemeType = {
+  id: DARK_THEME_ID,
+  primary: colors.greenishBlue,
+  primaryBlack: colors.white,
+  primaryDarkSlateGray: colors.white,
+  secondaryGreen: colors.onyx,
+  secondaryWhite: colors.nightBlack,
+  secondaryDavyGrey: colors.mountainMist,
+  secondaryDarkSlate: colors.white,
+  backgroundColor: colors.codGray,
+  whiteSurface: colors.onyx,
+  danger: colors.jasper
+}
+

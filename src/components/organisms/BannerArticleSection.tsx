@@ -75,8 +75,7 @@ export default BannerArticleSection
 
 const bannerArticleSectionStyle = StyleSheet.create({
     container: {
-        paddingTop: normalize(5),
-        backgroundColor: Styles.color.aquaHaze
+        paddingTop: normalize(5)
     },
     headerContainer: {
         paddingHorizontal: 0.04 * screenWidth

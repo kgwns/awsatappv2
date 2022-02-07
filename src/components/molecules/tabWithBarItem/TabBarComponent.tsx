@@ -15,7 +15,7 @@ export const TabBarComponent = ({ tabItem, onPressTabItem }: TabBarWidgetProps) 
         showsHorizontalScrollIndicator={false}>
         {
           tabItem.map((item: TabBarDataProps, index: number) =>
-            <TabWithBarItem {...item} index={index} onPress={onPressTabItem} />)
+            <TabWithBarItem key={index} {...item} index={index} onPress={onPressTabItem} />)
         }
       </ScrollView>
     </View>
