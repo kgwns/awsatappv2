@@ -5,7 +5,7 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 const isIOS = Platform.OS === 'ios';
 
-const isTab = DeviceInfo.isTablet();
+export const isTab = DeviceInfo.isTablet();
 
 const scale = isTab ? screenWidth / 768 : screenWidth / 375;
 const scaleHeight = isTab ? screenHeight / 1024 : screenHeight / 667;

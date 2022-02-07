@@ -1,10 +1,11 @@
 import React from 'react'
-import { View,StyleSheet} from 'react-native'
-import { ImagesName, Styles } from '../../shared/styles'
+import { View, StyleSheet, ViewStyle } from 'react-native'
+import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from '../molecules'
 import { BannerImageWithOverlay, Label, LabelTypeProp } from '../atoms'
 import { articleFooterProps, BookMarkColorType } from '../molecules/articleFooter/ArticleFooter'
-import { normalize, screenWidth } from '../../shared/utils'
+import { normalize, screenWidth } from 'src/shared/utils'
+import { BannerImageWithOverlayProps } from '../atoms'
 
 const carouselFooterSample: articleFooterProps = {
     leftTitle: 'وتمجيد',
@@ -15,16 +16,16 @@ const carouselFooterSample: articleFooterProps = {
     bookMarkColorType: BookMarkColorType.WHITE
 }
 
-export interface ImageArticleProps {
-   image?: string,
-   title: string
+export interface ImageArticleProps extends BannerImageWithOverlayProps {
+    title: string,
+    containerStyle?: ViewStyle
 }
 
 const ImageArticle = ({
-   image,title
+    image, title, containerStyle
 }: ImageArticleProps) => {
     return (
-        <View style={imageArticleStyle.sliderItemContainer}>
+        <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
             <BannerImageWithOverlay image={image} />
             <View style={imageArticleStyle.slideContent}>
                 <Label labelType={LabelTypeProp.h1} children={title} color={Styles.color.white} />
@@ -39,7 +40,7 @@ export default ImageArticle
 const imageArticleStyle = StyleSheet.create({
     sliderItemContainer: {
         width: screenWidth,
-        height: 1.05 * screenWidth
+        height: 0.85 * screenWidth
     },
     slideContent: {
         position: 'absolute',
@@ -49,7 +50,7 @@ const imageArticleStyle = StyleSheet.create({
         paddingVertical: normalize(15)
     },
     headNewsContainer: {
-       paddingHorizontal: 0.04 * screenWidth,
-       paddingVertical: normalize(10)
+        paddingHorizontal: 0.04 * screenWidth,
+        paddingVertical: normalize(10)
     }
 })

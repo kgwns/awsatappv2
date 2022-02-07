@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import { ButtonImage, Image, Label, LabelTypeProp } from '../atoms'
 import { normalize } from '../../shared/utils'
 import { ImagesName, Styles } from '../../shared/styles'
+import { isTab } from 'src/shared/utils'
 
 export interface AuthorItemProps {
     author: string,
@@ -20,7 +21,7 @@ const AuthorItem = ({
     index
 }: AuthorItemProps) => {
     return (
-        <View key={index} style={authorItemStyle.container}>
+        <View key={index} style={[authorItemStyle.container, isTab && {paddingRight: 20}]}>
             <View style={{ flex: 1 }}>
                 <Label children={author} labelType={LabelTypeProp.p4}
                     color={Styles.color.greenishBlue} numberOfLines={1} />

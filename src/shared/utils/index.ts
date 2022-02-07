@@ -2,6 +2,7 @@ export {
   screenHeight,
   screenWidth,
   isIOS,
+  isTab,
   normalize,
   normalizeBy320
 } from 'src/shared/utils/dimensions';

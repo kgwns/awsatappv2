@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { View, FlatList, StyleSheet } from 'react-native'
-import { normalize, screenWidth } from '../../shared/utils'
+import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
 import { articleProps } from './ArticleSection'
 import { TextWithFlag } from '../atoms'
@@ -17,14 +17,13 @@ const sampleCarouselData: articleProps[] = [
     }
 ]
 
-
-
 const CarouselSlider = () => {
     const { themeData } = useTheme()
 
     const sliderRef = useRef<FlatList<articleProps>>(null)
     const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
-        return <ImageArticle image={item.image} title={item.title}/>
+        return <ImageArticle key={index} image={item.image} title={item.title}
+            containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
     }
 
     return (
@@ -54,7 +53,13 @@ export default CarouselSlider
 
 const carouselSliderStyle = StyleSheet.create({
     headNewsContainer: {
-       paddingHorizontal: 0.04 * screenWidth,
-       paddingVertical: normalize(10)
+        paddingHorizontal: 0.04 * screenWidth,
+        paddingVertical: normalize(10)
+    },
+    imageStyle: {
+        height: 1.05 * screenWidth
+    },
+    tabletImageStyle: {
+        height: 0.5 * screenWidth
     }
 })

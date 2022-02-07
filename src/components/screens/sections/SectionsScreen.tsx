@@ -3,6 +3,7 @@ import { Text } from 'react-native';
 import { ScreenContainer } from '..';
 import { TabBarComponent } from 'src/components/molecules';
 import { sectionTabItem } from 'src/constants/SampleData';
+import { horizontalEdge } from 'src/constants/SharedConstants';
 
 export const SectionsScreen = () => {
   const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0)
@@ -16,7 +17,7 @@ export const SectionsScreen = () => {
     onPressTabItem={onPressTabItem} />
 
   return (
-    <ScreenContainer>
+    <ScreenContainer edge={horizontalEdge}>
       {renderTabBarComponent()}
       <Text style={{ flex: 1 }}>{"Sections"}</Text>
     </ScreenContainer>
