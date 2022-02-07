@@ -6,6 +6,8 @@ import {
 } from 'react-native-elements';
 
 import {Styles} from 'src/shared/styles';
+import { isDarkTheme } from 'src/shared/utils';
+import { useAppCommon } from 'src/hooks';
 
 const DEFAULT_IMAGE_SIZE = 24;
 const DEFAULT_RADIUS_DIVIDER = 2;
@@ -33,6 +35,9 @@ export const Image: FunctionComponent<ImageProps> = ({
   url,
   ...props
 }) => {
+  const { theme } = useAppCommon()
+  const isDarkMode = isDarkTheme(theme)
+
   const isRounded = type === 'round';
 
   const imageStyle: ImageStyle = {
@@ -55,7 +60,7 @@ export const Image: FunctionComponent<ImageProps> = ({
       <RNEImage
         containerStyle={StyleSheet.flatten([containerStyle, borderStyle])}
         style={StyleSheet.flatten([imageStyle, style])}
-        source={name ? Styles.image[name] : {uri: url}}
+        source={name ? (isDarkMode ? Styles.darkImage[name] : Styles.image[name]) : { uri: url }}
         placeholderStyle={StyleSheet.flatten([
           placeholderStyleInternal,
           placeholderStyle,

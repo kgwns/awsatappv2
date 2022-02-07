@@ -12,7 +12,7 @@ export { TextWithFlag, TextWithFlagProps } from 'src/components/atoms/textWithFl
 export { WidgetHeader } from 'src/components/atoms/widgetHeader/WidgetHeader'
 export { Divider } from 'src/components/atoms/divider/Divider'
 export { WidgetHeaderElement } from 'src/components/atoms/widgetHeader/WidgetHeaderElement'
-export { BannerImageWithOverlay } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
+export { BannerImageWithOverlay, BannerImageWithOverlayProps } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 export { SocialLoginButton } from 'src/components/atoms/social-login-button/SocialLoginButton'
 export { ButtonList } from './button-list/ButtonList';
 export { ButtonOutline } from './button-outline/ButtonOutline';

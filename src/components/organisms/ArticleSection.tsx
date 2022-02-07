@@ -1,6 +1,6 @@
 import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
-import { screenWidth } from '../../shared/utils'
+import { normalize, screenWidth } from '../../shared/utils'
 import { flatListUniqueKey } from '../../constants'
 import { ArticleItem } from '../molecules'
 import { ArticleWithOutImageProps } from '../molecules/ArticleWithOutImage'
@@ -18,7 +18,7 @@ export interface ArticleSectionProps {
 
 const ArticleSection = ({ data }: ArticleSectionProps) => {
     const renderItem = (item: articleProps, index: number) => {
-        return <ArticleItem {...item} index={index}/>
+        return <ArticleItem {...item} showDivider={index < data.length - 1} index={index} imageStyle={{height: normalize(189)}}/>
     }
     return (
         <View style={articleSectionStyle.container}>

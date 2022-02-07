@@ -1,30 +1,64 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
-  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection
+  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, ShortArticleProps
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { articleSectionData, shortArticleData, shortArticleWithTagData } from 'src/constants/SampleData';
-import { colors } from 'src/shared/styles/colors';
+import { isTab, normalize } from 'src/shared/utils';
+import { Divider } from 'react-native-elements/dist/divider/Divider';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { horizontalEdge } from 'src/shared/utils';
 
 export const LatestNewsScreen = () => {
+  const { themeData } = useTheme()
+  const articleData = isTab ? articleSectionData.slice(0,1) : articleSectionData
+
+  shortArticleWithTagData.map((item: ShortArticleProps) => item.titleColor = themeData.primaryBlack)
 
   const renderItem = () => (
-    <View style={{ backgroundColor: colors.aquaHaze }}>
+    <View>
       <CarouselSlider />
-      <PodcastWidget />
-      <ArticleSection data={articleSectionData}/>
-      <ShortArticle data={shortArticleWithTagData} />
+      {
+        isTab ? <View style={latestNewsScreenStyle.tabSplitter}>
+          <View style={latestNewsScreenStyle.tabWidgetContainer}>
+            <ArticleSection data={articleData} />
+            <PodcastWidget />
+          </View>
+          <View style={latestNewsScreenStyle.tabWidgetContainer}>
+            <ShortArticle data={shortArticleWithTagData} />
+          </View>
+        </View>
+          :
+          <>
+            <PodcastWidget />
+            <ArticleSection data={articleSectionData} />
+            <ShortArticle data={shortArticleWithTagData} />
+          </>
+      }
       <StoryWidget />
-      <ShortArticle data={shortArticleData} />
+      {
+        isTab ? <View style={latestNewsScreenStyle.tabSplitter}>
+          <View style={latestNewsScreenStyle.tabWidgetContainer}>
+          </View>
+          <View style={latestNewsScreenStyle.tabWidgetContainer}>
+            <ShortArticle data={shortArticleData} />
+          </View>
+        </View>
+          :
+          <ShortArticle data={shortArticleData} />
+      }
       <BannerArticleSection />
+      <Divider style={{ height: normalize(30) }} />
       <AuthorWidget />
+      <BannerArticleSection />
+      <Divider style={{ height: normalize(50) }} />
     </View>
   )
 
   return (
-    <ScreenContainer>
+    <ScreenContainer edge={horizontalEdge}>
       <FlatList
         style={{ flex: 1, height: '100%' }}
         data={[{}]}
@@ -35,3 +69,14 @@ export const LatestNewsScreen = () => {
     </ScreenContainer>
   )
 }
+
+const latestNewsScreenStyle = StyleSheet.create({
+  tabSplitter: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingTop: normalize(40)
+  },
+  tabWidgetContainer: {
+    flex: 0.5
+  }
+})

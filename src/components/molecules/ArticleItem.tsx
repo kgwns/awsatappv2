@@ -10,9 +10,10 @@ export interface ArticleItemProps extends articleProps {
     index: number
 }
 
-const ArticleItem: FunctionComponent<ArticleItemProps> = (props) => (
+const ArticleItem: FunctionComponent<ArticleItemProps> = ({
+    image,imageStyle,...props}) => (
     <View key={flatListUniqueKey.ARTICLE_SECTION + props.index} style={{ paddingBottom: normalize(20) }}>
-        {props.image && <ImageWithLabel url={props.image}
+        {image && <ImageWithLabel url={image} imageStyle={imageStyle}
             tagName={props.tagName} tagStyle={props.tagStyle} tagLabelType={props.tagLabelType} />}
         <ArticleWithOutImage {...props} />
     </View>

@@ -22,6 +22,11 @@ import searchIcon from 'src/assets/images/headerIcons/search_icon.png';
 import headerLogo from 'src/assets/images/headerIcons/header_logo.png';
 import menuIcon from 'src/assets/images/headerIcons/menu_icon.png';
 
+//Header icon dark
+import menuIconDark from 'src/assets/images/headerIcons/menu_icon_dark.png'
+import headerLogoDark from 'src/assets/images/headerIcons/header_logo_dark.png'
+import searchIconDark from 'src/assets/images/headerIcons/search_icon_dark.png'
+
 //onBoard Screen
 import arrowPrev from 'src/assets/images/onBoard/arrow_prev.png';
 import arrowNext from 'src/assets/images/onBoard/arrow_next.png';
@@ -102,6 +107,14 @@ export const images = {
   appleIcon,
   facebookIcon,
   mailIcon,
+};
+
+export const darkImages = {
+  ...images,
+  bookmarkActive: bookMarkActiveWhite,
+  headerLogo: headerLogoDark,
+  searchIcon: searchIconDark,
+  menuIcon: menuIconDark
 };
 
 export type ImageName = keyof typeof images;

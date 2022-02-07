@@ -22,6 +22,7 @@ export const shortArticleFooterSample: articleFooterProps = {
 
 const ShortArticle = ({ data }: { data: ShortArticleProps[] }) => {
   const renderItem = (item: ShortArticleProps, index: number) => {
+    const isLasIndex = index < data.length - 1
     return <View key={flatListUniqueKey.SHORT_ARTICLE + index} style={{paddingBottom: normalize(20)}}>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 1, paddingRight: normalize(15) }}>
@@ -37,7 +38,7 @@ const ShortArticle = ({ data }: { data: ShortArticleProps[] }) => {
         </View>
         <Image url={item.image} style={{ width: normalize(110), height: normalize(85) }} resizeMode={ImageResize.COVER} />
       </View>
-      <Divider />
+      {(isLasIndex) && <Divider />}
     </View>
   }
 

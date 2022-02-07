@@ -1,4 +1,4 @@
-import { ImageName } from "~/components/atoms";
+import { ImageName } from "src/components/atoms";
 
 const LATEST_NEWS = 'Latest News';
 const SECTIONS = 'Sections';

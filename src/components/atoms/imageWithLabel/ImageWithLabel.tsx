@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, ImageStyle } from 'react-native'
 import React from 'react'
 import { Image } from '../image/Image'
 import { normalize, screenWidth } from 'src/shared/utils'
@@ -12,13 +12,17 @@ export interface ImageLabelProps {
     tagName?: string,
     style?: string,
     tagStyle?: object,
-    tagLabelType?: LabelTypeProp
+    tagLabelType?: LabelTypeProp,
+    imageStyle?: ImageStyle | boolean
 }
 
-export const ImageWithLabel = ({ name, url, tagName,tagStyle,tagLabelType = LabelTypeProp.caption3 }: ImageLabelProps) => {
+export const ImageWithLabel = ({ name, url, tagName,tagStyle,
+    tagLabelType = LabelTypeProp.caption3,
+    imageStyle 
+}: ImageLabelProps) => {
     return (
         <View>
-            <Image name={name} url={url} style={imageWithLabelStyle.articleImage} resizeMode={ImageResize.COVER}/>
+            <Image name={name} url={url} style={[imageWithLabelStyle.articleImage,imageStyle]} resizeMode={ImageResize.COVER}/>
             {tagName &&
                 <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
                     <Label children={tagName}

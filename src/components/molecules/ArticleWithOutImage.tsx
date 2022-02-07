@@ -17,11 +17,11 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
 const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = (props) => (
     <View style={{ ...props.contentStyle }}>
         <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
-        <Label labelType={LabelTypeProp.p3} children={props.description} color={Styles.color.davyGrey} />
+        <Label labelType={LabelTypeProp.p3} children={props.description} color={Styles.color.davyGrey} numberOfLines={3}/>
         <View style={{ flex: 1, paddingTop: normalize(10) }}>
             <ArticleFooter {...props.footerInfo ? { ...props.footerInfo } : { ...articleFooterSample }} />
         </View>
-        {props.showDivider && <Divider />}
+        { props.showDivider && <Divider />}
     </View>
 )
 

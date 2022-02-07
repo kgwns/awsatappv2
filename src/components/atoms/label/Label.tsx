@@ -1,6 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {StyleProp, Text, TextStyle, TextProps} from 'react-native';
 import {Styles} from 'src/shared/styles'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
 export enum LabelTypeProp {
   h1 = 'h1',
@@ -50,76 +51,77 @@ export const Label: FunctionComponent<LabelProps> = ({
   color,
   ...props
 }) => {
+  const labelStyle = useThemeAwareObject(Styles.text)
   let textStyle: StyleProp<TextStyle> = {};
   switch (labelType) {
     case 'h2':
-      textStyle = Styles.text.h2;
+      textStyle = labelStyle.h2;
       break;
     case 'h3':
-      textStyle = Styles.text.h3;
+      textStyle = labelStyle.h3;
       break;
     case 'h4':
-      textStyle = Styles.text.h4;
+      textStyle = labelStyle.h4;
       break;
     case 'h5':
-      textStyle = Styles.text.h5;
+      textStyle = labelStyle.h5;
       break;
     case 'h6':
-      textStyle = Styles.text.h6;
+      textStyle = labelStyle.h6;
       break;
     case 'h8':
-      textStyle = Styles.text.h8;
+      textStyle = labelStyle.h8;
       break;
     case 'caption2':
-      textStyle = Styles.text.caption2;
+      textStyle = labelStyle.caption2;
       break;
     case 'caption4':
-      textStyle = Styles.text.caption4;
+      textStyle = labelStyle.caption4;
       break;
     case 'caption5':
-      textStyle = Styles.text.caption5;
+      textStyle = labelStyle.caption5;
       break;
     case 'caption6':
-      textStyle = Styles.text.caption6;
+      textStyle = labelStyle.caption6;
       break;
     case 'caption7':
-      textStyle = Styles.text.caption7;
+      textStyle = labelStyle.caption7;
       break;
     case 'caption8':
-      textStyle = Styles.text.caption8;
+      textStyle = labelStyle.caption8;
       break;
     case 'caption9':
-      textStyle = Styles.text.caption9;
+      textStyle = labelStyle.caption9;
       break;
     case 'p5':
-      textStyle = Styles.text.p5;
+      textStyle = labelStyle.p5;
       break;
     case 'p6':
-      textStyle = Styles.text.p6;
+      textStyle = labelStyle.p6;
       break;
     case 'p3':
-      textStyle = Styles.text.p3;
+      textStyle = labelStyle.p3;
       break;
     case 'p4':
-      textStyle = Styles.text.p4;
+      textStyle = labelStyle.p4;
       break;
     case 'h1':
-      textStyle = Styles.text.h1;
+      textStyle = labelStyle.h1;
       break;
     case 'caption3':
-      textStyle = Styles.text.caption3;
+      textStyle = labelStyle.caption3;
       break;
     case 'label10':
-      textStyle = Styles.text.label10;
+      textStyle = labelStyle.label10;
       break;
     case 'content':
-      textStyle = Styles.text.content;
+      textStyle = labelStyle.content;
       break;
     case 'underlinedTitle':
-      textStyle = Styles.text.underlinedTitle;
+      textStyle = labelStyle.underlinedTitle;
       break;
     default:
-      textStyle = Styles.text.default;
+      textStyle = labelStyle.default;
   }
   if (color) {
     textStyle = {...textStyle, color};

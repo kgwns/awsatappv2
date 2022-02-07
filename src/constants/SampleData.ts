@@ -43,11 +43,6 @@ export const shortArticleData: ShortArticleProps[] = [
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
     labelType: LabelTypeProp.h3
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-    labelType: LabelTypeProp.h3
   }
 ]
 
@@ -55,6 +50,24 @@ export const shortArticleWithTagData: ShortArticleProps[] = [
   {
     image: 'https://picsum.photos/200/300',
     title: 'ميقاتي: استقالة قرداحي كانت ضرورية',
+    titleColor: Styles.color.black,
+    flag: 'استنكار',
+    flagColor: Styles.color.greenishBlue,
+    barColor: Styles.color.greenishBlue,
+    labelType: LabelTypeProp.h3
+  },
+  {
+    image: 'https://picsum.photos/200/300',
+    title: 'مواشنطن تعيد فتح ملف خاطفي الرهائن الأميركيين في بيروت',
+    titleColor: Styles.color.black,
+    flag: 'استنكار',
+    flagColor: Styles.color.greenishBlue,
+    barColor: Styles.color.greenishBlue,
+    labelType: LabelTypeProp.h3
+  },
+  {
+    image: 'https://picsum.photos/200/300',
+    title: 'واشنطن تعيد فتح ملف خاطفي الرهائن الأميركيين في بيروت',
     titleColor: Styles.color.black,
     flag: 'استنكار',
     flagColor: Styles.color.greenishBlue,
@@ -135,15 +148,15 @@ export const articleSectionData: articleProps[] = [
   {
       image: 'https://picsum.photos/200/300',
       title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-      description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+      description: `أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت، أن مجموعة مؤسسات استثمارية تعهدت بالمساهمة في المشروع بمليار دولار`,
       tagName: 'مجما'
   },
   {
-      image: 'https://picsum.photos/200/300',
-      title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-      description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-      tagName: 'الحكومة'
-  }
+    image: 'https://picsum.photos/200/300',
+    title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+    description: `أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت، أن مجموعة مؤسسات استثمارية تعهدت بالمساهمة في المشروع بمليار دولار`,
+    tagName: 'مجما'
+}
 ]
 
 const mostReadItem = {

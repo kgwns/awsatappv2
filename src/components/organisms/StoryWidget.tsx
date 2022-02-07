@@ -2,8 +2,9 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import React from 'react';
 import { flatListUniqueKey } from '../../constants';
 import { StoryCircle, StoryTitle, StoryHeader } from '../molecules';
-import { colors } from '../../shared/styles/colors';
 import { normalize } from '../../shared/utils';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { CustomThemeType } from 'src/shared/styles/colors'
 
 const data = [
   {
@@ -41,13 +42,15 @@ const data = [
 ]
 
 const StoryWidget = () => {
+  const style = useThemeAwareObject(storyWidgetStyle)
+
   const renderItem = (item: any, index: number) => {
     return (
-      <View style={StoryWidgetStyle.storyContainer} key={flatListUniqueKey.STORY_WIDGET + index}>
-        <View style={StoryWidgetStyle.circleContainer}>
+      <View style={style.storyContainer} key={flatListUniqueKey.STORY_WIDGET + index}>
+        <View style={style.circleContainer}>
           <StoryCircle storyImageUrl={item.storyImage} onPress={() => console.log('story pressed')} />
         </View>
-        <View style={StoryWidgetStyle.titleContainer}>
+        <View style={style.titleContainer}>
           <StoryTitle storyTitle={item.storyTitle} />
         </View>
       </View>
@@ -55,7 +58,7 @@ const StoryWidget = () => {
   }
 
   return (
-    <View style={StoryWidgetStyle.container}>
+    <View style={style.container}>
       <StoryHeader headerTitle={'مذا يحدث الآن'} />
       <FlatList
         horizontal
@@ -71,23 +74,26 @@ const StoryWidget = () => {
 
 export default StoryWidget;
 
-const StoryWidgetStyle = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: normalize(170),
-    backgroundColor: colors.white
-  },
-  storyContainer: {
-    width: normalize(71),
-    justifyContent: 'flex-end',
-    marginVertical: normalize(10),
-    marginLeft: normalize(14)
-  },
-  circleContainer: {
-    height: '50%'
-  },
-  titleContainer: {
-    height: '25%',
-    marginTop: normalize(24)
-  }
-})
+const storyWidgetStyle = (theme: CustomThemeType) => {
+  const style = StyleSheet.create({
+    container: {
+      width: '100%',
+      height: normalize(170),
+      backgroundColor: theme.secondaryWhite
+    },
+    storyContainer: {
+      width: normalize(71),
+      justifyContent: 'flex-end',
+      marginVertical: normalize(10),
+      marginLeft: normalize(14)
+    },
+    circleContainer: {
+      height: '50%'
+    },
+    titleContainer: {
+      height: '25%',
+      marginTop: normalize(24)
+    }
+  })
+  return style
+}

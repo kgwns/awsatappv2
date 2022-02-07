@@ -1,14 +1,27 @@
 import React from 'react'
-import { FlatList, View, StyleSheet } from 'react-native'
+import { FlatList, View, StyleSheet, ScrollView } from 'react-native'
 import { WidgetHeader } from '../atoms'
-import { authorHeaderData } from '../../constants/SampleData'
-import { normalize, screenWidth } from '../../shared/utils'
-import { Styles } from '../../shared/styles'
-import { ArticleWithOutImage, ImageArticle } from '../molecules'
+import { authorHeaderData } from 'src/constants/SampleData'
+import { isTab, normalize, screenWidth } from 'src/shared/utils'
+import { Styles } from 'src/shared/styles'
+import { ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { articleProps } from './ArticleSection'
 import { shortArticleFooterSample } from './ShortArticle'
+import { flatListUniqueKey } from 'src/constants'
 
 const sampleBannerArticleData: articleProps[] = [
+    {
+        image: 'https://picsum.photos/200/300',
+        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+        description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+        tagName: 'الحكومة'
+    },
+    {
+        image: 'https://picsum.photos/200/300',
+        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+        description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+        tagName: 'الحكومة'
+    },
     {
         image: 'https://picsum.photos/200/300',
         title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
@@ -36,34 +49,37 @@ const sampleVerticalArticleData: articleProps[] = [
 ]
 
 const BannerArticleSection = () => {
-    const bannerItem = (item: articleProps, index: number) => {
-        return (<ImageArticle {...item} />)
+    const articleNewsItem = (item: articleProps, index: number) => {
+        return <ArticleWithOutImage key={index} {...item}
+            showDivider={index < sampleVerticalArticleData.length - 1} footerInfo={shortArticleFooterSample}
+        />
     }
 
-    const articleNewsItem = (item: articleProps, index: number) => {
-        return <ArticleWithOutImage {...item} footerInfo={shortArticleFooterSample} />
-    }
+    const listHeaderSection = () => (
+        <ScrollView horizontal={true} bounces={false}
+            showsHorizontalScrollIndicator={false}>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+                {sampleBannerArticleData.map((item: articleProps, index: number) => {
+                    if (isTab || index == 0) return <ImageArticle key={index} {...item}
+                        containerStyle={isTab ? bannerArticleSectionStyle.tabletImageStyle : {}} />
+                    return null
+                })}
+            </View>
+        </ScrollView>
+    )
 
     return (
-        <View style={bannerArticleSectionStyle.container}>
-            <View style={bannerArticleSectionStyle.headerContainer}>
+        <View style={[bannerArticleSectionStyle.container, isTab && bannerArticleSectionStyle.tabContainer]}>
+            <View style={!isTab && bannerArticleSectionStyle.headerContainer}>
                 <WidgetHeader {...authorHeaderData} />
             </View>
-            <FlatList
-                keyExtractor={(_, index) => index.toString()}
-                data={sampleBannerArticleData}
-                horizontal={true}
-                bounces={false}
-                showsVerticalScrollIndicator={false}
-                showsHorizontalScrollIndicator={false}
-                renderItem={({ item, index }) => bannerItem(item, index)}
-            />
+            {listHeaderSection()}
             <FlatList
                 keyExtractor={(_, index) => index.toString()}
                 data={sampleVerticalArticleData}
-                style={bannerArticleSectionStyle.verticalList}
+                listKey={flatListUniqueKey.BANNER_ARTICLE_LIST + new Date().getTime().toString()}
+                style={!isTab && bannerArticleSectionStyle.verticalList}
                 horizontal={false}
-                initialNumToRender={1} //Need to check for Tablet in later
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => articleNewsItem(item, index)}
             />
@@ -75,13 +91,20 @@ export default BannerArticleSection
 
 const bannerArticleSectionStyle = StyleSheet.create({
     container: {
-        paddingTop: normalize(5),
-        backgroundColor: Styles.color.aquaHaze
+        paddingTop: normalize(5)
+    },
+    tabContainer: {
+        paddingHorizontal: 0.04 * screenWidth
     },
     headerContainer: {
         paddingHorizontal: 0.04 * screenWidth
     },
     verticalList: {
         paddingHorizontal: 0.04 * screenWidth
+    },
+    tabletImageStyle: {
+        width: 0.40 * screenWidth,
+        height: 0.42 * screenWidth,
+        paddingRight: normalize(20)
     }
 })
