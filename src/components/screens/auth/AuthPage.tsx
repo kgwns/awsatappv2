@@ -7,7 +7,7 @@ import {normalize} from '../../../shared/utils';
 import {Label, Image} from '../../atoms';
 import {ImagesName} from '../../../shared/styles/images';
 import {SocialButtonSection} from '../../../components/organisms/';
-import { RoutesName } from 'src/navigation';
+import {ScreensConstants} from 'src/constants';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -38,7 +38,7 @@ export const AuthPage: FunctionComponent = () => {
       default:
         navigation.reset({
           index: 0,
-          routes: [{name: RoutesName.onBoardNavigator}],
+          routes: [{name: ScreensConstants.OnBoardNavigator}],
         });
     }
   };

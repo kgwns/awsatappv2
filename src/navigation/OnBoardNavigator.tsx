@@ -13,6 +13,7 @@ import {Image, Label} from 'src/components/atoms';
 import {ImagesName} from 'src/shared/styles';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
+import {ScreensConstants} from 'src/constants';
 
 const Stack = createStackNavigator<ScreenList>();
 
@@ -34,13 +35,13 @@ const onBoardSkip = (navigation: any, translation: any, routesName: any) => (
         case RoutesName.appNavigator:
           navigation.reset({
             index: 0,
-            routes: [{name: RoutesName.appNavigator}],
+            routes: [{name: ScreensConstants.AppNavigator}],
           });
           return;
         default:
           navigation.reset({
             index: 0,
-            routes: [{name: RoutesName.appNavigator}],
+            routes: [{name: ScreensConstants.AppNavigator}],
           });
       }
     }}>

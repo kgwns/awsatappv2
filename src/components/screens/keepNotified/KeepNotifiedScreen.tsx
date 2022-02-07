@@ -5,8 +5,8 @@ import {Label, Image} from 'src/components/atoms';
 import {normalize} from 'src/shared/utils';
 import {ImagesName} from 'src/shared/styles';
 import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
-import {RoutesName} from 'src/navigation';
 import {useTranslation} from 'react-i18next';
+import {ScreensConstants} from 'src/constants';
 
 export const KeepNotifiedScreen = ({navigation}: any) => {
   const [t] = useTranslation();
@@ -25,7 +25,7 @@ export const KeepNotifiedScreen = ({navigation}: any) => {
         onPress={() =>
           navigation.reset({
             index: 0,
-            routes: [{name: RoutesName.appNavigator}],
+            routes: [{name: ScreensConstants.AppNavigator}],
           })
         }
       />
