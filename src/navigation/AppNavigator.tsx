@@ -4,12 +4,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {ScreensConstants} from '../constants/ScreenConstants';
 import {Routes, RoutesName} from './index';
 import {StyleSheet} from 'react-native';
-import {Image, ImageName, Label} from '../components/atoms';
-import {colors} from '../shared/styles/colors';
+import {Image, ImageName, Label} from 'src/components/atoms';
+import {colors} from 'src/shared/styles/colors';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {ImagesName} from '../shared/styles/images';
-import DrawerNavigator from './DrawerNavigator';
+import {ImagesName} from 'src/shared/styles/images';
 import {normalize} from 'src/shared/utils';
+import DrawerNavigator from './DrawerNavigator';
 
 const Stack = createStackNavigator();
 
@@ -41,22 +41,22 @@ const onBoardPrev = () => (
 
 const AppNavigator = () => {
   return (
-      <Stack.Navigator initialRouteName={RoutesName.latestNewsScreen}>
-        <Stack.Screen
-          name={ScreensConstants.HOME_SCREEN}
-          component={DrawerNavigator}
-          options={{
-           headerShown: false
-          }}
-        />
-        <Stack.Screen
-          name={ScreensConstants.SearchScreen}
-          component={Routes.SearchScreen}
-          options={{
-           headerShown: false
-          }}
-        />
-      </Stack.Navigator>
+    <Stack.Navigator initialRouteName={RoutesName.latestNewsScreen}>
+      <Stack.Screen
+        name={ScreensConstants.HOME_SCREEN}
+        component={DrawerNavigator}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.SearchScreen}
+        component={Routes.SearchScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 

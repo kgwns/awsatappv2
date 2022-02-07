@@ -3,30 +3,31 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {colors} from 'src/shared/styles/colors';
 import {Label, Image} from 'src/components/atoms';
 import {normalize} from 'src/shared/utils';
-import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import {ImagesName} from 'src/shared/styles';
-import {useNavigation} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
+import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
 import {RoutesName} from 'src/navigation';
+import {useTranslation} from 'react-i18next';
 
-export const FollowFavoriteAuthorScreen = () => {
-  const navigation = useNavigation();
+export const KeepNotifiedScreen = ({navigation}: any) => {
   const [t] = useTranslation();
   return (
-    <View style={FollowFavoriteAuthorScreenStyle.container}>
-      <View style={FollowFavoriteAuthorScreenStyle.textContainer}>
-        <Label style={FollowFavoriteAuthorScreenStyle.titleStyle}>
-          {t('onBoard.followFavoriteAuthor.title')}
-        </Label>
-        <Label style={FollowFavoriteAuthorScreenStyle.descStyle}>
-          {t('onBoard.followFavoriteAuthor.description')}
-        </Label>
-      </View>
-      <View style={FollowFavoriteAuthorScreenStyle.widgetContainer}>
-        <FollowFavoriteAuthorWidget />
+    <View style={KeepNotifiedScreenStyle.container}>
+      <Label style={KeepNotifiedScreenStyle.titleStyle}>
+        {t('onBoard.keepNotified.title')}
+      </Label>
+      <Label style={KeepNotifiedScreenStyle.descStyle}>
+        {t('onBoard.keepNotified.description')}
+      </Label>
+      <View style={KeepNotifiedScreenStyle.contentStyle}>
+        <KeepNotifiedWidget />
       </View>
       <NextButton
-        onPress={() => navigation.navigate(RoutesName.keepNotifiedScreen)}
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{name: RoutesName.appNavigator}],
+          })
+        }
       />
     </View>
   );
@@ -37,38 +38,23 @@ const NextButton = ({onPress}: any) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={FollowFavoriteAuthorScreenStyle.nextButtonContainer}>
-      <View style={FollowFavoriteAuthorScreenStyle.nextButtonIconContainer}>
+      style={KeepNotifiedScreenStyle.nextButtonContainer}>
+      <View style={KeepNotifiedScreenStyle.nextButtonIconContainer}>
         <Image name={ImagesName.arrowNext} />
       </View>
-
-      <View style={FollowFavoriteAuthorScreenStyle.nextButtonTextContainer}>
-        <Label style={FollowFavoriteAuthorScreenStyle.nextButtonText}>
+      <View style={KeepNotifiedScreenStyle.nextButtonTextContainer}>
+        <Label style={KeepNotifiedScreenStyle.nextButtonText}>
           {t('onBoard.common.nextBtn')}
         </Label>
       </View>
     </TouchableOpacity>
   );
 };
-
-const FollowFavoriteAuthorScreenStyle = StyleSheet.create({
+const KeepNotifiedScreenStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.aquaHaze,
     shadowColor: colors.transparent,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textContainer: {
-    top: 0,
-    position: 'absolute',
-    marginTop: normalize(10),
-  },
-  widgetContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
   },
   titleStyle: {
     textAlign: 'center',
@@ -83,6 +69,10 @@ const FollowFavoriteAuthorScreenStyle = StyleSheet.create({
     fontSize: normalize(15),
     color: colors.davyGrey,
     lineHeight: normalize(30),
+    marginBottom: normalize(15),
+  },
+  contentStyle: {
+    marginBottom: normalize(200),
   },
   nextButtonContainer: {
     width: '90%',
@@ -92,16 +82,13 @@ const FollowFavoriteAuthorScreenStyle = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     borderRadius: normalize(51 / 2),
-    marginTop: normalize(30),
+    marginTop: normalize(10),
     marginBottom: normalize(30),
     position: 'absolute',
     bottom: 0,
   },
   nextButtonIconContainer: {flex: 0.1, marginEnd: normalize(10)},
-  nextButtonTextContainer: {
-    flex: 1,
-    left: normalize(-18),
-  },
+  nextButtonTextContainer: {flex: 1, left: normalize(-18)},
   nextButtonText: {
     color: colors.greenishBlue,
     fontSize: normalize(16),

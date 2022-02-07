@@ -6,4 +6,5 @@ export enum flatListUniqueKey {
   AUTHOR_WIDGET = 'AuthorWidget',
   MOST_READ_LIST = 'MostReadList',
   FOLLOW_FAVORITE_AUTHOR_WIDGET = 'FollowFavoriteAuthorWidget',
+  KEEP_NOTIFIED_WIDGET = 'KeepNotifiedWidget',
 }

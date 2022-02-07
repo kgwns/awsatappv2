@@ -1,6 +1,5 @@
 import React, {FunctionComponent} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {ScreensConstants} from 'src/constants';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
@@ -8,6 +7,7 @@ import {normalize} from '../../../shared/utils';
 import {Label, Image} from '../../atoms';
 import {ImagesName} from '../../../shared/styles/images';
 import {SocialButtonSection} from '../../../components/organisms/';
+import { RoutesName } from 'src/navigation';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -36,7 +36,10 @@ export const AuthPage: FunctionComponent = () => {
       case NavigateTypes.signinPage:
         return;
       default:
-        navigation.navigate(ScreensConstants.OnBoardNavigator);
+        navigation.reset({
+          index: 0,
+          routes: [{name: RoutesName.onBoardNavigator}],
+        });
     }
   };
 

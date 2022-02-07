@@ -22,13 +22,17 @@ import searchIcon from 'src/assets/images/headerIcons/search_icon.png';
 import headerLogo from 'src/assets/images/headerIcons/header_logo.png';
 import menuIcon from 'src/assets/images/headerIcons/menu_icon.png';
 
+//onBoard Screen
+import arrowPrev from 'src/assets/images/onBoard/arrow_prev.png';
+import arrowNext from 'src/assets/images/onBoard/arrow_next.png';
+
+//Keep Notified OnBoard
+import notification from 'src/assets/images/keepNotified/notification.png';
+import notificationSelected from 'src/assets/images/keepNotified/notification_selected.png';
+
 // Follow your favorite book
 import authorItemActive from 'src/assets/images/favorite_author/author_item_active.png';
 import authorItem from 'src/assets/images/favorite_author/author_item.png';
-
-// OnBoard Screen
-import arrowPrev from 'src/assets/images/onBoardScreen/arrow_prev.png';
-import arrowNext from 'src/assets/images/onBoardScreen/arrow_next.png';
 
 //social icons
 import googleIcon from 'src/assets/images/socialButton/google-icon-logo.png';
@@ -57,10 +61,12 @@ export enum ImagesName {
   bookMarkActiveWhite = 'bookMarkActiveWhite',
   arrowLeftFaced = 'arrowLeftFaced',
   greenPlayIcon = 'greenPlayIcon',
-  authorItem = 'authorItem',
-  authorItemActive = 'authorItemActive',
+  notification = 'notification',
+  notificationSelected = 'notificationSelected',
   arrowPrev = 'arrowPrev',
   arrowNext = 'arrowNext',
+  authorItem = 'authorItem',
+  authorItemActive = 'authorItemActive',
   googleIcon = 'googleIcon',
   appleIcon = 'appleIcon',
   facebookIcon = 'facebookIcon',
@@ -86,10 +92,12 @@ export const images = {
   bookMarkActiveWhite,
   arrowLeftFaced,
   greenPlayIcon,
-  authorItemActive,
-  authorItem,
+  notification,
+  notificationSelected,
   arrowPrev,
   arrowNext,
+  authorItemActive,
+  authorItem,
   googleIcon,
   appleIcon,
   facebookIcon,

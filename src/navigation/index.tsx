@@ -6,6 +6,7 @@ import {
   AuthPage,
   SearchScreen,
   FollowFavoriteAuthorScreen,
+  KeepNotifiedScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -22,6 +23,7 @@ export const Routes = {
   SearchScreen,
   OnBoardNavigator,
   FollowFavoriteAuthorScreen,
+  KeepNotifiedScreen,
 };
 
 /**
@@ -40,6 +42,7 @@ export type ScreenList = {
   SearchScreen: undefined;
   OnBoardNavigator: undefined;
   FollowFavoriteAuthorScreen: undefined;
+  KeepNotifiedScreen: undefined;
 };
 
 export type ScreenName = keyof undefined;
@@ -53,6 +56,7 @@ const appNavigator = 'appNavigator' as ScreenName;
 const authNavigator = 'authNavigator' as ScreenName;
 const onBoardNavigator = 'onBoardNavigator' as ScreenName;
 const followFavoriteAuthorScreen = 'followFavoriteAuthorScreen' as ScreenName;
+const keepNotifiedScreen = 'keepNotifiedScreen' as ScreenName;
 
 export const RoutesName = {
   favoriteScreen,
@@ -64,4 +68,5 @@ export const RoutesName = {
   authNavigator,
   onBoardNavigator,
   followFavoriteAuthorScreen,
+  keepNotifiedScreen,
 };

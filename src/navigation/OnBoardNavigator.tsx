@@ -11,6 +11,7 @@ import {StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Image, Label} from 'src/components/atoms';
 import {ImagesName} from 'src/shared/styles';
+import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 
 const Stack = createStackNavigator<ScreenList>();
@@ -23,21 +24,45 @@ const defaultScreenOptions: StackNavigationOptions = {
 const HeaderLogo = () => (
   <Image style={headerStyles.logo} name={ImagesName.headerLogo} />
 );
-const onBoardSkip = () => (
-  <TouchableOpacity onPress={() => console.log('skip')}>
-    <Label style={headerStyles.onBoardSkip}>تخطي</Label>
+const onBoardSkip = (navigation: any, translation: any, routesName: any) => (
+  <TouchableOpacity
+    onPress={() => {
+      switch (routesName) {
+        case RoutesName.keepNotifiedScreen:
+          navigation.navigate(RoutesName.keepNotifiedScreen);
+          return;
+        case RoutesName.appNavigator:
+          navigation.reset({
+            index: 0,
+            routes: [{name: RoutesName.appNavigator}],
+          });
+          return;
+        default:
+          navigation.reset({
+            index: 0,
+            routes: [{name: RoutesName.appNavigator}],
+          });
+      }
+    }}>
+    <Label style={headerStyles.onBoardSkip}>
+      {translation('onBoard.common.skip')}
+    </Label>
   </TouchableOpacity>
 );
-const onBoardReturn = () => (
+const onBoardReturn = (navigation: any, translation: any) => (
   <TouchableOpacity
     style={headerStyles.onBoardReturn}
-    onPress={() => console.log('return')}>
-    <Label style={headerStyles.onBoardPrevTitle}>الرجوع</Label>
+    onPress={() => navigation.goBack()}>
+    <Label style={headerStyles.onBoardPrevTitle}>
+      {translation('onBoard.common.return')}
+    </Label>
     <Image name="arrowPrev" style={headerStyles.onBoardPrevIcon} />
   </TouchableOpacity>
 );
 
 const OnBoardNavigator = () => {
+  const navigation = useNavigation();
+  const [t] = useTranslation();
   return (
     <Stack.Navigator screenOptions={defaultScreenOptions}>
       <Stack.Screen
@@ -45,10 +70,23 @@ const OnBoardNavigator = () => {
         component={Routes.FollowFavoriteAuthorScreen}
         options={{
           headerStyle: headerStyles.container,
-          headerLeft: onBoardReturn,
+          headerLeft: () => onBoardReturn(navigation, t),
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
-          headerRight: onBoardSkip,
+          headerRight: () =>
+            onBoardSkip(navigation, t, RoutesName.keepNotifiedScreen),
+        }}
+      />
+      <Stack.Screen
+        name={RoutesName.keepNotifiedScreen}
+        component={Routes.KeepNotifiedScreen}
+        options={{
+          headerStyle: headerStyles.container,
+          headerLeft: () => onBoardReturn(navigation, t),
+          headerTitle: HeaderLogo,
+          headerTitleAlign: 'center',
+          headerRight: () =>
+            onBoardSkip(navigation, t, RoutesName.appNavigator),
         }}
       />
     </Stack.Navigator>

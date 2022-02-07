@@ -16,10 +16,18 @@ export const arabic = {
     myPersonalAccount: 'حسابي الشخصي',
   },
   onBoard: {
+    common: {
+      nextBtn: 'التالي',
+      skip: 'تخطي',
+      return: 'الرجوع',
+    },
     followFavoriteAuthor: {
       title: 'تابع كتابك المفضلين',
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
-      nextBtn: 'التالي',
+    },
+    keepNotified: {
+      title: 'ما الذي تريد أن تبقى على اطلاع عليه؟',
+      description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
   },
 };
