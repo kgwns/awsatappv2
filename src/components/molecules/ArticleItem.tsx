@@ -15,7 +15,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     <View key={flatListUniqueKey.ARTICLE_SECTION + props.index} style={{ paddingBottom: normalize(20) }}>
         {image && <ImageWithLabel url={image} imageStyle={imageStyle}
             tagName={props.tagName} tagStyle={props.tagStyle} tagLabelType={props.tagLabelType} />}
-        <ArticleWithOutImage {...props} />
+        <ArticleWithOutImage showDivider={false} {...props} />
     </View>
 )
 

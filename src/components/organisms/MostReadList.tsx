@@ -8,6 +8,8 @@ import { Label, LabelTypeProp } from 'src/components/atoms';
 import { MOST_READ } from 'src/constants/SharedConstants';
 import { Styles } from 'src/shared/styles';
 import { normalize } from 'src/shared/utils';
+import { MostReadItemType } from 'src/redux/mostRead/types';
+import { getImageUrl } from 'src/shared/utils/utilities';
 
 export interface articleProps extends ImageLabelProps, ArticleWithOutImageProps {
     image?: string,
@@ -15,12 +17,17 @@ export interface articleProps extends ImageLabelProps, ArticleWithOutImageProps 
 }
 
 export interface ArticleSectionProps {
-    data: articleProps[]
+    data: MostReadItemType[]
 }
 
 
 const MostReadList = ({ data }: ArticleSectionProps) => {
-    const renderItem = (item: articleProps, index: number) => {
+    const renderItem = (item: any, index: number) => {
+        item.tagName = (index + 1).toString();
+        item.tagStyle = {marginLeft: normalize(16)};
+        item.tagLabelType = LabelTypeProp.p3;
+        item.image = item.image ? item.image : getImageUrl(item.field_image);
+        item.description = item.description ? item.description : item.body;
         return <ArticleItem {...item} index={index} contentStyle={mostReadListStyle.contentStyle} />
     }
 
