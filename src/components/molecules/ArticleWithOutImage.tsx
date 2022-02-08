@@ -6,6 +6,7 @@ import { Styles } from '../../shared/styles';
 import { articleFooterSample } from 'src/constants/SampleData';
 import { ArticleFooter } from 'src/components/molecules';
 import { TextWithFlagProps } from 'src/components/atoms';
+import { decodeHTMLTags } from 'src/shared/utils/utilities';
 
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
     description: string,
@@ -17,7 +18,7 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
 const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = (props) => (
     <View style={{ ...props.contentStyle }}>
         <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
-        <Label labelType={LabelTypeProp.p3} children={props.description} color={Styles.color.davyGrey} numberOfLines={3}/>
+        <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(props.description)} color={Styles.color.davyGrey} numberOfLines={3}/>
         <View style={{ flex: 1, paddingTop: normalize(10) }}>
             <ArticleFooter {...props.footerInfo ? { ...props.footerInfo } : { ...articleFooterSample }} />
         </View>

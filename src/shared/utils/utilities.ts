@@ -1,7 +1,8 @@
 import { Alert, ColorSchemeName } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
 import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE } from "../../constants/SharedConstants"
-import { Edge } from "react-native-safe-area-context"
+import { Edge } from "react-native-safe-area-context";
+import { BASE_URL } from "src/services/apiUrls";
 
 export interface CustomAlertProps {
     title?: string,
@@ -23,4 +24,13 @@ export const testProps = (testID: string | undefined) => {
     return { testID: testID, accessibilityLabel: testID }
 }
 
-export const horizontalEdge: Edge[] = ['left','right']
+export const horizontalEdge: Edge[] = ['left', 'right']
+
+export const getImageUrl = (imageURL: string) => {
+    return BASE_URL + imageURL;
+}
+
+export const decodeHTMLTags = (description: string) => {
+    const regex = /(<([^>]+)>)/ig; // to find the html tags in the description ex: <p>, <br>, etc.,   
+    return description ? description.replace(regex, '') : description;
+} 
