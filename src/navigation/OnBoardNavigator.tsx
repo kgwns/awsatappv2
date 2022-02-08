@@ -4,7 +4,7 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import {RoutesName, Routes, ScreenList} from './index';
+import { Routes, ScreenList} from './index';
 import {colors} from 'src/shared/styles/colors';
 import {normalize} from 'src/shared/utils';
 import {StyleSheet} from 'react-native';
@@ -29,10 +29,10 @@ const onBoardSkip = (navigation: any, translation: any, routesName: any) => (
   <TouchableOpacity
     onPress={() => {
       switch (routesName) {
-        case RoutesName.keepNotifiedScreen:
-          navigation.navigate(RoutesName.keepNotifiedScreen);
+        case ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN:
+          navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN);
           return;
-        case RoutesName.appNavigator:
+        case ScreensConstants.AppNavigator:
           navigation.reset({
             index: 0,
             routes: [{name: ScreensConstants.AppNavigator}],
@@ -67,7 +67,7 @@ const OnBoardNavigator = () => {
   return (
     <Stack.Navigator screenOptions={defaultScreenOptions}>
       <Stack.Screen
-        name={RoutesName.followFavoriteAuthorScreen}
+        name={ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN}
         component={Routes.FollowFavoriteAuthorScreen}
         options={{
           headerStyle: headerStyles.container,
@@ -75,11 +75,11 @@ const OnBoardNavigator = () => {
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
           headerRight: () =>
-            onBoardSkip(navigation, t, RoutesName.keepNotifiedScreen),
+            onBoardSkip(navigation, t, ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN),
         }}
       />
       <Stack.Screen
-        name={RoutesName.keepNotifiedScreen}
+        name={ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN}
         component={Routes.KeepNotifiedScreen}
         options={{
           headerStyle: headerStyles.container,
@@ -87,7 +87,7 @@ const OnBoardNavigator = () => {
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
           headerRight: () =>
-            onBoardSkip(navigation, t, RoutesName.appNavigator),
+            onBoardSkip(navigation, t, ScreensConstants.AppNavigator),
         }}
       />
     </Stack.Navigator>
