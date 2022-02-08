@@ -5,7 +5,7 @@ import {
   getMostReadError,
 } from 'src/redux/mostRead/selectors';
 import { fetchMostRead } from 'src/redux/mostRead/action';
-import { MostReadItemType } from '~/redux/mostRead/types';
+import { MostReadItemType } from 'src/redux/mostRead/types';
 
 export interface UseMostReadReturn {
   isLoading: boolean;
