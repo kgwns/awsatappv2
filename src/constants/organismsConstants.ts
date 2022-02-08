@@ -8,4 +8,6 @@ export enum flatListUniqueKey {
   BANNER_ARTICLE_LIST = 'BannerArticleList',
   FOLLOW_FAVORITE_AUTHOR_WIDGET = 'FollowFavoriteAuthorWidget',
   KEEP_NOTIFIED_WIDGET = 'KeepNotifiedWidget',
+  OPINION_WRITER_SECTION = 'OpinionWriterSection',
+  OPINION_WRITER_ARTICLES_SECTION = 'OpinionWriterArticleSection',
 }

@@ -1,23 +1,35 @@
-import { WidgetHeaderProps } from "src/components/atoms/widgetHeader/WidgetHeader";
-import { LabelTypeProp,TextWithFlagProps } from "src/components/atoms";
-import { ImagesName, Styles } from "src/shared/styles";
-import { AuthorItemProps,articleFooterProps, TabBarDataProps } from "src/components/molecules";
-import { Theme } from "src/redux/appCommon/types";
+import {WidgetHeaderProps} from 'src/components/atoms/widgetHeader/WidgetHeader';
+import {LabelTypeProp, TextWithFlagProps} from 'src/components/atoms';
+import {ImagesName, Styles} from 'src/shared/styles';
+import {
+  AuthorItemProps,
+  articleFooterProps,
+  TabBarDataProps,
+} from 'src/components/molecules';
+import {Theme} from 'src/redux/appCommon/types';
 import configureStore from 'redux-mock-store';
-import { articleProps, ShortArticleProps, SearchResultsProps } from "src/components/organisms"
-import { normalize } from "src/shared/utils"
+import {
+  articleProps,
+  ShortArticleProps,
+  SearchResultsProps,
+} from 'src/components/organisms';
+import {normalize} from 'src/shared/utils';
+import OpinionWritersSection, {
+  opinionWriterProps,
+} from '~/components/organisms/OpinionWritersSection';
+import {opinionWriterArticleProps} from '~/components/organisms/OpinionWritersArticlesSection';
 
 const mockStore = configureStore();
 export const storeSampleData = mockStore({
   appCommon: {
-    theme: Theme.LIGHT
+    theme: Theme.LIGHT,
   },
   home: {
     isLoading: false,
     homeData: null,
-    error: ''
-  }
-})
+    error: '',
+  },
+});
 
 export const sampleTextWithFlag: TextWithFlagProps = {
   title: ' يدمّر مسيّرتين بالأجواء اليمنية أُطلقت نحو المملكة',
@@ -25,26 +37,26 @@ export const sampleTextWithFlag: TextWithFlagProps = {
   barColor: Styles.color.greenishBlue,
   flag: 'آخر الأخبار',
   flagColor: Styles.color.darkSlateGray,
-  labelType: LabelTypeProp.p5
-}
+  labelType: LabelTypeProp.p5,
+};
 
 export const shortArticleData: ShortArticleProps[] = [
   {
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-    labelType: LabelTypeProp.h3
+    labelType: LabelTypeProp.h3,
   },
   {
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-    labelType: LabelTypeProp.h3
+    labelType: LabelTypeProp.h3,
   },
   {
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-    labelType: LabelTypeProp.h3
-  }
-]
+    labelType: LabelTypeProp.h3,
+  },
+];
 
 export const shortArticleWithTagData: ShortArticleProps[] = [
   {
@@ -54,7 +66,7 @@ export const shortArticleWithTagData: ShortArticleProps[] = [
     flag: 'استنكار',
     flagColor: Styles.color.greenishBlue,
     barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h3
+    labelType: LabelTypeProp.h3,
   },
   {
     image: 'https://picsum.photos/200/300',
@@ -63,7 +75,7 @@ export const shortArticleWithTagData: ShortArticleProps[] = [
     flag: 'استنكار',
     flagColor: Styles.color.greenishBlue,
     barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h3
+    labelType: LabelTypeProp.h3,
   },
   {
     image: 'https://picsum.photos/200/300',
@@ -72,7 +84,7 @@ export const shortArticleWithTagData: ShortArticleProps[] = [
     flag: 'استنكار',
     flagColor: Styles.color.greenishBlue,
     barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h3
+    labelType: LabelTypeProp.h3,
   },
   {
     image: 'https://picsum.photos/200/300',
@@ -81,7 +93,7 @@ export const shortArticleWithTagData: ShortArticleProps[] = [
     flag: 'استنكار',
     flagColor: Styles.color.greenishBlue,
     barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h3
+    labelType: LabelTypeProp.h3,
   },
   {
     image: 'https://picsum.photos/200/300',
@@ -90,51 +102,51 @@ export const shortArticleWithTagData: ShortArticleProps[] = [
     flag: 'استنكار',
     flagColor: Styles.color.greenishBlue,
     barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h3
-  }
-]
+    labelType: LabelTypeProp.h3,
+  },
+];
 
 export const authorHeaderData: WidgetHeaderProps = {
   headerLeft: {
     title: 'آراء وكتّاب ',
     color: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h2
+    labelType: LabelTypeProp.h2,
   },
   headerRight: {
     title: 'المزيد',
     icon: ImagesName.arrowLeftFaced,
     color: Styles.color.smokeyGrey,
     labelType: LabelTypeProp.h3,
-    clickable: true
-  }
-}
+    clickable: true,
+  },
+};
 
 export const authorWidgetData: AuthorItemProps[] = [
   {
     author: 'عادل درويش',
     description: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
-    image: 'https://picsum.photos/200/300'
+    image: 'https://picsum.photos/200/300',
   },
   {
     author: 'عادل درويش',
     description: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
-    image: 'https://picsum.photos/200/300'
+    image: 'https://picsum.photos/200/300',
   },
   {
     author: 'عادل درويش',
     description: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
-    image: 'https://picsum.photos/200/300'
+    image: 'https://picsum.photos/200/300',
   },
   {
     author: 'عادل درويش',
     description: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
-    image: 'https://picsum.photos/200/300'
+    image: 'https://picsum.photos/200/300',
   },
-]
+];
 
 export const articleFooterSample: articleFooterProps = {
   leftTitle: 'وتمجيد',
@@ -142,22 +154,22 @@ export const articleFooterSample: articleFooterProps = {
   rightTitle: 'يتحمل',
   rightIcon: ImagesName.clock,
   rightTitleColor: Styles.color.silverChalice,
-}
+};
 
 export const articleSectionData: articleProps[] = [
   {
-      image: 'https://picsum.photos/200/300',
-      title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-      description: `أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت، أن مجموعة مؤسسات استثمارية تعهدت بالمساهمة في المشروع بمليار دولار`,
-      tagName: 'مجما'
+    image: 'https://picsum.photos/200/300',
+    title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+    description: `أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت، أن مجموعة مؤسسات استثمارية تعهدت بالمساهمة في المشروع بمليار دولار`,
+    tagName: 'مجما',
   },
   {
     image: 'https://picsum.photos/200/300',
     title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
     description: `أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت، أن مجموعة مؤسسات استثمارية تعهدت بالمساهمة في المشروع بمليار دولار`,
-    tagName: 'مجما'
-}
-]
+    tagName: 'مجما',
+  },
+];
 
 const mostReadItem = {
   image: 'https://picsum.photos/200/300',
@@ -169,90 +181,90 @@ const mostReadItem = {
   labelType: LabelTypeProp.h3,
   tagStyle: {marginLeft: normalize(16)},
   tagLabelType: LabelTypeProp.p3,
-  showDivider: false
-}
+  showDivider: false,
+};
 
 export const mostReadData: articleProps[] = [
   {
     tagName: '1',
-    ...mostReadItem
+    ...mostReadItem,
   },
   {
     tagName: '2',
-    ...mostReadItem
+    ...mostReadItem,
   },
   {
     tagName: '3',
-    ...mostReadItem
+    ...mostReadItem,
   },
   {
     tagName: '4',
-    ...mostReadItem
+    ...mostReadItem,
   },
   {
     tagName: '5',
-    ...mostReadItem
+    ...mostReadItem,
   },
   {
     tagName: '6',
-    ...mostReadItem
+    ...mostReadItem,
   },
   {
     tagName: '7',
-    ...mostReadItem
+    ...mostReadItem,
   },
   {
     tagName: '8',
-    ...mostReadItem
+    ...mostReadItem,
   },
   {
     tagName: '9',
-    ...mostReadItem
+    ...mostReadItem,
   },
   {
     tagName: '10',
-    ...mostReadItem
-  }
-]
+    ...mostReadItem,
+  },
+];
 
-export const sectionTabItem: TabBarDataProps[]  = [
+export const sectionTabItem: TabBarDataProps[] = [
   {
     tabName: 'العالم العربي',
-    isSelected: true
+    isSelected: true,
   },
   {
     tabName: 'الرأي',
-    isSelected: false
+    isSelected: false,
   },
   {
     tabName: 'بودكاست',
-    isSelected: false
+    isSelected: false,
   },
   {
     tabName: 'أولى',
-    isSelected: false
+    isSelected: false,
   },
   {
     tabName: 'فيديو',
-    isSelected: false
+    isSelected: false,
   },
   {
     tabName: 'يوميات الشرق',
-    isSelected: false
+    isSelected: false,
   },
   {
     tabName: 'العالم العربي',
-    isSelected: false
+    isSelected: false,
   },
   {
     tabName: 'العالم العربي',
-    isSelected: false
+    isSelected: false,
   },
   {
     tabName: 'العالم العربي',
-    isSelected: false
-  }
-]
+    isSelected: false,
+  },
+];
 
 export const searchResults: SearchResultsProps[] = [
   {
@@ -299,4 +311,98 @@ export const searchResults: SearchResultsProps[] = [
     id: '11',
     label: 'عنوان لاخر المواضيع بوضع هنا',
   },
-  ]
+];
+
+export const opinionWritersData: opinionWriterProps[] = [
+  {
+    imageUrl: 'https://picsum.photos/200',
+    label: 'إياد أبو شقرا',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    label: 'فايز سارة',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    label: 'إنعام كجه جي',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    label: 'طارق الحميد',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    label: 'عبدالله بن بجاد العتيبي',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    label: 'إياد أبو شقرا',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    label: 'فايز سارة',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    label: 'إنعام كجه جي',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    label: 'طارق الحميد',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    label: 'عبدالله بن بجاد العتيبي',
+  },
+];
+
+export const opinionWritersArticlesData: opinionWriterArticleProps[] = [
+  {
+    imageUrl: 'https://picsum.photos/200',
+    writerTitle: 'إياد أبو شقرا',
+    headLine: 'هل بدأ العد العكسي لنهاية حكم جونسون في بريطانيا؟',
+    subHeadLine: 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
+    audioLabel: 'استمع الي المقالة ',
+    duration: '3:22',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    writerTitle: 'فايز سارة',
+    headLine: 'ما ورثناه من تركة «الصديق الصدوق» للشعب السوري',
+    subHeadLine: 'تعود بداية العلاقات السورية - الروسية إلى عام 1944، الذي شهد إقامة علاقات دبلوماسية بين الاتحاد السوفياتي والجمهورية السورية - حسب مسميات تلك الأيام،',
+    audioLabel: 'استمع الي المقالة ',
+    duration: '3:22',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    writerTitle: 'راجح الخوري',
+    headLine: 'فيينا قطبة قطبة كسجادة عجمية؟!',
+    subHeadLine: 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
+    audioLabel: 'استمع الي المقالة ',
+    duration: '3:22',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    writerTitle: 'إياد أبو شقرا',
+    headLine: 'هل بدأ العد العكسي لنهاية حكم جونسون في بريطانيا؟',
+    subHeadLine: 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
+    audioLabel: 'استمع الي المقالة ',
+    duration: '3:22',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    writerTitle: 'فايز سارة',
+    headLine: 'ما ورثناه من تركة «الصديق الصدوق» للشعب السوري',
+    subHeadLine: 'تعود بداية العلاقات السورية - الروسية إلى عام 1944، الذي شهد إقامة علاقات دبلوماسية بين الاتحاد السوفياتي والجمهورية السورية - حسب مسميات تلك الأيام،',
+    audioLabel: 'استمع الي المقالة ',
+    duration: '3:22',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    writerTitle: 'راجح الخوري',
+    headLine: 'فيينا قطبة قطبة كسجادة عجمية؟!',
+    subHeadLine: 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
+    audioLabel: 'استمع الي المقالة ',
+    duration: '3:22',
+  },
+];
