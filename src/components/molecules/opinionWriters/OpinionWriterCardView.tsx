@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CircleImage} from 'src/components/molecules';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {normalize, screenWidth} from 'src/shared/utils';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
@@ -22,7 +21,7 @@ const OpinionWritersCardView = ({
   return (
     <View style={style.container}>
       <View style={style.topImageWithLabelContainer}>
-        <CircleImage imageUrl={imageUrl} diameter={43} />
+        <Image size={43} url={imageUrl} type="round" />
         <Label style={style.writerLabel}>{writerTitle}</Label>
       </View>
       <View style={style.headLineContainer}>
@@ -39,6 +38,7 @@ const OpinionWritersCardView = ({
             icon={() => <PlayIcon />}
             style={style.playIcon}
             onPress={() => console.log('play icon pressed')}
+            testId={'playIconTestId'}
           />
           <Label style={style.footerLabel}>{audioLabel}</Label>
           <Label style={style.duration}>{duration}</Label>
@@ -50,6 +50,7 @@ const OpinionWritersCardView = ({
             }
             onPress={() => setSave(!save)}
             size={normalize(18)}
+            testID={'bookmarkTestId'}
           />
         </View>
       </View>
