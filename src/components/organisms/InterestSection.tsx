@@ -1,10 +1,11 @@
-import { View, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { View, StyleSheet, ScrollView, FlatList, Platform } from 'react-native';
 import React from 'react';
 import { BorderLabel } from '../atoms/BorderLabel/BorderLabel';
 import { normalize, screenWidth } from 'src/shared/utils';
 import { flatListUniqueKey } from 'src/constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
+// import { platform } from 'os';
 
 
 const data = [
@@ -454,7 +455,7 @@ const InterestSection = () => {
     return (
       <View style={style.rowContainer} key={index}>
         <FlatList
-          inverted={true}
+          inverted={Platform.OS==='ios'? false : true}
           scrollEnabled={false}
           horizontal
           keyExtractor={(_, index) => index.toString()}
@@ -466,9 +467,6 @@ const InterestSection = () => {
       </View>
     )
   }
-  console.log('Interest')
-  console.log(data.length)
-  console.log(splicedArray.length)
   return (
     <ScrollView style={style.container} horizontal={true} showsHorizontalScrollIndicator={false}>
       <ScrollView style={style.container} horizontal={false} scrollEnabled={false}>
