@@ -64,6 +64,7 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       width: '100%',
       padding: 0.04 * screenWidth,
+      backgroundColor: theme.backgroundColor,
     },
     topImageWithLabelContainer: {
       flexDirection: 'row',

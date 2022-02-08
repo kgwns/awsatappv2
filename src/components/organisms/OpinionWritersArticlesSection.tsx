@@ -46,7 +46,7 @@ const OpinionWritersArticlesSection = ({
     );
   };
   return (
-    <View>
+    <View style={style.container}>
       <FlatList
         keyExtractor={(_, index) => index.toString()}
         listKey={
@@ -63,9 +63,12 @@ const OpinionWritersArticlesSection = ({
 
 const customStyle = (theme: CustomThemeType) => {
   const OpinionWritersArticlesSectionStyle = StyleSheet.create({
+    container: {
+      backgroundColor: theme.backgroundColor,
+    },
     scrollMore: {
       fontSize: normalize(16),
-      lineHeight:normalize(73),
+      lineHeight: normalize(73),
       color: theme.primary,
       textAlign: 'center',
     },

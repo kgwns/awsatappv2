@@ -20,10 +20,10 @@ export const SectionsScreen = () => {
 
   const tabContent = () => {
     switch (sectionTabItem[tabSelectedIndex].tabName) {
+      case 'العالم العربي':
+        return <Label>'العالم العربي'</Label>;
       case 'الرأي':
         return <OpinionScreen />;
-      case 'الرأي':
-        return <Label>'الرأي'</Label>;
       case 'بودكاست':
         return <Label> 'بودكاست'</Label>;
       case 'أولى':
