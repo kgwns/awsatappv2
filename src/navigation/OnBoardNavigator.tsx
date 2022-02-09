@@ -4,7 +4,7 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import { Routes, ScreenList} from './index';
+import {Routes, ScreenList} from './index';
 import {colors} from 'src/shared/styles/colors';
 import {normalize} from 'src/shared/utils';
 import {StyleSheet} from 'react-native';
@@ -31,6 +31,7 @@ const onBoardSkip = (navigation: any, translation: any, routesName: any) => (
       switch (routesName) {
         case ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN:
           navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN);
+          return;
         case ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN:
           navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN);
           return;
@@ -76,7 +77,11 @@ const OnBoardNavigator = () => {
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
           headerRight: () =>
-            onBoardSkip(navigation, t, ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN),
+            onBoardSkip(
+              navigation,
+              t,
+              ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN,
+            ),
         }}
       />
       <Stack.Screen
@@ -88,7 +93,11 @@ const OnBoardNavigator = () => {
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
           headerRight: () =>
-            onBoardSkip(navigation, t, ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN),
+            onBoardSkip(
+              navigation,
+              t,
+              ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN,
+            ),
         }}
       />
       <Stack.Screen
