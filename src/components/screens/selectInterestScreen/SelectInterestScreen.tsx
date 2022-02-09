@@ -4,11 +4,11 @@ import { colors } from '../../../shared/styles/colors';
 import { Label, Image } from '../../atoms';
 import { normalize } from '../../../shared/utils';
 import { ImagesName } from '../../../shared/styles';
-import { RoutesName } from '../../../navigation';
 import { useTranslation } from 'react-i18next';
 import { InterestSection } from '../../organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
+import {ScreensConstants} from 'src/constants';
 
 export const SelectInterestScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customInterestScreenStyle)
@@ -27,7 +27,7 @@ export const SelectInterestScreen = ({ navigation }: any) => {
         <InterestSection />
       </View>
       <NextButton
-        onPress={() => navigation.navigate(RoutesName.followFavoriteAuthorScreen)}
+        onPress={() => navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN)}
       />
     </View>
   );

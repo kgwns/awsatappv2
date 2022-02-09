@@ -69,7 +69,7 @@ const OnBoardNavigator = () => {
   return (
     <Stack.Navigator screenOptions={defaultScreenOptions}>
       <Stack.Screen
-        name={ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN}
+        name={ScreensConstants.SELECT_INTEREST_SCREEN}
         component={Routes.SelectInterestScreen}
         options={{
           headerStyle: headerStyles.container,

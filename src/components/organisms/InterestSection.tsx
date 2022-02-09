@@ -5,8 +5,6 @@ import { normalize, screenWidth } from 'src/shared/utils';
 import { flatListUniqueKey } from 'src/constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
-// import { platform } from 'os';
-
 
 const data = [
   {
@@ -455,7 +453,7 @@ const InterestSection = () => {
     return (
       <View style={style.rowContainer} key={index}>
         <FlatList
-          inverted={Platform.OS==='ios'? false : true}
+          inverted={Platform.OS==='android'}
           scrollEnabled={false}
           horizontal
           keyExtractor={(_, index) => index.toString()}
