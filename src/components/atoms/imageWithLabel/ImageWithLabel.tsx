@@ -13,7 +13,7 @@ export interface ImageLabelProps {
     style?: string,
     tagStyle?: object,
     tagLabelType?: LabelTypeProp,
-    imageStyle?: ImageStyle | boolean
+    imageStyle?: ImageStyle
 }
 
 export const ImageWithLabel = ({ name, url, tagName,tagStyle,

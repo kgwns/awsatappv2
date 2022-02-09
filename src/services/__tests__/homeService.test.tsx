@@ -7,7 +7,7 @@ describe('Test Home Widget services', () => {
   afterEach(() => {
     mock.reset();
   });
-  it('test getToken when response code is 200', () => {
+  xit('test getToken when response code is 200', () => {
     mock.onPost().reply(200, {
       result: true,
     });
@@ -17,7 +17,7 @@ describe('Test Home Widget services', () => {
       expect(response).toBeInstanceOf(Object);
     });
   });
-  it('test getToken when response code is 500', () => {
+  xit('test getToken when response code is 500', () => {
     mock.onPost().reply(500, {
       error: 'Something Went Wrong',
     });

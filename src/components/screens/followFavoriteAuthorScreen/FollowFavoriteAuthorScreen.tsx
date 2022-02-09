@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {RoutesName} from 'src/navigation';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import {ScreensConstants} from 'src/constants';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
@@ -45,7 +46,7 @@ export const FollowFavoriteAuthorScreen = () => {
         <FollowFavoriteAuthorWidget />
       </View>
       <NextButton
-        onPress={() => navigation.navigate(RoutesName.keepNotifiedScreen)}
+        onPress={() => navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)}
       />
     </View>
   );
