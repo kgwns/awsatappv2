@@ -43,7 +43,7 @@ const MostReadList = ({ data }: ArticleSectionProps) => {
                 keyExtractor={(_, index) => index.toString()}
                 listKey={flatListUniqueKey.MOST_READ_LIST}
                 ListHeaderComponent={listHeader}
-                data={data}
+                data={data.rows}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
             />
