@@ -9,6 +9,7 @@ interface ButtonImageProps {
   style?: StyleProp<ViewStyle>;
   icon?: () => void;
   size?: number;
+  testId?: string;
 }
 
 export const ButtonImage: FunctionComponent<ButtonImageProps> = ({
@@ -16,10 +17,11 @@ export const ButtonImage: FunctionComponent<ButtonImageProps> = ({
   image,
   style,
   size = normalize(64),
-  icon
+  icon,
+  testId,
 }) => {
   return (
-    <TouchableOpacity style={style} onPress={onPress}>
+    <TouchableOpacity style={style} onPress={onPress} testID={testId}>
       {image && <Image name={image} size={size} />}
       {icon && icon()}
     </TouchableOpacity>
