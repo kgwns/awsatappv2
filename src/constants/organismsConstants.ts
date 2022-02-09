@@ -10,4 +10,5 @@ export enum flatListUniqueKey {
   KEEP_NOTIFIED_WIDGET = 'KeepNotifiedWidget',
   OPINION_WRITER_SECTION = 'OpinionWriterSection',
   OPINION_WRITER_ARTICLES_SECTION = 'OpinionWriterArticleSection',
+  INTEREST_SECTION = 'InterestSection',
 }

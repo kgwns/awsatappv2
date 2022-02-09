@@ -8,3 +8,4 @@ export {SearchScreen} from './search_screen/SearchScreen';
 export {FollowFavoriteAuthorScreen} from 'src/components/screens/followFavoriteAuthorScreen/FollowFavoriteAuthorScreen';
 export {KeepNotifiedScreen} from 'src/components/screens/keepNotified/KeepNotifiedScreen';
 export {OpinionScreen} from 'src/components/screens/category/OpinionScreen';
+export {SelectInterestScreen} from 'src/components/screens/selectInterestScreen/SelectInterestScreen';

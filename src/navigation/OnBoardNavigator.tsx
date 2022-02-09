@@ -31,6 +31,8 @@ const onBoardSkip = (navigation: any, translation: any, routesName: any) => (
       switch (routesName) {
         case ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN:
           navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN);
+        case ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN:
+          navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN);
           return;
         case ScreensConstants.AppNavigator:
           navigation.reset({
@@ -66,6 +68,17 @@ const OnBoardNavigator = () => {
   const [t] = useTranslation();
   return (
     <Stack.Navigator screenOptions={defaultScreenOptions}>
+      <Stack.Screen
+        name={ScreensConstants.SELECT_INTEREST_SCREEN}
+        component={Routes.SelectInterestScreen}
+        options={{
+          headerStyle: headerStyles.container,
+          headerTitle: HeaderLogo,
+          headerTitleAlign: 'center',
+          headerRight: () =>
+            onBoardSkip(navigation, t, ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN),
+        }}
+      />
       <Stack.Screen
         name={ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN}
         component={Routes.FollowFavoriteAuthorScreen}

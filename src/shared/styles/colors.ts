@@ -39,6 +39,8 @@ export const colors = {
   spanishGray: '#929898',
   grayNurse: '#E3EBE6',
   doveGray: '#717171',
+  cyanGray: '#CED9D8',
+  darkGreenishBlue: '#174038',
   codGray: '#070606',
   nightBlack: '#080808',
   onyx: '#101010',

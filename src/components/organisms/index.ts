@@ -11,3 +11,5 @@ export {default as MostReadList} from './MostReadList';
 export {default as FollowFavoriteAuthorWidget} from 'src/components/organisms/FollowFavoriteAuthorWidget';
 export {default as OpinionWritersSection} from 'src/components/organisms/OpinionWritersSection';
 export {default as OpinionWritersArticlesSection} from 'src/components/organisms/OpinionWritersArticlesSection';
+export { default as InterestSection } from 'src/components/organisms/InterestSection';
+

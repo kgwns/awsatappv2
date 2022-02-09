@@ -3,8 +3,9 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {flatListUniqueKey} from 'src/constants';
 import {normalize, screenWidth} from 'src/shared/utils';
-import {colors} from 'src/shared/styles/colors';
+import {CustomThemeType} from 'src/shared/styles/colors';
 import {FollowFavoriteAuthor} from 'src/components/molecules';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 
 const data = [
   {
@@ -136,6 +137,7 @@ const data = [
 ];
 
 const FollowFavoriteAuthorWidget = () => {
+  const style = useThemeAwareObject(customStyle);
   const changeSelectedStatus = (item: any, selected: boolean) => {
     console.log(item.id);
     for (let i = 0; i < data.length; i++) {
@@ -148,7 +150,7 @@ const FollowFavoriteAuthorWidget = () => {
 
   const renderItem = (item: any) => {
     return (
-      <View style={FollowFavoriteAuthorWidgetStyle.widgetContainer}>
+      <View style={style.widgetContainer}>
         <FollowFavoriteAuthor
           authorName={item.authorName}
           authorDescription={item.authorDescription}
@@ -160,7 +162,7 @@ const FollowFavoriteAuthorWidget = () => {
     );
   };
   return (
-    <View style={FollowFavoriteAuthorWidgetStyle.container}>
+    <View style={style.container}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <FlatList
           listKey={flatListUniqueKey.FOLLOW_FAVORITE_AUTHOR_WIDGET}
@@ -176,16 +178,18 @@ const FollowFavoriteAuthorWidget = () => {
   );
 };
 
-const FollowFavoriteAuthorWidgetStyle = StyleSheet.create({
-  container: {
-    width: '100%',
-    backgroundColor: colors.aquaHaze,
-  },
-  widgetContainer: {
-    justifyContent: 'flex-end',
-    marginEnd: normalize(8),
-    marginStart: 0.04 * screenWidth,
-  },
-});
-
+const customStyle = (theme: CustomThemeType) => {
+  const FollowFavoriteAuthorWidgetStyle = StyleSheet.create({
+    container: {
+      width: '100%',
+      backgroundColor: theme.backgroundColor,
+    },
+    widgetContainer: {
+      justifyContent: 'flex-end',
+      marginEnd: normalize(8),
+      marginStart: 0.04 * screenWidth,
+    },
+  });
+  return FollowFavoriteAuthorWidgetStyle;
+};
 export default FollowFavoriteAuthorWidget;
