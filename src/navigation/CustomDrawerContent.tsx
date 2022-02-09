@@ -14,12 +14,18 @@ import TwitterIcon from 'src/assets/images/icons/twitter.svg';
 import LinkedinIcon from 'src/assets/images/icons/linkedin.svg';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import {ScrollView} from 'react-native-gesture-handler';
+import {useTheme} from 'src/shared/styles/ThemeProvider';
+import {colors, CustomThemeType} from 'src/shared/styles/colors';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 
 interface CustomDrawerContentProps {}
 
 const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const [t] = useTranslation();
   const navigation = useNavigation();
+
+  const {themeData} = useTheme();
+  const styles = useThemeAwareObject(createStyles);
 
   const header = () => (
     <View style={styles.headerContainer}>
@@ -29,14 +35,14 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       <View style={styles.headerRight}>
         <TouchableOpacity
           onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-          <CloseIcon style={styles.closeIcon} />
+          <CloseIcon fill={themeData.secondaryDarkSlate} />
         </TouchableOpacity>
       </View>
     </View>
   );
   return (
     <SafeAreaView>
-       {header()}
+      {header()}
       <ScrollView>
         <View style={styles.menuContainer}>
           <ButtonList
@@ -97,14 +103,11 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           />
           <ButtonOutline
             title={t('drawer.myPersonalAccount')}
-            leftIcon={() => <UserIcon />}
+            leftIcon={() => <UserIcon fill={themeData.primaryDarkSlateGray}/>}
+            color={themeData.primaryDarkSlateGray}
           />
           <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 30,
-            }}>
+            style={styles.socialContainer}>
             <ButtonImage
               icon={() => <LinkedinIcon />}
               onPress={() => console.log('linkedin')}
@@ -129,41 +132,42 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         </View>
       </ScrollView>
     </SafeAreaView>
-    // <View style={{marginTop:60}}><LeftArrow/></View>
   );
 };
 
 export default CustomDrawerContent;
-
-const styles = StyleSheet.create({
-  headerContainer: {
-    justifyContent: 'center',
-  },
-  closeIcon: {
-    margin: 7,
-  },
-  headerRight: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    left: 20,
-  },
-  menuContainer: {
-    marginHorizontal: normalize(35),
-  },
-  drawerItemStyle: {
-    left: 0,
-    width: '100%',
-  },
-  logo: {
-    height: 30,
-    width: 140,
-    alignItems: 'center',
-  },
-  logoContainer: {
-    alignItems: 'center',
-  },
-  nonBoldTitle: {
-    fontWeight: 'normal',
-  },
-});
+const createStyles = (theme: CustomThemeType) =>
+  StyleSheet.create({
+    headerContainer: {
+      justifyContent: 'center',
+    },
+    socialContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: normalize(30),
+    },
+    headerRight: {
+      position: 'absolute',
+      alignItems: 'center',
+      justifyContent: 'center',
+      left: normalize(20),
+    },
+    menuContainer: {
+      marginHorizontal: normalize(35),
+    },
+    drawerItemStyle: {
+      left: 0,
+      width: '100%',
+    },
+    logo: {
+      height: normalize(30),
+      width: normalize(140),
+      alignItems: 'center',
+    },
+    logoContainer: {
+      alignItems: 'center',
+    },
+    nonBoldTitle: {
+      fontWeight: 'normal',
+    },
+  });

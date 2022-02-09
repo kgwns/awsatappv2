@@ -10,12 +10,14 @@ import CustomDrawerContent from './CustomDrawerContent';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import {ScreensConstants} from '../constants/ScreenConstants';
+import {useTheme} from 'src/shared/styles/ThemeProvider';
 
 
 
 const DrawerNavigator = () => {
   const navigation = useNavigation();
   const style = useThemeAwareObject(customStyle)
+  const {themeData} = useTheme();
 
   const buildTabIcon = (name: ImageName, style: object, screenName: string) => (
     <TouchableOpacity
@@ -46,7 +48,8 @@ const DrawerNavigator = () => {
         headerTitleAlign: 'center',
         headerRight: Search,
         drawerStyle: {
-          width: '100%'
+          width: '100%',
+          backgroundColor: themeData.backgroundColor
         }
       }}>
       <Drawer.Screen name={'drawerRoot'} component={TabNavigator} />
