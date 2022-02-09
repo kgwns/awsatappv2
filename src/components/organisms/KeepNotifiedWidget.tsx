@@ -2,6 +2,8 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {flatListUniqueKey} from 'src/constants';
 import {screenWidth} from 'src/shared/utils';
+import {CustomThemeType} from 'src/shared/styles/colors';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Divider} from '../atoms';
 import {KeepNotifiedCard} from '../molecules';
 
@@ -96,6 +98,7 @@ const KeepNotifiedWidget = () => {
       }
     }
   };
+  const style = useThemeAwareObject(customStyle);
   const renderItem = ({item}: any) => {
     return (
       <View>
@@ -109,7 +112,7 @@ const KeepNotifiedWidget = () => {
     );
   };
   return (
-    <View style={KeepNotifiedWidgetStyle.container}>
+    <View style={style.container}>
       <FlatList
         listKey={flatListUniqueKey.KEEP_NOTIFIED_WIDGET}
         data={data}
@@ -121,10 +124,14 @@ const KeepNotifiedWidget = () => {
   );
 };
 
-const KeepNotifiedWidgetStyle = StyleSheet.create({
-  container: {
-    paddingHorizontal: 0.05 * screenWidth,
-  },
-});
+const customStyle = (theme: CustomThemeType) => {
+  const KeepNotifiedWidgetStyle = StyleSheet.create({
+    container: {
+      paddingHorizontal: 0.05 * screenWidth,
+      backgroundColor: theme.backgroundColor,
+    },
+  });
+  return KeepNotifiedWidgetStyle;
+};
 
 export default KeepNotifiedWidget;
