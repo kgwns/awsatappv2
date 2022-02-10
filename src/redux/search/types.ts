@@ -1,0 +1,60 @@
+import {
+  FETCH_SEARCH_SUCCESS,
+  FETCH_SEARCH_ERROR,
+  FETCH_SEARCH_REQUEST,
+} from './actionTypes';
+
+export interface SearchItemNewsCategory {
+  id: string;
+  title: string;
+  url: string;
+  bundle: string;
+  name: string;
+}
+export interface SearchItemType {
+  nid: string;
+  title: string;
+  field_image: string;
+  view_node: string;
+  field_publication_date_export: string;
+  field_news_categories_export: SearchItemNewsCategory;
+  type: string;
+}
+
+export interface FetchSearchSuccessPayloadType {
+  searchData: any;
+}
+
+export interface FetchSearchRequestPayloadType {
+  searchText: string;
+}
+
+export interface FetchSearchFailedPayloadtype {
+  error: string;
+}
+
+export interface SearchState {
+  searchData: SearchItemType[];
+  error: string;
+  isLoading: boolean;
+}
+
+export interface FetchSearchRequestType {
+  type: typeof FETCH_SEARCH_REQUEST;
+  payload: FetchSearchRequestPayloadType;
+}
+
+export type FetchSearchSuccessType = {
+  type: typeof FETCH_SEARCH_SUCCESS;
+  payload: FetchSearchSuccessPayloadType;
+};
+
+export type FetchSearchFailedType = {
+  type: typeof FETCH_SEARCH_ERROR;
+  payload: FetchSearchFailedPayloadtype;
+};
+
+export type SearchActions =
+  | FetchSearchSuccessType
+  | FetchSearchFailedType
+  | FetchSearchRequestType;

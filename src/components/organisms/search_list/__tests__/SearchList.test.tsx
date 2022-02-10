@@ -11,13 +11,17 @@ jest.mock('react', () => ({
 
 describe('<SearchList>', () => {
   let instance: RenderAPI;
+  const mockString = jest.fn();
   const mockFunction = jest.fn();
   const setSearchText = jest.fn();
+  const mockData = [{
+    nid: mockString,
+  }]
 
   describe('when SearchList is displayed when SearchText length is 0', () => {
     beforeEach(() => {
       (useState as jest.Mock).mockImplementation(() => ['', setSearchText]);
-      instance = render(<SearchList onItemActionPress={mockFunction} />);
+      instance = render(<SearchList isLoading={false} data={[]} onItemActionPress={mockFunction} />);
     });
 
     afterEach(() => {
@@ -32,7 +36,7 @@ describe('<SearchList>', () => {
   describe('when SearchList is displayed when SearchText length grater than 0', () => {
     beforeEach(() => {
       (useState as jest.Mock).mockImplementation(() => ['search', setSearchText]);
-      instance = render(<SearchList onItemActionPress={mockFunction} onTextChange={mockFunction} />);
+      instance = render(<SearchList isLoading={false} data={mockData} onItemActionPress={mockFunction} onTextChange={mockFunction} />);
     });
 
     afterEach(() => {

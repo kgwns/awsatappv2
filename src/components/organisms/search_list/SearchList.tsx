@@ -1,11 +1,11 @@
 import React, {useState, FunctionComponent} from 'react';
 import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import { Label } from 'src/components/atoms/';
+import { Label, LoadingState } from 'src/components/atoms/';
 import { SearchBar } from 'src/components/molecules/';
-import { searchResults } from 'src/constants/SampleData';
-import { Styles } from 'src/shared/styles';
 import { normalize } from 'src/shared/utils';
-
+import { SearchItemType } from 'src/redux/search/types';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import {CustomThemeType} from 'src/shared/styles/colors';
 export interface SearchResultsProps {
   id: string;
   label: string;
@@ -13,11 +13,13 @@ export interface SearchResultsProps {
 
 export interface SearchListProps {
   testID?: string;
-  onItemActionPress?: (item: SearchResultsProps) => void;
+  onItemActionPress?: (item: SearchItemType) => void;
   onTextChange?: (searctText: string) => void;
+  isLoading: boolean;
+  data: SearchItemType[];
 }
 
-const keyExtractor = (_item:SearchResultsProps,index: number) => {
+const keyExtractor = (_item:SearchItemType,index: number) => {
   return `serachResults-${index}`;
 };
 
@@ -25,16 +27,19 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   onItemActionPress,
   testID,
   onTextChange,
+  isLoading,
+  data,
 }) => {
   const [searchText, setSearchText] = useState('');
+  const styles = useThemeAwareObject(createStyles);
 
-  const handleOnItemPressAction = (item: SearchResultsProps) => {
+  const handleOnItemPressAction = (item: SearchItemType) => {
     if (onItemActionPress) {
       onItemActionPress(item);
     }
   };
 
-  const renderItem: ListRenderItem<SearchResultsProps> = ({item,index}) => {
+  const renderItem: ListRenderItem<SearchItemType> = ({item,index}) => {
     return (
       <TouchableWithoutFeedback
         testID={`searchItem_${index}`}
@@ -45,8 +50,8 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
         <View>
           <Label
             labelType='caption4'
-            style={styles.searchText}>
-            {item.label}
+            style={styles.searchText} numberOfLines={2}>
+            {item.title}
           </Label>
         </View>
       </TouchableWithoutFeedback>
@@ -61,19 +66,21 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   };
 
   const getSearchResults = () => {
-      return (
-        <>
+    return (
+      <>
+        {isLoading ? <LoadingState /> :
           <View style={styles.containerStyle}>
             <FlatList
               testID={'searchResultsListID'}
-              data={searchResults}
+              data={data}
               showsVerticalScrollIndicator={false}
               keyExtractor={keyExtractor}
               renderItem={renderItem}
               bounces={false}
             />
           </View>
-        </>
+        }
+      </>
       );
   };
 
@@ -87,10 +94,10 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
         }}
         onClearSearchText={() => {
           Keyboard.dismiss();
-          setSearchText('');
           if (onTextChange) {
             onTextChange('');
           }
+          setSearchText('');
         }}
       />
       {searchText.length > 0 && getSearchResults()}
@@ -98,14 +105,18 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (theme: CustomThemeType) =>
+StyleSheet.create({
   searchText: {
-    color: Styles.color.greyDark,
+    color: theme.primaryDarkSlateGray,
     textAlign: 'left',
     marginVertical: normalize(16),
     fontSize: normalize(16),
   },
   containerStyle: {
     flex : 1
+  },
+  rowStyle: {
+    flexDirection: 'row',
   }
 });

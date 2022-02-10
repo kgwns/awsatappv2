@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 import homeReducer from 'src/redux/home/reducer';
 import appCommon from 'src/redux/appCommon/reducer';
 import mostReadReducer from 'src/redux/mostRead/reducer';
+import searchReducer from 'src/redux/search/reducer';
 import articleDetail from 'src/redux/articleDetail/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   home: homeReducer,
   appCommon: appCommon,
   mostRead: mostReadReducer,
+  search: searchReducer,
   articleDetail: articleDetail
 });
 
