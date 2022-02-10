@@ -3,10 +3,10 @@ import { View, FlatList, StyleSheet } from 'react-native'
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
 import { articleProps } from './ArticleSection'
-import { TextWithFlag } from '../atoms'
 import { flatListUniqueKey } from '../../constants'
-import { sampleTextWithFlag } from '../../constants/SampleData'
 import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { HeadlinesSection } from 'src/components/organisms';
+import { HeadlinesSectionProps } from './headlinesSection/HeadlinesSection';
 
 const sampleCarouselData: articleProps[] = [
     {
@@ -19,6 +19,13 @@ const sampleCarouselData: articleProps[] = [
 
 const CarouselSlider = () => {
     const { themeData } = useTheme()
+    const sampleHeadlinesSectionData: HeadlinesSectionProps = {
+        headlineTitle: "آخر الأخبار",
+        headlineTitleColor: themeData.secondaryDavyGrey,
+        barColor: themeData.primary,
+        headlineDescription: "فيما دخلت المساعي الرامية للتهدئة بين إسرائيل والفلسطينيين مراحلة متقدمة أمس، استمر التصعيد الميداني، في سباق الساعات الأخيرة قبل حسم مسار",
+        headlineDescriptionColor: themeData.secondaryDarkSlate,
+    }
 
     const sliderRef = useRef<FlatList<articleProps>>(null)
     const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
@@ -29,10 +36,11 @@ const CarouselSlider = () => {
     return (
         <View>
             <View style={carouselSliderStyle.headNewsContainer}>
-                <TextWithFlag {...sampleTextWithFlag}
-                    flagColor={themeData.secondaryDarkSlate}
-                    titleColor={themeData.secondaryDavyGrey}
-                    numberOfLines={2} />
+                <HeadlinesSection
+                    duration={10000}
+                    loop
+                    {...sampleHeadlinesSectionData}
+                />
             </View>
             <FlatList
                 ref={sliderRef}

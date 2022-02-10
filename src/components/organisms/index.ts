@@ -15,4 +15,4 @@ export { default as RelatedArticles } from 'src/components/organisms/relatedArti
 export {default as OpinionWritersSection} from 'src/components/organisms/OpinionWritersSection';
 export {default as OpinionWritersArticlesSection} from 'src/components/organisms/OpinionWritersArticlesSection';
 export { default as InterestSection } from 'src/components/organisms/InterestSection';
-
+export { default as HeadlinesSection } from 'src/components/organisms/headlinesSection/HeadlinesSection';
