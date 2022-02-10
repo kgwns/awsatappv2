@@ -14,10 +14,11 @@ import {
   SearchResultsProps,
 } from 'src/components/organisms';
 import {normalize} from 'src/shared/utils';
-import OpinionWritersSection, {
-  opinionWriterProps,
-} from '~/components/organisms/OpinionWritersSection';
-import {opinionWriterArticleProps} from '~/components/organisms/OpinionWritersArticlesSection';
+import {opinionWriterProps} from 'src/components/organisms/OpinionWritersSection';
+import {opinionWriterArticleProps} from 'src/components/organisms/OpinionWritersArticlesSection';
+import {podcastCardProps} from 'src/components/organisms/PodcastCardSection';
+import {NewsWithImageItemProps} from 'src/components/molecules/podcast/NewsWithImageItem';
+import {ArticleRectangleCardProps} from 'src/components/molecules/podcast/ArticleRectangleCard';
 
 const mockStore = configureStore();
 export const storeSampleData = mockStore({
@@ -361,7 +362,8 @@ export const opinionWritersArticlesData: opinionWriterArticleProps[] = [
     imageUrl: 'https://picsum.photos/200',
     writerTitle: 'إياد أبو شقرا',
     headLine: 'هل بدأ العد العكسي لنهاية حكم جونسون في بريطانيا؟',
-    subHeadLine: 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
+    subHeadLine:
+      'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
     audioLabel: 'استمع الي المقالة ',
     duration: '3:22',
   },
@@ -369,7 +371,8 @@ export const opinionWritersArticlesData: opinionWriterArticleProps[] = [
     imageUrl: 'https://picsum.photos/200',
     writerTitle: 'فايز سارة',
     headLine: 'ما ورثناه من تركة «الصديق الصدوق» للشعب السوري',
-    subHeadLine: 'تعود بداية العلاقات السورية - الروسية إلى عام 1944، الذي شهد إقامة علاقات دبلوماسية بين الاتحاد السوفياتي والجمهورية السورية - حسب مسميات تلك الأيام،',
+    subHeadLine:
+      'تعود بداية العلاقات السورية - الروسية إلى عام 1944، الذي شهد إقامة علاقات دبلوماسية بين الاتحاد السوفياتي والجمهورية السورية - حسب مسميات تلك الأيام،',
     audioLabel: 'استمع الي المقالة ',
     duration: '3:22',
   },
@@ -377,7 +380,8 @@ export const opinionWritersArticlesData: opinionWriterArticleProps[] = [
     imageUrl: 'https://picsum.photos/200',
     writerTitle: 'راجح الخوري',
     headLine: 'فيينا قطبة قطبة كسجادة عجمية؟!',
-    subHeadLine: 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
+    subHeadLine:
+      'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
     audioLabel: 'استمع الي المقالة ',
     duration: '3:22',
   },
@@ -385,7 +389,8 @@ export const opinionWritersArticlesData: opinionWriterArticleProps[] = [
     imageUrl: 'https://picsum.photos/200',
     writerTitle: 'إياد أبو شقرا',
     headLine: 'هل بدأ العد العكسي لنهاية حكم جونسون في بريطانيا؟',
-    subHeadLine: 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
+    subHeadLine:
+      'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
     audioLabel: 'استمع الي المقالة ',
     duration: '3:22',
   },
@@ -393,7 +398,8 @@ export const opinionWritersArticlesData: opinionWriterArticleProps[] = [
     imageUrl: 'https://picsum.photos/200',
     writerTitle: 'فايز سارة',
     headLine: 'ما ورثناه من تركة «الصديق الصدوق» للشعب السوري',
-    subHeadLine: 'تعود بداية العلاقات السورية - الروسية إلى عام 1944، الذي شهد إقامة علاقات دبلوماسية بين الاتحاد السوفياتي والجمهورية السورية - حسب مسميات تلك الأيام،',
+    subHeadLine:
+      'تعود بداية العلاقات السورية - الروسية إلى عام 1944، الذي شهد إقامة علاقات دبلوماسية بين الاتحاد السوفياتي والجمهورية السورية - حسب مسميات تلك الأيام،',
     audioLabel: 'استمع الي المقالة ',
     duration: '3:22',
   },
@@ -401,8 +407,173 @@ export const opinionWritersArticlesData: opinionWriterArticleProps[] = [
     imageUrl: 'https://picsum.photos/200',
     writerTitle: 'راجح الخوري',
     headLine: 'فيينا قطبة قطبة كسجادة عجمية؟!',
-    subHeadLine: 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
+    subHeadLine:
+      'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
     audioLabel: 'استمع الي المقالة ',
     duration: '3:22',
+  },
+];
+
+export const podcastCardSectionData: podcastCardProps[] = [
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    podcastTitle: 'عنوان لبرنامج البودكاست',
+    announcerName: 'مع اسم المذيع',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    podcastTitle: 'عنوان لبرنامج البودكاست',
+    announcerName: 'مع اسم المذيع',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    podcastTitle: 'عنوان لبرنامج البودكاست',
+    announcerName: 'مع اسم المذيع',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    podcastTitle: 'عنوان لبرنامج البودكاست',
+    announcerName: 'مع اسم المذيع',
+  },
+];
+
+export const mostPlayedSectionData: ArticleRectangleCardProps[] = [
+  {
+    trendingNumber: 1,
+    imageUrl: 'https://picsum.photos/200',
+    title: 'عنوان لملخص آخر أخبار اليوم',
+    footerRight: 'الخميس',
+    footerLeft: '45 دقيقه',
+  },
+  {
+    trendingNumber: 2,
+    imageUrl: 'https://picsum.photos/200',
+    title: 'عنوان لملخص آخر أخبار اليوم',
+    footerRight: 'الخميس',
+    footerLeft: '45 دقيقه',
+  },
+  {
+    trendingNumber: 3,
+    imageUrl: 'https://picsum.photos/200',
+    title: 'عنوان لملخص آخر أخبار اليوم',
+    footerRight: 'الخميس',
+    footerLeft: '45 دقيقه',
+  },
+];
+
+export const LatestNewsSummarySectionData: NewsWithImageItemProps[] = [
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    title: 'ملخص آخر أخبار اليوم',
+    description:
+      'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    title: 'ملخص آخر أخبار الجمعة',
+    description:
+      'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    title: 'ملخص آخر أخبار اليوم',
+    description:
+      'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    title: 'ملخص آخر أخبار الجمعة',
+    description:
+      'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    title: 'ملخص آخر أخبار اليوم',
+    description:
+      'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    title: 'ملخص آخر أخبار الجمعة',
+    description:
+      'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+];
+
+export const EditorsPickSectionData: NewsWithImageItemProps[] = [
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    highlightedTitle: 'إسم البودكاست',
+    title: 'عنوان حلثه البودكاست',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    highlightedTitle: 'إسم البودكاست',
+    title: 'عنوان حلثه البودكاست',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    highlightedTitle: 'إسم البودكاست',
+    title: 'عنوان حلثه البودكاست',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    highlightedTitle: 'إسم البودكاست',
+    title: 'عنوان حلثه البودكاست',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    highlightedTitle: 'إسم البودكاست',
+    title: 'عنوان حلثه البودكاست',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/300/200',
+    highlightedTitle: 'إسم البودكاست',
+    title: 'عنوان حلثه البودكاست',
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+  },
+];
+
+export const PodcastOpinionArticleSectionData: ArticleRectangleCardProps[] = [
+  {
+    imageUrl: 'https://picsum.photos/200',
+    title: 'عنوان لملخص آخر أخبار اليوم',
+    footerRight: 'الخميس',
+    footerLeft: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    title: 'عنوان لملخص آخر أخبار اليوم',
+    footerRight: 'الخميس',
+    footerLeft: '45 دقيقه',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    title: 'عنوان لملخص آخر أخبار اليوم',
+    footerRight: 'الخميس',
+    footerLeft: '45 دقيقه',
   },
 ];

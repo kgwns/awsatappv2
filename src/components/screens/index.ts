@@ -7,6 +7,7 @@ export {AuthPage} from './auth/AuthPage';
 export {SearchScreen} from './search_screen/SearchScreen';
 export {FollowFavoriteAuthorScreen} from 'src/components/screens/followFavoriteAuthorScreen/FollowFavoriteAuthorScreen';
 export {KeepNotifiedScreen} from 'src/components/screens/keepNotified/KeepNotifiedScreen';
-export { ArticleDetailScreen } from 'src/components/screens/articleDetail/ArticleDetailScreen';
+export {ArticleDetailScreen} from 'src/components/screens/articleDetail/ArticleDetailScreen';
 export {OpinionScreen} from 'src/components/screens/category/OpinionScreen';
+export {PodcastScreen} from 'src/components/screens/category/PodcastScreen';
 export {SelectInterestScreen} from 'src/components/screens/selectInterestScreen/SelectInterestScreen';

@@ -25,3 +25,7 @@ export { default as ArticleDetailImage } from 'src/components/molecules/articleD
 export { default as DetailPodCastFooter } from 'src/components/molecules/detailPodCastFooter/DetailPodCastFooter';
 export { ArticleDetailFooter } from 'src/components/molecules/articleDetailFooter/ArticleDetailFooter'
 export {default as OpinionWriterCardView} from 'src/components/molecules/opinionWriters/OpinionWriterCardView';
+export {default as SectionHeader} from 'src/components/molecules/podcast/SectionHeader';
+export {default as NewsWithImageItem} from 'src/components/molecules/podcast/NewsWithImageItem';
+export {default as ArticleRectangleCard} from 'src/components/molecules/podcast/ArticleRectangleCard';
+export {default as PodcastCardWithLabel} from 'src/components/molecules/podcast/PodcastCardWithLabel';

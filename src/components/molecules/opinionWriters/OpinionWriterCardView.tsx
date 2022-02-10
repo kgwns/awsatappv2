@@ -7,6 +7,8 @@ import {normalize, screenWidth} from 'src/shared/utils';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {ImagesName} from 'src/shared/styles';
 import {opinionWriterArticleProps} from 'src/components/organisms/OpinionWritersArticlesSection';
+import {getSvgImages} from 'src/shared/styles/svgImages';
+import {useTheme} from 'src/shared/styles/ThemeProvider';
 
 const OpinionWritersCardView = ({
   imageUrl,
@@ -18,6 +20,7 @@ const OpinionWritersCardView = ({
 }: opinionWriterArticleProps) => {
   const style = useThemeAwareObject(customStyle);
   const [save, setSave] = useState(false);
+  const theme = useTheme();
   return (
     <View style={style.container}>
       <View style={style.topImageWithLabelContainer}>
@@ -44,13 +47,22 @@ const OpinionWritersCardView = ({
           <Label style={style.duration}>{duration}</Label>
         </View>
         <View>
-          <Image
-            name={
-              save ? ImagesName.bookmarkActive : ImagesName.blackBdrBookMark
-            }
+          <ButtonImage
+            testId={'bookmarkTestId'}
+            icon={() => {
+              return save
+                ? getSvgImages({
+                    name: ImagesName.bookMarkBlackFillSVG,
+                    size: normalize(18),
+                    fill: theme.themeData.primaryBlack,
+                  })
+                : getSvgImages({
+                    name: ImagesName.bookMarkBlackBdrSVG,
+                    size: normalize(18),
+                    fill: theme.themeData.primaryBlack,
+                  });
+            }}
             onPress={() => setSave(!save)}
-            size={normalize(18)}
-            testID={'bookmarkTestId'}
           />
         </View>
       </View>

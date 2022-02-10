@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {OpinionScreen, ScreenContainer} from '..';
+import {OpinionScreen, ScreenContainer, PodcastScreen} from '..';
 import {TabBarComponent} from 'src/components/molecules';
 import {sectionTabItem} from 'src/constants/SampleData';
 import {horizontalEdge} from 'src/shared/utils';
@@ -25,7 +25,7 @@ export const SectionsScreen = () => {
       case 'الرأي':
         return <OpinionScreen />;
       case 'بودكاست':
-        return <Label> 'بودكاست'</Label>;
+        return <PodcastScreen />;
       case 'أولى':
         return <Label>'أولى'</Label>;
       case 'فيديو':
@@ -41,7 +41,7 @@ export const SectionsScreen = () => {
   return (
     <ScreenContainer edge={horizontalEdge}>
       {renderTabBarComponent()}
-      <View>{tabContent()}</View>
+      <View style={{flex: 1}}>{tabContent()}</View>
     </ScreenContainer>
   );
 };

@@ -11,5 +11,10 @@ export enum flatListUniqueKey {
   RELATED_ARTICLE_WIDGET = 'RelatedArticleWidget',
   OPINION_WRITER_SECTION = 'OpinionWriterSection',
   OPINION_WRITER_ARTICLES_SECTION = 'OpinionWriterArticleSection',
+  PODCAST_CARD_SECTION = 'PodcastCardSection',
+  MOST_PLAYED_CARD = 'MostPlayedcard',
+  LATEST_NEWS_SUMMARY_WIDGET = 'LatestNewsSummarySection',
+  EDITORS_PICK_WIDGET = 'EditorPickWidget',
+  PODCAST_OPINION_ARTICLE_WIDGET = 'PodcastOpinionArticleSection',
   INTEREST_SECTION = 'InterestSection',
 }
