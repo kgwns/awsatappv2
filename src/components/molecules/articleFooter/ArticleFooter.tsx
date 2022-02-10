@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { normalize } from '../../../shared/utils/dimensions'
-import { moleculesTestID } from '../../../constants'
-import { Styles } from '../../../shared/styles'
-import { ImagesName } from '../../../shared/styles/images'
-import { CaptionWithImage, ImageName } from '../../atoms'
-import { Image } from '../../atoms'
+import { normalize } from 'src/shared/utils/dimensions'
+import { moleculesTestID } from 'src/constants'
+import { Styles } from 'src/shared/styles'
+import { ImagesName } from 'src/shared/styles/images'
+import { CaptionWithImage, ImageName, Image } from 'src/components/atoms'
 
 export enum BookMarkColorType {
   WHITE = 'white',
@@ -20,7 +19,8 @@ export interface articleFooterProps {
   rightIcon?: ImageName,
   rightTitleColor?: string,
   style?: object,
-  bookMarkColorType?: string
+  bookMarkColorType?: string,
+  hideBookmark?: boolean
 }
 
 const ArticleFooter = ({
@@ -31,7 +31,8 @@ const ArticleFooter = ({
   rightIcon,
   rightTitleColor,
   style,
-  bookMarkColorType = BookMarkColorType.BLACK
+  bookMarkColorType = BookMarkColorType.BLACK,
+  hideBookmark = false
 }: articleFooterProps) => {
   const [saveState, setSaveState] = useState(false)
   let storySaveIcon = saveState ? ImagesName.bookmarkActive : ImagesName.blackBdrBookMark
@@ -45,16 +46,20 @@ const ArticleFooter = ({
   }
 
   return (
-    <View style={{ ...articleFooterStyle.container, ...style }}>
-      <View style={{ flexDirection: 'row' }}>
-        <CaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} />
-        <Text children={'|'} style={articleFooterStyle.verticalDivider} />
-        <CaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} />
+    <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
+      <View>
+        <View style={{ flexDirection: 'row' }}>
+          <CaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} />
+          <Text children={'|'} style={articleFooterStyle.verticalDivider} />
+          <CaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} />
+        </View>
       </View>
-      <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPressSave}>
-        <Image name={storySaveIcon} size={normalize(18)}
-        />
-      </TouchableOpacity>
+      {!hideBookmark &&
+        <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPressSave}>
+          <Image name={storySaveIcon} size={normalize(18)}
+          />
+        </TouchableOpacity>
+      }
     </View>
   )
 }

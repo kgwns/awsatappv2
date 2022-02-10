@@ -4,25 +4,28 @@ import { Divider, Label, LabelTypeProp, TextWithFlag } from '../atoms';
 import { normalize } from 'src/shared/utils';
 import { Styles } from '../../shared/styles';
 import { articleFooterSample } from 'src/constants/SampleData';
-import { ArticleFooter } from 'src/components/molecules';
+import { ArticleFooter, articleFooterProps } from 'src/components/molecules';
 import { TextWithFlagProps } from 'src/components/atoms';
 import { decodeHTMLTags } from 'src/shared/utils/utilities';
 
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
-    description: string,
-    footerInfo?: any,
+    description?: string,
+    footerInfo?: articleFooterProps,
     contentStyle?: object,
     showDivider?: boolean
 }
 
-const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = (props) => (
+const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
+    description,
+    ...props
+}) => (
     <View style={{ ...props.contentStyle }}>
         <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
-        <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(props.description)} color={Styles.color.davyGrey} numberOfLines={3}/>
+        {description && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(description)} color={Styles.color.davyGrey} numberOfLines={3}/>} 
         <View style={ArticleWithOutImageStyle.footerContainer}>
             <ArticleFooter {...props.footerInfo ? { ...props.footerInfo } : { ...articleFooterSample }} />
         </View>
-        { props.showDivider && <Divider />}
+        {props.showDivider && <Divider />}
     </View>
 )
 

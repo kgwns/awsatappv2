@@ -39,22 +39,28 @@ const onBoardPrev = () => (
   </TouchableOpacity>
 );
 
+
+const hideHeader = {
+  headerShown: false,
+}
+
 const AppNavigator = () => {
   return (
     <Stack.Navigator initialRouteName={ScreensConstants.LatestNewsScreen}>
       <Stack.Screen
         name={ScreensConstants.HOME_SCREEN}
         component={DrawerNavigator}
-        options={{
-          headerShown: false,
-        }}
+        options={hideHeader}
       />
       <Stack.Screen
         name={ScreensConstants.SearchScreen}
         component={Routes.SearchScreen}
-        options={{
-          headerShown: false,
-        }}
+        options={hideHeader}
+      />
+      <Stack.Screen
+        name={ScreensConstants.ARTICLE_DETAIL_SCREEN}
+        component={Routes.ArticleDetailScreen}
+        options={hideHeader}
       />
     </Stack.Navigator>
   );

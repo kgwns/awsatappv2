@@ -35,6 +35,9 @@ jest.mock('react-redux', () => {
   const ActualReactRedux = jest.requireActual('react-redux');
   return {
       ...ActualReactRedux,
+      useDispatch: jest.fn().mockImplementation(() => {
+        return jest.fn()
+      }),
       useSelector: jest.fn().mockImplementation(() => {
           return jest.fn();
       }),
@@ -42,3 +45,9 @@ jest.mock('react-redux', () => {
 });
 
 jest.mock('react-native-device-info', () => mockRNDeviceInfo);
+
+jest.mock('react-native-share', () => {
+  return {
+    open: jest.fn().mockImplementation(() => jest.fn())
+  }
+})

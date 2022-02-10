@@ -76,6 +76,11 @@ export enum ImagesName {
   appleIcon = 'appleIcon',
   facebookIcon = 'facebookIcon',
   mailIcon = 'mailIcon',
+  fontScaling = 'fontScaling',
+  share = 'share',
+  themeChange = 'themeChange',
+  bookMarkBlackBdrSVG = 'bookMarkBlackBdrSVG',
+  bookMarkBlackFillSVG = 'bookMarkBlackFillSVG'
 }
 
 export const images = {
