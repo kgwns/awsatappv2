@@ -46,7 +46,9 @@ export const colors = {
   onyx: '#101010',
   jasper: '#CE4242',
   mountainMist: '#929898',
-  gableGreen: '#1A3333'
+  gableGreen: '#1A3333',
+  darkGreenishBlue: '#174038',
+  lightGray: '#B1B1B1',
 };
 
 export interface CustomThemeType {

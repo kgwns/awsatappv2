@@ -7,6 +7,7 @@ import {
   SearchScreen,
   FollowFavoriteAuthorScreen,
   KeepNotifiedScreen,
+  ArticleDetailScreen,
   SelectInterestScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
@@ -25,6 +26,7 @@ export const Routes = {
   OnBoardNavigator,
   FollowFavoriteAuthorScreen,
   KeepNotifiedScreen,
+  ArticleDetailScreen,
   SelectInterestScreen,
 };
 
@@ -45,6 +47,7 @@ export type ScreenList = {
   OnBoardNavigator: undefined;
   FollowFavoriteAuthorScreen: undefined;
   KeepNotifiedScreen: undefined;
+  articleDetailScreen: undefined
   SelectInterestScreen: undefined;
 };
 
@@ -60,6 +63,7 @@ const authNavigator = 'authNavigator' as ScreenName;
 const onBoardNavigator = 'onBoardNavigator' as ScreenName;
 const followFavoriteAuthorScreen = 'followFavoriteAuthorScreen' as ScreenName;
 const keepNotifiedScreen = 'keepNotifiedScreen' as ScreenName;
+const articleDetailScreen = 'articleDetailScreen' as ScreenName
 const selectInterestScreen = 'selectInterestScreen' as ScreenName;
 
 export const RoutesName = {
@@ -73,5 +77,6 @@ export const RoutesName = {
   onBoardNavigator,
   followFavoriteAuthorScreen,
   keepNotifiedScreen,
+  articleDetailScreen,
   selectInterestScreen,
 };

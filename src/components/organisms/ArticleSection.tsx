@@ -8,7 +8,6 @@ import { ImageLabelProps } from '../atoms/imageWithLabel/ImageWithLabel'
 
 export interface articleProps extends ImageLabelProps,ArticleWithOutImageProps {
    image?: string,
-   description: string
 }
 
 export interface ArticleSectionProps {

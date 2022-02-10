@@ -2,7 +2,7 @@ import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react';
 import { normalize, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
-import { TextWithFlag, Divider, TextWithFlagProps,Image } from '../atoms'
+import { TextWithFlag, Divider, TextWithFlagProps,Image, WidgetHeader, HeaderElementProps } from '../atoms'
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
 import { ImagesName } from 'src/shared/styles/images';
 import { ImageResize } from 'src/shared/styles/text-styles';
@@ -12,6 +12,12 @@ export interface ShortArticleProps extends TextWithFlagProps {
   image: string
 }
 
+export interface ArticleSectionProps {
+  data: ShortArticleProps[],
+  headerLeft?: HeaderElementProps,
+}
+  
+
 export const shortArticleFooterSample: articleFooterProps = {
   leftTitle: 'يتحمل',
   leftIcon: ImagesName.clock,
@@ -20,7 +26,7 @@ export const shortArticleFooterSample: articleFooterProps = {
   rightTitleColor: Styles.color.silverChalice
 }
 
-const ShortArticle = ({ data }: { data: ShortArticleProps[] }) => {
+const ShortArticle = ({ data, headerLeft }: ArticleSectionProps) => {
   const renderItem = (item: ShortArticleProps, index: number) => {
     const isLasIndex = index < data.length - 1
     return <View key={flatListUniqueKey.SHORT_ARTICLE + index} style={{paddingBottom: normalize(20)}}>
@@ -44,6 +50,7 @@ const ShortArticle = ({ data }: { data: ShortArticleProps[] }) => {
 
   return (
     <View style={ShortArticleStyle.container}>
+      <WidgetHeader headerLeft={headerLeft}/>
       <FlatList
         style={ShortArticleStyle.listContainer}
         keyExtractor={(_, index) => index.toString()}

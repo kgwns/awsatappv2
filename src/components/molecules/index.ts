@@ -20,5 +20,8 @@ export {
   TabBarDataProps,
 } from './tabWithBarItem/TabWithBarItem';
 export {default as FollowFavoriteAuthor} from 'src/components/molecules/followFavoriteAuthor/FollowFavoriteAuthor';
-export {default as KeepNotifiedCard} from 'src/components/molecules/keepNotifiedCard/KeepNotifiedCard';
+export { default as KeepNotifiedCard } from 'src/components/molecules/keepNotifiedCard/KeepNotifiedCard';
+export { default as ArticleDetailImage } from 'src/components/molecules/articleDetailImage/ArticleDetailImage';
+export { default as DetailPodCastFooter } from 'src/components/molecules/detailPodCastFooter/DetailPodCastFooter';
+export { ArticleDetailFooter } from 'src/components/molecules/articleDetailFooter/ArticleDetailFooter'
 export {default as OpinionWriterCardView} from 'src/components/molecules/opinionWriters/OpinionWriterCardView';

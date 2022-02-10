@@ -1,4 +1,4 @@
-import { View, StyleSheet, ImageStyle } from 'react-native'
+import { View, StyleSheet, ImageStyle, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 import { Image } from '../image/Image'
 import { normalize, screenWidth } from 'src/shared/utils'
@@ -13,25 +13,29 @@ export interface ImageLabelProps {
     style?: string,
     tagStyle?: object,
     tagLabelType?: LabelTypeProp,
-    imageStyle?: ImageStyle
+    imageStyle?: ImageStyle,
+    onPress?: () => void
 }
 
 export const ImageWithLabel = ({ name, url, tagName,tagStyle,
     tagLabelType = LabelTypeProp.caption3,
-    imageStyle 
+    imageStyle,
+    onPress
 }: ImageLabelProps) => {
     return (
-        <View>
-            <Image name={name} url={url} style={[imageWithLabelStyle.articleImage,imageStyle]} resizeMode={ImageResize.COVER}/>
-            {tagName &&
-                <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
-                    <Label children={tagName}
-                        style={imageWithLabelStyle.tagText}
-                        labelType={tagLabelType}
-                    />
-                </View>
-            }
-        </View>
+        <TouchableWithoutFeedback onPress={onPress}>
+            <>
+                <Image name={name} url={url} style={[imageWithLabelStyle.articleImage, imageStyle]} resizeMode={ImageResize.COVER} />
+                {tagName &&
+                    <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
+                        <Label children={tagName}
+                            style={imageWithLabelStyle.tagText}
+                            labelType={tagLabelType}
+                        />
+                    </View>
+                }
+            </>
+        </TouchableWithoutFeedback>
     )
 }
 
