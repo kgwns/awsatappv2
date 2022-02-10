@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {OpinionScreen, ScreenContainer} from '..';
 import {TabBarComponent} from 'src/components/molecules';
 import {sectionTabItem} from 'src/constants/SampleData';
-import {horizontalEdge} from 'src/constants/SharedConstants';
+import {horizontalEdge} from 'src/shared/utils';
 import {View} from 'react-native';
 import {Label} from 'src/components/atoms';
 
