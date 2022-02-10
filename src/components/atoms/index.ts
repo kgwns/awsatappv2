@@ -17,3 +17,4 @@ export { SocialLoginButton } from 'src/components/atoms/social-login-button/Soci
 export { ButtonList } from './button-list/ButtonList';
 export { ButtonOutline } from './button-outline/ButtonOutline';
 export { BorderLabel } from 'src/components/atoms/BorderLabel/BorderLabel';
+export { HtmlRenderer } from 'src/components/atoms/htmlRenderer/HtmlRenderer'

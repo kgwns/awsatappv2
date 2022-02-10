@@ -30,7 +30,7 @@ export interface FetchMostReadFailedPayloadtype {
   error: string;
 }
 
-export interface MostReadState {
+export type MostReadState = {
   mostReadData: MostReadItemType[];
   error: string;
   isLoading: boolean;

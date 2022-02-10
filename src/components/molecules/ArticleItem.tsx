@@ -6,10 +6,12 @@ import { articleProps } from '../organisms'
 import { ArticleWithOutImage } from '../molecules'
 import { normalize } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface ArticleItemProps extends articleProps {
     index: number,
-    articleItemStyle: ViewStyle
+    articleItemStyle: ViewStyle,
+    nid?: string
 }
 
 const ArticleItem: FunctionComponent<ArticleItemProps> = ({
@@ -18,9 +20,11 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     articleItemStyle,
     ...props
 }) => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<StackNavigationProp<any>>()
     const onPress = () => {
-        navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN)
+        if (props.nid) {
+            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: props.nid})
+        }
     }
 
     return (

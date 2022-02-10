@@ -47,14 +47,15 @@ export const colors = {
   jasper: '#CE4242',
   mountainMist: '#929898',
   gableGreen: '#1A3333',
-  darkGreenishBlue: '#174038',
   lightGray: '#B1B1B1',
+  whiteSmoke: '#F5F5F5'
 };
 
 export interface CustomThemeType {
   id: string,
   primary: string,
   primaryBlack: string,
+  primaryLightGray: string,
   primaryDarkSlateGray: string,
   secondaryGreen: string,
   secondaryWhite: string,
@@ -72,6 +73,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   id: LIGHT_THEME_ID,
   primary: colors.greenishBlue,
   primaryBlack: colors.black,
+  primaryLightGray: colors.lightGray,
   primaryDarkSlateGray: colors.darkSlateGray,
   secondaryGreen: colors.cyanGreen,
   secondaryWhite: colors.white,
@@ -86,6 +88,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   id: DARK_THEME_ID,
   primary: colors.greenishBlue,
   primaryBlack: colors.white,
+  primaryLightGray: colors.nightBlack,
   primaryDarkSlateGray: colors.white,
   secondaryGreen: colors.onyx,
   secondaryWhite: colors.nightBlack,

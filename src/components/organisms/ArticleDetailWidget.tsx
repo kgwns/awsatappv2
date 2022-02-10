@@ -1,47 +1,61 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { isTab, normalize, screenWidth } from 'src/shared/utils'
+import { normalize, screenWidth } from 'src/shared/utils'
 import { Label } from 'src/components/atoms'
 import { ArticleDetailImage } from 'src/components/molecules'
 import { Styles } from 'src/shared/styles'
+import { CustomThemeType } from 'src/shared/styles/colors'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
 const sampleArticleDetailData = {
-    image: 'https://picsum.photos/200/300',
-    title: 'العالم العربي',
-    description: 'مباحثات سعودية في مسقط وأبوظبي تتناول التعاون والشراكة وتفعيل العمل العربي',
-    tagName: 'الحكومة',
+    tagName: 'العالم العربي',
     articleBase: 'حقوق مليكة الصوره توضع هنا'
-
 }
 
-const ArticleDetailWidget = () => {
+interface ArticleDetailImageProps {
+   image: string,
+   title: string
+}
+
+const ArticleDetailWidget: FunctionComponent<ArticleDetailImageProps> = ({
+    image,
+    title
+}) => {
+    const style = useThemeAwareObject(customStyle)
     return (
         <View>
-            <ArticleDetailImage image={sampleArticleDetailData.image} title={sampleArticleDetailData.title} description={sampleArticleDetailData.description}
-                containerStyle={isTab ? articleDetailImageStyle.tabletImageStyle : articleDetailImageStyle.imageStyle} />
-            <Label children={sampleArticleDetailData.articleBase} style={articleDetailImageStyle.articleBaseStyle} />
+            <ArticleDetailImage image={image} title={title}
+                tagName={sampleArticleDetailData.tagName}
+            />
+            <Label
+                children={sampleArticleDetailData.articleBase}
+                style={style.articleBaseStyle}
+            />
         </View>
     )
 }
 
 export default ArticleDetailWidget
 
-const articleDetailImageStyle = StyleSheet.create({
-    headNewsContainer: {
-        paddingHorizontal: 0.04 * screenWidth,
-        paddingVertical: normalize(10)
-    },
-    imageStyle: {
-        height: 1.05 * screenWidth
-    },
-    tabletImageStyle: {
-        height: 0.5 * screenWidth
-    },
-    articleBaseStyle: {
-        color: Styles.color.lightGray,
-        paddingHorizontal: normalize(30),
-        paddingTop: normalize(5),
-        paddingBottom: normalize(15),
-        alignSelf: 'flex-start'
-    }
-})
+const customStyle = (theme: CustomThemeType) => {
+    return StyleSheet.create({
+        headNewsContainer: {
+            paddingHorizontal: 0.04 * screenWidth,
+            paddingVertical: normalize(10)
+        },
+        imageStyle: {
+            height: 1.05 * screenWidth
+        },
+        tabletImageStyle: {
+            height: 0.5 * screenWidth
+        },
+        articleBaseStyle: {
+            width: screenWidth,
+            backgroundColor: theme.primaryLightGray,
+            color: Styles.color.whiteSmoke,
+            paddingHorizontal: normalize(25),
+            paddingVertical: normalize(5),
+            textAlign: 'left'
+        }
+    })
+}

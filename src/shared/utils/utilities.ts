@@ -25,6 +25,7 @@ export const testProps = (testID: string | undefined) => {
 }
 
 export const horizontalEdge: Edge[] = ['left', 'right']
+export const horizontalAndBottomEdge: Edge[] = [...horizontalEdge, 'bottom']
 
 export const getImageUrl = (imageURL: string) => {
     return BASE_URL + imageURL;
@@ -34,3 +35,7 @@ export const decodeHTMLTags = (description: string) => {
     const regex = /(<([^>]+)>)/ig; // to find the html tags in the description ex: <p>, <br>, etc.,   
     return description ? description.replace(regex, '') : description;
 } 
+
+export const isNonEmptyArray = (data: any): boolean => {
+    return (data && Array.isArray(data) && data.length > 0)
+}

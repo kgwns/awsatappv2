@@ -47,7 +47,7 @@ export type ScreenList = {
   OnBoardNavigator: undefined;
   FollowFavoriteAuthorScreen: undefined;
   KeepNotifiedScreen: undefined;
-  articleDetailScreen: undefined
+  articleDetailScreen: undefined;
   SelectInterestScreen: undefined;
 };
 

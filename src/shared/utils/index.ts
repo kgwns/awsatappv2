@@ -11,5 +11,7 @@ export {
   CustomAlert,
   isDarkTheme,
   testProps,
-  horizontalEdge
+  horizontalEdge,
+  horizontalAndBottomEdge,
+  isNonEmptyArray
 } from 'src/shared/utils/utilities'
