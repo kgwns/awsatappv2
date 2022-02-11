@@ -12,8 +12,9 @@ import { useDispatch } from 'react-redux';
 import { storeAppTheme } from 'src/redux/appCommon/action';
 import { useAppCommon } from 'src/hooks';
 import { Theme } from 'src/redux/appCommon/types';
+import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 
-export const ArticleDetailFooter = () => {
+export const ArticleDetailFooter = ({ articleDetailData }: { articleDetailData: ArticleDetailDataType }) => {
     const { theme } = useAppCommon()
     const [saveState, setSaveState] = useState(false)
     let articleSaveIcon = saveState ? ImagesName.bookMarkBlackFillSVG : ImagesName.bookMarkBlackBdrSVG
@@ -31,11 +32,12 @@ export const ArticleDetailFooter = () => {
     }
 
     const onPressShare = async () => {
-        const message = 'مباحثات سعودية في مسقط وأبوظبي تتناول التعاون والشراكة وتفعيل العمل العربي'
+        const { title, view_node } = articleDetailData
         await Share.open({
-            message: message,
+            title,
+            url: view_node,
             failOnCancel: true,
-            subject: `You've been invited to participate in a VideoFizz`
+            subject: title
         }).then(response => {
             console.log('Shared successfully :::', response)
         }).catch((error) => {
@@ -47,14 +49,14 @@ export const ArticleDetailFooter = () => {
     const style = useThemeAwareObject(customStyle)
     return (
         <View style={style.container}>
-            <ButtonImage icon={() => {
+            {/* <ButtonImage icon={() => {
                 return getSvgImages({
                     name: ImagesName.themeChange,
                     size: normalize(21),
                     fill: themeData.primaryBlack
                 });
             }} onPress={onPressThemeChange}
-            />
+            /> */}
             <ButtonImage icon={() => {
                 return getSvgImages({
                     name: ImagesName.fontScaling,

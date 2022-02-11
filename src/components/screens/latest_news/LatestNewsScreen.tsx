@@ -1,40 +1,69 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
   ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, ShortArticleProps
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { articleSectionData, shortArticleData, shortArticleWithTagData } from 'src/constants/SampleData';
-import { isTab, normalize } from 'src/shared/utils';
+import { shortArticleData, shortArticleWithTagProperties } from 'src/constants/SampleData';
+import { horizontalEdge, isTab, normalize } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { horizontalEdge } from 'src/shared/utils';
+import { useLatestNewsTab } from 'src/hooks';
+import { LatestArticleBodyGet, LatestArticleDataType } from 'src/redux/latestNews/types';
+
+const tickerAndHeroPayload: LatestArticleBodyGet = {
+  items_per_page: 10,
+  page: 0,
+  offset: 0
+}
+
+const heroListTopListPayload: LatestArticleBodyGet = {
+  items_per_page: 10,
+  page: 0,
+  offset: 6
+}
 
 export const LatestNewsScreen = () => {
   const { themeData } = useTheme()
-  const articleData = isTab ? articleSectionData.slice(0,1) : articleSectionData
 
-  shortArticleWithTagData.map((item: ShortArticleProps) => item.titleColor = themeData.primaryBlack)
+
+  const {
+    isLoading, ticker, hero, heroList, topList, fetchTickerAndHeroArticle, fetchHeroListTopList
+  } = useLatestNewsTab()
+
+  const heroListData = isTab ? heroList.slice(0, 1) : heroList
+  const topListData = topList.map((item: LatestArticleDataType) => {
+    return {
+      ...item,
+      ...shortArticleWithTagProperties,
+      titleColor: themeData.primaryBlack,
+    }
+  })
+
+  useEffect(() => {
+    fetchTickerAndHeroArticle(tickerAndHeroPayload)
+    fetchHeroListTopList(heroListTopListPayload)
+  }, [])
 
   const renderItem = () => (
     <View>
-      <CarouselSlider />
+      <CarouselSlider tickerData={ticker} heroData={hero} />
       {
         isTab ? <View style={latestNewsScreenStyle.tabSplitter}>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
-            <ArticleSection data={articleData} />
+            <ArticleSection data={heroListData} />
             <PodcastWidget />
           </View>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
-            <ShortArticle data={shortArticleWithTagData} />
+            <ShortArticle data={topListData} />
           </View>
         </View>
           :
           <>
             <PodcastWidget />
-            <ArticleSection data={articleSectionData} />
-            <ShortArticle data={shortArticleWithTagData} />
+            <ArticleSection data={heroListData} />
+            <ShortArticle data={topListData} />
           </>
       }
       <StoryWidget />
@@ -58,7 +87,7 @@ export const LatestNewsScreen = () => {
   )
 
   return (
-    <ScreenContainer edge={horizontalEdge}>
+    <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
       <FlatList
         style={{ flex: 1, height: '100%' }}
         data={[{}]}

@@ -7,7 +7,7 @@ describe('<Author Item>', () => {
     let instance: RenderAPI
     const data =   {
         author: 'عادل درويش',
-        description: 'الصحافة بين الخصوصية والصالح العام',
+        body: 'الصحافة بين الخصوصية والصالح العام',
         duration: '3:22',
         image: 'https://picsum.photos/200/300'
     }

@@ -10,7 +10,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface ArticleItemProps extends articleProps {
     index: number,
-    articleItemStyle: ViewStyle,
+    articleItemStyle?: ViewStyle,
     nid?: string
 }
 

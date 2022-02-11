@@ -13,7 +13,7 @@ import { getImageUrl } from 'src/shared/utils/utilities';
 
 export interface articleProps extends ImageLabelProps, ArticleWithOutImageProps {
     image?: string,
-    description: string
+    body: string
 }
 
 export interface ArticleSectionProps {
@@ -27,7 +27,6 @@ const MostReadList = ({ data }: ArticleSectionProps) => {
         item.tagStyle = {marginLeft: normalize(16)};
         item.tagLabelType = LabelTypeProp.p3;
         item.image = item.image ? item.image : getImageUrl(item.field_image);
-        item.description = item.description ? item.description : item.body;
         return <ArticleItem {...item} index={index} contentStyle={mostReadListStyle.contentStyle} />
     }
 

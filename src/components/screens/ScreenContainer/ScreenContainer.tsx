@@ -21,8 +21,8 @@ export const ScreenContainer = ({ children, edge, isLoading = false }: ScreenCon
   return (
     <SafeAreaView style={style.container} edges={edge ? edge : ['left', 'right', 'top']}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      {isLoading && <LoadingState />}
       {children}
+      {isLoading && <LoadingState />}
     </SafeAreaView>
   )
 }

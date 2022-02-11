@@ -9,19 +9,19 @@ import { TextWithFlagProps } from 'src/components/atoms';
 import { decodeHTMLTags } from 'src/shared/utils/utilities';
 
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
-    description?: string,
+    body?: string,
     footerInfo?: articleFooterProps,
     contentStyle?: object,
     showDivider?: boolean
 }
 
 const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
-    description,
+    body,
     ...props
 }) => (
     <View style={{ ...props.contentStyle }}>
         <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
-        {description && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(description)} color={Styles.color.davyGrey} numberOfLines={3}/>} 
+        {body && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)} color={Styles.color.davyGrey} numberOfLines={3}/>} 
         <View style={ArticleWithOutImageStyle.footerContainer}>
             <ArticleFooter {...props.footerInfo ? { ...props.footerInfo } : { ...articleFooterSample }} />
         </View>
