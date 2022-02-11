@@ -106,10 +106,10 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   headerContainer: {
-    marginTop: normalize(30),
+    marginTop: normalize(40),
     height: normalize(55),
     justifyContent: 'center',
-    padding: normalize(20),
+    padding: normalize(25),
     zIndex:11,
     flex:1,
   },
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     borderWidth: 0
   },
   backgroundTransparent: {
-    padding: normalize(20),
+    padding: normalize(25),
   },
   labelStyle: {
     marginLeft: normalize(10)
