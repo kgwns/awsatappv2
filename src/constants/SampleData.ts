@@ -33,6 +33,14 @@ export const storeSampleData = mockStore({
     homeData: null,
     error: '',
   },
+  latestNewsTab: {
+    isLoading: true,
+    error: '',
+    ticker: [],
+    hero: [],
+    heroList: [],
+    topList: []
+  }
 });
 
 export const sampleTextWithFlag: TextWithFlagProps = {
@@ -61,6 +69,13 @@ export const shortArticleData: ShortArticleProps[] = [
     labelType: LabelTypeProp.h3,
   },
 ];
+
+export const shortArticleWithTagProperties = {
+  flag: 'استنكار',
+  flagColor: Styles.color.greenishBlue,
+  barColor: Styles.color.greenishBlue,
+  labelType: LabelTypeProp.h3,
+}
 
 export const shortArticleWithTagData: ShortArticleProps[] = [
   {
@@ -128,25 +143,25 @@ export const authorHeaderData: WidgetHeaderProps = {
 export const authorWidgetData: AuthorItemProps[] = [
   {
     author: 'عادل درويش',
-    description: 'الصحافة بين الخصوصية والصالح العام',
+    body: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
     image: 'https://picsum.photos/200/300',
   },
   {
     author: 'عادل درويش',
-    description: 'الصحافة بين الخصوصية والصالح العام',
+    body: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
     image: 'https://picsum.photos/200/300',
   },
   {
     author: 'عادل درويش',
-    description: 'الصحافة بين الخصوصية والصالح العام',
+    body: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
     image: 'https://picsum.photos/200/300',
   },
   {
     author: 'عادل درويش',
-    description: 'الصحافة بين الخصوصية والصالح العام',
+    body: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
     image: 'https://picsum.photos/200/300',
   },
@@ -160,25 +175,10 @@ export const articleFooterSample: articleFooterProps = {
   rightTitleColor: Styles.color.silverChalice,
 };
 
-export const articleSectionData: articleProps[] = [
-  {
-    image: 'https://picsum.photos/200/300',
-    title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-    description: `أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت، أن مجموعة مؤسسات استثمارية تعهدت بالمساهمة في المشروع بمليار دولار`,
-    tagName: 'مجما',
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-    description: `أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت، أن مجموعة مؤسسات استثمارية تعهدت بالمساهمة في المشروع بمليار دولار`,
-    tagName: 'مجما',
-  },
-];
-
 const mostReadItem = {
   image: 'https://picsum.photos/200/300',
   title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-  description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+  body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
   flag: 'استنكار',
   flagColor: Styles.color.greenishBlue,
   barColor: Styles.color.greenishBlue,

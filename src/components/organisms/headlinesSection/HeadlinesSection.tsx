@@ -36,14 +36,14 @@ const HeadlinesSection = ({
     marqueeDelay,
 }: HeadlinesSectionProps) => {
     const titleColor = headlineTitleColor ? headlineTitleColor : colors.davyGrey;
-    const descriptionColor = headlineDescriptionColor ? headlineDescriptionColor : colors.davyGrey;
+    const bodyColor = headlineDescriptionColor ? headlineDescriptionColor : colors.davyGrey;
     const separatorColor = barColor ? barColor : colors.greenishBlue;
     return (
         <View style={HeadlinesSectionStyle.contentContainer}>
             <Label color={titleColor} children={headlineTitle} labelType={LabelTypeProp.p5} />
             {headlineTitle && <View style={[HeadlinesSectionStyle.separator, { backgroundColor: separatorColor }]} />}
             <TextTicker
-                style={[HeadlinesSectionStyle.headlineDescription, { color: descriptionColor }]}
+                style={[HeadlinesSectionStyle.headlineDescription, { color: bodyColor }]}
                 duration={duration ? duration : TextTickerDefaultProps.duration}
                 loop={loop ? loop : TextTickerDefaultProps.loop}
                 repeatSpacer={repeatSpacer ? repeatSpacer : TextTickerDefaultProps.repeatSpacer}

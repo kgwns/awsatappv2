@@ -1,6 +1,6 @@
 import { Alert, ColorSchemeName } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
-import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE } from "../../constants/SharedConstants"
+import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX } from "../../constants/SharedConstants"
 import { Edge } from "react-native-safe-area-context";
 import { BASE_URL } from "src/services/apiUrls";
 
@@ -28,13 +28,13 @@ export const horizontalEdge: Edge[] = ['left', 'right']
 export const horizontalAndBottomEdge: Edge[] = [...horizontalEdge, 'bottom']
 
 export const getImageUrl = (imageURL: string) => {
-    return BASE_URL + imageURL;
+    return isValidHttpUrl(imageURL) ? imageURL : BASE_URL + imageURL;
 }
 
 export const decodeHTMLTags = (description: string) => {
     const regex = /(<([^>]+)>)/ig; // to find the html tags in the description ex: <p>, <br>, etc.,   
     return description ? description.replace(regex, '') : description;
-} 
+}
 
 export const isNonEmptyArray = (data: any): boolean => {
     return (data && Array.isArray(data) && data.length > 0)
@@ -42,4 +42,13 @@ export const isNonEmptyArray = (data: any): boolean => {
 
 export const isObjectNonEmpty = (data: any): boolean => {
     return Object.keys(data).length > 0 ? true : false
+}
+
+export const isNotEmpty = (value: string | null | undefined): boolean => {
+    return typeof value === 'string' && value.trim().length > 0
+}
+
+export const isValidHttpUrl = (url: string) : boolean => {
+    const pattern = new RegExp(VALID_URL_REGEX)
+    return isNotEmpty(url) ? pattern.test(url) : false
 }

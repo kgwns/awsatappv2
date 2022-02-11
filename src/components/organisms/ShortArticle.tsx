@@ -32,12 +32,7 @@ const ShortArticle = ({ data, headerLeft }: ArticleSectionProps) => {
     return <View key={flatListUniqueKey.SHORT_ARTICLE + index} style={{paddingBottom: normalize(20)}}>
       <View style={{ flexDirection: 'row' }}>
         <View style={{ flex: 1, paddingRight: normalize(15) }}>
-          <TextWithFlag
-            title={item.title} titleColor={item.titleColor}
-            flag={item.flag} flagColor={item.flagColor}
-            barColor={item.barColor} numberOfLines={2}
-            labelType={item.labelType}
-          />
+          <TextWithFlag {...item} numberOfLines={2} />
           <View style={ShortArticleStyle.footerContainer}>
             <ArticleFooter {...shortArticleFooterSample} />
           </View>

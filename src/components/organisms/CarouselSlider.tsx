@@ -7,17 +7,16 @@ import { flatListUniqueKey } from '../../constants'
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { HeadlinesSection } from 'src/components/organisms';
 import { HeadlinesSectionProps } from './headlinesSection/HeadlinesSection';
+import { LatestArticleDataType } from '~/redux/latestNews/types'
 
-const sampleCarouselData: articleProps[] = [
-    {
-        image: 'https://picsum.photos/200/300',
-        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-        description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'الحكومة'
-    }
-]
+type CarouselSliderProps = {
+    tickerData: LatestArticleDataType[],
+    heroData: LatestArticleDataType[]
+}
 
-const CarouselSlider = () => {
+const CarouselSlider = ({
+    tickerData, heroData
+}: CarouselSliderProps) => {
     const { themeData } = useTheme()
     const sampleHeadlinesSectionData: HeadlinesSectionProps = {
         headlineTitle: "آخر الأخبار",
@@ -44,7 +43,7 @@ const CarouselSlider = () => {
             </View>
             <FlatList
                 ref={sliderRef}
-                data={sampleCarouselData}
+                data={heroData}
                 keyExtractor={(_, index) => index.toString()}
                 listKey={flatListUniqueKey.CAROUSEL_WIDGET}
                 horizontal={true}

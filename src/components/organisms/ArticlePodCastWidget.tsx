@@ -15,7 +15,7 @@ const podCastData =
 {
     image: 'https://picsum.photos/200/300',
     title: 'استمع لملخص آخر أخبار اليوم',
-    description: 'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين.وافتتح السويدي روبن كوايسون التسجيل لفريقه الاتفاق قبل نهاية الشوط الأول بلحظات قليلة، قبل أن ينجح فارس الدهناء في تعزيز تقدمه بهدفين حضرا في الدقائق الأخيرة من عمر المواجهة التي أقيمت على ملعب نادي الحزم بمدينة الرس، حيث حمل الهدفان توقيع الثنائي وليد أزارو وفيليب كيتش.',
+    body: 'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين.وافتتح السويدي روبن كوايسون التسجيل لفريقه الاتفاق قبل نهاية الشوط الأول بلحظات قليلة، قبل أن ينجح فارس الدهناء في تعزيز تقدمه بهدفين حضرا في الدقائق الأخيرة من عمر المواجهة التي أقيمت على ملعب نادي الحزم بمدينة الرس، حيث حمل الهدفان توقيع الثنائي وليد أزارو وفيليب كيتش.',
     podCastHeader: 'استمع الي البودكاست ',
     allEpisodes: 'كل الحلقات',
     tagName: 'الحكومة',
@@ -32,7 +32,7 @@ const ArticlePodCastWidget = () => {
             <View style={{ flexDirection: 'row', flex: 1 }}>
                 <View style={{ paddingRight: normalize(20) }}>
                     <Label labelType={LabelTypeProp.h1} children={podCastData.title} color={themeData.primary} style={style.titleContainer} />
-                    <Label labelType={LabelTypeProp.h3} children={podCastData.description} color={themeData.secondaryDavyGrey} style={style.descriptionContainer} numberOfLines={2} />
+                    <Label labelType={LabelTypeProp.h3} children={podCastData.body} color={themeData.secondaryDavyGrey} style={style.bodyContainer} numberOfLines={2} />
                 </View>
                 <Image style={style.imageContainer} url={podCastData.image} resizeMode={ImageResize.COVER} />
             </View>
@@ -69,7 +69,7 @@ const customStyle = (theme: CustomThemeType) => {
             fontSize: normalize(15),
             width: normalize(240)
         },
-        descriptionContainer: {
+        bodyContainer: {
             paddingHorizontal: normalize(10),
             fontSize: normalize(13),
             width: normalize(240)

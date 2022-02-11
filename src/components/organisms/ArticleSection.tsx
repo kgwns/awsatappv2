@@ -17,7 +17,10 @@ export interface ArticleSectionProps {
 
 const ArticleSection = ({ data }: ArticleSectionProps) => {
     const renderItem = (item: articleProps, index: number) => {
-        return <ArticleItem {...item} showDivider={index < data.length - 1} index={index} imageStyle={{height: normalize(189)}}/>
+        return <ArticleItem {...item} index={index}
+            showDivider={index < data.length - 1}
+            imageStyle={{ height: normalize(189) }}
+        />
     }
     return (
         <View style={articleSectionStyle.container}>

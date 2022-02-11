@@ -7,7 +7,7 @@ import { isTab } from 'src/shared/utils'
 
 export interface AuthorItemProps {
     author: string,
-    description: string,
+    body: string,
     duration: string,
     image: string,
     index?: number
@@ -15,7 +15,7 @@ export interface AuthorItemProps {
 
 const AuthorItem = ({
     author,
-    description,
+    body,
     duration,
     image,
     index
@@ -25,8 +25,8 @@ const AuthorItem = ({
             <View style={{ flex: 1 }}>
                 <Label children={author} labelType={LabelTypeProp.p4}
                     color={Styles.color.greenishBlue} numberOfLines={1} />
-                <Label children={description} labelType={LabelTypeProp.h3}
-                    numberOfLines={1} style={authorItemStyle.description} />
+                <Label children={body} labelType={LabelTypeProp.h3}
+                    numberOfLines={1} style={authorItemStyle.body} />
                 <View style={{ flexDirection: 'row',alignItems: 'center' }}>
                     <ButtonImage image={ImagesName.greenPlayIcon} size={normalize(14)}
                         onPress={() => console.log('Pressed :::::')} />
@@ -50,7 +50,7 @@ const authorItemStyle = StyleSheet.create({
         flexDirection: 'row', 
         justifyContent: 'space-between'
     },
-    description: {
+    body: {
         paddingVertical: normalize(10),
         paddingRight: normalize(5)
     },

@@ -65,7 +65,7 @@ export const ArticleDetailScreen = ({
         <ArticleDetailWidget
           title={articleDetailData[0].title}
           image={articleDetailData[0].image}
-          category={articleDetailData[0].category} />
+          category={articleDetailData[0].news_categories.title ?? ''} />
         {articleHtmlContent()}
       </>
       }
@@ -77,7 +77,7 @@ export const ArticleDetailScreen = ({
 
   return (
     <ScreenContainer edge={horizontalAndBottomEdge} isLoading={isLoading}>
-      {!isLoading && <>
+      {!isLoading && isNonEmptyArray(articleDetailData)  && <>
         <FlatList
           style={{ flex: 1, height: '100%' }}
           data={[{}]}
@@ -86,7 +86,7 @@ export const ArticleDetailScreen = ({
           showsVerticalScrollIndicator={false}
           bounces={false}
         />
-        <ArticleDetailFooter />
+        <ArticleDetailFooter articleDetailData={articleDetailData[0]} />
       </>
       }
     </ScreenContainer>
