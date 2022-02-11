@@ -34,4 +34,7 @@ export const arabic = {
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
   },
+  sectionVideo:{
+    toWatch: 'مشاهدة'
+  }
 };

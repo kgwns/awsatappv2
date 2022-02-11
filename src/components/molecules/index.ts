@@ -29,3 +29,4 @@ export {default as SectionHeader} from 'src/components/molecules/podcast/Section
 export {default as NewsWithImageItem} from 'src/components/molecules/podcast/NewsWithImageItem';
 export {default as ArticleRectangleCard} from 'src/components/molecules/podcast/ArticleRectangleCard';
 export {default as PodcastCardWithLabel} from 'src/components/molecules/podcast/PodcastCardWithLabel';
+export { VideoItem, VideoItemProps } from 'src/components/molecules/video-item/VideoItem';
