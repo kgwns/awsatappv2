@@ -20,7 +20,7 @@ const PodcastWidget = () => {
             <View style={style.podcastImageContainer}>
                 <Image resizeMode='stretch' url={'https://picsum.photos/200'} style={style.podcastImage} />
             </View>
-            <View style={style.descriptionContainer}>
+            <View style={style.bodyContainer}>
                 <Label color={themeData.primaryBlack} style={style.podcastTitle} children={'استمع لبودكاست آخر أخبار اليوم'} />
                 <View style={style.durationContainer}>
                     <Label color={colors.greenishBlue} children={'استمع الي البودكاست '} style={style.authorTitle} />
@@ -50,7 +50,7 @@ const createStyles = (theme: CustomThemeType) => {
             width: '100%',
             height: '100%'
         },
-        descriptionContainer: {
+        bodyContainer: {
             overflow: 'hidden',
             width: '78%'
         },

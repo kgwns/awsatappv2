@@ -22,7 +22,7 @@ const AppStackContainer = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={defaultScreenOptions}
-        initialRouteName={ScreensConstants.AuthNavigator}>
+        initialRouteName={ScreensConstants.AppNavigator}>
         <Stack.Screen
           name={ScreensConstants.AuthNavigator}
           component={Routes.AuthNavigator}

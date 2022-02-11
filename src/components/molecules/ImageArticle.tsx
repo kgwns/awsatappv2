@@ -43,10 +43,10 @@ const imageArticleStyle = StyleSheet.create({
         height: 0.85 * screenWidth
     },
     slideContent: {
+        width: '100%',
         position: 'absolute',
         bottom: 0,
-        paddingHorizontal: normalize(8),
-        alignSelf: 'center',
+        paddingHorizontal: normalize(16),
         paddingVertical: normalize(15)
     },
     headNewsContainer: {
