@@ -6,11 +6,13 @@ import { shortArticleWithTagData } from 'src/constants/SampleData'
 import { ArticleDetailFooter } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
-import { horizontalAndBottomEdge, normalize } from 'src/shared/utils'
+import { horizontalAndBottomEdge, isNonEmptyArray, normalize } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import { HtmlRenderer } from 'src/components/atoms'
+import type { MixedStyleRecord } from '@native-html/transient-render-engine';
+
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -33,6 +35,15 @@ export const ArticleDetailScreen = ({
     fetchArticleDetail
   } = useArticleDetail();
 
+  const htmlTagStyle: MixedStyleRecord = {
+    p: {
+      color: themeData.primaryBlack,
+      textAlign: 'left',
+      direction: 'rtl',
+      fontSize: normalize(16)
+    }
+  }
+
   useEffect(() => {
     fetchArticleDetail({
       nid: parseInt(route.params?.nid)
@@ -43,14 +54,21 @@ export const ArticleDetailScreen = ({
 
   const articleHtmlContent = () => (
     <View style={articleDetailScreenStyle.labelStyle}>
-      <HtmlRenderer source={articleDetailData[0].body} />
+      <HtmlRenderer source={articleDetailData[0].body}
+        tagsStyles={htmlTagStyle} />
     </View>
   )
 
   const renderItem = () => (
     <View>
-      <ArticleDetailWidget title={articleDetailData[0].title} image={articleDetailData[0].image}/>
-      {articleHtmlContent()}
+      {isNonEmptyArray(articleDetailData) && <>
+        <ArticleDetailWidget
+          title={articleDetailData[0].title}
+          image={articleDetailData[0].image}
+          category={articleDetailData[0].category} />
+        {articleHtmlContent()}
+      </>
+      }
       {/* <RelatedArticles /> */}
       <ShortArticle data={shortArticleWithTagData} headerLeft={relatedShortArticleHeaderLeft} />
       <Divider style={{ height: normalize(50) }} />

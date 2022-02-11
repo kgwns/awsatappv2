@@ -39,3 +39,7 @@ export const decodeHTMLTags = (description: string) => {
 export const isNonEmptyArray = (data: any): boolean => {
     return (data && Array.isArray(data) && data.length > 0)
 }
+
+export const isObjectNonEmpty = (data: any): boolean => {
+    return Object.keys(data).length > 0 ? true : false
+}

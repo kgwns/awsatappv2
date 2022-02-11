@@ -14,6 +14,7 @@ export interface ArticleDetailDataType {
   body: string,
   nid: string,
   image: string,
+  category: string
 }
 
 interface PagerType {

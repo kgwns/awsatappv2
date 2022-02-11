@@ -13,5 +13,6 @@ export {
   testProps,
   horizontalEdge,
   horizontalAndBottomEdge,
-  isNonEmptyArray
+  isNonEmptyArray,
+  isObjectNonEmpty
 } from 'src/shared/utils/utilities'

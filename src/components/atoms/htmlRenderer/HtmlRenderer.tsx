@@ -1,15 +1,20 @@
-import { View } from 'react-native'
 import React from 'react'
 import RenderHtml from 'react-native-render-html';
 import { screenWidth } from 'src/shared/utils';
+import type { MixedStyleRecord } from '@native-html/transient-render-engine';
 
-export const HtmlRenderer = ({ source }: { source: any }) => {
+
+export type HtmlRendererType = {
+    source: any,
+    tagsStyles: MixedStyleRecord
+}
+
+export const HtmlRenderer = ({ source, tagsStyles }: HtmlRendererType) => {
     return (
-        <View>
-            <RenderHtml
-                source={{ html: source }}
-                contentWidth={screenWidth}
-            />
-        </View>
+        <RenderHtml
+            source={{ html: source }}
+            contentWidth={screenWidth}
+            tagsStyles={tagsStyles}
+        />
     )
 }

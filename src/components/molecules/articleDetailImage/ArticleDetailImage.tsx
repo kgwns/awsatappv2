@@ -20,12 +20,12 @@ const imageArticleSample: articleFooterProps = {
 }
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
-    tagName: string,
+    category: string,
     title?: string,
     containerStyle?: ViewStyle
 }
 const ArticleDetailImage = ({
-    image, tagName, title, containerStyle
+    image, category, title
 }: ImageArticleProps) => {
     const [t] = useTranslation();
     const navigation = useNavigation()
@@ -45,7 +45,7 @@ const ArticleDetailImage = ({
             </TouchableOpacity>
             <View style={imageArticleStyle.slideContent}>
                 <View style={imageArticleStyle.tagNameViewStyle}>
-                    <Label labelType={LabelTypeProp.h3} children={tagName} color={Styles.color.white} style={imageArticleStyle.tagNameStyle} />
+                    <Label labelType={LabelTypeProp.h3} children={category} color={Styles.color.white} style={imageArticleStyle.tagNameStyle} />
                 </View>
                 <Label labelType={LabelTypeProp.h1}
                     children={title}

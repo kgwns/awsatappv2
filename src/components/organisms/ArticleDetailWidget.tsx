@@ -8,24 +8,25 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
 const sampleArticleDetailData = {
-    tagName: 'العالم العربي',
     articleBase: 'حقوق مليكة الصوره توضع هنا'
 }
 
 interface ArticleDetailImageProps {
    image: string,
-   title: string
+   title: string,
+   category: string
 }
 
 const ArticleDetailWidget: FunctionComponent<ArticleDetailImageProps> = ({
     image,
-    title
+    title,
+    category
 }) => {
     const style = useThemeAwareObject(customStyle)
     return (
         <View>
             <ArticleDetailImage image={image} title={title}
-                tagName={sampleArticleDetailData.tagName}
+                category={category}
             />
             <Label
                 children={sampleArticleDetailData.articleBase}
