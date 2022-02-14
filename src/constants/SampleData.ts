@@ -22,8 +22,8 @@ import {NewsWithImageItemProps} from 'src/components/molecules/podcast/NewsWithI
 import {ArticleRectangleCardProps} from 'src/components/molecules/podcast/ArticleRectangleCard';
 import { NewsFeedProps } from 'src/components/organisms/NewsFeed';
 
-const mockStore = configureStore();
-export const storeSampleData = mockStore({
+export const storeInfo = [
+  {
   appCommon: {
     theme: Theme.LIGHT,
   },
@@ -38,8 +38,33 @@ export const storeSampleData = mockStore({
     ticker: [],
     hero: [],
     heroList: [],
-    topList: []
+    topList: [],
+    sectionComboOne: [],
+    sectionComboTwo: [],
+    sectionComboThree: [],
+    sectionComboFour: []
+  },
+  articleDetail: {
+    isLoading: true,
+    error: '',
+    articleDetailData: [],
+    pager: {}
+  },
+  search: {
+    searchData: [],
+    error: '',
+    isLoading: false,
+  },
+  mostRead: {
+    mostReadData: [],
+    error: '',
+    isLoading: false,
   }
+}]
+
+const mockStore = configureStore();
+export const storeSampleData = mockStore({
+  storeInfo
 });
 
 export const sampleTextWithFlag: TextWithFlagProps = {
