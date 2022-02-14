@@ -2,15 +2,18 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
-  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne
+  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne , ShortArticleProps, StoryListProps
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties } from 'src/constants/SampleData';
+import { shortArticleWithTagProperties, shortArticleData, storyWidgetData } from 'src/constants/SampleData';
 import { horizontalEdge, isTab, normalize } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useLatestNewsTab } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
+import {ScreensConstants} from 'src/constants';
+import { StackNavigationProp } from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
 
 const tickerAndHeroPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -42,6 +45,7 @@ const sectionComboFourPayload: RequestSectionComboBodyGet = {
 
 export const LatestNewsScreen = () => {
   const { themeData } = useTheme()
+  const navigation = useNavigation<StackNavigationProp<any>>()
 
   const {
     isLoading, ticker, hero, heroList, topList,
@@ -89,7 +93,12 @@ export const LatestNewsScreen = () => {
             <ShortArticle data={topListData} />
           </>
       }
-      <StoryWidget />
+      <StoryWidget  data={storyWidgetData}
+        onPress={(item: StoryListProps,index: number)=>
+          navigation.navigate(ScreensConstants.StoryScreen,
+            {id:item.id,selectedIndex:index}
+          )}
+      />
       <SectionComboOne data={sectionComboOne}/>
       <BannerArticleSection data={sectionComboTwo} />
       <Divider style={{ height: normalize(20) }} />

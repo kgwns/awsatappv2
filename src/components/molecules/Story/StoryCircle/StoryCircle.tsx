@@ -13,15 +13,17 @@ import { normalize } from '../../../../shared/utils/dimensions';
 interface StoryCircleProps {
     storyImageUrl: string;
     onPress: () => void;
+    testID?: string,
 }
 
 const StoryCircle: FunctionComponent<StoryCircleProps> = ({
     storyImageUrl,
-    onPress
+    onPress,
+    testID
 }) => {
     return (
         <View>
-            <TouchableOpacity onPress={onPress}>
+            <TouchableOpacity testID={testID} accessibilityLabel={testID} onPress={onPress}>
                 <View style={StoryCircleStyle.outerCircle} >
                     <View style={StoryCircleStyle.innerCircle} >
                         <Image resizeMode={ImageResize.COVER} url={storyImageUrl} style={StoryCircleStyle.storyImage} />
