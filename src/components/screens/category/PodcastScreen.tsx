@@ -3,6 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {
   EditorsPickSection,
   LatestNewsSummarySection,
+  podcastCardProps,
   PodcastCardSection,
 } from 'src/components/organisms';
 import {
@@ -17,12 +18,18 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {FlatList} from 'react-native-gesture-handler';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {PodcastOpinionArticleSection} from 'src/components/organisms/PodcastOpinionArticleSection';
+import {useNavigation} from '@react-navigation/native';
+import { ScreensConstants } from 'src/constants';
 
 export const PodcastScreen = () => {
   const style = useThemeAwareObject(customStyle);
+  const navigation = useNavigation();
+  const onPressItem = (item:podcastCardProps)=>{
+    navigation.navigate(ScreensConstants.PodcastProgram)
+  }
   const renderItem = () => (
     <View>
-      <PodcastCardSection data={podcastCardSectionData} />
+      <PodcastCardSection onPress={(item:podcastCardProps)=>onPressItem(item)} data={podcastCardSectionData} />
       <MostPlayedSection data={mostPlayedSectionData} />
       <LatestNewsSummarySection data={LatestNewsSummarySectionData} />
       <EditorsPickSection data={EditorsPickSectionData} />

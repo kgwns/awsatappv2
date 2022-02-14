@@ -6,6 +6,7 @@ import {
   articleFooterProps,
   TabBarDataProps,
   VideoItemProps,
+  PodcastVerticalListProps,
 } from 'src/components/molecules';
 import {Theme} from 'src/redux/appCommon/types';
 import configureStore from 'redux-mock-store';
@@ -690,3 +691,27 @@ export const articleSampleData =
     description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
     tagName: 'الحكومة'
 }
+
+export const PodcastEpisodeData: PodcastVerticalListProps[] = [
+  {
+    imageUrl: 'https://picsum.photos/200',
+    title: '65 : عنوان الحلقه يوضع هنا',
+    description: 'استعاد فريق الاتفاق نقمة انتصاراته وحقق فوزا ثمينا خارج أرضه اسلام نظيره فريق الحرم بثلاثة أهداف دون رد ضمن منافسات',
+    footerLeft: '45 دقيقه',
+    footerRight: 'الخسيس',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    title: '64 : عنوان الحلقه يوضع هنا',
+    description: 'استعاد فريق الاتفاق نقمة انتصاراته وحقق فوزا ثمينا خارج أرضه اسلام نظيره فريق الحرم بثلاثة أهداف دون رد ضمن منافسات',
+    footerLeft: '45 دقيقه',
+    footerRight: 'الخسيس',
+  },
+  {
+    imageUrl: 'https://picsum.photos/200',
+    title: '66 : عنوان الحلقه يوضع هنا',
+    description: 'استعاد فريق الاتفاق نقمة انتصاراته وحقق فوزا ثمينا خارج أرضه اسلام نظيره فريق الحرم بثلاثة أهداف دون رد ضمن منافسات',
+    footerLeft: '45 دقيقه',
+    footerRight: 'الخسيس'
+  },
+];

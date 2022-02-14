@@ -5,26 +5,33 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Label, Image} from 'src/components/atoms';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
 
-export interface PodcastCardWithLabelProps {
+export interface PodcastVerticalListProps {
   imageUrl?: string;
   testID?: string;
   title?: string;
   description?: string;
+  footerLeft?: string;
+  footerRight?: string;
   itemOnPress?: ()=> void;
 }
 
-export const PodcastCardWithLabel = ({
+export const PodcastVerticalList = ({
   imageUrl,
   title,
   description,
   itemOnPress,
   testID,
-}: PodcastCardWithLabelProps) => {
+  footerLeft,
+  footerRight,
+}: PodcastVerticalListProps) => {
   const style = useThemeAwareObject(customStyle);
   return (
     <TouchableWithoutFeedback testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
       <View style={style.cardContainer}>
-        <Image url={imageUrl} style={style.imageStyle} />
+        <View style={style.headerStyle}>
+          <Image url={imageUrl} style={style.imageStyle} />
+        </View>
+        
         <Label style={style.title} numberOfLines={1}>
           {title}
         </Label>
@@ -39,13 +46,13 @@ export const PodcastCardWithLabel = ({
 const customStyle = (theme: CustomThemeType) => {
   const PodcastCardStyle = StyleSheet.create({
     cardContainer: {
-      width: normalize(257),
-      height: normalize(233),
-      alignItems: 'flex-start',
-      margin: normalize(10),
+      flex:1,
       backgroundColor: theme.secondaryWhite,
     },
-    imageStyle: {width: normalize(257), height: normalize(174)},
+    headerStyle: {
+      flexDirection: 'row',
+    },
+    imageStyle: {width: normalize(50), height: normalize(50)},
     title: {
       fontSize: normalize(15),
       lineHeight: normalize(16),
@@ -63,4 +70,4 @@ const customStyle = (theme: CustomThemeType) => {
   return PodcastCardStyle;
 };
 
-export default PodcastCardWithLabel;
+export default PodcastVerticalList;

@@ -15,6 +15,7 @@ export {default as RelatedArticles} from 'src/components/organisms/relatedArticl
 export {default as OpinionWritersSection} from 'src/components/organisms/OpinionWritersSection';
 export {default as OpinionWritersArticlesSection} from 'src/components/organisms/OpinionWritersArticlesSection';
 export { default as InterestSection } from 'src/components/organisms/InterestSection';
+export { PodcastEpisodeList } from 'src/components/organisms/podcast/PodcastEpisodeList';
 
 
 
@@ -22,7 +23,7 @@ export { default as InterestSection } from 'src/components/organisms/InterestSec
 export { default as VideoContent } from 'src/components/organisms/VideoContent';
 export { default as NewsFeed} from 'src/components/organisms/NewsFeed';
 export { default as HeadlinesSection } from 'src/components/organisms/headlinesSection/HeadlinesSection';
-export {default as PodcastCardSection} from 'src/components/organisms/PodcastCardSection';
+export {default as PodcastCardSection, podcastCardProps} from 'src/components/organisms/PodcastCardSection';
 export {default as MostPlayedSection} from 'src/components/organisms/MostPlayedSection';
 export {default as LatestNewsSummarySection} from 'src/components/organisms/LatestNewsSummarySection';
 export {default as EditorsPickSection} from 'src/components/organisms/EditorsPickSection';
