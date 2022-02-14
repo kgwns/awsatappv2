@@ -1,4 +1,4 @@
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import { StyleSheet, View, ViewStyle, TouchableWithoutFeedback } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants'
 import { ImageWithLabel } from '../atoms'
@@ -23,16 +23,18 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     const navigation = useNavigation<StackNavigationProp<any>>()
     const onPress = () => {
         if (props.nid) {
-            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: props.nid})
+            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: props.nid })
         }
     }
 
     return (
-        <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
-            style={StyleSheet.flatten([{ paddingBottom: normalize(20) }, articleItemStyle])}>
-            {image && <ImageWithLabel url={image} {...props} onPress={onPress} imageStyle={imageStyle} />}
-            <ArticleWithOutImage {...props} />
-        </View>
+        <TouchableWithoutFeedback onPress={onPress}>
+            <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
+                style={StyleSheet.flatten([{ paddingBottom: normalize(20) }, articleItemStyle])}>
+                {image && <ImageWithLabel url={image} {...props} onPress={onPress} imageStyle={imageStyle} />}
+                <ArticleWithOutImage {...props} />
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
 

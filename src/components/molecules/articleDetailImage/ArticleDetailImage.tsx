@@ -10,22 +10,22 @@ import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native'
 
-const imageArticleSample: articleFooterProps = {
+const articleDetailFooterData: articleFooterProps = {
     leftTitle: 'وتمجيد',
     leftTitleColor: Styles.color.white,
-    rightTitle: 'يتحمل',
     leftIcon: ImagesName.clock,
     rightTitleColor: Styles.color.white,
     hideBookmark: true
 }
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
-    category: string,
+    category?: string,
     title?: string,
-    containerStyle?: ViewStyle
+    containerStyle?: ViewStyle,
+    author: string
 }
 const ArticleDetailImage = ({
-    image, category, title
+    image, category, title, author
 }: ImageArticleProps) => {
     const [t] = useTranslation();
     const navigation = useNavigation()
@@ -51,7 +51,7 @@ const ArticleDetailImage = ({
                     children={title}
                     color={Styles.color.white}
                     style={{ paddingBottom: normalize(20), paddingTop: normalize(15) }} />
-                <ArticleFooter {...imageArticleSample} />
+                <ArticleFooter {...articleDetailFooterData} rightTitle={author}/>
             </View>
         </View>
     )

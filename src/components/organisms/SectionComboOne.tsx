@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { ShortArticle } from 'src/components/organisms/index';
@@ -9,9 +9,14 @@ import { Image, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms'
 import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ImageResize } from 'src/shared/styles/text-styles';
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { ScreensConstants } from 'src/constants'
 
 const SectionComboOne = ({ data }: { data: LatestArticleDataType[] }) => {
     const { themeData } = useTheme()
+    const navigation = useNavigation<StackNavigationProp<any>>()
+
     const [t] = useTranslation()
 
     const sectionComboOneData = data.map((item: LatestArticleDataType) => {
@@ -37,16 +42,22 @@ const SectionComboOne = ({ data }: { data: LatestArticleDataType[] }) => {
         },
     };
 
+    const onPress = (nid: string) => {
+        if (nid) {
+            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+        }
+    };
+
     const renderMainArticleImage = () => {
         return (
-            <View style={{ alignItems: 'center' }}>
+            <TouchableOpacity style={{ alignItems: 'center' }} activeOpacity={0.9}
+                onPress={() => onPress(sectionComboOneData[0].nid)}>
                 <Image
                     url={sectionComboOneData[0].image}
                     style={isTab ? sectionComboOneStyle.topImageTab : sectionComboOneStyle.topImage}
                     resizeMode={ImageResize.COVER}
                 />
-            </View>
-
+            </TouchableOpacity>
         )
     }
 

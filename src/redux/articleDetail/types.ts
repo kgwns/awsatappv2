@@ -9,12 +9,12 @@ export interface RequestArticleDetailType {
   payload: ArticleDetailBodyGet
 }
 
-export interface NewsCategoriesType {
-  id?: string
-  title?: string
-  url?: string
-  bundle?: string
-  name?: string
+type NewsCategoriesType = {
+  id: string
+  title: string
+  url: string
+  bundle: string
+  name: string
 }
 
 export interface ArticleDetailDataType {
@@ -23,7 +23,8 @@ export interface ArticleDetailDataType {
   nid: string,
   image: string,
   view_node: string,
-  news_categories: NewsCategoriesType
+  news_categories: NewsCategoriesType,
+  author: string
 }
 
 interface PagerType {
