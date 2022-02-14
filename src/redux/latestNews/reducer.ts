@@ -1,4 +1,4 @@
-import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED } from './actionType';
+import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED, REQUEST_SECTION_COMBO_ONE, REQUEST_SECTION_COMBO_ONE_SUCCESS, REQUEST_SECTION_COMBO_ONE_FAILED, REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_TWO_SUCCESS, REQUEST_SECTION_COMBO_TWO_FAILED, REQUEST_SECTION_COMBO_THREE, REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE_FAILED, REQUEST_SECTION_COMBO_FOUR, REQUEST_SECTION_COMBO_FOUR_SUCCESS, REQUEST_SECTION_COMBO_FOUR_FAILED } from './actionType';
 import { LatestNewsTabState, LatestTabAction } from './types';
 
 const initialData: LatestNewsTabState = {
@@ -7,7 +7,11 @@ const initialData: LatestNewsTabState = {
   ticker: [],
   hero: [],
   heroList: [],
-  topList: []
+  topList: [],
+  sectionComboOne: [],
+  sectionComboTwo: [],
+  sectionComboThree: [],
+  sectionComboFour: []
 };
 
 export default (state = initialData, action: LatestTabAction) => {
@@ -43,6 +47,74 @@ export default (state = initialData, action: LatestTabAction) => {
         topList: action.payload.topList
       }
     case REQUEST_HERO_AND_TOP_LIST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    case REQUEST_SECTION_COMBO_ONE:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_SECTION_COMBO_ONE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        sectionComboOne: action.payload.sectionComboOne
+      }
+    case REQUEST_SECTION_COMBO_ONE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    case REQUEST_SECTION_COMBO_TWO:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_SECTION_COMBO_TWO_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        sectionComboTwo: action.payload.sectionComboTwo
+      }
+    case REQUEST_SECTION_COMBO_TWO_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    case REQUEST_SECTION_COMBO_THREE:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_SECTION_COMBO_THREE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        sectionComboThree: action.payload.sectionComboThree
+      }
+    case REQUEST_SECTION_COMBO_THREE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    case REQUEST_SECTION_COMBO_FOUR:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_SECTION_COMBO_FOUR_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        sectionComboFour: action.payload.sectionComboFour
+      }
+    case REQUEST_SECTION_COMBO_FOUR_FAILED:
       return {
         ...state,
         isLoading: false,

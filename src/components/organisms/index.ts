@@ -27,3 +27,4 @@ export {default as MostPlayedSection} from 'src/components/organisms/MostPlayedS
 export {default as LatestNewsSummarySection} from 'src/components/organisms/LatestNewsSummarySection';
 export {default as EditorsPickSection} from 'src/components/organisms/EditorsPickSection';
 
+export {default as SectionComboOne} from 'src/components/organisms/SectionComboOne';
