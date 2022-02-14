@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {OpinionScreen, ScreenContainer, VideoScreen, PodcastScreen} from '..';
+import {OpinionScreen, ScreenContainer, VideoScreen, PodcastScreen, SectionStoryScreen} from '..';
 import {TabBarComponent} from 'src/components/molecules';
 import {sectionTabItem} from 'src/constants/SampleData';
 import {horizontalEdge} from 'src/shared/utils';
@@ -21,7 +21,7 @@ export const SectionsScreen = () => {
   const tabContent = () => {
     switch (sectionTabItem[tabSelectedIndex].tabName) {
       case 'العالم العربي':
-        return <Label>'العالم العربي'</Label>;
+        return <SectionStoryScreen/>;
       case 'الرأي':
         return <OpinionScreen />;
       case 'بودكاست':

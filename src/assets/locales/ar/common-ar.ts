@@ -36,5 +36,9 @@ export const arabic = {
   },
   sectionVideo:{
     toWatch: 'مشاهدة'
+  },
+  categoryPage: {
+    videoContent: 'محتوي فيديو'
   }
+
 };
