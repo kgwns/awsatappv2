@@ -20,3 +20,4 @@ export {default as LatestNewsSummarySection} from 'src/components/organisms/Late
 export {default as EditorsPickSection} from 'src/components/organisms/EditorsPickSection';
 export {default as InterestSection} from 'src/components/organisms/InterestSection';
 export {default as HeadlinesSection} from 'src/components/organisms/headlinesSection/HeadlinesSection';
+export {default as SectionComboOne} from 'src/components/organisms/SectionComboOne';

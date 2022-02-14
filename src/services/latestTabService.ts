@@ -1,7 +1,7 @@
 import { BASE_URL } from 'src/services/apiUrls';
 import { getApiRequest } from 'src/services/api';
-import { LATEST_ARTICLE_GET } from './apiEndPoints';
-import { LatestArticleBodyGet } from 'src/redux/latestNews/types';
+import { LATEST_ARTICLE_GET, SECTION_COMBO } from './apiEndPoints';
+import { LatestArticleBodyGet, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { payloadType } from 'src/redux/latestNews/types';
 
 export const requestLatestArticle = async (body: LatestArticleBodyGet) => {
@@ -15,3 +15,15 @@ export const requestLatestArticle = async (body: LatestArticleBodyGet) => {
     throw error;
   }
 };
+
+export const requestSectionCombo = async(body: RequestSectionComboBodyGet) => {
+  try {
+    const response: payloadType = await getApiRequest(
+      `${BASE_URL}${SECTION_COMBO}/${body.id}`
+    );
+    return response;
+  } catch (error) {
+    console.log(`error: ${error}`);
+    throw error;
+  }
+}
