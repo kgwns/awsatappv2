@@ -5,6 +5,7 @@ import {
   AuthorItemProps,
   articleFooterProps,
   TabBarDataProps,
+  VideoItemProps,
 } from 'src/components/molecules';
 import {Theme} from 'src/redux/appCommon/types';
 import configureStore from 'redux-mock-store';
@@ -19,6 +20,7 @@ import {opinionWriterArticleProps} from 'src/components/organisms/OpinionWriters
 import {podcastCardProps} from 'src/components/organisms/PodcastCardSection';
 import {NewsWithImageItemProps} from 'src/components/molecules/podcast/NewsWithImageItem';
 import {ArticleRectangleCardProps} from 'src/components/molecules/podcast/ArticleRectangleCard';
+import { NewsFeedProps } from 'src/components/organisms/NewsFeed';
 
 const mockStore = configureStore();
 export const storeSampleData = mockStore({
@@ -577,3 +579,114 @@ export const PodcastOpinionArticleSectionData: ArticleRectangleCardProps[] = [
     footerLeft: '45 دقيقه',
   },
 ];
+
+export const videoTabData: VideoItemProps[] = [
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    time: '05:22',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    month: 'ديسمبر',
+    date: '7',
+    views: '1374',
+  },
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    time: '05:22',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    month: 'ديسمبر',
+    date: '7',
+    views: '1374',
+  },
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    time: '05:22',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    month: 'ديسمبر',
+    date: '7',
+    views: '1374',
+  },
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    time: '05:22',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    month: 'ديسمبر',
+    date: '7',
+    views: '1374',
+  },
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    time: '05:22',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    month: 'ديسمبر',
+    date: '7',
+    views: '1374',
+  },
+];
+export const newsFeedData: NewsFeedProps[] = [
+  {
+    title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    month: 'ديسمبر',
+    date: '7',
+    titleColor: Styles.color.black,
+    barColor: Styles.color.greenishBlue,
+    labelType: LabelTypeProp.h2,
+  },
+  {
+    title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    month: 'ديسمبر',
+    date: '7',
+    titleColor: Styles.color.black,
+    barColor: Styles.color.greenishBlue,
+    labelType: LabelTypeProp.h2,
+  },
+  {
+    title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    month: 'ديسمبر',
+    date: '7',
+    titleColor: Styles.color.black,
+    barColor: Styles.color.greenishBlue,
+    labelType: LabelTypeProp.h2,
+  },
+  {
+    title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    month: 'ديسمبر',
+    date: '7',
+    titleColor: Styles.color.black,
+    barColor: Styles.color.greenishBlue,
+    labelType: LabelTypeProp.h2,
+  },
+];
+export const articleSampleData =
+  {
+    image: 'https://picsum.photos/200/300',
+    title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+    description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+    tagName: 'الحكومة'
+}

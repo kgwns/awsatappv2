@@ -39,5 +39,12 @@ export const arabic = {
       headerLeft: 'الفيروسات المستجدة',
       headerRight: 'المزيد'
     }
+  },
+  sectionVideo:{
+    toWatch: 'مشاهدة'
+  },
+  categoryPage: {
+    videoContent: 'محتوي فيديو'
   }
+
 };
