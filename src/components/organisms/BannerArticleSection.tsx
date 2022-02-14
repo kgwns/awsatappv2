@@ -7,50 +7,15 @@ import { ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { articleProps } from './ArticleSection'
 import { shortArticleFooterSample } from './ShortArticle'
 import { flatListUniqueKey } from 'src/constants'
+import { LatestArticleDataType } from '~/redux/latestNews/types'
 
-const sampleBannerArticleData: articleProps[] = [
-    {
-        image: 'https://picsum.photos/200/300',
-        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-        body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'الحكومة'
-    },
-    {
-        image: 'https://picsum.photos/200/300',
-        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-        body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'الحكومة'
-    },
-    {
-        image: 'https://picsum.photos/200/300',
-        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-        body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'الحكومة'
-    }
-]
-
-const sampleVerticalArticleData: articleProps[] = [
-    {
-        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-        body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'الحكومة'
-    },
-    {
-        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-        body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'الحكومة'
-    },
-    {
-        title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-        body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-        tagName: 'الحكومة'
-    }
-]
-
-const BannerArticleSection = () => {
+const BannerArticleSection = (props: { data: LatestArticleDataType[] }) => {
+    const { data } = props
+    const bannerData = [...data]
+    const verticalArticleData = [...data].splice(1,3)
     const articleNewsItem = (item: articleProps, index: number) => {
         return <ArticleWithOutImage key={index} {...item}
-            showDivider={index < sampleVerticalArticleData.length - 1} footerInfo={shortArticleFooterSample}
+            showDivider={index < verticalArticleData.length - 1} footerInfo={shortArticleFooterSample}
         />
     }
 
@@ -58,7 +23,7 @@ const BannerArticleSection = () => {
         <ScrollView horizontal={true} bounces={false}
             showsHorizontalScrollIndicator={false}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
-                {sampleBannerArticleData.map((item: articleProps, index: number) => {
+                {bannerData.map((item: articleProps, index: number) => {
                     if (isTab || index == 0) return <ImageArticle key={index} {...item}
                         containerStyle={isTab ? bannerArticleSectionStyle.tabletImageStyle : {}} />
                     return null
@@ -75,7 +40,7 @@ const BannerArticleSection = () => {
             {listHeaderSection()}
             <FlatList
                 keyExtractor={(_, index) => index.toString()}
-                data={sampleVerticalArticleData}
+                data={verticalArticleData}
                 listKey={flatListUniqueKey.BANNER_ARTICLE_LIST + new Date().getTime().toString()}
                 style={!isTab && bannerArticleSectionStyle.verticalList}
                 horizontal={false}
