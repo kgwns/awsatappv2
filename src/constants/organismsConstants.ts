@@ -17,4 +17,5 @@ export enum flatListUniqueKey {
   EDITORS_PICK_WIDGET = 'EditorPickWidget',
   PODCAST_OPINION_ARTICLE_WIDGET = 'PodcastOpinionArticleSection',
   INTEREST_SECTION = 'InterestSection',
+  NEWS_FEED = 'NewsFeed'
 }
