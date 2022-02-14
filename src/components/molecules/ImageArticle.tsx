@@ -1,11 +1,14 @@
 import React from 'react'
-import { View, StyleSheet, ViewStyle } from 'react-native'
+import { View, StyleSheet, ViewStyle, TouchableWithoutFeedback } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from '../molecules'
 import { BannerImageWithOverlay, Label, LabelTypeProp } from '../atoms'
 import { articleFooterProps, BookMarkColorType } from '../molecules/articleFooter/ArticleFooter'
 import { normalize, screenWidth } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from '../atoms'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { ScreensConstants } from 'src/constants'
 
 const carouselFooterSample: articleFooterProps = {
     leftTitle: 'وتمجيد',
@@ -18,20 +21,31 @@ const carouselFooterSample: articleFooterProps = {
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     title: string,
-    containerStyle?: ViewStyle
+    containerStyle?: ViewStyle,
+    nid?: string
 }
 
 const ImageArticle = ({
-    image, title, containerStyle
+    image, title, containerStyle, nid
 }: ImageArticleProps) => {
+    const navigation = useNavigation<StackNavigationProp<any>>()
+    const onPress = () => {
+        if (nid) {
+            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+        }
+    }
+
     return (
-        <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
-            <BannerImageWithOverlay image={image} />
-            <View style={imageArticleStyle.slideContent}>
-                <Label labelType={LabelTypeProp.h1} children={title} color={Styles.color.white} />
-                <ArticleFooter {...carouselFooterSample} />
+        <TouchableWithoutFeedback onPress={onPress}>
+            <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
+                <BannerImageWithOverlay image={image} />
+                <View style={imageArticleStyle.slideContent}>
+                    <Label labelType={LabelTypeProp.h1} children={title} color={Styles.color.white} />
+                    <ArticleFooter {...carouselFooterSample} />
+                </View>
             </View>
-        </View>
+        </TouchableWithoutFeedback>
+
     )
 }
 

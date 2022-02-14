@@ -18,13 +18,15 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       responseData.articleDetailData = rows.map(
-        ({ title, body_export, nid_export, field_image_export, view_node, field_news_categories_export }: any) => ({
+        ({ title, body_export, nid_export, field_image_export, view_node, 
+          field_news_categories_export, author_resource }: any) => ({
           body: body_export,
           title,
           nid: nid_export,
           image: isNonEmptyArray(field_image_export) && getImageUrl(field_image_export[0]),
           view_node: view_node,
-          news_categories: field_news_categories_export
+          news_categories: field_news_categories_export,
+          author: author_resource
         })
       );
     }

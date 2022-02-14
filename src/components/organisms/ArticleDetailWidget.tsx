@@ -6,27 +6,24 @@ import { ArticleDetailImage } from 'src/components/molecules'
 import { Styles } from 'src/shared/styles'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { ArticleDetailDataType } from 'src/redux/articleDetail/types'
 
 const sampleArticleDetailData = {
     articleBase: 'حقوق مليكة الصوره توضع هنا'
 }
 
-interface ArticleDetailImageProps {
-   image: string,
-   title: string,
-   category: string
+interface ArticleDetailWidgetProps {
+    articleData: ArticleDetailDataType
 }
 
-const ArticleDetailWidget: FunctionComponent<ArticleDetailImageProps> = ({
-    image,
-    title,
-    category
+const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
+    articleData
 }) => {
     const style = useThemeAwareObject(customStyle)
     return (
         <View>
-            <ArticleDetailImage image={image} title={title}
-                category={category}
+            <ArticleDetailImage image={articleData.image} title={articleData.title}
+                category={articleData.news_categories.title} author={articleData.author}
             />
             <Label
                 children={sampleArticleDetailData.articleBase}
