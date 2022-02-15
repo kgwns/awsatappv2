@@ -34,6 +34,12 @@ export const arabic = {
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
   },
+  latestNewsTab: {
+    sectionComboOne: {
+      headerLeft: 'الفيروسات المستجدة',
+      headerRight: 'المزيد'
+    }
+  },
   sectionVideo:{
     toWatch: 'مشاهدة'
   },

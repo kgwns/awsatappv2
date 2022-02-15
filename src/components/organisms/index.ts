@@ -15,7 +15,7 @@ export {default as RelatedArticles} from 'src/components/organisms/relatedArticl
 export {default as OpinionWritersSection} from 'src/components/organisms/OpinionWritersSection';
 export {default as OpinionWritersArticlesSection} from 'src/components/organisms/OpinionWritersArticlesSection';
 export { default as InterestSection } from 'src/components/organisms/InterestSection';
-
+export {StoryListView, StoryListProps, StoryListItemProps} from './story_list_view/StoryListView';
 
 
 
@@ -26,3 +26,5 @@ export {default as PodcastCardSection} from 'src/components/organisms/PodcastCar
 export {default as MostPlayedSection} from 'src/components/organisms/MostPlayedSection';
 export {default as LatestNewsSummarySection} from 'src/components/organisms/LatestNewsSummarySection';
 export {default as EditorsPickSection} from 'src/components/organisms/EditorsPickSection';
+
+export {default as SectionComboOne} from 'src/components/organisms/SectionComboOne';

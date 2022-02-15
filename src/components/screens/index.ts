@@ -11,6 +11,7 @@ export {ArticleDetailScreen} from 'src/components/screens/articleDetail/ArticleD
 export {OpinionScreen} from 'src/components/screens/category/OpinionScreen';
 export {PodcastScreen} from 'src/components/screens/category/PodcastScreen';
 export {SelectInterestScreen} from 'src/components/screens/selectInterestScreen/SelectInterestScreen';
+export {StoryScreen} from './story_screen/StoryScreen';
 export {SectionStoryScreen} from 'src/components/screens/category/SectionStoryScreen';
 
 export { VideoScreen } from './category/VideoScreen';

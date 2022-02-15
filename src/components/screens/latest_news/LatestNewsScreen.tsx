@@ -2,15 +2,19 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
-  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection 
+  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, 
+  SectionComboOne , ShortArticleProps, StoryListProps
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleData, shortArticleWithTagProperties } from 'src/constants/SampleData';
+import { shortArticleWithTagProperties, shortArticleData, storyWidgetData } from 'src/constants/SampleData';
 import { horizontalEdge, isTab, normalize } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useLatestNewsTab } from 'src/hooks';
-import { LatestArticleBodyGet, LatestArticleDataType } from 'src/redux/latestNews/types';
+import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
+import {ScreensConstants} from 'src/constants';
+import { StackNavigationProp } from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
 
 const tickerAndHeroPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -29,12 +33,33 @@ const opinionListPayload: LatestArticleBodyGet = {
   offset: 0
 }
 
+const sectionComboOnePayload: RequestSectionComboBodyGet = {
+  id: 726
+}
+
+const sectionComboTwoPayload: RequestSectionComboBodyGet = {
+  id: 871
+}
+
+const sectionComboThreePayload: RequestSectionComboBodyGet = {
+  id: 11
+}
+
+const sectionComboFourPayload: RequestSectionComboBodyGet = {
+  id: 10
+}
+
 export const LatestNewsScreen = () => {
   const { themeData } = useTheme()
-
+  const navigation = useNavigation<StackNavigationProp<any>>()
 
   const {
     isLoading, ticker, hero, heroList, topList, opinionList, fetchTickerAndHeroArticle, fetchHeroListTopList, fetchOpinionTopList
+    isLoading, ticker, hero, heroList, topList,
+    sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour,
+    fetchTickerAndHeroArticle, fetchHeroListTopList,
+    fetchSectionComboOne, fetchSectionComboTwo,
+    fetchSectionComboThree, fetchSectionComboFour
   } = useLatestNewsTab()
 
   const heroListData = isTab ? heroList.slice(0, 1) : heroList
@@ -51,6 +76,10 @@ export const LatestNewsScreen = () => {
     fetchHeroListTopList(heroListTopListPayload)
     fetchOpinionTopList(opinionListPayload)
     
+    fetchSectionComboOne(sectionComboOnePayload)
+    fetchSectionComboTwo(sectionComboTwoPayload)
+    fetchSectionComboThree(sectionComboThreePayload)
+    fetchSectionComboFour(sectionComboFourPayload)
   }, [])
  
   const renderItem = () => (
@@ -90,6 +119,19 @@ export const LatestNewsScreen = () => {
       <Divider style={{ height: normalize(30) }} />      
       <AuthorWidget data={opinionList}/>
       <BannerArticleSection />
+      <StoryWidget  data={storyWidgetData}
+        onPress={(item: StoryListProps,index: number)=>
+          navigation.navigate(ScreensConstants.StoryScreen,
+            {id:item.id,selectedIndex:index}
+          )}
+      />
+      <SectionComboOne data={sectionComboOne}/>
+      <BannerArticleSection data={sectionComboTwo} />
+      <Divider style={{ height: normalize(20) }} />
+      <AuthorWidget data={opinionList} />
+      <BannerArticleSection data={sectionComboThree} />
+      <Divider style={{ height: normalize(20) }} />
+      <BannerArticleSection data={sectionComboFour} />
       <Divider style={{ height: normalize(50) }} />
     </View>
   )

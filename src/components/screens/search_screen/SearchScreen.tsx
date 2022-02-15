@@ -10,16 +10,20 @@ import { SearchItemType } from 'src/redux/search/types';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
+import {  ScreensConstants } from 'src/constants';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 
 export const SearchScreen = () => {
   const [searchText, setSearchText] = useState('');
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<any>>()
   const {themeData} = useTheme();
   const styles = useThemeAwareObject(createStyles);
   const {fetchSearchRequest,isLoading,searchData} = useSearch();
   const onPressItem = (item:SearchItemType)=>{
-    // console.log('itempressed',item,searchText)
+    if (item.nid) {
+      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: item.nid})
+    }
   }
   const onSearchTextChange = (searchText: string) => {
     setSearchText(searchText);

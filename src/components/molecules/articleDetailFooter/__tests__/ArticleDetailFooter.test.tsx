@@ -38,10 +38,4 @@ describe('<ArticleDetailFooter>', () => {
         fireEvent(element, 'onPress')
         expect(element).toBeTruthy()
     })
-
-    it('Should call save button', () => {
-        const element = instance.container.findAllByType(ButtonImage)[3]
-        fireEvent(element, 'onPress')
-        expect(element).toBeTruthy()
-    })
 })

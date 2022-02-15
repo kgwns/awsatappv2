@@ -1,57 +1,43 @@
 import { View, StyleSheet, FlatList } from 'react-native';
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import { flatListUniqueKey } from '../../constants';
 import { StoryCircle, StoryTitle, StoryHeader } from '../molecules';
 import { normalize } from '../../shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
+import { StoryListProps } from 'src/components/organisms';
 
-const data = [
-  {
-    storyImage: "https://picsum.photos/200",
-    storyTitle: "كوفيد-19"
-  },
-  {
-    storyImage: "https://picsum.photos/200",
-    storyTitle: "رحلة إلى المريخ"
-  },
-  {
-    storyImage: "https://picsum.photos/200",
-    storyTitle: "فضاء رأس مالي"
-  },
-  {
-    storyImage: "https://picsum.photos/200",
-    storyTitle: "أمريكا 2020"
-  },
-  {
-    storyImage: "https://picsum.photos/200",
-    storyTitle: "كوفيد-19"
-  },
-  {
-    storyImage: "https://picsum.photos/200",
-    storyTitle: "رحلة إلى المريخ"
-  },
-  {
-    storyImage: "https://picsum.photos/200",
-    storyTitle: "فضاء رأس مالي"
-  },
-  {
-    storyImage: "https://picsum.photos/200",
-    storyTitle: "أمريكا 2020"
-  },
-]
+export interface StoryWidgetProps {
+  testID?: string;
+  onPress?: (item: StoryListProps,index:number) => void;
+  data: StoryListProps[];
+}
 
-const StoryWidget = () => {
+const StoryWidget: FunctionComponent<StoryWidgetProps> = ({
+  onPress,
+  data,
+  testID,
+}) =>{
   const style = useThemeAwareObject(storyWidgetStyle)
+
+  const handleOnItemPressAction = (item: StoryListProps,index:number) => {
+    if (onPress) {
+      onPress(item,index);
+    }
+  };
 
   const renderItem = (item: any, index: number) => {
     return (
       <View style={style.storyContainer} key={flatListUniqueKey.STORY_WIDGET + index}>
         <View style={style.circleContainer}>
-          <StoryCircle storyImageUrl={item.storyImage} onPress={() => console.log('story pressed')} />
+          <StoryCircle testID={`${testID}_${index}`} storyImageUrl={item.data[0]?.imageUrl}
+              onPress={() => {
+                handleOnItemPressAction(item,index);
+              }}
+          />
         </View>
         <View style={style.titleContainer}>
-          <StoryTitle storyTitle={item.storyTitle} />
+          <StoryTitle storyTitle={item.data[0]?.title} />
         </View>
       </View>
     )
