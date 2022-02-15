@@ -10,7 +10,7 @@ export const englishUs = {
     ago: 'ago',
     just_now: 'Just now',
     from_now: 'From now',
-    seconds_ago: 'seconds',
+    seconds: 'seconds',
     minute_ago: '1 minute ago',
     minute_from_now: '1 minute from now',
     minutes: 'minutes',
