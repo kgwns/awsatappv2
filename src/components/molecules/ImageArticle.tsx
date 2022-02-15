@@ -11,22 +11,22 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { ScreensConstants } from 'src/constants'
 
 const carouselFooterSample: articleFooterProps = {
-    leftTitle: 'وتمجيد',
     leftTitleColor: Styles.color.white,
     rightTitle: 'يتحمل',
     rightIcon: ImagesName.clock,
-    rightTitleColor: Styles.color.smokeyGrey,
+    rightTitleColor: Styles.color.silverChalice,
     bookMarkColorType: BookMarkColorType.WHITE
 }
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     title: string,
     containerStyle?: ViewStyle,
-    nid?: string
+    nid?: string,
+    author: string
 }
 
 const ImageArticle = ({
-    image, title, containerStyle, nid
+    image, title, containerStyle, nid, author
 }: ImageArticleProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
     const onPress = () => {
@@ -41,7 +41,7 @@ const ImageArticle = ({
                 <BannerImageWithOverlay image={image} />
                 <View style={imageArticleStyle.slideContent}>
                     <Label labelType={LabelTypeProp.h1} children={title} color={Styles.color.white} />
-                    <ArticleFooter {...carouselFooterSample} />
+                    <ArticleFooter {...carouselFooterSample} leftTitle={author} />
                 </View>
             </View>
         </TouchableWithoutFeedback>

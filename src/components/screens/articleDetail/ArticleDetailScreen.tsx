@@ -2,7 +2,7 @@ import { View, FlatList, StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle, ShortArticleProps } from 'src/components/organisms'
-import { shortArticleWithTagData } from 'src/constants/SampleData'
+import { shortArticleWithTagData, shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
@@ -12,7 +12,7 @@ import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import { HtmlRenderer } from 'src/components/atoms'
 import type { MixedStyleRecord } from '@native-html/transient-render-engine';
-
+import { RelatedArticleDataType } from 'src/redux/articleDetail/types'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -32,8 +32,18 @@ export const ArticleDetailScreen = ({
   const {
     isLoading,
     articleDetailData,
-    fetchArticleDetail
+    relatedArticleData,
+    fetchArticleDetail,
   } = useArticleDetail();
+
+  const relatedArticleInfo = relatedArticleData.map((item: RelatedArticleDataType) => {
+    return {
+      ...item,
+      ...shortArticleWithTagProperties,
+      titleColor: themeData.primaryBlack,
+      flag: item.news_categories.title
+    }
+  })
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -45,10 +55,17 @@ export const ArticleDetailScreen = ({
   }
 
   useEffect(() => {
-    fetchArticleDetail({
-      nid: parseInt(route.params?.nid)
-    })
+    getArticleDetail(route.params.nid)
   }, [])
+
+
+  const getArticleDetail = (id: string) => {
+    fetchArticleDetail({ nid: parseInt(id) })
+  }
+
+  const onPressArticle = (nid: string) => {
+    nid && getArticleDetail(nid)
+  }
 
   shortArticleWithTagData.map((item: ShortArticleProps) => item.titleColor = themeData.primaryBlack)
 
@@ -67,14 +84,18 @@ export const ArticleDetailScreen = ({
       </>
       }
       {/* <RelatedArticles /> */}
-      <ShortArticle data={shortArticleWithTagData} headerLeft={relatedShortArticleHeaderLeft} />
+      {isNonEmptyArray(relatedArticleData) &&
+        <ShortArticle data={relatedArticleInfo}
+          headerLeft={relatedShortArticleHeaderLeft}
+          onPress={onPressArticle}
+        />}
       <Divider style={{ height: normalize(50) }} />
     </View>
   )
 
   return (
     <ScreenContainer edge={horizontalAndBottomEdge} isLoading={isLoading}>
-      {!isLoading && isNonEmptyArray(articleDetailData)  && <>
+      {!isLoading && isNonEmptyArray(articleDetailData) && <>
         <FlatList
           style={{ flex: 1, height: '100%' }}
           data={[{}]}

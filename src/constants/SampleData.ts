@@ -83,21 +83,26 @@ export const shortArticleData: ShortArticleProps[] = [
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
     labelType: LabelTypeProp.h3,
+    nid: '2982411',
+    author: 'يتحمل'
   },
   {
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
     labelType: LabelTypeProp.h3,
+    nid: '2982411',
+    author: 'يتحمل'
   },
   {
     image: 'https://picsum.photos/200/300',
     title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
     labelType: LabelTypeProp.h3,
+    nid: '2982411',
+    author: 'يتحمل'
   },
 ];
 
 export const shortArticleWithTagProperties = {
-  flag: 'استنكار',
   flagColor: Styles.color.greenishBlue,
   barColor: Styles.color.greenishBlue,
   labelType: LabelTypeProp.h3,

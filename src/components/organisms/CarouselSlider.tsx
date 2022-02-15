@@ -8,7 +8,6 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { HeadlinesSection } from 'src/components/organisms';
 import { HeadlinesSectionProps } from './headlinesSection/HeadlinesSection';
 import { LatestArticleDataType } from '~/redux/latestNews/types'
-import { ArticleItemProps } from '../molecules/ArticleItem'
 
 type CarouselSliderProps = {
     tickerData: LatestArticleDataType[],
@@ -28,9 +27,9 @@ const CarouselSlider = ({
     }
 
     const sliderRef = useRef<FlatList<articleProps>>(null)
-    const renderItem = ({ item, index }: { item: ArticleItemProps, index: number }) => {
-        return <ImageArticle key={index} image={item.image} title={item.title} nid={item.nid}
-            containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
+    const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
+        return <ImageArticle key={index} {...item}
+        containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
     }
 
     return (
