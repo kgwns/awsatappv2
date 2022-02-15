@@ -67,13 +67,14 @@ StyleSheet.create({
   containerStyle: {
     flex : 1,
     paddingHorizontal: normalize(20),
+    paddingVertical: normalize(25),
   },
   centerContainer: {
     alignItems: 'center',
   },
   imageStyle: {
-    width: normalize(130),
-    height: normalize(130),
+    width: normalize(150),
+    height: normalize(100),
   },
   textStyle: {
     fontSize: normalize(14),
