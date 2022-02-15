@@ -6,7 +6,6 @@ import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {normalize, screenWidth} from 'src/shared/utils';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {ImagesName} from 'src/shared/styles';
-import {opinionWriterArticleProps} from 'src/components/organisms/OpinionWritersArticlesSection';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 
@@ -17,14 +16,20 @@ const OpinionWritersCardView = ({
   subHeadLine,
   audioLabel,
   duration,
-}: opinionWriterArticleProps) => {
+}: any) => {
   const style = useThemeAwareObject(customStyle);
-  const [save, setSave] = useState(false);
   const theme = useTheme();
+  const [save, setSave] = useState(false);
   return (
     <View style={style.container}>
       <View style={style.topImageWithLabelContainer}>
-        <Image size={43} url={imageUrl} type="round" />
+        <Image
+          size={normalize(43)}
+          url={imageUrl}
+          type="round"
+          resizeMode="cover"
+          backgroundColor={theme.themeData.secondaryDavyGrey}
+        />
         <Label style={style.writerLabel}>{writerTitle}</Label>
       </View>
       <View style={style.headLineContainer}>

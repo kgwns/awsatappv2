@@ -2,8 +2,10 @@ import {all, fork} from 'redux-saga/effects';
 import homeSaga from './home/sagas';
 import mostReadSaga from './mostRead/sagas';
 import searchSaga from './search/sagas';
-import articleDetailSaga from './articleDetail/sagas'
-import latestNews from './latestNews/sagas'
+import articleDetailSaga from './articleDetail/sagas';
+import latestNews from './latestNews/sagas';
+import opinionWriterSaga from './writers/sagas';
+import opinionsSaga from './opinions/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -11,6 +13,8 @@ export function* rootSaga() {
     fork(mostReadSaga),
     fork(searchSaga),
     fork(articleDetailSaga),
-    fork(latestNews)
+    fork(latestNews),
+    fork(opinionWriterSaga),
+    fork(opinionsSaga),
   ]);
 }

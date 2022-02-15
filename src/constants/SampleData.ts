@@ -19,56 +19,55 @@ import {
   PodcastProgramInfoProps,
 } from 'src/components/organisms';
 import {normalize} from 'src/shared/utils';
-import {opinionWriterProps} from 'src/components/organisms/OpinionWritersSection';
-import {opinionWriterArticleProps} from 'src/components/organisms/OpinionWritersArticlesSection';
 import {podcastCardProps} from 'src/components/organisms/PodcastCardSection';
 import {NewsWithImageItemProps} from 'src/components/molecules/podcast/NewsWithImageItem';
 import {ArticleRectangleCardProps} from 'src/components/molecules/podcast/ArticleRectangleCard';
-import { NewsFeedProps } from 'src/components/organisms/NewsFeed';
+import {NewsFeedProps} from 'src/components/organisms/NewsFeed';
 
 export const storeInfo = [
   {
-  appCommon: {
-    theme: Theme.LIGHT,
-  },
-  home: {
-    isLoading: false,
-    homeData: null,
-    error: '',
-  },
-  latestNewsTab: {
-    isLoading: true,
-    error: '',
-    ticker: [],
-    hero: [],
-    heroList: [],
-    topList: [],
+    appCommon: {
+      theme: Theme.LIGHT,
+    },
+    home: {
+      isLoading: false,
+      homeData: null,
+      error: '',
+    },
+    latestNewsTab: {
+      isLoading: true,
+      error: '',
+      ticker: [],
+      hero: [],
+      heroList: [],
+      topList: [],
+    },
     sectionComboOne: [],
     sectionComboTwo: [],
     sectionComboThree: [],
-    sectionComboFour: []
+    sectionComboFour: [],
+    articleDetail: {
+      isLoading: true,
+      error: '',
+      articleDetailData: [],
+      pager: {},
+    },
+    search: {
+      searchData: [],
+      error: '',
+      isLoading: false,
+    },
+    mostRead: {
+      mostReadData: [],
+      error: '',
+      isLoading: false,
+    },
   },
-  articleDetail: {
-    isLoading: true,
-    error: '',
-    articleDetailData: [],
-    pager: {}
-  },
-  search: {
-    searchData: [],
-    error: '',
-    isLoading: false,
-  },
-  mostRead: {
-    mostReadData: [],
-    error: '',
-    isLoading: false,
-  }
-}]
+];
 
 const mockStore = configureStore();
 export const storeSampleData = mockStore({
-  storeInfo
+  storeInfo,
 });
 
 export const sampleTextWithFlag: TextWithFlagProps = {
@@ -108,7 +107,7 @@ export const shortArticleWithTagProperties = {
   flagColor: Styles.color.greenishBlue,
   barColor: Styles.color.greenishBlue,
   labelType: LabelTypeProp.h3,
-}
+};
 
 export const shortArticleWithTagData: ShortArticleProps[] = [
   {
@@ -350,105 +349,297 @@ export const searchResults: SearchResultsProps[] = [
   },
 ];
 
-export const opinionWritersData: opinionWriterProps[] = [
+export const opinionWritersData: any = [
   {
-    imageUrl: 'https://picsum.photos/200',
-    label: 'إياد أبو شقرا',
+    name: 'غسان الإمام',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+      'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
+    tid: '92570',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+      'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
+    parent_target_id_export: [],
   },
   {
-    imageUrl: 'https://picsum.photos/200',
-    label: 'فايز سارة',
+    name: 'إياد أبو شقرا',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+      'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
+    tid: '92571',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+      'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
+    parent_target_id_export: [],
   },
   {
-    imageUrl: 'https://picsum.photos/200',
-    label: 'إنعام كجه جي',
+    name: 'عبد الرحمن الراشد',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+      'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
+    tid: '92572',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+      'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
+    parent_target_id_export: [],
   },
   {
-    imageUrl: 'https://picsum.photos/200',
-    label: 'طارق الحميد',
+    name: 'أونا هاثاواي وسكوت شابيرو',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+      'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
+    tid: '92573',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+      'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
+    parent_target_id_export: [],
   },
   {
-    imageUrl: 'https://picsum.photos/200',
-    label: 'عبدالله بن بجاد العتيبي',
+    name: 'صالح القلاب',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+      'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
+    tid: '92574',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+      'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
+    parent_target_id_export: [],
   },
   {
-    imageUrl: 'https://picsum.photos/200',
-    label: 'إياد أبو شقرا',
+    name: 'زين العابدين الركابي',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+      'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
+    tid: '92575',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+      'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
+    parent_target_id_export: [],
   },
   {
-    imageUrl: 'https://picsum.photos/200',
-    label: 'فايز سارة',
+    name: 'ألبرتو تشيروتي',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+      'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
+    tid: '92576',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+      'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
+    parent_target_id_export: [],
   },
   {
-    imageUrl: 'https://picsum.photos/200',
-    label: 'إنعام كجه جي',
+    name: 'صالح بن علي الحمادي',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+      'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
+    tid: '92577',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+      'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
+    parent_target_id_export: [],
   },
   {
-    imageUrl: 'https://picsum.photos/200',
-    label: 'طارق الحميد',
+    name: 'موفق النويصر',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+      'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
+    tid: '92578',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+      'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
+    parent_target_id_export: [],
   },
   {
-    imageUrl: 'https://picsum.photos/200',
-    label: 'عبدالله بن بجاد العتيبي',
+    name: 'محمد السلمي',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+      'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
+    tid: '92579',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+      'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
+    parent_target_id_export: [],
   },
 ];
 
-export const opinionWritersArticlesData: opinionWriterArticleProps[] = [
-  {
-    imageUrl: 'https://picsum.photos/200',
-    writerTitle: 'إياد أبو شقرا',
-    headLine: 'هل بدأ العد العكسي لنهاية حكم جونسون في بريطانيا؟',
-    subHeadLine:
-      'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
-    audioLabel: 'استمع الي المقالة ',
-    duration: '3:22',
+export const opinionWritersArticlesData: any = {
+  rows: [
+    {
+      name: 'غسان الإمام',
+      description__value_export: null,
+      field_opinion_writer_path_export: null,
+      view_taxonomy_term:
+        'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
+      tid: '92570',
+      vid_export: null,
+      field_description_export: null,
+      field_opinion_writer_path_export_1: null,
+      field_opinion_writer_photo_export:
+        'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
+      parent_target_id_export: [],
+    },
+    {
+      name: 'إياد أبو شقرا',
+      description__value_export: null,
+      field_opinion_writer_path_export: null,
+      view_taxonomy_term:
+        'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
+      tid: '92571',
+      vid_export: null,
+      field_description_export: null,
+      field_opinion_writer_path_export_1: null,
+      field_opinion_writer_photo_export:
+        'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
+      parent_target_id_export: [],
+    },
+    {
+      name: 'عبد الرحمن الراشد',
+      description__value_export: null,
+      field_opinion_writer_path_export: null,
+      view_taxonomy_term:
+        'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
+      tid: '92572',
+      vid_export: null,
+      field_description_export: null,
+      field_opinion_writer_path_export_1: null,
+      field_opinion_writer_photo_export:
+        'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
+      parent_target_id_export: [],
+    },
+    {
+      name: 'أونا هاثاواي وسكوت شابيرو',
+      description__value_export: null,
+      field_opinion_writer_path_export: null,
+      view_taxonomy_term:
+        'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
+      tid: '92573',
+      vid_export: null,
+      field_description_export: null,
+      field_opinion_writer_path_export_1: null,
+      field_opinion_writer_photo_export:
+        'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
+      parent_target_id_export: [],
+    },
+    {
+      name: 'صالح القلاب',
+      description__value_export: null,
+      field_opinion_writer_path_export: null,
+      view_taxonomy_term:
+        'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
+      tid: '92574',
+      vid_export: null,
+      field_description_export: null,
+      field_opinion_writer_path_export_1: null,
+      field_opinion_writer_photo_export:
+        'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
+      parent_target_id_export: [],
+    },
+    {
+      name: 'زين العابدين الركابي',
+      description__value_export: null,
+      field_opinion_writer_path_export: null,
+      view_taxonomy_term:
+        'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
+      tid: '92575',
+      vid_export: null,
+      field_description_export: null,
+      field_opinion_writer_path_export_1: null,
+      field_opinion_writer_photo_export:
+        'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
+      parent_target_id_export: [],
+    },
+    {
+      name: 'ألبرتو تشيروتي',
+      description__value_export: null,
+      field_opinion_writer_path_export: null,
+      view_taxonomy_term:
+        'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
+      tid: '92576',
+      vid_export: null,
+      field_description_export: null,
+      field_opinion_writer_path_export_1: null,
+      field_opinion_writer_photo_export:
+        'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
+      parent_target_id_export: [],
+    },
+    {
+      name: 'صالح بن علي الحمادي',
+      description__value_export: null,
+      field_opinion_writer_path_export: null,
+      view_taxonomy_term:
+        'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
+      tid: '92577',
+      vid_export: null,
+      field_description_export: null,
+      field_opinion_writer_path_export_1: null,
+      field_opinion_writer_photo_export:
+        'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
+      parent_target_id_export: [],
+    },
+    {
+      name: 'موفق النويصر',
+      description__value_export: null,
+      field_opinion_writer_path_export: null,
+      view_taxonomy_term:
+        'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
+      tid: '92578',
+      vid_export: null,
+      field_description_export: null,
+      field_opinion_writer_path_export_1: null,
+      field_opinion_writer_photo_export:
+        'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
+      parent_target_id_export: [],
+    },
+    {
+      name: 'محمد السلمي',
+      description__value_export: null,
+      field_opinion_writer_path_export: null,
+      view_taxonomy_term:
+        'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
+      tid: '92579',
+      vid_export: null,
+      field_description_export: null,
+      field_opinion_writer_path_export_1: null,
+      field_opinion_writer_photo_export:
+        'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
+      parent_target_id_export: [],
+    },
+  ],
+  pager: {
+    current_page: 0,
+    items_per_page: '10',
   },
-  {
-    imageUrl: 'https://picsum.photos/200',
-    writerTitle: 'فايز سارة',
-    headLine: 'ما ورثناه من تركة «الصديق الصدوق» للشعب السوري',
-    subHeadLine:
-      'تعود بداية العلاقات السورية - الروسية إلى عام 1944، الذي شهد إقامة علاقات دبلوماسية بين الاتحاد السوفياتي والجمهورية السورية - حسب مسميات تلك الأيام،',
-    audioLabel: 'استمع الي المقالة ',
-    duration: '3:22',
-  },
-  {
-    imageUrl: 'https://picsum.photos/200',
-    writerTitle: 'راجح الخوري',
-    headLine: 'فيينا قطبة قطبة كسجادة عجمية؟!',
-    subHeadLine:
-      'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
-    audioLabel: 'استمع الي المقالة ',
-    duration: '3:22',
-  },
-  {
-    imageUrl: 'https://picsum.photos/200',
-    writerTitle: 'إياد أبو شقرا',
-    headLine: 'هل بدأ العد العكسي لنهاية حكم جونسون في بريطانيا؟',
-    subHeadLine:
-      'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
-    audioLabel: 'استمع الي المقالة ',
-    duration: '3:22',
-  },
-  {
-    imageUrl: 'https://picsum.photos/200',
-    writerTitle: 'فايز سارة',
-    headLine: 'ما ورثناه من تركة «الصديق الصدوق» للشعب السوري',
-    subHeadLine:
-      'تعود بداية العلاقات السورية - الروسية إلى عام 1944، الذي شهد إقامة علاقات دبلوماسية بين الاتحاد السوفياتي والجمهورية السورية - حسب مسميات تلك الأيام،',
-    audioLabel: 'استمع الي المقالة ',
-    duration: '3:22',
-  },
-  {
-    imageUrl: 'https://picsum.photos/200',
-    writerTitle: 'راجح الخوري',
-    headLine: 'فيينا قطبة قطبة كسجادة عجمية؟!',
-    subHeadLine:
-      'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور',
-    audioLabel: 'استمع الي المقالة ',
-    duration: '3:22',
-  },
-];
+};
 
 export const podcastCardSectionData: podcastCardProps[] = [
   {
@@ -617,127 +808,137 @@ export const PodcastOpinionArticleSectionData: ArticleRectangleCardProps[] = [
 export const storyWidgetItemData: StoryListItemProps[] = [
   {
     id: '1',
-    imageUrl: "https://picsum.photos/500",
-    title: "كوفيد-19",
-    description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+    imageUrl: 'https://picsum.photos/500',
+    title: 'كوفيد-19',
+    description:
+      'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
     buttonTitle: 'امرأ المقالة',
-    thumbNail: "https://picsum.photos/100",
+    thumbNail: 'https://picsum.photos/100',
   },
   {
     id: '2',
-    imageUrl: "https://picsum.photos/400",
-    title: "رحلة إلى المريخ",
-    description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+    imageUrl: 'https://picsum.photos/400',
+    title: 'رحلة إلى المريخ',
+    description:
+      'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
     buttonTitle: 'امرأ المقالة',
-    thumbNail: "https://picsum.photos/100",
+    thumbNail: 'https://picsum.photos/100',
   },
   {
     id: '3',
-    imageUrl: "https://picsum.photos/600",
-    title: "كوفيد-19",
-    description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+    imageUrl: 'https://picsum.photos/600',
+    title: 'كوفيد-19',
+    description:
+      'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
     buttonTitle: 'امرأ المقالة',
-    thumbNail: "https://picsum.photos/100",
+    thumbNail: 'https://picsum.photos/100',
   },
-]
+];
 
 export const storyWidgetData: StoryListProps[] = [
-{
-  id: '1',
-  data :storyWidgetItemData,
-},
-{
-  id: '2',
-  data :[
-    {
-      id: '1',
-      imageUrl: "https://picsum.photos/500",
-      title: "رحلة إلى المريخ",
-      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
-      buttonTitle: 'امرأ المقالة',
-      thumbNail: "https://picsum.photos/100",
-    }
-  ],
-},
-{
-  id: '3',
-  data :[
-    {
-      id: '1',
-      imageUrl: "https://picsum.photos/500",
-      title: "فضاء رأس مالي",
-      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
-      buttonTitle: 'امرأ المقالة',
-      thumbNail: "https://picsum.photos/100",
-    }
-  ],
-},
-{
-  id: '4',
-  data :[
-    {
-      id: '1',
-      imageUrl: "https://picsum.photos/500",
-      title: "أمريكا 2020",
-      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
-      buttonTitle: 'امرأ المقالة',
-      thumbNail: "https://picsum.photos/100",
-    }
-  ],
-},
-{
-  id: '5',
-  data :[
-    {
-      id: '1',
-      imageUrl: "https://picsum.photos/500",
-      title: "كوفيد-19",
-      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
-      buttonTitle: 'امرأ المقالة',
-      thumbNail: "https://picsum.photos/100",
-    }
-  ],
-},
-{
-  id: '6',
-  data :[
-    {
-      id: '1',
-      imageUrl: "https://picsum.photos/500",
-      title: "رحلة إلى المريخ",
-      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
-      buttonTitle: 'امرأ المقالة',
-      thumbNail: "https://picsum.photos/100",
-    }
-  ],
-},
-{
-  id: '7',
-  data :[
-    {
-      id: '1',
-      imageUrl: "https://picsum.photos/500",
-      title: "فضاء رأس مالي",
-      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
-      buttonTitle: 'امرأ المقالة',
-      thumbNail: "https://picsum.photos/100",
-    }
-  ],
-},
-{
-  id: '8',
-  data :[
-    {
-      id: '1',
-      imageUrl: "https://picsum.photos/500",
-      title: "أمريكا 2020",
-      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
-      buttonTitle: 'امرأ المقالة',
-      thumbNail: "https://picsum.photos/100",
-    }
-  ],
-},
-]
+  {
+    id: '1',
+    data: storyWidgetItemData,
+  },
+  {
+    id: '2',
+    data: [
+      {
+        id: '1',
+        imageUrl: 'https://picsum.photos/500',
+        title: 'رحلة إلى المريخ',
+        description:
+          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
+        buttonTitle: 'امرأ المقالة',
+        thumbNail: 'https://picsum.photos/100',
+      },
+    ],
+  },
+  {
+    id: '3',
+    data: [
+      {
+        id: '1',
+        imageUrl: 'https://picsum.photos/500',
+        title: 'فضاء رأس مالي',
+        description:
+          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
+        buttonTitle: 'امرأ المقالة',
+        thumbNail: 'https://picsum.photos/100',
+      },
+    ],
+  },
+  {
+    id: '4',
+    data: [
+      {
+        id: '1',
+        imageUrl: 'https://picsum.photos/500',
+        title: 'أمريكا 2020',
+        description:
+          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
+        buttonTitle: 'امرأ المقالة',
+        thumbNail: 'https://picsum.photos/100',
+      },
+    ],
+  },
+  {
+    id: '5',
+    data: [
+      {
+        id: '1',
+        imageUrl: 'https://picsum.photos/500',
+        title: 'كوفيد-19',
+        description:
+          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
+        buttonTitle: 'امرأ المقالة',
+        thumbNail: 'https://picsum.photos/100',
+      },
+    ],
+  },
+  {
+    id: '6',
+    data: [
+      {
+        id: '1',
+        imageUrl: 'https://picsum.photos/500',
+        title: 'رحلة إلى المريخ',
+        description:
+          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
+        buttonTitle: 'امرأ المقالة',
+        thumbNail: 'https://picsum.photos/100',
+      },
+    ],
+  },
+  {
+    id: '7',
+    data: [
+      {
+        id: '1',
+        imageUrl: 'https://picsum.photos/500',
+        title: 'فضاء رأس مالي',
+        description:
+          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
+        buttonTitle: 'امرأ المقالة',
+        thumbNail: 'https://picsum.photos/100',
+      },
+    ],
+  },
+  {
+    id: '8',
+    data: [
+      {
+        id: '1',
+        imageUrl: 'https://picsum.photos/500',
+        title: 'أمريكا 2020',
+        description:
+          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
+        buttonTitle: 'امرأ المقالة',
+        thumbNail: 'https://picsum.photos/100',
+      },
+    ],
+  },
+];
 export const videoTabData: VideoItemProps[] = [
   {
     title:
@@ -841,13 +1042,6 @@ export const newsFeedData: NewsFeedProps[] = [
     labelType: LabelTypeProp.h2,
   },
 ];
-export const articleSampleData =
-  {
-    image: 'https://picsum.photos/200/300',
-    title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-    description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
-    tagName: 'الحكومة'
-}
 
 export const PodcastEpisodeData: PodcastVerticalListProps[] = [
   {
@@ -880,3 +1074,9 @@ export const PodcastProgramInfoData: PodcastProgramInfoProps = {
   description: 'أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت.',
   data: PodcastEpisodeData as PodcastVerticalListProps[],
 }
+export const articleSampleData = {
+  image: 'https://picsum.photos/200/300',
+  title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
+  description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+  tagName: 'الحكومة',
+};
