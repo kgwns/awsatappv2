@@ -6,10 +6,12 @@ import { ImageLabelProps } from 'src/components/atoms/imageWithLabel/ImageWithLa
 import { screenWidth } from 'src/shared/utils'
 import { Label, LabelTypeProp } from 'src/components/atoms';
 import { MOST_READ } from 'src/constants/SharedConstants';
-import { Styles } from 'src/shared/styles';
+import { Styles, ImagesName } from 'src/shared/styles';
 import { normalize } from 'src/shared/utils';
 import { MostReadItemType } from 'src/redux/mostRead/types';
 import { getImageUrl } from 'src/shared/utils/utilities';
+import { timeAgo } from 'src/shared/utils/utilities';
+import { useTranslation } from 'react-i18next';
 
 export interface articleProps extends ImageLabelProps, ArticleWithOutImageProps {
     image?: string,
@@ -22,12 +24,21 @@ export interface ArticleSectionProps {
 
 
 const MostReadList = ({ data }: ArticleSectionProps) => {
+    const [t] = useTranslation();
+
     const renderItem = (item: any, index: number) => {
+        const footerData = {
+            leftTitle: item.author_resource,
+            leftTitleColor: Styles.color.greenishBlue,
+            rightTitle: t(timeAgo(item.created_export)),
+            rightIcon: ImagesName.clock,
+            rightTitleColor: Styles.color.silverChalice,
+        }
         item.tagName = (index + 1).toString();
         item.tagStyle = {marginLeft: normalize(16)};
         item.tagLabelType = LabelTypeProp.p3;
         item.image = item.image ? item.image : getImageUrl(item.field_image);
-        return <ArticleItem {...item} index={index} contentStyle={mostReadListStyle.contentStyle} />
+        return <ArticleItem {...item} showDivider={false} index={index} contentStyle={mostReadListStyle.contentStyle} footerInfo={footerData} />
     }
 
     const listHeader = () => (

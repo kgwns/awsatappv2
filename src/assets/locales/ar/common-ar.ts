@@ -45,6 +45,25 @@ export const arabic = {
   },
   categoryPage: {
     videoContent: 'محتوي فيديو'
-  }
+  },
+  timeSince: {
+    since: 'منذ ',
+    ago: 'منذ',
+    just_now: 'الآن فقط',
+    from_now: 'من الان',
+    seconds: 'ثواني',
+    minute_ago: 'منذ 1 دقيقة',
+    minute_from_now: 'دقيقة واحدة من الآن',
+    minutes: 'الدقائق',
+    hour_ago: 'منذ 1 ساعة',
+    hour_from_now: 'ساعة واحدة من الآن',
+    hours: 'ساعات',
+    yesterday: 'في الامس',
+    tomorrow: 'غدا',
+    days: 'أيام',
+    last_week:'الاسبوع الماضي',
+    next_week: 'الاسبوع المقبل',
+    weeks: 'أسابيع',
+  },
 
 };
