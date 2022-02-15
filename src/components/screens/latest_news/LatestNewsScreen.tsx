@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
-  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne , ShortArticleProps, StoryListProps
+  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne , StoryListProps
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties, shortArticleData, storyWidgetData } from 'src/constants/SampleData';
+import { shortArticleWithTagProperties, storyWidgetData } from 'src/constants/SampleData';
 import { horizontalEdge, isTab, normalize } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -32,15 +32,21 @@ const sectionComboOnePayload: RequestSectionComboBodyGet = {
 }
 
 const sectionComboTwoPayload: RequestSectionComboBodyGet = {
-  id: 871
+  id: 871,
+  items_per_page: 10,
+  page: 0
 }
 
 const sectionComboThreePayload: RequestSectionComboBodyGet = {
-  id: 11
+  id: 11,
+  items_per_page: 10,
+  page: 0
 }
 
 const sectionComboFourPayload: RequestSectionComboBodyGet = {
-  id: 10
+  id: 10,
+  items_per_page: 10,
+  page: 0
 }
 
 export const LatestNewsScreen = () => {
@@ -61,6 +67,7 @@ export const LatestNewsScreen = () => {
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
+      flag: item.news_categories.title
     }
   })
 
@@ -73,6 +80,10 @@ export const LatestNewsScreen = () => {
     fetchSectionComboFour(sectionComboFourPayload)
   }, [])
 
+  const onPressArticle = (nid: string) => {
+    nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+  }
+
   const renderItem = () => (
     <View>
       <CarouselSlider tickerData={ticker} heroData={hero} />
@@ -83,14 +94,14 @@ export const LatestNewsScreen = () => {
             <PodcastWidget />
           </View>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
-            <ShortArticle data={topListData} />
+            <ShortArticle data={topListData} onPress={onPressArticle} />
           </View>
         </View>
           :
           <>
             <PodcastWidget />
             <ArticleSection data={heroListData} />
-            <ShortArticle data={topListData} />
+            <ShortArticle data={topListData} onPress={onPressArticle}/>
           </>
       }
       <StoryWidget  data={storyWidgetData}
@@ -99,7 +110,7 @@ export const LatestNewsScreen = () => {
             {id:item.id,selectedIndex:index}
           )}
       />
-      <SectionComboOne data={sectionComboOne}/>
+      <SectionComboOne data={sectionComboOne} onPress={onPressArticle}/>
       <BannerArticleSection data={sectionComboTwo} />
       <Divider style={{ height: normalize(20) }} />
       <AuthorWidget />

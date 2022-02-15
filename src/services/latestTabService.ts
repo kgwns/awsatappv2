@@ -17,9 +17,10 @@ export const requestLatestArticle = async (body: LatestArticleBodyGet) => {
 };
 
 export const requestSectionCombo = async(body: RequestSectionComboBodyGet) => {
+  const query = body.items_per_page ? `/?item per page=${body.items_per_page}&page=${body.page}` : '/'
   try {
     const response: payloadType = await getApiRequest(
-      `${BASE_URL}${SECTION_COMBO}/${body.id}`
+      `${BASE_URL}${SECTION_COMBO}/${body.id}${query}`
     );
     return response;
   } catch (error) {

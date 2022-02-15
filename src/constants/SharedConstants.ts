@@ -8,4 +8,4 @@ export const CHOOSE_TOPICS_TO_HAVE_BEST_FEED =
   'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك';
 
 export const VALID_URL_REGEX = "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
-
+export const FROM_TWO_HOURS = 'من ساعاتان'

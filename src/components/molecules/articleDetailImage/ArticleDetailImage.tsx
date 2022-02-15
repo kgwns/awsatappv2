@@ -50,7 +50,7 @@ const ArticleDetailImage = ({
                 <Label labelType={LabelTypeProp.h1}
                     children={title}
                     color={Styles.color.white}
-                    style={{ paddingBottom: normalize(20), paddingTop: normalize(15) }} />
+                    style={{ paddingBottom: normalize(5), paddingTop: normalize(15) }} />
                 <ArticleFooter {...articleDetailFooterData} rightTitle={author}/>
             </View>
         </View>

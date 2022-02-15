@@ -23,7 +23,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
         <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
         {body && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)} color={Styles.color.davyGrey} numberOfLines={3}/>} 
         <View style={ArticleWithOutImageStyle.footerContainer}>
-            <ArticleFooter {...props.footerInfo ? { ...props.footerInfo } : { ...articleFooterSample }} />
+            <ArticleFooter {...props.footerInfo} />
         </View>
         {props.showDivider && <Divider />}
     </View>

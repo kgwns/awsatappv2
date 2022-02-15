@@ -1,4 +1,7 @@
-import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS } from "./actionType"
+import {
+  REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS,
+  REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS
+} from "./actionType"
 
 export interface ArticleDetailBodyGet {
   nid: number
@@ -9,7 +12,7 @@ export interface RequestArticleDetailType {
   payload: ArticleDetailBodyGet
 }
 
-type NewsCategoriesType = {
+type fieldExportType = {
   id: string
   title: string
   url: string
@@ -17,15 +20,28 @@ type NewsCategoriesType = {
   name: string
 }
 
-export interface ArticleDetailDataType {
+interface GeneralArticleFields {
   title: string,
   body: string,
   nid: string,
   image: string,
   view_node: string,
-  news_categories: NewsCategoriesType,
+  news_categories: fieldExportType,
   author: string
 }
+
+export interface ArticleDetailDataType extends GeneralArticleFields {
+  title: string,
+  body: string,
+  nid: string,
+  image: string,
+  view_node: string,
+  news_categories: fieldExportType,
+  tag_topics: fieldExportType,
+  author: string
+}
+
+export interface RelatedArticleDataType extends GeneralArticleFields { }
 
 interface PagerType {
   current_page?: number | null | undefined,
@@ -41,7 +57,8 @@ export type ArticleDetailState = {
   error: string,
   isLoading: boolean,
   articleDetailData: ArticleDetailDataType[],
-  pager: PagerType
+  pager: PagerType,
+  relatedArticleData: RelatedArticleDataType[]
 }
 
 export interface ArticleDetailSuccessType {
@@ -59,4 +76,38 @@ export interface ArticleDetailFailedType {
 }
 
 
-export type ArticleDetailAction = RequestArticleDetailType | ArticleDetailSuccessType | ArticleDetailFailedType
+export interface RelatedArticleBodyGet {
+  tid: number
+}
+
+export interface RequestRelatedArticleType {
+  type: typeof REQUEST_RELATED_ARTICLE,
+  payload: RelatedArticleBodyGet
+}
+
+export type RelatedArticleSuccessPayload = {
+  relatedArticleData: RelatedArticleDataType[]
+}
+
+export interface RelatedArticleSuccessType {
+  type: typeof REQUEST_RELATED_ARTICLE_SUCCESS,
+  payload: RelatedArticleSuccessPayload
+}
+
+export interface RelatedArticleFailedPayload {
+  error: string
+}
+
+export interface RelatedArticleFailedType {
+  type: typeof REQUEST_RELATED_ARTICLE_FAILED,
+  payload: RelatedArticleFailedPayload
+}
+
+
+export type ArticleDetailAction =
+  RequestArticleDetailType
+  | ArticleDetailSuccessType
+  | ArticleDetailFailedType
+  | RequestRelatedArticleType
+  | RelatedArticleSuccessType
+  | RelatedArticleFailedType
