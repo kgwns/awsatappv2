@@ -54,10 +54,9 @@ export const LatestNewsScreen = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const {
-    isLoading, ticker, hero, heroList, topList, opinionList, fetchTickerAndHeroArticle, fetchHeroListTopList, fetchOpinionTopList
-    isLoading, ticker, hero, heroList, topList,
+    isLoading, ticker, hero, heroList, topList, opinionList,
     sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour,
-    fetchTickerAndHeroArticle, fetchHeroListTopList,
+    fetchTickerAndHeroArticle, fetchHeroListTopList, fetchOpinionTopList,
     fetchSectionComboOne, fetchSectionComboTwo,
     fetchSectionComboThree, fetchSectionComboFour
   } = useLatestNewsTab()
@@ -75,7 +74,6 @@ export const LatestNewsScreen = () => {
     fetchTickerAndHeroArticle(tickerAndHeroPayload)
     fetchHeroListTopList(heroListTopListPayload)
     fetchOpinionTopList(opinionListPayload)
-    
     fetchSectionComboOne(sectionComboOnePayload)
     fetchSectionComboTwo(sectionComboTwoPayload)
     fetchSectionComboThree(sectionComboThreePayload)
@@ -103,22 +101,6 @@ export const LatestNewsScreen = () => {
             <ShortArticle data={topListData} />
           </>
       }
-      <StoryWidget />
-      {
-        isTab ? <View style={latestNewsScreenStyle.tabSplitter}>
-          <View style={latestNewsScreenStyle.tabWidgetContainer}>
-          </View>
-          <View style={latestNewsScreenStyle.tabWidgetContainer}>
-            <ShortArticle data={shortArticleData} />
-          </View>
-        </View>
-          :
-          <ShortArticle data={shortArticleData} />
-      }
-      <BannerArticleSection />
-      <Divider style={{ height: normalize(30) }} />      
-      <AuthorWidget data={opinionList}/>
-      <BannerArticleSection />
       <StoryWidget  data={storyWidgetData}
         onPress={(item: StoryListProps,index: number)=>
           navigation.navigate(ScreensConstants.StoryScreen,

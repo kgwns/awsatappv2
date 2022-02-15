@@ -53,6 +53,7 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     };
     const fetchOpinionTopList = (payload: LatestArticleBodyGet) => {
         dispatch(requestOpinionList(payload));
+    };
     const fetchSectionComboOne = (payload: RequestSectionComboBodyGet) => {
         dispatch(requestSectionComboOne(payload));
     };
@@ -80,8 +81,6 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         sectionComboTwo,
         sectionComboThree,
         sectionComboFour,
-        fetchTickerAndHeroArticle,
-        fetchHeroListTopList,
         fetchSectionComboOne,
         fetchSectionComboTwo,
         fetchSectionComboThree,
