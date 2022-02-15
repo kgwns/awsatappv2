@@ -1,35 +1,62 @@
 import React from 'react'
 import { render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData'
+import { storeSampleData } from 'src/constants/SampleData'
 import { LatestNewsScreen } from '../LatestNewsScreen'
-// import { useLatestNewsTab } from 'src/hooks/useLatestNewsTab'
+
+const mockUseLatestNewsTab = jest.fn();
+
+jest.mock("src/hooks/useLatestNewsTab", () => ({
+    useLatestNewsTab: (...args: any) => {
+        return {
+            isLoading: true,
+            hero: [],
+            heroList: [],
+            topList: [],
+            sectionComboOne: [],
+            sectionComboTwo: [],
+            sectionComboThree: [],
+            sectionComboFour: [],
+            fetchTickerAndHeroArticle: () => {
+                return []
+            },
+            fetchHeroListTopList: () => {
+                return []
+            },
+            fetchSectionComboOne: () => {
+                return []
+            },
+            fetchSectionComboTwo: () => {
+                return []
+            },
+            fetchSectionComboThree: () => {
+                return []
+            },
+            fetchSectionComboFour: () => {
+                return []
+            }
+        }
+    },
+}));
 
 describe('<LatestNewsScreen>', () => {
     let instance: RenderAPI
 
-    // jest.mock('src/hooks/useLatestNewsTab', () => ({
-    //     useLatestNewsTab: () => jest.fn()
-    // }));
 
     beforeEach(() => {
-        const component = 
+        const component =
             <Provider store={storeSampleData}>
                 <LatestNewsScreen />
-            </Provider> 
+            </Provider>
         instance = render(component)
     })
-
-    // beforeEach(() => {
-    //     (useLatestNewsTab as jest.Mock).mockReturnValue(() => useLatestNewsTab)
-    // })
 
     afterEach(() => {
         jest.clearAllMocks()
         instance.unmount()
     })
 
-    xit('Should render component', () => {
+    it('Should render component', () => {
         expect(instance).toBeDefined()
     })
 })

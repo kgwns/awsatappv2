@@ -9,11 +9,15 @@ import {OpinionWritersArticlesSection} from '..';
 
 describe('<OpinionWritersArticlesSection>', () => {
   let instance: RenderAPI;
+  const mockFn = jest.fn();
 
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <OpinionWritersArticlesSection data={opinionWritersArticlesData} />
+        <OpinionWritersArticlesSection
+          data={opinionWritersArticlesData}
+          onPress={mockFn}
+        />
       </Provider>
     );
     instance = render(component);

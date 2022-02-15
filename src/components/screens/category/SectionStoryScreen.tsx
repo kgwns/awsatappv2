@@ -17,7 +17,7 @@ export const SectionStoryScreen = () => {
   const renderItem = () => (
     <View style={{ backgroundColor: themeData.backgroundColor }}>
       <ImageArticle image={articleSampleData.image} title={articleSampleData.title}
-        containerStyle={isTab ? style.tabletImageStyle : style.imageStyle} />
+      containerStyle={isTab ? style.tabletImageStyle : style.imageStyle} author={'يتحمل'} />
       <View style={{ paddingTop: normalize(15), paddingHorizontal: normalize(15) }}>
         <SectionArticleItem
           headerTitle={articleSampleData.title}

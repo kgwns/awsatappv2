@@ -15,7 +15,8 @@ export interface LatestArticleDataType {
   body: string,
   nid: string,
   image: string,
-  news_categories: NewsCategoriesType
+  news_categories: NewsCategoriesType,
+  author: string
 }
 
 export interface OpinionWriterType {
@@ -125,7 +126,9 @@ export interface OpinionFailedType {
 }
 
 export interface RequestSectionComboBodyGet {
-  id: number
+  id: number,
+  items_per_page?: number,
+  page?: number
 }
 
 export interface RequestSectionComboOne {

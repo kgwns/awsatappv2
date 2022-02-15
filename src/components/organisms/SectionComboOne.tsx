@@ -9,13 +9,10 @@ import { Image, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms'
 import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ImageResize } from 'src/shared/styles/text-styles';
-import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { ScreensConstants } from 'src/constants'
 
-const SectionComboOne = ({ data }: { data: LatestArticleDataType[] }) => {
+const SectionComboOne = ({ data, onPress }:
+    { data: LatestArticleDataType[], onPress: (nid: string) => void }) => {
     const { themeData } = useTheme()
-    const navigation = useNavigation<StackNavigationProp<any>>()
 
     const [t] = useTranslation()
 
@@ -40,12 +37,6 @@ const SectionComboOne = ({ data }: { data: LatestArticleDataType[] }) => {
             labelType: LabelTypeProp.h3,
             clickable: true,
         },
-    };
-
-    const onPress = (nid: string) => {
-        if (nid) {
-            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
-        }
     };
 
     const renderMainArticleImage = () => {
@@ -73,13 +64,13 @@ const SectionComboOne = ({ data }: { data: LatestArticleDataType[] }) => {
                         {renderMainArticleImage()}
                     </View>
                     <View style={sectionComboOneStyle.tabWidgetContainer}>
-                        <ShortArticle data={[...sectionComboOneData].splice(1, 3)} />
+                        <ShortArticle data={[...sectionComboOneData].splice(1, 3)} onPress={onPress} />
                     </View>
                 </View>
                     :
                     <>
                         {renderMainArticleImage()}
-                        <ShortArticle data={sectionComboOneData} />
+                        <ShortArticle data={sectionComboOneData} onPress={onPress} />
                     </>
             }
         </View>

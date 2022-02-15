@@ -31,7 +31,7 @@ import {
   requestTickerAndHeroFailed, requestTickerAndHeroSuccess,
   requestOpinionSuccess
 } from './action';
-import { isNonEmptyArray } from 'src/shared/utils';
+import { isNonEmptyArray, isTab } from 'src/shared/utils';
 import { getImageUrl } from 'src/shared/utils/utilities';
 import { requestLatestArticle, requestSectionCombo, writerOpinionApi } from 'src/services/latestTabService';
 
@@ -42,12 +42,13 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export }: any) => ({
+        ({ title, body, nid, field_image, field_news_categories_export,author_resource }: any) => ({
           body,
           title,
           nid,
           image: getImageUrl(field_image),
-          news_categories: field_news_categories_export
+          news_categories: field_news_categories_export,
+          author: author_resource
         })
       );
     }
@@ -109,7 +110,7 @@ const parseSectionComboTwo = (response: payloadType) => {
   let responseData: RequestSectionComboTwoSuccessPayload = {
     sectionComboTwo: []
   }
-  responseData.sectionComboTwo = formattedData.splice(0, 4)
+  responseData.sectionComboTwo = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
   return responseData
 }
 
@@ -118,7 +119,7 @@ const parseSectionComboThree = (response: payloadType) => {
   let responseData: RequestSectionComboThreeSuccessPayload = {
     sectionComboThree: []
   }
-  responseData.sectionComboThree = formattedData.splice(0, 4)
+  responseData.sectionComboThree = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
   return responseData
 }
 
@@ -127,7 +128,7 @@ const parseSectionComboFour = (response: payloadType) => {
   let responseData: RequestSectionComboFourSuccessPayload = {
     sectionComboFour: []
   }
-  responseData.sectionComboFour = formattedData.splice(0, 4)
+  responseData.sectionComboFour = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
   return responseData
 }
 const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {

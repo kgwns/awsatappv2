@@ -10,8 +10,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface ArticleItemProps extends articleProps {
     index: number,
-    articleItemStyle?: ViewStyle,
-    nid?: string
+    articleItemStyle?: ViewStyle
 }
 
 const ArticleItem: FunctionComponent<ArticleItemProps> = ({

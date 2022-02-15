@@ -2,24 +2,37 @@ import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
 import { normalize, screenWidth } from '../../shared/utils'
 import { flatListUniqueKey } from '../../constants'
-import { ArticleItem } from '../molecules'
+import { articleFooterProps, ArticleItem } from '../molecules'
 import { ArticleWithOutImageProps } from '../molecules/ArticleWithOutImage'
 import { ImageLabelProps } from '../atoms/imageWithLabel/ImageWithLabel'
+import { ImagesName, Styles } from 'src/shared/styles'
+import { FROM_TWO_HOURS } from 'src/constants/SharedConstants'
 
 export interface articleProps extends ImageLabelProps,ArticleWithOutImageProps {
    image?: string,
+   nid: string,
+   author: string
 }
 
 export interface ArticleSectionProps {
     data: articleProps[]
 }
 
+export const articleFooterDataSet: articleFooterProps = {
+    leftTitleColor: Styles.color.greenishBlue,
+    rightTitle: FROM_TWO_HOURS,
+    rightIcon: ImagesName.clock,
+    rightTitleColor: Styles.color.silverChalice,
+  };
+
 
 const ArticleSection = ({ data }: ArticleSectionProps) => {
     const renderItem = (item: articleProps, index: number) => {
+        articleFooterDataSet.leftTitle = item.author
         return <ArticleItem {...item} index={index}
             showDivider={index < data.length - 1}
             imageStyle={{ height: normalize(189) }}
+            footerInfo={articleFooterDataSet}
         />
     }
     return (
