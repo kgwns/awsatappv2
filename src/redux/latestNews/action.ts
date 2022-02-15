@@ -1,5 +1,30 @@
-import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED, REQUEST_SECTION_COMBO_ONE, REQUEST_SECTION_COMBO_ONE_FAILED, REQUEST_SECTION_COMBO_ONE_SUCCESS, REQUEST_SECTION_COMBO_FOUR_FAILED, REQUEST_SECTION_COMBO_FOUR, REQUEST_SECTION_COMBO_THREE_FAILED, REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE, REQUEST_SECTION_COMBO_TWO_FAILED, REQUEST_SECTION_COMBO_TWO_SUCCESS, REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_FOUR_SUCCESS } from "./actionType"
-import { HeroListTopListFailedPayload, HeroListTopListFailedType, HeroListTopListSuccessPayload, HeroListTopListSuccessType, LatestArticleBodyGet, RequestHeroListTopList, RequestSectionComboBodyGet, RequestSectionComboFour, RequestSectionComboFourFailedPayload, RequestSectionComboFourFailedType, RequestSectionComboFourSuccessPayload, RequestSectionComboFourSuccessType, RequestSectionComboOne, RequestSectionComboOneFailedPayload, RequestSectionComboOneFailedType, RequestSectionComboOneSuccessPayload, RequestSectionComboOneSuccessType, RequestSectionComboThree, RequestSectionComboThreeFailedPayload, RequestSectionComboThreeFailedType, RequestSectionComboThreeSuccessPayload, RequestSectionComboThreeSuccessType, RequestSectionComboTwo, RequestSectionComboTwoFailedPayload, RequestSectionComboTwoFailedType, RequestSectionComboTwoSuccessPayload, RequestSectionComboTwoSuccessType, RequestTickerAndHeroType, TickerHeroFailedPayload, TickerHeroFailedType, TickerHeroSuccessPayload, TickerHeroSuccessType } from "./types"
+import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, 
+  REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, 
+  REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED, 
+  REQUEST_SECTION_COMBO_ONE, REQUEST_SECTION_COMBO_ONE_FAILED, 
+  REQUEST_SECTION_COMBO_ONE_SUCCESS, REQUEST_SECTION_COMBO_FOUR_FAILED, 
+  REQUEST_SECTION_COMBO_FOUR, REQUEST_SECTION_COMBO_THREE_FAILED, 
+  REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE, 
+  REQUEST_SECTION_COMBO_TWO_FAILED, REQUEST_SECTION_COMBO_TWO_SUCCESS, 
+  REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_FOUR_SUCCESS,
+  REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA, REQUEST_OPINION_DATA_LIST_FAILED 
+} from "./actionType"
+import { HeroListTopListFailedPayload, HeroListTopListFailedType, 
+  HeroListTopListSuccessPayload, HeroListTopListSuccessType, 
+  LatestArticleBodyGet, RequestHeroListTopList, RequestSectionComboBodyGet, 
+  RequestSectionComboFour, RequestSectionComboFourFailedPayload, 
+  RequestSectionComboFourFailedType, RequestSectionComboFourSuccessPayload, 
+  RequestSectionComboFourSuccessType, RequestSectionComboOne, 
+  RequestSectionComboOneFailedPayload, RequestSectionComboOneFailedType, 
+  RequestSectionComboOneSuccessPayload, RequestSectionComboOneSuccessType, 
+  RequestSectionComboThree, RequestSectionComboThreeFailedPayload, 
+  RequestSectionComboThreeFailedType, RequestSectionComboThreeSuccessPayload, 
+  RequestSectionComboThreeSuccessType, RequestSectionComboTwo, 
+  RequestSectionComboTwoFailedPayload, RequestSectionComboTwoFailedType, 
+  RequestSectionComboTwoSuccessPayload, RequestSectionComboTwoSuccessType, 
+  RequestTickerAndHeroType, TickerHeroFailedPayload, TickerHeroFailedType, 
+  TickerHeroSuccessPayload, TickerHeroSuccessType, OpinionSuccessPayload, 
+  OpinionSuccessType, RequestOpinionListType, OpinionFailedType } from "./types"
 
 export const requestTickerAndHero = (
   payload: LatestArticleBodyGet
@@ -19,6 +44,15 @@ export const requestTickerAndHeroSuccess = (
   }
 }
 
+export const requestOpinionSuccess = (
+  payload: OpinionSuccessPayload
+): OpinionSuccessType => {
+  return {
+    type: REQUEST_OPINION_DATA_SUCCESS,
+    payload
+  }
+}
+
 export const requestTickerAndHeroFailed = (
   payload: TickerHeroFailedPayload
 ): TickerHeroFailedType => {
@@ -28,11 +62,29 @@ export const requestTickerAndHeroFailed = (
   }
 }
 
+export const requestOpinionFailed = (
+  payload: TickerHeroFailedPayload
+): OpinionFailedType => {
+  return {
+    type: REQUEST_OPINION_DATA_LIST_FAILED,
+    payload
+  }
+}
+
 export const requestHeroListTopList = (
   payload: LatestArticleBodyGet
 ): RequestHeroListTopList => {
   return {
     type: REQUEST_HERO_AND_TOP_LIST_DATA,
+    payload
+  }
+}
+
+export const requestOpinionList = (
+  payload: LatestArticleBodyGet
+): RequestOpinionListType => {
+  return {
+    type: REQUEST_OPINION_LIST_DATA,
     payload
   }
 }
@@ -179,6 +231,9 @@ export const latestTabActions = {
   requestHeroListTopList,
   requestHeroListTopListSuccess,
   requestHeroListTopListFailed,
+  requestOpinionFailed,
+  requestOpinionList,
+  requestOpinionSuccess,
   requestSectionComboOne,
   requestSectionComboOneSuccess,
   requestSectionComboOneFailed,

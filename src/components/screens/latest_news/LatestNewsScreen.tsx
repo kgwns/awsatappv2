@@ -2,18 +2,18 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
-  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne , ShortArticleProps, StoryListProps
+  ShortArticleProps, ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne, StoryListProps
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties, shortArticleData, storyWidgetData } from 'src/constants/SampleData';
+import { shortArticleWithTagProperties, storyWidgetData } from 'src/constants/SampleData';
 import { horizontalEdge, isTab, normalize } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useLatestNewsTab } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import {ScreensConstants} from 'src/constants';
+import { ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const tickerAndHeroPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -26,21 +26,32 @@ const heroListTopListPayload: LatestArticleBodyGet = {
   page: 0,
   offset: 6
 }
+const opinionListPayload: LatestArticleBodyGet = {
+  items_per_page: 3,
+  page: 0,
+  offset: 0
+}
 
 const sectionComboOnePayload: RequestSectionComboBodyGet = {
   id: 726
 }
 
 const sectionComboTwoPayload: RequestSectionComboBodyGet = {
-  id: 871
+  id: 871,
+  items_per_page: 10,
+  page: 0
 }
 
 const sectionComboThreePayload: RequestSectionComboBodyGet = {
-  id: 11
+  id: 11,
+  items_per_page: 10,
+  page: 0
 }
 
 const sectionComboFourPayload: RequestSectionComboBodyGet = {
-  id: 10
+  id: 10,
+  items_per_page: 10,
+  page: 0
 }
 
 export const LatestNewsScreen = () => {
@@ -48,9 +59,9 @@ export const LatestNewsScreen = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const {
-    isLoading, ticker, hero, heroList, topList,
+    isLoading, ticker, hero, heroList, topList, opinionList,
     sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour,
-    fetchTickerAndHeroArticle, fetchHeroListTopList,
+    fetchTickerAndHeroArticle, fetchHeroListTopList, fetchOpinionTopList,
     fetchSectionComboOne, fetchSectionComboTwo,
     fetchSectionComboThree, fetchSectionComboFour
   } = useLatestNewsTab()
@@ -61,19 +72,27 @@ export const LatestNewsScreen = () => {
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
+      flag: item.news_categories.title
     }
   })
 
   useEffect(() => {
     fetchTickerAndHeroArticle(tickerAndHeroPayload)
     fetchHeroListTopList(heroListTopListPayload)
+    fetchOpinionTopList(opinionListPayload)
     fetchSectionComboOne(sectionComboOnePayload)
     fetchSectionComboTwo(sectionComboTwoPayload)
     fetchSectionComboThree(sectionComboThreePayload)
     fetchSectionComboFour(sectionComboFourPayload)
   }, [])
 
+
+  const onPressArticle = (nid: string) => {
+    nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+  }
+
   const renderItem = () => (
+
     <View>
       <CarouselSlider tickerData={ticker} heroData={hero} />
       {
@@ -83,26 +102,26 @@ export const LatestNewsScreen = () => {
             <PodcastWidget />
           </View>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
-            <ShortArticle data={topListData} />
+            <ShortArticle data={topListData} onPress={onPressArticle} />
           </View>
         </View>
           :
           <>
             <PodcastWidget />
             <ArticleSection data={heroListData} />
-            <ShortArticle data={topListData} />
+            <ShortArticle data={topListData} onPress={onPressArticle} />
           </>
       }
-      <StoryWidget  data={storyWidgetData}
-        onPress={(item: StoryListProps,index: number)=>
+      <StoryWidget data={storyWidgetData}
+        onPress={(item: StoryListProps, index: number) =>
           navigation.navigate(ScreensConstants.StoryScreen,
-            {id:item.id,selectedIndex:index}
+            { id: item.id, selectedIndex: index }
           )}
       />
-      <SectionComboOne data={sectionComboOne}/>
+      <SectionComboOne data={sectionComboOne} onPress={onPressArticle} />
       <BannerArticleSection data={sectionComboTwo} />
       <Divider style={{ height: normalize(20) }} />
-      <AuthorWidget />
+      <AuthorWidget data={opinionList} />
       <BannerArticleSection data={sectionComboThree} />
       <Divider style={{ height: normalize(20) }} />
       <BannerArticleSection data={sectionComboFour} />

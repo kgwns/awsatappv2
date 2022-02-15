@@ -1,4 +1,4 @@
-import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED, REQUEST_SECTION_COMBO_ONE, REQUEST_SECTION_COMBO_ONE_SUCCESS, REQUEST_SECTION_COMBO_ONE_FAILED, REQUEST_SECTION_COMBO_TWO_SUCCESS, REQUEST_SECTION_COMBO_TWO_FAILED, REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE_FAILED, REQUEST_SECTION_COMBO_FOUR_SUCCESS, REQUEST_SECTION_COMBO_FOUR_FAILED, REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_THREE, REQUEST_SECTION_COMBO_FOUR } from "./actionType"
+import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED, REQUEST_SECTION_COMBO_ONE, REQUEST_SECTION_COMBO_ONE_SUCCESS, REQUEST_SECTION_COMBO_ONE_FAILED, REQUEST_SECTION_COMBO_TWO_SUCCESS, REQUEST_SECTION_COMBO_TWO_FAILED, REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE_FAILED, REQUEST_SECTION_COMBO_FOUR_SUCCESS, REQUEST_SECTION_COMBO_FOUR_FAILED, REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_THREE, REQUEST_SECTION_COMBO_FOUR, REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_DATA_LIST_FAILED, REQUEST_OPINION_LIST_DATA  } from "./actionType"
 
 export type payloadType = { rows: any[], pager: object }
 
@@ -15,9 +15,24 @@ export interface LatestArticleDataType {
   body: string,
   nid: string,
   image: string,
-  news_categories: NewsCategoriesType
+  news_categories: NewsCategoriesType,
+  author: string
 }
 
+export interface OpinionWriterType {
+  id: string
+  title: string
+  url: string
+  bundle: string
+  name: string
+  opinion_writer_photo: string
+}
+export interface LatestOpinionDataType {
+  title: string,
+  body: string,
+  nid: string,
+  field_opinion_writer_node_export: OpinionWriterType
+}
 
 export interface LatestArticleBodyGet {
   items_per_page: number,
@@ -37,6 +52,7 @@ export type LatestNewsTabState = {
   hero: LatestArticleDataType[],
   heroList: LatestArticleDataType[],
   topList: LatestArticleDataType[],
+  opinionList: LatestOpinionDataType[]
   sectionComboOne: LatestArticleDataType[],
   sectionComboTwo: LatestArticleDataType[],
   sectionComboThree: LatestArticleDataType[],
@@ -67,9 +83,23 @@ export interface RequestHeroListTopList {
   payload: LatestArticleBodyGet
 }
 
+export interface RequestOpinionListType {
+  type: typeof REQUEST_OPINION_LIST_DATA,
+  payload: LatestArticleBodyGet
+}
+
 export type HeroListTopListSuccessPayload = {
   heroList: LatestArticleDataType[],
   topList: LatestArticleDataType[]
+}
+
+export type OpinionSuccessPayload = {
+  opinionList: LatestOpinionDataType[]
+}
+
+export interface OpinionSuccessType {
+  type: typeof REQUEST_OPINION_DATA_SUCCESS,
+  payload: OpinionSuccessPayload
 }
 
 export interface HeroListTopListSuccessType {
@@ -86,8 +116,19 @@ export interface HeroListTopListFailedType {
   payload: HeroListTopListFailedPayload
 }
 
+export interface OpinionFailedPayload {
+  error: string
+}
+
+export interface OpinionFailedType {
+  type: typeof REQUEST_OPINION_DATA_LIST_FAILED,
+  payload: OpinionFailedPayload
+}
+
 export interface RequestSectionComboBodyGet {
-  id: number
+  id: number,
+  items_per_page?: number,
+  page?: number
 }
 
 export interface RequestSectionComboOne {
@@ -199,6 +240,9 @@ export type LatestTabAction =
   | RequestHeroListTopList
   | HeroListTopListSuccessType
   | HeroListTopListFailedType
+  | OpinionSuccessType
+  | OpinionFailedType
+  | RequestOpinionListType
   | RequestSectionComboOne
   | RequestSectionComboOneSuccessType
   | RequestSectionComboOneFailedType

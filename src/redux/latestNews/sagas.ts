@@ -1,5 +1,8 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
+
+
+
 import {
   HeroListTopListSuccessPayload, LatestArticleDataType, payloadType, RequestHeroListTopList,
   RequestSectionComboFourSuccessPayload,
@@ -7,7 +10,8 @@ import {
   RequestSectionComboThreeSuccessPayload,
   RequestSectionComboTwoSuccessPayload,
   RequestSectionComboType,
-  RequestTickerAndHeroType, TickerHeroSuccessPayload
+  RequestTickerAndHeroType, TickerHeroSuccessPayload,
+  OpinionSuccessPayload, RequestOpinionListType, LatestOpinionDataType
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -15,7 +19,8 @@ import {
   REQUEST_SECTION_COMBO_ONE,
   REQUEST_SECTION_COMBO_THREE,
   REQUEST_SECTION_COMBO_TWO,
-  REQUEST_TICKER_HERO_DATA
+  REQUEST_TICKER_HERO_DATA,
+  REQUEST_OPINION_LIST_DATA
 } from './actionType';
 import {
   requestHeroListTopListFailed, requestHeroListTopListSuccess,
@@ -23,11 +28,12 @@ import {
   requestSectionComboOneFailed, requestSectionComboOneSuccess,
   requestSectionComboThreeFailed, requestSectionComboThreeSuccess,
   requestSectionComboTwoFailed, requestSectionComboTwoSuccess,
-  requestTickerAndHeroFailed, requestTickerAndHeroSuccess
+  requestTickerAndHeroFailed, requestTickerAndHeroSuccess,
+  requestOpinionSuccess
 } from './action';
-import { isNonEmptyArray } from 'src/shared/utils';
+import { isNonEmptyArray, isTab } from 'src/shared/utils';
 import { getImageUrl } from 'src/shared/utils/utilities';
-import { requestLatestArticle, requestSectionCombo } from 'src/services/latestTabService';
+import { requestLatestArticle, requestSectionCombo, writerOpinionApi } from 'src/services/latestTabService';
 
 
 const formatLatestArticle = (response: any): LatestArticleDataType[] => {
@@ -36,17 +42,36 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export }: any) => ({
+        ({ title, body, nid, field_image, field_news_categories_export,author_resource }: any) => ({
           body,
           title,
           nid,
           image: getImageUrl(field_image),
-          news_categories: field_news_categories_export
+          news_categories: field_news_categories_export,
+          author: author_resource
         })
       );
     }
   }
   return formattedData
+}
+
+const formatOpinion = (response: any): LatestOpinionDataType[] => {
+  let formattedOpinionData: LatestOpinionDataType[] = []
+  if (response) {
+    if (isNonEmptyArray(response.rows)) {
+      const rows = response.rows
+      formattedOpinionData = rows.map(
+        ({ title, body, nid, field_opinion_writer_node_export  }: any) => ({
+          body,
+          title,
+          nid,
+          field_opinion_writer_node_export,
+        })
+      );
+    }
+  }
+  return formattedOpinionData
 }
 
 const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPayload => {
@@ -85,7 +110,7 @@ const parseSectionComboTwo = (response: payloadType) => {
   let responseData: RequestSectionComboTwoSuccessPayload = {
     sectionComboTwo: []
   }
-  responseData.sectionComboTwo = formattedData.splice(0, 4)
+  responseData.sectionComboTwo = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
   return responseData
 }
 
@@ -94,7 +119,7 @@ const parseSectionComboThree = (response: payloadType) => {
   let responseData: RequestSectionComboThreeSuccessPayload = {
     sectionComboThree: []
   }
-  responseData.sectionComboThree = formattedData.splice(0, 4)
+  responseData.sectionComboThree = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
   return responseData
 }
 
@@ -103,10 +128,17 @@ const parseSectionComboFour = (response: payloadType) => {
   let responseData: RequestSectionComboFourSuccessPayload = {
     sectionComboFour: []
   }
-  responseData.sectionComboFour = formattedData.splice(0, 4)
+  responseData.sectionComboFour = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
   return responseData
 }
-
+const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {
+  const formattedData = formatOpinion(response)
+  let responseData: OpinionSuccessPayload = {
+    opinionList: []
+  }
+  responseData.opinionList = formattedData.splice(0, 3)
+  return responseData
+}
 export function* fetchTickerAndHeroWidgetData(action: RequestTickerAndHeroType) {
   try {
     const payload: payloadType = yield call(
@@ -115,6 +147,22 @@ export function* fetchTickerAndHeroWidgetData(action: RequestTickerAndHeroType) 
     );
     const response = parseTickerHeroDataSuccess(payload)
     yield put(requestTickerAndHeroSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestTickerAndHeroFailed({ error: errorMessage.message }));
+    }
+  }
+}
+export function* fetchOpinionWidgetData(action: RequestOpinionListType) {
+  try {
+    const payload: payloadType = yield call(
+      writerOpinionApi,
+      action.payload
+    );
+    const response = parseOpinionDataSuccess(payload)
+    yield put(requestOpinionSuccess(response));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
     if (errorResponse.response) {
@@ -180,6 +228,7 @@ function* fetchSectionCombo(action: RequestSectionComboType) {
 function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)]);
   yield all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)]);
+  yield all([takeLatest(REQUEST_OPINION_LIST_DATA, fetchOpinionWidgetData)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_ONE, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_TWO, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_THREE, fetchSectionCombo)]);

@@ -4,7 +4,9 @@ import appCommon from 'src/redux/appCommon/reducer';
 import mostReadReducer from 'src/redux/mostRead/reducer';
 import searchReducer from 'src/redux/search/reducer';
 import articleDetail from 'src/redux/articleDetail/reducer';
-import latestNewsTab from 'src/redux/latestNews/reducer'
+import latestNewsTab from 'src/redux/latestNews/reducer';
+import opinionWriter from 'src/redux/writers/reducer';
+import opinionsReducer from 'src/redux/opinions/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -14,7 +16,9 @@ const rootReducer = combineReducers({
   mostRead: mostReadReducer,
   search: searchReducer,
   articleDetail: articleDetail,
-  latestNewsTab
+  latestNewsTab,
+  opinionWriter: opinionWriter,
+  opinionsReducer: opinionsReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
