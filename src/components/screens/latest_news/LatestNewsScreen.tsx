@@ -2,15 +2,18 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
-  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, ShortArticleProps
+  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne , ShortArticleProps, StoryListProps
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleData, shortArticleWithTagProperties } from 'src/constants/SampleData';
+import { shortArticleWithTagProperties, shortArticleData, storyWidgetData } from 'src/constants/SampleData';
 import { horizontalEdge, isTab, normalize } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useLatestNewsTab } from 'src/hooks';
-import { LatestArticleBodyGet, LatestArticleDataType } from 'src/redux/latestNews/types';
+import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
+import {ScreensConstants} from 'src/constants';
+import { StackNavigationProp } from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
 
 const tickerAndHeroPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -24,12 +27,32 @@ const heroListTopListPayload: LatestArticleBodyGet = {
   offset: 6
 }
 
+const sectionComboOnePayload: RequestSectionComboBodyGet = {
+  id: 726
+}
+
+const sectionComboTwoPayload: RequestSectionComboBodyGet = {
+  id: 871
+}
+
+const sectionComboThreePayload: RequestSectionComboBodyGet = {
+  id: 11
+}
+
+const sectionComboFourPayload: RequestSectionComboBodyGet = {
+  id: 10
+}
+
 export const LatestNewsScreen = () => {
   const { themeData } = useTheme()
-
+  const navigation = useNavigation<StackNavigationProp<any>>()
 
   const {
-    isLoading, ticker, hero, heroList, topList, fetchTickerAndHeroArticle, fetchHeroListTopList
+    isLoading, ticker, hero, heroList, topList,
+    sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour,
+    fetchTickerAndHeroArticle, fetchHeroListTopList,
+    fetchSectionComboOne, fetchSectionComboTwo,
+    fetchSectionComboThree, fetchSectionComboFour
   } = useLatestNewsTab()
 
   const heroListData = isTab ? heroList.slice(0, 1) : heroList
@@ -44,6 +67,10 @@ export const LatestNewsScreen = () => {
   useEffect(() => {
     fetchTickerAndHeroArticle(tickerAndHeroPayload)
     fetchHeroListTopList(heroListTopListPayload)
+    fetchSectionComboOne(sectionComboOnePayload)
+    fetchSectionComboTwo(sectionComboTwoPayload)
+    fetchSectionComboThree(sectionComboThreePayload)
+    fetchSectionComboFour(sectionComboFourPayload)
   }, [])
 
   const renderItem = () => (
@@ -66,22 +93,19 @@ export const LatestNewsScreen = () => {
             <ShortArticle data={topListData} />
           </>
       }
-      <StoryWidget />
-      {
-        isTab ? <View style={latestNewsScreenStyle.tabSplitter}>
-          <View style={latestNewsScreenStyle.tabWidgetContainer}>
-          </View>
-          <View style={latestNewsScreenStyle.tabWidgetContainer}>
-            <ShortArticle data={shortArticleData} />
-          </View>
-        </View>
-          :
-          <ShortArticle data={shortArticleData} />
-      }
-      <BannerArticleSection />
-      <Divider style={{ height: normalize(30) }} />
+      <StoryWidget  data={storyWidgetData}
+        onPress={(item: StoryListProps,index: number)=>
+          navigation.navigate(ScreensConstants.StoryScreen,
+            {id:item.id,selectedIndex:index}
+          )}
+      />
+      <SectionComboOne data={sectionComboOne}/>
+      <BannerArticleSection data={sectionComboTwo} />
+      <Divider style={{ height: normalize(20) }} />
       <AuthorWidget />
-      <BannerArticleSection />
+      <BannerArticleSection data={sectionComboThree} />
+      <Divider style={{ height: normalize(20) }} />
+      <BannerArticleSection data={sectionComboFour} />
       <Divider style={{ height: normalize(50) }} />
     </View>
   )

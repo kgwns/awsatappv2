@@ -1,4 +1,4 @@
-import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED } from "./actionType"
+import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED, REQUEST_SECTION_COMBO_ONE, REQUEST_SECTION_COMBO_ONE_SUCCESS, REQUEST_SECTION_COMBO_ONE_FAILED, REQUEST_SECTION_COMBO_TWO_SUCCESS, REQUEST_SECTION_COMBO_TWO_FAILED, REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE_FAILED, REQUEST_SECTION_COMBO_FOUR_SUCCESS, REQUEST_SECTION_COMBO_FOUR_FAILED, REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_THREE, REQUEST_SECTION_COMBO_FOUR } from "./actionType"
 
 export type payloadType = { rows: any[], pager: object }
 
@@ -36,7 +36,11 @@ export type LatestNewsTabState = {
   ticker: LatestArticleDataType[],
   hero: LatestArticleDataType[],
   heroList: LatestArticleDataType[],
-  topList: LatestArticleDataType[]
+  topList: LatestArticleDataType[],
+  sectionComboOne: LatestArticleDataType[],
+  sectionComboTwo: LatestArticleDataType[],
+  sectionComboThree: LatestArticleDataType[],
+  sectionComboFour: LatestArticleDataType[]
 }
 
 export type TickerHeroSuccessPayload = {
@@ -82,6 +86,112 @@ export interface HeroListTopListFailedType {
   payload: HeroListTopListFailedPayload
 }
 
+export interface RequestSectionComboBodyGet {
+  id: number
+}
+
+export interface RequestSectionComboOne {
+  type: typeof REQUEST_SECTION_COMBO_ONE,
+  payload: RequestSectionComboBodyGet
+}
+
+export interface RequestSectionComboOneSuccessPayload {
+  sectionComboOne: LatestArticleDataType[]
+}
+
+export interface RequestSectionComboOneSuccessType {
+  type: typeof REQUEST_SECTION_COMBO_ONE_SUCCESS,
+  payload: RequestSectionComboOneSuccessPayload
+}
+
+export interface RequestSectionComboOneFailedPayload {
+  error: string
+}
+
+export interface RequestSectionComboOneFailedType {
+  type: typeof REQUEST_SECTION_COMBO_ONE_FAILED,
+  payload: RequestSectionComboOneFailedPayload
+}
+
+
+export interface RequestSectionComboTwo {
+  type: typeof REQUEST_SECTION_COMBO_TWO,
+  payload: RequestSectionComboBodyGet
+}
+
+export interface RequestSectionComboTwoSuccessPayload {
+  sectionComboTwo: LatestArticleDataType[]
+}
+
+export interface RequestSectionComboTwoSuccessType {
+  type: typeof REQUEST_SECTION_COMBO_TWO_SUCCESS,
+  payload: RequestSectionComboTwoSuccessPayload
+}
+
+export interface RequestSectionComboTwoFailedPayload {
+  error: string
+}
+
+export interface RequestSectionComboTwoFailedType {
+  type: typeof REQUEST_SECTION_COMBO_TWO_FAILED,
+  payload: RequestSectionComboTwoFailedPayload
+}
+
+
+export interface RequestSectionComboThree {
+  type: typeof REQUEST_SECTION_COMBO_THREE,
+  payload: RequestSectionComboBodyGet
+}
+
+export interface RequestSectionComboThreeSuccessPayload {
+  sectionComboThree: LatestArticleDataType[]
+}
+
+export interface RequestSectionComboThreeSuccessType {
+  type: typeof REQUEST_SECTION_COMBO_THREE_SUCCESS,
+  payload: RequestSectionComboThreeSuccessPayload
+}
+
+export interface RequestSectionComboThreeFailedPayload {
+  error: string
+}
+
+export interface RequestSectionComboThreeFailedType {
+  type: typeof REQUEST_SECTION_COMBO_THREE_FAILED,
+  payload: RequestSectionComboThreeFailedPayload
+}
+
+
+export interface RequestSectionComboFour {
+  type: typeof REQUEST_SECTION_COMBO_FOUR,
+  payload: RequestSectionComboBodyGet
+}
+
+export interface RequestSectionComboFourSuccessPayload {
+  sectionComboFour: LatestArticleDataType[]
+}
+
+export interface RequestSectionComboFourSuccessType {
+  type: typeof REQUEST_SECTION_COMBO_FOUR_SUCCESS,
+  payload: RequestSectionComboFourSuccessPayload
+}
+
+export interface RequestSectionComboFourFailedPayload {
+  error: string
+}
+
+export interface RequestSectionComboFourFailedType {
+  type: typeof REQUEST_SECTION_COMBO_FOUR_FAILED,
+  payload: RequestSectionComboFourFailedPayload
+}
+
+
+export type RequestSectionComboType =
+  RequestSectionComboOne
+  | RequestSectionComboTwo
+  | RequestSectionComboThree
+  | RequestSectionComboFour
+
 export type LatestTabAction =
   RequestTickerAndHeroType
   | TickerHeroSuccessType
@@ -89,3 +199,15 @@ export type LatestTabAction =
   | RequestHeroListTopList
   | HeroListTopListSuccessType
   | HeroListTopListFailedType
+  | RequestSectionComboOne
+  | RequestSectionComboOneSuccessType
+  | RequestSectionComboOneFailedType
+  | RequestSectionComboTwo
+  | RequestSectionComboTwoSuccessType
+  | RequestSectionComboTwoFailedType
+  | RequestSectionComboThree
+  | RequestSectionComboThreeSuccessType
+  | RequestSectionComboThreeFailedType
+  | RequestSectionComboFour
+  | RequestSectionComboFourSuccessType
+  | RequestSectionComboFourFailedType

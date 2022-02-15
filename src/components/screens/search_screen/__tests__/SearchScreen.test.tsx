@@ -19,7 +19,8 @@ describe('<SearchScreen>', () => {
   const setSearchText = jest.fn()
   const mockFunction = jest.fn()
   const navigation = {
-    goBack: mockFunction
+    goBack: mockFunction,
+    navigate: mockFunction,
   }
   describe('when SearchScreen only', () => {
     beforeEach(() => {
@@ -27,7 +28,7 @@ describe('<SearchScreen>', () => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       const component = (
         <Provider store={storeSampleData}>
-          <SearchScreen  />
+          <SearchScreen />
         </Provider>
       );
       instance = render(component);
@@ -49,6 +50,11 @@ describe('<SearchScreen>', () => {
       const searchListId = instance.getByTestId('search-input');
       fireEvent(searchListId, 'onTextChange', '');
       expect(setSearchText).toHaveBeenCalled();
+    });
+    it('when onItemActionPress is called from SearchList', () => {
+      const searchListId = instance.getByTestId('search-input');
+      fireEvent(searchListId, 'onItemActionPress', {nid:0});
+      expect(navigation.navigate).toBeTruthy();
     });
   });
 });

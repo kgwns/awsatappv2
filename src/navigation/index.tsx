@@ -10,6 +10,7 @@ import {
   ArticleDetailScreen,
   SelectInterestScreen,
   PodcastProgram,
+  StoryScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -30,6 +31,7 @@ export const Routes = {
   ArticleDetailScreen,
   SelectInterestScreen,
   PodcastProgram,
+  StoryScreen,
 };
 
 /**

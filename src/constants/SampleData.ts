@@ -14,6 +14,9 @@ import {
   articleProps,
   ShortArticleProps,
   SearchResultsProps,
+  StoryListItemProps,
+  StoryListProps,
+  PodcastProgramInfoProps,
 } from 'src/components/organisms';
 import {normalize} from 'src/shared/utils';
 import {opinionWriterProps} from 'src/components/organisms/OpinionWritersSection';
@@ -23,8 +26,8 @@ import {NewsWithImageItemProps} from 'src/components/molecules/podcast/NewsWithI
 import {ArticleRectangleCardProps} from 'src/components/molecules/podcast/ArticleRectangleCard';
 import { NewsFeedProps } from 'src/components/organisms/NewsFeed';
 
-const mockStore = configureStore();
-export const storeSampleData = mockStore({
+export const storeInfo = [
+  {
   appCommon: {
     theme: Theme.LIGHT,
   },
@@ -39,8 +42,33 @@ export const storeSampleData = mockStore({
     ticker: [],
     hero: [],
     heroList: [],
-    topList: []
+    topList: [],
+    sectionComboOne: [],
+    sectionComboTwo: [],
+    sectionComboThree: [],
+    sectionComboFour: []
+  },
+  articleDetail: {
+    isLoading: true,
+    error: '',
+    articleDetailData: [],
+    pager: {}
+  },
+  search: {
+    searchData: [],
+    error: '',
+    isLoading: false,
+  },
+  mostRead: {
+    mostReadData: [],
+    error: '',
+    isLoading: false,
   }
+}]
+
+const mockStore = configureStore();
+export const storeSampleData = mockStore({
+  storeInfo
 });
 
 export const sampleTextWithFlag: TextWithFlagProps = {
@@ -581,6 +609,130 @@ export const PodcastOpinionArticleSectionData: ArticleRectangleCardProps[] = [
   },
 ];
 
+export const storyWidgetItemData: StoryListItemProps[] = [
+  {
+    id: '1',
+    imageUrl: "https://picsum.photos/500",
+    title: "كوفيد-19",
+    description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+    buttonTitle: 'امرأ المقالة',
+    thumbNail: "https://picsum.photos/100",
+  },
+  {
+    id: '2',
+    imageUrl: "https://picsum.photos/400",
+    title: "رحلة إلى المريخ",
+    description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+    buttonTitle: 'امرأ المقالة',
+    thumbNail: "https://picsum.photos/100",
+  },
+  {
+    id: '3',
+    imageUrl: "https://picsum.photos/600",
+    title: "كوفيد-19",
+    description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+    buttonTitle: 'امرأ المقالة',
+    thumbNail: "https://picsum.photos/100",
+  },
+]
+
+export const storyWidgetData: StoryListProps[] = [
+{
+  id: '1',
+  data :storyWidgetItemData,
+},
+{
+  id: '2',
+  data :[
+    {
+      id: '1',
+      imageUrl: "https://picsum.photos/500",
+      title: "رحلة إلى المريخ",
+      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+      buttonTitle: 'امرأ المقالة',
+      thumbNail: "https://picsum.photos/100",
+    }
+  ],
+},
+{
+  id: '3',
+  data :[
+    {
+      id: '1',
+      imageUrl: "https://picsum.photos/500",
+      title: "فضاء رأس مالي",
+      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+      buttonTitle: 'امرأ المقالة',
+      thumbNail: "https://picsum.photos/100",
+    }
+  ],
+},
+{
+  id: '4',
+  data :[
+    {
+      id: '1',
+      imageUrl: "https://picsum.photos/500",
+      title: "أمريكا 2020",
+      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+      buttonTitle: 'امرأ المقالة',
+      thumbNail: "https://picsum.photos/100",
+    }
+  ],
+},
+{
+  id: '5',
+  data :[
+    {
+      id: '1',
+      imageUrl: "https://picsum.photos/500",
+      title: "كوفيد-19",
+      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+      buttonTitle: 'امرأ المقالة',
+      thumbNail: "https://picsum.photos/100",
+    }
+  ],
+},
+{
+  id: '6',
+  data :[
+    {
+      id: '1',
+      imageUrl: "https://picsum.photos/500",
+      title: "رحلة إلى المريخ",
+      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+      buttonTitle: 'امرأ المقالة',
+      thumbNail: "https://picsum.photos/100",
+    }
+  ],
+},
+{
+  id: '7',
+  data :[
+    {
+      id: '1',
+      imageUrl: "https://picsum.photos/500",
+      title: "فضاء رأس مالي",
+      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+      buttonTitle: 'امرأ المقالة',
+      thumbNail: "https://picsum.photos/100",
+    }
+  ],
+},
+{
+  id: '8',
+  data :[
+    {
+      id: '1',
+      imageUrl: "https://picsum.photos/500",
+      title: "أمريكا 2020",
+      description:"دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى",
+      buttonTitle: 'امرأ المقالة',
+      thumbNail: "https://picsum.photos/100",
+    }
+  ],
+},
+]
 export const videoTabData: VideoItemProps[] = [
   {
     title:
@@ -715,3 +867,11 @@ export const PodcastEpisodeData: PodcastVerticalListProps[] = [
     footerRight: 'الخسيس'
   },
 ];
+
+export const PodcastProgramInfoData: PodcastProgramInfoProps = {
+  imageUrl: 'https://picsum.photos/200',
+  title: 'عنوان لبرنامج البودكاست',
+  announcer: 'مع اسم المذيع',
+  description: 'أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت.',
+  data: PodcastEpisodeData as PodcastVerticalListProps[],
+}

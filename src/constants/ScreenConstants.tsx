@@ -13,6 +13,7 @@ const FOLLOW_FAVORITE_AUTHOR_SCREEN = 'FOLLOWFAVORITEAUTHORSCREEN' as ScreenName
 const KEEP_NOTIFIED_ONBOARD_SCREEN = 'KEEP_NOTIFIED_ONBOARD_SCREEN' as ScreenName;
 const LatestNewsScreen = 'LatestNewsScreen' as ScreenName;
 const PodcastProgram = 'PodcastProgram' as ScreenName;
+const StoryScreen = 'StoryScreen' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -35,4 +36,5 @@ export const ScreensConstants = {
   SELECT_INTEREST_SCREEN,
   LatestNewsScreen,
   PodcastProgram,
+  StoryScreen,
 };

@@ -16,5 +16,17 @@ export const getHeroListData: Selector<LatestArticleDataType[]> = (state: AppSta
 export const getTopListData: Selector<LatestArticleDataType[]> = (state: AppState) =>
   state.latestNewsTab.topList;
 
+export const getSectionComboOneData: Selector<LatestArticleDataType[]> = (state: AppState) =>
+  state.latestNewsTab.sectionComboOne;
+
+export const getSectionComboTwoData: Selector<LatestArticleDataType[]> = (state: AppState) =>
+  state.latestNewsTab.sectionComboTwo;
+
+export const getSectionComboThreeData: Selector<LatestArticleDataType[]> = (state: AppState) =>
+  state.latestNewsTab.sectionComboThree;
+
+export const getSectionComboFourData: Selector<LatestArticleDataType[]> = (state: AppState) =>
+  state.latestNewsTab.sectionComboFour;
+
 export const getError: Selector<string> = (state: AppState) =>
   state.latestNewsTab.error;

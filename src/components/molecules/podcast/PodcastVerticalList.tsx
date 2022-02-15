@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
 import {normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {Label, Image} from 'src/components/atoms';
+import {ButtonImage, Label, Image} from 'src/components/atoms';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
+import PlayIcon from 'src/assets/images/icons/play_icon.svg';
+import {getSvgImages} from 'src/shared/styles/svgImages';
+import {ImagesName} from 'src/shared/styles';
+import {useTheme} from 'src/shared/styles/ThemeProvider';
 
 export interface PodcastVerticalListProps {
   imageUrl?: string;
@@ -25,19 +29,55 @@ export const PodcastVerticalList = ({
   footerRight,
 }: PodcastVerticalListProps) => {
   const style = useThemeAwareObject(customStyle);
+  const [isSaved, setIsSaved] = useState(false);
+  const theme = useTheme();
   return (
     <TouchableWithoutFeedback testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
       <View style={style.cardContainer}>
         <View style={style.headerStyle}>
-          <Image url={imageUrl} style={style.imageStyle} />
+          <View style={style.headerLeftStyle}>
+            <Image url={imageUrl} style={style.imageStyle} />
+            <Label style={style.title} numberOfLines={1}>
+              {title}
+            </Label>
+          </View>
+          <View style={style.headerRightStyle}>
+            <PlayIcon />
+          </View>
         </View>
-        
-        <Label style={style.title} numberOfLines={1}>
-          {title}
-        </Label>
-        <Label style={style.description} numberOfLines={1}>
+        <Label style={style.description} numberOfLines={2}>
           {description}
         </Label>
+        <View style={style.headerStyle}>
+          <View style={style.headerLeftStyle}>
+            <Label style={style.footerRightTextStyle} numberOfLines={1}>
+              {footerRight}
+            </Label>
+            <Label color={colors.spanishGray}>|</Label>
+            <Label style={style.footerLeftTextStyle} numberOfLines={1}>
+              {footerLeft}
+            </Label>
+          </View>
+          <View style={style.headerRightStyle}>
+            <ButtonImage
+              testId={'bookMarkTestId'}
+              icon={() => {
+                return isSaved
+                  ? getSvgImages({
+                      name: ImagesName.bookMarkBlackFillSVG,
+                      size: normalize(15),
+                      fill: theme.themeData.primaryBlack,
+                    })
+                  : getSvgImages({
+                      name: ImagesName.bookMarkBlackBdrSVG,
+                      size: normalize(15),
+                      fill: theme.themeData.secondaryDavyGrey,
+                    });
+              }}
+              onPress={() => setIsSaved(!isSaved)}
+            />
+          </View>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -48,23 +88,46 @@ const customStyle = (theme: CustomThemeType) => {
     cardContainer: {
       flex:1,
       backgroundColor: theme.secondaryWhite,
+      padding: normalize(15),
     },
     headerStyle: {
       flexDirection: 'row',
     },
-    imageStyle: {width: normalize(50), height: normalize(50)},
+    headerLeftStyle: {
+      flexDirection: 'row',
+      flex: 1,
+      alignItems: 'center',
+    },
+    headerRightStyle: {
+      flex: 0.2,
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+    },
+    imageStyle: {width: normalize(35), height: normalize(35)},
     title: {
-      fontSize: normalize(15),
+      fontSize: normalize(14),
       lineHeight: normalize(16),
       fontWeight: 'bold',
       color: theme.primaryBlack,
-      marginTop: normalize(12),
+      paddingLeft: normalize(10),
+    },
+    footerLeftTextStyle: {
+      fontSize: normalize(12),
+      lineHeight: normalize(16),
+      color: colors.spanishGray,
+      paddingLeft: normalize(5),
+    },
+    footerRightTextStyle: {
+      fontSize: normalize(12),
+      lineHeight: normalize(16),
+      color: colors.greenishBlue,
+      paddingRight: normalize(5),
     },
     description: {
-      fontSize: normalize(12),
-      lineHeight: normalize(14),
+      fontSize: normalize(13),
+      lineHeight: normalize(20),
       color: colors.spanishGray,
-      marginTop: normalize(8),
+      paddingVertical: normalize(15),
     },
   });
   return PodcastCardStyle;

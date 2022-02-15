@@ -67,6 +67,11 @@ const AppNavigator = () => {
         component={Routes.PodcastProgram}
         options={hideHeader}
       />
+      <Stack.Screen
+        name={ScreensConstants.StoryScreen}
+        component={Routes.StoryScreen}
+        options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };

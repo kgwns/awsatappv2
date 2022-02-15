@@ -62,10 +62,7 @@ export const ArticleDetailScreen = ({
   const renderItem = () => (
     <View>
       {isNonEmptyArray(articleDetailData) && <>
-        <ArticleDetailWidget
-          title={articleDetailData[0].title}
-          image={articleDetailData[0].image}
-          category={articleDetailData[0].news_categories.title ?? ''} />
+        <ArticleDetailWidget articleData={articleDetailData[0]} />
         {articleHtmlContent()}
       </>
       }

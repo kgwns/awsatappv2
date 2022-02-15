@@ -34,11 +34,20 @@ export const arabic = {
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
   },
+  latestNewsTab: {
+    sectionComboOne: {
+      headerLeft: 'الفيروسات المستجدة',
+      headerRight: 'المزيد'
+    }
+  },
   sectionVideo:{
     toWatch: 'مشاهدة'
   },
   categoryPage: {
     videoContent: 'محتوي فيديو'
+  },
+  podcastProgram: {
+    episodes: 'الحلقات',
+    return: 'الرجوع',
   }
-
 };
