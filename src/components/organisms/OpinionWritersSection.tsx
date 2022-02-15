@@ -7,31 +7,35 @@ import {normalize, screenWidth} from 'src/shared/utils';
 import {Divider, Image, Label} from '../atoms';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
-export interface opinionWriterProps {
-  imageUrl: string;
-  label: string;
-}
+import {OpinionWriterItemType} from 'src/redux/writers/types';
+import {useTranslation} from 'react-i18next';
 
 interface OpinionWritersWidgetProps {
-  data: opinionWriterProps[];
+  data: OpinionWriterItemType[];
 }
 
 const OpinionWritersSection = ({data}: OpinionWritersWidgetProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
-  const renderItem = (item: opinionWriterProps, index: number) => {
+  const [t] = useTranslation();
+  const renderItem = (item: any, index: number) => {
     return (
       <TouchableOpacity
-        onPress={() => console.log('pressed' + item.label)}
+        onPress={() => console.log('pressed ' + item.tid)}
         style={style.writerContainer}
         key={flatListUniqueKey.OPINION_WRITER_SECTION + index}>
         <View style={style.itemContainer}>
           <View style={[{overflow: 'hidden'}]}>
-            <Image url={item.imageUrl} size={54} type="round" />
+            <Image
+              url={item.field_opinion_writer_photo_export}
+              size={normalize(54)}
+              type="round"
+              resizeMode="cover"
+              backgroundColor={theme.themeData.secondaryDavyGrey}
+            />
           </View>
           <Label style={style.labelStyle} numberOfLines={2}>
-            {item.label}
+            {item.name}
           </Label>
         </View>
       </TouchableOpacity>
@@ -39,7 +43,7 @@ const OpinionWritersSection = ({data}: OpinionWritersWidgetProps) => {
   };
   return (
     <View style={style.container}>
-      <Label style={style.headerStyle}>كتاّاب الرأي</Label>
+      <Label style={style.headerStyle}>{t('opinion.opinionWriters')}</Label>
       <FlatList
         horizontal
         keyExtractor={(_, index) => index.toString()}

@@ -34,17 +34,19 @@ export const arabic = {
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
   },
+  opinion: {
+    opinionWriters: 'كتاّاب الرأي',
+  },
   latestNewsTab: {
     sectionComboOne: {
       headerLeft: 'الفيروسات المستجدة',
-      headerRight: 'المزيد'
-    }
+      headerRight: 'المزيد',
+    },
   },
-  sectionVideo:{
-    toWatch: 'مشاهدة'
+  sectionVideo: {
+    toWatch: 'مشاهدة',
   },
   categoryPage: {
-    videoContent: 'محتوي فيديو'
-  }
-
+    videoContent: 'محتوي فيديو',
+  },
 };
