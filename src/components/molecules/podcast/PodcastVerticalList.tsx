@@ -60,7 +60,7 @@ export const PodcastVerticalList = ({
           </View>
           <View style={style.headerRightStyle}>
             <ButtonImage
-              testId={'bookMarkTestId'}
+              testId={'bookMarkTestId_podcast_episode'}
               icon={() => {
                 return isSaved
                   ? getSvgImages({
