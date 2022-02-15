@@ -1,4 +1,4 @@
-import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED } from './actionType';
+import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED, REQUEST_OPINION_DATA_LIST_FAILED, REQUEST_OPINION_DATA_SUCCESS,REQUEST_OPINION_LIST_DATA } from './actionType';
 import { LatestNewsTabState, LatestTabAction } from './types';
 
 const initialData: LatestNewsTabState = {
@@ -7,7 +7,8 @@ const initialData: LatestNewsTabState = {
   ticker: [],
   hero: [],
   heroList: [],
-  topList: []
+  topList: [],
+  opinionList: []
 };
 
 export default (state = initialData, action: LatestTabAction) => {
@@ -48,6 +49,24 @@ export default (state = initialData, action: LatestTabAction) => {
         isLoading: false,
         error: action.payload.error
       }
+
+      case REQUEST_OPINION_LIST_DATA:
+        return {
+          ...state,
+          isLoading: true
+        }
+      case REQUEST_OPINION_DATA_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+          opinionList: action.payload.opinionList
+        }
+      case REQUEST_OPINION_DATA_LIST_FAILED:
+        return {
+          ...state,
+          isLoading: false,
+          error: action.payload.error
+        }
     default:
       return { ...state }
   }

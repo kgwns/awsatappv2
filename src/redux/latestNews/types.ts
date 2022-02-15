@@ -1,4 +1,4 @@
-import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED } from "./actionType"
+import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED, REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_DATA_LIST_FAILED, REQUEST_OPINION_LIST_DATA } from "./actionType"
 
 export type payloadType = { rows: any[], pager: object }
 
@@ -18,6 +18,20 @@ export interface LatestArticleDataType {
   news_categories: NewsCategoriesType
 }
 
+export interface OpinionWriterType {
+  id: string
+  title: string
+  url: string
+  bundle: string
+  name: string
+  opinion_writer_photo: string
+}
+export interface LatestOpinionDataType {
+  title: string,
+  body: string,
+  nid: string,
+  field_opinion_writer_node_export: OpinionWriterType
+}
 
 export interface LatestArticleBodyGet {
   items_per_page: number,
@@ -36,7 +50,8 @@ export type LatestNewsTabState = {
   ticker: LatestArticleDataType[],
   hero: LatestArticleDataType[],
   heroList: LatestArticleDataType[],
-  topList: LatestArticleDataType[]
+  topList: LatestArticleDataType[],
+  opinionList: LatestOpinionDataType[]
 }
 
 export type TickerHeroSuccessPayload = {
@@ -63,9 +78,23 @@ export interface RequestHeroListTopList {
   payload: LatestArticleBodyGet
 }
 
+export interface RequestOpinionListType {
+  type: typeof REQUEST_OPINION_LIST_DATA,
+  payload: LatestArticleBodyGet
+}
+
 export type HeroListTopListSuccessPayload = {
   heroList: LatestArticleDataType[],
   topList: LatestArticleDataType[]
+}
+
+export type OpinionSuccessPayload = {
+  opinionList: LatestOpinionDataType[]
+}
+
+export interface OpinionSuccessType {
+  type: typeof REQUEST_OPINION_DATA_SUCCESS,
+  payload: OpinionSuccessPayload
 }
 
 export interface HeroListTopListSuccessType {
@@ -82,6 +111,16 @@ export interface HeroListTopListFailedType {
   payload: HeroListTopListFailedPayload
 }
 
+export interface OpinionFailedPayload {
+  error: string
+}
+
+export interface OpinionFailedType {
+  type: typeof REQUEST_OPINION_DATA_LIST_FAILED,
+  payload: OpinionFailedPayload
+}
+
+
 export type LatestTabAction =
   RequestTickerAndHeroType
   | TickerHeroSuccessType
@@ -89,3 +128,6 @@ export type LatestTabAction =
   | RequestHeroListTopList
   | HeroListTopListSuccessType
   | HeroListTopListFailedType
+  | OpinionSuccessType
+  | OpinionFailedType
+  | RequestOpinionListType

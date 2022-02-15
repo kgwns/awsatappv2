@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
-  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, ShortArticleProps
+  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection 
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { shortArticleData, shortArticleWithTagProperties } from 'src/constants/SampleData';
@@ -23,13 +23,18 @@ const heroListTopListPayload: LatestArticleBodyGet = {
   page: 0,
   offset: 6
 }
+const opinionListPayload: LatestArticleBodyGet = {
+  items_per_page: 3,
+  page: 0,
+  offset: 0
+}
 
 export const LatestNewsScreen = () => {
   const { themeData } = useTheme()
 
 
   const {
-    isLoading, ticker, hero, heroList, topList, fetchTickerAndHeroArticle, fetchHeroListTopList
+    isLoading, ticker, hero, heroList, topList, opinionList, fetchTickerAndHeroArticle, fetchHeroListTopList, fetchOpinionTopList
   } = useLatestNewsTab()
 
   const heroListData = isTab ? heroList.slice(0, 1) : heroList
@@ -44,9 +49,12 @@ export const LatestNewsScreen = () => {
   useEffect(() => {
     fetchTickerAndHeroArticle(tickerAndHeroPayload)
     fetchHeroListTopList(heroListTopListPayload)
+    fetchOpinionTopList(opinionListPayload)
+    
   }, [])
-
+ 
   const renderItem = () => (
+   
     <View>
       <CarouselSlider tickerData={ticker} heroData={hero} />
       {
@@ -79,8 +87,8 @@ export const LatestNewsScreen = () => {
           <ShortArticle data={shortArticleData} />
       }
       <BannerArticleSection />
-      <Divider style={{ height: normalize(30) }} />
-      <AuthorWidget />
+      <Divider style={{ height: normalize(30) }} />      
+      <AuthorWidget data={opinionList}/>
       <BannerArticleSection />
       <Divider style={{ height: normalize(50) }} />
     </View>
