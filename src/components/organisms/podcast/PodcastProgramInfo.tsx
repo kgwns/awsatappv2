@@ -7,8 +7,8 @@ import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { colors } from 'src/shared/styles/colors';
-import GooglePodcastIcon from 'src/assets/images/icons/podcast_icon_final.svg';
-import ApplePodcastIcon from 'src/assets/images/icons/apple_podcast_icon.svg';
+import {getSvgImages} from 'src/shared/styles/svgImages';
+import {ImagesName} from 'src/shared/styles';
 
 export interface PodcastProgramInfoProps {
   title: string;
@@ -43,15 +43,13 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
 
         <View style={styles.rowContainerStyle}>
           <View style={styles.rowStyle}>
-            <Label style={styles.labelStyle} children={'Apple Podcasts'} />
-            <ApplePodcastIcon />
+            {getSvgImages({name: ImagesName.applePodcast,width: normalize(100),height: normalize(50),})}
           </View>
           <View style={styles.rowStyle}>
-            <Label style={styles.labelStyle} children={'Spotify'} />
+            {getSvgImages({name: ImagesName.spotifyPodcast,width: normalize(50),height: normalize(50),})}
           </View>
           <View style={styles.rowStyle}>
-            <Label style={styles.labelStyle} children={'Google Podcasts'} />
-            <GooglePodcastIcon />
+            {getSvgImages({name: ImagesName.googlePodcast,width: normalize(100),height: normalize(50),})}
           </View>
         </View>
       </View>
