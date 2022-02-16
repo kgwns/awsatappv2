@@ -23,6 +23,9 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
             fetchHeroListTopList: () => {
                 return []
             },
+            fetchOpinionTopList: () => {
+                return []
+            },
             fetchSectionComboOne: () => {
                 return []
             },
