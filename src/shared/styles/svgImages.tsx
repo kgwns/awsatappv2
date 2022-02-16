@@ -8,6 +8,9 @@ import BookMarkBlackBdrSVG from 'src/assets/images/icons/bookmark_black_bdr.svg'
 import BookMarkBlackFillSVG from 'src/assets/images/icons/bookmark_black_fill.svg'
 import BookMarkWhiteBdrSVG from 'src/assets/images/icons/bookmark_white_bdr.svg'
 import BookMarkWhiteFillSVG from 'src/assets/images/icons/bookmark_white_fill.svg'
+import CloseIcon from 'src/assets/images/icons/close.svg';
+import PlayIcon from 'src/assets/images/icons/play_icon.svg';
+
 import { useAppCommon } from 'src/hooks'
 import { isDarkTheme } from '../utils'
 import ApplePodcastIcon from 'src/assets/images/icons/apple_podcast.svg'
@@ -53,6 +56,10 @@ export const getSvgImages = ({ name, size, style, fill,width, height }: GetSVGPr
             return isDark ? <GooglePodcastDarkIcon {...props} /> : <GooglePodcastIcon {...props} />
         case ImagesName.spotifyPodcast:
             return isDark ? <SpotifyDarkIcon {...props} /> : <SpotifyIcon {...props} />
+        case ImagesName.closeSVG:
+            return <CloseIcon {...props}/>
+        case ImagesName.playIconSVG:
+            return <PlayIcon {...props}/>
         default: return null
     }
 }

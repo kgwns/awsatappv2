@@ -84,6 +84,8 @@ export enum ImagesName {
   applePodcast = 'applePodcast',
   spotifyPodcast = 'spotifyPodcast',
   googlePodcast = 'googlePodcast',
+  closeSVG = 'closeSVG',
+  playIconSVG = 'playIconSVG',
 }
 
 export const images = {

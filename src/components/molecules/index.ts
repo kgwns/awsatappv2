@@ -35,3 +35,4 @@ export {default as PodcastCardWithLabel} from 'src/components/molecules/podcast/
 export {default as PodcastVerticalList, PodcastVerticalListProps} from 'src/components/molecules/podcast/PodcastVerticalList';
 export { PodcastProgramHeader } from 'src/components/molecules/podcast/PodcastProgramHeader';
 export { VideoItem, VideoItemProps } from 'src/components/molecules/video-item/VideoItem';
+export { PodCastMiniPlayer } from 'src/components/molecules/podCastMiniPlayer/PodCastMiniPlayer';

@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Label, Image } from 'src/components/atoms/';
-import { PodcastVerticalListProps } from 'src/components/molecules/';
+import { PodcastVerticalListProps, PodCastMiniPlayer } from 'src/components/molecules/';
 import { PodcastEpisodeList } from 'src/components/organisms';
 import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -28,34 +28,36 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
   const styles = useThemeAwareObject(createStyles);
 
   return (
-    <View style={styles.containerStyle}>
-      <View>
-        <View style={styles.centerContainer}>
-          <Image url={data.imageUrl} style={styles.imageStyle} />
-          <View style={styles.containerSpace} />
-          <Label style={styles.textStyle} children={data.title} />
-          <View style={styles.containerSpace} />
-          <Label style={styles.announcerTextStyle} children={data.announcer} />
-          <View style={styles.containerSpace} />
-          <Label style={styles.descriptionTextStyle} children={data.description} />
-          <View style={styles.containerSpace} />
-        </View>
+    <View>
+      <View style={styles.containerStyle}>
+        <View>
+          <View style={styles.centerContainer}>
+            <Image url={data.imageUrl} style={styles.imageStyle} />
+            <View style={styles.containerSpace} />
+            <Label style={styles.textStyle} children={data.title} />
+            <View style={styles.containerSpace} />
+            <Label style={styles.announcerTextStyle} children={data.announcer} />
+            <View style={styles.containerSpace} />
+            <Label style={styles.descriptionTextStyle} children={data.description} />
+            <View style={styles.containerSpace} />
+          </View>
 
-        <View style={styles.rowContainerStyle}>
-          <View style={styles.rowStyle}>
-            {getSvgImages({name: ImagesName.applePodcast,width: normalize(100),height: normalize(50),})}
+          <View style={styles.rowContainerStyle}>
+            <View style={styles.rowStyle}>
+              {getSvgImages({ name: ImagesName.applePodcast, width: normalize(100), height: normalize(50), })}
+            </View>
+            <View style={styles.rowStyle}>
+              {getSvgImages({ name: ImagesName.spotifyPodcast, width: normalize(50), height: normalize(50), })}
+            </View>
+            <View style={styles.rowStyle}>
+              {getSvgImages({ name: ImagesName.googlePodcast, width: normalize(100), height: normalize(50), })}
+            </View>
           </View>
-          <View style={styles.rowStyle}>
-            {getSvgImages({name: ImagesName.spotifyPodcast,width: normalize(50),height: normalize(50),})}
-          </View>
-          <View style={styles.rowStyle}>
-            {getSvgImages({name: ImagesName.googlePodcast,width: normalize(100),height: normalize(50),})}
-          </View>
+          <View style={styles.containerSpace} />
+          <PodcastEpisodeList data={data.data} />
         </View>
       </View>
-      <View style={styles.containerSpace} />
-
-      <PodcastEpisodeList data={data.data} />
+      <PodCastMiniPlayer />
     </View>
   );
 };
