@@ -48,9 +48,9 @@ const ArticleFooter = ({
   return (
     <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
       <View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={articleFooterStyle.authorContainer}>
           <CaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} />
-          <Text children={'|'} style={articleFooterStyle.verticalDivider} />
+          <View  style={articleFooterStyle.verticalDivider} />
           <CaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} />
         </View>
       </View>
@@ -74,7 +74,13 @@ const articleFooterStyle = StyleSheet.create({
     paddingTop: normalize(10)
   },
   verticalDivider: {
-    color: Styles.color.silverChalice,
-    paddingTop: normalize(2)
+    width: '.1%',
+    height: '100%',
+    backgroundColor: Styles.color.silverChalice,
+    paddingTop: normalize(2),
+  },
+  authorContainer: {
+    width:'70%',
+    flexDirection: 'row',
   }
 })
