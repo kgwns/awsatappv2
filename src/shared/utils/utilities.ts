@@ -3,6 +3,7 @@ import { Theme } from "../../redux/appCommon/types"
 import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX } from "../../constants/SharedConstants"
 import { Edge } from "react-native-safe-area-context";
 import { BASE_URL } from "src/services/apiUrls";
+import { arabic } from "src/assets/locales/ar/common-ar";
 
 export interface CustomAlertProps {
     title?: string,
@@ -54,7 +55,6 @@ export const isValidHttpUrl = (url: string) : boolean => {
 }
 
 export const timeAgo = (time: any) => {
-  var monthNames = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
   var date = new Date(time);
   var today = new Date();
   var yesterday = new Date((date).valueOf() - 1000 * 60 * 60 * 24);
@@ -65,7 +65,7 @@ export const timeAgo = (time: any) => {
     return calculateTimeSince(date);
   }
   else {
-    return 'منذ ' + monthNames[date.getMonth()] + ' ' + date.getDate();
+    return arabic.timeSince.since + arabic.months[date.getMonth()] + ' ' + date.getDate();
   }
 }
 
