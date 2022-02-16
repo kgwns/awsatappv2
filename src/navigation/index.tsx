@@ -9,6 +9,7 @@ import {
   KeepNotifiedScreen,
   ArticleDetailScreen,
   SelectInterestScreen,
+  PodcastProgram,
   StoryScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
@@ -29,6 +30,7 @@ export const Routes = {
   KeepNotifiedScreen,
   ArticleDetailScreen,
   SelectInterestScreen,
+  PodcastProgram,
   StoryScreen,
 };
 

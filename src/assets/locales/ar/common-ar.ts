@@ -49,6 +49,10 @@ export const arabic = {
   categoryPage: {
     videoContent: 'محتوي فيديو'
   },
+  podcastProgram: {
+    episodes: 'الحلقات',
+    return: 'الرجوع',
+  },
   timeSince: {
     since: 'منذ ',
     ago: 'منذ',

@@ -32,4 +32,7 @@ export {default as SectionHeader} from 'src/components/molecules/podcast/Section
 export {default as NewsWithImageItem} from 'src/components/molecules/podcast/NewsWithImageItem';
 export {default as ArticleRectangleCard} from 'src/components/molecules/podcast/ArticleRectangleCard';
 export {default as PodcastCardWithLabel} from 'src/components/molecules/podcast/PodcastCardWithLabel';
+export {default as PodcastVerticalList, PodcastVerticalListProps} from 'src/components/molecules/podcast/PodcastVerticalList';
+export { PodcastProgramHeader } from 'src/components/molecules/podcast/PodcastProgramHeader';
 export { VideoItem, VideoItemProps } from 'src/components/molecules/video-item/VideoItem';
+export { PodCastMiniPlayer } from 'src/components/molecules/podCastMiniPlayer/PodCastMiniPlayer';

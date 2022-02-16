@@ -80,7 +80,12 @@ export enum ImagesName {
   share = 'share',
   themeChange = 'themeChange',
   bookMarkBlackBdrSVG = 'bookMarkBlackBdrSVG',
-  bookMarkBlackFillSVG = 'bookMarkBlackFillSVG'
+  bookMarkBlackFillSVG = 'bookMarkBlackFillSVG',
+  applePodcast = 'applePodcast',
+  spotifyPodcast = 'spotifyPodcast',
+  googlePodcast = 'googlePodcast',
+  closeSVG = 'closeSVG',
+  playIconSVG = 'playIconSVG',
 }
 
 export const images = {

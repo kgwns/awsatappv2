@@ -13,5 +13,6 @@ export {PodcastScreen} from 'src/components/screens/category/PodcastScreen';
 export {SelectInterestScreen} from 'src/components/screens/selectInterestScreen/SelectInterestScreen';
 export {StoryScreen} from './story_screen/StoryScreen';
 export {SectionStoryScreen} from 'src/components/screens/category/SectionStoryScreen';
+export {PodcastProgram} from 'src/components/screens/podcast/PodcastProgram';
 
 export { VideoScreen } from './category/VideoScreen';

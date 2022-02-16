@@ -14,10 +14,16 @@ export interface podcastCardProps {
 
 interface podcastCardSectionProps {
   data: podcastCardProps[];
+  onPress?: (item: podcastCardProps)=> void;
 }
 
-export const PodcastCardSection = ({data}: podcastCardSectionProps) => {
+export const PodcastCardSection = ({data,onPress}: podcastCardSectionProps) => {
   const style = useThemeAwareObject(customStyle);
+  const handleOnItemPressAction = (item: podcastCardProps) => {
+    if (onPress) {
+      onPress(item);
+    }
+  };
   const renderItem = (item: podcastCardProps, index: number) => {
     return (
       <View
@@ -27,6 +33,8 @@ export const PodcastCardSection = ({data}: podcastCardSectionProps) => {
           imageUrl={item.imageUrl}
           title={item.podcastTitle}
           description={item.announcerName}
+          testID={`podcast_${index}`}
+          itemOnPress={()=>handleOnItemPressAction(item)}
         />
       </View>
     );
