@@ -79,7 +79,7 @@ StyleSheet.create({
   textStyle: {
     fontSize: normalize(14),
     fontWeight: 'bold',
-    color: colors.black,
+    color: theme.primaryBlack,
   },
   announcerTextStyle: {
     fontSize: normalize(14),
@@ -93,7 +93,7 @@ StyleSheet.create({
   },
   labelStyle: {
     fontSize: normalize(11),
-    color: colors.black,
+    color: theme.primaryBlack,
     paddingRight: normalize(5),
   },
   containerSpace: {
