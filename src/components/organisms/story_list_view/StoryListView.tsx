@@ -81,7 +81,7 @@ export const StoryListView: FunctionComponent<StoryListDataProps> = ({
               visible={true}
               enableProgress={true}
               images={imagesList}
-              duration={40}
+              duration={20}
               onChange={(changeIndex: number)=>setSelectedImageIndex(changeIndex)}
               onComplete={onComplete}
               headerComponent={headerComponent}

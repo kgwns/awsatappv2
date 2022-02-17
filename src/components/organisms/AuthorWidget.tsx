@@ -1,18 +1,18 @@
 import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
 import { WidgetHeader, Divider } from '../atoms'
-import { authorHeaderData, authorWidgetData } from 'src/constants/SampleData'
-import { AuthorItem, AuthorItemProps } from '../molecules'
+import { authorHeaderData  } from 'src/constants/SampleData'
+import { AuthorItem } from '../molecules'
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { flatListUniqueKey } from '../../constants'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
+import { LatestOpinionDataType } from 'src/redux/latestNews/types'
 
-const AuthorWidget = () => {
+const AuthorWidget = ({data}: { data: LatestOpinionDataType[] }) => {
     const style = useThemeAwareObject(customStyle)
-
-    const renderItem = (item: AuthorItemProps, index: number) => (
-        <AuthorItem {...item} index={index} />
+    const renderItem = (item: LatestOpinionDataType, index: number) => (
+        <AuthorItem body={item.title} author={item.field_opinion_writer_node_export.name} duration={'3:30'} image={item.field_opinion_writer_node_export.opinion_writer_photo} index={index} />
     )
 
     const numberOfColumn = isTab ? 2 : 1
@@ -24,7 +24,7 @@ const AuthorWidget = () => {
                 style={style.listContainer}
                 keyExtractor={(_, index) => index.toString()}
                 listKey={flatListUniqueKey.AUTHOR_WIDGET}
-                data={authorWidgetData}
+                data={data}
                 numColumns={numberOfColumn}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
