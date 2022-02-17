@@ -6,6 +6,12 @@ describe('<FollowFavoriteAuthor />', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
 
+  jest.mock('react-native-color-matrix-image-filters', () => {
+    return {
+      Grayscale: jest.fn().mockImplementation(() => jest.fn())
+    }
+  })
+
   // Test Data
   const authorName = 'authorName';
   const authordescription = 'authorDescription';
