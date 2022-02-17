@@ -1,19 +1,20 @@
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Image} from 'src/components/atoms';
-import {Label} from 'src/components/atoms';
-import {normalize, screenWidth} from 'src/shared/utils';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {ImagesName} from 'src/shared/styles';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Image } from 'src/components/atoms';
+import { Label } from 'src/components/atoms';
+import { normalize, screenWidth } from 'src/shared/utils';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { ImagesName } from 'src/shared/styles';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { Grayscale } from 'react-native-color-matrix-image-filters';
 
 export interface FollowFavoriteAuthorProps {
   authorName: string;
-  authorDescription: string;
+  authorDescription?: string;
   authorImage: string;
-  isSelected: boolean;
+  isSelected?: boolean;
   testId?: string;
   onPress: (isSelected: boolean) => void;
 }
@@ -36,22 +37,28 @@ const FollowFavoriteAuthor = ({
   return (
     <View style={style.container}>
       <TouchableOpacity onPress={changeStatus} testID={testId}>
-        <View style={style.imageContainer}>
-          <View style={style.innerCircle}>
-            <Image url={authorImage} style={[style.bookImage]} />
-          </View>
-          <View style={style.tickContainer}>
-            <Image
-              name={
-                isSelectedState
-                  ? ImagesName.authorItemActive
-                  : ImagesName.authorItem
+        <View style={style.imageWrapper}>
+          <View style={style.imageContainer}>
+            <View style={style.innerCircle}>
+              {!isSelectedState ?
+                <Grayscale>
+                  <Image backgroundColor={theme.themeData.secondaryDavyGrey} url={authorImage} resizeMode='cover' style={[style.bookImage]} />
+                </Grayscale> :
+                <Image backgroundColor={theme.themeData.secondaryDavyGrey} url={authorImage} resizeMode='cover' style={[style.bookImage]} />
               }
-              style={style.tickImage}
-            />
+            </View>
+            <View style={style.tickContainer}>
+              <Image
+                name={
+                  isSelectedState
+                    ? ImagesName.authorItemActive
+                    : ImagesName.authorItem
+                }
+                style={style.tickImage}
+              />
+            </View>
           </View>
         </View>
-
         <View style={style.titleContainer}>
           <Label
             style={[
@@ -89,9 +96,14 @@ const customStyle = (theme: CustomThemeType) => {
     },
     container: {
       width: 0.29 * screenWidth,
+      height: normalize(170),
       justifyContent: 'center',
       alignItems: 'center',
-      paddingVertical: normalize(10),
+      marginVertical: normalize(10),
+    },
+    imageWrapper: {
+      width: '100%',
+      height: '65%',
     },
     imageContainer: {
       width: normalize(99),
@@ -115,7 +127,8 @@ const customStyle = (theme: CustomThemeType) => {
     },
     titleContainer: {
       width: normalize(99),
-      marginTop: normalize(20),
+      height: '35%',
+      marginTop: normalize(5),
     },
     titleStyle: {
       fontSize: normalize(14),

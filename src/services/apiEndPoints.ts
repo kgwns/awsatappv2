@@ -24,3 +24,6 @@ export const OPINION_TAB_WRITER_ENDPOINT = '/api/v2/sections/writer';
 //opinion tab in category section
 //opinions list
 export const OPINIONS_ENDPOINT = '/api/v2/opinions/all';
+
+//all writers list
+export const ALL_WRITERS_ENDPOINT = '/api/v2/sections/writer';

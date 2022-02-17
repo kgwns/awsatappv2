@@ -6,6 +6,7 @@ import articleDetailSaga from './articleDetail/sagas';
 import latestNews from './latestNews/sagas';
 import opinionWriterSaga from './writers/sagas';
 import opinionsSaga from './opinions/sagas';
+import allWritersSaga from './allWriters/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -16,5 +17,6 @@ export function* rootSaga() {
     fork(latestNews),
     fork(opinionWriterSaga),
     fork(opinionsSaga),
+    fork(allWritersSaga),
   ]);
 }
