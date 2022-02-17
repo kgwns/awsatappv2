@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label, Image} from 'src/components/atoms';
+import {Label, Image, LoadingState} from 'src/components/atoms';
 import {normalize} from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import {ImagesName} from 'src/shared/styles';
@@ -10,11 +10,21 @@ import {useTranslation} from 'react-i18next';
 import {RoutesName} from 'src/navigation';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ScreensConstants} from 'src/constants';
+import { useAllWriters } from 'src/hooks';
+import { AllWritersBodyGet } from 'src/redux/allWriters/types';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
+  const allWritersPayload: AllWritersBodyGet = {
+    items_per_page: 50,
+  };
+  const { isLoading, allWritersData, fetchAllWritersRequest } = useAllWriters();
+
+  useEffect(() => {
+    fetchAllWritersRequest(allWritersPayload);
+  }, []);
 
   const NextButton = ({onPress}: any) => {
     return (
@@ -43,7 +53,7 @@ export const FollowFavoriteAuthorScreen = () => {
         </Label>
       </View>
       <View style={style.widgetContainer}>
-        <FollowFavoriteAuthorWidget />
+        {isLoading ? <LoadingState /> : <FollowFavoriteAuthorWidget writersData={allWritersData} />}
       </View>
       <NextButton
         onPress={() => navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)}

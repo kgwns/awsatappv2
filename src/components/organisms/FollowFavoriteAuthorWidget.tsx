@@ -7,141 +7,13 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {FollowFavoriteAuthor} from 'src/components/molecules';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 
-const data = [
-  {
-    id: 1,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 2,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 3,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 4,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 5,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 6,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 7,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 8,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 9,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 10,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 11,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 12,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 13,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 14,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 15,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 16,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 17,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-  {
-    id: 18,
-    authorName: 'اسم الكاتب',
-    authorDescription: 'سياسه و اقتصاد ',
-    authorImage: 'https://picsum.photos/200',
-    isSelected: false,
-  },
-];
 
-const FollowFavoriteAuthorWidget = () => {
+const FollowFavoriteAuthorWidget = (props: any) => {
+  const data = props.writersData
   const style = useThemeAwareObject(customStyle);
   const changeSelectedStatus = (item: any, selected: boolean) => {
-    console.log(item.id);
     for (let i = 0; i < data.length; i++) {
-      if (item.id == data[i].id) {
+      if (item.tid == data[i].tid) {
         data[i].isSelected = selected;
         console.log(data[i].isSelected);
       }
@@ -152,10 +24,10 @@ const FollowFavoriteAuthorWidget = () => {
     return (
       <View style={style.widgetContainer}>
         <FollowFavoriteAuthor
-          authorName={item.authorName}
-          authorDescription={item.authorDescription}
-          authorImage={item.authorImage}
-          isSelected={item.isSelected}
+          authorName={item.name}
+          // authorDescription={item.authorDescription}
+          authorImage={item.field_opinion_writer_photo_export}
+          // isSelected={item.isSelected}
           onPress={selected => changeSelectedStatus(item, selected)}
         />
       </View>
@@ -167,7 +39,7 @@ const FollowFavoriteAuthorWidget = () => {
         <FlatList
           listKey={flatListUniqueKey.FOLLOW_FAVORITE_AUTHOR_WIDGET}
           keyExtractor={(_, index) => index.toString()}
-          numColumns={Math.ceil(data.length / 3)}
+          numColumns={data ? Math.ceil(data.length / 3) : 3}
           data={data}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
