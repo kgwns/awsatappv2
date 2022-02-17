@@ -1045,25 +1045,34 @@ export const newsFeedData: NewsFeedProps[] = [
 
 export const PodcastEpisodeData: PodcastVerticalListProps[] = [
   {
+    id: '1',
     imageUrl: 'https://picsum.photos/200',
     title: '65 : عنوان الحلقه يوضع هنا',
     description: 'استعاد فريق الاتفاق نقمة انتصاراته وحقق فوزا ثمينا خارج أرضه اسلام نظيره فريق الحرم بثلاثة أهداف دون رد ضمن منافسات',
     footerLeft: '45 دقيقه',
     footerRight: 'الخسيس',
+    secondaryTitle: 'عنوان لبرنامج البودكاست',
+    author: 'مع اسم المذبع',
   },
   {
+    id: '2',
     imageUrl: 'https://picsum.photos/200',
     title: '64 : عنوان الحلقه يوضع هنا',
     description: 'استعاد فريق الاتفاق نقمة انتصاراته وحقق فوزا ثمينا خارج أرضه اسلام نظيره فريق الحرم بثلاثة أهداف دون رد ضمن منافسات',
     footerLeft: '45 دقيقه',
     footerRight: 'الخسيس',
+    secondaryTitle: 'عنوان لبرنامج البودكاست',
+    author: 'مع اسم المذبع',
   },
   {
+    id: '3',
     imageUrl: 'https://picsum.photos/200',
     title: '66 : عنوان الحلقه يوضع هنا',
     description: 'استعاد فريق الاتفاق نقمة انتصاراته وحقق فوزا ثمينا خارج أرضه اسلام نظيره فريق الحرم بثلاثة أهداف دون رد ضمن منافسات',
     footerLeft: '45 دقيقه',
-    footerRight: 'الخسيس'
+    footerRight: 'الخسيس',
+    secondaryTitle: 'عنوان لبرنامج البودكاست',
+    author: 'مع اسم المذبع',
   },
 ];
 

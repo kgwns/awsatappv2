@@ -48,6 +48,7 @@ interface ButtonOutlineProps {
   labelStyle?: StyleProp<TextStyle>;
   testID?: string;
   leftIcon?: () => void;
+  rightIcon?: () => void;
 }
 export const ButtonOutline: FunctionComponent<ButtonOutlineProps> = ({
   title,
@@ -57,7 +58,8 @@ export const ButtonOutline: FunctionComponent<ButtonOutlineProps> = ({
   onPress,
   labelStyle,
   testID,
-  leftIcon
+  leftIcon,
+  rightIcon
 }) => (
   <TouchableOpacity
     testID={testID}
@@ -66,6 +68,7 @@ export const ButtonOutline: FunctionComponent<ButtonOutlineProps> = ({
     style={[container, style]}
   >
     <View style={[labelContainer, style]}>
+      {rightIcon && rightIcon()}
       <Label color={color} style={[textStyle, labelStyle]} labelType={titleType}>
         {title}
       </Label>

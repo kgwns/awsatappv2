@@ -42,13 +42,14 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export,author_resource }: any) => ({
+        ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export }: any) => ({
           body,
           title,
           nid,
           image: getImageUrl(field_image),
           news_categories: field_news_categories_export,
-          author: author_resource
+          author: author_resource,
+          created: created_export
         })
       );
     }

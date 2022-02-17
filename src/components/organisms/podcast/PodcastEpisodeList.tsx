@@ -15,7 +15,7 @@ export interface PodcastEpisodeListProps {
 }
 
 const keyExtractor = (_item:PodcastVerticalListProps,index: number) => {
-  return `serachResults-${index}`;
+  return `podcastEpisodeList-${index}`;
 };
 
 export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
@@ -34,11 +34,14 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
   const renderItem: ListRenderItem<PodcastVerticalListProps> = ({item,index}) => {
     return (
       <PodcastVerticalList
-        imageUrl={item.imageUrl}
-        title={item.title}
-        description={item.description}
-        footerLeft={item.footerLeft}
-        footerRight={item.footerRight}
+        id={item?.id}
+        secondaryTitle={item?.secondaryTitle}
+        author={item?.author}
+        imageUrl={item?.imageUrl}
+        title={item?.title}
+        description={item?.description}
+        footerLeft={item?.footerLeft}
+        footerRight={item?.footerRight}
         testID={`podcastepisode_${index}`}
         itemOnPress={()=>handleOnItemPressAction(item)}
       />

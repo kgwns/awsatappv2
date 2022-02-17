@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {FunctionComponent,useState} from 'react';
+import React, {FunctionComponent} from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import {Image, Label, ButtonImage} from 'src/components/atoms';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -11,13 +11,16 @@ import { normalize } from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {getSvgImages} from 'src/shared/styles/svgImages';
+import { colors } from 'src/shared/styles/colors';
 
 export interface PodcastProgramHeaderProps {
   headerBackIconTestId?: string;
   headerBookmarkIconTestId?: string;
   headerShareIconTestId?: string;
   onPressShare?: ()=> void;
-  onPressSave?: ()=> void;
+  onPressSave: ()=> void;
+  isSaved?: boolean;
+  showLogo?: boolean;
 }
 
 export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> = ({
@@ -25,17 +28,19 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
   headerBookmarkIconTestId,
   headerBackIconTestId,
   onPressShare,
+  onPressSave,
+  isSaved,
+  showLogo=false,
 }) => {
   const navigation = useNavigation();
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   const { themeData } = useTheme()
-  const [isSaved, setIsSaved] = useState(false);
   const renderLeftComponent = () => {
     return (
       <TouchableOpacity testID={headerBackIconTestId} accessibilityLabel={headerBackIconTestId} onPress={() => {navigation.goBack()}}>
         <View style={styles.itemContainer}>
-          <BackIcon fill={themeData.primaryBlack} width={normalize(15)} height={normalize(15)}/>
+          <BackIcon fill={colors.white} width={normalize(15)} height={normalize(15)}/>
           <Label style={styles.labelStyle} children={t('podcastProgram.return')} />
         </View>
       </TouchableOpacity>
@@ -52,18 +57,18 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
               ? getSvgImages({
                   name: ImagesName.bookMarkBlackFillSVG,
                   size: normalize(15),
-                  fill: themeData.primaryBlack,
+                  fill: colors.white,
                 })
               : getSvgImages({
                   name: ImagesName.bookMarkBlackBdrSVG,
                   size: normalize(15),
-                  fill: themeData.primaryBlack,
+                  fill: colors.white,
                 });
           }}
-          onPress={() => setIsSaved(!isSaved)}
+          onPress={onPressSave}
         />
         <TouchableOpacity style={styles.buttonStyle} testID={headerShareIconTestId} accessibilityLabel={headerShareIconTestId} onPress={onPressShare}>
-          <ShareIcon fill={themeData.primaryBlack} width={normalize(15)} height={normalize(15)}/>
+          <ShareIcon fill={colors.white} width={normalize(15)} height={normalize(15)}/>
         </TouchableOpacity>
       </View>
     );
@@ -72,7 +77,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
     <View style={[styles.containerStyle,]}>
       {renderLeftComponent()}
       <View style={styles.titleContainerWrapper}>
-        <Image style={styles.logo} name={ImagesName.headerLogo} />
+        {showLogo&&<Image style={styles.logo} name={ImagesName.headerLogo} />}
       </View>
       {renderRightComponent()}
     </View>
@@ -82,7 +87,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
 const createStyles = (theme: CustomThemeType) =>
 StyleSheet.create({
   containerStyle: {
-    backgroundColor: theme.backgroundColor,
+    backgroundColor: colors.black,
     height: normalize(55),
     paddingHorizontal: normalize(16),
     flexDirection: 'row',
@@ -115,6 +120,7 @@ StyleSheet.create({
   },
   labelStyle: {
     paddingLeft: normalize(5),
+    color: colors.white,
   },
   buttonStyle: {
     paddingLeft: normalize(20),

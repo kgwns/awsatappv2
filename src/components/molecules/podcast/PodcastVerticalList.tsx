@@ -10,13 +10,17 @@ import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 
 export interface PodcastVerticalListProps {
+  id?: string;
   imageUrl?: string;
   testID?: string;
   title?: string;
   description?: string;
   footerLeft?: string;
   footerRight?: string;
+  secondaryTitle?: string;
+  author?: string;
   itemOnPress?: ()=> void;
+  hideDescription?: boolean;
 }
 
 export const PodcastVerticalList = ({
@@ -27,6 +31,7 @@ export const PodcastVerticalList = ({
   testID,
   footerLeft,
   footerRight,
+  hideDescription=false,
 }: PodcastVerticalListProps) => {
   const style = useThemeAwareObject(customStyle);
   const [isSaved, setIsSaved] = useState(false);
@@ -37,7 +42,7 @@ export const PodcastVerticalList = ({
         <View style={style.headerStyle}>
           <View style={style.headerLeftStyle}>
             <Image url={imageUrl} style={style.imageStyle} />
-            <Label style={style.title} numberOfLines={1}>
+            <Label style={style.title} numberOfLines={2}>
               {title}
             </Label>
           </View>
@@ -45,10 +50,10 @@ export const PodcastVerticalList = ({
             <PlayIcon />
           </View>
         </View>
-        <Label style={style.description} numberOfLines={2}>
+        {!hideDescription&&<Label style={style.description} numberOfLines={2}>
           {description}
-        </Label>
-        <View style={style.headerStyle}>
+        </Label>}
+        <View style={[style.headerStyle,hideDescription&&style.spaceStyle]}>
           <View style={style.headerLeftStyle}>
             <Label style={style.footerRightTextStyle} numberOfLines={1}>
               {footerRight}
@@ -109,19 +114,20 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(16),
       fontWeight: 'bold',
       color: theme.primaryBlack,
-      paddingLeft: normalize(10),
+      marginLeft: normalize(10),
+      textAlign: 'left',
     },
     footerLeftTextStyle: {
       fontSize: normalize(12),
       lineHeight: normalize(16),
       color: colors.spanishGray,
-      paddingLeft: normalize(5),
+      marginLeft: normalize(5),
     },
     footerRightTextStyle: {
       fontSize: normalize(12),
       lineHeight: normalize(16),
       color: colors.greenishBlue,
-      paddingRight: normalize(5),
+      marginRight: normalize(5),
     },
     description: {
       fontSize: normalize(13),
@@ -129,6 +135,9 @@ const customStyle = (theme: CustomThemeType) => {
       color: colors.spanishGray,
       paddingVertical: normalize(15),
     },
+    spaceStyle: {
+      marginTop: normalize(20),
+    }
   });
   return PodcastCardStyle;
 };
