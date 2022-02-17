@@ -4,22 +4,20 @@ import {flatListUniqueKey} from 'src/constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import OpinionWritersCardView from 'src/components/molecules/opinionWriters/OpinionWriterCardView';
-import {Label} from '../atoms';
 import {normalize} from 'src/shared/utils';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {OpinionsListItemType} from 'src/redux/opinions/types';
 import {decodeHTMLTags} from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 
 interface OpinionWritersArticlesSectionProps {
   data: OpinionsListItemType[];
-  onPress: () => void;
+  onScroll: () => void;
   isLoading: boolean;
 }
 
 const OpinionWritersArticlesSection = ({
   data,
-  onPress,
+  onScroll,
   isLoading,
 }: OpinionWritersArticlesSectionProps) => {
   const style = useThemeAwareObject(customStyle);
@@ -35,11 +33,6 @@ const OpinionWritersArticlesSection = ({
           audioLabel={'استمع الي المقالة '}
           duration={'3:22'}
         />
-        {data.length - 1 == index && !isLoading && (
-          <TouchableOpacity onPress={onPress}>
-            <Label style={style.scrollMore}>Older stories scroll</Label>
-          </TouchableOpacity>
-        )}
         {isLoading && data.length - 1 == index && (
           <View style={{margin: normalize(28)}}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
@@ -59,6 +52,8 @@ const OpinionWritersArticlesSection = ({
         showsHorizontalScrollIndicator={false}
         data={data}
         renderItem={({item, index}) => renderItem(item, index)}
+        onEndReached={onScroll}
+        onEndReachedThreshold={0.5}
       />
     </View>
   );

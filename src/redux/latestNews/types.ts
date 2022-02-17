@@ -16,7 +16,8 @@ export interface LatestArticleDataType {
   nid: string,
   image: string,
   news_categories: NewsCategoriesType,
-  author: string
+  author: string,
+  created: string
 }
 
 export interface OpinionWriterType {

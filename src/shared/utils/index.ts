@@ -14,5 +14,9 @@ export {
   horizontalEdge,
   horizontalAndBottomEdge,
   isNonEmptyArray,
-  isObjectNonEmpty
+  isObjectNonEmpty,
+  timeAgo,
+  calculateDate,
+  calculateTimeSince,
+  calculateMonth
 } from 'src/shared/utils/utilities'

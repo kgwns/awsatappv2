@@ -2,10 +2,12 @@ import React, {useState} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { normalize } from 'react-native-elements'
 import { Styles } from '../../../shared/styles'
-import { Image } from '../../atoms'
+import { ButtonImage, Image } from '../../atoms'
 import { ImagesName } from '../../../shared/styles/images'
 import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
 import { BookMarkColorType } from '../articleFooter/ArticleFooter'
+import { getSvgImages } from 'src/shared/styles/svgImages'
+import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 export interface SectionVideoFooterProps {
   leftTitle?: string,
@@ -40,6 +42,7 @@ const SectionVideoFooter = ({
 }: SectionVideoFooterProps) => {
   
   const [saveState, setSaveState] = useState(false)
+  const theme = useTheme()
   let storySaveIcon = saveState ? ImagesName.bookmarkActive : ImagesName.blackBdrBookMark
 
   if(bookMarkColorType == BookMarkColorType.WHITE) {
@@ -58,12 +61,24 @@ const SectionVideoFooter = ({
                      <FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />
     </View>
     {addBookMark && 
-        <TouchableOpacity activeOpacity={0.8} onPress={onPressSave}>
-        <Image name={storySaveIcon} size={normalize(20)}
-        />
-      </TouchableOpacity>
+      <ButtonImage
+            testId={'bookmarkTestId'}
+            icon={() => {
+              return saveState
+                ? getSvgImages({
+                    name: ImagesName.bookMarkBlackFillSVG,
+                    size: normalize(20),
+                    fill: theme.themeData.primaryBlack,
+                  })
+                : getSvgImages({
+                    name: ImagesName.bookMarkBlackBdrSVG,
+                    size: normalize(20),
+                    fill: theme.themeData.primaryBlack,
+                  });
+            }}
+            onPress={onPressSave}
+          />
     }
-    
     </View>
   )
 }
