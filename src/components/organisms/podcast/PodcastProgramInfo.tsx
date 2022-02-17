@@ -20,10 +20,12 @@ export interface PodcastProgramInfoProps {
 
 interface PodcastProgramProps {
   data: PodcastProgramInfoProps;
+  onPress?: (item: PodcastVerticalListProps) => void;
 }
 
 export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
   data,
+  onPress,
 }) => {
   const styles = useThemeAwareObject(createStyles);
 
@@ -54,7 +56,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
             </View>
           </View>
           <View style={styles.containerSpace} />
-          <PodcastEpisodeList data={data.data} />
+          <PodcastEpisodeList data={data.data} onItemActionPress={onPress} />
         </View>
       </View>
       <PodCastMiniPlayer />

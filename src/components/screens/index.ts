@@ -14,5 +14,6 @@ export {SelectInterestScreen} from 'src/components/screens/selectInterestScreen/
 export {StoryScreen} from './story_screen/StoryScreen';
 export {SectionStoryScreen} from 'src/components/screens/category/SectionStoryScreen';
 export {PodcastProgram} from 'src/components/screens/podcast/PodcastProgram';
+export {PodcastEpisode} from 'src/components/screens/podcast/PodcastEpisode';
 
 export { VideoScreen } from './category/VideoScreen';

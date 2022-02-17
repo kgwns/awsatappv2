@@ -17,6 +17,8 @@ export {default as OpinionWritersArticlesSection} from 'src/components/organisms
 export { default as InterestSection } from 'src/components/organisms/InterestSection';
 export { PodcastEpisodeList } from 'src/components/organisms/podcast/PodcastEpisodeList';
 export { PodcastProgramInfo, PodcastProgramInfoProps } from 'src/components/organisms/podcast/PodcastProgramInfo';
+export { PodcastEpisodeContent } from 'src/components/organisms/podcast/PodcastEpisodeContent';
+export { PodcastEpisodeInfo } from 'src/components/organisms/podcast/PodcastEpisodeInfo';
 
 export {StoryListView, StoryListProps, StoryListItemProps} from './story_list_view/StoryListView';
 

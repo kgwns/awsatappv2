@@ -1,24 +1,23 @@
-import React, {useState, FunctionComponent} from 'react';
-import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import { Label, LoadingState } from 'src/components/atoms/';
+import React, {FunctionComponent} from 'react';
+import {View, FlatList, ListRenderItem, StyleSheet} from 'react-native';
+import { Label } from 'src/components/atoms/';
 import { PodcastVerticalList, PodcastVerticalListProps } from 'src/components/molecules/';
 import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
-import ArrowUpDown from 'src/assets/images/icons/arrow_up_down.svg';
 import { colors } from 'src/shared/styles/colors';
- 
-export interface PodcastEpisodeListProps {
+
+export interface PodcastEpisodeContentProps {
   onItemActionPress?: (item: PodcastVerticalListProps) => void;
   data: PodcastVerticalListProps[];
 }
 
 const keyExtractor = (_item:PodcastVerticalListProps,index: number) => {
-  return `podcastEpisodeList-${index}`;
+  return `podcastEpisodeContent-${index}`;
 };
 
-export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
+export const PodcastEpisodeContent: FunctionComponent<PodcastEpisodeContentProps> = ({
   onItemActionPress,
   data,
 }) => {
@@ -34,16 +33,15 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
   const renderItem: ListRenderItem<PodcastVerticalListProps> = ({item,index}) => {
     return (
       <PodcastVerticalList
-        id={item?.id}
-        secondaryTitle={item?.secondaryTitle}
-        author={item?.author}
-        imageUrl={item?.imageUrl}
-        title={item?.title}
-        description={item?.description}
-        footerLeft={item?.footerLeft}
-        footerRight={item?.footerRight}
-        testID={`podcastepisode_${index}`}
+        id={item.id}
+        imageUrl={item.imageUrl}
+        title={item.title}
+        description={item.description}
+        footerLeft={item.footerLeft}
+        footerRight={item.footerRight}
+        testID={`podcastepisodecontent_${index}`}
         itemOnPress={()=>handleOnItemPressAction(item)}
+        hideDescription
       />
     );
   };
@@ -52,14 +50,11 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
     <View style={styles.containerStyle}>
       <View style={styles.rowStyle} >
         <View style={styles.headerLeftStyle}>
-          <Label style={styles.textStyle} children={t('podcastProgram.episodes')} />
-        </View>
-        <View style={styles.headerRightStyle}>
-          <ArrowUpDown />
+          <Label style={styles.textStyle} children={t('podcastEpisode.moreEpisodes')} />
         </View>
       </View>
       <FlatList
-        testID={'episodeListTestId'}
+        testID={'episodeContentListTestId'}
         data={data}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
