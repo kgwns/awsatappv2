@@ -41,7 +41,7 @@ export const OpinionScreen = () => {
       <OpinionWritersSection data={opinionWriterData} />
       <OpinionWritersArticlesSection
         data={opinionsData}
-        onPress={() => gotoNextPage()}
+        onScroll={() => gotoNextPage()}
         isLoading={isLoading}
       />
     </View>

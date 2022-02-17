@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
-  ShortArticleProps, ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne, StoryListProps
+  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne, StoryListProps
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties, storyWidgetData } from 'src/constants/SampleData';
@@ -66,15 +66,24 @@ export const LatestNewsScreen = () => {
     fetchSectionComboThree, fetchSectionComboFour
   } = useLatestNewsTab()
 
-  const heroListData = isTab ? heroList.slice(0, 1) : heroList
-  const topListData = topList.map((item: LatestArticleDataType) => {
-    return {
+  const heroListInfo = isTab ? heroList.slice(0, 1) : heroList
+  const heroListData = heroListInfo.map((item: LatestArticleDataType) => (
+    {
+      ...item,
+      ...shortArticleWithTagProperties,
+      titleColor: themeData.primaryBlack,
+      tagName: item.news_categories.title
+    }
+  ))
+
+  const topListData = topList.map((item: LatestArticleDataType) => (
+    {
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
       flag: item.news_categories.title
     }
-  })
+  ))
 
   useEffect(() => {
     fetchTickerAndHeroArticle(tickerAndHeroPayload)

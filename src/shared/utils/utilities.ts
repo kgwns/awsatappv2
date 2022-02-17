@@ -6,73 +6,77 @@ import { BASE_URL } from "src/services/apiUrls";
 import { arabic } from "src/assets/locales/ar/common-ar";
 import moment from "moment";
 import 'moment/locale/ar';
+
 export interface CustomAlertProps {
-    title?: string,
-    message?: string,
-    delay?: number
+  title?: string;
+  message?: string;
+  delay?: number;
 }
 
-export const CustomAlert = ({ title = DEFAULT_ALERT_TITLE, message = DEFAULT_ALERT_MESSAGE, delay = 0 }: CustomAlertProps) => {
-    setTimeout(() => {
-        Alert.alert(title, message)
-    }, delay)
-}
+export const CustomAlert = ({
+  title = DEFAULT_ALERT_TITLE,
+  message = DEFAULT_ALERT_MESSAGE,
+  delay = 0,
+}: CustomAlertProps) => {
+  setTimeout(() => {
+    Alert.alert(title, message);
+  }, delay);
+};
 
 export const isDarkTheme = (colorScheme: ColorSchemeName) => {
-    return colorScheme == Theme.DARK
-}
+  return colorScheme == Theme.DARK;
+};
 
 export const testProps = (testID: string | undefined) => {
-    return { testID: testID, accessibilityLabel: testID }
-}
+  return {testID: testID, accessibilityLabel: testID};
+};
 
-export const horizontalEdge: Edge[] = ['left', 'right']
-export const horizontalAndBottomEdge: Edge[] = [...horizontalEdge, 'bottom']
+export const horizontalEdge: Edge[] = ['left', 'right'];
+export const horizontalAndBottomEdge: Edge[] = [...horizontalEdge, 'bottom'];
 
 export const getImageUrl = (imageURL: string) => {
-    return isValidHttpUrl(imageURL) ? imageURL : BASE_URL + imageURL;
-}
+  return isValidHttpUrl(imageURL) ? imageURL : BASE_URL + imageURL;
+};
 
 export const decodeHTMLTags = (description: string) => {
-    const regex = /(<([^>]+)>)/ig; // to find the html tags in the description ex: <p>, <br>, etc.,   
-    return description ? description.replace(regex, '') : description;
-}
+  const regex = /(<([^>]+)>)/gi; // to find the html tags in the description ex: <p>, <br>, etc.,
+  return description ? description.replace(regex, '') : description;
+};
 
 export const isNonEmptyArray = (data: any): boolean => {
-    return (data && Array.isArray(data) && data.length > 0)
-}
+  return data && Array.isArray(data) && data.length > 0;
+};
 
 export const isObjectNonEmpty = (data: any): boolean => {
-    return Object.keys(data).length > 0 ? true : false
-}
+  return Object.keys(data).length > 0 ? true : false;
+};
 
 export const isNotEmpty = (value: string | null | undefined): boolean => {
-    return typeof value === 'string' && value.trim().length > 0
-}
+  return typeof value === 'string' && value.trim().length > 0;
+};
 
-export const isValidHttpUrl = (url: string) : boolean => {
-    const pattern = new RegExp(VALID_URL_REGEX)
-    return isNotEmpty(url) ? pattern.test(url) : false
-}
+export const isValidHttpUrl = (url: string): boolean => {
+  const pattern = new RegExp(VALID_URL_REGEX);
+  return isNotEmpty(url) ? pattern.test(url) : false;
+};
 
 export const timeAgo = (time: any) => {
   var date = new Date(time);
   var today = new Date();
-  var yesterday = new Date((date).valueOf() - 1000 * 60 * 60 * 24);
+  var yesterday = new Date(date.valueOf() - 1000 * 60 * 60 * 24);
   const isToday = date.setHours(0, 0, 0, 0) == today.setHours(0, 0, 0, 0);
-  const isYesterday = date.setHours(0, 0, 0, 0) == yesterday.setHours(0, 0, 0, 0);
+  const isYesterday =
+    date.setHours(0, 0, 0, 0) == yesterday.setHours(0, 0, 0, 0);
 
   if (isToday || isYesterday) {
     return calculateTimeSince(date);
-  }
-  else {
+  } else {
     moment.locale('ar')
     return arabic.timeSince.since + moment(time).format('MMMM') + ' ' + moment(time).format('DD');
   }
-}
+};
 
 export const calculateTimeSince = (time: any) => {
-
   switch (typeof time) {
     case 'number':
       break;
@@ -101,7 +105,7 @@ export const calculateTimeSince = (time: any) => {
     list_choice = 1;
 
   if (seconds > 1) {
-    return 'timeSince.just_now'
+    return 'timeSince.just_now';
   }
   if (seconds < 0) {
     seconds = Math.abs(seconds);
@@ -110,12 +114,23 @@ export const calculateTimeSince = (time: any) => {
   }
   var i = 0,
     format;
-  while (format = time_formats[i++])
+  while ((format = time_formats[i++]))
     if (seconds < format[0]) {
-      if (typeof format[2] == 'string')
-        return format[list_choice];
+      if (typeof format[2] == 'string') return format[list_choice];
       else
         return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
     }
   return time;
-}
+};
+
+export const calculateDate = (time: any) => {
+  var date = new Date(time);
+
+  return date.getDate();
+};
+
+export const calculateMonth = (time: any) => {
+  var date = new Date(time);
+
+  return arabic.months[date.getMonth()];
+};

@@ -7,16 +7,18 @@ import { normalize } from '../../../shared/utils'
 interface captionWithImageProps {
     title?: string,
     icon?: ImageName,
-    color?: string
+    color?: string,
 }
 
 const CaptionWithImage = ({ title, icon, color }: captionWithImageProps) => {
     return (
-        <View style={captionImageStyle.container}>
-            {icon &&
-                <Image name={icon} size={normalize(12)} style={{ marginRight: normalize(5) }} />
-            }
-            <Label children={title} color={color} labelType={LabelTypeProp.p5} />
+        <View style={{}}>
+            <View style={captionImageStyle.container}>
+                {icon &&
+                    <Image name={icon} size={normalize(12)} style={{ marginRight: normalize(5) }} />
+                }
+                <Label children={title} color={color} labelType={LabelTypeProp.p5} numberOfLines={2} />
+            </View>
         </View>
     )
 }
@@ -25,8 +27,10 @@ export default CaptionWithImage
 
 const captionImageStyle = StyleSheet.create({
     container: {
+        flex: 1,
         flexDirection: 'row',
-        paddingHorizontal: normalize(7),
-        alignItems: 'center'
+        marginHorizontal: normalize(7),
+        alignItems: 'center',
+        justifyContent: 'flex-start',
     }
 })

@@ -47,19 +47,21 @@ const ArticleFooter = ({
 
   return (
     <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
-      <View>
-        <View style={articleFooterStyle.authorContainer}>
-          <CaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} />
-          <View  style={articleFooterStyle.verticalDivider} />
+      <View style={articleFooterStyle.authorContainer}>
+        <CaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor}  />
+        <View  style={articleFooterStyle.verticalDivider} />
+        <View style={{flex:1}}>
           <CaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} />
         </View>
       </View>
+      <View style={articleFooterStyle.bookMarkContainer}>
       {!hideBookmark &&
         <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPressSave}>
           <Image name={storySaveIcon} size={normalize(18)}
           />
         </TouchableOpacity>
       }
+      </View>
     </View>
   )
 }
@@ -71,16 +73,21 @@ const articleFooterStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: normalize(10)
+    paddingTop: normalize(5)
   },
   verticalDivider: {
-    width: '.1%',
-    height: '100%',
+    width: 1,
+    height: 10,
     backgroundColor: Styles.color.silverChalice,
     paddingTop: normalize(2),
   },
   authorContainer: {
-    width:'70%',
+    flex:0.9,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  bookMarkContainer: {
+    flex:0.1,
   }
 })

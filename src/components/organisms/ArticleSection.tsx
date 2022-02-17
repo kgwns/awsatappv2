@@ -1,17 +1,18 @@
 import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
-import { normalize, screenWidth } from '../../shared/utils'
+import { normalize, screenWidth, timeAgo } from '../../shared/utils'
 import { flatListUniqueKey } from '../../constants'
 import { articleFooterProps, ArticleItem } from '../molecules'
 import { ArticleWithOutImageProps } from '../molecules/ArticleWithOutImage'
 import { ImageLabelProps } from '../atoms/imageWithLabel/ImageWithLabel'
 import { ImagesName, Styles } from 'src/shared/styles'
-import { FROM_TWO_HOURS } from 'src/constants/SharedConstants'
+import { useTranslation } from 'react-i18next'
 
 export interface articleProps extends ImageLabelProps,ArticleWithOutImageProps {
    image?: string,
    nid: string,
-   author: string
+   author: string,
+   created: string
 }
 
 export interface ArticleSectionProps {
@@ -20,15 +21,17 @@ export interface ArticleSectionProps {
 
 export const articleFooterDataSet: articleFooterProps = {
     leftTitleColor: Styles.color.greenishBlue,
-    rightTitle: FROM_TWO_HOURS,
     rightIcon: ImagesName.clock,
     rightTitleColor: Styles.color.silverChalice,
-  };
+};
 
 
 const ArticleSection = ({ data }: ArticleSectionProps) => {
+    const [t] = useTranslation();
+
     const renderItem = (item: articleProps, index: number) => {
         articleFooterDataSet.leftTitle = item.author
+        articleFooterDataSet.rightTitle = t(timeAgo(item.created))
         return <ArticleItem {...item} index={index}
             showDivider={index < data.length - 1}
             imageStyle={{ height: normalize(189) }}
