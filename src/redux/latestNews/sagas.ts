@@ -136,7 +136,7 @@ const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {
   let responseData: OpinionSuccessPayload = {
     opinionList: []
   }
-  responseData.opinionList = formattedData.splice(0, 3)
+  responseData.opinionList = formattedData.splice(0, 4)
   return responseData
 }
 export function* fetchTickerAndHeroWidgetData(action: RequestTickerAndHeroType) {
