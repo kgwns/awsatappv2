@@ -1,13 +1,11 @@
-import {Alert, ColorSchemeName} from 'react-native';
-import {Theme} from '../../redux/appCommon/types';
-import {
-  DEFAULT_ALERT_MESSAGE,
-  DEFAULT_ALERT_TITLE,
-  VALID_URL_REGEX,
-} from '../../constants/SharedConstants';
-import {Edge} from 'react-native-safe-area-context';
-import {BASE_URL} from 'src/services/apiUrls';
-import {arabic} from 'src/assets/locales/ar/common-ar';
+import { Alert, ColorSchemeName } from "react-native"
+import { Theme } from "../../redux/appCommon/types"
+import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX } from "../../constants/SharedConstants"
+import { Edge } from "react-native-safe-area-context";
+import { BASE_URL } from "src/services/apiUrls";
+import { arabic } from "src/assets/locales/ar/common-ar";
+import moment from "moment";
+import 'moment/locale/ar';
 
 export interface CustomAlertProps {
   title?: string;
@@ -73,12 +71,8 @@ export const timeAgo = (time: any) => {
   if (isToday || isYesterday) {
     return calculateTimeSince(date);
   } else {
-    return (
-      arabic.timeSince.since +
-      arabic.months[date.getMonth()] +
-      ' ' +
-      date.getDate()
-    );
+    moment.locale('ar')
+    return arabic.timeSince.since + moment(time).format('MMMM') + ' ' + moment(time).format('DD');
   }
 };
 
