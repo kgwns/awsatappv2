@@ -8,6 +8,7 @@ import opinionWriterSaga from './writers/sagas';
 import opinionsSaga from './opinions/sagas';
 import newsViewSaga from './newsView/sagas';
 import allWritersSaga from './allWriters/sagas';
+import allSiteCategoriesSaga from './allSiteCategories/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -20,5 +21,6 @@ export function* rootSaga() {
     fork(opinionsSaga),
     fork(newsViewSaga),
     fork(allWritersSaga),
+    fork(allSiteCategoriesSaga),
   ]);
 }

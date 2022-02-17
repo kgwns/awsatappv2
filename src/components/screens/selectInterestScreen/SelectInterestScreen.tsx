@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
-import { Label, Image } from '../../atoms';
+import { Label, Image, LoadingState } from '../../atoms';
 import { normalize } from '../../../shared/utils';
 import { ImagesName } from '../../../shared/styles';
 import { useTranslation } from 'react-i18next';
@@ -9,10 +9,19 @@ import { InterestSection } from '../../organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import {ScreensConstants} from 'src/constants';
+import { useAllSiteCategories } from 'src/hooks';
+import { AllSiteCategoriesBodyGet } from 'src/redux/allSiteCategories/types';
 
 export const SelectInterestScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customInterestScreenStyle)
   const [t] = useTranslation();
+  const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
+    items_per_page: 50,
+  };
+  useEffect(() => {
+    fetchAllSiteCategoriesRequest(allSiteCategoriesPayload);
+  }, []);
+  const { isLoading, allSiteCategoriesData, fetchAllSiteCategoriesRequest } = useAllSiteCategories();
   return (
     <View style={style.container}>
       <View style={style.textContainer}>
@@ -24,7 +33,7 @@ export const SelectInterestScreen = ({ navigation }: any) => {
         </Label>
       </View>
       <View style={style.widgetContainer}>
-        <InterestSection />
+        {isLoading ? <LoadingState/> : <InterestSection allSiteCategoriesData={allSiteCategoriesData} />}
       </View>
       <NextButton
         onPress={() => navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN)}

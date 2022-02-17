@@ -4,3 +4,4 @@ export { useMostRead } from 'src/hooks/useMostRead';
 export { useSearch } from 'src/hooks/useSearch';
 export { useLatestNewsTab } from 'src/hooks/useLatestNewsTab';
 export { useAllWriters } from 'src/hooks/useAllWriters';
+export { useAllSiteCategories } from 'src/hooks/useAllSiteCategories';
