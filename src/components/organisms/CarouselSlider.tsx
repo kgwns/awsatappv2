@@ -4,9 +4,7 @@ import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
 import { articleProps } from './ArticleSection'
 import { flatListUniqueKey } from '../../constants'
-import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { HeadlinesSection } from 'src/components/organisms';
-import { HeadlinesSectionProps } from './headlinesSection/HeadlinesSection';
 import { LatestArticleDataType } from '~/redux/latestNews/types'
 
 type CarouselSliderProps = {
@@ -17,30 +15,39 @@ type CarouselSliderProps = {
 const CarouselSlider = ({
     tickerData, heroData
 }: CarouselSliderProps) => {
-    const { themeData } = useTheme()
-    const sampleHeadlinesSectionData: HeadlinesSectionProps = {
-        headlineTitle: "آخر الأخبار",
-        headlineTitleColor: themeData.secondaryDavyGrey,
-        barColor: themeData.primary,
-        headlineDescription: "فيما دخلت المساعي الرامية للتهدئة بين إسرائيل والفلسطينيين مراحلة متقدمة أمس، استمر التصعيد الميداني، في سباق الساعات الأخيرة قبل حسم مسار",
-        headlineDescriptionColor: themeData.secondaryDarkSlate,
-    }
-
+    let tickerCount = 0
     const sliderRef = useRef<FlatList<articleProps>>(null)
     const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
         return <ImageArticle key={index} {...item}
-        containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
+            containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
+    }
+    const renderData = ({ }: { item: articleProps, index: number }) => {
+        tickerCount = tickerData.length
+        return (
+            <View style={carouselSliderStyle.headNewsContainer}>
+                {tickerCount &&
+                    <HeadlinesSection
+                        duration={10000}
+                        loop
+                        tickerData={tickerData} headlineTitle={''} headlineDescription={''}
+                    />
+                }
+            </View>
+        )
     }
 
     return (
         <View>
-            <View style={carouselSliderStyle.headNewsContainer}>
-                <HeadlinesSection
-                    duration={10000}
-                    loop
-                    {...sampleHeadlinesSectionData}
-                />
-            </View>
+            <FlatList
+                data={tickerData}
+                keyExtractor={(_, index) => index.toString()}
+                listKey={flatListUniqueKey.CAROUSEL_WIDGET}
+                horizontal={true}
+                pagingEnabled={true}
+                showsHorizontalScrollIndicator={false}
+                renderItem={renderData}
+                bounces={false}
+            />
             <FlatList
                 ref={sliderRef}
                 data={heroData}
