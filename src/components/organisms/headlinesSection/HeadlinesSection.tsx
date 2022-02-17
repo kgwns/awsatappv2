@@ -29,7 +29,6 @@ export interface HeadlinesSectionProps extends TextTickerProps {
     marqueeDelay?: number,
     tickerData: LatestArticleDataType[]
 }
-
 const HeadlinesSection = ({
     headlineTitleColor,
     barColor,
@@ -50,6 +49,8 @@ const HeadlinesSection = ({
     const titleColor = headlineTitleColor ? headlineTitleColor : themeData.secondaryDavyGrey;
     const bodyColor = headlineDescriptionColor ? headlineDescriptionColor : themeData.secondaryDarkSlate;
     const separatorColor = barColor ? barColor : themeData.primary;
+    let nextIndex = 0
+    let stringWidth = 0
     useEffect(() => {
         setHeadNews(tickerData[0].title as any ?? '')
         setHeaderNews(tickerData[0].news_categories.title as any ?? '')
@@ -58,11 +59,12 @@ const HeadlinesSection = ({
     }, [])
 
     const getNextData = () => {
-        if (indexValue + 1 === tickerData.length) {
-            { setIndexValue(indexValue - indexValue) }
+        nextIndex = indexValue + 1
+        if (nextIndex === tickerData.length) {
+            { setIndexValue(0) }
         }
         else {
-            setIndexValue(indexValue + 1)
+            setIndexValue(nextIndex)
         }
         return (
             <>
@@ -72,7 +74,8 @@ const HeadlinesSection = ({
         )
     }
     const isOverLapped = () => {
-        if (textWidth + titleWidth + 20 < Dimensions.get('window').width) {
+        stringWidth = textWidth + titleWidth + 20
+        if (stringWidth < Dimensions.get('window').width) {
             setTimeout(function () {
                 { getNextData() }
             }, duration);
@@ -89,25 +92,20 @@ const HeadlinesSection = ({
                 <View style={HeadlinesSectionStyle.contentContainer}>
                     <Label color={titleColor} children={headerNews} labelType={LabelTypeProp.p5} onLayout={e => { setTitleWidth(e.nativeEvent.layout.width) }} />
                     {tickerData[indexValue].news_categories.title as any && <View style={[HeadlinesSectionStyle.separator, { backgroundColor: separatorColor }]} />}
-                    <TextTicker
-                        style={[HeadlinesSectionStyle.headlineDescription, { color: bodyColor }]}
-                        duration={duration ? duration : TextTickerDefaultProps.duration}
-                        loop={loop ? loop : TextTickerDefaultProps.loop}
-                        repeatSpacer={repeatSpacer ? repeatSpacer : TextTickerDefaultProps.repeatSpacer}
-                        marqueeDelay={marqueeDelay ? marqueeDelay : TextTickerDefaultProps.repeatSpacer}
-                        isRTL
-                        onMarqueeComplete={() => getNextData()}
-                    >
-                        <Text>
-                            {headNews}
-                        </Text>
-                    </TextTicker>
-                    <View
-                        style={{ height: 0, alignSelf: 'flex-start' }}
-                        onLayout={e => {
-                            setTextWidth(e.nativeEvent.layout.width);
-                        }}>
-                        <Text style={HeadlinesSectionStyle.headlineDescription}>{headNews}</Text>
+                    <View onLayout={e => { setTextWidth(e.nativeEvent.layout.width) }}>
+                        <TextTicker
+                            style={[HeadlinesSectionStyle.headlineDescription, { color: bodyColor }]}
+                            duration={duration ? duration : TextTickerDefaultProps.duration}
+                            loop={loop ? loop : TextTickerDefaultProps.loop}
+                            repeatSpacer={repeatSpacer ? repeatSpacer : TextTickerDefaultProps.repeatSpacer}
+                            marqueeDelay={marqueeDelay ? marqueeDelay : TextTickerDefaultProps.repeatSpacer}
+                            isRTL
+                            onMarqueeComplete={() => getNextData()}
+                        >
+                            <Text>
+                                {headNews}
+                            </Text>
+                        </TextTicker>
                     </View>
                     {isOverLapped()}
                 </View>
