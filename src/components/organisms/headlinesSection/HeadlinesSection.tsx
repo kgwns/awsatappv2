@@ -8,6 +8,7 @@ import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { TouchableWithoutFeedback } from 'react-native';
 
 interface TextTickerProps {
     duration?: number,
@@ -84,33 +85,33 @@ const HeadlinesSection = ({
     }
     const renderData = () => {
         return (
-            <View style={HeadlinesSectionStyle.contentContainer}>
-                <Label color={titleColor} children={headerNews} labelType={LabelTypeProp.p5} onLayout={e => { setTitleWidth(e.nativeEvent.layout.width) }} />
-                {tickerData[indexValue].news_categories.title as any && <View style={[HeadlinesSectionStyle.separator, { backgroundColor: separatorColor }]} />}
-                <TextTicker
-                    style={[HeadlinesSectionStyle.headlineDescription, { color: bodyColor }]}
-                    duration={duration ? duration : TextTickerDefaultProps.duration}
-                    loop={loop ? loop : TextTickerDefaultProps.loop}
-                    repeatSpacer={repeatSpacer ? repeatSpacer : TextTickerDefaultProps.repeatSpacer}
-                    marqueeDelay={marqueeDelay ? marqueeDelay : TextTickerDefaultProps.repeatSpacer}
-                    isRTL
-                    onMarqueeComplete={() => getNextData()}
-                >
-                    <Text
-                        onPress={onPress}>
-                        {headNews}
-                    </Text>
-
-                </TextTicker>
-                <View
-                    style={{ height: 0, alignSelf: 'flex-start' }}
-                    onLayout={e => {
-                        setTextWidth(e.nativeEvent.layout.width);
-                    }}>
-                    <Text style={HeadlinesSectionStyle.headlineDescription}>{headNews}</Text>
+            <TouchableWithoutFeedback onPress={onPress}>
+                <View style={HeadlinesSectionStyle.contentContainer}>
+                    <Label color={titleColor} children={headerNews} labelType={LabelTypeProp.p5} onLayout={e => { setTitleWidth(e.nativeEvent.layout.width) }} />
+                    {tickerData[indexValue].news_categories.title as any && <View style={[HeadlinesSectionStyle.separator, { backgroundColor: separatorColor }]} />}
+                    <TextTicker
+                        style={[HeadlinesSectionStyle.headlineDescription, { color: bodyColor }]}
+                        duration={duration ? duration : TextTickerDefaultProps.duration}
+                        loop={loop ? loop : TextTickerDefaultProps.loop}
+                        repeatSpacer={repeatSpacer ? repeatSpacer : TextTickerDefaultProps.repeatSpacer}
+                        marqueeDelay={marqueeDelay ? marqueeDelay : TextTickerDefaultProps.repeatSpacer}
+                        isRTL
+                        onMarqueeComplete={() => getNextData()}
+                    >
+                        <Text>
+                            {headNews}
+                        </Text>
+                    </TextTicker>
+                    <View
+                        style={{ height: 0, alignSelf: 'flex-start' }}
+                        onLayout={e => {
+                            setTextWidth(e.nativeEvent.layout.width);
+                        }}>
+                        <Text style={HeadlinesSectionStyle.headlineDescription}>{headNews}</Text>
+                    </View>
+                    {isOverLapped()}
                 </View>
-                {isOverLapped()}
-            </View>
+            </TouchableWithoutFeedback>
         )
     }
 
