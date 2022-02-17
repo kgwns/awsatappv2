@@ -80,8 +80,8 @@ const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPaylo
     heroList: [],
     topList: []
   }
-  responseData.heroList = formattedData.splice(0, 2)
-  responseData.topList = formattedData.splice(2, 4)
+  responseData.heroList =  isNonEmptyArray(formattedData) ? [...formattedData].splice(0, 2) : []
+  responseData.topList =  isNonEmptyArray(formattedData) ? [...formattedData].splice(2, 4) : []
   return responseData
 }
 
@@ -91,8 +91,8 @@ const parseTickerHeroDataSuccess = (response: any): TickerHeroSuccessPayload => 
     ticker: [],
     hero: []
   }
-  responseData.ticker = formattedData.splice(0, 4)
-  responseData.hero = formattedData.splice(4, 1)
+  responseData.ticker = isNonEmptyArray(formattedData) ? [...formattedData].splice(0, 5) : []
+  responseData.hero = isNonEmptyArray(formattedData) ? [...formattedData].splice(5, 1) : []
   return responseData
 }
 

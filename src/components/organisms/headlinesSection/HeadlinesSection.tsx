@@ -139,7 +139,7 @@ const HeadlinesSectionStyle = StyleSheet.create({
         overflow: 'hidden',
     },
     separator: {
-        width: normalize(2),
+        width: '.3%',
         height: '45%',
         marginHorizontal: normalize(8)
     },

@@ -21,33 +21,18 @@ const CarouselSlider = ({
         return <ImageArticle key={index} {...item}
             containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
     }
-    const renderData = ({ }: { item: articleProps, index: number }) => {
-        tickerCount = tickerData.length
-        return (
+    tickerCount = tickerData.length
+    return (
+        <View>
             <View style={carouselSliderStyle.headNewsContainer}>
-                {tickerCount &&
+                {tickerCount ?
                     <HeadlinesSection
                         duration={10000}
                         loop
                         tickerData={tickerData} headlineTitle={''} headlineDescription={''}
-                    />
-                }
+                    /> : null
+                } 
             </View>
-        )
-    }
-
-    return (
-        <View>
-            <FlatList
-                data={tickerData}
-                keyExtractor={(_, index) => index.toString()}
-                listKey={flatListUniqueKey.CAROUSEL_WIDGET}
-                horizontal={true}
-                pagingEnabled={true}
-                showsHorizontalScrollIndicator={false}
-                renderItem={renderData}
-                bounces={false}
-            />
             <FlatList
                 ref={sliderRef}
                 data={heroData}
