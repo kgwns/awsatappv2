@@ -51,3 +51,9 @@ jest.mock('react-native-share', () => {
     open: jest.fn().mockImplementation(() => jest.fn())
   }
 })
+
+jest.mock('react-native-color-matrix-image-filters', () => {
+  return {
+    Grayscale: jest.fn().mockImplementation(() => jest.fn())
+  }
+})
