@@ -25,6 +25,13 @@ export const OPINION_TAB_WRITER_ENDPOINT = '/api/v2/sections/writer';
 //opinions list
 export const OPINIONS_ENDPOINT = '/api/v2/opinions/all';
 
+export const NEWS_CATEGORIES_ENDPOINT = '/api/v2/sections/news_categories';
+
+export const SIDE_MENU_ENDPOINT = '/api/v2/sidemenu';
+
+export const SECTION_ARTICLES = '/api/v2/articlesection'
+
+
 //news View tab in category section
 //items_per_page is 10
 //page start from 0

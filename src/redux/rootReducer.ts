@@ -7,6 +7,8 @@ import articleDetail from 'src/redux/articleDetail/reducer';
 import latestNewsTab from 'src/redux/latestNews/reducer';
 import opinionWriter from 'src/redux/writers/reducer';
 import opinionsReducer from 'src/redux/opinions/reducer';
+import sideMenu from './sideMenu/reducer';
+import sectionArticles from './sectionArticles/reducer';
 import newsViewReducer from 'src/redux/newsView/reducer';
 import allWriters from 'src/redux/allWriters/reducer';
 
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
   latestNewsTab,
   opinionWriter: opinionWriter,
   opinionsReducer: opinionsReducer,
+  sideMenu: sideMenu,
+  sectionArticles: sectionArticles,
   newsViewReducer: newsViewReducer,
   allWriters: allWriters,
 });
