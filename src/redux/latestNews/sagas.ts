@@ -190,7 +190,7 @@ export function* fetchHeroListTopListWidgetData(action: RequestHeroListTopList) 
   }
 }
 
-function* fetchSectionCombo(action: RequestSectionComboType) {
+export function* fetchSectionCombo(action: RequestSectionComboType) {
   try {
     const payload: payloadType = yield call(
       requestSectionCombo,

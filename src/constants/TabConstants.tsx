@@ -1,9 +1,9 @@
 import { ImageName } from "src/components/atoms";
 
-const LATEST_NEWS = 'Latest News';
-const SECTIONS = 'Sections';
-const MOST_READ = 'Most Read';
-const FAVORITE = 'Your News';
+const LATEST_NEWS = 'آخر الأخبار';
+const SECTIONS = 'أقسام';
+const MOST_READ = 'الأكثر قراءة';
+const FAVORITE =  'أخبارك';
 
 const TABICONS = {
     NEWS: 'newsIcon' as ImageName,

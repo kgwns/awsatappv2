@@ -12,7 +12,8 @@ describe('ArticleDetail Reducer', () => {
             isLoading: true,
             error: '',
             articleDetailData: [],
-            pager: {}
+            pager: {},
+            relatedArticleData: []
         }
     })
 

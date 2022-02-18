@@ -1,13 +1,14 @@
 import React from 'react'
 import { FlatList, View, StyleSheet, ScrollView } from 'react-native'
-import { WidgetHeader } from '../atoms'
-import { authorHeaderData } from 'src/constants/SampleData'
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { articleProps } from './ArticleSection'
 import { flatListUniqueKey } from 'src/constants'
 import { LatestArticleDataType } from '~/redux/latestNews/types'
 import { ImagesName,Styles } from 'src/shared/styles'
+import { useTranslation } from 'react-i18next';
+import { LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
+import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 export const sectionComboArticleFooter: articleFooterProps = {
     leftTitle: 'يتحمل',
@@ -16,8 +17,10 @@ export const sectionComboArticleFooter: articleFooterProps = {
     rightTitleColor: Styles.color.silverChalice
 }
 
-const BannerArticleSection = (props: { data: LatestArticleDataType[] }) => {
+const BannerArticleSection = (props: { data: LatestArticleDataType[], title: string }) => {
     const { data } = props
+    const [t] = useTranslation()
+    const { themeData } = useTheme()
     const bannerData = [...data].splice(0, 4)
     const verticalArticleData = isTab ?  [...data].splice(4, 2) : [...data].splice(1, 3)
     const articleNewsItem = (item: articleProps, index: number) => {
@@ -27,6 +30,20 @@ const BannerArticleSection = (props: { data: LatestArticleDataType[] }) => {
             footerInfo={sectionComboArticleFooter}
         />
     }
+    const widgetHeaderData: WidgetHeaderProps = {
+        headerLeft: {
+            title: props.title,
+            color: themeData.primary,
+            labelType: LabelTypeProp.h2,
+        },
+        headerRight: {
+            title: t('latestNewsTab.sectionComboOne.headerRight'),
+            icon: ImagesName.arrowLeftFaced,
+            color: Styles.color.smokeyGrey,
+            labelType: LabelTypeProp.h3,
+            clickable: true,
+        },
+    };
 
     const listHeaderSection = () => (
         <ScrollView horizontal={true} bounces={false}
@@ -43,9 +60,9 @@ const BannerArticleSection = (props: { data: LatestArticleDataType[] }) => {
 
     return (
         <View style={[bannerArticleSectionStyle.container, isTab && bannerArticleSectionStyle.tabContainer]}>
-            <View style={!isTab && bannerArticleSectionStyle.headerContainer}>
-                <WidgetHeader {...authorHeaderData} />
-            </View>
+            {props.data.length ? <View style={!isTab && bannerArticleSectionStyle.headerContainer}>
+                <WidgetHeader {...widgetHeaderData} />
+            </View> : null}
             {listHeaderSection()}
             <FlatList
                 keyExtractor={(_, index) => index.toString()}

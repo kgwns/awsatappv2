@@ -14,6 +14,7 @@ import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet
 import { ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 const tickerAndHeroPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -56,6 +57,7 @@ const sectionComboFourPayload: RequestSectionComboBodyGet = {
 
 export const LatestNewsScreen = () => {
   const { themeData } = useTheme()
+  const [t] = useTranslation()
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const {
@@ -128,12 +130,12 @@ export const LatestNewsScreen = () => {
           )}
       />
       <SectionComboOne data={sectionComboOne} onPress={onPressArticle} />
-      <BannerArticleSection data={sectionComboTwo} />
+      <BannerArticleSection data={sectionComboTwo} title={t('latestNewsTab.sectionComboTwo.headerLeft')}  />
       <Divider style={{ height: normalize(20) }} />
       <AuthorWidget data={opinionList} />
-      <BannerArticleSection data={sectionComboThree} />
+      <BannerArticleSection data={sectionComboThree} title={t('latestNewsTab.sectionComboThree.headerLeft')} />
       <Divider style={{ height: normalize(20) }} />
-      <BannerArticleSection data={sectionComboFour} />
+      <BannerArticleSection data={sectionComboFour} title={t('latestNewsTab.sectionComboTwo.headerLeft')} />
       <Divider style={{ height: normalize(50) }} />
     </View>
   )

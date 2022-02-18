@@ -1,25 +1,43 @@
 import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
-import { WidgetHeader, Divider } from '../atoms'
-import { authorHeaderData  } from 'src/constants/SampleData'
+import { WidgetHeader, Divider, LabelTypeProp,WidgetHeaderProps } from '../atoms'
 import { AuthorItem } from '../molecules'
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { flatListUniqueKey } from '../../constants'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { LatestOpinionDataType } from 'src/redux/latestNews/types'
+import { useTranslation } from 'react-i18next';
+import { Styles } from 'src/shared/styles'
+import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 const AuthorWidget = ({data}: { data: LatestOpinionDataType[] }) => {
     const style = useThemeAwareObject(customStyle)
+    const [t] = useTranslation()
+    const { themeData } = useTheme()
     const renderItem = (item: LatestOpinionDataType, index: number) => (
         <AuthorItem body={item.title} author={item.field_opinion_writer_node_export.name} duration={'3:30'} image={item.field_opinion_writer_node_export.opinion_writer_photo} index={index} />
     )
 
+    const widgetHeaderData: WidgetHeaderProps = {
+        headerLeft: {
+            title: t('latestNewsTab.sectionWriters.headerLeft'),
+            color: themeData.primary,
+            labelType: LabelTypeProp.h2,
+        },
+        // headerRight: {
+        //     title: t('latestNewsTab.sectionComboOne.headerRight'),
+        //     icon: ImagesName.arrowLeftFaced,
+        //     color: Styles.color.smokeyGrey,
+        //     labelType: LabelTypeProp.h3,
+        //     clickable: true,
+        // },
+    };
     const numberOfColumn = isTab ? 2 : 1
     
     return (
         <View style={style.container}>
-            <WidgetHeader {...authorHeaderData} />
+            {data.length ? <WidgetHeader {...widgetHeaderData} /> : null}
             <FlatList
                 style={style.listContainer}
                 keyExtractor={(_, index) => index.toString()}
