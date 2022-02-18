@@ -4,6 +4,7 @@ import { ButtonImage, Image, Label, LabelTypeProp } from '../atoms'
 import { normalize } from '../../shared/utils'
 import { ImagesName, Styles } from '../../shared/styles'
 import { isTab } from 'src/shared/utils'
+import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 export interface AuthorItemProps {
     author: string,
@@ -20,18 +21,19 @@ const AuthorItem = ({
     image,
     index
 }: AuthorItemProps) => {
+    const { themeData } = useTheme()
     return (
         <View key={index} style={[authorItemStyle.container, isTab && {paddingRight: 20}]}>
             <View style={{ flex: 1 }}>
                 <Label children={author} labelType={LabelTypeProp.p4}
-                    color={Styles.color.greenishBlue} numberOfLines={1} />
+                    color={themeData.primary} numberOfLines={1} />
                 <Label children={body} labelType={LabelTypeProp.h3}
                     numberOfLines={1} style={authorItemStyle.body} />
                 <View style={{ flexDirection: 'row',alignItems: 'center' }}>
                     <ButtonImage image={ImagesName.greenPlayIcon} size={normalize(14)}
                         onPress={() => console.log('Pressed :::::')} />
                     <Label children={'استمع الي المقالة'} style={authorItemStyle.durationLabel} 
-                      labelType={LabelTypeProp.h3} color={Styles.color.greenishBlue}/>
+                      labelType={LabelTypeProp.h3} color={themeData.primary}/>
                     <Label children={duration} style={authorItemStyle.durationLabel} />
                 </View>
             </View>
@@ -55,6 +57,7 @@ const authorItemStyle = StyleSheet.create({
         paddingRight: normalize(5)
     },
     durationLabel: {
-        paddingHorizontal: normalize(10)
+        paddingHorizontal: normalize(10),
+        color: Styles.color.spanishGray
     }
 })

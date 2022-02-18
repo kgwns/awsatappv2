@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   getMostReadData,
   getIsLoading,
   getMostReadError,
 } from 'src/redux/mostRead/selectors';
-import { fetchMostRead } from 'src/redux/mostRead/action';
-import { MostReadItemType } from 'src/redux/mostRead/types';
+import {fetchMostRead} from 'src/redux/mostRead/action';
+import {MostReadItemType} from 'src/redux/mostRead/types';
 
 export interface UseMostReadReturn {
   isLoading: boolean;

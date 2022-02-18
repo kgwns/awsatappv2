@@ -17,3 +17,4 @@ export {PodcastProgram} from 'src/components/screens/podcast/PodcastProgram';
 export {PodcastEpisode} from 'src/components/screens/podcast/PodcastEpisode';
 
 export { VideoScreen } from './category/VideoScreen';
+export {SectionArticlesScreen} from './sectionArticles/SectionArticlesScreen';

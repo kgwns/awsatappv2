@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
 import {ImagesName} from '../shared/styles/images';
 import {ButtonImage, Image} from '../components/atoms';
@@ -17,15 +17,29 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import {flatListUniqueKey, ScreensConstants} from 'src/constants';
+import {useSideMenu} from 'src/hooks';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 interface CustomDrawerContentProps {}
 
 const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const [t] = useTranslation();
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<any>>();
 
   const {themeData} = useTheme();
   const styles = useThemeAwareObject(createStyles);
+
+  const {isLoading, sideMenuData, fetchSideMenuRequest} =
+  useSideMenu();
+
+  useEffect(() => {
+    fetchSideMenuRequest();
+  }, []);
+
+  // useEffect(() => {
+  //   //console.log('News Categories data', newsCategoriesData);
+  // }, [newsCategoriesData]);
 
   const header = () => (
     <View style={styles.headerContainer}>
@@ -45,46 +59,18 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       {header()}
       <ScrollView>
         <View style={styles.menuContainer}>
-          <ButtonList
-            title={t('drawer.latestNews')}
-            onPress={() => console.log('clicked')}
-          />
-          <ButtonList
-            title={t('drawer.first')}
-            onPress={() => console.log('clicked')}
-          />
-          <ButtonList
-            title={t('drawer.firstNews')}
-            onPress={() => console.log('clicked')}
-          />
-          <ButtonList
-            title={t('drawer.theOpinion')}
-            onPress={() => console.log('clicked')}
-          />
-          <ButtonList
-            title={t('drawer.economy')}
-            onPress={() => console.log('clicked')}
-          />
-          <ButtonList
-            title={t('drawer.sports')}
-            onPress={() => console.log('clicked')}
-          />
-          <ButtonList
-            title={t('drawer.supplements')}
-            onPress={() => console.log('clicked')}
-          />
-          <ButtonList
-            title={t('drawer.culture')}
-            onPress={() => console.log('clicked')}
-          />
-          <ButtonList
-            title={t('drawer.eastFiles')}
-            onPress={() => console.log('clicked')}
-          />
-          <ButtonList
-            title={t('drawer.mix')}
-            onPress={() => console.log('clicked')}
-          />
+          {sideMenuData.length > 0 &&
+            sideMenuData.map((item) => {
+              return (
+                <ButtonList
+                  title={item.title}
+                  onPress={() => {
+                    navigation.dispatch(DrawerActions.closeDrawer());
+                    navigation.navigate(ScreensConstants.SectionArticlesScreen, {sectionId: item.field_sectionid_export, title: item.title});
+                  }}
+                />
+              );
+            })}
           <Divider />
           <ButtonList
             title={t('drawer.advertiseWithUs')}
@@ -103,11 +89,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           />
           <ButtonOutline
             title={t('drawer.myPersonalAccount')}
-            leftIcon={() => <UserIcon fill={themeData.primaryDarkSlateGray}/>}
+            leftIcon={() => <UserIcon fill={themeData.primaryDarkSlateGray} />}
             color={themeData.primaryDarkSlateGray}
           />
-          <View
-            style={styles.socialContainer}>
+          <View style={styles.socialContainer}>
             <ButtonImage
               icon={() => <LinkedinIcon />}
               onPress={() => console.log('linkedin')}

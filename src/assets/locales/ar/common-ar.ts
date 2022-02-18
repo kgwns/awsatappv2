@@ -42,6 +42,16 @@ export const arabic = {
       headerLeft: 'الفيروسات المستجدة',
       headerRight: 'المزيد',
     },
+    sectionComboTwo: {
+      headerLeft: 'الخليج',
+    },
+    sectionWriters: {
+      headerLeft: 'آراء وكتّاب ',
+    },
+    sectionComboThree: {
+      headerLeft: 'العالم العربي'
+    },
+
   },
   sectionVideo: {
     toWatch: 'مشاهدة',
@@ -68,7 +78,7 @@ export const arabic = {
     yesterday: 'في الامس',
     tomorrow: 'غدا',
     days: 'أيام',
-    last_week:'الاسبوع الماضي',
+    last_week: 'الاسبوع الماضي',
     next_week: 'الاسبوع المقبل',
     weeks: 'أسابيع',
   },

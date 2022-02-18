@@ -47,21 +47,18 @@ const ArticleFooter = ({
 
   return (
     <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
-      <View style={articleFooterStyle.authorContainer}>
-        <CaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor}  />
+      <View style={[articleFooterStyle.authorContainer,hideBookmark&&{flex:1}]}>
+        <CaptionWithImage style={articleFooterStyle.leftContainer} title={leftTitle} icon={leftIcon} color={leftTitleColor}  />
         <View  style={articleFooterStyle.verticalDivider} />
-        <View style={{flex:1}}>
-          <CaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} />
-        </View>
+        <CaptionWithImage style={articleFooterStyle.rightContainer} title={rightTitle} icon={rightIcon} color={rightTitleColor} />
       </View>
-      <View style={articleFooterStyle.bookMarkContainer}>
       {!hideBookmark &&
-        <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPressSave}>
-          <Image name={storySaveIcon} size={normalize(18)}
-          />
-        </TouchableOpacity>
+        <View style={articleFooterStyle.bookMarkContainer}>
+          <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPressSave}>
+            <Image name={storySaveIcon} size={normalize(18)}/>
+          </TouchableOpacity>
+        </View>
       }
-      </View>
     </View>
   )
 }
@@ -71,23 +68,29 @@ export default ArticleFooter
 const articleFooterStyle = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: normalize(5)
-  },
-  verticalDivider: {
-    width: 1,
-    height: 10,
-    backgroundColor: Styles.color.silverChalice,
-    paddingTop: normalize(2),
+    justifyContent: 'space-evenly',
   },
   authorContainer: {
-    flex:0.9,
+    flex: 0.9,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+  },
+  verticalDivider: {
+    height: 10,
+    width: 1,
+    backgroundColor: Styles.color.silverChalice,
+  },
+  leftContainer: {
+    flexShrink: 1,
+    flexBasis: "auto",
+  },
+  rightContainer: {
+    flexGrow: 1,
+    flexBasis: "auto",
   },
   bookMarkContainer: {
     flex:0.1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   }
 })
