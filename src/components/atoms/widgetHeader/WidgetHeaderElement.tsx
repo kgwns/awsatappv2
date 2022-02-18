@@ -11,11 +11,12 @@ export const WidgetHeaderElement = ({
     icon,
     color,
     labelType = LabelTypeProp.p5,
-    clickable = false
+    clickable = false,
+    onPress,
 }: HeaderElementProps) => {
     return (
         <TouchableOpacity disabled={!clickable} activeOpacity={0.8}
-            onPress={() => console.log('Pressed :::::')}
+            onPress={onPress}
             testID={atomTestID.widgetHeaderButton}
             style={widgetHeaderStyle.headerElementContainer}>
             <Label children={title} color={color} labelType={labelType} />

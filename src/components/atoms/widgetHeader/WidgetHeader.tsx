@@ -8,22 +8,25 @@ export interface HeaderElementProps {
     icon?: ImageName,
     color?: string,
     labelType?: LabelTypeProp,
-    clickable?: boolean
+    clickable?: boolean,
+    onPress?: () => void,
 }
 
 export interface WidgetHeaderProps {
     headerLeft?: HeaderElementProps,
     headerRight?: HeaderElementProps,
+    onPress? : () => void,
 }
 
 export const WidgetHeader = ({
     headerLeft,
-    headerRight
+    headerRight,
+    onPress
 }: WidgetHeaderProps) => {
     return (
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             {headerLeft && <WidgetHeaderElement {...headerLeft} />}
-            {headerRight && <WidgetHeaderElement {...headerRight} />}
+            {headerRight && <WidgetHeaderElement {...headerRight} onPress={onPress} />}
         </View>
     )
 }
