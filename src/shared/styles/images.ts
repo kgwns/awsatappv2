@@ -45,6 +45,8 @@ import appleIcon from 'src/assets/images/socialButton/apple-logo.png';
 import facebookIcon from 'src/assets/images/socialButton/facebook-icon.png';
 import mailIcon from 'src/assets/images/socialButton/Mail-icon.png';
 
+import returnIcon from 'src/assets/images/icons/return_arrow/returnArrow.png'
+
 export enum ImagesName {
   newsIcon = 'newsIcon',
   newsActiveIcon = 'newsActiveIcon',
@@ -86,6 +88,7 @@ export enum ImagesName {
   googlePodcast = 'googlePodcast',
   closeSVG = 'closeSVG',
   playIconSVG = 'playIconSVG',
+  returnIcon = 'returnIcon',
 }
 
 export const images = {
@@ -117,6 +120,7 @@ export const images = {
   appleIcon,
   facebookIcon,
   mailIcon,
+  returnIcon,
 };
 
 export const darkImages = {

@@ -14,6 +14,7 @@ const KEEP_NOTIFIED_ONBOARD_SCREEN = 'KEEP_NOTIFIED_ONBOARD_SCREEN' as ScreenNam
 const LatestNewsScreen = 'LatestNewsScreen' as ScreenName;
 const PodcastProgram = 'PodcastProgram' as ScreenName;
 const StoryScreen = 'StoryScreen' as ScreenName;
+const SectionArticlesScreen = 'SectionArticlesScreen' as ScreenName;
 const PodcastEpisode = 'PodcastEpisode' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
@@ -38,5 +39,6 @@ export const ScreensConstants = {
   LatestNewsScreen,
   PodcastProgram,
   StoryScreen,
+  SectionArticlesScreen,
   PodcastEpisode,
 };

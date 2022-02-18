@@ -11,7 +11,8 @@ import {
   SelectInterestScreen,
   PodcastProgram,
   StoryScreen,
-  PodcastEpisode,
+  SectionArticlesScreen,
+  PodcastEpisode
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -33,6 +34,7 @@ export const Routes = {
   SelectInterestScreen,
   PodcastProgram,
   StoryScreen,
+  SectionArticlesScreen,
   PodcastEpisode,
 };
 
@@ -55,6 +57,7 @@ export type ScreenList = {
   KeepNotifiedScreen: undefined;
   articleDetailScreen: undefined;
   SelectInterestScreen: undefined;
+  StoryScreen: undefined
 };
 
 export type ScreenName = keyof undefined;
