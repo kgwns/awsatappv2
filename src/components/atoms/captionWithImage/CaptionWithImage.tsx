@@ -19,7 +19,7 @@ const CaptionWithImage = ({ title, icon, color, style }: captionWithImageProps) 
                     <Image name={icon} size={normalize(12)} style={{ marginRight: normalize(5) }} />
                 }
                 <View style={captionImageStyle.labelContainer}>
-                <Label children={title} color={color} labelType={LabelTypeProp.p5} numberOfLines={2} />
+                <Label children={title} color={color} labelType={LabelTypeProp.p5} numberOfLines={1} />
                 </View>
             </View>
         </View>

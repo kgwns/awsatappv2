@@ -79,6 +79,7 @@ const articleFooterStyle = StyleSheet.create({
     height: 10,
     width: 1,
     backgroundColor: Styles.color.silverChalice,
+    marginLeft: normalize(3)
   },
   leftContainer: {
     flexShrink: 1,
