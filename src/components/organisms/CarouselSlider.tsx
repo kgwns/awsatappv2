@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { View, FlatList, StyleSheet } from 'react-native'
-import { isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
 import { articleProps } from './ArticleSection'
 import { flatListUniqueKey } from '../../constants'
@@ -15,17 +15,15 @@ type CarouselSliderProps = {
 const CarouselSlider = ({
     tickerData, heroData
 }: CarouselSliderProps) => {
-    let tickerCount = 0
     const sliderRef = useRef<FlatList<articleProps>>(null)
     const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
         return <ImageArticle key={index} {...item}
             containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
     }
-    tickerCount = tickerData.length
     return (
         <View>
             <View style={carouselSliderStyle.headNewsContainer}>
-                {tickerCount ?
+                {isNonEmptyArray(tickerData) ?
                     <HeadlinesSection
                         duration={10000}
                         loop
