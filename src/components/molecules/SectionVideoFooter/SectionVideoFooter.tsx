@@ -1,11 +1,10 @@
 import React, {useState} from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { normalize } from 'react-native-elements'
 import { Styles } from '../../../shared/styles'
-import { ButtonImage, Image } from '../../atoms'
+import { ButtonImage } from '../../atoms'
 import { ImagesName } from '../../../shared/styles/images'
 import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
-import { BookMarkColorType } from '../articleFooter/ArticleFooter'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 
@@ -21,7 +20,6 @@ export interface SectionVideoFooterProps {
   rightTitleColor?: string,
   style?: object,
   rightDateColor?: string,
-  bookMarkColorType?: string,
   addBookMark?: boolean
 }
 
@@ -38,16 +36,10 @@ const SectionVideoFooter = ({
   rightDate,
   style,
   addBookMark,
-  bookMarkColorType = BookMarkColorType.BLACK
 }: SectionVideoFooterProps) => {
   
   const [saveState, setSaveState] = useState(false)
   const theme = useTheme()
-  let storySaveIcon = saveState ? ImagesName.bookmarkActive : ImagesName.blackBdrBookMark
-
-  if(bookMarkColorType == BookMarkColorType.WHITE) {
-    storySaveIcon = saveState ? ImagesName.bookMarkActiveWhite : ImagesName.bookMarkWhiteBdr
-  }
 
   const onPressSave = () => {
     setSaveState(!saveState)

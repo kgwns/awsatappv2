@@ -55,9 +55,6 @@ const SectionArticleItem = ({
 }: SectionArticleItemProps) => {
   const [saveState, setSaveState] = useState(false);
   const theme = useTheme();
-  let storySaveIcon = saveState
-    ? ImagesName.bookmarkActive
-    : ImagesName.blackBdrBookMark;
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const onPress = () => {
@@ -66,11 +63,6 @@ const SectionArticleItem = ({
     }
   };
 
-  if (bookMarkColorType == BookMarkColorType.WHITE) {
-    storySaveIcon = saveState
-      ? ImagesName.bookMarkActiveWhite
-      : ImagesName.bookMarkWhiteBdr;
-  }
   const onPressSave = () => {
     setSaveState(!saveState);
   };
@@ -81,7 +73,7 @@ const SectionArticleItem = ({
         paddingBottom: normalize(20),
         backgroundColor: themeData.backgroundColor,
       }}>
-      <TouchableWithoutFeedback onPress={onPress}>
+      <TouchableWithoutFeedback testID={'onPressTestID'} onPress={onPress}>
         {image && <ImageWithLabel url={image} imageStyle={imageStyle} />}
         <Label
           labelType={LabelTypeProp.h2}
@@ -118,12 +110,6 @@ const SectionArticleItem = ({
         )}
 
         {!hideBookMark && (
-          // <TouchableOpacity
-          //   testID={moleculesTestID.storySaveBtn}
-          //   activeOpacity={0.8}
-          //   onPress={onPressSave}>
-          //   <Image name={storySaveIcon} size={normalize(18)} />
-          // </TouchableOpacity>
           <ButtonImage
           testId={moleculesTestID.storySaveBtn}
           icon={() => {

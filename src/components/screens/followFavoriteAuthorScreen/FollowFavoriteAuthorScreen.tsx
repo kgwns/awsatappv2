@@ -26,9 +26,14 @@ export const FollowFavoriteAuthorScreen = () => {
     fetchAllWritersRequest(allWritersPayload);
   }, []);
 
-  const NextButton = ({onPress}: any) => {
+  interface NextButttonProps{
+    onPress:()=>void,
+    testId?:string
+  }
+
+  const NextButton = ({onPress,testId}: NextButttonProps) => {
     return (
-      <TouchableOpacity onPress={onPress} style={style.nextButtonContainer}>
+      <TouchableOpacity testID={testId} onPress={onPress} style={style.nextButtonContainer}>
         <View style={style.nextButtonIconContainer}>
           <Image name={ImagesName.arrowNext} />
         </View>
@@ -56,6 +61,7 @@ export const FollowFavoriteAuthorScreen = () => {
         {isLoading ? <LoadingState /> : <FollowFavoriteAuthorWidget writersData={allWritersData} />}
       </View>
       <NextButton
+        testId={'nextButtonTestId'}
         onPress={() => navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)}
       />
     </View>

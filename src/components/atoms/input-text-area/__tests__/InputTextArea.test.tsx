@@ -1,12 +1,12 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
-import {InputField} from 'src/components/atoms/input-field/InputField';
+import {InputTextArea} from 'src/components/atoms/input-text-area/InputTextArea';
 
-describe('<InputField />', () => {
+describe('<InputTextArea />', () => {
   let instance: RenderAPI;
   beforeEach(() => {
     const component = (
-      <InputField
+      <InputTextArea
         label="firstname"
         onChangeText={() => {
           console.log('firstname');
@@ -29,19 +29,15 @@ describe('<InputField />', () => {
     expect(instance.container.props.label).toBe('firstname');
   });
 
-  it('should isPassword is true', () => {
-    expect(instance.container.props.isPassword).toBeFalsy();
-  });
-
   describe('should pass isPassword as true and value', () => {
     const onChangeTextMock = jest.fn();
 
     beforeEach(() => {
       const component = (
-        <InputField
+        <InputTextArea
           label="firstname"
           value="john"
-          isPassword
+          maxLength={200}
           onChangeText={onChangeTextMock}
         />
       );
@@ -56,8 +52,8 @@ describe('<InputField />', () => {
       expect(instance.container.props.value).toBe('john');
     });
 
-    it('should isPassword is true', () => {
-      expect(instance.container.props.isPassword).toBeTruthy();
+    it('should maxLength is 200', () => {
+      expect(instance.container.props.maxLength).toEqual(200);
     });
   });
 
@@ -66,21 +62,18 @@ describe('<InputField />', () => {
     const onSubmitEditingMock = jest.fn();
 
     const {getByTestId} = render(
-      <InputField
+      <InputTextArea
         label="firstname"
-        value=""
-        testID="inputFieldTestID"
-        isPassword
+        testID="inputTextAreaTestID"
         onChangeText={onChangeTextMock}
         onSubmitEditing={onSubmitEditingMock}
       />,
     );
 
-    fireEvent(getByTestId('inputFieldTestID'), 'focus');
-    fireEvent(getByTestId('inputFieldTestID'), 'blur');
-    fireEvent(getByTestId('inputFieldTestID'), 'submitEditing');
-    fireEvent.changeText(getByTestId('inputFieldTestID'), 'john');
-    fireEvent.press(getByTestId('inputFieldTestID_passwordVisibilityID'));
+    fireEvent(getByTestId('inputTextAreaTestID'), 'focus');
+    fireEvent(getByTestId('inputTextAreaTestID'), 'blur');
+    fireEvent.changeText(getByTestId('inputTextAreaTestID'), 'john');
     expect(onChangeTextMock).toHaveBeenCalledWith('john');
+    fireEvent(getByTestId('inputTextAreaTestID'), 'submitEditing');
   });
 });

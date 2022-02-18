@@ -37,7 +37,7 @@ const ArticleDetailImage = ({
     return (
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
             <BannerImageWithOverlay image={image} />
-            <TouchableOpacity style={imageArticleStyle.returnStyle} onPress={onPressBack}>
+            <TouchableOpacity testID={'onPressbackTestID'} style={imageArticleStyle.returnStyle} onPress={onPressBack}>
                 <ReturnArrow style={imageArticleStyle.prevIconStyle} />
                 <Label style={imageArticleStyle.prevTitleStyle}>
                     {t('onBoard.common.return')}
