@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData'
 import { SectionsScreen } from '../SectionsScreen'

@@ -1,15 +1,16 @@
 import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
-import {ImageWithIcon} from 'src/components/atoms/ImageWithIcon/ImageWithIcon';
 
-describe('<ImageWithIcon/>', () => {
+import {ButtonList} from 'src/components/atoms/button-list/ButtonList';
+
+describe('<ButtonList>', () => {
   let instance: RenderAPI;
+  const mockFunction = jest.fn();
   const mockString = 'mockString';
-  const mockFn = jest.fn();
-  describe('when ImageWithIcon only', () => {
+  describe('when ButtonList only', () => {
     beforeEach(() => {
       const component = (
-        <ImageWithIcon bottomTag={mockString} onPress={mockFn} />
+        <ButtonList title={mockString} onPress={mockFunction} />
       );
       instance = render(component);
     });
@@ -18,7 +19,7 @@ describe('<ImageWithIcon/>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    it('Should render ImageWithIcon', () => {
+    it('Should render ButtonList', () => {
       expect(instance).toBeDefined();
     });
   });

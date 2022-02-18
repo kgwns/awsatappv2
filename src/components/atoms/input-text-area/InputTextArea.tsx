@@ -22,6 +22,7 @@ const {
 interface InputTextAreaProps {
   label: string;
   value?: string;
+  testID?: string;
   onChangeText: (text: string) => void;
   onSubmitEditing?: (text: string) => void;
   keyboardType?: KeyboardTypeOptions;
@@ -34,7 +35,9 @@ export const InputTextArea: FunctionComponent<InputTextAreaProps> = ({
   label,
   value = '',
   onChangeText,
-  onSubmitEditing,
+  testID,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onSubmitEditing = () => {},
   keyboardType = 'default',
   error = '',
   style,
@@ -54,12 +57,6 @@ export const InputTextArea: FunctionComponent<InputTextAreaProps> = ({
     }
   };
 
-  const handleOnSubmitEditing = (text: string) => {
-    if (onSubmitEditing) {
-      onSubmitEditing(text);
-    }
-  };
-
   return (
     <View style={[container, style]}>
       <View style={textInputHeader}>
@@ -75,15 +72,14 @@ export const InputTextArea: FunctionComponent<InputTextAreaProps> = ({
       </View>
       <View style={inputContainer}>
         <TextInput
+          testID={testID}
           value={value.toString()}
           style={textInputStyle}
           underlineColorAndroid="transparent"
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChangeText={onChangeText}
-          onSubmitEditing={event => {
-            handleOnSubmitEditing(event.nativeEvent.text);
-          }}
+          onSubmitEditing={() => onSubmitEditing(value.toString())}
           keyboardType={keyboardType}
           maxLength={maxLength}
           {...props}

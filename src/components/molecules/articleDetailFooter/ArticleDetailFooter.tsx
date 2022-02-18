@@ -25,11 +25,11 @@ export const ArticleDetailFooter = ({ articleDetailData }: { articleDetailData: 
         setSaveState(!saveState)
     }
 
-    const onPressThemeChange = () => {
-        const isDark = isDarkTheme(theme)
-        const updateTheme = isDark ? Theme.LIGHT : Theme.DARK
-        dispatch(storeAppTheme(updateTheme))
-    }
+    // const onPressThemeChange = () => {
+    //     const isDark = isDarkTheme(theme)
+    //     const updateTheme = isDark ? Theme.LIGHT : Theme.DARK
+    //     dispatch(storeAppTheme(updateTheme))
+    // }
 
     const onPressShare = async () => {
         const { title, view_node } = articleDetailData

@@ -2,32 +2,27 @@ import React from 'react';
 import {render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../constants/SampleData';
-import {MostReadList} from '..';
+import {VideoContent} from '..';
 
-describe('<MostReadList>', () => {
+describe('<VideoContent>', () => {
   let instance: RenderAPI;
   const sampleData: any = [
     {
-      nid: 'nid',
+      imageUrl: 'imageUrl',
+      videoLabel: 'videoLabel',
+      time: 'time',
       title: 'title',
-      body: 'body',
-      field_image: 'field_image',
-      view_node: 'view_node',
-      field_news_categories_export: {
-        id: 'id',
-        title: 'title',
-        url: 'url',
-        bundle: 'bundle',
-        name: 'name',
-      },
-      field_publication_date_export: 'field_publication_date_export',
+      des: 'des',
+      month: 'month',
+      date: 'date',
+      views: 'views',
     },
   ];
 
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <MostReadList data={sampleData} />
+        <VideoContent data={sampleData} />
       </Provider>
     );
     instance = render(component);
@@ -38,7 +33,7 @@ describe('<MostReadList>', () => {
     instance.unmount();
   });
 
-  test('Should render component', () => {
+  test('Should render VideoContent component', () => {
     expect(instance).toBeDefined();
   });
 });

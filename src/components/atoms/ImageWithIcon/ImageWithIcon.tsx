@@ -12,9 +12,10 @@ export interface ImageIconProps {
     name?: ImageName,
     url?: string,
     bottomTag?: string,
+    onPress?:()=>void,
 }
 
-export const ImageWithIcon = ({ name, url, bottomTag}: ImageIconProps) => {
+export const ImageWithIcon = ({ name, url, bottomTag,onPress}: ImageIconProps) => {
     return (
         <View>
             <Image name={name} url={url} style={articleImage} resizeMode={ImageResize.COVER}/>
@@ -26,7 +27,7 @@ export const ImageWithIcon = ({ name, url, bottomTag}: ImageIconProps) => {
             </View>
             }
                 <View style={playIconPosition}>
-                    <TouchableOpacity onPress={()=>{console.log("play button pressed")}}>
+                    <TouchableOpacity onPress={onPress}>
                     <WhitePlayIcon style={iconStyle}/>
                     </TouchableOpacity>
                 </View>        
