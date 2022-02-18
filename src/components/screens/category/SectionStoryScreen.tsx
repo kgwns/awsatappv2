@@ -132,7 +132,7 @@ export const SectionStoryScreen = () => {
             description={decodeHTMLTags(heroListData[1].body)}
             image={getImageUrl(heroListData[1].field_image)}
             imageStyle={{
-              height: normalize(184),
+              height: normalize(0.52 * screenWidth),
               paddingHorizontal: normalize(10),
             }}
             hideFooter={true}
