@@ -11,6 +11,7 @@ import sideMenu from './sideMenu/reducer';
 import sectionArticles from './sectionArticles/reducer';
 import newsViewReducer from 'src/redux/newsView/reducer';
 import allWriters from 'src/redux/allWriters/reducer';
+import allSiteCategories from 'src/redux/allSiteCategories/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   sectionArticles: sectionArticles,
   newsViewReducer: newsViewReducer,
   allWriters: allWriters,
+  allSiteCategories: allSiteCategories,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

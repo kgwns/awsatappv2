@@ -10,6 +10,7 @@ import sideMenuSaga from './sideMenu/sagas';
 import sectionArticlesSaga from './sectionArticles/sagas';
 import newsViewSaga from './newsView/sagas';
 import allWritersSaga from './allWriters/sagas';
+import allSiteCategoriesSaga from './allSiteCategories/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -24,5 +25,6 @@ export function* rootSaga() {
     fork(sectionArticlesSaga),
     fork(newsViewSaga),
     fork(allWritersSaga),
+    fork(allSiteCategoriesSaga),
   ]);
 }
