@@ -3,7 +3,7 @@ import {StyleProp, ViewStyle, TouchableOpacity, TextStyle, StyleSheet, View} fro
 import {Image, ImageName, Label} from 'src/components/atoms';
 import {LabelType} from 'src/components/atoms/label/Label';
 import {normalize} from 'src/shared/utils/dimensions';
-import { colors } from '../../../shared/styles/colors';
+import { Styles } from 'src/shared/styles';
 
 const linkButtonStyle = StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ const linkButtonStyle = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: normalize(25),
-    borderColor: colors.greyDark,
+    borderColor: Styles.color.greyDark,
     paddingHorizontal: normalize(15),
     paddingVertical: normalize(7),
     marginVertical: normalize(7)
@@ -43,7 +43,7 @@ interface SocialLoginButtonProps {
 export const SocialLoginButton: FunctionComponent<SocialLoginButtonProps> = ({
   label,
   labelType,
-  color,
+  color = Styles.color.doveGray,
   icon,
   style,
   onPress,

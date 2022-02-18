@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: normalize(20),
     paddingHorizontal: normalize(20),
-    backgroundColor: colors.aquaHaze,
     justifyContent: 'space-between',
   },
   headerStyle: {

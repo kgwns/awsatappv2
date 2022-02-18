@@ -119,6 +119,7 @@ const KeepNotifiedWidget = () => {
         showsVerticalScrollIndicator={false}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
+        bounces={false}
       />
     </View>
   );
