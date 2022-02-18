@@ -2,13 +2,12 @@ import { View, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
 import { WidgetHeader, Divider, LabelTypeProp,WidgetHeaderProps } from '../atoms'
 import { AuthorItem } from '../molecules'
-import { isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { flatListUniqueKey } from '../../constants'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { LatestOpinionDataType } from 'src/redux/latestNews/types'
 import { useTranslation } from 'react-i18next';
-import { Styles } from 'src/shared/styles'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 const AuthorWidget = ({data}: { data: LatestOpinionDataType[] }) => {
@@ -34,10 +33,10 @@ const AuthorWidget = ({data}: { data: LatestOpinionDataType[] }) => {
         // },
     };
     const numberOfColumn = isTab ? 2 : 1
-    
+    if(!isNonEmptyArray(data)) return null
     return (
         <View style={style.container}>
-            {data.length ? <WidgetHeader {...widgetHeaderData} /> : null}
+            <WidgetHeader {...widgetHeaderData} />
             <FlatList
                 style={style.listContainer}
                 keyExtractor={(_, index) => index.toString()}

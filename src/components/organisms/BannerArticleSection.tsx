@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, View, StyleSheet, ScrollView } from 'react-native'
-import { isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { articleProps } from './ArticleSection'
 import { flatListUniqueKey } from 'src/constants'
@@ -58,11 +58,13 @@ const BannerArticleSection = (props: { data: LatestArticleDataType[], title: str
         </ScrollView>
     )
 
+    if(!isNonEmptyArray(data)) return null
+
     return (
         <View style={[bannerArticleSectionStyle.container, isTab && bannerArticleSectionStyle.tabContainer]}>
-            {props.data.length ? <View style={!isTab && bannerArticleSectionStyle.headerContainer}>
+            <View style={!isTab && bannerArticleSectionStyle.headerContainer}>
                 <WidgetHeader {...widgetHeaderData} />
-            </View> : null}
+            </View>
             {listHeaderSection()}
             <FlatList
                 keyExtractor={(_, index) => index.toString()}
