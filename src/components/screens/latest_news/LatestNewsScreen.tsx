@@ -27,7 +27,7 @@ const heroListTopListPayload: LatestArticleBodyGet = {
   offset: 6
 }
 const opinionListPayload: LatestArticleBodyGet = {
-  items_per_page: 3,
+  items_per_page: 4,
   page: 0,
   offset: 0
 }
