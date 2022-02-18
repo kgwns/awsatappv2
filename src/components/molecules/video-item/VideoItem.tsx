@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
@@ -25,6 +25,9 @@ export interface VideoItemProps {
   date: string;
   views: string;
   isFirstItem?: boolean;
+  onPress?: ()=> void;
+  testID?: string;
+  shortDescription?: string;
 }
 
 export const VideoItem = ({
@@ -37,27 +40,32 @@ export const VideoItem = ({
   date,
   views,
   isFirstItem,
+  onPress,
+  testID,
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
   const [t] = useTranslation();
   return (
     <View>
-      {isFirstItem ? (
-        <View style={styles.videoContainer}>
-          <Image resizeMode={'cover'} url={imageUrl} style={styles.imageBig} />
+      <TouchableOpacity testID={testID} accessibilityLabel={testID} onPress={onPress}>
+        <View>
+        {isFirstItem ? (
+          <View style={styles.videoContainer}>
+            <Image resizeMode={'cover'} url={imageUrl} style={styles.imageBig} />
+          </View>
+        ) : (
+          <View style={styles.videoContainer}>
+            <Image resizeMode={'cover'} url={imageUrl} style={styles.image} />
+            <PlayIcon fill={colors.white} style={styles.playIcon} />
+            <Label style={styles.time} color={colors.white}>
+              {time}
+            </Label>
+            <Label style={styles.videoLable}>{videoLabel}</Label>
+          </View>
+        )}
         </View>
-      ) : (
-        <View style={styles.videoContainer}>
-          <Image resizeMode={'cover'} url={imageUrl} style={styles.image} />
-          <PlayIcon fill={colors.white} style={styles.playIcon} />
-          <Label style={styles.time} color={colors.white}>
-            {time}
-          </Label>
-          <Label style={styles.videoLable}>{videoLabel}</Label>
-        </View>
-      )}
-
+      </TouchableOpacity>
       <Label labelType={'h2'}>{title}</Label>
       <Label labelType={'p3'} color={themeData.secondaryDavyGrey}>
         {des}

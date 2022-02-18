@@ -82,6 +82,11 @@ const AppNavigator = () => {
        component={Routes.SectionArticlesScreen}
        options={hideHeader}
       />
+      <Stack.Screen
+       name={ScreensConstants.VideoDetailScreen}
+       component={Routes.VideoDetailScreen}
+       options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };

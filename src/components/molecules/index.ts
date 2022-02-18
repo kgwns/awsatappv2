@@ -36,3 +36,4 @@ export {default as PodcastVerticalList, PodcastVerticalListProps} from 'src/comp
 export { PodcastProgramHeader } from 'src/components/molecules/podcast/PodcastProgramHeader';
 export { VideoItem, VideoItemProps } from 'src/components/molecules/video-item/VideoItem';
 export { PodCastMiniPlayer } from 'src/components/molecules/podCastMiniPlayer/PodCastMiniPlayer';
+export { VideosVerticalList, VideosVerticalListProps } from 'src/components/molecules/video-item/VideosVerticalList';

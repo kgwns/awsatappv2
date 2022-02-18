@@ -1,22 +1,21 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Label, Image, ButtonOutline, LabelTypeProp} from 'src/components/atoms/';
-import { PodcastVerticalListProps } from 'src/components/molecules/';
+import { VideoItemProps } from 'src/components/molecules/';
 import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { colors } from 'src/shared/styles/colors';
-import ApplePodcastDarkIcon from 'src/assets/images/icons/apple_podcast_dark.svg';
-import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.svg';
-import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import {useTranslation} from 'react-i18next';
+import ViewIcon from 'src/assets/images/icons/view.svg';
+import DateIcon from 'src/assets/images/icons/date.svg';
 
-export interface PodcastEpisodeInfoProps {
-  data: PodcastVerticalListProps;
+export interface VideoInfoProps {
+  data: VideoItemProps;
 }
 
-export const PodcastEpisodeInfo: FunctionComponent<PodcastEpisodeInfoProps> = ({
+export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
   data,
 }) => {
   const styles = useThemeAwareObject(createStyles);
@@ -27,12 +26,9 @@ export const PodcastEpisodeInfo: FunctionComponent<PodcastEpisodeInfoProps> = ({
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <Label style={styles.titleTextStyle} children={data.secondaryTitle} />
             <Image url={data.imageUrl} style={styles.imageStyle} />
             <View style={styles.containerSpace} />
-            <Label style={styles.textStyle} children={data.title} />
-            <Label style={styles.announcerTextStyle} children={data.author} />
-            <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
+            <ButtonOutline title={data.videoLabel}
              style={styles.buttonStyle}
              labelStyle={styles.buttonLabel}
              titleType={LabelTypeProp.h1}
@@ -40,27 +36,24 @@ export const PodcastEpisodeInfo: FunctionComponent<PodcastEpisodeInfoProps> = ({
              rightIcon={() => <View style={styles.rightIconStyle}><PlayIcon fill={colors.black}/></View>}
              />
              <View style={styles.containerSpace} />
+            <Label style={styles.descriptionTextStyle} children={data.des} numberOfLines={4} />
+            <Label style={styles.shortDescriptionStyle} children={data.shortDescription} numberOfLines={2} />
             <View style={styles.headerLeftStyle}>
+              <ViewIcon fill={colors.white} />
               <Label style={styles.footerRightTextStyle} numberOfLines={1}>
-                {data.footerRight}
+                {data.views}
               </Label>
-              <Label color={colors.spanishGray}>|</Label>
-              <Label style={styles.footerLeftTextStyle} numberOfLines={1}>
-                {data.footerLeft}
+              <Label style={styles.textStyleWithoutMargin} numberOfLines={1}>
+                {t('videoDetail.watch')}
               </Label>
-            </View>
-            <Label style={styles.descriptionTextStyle} children={data.description} numberOfLines={3} />
-          </View>
-
-          <View style={styles.rowContainerStyle}>
-            <View style={styles.rowStyle}>
-              <ApplePodcastDarkIcon width={normalize(100)} height={normalize(50)} />
-            </View>
-            <View style={styles.rowStyle}>
-              <SpotifyDarkIcon width={normalize(50)} height={normalize(50)} />
-            </View>
-            <View style={styles.rowStyle}>
-              <GooglePodcastDarkIcon width={normalize(100)} height={normalize(50)} />
+              <Label color={colors.white} style={{marginRight: normalize(10)}}>|</Label>
+              <DateIcon fill={colors.white} />
+              <Label style={[styles.footerRightTextStyle,{color: colors.white}]} numberOfLines={1}>
+                {data.date}
+              </Label>
+              <Label style={styles.textStyleWithoutMargin} numberOfLines={1}>
+                {data.month}
+              </Label>
             </View>
           </View>
         </View>
@@ -80,26 +73,14 @@ StyleSheet.create({
     alignItems: 'center',
   },
   imageStyle: {
-    width: normalize(150),
-    height: normalize(100),
+    width: normalize(180),
+    height: normalize(240),
+    resizeMode: 'cover',
   },
-  textStyle: {
-    fontSize: normalize(14),
-    fontWeight: 'bold',
-    lineHeight: normalize(26),
-    color: colors.white,
-    paddingBottom: normalize(10),
-    textAlign: 'center',
-  },
-  announcerTextStyle: {
-    fontSize: normalize(14),
-    color: colors.greenishBlue,
-    paddingBottom: normalize(10),
-  },
-  titleTextStyle: {
+  shortDescriptionStyle: {
+    color: colors.spanishGray,
     fontSize: normalize(13),
     lineHeight: normalize(22),
-    color: colors.spanishGray,
     textAlign: 'center',
     paddingBottom: normalize(15),
   },
@@ -119,21 +100,13 @@ StyleSheet.create({
   containerSpace: {
     paddingVertical: normalize(8)
   },
-  rowStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rowContainerStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   buttonStyle: {
     backgroundColor:colors.white,
     borderWidth: 0,
     width: '60%',
   },
   rightIconStyle: {
-    paddingRight: normalize(15),
+    marginRight: normalize(15),
   },
   headerLeftStyle: {
     flexDirection: 'row',
@@ -141,17 +114,17 @@ StyleSheet.create({
     alignItems: 'center',
     paddingBottom: normalize(15),
   },
-  footerLeftTextStyle: {
-    fontSize: normalize(12),
-    lineHeight: normalize(16),
-    color: colors.white,
-    marginLeft: normalize(5),
-  },
-  footerRightTextStyle: {
+  textStyleWithoutMargin: {
     fontSize: normalize(12),
     lineHeight: normalize(16),
     color: colors.white,
     marginRight: normalize(5),
+  },
+  footerRightTextStyle: {
+    fontSize: normalize(12),
+    lineHeight: normalize(16),
+    color: colors.greenishBlue,
+    marginHorizontal: normalize(5),
   },
   buttonLabel: {
     color: colors.black,

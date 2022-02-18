@@ -12,6 +12,7 @@ import {useTranslation} from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { colors } from 'src/shared/styles/colors';
+import CloseIcon from 'src/assets/images/icons/close.svg';
 
 export interface PodcastProgramHeaderProps {
   headerBackIconTestId?: string;
@@ -21,6 +22,7 @@ export interface PodcastProgramHeaderProps {
   onPressSave: ()=> void;
   isSaved?: boolean;
   showLogo?: boolean;
+  isCloseIcon?: boolean;
 }
 
 export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> = ({
@@ -31,6 +33,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
   onPressSave,
   isSaved,
   showLogo=false,
+  isCloseIcon=false,
 }) => {
   const navigation = useNavigation();
   const [t] = useTranslation();
@@ -40,8 +43,13 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
     return (
       <TouchableOpacity testID={headerBackIconTestId} accessibilityLabel={headerBackIconTestId} onPress={() => {navigation.goBack()}}>
         <View style={styles.itemContainer}>
-          <BackIcon fill={colors.white} width={normalize(15)} height={normalize(15)}/>
-          <Label style={styles.labelStyle} children={t('podcastProgram.return')} />
+          {isCloseIcon?
+          <CloseIcon height={13} width={13}  fill={colors.white} />:
+          <View style={styles.itemContainer}> 
+            <BackIcon fill={colors.white} width={normalize(15)} height={normalize(15)}/>
+            <Label style={styles.labelStyle} children={t('podcastProgram.return')} />
+          </View>
+          }
         </View>
       </TouchableOpacity>
     );

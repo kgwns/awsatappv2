@@ -86,6 +86,9 @@ export const arabic = {
   podcastEpisode: {
     moreEpisodes: 'المزيد من حلقات البودكاست',
     listenToEpisode: 'استمع إلى الحلقة',
-  }
+  },
+  videoDetail: {
+    watch: 'مشاهده',
+  },
 
 };
