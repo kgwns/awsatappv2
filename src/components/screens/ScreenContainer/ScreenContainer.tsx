@@ -104,7 +104,7 @@ const createStyles = (theme: CustomThemeType) => {
     },
     headerContainer: {
       height: normalize(55),
-      backgroundColor: theme.whiteSurface,
+      backgroundColor: theme.backgroundColor,
       justifyContent: 'center',
       marginTop: isIphoneX ? normalize(30) : 0
     },

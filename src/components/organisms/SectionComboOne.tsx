@@ -73,7 +73,7 @@ const SectionComboOne = ({
   if (!isNonEmptyArray(sectionComboOneData)) return null;
 
   const onPressMore = () => {
-    navigation.navigate(ScreensConstants.SectionArticlesScreen, {sectionId: sectionId});
+    navigation.navigate(ScreensConstants.SectionArticlesScreen, {sectionId: sectionId, title: widgetHeaderData.headerLeft?.title});
 }
   return (
     <View>

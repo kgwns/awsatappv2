@@ -65,7 +65,7 @@ const BannerArticleSection = (props: { data: LatestArticleDataType[], title: str
     
 
     const onPressMore = () => {
-        navigation.navigate(ScreensConstants.SectionArticlesScreen, {sectionId: sectionId});
+        navigation.navigate(ScreensConstants.SectionArticlesScreen, {sectionId: sectionId, title: props.title});
     }
 
     if(!isNonEmptyArray(data)) return null
