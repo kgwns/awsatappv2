@@ -61,6 +61,7 @@ export interface CustomThemeType {
   secondaryWhite: string,
   secondaryDavyGrey: string,
   secondaryDarkSlate: string,
+  secondarySpanishGray: string,
   backgroundColor: string,
   whiteSurface: string,
   danger: string
@@ -79,6 +80,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   secondaryWhite: colors.white,
   secondaryDavyGrey: colors.davyGrey,
   secondaryDarkSlate: colors.darkSlateGray,
+  secondarySpanishGray: colors.black,
   backgroundColor: colors.aquaHaze,
   whiteSurface: colors.white,
   danger: colors.jasper
@@ -94,6 +96,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   secondaryWhite: colors.nightBlack,
   secondaryDavyGrey: colors.mountainMist,
   secondaryDarkSlate: colors.white,
+  secondarySpanishGray: colors.spanishGray,
   backgroundColor: colors.codGray,
   whiteSurface: colors.onyx,
   danger: colors.jasper

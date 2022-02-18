@@ -23,7 +23,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 
 export interface SectionArticleItemProps {
   headerTitle?: string;
-  description?: string;
+  body?: string;
   image?: string;
   imageStyle?: ImageStyle;
   hideFooter?: boolean;
@@ -38,20 +38,20 @@ export interface SectionArticleItemProps {
   nid?: string;
 }
 const SectionArticleItem = ({
-  headerTitle,
-  description,
-  image,
-  imageStyle,
-  leftTitle,
-  leftIcon,
-  leftTitleColor,
-  rightTitle,
-  rightIcon,
-  rightTitleColor,
-  hideFooter = false,
-  hideBookMark = false,
-  bookMarkColorType = BookMarkColorType.BLACK,
-  nid,
+    headerTitle,
+    body,
+    image,
+    imageStyle,
+    leftTitle,
+    leftIcon,
+    leftTitleColor,
+    rightTitle,
+    rightIcon,
+    rightTitleColor,
+    hideFooter = false,
+    hideBookMark = false,
+    bookMarkColorType = BookMarkColorType.BLACK,
+    nid,
 }: SectionArticleItemProps) => {
   const [saveState, setSaveState] = useState(false);
   const theme = useTheme();
@@ -82,7 +82,7 @@ const SectionArticleItem = ({
         />
         <Label
           labelType={LabelTypeProp.p3}
-          children={description}
+          children={body}
           color={themeData.secondaryDavyGrey}
           numberOfLines={3}
         />

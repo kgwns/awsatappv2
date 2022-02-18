@@ -68,7 +68,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     titleContainer: {
       flex:1,
-      alignItems: 'center',
+      justifyContent: 'center',
     },
     title: {
       fontSize: normalize(14),
