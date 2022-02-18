@@ -23,6 +23,7 @@ export interface LatestArticleDataType {
 export interface OpinionWriterType {
   id: string
   title: string
+  langcode: string
   url: string
   bundle: string
   name: string

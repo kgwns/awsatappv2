@@ -41,7 +41,7 @@ export const PodcastScreen = () => {
       <FlatList
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({}) => renderItem()}
+        renderItem={renderItem}
         showsVerticalScrollIndicator={false}
       />
     </View>

@@ -4,11 +4,12 @@ import {Text, View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 import {VideoItem, VideoItemProps} from 'src/components/molecules';
 import {normalize} from 'src/shared/utils';
 import {videoTabData} from 'src/constants/SampleData';
+import {useTranslation} from 'react-i18next';
 
 interface VideoScreenProps {}
 
 export const VideoScreen = (props: VideoScreenProps) => {
-
+  const [t] = useTranslation();
   const renderItem: ListRenderItem<VideoItemProps> = ({item, index}) => {
     return (
       <VideoItem
@@ -17,10 +18,10 @@ export const VideoScreen = (props: VideoScreenProps) => {
         videoLabel={item.videoLabel}
         time={item.time}
         des={item.des}
-        month={item.month}
         date={item.date}
         views={item.views}
-         isFirstItem={index === 0}
+        isFirstItem={index === 0}
+        toWatchTitle={t('sectionVideo.toWatch')}
       />
     );
   };

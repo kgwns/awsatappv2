@@ -86,6 +86,18 @@ export const arabic = {
   podcastEpisode: {
     moreEpisodes: 'المزيد من حلقات البودكاست',
     listenToEpisode: 'استمع إلى الحلقة',
+  },
+  favorite: {
+    tabItem: {
+      content_for_you: 'محتوي لك',
+      archives: 'المحفوظات'
+    },
+    podcast_for_you: 'بودكاست لك',
+    filters: {
+      everyone: 'الكل',
+      articles: 'مقالات',
+      video: 'فيديو',
+      podcast: 'بودكاست'
+    }
   }
-
 };

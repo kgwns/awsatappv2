@@ -109,53 +109,20 @@ export const shortArticleWithTagProperties = {
   labelType: LabelTypeProp.h3,
 };
 
-export const shortArticleWithTagData: ShortArticleProps[] = [
-  {
-    image: 'https://picsum.photos/200/300',
+const sortArticleWithTag = {
+  image: 'https://picsum.photos/200/300',
     title: 'ميقاتي: استقالة قرداحي كانت ضرورية',
     titleColor: Styles.color.black,
     flag: 'استنكار',
     flagColor: Styles.color.greenishBlue,
     barColor: Styles.color.greenishBlue,
     labelType: LabelTypeProp.h3,
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    title: 'مواشنطن تعيد فتح ملف خاطفي الرهائن الأميركيين في بيروت',
-    titleColor: Styles.color.black,
-    flag: 'استنكار',
-    flagColor: Styles.color.greenishBlue,
-    barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h3,
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    title: 'واشنطن تعيد فتح ملف خاطفي الرهائن الأميركيين في بيروت',
-    titleColor: Styles.color.black,
-    flag: 'استنكار',
-    flagColor: Styles.color.greenishBlue,
-    barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h3,
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    title: 'مواشنطن تعيد فتح ملف خاطفي الرهائن الأميركيين في بيروت',
-    titleColor: Styles.color.black,
-    flag: 'استنكار',
-    flagColor: Styles.color.greenishBlue,
-    barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h3,
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    title: 'واشنطن تعيد فتح ملف خاطفي الرهائن الأميركيين في بيروت',
-    titleColor: Styles.color.black,
-    flag: 'استنكار',
-    flagColor: Styles.color.greenishBlue,
-    barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h3,
-  },
-];
+    nid: '2982216',
+    author: 'من ساعاتان',
+    created: '2021-05-20T23:04:52+0000'
+}
+
+export const shortArticleWithTagData: ShortArticleProps[] = Array(5).fill(sortArticleWithTag)
 
 export const authorHeaderData: WidgetHeaderProps = {
   headerLeft: {
@@ -947,8 +914,7 @@ export const videoTabData: VideoItemProps[] = [
     videoLabel: 'أمريكا',
     time: '05:22',
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    month: 'ديسمبر',
-    date: '7',
+    date: '7 ديسمبر ',
     views: '1374',
   },
   {
@@ -958,8 +924,7 @@ export const videoTabData: VideoItemProps[] = [
     videoLabel: 'أمريكا',
     time: '05:22',
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    month: 'ديسمبر',
-    date: '7',
+    date: '7 ديسمبر ',
     views: '1374',
   },
   {
@@ -969,8 +934,7 @@ export const videoTabData: VideoItemProps[] = [
     videoLabel: 'أمريكا',
     time: '05:22',
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    month: 'ديسمبر',
-    date: '7',
+    date: '7 ديسمبر ',
     views: '1374',
   },
   {
@@ -980,8 +944,7 @@ export const videoTabData: VideoItemProps[] = [
     videoLabel: 'أمريكا',
     time: '05:22',
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    month: 'ديسمبر',
-    date: '7',
+    date: '7 ديسمبر ',
     views: '1374',
   },
   {
@@ -991,8 +954,7 @@ export const videoTabData: VideoItemProps[] = [
     videoLabel: 'أمريكا',
     time: '05:22',
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    month: 'ديسمبر',
-    date: '7',
+    date: '7 ديسمبر ',
     views: '1374',
   },
 ];
@@ -1086,6 +1048,33 @@ export const PodcastProgramInfoData: PodcastProgramInfoProps = {
 export const articleSampleData = {
   image: 'https://picsum.photos/200/300',
   title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
-  description: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
+  body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
   tagName: 'الحكومة',
 };
+export const videoArchiveData: VideoItemProps[] = [
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+  },
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    time: '05:22',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    date: '7 ديسمبر ',
+    views: '1374',
+    toWatchTitle: 'ديسمبر'
+  },
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    imageUrl: 'https://picsum.photos/300/200',
+    videoLabel: 'أمريكا',
+    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+  },
+];

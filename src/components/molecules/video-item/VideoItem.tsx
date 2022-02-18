@@ -17,14 +17,14 @@ import {useTranslation} from 'react-i18next';
 
 export interface VideoItemProps {
   imageUrl: string;
-  videoLabel: string;
-  time: string;
+  videoLabel?: string;
+  time?: string;
   title: string;
   des: string;
-  month: string;
-  date: string;
-  views: string;
+  date?: string;
+  views?: string;
   isFirstItem?: boolean;
+  toWatchTitle?: string;
 }
 
 export const VideoItem = ({
@@ -33,14 +33,15 @@ export const VideoItem = ({
   time,
   title,
   des,
-  month,
   date,
   views,
   isFirstItem,
+  toWatchTitle,
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
   const [t] = useTranslation();
+  const showSeparator = (views || toWatchTitle) && (date)
   return (
     <View>
       {isFirstItem ? (
@@ -50,11 +51,11 @@ export const VideoItem = ({
       ) : (
         <View style={styles.videoContainer}>
           <Image resizeMode={'cover'} url={imageUrl} style={styles.image} />
-          <PlayIcon fill={colors.white} style={styles.playIcon} />
-          <Label style={styles.time} color={colors.white}>
+          {time && (<PlayIcon fill={colors.white} style={styles.playIcon} />)}
+          {time && (<Label style={styles.time} color={colors.white}>
             {time}
-          </Label>
-          <Label style={styles.videoLable}>{videoLabel}</Label>
+          </Label>)}
+          {videoLabel &&(<Label style={styles.videoLable}>{videoLabel}</Label>)}
         </View>
       )}
 
@@ -65,23 +66,22 @@ export const VideoItem = ({
 
       <View style={styles.footerContainer}>
         <View style={styles.footerRight}>
-          <ViewIcon
+          {(views || toWatchTitle) && (<ViewIcon
             fill={colors.silverChalice}
             width={normalize(18)}
             height={normalize(18)}
-          />
-          <Label style={styles.viewsStyle}>{views}</Label>
-          <Label labelType="caption5">{t('sectionVideo.toWatch')}</Label>
-          <View style={styles.dividerV} />
-          <DateIcon
+          />)}
+          {views && (<Label style={styles.viewsStyle}>{views}</Label>)}
+          {toWatchTitle && (<Label labelType="caption5">{toWatchTitle}</Label>)}
+          {showSeparator && (<View style={styles.dividerV} />)}
+          {date  && (<DateIcon
             fill={colors.silverChalice}
             width={normalize(14)}
             height={normalize(14)}
-          />
+          />)}
           <Label style={styles.day} color={colors.silverChalice}>
             {date}
           </Label>
-          <Label labelType="caption5">{month}</Label>
         </View>
         <BookmarkIcon fill={colors.davyGrey} />
       </View>
@@ -142,6 +142,7 @@ const createStyles = (theme: CustomThemeType) =>
       backgroundColor: colors.greenishBlue,
       paddingHorizontal: normalize(8),
       paddingVertical: 3,
+      color: colors.white
     },
     playIcon: {
       top: normalize(10),
