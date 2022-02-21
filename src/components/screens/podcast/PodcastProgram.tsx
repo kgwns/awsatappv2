@@ -28,7 +28,7 @@ export const PodcastProgram = () => {
         style={{ flex: 1, height: '100%' }}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={() => renderItem()}
+        renderItem={renderItem}
         showsVerticalScrollIndicator={false}
       />
     </ScreenContainer>

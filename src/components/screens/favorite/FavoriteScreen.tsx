@@ -4,7 +4,6 @@ import { horizontalEdge } from 'src/shared/utils';
 import { TabBarComponent, TabBarDataProps } from 'src/components/molecules';
 import { ScreenContainer } from '..';
 import { useTranslation } from 'react-i18next';
-import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { Styles } from 'src/shared/styles';
 import { Archives, ContentForYou } from 'src/components/organisms';
@@ -80,7 +79,7 @@ export const FavoriteScreen = () => {
   );
 };
 
-const customStyle = (theme: CustomThemeType) => {
+const customStyle = () => {
   return StyleSheet.create({
     tabBarStyle: {
       borderBottomColor: Styles.color.gableGreen,

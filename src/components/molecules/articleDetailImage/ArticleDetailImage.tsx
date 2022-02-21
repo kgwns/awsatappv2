@@ -4,14 +4,13 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from 'src/components/molecules'
 import { BannerImageWithOverlay, Label, LabelTypeProp } from 'src/components/atoms'
 import { articleFooterProps } from 'src/components/molecules/articleFooter/ArticleFooter'
-import { isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from 'src/components/atoms'
 import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native'
 
 const articleDetailFooterData: articleFooterProps = {
-    leftTitle: 'وتمجيد',
     leftTitleColor: Styles.color.white,
     leftIcon: ImagesName.clock,
     rightTitleColor: Styles.color.white,
@@ -22,10 +21,11 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
     title?: string,
     containerStyle?: ViewStyle,
-    author: string
+    author: string,
+    created: string
 }
 const ArticleDetailImage = ({
-    image, category, title, author
+    image, category, title, author, created
 }: ImageArticleProps) => {
     const [t] = useTranslation();
     const navigation = useNavigation()
@@ -51,7 +51,7 @@ const ArticleDetailImage = ({
                     children={title}
                     color={Styles.color.white}
                     style={{ paddingBottom: normalize(5), paddingTop: normalize(15) }} />
-                <ArticleFooter {...articleDetailFooterData} rightTitle={author}/>
+                <ArticleFooter {...articleDetailFooterData} rightTitle={author} leftTitle={t(timeAgo(created))}/>
             </View>
         </View>
     )

@@ -4,5 +4,6 @@ export const atomTestID = {
 
 export const moleculesTestID = {
     storySaveBtn: 'StorySaveButton',
-    tabItemBtn: 'tabItemButton'
+    tabItemBtn: 'tabItemButton',
+    filterBtn: 'filterBtn'
 }
