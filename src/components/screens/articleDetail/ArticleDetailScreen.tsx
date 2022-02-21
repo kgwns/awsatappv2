@@ -67,7 +67,6 @@ export const ArticleDetailScreen = ({
     nid && getArticleDetail(nid)
   }
 
-  shortArticleWithTagData.map((item: ShortArticleProps) => item.titleColor = themeData.primaryBlack)
 
   const articleHtmlContent = () => (
     <View style={articleDetailScreenStyle.labelStyle}>
@@ -100,7 +99,7 @@ export const ArticleDetailScreen = ({
           style={{ flex: 1, height: '100%' }}
           data={[{}]}
           keyExtractor={(_, index) => index.toString()}
-          renderItem={({ }) => renderItem()}
+          renderItem={() => renderItem()}
           showsVerticalScrollIndicator={false}
           bounces={false}
         />

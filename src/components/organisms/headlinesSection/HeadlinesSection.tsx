@@ -79,6 +79,7 @@ const HeadlinesSection = ({
             setTimeout(function () {
                 { getNextData() }
             }, duration);
+            return <View/>;
         }
     }
     const onPress = () => {
