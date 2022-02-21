@@ -21,7 +21,7 @@ describe('<AppStackContainer>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    xit('Should render AppStackContainer', () => {
+    it('Should render AppStackContainer', () => {
       expect(instance).toBeDefined();
     });
   });
