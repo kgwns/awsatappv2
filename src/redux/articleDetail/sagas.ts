@@ -50,7 +50,7 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
             body: body_export,
             title,
             nid: nid_export,
-            image: isNonEmptyArray(field_image_export) ? getImageUrl(field_image_export[0]) : getImageUrl(field_image_export[0]),
+            image: isNonEmptyArray(field_image_export) ? getImageUrl(field_image_export[0]) : '',
             view_node: view_node,
             news_categories: field_news_categories_export,
             tag_topics: isNonEmptyArray(field_tags_topics_export) ? field_tags_topics_export[0] : field_tags_topics_export,
