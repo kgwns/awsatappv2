@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
@@ -24,6 +24,9 @@ export interface VideoItemProps {
   date?: string;
   views?: string;
   isFirstItem?: boolean;
+  onPress?: ()=> void;
+  testID?: string;
+  shortDescription?: string;
   toWatchTitle?: string;
 }
 
@@ -36,6 +39,8 @@ export const VideoItem = ({
   date,
   views,
   isFirstItem,
+  onPress,
+  testID,
   toWatchTitle,
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
@@ -44,20 +49,24 @@ export const VideoItem = ({
   const showSeparator = (views || toWatchTitle) && (date)
   return (
     <View>
-      {isFirstItem ? (
-        <View style={styles.videoContainer}>
-          <Image resizeMode={'cover'} url={imageUrl} style={styles.imageBig} />
+      <TouchableOpacity testID={testID} accessibilityLabel={testID} onPress={onPress}>
+        <View>
+        {isFirstItem ? (
+          <View style={styles.videoContainer}>
+            <Image resizeMode={'cover'} url={imageUrl} style={styles.imageBig} />
+          </View>
+        ) : (
+            <View style={styles.videoContainer}>
+              <Image resizeMode={'cover'} url={imageUrl} style={styles.image} />
+              {time && (<PlayIcon fill={colors.white} style={styles.playIcon} />)}
+              {time && (<Label style={styles.time} color={colors.white}>
+                {time}
+              </Label>)}
+              {videoLabel &&(<Label style={styles.videoLable}>{videoLabel}</Label>)}
+            </View>
+        )}
         </View>
-      ) : (
-        <View style={styles.videoContainer}>
-          <Image resizeMode={'cover'} url={imageUrl} style={styles.image} />
-          {time && (<PlayIcon fill={colors.white} style={styles.playIcon} />)}
-          {time && (<Label style={styles.time} color={colors.white}>
-            {time}
-          </Label>)}
-          {videoLabel &&(<Label style={styles.videoLable}>{videoLabel}</Label>)}
-        </View>
-      )}
+      </TouchableOpacity>
 
       <Label labelType={'h2'}>{title}</Label>
       <Label labelType={'p3'} color={themeData.secondaryDavyGrey}>

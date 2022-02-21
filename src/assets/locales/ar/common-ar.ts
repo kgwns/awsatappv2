@@ -87,6 +87,10 @@ export const arabic = {
     moreEpisodes: 'المزيد من حلقات البودكاست',
     listenToEpisode: 'استمع إلى الحلقة',
   },
+  videoDetail: {
+    watch: 'مشاهده',
+  },
+
   favorite: {
     tabItem: {
       content_for_you: 'محتوي لك',

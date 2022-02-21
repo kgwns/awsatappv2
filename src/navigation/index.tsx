@@ -12,7 +12,8 @@ import {
   PodcastProgram,
   StoryScreen,
   SectionArticlesScreen,
-  PodcastEpisode
+  PodcastEpisode,
+  VideoDetailScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -36,6 +37,7 @@ export const Routes = {
   StoryScreen,
   SectionArticlesScreen,
   PodcastEpisode,
+  VideoDetailScreen,
 };
 
 /**

@@ -19,6 +19,9 @@ export { PodcastEpisodeList } from 'src/components/organisms/podcast/PodcastEpis
 export { PodcastProgramInfo, PodcastProgramInfoProps } from 'src/components/organisms/podcast/PodcastProgramInfo';
 export { PodcastEpisodeContent } from 'src/components/organisms/podcast/PodcastEpisodeContent';
 export { PodcastEpisodeInfo } from 'src/components/organisms/podcast/PodcastEpisodeInfo';
+export { VideoInfo } from 'src/components/organisms/video_details/VideoInfo';
+export { VideosList } from 'src/components/organisms/video_details/VideosList';
+
 export {StoryListView, StoryListProps, StoryListItemProps} from './story_list_view/StoryListView';
 export { default as VideoContent } from 'src/components/organisms/VideoContent';
 export { default as NewsFeed} from 'src/components/organisms/NewsFeed';
