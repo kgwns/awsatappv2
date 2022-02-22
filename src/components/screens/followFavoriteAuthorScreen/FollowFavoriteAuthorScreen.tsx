@@ -10,6 +10,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ScreensConstants} from 'src/constants';
 import { useAllWriters } from 'src/hooks';
 import { AllWritersBodyGet } from 'src/redux/allWriters/types';
+import { ScreenContainer } from '..';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
@@ -25,18 +26,19 @@ export const FollowFavoriteAuthorScreen = () => {
   }, []);
 
   return (
-    <View style={style.container}>
-      <View style={style.textContainer}>
-        <Label style={style.titleStyle}>
-          {t('onBoard.followFavoriteAuthor.title')}
-        </Label>
-        <Label style={style.descStyle}>
-          {t('onBoard.followFavoriteAuthor.description')}
-        </Label>
-      </View>
-      <View style={style.widgetContainer}>
-        {isLoading ? <LoadingState /> : <FollowFavoriteAuthorWidget writersData={allWritersData} />}
-      </View>
+    <ScreenContainer>
+      <View style={style.container}>
+        <View style={style.textContainer}>
+          <Label style={style.titleStyle}>
+            {t('onBoard.followFavoriteAuthor.title')}
+          </Label>
+          <Label style={style.descStyle}>
+            {t('onBoard.followFavoriteAuthor.description')}
+          </Label>
+        </View>
+        <View style={style.widgetContainer}>
+          {isLoading ? <LoadingState /> : <FollowFavoriteAuthorWidget writersData={allWritersData} />}
+        </View>
       <NextButton
         title={t('onBoard.common.nextBtn')}
         testID={'nextButtonTestId'}
@@ -44,6 +46,7 @@ export const FollowFavoriteAuthorScreen = () => {
         style={style}
       />
     </View>
+    </ScreenContainer>
   );
 };
 
@@ -94,7 +97,7 @@ const customStyle = (theme: CustomThemeType) => {
       position: 'absolute',
       bottom: 0,
     },
-    nextButtonIconContainer: {flex: 0.1, marginEnd: normalize(10)},
+    nextButtonIconContainer: { flex: 0.1, marginEnd: normalize(10) },
     nextButtonTextContainer: {
       flex: 1,
       left: normalize(-18),
