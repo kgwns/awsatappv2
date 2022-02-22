@@ -14,6 +14,7 @@ import {
   SectionArticlesScreen,
   PodcastEpisode,
   VideoDetailScreen,
+  SignInPage,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -38,6 +39,7 @@ export const Routes = {
   SectionArticlesScreen,
   PodcastEpisode,
   VideoDetailScreen,
+  SignInPage,
 };
 
 /**

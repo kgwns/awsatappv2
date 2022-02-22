@@ -103,5 +103,29 @@ export const arabic = {
       video: 'فيديو',
       podcast: 'بودكاست'
     }
-  }
+  },
+  signIn: {
+    signUp: 'قم بالتسجيل',
+    skip: 'تخطى',
+    signUpReceive: 'قم بالتسجيل لتحطى على أخبار مخصصه لك',
+    email: 'الإيميل',
+    signIn: 'تسجيل الدخول',
+    or: 'أو',
+    loginFacebook: 'الدخول بحساب الفيسبوك',
+    loginGoogle: 'الدخول بحساب جوجل',
+    loginApple: 'الدخول بحساب ابل',
+    termsAndConditions: 'الدخول بحساب ابل',
+    agreeTo: 'عن طريق تسجيل الدخول تكون قد وافقت على',
+    rights: 'لاستخدام التطبيق و باق حقوق تلكه و الواقعة للبراجراف',
+    loginAccount: 'الدخول لحسابك',
+    password: 'كلمة المرور',
+    forgotPassword: 'نسيت كلمة المرور',
+    return: 'الرجوع',
+  },
+  validation: {
+    emailEmpty: 'Email required',
+    emailNotValid: 'Email not valid',
+    passwordEmpty: 'Password required',
+    passwordNotMatch: 'Password do not match',
+  },
 };
