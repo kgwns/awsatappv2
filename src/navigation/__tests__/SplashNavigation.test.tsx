@@ -25,7 +25,7 @@ describe('<SplashNavigation>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    xit('Should render SplashNavigation', () => {
+    it('Should render SplashNavigation', () => {
       expect(instance).toBeDefined();
     });
   });

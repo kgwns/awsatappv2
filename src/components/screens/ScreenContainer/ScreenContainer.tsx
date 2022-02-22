@@ -5,13 +5,11 @@ import { isDarkTheme, normalize } from '../../../shared/utils'
 import { useAppCommon } from '../../../hooks/useAppCommon'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-
-import {Label, LoadingState, Image} from 'src/components/atoms';
-import ReturnArrowBlack from 'src/assets/images/icons/return_arrow_black.svg';
-import {useNavigation} from '@react-navigation/native';
-import {Styles} from 'src/shared/styles';
-import {useTranslation} from 'react-i18next';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
+import { Label, LoadingState, Image } from 'src/components/atoms';
+import { useNavigation } from '@react-navigation/native';
+import { Styles } from 'src/shared/styles';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 import DeviceInfo from 'react-native-device-info';
 
 const isIphoneX = DeviceInfo.hasNotch();
@@ -25,13 +23,13 @@ export interface ScreenContainerProps {
   headerTitle?: string;
 }
 
-export const ScreenContainer = ({ children, edge, isLoading = false ,barStyle, showHeader = false, headerTitle}: ScreenContainerProps) => {
+export const ScreenContainer = ({ children, edge, isLoading = false, barStyle, showHeader = false, headerTitle }: ScreenContainerProps) => {
   const { theme } = useAppCommon()
   const isDarkMode = isDarkTheme(theme)
   const style = useThemeAwareObject(createStyles);
   const navigation = useNavigation();
 
-  const {themeData} = useTheme();
+  const { themeData } = useTheme();
 
   const [t] = useTranslation();
 
@@ -42,22 +40,22 @@ export const ScreenContainer = ({ children, edge, isLoading = false ,barStyle, s
   const header = (title?: string) => {
     return (
 
-        <View style={style.headerContainer}>
-          {title && (
-            <Label
-              labelType="h2"
-              color={themeData.secondaryDarkSlate}
-              style={style.headerTitle}>
-              {title}
-            </Label>
-          )}
-          <TouchableOpacity style={style.returnStyle} onPress={onPressBack}>
-            <Image name="returnIcon" style={style.returnIconStyle} />
-            <Label style={style.prevTitleStyle}>
-              {t('onBoard.common.return')}
-            </Label>
-          </TouchableOpacity>
-        </View>
+      <View style={style.headerContainer}>
+        {title && (
+          <Label
+            labelType="h2"
+            color={themeData.secondaryDarkSlate}
+            style={style.headerTitle}>
+            {title}
+          </Label>
+        )}
+        <TouchableOpacity style={style.returnStyle} onPress={onPressBack}>
+          <Image name="returnIcon" style={style.returnIconStyle} />
+          <Label style={style.prevTitleStyle}>
+            {t('onBoard.common.return')}
+          </Label>
+        </TouchableOpacity>
+      </View>
 
     );
   };
@@ -67,7 +65,7 @@ export const ScreenContainer = ({ children, edge, isLoading = false ,barStyle, s
       style={style.container}
       edges={edge ? edge : ['left', 'right', 'top']}>
       {showHeader && header(headerTitle)}
-      <StatusBar barStyle={barStyle?barStyle:(isDarkMode ? 'light-content' : 'dark-content')} />
+      <StatusBar backgroundColor={themeData.backgroundColor} barStyle={barStyle ? barStyle : (isDarkMode ? 'light-content' : 'dark-content')} />
       {children}
       {isLoading && <LoadingState />}
     </SafeAreaView>

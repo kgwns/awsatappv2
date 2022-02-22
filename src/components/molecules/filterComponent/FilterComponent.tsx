@@ -6,6 +6,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { normalize } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
+import { moleculesTestID } from 'src/constants'
 
 export type FilterDataType = {
     name: string,
@@ -29,7 +30,7 @@ export const FilterComponent = ({
         >
             {
                 data.map((item: FilterDataType, index: number) =>
-                    <TouchableOpacity key={index} activeOpacity={0.8} onPress={() => onPress(index)}
+                    <TouchableOpacity testID={moleculesTestID.filterBtn} key={index} activeOpacity={0.8} onPress={() => onPress(index)}
                         style={[style.filterItem, item.isSelected && style.filterActive]}
                     >
                         <Label children={item.name} style={style.label}
@@ -45,7 +46,8 @@ export const FilterComponent = ({
 const customStyle = (theme: CustomThemeType) => (
     StyleSheet.create({
         container: {
-            paddingVertical: normalize(10)
+            paddingVertical: normalize(10),
+            alignSelf: 'flex-start'
         },
         filterItem: {
             marginRight: normalize(20),

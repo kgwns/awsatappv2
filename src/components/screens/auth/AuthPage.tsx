@@ -69,6 +69,10 @@ export const AuthPage: FunctionComponent = () => {
       <View style={styles.container}>
         <View style={styles.headerStyle}>
           <TouchableOpacity
+            style={{
+              borderBottomWidth: 1,
+              borderBottomColor: colors.greenishBlue,
+            }}
             testID="signin_skip"
             accessibilityLabel="signin_skip"
             onPress={() => navigateToSection('')}>
