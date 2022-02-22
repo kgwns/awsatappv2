@@ -21,9 +21,14 @@ export interface ScreenContainerProps {
   barStyle?: StatusBarStyle;
   showHeader?: boolean;
   headerTitle?: string;
+  statusbarColor?: string
 }
 
-export const ScreenContainer = ({ children, edge, isLoading = false, barStyle, showHeader = false, headerTitle }: ScreenContainerProps) => {
+export const ScreenContainer = ({
+  children, edge, isLoading = false, barStyle,
+  showHeader = false, headerTitle,
+  statusbarColor
+}: ScreenContainerProps) => {
   const { theme } = useAppCommon()
   const isDarkMode = isDarkTheme(theme)
   const style = useThemeAwareObject(createStyles);
@@ -60,12 +65,13 @@ export const ScreenContainer = ({ children, edge, isLoading = false, barStyle, s
     );
   };
 
+  const statusBarBackgroundColor = statusbarColor || themeData.backgroundColor
   return (
     <SafeAreaView
       style={style.container}
       edges={edge ? edge : ['left', 'right', 'top']}>
       {showHeader && header(headerTitle)}
-      <StatusBar backgroundColor={themeData.backgroundColor} barStyle={barStyle ? barStyle : (isDarkMode ? 'light-content' : 'dark-content')} />
+      <StatusBar backgroundColor={statusBarBackgroundColor} barStyle={barStyle ? barStyle : (isDarkMode ? 'light-content' : 'dark-content')} />
       {children}
       {isLoading && <LoadingState />}
     </SafeAreaView>

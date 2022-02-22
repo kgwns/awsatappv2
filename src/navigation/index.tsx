@@ -15,6 +15,7 @@ import {
   PodcastEpisode,
   VideoDetailScreen,
   SignInPage,
+  TermsAndAboutUs,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -40,6 +41,7 @@ export const Routes = {
   PodcastEpisode,
   VideoDetailScreen,
   SignInPage,
+  TermsAndAboutUs,
 };
 
 /**
@@ -78,6 +80,8 @@ const followFavoriteAuthorScreen = 'followFavoriteAuthorScreen' as ScreenName;
 const keepNotifiedScreen = 'keepNotifiedScreen' as ScreenName;
 const articleDetailScreen = 'articleDetailScreen' as ScreenName
 const selectInterestScreen = 'selectInterestScreen' as ScreenName;
+const termsAndAboutUs = 'termsAndAboutUs' as ScreenName;
+
 
 export const RoutesName = {
   favoriteScreen,
@@ -92,4 +96,5 @@ export const RoutesName = {
   keepNotifiedScreen,
   articleDetailScreen,
   selectInterestScreen,
+  termsAndAboutUs
 };
