@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Image } from 'src/components/atoms';
 import { Label } from 'src/components/atoms';
 import { normalize, screenWidth } from 'src/shared/utils';
@@ -37,7 +37,7 @@ const FollowFavoriteAuthor = ({
   const theme = useTheme();
   return (
     <View style={style.container}>
-      <TouchableOpacity onPress={changeStatus} testID={testId}>
+      <TouchableWithoutFeedback onPress={changeStatus} testID={testId}>
         <View style={style.imageWrapper}>
           <View style={style.imageContainer}>
             <View style={style.innerCircle}>
@@ -81,7 +81,7 @@ const FollowFavoriteAuthor = ({
             {authorDescription}
           </Label>
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
