@@ -59,6 +59,10 @@ const sampleResponse = {
     }
 }
 
+const errorResponse = {
+    response: { data: 'Error', status: 500, statusText: 'Error' }
+}
+
 describe('<Article Detail Saga >', () => {
     beforeEach(() => {
         jest.useFakeTimers()
@@ -93,6 +97,17 @@ describe('<Article Detail Saga >', () => {
             genObject.next(sampleResponse)
             genObject.next(sampleResponse)
         })
+
+        it('check fetchHeroListTopListWidgetData failed', () => {
+            const genObject = fetchArticleDetail({
+                type: REQUEST_ARTICLE_DETAIL,
+                payload: {
+                    nid: 12345
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
     })
 
     describe('Related ArticleDetail', () => {
@@ -105,6 +120,18 @@ describe('<Article Detail Saga >', () => {
             })
             genObject.next(sampleResponse)
             genObject.next(sampleResponse)
+        })
+
+
+        it('check fetchHeroListTopListWidgetData failed', () => {
+            const genObject = fetchRelatedArticle({
+                type: REQUEST_RELATED_ARTICLE,
+                payload: {
+                    tid: 12345
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
         })
     })
 })
