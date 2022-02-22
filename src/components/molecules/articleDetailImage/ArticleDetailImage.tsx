@@ -4,7 +4,7 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from 'src/components/molecules'
 import { BannerImageWithOverlay, Label, LabelTypeProp } from 'src/components/atoms'
 import { articleFooterProps } from 'src/components/molecules/articleFooter/ArticleFooter'
-import { isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isIOS, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from 'src/components/atoms'
 import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import { useTranslation } from 'react-i18next';
@@ -38,7 +38,7 @@ const ArticleDetailImage = ({
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
             <BannerImageWithOverlay image={image} />
             <TouchableOpacity testID={'onPressbackTestID'} 
-            style={Platform.OS==='android'? imageArticleStyle.returnStyleAndroid : imageArticleStyle.returnStyle} 
+            style={imageArticleStyle.returnStyle} 
             onPress={onPressBack}>
                 <ReturnArrow style={imageArticleStyle.prevIconStyle} />
                 <Label style={imageArticleStyle.prevTitleStyle}>
@@ -99,17 +99,7 @@ const imageArticleStyle = StyleSheet.create({
         position: 'absolute',
         left: normalize(15),
         alignContent: 'center',
-        top: normalize(50),
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        color: Styles.color.white
-    },
-    returnStyleAndroid: {
-        flexDirection: 'row',
-        position: 'absolute',
-        left: normalize(15),
-        alignContent: 'center',
-        top: normalize(20),
+        top: isIOS ? normalize(50) : normalize(20),
         flexWrap: 'wrap',
         alignItems: 'center',
         color: Styles.color.white
