@@ -48,12 +48,15 @@ export const AuthPage: FunctionComponent = () => {
       <View style={styles.container}>
         <View style={styles.headerStyle}>
           <TouchableOpacity
+            style={{
+              borderBottomWidth: 1,
+              borderBottomColor: colors.greenishBlue,
+            }}
             testID="signin_skip"
             accessibilityLabel="signin_skip"
             onPress={() => navigateToSection('')}>
             <Label
-              children={'تخطى'}
-              labelType="underlinedTitle"
+              children={'تخطي'}
               color={colors.greenishBlue}
               style={styles.headerLabelStyle}
             />
@@ -129,7 +132,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   headerLabelStyle: {
-    fontSize: normalize(15),
+    fontSize: normalize(12),
+    lineHeight: normalize(20),
   },
   containerStyle: {
     flex: 0.7,
