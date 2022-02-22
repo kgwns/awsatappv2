@@ -1,4 +1,4 @@
-import { Alert, ColorSchemeName } from "react-native"
+import { Alert, ColorSchemeName, Platform } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
 import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX } from "../../constants/SharedConstants"
 import { Edge } from "react-native-safe-area-context";
@@ -22,6 +22,9 @@ export const CustomAlert = ({
     Alert.alert(title, message);
   }, delay);
 };
+
+export const IS_IOS_PLATFORM = Platform.OS === 'ios'
+export const IS_ANDROID_PLATFORM = Platform.OS === 'android'
 
 export const isDarkTheme = (colorScheme: ColorSchemeName) => {
   return colorScheme == Theme.DARK;

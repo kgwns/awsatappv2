@@ -13,7 +13,7 @@ export const TabBarComponent = ({ tabItem, onPressTabItem, style }: TabBarWidget
   return (
     <View style={{ width: screenWidth, marginTop: normalize(10) }} >
       <ScrollView horizontal={true} bounces={false} style={style}
-      contentContainerStyle={{flex: 1}}
+        contentContainerStyle={{ flexGrow: 1 }}
         showsHorizontalScrollIndicator={false}>
         {
           tabItem.map((item: TabBarDataProps, index: number) =>

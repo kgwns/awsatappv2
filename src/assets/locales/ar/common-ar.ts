@@ -90,7 +90,6 @@ export const arabic = {
   videoDetail: {
     watch: 'مشاهده',
   },
-
   favorite: {
     tabItem: {
       content_for_you: 'محتوي لك',
@@ -103,5 +102,8 @@ export const arabic = {
       video: 'فيديو',
       podcast: 'بودكاست'
     }
-  }
+  },
+  about_the_news_paper: 'عن الجريدة',
+  terms_of_use: 'شروط الانتفاع',
+  return: 'الرجوع',
 };
