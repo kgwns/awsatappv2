@@ -28,7 +28,7 @@ export const isDarkTheme = (colorScheme: ColorSchemeName) => {
 };
 
 export const testProps = (testID: string | undefined) => {
-  return {testID: testID, accessibilityLabel: testID};
+  return { testID: testID, accessibilityLabel: testID };
 };
 
 export const horizontalEdge: Edge[] = ['left', 'right'];
