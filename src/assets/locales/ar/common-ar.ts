@@ -18,7 +18,7 @@ export const arabic = {
   onBoard: {
     common: {
       nextBtn: 'التالي',
-      skip: 'تخطي',
+      skip: 'تخطى',
       return: 'الرجوع',
     },
     followFavoriteAuthor: {
@@ -103,5 +103,8 @@ export const arabic = {
       video: 'فيديو',
       podcast: 'بودكاست'
     }
+  },
+  searchScreen: {
+    placeholder: 'ابحث في الشرق الأوسط …'
   }
 };
