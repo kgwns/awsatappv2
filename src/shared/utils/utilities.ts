@@ -23,8 +23,6 @@ export const CustomAlert = ({
   }, delay);
 };
 
-export const IS_IOS_PLATFORM = Platform.OS === 'ios'
-export const IS_ANDROID_PLATFORM = Platform.OS === 'android'
 
 export const isDarkTheme = (colorScheme: ColorSchemeName) => {
   return colorScheme == Theme.DARK;

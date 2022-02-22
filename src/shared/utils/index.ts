@@ -18,7 +18,5 @@ export {
   timeAgo,
   calculateDate,
   calculateTimeSince,
-  calculateMonth,
-  IS_ANDROID_PLATFORM,
-  IS_IOS_PLATFORM
+  calculateMonth
 } from 'src/shared/utils/utilities'

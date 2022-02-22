@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { ButtonIconWithLabel, HtmlRenderer, Image, Label } from 'src/components/atoms'
-import { horizontalAndBottomEdge, isNonEmptyArray, IS_ANDROID_PLATFORM, normalize, screenWidth } from 'src/shared/utils'
+import { horizontalAndBottomEdge, isIOS, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ScreenContainer } from '..'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -46,7 +46,8 @@ export const TermsAndAboutUs = ({
   }
 
   return (
-    <ScreenContainer edge={horizontalAndBottomEdge} isLoading={isLoading}>
+    <ScreenContainer edge={horizontalAndBottomEdge} isLoading={isLoading}
+      statusbarColor={themeData.secondaryGreen}>
       <View style={style.headerContainer}>
         <View style={style.return}>
           <ButtonIconWithLabel
@@ -91,7 +92,7 @@ const customStyle = (theme: CustomThemeType) => (
       position: 'absolute',
       left: 0.04 * screenWidth,
       alignContent: 'center',
-      top: IS_ANDROID_PLATFORM ? normalize(25) : normalize(50),
+      top: isIOS ? normalize(50) : normalize(25),
       flexWrap: 'wrap',
       alignItems: 'center'
     },

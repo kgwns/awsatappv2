@@ -1,4 +1,4 @@
-import { ScrollView, StyleProp, View } from 'react-native'
+import { ScrollView, StyleProp, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { TabWithBarItem, TabBarDataProps } from '..'
 import { normalize, screenWidth } from 'src/shared/utils'
@@ -11,9 +11,9 @@ export interface TabBarWidgetProps {
 
 export const TabBarComponent = ({ tabItem, onPressTabItem, style }: TabBarWidgetProps) => {
   return (
-    <View style={{ width: screenWidth, marginTop: normalize(10) }} >
+    <View style={styles.container}>
       <ScrollView horizontal={true} bounces={false} style={style}
-        contentContainerStyle={{ flexGrow: 1 }}
+        contentContainerStyle={styles.contentStyle}
         showsHorizontalScrollIndicator={false}>
         {
           tabItem.map((item: TabBarDataProps, index: number) =>
@@ -23,3 +23,13 @@ export const TabBarComponent = ({ tabItem, onPressTabItem, style }: TabBarWidget
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: screenWidth,
+    marginTop: normalize(10)
+  },
+  contentStyle: {
+    flexGrow: 1
+  }
+})
