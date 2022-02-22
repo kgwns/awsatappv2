@@ -9,12 +9,13 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {normalize} from 'src/shared/utils';
 import {StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Image, Label} from 'src/components/atoms';
+import {Label} from 'src/components/atoms';
 import {ImagesName} from 'src/shared/styles';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {ScreensConstants} from 'src/constants';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 const Stack = createStackNavigator<ScreenList>();
 
@@ -28,10 +29,10 @@ const OnBoardNavigator = () => {
   const navigation = useNavigation();
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
+  const previousIconStyle = style.onBoardPrevIcon
 
-  const HeaderLogo = () => (
-    <Image style={style.logo} name={ImagesName.headerLogo} />
-  );
+  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
+
   const onBoardSkip = (routesName: any) => (
     <TouchableOpacity
       onPress={() => {
@@ -63,7 +64,7 @@ const OnBoardNavigator = () => {
       style={style.onBoardReturn}
       onPress={() => navigation.goBack()}>
       <Label style={style.onBoardPrevTitle}>{t('onBoard.common.return')}</Label>
-      <Image name="arrowPrev" style={style.onBoardPrevIcon} />
+      {getSvgImages({ name: ImagesName.arrowPrev, width: previousIconStyle.width, height: previousIconStyle.height, style: previousIconStyle })}
     </TouchableOpacity>
   );
 

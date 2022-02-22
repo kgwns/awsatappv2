@@ -4,38 +4,32 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import TabNavigator from './TabNavigator';
 import { ImagesName } from '../shared/styles/images';
-import { Image, ImageName } from '../components/atoms';
 import { colors } from '../shared/styles/colors';
 import CustomDrawerContent from './CustomDrawerContent';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import {ScreensConstants} from '../constants/ScreenConstants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-
-
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 const DrawerNavigator = () => {
   const navigation = useNavigation();
   const style = useThemeAwareObject(customStyle)
   const {themeData} = useTheme();
 
-  const buildTabIcon = (name: ImageName, style: object, screenName: string) => (
-    <TouchableOpacity
-      onPress={() => {
-        if(screenName==ScreensConstants.SearchScreen){
-          return navigation.navigate(ScreensConstants.SearchScreen);
-        }
-        navigation.dispatch(DrawerActions.toggleDrawer());
-      }}>
-      <Image style={style} name={name} />
+  const Search = () => (
+    <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.SearchScreen)}>
+      {getSvgImages({ name: ImagesName.searchIcon, width: style.search.width, height: style.search.height, style: style.search })}
     </TouchableOpacity>
-  );
+  )
 
-  const Search = () => buildTabIcon(ImagesName.searchIcon, style.search, ScreensConstants.SearchScreen);
-  const HeaderLogo = () => (
-    <Image style={style.logo} name={ImagesName.headerLogo} />
-  );
-  const Menu = () => buildTabIcon(ImagesName.menuIcon, style.menu,'')
+  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
+
+  const Menu = () => (
+    <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
+      {getSvgImages({ name: ImagesName.menuIcon, width: style.menu.width, height: style.menu.height, style: style.menu })}
+    </TouchableOpacity>
+  )
   
   const Drawer = createDrawerNavigator();
   return (

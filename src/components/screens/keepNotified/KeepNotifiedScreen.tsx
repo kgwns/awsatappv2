@@ -1,9 +1,8 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label, Image} from 'src/components/atoms';
+import {Label, NextButton} from 'src/components/atoms';
 import {normalize} from 'src/shared/utils';
-import {ImagesName} from 'src/shared/styles';
 import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
 import {useTranslation} from 'react-i18next';
 import {ScreensConstants} from 'src/constants';
@@ -13,20 +12,6 @@ export const KeepNotifiedScreen = ({navigation}: any) => {
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
 
-  const NextButton = ({onPress}: any) => {
-    return (
-      <TouchableOpacity onPress={onPress} style={style.nextButtonContainer}>
-        <View style={style.nextButtonIconContainer}>
-          <Image name={ImagesName.arrowNext} />
-        </View>
-        <View style={style.nextButtonTextContainer}>
-          <Label style={style.nextButtonText}>
-            {t('onBoard.common.nextBtn')}
-          </Label>
-        </View>
-      </TouchableOpacity>
-    );
-  };
 
   return (
     <View style={style.container}>
@@ -38,12 +23,14 @@ export const KeepNotifiedScreen = ({navigation}: any) => {
         <KeepNotifiedWidget />
       </View>
       <NextButton
+        title={t('onBoard.common.nextBtn')}
         onPress={() =>
           navigation.reset({
             index: 0,
             routes: [{name: ScreensConstants.AppNavigator}],
           })
         }
+        style={style}
       />
     </View>
   );

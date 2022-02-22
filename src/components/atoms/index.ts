@@ -20,3 +20,4 @@ export { BorderLabel } from 'src/components/atoms/BorderLabel/BorderLabel';
 export { ImageWithIcon } from 'src/components/atoms/ImageWithIcon/ImageWithIcon'
 export { default as FooterCaptionWithImage } from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
 export { HtmlRenderer } from 'src/components/atoms/htmlRenderer/HtmlRenderer'
+export { NextButton } from '../atoms/NextButton/NextButton';

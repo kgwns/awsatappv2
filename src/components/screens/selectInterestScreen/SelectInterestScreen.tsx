@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
-import { Label, Image, LoadingState } from '../../atoms';
+import { Label, LoadingState, NextButton } from '../../atoms';
 import { normalize } from '../../../shared/utils';
-import { ImagesName } from '../../../shared/styles';
 import { useTranslation } from 'react-i18next';
 import { InterestSection } from '../../organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -36,31 +35,14 @@ export const SelectInterestScreen = ({ navigation }: any) => {
         {isLoading ? <LoadingState/> : <InterestSection allSiteCategoriesData={allSiteCategoriesData} />}
       </View>
       <NextButton
+        title={t('onBoard.common.nextBtn')}
         onPress={() => navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN)}
+        style={style}
       />
     </View>
   );
 };
 
-const NextButton = ({ onPress }: any) => {
-  const style = useThemeAwareObject(customInterestScreenStyle)
-  const [t] = useTranslation();
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={style.nextButtonContainer}>
-      <View style={style.nextButtonIconContainer}>
-        <Image name={ImagesName.arrowNext} />
-      </View>
-
-      <View style={style.nextButtonTextContainer}>
-        <Label style={style.nextButtonText}>
-          {t('onBoard.common.nextBtn')}
-        </Label>
-      </View>
-    </TouchableOpacity>
-  );
-};
 const customInterestScreenStyle = (theme: CustomThemeType) => {
   const selectInterestScreenStyle = StyleSheet.create({
     container: {
