@@ -1,4 +1,3 @@
-import { AxiosError, AxiosResponse } from "axios";
 import { all, takeLatest } from "redux-saga/effects";
 import {
     REQUEST_TICKER_HERO_DATA,
@@ -74,7 +73,7 @@ const sampleResponse = {
 }
 
 const errorResponse = {
-    response: { data: 'Error',status: 500,statusText: 'Error' }
+    response: { data: 'Error', status: 500, statusText: 'Error' }
 }
 
 describe('<LatestNewsSaga >', () => {
@@ -164,7 +163,7 @@ describe('<LatestNewsSaga >', () => {
                     }
                 })
                 genObject.next()
-                genObject.next(sampleResponse)
+                genObject.throw(errorResponse)
             })
         })
 
@@ -188,7 +187,7 @@ describe('<LatestNewsSaga >', () => {
                     }
                 })
                 genObject.next()
-                genObject.next(sampleResponse)
+                genObject.throw(errorResponse)
             })
         })
 
@@ -214,8 +213,7 @@ describe('<LatestNewsSaga >', () => {
                 }
             })
             genObject.next()
-
-            genObject.next(sampleResponse)
+            genObject.throw(errorResponse)
         })
     })
 
@@ -231,6 +229,17 @@ describe('<LatestNewsSaga >', () => {
             genObject.next(sampleResponse)
         })
 
+        it('check fetchSectionComboOne failed', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_ONE,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+
         it('check fetchSectionComboTwo success', () => {
             const genObject = fetchSectionCombo({
                 type: REQUEST_SECTION_COMBO_TWO,
@@ -241,6 +250,17 @@ describe('<LatestNewsSaga >', () => {
             genObject.next()
 
             genObject.next(sampleResponse)
+        })
+
+        it('check fetchSectionComboTwo failed', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_TWO,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
         })
 
         it('check fetchSectionComboThree success', () => {
@@ -255,6 +275,17 @@ describe('<LatestNewsSaga >', () => {
             genObject.next(sampleResponse)
         })
 
+        it('check fetchSectionComboThree failed', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_THREE,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+
         it('check fetchSectionComboFour success', () => {
             const genObject = fetchSectionCombo({
                 type: REQUEST_SECTION_COMBO_FOUR,
@@ -264,6 +295,17 @@ describe('<LatestNewsSaga >', () => {
             })
             genObject.next()
             genObject.next(sampleResponse)
+        })
+
+        it('check fetchSectionComboFour failed', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_FOUR,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
         })
     })
 })
