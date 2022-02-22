@@ -20,6 +20,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {flatListUniqueKey, ScreensConstants} from 'src/constants';
 import {useSideMenu} from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 
 interface CustomDrawerContentProps {}
 
@@ -36,6 +37,11 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   useEffect(() => {
     fetchSideMenuRequest();
   }, []);
+
+  const onPressNavigation = (screen: string,params: object) => {
+    navigation.dispatch(DrawerActions.closeDrawer());
+    navigation.navigate(screen,params);
+  }
 
   // useEffect(() => {
   //   //console.log('News Categories data', newsCategoriesData);
@@ -64,22 +70,28 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               return (
                 <ButtonList
                   title={item.title}
-                  onPress={() => {
-                    navigation.dispatch(DrawerActions.closeDrawer());
-                    navigation.navigate(ScreensConstants.SectionArticlesScreen, {sectionId: item.field_sectionid_export, title: item.title});
-                  }}
+                  onPress={() =>
+                    onPressNavigation(ScreensConstants.SectionArticlesScreen,
+                      { sectionId: item.field_sectionid_export, title: item.title })
+                  }
                 />
               );
             })}
           <Divider />
           <ButtonList
             title={t('drawer.advertiseWithUs')}
-            onPress={() => console.log('clicked')}
+            onPress={() => onPressNavigation(
+              ScreensConstants.TERMS_AND_ABOUT_US,
+              { title: t('about_the_news_paper'), id: TERMS_AND_CONDITION }
+            )}
             titleStyle={styles.nonBoldTitle}
           />
           <ButtonList
             title={t('drawer.aboutTheEast')}
-            onPress={() => console.log('clicked')}
+            onPress={() => onPressNavigation(
+              ScreensConstants.TERMS_AND_ABOUT_US,
+              { title: t('terms_of_use'), id: ABOUT_US }
+            )}
             titleStyle={styles.nonBoldTitle}
           />
           <ButtonList
