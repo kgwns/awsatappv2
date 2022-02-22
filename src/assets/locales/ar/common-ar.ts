@@ -18,7 +18,7 @@ export const arabic = {
   onBoard: {
     common: {
       nextBtn: 'التالي',
-      skip: 'تخطي',
+      skip: 'تخطى',
       return: 'الرجوع',
     },
     followFavoriteAuthor: {
@@ -106,4 +106,7 @@ export const arabic = {
   about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',
   return: 'الرجوع',
+  searchScreen: {
+    placeholder: 'ابحث في الشرق الأوسط …'
+  }
 };

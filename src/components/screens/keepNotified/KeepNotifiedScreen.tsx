@@ -1,19 +1,20 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label, Image} from 'src/components/atoms';
-import {normalize} from 'src/shared/utils';
-import {ImagesName} from 'src/shared/styles';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { Label, Image } from 'src/components/atoms';
+import { normalize } from 'src/shared/utils';
+import { ImagesName } from 'src/shared/styles';
 import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
-import {useTranslation} from 'react-i18next';
-import {ScreensConstants} from 'src/constants';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import { useTranslation } from 'react-i18next';
+import { ScreensConstants } from 'src/constants';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { ScreenContainer } from '..';
 
-export const KeepNotifiedScreen = ({navigation}: any) => {
+export const KeepNotifiedScreen = ({ navigation }: any) => {
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
 
-  const NextButton = ({onPress}: any) => {
+  const NextButton = ({ onPress }: any) => {
     return (
       <TouchableOpacity onPress={onPress} style={style.nextButtonContainer}>
         <View style={style.nextButtonIconContainer}>
@@ -29,23 +30,25 @@ export const KeepNotifiedScreen = ({navigation}: any) => {
   };
 
   return (
-    <View style={style.container}>
-      <Label style={style.titleStyle}>{t('onBoard.keepNotified.title')}</Label>
-      <Label style={style.descStyle}>
-        {t('onBoard.keepNotified.description')}
-      </Label>
-      <View style={style.contentStyle}>
-        <KeepNotifiedWidget />
+    <ScreenContainer>
+      <View style={style.container}>
+        <Label style={style.titleStyle}>{t('onBoard.keepNotified.title')}</Label>
+        <Label style={style.descStyle}>
+          {t('onBoard.keepNotified.description')}
+        </Label>
+        <View style={style.contentStyle}>
+          <KeepNotifiedWidget />
+        </View>
+        <NextButton
+          onPress={() =>
+            navigation.reset({
+              index: 0,
+              routes: [{ name: ScreensConstants.AppNavigator }],
+            })
+          }
+        />
       </View>
-      <NextButton
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{name: ScreensConstants.AppNavigator}],
-          })
-        }
-      />
-    </View>
+    </ScreenContainer>
   );
 };
 
@@ -87,8 +90,8 @@ const customStyle = (theme: CustomThemeType) => {
       position: 'absolute',
       bottom: 0,
     },
-    nextButtonIconContainer: {flex: 0.1, marginEnd: normalize(10)},
-    nextButtonTextContainer: {flex: 1, left: normalize(-18)},
+    nextButtonIconContainer: { flex: 0.1, marginEnd: normalize(10) },
+    nextButtonTextContainer: { flex: 1, left: normalize(-18) },
     nextButtonText: {
       color: theme.primary,
       fontSize: normalize(16),
