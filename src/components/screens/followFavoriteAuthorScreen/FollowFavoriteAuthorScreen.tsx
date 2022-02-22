@@ -1,17 +1,18 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label, Image, LoadingState} from 'src/components/atoms';
-import {normalize} from 'src/shared/utils';
+import React, { useEffect } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { Label, Image, LoadingState } from 'src/components/atoms';
+import { normalize } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
-import {ImagesName} from 'src/shared/styles';
-import {useNavigation} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
-import {RoutesName} from 'src/navigation';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {ScreensConstants} from 'src/constants';
+import { ImagesName } from 'src/shared/styles';
+import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { RoutesName } from 'src/navigation';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { ScreensConstants } from 'src/constants';
 import { useAllWriters } from 'src/hooks';
 import { AllWritersBodyGet } from 'src/redux/allWriters/types';
+import { ScreenContainer } from '..';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
@@ -26,12 +27,12 @@ export const FollowFavoriteAuthorScreen = () => {
     fetchAllWritersRequest(allWritersPayload);
   }, []);
 
-  interface NextButttonProps{
-    onPress:()=>void,
-    testId?:string
+  interface NextButttonProps {
+    onPress: () => void,
+    testId?: string
   }
 
-  const NextButton = ({onPress,testId}: NextButttonProps) => {
+  const NextButton = ({ onPress, testId }: NextButttonProps) => {
     return (
       <TouchableOpacity testID={testId} onPress={onPress} style={style.nextButtonContainer}>
         <View style={style.nextButtonIconContainer}>
@@ -48,23 +49,25 @@ export const FollowFavoriteAuthorScreen = () => {
   };
 
   return (
-    <View style={style.container}>
-      <View style={style.textContainer}>
-        <Label style={style.titleStyle}>
-          {t('onBoard.followFavoriteAuthor.title')}
-        </Label>
-        <Label style={style.descStyle}>
-          {t('onBoard.followFavoriteAuthor.description')}
-        </Label>
+    <ScreenContainer>
+      <View style={style.container}>
+        <View style={style.textContainer}>
+          <Label style={style.titleStyle}>
+            {t('onBoard.followFavoriteAuthor.title')}
+          </Label>
+          <Label style={style.descStyle}>
+            {t('onBoard.followFavoriteAuthor.description')}
+          </Label>
+        </View>
+        <View style={style.widgetContainer}>
+          {isLoading ? <LoadingState /> : <FollowFavoriteAuthorWidget writersData={allWritersData} />}
+        </View>
+        <NextButton
+          testId={'nextButtonTestId'}
+          onPress={() => navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)}
+        />
       </View>
-      <View style={style.widgetContainer}>
-        {isLoading ? <LoadingState /> : <FollowFavoriteAuthorWidget writersData={allWritersData} />}
-      </View>
-      <NextButton
-        testId={'nextButtonTestId'}
-        onPress={() => navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)}
-      />
-    </View>
+    </ScreenContainer>
   );
 };
 
@@ -115,7 +118,7 @@ const customStyle = (theme: CustomThemeType) => {
       position: 'absolute',
       bottom: 0,
     },
-    nextButtonIconContainer: {flex: 0.1, marginEnd: normalize(10)},
+    nextButtonIconContainer: { flex: 0.1, marginEnd: normalize(10) },
     nextButtonTextContainer: {
       flex: 1,
       left: normalize(-18),
