@@ -1,17 +1,18 @@
 import React from 'react'
-import { render, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData'
+import { storeSampleData } from 'src/constants/SampleData'
 import { FavoriteScreen } from '../FavoriteScreen'
+import { TabBarComponent } from 'src/components/molecules'
 
 describe('<FavoriteScreen>', () => {
     let instance: RenderAPI
 
     beforeEach(() => {
-        const component = 
+        const component =
             <Provider store={storeSampleData}>
                 <FavoriteScreen />
-            </Provider> 
+            </Provider>
         instance = render(component)
     })
 
@@ -22,5 +23,11 @@ describe('<FavoriteScreen>', () => {
 
     test('Should render component', () => {
         expect(instance).toBeDefined()
+    })
+
+    test('Check tab getting change when onClick', () => {
+        const tabBar = instance.container.findByType(TabBarComponent)
+        fireEvent(tabBar, 'onPressTabItem', 0)
+        expect(tabBar).toBeTruthy()
     })
 })

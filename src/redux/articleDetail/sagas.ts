@@ -19,13 +19,14 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_image_export, field_news_categories_export, author_resource }: any) => ({
+        ({ title, body, nid, field_image, field_image_export, field_news_categories_export, author_resource,created_export }: any) => ({
           body,
           title,
           nid,
           image: parseImageData(field_image, field_image_export),
           news_categories: field_news_categories_export,
-          author: author_resource
+          author: author_resource,
+          created: created_export
         })
       );
     }
@@ -46,7 +47,7 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
       const rows = response.rows
       responseData.articleDetailData = rows.map(
         ({ title, body_export, nid_export, field_image_export, view_node,
-          field_news_categories_export, author_resource, field_tags_topics_export }: any) => ({
+          field_news_categories_export, author_resource, field_tags_topics_export,created_export }: any) => ({
             body: body_export,
             title,
             nid: nid_export,
@@ -54,7 +55,8 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
             view_node: view_node,
             news_categories: field_news_categories_export,
             tag_topics: isNonEmptyArray(field_tags_topics_export) ? field_tags_topics_export[0] : field_tags_topics_export,
-            author: author_resource
+            author: author_resource,
+            created: created_export
           })
       );
     }

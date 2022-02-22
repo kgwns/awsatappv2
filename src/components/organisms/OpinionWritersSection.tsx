@@ -6,9 +6,12 @@ import {flatListUniqueKey} from 'src/constants';
 import {normalize, screenWidth} from 'src/shared/utils';
 import {Divider, Image, Label} from '../atoms';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
 import {OpinionWriterItemType} from 'src/redux/writers/types';
 import {useTranslation} from 'react-i18next';
+import {Grayscale} from 'react-native-color-matrix-image-filters';
 
 interface OpinionWritersWidgetProps {
   data: OpinionWriterItemType[];
@@ -20,25 +23,27 @@ const OpinionWritersSection = ({data}: OpinionWritersWidgetProps) => {
   const [t] = useTranslation();
   const renderItem = (item: any, index: number) => {
     return (
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         onPress={() => console.log('pressed ' + item.tid)}
         style={style.writerContainer}
         key={flatListUniqueKey.OPINION_WRITER_SECTION + index}>
         <View style={style.itemContainer}>
           <View style={[{overflow: 'hidden'}]}>
-            <Image
-              url={item.field_opinion_writer_photo_export}
-              size={normalize(54)}
-              type="round"
-              resizeMode="cover"
-              backgroundColor={theme.themeData.secondaryDavyGrey}
-            />
+            <Grayscale>
+              <Image
+                url={item.field_opinion_writer_photo_export}
+                size={normalize(54)}
+                type="round"
+                resizeMode="cover"
+                backgroundColor={theme.themeData.secondaryDavyGrey}
+              />
+            </Grayscale>
           </View>
           <Label style={style.labelStyle} numberOfLines={2}>
             {item.name}
           </Label>
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     );
   };
   return (

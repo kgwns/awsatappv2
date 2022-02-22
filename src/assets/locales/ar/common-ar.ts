@@ -18,7 +18,7 @@ export const arabic = {
   onBoard: {
     common: {
       nextBtn: 'التالي',
-      skip: 'تخطي',
+      skip: 'تخطى',
       return: 'الرجوع',
     },
     followFavoriteAuthor: {
@@ -128,4 +128,7 @@ export const arabic = {
     passwordEmpty: 'Password required',
     passwordNotMatch: 'Password do not match',
   },
+  searchScreen: {
+    placeholder: 'ابحث في الشرق الأوسط …'
+  }
 };

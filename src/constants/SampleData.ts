@@ -1,6 +1,6 @@
-import {WidgetHeaderProps} from 'src/components/atoms/widgetHeader/WidgetHeader';
-import {LabelTypeProp, TextWithFlagProps} from 'src/components/atoms';
-import {ImagesName, Styles} from 'src/shared/styles';
+import { WidgetHeaderProps } from 'src/components/atoms/widgetHeader/WidgetHeader';
+import { LabelTypeProp, TextWithFlagProps } from 'src/components/atoms';
+import { ImagesName, Styles } from 'src/shared/styles';
 import {
   AuthorItemProps,
   articleFooterProps,
@@ -8,7 +8,7 @@ import {
   VideoItemProps,
   PodcastVerticalListProps,
 } from 'src/components/molecules';
-import {Theme} from 'src/redux/appCommon/types';
+import { Theme } from 'src/redux/appCommon/types';
 import configureStore from 'redux-mock-store';
 import {
   articleProps,
@@ -18,11 +18,11 @@ import {
   StoryListProps,
   PodcastProgramInfoProps,
 } from 'src/components/organisms';
-import {normalize} from 'src/shared/utils';
-import {podcastCardProps} from 'src/components/organisms/PodcastCardSection';
-import {NewsWithImageItemProps} from 'src/components/molecules/podcast/NewsWithImageItem';
-import {ArticleRectangleCardProps} from 'src/components/molecules/podcast/ArticleRectangleCard';
-import {NewsFeedProps} from 'src/components/organisms/NewsFeed';
+import { normalize } from 'src/shared/utils';
+import { podcastCardProps } from 'src/components/organisms/PodcastCardSection';
+import { NewsWithImageItemProps } from 'src/components/molecules/podcast/NewsWithImageItem';
+import { ArticleRectangleCardProps } from 'src/components/molecules/podcast/ArticleRectangleCard';
+import { NewsFeedProps } from 'src/components/organisms/NewsFeed';
 
 export const storeInfo = [
   {
@@ -41,15 +41,17 @@ export const storeInfo = [
       hero: [],
       heroList: [],
       topList: [],
+      opinionList: [],
+      sectionComboOne: [],
+      sectionComboTwo: [],
+      sectionComboThree: [],
+      sectionComboFour: [],
     },
-    sectionComboOne: [],
-    sectionComboTwo: [],
-    sectionComboThree: [],
-    sectionComboFour: [],
     articleDetail: {
       isLoading: true,
       error: '',
       articleDetailData: [],
+      relatedArticleData: [],
       pager: {},
     },
     search: {
@@ -62,6 +64,58 @@ export const storeInfo = [
       error: '',
       isLoading: false,
     },
+    opinionWriter: {
+      opinionWriterData: [],
+      error: '',
+      isLoading: false
+    },
+    opinionsReducer: {
+      opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+      error: '',
+      isLoading: false,
+    },
+    sideMenu: {
+      sideMenuData: [],
+      error: '',
+      isLoading: false,
+    },
+    sectionArticles: {
+      sectionArticlesData: {
+        rows: [],
+        pager: { current_page: 0, items_per_page: '' }
+      },
+      error: '',
+      isLoading: false
+    },
+    newsViewReducer: {
+      heroListData: {
+        rows: [],
+        pager: { current_page: 0, items_per_page: '' }
+      },
+      topListData: {
+        rows: [],
+        pager: { current_page: 0, items_per_page: '' }
+      },
+      bottomListData: {
+        rows: [],
+        pager: { current_page: 0, items_per_page: '' }
+      },
+      error: '',
+      isLoading: false,
+
+    },
+    allWriters: {
+      allWritersData: [],
+      error: '',
+      isLoading: false,
+
+    },
+    allSiteCategories: {
+      allSiteCategoriesData: [],
+      error: '',
+      isLoading: false,
+
+    }
   },
 ];
 
@@ -111,15 +165,15 @@ export const shortArticleWithTagProperties = {
 
 const sortArticleWithTag = {
   image: 'https://picsum.photos/200/300',
-    title: 'ميقاتي: استقالة قرداحي كانت ضرورية',
-    titleColor: Styles.color.black,
-    flag: 'استنكار',
-    flagColor: Styles.color.greenishBlue,
-    barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h3,
-    nid: '2982216',
-    author: 'من ساعاتان',
-    created: '2021-05-20T23:04:52+0000'
+  title: 'ميقاتي: استقالة قرداحي كانت ضرورية',
+  titleColor: Styles.color.black,
+  flag: 'استنكار',
+  flagColor: Styles.color.greenishBlue,
+  barColor: Styles.color.greenishBlue,
+  labelType: LabelTypeProp.h3,
+  nid: '2982216',
+  author: 'من ساعاتان',
+  created: '2021-05-20T23:04:52+0000'
 }
 
 export const shortArticleWithTagData: ShortArticleProps[] = Array(5).fill(sortArticleWithTag)
@@ -182,7 +236,7 @@ const mostReadItem = {
   flagColor: Styles.color.greenishBlue,
   barColor: Styles.color.greenishBlue,
   labelType: LabelTypeProp.h3,
-  tagStyle: {marginLeft: normalize(16)},
+  tagStyle: { marginLeft: normalize(16) },
   tagLabelType: LabelTypeProp.p3,
   showDivider: false,
 };

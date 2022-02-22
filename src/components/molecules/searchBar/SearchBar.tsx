@@ -9,6 +9,7 @@ import SearchIcon from 'src/assets/images/icons/search.svg';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
+import { useTranslation } from 'react-i18next';
 export interface SearchBarProps {
   searchText: string;
   onChangeText: (searchText: string) => void;
@@ -23,9 +24,11 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
+  const [t] = useTranslation();
   return (
     <View style={styles.container}>
       <Input
+        placeholder={t('searchScreen.placeholder')}
         testID={testID}
         accessibilityLabel={testID}
         returnKeyType={'done'}

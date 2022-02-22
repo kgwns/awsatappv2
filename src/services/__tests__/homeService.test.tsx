@@ -1,14 +1,18 @@
-import axios, {AxiosError} from 'axios';
+import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import {requestHomeApi} from 'src/services/homeService';
-export const homePayload = {page:1};
+import { requestHomeApi } from 'src/services/homeService';
+export const homePayload = { page: 1 };
 describe('Test Home Widget services', () => {
   const mock = new MockAdapter(axios);
+  beforeEach(() => {
+    jest.useFakeTimers('legacy');
+  })
+
   afterEach(() => {
     mock.reset();
   });
-  xit('test getToken when response code is 200', () => {
-    mock.onPost().reply(200, {
+  it('test getToken when response code is 200', () => {
+    mock.onGet().reply(200, {
       result: true,
     });
 
@@ -17,14 +21,14 @@ describe('Test Home Widget services', () => {
       expect(response).toBeInstanceOf(Object);
     });
   });
-  xit('test getToken when response code is 500', () => {
-    mock.onPost().reply(500, {
+  it('test getToken when response code is 500', () => {
+    mock.onGet().reply(500, {
       error: 'Something Went Wrong',
     });
 
     return requestHomeApi(homePayload).catch((error: unknown) => {
-      const errorReponse = error as AxiosError;
-      expect(errorReponse.response?.status).toEqual(500);
+      const errorRepose = error as AxiosError;
+      expect(errorRepose.response?.status).toEqual(500);
     });
   });
 });

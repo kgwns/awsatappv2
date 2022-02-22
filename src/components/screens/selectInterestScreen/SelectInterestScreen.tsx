@@ -8,9 +8,10 @@ import { useTranslation } from 'react-i18next';
 import { InterestSection } from '../../organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
-import {ScreensConstants} from 'src/constants';
+import { ScreensConstants } from 'src/constants';
 import { useAllSiteCategories } from 'src/hooks';
 import { AllSiteCategoriesBodyGet } from 'src/redux/allSiteCategories/types';
+import { ScreenContainer } from '..';
 
 export const SelectInterestScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customInterestScreenStyle)
@@ -23,22 +24,24 @@ export const SelectInterestScreen = ({ navigation }: any) => {
   }, []);
   const { isLoading, allSiteCategoriesData, fetchAllSiteCategoriesRequest } = useAllSiteCategories();
   return (
-    <View style={style.container}>
-      <View style={style.textContainer}>
-        <Label style={style.titleStyle}>
-          {t('onBoard.selectInterests.title')}
-        </Label>
-        <Label style={style.descStyle}>
-          {t('onBoard.selectInterests.description')}
-        </Label>
+    <ScreenContainer>
+      <View style={style.container}>
+        <View style={style.textContainer}>
+          <Label style={style.titleStyle}>
+            {t('onBoard.selectInterests.title')}
+          </Label>
+          <Label style={style.descStyle}>
+            {t('onBoard.selectInterests.description')}
+          </Label>
+        </View>
+        <View style={style.widgetContainer}>
+          {isLoading ? <LoadingState /> : <InterestSection allSiteCategoriesData={allSiteCategoriesData} />}
+        </View>
+        <NextButton
+          onPress={() => navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN)}
+        />
       </View>
-      <View style={style.widgetContainer}>
-        {isLoading ? <LoadingState/> : <InterestSection allSiteCategoriesData={allSiteCategoriesData} />}
-      </View>
-      <NextButton
-        onPress={() => navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN)}
-      />
-    </View>
+    </ScreenContainer>
   );
 };
 
