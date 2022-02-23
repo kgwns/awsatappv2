@@ -1,6 +1,7 @@
-import { allWritersActions } from '../action';
+import {allWritersActions} from '../action';
+import {FETCH_ALL_WRITERS} from '../actionTypes';
 import allWriters from '../reducer';
-import { AllWritersState } from '../types';
+import {AllWritersState} from '../types';
 
 describe('allWriters reducer', () => {
   let initialState: AllWritersState;
@@ -38,5 +39,13 @@ describe('allWriters reducer', () => {
 
     expect(nextState.isLoading).toBeFalsy();
     expect(nextState.error).toEqual(testError);
+  });
+
+  test('Check loading state when allWriters FETCH_ALL_WRITERS request API', () => {
+    const nextState = allWriters(initialState, {
+      type: FETCH_ALL_WRITERS,
+      payload: {items_per_page: 10},
+    });
+    expect(nextState.isLoading).toBe(true);
   });
 });

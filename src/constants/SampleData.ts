@@ -66,7 +66,7 @@ export const storeInfo = [
       isLoading: false,
     },
     opinionWriter: {
-      opinionWriterData: [],
+      opinionWriterData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
       isLoading: false
     },
@@ -106,13 +106,13 @@ export const storeInfo = [
 
     },
     allWriters: {
-      allWritersData: [],
+      allWritersData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
       isLoading: false,
 
     },
     allSiteCategories: {
-      allSiteCategoriesData: [],
+      allSiteCategoriesData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
       isLoading: false,
 

@@ -1,26 +1,73 @@
+import {takeLatest} from 'redux-saga/effects';
+import {testSaga} from 'redux-saga-test-plan';
+import {FETCH_OPINIONS} from '../actionTypes';
+import opinionsSaga, {fetchOpinions} from '../sagas';
+import {fetchOpinionsSuccess} from '../action';
+import {fetchOpinionsApi} from 'src/services/opinionsService';
 
-import { all, takeLatest } from "redux-saga/effects";
-import { FETCH_OPINIONS } from "../actionTypes";
-import opinionsSaga, { fetchOpinions } from "../sagas";
+import {
+  FetchOpinionsType,
+  FetchOpinionsSuccessPayloadType,
+  OpinionsBodyGet,
+} from '../types';
 
-describe('<OpinionsSaga >', () => {
-    beforeEach(() => {
-        jest.useFakeTimers()
-    })
-    describe('Check opinion saga method', () => {
-        const genObject = opinionsSaga();
+const mockPage = 0;
+const mockString = 'mockString';
 
-        it('should wait for latest FETCH_OPINIONS action and call fetchOpinions', () => {
-            const generator = genObject.next();
-            expect(generator.value).toEqual(
-                all([
-                    takeLatest(FETCH_OPINIONS, fetchOpinions),
-                ])
-            );
-        });
+const requestObject: OpinionsBodyGet = {
+  page: mockPage,
+};
 
-        it('should be done on next iteration', () => {
-            expect(genObject.next().done).toBeTruthy();
-        });
-    })
-})
+const requestAction: FetchOpinionsType = {
+  type: FETCH_OPINIONS,
+  payload: requestObject,
+};
+
+const reposnseObject = {
+  rows: [
+    {
+      title: mockString,
+      nid: mockString,
+    },
+  ],
+};
+const errorResponse = {
+  response: {data: 'Error', status: 500, statusText: 'Error'},
+};
+
+const sucessResponseObject: FetchOpinionsSuccessPayloadType = {
+  opinionListData: reposnseObject,
+};
+
+describe('Test opinions  saga', () => {
+  it('fire on opinionssaga', () => {
+    testSaga(opinionsSaga)
+      .next()
+      .all([takeLatest(FETCH_OPINIONS, fetchOpinions)])
+      .finish()
+      .isDone();
+  });
+});
+
+describe('Test opinions success', () => {
+  it('fire on FETCH_OPINIONS', () => {
+    testSaga(fetchOpinions, requestAction)
+      .next()
+      .call(fetchOpinionsApi, requestObject)
+      .next(reposnseObject)
+      .put(fetchOpinionsSuccess(sucessResponseObject))
+      .finish()
+      .isDone();
+  });
+});
+
+describe('Test opinions  error', () => {
+  it('check fetchOpinions failed', () => {
+    const genObject = fetchOpinions({
+      type: FETCH_OPINIONS,
+      payload: {page: mockPage},
+    });
+    genObject.next();
+    genObject.throw(errorResponse);
+  });
+});
