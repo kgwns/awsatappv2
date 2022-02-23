@@ -51,3 +51,4 @@ export const TERMS_AND_CONDITION = 57
 
 // Register
 export const REGISTER_ENDPOINT = 'api/ums/v1/register';
+export const LOGIN_ENDPOINT = '/api/ums/v1/login';

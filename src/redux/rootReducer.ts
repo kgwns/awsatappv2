@@ -14,6 +14,7 @@ import allWriters from 'src/redux/allWriters/reducer';
 import allSiteCategories from 'src/redux/allSiteCategories/reducer';
 import termsAndAboutUs from 'src/redux/termsAndAboutUs/reducer';
 import registerUser from 'src/redux/register/reducer';
+import loginReducer from './login/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   allSiteCategories: allSiteCategories,
   termsAndAboutUs: termsAndAboutUs,
   register: registerUser,
+  login: loginReducer, 
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

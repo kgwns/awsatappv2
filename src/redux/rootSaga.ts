@@ -13,6 +13,7 @@ import allWritersSaga from './allWriters/sagas';
 import allSiteCategoriesSaga from './allSiteCategories/sagas';
 import termsAndAboutUs from './termsAndAboutUs/sagas'
 import registerSaga from './register/sagas'
+import loginSaga from './login/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -30,5 +31,6 @@ export function* rootSaga() {
     fork(allSiteCategoriesSaga),
     fork(termsAndAboutUs),
     fork(registerSaga),
+    fork(loginSaga),
   ]);
 }
