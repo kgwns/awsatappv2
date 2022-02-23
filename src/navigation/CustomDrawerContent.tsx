@@ -82,7 +82,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             title={t('drawer.advertiseWithUs')}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('about_the_news_paper'), id: TERMS_AND_CONDITION }
+              { title: t('terms_and_condition'), id: TERMS_AND_CONDITION }
             )}
             titleStyle={styles.nonBoldTitle}
           />
@@ -90,7 +90,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             title={t('drawer.aboutTheEast')}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('terms_of_use'), id: ABOUT_US }
+              { title: t('about_the_news_paper'), id: ABOUT_US }
             )}
             titleStyle={styles.nonBoldTitle}
           />
