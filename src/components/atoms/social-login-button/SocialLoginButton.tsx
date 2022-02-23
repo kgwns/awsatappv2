@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {StyleProp, ViewStyle, TouchableOpacity, TextStyle, StyleSheet, View} from 'react-native';
-import {Image, ImageName, Label} from 'src/components/atoms';
+import { Label} from 'src/components/atoms';
 import {LabelType} from 'src/components/atoms/label/Label';
 import {normalize} from 'src/shared/utils/dimensions';
 import { Styles } from 'src/shared/styles';
@@ -35,7 +35,7 @@ interface SocialLoginButtonProps {
   labelType?: LabelType;
   color?: string;
   onPress: () => void;
-  icon?: ImageName;
+  icon?: () => void;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   testID?: string;
@@ -61,11 +61,7 @@ export const SocialLoginButton: FunctionComponent<SocialLoginButtonProps> = ({
         {label}
       </Label>
     </View>
-    {icon &&
-      <View >
-        <Image name={icon} size={normalize(25)} />
-      </View>
-      }
+    {icon && icon()}
   </TouchableOpacity>
 );
 

@@ -26,7 +26,11 @@ const AuthorWidget = ({data}: { data: LatestOpinionDataType[] }) => {
         },
         // headerRight: {
         //     title: t('latestNewsTab.sectionComboOne.headerRight'),
-        //     icon: ImagesName.arrowLeftFaced,
+        //     icon: () => {return getSvgImages({
+        //         name: ImagesName.arrowLeftFaced,
+        //         size: normalize(12),
+        //         style: { marginLeft: normalize(10) }
+        //     })},
         //     color: Styles.color.smokeyGrey,
         //     labelType: LabelTypeProp.h3,
         //     clickable: true,

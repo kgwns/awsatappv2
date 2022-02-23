@@ -9,10 +9,15 @@ import { BannerImageWithOverlayProps } from 'src/components/atoms'
 import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native'
+import { getSvgImages } from 'src/shared/styles/svgImages'
 
 const articleDetailFooterData: articleFooterProps = {
     leftTitleColor: Styles.color.white,
-    leftIcon: ImagesName.clock,
+    leftIcon: () => {return getSvgImages({
+        name: ImagesName.clock,
+        size: normalize(12),
+        style: { marginRight: normalize(5) }
+    })},
     rightTitleColor: Styles.color.white,
     hideBookmark: true
 }

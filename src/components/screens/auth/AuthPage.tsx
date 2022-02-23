@@ -8,6 +8,7 @@ import {Label, Image} from '../../atoms';
 import {ImagesName} from '../../../shared/styles/images';
 import {SocialButtonSection} from '../../../components/organisms/';
 import {ScreensConstants} from 'src/constants';
+import { useTheme } from '@react-navigation/native';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -70,7 +71,7 @@ export const AuthPage: FunctionComponent = () => {
             <Label
               children={'لديك حساب بالفعل؟'}
               labelType="p4"
-              color={colors.greyDark50}
+              color={colors.spanishGray}
             />
             <TouchableOpacity
               testID="signin_button"
@@ -90,7 +91,7 @@ export const AuthPage: FunctionComponent = () => {
             <Label
               children={'عن طريق تسجيل الدخول تكون قد وافقت على'}
               labelType="p5"
-              color={colors.greyDark50}
+              color={colors.spanishGray}
             />
             <TouchableOpacity
               testID="terms_and_conditions"
@@ -108,7 +109,7 @@ export const AuthPage: FunctionComponent = () => {
               'لاستخدام التطبيق و باقي حقوق الملكية و الموافقه للبراجراف'
             }
             labelType="p5"
-            color={colors.greyDark50}
+            color={colors.spanishGray}
           />
         </View>
       </View>

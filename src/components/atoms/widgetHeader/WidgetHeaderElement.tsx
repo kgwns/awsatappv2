@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Image, Label, LabelTypeProp } from '..'
+import { Label, LabelTypeProp } from '..'
 import { normalize } from '../../../shared/utils'
 import { HeaderElementProps } from './WidgetHeader'
 import { atomTestID } from '../../../constants'
@@ -21,7 +21,7 @@ export const WidgetHeaderElement = ({
             style={widgetHeaderStyle.headerElementContainer}>
             <Label children={title} color={color} labelType={labelType} />
             {icon &&
-                <Image name={icon} size={normalize(12)} style={{ marginLeft: normalize(10) }} />
+                icon()
             }
         </TouchableOpacity>
     )

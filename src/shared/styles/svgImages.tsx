@@ -20,6 +20,15 @@ import GooglePodcastIcon from 'src/assets/images/icons/google_podcast.svg'
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg'
 import SpotifyIcon from 'src/assets/images/icons/spotify_icon.svg'
 
+//Social login
+import MailIcon from 'src/assets/images/socialButton/mailIcon.svg'
+import GoogleIcon from 'src/assets/images/socialButton/googleIcon.svg'
+import FacebookIcon from 'src/assets/images/socialButton/facebookIcon.svg'
+import AppleIcon from 'src/assets/images/socialButton/appleIconBlack.svg'
+
+import ClockIcon from 'src/assets/images/icons/clockIcon.svg'
+import ArrowLeftFaced from 'src/assets/images/icons/arrowLeftFaced.svg'
+
 export interface GetSVGProps {
     name: ImagesName,
     size?: number,
@@ -29,16 +38,16 @@ export interface GetSVGProps {
     height?: number,
 }
 
-export const getSvgImages = ({ name, size, style, fill,width, height }: GetSVGProps) => {
+export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGProps) => {
     const { theme } = useAppCommon()
     const isDark = isDarkTheme(theme)
     const props = {
-        width: width?width:size,
-        height: height?height:size,
+        width: width ? width : size,
+        height: height ? height : size,
         style,
         fill
     }
-
+    console.log(fill)
     switch (name) {
         case ImagesName.fontScaling:
             return <FontScalingIcon {...props} />
@@ -57,9 +66,21 @@ export const getSvgImages = ({ name, size, style, fill,width, height }: GetSVGPr
         case ImagesName.spotifyPodcast:
             return isDark ? <SpotifyDarkIcon {...props} /> : <SpotifyIcon {...props} />
         case ImagesName.closeSVG:
-            return <CloseIcon {...props}/>
+            return <CloseIcon {...props} />
         case ImagesName.playIconSVG:
-            return <PlayIcon {...props}/>
+            return <PlayIcon {...props} />
+        case ImagesName.appleIcon:
+            return <AppleIcon {...props} />
+        case ImagesName.facebookIcon:
+            return <FacebookIcon {...props} />
+        case ImagesName.googleIcon:
+            return <GoogleIcon {...props} />
+        case ImagesName.mailIcon:
+            return <MailIcon {...props} />
+        case ImagesName.clock:
+            return <ClockIcon {...props} />
+        case ImagesName.arrowLeftFaced:
+            return <ArrowLeftFaced {...props} />
         default: return null
     }
 }

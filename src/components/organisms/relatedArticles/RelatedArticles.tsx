@@ -8,6 +8,7 @@ import { ImagesName, Styles } from 'src/shared/styles';
 import { HeaderElementProps, LabelTypeProp, WidgetHeader } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 const sampleRelatedArticle: articleProps = {
   image: 'https://picsum.photos/200/300',
@@ -15,13 +16,20 @@ const sampleRelatedArticle: articleProps = {
   footerInfo: {
     rightTitle: '3 د قرادة ',
     leftTitle: 'من ساعاتان',
-    leftIcon: ImagesName.clock,
+    leftIcon: () => {return getSvgImages({
+      name: ImagesName.clock,
+      size: normalize(12),
+      style: { marginRight: normalize(5) }
+  })},
     hideBookmark: true
   },
   flag: 'العالم',
   flagColor: Styles.color.greenishBlue,
   barColor: Styles.color.greenishBlue,
-  labelType: LabelTypeProp.h3
+  labelType: LabelTypeProp.h3,
+  nid: '',
+  author: '',
+  created: ''
 }
 
 const relatedShortArticleHeaderLeft: HeaderElementProps = {
