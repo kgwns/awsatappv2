@@ -1,11 +1,13 @@
-import React, {FunctionComponent} from 'react';
-import {View, StyleProp, ViewStyle} from 'react-native';
+import React, { FunctionComponent } from 'react';
+import { View, StyleProp, ViewStyle } from 'react-native';
 import { SocialLoginButton } from '../../atoms';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+
 import {useTranslation} from 'react-i18next';
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
+
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
   style?: StyleProp<ViewStyle>;
@@ -21,7 +23,6 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       onButtonPress(type);
     }
   };
-
   return (
         <View {...style}>
           <SocialLoginButton testID="signin_facebook"

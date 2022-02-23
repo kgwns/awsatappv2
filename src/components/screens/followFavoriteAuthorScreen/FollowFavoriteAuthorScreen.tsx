@@ -1,10 +1,9 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label, Image, LoadingState} from 'src/components/atoms';
+import {Label, LoadingState, NextButton} from 'src/components/atoms';
 import {horizontalEdge, normalize} from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
-import {ImagesName} from 'src/shared/styles';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -26,30 +25,6 @@ export const FollowFavoriteAuthorScreen = () => {
     fetchAllWritersRequest(allWritersPayload);
   }, []);
 
-  interface NextButttonProps {
-    onPress: () => void;
-    testId?: string;
-  }
-
-  const NextButton = ({onPress, testId}: NextButttonProps) => {
-    return (
-      <TouchableOpacity
-        testID={testId}
-        onPress={onPress}
-        style={style.nextButtonContainer}>
-        <View style={style.nextButtonIconContainer}>
-          <Image name={ImagesName.arrowNext} />
-        </View>
-
-        <View style={style.nextButtonTextContainer}>
-          <Label style={style.nextButtonText}>
-            {t('onBoard.common.nextBtn')}
-          </Label>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <ScreenContainer edge={horizontalEdge}>
       <View style={style.container}>
@@ -68,13 +43,13 @@ export const FollowFavoriteAuthorScreen = () => {
             <FollowFavoriteAuthorWidget writersData={allWritersData} />
           )}
         </View>
-        <NextButton
-          testId={'nextButtonTestId'}
-          onPress={() =>
-            navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)
-          }
-        />
-      </View>
+      <NextButton
+        title={t('onBoard.common.nextBtn')}
+        testID={'nextButtonTestId'}
+        onPress={() => navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)}
+        style={style}
+      />
+    </View>
     </ScreenContainer>
   );
 };

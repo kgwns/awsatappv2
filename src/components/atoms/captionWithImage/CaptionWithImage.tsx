@@ -1,12 +1,11 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Image, ImageName } from '../image/Image'
 import { Label, LabelTypeProp } from '..'
 import { normalize } from '../../../shared/utils'
 
 interface captionWithImageProps {
     title?: string,
-    icon?: ImageName,
+    icon?: () => void,
     color?: string,
     style?: object,
 }
@@ -16,7 +15,7 @@ const CaptionWithImage = ({ title, icon, color, style }: captionWithImageProps) 
         <View style={style}>
             <View style={captionImageStyle.container}>
                 {icon &&
-                    <Image name={icon} size={normalize(12)} style={{ marginRight: normalize(5) }} />
+                    icon()
                 }
                 <View style={captionImageStyle.labelContainer}>
                 <Label children={title} color={color} labelType={LabelTypeProp.p5} numberOfLines={1} />

@@ -22,3 +22,4 @@ export { default as FooterCaptionWithImage } from 'src/components/atoms/footerCa
 export { HtmlRenderer } from 'src/components/atoms/htmlRenderer/HtmlRenderer'
 export { TextInputField } from 'src/components/atoms/text-input-field/TextInputField'
 export { ButtonIconWithLabel } from 'src/components/atoms/buttonIconWithLabel/ButtonIconWithLabel'
+export { NextButton } from '../atoms/NextButton/NextButton';
