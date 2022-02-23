@@ -4,22 +4,27 @@ import { Label} from 'src/components/atoms';
 import {LabelType} from 'src/components/atoms/label/Label';
 import {normalize} from 'src/shared/utils/dimensions';
 import { Styles } from 'src/shared/styles';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import {CustomThemeType} from 'src/shared/styles/colors';
 
-const linkButtonStyle = StyleSheet.create({
+const createStyles = (theme: CustomThemeType) =>
+StyleSheet.create({
   container: {
     width: '100%',
+    height: normalize(40),
     flexDirection: 'row',
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: normalize(25),
-    borderColor: Styles.color.greyDark,
+    borderColor: Styles.color.greyLight1,
     paddingHorizontal: normalize(15),
-    paddingVertical: normalize(7),
+    paddingVertical: normalize(8),
     marginVertical: normalize(7)
   },
   textStyle: {
     fontSize: normalize(14),
     lineHeight: normalize(15),
+    color: theme.textColor,
   },
   labelContainer: {
     flex: 1,
@@ -27,9 +32,6 @@ const linkButtonStyle = StyleSheet.create({
     alignItems:'center',
   },
 });
-
-const {container, textStyle, labelContainer} = linkButtonStyle;
-
 interface SocialLoginButtonProps {
   label: string;
   labelType?: LabelType;
@@ -49,20 +51,23 @@ export const SocialLoginButton: FunctionComponent<SocialLoginButtonProps> = ({
   onPress,
   labelStyle,
   testID,
-}) => (
+}) => {
+  const styles = useThemeAwareObject(createStyles);
+  return (
   <TouchableOpacity
     testID={testID}
     accessibilityLabel={testID}
     onPress={onPress}
-    style={[container, style]}
+    style={[styles.container, style]}
   >
-    <View style={[labelContainer, style]}>
-      <Label color={color} style={[textStyle, labelStyle]} labelType={labelType}>
+    <View style={[styles.labelContainer, style]}>
+      <Label color={color} style={[styles.textStyle, labelStyle]} labelType={labelType}>
         {label}
       </Label>
     </View>
-    {icon && icon()}
+      {icon && icon()}
   </TouchableOpacity>
-);
+  );
+};
 
 

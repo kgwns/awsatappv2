@@ -10,7 +10,6 @@ import BookMarkWhiteBdrSVG from 'src/assets/images/icons/bookmark_white_bdr.svg'
 import BookMarkWhiteFillSVG from 'src/assets/images/icons/bookmark_white_fill.svg'
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
-
 import { useAppCommon } from 'src/hooks'
 import { isDarkTheme } from '../utils'
 import ApplePodcastIcon from 'src/assets/images/icons/apple_podcast.svg'
@@ -19,6 +18,7 @@ import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.s
 import GooglePodcastIcon from 'src/assets/images/icons/google_podcast.svg'
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg'
 import SpotifyIcon from 'src/assets/images/icons/spotify_icon.svg'
+import ReturnArrowBlack from 'src/assets/images/icons/returnArrowBlack.svg'
 
 //Social login
 import MailIcon from 'src/assets/images/socialButton/mailIcon.svg'
@@ -81,6 +81,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <ClockIcon {...props} />
         case ImagesName.arrowLeftFaced:
             return <ArrowLeftFaced {...props} />
+        case ImagesName.returnIcon:
+            return <ReturnArrowBlack {...props} />
         default: return null
     }
 }

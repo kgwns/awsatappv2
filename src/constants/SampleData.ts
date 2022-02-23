@@ -115,6 +115,11 @@ export const storeInfo = [
       error: '',
       isLoading: false,
 
+    },
+    termsAndAboutUs: {
+      isLoading: true,
+      data: [],
+      error: ''
     }
   },
 ];

@@ -14,7 +14,8 @@ jest.mock('@react-navigation/native', () => ({
 describe('<AuthPage>', () => {
   let instance: RenderAPI;
   const navigation = {
-    reset: jest.fn()
+    reset: jest.fn(),
+    navigate: jest.fn(),
   }
   describe('when AuthPage only', () => {
     beforeEach(() => {
@@ -40,9 +41,9 @@ describe('<AuthPage>', () => {
       expect(navigation.reset).toHaveBeenCalled();
     });
     it('When Press SignIn Button', () => {
-      const testID = instance.getByTestId('signin_button');
+      const testID = instance.getByTestId('signin_signIn');
       fireEvent(testID, 'onPress','SIGNINPAGE');
-      expect(testID).toBeTruthy();
+      expect(navigation.navigate).toBeTruthy();
     });
     it('When Press TermsAndCondition Button', () => {
       const testID = instance.getByTestId('terms_and_conditions');

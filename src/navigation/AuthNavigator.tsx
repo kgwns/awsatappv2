@@ -18,6 +18,7 @@ const AuthNavigator = () => {
   return (
     <Stack.Navigator screenOptions={defaultScreenOptions}>
       <Stack.Screen name={ScreensConstants.AuthPage} component={Routes.AuthPage} />
+      <Stack.Screen name={ScreensConstants.SignInPage} component={Routes.SignInPage} />
     </Stack.Navigator>
   );
 };

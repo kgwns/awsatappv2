@@ -131,6 +131,13 @@ export const textStyles = (theme: CustomThemeType) => {
       textAlign: TextAlign.LEFT,
       color: colors.greyDark,
     },
+    p2: {
+      fontStyle: FontStyle.NORMAL,
+      fontSize: normalize(16),
+      lineHeight: normalize(25),
+      textAlign: TextAlign.LEFT,
+      color: theme.primaryBlack,
+    },
     p3: {
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(15),
