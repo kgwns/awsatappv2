@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { ButtonIconWithLabel, HtmlRenderer, Image, Label } from 'src/components/atoms'
+import { ButtonIconWithLabel, HtmlRenderer, Label } from 'src/components/atoms'
 import { horizontalAndBottomEdge, isIOS, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ScreenContainer } from '..'
@@ -12,6 +12,7 @@ import { useTermsAndAboutUs } from 'src/hooks'
 import { MixedStyleRecord } from 'react-native-render-html'
 import { useNavigation } from '@react-navigation/native'
 import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints'
+import { getSvgImages } from 'src/shared/styles/svgImages'
 
 type TermsAndAboutUsProps = {
   route: any
@@ -54,7 +55,7 @@ export const TermsAndAboutUs = ({
     return (
       <View style={style.headerItems}>
         <Label children={title} style={style.title} />
-        <Image style={style.logo} name={ImagesName.headerLogo} />
+        {getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height })}
       </View>
     )
   }
