@@ -90,7 +90,6 @@ export const arabic = {
   videoDetail: {
     watch: 'مشاهده',
   },
-
   favorite: {
     tabItem: {
       content_for_you: 'محتوي لك',
@@ -128,6 +127,9 @@ export const arabic = {
     passwordEmpty: 'Password required',
     passwordNotMatch: 'Password do not match',
   },
+  about_the_news_paper: 'عن الجريدة',
+  terms_of_use: 'شروط الانتفاع',
+  return: 'الرجوع',
   searchScreen: {
     placeholder: 'ابحث في الشرق الأوسط …'
   }

@@ -34,11 +34,7 @@ const OnBoardNavigator = () => {
   );
   const onBoardSkip = (routesName: any) => (
     <TouchableOpacity
-      style={{
-        marginEnd: normalize(10),
-        borderBottomColor: colors.greenishBlue,
-        borderBottomWidth: 1,
-      }}
+      style={style.skipContainer}
       onPress={() => {
         switch (routesName) {
           case ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN:
@@ -154,6 +150,11 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(12),
       lineHeight: normalize(20),
     },
+    skipContainer: {
+      marginEnd: normalize(10),
+      borderBottomColor: colors.greenishBlue,
+      borderBottomWidth: 1,
+    }
   });
   return headerStyles;
 };

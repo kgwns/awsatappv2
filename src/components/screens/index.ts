@@ -20,3 +20,4 @@ export {SignInPage} from 'src/components/screens/auth/SignInPage';
 
 export { VideoScreen } from './category/VideoScreen';
 export {SectionArticlesScreen} from './sectionArticles/SectionArticlesScreen';
+export { TermsAndAboutUs } from './termsAndAboutUs/TermsAndAboutUs'
