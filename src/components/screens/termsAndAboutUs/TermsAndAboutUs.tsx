@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { ButtonIconWithLabel, HtmlRenderer, Image, Label } from 'src/components/atoms'
 import { horizontalAndBottomEdge, isIOS, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils'
 import { ImagesName, Styles } from 'src/shared/styles'
@@ -11,6 +11,7 @@ import { t } from 'i18next'
 import { useTermsAndAboutUs } from 'src/hooks'
 import { MixedStyleRecord } from 'react-native-render-html'
 import { useNavigation } from '@react-navigation/native'
+import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints'
 
 type TermsAndAboutUsProps = {
   route: any
@@ -45,30 +46,41 @@ export const TermsAndAboutUs = ({
     navigation.goBack()
   }
 
+  const renderHeaderElement = () => {
+    if (id == TERMS_AND_CONDITION) {
+      return <Label children={title} style={style.termsAndConditionTitle} />
+    }
+
+    return (
+      <View style={style.headerItems}>
+        <Label children={title} style={style.title} />
+        <Image style={style.logo} name={ImagesName.headerLogo} />
+      </View>
+    )
+  }
+
   return (
     <ScreenContainer edge={horizontalAndBottomEdge} isLoading={isLoading}
       statusbarColor={themeData.secondaryGreen}>
-      <View style={style.headerContainer}>
-        <View style={style.return}>
-          <ButtonIconWithLabel
-            icon={ImagesName.returnIcon}
-            iconColor={themeData.primaryBlack}
-            title={t('return')}
-            onPress={onPressBack}
-          />
+      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+        <View style={style.headerContainer}>
+          <View style={style.return}>
+            <ButtonIconWithLabel
+              icon={ImagesName.returnIcon}
+              iconColor={themeData.primaryBlack}
+              title={t('return')}
+              onPress={onPressBack}
+            />
+          </View>
+          {renderHeaderElement()}
         </View>
-        <View style={style.headerItems}>
-          <Label children={title} style={style.title} />
-          <Image style={style.logo} name={ImagesName.headerLogo} />
-        </View>
-
-      </View>
-      {
-        isNonEmptyArray(data) &&
-        <View style={{ paddingHorizontal: 0.04 * screenWidth }}>
-          <HtmlRenderer source={data[0].body} tagsStyles={htmlTagStyle} />
-        </View>
-      }
+        {
+          isNonEmptyArray(data) &&
+          <View style={style.htmlContainer}>
+            <HtmlRenderer source={data[0].body} tagsStyles={htmlTagStyle} />
+          </View>
+        }
+      </ScrollView>
     </ScreenContainer>
   )
 }
@@ -105,6 +117,21 @@ const customStyle = (theme: CustomThemeType) => (
     logo: {
       height: normalize(40),
       width: 0.6 * screenWidth,
+    },
+    htmlContainer: {
+      paddingHorizontal: 0.04 * screenWidth,
+      paddingVertical: normalize(10)
+    },
+    termsAndConditionTitle: {
+      position: 'absolute',
+      left: 0.04 * screenWidth,
+      bottom: normalize(30),
+      alignContent: 'center',
+      alignItems: 'center',
+      color: theme.primaryBlack,
+      fontSize: normalize(22),
+      lineHeight: normalize(33),
+      fontWeight: 'bold'
     }
   })
 )

@@ -105,6 +105,7 @@ export const arabic = {
   },
   about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',
+  terms_and_condition: 'القواعد و الشروط',
   return: 'الرجوع',
   searchScreen: {
     placeholder: 'ابحث في الشرق الأوسط …'
