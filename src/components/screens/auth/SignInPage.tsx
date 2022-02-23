@@ -14,53 +14,50 @@ import {useTranslation} from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import { SocialLoginButton, TextInputField } from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
-import {emailValidation} from 'src/shared/validators';
-import { StackNavigationProp } from '@react-navigation/stack';
+import BackIcon from 'src/assets/images/icons/back_icon.svg';
+import {loginPasswordValidation} from 'src/shared/validators';
 
-export enum NavigateTypes {
+export enum SocialNavigate {
   google = 'GOOGLE',
   apple = 'APPLE',
   facebook = 'FACEBOOK',
-  email = 'EMAIL',
-  termsAndConditions = 'TERMSANDCONDITIONS',
-  signinPage = 'SIGNINPAGE',
+}
+export interface SignInPageProps {
+  route: any
 }
 
-export const AuthPage: FunctionComponent = () => {
-  const navigation = useNavigation<StackNavigationProp<any>>()
+export const SignInPage = ({
+  route
+}: SignInPageProps) => {
+  const navigation = useNavigation();
   const {themeData} = useTheme();
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [email, setEmail] = useState(route.params.email);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const navigateToSection = (type: string) => {
     switch (type) {
-      case NavigateTypes.google:
+      case SocialNavigate.google:
         return;
-      case NavigateTypes.apple:
+      case SocialNavigate.apple:
         return;
-      case NavigateTypes.facebook:
-        return;
-      case NavigateTypes.email:
-        return;
-      case NavigateTypes.termsAndConditions:
-        return;
-      case NavigateTypes.signinPage:
+      case SocialNavigate.facebook:
         return;
       default:
-        navigation.reset({
-          index: 0,
-          routes: [{name: ScreensConstants.OnBoardNavigator}],
-        });
+        navigation.goBack()
     }
   };
 
-  const onPressSignup = () => {
-    setEmailError(emailValidation(email));
+  const onPressSignIn = () => {
+    setPasswordError(loginPasswordValidation(password));
 
-    if (emailValidation(email) === ''){
-      navigation.navigate(ScreensConstants.SignInPage,{email:email})
+    if (loginPasswordValidation(password) === ''){
+      navigation.reset({
+        index: 0,
+        routes: [{name: ScreensConstants.OnBoardNavigator}],
+      });
     }
   };
 
@@ -69,28 +66,27 @@ export const AuthPage: FunctionComponent = () => {
       <View style={styles.container}>
         <View style={styles.headerStyle}>
           <TouchableOpacity
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: colors.greenishBlue,
-            }}
-            testID="signin_skip"
-            accessibilityLabel="signin_skip"
+            testID="signin_back"
+            accessibilityLabel="signin_back"
             onPress={() => navigateToSection('')}>
-            <Label
-              children={t('signIn.skip')}
-              style={styles.headerLabelStyle}
-            />
+            <View style={styles.headerContainer}>
+              <BackIcon fill={themeData.textColor} />
+              <Label
+                children={t('signIn.return')}
+                style={styles.headerLabelStyle}
+              />
+            </View>
           </TouchableOpacity>
         </View>
 
         <View style={styles.logoContainer}>
-          <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
+          <HeaderIcon style={styles.logo} fill={themeData.headerColor}/>
         </View>
 
         <View style={styles.containerStyle}>
           <View style={styles.topContainerStyle}>
             <Label
-              children={t('signIn.signUp')}
+              children={t('signIn.loginAccount')}
               labelType="h2"
               color={colors.greenishBlue}
             />
@@ -99,16 +95,33 @@ export const AuthPage: FunctionComponent = () => {
               style={styles.textStyle}
             />
             <TextInputField placeholder={t('signIn.email')}
-              testID={'signIn_email'}
+              testID={'logIn_email'}
               onChangeText={setEmail}
+              editable={false}
               value={email}
-              error={emailError}
               style={styles.inputStyle}
-              keyboardType={'email-address'}
-              leftIcon={() => <EmailIcon fill={themeData.textColor}/>}
+              leftIcon={() => <EmailIcon fill={themeData.textColor} />}
             />
-            <SocialLoginButton testID="signin_signIn"
-              onPress={onPressSignup}
+            <TextInputField placeholder={t('signIn.password')}
+              testID={'logIn_password'}
+              rightIconTestID={'logIn_password_icon'}
+              onChangeText={setPassword}
+              value={password}
+              style={styles.inputStyle}
+              error={passwordError}
+              isPassword
+            />
+            <TouchableOpacity
+            testID="signin_forget_password"
+            accessibilityLabel="signin_forget_password"
+            onPress={() => {}}>
+              <Label
+                  children={t('signIn.forgotPassword')}
+                  style={styles.passwordLabel}
+                />
+            </TouchableOpacity>
+            <SocialLoginButton testID="logIn_signIn"
+              onPress={onPressSignIn}
               label={t('signIn.signIn')}
               style={styles.buttonStyle}
               labelStyle={styles.labelStyle}
@@ -129,31 +142,7 @@ export const AuthPage: FunctionComponent = () => {
           </View>
         </View>
 
-        <View style={styles.footerStyle}>
-          <View style={styles.footerLabelContainer}>
-            <Label
-              children={t('signIn.agreeTo')}
-              labelType="p5"
-              color={themeData.textColor}
-            />
-            <TouchableOpacity
-              testID="terms_and_conditions"
-              accessibilityLabel="terms_and_conditions"
-              onPress={() => navigateToSection('TERMSANDCONDITIONS')}>
-              <Label
-                children={t('signIn.termsAndConditions')}
-                labelType="p5"
-                color={colors.greenishBlue}
-                style={styles.spaceStyle}
-              />
-            </TouchableOpacity>
-          </View>
-          <Label
-            children={t('signIn.rights')}
-            labelType="p5"
-            color={themeData.textColor}
-          />
-        </View>
+        <View style={styles.footerStyle} />
       </View>
     </ScreenContainer>
   );
@@ -176,38 +165,39 @@ StyleSheet.create({
   headerStyle: {
     flex: 0.05,
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
+  },
+  headerContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   headerLabelStyle: {
     fontSize: normalize(15),
-    textDecorationLine: 'underline',
-    color: theme.primary,
+    color: theme.textColor,
     lineHeight: normalize(16),
+    marginLeft: normalize(5),
   },
   containerStyle: {
-    flex: 0.7,
+    flex: 0.8,
     paddingHorizontal: normalize(30),
     backgroundColor: theme.secondaryWhite,
   },
   topContainerStyle: {
-    flex: 0.5,
+    flex: 0.55,
     justifyContent: 'center',
     alignItems: 'center',
   },
   bottomContainerStyle: {
-    flex: 0.4,
+    flex: 0.35,
     justifyContent: 'center',
     alignItems: 'center',
   },
   footerStyle: {
-    flex: 0.15,
+    flex: 0.05,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  footerLabelContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: normalize(15),
   },
   logo: {
     width: normalize(150),
@@ -234,7 +224,7 @@ StyleSheet.create({
     width: '50%',
   },
   labelStyle: {
-    color: colors.white,
+    color: theme.secondaryWhite,
     fontWeight: 'bold',
     lineHeight: 22,
   },
@@ -257,5 +247,13 @@ StyleSheet.create({
   },
   inputStyle: {
     width: '100%',
+    color: theme.primaryLightGray,
   },
+  passwordLabel: {
+    fontSize: normalize(15),
+    textDecorationLine: 'underline',
+    color: theme.primary,
+    lineHeight: normalize(16),
+    marginBottom: normalize(15),
+  }
 })

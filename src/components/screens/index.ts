@@ -16,6 +16,8 @@ export {SectionStoryScreen} from 'src/components/screens/category/SectionStorySc
 export {PodcastProgram} from 'src/components/screens/podcast/PodcastProgram';
 export {PodcastEpisode} from 'src/components/screens/podcast/PodcastEpisode';
 export {VideoDetailScreen} from 'src/components/screens/video_detail/VideoDetailScreen';
+export {SignInPage} from 'src/components/screens/auth/SignInPage';
+
 export { VideoScreen } from './category/VideoScreen';
 export {SectionArticlesScreen} from './sectionArticles/SectionArticlesScreen';
 export { TermsAndAboutUs } from './termsAndAboutUs/TermsAndAboutUs'

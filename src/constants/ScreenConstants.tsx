@@ -17,6 +17,7 @@ const StoryScreen = 'StoryScreen' as ScreenName;
 const SectionArticlesScreen = 'SectionArticlesScreen' as ScreenName;
 const PodcastEpisode = 'PodcastEpisode' as ScreenName;
 const VideoDetailScreen = 'VideoDetailScreen' as ScreenName;
+const SignInPage = 'SignInPage' as ScreenName;
 const TERMS_AND_ABOUT_US = 'TERMS_AND_ABOUT_US' as ScreenName
 
 const HEADER_LOGO = 'headerLogo';
@@ -44,5 +45,6 @@ export const ScreensConstants = {
   SectionArticlesScreen,
   PodcastEpisode,
   VideoDetailScreen,
+  SignInPage,
   TERMS_AND_ABOUT_US,
 };
