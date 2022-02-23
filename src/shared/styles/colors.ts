@@ -48,7 +48,9 @@ export const colors = {
   mountainMist: '#929898',
   gableGreen: '#1A3333',
   lightGray: '#B1B1B1',
-  whiteSmoke: '#F5F5F5'
+  whiteSmoke: '#F5F5F5',
+  greyLight1:'#DCDFDF',
+  darkGreenish: '#253c3a',
 };
 
 export interface CustomThemeType {
@@ -64,7 +66,9 @@ export interface CustomThemeType {
   secondarySpanishGray: string,
   backgroundColor: string,
   whiteSurface: string,
-  danger: string
+  danger: string,
+  textColor: string,
+  headerColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -83,7 +87,9 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   secondarySpanishGray: colors.black,
   backgroundColor: colors.aquaHaze,
   whiteSurface: colors.white,
-  danger: colors.jasper
+  danger: colors.jasper,
+  textColor: colors.greyDark50,
+  headerColor: colors.darkGreenish,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -99,6 +105,8 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   secondarySpanishGray: colors.spanishGray,
   backgroundColor: colors.codGray,
   whiteSurface: colors.onyx,
-  danger: colors.jasper
+  danger: colors.jasper,
+  textColor: colors.white,
+  headerColor: colors.greenishBlue,
 }
 

@@ -5,7 +5,7 @@ import {SocialButtonSection} from '../SocialButtonSection';
 describe('<SocialButtonSection>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn()
-  const testData = [{testId:'signin_google'},{testId:'signin_apple'},{testId:'signin_facebook'},{testId:'signin_email'}]
+  const testData = [{testId:'signin_google'},{testId:'signin_apple'},{testId:'signin_facebook'}]
   describe('when SocialButtonSection only', () => {
     beforeEach(() => {
       const component = <SocialButtonSection onButtonPress={mockFunction} />;
