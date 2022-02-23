@@ -2,17 +2,15 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   ImageStyle,
 } from 'react-native';
 import React, {useState} from 'react';
 import {ButtonImage, ImageWithLabel, Label, LabelTypeProp} from 'src/components/atoms';
-import {CaptionWithImage, ImageName} from '../../atoms';
+import {CaptionWithImage} from '../../atoms';
 import {normalize} from 'src/shared/utils';
 import {moleculesTestID, ScreensConstants} from '../../../constants';
 import {Styles} from '../../../shared/styles';
 import {ImagesName} from '../../../shared/styles/images';
-import {Image} from '../../atoms';
 import {BookMarkColorType} from '../articleFooter/ArticleFooter';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {Divider} from 'src/components/atoms';
@@ -28,10 +26,10 @@ export interface SectionArticleItemProps {
   imageStyle?: ImageStyle;
   hideFooter?: boolean;
   leftTitle?: string;
-  leftIcon?: ImageName;
+  leftIcon?: () => void;
   leftTitleColor?: string;
   rightTitle?: string;
-  rightIcon?: ImageName;
+  rightIcon?: () => void;
   rightTitleColor?: string;
   hideBookMark?: boolean;
   bookMarkColorType?: string;
