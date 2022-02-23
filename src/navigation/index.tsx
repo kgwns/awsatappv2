@@ -14,6 +14,7 @@ import {
   SectionArticlesScreen,
   PodcastEpisode,
   VideoDetailScreen,
+  SignInPage,
   TermsAndAboutUs
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
@@ -39,6 +40,7 @@ export const Routes = {
   SectionArticlesScreen,
   PodcastEpisode,
   VideoDetailScreen,
+  SignInPage,
   TermsAndAboutUs,
 };
 
