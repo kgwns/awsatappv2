@@ -93,11 +93,12 @@ const customStyle = (theme: CustomThemeType) => {
       width: '100%',
     },
     container: {
-      width: 0.29 * screenWidth,
+      width: normalize(0.29 * screenWidth),
       height: normalize(170),
       justifyContent: 'center',
       alignItems: 'center',
-      marginVertical: normalize(10),
+      marginTop:normalize(5),
+      marginBottom:normalize(5)
     },
     imageWrapper: {
       width: '100%',

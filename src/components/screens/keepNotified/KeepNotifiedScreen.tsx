@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {Label, NextButton} from 'src/components/atoms';
-import {normalize} from 'src/shared/utils';
+import { horizontalEdge, normalize} from 'src/shared/utils';
 import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
 import { useTranslation } from 'react-i18next';
 import { ScreensConstants } from 'src/constants';
@@ -15,7 +15,7 @@ export const KeepNotifiedScreen = ({ navigation }: any) => {
 
 
   return (
-    <ScreenContainer>
+    <ScreenContainer edge={horizontalEdge}>
       <View style={style.container}>
         <Label style={style.titleStyle}>{t('onBoard.keepNotified.title')}</Label>
         <Label style={style.descStyle}>
@@ -73,7 +73,7 @@ const customStyle = (theme: CustomThemeType) => {
       alignSelf: 'center',
       borderRadius: normalize(51 / 2),
       marginTop: normalize(10),
-      marginBottom: normalize(30),
+      marginBottom: normalize(20),
       position: 'absolute',
       bottom: 0,
     },

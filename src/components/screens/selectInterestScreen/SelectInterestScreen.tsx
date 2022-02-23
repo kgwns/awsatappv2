@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet, } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
 import { Label, LoadingState, NextButton } from '../../atoms';
-import { normalize } from '../../../shared/utils';
+import { horizontalEdge, normalize } from '../../../shared/utils';
 import { useTranslation } from 'react-i18next';
 import { InterestSection } from '../../organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -23,7 +23,7 @@ export const SelectInterestScreen = ({ navigation }: any) => {
   }, []);
   const { isLoading, allSiteCategoriesData, fetchAllSiteCategoriesRequest } = useAllSiteCategories();
   return (
-    <ScreenContainer>
+    <ScreenContainer edge={horizontalEdge}>
       <View style={style.container}>
         <View style={style.textContainer}>
           <Label style={style.titleStyle}>
@@ -89,7 +89,7 @@ const customInterestScreenStyle = (theme: CustomThemeType) => {
       alignSelf: 'center',
       borderRadius: normalize(51 / 2),
       marginTop: normalize(30),
-      marginBottom: normalize(30),
+      marginBottom: normalize(20),
       position: 'absolute',
       bottom: 0,
     },
