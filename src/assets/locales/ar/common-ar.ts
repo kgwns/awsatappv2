@@ -132,5 +132,14 @@ export const arabic = {
   return: 'الرجوع',
   searchScreen: {
     placeholder: 'ابحث في الشرق الأوسط …'
+  },
+  signUp: {
+    createAccount: 'إنشاء حساب',
+    accountDescription: 'هذا الإيميل غير مسجل لدينا، قم بإنشاء حسابك',
+    email: 'الإيميل',
+    password: 'كلمة المرور',
+    confirmPassword: 'تأكيد تكلمة المرور',
+    signUp: 'تسجيل الدخول',
+    return: 'الرجوع',
   }
 };

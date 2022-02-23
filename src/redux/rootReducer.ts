@@ -12,7 +12,8 @@ import sectionArticles from './sectionArticles/reducer';
 import newsViewReducer from 'src/redux/newsView/reducer';
 import allWriters from 'src/redux/allWriters/reducer';
 import allSiteCategories from 'src/redux/allSiteCategories/reducer';
-import termsAndAboutUs from 'src/redux/termsAndAboutUs/reducer'
+import termsAndAboutUs from 'src/redux/termsAndAboutUs/reducer';
+import registerUser from 'src/redux/register/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
   newsViewReducer: newsViewReducer,
   allWriters: allWriters,
   allSiteCategories: allSiteCategories,
-  termsAndAboutUs: termsAndAboutUs
+  termsAndAboutUs: termsAndAboutUs,
+  register: registerUser,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
