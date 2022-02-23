@@ -1,8 +1,8 @@
 import {storeInfo} from 'src/constants/SampleData';
-import {getIsLoading, getMostReadData, getMostReadError} from '../selectors';
-import {MostReadItemType} from '../types';
+import {getIsLoading, getSearchData, getSearchError} from '../selectors';
+import {SearchItemType} from '../types';
 
-describe('Most Read Selector', () => {
+describe('Search Selector', () => {
   const storeData = storeInfo[0];
   test('Get loading state', () => {
     const isLoading: boolean = getIsLoading(storeData);
@@ -10,12 +10,12 @@ describe('Most Read Selector', () => {
   });
 
   test('Get Opinion state', () => {
-    const opinionData: MostReadItemType[] = getMostReadData(storeData);
-    expect(opinionData).toEqual([]);
+    const searchData: SearchItemType[] = getSearchData(storeData);
+    expect(searchData).toEqual([]);
   });
 
   test('Get error state', () => {
-    const error = getMostReadError(storeData);
+    const error = getSearchError(storeData);
     expect(error).toEqual('');
   });
 });
