@@ -37,7 +37,9 @@ export interface RegisterBodyType {
 }
 
 export interface RegisterSuccessPayloadType {
-  userInfo: any;
+  user: RegisterUserSuccessType|null,
+  token: RegisterUserTokenType,
+  message: RegisterUserMessageType,
 }
 
 export interface RegisterState {

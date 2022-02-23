@@ -22,9 +22,9 @@ describe('<RegisterUser', () => {
   })
 
   it('Register Request success', () => {
-      const result = registerSuccess({ userInfo: {}})
+      const result = registerSuccess({user: null,token: {},message: {}})
       expect(result.type).toEqual(REGISTER_SUCCESS)
-      expect(result.payload.userInfo).toEqual({})
+      expect(result.payload).toEqual({user: null,token: {},message: {}})
   })
 
   it('Register Request failed', () => {

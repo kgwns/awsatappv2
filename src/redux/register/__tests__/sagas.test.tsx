@@ -27,19 +27,15 @@ const requestAction: UserRegisterType = {
 };
 
 const reposnseObject = {
-  userInfo:{
     user:{
       id: mockString,
       email: mockString
     },
     token:{},
     message:{}
-  }
 };
 
-const sucessResponseObject: RegisterSuccessPayloadType = {
-  userInfo: reposnseObject
-}
+const sucessResponseObject: RegisterSuccessPayloadType = reposnseObject
 
 describe('test registerSaga  saga', () => {
   it('fire on registerSaga', () => {

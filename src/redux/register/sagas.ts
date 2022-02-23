@@ -14,13 +14,9 @@ export function* createUser(action: UserRegisterType) {
     );
     yield put(registerSuccess(payload));
   } catch (error) {
-    const errorResponse = error as AxiosError;
-
-    if (errorResponse.response) {
-      const errorMessage: {message: string} = errorResponse.response.data;
-      Alert.alert(errorMessage.message);
-      yield put(registerFailed({error: errorMessage.message}));
-    }
+      const errorResponse: AxiosError = error as AxiosError;
+      Alert.alert(errorResponse.message);
+      yield put(registerFailed({ error: errorResponse.message }));
   }
 }
 
