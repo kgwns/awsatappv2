@@ -10,10 +10,15 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ScreensConstants } from 'src/constants'
 import { useTranslation } from 'react-i18next'
+import { getSvgImages } from 'src/shared/styles/svgImages'
 
 const carouselFooterSample: articleFooterProps = {
     leftTitleColor: Styles.color.white,
-    rightIcon: ImagesName.clock,
+    rightIcon: () => {return getSvgImages({
+        name: ImagesName.clock,
+        size: normalize(12),
+        style: { marginRight: normalize(5) }
+    })},
     rightTitleColor: Styles.color.silverChalice,
     bookMarkColorType: BookMarkColorType.WHITE
 }

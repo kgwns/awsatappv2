@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { normalize } from 'src/shared/utils/dimensions'
 import { moleculesTestID } from 'src/constants'
 import { Styles } from 'src/shared/styles'
 import { ImagesName } from 'src/shared/styles/images'
-import { CaptionWithImage, ImageName, Image } from 'src/components/atoms'
+import { CaptionWithImage } from 'src/components/atoms'
+import { getSvgImages } from 'src/shared/styles/svgImages'
 
 export enum BookMarkColorType {
   WHITE = 'white',
@@ -13,10 +14,10 @@ export enum BookMarkColorType {
 
 export interface articleFooterProps {
   leftTitle?: string,
-  leftIcon?: ImageName,
+  leftIcon?: () => void,
   leftTitleColor?: string,
   rightTitle?: string,
-  rightIcon?: ImageName,
+  rightIcon?: () => void;
   rightTitleColor?: string,
   style?: object,
   bookMarkColorType?: string,
@@ -35,10 +36,16 @@ const ArticleFooter = ({
   hideBookmark = false
 }: articleFooterProps) => {
   const [saveState, setSaveState] = useState(false)
-  let storySaveIcon = saveState ? ImagesName.bookmarkActive : ImagesName.blackBdrBookMark
-
-  if (bookMarkColorType == BookMarkColorType.WHITE) {
-    storySaveIcon = saveState ? ImagesName.bookMarkActiveWhite : ImagesName.bookMarkWhiteBdr
+  let storySaveIcon=() => {
+    return saveState
+      ? getSvgImages({
+          name: ImagesName.bookMarkBlackFillSVG,
+          size: normalize(18),
+        })
+      : getSvgImages({
+          name: ImagesName.bookMarkBlackBdrSVG,
+          size: normalize(18),
+        });
   }
 
   const onPressSave = () => {
@@ -55,7 +62,7 @@ const ArticleFooter = ({
       {!hideBookmark &&
         <View style={articleFooterStyle.bookMarkContainer}>
           <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPressSave}>
-            <Image name={storySaveIcon} size={normalize(18)}/>
+            {storySaveIcon()} 
           </TouchableOpacity>
         </View>
       }

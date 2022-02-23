@@ -51,6 +51,14 @@ import NotificationActiveIcon from 'src/assets/images/notifications/notification
 import NotificationIcon from 'src/assets/images/notifications/notificationIcon.svg'
 import NotificationActiveIconDark from 'src/assets/images/notifications/notificationActiveIconDark.svg'
 import NotificationIconDark from 'src/assets/images/notifications/notificationIconDark.svg'
+//Social login
+import MailIcon from 'src/assets/images/socialButton/mailIcon.svg'
+import GoogleIcon from 'src/assets/images/socialButton/googleIcon.svg'
+import FacebookIcon from 'src/assets/images/socialButton/facebookIcon.svg'
+import AppleIcon from 'src/assets/images/socialButton/appleIconBlack.svg'
+
+import ClockIcon from 'src/assets/images/icons/clockIcon.svg'
+import ArrowLeftFaced from 'src/assets/images/icons/arrowLeftFaced.svg'
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -70,7 +78,6 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         style,
         fill
     }
-
     switch (name) {
         case ImagesName.fontScaling:
             return <FontScalingIcon {...props} />
@@ -92,6 +99,18 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <CloseIcon {...props} />
         case ImagesName.playIconSVG:
             return <PlayIcon {...props} />
+        case ImagesName.appleIcon:
+            return <AppleIcon {...props} />
+        case ImagesName.facebookIcon:
+            return <FacebookIcon {...props} />
+        case ImagesName.googleIcon:
+            return <GoogleIcon {...props} />
+        case ImagesName.mailIcon:
+            return <MailIcon {...props} />
+        case ImagesName.clock:
+            return <ClockIcon {...props} />
+        case ImagesName.arrowLeftFaced:
+            return <ArrowLeftFaced {...props} />
         case ImagesName.returnIcon:
             return <ReturnArrowBlack {...props} />
         case ImagesName.searchIcon:
