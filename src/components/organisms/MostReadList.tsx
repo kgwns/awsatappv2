@@ -25,12 +25,14 @@ export interface ArticleSectionProps {
   data: any;
   onScroll?: () => void;
   isLoading?: boolean;
+  enableTag?:boolean;
 }
 
 const MostReadList = ({
   data,
   onScroll,
   isLoading = false,
+  enableTag = false
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const theme = useTheme();
@@ -47,7 +49,7 @@ const MostReadList = ({
     })},
       rightTitleColor: Styles.color.silverChalice,
     };
-    item.tagName = (index + 1).toString();
+    enableTag && (item.tagName = (index + 1).toString())
     item.tagStyle = {marginLeft: normalize(16)};
     item.tagLabelType = LabelTypeProp.p3;
     item.image = item.image ? item.image : getImageUrl(item.field_image);
