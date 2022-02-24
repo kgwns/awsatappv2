@@ -12,6 +12,7 @@ import {getImageUrl} from 'src/shared/utils/utilities';
 import {timeAgo} from 'src/shared/utils/utilities';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 export interface articleProps
   extends ImageLabelProps,
@@ -24,12 +25,14 @@ export interface ArticleSectionProps {
   data: any;
   onScroll?: () => void;
   isLoading?: boolean;
+  enableTag?:boolean;
 }
 
 const MostReadList = ({
   data,
   onScroll,
   isLoading = false,
+  enableTag = false
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const theme = useTheme();
@@ -39,10 +42,14 @@ const MostReadList = ({
       leftTitle: item.author_resource,
       leftTitleColor: Styles.color.greenishBlue,
       rightTitle: t(timeAgo(item.created_export)),
-      rightIcon: ImagesName.clock,
+      rightIcon: () => {return getSvgImages({
+        name: ImagesName.clock,
+        size: normalize(12),
+        style: { marginRight: normalize(5) }
+    })},
       rightTitleColor: Styles.color.silverChalice,
     };
-    item.tagName = (index + 1).toString();
+    enableTag && (item.tagName = (index + 1).toString())
     item.tagStyle = {marginLeft: normalize(16)};
     item.tagLabelType = LabelTypeProp.p3;
     item.image = item.image ? item.image : getImageUrl(item.field_image);

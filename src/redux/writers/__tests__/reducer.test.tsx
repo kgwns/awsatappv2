@@ -1,4 +1,5 @@
 import {opinionWritersActions} from '../action';
+import {FETCH_OPINION_WRITER} from '../actionTypes';
 import opinionWriter from '../reducer';
 import {OpinionWriterListState} from '../types';
 
@@ -11,6 +12,14 @@ describe('opinionWriter reducer', () => {
       opinionWriterData: [],
       error: '',
     };
+  });
+
+  test('Check loading state when opinionWriter request API', () => {
+    const nextState = opinionWriter(initialState, {
+      type: FETCH_OPINION_WRITER,
+      payload: {items_per_page: 10},
+    });
+    expect(nextState.isLoading).toBe(true);
   });
 
   test('fetchOpinionWriterSuccess', () => {

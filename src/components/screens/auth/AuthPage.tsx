@@ -180,7 +180,6 @@ StyleSheet.create({
   },
   headerLabelStyle: {
     fontSize: normalize(15),
-    textDecorationLine: 'underline',
     color: theme.primary,
     lineHeight: normalize(16),
   },

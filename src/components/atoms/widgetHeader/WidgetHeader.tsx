@@ -1,11 +1,11 @@
 import { View } from 'react-native'
 import React from 'react'
-import { ImageName, LabelTypeProp } from '..'
+import { LabelTypeProp } from '..'
 import { WidgetHeaderElement } from '../index'
 
 export interface HeaderElementProps {
     title?: string,
-    icon?: ImageName,
+    icon?: ()=> void,
     color?: string,
     labelType?: LabelTypeProp,
     clickable?: boolean,

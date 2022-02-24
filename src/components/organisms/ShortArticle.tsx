@@ -15,6 +15,7 @@ import { flatListUniqueKey } from 'src/constants';
 import { FROM_TWO_HOURS } from 'src/constants/SharedConstants';
 import { useTranslation } from 'react-i18next';
 import { getImageUrl } from 'src/shared/utils/utilities';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -32,7 +33,11 @@ export interface ArticleSectionProps {
 
 export const shortArticleFooter: articleFooterProps = {
   leftTitle: FROM_TWO_HOURS,
-  leftIcon: ImagesName.clock,
+  leftIcon: () => {return getSvgImages({
+    name: ImagesName.clock,
+    size: normalize(12),
+    style: { marginRight: normalize(5) }
+})},
   leftTitleColor: Styles.color.silverChalice,
   rightTitleColor: Styles.color.silverChalice,
 };

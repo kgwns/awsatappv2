@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Image, Label} from 'src/components/atoms';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import { Label} from 'src/components/atoms';
 import {ImagesName} from 'src/shared/styles';
 import {normalize} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 interface KeepNotifiedCardProps {
   label: string;
@@ -23,17 +24,18 @@ const KeepNotifiedCard = ({
   const theme = useTheme();
   return (
     <View style={style.container}>
-      <Image
-        name={
-          isSelected ? ImagesName.notificationSelected : ImagesName.notification
-        }
-        style={style.iconStyle}
+      <TouchableOpacity
+        testID={"ImageTestID"}
         onPress={() => {
           onPress(isSelected);
           setIsSelected(!isSelected);
-        }}
-        testID="ImageTestID"
-      />
+        }}>
+        {getSvgImages({
+          name: isSelected ? ImagesName.notificationSelected : ImagesName.notification,
+          width: style.iconStyle.width,
+          height: style.iconStyle.height
+        })}
+      </TouchableOpacity>
       <Label style={style.textStyle}>{label}</Label>
     </View>
   );
