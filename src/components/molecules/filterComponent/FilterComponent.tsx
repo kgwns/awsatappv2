@@ -58,7 +58,8 @@ const customStyle = (theme: CustomThemeType) => (
             borderRadius: normalize(20)
         },
         filterActive: {
-            backgroundColor: Styles.color.black
+            backgroundColor: theme.filterBackgroundColor,
+            borderColor: theme.filterBorderColor,
         },
         label: {
             fontSize: normalize(13)

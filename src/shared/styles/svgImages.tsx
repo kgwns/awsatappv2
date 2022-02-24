@@ -85,9 +85,9 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <ThemeChangeIcon {...props} />
         case ImagesName.share:
             return <Share {...props} />
-        case ImagesName.bookMarkBlackBdrSVG:
+        case ImagesName.bookMarkSVG:
             return isDark ? <BookMarkWhiteBdrSVG {...props} /> : <BookMarkBlackBdrSVG {...props} />
-        case ImagesName.bookMarkBlackFillSVG:
+        case ImagesName.bookMarkActiveSVG:
             return isDark ? <BookMarkWhiteFillSVG {...props} /> : <BookMarkBlackFillSVG {...props} />
         case ImagesName.applePodcast:
             return isDark ? <ApplePodcastDarkIcon {...props} /> : <ApplePodcastIcon {...props} />
@@ -147,6 +147,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <NotificationActiveIconDark {...props} /> : <NotificationActiveIcon {...props} />
         case ImagesName.notification:
             return isDark ? <NotificationIconDark {...props} /> : <NotificationIcon {...props} />
+        case ImagesName.bookMarkWhite:
+            return <BookMarkWhiteBdrSVG {...props}/>
+        case ImagesName.bookMarkWhiteActive:
+            return <BookMarkWhiteFillSVG {...props}/>
         default: return null
     }
 }

@@ -130,12 +130,26 @@ export const LatestNewsScreen = () => {
           )}
       />
       <SectionComboOne data={sectionComboOne} onPress={onPressArticle} sectionId={'726'} />
-      <BannerArticleSection data={sectionComboTwo} title={t('latestNewsTab.sectionComboTwo.headerLeft')}  sectionId={'871'}  />
+      <BannerArticleSection data={sectionComboTwo}
+        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+        sectionId={'871'}
+        onPress={onPressArticle}
+      />
       <Divider style={{ height: normalize(20) }} />
       <AuthorWidget data={opinionList} />
-      <BannerArticleSection data={sectionComboThree} title={t('latestNewsTab.sectionComboThree.headerLeft')} sectionId={'11'}  />
+      <BannerArticleSection
+        data={sectionComboThree}
+        title={t('latestNewsTab.sectionComboThree.headerLeft')}
+        sectionId={'11'}
+        onPress={onPressArticle}
+      />
       <Divider style={{ height: normalize(20) }} />
-      <BannerArticleSection data={sectionComboFour} title={t('latestNewsTab.sectionComboTwo.headerLeft')} sectionId={'10'} />
+      <BannerArticleSection
+        data={sectionComboFour}
+        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+        sectionId={'10'}
+        onPress={onPressArticle}
+      />
       <Divider style={{ height: normalize(50) }} />
     </View>
   )
