@@ -69,14 +69,12 @@ export const PodcastVerticalList = ({
               icon={() => {
                 return isSaved
                   ? getSvgImages({
-                      name: ImagesName.bookMarkBlackFillSVG,
+                      name: ImagesName.bookMarkActiveSVG,
                       size: normalize(15),
-                      fill: theme.themeData.primaryBlack,
                     })
                   : getSvgImages({
-                      name: ImagesName.bookMarkBlackBdrSVG,
+                      name: ImagesName.bookMarkSVG,
                       size: normalize(15),
-                      fill: theme.themeData.secondaryDavyGrey,
                     });
               }}
               onPress={() => setIsSaved(!isSaved)}

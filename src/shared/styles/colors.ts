@@ -70,6 +70,8 @@ export interface CustomThemeType {
   textColor: string,
   textInputColor: string,
   headerColor: string,
+  filterBackgroundColor: string,
+  filterBorderColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -92,6 +94,8 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   textColor: colors.greyDark50,
   textInputColor: colors.black,
   headerColor: colors.darkGreenish,
+  filterBackgroundColor: colors.black,
+  filterBorderColor: colors.cyanGray
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -111,5 +115,8 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   textColor: colors.white,
   textInputColor: colors.white,
   headerColor: colors.greenishBlue,
+  filterBackgroundColor: colors.greenishBlue,
+  filterBorderColor: colors.greenishBlue
+
 }
 
