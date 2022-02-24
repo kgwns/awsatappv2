@@ -15,7 +15,11 @@ import {
   PodcastEpisode,
   VideoDetailScreen,
   SignInPage,
+<<<<<<< HEAD
   TermsAndAboutUs,
+=======
+  TermsAndAboutUs
+>>>>>>> f2cad8657c6fa9641c75341377e9855ad0bd72cb
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';

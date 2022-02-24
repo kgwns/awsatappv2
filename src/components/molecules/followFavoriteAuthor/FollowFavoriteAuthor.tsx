@@ -9,6 +9,7 @@ import { ImagesName } from 'src/shared/styles';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { Grayscale } from 'react-native-color-matrix-image-filters';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 export interface FollowFavoriteAuthorProps {
   authorName: string;
@@ -48,14 +49,11 @@ const FollowFavoriteAuthor = ({
               }
             </View>
             <View style={style.tickContainer}>
-              <Image
-                name={
-                  isSelectedState
-                    ? ImagesName.authorItemActive
-                    : ImagesName.authorItem
-                }
-                style={style.tickImage}
-              />
+              {getSvgImages({
+                name: isSelectedState ? ImagesName.authorItemActive : ImagesName.authorItem,
+                width: style.tickImage.width,
+                height: style.tickImage.height
+              })}
             </View>
           </View>
         </View>
@@ -95,11 +93,12 @@ const customStyle = (theme: CustomThemeType) => {
       width: '100%',
     },
     container: {
-      width: 0.29 * screenWidth,
+      width: normalize(0.29 * screenWidth),
       height: normalize(170),
       justifyContent: 'center',
       alignItems: 'center',
-      marginVertical: normalize(10),
+      marginTop:normalize(5),
+      marginBottom:normalize(5)
     },
     imageWrapper: {
       width: '100%',

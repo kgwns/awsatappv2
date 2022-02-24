@@ -12,6 +12,7 @@ import {ImageResize} from 'src/shared/styles/text-styles';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 const SectionComboOne = ({
   data,
@@ -44,7 +45,11 @@ const SectionComboOne = ({
     },
     headerRight: {
       title: t('latestNewsTab.sectionComboOne.headerRight'),
-      icon: ImagesName.arrowLeftFaced,
+      icon: () => {return getSvgImages({
+        name: ImagesName.arrowLeftFaced,
+        size: normalize(12),
+        style: { marginLeft: normalize(10) }
+    })},
       color: Styles.color.smokeyGrey,
       labelType: LabelTypeProp.h3,
       clickable: true,

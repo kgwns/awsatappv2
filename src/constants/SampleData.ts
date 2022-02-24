@@ -23,6 +23,7 @@ import { podcastCardProps } from 'src/components/organisms/PodcastCardSection';
 import { NewsWithImageItemProps } from 'src/components/molecules/podcast/NewsWithImageItem';
 import { ArticleRectangleCardProps } from 'src/components/molecules/podcast/ArticleRectangleCard';
 import { NewsFeedProps } from 'src/components/organisms/NewsFeed';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 export const storeInfo = [
   {
@@ -65,7 +66,7 @@ export const storeInfo = [
       isLoading: false,
     },
     opinionWriter: {
-      opinionWriterData: [],
+      opinionWriterData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
       isLoading: false
     },
@@ -105,13 +106,13 @@ export const storeInfo = [
 
     },
     allWriters: {
-      allWritersData: [],
+      allWritersData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
       isLoading: false,
 
     },
     allSiteCategories: {
-      allSiteCategoriesData: [],
+      allSiteCategoriesData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
       isLoading: false,
 
@@ -191,7 +192,11 @@ export const authorHeaderData: WidgetHeaderProps = {
   },
   headerRight: {
     title: 'المزيد',
-    icon: ImagesName.arrowLeftFaced,
+    icon: () => {return getSvgImages({
+      name: ImagesName.clock,
+      size: normalize(12),
+      style: { marginRight: normalize(5) }
+  })},
     color: Styles.color.smokeyGrey,
     labelType: LabelTypeProp.h3,
     clickable: true,
@@ -229,7 +234,11 @@ export const articleFooterSample: articleFooterProps = {
   leftTitle: 'وتمجيد',
   leftTitleColor: Styles.color.greenishBlue,
   rightTitle: 'يتحمل',
-  rightIcon: ImagesName.clock,
+  rightIcon: () => {return getSvgImages({
+    name: ImagesName.clock,
+    size: normalize(12),
+    style: { marginRight: normalize(5) }
+})},
   rightTitleColor: Styles.color.silverChalice,
 };
 

@@ -1,6 +1,7 @@
-import { allSiteCategoriesActions } from '../action';
+import {allSiteCategoriesActions} from '../action';
+import {FETCH_ALL_SITE_CATEGORIES} from '../actionTypes';
 import allSiteCategories from '../reducer';
-import { AllSiteCategoriesState } from '../types';
+import {AllSiteCategoriesState} from '../types';
 
 describe('allSiteCategories reducer', () => {
   let initialState: AllSiteCategoriesState;
@@ -38,5 +39,13 @@ describe('allSiteCategories reducer', () => {
 
     expect(nextState.isLoading).toBeFalsy();
     expect(nextState.error).toEqual(testError);
+  });
+
+  test('Check loading state when allSiteCategories request API', () => {
+    const nextState = allSiteCategories(initialState, {
+      type: FETCH_ALL_SITE_CATEGORIES,
+      payload: {items_per_page: 10},
+    });
+    expect(nextState.isLoading).toBe(true);
   });
 });

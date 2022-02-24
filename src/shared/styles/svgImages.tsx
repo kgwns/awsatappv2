@@ -20,6 +20,46 @@ import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg'
 import SpotifyIcon from 'src/assets/images/icons/spotify_icon.svg'
 import ReturnArrowBlack from 'src/assets/images/icons/returnArrowBlack.svg'
 
+//Header Icons
+import SearchIcon from 'src/assets/images/headerIcons/searchIcon.svg'
+import SearchIconDark from 'src/assets/images/headerIcons/searchIconDark.svg'
+import MenuIcon from 'src/assets/images/headerIcons/menuIcon.svg'
+import MenuIconDark from 'src/assets/images/headerIcons/menuIconDark.svg'
+import HeaderLogo from 'src/assets/images/headerIcons/headerLogo.svg'
+import HeaderLogoDark from 'src/assets/images/headerIcons/headerLogoDark.svg'
+
+//Tab Icons
+import NewsIcon from 'src/assets/images/tabIcons/newsIcon.svg'
+import NewsActiveIcon from 'src/assets/images/tabIcons/newsActiveIcon.svg'
+import NewsIconDark from 'src/assets/images/tabIcons/newsIconDark.svg'
+import NewsActiveIconDark from 'src/assets/images/tabIcons/newsActiveIconDark.svg'
+import SectionsIcon from 'src/assets/images/tabIcons/sectionsIcon.svg'
+import SectionsActiveIcon from 'src/assets/images/tabIcons/sectionsActiveIcon.svg'
+import MostReadIcon from 'src/assets/images/tabIcons/mostReadIcon.svg'
+import MostReadActiveIcon from 'src/assets/images/tabIcons/mostReadActiveIcon.svg'
+import MostReadIconDark from 'src/assets/images/tabIcons/mostReadIconDark.svg'
+import MostReadActiveIconDark from 'src/assets/images/tabIcons/mostReadActiveIconDark.svg'
+import FavoriteIcon from 'src/assets/images/tabIcons/favoriteIcon.svg'
+import FavoriteActiveIcon from 'src/assets/images/tabIcons/favoriteActiveIcon.svg'
+
+//Onboard screen Icons
+import ArrowNextIcon from 'src/assets/images/icons/nextArrowIcon.svg'
+import ArrowPreviousIcon from 'src/assets/images/icons/previousArrowIcon.svg'
+import WriterActiveTickIcon from 'src/assets/images/icons/writerTickActiveIcon.svg'
+import WriterTickIcon from 'src/assets/images/icons/writerTickIcon.svg'
+import NotificationActiveIcon from 'src/assets/images/notifications/notificationActiveIcon.svg'
+import NotificationIcon from 'src/assets/images/notifications/notificationIcon.svg'
+import NotificationActiveIconDark from 'src/assets/images/notifications/notificationActiveIconDark.svg'
+import NotificationIconDark from 'src/assets/images/notifications/notificationIconDark.svg'
+//Social login
+import MailIcon from 'src/assets/images/socialButton/mailIcon.svg'
+import GoogleIcon from 'src/assets/images/socialButton/googleIcon.svg'
+import FacebookIcon from 'src/assets/images/socialButton/facebookIcon.svg'
+import AppleIcon from 'src/assets/images/socialButton/appleIconBlack.svg'
+
+import ClockIcon from 'src/assets/images/icons/clockIcon.svg'
+import ArrowLeftFaced from 'src/assets/images/icons/arrowLeftFaced.svg'
+
 export interface GetSVGProps {
     name: ImagesName,
     size?: number,
@@ -38,7 +78,6 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         style,
         fill
     }
-
     switch (name) {
         case ImagesName.fontScaling:
             return <FontScalingIcon {...props} />
@@ -60,8 +99,54 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <CloseIcon {...props} />
         case ImagesName.playIconSVG:
             return <PlayIcon {...props} />
+        case ImagesName.appleIcon:
+            return <AppleIcon {...props} />
+        case ImagesName.facebookIcon:
+            return <FacebookIcon {...props} />
+        case ImagesName.googleIcon:
+            return <GoogleIcon {...props} />
+        case ImagesName.mailIcon:
+            return <MailIcon {...props} />
+        case ImagesName.clock:
+            return <ClockIcon {...props} />
+        case ImagesName.arrowLeftFaced:
+            return <ArrowLeftFaced {...props} />
         case ImagesName.returnIcon:
             return <ReturnArrowBlack {...props} />
+        case ImagesName.searchIcon:
+            return isDark ? <SearchIconDark {...props} /> : <SearchIcon {...props} />
+        case ImagesName.headerLogo:
+            return isDark ? <HeaderLogoDark {...props} /> : <HeaderLogo {...props} />
+        case ImagesName.menuIcon:
+            return isDark ? <MenuIconDark {...props} /> : <MenuIcon {...props} />
+        case ImagesName.newsIcon:
+            return isDark ? <NewsIconDark {...props} /> : <NewsIcon {...props} />
+        case ImagesName.newsActiveIcon:
+            return isDark ? <NewsActiveIconDark {...props} /> : <NewsActiveIcon {...props} />
+        case ImagesName.sectionsIcon:
+            return <SectionsIcon {...props} />
+        case ImagesName.sectionsActiveIcon:
+            return <SectionsActiveIcon {...props} />
+        case ImagesName.mostReadIcon:
+            return isDark ? <MostReadIconDark {...props} /> : <MostReadIcon {...props} />
+        case ImagesName.mostReadActiveIcon:
+            return isDark ? <MostReadActiveIconDark {...props} /> : <MostReadActiveIcon {...props} />
+        case ImagesName.favoriteIcon:
+            return <FavoriteIcon {...props} />
+        case ImagesName.favoriteActiveIcon:
+            return <FavoriteActiveIcon {...props} />
+        case ImagesName.arrowNext:
+            return <ArrowNextIcon {...props} />
+        case ImagesName.arrowPrev:
+            return <ArrowPreviousIcon {...props} />
+        case ImagesName.authorItemActive:
+            return <WriterActiveTickIcon {...props} />
+        case ImagesName.authorItem:
+            return <WriterTickIcon {...props} />
+        case ImagesName.notificationSelected:
+            return isDark ? <NotificationActiveIconDark {...props} /> : <NotificationActiveIcon {...props} />
+        case ImagesName.notification:
+            return isDark ? <NotificationIconDark {...props} /> : <NotificationIcon {...props} />
         default: return null
     }
 }

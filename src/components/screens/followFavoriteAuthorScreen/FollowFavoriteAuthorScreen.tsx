@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { colors, CustomThemeType } from 'src/shared/styles/colors';
-import { Label, Image, LoadingState } from 'src/components/atoms';
-import { normalize } from 'src/shared/utils';
+import React, {useEffect} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {colors, CustomThemeType} from 'src/shared/styles/colors';
+import {Label, LoadingState, NextButton} from 'src/components/atoms';
+import {horizontalEdge, normalize} from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
-import { ImagesName } from 'src/shared/styles';
-import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
-import { RoutesName } from 'src/navigation';
-import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { ScreensConstants } from 'src/constants';
-import { useAllWriters } from 'src/hooks';
-import { AllWritersBodyGet } from 'src/redux/allWriters/types';
-import { ScreenContainer } from '..';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import {ScreensConstants} from 'src/constants';
+import {useAllWriters} from 'src/hooks';
+import {AllWritersBodyGet} from 'src/redux/allWriters/types';
+import {ScreenContainer} from '..';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
@@ -21,35 +19,14 @@ export const FollowFavoriteAuthorScreen = () => {
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
-  const { isLoading, allWritersData, fetchAllWritersRequest } = useAllWriters();
+  const {isLoading, allWritersData, fetchAllWritersRequest} = useAllWriters();
 
   useEffect(() => {
     fetchAllWritersRequest(allWritersPayload);
   }, []);
 
-  interface NextButttonProps {
-    onPress: () => void,
-    testId?: string
-  }
-
-  const NextButton = ({ onPress, testId }: NextButttonProps) => {
-    return (
-      <TouchableOpacity testID={testId} onPress={onPress} style={style.nextButtonContainer}>
-        <View style={style.nextButtonIconContainer}>
-          <Image name={ImagesName.arrowNext} />
-        </View>
-
-        <View style={style.nextButtonTextContainer}>
-          <Label style={style.nextButtonText}>
-            {t('onBoard.common.nextBtn')}
-          </Label>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
   return (
-    <ScreenContainer>
+    <ScreenContainer edge={horizontalEdge}>
       <View style={style.container}>
         <View style={style.textContainer}>
           <Label style={style.titleStyle}>
@@ -60,13 +37,19 @@ export const FollowFavoriteAuthorScreen = () => {
           </Label>
         </View>
         <View style={style.widgetContainer}>
-          {isLoading ? <LoadingState /> : <FollowFavoriteAuthorWidget writersData={allWritersData} />}
+          {isLoading ? (
+            <LoadingState />
+          ) : (
+            <FollowFavoriteAuthorWidget writersData={allWritersData} />
+          )}
         </View>
-        <NextButton
-          testId={'nextButtonTestId'}
-          onPress={() => navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)}
-        />
-      </View>
+      <NextButton
+        title={t('onBoard.common.nextBtn')}
+        testID={'nextButtonTestId'}
+        onPress={() => navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)}
+        style={style}
+      />
+    </View>
     </ScreenContainer>
   );
 };
@@ -83,7 +66,6 @@ const customStyle = (theme: CustomThemeType) => {
     textContainer: {
       top: 0,
       position: 'absolute',
-      marginTop: normalize(10),
     },
     widgetContainer: {
       flexDirection: 'row',
@@ -97,7 +79,6 @@ const customStyle = (theme: CustomThemeType) => {
       fontWeight: 'bold',
       color: theme.primary,
       lineHeight: normalize(30),
-      marginTop: normalize(10),
     },
     descStyle: {
       textAlign: 'center',
@@ -113,12 +94,11 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'center',
       alignSelf: 'center',
       borderRadius: normalize(51 / 2),
-      marginTop: normalize(30),
-      marginBottom: normalize(30),
+      marginBottom: normalize(20),
       position: 'absolute',
       bottom: 0,
     },
-    nextButtonIconContainer: { flex: 0.1, marginEnd: normalize(10) },
+    nextButtonIconContainer: {flex: 0.1, marginEnd: normalize(10)},
     nextButtonTextContainer: {
       flex: 1,
       left: normalize(-18),
