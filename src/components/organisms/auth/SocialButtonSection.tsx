@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleProp, ViewStyle, StyleSheet } from 'react-native';
 import { SocialLoginButton } from '../../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 
@@ -28,21 +28,29 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
           <SocialLoginButton testID="signin_facebook"
             onPress={() => {buttonPressAction('FACEBOOK')}}
             label={t('signIn.loginFacebook')}
-            icon={() => <View ><FaceBookIcon /></View>}
+            icon={() => <View style={styles.container}><FaceBookIcon /></View>}
           />
           <SocialLoginButton testID="signin_google"
             onPress={() => {buttonPressAction('GOOGLE')}}
             label={t('signIn.loginGoogle')}
-            icon={() => <View ><GoogleIcon /></View>}
+            icon={() => <View style={styles.container}><GoogleIcon /></View>}
           />
           <SocialLoginButton testID="signin_apple"
             onPress={() => {buttonPressAction('APPLE')}}
             label={t('signIn.loginApple')}
-            icon={() => <View ><AppleIcon fill={themeData.primaryBlack}/></View>}
+            icon={() => <View style={styles.container}><AppleIcon fill={themeData.primaryBlack} /></View>}
           />
         </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container:{
+    flex: 0.1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 
 
