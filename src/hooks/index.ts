@@ -7,4 +7,5 @@ export { useSideMenu } from './useSideMenu';
 export { useSectionArticles } from './useSectionArticles';
 export { useAllWriters } from 'src/hooks/useAllWriters';
 export { useAllSiteCategories } from 'src/hooks/useAllSiteCategories';
-export { useTermsAndAboutUs } from 'src/hooks/useTermsAndAboutUs'
+export { useTermsAndAboutUs } from 'src/hooks/useTermsAndAboutUs';
+export { useRegister } from 'src/hooks/useRegister';

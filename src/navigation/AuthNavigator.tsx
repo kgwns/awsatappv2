@@ -19,6 +19,7 @@ const AuthNavigator = () => {
     <Stack.Navigator screenOptions={defaultScreenOptions}>
       <Stack.Screen name={ScreensConstants.AuthPage} component={Routes.AuthPage} />
       <Stack.Screen name={ScreensConstants.SignInPage} component={Routes.SignInPage} />
+      <Stack.Screen name={ScreensConstants.SignUpPage} component={Routes.SignUpPage} />
     </Stack.Navigator>
   );
 };

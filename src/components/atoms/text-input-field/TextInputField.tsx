@@ -25,7 +25,7 @@ StyleSheet.create({
     textAlign: I18nManager.isRTL?'right':'left',
     paddingVertical: normalize(5),
     paddingHorizontal: normalize(5),
-    color: theme.textColor,
+    color: theme.textInputColor,
   },
   inputContainer: {
     flex: 1,
