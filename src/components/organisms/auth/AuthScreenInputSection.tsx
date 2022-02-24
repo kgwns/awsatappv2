@@ -82,7 +82,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
 
   return (
         <View style={[styles.container, style]} >
-          <View style={[styles.topContainerStyle,!isPassword&&{flex:0.5}]}>
+          <View style={[styles.topContainerStyle,isPassword&&{flex:0.6}]}>
             <Label
               children={isPassword?t('signIn.loginAccount'):t('signIn.signUp')}
               labelType="h2"
@@ -117,6 +117,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
             <TouchableOpacity
                 testID="signin_forget_password"
                 accessibilityLabel="signin_forget_password"
+                style={{marginVertical:0}}
                 onPress={goToPassword}>
                   <Label
                       children={t('signIn.forgotPassword')}
@@ -139,7 +140,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
             />
             <View style={styles.divider} />
           </View>
-          <View style={[styles.bottomContainerStyle,!isPassword&&{flex:0.4}]}>
+          <View style={[styles.bottomContainerStyle,isPassword&&{flex:0.35}]}>
             <SocialButtonSection
               onButtonPress={navigate}
             />
@@ -161,7 +162,7 @@ StyleSheet.create({
     color: theme.textColor,
     lineHeight: normalize(22),
     fontWeight: '400',
-    marginBottom: normalize(20),
+    marginBottom: normalize(15),
   },
   textStyleBlack: {
     fontSize: normalize(15),
@@ -174,12 +175,12 @@ StyleSheet.create({
     width: '50%',
   },
   topContainerStyle: {
-    flex: 0.55,
+    flex: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
   },
   bottomContainerStyle: {
-    flex: 0.4,
+    flex: 0.45,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -214,7 +215,7 @@ StyleSheet.create({
     textDecorationLine: 'underline',
     color: theme.primary,
     lineHeight: normalize(22),
-    marginBottom: normalize(15),
+    marginBottom: normalize(10),
   }
 })
 

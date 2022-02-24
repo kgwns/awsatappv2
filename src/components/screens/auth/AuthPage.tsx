@@ -58,7 +58,7 @@ export const AuthPage: FunctionComponent = () => {
     setEmailError(emailValidation(email));
 
     if (emailValidation(email) === ''){
-      navigation.navigate(ScreensConstants.SignUpPage,{email:email})
+      navigation.navigate(ScreensConstants.SignInPage,{email:email})
     }
   };
 
