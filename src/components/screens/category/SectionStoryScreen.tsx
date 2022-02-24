@@ -129,7 +129,7 @@ export const SectionStoryScreen = () => {
           style={{paddingTop: normalize(15), paddingHorizontal: normalize(15)}}>
           <SectionArticleItem
             headerTitle={heroListData[1].title}
-            description={decodeHTMLTags(heroListData[1].body)}
+            body={decodeHTMLTags(heroListData[1].body)}
             image={getImageUrl(heroListData[1].field_image)}
             imageStyle={{
               height: normalize(0.52 * screenWidth),

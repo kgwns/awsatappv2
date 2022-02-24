@@ -69,6 +69,8 @@ export interface CustomThemeType {
   danger: string,
   textColor: string,
   headerColor: string,
+  filterBackgroundColor: string,
+  filterBorderColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -90,6 +92,8 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   danger: colors.jasper,
   textColor: colors.greyDark50,
   headerColor: colors.darkGreenish,
+  filterBackgroundColor: colors.black,
+  filterBorderColor: colors.cyanGray
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -108,5 +112,8 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   danger: colors.jasper,
   textColor: colors.white,
   headerColor: colors.greenishBlue,
+  filterBackgroundColor: colors.greenishBlue,
+  filterBorderColor: colors.greenishBlue
+
 }
 
