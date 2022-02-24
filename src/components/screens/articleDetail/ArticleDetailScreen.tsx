@@ -1,19 +1,20 @@
 import { View, FlatList, StyleSheet } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
-import { horizontalAndBottomEdge, isNonEmptyArray, normalize } from 'src/shared/utils'
+import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import { HtmlRenderer } from 'src/components/atoms'
 import type { MixedStyleRecord } from '@native-html/transient-render-engine';
 import { RelatedArticleDataType } from 'src/redux/articleDetail/types'
-import Orientation, { OrientationLocker } from 'react-native-orientation-locker'
+import Orientation, { OrientationType } from 'react-native-orientation-locker'
+import { Edge } from 'react-native-safe-area-context'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -29,6 +30,7 @@ export const ArticleDetailScreen = ({
   route
 }: ArticleDetailScreenProps) => {
   const { themeData } = useTheme()
+  const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
 
   const {
     isLoading,
@@ -57,13 +59,30 @@ export const ArticleDetailScreen = ({
 
   useEffect(() => {
     Orientation.unlockAllOrientations()
+    Orientation.getDeviceOrientation(updateScreenEdge)
+    Orientation.addDeviceOrientationListener(updateScreenEdge)
     getArticleDetail(route.params.nid)
     return () => {
       Orientation.lockToPortrait()
-      Orientation.removeOrientationListener(() => { })
+      Orientation.removeOrientationListener(updateScreenEdge)
     }
   }, [])
+  
 
+  const updateScreenEdge = (deviceOrientation: OrientationType) => {
+    const edge = getScreenEdge(deviceOrientation)
+    setEdge(edge)
+  }
+
+
+  const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
+    switch (deviceOrientation) {
+      case 'LANDSCAPE-LEFT': return ['right']
+      case 'LANDSCAPE-RIGHT': return ['left']
+      case 'PORTRAIT': return horizontalEdge
+      default: return horizontalEdge
+    }
+  }
 
   const getArticleDetail = (id: string) => {
     fetchArticleDetail({ nid: parseInt(id) })
@@ -99,7 +118,7 @@ export const ArticleDetailScreen = ({
   )
 
   return (
-    <ScreenContainer edge={horizontalAndBottomEdge} isLoading={isLoading}>
+    <ScreenContainer edge={edge} isLoading={isLoading}>
       {!isLoading && isNonEmptyArray(articleDetailData) && <>
         <FlatList
           style={{ flex: 1, height: '100%' }}
