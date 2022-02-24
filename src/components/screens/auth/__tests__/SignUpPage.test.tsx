@@ -3,7 +3,6 @@ import React from 'react';
 import {SignUpPage} from '../SignUpPage';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
-import { SocialButtonSection } from '../../../organisms/';
 import {useNavigation} from '@react-navigation/native';
 
 jest.mock('@react-navigation/native', () => ({
@@ -17,10 +16,11 @@ describe('<SignUpPage>', () => {
     reset: jest.fn(),
     navigate: jest.fn(),
     goBack: jest.fn(),
+    dispatch: jest.fn(),
   }
   describe('when SignUpPage only', () => {
     beforeEach(() => {
-      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useNavigation as jest.Mock).mockReturnValue(navigation);
       const component = (
         <Provider store={storeSampleData}>
           <SignUpPage route={{ params: { email: 'testEmail@gmail.com' } }}  />
@@ -44,7 +44,7 @@ describe('<SignUpPage>', () => {
     it('When Press SignUp Button', () => {
       const testID = instance.getByTestId('signUp_signUp');
       fireEvent(testID, 'onPress')
-      expect(jest.fn()).toBeTruthy();
+      expect(navigation.dispatch).toHaveBeenCalled();
     });
   });
 });

@@ -12,6 +12,7 @@ export function* createUser(action: UserRegisterType) {
       registerUser,
       action.payload,
     );
+    Alert.alert(payload.message.message);
     yield put(registerSuccess(payload));
   } catch (error) {
       const errorResponse: AxiosError = error as AxiosError;

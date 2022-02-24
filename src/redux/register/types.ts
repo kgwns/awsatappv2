@@ -27,13 +27,14 @@ export interface RegisterUserTokenType {
 export interface RegisterUserMessageType {
   newUser?: number;
   code?: number;
-  message?: string;
+  message: string;
 }
 
 export interface RegisterBodyType {
   name: string;
   email: string;
   password: string;
+  device_name: string;
 }
 
 export interface RegisterSuccessPayloadType {

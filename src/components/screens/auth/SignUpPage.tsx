@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import React, {useState,useEffect,useRef} from 'react';
+import {useNavigation, StackActions} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
@@ -17,6 +17,7 @@ import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {loginPasswordValidation, reTypePasswordValidation} from 'src/shared/validators';
 import {useRegister} from 'src/hooks';
 import {RegisterBodyType} from 'src/redux/register/types';
+import DeviceInfo from 'react-native-device-info';
 
 export interface SignUpPageProps {
   route: any
@@ -34,7 +35,28 @@ export const SignUpPage = ({
   const [passwordError, setPasswordError] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setonfirmPasswordError] = useState('');
-  const {createUserRequest} = useRegister();
+  const [deviceName, setDeviceName] = useState('');
+  const {createUserRequest, registerUserInfo, isRegisterLoading} = useRegister();
+  const initialRender = useRef(true);
+
+  useEffect(() => {
+    getDeviceName();
+  }, []);
+
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      if (registerUserInfo!==null&&registerUserInfo.user!==null) {
+        navigation.dispatch(StackActions.replace(ScreensConstants.SignInPage,{email:email}))
+      }
+    }
+  }, [registerUserInfo]);
+
+  const getDeviceName = async () => {
+    const deviceName = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceName);
+  };
 
   const onPressSignIn = () => {
     setPasswordError(loginPasswordValidation(password));
@@ -45,13 +67,14 @@ export const SignUpPage = ({
         name:'',
         email,
         password,
+        device_name:deviceName,
       };
       createUserRequest(payload);
     }
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer isLoading={isRegisterLoading}>
       <View style={styles.container}>
         <View style={styles.headerStyle}>
           <TouchableOpacity
