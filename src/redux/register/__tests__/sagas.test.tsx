@@ -16,6 +16,7 @@ import {
 const mockString = 'mockString';
 
 const requestObject: RegisterBodyType = {
+  device_name: mockString,
   email: mockString,
   name: '',
   password: ''
@@ -32,7 +33,7 @@ const reposnseObject = {
       email: mockString
     },
     token:{},
-    message:{}
+    message:{message:mockString}
 };
 
 const sucessResponseObject: RegisterSuccessPayloadType = reposnseObject

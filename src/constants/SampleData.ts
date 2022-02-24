@@ -120,6 +120,11 @@ export const storeInfo = [
       isLoading: true,
       data: [],
       error: ''
+    },
+    register:{
+      isLoading: false,
+      userInfo: {},
+      error: ''
     }
   },
 ];
