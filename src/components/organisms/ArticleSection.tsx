@@ -7,6 +7,7 @@ import { ArticleWithOutImageProps } from '../molecules/ArticleWithOutImage'
 import { ImageLabelProps } from '../atoms/imageWithLabel/ImageWithLabel'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { useTranslation } from 'react-i18next'
+import { getSvgImages } from 'src/shared/styles/svgImages'
 
 export interface articleProps extends ImageLabelProps,ArticleWithOutImageProps {
    image?: string,
@@ -21,7 +22,11 @@ export interface ArticleSectionProps {
 
 export const articleFooterDataSet: articleFooterProps = {
     leftTitleColor: Styles.color.greenishBlue,
-    rightIcon: ImagesName.clock,
+    rightIcon: () => {return getSvgImages({
+        name: ImagesName.clock,
+        size: normalize(12),
+        style: { marginRight: normalize(5) }
+    })},
     rightTitleColor: Styles.color.silverChalice,
 };
 

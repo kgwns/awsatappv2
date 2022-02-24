@@ -14,7 +14,7 @@ export const MostReadScreen = () => {
   useEffect(() => { fetchMostReadRequest(); }, []);
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
-      {!isLoading && <MostReadList data={mostReadData} />}
+      {!isLoading && <MostReadList data={mostReadData} enableTag />}
     </ScreenContainer>
   )
 }

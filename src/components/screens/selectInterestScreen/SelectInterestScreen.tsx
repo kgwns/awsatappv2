@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
-import { Label, Image, LoadingState } from '../../atoms';
-import { normalize } from '../../../shared/utils';
-import { ImagesName } from '../../../shared/styles';
+import { Label, LoadingState, NextButton } from '../../atoms';
+import { horizontalEdge, normalize } from '../../../shared/utils';
 import { useTranslation } from 'react-i18next';
 import { InterestSection } from '../../organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -24,7 +23,7 @@ export const SelectInterestScreen = ({ navigation }: any) => {
   }, []);
   const { isLoading, allSiteCategoriesData, fetchAllSiteCategoriesRequest } = useAllSiteCategories();
   return (
-    <ScreenContainer>
+    <ScreenContainer edge={horizontalEdge}>
       <View style={style.container}>
         <View style={style.textContainer}>
           <Label style={style.titleStyle}>
@@ -37,33 +36,16 @@ export const SelectInterestScreen = ({ navigation }: any) => {
         <View style={style.widgetContainer}>
           {isLoading ? <LoadingState /> : <InterestSection allSiteCategoriesData={allSiteCategoriesData} />}
         </View>
-        <NextButton
-          onPress={() => navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN)}
-        />
-      </View>
+      <NextButton
+        title={t('onBoard.common.nextBtn')}
+        onPress={() => navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN)}
+        style={style}
+      />
+    </View>
     </ScreenContainer>
   );
 };
 
-const NextButton = ({ onPress }: any) => {
-  const style = useThemeAwareObject(customInterestScreenStyle)
-  const [t] = useTranslation();
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={style.nextButtonContainer}>
-      <View style={style.nextButtonIconContainer}>
-        <Image name={ImagesName.arrowNext} />
-      </View>
-
-      <View style={style.nextButtonTextContainer}>
-        <Label style={style.nextButtonText}>
-          {t('onBoard.common.nextBtn')}
-        </Label>
-      </View>
-    </TouchableOpacity>
-  );
-};
 const customInterestScreenStyle = (theme: CustomThemeType) => {
   const selectInterestScreenStyle = StyleSheet.create({
     container: {
@@ -107,7 +89,7 @@ const customInterestScreenStyle = (theme: CustomThemeType) => {
       alignSelf: 'center',
       borderRadius: normalize(51 / 2),
       marginTop: normalize(30),
-      marginBottom: normalize(30),
+      marginBottom: normalize(20),
       position: 'absolute',
       bottom: 0,
     },

@@ -6,11 +6,12 @@ import {
 } from '@react-navigation/bottom-tabs';
 import { useTranslation } from 'react-i18next';
 import { TabConstants } from '../constants/TabConstants';
-import { Image, Label } from '../components/atoms';
+import { Label } from '../components/atoms';
 import { Routes, ScreenName } from '../navigation/';
 import { colors } from '../shared/styles/colors';
-import { ImageName } from 'src/shared/styles/images';
+import { ImagesName } from 'src/shared/styles/images';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
@@ -42,23 +43,23 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                     }
                 };
 
-                const getImageIcon = () : ImageName | undefined => {
-                    let imageSource;
+                const getImageName = () : ImagesName  => {
+                    let ImageName:ImagesName = ImagesName.newsIcon ;
                     switch (route.name) {
                         case TabConstants.LATEST_NEWS:
-                            imageSource = isFocused ? TabConstants.TABICONS.NEWS_ACTIVE : TabConstants.TABICONS.NEWS
+                            ImageName = isFocused ? ImagesName.newsActiveIcon : ImagesName.newsIcon
                             break;
                         case TabConstants.SECTIONS:
-                            imageSource = isFocused ? TabConstants.TABICONS.SECTIONS_ACTIVE : TabConstants.TABICONS.SECTIONS
+                            ImageName = isFocused ? ImagesName.sectionsActiveIcon : ImagesName.sectionsIcon
                             break;
                         case TabConstants.MOST_READ:
-                            imageSource = isFocused ? TabConstants.TABICONS.MOST_READ_ACTIVE : TabConstants.TABICONS.MOST_READ
+                            ImageName = isFocused ? ImagesName.mostReadActiveIcon : ImagesName.mostReadIcon
                             break;
                         case TabConstants.FAVORITE:
-                            imageSource = isFocused ? TabConstants.TABICONS.FAVORITE_ACTIVE : TabConstants.TABICONS.FAVORITE
+                            ImageName = isFocused ? ImagesName.favoriteActiveIcon : ImagesName.favoriteIcon
                             break;
                     }
-                    return imageSource;
+                    return ImageName;
                 }
 
                 return (
@@ -67,11 +68,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                             key={index}
                             onPress={() => onPress()}>
                             <View style={TabNavigatorStyle.tabIconContainer}>
-                                <Image
-                                    resizeMode='contain'
-                                    name={getImageIcon()}
-                                    style={TabNavigatorStyle.tabIcon}
-                                />
+                                {(getSvgImages({ name: getImageName(), width: TabNavigatorStyle.tabIcon.width, height: TabNavigatorStyle.tabIcon.height }))}
                             </View>
                         </TouchableOpacity>
                         <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>

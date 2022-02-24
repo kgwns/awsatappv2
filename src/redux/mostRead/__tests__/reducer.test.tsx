@@ -1,6 +1,7 @@
-import { mostReadActions } from '../action';
+import {mostReadActions} from '../action';
+import {FETCH_MOST_READ} from '../actionTypes';
 import mostReadReducer from '../reducer';
-import { MostReadState } from '../types';
+import {MostReadState} from '../types';
 
 describe('mostRead reducer', () => {
   let initialState: MostReadState;
@@ -38,5 +39,12 @@ describe('mostRead reducer', () => {
 
     expect(nextState.isLoading).toBeFalsy();
     expect(nextState.error).toEqual(testError);
+  });
+
+  test('Check loading state when mostReadReducer FETCH_MOST_READ request API', () => {
+    const nextState = mostReadReducer(initialState, {
+      type: FETCH_MOST_READ,
+    });
+    expect(nextState.isLoading).toBe(true);
   });
 });

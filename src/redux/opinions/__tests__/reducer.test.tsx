@@ -1,4 +1,5 @@
 import {opinionsActions} from '../action';
+import {FETCH_OPINIONS} from '../actionTypes';
 import opinionsReducer from '../reducer';
 import {OpinionsListState} from '../types';
 
@@ -39,4 +40,13 @@ describe('opinions reducer', () => {
     expect(nextState.isLoading).toBeFalsy();
     expect(nextState.error).toEqual(testError);
   });
+
+  test('Check loading state when opinionsReducer request API', () => {
+    const nextState = opinionsReducer(initialState, {
+      type: FETCH_OPINIONS,
+      payload: {page: 1},
+    });
+    expect(nextState.isLoading).toBe(true);
+  });
+  
 });

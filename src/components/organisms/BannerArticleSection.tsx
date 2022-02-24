@@ -10,12 +10,16 @@ import { useTranslation } from 'react-i18next';
 import { LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useNavigation } from '@react-navigation/native'
-import { string } from 'prop-types'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { getSvgImages } from 'src/shared/styles/svgImages'
 
 export const sectionComboArticleFooter: articleFooterProps = {
     leftTitle: 'يتحمل',
-    leftIcon: ImagesName.clock,
+    leftIcon: () => {return getSvgImages({
+        name: ImagesName.clock,
+        size: normalize(12),
+        style: { marginRight: normalize(5) }
+    })},
     leftTitleColor: Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
 }
@@ -41,7 +45,11 @@ const BannerArticleSection = (props: { data: LatestArticleDataType[], title: str
         },
         headerRight: {
             title: t('latestNewsTab.sectionComboOne.headerRight'),
-            icon: ImagesName.arrowLeftFaced,
+            icon: () => {return getSvgImages({
+                name: ImagesName.arrowLeftFaced,
+                size: normalize(12),
+                style: { marginLeft: normalize(10) }
+            })},
             color: Styles.color.smokeyGrey,
             labelType: LabelTypeProp.h3,
             clickable: true,

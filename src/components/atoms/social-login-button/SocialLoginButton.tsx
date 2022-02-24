@@ -1,17 +1,18 @@
 import React, {FunctionComponent} from 'react';
 import {StyleProp, ViewStyle, TouchableOpacity, TextStyle, StyleSheet, View} from 'react-native';
-import {Label} from 'src/components/atoms';
+import { Label} from 'src/components/atoms';
 import {LabelType} from 'src/components/atoms/label/Label';
 import {normalize} from 'src/shared/utils/dimensions';
 import { Styles } from 'src/shared/styles';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
+import { isIOS } from 'src/shared/utils';
 
 const createStyles = (theme: CustomThemeType) =>
 StyleSheet.create({
   container: {
     width: '100%',
-    height: normalize(40),
+    height: isIOS ? normalize(42) : normalize(45),
     flexDirection: 'row',
     justifyContent: 'center',
     borderWidth: 1,
