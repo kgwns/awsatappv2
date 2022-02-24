@@ -24,8 +24,15 @@ export const sectionComboArticleFooter: articleFooterProps = {
     rightTitleColor: Styles.color.silverChalice,
 }
 
-const BannerArticleSection = (props: { data: LatestArticleDataType[], title: string, sectionId: string }) => {
-    const { data, sectionId } = props
+interface BannerArticleSectionProps {
+    data: LatestArticleDataType[],
+    title: string,
+    sectionId: string,
+    onPress: (nid: string) => void
+}
+
+const BannerArticleSection = (props: BannerArticleSectionProps) => {
+    const { data, sectionId, onPress } = props
     const [t] = useTranslation()
     const { themeData } = useTheme()
     const bannerData = [...data].splice(0, 4)
@@ -35,6 +42,7 @@ const BannerArticleSection = (props: { data: LatestArticleDataType[], title: str
         return <ArticleWithOutImage key={index} {...item}
             showDivider={index < verticalArticleData.length - 1}
             footerInfo={sectionComboArticleFooter}
+            onPress={() => onPress(item.nid)}
         />
     }
     const widgetHeaderData: WidgetHeaderProps = {

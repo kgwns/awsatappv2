@@ -15,6 +15,7 @@ export const HtmlRenderer = ({ source, tagsStyles }: HtmlRendererType) => {
             source={{ html: source }}
             contentWidth={screenWidth}
             tagsStyles={tagsStyles}
+            ignoredDomTags={['img']}
         />
     )
 }
