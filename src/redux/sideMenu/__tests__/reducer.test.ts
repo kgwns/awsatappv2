@@ -3,7 +3,7 @@ import { FETCH_SIDE_MENU } from '../actionTypes';
 import sideMenuReducer from '../reducer';
 import { SideMenuState } from '../types';
 
-describe('Saerch reducer', () => {
+describe('sideMenu reducer', () => {
   let initialState: SideMenuState;
 
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('Saerch reducer', () => {
     };
   });
 
-  test('When Initial State', () => {
+  test('sideMenu When Initial State', () => {
     initialState.isLoading = false;
     const nextState = sideMenuReducer(
       initialState,
@@ -26,7 +26,7 @@ describe('Saerch reducer', () => {
     expect(nextState.isLoading).toBeTruthy();
   });
 
-  test('fetchSearchSuccess', () => {
+  test('fetchSideMenuSuccess', () => {
     const testData = [{}];
     initialState.isLoading = true;
     const nextState = sideMenuReducer(
@@ -39,7 +39,7 @@ describe('Saerch reducer', () => {
     expect(nextState.isLoading).toBeFalsy();
   });
 
-  test('fetchSearchFailure', () => {
+  test('fetchSideMenuFailure', () => {
     const testError = 'some-error';
     initialState.isLoading = true;
     const nextState = sideMenuReducer(

@@ -37,7 +37,7 @@ const faildResponseObject: FetchSectionArticlesFailedPayloadtype = {
 }
 
 describe('test Saga  saga', () => {
-  it('fire on searchSaga', () => {
+  it('fire on sectionArticleSaga', () => {
     testSaga(sectionArticlesSaga)
       .next()
       .all([takeLatest(FETCH_SECTION_ARTICLES, fetchSectionArticles)])

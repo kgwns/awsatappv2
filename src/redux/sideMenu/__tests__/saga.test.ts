@@ -64,14 +64,4 @@ describe('test Saga  saga', () => {
       .finish()
       .isDone();
   });
-
-//   it('fire on FETCH_SEARCH_REQUEST', () => {
-//     testSaga(fetchSearch, requestAction)
-//       .next()
-//       .call(fetchSearchApi, requestObject)
-//       .throw(error)
-//       .put(fetchSearchFailed({error: error.message}))
-//       .finish()
-//       .isDone();
-//   });
 });
