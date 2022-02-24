@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
@@ -16,6 +16,9 @@ import { SocialLoginButton, TextInputField } from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {loginPasswordValidation} from 'src/shared/validators';
+import {useLogin} from 'src/hooks'; 
+import { FetchLoginPayloadType } from '~/redux/login/types';
+import DeviceInfo from 'react-native-device-info';
 
 export enum SocialNavigate {
   google = 'GOOGLE',
@@ -36,6 +39,24 @@ export const SignInPage = ({
   const [email, setEmail] = useState(route.params.email);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [deviceName, setDeviceName] = useState('');
+
+  useEffect(() => {
+    getDeviceName();
+  }, []);
+
+  
+
+  const getDeviceName = async () => {
+    const deviceName = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceName);
+  };
+
+  const {fetchLoginRequest , isLoading, loginData, loginError} = useLogin();
+
+  useEffect(() => {
+    console.log('loginData', loginData);
+  }, [loginData])
 
   const navigateToSection = (type: string) => {
     switch (type) {
@@ -53,11 +74,20 @@ export const SignInPage = ({
   const onPressSignIn = () => {
     setPasswordError(loginPasswordValidation(password));
 
+    console.log('deviceName', deviceName);
+
+    const payload: FetchLoginPayloadType = {
+      email: email,
+      password: password,
+      device_name: deviceName,
+    };
+
     if (loginPasswordValidation(password) === ''){
-      navigation.reset({
-        index: 0,
-        routes: [{name: ScreensConstants.OnBoardNavigator}],
-      });
+      fetchLoginRequest(payload)
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{name: ScreensConstants.OnBoardNavigator}],
+      // });
     }
   };
 

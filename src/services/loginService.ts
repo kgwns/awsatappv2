@@ -1,14 +1,14 @@
-import {  BASE_URL_UMS } from 'src/services/apiUrls';
+import { UMS_BASE_URL } from 'src/services/apiUrls';
 import { postApiRequest } from 'src/services/api';
 import { LOGIN_ENDPOINT } from './apiEndPoints';
-import { FetchLoginSuccessPayloadType } from 'src/redux/login/types';
+import { FetchLoginPayloadType, FetchLoginSuccessPayloadType } from 'src/redux/login/types';
 
-export const fetchLoginApi = async () => {
+export const fetchLoginApi = async (body: FetchLoginPayloadType) => {
   try {
     const response: FetchLoginSuccessPayloadType = await postApiRequest(
-      `${BASE_URL_UMS}${LOGIN_ENDPOINT}`,
+      `${UMS_BASE_URL}${LOGIN_ENDPOINT}`,
+      body,
     );
-    //console.log( `MostReadService url: ${BASE_URL}${MOST_READ_ENDPOINT} response: ${JSON.stringify(response)}`, );
     return response;
   } catch (error) {
     console.log(`error: ${error}`);
