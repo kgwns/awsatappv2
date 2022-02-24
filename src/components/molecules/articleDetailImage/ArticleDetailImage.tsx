@@ -10,6 +10,7 @@ import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native'
 import { getSvgImages } from 'src/shared/styles/svgImages'
+import Orientation from 'react-native-orientation-locker'
 
 const articleDetailFooterData: articleFooterProps = {
     leftTitleColor: Styles.color.white,
@@ -36,6 +37,8 @@ const ArticleDetailImage = ({
     const navigation = useNavigation()
 
     const onPressBack = () => {
+        Orientation.unlockAllOrientations()
+        Orientation.lockToPortrait()
         navigation.goBack()
     }
 
@@ -69,7 +72,8 @@ export default ArticleDetailImage
 const containerHeight = isTab ? 0.5 * screenWidth : 1.05 * screenWidth
 const imageArticleStyle = StyleSheet.create({
     sliderItemContainer: {
-        width: screenWidth,
+        flex: 1,
+        width: '100%',
         height: containerHeight
     },
     slideContent: {
