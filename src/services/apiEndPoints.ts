@@ -48,3 +48,6 @@ export const INFO = '/api/v2/info/'
 
 export const ABOUT_US = 56
 export const TERMS_AND_CONDITION = 57
+
+// Register
+export const REGISTER_ENDPOINT = 'api/ums/v1/register';
