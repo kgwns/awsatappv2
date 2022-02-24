@@ -41,7 +41,7 @@ export const SectionsScreen = () => {
   return (
     <ScreenContainer edge={horizontalEdge}>
       {renderTabBarComponent()}
-      <View style={{flex: 1}}>{tabContent()}</View>
+      <View style={{flex: 1}} testID={'tabContent'}>{tabContent()}</View>
     </ScreenContainer>
   );
 };
