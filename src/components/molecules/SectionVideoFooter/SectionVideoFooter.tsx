@@ -58,14 +58,12 @@ const SectionVideoFooter = ({
             icon={() => {
               return saveState
                 ? getSvgImages({
-                    name: ImagesName.bookMarkBlackFillSVG,
+                    name: ImagesName.bookMarkActiveSVG,
                     size: normalize(20),
-                    fill: theme.themeData.primaryBlack,
                   })
                 : getSvgImages({
-                    name: ImagesName.bookMarkBlackBdrSVG,
+                    name: ImagesName.bookMarkSVG,
                     size: normalize(20),
-                    fill: theme.themeData.primaryBlack,
                   });
             }}
             onPress={onPressSave}

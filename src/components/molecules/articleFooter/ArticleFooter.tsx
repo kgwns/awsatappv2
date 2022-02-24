@@ -39,13 +39,27 @@ const ArticleFooter = ({
   let storySaveIcon=() => {
     return saveState
       ? getSvgImages({
-          name: ImagesName.bookMarkBlackFillSVG,
+          name: ImagesName.bookMarkActiveSVG,
           size: normalize(18),
         })
       : getSvgImages({
-          name: ImagesName.bookMarkBlackBdrSVG,
+          name: ImagesName.bookMarkSVG,
           size: normalize(18),
         });
+  }
+
+  if(bookMarkColorType == BookMarkColorType.WHITE) {
+    storySaveIcon =() => {
+      return saveState
+        ? getSvgImages({
+            name: ImagesName.bookMarkWhiteActive,
+            size: normalize(18),
+          })
+        : getSvgImages({
+            name: ImagesName.bookMarkWhite,
+            size: normalize(18),
+          });
+    }
   }
 
   const onPressSave = () => {

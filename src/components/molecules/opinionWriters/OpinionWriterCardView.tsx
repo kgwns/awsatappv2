@@ -57,14 +57,12 @@ const OpinionWritersCardView = ({
             icon={() => {
               return save
                 ? getSvgImages({
-                    name: ImagesName.bookMarkBlackFillSVG,
+                    name: ImagesName.bookMarkActiveSVG,
                     size: normalize(18),
-                    fill: theme.themeData.primaryBlack,
                   })
                 : getSvgImages({
-                    name: ImagesName.bookMarkBlackBdrSVG,
+                    name: ImagesName.bookMarkSVG,
                     size: normalize(18),
-                    fill: theme.themeData.primaryBlack,
                   });
             }}
             onPress={() => setSave(!save)}

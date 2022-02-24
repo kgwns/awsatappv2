@@ -17,7 +17,7 @@ import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 export const ArticleDetailFooter = ({ articleDetailData }: { articleDetailData: ArticleDetailDataType }) => {
     const { theme } = useAppCommon()
     const [saveState, setSaveState] = useState(false)
-    let articleSaveIcon = saveState ? ImagesName.bookMarkBlackFillSVG : ImagesName.bookMarkBlackBdrSVG
+    let articleSaveIcon = saveState ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG
 
     const dispatch = useDispatch()
 
