@@ -1,8 +1,8 @@
 import { View, FlatList, StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
 import { ScreenContainer } from '..'
-import { ShortArticle, ShortArticleProps } from 'src/components/organisms'
-import { shortArticleWithTagData, shortArticleWithTagProperties } from 'src/constants/SampleData'
+import { ShortArticle } from 'src/components/organisms'
+import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
@@ -13,6 +13,7 @@ import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import { HtmlRenderer } from 'src/components/atoms'
 import type { MixedStyleRecord } from '@native-html/transient-render-engine';
 import { RelatedArticleDataType } from 'src/redux/articleDetail/types'
+import Orientation, { OrientationLocker } from 'react-native-orientation-locker'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -55,7 +56,12 @@ export const ArticleDetailScreen = ({
   }
 
   useEffect(() => {
+    Orientation.unlockAllOrientations()
     getArticleDetail(route.params.nid)
+    return () => {
+      Orientation.lockToPortrait()
+      Orientation.removeOrientationListener(() => { })
+    }
   }, [])
 
 
@@ -103,7 +109,9 @@ export const ArticleDetailScreen = ({
           showsVerticalScrollIndicator={false}
           bounces={false}
         />
-        <ArticleDetailFooter articleDetailData={articleDetailData[0]} />
+        <View style={articleDetailScreenStyle.footer}>
+          <ArticleDetailFooter articleDetailData={articleDetailData[0]} />
+        </View>
       </>
       }
     </ScreenContainer>
@@ -114,4 +122,7 @@ const articleDetailScreenStyle = StyleSheet.create({
     paddingHorizontal: normalize(10),
     paddingVertical: normalize(15),
   },
+  footer: {
+    width: '100%'
+  }
 })
