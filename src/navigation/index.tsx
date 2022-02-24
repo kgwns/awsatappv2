@@ -15,7 +15,8 @@ import {
   PodcastEpisode,
   VideoDetailScreen,
   SignInPage,
-  TermsAndAboutUs
+  TermsAndAboutUs,
+  SignUpPage,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -42,6 +43,7 @@ export const Routes = {
   VideoDetailScreen,
   SignInPage,
   TermsAndAboutUs,
+  SignUpPage,
 };
 
 /**

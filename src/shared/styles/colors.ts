@@ -68,6 +68,7 @@ export interface CustomThemeType {
   whiteSurface: string,
   danger: string,
   textColor: string,
+  textInputColor: string,
   headerColor: string,
 }
 
@@ -89,6 +90,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   whiteSurface: colors.white,
   danger: colors.jasper,
   textColor: colors.greyDark50,
+  textInputColor: colors.black,
   headerColor: colors.darkGreenish,
 }
 
@@ -107,6 +109,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   whiteSurface: colors.onyx,
   danger: colors.jasper,
   textColor: colors.white,
+  textInputColor: colors.white,
   headerColor: colors.greenishBlue,
 }
 
