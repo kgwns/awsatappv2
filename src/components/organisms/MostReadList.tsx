@@ -86,7 +86,7 @@ const MostReadList = ({
       <FlatList
         keyExtractor={(_, index) => index.toString()}
         listKey={flatListUniqueKey.MOST_READ_LIST}
-        ListHeaderComponent={listHeader}
+        ListHeaderComponent={enableTag ? listHeader : <View/>}
         data={data.rows}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => renderItem(item, index)}
