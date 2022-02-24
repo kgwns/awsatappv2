@@ -1,4 +1,6 @@
 export default {
     unlockAllOrientations: () => {},
-    lockToPortrait: () => {}
+    lockToPortrait: () => {},
+    getDeviceOrientation: () => {},
+    addDeviceOrientationListener: () => {}
 }
