@@ -17,6 +17,7 @@ import {
   SignInPage,
   TermsAndAboutUs,
   SignUpPage,
+  SuccessScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -44,6 +45,7 @@ export const Routes = {
   SignInPage,
   TermsAndAboutUs,
   SignUpPage,
+  SuccessScreen
 };
 
 /**
@@ -65,7 +67,8 @@ export type ScreenList = {
   KeepNotifiedScreen: undefined;
   articleDetailScreen: undefined;
   SelectInterestScreen: undefined;
-  StoryScreen: undefined
+  StoryScreen: undefined;
+  SuccessScreen: undefined;
 };
 
 export type ScreenName = keyof undefined;
@@ -83,6 +86,7 @@ const keepNotifiedScreen = 'keepNotifiedScreen' as ScreenName;
 const articleDetailScreen = 'articleDetailScreen' as ScreenName
 const selectInterestScreen = 'selectInterestScreen' as ScreenName;
 const termsAndAboutUs = 'termsAndAboutUs' as ScreenName;
+const successScreen = 'successScreen' as ScreenName;
 
 
 export const RoutesName = {
@@ -98,5 +102,6 @@ export const RoutesName = {
   keepNotifiedScreen,
   articleDetailScreen,
   selectInterestScreen,
-  termsAndAboutUs
+  termsAndAboutUs,
+  successScreen
 };
