@@ -42,7 +42,7 @@ describe('<SignInPage>', () => {
       expect(navigation.goBack).toHaveBeenCalled();
     });
     it('When Press SignIn Button', () => {
-      const testID = instance.getByTestId('logIn_signIn');
+      const testID = instance.container.findByType(SocialButtonSection);
       fireEvent(testID, 'onPress')
       expect(jest.fn()).toBeTruthy();
     });

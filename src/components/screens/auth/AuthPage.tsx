@@ -5,15 +5,13 @@ import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
-import {SocialButtonSection} from '../../../components/organisms/';
+import {AuthScreenInputSection} from '../../../components/organisms/';
 import {ScreensConstants} from 'src/constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
-import { SocialLoginButton, TextInputField } from '../../atoms';
-import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import {emailValidation} from 'src/shared/validators';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -88,45 +86,14 @@ export const AuthPage: FunctionComponent = () => {
         </View>
 
         <View style={styles.containerStyle}>
-          <View style={styles.topContainerStyle}>
-            <Label
-              children={t('signIn.signUp')}
-              labelType="h2"
-              color={colors.greenishBlue}
-            />
-            <Label
-              children={t('signIn.signUpReceive')}
-              style={styles.textStyle}
-            />
-            <TextInputField placeholder={t('signIn.email')}
-              testID={'signIn_email'}
-              onChangeText={setEmail}
-              value={email}
-              error={emailError}
-              style={styles.inputStyle}
-              keyboardType={'email-address'}
-              leftIcon={() => <EmailIcon fill={themeData.textColor}/>}
-            />
-            <SocialLoginButton testID="signin_signIn"
-              onPress={onPressSignup}
-              label={t('signIn.signIn')}
-              style={styles.buttonStyle}
-              labelStyle={styles.labelStyle}
-            />
-          </View>
-          <View style={styles.dividerContainber}>
-            <View style={[styles.divider,styles.leftDivider]} />
-            <Label
-              children={t('signIn.or')}
-              style={styles.textStyleBlack}
-            />
-            <View style={styles.divider} />
-          </View>
-          <View style={styles.bottomContainerStyle}>
-            <SocialButtonSection
-              onButtonPress={navigateToSection}
-            />
-          </View>
+          <AuthScreenInputSection
+            emailTestID='signIn_email'
+            emailError={emailError}
+            email={email}
+            setChangeText={setEmail}
+            navigateToSection={navigateToSection}
+            onPressSignup={onPressSignup}
+          />
         </View>
 
         <View style={styles.footerStyle}>
@@ -171,7 +138,7 @@ StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 0.1,
+    flex: 0.09,
   },
   headerStyle: {
     flex: 0.05,
@@ -184,19 +151,9 @@ StyleSheet.create({
     lineHeight: normalize(16),
   },
   containerStyle: {
-    flex: 0.7,
+    flex: 0.71,
     paddingHorizontal: normalize(30),
     backgroundColor: theme.secondaryWhite,
-  },
-  topContainerStyle: {
-    flex: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  bottomContainerStyle: {
-    flex: 0.4,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   footerStyle: {
     flex: 0.15,
@@ -214,47 +171,5 @@ StyleSheet.create({
   },
   spaceStyle: {
     marginHorizontal: normalize(10),
-  },
-  textStyle: {
-    fontSize: normalize(15),
-    color: theme.textColor,
-    lineHeight: normalize(16),
-    fontWeight: '400',
-    marginBottom: normalize(20),
-  },
-  textStyleBlack: {
-    fontSize: normalize(15),
-    color: theme.primaryBlack,
-    lineHeight: normalize(16),
-  },
-  buttonStyle: {
-    backgroundColor: theme.primary,
-    borderWidth: 0,
-    width: '50%',
-  },
-  labelStyle: {
-    color: colors.white,
-    fontWeight: 'bold',
-    lineHeight: 22,
-  },
-  dividerContainber: {
-    flex: 0.1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  divider: {
-    height: 1,
-    flex: 1,
-    marginLeft: normalize(15),
-    width: '100%',
-    backgroundColor: theme.textColor,
-  },
-  leftDivider: {
-    marginRight: normalize(20),
-    marginLeft: 0,
-  },
-  inputStyle: {
-    width: '100%',
   },
 })
