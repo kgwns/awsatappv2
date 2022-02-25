@@ -20,7 +20,7 @@ export interface VideoItemProps {
   videoLabel?: string;
   time?: string;
   title: string;
-  des: string;
+  des: string|null;
   date?: string;
   views?: string;
   isFirstItem?: boolean;
