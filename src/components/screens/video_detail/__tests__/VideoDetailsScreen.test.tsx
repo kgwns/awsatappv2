@@ -1,14 +1,27 @@
-import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
-import React, {useState} from 'react';
-import { VideoDetailScreen  } from '../VideoDetailScreen';
+import { render, RenderAPI, fireEvent } from '@testing-library/react-native';
+import React, { useState } from 'react';
+import { VideoDetailScreen } from '../VideoDetailScreen';
 import { Provider } from 'react-redux'
 import { storeSampleData, videoTabData } from 'src/constants/SampleData';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import {PodcastProgramHeader} from 'src/components/molecules';
+import { PodcastProgramHeader } from 'src/components/molecules';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+}));
+
+jest.mock("src/hooks/useVideoList", () => ({
+  useVideoList: (...args: any) => {
+    return {
+      isLoading: false,
+      videoData: [],
+      videoError: 'error',
+      fetchVideoRequest: () => {
+        return []
+      },
+    }
+  },
 }));
 
 describe('<VideoDetailScreen >', () => {
@@ -22,7 +35,7 @@ describe('<VideoDetailScreen >', () => {
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
-            <VideoDetailScreen  route={{ params: { data: videoTabData } }}/>
+            <VideoDetailScreen route={{ params: { data: videoTabData } }} />
           </SafeAreaProvider>
         </Provider>
       );

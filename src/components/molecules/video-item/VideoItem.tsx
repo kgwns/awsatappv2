@@ -14,7 +14,9 @@ import ViewIcon from 'src/assets/images/icons/view.svg';
 import DateIcon from 'src/assets/images/icons/date.svg';
 import {normalize} from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
-
+import {getImageUrl} from 'src/shared/utils/utilities';
+import {timeAgo} from 'src/shared/utils/utilities';
+import { decode } from 'html-entities';
 export interface VideoItemProps {
   imageUrl: string;
   videoLabel?: string;
@@ -28,6 +30,7 @@ export interface VideoItemProps {
   testID?: string;
   shortDescription?: string;
   toWatchTitle?: string;
+  video?: string;
 }
 
 export const VideoItem = ({
@@ -47,18 +50,20 @@ export const VideoItem = ({
   const {themeData} = useTheme();
   const [t] = useTranslation();
   const showSeparator = (views || toWatchTitle) && (date)
+  const imageLink = imageUrl ? getImageUrl(imageUrl) : undefined;
+  const monthDate = t(timeAgo(date))
   return (
     <View>
       <TouchableOpacity testID={testID} accessibilityLabel={testID} onPress={onPress}>
         <View>
         {isFirstItem ? (
           <View style={styles.videoContainer}>
-            <Image resizeMode={'cover'} url={imageUrl} style={styles.imageBig} />
+            <Image resizeMode={'cover'} url={imageLink} style={styles.imageBig} />
           </View>
         ) : (
             <View style={styles.videoContainer}>
-              <Image resizeMode={'cover'} url={imageUrl} style={styles.image} />
-              {time && (<PlayIcon fill={colors.white} style={styles.playIcon} />)}
+              <Image resizeMode={'cover'} url={imageLink} style={styles.image} />
+              <PlayIcon fill={colors.white} style={styles.playIcon} />
               {time && (<Label style={styles.time} color={colors.white}>
                 {time}
               </Label>)}
@@ -68,10 +73,10 @@ export const VideoItem = ({
         </View>
       </TouchableOpacity>
 
-      <Label labelType={'h2'}>{title}</Label>
-      <Label labelType={'p3'} color={themeData.secondaryDavyGrey}>
-        {des}
-      </Label>
+      <Label labelType={'h2'}>{decode(title)}</Label>
+      {des&&<Label labelType={'p3'} color={themeData.secondaryDavyGrey}>
+        {decode(des)}
+      </Label>}
 
       <View style={styles.footerContainer}>
         <View style={styles.footerRight}>
@@ -83,13 +88,13 @@ export const VideoItem = ({
           {views && (<Label style={styles.viewsStyle}>{views}</Label>)}
           {toWatchTitle && (<Label labelType="caption5">{toWatchTitle}</Label>)}
           {showSeparator && (<View style={styles.dividerV} />)}
-          {date  && (<DateIcon
+          {monthDate  && (<DateIcon
             fill={colors.silverChalice}
             width={normalize(14)}
             height={normalize(14)}
           />)}
           <Label style={styles.day} color={colors.silverChalice}>
-            {date}
+            {monthDate}
           </Label>
         </View>
         <BookmarkIcon fill={colors.davyGrey} />

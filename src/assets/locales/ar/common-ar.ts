@@ -108,6 +108,7 @@ export const arabic = {
   },
   videoDetail: {
     watch: 'مشاهده',
+    employement: 'تشغيل',
   },
   favorite: {
     tabItem: {
