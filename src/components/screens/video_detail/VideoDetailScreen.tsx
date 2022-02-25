@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import { ScreenContainer } from '..';
 import {PodcastProgramHeader} from 'src/components/molecules';
 import Share from 'react-native-share';
 import {VideosList, VideoInfo} from 'src/components/organisms';
-import {videoTabData, PodcastEpisodeData} from 'src/constants/SampleData';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { normalize, horizontalAndBottomEdge} from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useVideoList } from 'src/hooks';
+import { VideoItemType } from 'src/redux/videoList/types';
 
 export interface VideoDetailScreenProps {
   route: any
@@ -17,9 +18,12 @@ export interface VideoDetailScreenProps {
 
 export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
 
+  const {isLoading,videoData,fetchVideoRequest} = useVideoList();
+  useEffect(() => { fetchVideoRequest(); }, []);
   const styles = useThemeAwareObject(createStyles);
   const [isSaved, setIsSaved] = useState(false);
   const insets = useSafeAreaInsets();
+
   const onPressShare = async () => {
     const { title, imageUrl } = route.params.data
     await Share.open({
@@ -46,15 +50,15 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           isSaved={isSaved}
           isCloseIcon
         />
-        <VideoInfo data={route.params.data}/>
+        {videoData.length&&<VideoInfo data={videoData[0]} onPress={(item:VideoItemType)=>{console.log(item)}}/>}
       </View>
       <View style={styles.container}>
-        <VideosList data={videoTabData} onItemActionPress={()=>console.log('item pressed')} />
+        <VideosList data={videoData.slice(1)} onItemActionPress={(item:VideoItemType)=>console.log(item,'item pressed')} />
       </View>
     </View>
   )
   return (
-    <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'}>
+    <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading}>
       <View style={{height:insets.top,backgroundColor: colors.black}} />
       <FlatList
         style={{ flex: 1, height: '100%' }}

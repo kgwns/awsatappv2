@@ -53,3 +53,7 @@ export const TERMS_AND_CONDITION = 57
 export const REGISTER_ENDPOINT = 'api/ums/v1/register';
 export const LOGIN_ENDPOINT = 'api/ums/v1/login';
 export const CHECK_EMAIL  = 'api/ums/v1/loginCheckEmail'
+
+//VideoList
+export const VIDEO_LIST_ENDPOINT = 'api/v2/videolist'
+

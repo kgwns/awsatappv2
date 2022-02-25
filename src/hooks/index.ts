@@ -11,3 +11,4 @@ export { useTermsAndAboutUs } from 'src/hooks/useTermsAndAboutUs';
 export { useRegister } from 'src/hooks/useRegister';
 export { useLogin } from './useLogin';
 export { useEmailCheck } from './useEmailCheck';
+export { useVideoList } from 'src/hooks/useVideoList';

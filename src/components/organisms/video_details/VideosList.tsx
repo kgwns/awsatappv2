@@ -1,19 +1,19 @@
 import React, {FunctionComponent} from 'react';
 import {View, FlatList, ListRenderItem, StyleSheet} from 'react-native';
-import { Label } from 'src/components/atoms/';
-import { VideosVerticalList, VideosVerticalListProps, VideoItemProps } from 'src/components/molecules/';
+import { VideosVerticalList } from 'src/components/molecules/';
 import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import { colors } from 'src/shared/styles/colors';
+import {getImageUrl} from 'src/shared/utils/utilities';
 
 export interface VideosListProps {
-  onItemActionPress?: (item: VideoItemProps) => void;
-  data: VideoItemProps[];
+  onItemActionPress?: (item: any) => void;
+  data: any;
 }
 
-const keyExtractor = (_item:VideoItemProps,index: number) => {
+const keyExtractor = (_item:any,index: number) => {
   return `podcastEpisodeContent-${index}`;
 };
 
@@ -24,18 +24,19 @@ export const VideosList: FunctionComponent<VideosListProps> = ({
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
 
-  const handleOnItemPressAction = (item: VideoItemProps) => {
+  const handleOnItemPressAction = (item: any) => {
     if (onItemActionPress) {
       onItemActionPress(item);
     }
   };
 
-  const renderItem: ListRenderItem<VideoItemProps> = ({item,index}) => {
+  const renderItem: ListRenderItem<any> = ({item,index}) => {
+    const imageLink = item.field_thumbnil_multimedia_export ? getImageUrl(item.field_thumbnil_multimedia_export) : undefined;
     return (
       <VideosVerticalList
-        imageUrl={item.imageUrl}
+        imageUrl={imageLink}
         title={item.title}
-        time={item.time}
+        time={item.date}
         testID={`podcastepisodecontent_${index}`}
         itemOnPress={()=>handleOnItemPressAction(item)}
       />
@@ -57,7 +58,7 @@ export const VideosList: FunctionComponent<VideosListProps> = ({
   );
 };
 
-const createStyles = (theme: CustomThemeType) =>
+const createStyles = (_theme: CustomThemeType) =>
 StyleSheet.create({
   containerStyle: {
     flex : 1,
