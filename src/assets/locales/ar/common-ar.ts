@@ -162,6 +162,12 @@ export const arabic = {
     signUp: 'تسجيل الدخول',
     return: 'الرجوع',
   },
+  ForgotPassword: {
+    checkYourMail: 'تحقق من بريدك الإلكتروني',
+    instruction: 'لقد أرسلنا تعليمات استعادة كلمة المرور إلى بريدك الإلكتروني',
+    openMailApp: 'افتح تطبيق البريد الإلكتروني',
+    skipOption: 'تخطي ، سأؤكد لاحقًا'
+  },
   onboardSuccess: {
     successMessage: 'تم تكوين صفحة أخبارك بنجاح',
     mailAcknowledgement: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى\n الإيميل الخاص بك.',
