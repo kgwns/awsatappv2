@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {FunctionComponent, useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {colors} from '../../../shared/styles/colors';
 import {normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from '../../../components/organisms/';
@@ -11,8 +12,13 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
+import {SocialLoginButton, TextInputField} from '../../atoms';
+import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {loginPasswordValidation} from 'src/shared/validators';
+import {useLogin} from 'src/hooks';
+import {FetchLoginPayloadType} from 'src/redux/login/types';
+import DeviceInfo from 'react-native-device-info';
 
 export enum SocialNavigate {
   google = 'GOOGLE',
@@ -20,12 +26,10 @@ export enum SocialNavigate {
   facebook = 'FACEBOOK',
 }
 export interface SignInPageProps {
-  route: any
+  route: any;
 }
 
-export const SignInPage = ({
-  route
-}: SignInPageProps) => {
+export const SignInPage = ({route}: SignInPageProps) => {
   const navigation = useNavigation();
   const {themeData} = useTheme();
   const [t] = useTranslation();
@@ -33,6 +37,32 @@ export const SignInPage = ({
   const [email, setEmail] = useState(route.params.email);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [deviceName, setDeviceName] = useState('');
+
+  useEffect(() => {
+    getDeviceName();
+  }, []);
+
+  const getDeviceName = async () => {
+    const deviceName = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceName);
+  };
+
+  const {fetchLoginRequest, isLoading, loginData, loginError} = useLogin();
+
+  useEffect(() => {
+    const message = loginData?.message;
+    if (message) {
+      if (message.code === 200) {
+        navigation.reset({
+          index: 0,
+          routes: [{name: ScreensConstants.OnBoardNavigator}],
+        });
+      }else{
+        Alert.alert(message.message);
+      }
+    }
+  }, [loginData]);
 
   const navigateToSection = (type: string) => {
     switch (type) {
@@ -43,23 +73,32 @@ export const SignInPage = ({
       case SocialNavigate.facebook:
         return;
       default:
-        navigation.goBack()
+        navigation.goBack();
     }
   };
 
   const onPressSignIn = () => {
     setPasswordError(loginPasswordValidation(password));
 
-    if (loginPasswordValidation(password) === ''){
-      navigation.reset({
-        index: 0,
-        routes: [{name: ScreensConstants.OnBoardNavigator}],
-      });
+    console.log('deviceName', deviceName);
+
+    const payload: FetchLoginPayloadType = {
+      email: email,
+      password: password,
+      device_name: deviceName,
+    };
+
+    if (loginPasswordValidation(password) === '') {
+      fetchLoginRequest(payload);
+      // navigation.reset({
+      //   index: 0,
+      //   routes: [{name: ScreensConstants.OnBoardNavigator}],
+      // });
     }
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer isOverlayLoading={isLoading}>
       <View style={styles.container}>
         <View style={styles.headerStyle}>
           <TouchableOpacity
@@ -77,7 +116,7 @@ export const SignInPage = ({
         </View>
 
         <View style={styles.logoContainer}>
-          <HeaderIcon style={styles.logo} fill={themeData.headerColor}/>
+          <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
         </View>
 
         <View style={styles.containerStyle}>
@@ -93,7 +132,7 @@ export const SignInPage = ({
             setChangeText={setEmail}
             setChangePassword={setPassword}
             navigateToSection={navigateToSection}
-            goToPasswordScreen={()=>{console.log('forget password clicked')}}
+            goToPasswordScreen={()=> navigation.navigate(ScreensConstants.FORGOT_PASSWORD)}
             onPressSignup={onPressSignIn}
           />
         </View>

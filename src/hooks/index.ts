@@ -9,4 +9,6 @@ export { useAllWriters } from 'src/hooks/useAllWriters';
 export { useAllSiteCategories } from 'src/hooks/useAllSiteCategories';
 export { useTermsAndAboutUs } from 'src/hooks/useTermsAndAboutUs';
 export { useRegister } from 'src/hooks/useRegister';
+export { useLogin } from './useLogin';
+export { useEmailCheck } from './useEmailCheck';
 export { useVideoList } from 'src/hooks/useVideoList';

@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
@@ -12,8 +12,12 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
+import {SocialLoginButton, TextInputField} from '../../atoms';
+import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import {emailValidation} from 'src/shared/validators';
-import { StackNavigationProp } from '@react-navigation/stack';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {useEmailCheck} from 'src/hooks';
+import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -25,12 +29,26 @@ export enum NavigateTypes {
 }
 
 export const AuthPage: FunctionComponent = () => {
-  const navigation = useNavigation<StackNavigationProp<any>>()
+  const navigation = useNavigation<StackNavigationProp<any>>();
   const {themeData} = useTheme();
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+
+  const {fetchEmailCheckRequest, isLoading, emailCheckData, emailCheckError} =
+    useEmailCheck();
+
+  useEffect(() => {
+    const message = emailCheckData?.message;
+    if(message){
+      if(message.code === 200){
+        navigation.navigate(ScreensConstants.SignInPage,{email:email})
+      }else{
+        navigation.navigate(ScreensConstants.SignUpPage,{email:email})
+      }
+    }    
+  }, [emailCheckData]);
 
   const navigateToSection = (type: string) => {
     switch (type) {
@@ -57,13 +75,17 @@ export const AuthPage: FunctionComponent = () => {
   const onPressSignup = () => {
     setEmailError(emailValidation(email));
 
-    if (emailValidation(email) === ''){
-      navigation.navigate(ScreensConstants.SignUpPage,{email:email})
+    if (emailValidation(email) === '') {
+      const payload: FetchEmailCheckPayloadType = {
+        email: email,
+      };
+      fetchEmailCheckRequest(payload);
+      //navigation.navigate(ScreensConstants.SignInPage,{email:email})
     }
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer isOverlayLoading={isLoading}>
       <View style={styles.container}>
         <View style={styles.headerStyle}>
           <TouchableOpacity

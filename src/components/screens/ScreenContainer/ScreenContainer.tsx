@@ -1,40 +1,52 @@
-import React from 'react'
-import { StyleSheet, StatusBar, StatusBarStyle, View, TouchableOpacity } from 'react-native'
-import { Edge, SafeAreaView } from 'react-native-safe-area-context'
-import { isDarkTheme, normalize } from '../../../shared/utils'
-import { useAppCommon } from '../../../hooks/useAppCommon'
-import { CustomThemeType } from 'src/shared/styles/colors'
-import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { Label, LoadingState, Image } from 'src/components/atoms';
-import { useNavigation } from '@react-navigation/native';
-import { Styles } from 'src/shared/styles';
-import { useTranslation } from 'react-i18next';
-import { useTheme } from 'src/shared/styles/ThemeProvider';
+import React from 'react';
+import {
+  StyleSheet,
+  StatusBar,
+  StatusBarStyle,
+  View,
+  TouchableOpacity,
+} from 'react-native';
+import {Edge, SafeAreaView} from 'react-native-safe-area-context';
+import {isDarkTheme, normalize} from '../../../shared/utils';
+import {useAppCommon} from '../../../hooks/useAppCommon';
+import {CustomThemeType} from 'src/shared/styles/colors';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import {Label, LoadingState, Image} from 'src/components/atoms';
+import {useNavigation} from '@react-navigation/native';
+import {Styles} from 'src/shared/styles';
+import {useTranslation} from 'react-i18next';
+import {useTheme} from 'src/shared/styles/ThemeProvider';
 import DeviceInfo from 'react-native-device-info';
 
 const isIphoneX = DeviceInfo.hasNotch();
 
 export interface ScreenContainerProps {
-  children: any,
-  edge?: Edge[],
+  children: any;
+  edge?: Edge[];
   isLoading?: boolean;
+  isOverlayLoading?: boolean;
   barStyle?: StatusBarStyle;
   showHeader?: boolean;
   headerTitle?: string;
-  statusbarColor?: string
+  statusbarColor?: string;
 }
 
 export const ScreenContainer = ({
-  children, edge, isLoading = false, barStyle,
-  showHeader = false, headerTitle,
-  statusbarColor
+  children,
+  edge,
+  isLoading = false,
+  barStyle,
+  showHeader = false,
+  headerTitle,
+  statusbarColor,
+  isOverlayLoading = false,
 }: ScreenContainerProps) => {
-  const { theme } = useAppCommon()
-  const isDarkMode = isDarkTheme(theme)
+  const {theme} = useAppCommon();
+  const isDarkMode = isDarkTheme(theme);
   const style = useThemeAwareObject(createStyles);
   const navigation = useNavigation();
 
-  const { themeData } = useTheme();
+  const {themeData} = useTheme();
 
   const [t] = useTranslation();
 
@@ -44,7 +56,6 @@ export const ScreenContainer = ({
 
   const header = (title?: string) => {
     return (
-
       <View style={style.headerContainer}>
         {title && (
           <Label
@@ -61,19 +72,24 @@ export const ScreenContainer = ({
           </Label>
         </TouchableOpacity>
       </View>
-
     );
   };
 
-  const statusBarBackgroundColor = statusbarColor || themeData.backgroundColor
+  const statusBarBackgroundColor = statusbarColor || themeData.backgroundColor;
   return (
     <SafeAreaView
       style={style.container}
       edges={edge ? edge : ['left', 'right', 'top']}>
       {showHeader && header(headerTitle)}
-      <StatusBar backgroundColor={statusBarBackgroundColor} barStyle={barStyle ? barStyle : (isDarkMode ? 'light-content' : 'dark-content')} />
+      <StatusBar
+        backgroundColor={statusBarBackgroundColor}
+        barStyle={
+          barStyle ? barStyle : isDarkMode ? 'light-content' : 'dark-content'
+        }
+      />
       {children}
       {isLoading && <LoadingState />}
+      {isOverlayLoading && <View style={style.loadingOverlay}><LoadingState /></View>}
     </SafeAreaView>
   );
 };
@@ -110,7 +126,7 @@ const createStyles = (theme: CustomThemeType) => {
       height: normalize(55),
       backgroundColor: theme.backgroundColor,
       justifyContent: 'center',
-      marginTop: isIphoneX ? normalize(30) : 0
+      marginTop: isIphoneX ? normalize(30) : 0,
     },
     returnIconStyle: {
       tintColor: theme.secondaryDarkSlate,
@@ -120,6 +136,13 @@ const createStyles = (theme: CustomThemeType) => {
       position: 'absolute',
       alignSelf: 'center',
     },
+    loadingOverlay: {
+      width: '100%',
+      height: '100%',
+      backgroundColor: theme.backgroundColor,
+      opacity: .8,
+      position: 'absolute'
+    }
   });
   return styles;
 };

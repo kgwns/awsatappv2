@@ -13,7 +13,7 @@ export default (state = initialState, action: RegisterAction) => {
     case REGISTER_FAILED:
       return {...state, error: action.payload.error, isLoading: false};
     case REGISTER_USER:
-      return {...state, isLoading: true};
+      return {...state, isLoading: true, userInfo: null};
     default:
       return {...state};
   }

@@ -13,6 +13,8 @@ import allWritersSaga from './allWriters/sagas';
 import allSiteCategoriesSaga from './allSiteCategories/sagas';
 import termsAndAboutUs from './termsAndAboutUs/sagas'
 import registerSaga from './register/sagas'
+import loginSaga from './login/sagas';
+import emailCheckSaga from './auth/sagas';
 import videoListSaga from './videoList/sagas'
 
 export function* rootSaga() {
@@ -31,6 +33,8 @@ export function* rootSaga() {
     fork(allSiteCategoriesSaga),
     fork(termsAndAboutUs),
     fork(registerSaga),
+    fork(loginSaga),
+    fork(emailCheckSaga),
     fork(videoListSaga),
   ]);
 }

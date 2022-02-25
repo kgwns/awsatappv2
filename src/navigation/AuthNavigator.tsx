@@ -20,6 +20,7 @@ const AuthNavigator = () => {
       <Stack.Screen name={ScreensConstants.AuthPage} component={Routes.AuthPage} />
       <Stack.Screen name={ScreensConstants.SignInPage} component={Routes.SignInPage} />
       <Stack.Screen name={ScreensConstants.SignUpPage} component={Routes.SignUpPage} />
+      <Stack.Screen name={ScreensConstants.FORGOT_PASSWORD} component={Routes.ForgotPassword} />
     </Stack.Navigator>
   );
 };
