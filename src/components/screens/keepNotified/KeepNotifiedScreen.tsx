@@ -37,12 +37,7 @@ export const KeepNotifiedScreen = ({navigation}: any) => {
             testID="nextButtonTestId"
             title={t('onBoard.common.completed')}
             icon={false}
-            onPress={() =>
-              navigation.reset({
-                index: 0,
-                routes: [{name: ScreensConstants.AppNavigator}],
-              })
-            }
+            onPress={() => navigation.navigate(ScreensConstants.SUCCESS_SCREEN)}
             style={style}
           />
         </View>

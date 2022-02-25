@@ -53,6 +53,9 @@ const OnBoardNavigator = () => {
           case ScreensConstants.NEWS_LETTER_SCREEN:
             navigation.navigate(ScreensConstants.NEWS_LETTER_SCREEN);
             return;
+          case ScreensConstants.SUCCESS_SCREEN:
+            navigation.navigate(ScreensConstants.SUCCESS_SCREEN);
+            return;
           case ScreensConstants.AppNavigator:
             navigation.reset({
               index: 0,
@@ -127,8 +130,13 @@ const OnBoardNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
-          headerRight: () => onBoardSkip(ScreensConstants.AppNavigator),
+          headerRight: () => onBoardSkip(ScreensConstants.SUCCESS_SCREEN),
         }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.SUCCESS_SCREEN}
+        component={Routes.SuccessScreen}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

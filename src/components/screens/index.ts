@@ -23,3 +23,4 @@ export { VideoScreen } from './category/VideoScreen';
 export {SectionArticlesScreen} from './sectionArticles/SectionArticlesScreen';
 export { TermsAndAboutUs } from './termsAndAboutUs/TermsAndAboutUs'
 export { NewsLetterScreen } from 'src/components/screens/newsLetter/NewsLetterScreen';
+export { SuccessScreen } from './success_screen/SuccessScreen'
