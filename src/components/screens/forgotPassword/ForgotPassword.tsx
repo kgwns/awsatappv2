@@ -38,6 +38,7 @@ export const ForgotPassword: FunctionComponent = () => {
     }
   };
   const onPressBack = () => {
+    navigation.goBack();
     console.log('return button tapped')
   }
   const onPressGoToMail = () => {

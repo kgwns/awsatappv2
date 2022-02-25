@@ -19,6 +19,7 @@ import {useRegister} from 'src/hooks';
 import {RegisterBodyType} from 'src/redux/register/types';
 import DeviceInfo from 'react-native-device-info';
 import { normal } from 'react-native-color-matrix-image-filters';
+import { fetchLoginSuccess } from 'src/redux/login/action';
 
 export interface SignUpPageProps {
   route: any
@@ -50,6 +51,7 @@ export const SignUpPage = ({
 
     if (message) {
       if (message.code === 200) {
+        fetchLoginSuccess({ loginData: registerUserInfo })
         navigation.reset({
           index: 0,
           routes: [{name: ScreensConstants.OnBoardNavigator}],

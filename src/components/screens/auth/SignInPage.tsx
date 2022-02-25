@@ -132,7 +132,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
             setChangeText={setEmail}
             setChangePassword={setPassword}
             navigateToSection={navigateToSection}
-            goToPasswordScreen={()=>{console.log('forget password clicked')}}
+            goToPasswordScreen={()=> navigation.navigate(ScreensConstants.FORGOT_PASSWORD)}
             onPressSignup={onPressSignIn}
           />
         </View>
