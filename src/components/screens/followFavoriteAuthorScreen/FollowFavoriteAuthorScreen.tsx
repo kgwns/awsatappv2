@@ -7,15 +7,17 @@ import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteA
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {ScreensConstants} from 'src/constants';
 import {useAllWriters} from 'src/hooks';
 import {AllWritersBodyGet} from 'src/redux/allWriters/types';
 import {ScreenContainer} from '..';
+import {ScreensConstants} from 'src/constants';
+import {ScreenHeight} from 'react-native-elements/dist/helpers';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
+
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
@@ -36,20 +38,26 @@ export const FollowFavoriteAuthorScreen = () => {
             {t('onBoard.followFavoriteAuthor.description')}
           </Label>
         </View>
-        <View style={style.widgetContainer}>
+        <View style={style.contentStyle}>
           {isLoading ? (
             <LoadingState />
           ) : (
-            <FollowFavoriteAuthorWidget writersData={allWritersData} />
+            <View>
+              <FollowFavoriteAuthorWidget writersData={allWritersData} />
+            </View>
           )}
         </View>
-      <NextButton
-        title={t('onBoard.common.nextBtn')}
-        testID={'nextButtonTestId'}
-        onPress={() => navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)}
-        style={style}
-      />
-    </View>
+        <View style={style.nextButtonView}>
+          <NextButton
+            testID="nextButtonTestId"
+            title={t('onBoard.common.nextBtn')}
+            onPress={() =>
+              navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)
+            }
+            style={style}
+          />
+        </View>
+      </View>
     </ScreenContainer>
   );
 };
@@ -58,20 +66,16 @@ const customStyle = (theme: CustomThemeType) => {
   const FollowFavoriteAuthorScreenStyle = StyleSheet.create({
     container: {
       flex: 1,
+      width: '100%',
       backgroundColor: theme.backgroundColor,
       shadowColor: colors.transparent,
+      alignContent: 'center',
+      alignSelf: 'center',
       justifyContent: 'center',
-      alignItems: 'center',
     },
     textContainer: {
-      top: 0,
-      position: 'absolute',
-    },
-    widgetContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      alignSelf: 'center',
+      flex: 0.13,
+      justifyContent: 'flex-end',
     },
     titleStyle: {
       textAlign: 'center',
@@ -86,28 +90,33 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.secondaryDavyGrey,
       lineHeight: normalize(30),
     },
-    nextButtonContainer: {
+    contentStyle: {
+      flex: 0.77,
+      justifyContent: 'center',
+      paddingVertical: normalize(15),
+    },
+    nextButtonView: {
+      flex: 0.1,
+      justifyContent: 'flex-end',
       width: '90%',
+      alignSelf: 'center',
+      marginBottom: normalize(0.02 * ScreenHeight),
+    },
+    nextButtonContainer: {
       height: normalize(51),
       flexDirection: 'row-reverse',
       backgroundColor: theme.secondaryGreen,
       alignItems: 'center',
       alignSelf: 'center',
-      borderRadius: normalize(51 / 2),
-      marginBottom: normalize(20),
-      position: 'absolute',
-      bottom: 0,
+      borderRadius: normalize(25),
     },
-    nextButtonIconContainer: {flex: 0.1, marginEnd: normalize(10)},
-    nextButtonTextContainer: {
-      flex: 1,
-      left: normalize(-18),
-    },
+    nextButtonIconContainer: {position: 'absolute', left: normalize(20)},
     nextButtonText: {
       color: theme.primary,
+      textAlign: 'center',
+      width: '100%',
       fontSize: normalize(16),
       fontWeight: 'bold',
-      textAlign: 'center',
       lineHeight: normalize(20),
     },
   });

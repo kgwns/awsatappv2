@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { Image } from 'src/components/atoms';
-import { Label } from 'src/components/atoms';
-import { normalize, screenWidth } from 'src/shared/utils';
-import { colors, CustomThemeType } from 'src/shared/styles/colors';
-import { ImagesName } from 'src/shared/styles';
-import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { Grayscale } from 'react-native-color-matrix-image-filters';
-import { getSvgImages } from 'src/shared/styles/svgImages';
+import React, {useState} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {Image} from 'src/components/atoms';
+import {Label} from 'src/components/atoms';
+import {isTab, normalize, screenWidth} from 'src/shared/utils';
+import {colors, CustomThemeType} from 'src/shared/styles/colors';
+import {ImagesName} from 'src/shared/styles';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import {useTheme} from 'src/shared/styles/ThemeProvider';
+import {Grayscale} from 'react-native-color-matrix-image-filters';
+import {getSvgImages} from 'src/shared/styles/svgImages';
+import {ScreenHeight} from 'react-native-elements/dist/helpers';
 
 export interface FollowFavoriteAuthorProps {
   authorName: string;
@@ -35,109 +36,101 @@ const FollowFavoriteAuthor = ({
   };
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
+  const size = 0.12 * ScreenHeight;
+  const tabSize = 0.14 * ScreenHeight;
   return (
-    <View style={style.container}>
-      <TouchableWithoutFeedback onPress={changeStatus} testID={testId}>
-        <View style={style.imageWrapper}>
-          <View style={style.imageContainer}>
-            <View style={style.innerCircle}>
-              {!isSelectedState ?
-                <Grayscale>
-                  <Image backgroundColor={theme.themeData.secondaryDavyGrey} url={authorImage} resizeMode='cover' style={[style.bookImage]} />
-                </Grayscale> :
-                <Image backgroundColor={theme.themeData.secondaryDavyGrey} url={authorImage} resizeMode='cover' style={[style.bookImage]} />
-              }
-            </View>
-            <View style={style.tickContainer}>
-              {getSvgImages({
-                name: isSelectedState ? ImagesName.authorItemActive : ImagesName.authorItem,
-                width: style.tickImage.width,
-                height: style.tickImage.height
-              })}
-            </View>
-          </View>
+    <TouchableWithoutFeedback
+      onPress={changeStatus}
+      testID={testId}
+      style={style.container}>
+      <View
+        style={{
+          alignItems: 'center',
+        }}>
+        {!isSelectedState ? (
+          <Grayscale>
+            <Image
+              url={authorImage}
+              type="round"
+              size={isTab ? normalize(tabSize) : normalize(size)}
+              resizeMode="cover"
+              backgroundColor={theme.themeData.secondaryDavyGrey}
+            />
+          </Grayscale>
+        ) : (
+          <Image
+            url={authorImage}
+            type="round"
+            size={isTab ? normalize(tabSize) : normalize(size)}
+            resizeMode="cover"
+            backgroundColor={theme.themeData.secondaryDavyGrey}
+          />
+        )}
+        <View style={{bottom: normalize(8)}}>
+          {getSvgImages({
+            name: isSelectedState
+              ? ImagesName.authorItemActive
+              : ImagesName.authorItem,
+            size: normalize(22),
+          })}
         </View>
-        <View style={style.titleContainer}>
+        {authorName && (
           <Label
+            color={
+              isSelectedState
+                ? theme.themeData.primaryBlack
+                : colors.spanishGray
+            }
             style={[
               style.titleStyle,
               {
-                color: isSelectedState
-                  ? theme.themeData.primaryBlack
-                  : colors.spanishGray,
+                width: isTab ? normalize(tabSize) : normalize(size),
               },
-            ]}>
+            ]}
+            numberOfLines={2}>
             {authorName}
           </Label>
+        )}
+        {authorDescription && (
           <Label
+            color={
+              isSelectedState
+                ? theme.themeData.secondaryDavyGrey
+                : colors.spanishGray
+            }
             style={[
-              style.descriptionStyle,
+              style.descStyle,
               {
-                color: isSelectedState
-                  ? theme.themeData.secondaryDavyGrey
-                  : colors.spanishGray,
+                width: isTab ? normalize(tabSize) : normalize(size),
               },
-            ]}>
+            ]}
+            numberOfLines={1}>
             {authorDescription}
           </Label>
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
+        )}
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
 const customStyle = (theme: CustomThemeType) => {
   const FollowFavoriteAuthorStyle = StyleSheet.create({
-    bookImage: {
-      height: '100%',
-      width: '100%',
-    },
     container: {
-      width: normalize(0.29 * screenWidth),
-      height: normalize(170),
+      marginVertical: normalize(0.025 * screenWidth),
+      marginHorizontal: normalize(0.045 * screenWidth),
       justifyContent: 'center',
-      alignItems: 'center',
-      marginTop:normalize(5),
-      marginBottom:normalize(5)
-    },
-    imageWrapper: {
-      width: '100%',
-      height: '65%',
-    },
-    imageContainer: {
-      width: normalize(99),
-      height: normalize(99),
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    innerCircle: {
-      height: normalize(99),
-      width: normalize(99),
-      borderRadius: normalize(99 / 2),
-      overflow: 'hidden',
-    },
-    tickContainer: {
-      position: 'absolute',
-      bottom: normalize(-15),
-    },
-    tickImage: {
-      width: normalize(22),
-      height: normalize(22),
-    },
-    titleContainer: {
-      width: normalize(99),
-      height: '35%',
-      marginTop: normalize(5),
+      backgroundColor: theme.backgroundColor,
     },
     titleStyle: {
+      textAlign: 'center',
       fontSize: normalize(14),
-      lineHeight: normalize(19),
-      textAlign: 'center',
+      lineHeight: normalize(17),
+      fontWeight: 'bold',
     },
-    descriptionStyle: {
-      fontSize: normalize(10),
-      lineHeight: normalize(14),
+    descStyle: {
       textAlign: 'center',
+      fontSize: normalize(10),
+      lineHeight: normalize(17),
     },
   });
   return FollowFavoriteAuthorStyle;
