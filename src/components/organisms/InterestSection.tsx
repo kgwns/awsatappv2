@@ -104,7 +104,7 @@ const customInterestStyle = (theme: CustomThemeType) => {
     container: {
       width: '100%',
       backgroundColor: theme.backgroundColor,
-      alignSelf: 'flex-end',
+      alignSelf: 'center',
     },
     interestContainer: {
       marginVertical: normalize(7),

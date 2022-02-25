@@ -3,41 +3,60 @@ import {StyleSheet, View} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {Label, NextButton} from 'src/components/atoms';
 import {horizontalEdge, isTab, normalize} from 'src/shared/utils';
-import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
+import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
-import {ScreensConstants} from 'src/constants';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ScreenContainer} from '..';
+import {ScreensConstants} from 'src/constants';
 import {ScreenHeight} from 'react-native-elements/dist/helpers';
+import {NewsLettersWidget} from 'src/components/organisms';
 
-export const KeepNotifiedScreen = ({navigation}: any) => {
+export const NewsLetterScreen = () => {
+  const navigation = useNavigation();
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
+
+  const data = [
+    {
+      title: 'النشره الصباحيه',
+      subTitle: 'الاثنين الى السبت',
+      image:'earlyEditionImg',
+    },
+    {
+      title: 'المال و الأعمال',
+      subTitle: 'يومياً',
+      image: 'moneyAndBusinessImg',
+    },
+    {
+      title: 'التكنولوجيا',
+      subTitle: 'كل سبت',
+      image: 'technologyImg',
+    },
+  ];
 
   return (
     <ScreenContainer edge={horizontalEdge}>
       <View style={style.container}>
-        <View
-          style={[
-            style.textContainer,
-            {justifyContent: isTab ? 'center' : 'flex-end'},
-          ]}>
+        <View style={[style.textContainer,{justifyContent:isTab?'center':'flex-end'}]}>
           <Label style={style.titleStyle}>
-            {t('onBoard.keepNotified.title')}
+            {t('onBoard.newsLetter.title')}
           </Label>
           <Label style={style.descStyle}>
-            {t('onBoard.keepNotified.description')}
+            {t('onBoard.newsLetter.description')}
           </Label>
         </View>
         <View style={style.contentStyle}>
-          <KeepNotifiedWidget />
+          <View>
+            <NewsLettersWidget data={data} />
+          </View>
         </View>
         <View style={style.nextButtonView}>
           <NextButton
             testID="nextButtonTestId"
-            title={t('onBoard.common.completed')}
-            icon={false}
-            onPress={() => navigation.navigate(ScreensConstants.SUCCESS_SCREEN)}
+            title={t('onBoard.common.nextBtn')}
+            onPress={() =>
+              navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)
+            }
             style={style}
           />
         </View>
@@ -47,7 +66,7 @@ export const KeepNotifiedScreen = ({navigation}: any) => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const KeepNotifiedScreenStyle = StyleSheet.create({
+  const NewsLetterScreenStyle = StyleSheet.create({
     container: {
       flex: 1,
       width: '100%',
@@ -58,7 +77,8 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
     },
     textContainer: {
-      flex: 0.13,
+      flex: 0.15,
+      paddingHorizontal: normalize(5),
     },
     titleStyle: {
       textAlign: 'center',
@@ -71,30 +91,31 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'center',
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,
-      lineHeight: normalize(30),
+      lineHeight: normalize(22),
     },
     contentStyle: {
-      flex: 0.77,
+      flex: 0.75,
+      justifyContent: 'flex-start',
       paddingVertical: normalize(15),
     },
     nextButtonView: {
       flex: 0.1,
+      justifyContent: 'flex-end',
       width: '90%',
       alignSelf: 'center',
-      justifyContent: 'flex-end',
       marginBottom: normalize(0.02 * ScreenHeight),
     },
     nextButtonContainer: {
       height: normalize(51),
       flexDirection: 'row-reverse',
-      backgroundColor: theme.primary,
+      backgroundColor: theme.secondaryGreen,
       alignItems: 'center',
       alignSelf: 'center',
       borderRadius: normalize(25),
     },
     nextButtonIconContainer: {position: 'absolute', left: normalize(20)},
     nextButtonText: {
-      color: 'white',
+      color: theme.primary,
       textAlign: 'center',
       width: '100%',
       fontSize: normalize(16),
@@ -102,5 +123,5 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(20),
     },
   });
-  return KeepNotifiedScreenStyle;
+  return NewsLetterScreenStyle;
 };

@@ -1,43 +1,41 @@
-import React, { FunctionComponent } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { ImagesName } from '../../../shared/styles';
-import { Label } from '../../atoms';
-import { getSvgImages } from '../../../shared/styles/svgImages';
+import React, {FunctionComponent} from 'react';
+import {View, TouchableOpacity} from 'react-native';
+import {ImagesName} from '../../../shared/styles';
+import {Label} from '../../atoms';
+import {getSvgImages} from '../../../shared/styles/svgImages';
+import {normalize} from 'src/shared/utils';
 
 interface NextButtonProps {
-    title: string;
-    onPress: () => void;
-    style: {
-        nextButtonContainer: {},
-        nextButtonIconContainer: {},
-        nextButtonTextContainer: {},
-        nextButtonText: {}
-    };
-    testID?: string
+  title: string;
+  onPress: () => void;
+  style: {
+    nextButtonContainer: {};
+    nextButtonIconContainer: {};
+    nextButtonText: {};
+  };
+  icon?:boolean
+  testID?: string;
 }
 
 export const NextButton: FunctionComponent<NextButtonProps> = ({
-    title,
-    onPress,
-    style,
-    testID
+  title,
+  onPress,
+  style,
+  icon=true,
+  testID,
 }) => {
-    const iconWidth = 20;
-    const iconHeight = 20;
-    return (
-        <TouchableOpacity
-            testID={testID}
-            onPress={onPress}
-            style={style.nextButtonContainer}>
-            <View style={style.nextButtonIconContainer}>
-                {getSvgImages({ name: ImagesName.arrowNext, width: iconWidth, height: iconHeight })}
-            </View>
-
-            <View style={style.nextButtonTextContainer}>
-                <Label style={style.nextButtonText}>
-                    {title}
-                </Label>
-            </View>
-        </TouchableOpacity>
-    );
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      testID={testID}
+      style={style.nextButtonContainer}>
+    {  icon && <View style={style.nextButtonIconContainer}>
+        {getSvgImages({
+          name: ImagesName.arrowNext,
+          size: normalize(20),
+        })}
+      </View>}
+      <Label style={style.nextButtonText}>{title}</Label>
+    </TouchableOpacity>
+  );
 };

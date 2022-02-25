@@ -2,15 +2,15 @@ import React from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../../constants/SampleData';
-import {KeepNotifiedScreen} from '../KeepNotifiedScreen';
+import {NewsLetterScreen} from '../NewsLetterScreen';
 
-describe('<KeepNotifiedScreen>', () => {
+describe('<NewsLettersScreen>', () => {
   let instance: RenderAPI;
 
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <KeepNotifiedScreen />
+        <NewsLetterScreen />
       </Provider>
     );
     instance = render(component);
@@ -21,7 +21,13 @@ describe('<KeepNotifiedScreen>', () => {
     instance.unmount();
   });
 
-  test('Should render KeepNotifiedScreen', () => {
+  test('Should render NewsLettersScreen component', () => {
     expect(instance).toBeDefined();
   });
+
+  it('Should Press Next Button', () => {
+    const element = instance.getByTestId('nextButtonTestId');
+    fireEvent.press(element);
+  });
+  
 });

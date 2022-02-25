@@ -20,6 +20,7 @@ export const arabic = {
       nextBtn: 'التالي',
       skip: 'تخطى',
       return: 'الرجوع',
+      completed: 'تم',
     },
     followFavoriteAuthor: {
       title: 'تابع كتابك المفضلين',
@@ -32,6 +33,12 @@ export const arabic = {
     selectInterests: {
       title: 'ما هي اهتماماتك',
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
+    },
+    newsLetter: {
+      title:'نشراتك الإخبارية',
+      description:'احصل على آخر التحديثات يتم تسليمها مباشرة إلى الإيميل الخاص بك.',
+      subscribed: 'أنت مشترك بالنشره',
+      notSubscribed: 'أنت غير مشترك بالنشره',
     },
   },
   opinion: {
@@ -49,15 +56,14 @@ export const arabic = {
       headerLeft: 'آراء وكتّاب ',
     },
     sectionComboThree: {
-      headerLeft: 'العالم العربي'
+      headerLeft: 'العالم العربي',
     },
-
   },
   sectionVideo: {
     toWatch: 'مشاهدة',
   },
   categoryPage: {
-    videoContent: 'محتوي فيديو'
+    videoContent: 'محتوي فيديو',
   },
   podcastProgram: {
     episodes: 'الحلقات',
@@ -82,7 +88,20 @@ export const arabic = {
     next_week: 'الاسبوع المقبل',
     weeks: 'أسابيع',
   },
-  months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+  months: [
+    'يناير',
+    'فبراير',
+    'مارس',
+    'أبريل',
+    'مايو',
+    'يونيو',
+    'يوليو',
+    'أغسطس',
+    'سبتمبر',
+    'أكتوبر',
+    'نوفمبر',
+    'ديسمبر',
+  ],
   podcastEpisode: {
     moreEpisodes: 'المزيد من حلقات البودكاست',
     listenToEpisode: 'استمع إلى الحلقة',
@@ -93,15 +112,15 @@ export const arabic = {
   favorite: {
     tabItem: {
       content_for_you: 'محتوي لك',
-      archives: 'المحفوظات'
+      archives: 'المحفوظات',
     },
     podcast_for_you: 'بودكاست لك',
     filters: {
       everyone: 'الكل',
       articles: 'مقالات',
       video: 'فيديو',
-      podcast: 'بودكاست'
-    }
+      podcast: 'بودكاست',
+    },
   },
   signIn: {
     signUp: 'قم بالتسجيل',
@@ -132,7 +151,7 @@ export const arabic = {
   terms_and_condition: 'القواعد و الشروط',
   return: 'الرجوع',
   searchScreen: {
-    placeholder: 'ابحث في الشرق الأوسط …'
+    placeholder: 'ابحث في الشرق الأوسط …',
   },
   signUp: {
     createAccount: 'إنشاء حساب',

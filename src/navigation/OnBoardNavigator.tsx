@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {ScreensConstants} from 'src/constants';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { getSvgImages } from 'src/shared/styles/svgImages';
+import {getSvgImages} from 'src/shared/styles/svgImages';
 
 const Stack = createStackNavigator<ScreenList>();
 
@@ -29,9 +29,15 @@ const OnBoardNavigator = () => {
   const navigation = useNavigation();
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
-  const previousIconStyle = style.onBoardPrevIcon
+  const previousIconStyle = style.onBoardPrevIcon;
 
-  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
+  const HeaderLogo = () =>
+    getSvgImages({
+      name: ImagesName.headerLogo,
+      width: style.logo.width,
+      height: style.logo.height,
+      style: style.logo,
+    });
 
   const onBoardSkip = (routesName: any) => (
     <TouchableOpacity
@@ -43,6 +49,9 @@ const OnBoardNavigator = () => {
             return;
           case ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN:
             navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN);
+            return;
+          case ScreensConstants.NEWS_LETTER_SCREEN:
+            navigation.navigate(ScreensConstants.NEWS_LETTER_SCREEN);
             return;
           case ScreensConstants.SUCCESS_SCREEN:
             navigation.navigate(ScreensConstants.SUCCESS_SCREEN);
@@ -68,7 +77,12 @@ const OnBoardNavigator = () => {
       style={style.onBoardReturn}
       onPress={() => navigation.goBack()}>
       <Label style={style.onBoardPrevTitle}>{t('onBoard.common.return')}</Label>
-      {getSvgImages({ name: ImagesName.arrowPrev, width: previousIconStyle.width, height: previousIconStyle.height, style: previousIconStyle })}
+      {getSvgImages({
+        name: ImagesName.arrowPrev,
+        width: previousIconStyle.width,
+        height: previousIconStyle.height,
+        style: previousIconStyle,
+      })}
     </TouchableOpacity>
   );
 
@@ -93,6 +107,17 @@ const OnBoardNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
+          headerRight: () => onBoardSkip(ScreensConstants.NEWS_LETTER_SCREEN),
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.NEWS_LETTER_SCREEN}
+        component={Routes.NewsLetterScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: HeaderLogo,
+          headerTitleAlign: 'center',
           headerRight: () =>
             onBoardSkip(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN),
         }}
@@ -111,7 +136,7 @@ const OnBoardNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.SUCCESS_SCREEN}
         component={Routes.SuccessScreen}
-        options={{ headerShown: false }}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -163,7 +188,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginEnd: normalize(10),
       borderBottomColor: colors.greenishBlue,
       borderBottomWidth: 1,
-    }
+    },
   });
   return headerStyles;
 };

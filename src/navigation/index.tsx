@@ -19,6 +19,7 @@ import {
   SignUpPage,
   ForgotPassword,
   SuccessScreen,
+  NewsLetterScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -48,6 +49,7 @@ export const Routes = {
   SignUpPage,
   ForgotPassword,
   SuccessScreen,
+  NewsLetterScreen,
 };
 
 /**
