@@ -4,6 +4,7 @@ import {normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Label, Image} from 'src/components/atoms';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
+import { decode } from 'html-entities';
 
 export interface VideosVerticalListProps {
   imageUrl?: string;
@@ -34,7 +35,7 @@ export const VideosVerticalList = ({
           </View>
           <View style={style.titleContainer}>
             <Label style={style.title} numberOfLines={3}>
-              {title}
+              {decode(title)}
             </Label>
           </View>
         </View>

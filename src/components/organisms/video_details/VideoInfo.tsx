@@ -12,6 +12,7 @@ import DateIcon from 'src/assets/images/icons/date.svg';
 import {getImageUrl} from 'src/shared/utils/utilities';
 import {timeAgo} from 'src/shared/utils/utilities';
 import { VideoItemProps } from 'src/components/molecules/video-item/VideoItem';
+import { decode } from 'html-entities';
 
 export interface VideoInfoProps {
   onPress?: (item:VideoItemProps)=>void;
@@ -46,8 +47,8 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
              rightIcon={() => <View style={styles.rightIconStyle}><PlayIcon fill={colors.black}/></View>}
              />
              <View style={styles.containerSpace} />
-            {data.title&&<Label style={styles.descriptionTextStyle} children={data.title} numberOfLines={4} />}
-            {data.description&&<Label style={styles.shortDescriptionStyle} children={data.description} numberOfLines={2} />}
+            {data.title&&<Label style={styles.descriptionTextStyle} children={decode(data.title)} numberOfLines={4} />}
+            {data.description&&<Label style={styles.shortDescriptionStyle} children={decode(data.description)} numberOfLines={2} />}
             <View style={styles.headerLeftStyle}>
               {data.views&&
               <ViewIcon fill={colors.white} />

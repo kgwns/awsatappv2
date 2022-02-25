@@ -16,6 +16,7 @@ import {normalize} from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
 import {getImageUrl} from 'src/shared/utils/utilities';
 import {timeAgo} from 'src/shared/utils/utilities';
+import { decode } from 'html-entities';
 export interface VideoItemProps {
   imageUrl: string;
   videoLabel?: string;
@@ -72,10 +73,10 @@ export const VideoItem = ({
         </View>
       </TouchableOpacity>
 
-      <Label labelType={'h2'}>{title}</Label>
-      <Label labelType={'p3'} color={themeData.secondaryDavyGrey}>
-        {des}
-      </Label>
+      <Label labelType={'h2'}>{decode(title)}</Label>
+      {des&&<Label labelType={'p3'} color={themeData.secondaryDavyGrey}>
+        {decode(des)}
+      </Label>}
 
       <View style={styles.footerContainer}>
         <View style={styles.footerRight}>
