@@ -22,3 +22,4 @@ export {SignUpPage} from 'src/components/screens/auth/SignUpPage';
 export { VideoScreen } from './category/VideoScreen';
 export {SectionArticlesScreen} from './sectionArticles/SectionArticlesScreen';
 export { TermsAndAboutUs } from './termsAndAboutUs/TermsAndAboutUs'
+export { NewsLetterScreen } from 'src/components/screens/newsLetter/NewsLetterScreen';

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {Label, LoadingState, NextButton} from '../../atoms';
-import {horizontalEdge, normalize} from '../../../shared/utils';
+import {horizontalEdge, isTab, normalize} from '../../../shared/utils';
 import {useTranslation} from 'react-i18next';
 import {InterestSection} from '../../organisms';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -27,7 +27,11 @@ export const SelectInterestScreen = ({navigation}: any) => {
   return (
     <ScreenContainer edge={horizontalEdge}>
       <View style={style.container}>
-        <View style={style.textContainer}>
+        <View
+          style={[
+            style.textContainer,
+            {justifyContent: isTab ? 'center' : 'flex-end'},
+          ]}>
           <Label style={style.titleStyle}>
             {t('onBoard.selectInterests.title')}
           </Label>
@@ -36,7 +40,11 @@ export const SelectInterestScreen = ({navigation}: any) => {
           </Label>
         </View>
         <View style={style.widgetContainer}>
-          {isLoading ? <LoadingState /> : <InterestSection allSiteCategoriesData={allSiteCategoriesData} />}
+          {isLoading ? (
+            <LoadingState />
+          ) : (
+            <InterestSection allSiteCategoriesData={allSiteCategoriesData} />
+          )}
         </View>
         <View style={style.nextButtonView}>
           <NextButton
@@ -58,7 +66,7 @@ const customInterestScreenStyle = (theme: CustomThemeType) => {
   const selectInterestScreenStyle = StyleSheet.create({
     container: {
       flex: 1,
-      width:'100%',
+      width: '100%',
       backgroundColor: theme.backgroundColor,
       shadowColor: colors.transparent,
       justifyContent: 'center',
@@ -66,15 +74,15 @@ const customInterestScreenStyle = (theme: CustomThemeType) => {
     },
     textContainer: {
       flex: 0.13,
-      justifyContent: 'flex-end',
     },
     widgetContainer: {
-      flex:0.77,
+      flex: 0.77,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       alignSelf: 'center',
       paddingTop: normalize(10),
+      paddingHorizontal: normalize(15),
     },
     titleStyle: {
       textAlign: 'center',

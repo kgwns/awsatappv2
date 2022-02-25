@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {Label, LoadingState, NextButton} from 'src/components/atoms';
-import {horizontalEdge, normalize} from 'src/shared/utils';
+import {horizontalEdge, isTab, normalize} from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
@@ -30,7 +30,11 @@ export const FollowFavoriteAuthorScreen = () => {
   return (
     <ScreenContainer edge={horizontalEdge}>
       <View style={style.container}>
-        <View style={style.textContainer}>
+        <View
+          style={[
+            style.textContainer,
+            {justifyContent: isTab ? 'center' : 'flex-end'},
+          ]}>
           <Label style={style.titleStyle}>
             {t('onBoard.followFavoriteAuthor.title')}
           </Label>
@@ -52,7 +56,7 @@ export const FollowFavoriteAuthorScreen = () => {
             testID="nextButtonTestId"
             title={t('onBoard.common.nextBtn')}
             onPress={() =>
-              navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)
+              navigation.navigate(ScreensConstants.NEWS_LETTER_SCREEN)
             }
             style={style}
           />
@@ -75,7 +79,6 @@ const customStyle = (theme: CustomThemeType) => {
     },
     textContainer: {
       flex: 0.13,
-      justifyContent: 'flex-end',
     },
     titleStyle: {
       textAlign: 'center',
@@ -93,7 +96,6 @@ const customStyle = (theme: CustomThemeType) => {
     contentStyle: {
       flex: 0.77,
       justifyContent: 'center',
-      paddingVertical: normalize(15),
     },
     nextButtonView: {
       flex: 0.1,

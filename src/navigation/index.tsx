@@ -17,6 +17,7 @@ import {
   SignInPage,
   TermsAndAboutUs,
   SignUpPage,
+  NewsLetterScreen
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -44,6 +45,7 @@ export const Routes = {
   SignInPage,
   TermsAndAboutUs,
   SignUpPage,
+  NewsLetterScreen
 };
 
 /**

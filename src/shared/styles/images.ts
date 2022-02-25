@@ -4,7 +4,7 @@ import blackBdrBookMark from 'src/assets/images/latest_tab/bookmark-black-bdr.pn
 import bookMarkWhiteBdr from 'src/assets/images/latest_tab/bookmark_white_bdr.png';
 import bookMarkActiveWhite from 'src/assets/images/latest_tab/bookmark_active_white.png';
 import greenPlayIcon from 'src/assets/images/latest_tab/green_play_icon.png';
-import returnIcon from 'src/assets/images/icons/return_arrow/returnArrow.png'
+import returnIcon from 'src/assets/images/icons/return_arrow/returnArrow.png';
 
 export enum ImagesName {
   newsIcon = 'newsIcon',
@@ -48,6 +48,8 @@ export enum ImagesName {
   closeSVG = 'closeSVG',
   playIconSVG = 'playIconSVG',
   returnIcon = 'returnIcon',
+  mail = 'mail',
+  mailSelected = 'mailSelected',
 }
 
 export const images = {

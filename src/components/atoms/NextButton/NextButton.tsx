@@ -13,6 +13,7 @@ interface NextButtonProps {
     nextButtonIconContainer: {};
     nextButtonText: {};
   };
+  icon?:boolean
   testID?: string;
 }
 
@@ -20,6 +21,7 @@ export const NextButton: FunctionComponent<NextButtonProps> = ({
   title,
   onPress,
   style,
+  icon=true,
   testID,
 }) => {
   return (
@@ -27,12 +29,12 @@ export const NextButton: FunctionComponent<NextButtonProps> = ({
       onPress={onPress}
       testID={testID}
       style={style.nextButtonContainer}>
-      <View style={style.nextButtonIconContainer}>
+    {  icon && <View style={style.nextButtonIconContainer}>
         {getSvgImages({
           name: ImagesName.arrowNext,
           size: normalize(20),
         })}
-      </View>
+      </View>}
       <Label style={style.nextButtonText}>{title}</Label>
     </TouchableOpacity>
   );

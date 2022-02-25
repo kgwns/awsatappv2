@@ -36,8 +36,8 @@ const FollowFavoriteAuthor = ({
   };
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
-  const size = 0.12 * ScreenHeight;
-  const tabSize = 0.14 * ScreenHeight;
+  const size = 0.11 * ScreenHeight;
+  const tabSize = 0.11 * ScreenHeight;
   return (
     <TouchableWithoutFeedback
       onPress={changeStatus}

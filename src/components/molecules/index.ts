@@ -39,3 +39,4 @@ export { PodCastMiniPlayer } from 'src/components/molecules/podCastMiniPlayer/Po
 export { VideosVerticalList, VideosVerticalListProps } from 'src/components/molecules/video-item/VideosVerticalList';
 export { FilterComponent, FilterDataType } from 'src/components/molecules/filterComponent/FilterComponent';
 export { ArchivesPodcast } from 'src/components/molecules/archivesPodcast/ArchivesPodcast'
+export { NewsLetterCard } from 'src/components/molecules/NewsLetterCard';
