@@ -6,14 +6,16 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {flatListUniqueKey} from 'src/constants';
 import {NewsLetterCard} from '../molecules';
 import {normalize, screenWidth} from 'src/shared/utils';
+import { NewsLetterCardProps } from '../molecules/NewsLetterCard';
+
 export const NewsLettersWidget = ({data}:any) => {
   const style = useThemeAwareObject(customStyle);
-  const renderItem = (item: any) => (
+  const renderItem = (item: NewsLetterCardProps) => (
     <View style={style.cardContainer}>
       <NewsLetterCard
         title={item.title}
         subTitle={item.subTitle}
-        imageUrl={item.image}
+        image={item.image}
         status={false}
         onPress={(isSelected: boolean) => {}}
       />

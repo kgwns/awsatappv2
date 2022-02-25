@@ -20,17 +20,17 @@ export const NewsLetterScreen = () => {
     {
       title: 'النشره الصباحيه',
       subTitle: 'الاثنين الى السبت',
-      image: 'https://picsum.photos/200/200',
+      image:'earlyEditionImg',
     },
     {
       title: 'المال و الأعمال',
       subTitle: 'يومياً',
-      image: 'https://picsum.photos/200/200',
+      image: 'moneyAndBusinessImg',
     },
     {
       title: 'التكنولوجيا',
       subTitle: 'كل سبت',
-      image: 'https://picsum.photos/200/200',
+      image: 'technologyImg',
     },
   ];
 

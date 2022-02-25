@@ -3,22 +3,22 @@ import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Image, Label} from 'src/components/atoms';
-import {normalize} from 'src/shared/utils';
+import {normalize, screenWidth} from 'src/shared/utils';
 import {ImagesName} from 'src/shared/styles/images';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useTranslation} from 'react-i18next';
-interface NewsLetterCardProps {
+export interface NewsLetterCardProps {
   title: string;
   subTitle: string;
-  imageUrl: string;
+  image: any;
   status: boolean;
   onPress: (isSelected: boolean) => void;
 }
 export const NewsLetterCard = ({
   title,
   subTitle,
-  imageUrl,
+  image,
   status,
   onPress,
 }: NewsLetterCardProps) => {
@@ -43,7 +43,10 @@ export const NewsLetterCard = ({
         setSelected(!selected);
       }}>
       <View style={style.imageContainer}>
-        <Image url={imageUrl} style={style.image} />
+        <Image
+        name={image}
+        style={style.image}
+        />
       </View>
       <View style={style.contentContainer}>
         <Label style={style.title}>{title}</Label>
@@ -92,8 +95,15 @@ const customStyle = (theme: CustomThemeType) => {
       alignContent: 'center',
       alignItems: 'center',
     },
-    imageContainer: {height: '100%', justifyContent: 'center'},
-    image: {width: normalize(107), height: normalize(85)},
+    imageContainer: {
+      height: '100%',
+      justifyContent: 'center',
+      marginEnd: normalize(0.04 * screenWidth),
+    },
+    image: {
+      width: normalize(107),
+      height: normalize(85),
+    },
     contentContainer: {
       height: normalize(85),
       alignItems: 'flex-start',
