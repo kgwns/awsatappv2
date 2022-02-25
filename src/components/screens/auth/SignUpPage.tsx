@@ -18,6 +18,7 @@ import {loginPasswordValidation, reTypePasswordValidation} from 'src/shared/vali
 import {useRegister} from 'src/hooks';
 import {RegisterBodyType} from 'src/redux/register/types';
 import DeviceInfo from 'react-native-device-info';
+import { normal } from 'react-native-color-matrix-image-filters';
 
 export interface SignUpPageProps {
   route: any
@@ -201,6 +202,7 @@ StyleSheet.create({
     flex: 0.6,
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: normalize(25),
   },
   bottomContainerStyle: {
     flex: 0.3,

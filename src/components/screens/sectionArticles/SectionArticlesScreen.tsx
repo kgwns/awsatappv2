@@ -18,7 +18,7 @@ export const SectionArticlesScreen = () => {
   } = useSectionArticles();
 
   const payload: SectionArticlesBodyGet = {
-    sectionId: params.sectionId,
+    sectionId: params?.sectionId,
     page: page,
   };
 
@@ -35,7 +35,7 @@ export const SectionArticlesScreen = () => {
   };
 
   return (
-    <ScreenContainer edge={horizontalEdge} showHeader={true} headerTitle={params.title}>
+    <ScreenContainer edge={horizontalEdge} showHeader={true} headerTitle={params?.title}>
       {
         <MostReadList
           data={sectionArticlesData}
