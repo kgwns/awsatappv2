@@ -61,7 +61,7 @@ export const SocialLoginButton: FunctionComponent<SocialLoginButtonProps> = ({
     onPress={onPress}
     style={[styles.container, style]}
   >
-    <View style={[styles.labelContainer, style]}>
+    <View style={[styles.labelContainer]}>
       <Label color={color} style={[styles.textStyle, labelStyle]} labelType={labelType}>
         {label}
       </Label>

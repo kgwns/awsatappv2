@@ -779,71 +779,25 @@ export const LatestNewsSummarySectionData: NewsWithImageItemProps[] = [
   },
 ];
 
-export const EditorsPickSectionData: NewsWithImageItemProps[] = [
-  {
-    imageUrl: 'https://picsum.photos/300/200',
-    highlightedTitle: 'إسم البودكاست',
-    title: 'عنوان حلثه البودكاست',
-    footerRightLabel: 'الخميس',
-    footerLeftLabel: '45 دقيقه',
-  },
-  {
-    imageUrl: 'https://picsum.photos/300/200',
-    highlightedTitle: 'إسم البودكاست',
-    title: 'عنوان حلثه البودكاست',
-    footerRightLabel: 'الخميس',
-    footerLeftLabel: '45 دقيقه',
-  },
-  {
-    imageUrl: 'https://picsum.photos/300/200',
-    highlightedTitle: 'إسم البودكاست',
-    title: 'عنوان حلثه البودكاست',
-    footerRightLabel: 'الخميس',
-    footerLeftLabel: '45 دقيقه',
-  },
-  {
-    imageUrl: 'https://picsum.photos/300/200',
-    highlightedTitle: 'إسم البودكاست',
-    title: 'عنوان حلثه البودكاست',
-    footerRightLabel: 'الخميس',
-    footerLeftLabel: '45 دقيقه',
-  },
-  {
-    imageUrl: 'https://picsum.photos/300/200',
-    highlightedTitle: 'إسم البودكاست',
-    title: 'عنوان حلثه البودكاست',
-    footerRightLabel: 'الخميس',
-    footerLeftLabel: '45 دقيقه',
-  },
-  {
-    imageUrl: 'https://picsum.photos/300/200',
-    highlightedTitle: 'إسم البودكاست',
-    title: 'عنوان حلثه البودكاست',
-    footerRightLabel: 'الخميس',
-    footerLeftLabel: '45 دقيقه',
-  },
-];
 
-export const PodcastOpinionArticleSectionData: ArticleRectangleCardProps[] = [
-  {
-    imageUrl: 'https://picsum.photos/200',
-    title: 'عنوان لملخص آخر أخبار اليوم',
-    footerRight: 'الخميس',
-    footerLeft: '45 دقيقه',
-  },
-  {
-    imageUrl: 'https://picsum.photos/200',
-    title: 'عنوان لملخص آخر أخبار اليوم',
-    footerRight: 'الخميس',
-    footerLeft: '45 دقيقه',
-  },
-  {
-    imageUrl: 'https://picsum.photos/200',
-    title: 'عنوان لملخص آخر أخبار اليوم',
-    footerRight: 'الخميس',
-    footerLeft: '45 دقيقه',
-  },
-];
+const editPickData: NewsWithImageItemProps = {
+  imageUrl: 'https://picsum.photos/300/200',
+  highlightedTitle: 'إسم البودكاست',
+  title: 'عنوان حلثه البودكاست',
+  footerRightLabel: 'الخميس',
+  footerLeftLabel: '45 دقيقه',
+}
+
+export const EditorsPickSectionData: NewsWithImageItemProps[] = Array(5).fill(editPickData)
+
+
+const podcastOpinionData: ArticleRectangleCardProps = {
+  imageUrl: 'https://picsum.photos/200',
+  title: 'عنوان لملخص آخر أخبار اليوم',
+  footerRight: 'الخميس',
+  footerLeft: '45 دقيقه',
+}
+export const PodcastOpinionArticleSectionData: ArticleRectangleCardProps[] = Array(3).fill(podcastOpinionData)
 
 export const storyWidgetItemData: StoryListItemProps[] = [
   {
@@ -875,6 +829,17 @@ export const storyWidgetItemData: StoryListItemProps[] = [
   },
 ];
 
+
+const storyWidgetDataInfo = {
+    id: '1',
+    imageUrl: 'https://picsum.photos/500',
+    title: 'رحلة إلى المريخ',
+    description:
+      'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
+    buttonTitle: 'امرأ المقالة',
+    thumbNail: 'https://picsum.photos/100',
+}
+
 export const storyWidgetData: StoryListProps[] = [
   {
     id: '1',
@@ -882,106 +847,36 @@ export const storyWidgetData: StoryListProps[] = [
   },
   {
     id: '2',
-    data: [
-      {
-        id: '1',
-        imageUrl: 'https://picsum.photos/500',
-        title: 'رحلة إلى المريخ',
-        description:
-          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
-      },
-    ],
+    data: [storyWidgetDataInfo],
   },
   {
     id: '3',
-    data: [
-      {
-        id: '1',
-        imageUrl: 'https://picsum.photos/500',
-        title: 'فضاء رأس مالي',
-        description:
-          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
-      },
-    ],
+    data: [storyWidgetDataInfo],
   },
   {
     id: '4',
-    data: [
-      {
-        id: '1',
-        imageUrl: 'https://picsum.photos/500',
-        title: 'أمريكا 2020',
-        description:
-          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
-      },
-    ],
+    data: [storyWidgetDataInfo],
   },
   {
     id: '5',
-    data: [
-      {
-        id: '1',
-        imageUrl: 'https://picsum.photos/500',
-        title: 'كوفيد-19',
-        description:
-          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
-      },
-    ],
+    data: [storyWidgetDataInfo],
   },
   {
     id: '6',
-    data: [
-      {
-        id: '1',
-        imageUrl: 'https://picsum.photos/500',
-        title: 'رحلة إلى المريخ',
-        description:
-          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
-      },
-    ],
+    data: [storyWidgetDataInfo],
   },
   {
     id: '7',
-    data: [
-      {
-        id: '1',
-        imageUrl: 'https://picsum.photos/500',
-        title: 'فضاء رأس مالي',
-        description:
-          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
-      },
-    ],
+    data: [storyWidgetDataInfo],
   },
   {
     id: '8',
-    data: [
-      {
-        id: '1',
-        imageUrl: 'https://picsum.photos/500',
-        title: 'أمريكا 2020',
-        description:
-          'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
-      },
-    ],
+    data: [storyWidgetDataInfo],
   },
 ];
-export const videoTabData: VideoItemProps[] = [
-  {
-    title:
+
+const videoTabInfo: VideoItemProps = {
+  title:
       'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
     imageUrl: 'https://picsum.photos/400',
     videoLabel: 'أمريكا',
@@ -990,98 +885,23 @@ export const videoTabData: VideoItemProps[] = [
     date: '7 ديسمبر ',
     views: '1374',
     shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
-  },
-  {
-    title:
-      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/400',
-    videoLabel: 'أمريكا',
-    time: '05:22',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    date: '7 ديسمبر ',
-    views: '1374',
-    shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
-  },
-  {
-    title:
-      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/400',
-    videoLabel: 'أمريكا',
-    time: '05:22',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    date: '7 ديسمبر ',
-    views: '1374',
-    shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
-  },
-  {
-    title:
-      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/400',
-    videoLabel: 'أمريكا',
-    time: '05:22',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    date: '7 ديسمبر ',
-    views: '1374',
-    shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
-  },
-  {
-    title:
-      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/400',
-    videoLabel: 'أمريكا',
-    time: '05:22',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    date: '7 ديسمبر ',
-    views: '1374',
-    shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
-  },
-];
-export const newsFeedData: NewsFeedProps[] = [
-  {
-    title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/300/200',
-    videoLabel: 'أمريكا',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    month: 'ديسمبر',
-    date: '7',
-    titleColor: Styles.color.black,
-    barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h2,
-  },
-  {
-    title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/300/200',
-    videoLabel: 'أمريكا',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    month: 'ديسمبر',
-    date: '7',
-    titleColor: Styles.color.black,
-    barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h2,
-  },
-  {
-    title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/300/200',
-    videoLabel: 'أمريكا',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    month: 'ديسمبر',
-    date: '7',
-    titleColor: Styles.color.black,
-    barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h2,
-  },
-  {
-    title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/300/200',
-    videoLabel: 'أمريكا',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    month: 'ديسمبر',
-    date: '7',
-    titleColor: Styles.color.black,
-    barColor: Styles.color.greenishBlue,
-    labelType: LabelTypeProp.h2,
-  },
-];
+}
+
+export const videoTabData: VideoItemProps[] = Array(5).fill(videoTabInfo)
+
+const newsFeedInfo: NewsFeedProps = {
+  title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
+  imageUrl: 'https://picsum.photos/300/200',
+  videoLabel: 'أمريكا',
+  des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+  month: 'ديسمبر',
+  date: '7',
+  titleColor: Styles.color.black,
+  barColor: Styles.color.greenishBlue,
+  labelType: LabelTypeProp.h2,
+}
+
+export const newsFeedData: NewsFeedProps[] = Array(4).fill(newsFeedInfo)
 
 export const PodcastEpisodeData: PodcastVerticalListProps[] = [
   {

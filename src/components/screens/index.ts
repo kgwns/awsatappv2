@@ -18,7 +18,9 @@ export {PodcastEpisode} from 'src/components/screens/podcast/PodcastEpisode';
 export {VideoDetailScreen} from 'src/components/screens/video_detail/VideoDetailScreen';
 export {SignInPage} from 'src/components/screens/auth/SignInPage';
 export {SignUpPage} from 'src/components/screens/auth/SignUpPage';
+export {ForgotPassword} from 'src/components/screens/forgotPassword/ForgotPassword'
 
 export { VideoScreen } from './category/VideoScreen';
 export {SectionArticlesScreen} from './sectionArticles/SectionArticlesScreen';
 export { TermsAndAboutUs } from './termsAndAboutUs/TermsAndAboutUs'
+export { SuccessScreen } from './success_screen/SuccessScreen'

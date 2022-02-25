@@ -10,6 +10,7 @@ import { normalize, horizontalAndBottomEdge} from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useVideoList } from 'src/hooks';
+import { VideoItemType } from 'src/redux/videoList/types';
 
 export interface VideoDetailScreenProps {
   route: any
@@ -49,10 +50,10 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           isSaved={isSaved}
           isCloseIcon
         />
-        {videoData.length&&<VideoInfo data={videoData[0]} onPress={(item)=>{console.log(item)}}/>}
+        {videoData.length&&<VideoInfo data={videoData[0]} onPress={(item:VideoItemType)=>{console.log(item)}}/>}
       </View>
       <View style={styles.container}>
-        <VideosList data={videoData.slice(1)} onItemActionPress={(item)=>console.log(item,'item pressed')} />
+        <VideosList data={videoData.slice(1)} onItemActionPress={(item:VideoItemType)=>console.log(item,'item pressed')} />
       </View>
     </View>
   )
