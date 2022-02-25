@@ -88,7 +88,7 @@ export const SignUpPage = ({
   };
 
   return (
-    <ScreenContainer isLoading={isRegisterLoading}>
+    <ScreenContainer isOverlayLoading={isRegisterLoading}>
       <View style={styles.container}>
         <View style={styles.headerStyle}>
           <TouchableOpacity

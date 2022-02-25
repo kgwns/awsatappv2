@@ -89,7 +89,7 @@ export const ScreenContainer = ({
       />
       {children}
       {isLoading && <LoadingState />}
-      {isOverlayLoading && <View><LoadingState /></View>}
+      {isOverlayLoading && <View style={style.loadingOverlay}><LoadingState /></View>}
     </SafeAreaView>
   );
 };
@@ -137,10 +137,11 @@ const createStyles = (theme: CustomThemeType) => {
       alignSelf: 'center',
     },
     loadingOverlay: {
-      flex: 1,
       width: '100%',
+      height: '100%',
       backgroundColor: theme.backgroundColor,
-      opacity: .5
+      opacity: .8,
+      position: 'absolute'
     }
   });
   return styles;

@@ -98,7 +98,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer isOverlayLoading={isLoading}>
       <View style={styles.container}>
         <View style={styles.headerStyle}>
           <TouchableOpacity
