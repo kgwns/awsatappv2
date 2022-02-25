@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { ShortArticleProps } from '../ShortArticle';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { FavoriteVideo } from '../favoriteVideo/favoriteVideo';
-import { screenWidth } from 'src/shared/utils';
+import { isTab, screenWidth } from 'src/shared/utils';
 
 const authorData: LatestOpinionDataType = {
     title: "دبلوماسية العزلة والعداوات",
@@ -47,10 +47,11 @@ export const ContentForYou = () => {
         }
       ))
 
+      const numberOfAuthorItem = isTab ? 4 : 3
     const renderContentForYou = () => (
         <View style={{ flex: 1 }}>
             <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} />
-            <AuthorWidget data={Array(3).fill(authorData)} />
+            <AuthorWidget data={Array(numberOfAuthorItem).fill(authorData)} />
             <View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <FavoriteVideo data={videoArchiveData} />
             </View>
