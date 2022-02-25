@@ -4,7 +4,11 @@ import blackBdrBookMark from 'src/assets/images/latest_tab/bookmark-black-bdr.pn
 import bookMarkWhiteBdr from 'src/assets/images/latest_tab/bookmark_white_bdr.png';
 import bookMarkActiveWhite from 'src/assets/images/latest_tab/bookmark_active_white.png';
 import greenPlayIcon from 'src/assets/images/latest_tab/green_play_icon.png';
-import returnIcon from 'src/assets/images/icons/return_arrow/returnArrow.png'
+import returnIcon from 'src/assets/images/icons/return_arrow/returnArrow.png';
+
+import earlyEditionImg from 'src/assets/images/earlyEditionImg.png'
+import moneyAndBusinessImg from 'src/assets/images/moneyAndBusinessImg.png'
+import technologyImg from 'src/assets/images/technologyImg.png'
 
 export enum ImagesName {
   newsIcon = 'newsIcon',
@@ -48,6 +52,11 @@ export enum ImagesName {
   closeSVG = 'closeSVG',
   playIconSVG = 'playIconSVG',
   returnIcon = 'returnIcon',
+  mail = 'mail',
+  mailSelected = 'mailSelected',
+  earlyEditionImg = 'earlyEditionImg',
+  moneyAndBusinessImg = 'moneyAndBusinessImg',
+  technologyImg = 'technologyImg',
 }
 
 export const images = {
@@ -57,6 +66,9 @@ export const images = {
   bookMarkActiveWhite,
   greenPlayIcon,
   returnIcon,
+  earlyEditionImg,
+  moneyAndBusinessImg,
+  technologyImg
 };
 
 export const darkImages = {

@@ -1,16 +1,16 @@
 import React from 'react';
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
+import {render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../../../constants/SampleData';
-import {KeepNotifiedScreen} from '../KeepNotifiedScreen';
+import {storeSampleData} from '../../../constants/SampleData';
+import {NewsLettersWidget} from '..';
 
-describe('<KeepNotifiedScreen>', () => {
+describe('<NewsLettersWidget>', () => {
   let instance: RenderAPI;
 
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <KeepNotifiedScreen />
+        <NewsLettersWidget />
       </Provider>
     );
     instance = render(component);
@@ -21,7 +21,8 @@ describe('<KeepNotifiedScreen>', () => {
     instance.unmount();
   });
 
-  test('Should render KeepNotifiedScreen', () => {
+  test('Should render component', () => {
     expect(instance).toBeDefined();
   });
 });
+

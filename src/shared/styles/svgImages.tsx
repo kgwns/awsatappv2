@@ -60,6 +60,9 @@ import AppleIcon from 'src/assets/images/socialButton/appleIconBlack.svg'
 import ClockIcon from 'src/assets/images/icons/clockIcon.svg'
 import ArrowLeftFaced from 'src/assets/images/icons/arrowLeftFaced.svg'
 
+import Mail from 'src/assets/images/icons/mail.svg'
+import MailSelected from 'src/assets/images/icons/mail_selected.svg'
+
 export interface GetSVGProps {
     name: ImagesName,
     size?: number,
@@ -151,6 +154,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <BookMarkWhiteBdrSVG {...props}/>
         case ImagesName.bookMarkWhiteActive:
             return <BookMarkWhiteFillSVG {...props}/>
+        case ImagesName.mail:
+            return <Mail {...props}/>
+        case ImagesName.mailSelected:
+            return <MailSelected {...props}/>
         default: return null
     }
 }
