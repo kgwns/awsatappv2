@@ -317,27 +317,7 @@ export const sectionTabItem: TabBarDataProps[] = [
     isSelected: false,
   },
   {
-    tabName: 'أولى',
-    isSelected: false,
-  },
-  {
     tabName: 'فيديو',
-    isSelected: false,
-  },
-  {
-    tabName: 'يوميات الشرق',
-    isSelected: false,
-  },
-  {
-    tabName: 'العالم العربي',
-    isSelected: false,
-  },
-  {
-    tabName: 'العالم العربي',
-    isSelected: false,
-  },
-  {
-    tabName: 'العالم العربي',
     isSelected: false,
   },
 ];

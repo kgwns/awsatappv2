@@ -63,7 +63,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   return (
     <SafeAreaView>
       {header()}
-      <ScrollView>
+      <ScrollView bounces={false}>
         <View style={styles.menuContainer}>
           {sideMenuData.length > 0 &&
             sideMenuData.map((item) => {
