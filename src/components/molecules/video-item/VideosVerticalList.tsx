@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
 import {normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Label, Image} from 'src/components/atoms';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 
 export interface VideosVerticalListProps {
   imageUrl?: string;
@@ -22,17 +21,16 @@ export const VideosVerticalList = ({
   time,
 }: VideosVerticalListProps) => {
   const style = useThemeAwareObject(customStyle);
-  const [isSaved, setIsSaved] = useState(false);
-  const theme = useTheme();
+
   return (
     <TouchableWithoutFeedback testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
       <View style={style.cardContainer}>
         <View style={style.headerStyle}>
           <View style={style.imageContainer}>
             <Image url={imageUrl} style={style.imageStyle} />
-            <Label style={style.timeStyle} numberOfLines={1}>
+            {time&&<Label style={style.timeStyle} numberOfLines={1}>
               {time}
-            </Label>
+            </Label>}
           </View>
           <View style={style.titleContainer}>
             <Label style={style.title} numberOfLines={3}>

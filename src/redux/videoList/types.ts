@@ -14,15 +14,10 @@ export interface VideoItemType {
   field_multimedia_section_export: string|null;
   field_thumbnil_multimedia_export: string;
   description: string|null;
-  isFirstItem?: boolean;
-  onPress?: ()=> void;
-  testID?: string;
-  shortDescription?: string;
-  toWatchTitle?: string;
 }
 
 export interface FetchVideoSuccessPayloadType {
-  videoData: any;
+  videoData: VideoItemType[];
 }
 
 export interface FetchVideoFailedPayloadtype {
@@ -30,7 +25,7 @@ export interface FetchVideoFailedPayloadtype {
 }
 
 export type VideoState = {
-  videoData: VideoItemType[];
+  videoData: any;
   error: string;
   isLoading: boolean;
 }

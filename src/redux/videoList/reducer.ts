@@ -12,7 +12,7 @@ export default (state = initialAuthState, action: VideoActions) => {
       return {
         ...state,
         isLoading: false,
-        VideoData: action.payload.videoData,
+        videoData: action.payload.videoData,
         error: '',
       };
     case FETCH_VIDEO_FAILED:
