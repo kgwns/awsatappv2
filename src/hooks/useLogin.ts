@@ -9,7 +9,7 @@ import { FetchLoginPayloadType, LoginItemType } from 'src/redux/login/types';
 
 export interface UseLoginReturn {
   isLoading: boolean;
-  loginData: LoginItemType[];
+  loginData: any;
   loginError: string;
   fetchLoginRequest(payload: FetchLoginPayloadType): void;
 }

@@ -1,7 +1,7 @@
 import React, {useState,useEffect,useRef} from 'react';
 import {useNavigation, StackActions} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
@@ -44,13 +44,27 @@ export const SignUpPage = ({
   }, []);
 
   useEffect(() => {
-    if (initialRender.current) {
-      initialRender.current = false;
-    } else {
-      if (registerUserInfo!==null&&registerUserInfo.user!==null) {
-        navigation.dispatch(StackActions.replace(ScreensConstants.SignInPage,{email:email}))
+
+    const message = registerUserInfo?.message;
+
+    if (message) {
+      if (message.code === 200) {
+        navigation.reset({
+          index: 0,
+          routes: [{name: ScreensConstants.OnBoardNavigator}],
+        });
+      }else{
+        Alert.alert(message.message);
       }
     }
+
+    // if (initialRender.current) {
+    //   initialRender.current = false;
+    // } else {
+    //   if (registerUserInfo!==null&&registerUserInfo.user!==null) {
+    //     navigation.dispatch(StackActions.replace(ScreensConstants.SignInPage,{email:email}))
+    //   }
+    // }
   }, [registerUserInfo]);
 
   const getDeviceName = async () => {

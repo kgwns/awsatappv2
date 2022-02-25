@@ -5,25 +5,25 @@ import {
 } from './actionTypes';
 import { LoginActions, LoginState } from './types';
 const initialAuthState: LoginState = {
-  loginData: {},
+  loginData: null,
   error: '',
   isLoading: false,
 };
 
 export default (state = initialAuthState, action: LoginActions) => {
-  console.log('loginData', action.payload);
+ // console.log('loginData login reducer', action.payload.loginData);
   switch (action.type) {
     case FETCH_LOGIN_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        loginData: action.payload,
+        loginData: action.payload.loginData,
         error: '',
       };
     case FETCH_LOGIN_ERROR:
       return { ...state, error: action.payload.error, isLoading: false };
     case FETCH_LOGIN:
-      return { ...state, isLoading: true, error: '' };
+      return { ...state, isLoading: true, error: '', loginData: null };
     default:
       return { ...state };
   }

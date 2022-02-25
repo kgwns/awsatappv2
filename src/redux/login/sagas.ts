@@ -4,6 +4,7 @@ import { FetchLoginSuccessPayloadType, FetchLoginType } from './types';
 import { fetchLoginFailed, fetchLoginSuccess } from './action';
 import { FETCH_LOGIN } from './actionTypes';
 import { fetchLoginApi } from 'src/services/loginService';
+import { Alert } from 'react-native';
 
 export function* fetchLogin(action: FetchLoginType) {
   //console.log("saga fetchMostRead");
@@ -17,6 +18,7 @@ export function* fetchLogin(action: FetchLoginType) {
     const errorResponse: AxiosError = error as AxiosError;
     if (errorResponse.response) {
       const errorMessage: { message: string } = errorResponse.response.data;
+      Alert.alert(errorMessage.message);
       yield put(fetchLoginFailed({ error: errorMessage.message }));
     }
   }
