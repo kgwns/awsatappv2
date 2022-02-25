@@ -20,6 +20,7 @@ import {RegisterBodyType} from 'src/redux/register/types';
 import DeviceInfo from 'react-native-device-info';
 import { normal } from 'react-native-color-matrix-image-filters';
 import { fetchLoginSuccess } from 'src/redux/login/action';
+import { useDispatch } from 'react-redux';
 
 export interface SignUpPageProps {
   route: any
@@ -41,17 +42,18 @@ export const SignUpPage = ({
   const {createUserRequest, registerUserInfo, isRegisterLoading} = useRegister();
   const initialRender = useRef(true);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     getDeviceName();
   }, []);
 
   useEffect(() => {
-
     const message = registerUserInfo?.message;
-
     if (message) {
       if (message.code === 200) {
-        fetchLoginSuccess({ loginData: registerUserInfo })
+        dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
+        
         navigation.reset({
           index: 0,
           routes: [{name: ScreensConstants.OnBoardNavigator}],
