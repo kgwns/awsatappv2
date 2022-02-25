@@ -20,6 +20,7 @@ const VideoDetailScreen = 'VideoDetailScreen' as ScreenName;
 const SignInPage = 'SignInPage' as ScreenName;
 const TERMS_AND_ABOUT_US = 'TERMS_AND_ABOUT_US' as ScreenName;
 const SignUpPage = 'SignUpPage' as ScreenName;
+const FORGOT_PASSWORD = 'ForgotPassword' as ScreenName;
 const SUCCESS_SCREEN = 'SuccessScreen' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
@@ -50,5 +51,6 @@ export const ScreensConstants = {
   SignInPage,
   TERMS_AND_ABOUT_US,
   SignUpPage,
+  FORGOT_PASSWORD,
   SUCCESS_SCREEN
 };
