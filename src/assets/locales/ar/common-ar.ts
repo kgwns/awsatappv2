@@ -142,5 +142,10 @@ export const arabic = {
     confirmPassword: 'تأكيد تكلمة المرور',
     signUp: 'تسجيل الدخول',
     return: 'الرجوع',
-  }
+  },
+  onboardSuccess: {
+    successMessage: 'تم تكوين صفحة أخبارك بنجاح',
+    mailAcknowledgement: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى\n الإيميل الخاص بك.',
+    goToHome:'انتقل الي الصفحة الرئيسية'
+  },
 };

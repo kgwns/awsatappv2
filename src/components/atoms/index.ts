@@ -24,3 +24,4 @@ export { TextInputField } from 'src/components/atoms/text-input-field/TextInputF
 export { ButtonIconWithLabel } from 'src/components/atoms/buttonIconWithLabel/ButtonIconWithLabel'
 export { NextButton } from '../atoms/NextButton/NextButton';
 
+export { ButtonOnboard } from '../atoms/button-onboard/ButtonOnboard'

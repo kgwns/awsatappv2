@@ -26,12 +26,7 @@ export const KeepNotifiedScreen = ({ navigation }: any) => {
         </View>
       <NextButton
         title={t('onBoard.common.nextBtn')}
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{name: ScreensConstants.AppNavigator}],
-          })
-        }
+        onPress={() => navigation.navigate(ScreensConstants.SUCCESS_SCREEN)}
         style={style}
       />
     </View>
