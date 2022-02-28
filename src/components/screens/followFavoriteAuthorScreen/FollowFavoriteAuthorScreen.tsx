@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, LoadingState, NextButton } from 'src/components/atoms';
@@ -11,12 +11,12 @@ import { useAllWriters } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
 import { ScreensConstants } from 'src/constants';
-import { PLEASE_SELECT_FAVORITE_AUTHORS } from 'src/constants/SharedConstants';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
+  const [disableNext, setDisableNext] = useState<boolean>(true)
 
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
@@ -42,25 +42,30 @@ export const FollowFavoriteAuthorScreen = () => {
     for (let i = 0; i < data.length; i++) {
       if (item.tid == data[i].tid) {
         data[i].isSelected = selected;
-        console.log(data[i].isSelected);
       }
     }
+    updateNextButton()
   };
 
+  const updateNextButton = () => {
+    const selectedTIDData = getSelectedData()
+    const disableNext = isNonEmptyArray(selectedTIDData) ? false : true
+    setDisableNext(disableNext)
+  }
+
   const onPressNext = () => {
-    const selectedTIDData = allWritersData.reduce((prevValue: string[], item: AllWritersItemType) => {
+    if (isNonEmptyArray(getSelectedData)) {
+      sendSelectedWriterInfo({ tid: joinArray(getSelectedData) })
+    }
+  }
+
+  const getSelectedData = () => {
+    return allWritersData.reduce((prevValue: string[], item: AllWritersItemType) => {
       if (item.isSelected) {
         return prevValue.concat(item.tid)
       }
       return prevValue
     }, [])
-
-    if (isNonEmptyArray(selectedTIDData)) {
-      sendSelectedWriterInfo({ tid: joinArray(selectedTIDData) })
-    } else {
-      Alert.alert(PLEASE_SELECT_FAVORITE_AUTHORS)
-    }
-
   }
 
   const gotoNext = () => {
@@ -89,6 +94,7 @@ export const FollowFavoriteAuthorScreen = () => {
         </View>
         <View style={style.nextButtonView}>
           <NextButton
+            disabled={disableNext}
             testID="nextButtonTestId"
             title={t('onBoard.common.nextBtn')}
             onPress={onPressNext}
