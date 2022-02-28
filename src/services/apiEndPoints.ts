@@ -40,6 +40,7 @@ export const NEWS_VIEW_ENDPOINT = '/api/v2/articlesection/11';
 
 //all writers list
 export const ALL_WRITERS_ENDPOINT = '/api/v2/sections/writer';
+export const SEND_SELECTED_WRITERS_ENDPOINT = 'api/ums/v1/addFavoriteAuthor?tid=';
 
 //all site categories
 export const ALL_SITE_CATEGORIES_ENDPOINT = "/api/v2/sections/news_categories";

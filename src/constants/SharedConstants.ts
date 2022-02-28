@@ -10,4 +10,5 @@ export const CHOOSE_TOPICS_TO_HAVE_BEST_FEED =
 export const VALID_URL_REGEX = "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
 export const FROM_TWO_HOURS = 'من ساعاتان'
 export const MINI_PLAYER_PODCAST_TITLE = 'عنوان الحلقه الآخيره من صباح الخير هنا '
+export const PLEASE_SELECT_FAVORITE_AUTHORS = 'Please select favorite authors'
 
