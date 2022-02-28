@@ -36,3 +36,5 @@ export { PodcastForYou, PodcastForYouListType } from 'src/components/organisms/p
 export { Archives } from 'src/components/organisms/archives/Archives'
 export { ContentForYou } from 'src/components/organisms/contentForYou/ContentForYou'
 export { NewsLettersWidget } from 'src/components/organisms/NewsLetterWidget'
+export { OpinionArticleDetailWidget } from 'src/components/organisms/OpinionArticleDetailWidget';
+export { RelatedOpinionArticlesWidget } from 'src/components/organisms/RelatedOpinionArticleWidget';

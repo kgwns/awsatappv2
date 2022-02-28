@@ -37,8 +37,8 @@ export const OpinionScreen = () => {
   }, [page]);
 
   const renderItem = () => (
-    <View>
-      <OpinionWritersSection data={opinionWriterData} />
+    <View style={{width:'100%'}}>
+      <OpinionWritersSection data={opinionWriterData} />    
       <OpinionWritersArticlesSection
         data={opinionsData}
         onScroll={() => gotoNextPage()}

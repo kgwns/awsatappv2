@@ -174,4 +174,7 @@ export const arabic = {
     mailAcknowledgement: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى\n الإيميل الخاص بك.',
     goToHome:'انتقل الي الصفحة الرئيسية'
   },
+  opinionArticleDetail:{
+    return:'الرجوع',
+  }
 };

@@ -57,3 +57,5 @@ export const CHECK_EMAIL  = 'api/ums/v1/loginCheckEmail'
 //VideoList
 export const VIDEO_LIST_ENDPOINT = 'api/v2/videolist'
 
+//Opinion Article Detail
+export const OPINION_ARTICLE_DETAIL = 'api/v2/opinionnode/'

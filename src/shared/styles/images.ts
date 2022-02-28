@@ -57,6 +57,9 @@ export enum ImagesName {
   earlyEditionImg = 'earlyEditionImg',
   moneyAndBusinessImg = 'moneyAndBusinessImg',
   technologyImg = 'technologyImg',
+  pen = 'pen',
+  bookmark = 'bookmark',
+  returnSvg = 'returnSvg',
 }
 
 export const images = {

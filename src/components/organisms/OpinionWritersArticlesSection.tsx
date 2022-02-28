@@ -6,7 +6,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import OpinionWritersCardView from 'src/components/molecules/opinionWriters/OpinionWriterCardView';
 import {normalize} from 'src/shared/utils';
 import {OpinionsListItemType} from 'src/redux/opinions/types';
-import {decodeHTMLTags} from 'src/shared/utils/utilities';
+import {decodeHTMLTags, getImageUrl} from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 
 interface OpinionWritersArticlesSectionProps {
@@ -26,12 +26,13 @@ const OpinionWritersArticlesSection = ({
     return (
       <View key={flatListUniqueKey.OPINION_WRITER_ARTICLES_SECTION + index}>
         <OpinionWritersCardView
-          imageUrl={item.field_opinion_writer_node_export.opinion_writer_photo}
+          imageUrl={getImageUrl(item.field_opinion_writer_node_export[0].opinion_writer_photo)}
           writerTitle={item.field_opinion_writer_node_export.name}
           headLine={item.title}
           subHeadLine={decodeHTMLTags(item.body)}
           audioLabel={'استمع الي المقالة '}
           duration={'3:22'}
+          nid={item.nid}
         />
         {isLoading && data.length - 1 == index && (
           <View style={{margin: normalize(28)}}>

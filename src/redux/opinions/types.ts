@@ -14,7 +14,7 @@ export type payloadType = {rows: any[]; pager: Pager};
 export interface OpinionsListItemType {
   title: string;
   created_export: Date;
-  field_opinion_writer_node_export: FieldOpinionWriterNodeExport;
+  field_opinion_writer_node_export: FieldOpinionWriterNodeExport[];
   nid: string;
   field_opinion_sport_blog_export: FieldOpinionSportBlogExport[];
   field_new_issueno_export: string;
