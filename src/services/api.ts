@@ -32,6 +32,7 @@ export const postApiRequest = (
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        Authorization: 'Bearer 134|gpDipIcmZfSzrXvSLcWJ4poe9agHOGbgU64yuGFt', //TODO: need to replace with actual token
       },
       ...config,
     })

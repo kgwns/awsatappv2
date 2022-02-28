@@ -3,6 +3,7 @@ import {
   getIsLoading,
   getAllWritersData,
   getAllWritersError,
+  getSentAuthorInfoData,
 } from '../selectors';
 import {AllWritersItemType} from '../types';
 
@@ -16,6 +17,11 @@ describe('All Writer Selector', () => {
   test('Get all Writer data', () => {
     const allWriterData: AllWritersItemType[] = getAllWritersData(storeData);
     expect(allWriterData).toEqual([]);
+  });
+
+  test('Get error state', () => {
+    const data = getSentAuthorInfoData(storeData);
+    expect(data).toEqual({});
   });
 
   test('Get error state', () => {
