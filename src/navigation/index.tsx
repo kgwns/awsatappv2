@@ -20,6 +20,7 @@ import {
   ForgotPassword,
   SuccessScreen,
   NewsLetterScreen,
+  ProfileSettings
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -50,6 +51,7 @@ export const Routes = {
   ForgotPassword,
   SuccessScreen,
   NewsLetterScreen,
+  ProfileSettings
 };
 
 /**

@@ -57,6 +57,11 @@ export enum ImagesName {
   earlyEditionImg = 'earlyEditionImg',
   moneyAndBusinessImg = 'moneyAndBusinessImg',
   technologyImg = 'technologyImg',
+  notificationGrey = 'notificationGrey',
+  manageNews = 'manageNews',
+  newsLetter = 'newsLetter',
+  profile = 'profile',
+  exit = 'exit'
 }
 
 export const images = {

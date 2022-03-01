@@ -23,6 +23,7 @@ const SignUpPage = 'SignUpPage' as ScreenName;
 const FORGOT_PASSWORD = 'ForgotPassword' as ScreenName;
 const SUCCESS_SCREEN = 'SuccessScreen' as ScreenName;
 const NEWS_LETTER_SCREEN = 'NewsLetterScreen' as ScreenName;
+const PROFILE_SETTING = 'PROFILE_SETTING' as ScreenName
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -55,4 +56,5 @@ export const ScreensConstants = {
   FORGOT_PASSWORD,
   SUCCESS_SCREEN,
   NEWS_LETTER_SCREEN,
+  PROFILE_SETTING
 };

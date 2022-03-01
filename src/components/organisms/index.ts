@@ -22,7 +22,6 @@ export { PodcastEpisodeInfo } from 'src/components/organisms/podcast/PodcastEpis
 export { VideoInfo } from 'src/components/organisms/video_details/VideoInfo';
 export { VideosList } from 'src/components/organisms/video_details/VideosList';
 export { AuthScreenInputSection } from 'src/components/organisms/auth/AuthScreenInputSection';
-
 export {StoryListView, StoryListProps, StoryListItemProps} from './story_list_view/StoryListView';
 export { default as VideoContent } from 'src/components/organisms/VideoContent';
 export { default as NewsFeed} from 'src/components/organisms/NewsFeed';

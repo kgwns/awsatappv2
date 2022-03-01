@@ -49,14 +49,6 @@ export const ArticleDetailFooter = ({ articleDetailData }: { articleDetailData: 
     const style = useThemeAwareObject(customStyle)
     return (
         <View style={style.container}>
-            {/* <ButtonImage icon={() => {
-                return getSvgImages({
-                    name: ImagesName.themeChange,
-                    size: normalize(21),
-                    fill: themeData.primaryBlack
-                });
-            }} onPress={onPressThemeChange}
-            /> */}
             <ButtonImage icon={() => {
                 return getSvgImages({
                     name: ImagesName.fontScaling,

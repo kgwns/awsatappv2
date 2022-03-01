@@ -3,7 +3,6 @@ import { StyleProp } from 'react-native'
 import { ImagesName } from '../styles/images'
 import FontScalingIcon from 'src/assets/images/icons/font_scaling_icon.svg'
 import Share from 'src/assets/images/icons/share.svg'
-import ThemeChangeIcon from 'src/assets/images/icons/theme_change_icon.svg'
 import BookMarkBlackBdrSVG from 'src/assets/images/icons/bookmark_black_bdr.svg'
 import BookMarkBlackFillSVG from 'src/assets/images/icons/bookmark_black_fill.svg'
 import BookMarkWhiteBdrSVG from 'src/assets/images/icons/bookmark_white_bdr.svg'
@@ -62,6 +61,18 @@ import ArrowLeftFaced from 'src/assets/images/icons/arrowLeftFaced.svg'
 
 import Mail from 'src/assets/images/icons/mail.svg'
 import MailSelected from 'src/assets/images/icons/mail_selected.svg'
+import ChangeTheme from 'src/assets/images/icons/change_theme.svg'
+import ChangeThemeDark from 'src/assets/images/icons/change_theme_dark.svg'
+import Exit from 'src/assets/images/icons/exit.svg'
+import ExitDark from 'src/assets/images/icons/exit_dark.svg'
+import NewsLetter from 'src/assets/images/icons/news_letter.svg'
+import NewsLetterDark from 'src/assets/images/icons/news_letter_dark.svg'
+import ManageNews from 'src/assets/images/icons/manage_news.svg'
+import ManageNewsDark from 'src/assets/images/icons/manage_news_dark.svg'
+import NotificationGrey from 'src/assets/images/icons/notification_grey.svg'
+import NotificationDark from 'src/assets/images/icons/notification_dark.svg'
+import Profile from 'src/assets/images/icons/profile.svg'
+import ProfileDark from 'src/assets/images/icons/profile_dark.svg'
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -85,7 +96,7 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.fontScaling:
             return <FontScalingIcon {...props} />
         case ImagesName.themeChange:
-            return <ThemeChangeIcon {...props} />
+            return isDark ? <ChangeThemeDark {...props} /> : <ChangeTheme {...props} />
         case ImagesName.share:
             return <Share {...props} />
         case ImagesName.bookMarkSVG:
@@ -151,13 +162,23 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.notification:
             return isDark ? <NotificationIconDark {...props} /> : <NotificationIcon {...props} />
         case ImagesName.bookMarkWhite:
-            return <BookMarkWhiteBdrSVG {...props}/>
+            return <BookMarkWhiteBdrSVG {...props} />
         case ImagesName.bookMarkWhiteActive:
-            return <BookMarkWhiteFillSVG {...props}/>
+            return <BookMarkWhiteFillSVG {...props} />
         case ImagesName.mail:
-            return <Mail {...props}/>
+            return <Mail {...props} />
         case ImagesName.mailSelected:
-            return <MailSelected {...props}/>
+            return <MailSelected {...props} />
+        case ImagesName.notificationGrey:
+            return isDark ? <NotificationDark {...props} /> : <NotificationGrey {...props} />
+        case ImagesName.manageNews:
+            return isDark ? <ManageNewsDark {...props} /> : <ManageNews {...props} />
+        case ImagesName.newsLetter:
+            return isDark ? <NewsLetterDark {...props} /> : <NewsLetter {...props} />
+        case ImagesName.profile:
+            return isDark ? <ProfileDark {...props} /> : <Profile {...props} />
+        case ImagesName.exit:
+            return isDark ? <ExitDark {...props} /> : <Exit {...props} />
         default: return null
     }
 }

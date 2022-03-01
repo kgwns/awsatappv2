@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {View, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
 import {ImagesName} from '../shared/styles/images';
-import {ButtonImage, Image} from '../components/atoms';
+import {ButtonImage} from '../components/atoms';
 import {ButtonList, Divider, ButtonOutline} from 'src/components/atoms';
 import {useTranslation} from 'react-i18next';
 import {normalize} from 'src/shared/utils';
@@ -15,12 +15,14 @@ import LinkedinIcon from 'src/assets/images/icons/linkedin.svg';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
+import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {flatListUniqueKey, ScreensConstants} from 'src/constants';
+import {ScreensConstants} from 'src/constants';
 import {useSideMenu} from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
+import { getSvgImages } from 'src/shared/styles/svgImages';
+import { PROFILE } from 'src/constants/SharedConstants';
 
 interface CustomDrawerContentProps {}
 
@@ -50,7 +52,13 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const header = () => (
     <View style={styles.headerContainer}>
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} name={ImagesName.headerLogo} />
+        {
+          getSvgImages({
+            name: ImagesName.headerLogo,
+            width: styles.logo.width,
+            height: styles.logo.height
+          })
+        }
       </View>
       <View style={styles.headerRight}>
         <TouchableOpacity
@@ -65,6 +73,12 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       {header()}
       <ScrollView bounces={false}>
         <View style={styles.menuContainer}>
+          <ButtonList
+            title={PROFILE}
+            onPress={() =>
+              navigation.navigate(ScreensConstants.PROFILE_SETTING)
+            }
+          />
           {sideMenuData.length > 0 &&
             sideMenuData.map((item) => {
               return (

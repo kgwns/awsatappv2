@@ -23,7 +23,6 @@ export {default as FollowFavoriteAuthor} from 'src/components/molecules/followFa
 export { default as KeepNotifiedCard } from 'src/components/molecules/keepNotifiedCard/KeepNotifiedCard';
 export { default as SectionVideoFooter } from '../molecules/SectionVideoFooter/SectionVideoFooter';
 export { default as SectionArticleItem } from '../molecules/sectionArticleItem/SectionArticleItem';
-
 export { default as ArticleDetailImage } from 'src/components/molecules/articleDetailImage/ArticleDetailImage';
 export { default as DetailPodCastFooter } from 'src/components/molecules/detailPodCastFooter/DetailPodCastFooter';
 export { ArticleDetailFooter } from 'src/components/molecules/articleDetailFooter/ArticleDetailFooter'
@@ -40,3 +39,4 @@ export { VideosVerticalList, VideosVerticalListProps } from 'src/components/mole
 export { FilterComponent, FilterDataType } from 'src/components/molecules/filterComponent/FilterComponent';
 export { ArchivesPodcast } from 'src/components/molecules/archivesPodcast/ArchivesPodcast'
 export { NewsLetterCard } from 'src/components/molecules/NewsLetterCard';
+export { ToggleWithLabel,ToggleWithLabelProps } from 'src/components/molecules/toggleWithLabel/ToggleWithLabel'
