@@ -49,12 +49,16 @@ export const isNonEmptyArray = (data: any): boolean => {
 };
 
 export const isObjectNonEmpty = (data: any): boolean => {
-  return Object.keys(data).length > 0 ? true : false;
+  return data && Object.keys(data).length > 0 ? true : false;
 };
 
 export const isNotEmpty = (value: string | null | undefined): boolean => {
   return typeof value === 'string' && value.trim().length > 0;
 };
+
+export const joinArray = (data: any): string => {
+  return isNonEmptyArray(data) ? data.join(',') : ''
+}
 
 export const isValidHttpUrl = (url: string): boolean => {
   const pattern = new RegExp(VALID_URL_REGEX);

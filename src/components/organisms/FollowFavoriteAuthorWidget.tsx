@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {flatListUniqueKey} from 'src/constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -9,14 +9,6 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 const FollowFavoriteAuthorWidget = (props: any) => {
   const data = props.writersData;
   const style = useThemeAwareObject(customStyle);
-  const changeSelectedStatus = (item: any, selected: boolean) => {
-    for (let i = 0; i < data.length; i++) {
-      if (item.tid == data[i].tid) {
-        data[i].isSelected = selected;
-        console.log(data[i].isSelected);
-      }
-    }
-  };
 
   const renderItem = (item: any) => {
     return (
@@ -25,7 +17,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
         // authorDescription={item.authorDescription}
         authorImage={item.field_opinion_writer_photo_export}
         // isSelected={item.isSelected}
-        onPress={selected => changeSelectedStatus(item, selected)}
+        onPress={selected => props.changeSelectedStatus(item, selected)}
       />
     );
   };

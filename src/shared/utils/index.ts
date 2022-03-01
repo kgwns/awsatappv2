@@ -18,5 +18,6 @@ export {
   timeAgo,
   calculateDate,
   calculateTimeSince,
-  calculateMonth
+  calculateMonth,
+  joinArray,
 } from 'src/shared/utils/utilities'
