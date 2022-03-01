@@ -8,7 +8,9 @@ import { testProps } from 'src/shared/utils'
 
 export interface TabBarDataProps {
   tabName: string,
-  isSelected: boolean
+  isSelected: boolean,
+  keyName?: string;
+  sectionId?: number|null;
 }
 
 export interface TabBarItemProps extends TabBarDataProps {

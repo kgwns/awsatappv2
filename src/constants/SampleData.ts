@@ -126,7 +126,12 @@ export const storeInfo = [
       isLoading: false,
       userInfo: {},
       error: ''
-    }
+    },
+    topMenu: {
+      topMenuData: [],
+      error: '',
+      isLoading: false,
+    },
   },
 ];
 

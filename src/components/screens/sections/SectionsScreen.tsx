@@ -1,47 +1,52 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {OpinionScreen, ScreenContainer, VideoScreen, PodcastProgram, SectionStoryScreen} from '..';
 import {TabBarComponent} from 'src/components/molecules';
 import {sectionTabItem} from 'src/constants/SampleData';
 import {horizontalEdge} from 'src/shared/utils';
 import {View} from 'react-native';
-import {Label} from 'src/components/atoms';
+import {useTopMenu} from 'src/hooks';
+
+export enum TabType {
+  home = 'home',
+  opinion = 'opinion',
+  podcast = 'podcast',
+  video = 'video',
+  section = 'section',
+}
 
 export const SectionsScreen = () => {
   const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
+  const {isLoading,topMenuData,fetchTopMenuRequest} = useTopMenu();
+  useEffect(() => { fetchTopMenuRequest(); }, []);
   const onPressTabItem = (index: number) => {
-    sectionTabItem[tabSelectedIndex].isSelected = false;
-    sectionTabItem[index].isSelected = true;
+    topMenuData[tabSelectedIndex].isSelected = false;
+    topMenuData[index].isSelected = true;
     setTabSelectedIndex(index);
   };
 
   const renderTabBarComponent = () => (
-    <TabBarComponent tabItem={sectionTabItem} onPressTabItem={onPressTabItem} />
+    <TabBarComponent tabItem={topMenuData} onPressTabItem={onPressTabItem} />
   );
 
   const tabContent = () => {
-    switch (sectionTabItem[tabSelectedIndex].tabName) {
-      case 'العالم العربي':
+    if (!topMenuData.length) return null;
+    switch (topMenuData[tabSelectedIndex].keyName) {
+      case TabType.home:
         return <SectionStoryScreen/>;
-      case 'الرأي':
+      case TabType.opinion:
         return <OpinionScreen />;
-      case 'بودكاست':
+      case TabType.podcast:
         return <PodcastProgram />;
-      case 'أولى':
-        return <Label>'أولى'</Label>;
-      case 'فيديو':
+      case TabType.video:
         return <VideoScreen/>;
-      case 'يوميات الشرق':
-        return <Label>'يوميات الشرق'</Label>;
-      case 'العالم العربي':
-        return <Label>'العالم العربي'</Label>;
       default:
-        return <Label>default</Label>;
+        return <SectionStoryScreen />;
     }
   };
   return (
-    <ScreenContainer edge={horizontalEdge}>
+    <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
       {renderTabBarComponent()}
-      <View style={{flex: 1}} testID={'tabContent'}>{tabContent()}</View>
+      {!isLoading&&<View style={{flex: 1}} testID={'tabContent'}>{tabContent()}</View>}
     </ScreenContainer>
   );
 };
