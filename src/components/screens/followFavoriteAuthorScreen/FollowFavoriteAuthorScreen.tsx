@@ -54,8 +54,8 @@ export const FollowFavoriteAuthorScreen = () => {
   }
 
   const onPressNext = () => {
-    if (isNonEmptyArray(getSelectedData)) {
-      sendSelectedWriterInfo({ tid: joinArray(getSelectedData) })
+    if (isNonEmptyArray(getSelectedData())) {
+      sendSelectedWriterInfo({ tid: joinArray(getSelectedData()) })
     }
   }
 

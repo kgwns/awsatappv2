@@ -1,13 +1,13 @@
 import { View, StyleSheet, ScrollView, FlatList, Platform } from 'react-native';
 import React from 'react';
-import { BorderLabel } from '../atoms/BorderLabel/BorderLabel';
+import { BorderLabel } from 'src/components/atoms/BorderLabel/BorderLabel';
 import { normalize, screenWidth } from 'src/shared/utils';
 import { flatListUniqueKey } from 'src/constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { decode } from 'html-entities';
 
-const InterestSection = (props:any) => {
+const InterestedTopics = (props:any) => {
   const data = props.allSiteCategoriesData
   const style = useThemeAwareObject(customInterestStyle)
   let totalLengthOfElements = 0
@@ -54,24 +54,18 @@ const InterestSection = (props:any) => {
     }
   }
 
-  const isSetSelected = (item: any, isSelected: boolean) => {
-    for (let i = 0; i < data.length; i++) {
-      if (item.tid == data[i].tid) {
-        data[i].selected = isSelected
-      }
-    }
-  }
   const renderItem = (item: string, index: number) => {
     return (
-      <View key={flatListUniqueKey.INTEREST_SECTION + index}>
-        <View style={style.interestContainer} >
+      <View key={flatListUniqueKey.INTERESTED_TOPICS + index}>
+        <View style={style.interestedTopicsContainer} >
           <BorderLabel label={decode(item)}
-            onPress={(isSelected) => { isSetSelected(item, isSelected) }}
+            onPress={selected => props.onTopicsChanged(item, selected)}
           />
         </View>
       </View>
     )
   }
+
   const renderer = (item: any, index: number) => {
     return (
       <View style={style.rowContainer} key={index}>
@@ -80,7 +74,7 @@ const InterestSection = (props:any) => {
           scrollEnabled={false}
           horizontal
           keyExtractor={(_, index) => index.toString()}
-          listKey={flatListUniqueKey.INTEREST_SECTION + new Date().getTime().toString()}
+          listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
           data={item}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => renderItem(item.name, index)}
@@ -88,6 +82,7 @@ const InterestSection = (props:any) => {
       </View>
     )
   }
+
   return (
     <ScrollView style={style.container} horizontal={true} showsHorizontalScrollIndicator={false}>
       <ScrollView style={style.container} horizontal={false} scrollEnabled={false}>
@@ -98,15 +93,15 @@ const InterestSection = (props:any) => {
   );
 };;
 
-export default InterestSection;
-const customInterestStyle = (theme: CustomThemeType) => {
-  const interestSectionStyle = StyleSheet.create({
+export default InterestedTopics;
+const customInterestStyle = (theme: CustomThemeType) =>
+  StyleSheet.create({
     container: {
       width: '100%',
       backgroundColor: theme.backgroundColor,
       alignSelf: 'center',
     },
-    interestContainer: {
+    interestedTopicsContainer: {
       marginVertical: normalize(7),
       marginLeft: normalize(10),
       alignSelf: 'flex-start',
@@ -118,6 +113,5 @@ const customInterestStyle = (theme: CustomThemeType) => {
       marginStart: 0.04 * screenWidth,
 
     },
-  })
-  return interestSectionStyle
-}
+})
+

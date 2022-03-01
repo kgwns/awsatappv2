@@ -30,7 +30,7 @@ export const arabic = {
       title: 'ما الذي تريد أن تبقى على اطلاع عليه؟',
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
-    selectInterests: {
+    selectTopics: {
       title: 'ما هي اهتماماتك',
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },

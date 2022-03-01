@@ -8,7 +8,7 @@ import {
   FollowFavoriteAuthorScreen,
   KeepNotifiedScreen,
   ArticleDetailScreen,
-  SelectInterestScreen,
+  SelectTopicsScreen,
   PodcastProgram,
   StoryScreen,
   SectionArticlesScreen,
@@ -38,7 +38,7 @@ export const Routes = {
   FollowFavoriteAuthorScreen,
   KeepNotifiedScreen,
   ArticleDetailScreen,
-  SelectInterestScreen,
+  SelectTopicsScreen,
   PodcastProgram,
   StoryScreen,
   SectionArticlesScreen,
@@ -70,7 +70,7 @@ export type ScreenList = {
   FollowFavoriteAuthorScreen: undefined;
   KeepNotifiedScreen: undefined;
   articleDetailScreen: undefined;
-  SelectInterestScreen: undefined;
+  SelectTopicsScreen: undefined;
   StoryScreen: undefined;
   ForgotPassword: undefined;
   SuccessScreen: undefined;
@@ -89,7 +89,7 @@ const onBoardNavigator = 'onBoardNavigator' as ScreenName;
 const followFavoriteAuthorScreen = 'followFavoriteAuthorScreen' as ScreenName;
 const keepNotifiedScreen = 'keepNotifiedScreen' as ScreenName;
 const articleDetailScreen = 'articleDetailScreen' as ScreenName
-const selectInterestScreen = 'selectInterestScreen' as ScreenName;
+const selectTopicsScreen = 'selectTopicsScreen' as ScreenName;
 const termsAndAboutUs = 'termsAndAboutUs' as ScreenName;
 const forgotPassword = 'forgotPassword' as ScreenName
 const successScreen = 'successScreen' as ScreenName;
@@ -107,7 +107,7 @@ export const RoutesName = {
   followFavoriteAuthorScreen,
   keepNotifiedScreen,
   articleDetailScreen,
-  selectInterestScreen,
+  selectTopicsScreen,
   termsAndAboutUs,
   forgotPassword,
   successScreen,

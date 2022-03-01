@@ -2,15 +2,15 @@ import React from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../../constants/SampleData';
-import {SelectInterestScreen} from '../SelectInterestScreen';
+import {SelectTopicsScreen} from '../SelectTopicsScreen';
 
-describe('<SelectInterestScreen>', () => {
+describe('<SelectTopicsScreen>', () => {
   let instance: RenderAPI;
 
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <SelectInterestScreen />
+        <SelectTopicsScreen />
       </Provider>
     );
     instance = render(component);
@@ -21,7 +21,12 @@ describe('<SelectInterestScreen>', () => {
     instance.unmount();
   });
 
-  test('Should render SelectInterestScreen', () => {
+  test('Should render SelectTopicScreen', () => {
     expect(instance).toBeDefined();
+  });
+  
+  it('Should Press Next Button', () => {
+    const element = instance.getByTestId('nextButtonTestId');
+    fireEvent.press(element);
   });
 });

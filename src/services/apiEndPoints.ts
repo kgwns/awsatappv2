@@ -58,3 +58,6 @@ export const CHECK_EMAIL  = 'api/ums/v1/loginCheckEmail'
 //VideoList
 export const VIDEO_LIST_ENDPOINT = 'api/v2/videolist'
 
+//UMS update interests 
+export const ADD_YOUR_TOPICS_ENDPOINT = 'api/ums/v1/addYourTopics?tid='
+

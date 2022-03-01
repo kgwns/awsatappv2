@@ -115,7 +115,7 @@ export const storeInfo = [
       allSiteCategoriesData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
       isLoading: false,
-
+      sendTopicInfo: {}
     },
     termsAndAboutUs: {
       isLoading: true,
