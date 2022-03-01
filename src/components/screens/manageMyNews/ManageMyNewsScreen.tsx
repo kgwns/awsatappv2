@@ -97,16 +97,16 @@ export const ManageMyNewsScreen = () => {
   const renderItemBooks = () => (
     <FollowFavoriteAuthor
       authorName={AUTHOR_TITLE}
-      authorDescription={AUTHOR_DESCRIPTION}
       authorImage={'https://picsum.photos/200/300'}
       isSelected={true}
       onPress={() => {}}
+      clickable={false}
     />
   );
 
   const renderItemTopics = ({item}: any) => (
     <View style={style.renderItemTopics}>
-      <BorderLabel label={item.label} onPress={() => {}} isSelected={true} />
+      <BorderLabel label={item.label} onPress={() => {}} isSelected={true} clickable={false} />
     </View>
   );
 
