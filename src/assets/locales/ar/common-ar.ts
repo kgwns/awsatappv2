@@ -176,5 +176,6 @@ export const arabic = {
   },
   opinionArticleDetail:{
     return:'الرجوع',
+    listenToArticle:'استمع الي المقالة'
   }
 };

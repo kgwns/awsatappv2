@@ -6,11 +6,12 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {isTab, normalize} from 'src/shared/utils';
 import {ImagesName} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {ButtonImage, Image, Label} from '../atoms';
+import { useTranslation } from 'react-i18next';
 
 export const RelatedOpinionCard = () => {
   const style = useThemeAwareObject(customStyle);
+  const [t] = useTranslation();
 
   return (
     <TouchableWithoutFeedback
@@ -37,7 +38,7 @@ export const RelatedOpinionCard = () => {
             }}
             onPress={() => {}}
           />
-          <Label children={'استمع الي المقالة'} style={style.audioLabel} />
+          <Label children= {t('opinionArticleDetail.listenToArticle')} style={style.audioLabel} />
           <Label children={'3:22'} style={style.durationLabel} />
         </View>
       </View>

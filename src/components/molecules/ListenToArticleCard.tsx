@@ -7,9 +7,12 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {normalize} from 'src/shared/utils';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import { useTranslation } from 'react-i18next';
 
 export const ListenToArticleCard = () => {
   const style = useThemeAwareObject(customStyle);
+  const [t] = useTranslation();
+  
   return (
     <TouchableWithoutFeedback style={style.container}>
       <ButtonImage
@@ -19,7 +22,7 @@ export const ListenToArticleCard = () => {
         onPress={() => {}}
         style={style.icon}
       />
-      <Label style={style.title}>استمع الي المقالة</Label>
+      <Label style={style.title}> {t('opinionArticleDetail.listenToArticle')}</Label>
       <Label style={style.duration}>3:22</Label>
     </TouchableWithoutFeedback>
   );
