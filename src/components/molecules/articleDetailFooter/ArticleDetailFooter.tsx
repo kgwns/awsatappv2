@@ -17,7 +17,7 @@ import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 export const ArticleDetailFooter = ({ articleDetailData }: { articleDetailData: ArticleDetailDataType }) => {
     const { theme } = useAppCommon()
     const [saveState, setSaveState] = useState(false)
-    let articleSaveIcon = saveState ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG
+    let articleSaveIcon = saveState ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark
 
     const dispatch = useDispatch()
 
@@ -61,7 +61,6 @@ export const ArticleDetailFooter = ({ articleDetailData }: { articleDetailData: 
                 return getSvgImages({
                     name: ImagesName.share,
                     size: normalize(18),
-                    fill: themeData.primaryBlack
                 });
             }} onPress={onPressShare}
             />
@@ -69,7 +68,6 @@ export const ArticleDetailFooter = ({ articleDetailData }: { articleDetailData: 
                 return getSvgImages({
                     name: articleSaveIcon,
                     size: normalize(18),
-                    fill: themeData.primaryBlack
                 });
             }} onPress={onPressSave}
             />

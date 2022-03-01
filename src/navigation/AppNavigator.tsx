@@ -93,6 +93,11 @@ const AppNavigator = () => {
           headerTitleAlign: 'center',
           headerRight: Search,
         }}
+        />
+      <Stack.Screen
+        name={ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN}
+        component={Routes.OpinionArticleDetail}
+        options={hideHeader}
       />
     </Stack.Navigator>
   );

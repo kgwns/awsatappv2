@@ -40,6 +40,7 @@ export const NEWS_VIEW_ENDPOINT = '/api/v2/articlesection/11';
 
 //all writers list
 export const ALL_WRITERS_ENDPOINT = '/api/v2/sections/writer';
+export const SEND_SELECTED_WRITERS_ENDPOINT = 'api/ums/v1/addFavoriteAuthor?tid=';
 
 //all site categories
 export const ALL_SITE_CATEGORIES_ENDPOINT = "/api/v2/sections/news_categories";
@@ -56,4 +57,10 @@ export const CHECK_EMAIL  = 'api/ums/v1/loginCheckEmail'
 
 //VideoList
 export const VIDEO_LIST_ENDPOINT = 'api/v2/videolist'
+
+//UMS update interests 
+export const ADD_YOUR_TOPICS_ENDPOINT = 'api/ums/v1/addYourTopics?tid='
+
+//Opinion Article Detail
+export const OPINION_ARTICLE_DETAIL = 'api/v2/opinionnode/'
 

@@ -61,7 +61,10 @@ export enum ImagesName {
   manageNews = 'manageNews',
   newsLetter = 'newsLetter',
   profile = 'profile',
-  exit = 'exit'
+  exit = 'exit',
+  pen = 'pen',
+  bookmark = 'bookmark',
+  returnSvg = 'returnSvg',
 }
 
 export const images = {

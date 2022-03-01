@@ -16,6 +16,7 @@ import registerSaga from './register/sagas'
 import loginSaga from './login/sagas';
 import emailCheckSaga from './auth/sagas';
 import videoListSaga from './videoList/sagas'
+import opinionArticleDetailSaga from './opinionArticleDetail/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -36,5 +37,6 @@ export function* rootSaga() {
     fork(loginSaga),
     fork(emailCheckSaga),
     fork(videoListSaga),
+    fork(opinionArticleDetailSaga),
   ]);
 }

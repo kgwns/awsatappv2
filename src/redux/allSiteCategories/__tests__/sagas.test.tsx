@@ -10,6 +10,7 @@ import {
   FetchAllSiteCategoriesListSuccessPayloadType,
   AllSiteCategoriesBodyGet,
 } from '../types';
+import { waitFor } from '@testing-library/react-native';
 
 const mockItems = 10;
 const mockString = 'mockString';
@@ -40,7 +41,7 @@ const sucessResponseObject: FetchAllSiteCategoriesListSuccessPayloadType = {
 };
 
 describe('Test allSiteCategories  saga', () => {
-  it('fire on allSiteCategoriesSaga', () => {
+  it('fire on allSiteCategoriesSaga', async() => {
     testSaga(allSiteCategoriesSaga)
       .next()
       .all([takeLatest(FETCH_ALL_SITE_CATEGORIES, fetchAllSiteCategories)])
@@ -67,6 +68,7 @@ describe('Test allSiteCategories  error', () => {
       type: FETCH_ALL_SITE_CATEGORIES,
       payload: {items_per_page: mockItems},
     });
+    // await waitFor(() => signupAsUser());
     genObject.next();
     genObject.throw(errorResponse);
   });

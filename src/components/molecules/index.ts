@@ -40,3 +40,6 @@ export { FilterComponent, FilterDataType } from 'src/components/molecules/filter
 export { ArchivesPodcast } from 'src/components/molecules/archivesPodcast/ArchivesPodcast'
 export { NewsLetterCard } from 'src/components/molecules/NewsLetterCard';
 export { ToggleWithLabel,ToggleWithLabelProps } from 'src/components/molecules/toggleWithLabel/ToggleWithLabel'
+export { ListenToArticleCard } from 'src/components/molecules/ListenToArticleCard';
+export { RelatedOpinionCard } from 'src/components/molecules/RelatedOpinionCard';
+export { OpinionArticleDetailFooter } from 'src/components/molecules/OpinionArticleDetailFooter';

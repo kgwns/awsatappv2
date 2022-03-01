@@ -3,7 +3,7 @@ import { StyleProp } from 'react-native'
 import { ImagesName } from '../styles/images'
 import FontScalingIcon from 'src/assets/images/icons/font_scaling_icon.svg'
 import Share from 'src/assets/images/icons/share.svg'
-import BookMarkBlackBdrSVG from 'src/assets/images/icons/bookmark_black_bdr.svg'
+import BookMarkGreyBdrSVG from 'src/assets/images/icons/bookmark_grey_bdr.svg'
 import BookMarkBlackFillSVG from 'src/assets/images/icons/bookmark_black_fill.svg'
 import BookMarkWhiteBdrSVG from 'src/assets/images/icons/bookmark_white_bdr.svg'
 import BookMarkWhiteFillSVG from 'src/assets/images/icons/bookmark_white_fill.svg'
@@ -74,6 +74,12 @@ import NotificationDark from 'src/assets/images/icons/notification_dark.svg'
 import Profile from 'src/assets/images/icons/profile.svg'
 import ProfileDark from 'src/assets/images/icons/profile_dark.svg'
 
+import Pen from 'src/assets/images/icons/pen.svg'
+import BookMarkBlackBdr from 'src/assets/images/icons/bookmark_black_bdr.svg'
+import ShareDarkSVG from 'src/assets/images/icons/share_dark.svg'
+import PenDark from 'src/assets/images/icons/penDark.svg'
+import Return from 'src/assets/images/icons/returnIcon.svg'
+
 export interface GetSVGProps {
     name: ImagesName,
     size?: number,
@@ -98,9 +104,9 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.themeChange:
             return isDark ? <ChangeThemeDark {...props} /> : <ChangeTheme {...props} />
         case ImagesName.share:
-            return <Share {...props} />
+            return isDark ? <ShareDarkSVG{...props}/> : <Share {...props} />
         case ImagesName.bookMarkSVG:
-            return isDark ? <BookMarkWhiteBdrSVG {...props} /> : <BookMarkBlackBdrSVG {...props} />
+            return isDark ? <BookMarkWhiteBdrSVG {...props} /> : <BookMarkGreyBdrSVG {...props} />
         case ImagesName.bookMarkActiveSVG:
             return isDark ? <BookMarkWhiteFillSVG {...props} /> : <BookMarkBlackFillSVG {...props} />
         case ImagesName.applePodcast:
@@ -179,6 +185,12 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <ProfileDark {...props} /> : <Profile {...props} />
         case ImagesName.exit:
             return isDark ? <ExitDark {...props} /> : <Exit {...props} />
+        case ImagesName.pen:
+            return isDark ? <PenDark {...props}/> : <Pen {...props}/>
+        case ImagesName.bookmark:
+            return isDark ? <BookMarkWhiteBdrSVG {...props} /> : <BookMarkBlackBdr {...props} />
+        case ImagesName.returnSvg:
+            return <Return {...props}/>
         default: return null
     }
 }

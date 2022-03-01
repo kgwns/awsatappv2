@@ -8,6 +8,10 @@ import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {ImagesName} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
+import { TouchableOpacity } from 'react-native';
+import { ScreensConstants } from 'src/constants';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const OpinionWritersCardView = ({
   imageUrl,
@@ -16,12 +20,21 @@ const OpinionWritersCardView = ({
   subHeadLine,
   audioLabel,
   duration,
+  nid,
 }: any) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const [save, setSave] = useState(false);
+  const navigation = useNavigation<StackNavigationProp<any>>()
+
+  const onPress = () => {
+    if (nid) {
+        navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid:nid})
+    }
+}
+
   return (
-    <View style={style.container}>
+    <TouchableOpacity style={style.container} onPress={()=>onPress()}>
       <View style={style.topImageWithLabelContainer}>
         <Image
           size={normalize(43)}
@@ -70,7 +83,7 @@ const OpinionWritersCardView = ({
         </View>
       </View>
       <Divider />
-    </View>
+    </TouchableOpacity>
   );
 };
 
