@@ -3,9 +3,7 @@ import {StyleSheet, View, FlatList} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {horizontalEdge, isNonEmptyArray, normalize} from 'src/shared/utils';
-import {
-  OpinionArticleDetailFooter,
-} from 'src/components/molecules';
+import {OpinionArticleDetailFooter} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
   RelatedOpinionArticlesWidget,
@@ -70,7 +68,7 @@ export const OpinionArticleDetail = ({
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}>
       <FlatList
-        style={{flex: 1, height: '100%'}}
+        style={style.flatList}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -78,7 +76,7 @@ export const OpinionArticleDetail = ({
         bounces={false}
       />
       {isNonEmptyArray(opinionArticleDetailData) && (
-        <View style={{width: '100%'}}>
+        <View style={style.footer}>
           <OpinionArticleDetailFooter
             opinionArticleDetailData={opinionArticleDetailData[0]}
           />
@@ -93,6 +91,13 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       paddingBottom: normalize(80),
       backgroundColor: theme.backgroundColor,
+    },
+    flatList: {
+      flex: 1,
+      height: '100%',
+    },
+    footer: {
+      width: '100%',
     },
   });
   return OpinionArticleDetailStyle;

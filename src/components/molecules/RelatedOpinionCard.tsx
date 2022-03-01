@@ -7,7 +7,13 @@ import {isTab, normalize} from 'src/shared/utils';
 import {ImagesName} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ButtonImage, Image, Label} from '../atoms';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
+import {
+  DURATION,
+  RELATED_OPINION_CARD_BODY,
+  RELATED_OPINION_CARD_TITLE,
+} from 'src/constants/SharedConstants';
+import {ImageResize} from 'src/shared/styles/text-styles';
 
 export const RelatedOpinionCard = () => {
   const style = useThemeAwareObject(customStyle);
@@ -15,20 +21,19 @@ export const RelatedOpinionCard = () => {
 
   return (
     <TouchableWithoutFeedback
-      key={1}
       style={[style.container, isTab && {paddingRight: 20}]}>
-      <View style={{flex: 1}}>
+      <View style={style.contentView}>
         <Label
-          children={'عادل درويش'}
+          children={RELATED_OPINION_CARD_TITLE}
           style={style.topLabel}
           numberOfLines={1}
         />
         <Label
-          children={'الصحافة بين الخصوصية والصالح العام'}
+          children={RELATED_OPINION_CARD_BODY}
           numberOfLines={1}
           style={style.body}
         />
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={style.footer}>
           <ButtonImage
             icon={() => {
               return getSvgImages({
@@ -38,15 +43,18 @@ export const RelatedOpinionCard = () => {
             }}
             onPress={() => {}}
           />
-          <Label children= {t('opinionArticleDetail.listenToArticle')} style={style.audioLabel} />
-          <Label children={'3:22'} style={style.durationLabel} />
+          <Label
+            children={t('opinionArticleDetail.listenToArticle')}
+            style={style.audioLabel}
+          />
+          <Label children={DURATION} style={style.durationLabel} />
         </View>
       </View>
       <View>
         <Image
           url={'https://picsum.photos/200/300'}
           size={normalize(80)}
-          resizeMode={'cover'}
+          resizeMode={ImageResize.COVER}
           type={'round'}
         />
       </View>
@@ -62,6 +70,9 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'space-between',
       backgroundColor: theme.backgroundColor,
     },
+    contentView: {
+      flex: 1,
+    },
     topLabel: {
       textAlign: 'left',
       fontSize: normalize(14),
@@ -76,6 +87,10 @@ const customStyle = (theme: CustomThemeType) => {
       fontWeight: 'bold',
       paddingVertical: normalize(10),
       paddingRight: normalize(5),
+    },
+    footer: {
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     audioLabel: {
       paddingHorizontal: normalize(10),

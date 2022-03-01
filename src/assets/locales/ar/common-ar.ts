@@ -176,6 +176,7 @@ export const arabic = {
   },
   opinionArticleDetail:{
     return:'الرجوع',
-    listenToArticle:'استمع الي المقالة'
+    listenToArticle:'استمع الي المقالة',
+    relatedOpinionTitle:'مقالات ذات صلة',
   }
 };

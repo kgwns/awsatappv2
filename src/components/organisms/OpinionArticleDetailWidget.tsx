@@ -24,6 +24,8 @@ export interface OpinionArticleDetailWidgetProp {
   data: OpinionArticleDetailItemType;
 }
 
+const containerHeight = isTab ? 0.5 * screenWidth : 0.8 * screenWidth;
+
 export const OpinionArticleDetailWidget = ({
   data,
 }: OpinionArticleDetailWidgetProp) => {
@@ -31,8 +33,6 @@ export const OpinionArticleDetailWidget = ({
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation();
-
-  const containerHeight = isTab ? 0.5 * screenWidth : 0.8 * screenWidth;
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -84,7 +84,7 @@ export const OpinionArticleDetailWidget = ({
   );
 
   const articleHtmlContent = () => (
-    <View style={{}}>
+    <View>
       <HtmlRenderer source={data.body_export} tagsStyles={htmlTagStyle} />
     </View>
   );
@@ -97,10 +97,10 @@ export const OpinionArticleDetailWidget = ({
 
   return (
     <View>
-      <View style={{flex: 1, width: '100%', height: containerHeight}}>
+      <View style={style.imageView}>
         <Image
           url={getImageUrl(data.writer[0].opinion_writer_photo)}
-          style={{width: '100%', height: '100%'}}
+          style={style.image}
           resizeMode="cover"
           backgroundColor={Styles.color.white}
         />
@@ -129,6 +129,15 @@ const customStyle = (theme: CustomThemeType) => {
     contentContainer: {
       paddingHorizontal: normalize(0.03 * screenWidth),
       paddingTop: normalize(0.02 * screenWidth),
+    },
+    imageView: {
+      flex: 1,
+      width: '100%',
+      height: containerHeight,
+    },
+    image: {
+      width: '100%',
+      height: '100%',
     },
     title: {
       fontSize: normalize(24),
