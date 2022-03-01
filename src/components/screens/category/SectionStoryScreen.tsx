@@ -59,6 +59,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
 
   useEffect(() => {
     emptyAllListData();
+    setTopList([]);
     fetchHeroListRequest(heroListPayload);
     fetchTopListRequest(topListPayload);
   }, [sectionId]);
@@ -104,7 +105,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
     name?: string;
   }
 
-  const [topList] = useState<TopList[]>([]);
+  const [topList,setTopList] = useState<TopList[]>([]);
   //formatted key of topList data for short article
   const formatTopicListData = (topListData: NewsViewListItemType[]) => {
     for (let i = 0; i < topListData.length; i++) {
