@@ -12,7 +12,6 @@ import { TouchableOpacity } from 'react-native';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { getImageUrl } from 'src/shared/utils/utilities';
 
 const OpinionWritersCardView = ({
   imageUrl,
@@ -29,7 +28,6 @@ const OpinionWritersCardView = ({
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const onPress = () => {
-    console.log(nid)
     if (nid) {
         navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid:nid})
     }
