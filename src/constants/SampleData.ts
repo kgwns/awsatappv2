@@ -126,6 +126,11 @@ export const storeInfo = [
       isLoading: false,
       userInfo: {},
       error: ''
+    },
+    opinionArticleDetail:{
+      isLoading: true,
+      error: '',
+      opinionArticleDetailData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
     }
   },
 ];

@@ -61,3 +61,6 @@ export const VIDEO_LIST_ENDPOINT = 'api/v2/videolist'
 //UMS update interests 
 export const ADD_YOUR_TOPICS_ENDPOINT = 'api/ums/v1/addYourTopics?tid='
 
+//Opinion Article Detail
+export const OPINION_ARTICLE_DETAIL = 'api/v2/opinionnode/'
+

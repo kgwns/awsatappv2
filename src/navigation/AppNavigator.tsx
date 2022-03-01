@@ -59,6 +59,11 @@ const AppNavigator = () => {
         component={Routes.TermsAndAboutUs}
         options={hideHeader}
       />
+      <Stack.Screen
+        name={ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN}
+        component={Routes.OpinionArticleDetail}
+        options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };
