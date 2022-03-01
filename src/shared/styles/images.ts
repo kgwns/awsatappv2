@@ -65,6 +65,7 @@ export enum ImagesName {
   pen = 'pen',
   bookmark = 'bookmark',
   returnSvg = 'returnSvg',
+  arrowLeftGrey = 'arrowLeftGrey'
 }
 
 export const images = {

@@ -118,7 +118,7 @@ export const ProfileSettings = () => {
             <ButtonImage icon={() => {
                 return (
                     getSvgImages({
-                        name: ImagesName.arrowLeftFaced,
+                        name: ImagesName.arrowLeftGrey,
                         size: normalize(10)
                     })
                 )

@@ -73,6 +73,7 @@ import NotificationGrey from 'src/assets/images/icons/notification_grey.svg'
 import NotificationDark from 'src/assets/images/icons/notification_dark.svg'
 import Profile from 'src/assets/images/icons/profile.svg'
 import ProfileDark from 'src/assets/images/icons/profile_dark.svg'
+import ArrowLeftGrey from 'src/assets/images/icons/arrowLeftGrey.svg'
 
 import Pen from 'src/assets/images/icons/pen.svg'
 import BookMarkBlackBdr from 'src/assets/images/icons/bookmark_black_bdr.svg'
@@ -104,7 +105,7 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.themeChange:
             return isDark ? <ChangeThemeDark {...props} /> : <ChangeTheme {...props} />
         case ImagesName.share:
-            return isDark ? <ShareDarkSVG{...props}/> : <Share {...props} />
+            return isDark ? <ShareDarkSVG{...props} /> : <Share {...props} />
         case ImagesName.bookMarkSVG:
             return isDark ? <BookMarkWhiteBdrSVG {...props} /> : <BookMarkGreyBdrSVG {...props} />
         case ImagesName.bookMarkActiveSVG:
@@ -186,11 +187,13 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.exit:
             return isDark ? <ExitDark {...props} /> : <Exit {...props} />
         case ImagesName.pen:
-            return isDark ? <PenDark {...props}/> : <Pen {...props}/>
+            return isDark ? <PenDark {...props} /> : <Pen {...props} />
         case ImagesName.bookmark:
             return isDark ? <BookMarkWhiteBdrSVG {...props} /> : <BookMarkBlackBdr {...props} />
         case ImagesName.returnSvg:
-            return <Return {...props}/>
+            return <Return {...props} />
+        case ImagesName.arrowLeftGrey:
+            return <ArrowLeftGrey {...props} />
         default: return null
     }
 }
