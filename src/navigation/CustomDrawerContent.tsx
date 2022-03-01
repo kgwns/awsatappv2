@@ -80,9 +80,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             }
           />
           {sideMenuData.length > 0 &&
-            sideMenuData.map((item) => {
+            sideMenuData.map((item,index) => {
               return (
                 <ButtonList
+                  key={index}
                   title={item.title}
                   onPress={() =>
                     onPressNavigation(ScreensConstants.SectionArticlesScreen,
