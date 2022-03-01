@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {OpinionScreen, ScreenContainer, VideoScreen, PodcastProgram, SectionStoryScreen} from '..';
 import {TabBarComponent} from 'src/components/molecules';
-import {sectionTabItem} from 'src/constants/SampleData';
 import {horizontalEdge} from 'src/shared/utils';
 import {View} from 'react-native';
 import {useTopMenu} from 'src/hooks';
@@ -32,7 +31,7 @@ export const SectionsScreen = () => {
     if (!topMenuData.length) return null;
     switch (topMenuData[tabSelectedIndex].keyName) {
       case TabType.home:
-        return <SectionStoryScreen/>;
+        return <SectionStoryScreen sectionId={11}/>;
       case TabType.opinion:
         return <OpinionScreen />;
       case TabType.podcast:
@@ -40,7 +39,7 @@ export const SectionsScreen = () => {
       case TabType.video:
         return <VideoScreen/>;
       default:
-        return <SectionStoryScreen />;
+        return <SectionStoryScreen sectionId={topMenuData[tabSelectedIndex].sectionId} />;
     }
   };
   return (
