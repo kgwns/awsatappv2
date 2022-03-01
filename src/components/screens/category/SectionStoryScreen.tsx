@@ -64,6 +64,12 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   }, [sectionId]);
 
   useEffect(() => {
+    emptyAllListData();
+    fetchHeroListRequest(heroListPayload);
+    fetchTopListRequest(topListPayload);
+  }, [sectionId]);
+
+  useEffect(() => {
     fetchBottomListRequest(bottomListPayload);
   }, [sectionId,page]);
 
