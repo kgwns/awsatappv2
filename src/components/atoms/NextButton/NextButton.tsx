@@ -24,7 +24,7 @@ export const NextButton: FunctionComponent<NextButtonProps> = ({
   style,
   icon=true,
   testID,
-  disabled= false
+  disabled=false
 }) => {
   return (
     <TouchableOpacity

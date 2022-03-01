@@ -3,8 +3,9 @@ import {
   getIsLoading,
   getAllSiteCategoriesData,
   getAllSiteCategoriesError,
+  getTopicsData
 } from '../selectors';
-import {AllSiteCategoriesItemType} from '../types';
+import {AllSiteCategoriesItemType, ResponseMessage} from '../types';
 
 describe('AllSiteCategories Selector', () => {
   const storeData = storeInfo[0];
@@ -22,5 +23,11 @@ describe('AllSiteCategories Selector', () => {
   test('Get error state', () => {
     const error = getAllSiteCategoriesError(storeData);
     expect(error).toEqual('');
+  });
+
+  test('Get all topics data', () => {
+    const allTopicsData: ResponseMessage =
+    getTopicsData(storeData);
+    expect(allTopicsData).toEqual({});
   });
 });

@@ -14,7 +14,7 @@ export {default as ArticlePodCastWidget} from 'src/components/organisms/ArticleP
 export {default as RelatedArticles} from 'src/components/organisms/relatedArticles/RelatedArticles';
 export {default as OpinionWritersSection} from 'src/components/organisms/OpinionWritersSection';
 export {default as OpinionWritersArticlesSection} from 'src/components/organisms/OpinionWritersArticlesSection';
-export { default as InterestSection } from 'src/components/organisms/InterestSection';
+export { default as InterestedTopics } from 'src/components/organisms/InterestedTopics';
 export { PodcastEpisodeList } from 'src/components/organisms/podcast/PodcastEpisodeList';
 export { PodcastProgramInfo, PodcastProgramInfoProps } from 'src/components/organisms/podcast/PodcastProgramInfo';
 export { PodcastEpisodeContent } from 'src/components/organisms/podcast/PodcastEpisodeContent';

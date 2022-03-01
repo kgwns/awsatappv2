@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosRequestConfig} from 'axios';
+import axios, {AxiosError, AxiosRequestConfig, AxiosRequestHeaders} from 'axios';
 
 export const getApiRequest = (
   url: string,
@@ -26,13 +26,14 @@ export const postApiRequest = (
   url: string,
   data?: unknown | undefined,
   config?: AxiosRequestConfig | undefined,
+  header?: AxiosRequestHeaders | undefined
 ) => {
   return axios
     .post(url, data, {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        Authorization: 'Bearer 134|gpDipIcmZfSzrXvSLcWJ4poe9agHOGbgU64yuGFt', //TODO: need to replace with actual token
+        ...header
       },
       ...config,
     })
