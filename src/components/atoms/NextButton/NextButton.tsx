@@ -15,6 +15,7 @@ interface NextButtonProps {
   };
   icon?:boolean
   testID?: string;
+  disabled?: boolean
 }
 
 export const NextButton: FunctionComponent<NextButtonProps> = ({
@@ -23,9 +24,11 @@ export const NextButton: FunctionComponent<NextButtonProps> = ({
   style,
   icon=true,
   testID,
+  disabled=false
 }) => {
   return (
     <TouchableOpacity
+      disabled={disabled}
       onPress={onPress}
       testID={testID}
       style={style.nextButtonContainer}>

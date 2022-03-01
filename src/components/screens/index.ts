@@ -10,7 +10,7 @@ export {KeepNotifiedScreen} from 'src/components/screens/keepNotified/KeepNotifi
 export {ArticleDetailScreen} from 'src/components/screens/articleDetail/ArticleDetailScreen';
 export {OpinionScreen} from 'src/components/screens/category/OpinionScreen';
 export {PodcastScreen} from 'src/components/screens/category/PodcastScreen';
-export {SelectInterestScreen} from 'src/components/screens/selectInterestScreen/SelectInterestScreen';
+export {SelectTopicsScreen} from 'src/components/screens/selectTopicsScreen/SelectTopicsScreen';
 export {StoryScreen} from './story_screen/StoryScreen';
 export {SectionStoryScreen} from 'src/components/screens/category/SectionStoryScreen';
 export {PodcastProgram} from 'src/components/screens/podcast/PodcastProgram';
@@ -25,3 +25,4 @@ export {SectionArticlesScreen} from './sectionArticles/SectionArticlesScreen';
 export { TermsAndAboutUs } from './termsAndAboutUs/TermsAndAboutUs'
 export { NewsLetterScreen } from 'src/components/screens/newsLetter/NewsLetterScreen';
 export { SuccessScreen } from './success_screen/SuccessScreen'
+export { OpinionArticleDetail } from 'src/components/screens/opinionArticleDetail/OpinionArticleDetail';

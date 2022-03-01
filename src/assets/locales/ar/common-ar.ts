@@ -30,7 +30,7 @@ export const arabic = {
       title: 'ما الذي تريد أن تبقى على اطلاع عليه؟',
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
-    selectInterests: {
+    selectTopics: {
       title: 'ما هي اهتماماتك',
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
@@ -174,4 +174,9 @@ export const arabic = {
     mailAcknowledgement: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى\n الإيميل الخاص بك.',
     goToHome:'انتقل الي الصفحة الرئيسية'
   },
+  opinionArticleDetail:{
+    return:'الرجوع',
+    listenToArticle:'استمع الي المقالة',
+    relatedOpinionTitle:'مقالات ذات صلة',
+  }
 };

@@ -1,4 +1,5 @@
 import { AppState, Selector } from 'src/redux/rootReducer';
+import { ResponseMessage } from '../allWriters/types';
 import { AllSiteCategoriesItemType } from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
@@ -7,6 +8,10 @@ export const getIsLoading: Selector<boolean> = (state: AppState) =>
 export const getAllSiteCategoriesData: Selector<AllSiteCategoriesItemType[]> = (
   state: AppState,
 ) => state.allSiteCategories.allSiteCategoriesData.rows;
+
+export const getTopicsData: Selector<ResponseMessage> = (
+  state: AppState,
+) => state.allSiteCategories.sendTopicInfo;
 
 export const getAllSiteCategoriesError: Selector<string> = (state: AppState) =>
   state.allSiteCategories.error;

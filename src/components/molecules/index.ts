@@ -40,3 +40,6 @@ export { VideosVerticalList, VideosVerticalListProps } from 'src/components/mole
 export { FilterComponent, FilterDataType } from 'src/components/molecules/filterComponent/FilterComponent';
 export { ArchivesPodcast } from 'src/components/molecules/archivesPodcast/ArchivesPodcast'
 export { NewsLetterCard } from 'src/components/molecules/NewsLetterCard';
+export { ListenToArticleCard } from 'src/components/molecules/ListenToArticleCard';
+export { RelatedOpinionCard } from 'src/components/molecules/RelatedOpinionCard';
+export { OpinionArticleDetailFooter } from 'src/components/molecules/OpinionArticleDetailFooter';

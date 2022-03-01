@@ -1,8 +1,21 @@
 import React from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../../../constants/SampleData';
+import {storeSampleData} from 'src/constants/SampleData';
 import {FollowFavoriteAuthorScreen} from '../FollowFavoriteAuthorScreen';
+
+jest.mock("src/hooks/useAllWriters", () => ({
+  useAllWriters: (...args: any) => {
+    return {
+      isLoading: false,
+      allWritersData: [],
+      error: '',
+      sendAuthorInfo: {},
+      fetchAllWritersRequest: () => [],
+      sendSelectedWriterInfo: () => []
+    }
+  },
+}));
 
 describe('<FollowFavoriteAuthorScreen>', () => {
   let instance: RenderAPI;

@@ -8,7 +8,7 @@ const OnBoardNavigator = 'OnBoardNavigator' as ScreenName;
 const HOME_SCREEN = 'HOME';
 const AUTH_SCREEN = 'AUTH';
 const ARTICLE_DETAIL_SCREEN = 'ARTICLE_DETAIL_SCREEN' as ScreenName;
-const SELECT_INTEREST_SCREEN = 'SELECT_INTEREST_SCREEN' as ScreenName;
+const SELECT_TOPICS_SCREEN = 'SELECT_TOPICS_SCREEN' as ScreenName;
 const FOLLOW_FAVORITE_AUTHOR_SCREEN = 'FOLLOWFAVORITEAUTHORSCREEN' as ScreenName;
 const KEEP_NOTIFIED_ONBOARD_SCREEN = 'KEEP_NOTIFIED_ONBOARD_SCREEN' as ScreenName;
 const LatestNewsScreen = 'LatestNewsScreen' as ScreenName;
@@ -23,6 +23,7 @@ const SignUpPage = 'SignUpPage' as ScreenName;
 const FORGOT_PASSWORD = 'ForgotPassword' as ScreenName;
 const SUCCESS_SCREEN = 'SuccessScreen' as ScreenName;
 const NEWS_LETTER_SCREEN = 'NewsLetterScreen' as ScreenName;
+const OPINION_ARTICLE_DETAIL_SCREEN = 'OPINION_ARTICLE_DETAIL_SCREEN' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -42,7 +43,7 @@ export const ScreensConstants = {
   FOLLOW_FAVORITE_AUTHOR_SCREEN,
   KEEP_NOTIFIED_ONBOARD_SCREEN,
   ARTICLE_DETAIL_SCREEN,
-  SELECT_INTEREST_SCREEN,
+  SELECT_TOPICS_SCREEN,
   LatestNewsScreen,
   PodcastProgram,
   StoryScreen,
@@ -55,4 +56,5 @@ export const ScreensConstants = {
   FORGOT_PASSWORD,
   SUCCESS_SCREEN,
   NEWS_LETTER_SCREEN,
+  OPINION_ARTICLE_DETAIL_SCREEN,
 };

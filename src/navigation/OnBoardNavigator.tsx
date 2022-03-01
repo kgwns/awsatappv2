@@ -89,8 +89,8 @@ const OnBoardNavigator = () => {
   return (
     <Stack.Navigator screenOptions={defaultScreenOptions}>
       <Stack.Screen
-        name={ScreensConstants.SELECT_INTEREST_SCREEN}
-        component={Routes.SelectInterestScreen}
+        name={ScreensConstants.SELECT_TOPICS_SCREEN}
+        component={Routes.SelectTopicsScreen}
         options={{
           headerStyle: style.container,
           headerTitle: HeaderLogo,

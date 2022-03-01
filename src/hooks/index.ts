@@ -13,3 +13,4 @@ export { useLogin } from './useLogin';
 export { useEmailCheck } from './useEmailCheck';
 export { useVideoList } from 'src/hooks/useVideoList';
 export { useTopMenu } from 'src/hooks/useTopMenu';
+export { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail'
