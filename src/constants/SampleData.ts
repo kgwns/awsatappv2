@@ -127,6 +127,11 @@ export const storeInfo = [
       userInfo: {},
       error: ''
     },
+    topMenu: {
+      topMenuData: [],
+      error: '',
+      isLoading: false,
+    },
     opinionArticleDetail:{
       isLoading: true,
       error: '',

@@ -8,6 +8,7 @@ import {
   REQUEST_TOP_LIST_DATA,
   REQUEST_TOP_LIST_SUCCESS,
   REQUEST_TOP_LIST_FAILED,
+  EMPTY_ALL_LIST,
 } from './actionTypes';
 
 import {NewsViewActions, NewsViewtState} from './types';
@@ -62,6 +63,15 @@ export default (state = initialState, action: NewsViewActions) => {
       return {...state, error: action.payload.error, isLoading: false};
     case REQUEST_BOTTOM_LIST_DATA:
       return {...state, isLoading: true, error: ''};
+    case EMPTY_ALL_LIST:
+      return {
+        ...state,
+        isLoading: false,
+        bottomListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
+        heroListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
+        topListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
+        error: '',
+      };
     default:
       return {...state};
   }

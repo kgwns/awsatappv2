@@ -17,6 +17,7 @@ import registerUser from 'src/redux/register/reducer';
 import loginReducer from './login/reducer';
 import emailCheckReducer from './auth/reducer';
 import videoList from 'src/redux/videoList/reducer';
+import topMenu from 'src/redux/topMenu/reducer';
 import opinionArticleDetail from 'src/redux/opinionArticleDetail/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   login: loginReducer, 
   emailCheck: emailCheckReducer,
   videoList: videoList,
+  topMenu: topMenu,
   opinionArticleDetail: opinionArticleDetail,
 });
 

@@ -4,11 +4,13 @@ import {
   REQUEST_BOTTOM_LIST_DATA,
   REQUEST_HERO_LIST_DATA,
   REQUEST_TOP_LIST_DATA,
+  EMPTY_ALL_LIST,
 } from '../actionTypes';
 import newsViewSaga, {
   fetchTopList,
   fetchHeroList,
   fetchBottomList,
+  emptyAllList,
 } from '../sagas';
 import {
   fetchBottomListSuccess,
@@ -30,9 +32,10 @@ import {
 const mockString = 'mockString';
 
 const requestObject: NewsViewBodyGet = {
-  items_per_page: 10,
+  items_per_page: 4,
   page: 0,
   offset: 0,
+  sectionId: 18,
 };
 
 const requestHeroListAction: FetchHeroListType = {
@@ -93,6 +96,13 @@ describe('<NewsViewSaga>', () => {
       const generator = genObject.next();
       expect(generator.value).toEqual(
         all([takeLatest(REQUEST_BOTTOM_LIST_DATA, fetchBottomList)]),
+      );
+    });
+
+    it('should wait for empty all list', () => {
+      const generator = genObject.next();
+      expect(generator.value).toEqual(
+        all([takeLatest(EMPTY_ALL_LIST, emptyAllList)]),
       );
     });
 
@@ -167,5 +177,14 @@ describe('Test HeroList  error', () => {
     });
     genObject.next();
     genObject.throw(errorResponse);
+  });
+});
+
+describe('Empty All List', () => {
+  it('check empty all list', () => {
+    testSaga(emptyAllList)
+    .next()
+    .finish()
+    .isDone();
   });
 });

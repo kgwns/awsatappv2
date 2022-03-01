@@ -8,6 +8,7 @@ import {
   REQUEST_TOP_LIST_DATA,
   REQUEST_TOP_LIST_FAILED,
   REQUEST_TOP_LIST_SUCCESS,
+  EMPTY_ALL_LIST,
 } from './actionTypes';
 
 export interface FieldNewsCategoriesExport {
@@ -44,6 +45,7 @@ export interface NewsViewBodyGet {
   items_per_page: number;
   page: number;
   offset: number;
+  sectionId: number|null;
 }
 
 export interface FetchNewsViewSuccessPayloadType {
@@ -131,6 +133,10 @@ export type FetchBottomListFailedType = {
   payload: FetchBottomListFailedPayloadtype;
 };
 
+export type EmptyAllList = {
+  type: typeof EMPTY_ALL_LIST;
+};
+
 export type NewsViewActions =
   | FetchHeroListType
   | FetchHeroListSuccessType
@@ -140,4 +146,5 @@ export type NewsViewActions =
   | FetchTopListFailedType
   | FetchBottomListType
   | FetchBottomListSuccessType
-  | FetchBottomListFailedType;
+  | FetchBottomListFailedType
+  | EmptyAllList;

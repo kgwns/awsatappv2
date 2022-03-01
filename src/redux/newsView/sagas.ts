@@ -20,6 +20,7 @@ import {
   REQUEST_BOTTOM_LIST_DATA,
   REQUEST_HERO_LIST_DATA,
   REQUEST_TOP_LIST_DATA,
+  EMPTY_ALL_LIST,
 } from './actionTypes';
 import {fetchNewsViewApi} from 'src/services/newsViewService';
 
@@ -74,10 +75,15 @@ export function* fetchBottomList(action: FetchBottomListType) {
   }
 }
 
+export function* emptyAllList() {
+  emptyAllList();
+}
+
 function* newsViewSaga() {
   yield all([takeLatest(REQUEST_HERO_LIST_DATA, fetchHeroList)]);
   yield all([takeLatest(REQUEST_TOP_LIST_DATA, fetchTopList)]);
   yield all([takeLatest(REQUEST_BOTTOM_LIST_DATA, fetchBottomList)]);
+  yield all([takeLatest(EMPTY_ALL_LIST, emptyAllList)]);
 }
 
 export default newsViewSaga;
