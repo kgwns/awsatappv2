@@ -21,6 +21,7 @@ import {
   SuccessScreen,
   NewsLetterScreen,
   OpinionArticleDetail,
+  ManageMyNewsScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -52,6 +53,7 @@ export const Routes = {
   SuccessScreen,
   NewsLetterScreen,
   OpinionArticleDetail,
+  ManageMyNewsScreen,
 };
 
 /**
@@ -78,6 +80,7 @@ export type ScreenList = {
   SuccessScreen: undefined;
   NewsLetterScreen: undefined;
   OpinionArticleDetail: undefined;
+  ManageMyNewsScreen: undefined;
 };
 
 export type ScreenName = keyof undefined;
@@ -99,6 +102,7 @@ const forgotPassword = 'forgotPassword' as ScreenName
 const successScreen = 'successScreen' as ScreenName;
 const newsLetterScreen = 'newsLetterScreen' as ScreenName;
 const opinionArticleDetail = 'opinionArticleDetail' as ScreenName;
+const manageMyNewsScreen = 'manageMyNewsScreen' as ScreenName;
 
 export const RoutesName = {
   favoriteScreen,
@@ -117,5 +121,6 @@ export const RoutesName = {
   forgotPassword,
   successScreen,
   newsLetterScreen,
-  opinionArticleDetail
+  opinionArticleDetail,
+  manageMyNewsScreen,
 };

@@ -13,4 +13,6 @@ export const MINI_PLAYER_PODCAST_TITLE = 'عنوان الحلقه الآخيره
 export const RELATED_OPINION_CARD_TITLE = 'عادل درويش'
 export const RELATED_OPINION_CARD_BODY = 'الصحافة بين الخصوصية والصالح العام'
 export const DURATION = '3:22'
+export const AUTHOR_TITLE = 'اسم الكاتب'
+export const AUTHOR_DESCRIPTION = 'سياسه و اقتصاد'
 
