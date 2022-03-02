@@ -26,3 +26,4 @@ export { NewsLetterScreen } from 'src/components/screens/newsLetter/NewsLetterSc
 export { SuccessScreen } from './success_screen/SuccessScreen'
 export { ProfileSettings } from './profileSettings/ProfileSettings'
 export { OpinionArticleDetail } from 'src/components/screens/opinionArticleDetail/OpinionArticleDetail';
+export { ManageMyNewsScreen } from 'src/components/screens/manageMyNews/ManageMyNewsScreen';

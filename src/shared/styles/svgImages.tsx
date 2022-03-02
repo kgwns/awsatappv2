@@ -80,6 +80,9 @@ import BookMarkBlackBdr from 'src/assets/images/icons/bookmark_black_bdr.svg'
 import ShareDarkSVG from 'src/assets/images/icons/share_dark.svg'
 import PenDark from 'src/assets/images/icons/penDark.svg'
 import Return from 'src/assets/images/icons/returnIcon.svg'
+import PlusSVG from 'src/assets/images/icons/plus.svg'
+import ReturnGreenish from 'src/assets/images/icons/returnGreenish.svg'
+import ReturnGreenishDark from 'src/assets/images/icons/returnGreenishDark.svg'
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -194,6 +197,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <Return {...props} />
         case ImagesName.arrowLeftGrey:
             return <ArrowLeftGrey {...props} />
+        case ImagesName.plusSvg:
+            return <PlusSVG {...props}/>
+        case ImagesName.returnGreenish:
+            return isDark ? <ReturnGreenishDark{...props}/> :<ReturnGreenish {...props}/>
         default: return null
     }
 }

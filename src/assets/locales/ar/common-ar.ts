@@ -189,5 +189,12 @@ export const arabic = {
     return:'الرجوع',
     listenToArticle:'استمع الي المقالة',
     relatedOpinionTitle:'مقالات ذات صلة',
-  }
+  },
+  manageMyNews:{
+    header:'إدارة أخباري',
+    myFavoriteBooks:'كتابي المفضلين',
+    myFavoriteTopics:'مواضيعي المفضله',
+    continueReadingMoreBooks:'تابع المزيد من الكتاب',
+    followMoreTopics:'تابع المزيد من المواضيع'
+  },
 };
