@@ -13,7 +13,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
     return (
         <View>
             <ArticleDetailImage image={articleData.image} title={articleData.title}
-                category={articleData.news_categories.title} author={articleData.author}
+                category={articleData.news_categories?.title} author={articleData.author}
                 created={articleData.created}
             />
         </View>
