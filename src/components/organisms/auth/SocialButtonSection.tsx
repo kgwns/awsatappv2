@@ -7,6 +7,7 @@ import {useTranslation} from 'react-i18next';
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
+import { isIOS } from 'src/shared/utils';
 
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
@@ -35,11 +36,12 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
             label={t('signIn.loginGoogle')}
             icon={() => <View style={styles.container}><GoogleIcon /></View>}
           />
-          <SocialLoginButton testID="signin_apple"
+          {isIOS &&  <SocialLoginButton testID="signin_apple"
             onPress={() => {buttonPressAction('APPLE')}}
             label={t('signIn.loginApple')}
             icon={() => <View style={styles.container}><AppleIcon fill={themeData.primaryBlack} /></View>}
-          />
+          /> }
+         
         </View>
   );
 };
