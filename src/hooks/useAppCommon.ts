@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux"
-import { getThemeState } from "../redux/appCommon/selectors"
+import { getIsFirstSession, getThemeState } from "../redux/appCommon/selectors"
 import { Theme } from "../redux/appCommon/types"
 
 export interface UseAppCommonReturn {
-    theme: Theme
+    theme: Theme,
+    isFirstSession: boolean
 }
 
 export const useAppCommon = (): UseAppCommonReturn => {
     const theme = useSelector(getThemeState)
+    const isFirstSession = useSelector(getIsFirstSession)
     return {
-        theme
+        theme,
+        isFirstSession
     }
 }

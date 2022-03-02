@@ -6,7 +6,7 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { ScreensConstants } from 'src/constants'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ScreenName } from 'src/constants/ScreenConstants'
-import { normalize, screenWidth } from 'src/shared/utils'
+import { isDarkTheme, normalize, screenWidth } from 'src/shared/utils'
 import { ButtonImage, Divider, Label, LabelTypeProp } from 'src/components/atoms'
 import { ScreenContainer } from '..'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -14,6 +14,7 @@ import { ToggleWithLabel } from 'src/components/molecules'
 import { useDispatch } from 'react-redux'
 import { storeAppTheme } from 'src/redux/appCommon/action'
 import { Theme } from 'src/redux/appCommon/types'
+import { useAppCommon } from 'src/hooks'
 
 type SettingDataType = {
     iconName: ImagesName,
@@ -28,7 +29,10 @@ export const ProfileSettings = () => {
     const dispatch = useDispatch()
 
     const style = useThemeAwareObject(customStyle)
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
+
+    const { theme } = useAppCommon()
+    const isDark = isDarkTheme(theme)
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(isDark)
 
     const CONST_MANAGE_NOTIFICATION = t('profileSetting.manageMyNotification')
     const CONST_MANAGE_NEWS = t('profileSetting.manageMyNews')
