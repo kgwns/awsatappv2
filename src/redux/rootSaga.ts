@@ -15,7 +15,8 @@ import termsAndAboutUs from './termsAndAboutUs/sagas'
 import registerSaga from './register/sagas'
 import loginSaga from './login/sagas';
 import emailCheckSaga from './auth/sagas';
-import videoListSaga from './videoList/sagas'
+import videoListSaga from './videoList/sagas';
+import topMenuSaga from './topMenu/sagas';
 import opinionArticleDetailSaga from './opinionArticleDetail/sagas';
 
 export function* rootSaga() {
@@ -37,6 +38,7 @@ export function* rootSaga() {
     fork(loginSaga),
     fork(emailCheckSaga),
     fork(videoListSaga),
+    fork(topMenuSaga),
     fork(opinionArticleDetailSaga),
   ]);
 }

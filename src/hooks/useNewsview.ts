@@ -11,6 +11,7 @@ import {
   fetchBottomList,
   fetchHeroList,
   fetchTopList,
+  emptyAllList,
 } from 'src/redux/newsView/action';
 
 export interface UseNewsViewReturn {
@@ -22,6 +23,7 @@ export interface UseNewsViewReturn {
   fetchHeroListRequest(payload: NewsViewBodyGet): void;
   fetchTopListRequest(payload: NewsViewBodyGet): void;
   fetchBottomListRequest(payload: NewsViewBodyGet): void;
+  emptyAllListData(): void;
 }
 
 export const useNewsView = (): UseNewsViewReturn => {
@@ -40,6 +42,10 @@ export const useNewsView = (): UseNewsViewReturn => {
   const fetchBottomListRequest = (payload: NewsViewBodyGet) => {
     dispatch(fetchBottomList(payload));
   };
+  const emptyAllListData = () => {
+    dispatch(emptyAllList());
+  };
+
   return {
     isLoading,
     heroListData,
@@ -49,5 +55,6 @@ export const useNewsView = (): UseNewsViewReturn => {
     fetchHeroListRequest,
     fetchTopListRequest,
     fetchBottomListRequest,
+    emptyAllListData,
   };
 };

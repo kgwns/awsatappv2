@@ -19,7 +19,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {LabelTypeProp} from 'src/components/atoms';
 
-export const SectionStoryScreen = () => {
+export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -29,18 +29,21 @@ export const SectionStoryScreen = () => {
     items_per_page: 2,
     page: 0,
     offset: 0,
+    sectionId: sectionId,
   };
 
   const topListPayload: NewsViewBodyGet = {
     items_per_page: 4,
     page: 0,
     offset: 2,
+    sectionId: sectionId,
   };
 
   const bottomListPayload: NewsViewBodyGet = {
     items_per_page: 10,
     page: page,
     offset: 6,
+    sectionId: sectionId,
   };
 
   const {
@@ -51,16 +54,25 @@ export const SectionStoryScreen = () => {
     fetchHeroListRequest,
     fetchTopListRequest,
     fetchBottomListRequest,
+    emptyAllListData,
   } = useNewsView();
 
   useEffect(() => {
+    emptyAllListData();
+    setTopList([]);
     fetchHeroListRequest(heroListPayload);
     fetchTopListRequest(topListPayload);
-  }, []);
+  }, [sectionId]);
+
+  useEffect(() => {
+    emptyAllListData();
+    fetchHeroListRequest(heroListPayload);
+    fetchTopListRequest(topListPayload);
+  }, [sectionId]);
 
   useEffect(() => {
     fetchBottomListRequest(bottomListPayload);
-  }, [page]);
+  }, [sectionId,page]);
 
   const gotoNextPage = () => {
     setPage(page + 1);
@@ -93,7 +105,7 @@ export const SectionStoryScreen = () => {
     name?: string;
   }
 
-  const [topList] = useState<TopList[]>([]);
+  const [topList,setTopList] = useState<TopList[]>([]);
   //formatted key of topList data for short article
   const formatTopicListData = (topListData: NewsViewListItemType[]) => {
     for (let i = 0; i < topListData.length; i++) {
@@ -158,10 +170,10 @@ export const SectionStoryScreen = () => {
   return (
     <View>
       <FlatList
-        data={[{}]}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
+      data={[{}]}
+      keyExtractor={(_, index) => index.toString()}
+      renderItem={renderItem}
+      showsVerticalScrollIndicator={false}
       />
     </View>
   );

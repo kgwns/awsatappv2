@@ -37,3 +37,4 @@ export { ContentForYou } from 'src/components/organisms/contentForYou/ContentFor
 export { NewsLettersWidget } from 'src/components/organisms/NewsLetterWidget'
 export { OpinionArticleDetailWidget } from 'src/components/organisms/OpinionArticleDetailWidget';
 export { RelatedOpinionArticlesWidget } from 'src/components/organisms/RelatedOpinionArticleWidget';
+export { AlertModal } from 'src/components/organisms/AlertModal/AlertModal'

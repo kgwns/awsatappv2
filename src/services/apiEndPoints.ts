@@ -36,7 +36,7 @@ export const SECTION_ARTICLES = '/api/v2/articlesection'
 //items_per_page is 10
 //page start from 0
 //offset is about from which position need to get the data
-export const NEWS_VIEW_ENDPOINT = '/api/v2/articlesection/11';
+export const NEWS_VIEW_ENDPOINT = '/api/v2/articlesection';
 
 //all writers list
 export const ALL_WRITERS_ENDPOINT = '/api/v2/sections/writer';
@@ -58,6 +58,8 @@ export const CHECK_EMAIL  = 'api/ums/v1/loginCheckEmail'
 //VideoList
 export const VIDEO_LIST_ENDPOINT = 'api/v2/videolist'
 
+//Top Menu
+export const TOP_MENU_ENDPOINT = 'api/v2/topmenu'
 //UMS update interests 
 export const ADD_YOUR_TOPICS_ENDPOINT = 'api/ums/v1/addYourTopics?tid='
 

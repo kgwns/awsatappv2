@@ -20,6 +20,9 @@ jest.mock("src/hooks/useNewsView", () => ({
             fetchBottomListRequest: () => {
                 return []
             },
+            emptyAllListData: () => {
+                return []
+            },
         }
     },
 }));
