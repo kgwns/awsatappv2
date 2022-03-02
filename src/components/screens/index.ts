@@ -26,3 +26,4 @@ export { TermsAndAboutUs } from './termsAndAboutUs/TermsAndAboutUs'
 export { NewsLetterScreen } from 'src/components/screens/newsLetter/NewsLetterScreen';
 export { SuccessScreen } from './success_screen/SuccessScreen'
 export { OpinionArticleDetail } from 'src/components/screens/opinionArticleDetail/OpinionArticleDetail';
+export { ManageMyNewsScreen } from 'src/components/screens/manageMyNews/ManageMyNewsScreen';

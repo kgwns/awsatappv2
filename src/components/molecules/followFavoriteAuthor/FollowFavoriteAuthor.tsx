@@ -19,6 +19,7 @@ export interface FollowFavoriteAuthorProps {
   isSelected?: boolean;
   testId?: string;
   onPress: (isSelected: boolean) => void;
+  clickable?: boolean;
 }
 
 const FollowFavoriteAuthor = ({
@@ -28,11 +29,13 @@ const FollowFavoriteAuthor = ({
   isSelected,
   onPress,
   testId,
+  clickable = true,
 }: FollowFavoriteAuthorProps) => {
   const [isSelectedState, setIsSelectedState] = useState(isSelected);
   const changeStatus = () => {
+    if(clickable){
     onPress(!isSelectedState);
-    setIsSelectedState(!isSelectedState);
+    setIsSelectedState(!isSelectedState);}
   };
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -67,12 +70,13 @@ const FollowFavoriteAuthor = ({
           />
         )}
         <View style={{bottom: normalize(8)}}>
-          {getSvgImages({
-            name: isSelectedState
-              ? ImagesName.authorItemActive
-              : ImagesName.authorItem,
-            size: normalize(22),
-          })}
+          {clickable &&
+            getSvgImages({
+              name: isSelectedState
+                ? ImagesName.authorItemActive
+                : ImagesName.authorItem,
+              size: normalize(22),
+            })}
         </View>
         {authorName && (
           <Label
@@ -85,6 +89,7 @@ const FollowFavoriteAuthor = ({
               style.titleStyle,
               {
                 width: isTab ? normalize(tabSize) : normalize(size),
+                marginTop: clickable ? 0 : (0.02 * screenWidth),
               },
             ]}
             numberOfLines={2}>
