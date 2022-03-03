@@ -1,51 +1,60 @@
-import React, {FunctionComponent, useState} from 'react';
-import {StyleProp, ViewStyle, TextStyle, StyleSheet, View, TextInput, KeyboardTypeOptions, I18nManager, TouchableOpacity} from 'react-native';
-import {normalize} from 'src/shared/utils/dimensions';
+import React, { FunctionComponent, useState } from 'react';
+import { StyleProp, ViewStyle, TextStyle, StyleSheet, View, TextInput, KeyboardTypeOptions, I18nManager, TouchableOpacity } from 'react-native';
+import { normalize } from 'src/shared/utils/dimensions';
 import { Styles } from 'src/shared/styles';
 import EyeIcon from 'src/assets/images/icons/eye_icon.svg';
 import LockIcon from 'src/assets/images/icons/lock_icon.svg';
-import {Label} from 'src/components/atoms';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import { Label } from 'src/components/atoms';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
 
 const createStyles = (theme: CustomThemeType) =>
-StyleSheet.create({
-  container: {
-    width: '100%',
-    height: normalize(40),
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderRadius: normalize(25),
-    borderColor: Styles.color.greyLight1,
-    paddingHorizontal: normalize(5),
-  },
-  textInputStyle: {
-    fontSize: normalize(14),
-    textAlign: I18nManager.isRTL?'right':'left',
-    paddingVertical: normalize(5),
-    paddingHorizontal: normalize(5),
-    color: theme.textInputColor,
-  },
-  inputContainer: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  iconContainerStyle: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: normalize(5),
-  },
-  errorTextContainer: {
-    alignItems: 'flex-start',
-    marginHorizontal: normalize(5),
-  },
-  errorTextStyle: {
-    color: theme.danger,
-    paddingVertical: normalize(5),
-  }
-});
+  StyleSheet.create({
+    container: {
+      width: '100%',
+      height: normalize(40),
+      flexDirection: 'row',
+      borderWidth: 1,
+      borderRadius: normalize(25),
+      borderColor: Styles.color.greyLight1,
+      paddingHorizontal: normalize(5),
+    },
+    textInputStyle: {
+      fontSize: normalize(14),
+      textAlign: I18nManager.isRTL ? 'right' : 'left',
+      paddingVertical: normalize(5),
+      paddingHorizontal: normalize(5),
+      color: theme.textInputColor,
+    },
+    inputContainer: {
+      flex: 1,
+      width: '100%',
+      justifyContent: 'center',
+    },
+    iconContainerStyle: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: normalize(5),
+    },
+    errorTextContainer: {
+      alignItems: 'flex-start',
+      marginHorizontal: normalize(5),
+    },
+    errorTextStyle: {
+      color: theme.danger,
+      paddingVertical: normalize(5),
+    },
+    starLabelStyle: {
+      textAlign: 'right', 
+      lineHeight: normalize(17), 
+      marginLeft: 10, 
+      fontSize: normalize(16) 
+    },
+    containerStyle: {
+      flexDirection: 'row'
+    }
+  });
 
 interface TextInputfieldProps {
   placeholder?: string;
@@ -63,6 +72,9 @@ interface TextInputfieldProps {
   isPassword?: boolean;
   autoFocus?: boolean;
   editable?: boolean;
+  disableEyeIcon?: boolean;
+  isMandatory?: boolean;
+  errorStyle?: StyleProp<ViewStyle>;
 }
 export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   placeholder,
@@ -78,11 +90,14 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   leftIcon,
   rightIcon,
   placeholderStyle,
-  editable=true,
+  editable = true,
   rightIconTestID,
+  disableEyeIcon = false,
+  isMandatory = false,
+  errorStyle,
   ...props
 }) => {
-  const {themeData} = useTheme();
+  const { themeData } = useTheme();
   const styles = useThemeAwareObject(createStyles);
   const [isFocused, setIsFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(isPassword);
@@ -98,46 +113,47 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
     }
   };
   return (
-    <View >
-      <View style={[styles.container, style]}>
-        <View style={[styles.iconContainerStyle]}>
-          {isPassword&&<LockIcon width={normalize(15)} height={normalize(15)} fill={themeData.textColor} />}
-          {leftIcon&&leftIcon()}
-        </View>
-        <View style={[styles.inputContainer, style]}>
-          <TextInput
-            testID={testID}
-            accessibilityLabel={testID}
-            autoFocus={autoFocus}
-            placeholder={placeholder}
-            placeholderTextColor={themeData.textColor}
-            value={value.toString()}
-            style={styles.textInputStyle}
-            underlineColorAndroid="transparent"
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            onChangeText={onChangeText}
-            onSubmitEditing={() => onSubmitEditing(value.toString())}
-            keyboardType={keyboardType}
-            secureTextEntry={!!isPasswordVisible}
-            selectionColor={themeData.textColor}
-            editable={editable}
-            {...props}
-          />
-        </View>
-        {isPassword&&<TouchableOpacity testID={rightIconTestID} accessibilityLabel={rightIconTestID} onPress={()=>setIsPasswordVisible(!isPasswordVisible)} style={[styles.iconContainerStyle]}>
+    <View>
+      <View style={styles.containerStyle}>
+        <View style={[styles.container, style]}>
           <View style={[styles.iconContainerStyle]}>
-            {isPassword&&<EyeIcon fill={themeData.textColor} />}
-            {rightIcon&&rightIcon()}
+            {isPassword && <LockIcon width={normalize(15)} height={normalize(15)} fill={themeData.textColor} />}
+            {leftIcon && leftIcon()}
           </View>
-        </TouchableOpacity>
-        }
+          <View style={[styles.inputContainer, style]}>
+            <TextInput
+              testID={testID}
+              accessibilityLabel={testID}
+              autoFocus={autoFocus}
+              placeholder={placeholder}
+              placeholderTextColor={themeData.textColor}
+              value={value.toString()}
+              style={styles.textInputStyle}
+              underlineColorAndroid="transparent"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              onChangeText={onChangeText}
+              onSubmitEditing={() => onSubmitEditing(value.toString())}
+              keyboardType={keyboardType}
+              secureTextEntry={!!isPasswordVisible}
+              selectionColor={themeData.textColor}
+              editable={editable}
+              {...props}
+            />
+          </View>
+          {isPassword && <TouchableOpacity testID={rightIconTestID} accessibilityLabel={rightIconTestID} onPress={() => setIsPasswordVisible(!isPasswordVisible)} style={[styles.iconContainerStyle]}>
+            <View style={[styles.iconContainerStyle]}>
+              {isPassword && !disableEyeIcon && <EyeIcon fill={themeData.textColor} />}
+              {rightIcon && rightIcon()}
+            </View>
+          </TouchableOpacity>
+          }
+        </View>
+        {isMandatory && <Label children={'*'} color={colors.greenishBlue} style={styles.starLabelStyle} />}
       </View>
-      <View style={[styles.errorTextContainer]}>
+      <View style={[styles.errorTextContainer, errorStyle]}>
         <Label style={styles.errorTextStyle}>{error}</Label>
       </View>
     </View>
   );
 };
-
-

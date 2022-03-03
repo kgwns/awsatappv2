@@ -19,13 +19,14 @@ export {VideoDetailScreen} from 'src/components/screens/video_detail/VideoDetail
 export {SignInPage} from 'src/components/screens/auth/SignInPage';
 export {SignUpPage} from 'src/components/screens/auth/SignUpPage';
 export {ForgotPassword} from 'src/components/screens/forgotPassword/ForgotPassword'
-
 export { VideoScreen } from './category/VideoScreen';
 export {SectionArticlesScreen} from './sectionArticles/SectionArticlesScreen';
 export { TermsAndAboutUs } from './termsAndAboutUs/TermsAndAboutUs'
 export { NewsLetterScreen } from 'src/components/screens/newsLetter/NewsLetterScreen';
 export { SuccessScreen } from './success_screen/SuccessScreen'
+export { ProfileSettings } from './profileSettings/ProfileSettings'
 export { OpinionArticleDetail } from 'src/components/screens/opinionArticleDetail/OpinionArticleDetail';
+export { NewPassword } from 'src/components/screens/newPassword/NewPassword'
 export { ManageMyNewsScreen } from 'src/components/screens/manageMyNews/ManageMyNewsScreen';
 export { ManageMyFavoriteAuthorScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteAuthorScreen';
 export { ManageMyFavoriteTopicsScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteTopicsScreen';

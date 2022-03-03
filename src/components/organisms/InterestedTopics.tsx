@@ -86,7 +86,7 @@ const InterestedTopics = (props:any) => {
 
   return (
     <ScrollView style={style.container} horizontal={true} showsHorizontalScrollIndicator={false}>
-      <ScrollView style={style.container} horizontal={false} scrollEnabled={false}>
+      <ScrollView style={style.innerContainerStyle} horizontal={false} scrollEnabled={false}>
         {splicedArray.map((items, index) => renderer(items, index))}
       </ScrollView>
     </ScrollView>
@@ -112,7 +112,9 @@ const customInterestStyle = (theme: CustomThemeType) =>
       alignSelf: 'flex-end',
       marginEnd: normalize(5),
       marginStart: 0.04 * screenWidth,
-
     },
+    innerContainerStyle: {
+      marginLeft: normalize(15)
+    }
 })
 

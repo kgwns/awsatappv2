@@ -51,6 +51,7 @@ export const colors = {
   whiteSmoke: '#F5F5F5',
   greyLight1:'#DCDFDF',
   darkGreenish: '#253c3a',
+  greyNickel: '#C3C3C3',
   grayTransparentLightMode: '#000000E6',
   grayTransparentDarkMode: '#C8C8C81A',
 };
@@ -74,6 +75,7 @@ export interface CustomThemeType {
   headerColor: string,
   filterBackgroundColor: string,
   filterBorderColor: string,
+  secondaryMediumGrey: string,
   alertBackground: string,
 }
 
@@ -99,6 +101,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   headerColor: colors.darkGreenish,
   filterBackgroundColor: colors.black,
   filterBorderColor: colors.cyanGray,
+  secondaryMediumGrey: colors.doveGray,
   alertBackground: colors.grayTransparentLightMode,
 }
 
@@ -121,7 +124,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   headerColor: colors.greenishBlue,
   filterBackgroundColor: colors.greenishBlue,
   filterBorderColor: colors.greenishBlue,
+  secondaryMediumGrey: colors.silverChalice,
   alertBackground: colors.grayTransparentDarkMode
-
 }
 

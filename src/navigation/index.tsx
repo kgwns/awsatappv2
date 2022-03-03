@@ -20,7 +20,9 @@ import {
   ForgotPassword,
   SuccessScreen,
   NewsLetterScreen,
+  ProfileSettings,
   OpinionArticleDetail,
+  NewPassword,
   ManageMyNewsScreen,
   ManageMyFavoriteAuthorScreen,
   ManageMyFavoriteTopicsScreen,
@@ -54,7 +56,9 @@ export const Routes = {
   ForgotPassword,
   SuccessScreen,
   NewsLetterScreen,
+  ProfileSettings,
   OpinionArticleDetail,
+  NewPassword,
   ManageMyNewsScreen,
   ManageMyFavoriteAuthorScreen,
   ManageMyFavoriteTopicsScreen,
@@ -84,6 +88,7 @@ export type ScreenList = {
   SuccessScreen: undefined;
   NewsLetterScreen: undefined;
   OpinionArticleDetail: undefined;
+  NewPassword: undefined;
   ManageMyNewsScreen: undefined;
   ManageMyFavoriteAuthorScreen: undefined;
   ManageMyFavoriteTopicsScreen: undefined;
@@ -108,6 +113,7 @@ const forgotPassword = 'forgotPassword' as ScreenName
 const successScreen = 'successScreen' as ScreenName;
 const newsLetterScreen = 'newsLetterScreen' as ScreenName;
 const opinionArticleDetail = 'opinionArticleDetail' as ScreenName;
+const newPassword = 'newPassword' as ScreenName;
 const manageMyNewsScreen = 'manageMyNewsScreen' as ScreenName;
 const manageMyFavoriteAuthorScreen = 'manageMyFavoriteAuthorScreen' as ScreenName;
 const manageMyFavoriteTopicsScreen = 'manageMyFavoriteTopicsScreen' as ScreenName;
@@ -130,6 +136,7 @@ export const RoutesName = {
   successScreen,
   newsLetterScreen,
   opinionArticleDetail,
+  newPassword,
   manageMyNewsScreen,
   manageMyFavoriteAuthorScreen,
   manageMyFavoriteTopicsScreen,

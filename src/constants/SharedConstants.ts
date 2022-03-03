@@ -10,6 +10,7 @@ export const CHOOSE_TOPICS_TO_HAVE_BEST_FEED =
 export const VALID_URL_REGEX = "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
 export const FROM_TWO_HOURS = 'من ساعاتان'
 export const MINI_PLAYER_PODCAST_TITLE = 'عنوان الحلقه الآخيره من صباح الخير هنا '
+export const PROFILE = 'Profile'
 export const RELATED_OPINION_CARD_TITLE = 'عادل درويش'
 export const RELATED_OPINION_CARD_BODY = 'الصحافة بين الخصوصية والصالح العام'
 export const DURATION = '3:22'

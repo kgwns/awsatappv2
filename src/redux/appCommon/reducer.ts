@@ -1,9 +1,10 @@
 import { Theme } from '../../redux/appCommon/types'
-import { STORE_APP_THEME } from './actionType';
+import { IS_APP_FIRST_SESSION, STORE_APP_THEME } from './actionType';
 import { AppCommonAction, AppCommonState } from './types';
 
 const initialAuthState: AppCommonState = {
-  theme: Theme.LIGHT
+  theme: Theme.LIGHT,
+  isAppFirstSession: true
 };
 
 export default (state = initialAuthState, action: AppCommonAction) => {
@@ -13,7 +14,12 @@ export default (state = initialAuthState, action: AppCommonAction) => {
         ...state,
         theme: action.payload.theme
       }
+    case IS_APP_FIRST_SESSION:
+      return {
+        ...state,
+        isAppFirstSession: action.payload.isAppFirstSession
+      }
     default:
-      return { ...state }
+      return state
   }
 }
