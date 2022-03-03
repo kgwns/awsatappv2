@@ -19,7 +19,7 @@ export type BookMarkState = {
 
 export interface SendBookMarkBodyGet {
   nid: string
-  bundle: string
+  bundle?: string
 }
 
 export interface SendBookMarkDetailType {

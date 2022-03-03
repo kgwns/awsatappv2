@@ -55,7 +55,9 @@ export const ContentForYou = () => {
             <View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <FavoriteVideo data={videoArchiveData} />
             </View>
-            <ShortArticle data={shortArticleInfo} onPress={() => { }} />
+            <ShortArticle data={shortArticleInfo} onPress={() => { }}
+                onUpdateBookmark={() => { }}
+            />
         </View>
     )
 

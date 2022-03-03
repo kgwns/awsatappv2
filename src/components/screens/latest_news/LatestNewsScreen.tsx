@@ -9,7 +9,7 @@ import { shortArticleWithTagProperties, storyWidgetData } from 'src/constants/Sa
 import { horizontalEdge, isTab, normalize } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useLatestNewsTab } from 'src/hooks';
+import { useBookmark, useLatestNewsTab } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -68,6 +68,11 @@ export const LatestNewsScreen = () => {
     fetchSectionComboThree, fetchSectionComboFour
   } = useLatestNewsTab()
 
+  const {
+    sendBookmarkInfo,
+    removeBookmarkedInfo
+  } = useBookmark()
+
   const heroListInfo = isTab ? heroList.slice(0, 1) : heroList
   const heroListData = heroListInfo.map((item: LatestArticleDataType) => (
     {
@@ -102,10 +107,13 @@ export const LatestNewsScreen = () => {
     nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
   }
 
-  const renderItem = () => (
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+    isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+  }
 
+  const renderItem = () => (
     <View>
-      <CarouselSlider tickerData={ticker} heroData={hero} />
+      <CarouselSlider tickerData={ticker} heroData={hero} /> //TODO: Need to check ayyappan
       {
         isTab ? <View style={latestNewsScreenStyle.tabSplitter}>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
@@ -113,14 +121,18 @@ export const LatestNewsScreen = () => {
             <PodcastWidget />
           </View>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
-            <ShortArticle data={topListData} onPress={onPressArticle} />
+            <ShortArticle data={topListData} onPress={onPressArticle}
+              onUpdateBookmark={updateBookmarkInfo}
+            />
           </View>
         </View>
           :
           <>
             <PodcastWidget />
             <ArticleSection data={heroListData} />
-            <ShortArticle data={topListData} onPress={onPressArticle} />
+            <ShortArticle data={topListData} onPress={onPressArticle}
+              onUpdateBookmark={updateBookmarkInfo}
+            />
           </>
       }
       <StoryWidget data={storyWidgetData}
@@ -129,11 +141,14 @@ export const LatestNewsScreen = () => {
             { id: item.id, selectedIndex: index }
           )}
       />
-      <SectionComboOne data={sectionComboOne} onPress={onPressArticle} sectionId={'726'} />
+      <SectionComboOne data={sectionComboOne} onPress={onPressArticle} sectionId={'726'}
+        onUpdateBookmark={updateBookmarkInfo}  //TODO: Need to check ayyappan
+      />
       <BannerArticleSection data={sectionComboTwo}
         title={t('latestNewsTab.sectionComboTwo.headerLeft')}
         sectionId={'871'}
         onPress={onPressArticle}
+        onUpdateBookmark={updateBookmarkInfo} 
       />
       <Divider style={{ height: normalize(20) }} />
       <AuthorWidget data={opinionList} />
@@ -142,6 +157,7 @@ export const LatestNewsScreen = () => {
         title={t('latestNewsTab.sectionComboThree.headerLeft')}
         sectionId={'11'}
         onPress={onPressArticle}
+        onUpdateBookmark={updateBookmarkInfo}
       />
       <Divider style={{ height: normalize(20) }} />
       <BannerArticleSection
@@ -149,6 +165,7 @@ export const LatestNewsScreen = () => {
         title={t('latestNewsTab.sectionComboTwo.headerLeft')}
         sectionId={'10'}
         onPress={onPressArticle}
+        onUpdateBookmark={updateBookmarkInfo}
       />
       <Divider style={{ height: normalize(50) }} />
     </View>

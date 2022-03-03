@@ -97,12 +97,15 @@ export const ArticleDetailScreen = ({
     nid && getArticleDetail(nid)
   }
 
-  const onPressSave = (nid: string, bundle: string) => {
+  const onPressSave = (nid: string) => {
     const newBookmarked = !isBookmarked
     setIsBookmarked(newBookmarked)
-    newBookmarked ? sendBookmarkInfo({ nid, bundle }) : removeBookmarkedInfo({ nid })
+    onUpdateBookMark(nid, newBookmarked)
   }
 
+  const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
+    hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+  }
 
   const articleHtmlContent = () => (
     <View style={articleDetailScreenStyle.labelStyle}>
@@ -122,6 +125,7 @@ export const ArticleDetailScreen = ({
         <ShortArticle data={relatedArticleInfo}
           headerLeft={relatedShortArticleHeaderLeft}
           onPress={onPressArticle}
+          onUpdateBookmark={onUpdateBookMark}
         />}
       <Divider style={{ height: normalize(50) }} />
     </View>
@@ -141,7 +145,7 @@ export const ArticleDetailScreen = ({
         <View style={articleDetailScreenStyle.footer}>
           <ArticleDetailFooter articleDetailData={articleDetailData[0]}
             isBookmarked={isBookmarked}
-            onPressSave={() => onPressSave(articleDetailData[0].nid, articleDetailData[0].tag_topics.bundle)}
+            onPressSave={() => onPressSave(articleDetailData[0].nid)}
           />
         </View>
       </>

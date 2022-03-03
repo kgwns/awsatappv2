@@ -18,6 +18,7 @@ import {ScreensConstants} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {LabelTypeProp} from 'src/components/atoms';
+import { useBookmark } from 'src/hooks';
 
 export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   const {themeData} = useTheme();
@@ -57,6 +58,8 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
     emptyAllListData,
   } = useNewsView();
 
+  const { sendBookmarkInfo, removeBookmarkedInfo } = useBookmark()
+
   useEffect(() => {
     emptyAllListData();
     setTopList([]);
@@ -82,6 +85,10 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
     nid &&
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
   };
+
+  const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
+    hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+  }
 
   useEffect(() => {
     formatTopicListData(topListData);
@@ -157,6 +164,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
           data={topList}
           onPress={onPressArticle}
           labelType={LabelTypeProp.h3}
+          onUpdateBookmark={onUpdateBookMark}
         />
       )}
       {/* <VideoContent data={videoTabData} /> */}
