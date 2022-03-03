@@ -101,6 +101,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
               style={styles.inputStyle}
               keyboardType={'email-address'}
               leftIcon={() => <EmailIcon fill={themeData.textColor}/>}
+              isMandatory
             />
             {isPassword&&
               <TextInputField placeholder={t('signIn.password')}
@@ -111,6 +112,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
               style={styles.inputStyle}
               error={passwordError}
               isPassword
+              isMandatory
               />
             }
             {isPassword&&
