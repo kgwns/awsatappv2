@@ -43,6 +43,7 @@ export const arabic = {
   },
   opinion: {
     opinionWriters: 'كتاّاب الرأي',
+    listenToActicleText: 'استمع الي المقالة'
   },
   latestNewsTab: {
     sectionComboOne: {

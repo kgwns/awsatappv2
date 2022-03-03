@@ -12,6 +12,7 @@ import { ScreensConstants } from 'src/constants';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { useTranslation } from 'react-i18next'
 
 export interface AuthorItemProps {
     author: string,
@@ -31,6 +32,7 @@ const AuthorItem = ({
     nid
 }: AuthorItemProps) => {
     const { themeData } = useTheme()
+    const [t] = useTranslation();
     const style = useThemeAwareObject(customStyle);
     const navigation = useNavigation<StackNavigationProp<any>>()
     const onPress = () => {
@@ -55,7 +57,7 @@ const AuthorItem = ({
                             });
                         }}
                         onPress={() => console.log('Pressed :::::')} />
-                    <Label children={'استمع الي المقالة'} style={style.articleLabelSyle}
+                    <Label children={t('opinion.listenToActicleText')} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
                     <Label children={duration} style={style.durationLabel} />
                 </View>
