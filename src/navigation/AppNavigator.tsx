@@ -1,9 +1,11 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {ScreensConstants} from '../constants/ScreenConstants';
-import {Routes} from './index';
+import { StyleSheet,TouchableOpacity } from 'react-native'
+import { createStackNavigator } from '@react-navigation/stack';
+import { ScreensConstants } from '../constants/ScreenConstants';
+import { Routes } from './index';
 import DrawerNavigator from './DrawerNavigator';
+import { ImagesName } from 'src/shared/styles';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {Label} from 'src/components/atoms';
@@ -11,9 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {normalize} from 'src/shared/utils';
-import {StyleSheet, TouchableOpacity} from 'react-native';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import {ImagesName} from 'src/shared/styles';
 
 const Stack = createStackNavigator();
 
@@ -22,10 +22,27 @@ const hideHeader = {
 }
 
 const AppNavigator = () => {
-  const {themeData} = useTheme();
   const navigation = useNavigation();
+  const style = useThemeAwareObject(customStyle)
+
+  const {themeData} = useTheme();
   const [t] = useTranslation();
-  const style = useThemeAwareObject(customStyle);
+
+  const Search = () => (
+    <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.SearchScreen)}>
+      {getSvgImages({ name: ImagesName.searchIcon, width: style.search.width, height: style.search.height, style: style.search })}
+    </TouchableOpacity>
+  )
+
+  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
+
+  const Menu = () => (
+    <TouchableOpacity onPress={() => navigation.goBack()}>
+      {getSvgImages({ name: ImagesName.menuIcon, width: style.menu.width, height: style.menu.height, style: style.menu })}
+    </TouchableOpacity>
+  )
+
+
   const previousIconStyle = style.onBoardPrevIcon;
 
   const HeaderTitle = (title: string) => <Label style={style.headerTitle}>{title}</Label>;
@@ -77,20 +94,31 @@ const AppNavigator = () => {
         options={hideHeader}
       />
       <Stack.Screen
-       name={ScreensConstants.SectionArticlesScreen}
-       component={Routes.SectionArticlesScreen}
-       options={hideHeader}
+        name={ScreensConstants.SectionArticlesScreen}
+        component={Routes.SectionArticlesScreen}
+        options={hideHeader}
       />
       <Stack.Screen
-       name={ScreensConstants.VideoDetailScreen}
-       component={Routes.VideoDetailScreen}
-       options={hideHeader}
+        name={ScreensConstants.VideoDetailScreen}
+        component={Routes.VideoDetailScreen}
+        options={hideHeader}
       />
       <Stack.Screen
         name={ScreensConstants.TERMS_AND_ABOUT_US}
         component={Routes.TermsAndAboutUs}
         options={hideHeader}
       />
+      <Stack.Screen
+        name={ScreensConstants.PROFILE_SETTING}
+        component={Routes.ProfileSettings}
+        options={{
+          headerStyle: style.container,
+          headerLeft: Menu,
+          headerTitle: HeaderLogo,
+          headerTitleAlign: 'center',
+          headerRight: Search,
+        }}
+        />
       <Stack.Screen
         name={ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN}
         component={Routes.OpinionArticleDetail}
@@ -110,11 +138,28 @@ const AppNavigator = () => {
   );
 };
 
-const customStyle = (theme: CustomThemeType) => {
-  const headerStyles = StyleSheet.create({
+export default AppNavigator;
+
+const customStyle = (theme: CustomThemeType) => (
+  StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
       shadowColor: colors.transparent,
+    },
+    search: {
+      height: 20,
+      width: 20,
+      marginHorizontal: 20,
+    },
+    logo: {
+      height: 30,
+      width: 140,
+      alignItems: 'center',
+    },
+    menu: {
+      height: 22,
+      width: 22,
+      marginHorizontal: 20,
     },
     onBoardReturn: {
       flexDirection: 'row-reverse',
@@ -137,9 +182,5 @@ const customStyle = (theme: CustomThemeType) => {
       fontWeight:'bold',
       color:theme.primaryDarkSlateGray,
     }
-  });
-  return headerStyles;
-};
-
-
-export default AppNavigator;
+  })
+)

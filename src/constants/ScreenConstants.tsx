@@ -23,6 +23,7 @@ const SignUpPage = 'SignUpPage' as ScreenName;
 const FORGOT_PASSWORD = 'ForgotPassword' as ScreenName;
 const SUCCESS_SCREEN = 'SuccessScreen' as ScreenName;
 const NEWS_LETTER_SCREEN = 'NewsLetterScreen' as ScreenName;
+const PROFILE_SETTING = 'PROFILE_SETTING' as ScreenName
 const OPINION_ARTICLE_DETAIL_SCREEN = 'OPINION_ARTICLE_DETAIL_SCREEN' as ScreenName;
 const MANAGE_MY_NEWS_SCREEN = 'MANAGE_MY_NEWS_SCREEN' as ScreenName;
 
@@ -57,6 +58,7 @@ export const ScreensConstants = {
   FORGOT_PASSWORD,
   SUCCESS_SCREEN,
   NEWS_LETTER_SCREEN,
+  PROFILE_SETTING,
   OPINION_ARTICLE_DETAIL_SCREEN,
   MANAGE_MY_NEWS_SCREEN,
 };

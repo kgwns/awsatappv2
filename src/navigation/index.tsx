@@ -20,6 +20,7 @@ import {
   ForgotPassword,
   SuccessScreen,
   NewsLetterScreen,
+  ProfileSettings,
   OpinionArticleDetail,
   ManageMyNewsScreen,
 } from '../components/screens';
@@ -52,6 +53,7 @@ export const Routes = {
   ForgotPassword,
   SuccessScreen,
   NewsLetterScreen,
+  ProfileSettings,
   OpinionArticleDetail,
   ManageMyNewsScreen,
 };

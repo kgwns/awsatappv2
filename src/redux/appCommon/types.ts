@@ -1,4 +1,4 @@
-import { STORE_APP_THEME } from "./actionType"
+import { IS_APP_FIRST_SESSION, STORE_APP_THEME } from "./actionType"
 
 export enum Theme {
   LIGHT = 'light',
@@ -6,7 +6,8 @@ export enum Theme {
 }
 
 export type AppCommonState = {
-  theme: Theme
+  theme: Theme,
+  isAppFirstSession: boolean
 }
 
 export type AppThemeType = {
@@ -18,4 +19,14 @@ export type StoreAppThemeType = {
   payload: AppThemeType
 }
 
-export type AppCommonAction = StoreAppThemeType
+export type StoreAppFirstSessionPayloadType = {
+  isAppFirstSession: false
+}
+
+export type StoreAppFirstSessionType = {
+  type: typeof IS_APP_FIRST_SESSION,
+  payload: StoreAppFirstSessionPayloadType
+}
+
+
+export type AppCommonAction = StoreAppThemeType | StoreAppFirstSessionType

@@ -18,8 +18,6 @@ export interface UseLatestNewsReturn {
     heroList: LatestArticleDataType[];
     topList: LatestArticleDataType[];
     opinionList: LatestOpinionDataType[]
-    fetchTickerAndHeroArticle(payload: LatestArticleBodyGet): void;
-    fetchHeroListTopList(payload: LatestArticleBodyGet): void
     fetchOpinionTopList(payload: LatestArticleBodyGet): void
     sectionComboOne: LatestArticleDataType[];
     sectionComboTwo: LatestArticleDataType[];

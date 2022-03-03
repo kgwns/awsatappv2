@@ -174,6 +174,17 @@ export const arabic = {
     mailAcknowledgement: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى\n الإيميل الخاص بك.',
     goToHome:'انتقل الي الصفحة الرئيسية'
   },
+  profileSetting: {
+    manageMyNotification: 'إدارة إخطاراتي',
+    manageMyNews: 'إدارة أخباري',
+    myNewsLetter: 'نشرتي الإخبارية',
+    myAccountDetails: 'تفاصيل حسابي',
+    appAppearance: 'مظهر التطبيق',
+    exit: 'خروج',
+    lightMode: 'وضع فاتح',
+    darkMode: 'وضع غامق',
+    welcome: 'أهلاً،'
+  },
   opinionArticleDetail:{
     return:'الرجوع',
     listenToArticle:'استمع الي المقالة',

@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from 'react'
 import { Appearance, ColorSchemeName, I18nManager, NativeEventSubscription, useColorScheme } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { useDispatch } from 'react-redux'
-import { storeAppTheme } from 'src/redux/appCommon/action'
+import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'
 import { Theme } from 'src/redux/appCommon/types'
+import { useAppCommon } from 'src/hooks'
 import { isDarkTheme } from '../shared/utils'
 import AppStackContainer from './AppStackContainer'
 
@@ -13,10 +14,18 @@ const SplashNavigation = () => {
     let isDarkMode = isDarkTheme(theme)
     let subscription = useRef<NativeEventSubscription>(null).current
 
+    const { isFirstSession } = useAppCommon()
     useEffect(() => {
-        updateColorScheme()
+        updateAppThemeState()
         return () => subscription?.remove()
     }, [])
+
+    const updateAppThemeState = () => {
+        if (isFirstSession) { // Listen OS theme only first time
+            dispatch(storeAppFirstSession())
+            updateColorScheme()
+        }
+    }
 
     const updateColorScheme = () => {
         dispatch(storeAppTheme(isDarkMode ? Theme.DARK : Theme.LIGHT))
