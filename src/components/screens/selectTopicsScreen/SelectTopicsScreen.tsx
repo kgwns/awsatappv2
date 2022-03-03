@@ -115,6 +115,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       shadowColor: colors.transparent,
       justifyContent: 'center',
       alignItems: 'center',
+      paddingBottom: normalize(10)
     },
     textContainer: {
       flex: 0.13,

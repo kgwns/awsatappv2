@@ -29,6 +29,7 @@ const NEW_PASSWORD = 'NewPassword' as ScreenName;
 const MANAGE_MY_NEWS_SCREEN = 'MANAGE_MY_NEWS_SCREEN' as ScreenName;
 const MANAGE_MY_FAVORITE_AUTHOR_SCREEN = 'MANAGE_MY_FAVORITE_AUTHOR_SCREEN' as ScreenName;
 const MANAGE_MY_FAVORITE_TOPICS_SCREEN = 'MANAGE_MY_FAVORITE_TOPICS_SCREEN' as ScreenName;
+const USER_DETAIL_SCREEN = 'UserDetailScreen' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -67,4 +68,5 @@ export const ScreensConstants = {
   MANAGE_MY_NEWS_SCREEN,
   MANAGE_MY_FAVORITE_AUTHOR_SCREEN,
   MANAGE_MY_FAVORITE_TOPICS_SCREEN,
+  USER_DETAIL_SCREEN,
 };

@@ -143,7 +143,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
           </View>
           {isPassword && <TouchableOpacity testID={rightIconTestID} accessibilityLabel={rightIconTestID} onPress={() => setIsPasswordVisible(!isPasswordVisible)} style={[styles.iconContainerStyle]}>
             <View style={[styles.iconContainerStyle]}>
-              {isPassword && !disableEyeIcon && <EyeIcon fill={themeData.textColor} />}
+              {isPassword && !disableEyeIcon && <EyeIcon fill={isPasswordVisible ? themeData.textColor : themeData.primary} />}
               {rightIcon && rightIcon()}
             </View>
           </TouchableOpacity>

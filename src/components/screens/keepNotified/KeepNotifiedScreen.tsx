@@ -56,6 +56,7 @@ const customStyle = (theme: CustomThemeType) => {
       alignContent: 'center',
       alignSelf: 'center',
       justifyContent: 'center',
+      paddingBottom: normalize(10)
     },
     textContainer: {
       flex: 0.13,

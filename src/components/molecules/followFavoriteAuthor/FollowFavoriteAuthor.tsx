@@ -69,7 +69,7 @@ const FollowFavoriteAuthor = ({
             backgroundColor={theme.themeData.secondaryDavyGrey}
           />
         )}
-        <View style={{bottom: normalize(8)}}>
+        <View style={style.tickIconContainer}>
           {clickable &&
             getSvgImages({
               name: isSelectedState
@@ -137,6 +137,9 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(10),
       lineHeight: normalize(17),
     },
+    tickIconContainer: {
+      bottom: isTab ? normalize(5) : normalize(6)
+    }
   });
   return FollowFavoriteAuthorStyle;
 };

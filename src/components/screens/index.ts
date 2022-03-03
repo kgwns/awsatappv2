@@ -30,3 +30,5 @@ export { NewPassword } from 'src/components/screens/newPassword/NewPassword'
 export { ManageMyNewsScreen } from 'src/components/screens/manageMyNews/ManageMyNewsScreen';
 export { ManageMyFavoriteAuthorScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteAuthorScreen';
 export { ManageMyFavoriteTopicsScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteTopicsScreen';
+export { UserDetailScreen } from 'src/components/screens/userDetail/UserDetailScreen';
+

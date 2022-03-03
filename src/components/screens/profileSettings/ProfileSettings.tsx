@@ -29,9 +29,9 @@ const sampleUserName = 'رانيا'
 export const ProfileSettings = () => {
     const [t] = useTranslation()
     const dispatch = useDispatch()
+    const navigation = useNavigation<StackNavigationProp<any>>();
 
     const style = useThemeAwareObject(customStyle)
-    const navigation = useNavigation<StackNavigationProp<any>>();
 
     const { theme } = useAppCommon()
     const isDark = isDarkTheme(theme)
@@ -66,7 +66,7 @@ export const ProfileSettings = () => {
         {
             iconName: ImagesName.profile,
             title: CONST_MY_ACCOUNT_DETAILS,
-            screenName: ScreensConstants.LatestNewsScreen
+            screenName: ScreensConstants.USER_DETAIL_SCREEN
         },
         {
             iconName: ImagesName.themeChange,

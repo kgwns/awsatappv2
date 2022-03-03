@@ -35,14 +35,15 @@ export const arabic = {
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
     newsLetter: {
-      title:'نشراتك الإخبارية',
-      description:'احصل على آخر التحديثات يتم تسليمها مباشرة إلى الإيميل الخاص بك.',
+      title: 'نشراتك الإخبارية',
+      description: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى الإيميل الخاص بك.',
       subscribed: 'أنت مشترك بالنشره',
       notSubscribed: 'أنت غير مشترك بالنشره',
     },
   },
   opinion: {
     opinionWriters: 'كتاّاب الرأي',
+    listenToActicleText: 'استمع الي المقالة'
   },
   latestNewsTab: {
     sectionComboOne: {
@@ -173,7 +174,7 @@ export const arabic = {
   onboardSuccess: {
     successMessage: 'تم تكوين صفحة أخبارك بنجاح',
     mailAcknowledgement: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى\n الإيميل الخاص بك.',
-    goToHome:'انتقل الي الصفحة الرئيسية'
+    goToHome: 'انتقل الي الصفحة الرئيسية'
   },
   profileSetting: {
     manageMyNotification: 'إدارة إخطاراتي',
@@ -186,23 +187,49 @@ export const arabic = {
     darkMode: 'وضع غامق',
     welcome: 'أهلاً،'
   },
-  opinionArticleDetail:{
-    return:'الرجوع',
-    listenToArticle:'استمع الي المقالة',
-    relatedOpinionTitle:'مقالات ذات صلة',
+  opinionArticleDetail: {
+    return: 'الرجوع',
+    listenToArticle: 'استمع الي المقالة',
+    relatedOpinionTitle: 'مقالات ذات صلة',
   },
-  newPassword: {
-    createNewPassword: 'أنشئ كلمة مرور جديدة',
-    passwordDescription: 'يجب أن تكون كلمة مرورك الجديدة مختلفة عن كلمة مرورك القديمة',
-    setNewPassword: 'ضبط كلمة المرور',
-    passwordWarning: 'يجب ألا يقل عن 8 أحرف',
-    passwordMatchWarning: 'يجب أن تتطابق كلمتا المرور'
-  },
-  manageMyNews:{
-    header:'إدارة أخباري',
-    myFavoriteBooks:'كتابي المفضلين',
-    myFavoriteTopics:'مواضيعي المفضله',
-    continueReadingMoreBooks:'تابع المزيد من الكتاب',
-    followMoreTopics:'تابع المزيد من المواضيع'
-  },
-};
+  profile: {
+    userDetail: {
+      userDetailTitle: 'تفاصيل حسابي',
+      userNameTitle: 'إسم المستخدم',
+      nameTitle: 'الإسم',
+      passwordTitle: 'كلمة المرور',
+      changePasswordTitle: 'تغيير كلمة المرور',
+      birthdayTitle: 'يوم الميلاد',
+      occupationTitle: 'الوظيفة',
+      occupationPlaceholder: 'اكتب وظيفتك هنا',
+      monthPlaceholder: 'الشهر',
+      yearPlaceholder: 'السنة',
+      datePlaceholder: 'تاريخ',
+      selectTheDate: 'حدد تاريخ الميلاد',
+      cancelText: 'إلغاء الأمر',
+      confirmText: 'أكد',
+      selectBirthdayText: 'اختر تاريخ الميلاد',
+      updateButtonText: 'تحديث',
+      yourDetails: 'التفاصيل الخاصة بك',
+      emailPlaceholder: 'Example@company.com',
+      changePassword: 'تغيير كلمة المرور',
+      oldPassword: 'كلمة المرور القديمة',
+      newPassword: 'كلمة مرور جديدة',
+      confirmNewPassword: 'قم بتأكيد كلمة المرور الجديدة',
+    },
+    newPassword: {
+      createNewPassword: 'أنشئ كلمة مرور جديدة',
+      passwordDescription: 'يجب أن تكون كلمة مرورك الجديدة مختلفة عن كلمة مرورك القديمة',
+      setNewPassword: 'ضبط كلمة المرور',
+      passwordWarning: 'يجب ألا يقل عن 8 أحرف',
+      passwordMatchWarning: 'يجب أن تتطابق كلمتا المرور'
+    },
+    manageMyNews: {
+      header: 'إدارة أخباري',
+      myFavoriteBooks: 'كتابي المفضلين',
+      myFavoriteTopics: 'مواضيعي المفضله',
+      continueReadingMoreBooks: 'تابع المزيد من الكتاب',
+      followMoreTopics: 'تابع المزيد من المواضيع'
+    },
+  }
+}

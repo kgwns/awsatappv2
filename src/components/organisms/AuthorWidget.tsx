@@ -9,13 +9,32 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { LatestOpinionDataType } from 'src/redux/latestNews/types'
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
+import { getImageUrl } from 'src/shared/utils/utilities'
 
 const AuthorWidget = ({data}: { data: LatestOpinionDataType[] }) => {
     const style = useThemeAwareObject(customStyle)
     const [t] = useTranslation()
     const { themeData } = useTheme()
-    const renderItem = (item: LatestOpinionDataType, index: number) => (
-        <AuthorItem body={item.title} author={item.field_opinion_writer_node_export.name} duration={'3:30'} image={item.field_opinion_writer_node_export.opinion_writer_photo} index={index} />
+    const renderItem = (item: any, index: number) => (
+        <AuthorItem body={item.title}  
+        author={
+            isNonEmptyArray(item.field_opinion_writer_node_export)
+              ? item.field_opinion_writer_node_export[0].name
+              : item.field_opinion_writer_node_export.opinion_writer_photo
+          }
+        duration={'3:30'} 
+        image={
+            isNonEmptyArray(item.field_opinion_writer_node_export)
+              ? getImageUrl(
+                  item.field_opinion_writer_node_export[0].opinion_writer_photo
+                )
+              : getImageUrl(
+                  item.field_opinion_writer_node_export.opinion_writer_photo,
+                )
+          }
+        index={index} 
+        nid={item.nid}
+        />
     )
 
     const widgetHeaderData: WidgetHeaderProps = {
