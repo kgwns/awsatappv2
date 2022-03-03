@@ -62,8 +62,8 @@ export const FavoriteScreen = () => {
 
   const renderItem = () => (
     <View style={{ flex: 1 }}>
-      {renderTabBarComponent()}
-      {tabContent()}
+      {/* {renderTabBarComponent()} //Commenting until content for you screen ready */}
+      {renderArchives()}
     </View>
   )
 

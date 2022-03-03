@@ -1,10 +1,11 @@
 import { View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ArchivesPodcast, FilterComponent, FilterDataType } from 'src/components/molecules'
 import { screenWidth } from 'src/shared/utils'
 import { FavoriteVideo } from '../favoriteVideo/favoriteVideo'
 import { videoArchiveData } from 'src/constants/SampleData'
+import { useBookmark } from 'src/hooks'
 
 export const Archives = () => {
     const [t] = useTranslation()
@@ -30,6 +31,12 @@ export const Archives = () => {
 
     const [filterItem, setFilterItem] = useState<FilterDataType[]>(filterData);
     const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
+
+    const { getBookmarkedId } = useBookmark()
+
+    useEffect(() => {
+        getBookmarkedId()
+    },[])
 
     const onPressFilterItem = (index: number) => {
         const filterItemData = filterItem

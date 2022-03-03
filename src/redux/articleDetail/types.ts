@@ -27,7 +27,8 @@ interface GeneralArticleFields {
   image: string,
   view_node: string,
   news_categories: fieldExportType,
-  author: string
+  author: string,
+  created: string
 }
 
 export interface ArticleDetailDataType extends GeneralArticleFields {
@@ -39,7 +40,6 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   news_categories: fieldExportType,
   tag_topics: fieldExportType,
   author: string,
-  created: string
 }
 
 export interface RelatedArticleDataType extends GeneralArticleFields { }

@@ -7,8 +7,6 @@ import {
     SendSelectedAuthorBody,
     SendSelectedAuthorSuccessPayloadType,
 } from 'src/redux/allWriters/types';
-import { AxiosRequestHeaders } from 'axios';
-import { store } from 'src/redux/store';
 
 export const fetchAllWritersApi = async (body: AllWritersBodyGet) => {
     try {
@@ -26,21 +24,12 @@ export const fetchAllWritersApi = async (body: AllWritersBodyGet) => {
 
 
 export const sendSelectedWritersApi = async (body: SendSelectedAuthorBody) => {
-    const { token } = store.getState().login.loginData
-    let header: AxiosRequestHeaders | undefined = undefined
-    if (token) {
-        const type = `${token.token_type} ` || 'Bearer '
-        const accessToken = token.access_token
-        header = {
-            Authorization: type + accessToken
-        }
-    }
 
     try {
         const response: SendSelectedAuthorSuccessPayloadType =
             await postApiRequest(
                 `${UMS_BASE_URL}${SEND_SELECTED_WRITERS_ENDPOINT}${body.tid}`,
-                body, undefined, header
+                body
             );
         return response;
     } catch (error) {

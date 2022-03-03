@@ -7,8 +7,6 @@ import {
     SendSelectedTopicBody,
     SendSelectedTopicSuccessPayloadType
 } from 'src/redux/allSiteCategories/types';
-import { AxiosRequestHeaders } from 'axios';
-import { store } from 'src/redux/store';
 
 export const fetchAllSiteCategoriesApi = async (body: AllSiteCategoriesBodyGet) => {
     try {
@@ -24,21 +22,11 @@ export const fetchAllSiteCategoriesApi = async (body: AllSiteCategoriesBodyGet) 
     }
 };
 export const sendSelectedTopicsApi = async (body: SendSelectedTopicBody) => {
-    const { token } = store.getState().login.loginData
-    let header: AxiosRequestHeaders | undefined = undefined
-    if (token) {
-        const type = `${token.token_type} ` || 'Bearer '
-        const accessToken = token.access_token
-        header = {
-            Authorization: type + accessToken
-        }
-    }
-
     try {
         const response: SendSelectedTopicSuccessPayloadType =
             await postApiRequest(
                 `${UMS_BASE_URL}${ADD_YOUR_TOPICS_ENDPOINT}${body.tid}`,
-                body, undefined, header
+                body
             );
         return response;
     } catch (error) {

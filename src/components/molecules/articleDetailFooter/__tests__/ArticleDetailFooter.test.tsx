@@ -1,7 +1,8 @@
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
-import {ButtonImage} from 'src/components/atoms';
-import {ArticleDetailFooter} from '../ArticleDetailFooter';
+import { ButtonImage } from 'src/components/atoms';
+import { FROM_TWO_HOURS } from 'src/constants/SharedConstants';
+import { ArticleDetailFooter } from '../ArticleDetailFooter';
 
 describe('<ArticleDetailFooter>', () => {
   let instance: RenderAPI;
@@ -27,11 +28,17 @@ describe('<ArticleDetailFooter>', () => {
       name: 'النزاع الفلسطيني-الاسرائيلي',
     },
     author: 'mockAuthor',
+    created: FROM_TWO_HOURS
   };
+
+  const mockFunction = jest.fn()
 
   beforeEach(() => {
     const component = (
-      <ArticleDetailFooter articleDetailData={articleDetailSampleData} />
+      <ArticleDetailFooter
+        articleDetailData={articleDetailSampleData}
+        isBookmarked={false} onPressSave={mockFunction}
+      />
     );
     instance = render(component);
   });

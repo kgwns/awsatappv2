@@ -4,7 +4,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { useDispatch } from 'react-redux'
 import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'
 import { Theme } from 'src/redux/appCommon/types'
-import { useAppCommon } from 'src/hooks'
+import { useAppCommon, useBookmark } from 'src/hooks'
 import { isDarkTheme } from '../shared/utils'
 import AppStackContainer from './AppStackContainer'
 
@@ -14,11 +14,17 @@ const SplashNavigation = () => {
     let isDarkMode = isDarkTheme(theme)
     let subscription = useRef<NativeEventSubscription>(null).current
 
+    const { getBookmarkedId } = useBookmark()
+
     const { isFirstSession } = useAppCommon()
     useEffect(() => {
         updateAppThemeState()
         return () => subscription?.remove()
     }, [])
+
+    useEffect(() => {
+       getBookmarkedId()
+    },[])
 
     const updateAppThemeState = () => {
         if (isFirstSession) { // Listen OS theme only first time

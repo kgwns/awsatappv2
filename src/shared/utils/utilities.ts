@@ -56,8 +56,8 @@ export const isNotEmpty = (value: string | null | undefined): boolean => {
   return typeof value === 'string' && value.trim().length > 0;
 };
 
-export const joinArray = (data: any): string => {
-  return isNonEmptyArray(data) ? data.join(',') : ''
+export const joinArray = (data: any, joinKey: string = ','): string => {
+  return isNonEmptyArray(data) ? data.join(joinKey) : ''
 }
 
 export const isValidHttpUrl = (url: string): boolean => {

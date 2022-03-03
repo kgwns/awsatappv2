@@ -8,6 +8,19 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 
+
+jest.mock("src/hooks/useBookmark", () => ({
+  useBookmark: (...args: any) => {
+      return {
+        isLoading: true,
+        bookMarkSuccessInfo: {},
+        error: '',
+        getBookmarkedId: () => []
+      }
+  },
+}));
+
+
 describe('<SplashNavigation>', () => {
   let instance: RenderAPI;
   const dispatchMock = jest.fn();

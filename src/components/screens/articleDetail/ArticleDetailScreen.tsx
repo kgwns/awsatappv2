@@ -15,6 +15,7 @@ import type { MixedStyleRecord } from '@native-html/transient-render-engine';
 import { RelatedArticleDataType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
+import { useBookmark } from 'src/hooks'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -31,6 +32,10 @@ export const ArticleDetailScreen = ({
 }: ArticleDetailScreenProps) => {
   const { themeData } = useTheme()
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
+
+  const [isBookmarked, setIsBookmarked] = useState(false)
+
+  const { sendBookmarkInfo, removeBookmarkedInfo } = useBookmark()
 
   const {
     isLoading,
@@ -67,7 +72,7 @@ export const ArticleDetailScreen = ({
       Orientation.removeOrientationListener(updateScreenEdge)
     }
   }, [])
-  
+
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const edge = getScreenEdge(deviceOrientation)
@@ -92,6 +97,12 @@ export const ArticleDetailScreen = ({
     nid && getArticleDetail(nid)
   }
 
+  const onPressSave = (nid: string, bundle: string) => {
+    const newBookmarked = !isBookmarked
+    setIsBookmarked(newBookmarked)
+    newBookmarked ? sendBookmarkInfo({ nid, bundle }) : removeBookmarkedInfo({ nid })
+  }
+
 
   const articleHtmlContent = () => (
     <View style={articleDetailScreenStyle.labelStyle}>
@@ -107,7 +118,6 @@ export const ArticleDetailScreen = ({
         {articleHtmlContent()}
       </>
       }
-      {/* <RelatedArticles /> */}
       {isNonEmptyArray(relatedArticleData) &&
         <ShortArticle data={relatedArticleInfo}
           headerLeft={relatedShortArticleHeaderLeft}
@@ -129,7 +139,10 @@ export const ArticleDetailScreen = ({
           bounces={false}
         />
         <View style={articleDetailScreenStyle.footer}>
-          <ArticleDetailFooter articleDetailData={articleDetailData[0]} />
+          <ArticleDetailFooter articleDetailData={articleDetailData[0]}
+            isBookmarked={isBookmarked}
+            onPressSave={() => onPressSave(articleDetailData[0].nid, articleDetailData[0].tag_topics.bundle)}
+          />
         </View>
       </>
       }

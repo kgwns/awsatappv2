@@ -32,7 +32,6 @@ export interface ArticleSectionProps {
 }
 
 export const shortArticleFooter: articleFooterProps = {
-  leftTitle: FROM_TWO_HOURS,
   leftIcon: () => {return getSvgImages({
     name: ImagesName.clock,
     size: normalize(12),
