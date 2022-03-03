@@ -126,7 +126,9 @@ export const ManageMyFavoriteAuthorScreen = () => {
         </View>
         <View style={style.contentStyle}>
           {isNonEmptyArray(authorsData) &&
+          <View>
             <FollowFavoriteAuthorWidget writersData={authorsData} changeSelectedStatus={changeSelectedStatus} />
+          </View>
           }
         </View>
         <View style={style.nextButtonView}>
