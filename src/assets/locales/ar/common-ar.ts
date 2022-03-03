@@ -126,7 +126,7 @@ export const arabic = {
   signIn: {
     signUp: 'قم بالتسجيل',
     skip: 'تخطى',
-    signUpReceive: 'قم بالتسجيل لتحطى على أخبار مخصصه لك',
+    signUpReceive: 'قم بالتسجيل لتحظى على أخبار مخصصه لك',
     email: 'الإيميل',
     signIn: 'تسجيل الدخول',
     or: 'أو',
