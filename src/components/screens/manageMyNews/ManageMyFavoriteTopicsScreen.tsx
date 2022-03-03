@@ -162,7 +162,6 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       justifyContent: 'center',
       alignSelf: 'center',
       paddingTop: normalize(10),
-      paddingHorizontal: normalize(15),
     },
     titleStyle: {
       textAlign: 'center',
