@@ -84,6 +84,15 @@ import PlusSVG from 'src/assets/images/icons/plus.svg'
 import ReturnGreenish from 'src/assets/images/icons/returnGreenish.svg'
 import ReturnGreenishDark from 'src/assets/images/icons/returnGreenishDark.svg'
 
+import ReturnIconDark from 'src/assets/images/icons/returnIconDark.svg'
+
+import UserDefaultIcon from 'src/assets/images/icons/profile/user_default.svg'
+import EditIcon from 'src/assets/images/icons/profile/editIcon.svg'
+
+//DropDownModalSelector
+import DropDownIcon from 'src/assets/images/icons/dropDownArrowIcon.svg'
+import DropDownIconDark from 'src/assets/images/icons/dropDownArrowIconDark.svg'
+
 export interface GetSVGProps {
     name: ImagesName,
     size?: number,
@@ -194,13 +203,19 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.bookmark:
             return isDark ? <BookMarkWhiteBdrSVG {...props} /> : <BookMarkBlackBdr {...props} />
         case ImagesName.returnSvg:
-            return <Return {...props} />
+            return isDark ? <ReturnIconDark {...props}/> : <Return {...props}/>
         case ImagesName.arrowLeftGrey:
             return <ArrowLeftGrey {...props} />
         case ImagesName.plusSvg:
             return <PlusSVG {...props}/>
         case ImagesName.returnGreenish:
             return isDark ? <ReturnGreenishDark{...props}/> :<ReturnGreenish {...props}/>
+        case ImagesName.userDefaultIcon:
+            return <UserDefaultIcon {...props} />
+        case ImagesName.editIcon:
+            return <EditIcon {...props} />
+        case ImagesName.dropDownIcon:
+            return isDark ? <DropDownIconDark {...props} /> : <DropDownIcon {...props} />
         default: return null
     }
 }

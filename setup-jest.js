@@ -57,3 +57,9 @@ jest.mock('react-native-color-matrix-image-filters', () => {
     Grayscale: jest.fn().mockImplementation(() => jest.fn())
   }
 })
+
+jest.mock('keyboard-aware-view', () => {
+  return {
+    KeyboardAwareView: jest.fn().mockImplementation(() => jest.fn())
+  }
+})

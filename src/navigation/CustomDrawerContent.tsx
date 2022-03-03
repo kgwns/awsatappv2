@@ -23,6 +23,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { PROFILE } from 'src/constants/SharedConstants';
+import { colors } from '../shared/styles/colors';
 
 interface CustomDrawerContentProps {}
 
@@ -51,14 +52,11 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
   const header = () => (
     <View style={styles.headerContainer}>
+      <TouchableOpacity style={styles.headerLeft} onPress={() => navigation.navigate(ScreensConstants.PROFILE_SETTING)}>
+        {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })}
+      </TouchableOpacity>
       <View style={styles.logoContainer}>
-        {
-          getSvgImages({
-            name: ImagesName.headerLogo,
-            width: styles.logo.width,
-            height: styles.logo.height
-          })
-        }
+        {getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height, style: styles.logo })}
       </View>
       <View style={styles.headerRight}>
         <TouchableOpacity
@@ -164,8 +162,24 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'center',
       left: normalize(20),
     },
+    headerLeft: {
+      zIndex: 1,
+      position: 'absolute',
+      alignItems: 'center',
+      justifyContent: 'center',
+      right: normalize(20),
+      top : 0,
+    },
+    user: {
+      width: normalize(27),
+      height: normalize(27),
+      borderRadius: normalize(27)/2,
+      borderWidth: normalize(2),
+      borderColor: colors.lightGreenishBlue,
+    },
     menuContainer: {
       marginHorizontal: normalize(35),
+      marginTop: normalize(20),
     },
     drawerItemStyle: {
       left: 0,

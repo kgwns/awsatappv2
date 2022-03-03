@@ -28,3 +28,4 @@ export { ProfileSettings } from './profileSettings/ProfileSettings'
 export { OpinionArticleDetail } from 'src/components/screens/opinionArticleDetail/OpinionArticleDetail';
 export { NewPassword } from 'src/components/screens/newPassword/NewPassword'
 export { ManageMyNewsScreen } from 'src/components/screens/manageMyNews/ManageMyNewsScreen';
+export { UserDetailScreen } from 'src/components/screens/userDetail/UserDetailScreen';

@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet,TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ScreensConstants } from '../constants/ScreenConstants';
 import { Routes } from './index';
@@ -14,6 +14,7 @@ import {useTranslation} from 'react-i18next';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {normalize} from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
+import { HeaderConstants } from '../constants/HeaderConstants'; 
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ const AppNavigator = () => {
 
   const {themeData} = useTheme();
   const [t] = useTranslation();
+  const previousIconStyle = style.onBoardPrevIcon;
 
   const Search = () => (
     <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.SearchScreen)}>
@@ -41,9 +43,6 @@ const AppNavigator = () => {
       {getSvgImages({ name: ImagesName.menuIcon, width: style.menu.width, height: style.menu.height, style: style.menu })}
     </TouchableOpacity>
   )
-
-
-  const previousIconStyle = style.onBoardPrevIcon;
 
   const HeaderTitle = (title: string) => <Label style={style.headerTitle}>{title}</Label>;
 
@@ -123,6 +122,17 @@ const AppNavigator = () => {
         name={ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN}
         component={Routes.OpinionArticleDetail}
         options={hideHeader}
+      />
+      <Stack.Screen
+        name={ScreensConstants.USER_DETAIL_SCREEN}
+        component={Routes.UserDetailScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: HeaderConstants.USER_DETAIL_HEADER_TITLE,
+          headerTitleStyle: style.headerTitle,
+          headerTitleAlign: 'center',
+        }}
       />
        <Stack.Screen
         name={ScreensConstants.MANAGE_MY_NEWS_SCREEN}

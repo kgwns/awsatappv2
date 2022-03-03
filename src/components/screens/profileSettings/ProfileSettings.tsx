@@ -15,6 +15,8 @@ import { useDispatch } from 'react-redux'
 import { storeAppTheme } from 'src/redux/appCommon/action'
 import { Theme } from 'src/redux/appCommon/types'
 import { useAppCommon } from 'src/hooks'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 type SettingDataType = {
     iconName: ImagesName,
@@ -27,6 +29,7 @@ const sampleUserName = 'رانيا'
 export const ProfileSettings = () => {
     const [t] = useTranslation()
     const dispatch = useDispatch()
+    const navigation = useNavigation<StackNavigationProp<any>>();
 
     const style = useThemeAwareObject(customStyle)
 
@@ -63,7 +66,7 @@ export const ProfileSettings = () => {
         {
             iconName: ImagesName.profile,
             title: CONST_MY_ACCOUNT_DETAILS,
-            screenName: ScreensConstants.LatestNewsScreen
+            screenName: ScreensConstants.USER_DETAIL_SCREEN
         },
         {
             iconName: ImagesName.themeChange,
@@ -85,7 +88,7 @@ export const ProfileSettings = () => {
 
     const renderItem: ListRenderItem<SettingDataType> = ({ item, index }) => {
         return (
-            <TouchableOpacity activeOpacity={0.8} key={index}>
+            <TouchableOpacity activeOpacity={0.8} key={index} onPress={()=>navigation.navigate(item.screenName)}>
                 <View style={style.itemContainer}>
                     <View style={style.itemLeftContainer}>
                         <ButtonImage icon={() => {
