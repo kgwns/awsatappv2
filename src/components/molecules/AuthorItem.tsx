@@ -6,13 +6,21 @@ import { ImagesName, Styles } from '../../shared/styles'
 import { isTab } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { getSvgImages } from 'src/shared/styles/svgImages'
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ScreensConstants } from 'src/constants';
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { CustomThemeType } from 'src/shared/styles/colors'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { useTranslation } from 'react-i18next'
 
 export interface AuthorItemProps {
     author: string,
     body: string,
     duration: string,
     image: string,
-    index?: number
+    index?: number,
+    nid?: string
 }
 
 const AuthorItem = ({
@@ -20,16 +28,26 @@ const AuthorItem = ({
     body,
     duration,
     image,
-    index
+    index,
+    nid
 }: AuthorItemProps) => {
     const { themeData } = useTheme()
+    const [t] = useTranslation();
+    const style = useThemeAwareObject(customStyle);
+    const navigation = useNavigation<StackNavigationProp<any>>()
+    const onPress = () => {
+        if (nid) {
+            navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid:nid})
+        }
+    }
+
     return (
-        <View key={index} style={[authorItemStyle.container, isTab && { paddingRight: 20 }]}>
+        <TouchableOpacity key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={()=>onPress()} >
             <View style={{ flex: 1 }}>
                 <Label children={author} labelType={LabelTypeProp.p4}
                     color={themeData.primary} numberOfLines={1} />
                 <Label children={body} labelType={LabelTypeProp.h3}
-                    numberOfLines={1} style={authorItemStyle.body} />
+                    numberOfLines={1} style={style.body} />
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <ButtonImage
                         icon={() => {
@@ -39,21 +57,21 @@ const AuthorItem = ({
                             });
                         }}
                         onPress={() => console.log('Pressed :::::')} />
-                    <Label children={'استمع الي المقالة'} style={authorItemStyle.durationLabel}
+                    <Label children={t('opinion.listenToActicleText')} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
-                    <Label children={duration} style={authorItemStyle.durationLabel} />
+                    <Label children={duration} style={style.durationLabel} />
                 </View>
             </View>
             <View>
-                <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'} />
+                <Image url={image} backgroundColor={themeData.secondaryDavyGrey} size={normalize(80)} resizeMode={'cover'} type={'round'} />
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
 export default AuthorItem
 
-const authorItemStyle = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'row',
@@ -66,5 +84,10 @@ const authorItemStyle = StyleSheet.create({
     durationLabel: {
         paddingHorizontal: normalize(10),
         color: Styles.color.spanishGray
+    },
+    articleLabelSyle: {
+        paddingHorizontal: normalize(10),
+        color: theme.primary
+
     }
 })
