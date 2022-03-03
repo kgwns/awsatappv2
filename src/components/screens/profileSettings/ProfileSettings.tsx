@@ -14,7 +14,7 @@ import { ToggleWithLabel } from 'src/components/molecules'
 import { useDispatch } from 'react-redux'
 import { storeAppTheme } from 'src/redux/appCommon/action'
 import { Theme } from 'src/redux/appCommon/types'
-import { useAppCommon } from 'src/hooks'
+import { useAppCommon, useLogin } from 'src/hooks'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 
@@ -80,6 +80,8 @@ export const ProfileSettings = () => {
         }
     ]
 
+    const {fetchLogoutRequest} = useLogin();
+
     const onPressToggle = (isOn: boolean) => {
         const themeData = isOn ? Theme.LIGHT : Theme.DARK
         dispatch(storeAppTheme(themeData))
@@ -99,7 +101,10 @@ export const ProfileSettings = () => {
                                 })
                             )
                         }}
-                            onPress={() => { }}
+                            onPress={() => {
+                                console.log('exit clicked');
+                                fetchLogoutRequest();
+                             }}
                         />
                         <Label children={item.title} style={style.label} labelType={LabelTypeProp.p4} />
                     </View>

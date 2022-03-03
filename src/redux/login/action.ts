@@ -39,14 +39,11 @@ import {
     };
   };
 
-  // export const userLogout = (
-  //   payload: string
-  // ) : UserLogoutType => {
-  //   return{
-  //     type: FETCH_USER_LOGOUT,
-  //     payload,
-  //   }
-  // }
+  export const userLogout = () : UserLogoutType => {
+    return{
+      type: FETCH_USER_LOGOUT,
+    }
+  }
   
   export const loginAction = {
     fetchLogin,

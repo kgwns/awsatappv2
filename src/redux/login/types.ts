@@ -56,10 +56,10 @@ import {
 
   export type UserLogoutType = {
     type: typeof FETCH_USER_LOGOUT;
-    payload: FetchUserLogoutPayloadType;
   };
   
   export type LoginActions =
     | FetchLoginType
     | FetchLoginSuccessType
-    | FetchLoginFailedType;
+    | FetchLoginFailedType
+    | UserLogoutType;

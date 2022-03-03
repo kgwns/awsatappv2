@@ -56,7 +56,7 @@ export const SignUpPage = ({
         
         navigation.reset({
           index: 0,
-          routes: [{name: ScreensConstants.OnBoardNavigator}],
+          routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
         });
       }else{
         Alert.alert(message.message);

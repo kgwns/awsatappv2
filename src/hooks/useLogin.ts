@@ -4,7 +4,7 @@ import {
   getIsLoading,
   getLoginError,
 } from 'src/redux/login/selectors';
-import { fetchLogin } from 'src/redux/login/action';
+import { fetchLogin, userLogout } from 'src/redux/login/action';
 import { FetchLoginPayloadType } from 'src/redux/login/types';
 
 export interface UseLoginReturn {
@@ -15,6 +15,7 @@ export interface UseLoginReturn {
   isLoggedIn: boolean;
   token: string;
   user: any;
+  fetchLogoutRequest(): void;
 }
 
 export const useLogin = (): UseLoginReturn => {
@@ -28,6 +29,9 @@ export const useLogin = (): UseLoginReturn => {
   const fetchLoginRequest = (payload: FetchLoginPayloadType) => {
     dispatch(fetchLogin(payload));
   };
+  const fetchLogoutRequest = () => {
+    dispatch(userLogout());
+  }
   return {
     isLoading,
     loginData,
@@ -36,5 +40,6 @@ export const useLogin = (): UseLoginReturn => {
     isLoggedIn,
     token,
     user,
+    fetchLogoutRequest
   };
 };
