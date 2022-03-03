@@ -22,6 +22,8 @@ import {
   NewsLetterScreen,
   OpinionArticleDetail,
   ManageMyNewsScreen,
+  ManageMyFavoriteAuthorScreen,
+  ManageMyFavoriteTopicsScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -54,6 +56,8 @@ export const Routes = {
   NewsLetterScreen,
   OpinionArticleDetail,
   ManageMyNewsScreen,
+  ManageMyFavoriteAuthorScreen,
+  ManageMyFavoriteTopicsScreen,
 };
 
 /**
@@ -81,6 +85,8 @@ export type ScreenList = {
   NewsLetterScreen: undefined;
   OpinionArticleDetail: undefined;
   ManageMyNewsScreen: undefined;
+  ManageMyFavoriteAuthorScreen: undefined;
+  ManageMyFavoriteTopicsScreen: undefined;
 };
 
 export type ScreenName = keyof undefined;
@@ -103,6 +109,8 @@ const successScreen = 'successScreen' as ScreenName;
 const newsLetterScreen = 'newsLetterScreen' as ScreenName;
 const opinionArticleDetail = 'opinionArticleDetail' as ScreenName;
 const manageMyNewsScreen = 'manageMyNewsScreen' as ScreenName;
+const manageMyFavoriteAuthorScreen = 'manageMyFavoriteAuthorScreen' as ScreenName;
+const manageMyFavoriteTopicsScreen = 'manageMyFavoriteTopicsScreen' as ScreenName;
 
 export const RoutesName = {
   favoriteScreen,
@@ -123,4 +131,6 @@ export const RoutesName = {
   newsLetterScreen,
   opinionArticleDetail,
   manageMyNewsScreen,
+  manageMyFavoriteAuthorScreen,
+  manageMyFavoriteTopicsScreen,
 };

@@ -7,17 +7,17 @@ import { useTranslation } from 'react-i18next';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
-import { ScreensConstants } from 'src/constants';
 import { useAllSiteCategories } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
 
-export const SelectTopicsScreen = ({ navigation }: any) => {
+export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
   const [t] = useTranslation();
-  const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest} = useAllSiteCategories();
+  const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest,selectedTopicsData} = useAllSiteCategories();
   const [disableNext, setDisableNext] = useState<boolean>(true)
+  const [topicsData] = useState<AllSiteCategoriesItemType[]>([])
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -26,6 +26,42 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   useEffect(() => {
     fetchAllSiteCategoriesRequest(allSiteCategoriesPayload);
   }, []);
+
+  useEffect(() => {
+    if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
+      setAllTopicsData();
+    }
+  }, [allSiteCategoriesData]);
+
+  const getSelectedOrNot = (tid: any) => {
+    for (let i = 0; i < selectedTopicsData.data.length; i++) {
+      if (tid == selectedTopicsData.data[i].tid) {
+        return true
+      }
+    }
+    return false
+  }
+
+  const setAllTopicsData = () => {
+    if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
+      for (let i = 0; i < allSiteCategoriesData.length; i++) {
+        topicsData[i] = ({
+          name: allSiteCategoriesData[i].name,
+          description__value_export: allSiteCategoriesData[i].description__value_export,
+          field_opinion_writer_path_export: allSiteCategoriesData[i].field_opinion_writer_path_export,
+          view_taxonomy_term: allSiteCategoriesData[i].view_taxonomy_term,
+          tid: allSiteCategoriesData[i].tid,
+          vid_export: allSiteCategoriesData[i].vid_export,
+          field_description_export: allSiteCategoriesData[i].field_description_export,
+          field_opinion_writer_path_export_1: allSiteCategoriesData[i].field_opinion_writer_path_export_1,
+          field_opinion_writer_photo_export: allSiteCategoriesData[i].field_opinion_writer_photo_export,
+          parent_target_id_export:allSiteCategoriesData[i].parent_target_id_export,
+          isSelected: getSelectedOrNot(allSiteCategoriesData[i].tid),
+        })
+      }
+    }
+    updateNextButton()
+  }
 
   useEffect(() => {
     if (isObjectNonEmpty(sentTopicsData)) {
@@ -38,10 +74,10 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   }, [sentTopicsData]);
 
   const onTopicsChanged = (item: any, selected: boolean) => {
-    const data = allSiteCategoriesData
+    const data = topicsData
     for (let i = 0; i < data.length; i++) {
       if (item.tid == data[i].tid) {
-        data[i].isSelected = selected;
+        topicsData[i].isSelected = !topicsData[i].isSelected;
       }
     }
     updateNextButton()
@@ -60,7 +96,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   }
   
   const getSelectedData = () => {
-    return allSiteCategoriesData.reduce((prevValue: string[], item: AllSiteCategoriesItemType) => {
+    return topicsData.reduce((prevValue: string[], item: AllSiteCategoriesItemType) => {
       if (item.isSelected) {
         return prevValue.concat(item.tid)
       }
@@ -69,7 +105,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   }
 
   const gotoNext = () => {
-    navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN)
+    navigation.goBack();
   }
 
   return (
@@ -88,8 +124,8 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
           </Label>
         </View>
         <View style={style.widgetContainer}>
-          {isNonEmptyArray(allSiteCategoriesData) &&
-            <InterestedTopics allSiteCategoriesData={allSiteCategoriesData} onTopicsChanged={onTopicsChanged} />
+          {isNonEmptyArray(topicsData) &&
+            <InterestedTopics allSiteCategoriesData={topicsData} onTopicsChanged={onTopicsChanged} />
           }
         </View>
         <View style={style.nextButtonView}>

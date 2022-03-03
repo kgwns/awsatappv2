@@ -1,19 +1,19 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {ScreensConstants} from '../constants/ScreenConstants';
-import {Routes} from './index';
+import { createStackNavigator } from '@react-navigation/stack';
+import { ScreensConstants } from '../constants/ScreenConstants';
+import { Routes } from './index';
 import DrawerNavigator from './DrawerNavigator';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {Label} from 'src/components/atoms';
-import {useNavigation} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {normalize} from 'src/shared/utils';
-import {StyleSheet, TouchableOpacity} from 'react-native';
-import {getSvgImages} from 'src/shared/styles/svgImages';
-import {ImagesName} from 'src/shared/styles';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { Label } from 'src/components/atoms';
+import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { normalize } from 'src/shared/utils';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { getSvgImages } from 'src/shared/styles/svgImages';
+import { ImagesName } from 'src/shared/styles';
 
 const Stack = createStackNavigator();
 
@@ -22,7 +22,7 @@ const hideHeader = {
 }
 
 const AppNavigator = () => {
-  const {themeData} = useTheme();
+  const { themeData } = useTheme();
   const navigation = useNavigation();
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
@@ -43,7 +43,7 @@ const AppNavigator = () => {
       })}
     </TouchableOpacity>
   );
-  
+
   return (
     <Stack.Navigator initialRouteName={ScreensConstants.LatestNewsScreen}>
       <Stack.Screen
@@ -99,6 +99,26 @@ const AppNavigator = () => {
        <Stack.Screen
         name={ScreensConstants.MANAGE_MY_NEWS_SCREEN}
         component={Routes.ManageMyNewsScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(t('manageMyNews.header')),
+          headerTitleAlign: 'center',
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN}
+        component={Routes.ManageMyFavoriteAuthorScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(t('manageMyNews.header')),
+          headerTitleAlign: 'center',
+        }}
+      />
+         <Stack.Screen
+        name={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN}
+        component={Routes.ManageMyFavoriteTopicsScreen}
         options={{
           headerStyle: style.container,
           headerLeft: () => onBoardReturn(),

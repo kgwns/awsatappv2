@@ -9,6 +9,10 @@ import {
   SendSelectedAuthorFailedType,
   SendSelectedAuthorSuccessPayloadType,
   SendSelectedAuthorFailedPayloadtype,
+  GetSelectedAuthorSuccessType,
+  GetSelectedAuthorFailedType,
+  GetSelectedAuthorSuccessPayloadType,
+  GetSelectedAuthorFailedPayloadtype,
 } from 'src/redux/allWriters/types';
 import {
   FETCH_ALL_WRITERS,
@@ -17,6 +21,10 @@ import {
   SEND_SELECTED_AUTHOR,
   SEND_SELECTED_AUTHOR_SUCCESS,
   SEND_SELECTED_AUTHOR_ERROR,
+  GET_SELECTED_AUTHOR,
+  GET_SELECTED_AUTHOR_SUCCESS,
+  GET_SELECTED_AUTHOR_ERROR,
+  EMPTY_SELECTED_AUTHORS_INFO,
 } from 'src/redux/allWriters/actionTypes';
 
 export const fetchAllWriters = (payload: AllWritersBodyGet) => {
@@ -70,11 +78,45 @@ export const sendSelectedAuthorFailed = (
   };
 };
 
+export const getSelectedAuthors = () => {
+  return {
+    type: GET_SELECTED_AUTHOR,
+  };
+};
+
+export const getSelectedAuthorsSuccess = (
+  payload: GetSelectedAuthorSuccessPayloadType,
+): GetSelectedAuthorSuccessType => {
+  return {
+    type: GET_SELECTED_AUTHOR_SUCCESS,
+    payload,
+  };
+};
+
+export const getSelectedAuthorsFailed = (
+  payload: GetSelectedAuthorFailedPayloadtype,
+): GetSelectedAuthorFailedType => {
+  return {
+    type: GET_SELECTED_AUTHOR_ERROR,
+    payload,
+  };
+};
+
+export const emptySelectedAuthorsInfo = () => {
+  return {
+    type: EMPTY_SELECTED_AUTHORS_INFO,
+  };
+};
+
 export const allWritersActions = {
   fetchAllWriters,
   fetchAllWritersSuccess,
   fetchAllWritersFailed,
   sendSelectedAuthor,
   sendSelectedAuthorSuccess,
-  sendSelectedAuthorFailed
+  sendSelectedAuthorFailed,
+  getSelectedAuthors,
+  getSelectedAuthorsSuccess,
+  getSelectedAuthorsFailed,
+  emptySelectedAuthorsInfo,
 };

@@ -54,11 +54,12 @@ const InterestedTopics = (props:any) => {
     }
   }
 
-  const renderItem = (item: string, index: number) => {
+  const renderItem = (item: any, index: number) => {
     return (
       <View key={flatListUniqueKey.INTERESTED_TOPICS + index}>
         <View style={style.interestedTopicsContainer} >
-          <BorderLabel label={decode(item)}
+          <BorderLabel label={decode(item.name)}
+            isSelected={item.isSelected}
             onPress={selected => props.onTopicsChanged(item, selected)}
           />
         </View>
@@ -77,7 +78,7 @@ const InterestedTopics = (props:any) => {
           listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
           data={item}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => renderItem(item.name, index)}
+          renderItem={({ item, index }) => renderItem(item, index)}
         />
       </View>
     )
