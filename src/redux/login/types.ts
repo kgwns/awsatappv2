@@ -2,6 +2,7 @@ import {
     FETCH_LOGIN,
     FETCH_LOGIN_ERROR,
     FETCH_LOGIN_SUCCESS,
+    FETCH_USER_LOGOUT
   } from './actionTypes';
   
   export interface FieldLoginExportType {
@@ -20,6 +21,10 @@ import {
   
   export interface FetchLoginFailedPayloadType {
     error: string;
+  }
+
+  export interface FetchUserLogoutPayloadType {
+    token: string;
   }
 
   export interface FetchLoginPayloadType {
@@ -47,6 +52,11 @@ import {
   export type FetchLoginFailedType = {
     type: typeof FETCH_LOGIN_ERROR;
     payload: FetchLoginFailedPayloadType;
+  };
+
+  export type UserLogoutType = {
+    type: typeof FETCH_USER_LOGOUT;
+    payload: FetchUserLogoutPayloadType;
   };
   
   export type LoginActions =

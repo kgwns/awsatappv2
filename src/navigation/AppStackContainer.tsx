@@ -8,6 +8,7 @@ import {
 } from '@react-navigation/stack';
 import {ScreenList, Routes} from 'src/navigation';
 import { ScreensConstants } from 'src/constants';
+import { useLogin } from 'src/hooks';
 
 const Stack = createStackNavigator<ScreenList>();
 
@@ -18,11 +19,17 @@ const defaultScreenOptions: StackNavigationOptions = {
 };
 
 const AppStackContainer = () => {
+
+  const {isLoggedIn} = useLogin();
+
+  useEffect(() => {
+    console.log('check login', isLoggedIn);
+  }, [])
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={defaultScreenOptions}
-        initialRouteName={ScreensConstants.AuthNavigator}>
+        initialRouteName={isLoggedIn ? ScreensConstants.OnBoardNavigator : ScreensConstants.AuthNavigator}>
         <Stack.Screen
           name={ScreensConstants.AuthNavigator}
           component={Routes.AuthNavigator}

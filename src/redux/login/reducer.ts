@@ -25,6 +25,6 @@ export default (state = initialAuthState, action: LoginActions) => {
     case FETCH_LOGIN:
       return { ...state, isLoading: true, error: '', loginData: null };
     default:
-      return { ...state };
+      return state;
   }
 };
