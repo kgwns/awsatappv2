@@ -15,10 +15,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import MailAnimation from '../../../assets/lottie-animation/mail.json';
 import LottieView from 'lottie-react-native';
+import { NavigateTypes } from '../auth/AuthPage';
 
-export enum NavigateTypes {
-  termsAndConditions = 'TERMSANDCONDITIONS',
-}
 
 export const ForgotPassword: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -42,7 +40,7 @@ export const ForgotPassword: FunctionComponent = () => {
     console.log('return button tapped')
   }
   const onPressGoToMail = () => {
-    console.log('Go to mail button tapped')
+    navigation.navigate(ScreensConstants.NEW_PASSWORD)
   }
   const onPressSkip = () => {
     console.log('skip button tapped')
@@ -107,7 +105,7 @@ export const ForgotPassword: FunctionComponent = () => {
               accessibilityLabel="terms_and_conditions"
               onPress={() => navigateToSection('TERMSANDCONDITIONS')}>
               <Label
-                children={t('signIn.termsAndConditions')}
+                children={t('terms_and_condition')}
                 labelType="p5"
                 color={colors.greenishBlue}
                 style={styles.spaceStyle}

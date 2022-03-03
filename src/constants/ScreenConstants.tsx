@@ -25,6 +25,7 @@ const SUCCESS_SCREEN = 'SuccessScreen' as ScreenName;
 const NEWS_LETTER_SCREEN = 'NewsLetterScreen' as ScreenName;
 const PROFILE_SETTING = 'PROFILE_SETTING' as ScreenName
 const OPINION_ARTICLE_DETAIL_SCREEN = 'OPINION_ARTICLE_DETAIL_SCREEN' as ScreenName;
+const NEW_PASSWORD = 'NewPassword' as ScreenName;
 const MANAGE_MY_NEWS_SCREEN = 'MANAGE_MY_NEWS_SCREEN' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
@@ -60,5 +61,6 @@ export const ScreensConstants = {
   NEWS_LETTER_SCREEN,
   PROFILE_SETTING,
   OPINION_ARTICLE_DETAIL_SCREEN,
+  NEW_PASSWORD,
   MANAGE_MY_NEWS_SCREEN,
 };

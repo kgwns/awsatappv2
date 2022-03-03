@@ -146,6 +146,7 @@ export const arabic = {
     emailNotValid: 'Email not valid',
     passwordEmpty: 'Password required',
     passwordNotMatch: 'Password do not match',
+    passwordStrength: 'Password is too short'
   },
   about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',
@@ -189,6 +190,13 @@ export const arabic = {
     return:'الرجوع',
     listenToArticle:'استمع الي المقالة',
     relatedOpinionTitle:'مقالات ذات صلة',
+  },
+  newPassword: {
+    createNewPassword: 'أنشئ كلمة مرور جديدة',
+    passwordDescription: 'يجب أن تكون كلمة مرورك الجديدة مختلفة عن كلمة مرورك القديمة',
+    setNewPassword: 'ضبط كلمة المرور',
+    passwordWarning: 'يجب ألا يقل عن 8 أحرف',
+    passwordMatchWarning: 'يجب أن تتطابق كلمتا المرور'
   },
   manageMyNews:{
     header:'إدارة أخباري',
