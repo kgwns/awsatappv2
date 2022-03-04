@@ -22,9 +22,6 @@ const AppStackContainer = () => {
 
   const {isLoggedIn, loginData, isSkipped} = useLogin();
 
-  useEffect(() => {
-    //console.log('check login', loginData.message.newUser === 1);
-  }, [])
   return (
     <NavigationContainer>
       <Stack.Navigator
