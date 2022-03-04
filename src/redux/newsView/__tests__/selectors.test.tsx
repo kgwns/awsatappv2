@@ -1,4 +1,5 @@
 import {storeInfo} from 'src/constants/SampleData';
+import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import {
   getIsLoading,
   getTopListData,
@@ -16,16 +17,16 @@ describe('NewsView Selector', () => {
   });
 
   test('Get Hero List data', () => {
-    const opinionData: NewsViewListItemType[] = getHeroListData(storeData);
-    expect(opinionData).toEqual([]);
+    const heroData: NewsViewListItemType[] = getHeroListData(storeData);
+    expect(heroData).toEqual([]);
   });
   test('Get Bottom List data', () => {
-    const opinionData: NewsViewListItemType[] = getBottomListData(storeData);
-    expect(opinionData).toEqual([]);
+    const bottomData: NewsViewListItemType[] = getBottomListData(storeData);
+    expect(bottomData).toEqual([]);
   });
   test('Get Top List data', () => {
-    const opinionData: NewsViewListItemType[] = getTopListData(storeData);
-    expect(opinionData).toEqual([]);
+    const topData: LatestArticleDataType[] = getTopListData(storeData);
+    expect(topData).toEqual([]);
   });
 
   test('Get error state', () => {

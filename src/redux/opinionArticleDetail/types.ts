@@ -37,6 +37,7 @@ export interface OpinionArticleDetailItemType {
   jwplayer?: any;
   field_edit_letter_writer_export?: any;
   writer: WriterType[];
+  isBookmarked: boolean
 }
 
 interface PagerType {

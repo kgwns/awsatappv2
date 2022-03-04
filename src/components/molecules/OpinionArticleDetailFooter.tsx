@@ -1,5 +1,5 @@
 import {View, StyleSheet} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {ButtonImage} from 'src/components/atoms';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
@@ -8,23 +8,21 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import Share from 'react-native-share';
-import {useAppCommon} from 'src/hooks';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
 
 export const OpinionArticleDetailFooter = ({
   opinionArticleDetailData,
+  isBookmarked,
+  onPressSave,
 }: {
   opinionArticleDetailData: OpinionArticleDetailItemType;
+  isBookmarked: boolean
+  onPressSave: () => void
 }) => {
-  const {theme} = useAppCommon();
-  const [saveState, setSaveState] = useState(false);
-  let articleSaveIcon = saveState
+  let articleSaveIcon = isBookmarked
     ? ImagesName.bookMarkActiveSVG
     : ImagesName.bookmark;
 
-  const onPressSave = () => {
-    setSaveState(!saveState);
-  };
 
   const onPressShare = async () => {
     const {title, view_node} = opinionArticleDetailData;

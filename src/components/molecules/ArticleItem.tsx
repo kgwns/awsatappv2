@@ -10,13 +10,14 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface ArticleItemProps extends articleProps {
     index: number,
-    articleItemStyle?: ViewStyle
+    articleItemStyle?: ViewStyle,
 }
 
 const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     image,
     imageStyle,
     articleItemStyle,
+    onPressBookmark,
     ...props
 }) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
@@ -30,8 +31,10 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
         <TouchableWithoutFeedback onPress={onPress}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
                 style={StyleSheet.flatten([{ paddingBottom: normalize(20) }, articleItemStyle])}>
-                {image && <ImageWithLabel url={image} {...props} onPress={onPress} imageStyle={imageStyle} />}
-                <ArticleWithOutImage {...props} />
+                {image && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
+                <ArticleWithOutImage {...props} onPress={onPress}
+                   onPressBookmark={onPressBookmark}
+                />
             </View>
         </TouchableWithoutFeedback>
     )

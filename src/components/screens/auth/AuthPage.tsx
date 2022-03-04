@@ -18,6 +18,7 @@ import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useEmailCheck} from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
+import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -61,6 +62,9 @@ export const AuthPage: FunctionComponent = () => {
       case NavigateTypes.email:
         return;
       case NavigateTypes.termsAndConditions:
+        navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US,
+          { title: t('terms_and_condition'), id: TERMS_AND_CONDITION }
+        )
         return;
       case NavigateTypes.signinPage:
         return;

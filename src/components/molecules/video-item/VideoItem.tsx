@@ -5,6 +5,7 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {
+  ButtonImage,
   Image,
   Label,
 } from 'src/components/atoms';
@@ -17,6 +18,8 @@ import {useTranslation} from 'react-i18next';
 import {getImageUrl} from 'src/shared/utils/utilities';
 import {timeAgo} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
+import { getSvgImages } from 'src/shared/styles/svgImages';
+import { ImagesName } from 'src/shared/styles';
 export interface VideoItemProps {
   imageUrl: string;
   videoLabel?: string;
@@ -31,6 +34,8 @@ export interface VideoItemProps {
   shortDescription?: string;
   toWatchTitle?: string;
   video?: string;
+  isBookmarked:boolean;
+  onPressBookmark:()=>void;
 }
 
 export const VideoItem = ({
@@ -45,6 +50,8 @@ export const VideoItem = ({
   onPress,
   testID,
   toWatchTitle,
+  isBookmarked,
+  onPressBookmark
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
@@ -97,7 +104,21 @@ export const VideoItem = ({
             {monthDate}
           </Label>
         </View>
-        <BookmarkIcon fill={colors.davyGrey} />
+        <ButtonImage
+            testId={'bookmarkTestId'}
+            icon={() => {
+              return isBookmarked
+                ? getSvgImages({
+                    name: ImagesName.bookMarkActiveSVG,
+                    size: normalize(18),
+                  })
+                : getSvgImages({
+                    name: ImagesName.bookMarkSVG,
+                    size: normalize(18),
+                  });
+            }}
+            onPress={onPressBookmark}
+          />
       </View>
     </View>
   );

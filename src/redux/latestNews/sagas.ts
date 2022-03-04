@@ -49,7 +49,8 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
           image: getImageUrl(field_image),
           news_categories: field_news_categories_export,
           author: author_resource,
-          created: created_export
+          created: created_export,
+          isBookmarked: false
         })
       );
     }

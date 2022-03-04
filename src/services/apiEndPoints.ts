@@ -69,3 +69,9 @@ export const ADD_YOUR_TOPICS_ENDPOINT = 'api/ums/v1/addYourTopics?tid='
 //Opinion Article Detail
 export const OPINION_ARTICLE_DETAIL = 'api/v2/opinionnode/'
 
+//Bookmark
+export const SEND_BOOK_MARK = 'api/ums/v1/addBookmarks'
+export const GET_BOOK_MARK_END_POINT = 'api/ums/v1/getBookmarks'
+export const REMOVE_BOOK_MARK_END_POINT = 'api/ums/v1/removeBookmarks'
+export const GET_BOOK_DETAIL_INFO_END_POINT = 'api/v2/nodelist/'
+

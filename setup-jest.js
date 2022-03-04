@@ -58,6 +58,17 @@ jest.mock('react-native-color-matrix-image-filters', () => {
   }
 })
 
+jest.mock('redux-persist', () => {
+  const real = jest.requireActual('redux-persist');
+  return {
+    ...real,
+    persistReducer: jest
+      .fn()
+      .mockImplementation((config, reducers) => reducers),
+  };
+});
+
+
 jest.mock('keyboard-aware-view', () => {
   return {
     KeyboardAwareView: jest.fn().mockImplementation(() => jest.fn())

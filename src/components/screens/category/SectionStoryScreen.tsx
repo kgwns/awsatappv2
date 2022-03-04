@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {ShortArticle, NewsFeed} from '../../organisms';
+import {ShortArticle, NewsFeed, AlertModal} from '../../organisms';
 import {isTab, normalize, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
@@ -18,8 +18,13 @@ import {ScreensConstants} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {LabelTypeProp} from 'src/components/atoms';
+import { useBookmark, useLogin } from 'src/hooks';
+import { LatestArticleDataType } from 'src/redux/latestNews/types';
+import { useTranslation } from 'react-i18next';
 
 export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
+  const [t] = useTranslation()
+  
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -57,9 +62,11 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
     emptyAllListData,
   } = useNewsView();
 
+  const { sendBookmarkInfo, removeBookmarkedInfo,bookmarkIdInfo } = useBookmark()
+  const { isLoggedIn } = useLogin()
+
   useEffect(() => {
     emptyAllListData();
-    setTopList([]);
     fetchHeroListRequest(heroListPayload);
     fetchTopListRequest(topListPayload);
   }, [sectionId]);
@@ -83,92 +90,179 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
   };
 
+  const [heroListDataInfo,setHeroListDataInfo] = useState(heroListData)
+  const [bottomListDataInfo,setBottomListDataInfo] = useState(bottomListData)
+  const [topListDataInfo,setTopListDataInfo] = useState(topListData)
+  const [showupUp,setShowPopUp] = useState(false)
+
+
   useEffect(() => {
-    formatTopicListData(topListData);
-  }, [topListData]);
+    updateHeroListData()
+  }, [heroListData,bookmarkIdInfo])
 
-  interface TopList {
-    title: string;
-    body: string;
-    nid: string;
-    image: string;
-    news_categories: NewsCategoriesType;
-    author: string;
-    created: Date;
+  useEffect(() => {
+    updateBottomListData()
+  }, [bottomListData,bookmarkIdInfo])
+
+  useEffect(() => {
+    updateTopListData()
+  }, [topListData,bookmarkIdInfo])
+
+  const updateHeroListData = () => {
+    if(isNonEmptyArray(heroListData)) {
+      const heroData = updateBookmark(heroListData)
+      setHeroListDataInfo(heroData)
+    }
   }
 
-  interface NewsCategoriesType {
-    id?: string;
-    title?: string;
-    url?: string;
-    bundle?: string;
-    name?: string;
+  const updateBottomListData = () => {
+    if(isNonEmptyArray(bottomListData)) {
+      const bottomData = updateBookmark(bottomListData)
+      setBottomListDataInfo(bottomData)
+    }
   }
 
-  const [topList,setTopList] = useState<TopList[]>([]);
-  //formatted key of topList data for short article
-  const formatTopicListData = (topListData: NewsViewListItemType[]) => {
-    for (let i = 0; i < topListData.length; i++) {
-      topList.splice(0, 1);
+  const updateTopListData = () => {
+    if(isNonEmptyArray(topListData)) {
+      const topData = updateTopListBookmark(topListData)
+      setTopListDataInfo(topData)
     }
-    for (let i = 0; i < topListData.length; i++) {
-      topList?.push({
-        title: topListData[i].title,
-        body: topListData[i].body,
-        nid: topListData[i].nid,
-        image: topListData[i].field_image,
-        news_categories: topListData[i].field_news_categories_export,
-        author: topListData[i].author_resource,
-        created: topListData[i].created_export,
-      });
+  }
+
+  const updateTopListBookmark = (data: LatestArticleDataType[]) => {
+    return data.map((item: LatestArticleDataType) => (
+      {
+        ...item,
+        isBookmarked: validateBookmark(item.nid)
+      }
+    ))
+  }
+
+  const updateBookmark = (data: NewsViewListItemType[]) => {
+    return data.map((item: NewsViewListItemType) => (
+      {
+        ...item,
+        isBookmarked: validateBookmark(item.nid)
+      }
+    ))
+  }
+
+  const validateBookmark = (nid: string): boolean => {
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+  }
+
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+    if (isLoggedIn) {
+      isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    } else {
+      makeSignUpAlert()
     }
-  };
+  }
+
+  const onPressSignUp = () => {
+    setShowPopUp(false)
+    navigation.reset({
+      index: 0,
+      routes: [{name: ScreensConstants.AuthNavigator}],
+    });
+  }
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
+  }
+
+  const makeSignUpAlert = () => {
+    setShowPopUp(true)
+  }
+
+  const updatedHeroBookmark = (index: number) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+
+    const updatedData = updatedChangeBookmark(heroListDataInfo, index)
+    setHeroListDataInfo(updatedData)
+  }
+
+  const updatedChangeBookmark = (data: NewsViewListItemType[], index: number) => { 
+    const updatedData = [...data]
+    const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
+    updatedData[index].isBookmarked = bookmarkStatus
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    return updatedData
+  }
+
+  const updatedNewsFeedBookmark = (index: number) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+    
+    const updatedData = updatedChangeBookmark(bottomListDataInfo, index)
+    setBottomListDataInfo(updatedData)
+  }
 
   const renderItem = () => (
     <View style={{backgroundColor: themeData.backgroundColor}}>
-      {isNonEmptyArray(heroListData) && heroListData[0] && (
+      {isNonEmptyArray(heroListDataInfo) && heroListDataInfo[0] && (
         <ImageArticle
-          image={getImageUrl(heroListData[0].field_image)}
-          title={heroListData[0].title}
+          image={getImageUrl(heroListDataInfo[0].field_image)}
+          title={heroListDataInfo[0].title}
           containerStyle={isTab ? style.tabletImageStyle : style.imageStyle}
-          author={heroListData[0].author_resource}
-          nid={heroListData[0].nid}
-          created={heroListData[0].created_export.toString()}
-        />
+          author={heroListDataInfo[0].author_resource}
+          nid={heroListDataInfo[0].nid}
+          created={heroListDataInfo[0].created_export.toString()} 
+          isBookmarked={heroListDataInfo[0].isBookmarked} 
+          onPressBookmark={()=>updatedHeroBookmark(0)}/>
       )}
-      {isNonEmptyArray(heroListData) && heroListData[1] && (
+      {isNonEmptyArray(heroListDataInfo) && heroListDataInfo[1] && (
         <View
           style={{paddingTop: normalize(15), paddingHorizontal: normalize(15)}}>
           <SectionArticleItem
-            headerTitle={heroListData[1].title}
-            body={decodeHTMLTags(heroListData[1].body)}
-            image={getImageUrl(heroListData[1].field_image)}
+            headerTitle={heroListDataInfo[1].title}
+            body={decodeHTMLTags(heroListDataInfo[1].body)}
+            image={getImageUrl(heroListDataInfo[1].field_image)}
             imageStyle={{
               height: normalize(0.52 * screenWidth),
               paddingHorizontal: normalize(10),
             }}
             hideFooter={true}
-            nid={heroListData[1].nid}
+            nid={heroListDataInfo[1].nid}
+            isBookmarked={heroListDataInfo[1].isBookmarked}
+            onPressBookmark={()=>updatedHeroBookmark(1)}
           />
         </View>
       )}
-      {isNonEmptyArray(topList) && (
+      {isNonEmptyArray(topListDataInfo) && (
         <ShortArticle
-          data={topList}
+          data={topListDataInfo}
           onPress={onPressArticle}
           labelType={LabelTypeProp.h3}
+          onUpdateBookmark={updateBookmarkInfo}
+          showSignUpPopUp={makeSignUpAlert}
         />
       )}
       {/* <VideoContent data={videoTabData} /> */}
       <NewsFeed
-        data={bottomListData}
+        data={bottomListDataInfo}
         onScroll={() => gotoNextPage()}
         isLoading={isLoading}
+        onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
       />
     </View>
   );
   return (
     <View>
+      {showupUp && <AlertModal
+        title={t('signUpAlert.subscribe')}
+        message={t('signUpAlert.description')}
+        buttonText={t('signUpAlert.signUp')}
+        isVisible={showupUp}
+        onPressSuccess={onPressSignUp}
+        onClose={onCloseSignUpAlert}
+      />
+      }
       <FlatList
       data={[{}]}
       keyExtractor={(_, index) => index.toString()}

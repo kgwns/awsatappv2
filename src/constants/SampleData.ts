@@ -93,10 +93,7 @@ export const storeInfo = [
         rows: [],
         pager: { current_page: 0, items_per_page: '' }
       },
-      topListData: {
-        rows: [],
-        pager: { current_page: 0, items_per_page: '' }
-      },
+      topListData: [],
       bottomListData: {
         rows: [],
         pager: { current_page: 0, items_per_page: '' }
@@ -136,6 +133,16 @@ export const storeInfo = [
       isLoading: true,
       error: '',
       opinionArticleDetailData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+    },
+    bookmark:{
+      isLoading: true,
+      error: '',
+      sendBookMarkSuccessInfo: {},
+      bookmarkedSuccessInfo: [],
+      bookmarkDetailSuccessInfo: {},
+      removeBookmarkInfo: {},
+      removeBookmarkError: '',
+      getBookmarkDetailError: ''
     }
   },
 ];

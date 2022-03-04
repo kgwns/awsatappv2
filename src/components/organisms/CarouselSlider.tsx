@@ -5,19 +5,22 @@ import { ImageArticle } from '../molecules'
 import { articleProps } from './ArticleSection'
 import { flatListUniqueKey } from '../../constants'
 import { HeadlinesSection } from 'src/components/organisms';
-import { LatestArticleDataType } from '~/redux/latestNews/types'
+import { LatestArticleDataType } from 'src/redux/latestNews/types'
 
 type CarouselSliderProps = {
     tickerData: LatestArticleDataType[],
-    heroData: LatestArticleDataType[]
+    heroData: LatestArticleDataType[],
+    onUpdateHeroBookmark: (index: number) => void
 }
 
 const CarouselSlider = ({
-    tickerData, heroData
+    tickerData, heroData, onUpdateHeroBookmark
 }: CarouselSliderProps) => {
     const sliderRef = useRef<FlatList<articleProps>>(null)
+
     const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
         return <ImageArticle key={index} {...item}
+            onPressBookmark={() => onUpdateHeroBookmark(index)}
             containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
     }
     return (

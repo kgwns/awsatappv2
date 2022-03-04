@@ -15,6 +15,7 @@ import type { MixedStyleRecord } from '@native-html/transient-render-engine';
 import { RelatedArticleDataType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
+import { useBookmark, useLogin } from 'src/hooks'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -30,7 +31,14 @@ export const ArticleDetailScreen = ({
   route
 }: ArticleDetailScreenProps) => {
   const { themeData } = useTheme()
+  const { isLoggedIn } = useLogin()
+
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
+
+  const [isBookmarked, setIsBookmarked] = useState(false)
+
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const [showupUp,setShowPopUp] = useState(false)
 
   const {
     isLoading,
@@ -39,14 +47,26 @@ export const ArticleDetailScreen = ({
     fetchArticleDetail,
   } = useArticleDetail();
 
+  const validateBookmark = (nid: string): boolean => {
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+  }
+
   const relatedArticleInfo = relatedArticleData.map((item: RelatedArticleDataType) => {
     return {
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
-      flag: item.news_categories.title
+      flag: item.news_categories.title,
+      isBookmarked: validateBookmark(item.nid)
     }
   })
+
+  useEffect(() => {
+    if (isNonEmptyArray(articleDetailData)) {
+      const isBookmarked = validateBookmark(articleDetailData[0].nid)
+      setIsBookmarked(isBookmarked)
+    }
+  }, [articleDetailData])
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -67,7 +87,7 @@ export const ArticleDetailScreen = ({
       Orientation.removeOrientationListener(updateScreenEdge)
     }
   }, [])
-  
+
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const edge = getScreenEdge(deviceOrientation)
@@ -92,6 +112,33 @@ export const ArticleDetailScreen = ({
     nid && getArticleDetail(nid)
   }
 
+  const onPressSave = (nid: string) => {
+    const newBookmarked = !isBookmarked
+    const data = [...articleDetailData]
+    data[0].isBookmarked = !data[0].isBookmarked
+    setIsBookmarked(newBookmarked)
+    onUpdateBookMark(nid, newBookmarked)
+  }
+
+  const checkAndUpdateBookmark = (nid: string) => {
+    isLoading ? onPressSave(nid) : setShowPopUp(true)
+  }
+
+  const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
+    if (isLoggedIn) {
+      hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    } else {
+      setShowPopUp(true)
+    }
+  }
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
+  }
+
+  const makeSignUpAlert = () => {
+    setShowPopUp(true)
+  }
 
   const articleHtmlContent = () => (
     <View style={articleDetailScreenStyle.labelStyle}>
@@ -107,18 +154,20 @@ export const ArticleDetailScreen = ({
         {articleHtmlContent()}
       </>
       }
-      {/* <RelatedArticles /> */}
       {isNonEmptyArray(relatedArticleData) &&
         <ShortArticle data={relatedArticleInfo}
           headerLeft={relatedShortArticleHeaderLeft}
           onPress={onPressArticle}
+          onUpdateBookmark={onUpdateBookMark}
+          showSignUpPopUp={makeSignUpAlert}
         />}
       <Divider style={{ height: normalize(50) }} />
     </View>
   )
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading}>
+    <ScreenContainer edge={edge} isLoading={isLoading} 
+    isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
       {!isLoading && isNonEmptyArray(articleDetailData) && <>
         <FlatList
           style={{ flex: 1, height: '100%' }}
@@ -129,7 +178,10 @@ export const ArticleDetailScreen = ({
           bounces={false}
         />
         <View style={articleDetailScreenStyle.footer}>
-          <ArticleDetailFooter articleDetailData={articleDetailData[0]} />
+          <ArticleDetailFooter articleDetailData={articleDetailData[0]}
+            isBookmarked={isBookmarked}
+            onPressSave={() => checkAndUpdateBookmark(articleDetailData[0].nid)}
+          />
         </View>
       </>
       }

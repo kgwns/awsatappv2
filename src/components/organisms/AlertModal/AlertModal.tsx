@@ -13,13 +13,15 @@ export const AlertModal = ({
     title,
     isVisible,
     buttonText,
-    onClose
+    onClose,
+    onPressSuccess
 }: {
     title: string;
     message: string;
     buttonText: string;
     isVisible: boolean;
     onClose: (isVisible: boolean) => void;
+    onPressSuccess: () => void
 }) => {
     const [modalVisible, setModalVisibility] = useState(isVisible)
     const styles = useThemeAwareObject(customStyle)
@@ -44,7 +46,7 @@ export const AlertModal = ({
                         style={styles.instructionTextStyle}
                         numberOfLines={2}
                     />
-                    <TouchableOpacity onPress={() => console.log('sign in button clicked')}>
+                    <TouchableOpacity onPress={onPressSuccess}>
                         <View style={styles.buttonBackgroundStyle}>
                             <Label style={styles.buttonLabelStyle}
                                 children={buttonText} />
