@@ -13,7 +13,7 @@ describe('opinionWriter reducer', () => {
   beforeEach(() => {
     initialState = {
       heroListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
-      topListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
+      topListData: [],
       bottomListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
       error: '',
       isLoading: false,

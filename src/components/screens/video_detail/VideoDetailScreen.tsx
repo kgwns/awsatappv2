@@ -6,10 +6,10 @@ import Share from 'react-native-share';
 import {VideosList, VideoInfo} from 'src/components/organisms';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge} from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isNonEmptyArray} from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import { useVideoList } from 'src/hooks';
+import { useBookmark, useVideoList } from 'src/hooks';
 import { VideoItemType } from 'src/redux/videoList/types';
 
 export interface VideoDetailScreenProps {
@@ -23,6 +23,34 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const styles = useThemeAwareObject(createStyles);
   const [isSaved, setIsSaved] = useState(false);
   const insets = useSafeAreaInsets();
+
+  const [isBookmarked, setIsBookmarked] = useState(false)
+
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+
+  useEffect(() => {
+    if (isNonEmptyArray(videoData)) {
+      const isBookmarked = validateBookmark(videoData[0].nid)
+      setIsBookmarked(isBookmarked)
+    }
+  }, [videoData,bookmarkIdInfo])
+
+  const validateBookmark = (nid: string): boolean => {
+    const index = isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.findIndex(value => value.nid == nid) : -1
+    return index >= 0 ? true : false
+  }
+
+  const onPressSave = (nid: string) => {
+    const newBookmarked = !isBookmarked
+    const data = [...videoData]
+    data[0].isBookmarked = !data[0].isBookmarked
+    setIsBookmarked(newBookmarked)
+    onUpdateBookMark(nid, newBookmarked)
+  }
+
+  const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
+    hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+  }
 
   const onPressShare = async () => {
     const { title, imageUrl } = route.params.data
@@ -46,8 +74,8 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           headerBookmarkIconTestId={'video_detail_save'}
           headerBackIconTestId={'video_detail_back'}
           onPressShare={onPressShare}
-          onPressSave={()=>setIsSaved(!isSaved)}
-          isSaved={isSaved}
+          onPressSave={()=>onPressSave(videoData[0].nid)}
+          isSaved={isBookmarked}
           isCloseIcon
         />
         {videoData.length&&<VideoInfo data={videoData[0]} onPress={(item:VideoItemType)=>{console.log(item)}}/>}

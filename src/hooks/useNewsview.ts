@@ -13,11 +13,12 @@ import {
   fetchTopList,
   emptyAllList,
 } from 'src/redux/newsView/action';
+import { LatestArticleDataType } from 'src/redux/latestNews/types';
 
 export interface UseNewsViewReturn {
   isLoading: boolean;
   heroListData: NewsViewListItemType[];
-  topListData: NewsViewListItemType[];
+  topListData: LatestArticleDataType[];
   bottomListData: NewsViewListItemType[];
   newsViewError: string;
   fetchHeroListRequest(payload: NewsViewBodyGet): void;

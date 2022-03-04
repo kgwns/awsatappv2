@@ -14,6 +14,7 @@ export interface VideoItemType {
   field_multimedia_section_export?: string|null;
   field_thumbnil_multimedia_export?: string;
   description?: string|null;
+  isBookmarked:boolean;
 }
 
 export interface FetchVideoSuccessPayloadType {

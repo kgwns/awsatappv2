@@ -36,9 +36,10 @@ interface NewsFeedWidgetProps {
   data: NewsViewListItemType[];
   onScroll: () => void;
   isLoading: boolean;
+  onUpdateNewsFeedBookmark: (index: number) => void
 }
 
-const NewsFeed = ({data, onScroll, isLoading}: NewsFeedWidgetProps) => {
+const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeedWidgetProps) => {
   const theme = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>();
   const onPress = (nid: string) => {
@@ -91,6 +92,8 @@ const NewsFeed = ({data, onScroll, isLoading}: NewsFeedWidgetProps) => {
             rightDateColor={Styles.color.smokeyGrey}
             rightTitleColor={Styles.color.smokeyGrey}
             addBookMark={true}
+            isBookmarked={item.isBookmarked}
+            onPressBookmark={()=>{onUpdateNewsFeedBookmark(index)}}
           />
         </View>
         <Divider />

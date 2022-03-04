@@ -92,9 +92,7 @@ export const LatestNewsScreen = () => {
   }
 
   const updatedChangeBookmark = (data: LatestArticleDataType[], index: number) => {
-    console.log("🚀 ~ file: LatestNewsScreen.tsx ~ line 94 ~ updatedChangeBookmark ~ index", index)
     const updatedData = [...data]
-    console.log("🚀 ~ file: LatestNewsScreen.tsx ~ line 95 ~ updatedChangeBookmark ~ updatedData", updatedData)
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
     updatedData[index].isBookmarked = bookmarkStatus
     updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
