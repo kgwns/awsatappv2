@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import React from 'react'
 import { PopulateWidget } from 'src/components/molecules'
 import { isNonEmptyArray } from 'src/shared/utils'
@@ -18,6 +18,12 @@ export const DynamicWidget = ({
                     return <PopulateWidget key={index} {...item} />
                 })
             }
+            {/* <FlatList
+                keyExtractor={(_, index) => index.toString()}
+                data={data}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item, index }) => <PopulateWidget key={index} {...item} />}
+            /> */}
         </View>
     )
 }

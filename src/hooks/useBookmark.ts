@@ -5,7 +5,7 @@ import {
 } from 'src/redux/articleDetail/selectors';
 import { BookmarkIdSuccessDataFieldType, GetBookmarkDetailBodyGet, RemoveBookmarkDetailDataBody, SendBookMarkBodyGet, SendBookMarkSuccessInfoType } from 'src/redux/bookmark/types';
 import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookMarkSuccessInfo } from 'src/redux/bookmark/selectors';
-import { getBookmarked, getBookmarkedDetailInfo, removeBookmarked, sendBookMarkId } from 'src/redux/bookmark/action';
+import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMarkedSuccessDetailInfo, removeBookmarked, sendBookMarkId } from 'src/redux/bookmark/action';
 
 export interface UseBookMarkReturn {
   isLoading: boolean;
@@ -17,6 +17,7 @@ export interface UseBookMarkReturn {
   getBookmarkedId(): void
   removeBookmarkedInfo(payload: RemoveBookmarkDetailDataBody): void
   getBookmarkDetailData(payload: GetBookmarkDetailBodyGet): void
+  removeBookmark(): void
 }
 
 export const useBookmark = (): UseBookMarkReturn => {
@@ -43,6 +44,11 @@ export const useBookmark = (): UseBookMarkReturn => {
     dispatch(removeBookmarked(payload))
   }
 
+  const removeBookmark = () => {
+    dispatch(getBookMarkedSuccess({bookmarkedInfo: []}))
+    dispatch(getBookMarkedSuccessDetailInfo({bookmarkedDetailInfo: []}))
+  }
+
   return {
     isLoading,
     bookMarkSuccessInfo,
@@ -52,6 +58,7 @@ export const useBookmark = (): UseBookMarkReturn => {
     sendBookmarkInfo,
     getBookmarkedId,
     removeBookmarkedInfo,
-    getBookmarkDetailData
+    getBookmarkDetailData,
+    removeBookmark,
   };
 };

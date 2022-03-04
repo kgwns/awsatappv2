@@ -2,10 +2,11 @@ import { View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FilterComponent, FilterDataType } from 'src/components/molecules'
-import { isNonEmptyArray, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, screenHeight, screenWidth } from 'src/shared/utils'
 import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
+import { Label, LabelTypeProp } from 'src/components/atoms'
 
 export const Archives = () => {
     const [t] = useTranslation()
@@ -79,11 +80,18 @@ export const Archives = () => {
         <View style={{ flex: 1 }}>
             <View style={{ paddingHorizontal: 0.04 * screenWidth }}>
                 <FilterComponent data={filterItem} onPress={onPressFilterItem} />
-                <DynamicWidget
-                    data={filteredData}
-                />
+                {isNonEmptyArray(filteredData) && <DynamicWidget data={filteredData} />}
             </View>
-            {/* <ArchivesPodcast /> */}
+            {!isNonEmptyArray(filteredData) && <View
+                style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: 0.32 * screenHeight
+                }}>
+                <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
+            </View>
+            }
         </View>
     )
 }
