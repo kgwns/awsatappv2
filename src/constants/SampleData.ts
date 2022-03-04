@@ -133,6 +133,16 @@ export const storeInfo = [
       isLoading: true,
       error: '',
       opinionArticleDetailData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+    },
+    bookmark:{
+      isLoading: true,
+      error: '',
+      sendBookMarkSuccessInfo: {},
+      bookmarkedSuccessInfo: [],
+      bookmarkDetailSuccessInfo: {},
+      removeBookmarkInfo: {},
+      removeBookmarkError: '',
+      getBookmarkDetailError: ''
     }
   },
 ];
