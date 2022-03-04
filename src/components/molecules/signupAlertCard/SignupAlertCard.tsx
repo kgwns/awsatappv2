@@ -10,7 +10,7 @@ interface SignupAlertCardProps {
     title: string;
     message: string;
     buttonText: string;
-    onPress?: string;
+    onPress?:() => void;
 
 }
 
@@ -28,7 +28,7 @@ export const SignupAlertCard = ({title, message, buttonText, onPress}: SignupAle
           style={styles.instructionTextStyle}
           numberOfLines={2}
         />
-        <TouchableOpacity onPress={() => onPress}>
+        <TouchableOpacity onPress={onPress}>
           <View style={styles.buttonBackgroundStyle}>
             <Label style={styles.buttonLabelStyle} children={buttonText} />
           </View>
@@ -69,7 +69,7 @@ const customStyle = (theme: CustomThemeType) =>
       lineHeight: normalize(25),
       textAlign: 'center',
       paddingBottom: normalize(50),
-      width: normalize(278),
+      paddingHorizontal: normalize(20)
     },
     buttonBackgroundStyle: {
       height: normalize(46),

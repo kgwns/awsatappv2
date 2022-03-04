@@ -3,8 +3,9 @@ import {
   getLoginData,
   getIsLoading,
   getLoginError,
+  getIsSkipped,
 } from 'src/redux/login/selectors';
-import { fetchLogin, userLogout } from 'src/redux/login/action';
+import { fetchLogin, userLoginSkipped, userLogout } from 'src/redux/login/action';
 import { FetchLoginPayloadType } from 'src/redux/login/types';
 
 export interface UseLoginReturn {
@@ -16,6 +17,8 @@ export interface UseLoginReturn {
   token: string;
   user: any;
   fetchLogoutRequest(): void;
+  loginSkipped(): void;
+  isSkipped: boolean;
 }
 
 export const useLogin = (): UseLoginReturn => {
@@ -23,6 +26,7 @@ export const useLogin = (): UseLoginReturn => {
   const isLoading = useSelector(getIsLoading);
   const loginData = useSelector(getLoginData);
   const loginError = useSelector(getLoginError);
+  const isSkipped = useSelector(getIsSkipped)
   const isLoggedIn = loginData?.token?.access_token ? true : false;
   const token = loginData?.token?.access_token ? loginData?.token?.access_token : null;
   const user = loginData?.user;
@@ -32,6 +36,9 @@ export const useLogin = (): UseLoginReturn => {
   const fetchLogoutRequest = () => {
     dispatch(userLogout());
   }
+  const loginSkipped = () => {
+    dispatch(userLoginSkipped());
+  }
   return {
     isLoading,
     loginData,
@@ -40,6 +47,8 @@ export const useLogin = (): UseLoginReturn => {
     isLoggedIn,
     token,
     user,
-    fetchLogoutRequest
+    fetchLogoutRequest,
+    loginSkipped,
+    isSkipped
   };
 };

@@ -19,6 +19,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useEmailCheck} from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
 import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
+import {useLogin} from 'src/hooks';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -36,6 +37,8 @@ export const AuthPage: FunctionComponent = () => {
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+
+  const {loginSkipped} =useLogin()
 
   const {fetchEmailCheckRequest, isLoading, emailCheckData, emailCheckError} =
     useEmailCheck();
@@ -69,6 +72,7 @@ export const AuthPage: FunctionComponent = () => {
       case NavigateTypes.signinPage:
         return;
       default:
+        loginSkipped();
         navigation.reset({
           index: 0,
           routes: [{name: ScreensConstants.AppNavigator}],

@@ -20,7 +20,7 @@ const defaultScreenOptions: StackNavigationOptions = {
 
 const AppStackContainer = () => {
 
-  const {isLoggedIn, loginData} = useLogin();
+  const {isLoggedIn, loginData, isSkipped} = useLogin();
 
   useEffect(() => {
     //console.log('check login', loginData.message.newUser === 1);
@@ -29,7 +29,7 @@ const AppStackContainer = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={defaultScreenOptions}
-        initialRouteName={isLoggedIn ? (loginData.message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator) : ScreensConstants.AuthNavigator}>
+        initialRouteName={isLoggedIn ? (loginData.message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator) : (isSkipped ? ScreensConstants.AppNavigator : ScreensConstants.AuthNavigator)}>
         <Stack.Screen
           name={ScreensConstants.AuthNavigator}
           component={Routes.AuthNavigator}

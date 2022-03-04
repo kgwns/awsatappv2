@@ -8,3 +8,6 @@ export const getLoginData: Selector<any> = (state: AppState) =>
 
 export const getLoginError: Selector<string> = (state: AppState) =>
   state.login.error;
+
+export const getIsSkipped: Selector<boolean> = (state: AppState) =>
+  state.login.isSkipped;

@@ -3,13 +3,15 @@ import {
     FETCH_LOGIN_ERROR,
     FETCH_LOGIN_SUCCESS,
     FETCH_USER_LOGOUT,
-    FETCH_USER_LOGOUT_SUCCESS
+    FETCH_USER_LOGOUT_SUCCESS,
+    LOGIN_SKIPPED
 } from './actionTypes';
 import { LoginActions, LoginState } from './types';
 const initialAuthState: LoginState = {
   loginData: null,
   error: '',
   isLoading: false,
+  isSkipped: false,
 };
 
 export default (state = initialAuthState, action: LoginActions) => {
@@ -21,6 +23,7 @@ export default (state = initialAuthState, action: LoginActions) => {
         isLoading: false,
         loginData: action.payload.loginData,
         error: '',
+        isSkipped: false
       };
     case FETCH_LOGIN_ERROR:
       return { ...state, error: action.payload.error, isLoading: false };
@@ -30,6 +33,8 @@ export default (state = initialAuthState, action: LoginActions) => {
       return {...state, loginData: null};
     case FETCH_USER_LOGOUT_SUCCESS:
       return {...state, loginData: null};
+    case LOGIN_SKIPPED:
+      return {...state, isSkipped: true};
     default:
       return state;
   }
