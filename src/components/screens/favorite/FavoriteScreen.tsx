@@ -75,6 +75,7 @@ export const FavoriteScreen = () => {
         data={[{}]}
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}
+        style={{flex: 1}}
       />
     </ScreenContainer>
   );
