@@ -25,10 +25,10 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 type SettingDataType = {
-    iconName: ImagesName;
-    title: string;
-    screenName: ScreenName;
-};
+    iconName: ImagesName,
+    title: string,
+    screenName: string,
+}
 
 const sampleUserName = 'رانيا';
 
@@ -57,17 +57,17 @@ export const ProfileSettings = () => {
         {
             iconName: ImagesName.notificationGrey,
             title: CONST_MANAGE_NOTIFICATION,
-            screenName: ScreensConstants.LatestNewsScreen,
+            screenName: ''
         },
         {
             iconName: ImagesName.manageNews,
             title: CONST_MANAGE_NEWS,
-            screenName: ScreensConstants.LatestNewsScreen,
+            screenName: ScreensConstants.MANAGE_MY_NEWS_SCREEN
         },
         {
             iconName: ImagesName.newsLetter,
             title: CONST_MY_NEWS_LETTER,
-            screenName: ScreensConstants.LatestNewsScreen,
+            screenName: ''
         },
         {
             iconName: ImagesName.profile,
@@ -77,14 +77,14 @@ export const ProfileSettings = () => {
         {
             iconName: ImagesName.themeChange,
             title: CONST_APP_APPEARANCE,
-            screenName: ScreensConstants.LatestNewsScreen,
+            screenName: ''
         },
         {
             iconName: ImagesName.exit,
             title: CONST_EXIT,
-            screenName: ScreensConstants.LatestNewsScreen,
-        },
-    ];
+            screenName: ''
+        }
+    ]
 
     const { fetchLogoutRequest } = useLogin();
 
@@ -96,10 +96,20 @@ export const ProfileSettings = () => {
 
     const renderItem: ListRenderItem<SettingDataType> = ({ item, index }) => {
         return (
-            <TouchableOpacity
-                activeOpacity={0.8}
-                key={index}
-                onPress={() => navigation.navigate(item.screenName)}>
+            <TouchableOpacity activeOpacity={0.8} key={index} onPress={() => {
+
+                if (item.title === CONST_EXIT) {
+                    console.log('exit clicked');
+                    fetchLogoutRequest();
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: ScreensConstants.AuthNavigator }],
+                    });
+                } else {
+                    (item.screenName.length > 0) ? navigation.navigate(item.screenName) : {}
+                }
+            }
+            }>
                 <View style={style.itemContainer}>
                     <View style={style.itemLeftContainer}>
                         <ButtonImage
@@ -110,12 +120,7 @@ export const ProfileSettings = () => {
                                 });
                             }}
                             onPress={() => {
-                                console.log('exit clicked');
-                                fetchLogoutRequest();
-                                navigation.reset({
-                                    index: 0,
-                                    routes: [{ name: ScreensConstants.AuthNavigator }],
-                                });
+
                             }}
                         />
                         <Label

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
-import { Label, LoadingState, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight } from 'src/shared/utils';
+import { Label, NextButton } from 'src/components/atoms';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -10,41 +10,74 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useAllWriters } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
-import { ScreensConstants } from 'src/constants';
 
-export const FollowFavoriteAuthorScreen = () => {
+export const ManageMyFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
+  const [authorsData] = useState<AllWritersItemType[]>([])
+
 
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
-  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo } = useAllWriters();
+  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, selectedAuthorsData } = useAllWriters();
 
   useEffect(() => {
     fetchAllWritersRequest(allWritersPayload);
   }, []);
 
   useEffect(() => {
+    if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
+      setAllAuthorsData();
+    }
+  }, [allWritersData]);
+
+  const getSelectedOrNot = (tid: any) => {
+    for (let i = 0; i < selectedAuthorsData.data.length; i++) {
+      if (tid == selectedAuthorsData.data[i].tid) {
+        return true
+      }
+    }
+    return false
+  }
+
+  const setAllAuthorsData = () => {
+    if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
+      for (let i = 0; i < allWritersData.length; i++) {
+        authorsData[i] = ({
+          name: allWritersData[i].name,
+          description__value_export: allWritersData[i].description__value_export,
+          field_opinion_writer_path_export: allWritersData[i].field_opinion_writer_path_export,
+          view_taxonomy_term: allWritersData[i].view_taxonomy_term,
+          tid: allWritersData[i].tid,
+          vid_export: allWritersData[i].vid_export,
+          field_description_export: allWritersData[i].field_description_export,
+          field_opinion_writer_path_export_1: allWritersData[i].field_opinion_writer_path_export_1,
+          field_opinion_writer_photo_export: allWritersData[i].field_opinion_writer_photo_export,
+          isSelected: getSelectedOrNot(allWritersData[i].tid),
+        })
+      }
+    }
+    updateNextButton()
+  }
+
+  useEffect(() => {
     if (isObjectNonEmpty(sentAuthorInfoData)) {
       if (sentAuthorInfoData.code === 200) {
         gotoNext()
       } else {
-        CustomAlert({
-          title: '',
-          message: sentAuthorInfoData.message || ''
-        })
+        Alert.alert(sentAuthorInfoData.message || '');
       }
     }
   }, [sentAuthorInfoData]);
 
   const changeSelectedStatus = (item: any, selected: boolean) => {
-    const data = allWritersData
+    const data = authorsData
     for (let i = 0; i < data.length; i++) {
       if (item.tid == data[i].tid) {
-        data[i].isSelected = selected;
+        authorsData[i].isSelected = !authorsData[i].isSelected
       }
     }
     updateNextButton()
@@ -63,16 +96,17 @@ export const FollowFavoriteAuthorScreen = () => {
   }
 
   const getSelectedData = () => {
-    return allWritersData.reduce((prevValue: string[], item: AllWritersItemType) => {
+    return authorsData.reduce((prevValue: string[], item: AllWritersItemType) => {
       if (item.isSelected) {
         return prevValue.concat(item.tid)
       }
       return prevValue
     }, [])
+
   }
 
   const gotoNext = () => {
-    navigation.navigate(ScreensConstants.NEWS_LETTER_SCREEN)
+    navigation.goBack();
   }
 
   return (
@@ -91,9 +125,9 @@ export const FollowFavoriteAuthorScreen = () => {
           </Label>
         </View>
         <View style={style.contentStyle}>
-          {isNonEmptyArray(allWritersData) &&
+          {isNonEmptyArray(authorsData) &&
           <View>
-            <FollowFavoriteAuthorWidget writersData={allWritersData} changeSelectedStatus={changeSelectedStatus} />
+            <FollowFavoriteAuthorWidget writersData={authorsData} changeSelectedStatus={changeSelectedStatus} />
           </View>
           }
         </View>
@@ -121,7 +155,6 @@ const customStyle = (theme: CustomThemeType) => {
       alignContent: 'center',
       alignSelf: 'center',
       justifyContent: 'center',
-      paddingBottom: normalize(10)
     },
     textContainer: {
       flex: 0.13,

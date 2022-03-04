@@ -8,7 +8,11 @@ import {
   SendSelectedTopicSuccessPayloadType,
   SendSelectedTopicFailedPayloadtype,
   SendSelectedTopicFailedType,
-  SendSelectedTopicSuccessType
+  SendSelectedTopicSuccessType,
+  GetSelectedTopicsSuccessPayloadType,
+  GetSelectedTopicsFailedPayloadtype,
+  GetSelectedTopicsSuccessType,
+  GetSelectedTopicsFailedType,
 } from 'src/redux/allSiteCategories/types';
 import {
   FETCH_ALL_SITE_CATEGORIES,
@@ -16,7 +20,11 @@ import {
   FETCH_ALL_SITE_CATEGORIES_ERROR,
   SEND_SELECTED_TOPIC,
   SEND_SELECTED_TOPIC_ERROR,
-  SEND_SELECTED_TOPIC_SUCCESS
+  SEND_SELECTED_TOPIC_SUCCESS,
+  GET_SELECTED_TOPICS,
+  GET_SELECTED_TOPICS_SUCCESS,
+  GET_SELECTED_TOPICS_ERROR,
+  EMPTY_SELECTED_TOPICS_INFO,
 } from 'src/redux/allSiteCategories/actionTypes';
 
 export const fetchAllSiteCategories = (payload: AllSiteCategoriesBodyGet) => {
@@ -69,11 +77,45 @@ export const sendSelectedTopicFailed = (
   };
 };
 
+export const getSelectedTopics = () => {
+  return {
+    type: GET_SELECTED_TOPICS,
+  };
+};
+
+export const getSelectedTopicsSuccess = (
+  payload: GetSelectedTopicsSuccessPayloadType,
+): GetSelectedTopicsSuccessType => {
+  return {
+    type: GET_SELECTED_TOPICS_SUCCESS,
+    payload,
+  };
+};
+
+export const getSelectedTopicsFailed = (
+  payload: GetSelectedTopicsFailedPayloadtype,
+): GetSelectedTopicsFailedType => {
+  return {
+    type: GET_SELECTED_TOPICS_ERROR,
+    payload,
+  };
+};
+
+export const emptySelectedTopicsInfo = () => {
+  return {
+    type: EMPTY_SELECTED_TOPICS_INFO,
+  };
+};
+
 export const allSiteCategoriesActions = {
   fetchAllSiteCategories,
   fetchAllSiteCategoriesSuccess,
   fetchAllSiteCategoriesFailed,
   sendSelectedTopic,
   sendSelectedTopicSuccess,
-  sendSelectedTopicFailed
+  sendSelectedTopicFailed,
+  getSelectedTopics,
+  getSelectedTopicsSuccess,
+  getSelectedTopicsFailed,
+  emptySelectedTopicsInfo,
 };

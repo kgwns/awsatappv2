@@ -1,11 +1,12 @@
 import { BASE_URL, UMS_BASE_URL } from 'src/services/apiUrls';
 import { getApiRequest, postApiRequest } from 'src/services/api';
-import { ALL_SITE_CATEGORIES_ENDPOINT, ADD_YOUR_TOPICS_ENDPOINT } from './apiEndPoints';
+import { ALL_SITE_CATEGORIES_ENDPOINT, ADD_YOUR_TOPICS_ENDPOINT,GET_SELECTED_TOPICS_ENDPOINT } from './apiEndPoints';
 import {
     FetchAllSiteCategoriesListSuccessPayloadType,
     AllSiteCategoriesBodyGet,
     SendSelectedTopicBody,
-    SendSelectedTopicSuccessPayloadType
+    SendSelectedTopicSuccessPayloadType,
+    GetSelectedTopicsSuccessPayloadType
 } from 'src/redux/allSiteCategories/types';
 import { AxiosRequestHeaders } from 'axios';
 import { store } from 'src/redux/store';
@@ -43,6 +44,30 @@ export const sendSelectedTopicsApi = async (body: SendSelectedTopicBody) => {
         return response;
     } catch (error) {
         console.log(`error: ${error}`);
+        throw error;
+    }
+};
+
+export const getSelectedTopicsApi = async () => {
+    const { token } = store.getState().login.loginData
+    let header: AxiosRequestHeaders | undefined = undefined
+    if (token) {
+        const type = `${token.token_type} ` || 'Bearer '
+        const accessToken = token.access_token
+        header = {
+            Authorization: type + accessToken
+        }
+    }
+
+    try {
+        const response: GetSelectedTopicsSuccessPayloadType =
+            await postApiRequest(
+                `${UMS_BASE_URL}${GET_SELECTED_TOPICS_ENDPOINT}`,
+                undefined, undefined, header
+            );
+        return response;
+    } catch (error) {
+        console.log(`error ${UMS_BASE_URL}${GET_SELECTED_TOPICS_ENDPOINT} : ${error}`);
         throw error;
     }
 };
