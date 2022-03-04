@@ -14,7 +14,7 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
     showDivider?: boolean,
     onPress: () => void
     isBookmarked: boolean
-    onPressBookmark: () => void
+    onPressBookmark?: () => void
 }
 
 const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({

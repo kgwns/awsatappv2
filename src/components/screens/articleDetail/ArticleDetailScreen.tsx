@@ -35,7 +35,7 @@ export const ArticleDetailScreen = ({
 
   const [isBookmarked, setIsBookmarked] = useState(false)
 
-  const { sendBookmarkInfo, removeBookmarkedInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
 
   const {
     isLoading,
@@ -44,14 +44,28 @@ export const ArticleDetailScreen = ({
     fetchArticleDetail,
   } = useArticleDetail();
 
+  const validateBookmark = (nid: string): boolean => {
+  console.log("🚀 ~ file: ArticleDetailScreen.tsx ~ line 48 ~ validateBookmark ~ nid", nid)
+    const index = isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.findIndex(value => value.nid == nid) : -1
+    return index >= 0 ? true : false
+  }
+
   const relatedArticleInfo = relatedArticleData.map((item: RelatedArticleDataType) => {
     return {
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
-      flag: item.news_categories.title
+      flag: item.news_categories.title,
+      isBookmarked: validateBookmark(item.nid)
     }
   })
+
+  useEffect(() => {
+    if (isNonEmptyArray(articleDetailData)) {
+      const isBookmarked = validateBookmark(articleDetailData[0].nid)
+      setIsBookmarked(isBookmarked)
+    }
+  }, [articleDetailData])
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -99,6 +113,8 @@ export const ArticleDetailScreen = ({
 
   const onPressSave = (nid: string) => {
     const newBookmarked = !isBookmarked
+    const data = [...articleDetailData]
+    data[0].isBookmarked = !data[0].isBookmarked
     setIsBookmarked(newBookmarked)
     onUpdateBookMark(nid, newBookmarked)
   }

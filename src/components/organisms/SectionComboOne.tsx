@@ -23,7 +23,7 @@ const SectionComboOne = ({
   data: LatestArticleDataType[];
   onPress: (nid: string) => void;
   sectionId: string;
-  onUpdateBookmark: (nid: string,isBookmarked: boolean) => boolean
+  onUpdateBookmark: (nid: string,isBookmarked: boolean) => void
 }) => {
   const { themeData } = useTheme();
 
@@ -98,7 +98,7 @@ const SectionComboOne = ({
             <ShortArticle
               data={[...sectionComboOneData].splice(1, 3)}
               onPress={onPress}
-              onUpdateBookmark={() => { }}
+              onUpdateBookmark={onUpdateBookmark}
             />
           </View>
         </View>
@@ -106,7 +106,7 @@ const SectionComboOne = ({
         <>
           {renderMainArticleImage()}
           <ShortArticle data={sectionComboOneData} onPress={onPress}
-            onUpdateBookmark={() => { }}
+            onUpdateBookmark={onUpdateBookmark}
           />
         </>
       )}

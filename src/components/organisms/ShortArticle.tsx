@@ -4,7 +4,7 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp } from '../atoms'
@@ -13,7 +13,7 @@ import { ImagesName } from 'src/shared/styles/images';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants';
 import { useTranslation } from 'react-i18next';
-import { getImageUrl } from 'src/shared/utils/utilities';
+import { getImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 
 export interface ShortArticleProps extends TextWithFlagProps {
@@ -52,9 +52,17 @@ const ShortArticle = ({ data, headerLeft, onPress,
 
   const [articleData, setArticleData] = useState(data)
 
+  useEffect(() => {
+    updateData()
+  }, [data])
+
+  const updateData = () => {
+    isNonEmptyArray(data) && setArticleData(data)
+  }
+
   const onPressBookmark = (index: number) => {
     const updatedData = [...articleData]
-    const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true //TODO: Need to remove this
+    const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
     updatedData[index].isBookmarked = bookmarkStatus
     setArticleData(updatedData)
     onUpdateBookmark(updatedData[index].nid, bookmarkStatus)

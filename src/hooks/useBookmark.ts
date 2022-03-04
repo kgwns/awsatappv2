@@ -3,14 +3,16 @@ import {
   getIsLoading,
   getArticleError,
 } from 'src/redux/articleDetail/selectors';
-import { GetBookmarkDetailBodyGet, RemoveBookmarkDetailDataBody, SendBookMarkBodyGet, SendBookMarkSuccessInfoType } from 'src/redux/bookmark/types';
-import { getBookMarkSuccessInfo } from 'src/redux/bookmark/selectors';
+import { BookmarkIdSuccessDataFieldType, GetBookmarkDetailBodyGet, RemoveBookmarkDetailDataBody, SendBookMarkBodyGet, SendBookMarkSuccessInfoType } from 'src/redux/bookmark/types';
+import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookMarkSuccessInfo } from 'src/redux/bookmark/selectors';
 import { getBookmarked, getBookmarkedDetailInfo, removeBookmarked, sendBookMarkId } from 'src/redux/bookmark/action';
 
 export interface UseBookMarkReturn {
   isLoading: boolean;
   bookMarkSuccessInfo: SendBookMarkSuccessInfoType;
+  bookmarkDetail: any
   error: string;
+  bookmarkIdInfo: BookmarkIdSuccessDataFieldType[]
   sendBookmarkInfo(payload: SendBookMarkBodyGet): void;
   getBookmarkedId(): void
   removeBookmarkedInfo(payload: RemoveBookmarkDetailDataBody): void
@@ -21,6 +23,8 @@ export const useBookmark = (): UseBookMarkReturn => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   const bookMarkSuccessInfo = useSelector(getBookMarkSuccessInfo);
+  const bookmarkIdInfo = useSelector(getAllBookmark)
+  const bookmarkDetail = useSelector(getBookmarkedDetailSuccessInfo)
   const error = useSelector(getArticleError);
 
   const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {
@@ -43,6 +47,8 @@ export const useBookmark = (): UseBookMarkReturn => {
     isLoading,
     bookMarkSuccessInfo,
     error,
+    bookmarkDetail,
+    bookmarkIdInfo,
     sendBookmarkInfo,
     getBookmarkedId,
     removeBookmarkedInfo,

@@ -5,7 +5,7 @@ import {
   getLoginError,
 } from 'src/redux/login/selectors';
 import { fetchLogin } from 'src/redux/login/action';
-import { FetchLoginPayloadType, LoginItemType } from 'src/redux/login/types';
+import { FetchLoginPayloadType } from 'src/redux/login/types';
 
 export interface UseLoginReturn {
   isLoading: boolean;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, View, StyleSheet, ScrollView } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
@@ -31,25 +31,15 @@ interface BannerArticleSectionProps {
     title: string,
     sectionId: string,
     onPress: (nid: string) => void,
-    onUpdateBookmark: (nid: string,isBookmarked: boolean) => void
+    onUpdateBookmark: (item: any) => void
 }
 
 const BannerArticleSection = (props: BannerArticleSectionProps) => {
-    const { data, sectionId, onPress,onUpdateBookmark } = props
+    const { data, sectionId, onPress, onUpdateBookmark } = props
     const [t] = useTranslation()
     const { themeData } = useTheme()
     const bannerData = [...data].splice(0, 4)
     const verticalArticleData = isTab ? [...data].splice(4, 2) : [...data].splice(1, 3)
-   
-    const [articleData,setArticleData] = useState(data)
-
-    const onPressBookmark = (index: number) => {
-        const updatedData = [...articleData]
-        const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true //TODO: Need to remove this
-        updatedData[index].isBookmarked = bookmarkStatus
-        setArticleData(updatedData)
-        onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
-    }
 
     const articleNewsItem = (item: articleProps, index: number) => {
         sectionComboArticleFooter.rightTitle = item.author
@@ -57,7 +47,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             showDivider={index < verticalArticleData.length - 1}
             footerInfo={sectionComboArticleFooter}
             onPress={() => onPress(item.nid)}
-            onPressBookmark={() => onPressBookmark(index)}
+            onPressBookmark={() => onUpdateBookmark(item)}
         />
     }
     const widgetHeaderData: WidgetHeaderProps = {

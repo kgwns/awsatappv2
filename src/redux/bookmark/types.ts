@@ -128,7 +128,7 @@ export interface GetBookMarkDetailSuccessInfoType {
 }
 
 export type GetBookmarkDetailSuccessPayload = {
-  bookmarkedDetailInfo: BookmarkDetailDataType[]
+  bookmarkedDetailInfo: any[]
 }
 
 export interface GetBookmarkDetailSuccessType {

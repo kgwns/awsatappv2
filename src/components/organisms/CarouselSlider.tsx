@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { View, FlatList, StyleSheet } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
@@ -9,15 +9,18 @@ import { LatestArticleDataType } from '~/redux/latestNews/types'
 
 type CarouselSliderProps = {
     tickerData: LatestArticleDataType[],
-    heroData: LatestArticleDataType[]
+    heroData: LatestArticleDataType[],
+    onUpdateHeroBookmark: (index: number) => void
 }
 
 const CarouselSlider = ({
-    tickerData, heroData
+    tickerData, heroData, onUpdateHeroBookmark
 }: CarouselSliderProps) => {
     const sliderRef = useRef<FlatList<articleProps>>(null)
+
     const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
         return <ImageArticle key={index} {...item}
+            onPressBookmark={() => onUpdateHeroBookmark(index)}
             containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
     }
     return (

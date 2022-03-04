@@ -39,10 +39,6 @@ export const postApiRequest = (
     }
   }
 
-  tokenInfo = {
-    Authorization: 'Bearer 372|2Pz7Q7H3CEJEW9RnWCrgrp2i8ZoR2DxbZihDK4s6'
-  }
-
   return axios
     .post(url, data, {
       headers: {

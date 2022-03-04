@@ -16,5 +16,8 @@ export const getAllBookmark: Selector<BookmarkIdSuccessDataFieldType[]> = (state
 export const getRemoveBookmarkSuccessInfo: Selector<RemoveBookMarkSuccessInfoType> = (state: AppState) =>
   state.bookmark.removeBookmarkInfo;
 
+export const getBookmarkedDetailSuccessInfo: Selector<RemoveBookMarkSuccessInfoType> = (state: AppState) =>
+state.bookmark.bookmarkDetailSuccessInfo;
+
 export const getRemoveBookmarkError: Selector<string> = (state: AppState) =>
   state.bookmark.removeBookmarkError;

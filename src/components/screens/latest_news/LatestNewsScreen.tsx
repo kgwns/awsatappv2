@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
@@ -6,7 +6,7 @@ import {
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties, storyWidgetData } from 'src/constants/SampleData';
-import { horizontalEdge, isTab, normalize } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isTab, normalize } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab } from 'src/hooks';
@@ -70,8 +70,129 @@ export const LatestNewsScreen = () => {
 
   const {
     sendBookmarkInfo,
-    removeBookmarkedInfo
+    removeBookmarkedInfo,
+    bookmarkIdInfo
   } = useBookmark()
+
+
+  const [heroInfo, setHeroInfo] = useState(hero)
+  const [sectionComboOneInfo, setSectionComboOneInfo] = useState(sectionComboOne)
+  const [sectionComboTwoInfo, setSectionComboTwoInfo] = useState(sectionComboTwo)
+  const [sectionComboThreeInfo, setSectionComboThreeInfo] = useState(sectionComboThree)
+  const [sectionComboFourInfo, setSectionComboFourInfo] = useState(sectionComboFour)
+
+
+  const updateBookmark = (data: LatestArticleDataType[]) => {
+    return data.map((item: LatestArticleDataType) => (
+      {
+        ...item,
+        isBookmarked: validateBookmark(item.nid)
+      }
+    ))
+  }
+
+  const updatedChangeBookmark = (data: LatestArticleDataType[], index: number) => {
+    console.log("🚀 ~ file: LatestNewsScreen.tsx ~ line 94 ~ updatedChangeBookmark ~ index", index)
+    const updatedData = [...data]
+    console.log("🚀 ~ file: LatestNewsScreen.tsx ~ line 95 ~ updatedChangeBookmark ~ updatedData", updatedData)
+    const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
+    updatedData[index].isBookmarked = bookmarkStatus
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    return updatedData
+  }
+
+
+  useEffect(() => {
+    updateHeroData()
+  }, [hero])
+
+  const updateHeroData = () => {
+    if(isNonEmptyArray(hero)) {
+      const heroData = updateBookmark(hero)
+      setHeroInfo(heroData)
+    }
+  }
+
+  const updatedHeroBookmark = (index: number) => {
+    const updatedData = updatedChangeBookmark(heroInfo, index)
+    setHeroInfo(updatedData)
+  }
+
+
+  useEffect(() => {
+    if (isNonEmptyArray(sectionComboOne)) {
+      updateSectionComboOneData()
+    }
+  }, [sectionComboOne])
+
+  const updateSectionComboOneData = () => {
+    const data = updateBookmark(sectionComboOne)
+    setSectionComboTwoInfo(data)
+  }
+
+  const updatedSectionComboOneBookmark = (article: LatestArticleDataType) => {
+    const index = sectionComboOneInfo.findIndex((item) => item.nid == article.nid)
+    const updatedData = updatedChangeBookmark(sectionComboOneInfo, index)
+    setSectionComboOneInfo(updatedData)
+  }
+
+  useEffect(() => {
+    if (isNonEmptyArray(sectionComboTwo)) {
+      updateSectionComboTwoData()
+    }
+  }, [sectionComboTwo])
+
+  const updateSectionComboTwoData = () => {
+    const data = updateBookmark(sectionComboTwo)
+    setSectionComboTwoInfo(data)
+  }
+
+  const updatedSectionComboTwoBookmark = (article: LatestArticleDataType) => {
+    const index = sectionComboTwoInfo.findIndex((item) => item.nid == article.nid)
+    const updatedData = updatedChangeBookmark(sectionComboTwoInfo, index)
+    setSectionComboTwoInfo(updatedData)
+  }
+
+  useEffect(() => {
+    if (isNonEmptyArray(sectionComboThree)) {
+      updateSectionComboThreeData()
+    }
+  }, [sectionComboThree])
+
+  const updateSectionComboThreeData = () => {
+    const data = updateBookmark(sectionComboThree)
+    setSectionComboThreeInfo(data)
+  }
+
+  const updatedSectionComboThreeBookmark = (article: LatestArticleDataType) => {
+    const index = sectionComboThreeInfo.findIndex((item) => item.nid == article.nid)
+    const updatedData = updatedChangeBookmark(sectionComboThreeInfo, index)
+    setSectionComboThreeInfo(updatedData)
+  }
+
+
+  useEffect(() => {
+    if (isNonEmptyArray(sectionComboFour)) {
+      updateSectionComboFourData()
+    }
+  }, [sectionComboFour])
+
+  const updateSectionComboFourData = () => {
+    const data = updateBookmark(sectionComboFour)
+    setSectionComboFourInfo(data)
+  }
+
+  const updatedSectionComboFourBookmark = (article: LatestArticleDataType) => {
+    const index = sectionComboFour.findIndex((item) => item.nid == article.nid)
+    const updatedData = updatedChangeBookmark(sectionComboFour, index)
+    setSectionComboFourInfo(updatedData)
+  }
+
+
+  const validateBookmark = (nid: string): boolean => {
+    const index = isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.findIndex(value => value.nid == nid) : -1
+    return index >= 0 ? true : false
+  }
 
   const heroListInfo = isTab ? heroList.slice(0, 1) : heroList
   const heroListData = heroListInfo.map((item: LatestArticleDataType) => (
@@ -79,7 +200,8 @@ export const LatestNewsScreen = () => {
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
-      tagName: item.news_categories.title
+      tagName: item.news_categories.title,
+      isBookmarked: validateBookmark(item.nid)
     }
   ))
 
@@ -88,7 +210,8 @@ export const LatestNewsScreen = () => {
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
-      flag: item.news_categories.title
+      flag: item.news_categories.title,
+      isBookmarked: validateBookmark(item.nid)
     }
   ))
 
@@ -113,11 +236,13 @@ export const LatestNewsScreen = () => {
 
   const renderItem = () => (
     <View>
-      <CarouselSlider tickerData={ticker} heroData={hero} /> //TODO: Need to check ayyappan
+      <CarouselSlider tickerData={ticker} heroData={heroInfo}
+        onUpdateHeroBookmark={updatedHeroBookmark}
+      />
       {
         isTab ? <View style={latestNewsScreenStyle.tabSplitter}>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
-            <ArticleSection data={heroListData} />
+            <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
             <PodcastWidget />
           </View>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
@@ -129,7 +254,7 @@ export const LatestNewsScreen = () => {
           :
           <>
             <PodcastWidget />
-            <ArticleSection data={heroListData} />
+            <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
             <ShortArticle data={topListData} onPress={onPressArticle}
               onUpdateBookmark={updateBookmarkInfo}
             />
@@ -141,31 +266,32 @@ export const LatestNewsScreen = () => {
             { id: item.id, selectedIndex: index }
           )}
       />
-      <SectionComboOne data={sectionComboOne} onPress={onPressArticle} sectionId={'726'}
-        onUpdateBookmark={updateBookmarkInfo}  //TODO: Need to check ayyappan
+      <SectionComboOne data={sectionComboOneInfo} onPress={onPressArticle}
+        sectionId={'726'}
+        onUpdateBookmark={updatedSectionComboOneBookmark}
       />
-      <BannerArticleSection data={sectionComboTwo}
+      <BannerArticleSection data={sectionComboTwoInfo}
         title={t('latestNewsTab.sectionComboTwo.headerLeft')}
         sectionId={'871'}
         onPress={onPressArticle}
-        onUpdateBookmark={updateBookmarkInfo} 
+        onUpdateBookmark={updatedSectionComboTwoBookmark}
       />
       <Divider style={{ height: normalize(20) }} />
       <AuthorWidget data={opinionList} />
       <BannerArticleSection
-        data={sectionComboThree}
+        data={sectionComboThreeInfo}
         title={t('latestNewsTab.sectionComboThree.headerLeft')}
         sectionId={'11'}
         onPress={onPressArticle}
-        onUpdateBookmark={updateBookmarkInfo}
+        onUpdateBookmark={updatedSectionComboThreeBookmark}
       />
       <Divider style={{ height: normalize(20) }} />
       <BannerArticleSection
-        data={sectionComboFour}
+        data={sectionComboFourInfo}
         title={t('latestNewsTab.sectionComboTwo.headerLeft')}
         sectionId={'10'}
         onPress={onPressArticle}
-        onUpdateBookmark={updateBookmarkInfo}
+        onUpdateBookmark={updatedSectionComboFourBookmark}
       />
       <Divider style={{ height: normalize(50) }} />
     </View>

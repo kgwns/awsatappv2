@@ -9,7 +9,6 @@ import { BannerImageWithOverlayProps } from '../atoms'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ScreensConstants } from 'src/constants'
-import { useTranslation } from 'react-i18next'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 
 const carouselFooterSample: articleFooterProps = {
@@ -28,14 +27,14 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     containerStyle?: ViewStyle,
     nid?: string,
     author: string,
-    created: string
+    created: string,
+    isBookmarked: boolean
+    onPressBookmark: () => void
 }
 
 const ImageArticle = ({
-    image, title, containerStyle, nid, author, created
+    image, title, containerStyle, nid, author, created,isBookmarked,onPressBookmark
 }: ImageArticleProps) => {
-    const [t] = useTranslation();
-    const rightTitle = t(timeAgo(created))
     const navigation = useNavigation<StackNavigationProp<any>>()
     const onPress = () => {
         if (nid) {
@@ -49,7 +48,10 @@ const ImageArticle = ({
                 <BannerImageWithOverlay image={image} />
                 <View style={imageArticleStyle.slideContent}>
                     <Label labelType={LabelTypeProp.h1} children={title} color={Styles.color.white} />
-                    <ArticleFooter {...carouselFooterSample} leftTitle={author} rightTitle={timeAgo(created)}/>
+                    <ArticleFooter {...carouselFooterSample} leftTitle={author} rightTitle={timeAgo(created)}
+                        isBookmarked={isBookmarked}
+                        onPress={onPressBookmark}
+                    />
                 </View>
             </View>
         </TouchableWithoutFeedback>
