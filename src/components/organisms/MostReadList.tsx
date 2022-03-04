@@ -1,5 +1,5 @@
 import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {flatListUniqueKey} from 'src/constants';
 import {ArticleItem, ArticleWithOutImageProps} from 'src/components/molecules';
 import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabel';
@@ -8,11 +8,12 @@ import {Label, LabelTypeProp} from 'src/components/atoms';
 import {MOST_READ} from 'src/constants/SharedConstants';
 import {Styles, ImagesName} from 'src/shared/styles';
 import {normalize} from 'src/shared/utils';
-import {getImageUrl} from 'src/shared/utils/utilities';
+import {getImageUrl, isNonEmptyArray} from 'src/shared/utils/utilities';
 import {timeAgo} from 'src/shared/utils/utilities';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import { useBookmark } from 'src/hooks';
 
 export interface articleProps
   extends ImageLabelProps,
@@ -36,6 +37,28 @@ const MostReadList = ({
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const theme = useTheme();
+
+  const { sendBookmarkInfo, removeBookmarkedInfo } = useBookmark()
+
+  const [articleData,setArticleData] = useState(data)
+
+  useEffect(() => {
+    if (isNonEmptyArray(data.rows)) {
+      setArticleData(data.rows)
+    }
+  })
+
+  const onPressBookmark = (index: number) => {
+    const data = [...articleData]
+    const isBookmarked = !data[index].isBookmarked ?? true
+    data[index].isBookmarked = isBookmarked
+    updateBookmarkInfo(data[index].nid, isBookmarked)
+    setArticleData(data)
+  }
+
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+    isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+  }
 
   const renderItem = (item: any, index: number) => {
     const footerData = {
@@ -61,6 +84,7 @@ const MostReadList = ({
           index={index}
           contentStyle={mostReadListStyle.contentStyle}
           footerInfo={footerData}
+          onPressBookmark={() => onPressBookmark(index)}
         />
         {isLoading && (data.length - 1 == index) && (
           <View style={{margin: normalize(28)}}>
@@ -87,7 +111,7 @@ const MostReadList = ({
         keyExtractor={(_, index) => index.toString()}
         listKey={flatListUniqueKey.MOST_READ_LIST}
         ListHeaderComponent={enableTag ? listHeader : <View/>}
-        data={data.rows}
+        data={articleData}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => renderItem(item, index)}
         onEndReached={onScroll ? onScroll : () => {}}

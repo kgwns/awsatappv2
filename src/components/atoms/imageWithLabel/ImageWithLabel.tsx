@@ -5,6 +5,7 @@ import { normalize, screenWidth } from 'src/shared/utils'
 import { ImageName, Label, LabelTypeProp } from '..'
 import { Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles'
+import { LabelType } from '../label/Label'
 
 export interface ImageLabelProps {
     name?: ImageName,
@@ -12,18 +13,18 @@ export interface ImageLabelProps {
     tagName?: string,
     style?: string,
     tagStyle?: object,
-    tagLabelType?: LabelTypeProp,
+    tagLabelType?: LabelType,
     imageStyle?: ImageStyle,
-    onPress?: () => void
+    onPressImage?: () => void
 }
 
 export const ImageWithLabel = ({ name, url, tagName,tagStyle,
     tagLabelType = LabelTypeProp.caption3,
     imageStyle,
-    onPress
+    onPressImage
 }: ImageLabelProps) => {
     return (
-        <TouchableWithoutFeedback onPress={onPress}>
+        <TouchableWithoutFeedback onPress={onPressImage}>
             <View>
                 <Image name={name} url={url} style={[imageWithLabelStyle.articleImage, imageStyle]} resizeMode={ImageResize.COVER} />
                 {tagName &&

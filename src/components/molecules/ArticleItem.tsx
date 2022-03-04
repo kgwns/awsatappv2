@@ -31,8 +31,8 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
         <TouchableWithoutFeedback onPress={onPress}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
                 style={StyleSheet.flatten([{ paddingBottom: normalize(20) }, articleItemStyle])}>
-                {image && <ImageWithLabel url={image} {...props} onPress={onPress} imageStyle={imageStyle} />}
-                <ArticleWithOutImage {...props} 
+                {image && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
+                <ArticleWithOutImage {...props} onPress={onPress}
                    onPressBookmark={onPressBookmark}
                 />
             </View>
