@@ -74,3 +74,9 @@ jest.mock('keyboard-aware-view', () => {
     KeyboardAwareView: jest.fn().mockImplementation(() => jest.fn())
   }
 })
+
+jest.mock('react-native-image-crop-picker', () => {
+  return {
+    ImagePicker: jest.fn().mockImplementation(() => jest.fn())
+  }
+})

@@ -12,11 +12,13 @@ export enum PopulateWidgetType {
 
 export interface PopulateWidgetProps {
     type: PopulateWidgetType,
+    onPressBookmark: () => void,
     props: LatestArticleDataType | OpinionsListItemType | any
 }
 
 export const PopulateWidget = ({
     type,
+    onPressBookmark,
     ...props
 }: PopulateWidgetProps) => {
     switch (type) {
@@ -25,11 +27,11 @@ export const PopulateWidget = ({
                 index={0}
                 {...props}
                 isBookmarked={true}
-                onPressBookmark={() => { }}
+                onPressBookmark={onPressBookmark}
             />
         case PopulateWidgetType.OPINION:
             return <OpinionWritersCardView {...props} 
-            onPressBookmark={() => {}}
+            onPressBookmark={onPressBookmark}
             />
         case PopulateWidgetType.VIDEO:
             return (
@@ -37,6 +39,7 @@ export const PopulateWidget = ({
                     isFirstItem={false}
                     testID='video_screen_id'
                     onPress={() => { }}
+                    onPressBookmark={onPressBookmark}
                 />
             );
         default: return null

@@ -91,6 +91,7 @@ export const FavoriteScreen = () => {
        data={[{}]}
        showsVerticalScrollIndicator={false}
        renderItem={renderItem}
+       style={{flex: 1}}
      /> :
      <SignupAlertCard title={t('signUpPH.title')} message={t('signUpPH.message')}
      buttonText={t('signUpPH.signUp')} onPress={onPressSignup}/> }
