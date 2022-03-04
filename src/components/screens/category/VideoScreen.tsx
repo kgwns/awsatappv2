@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants';
 import {useTranslation} from 'react-i18next';
-import { useBookmark, useVideoList } from 'src/hooks';
+import { useBookmark, useLogin, useVideoList } from 'src/hooks';
 import {VideoItemType} from 'src/redux/videoList/types';
 import { ScreenContainer } from '..';
 
@@ -17,6 +17,7 @@ interface VideoScreenProps {}
 export const VideoScreen = (props: VideoScreenProps) => {
 
   const {isLoading,videoData,fetchVideoRequest} = useVideoList();
+  const [showupUp,setShowPopUp] = useState(false)
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const {
@@ -24,6 +25,8 @@ export const VideoScreen = (props: VideoScreenProps) => {
     removeBookmarkedInfo,
     bookmarkIdInfo
   } = useBookmark()
+
+  const { isLoggedIn } = useLogin()
 
   useEffect(() => {
     updateVideoData()
@@ -55,10 +58,23 @@ export const VideoScreen = (props: VideoScreenProps) => {
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
-    isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    if (isLoggedIn) {
+      isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    } else {
+      setShowPopUp(true)
+    }
+  }
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
   }
 
   const updateVideosBookmark = (index: number) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+    
     const updatedData = updatedChangeBookmark(videoDataInfo, index)
     setVideoDataInfo(updatedData)
   }
@@ -89,7 +105,9 @@ export const VideoScreen = (props: VideoScreenProps) => {
     );
   };
   return (
-    <ScreenContainer isLoading={isLoading}>
+    <ScreenContainer isLoading={isLoading}
+      isSignUpAlertVisible={showupUp}
+      onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={styles.container}>
         <FlatList
           data={videoDataInfo}

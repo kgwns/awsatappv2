@@ -13,7 +13,10 @@ import {timeAgo} from 'src/shared/utils/utilities';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { useBookmark } from 'src/hooks';
+import { useBookmark, useLogin } from 'src/hooks';
+import { AlertModal } from 'src/components/organisms';
+import { ScreensConstants } from 'src/constants';
+import { useNavigation } from '@react-navigation/native';
 
 export interface articleProps
   extends ImageLabelProps,
@@ -36,11 +39,15 @@ const MostReadList = ({
   enableTag = false
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
+  const navigation = useNavigation();
+
   const theme = useTheme();
+  const { isLoggedIn } = useLogin()
 
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
 
   const [articleData,setArticleData] = useState(data)
+  const [showupUp,setShowPopUp] = useState(false)
 
   useEffect(() => {
     if (isNonEmptyArray(data.rows)) {
@@ -70,8 +77,24 @@ const MostReadList = ({
     setArticleData(data)
   }
 
+  const checkAndUpdateBookmark = (index: number) => {
+    isLoggedIn ? onPressBookmark(index) : setShowPopUp(true)
+  }
+
+  const onPressSignUp = () => {
+    setShowPopUp(false)
+    navigation.reset({
+      index: 0,
+      routes: [{name: ScreensConstants.AuthNavigator}],
+    });
+  }
+
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
     isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+  }
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
   }
 
   const renderItem = (item: any, index: number) => {
@@ -98,7 +121,7 @@ const MostReadList = ({
           index={index}
           contentStyle={mostReadListStyle.contentStyle}
           footerInfo={footerData}
-          onPressBookmark={() => onPressBookmark(index)}
+          onPressBookmark={() => checkAndUpdateBookmark(index)}
         />
         {isLoading && (data.length - 1 == index) && (
           <View style={{margin: normalize(28)}}>
@@ -121,6 +144,15 @@ const MostReadList = ({
 
   return (
     <View style={mostReadListStyle.container}>
+      {showupUp && <AlertModal
+        title={t('signUpAlert.subscribe')}
+        message={t('signUpAlert.description')}
+        buttonText={t('signUpAlert.signUp')}
+        isVisible={showupUp}
+        onPressSuccess={onPressSignUp}
+        onClose={onCloseSignUpAlert}
+      />
+      }
       <FlatList
         keyExtractor={(_, index) => index.toString()}
         listKey={flatListUniqueKey.MOST_READ_LIST}

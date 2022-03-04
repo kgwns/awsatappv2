@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {ShortArticle, NewsFeed} from '../../organisms';
+import {ShortArticle, NewsFeed, AlertModal} from '../../organisms';
 import {isTab, normalize, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
@@ -18,10 +18,13 @@ import {ScreensConstants} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {LabelTypeProp} from 'src/components/atoms';
-import { useBookmark } from 'src/hooks';
+import { useBookmark, useLogin } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
+import { useTranslation } from 'react-i18next';
 
 export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
+  const [t] = useTranslation()
+  
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -60,6 +63,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   } = useNewsView();
 
   const { sendBookmarkInfo, removeBookmarkedInfo,bookmarkIdInfo } = useBookmark()
+  const { isLoggedIn } = useLogin()
 
   useEffect(() => {
     emptyAllListData();
@@ -89,6 +93,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   const [heroListDataInfo,setHeroListDataInfo] = useState(heroListData)
   const [bottomListDataInfo,setBottomListDataInfo] = useState(bottomListData)
   const [topListDataInfo,setTopListDataInfo] = useState(topListData)
+  const [showupUp,setShowPopUp] = useState(false)
 
 
   useEffect(() => {
@@ -147,16 +152,40 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
-    isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    if (isLoggedIn) {
+      isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    } else {
+      makeSignUpAlert()
+    }
   }
 
+  const onPressSignUp = () => {
+    setShowPopUp(false)
+    navigation.reset({
+      index: 0,
+      routes: [{name: ScreensConstants.AuthNavigator}],
+    });
+  }
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
+  }
+
+  const makeSignUpAlert = () => {
+    setShowPopUp(true)
+  }
 
   const updatedHeroBookmark = (index: number) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+
     const updatedData = updatedChangeBookmark(heroListDataInfo, index)
     setHeroListDataInfo(updatedData)
   }
 
-  const updatedChangeBookmark = (data: NewsViewListItemType[], index: number) => {
+  const updatedChangeBookmark = (data: NewsViewListItemType[], index: number) => { 
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
     updatedData[index].isBookmarked = bookmarkStatus
@@ -165,6 +194,11 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   }
 
   const updatedNewsFeedBookmark = (index: number) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+    
     const updatedData = updatedChangeBookmark(bottomListDataInfo, index)
     setBottomListDataInfo(updatedData)
   }
@@ -206,6 +240,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
           onPress={onPressArticle}
           labelType={LabelTypeProp.h3}
           onUpdateBookmark={updateBookmarkInfo}
+          showSignUpPopUp={makeSignUpAlert}
         />
       )}
       {/* <VideoContent data={videoTabData} /> */}
@@ -219,6 +254,15 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   );
   return (
     <View>
+      {showupUp && <AlertModal
+        title={t('signUpAlert.subscribe')}
+        message={t('signUpAlert.description')}
+        buttonText={t('signUpAlert.signUp')}
+        isVisible={showupUp}
+        onPressSuccess={onPressSignUp}
+        onClose={onCloseSignUpAlert}
+      />
+      }
       <FlatList
       data={[{}]}
       keyExtractor={(_, index) => index.toString()}

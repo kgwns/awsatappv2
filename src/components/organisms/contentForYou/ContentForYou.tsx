@@ -57,6 +57,7 @@ export const ContentForYou = () => {
             </View>
             <ShortArticle data={shortArticleInfo} onPress={() => { }}
                 onUpdateBookmark={() => { }}
+                showSignUpPopUp={() => {}}
             />
         </View>
     )

@@ -9,7 +9,7 @@ import {
   RelatedOpinionArticlesWidget,
 } from 'src/components/organisms';
 import {ScreenContainer} from '..';
-import {useBookmark, useOpinionArticleDetail} from 'src/hooks';
+import {useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
 import {Edge} from 'react-native-safe-area-context';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 
@@ -27,8 +27,10 @@ export const OpinionArticleDetail = ({
 
 
   const [isBookmarked, setIsBookmarked] = useState(false)
+  const [showupUp,setShowPopUp] = useState(false)
 
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { isLoggedIn } = useLogin()
 
   useEffect(() => {
     Orientation.unlockAllOrientations();
@@ -71,6 +73,11 @@ export const OpinionArticleDetail = ({
   };
 
   const onPressSave = (nid: string) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+    
     const newBookmarked = !isBookmarked
     const data = [...opinionArticleDetailData]
     data[0].isBookmarked = !data[0].isBookmarked
@@ -79,7 +86,15 @@ export const OpinionArticleDetail = ({
   }
 
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
-    hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    if (isLoggedIn) {
+      hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    } else {
+      setShowPopUp(true)
+    }
+  }
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
   }
 
   const renderItem = () => (
@@ -94,7 +109,9 @@ export const OpinionArticleDetail = ({
   );
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading}>
+    <ScreenContainer edge={edge} isLoading={isLoading}
+      isSignUpAlertVisible={showupUp}
+      onCloseSignUpAlert={onCloseSignUpAlert}>
       <FlatList
         style={style.flatList}
         data={[{}]}

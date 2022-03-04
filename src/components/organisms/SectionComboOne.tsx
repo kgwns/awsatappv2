@@ -18,12 +18,14 @@ const SectionComboOne = ({
   data,
   onPress,
   sectionId,
-  onUpdateBookmark
+  onUpdateBookmark,
+  showSignUpPopUp
 }: {
   data: LatestArticleDataType[];
   onPress: (nid: string) => void;
   sectionId: string;
-  onUpdateBookmark: (nid: string,isBookmarked: boolean) => void
+  onUpdateBookmark: (nid: string,isBookmarked: boolean) => void,
+  showSignUpPopUp: () => void
 }) => {
   const { themeData } = useTheme();
 
@@ -99,6 +101,7 @@ const SectionComboOne = ({
               data={[...sectionComboOneData].splice(1, 3)}
               onPress={onPress}
               onUpdateBookmark={onUpdateBookmark}
+              showSignUpPopUp={showSignUpPopUp}
             />
           </View>
         </View>
@@ -107,6 +110,7 @@ const SectionComboOne = ({
           {renderMainArticleImage()}
           <ShortArticle data={sectionComboOneData} onPress={onPress}
             onUpdateBookmark={onUpdateBookmark}
+            showSignUpPopUp={showSignUpPopUp}
           />
         </>
       )}

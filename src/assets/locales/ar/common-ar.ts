@@ -233,4 +233,9 @@ export const arabic = {
     continueReadingMoreBooks: 'تابع المزيد من الكتاب',
     followMoreTopics: 'تابع المزيد من المواضيع'
   },
+  signUpAlert: {
+    subscribe: 'مشترك',
+    description: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و تتمتع بخاصية حفظ المقالات',
+    signUp: 'بالتسجيل'
+  }
 }

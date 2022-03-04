@@ -15,6 +15,7 @@ import { flatListUniqueKey } from 'src/constants';
 import { useTranslation } from 'react-i18next';
 import { getImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import { useLogin } from 'src/hooks';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -29,7 +30,8 @@ export interface ArticleSectionProps {
   headerLeft?: HeaderElementProps;
   onPress: (nid: string) => void;
   labelType?: LabelTypeProp;
-  onUpdateBookmark: (nid: string, bookmarkStatus: boolean) => void
+  onUpdateBookmark: (nid: string, bookmarkStatus: boolean) => void,
+  showSignUpPopUp: () => void
 }
 
 export const shortArticleFooter: articleFooterProps = {
@@ -46,9 +48,11 @@ export const shortArticleFooter: articleFooterProps = {
 
 const ShortArticle = ({ data, headerLeft, onPress,
   labelType = LabelTypeProp.h3,
-  onUpdateBookmark
+  onUpdateBookmark,
+  showSignUpPopUp
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
+  const { isLoggedIn } = useLogin()
 
   const [articleData, setArticleData] = useState(data)
 
@@ -68,6 +72,10 @@ const ShortArticle = ({ data, headerLeft, onPress,
     onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
   }
 
+  const checkAndUpdateBookmark = (index: number) => {
+    isLoggedIn ? onPressBookmark(index) : showSignUpPopUp()
+  }
+
   const renderItem = (item: ShortArticleProps, index: number) => {
     shortArticleFooter.rightTitle = t(timeAgo(item.created))
     shortArticleFooter.leftTitle = item.author
@@ -77,7 +85,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
           <View style={{ flex: 0.70, paddingRight: normalize(5) }}>
             <TextWithFlag {...item} numberOfLines={2} labelType={labelType} />
             <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
-              onPress={() => onPressBookmark(index)}
+              onPress={() => checkAndUpdateBookmark(index)}
               isBookmarked={item.isBookmarked}
             />
           </View>

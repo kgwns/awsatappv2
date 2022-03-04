@@ -15,7 +15,7 @@ import type { MixedStyleRecord } from '@native-html/transient-render-engine';
 import { RelatedArticleDataType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
-import { useBookmark } from 'src/hooks'
+import { useBookmark, useLogin } from 'src/hooks'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -31,11 +31,14 @@ export const ArticleDetailScreen = ({
   route
 }: ArticleDetailScreenProps) => {
   const { themeData } = useTheme()
+  const { isLoggedIn } = useLogin()
+
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
 
   const [isBookmarked, setIsBookmarked] = useState(false)
 
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const [showupUp,setShowPopUp] = useState(false)
 
   const {
     isLoading,
@@ -117,8 +120,24 @@ export const ArticleDetailScreen = ({
     onUpdateBookMark(nid, newBookmarked)
   }
 
+  const checkAndUpdateBookmark = (nid: string) => {
+    isLoading ? onPressSave(nid) : setShowPopUp(true)
+  }
+
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
-    hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    if (isLoggedIn) {
+      hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    } else {
+      setShowPopUp(true)
+    }
+  }
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
+  }
+
+  const makeSignUpAlert = () => {
+    setShowPopUp(true)
   }
 
   const articleHtmlContent = () => (
@@ -140,13 +159,15 @@ export const ArticleDetailScreen = ({
           headerLeft={relatedShortArticleHeaderLeft}
           onPress={onPressArticle}
           onUpdateBookmark={onUpdateBookMark}
+          showSignUpPopUp={makeSignUpAlert}
         />}
       <Divider style={{ height: normalize(50) }} />
     </View>
   )
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading}>
+    <ScreenContainer edge={edge} isLoading={isLoading} 
+    isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
       {!isLoading && isNonEmptyArray(articleDetailData) && <>
         <FlatList
           style={{ flex: 1, height: '100%' }}
@@ -159,7 +180,7 @@ export const ArticleDetailScreen = ({
         <View style={articleDetailScreenStyle.footer}>
           <ArticleDetailFooter articleDetailData={articleDetailData[0]}
             isBookmarked={isBookmarked}
-            onPressSave={() => onPressSave(articleDetailData[0].nid)}
+            onPressSave={() => checkAndUpdateBookmark(articleDetailData[0].nid)}
           />
         </View>
       </>

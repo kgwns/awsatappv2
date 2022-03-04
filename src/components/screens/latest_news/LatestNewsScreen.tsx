@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
-  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne, StoryListProps
+  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne, StoryListProps, AlertModal
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties, storyWidgetData } from 'src/constants/SampleData';
 import { horizontalEdge, isNonEmptyArray, isTab, normalize } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useBookmark, useLatestNewsTab } from 'src/hooks';
+import { useBookmark, useLatestNewsTab, useLogin } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -74,12 +74,14 @@ export const LatestNewsScreen = () => {
     bookmarkIdInfo
   } = useBookmark()
 
+  const { isLoggedIn } = useLogin()
 
   const [heroInfo, setHeroInfo] = useState(hero)
   const [sectionComboOneInfo, setSectionComboOneInfo] = useState(sectionComboOne)
   const [sectionComboTwoInfo, setSectionComboTwoInfo] = useState(sectionComboTwo)
   const [sectionComboThreeInfo, setSectionComboThreeInfo] = useState(sectionComboThree)
   const [sectionComboFourInfo, setSectionComboFourInfo] = useState(sectionComboFour)
+  const [showupUp,setShowPopUp] = useState(false)
 
 
   const updateBookmark = (data: LatestArticleDataType[]) => {
@@ -112,6 +114,10 @@ export const LatestNewsScreen = () => {
   }
 
   const updatedHeroBookmark = (index: number) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
     const updatedData = updatedChangeBookmark(heroInfo, index)
     setHeroInfo(updatedData)
   }
@@ -129,6 +135,11 @@ export const LatestNewsScreen = () => {
   }
 
   const updatedSectionComboOneBookmark = (nid: string) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+    
     const index = sectionComboOneInfo.findIndex((item) => item.nid == nid)
     const updatedData = updatedChangeBookmark(sectionComboOneInfo, index)
     setSectionComboOneInfo(updatedData)
@@ -146,6 +157,11 @@ export const LatestNewsScreen = () => {
   }
 
   const updatedSectionComboTwoBookmark = (article: LatestArticleDataType) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+
     const index = sectionComboTwoInfo.findIndex((item) => item.nid == article.nid)
     const updatedData = updatedChangeBookmark(sectionComboTwoInfo, index)
     setSectionComboTwoInfo(updatedData)
@@ -163,6 +179,11 @@ export const LatestNewsScreen = () => {
   }
 
   const updatedSectionComboThreeBookmark = (article: LatestArticleDataType) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+
     const index = sectionComboThreeInfo.findIndex((item) => item.nid == article.nid)
     const updatedData = updatedChangeBookmark(sectionComboThreeInfo, index)
     setSectionComboThreeInfo(updatedData)
@@ -181,6 +202,11 @@ export const LatestNewsScreen = () => {
   }
 
   const updatedSectionComboFourBookmark = (article: LatestArticleDataType) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+
     const index = sectionComboFour.findIndex((item) => item.nid == article.nid)
     const updatedData = updatedChangeBookmark(sectionComboFour, index)
     setSectionComboFourInfo(updatedData)
@@ -228,7 +254,19 @@ export const LatestNewsScreen = () => {
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
-    isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    if (isLoggedIn) {
+      isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    } else {
+      setShowPopUp(true)
+    }
+  }
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
+  }
+
+  const makeSignUpAlert = () => {
+    setShowPopUp(true)
   }
 
   const renderItem = () => (
@@ -245,6 +283,7 @@ export const LatestNewsScreen = () => {
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
             <ShortArticle data={topListData} onPress={onPressArticle}
               onUpdateBookmark={updateBookmarkInfo}
+              showSignUpPopUp={makeSignUpAlert}
             />
           </View>
         </View>
@@ -254,6 +293,7 @@ export const LatestNewsScreen = () => {
             <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
             <ShortArticle data={topListData} onPress={onPressArticle}
               onUpdateBookmark={updateBookmarkInfo}
+              showSignUpPopUp={makeSignUpAlert}
             />
           </>
       }
@@ -266,6 +306,7 @@ export const LatestNewsScreen = () => {
       <SectionComboOne data={sectionComboOneInfo} onPress={onPressArticle}
         sectionId={'726'}
         onUpdateBookmark={updatedSectionComboOneBookmark}
+        showSignUpPopUp={makeSignUpAlert}
       />
       <BannerArticleSection data={sectionComboTwoInfo}
         title={t('latestNewsTab.sectionComboTwo.headerLeft')}
@@ -295,7 +336,9 @@ export const LatestNewsScreen = () => {
   )
 
   return (
-    <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
+    <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
+      isSignUpAlertVisible={showupUp}
+      onCloseSignUpAlert={onCloseSignUpAlert}>
       <FlatList
         style={{ flex: 1, height: '100%' }}
         data={[{}]}
