@@ -25,6 +25,7 @@ import {
   NewPassword,
   ManageMyNewsScreen,
   UserDetailScreen,
+  VideoPlayerScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -60,6 +61,7 @@ export const Routes = {
   NewPassword,
   ManageMyNewsScreen,
   UserDetailScreen,
+  VideoPlayerScreen,
 };
 
 /**

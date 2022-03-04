@@ -144,6 +144,11 @@ const AppNavigator = () => {
           headerTitleAlign: 'center',
         }}
       />
+      <Stack.Screen
+        name={ScreensConstants.VideoPlayerScreen}
+        component={Routes.VideoPlayerScreen}
+        options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };

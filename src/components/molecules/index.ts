@@ -43,3 +43,4 @@ export { ToggleWithLabel,ToggleWithLabelProps } from 'src/components/molecules/t
 export { ListenToArticleCard } from 'src/components/molecules/ListenToArticleCard';
 export { RelatedOpinionCard } from 'src/components/molecules/RelatedOpinionCard';
 export { OpinionArticleDetailFooter } from 'src/components/molecules/OpinionArticleDetailFooter';
+export { VideoPlayer } from 'src/components/molecules/videoPlayer/VideoPlayer';

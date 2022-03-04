@@ -29,3 +29,4 @@ export { OpinionArticleDetail } from 'src/components/screens/opinionArticleDetai
 export { NewPassword } from 'src/components/screens/newPassword/NewPassword'
 export { ManageMyNewsScreen } from 'src/components/screens/manageMyNews/ManageMyNewsScreen';
 export { UserDetailScreen } from 'src/components/screens/userDetail/UserDetailScreen';
+export { VideoPlayerScreen } from 'src/components/screens/video_player/VideoPlayerScreen';
