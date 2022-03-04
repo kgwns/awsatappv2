@@ -22,7 +22,11 @@ import {
   NewsLetterScreen,
   ProfileSettings,
   OpinionArticleDetail,
+  NewPassword,
   ManageMyNewsScreen,
+  ManageMyFavoriteAuthorScreen,
+  ManageMyFavoriteTopicsScreen,
+  UserDetailScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -55,7 +59,11 @@ export const Routes = {
   NewsLetterScreen,
   ProfileSettings,
   OpinionArticleDetail,
+  NewPassword,
   ManageMyNewsScreen,
+  ManageMyFavoriteAuthorScreen,
+  ManageMyFavoriteTopicsScreen,
+  UserDetailScreen,
 };
 
 /**
@@ -82,7 +90,11 @@ export type ScreenList = {
   SuccessScreen: undefined;
   NewsLetterScreen: undefined;
   OpinionArticleDetail: undefined;
+  NewPassword: undefined;
   ManageMyNewsScreen: undefined;
+  ManageMyFavoriteAuthorScreen: undefined;
+  ManageMyFavoriteTopicsScreen: undefined;
+  UserDetailScreen: undefined;
 };
 
 export type ScreenName = keyof undefined;
@@ -104,7 +116,11 @@ const forgotPassword = 'forgotPassword' as ScreenName
 const successScreen = 'successScreen' as ScreenName;
 const newsLetterScreen = 'newsLetterScreen' as ScreenName;
 const opinionArticleDetail = 'opinionArticleDetail' as ScreenName;
+const newPassword = 'newPassword' as ScreenName;
 const manageMyNewsScreen = 'manageMyNewsScreen' as ScreenName;
+const manageMyFavoriteAuthorScreen = 'manageMyFavoriteAuthorScreen' as ScreenName;
+const manageMyFavoriteTopicsScreen = 'manageMyFavoriteTopicsScreen' as ScreenName;
+const userDetailScreen = 'userDetailScreen' as ScreenName;
 
 export const RoutesName = {
   favoriteScreen,
@@ -124,5 +140,9 @@ export const RoutesName = {
   successScreen,
   newsLetterScreen,
   opinionArticleDetail,
+  newPassword,
   manageMyNewsScreen,
+  manageMyFavoriteAuthorScreen,
+  manageMyFavoriteTopicsScreen,
+  userDetailScreen,
 };

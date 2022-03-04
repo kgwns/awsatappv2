@@ -18,11 +18,12 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ScreensConstants} from 'src/constants';
-import {useSideMenu} from 'src/hooks';
+import {useLogin, useSideMenu} from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { PROFILE } from 'src/constants/SharedConstants';
+import { colors } from '../shared/styles/colors';
 
 interface CustomDrawerContentProps {}
 
@@ -35,6 +36,8 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
   const {isLoading, sideMenuData, fetchSideMenuRequest} =
   useSideMenu();
+
+  const {isLoggedIn} = useLogin();
 
   useEffect(() => {
     fetchSideMenuRequest();
@@ -51,14 +54,21 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
   const header = () => (
     <View style={styles.headerContainer}>
-      <View style={styles.logoContainer}>
-        {
-          getSvgImages({
-            name: ImagesName.headerLogo,
-            width: styles.logo.width,
-            height: styles.logo.height
-          })
+      <TouchableOpacity style={styles.headerLeft} onPress={() => {
+        if(isLoggedIn){
+          navigation.navigate(ScreensConstants.PROFILE_SETTING)
+        }else{
+          navigation.reset({
+            index: 0,
+            routes: [{ name: ScreensConstants.AuthNavigator }],
+        });
         }
+        
+        }}>
+        {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })}
+      </TouchableOpacity>
+      <View style={styles.logoContainer}>
+        {getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height, style: styles.logo })}
       </View>
       <View style={styles.headerRight}>
         <TouchableOpacity
@@ -164,8 +174,24 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'center',
       left: normalize(20),
     },
+    headerLeft: {
+      zIndex: 1,
+      position: 'absolute',
+      alignItems: 'center',
+      justifyContent: 'center',
+      right: normalize(20),
+      top : 0,
+    },
+    user: {
+      width: normalize(27),
+      height: normalize(27),
+      borderRadius: normalize(27)/2,
+      borderWidth: normalize(2),
+      borderColor: colors.lightGreenishBlue,
+    },
     menuContainer: {
       marginHorizontal: normalize(35),
+      marginTop: normalize(20),
     },
     drawerItemStyle: {
       left: 0,

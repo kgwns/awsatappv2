@@ -1,3 +1,4 @@
+import { UserLogoutType } from '../login/types';
 import {
     FETCH_EMAIL_CHECK,
     FETCH_EMAIL_CHECK_ERROR,
@@ -47,4 +48,5 @@ import {
   export type EmailCheckActions =
     | FetchEmailCheckType
     | FetchEmailCheckSuccessType
-    | FetchEmailCheckFailedType;
+    | FetchEmailCheckFailedType
+    | UserLogoutType;

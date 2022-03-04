@@ -92,7 +92,9 @@ export const FollowFavoriteAuthorScreen = () => {
         </View>
         <View style={style.contentStyle}>
           {isNonEmptyArray(allWritersData) &&
+          <View>
             <FollowFavoriteAuthorWidget writersData={allWritersData} changeSelectedStatus={changeSelectedStatus} />
+          </View>
           }
         </View>
         <View style={style.nextButtonView}>
@@ -119,6 +121,7 @@ const customStyle = (theme: CustomThemeType) => {
       alignContent: 'center',
       alignSelf: 'center',
       justifyContent: 'center',
+      paddingBottom: normalize(10)
     },
     textContainer: {
       flex: 0.13,

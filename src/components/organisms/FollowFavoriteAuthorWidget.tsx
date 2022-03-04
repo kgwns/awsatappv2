@@ -16,7 +16,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
         authorName={item.name}
         // authorDescription={item.authorDescription}
         authorImage={item.field_opinion_writer_photo_export}
-        // isSelected={item.isSelected}
+        isSelected={item.isSelected}
         onPress={selected => props.changeSelectedStatus(item, selected)}
       />
     );

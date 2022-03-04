@@ -56,7 +56,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
       if (message.code === 200) {
         navigation.reset({
           index: 0,
-          routes: [{name: ScreensConstants.OnBoardNavigator}],
+          routes: [{name: loginData.message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
         });
       }else{
         Alert.alert(message.message);

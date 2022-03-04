@@ -68,6 +68,9 @@ export enum ImagesName {
   arrowLeftGrey = 'arrowLeftGrey',
   plusSvg = 'plusSvg',
   returnGreenish = 'returnGreenish',
+  userDefaultIcon = 'userDefaultIcon',
+  editIcon = 'editIcon',
+  dropDownIcon = 'dropDownIcon',
 }
 
 export const images = {

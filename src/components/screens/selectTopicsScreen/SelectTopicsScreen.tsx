@@ -40,7 +40,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   const onTopicsChanged = (item: any, selected: boolean) => {
     const data = allSiteCategoriesData
     for (let i = 0; i < data.length; i++) {
-      if (item == data[i].name) {
+      if (item.tid == data[i].tid) {
         data[i].isSelected = selected;
       }
     }
@@ -115,6 +115,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       shadowColor: colors.transparent,
       justifyContent: 'center',
       alignItems: 'center',
+      paddingBottom: normalize(10)
     },
     textContainer: {
       flex: 0.13,
@@ -126,7 +127,6 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       justifyContent: 'center',
       alignSelf: 'center',
       paddingTop: normalize(10),
-      paddingHorizontal: normalize(15),
     },
     titleStyle: {
       textAlign: 'center',
