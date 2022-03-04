@@ -21,9 +21,9 @@ export const ManageMyNewsScreen = () => {
   const navigation = useNavigation();
   const style = useThemeAwareObject(customStyle);
   const [t] = useTranslation();
-  const [selectedAuthors, setSelectedAuthors] = useState<AllWritersItemType[]>([]);
-  const [selectedTopics, setSelectedTopics] = useState<AllSiteCategoriesItemType[]>([]);
   const isFocused = useIsFocused();
+  const [selectedWriters,setSelectedWriters]=useState<AllWritersItemType[]>([])
+  const [selectedInterested,setSelectedInterested]=useState<AllSiteCategoriesItemType[]>([])
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -54,29 +54,27 @@ export const ManageMyNewsScreen = () => {
     if (isFocused) {
       emptySelectedAuthorsInfoData()
       emptySelectedTopicsInfoData()
-      getSelectedAuthorsData()
-      getSelectedTopicsData()
       fetchAllWritersRequest(allWritersPayload)
       fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
+      getSelectedAuthorsData()
+      getSelectedTopicsData()
       fetchSelectedDataFromAllWriters()
       fetchSelectedDataFromAllTopics()
     }
   }, [isFocused]);
 
-
   useEffect(() => {
     fetchSelectedDataFromAllWriters();
-  }, [selectedAuthorsData, allWritersData.length]);
+  }, [selectedAuthorsData, allWritersData]);
 
   useEffect(() => {
     fetchSelectedDataFromAllTopics();
-  }, [selectedTopicsData, allSiteCategoriesData.length]);
+  }, [selectedTopicsData, allSiteCategoriesData]);
 
   const fetchSelectedDataFromAllWriters = () => {
+    
     if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
-      if (selectedAuthors.length > 0) {
-        setSelectedAuthors([]);
-      }
+      const selectedAuthors = [];
       for (let i = 0; i < selectedAuthorsData.data.length; i++) {
         for (let j = 0; j < allWritersData.length; j++) {
           if (selectedAuthorsData.data[i].tid == allWritersData[j].tid) {
@@ -84,14 +82,13 @@ export const ManageMyNewsScreen = () => {
           }
         }
       }
+      setSelectedWriters(selectedAuthors)
     }
   };
 
   const fetchSelectedDataFromAllTopics = () => {
     if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
-      if (selectedTopics.length > 0) {
-        setSelectedTopics([]);
-      }
+      const selectedTopics = []
       for (let i = 0; i < selectedTopicsData.data.length; i++) {
         for (let j = 0; j < allSiteCategoriesData.length; j++) {
           if (selectedTopicsData.data[i].tid == allSiteCategoriesData[j].tid) {
@@ -99,6 +96,7 @@ export const ManageMyNewsScreen = () => {
           }
         }
       }
+      setSelectedInterested(selectedTopics)
     }
   };
 
@@ -188,13 +186,13 @@ export const ManageMyNewsScreen = () => {
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
         <View style={style.favBooks}>
-          {selectedAuthors && (
-            <MyFavoriteBooks data={selectedAuthors} />
+          {isNonEmptyArray(selectedWriters) && (
+            <MyFavoriteBooks data={selectedWriters} />
           )}
         </View>
         <View style={style.favTopics}>
-          {isNonEmptyArray(selectedTopics) && (
-            <MyFavoriteTopics data={selectedTopics} />
+          {isNonEmptyArray(selectedInterested) && (
+            <MyFavoriteTopics data={selectedInterested} />
           )}
         </View>
       </View>

@@ -139,3 +139,7 @@ export const calculateMonth = (time: any) => {
 export const getFullDate = (time: any) => {
   return calculateDate(time) + ' ' + calculateMonth(time) + ' ' + moment(time).get('year');
 }
+
+export const getFormatedDate = (time: any)=> {
+  return calculateDate(time) + '.' + moment(time).get('month')+ '.' + moment(time).get('year');
+}

@@ -32,8 +32,8 @@ type SettingDataType = {
 const sampleUserName = 'رانيا';
 
 export const ProfileSettings = () => {
-    const [t] = useTranslation();
-    const dispatch = useDispatch();
+    const [t] = useTranslation()
+    const dispatch = useDispatch()
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     const style = useThemeAwareObject(customStyle);
@@ -72,7 +72,7 @@ export const ProfileSettings = () => {
         {
             iconName: ImagesName.profile,
             title: CONST_MY_ACCOUNT_DETAILS,
-            screenName: ScreensConstants.USER_DETAIL_SCREEN,
+            screenName: ScreensConstants.USER_DETAIL_SCREEN
         },
         {
             iconName: ImagesName.themeChange,

@@ -59,6 +59,6 @@ export const useBookmark = (): UseBookMarkReturn => {
     getBookmarkedId,
     removeBookmarkedInfo,
     getBookmarkDetailData,
-    removeBookmark
+    removeBookmark,
   };
 };
