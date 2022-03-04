@@ -6,12 +6,14 @@ import {
     FetchLoginPayloadType,
     FetchUserLogoutPayloadType,
     UserLogoutType,
+    UserLogoutSuccessType,
   } from './types';
   import {
     FETCH_LOGIN,
     FETCH_LOGIN_SUCCESS,
     FETCH_LOGIN_ERROR,
     FETCH_USER_LOGOUT,
+    FETCH_USER_LOGOUT_SUCCESS,
   } from './actionTypes';
   
   export const fetchLogin = (payload: FetchLoginPayloadType) => {
@@ -42,6 +44,12 @@ import {
   export const userLogout = () : UserLogoutType => {
     return{
       type: FETCH_USER_LOGOUT,
+    }
+  }
+
+  export const userLogoutSuccess = () : UserLogoutSuccessType => {
+    return{
+      type: FETCH_USER_LOGOUT_SUCCESS,
     }
   }
   

@@ -18,7 +18,7 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ScreensConstants} from 'src/constants';
-import {useSideMenu} from 'src/hooks';
+import {useLogin, useSideMenu} from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
@@ -37,6 +37,8 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const {isLoading, sideMenuData, fetchSideMenuRequest} =
   useSideMenu();
 
+  const {isLoggedIn} = useLogin();
+
   useEffect(() => {
     fetchSideMenuRequest();
   }, []);
@@ -52,7 +54,17 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
   const header = () => (
     <View style={styles.headerContainer}>
-      <TouchableOpacity style={styles.headerLeft} onPress={() => navigation.navigate(ScreensConstants.PROFILE_SETTING)}>
+      <TouchableOpacity style={styles.headerLeft} onPress={() => {
+        if(isLoggedIn){
+          navigation.navigate(ScreensConstants.PROFILE_SETTING)
+        }else{
+          navigation.reset({
+            index: 0,
+            routes: [{ name: ScreensConstants.AuthNavigator }],
+        });
+        }
+        
+        }}>
         {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })}
       </TouchableOpacity>
       <View style={styles.logoContainer}>

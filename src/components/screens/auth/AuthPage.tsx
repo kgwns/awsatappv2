@@ -67,7 +67,7 @@ export const AuthPage: FunctionComponent = () => {
       default:
         navigation.reset({
           index: 0,
-          routes: [{name: ScreensConstants.OnBoardNavigator}],
+          routes: [{name: ScreensConstants.AppNavigator}],
         });
     }
   };

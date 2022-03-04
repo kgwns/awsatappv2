@@ -1,3 +1,4 @@
+import { FETCH_USER_LOGOUT } from '../login/actionTypes';
 import {
   FETCH_EMAIL_CHECK,
   FETCH_EMAIL_CHECK_ERROR,
@@ -31,6 +32,8 @@ export default (state = initialAuthState, action: EmailCheckActions) => {
       };
     case FETCH_EMAIL_CHECK:
       return {...state, isLoading: true, error: '', actionType: action.type, emailCheckData: null};
+    case FETCH_USER_LOGOUT:
+        return {...state, emailCheckData: null};
     default:
       return {...state};
   }
