@@ -33,7 +33,7 @@ export const Archives = () => {
     const [filterItem, setFilterItem] = useState<FilterDataType[]>(filterData);
     const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
 
-    const { getBookmarkedId, removeBookmarkedInfo, bookmarkDetail } = useBookmark()
+    const { getBookmarkedId, removeBookmarkedInfo, updateBookDetailInfo, bookmarkDetail } = useBookmark()
     const [filteredData, setFilteredData] = useState(bookmarkDetail)
 
     useEffect(() => {
@@ -64,6 +64,8 @@ export const Archives = () => {
         const data = [...bookmarkDetail]
         const index = data.findIndex((item) => item.nid == removeItem.nid)
         if (index >= 0) {
+            const updatedInfo = data.filter((bookmarkedItem) => bookmarkedItem.nid != removeItem.nid)
+            updateBookDetailInfo(updatedInfo)
             removeBookmarkedInfo({ nid: removeItem.nid })
         }
     }
