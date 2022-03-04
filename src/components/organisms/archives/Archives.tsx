@@ -33,7 +33,7 @@ export const Archives = () => {
     const [filterItem, setFilterItem] = useState<FilterDataType[]>(filterData);
     const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
 
-    const { getBookmarkedId, bookmarkDetail } = useBookmark()
+    const { getBookmarkedId, removeBookmarkedInfo, bookmarkDetail } = useBookmark()
     const [filteredData, setFilteredData] = useState(bookmarkDetail)
 
     useEffect(() => {
@@ -60,6 +60,14 @@ export const Archives = () => {
         setFilteredData(data)
     }
 
+    const removeBookmarkItem = (removeItem: any) => {
+        const data = [...bookmarkDetail]
+        const index = data.findIndex((item) => item.nid == removeItem.nid)
+        if (index >= 0) {
+            removeBookmarkedInfo({ nid: removeItem.nid })
+        }
+    }
+
     const getFilteredData = (index: number) => {
         if (!isNonEmptyArray(bookmarkDetail)) return null
         const data = [...bookmarkDetail]
@@ -71,7 +79,7 @@ export const Archives = () => {
             case 2:
                 return data.filter((item: any) => item.type == PopulateWidgetType.VIDEO)
             case 3:
-                return data.filter((item:any) => item.type == PopulateWidgetType.OPINION)
+                return data.filter((item: any) => item.type == PopulateWidgetType.OPINION)
             default: return null
         }
     }
@@ -80,7 +88,9 @@ export const Archives = () => {
         <View style={{ flex: 1 }}>
             <View style={{ paddingHorizontal: 0.04 * screenWidth }}>
                 <FilterComponent data={filterItem} onPress={onPressFilterItem} />
-                {isNonEmptyArray(filteredData) && <DynamicWidget data={filteredData} />}
+                {isNonEmptyArray(filteredData) && <DynamicWidget data={filteredData}
+                    onPressBookmark={removeBookmarkItem}
+                />}
             </View>
             {!isNonEmptyArray(filteredData) && <View
                 style={{
