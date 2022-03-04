@@ -4,7 +4,11 @@ import {
   FETCH_ALL_WRITERS_ERROR,
   SEND_SELECTED_AUTHOR_ERROR,
   SEND_SELECTED_AUTHOR_SUCCESS,
-  SEND_SELECTED_AUTHOR
+  SEND_SELECTED_AUTHOR,
+  GET_SELECTED_AUTHOR,
+  GET_SELECTED_AUTHOR_SUCCESS,
+  GET_SELECTED_AUTHOR_ERROR,
+  EMPTY_SELECTED_AUTHORS_INFO,
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -51,11 +55,30 @@ export interface ResponseMessage {
   message?: string
 }
 
+export interface GetDataType{
+  tid:number,
+  created_date:string,
+}
+export interface SelectedAuthorDataType{
+  code?: number,
+  message?: string,
+  data?:any,
+}
+
+export interface GetSelectedAuthorSuccessPayloadType {
+  selectedAuthorsData: any;
+}
+
+export interface GetSelectedAuthorFailedPayloadtype {
+  error: string;
+}
+
 export type AllWritersState = {
   allWritersData: AllWritersItemType[];
   error: string;
   isLoading: boolean;
-  sendAuthorInfo: ResponseMessage
+  sendAuthorInfo: ResponseMessage;
+  selectedAuthorsData: SelectedAuthorDataType;
 };
 
 export type FetchAllWritersType = {
@@ -89,6 +112,24 @@ export type SendSelectedAuthorFailedType = {
   payload: SendSelectedAuthorFailedPayloadtype;
 };
 
+export type GetSelectedAuthorType = {
+  type: typeof GET_SELECTED_AUTHOR;
+};
+
+export type GetSelectedAuthorSuccessType = {
+  type: typeof GET_SELECTED_AUTHOR_SUCCESS;
+  payload: GetSelectedAuthorSuccessPayloadType;
+};
+
+export type GetSelectedAuthorFailedType = {
+  type: typeof GET_SELECTED_AUTHOR_ERROR;
+  payload: GetSelectedAuthorFailedPayloadtype;
+};
+
+export type EmptySelectedAuthorsInfo = {
+  type: typeof EMPTY_SELECTED_AUTHORS_INFO;
+};
+
 export type AllWritersActions =
   | FetchAllWritersType
   | FetchAllWritersSuccessType
@@ -96,3 +137,7 @@ export type AllWritersActions =
   | SendSelectedAuthorType
   | SendSelectedAuthorSuccessType
   | SendSelectedAuthorFailedType
+  | GetSelectedAuthorType
+  | GetSelectedAuthorSuccessType
+  | GetSelectedAuthorFailedType
+  | EmptySelectedAuthorsInfo;

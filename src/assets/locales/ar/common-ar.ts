@@ -224,12 +224,12 @@ export const arabic = {
       passwordWarning: 'يجب ألا يقل عن 8 أحرف',
       passwordMatchWarning: 'يجب أن تتطابق كلمتا المرور'
     },
-    manageMyNews: {
-      header: 'إدارة أخباري',
-      myFavoriteBooks: 'كتابي المفضلين',
-      myFavoriteTopics: 'مواضيعي المفضله',
-      continueReadingMoreBooks: 'تابع المزيد من الكتاب',
-      followMoreTopics: 'تابع المزيد من المواضيع'
-    },
-  }
+  },
+  manageMyNews: {
+    header: 'إدارة أخباري',
+    myFavoriteBooks: 'كتابي المفضلين',
+    myFavoriteTopics: 'مواضيعي المفضله',
+    continueReadingMoreBooks: 'تابع المزيد من الكتاب',
+    followMoreTopics: 'تابع المزيد من المواضيع'
+  },
 }

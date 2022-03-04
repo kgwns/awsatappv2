@@ -3,10 +3,11 @@ import {
     getAllSiteCategoriesData,
     getIsLoading,
     getAllSiteCategoriesError,
-    getTopicsData
+    getTopicsData,
+    getSelectedTopicsDataList
 } from 'src/redux/allSiteCategories/selectors';
-import { fetchAllSiteCategories, sendSelectedTopic } from 'src/redux/allSiteCategories/action';
-import { AllSiteCategoriesItemType, AllSiteCategoriesBodyGet } from 'src/redux/allSiteCategories/types';
+import { fetchAllSiteCategories, sendSelectedTopic,getSelectedTopics,emptySelectedTopicsInfo } from 'src/redux/allSiteCategories/action';
+import { AllSiteCategoriesItemType, AllSiteCategoriesBodyGet,SelectedTopicsDataType } from 'src/redux/allSiteCategories/types';
 import { ResponseMessage, SendSelectedTopicBody } from 'src/redux/allSiteCategories/types';
 
 export interface UseAllSiteCategoriesReturn {
@@ -14,8 +15,11 @@ export interface UseAllSiteCategoriesReturn {
     allSiteCategoriesData: AllSiteCategoriesItemType[];
     allSiteCategoriesError: string;
     sentTopicsData: ResponseMessage
+    selectedTopicsData : SelectedTopicsDataType;
     fetchAllSiteCategoriesRequest(payload: AllSiteCategoriesBodyGet): void;
     sendSelectedTopicInfo(payload: SendSelectedTopicBody): void
+    getSelectedTopicsData(): void;
+    emptySelectedTopicsInfoData(): void;
 }
 
 export const useAllSiteCategories = (): UseAllSiteCategoriesReturn => {
@@ -24,6 +28,7 @@ export const useAllSiteCategories = (): UseAllSiteCategoriesReturn => {
     const allSiteCategoriesData = useSelector(getAllSiteCategoriesData);
     const sentTopicsData = useSelector(getTopicsData);
     const allSiteCategoriesError = useSelector(getAllSiteCategoriesError);
+    const selectedTopicsData = useSelector(getSelectedTopicsDataList);
     const fetchAllSiteCategoriesRequest = (payload: AllSiteCategoriesBodyGet) => {
         dispatch(fetchAllSiteCategories(payload));
     };
@@ -31,12 +36,23 @@ export const useAllSiteCategories = (): UseAllSiteCategoriesReturn => {
         dispatch(sendSelectedTopic(payload))
       }
 
+    const getSelectedTopicsData = () => {
+        dispatch(getSelectedTopics())
+    }
+
+    const emptySelectedTopicsInfoData = () => {
+        dispatch(emptySelectedTopicsInfo())
+      };
+
     return {
         isLoading,
         allSiteCategoriesData,
         allSiteCategoriesError,
         sentTopicsData,
+        selectedTopicsData,
         fetchAllSiteCategoriesRequest,
-        sendSelectedTopicInfo
+        sendSelectedTopicInfo,
+        getSelectedTopicsData,
+        emptySelectedTopicsInfoData
     };
 };
