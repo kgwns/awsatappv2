@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, SafeAreaView, TouchableOpacity, Image} from 'react-native';
 import {ImagesName} from '../shared/styles/images';
 import {ButtonImage} from '../components/atoms';
 import {ButtonList, Divider, ButtonOutline} from 'src/components/atoms';
@@ -22,8 +22,8 @@ import {useLogin, useSideMenu} from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { PROFILE } from 'src/constants/SharedConstants';
 import { colors } from '../shared/styles/colors';
+import { useUserProfileData } from 'src/hooks/useUserProfileData';
 
 interface CustomDrawerContentProps {}
 
@@ -39,6 +39,8 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
   const {isLoggedIn} = useLogin();
 
+  const {userProfileData} = useUserProfileData()
+  
   useEffect(() => {
     fetchSideMenuRequest();
   }, []);
@@ -51,6 +53,12 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   // useEffect(() => {
   //   //console.log('News Categories data', newsCategoriesData);
   // }, [newsCategoriesData]);
+
+  const UserIcon = () => (
+    <>
+      {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })}
+    </>
+  )
 
   const header = () => (
     <View style={styles.headerContainer}>
@@ -65,7 +73,8 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         }
         
         }}>
-        {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })}
+        {useLogin().isLoggedIn && userProfileData.user?.profile_url ? <Image style={styles.user} source={{uri: userProfileData.user?.profile_url}}/> : <UserIcon/>}  
+        {/* {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })} */}
       </TouchableOpacity>
       <View style={styles.logoContainer}>
         {getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height, style: styles.logo })}

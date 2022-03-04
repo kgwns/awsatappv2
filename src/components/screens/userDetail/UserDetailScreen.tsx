@@ -166,7 +166,7 @@ export const UserDetailScreen: FunctionComponent = () => {
                 setOpen(false)
                 setDate(date)
                 setSelectedDate(getFullDate(date))
-                setbirthday('')
+                setBirthday('')
               }}
               onCancel={() => {
                 setOpen(false)
