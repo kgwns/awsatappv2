@@ -158,8 +158,6 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   }
 
   const updatedChangeBookmark = (data: NewsViewListItemType[], index: number) => {
-    console.log("data",data)
-    console.log("dataindex",index)
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
     updatedData[index].isBookmarked = bookmarkStatus
