@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants } from 'src/constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { ScreenName } from 'src/constants/ScreenConstants';
 import { isDarkTheme, normalize, screenWidth } from 'src/shared/utils';
 import { ButtonImage, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
@@ -20,7 +19,7 @@ import { ToggleWithLabel } from 'src/components/molecules';
 import { useDispatch } from 'react-redux';
 import { storeAppTheme } from 'src/redux/appCommon/action';
 import { Theme } from 'src/redux/appCommon/types';
-import { useAppCommon, useLogin } from 'src/hooks';
+import { useAppCommon, useBookmark, useLogin } from 'src/hooks';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -40,6 +39,7 @@ export const ProfileSettings = () => {
     const style = useThemeAwareObject(customStyle);
 
     const { theme } = useAppCommon();
+    const { removeBookmark } = useBookmark()
     const isDark = isDarkTheme(theme);
     const [isDarkMode, setIsDarkMode] = useState<boolean>(isDark);
 
@@ -101,6 +101,7 @@ export const ProfileSettings = () => {
                 if (item.title === CONST_EXIT) {
                     console.log('exit clicked');
                     fetchLogoutRequest();
+                    removeBookmark()
                     navigation.reset({
                         index: 0,
                         routes: [{ name: ScreensConstants.AuthNavigator }],
