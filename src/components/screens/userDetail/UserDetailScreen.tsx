@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
@@ -9,14 +9,16 @@ import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useTranslation } from 'react-i18next';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { TextInputField, Label, ButtonOutline } from '../../atoms';
 import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
-import { getFullDate } from 'src/shared/utils/utilities';
+import { getFullDate, getFormatedDate} from 'src/shared/utils/utilities';
 import DatePicker from 'react-native-date-picker';
 import { TabBarComponent, TabBarDataProps } from 'src/components/molecules';
-import {KeyboardAwareView} from 'keyboard-aware-view';
-import {loginPasswordValidation, reTypePasswordValidation} from 'src/shared/validators';
+import { KeyboardAwareView } from 'keyboard-aware-view';
+import { loginPasswordValidation, reTypePasswordValidation } from 'src/shared/validators';
+import { useUserProfileData } from 'src/hooks/useUserProfileData';
+import { Image } from 'src/components/atoms';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -24,18 +26,39 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   const [name, setName] = useState('');
-  const [email, setEmail] = useState(t('profile.userDetail.emailPlaceholder'));
+  const [email, setEmail] = useState('');
   const [occupation, setOccupation] = useState('');
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(t('profile.userDetail.selectBirthdayText'));
-
+  const [userName, setUserName] = useState('')
   const [oldPassword, setOldPassword] = useState('');
   const [oldPasswordError, setOldPasswordError] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordError, setNewPasswordError] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [confirmNewPasswordError, setConfirmNewPasswordError] = useState('');
+  const { isLoading, userProfileData, sentUserProfileData ,fetchProfileDataRequest, sendUserProfileInfo } = useUserProfileData()
+  const [userProfileImage, setUserProfileImage] = useState('') 
+  const [birthday, setbirthday] = useState('')
+  useEffect(() => {
+    fetchProfileDataRequest();
+  }, []);
+
+  useEffect(() => {
+    setEmail(userProfileData.user?.email as string)
+    {setOccupation(userProfileData.user?.occupation? userProfileData.user?.occupation as string : occupation )}
+    {userProfileData.user?.name && userProfileData.user?.name !== " " && setName(userProfileData.user?.name as string)}
+    {userProfileData.user?.image && setUserProfileImage(userProfileData.user?.image as string)}
+    {userProfileData.user?.birthday && setbirthday(getFullDate(userProfileData.user?.birthday))}
+    {userProfileData.user?.name && userProfileData.user?.name !== " " && setUserName(userProfileData.user?.name as string)}
+  }, [userProfileData])
+
+  useEffect(() =>{
+    if (sentUserProfileData.message?.code === 200) {
+      setUserName(name)
+    }
+  },[] )
 
   const tabItemData: TabBarDataProps[] = [
     {
@@ -88,6 +111,15 @@ export const UserDetailScreen: FunctionComponent = () => {
       {getSvgImages({ name: ImagesName.dropDownIcon, width: styles.dropDownIcon.width, height: styles.dropDownIcon.height, style: styles.dropDownIcon })}
     </>
   )
+  const onpressConfirm = () => {
+    sendUserProfileInfo({
+      email: email,
+      first_name: name ?? '',
+      birthday: selectedDate.toString() != t('profile.userDetail.selectBirthdayText')? getFormatedDate(date) : '',
+      occupation: occupation ?? ''
+    })        
+    setUserName(name)
+  }
 
   const renderUserDetails = () => (
     <KeyboardAwareView extraKeyboardOffset={isIOS ? 750 : 0}>
@@ -97,10 +129,11 @@ export const UserDetailScreen: FunctionComponent = () => {
             <View style={styles.dpEditContainer}>
               <EditIcon />
             </View>
-            <UserIcon />
+            {userProfileImage? 
+            <Image url={userProfileImage} />:<UserIcon />}
           </View>
           <View style={styles.emailContainer}>
-            <Label style={styles.emailTitle} color={colors.greenishBlue} children={t('profile.userDetail.userNameTitle')} />
+            <Label style={styles.emailTitle} color={colors.greenishBlue} children={userName? userName : t('profile.userDetail.userNameTitle')} />
             <Label style={styles.email} children={email} />
           </View>
         </View>
@@ -127,6 +160,7 @@ export const UserDetailScreen: FunctionComponent = () => {
                 setOpen(false)
                 setDate(date)
                 setSelectedDate(getFullDate(date))
+                setbirthday('')
               }}
               onCancel={() => {
                 setOpen(false)
@@ -138,7 +172,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             <TouchableOpacity onPress={() => setOpen(true)}>
               <View style={styles.dropDownContainer}>
                 <View>
-                  <Label children={selectedDate.toString()}
+                  <Label children={birthday != ''? birthday : selectedDate.toString()}
                     style={[styles.dropDownLabel,
                     selectedDate.toString() == t('profile.userDetail.selectBirthdayText') && styles.dropDownLabelPlaceholder]} />
                 </View>
@@ -156,7 +190,8 @@ export const UserDetailScreen: FunctionComponent = () => {
         </View>
         <ButtonOutline
           style={styles.updateButton}
-          labelStyle={styles.updateButtonLabel} title={t('profile.userDetail.updateButtonText')} />
+          labelStyle={styles.updateButtonLabel} title={t('profile.userDetail.updateButtonText')}
+          onPress={onpressConfirm} />
       </View>
     </KeyboardAwareView>
   )
@@ -207,11 +242,11 @@ export const UserDetailScreen: FunctionComponent = () => {
   const onChangePasswordUpdate = () => {
     setOldPasswordError(loginPasswordValidation(oldPassword));
     setNewPasswordError(loginPasswordValidation(newPassword));
-    setConfirmNewPasswordError(reTypePasswordValidation(newPassword,confirmNewPassword));
+    setConfirmNewPasswordError(reTypePasswordValidation(newPassword, confirmNewPassword));
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer isOverlayLoading={isLoading}>
       {renderTabBarComponent()}
       {tabContent()}
     </ScreenContainer>

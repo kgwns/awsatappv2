@@ -18,6 +18,7 @@ import emailCheckSaga from './auth/sagas';
 import videoListSaga from './videoList/sagas';
 import topMenuSaga from './topMenu/sagas';
 import opinionArticleDetailSaga from './opinionArticleDetail/sagas';
+import userProfileSaga from './profileUserDetail/sagas'
 import bookmarkSaga from './bookmark/sagas';
 
 export function* rootSaga() {
@@ -41,6 +42,7 @@ export function* rootSaga() {
     fork(videoListSaga),
     fork(topMenuSaga),
     fork(opinionArticleDetailSaga),
+    fork(userProfileSaga),
     fork(bookmarkSaga)
   ]);
 }

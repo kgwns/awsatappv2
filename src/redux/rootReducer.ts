@@ -19,6 +19,7 @@ import emailCheckReducer from './auth/reducer';
 import videoList from 'src/redux/videoList/reducer';
 import topMenu from 'src/redux/topMenu/reducer';
 import opinionArticleDetail from 'src/redux/opinionArticleDetail/reducer';
+import userDetails from 'src/redux/profileUserDetail/reducer'
 import bookmark from 'src/redux/bookmark/reducer'
 
 export const RESET_STORE = 'RESET_STORE';
@@ -44,6 +45,7 @@ const rootReducer = combineReducers({
   videoList: videoList,
   topMenu: topMenu,
   opinionArticleDetail: opinionArticleDetail,
+  userDetails: userDetails,
   bookmark: bookmark
 });
 

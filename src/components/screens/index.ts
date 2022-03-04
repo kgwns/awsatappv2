@@ -28,7 +28,7 @@ export { ProfileSettings } from './profileSettings/ProfileSettings'
 export { OpinionArticleDetail } from 'src/components/screens/opinionArticleDetail/OpinionArticleDetail';
 export { NewPassword } from 'src/components/screens/newPassword/NewPassword'
 export { ManageMyNewsScreen } from 'src/components/screens/manageMyNews/ManageMyNewsScreen';
+export { UserDetailScreen } from 'src/components/screens/userDetail/UserDetailScreen';
 export { ManageMyFavoriteAuthorScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteAuthorScreen';
 export { ManageMyFavoriteTopicsScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteTopicsScreen';
-export { UserDetailScreen } from 'src/components/screens/userDetail/UserDetailScreen';
 
