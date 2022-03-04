@@ -69,3 +69,8 @@ jest.mock('redux-persist', () => {
 });
 
 
+jest.mock('keyboard-aware-view', () => {
+  return {
+    KeyboardAwareView: jest.fn().mockImplementation(() => jest.fn())
+  }
+})

@@ -41,9 +41,11 @@ export const NEWS_VIEW_ENDPOINT = '/api/v2/articlesection';
 //all writers list
 export const ALL_WRITERS_ENDPOINT = '/api/v2/sections/writer';
 export const SEND_SELECTED_WRITERS_ENDPOINT = 'api/ums/v1/addFavoriteAuthor?tid=';
+export const GET_SELECTED_AUTHORS_ENDPOINT = 'api/ums/v1/getFavoriteAuthor';
 
 //all site categories
 export const ALL_SITE_CATEGORIES_ENDPOINT = "/api/v2/sections/news_categories";
+export const GET_SELECTED_TOPICS_ENDPOINT = 'api/ums/v1/getYourTopics';
 
 export const INFO = '/api/v2/info/'
 
@@ -53,6 +55,7 @@ export const TERMS_AND_CONDITION = 57
 // Register
 export const REGISTER_ENDPOINT = 'api/ums/v1/register';
 export const LOGIN_ENDPOINT = 'api/ums/v1/login';
+export const LOGOUT_ENDPOINT = 'api/ums/v1/logout';
 export const CHECK_EMAIL  = 'api/ums/v1/loginCheckEmail'
 
 //VideoList

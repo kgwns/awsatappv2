@@ -34,7 +34,7 @@ export interface LatestOpinionDataType {
   title: string,
   body: string,
   nid: string,
-  field_opinion_writer_node_export: OpinionWriterType
+  field_opinion_writer_node_export: OpinionWriterType[] | OpinionWriterType;
 }
 
 export interface LatestArticleBodyGet {

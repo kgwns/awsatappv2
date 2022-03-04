@@ -56,7 +56,7 @@ export const SignUpPage = ({
         
         navigation.reset({
           index: 0,
-          routes: [{name: ScreensConstants.OnBoardNavigator}],
+          routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
         });
       }else{
         Alert.alert(message.message);
@@ -132,6 +132,7 @@ export const SignUpPage = ({
               value={email}
               style={styles.inputStyle}
               leftIcon={() => <EmailIcon fill={themeData.textColor} />}
+              isMandatory
             />
             <TextInputField placeholder={t('signUp.password')}
               testID={'signUp_password'}
@@ -141,6 +142,7 @@ export const SignUpPage = ({
               style={styles.inputStyle}
               error={passwordError}
               isPassword
+              isMandatory
             />
             <TextInputField placeholder={t('signUp.confirmPassword')}
               testID={'signUp_confirm_password'}
@@ -150,6 +152,7 @@ export const SignUpPage = ({
               style={styles.inputStyle}
               error={confirmPasswordError}
               isPassword
+              isMandatory
             />
             <SocialLoginButton testID="signUp_signUp"
               onPress={onPressSignIn}

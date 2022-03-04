@@ -1,7 +1,9 @@
 import { 
     FETCH_LOGIN,
     FETCH_LOGIN_ERROR,
-    FETCH_LOGIN_SUCCESS
+    FETCH_LOGIN_SUCCESS,
+    FETCH_USER_LOGOUT,
+    FETCH_USER_LOGOUT_SUCCESS
 } from './actionTypes';
 import { LoginActions, LoginState } from './types';
 const initialAuthState: LoginState = {
@@ -24,6 +26,10 @@ export default (state = initialAuthState, action: LoginActions) => {
       return { ...state, error: action.payload.error, isLoading: false };
     case FETCH_LOGIN:
       return { ...state, isLoading: true, error: '', loginData: null };
+    case FETCH_USER_LOGOUT:
+      return {...state, loginData: null};
+    case FETCH_USER_LOGOUT_SUCCESS:
+      return {...state, loginData: null};
     default:
       return state;
   }

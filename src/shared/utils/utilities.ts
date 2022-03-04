@@ -129,11 +129,13 @@ export const calculateTimeSince = (time: any) => {
 };
 
 export const calculateDate = (time: any) => {
-
   return moment(time).get('date');
 };
 
 export const calculateMonth = (time: any) => {
-
   return arabic.months[moment(time).get('month')];;
 };
+
+export const getFullDate = (time: any) => {
+  return calculateDate(time) + ' ' + calculateMonth(time) + ' ' + moment(time).get('year');
+}

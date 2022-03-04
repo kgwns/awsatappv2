@@ -4,10 +4,12 @@ import {
   FetchAllSiteCategoriesListSuccessPayloadType,
   FetchAllSiteCategoriesType,
   SendSelectedTopicType,
+  GetSelectedTopicsSuccessPayloadType,
+  GetSelectedTopicsType,
 } from './types';
-import { fetchAllSiteCategoriesFailed, fetchAllSiteCategoriesSuccess, sendSelectedTopicFailed, sendSelectedTopicSuccess } from './action';
-import { FETCH_ALL_SITE_CATEGORIES, SEND_SELECTED_TOPIC } from './actionTypes';
-import { fetchAllSiteCategoriesApi, sendSelectedTopicsApi } from 'src/services/allSiteCategoriesService';
+import { fetchAllSiteCategoriesFailed, fetchAllSiteCategoriesSuccess, sendSelectedTopicFailed, sendSelectedTopicSuccess,getSelectedTopicsFailed, getSelectedTopicsSuccess,  } from './action';
+import { FETCH_ALL_SITE_CATEGORIES, SEND_SELECTED_TOPIC,GET_SELECTED_TOPICS, EMPTY_SELECTED_TOPICS_INFO } from './actionTypes';
+import { fetchAllSiteCategoriesApi, sendSelectedTopicsApi,getSelectedTopicsApi } from 'src/services/allSiteCategoriesService';
 
 export function* fetchAllSiteCategories(action: FetchAllSiteCategoriesType) {
 
@@ -42,9 +44,30 @@ export function* postSelectedTopics(action: SendSelectedTopicType) {
   }
 }
 
+export function* getSelectedtTopics(action:GetSelectedTopicsType) {
+  try {
+    const payload: GetSelectedTopicsSuccessPayloadType = yield call(
+      getSelectedTopicsApi,
+    );
+    yield put(getSelectedTopicsSuccess({ selectedTopicsData: payload }));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(getSelectedTopicsFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
+export function* emptySelectedTopicsInfo() {
+  emptySelectedTopicsInfo();
+}
+
 function* allSiteCategoriesSaga() {
   yield all([takeLatest(FETCH_ALL_SITE_CATEGORIES, fetchAllSiteCategories)]);
   yield all([takeLatest(SEND_SELECTED_TOPIC, postSelectedTopics)]);
+  yield all([takeLatest(GET_SELECTED_TOPICS, getSelectedtTopics)]);
+  yield all([takeLatest(EMPTY_SELECTED_TOPICS_INFO, emptySelectedTopicsInfo)]);
 }
 
 export default allSiteCategoriesSaga;
