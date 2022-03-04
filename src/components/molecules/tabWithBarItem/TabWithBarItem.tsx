@@ -44,6 +44,7 @@ const tabWitBarItemStyle = StyleSheet.create({
   barLine: {
     width: '100%',
     height: normalizeBy320(2),
-    marginTop: normalize(14)
+    marginTop: normalize(14),
+    marginBottom: 0.5
   }
 })

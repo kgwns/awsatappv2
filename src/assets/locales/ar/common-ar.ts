@@ -217,6 +217,9 @@ export const arabic = {
       oldPassword: 'كلمة المرور القديمة',
       newPassword: 'كلمة مرور جديدة',
       confirmNewPassword: 'قم بتأكيد كلمة المرور الجديدة',
+      moveAndScale: 'تحرك و مقياس',
+      openCameraOption: 'افتح الة تصوير',
+      chooseFromGallery: 'اختر من المعرض',
     },
     newPassword: {
       createNewPassword: 'أنشئ كلمة مرور جديدة',
