@@ -7,6 +7,7 @@ import {
     FetchUserLogoutPayloadType,
     UserLogoutType,
     UserLogoutSuccessType,
+    LoginSkippedType,
   } from './types';
   import {
     FETCH_LOGIN,
@@ -14,6 +15,7 @@ import {
     FETCH_LOGIN_ERROR,
     FETCH_USER_LOGOUT,
     FETCH_USER_LOGOUT_SUCCESS,
+    LOGIN_SKIPPED
   } from './actionTypes';
   
   export const fetchLogin = (payload: FetchLoginPayloadType) => {
@@ -50,6 +52,12 @@ import {
   export const userLogoutSuccess = () : UserLogoutSuccessType => {
     return{
       type: FETCH_USER_LOGOUT_SUCCESS,
+    }
+  }
+
+  export const userLoginSkipped = () : LoginSkippedType => {
+    return {
+      type: LOGIN_SKIPPED,
     }
   }
   
