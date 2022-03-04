@@ -83,12 +83,6 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       {header()}
       <ScrollView bounces={false}>
         <View style={styles.menuContainer}>
-          <ButtonList
-            title={PROFILE}
-            onPress={() =>
-              navigation.navigate(ScreensConstants.PROFILE_SETTING)
-            }
-          />
           {sideMenuData.length > 0 &&
             sideMenuData.map((item,index) => {
               return (
