@@ -15,7 +15,7 @@ const SplashNavigation = () => {
     let subscription = useRef<NativeEventSubscription>(null).current
 
     const { getBookmarkedId } = useBookmark()
-    const { loginData } = useLogin()
+    const { isLoggedIn } = useLogin()
 
     const { isFirstSession } = useAppCommon()
     useEffect(() => {
@@ -24,7 +24,7 @@ const SplashNavigation = () => {
     }, [])
 
     useEffect(() => {
-        if (loginData) {
+        if (isLoggedIn) {
             getBookmarkedId()
         }
     }, [])

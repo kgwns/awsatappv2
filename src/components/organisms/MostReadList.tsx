@@ -38,15 +38,29 @@ const MostReadList = ({
   const [t] = useTranslation();
   const theme = useTheme();
 
-  const { sendBookmarkInfo, removeBookmarkedInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
 
   const [articleData,setArticleData] = useState(data)
 
   useEffect(() => {
     if (isNonEmptyArray(data.rows)) {
-      setArticleData(data.rows)
+      updateArticleDataBookmark()
     }
-  })
+  },[data.rows,bookmarkIdInfo])
+
+  const validateBookmark = (nid: string): boolean => {
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+  }
+
+  const updateArticleDataBookmark = () => {
+    const articleInfo = data.rows.map((item: any) => (
+      {
+        ...item,
+        isBookmarked: validateBookmark(item.nid)
+      }
+    ))
+    setArticleData(articleInfo)
+  }
 
   const onPressBookmark = (index: number) => {
     const data = [...articleData]

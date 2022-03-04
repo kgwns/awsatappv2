@@ -114,6 +114,7 @@ export function* getBookmarked() {
     const payload: GetBookMarkIdSuccessMessageType = yield call(
       getBookMarkInfo
     );
+    yield put(getBookMarkedSuccess({ bookmarkedInfo: payload.data }));
     if (payload && isNonEmptyArray(payload.data)) {
       const id = filterNidInfo(payload.data)
       yield call(getDetailedBookmarkInfo, {
@@ -121,7 +122,6 @@ export function* getBookmarked() {
         payload: { nid: joinArray(id, '+') }
       })
     }
-    yield put(getBookMarkedSuccess({ bookmarkedInfo: payload.data }));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
     if (errorResponse.response) {
@@ -155,7 +155,6 @@ export function* getDetailedBookmarkInfo(action: GetBookmarkDetailInfoType) {
       action.payload
     );
     const response = populateBookmarkDetail(payload)
-    console.log("🚀 ~ file: sagas.ts ~ line 123 ~ function*getDetailedBookmarkInfo ~ response", response)
     yield put(getBookMarkedSuccessDetailInfo(response));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;

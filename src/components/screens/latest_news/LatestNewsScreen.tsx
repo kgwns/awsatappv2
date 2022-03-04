@@ -188,8 +188,7 @@ export const LatestNewsScreen = () => {
 
 
   const validateBookmark = (nid: string): boolean => {
-    const index = isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.findIndex(value => value.nid == nid) : -1
-    return index >= 0 ? true : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const heroListInfo = isTab ? heroList.slice(0, 1) : heroList

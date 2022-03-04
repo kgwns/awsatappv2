@@ -36,8 +36,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }, [videoData,bookmarkIdInfo])
 
   const validateBookmark = (nid: string): boolean => {
-    const index = isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.findIndex(value => value.nid == nid) : -1
-    return index >= 0 ? true : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const onPressSave = (nid: string) => {
@@ -74,7 +73,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           headerBookmarkIconTestId={'video_detail_save'}
           headerBackIconTestId={'video_detail_back'}
           onPressShare={onPressShare}
-          onPressSave={()=>onPressSave(videoData[0].nid)}
+          onPressSave={()=> isNonEmptyArray(videoData) && onPressSave(videoData[0].nid)}
           isSaved={isBookmarked}
           isCloseIcon
         />

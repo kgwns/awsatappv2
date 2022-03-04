@@ -44,8 +44,7 @@ export const VideoScreen = (props: VideoScreenProps) => {
     ))
   }
   const validateBookmark = (nid: string): boolean => {
-    const index = isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.findIndex(value => value.nid == nid) : -1
-    return index >= 0 ? true : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
   const updatedChangeBookmark = (data: VideoItemType[], index: number) => {
     const updatedData = [...data]

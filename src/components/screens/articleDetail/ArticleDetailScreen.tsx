@@ -45,9 +45,7 @@ export const ArticleDetailScreen = ({
   } = useArticleDetail();
 
   const validateBookmark = (nid: string): boolean => {
-  console.log("🚀 ~ file: ArticleDetailScreen.tsx ~ line 48 ~ validateBookmark ~ nid", nid)
-    const index = isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.findIndex(value => value.nid == nid) : -1
-    return index >= 0 ? true : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const relatedArticleInfo = relatedArticleData.map((item: RelatedArticleDataType) => {
