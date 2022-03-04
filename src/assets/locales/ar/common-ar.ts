@@ -120,6 +120,7 @@ export const arabic = {
       everyone: 'الكل',
       articles: 'مقالات',
       video: 'فيديو',
+      opinion: 'الرأي',
       podcast: 'بودكاست',
     },
   },

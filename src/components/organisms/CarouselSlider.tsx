@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { View, FlatList, StyleSheet } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
 import { articleProps } from './ArticleSection'
 import { flatListUniqueKey } from '../../constants'
 import { HeadlinesSection } from 'src/components/organisms';
-import { LatestArticleDataType } from '~/redux/latestNews/types'
+import { LatestArticleDataType } from 'src/redux/latestNews/types'
 
 type CarouselSliderProps = {
     tickerData: LatestArticleDataType[],

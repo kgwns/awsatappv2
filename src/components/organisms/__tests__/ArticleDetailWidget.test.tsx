@@ -1,7 +1,7 @@
 import { render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import { ArticleDetailWidget } from 'src/components/organisms'
-import { ArticleDetailDataType } from '~/redux/articleDetail/types';
+import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 
 describe('<ArticleDetailWidget>', () => {
     let instance: RenderAPI

@@ -15,8 +15,8 @@ import {
   sendBookMarkIdFailed, sendBookMarkIdSuccess
 } from './action';
 import { isNonEmptyArray, joinArray } from 'src/shared/utils';
-import { PopulateWidgetType } from 'src/components/molecules/PopulateWidget/PopulateWidget';
-import { getImageUrl } from 'src/shared/utils/utilities';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
+import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
 
 const filterNidInfo = (data: BookmarkIdSuccessDataFieldType[]) => {
   return data.reduce((prevValue: string[], item: BookmarkIdSuccessDataFieldType) => {
@@ -27,13 +27,24 @@ const filterNidInfo = (data: BookmarkIdSuccessDataFieldType[]) => {
   }, [])
 }
 
+const getOpinionImage = (item: any) => {
+  return isNonEmptyArray(item.field_opinion_writer_node_export)
+    ? getImageUrl(
+      item.field_opinion_writer_node_export[0].opinion_writer_photo,
+    )
+    : getImageUrl(
+      item.field_opinion_writer_node_export.opinion_writer_photo,
+    )
+}
+
 const populateBookmarkDetail = (response: any): any => {
   let responseData: GetBookmarkDetailSuccessPayload = {
     bookmarkedDetailInfo: []
   }
 
+  //Need to remove those sample value when the API is available
   if (isNonEmptyArray(response)) {
-    responseData.bookmarkedDetailInfo = response.reduce((prevValue: any[],item: any) => {
+    responseData.bookmarkedDetailInfo = response.reduce((prevValue: any[], item: any) => {
       if (item.type == PopulateWidgetType.ARTICLE) {
         const data = {
           type: item.type,
@@ -45,13 +56,39 @@ const populateBookmarkDetail = (response: any): any => {
           news_categories: item.field_news_categories_export,
           tag_topics: isNonEmptyArray(item.field_tags_topics_export) ? item.field_tags_topics_export[0] : item.field_tags_topics_export,
           author: item.author_resource,
-          created: item.created_export
+          created: item.created_export,
+          isBookmarked: true
         }
         return prevValue.concat(data)
-      } else return prevValue
+      } else if (item.type == PopulateWidgetType.OPINION) {
+        const opinionData = {
+          type: item.type,
+          imageUrl: getOpinionImage(item),
+          writerTitle: item.field_opinion_writer_node_export.name,
+          headLine: item.title,
+          subHeadLine: decodeHTMLTags(item.body_export),
+          audioLabel: 'استمع الي المقالة ',
+          duration: '3:22',
+          nid: item.nid,
+          isBookmarked: true
+        }
+        return prevValue.concat(opinionData)
+      }
+      else if (item.type == PopulateWidgetType.VIDEO) {
+        const videoData = {
+          ...item,
+          imageUrl:item.field_thumbnil_multimedia_export ?? 'sites/default/files/styles/1200x600/public/shiekh-jarah-social-media-19052021.jpg?itok=E1_lVUeb',
+          des:item.body_export,
+          date: item.created_export,
+          video:item.field_mp4_link_export,
+          isBookmarked: true
+        }
+        return prevValue.concat(videoData)
+      }
+      return prevValue
     }, [])
   }
-  
+
   return responseData
 }
 
@@ -118,6 +155,7 @@ export function* getDetailedBookmarkInfo(action: GetBookmarkDetailInfoType) {
       action.payload
     );
     const response = populateBookmarkDetail(payload)
+    console.log("🚀 ~ file: sagas.ts ~ line 123 ~ function*getDetailedBookmarkInfo ~ response", response)
     yield put(getBookMarkedSuccessDetailInfo(response));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;

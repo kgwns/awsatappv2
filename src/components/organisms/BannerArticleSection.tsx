@@ -4,7 +4,7 @@ import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils
 import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { articleProps } from './ArticleSection'
 import { flatListUniqueKey, ScreensConstants } from 'src/constants'
-import { LatestArticleDataType } from '~/redux/latestNews/types'
+import { LatestArticleDataType } from 'src/redux/latestNews/types'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { useTranslation } from 'react-i18next';
 import { LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';

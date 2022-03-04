@@ -34,6 +34,11 @@ export const TermsAndAboutUs = ({
       direction: 'rtl',
       fontSize: normalize(16),
       lineHeight: normalize(33)
+    },
+    h2: {
+      color: themeData.primaryBlack,
+      textAlign: 'left',
+      direction: 'rtl',
     }
   }
 
