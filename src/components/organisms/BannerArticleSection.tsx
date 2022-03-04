@@ -79,6 +79,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 {bannerData.map((item: articleProps, index: number) => {
                     if (isTab || index == 0) return <ImageArticle key={index} {...item}
+                        onPressBookmark={() => onUpdateBookmark(item)}
                         containerStyle={isTab ? bannerArticleSectionStyle.tabletImageStyle : {}} />
                     return null
                 })}

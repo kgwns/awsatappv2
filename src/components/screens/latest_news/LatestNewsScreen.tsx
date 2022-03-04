@@ -127,11 +127,11 @@ export const LatestNewsScreen = () => {
 
   const updateSectionComboOneData = () => {
     const data = updateBookmark(sectionComboOne)
-    setSectionComboTwoInfo(data)
+    setSectionComboOneInfo(data)
   }
 
-  const updatedSectionComboOneBookmark = (article: LatestArticleDataType) => {
-    const index = sectionComboOneInfo.findIndex((item) => item.nid == article.nid)
+  const updatedSectionComboOneBookmark = (nid: string) => {
+    const index = sectionComboOneInfo.findIndex((item) => item.nid == nid)
     const updatedData = updatedChangeBookmark(sectionComboOneInfo, index)
     setSectionComboOneInfo(updatedData)
   }

@@ -22,7 +22,7 @@ export const FavoriteScreen = () => {
     }
   ]
 
-  const [tabItem, setTabItem] = useState<TabBarDataProps[]>(tabItemData);
+  /*const [tabItem, setTabItem] = useState<TabBarDataProps[]>(tabItemData);
   const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
   const style = useThemeAwareObject(customStyle)
 
@@ -47,6 +47,7 @@ export const FavoriteScreen = () => {
         return renderContentForYou();
     }
   };
+  */
 
   const renderArchives = () => (
     <View style={{ flex: 1 }}>
