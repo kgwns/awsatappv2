@@ -104,7 +104,7 @@ export const LatestNewsScreen = () => {
 
   useEffect(() => {
     updateHeroData()
-  }, [hero])
+  }, [hero,bookmarkIdInfo])
 
   const updateHeroData = () => {
     if(isNonEmptyArray(hero)) {
@@ -123,7 +123,7 @@ export const LatestNewsScreen = () => {
     if (isNonEmptyArray(sectionComboOne)) {
       updateSectionComboOneData()
     }
-  }, [sectionComboOne])
+  }, [sectionComboOne,bookmarkIdInfo])
 
   const updateSectionComboOneData = () => {
     const data = updateBookmark(sectionComboOne)
@@ -140,7 +140,7 @@ export const LatestNewsScreen = () => {
     if (isNonEmptyArray(sectionComboTwo)) {
       updateSectionComboTwoData()
     }
-  }, [sectionComboTwo])
+  }, [sectionComboTwo,bookmarkIdInfo])
 
   const updateSectionComboTwoData = () => {
     const data = updateBookmark(sectionComboTwo)
@@ -157,7 +157,7 @@ export const LatestNewsScreen = () => {
     if (isNonEmptyArray(sectionComboThree)) {
       updateSectionComboThreeData()
     }
-  }, [sectionComboThree])
+  }, [sectionComboThree,bookmarkIdInfo])
 
   const updateSectionComboThreeData = () => {
     const data = updateBookmark(sectionComboThree)
@@ -175,7 +175,7 @@ export const LatestNewsScreen = () => {
     if (isNonEmptyArray(sectionComboFour)) {
       updateSectionComboFourData()
     }
-  }, [sectionComboFour])
+  }, [sectionComboFour,bookmarkIdInfo])
 
   const updateSectionComboFourData = () => {
     const data = updateBookmark(sectionComboFour)

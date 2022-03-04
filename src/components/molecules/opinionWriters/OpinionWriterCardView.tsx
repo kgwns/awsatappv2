@@ -13,6 +13,19 @@ import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+
+export interface OpinionWritersCardViewProps {
+  imageUrl:string
+  writerTitle:string
+  headLine:string
+  subHeadLine:string
+  audioLabel:string
+  duration:string
+  nid:string
+  isBookmarked:boolean
+  onPressBookmark:()=>void
+}
+
 const OpinionWritersCardView = ({
   imageUrl,
   writerTitle,
@@ -21,10 +34,11 @@ const OpinionWritersCardView = ({
   audioLabel,
   duration,
   nid,
-}: any) => {
+  isBookmarked,
+  onPressBookmark,
+}: OpinionWritersCardViewProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
-  const [save, setSave] = useState(false);
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const onPress = () => {
@@ -68,7 +82,7 @@ const OpinionWritersCardView = ({
           <ButtonImage
             testId={'bookmarkTestId'}
             icon={() => {
-              return save
+              return isBookmarked
                 ? getSvgImages({
                     name: ImagesName.bookMarkActiveSVG,
                     size: normalize(18),
@@ -78,7 +92,7 @@ const OpinionWritersCardView = ({
                     size: normalize(18),
                   });
             }}
-            onPress={() => setSave(!save)}
+            onPress={onPressBookmark}
           />
         </View>
       </View>

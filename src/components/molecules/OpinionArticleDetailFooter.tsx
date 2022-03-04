@@ -13,18 +13,17 @@ import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types
 
 export const OpinionArticleDetailFooter = ({
   opinionArticleDetailData,
+  isBookmarked,
+  onPressSave,
 }: {
   opinionArticleDetailData: OpinionArticleDetailItemType;
+  isBookmarked: boolean
+  onPressSave: () => void
 }) => {
-  const {theme} = useAppCommon();
-  const [saveState, setSaveState] = useState(false);
-  let articleSaveIcon = saveState
+  let articleSaveIcon = isBookmarked
     ? ImagesName.bookMarkActiveSVG
     : ImagesName.bookmark;
 
-  const onPressSave = () => {
-    setSaveState(!saveState);
-  };
 
   const onPressShare = async () => {
     const {title, view_node} = opinionArticleDetailData;
