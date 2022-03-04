@@ -121,7 +121,7 @@ export const ArticleDetailScreen = ({
   }
 
   const checkAndUpdateBookmark = (nid: string) => {
-    isLoading ? onPressSave(nid) : setShowPopUp(true)
+    isLoggedIn ? onPressSave(nid) : setShowPopUp(true)
   }
 
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
