@@ -80,7 +80,8 @@ const imageArticleStyle = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         paddingHorizontal: normalize(12),
-        paddingVertical: normalize(15)
+        paddingVertical: normalize(15),
+        width: '100%'
     },
     headNewsContainer: {
         paddingHorizontal: 0.04 * screenWidth,
