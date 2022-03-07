@@ -173,7 +173,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               }}
               mode={'date'}
               title={t('profile.userDetail.selectTheDate')}
-              textColor={themeData.textInputColor}
+              textColor={colors.black}
             />
             <TouchableOpacity onPress={() => setOpen(true)}>
               <View style={styles.dropDownContainer}>
