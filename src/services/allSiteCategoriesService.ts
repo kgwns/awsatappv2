@@ -37,21 +37,10 @@ export const sendSelectedTopicsApi = async (body: SendSelectedTopicBody) => {
 };
 
 export const getSelectedTopicsApi = async () => {
-    const { token } = store.getState().login.loginData
-    let header: AxiosRequestHeaders | undefined = undefined
-    if (token) {
-        const type = `${token.token_type} ` || 'Bearer '
-        const accessToken = token.access_token
-        header = {
-            Authorization: type + accessToken
-        }
-    }
-
     try {
         const response: GetSelectedTopicsSuccessPayloadType =
             await postApiRequest(
                 `${UMS_BASE_URL}${GET_SELECTED_TOPICS_ENDPOINT}`,
-                undefined, undefined, header
             );
         return response;
     } catch (error) {

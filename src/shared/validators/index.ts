@@ -13,11 +13,15 @@ export const emailValidation = (email: string): string => {
 };
 
 export const loginPasswordValidation = (password: string): string => {
+  const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/;
   if (password === '') {
     return i18next.t('validation.passwordEmpty');
   }
-  else if (password.length < 7) {
+  else if (password.length < 8) {
     return i18next.t('validation.passwordStrength');
+  }
+  else if (!regex.test(password)) {
+    return i18next.t('validation.passwordRequirement');
   }
   return '';
 };
@@ -29,7 +33,7 @@ export const reTypePasswordValidation = (
   if (password === '') {
     return i18next.t('validation.passwordEmpty');
   }
-  else if (password.length < 7) {
+  else if (password.length < 8) {
     return i18next.t('validation.passwordStrength');
   }
   if (password !== reTypePassword) {
