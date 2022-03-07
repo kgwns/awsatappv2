@@ -20,6 +20,7 @@ import {useEmailCheck} from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
 import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import {useLogin} from 'src/hooks';
+import { appleAuth } from '@invertase/react-native-apple-authentication';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -30,6 +31,68 @@ export enum NavigateTypes {
   signinPage = 'SIGNINPAGE',
 }
 
+let user: any = null;
+
+async function onAppleButtonPress(updateCredentialStateForUser: any) {
+  console.warn('Beginning Apple Authentication');
+
+  // start a login request
+  try {
+    const appleAuthRequestResponse = await appleAuth.performRequest({
+      requestedOperation: appleAuth.Operation.LOGIN,
+      requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+    });
+
+    console.log('appleAuthRequestResponse', appleAuthRequestResponse);
+
+    const {
+      user: newUser,
+      email,
+      nonce,
+      identityToken,
+      realUserStatus /* etc */,
+    } = appleAuthRequestResponse;
+
+    user = newUser;
+
+    fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+      updateCredentialStateForUser(`Error: ${error.code}`),
+    );
+
+    if (identityToken) {
+      // e.g. sign in with Firebase Auth using `nonce` & `identityToken`
+      console.log(nonce, identityToken);
+    } else {
+      // no token - failed sign-in?
+    }
+
+    if (realUserStatus === appleAuth.UserStatus.LIKELY_REAL) {
+      console.log("I'm a real person!");
+    }
+
+    console.warn(`Apple Authentication Completed, ${user}, ${email}`);
+  } catch (error: any) {
+    if (error.code === appleAuth.Error.CANCELED) {
+      console.warn('User canceled Apple Sign in.');
+    } else {
+      console.error(error);
+    }
+  }
+}
+
+async function fetchAndUpdateCredentialState(updateCredentialStateForUser: any) {
+  if (user === null) {
+    updateCredentialStateForUser('N/A');
+  } else {
+    const credentialState = await appleAuth.getCredentialStateForUser(user);
+    if (credentialState === appleAuth.State.AUTHORIZED) {
+      updateCredentialStateForUser('AUTHORIZED');
+    } else {
+      updateCredentialStateForUser(credentialState);
+    }
+  }
+}
+
 export const AuthPage: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const {themeData} = useTheme();
@@ -37,6 +100,8 @@ export const AuthPage: FunctionComponent = () => {
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+
+  const [credentialStateForUser, updateCredentialStateForUser] = useState(-1);
 
   const {loginSkipped} =useLogin()
 
@@ -54,11 +119,39 @@ export const AuthPage: FunctionComponent = () => {
     }    
   }, [emailCheckData]);
 
+  useEffect(() => {
+    if (!appleAuth.isSupported) return;
+
+    fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+      updateCredentialStateForUser(`Error: ${error.code}`),
+    );
+  })
+
+  useEffect(() => {
+    if (!appleAuth.isSupported) return;
+
+    return appleAuth.onCredentialRevoked(async () => {
+      console.warn('Credential Revoked');
+      fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+        updateCredentialStateForUser(`Error: ${error.code}`),
+      );
+    });
+  }, []);
+
+
+ 
+
   const navigateToSection = (type: string) => {
     switch (type) {
       case NavigateTypes.google:
         return;
       case NavigateTypes.apple:
+        if (!appleAuth.isSupported){
+          console.log('Apple Signin not supported');
+          return
+        }else{
+           onAppleButtonPress(updateCredentialStateForUser)
+        }
         return;
       case NavigateTypes.facebook:
         return;
