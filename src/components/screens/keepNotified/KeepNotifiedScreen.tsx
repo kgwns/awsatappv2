@@ -10,9 +10,17 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ScreenContainer} from '..';
 import {ScreenHeight} from 'react-native-elements/dist/helpers';
 
-export const KeepNotifiedScreen = ({navigation}: any) => {
+export const KeepNotifiedScreen = ({navigation,route}: any) => {
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
+
+  const onPressNext = () => {
+    if (route.params && route.params.canBoBack) {
+      navigation.goBack()
+    } else {
+      navigation.navigate(ScreensConstants.SUCCESS_SCREEN)
+    }
+  }
 
   return (
     <ScreenContainer edge={horizontalEdge}>
@@ -37,7 +45,7 @@ export const KeepNotifiedScreen = ({navigation}: any) => {
             testID="nextButtonTestId"
             title={t('onBoard.common.completed')}
             icon={false}
-            onPress={() => navigation.navigate(ScreensConstants.SUCCESS_SCREEN)}
+            onPress={onPressNext}
             style={style}
           />
         </View>
