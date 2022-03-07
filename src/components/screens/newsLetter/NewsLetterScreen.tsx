@@ -11,7 +11,11 @@ import {ScreensConstants} from 'src/constants';
 import {ScreenHeight} from 'react-native-elements/dist/helpers';
 import {NewsLettersWidget} from 'src/components/organisms';
 
-export const NewsLetterScreen = () => {
+interface NewsLetterScreenProps {
+  route: any
+}
+
+export const NewsLetterScreen = ({route} : NewsLetterScreenProps) => {
   const navigation = useNavigation();
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
@@ -34,6 +38,14 @@ export const NewsLetterScreen = () => {
     },
   ];
 
+  const onPressNext = () => {
+    if (route.params && route.params.canBoBack) {
+      navigation.goBack()
+    } else {
+      navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)
+    }
+  }
+
   return (
     <ScreenContainer edge={horizontalEdge}>
       <View style={style.container}>
@@ -54,9 +66,7 @@ export const NewsLetterScreen = () => {
           <NextButton
             testID="nextButtonTestId"
             title={t('onBoard.common.nextBtn')}
-            onPress={() =>
-              navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)
-            }
+            onPress={onPressNext}
             style={style}
           />
         </View>

@@ -165,6 +165,26 @@ const AppNavigator = () => {
           headerTitleAlign: 'center',
         }}
       />
+      <Stack.Screen
+        name={ScreensConstants.NEWS_LETTER_SCREEN}
+        component={Routes.NewsLetterScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: HeaderLogo,
+          headerTitleAlign: 'center'
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN}
+        component={Routes.KeepNotifiedScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: HeaderLogo,
+          headerTitleAlign: 'center'
+        }}
+      />
     </Stack.Navigator>
   );
 };
