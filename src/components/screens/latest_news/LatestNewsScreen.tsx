@@ -313,6 +313,7 @@ export const LatestNewsScreen = () => {
         sectionId={'871'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboTwoBookmark}
+        isDivider
       />
       <Divider style={{ height: normalize(20) }} />
       <AuthorWidget data={opinionList} />
@@ -330,6 +331,7 @@ export const LatestNewsScreen = () => {
         sectionId={'10'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboFourBookmark}
+        isDivider
       />
       <Divider style={{ height: normalize(50) }} />
     </View>

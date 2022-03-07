@@ -7,7 +7,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
-import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp } from '../atoms'
+import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider } from '../atoms'
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
 import { ImagesName } from 'src/shared/styles/images';
 import { ImageResize } from 'src/shared/styles/text-styles';
@@ -93,6 +93,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
             <Image url={getImageUrl(item.image)} style={ShortArticleStyle.image} resizeMode={ImageResize.COVER} />
           </View>
         </View>
+        {index < data.length - 1 && <Divider/>}
       </View>
     </TouchableWithoutFeedback>
   };
