@@ -141,5 +141,5 @@ export const getFullDate = (time: any) => {
 }
 
 export const getFormatedDate = (time: any)=> {
-  return calculateDate(time) + '.' + moment(time).get('month')+ '.' + moment(time).get('year');
+  return  moment(time).get('year') + '.' + (moment(time).get('month')+1)+ '.' + calculateDate(time);
 }

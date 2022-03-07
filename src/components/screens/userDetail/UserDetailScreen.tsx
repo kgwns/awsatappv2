@@ -46,6 +46,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const { isLoading, userProfileData, sentUserProfileData ,fetchProfileDataRequest, sendUserProfileInfo } = useUserProfileData()
   const [userProfileImage, setUserProfileImage] = useState('') 
   const [birthday, setBirthday] = useState('')
+  const lastDateOfYear = new Date();
   useEffect(() => {
     fetchProfileDataRequest();
   }, []);
@@ -152,11 +153,12 @@ export const UserDetailScreen: FunctionComponent = () => {
             style={styles.nameInputStyle}
             isMandatory
             leftIcon={() => <UserTextFieldIcon fill={themeData.textColor} />}
-          />
+          />   
           <View>
             <Label style={styles.birthdayTitle} color={colors.greenishBlue} children={t('profile.userDetail.birthdayTitle')} />
             <DatePicker
               locale='ar'
+              maximumDate={new Date(lastDateOfYear)}
               cancelText={t('profile.userDetail.cancelText')}
               confirmText={t('profile.userDetail.confirmText')}
               modal
@@ -173,7 +175,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               }}
               mode={'date'}
               title={t('profile.userDetail.selectTheDate')}
-              textColor={colors.black}
+              textColor={themeData.textInputColor}
             />
             <TouchableOpacity onPress={() => setOpen(true)}>
               <View style={styles.dropDownContainer}>
