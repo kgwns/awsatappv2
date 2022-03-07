@@ -25,7 +25,7 @@ describe('<NewsLettersScreen>', () => {
     expect(instance).toBeDefined();
   });
 
-  it('Should Press Next Button', () => {
+  xit('Should Press Next Button', () => {
     const element = instance.getByTestId('nextButtonTestId');
     fireEvent.press(element);
   });

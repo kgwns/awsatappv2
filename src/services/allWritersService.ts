@@ -39,20 +39,10 @@ export const sendSelectedWritersApi = async (body: SendSelectedAuthorBody) => {
 };
 
 export const getSelectedAuthorsApi = async () => {
-    const { token } = store.getState().login.loginData
-    let header: AxiosRequestHeaders | undefined = undefined
-    if (token) {
-        const type = `${token.token_type} ` || 'Bearer '
-        const accessToken = token.access_token
-        header = {
-            Authorization: type + accessToken
-        }
-    }
     try {
         const response: SendSelectedAuthorSuccessPayloadType =
             await postApiRequest(
                 `${UMS_BASE_URL}${GET_SELECTED_AUTHORS_ENDPOINT}`,
-                  undefined,undefined,header
             );
         return response;
     } catch (error) {
