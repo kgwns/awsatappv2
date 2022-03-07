@@ -4,7 +4,7 @@ import { flatListUniqueKey, ScreensConstants } from 'src/constants'
 import { ImageWithLabel } from '../atoms'
 import { articleProps } from '../organisms'
 import { ArticleWithOutImage } from '../molecules'
-import { normalize } from 'src/shared/utils'
+import { isNotEmpty, normalize } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -31,7 +31,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
         <TouchableWithoutFeedback onPress={onPress}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
                 style={StyleSheet.flatten([{ paddingBottom: normalize(20) }, articleItemStyle])}>
-                {image && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
+                {isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
                 <ArticleWithOutImage {...props} onPress={onPress}
                    onPressBookmark={onPressBookmark}
                 />

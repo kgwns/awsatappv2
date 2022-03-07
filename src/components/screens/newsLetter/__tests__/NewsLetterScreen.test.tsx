@@ -10,7 +10,7 @@ describe('<NewsLettersScreen>', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLetterScreen />
+        <NewsLetterScreen route={{ params: { nid: 123 } }}/>
       </Provider>
     );
     instance = render(component);
