@@ -34,6 +34,15 @@ import {
     password: string;
     device_name: string;
   }
+
+  export interface SocialLoginPayloadType {
+    email: string;
+    device_name: string;
+    provider_id: string;
+    provider: string;
+    first_name: string;
+    last_name: string;
+  }
   
   export type LoginState = {
     loginData: any;
