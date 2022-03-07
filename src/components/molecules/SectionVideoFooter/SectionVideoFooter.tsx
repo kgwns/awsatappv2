@@ -45,9 +45,9 @@ const SectionVideoFooter = ({
   return (
     <View style={{ ...SectionVideoFooterStyle.container, ...style }}>
       <View style={{ flexDirection: 'row' }}>
-                     <FooterCaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} subTitle={leftViews} subTitleColor={leftViewsColor} />
-                     <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />
-                     <FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />
+                    {(leftTitle || leftViews) && <FooterCaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} subTitle={leftViews} subTitleColor={leftViewsColor} />}
+                    {(leftTitle || leftViews) && (rightDate || rightTitle) && <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />}
+                    {(rightDate || rightTitle) &&<FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
     </View>
     {addBookMark && 
       <ButtonImage

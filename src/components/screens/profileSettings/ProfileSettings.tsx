@@ -57,7 +57,7 @@ export const ProfileSettings = () => {
         {
             iconName: ImagesName.notificationGrey,
             title: CONST_MANAGE_NOTIFICATION,
-            screenName: ''
+            screenName: ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN
         },
         {
             iconName: ImagesName.manageNews,
@@ -67,7 +67,7 @@ export const ProfileSettings = () => {
         {
             iconName: ImagesName.newsLetter,
             title: CONST_MY_NEWS_LETTER,
-            screenName: ''
+            screenName: ScreensConstants.NEWS_LETTER_SCREEN
         },
         {
             iconName: ImagesName.profile,
@@ -107,7 +107,8 @@ export const ProfileSettings = () => {
                         routes: [{ name: ScreensConstants.AuthNavigator }],
                     });
                 } else {
-                    (item.screenName.length > 0) ? navigation.navigate(item.screenName) : {}
+                    const params = (item.title === (CONST_MANAGE_NOTIFICATION || CONST_MANAGE_NEWS)) ? {canBoBack: true} : {};
+                    (item.screenName.length > 0) ? navigation.navigate(item.screenName,params) : {}
                 }
             }
             }>

@@ -59,7 +59,6 @@ const ArticleSection = ({
         articleFooterDataSet.leftTitle = item.author
         articleFooterDataSet.rightTitle = t(timeAgo(item.created))
         return <ArticleItem {...item} index={index}
-            showDivider={index < data.length - 1}
             imageStyle={{ height: normalize(189) }}
             footerInfo={articleFooterDataSet}
             onPressBookmark={() => onPressBookmark(index)}

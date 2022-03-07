@@ -7,7 +7,7 @@ import { flatListUniqueKey, ScreensConstants } from 'src/constants'
 import { LatestArticleDataType } from 'src/redux/latestNews/types'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { useTranslation } from 'react-i18next';
-import { LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
+import { Divider, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -31,11 +31,12 @@ interface BannerArticleSectionProps {
     title: string,
     sectionId: string,
     onPress: (nid: string) => void,
-    onUpdateBookmark: (item: any) => void
+    onUpdateBookmark: (item: any) => void,
+    isDivider?: boolean 
 }
 
 const BannerArticleSection = (props: BannerArticleSectionProps) => {
-    const { data, sectionId, onPress, onUpdateBookmark } = props
+    const { data, sectionId, onPress, onUpdateBookmark, isDivider } = props
     const [t] = useTranslation()
     const { themeData } = useTheme()
     const bannerData = [...data].splice(0, 4)
@@ -96,6 +97,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
 
     return (
         <View style={[bannerArticleSectionStyle.container, isTab && bannerArticleSectionStyle.tabContainer]}>
+            {isDivider  && <Divider/>}
             <View style={!isTab && bannerArticleSectionStyle.headerContainer}>
                 <WidgetHeader {...widgetHeaderData} onPress={onPressMore} />
             </View>
@@ -123,7 +125,8 @@ const bannerArticleSectionStyle = StyleSheet.create({
         paddingHorizontal: 0.04 * screenWidth
     },
     headerContainer: {
-        paddingHorizontal: 0.04 * screenWidth
+        paddingHorizontal: 0.04 * screenWidth,
+        paddingVertical: normalize(10)
     },
     verticalList: {
         paddingHorizontal: 0.04 * screenWidth
