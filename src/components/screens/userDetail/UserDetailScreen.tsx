@@ -156,6 +156,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             value={name}
             style={styles.nameInputStyle}
             isMandatory
+            maxLength={20}
             leftIcon={() => <UserTextFieldIcon fill={themeData.textColor} />}
           />   
           <View>
@@ -197,6 +198,7 @@ export const UserDetailScreen: FunctionComponent = () => {
           <TextInputField placeholder={t('profile.userDetail.occupationPlaceholder')}
             testID={'profile_occupation'}
             onChangeText={setOccupation}
+            maxLength={20}
             value={occupation}
             style={styles.nameInputStyle}
           />
@@ -218,6 +220,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         value={oldPassword}
         style={styles.inputStyle}
         error={oldPasswordError}
+        maxLength={20}
         isPassword
         isMandatory
       />
@@ -229,6 +232,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         style={styles.inputStyle}
         error={newPasswordError}
         isPassword
+        maxLength={20}
         isMandatory
       />
       <TextInputField placeholder={t('profile.userDetail.confirmNewPassword')}
@@ -239,6 +243,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         style={styles.inputStyle}
         error={confirmNewPasswordError}
         isPassword
+        maxLength={20}
         isMandatory
       />
       <View style={styles.updateButtonContainer} >

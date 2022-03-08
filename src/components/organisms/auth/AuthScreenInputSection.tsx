@@ -113,6 +113,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
               error={passwordError}
               isPassword
               isMandatory
+              maxLength={20}
               />
             }
             {isPassword&&
