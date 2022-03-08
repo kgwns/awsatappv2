@@ -107,7 +107,7 @@ export const ProfileSettings = () => {
                         routes: [{ name: ScreensConstants.AuthNavigator }],
                     });
                 } else {
-                    const params = (item.title === CONST_MANAGE_NOTIFICATION || item.title === CONST_MANAGE_NEWS) ? {canGoBack: true} : {};
+                    const params = (item.title === CONST_MANAGE_NOTIFICATION || item.title === CONST_MY_NEWS_LETTER) ? {canGoBack: true} : {};
                     (item.screenName.length > 0) ? navigation.navigate(item.screenName,params) : {}
                 }
             }
