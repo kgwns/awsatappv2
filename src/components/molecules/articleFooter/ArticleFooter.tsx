@@ -69,7 +69,7 @@ const ArticleFooter = ({
     <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
       <View style={[articleFooterStyle.authorContainer,hideBookmark&&{flex:1}]}>
         <CaptionWithImage style={articleFooterStyle.leftContainer} title={leftTitle} icon={leftIcon} color={leftTitleColor}  />
-        <View  style={articleFooterStyle.verticalDivider} />
+        {(rightTitle || leftTitle) && <View  style={articleFooterStyle.verticalDivider} />}
         <CaptionWithImage style={articleFooterStyle.rightContainer} title={rightTitle} icon={rightIcon} color={rightTitleColor} />
       </View>
       {!hideBookmark &&
