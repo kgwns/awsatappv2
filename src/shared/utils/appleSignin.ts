@@ -11,15 +11,5 @@ export const appleSignin = async () => {
 
   console.log('check response appleSignin: - ', appleAuthRequestResponse);
   return appleAuthRequestResponse;
-  const {
-    user: newUser,
-    email,
-    nonce,
-    identityToken,
-    realUserStatus /* etc */,
-  } = appleAuthRequestResponse;
-
-  console.log(`appleSignin user :- `, newUser);
-  console.log(`appleSignin email :- `, email);
 };
 
