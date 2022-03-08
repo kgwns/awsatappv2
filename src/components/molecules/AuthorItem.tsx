@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet,TouchableOpacity } from 'react-native'
 import { ButtonImage, Image, Label, LabelTypeProp } from '../atoms'
 import { normalize } from '../../shared/utils'
 import { ImagesName, Styles } from '../../shared/styles'
@@ -9,7 +9,6 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTranslation } from 'react-i18next'
@@ -42,7 +41,7 @@ const AuthorItem = ({
     }
 
     return (
-        <TouchableOpacity key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={()=>onPress()} >
+        <TouchableOpacity key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
             <View style={{ flex: 1 }}>
                 <Label children={author} labelType={LabelTypeProp.p4}
                     color={themeData.primary} numberOfLines={1} />

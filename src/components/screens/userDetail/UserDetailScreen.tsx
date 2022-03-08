@@ -11,7 +11,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { TextInputField, Label, ButtonOutline } from '../../atoms';
 import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
-import { getFullDate, isObjectNonEmpty, getFormatedDate, getProfileImageUrl} from 'src/shared/utils/utilities';
+import { getFullDate, isObjectNonEmpty, getFormatedDate, getProfileImageUrl, CustomAlert} from 'src/shared/utils/utilities';
 import DatePicker from 'react-native-date-picker';
 import { TabBarComponent, TabBarDataProps } from 'src/components/molecules';
 import { KeyboardAwareView } from 'keyboard-aware-view';
@@ -22,6 +22,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import { UpdateUserImageBodyType } from 'src/redux/profileUserDetail/types';
 import { isDarkTheme } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
+import { SystemPermissions } from 'src/shared/utils';
+import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS } from 'src/constants/SharedConstants';
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -262,7 +264,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         <View style={styles.optionModalContainer}>
           <View style={styles.overlayStyle}>
             <View style={styles.optionContainer}>
-              <TouchableOpacity testID={'camera_option'} onPress={() => openCamera()} >
+              <TouchableOpacity testID={'camera_option'} onPress={onClickOpenCamera} >
                 <View style={styles.optionStyle}>
                   <Label style={styles.optionTextStyle} children={t('profile.userDetail.openCameraOption')} />
                 </View>
@@ -311,6 +313,22 @@ export const UserDetailScreen: FunctionComponent = () => {
     })
   };
 
+  const onClickOpenCamera = async () => {
+    if (isIOS) {
+      openCamera()
+    } else {
+      const hasPermission = await SystemPermissions.hasCameraPermission()
+      if (hasPermission) {
+        openCamera()
+      } else {
+        const hasPermissionGranted = await SystemPermissions.requestCameraPermission()
+        hasPermissionGranted ? openCamera() : CustomAlert({
+          title: REQUIRE_ACCESS,
+          message: REQUEST_CAMERA_ACCESS_MESSAGE,
+        })
+      }
+    }
+  }
   
   const uploadImage = (image:any) => {
     const payload: UpdateUserImageBodyType = {

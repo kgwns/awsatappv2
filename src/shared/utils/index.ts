@@ -20,5 +20,6 @@ export {
   calculateTimeSince,
   calculateMonth,
   joinArray,
-  isNotEmpty
+  isNotEmpty,
 } from 'src/shared/utils/utilities'
+export { SystemPermissions } from 'src/shared/utils/SystemPermissions'
