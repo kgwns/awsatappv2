@@ -4,7 +4,7 @@ import {ImagesName} from '../shared/styles/images';
 import {ButtonImage} from '../components/atoms';
 import {ButtonList, Divider, ButtonOutline} from 'src/components/atoms';
 import {useTranslation} from 'react-i18next';
-import {normalize} from 'src/shared/utils';
+import {isIOS, normalize} from 'src/shared/utils';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import UserIcon from 'src/assets/images/icons/user.svg';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
@@ -185,7 +185,7 @@ const createStyles = (theme: CustomThemeType) =>
       width: normalize(27),
       height: normalize(27),
       borderRadius: normalize(27)/2,
-      borderWidth: normalize(2),
+      borderWidth: isIOS? normalize(2): normalize(3),
       borderColor: colors.lightGreenishBlue,
     },
     menuContainer: {
