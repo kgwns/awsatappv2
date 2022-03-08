@@ -24,6 +24,7 @@ import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
+import { getProfileImageUrl } from 'src/shared/utils/utilities';
 
 interface CustomDrawerContentProps {}
 
@@ -73,7 +74,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         }
         
         }}>
-        {useLogin().isLoggedIn && userProfileData.user?.profile_url ? <Image style={styles.user} source={{uri: userProfileData.user?.profile_url}}/> : <UserIcon/>}  
+        {useLogin().isLoggedIn && userProfileData.user?.image ? <Image style={styles.user} source={{uri: getProfileImageUrl(userProfileData.user?.image as string)}}/> : <UserIcon/>}  
         {/* {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })} */}
       </TouchableOpacity>
       <View style={styles.logoContainer}>

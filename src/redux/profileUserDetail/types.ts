@@ -4,7 +4,8 @@ import {
   FETCH_PROFILE_USER_DETAILS_SUCCESS,
   SEND_USER_DETAILS,
   SEND_USER_DETAILS_SUCCESS,
-  SEND_USER_DETAILS_ERROR
+  SEND_USER_DETAILS_ERROR,
+  UPDATE_PROFILE_USER_IMAGE, UPDATE_USER_IMAGE_SUCCESS, UPDATE_USER_IMAGE_FAILED
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -13,25 +14,29 @@ export interface ProfileUserDataType {
   user?: UserDataType;
   message?: messageDataType
 }
+
 export interface UserDataType {
-  id?: number;
+  id: string;
   name?: string;
   first_name?: string;
   last_name?: string;
   mobile?: string;
-  email?: string;
+  email: string;
   provider?: string;
   provider_id?: string;
   email_verified_at?: string;
   image?: string;
-  profile_url?: string;
-  birthday?: string;
-  country?: string;
-  gender?: string;
-  registered_by?: string;
+  profile_url?: string | null;
+  birthday?: string | null;
+  country?: string | null;
+  gender?: string | null;
+  registered_by?: string | null;
   device_name?: string;
   occupation?: string;
+  created_at?: string;
+  updated_at?: string;
 }
+
 export interface messageDataType {
   code?: number;
   message?: string;
@@ -60,11 +65,50 @@ export interface SendUserData {
   email: string
 }
 
+export interface UpdateUserImageBodyType {
+  image: string;
+}
+
+export interface UpdateUserImageSuccessPayloadType {
+  user: UserDataType | null,
+  message: messageDataType,
+}
+
+export interface UserState {
+  userDetail: UpdateUserImageSuccessPayloadType | null;
+  error: string;
+  isLoading: boolean;
+}
+
+export interface UpdateUserprofileImageSuccessType {
+  type: typeof UPDATE_USER_IMAGE_SUCCESS,
+  payload: UpdateUserImageSuccessPayloadType,
+}
+
+export type UpdateUserImageType = {
+  type: typeof UPDATE_PROFILE_USER_IMAGE;
+  payload: UpdateUserImageBodyType;
+};
+export type UpdateProfileUserImageSuccessType = {
+  type: typeof UPDATE_USER_IMAGE_SUCCESS;
+  payload: UpdateUserImageSuccessPayloadType;
+};
+
+export interface UpdateUserImageFailedPayloadType {
+  error: string;
+}
+
+export type UpdateUserImageFailedType = {
+  type: typeof UPDATE_USER_IMAGE_FAILED;
+  payload: UpdateUserImageFailedPayloadType;
+};
+
 export type ProfileUserDetailsState = {
   userProfileData: ProfileUserDataType;
   error: string;
   isLoading: boolean;
   sendUserInfo: ProfileUserDataType
+  userDetail: UpdateUserImageSuccessPayloadType | null;
 };
 
 export type FetchProfileUserDetailsType = {
@@ -102,3 +146,6 @@ export type UserProfileActions =
   | SendUserDataType
   | SendUserDataSuccessType
   | SendUserDataFailedType
+  | UpdateUserImageType
+  | UpdateProfileUserImageSuccessType
+  | UpdateUserImageFailedType;

@@ -80,3 +80,4 @@ export const GET_BOOK_DETAIL_INFO_END_POINT = 'api/v2/nodelist/'
 
 //User Profile Details
 export const UPDATE_PROFILE_USER_IMAGE = 'api/ums/v1/updateProfileUserImage'
+export const PROFILE_IMAGE_URL = 'http://awsatapi.srpcdigital.com/storage/'

@@ -11,7 +11,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { TextInputField, Label, ButtonOutline } from '../../atoms';
 import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
-import { getFullDate, isObjectNonEmpty, getFormatedDate} from 'src/shared/utils/utilities';
+import { getFullDate, isObjectNonEmpty, getFormatedDate, getProfileImageUrl} from 'src/shared/utils/utilities';
 import DatePicker from 'react-native-date-picker';
 import { TabBarComponent, TabBarDataProps } from 'src/components/molecules';
 import { KeyboardAwareView } from 'keyboard-aware-view';
@@ -19,8 +19,7 @@ import { loginPasswordValidation, reTypePasswordValidation } from 'src/shared/va
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-crop-picker';
-import { useUserProfile } from 'src/hooks';
-import { UpdateUserImageBodyType } from 'src/redux/updateProfileImage/types';
+import { UpdateUserImageBodyType } from 'src/redux/profileUserDetail/types';
 import { isDarkTheme } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
 
@@ -31,7 +30,6 @@ export const UserDetailScreen: FunctionComponent = () => {
   const { themeData } = useTheme();
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
-  const {updateUserImageRequest, userDetail, isUserImageLoading} = useUserProfile();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [occupation, setOccupation] = useState('');
@@ -47,7 +45,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [confirmNewPasswordError, setConfirmNewPasswordError] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [profileImage, setProfileImage] = useState(Object);
-  const { isLoading, userProfileData, sentUserProfileData ,fetchProfileDataRequest, sendUserProfileInfo } = useUserProfileData()
+  const { isLoading, userProfileData, sentUserProfileData ,fetchProfileDataRequest, sendUserProfileInfo, updateUserImageRequest } = useUserProfileData()
   const [userProfileImage, setUserProfileImage] = useState('') 
   const [birthday, setBirthday] = useState('')
   const currentDate = new Date();
@@ -59,7 +57,7 @@ export const UserDetailScreen: FunctionComponent = () => {
     setEmail(userProfileData.user?.email as string)
     {setOccupation(userProfileData.user?.occupation? userProfileData.user?.occupation as string : occupation )}
     {userProfileData.user?.name && userProfileData.user?.name !== " " && setName(userProfileData.user?.name as string)}
-    {userProfileData.user?.profile_url && setUserProfileImage(userProfileData.user?.profile_url as string)}
+    {userProfileData.user?.image &&  setUserProfileImage( getProfileImageUrl(userProfileData.user?.image as string))}
     {userProfileData.user?.birthday && setBirthday(getFullDate(userProfileData.user?.birthday))}
     {userProfileData.user?.name && userProfileData.user?.name !== " " && setUserName(userProfileData.user?.name as string)}
   }, [userProfileData])
@@ -125,7 +123,7 @@ export const UserDetailScreen: FunctionComponent = () => {
     sendUserProfileInfo({
       email: email,
       first_name: name ?? '',
-      birthday: selectedDate.toString() != t('profile.userDetail.selectBirthdayText')? getFormatedDate(date) : '',
+      birthday: selectedDate.toString() != t('profile.userDetail.selectBirthdayText')? getFormatedDate(date) : (userProfileData.user?.birthday ? getFormatedDate(userProfileData.user?.birthday): '' ),
       occupation: occupation ?? ''
     })        
     setUserName(name)
@@ -185,7 +183,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             <TouchableOpacity onPress={() => setOpen(true)}>
               <View style={styles.dropDownContainer}>
                 <View>
-                  <Label children={birthday != ''? birthday : selectedDate.toString()}
+                  <Label children={birthday != '' ? birthday : selectedDate.toString()}
                     style={[styles.dropDownLabel,
                     selectedDate.toString() == t('profile.userDetail.selectBirthdayText') && styles.dropDownLabelPlaceholder]} />
                 </View>

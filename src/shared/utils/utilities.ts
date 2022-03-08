@@ -6,6 +6,7 @@ import { BASE_URL } from "src/services/apiUrls";
 import { arabic } from "src/assets/locales/ar/common-ar";
 import moment from "moment";
 import 'moment/locale/ar';
+import { PROFILE_IMAGE_URL } from "src/services/apiEndPoints";
 
 export interface CustomAlertProps {
   title?: string;
@@ -148,3 +149,7 @@ export const getFullDate = (time: any) => {
 export const getFormatedDate = (time: any)=> {
   return  moment(time).get('year') + '.' + (moment(time).get('month')+1)+ '.' + calculateDate(time);
 }
+
+export const getProfileImageUrl = (imageURL: string) => {
+  return isValidHttpUrl(imageURL) ? imageURL : PROFILE_IMAGE_URL + imageURL;
+};

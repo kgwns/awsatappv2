@@ -7,7 +7,13 @@ import {
   SendUserDataSuccessType,
   SendUserDataFailedPayloadtype,
   SendUserDataSuccessPayloadType,
-  SendUserData
+  SendUserData,
+  UpdateUserImageBodyType,
+  UpdateUserImageType,
+  UpdateUserImageFailedType,
+  UpdateUserImageSuccessPayloadType,
+  UpdateUserImageFailedPayloadType,
+  UpdateUserprofileImageSuccessType,
 } from 'src/redux/profileUserDetail/types';
 import {
   FETCH_PROFILE_USER_DETAILS,
@@ -15,7 +21,8 @@ import {
   FETCH_PROFILE_USER_DETAILS_SUCCESS,
   SEND_USER_DETAILS,
   SEND_USER_DETAILS_SUCCESS,
-  SEND_USER_DETAILS_ERROR
+  SEND_USER_DETAILS_ERROR,
+  UPDATE_PROFILE_USER_IMAGE, UPDATE_USER_IMAGE_SUCCESS, UPDATE_USER_IMAGE_FAILED
 } from 'src/redux/profileUserDetail/actionTypes';
 
 export const fetchUserProfileDetail = () => {
@@ -67,6 +74,32 @@ export const sendUserDataFailed = (
   };
 };
 
+export const updateUserImage = (payload: UpdateUserImageBodyType): UpdateUserImageType => {
+  return {
+    type: UPDATE_PROFILE_USER_IMAGE,
+    payload,
+  };
+};
+
+export const updateUserImageSuccess = (
+  payload: UpdateUserImageSuccessPayloadType,
+): UpdateUserprofileImageSuccessType => {
+  return {
+    type: UPDATE_USER_IMAGE_SUCCESS,
+    payload,
+  };
+};
+
+export const updateUserImageFailed = (
+  payload: UpdateUserImageFailedPayloadType,
+): UpdateUserImageFailedType => {
+  return {
+    type: UPDATE_USER_IMAGE_FAILED,
+    payload,
+  };
+};
+
+
 export const UserProfileDetailActions = {
   fetchUserProfileDetail,
   fetchUserProfileDetailsSuccess,
@@ -74,4 +107,7 @@ export const UserProfileDetailActions = {
   sendUserData,
   sendUserDataSuccess,
   sendUserDataFailed,
+  updateUserImage,
+  updateUserImageSuccess,
+  updateUserImageFailed
 };
