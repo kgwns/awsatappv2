@@ -21,9 +21,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-crop-picker';
 import { useUserProfile } from 'src/hooks';
 import { UpdateUserImageBodyType } from 'src/redux/updateProfileImage/types';
+import { isDarkTheme } from 'src/shared/utils';
+import { useAppCommon } from 'src/hooks';
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const { theme } = useAppCommon()
+  const isDarkMode = isDarkTheme(theme)
   const { themeData } = useTheme();
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
@@ -175,7 +179,8 @@ export const UserDetailScreen: FunctionComponent = () => {
               }}
               mode={'date'}
               title={t('profile.userDetail.selectTheDate')}
-              textColor={themeData.textInputColor}
+              theme={isDarkMode? 'dark' : 'light'}
+              textColor={isIOS? themeData.textInputColor: colors.black}
             />
             <TouchableOpacity onPress={() => setOpen(true)}>
               <View style={styles.dropDownContainer}>
@@ -255,7 +260,7 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   const renderOptionModal = () => (
 
-      <Modal visible={isModalVisible} transparent={true}>
+      <Modal visible={isModalVisible} animationType={'slide'} transparent={true} onRequestClose={() => setModalVisible(false)}>
         <View style={styles.optionModalContainer}>
           <View style={styles.overlayStyle}>
             <View style={styles.optionContainer}>

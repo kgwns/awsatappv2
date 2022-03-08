@@ -127,11 +127,6 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             onPress={() => console.log('clicked')}
             titleStyle={styles.nonBoldTitle}
           />
-          <ButtonOutline
-            title={t('drawer.myPersonalAccount')}
-            leftIcon={() => <UserIcon fill={themeData.primaryDarkSlateGray} />}
-            color={themeData.primaryDarkSlateGray}
-          />
           <View style={styles.socialContainer}>
             <ButtonImage
               icon={() => <LinkedinIcon />}
