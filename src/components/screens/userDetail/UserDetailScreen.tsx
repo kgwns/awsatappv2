@@ -46,7 +46,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const { isLoading, userProfileData, sentUserProfileData ,fetchProfileDataRequest, sendUserProfileInfo } = useUserProfileData()
   const [userProfileImage, setUserProfileImage] = useState('') 
   const [birthday, setBirthday] = useState('')
-  const lastDateOfYear = new Date();
+  const currentDate = new Date();
   useEffect(() => {
     fetchProfileDataRequest();
   }, []);
@@ -158,7 +158,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             <Label style={styles.birthdayTitle} color={colors.greenishBlue} children={t('profile.userDetail.birthdayTitle')} />
             <DatePicker
               locale='ar'
-              maximumDate={new Date(lastDateOfYear)}
+              maximumDate={new Date(currentDate)}
               cancelText={t('profile.userDetail.cancelText')}
               confirmText={t('profile.userDetail.confirmText')}
               modal
