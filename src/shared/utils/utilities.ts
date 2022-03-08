@@ -71,15 +71,14 @@ export const timeAgo = (time: any) => {
   var today = new Date();
   var yesterday = new Date(today.valueOf() - 1000 * 60 * 60 * 24);
   var threeHoursBefore = new Date(today.valueOf() - 1000 * 60 * 60 * 3);
-  var currentHours = new Date(today.valueOf());
-  const isThreeHoursAgo = currentHours.getHours() - threeHoursBefore.getHours() <= 3
   const isToday =   date.getDate() == today.getDate() &&  date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear();
-
+  const isThreeHoursAgo = date.getHours() - threeHoursBefore.getHours() >= 3;
+  const fullDateFormat =  arabic.months[moment(time).get('month')] + ' ' + calculateDate(time) + ', ' + calculateYear(time);
+  const recentHoursFormat = arabic.timeSince.since + moment().fromNow(true);
   if (isToday && isThreeHoursAgo) {
-    return calculateTimeSince(date);
+    return recentHoursFormat;
   } else {
-    moment.locale('ar')
-    return arabic.timeSince.since + moment(time).format('MMMM') + ' ' + moment(time).format('DD') + ',' + moment(time).format('YYYY');
+    return fullDateFormat;
   }
 };
 
