@@ -20,4 +20,5 @@ export {
   calculateTimeSince,
   calculateMonth,
   joinArray,
+  isNotEmpty
 } from 'src/shared/utils/utilities'
