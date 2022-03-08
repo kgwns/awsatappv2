@@ -15,6 +15,7 @@ import {
   calculateMonth,
   decodeHTMLTags,
   getImageUrl,
+  calculateYear,
 } from 'src/shared/utils/utilities';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
@@ -88,7 +89,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
             rightTitle={calculateMonth(item.created_export)}
             leftTitleColor={theme.themeData.primary}
             rightIcon={() => <CalendarIcon />}
-            rightDate={calculateDate(item.created_export).toString()}
+            rightDate={calculateDate(item.created_export).toString()+ ', ' + calculateYear(item.created_export)}
             rightDateColor={Styles.color.smokeyGrey}
             rightTitleColor={Styles.color.smokeyGrey}
             addBookMark={true}

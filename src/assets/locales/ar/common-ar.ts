@@ -88,6 +88,8 @@ export const arabic = {
     last_week: 'الاسبوع الماضي',
     next_week: 'الاسبوع المقبل',
     weeks: 'أسابيع',
+    one_minute: '1 دقيقة',
+    one_hour: '1 ساعة',
   },
   months: [
     'يناير',
