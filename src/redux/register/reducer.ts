@@ -1,3 +1,4 @@
+import { FETCH_USER_LOGOUT } from '../login/actionTypes';
 import {REGISTER_FAILED, REGISTER_SUCCESS, REGISTER_USER} from './actionTypes';
 import {RegisterAction, RegisterState} from './types';
 const initialState: RegisterState = {
@@ -14,6 +15,8 @@ export default (state = initialState, action: RegisterAction) => {
       return {...state, error: action.payload.error, isLoading: false};
     case REGISTER_USER:
       return {...state, isLoading: true, userInfo: null};
+    case FETCH_USER_LOGOUT: 
+      return {...state, userInfo: null}
     default:
       return {...state};
   }
