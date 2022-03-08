@@ -33,13 +33,16 @@ export interface RegisterUserMessageType {
 
 export interface RegisterBodyType {
   name?: string;
-  email: string;
+  email?: string;
   password?: string;
   device_name: string;
-  provider_id?: string;
-  provider?: string;
   first_name?: string;
   last_name?: string;
+  mobile?: string;
+  profile_url?: string;
+  registered_by?: string;
+  provider?: string;
+  provider_id?: string;
 }
 
 export interface RegisterSuccessPayloadType {

@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "717375500993",
+    "firebase_url": "https://asharqalawsat-android.firebaseio.com",
+    "project_id": "asharqalawsat-android",
+    "storage_bucket": "asharqalawsat-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717375500993:android:bac95bbdac21d050fa5a40",
+        "android_client_info": {
+          "package_name": "com.knowledgeview.tablet.aaa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717375500993-2t3qjnb7s4espq717rmad4llj5tjf6bi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.knowledgeview.tablet.aaa",
+            "certificate_hash": "faef09265ece14b75b4219f76677f3f8fa3059e5"
+          }
+        },
+        {
+          "client_id": "717375500993-e5vjso35vhmn5l3gf5qbqf7gfrb52rks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAHe1SPKvcGRRAfYZlY-GSa_VVo2doJdw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717375500993-e5vjso35vhmn5l3gf5qbqf7gfrb52rks.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "717375500993-tdfj1a2uaf96llfjt4ff71ag9rs98mfm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.srmg.ashaeqalawsat.iphoneapp",
+                "app_store_id": "470905035"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

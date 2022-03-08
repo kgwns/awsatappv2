@@ -1,0 +1,23 @@
+import {Alert} from 'react-native'
+
+export default abstract class SocialLogin {
+
+    private _callBack: Function;
+
+    constructor(value: Function) {
+        this._callBack = value
+    }
+
+    public get callBack(): Function {
+        return this._callBack
+    }
+
+    abstract init(): void
+    abstract login(): void
+    abstract logout(): void
+
+    showErrorMessage(message: string) {
+        this.callBack(undefined, false)
+        Alert.alert(message)
+    }
+}
