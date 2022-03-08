@@ -17,7 +17,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const [t] = useTranslation();
   const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest,selectedTopicsData} = useAllSiteCategories();
   const [disableNext, setDisableNext] = useState<boolean>(true)
-  const [topicsData] = useState<AllSiteCategoriesItemType[]>([])
+  const [topicsData,setTopicsData] = useState<AllSiteCategoriesItemType[]>([])
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -30,6 +30,8 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   useEffect(() => {
     if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
       setAllTopicsData();
+    }else{
+      setTopicsData(allSiteCategoriesData)
     }
   }, [allSiteCategoriesData]);
 

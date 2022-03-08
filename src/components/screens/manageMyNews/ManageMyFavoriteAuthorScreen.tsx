@@ -16,7 +16,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
-  const [authorsData] = useState<AllWritersItemType[]>([])
+  const [authorsData,setAuthorsData] = useState<AllWritersItemType[]>([])
 
 
   const allWritersPayload: AllWritersBodyGet = {
@@ -31,6 +31,8 @@ export const ManageMyFavoriteAuthorScreen = () => {
   useEffect(() => {
     if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
       setAllAuthorsData();
+    }else{
+      setAuthorsData(allWritersData)
     }
   }, [allWritersData]);
 
