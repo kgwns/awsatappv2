@@ -39,7 +39,7 @@ export const NewsLetterScreen = ({route} : NewsLetterScreenProps) => {
   ];
 
   const onPressNext = () => {
-    if (route.params && route.params.canBoBack) {
+    if (route.params && route.params.canGoBack) {
       navigation.goBack()
     } else {
       navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)
