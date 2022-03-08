@@ -22,6 +22,7 @@ import opinionArticleDetail from 'src/redux/opinionArticleDetail/reducer';
 import bookmark from 'src/redux/bookmark/reducer';
 import userReducer from 'src/redux/updateProfileImage/reducer';
 import userDetails from 'src/redux/profileUserDetail/reducer';
+import newsLetters from 'src/redux/newsLetter/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -49,6 +50,7 @@ const rootReducer = combineReducers({
   bookmark: bookmark,
   user: userReducer,
   userDetails: userDetails,
+  newsLetters: newsLetters,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

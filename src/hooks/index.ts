@@ -16,3 +16,4 @@ export { useTopMenu } from 'src/hooks/useTopMenu';
 export { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail'
 export { useBookmark } from 'src/hooks/useBookmark'
 export { useUserProfile } from 'src/hooks/useUserProfile';
+export { useNewsLetters } from 'src/hooks/useNewsLetters';

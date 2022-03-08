@@ -8,7 +8,8 @@ import {NewsLetterCard} from '../molecules';
 import {normalize, screenWidth} from 'src/shared/utils';
 import { NewsLetterCardProps } from '../molecules/NewsLetterCard';
 
-export const NewsLettersWidget = ({data}:any) => {
+export const NewsLettersWidget = (props:any) => {
+  const data = props.data;
   const style = useThemeAwareObject(customStyle);
   const renderItem = (item: NewsLetterCardProps) => (
     <View style={style.cardContainer}>
@@ -16,8 +17,10 @@ export const NewsLettersWidget = ({data}:any) => {
         title={item.title}
         subTitle={item.subTitle}
         image={item.image}
-        status={false}
-        onPress={(isSelected: boolean) => {}}
+        isSelected={item.isSelected}
+        onPress={selected => {
+          props.changeSelectedStatus(item, selected)
+        }}
       />
     </View>
   );
