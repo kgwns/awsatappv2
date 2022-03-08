@@ -15,7 +15,7 @@ export const KeepNotifiedScreen = ({navigation,route}: any) => {
   const style = useThemeAwareObject(customStyle);
 
   const onPressNext = () => {
-    if (route.params && route.params.canBoBack) {
+    if (route.params && route.params.canGoBack) {
       navigation.goBack()
     } else {
       navigation.navigate(ScreensConstants.SUCCESS_SCREEN)
