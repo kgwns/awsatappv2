@@ -258,7 +258,7 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   const renderOptionModal = () => (
 
-      <Modal visible={isModalVisible} transparent={true}>
+      <Modal visible={isModalVisible} animationType={'slide'} transparent={true} onRequestClose={() => setModalVisible(false)}>
         <View style={styles.optionModalContainer}>
           <View style={styles.overlayStyle}>
             <View style={styles.optionContainer}>

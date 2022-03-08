@@ -223,7 +223,8 @@ const customStyle = (theme: CustomThemeType) =>
             color: theme.secondaryMediumGrey,
         },
         divider: {
-            padding: 0,
+            height: 1,
+            backgroundColor: theme.dividerColor,
             marginTop: 0,
         },
         title: {
