@@ -107,7 +107,7 @@ const KeepNotifiedWidget = () => {
           selected={item.selected}
           onPress={(isSelected: boolean) => changeStatus(isSelected, item)}
         />
-        <Divider />
+        <Divider style={style.divider}/>
       </View>
     );
   };
@@ -131,6 +131,10 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: 0.05 * screenWidth,
       backgroundColor: theme.backgroundColor,
     },
+    divider: {
+      height: 1,
+      backgroundColor: theme.dividerColor
+    }
   });
   return KeepNotifiedWidgetStyle;
 };

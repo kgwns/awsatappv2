@@ -21,6 +21,8 @@ export interface SectionVideoFooterProps {
   style?: object,
   rightDateColor?: string,
   addBookMark?: boolean
+  isBookmarked: boolean
+  onPressBookmark: () => void
 }
 
 const SectionVideoFooter = ({
@@ -36,27 +38,22 @@ const SectionVideoFooter = ({
   rightDate,
   style,
   addBookMark,
+  isBookmarked,
+  onPressBookmark,
 }: SectionVideoFooterProps) => {
   
-  const [saveState, setSaveState] = useState(false)
-  const theme = useTheme()
-
-  const onPressSave = () => {
-    setSaveState(!saveState)
-  }
-
   return (
     <View style={{ ...SectionVideoFooterStyle.container, ...style }}>
       <View style={{ flexDirection: 'row' }}>
-                     <FooterCaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} subTitle={leftViews} subTitleColor={leftViewsColor} />
-                     <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />
-                     <FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />
+                    {(leftTitle || leftViews) && <FooterCaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} subTitle={leftViews} subTitleColor={leftViewsColor} />}
+                    {(leftTitle || leftViews) && (rightDate || rightTitle) && <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />}
+                    {(rightDate || rightTitle) &&<FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
     </View>
     {addBookMark && 
       <ButtonImage
             testId={'bookmarkTestId'}
             icon={() => {
-              return saveState
+              return isBookmarked
                 ? getSvgImages({
                     name: ImagesName.bookMarkActiveSVG,
                     size: normalize(20),
@@ -66,7 +63,7 @@ const SectionVideoFooter = ({
                     size: normalize(20),
                   });
             }}
-            onPress={onPressSave}
+            onPress={onPressBookmark}
           />
     }
     </View>

@@ -1,41 +1,74 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { isIOS, normalize } from '../../../shared/utils';
+import { View, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
+import { isIOS, normalize, screenHeight, screenWidth } from '../../../shared/utils';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useTranslation } from 'react-i18next';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { TextInputField, Label, ButtonOutline } from '../../atoms';
 import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
-import { getFullDate } from 'src/shared/utils/utilities';
+import { getFullDate, isObjectNonEmpty, getFormatedDate, getProfileImageUrl, CustomAlert} from 'src/shared/utils/utilities';
 import DatePicker from 'react-native-date-picker';
 import { TabBarComponent, TabBarDataProps } from 'src/components/molecules';
-import {KeyboardAwareView} from 'keyboard-aware-view';
-import {loginPasswordValidation, reTypePasswordValidation} from 'src/shared/validators';
+import { KeyboardAwareView } from 'keyboard-aware-view';
+import { loginPasswordValidation, reTypePasswordValidation } from 'src/shared/validators';
+import { useUserProfileData } from 'src/hooks/useUserProfileData';
+import { StackNavigationProp } from '@react-navigation/stack';
+import ImagePicker from 'react-native-image-crop-picker';
+import { UpdateUserImageBodyType } from 'src/redux/profileUserDetail/types';
+import { isDarkTheme } from 'src/shared/utils';
+import { useAppCommon } from 'src/hooks';
+import { SystemPermissions } from 'src/shared/utils';
+import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS } from 'src/constants/SharedConstants';
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const { theme } = useAppCommon()
+  const isDarkMode = isDarkTheme(theme)
   const { themeData } = useTheme();
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   const [name, setName] = useState('');
-  const [email, setEmail] = useState(t('profile.userDetail.emailPlaceholder'));
+  const [email, setEmail] = useState('');
   const [occupation, setOccupation] = useState('');
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(t('profile.userDetail.selectBirthdayText'));
-
+  const [userName, setUserName] = useState('')
   const [oldPassword, setOldPassword] = useState('');
   const [oldPasswordError, setOldPasswordError] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [newPasswordError, setNewPasswordError] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [confirmNewPasswordError, setConfirmNewPasswordError] = useState('');
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [profileImage, setProfileImage] = useState(Object);
+  const { isLoading, userProfileData, sentUserProfileData ,fetchProfileDataRequest, sendUserProfileInfo, updateUserImageRequest } = useUserProfileData()
+  const [userProfileImage, setUserProfileImage] = useState('') 
+  const [birthday, setBirthday] = useState('')
+  const currentDate = new Date();
+  useEffect(() => {
+    fetchProfileDataRequest();
+  }, []);
+
+  useEffect(() => {
+    setEmail(userProfileData.user?.email as string)
+    {setOccupation(userProfileData.user?.occupation? userProfileData.user?.occupation as string : occupation )}
+    {userProfileData.user?.name && userProfileData.user?.name !== " " && setName(userProfileData.user?.name as string)}
+    {userProfileData.user?.image &&  setUserProfileImage( getProfileImageUrl(userProfileData.user?.image as string))}
+    {userProfileData.user?.birthday && setBirthday(getFullDate(userProfileData.user?.birthday))}
+    {userProfileData.user?.name && userProfileData.user?.name !== " " && setUserName(userProfileData.user?.name as string)}
+  }, [userProfileData])
+
+  useEffect(() =>{
+    if (sentUserProfileData.message?.code === 200) {
+      setUserName(name)
+    }
+  },[] )
 
   const tabItemData: TabBarDataProps[] = [
     {
@@ -88,19 +121,30 @@ export const UserDetailScreen: FunctionComponent = () => {
       {getSvgImages({ name: ImagesName.dropDownIcon, width: styles.dropDownIcon.width, height: styles.dropDownIcon.height, style: styles.dropDownIcon })}
     </>
   )
+  const onpressConfirm = () => {
+    sendUserProfileInfo({
+      email: email,
+      first_name: name ?? '',
+      birthday: selectedDate.toString() != t('profile.userDetail.selectBirthdayText')? getFormatedDate(date) : (userProfileData.user?.birthday ? getFormatedDate(userProfileData.user?.birthday): '' ),
+      occupation: occupation ?? ''
+    })        
+    setUserName(name)
+  }
 
   const renderUserDetails = () => (
     <KeyboardAwareView extraKeyboardOffset={isIOS ? 750 : 0}>
       <View style={styles.container}>
         <View style={styles.userContainer}>
           <View style={styles.dpContainer}>
+            <TouchableOpacity onPress={()=> setModalVisible(true)}>
             <View style={styles.dpEditContainer}>
               <EditIcon />
             </View>
-            <UserIcon />
+            </TouchableOpacity>
+            {userProfileImage ?  <Image style={styles.dpDefaultIcon} source={{uri:userProfileImage}} /> : <UserIcon />}
           </View>
           <View style={styles.emailContainer}>
-            <Label style={styles.emailTitle} color={colors.greenishBlue} children={t('profile.userDetail.userNameTitle')} />
+            <Label style={styles.emailTitle} color={colors.greenishBlue} children={userName? userName : t('profile.userDetail.userNameTitle')} />
             <Label style={styles.email} children={email} />
           </View>
         </View>
@@ -112,12 +156,14 @@ export const UserDetailScreen: FunctionComponent = () => {
             value={name}
             style={styles.nameInputStyle}
             isMandatory
+            maxLength={20}
             leftIcon={() => <UserTextFieldIcon fill={themeData.textColor} />}
-          />
+          />   
           <View>
             <Label style={styles.birthdayTitle} color={colors.greenishBlue} children={t('profile.userDetail.birthdayTitle')} />
             <DatePicker
               locale='ar'
+              maximumDate={new Date(currentDate)}
               cancelText={t('profile.userDetail.cancelText')}
               confirmText={t('profile.userDetail.confirmText')}
               modal
@@ -127,18 +173,20 @@ export const UserDetailScreen: FunctionComponent = () => {
                 setOpen(false)
                 setDate(date)
                 setSelectedDate(getFullDate(date))
+                setBirthday('')
               }}
               onCancel={() => {
                 setOpen(false)
               }}
               mode={'date'}
               title={t('profile.userDetail.selectTheDate')}
-              textColor={themeData.textInputColor}
+              theme={isDarkMode? 'dark' : 'light'}
+              textColor={isIOS? themeData.textInputColor: colors.black}
             />
             <TouchableOpacity onPress={() => setOpen(true)}>
               <View style={styles.dropDownContainer}>
                 <View>
-                  <Label children={selectedDate.toString()}
+                  <Label children={birthday != '' ? birthday : selectedDate.toString()}
                     style={[styles.dropDownLabel,
                     selectedDate.toString() == t('profile.userDetail.selectBirthdayText') && styles.dropDownLabelPlaceholder]} />
                 </View>
@@ -150,13 +198,15 @@ export const UserDetailScreen: FunctionComponent = () => {
           <TextInputField placeholder={t('profile.userDetail.occupationPlaceholder')}
             testID={'profile_occupation'}
             onChangeText={setOccupation}
+            maxLength={20}
             value={occupation}
             style={styles.nameInputStyle}
           />
         </View>
         <ButtonOutline
           style={styles.updateButton}
-          labelStyle={styles.updateButtonLabel} title={t('profile.userDetail.updateButtonText')} />
+          labelStyle={styles.updateButtonLabel} title={t('profile.userDetail.updateButtonText')}
+          onPress={onpressConfirm} />
       </View>
     </KeyboardAwareView>
   )
@@ -170,6 +220,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         value={oldPassword}
         style={styles.inputStyle}
         error={oldPasswordError}
+        maxLength={20}
         isPassword
         isMandatory
       />
@@ -181,6 +232,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         style={styles.inputStyle}
         error={newPasswordError}
         isPassword
+        maxLength={20}
         isMandatory
       />
       <TextInputField placeholder={t('profile.userDetail.confirmNewPassword')}
@@ -191,6 +243,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         style={styles.inputStyle}
         error={confirmNewPasswordError}
         isPassword
+        maxLength={20}
         isMandatory
       />
       <View style={styles.updateButtonContainer} >
@@ -207,11 +260,94 @@ export const UserDetailScreen: FunctionComponent = () => {
   const onChangePasswordUpdate = () => {
     setOldPasswordError(loginPasswordValidation(oldPassword));
     setNewPasswordError(loginPasswordValidation(newPassword));
-    setConfirmNewPasswordError(reTypePasswordValidation(newPassword,confirmNewPassword));
+    setConfirmNewPasswordError(reTypePasswordValidation(newPassword, confirmNewPassword));
   };
 
+  const renderOptionModal = () => (
+
+      <Modal visible={isModalVisible} animationType={'slide'} transparent={true} onRequestClose={() => setModalVisible(false)}>
+        <View style={styles.optionModalContainer}>
+          <View style={styles.overlayStyle}>
+            <View style={styles.optionContainer}>
+              <TouchableOpacity testID={'camera_option'} onPress={onClickOpenCamera} >
+                <View style={styles.optionStyle}>
+                  <Label style={styles.optionTextStyle} children={t('profile.userDetail.openCameraOption')} />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity testID={'gallery_option'} onPress={() => openGallery()} >
+                <View style={styles.optionStyle}>
+                  <Label style={styles.optionTextStyle} children={t('profile.userDetail.chooseFromGallery')} />
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.cancelContainer}>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <View style={styles.cancelStyle}>
+                  <Label style={styles.cancelTextStyle} children={t('profile.userDetail.cancelText')} />
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+  );
+
+  const openGallery = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+      cropperCircleOverlay: true,
+      compressImageQuality: 0.6,
+      cropperToolbarTitle: t('profile.userDetail.moveAndScale')
+    }).then(image => {
+      uploadImage(image)
+    })
+  };
+
+  const openCamera = async () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+      cropperCircleOverlay: true,
+      compressImageQuality: 0.6,
+      cropperToolbarTitle: t('profile.userDetail.moveAndScale')
+    }).then(image => {
+      uploadImage(image)
+    })
+  };
+
+  const onClickOpenCamera = async () => {
+    if (isIOS) {
+      openCamera()
+    } else {
+      const hasPermission = await SystemPermissions.hasCameraPermission()
+      if (hasPermission) {
+        openCamera()
+      } else {
+        const hasPermissionGranted = await SystemPermissions.requestCameraPermission()
+        hasPermissionGranted ? openCamera() : CustomAlert({
+          title: REQUIRE_ACCESS,
+          message: REQUEST_CAMERA_ACCESS_MESSAGE,
+        })
+      }
+    }
+  }
+  
+  const uploadImage = (image:any) => {
+    const payload: UpdateUserImageBodyType = {
+      image:image.path,
+    };
+    setModalVisible(false);
+    setProfileImage(image);
+    setUserProfileImage(image.path);
+    updateUserImageRequest(payload);
+  }
+
   return (
-    <ScreenContainer>
+    <ScreenContainer isOverlayLoading={isLoading}>
+      {renderOptionModal()}
       {renderTabBarComponent()}
       {tabContent()}
     </ScreenContainer>
@@ -237,6 +373,7 @@ const createStyles = (theme: CustomThemeType) =>
       borderRadius: normalize(76) / 2,
     },
     dpEditContainer: {
+      zIndex: 999,
       backgroundColor: 'white',
       position: 'absolute',
       left: 2,
@@ -252,6 +389,7 @@ const createStyles = (theme: CustomThemeType) =>
       height: normalize(11),
     },
     dpDefaultIcon: {
+      zIndex: -4,
       width: normalize(76),
       height: normalize(76),
       borderRadius: normalize(76) / 2
@@ -348,4 +486,48 @@ const createStyles = (theme: CustomThemeType) =>
       fontWeight: 'bold',
       fontSize: normalize(16)
     },
+    overlayStyle: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    optionContainer: {
+      borderRadius: normalize(10),
+      justifyContent: 'space-evenly',
+      marginBottom: normalize(15),
+      padding: normalize(10),
+      backgroundColor: theme.whiteSurface,
+      marginHorizontal: '10%',
+    },
+    cancelContainer: {
+      alignSelf: 'stretch',
+      marginHorizontal: '10%',
+    },
+    cancelStyle: {
+      borderRadius: normalize(23),
+      backgroundColor: colors.greenishBlue,
+      padding: normalize(15),
+    },
+    cancelTextStyle: {
+      textAlign: 'center',
+      color: colors.white,
+      fontWeight: 'bold',
+      fontSize: normalize(16),
+      lineHeight: 20,
+    },
+    optionStyle: {
+      backgroundColor: colors.transparent,
+      paddingVertical: normalize(15)
+    },
+    optionTextStyle: {
+      textAlign: 'center',
+      fontSize: normalize(16),
+      lineHeight: 20,
+      fontWeight: 'bold',
+      color: theme.secondaryDarkSlate,
+    },
+    optionModalContainer: {
+      backgroundColor: colors.blackOpacity95,
+      width: screenWidth,
+      height: screenHeight
+    }
   })

@@ -1,3 +1,4 @@
+import { LatestArticleDataType } from '../latestNews/types';
 import {
   REQUEST_BOTTOM_LIST_DATA,
   REQUEST_BOTTOM_LIST_FAILED,
@@ -29,6 +30,7 @@ export interface NewsViewListItemType {
   field_publication_date_export: Date;
   created_export: Date;
   author_resource: string;
+  isBookmarked: boolean;
 }
 
 export interface Pager {
@@ -82,7 +84,7 @@ export interface FetchBottomListFailedPayloadtype {
 
 export type NewsViewtState = {
   heroListData: payloadType;
-  topListData: payloadType;
+  topListData: LatestArticleDataType[];
   bottomListData: payloadType;
   error: string;
   isLoading: boolean;

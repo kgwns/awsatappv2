@@ -21,6 +21,7 @@ export interface OpinionsListItemType {
   published_at_export: Date;
   body: string;
   field_edit_letter_writer_export?: any;
+  isBookmarked: boolean;
 }
 
 export interface FieldOpinionWriterNodeExport {

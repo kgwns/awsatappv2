@@ -1,4 +1,4 @@
-import {all, fork} from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
 import homeSaga from './home/sagas';
 import mostReadSaga from './mostRead/sagas';
 import searchSaga from './search/sagas';
@@ -18,6 +18,8 @@ import emailCheckSaga from './auth/sagas';
 import videoListSaga from './videoList/sagas';
 import topMenuSaga from './topMenu/sagas';
 import opinionArticleDetailSaga from './opinionArticleDetail/sagas';
+import userProfileSaga from './profileUserDetail/sagas'
+import bookmarkSaga from './bookmark/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -40,5 +42,7 @@ export function* rootSaga() {
     fork(videoListSaga),
     fork(topMenuSaga),
     fork(opinionArticleDetailSaga),
+    fork(bookmarkSaga),
+    fork(userProfileSaga),
   ]);
 }

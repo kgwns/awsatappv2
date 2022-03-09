@@ -21,6 +21,7 @@ const AuthNavigator = () => {
       <Stack.Screen name={ScreensConstants.SignInPage} component={Routes.SignInPage} />
       <Stack.Screen name={ScreensConstants.SignUpPage} component={Routes.SignUpPage} />
       <Stack.Screen name={ScreensConstants.FORGOT_PASSWORD} component={Routes.ForgotPassword} />
+      <Stack.Screen name={ScreensConstants.TERMS_AND_ABOUT_US} component={Routes.TermsAndAboutUs} options={{headerShown: false}} />
       <Stack.Screen name={ScreensConstants.NEW_PASSWORD} component={Routes.NewPassword} />
     </Stack.Navigator>
   );

@@ -1,14 +1,13 @@
 import { BASE_URL, UMS_BASE_URL } from 'src/services/apiUrls';
 import { getApiRequest, postApiRequest } from 'src/services/api';
-import { ALL_WRITERS_ENDPOINT, SEND_SELECTED_WRITERS_ENDPOINT } from './apiEndPoints';
+import { ALL_WRITERS_ENDPOINT, SEND_SELECTED_WRITERS_ENDPOINT,GET_SELECTED_AUTHORS_ENDPOINT } from './apiEndPoints';
 import {
     FetchAllWritersListSuccessPayloadType,
     AllWritersBodyGet,
     SendSelectedAuthorBody,
     SendSelectedAuthorSuccessPayloadType,
+    GetSelectedAuthorSuccessPayloadType,
 } from 'src/redux/allWriters/types';
-import { AxiosRequestHeaders } from 'axios';
-import { store } from 'src/redux/store';
 
 export const fetchAllWritersApi = async (body: AllWritersBodyGet) => {
     try {
@@ -26,21 +25,25 @@ export const fetchAllWritersApi = async (body: AllWritersBodyGet) => {
 
 
 export const sendSelectedWritersApi = async (body: SendSelectedAuthorBody) => {
-    const { token } = store.getState().login.loginData
-    let header: AxiosRequestHeaders | undefined = undefined
-    if (token) {
-        const type = `${token.token_type} ` || 'Bearer '
-        const accessToken = token.access_token
-        header = {
-            Authorization: type + accessToken
-        }
-    }
 
     try {
         const response: SendSelectedAuthorSuccessPayloadType =
             await postApiRequest(
                 `${UMS_BASE_URL}${SEND_SELECTED_WRITERS_ENDPOINT}${body.tid}`,
-                body, undefined, header
+                body
+            );
+        return response;
+    } catch (error) {
+        console.log(`error: ${error}`);
+        throw error;
+    }
+};
+
+export const getSelectedAuthorsApi = async () => {
+    try {
+        const response: GetSelectedAuthorSuccessPayloadType =
+            await postApiRequest(
+                `${UMS_BASE_URL}${GET_SELECTED_AUTHORS_ENDPOINT}`,
             );
         return response;
     } catch (error) {

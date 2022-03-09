@@ -17,12 +17,14 @@ interface OpinionWritersArticlesSectionProps {
   data: OpinionsListItemType[];
   onScroll: () => void;
   isLoading: boolean;
+  onUpdateOpinionArticlesBookmark: (index: number) => void
 }
 
 const OpinionWritersArticlesSection = ({
   data,
   onScroll,
   isLoading,
+  onUpdateOpinionArticlesBookmark,
 }: OpinionWritersArticlesSectionProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -45,6 +47,8 @@ const OpinionWritersArticlesSection = ({
           audioLabel={'استمع الي المقالة '}
           duration={'3:22'}
           nid={item.nid}
+          isBookmarked={item.isBookmarked}
+          onPressBookmark={() => {onUpdateOpinionArticlesBookmark(index)}}
         />
         {isLoading && data.length - 1 == index && (
           <View style={{margin: normalize(28)}}>

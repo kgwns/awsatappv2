@@ -44,3 +44,6 @@ export { ListenToArticleCard } from 'src/components/molecules/ListenToArticleCar
 export { RelatedOpinionCard } from 'src/components/molecules/RelatedOpinionCard';
 export { OpinionArticleDetailFooter } from 'src/components/molecules/OpinionArticleDetailFooter';
 export { VideoPlayer } from 'src/components/molecules/videoPlayer/VideoPlayer';
+export { PopulateWidget } from 'src/components/molecules/populateWidget/PopulateWidget'
+export { SignupAlertCard } from './signupAlertCard/SignupAlertCard';
+

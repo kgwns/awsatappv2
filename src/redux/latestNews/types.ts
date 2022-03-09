@@ -17,7 +17,8 @@ export interface LatestArticleDataType {
   image: string,
   news_categories: NewsCategoriesType,
   author: string,
-  created: string
+  created: string,
+  isBookmarked: boolean
 }
 
 export interface OpinionWriterType {

@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, SafeAreaView, TouchableOpacity, Image} from 'react-native';
 import {ImagesName} from '../shared/styles/images';
 import {ButtonImage} from '../components/atoms';
 import {ButtonList, Divider, ButtonOutline} from 'src/components/atoms';
 import {useTranslation} from 'react-i18next';
-import {normalize} from 'src/shared/utils';
+import {isIOS, normalize} from 'src/shared/utils';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import UserIcon from 'src/assets/images/icons/user.svg';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
@@ -18,12 +18,13 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ScreensConstants} from 'src/constants';
-import {useSideMenu} from 'src/hooks';
+import {useLogin, useSideMenu} from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { PROFILE } from 'src/constants/SharedConstants';
 import { colors } from '../shared/styles/colors';
+import { useUserProfileData } from 'src/hooks/useUserProfileData';
+import { getProfileImageUrl } from 'src/shared/utils/utilities';
 
 interface CustomDrawerContentProps {}
 
@@ -37,6 +38,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const {isLoading, sideMenuData, fetchSideMenuRequest} =
   useSideMenu();
 
+  const {isLoggedIn} = useLogin();
+
+  const {userProfileData} = useUserProfileData()
+  
   useEffect(() => {
     fetchSideMenuRequest();
   }, []);
@@ -50,10 +55,27 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   //   //console.log('News Categories data', newsCategoriesData);
   // }, [newsCategoriesData]);
 
+  const UserIcon = () => (
+    <>
+      {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })}
+    </>
+  )
+
   const header = () => (
     <View style={styles.headerContainer}>
-      <TouchableOpacity style={styles.headerLeft} onPress={() => navigation.navigate(ScreensConstants.PROFILE_SETTING)}>
-        {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })}
+      <TouchableOpacity style={styles.headerLeft} onPress={() => {
+        if(isLoggedIn){
+          navigation.navigate(ScreensConstants.PROFILE_SETTING)
+        }else{
+          navigation.reset({
+            index: 0,
+            routes: [{ name: ScreensConstants.AuthNavigator }],
+        });
+        }
+        
+        }}>
+        {useLogin().isLoggedIn && userProfileData.user?.image ? <Image style={styles.user} source={{uri: getProfileImageUrl(userProfileData.user?.image as string)}}/> : <UserIcon/>}  
+        {/* {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })} */}
       </TouchableOpacity>
       <View style={styles.logoContainer}>
         {getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height, style: styles.logo })}
@@ -71,12 +93,6 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       {header()}
       <ScrollView bounces={false}>
         <View style={styles.menuContainer}>
-          <ButtonList
-            title={PROFILE}
-            onPress={() =>
-              navigation.navigate(ScreensConstants.PROFILE_SETTING)
-            }
-          />
           {sideMenuData.length > 0 &&
             sideMenuData.map((item,index) => {
               return (
@@ -111,11 +127,6 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             title={t('drawer.callUs')}
             onPress={() => console.log('clicked')}
             titleStyle={styles.nonBoldTitle}
-          />
-          <ButtonOutline
-            title={t('drawer.myPersonalAccount')}
-            leftIcon={() => <UserIcon fill={themeData.primaryDarkSlateGray} />}
-            color={themeData.primaryDarkSlateGray}
           />
           <View style={styles.socialContainer}>
             <ButtonImage
@@ -174,7 +185,7 @@ const createStyles = (theme: CustomThemeType) =>
       width: normalize(27),
       height: normalize(27),
       borderRadius: normalize(27)/2,
-      borderWidth: normalize(2),
+      borderWidth: isIOS? normalize(2): normalize(3),
       borderColor: colors.lightGreenishBlue,
     },
     menuContainer: {

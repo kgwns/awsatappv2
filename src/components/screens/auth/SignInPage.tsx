@@ -16,9 +16,11 @@ import {SocialLoginButton, TextInputField} from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {loginPasswordValidation} from 'src/shared/validators';
-import {useLogin} from 'src/hooks';
+import {useBookmark, useLogin, useRegister} from 'src/hooks';
 import {FetchLoginPayloadType} from 'src/redux/login/types';
 import DeviceInfo from 'react-native-device-info';
+import { fetchLoginSuccess } from 'src/redux/login/action';
+import { useDispatch } from 'react-redux';
 
 export enum SocialNavigate {
   google = 'GOOGLE',
@@ -38,6 +40,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [deviceName, setDeviceName] = useState('');
+  const {registerUserInfo, isRegisterLoading} = useRegister();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getDeviceName();
@@ -49,20 +53,37 @@ export const SignInPage = ({route}: SignInPageProps) => {
   };
 
   const {fetchLoginRequest, isLoading, loginData, loginError} = useLogin();
+  const { getBookmarkedId } = useBookmark()
 
   useEffect(() => {
     const message = loginData?.message;
     if (message) {
       if (message.code === 200) {
+        getBookmarkedId()
         navigation.reset({
           index: 0,
-          routes: [{name: ScreensConstants.OnBoardNavigator}],
+          routes: [{name: loginData.message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
         });
       }else{
         Alert.alert(message.message);
       }
     }
   }, [loginData]);
+
+  useEffect(() => {
+    const message = registerUserInfo?.message;
+    if (message) {
+      if (message.code === 200) {
+        dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
+        navigation.reset({
+          index: 0,
+          routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
+        });
+      }else{
+        Alert.alert(message.message);
+      }
+    }
+  }, [registerUserInfo]);
 
   const navigateToSection = (type: string) => {
     switch (type) {
@@ -98,7 +119,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
   };
 
   return (
-    <ScreenContainer isOverlayLoading={isLoading}>
+    <ScreenContainer isOverlayLoading={isLoading||isRegisterLoading}>
       <View style={styles.container}>
         <View style={styles.headerStyle}>
           <TouchableOpacity

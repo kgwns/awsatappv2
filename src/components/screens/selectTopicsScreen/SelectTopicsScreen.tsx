@@ -40,7 +40,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   const onTopicsChanged = (item: any, selected: boolean) => {
     const data = allSiteCategoriesData
     for (let i = 0; i < data.length; i++) {
-      if (item == data[i].name) {
+      if (item.tid == data[i].tid) {
         data[i].isSelected = selected;
       }
     }

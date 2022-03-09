@@ -1,14 +1,14 @@
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
-import {isNonEmptyArray, isTab, normalize, screenWidth} from 'src/shared/utils';
-import {ShortArticle} from 'src/components/organisms/index';
-import {shortArticleWithTagProperties} from 'src/constants/SampleData';
-import {LatestArticleDataType} from 'src/redux/latestNews/types';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {Image, LabelTypeProp, WidgetHeader, WidgetHeaderProps} from '../atoms';
-import {useTranslation} from 'react-i18next';
-import {ImagesName, Styles} from 'src/shared/styles';
-import {ImageResize} from 'src/shared/styles/text-styles';
+import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
+import { ShortArticle } from 'src/components/organisms/index';
+import { shortArticleWithTagProperties } from 'src/constants/SampleData';
+import { LatestArticleDataType } from 'src/redux/latestNews/types';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { Image, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
+import { useTranslation } from 'react-i18next';
+import { ImagesName, Styles } from 'src/shared/styles';
+import { ImageResize } from 'src/shared/styles/text-styles';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -18,12 +18,16 @@ const SectionComboOne = ({
   data,
   onPress,
   sectionId,
+  onUpdateBookmark,
+  showSignUpPopUp
 }: {
   data: LatestArticleDataType[];
   onPress: (nid: string) => void;
   sectionId: string;
+  onUpdateBookmark: (nid: string,isBookmarked: boolean) => void,
+  showSignUpPopUp: () => void
 }) => {
-  const {themeData} = useTheme();
+  const { themeData } = useTheme();
 
   const [t] = useTranslation();
 
@@ -45,11 +49,13 @@ const SectionComboOne = ({
     },
     headerRight: {
       title: t('latestNewsTab.sectionComboOne.headerRight'),
-      icon: () => {return getSvgImages({
-        name: ImagesName.arrowLeftFaced,
-        size: normalize(12),
-        style: { marginLeft: normalize(10) }
-    })},
+      icon: () => {
+        return getSvgImages({
+          name: ImagesName.arrowLeftFaced,
+          size: normalize(12),
+          style: { marginLeft: normalize(10) }
+        })
+      },
       color: Styles.color.smokeyGrey,
       labelType: LabelTypeProp.h3,
       clickable: true,
@@ -59,7 +65,7 @@ const SectionComboOne = ({
   const renderMainArticleImage = () => {
     return (
       <TouchableOpacity
-        style={{alignItems: 'center'}}
+        style={{ alignItems: 'center' }}
         activeOpacity={0.9}
         onPress={() => onPress(sectionComboOneData[0].nid)}>
         <Image
@@ -78,8 +84,8 @@ const SectionComboOne = ({
   if (!isNonEmptyArray(sectionComboOneData)) return null;
 
   const onPressMore = () => {
-    navigation.navigate(ScreensConstants.SectionArticlesScreen, {sectionId: sectionId, title: widgetHeaderData.headerLeft?.title});
-}
+    navigation.navigate(ScreensConstants.SectionArticlesScreen, { sectionId: sectionId, title: widgetHeaderData.headerLeft?.title });
+  }
   return (
     <View>
       <View style={sectionComboOneStyle.widgetContainer}>
@@ -94,13 +100,18 @@ const SectionComboOne = ({
             <ShortArticle
               data={[...sectionComboOneData].splice(1, 3)}
               onPress={onPress}
+              onUpdateBookmark={onUpdateBookmark}
+              showSignUpPopUp={showSignUpPopUp}
             />
           </View>
         </View>
       ) : (
         <>
           {renderMainArticleImage()}
-          <ShortArticle data={sectionComboOneData} onPress={onPress} />
+          <ShortArticle data={sectionComboOneData} onPress={onPress}
+            onUpdateBookmark={onUpdateBookmark}
+            showSignUpPopUp={showSignUpPopUp}
+          />
         </>
       )}
     </View>

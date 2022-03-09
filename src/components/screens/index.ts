@@ -3,7 +3,7 @@ export {FavoriteScreen} from './favorite/FavoriteScreen';
 export {MostReadScreen} from './most_read/MostReadScreen';
 export {SectionsScreen} from './sections/SectionsScreen';
 export {LatestNewsScreen} from './latest_news/LatestNewsScreen';
-export {AuthPage} from './auth/AuthPage';
+export {AuthPage, NavigateTypes} from './auth/AuthPage';
 export {SearchScreen} from './search_screen/SearchScreen';
 export {FollowFavoriteAuthorScreen} from 'src/components/screens/followFavoriteAuthorScreen/FollowFavoriteAuthorScreen';
 export {KeepNotifiedScreen} from 'src/components/screens/keepNotified/KeepNotifiedScreen';
@@ -30,3 +30,6 @@ export { NewPassword } from 'src/components/screens/newPassword/NewPassword'
 export { ManageMyNewsScreen } from 'src/components/screens/manageMyNews/ManageMyNewsScreen';
 export { UserDetailScreen } from 'src/components/screens/userDetail/UserDetailScreen';
 export { VideoPlayerScreen } from 'src/components/screens/video_player/VideoPlayerScreen';
+export { ManageMyFavoriteAuthorScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteAuthorScreen';
+export { ManageMyFavoriteTopicsScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteTopicsScreen';
+

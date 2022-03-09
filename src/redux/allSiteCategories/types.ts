@@ -4,7 +4,11 @@ import {
   FETCH_ALL_SITE_CATEGORIES_ERROR,
   SEND_SELECTED_TOPIC,
   SEND_SELECTED_TOPIC_ERROR,
-  SEND_SELECTED_TOPIC_SUCCESS
+  SEND_SELECTED_TOPIC_SUCCESS,
+  GET_SELECTED_TOPICS,
+  GET_SELECTED_TOPICS_SUCCESS,
+  GET_SELECTED_TOPICS_ERROR,
+  EMPTY_SELECTED_TOPICS_INFO,
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -45,6 +49,23 @@ export interface ResponseMessage {
   code?: number,
   message?: string
 }
+
+export interface GetDataType{
+  tid:number,
+  created_date:string,
+}
+export interface SelectedTopicsDataType{
+  code?: number,
+  message?: string,
+  data?:any,
+}
+export interface GetSelectedTopicsSuccessPayloadType {
+  selectedTopicsData: any;
+}
+export interface GetSelectedTopicsFailedPayloadtype {
+  error: string;
+}
+
 export interface SendSelectedTopicSuccessPayloadType {
   saveData: ResponseMessage;
 }
@@ -61,7 +82,8 @@ export type AllSiteCategoriesState = {
   allSiteCategoriesData: AllSiteCategoriesItemType[];
   error: string;
   isLoading: boolean;
-  sendTopicInfo: ResponseMessage
+  sendTopicInfo: ResponseMessage;
+  selectedTopicsData: SelectedTopicsDataType;
 };
 
 export type FetchAllSiteCategoriesType = {
@@ -93,6 +115,24 @@ export type SendSelectedTopicFailedType = {
   payload: SendSelectedTopicFailedPayloadtype;
 };
 
+export type GetSelectedTopicsType = {
+  type: typeof GET_SELECTED_TOPICS;
+};
+
+export type GetSelectedTopicsSuccessType = {
+  type: typeof GET_SELECTED_TOPICS_SUCCESS;
+  payload: GetSelectedTopicsSuccessPayloadType;
+};
+
+export type GetSelectedTopicsFailedType = {
+  type: typeof GET_SELECTED_TOPICS_ERROR;
+  payload: GetSelectedTopicsFailedPayloadtype;
+};
+
+export type EmptySelectedTopicsInfo = {
+  type: typeof EMPTY_SELECTED_TOPICS_INFO;
+};
+
 export type AllSiteCategoriesActions =
   | FetchAllSiteCategoriesType
   | FetchAllSiteCategoriesSuccessType
@@ -100,3 +140,7 @@ export type AllSiteCategoriesActions =
   | SendSelectedTopicType
   | SendSelectedTopicSuccessType
   | SendSelectedTopicFailedType
+  | GetSelectedTopicsType
+  | GetSelectedTopicsSuccessType
+  | GetSelectedTopicsFailedType
+  | EmptySelectedTopicsInfo

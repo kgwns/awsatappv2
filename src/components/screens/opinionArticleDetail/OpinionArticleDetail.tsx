@@ -9,7 +9,7 @@ import {
   RelatedOpinionArticlesWidget,
 } from 'src/components/organisms';
 import {ScreenContainer} from '..';
-import {useOpinionArticleDetail} from 'src/hooks';
+import {useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
 import {Edge} from 'react-native-safe-area-context';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 
@@ -25,6 +25,13 @@ export const OpinionArticleDetail = ({
   const {isLoading, opinionArticleDetailData, fetchOpinionArticleDetail} =
     useOpinionArticleDetail();
 
+
+  const [isBookmarked, setIsBookmarked] = useState(false)
+  const [showupUp,setShowPopUp] = useState(false)
+
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { isLoggedIn } = useLogin()
+
   useEffect(() => {
     Orientation.unlockAllOrientations();
     Orientation.getDeviceOrientation(updateScreenEdge);
@@ -35,6 +42,17 @@ export const OpinionArticleDetail = ({
       Orientation.removeOrientationListener(updateScreenEdge);
     };
   }, []);
+
+  useEffect(() => {
+    if (isNonEmptyArray(opinionArticleDetailData)) {
+      const isBookmarked = validateBookmark(opinionArticleDetailData[0].nid_export)
+      setIsBookmarked(isBookmarked)
+    }
+  }, [opinionArticleDetailData])
+
+  const validateBookmark = (nid: string): boolean => {
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+  }
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const edge = getScreenEdge(deviceOrientation);
@@ -54,6 +72,31 @@ export const OpinionArticleDetail = ({
     }
   };
 
+  const onPressSave = (nid: string) => {
+    if(!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+    
+    const newBookmarked = !isBookmarked
+    const data = [...opinionArticleDetailData]
+    data[0].isBookmarked = !data[0].isBookmarked
+    setIsBookmarked(newBookmarked)
+    onUpdateBookMark(nid, newBookmarked)
+  }
+
+  const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
+    if (isLoggedIn) {
+      hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    } else {
+      setShowPopUp(true)
+    }
+  }
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
+  }
+
   const renderItem = () => (
     <View style={style.container}>
       {isNonEmptyArray(opinionArticleDetailData) && (
@@ -66,7 +109,9 @@ export const OpinionArticleDetail = ({
   );
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading}>
+    <ScreenContainer edge={edge} isLoading={isLoading}
+      isSignUpAlertVisible={showupUp}
+      onCloseSignUpAlert={onCloseSignUpAlert}>
       <FlatList
         style={style.flatList}
         data={[{}]}
@@ -79,6 +124,8 @@ export const OpinionArticleDetail = ({
         <View style={style.footer}>
           <OpinionArticleDetailFooter
             opinionArticleDetailData={opinionArticleDetailData[0]}
+            isBookmarked={isBookmarked}
+            onPressSave={() => onPressSave(opinionArticleDetailData[0].nid_export)}
           />
         </View>
       )}

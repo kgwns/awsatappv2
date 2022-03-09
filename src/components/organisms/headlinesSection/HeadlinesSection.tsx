@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import { normalize } from 'src/shared/utils';
 import TextTicker from 'react-native-text-ticker';
 import { Label, LabelTypeProp } from 'src/components/atoms';
-import { LatestArticleDataType } from '~/redux/latestNews/types';
+import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';

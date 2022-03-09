@@ -21,7 +21,9 @@ export interface articleFooterProps {
   rightTitleColor?: string,
   style?: object,
   bookMarkColorType?: string,
-  hideBookmark?: boolean
+  hideBookmark?: boolean,
+  isBookmarked?: boolean
+  onPress?: () => void
 }
 
 const ArticleFooter = ({
@@ -33,11 +35,12 @@ const ArticleFooter = ({
   rightTitleColor,
   style,
   bookMarkColorType = BookMarkColorType.BLACK,
-  hideBookmark = false
+  hideBookmark = false,
+  isBookmarked,
+  onPress
 }: articleFooterProps) => {
-  const [saveState, setSaveState] = useState(false)
   let storySaveIcon=() => {
-    return saveState
+    return isBookmarked
       ? getSvgImages({
           name: ImagesName.bookMarkActiveSVG,
           size: normalize(18),
@@ -47,10 +50,10 @@ const ArticleFooter = ({
           size: normalize(18),
         });
   }
-
+  
   if(bookMarkColorType == BookMarkColorType.WHITE) {
     storySaveIcon =() => {
-      return saveState
+      return isBookmarked
         ? getSvgImages({
             name: ImagesName.bookMarkWhiteActive,
             size: normalize(18),
@@ -62,20 +65,16 @@ const ArticleFooter = ({
     }
   }
 
-  const onPressSave = () => {
-    setSaveState(!saveState)
-  }
-
   return (
     <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
       <View style={[articleFooterStyle.authorContainer,hideBookmark&&{flex:1}]}>
         <CaptionWithImage style={articleFooterStyle.leftContainer} title={leftTitle} icon={leftIcon} color={leftTitleColor}  />
-        <View  style={articleFooterStyle.verticalDivider} />
+        {(rightTitle || leftTitle) && <View  style={articleFooterStyle.verticalDivider} />}
         <CaptionWithImage style={articleFooterStyle.rightContainer} title={rightTitle} icon={rightIcon} color={rightTitleColor} />
       </View>
       {!hideBookmark &&
         <View style={articleFooterStyle.bookMarkContainer}>
-          <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPressSave}>
+          <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPress}>
             {storySaveIcon()} 
           </TouchableOpacity>
         </View>

@@ -21,11 +21,12 @@ describe('<FavoriteScreen>', () => {
         instance.unmount()
     })
 
-    test('Should render component', () => {
-        expect(instance).toBeDefined()
-    })
-
-    test('Check tab getting change when onClick', () => {
+    // test('Should render component', () => {
+    //     expect(instance).toBeDefined()
+    // })
+    
+    //Removed since we commented the code
+    xit('Check tab getting change when onClick', () => {
         const tabBar = instance.container.findByType(TabBarComponent)
         fireEvent(tabBar, 'onPressTabItem', 0)
         expect(tabBar).toBeTruthy()

@@ -2,6 +2,9 @@ import {
     FETCH_LOGIN,
     FETCH_LOGIN_ERROR,
     FETCH_LOGIN_SUCCESS,
+    FETCH_USER_LOGOUT,
+    FETCH_USER_LOGOUT_SUCCESS,
+    LOGIN_SKIPPED
   } from './actionTypes';
   
   export interface FieldLoginExportType {
@@ -22,16 +25,30 @@ import {
     error: string;
   }
 
+  export interface FetchUserLogoutPayloadType {
+    token: string;
+  }
+
   export interface FetchLoginPayloadType {
     email: string;
     password: string;
     device_name: string;
+  }
+
+  export interface SocialLoginPayloadType {
+    email: string;
+    device_name: string;
+    provider_id: string;
+    provider: string;
+    first_name: string;
+    last_name: string;
   }
   
   export type LoginState = {
     loginData: any;
     error: string;
     isLoading: boolean;
+    isSkipped: boolean;
   }
   
   export type FetchLoginType = {
@@ -48,8 +65,27 @@ import {
     type: typeof FETCH_LOGIN_ERROR;
     payload: FetchLoginFailedPayloadType;
   };
+
+  export interface FetchLogoutSuccessPayloadType {
+    logoutData: any;
+  }
+
+  export type UserLogoutType = {
+    type: typeof FETCH_USER_LOGOUT;
+  };
+
+  export type UserLogoutSuccessType = {
+    type: typeof FETCH_USER_LOGOUT_SUCCESS;
+  };
+
+  export type LoginSkippedType = {
+    type: typeof LOGIN_SKIPPED;
+  }
   
   export type LoginActions =
     | FetchLoginType
     | FetchLoginSuccessType
-    | FetchLoginFailedType;
+    | FetchLoginFailedType
+    | UserLogoutType
+    | UserLogoutSuccessType
+    | LoginSkippedType;

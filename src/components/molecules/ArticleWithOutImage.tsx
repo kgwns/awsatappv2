@@ -13,11 +13,15 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
     contentStyle?: object,
     showDivider?: boolean,
     onPress: () => void
+    isBookmarked: boolean
+    onPressBookmark?: () => void
 }
 
 const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     body,
     onPress,
+    isBookmarked,
+    onPressBookmark,
     ...props
 }) => (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -25,7 +29,10 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
             <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
             {body && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)} color={Styles.color.davyGrey} numberOfLines={3} />}
             <View style={ArticleWithOutImageStyle.footerContainer}>
-                <ArticleFooter {...props.footerInfo} />
+                <ArticleFooter {...props.footerInfo}
+                    onPress={onPressBookmark}
+                    isBookmarked={isBookmarked}
+                />
             </View>
             {props.showDivider && <Divider />}
         </View>

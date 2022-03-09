@@ -6,10 +6,10 @@ import Share from 'react-native-share';
 import {VideosList, VideoInfo} from 'src/components/organisms';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge} from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isNonEmptyArray} from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import { useVideoList } from 'src/hooks';
+import { useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { VideoItemType } from 'src/redux/videoList/types';
 import {useNavigation} from '@react-navigation/native';
 import {ScreensConstants} from 'src/constants/ScreenConstants';
@@ -24,9 +24,49 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const {isLoading,videoData,fetchVideoRequest} = useVideoList();
   useEffect(() => { fetchVideoRequest(); }, []);
   const styles = useThemeAwareObject(createStyles);
-  const [isSaved, setIsSaved] = useState(false);
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<StackNavigationProp<any>>()
+
+  const [isBookmarked, setIsBookmarked] = useState(false)
+  const [showupUp,setShowPopUp] = useState(false)
+  
+  const { isLoggedIn } = useLogin()
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+
+  useEffect(() => {
+    if (isNonEmptyArray(videoData)) {
+      const isBookmarked = validateBookmark(videoData[0].nid)
+      setIsBookmarked(isBookmarked)
+    }
+  }, [videoData,bookmarkIdInfo])
+
+  const validateBookmark = (nid: string): boolean => {
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+  }
+
+  const onPressSave = (nid: string) => {
+    const newBookmarked = !isBookmarked
+    const data = [...videoData]
+    data[0].isBookmarked = !data[0].isBookmarked
+    setIsBookmarked(newBookmarked)
+    onUpdateBookMark(nid, newBookmarked)
+  }
+
+  const checkAndUpdateBookmark = (nid: string) => {
+    isLoggedIn ? onPressSave(nid) : setShowPopUp(true)
+  }
+
+  const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
+    if (isLoggedIn) {
+      hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    } else {
+      setShowPopUp(true)
+    }
+  }
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
+  }
 
   const onPressShare = async () => {
     const { title, imageUrl } = route.params.data
@@ -56,8 +96,8 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           headerBookmarkIconTestId={'video_detail_save'}
           headerBackIconTestId={'video_detail_back'}
           onPressShare={onPressShare}
-          onPressSave={()=>setIsSaved(!isSaved)}
-          isSaved={isSaved}
+          onPressSave={()=> isNonEmptyArray(videoData) && checkAndUpdateBookmark(videoData[0].nid)}
+          isSaved={isBookmarked}
           isCloseIcon
         />
         {videoData.length&&<VideoInfo data={videoData[0]} onPress={(item:VideoItemType)=>{goToPlayer(item)}}/>}
@@ -68,7 +108,9 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
     </View>
   )
   return (
-    <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading}>
+    <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading}
+      isSignUpAlertVisible={showupUp}
+      onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={{height:insets.top,backgroundColor: colors.black}} />
       <FlatList
         style={{ flex: 1, height: '100%' }}

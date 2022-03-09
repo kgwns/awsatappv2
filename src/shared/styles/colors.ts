@@ -56,6 +56,10 @@ export const colors = {
   grayTransparentDarkMode: '#C8C8C81A',
   lightGreenishBlue: '#7DCEC7',
   quickSilver: '#969696',
+  slateGray: '#4D4D4D',
+  blackOpacity95: '#000000F2',
+  gableGreenOpacity15: '#1A333326',
+  nightRiderGray: '#2E2E2E'
 };
 
 export interface CustomThemeType {
@@ -79,7 +83,9 @@ export interface CustomThemeType {
   filterBorderColor: string,
   secondaryMediumGrey: string,
   alertBackground: string,
-  dropDownLabelColor: string
+  dropDownLabelColor: string,
+  optionBackground: string,
+  dividerColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -106,7 +112,9 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   filterBorderColor: colors.cyanGray,
   secondaryMediumGrey: colors.doveGray,
   alertBackground: colors.grayTransparentLightMode,
-  dropDownLabelColor: colors.quickSilver
+  dropDownLabelColor: colors.quickSilver,
+  optionBackground: colors.aquaHaze,
+  dividerColor: colors.gableGreenOpacity15
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -131,5 +139,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   secondaryMediumGrey: colors.silverChalice,
   alertBackground: colors.grayTransparentDarkMode,
   dropDownLabelColor: colors.white,
+  optionBackground: colors.slateGray,
+  dividerColor: colors.nightRiderGray
 }
 

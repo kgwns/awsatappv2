@@ -88,6 +88,8 @@ export const arabic = {
     last_week: 'الاسبوع الماضي',
     next_week: 'الاسبوع المقبل',
     weeks: 'أسابيع',
+    one_minute: '1 دقيقة',
+    one_hour: '1 ساعة',
   },
   months: [
     'يناير',
@@ -121,6 +123,7 @@ export const arabic = {
       everyone: 'الكل',
       articles: 'مقالات',
       video: 'فيديو',
+      opinion: 'الرأي',
       podcast: 'بودكاست',
     },
   },
@@ -147,7 +150,10 @@ export const arabic = {
     emailNotValid: 'Email not valid',
     passwordEmpty: 'Password required',
     passwordNotMatch: 'Password do not match',
-    passwordStrength: 'Password is too short'
+    passwordStrength: 'Password is too short',
+    passwordRequirement:'Password must contail (1)uppercase,(1)lowercase,(1)numeric and (1)special character',
+    maxLengthPassword: 'Password should contain maximum 20 characters',
+    minLengthPassword: 'Password should contain minimum 8 characters',
   },
   about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',
@@ -216,6 +222,9 @@ export const arabic = {
       oldPassword: 'كلمة المرور القديمة',
       newPassword: 'كلمة مرور جديدة',
       confirmNewPassword: 'قم بتأكيد كلمة المرور الجديدة',
+      moveAndScale: 'تحرك و مقياس',
+      openCameraOption: 'افتح الة تصوير',
+      chooseFromGallery: 'اختر من المعرض',
     },
     newPassword: {
       createNewPassword: 'أنشئ كلمة مرور جديدة',
@@ -224,12 +233,22 @@ export const arabic = {
       passwordWarning: 'يجب ألا يقل عن 8 أحرف',
       passwordMatchWarning: 'يجب أن تتطابق كلمتا المرور'
     },
-    manageMyNews: {
-      header: 'إدارة أخباري',
-      myFavoriteBooks: 'كتابي المفضلين',
-      myFavoriteTopics: 'مواضيعي المفضله',
-      continueReadingMoreBooks: 'تابع المزيد من الكتاب',
-      followMoreTopics: 'تابع المزيد من المواضيع'
-    },
+  },
+  manageMyNews: {
+    header: 'إدارة أخباري',
+    myFavoriteBooks: 'كتابي المفضلين',
+    myFavoriteTopics: 'مواضيعي المفضله',
+    continueReadingMoreBooks: 'تابع المزيد من الكتاب',
+    followMoreTopics: 'تابع المزيد من المواضيع'
+  },
+  signUpAlert: {
+    subscribe: 'مشترك',
+    description: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و تتمتع بخاصية حفظ المقالات',
+    signUp: 'بالتسجيل'
+  },
+  signUpPH: {
+    title: 'أنت غير مشترك',
+    message: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و تتمتع بخاصية حفظ المقالات',
+    signUp: 'قم بالتسجيل'
   }
 }

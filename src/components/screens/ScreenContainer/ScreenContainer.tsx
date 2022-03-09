@@ -17,6 +17,8 @@ import {Styles} from 'src/shared/styles';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import DeviceInfo from 'react-native-device-info';
+import { AlertModal } from 'src/components/organisms';
+import { ScreensConstants } from 'src/constants';
 
 const isIphoneX = DeviceInfo.hasNotch();
 
@@ -29,6 +31,8 @@ export interface ScreenContainerProps {
   showHeader?: boolean;
   headerTitle?: string;
   statusbarColor?: string;
+  isSignUpAlertVisible?: boolean,
+  onCloseSignUpAlert?: () => void
 }
 
 export const ScreenContainer = ({
@@ -40,6 +44,8 @@ export const ScreenContainer = ({
   headerTitle,
   statusbarColor,
   isOverlayLoading = false,
+  isSignUpAlertVisible = false,
+  onCloseSignUpAlert
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -53,6 +59,14 @@ export const ScreenContainer = ({
   const onPressBack = () => {
     navigation.goBack();
   };
+
+  const onPressSignUp = () => {
+    onCloseSignUpAlert
+    navigation.reset({
+      index: 0,
+      routes: [{name: ScreensConstants.AuthNavigator}],
+    });
+  }
 
   const header = (title?: string) => {
     return (
@@ -90,6 +104,15 @@ export const ScreenContainer = ({
       {children}
       {isLoading && <LoadingState />}
       {isOverlayLoading && <View style={style.loadingOverlay}><LoadingState /></View>}
+      {isSignUpAlertVisible && <AlertModal
+        title={t('signUpAlert.subscribe')}
+        message={t('signUpAlert.description')}
+        buttonText={t('signUpAlert.signUp')}
+        isVisible={isSignUpAlertVisible}
+        onPressSuccess={onPressSignUp}
+        onClose={() => onCloseSignUpAlert && onCloseSignUpAlert()}
+      />
+      }
     </SafeAreaView>
   );
 };

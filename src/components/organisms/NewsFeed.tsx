@@ -15,6 +15,7 @@ import {
   calculateMonth,
   decodeHTMLTags,
   getImageUrl,
+  calculateYear,
 } from 'src/shared/utils/utilities';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
@@ -36,9 +37,10 @@ interface NewsFeedWidgetProps {
   data: NewsViewListItemType[];
   onScroll: () => void;
   isLoading: boolean;
+  onUpdateNewsFeedBookmark: (index: number) => void
 }
 
-const NewsFeed = ({data, onScroll, isLoading}: NewsFeedWidgetProps) => {
+const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeedWidgetProps) => {
   const theme = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>();
   const onPress = (nid: string) => {
@@ -84,13 +86,15 @@ const NewsFeed = ({data, onScroll, isLoading}: NewsFeedWidgetProps) => {
         <View>
           <SectionVideoFooter
             leftTitle={item.author_resource}
-            rightTitle={calculateMonth(item.created_export)}
+            rightTitle={calculateYear(item.created_export)+ ','}
             leftTitleColor={theme.themeData.primary}
             rightIcon={() => <CalendarIcon />}
-            rightDate={calculateDate(item.created_export).toString()}
+            rightDate={calculateMonth(item.created_export) +' '+ calculateDate(item.created_export).toString()}
             rightDateColor={Styles.color.smokeyGrey}
             rightTitleColor={Styles.color.smokeyGrey}
             addBookMark={true}
+            isBookmarked={item.isBookmarked}
+            onPressBookmark={()=>{onUpdateNewsFeedBookmark(index)}}
           />
         </View>
         <Divider />

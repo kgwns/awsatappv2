@@ -34,6 +34,8 @@ export interface SectionArticleItemProps {
   hideBookMark?: boolean;
   bookMarkColorType?: string;
   nid?: string;
+  isBookmarked: boolean
+  onPressBookmark: () => void
 }
 const SectionArticleItem = ({
     headerTitle,
@@ -50,9 +52,9 @@ const SectionArticleItem = ({
     hideBookMark = false,
     bookMarkColorType = BookMarkColorType.BLACK,
     nid,
+    isBookmarked,
+    onPressBookmark,
 }: SectionArticleItemProps) => {
-  const [saveState, setSaveState] = useState(false);
-  const theme = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const onPress = () => {
@@ -61,9 +63,6 @@ const SectionArticleItem = ({
     }
   };
 
-  const onPressSave = () => {
-    setSaveState(!saveState);
-  };
   const {themeData} = useTheme();
   return (
     <View
@@ -111,7 +110,7 @@ const SectionArticleItem = ({
           <ButtonImage
           testId={moleculesTestID.storySaveBtn}
           icon={() => {
-            return saveState
+            return isBookmarked
               ? getSvgImages({
                   name: ImagesName.bookMarkActiveSVG,
                   size: normalize(20),
@@ -121,7 +120,7 @@ const SectionArticleItem = ({
                   size: normalize(20),
                 });
           }}
-          onPress={onPressSave}
+          onPress={onPressBookmark}
         />
         )}
       </View>

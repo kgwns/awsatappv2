@@ -28,6 +28,7 @@ import {
   FetchTopListSuccessPayloadType,
   NewsViewBodyGet,
 } from '../types';
+import { LatestOpinionDataType } from 'src/redux/latestNews/types';
 
 const mockString = 'mockString';
 
@@ -51,7 +52,7 @@ const requestBottomListAction: FetchBottomListType = {
   payload: requestObject,
 };
 
-const reposnseObject = {
+const reponseObject = {
   rows: [
     {
       title: mockString,
@@ -59,18 +60,21 @@ const reposnseObject = {
     },
   ],
 };
+
+const reponseTopListObject : LatestOpinionDataType[]=[]
+
 const errorResponse = {
   response: {data: 'Error', status: 500, statusText: 'Error'},
 };
 
 const sucessHeroListResponseObject: FetchHeroListSuccessPayloadType = {
-  heroListData: reposnseObject,
+  heroListData: reponseObject,
 };
 const sucessTopListResponseObject: FetchTopListSuccessPayloadType = {
-  topListData: reposnseObject,
+  topListData: [],
 };
 const sucessBottomListResponseObject: FetchBottomListSuccessPayloadType = {
-  bottomListData: reposnseObject,
+  bottomListData: reponseObject,
 };
 
 describe('<NewsViewSaga>', () => {
@@ -117,7 +121,7 @@ describe('Test HeroList success', () => {
     testSaga(fetchHeroList, requestHeroListAction)
       .next()
       .call(fetchNewsViewApi, requestObject)
-      .next(reposnseObject)
+      .next(reponseObject)
       .put(fetchHeroListSuccess(sucessHeroListResponseObject))
       .finish()
       .isDone();
@@ -129,7 +133,7 @@ describe('Test TopList success', () => {
     testSaga(fetchTopList, requestTopistAction)
       .next()
       .call(fetchNewsViewApi, requestObject)
-      .next(reposnseObject)
+      .next(reponseTopListObject)
       .put(fetchTopListSuccess(sucessTopListResponseObject))
       .finish()
       .isDone();
@@ -140,7 +144,7 @@ describe('Test BottomList success', () => {
     testSaga(fetchBottomList, requestBottomListAction)
       .next()
       .call(fetchNewsViewApi, requestObject)
-      .next(reposnseObject)
+      .next(reponseObject)
       .put(fetchBottomListSuccess(sucessBottomListResponseObject))
       .finish()
       .isDone();

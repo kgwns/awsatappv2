@@ -23,10 +23,11 @@ const hideHeader = {
 }
 
 const AppNavigator = () => {
+  const { themeData } = useTheme();
   const navigation = useNavigation();
   const style = useThemeAwareObject(customStyle)
 
-  const {themeData} = useTheme();
+
   const [t] = useTranslation();
   const previousIconStyle = style.onBoardPrevIcon;
 
@@ -59,7 +60,7 @@ const AppNavigator = () => {
       })}
     </TouchableOpacity>
   );
-  
+
   return (
     <Stack.Navigator initialRouteName={ScreensConstants.LatestNewsScreen}>
       <Stack.Screen
@@ -148,6 +149,46 @@ const AppNavigator = () => {
         name={ScreensConstants.VideoPlayerScreen}
         component={Routes.VideoPlayerScreen}
         options={hideHeader}
+      />
+      <Stack.Screen
+        name={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN}
+        component={Routes.ManageMyFavoriteAuthorScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(t('manageMyNews.header')),
+          headerTitleAlign: 'center',
+        }}
+      />
+         <Stack.Screen
+        name={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN}
+        component={Routes.ManageMyFavoriteTopicsScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(t('manageMyNews.header')),
+          headerTitleAlign: 'center',
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.NEWS_LETTER_SCREEN}
+        component={Routes.NewsLetterScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: HeaderLogo,
+          headerTitleAlign: 'center'
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN}
+        component={Routes.KeepNotifiedScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: HeaderLogo,
+          headerTitleAlign: 'center'
+        }}
       />
     </Stack.Navigator>
   );

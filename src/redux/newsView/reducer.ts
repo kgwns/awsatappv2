@@ -15,7 +15,7 @@ import {NewsViewActions, NewsViewtState} from './types';
 
 const initialState: NewsViewtState = {
   heroListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
-  topListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
+  topListData: [],
   bottomListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
   error: '',
   isLoading: false,
@@ -69,7 +69,7 @@ export default (state = initialState, action: NewsViewActions) => {
         isLoading: false,
         bottomListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
         heroListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
-        topListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
+        topListData: [],
         error: '',
       };
     default:

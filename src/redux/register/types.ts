@@ -1,3 +1,4 @@
+import { FETCH_USER_LOGOUT } from '../login/actionTypes';
 import {REGISTER_USER, REGISTER_SUCCESS, REGISTER_FAILED} from './actionTypes';
 
 export interface RegisterUserSuccessType {
@@ -31,10 +32,17 @@ export interface RegisterUserMessageType {
 }
 
 export interface RegisterBodyType {
-  name: string;
-  email: string;
-  password: string;
+  name?: string;
+  email?: string;
+  password?: string;
   device_name: string;
+  first_name?: string;
+  last_name?: string;
+  mobile?: string;
+  profile_url?: string;
+  registered_by?: string;
+  provider?: string;
+  provider_id?: string;
 }
 
 export interface RegisterSuccessPayloadType {
@@ -67,7 +75,12 @@ export type RegisterFailedType = {
   payload: RegisterFailedPayloadType;
 };
 
+export type UserLogoutType = {
+  type: typeof FETCH_USER_LOGOUT;
+};
+
 export type RegisterAction =
   | UserRegisterType
   | RegisterSuccessType
-  | RegisterFailedType;
+  | RegisterFailedType
+  | UserLogoutType;
