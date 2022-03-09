@@ -143,6 +143,12 @@ export const storeInfo = [
       removeBookmarkInfo: {},
       removeBookmarkError: '',
       getBookmarkDetailError: ''
+    },
+    newsLetters:{
+      error: '',
+      isLoading: false,
+      sendNewsLettersInfo: {},
+      selectedNewsLettersData: {},
     }
   },
 ];

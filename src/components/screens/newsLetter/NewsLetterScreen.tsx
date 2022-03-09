@@ -1,45 +1,152 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label, NextButton} from 'src/components/atoms';
-import {horizontalEdge, isTab, normalize} from 'src/shared/utils';
-import {useNavigation} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {ScreenContainer} from '..';
-import {ScreensConstants} from 'src/constants';
-import {ScreenHeight} from 'react-native-elements/dist/helpers';
-import {NewsLettersWidget} from 'src/components/organisms';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { Label, NextButton } from 'src/components/atoms';
+import { CustomAlert, horizontalAndBottomEdge, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize } from 'src/shared/utils';
+import { useIsFocused } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { ScreenContainer } from '..';
+import { ScreensConstants } from 'src/constants';
+import { ScreenHeight } from 'react-native-elements/dist/helpers';
+import { NewsLettersWidget } from 'src/components/organisms';
+import { useNewsLetters } from 'src/hooks';
+import { NewsLetterItemType } from 'src/redux/newsLetter/types';
 
-interface NewsLetterScreenProps {
-  route: any
-}
+export const NewsLetterScreen = ({ navigation, route }: any) => {
 
-export const NewsLetterScreen = ({route} : NewsLetterScreenProps) => {
-  const navigation = useNavigation();
-  const [t] = useTranslation();
-  const style = useThemeAwareObject(customStyle);
-
-  const data = [
+  const [newsLetterData] = useState([
     {
       title: 'النشره الصباحيه',
       subTitle: 'الاثنين الى السبت',
-      image:'earlyEditionImg',
+      image: 'earlyEditionImg',
+      tid: '123',
+      isSelected: false,
     },
     {
       title: 'المال و الأعمال',
       subTitle: 'يومياً',
       image: 'moneyAndBusinessImg',
+      tid: '456',
+      isSelected: false,
     },
     {
       title: 'التكنولوجيا',
       subTitle: 'كل سبت',
       image: 'technologyImg',
+      tid: '789',
+      isSelected: false,
     },
-  ];
+  ])
+
+  const [t] = useTranslation();
+  const style = useThemeAwareObject(customStyle);
+  const [disableNext, setDisableNext] = useState<boolean>(true)
+  const [canGoBack, setCanGoBack] = useState((route.params && route.params.canGoBack)?true:false)
+  const [newsLettersDataInfo, setNewsLettersDataInfo] = useState<NewsLetterItemType[]>([])
+  const isFocused = useIsFocused();
+
+  const { getSelectedNewsLettersData, selectedNewsLettersData, sentNewsLettersInfoData, sendSelectedNewsLettersInfo, emptySelectedNewsLettersInfoData, isLoading } = useNewsLetters()
+
+  useEffect(() => {
+    getSelectedNewsLettersData();
+    emptySelectedNewsLettersInfoData();
+    if (route.params && route.params.canGoBack) {
+      setCanGoBack(route.params.canBoBack)
+      setNewsLettersData();
+    }
+    else{
+      setNewsLettersDataInfo(newsLetterData)
+    }
+    return () => {
+      emptySelectedNewsLettersInfoData();
+    }
+  }, [isFocused]);
+
+  useEffect(()=>{
+    if (route.params && route.params.canGoBack) {
+      setCanGoBack(route.params.canGoBack)
+      setNewsLettersData();
+    }
+  },[selectedNewsLettersData.data])
+
+  useEffect(() => {
+    if (isObjectNonEmpty(sentNewsLettersInfoData)) {
+      if (sentNewsLettersInfoData.code === 200) {
+        gotoNext()
+      } else {
+        CustomAlert({
+          title: '',
+          message: sentNewsLettersInfoData.message || ''
+        })
+      }
+    }
+  }, [sentNewsLettersInfoData]);
+
+  const getSelectedOrNot = (tid: any) => {
+    for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
+      if (tid == selectedNewsLettersData.data[i].tid) {
+        return true
+      }
+    }
+    return false
+  }
+
+
+  const setNewsLettersData = () => {
+    if (isNonEmptyArray(newsLetterData) && isNonEmptyArray(selectedNewsLettersData.data)) {
+      const data = []
+      for (let i = 0; i < newsLetterData.length; i++) {
+        data.push({
+          title: newsLetterData[i].title,
+          subTitle: newsLetterData[i].subTitle,
+          image: newsLetterData[i].image,
+          tid: newsLetterData[i].tid,
+          isSelected: getSelectedOrNot(newsLetterData[i].tid),
+        })
+      }
+      setNewsLettersDataInfo(data)
+    }else{
+      if(selectedNewsLettersData.code && selectedNewsLettersData.code===200 && !isNonEmptyArray(selectedNewsLettersData.data)){
+      setNewsLettersDataInfo(newsLetterData)
+     }
+    }
+    updateNextButton()
+  }
+
+  const changeSelectedStatus = (item: any, selected: boolean) => {
+    for (let i = 0; i < newsLettersDataInfo.length; i++) {
+      if (item.tid == newsLettersDataInfo[i].tid) {
+        newsLettersDataInfo[i].isSelected = !newsLettersDataInfo[i].isSelected;
+      }
+    }
+    updateNextButton()
+  };
+
+  const updateNextButton = () => {
+    const selectedTIDData = getSelectedData()
+    const disableNext = isNonEmptyArray(selectedTIDData) ? false : true
+    setDisableNext(disableNext)
+  }
+
+  const getSelectedData = () => {
+    return newsLettersDataInfo.reduce((prevValue: string[], item: NewsLetterItemType) => {
+      if (item.isSelected) {
+        return prevValue.concat(item.tid)
+      }
+      return prevValue
+    }, [])
+  }
+
 
   const onPressNext = () => {
-    if (route.params && route.params.canGoBack) {
+    if (isNonEmptyArray(getSelectedData())) {
+      sendSelectedNewsLettersInfo({ tid: joinArray(getSelectedData()) })
+    }
+  }
+
+  const gotoNext = () => {
+    if (route.params && canGoBack) {
       navigation.goBack()
     } else {
       navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)
@@ -47,9 +154,9 @@ export const NewsLetterScreen = ({route} : NewsLetterScreenProps) => {
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge}>
+    <ScreenContainer edge={horizontalAndBottomEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
-        <View style={[style.textContainer,{justifyContent:isTab?'center':'flex-end'}]}>
+        <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' }]}>
           <Label style={style.titleStyle}>
             {t('onBoard.newsLetter.title')}
           </Label>
@@ -58,12 +165,15 @@ export const NewsLetterScreen = ({route} : NewsLetterScreenProps) => {
           </Label>
         </View>
         <View style={style.contentStyle}>
-          <View>
-            <NewsLettersWidget data={data} />
-          </View>
+          {isNonEmptyArray(newsLettersDataInfo) &&
+            <View>
+              <NewsLettersWidget data={newsLettersDataInfo} changeSelectedStatus={changeSelectedStatus} />
+            </View>
+          }
         </View>
         <View style={style.nextButtonView}>
           <NextButton
+            disabled={disableNext}
             testID="nextButtonTestId"
             title={t('onBoard.common.nextBtn')}
             onPress={onPressNext}
@@ -124,7 +234,7 @@ const customStyle = (theme: CustomThemeType) => {
       alignSelf: 'center',
       borderRadius: normalize(25),
     },
-    nextButtonIconContainer: {position: 'absolute', left: normalize(20)},
+    nextButtonIconContainer: { position: 'absolute', left: normalize(20) },
     nextButtonText: {
       color: theme.primary,
       textAlign: 'center',

@@ -12,20 +12,25 @@ export interface NewsLetterCardProps {
   title: string;
   subTitle: string;
   image: any;
-  status: boolean;
+  isSelected: boolean;
   onPress: (isSelected: boolean) => void;
 }
 export const NewsLetterCard = ({
   title,
   subTitle,
   image,
-  status,
+  isSelected,
   onPress,
 }: NewsLetterCardProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
-  const [selected, setSelected] = useState(status);
+  const [selected, setSelected] = useState(isSelected);
   const [t] = useTranslation();
+
+  const changeStatus = () => {
+    onPress(!selected);
+    setSelected(!selected)
+  };
 
   return (
     <TouchableOpacity
@@ -38,10 +43,7 @@ export const NewsLetterCard = ({
             : theme.themeData.secondaryWhite,
         },
       ]}
-      onPress={() => {
-        onPress(selected);
-        setSelected(!selected);
-      }}>
+      onPress={changeStatus}>
       <View style={style.imageContainer}>
         <Image
         name={image}
