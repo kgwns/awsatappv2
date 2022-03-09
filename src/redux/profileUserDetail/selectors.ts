@@ -1,5 +1,5 @@
 import { AppState, Selector } from 'src/redux/rootReducer';
-import { ProfileUserDataType } from './types';
+import { ProfileUserDataType, UpdateUserImageSuccessPayloadType } from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
   state.userDetails.isLoading;
@@ -14,3 +14,6 @@ export const getUserData: Selector<ProfileUserDataType> = (
 
 export const getProfileUserDetailsError: Selector<string> = (state: AppState) =>
   state.userDetails.error;
+
+export const getUserInfo: Selector<UpdateUserImageSuccessPayloadType | null> =
+  (state: AppState) => state.userDetails.userDetail;

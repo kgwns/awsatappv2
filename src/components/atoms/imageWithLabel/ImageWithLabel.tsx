@@ -26,7 +26,7 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
     return (
         <TouchableWithoutFeedback onPress={onPressImage}>
             <View>
-                <Image name={name} url={url} style={[imageWithLabelStyle.articleImage, imageStyle]} resizeMode={ImageResize.COVER} />
+                <Image fallback name={name} url={url} style={[imageWithLabelStyle.articleImage, imageStyle]} resizeMode={ImageResize.COVER} />
                 {tagName &&
                     <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
                         <Label children={tagName}

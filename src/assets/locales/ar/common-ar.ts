@@ -88,6 +88,8 @@ export const arabic = {
     last_week: 'الاسبوع الماضي',
     next_week: 'الاسبوع المقبل',
     weeks: 'أسابيع',
+    one_minute: '1 دقيقة',
+    one_hour: '1 ساعة',
   },
   months: [
     'يناير',
@@ -149,7 +151,9 @@ export const arabic = {
     passwordEmpty: 'Password required',
     passwordNotMatch: 'Password do not match',
     passwordStrength: 'Password is too short',
-    passwordRequirement:'Password must contail (1)uppercase,(1)lowercase,(1)numeric and (1)special character'
+    passwordRequirement:'Password must contail (1)uppercase,(1)lowercase,(1)numeric and (1)special character',
+    maxLengthPassword: 'Password should contain maximum 20 characters',
+    minLengthPassword: 'Password should contain minimum 8 characters',
   },
   about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',

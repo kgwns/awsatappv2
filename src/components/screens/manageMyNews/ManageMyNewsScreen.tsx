@@ -186,14 +186,10 @@ export const ManageMyNewsScreen = () => {
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
         <View style={style.favBooks}>
-          {isNonEmptyArray(selectedWriters) && (
             <MyFavoriteBooks data={selectedWriters} />
-          )}
         </View>
         <View style={style.favTopics}>
-          {isNonEmptyArray(selectedInterested) && (
             <MyFavoriteTopics data={selectedInterested} />
-          )}
         </View>
       </View>
     </ScreenContainer>

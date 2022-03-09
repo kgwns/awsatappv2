@@ -65,11 +65,11 @@ export const VideoItem = ({
         <View>
         {isFirstItem ? (
           <View style={styles.videoContainer}>
-            <Image resizeMode={'cover'} url={imageLink} style={styles.imageBig} />
+            <Image fallback resizeMode={'cover'} url={imageLink} style={styles.imageBig} />
           </View>
         ) : (
             <View style={styles.videoContainer}>
-              <Image resizeMode={'cover'} url={imageLink} style={styles.image} />
+              <Image fallback resizeMode={'cover'} url={imageLink} style={styles.image} />
               <PlayIcon fill={colors.white} style={styles.playIcon} />
               {time && (<Label style={styles.time} color={colors.white}>
                 {time}

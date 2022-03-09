@@ -4,7 +4,7 @@ import {ImagesName} from '../shared/styles/images';
 import {ButtonImage} from '../components/atoms';
 import {ButtonList, Divider, ButtonOutline} from 'src/components/atoms';
 import {useTranslation} from 'react-i18next';
-import {normalize} from 'src/shared/utils';
+import {isIOS, normalize} from 'src/shared/utils';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import UserIcon from 'src/assets/images/icons/user.svg';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
@@ -24,6 +24,7 @@ import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
+import { getProfileImageUrl } from 'src/shared/utils/utilities';
 
 interface CustomDrawerContentProps {}
 
@@ -73,7 +74,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         }
         
         }}>
-        {useLogin().isLoggedIn && userProfileData.user?.profile_url ? <Image style={styles.user} source={{uri: userProfileData.user?.profile_url}}/> : <UserIcon/>}  
+        {useLogin().isLoggedIn && userProfileData.user?.image ? <Image style={styles.user} source={{uri: getProfileImageUrl(userProfileData.user?.image as string)}}/> : <UserIcon/>}  
         {/* {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })} */}
       </TouchableOpacity>
       <View style={styles.logoContainer}>
@@ -184,7 +185,7 @@ const createStyles = (theme: CustomThemeType) =>
       width: normalize(27),
       height: normalize(27),
       borderRadius: normalize(27)/2,
-      borderWidth: normalize(2),
+      borderWidth: isIOS? normalize(2): normalize(3),
       borderColor: colors.lightGreenishBlue,
     },
     menuContainer: {

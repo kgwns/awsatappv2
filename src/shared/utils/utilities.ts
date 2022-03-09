@@ -6,6 +6,7 @@ import { BASE_URL } from "src/services/apiUrls";
 import { arabic } from "src/assets/locales/ar/common-ar";
 import moment from "moment";
 import 'moment/locale/ar';
+import { PROFILE_IMAGE_URL } from "src/services/apiEndPoints";
 
 export interface CustomAlertProps {
   title?: string;
@@ -68,16 +69,16 @@ export const isValidHttpUrl = (url: string): boolean => {
 export const timeAgo = (time: any) => {
   var date = new Date(time);
   var today = new Date();
-  var yesterday = new Date(date.valueOf() - 1000 * 60 * 60 * 24);
-  const isToday = date.setHours(0, 0, 0, 0) == today.setHours(0, 0, 0, 0);
-  const isYesterday =
-    date.setHours(0, 0, 0, 0) == yesterday.setHours(0, 0, 0, 0);
-
-  if (isToday || isYesterday) {
-    return calculateTimeSince(date);
+  var yesterday = new Date(today.valueOf() - 1000 * 60 * 60 * 24);
+  var threeHoursBefore = new Date(today.valueOf() - 1000 * 60 * 60 * 3);
+  const isToday =   date.getDate() == today.getDate() &&  date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear();
+  const isThreeHoursAgo = date.getHours() - threeHoursBefore.getHours() >= 3;
+  const fullDateFormat =  arabic.months[moment(time).get('month')] + ' ' + calculateDate(time) + ', ' + calculateYear(time);
+  const recentHoursFormat = arabic.timeSince.since + moment().fromNow(true);
+  if (isToday && isThreeHoursAgo) {
+    return recentHoursFormat;
   } else {
-    moment.locale('ar')
-    return arabic.timeSince.since + moment(time).format('MMMM') + ' ' + moment(time).format('DD');
+    return fullDateFormat;
   }
 };
 
@@ -96,9 +97,9 @@ export const calculateTimeSince = (time: any) => {
   }
   var time_formats = [
     [60, 'timeSince.seconds', 1], // 60
-    [120, 'timeSince.minute_ago', 'timeSince.minute_from_now'], // 60*2
+    [120, 'timeSince.one_minute', 'timeSince.minute_from_now'], // 60*2
     [3600, 'timeSince.minutes', 60], // 60*60, 60
-    [7200, 'timeSince.hour_ago', 'timeSince.hour_from_now'], // 60*60*2
+    [7200, 'timeSince.one_hour', 'timeSince.hour_from_now'], // 60*60*2
     [86400, 'timeSince.hours', 3600], // 60*60*24, 60*60
     [172800, 'timeSince.yesterday', 'timeSince.tomorrow'], // 60*60*24*2
     [604800, 'timeSince.days', 86400], // 60*60*24*7, 60*60*24
@@ -123,7 +124,7 @@ export const calculateTimeSince = (time: any) => {
     if (seconds < format[0]) {
       if (typeof format[2] == 'string') return format[list_choice];
       else
-        return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
+        return Math.floor(seconds / format[2]) + ' ' + format[1];
     }
   return time;
 };
@@ -136,6 +137,10 @@ export const calculateMonth = (time: any) => {
   return arabic.months[moment(time).get('month')];;
 };
 
+export const calculateYear = (time: any) => {
+  return  moment(time).get('year');
+};
+
 export const getFullDate = (time: any) => {
   return calculateDate(time) + ' ' + calculateMonth(time) + ' ' + moment(time).get('year');
 }
@@ -143,3 +148,7 @@ export const getFullDate = (time: any) => {
 export const getFormatedDate = (time: any)=> {
   return  moment(time).get('year') + '.' + (moment(time).get('month')+1)+ '.' + calculateDate(time);
 }
+
+export const getProfileImageUrl = (imageURL: string) => {
+  return isValidHttpUrl(imageURL) ? imageURL : PROFILE_IMAGE_URL + imageURL;
+};

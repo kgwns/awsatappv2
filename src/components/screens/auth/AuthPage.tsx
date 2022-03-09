@@ -1,9 +1,9 @@
 import React, {FunctionComponent, useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Alert, Platform} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {normalize} from '../../../shared/utils';
+import {isIOS, normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from '../../../components/organisms/';
 import {ScreensConstants} from 'src/constants';
@@ -14,9 +14,11 @@ import {useTranslation} from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useEmailCheck, useRegister} from 'src/hooks';
+import {useEmailCheck,useRegister} from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
-import {TERMS_AND_CONDITION} from 'src/services/apiEndPoints';
+import { fetchLoginSuccess } from 'src/redux/login/action';
+import { useDispatch } from 'react-redux';
+import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import {useLogin} from 'src/hooks';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
 
@@ -36,9 +38,10 @@ export const AuthPage: FunctionComponent = () => {
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const {registerUserInfo, isRegisterLoading} = useRegister();
+  const dispatch = useDispatch();
 
   const {loginSkipped} = useLogin();
-  const {isRegisterLoading} = useRegister();
 
   const {fetchEmailCheckRequest, isLoading, emailCheckData } =
     useEmailCheck();
@@ -53,6 +56,21 @@ export const AuthPage: FunctionComponent = () => {
       }
     }
   }, [emailCheckData]);
+
+  useEffect(() => {
+    const message = registerUserInfo?.message;
+    if (message) {
+      if (message.code === 200) {
+        dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
+        navigation.reset({
+          index: 0,
+          routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
+        });
+      }else{
+        Alert.alert(message.message);
+      }
+    }
+  }, [registerUserInfo]);
 
   const navigateToSection = (type: string) => {
     switch (type) {

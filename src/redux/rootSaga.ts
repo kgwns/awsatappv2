@@ -20,7 +20,6 @@ import topMenuSaga from './topMenu/sagas';
 import opinionArticleDetailSaga from './opinionArticleDetail/sagas';
 import userProfileSaga from './profileUserDetail/sagas'
 import bookmarkSaga from './bookmark/sagas';
-import updateProfileUserImageSaga from './updateProfileImage/sagas';
 import newsLettersSaga from './newsLetter/sagas';
 
 export function* rootSaga() {
@@ -45,7 +44,6 @@ export function* rootSaga() {
     fork(topMenuSaga),
     fork(opinionArticleDetailSaga),
     fork(bookmarkSaga),
-    fork(updateProfileUserImageSaga),
     fork(userProfileSaga),
     fork(newsLettersSaga),
   ]);

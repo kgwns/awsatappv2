@@ -66,12 +66,12 @@ export const NewPassword = () => {
                 <View style={styles.containerStyle}>
                     <View style={styles.topContainerStyle}>
                         <Label
-                            children={t('newPassword.createNewPassword')}
+                            children={t('profile.newPassword.createNewPassword')}
                             labelType="h2"
                             color={colors.greenishBlue}
                         />
                         <Label
-                            children={t('newPassword.passwordDescription')}
+                            children={t('profile.newPassword.passwordDescription')}
                             style={styles.textStyle}
                             numberOfLines={2}
                         />
@@ -87,13 +87,14 @@ export const NewPassword = () => {
                                         error={passwordError}
                                         isPassword
                                         isMandatory={true}
+                                        maxLength={20}
                                         errorStyle={passwordError? styles.errorStyle : null}
                                     />
                                 </View>
                             </View>
                             {!passwordError && <View style={styles.warningContainer}>
                                 <Label
-                                    children={t('newPassword.passwordWarning')}
+                                    children={t('profile.newPassword.passwordWarning')}
                                     style={styles.warningStyle}
                                 />
                             </View>}
@@ -109,20 +110,21 @@ export const NewPassword = () => {
                                         style={styles.inputStyle}
                                         error={confirmPasswordError}
                                         isPassword
+                                        maxLength={20}
                                         isMandatory={true}
                                     />
                                 </View>
                             </View>
                             { !confirmPasswordError && <View style={styles.warningContainer}>
                                 <Label
-                                    children={t('newPassword.passwordMatchWarning')}
+                                    children={t('profile.newPassword.passwordMatchWarning')}
                                     style={styles.warningStyle}
                                 />
                             </View>}
                         </View>
                         <SocialLoginButton testID="signUp_signUp"
                             onPress={onPressSignIn}
-                            label={t('newPassword.setNewPassword')}
+                            label={t('profile.newPassword.setNewPassword')}
                             style={styles.buttonStyle}
                             labelStyle={styles.labelStyle}
                         />

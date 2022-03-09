@@ -90,7 +90,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
             />
           </View>
           <View style={{ flex: 0.30, paddingRight: normalize(5), }}>
-            <Image url={getImageUrl(item.image)} style={ShortArticleStyle.image} resizeMode={ImageResize.COVER} />
+            <Image fallback url={getImageUrl(item.image)} style={ShortArticleStyle.image} resizeMode={ImageResize.COVER} />
           </View>
         </View>
         {index < data.length - 1 && <Divider/>}

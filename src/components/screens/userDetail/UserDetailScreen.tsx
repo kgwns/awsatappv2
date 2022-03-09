@@ -11,7 +11,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { TextInputField, Label, ButtonOutline } from '../../atoms';
 import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
-import { getFullDate, isObjectNonEmpty, getFormatedDate} from 'src/shared/utils/utilities';
+import { getFullDate, isObjectNonEmpty, getFormatedDate, getProfileImageUrl, CustomAlert} from 'src/shared/utils/utilities';
 import DatePicker from 'react-native-date-picker';
 import { TabBarComponent, TabBarDataProps } from 'src/components/molecules';
 import { KeyboardAwareView } from 'keyboard-aware-view';
@@ -19,10 +19,11 @@ import { loginPasswordValidation, reTypePasswordValidation } from 'src/shared/va
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-crop-picker';
-import { useUserProfile } from 'src/hooks';
-import { UpdateUserImageBodyType } from 'src/redux/updateProfileImage/types';
+import { UpdateUserImageBodyType } from 'src/redux/profileUserDetail/types';
 import { isDarkTheme } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
+import { SystemPermissions } from 'src/shared/utils';
+import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS } from 'src/constants/SharedConstants';
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -31,7 +32,6 @@ export const UserDetailScreen: FunctionComponent = () => {
   const { themeData } = useTheme();
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
-  const {updateUserImageRequest, userDetail, isUserImageLoading} = useUserProfile();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [occupation, setOccupation] = useState('');
@@ -47,7 +47,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [confirmNewPasswordError, setConfirmNewPasswordError] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [profileImage, setProfileImage] = useState(Object);
-  const { isLoading, userProfileData, sentUserProfileData ,fetchProfileDataRequest, sendUserProfileInfo } = useUserProfileData()
+  const { isLoading, userProfileData, sentUserProfileData ,fetchProfileDataRequest, sendUserProfileInfo, updateUserImageRequest } = useUserProfileData()
   const [userProfileImage, setUserProfileImage] = useState('') 
   const [birthday, setBirthday] = useState('')
   const currentDate = new Date();
@@ -59,7 +59,7 @@ export const UserDetailScreen: FunctionComponent = () => {
     setEmail(userProfileData.user?.email as string)
     {setOccupation(userProfileData.user?.occupation? userProfileData.user?.occupation as string : occupation )}
     {userProfileData.user?.name && userProfileData.user?.name !== " " && setName(userProfileData.user?.name as string)}
-    {userProfileData.user?.profile_url && setUserProfileImage(userProfileData.user?.profile_url as string)}
+    {userProfileData.user?.image &&  setUserProfileImage( getProfileImageUrl(userProfileData.user?.image as string))}
     {userProfileData.user?.birthday && setBirthday(getFullDate(userProfileData.user?.birthday))}
     {userProfileData.user?.name && userProfileData.user?.name !== " " && setUserName(userProfileData.user?.name as string)}
   }, [userProfileData])
@@ -125,7 +125,7 @@ export const UserDetailScreen: FunctionComponent = () => {
     sendUserProfileInfo({
       email: email,
       first_name: name ?? '',
-      birthday: selectedDate.toString() != t('profile.userDetail.selectBirthdayText')? getFormatedDate(date) : '',
+      birthday: selectedDate.toString() != t('profile.userDetail.selectBirthdayText')? getFormatedDate(date) : (userProfileData.user?.birthday ? getFormatedDate(userProfileData.user?.birthday): '' ),
       occupation: occupation ?? ''
     })        
     setUserName(name)
@@ -156,6 +156,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             value={name}
             style={styles.nameInputStyle}
             isMandatory
+            maxLength={20}
             leftIcon={() => <UserTextFieldIcon fill={themeData.textColor} />}
           />   
           <View>
@@ -185,7 +186,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             <TouchableOpacity onPress={() => setOpen(true)}>
               <View style={styles.dropDownContainer}>
                 <View>
-                  <Label children={birthday != ''? birthday : selectedDate.toString()}
+                  <Label children={birthday != '' ? birthday : selectedDate.toString()}
                     style={[styles.dropDownLabel,
                     selectedDate.toString() == t('profile.userDetail.selectBirthdayText') && styles.dropDownLabelPlaceholder]} />
                 </View>
@@ -197,6 +198,7 @@ export const UserDetailScreen: FunctionComponent = () => {
           <TextInputField placeholder={t('profile.userDetail.occupationPlaceholder')}
             testID={'profile_occupation'}
             onChangeText={setOccupation}
+            maxLength={20}
             value={occupation}
             style={styles.nameInputStyle}
           />
@@ -218,6 +220,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         value={oldPassword}
         style={styles.inputStyle}
         error={oldPasswordError}
+        maxLength={20}
         isPassword
         isMandatory
       />
@@ -229,6 +232,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         style={styles.inputStyle}
         error={newPasswordError}
         isPassword
+        maxLength={20}
         isMandatory
       />
       <TextInputField placeholder={t('profile.userDetail.confirmNewPassword')}
@@ -239,6 +243,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         style={styles.inputStyle}
         error={confirmNewPasswordError}
         isPassword
+        maxLength={20}
         isMandatory
       />
       <View style={styles.updateButtonContainer} >
@@ -264,7 +269,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         <View style={styles.optionModalContainer}>
           <View style={styles.overlayStyle}>
             <View style={styles.optionContainer}>
-              <TouchableOpacity testID={'camera_option'} onPress={() => openCamera()} >
+              <TouchableOpacity testID={'camera_option'} onPress={onClickOpenCamera} >
                 <View style={styles.optionStyle}>
                   <Label style={styles.optionTextStyle} children={t('profile.userDetail.openCameraOption')} />
                 </View>
@@ -313,6 +318,22 @@ export const UserDetailScreen: FunctionComponent = () => {
     })
   };
 
+  const onClickOpenCamera = async () => {
+    if (isIOS) {
+      openCamera()
+    } else {
+      const hasPermission = await SystemPermissions.hasCameraPermission()
+      if (hasPermission) {
+        openCamera()
+      } else {
+        const hasPermissionGranted = await SystemPermissions.requestCameraPermission()
+        hasPermissionGranted ? openCamera() : CustomAlert({
+          title: REQUIRE_ACCESS,
+          message: REQUEST_CAMERA_ACCESS_MESSAGE,
+        })
+      }
+    }
+  }
   
   const uploadImage = (image:any) => {
     const payload: UpdateUserImageBodyType = {

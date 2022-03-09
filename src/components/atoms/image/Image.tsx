@@ -1,13 +1,14 @@
 import React, {FunctionComponent} from 'react';
-import {ImageStyle, StyleProp, StyleSheet, ViewStyle} from 'react-native';
+import { ImageStyle, StyleProp, StyleSheet, ViewStyle} from 'react-native';
 import {
   Image as RNEImage,
   ImageProps as RNEImageProps,
 } from 'react-native-elements';
 
-import {Styles} from 'src/shared/styles';
+import {ImagesName, Styles} from 'src/shared/styles';
 import { isDarkTheme } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
+import {PlaceholderImage} from '../'
 
 const DEFAULT_IMAGE_SIZE = 24;
 const DEFAULT_RADIUS_DIVIDER = 2;
@@ -21,6 +22,7 @@ export interface ImageProps extends Omit<RNEImageProps, 'source'> {
   size?: number;
   backgroundColor?: ImageStyle['backgroundColor'];
   type?: 'round' | 'standard';
+  fallback?: boolean;
 }
 
 export const Image: FunctionComponent<ImageProps> = ({
@@ -33,6 +35,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   resizeMode = 'contain',
   placeholderStyle,
   url,
+  fallback=false,
   ...props
 }) => {
   const { theme } = useAppCommon()
@@ -65,6 +68,7 @@ export const Image: FunctionComponent<ImageProps> = ({
           placeholderStyleInternal,
           placeholderStyle,
         ])}
+        PlaceholderContent={fallback?<PlaceholderImage name={'placeholderImg'}/>:undefined}
         {...props}
       />
     </>

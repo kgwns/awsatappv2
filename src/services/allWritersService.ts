@@ -6,6 +6,7 @@ import {
     AllWritersBodyGet,
     SendSelectedAuthorBody,
     SendSelectedAuthorSuccessPayloadType,
+    GetSelectedAuthorSuccessPayloadType,
 } from 'src/redux/allWriters/types';
 
 export const fetchAllWritersApi = async (body: AllWritersBodyGet) => {
@@ -40,7 +41,7 @@ export const sendSelectedWritersApi = async (body: SendSelectedAuthorBody) => {
 
 export const getSelectedAuthorsApi = async () => {
     try {
-        const response: SendSelectedAuthorSuccessPayloadType =
+        const response: GetSelectedAuthorSuccessPayloadType =
             await postApiRequest(
                 `${UMS_BASE_URL}${GET_SELECTED_AUTHORS_ENDPOINT}`,
             );

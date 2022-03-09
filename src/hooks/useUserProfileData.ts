@@ -5,8 +5,9 @@ import {
   getProfileUserDetailsError,
   getUserData,
 } from 'src/redux/profileUserDetail/selectors';
-import {fetchUserProfileDetail, sendUserData} from 'src/redux/profileUserDetail/action';
-import {ProfileUserDataType, SendUserData} from 'src/redux/profileUserDetail/types';
+import {fetchUserProfileDetail, sendUserData, updateUserImage} from 'src/redux/profileUserDetail/action';
+import {ProfileUserDataType, SendUserData, UpdateUserImageBodyType,
+} from 'src/redux/profileUserDetail/types';
 
 export interface useUserProfileDetail {
   isLoading: boolean;
@@ -15,6 +16,7 @@ export interface useUserProfileDetail {
   sentUserProfileData: ProfileUserDataType;
   fetchProfileDataRequest(): void;
   sendUserProfileInfo(payload: SendUserData): void
+  updateUserImageRequest(payload: UpdateUserImageBodyType): void;
 }
 
 export const useUserProfileData = (): useUserProfileDetail => {
@@ -29,6 +31,9 @@ export const useUserProfileData = (): useUserProfileDetail => {
   const sendUserProfileInfo = (payload: SendUserData) => {
     dispatch(sendUserData(payload));
   };
+  const updateUserImageRequest = (payload: UpdateUserImageBodyType) => {
+    dispatch(updateUserImage(payload));
+};
   return {
     isLoading,
     userProfileData,
@@ -36,6 +41,7 @@ export const useUserProfileData = (): useUserProfileDetail => {
     fetchProfileDataRequest,
     sendUserProfileInfo,
     sentUserProfileData,
+    updateUserImageRequest
   };
 };
 

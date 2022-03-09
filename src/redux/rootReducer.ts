@@ -20,7 +20,6 @@ import videoList from 'src/redux/videoList/reducer';
 import topMenu from 'src/redux/topMenu/reducer';
 import opinionArticleDetail from 'src/redux/opinionArticleDetail/reducer';
 import bookmark from 'src/redux/bookmark/reducer';
-import userReducer from 'src/redux/updateProfileImage/reducer';
 import userDetails from 'src/redux/profileUserDetail/reducer';
 import newsLetters from 'src/redux/newsLetter/reducer';
 
@@ -48,7 +47,6 @@ const rootReducer = combineReducers({
   topMenu: topMenu,
   opinionArticleDetail: opinionArticleDetail,
   bookmark: bookmark,
-  user: userReducer,
   userDetails: userDetails,
   newsLetters: newsLetters,
 });

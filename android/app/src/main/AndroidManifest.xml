@@ -2,6 +2,8 @@
   package="com.awsatapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
       android:name=".MainApplication"
@@ -28,5 +30,6 @@
         android:windowSoftInputMode="adjustPan"
         android:exported="false">
       </activity>
+      <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 </manifest>

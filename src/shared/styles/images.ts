@@ -9,6 +9,7 @@ import returnIcon from 'src/assets/images/icons/return_arrow/returnArrow.png';
 import earlyEditionImg from 'src/assets/images/earlyEditionImg.png'
 import moneyAndBusinessImg from 'src/assets/images/moneyAndBusinessImg.png'
 import technologyImg from 'src/assets/images/technologyImg.png'
+import placeholderImg from 'src/assets/images/icons/placeholder_image.jpg'
 
 export enum ImagesName {
   newsIcon = 'newsIcon',
@@ -71,6 +72,7 @@ export enum ImagesName {
   userDefaultIcon = 'userDefaultIcon',
   editIcon = 'editIcon',
   dropDownIcon = 'dropDownIcon',
+  placeholderImg = 'placeholderImg',
 }
 
 export const images = {
@@ -82,7 +84,8 @@ export const images = {
   returnIcon,
   earlyEditionImg,
   moneyAndBusinessImg,
-  technologyImg
+  technologyImg,
+  placeholderImg,
 };
 
 export const darkImages = {
