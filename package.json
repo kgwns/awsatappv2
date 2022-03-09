@@ -8,7 +8,8 @@
     "start": "react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint .",
-    "precommit": "prettier --write . && tsc && eslint ."
+    "precommit": "prettier --write . && tsc && eslint .",
+    "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.host.url=$host -Dsonar.login=$login"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.1.5",
