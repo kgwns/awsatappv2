@@ -21,6 +21,7 @@ import topMenu from 'src/redux/topMenu/reducer';
 import opinionArticleDetail from 'src/redux/opinionArticleDetail/reducer';
 import bookmark from 'src/redux/bookmark/reducer';
 import userDetails from 'src/redux/profileUserDetail/reducer';
+import changePassword from 'src/redux/changePassword/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
   opinionArticleDetail: opinionArticleDetail,
   bookmark: bookmark,
   userDetails: userDetails,
+  changePassword: changePassword,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

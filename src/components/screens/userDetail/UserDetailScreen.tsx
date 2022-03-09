@@ -21,9 +21,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-crop-picker';
 import { UpdateUserImageBodyType } from 'src/redux/profileUserDetail/types';
 import { isDarkTheme } from 'src/shared/utils';
-import { useAppCommon } from 'src/hooks';
+import { useAppCommon, useLogin } from 'src/hooks';
 import { SystemPermissions } from 'src/shared/utils';
 import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS } from 'src/constants/SharedConstants';
+import {useNewPassword} from 'src/hooks/useNewPassword'
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -51,6 +52,8 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [userProfileImage, setUserProfileImage] = useState('') 
   const [birthday, setBirthday] = useState('')
   const currentDate = new Date();
+  const {changePasswordInfo} = useNewPassword()
+  const {loginData} = useLogin();
   useEffect(() => {
     fetchProfileDataRequest();
   }, []);
@@ -256,7 +259,10 @@ export const UserDetailScreen: FunctionComponent = () => {
     setOldPasswordError(loginPasswordValidation(oldPassword));
     setNewPasswordError(loginPasswordValidation(newPassword));
     setConfirmNewPasswordError(reTypePasswordValidation(newPassword, confirmNewPassword));
-  };
+    changePasswordInfo({
+      password: newPassword
+    })
+  }
 
   const renderOptionModal = () => (
 
