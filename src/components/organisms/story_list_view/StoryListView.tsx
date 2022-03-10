@@ -60,12 +60,7 @@ export const StoryListView: FunctionComponent<StoryListDataProps> = ({
   )
 
   const onComplete=()=>{
-    if(selectedItemIndex==data.length-1){
-      navigation.goBack();
-    }else{
-      setSelectedImageIndex(0);
-      setSelectedItemIndex(selectedItemIndex+1);
-    }
+    navigation.goBack();
   }
 
   return (

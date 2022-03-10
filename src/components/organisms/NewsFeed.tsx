@@ -69,6 +69,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
             </View>
             <Image
               url={getImageUrl(item.field_image)}
+              fallback
               style={{
                 width: normalize(110),
                 height: normalize(85),

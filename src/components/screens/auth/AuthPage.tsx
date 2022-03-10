@@ -57,21 +57,6 @@ export const AuthPage: FunctionComponent = () => {
     }
   }, [emailCheckData]);
 
-  useEffect(() => {
-    const message = registerUserInfo?.message;
-    if (message) {
-      if (message.code === 200) {
-        dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
-        navigation.reset({
-          index: 0,
-          routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
-        });
-      }else{
-        Alert.alert(message.message);
-      }
-    }
-  }, [registerUserInfo]);
-
   const navigateToSection = (type: string) => {
     switch (type) {
       case NavigateTypes.google:

@@ -881,7 +881,7 @@ export const storyWidgetData: StoryListProps[] = [
   },
   {
     id: '8',
-    data: [storyWidgetDataInfo],
+    data: storyWidgetItemData,
   },
 ];
 

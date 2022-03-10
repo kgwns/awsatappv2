@@ -13,7 +13,7 @@ export const BannerImageWithOverlay = ({
     
     return (
         <View>
-            <Image url={image} style={bannerImageWithOverlayStyle.image}
+            <Image fallback url={image} style={bannerImageWithOverlayStyle.image}
                 resizeMode={ImageResize.COVER}
             />
             <Overlay />
