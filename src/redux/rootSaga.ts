@@ -21,6 +21,7 @@ import opinionArticleDetailSaga from './opinionArticleDetail/sagas';
 import userProfileSaga from './profileUserDetail/sagas'
 import bookmarkSaga from './bookmark/sagas';
 import newsLettersSaga from './newsLetter/sagas';
+import keepNotifiedSaga from './keepNotified/sagas'
 
 export function* rootSaga() {
   yield all([
@@ -46,5 +47,6 @@ export function* rootSaga() {
     fork(bookmarkSaga),
     fork(userProfileSaga),
     fork(newsLettersSaga),
+    fork(keepNotifiedSaga)
   ]);
 }

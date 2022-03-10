@@ -41,9 +41,11 @@ export const Archives = () => {
     }, [])
 
     useEffect(() => {
-        // if (isNonEmptyArray(bookmarkDetail)) {
+        if (isNonEmptyArray(bookmarkDetail)) {
             onPressFilterItem(tabSelectedIndex)
-        // }
+        } else if(!isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData)){
+            onPressFilterItem(tabSelectedIndex)
+        }
     }, [bookmarkDetail])
 
     const onPressFilterItem = (index: number) => {

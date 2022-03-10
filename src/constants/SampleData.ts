@@ -148,7 +148,14 @@ export const storeInfo = [
       error: '',
       isLoading: false,
       sendNewsLettersInfo: {},
-      selectedNewsLettersData: {},
+      selectedNewsLettersData: {}
+    },
+    keepNotified: {
+      isLoading: true,
+      sendSelectedError: '',
+      sendSelectedNotificationInfo: {},
+      getSelectedNotificationInfo: {},
+      getSelectedError: ''
     }
   },
 ];

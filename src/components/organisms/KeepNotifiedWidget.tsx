@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, StyleSheet, View, ListRenderItem} from 'react-native';
 import {flatListUniqueKey} from 'src/constants';
 import {screenWidth} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -7,105 +7,30 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Divider} from '../atoms';
 import {KeepNotifiedCard} from '../molecules';
 
-const data = [
-  {
-    id: 1,
-    label: 'أخبار عاجلة',
-    selected: false,
-  },
-  {
-    id: 2,
-    label: 'إحاطة الصباح',
-    selected: false,
-  },
-  {
-    id: 2,
-    label: 'أهم الأخبار',
-    selected: false,
-  },
-  {
-    id: 3,
-    label: 'أخبار فيروس كورونا',
-    selected: false,
-  },
-  {
-    id: 4,
-    label: 'إحاطة الصباح',
-    selected: false,
-  },
-  {
-    id: 5,
-    label: 'أخبار عاجلة',
-    selected: false,
-  },
-  {
-    id: 6,
-    label: 'إحاطة الصباح',
-    selected: false,
-  },
-  {
-    id: 7,
-    label: 'أهم الأخبار',
-    selected: false,
-  },
-  {
-    id: 8,
-    label: 'أخبار فيروس كورونا',
-    selected: false,
-  },
-  {
-    id: 9,
-    label: 'إحاطة الصباح',
-    selected: false,
-  },
-  {
-    id: 10,
-    label: 'إحاطة الصباح',
-    selected: false,
-  },
-  {
-    id: 11,
-    label: 'أخبار عاجلة',
-    selected: false,
-  },
-  {
-    id: 12,
-    label: 'إحاطة الصباح',
-    selected: false,
-  },
-  {
-    id: 13,
-    label: 'أهم الأخبار',
-    selected: false,
-  },
-  {
-    id: 14,
-    label: 'أخبار فيروس كورونا',
-    selected: false,
-  },
-  {
-    id: 15,
-    label: 'إحاطة الصباح',
-    selected: false,
-  },
-];
+export interface KeepNotifiedDataProps {
+  nid: number,
+  label: string,
+  selected: boolean
+}
 
-const KeepNotifiedWidget = () => {
-  const changeStatus = (isSelected: boolean, item: any) => {
-    for (let i = 0; i < data.length; i++) {
-      if (data[i].id == item.id) {
-        data[i].selected = isSelected;
-      }
-    }
-  };
+interface KeepNotifiedWidgetProps {
+  data: KeepNotifiedDataProps[],
+  onPress: (index: number) => void
+}
+
+const KeepNotifiedWidget = ({
+  data,
+  onPress
+}: KeepNotifiedWidgetProps) => {
   const style = useThemeAwareObject(customStyle);
-  const renderItem = ({item}: any) => {
+  const renderItem:ListRenderItem<KeepNotifiedDataProps> = ({item,index}) => {
     return (
       <View>
         <KeepNotifiedCard
+          key={item.nid}
           label={item.label}
           selected={item.selected}
-          onPress={(isSelected: boolean) => changeStatus(isSelected, item)}
+          onPress={() => onPress(index)}
         />
         <Divider style={style.divider}/>
       </View>

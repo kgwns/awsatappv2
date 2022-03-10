@@ -16,11 +16,11 @@ describe('<Archives>', () => {
         instance.unmount()
     })
 
-    xit('should render component', () => {
+    it('should render component', () => {
         expect(instance).toBeDefined()
     })
 
-    xit('Test Change filter item', () => {
+    it('Test Change filter item', () => {
         const element = instance.container.findByType(FilterComponent)
         fireEvent(element,'onPress',0)
         expect(element).toBeTruthy()
