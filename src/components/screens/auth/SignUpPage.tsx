@@ -143,6 +143,7 @@ export const SignUpPage = ({
               error={passwordError}
               isPassword
               isMandatory
+              maxLength={20}
             />
             <TextInputField placeholder={t('signUp.confirmPassword')}
               testID={'signUp_confirm_password'}
@@ -153,6 +154,7 @@ export const SignUpPage = ({
               error={confirmPasswordError}
               isPassword
               isMandatory
+              maxLength={20}
             />
             <SocialLoginButton testID="signUp_signUp"
               onPress={onPressSignIn}

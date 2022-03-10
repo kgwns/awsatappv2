@@ -23,4 +23,5 @@ export { HtmlRenderer } from 'src/components/atoms/htmlRenderer/HtmlRenderer'
 export { TextInputField } from 'src/components/atoms/text-input-field/TextInputField'
 export { ButtonIconWithLabel } from 'src/components/atoms/buttonIconWithLabel/ButtonIconWithLabel'
 export { NextButton } from '../atoms/NextButton/NextButton';
-export { ButtonOnboard } from '../atoms/button-onboard/ButtonOnboard'
+export { ButtonOnboard } from '../atoms/button-onboard/ButtonOnboard';
+export { PlaceholderImage } from 'src/components/atoms/placeholderImage/PlaceHolderImage';

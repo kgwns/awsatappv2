@@ -75,13 +75,13 @@ describe('<Utilities>', () => {
         it('Check calculate time with current time', () => {
             const date =new Date().getTime()
             const result = calculateTimeSince(date)
-            expect(result).toBe('0 timeSince.seconds timeSince.ago')
+            expect(result).toBe('0 timeSince.seconds')
         })
 
         it('Check calculate time for from now', () => {
             const date =new Date().getTime() + 100
             const result = calculateTimeSince(date)
-            expect(result).toBe('0 timeSince.seconds timeSince.from_now')
+            expect(result).toBe('0 timeSince.seconds')
         })
 
         xit('Check date is return correctly', () => {

@@ -75,6 +75,7 @@ interface TextInputfieldProps {
   disableEyeIcon?: boolean;
   isMandatory?: boolean;
   errorStyle?: StyleProp<ViewStyle>;
+  maxLength?: number;
 }
 export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   placeholder,
@@ -94,6 +95,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   rightIconTestID,
   disableEyeIcon = false,
   isMandatory = false,
+  maxLength = 30,
   errorStyle,
   ...props
 }) => {
@@ -138,6 +140,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
               secureTextEntry={!!isPasswordVisible}
               selectionColor={themeData.textColor}
               editable={editable}
+              maxLength={maxLength}
               {...props}
             />
           </View>

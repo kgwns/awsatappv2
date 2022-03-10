@@ -84,3 +84,7 @@ export const PROFILE_IMAGE_URL = 'http://awsatapi.srpcdigital.com/storage/'
 
 //Change password
 export const CHANGE_PASSWORD = 'api/ums/v1/changePassword?password='
+
+//News Letters
+export const SEND_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/addNewsletters?tid=';
+export const GET_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getNewsletters';

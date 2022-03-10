@@ -6,6 +6,7 @@
 #import "RNSplashScreen.h"
 #import <React/RCTI18nUtil.h>
 #import "Orientation.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -30,6 +31,7 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [FBSDKApplicationDelegate.sharedInstance initializeSDK];
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif

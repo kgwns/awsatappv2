@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleProp, ViewStyle, StyleSheet, Alert } from 'react-native';
+import { View, StyleProp, ViewStyle, StyleSheet, Alert, Platform } from 'react-native';
 import { SocialLoginButton } from '../../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
@@ -10,13 +10,15 @@ import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
 import { isIOS } from 'src/shared/utils';
+import {LoginFactory,Connection}  from 'src/shared/utils/loginFactory';
+import {NavigateTypes} from 'src/components/screens';
+import {RegisterBodyType} from 'src/redux/register/types';
 import { useRegister } from 'src/hooks';
 import { useDispatch } from 'react-redux';
 import { fetchLoginSuccess } from 'src/redux/login/action';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
-import { RegisterBodyType } from 'src/redux/register/types';
 import { appleSignin } from 'src/shared/utils/appleSignin';
 
 interface SocialButtonSectionProps {
@@ -29,22 +31,46 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   const [t] = useTranslation();
   const {themeData} = useTheme();
   const [deviceName, setDeviceName] = useState('');
+  const {createUserRequest, registerUserInfo} = useRegister();
+
+  const onSuccessSocialLogin = (userInfo:any,provider='google')=>{
+    const userDetails = userInfo.user
+    const payload: RegisterBodyType = {
+      email: userDetails.email,
+      device_name:deviceName,
+      first_name:userDetails.givenName,
+      last_name:userDetails.familyName,
+      provider: provider,
+      provider_id:userDetails.id,
+    };
+    console.log(payload);
+    createUserRequest(payload);
+  }
+
+  const onResult = (userInfo:any,success:boolean, provider:string)=>{
+    if(success){
+      onSuccessSocialLogin(userInfo,provider)
+    }
+  }
+
+  const onPressButton = (type: string) =>{
+    if(onButtonPress){
+      onButtonPress(type)
+    }
+  }
+
+  useEffect(() => {
+    getDeviceName();
+  }, []);
 
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   //--AppleSignin---------
 
-  const {createUserRequest, registerUserInfo} =
-    useRegister();
-
   const getDeviceName = async () => {
     const deviceName = await DeviceInfo.getDeviceName();
     setDeviceName(deviceName);
   };
-
-  useEffect(() => {
-    getDeviceName();
-  });
 
   const dispatch = useDispatch();
 
@@ -86,8 +112,18 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   //-------end AppleSignin--
 
   const buttonPressAction = (type: string) => {
-    if (onButtonPress) {
-      onButtonPress(type);
+    switch (type) {
+      case NavigateTypes.google:
+        let googleSignIn = LoginFactory.getInstance(Connection.Google,onResult);
+        googleSignIn?.login();
+        onPressButton(type);
+      case NavigateTypes.apple:
+        onPressButton(type);
+        return;
+      case NavigateTypes.facebook:
+        let facebookSignIn = LoginFactory.getInstance(Connection.Facebook,onResult);
+        facebookSignIn?.login();
+        onPressButton(type);
     }
   };
   return (
@@ -113,7 +149,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
             label={t('signIn.loginApple')}
             icon={() => <View style={styles.container}><AppleIcon fill={themeData.primaryBlack} /></View>}
           /> }
-         
+
         </View>
   );
 };
@@ -125,6 +161,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-
-
