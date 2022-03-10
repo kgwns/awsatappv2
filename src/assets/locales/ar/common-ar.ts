@@ -137,7 +137,7 @@ export const arabic = {
     loginFacebook: 'الدخول بحساب الفيسبوك',
     loginGoogle: 'الدخول بحساب جوجل',
     loginApple: 'الدخول بحساب ابل',
-    termsAndConditions: 'الدخول بحساب ابل',
+    termsAndConditions: 'القواعد والشروط',
     agreeTo: 'عن طريق تسجيل الدخول تكون قد وافقت على',
     rights: 'لاستخدام التطبيق و باق حقوق تلكه و الواقعة للبراجراف',
     loginAccount: 'الدخول لحسابك',
