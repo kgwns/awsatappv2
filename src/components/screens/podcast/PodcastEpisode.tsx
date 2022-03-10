@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import { ScreenContainer } from '..';
 import {PodcastProgramHeader} from 'src/components/molecules';
@@ -8,9 +8,11 @@ import {PodcastEpisodeContent, PodcastEpisodeInfo} from 'src/components/organism
 import {mostPlayedSectionData, PodcastEpisodeData} from 'src/constants/SampleData';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge} from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isNonEmptyArray, isObjectNonEmpty} from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { usePodcast } from 'src/hooks';
+import {PodcastEpisodeBodyGet} from 'src/redux/podcast/types'
 
 export interface PodcastEpisodeProps {
   route: any
@@ -21,19 +23,37 @@ export const PodcastEpisode = ({route}: PodcastEpisodeProps) => {
   const styles = useThemeAwareObject(createStyles);
   const [isSaved, setIsSaved] = useState(false);
   const insets = useSafeAreaInsets();
+  const [nid, setEpisode] = useState(route.params.data.nid)
+  const podcastListData = route.params.podcastListData
+  const { isLoading, podcastEpisodeData ,fetchPodcastEpisodeRequest } = usePodcast()
+  const payload: PodcastEpisodeBodyGet = {
+    nid: nid
+  }
+  useEffect(() => {
+    fetchPodcastEpisodeRequest(payload)
+  }, [])
+  const episodeIndex = podcastEpisodeData.findIndex((item: any) => item.nid === nid);
+  const podcastEpisodeInfo = podcastEpisodeData[episodeIndex]
+  const otherPodcast = podcastListData.filter((item: any) => item.nid != nid);
   const onPressShare = async () => {
-    const { title, imageUrl } = route.params.data
     await Share.open({
-        title,
-        url: imageUrl,
-        failOnCancel: true,
-        subject: title
+      title: podcastEpisodeInfo.title,
+      url: podcastEpisodeInfo.view_node,
+      failOnCancel: true,
+      subject: podcastEpisodeInfo.title
     }).then(response => {
-        console.log('Shared successfully :::', response)
+      console.log('Shared successfully :::', response)
     }).catch((error) => {
-        console.log('Cancelled share request :::', error)
+      console.log('Cancelled share request :::', error)
     })
-}
+  }
+  useEffect(() => {
+    fetchPodcastEpisodeRequest(payload);
+  }, [nid]);
+
+  const onEpisodeListItemPress = (item: any) => {
+    setEpisode(item.nid)
+  }
 
   const renderItem = () => (
     <View >
@@ -46,24 +66,24 @@ export const PodcastEpisode = ({route}: PodcastEpisodeProps) => {
           onPressSave={()=>setIsSaved(!isSaved)}
           isSaved={isSaved}
         />
-        <PodcastEpisodeInfo data={route.params.data}/>
+       {isObjectNonEmpty(podcastEpisodeInfo) && <PodcastEpisodeInfo data={podcastEpisodeInfo}/>}
       </View>
       <View style={styles.container}>
-        <PodcastEpisodeContent data={PodcastEpisodeData} onItemActionPress={()=>console.log('item pressed')} />
+        <PodcastEpisodeContent data={otherPodcast} onItemActionPress={onEpisodeListItemPress} />
       </View>
-      <MostPlayedSection data={mostPlayedSectionData} />
+      {/* <MostPlayedSection data={mostPlayedSectionData} /> */}
     </View>
   )
   return (
-    <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'}>
+    <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading}>
       <View style={{height:insets.top,backgroundColor: colors.black}} />
-      <FlatList
-        style={{ flex: 1, height: '100%' }}
+     {isNonEmptyArray(podcastEpisodeData) && <FlatList
+        style={styles.episodeList}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
-      />
+      />}
     </ScreenContainer>
   )
 }
@@ -78,4 +98,8 @@ StyleSheet.create({
   headerStyle: {
     backgroundColor: colors.black,
   },
+  episodeList: {
+    flex: 1,
+    height: '100%'
+  }
 })

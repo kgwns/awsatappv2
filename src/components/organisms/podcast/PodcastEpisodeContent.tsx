@@ -24,24 +24,23 @@ export const PodcastEpisodeContent: FunctionComponent<PodcastEpisodeContentProps
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
 
-  const handleOnItemPressAction = (item: PodcastVerticalListProps) => {
+  const handleOnItemPressAction = (item: any) => {
     if (onItemActionPress) {
       onItemActionPress(item);
     }
   };
 
-  const renderItem: ListRenderItem<PodcastVerticalListProps> = ({item,index}) => {
+  const renderItem: ListRenderItem<any> = ({item,index}) => {
     return (
       <PodcastVerticalList
-        id={item.id}
-        imageUrl={item.imageUrl}
-        title={item.title}
-        description={item.description}
-        footerLeft={item.footerLeft}
-        footerRight={item.footerRight}
-        testID={`podcastepisodecontent_${index}`}
-        itemOnPress={()=>handleOnItemPressAction(item)}
-        hideDescription
+        id={item?.nid}
+        imageUrl={item?.field_podcast_sect_export.img_podcast_mobile}
+        title={item?.title}
+        description={item?.body_export}
+        footerLeft={item?.field_duration_export_1}
+        footerRight={item?.footerRight}
+        testID={`podcastepisode_${index}`}
+        itemOnPress={() => handleOnItemPressAction(item)}
       />
     );
   };

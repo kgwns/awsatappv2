@@ -41,7 +41,7 @@ export const PodcastVerticalList = ({
       <View style={style.cardContainer}>
         <View style={style.headerStyle}>
           <View style={style.headerLeftStyle}>
-            <Image url={imageUrl} style={style.imageStyle} />
+            <Image resizeMode='cover' url={imageUrl} style={style.imageStyle} />
             <Label style={style.title} numberOfLines={2}>
               {title}
             </Label>
@@ -58,7 +58,7 @@ export const PodcastVerticalList = ({
             <Label style={style.footerRightTextStyle} numberOfLines={1}>
               {footerRight}
             </Label>
-            <Label color={colors.spanishGray}>|</Label>
+            {footerRight && footerLeft &&<Label color={colors.spanishGray}>|</Label>}
             <Label style={style.footerLeftTextStyle} numberOfLines={1}>
               {footerLeft}
             </Label>
@@ -90,7 +90,7 @@ const customStyle = (theme: CustomThemeType) => {
   const PodcastCardStyle = StyleSheet.create({
     cardContainer: {
       flex:1,
-      backgroundColor: theme.secondaryWhite,
+      backgroundColor: theme.podcastEpisodeCardColor,
       padding: normalize(15),
     },
     headerStyle: {
@@ -106,7 +106,10 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
       alignItems: 'flex-end',
     },
-    imageStyle: {width: normalize(35), height: normalize(35)},
+    imageStyle: {
+      width: normalize(36),
+      height: normalize(36)
+    },
     title: {
       fontSize: normalize(14),
       lineHeight: normalize(16),
@@ -132,6 +135,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(20),
       color: colors.spanishGray,
       paddingVertical: normalize(15),
+      textAlign: 'left',
     },
     spaceStyle: {
       marginTop: normalize(20),

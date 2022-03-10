@@ -7,6 +7,24 @@ import { storeSampleData } from '../../../../constants/SampleData';
 describe('<PodcastProgram>', () => {
   let instance: RenderAPI;
 
+  jest.mock("src/hooks/usePodcast", () => ({
+    usePodcast: (...args: any) => {
+      return {
+        isLoading: true,
+        podcastListData: [],
+        podcastEpisodeData: [],
+        podcastListError: '',
+        podcastEpisodeError:'',
+        fetchPodcastListRequest: () => {
+          return []
+        },
+        fetchPodcastEpisodeRequest: () => {
+          return []
+        }
+      }
+    },
+  }));
+
   describe('when PodcastProgram only', () => {
     beforeEach(() => {
       const component = (

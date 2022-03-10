@@ -9,8 +9,7 @@ export interface BannerImageWithOverlayProps {
 
 export const BannerImageWithOverlay = ({
     image
-}: BannerImageWithOverlayProps) => {
-    
+}: BannerImageWithOverlayProps) => {  
     return (
         <View>
             <Image fallback url={image} style={bannerImageWithOverlayStyle.image}
