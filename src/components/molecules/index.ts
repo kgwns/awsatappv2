@@ -43,6 +43,7 @@ export { ToggleWithLabel,ToggleWithLabelProps } from 'src/components/molecules/t
 export { ListenToArticleCard } from 'src/components/molecules/ListenToArticleCard';
 export { RelatedOpinionCard } from 'src/components/molecules/RelatedOpinionCard';
 export { OpinionArticleDetailFooter } from 'src/components/molecules/OpinionArticleDetailFooter';
+export { VideoPlayerComponent } from 'src/components/molecules/videoPlayer/VideoPlayer';
 export { PopulateWidget } from 'src/components/molecules/populateWidget/PopulateWidget'
 export { SignupAlertCard } from './signupAlertCard/SignupAlertCard';
 

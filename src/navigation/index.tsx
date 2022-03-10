@@ -27,6 +27,7 @@ import {
   ManageMyFavoriteAuthorScreen,
   ManageMyFavoriteTopicsScreen,
   UserDetailScreen,
+  VideoPlayerScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -64,6 +65,7 @@ export const Routes = {
   ManageMyFavoriteAuthorScreen,
   ManageMyFavoriteTopicsScreen,
   UserDetailScreen,
+  VideoPlayerScreen,
 };
 
 /**

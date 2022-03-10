@@ -11,7 +11,10 @@ import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { VideoItemType } from 'src/redux/videoList/types';
-
+import {useNavigation} from '@react-navigation/native';
+import {ScreensConstants} from 'src/constants/ScreenConstants';
+import { StackNavigationProp } from '@react-navigation/stack';
+ 
 export interface VideoDetailScreenProps {
   route: any
 }
@@ -22,6 +25,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   useEffect(() => { fetchVideoRequest(); }, []);
   const styles = useThemeAwareObject(createStyles);
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
@@ -76,7 +80,13 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
     }).catch((error) => {
         console.log('Cancelled share request :::', error)
     })
-}
+  }
+
+  const goToPlayer = (item:VideoItemType) =>{
+    if(item.field_mp4_link_export){
+       navigation.navigate(ScreensConstants.VideoPlayerScreen,{videoUrl:item.field_mp4_link_export})
+    }
+  }
 
   const renderItem = () => (
     <View >
@@ -90,10 +100,10 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           isSaved={isBookmarked}
           isCloseIcon
         />
-        {videoData.length&&<VideoInfo data={videoData[0]} onPress={(item:VideoItemType)=>{console.log(item)}}/>}
+        {videoData.length&&<VideoInfo data={videoData[0]} onPress={(item:VideoItemType)=>{goToPlayer(item)}}/>}
       </View>
       <View style={styles.container}>
-        <VideosList data={videoData.slice(1)} onItemActionPress={(item:VideoItemType)=>console.log(item,'item pressed')} />
+        <VideosList data={videoData.slice(1)} onItemActionPress={(item:VideoItemType)=>goToPlayer(item)} />
       </View>
     </View>
   )

@@ -9,3 +9,7 @@ declare module '*.svg' {
 }
 
 declare module 'react-native-stories-view';
+
+declare module 'react-native-video';
+
+declare module 'react-native-video-controls';
