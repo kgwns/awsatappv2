@@ -1,7 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
 import { GetSelectedNotificationSuccessPayload, SendSelectedNotificationSuccessPayload, SendSelectedNotificationType } from './types';
-import { SEND_SELECTED_NOTIFICATION } from './actionType';
+import { GET_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION } from './actionType';
 import { getSelectedNotificationFailed, getSelectedNotificationSuccess, sendSelectedNotificationFailed, sendSelectedNotificationSuccess } from './action';
 import { getSelectedNotificationService, sendSelectedNotificationService } from 'src/services';
 
@@ -40,7 +40,7 @@ export function* getSelectedNotificationRequest() {
 export function* keepNotifiedSaga() {
   yield all([
     takeLatest(SEND_SELECTED_NOTIFICATION, sendSelectedNotificationRequest),
-    // takeLatest(GET_SELECTED_NOTIFICATION, getSelectedNotificationRequest)
+    takeLatest(GET_SELECTED_NOTIFICATION, getSelectedNotificationRequest)
   ]);
 }
 

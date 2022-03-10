@@ -1,5 +1,5 @@
 import {
-  SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_SUCCESS, SEND_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_SUCCESS, GET_SELECTED_NOTIFICATION_FAILED, REMOVE_NOTIFICATION_INFO
+  SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_SUCCESS, SEND_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_SUCCESS, GET_SELECTED_NOTIFICATION_FAILED, REMOVE_NOTIFICATION_INFO, REMOVE_SELECTED_NOTIFICATION
 } from "./actionType"
 
 export interface KeepNotifiedState {
@@ -73,6 +73,9 @@ export interface RemoveNotificationInfoType {
   type: typeof REMOVE_NOTIFICATION_INFO
 }
 
+export interface RemoveSelectedNotificationInfoType {
+  type: typeof REMOVE_SELECTED_NOTIFICATION
+}
 
 export type KeepNotifiedAction =
   SendSelectedNotificationType
@@ -82,3 +85,4 @@ export type KeepNotifiedAction =
   | GetSelectedNotificationSuccessType
   | GetSelectedNotificationFailedType
   | RemoveNotificationInfoType
+  | RemoveSelectedNotificationInfoType

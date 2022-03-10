@@ -1,4 +1,4 @@
-import { GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION_SUCCESS, REMOVE_NOTIFICATION_INFO, SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_FAILED, SEND_SELECTED_NOTIFICATION_SUCCESS } from './actionType';
+import { GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION_SUCCESS, REMOVE_NOTIFICATION_INFO, REMOVE_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_FAILED, SEND_SELECTED_NOTIFICATION_SUCCESS } from './actionType';
 import { KeepNotifiedState, KeepNotifiedAction } from './types';
 
 const initialData: KeepNotifiedState = {
@@ -50,6 +50,11 @@ export default (state = initialData, action: KeepNotifiedAction) => {
     case REMOVE_NOTIFICATION_INFO:
       return {
         ...initialData
+      }
+    case REMOVE_SELECTED_NOTIFICATION:
+      return {
+        ...state,
+        sendSelectedNotificationInfo: {}
       }
     default:
       return { ...state }

@@ -56,7 +56,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const {
     sendSelectedInfoRequest, sendSelectedNotificationInfo,
     getSelectedInfoRequest, selectedNotificationInfo,
-    isLoading
+    removeSelectedNotificationInfo,isLoading
   } = useKeepNotified()
 
   useEffect(() => {
@@ -65,6 +65,10 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
 
   useEffect(() => {
     updateNextButtonActive()
+
+    return () => {
+      removeSelectedNotificationInfo()
+    }
   }, [notificationDate])
 
   useEffect(() => {
