@@ -1,16 +1,19 @@
-import React, {FunctionComponent, useRef, useState} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import React, {FunctionComponent, useRef, useState, useEffect} from 'react';
+import {View, StyleSheet, I18nManager} from 'react-native';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import Video from 'react-native-video';
 import {colors} from 'src/shared/styles/colors';
-
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
+import { Edge } from 'react-native-safe-area-context';
+import { horizontalEdge } from 'src/shared/utils';
+import { ScreenContainer } from 'src/components/screens';
+import VideoPlayer from 'react-native-video-controls';
+import { useNavigation } from '@react-navigation/native';
 export interface VideoPlayerProps {
   goBack?: () => void;
   testID?: string;
   url: string;
 }
-export const VideoPlayer: FunctionComponent<VideoPlayerProps> = ({
+export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   goBack,
   testID,
   url,
@@ -19,55 +22,105 @@ export const VideoPlayer: FunctionComponent<VideoPlayerProps> = ({
   const styles = useThemeAwareObject(createStyles);
   const videoPlayer = useRef(null);
   const [isPaused, setIsPaused] = useState(true)
+  const [videoUrl, setvideoUrl] = useState(url)
+  const [isLoading, setIsLoading] = useState(true);
+  const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
+  const navigation = useNavigation();
 
   const goBackToScreen = () =>{
-    console.log('error')
     if(goBack){
       goBack()
     }
   }
-  const onLoadStart = (data:any) => {
+  useEffect(() => {
+    if(videoUrl&&typeof videoUrl==='string') setvideoUrl(videoUrl.trim())
+  }, []);
+
+  useEffect(() => {
+    Orientation.unlockAllOrientations()
+    Orientation.getDeviceOrientation(updateScreenEdge)
+    Orientation.addDeviceOrientationListener(updateScreenEdge)
+    return () => {
+      Orientation.lockToPortrait()
+      Orientation.removeOrientationListener(updateScreenEdge)
+    }
+  }, [])
+
+  const updateScreenEdge = (deviceOrientation: OrientationType) => {
+    const edge = getScreenEdge(deviceOrientation)
+    setEdge(edge)
+  }
+
+  const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
+    switch (deviceOrientation) {
+      case 'LANDSCAPE-LEFT': return ['right']
+      case 'LANDSCAPE-RIGHT': return ['left']
+      case 'PORTRAIT': return horizontalEdge
+      default: return horizontalEdge
+    }
+  }
+
+  const onLoadStart = () => {
     setIsPaused(false)
-    console.log(data,'load start');
+    setIsLoading(true);
   };
-  const onLoad = (data:any) => {
-    console.log(data,'load success');
+  const onLoad = () => {
+    setIsLoading(false);
   };
   const onBuffer = (data:any) => {
     console.log(data,'buffering');
   };
+
+  // const onEnterFullscreen= () => {
+  //   Orientation.lockToLandscape();
+  // }
+
+  // const onExitFullscreen= () => {
+  //   Orientation.lockToPortrait();
+  // }
+
   return (
-    <View style={styles.container}>
-      <Video source={{uri:url}}
-        // repeat={true}
-        controls={true}
-        resizeMode={'contain'}
-        fullscreen={false}
-        testID={testID}
-        accessibilityLabel={testID}
-        ref={videoPlayer}
-        style={styles.videoStyles}
-        onLoadStart={onLoadStart}
-        onLoad={onLoad}
-        onError={goBackToScreen}
-        onBuffer={onBuffer}
-        paused={isPaused}
-        ignoreSilentSwitch="ignore"
-      />
-    </View>
+    <ScreenContainer barStyle={'light-content'} statusbarColor={colors.black} edge={edge} >
+      <View style={styles.container} >
+        <VideoPlayer source={{uri:videoUrl}}
+          repeat={true}
+          controls={false}
+          // toggleResizeModeOnFullscreen={false}
+          testID={testID}
+          tapAnywhereToPause={true}
+          accessibilityLabel={testID}
+          ref={videoPlayer}
+          videoStyle={styles.videoStyles}
+          onLoadStart={onLoadStart}
+          onLoad={onLoad}
+          onError={goBackToScreen}
+          onBuffer={onBuffer}
+          paused={isPaused}
+          navigator={navigation}
+          // onEnterFullscreen={onEnterFullscreen}
+          // onExitFullscreen={onExitFullscreen}
+          onBack={goBackToScreen}
+        />
+      </View>
+    </ScreenContainer>
   );
 };
 
-const createStyles = (theme: CustomThemeType) =>
+const createStyles = () =>
   StyleSheet.create({
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: 'green',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     videoStyles: {
-      width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height*0.35,
-      backgroundColor: colors.white,
+      backgroundColor: colors.black,
+      position: "absolute",
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+      direction:'ltr',
     }
   });

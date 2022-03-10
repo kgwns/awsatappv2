@@ -59,6 +59,7 @@
     "react-native-text-ticker": "^1.14.0",
     "react-native-vector-icons": "^9.0.0",
     "react-native-video": "^5.2.0",
+    "react-native-video-controls": "https://github.com/vigneshrajs/react-native-video-controls",
     "react-navigation-drawer": "^2.7.1",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
