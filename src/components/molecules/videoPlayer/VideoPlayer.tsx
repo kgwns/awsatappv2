@@ -71,21 +71,12 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
     console.log(data,'buffering');
   };
 
-  // const onEnterFullscreen= () => {
-  //   Orientation.lockToLandscape();
-  // }
-
-  // const onExitFullscreen= () => {
-  //   Orientation.lockToPortrait();
-  // }
-
   return (
     <ScreenContainer barStyle={'light-content'} statusbarColor={colors.black} edge={edge} >
       <View style={styles.container} >
         <VideoPlayer source={{uri:videoUrl}}
           repeat={true}
           controls={false}
-          // toggleResizeModeOnFullscreen={false}
           testID={testID}
           tapAnywhereToPause={true}
           accessibilityLabel={testID}
@@ -97,8 +88,6 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
           onBuffer={onBuffer}
           paused={isPaused}
           navigator={navigation}
-          // onEnterFullscreen={onEnterFullscreen}
-          // onExitFullscreen={onExitFullscreen}
           onBack={goBackToScreen}
         />
       </View>
