@@ -27,6 +27,12 @@ const relatedShortArticleHeaderLeft: HeaderElementProps = {
   color: Styles.color.greenishBlue
 }
 
+enum ArticleFontSize {
+  normal = normalize(16),
+  medium = normalize(18),
+  high = normalize(20)
+}
+
 export const ArticleDetailScreen = ({
   route
 }: ArticleDetailScreenProps) => {
@@ -36,6 +42,7 @@ export const ArticleDetailScreen = ({
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
 
   const [isBookmarked, setIsBookmarked] = useState(false)
+  const [fontSize,setFontSize] = useState<ArticleFontSize>(ArticleFontSize.normal)
 
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
   const [showupUp,setShowPopUp] = useState(false)
@@ -73,7 +80,8 @@ export const ArticleDetailScreen = ({
       color: themeData.primaryBlack,
       textAlign: 'left',
       direction: 'rtl',
-      fontSize: normalize(16)
+      fontSize: fontSize,
+      lineHeight: 1.5 * fontSize
     }
   }
 
@@ -118,6 +126,16 @@ export const ArticleDetailScreen = ({
     data[0].isBookmarked = !data[0].isBookmarked
     setIsBookmarked(newBookmarked)
     onUpdateBookMark(nid, newBookmarked)
+  }
+
+  const onPressFontChange = () => {
+    let newFontSize = normalize(16)
+    if(fontSize === ArticleFontSize.normal) {
+      newFontSize = normalize(18)
+    } else if(fontSize === ArticleFontSize.medium) {
+      newFontSize = normalize(20)
+    }
+    setFontSize(newFontSize)
   }
 
   const checkAndUpdateBookmark = (nid: string) => {
@@ -181,6 +199,7 @@ export const ArticleDetailScreen = ({
           <ArticleDetailFooter articleDetailData={articleDetailData[0]}
             isBookmarked={isBookmarked}
             onPressSave={() => checkAndUpdateBookmark(articleDetailData[0].nid)}
+            onPressFontChange={onPressFontChange}
           />
         </View>
       </>
