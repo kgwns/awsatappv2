@@ -1,5 +1,5 @@
 import {AppState, Selector} from 'src/redux/rootReducer';
-import {OpinionArticleDetailItemType} from './types';
+import {OpinionArticleDetailItemType, OpinionsListItemType} from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
   state.opinionArticleDetail.isLoading;
@@ -10,3 +10,13 @@ export const getOpinionArticleData: Selector<OpinionArticleDetailItemType[]> = (
 
 export const getOpinionArticleError: Selector<string> = (state: AppState) =>
   state.opinionArticleDetail.error;
+
+export const getIsLoadingRelatedOpinion: Selector<boolean> = (state: AppState) =>
+  state.opinionArticleDetail.isLoadingRelatedOpinion;
+
+export const getRelatedOpinionData: Selector<OpinionsListItemType[]> = (
+  state: AppState,
+) => state.opinionArticleDetail.relatedOpinionListData.rows;
+
+export const getRelatedOpinionError: Selector<string> = (state: AppState) =>
+  state.opinionArticleDetail.relatedOpinionError;

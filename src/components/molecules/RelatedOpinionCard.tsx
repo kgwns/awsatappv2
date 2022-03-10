@@ -3,33 +3,35 @@ import {StyleSheet, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {isTab, normalize} from 'src/shared/utils';
+import {isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
 import {ImagesName} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ButtonImage, Image, Label} from '../atoms';
 import {useTranslation} from 'react-i18next';
 import {
   DURATION,
-  RELATED_OPINION_CARD_BODY,
-  RELATED_OPINION_CARD_TITLE,
 } from 'src/constants/SharedConstants';
 import {ImageResize} from 'src/shared/styles/text-styles';
+import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
-export const RelatedOpinionCard = () => {
+export const RelatedOpinionCard = ({item,onPress}:any) => {
   const style = useThemeAwareObject(customStyle);
   const [t] = useTranslation();
+  const { themeData } = useTheme();
 
   return (
     <TouchableWithoutFeedback
+      onPress={()=>onPress()}
       style={[style.container, isTab && {paddingRight: 20}]}>
       <View style={style.contentView}>
         <Label
-          children={RELATED_OPINION_CARD_TITLE}
+          children={item.title}
           style={style.topLabel}
           numberOfLines={1}
         />
         <Label
-          children={RELATED_OPINION_CARD_BODY}
+          children={decodeHTMLTags(item.body)}
           numberOfLines={1}
           style={style.body}
         />
@@ -52,10 +54,18 @@ export const RelatedOpinionCard = () => {
       </View>
       <View>
         <Image
-          url={'https://picsum.photos/200/300'}
+          url={
+            isNonEmptyArray(item.field_opinion_writer_node_export)
+              ? getImageUrl(
+                item.field_opinion_writer_node_export[0].opinion_writer_photo,
+              )
+              : getImageUrl(
+                item.field_opinion_writer_node_export.opinion_writer_photo,
+              )}
           size={normalize(80)}
           resizeMode={ImageResize.COVER}
           type={'round'}
+          backgroundColor={themeData.secondaryDavyGrey}
         />
       </View>
     </TouchableWithoutFeedback>

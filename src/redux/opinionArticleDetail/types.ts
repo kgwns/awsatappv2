@@ -2,14 +2,17 @@ import {
   REQUEST_OPINION_ARTICLE_DETAIL,
   REQUEST_OPINION_ARTICLE_DETAIL_FAILED,
   REQUEST_OPINION_ARTICLE_DETAIL_SUCCESS,
+  REQUEST_RELATED_OPINION,
+  REQUEST_RELATED_OPINION_SUCCESS,
+  REQUEST_RELATED_OPINION_FAILED,
+  EMPTY_RELATED_OPINION_DATA
 } from './actionTypes';
-
-export type payloadType = { rows: any[]; pager: object };
-
 export interface OpinionArticleDetailBodyGet {
   nid: number;
 }
-
+export interface RelatedOpinionBodyGet {
+  page: number;
+}
 export interface RequestOpinionArticleDetailType {
   type: typeof REQUEST_OPINION_ARTICLE_DETAIL;
   payload: OpinionArticleDetailBodyGet;
@@ -39,11 +42,41 @@ export interface OpinionArticleDetailItemType {
   writer: WriterType[];
   isBookmarked: boolean
 }
+export interface OpinionsListItemType {
+  title: string;
+  created_export: string;
+  field_opinion_writer_node_export: FieldOpinionWriterNodeExport[] | FieldOpinionWriterNodeExport;
+  nid: string;
+  field_opinion_sport_blog_export: FieldOpinionSportBlogExport[];
+  field_new_issueno_export: string;
+  published_at_export: string;
+  body: string;
+  field_edit_letter_writer_export?: any;
+  field_jwplayer_id_opinion_export?:any;
+  type:string;
+}
+export interface FieldOpinionWriterNodeExport {
+  id: string;
+  title: string;
+  url: string;
+  bundle: string;
+  opinion_writer_photo: string;
+  langcode: string;
+  name: string;
+}
+export interface FieldOpinionSportBlogExport {
+  id: string;
+  title: string;
+  bundle: string;
+  name: string;
+}
 
 interface PagerType {
-  current_page?: number | null | undefined;
-  items_per_page?: number;
+  current_page: number;
+  items_per_page: string;
 }
+
+export type payloadType = {rows: any[]; pager: PagerType};
 
 export type OpinionArticleDetailSuccessPayload = {
   opinionArticleDetailData: any;
@@ -53,6 +86,9 @@ export type OpinionArticleDetailState = {
   error: string;
   isLoading: boolean;
   opinionArticleDetailData: OpinionArticleDetailItemType[];
+  relatedOpinionError: string,
+  isLoadingRelatedOpinion:boolean,
+  relatedOpinionListData: payloadType;
 };
 
 export interface OpinionArticleDetailSuccessType {
@@ -68,8 +104,37 @@ export interface OpinionArticleDetailFailedType {
   type: typeof REQUEST_OPINION_ARTICLE_DETAIL_FAILED;
   payload: OpinionArticleDetailFailedPayload;
 }
+export interface FetchRelatedOpinionSuccessPayloadType {
+  relatedOpinionListData: any;
+}
+export interface FetchRelatedOpinionFailedPayloadtype {
+  error: string;
+}
+
+export type FetchRelatedOpinionType = {
+  type: typeof REQUEST_RELATED_OPINION;
+  payload: RelatedOpinionBodyGet;
+};
+
+export type FetchRelatedOpinionSuccessType = {
+  type: typeof REQUEST_RELATED_OPINION_SUCCESS;
+  payload: FetchRelatedOpinionSuccessPayloadType;
+};
+
+export type FetchRelatedOpinionFailedType = {
+  type: typeof REQUEST_RELATED_OPINION_FAILED;
+  payload: FetchRelatedOpinionFailedPayloadtype;
+};
+
+export type EmptyRelatedOpinionDataList = {
+  type: typeof EMPTY_RELATED_OPINION_DATA;
+};
 
 export type OpinionArticleDetailAction =
   | RequestOpinionArticleDetailType
   | OpinionArticleDetailSuccessType
-  | OpinionArticleDetailFailedType;
+  | OpinionArticleDetailFailedType
+  | FetchRelatedOpinionType
+  | FetchRelatedOpinionSuccessType
+  | FetchRelatedOpinionFailedType
+  | EmptyRelatedOpinionDataList;

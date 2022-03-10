@@ -1,9 +1,9 @@
-import {takeLatest} from 'redux-saga/effects';
-import {testSaga} from 'redux-saga-test-plan';
-import {REQUEST_OPINION_ARTICLE_DETAIL} from '../actionTypes';
-import opinionArticleDetailSaga, {fetchOpinionArticleDetail} from '../sagas';
-import {requestOpinionArticleDetailSuccess} from '../action';
-import {requestOpinionArticleDetailAPI} from 'src/services/opinionArticleDetailService';
+import { takeLatest } from 'redux-saga/effects';
+import { testSaga } from 'redux-saga-test-plan';
+import { REQUEST_OPINION_ARTICLE_DETAIL, REQUEST_RELATED_OPINION } from '../actionTypes';
+import opinionArticleDetailSaga, { fetchOpinionArticleDetail, fetchRelatedOpinion } from '../sagas';
+import { requestOpinionArticleDetailSuccess } from '../action';
+import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService';
 
 import {
   OpinionArticleDetailSuccessPayload,
@@ -32,7 +32,7 @@ const reposnseObject = {
   ],
 };
 const errorResponse = {
-  response: {data: 'Error', status: 500, statusText: 'Error'},
+  response: { data: 'Error', status: 500, statusText: 'Error' },
 };
 
 const sucessResponseObject: OpinionArticleDetailSuccessPayload = {
@@ -67,9 +67,20 @@ describe('Test OpinionArticleDetail  error', () => {
   it('check fetchOpinionArticleDetail failed', () => {
     const genObject = fetchOpinionArticleDetail({
       type: REQUEST_OPINION_ARTICLE_DETAIL,
-      payload: {nid: mocknid},
+      payload: { nid: mocknid },
     });
     genObject.next();
     genObject.throw(errorResponse);
   });
+
+  describe('Test OpinionArticleDetail  error', () => {
+    it('check fetchRelatedOpinion failed', () => {
+      const genObject = fetchRelatedOpinion({
+        type: REQUEST_RELATED_OPINION,
+        payload: { page: 0 },
+      });
+      genObject.next();
+      genObject.throw(errorResponse);
+    });
+  })
 });

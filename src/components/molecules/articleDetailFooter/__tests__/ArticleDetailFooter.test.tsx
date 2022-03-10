@@ -37,7 +37,7 @@ describe('<ArticleDetailFooter>', () => {
     const component = (
       <ArticleDetailFooter
         articleDetailData={articleDetailSampleData}
-        isBookmarked={false} onPressSave={mockFunction}
+        isBookmarked={false} onPressSave={mockFunction}  onPressFontChange={mockFunction}
       />
     );
     instance = render(component);

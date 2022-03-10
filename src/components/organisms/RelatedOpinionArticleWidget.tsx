@@ -1,22 +1,36 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
-import {CustomThemeType} from 'src/shared/styles/colors';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {normalize, screenWidth} from 'src/shared/utils';
-import {Label} from '../atoms';
-import {Divider} from 'src/components/atoms';
-import {RelatedOpinionCard} from '../molecules/RelatedOpinionCard';
-import {useTranslation} from 'react-i18next';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { CustomThemeType } from 'src/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { normalize, screenWidth } from 'src/shared/utils';
+import { Label } from '../atoms';
+import { Divider } from 'src/components/atoms';
+import { RelatedOpinionCard } from '../molecules/RelatedOpinionCard';
+import { useTranslation } from 'react-i18next';
+import { OpinionsListItemType } from 'src/redux/opinionArticleDetail/types';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
-export const RelatedOpinionArticlesWidget = () => {
+interface RelatedOpinionArticlesWidgetProps {
+  data: OpinionsListItemType[];
+  onScroll: () => void;
+  isLoading: boolean;
+  onPress: (nid: string) => void
+}
+
+export const RelatedOpinionArticlesWidget = ({ data, onScroll, isLoading, onPress }: RelatedOpinionArticlesWidgetProps) => {
   const style = useThemeAwareObject(customStyle);
-  const data = [{}, {}, {}, {}];
   const [t] = useTranslation();
+  const theme = useTheme();
 
-  const renderItem = (item: any, index: number) => (
+  const renderItem = (item: OpinionsListItemType, index: number) => (
     <View style={style.item}>
-      <RelatedOpinionCard />
+      <RelatedOpinionCard item={item} onPress={() => onPress(item.nid)} />
       {data.length - 1 != index && <Divider style={style.itemDivider} />}
+      {isLoading && data.length - 1 == index && (
+        <View style={{ margin: normalize(28) }}>
+          <ActivityIndicator size={'small'} color={theme.themeData.primary} />
+        </View>
+      )}
     </View>
   );
 
@@ -33,12 +47,13 @@ export const RelatedOpinionArticlesWidget = () => {
         <FlatList
           data={data}
           keyExtractor={(_, index) => index.toString()}
-          renderItem={({item, index}) => renderItem(item, index)}
+          renderItem={({ item, index }) => renderItem(item, index)}
+          onEndReached={onScroll}
           showsVerticalScrollIndicator={false}
+          onEndReachedThreshold={0.5}
           bounces={false}
         />
       </View>
-      <Divider style={style.divider} />
     </View>
   );
 };
@@ -59,7 +74,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingBottom: 0.02 * screenWidth,
     },
     item: {
-      paddingTop: 0.03 * screenWidth,
+      paddingTop: 0.07 * screenWidth,
     },
     divider: {
       marginTop: normalize(20),

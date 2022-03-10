@@ -89,3 +89,6 @@ export const GET_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getNewsletters';
 //Keep Notified
 export const SEND_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/addNotifications'
 export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getNotifications'
+
+//Related Opinion
+export const GET_RELATED_OPINION_ENDPOINT = '/api/v2/opinionsrelated';
