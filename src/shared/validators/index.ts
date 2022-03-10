@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 
 export const emailValidation = (email: string): string => {
-  const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const regex = /^\w+([\.-]?\w+)*@[a-zA-Z_]+\.[a-zA-z]{2,4}$/;
 
   if (email === '') {
     return i18next.t('validation.emailEmpty');

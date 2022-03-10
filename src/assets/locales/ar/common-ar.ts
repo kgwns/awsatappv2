@@ -161,6 +161,7 @@ export const arabic = {
   return: 'الرجوع',
   searchScreen: {
     placeholder: 'ابحث في الشرق الأوسط …',
+    notFound: 'لم يتم العثور على نتائج عن البحث',
   },
   signUp: {
     createAccount: 'إنشاء حساب',

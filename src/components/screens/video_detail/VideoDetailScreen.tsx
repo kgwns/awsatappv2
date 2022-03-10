@@ -65,10 +65,11 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }
 
   const onPressShare = async () => {
-    const { title, imageUrl } = route.params.data
+    if(!videoData[0]) return;
+    const { title, field_mp4_link_export } = videoData[0]
     await Share.open({
         title,
-        url: imageUrl,
+        url: field_mp4_link_export,
         failOnCancel: true,
         subject: title
     }).then(response => {

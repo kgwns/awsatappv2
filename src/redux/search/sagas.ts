@@ -4,6 +4,7 @@ import { FetchSearchSuccessPayloadType, FetchSearchRequestType } from './types';
 import { fetchSearchFailed, fetchSearchSuccess } from './action';
 import { FETCH_SEARCH_REQUEST } from './actionTypes';
 import { fetchSearchApi } from 'src/services/searchService';
+import {Alert} from 'react-native';
 
 export function* fetchSearch(action: FetchSearchRequestType) {
   //console.log("saga fetchSearch");
@@ -16,6 +17,7 @@ export function* fetchSearch(action: FetchSearchRequestType) {
     yield put(fetchSearchSuccess({ searchData: payload }));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
+    Alert.alert(errorResponse.message);
     yield put(fetchSearchFailed({ error: errorResponse.message }));
   }
 }

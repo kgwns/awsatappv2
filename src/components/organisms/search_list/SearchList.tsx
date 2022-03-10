@@ -6,6 +6,7 @@ import { normalize } from 'src/shared/utils';
 import { SearchItemType } from 'src/redux/search/types';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
+import { useTranslation } from 'react-i18next';
 export interface SearchResultsProps {
   id: string;
   label: string;
@@ -32,6 +33,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
 }) => {
   const [searchText, setSearchText] = useState('');
   const styles = useThemeAwareObject(createStyles);
+  const [t] = useTranslation();
 
   const handleOnItemPressAction = (item: SearchItemType) => {
     if (onItemActionPress) {
@@ -58,6 +60,16 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
     );
   };
 
+  const renderEmpty = () => {
+    return (
+      <View style={styles.emptyListShowStyle}>
+        <Label labelType='h1' style={styles.emptyText} numberOfLines={2}>
+          {t('searchScreen.notFound')}
+        </Label>
+      </View>
+    );
+  };
+
   const onSearchTextChange = (searchString: string) => {
     setSearchText(searchString);
     if (onTextChange) {
@@ -77,6 +89,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
               keyExtractor={keyExtractor}
               renderItem={renderItem}
               bounces={false}
+              ListEmptyComponent={renderEmpty}
             />
           </View>
         }
@@ -118,5 +131,14 @@ StyleSheet.create({
   },
   rowStyle: {
     flexDirection: 'row',
+  },
+  emptyListShowStyle: {
+    flex:1,
+  },
+  emptyText: {
+    color: theme.primaryDarkSlateGray,
+    textAlign: 'center',
+    fontSize: normalize(16),
+    marginTop: normalize(30),
   }
 });
