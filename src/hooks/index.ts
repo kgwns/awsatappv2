@@ -17,3 +17,4 @@ export { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail'
 export { useBookmark } from 'src/hooks/useBookmark'
 export { useNewsLetters } from 'src/hooks/useNewsLetters';
 export { useUserProfileData } from 'src/hooks/useUserProfileData';
+export { useKeepNotified } from 'src/hooks/useKeepNotified'

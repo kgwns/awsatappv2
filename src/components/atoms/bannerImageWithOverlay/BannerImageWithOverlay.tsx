@@ -10,7 +10,6 @@ export interface BannerImageWithOverlayProps {
 export const BannerImageWithOverlay = ({
     image
 }: BannerImageWithOverlayProps) => {
-    console.log(image,'Image :::::');
     
     return (
         <View>

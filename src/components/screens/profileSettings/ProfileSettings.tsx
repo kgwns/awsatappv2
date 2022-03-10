@@ -19,7 +19,7 @@ import { ToggleWithLabel } from 'src/components/molecules';
 import { useDispatch } from 'react-redux';
 import { storeAppTheme } from 'src/redux/appCommon/action';
 import { Theme } from 'src/redux/appCommon/types';
-import { useAppCommon, useBookmark, useLogin } from 'src/hooks';
+import { useAppCommon, useBookmark, useKeepNotified, useLogin } from 'src/hooks';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -40,6 +40,7 @@ export const ProfileSettings = () => {
 
     const { theme } = useAppCommon();
     const { removeBookmark } = useBookmark()
+    const { removeKeepNotificationInfo } = useKeepNotified()
     const isDark = isDarkTheme(theme);
     const [isDarkMode, setIsDarkMode] = useState<boolean>(isDark);
 
@@ -97,11 +98,11 @@ export const ProfileSettings = () => {
     const renderItem: ListRenderItem<SettingDataType> = ({ item, index }) => {
         return (
             <TouchableOpacity activeOpacity={0.8} key={index} onPress={() => {
-
                 if (item.title === CONST_EXIT) {
                     console.log('exit clicked');
                     fetchLogoutRequest();
                     removeBookmark()
+                    removeKeepNotificationInfo()
                     navigation.reset({
                         index: 0,
                         routes: [{ name: ScreensConstants.AuthNavigator }],

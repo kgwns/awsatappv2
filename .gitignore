@@ -66,6 +66,7 @@ android/app/src/main/assets/index.android.bundle
 package-lock.json
 ios/Podfile.lock
 package-lock.json
+yarn.lock
 
 # test coverage
 coverage

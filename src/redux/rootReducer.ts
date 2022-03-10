@@ -22,6 +22,7 @@ import opinionArticleDetail from 'src/redux/opinionArticleDetail/reducer';
 import bookmark from 'src/redux/bookmark/reducer';
 import userDetails from 'src/redux/profileUserDetail/reducer';
 import newsLetters from 'src/redux/newsLetter/reducer';
+import keepNotified from 'src/redux/keepNotified/reducer'
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -49,6 +50,7 @@ const rootReducer = combineReducers({
   bookmark: bookmark,
   userDetails: userDetails,
   newsLetters: newsLetters,
+  keepNotified: keepNotified
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

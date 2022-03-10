@@ -85,3 +85,7 @@ export const PROFILE_IMAGE_URL = 'http://awsatapi.srpcdigital.com/storage/'
 //News Letters
 export const SEND_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/addNewsletters?tid=';
 export const GET_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getNewsletters';
+
+//Keep Notified
+export const SEND_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/addNotifications'
+export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getNotifications'

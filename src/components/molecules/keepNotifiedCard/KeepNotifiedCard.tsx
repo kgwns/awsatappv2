@@ -19,19 +19,16 @@ const KeepNotifiedCard = ({
   selected,
   onPress,
 }: KeepNotifiedCardProps) => {
-  const [isSelected, setIsSelected] = useState(selected);
   const style = useThemeAwareObject(customStyle);
-  const theme = useTheme();
   return (
     <View style={style.container}>
       <TouchableOpacity
         testID={"ImageTestID"}
         onPress={() => {
-          onPress(isSelected);
-          setIsSelected(!isSelected);
+          onPress(selected);
         }}>
         {getSvgImages({
-          name: isSelected ? ImagesName.notificationSelected : ImagesName.notification,
+          name: selected ? ImagesName.notificationSelected : ImagesName.notification,
           width: style.iconStyle.width,
           height: style.iconStyle.height
         })}
