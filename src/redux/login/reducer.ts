@@ -1,10 +1,12 @@
+import { getUpdatedObject } from 'src/shared/utils/utilities';
 import { 
     FETCH_LOGIN,
     FETCH_LOGIN_ERROR,
     FETCH_LOGIN_SUCCESS,
     FETCH_USER_LOGOUT,
     FETCH_USER_LOGOUT_SUCCESS,
-    LOGIN_SKIPPED
+    LOGIN_SKIPPED,
+    ONBOARDING_SUCCESS
 } from './actionTypes';
 import { LoginActions, LoginState } from './types';
 const initialAuthState: LoginState = {
@@ -35,6 +37,8 @@ export default (state = initialAuthState, action: LoginActions) => {
       return {...state, loginData: null};
     case LOGIN_SKIPPED:
       return {...state, isSkipped: true};
+    case ONBOARDING_SUCCESS:
+      return {...state, loginData:  getUpdatedObject(state.loginData, 'newUser', 1, 0 )};
     default:
       return state;
   }
