@@ -11,6 +11,7 @@ import { colors } from 'src/shared/styles/colors';
 export interface PodcastEpisodeContentProps {
   onItemActionPress?: (item: PodcastVerticalListProps) => void;
   data: PodcastVerticalListProps[];
+  onPressBookmark: (index: number) => void
 }
 
 const keyExtractor = (_item:PodcastVerticalListProps,index: number) => {
@@ -20,6 +21,7 @@ const keyExtractor = (_item:PodcastVerticalListProps,index: number) => {
 export const PodcastEpisodeContent: FunctionComponent<PodcastEpisodeContentProps> = ({
   onItemActionPress,
   data,
+  onPressBookmark
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
@@ -41,6 +43,8 @@ export const PodcastEpisodeContent: FunctionComponent<PodcastEpisodeContentProps
         footerRight={item?.footerRight}
         testID={`podcastepisode_${index}`}
         itemOnPress={() => handleOnItemPressAction(item)}
+        isBookmarked={item.isBookmarked}
+        onPressBookmark={() => onPressBookmark(index)}
       />
     );
   };
