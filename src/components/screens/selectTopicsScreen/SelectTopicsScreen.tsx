@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { colors } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent } from 'src/shared/utils';
 import { useTranslation } from 'react-i18next';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -30,7 +30,9 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   useEffect(() => {
     if (isObjectNonEmpty(sentTopicsData)) {
       if (sentTopicsData.code === 200) {
+      recordLogEvent('Add_Interests_Topic');
         gotoNext()
+
       } else {
         Alert.alert(sentTopicsData.message || '');
       }

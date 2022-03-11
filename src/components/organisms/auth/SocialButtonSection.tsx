@@ -9,7 +9,7 @@ import {useTranslation} from 'react-i18next';
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
-import { isIOS } from 'src/shared/utils';
+import { isIOS, recordLogEvent } from 'src/shared/utils';
 import {LoginFactory,Connection}  from 'src/shared/utils/loginFactory';
 import {NavigateTypes} from 'src/components/screens';
 import {RegisterBodyType} from 'src/redux/register/types';
@@ -112,6 +112,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   //-------end AppleSignin--
 
   const buttonPressAction = (type: string) => {
+    recordLogEvent('login', {loginType: type});
     switch (type) {
       case NavigateTypes.google:
         let googleSignIn = LoginFactory.getInstance(Connection.Google,onResult);

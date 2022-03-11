@@ -2,9 +2,9 @@ import React, { useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
-import {normalize} from '../../../shared/utils';
+import {normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
-import {AuthScreenInputSection} from '../../../components/organisms/';
+import {AuthScreenInputSection} from 'src/components/organisms/';
 import {ScreensConstants} from 'src/constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -101,6 +101,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
 
   const onPressSignIn = () => {
     setPasswordError(emptyPasswordValidation(password));
+
+    recordLogEvent('login', {loginType: 'email'});
 
     const payload: FetchLoginPayloadType = {
       email: email,
