@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import {flatListUniqueKey} from 'src/constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -28,6 +28,7 @@ const OpinionWritersArticlesSection = ({
 }: OpinionWritersArticlesSectionProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
+  const [onEndReachedCalledDuringMomentum,setOnEndReachedCalledDuringMomentum]=useState(false);
   const renderItem = (item: any, index: number) => {
     return (
       <View key={flatListUniqueKey.OPINION_WRITER_ARTICLES_SECTION + index}>
@@ -69,8 +70,13 @@ const OpinionWritersArticlesSection = ({
         showsHorizontalScrollIndicator={false}
         data={data}
         renderItem={({item, index}) => renderItem(item, index)}
-        onEndReached={onScroll}
-        onEndReachedThreshold={0.5}
+        onEndReached={()=> { 
+          if(!onEndReachedCalledDuringMomentum) 
+          { onScroll() 
+            setOnEndReachedCalledDuringMomentum(true) }
+          }} 
+        onEndReachedThreshold={0.5} 
+        onMomentumScrollBegin = {() => {setOnEndReachedCalledDuringMomentum(false)}}
       />
     </View>
   );
