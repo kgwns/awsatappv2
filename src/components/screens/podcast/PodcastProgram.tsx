@@ -27,7 +27,6 @@ export const PodcastProgram = () => {
     removeBookmarkedInfo,
     bookmarkIdInfo
   } = useBookmark()
-
   const { isLoggedIn } = useLogin()
 
 
