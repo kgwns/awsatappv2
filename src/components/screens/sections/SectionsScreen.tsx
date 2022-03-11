@@ -31,7 +31,6 @@ export const SectionsScreen = () => {
 
   const tabContent = () => {
     if (!topMenuData.length) return null;
-    console.log(`sectonTabs: ${JSON.stringify(topMenuData[tabSelectedIndex])}`);
     switch (topMenuData[tabSelectedIndex].keyName) {
       case TabType.home:
         return <SectionStoryScreen sectionId={11}/>;
