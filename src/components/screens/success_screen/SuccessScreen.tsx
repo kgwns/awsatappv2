@@ -24,7 +24,7 @@ export const SuccessScreen: FunctionComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    AdjustAnalyticsManager._onPress_trackSimpleEvent(AdjustEventID.LOGIN)
+    AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN)
   }, [])
 
   return (

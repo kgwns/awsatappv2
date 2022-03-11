@@ -59,7 +59,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     if (message) {
       if (message.code === 200) {
         getBookmarkedId()
-        AdjustAnalyticsManager._onPress_trackSimpleEvent(AdjustEventID.LOGIN)
+        AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN)
         fetchProfileDataRequest()
         navigation.reset({
           index: 0,

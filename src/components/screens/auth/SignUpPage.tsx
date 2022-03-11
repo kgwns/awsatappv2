@@ -55,7 +55,7 @@ export const SignUpPage = ({
       if (message.code === 200) {
         dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
         fetchProfileDataRequest()
-        AdjustAnalyticsManager._onPress_trackSimpleEvent(AdjustEventID.REGISTRATION)
+        AdjustAnalyticsManager.trackEvent(AdjustEventID.REGISTRATION)
         navigation.reset({
           index: 0,
           routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],

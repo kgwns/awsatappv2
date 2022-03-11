@@ -82,7 +82,7 @@ class AdjustAnalyticsManager {
     }
 
 
-    _onPress_trackSimpleEvent = (eventId: AdjustEventID) => {
+    trackEvent = (eventId: AdjustEventID) => {
         var adjustEvent = new AdjustEvent(eventId);
         Adjust.trackEvent(adjustEvent);
         Adjust.updateConversionValue(6);

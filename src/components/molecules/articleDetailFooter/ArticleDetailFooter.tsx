@@ -38,7 +38,7 @@ export const ArticleDetailFooter = ({
             failOnCancel: true,
             subject: title
         }).then(response => {
-            AdjustAnalyticsManager._onPress_trackSimpleEvent(AdjustEventID.SHARE_ARTICLE)
+            AdjustAnalyticsManager.trackEvent(AdjustEventID.SHARE_ARTICLE)
             console.log('Shared successfully :::', response)
         }).catch((error) => {
             console.log('Cancelled share request :::', error)

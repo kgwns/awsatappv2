@@ -23,7 +23,7 @@ export const SearchScreen = () => {
   const {fetchSearchRequest,isLoading,searchData} = useSearch();
   const onPressItem = (item:SearchItemType)=>{
     if (item.nid) {
-      AdjustAnalyticsManager._onPress_trackSimpleEvent(AdjustEventID.SEARCH)
+      AdjustAnalyticsManager.trackEvent(AdjustEventID.SEARCH)
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: item.nid})
     }
   }
