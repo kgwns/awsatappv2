@@ -6,7 +6,7 @@ import {
   SendNewPassword
 } from 'src/redux/changePassword/types';
 import {
-  CHANGE_PASSWORD, CHANGE_PASSWORD_ERROR, CHANGE_PASSWORD_SUCCESS
+  CHANGE_PASSWORD, CHANGE_PASSWORD_ERROR, CHANGE_PASSWORD_SUCCESS, EMPTY_PASSWORD_RESPONSE_INFO
 } from 'src/redux/changePassword/actionTypes';
 
 export const changePassword = (payload: SendNewPassword) => {
@@ -33,8 +33,16 @@ export const changePasswordFailed = (
     payload,
   };
 };
+
+export const emptyPasswordResponse = () => {
+  return {
+    type: EMPTY_PASSWORD_RESPONSE_INFO,
+  };
+};
+
 export const UserProfileDetailActions = {
   changePassword,
   changePasswordSuccess,
   changePasswordFailed,
+  emptyPasswordResponse,
 };

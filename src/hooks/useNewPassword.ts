@@ -4,7 +4,7 @@ import {
   getNewPassword,
   getNewPasswordError
 } from 'src/redux/changePassword/selectors';
-import { changePassword } from 'src/redux/changePassword/action';
+import { changePassword, emptyPasswordResponse } from 'src/redux/changePassword/action';
 import {SendNewPasswordSuccessPayloadType, SendNewPassword
 } from 'src/redux/changePassword/types';
 
@@ -13,6 +13,7 @@ export interface useChangePassword {
   changePasswordData: SendNewPasswordSuccessPayloadType | null;
   changePasswordError: string;
   changePasswordInfo(payload: SendNewPassword): void
+  emptyPasswordResponseInfo(): void
 }
 
 export const useNewPassword = (): useChangePassword => {
@@ -23,11 +24,15 @@ export const useNewPassword = (): useChangePassword => {
   const changePasswordInfo = (payload: SendNewPassword) => {
     dispatch(changePassword(payload));
   };
+  const emptyPasswordResponseInfo = ( ) => {
+    dispatch(emptyPasswordResponse());
+  };
   return {
     isLoading,
     changePasswordData,
     changePasswordError,
     changePasswordInfo,
+    emptyPasswordResponseInfo
   };
 };
 

@@ -1,5 +1,5 @@
 import {
-  CHANGE_PASSWORD, CHANGE_PASSWORD_ERROR, CHANGE_PASSWORD_SUCCESS
+  CHANGE_PASSWORD, CHANGE_PASSWORD_ERROR, CHANGE_PASSWORD_SUCCESS, EMPTY_PASSWORD_RESPONSE_INFO
 } from './actionTypes';
 
 export interface messageDataType {
@@ -40,7 +40,12 @@ export type SendChangePasswordFailedType = {
   payload: SendNewPasswordFailedPayloadtype;
 };
 
+export type EmptyPasswordResponseInfo = {
+  type: typeof EMPTY_PASSWORD_RESPONSE_INFO;
+};
+
 export type ChangePasswordActions =
   | SendChangePasswordType
   | SendChangePasswordSuccessType
   | SendChangePasswordFailedType
+  | EmptyPasswordResponseInfo

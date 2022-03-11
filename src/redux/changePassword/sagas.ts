@@ -8,7 +8,7 @@ import {
   changePasswordSuccess,
   changePasswordFailed,
 } from './action';
-import { CHANGE_PASSWORD } from './actionTypes';
+import { CHANGE_PASSWORD, EMPTY_PASSWORD_RESPONSE_INFO } from './actionTypes';
 import { changePasswordApi  } from 'src/services/changePasswordService'
 
 export function* postNewPassword(action: SendChangePasswordType) {
@@ -27,8 +27,13 @@ export function* postNewPassword(action: SendChangePasswordType) {
   }
 }
 
+export function* emptyPasswordResponse() {
+  emptyPasswordResponse();
+}
+
 function* newPasswordSaga() {
   yield all([takeLatest(CHANGE_PASSWORD, postNewPassword)]);
+  yield all([takeLatest(EMPTY_PASSWORD_RESPONSE_INFO, emptyPasswordResponse)]);
 }
 
 export default newPasswordSaga;

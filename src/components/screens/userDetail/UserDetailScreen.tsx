@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
-import { View, StyleSheet, TouchableOpacity, Modal, Image } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Modal, Image, AppState, Alert } from 'react-native';
 import { isIOS, normalize, screenHeight, screenWidth } from '../../../shared/utils';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -11,11 +11,11 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { TextInputField, Label, ButtonOutline } from '../../atoms';
 import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
-import { getFullDate, isObjectNonEmpty, getFormatedDate, getProfileImageUrl, CustomAlert} from 'src/shared/utils/utilities';
+import { getFullDate, isObjectNonEmpty, getFormatedDate, getProfileImageUrl, CustomAlert, isNotEmpty} from 'src/shared/utils/utilities';
 import DatePicker from 'react-native-date-picker';
 import { TabBarComponent, TabBarDataProps } from 'src/components/molecules';
 import { KeyboardAwareView } from 'keyboard-aware-view';
-import { loginPasswordValidation, reTypePasswordValidation } from 'src/shared/validators';
+import { loginPasswordValidation, oldPasswordValidation, reTypePasswordValidation } from 'src/shared/validators';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -25,6 +25,7 @@ import { useAppCommon, useLogin } from 'src/hooks';
 import { SystemPermissions } from 'src/shared/utils';
 import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS } from 'src/constants/SharedConstants';
 import {useNewPassword} from 'src/hooks/useNewPassword'
+import { AlertModal } from 'src/components/organisms';
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -52,10 +53,14 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [userProfileImage, setUserProfileImage] = useState('') 
   const [birthday, setBirthday] = useState('')
   const currentDate = new Date();
-  const {changePasswordInfo} = useNewPassword()
+  const {changePasswordInfo,emptyPasswordResponseInfo,changePasswordData} = useNewPassword()
   const {loginData} = useLogin();
   useEffect(() => {
     fetchProfileDataRequest();
+    emptyPasswordResponseInfo();
+    return()=>{
+      emptyPasswordResponseInfo()
+    }
   }, []);
 
   useEffect(() => {
@@ -72,6 +77,25 @@ export const UserDetailScreen: FunctionComponent = () => {
       setUserName(name)
     }
   },[] )
+
+  useEffect(() =>{
+    if(isObjectNonEmpty(changePasswordData))
+    {if (changePasswordData?.message?.code === 200) {
+      Alert.alert(t('profile.newPassword.passwordChangedSuccessfully'),'',[
+        {
+          text: "ok",
+          onPress: () => onAlertOkPressed(),
+        },
+      ])
+    }}
+  },[changePasswordData] )
+
+  const onAlertOkPressed = ()=>{
+    setOldPassword('')
+    setNewPassword('')
+    setConfirmNewPassword('')
+    emptyPasswordResponseInfo();
+  }
 
   const tabItemData: TabBarDataProps[] = [
     {
@@ -261,12 +285,16 @@ export const UserDetailScreen: FunctionComponent = () => {
   )
 
   const onChangePasswordUpdate = () => {
-    setOldPasswordError(loginPasswordValidation(oldPassword));
+    setOldPasswordError(oldPasswordValidation(oldPassword));
     setNewPasswordError(loginPasswordValidation(newPassword));
     setConfirmNewPasswordError(reTypePasswordValidation(newPassword, confirmNewPassword));
+    if((newPassword === confirmNewPassword )
+    && isNotEmpty(newPassword) 
+    && isNotEmpty(confirmNewPassword) 
+    && isNotEmpty(oldPassword)){
     changePasswordInfo({
       password: newPassword
-    })
+    })}
   }
 
   const renderOptionModal = () => (

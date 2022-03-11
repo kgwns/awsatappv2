@@ -231,7 +231,8 @@ export const arabic = {
       passwordDescription: 'يجب أن تكون كلمة مرورك الجديدة مختلفة عن كلمة مرورك القديمة',
       setNewPassword: 'ضبط كلمة المرور',
       passwordWarning: 'يجب ألا يقل عن 8 أحرف',
-      passwordMatchWarning: 'يجب أن تتطابق كلمتا المرور'
+      passwordMatchWarning: 'يجب أن تتطابق كلمتا المرور',
+      passwordChangedSuccessfully: 'تم تغيير كلمة المرور بنجاح',
     },
   },
   manageMyNews: {
