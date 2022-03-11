@@ -16,7 +16,7 @@ import {SocialLoginButton, TextInputField} from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {loginPasswordValidation} from 'src/shared/validators';
-import {useBookmark, useLogin, useRegister} from 'src/hooks';
+import {useBookmark, useLogin, useRegister, useUserProfileData} from 'src/hooks';
 import {FetchLoginPayloadType} from 'src/redux/login/types';
 import DeviceInfo from 'react-native-device-info';
 import { fetchLoginSuccess } from 'src/redux/login/action';
@@ -54,12 +54,14 @@ export const SignInPage = ({route}: SignInPageProps) => {
 
   const {fetchLoginRequest, isLoading, loginData, loginError} = useLogin();
   const { getBookmarkedId } = useBookmark()
+  const { fetchProfileDataRequest } = useUserProfileData();
 
   useEffect(() => {
     const message = loginData?.message;
     if (message) {
       if (message.code === 200) {
         getBookmarkedId()
+        fetchProfileDataRequest()
         navigation.reset({
           index: 0,
           routes: [{name: loginData.message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],

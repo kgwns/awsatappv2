@@ -53,6 +53,9 @@ export const UserDetailScreen: FunctionComponent = () => {
   const currentDate = new Date();
   useEffect(() => {
     fetchProfileDataRequest();
+    return()=>{
+      fetchProfileDataRequest()
+    }
   }, []);
 
   useEffect(() => {
