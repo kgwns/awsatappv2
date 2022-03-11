@@ -1,4 +1,4 @@
-import { FlatList, View } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
 import { PopulateWidget } from 'src/components/molecules'
 import { isNonEmptyArray } from 'src/shared/utils'
@@ -16,16 +16,10 @@ export const DynamicWidget = ({
     return (
         <View>
             {
-                data.map((item, index) => {
+                data.map((item: any, index: number) => {
                     return <PopulateWidget key={index} {...item} onPressBookmark={() => onPressBookmark(item)}/>
                 })
             }
-            {/* <FlatList
-                keyExtractor={(_, index) => index.toString()}
-                data={data}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item, index }) => <PopulateWidget key={index} {...item} />}
-            /> */}
         </View>
     )
 }

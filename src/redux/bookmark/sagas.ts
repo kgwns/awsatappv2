@@ -55,7 +55,7 @@ const populateBookmarkDetail = (response: any): any => {
           view_node: item.view_node,
           news_categories: item.field_news_categories_export,
           tag_topics: isNonEmptyArray(item.field_tags_topics_export) ? item.field_tags_topics_export[0] : item.field_tags_topics_export,
-          author: item.author_resource,
+          author: item.field_new_resource_export,
           created: item.created_export,
           isBookmarked: true
         }

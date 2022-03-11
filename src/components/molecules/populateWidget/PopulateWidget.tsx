@@ -1,8 +1,12 @@
 import React from 'react'
 import { ArticleItem, PodcastVerticalList, VideoItem } from '..'
-import { LatestArticleDataType } from 'src/redux/latestNews/types'
-import OpinionWritersCardView from '../opinionWriters/OpinionWriterCardView'
-import { OpinionsListItemType } from 'src/redux/opinions/types'
+import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
+import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
+import { t } from 'i18next'
+import { timeAgo } from 'src/shared/utils'
+import { ArticleItemProps } from '../ArticleItem'
+import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
+import { VideoItemProps } from '../video-item/VideoItem'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -11,11 +15,31 @@ export enum PopulateWidgetType {
     PODCAST = 'podcast'
 }
 
-export interface PopulateWidgetProps {
-    type: PopulateWidgetType,
+interface ArticleNodeType {
+    type: typeof PopulateWidgetType.ARTICLE,
     onPressBookmark: () => void,
-    props: LatestArticleDataType | OpinionsListItemType | any
+    props: ArticleItemProps
 }
+
+interface OpinionNodeType {
+    type: typeof PopulateWidgetType.OPINION,
+    onPressBookmark: () => void,
+    props: OpinionWritersCardViewProps
+}
+
+interface VideoNodeType {
+    type: typeof PopulateWidgetType.VIDEO,
+    onPressBookmark: () => void,
+    props: VideoItemProps
+}
+
+interface PodcastNodeType {
+    type: typeof PopulateWidgetType.PODCAST,
+    onPressBookmark: () => void,
+    props: PodcastVerticalListProps
+}
+
+export type PopulateWidgetProps = ArticleNodeType | OpinionNodeType | VideoNodeType | PodcastNodeType | any
 
 export const PopulateWidget = ({
     type,
@@ -27,6 +51,11 @@ export const PopulateWidget = ({
             return <ArticleItem
                 index={0}
                 {...props}
+                footerInfo = {{
+                    ...articleFooterDataSet,
+                    leftTitle: props.author,
+                    rightTitle: t(timeAgo(props.created))
+                }}
                 isBookmarked={true}
                 onPressBookmark={onPressBookmark}
             />
