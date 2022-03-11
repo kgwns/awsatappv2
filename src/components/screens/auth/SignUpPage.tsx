@@ -15,7 +15,7 @@ import { SocialLoginButton, TextInputField } from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {loginPasswordValidation, reTypePasswordValidation} from 'src/shared/validators';
-import {useRegister} from 'src/hooks';
+import {useRegister, useUserProfileData} from 'src/hooks';
 import {RegisterBodyType} from 'src/redux/register/types';
 import DeviceInfo from 'react-native-device-info';
 import { normal } from 'react-native-color-matrix-image-filters';
@@ -43,6 +43,7 @@ export const SignUpPage = ({
   const initialRender = useRef(true);
 
   const dispatch = useDispatch();
+  const { fetchProfileDataRequest } = useUserProfileData();
 
   useEffect(() => {
     getDeviceName();
@@ -53,7 +54,7 @@ export const SignUpPage = ({
     if (message) {
       if (message.code === 200) {
         dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
-        
+        fetchProfileDataRequest()
         navigation.reset({
           index: 0,
           routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
