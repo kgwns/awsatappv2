@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants } from 'src/constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { isDarkTheme, isNotEmpty, normalize, screenWidth } from 'src/shared/utils';
+import { isDarkTheme, isNotEmpty, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { ButtonImage, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -99,7 +99,7 @@ export const ProfileSettings = () => {
         return (
             <TouchableOpacity activeOpacity={0.8} key={index} onPress={() => {
                 if (item.title === CONST_EXIT) {
-                    console.log('exit clicked');
+                    recordLogEvent('Logout');
                     fetchLogoutRequest();
                     removeBookmark()
                     removeKeepNotificationInfo()

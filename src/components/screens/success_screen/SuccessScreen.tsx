@@ -69,6 +69,7 @@ export const SuccessScreen: FunctionComponent = () => {
           <ButtonOnboard
             title={t('onboardSuccess.goToHome')}
             onPress={() => {
+              recordLogEvent('Completed_Onboarding');
               dispatch(onBoardingSuccess());
               navigation.reset({
                 index: 0,
