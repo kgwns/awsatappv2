@@ -25,11 +25,9 @@ export const SuccessScreen: FunctionComponent = () => {
   const [animationRef,setAnimationRef] = useState<LottieView>()
 
   useEffect(() => {
-    console.log('useeffectstart',animationRef)
     const subscription = AppState.addEventListener("change", nextAppState => {
       if (appState.current.match(/inactive|background/) && nextAppState === "active") {
         if (animationRef) {
-          console.log('animationref',appState.current)
           animationRef?.resume();
         }
       }
