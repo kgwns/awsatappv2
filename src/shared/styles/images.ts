@@ -73,6 +73,7 @@ export enum ImagesName {
   editIcon = 'editIcon',
   dropDownIcon = 'dropDownIcon',
   placeholderImg = 'placeholderImg',
+  returnBlackSvg = 'returnBlackSvg'
 }
 
 export const images = {
