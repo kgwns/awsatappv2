@@ -36,7 +36,7 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
   const renderItem: ListRenderItem<any> = ({item,index}) => {
     return (
       <PodcastVerticalList
-        id={item?.nid}
+        nid={item?.nid}
         secondaryTitle={item?.type}
         author={item?.field_announcer_name_export}
         imageUrl={item?.field_podcast_sect_export.img_podcast_mobile}

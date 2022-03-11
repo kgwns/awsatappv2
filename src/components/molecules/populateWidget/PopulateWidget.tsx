@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArticleItem, VideoItem } from '..'
+import { ArticleItem, PodcastVerticalList, VideoItem } from '..'
 import { LatestArticleDataType } from 'src/redux/latestNews/types'
 import OpinionWritersCardView from '../opinionWriters/OpinionWriterCardView'
 import { OpinionsListItemType } from 'src/redux/opinions/types'
@@ -7,7 +7,8 @@ import { OpinionsListItemType } from 'src/redux/opinions/types'
 export enum PopulateWidgetType {
     ARTICLE = 'article',
     VIDEO = 'multimedia',
-    OPINION = 'opinion'
+    OPINION = 'opinion',
+    PODCAST = 'podcast'
 }
 
 export interface PopulateWidgetProps {
@@ -42,6 +43,13 @@ export const PopulateWidget = ({
                     onPressBookmark={onPressBookmark}
                 />
             );
+        case PopulateWidgetType.PODCAST:
+            return (
+                <PodcastVerticalList
+                    {...props}
+                    onPressBookmark={onPressBookmark}
+                />
+            )
         default: return null
     }
 

@@ -10,7 +10,7 @@ import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 
 export interface PodcastVerticalListProps {
-  id: string;
+  nid: string;
   imageUrl?: string;
   testID?: string;
   title?: string;

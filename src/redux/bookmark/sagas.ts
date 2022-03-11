@@ -84,6 +84,17 @@ const populateBookmarkDetail = (response: any): any => {
           isBookmarked: true
         }
         return prevValue.concat(videoData)
+      } else if (item.type == PopulateWidgetType.PODCAST) {
+        const podcastData = {
+          ...item,
+          author: item?.field_announcer_name_export,
+          imageUrl: item?.field_podcast_sect_export?.img_podcast_mobile,
+          title: item?.title,
+          description: item?.body_export,
+          footerLeft: item?.field_duration_export_1,
+          isBookmarked: true
+        }
+        return prevValue.concat(podcastData)
       }
       return prevValue
     }, [])
