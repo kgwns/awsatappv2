@@ -216,6 +216,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <EditIcon {...props} />
         case ImagesName.dropDownIcon:
             return isDark ? <DropDownIconDark {...props} /> : <DropDownIcon {...props} />
+        case ImagesName.returnBlackSvg:
+            return <Return {...props} />
         default: return null
     }
 }

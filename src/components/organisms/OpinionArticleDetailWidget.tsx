@@ -66,7 +66,7 @@ export const OpinionArticleDetailWidget = ({
         style={{flexDirection: 'row', alignItems: 'center'}}
         onPress={onPressReturn}>
         {getSvgImages({
-          name: ImagesName.returnSvg,
+          name: ImagesName.returnBlackSvg,
           size: normalize(12),
         })}
         <Label style={style.returnLabel}>

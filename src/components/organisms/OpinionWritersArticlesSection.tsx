@@ -41,7 +41,9 @@ const OpinionWritersArticlesSection = ({
                   item.field_opinion_writer_node_export.opinion_writer_photo,
                 )
           }
-          writerTitle={item.field_opinion_writer_node_export.name}
+          writerTitle={ isNonEmptyArray(item.field_opinion_writer_node_export)
+            ?item.field_opinion_writer_node_export[0].name
+            :item.field_opinion_writer_node_export.name}
           headLine={item.title}
           subHeadLine={decodeHTMLTags(item.body)}
           audioLabel={'استمع الي المقالة '}
