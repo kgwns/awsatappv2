@@ -68,9 +68,9 @@ export const RelatedOpinionCard = ({item,onPress}:any) => {
           type={'round'}
           fallback={true}
           fallbackContent={ <AuthorDefault
+          style={{backgroundColor:Styles.color.cyanGreen}}
           width={normalize(80)} 
           height={normalize(80)}/>}
-          backgroundColor={Styles.color.cyanGreen}
         />
       </View>
     </TouchableWithoutFeedback>

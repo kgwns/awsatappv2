@@ -1,7 +1,7 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, AppState} from 'react-native';
 import {normalize} from '../../../shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -21,6 +21,22 @@ export const SuccessScreen: FunctionComponent = () => {
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   const dispatch = useDispatch();
+  const appState = useRef(AppState.currentState);
+  const [animationRef,setAnimationRef] = useState<LottieView>()
+
+  useEffect(() => {
+    console.log('useeffectstart',animationRef)
+    const subscription = AppState.addEventListener("change", nextAppState => {
+      if (appState.current.match(/inactive|background/) && nextAppState === "active") {
+        if (animationRef) {
+          console.log('animationref',appState.current)
+          animationRef?.resume();
+        }
+      }
+      appState.current = nextAppState;
+    });
+    return () => { subscription.remove(); };
+  }, [animationRef]);
 
   return (
     <ScreenContainer>
@@ -36,6 +52,7 @@ export const SuccessScreen: FunctionComponent = () => {
           source={TickAnimation}
           autoPlay
           style={styles.tickContainer}
+          ref={ref => setAnimationRef(ref)}
         />
         <View style={styles.messageContainer}>
           <Label labelType="h1" children={t('onboardSuccess.successMessage')} />

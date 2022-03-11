@@ -56,9 +56,9 @@ const OpinionWritersCardView = ({
           url={imageUrl}
           type="round"
           resizeMode="cover"
-          backgroundColor={Styles.color.cyanGreen}
           fallback={true}
           fallbackContent={<AuthorDefault
+          style={{backgroundColor:Styles.color.cyanGreen}}
           width={normalize(43)} 
           height={normalize(43)}/>}
         />
