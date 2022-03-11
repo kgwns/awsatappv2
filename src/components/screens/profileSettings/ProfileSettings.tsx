@@ -20,7 +20,7 @@ import { useDispatch } from 'react-redux';
 import { storeAppTheme } from 'src/redux/appCommon/action';
 import { Theme } from 'src/redux/appCommon/types';
 import { useAppCommon, useBookmark, useKeepNotified, useLogin, useUserProfileData } from 'src/hooks';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 type SettingDataType = {
@@ -87,12 +87,7 @@ export const ProfileSettings = () => {
     ]
 
     const { fetchLogoutRequest } = useLogin();
-    const { fetchProfileDataRequest,userProfileData } = useUserProfileData();
-    const isFocused = useIsFocused();
-
-    useEffect(()=>{
-        fetchProfileDataRequest()
-    },[isFocused])
+    const { userProfileData } = useUserProfileData();
 
     const onPressToggle = (isOn: boolean) => {
         const themeData = isOn ? Theme.LIGHT : Theme.DARK;
