@@ -109,10 +109,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           <Divider />
           <ButtonList
             title={t('drawer.advertiseWithUs')}
-            onPress={() => onPressNavigation(
-              ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('terms_and_condition'), id: TERMS_AND_CONDITION }
-            )}
+            onPress={() => {}}
             titleStyle={styles.nonBoldTitle}
           />
           <ButtonList
@@ -126,6 +123,14 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           <ButtonList
             title={t('drawer.callUs')}
             onPress={() => console.log('clicked')}
+            titleStyle={styles.nonBoldTitle}
+          />
+          <ButtonList
+            title={t('drawer.termsOfUse')}
+            onPress={() => onPressNavigation(
+              ScreensConstants.TERMS_AND_ABOUT_US,
+              { title: t('terms_and_condition'), id: TERMS_AND_CONDITION }
+            )}
             titleStyle={styles.nonBoldTitle}
           />
           <View style={styles.socialContainer}>
