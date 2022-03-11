@@ -14,10 +14,12 @@ export const OpinionArticleDetailFooter = ({
   opinionArticleDetailData,
   isBookmarked,
   onPressSave,
+  onPressFontSizeChange,
 }: {
   opinionArticleDetailData: OpinionArticleDetailItemType;
   isBookmarked: boolean
   onPressSave: () => void
+  onPressFontSizeChange: () => void
 }) => {
   let articleSaveIcon = isBookmarked
     ? ImagesName.bookMarkActiveSVG
@@ -52,7 +54,7 @@ export const OpinionArticleDetailFooter = ({
             fill:themeData.primaryBlack
           });
         }}
-        onPress={() => {}}
+        onPress={onPressFontSizeChange}
       />
       <ButtonImage
         icon={() => {

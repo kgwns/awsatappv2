@@ -86,6 +86,7 @@ export interface CustomThemeType {
   dropDownLabelColor: string,
   optionBackground: string,
   dividerColor: string,
+  podcastEpisodeCardColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -114,7 +115,8 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   alertBackground: colors.grayTransparentLightMode,
   dropDownLabelColor: colors.quickSilver,
   optionBackground: colors.aquaHaze,
-  dividerColor: colors.gableGreenOpacity15
+  dividerColor: colors.gableGreenOpacity15,
+  podcastEpisodeCardColor: colors.white, 
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -140,6 +142,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   alertBackground: colors.grayTransparentDarkMode,
   dropDownLabelColor: colors.white,
   optionBackground: colors.slateGray,
-  dividerColor: colors.nightRiderGray
+  dividerColor: colors.nightRiderGray,
+  podcastEpisodeCardColor: colors.onyx
 }
 

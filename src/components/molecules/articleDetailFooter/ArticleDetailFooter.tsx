@@ -14,10 +14,12 @@ export const ArticleDetailFooter = ({
     articleDetailData,
     isBookmarked,
     onPressSave,
+    onPressFontChange
 }: {
     articleDetailData: ArticleDetailDataType,
     isBookmarked: boolean
-    onPressSave: () => void
+    onPressSave: () => void,
+    onPressFontChange: () => void
 }) => {
     let articleSaveIcon = isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark
 
@@ -51,7 +53,7 @@ export const ArticleDetailFooter = ({
                     size: normalize(21),
                     fill: themeData.primaryBlack
                 });
-            }} onPress={() => { }}
+            }} onPress={onPressFontChange}
             />
             <ButtonImage icon={() => {
                 return getSvgImages({

@@ -19,15 +19,17 @@ import {getImageUrl, timeAgo} from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
 import Orientation from 'react-native-orientation-locker';
+import { ArticleFontSize } from '../screens/opinionArticleDetail/OpinionArticleDetail';
 
 export interface OpinionArticleDetailWidgetProp {
   data: OpinionArticleDetailItemType;
+  fontSize: ArticleFontSize
 }
 
 const containerHeight = isTab ? 0.5 * screenWidth : 0.8 * screenWidth;
 
 export const OpinionArticleDetailWidget = ({
-  data,
+  data,fontSize
 }: OpinionArticleDetailWidgetProp) => {
   const [t] = useTranslation();
   const {themeData} = useTheme();
@@ -39,7 +41,8 @@ export const OpinionArticleDetailWidget = ({
       color: themeData.primaryBlack,
       textAlign: 'left',
       direction: 'rtl',
-      fontSize: normalize(16),
+      fontSize: fontSize,
+      lineHeight: 1.5 * fontSize
     },
   };
 
@@ -63,7 +66,7 @@ export const OpinionArticleDetailWidget = ({
         style={{flexDirection: 'row', alignItems: 'center'}}
         onPress={onPressReturn}>
         {getSvgImages({
-          name: ImagesName.returnSvg,
+          name: ImagesName.returnBlackSvg,
           size: normalize(12),
         })}
         <Label style={style.returnLabel}>

@@ -11,27 +11,35 @@ import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.s
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import {useTranslation} from 'react-i18next';
+import { decodeHTMLTags } from 'src/shared/utils/utilities';
 
 export interface PodcastEpisodeInfoProps {
   data: PodcastVerticalListProps;
 }
 
-export const PodcastEpisodeInfo: FunctionComponent<PodcastEpisodeInfoProps> = ({
+export const PodcastEpisodeInfo: FunctionComponent<any> = ({
   data,
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
-
+  const { 
+    title,
+    field_new_sub_title_export,
+    field_podcast_sect_export,
+    field_announcer_name_export,
+    field_duration_export,
+    body_export } = data
+  const barVisibility = data.footerRight && data.footerLeft
   return (
     <View>
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <Label style={styles.titleTextStyle} children={data.secondaryTitle} />
-            <Image url={data.imageUrl} style={styles.imageStyle} />
+            <Label style={styles.titleTextStyle} children={title} />
+            <Image url={field_podcast_sect_export.img_podcast_mobile} style={styles.imageStyle} />
             <View style={styles.containerSpace} />
-            <Label style={styles.textStyle} children={data.title} />
-            <Label style={styles.announcerTextStyle} children={data.author} />
+            <Label style={styles.textStyle} children={field_new_sub_title_export} />
+            <Label style={styles.announcerTextStyle} children={field_announcer_name_export} />
             <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
              style={styles.buttonStyle}
              labelStyle={styles.buttonLabel}
@@ -44,12 +52,12 @@ export const PodcastEpisodeInfo: FunctionComponent<PodcastEpisodeInfoProps> = ({
               <Label style={styles.footerRightTextStyle} numberOfLines={1}>
                 {data.footerRight}
               </Label>
-              <Label color={colors.spanishGray}>|</Label>
+              {barVisibility &&<Label color={colors.spanishGray}>|</Label>}
               <Label style={styles.footerLeftTextStyle} numberOfLines={1}>
-                {data.footerLeft}
+                {field_duration_export}
               </Label>
             </View>
-            <Label style={styles.descriptionTextStyle} children={data.description} numberOfLines={3} />
+            <Label style={styles.descriptionTextStyle} children={decodeHTMLTags(body_export)} numberOfLines={3} />
           </View>
 
           <View style={styles.rowContainerStyle}>

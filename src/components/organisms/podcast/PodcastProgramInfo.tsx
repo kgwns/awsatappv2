@@ -1,31 +1,20 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Label, Image } from 'src/components/atoms/';
-import { PodcastVerticalListProps, PodCastMiniPlayer } from 'src/components/molecules/';
-import { PodcastEpisodeList } from 'src/components/organisms';
 import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { colors } from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
-
-export interface PodcastProgramInfoProps {
-  title: string;
-  announcer: string;
-  description: string;
-  imageUrl: string;
-  data: PodcastVerticalListProps[];
-}
+import {PodcastListItemType} from 'src/redux/podcast/types'
 
 interface PodcastProgramProps {
-  data: PodcastProgramInfoProps;
-  onPress?: (item: PodcastVerticalListProps) => void;
+  data: PodcastListItemType;
 }
 
 export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
   data,
-  onPress,
 }) => {
   const styles = useThemeAwareObject(createStyles);
 
@@ -34,13 +23,13 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <Image url={data.imageUrl} style={styles.imageStyle} />
+            <Image url={data.field_podcast_sect_export.img_podcast_mobile} style={styles.imageStyle} />
             <View style={styles.containerSpace} />
             <Label style={styles.textStyle} children={data.title} />
             <View style={styles.containerSpace} />
-            <Label style={styles.announcerTextStyle} children={data.announcer} />
+            <Label style={styles.announcerTextStyle} children={data.field_podcast_sect_export.name} />
             <View style={styles.containerSpace} />
-            <Label style={styles.descriptionTextStyle} children={data.description} />
+            <Label style={styles.descriptionTextStyle} children={data.body_export} />
             <View style={styles.containerSpace} />
           </View>
 
@@ -56,10 +45,9 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
             </View>
           </View>
           <View style={styles.containerSpace} />
-          <PodcastEpisodeList data={data.data} onItemActionPress={onPress} />
         </View>
       </View>
-      <PodCastMiniPlayer />
+      {/* <PodCastMiniPlayer /> */}
     </View>
   );
 };
@@ -67,21 +55,22 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
 const createStyles = (theme: CustomThemeType) =>
 StyleSheet.create({
   containerStyle: {
-    flex : 1,
     paddingHorizontal: normalize(20),
-    paddingVertical: normalize(25),
+    paddingTop: normalize(25),
   },
   centerContainer: {
     alignItems: 'center',
   },
   imageStyle: {
-    width: normalize(150),
-    height: normalize(100),
+    width: normalize(200),
+    height: normalize(150),
   },
   textStyle: {
     fontSize: normalize(14),
     fontWeight: 'bold',
     color: theme.primaryBlack,
+    textAlign:'center',
+    lineHeight: normalize(20)
   },
   announcerTextStyle: {
     fontSize: normalize(14),

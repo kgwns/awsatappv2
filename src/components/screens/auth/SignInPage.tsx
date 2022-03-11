@@ -2,7 +2,6 @@ import React, {FunctionComponent, useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
-import {colors} from '../../../shared/styles/colors';
 import {normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from '../../../components/organisms/';
@@ -12,11 +11,9 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
-import {SocialLoginButton, TextInputField} from '../../atoms';
-import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
-import {loginPasswordValidation} from 'src/shared/validators';
-import {useBookmark, useLogin, useRegister} from 'src/hooks';
+import {useBookmark, useLogin, useRegister, useUserProfileData} from 'src/hooks';
+import {emptyPasswordValidation} from 'src/shared/validators';
 import {FetchLoginPayloadType} from 'src/redux/login/types';
 import DeviceInfo from 'react-native-device-info';
 import { fetchLoginSuccess } from 'src/redux/login/action';
@@ -54,12 +51,14 @@ export const SignInPage = ({route}: SignInPageProps) => {
 
   const {fetchLoginRequest, isLoading, loginData, loginError} = useLogin();
   const { getBookmarkedId } = useBookmark()
+  const { fetchProfileDataRequest } = useUserProfileData();
 
   useEffect(() => {
     const message = loginData?.message;
     if (message) {
       if (message.code === 200) {
         getBookmarkedId()
+        fetchProfileDataRequest()
         navigation.reset({
           index: 0,
           routes: [{name: loginData.message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
@@ -99,9 +98,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
   };
 
   const onPressSignIn = () => {
-    setPasswordError(loginPasswordValidation(password));
-
-    console.log('deviceName', deviceName);
+    setPasswordError(emptyPasswordValidation(password));
 
     const payload: FetchLoginPayloadType = {
       email: email,
@@ -109,12 +106,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
       device_name: deviceName,
     };
 
-    if (loginPasswordValidation(password) === '') {
+    if (emptyPasswordValidation(password) === '') {
       fetchLoginRequest(payload);
-      // navigation.reset({
-      //   index: 0,
-      //   routes: [{name: ScreensConstants.OnBoardNavigator}],
-      // });
     }
   };
 

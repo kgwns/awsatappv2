@@ -12,9 +12,16 @@ import {ScreenContainer} from '..';
 import {useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
 import {Edge} from 'react-native-safe-area-context';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
+import { RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 
 export interface OpinionArticleDetailScreenProps {
   route: any;
+}
+
+export enum ArticleFontSize {
+  normal = normalize(16),
+  medium = normalize(18),
+  high = normalize(20)
 }
 
 export const OpinionArticleDetail = ({
@@ -22,7 +29,10 @@ export const OpinionArticleDetail = ({
 }: OpinionArticleDetailScreenProps) => {
   const style = useThemeAwareObject(customStyle);
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge);
-  const {isLoading, opinionArticleDetailData, fetchOpinionArticleDetail} =
+  const [fontSize,setFontSize] = useState<ArticleFontSize>(ArticleFontSize.normal)
+  const { isLoading, opinionArticleDetailData, fetchOpinionArticleDetail,
+    fetchRelatedOpinionData, relatedOpinionListData,
+    isLoadingRelatedOpinion, emptyRelatedOpinionData } =
     useOpinionArticleDetail();
 
 
@@ -32,12 +42,18 @@ export const OpinionArticleDetail = ({
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
   const { isLoggedIn } = useLogin()
 
+  const [page,setPage]=useState(0)
+  const relatedOpinionPayload: RelatedOpinionBodyGet = {
+    page: page,
+  };
+
   useEffect(() => {
     Orientation.unlockAllOrientations();
     Orientation.getDeviceOrientation(updateScreenEdge);
     Orientation.addDeviceOrientationListener(updateScreenEdge);
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
+      emptyRelatedOpinionData()
       Orientation.lockToPortrait();
       Orientation.removeOrientationListener(updateScreenEdge);
     };
@@ -49,6 +65,10 @@ export const OpinionArticleDetail = ({
       setIsBookmarked(isBookmarked)
     }
   }, [opinionArticleDetailData])
+
+  useEffect(() => {
+    fetchRelatedOpinionData(relatedOpinionPayload);
+  }, [page]);
 
   const validateBookmark = (nid: string): boolean => {
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
@@ -97,13 +117,38 @@ export const OpinionArticleDetail = ({
     setShowPopUp(false)
   }
 
+  const onPressRelatedOpinion = (nid: string) => {
+    nid && getOpinionDetail(nid)
+  }
+
+  const getOpinionDetail = (id: string) => {
+    fetchOpinionArticleDetail({ nid: parseInt(id) })
+  }
+
+  const gotoNextPage = () => {
+    setPage(page + 1);
+  };
+
+  const onPressFontSizeChange = () => {
+    let newFontSize = normalize(16)
+    if(fontSize === ArticleFontSize.normal) {
+      newFontSize = normalize(18)
+    } else if(fontSize === ArticleFontSize.medium) {
+      newFontSize = normalize(20)
+    }
+    setFontSize(newFontSize)
+  }
+
   const renderItem = () => (
     <View style={style.container}>
       {isNonEmptyArray(opinionArticleDetailData) && (
-        <OpinionArticleDetailWidget data={opinionArticleDetailData[0]} />
+        <OpinionArticleDetailWidget data={opinionArticleDetailData[0]} fontSize={fontSize}/>
       )}
-      {isNonEmptyArray(opinionArticleDetailData) && (
-        <RelatedOpinionArticlesWidget />
+      {isNonEmptyArray(relatedOpinionListData) && (
+        <RelatedOpinionArticlesWidget data={relatedOpinionListData}
+          onPress={onPressRelatedOpinion}
+          onScroll={() => gotoNextPage()}
+          isLoading={isLoadingRelatedOpinion} />
       )}
     </View>
   );
@@ -112,6 +157,7 @@ export const OpinionArticleDetail = ({
     <ScreenContainer edge={edge} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
+      {!isLoading && isNonEmptyArray(opinionArticleDetailData) && <>
       <FlatList
         style={style.flatList}
         data={[{}]}
@@ -120,15 +166,15 @@ export const OpinionArticleDetail = ({
         showsVerticalScrollIndicator={false}
         bounces={false}
       />
-      {isNonEmptyArray(opinionArticleDetailData) && (
         <View style={style.footer}>
           <OpinionArticleDetailFooter
             opinionArticleDetailData={opinionArticleDetailData[0]}
             isBookmarked={isBookmarked}
             onPressSave={() => onPressSave(opinionArticleDetailData[0].nid_export)}
+            onPressFontSizeChange={onPressFontSizeChange}
           />
         </View>
-      )}
+      </>}
     </ScreenContainer>
   );
 };

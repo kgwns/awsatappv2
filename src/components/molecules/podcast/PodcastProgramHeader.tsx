@@ -5,7 +5,7 @@ import {Image, Label, ButtonImage} from 'src/components/atoms';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
-import ShareIcon from 'src/assets/images/icons/share.svg';
+import ShareIcon from 'src/assets/images/icons/share_dark.svg';
 import {ImagesName} from 'src/shared/styles/images';
 import { normalize } from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';

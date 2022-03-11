@@ -4,7 +4,8 @@ import {
     FETCH_LOGIN_SUCCESS,
     FETCH_USER_LOGOUT,
     FETCH_USER_LOGOUT_SUCCESS,
-    LOGIN_SKIPPED
+    LOGIN_SKIPPED,
+    ONBOARDING_SUCCESS
   } from './actionTypes';
   
   export interface FieldLoginExportType {
@@ -81,6 +82,10 @@ import {
   export type LoginSkippedType = {
     type: typeof LOGIN_SKIPPED;
   }
+
+  export type OnboardingSuccessType = {
+    type: typeof ONBOARDING_SUCCESS;
+  }
   
   export type LoginActions =
     | FetchLoginType
@@ -88,4 +93,5 @@ import {
     | FetchLoginFailedType
     | UserLogoutType
     | UserLogoutSuccessType
-    | LoginSkippedType;
+    | LoginSkippedType
+    | OnboardingSuccessType;

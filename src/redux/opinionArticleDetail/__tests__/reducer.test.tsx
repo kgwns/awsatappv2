@@ -1,5 +1,5 @@
 import {opinionArticleDetailAction} from '../action';
-import {REQUEST_OPINION_ARTICLE_DETAIL} from '../actionTypes';
+import {REQUEST_OPINION_ARTICLE_DETAIL,REQUEST_RELATED_OPINION} from '../actionTypes';
 import opinionArticleDetail from '../reducer';
 import {OpinionArticleDetailState} from '../types';
 
@@ -8,9 +8,12 @@ describe('opinions reducer', () => {
 
   beforeEach(() => {
     initialState = {
-      isLoading: false,
-      opinionArticleDetailData: [],
+      isLoading: true,
       error: '',
+      opinionArticleDetailData: [],
+      isLoadingRelatedOpinion:true,
+      relatedOpinionError: '',
+      relatedOpinionListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
     };
   });
 
@@ -45,6 +48,28 @@ describe('opinions reducer', () => {
     const nextState = opinionArticleDetail(initialState, {
       type: REQUEST_OPINION_ARTICLE_DETAIL,
       payload: {nid: 123},
+    });
+    expect(nextState.isLoading).toBe(true);
+  });
+  
+  test('fetchRelatedOpinionFailed', () => {
+    const testError = '';
+    initialState.isLoading = true;
+    const nextState = opinionArticleDetail(
+      initialState,
+      opinionArticleDetailAction.fetchRelatedOpinionFailed({
+        error: testError,
+      }),
+    );
+
+    expect(nextState.isLoading).toBeTruthy;
+    expect(nextState.error).toEqual(testError);
+  });
+
+  test('Check loading state when fetchRelatedopinion request API', () => {
+    const nextState = opinionArticleDetail(initialState, {
+      type: REQUEST_RELATED_OPINION,
+      payload: {page: 0},
     });
     expect(nextState.isLoading).toBe(true);
   });

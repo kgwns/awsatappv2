@@ -23,6 +23,7 @@ export interface ImageProps extends Omit<RNEImageProps, 'source'> {
   backgroundColor?: ImageStyle['backgroundColor'];
   type?: 'round' | 'standard';
   fallback?: boolean;
+  fallbackContent?:any
 }
 
 export const Image: FunctionComponent<ImageProps> = ({
@@ -36,6 +37,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   placeholderStyle,
   url,
   fallback=false,
+  fallbackContent=<PlaceholderImage name={'placeholderImg'}/>,
   ...props
 }) => {
   const { theme } = useAppCommon()
@@ -68,7 +70,7 @@ export const Image: FunctionComponent<ImageProps> = ({
           placeholderStyleInternal,
           placeholderStyle,
         ])}
-        PlaceholderContent={fallback?<PlaceholderImage name={'placeholderImg'}/>:undefined}
+        PlaceholderContent={fallback?fallbackContent:undefined}
         {...props}
       />
     </>

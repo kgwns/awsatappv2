@@ -28,7 +28,7 @@ export const VideosVerticalList = ({
       <View style={style.cardContainer}>
         <View style={style.headerStyle}>
           <View style={style.imageContainer}>
-            <Image url={imageUrl} style={style.imageStyle} />
+            <Image fallback url={imageUrl} style={style.imageStyle} />
             {time&&<Label style={style.timeStyle} numberOfLines={1}>
               {time}
             </Label>}

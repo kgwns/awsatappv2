@@ -9,12 +9,10 @@ export interface BannerImageWithOverlayProps {
 
 export const BannerImageWithOverlay = ({
     image
-}: BannerImageWithOverlayProps) => {
-    console.log(image,'Image :::::');
-    
+}: BannerImageWithOverlayProps) => {  
     return (
         <View>
-            <Image url={image} style={bannerImageWithOverlayStyle.image}
+            <Image fallback url={image} style={bannerImageWithOverlayStyle.image}
                 resizeMode={ImageResize.COVER}
             />
             <Overlay />

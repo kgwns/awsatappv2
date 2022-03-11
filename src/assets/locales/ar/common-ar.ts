@@ -14,6 +14,7 @@ export const arabic = {
     aboutTheEast: 'عن الشرق',
     callUs: 'اتصل بنا',
     myPersonalAccount: 'حسابي الشخصي',
+    termsOfUse: 'شروط الانتفاع'
   },
   onBoard: {
     common: {
@@ -137,7 +138,7 @@ export const arabic = {
     loginFacebook: 'الدخول بحساب الفيسبوك',
     loginGoogle: 'الدخول بحساب جوجل',
     loginApple: 'الدخول بحساب ابل',
-    termsAndConditions: 'الدخول بحساب ابل',
+    termsAndConditions: 'القواعد والشروط',
     agreeTo: 'عن طريق تسجيل الدخول تكون قد وافقت على',
     rights: 'لاستخدام التطبيق و باق حقوق تلكه و الواقعة للبراجراف',
     loginAccount: 'الدخول لحسابك',
@@ -161,6 +162,7 @@ export const arabic = {
   return: 'الرجوع',
   searchScreen: {
     placeholder: 'ابحث في الشرق الأوسط …',
+    notFound: 'لم يتم العثور على نتائج عن البحث',
   },
   signUp: {
     createAccount: 'إنشاء حساب',

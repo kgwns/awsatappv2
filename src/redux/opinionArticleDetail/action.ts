@@ -2,6 +2,10 @@ import {
   REQUEST_OPINION_ARTICLE_DETAIL,
   REQUEST_OPINION_ARTICLE_DETAIL_SUCCESS,
   REQUEST_OPINION_ARTICLE_DETAIL_FAILED,
+  REQUEST_RELATED_OPINION,
+  REQUEST_RELATED_OPINION_SUCCESS,
+  REQUEST_RELATED_OPINION_FAILED,
+  EMPTY_RELATED_OPINION_DATA,
 } from './actionTypes';
 import {
   OpinionArticleDetailBodyGet,
@@ -9,7 +13,12 @@ import {
   OpinionArticleDetailFailedType,
   OpinionArticleDetailSuccessPayload,
   OpinionArticleDetailSuccessType,
+  RelatedOpinionBodyGet,
   RequestOpinionArticleDetailType,
+  FetchRelatedOpinionSuccessType,
+  FetchRelatedOpinionFailedType,
+  FetchRelatedOpinionFailedPayloadtype,
+  FetchRelatedOpinionSuccessPayloadType
 } from './types';
 
 export const requestOpinionArticleDetail = (
@@ -39,8 +48,43 @@ export const requestOpinionArticleDetailFailed = (
   };
 };
 
+export const fetchRelatedOpinion = (payload: RelatedOpinionBodyGet) => {
+  return {
+    type: REQUEST_RELATED_OPINION,
+    payload,
+  };
+};
+
+export const fetchRelatedOpinionSuccess = (
+  payload: FetchRelatedOpinionSuccessPayloadType,
+): FetchRelatedOpinionSuccessType => {
+  return {
+    type: REQUEST_RELATED_OPINION_SUCCESS,
+    payload,
+  };
+};
+
+export const fetchRelatedOpinionFailed = (
+  payload: FetchRelatedOpinionFailedPayloadtype,
+): FetchRelatedOpinionFailedType => {
+  return {
+    type: REQUEST_RELATED_OPINION_FAILED,
+    payload,
+  };
+};
+
+export const emptyRelatedOpinionDataList = () => {
+  return {
+    type: EMPTY_RELATED_OPINION_DATA,
+  };
+};
+
 export const opinionArticleDetailAction = {
   requestOpinionArticleDetail,
   requestOpinionArticleDetailSuccess,
   requestOpinionArticleDetailFailed,
+  fetchRelatedOpinion,
+  fetchRelatedOpinionSuccess,
+  fetchRelatedOpinionFailed,
+  emptyRelatedOpinionDataList,
 };

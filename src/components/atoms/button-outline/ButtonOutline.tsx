@@ -67,7 +67,7 @@ export const ButtonOutline: FunctionComponent<ButtonOutlineProps> = ({
     onPress={onPress}
     style={[container, style]}
   >
-    <View style={[labelContainer, style]}>
+    <View style={[labelContainer]}>
       {rightIcon && rightIcon()}
       <Label color={color} style={[textStyle, labelStyle]} labelType={titleType}>
         {title}

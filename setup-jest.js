@@ -86,3 +86,4 @@ jest.mock('react-native-image-crop-picker', () => {
 
 jest.spyOn(LoginManager, 'logInWithPermissions').mockImplementation(() => Promise.resolve({ isCancelled: false }))
 
+jest.mock("react-native-video", () => "Video");

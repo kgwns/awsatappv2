@@ -1,50 +1,158 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label, NextButton} from 'src/components/atoms';
-import {horizontalEdge, isTab, normalize} from 'src/shared/utils';
-import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
-import {useTranslation} from 'react-i18next';
-import {ScreensConstants} from 'src/constants';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {ScreenContainer} from '..';
-import {ScreenHeight} from 'react-native-elements/dist/helpers';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { Label, NextButton } from 'src/components/atoms';
+import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize } from 'src/shared/utils';
+import KeepNotifiedWidget, { KeepNotifiedDataProps } from 'src/components/organisms/KeepNotifiedWidget';
+import { useTranslation } from 'react-i18next';
+import { ScreensConstants } from 'src/constants';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { ScreenContainer } from '..';
+import { ScreenHeight } from 'react-native-elements/dist/helpers';
+import { useKeepNotified } from 'src/hooks';
 
-export const KeepNotifiedScreen = ({navigation,route}: any) => {
+const data = [
+  {
+    nid: 1,
+    label: 'أخبار عاجلة',
+    selected: false
+  },
+  {
+    nid: 2,
+    label: 'إحاطة الصباح',
+    selected: false,
+  },
+  {
+    nid: 3,
+    label: 'أهم الأخبار',
+    selected: false,
+  },
+  {
+    nid: 4,
+    label: 'أخبار فيروس كورونا',
+    selected: false,
+  },
+  {
+    nid: 5,
+    label: 'إحاطة الصباح',
+    selected: false,
+  },
+  {
+    nid: 6,
+    label: 'أخبار عاجلة',
+    selected: false,
+  }
+]
+
+export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
 
+  const { params } = route
+
+  const [notificationDate, setNotificationData] = useState(data)
+  const [disableNext, setDisableNext] = useState<boolean>(true)
+
+  const {
+    sendSelectedInfoRequest, sendSelectedNotificationInfo,
+    getSelectedInfoRequest, selectedNotificationInfo,
+    removeSelectedNotificationInfo,isLoading
+  } = useKeepNotified()
+
+  useEffect(() => {
+    getSelectedInfoRequest()
+  }, [])
+
+  useEffect(() => {
+    updateNextButtonActive()
+
+    return () => {
+      removeSelectedNotificationInfo()
+    }
+  }, [notificationDate])
+
+  useEffect(() => {
+    if (sendSelectedNotificationInfo?.message?.code === 200) {
+      gotoNext()
+    } else if (isObjectNonEmpty(sendSelectedNotificationInfo.message?.message)) {
+      CustomAlert({
+        title: '',
+        message: sendSelectedNotificationInfo?.message?.message || ''
+      })
+    }
+  }, [sendSelectedNotificationInfo.message]);
+
+  useEffect(() => {
+    populateSelectedFields()
+  }, [selectedNotificationInfo.data]);
+
+  const populateSelectedFields = () => {
+    if (selectedNotificationInfo?.code == 200) {
+      const selectedData = selectedNotificationInfo.data ?? []
+      if (isNonEmptyArray(selectedData)) {
+        let allData = [...data]
+        const newData = allData.map((item: KeepNotifiedDataProps) => ({
+          ...item,
+          selected: selectedData.includes(item.nid)
+        }))
+        setNotificationData(newData)
+      }
+    }
+  }
+
   const onPressNext = () => {
-    if (route.params && route.params.canGoBack) {
+    const selectedData = getSelectedData()
+    if (isNonEmptyArray(selectedData)) {
+      const selectedData = getSelectedData()
+      sendSelectedInfoRequest({ nid: joinArray(selectedData) })
+    }
+  }
+
+  const gotoNext = () => {
+    if (params && params.canGoBack) {
       navigation.goBack()
     } else {
       navigation.navigate(ScreensConstants.SUCCESS_SCREEN)
     }
   }
 
+  const changeStatus = (index: number) => {
+    const data = [...notificationDate]
+    data[index].selected = !data[index].selected
+    setNotificationData(data)
+  };
+
+  const updateNextButtonActive = () => {
+    const selectedNotificationData = getSelectedData()
+    const disableNext = isNonEmptyArray(selectedNotificationData) ? false : true
+    setDisableNext(disableNext)
+  }
+
+  const getSelectedData = () => {
+    return notificationDate.reduce((prevValue: number[], item: KeepNotifiedDataProps) => {
+      if (item.selected) {
+        return prevValue.concat(item.nid)
+      }
+      return prevValue
+    }, [])
+  }
+
   return (
-    <ScreenContainer edge={horizontalEdge}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
-        <View
-          style={[
-            style.textContainer,
-            {justifyContent: isTab ? 'center' : 'flex-end'},
-          ]}>
-          <Label style={style.titleStyle}>
-            {t('onBoard.keepNotified.title')}
-          </Label>
-          <Label style={style.descStyle}>
-            {t('onBoard.keepNotified.description')}
-          </Label>
+        <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' },]}>
+          <Label style={style.titleStyle} children={t('onBoard.keepNotified.title')} />
+          <Label style={style.descStyle} children={t('onBoard.keepNotified.description')} />
         </View>
         <View style={style.contentStyle}>
-          <KeepNotifiedWidget />
+          <KeepNotifiedWidget data={notificationDate} onPress={changeStatus} />
         </View>
         <View style={style.nextButtonView}>
           <NextButton
             testID="nextButtonTestId"
             title={t('onBoard.common.completed')}
             icon={false}
+            disabled={disableNext}
             onPress={onPressNext}
             style={style}
           />
@@ -54,8 +162,8 @@ export const KeepNotifiedScreen = ({navigation,route}: any) => {
   );
 };
 
-const customStyle = (theme: CustomThemeType) => {
-  const KeepNotifiedScreenStyle = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => (
+  StyleSheet.create({
     container: {
       flex: 1,
       width: '100%',
@@ -101,7 +209,10 @@ const customStyle = (theme: CustomThemeType) => {
       alignSelf: 'center',
       borderRadius: normalize(25),
     },
-    nextButtonIconContainer: {position: 'absolute', left: normalize(20)},
+    nextButtonIconContainer: {
+      position: 'absolute',
+      left: normalize(20)
+    },
     nextButtonText: {
       color: 'white',
       textAlign: 'center',
@@ -110,6 +221,5 @@ const customStyle = (theme: CustomThemeType) => {
       fontWeight: 'bold',
       lineHeight: normalize(20),
     },
-  });
-  return KeepNotifiedScreenStyle;
-};
+  })
+)

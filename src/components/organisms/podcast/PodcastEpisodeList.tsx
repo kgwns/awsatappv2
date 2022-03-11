@@ -10,7 +10,7 @@ import ArrowUpDown from 'src/assets/images/icons/arrow_up_down.svg';
 import { colors } from 'src/shared/styles/colors';
  
 export interface PodcastEpisodeListProps {
-  onItemActionPress?: (item: PodcastVerticalListProps) => void;
+  onItemActionPress?: (item: any) => void;
   data: PodcastVerticalListProps[];
 }
 
@@ -25,31 +25,31 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
 
-  const handleOnItemPressAction = (item: PodcastVerticalListProps) => {
+  const handleOnItemPressAction = (item: any) => {
     if (onItemActionPress) {
       onItemActionPress(item);
     }
   };
 
-  const renderItem: ListRenderItem<PodcastVerticalListProps> = ({item,index}) => {
+  const renderItem: ListRenderItem<any> = ({item,index}) => {
     return (
       <PodcastVerticalList
-        id={item?.id}
-        secondaryTitle={item?.secondaryTitle}
-        author={item?.author}
-        imageUrl={item?.imageUrl}
+        id={item?.nid}
+        secondaryTitle={item?.type}
+        author={item?.field_announcer_name_export}
+        imageUrl={item?.field_podcast_sect_export.img_podcast_mobile}
         title={item?.title}
-        description={item?.description}
-        footerLeft={item?.footerLeft}
+        description={item?.body_export}
+        footerLeft={item?.field_duration_export_1}
         footerRight={item?.footerRight}
         testID={`podcastepisode_${index}`}
-        itemOnPress={()=>handleOnItemPressAction(item)}
+        itemOnPress={() => handleOnItemPressAction(item)}
       />
     );
   };
 
   return (
-    <View style={styles.containerStyle}>
+    <View style={{ marginHorizontal: normalize(20) }}>
       <View style={styles.rowStyle} >
         <View style={styles.headerLeftStyle}>
           <Label style={styles.textStyle} children={t('podcastProgram.episodes')} />
@@ -58,15 +58,17 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
           <ArrowUpDown />
         </View>
       </View>
-      <FlatList
-        testID={'episodeListTestId'}
-        data={data}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={keyExtractor}
-        renderItem={renderItem}
-        bounces={false}
-        ItemSeparatorComponent={()=><View style={styles.dividerStyle} />}
-      />
+      <View style={styles.containerStyle}>
+        <FlatList
+          testID={'episodeListTestId'}
+          data={data}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
+          bounces={false}
+          ItemSeparatorComponent={() => <View style={styles.dividerStyle} />}
+        />
+      </View>
     </View>
   );
 };
@@ -74,11 +76,14 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
 const createStyles = (theme: CustomThemeType) =>
 StyleSheet.create({
   containerStyle: {
-    flex : 1,
+    paddingTop: normalize(10),
+    borderTopStartRadius: 16,
+    borderTopEndRadius: 16,
+    backgroundColor: theme.podcastEpisodeCardColor
   },
   rowStyle: {
     flexDirection: 'row',
-    paddingVertical: normalize(15),
+    paddingBottom: normalize(15),
   },
   headerLeftStyle: {
     flex: 1,

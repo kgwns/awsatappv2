@@ -133,6 +133,9 @@ export const storeInfo = [
       isLoading: true,
       error: '',
       opinionArticleDetailData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+      isLoadingRelatedOpinion:true,
+      relatedOpinionError: '',
+      relatedOpinionListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
     },
     bookmark:{
       isLoading: true,
@@ -149,7 +152,21 @@ export const storeInfo = [
       isLoading: false,
       sendNewsLettersInfo: {},
       selectedNewsLettersData: {},
-    }
+    },
+    keepNotified: {
+      isLoading: true,
+      sendSelectedError: '',
+      sendSelectedNotificationInfo: {},
+      getSelectedNotificationInfo: {},
+      getSelectedError: ''
+    },
+    podcast:{
+      podcastListData: [],
+      podcastEpisodeData: [],
+      error: '',
+      isLoading: true,
+      selectedNewsLettersData: {}
+    },
   },
 ];
 
@@ -874,7 +891,7 @@ export const storyWidgetData: StoryListProps[] = [
   },
   {
     id: '8',
-    data: [storyWidgetDataInfo],
+    data: storyWidgetItemData,
   },
 ];
 
@@ -906,36 +923,90 @@ const newsFeedInfo: NewsFeedProps = {
 
 export const newsFeedData: NewsFeedProps[] = Array(4).fill(newsFeedInfo)
 
-export const PodcastEpisodeData: PodcastVerticalListProps[] = [
+export const PodcastEpisodeData: any = [
   {
-    id: '1',
-    imageUrl: 'https://picsum.photos/200',
-    title: '65 : عنوان الحلقه يوضع هنا',
-    description: 'استعاد فريق الاتفاق نقمة انتصاراته وحقق فوزا ثمينا خارج أرضه اسلام نظيره فريق الحرم بثلاثة أهداف دون رد ضمن منافسات',
-    footerLeft: '45 دقيقه',
-    footerRight: 'الخسيس',
-    secondaryTitle: 'عنوان لبرنامج البودكاست',
-    author: 'مع اسم المذبع',
+    nid: "29",
+    type: "podcast",
+    view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
+    field_new_sub_title_export: null,
+    title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",
+    field_duration_export: null,
+    field_episode_export: null,
+    field_google_podcast_export: null,
+    field_podcast_image_export: null,
+    field_podcast_sect_export: {
+      id: "94842",
+      title: "صباح الخير",
+      url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842",
+      bundle: "podcast_section",
+      description: "<p class=\"text-align-right\">Breifing</p>\n",
+      img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
+      img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
+      name: "صباح الخير"
+    },
+    field_spotify_export: null,
+    field_spreaker_episode_export: null,
+    field_spreaker_show_export: null,
+    field_announcer_name_export: null,
+    field_apple_podcast_export: null,
+    body_export: null
+  },
+];
+
+export const PodcastListData: any = [
+  {
+    nid: "29",
+    type: "podcast",
+    view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
+    field_new_sub_title_export: null,
+    title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",
+    field_duration_export: null,
+    field_episode_export: null,
+    field_google_podcast_export: null,
+    field_podcast_image_export: null,
+    field_podcast_sect_export: {
+      id: "94842",
+      title: "صباح الخير",
+      url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842",
+      bundle: "podcast_section",
+      description: "<p class=\"text-align-right\">Breifing</p>\n",
+      img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
+      img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
+      name: "صباح الخير"
+    },
+    field_spotify_export: null,
+    field_spreaker_episode_export: null,
+    field_spreaker_show_export: null,
+    field_announcer_name_export: null,
+    field_apple_podcast_export: null,
+    body_export: null
   },
   {
-    id: '2',
-    imageUrl: 'https://picsum.photos/200',
-    title: '64 : عنوان الحلقه يوضع هنا',
-    description: 'استعاد فريق الاتفاق نقمة انتصاراته وحقق فوزا ثمينا خارج أرضه اسلام نظيره فريق الحرم بثلاثة أهداف دون رد ضمن منافسات',
-    footerLeft: '45 دقيقه',
-    footerRight: 'الخسيس',
-    secondaryTitle: 'عنوان لبرنامج البودكاست',
-    author: 'مع اسم المذبع',
-  },
-  {
-    id: '3',
-    imageUrl: 'https://picsum.photos/200',
-    title: '66 : عنوان الحلقه يوضع هنا',
-    description: 'استعاد فريق الاتفاق نقمة انتصاراته وحقق فوزا ثمينا خارج أرضه اسلام نظيره فريق الحرم بثلاثة أهداف دون رد ضمن منافسات',
-    footerLeft: '45 دقيقه',
-    footerRight: 'الخسيس',
-    secondaryTitle: 'عنوان لبرنامج البودكاست',
-    author: 'مع اسم المذبع',
+    nid: "111",
+    type: "podcast",
+    view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
+    field_new_sub_title_export: null,
+    title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",
+    field_duration_export: null,
+    field_episode_export: null,
+    field_google_podcast_export: null,
+    field_podcast_image_export: null,
+    field_podcast_sect_export: {
+      id: "94842",
+      title: "صباح الخير",
+      url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842",
+      bundle: "podcast_section",
+      description: "<p class=\"text-align-right\">Breifing</p>\n",
+      img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
+      img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
+      name: "صباح الخير"
+    },
+    field_spotify_export: null,
+    field_spreaker_episode_export: null,
+    field_spreaker_show_export: null,
+    field_announcer_name_export: null,
+    field_apple_podcast_export: null,
+    body_export: null
   },
 ];
 

@@ -37,7 +37,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <Image url={imageLink} style={styles.imageStyle} />
+            <Image fallback url={imageLink} style={styles.imageStyle} />
             <View style={styles.containerSpace} />
             <ButtonOutline title={t('videoDetail.employement')}
              style={styles.buttonStyle}

@@ -55,10 +55,12 @@ export const UserDetailScreen: FunctionComponent = () => {
   const currentDate = new Date();
   const {changePasswordInfo,emptyPasswordResponseInfo,changePasswordData} = useNewPassword()
   const {loginData} = useLogin();
+  
   useEffect(() => {
     fetchProfileDataRequest();
     emptyPasswordResponseInfo();
     return()=>{
+      fetchProfileDataRequest()
       emptyPasswordResponseInfo()
     }
   }, []);

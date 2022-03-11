@@ -8,6 +8,7 @@ import {
     UserLogoutType,
     UserLogoutSuccessType,
     LoginSkippedType,
+    OnboardingSuccessType
   } from './types';
   import {
     FETCH_LOGIN,
@@ -15,7 +16,8 @@ import {
     FETCH_LOGIN_ERROR,
     FETCH_USER_LOGOUT,
     FETCH_USER_LOGOUT_SUCCESS,
-    LOGIN_SKIPPED
+    LOGIN_SKIPPED,
+    ONBOARDING_SUCCESS
   } from './actionTypes';
   
   export const fetchLogin = (payload: FetchLoginPayloadType) => {
@@ -58,6 +60,12 @@ import {
   export const userLoginSkipped = () : LoginSkippedType => {
     return {
       type: LOGIN_SKIPPED,
+    }
+  }
+
+  export const onBoardingSuccess = () : OnboardingSuccessType => {
+    return {
+      type: ONBOARDING_SUCCESS,
     }
   }
   
