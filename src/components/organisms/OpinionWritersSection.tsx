@@ -37,9 +37,9 @@ const OpinionWritersSection = ({data}: OpinionWritersWidgetProps) => {
                 size={normalize(54)}
                 type="round"
                 resizeMode="cover"
-                backgroundColor={Styles.color.cyanGreen}
                 fallback={true}
                 fallbackContent={<AuthorDefault
+                style={{backgroundColor:Styles.color.cyanGreen}}
                 width={normalize(54)} 
                 height={normalize(54)}/>}
               />

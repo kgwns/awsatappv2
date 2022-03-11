@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, AppState } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
 import { normalize } from '../../../shared/utils';
 import { Label } from '../../atoms';
@@ -23,6 +23,20 @@ export const ForgotPassword: FunctionComponent = () => {
   const { themeData } = useTheme();
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
+  const appState = useRef(AppState.currentState);
+  const [animationRef,setAnimationRef] = useState<LottieView>()
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", nextAppState => {
+      if (appState.current.match(/inactive|background/) && nextAppState === "active") {
+        if (animationRef) {
+          animationRef?.resume();
+        }
+      }
+      appState.current = nextAppState;
+    });
+    return () => { subscription.remove(); };
+  }, [animationRef]);
 
   const navigateToSection = (type: string) => {
     switch (type) {
@@ -65,7 +79,9 @@ export const ForgotPassword: FunctionComponent = () => {
         </View>
         <View style={styles.containerStyle}>
           <View style={styles.topContainerStyle}>
-            <LottieView source={MailAnimation} autoPlay style={styles.tickContainer} />
+            <LottieView source={MailAnimation} autoPlay style={styles.tickContainer} 
+            ref={ref=>setAnimationRef(ref)}
+            />
             <Label
               children={t('ForgotPassword.checkYourMail')}
               style={styles.checkMailTextStyle}
