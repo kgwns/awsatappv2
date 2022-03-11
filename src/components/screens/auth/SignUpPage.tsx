@@ -1,5 +1,5 @@
 import React, {useState,useEffect,useRef} from 'react';
-import {useNavigation, StackActions} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
@@ -18,9 +18,9 @@ import {loginPasswordValidation, reTypePasswordValidation} from 'src/shared/vali
 import {useRegister, useUserProfileData} from 'src/hooks';
 import {RegisterBodyType} from 'src/redux/register/types';
 import DeviceInfo from 'react-native-device-info';
-import { normal } from 'react-native-color-matrix-image-filters';
 import { fetchLoginSuccess } from 'src/redux/login/action';
 import { useDispatch } from 'react-redux';
+import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 
 export interface SignUpPageProps {
   route: any
@@ -55,6 +55,7 @@ export const SignUpPage = ({
       if (message.code === 200) {
         dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
         fetchProfileDataRequest()
+        AdjustAnalyticsManager._onPress_trackSimpleEvent(AdjustEventID.REGISTRATION)
         navigation.reset({
           index: 0,
           routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],

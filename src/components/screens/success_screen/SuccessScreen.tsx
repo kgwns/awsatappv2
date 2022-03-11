@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
@@ -15,12 +15,17 @@ import TickAnimation from '../../../assets/lottie-animation/tick.json';
 import {ScreensConstants} from 'src/constants';
 import { useDispatch } from 'react-redux';
 import { onBoardingSuccess } from 'src/redux/login/action';
+import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 
 export const SuccessScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    AdjustAnalyticsManager._onPress_trackSimpleEvent(AdjustEventID.LOGIN)
+  }, [])
 
   return (
     <ScreenContainer>

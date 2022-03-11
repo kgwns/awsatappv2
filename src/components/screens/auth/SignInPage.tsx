@@ -1,8 +1,7 @@
-import React, {FunctionComponent, useState, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
-import {colors} from '../../../shared/styles/colors';
 import {normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from '../../../components/organisms/';
@@ -12,8 +11,6 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
-import {SocialLoginButton, TextInputField} from '../../atoms';
-import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {loginPasswordValidation} from 'src/shared/validators';
 import {useBookmark, useLogin, useRegister, useUserProfileData} from 'src/hooks';
@@ -21,6 +18,7 @@ import {FetchLoginPayloadType} from 'src/redux/login/types';
 import DeviceInfo from 'react-native-device-info';
 import { fetchLoginSuccess } from 'src/redux/login/action';
 import { useDispatch } from 'react-redux';
+import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 
 export enum SocialNavigate {
   google = 'GOOGLE',
@@ -61,6 +59,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     if (message) {
       if (message.code === 200) {
         getBookmarkedId()
+        AdjustAnalyticsManager._onPress_trackSimpleEvent(AdjustEventID.LOGIN)
         fetchProfileDataRequest()
         navigation.reset({
           index: 0,

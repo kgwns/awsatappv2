@@ -9,6 +9,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import Share from 'react-native-share'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
+import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 
 export const ArticleDetailFooter = ({
     articleDetailData,
@@ -37,6 +38,7 @@ export const ArticleDetailFooter = ({
             failOnCancel: true,
             subject: title
         }).then(response => {
+            AdjustAnalyticsManager._onPress_trackSimpleEvent(AdjustEventID.SHARE_ARTICLE)
             console.log('Shared successfully :::', response)
         }).catch((error) => {
             console.log('Cancelled share request :::', error)

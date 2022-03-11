@@ -38,6 +38,8 @@
     "react": "17.0.2",
     "react-i18next": "^11.14.3",
     "react-native": "0.66.1",
+    "react-native-adjust": "^4.29.6",
+    "react-native-adjust-oaid": "^4.29.6",
     "react-native-color-matrix-image-filters": "^5.2.10",
     "react-native-date-picker": "^4.2.0",
     "react-native-device-info": "^8.4.8",
