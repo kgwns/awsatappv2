@@ -51,7 +51,8 @@ export interface PodcastListItemType {
     text: string
   } | null,
   field_spreaker_episode_export: string | null,
-  field_spreaker_show_export: string | null
+  field_spreaker_show_export: string | null,
+  isBookmarked: boolean
 }
 
 export interface PodcastEpisodeItemType extends PodcastListItemType{
