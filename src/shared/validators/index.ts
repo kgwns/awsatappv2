@@ -29,6 +29,13 @@ export const loginPasswordValidation = (password: string): string => {
   return '';
 };
 
+export const emptyPasswordValidation = (password: string): string => { 
+  if (password === '') {
+    return i18next.t('validation.passwordEmpty');
+  }
+  return '';
+}
+
 export const reTypePasswordValidation = (
   password: string,
   reTypePassword: string,
