@@ -87,3 +87,42 @@ jest.mock('react-native-image-crop-picker', () => {
 jest.spyOn(LoginManager, 'logInWithPermissions').mockImplementation(() => Promise.resolve({ isCancelled: false }))
 
 jest.mock("react-native-video", () => "Video");
+
+jest.mock('react-native-adjust', () => {
+  const actualNav = jest.requireActual('react-native-adjust');
+  return {
+    ...actualNav,
+    AdjustEvent: jest.fn().mockImplementation(() => jest.fn()),
+    AdjustConfig: () => ({
+      setLogLevel: jest.fn(),
+      setDelayStart: jest.fn(),
+      setNeedsCost: jest.fn(),
+      setAttributionCallbackListener: jest.fn(),
+      setEventTrackingSucceededCallbackListener: jest.fn(),
+      setEventTrackingFailedCallbackListener: jest.fn(),
+      setSessionTrackingSucceededCallbackListener: jest.fn(),
+      setSessionTrackingFailedCallbackListener: jest.fn(),
+    }),
+    Adjust: ({
+      getSdkVersion: jest.fn().mockReturnValue(() => {}),
+      requestTrackingAuthorizationWithCompletionHandler: jest.fn(),
+      create: jest.fn(),
+      trackEvent: jest.fn(),
+      updateConversionValue: jest.fn(),
+      getAppTrackingAuthorizationStatus: jest.fn(),
+      getAdid: jest.fn(),
+      getIdfa: jest.fn(),
+      getGoogleAdId: jest.fn(),
+      getAmazonAdId: jest.fn(),
+      getAttribution: jest.fn()
+    }),
+  };
+});
+
+jest.mock('react-native-adjust-oaid', () => {
+  const actualNav = jest.requireActual('react-native-adjust-oaid');
+  return {
+    ...actualNav,
+    AdjustOaid: jest.fn().mockImplementation(() => jest.fn())
+  };
+});

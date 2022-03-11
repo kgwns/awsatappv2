@@ -12,6 +12,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {  ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
+import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 
 
 export const SearchScreen = () => {
@@ -22,6 +23,7 @@ export const SearchScreen = () => {
   const {fetchSearchRequest,isLoading,searchData} = useSearch();
   const onPressItem = (item:SearchItemType)=>{
     if (item.nid) {
+      AdjustAnalyticsManager.trackEvent(AdjustEventID.SEARCH)
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: item.nid})
     }
   }
