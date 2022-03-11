@@ -21,6 +21,7 @@ import topMenu from 'src/redux/topMenu/reducer';
 import opinionArticleDetail from 'src/redux/opinionArticleDetail/reducer';
 import bookmark from 'src/redux/bookmark/reducer';
 import userDetails from 'src/redux/profileUserDetail/reducer';
+import changePassword from 'src/redux/changePassword/reducer';
 import newsLetters from 'src/redux/newsLetter/reducer';
 import keepNotified from 'src/redux/keepNotified/reducer';
 import podcastReducer from 'src/redux/podcast/reducer';
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
   opinionArticleDetail: opinionArticleDetail,
   bookmark: bookmark,
   userDetails: userDetails,
+  changePassword: changePassword,
   newsLetters: newsLetters,
   keepNotified: keepNotified,
   podcast: podcastReducer,

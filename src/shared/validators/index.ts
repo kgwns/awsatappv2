@@ -55,3 +55,12 @@ export const reTypePasswordValidation = (
   return '';
 };
 
+export const oldPasswordValidation = (
+  password: string,
+): string => {
+  if (password === '') {
+    return i18next.t('validation.passwordEmpty');
+  }
+  return '';
+};
+
