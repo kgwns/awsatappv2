@@ -109,7 +109,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           <Divider />
           <ButtonList
             title={t('drawer.advertiseWithUs')}
-            onPress={() => {}}
+            onPress={() => console.log('clicked')}
             titleStyle={styles.nonBoldTitle}
           />
           <ButtonList
