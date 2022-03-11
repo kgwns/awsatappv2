@@ -15,6 +15,7 @@ import { ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { Styles } from 'src/shared/styles';
 
 const tickerAndHeroPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -271,6 +272,7 @@ export const LatestNewsScreen = () => {
 
   const renderItem = () => (
     <View>
+      <Divider style={latestNewsScreenStyle.dividerTop}/>
       <CarouselSlider tickerData={ticker} heroData={heroInfo}
         onUpdateHeroBookmark={updatedHeroBookmark}
       />
@@ -360,5 +362,10 @@ const latestNewsScreenStyle = StyleSheet.create({
   },
   tabWidgetContainer: {
     flex: 0.5
+  },
+  dividerTop:{
+    borderColor:Styles.color.gableGreen,
+    borderBottomWidth:1,
+    opacity:0.15
   }
 })
