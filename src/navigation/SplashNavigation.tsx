@@ -4,7 +4,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { useDispatch } from 'react-redux'
 import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'
 import { Theme } from 'src/redux/appCommon/types'
-import { useAppCommon, useBookmark, useLogin } from 'src/hooks'
+import { useAppCommon, useBookmark, useLogin, useUserProfileData } from 'src/hooks'
 import { isDarkTheme } from '../shared/utils'
 import AppStackContainer from './AppStackContainer'
 
@@ -16,6 +16,7 @@ const SplashNavigation = () => {
 
     const { getBookmarkedId } = useBookmark()
     const { isLoggedIn } = useLogin()
+    const { fetchProfileDataRequest } = useUserProfileData();
 
     const { isFirstSession } = useAppCommon()
     useEffect(() => {
@@ -26,6 +27,7 @@ const SplashNavigation = () => {
     useEffect(() => {
         if (isLoggedIn) {
             getBookmarkedId()
+            fetchProfileDataRequest()
         }
     }, [])
 
