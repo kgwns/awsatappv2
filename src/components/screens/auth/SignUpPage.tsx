@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {normalize} from '../../../shared/utils';
+import {normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {ScreensConstants} from 'src/constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
@@ -53,6 +53,7 @@ export const SignUpPage = ({
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
+        recordLogEvent('Completed_Registration');
         dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
         fetchProfileDataRequest()
         AdjustAnalyticsManager.trackEvent(AdjustEventID.REGISTRATION)
@@ -64,14 +65,6 @@ export const SignUpPage = ({
         Alert.alert(message.message);
       }
     }
-
-    // if (initialRender.current) {
-    //   initialRender.current = false;
-    // } else {
-    //   if (registerUserInfo!==null&&registerUserInfo.user!==null) {
-    //     navigation.dispatch(StackActions.replace(ScreensConstants.SignInPage,{email:email}))
-    //   }
-    // }
   }, [registerUserInfo]);
 
   const getDeviceName = async () => {

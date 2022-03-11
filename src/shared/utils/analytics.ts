@@ -1,5 +1,4 @@
 import analytics from '@react-native-firebase/analytics';
-const Analytics = analytics();
 
 export const recordCurrentScreen = async (screenName: string) => {
   await analytics().logScreenView({
@@ -8,6 +7,6 @@ export const recordCurrentScreen = async (screenName: string) => {
   });
 };
 
-export const recordLogEvent = async (name: string, {...params}) => {
+export const recordLogEvent = async (name: string, params?: { [key: string]: any }) => {
   await analytics().logEvent(name, params);
 };

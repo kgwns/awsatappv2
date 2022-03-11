@@ -2,7 +2,7 @@ import React, {FunctionComponent, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
-import {normalize} from '../../../shared/utils';
+import {normalize, recordLogEvent} from '../../../shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
@@ -54,6 +54,7 @@ export const SuccessScreen: FunctionComponent = () => {
           <ButtonOnboard
             title={t('onboardSuccess.goToHome')}
             onPress={() => {
+              recordLogEvent('Completed_Onboarding');
               dispatch(onBoardingSuccess());
               navigation.reset({
                 index: 0,
