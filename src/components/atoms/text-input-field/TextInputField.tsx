@@ -141,7 +141,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
               selectionColor={themeData.textColor}
               editable={editable}
               maxLength={maxLength}
-              contextMenuHidden={isPassword?true:false}
+              contextMenuHidden={isPassword}
               {...props}
             />
           </View>
