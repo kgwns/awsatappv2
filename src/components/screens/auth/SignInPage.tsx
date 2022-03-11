@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState, useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
@@ -18,6 +18,7 @@ import {FetchLoginPayloadType} from 'src/redux/login/types';
 import DeviceInfo from 'react-native-device-info';
 import { fetchLoginSuccess } from 'src/redux/login/action';
 import { useDispatch } from 'react-redux';
+import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 
 export enum SocialNavigate {
   google = 'GOOGLE',
@@ -58,6 +59,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     if (message) {
       if (message.code === 200) {
         getBookmarkedId()
+        AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN)
         fetchProfileDataRequest()
         navigation.reset({
           index: 0,

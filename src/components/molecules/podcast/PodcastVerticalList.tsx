@@ -10,7 +10,7 @@ import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 
 export interface PodcastVerticalListProps {
-  id?: string;
+  nid: string;
   imageUrl?: string;
   testID?: string;
   title?: string;
@@ -21,6 +21,8 @@ export interface PodcastVerticalListProps {
   author?: string;
   itemOnPress?: ()=> void;
   hideDescription?: boolean;
+  isBookmarked: boolean,
+  onPressBookmark: () => void
 }
 
 export const PodcastVerticalList = ({
@@ -32,9 +34,10 @@ export const PodcastVerticalList = ({
   footerLeft,
   footerRight,
   hideDescription=false,
+  isBookmarked = false,
+  onPressBookmark
 }: PodcastVerticalListProps) => {
   const style = useThemeAwareObject(customStyle);
-  const [isSaved, setIsSaved] = useState(false);
   const theme = useTheme();
   return (
     <TouchableWithoutFeedback testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
@@ -67,7 +70,7 @@ export const PodcastVerticalList = ({
             <ButtonImage
               testId={'bookMarkTestId_podcast_episode'}
               icon={() => {
-                return isSaved
+                return isBookmarked
                   ? getSvgImages({
                       name: ImagesName.bookMarkActiveSVG,
                       size: normalize(15),
@@ -77,7 +80,7 @@ export const PodcastVerticalList = ({
                       size: normalize(15),
                     });
               }}
-              onPress={() => setIsSaved(!isSaved)}
+              onPress={onPressBookmark}
             />
           </View>
         </View>

@@ -27,6 +27,10 @@ export const Archives = () => {
         {
             name: t('favorite.filters.opinion'),
             isSelected: false
+        },
+        {
+            name: t('favorite.filters.podcast'),
+            isSelected: false
         }
     ]
 
@@ -43,7 +47,7 @@ export const Archives = () => {
     useEffect(() => {
         if (isNonEmptyArray(bookmarkDetail)) {
             onPressFilterItem(tabSelectedIndex)
-        } else if(!isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData)){
+        } else if (!isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData)) {
             onPressFilterItem(tabSelectedIndex)
         }
     }, [bookmarkDetail])
@@ -84,6 +88,8 @@ export const Archives = () => {
                 return data.filter((item: any) => item.type == PopulateWidgetType.VIDEO)
             case 3:
                 return data.filter((item: any) => item.type == PopulateWidgetType.OPINION)
+            case 4:
+                return data.filter((item: any) => item.type == PopulateWidgetType.PODCAST)
             default: return null
         }
     }

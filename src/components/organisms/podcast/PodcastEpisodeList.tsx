@@ -1,6 +1,6 @@
-import React, {useState, FunctionComponent} from 'react';
-import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import { Label, LoadingState } from 'src/components/atoms/';
+import React, { FunctionComponent } from 'react';
+import { View, FlatList, ListRenderItem, StyleSheet} from 'react-native';
+import { Label } from 'src/components/atoms/';
 import { PodcastVerticalList, PodcastVerticalListProps } from 'src/components/molecules/';
 import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -12,6 +12,7 @@ import { colors } from 'src/shared/styles/colors';
 export interface PodcastEpisodeListProps {
   onItemActionPress?: (item: any) => void;
   data: PodcastVerticalListProps[];
+  onUpdateBookmark: (index: number) => void
 }
 
 const keyExtractor = (_item:PodcastVerticalListProps,index: number) => {
@@ -21,6 +22,7 @@ const keyExtractor = (_item:PodcastVerticalListProps,index: number) => {
 export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
   onItemActionPress,
   data,
+  onUpdateBookmark
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
@@ -34,7 +36,7 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
   const renderItem: ListRenderItem<any> = ({item,index}) => {
     return (
       <PodcastVerticalList
-        id={item?.nid}
+        nid={item?.nid}
         secondaryTitle={item?.type}
         author={item?.field_announcer_name_export}
         imageUrl={item?.field_podcast_sect_export.img_podcast_mobile}
@@ -44,6 +46,8 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
         footerRight={item?.footerRight}
         testID={`podcastepisode_${index}`}
         itemOnPress={() => handleOnItemPressAction(item)}
+        isBookmarked={item.isBookmarked}
+        onPressBookmark={() => onUpdateBookmark(index)}
       />
     );
   };

@@ -31,7 +31,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
   headerBackIconTestId,
   onPressShare,
   onPressSave,
-  isSaved,
+  isSaved = false,
   showLogo=false,
   isCloseIcon=false,
 }) => {

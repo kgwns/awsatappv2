@@ -82,6 +82,9 @@ export const GET_BOOK_DETAIL_INFO_END_POINT = 'api/v2/nodelist/'
 export const UPDATE_PROFILE_USER_IMAGE = 'api/ums/v1/updateProfileUserImage'
 export const PROFILE_IMAGE_URL = 'http://awsatapi.srpcdigital.com/storage/'
 
+//Change password
+export const CHANGE_PASSWORD = 'api/ums/v1/changePassword?password='
+
 //News Letters
 export const SEND_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/addNewsletters?tid=';
 export const GET_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getNewsletters';

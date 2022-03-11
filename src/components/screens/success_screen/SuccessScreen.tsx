@@ -15,6 +15,7 @@ import TickAnimation from '../../../assets/lottie-animation/tick.json';
 import {ScreensConstants} from 'src/constants';
 import { useDispatch } from 'react-redux';
 import { onBoardingSuccess } from 'src/redux/login/action';
+import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 
 export const SuccessScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -35,6 +36,10 @@ export const SuccessScreen: FunctionComponent = () => {
     });
     return () => { subscription.remove(); };
   }, [animationRef]);
+
+  useEffect(() => {
+    AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN)
+  }, [])
 
   return (
     <ScreenContainer>

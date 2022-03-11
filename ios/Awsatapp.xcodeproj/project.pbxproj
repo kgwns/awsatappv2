@@ -15,6 +15,12 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		93EAB321D62DFD35FEFD4ED7 /* libPods-Awsatapp-AwsatappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12B9E34FDF31B7EE2F6980 /* libPods-Awsatapp-AwsatappTests.a */; };
 		AE89E1526D3058190A29EB55 /* libPods-Awsatapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF273F72F625EF60E47B1CF6 /* libPods-Awsatapp.a */; };
+		D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4927D9C9CE0028999D /* iAd.framework */; };
+		D7D85B4C27D9C9D90028999D /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4B27D9C9D90028999D /* AdServices.framework */; };
+		D7D85B4E27D9C9E50028999D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4D27D9C9E50028999D /* AdSupport.framework */; };
+		D7D85B5027D9C9F10028999D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4F27D9C9F10028999D /* CoreTelephony.framework */; };
+		D7D85B5227D9C9FD0028999D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B5127D9C9FD0028999D /* StoreKit.framework */; };
+		D7D85B5427D9CA080028999D /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +50,12 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Awsatapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A3FDE2C970357A496A5A5514 /* Pods-Awsatapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.debug.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.debug.xcconfig"; sourceTree = "<group>"; };
 		CF273F72F625EF60E47B1CF6 /* libPods-Awsatapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7D85B4927D9C9CE0028999D /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		D7D85B4B27D9C9D90028999D /* AdServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdServices.framework; path = System/Library/Frameworks/AdServices.framework; sourceTree = SDKROOT; };
+		D7D85B4D27D9C9E50028999D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		D7D85B4F27D9C9F10028999D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		D7D85B5127D9C9FD0028999D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		E9851DB237B24939BF49AB0D /* Pods-Awsatapp-AwsatappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp-AwsatappTests.release.xcconfig"; path = "Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F17AA6230FD852F939D1B14B /* Pods-Awsatapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.release.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.release.xcconfig"; sourceTree = "<group>"; };
@@ -62,6 +74,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7D85B5427D9CA080028999D /* AppTrackingTransparency.framework in Frameworks */,
+				D7D85B5227D9C9FD0028999D /* StoreKit.framework in Frameworks */,
+				D7D85B5027D9C9F10028999D /* CoreTelephony.framework in Frameworks */,
+				D7D85B4E27D9C9E50028999D /* AdSupport.framework in Frameworks */,
+				D7D85B4C27D9C9D90028999D /* AdServices.framework in Frameworks */,
+				D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */,
 				AE89E1526D3058190A29EB55 /* libPods-Awsatapp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,6 +121,12 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */,
+				D7D85B5127D9C9FD0028999D /* StoreKit.framework */,
+				D7D85B4F27D9C9F10028999D /* CoreTelephony.framework */,
+				D7D85B4D27D9C9E50028999D /* AdSupport.framework */,
+				D7D85B4B27D9C9D90028999D /* AdServices.framework */,
+				D7D85B4927D9C9CE0028999D /* iAd.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				CF273F72F625EF60E47B1CF6 /* libPods-Awsatapp.a */,
 				6F12B9E34FDF31B7EE2F6980 /* libPods-Awsatapp-AwsatappTests.a */,
