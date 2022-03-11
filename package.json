@@ -61,6 +61,7 @@
     "react-native-svg": "^12.1.1",
     "react-native-swiper-flatlist": "^3.0.16",
     "react-native-text-ticker": "^1.14.0",
+    "react-native-track-player": "^2.1.2",
     "react-native-vector-icons": "^9.0.0",
     "react-native-video": "^5.2.0",
     "react-native-video-controls": "https://github.com/vigneshrajs/react-native-video-controls",

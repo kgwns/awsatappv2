@@ -39,8 +39,8 @@ export const PodcastEpisodeContent: FunctionComponent<PodcastEpisodeContentProps
         imageUrl={item?.field_podcast_sect_export.img_podcast_mobile}
         title={item?.title}
         description={item?.body_export}
-        footerLeft={item?.field_duration_export_1}
-        footerRight={item?.footerRight}
+        footerLeft={item?.field_total_duration_export}
+        footerRight={item?.created_export}
         testID={`podcastepisode_${index}`}
         itemOnPress={() => handleOnItemPressAction(item)}
         isBookmarked={item.isBookmarked}

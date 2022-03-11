@@ -1,28 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { ScreenContainer } from '..';
-import { PodcastProgramHeader } from 'src/components/molecules';
+import { PodCastMiniPlayer, PodcastProgramHeader } from 'src/components/molecules';
 import Share from 'react-native-share';
+import MostPlayedSection from 'src/components/organisms/MostPlayedSection';
 import { PodcastEpisodeContent, PodcastEpisodeInfo } from 'src/components/organisms';
+import { mostPlayedSectionData, PodcastEpisodeData } from 'src/constants/SampleData';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useBookmark, useLogin, usePodcast } from 'src/hooks';
-import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
+import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
+import { useNavigation } from '@react-navigation/native';
+import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import { getPodcastUrl } from 'src/shared/utils/utilities';
 
 export interface PodcastEpisodeProps {
   route: any
 }
 
+export const podcastEpisodeInitialData = {
+  nid: '',
+  title: '',
+  field_new_sub_title_export: '',
+  field_podcast_sect_export: {
+    img_podcast_mobile: ''
+  },
+  field_announcer_name_export: '',
+  field_total_duration_export: 0,
+  field_spreaker_episode_export:'',
+  body_export: '',
+  created_export: '',
+}
+
 export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
 
+  const navigation = useNavigation();
   const styles = useThemeAwareObject(createStyles);
   const insets = useSafeAreaInsets();
   const [nid, setEpisode] = useState(route.params.data.nid)
   const podcastListData = route.params.podcastListData
   const { isLoading, podcastEpisodeData, fetchPodcastEpisodeRequest } = usePodcast()
+  const [isPlayerVisible, setPlayerVisibility] = useState(false)
+  const playbackState = usePlaybackState();
   const payload: PodcastEpisodeBodyGet = {
     nid: nid
   }
@@ -123,7 +145,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   }
 
   const episodeIndex = podcastEpisodeDetailInfo.findIndex((item: any) => item.nid === nid);
-  const podcastEpisodeInfo = podcastEpisodeDetailInfo[episodeIndex]
+  const podcastEpisodeInfo = podcastEpisodeDetailInfo ? podcastEpisodeDetailInfo[episodeIndex] : podcastEpisodeInitialData
   const otherPodcast = podcastEpisodeListInfo.filter((item: any) => item.nid != nid);
 
   const onPressShare = async () => {
@@ -147,6 +169,47 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     setEpisode(item.nid)
   }
 
+  const onListenPress = async () => {
+    setPlayerVisibility(true)
+    if (playbackState == State.Playing) {
+      return
+    }
+    await TrackPlayer.setupPlayer();
+    await TrackPlayer.add({
+      id: podcastEpisodeInfo.nid,
+      url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
+      title: podcastEpisodeInfo.title,
+      artist: podcastEpisodeInfo.title,
+    });
+    await TrackPlayer.play();
+  }
+
+  const togglePlayback = async () => {
+    if (playbackState !== State.Playing) {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.add({
+        id: podcastEpisodeInfo.nid,
+        url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
+        title: podcastEpisodeInfo.title,
+        artist: podcastEpisodeInfo.title,
+      });
+      TrackPlayer.setRepeatMode(RepeatMode.Off);
+      await TrackPlayer.play();
+    } else {
+      await TrackPlayer.pause();
+    }
+  };
+
+  const onClose = async () => {
+    await TrackPlayer.stop()
+    setPlayerVisibility(false)
+  }
+
+  const onGoBack = () => {
+    navigation.goBack()
+    TrackPlayer.stop()
+  }
+
   const renderItem = () => (
     <View >
       <View style={styles.headerStyle}>
@@ -155,10 +218,11 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
           headerBookmarkIconTestId={'podcast_episode_save'}
           headerBackIconTestId={'podcast_episode_back'}
           onPressShare={onPressShare}
+          onGoBack={onGoBack}
           onPressSave={onPressEpisodeBookmark}
           isSaved={podcastEpisodeInfo ? podcastEpisodeInfo.isBookmarked ?? false : false}
         />
-        {isObjectNonEmpty(podcastEpisodeInfo) && <PodcastEpisodeInfo data={podcastEpisodeInfo} />}
+        <PodcastEpisodeInfo data={podcastEpisodeInfo} onListenPress={onListenPress} />
       </View>
       <View style={styles.container}>
         <PodcastEpisodeContent data={otherPodcast}
@@ -173,13 +237,16 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading}
       isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={{ height: insets.top, backgroundColor: colors.black }} />
-      {isNonEmptyArray(podcastEpisodeDetailInfo) && <FlatList
+      <FlatList
         style={styles.episodeList}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
-      />}
+      />
+      {isPlayerVisible && <View style={styles.miniPlayerContainer}>
+        <PodCastMiniPlayer data={podcastEpisodeInfo} onClose={() => onClose()} onPlaybackPress={() => togglePlayback()} />
+      </View>}
     </ScreenContainer>
   )
 }
@@ -196,6 +263,12 @@ const createStyles = (theme: CustomThemeType) =>
     },
     episodeList: {
       flex: 1,
-      height: '100%'
+      height: '100%',
+    },
+    miniPlayerContainer: {
+      width: '100%',
+      height: normalize(80),
+      position: 'absolute',
+      bottom: isIOS ? 25 : 0
     }
   })

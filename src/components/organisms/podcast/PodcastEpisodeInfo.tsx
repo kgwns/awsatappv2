@@ -11,53 +11,46 @@ import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.s
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import {useTranslation} from 'react-i18next';
-import { decodeHTMLTags } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getPodcastDate, getSecondsToHms } from 'src/shared/utils/utilities';
+import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 
 export interface PodcastEpisodeInfoProps {
   data: PodcastVerticalListProps;
+  onListenPress?: (item: any) => void;
 }
 
 export const PodcastEpisodeInfo: FunctionComponent<any> = ({
   data,
+  onListenPress
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
-  const { 
-    title,
-    field_new_sub_title_export,
-    field_podcast_sect_export,
-    field_announcer_name_export,
-    field_duration_export,
-    body_export } = data
-  const barVisibility = data.footerRight && data.footerLeft
+  const fieldData = data ? data : podcastEpisodeInitialData
+  const barVisibility = fieldData.created_export && fieldData.field_total_duration_export
   return (
     <View>
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <Label style={styles.titleTextStyle} children={title} />
-            <Image url={field_podcast_sect_export.img_podcast_mobile} style={styles.imageStyle} />
+            <Label style={styles.titleTextStyle} children={fieldData.title} />
+            <Image fallback url={fieldData.field_podcast_sect_export.img_podcast_mobile} style={styles.imageStyle} />
             <View style={styles.containerSpace} />
-            <Label style={styles.textStyle} children={field_new_sub_title_export} />
-            <Label style={styles.announcerTextStyle} children={field_announcer_name_export} />
+            <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
+            <Label style={styles.announcerTextStyle} children={fieldData.field_announcer_name_export} />
             <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
              style={styles.buttonStyle}
              labelStyle={styles.buttonLabel}
              titleType={LabelTypeProp.h1}
-             onPress={()=>{console.log('button pressed')}}
+             onPress={()=>onListenPress()}
              rightIcon={() => <View style={styles.rightIconStyle}><PlayIcon fill={colors.black}/></View>}
              />
              <View style={styles.containerSpace} />
             <View style={styles.headerLeftStyle}>
-              <Label style={styles.footerRightTextStyle} numberOfLines={1}>
-                {data.footerRight}
-              </Label>
-              {barVisibility &&<Label color={colors.spanishGray}>|</Label>}
-              <Label style={styles.footerLeftTextStyle} numberOfLines={1}>
-                {field_duration_export}
-              </Label>
+              <Label style={styles.footerRightTextStyle} numberOfLines={1} children={getPodcastDate(fieldData.created_export)} />
+              {barVisibility ? <Label color={colors.spanishGray} children={"|"}/> : <View/>}
+              <Label style={styles.footerLeftTextStyle} numberOfLines={1} children={getSecondsToHms(fieldData.field_total_duration_export)} />
             </View>
-            <Label style={styles.descriptionTextStyle} children={decodeHTMLTags(body_export)} numberOfLines={3} />
+            <Label style={styles.descriptionTextStyle} children={decodeHTMLTags(fieldData.body_export)} numberOfLines={3} />
           </View>
 
           <View style={styles.rowContainerStyle}>

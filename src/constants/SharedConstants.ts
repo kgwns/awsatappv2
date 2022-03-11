@@ -20,3 +20,6 @@ export const AUTHOR_DESCRIPTION = 'سياسه و اقتصاد'
 //Permission
 export const REQUIRE_ACCESS = 'تتطلب الوصول'
 export const REQUEST_CAMERA_ACCESS_MESSAGE = 'يرجى تقديم إذن للوصول إلى كاميرا الجهاز'
+
+//Podcast Spreaker
+export const PODCAST_URL_SUFFIX = '/play.mp3'

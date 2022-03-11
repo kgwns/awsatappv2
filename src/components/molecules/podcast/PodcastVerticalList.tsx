@@ -8,6 +8,7 @@ import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
+import {getPodcastDate, getSecondsToHms} from 'src/shared/utils/utilities';
 
 export interface PodcastVerticalListProps {
   nid: string;
@@ -15,7 +16,7 @@ export interface PodcastVerticalListProps {
   testID?: string;
   title?: string;
   description?: string;
-  footerLeft?: string;
+  footerLeft?: number;
   footerRight?: string;
   secondaryTitle?: string;
   author?: string;
@@ -59,11 +60,11 @@ export const PodcastVerticalList = ({
         <View style={[style.headerStyle,hideDescription&&style.spaceStyle]}>
           <View style={style.headerLeftStyle}>
             <Label style={style.footerRightTextStyle} numberOfLines={1}>
-              {footerRight}
+              {getPodcastDate(footerRight)}
             </Label>
             {footerRight && footerLeft &&<Label color={colors.spanishGray}>|</Label>}
             <Label style={style.footerLeftTextStyle} numberOfLines={1}>
-              {footerLeft}
+              {getSecondsToHms(footerLeft)}
             </Label>
           </View>
           <View style={style.headerRightStyle}>

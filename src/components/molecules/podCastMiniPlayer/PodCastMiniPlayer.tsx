@@ -1,54 +1,61 @@
-import { View, StyleSheet, Text } from 'react-native'
-import React from 'react'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { FunctionComponent } from 'react'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { ButtonImage, Image, Label, LabelTypeProp } from 'src/components/atoms'
+import { Image } from 'src/components/atoms'
 import { ImagesName } from 'src/shared/styles'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { normalize } from 'src/shared/utils'
-import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { MINI_PLAYER_PODCAST_TITLE } from 'src/constants/SharedConstants'
-import { DUMMY_IMAGE_URL } from 'src/services/apiUrls'
-import { ImageResize } from 'src/shared/styles/text-styles'
+import TextTicker from 'react-native-text-ticker';
+import { State, usePlaybackState } from 'react-native-track-player';
+import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode'
 
-export const PodCastMiniPlayer = () => {
-    const { themeData } = useTheme()
+export interface PodcastMiniPlayerProps {
+    data: any;
+    onClose: () => void;
+    onPlaybackPress?: (item: any) => void;
+}
+
+export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
+    data,
+    onClose,
+    onPlaybackPress
+}) => {
     const style = useThemeAwareObject(customStyle)
+    const playbackState = usePlaybackState();
+    const fieldData = data ? data : podcastEpisodeInitialData
     return (
         <View style={style.container}>
-            <View style={style.leftContainer}>
-                <View style={style.leftStyle}>
-                    <Image url={DUMMY_IMAGE_URL} style={style.image} resizeMode={ImageResize.COVER} />
-                    <Label children={MINI_PLAYER_PODCAST_TITLE}
-                        labelType={LabelTypeProp.h4}
-                        style={style.title} numberOfLines={2}
-                    />
+            <View style={style.miniPlayer}>
+                <View style={style.rowStyleContainer}>
+                    <View style={style.imageContainer}>
+                        <Image fallback url={fieldData.field_podcast_sect_export.img_podcast_mobile} style={style.image} />
+                    </View>
+                    <View style={style.titleContainer}>
+                        <TextTicker
+                            disabled={playbackState === State.Playing ? false : true}
+                            animationType={'scroll'}
+                            shouldAnimateTreshold={50}
+                            duration={8000}
+                            children={fieldData.title}
+                            style={style.title}
+                        />
+                    </View>
+                    <TouchableOpacity onPress={onPlaybackPress}>
+                        <View style={style.buttonContainer}>
+                            {playbackState === State.Playing ?
+                                getSvgImages({ name: ImagesName.pauseIcon, width: normalize(17), height: normalize(17) })
+                                : getSvgImages({ name: ImagesName.playIconSVG, width: normalize(15), height: normalize(17) })}
+                        </View>
+                    </TouchableOpacity>
                 </View>
-                <View style={style.rightStyle}>
-                    <ButtonImage
-                        icon={() => {
-                            return getSvgImages({
-                                name: ImagesName.playIconSVG,
-                                size: normalize(18),
-                                fill: themeData.primary
-                            });
-                        }}
-                        onPress={() => { }}
-                    />
+                <View style={style.closeContainer}>
+                    <TouchableOpacity onPress={onClose}>
+                        <View style={style.closeIcon}>
+                            {getSvgImages({ name: ImagesName.playerCloseIcon, width: normalize(12), height: normalize(12) })}
+                        </View>
+                    </TouchableOpacity>
                 </View>
-            </View>
-            <View style={style.divider} />
-            <View style={style.rightContainer}>
-                <ButtonImage
-                    icon={() => {
-                        return getSvgImages({
-                            name: ImagesName.closeSVG,
-                            size: normalize(12),
-                            fill: themeData.primaryBlack
-                        });
-                    }}
-                    onPress={() => { }}
-                />
             </View>
         </View>
     )
@@ -57,45 +64,62 @@ export const PodCastMiniPlayer = () => {
 const customStyle = (theme: CustomThemeType) => {
     return StyleSheet.create({
         container: {
-            flex: 1,
-            backgroundColor: theme.secondaryWhite,
-            flexDirection: 'row'
+            width: '100%',
+            height: normalize(80),
+            position: 'absolute',
+            bottom: 0,
         },
-        leftContainer: {
-            flex: 1,
+        miniPlayer: {
             flexDirection: 'row',
-            paddingBottom: normalize(30),
-            paddingHorizontal: normalize(10),
-            paddingTop: normalize(10)
+            width: '100%',
+            height: '100%',
+            borderTopWidth: 1,
+            borderTopColor: theme.miniPlayerBorderColor,
+            borderBottomWidth: 1,
+            borderBottomColor: theme.miniPlayerBorderColor,
+            backgroundColor: theme.miniPlayerBackgroundColor
+        },
+        rowStyleContainer: {
+            flexDirection: 'row',
+            width: '85%',
+            height: '100%',
+            padding: normalize(12)
+        },
+        imageContainer: {
+            width: normalize(46),
+            height: normalize(41),
+            backgroundColor: 'black'
         },
         image: {
-            width: normalize(46),
-            height: normalize(41)
+            width: '100%',
+            height: '100%',
+        },
+        titleContainer: {
+            justifyContent: 'flex-start',
+            width: '70%',
+            marginLeft: normalize(10)
         },
         title: {
-            marginHorizontal: normalize(15),
-            alignSelf: 'center',
+            textAlign: 'left',
+            fontSize: 13,
+            lineHeight: 16,
+            marginTop: normalize(10),
+            color: theme.primaryBlack
         },
-        leftStyle: {
-            flex: 1,
-            flexDirection: 'row',
+        buttonContainer: {
             alignItems: 'center',
+            marginTop: normalize(10),
+            marginLeft: normalize(10)
         },
-        rightStyle: {
-            flex: 0.2,
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-        },
-        rightContainer: {
-            justifyContent: 'center',
-            paddingBottom: normalize(30),
-            paddingHorizontal: normalize(20),
-            paddingTop: normalize(10)
-        },
-        divider: {
-            width: 0.5,
+        closeContainer: {
+            width: '15%',
             height: '100%',
-            backgroundColor: '#E0E0E0'
+            borderLeftWidth: 1,
+            borderLeftColor: theme.miniPlayerBorderColor
+        },
+        closeIcon: {
+            alignItems: 'center',
+            margin: normalize(24)
         }
     })
 }

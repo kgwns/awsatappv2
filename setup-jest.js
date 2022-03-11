@@ -88,6 +88,14 @@ jest.spyOn(LoginManager, 'logInWithPermissions').mockImplementation(() => Promis
 
 jest.mock("react-native-video", () => "Video");
 
+jest.mock("react-native-track-player", () => "TrackPlayer");
+
+jest.mock("react-native-track-player", () => {
+  return {
+    usePlaybackState: jest.fn().mockImplementation(() => jest.fn()),
+    State: jest.fn().mockImplementation(() => jest.fn())
+  }
+})
 jest.mock('react-native-adjust', () => {
   const actualNav = jest.requireActual('react-native-adjust');
   return {

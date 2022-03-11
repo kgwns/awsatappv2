@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {FunctionComponent} from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import {Image, Label, ButtonImage} from 'src/components/atoms';
@@ -18,6 +17,7 @@ export interface PodcastProgramHeaderProps {
   headerBackIconTestId?: string;
   headerBookmarkIconTestId?: string;
   headerShareIconTestId?: string;
+  onGoBack: ()=> void;
   onPressShare?: ()=> void;
   onPressSave: ()=> void;
   isSaved?: boolean;
@@ -29,19 +29,19 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
   headerShareIconTestId,
   headerBookmarkIconTestId,
   headerBackIconTestId,
+  onGoBack,
   onPressShare,
   onPressSave,
   isSaved = false,
   showLogo=false,
   isCloseIcon=false,
 }) => {
-  const navigation = useNavigation();
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   const { themeData } = useTheme()
   const renderLeftComponent = () => {
     return (
-      <TouchableOpacity testID={headerBackIconTestId} accessibilityLabel={headerBackIconTestId} onPress={() => {navigation.goBack()}}>
+      <TouchableOpacity testID={headerBackIconTestId} accessibilityLabel={headerBackIconTestId} onPress={onGoBack}>
         <View style={styles.itemContainer}>
           {isCloseIcon?
           <CloseIcon height={13} width={13}  fill={colors.white} />:
