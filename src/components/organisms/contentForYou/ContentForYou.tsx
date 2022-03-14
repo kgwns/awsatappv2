@@ -46,16 +46,17 @@ export const ContentForYou = () => {
         fetchFavouriteArticlesRequest,
         emptyAllData,
     } = useContentForYou();
-    const [selectedAuthors, setSelectedAuthors] = useState([])
-    const [selectedTopics, setSelectedTopics] = useState([])
-    const [isAllLoading, setIsAllLoading] = useState(false)
-    const [page, setPage] = useState(0)
+    const [selectedAuthors, setSelectedAuthors] = useState<[]>([])
+    const [selectedTopics, setSelectedTopics] = useState<[]>([])
+    const [isAllLoading, setIsAllLoading] = useState<boolean>(false)
+    const [page, setPage] = useState<number>(0)
     const initialPageData = {
         opinionsData: {data:[],loaded: false},
         articleSectionData: {data:[],loaded: false},
         shortArticleData: {data:[],loaded: false}
     }
     const [pageAllData,setPageAllData] = useState<AllContentData[]>([initialPageData])
+
     const widgetHeaderData: WidgetHeaderProps = {
         headerLeft: {
             title: t('favorite.articles_that_interest_you'),
@@ -66,9 +67,11 @@ export const ContentForYou = () => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
     useEffect(() => {
-        emptyAllData();
         getSelectedTopicsData();
         getSelectedAuthorsData();
+        return () => {
+            emptyAllData();
+          };
     }, []);
 
     useEffect(() => {
@@ -105,30 +108,31 @@ export const ContentForYou = () => {
     const formatArticleSectionData = () => {
         let formatArticleSectionData = []
         let formatShortArticleData = []
-        for (const [index,item] of favouriteArticlesData.entries()) {
+        for(let i = 0; i < favouriteArticlesData.length; i++){
             let formattedData = {
                 ...shortArticleWithTagProperties,
                 titleColor: themeData.primaryBlack,
-                body: item.body,
+                body: favouriteArticlesData[i].body,
                 flag: '',
-                title: item.title,
-                nid: item.nid,
-                image: getImageUrl(item.field_image),
-                news_categories: item.field_news_categories_export,
-                author: item.author_resource,
-                created: item.created_export,
+                title: favouriteArticlesData[i].title,
+                nid: favouriteArticlesData[i].nid,
+                image: getImageUrl(favouriteArticlesData[i].field_image),
+                news_categories: favouriteArticlesData[i].field_news_categories_export,
+                author: favouriteArticlesData[i].author_resource,
+                created: favouriteArticlesData[i].created_export,
                 isBookmarked: false,
                 loaded: true
             }
-            if(index<2){
+            if(i<2){
                 formatArticleSectionData.push(formattedData)
             }else{
-                formattedData.image = item.field_image
-                formattedData.flag= item.field_news_categories_export?.title,
+                formattedData.image = favouriteArticlesData[i].field_image
+                formattedData.flag= favouriteArticlesData[i].field_news_categories_export.title,
                 formatShortArticleData.push(formattedData)
             }
         }
         let pageDataUpdate = [...pageAllData];
+        console.log(pageDataUpdate[page],page ,'pageDataUpdatepageDataUpdate')
         pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionData, loaded: true} ;
         pageDataUpdate[page].shortArticleData  = {data:formatShortArticleData, loaded:true} ;
         setPageAllData(pageDataUpdate);
@@ -177,7 +181,7 @@ export const ContentForYou = () => {
         if(!isAllLoading){
             let pageCount = page+1
             setPage(pageCount)
-            setPageAllData(pageData => [...pageData, initialPageData]);
+            setPageAllData([...pageAllData, initialPageData]);
             fetchOpinionData(selectedAuthors,pageCount)
             fetchArticleData(selectedTopics,pageCount)
             setIsAllLoading(true)
@@ -196,7 +200,7 @@ export const ContentForYou = () => {
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'authorWidget'+index}
                 data={item.opinionsData.data}
             />
-            {item.articleSectionData.loaded&&<View style={{paddingHorizontal: 0.04 * screenWidth}}>
+            {item.articleSectionData.length>0&&<View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <WidgetHeader {...widgetHeaderData} />
             </View>}
             {/* <View style={{paddingHorizontal: 0.04 * screenWidth}}>

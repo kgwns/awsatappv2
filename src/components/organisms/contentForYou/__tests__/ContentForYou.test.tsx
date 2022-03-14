@@ -68,6 +68,7 @@ describe('<Content for you>', () => {
     const setSelectedTopics = mockFunction
     const setPage = mockFunction
     const setPageAllData = mockFunction
+    const setIsAllLoading = mockFunction
     const navigation = {
         goBack: mockFunction,
         navigate: mockFunction,
@@ -111,8 +112,9 @@ describe('<Content for you>', () => {
     beforeEach(() => {
         (useState as jest.Mock).mockImplementation(() => [[], setSelectedAuthors]);
         (useState as jest.Mock).mockImplementation(() => [[], setSelectedTopics]);
+        (useState as jest.Mock).mockImplementation(() => [false, setIsAllLoading]);
         (useState as jest.Mock).mockImplementation(() => [0, setPage]);
-        (useState as jest.Mock).mockImplementation(() => [[initialPageData], setPageAllData]);
+        (useState as jest.Mock).mockImplementation(() => [[], setPageAllData]);
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         const component = <ContentForYou />
         instance = render(component)
