@@ -31,7 +31,8 @@ export interface ArticleSectionProps {
   onPress: (nid: string) => void;
   labelType?: LabelTypeProp;
   onUpdateBookmark: (nid: string, bookmarkStatus: boolean) => void,
-  showSignUpPopUp: () => void
+  showSignUpPopUp: () => void,
+  listKey?: string,
 }
 
 export const shortArticleFooter: articleFooterProps = {
@@ -49,7 +50,8 @@ export const shortArticleFooter: articleFooterProps = {
 const ShortArticle = ({ data, headerLeft, onPress,
   labelType = LabelTypeProp.h3,
   onUpdateBookmark,
-  showSignUpPopUp
+  showSignUpPopUp,
+  listKey,
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const { isLoggedIn } = useLogin()
@@ -104,7 +106,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
       <FlatList
         keyExtractor={(_, index) => index.toString()}
         listKey={
-          flatListUniqueKey.SHORT_ARTICLE + new Date().getTime().toString()
+          listKey?listKey:flatListUniqueKey.SHORT_ARTICLE + new Date().getTime().toString()
         }
         data={articleData}
         showsVerticalScrollIndicator={false}

@@ -126,6 +126,8 @@ export const arabic = {
       opinion: 'الرأي',
       podcast: 'بودكاست',
     },
+    articles_from_your_favorite_writers: 'مقالات من كتابك المفضلين',
+    articles_that_interest_you: 'مقالات تهمك',
   },
   signIn: {
     signUp: 'قم بالتسجيل',

@@ -336,7 +336,7 @@ export const LatestNewsScreen = () => {
       <Divider style={{ height: normalize(50) }} />
     </View>
   )
-
+  console.log(heroListData,'heroListData')
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}

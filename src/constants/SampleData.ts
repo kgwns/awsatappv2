@@ -167,6 +167,14 @@ export const storeInfo = [
       isLoading: true,
       selectedNewsLettersData: {}
     },
+    contentForYou: {
+      favouriteOpinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+      error: '',
+      isLoading: false,
+      favouriteArticlesData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+      articleError: '',
+      isArticleLoading: false,
+    }
   },
 ];
 
