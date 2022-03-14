@@ -224,7 +224,7 @@ export const LatestNewsScreen = () => {
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
-      tagName: item.news_categories.title,
+      tagName: item.news_categories && item.news_categories.title,
       isBookmarked: validateBookmark(item.nid)
     }
   ))
@@ -234,7 +234,7 @@ export const LatestNewsScreen = () => {
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
-      flag: item.news_categories.title,
+      flag: item.news_categories && item.news_categories.title,
       isBookmarked: validateBookmark(item.nid)
     }
   ))
