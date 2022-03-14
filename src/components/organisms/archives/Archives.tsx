@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { View,StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FilterComponent, FilterDataType } from 'src/components/molecules'
@@ -7,9 +7,11 @@ import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { Label, LabelTypeProp } from 'src/components/atoms'
+import { useIsFocused } from '@react-navigation/native'
 
 export const Archives = () => {
     const [t] = useTranslation()
+    const isFocused = useIsFocused()
 
     const filterData: FilterDataType[] = [
         {
@@ -45,9 +47,12 @@ export const Archives = () => {
     }, [])
 
     useEffect(() => {
-        if (isNonEmptyArray(bookmarkDetail)) {
-            onPressFilterItem(tabSelectedIndex)
-        } else if (!isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData)) {
+        isFocused && getBookmarkedId()
+    }, [isFocused])
+
+    useEffect(() => {
+        if (isNonEmptyArray(bookmarkDetail) ||
+            !isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData)) {
             onPressFilterItem(tabSelectedIndex)
         }
     }, [bookmarkDetail])
@@ -94,6 +99,14 @@ export const Archives = () => {
         }
     }
 
+    const emptyFavoriteData = () => {
+        if (isNonEmptyArray(filteredData)) return null
+        return <View
+            style={styles.noFavoriteMessage}>
+            <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
+        </View>
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <View style={{ paddingHorizontal: 0.04 * screenWidth }}>
@@ -102,16 +115,16 @@ export const Archives = () => {
                     onPressBookmark={removeBookmarkItem}
                 />}
             </View>
-            {!isNonEmptyArray(filteredData) && <View
-                style={{
-                    flex: 1,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginTop: 0.32 * screenHeight
-                }}>
-                <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
-            </View>
-            }
+           {emptyFavoriteData()}
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    noFavoriteMessage: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 0.32 * screenHeight
+    }
+})

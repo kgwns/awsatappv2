@@ -3,48 +3,59 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { normalize } from '../../../shared/utils/dimensions'
 import { moleculesTestID } from '../../../constants'
 import { ImageName, Label } from '../../atoms'
-import HeadPhoneIcon from 'src/assets/images/icons/headPhoneIcon.svg';
-import LeftArrow from 'src/assets/images/icons/left_arrow.svg';
+import { getSvgImages } from 'src/shared/styles/svgImages'
+import { ImagesName } from 'src/shared/styles'
 
 export interface detailPodCastFooterProps {
     leftTitle?: string,
     leftIcon?: ImageName,
     leftTitleColor?: string,
-    leftIconColor?: string,
     leftTimeLabel?: string,
     leftTimeLabelColor?: string,
     rightIcon?: ImageName,
     rightTitle?: string,
     rightTitleColor?: string,
     rightIconColor?: string,
+    isBookmarked: boolean,
+    onPressBookmark: () => void
 }
 
 const DetailPodCastFooter = ({
     leftTitle,
     leftTitleColor,
-    rightTitle,
-    rightTitleColor,
     leftTimeLabel,
     leftTimeLabelColor,
-    rightIconColor,
-    leftIconColor
-
+    isBookmarked,
+    onPressBookmark
 }: detailPodCastFooterProps) => {
+    const storySaveIcon =() => {
+        return isBookmarked
+          ? getSvgImages({
+              name: ImagesName.bookMarkActiveSVG,
+              size: normalize(18),
+            })
+          : getSvgImages({
+              name: ImagesName.bookMarkSVG,
+              size: normalize(18),
+            });
+      }
 
     return (
         <View style={{ ...articleFooterStyle.container }}>
             <View style={{ flexDirection: 'row' }}>
                 <TouchableOpacity style={{ flexDirection: 'row' }} testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={() => { console.log('play podcasts') }}>
-                    <HeadPhoneIcon color={leftIconColor} />
+                    {
+                        getSvgImages({
+                            name: ImagesName.playIconSVG,
+                            size: normalize(14)
+                        })
+                    }
                     <Label children={leftTitle} color={leftTitleColor} style={articleFooterStyle.leftTitleStyle} />
                 </TouchableOpacity>
                 <Label children={leftTimeLabel} color={leftTimeLabelColor} />
             </View>
-
-
-            <TouchableOpacity style={{ flexDirection: 'row' }} testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={() => { console.log('more episodes') }}>
-                <Label children={rightTitle} color={rightTitleColor} style={articleFooterStyle.rightTitleStyle} />
-                <LeftArrow color={rightIconColor} />
+            <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPressBookmark}>
+                {storySaveIcon()}
             </TouchableOpacity>
         </View>
     )
@@ -57,8 +68,7 @@ const articleFooterStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: normalize(10),
-        paddingHorizontal: normalize(10),
+        paddingVertical: normalize(10)
     },
     leftTitleStyle: {
         paddingRight: normalize(10),
