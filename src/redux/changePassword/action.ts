@@ -40,7 +40,7 @@ export const emptyPasswordResponse = () => {
   };
 };
 
-export const UserProfileDetailActions = {
+export const ChangePasswordActions = {
   changePassword,
   changePasswordSuccess,
   changePasswordFailed,
