@@ -1,8 +1,8 @@
 import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, TouchableOpacity, AppState} from 'react-native';
-import {normalize} from '../../../shared/utils';
+import {View, StyleSheet, AppState} from 'react-native';
+import {normalize, recordLogEvent} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
