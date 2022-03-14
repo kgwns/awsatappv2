@@ -520,7 +520,8 @@ const createStyles = (theme: CustomThemeType) =>
     updateButtonLabel: {
       color: colors.white,
       fontWeight: 'bold',
-      fontSize: normalize(16)
+      fontSize: normalize(16),
+      lineHeight: 20
     },
     overlayStyle: {
       flex: 1,

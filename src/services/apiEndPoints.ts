@@ -49,6 +49,8 @@ export const GET_SELECTED_TOPICS_ENDPOINT = 'api/ums/v1/getYourTopics';
 
 export const INFO = '/api/v2/info/'
 
+export const ADVERTISE_INFO_ID = 49
+export const AWSATT_HISTORY_INFO_ID = 153
 export const ABOUT_US = 56
 export const TERMS_AND_CONDITION = 57
 
