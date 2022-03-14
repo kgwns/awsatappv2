@@ -82,10 +82,12 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   useEffect(() =>{
     const message = changePasswordData?.message;
-    if(isObjectNonEmpty(message))
+    if(isObjectNonEmpty(changePasswordData?.message))
     {if (message.code === 200) {
       showAlert(message.message)
     }else if(message.code === 0 && isNotEmpty(message?.message)){
+      showAlert(message.message)
+    }else{
       showAlert(message.message)
     }}
   },[changePasswordData] )
@@ -99,10 +101,12 @@ export const UserDetailScreen: FunctionComponent = () => {
     ])
   }
 
-  const onAlertOkPressed = ()=>{
-    setOldPassword('')
-    setNewPassword('')
-    setConfirmNewPassword('')
+  const onAlertOkPressed = () => {
+    if (isObjectNonEmpty(changePasswordData?.message) && changePasswordData?.message.code === 200) {
+      setOldPassword('')
+      setNewPassword('')
+      setConfirmNewPassword('')
+    }
     emptyPasswordResponseInfo();
   }
 
