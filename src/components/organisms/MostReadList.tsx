@@ -113,7 +113,7 @@ const MostReadList = ({
     item.tagStyle = {marginLeft: normalize(16)};
     item.tagLabelType = LabelTypeProp.p3;
     item.image = item.image ? item.image : getImageUrl(item.field_image);
-    item.flag = item.field_news_categories_export.title;
+    item.flag = item.field_news_categories_export?.title;
     item.flagColor = Styles.color.greenishBlue;
     item.barColor = Styles.color.greenishBlue;
     return (
