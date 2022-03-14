@@ -61,7 +61,7 @@ export const ScreenContainer = ({
   };
 
   const onPressSignUp = () => {
-    onCloseSignUpAlert
+    onCloseSignUpAlert && onCloseSignUpAlert()
     navigation.reset({
       index: 0,
       routes: [{name: ScreensConstants.AuthNavigator}],

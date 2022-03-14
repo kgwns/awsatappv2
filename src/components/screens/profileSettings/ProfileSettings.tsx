@@ -95,24 +95,25 @@ export const ProfileSettings = () => {
         setIsDarkMode(!isOn);
     };
 
+    const onPressGoNext = (item: SettingDataType) => {
+        if (item.title === CONST_EXIT) {
+            recordLogEvent('Logout');
+            fetchLogoutRequest();
+            removeBookmark()
+            removeKeepNotificationInfo()
+            navigation.reset({
+                index: 0,
+                routes: [{ name: ScreensConstants.AuthNavigator }],
+            });
+        } else {
+            const params = (item.title === CONST_MY_NEWS_LETTER || item.title === CONST_MANAGE_NOTIFICATION) ? {canGoBack: true} : {};
+            (item.screenName.length > 0) ? navigation.navigate(item.screenName,params) : {}
+        }
+    }
+
     const renderItem: ListRenderItem<SettingDataType> = ({ item, index }) => {
         return (
-            <TouchableOpacity activeOpacity={0.8} key={index} onPress={() => {
-                if (item.title === CONST_EXIT) {
-                    recordLogEvent('Logout');
-                    fetchLogoutRequest();
-                    removeBookmark()
-                    removeKeepNotificationInfo()
-                    navigation.reset({
-                        index: 0,
-                        routes: [{ name: ScreensConstants.AuthNavigator }],
-                    });
-                } else {
-                    const params = (item.title === CONST_MY_NEWS_LETTER || item.title === CONST_MANAGE_NOTIFICATION) ? {canGoBack: true} : {};
-                    (item.screenName.length > 0) ? navigation.navigate(item.screenName,params) : {}
-                }
-            }
-            }>
+            <TouchableOpacity activeOpacity={0.8} key={index} onPress={() => onPressGoNext(item)}>
                 <View style={style.itemContainer}>
                     <View style={style.itemLeftContainer}>
                         <ButtonImage
