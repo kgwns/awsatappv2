@@ -11,7 +11,7 @@ import { useAppCommon } from 'src/hooks';
 export const AlertModal = ({
     message,
     title,
-    isVisible,
+    isVisible = false,
     buttonText,
     onClose,
     onPressSuccess
@@ -19,9 +19,9 @@ export const AlertModal = ({
     title: string;
     message: string;
     buttonText: string;
-    isVisible: boolean;
+    isVisible?: boolean;
     onClose: (isVisible: boolean) => void;
-    onPressSuccess: () => void
+    onPressSuccess?: () => void
 }) => {
     const [modalVisible, setModalVisibility] = useState(isVisible)
     const styles = useThemeAwareObject(customStyle)
