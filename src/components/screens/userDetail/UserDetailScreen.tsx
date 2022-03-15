@@ -23,7 +23,7 @@ import { UpdateUserImageBodyType } from 'src/redux/profileUserDetail/types';
 import { isDarkTheme } from 'src/shared/utils';
 import { useAppCommon, useLogin } from 'src/hooks';
 import { SystemPermissions } from 'src/shared/utils';
-import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS } from 'src/constants/SharedConstants';
+import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS, DEFAULT_MINIMUM_DATE } from 'src/constants/SharedConstants';
 import {useNewPassword} from 'src/hooks/useNewPassword'
 import { AlertModal } from 'src/components/organisms';
 
@@ -37,7 +37,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [occupation, setOccupation] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date(DEFAULT_MINIMUM_DATE));
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(t('profile.userDetail.selectBirthdayText'));
   const [userName, setUserName] = useState('')
@@ -192,6 +192,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             <Label style={styles.birthdayTitle} color={colors.greenishBlue} children={t('profile.userDetail.birthdayTitle')} />
             <DatePicker
               locale='ar'
+              minimumDate={new Date(DEFAULT_MINIMUM_DATE)}
               maximumDate={new Date(currentDate)}
               cancelText={t('profile.userDetail.cancelText')}
               confirmText={t('profile.userDetail.confirmText')}
