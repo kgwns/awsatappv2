@@ -11,3 +11,6 @@ export const getLoginError: Selector<string> = (state: AppState) =>
 
 export const getIsSkipped: Selector<boolean> = (state: AppState) =>
   state.login.isSkipped;
+
+export const getForgotPasswordResponse: Selector<any> = (state: AppState) =>
+  state.login.forgotPasswordResponse;

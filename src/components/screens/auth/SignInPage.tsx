@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
-import {normalize, recordLogEvent} from 'src/shared/utils';
+import {isObjectNonEmpty, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from 'src/components/organisms/';
 import {ScreensConstants} from 'src/constants';
@@ -50,7 +50,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     setDeviceName(deviceName);
   };
 
-  const {fetchLoginRequest, isLoading, loginData, loginError} = useLogin();
+  const {fetchLoginRequest, isLoading, loginData, loginError,forgotPassworRequest,forgotPassswordResponse,emptyforgotPassworResponseInfo} = useLogin();
   const { getBookmarkedId } = useBookmark()
   const { fetchProfileDataRequest } = useUserProfileData();
 
@@ -85,6 +85,24 @@ export const SignInPage = ({route}: SignInPageProps) => {
       }
     }
   }, [registerUserInfo]);
+
+  useEffect(() => {
+    const message = forgotPassswordResponse?.message;
+    if (isObjectNonEmpty(message)) {
+      if (message.code === 1) {
+        navigation.navigate(ScreensConstants.FORGOT_PASSWORD)
+      }else{
+        Alert.alert(message.message);
+      }
+    }
+  }, [forgotPassswordResponse]);
+
+  useEffect(() => {
+    emptyforgotPassworResponseInfo()
+    return ()=>{
+      emptyforgotPassworResponseInfo()
+    }
+  }, [])
 
   const navigateToSection = (type: string) => {
     switch (type) {
@@ -150,7 +168,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
             setChangeText={setEmail}
             setChangePassword={setPassword}
             navigateToSection={navigateToSection}
-            goToPasswordScreen={()=> navigation.navigate(ScreensConstants.FORGOT_PASSWORD)}
+            goToPasswordScreen={()=> 
+              forgotPassworRequest({email:email})}
             onPressSignup={onPressSignIn}
           />
         </View>

@@ -8,7 +8,12 @@ import {
     UserLogoutType,
     UserLogoutSuccessType,
     LoginSkippedType,
-    OnboardingSuccessType
+    OnboardingSuccessType,
+    ForgotPasswordRequestPayloadType,
+    ForgotPasswordSuccessPayloadType,
+    ForgotPasswordSuccessType,
+    ForgotPasswordFailedType,
+    ForgotPasswordFailedPayloadType
   } from './types';
   import {
     FETCH_LOGIN,
@@ -17,7 +22,11 @@ import {
     FETCH_USER_LOGOUT,
     FETCH_USER_LOGOUT_SUCCESS,
     LOGIN_SKIPPED,
-    ONBOARDING_SUCCESS
+    ONBOARDING_SUCCESS,
+    FORGOT_PASSWORD_REQUEST,
+    FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD_FAILED,
+    EMPTY_FORGOT_PASSWORD_RESPONSE
   } from './actionTypes';
   
   export const fetchLogin = (payload: FetchLoginPayloadType) => {
@@ -68,9 +77,45 @@ import {
       type: ONBOARDING_SUCCESS,
     }
   }
+
+    
+  export const requestForgotPassword = (payload: ForgotPasswordRequestPayloadType) => {
+    return {
+      type: FORGOT_PASSWORD_REQUEST,
+      payload,
+    };
+  };
+  
+  export const forgotPasswordSuccess = (
+    payload: ForgotPasswordSuccessPayloadType,
+  ): ForgotPasswordSuccessType => {
+    return {
+      type: FORGOT_PASSWORD_SUCCESS,
+      payload,
+    };
+  };
+  
+  export const forgotPasswordFailed = (
+    payload: ForgotPasswordFailedPayloadType,
+  ): ForgotPasswordFailedType => {
+    return {
+      type: FORGOT_PASSWORD_FAILED,
+      payload,
+    };
+  };
+
+  export const emptyForgotPasswordResponse = () => {
+    return {
+      type: EMPTY_FORGOT_PASSWORD_RESPONSE,
+    };
+  };
   
   export const loginAction = {
     fetchLogin,
     fetchLoginSuccess,
     fetchLoginFailed,
+    forgotPasswordSuccess,
+    forgotPasswordFailed,
+    requestForgotPassword,
+    emptyForgotPasswordResponse,
   };

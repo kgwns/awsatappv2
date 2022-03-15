@@ -5,10 +5,12 @@ import {
   FetchLoginType,
   FetchLogoutSuccessPayloadType,
   FetchUserLogoutPayloadType,
+  ForgotPasswordRequestType,
+  ForgotPasswordSuccessPayloadType,
 } from './types';
-import {fetchLoginFailed, fetchLoginSuccess, userLogoutSuccess} from './action';
-import {FETCH_LOGIN, FETCH_USER_LOGOUT} from './actionTypes';
-import {fetchLoginApi, fetchLogoutApi} from 'src/services/loginService';
+import {fetchLoginFailed, fetchLoginSuccess, forgotPasswordFailed, forgotPasswordSuccess, userLogoutSuccess} from './action';
+import {EMPTY_FORGOT_PASSWORD_RESPONSE, FETCH_LOGIN, FETCH_USER_LOGOUT, FORGOT_PASSWORD_REQUEST} from './actionTypes';
+import {fetchLoginApi, fetchLogoutApi, forgotPasswordApi} from 'src/services/loginService';
 import {Alert} from 'react-native';
 
 export function* fetchLogin(action: FetchLoginType) {
@@ -44,10 +46,33 @@ export function* fetchLogout() {
   }
 }
 
+export function* requestForgotPassword(action: ForgotPasswordRequestType) {
+  try {
+    const payload: ForgotPasswordSuccessPayloadType = yield call(
+      forgotPasswordApi,
+      action.payload,
+    );
+    yield put(forgotPasswordSuccess({response: payload}));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: {message: string} = errorResponse.response.data;
+      Alert.alert(errorMessage.message);
+      yield put(forgotPasswordFailed({error: errorMessage.message}));
+    }
+  }
+}
+
+export function* emptyForgotPasswordResponseInfo() {
+  emptyForgotPasswordResponseInfo();
+}
+
 function* loginSaga() {
   yield all([
     takeLatest(FETCH_LOGIN, fetchLogin),
     takeLatest(FETCH_USER_LOGOUT, fetchLogout),
+    takeLatest(FORGOT_PASSWORD_REQUEST,requestForgotPassword),
+    takeLatest(EMPTY_FORGOT_PASSWORD_RESPONSE,emptyForgotPasswordResponseInfo),
   ]);
 }
 
