@@ -75,10 +75,12 @@ export const ContentForYou = () => {
     }, []);
 
     useEffect(() => {
+        setPageAllData([initialPageData]);
         fetchSelectedDataFromAllTopics()
     }, [selectedTopicsData]);
 
     useEffect(() => {
+        setPageAllData([initialPageData]);
         fetchSelectedDataFromAllAuthors();
     }, [selectedAuthorsData]);
 
