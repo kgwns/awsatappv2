@@ -69,6 +69,7 @@ export const ContentForYou = () => {
 
     useEffect(() => {
         emptyAllData();
+        setPageAllData([initialPageData]);
         getSelectedTopicsData();
         getSelectedAuthorsData();
     }, []);
@@ -198,43 +199,38 @@ export const ContentForYou = () => {
     const renderContentForYou = (item: AllContentData, index: number) => (
         <View key={flatListUniqueKey.CONTENT_FOR_YOU + index} style={{flex: 1,paddingVertical: normalize(10),}}>
             {/* <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} /> */}
-            <AuthorWidget
+            {item.opinionsData.data.length>0&&<AuthorWidget
                 widgetHeader={t('favorite.articles_from_your_favorite_writers')}
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'authorWidget'+index}
                 data={item.opinionsData.data}
-            />
+            />}
             {item.articleSectionData.data.length>0&&<View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <WidgetHeader {...widgetHeaderData} />
             </View>}
             {/* <View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <FavoriteVideo data={videoArchiveData} />
             </View> */}
-            <ArticleSection
+            {item.articleSectionData.data.length>0&&<ArticleSection
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'articleSection'+index}
                 data={item.articleSectionData.data}
                 showFooterTitle={false}
                 showDivider={false}
-            />
-            <ShortArticle
+            />}
+            {item.shortArticleData.data.length>0&&<ShortArticle
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'shortArticle'+index}
                 data={item.shortArticleData.data}
                 onPress={onPressArticle}
                 onUpdateBookmark={() => { }}
                 showSignUpPopUp={() => {}}
-            />
+            />}
         </View>
     )
     const renderFooterComponent = () =>{
         return (
             <View>
-                {(pageAllData[0].opinionsData.data.length>0||pageAllData[0].articleSectionData.data.length>0)?
                 <View style={styles.loaderStyle}>
                     {(isLoading || isArticalLoading) && <LoadingState />}
-                </View>:
-                <View style={styles.container}>
-                    <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
                 </View>
-                }
             </View>
         )
     }
@@ -242,19 +238,26 @@ export const ContentForYou = () => {
     return (
         <View style={{flex:1}}>
             {!initialLoading?
-            <FlatList
-                data={pageAllData}
-                keyExtractor={(_, index) => index.toString()}
-                onEndReached={loadMoreData}
-                onEndReachedThreshold={0.3}
-                showsVerticalScrollIndicator={false}
-                listKey={flatListUniqueKey.CONTENT_FOR_YOU + new Date().getTime().toString()}
-                renderItem={({ item, index }) => renderContentForYou(item, index)}
-                ListFooterComponent={renderFooterComponent}
-            />:
-            <View style={styles.container}>
+                <View>
+                {(pageAllData[0].opinionsData.data.length>0||pageAllData[0].articleSectionData.data.length>0)?
+                    <FlatList
+                    data={pageAllData}
+                    keyExtractor={(_, index) => index.toString()}
+                    onEndReached={loadMoreData}
+                    onEndReachedThreshold={0.5}
+                    showsVerticalScrollIndicator={false}
+                    listKey={flatListUniqueKey.CONTENT_FOR_YOU + new Date().getTime().toString()}
+                    renderItem={({ item, index }) => renderContentForYou(item, index)}
+                    ListFooterComponent={renderFooterComponent}
+                    />:
+                    <View style={styles.container}>
+                        <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
+                    </View>
+                }
+                </View>:
+                <View style={styles.container}>
                     <LoadingState />
-            </View>
+                </View>
             }
         </View>
     )
