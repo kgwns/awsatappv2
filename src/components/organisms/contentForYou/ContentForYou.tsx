@@ -169,7 +169,6 @@ export const ContentForYou = () => {
                 return item.tid
             });
             setSelectedAuthors(selectedAuthors);
-            console.log(selectedAuthors,'selectedAuthorsDataselectedAuthorsData');
             fetchOpinionData(selectedAuthors,0);
         }
     };
@@ -221,7 +220,6 @@ export const ContentForYou = () => {
     }
 
     const validateBookmark = (nid: string): boolean => {
-        console.log(nid,bookmarkIdInfo)
         return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
     }
 
@@ -275,7 +273,7 @@ export const ContentForYou = () => {
     }
 
     return (
-        <View style={{flex:1}}>
+        <View style={styles.contentContainer}>
             {!initialLoading?
                 <View>
                 {(pageAllData[0].opinionsData.data.length>0 || pageAllData[0].articleSectionData.data.length>0 )?
@@ -303,6 +301,9 @@ export const ContentForYou = () => {
 }
 
 const styles = StyleSheet.create({
+    contentContainer: {
+        flex: 1,
+    },
     container: {
         flex: 1,
         alignItems: 'center',

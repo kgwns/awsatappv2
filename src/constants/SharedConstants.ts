@@ -23,3 +23,12 @@ export const REQUEST_CAMERA_ACCESS_MESSAGE = 'يرجى تقديم إذن للو�
 
 //Podcast Spreaker
 export const PODCAST_URL_SUFFIX = '/play.mp3'
+
+//Date picker
+export const DEFAULT_MINIMUM_DATE = '1970-01-01'
+
+//Social Media URLs
+export const FACEBOOK_URL = 'https://www.facebook.com/asharqalawsat.a';
+export const INSTAGRAM_URL = 'https://www.instagram.com/asharqalawsat/';
+export const LINKEDIN_URL = 'https://www.linkedin.com/company/asharq-alawsat';
+export const TWITTER_URL = 'https://twitter.com/aawsat_News'; 

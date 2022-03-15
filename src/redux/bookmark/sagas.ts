@@ -17,6 +17,7 @@ import {
 import { isNonEmptyArray, joinArray } from 'src/shared/utils';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
+import { DUMMY_IMAGE_URL } from 'src/services/apiUrls';
 
 const filterNidInfo = (data: BookmarkIdSuccessDataFieldType[]) => {
   return data.reduce((prevValue: string[], item: BookmarkIdSuccessDataFieldType) => {
@@ -42,7 +43,7 @@ const populateBookmarkDetail = (response: any): any => {
     bookmarkedDetailInfo: []
   }
 
-  //Need to remove those sample value when the API is available
+  // TODO: Need to remove those sample value when the API is available
   if (isNonEmptyArray(response)) {
     responseData.bookmarkedDetailInfo = response.reduce((prevValue: any[], item: any) => {
       if (item.type == PopulateWidgetType.ARTICLE) {
@@ -77,7 +78,7 @@ const populateBookmarkDetail = (response: any): any => {
       else if (item.type == PopulateWidgetType.VIDEO) {
         const videoData = {
           ...item,
-          imageUrl:item.field_thumbnil_multimedia_export ?? 'sites/default/files/styles/1200x600/public/shiekh-jarah-social-media-19052021.jpg?itok=E1_lVUeb',
+          imageUrl:item.field_thumbnil_multimedia_export,
           des:item.body_export,
           date: item.created_export,
           video:item.field_mp4_link_export,
@@ -88,10 +89,10 @@ const populateBookmarkDetail = (response: any): any => {
         const podcastData = {
           ...item,
           author: item?.field_announcer_name_export,
-          imageUrl: item?.field_podcast_sect_export?.img_podcast_mobile,
+          imageUrl: item?.field_podcast_sect_export?.img_podcast_mobile ?? DUMMY_IMAGE_URL,
           title: item?.title,
-          description: item?.body_export,
-          footerLeft: item?.field_duration_export_1,
+          body: item?.body_export,
+          timeDuration: item?.field_total_duration_export,
           isBookmarked: true
         }
         return prevValue.concat(podcastData)

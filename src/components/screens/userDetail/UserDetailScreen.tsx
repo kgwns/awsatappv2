@@ -23,7 +23,7 @@ import { UpdateUserImageBodyType } from 'src/redux/profileUserDetail/types';
 import { isDarkTheme } from 'src/shared/utils';
 import { useAppCommon, useLogin } from 'src/hooks';
 import { SystemPermissions } from 'src/shared/utils';
-import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS } from 'src/constants/SharedConstants';
+import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS, DEFAULT_MINIMUM_DATE } from 'src/constants/SharedConstants';
 import {useNewPassword} from 'src/hooks/useNewPassword'
 import { AlertModal } from 'src/components/organisms';
 
@@ -37,7 +37,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [occupation, setOccupation] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date(DEFAULT_MINIMUM_DATE));
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(t('profile.userDetail.selectBirthdayText'));
   const [userName, setUserName] = useState('')
@@ -81,21 +81,32 @@ export const UserDetailScreen: FunctionComponent = () => {
   },[] )
 
   useEffect(() =>{
-    if(isObjectNonEmpty(changePasswordData))
-    {if (changePasswordData?.message?.code === 200) {
-      Alert.alert(t('profile.newPassword.passwordChangedSuccessfully'),'',[
-        {
-          text: "ok",
-          onPress: () => onAlertOkPressed(),
-        },
-      ])
+    const message = changePasswordData?.message;
+    if(isObjectNonEmpty(changePasswordData?.message))
+    {if (message.code === 200) {
+      showAlert(message.message)
+    }else if(message.code === 0 && isNotEmpty(message?.message)){
+      showAlert(message.message)
+    }else{
+      showAlert(message.message)
     }}
   },[changePasswordData] )
 
-  const onAlertOkPressed = ()=>{
-    setOldPassword('')
-    setNewPassword('')
-    setConfirmNewPassword('')
+  const showAlert=(text:string)=>{
+    Alert.alert(text,'',[
+      {
+        text: "OK",
+        onPress: ()=>onAlertOkPressed(),
+      },
+    ])
+  }
+
+  const onAlertOkPressed = () => {
+    if (isObjectNonEmpty(changePasswordData?.message) && changePasswordData?.message.code === 200) {
+      setOldPassword('')
+      setNewPassword('')
+      setConfirmNewPassword('')
+    }
     emptyPasswordResponseInfo();
   }
 
@@ -192,6 +203,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             <Label style={styles.birthdayTitle} color={colors.greenishBlue} children={t('profile.userDetail.birthdayTitle')} />
             <DatePicker
               locale='ar'
+              minimumDate={new Date(DEFAULT_MINIMUM_DATE)}
               maximumDate={new Date(currentDate)}
               cancelText={t('profile.userDetail.cancelText')}
               confirmText={t('profile.userDetail.confirmText')}
@@ -290,12 +302,13 @@ export const UserDetailScreen: FunctionComponent = () => {
     setOldPasswordError(oldPasswordValidation(oldPassword));
     setNewPasswordError(loginPasswordValidation(newPassword));
     setConfirmNewPasswordError(reTypePasswordValidation(newPassword, confirmNewPassword));
-    if((newPassword === confirmNewPassword )
+    if((newPassword === confirmNewPassword)
     && isNotEmpty(newPassword) 
     && isNotEmpty(confirmNewPassword) 
     && isNotEmpty(oldPassword)){
     changePasswordInfo({
-      password: newPassword
+      password: newPassword,
+      old_password: oldPassword
     })}
   }
 

@@ -163,7 +163,7 @@ export const arabic = {
     passwordEmpty: 'Password required',
     passwordNotMatch: 'Password do not match',
     passwordStrength: 'Password is too short',
-    passwordRequirement:'Password must contail (1)uppercase,(1)lowercase,(1)numeric and (1)special character',
+    passwordRequirement:'Password must contain (1)uppercase,(1)lowercase,(1)numeric and (1)special character',
     maxLengthPassword: 'Password should contain maximum 20 characters',
     minLengthPassword: 'Password should contain minimum 8 characters',
   },
@@ -204,7 +204,7 @@ export const arabic = {
     exit: 'خروج',
     lightMode: 'وضع فاتح',
     darkMode: 'وضع غامق',
-    welcome: 'أهلاً،'
+    welcome: 'أهلاً، '
   },
   opinionArticleDetail: {
     return: 'الرجوع',
@@ -264,5 +264,6 @@ export const arabic = {
     title: 'أنت غير مشترك',
     message: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و تتمتع بخاصية حفظ المقالات',
     signUp: 'قم بالتسجيل'
-  }
+  },
+  listen_to_podcast: 'استمع الي البودكاست '
 }

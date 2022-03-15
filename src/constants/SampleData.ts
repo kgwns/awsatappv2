@@ -174,6 +174,36 @@ export const storeInfo = [
       favouriteArticlesData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       articleError: '',
       isArticleLoading: false,
+    },
+    changePassword: {
+      error: '',
+      isLoading: true,
+      response: {}
+    },
+    userDetails: {
+      userProfileData: {},
+      error: '',
+      isLoading: false,
+      sendUserInfo: {},
+      userDetail: null
+    },
+    podcastReducer:{
+      podcastListData: [],
+      podcastEpisodeData: [],
+      error: '',
+      isLoading: true,
+    },
+    login: {
+      loginData: null,
+      error: '',
+      isLoading: false,
+      isSkipped: false,
+    },
+    emailCheck: {
+      emailCheckData: null,
+      error: '',
+      isLoading: false,
+      actionType: '',
     }
   },
 ];

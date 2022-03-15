@@ -1,5 +1,5 @@
-import { removeBookmarked, removeBookmarkedFailed, removeBookMarkedSuccess, sendBookMarkId, sendBookMarkIdFailed, sendBookMarkIdSuccess } from "../action"
-import { REMOVE_BOOK_MARKED, REMOVE_BOOK_MARKED_FAILED, REMOVE_BOOK_MARKED_SUCCESS, SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS } from "../actionType"
+import { removeBookmarked, removeBookmarkedFailed, removeBookMarkedSuccess, sendBookMarkId, sendBookMarkIdFailed, sendBookMarkIdSuccess,getBookMarkedSuccess, getBookmarkedFailed, getBookmarkedDetailInfo, getBookMarkedSuccessDetailInfo, getBookmarkedFailedDetailInfo } from "../action"
+import { GET_BOOK_MARKED_DETAIL_INFO, GET_BOOK_MARKED_FAILED, GET_BOOK_MARKED_FAILED_DETAIL_INFO, GET_BOOK_MARKED_SUCCESS, GET_BOOK_MARKED_SUCCESS_DETAIL_INFO, REMOVE_BOOK_MARKED, REMOVE_BOOK_MARKED_FAILED, REMOVE_BOOK_MARKED_SUCCESS, SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS } from "../actionType"
 
 describe('<BookmarkAction', () => {
     const nid: string = '123'
@@ -39,5 +39,35 @@ describe('<BookmarkAction', () => {
         const result = removeBookmarkedFailed({removeBookmarkError: errorMessage})
         expect(result.type).toEqual(REMOVE_BOOK_MARKED_FAILED)
         expect(result.payload.removeBookmarkError).toEqual(errorMessage)
+    })
+
+    it('Check get bookmark success', () => {
+        const result = getBookMarkedSuccess({ bookmarkedInfo: [] })
+        expect(result.type).toEqual(GET_BOOK_MARKED_SUCCESS)
+        expect(result.payload.bookmarkedInfo).toEqual([])
+    })
+
+    it('Check get bookmark failed', () => {
+        const result = getBookmarkedFailed({ error: '' })
+        expect(result.type).toEqual(GET_BOOK_MARKED_FAILED)
+        expect(result.payload.error).toEqual('')
+    })
+
+    it('Check get bookmark detail info', () => {
+        const result = getBookmarkedDetailInfo({ nid: '123' })
+        expect(result.type).toEqual(GET_BOOK_MARKED_DETAIL_INFO)
+        expect(result.payload.nid).toEqual('123')
+    })
+
+    it('Check get bookmark detail info success', () => {
+        const result = getBookMarkedSuccessDetailInfo({ bookmarkedDetailInfo: [] })
+        expect(result.type).toEqual(GET_BOOK_MARKED_SUCCESS_DETAIL_INFO)
+        expect(result.payload.bookmarkedDetailInfo).toEqual([])
+    })
+
+    it('Check get bookmark detail info failed', () => {
+        const result = getBookmarkedFailedDetailInfo({ getBookmarkDetailError: '' })
+        expect(result.type).toEqual(GET_BOOK_MARKED_FAILED_DETAIL_INFO)
+        expect(result.payload.getBookmarkDetailError).toEqual('')
     })
 })

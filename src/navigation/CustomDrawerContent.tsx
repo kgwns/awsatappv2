@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, SafeAreaView, TouchableOpacity, Image} from 'react-native';
+import {View, StyleSheet, SafeAreaView, TouchableOpacity, Image, Linking} from 'react-native';
 import {ImagesName} from '../shared/styles/images';
 import {ButtonImage} from '../components/atoms';
 import {ButtonList, Divider} from 'src/components/atoms';
@@ -24,6 +24,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
 import { getProfileImageUrl } from 'src/shared/utils/utilities';
+import { FACEBOOK_URL, INSTAGRAM_URL, LINKEDIN_URL, TWITTER_URL } from 'src/constants/SharedConstants';
 
 interface CustomDrawerContentProps {}
 
@@ -141,23 +142,19 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           <View style={styles.socialContainer}>
             <ButtonImage
               icon={() => <LinkedinIcon />}
-              onPress={() => console.log('linkedin')}
+              onPress={() => Linking.openURL(LINKEDIN_URL)}
             />
             <ButtonImage
               icon={() => <TwitterIcon />}
-              onPress={() => console.log('twitter')}
+              onPress={() => Linking.openURL(TWITTER_URL)}
             />
             <ButtonImage
               icon={() => <FacebookIcon />}
-              onPress={() => console.log('facebook')}
-            />
-            <ButtonImage
-              icon={() => <YoutubeIcon />}
-              onPress={() => console.log('youtube')}
+              onPress={() => Linking.openURL(FACEBOOK_URL)}
             />
             <ButtonImage
               icon={() => <InstagramIcon />}
-              onPress={() => console.log('instagram')}
+              onPress={() => Linking.openURL(INSTAGRAM_URL)}
             />
           </View>
         </View>
