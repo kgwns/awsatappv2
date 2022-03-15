@@ -15,9 +15,11 @@ import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import { NavigateTypes } from '../auth/AuthPage';
 import { ScreensConstants } from 'src/constants';
 import {loginPasswordValidation, reTypePasswordValidation} from 'src/shared/validators';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 
 export const NewPassword = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<any>>();
     const { themeData } = useTheme();
     const [t] = useTranslation();
     const styles = useThemeAwareObject(createStyles);
@@ -25,10 +27,14 @@ export const NewPassword = () => {
     const [passwordError, setPasswordError] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [confirmPasswordError, setonfirmPasswordError] = useState('');
-    
+
     const navigateToSection = (type: string) => {
         switch (type) {
           case NavigateTypes.termsAndConditions:
+            navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US, {
+                title: t('terms_and_condition'),
+                id: TERMS_AND_CONDITION,
+              });
             return;
           default:
             navigation.reset({
@@ -37,7 +43,7 @@ export const NewPassword = () => {
             });
         }
       };
-      
+
       const onPressSignIn = () => {
         setPasswordError(loginPasswordValidation(password));
         setonfirmPasswordError(reTypePasswordValidation(password,confirmPassword));

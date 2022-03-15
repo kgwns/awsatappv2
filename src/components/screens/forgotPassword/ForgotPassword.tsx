@@ -16,6 +16,7 @@ import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import MailAnimation from '../../../assets/lottie-animation/mail.json';
 import LottieView from 'lottie-react-native';
 import { NavigateTypes } from '../auth/AuthPage';
+import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 
 
 export const ForgotPassword: FunctionComponent = () => {
@@ -41,6 +42,10 @@ export const ForgotPassword: FunctionComponent = () => {
   const navigateToSection = (type: string) => {
     switch (type) {
       case NavigateTypes.termsAndConditions:
+        navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US, {
+          title: t('terms_and_condition'),
+          id: TERMS_AND_CONDITION,
+        });
         return;
       default:
         navigation.reset({

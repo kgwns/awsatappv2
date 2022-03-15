@@ -17,7 +17,7 @@ import {
 import {ScreensConstants} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {LabelTypeProp} from 'src/components/atoms';
+import {LabelTypeProp, LoadingState} from 'src/components/atoms';
 import { useBookmark, useLogin } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { useTranslation } from 'react-i18next';
@@ -29,6 +29,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation<StackNavigationProp<any>>();
   const [page, setPage] = useState(0);
+  const [initialLoading, setInitialLoading] = useState(true);
 
   const heroListPayload: NewsViewBodyGet = {
     items_per_page: 2,
@@ -67,15 +68,23 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
 
   useEffect(() => {
     emptyAllListData();
+    makeInitialDataEmpty();
+    setInitialLoading(true);
     fetchHeroListRequest(heroListPayload);
     fetchTopListRequest(topListPayload);
   }, [sectionId]);
 
-  useEffect(() => {
-    emptyAllListData();
-    fetchHeroListRequest(heroListPayload);
-    fetchTopListRequest(topListPayload);
-  }, [sectionId]);
+  const makeInitialDataEmpty = () => {
+    setHeroListDataInfo([]);
+    setBottomListDataInfo([]);
+    setTopListDataInfo([]);
+  }
+
+  // useEffect(() => {
+  //   emptyAllListData();
+  //   fetchHeroListRequest(heroListPayload);
+  //   fetchTopListRequest(topListPayload);
+  // }, [sectionId]);
 
   useEffect(() => {
     fetchBottomListRequest(bottomListPayload);
@@ -113,6 +122,13 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       const heroData = updateBookmark(heroListData)
       setHeroListDataInfo(heroData)
     }
+    checkLoad()
+  }
+
+  const checkLoad = () => {
+    if(heroListDataInfo.length || bottomListDataInfo.length || topListDataInfo.length ){
+      setInitialLoading(false)
+    }
   }
 
   const updateBottomListData = () => {
@@ -120,6 +136,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       const bottomData = updateBookmark(bottomListData)
       setBottomListDataInfo(bottomData)
     }
+    checkLoad()
   }
 
   const updateTopListData = () => {
@@ -127,6 +144,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       const topData = updateTopListBookmark(topListData)
       setTopListDataInfo(topData)
     }
+    checkLoad()
   }
 
   const updateTopListBookmark = (data: LatestArticleDataType[]) => {
@@ -253,7 +271,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
     </View>
   );
   return (
-    <View>
+    <View style={style.contentContainer}>
       {showupUp && <AlertModal
         title={t('signUpAlert.subscribe')}
         message={t('signUpAlert.description')}
@@ -263,12 +281,16 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
         onClose={onCloseSignUpAlert}
       />
       }
-      <FlatList
+      {!initialLoading  ? <FlatList
       data={[{}]}
       keyExtractor={(_, index) => index.toString()}
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
-      />
+      /> :
+      <View style={style.loaderContainer}>
+        <LoadingState />
+      </View>
+      }
     </View>
   );
 };
@@ -284,6 +306,14 @@ const customStyle = (theme: CustomThemeType) => {
     tabletImageStyle: {
       height: 0.5 * screenWidth,
     },
+    loaderContainer : {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    contentContainer: {
+      flex: 1
+    }
   });
   return sectionStoryStyle;
 };
