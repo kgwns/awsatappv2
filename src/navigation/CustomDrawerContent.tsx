@@ -8,7 +8,6 @@ import {isIOS, normalize} from 'src/shared/utils';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
 import InstagramIcon from 'src/assets/images/icons/instagram.svg';
-import YoutubeIcon from 'src/assets/images/icons/youtube.svg';
 import TwitterIcon from 'src/assets/images/icons/twitter.svg';
 import LinkedinIcon from 'src/assets/images/icons/linkedin.svg';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
@@ -39,7 +38,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const {isLoggedIn} = useLogin();
   const {userProfileData} = useUserProfileData()
 
-  const [sideMenuDataInfo, setSideMenuDataInfo] = useState([])
+  const [sideMenuDataInfo, setSideMenuDataInfo] = useState<any>([])
   
   useEffect(() => {
     fetchSideMenuRequest();
@@ -48,6 +47,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   useEffect(() => {
     if (isNonEmptyArray(sideMenuData)) {
       const data = formateChildMenuData(sideMenuData)
+      setSideMenuDataInfo(data);
     }
   }, [sideMenuData])
 
@@ -82,7 +82,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   }
 
   const onPressDropDownIcon = (index: number) => {
-     const menuData = [...sideMenuData]
+     const menuData = [...sideMenuDataInfo]
      menuData[index].showDropDown = !menuData[index].showDropDown ?? true
      setSideMenuDataInfo(menuData)
   }
@@ -141,28 +141,28 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           onPressNavigation(ScreensConstants.SectionArticlesScreen,
             { sectionId: item.field_sectionid_export, title: item.title })
         }
-        onPressIcon={() => {}}
+        onPressIcon={() => onPressDropDownIcon(index)}
       />
     )
   }
 
-  const updatedSideMenuData = formateChildMenuData(sideMenuData)
 
   return (
     <SafeAreaView>
       {header()}
       <ScrollView bounces={false}>
         <View style={styles.menuContainer}>
-          {updatedSideMenuData.length > 0 &&
-            updatedSideMenuData.map((item, index) => {
+          {sideMenuDataInfo.length > 0 &&
+            sideMenuDataInfo.map((item:any, index:number) => {
               const icon = isNonEmptyArray(item.child) ? ImagesName.dropDownIcon : null
               return (
                 <View>
                   {buttonListItem(item, index, icon)}
-                  {isNonEmptyArray(item.child) && item.showDropdown &&
-                    item.child.map((childItem: any, childIndex: number) => {
+                  {isNonEmptyArray(item.child) && item.showDropDown && <View style={styles.childDropdownItem}>
+                    {item.child.map((childItem: any, childIndex: number) => {
                       return buttonListItem(childItem, childIndex)
-                    })
+                    })}
+                    </View>
                   }
                 </View>
               );
@@ -277,4 +277,8 @@ const createStyles = (theme: CustomThemeType) =>
     nonBoldTitle: {
       fontWeight: 'normal',
     },
+    childDropdownItem: {
+      borderBottomColor: theme.dividerColor,
+      borderBottomWidth: 1 
+    }
   });
