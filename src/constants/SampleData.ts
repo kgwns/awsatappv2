@@ -167,6 +167,36 @@ export const storeInfo = [
       isLoading: true,
       selectedNewsLettersData: {}
     },
+    changePassword: {
+      error: '',
+      isLoading: true,
+      response: {}
+    },
+    userDetails: {
+      userProfileData: {},
+      error: '',
+      isLoading: false,
+      sendUserInfo: {},
+      userDetail: null
+    },
+    podcastReducer:{
+      podcastListData: [],
+      podcastEpisodeData: [],
+      error: '',
+      isLoading: true,
+    },
+    login: {
+      loginData: null,
+      error: '',
+      isLoading: false,
+      isSkipped: false,
+    },
+    emailCheck: {
+      emailCheckData: null,
+      error: '',
+      isLoading: false,
+      actionType: '',
+    }
   },
 ];
 

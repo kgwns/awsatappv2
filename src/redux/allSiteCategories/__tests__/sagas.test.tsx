@@ -1,16 +1,16 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
-import {FETCH_ALL_SITE_CATEGORIES} from '../actionTypes';
-import allSiteCategoriesSaga, {fetchAllSiteCategories} from '../sagas';
-import {fetchAllSiteCategoriesSuccess} from '../action';
-import {fetchAllSiteCategoriesApi} from 'src/services/allSiteCategoriesService';
-
+import {EMPTY_SELECTED_TOPICS_INFO, FETCH_ALL_SITE_CATEGORIES, GET_SELECTED_TOPICS, SEND_SELECTED_TOPIC} from '../actionTypes';
+import allSiteCategoriesSaga, {emptySelectedTopicsInfo, fetchAllSiteCategories,getSelectedtTopics,postSelectedTopics} from '../sagas';
+import {fetchAllSiteCategoriesSuccess,sendSelectedTopicSuccess} from '../action';
+import {fetchAllSiteCategoriesApi,sendSelectedTopicsApi} from 'src/services/allSiteCategoriesService';
 import {
   FetchAllSiteCategoriesType,
   FetchAllSiteCategoriesListSuccessPayloadType,
   AllSiteCategoriesBodyGet,
+  SendSelectedTopicType,
+  SendSelectedTopicBody,
 } from '../types';
-import { waitFor } from '@testing-library/react-native';
 
 const mockItems = 10;
 const mockString = 'mockString';
@@ -23,6 +23,16 @@ const requestAction: FetchAllSiteCategoriesType = {
   type: FETCH_ALL_SITE_CATEGORIES,
   payload: requestObject,
 };
+
+const requestObjectPostSelected: SendSelectedTopicBody = {
+  tid: mockString,
+};
+
+const requestActionPostSelected: SendSelectedTopicType = {
+  type: SEND_SELECTED_TOPIC,
+  payload: requestObjectPostSelected,
+};
+
 
 const reposnseObject = {
   rows: [
@@ -72,4 +82,22 @@ describe('Test allSiteCategories  error', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+
+  it('check postSelectedTopics failed', () => {
+    const genObject = postSelectedTopics({
+      type: SEND_SELECTED_TOPIC,
+      payload: {tid: '123'},
+    });
+    genObject.next();
+    genObject.throw(errorResponse);
+  });
+
+  it('check getSelectedtTopics failed', () => {
+    const genObject = getSelectedtTopics({
+      type: GET_SELECTED_TOPICS,
+    });
+    genObject.next();
+    genObject.throw(errorResponse);
+  });
+
 });

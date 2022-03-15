@@ -1,7 +1,7 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
-import {FETCH_ALL_WRITERS} from '../actionTypes';
-import allWritersSaga, {fetchAllWriters} from '../sagas';
+import {FETCH_ALL_WRITERS, GET_SELECTED_AUTHOR, SEND_SELECTED_AUTHOR} from '../actionTypes';
+import allWritersSaga, {fetchAllWriters, getSelectedtAuthors, postSelectedWriters} from '../sagas';
 import {fetchAllWritersSuccess} from '../action';
 import {fetchAllWritersApi} from 'src/services/allWritersService';
 
@@ -66,6 +66,23 @@ describe('Test allWriter  error', () => {
     const genObject = fetchAllWriters({
       type: FETCH_ALL_WRITERS,
       payload: {items_per_page: mockItems},
+    });
+    genObject.next();
+    genObject.throw(errorResponse);
+  });
+
+  it('check postSelectedWriters failed', () => {
+    const genObject = postSelectedWriters({
+      type: SEND_SELECTED_AUTHOR,
+      payload: {tid: '123'},
+    });
+    genObject.next();
+    genObject.throw(errorResponse);
+  });
+
+  it('check getSelectedtAuthors failed', () => {
+    const genObject = getSelectedtAuthors({
+      type: GET_SELECTED_AUTHOR,
     });
     genObject.next();
     genObject.throw(errorResponse);
