@@ -16,6 +16,8 @@ import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import MailAnimation from '../../../assets/lottie-animation/mail.json';
 import LottieView from 'lottie-react-native';
 import { NavigateTypes } from '../auth/AuthPage';
+import { useLogin } from 'src/hooks';
+import { openInbox } from "react-native-email-link";
 import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 
 
@@ -26,6 +28,7 @@ export const ForgotPassword: FunctionComponent = () => {
   const styles = useThemeAwareObject(createStyles);
   const appState = useRef(AppState.currentState);
   const [animationRef,setAnimationRef] = useState<LottieView>()
+  const {emptyforgotPassworResponseInfo} = useLogin();
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", nextAppState => {
@@ -39,13 +42,18 @@ export const ForgotPassword: FunctionComponent = () => {
     return () => { subscription.remove(); };
   }, [animationRef]);
 
+  useEffect(() => {
+    emptyforgotPassworResponseInfo()
+    return () => {
+      emptyforgotPassworResponseInfo()
+    }
+  }, [])
+
   const navigateToSection = (type: string) => {
     switch (type) {
       case NavigateTypes.termsAndConditions:
-        navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US, {
-          title: t('terms_and_condition'),
-          id: TERMS_AND_CONDITION,
-        });
+        navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US,
+          { title: t('terms_and_condition'), id: TERMS_AND_CONDITION });
         return;
       default:
         navigation.reset({
@@ -56,13 +64,13 @@ export const ForgotPassword: FunctionComponent = () => {
   };
   const onPressBack = () => {
     navigation.goBack();
-    console.log('return button tapped')
   }
   const onPressGoToMail = () => {
-    navigation.navigate(ScreensConstants.NEW_PASSWORD)
+    openInbox();
   }
+  
   const onPressSkip = () => {
-    console.log('skip button tapped')
+    navigation.goBack()
   }
 
   return (

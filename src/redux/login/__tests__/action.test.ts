@@ -6,9 +6,12 @@ import {
     FETCH_USER_LOGOUT,
     FETCH_USER_LOGOUT_SUCCESS,
     LOGIN_SKIPPED,
-    ONBOARDING_SUCCESS
+    ONBOARDING_SUCCESS,
+    FORGOT_PASSWORD_SUCCESS,
+    FORGOT_PASSWORD_FAILED,
+    EMPTY_FORGOT_PASSWORD_RESPONSE
 } from 'src/redux/login/actionTypes';
-import { fetchLogin, fetchLoginSuccess, fetchLoginFailed, userLogout, userLogoutSuccess, userLoginSkipped, onBoardingSuccess } from 'src/redux/login/action';
+import { fetchLogin, fetchLoginSuccess, fetchLoginFailed, userLogout, userLogoutSuccess, userLoginSkipped, onBoardingSuccess,forgotPasswordSuccess,forgotPasswordFailed,emptyForgotPasswordResponse } from 'src/redux/login/action';
 
 describe('Login Action', () => {
     const payload: FetchLoginPayloadType = {
@@ -57,5 +60,24 @@ describe('Login Action', () => {
     test('Check request onboard success type', () => {
         const request = onBoardingSuccess()
         expect(request.type).toEqual(ONBOARDING_SUCCESS)
+    })
+
+    test('Check request forgot password success type', () => {
+        const request = forgotPasswordSuccess({
+            response: {}
+        })
+        expect(request.type).toEqual(FORGOT_PASSWORD_SUCCESS)
+    })
+
+    test('Check request forgot password failed type', () => {
+        const request = forgotPasswordFailed({
+            error: ''
+        })
+        expect(request.type).toEqual(FORGOT_PASSWORD_FAILED)
+    })
+
+    test('Check empty forgot password type', () => {
+        const request = emptyForgotPasswordResponse()
+        expect(request.type).toEqual(EMPTY_FORGOT_PASSWORD_RESPONSE)
     })
 })

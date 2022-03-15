@@ -41,10 +41,14 @@ export const AuthPage: FunctionComponent = () => {
   const {registerUserInfo, isRegisterLoading} = useRegister();
   const dispatch = useDispatch();
 
-  const {loginSkipped} = useLogin();
+  const {loginSkipped,emptyforgotPassworResponseInfo} = useLogin();
 
   const {fetchEmailCheckRequest, isLoading, emailCheckData } =
     useEmailCheck();
+
+  useEffect(() => {
+    emptyforgotPassworResponseInfo()
+  }, [])
 
   useEffect(() => {
     const message = emailCheckData?.message;
