@@ -107,7 +107,6 @@ export const ScreenContainer = ({
 
   const statusBarBackgroundColor = statusbarColor || themeData.backgroundColor;
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView
         style={style.container}
         edges={edge ? edge : ['left', 'right', 'top']}>
@@ -147,7 +146,6 @@ export const ScreenContainer = ({
           />
         )}
       </SafeAreaView>
-    </TouchableWithoutFeedback>
   );
 };
 
