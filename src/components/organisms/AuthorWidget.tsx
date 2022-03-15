@@ -13,7 +13,7 @@ import { getImageUrl } from 'src/shared/utils/utilities'
 
 
 
-const AuthorWidget = ({data,listKey,widgetHeader}: { data: LatestOpinionDataType[],listKey?:string, widgetHeader?:string }) => {
+const AuthorWidget = ({data,listKey,widgetHeader}: { data: LatestOpinionDataType[], listKey?: string, widgetHeader?: string }) => {
     const style = useThemeAwareObject(customStyle)
     const [t] = useTranslation()
     const { themeData } = useTheme()
@@ -41,7 +41,7 @@ const AuthorWidget = ({data,listKey,widgetHeader}: { data: LatestOpinionDataType
 
     const widgetHeaderData: WidgetHeaderProps = {
         headerLeft: {
-            title: widgetHeader?widgetHeader:t('latestNewsTab.sectionWriters.headerLeft'),
+            title: widgetHeader ? widgetHeader : t('latestNewsTab.sectionWriters.headerLeft'),
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
         },
@@ -65,7 +65,7 @@ const AuthorWidget = ({data,listKey,widgetHeader}: { data: LatestOpinionDataType
             <FlatList
                 style={style.listContainer}
                 keyExtractor={(_, index) => index.toString()}
-                listKey={listKey?listKey:flatListUniqueKey.AUTHOR_WIDGET}
+                listKey={listKey ? listKey : flatListUniqueKey.AUTHOR_WIDGET}
                 data={data}
                 numColumns={numberOfColumn}
                 showsVerticalScrollIndicator={false}

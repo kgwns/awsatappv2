@@ -58,7 +58,7 @@ const ArticleSection = ({
         const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
         updatedData[index].isBookmarked = bookmarkStatus
         setArticleData(updatedData)
-        onUpdateBookmark&&onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
+        onUpdateBookmark && onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
     }
 
     const renderItem = (item: articleProps, index: number) => {
@@ -76,7 +76,7 @@ const ArticleSection = ({
         <View style={articleSectionStyle.container}>
             <FlatList
                 keyExtractor={(_,index) => index.toString()}
-                listKey={listKey?listKey:flatListUniqueKey.ARTICLE_SECTION}
+                listKey={listKey ? listKey : flatListUniqueKey.ARTICLE_SECTION}
                 style={articleSectionStyle.listContainer}
                 data={articleData}
                 showsVerticalScrollIndicator={false}

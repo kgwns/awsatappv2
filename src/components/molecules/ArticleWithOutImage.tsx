@@ -28,7 +28,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     ...props
 }) => (
     <TouchableWithoutFeedback onPress={onPress}>
-        <View style={[{ ...props.contentStyle },!showDivider&&{paddingBottom: normalize(10)}]}>
+        <View style={[{ ...props.contentStyle }, !showDivider && {paddingBottom: normalize(10)}]}>
             <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
             {body && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)} color={Styles.color.davyGrey} numberOfLines={3} />}
             <View style={ArticleWithOutImageStyle.footerContainer}>

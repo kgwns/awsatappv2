@@ -106,7 +106,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
       <FlatList
         keyExtractor={(_, index) => index.toString()}
         listKey={
-          listKey?listKey:flatListUniqueKey.SHORT_ARTICLE + new Date().getTime().toString()
+          listKey ? listKey : flatListUniqueKey.SHORT_ARTICLE + new Date().getTime().toString()
         }
         data={articleData}
         showsVerticalScrollIndicator={false}

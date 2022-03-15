@@ -191,6 +191,7 @@ export const ContentForYou = () => {
         }
         fetchFavouriteOpinionsRequest(opinionBody)
     }
+
     const fetchArticleData =(topicsList:any, pageCount: any) => {
         let opinionBody : FavouriteArticlesBodyGet = {
             page: pageCount,
@@ -274,7 +275,7 @@ export const ContentForYou = () => {
 
     return (
         <View style={styles.contentContainer}>
-            {!initialLoading?
+            {!initialLoading  ?
                 <View>
                 {(pageAllData[0].opinionsData.data.length>0 || pageAllData[0].articleSectionData.data.length>0 )?
                     <FlatList
@@ -291,7 +292,7 @@ export const ContentForYou = () => {
                         <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
                     </View>
                 }
-                </View>:
+                </View> :
                 <View style={styles.container}>
                     <LoadingState />
                 </View>

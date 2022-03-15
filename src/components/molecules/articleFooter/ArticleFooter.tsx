@@ -70,9 +70,9 @@ const ArticleFooter = ({
   return (
     <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
       <View style={[articleFooterStyle.authorContainer,hideBookmark&&{flex:1}]}>
-        {showFooterTitle&&<CaptionWithImage style={articleFooterStyle.leftContainer} title={leftTitle} icon={leftIcon} color={leftTitleColor}  />}
-        {(rightTitle || leftTitle) && showFooterTitle&& <View  style={articleFooterStyle.verticalDivider} />}
-        {showFooterTitle&&<CaptionWithImage style={articleFooterStyle.rightContainer} title={rightTitle} icon={rightIcon} color={rightTitleColor} />}
+        {showFooterTitle && <CaptionWithImage style={articleFooterStyle.leftContainer} title={leftTitle} icon={leftIcon} color={leftTitleColor}  />}
+        {(rightTitle || leftTitle) && showFooterTitle && <View  style={articleFooterStyle.verticalDivider} />}
+        {showFooterTitle && <CaptionWithImage style={articleFooterStyle.rightContainer} title={rightTitle} icon={rightIcon} color={rightTitleColor} />}
       </View>
       {!hideBookmark &&
         <View style={articleFooterStyle.bookMarkContainer}>
