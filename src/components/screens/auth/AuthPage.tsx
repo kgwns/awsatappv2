@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, TouchableOpacity, Alert, Platform} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Keyboard} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {isIOS, normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
@@ -95,6 +95,7 @@ export const AuthPage: FunctionComponent = () => {
       const payload: FetchEmailCheckPayloadType = {
         email: email,
       };
+      Keyboard.dismiss();
       fetchEmailCheckRequest(payload);
     }
   };

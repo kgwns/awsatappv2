@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Alert, Keyboard} from 'react-native';
 import {isObjectNonEmpty, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from 'src/components/organisms/';
@@ -129,6 +129,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     };
 
     if (emptyPasswordValidation(password) === '') {
+      Keyboard.dismiss();
       fetchLoginRequest(payload);
     }
   };
