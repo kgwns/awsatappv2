@@ -90,6 +90,10 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
     }
   }
 
+  const onGoBack = () => {
+    navigation.goBack()
+  }
+
   const renderItem = () => (
     <View >
       <View style={styles.headerStyle}>
@@ -98,6 +102,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           headerBookmarkIconTestId={'video_detail_save'}
           headerBackIconTestId={'video_detail_back'}
           onPressShare={onPressShare}
+          onGoBack={onGoBack}
           onPressSave={()=> isNonEmptyArray(videoData) && checkAndUpdateBookmark(videoData[0].nid)}
           isSaved={isBookmarked}
           isCloseIcon
