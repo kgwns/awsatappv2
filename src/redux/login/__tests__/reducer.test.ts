@@ -1,5 +1,5 @@
 import { loginAction } from '../action';
-import { FETCH_LOGIN, FETCH_LOGIN_ERROR, FETCH_LOGIN_SUCCESS, FETCH_USER_LOGOUT, FETCH_USER_LOGOUT_SUCCESS, LOGIN_SKIPPED, ONBOARDING_SUCCESS } from '../actionTypes';
+import { EMPTY_FORGOT_PASSWORD_RESPONSE, FETCH_LOGIN, FETCH_LOGIN_ERROR, FETCH_LOGIN_SUCCESS, FETCH_USER_LOGOUT, FETCH_USER_LOGOUT_SUCCESS, FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_SKIPPED, ONBOARDING_SUCCESS } from '../actionTypes';
 import loginReducer from '../reducer';
 import { LoginState } from '../types';
 
@@ -12,6 +12,7 @@ describe('login reducer', () => {
             error: '',
             isLoading: false,
             isSkipped: false,
+            forgotPasswordResponse:{}
         };
     });
 
@@ -96,4 +97,34 @@ describe('login reducer', () => {
         expect(nextState.isLoading).toBe(false);
     });
 
+    test('Check loading state when FORGOT_PASSWORD_REQUEST  API', () => {
+        const nextState = loginReducer(initialState, {
+            type: FORGOT_PASSWORD_REQUEST,
+            payload: { email: 'email' },
+        });
+        expect(nextState.isLoading).toBe(true);
+    });
+
+    test('Check loading state when FORGOT_PASSWORD_SUCCESS request API', () => {
+        const nextState = loginReducer(initialState, {
+            type: FORGOT_PASSWORD_SUCCESS,
+            payload: { response: {} },
+        });
+        expect(nextState.isLoading).toBe(false);
+    });
+
+    test('Check loading state when FORGOT_PASSWORD_FAILED request API', () => {
+        const nextState = loginReducer(initialState, {
+            type: FORGOT_PASSWORD_FAILED,
+            payload: { error: 'sample error' },
+        });
+        expect(nextState.isLoading).toBe(false);
+    });
+
+    test('Check loading state when FORGOT_PASSWORD_FAILED request API', () => {
+        const nextState = loginReducer(initialState, {
+            type: EMPTY_FORGOT_PASSWORD_RESPONSE,
+        });
+        expect(nextState.isLoading).toBe(false);
+    });
 });

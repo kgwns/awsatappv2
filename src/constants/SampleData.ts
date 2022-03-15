@@ -190,6 +190,7 @@ export const storeInfo = [
       error: '',
       isLoading: false,
       isSkipped: false,
+      forgotPasswordResponse:{}
     },
     emailCheck: {
       emailCheckData: null,
