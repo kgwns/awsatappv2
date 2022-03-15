@@ -17,10 +17,16 @@ import {Styles} from 'src/shared/styles';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import DeviceInfo from 'react-native-device-info';
-import { AlertModal } from 'src/components/organisms';
-import { ScreensConstants } from 'src/constants';
+import {AlertModal} from 'src/components/organisms';
+import {ScreensConstants} from 'src/constants';
 
 const isIphoneX = DeviceInfo.hasNotch();
+
+export interface AlertPayloadType {
+  title: string;
+  message: string;
+  buttonTitle: string;
+}
 
 export interface ScreenContainerProps {
   children: any;
@@ -31,8 +37,12 @@ export interface ScreenContainerProps {
   showHeader?: boolean;
   headerTitle?: string;
   statusbarColor?: string;
-  isSignUpAlertVisible?: boolean,
-  onCloseSignUpAlert?: () => void
+  isSignUpAlertVisible?: boolean;
+  onCloseSignUpAlert?: () => void;
+  isAlertVisible?: boolean;
+  setIsAlertVisible?: any; 
+  alertPayload?: AlertPayloadType;
+  alertOnPress?: () => void;
 }
 
 export const ScreenContainer = ({
@@ -45,7 +55,11 @@ export const ScreenContainer = ({
   statusbarColor,
   isOverlayLoading = false,
   isSignUpAlertVisible = false,
-  onCloseSignUpAlert
+  onCloseSignUpAlert,
+  alertPayload,
+  alertOnPress,
+  isAlertVisible,
+  setIsAlertVisible
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -66,7 +80,7 @@ export const ScreenContainer = ({
       index: 0,
       routes: [{name: ScreensConstants.AuthNavigator}],
     });
-  }
+  };
 
   const header = (title?: string) => {
     return (
@@ -103,16 +117,32 @@ export const ScreenContainer = ({
       />
       {children}
       {isLoading && <LoadingState />}
-      {isOverlayLoading && <View style={style.loadingOverlay}><LoadingState /></View>}
-      {isSignUpAlertVisible && <AlertModal
-        title={t('signUpAlert.subscribe')}
-        message={t('signUpAlert.description')}
-        buttonText={t('signUpAlert.signUp')}
-        isVisible={isSignUpAlertVisible}
-        onPressSuccess={onPressSignUp}
-        onClose={() => onCloseSignUpAlert && onCloseSignUpAlert()}
-      />
-      }
+      {isOverlayLoading && (
+        <View style={style.loadingOverlay}>
+          <LoadingState />
+        </View>
+      )}
+      {isSignUpAlertVisible && (
+        <AlertModal
+          title={t('signUpAlert.subscribe')}
+          message={t('signUpAlert.description')}
+          buttonText={t('signUpAlert.signUp')}
+          isVisible={isSignUpAlertVisible}
+          onPressSuccess={onPressSignUp}
+          onClose={() => onCloseSignUpAlert && onCloseSignUpAlert()}
+        />
+      )}
+
+      {isAlertVisible && (
+        <AlertModal
+          title={alertPayload ? alertPayload.title : ''}
+          message={alertPayload ? alertPayload.message : ''}
+          buttonText={alertPayload ? alertPayload.buttonTitle : ''}
+          isVisible={isAlertVisible}
+          onPressSuccess={alertOnPress}
+          onClose={() => setIsAlertVisible && setIsAlertVisible(false)}
+        />
+      )}
     </SafeAreaView>
   );
 };
@@ -163,9 +193,9 @@ const createStyles = (theme: CustomThemeType) => {
       width: '100%',
       height: '100%',
       backgroundColor: theme.backgroundColor,
-      opacity: .8,
-      position: 'absolute'
-    }
+      opacity: 0.8,
+      position: 'absolute',
+    },
   });
   return styles;
 };

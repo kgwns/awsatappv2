@@ -204,7 +204,9 @@ export const arabic = {
     exit: 'خروج',
     lightMode: 'وضع فاتح',
     darkMode: 'وضع غامق',
-    welcome: 'أهلاً، '
+    welcome: 'أهلاً،',
+    logoutAlertMessage: 'هل أنت متأكد أنك تريد تسجيل الخروج',
+    alert: 'إنذار'
   },
   opinionArticleDetail: {
     return: 'الرجوع',
