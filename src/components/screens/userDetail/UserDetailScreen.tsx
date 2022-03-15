@@ -81,21 +81,32 @@ export const UserDetailScreen: FunctionComponent = () => {
   },[] )
 
   useEffect(() =>{
-    if(isObjectNonEmpty(changePasswordData))
-    {if (changePasswordData?.message?.code === 200) {
-      Alert.alert(t('profile.newPassword.passwordChangedSuccessfully'),'',[
-        {
-          text: "ok",
-          onPress: () => onAlertOkPressed(),
-        },
-      ])
+    const message = changePasswordData?.message;
+    if(isObjectNonEmpty(changePasswordData?.message))
+    {if (message.code === 200) {
+      showAlert(message.message)
+    }else if(message.code === 0 && isNotEmpty(message?.message)){
+      showAlert(message.message)
+    }else{
+      showAlert(message.message)
     }}
   },[changePasswordData] )
 
-  const onAlertOkPressed = ()=>{
-    setOldPassword('')
-    setNewPassword('')
-    setConfirmNewPassword('')
+  const showAlert=(text:string)=>{
+    Alert.alert(text,'',[
+      {
+        text: "OK",
+        onPress: ()=>onAlertOkPressed(),
+      },
+    ])
+  }
+
+  const onAlertOkPressed = () => {
+    if (isObjectNonEmpty(changePasswordData?.message) && changePasswordData?.message.code === 200) {
+      setOldPassword('')
+      setNewPassword('')
+      setConfirmNewPassword('')
+    }
     emptyPasswordResponseInfo();
   }
 
@@ -291,12 +302,13 @@ export const UserDetailScreen: FunctionComponent = () => {
     setOldPasswordError(oldPasswordValidation(oldPassword));
     setNewPasswordError(loginPasswordValidation(newPassword));
     setConfirmNewPasswordError(reTypePasswordValidation(newPassword, confirmNewPassword));
-    if((newPassword === confirmNewPassword )
+    if((newPassword === confirmNewPassword)
     && isNotEmpty(newPassword) 
     && isNotEmpty(confirmNewPassword) 
     && isNotEmpty(oldPassword)){
     changePasswordInfo({
-      password: newPassword
+      password: newPassword,
+      old_password: oldPassword
     })}
   }
 

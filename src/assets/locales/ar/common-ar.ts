@@ -202,7 +202,7 @@ export const arabic = {
     exit: 'خروج',
     lightMode: 'وضع فاتح',
     darkMode: 'وضع غامق',
-    welcome: 'أهلاً،'
+    welcome: 'أهلاً، '
   },
   opinionArticleDetail: {
     return: 'الرجوع',
