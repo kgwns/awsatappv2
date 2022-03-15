@@ -8,7 +8,6 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 
-
 jest.mock("src/hooks/useBookmark", () => ({
   useBookmark: (...args: any) => {
       return {
@@ -20,6 +19,13 @@ jest.mock("src/hooks/useBookmark", () => ({
   },
 }));
 
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: (...args: any) => {
+      return {
+        emptyforgotPassworResponseInfo:()=>{}
+      }
+  },
+}));
 
 describe('<SplashNavigation>', () => {
   let instance: RenderAPI;
@@ -38,7 +44,7 @@ describe('<SplashNavigation>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    xit('Should render SplashNavigation', () => {
+    it('Should render SplashNavigation', () => {
       expect(instance).toBeDefined();
     });
   });
