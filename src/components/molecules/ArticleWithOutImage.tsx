@@ -42,10 +42,6 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     </TouchableWithoutFeedback>
 )
 
-// ArticleWithOutImage.defaultProps = {
-//     showDivider: true
-// }
-
 export default ArticleWithOutImage
 
 const ArticleWithOutImageStyle = StyleSheet.create({

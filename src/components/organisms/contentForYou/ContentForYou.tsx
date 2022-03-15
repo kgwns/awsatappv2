@@ -9,7 +9,7 @@ import { ShortArticleProps } from '../ShortArticle';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { FavoriteVideo } from '../favoriteVideo/favoriteVideo';
 import { screenHeight, screenWidth } from 'src/shared/utils';
-import { useAllSiteCategories, useAllWriters, useContentForYou } from 'src/hooks';
+import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
 import { getImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
 import {flatListUniqueKey} from 'src/constants';
@@ -46,6 +46,7 @@ export const ContentForYou = () => {
         fetchFavouriteArticlesRequest,
         emptyAllData,
     } = useContentForYou();
+    const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo} = useBookmark()
     const [selectedAuthors, setSelectedAuthors] = useState([])
     const [selectedTopics, setSelectedTopics] = useState([])
     const [isAllLoading, setIsAllLoading] = useState(false)
@@ -94,6 +95,21 @@ export const ContentForYou = () => {
         formatOpinionsData()
     }, [favouriteOpinionsData]);
 
+    useEffect(() => {
+        checkBookmarkUpdate()
+    }, [bookmarkIdInfo]);
+
+    const checkBookmarkUpdate = () => {
+        let bookmarkData = [...pageAllData]
+        for (let i = 0; i < bookmarkData.length; i++) {
+            let bookmarkArticlesData = updateBookmark(bookmarkData[i].articleSectionData.data);
+            let bookmarkShortArticles = updateBookmark(bookmarkData[i].shortArticleData.data);
+            bookmarkData[i].articleSectionData.data = bookmarkArticlesData
+            bookmarkData[i].shortArticleData.data = bookmarkShortArticles
+        }
+        setPageAllData(bookmarkData)
+    }
+
     const formatOpinionsData = () => {
         let updatedPageData = [...pageAllData];
         if(updatedPageData[page]!=undefined){
@@ -104,9 +120,11 @@ export const ContentForYou = () => {
     }
 
     const checkLoadData = () =>{
-        if(pageAllData[page]&&pageAllData[page].articleSectionData.loaded&&pageAllData[page].opinionsData.loaded&&pageAllData[page].shortArticleData.loaded){
-            setInitialLoading(false)
+        if(pageAllData[page] && pageAllData[page].articleSectionData.loaded &&
+            pageAllData[page].opinionsData.loaded && pageAllData[page].shortArticleData.loaded){
+            checkBookmarkUpdate();
             setIsAllLoading(false)
+            setInitialLoading(false)
         }
     }
 
@@ -196,33 +214,52 @@ export const ContentForYou = () => {
 
     const onPressArticle = (nid: string) => {
         nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+    }
+
+    const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+        isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    }
+
+    const validateBookmark = (nid: string): boolean => {
+        console.log(nid,bookmarkIdInfo)
+        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+    }
+
+    const updateBookmark = (data: any) => {
+        return data.map((item: any) => (
+          {
+            ...item,
+            isBookmarked: validateBookmark(item.nid)
+          }
+        ))
       }
 
     const renderContentForYou = (item: AllContentData, index: number) => (
-        <View key={flatListUniqueKey.CONTENT_FOR_YOU + index} style={{flex: 1,paddingVertical: normalize(10),}}>
+        <View key={flatListUniqueKey.CONTENT_FOR_YOU + index} style={styles.spaceStyle}>
             {/* <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} /> */}
-            {item.opinionsData.data.length>0&&<AuthorWidget
+            {item.opinionsData.data.length>0 && <AuthorWidget
                 widgetHeader={t('favorite.articles_from_your_favorite_writers')}
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'authorWidget'+index}
                 data={item.opinionsData.data}
             />}
-            {item.articleSectionData.data.length>0&&<View style={{paddingHorizontal: 0.04 * screenWidth}}>
+            {item.articleSectionData.data.length>0 && <View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <WidgetHeader {...widgetHeaderData} />
             </View>}
             {/* <View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <FavoriteVideo data={videoArchiveData} />
             </View> */}
-            {item.articleSectionData.data.length>0&&<ArticleSection
+            {item.articleSectionData.data.length>0 && <ArticleSection
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'articleSection'+index}
                 data={item.articleSectionData.data}
                 showFooterTitle={false}
                 showDivider={false}
+                onUpdateBookmark={updateBookmarkInfo}
             />}
-            {item.shortArticleData.data.length>0&&<ShortArticle
+            {item.shortArticleData.data.length>0 && <ShortArticle
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'shortArticle'+index}
                 data={item.shortArticleData.data}
                 onPress={onPressArticle}
-                onUpdateBookmark={() => { }}
+                onUpdateBookmark={updateBookmarkInfo}
                 showSignUpPopUp={() => {}}
             />}
         </View>
@@ -241,7 +278,7 @@ export const ContentForYou = () => {
         <View style={{flex:1}}>
             {!initialLoading?
                 <View>
-                {(pageAllData[0].opinionsData.data.length>0||pageAllData[0].articleSectionData.data.length>0)?
+                {(pageAllData[0].opinionsData.data.length>0 || pageAllData[0].articleSectionData.data.length>0 )?
                     <FlatList
                     data={pageAllData}
                     keyExtractor={(_, index) => index.toString()}
@@ -278,5 +315,9 @@ const styles = StyleSheet.create({
         height: normalize(60),
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    spaceStyle: {
+        flex: 1,
+        paddingVertical: normalize(10),
     }
 })
