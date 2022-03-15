@@ -1,4 +1,4 @@
-import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS } from './actionType';
+import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA } from './actionType';
 import { ArticleDetailAction, ArticleDetailState } from './types';
 
 const initialData: ArticleDetailState = {
@@ -47,6 +47,15 @@ export default (state = initialData, action: ArticleDetailAction) => {
         isLoading: false,
         error: action.payload.error
       }
+    case EMPTY_DATA:
+      return {
+        ...state,
+        isLoading: true,
+        error: '',
+        articleDetailData: [],
+        pager: {},
+        relatedArticleData: []
+      };
     default:
       return { ...state }
   }

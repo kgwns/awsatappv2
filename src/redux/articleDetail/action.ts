@@ -1,4 +1,4 @@
-import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS } from "./actionType"
+import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA } from "./actionType"
 import {
   ArticleDetailBodyGet,
   ArticleDetailFailedPayload,
@@ -69,6 +69,12 @@ export const requestRelatedArticleFailed = (
   };
 };
 
+export const emptyData = () => {
+  return {
+    type: EMPTY_DATA,
+  };
+};
+
 
 export const homeActions = {
   requestArticleDetail,
@@ -76,5 +82,6 @@ export const homeActions = {
   requestArticleDetailFailed,
   requestRelatedArticle,
   requestRelatedArticleSuccess,
-  requestRelatedArticleFailed
+  requestRelatedArticleFailed,
+  emptyData
 };

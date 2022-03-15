@@ -1,6 +1,6 @@
 import {
   REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS,
-  REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS
+  REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA
 } from "./actionType"
 
 export interface ArticleDetailBodyGet {
@@ -105,6 +105,10 @@ export interface RelatedArticleFailedType {
   payload: RelatedArticleFailedPayload
 }
 
+export type emptyData = {
+  type: typeof EMPTY_DATA;
+};
+
 
 export type ArticleDetailAction =
   RequestArticleDetailType
@@ -113,3 +117,4 @@ export type ArticleDetailAction =
   | RequestRelatedArticleType
   | RelatedArticleSuccessType
   | RelatedArticleFailedType
+  | emptyData

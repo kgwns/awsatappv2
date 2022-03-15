@@ -52,6 +52,7 @@ export const ArticleDetailScreen = ({
     articleDetailData,
     relatedArticleData,
     fetchArticleDetail,
+    emptyAllData,
   } = useArticleDetail();
 
   const validateBookmark = (nid: string): boolean => {
@@ -91,11 +92,11 @@ export const ArticleDetailScreen = ({
     Orientation.addDeviceOrientationListener(updateScreenEdge)
     getArticleDetail(route.params.nid)
     return () => {
+      emptyAllData()
       Orientation.lockToPortrait()
       Orientation.removeOrientationListener(updateScreenEdge)
     }
   }, [])
-
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const edge = getScreenEdge(deviceOrientation)
