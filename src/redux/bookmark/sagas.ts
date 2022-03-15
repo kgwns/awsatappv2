@@ -133,6 +133,8 @@ export function* getBookmarked() {
         type: GET_BOOK_MARKED_DETAIL_INFO,
         payload: { nid: joinArray(id, '+') }
       })
+    } else {
+      yield put(getBookMarkedSuccessDetailInfo({ bookmarkedDetailInfo: [] }));
     }
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
