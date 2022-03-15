@@ -30,7 +30,7 @@ export const TabWithBarItem: FunctionComponent<TabBarItemProps> = ({
     <TouchableWithoutFeedback key={index} {...testProps(moleculesTestID.tabItemBtn)}
       onPress={() => onPress(index)}>
       <View style={tabWitBarItemStyle.container}>
-        <Label children={tabName} labelType={LabelTypeProp.h4} color={color} />
+        <Label children={tabName} labelType={LabelTypeProp.h4} color={color} style={tabWitBarItemStyle.labelStyle}/>
         {isSelected && <View style={StyleSheet.flatten([tabWitBarItemStyle.barLine, barColor])} />}
       </View>
     </TouchableWithoutFeedback>
@@ -44,7 +44,10 @@ const tabWitBarItemStyle = StyleSheet.create({
   barLine: {
     width: '100%',
     height: normalizeBy320(2),
-    marginTop: normalize(14),
+    marginTop: normalize(12),
     marginBottom: 0.5
+  },
+  labelStyle: {
+    lineHeight:20
   }
 })

@@ -23,3 +23,5 @@ export const REQUEST_CAMERA_ACCESS_MESSAGE = 'يرجى تقديم إذن للو�
 
 //Podcast Spreaker
 export const PODCAST_URL_SUFFIX = '/play.mp3'
+
+export const DEFAULT_MINIMUM_DATE = '1970-01-01'
