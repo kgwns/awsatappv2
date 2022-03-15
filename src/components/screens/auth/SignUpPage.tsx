@@ -1,7 +1,7 @@
 import React, {useState,useEffect,useRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Alert, Keyboard} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
@@ -83,6 +83,7 @@ export const SignUpPage = ({
         password,
         device_name:deviceName,
       };
+      Keyboard.dismiss();
       createUserRequest(payload);
     }
   };
