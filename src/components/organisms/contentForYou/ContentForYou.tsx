@@ -1,29 +1,22 @@
-import { View, FlatList } from 'react-native'
-import React from 'react'
-import { AuthorWidget, PodcastForYou, ShortArticle, PodcastForYouListType } from 'src/components/organisms';
-import { LatestOpinionDataType } from 'src/redux/latestNews/types'
-import { shortArticleWithTagData, shortArticleWithTagProperties, videoArchiveData } from 'src/constants/SampleData';
+import { View, FlatList, StyleSheet } from 'react-native'
+import React, {useState, useEffect} from 'react'
+import { AuthorWidget, PodcastForYou, ShortArticle, PodcastForYouListType, ArticleSection } from 'src/components/organisms';
+import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label } from 'src/components/atoms';
+import { shortArticleWithTagProperties, videoArchiveData } from 'src/constants/SampleData';
 import { DUMMY_IMAGE_URL } from 'src/services/apiUrls';
 import { useTranslation } from 'react-i18next';
 import { ShortArticleProps } from '../ShortArticle';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { FavoriteVideo } from '../favoriteVideo/favoriteVideo';
-import { isTab, screenWidth } from 'src/shared/utils';
-
-const authorData: LatestOpinionDataType = {
-    title: "دبلوماسية العزلة والعداوات",
-    field_opinion_writer_node_export: {
-        bundle: "writer",
-        id: "92602",
-        langcode: "Arabic",
-        name: "سمير عطا الله",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/01/04/samir-Attallah-04012018.jpg?itok=oX9jg4DL",
-        title: "سمير عطا الله",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92602"
-    },
-    nid: "2982216",
-    body: "<p>تنظم العلاقات بين الدول مج ا.</p>\n",
-}
+import { screenHeight, screenWidth } from 'src/shared/utils';
+import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
+import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
+import { getImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
+import {flatListUniqueKey} from 'src/constants';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ScreensConstants } from 'src/constants';
+import { normalize } from 'react-native-elements';
 
 const podcastForYouData: PodcastForYouListType = {
     image: DUMMY_IMAGE_URL,
@@ -33,45 +26,300 @@ const podcastForYouData: PodcastForYouListType = {
     created: '45 دقيقه'
 }
 
+interface AllContentData {
+    opinionsData: any,
+    articleSectionData: any,
+    shortArticleData: any,
+}
+
 export const ContentForYou = () => {
     const { themeData } = useTheme()
     const [t] = useTranslation()
+    const {selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
+    const {selectedAuthorsData, getSelectedAuthorsData} = useAllWriters();
+    const {
+        isLoading,
+        favouriteOpinionsData,
+        fetchFavouriteOpinionsRequest,
+        isArticalLoading,
+        favouriteArticlesData,
+        fetchFavouriteArticlesRequest,
+        emptyAllData,
+    } = useContentForYou();
+    const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo} = useBookmark()
+    const [selectedAuthors, setSelectedAuthors] = useState([])
+    const [selectedTopics, setSelectedTopics] = useState([])
+    const [isAllLoading, setIsAllLoading] = useState(false)
+    const [page, setPage] = useState(0)
+    const [initialLoading, setInitialLoading] = useState(true)
+    const initialPageData = {
+        opinionsData: {data:[],loaded: false},
+        articleSectionData: {data:[],loaded: false},
+        shortArticleData: {data:[],loaded: false}
+    }
+    const [pageAllData,setPageAllData] = useState<AllContentData[]>([initialPageData])
 
-    const podcastForYouTitle = t('favorite.podcast_for_you')
+    const widgetHeaderData: WidgetHeaderProps = {
+        headerLeft: {
+            title: t('favorite.articles_that_interest_you'),
+            color: themeData.primary,
+            labelType: LabelTypeProp.h2,
+        },
+    };
+    const navigation = useNavigation<StackNavigationProp<any>>()
 
-    const shortArticleInfo = shortArticleWithTagData.map((item: ShortArticleProps) => (
-        {
-          ...item,
-          ...shortArticleWithTagProperties,
-          titleColor: themeData.primaryBlack
+    useEffect(() => {
+        emptyAllData();
+        setPageAllData([initialPageData]);
+        getSelectedTopicsData();
+        getSelectedAuthorsData();
+    }, []);
+
+    useEffect(() => {
+        setPageAllData([initialPageData]);
+        fetchSelectedDataFromAllTopics()
+    }, [selectedTopicsData]);
+
+    useEffect(() => {
+        setPageAllData([initialPageData]);
+        fetchSelectedDataFromAllAuthors();
+    }, [selectedAuthorsData]);
+
+    useEffect(() => {
+        setIsAllLoading(true)
+        formatArticleSectionData()
+    }, [favouriteArticlesData]);
+
+    useEffect(() => {
+        setIsAllLoading(true)
+        formatOpinionsData()
+    }, [favouriteOpinionsData]);
+
+    useEffect(() => {
+        checkBookmarkUpdate()
+    }, [bookmarkIdInfo]);
+
+    const checkBookmarkUpdate = () => {
+        let bookmarkData = [...pageAllData]
+        for (let i = 0; i < bookmarkData.length; i++) {
+            let bookmarkArticlesData = updateBookmark(bookmarkData[i].articleSectionData.data);
+            let bookmarkShortArticles = updateBookmark(bookmarkData[i].shortArticleData.data);
+            bookmarkData[i].articleSectionData.data = bookmarkArticlesData
+            bookmarkData[i].shortArticleData.data = bookmarkShortArticles
         }
-      ))
+        setPageAllData(bookmarkData)
+    }
 
-      const numberOfAuthorItem = isTab ? 4 : 3
-    const renderContentForYou = () => (
-        <View style={{ flex: 1 }}>
-            <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} />
-            <AuthorWidget data={Array(numberOfAuthorItem).fill(authorData)} />
-            <View style={{paddingHorizontal: 0.04 * screenWidth}}>
+    const formatOpinionsData = () => {
+        let updatedPageData = [...pageAllData];
+        if(updatedPageData[page]!=undefined){
+            updatedPageData[page].opinionsData  = {data:favouriteOpinionsData, loaded: true} ;
+            setPageAllData(updatedPageData);
+            checkLoadData()
+        }
+    }
+
+    const checkLoadData = () =>{
+        if(pageAllData[page] && pageAllData[page].articleSectionData.loaded &&
+            pageAllData[page].opinionsData.loaded && pageAllData[page].shortArticleData.loaded){
+            checkBookmarkUpdate();
+            setIsAllLoading(false)
+            setInitialLoading(false)
+        }
+    }
+
+    const formatArticleSectionData = () => {
+        let formatArticleSectionData = []
+        let formatShortArticleData = []
+        for(let i = 0; i < favouriteArticlesData.length; i++){
+            let formattedData = {
+                ...shortArticleWithTagProperties,
+                titleColor: themeData.primaryBlack,
+                body: favouriteArticlesData[i].body,
+                flag: '',
+                title: favouriteArticlesData[i].title,
+                nid: favouriteArticlesData[i].nid,
+                image: getImageUrl(favouriteArticlesData[i].field_image),
+                news_categories: favouriteArticlesData[i].field_news_categories_export,
+                author: favouriteArticlesData[i].author_resource,
+                created: favouriteArticlesData[i].created_export,
+                isBookmarked: false,
+                loaded: true
+            }
+            if(i<2){
+                formatArticleSectionData.push(formattedData)
+            }else{
+                formattedData.image = favouriteArticlesData[i].field_image
+                formattedData.flag= favouriteArticlesData[i].field_news_categories_export.title,
+                formatShortArticleData.push(formattedData)
+            }
+        }
+        let pageDataUpdate = [...pageAllData];
+        if(pageDataUpdate[page]!=undefined){
+            pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionData, loaded: true} ;
+            pageDataUpdate[page].shortArticleData  = {data:formatShortArticleData, loaded:true} ;
+            setPageAllData(pageDataUpdate);
+            checkLoadData()
+        }
+    }
+
+    const fetchSelectedDataFromAllAuthors = () => {
+        if (isNonEmptyArray(selectedAuthorsData.data)) {
+            const selectedAuthors = selectedAuthorsData.data.map((item:any)=>{
+                return item.tid
+            });
+            setSelectedAuthors(selectedAuthors);
+            fetchOpinionData(selectedAuthors,0);
+        }
+    };
+
+    const fetchSelectedDataFromAllTopics = () => {
+        if (isNonEmptyArray(selectedTopicsData.data)) {
+            const selectedTopics = selectedTopicsData.data.map((item:any)=>{
+                return item.tid
+            });
+            setSelectedTopics(selectedTopics);
+            fetchArticleData(selectedTopics,0);
+        }
+    };
+
+    const fetchOpinionData =(authorsList:any, pageCount: number) => {
+        let opinionBody : FavouriteOpinionsBodyGet = {
+            page: pageCount,
+            items_per_page: 3,
+            authorsList: authorsList
+        }
+        fetchFavouriteOpinionsRequest(opinionBody)
+    }
+
+    const fetchArticleData =(topicsList:any, pageCount: any) => {
+        let opinionBody : FavouriteArticlesBodyGet = {
+            page: pageCount,
+            items_per_page: 10,
+            topicsList: topicsList
+        }
+        fetchFavouriteArticlesRequest(opinionBody)
+    }
+
+    const loadMoreData = () => {
+        if(!isAllLoading){
+            let pageCount = page+1
+            setPage(pageCount)
+            setPageAllData(pageData => [...pageData, initialPageData]);
+            fetchOpinionData(selectedAuthors,pageCount)
+            fetchArticleData(selectedTopics,pageCount)
+            setIsAllLoading(true)
+        }
+    }
+
+    const onPressArticle = (nid: string) => {
+        nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+    }
+
+    const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+        isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    }
+
+    const validateBookmark = (nid: string): boolean => {
+        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+    }
+
+    const updateBookmark = (data: any) => {
+        return data.map((item: any) => (
+          {
+            ...item,
+            isBookmarked: validateBookmark(item.nid)
+          }
+        ))
+      }
+
+    const renderContentForYou = (item: AllContentData, index: number) => (
+        <View key={flatListUniqueKey.CONTENT_FOR_YOU + index} style={styles.spaceStyle}>
+            {/* <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} /> */}
+            {item.opinionsData.data.length>0 && <AuthorWidget
+                widgetHeader={t('favorite.articles_from_your_favorite_writers')}
+                listKey={flatListUniqueKey.CONTENT_FOR_YOU+'authorWidget'+index}
+                data={item.opinionsData.data}
+            />}
+            {item.articleSectionData.data.length>0 && <View style={{paddingHorizontal: 0.04 * screenWidth}}>
+                <WidgetHeader {...widgetHeaderData} />
+            </View>}
+            {/* <View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <FavoriteVideo data={videoArchiveData} />
-            </View>
-            <ShortArticle data={shortArticleInfo} onPress={() => { }}
-                onUpdateBookmark={() => { }}
+            </View> */}
+            {item.articleSectionData.data.length>0 && <ArticleSection
+                listKey={flatListUniqueKey.CONTENT_FOR_YOU+'articleSection'+index}
+                data={item.articleSectionData.data}
+                showFooterTitle={false}
+                showDivider={false}
+                onUpdateBookmark={updateBookmarkInfo}
+            />}
+            {item.shortArticleData.data.length>0 && <ShortArticle
+                listKey={flatListUniqueKey.CONTENT_FOR_YOU+'shortArticle'+index}
+                data={item.shortArticleData.data}
+                onPress={onPressArticle}
+                onUpdateBookmark={updateBookmarkInfo}
                 showSignUpPopUp={() => {}}
-            />
+            />}
         </View>
     )
-
+    const renderFooterComponent = () =>{
+        return (
+            <View>
+                <View style={styles.loaderStyle}>
+                    {(isLoading || isArticalLoading) && <LoadingState />}
+                </View>
+            </View>
+        )
+    }
 
     return (
-        <View style={{ flex: 1, height: '100%' }}>
-            <FlatList
-                style={{ flex: 1, height: '100%' }}
-                data={[{}]}
-                keyExtractor={(_, index) => index.toString()}
-                renderItem={renderContentForYou}
-                showsVerticalScrollIndicator={false}
-            />
+        <View style={styles.contentContainer}>
+            {!initialLoading  ?
+                <View>
+                {(pageAllData[0].opinionsData.data.length>0 || pageAllData[0].articleSectionData.data.length>0 )?
+                    <FlatList
+                    data={pageAllData}
+                    keyExtractor={(_, index) => index.toString()}
+                    onEndReached={loadMoreData}
+                    onEndReachedThreshold={0.5}
+                    showsVerticalScrollIndicator={false}
+                    listKey={flatListUniqueKey.CONTENT_FOR_YOU + new Date().getTime().toString()}
+                    renderItem={({ item, index }) => renderContentForYou(item, index)}
+                    ListFooterComponent={renderFooterComponent}
+                    />:
+                    <View style={styles.container}>
+                        <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
+                    </View>
+                }
+                </View> :
+                <View style={styles.container}>
+                    <LoadingState />
+                </View>
+            }
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    contentContainer: {
+        flex: 1,
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        marginTop: 0.32 * screenHeight
+    },
+    loaderStyle: {
+        width: '100%',
+        height: normalize(60),
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    spaceStyle: {
+        flex: 1,
+        paddingVertical: normalize(10),
+    }
+})

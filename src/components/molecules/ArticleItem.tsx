@@ -11,6 +11,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 export interface ArticleItemProps extends articleProps {
     index: number,
     articleItemStyle?: ViewStyle,
+    showDivider?: boolean,
+    showFooterTitle?: boolean,
 }
 
 const ArticleItem: FunctionComponent<ArticleItemProps> = ({
@@ -18,6 +20,8 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     imageStyle,
     articleItemStyle,
     onPressBookmark,
+    showDivider,
+    showFooterTitle,
     ...props
 }) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
@@ -32,7 +36,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
                 style={StyleSheet.flatten([{ paddingBottom: normalize(20) }, articleItemStyle])}>
                 {isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
-                <ArticleWithOutImage {...props} onPress={onPress}
+                <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
                    onPressBookmark={onPressBookmark}
                 />
             </View>

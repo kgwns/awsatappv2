@@ -24,6 +24,7 @@ import newPasswordSaga from './changePassword/sagas'
 import newsLettersSaga from './newsLetter/sagas';
 import keepNotifiedSaga from './keepNotified/sagas';
 import podcastSaga from './podcast/sagas';
+import contentForYouSaga from './contentForYou/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -52,5 +53,6 @@ export function* rootSaga() {
     fork(newsLettersSaga),
     fork(keepNotifiedSaga),
     fork(podcastSaga),
+    fork(contentForYouSaga),
   ]);
 }

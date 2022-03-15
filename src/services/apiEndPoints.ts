@@ -103,5 +103,9 @@ export const PODCAST_NODE_ENDPOINT = '/api/v2/podcastnode/';
 //Related Opinion
 export const GET_RELATED_OPINION_ENDPOINT = '/api/v2/opinionsrelated';
 
+//favouriteOpinions
+//opinions list
+export const FAVOURITE_OPINIONS_ENDPOINT = 'api/v2/opinions';
+
 //Forgot Password
 export const FORGOT_PASSWORD_ENDPOINT = 'api/ums/v1/forgotPassword'

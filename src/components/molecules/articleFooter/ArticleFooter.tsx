@@ -22,7 +22,8 @@ export interface articleFooterProps {
   style?: object,
   bookMarkColorType?: string,
   hideBookmark?: boolean,
-  isBookmarked?: boolean
+  isBookmarked?: boolean,
+  showFooterTitle?: boolean,
   onPress?: () => void
 }
 
@@ -37,6 +38,7 @@ const ArticleFooter = ({
   bookMarkColorType = BookMarkColorType.BLACK,
   hideBookmark = false,
   isBookmarked,
+  showFooterTitle = true,
   onPress
 }: articleFooterProps) => {
   let storySaveIcon=() => {
@@ -68,9 +70,9 @@ const ArticleFooter = ({
   return (
     <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
       <View style={[articleFooterStyle.authorContainer,hideBookmark&&{flex:1}]}>
-        <CaptionWithImage style={articleFooterStyle.leftContainer} title={leftTitle} icon={leftIcon} color={leftTitleColor}  />
-        {(rightTitle || leftTitle) && <View  style={articleFooterStyle.verticalDivider} />}
-        <CaptionWithImage style={articleFooterStyle.rightContainer} title={rightTitle} icon={rightIcon} color={rightTitleColor} />
+        {showFooterTitle && <CaptionWithImage style={articleFooterStyle.leftContainer} title={leftTitle} icon={leftIcon} color={leftTitleColor}  />}
+        {(rightTitle || leftTitle) && showFooterTitle && <View  style={articleFooterStyle.verticalDivider} />}
+        {showFooterTitle && <CaptionWithImage style={articleFooterStyle.rightContainer} title={rightTitle} icon={rightIcon} color={rightTitleColor} />}
       </View>
       {!hideBookmark &&
         <View style={articleFooterStyle.bookMarkContainer}>

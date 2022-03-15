@@ -18,7 +18,10 @@ export interface articleProps extends ImageLabelProps,ArticleWithOutImageProps {
 
 export interface ArticleSectionProps {
     data: articleProps[],
-    onUpdateBookmark: (nid: string,isBookmarked: boolean) => void
+    onUpdateBookmark?: (nid: string,isBookmarked: boolean) => void,
+    listKey?: string,
+    showDivider?: boolean,
+    showFooterTitle?: boolean,
 }
 
 export const articleFooterDataSet: articleFooterProps = {
@@ -32,9 +35,12 @@ export const articleFooterDataSet: articleFooterProps = {
 };
 
 
-const ArticleSection = ({ 
+const ArticleSection = ({
     data,
-    onUpdateBookmark
+    onUpdateBookmark,
+    listKey,
+    showDivider,
+    showFooterTitle,
 }: ArticleSectionProps) => {
     const [t] = useTranslation();
     const [articleData,setArticleData] = useState(data)
@@ -52,7 +58,7 @@ const ArticleSection = ({
         const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
         updatedData[index].isBookmarked = bookmarkStatus
         setArticleData(updatedData)
-        onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
+        onUpdateBookmark && onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
     }
 
     const renderItem = (item: articleProps, index: number) => {
@@ -62,13 +68,15 @@ const ArticleSection = ({
             imageStyle={{ height: normalize(189) }}
             footerInfo={articleFooterDataSet}
             onPressBookmark={() => onPressBookmark(index)}
+            showDivider={showDivider}
+            showFooterTitle={showFooterTitle}
         />
     }
     return (
         <View style={articleSectionStyle.container}>
             <FlatList
                 keyExtractor={(_,index) => index.toString()}
-                listKey={flatListUniqueKey.ARTICLE_SECTION}
+                listKey={listKey ? listKey : flatListUniqueKey.ARTICLE_SECTION}
                 style={articleSectionStyle.listContainer}
                 data={articleData}
                 showsVerticalScrollIndicator={false}
