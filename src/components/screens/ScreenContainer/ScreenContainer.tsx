@@ -5,6 +5,8 @@ import {
   StatusBarStyle,
   View,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
 import {isDarkTheme, normalize} from '../../../shared/utils';
@@ -40,7 +42,7 @@ export interface ScreenContainerProps {
   isSignUpAlertVisible?: boolean;
   onCloseSignUpAlert?: () => void;
   isAlertVisible?: boolean;
-  setIsAlertVisible?: any; 
+  setIsAlertVisible?: any;
   alertPayload?: AlertPayloadType;
   alertOnPress?: () => void;
 }
@@ -59,7 +61,7 @@ export const ScreenContainer = ({
   alertPayload,
   alertOnPress,
   isAlertVisible,
-  setIsAlertVisible
+  setIsAlertVisible,
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -75,7 +77,7 @@ export const ScreenContainer = ({
   };
 
   const onPressSignUp = () => {
-    onCloseSignUpAlert && onCloseSignUpAlert()
+    onCloseSignUpAlert && onCloseSignUpAlert();
     navigation.reset({
       index: 0,
       routes: [{name: ScreensConstants.AuthNavigator}],
@@ -105,45 +107,47 @@ export const ScreenContainer = ({
 
   const statusBarBackgroundColor = statusbarColor || themeData.backgroundColor;
   return (
-    <SafeAreaView
-      style={style.container}
-      edges={edge ? edge : ['left', 'right', 'top']}>
-      {showHeader && header(headerTitle)}
-      <StatusBar
-        backgroundColor={statusBarBackgroundColor}
-        barStyle={
-          barStyle ? barStyle : isDarkMode ? 'light-content' : 'dark-content'
-        }
-      />
-      {children}
-      {isLoading && <LoadingState />}
-      {isOverlayLoading && (
-        <View style={style.loadingOverlay}>
-          <LoadingState />
-        </View>
-      )}
-      {isSignUpAlertVisible && (
-        <AlertModal
-          title={t('signUpAlert.subscribe')}
-          message={t('signUpAlert.description')}
-          buttonText={t('signUpAlert.signUp')}
-          isVisible={isSignUpAlertVisible}
-          onPressSuccess={onPressSignUp}
-          onClose={() => onCloseSignUpAlert && onCloseSignUpAlert()}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <SafeAreaView
+        style={style.container}
+        edges={edge ? edge : ['left', 'right', 'top']}>
+        {showHeader && header(headerTitle)}
+        <StatusBar
+          backgroundColor={statusBarBackgroundColor}
+          barStyle={
+            barStyle ? barStyle : isDarkMode ? 'light-content' : 'dark-content'
+          }
         />
-      )}
+        {children}
+        {isLoading && <LoadingState />}
+        {isOverlayLoading && (
+          <View style={style.loadingOverlay}>
+            <LoadingState />
+          </View>
+        )}
+        {isSignUpAlertVisible && (
+          <AlertModal
+            title={t('signUpAlert.subscribe')}
+            message={t('signUpAlert.description')}
+            buttonText={t('signUpAlert.signUp')}
+            isVisible={isSignUpAlertVisible}
+            onPressSuccess={onPressSignUp}
+            onClose={() => onCloseSignUpAlert && onCloseSignUpAlert()}
+          />
+        )}
 
-      {isAlertVisible && (
-        <AlertModal
-          title={alertPayload ? alertPayload.title : ''}
-          message={alertPayload ? alertPayload.message : ''}
-          buttonText={alertPayload ? alertPayload.buttonTitle : ''}
-          isVisible={isAlertVisible}
-          onPressSuccess={alertOnPress}
-          onClose={() => setIsAlertVisible && setIsAlertVisible(false)}
-        />
-      )}
-    </SafeAreaView>
+        {isAlertVisible && (
+          <AlertModal
+            title={alertPayload ? alertPayload.title : ''}
+            message={alertPayload ? alertPayload.message : ''}
+            buttonText={alertPayload ? alertPayload.buttonTitle : ''}
+            isVisible={isAlertVisible}
+            onPressSuccess={alertOnPress}
+            onClose={() => setIsAlertVisible && setIsAlertVisible(false)}
+          />
+        )}
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 
