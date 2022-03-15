@@ -4,7 +4,7 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
-import {ImagesName} from 'src/shared/styles';
+import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ButtonImage, Image, Label} from '../atoms';
 import {useTranslation} from 'react-i18next';
@@ -14,6 +14,7 @@ import {
 import {ImageResize} from 'src/shared/styles/text-styles';
 import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
+import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 
 export const RelatedOpinionCard = ({item,onPress}:any) => {
   const style = useThemeAwareObject(customStyle);
@@ -65,7 +66,11 @@ export const RelatedOpinionCard = ({item,onPress}:any) => {
           size={normalize(80)}
           resizeMode={ImageResize.COVER}
           type={'round'}
-          backgroundColor={themeData.secondaryDavyGrey}
+          fallback={true}
+          fallbackContent={ <AuthorDefault
+          style={{backgroundColor:Styles.color.cyanGreen}}
+          width={normalize(80)} 
+          height={normalize(80)}/>}
         />
       </View>
     </TouchableWithoutFeedback>

@@ -8,19 +8,22 @@ import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
+import {getPodcastDate, getSecondsToHms} from 'src/shared/utils/utilities';
 
 export interface PodcastVerticalListProps {
-  id?: string;
+  nid: string;
   imageUrl?: string;
   testID?: string;
   title?: string;
   description?: string;
-  footerLeft?: string;
+  footerLeft?: number;
   footerRight?: string;
   secondaryTitle?: string;
   author?: string;
   itemOnPress?: ()=> void;
   hideDescription?: boolean;
+  isBookmarked: boolean,
+  onPressBookmark: () => void
 }
 
 export const PodcastVerticalList = ({
@@ -32,9 +35,10 @@ export const PodcastVerticalList = ({
   footerLeft,
   footerRight,
   hideDescription=false,
+  isBookmarked = false,
+  onPressBookmark
 }: PodcastVerticalListProps) => {
   const style = useThemeAwareObject(customStyle);
-  const [isSaved, setIsSaved] = useState(false);
   const theme = useTheme();
   return (
     <TouchableWithoutFeedback testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
@@ -56,18 +60,18 @@ export const PodcastVerticalList = ({
         <View style={[style.headerStyle,hideDescription&&style.spaceStyle]}>
           <View style={style.headerLeftStyle}>
             <Label style={style.footerRightTextStyle} numberOfLines={1}>
-              {footerRight}
+              {getPodcastDate(footerRight)}
             </Label>
             {footerRight && footerLeft &&<Label color={colors.spanishGray}>|</Label>}
             <Label style={style.footerLeftTextStyle} numberOfLines={1}>
-              {footerLeft}
+              {getSecondsToHms(footerLeft)}
             </Label>
           </View>
           <View style={style.headerRightStyle}>
             <ButtonImage
               testId={'bookMarkTestId_podcast_episode'}
               icon={() => {
-                return isSaved
+                return isBookmarked
                   ? getSvgImages({
                       name: ImagesName.bookMarkActiveSVG,
                       size: normalize(15),
@@ -77,7 +81,7 @@ export const PodcastVerticalList = ({
                       size: normalize(15),
                     });
               }}
-              onPress={() => setIsSaved(!isSaved)}
+              onPress={onPressBookmark}
             />
           </View>
         </View>

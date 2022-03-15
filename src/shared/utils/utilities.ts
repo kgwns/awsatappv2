@@ -1,8 +1,8 @@
 import { Alert, ColorSchemeName, Platform } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
-import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX } from "../../constants/SharedConstants"
+import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX, PODCAST_URL_SUFFIX } from "../../constants/SharedConstants"
 import { Edge } from "react-native-safe-area-context";
-import { BASE_URL } from "src/services/apiUrls";
+import { BASE_URL, PODCAST_SPREAKER_URL } from "src/services/apiUrls";
 import { arabic } from "src/assets/locales/ar/common-ar";
 import moment from "moment";
 import 'moment/locale/ar';
@@ -152,3 +152,37 @@ export const getFormatedDate = (time: any)=> {
 export const getProfileImageUrl = (imageURL: string) => {
   return isValidHttpUrl(imageURL) ? imageURL : PROFILE_IMAGE_URL + imageURL;
 };
+
+export const getPodcastUrl = (episode_id: string) => {
+  return PODCAST_SPREAKER_URL + episode_id +PODCAST_URL_SUFFIX
+}
+
+export const getPodcastDate = (time:any) => {
+  return isNotEmpty(time) ? calculateMonth(time) + ', ' + calculateDate(time) + ' ' + calculateMonth(time) : " "
+}
+
+export const  getSecondsToHms = (time:any): string => {
+  time = Number(time);
+  var h = Math.floor(time / 3600);
+  var m = Math.floor(time % 3600 / 60);
+  var s = Math.floor(time % 3600 % 60);
+
+  var secondsDisplay = s > 0 ? s  : "";
+  var minutesDisplay = m > 0 ? secondsDisplay > 0 ? m.toString() +  ":"  : m.toString() : "";
+  var hoursDisplay = h > 0 ? m > 0 ? h.toString() + ":" : h.toString() : ""; 
+  return hoursDisplay + minutesDisplay + secondsDisplay; 
+}
+
+export const getUpdatedObject = (obj:any, key: string, val: any, newVal: any) => {
+  var newValue = newVal;
+    var objects: any = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getUpdatedObject(obj[i], key, val, newValue));
+        } else if (i == key && obj[key] == val) {
+            obj[key] = newValue;
+        }
+    }
+    return obj;
+}

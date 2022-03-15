@@ -1,9 +1,9 @@
 import React, {useState,useEffect,useRef} from 'react';
-import {useNavigation, StackActions} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet, TouchableOpacity, Alert} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {normalize} from '../../../shared/utils';
+import {normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {ScreensConstants} from 'src/constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
@@ -15,12 +15,12 @@ import { SocialLoginButton, TextInputField } from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {loginPasswordValidation, reTypePasswordValidation} from 'src/shared/validators';
-import {useRegister} from 'src/hooks';
+import {useRegister, useUserProfileData} from 'src/hooks';
 import {RegisterBodyType} from 'src/redux/register/types';
 import DeviceInfo from 'react-native-device-info';
-import { normal } from 'react-native-color-matrix-image-filters';
 import { fetchLoginSuccess } from 'src/redux/login/action';
 import { useDispatch } from 'react-redux';
+import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 
 export interface SignUpPageProps {
   route: any
@@ -43,6 +43,7 @@ export const SignUpPage = ({
   const initialRender = useRef(true);
 
   const dispatch = useDispatch();
+  const { fetchProfileDataRequest } = useUserProfileData();
 
   useEffect(() => {
     getDeviceName();
@@ -52,8 +53,10 @@ export const SignUpPage = ({
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
+        recordLogEvent('Completed_Registration');
         dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
-        
+        fetchProfileDataRequest()
+        AdjustAnalyticsManager.trackEvent(AdjustEventID.REGISTRATION)
         navigation.reset({
           index: 0,
           routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
@@ -62,14 +65,6 @@ export const SignUpPage = ({
         Alert.alert(message.message);
       }
     }
-
-    // if (initialRender.current) {
-    //   initialRender.current = false;
-    // } else {
-    //   if (registerUserInfo!==null&&registerUserInfo.user!==null) {
-    //     navigation.dispatch(StackActions.replace(ScreensConstants.SignInPage,{email:email}))
-    //   }
-    // }
   }, [registerUserInfo]);
 
   const getDeviceName = async () => {

@@ -2,7 +2,7 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import React, {FunctionComponent} from 'react';
 import { flatListUniqueKey } from '../../constants';
 import { StoryCircle, StoryTitle, StoryHeader } from '../molecules';
-import { normalize } from '../../shared/utils';
+import { normalize, recordLogEvent } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { StoryListProps } from 'src/components/organisms';
@@ -32,6 +32,7 @@ const StoryWidget: FunctionComponent<StoryWidgetProps> = ({
         <View style={style.circleContainer}>
           <StoryCircle testID={`${testID}_${index}`} storyImageUrl={item.data[0]?.imageUrl}
               onPress={() => {
+                recordLogEvent('Viewed_Story', {id: item.nid, title: item.title });
                 handleOnItemPressAction(item,index);
               }}
           />

@@ -2,11 +2,10 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet, SafeAreaView, TouchableOpacity, Image} from 'react-native';
 import {ImagesName} from '../shared/styles/images';
 import {ButtonImage} from '../components/atoms';
-import {ButtonList, Divider, ButtonOutline} from 'src/components/atoms';
+import {ButtonList, Divider} from 'src/components/atoms';
 import {useTranslation} from 'react-i18next';
 import {isIOS, normalize} from 'src/shared/utils';
 import CloseIcon from 'src/assets/images/icons/close.svg';
-import UserIcon from 'src/assets/images/icons/user.svg';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
 import InstagramIcon from 'src/assets/images/icons/instagram.svg';
 import YoutubeIcon from 'src/assets/images/icons/youtube.svg';
@@ -20,7 +19,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ScreensConstants} from 'src/constants';
 import {useLogin, useSideMenu} from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
+import { ABOUT_US, ADVERTISE_INFO_ID, AWSATT_HISTORY_INFO_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
@@ -111,7 +110,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             title={t('drawer.advertiseWithUs')}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('terms_and_condition'), id: TERMS_AND_CONDITION }
+              { title: t('drawer.advertiseWithUs'), id: ADVERTISE_INFO_ID }
             )}
             titleStyle={styles.nonBoldTitle}
           />
@@ -119,13 +118,24 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             title={t('drawer.aboutTheEast')}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('about_the_news_paper'), id: ABOUT_US }
+              { title: t('drawer.aboutTheEast'), id: AWSATT_HISTORY_INFO_ID }
             )}
             titleStyle={styles.nonBoldTitle}
           />
           <ButtonList
             title={t('drawer.callUs')}
-            onPress={() => console.log('clicked')}
+            onPress={() => onPressNavigation(
+              ScreensConstants.TERMS_AND_ABOUT_US,
+              { title: t('about_the_news_paper'), id: ABOUT_US }
+            )}
+            titleStyle={styles.nonBoldTitle}
+          />
+          <ButtonList
+            title={t('drawer.termsOfUse')}
+            onPress={() => onPressNavigation(
+              ScreensConstants.TERMS_AND_ABOUT_US,
+              { title: t('terms_and_condition'), id: TERMS_AND_CONDITION }
+            )}
             titleStyle={styles.nonBoldTitle}
           />
           <View style={styles.socialContainer}>

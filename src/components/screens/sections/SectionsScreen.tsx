@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
+import analytics from '@react-native-firebase/analytics';
 import {OpinionScreen, ScreenContainer, VideoScreen, PodcastProgram, SectionStoryScreen} from '..';
 import {TabBarComponent} from 'src/components/molecules';
-import {horizontalEdge} from 'src/shared/utils';
+import {horizontalEdge, recordCurrentScreen} from 'src/shared/utils';
 import {View} from 'react-native';
 import {useTopMenu} from 'src/hooks';
 
@@ -21,6 +22,7 @@ export const SectionsScreen = () => {
     topMenuData[tabSelectedIndex].isSelected = false;
     topMenuData[index].isSelected = true;
     setTabSelectedIndex(index);
+    recordCurrentScreen(topMenuData[tabSelectedIndex].tabName as string);
   };
 
   const renderTabBarComponent = () => (

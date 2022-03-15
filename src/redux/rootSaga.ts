@@ -20,6 +20,7 @@ import topMenuSaga from './topMenu/sagas';
 import opinionArticleDetailSaga from './opinionArticleDetail/sagas';
 import userProfileSaga from './profileUserDetail/sagas'
 import bookmarkSaga from './bookmark/sagas';
+import newPasswordSaga from './changePassword/sagas'
 import newsLettersSaga from './newsLetter/sagas';
 import keepNotifiedSaga from './keepNotified/sagas';
 import podcastSaga from './podcast/sagas';
@@ -48,6 +49,7 @@ export function* rootSaga() {
     fork(opinionArticleDetailSaga),
     fork(bookmarkSaga),
     fork(userProfileSaga),
+    fork(newPasswordSaga),
     fork(newsLettersSaga),
     fork(keepNotifiedSaga),
     fork(podcastSaga),

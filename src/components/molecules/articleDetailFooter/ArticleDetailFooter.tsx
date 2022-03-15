@@ -3,12 +3,13 @@ import React from 'react';
 import { ButtonImage } from 'src/components/atoms';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
-import { normalize } from 'src/shared/utils';
+import { normalize, recordLogEvent } from 'src/shared/utils';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import Share from 'react-native-share'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
+import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 
 export const ArticleDetailFooter = ({
     articleDetailData,
@@ -30,13 +31,15 @@ export const ArticleDetailFooter = ({
     // }
 
     const onPressShare = async () => {
-        const { title, view_node } = articleDetailData
+        const { title, view_node, nid } = articleDetailData
+        recordLogEvent('Share_Article', {id: nid});
         await Share.open({
             title,
             url: view_node,
             failOnCancel: true,
             subject: title
         }).then(response => {
+            AdjustAnalyticsManager.trackEvent(AdjustEventID.SHARE_ARTICLE)
             console.log('Shared successfully :::', response)
         }).catch((error) => {
             console.log('Cancelled share request :::', error)

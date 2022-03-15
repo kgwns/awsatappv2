@@ -6,6 +6,8 @@ import {
 import { BookmarkDetailDataType, BookmarkIdSuccessDataFieldType, GetBookmarkDetailBodyGet, RemoveBookmarkDetailDataBody, SendBookMarkBodyGet, SendBookMarkSuccessInfoType } from 'src/redux/bookmark/types';
 import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookMarkSuccessInfo } from 'src/redux/bookmark/selectors';
 import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMarkedSuccessDetailInfo, removeBookmarked, sendBookMarkId } from 'src/redux/bookmark/action';
+import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
+import { recordLogEvent } from 'src/shared/utils';
 
 export interface UseBookMarkReturn {
   isLoading: boolean;
@@ -30,6 +32,8 @@ export const useBookmark = (): UseBookMarkReturn => {
   const error = useSelector(getArticleError);
 
   const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {
+    AdjustAnalyticsManager.trackEvent(AdjustEventID.BOOK_MARK_ARTICLE)
+    recordLogEvent('Add_Bookmark', {id: payload.nid});
     dispatch(sendBookMarkId(payload));
   };
 
@@ -42,6 +46,7 @@ export const useBookmark = (): UseBookMarkReturn => {
   }
 
   const removeBookmarkedInfo = (payload: RemoveBookmarkDetailDataBody) => {
+    recordLogEvent('Remove_Bookmark', {id: payload.nid});
     dispatch(removeBookmarked(payload))
   }
 

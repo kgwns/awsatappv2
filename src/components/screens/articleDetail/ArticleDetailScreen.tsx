@@ -6,7 +6,7 @@ import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
-import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils'
+import { horizontalEdge, isNonEmptyArray, normalize, recordLogEvent } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
@@ -63,7 +63,7 @@ export const ArticleDetailScreen = ({
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
-      flag: item.news_categories.title,
+      flag: item.news_categories && item.news_categories.title,
       isBookmarked: validateBookmark(item.nid)
     }
   })
@@ -117,6 +117,7 @@ export const ArticleDetailScreen = ({
   }
 
   const onPressArticle = (nid: string) => {
+    recordLogEvent('Related_Article', {id: nid});
     nid && getArticleDetail(nid)
   }
 

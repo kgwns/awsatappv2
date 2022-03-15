@@ -4,6 +4,7 @@ import {
     createBottomTabNavigator,
     BottomTabBarProps,
 } from '@react-navigation/bottom-tabs';
+import analytics from '@react-native-firebase/analytics';
 import { useTranslation } from 'react-i18next';
 import { TabConstants } from '../constants/TabConstants';
 import { Label } from '../components/atoms';
@@ -12,6 +13,7 @@ import { colors } from '../shared/styles/colors';
 import { ImagesName } from 'src/shared/styles/images';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import { recordCurrentScreen } from 'src/shared/utils';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
@@ -37,9 +39,12 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
             {state.routes.map((route, index) => {
                 const isFocused = state.index === index;
 
-                const onPress = () => {
+                
+
+                const onPress = async () => {
                     if (!isFocused) {
                         navigation.navigate(route.name);
+                        recordCurrentScreen(route.name);
                     }
                 };
 

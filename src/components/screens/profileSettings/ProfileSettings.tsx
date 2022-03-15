@@ -5,13 +5,13 @@ import {
     ListRenderItem,
     TouchableOpacity,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants } from 'src/constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { isDarkTheme, normalize, screenWidth } from 'src/shared/utils';
+import { isDarkTheme, isNotEmpty, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { ButtonImage, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -19,7 +19,7 @@ import { ToggleWithLabel } from 'src/components/molecules';
 import { useDispatch } from 'react-redux';
 import { storeAppTheme } from 'src/redux/appCommon/action';
 import { Theme } from 'src/redux/appCommon/types';
-import { useAppCommon, useBookmark, useKeepNotified, useLogin } from 'src/hooks';
+import { useAppCommon, useBookmark, useKeepNotified, useLogin, useUserProfileData } from 'src/hooks';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -29,7 +29,6 @@ type SettingDataType = {
     screenName: string,
 }
 
-const sampleUserName = 'رانيا';
 
 export const ProfileSettings = () => {
     const [t] = useTranslation()
@@ -88,6 +87,7 @@ export const ProfileSettings = () => {
     ]
 
     const { fetchLogoutRequest } = useLogin();
+    const { userProfileData } = useUserProfileData();
 
     const onPressToggle = (isOn: boolean) => {
         const themeData = isOn ? Theme.LIGHT : Theme.DARK;
@@ -95,24 +95,25 @@ export const ProfileSettings = () => {
         setIsDarkMode(!isOn);
     };
 
+    const onPressGoNext = (item: SettingDataType) => {
+        if (item.title === CONST_EXIT) {
+            recordLogEvent('Logout');
+            fetchLogoutRequest();
+            removeBookmark()
+            removeKeepNotificationInfo()
+            navigation.reset({
+                index: 0,
+                routes: [{ name: ScreensConstants.AuthNavigator }],
+            });
+        } else {
+            const params = (item.title === CONST_MY_NEWS_LETTER || item.title === CONST_MANAGE_NOTIFICATION) ? {canGoBack: true} : {};
+            (item.screenName.length > 0) ? navigation.navigate(item.screenName,params) : {}
+        }
+    }
+
     const renderItem: ListRenderItem<SettingDataType> = ({ item, index }) => {
         return (
-            <TouchableOpacity activeOpacity={0.8} key={index} onPress={() => {
-                if (item.title === CONST_EXIT) {
-                    console.log('exit clicked');
-                    fetchLogoutRequest();
-                    removeBookmark()
-                    removeKeepNotificationInfo()
-                    navigation.reset({
-                        index: 0,
-                        routes: [{ name: ScreensConstants.AuthNavigator }],
-                    });
-                } else {
-                    const params = (item.title === CONST_MY_NEWS_LETTER || item.title === CONST_MANAGE_NOTIFICATION) ? {canGoBack: true} : {};
-                    (item.screenName.length > 0) ? navigation.navigate(item.screenName,params) : {}
-                }
-            }
-            }>
+            <TouchableOpacity activeOpacity={0.8} key={index} onPress={() => onPressGoNext(item)}>
                 <View style={style.itemContainer}>
                     <View style={style.itemLeftContainer}>
                         <ButtonImage
@@ -174,9 +175,12 @@ export const ProfileSettings = () => {
                 labelType={LabelTypeProp.h1}
             />
             <Label
-                children={sampleUserName}
+                children={isNotEmpty(userProfileData.user?.first_name)
+                    ?userProfileData.user?.first_name
+                    :userProfileData.user?.email}
                 style={style.userName}
                 labelType={LabelTypeProp.h1}
+                numberOfLines={1}
             />
         </View>
     );

@@ -93,6 +93,10 @@ import EditIcon from 'src/assets/images/icons/profile/editIcon.svg'
 import DropDownIcon from 'src/assets/images/icons/dropDownArrowIcon.svg'
 import DropDownIconDark from 'src/assets/images/icons/dropDownArrowIconDark.svg'
 
+import PlayerCloseIcon from 'src/assets/images/icons/playerCloseIcon.svg'
+import PlayerCloseIconDark from 'src/assets/images/icons/playerCloseIconDark.svg'
+import PauseIcon from 'src/assets/images/icons/pauseIcon.svg' 
+
 export interface GetSVGProps {
     name: ImagesName,
     size?: number,
@@ -216,6 +220,12 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <EditIcon {...props} />
         case ImagesName.dropDownIcon:
             return isDark ? <DropDownIconDark {...props} /> : <DropDownIcon {...props} />
+        case ImagesName.returnBlackSvg:
+            return <Return {...props} />
+        case ImagesName.playerCloseIcon:
+            return isDark ? <PlayerCloseIconDark {...props} /> : <PlayerCloseIcon {...props} />
+        case ImagesName.pauseIcon:
+            return <PauseIcon {...props} />
         default: return null
     }
 }

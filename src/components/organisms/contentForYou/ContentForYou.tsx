@@ -1,14 +1,14 @@
 import { View, FlatList, StyleSheet } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { AuthorWidget, PodcastForYou, ShortArticle, PodcastForYouListType, ArticleSection } from 'src/components/organisms';
-import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState } from 'src/components/atoms';
+import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label } from 'src/components/atoms';
 import { shortArticleWithTagProperties, videoArchiveData } from 'src/constants/SampleData';
 import { DUMMY_IMAGE_URL } from 'src/services/apiUrls';
 import { useTranslation } from 'react-i18next';
 import { ShortArticleProps } from '../ShortArticle';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { FavoriteVideo } from '../favoriteVideo/favoriteVideo';
-import { screenWidth } from 'src/shared/utils';
+import { screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
 import { getImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
@@ -46,10 +46,11 @@ export const ContentForYou = () => {
         fetchFavouriteArticlesRequest,
         emptyAllData,
     } = useContentForYou();
-    const [selectedAuthors, setSelectedAuthors] = useState<[]>([])
-    const [selectedTopics, setSelectedTopics] = useState<[]>([])
-    const [isAllLoading, setIsAllLoading] = useState<boolean>(false)
-    const [page, setPage] = useState<number>(0)
+    const [selectedAuthors, setSelectedAuthors] = useState([])
+    const [selectedTopics, setSelectedTopics] = useState([])
+    const [isAllLoading, setIsAllLoading] = useState(false)
+    const [page, setPage] = useState(0)
+    const [initialLoading, setInitialLoading] = useState(true)
     const initialPageData = {
         opinionsData: {data:[],loaded: false},
         articleSectionData: {data:[],loaded: false},
@@ -67,11 +68,9 @@ export const ContentForYou = () => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
     useEffect(() => {
+        emptyAllData();
         getSelectedTopicsData();
         getSelectedAuthorsData();
-        return () => {
-            emptyAllData();
-          };
     }, []);
 
     useEffect(() => {
@@ -94,13 +93,16 @@ export const ContentForYou = () => {
 
     const formatOpinionsData = () => {
         let updatedPageData = [...pageAllData];
-        updatedPageData[page].opinionsData  = {data:favouriteOpinionsData, loaded: true} ;
-        setPageAllData(updatedPageData);
-        checkLoadData()
+        if(updatedPageData[page]!=undefined){
+            updatedPageData[page].opinionsData  = {data:favouriteOpinionsData, loaded: true} ;
+            setPageAllData(updatedPageData);
+            checkLoadData()
+        }
     }
 
     const checkLoadData = () =>{
-        if(pageAllData[page].articleSectionData.loaded&&pageAllData[page].opinionsData.loaded&&pageAllData[page].shortArticleData.loaded){
+        if(pageAllData[page]&&pageAllData[page].articleSectionData.loaded&&pageAllData[page].opinionsData.loaded&&pageAllData[page].shortArticleData.loaded){
+            setInitialLoading(false)
             setIsAllLoading(false)
         }
     }
@@ -132,11 +134,12 @@ export const ContentForYou = () => {
             }
         }
         let pageDataUpdate = [...pageAllData];
-        console.log(pageDataUpdate[page],page ,'pageDataUpdatepageDataUpdate')
-        pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionData, loaded: true} ;
-        pageDataUpdate[page].shortArticleData  = {data:formatShortArticleData, loaded:true} ;
-        setPageAllData(pageDataUpdate);
-        checkLoadData()
+        if(pageDataUpdate[page]!=undefined){
+            pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionData, loaded: true} ;
+            pageDataUpdate[page].shortArticleData  = {data:formatShortArticleData, loaded:true} ;
+            setPageAllData(pageDataUpdate);
+            checkLoadData()
+        }
     }
 
     const fetchSelectedDataFromAllAuthors = () => {
@@ -181,7 +184,7 @@ export const ContentForYou = () => {
         if(!isAllLoading){
             let pageCount = page+1
             setPage(pageCount)
-            setPageAllData([...pageAllData, initialPageData]);
+            setPageAllData(pageData => [...pageData, initialPageData]);
             fetchOpinionData(selectedAuthors,pageCount)
             fetchArticleData(selectedTopics,pageCount)
             setIsAllLoading(true)
@@ -193,14 +196,14 @@ export const ContentForYou = () => {
       }
 
     const renderContentForYou = (item: AllContentData, index: number) => (
-        <View key={flatListUniqueKey.CONTENT_FOR_YOU + index} style={{flex: 1}}>
+        <View key={flatListUniqueKey.CONTENT_FOR_YOU + index} style={{flex: 1,paddingVertical: normalize(10),}}>
             {/* <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} /> */}
             <AuthorWidget
                 widgetHeader={t('favorite.articles_from_your_favorite_writers')}
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'authorWidget'+index}
                 data={item.opinionsData.data}
             />
-            {item.articleSectionData.length>0&&<View style={{paddingHorizontal: 0.04 * screenWidth}}>
+            {item.articleSectionData.data.length>0&&<View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <WidgetHeader {...widgetHeaderData} />
             </View>}
             {/* <View style={{paddingHorizontal: 0.04 * screenWidth}}>
@@ -223,14 +226,22 @@ export const ContentForYou = () => {
     )
     const renderFooterComponent = () =>{
         return (
-            <View style={styles.loaderStyle}>
-                {(isLoading || isArticalLoading) && <LoadingState />}
+            <View>
+                {(pageAllData[0].opinionsData.data.length>0||pageAllData[0].articleSectionData.data.length>0)?
+                <View style={styles.loaderStyle}>
+                    {(isLoading || isArticalLoading) && <LoadingState />}
+                </View>:
+                <View style={styles.container}>
+                    <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
+                </View>
+                }
             </View>
         )
     }
 
     return (
-        <View>
+        <View style={{flex:1}}>
+            {!initialLoading?
             <FlatList
                 data={pageAllData}
                 keyExtractor={(_, index) => index.toString()}
@@ -240,12 +251,23 @@ export const ContentForYou = () => {
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU + new Date().getTime().toString()}
                 renderItem={({ item, index }) => renderContentForYou(item, index)}
                 ListFooterComponent={renderFooterComponent}
-            />
+            />:
+            <View style={styles.container}>
+                    <LoadingState />
+            </View>
+            }
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        marginTop: 0.32 * screenHeight
+    },
     loaderStyle: {
         width: '100%',
         height: normalize(60),

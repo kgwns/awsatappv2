@@ -14,6 +14,7 @@ export const arabic = {
     aboutTheEast: 'عن الشرق',
     callUs: 'اتصل بنا',
     myPersonalAccount: 'حسابي الشخصي',
+    termsOfUse: 'شروط الانتفاع'
   },
   onBoard: {
     common: {
@@ -104,6 +105,15 @@ export const arabic = {
     'أكتوبر',
     'نوفمبر',
     'ديسمبر',
+  ],
+  day: [
+    'الأحد',
+    'الإثنين',
+    'يوم الثلاثاء',
+    'الأربعاء',
+    'يوم الخميس',
+    'يوم الجمعة',
+    'يوم السبت',
   ],
   podcastEpisode: {
     moreEpisodes: 'المزيد من حلقات البودكاست',
@@ -234,7 +244,8 @@ export const arabic = {
       passwordDescription: 'يجب أن تكون كلمة مرورك الجديدة مختلفة عن كلمة مرورك القديمة',
       setNewPassword: 'ضبط كلمة المرور',
       passwordWarning: 'يجب ألا يقل عن 8 أحرف',
-      passwordMatchWarning: 'يجب أن تتطابق كلمتا المرور'
+      passwordMatchWarning: 'يجب أن تتطابق كلمتا المرور',
+      passwordChangedSuccessfully: 'تم تغيير كلمة المرور بنجاح',
     },
   },
   manageMyNews: {

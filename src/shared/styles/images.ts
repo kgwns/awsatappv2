@@ -73,6 +73,9 @@ export enum ImagesName {
   editIcon = 'editIcon',
   dropDownIcon = 'dropDownIcon',
   placeholderImg = 'placeholderImg',
+  returnBlackSvg = 'returnBlackSvg',
+  playerCloseIcon = 'playerCloseIcon',
+  pauseIcon = 'pauseIcon',
 }
 
 export const images = {

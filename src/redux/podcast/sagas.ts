@@ -30,7 +30,7 @@ const formatData = (response: any): FetchPodcastEpisodeType[] => {
           field_announcer_name_export,
           field_apple_podcast_export,
           body_export,
-          field_duration_export,
+          field_total_duration_export,
           field_episode_export,
           field_google_podcast_export,
           field_podcast_image_export,
@@ -38,7 +38,7 @@ const formatData = (response: any): FetchPodcastEpisodeType[] => {
           field_spotify_export,
           field_spreaker_episode_export,
           field_spreaker_show_export,
-          field_duration_export_1 }: any) => ({
+          created_export }: any) => ({
             nid,
             type,
             view_node,
@@ -47,7 +47,7 @@ const formatData = (response: any): FetchPodcastEpisodeType[] => {
             field_announcer_name_export,
             field_apple_podcast_export,
             body_export,
-            field_duration_export,
+            field_total_duration_export,
             field_episode_export,
             field_google_podcast_export,
             field_podcast_image_export,
@@ -55,7 +55,7 @@ const formatData = (response: any): FetchPodcastEpisodeType[] => {
             field_spotify_export,
             field_spreaker_episode_export,
             field_spreaker_show_export,
-            field_duration_export_1,
+            created_export,
           })
       );
     }

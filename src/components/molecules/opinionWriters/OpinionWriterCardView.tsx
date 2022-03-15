@@ -5,13 +5,14 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {normalize, screenWidth} from 'src/shared/utils';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
-import {ImagesName} from 'src/shared/styles';
+import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { TouchableOpacity } from 'react-native';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 
 
 export interface OpinionWritersCardViewProps {
@@ -55,7 +56,11 @@ const OpinionWritersCardView = ({
           url={imageUrl}
           type="round"
           resizeMode="cover"
-          backgroundColor={theme.themeData.secondaryDavyGrey}
+          fallback={true}
+          fallbackContent={<AuthorDefault
+          style={{backgroundColor:Styles.color.cyanGreen}}
+          width={normalize(43)} 
+          height={normalize(43)}/>}
         />
         <Label style={style.writerLabel}>{writerTitle}</Label>
       </View>
@@ -116,6 +121,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(14),
       color: theme.primary,
       marginStart: normalize(8),
+      lineHeight:normalize(14),
     },
     headLineContainer: {
       marginTop: normalize(10),
