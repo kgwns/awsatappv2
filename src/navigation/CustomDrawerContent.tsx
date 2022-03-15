@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, SafeAreaView, TouchableOpacity, Image, Linking} from 'react-native';
 import {ImagesName} from '../shared/styles/images';
 import {ButtonImage} from '../components/atoms';
@@ -23,7 +23,7 @@ import { ABOUT_US, ADVERTISE_INFO_ID, AWSATT_HISTORY_INFO_ID, TERMS_AND_CONDITIO
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
-import { getProfileImageUrl } from 'src/shared/utils/utilities';
+import { getProfileImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
 import { FACEBOOK_URL, INSTAGRAM_URL, LINKEDIN_URL, TWITTER_URL } from 'src/constants/SharedConstants';
 
 interface CustomDrawerContentProps {}
@@ -35,16 +35,57 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const {themeData} = useTheme();
   const styles = useThemeAwareObject(createStyles);
 
-  const {isLoading, sideMenuData, fetchSideMenuRequest} =
-  useSideMenu();
-
+  const {isLoading, sideMenuData, fetchSideMenuRequest} = useSideMenu();
   const {isLoggedIn} = useLogin();
-
   const {userProfileData} = useUserProfileData()
+
+  const [sideMenuDataInfo, setSideMenuDataInfo] = useState([])
   
   useEffect(() => {
     fetchSideMenuRequest();
   }, []);
+
+  useEffect(() => {
+    if (isNonEmptyArray(sideMenuData)) {
+      const data = formateChildMenuData(sideMenuData)
+    }
+  }, [sideMenuData])
+
+  const formateChildMenuData = (menuData: any[], parentId: null | string = null) => {
+    let allMenuData = []
+    let filterMenuData = []
+    if (parentId == null) {
+      filterMenuData = menuData.reduce((data, item) => {
+        if (item.parent_export == null) {
+          const updatedData = item
+          updatedData.showDropdown = false
+          data.push(updatedData)
+        }
+        return data
+      }, [])
+    } else {
+      filterMenuData = menuData.filter((item) => item.parent_export && item.parent_export.includes(parentId))
+    }
+
+    for (let i = 0; i < filterMenuData.length; i++) {
+      const item = filterMenuData[i]
+      const newParentId = item.uuid_export ?? null
+      let customData: any = {
+        ...item,
+      }
+
+      customData.child = newParentId ? formateChildMenuData(menuData, newParentId) : null
+      allMenuData.push(customData)
+    }
+
+    return allMenuData
+  }
+
+  const onPressDropDownIcon = (index: number) => {
+     const menuData = [...sideMenuData]
+     menuData[index].showDropDown = !menuData[index].showDropDown ?? true
+     setSideMenuDataInfo(menuData)
+  }
 
   const onPressNavigation = (screen: string,params: object) => {
     navigation.dispatch(DrawerActions.closeDrawer());
@@ -88,22 +129,42 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       </View>
     </View>
   );
+
+  const buttonListItem = (item: any,index: number,icon?: ImagesName | null) => {
+    return (
+      <ButtonList
+        showIcon={icon ? true : false}
+        iconName={icon}
+        key={index}
+        title={item.title}
+        onPress={() =>
+          onPressNavigation(ScreensConstants.SectionArticlesScreen,
+            { sectionId: item.field_sectionid_export, title: item.title })
+        }
+        onPressIcon={() => {}}
+      />
+    )
+  }
+
+  const updatedSideMenuData = formateChildMenuData(sideMenuData)
+
   return (
     <SafeAreaView>
       {header()}
       <ScrollView bounces={false}>
         <View style={styles.menuContainer}>
-          {sideMenuData.length > 0 &&
-            sideMenuData.map((item,index) => {
+          {updatedSideMenuData.length > 0 &&
+            updatedSideMenuData.map((item, index) => {
+              const icon = isNonEmptyArray(item.child) ? ImagesName.dropDownIcon : null
               return (
-                <ButtonList
-                  key={index}
-                  title={item.title}
-                  onPress={() =>
-                    onPressNavigation(ScreensConstants.SectionArticlesScreen,
-                      { sectionId: item.field_sectionid_export, title: item.title })
+                <View>
+                  {buttonListItem(item, index, icon)}
+                  {isNonEmptyArray(item.child) && item.showDropdown &&
+                    item.child.map((childItem: any, childIndex: number) => {
+                      return buttonListItem(childItem, childIndex)
+                    })
                   }
-                />
+                </View>
               );
             })}
           <Divider />
@@ -168,6 +229,8 @@ const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     headerContainer: {
       justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: normalize(5)
     },
     socialContainer: {
       flexDirection: 'row',
