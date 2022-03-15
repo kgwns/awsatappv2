@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArticleItem, PodcastVerticalList, VideoItem } from '..'
+import { ArticleItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
 import { t } from 'i18next'
@@ -7,6 +7,9 @@ import { timeAgo } from 'src/shared/utils'
 import { ArticleItemProps } from '../ArticleItem'
 import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
+import { ArticlePodCastWidget } from 'src/components/organisms'
+import { useNavigation } from '@react-navigation/native'
+import { ScreensConstants } from 'src/constants'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -46,6 +49,7 @@ export const PopulateWidget = ({
     onPressBookmark,
     ...props
 }: PopulateWidgetProps) => {
+    const navigation = useNavigation()
     switch (type) {
         case PopulateWidgetType.ARTICLE:
             return <ArticleItem
@@ -74,9 +78,12 @@ export const PopulateWidget = ({
             );
         case PopulateWidgetType.PODCAST:
             return (
-                <PodcastVerticalList
+                <ArticlePodCastWidget
                     {...props}
                     onPressBookmark={onPressBookmark}
+                    onPress={() => {
+                        navigation.navigate(ScreensConstants.PodcastEpisode, { data: {...props},podcastListData: [] })
+                    }}
                 />
             )
         default: return null

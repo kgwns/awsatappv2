@@ -17,6 +17,7 @@ export interface SendNewPasswordFailedPayloadtype {
 
 export interface SendNewPassword {
   password: string
+  old_password: string
 }
 
 export type ChangePasswordState = {

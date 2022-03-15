@@ -6,8 +6,11 @@ import {
     SEND_SELECTED_AUTHOR,
     SEND_SELECTED_AUTHOR_SUCCESS,
     SEND_SELECTED_AUTHOR_ERROR,
+    GET_SELECTED_AUTHOR,
+    GET_SELECTED_AUTHOR_ERROR,
+    GET_SELECTED_AUTHOR_SUCCESS,
 } from 'src/redux/allWriters/actionTypes';
-import { fetchAllWritersFailed, fetchAllWritersSuccess, fetchAllWriters, sendSelectedAuthor, sendSelectedAuthorSuccess, sendSelectedAuthorFailed } from 'src/redux/allWriters/action';
+import { fetchAllWritersFailed, fetchAllWritersSuccess, fetchAllWriters, sendSelectedAuthor, sendSelectedAuthorSuccess, sendSelectedAuthorFailed, getSelectedAuthors, getSelectedAuthorsSuccess, getSelectedAuthorsFailed } from 'src/redux/allWriters/action';
 
 describe('AllWriters Action', () => {
     const payload: AllWritersBodyGet = {
@@ -37,7 +40,7 @@ describe('AllWriters Action', () => {
     })
 
     test('Check request send writers data type', () => {
-        const request = sendSelectedAuthor({tid: '123'})
+        const request = sendSelectedAuthor({ tid: '123' })
         expect(request.type).toEqual(SEND_SELECTED_AUTHOR)
     })
 
@@ -53,5 +56,24 @@ describe('AllWriters Action', () => {
             error: ''
         })
         expect(request.type).toEqual(SEND_SELECTED_AUTHOR_ERROR)
+    })
+
+    test('Check request get selected writers data type', () => {
+        const request = getSelectedAuthors()
+        expect(request.type).toEqual(GET_SELECTED_AUTHOR)
+    })
+
+    test('Check request get selected writers data success type', () => {
+        const request = getSelectedAuthorsSuccess({
+            selectedAuthorsData: {}
+        })
+        expect(request.type).toEqual(GET_SELECTED_AUTHOR_SUCCESS)
+    })
+
+    test('Check request get selected writers data failed type', () => {
+        const request = getSelectedAuthorsFailed({
+            error: ''
+        })
+        expect(request.type).toEqual(GET_SELECTED_AUTHOR_ERROR)
     })
 })

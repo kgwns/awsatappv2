@@ -1,7 +1,7 @@
-import {allSiteCategoriesActions} from '../action';
-import {FETCH_ALL_SITE_CATEGORIES} from '../actionTypes';
+import { allSiteCategoriesActions } from '../action';
+import { EMPTY_SELECTED_TOPICS_INFO, FETCH_ALL_SITE_CATEGORIES, GET_SELECTED_TOPICS, GET_SELECTED_TOPICS_ERROR, GET_SELECTED_TOPICS_SUCCESS, SEND_SELECTED_TOPIC, SEND_SELECTED_TOPIC_ERROR, SEND_SELECTED_TOPIC_SUCCESS } from '../actionTypes';
 import allSiteCategories from '../reducer';
-import {AllSiteCategoriesState} from '../types';
+import { AllSiteCategoriesState } from '../types';
 
 describe('allSiteCategories reducer', () => {
   let initialState: AllSiteCategoriesState;
@@ -11,6 +11,8 @@ describe('allSiteCategories reducer', () => {
       isLoading: false,
       allSiteCategoriesData: [],
       error: '',
+      selectedTopicsData: {},
+      sendTopicInfo: {}
     };
   });
 
@@ -44,8 +46,62 @@ describe('allSiteCategories reducer', () => {
   test('Check loading state when allSiteCategories request API', () => {
     const nextState = allSiteCategories(initialState, {
       type: FETCH_ALL_SITE_CATEGORIES,
-      payload: {items_per_page: 10},
+      payload: { items_per_page: 10 },
     });
     expect(nextState.isLoading).toBe(true);
+  });
+
+  test('Check loading state when send selected topics request API', () => {
+    const nextState = allSiteCategories(initialState, {
+      type: SEND_SELECTED_TOPIC,
+      payload: { tid: '123' },
+    });
+    expect(nextState.isLoading).toBe(true);
+  });
+
+  test('Check loading state when send selected topics success request API', () => {
+    const nextState = allSiteCategories(initialState, {
+      type: SEND_SELECTED_TOPIC_SUCCESS,
+      payload: { saveData: {} },
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when send selected topics failure request API', () => {
+    const nextState = allSiteCategories(initialState, {
+      type: SEND_SELECTED_TOPIC_ERROR,
+      payload: { error: '' },
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when get selected topics request API', () => {
+    const nextState = allSiteCategories(initialState, {
+      type: GET_SELECTED_TOPICS,
+    });
+    expect(nextState.isLoading).toBe(true);
+  });
+
+  test('Check loading state when get selected topics success request API', () => {
+    const nextState = allSiteCategories(initialState, {
+      type: GET_SELECTED_TOPICS_SUCCESS,
+      payload: { selectedTopicsData: [] }
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when get selected topics failure request API', () => {
+    const nextState = allSiteCategories(initialState, {
+      type: GET_SELECTED_TOPICS_ERROR,
+      payload: { error: '' }
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when empty selected topics failure request API', () => {
+    const nextState = allSiteCategories(initialState, {
+      type: EMPTY_SELECTED_TOPICS_INFO,
+    });
+    expect(nextState.isLoading).toBe(false);
   });
 });

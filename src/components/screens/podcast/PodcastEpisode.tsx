@@ -3,12 +3,10 @@ import { View, FlatList, StyleSheet } from 'react-native';
 import { ScreenContainer } from '..';
 import { PodCastMiniPlayer, PodcastProgramHeader } from 'src/components/molecules';
 import Share from 'react-native-share';
-import MostPlayedSection from 'src/components/organisms/MostPlayedSection';
 import { PodcastEpisodeContent, PodcastEpisodeInfo } from 'src/components/organisms';
-import { mostPlayedSectionData, PodcastEpisodeData } from 'src/constants/SampleData';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray } from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useBookmark, useLogin, usePodcast } from 'src/hooks';
@@ -224,12 +222,12 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         />
         <PodcastEpisodeInfo data={podcastEpisodeInfo} onListenPress={onListenPress} />
       </View>
-      <View style={styles.container}>
+      {isNonEmptyArray(otherPodcast) && <View style={styles.container}>
         <PodcastEpisodeContent data={otherPodcast}
           onItemActionPress={onEpisodeListItemPress}
           onPressBookmark={onPressEpisodeListBookmark}
         />
-      </View>
+      </View>}
       {/* <MostPlayedSection data={mostPlayedSectionData} /> */}
     </View>
   )
