@@ -1,7 +1,14 @@
-import React, { useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, TouchableOpacity, Alert, Keyboard} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {isObjectNonEmpty, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from 'src/components/organisms/';
@@ -12,13 +19,20 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
-import {useBookmark, useLogin, useRegister, useUserProfileData} from 'src/hooks';
+import {
+  useBookmark,
+  useLogin,
+  useRegister,
+  useUserProfileData,
+} from 'src/hooks';
 import {emptyPasswordValidation} from 'src/shared/validators';
 import {FetchLoginPayloadType} from 'src/redux/login/types';
 import DeviceInfo from 'react-native-device-info';
-import { fetchLoginSuccess } from 'src/redux/login/action';
-import { useDispatch } from 'react-redux';
-import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
+import {fetchLoginSuccess} from 'src/redux/login/action';
+import {useDispatch} from 'react-redux';
+import AdjustAnalyticsManager, {
+  AdjustEventID,
+} from 'src/shared/utils/AdjustAnalyticsManager';
 
 export enum SocialNavigate {
   google = 'GOOGLE',
@@ -50,22 +64,37 @@ export const SignInPage = ({route}: SignInPageProps) => {
     setDeviceName(deviceName);
   };
 
-  const {fetchLoginRequest, isLoading, loginData, loginError,forgotPassworRequest,forgotPassswordResponse,emptyforgotPassworResponseInfo} = useLogin();
-  const { getBookmarkedId } = useBookmark()
-  const { fetchProfileDataRequest } = useUserProfileData();
+  const {
+    fetchLoginRequest,
+    isLoading,
+    loginData,
+    loginError,
+    forgotPassworRequest,
+    forgotPassswordResponse,
+    emptyforgotPassworResponseInfo,
+  } = useLogin();
+  const {getBookmarkedId} = useBookmark();
+  const {fetchProfileDataRequest} = useUserProfileData();
 
   useEffect(() => {
     const message = loginData?.message;
     if (message) {
       if (message.code === 200) {
-        getBookmarkedId()
-        AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN)
-        fetchProfileDataRequest()
+        getBookmarkedId();
+        AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN);
+        fetchProfileDataRequest();
         navigation.reset({
           index: 0,
-          routes: [{name: loginData.message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
+          routes: [
+            {
+              name:
+                loginData.message.newUser === 1
+                  ? ScreensConstants.OnBoardNavigator
+                  : ScreensConstants.AppNavigator,
+            },
+          ],
         });
-      }else{
+      } else {
         Alert.alert(message.message);
       }
     }
@@ -75,12 +104,19 @@ export const SignInPage = ({route}: SignInPageProps) => {
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
-        dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
+        dispatch(fetchLoginSuccess({loginData: registerUserInfo}));
         navigation.reset({
           index: 0,
-          routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
+          routes: [
+            {
+              name:
+                message.newUser === 1
+                  ? ScreensConstants.OnBoardNavigator
+                  : ScreensConstants.AppNavigator,
+            },
+          ],
         });
-      }else{
+      } else {
         Alert.alert(message.message);
       }
     }
@@ -90,19 +126,19 @@ export const SignInPage = ({route}: SignInPageProps) => {
     const message = forgotPassswordResponse?.message;
     if (isObjectNonEmpty(message)) {
       if (message.code === 1) {
-        navigation.navigate(ScreensConstants.FORGOT_PASSWORD)
-      }else{
+        navigation.navigate(ScreensConstants.FORGOT_PASSWORD);
+      } else {
         Alert.alert(message.message);
       }
     }
   }, [forgotPassswordResponse]);
 
   useEffect(() => {
-    emptyforgotPassworResponseInfo()
-    return ()=>{
-      emptyforgotPassworResponseInfo()
-    }
-  }, [])
+    emptyforgotPassworResponseInfo();
+    return () => {
+      emptyforgotPassworResponseInfo();
+    };
+  }, []);
 
   const navigateToSection = (type: string) => {
     switch (type) {
@@ -135,95 +171,96 @@ export const SignInPage = ({route}: SignInPageProps) => {
   };
 
   return (
-    <ScreenContainer isOverlayLoading={isLoading||isRegisterLoading}>
-      <View style={styles.container}>
-        <View style={styles.headerStyle}>
-          <TouchableOpacity
-            testID="signin_back"
-            accessibilityLabel="signin_back"
-            onPress={() => navigateToSection('')}>
-            <View style={styles.headerContainer}>
-              <BackIcon fill={themeData.textColor} />
-              <Label
-                children={t('signIn.return')}
-                style={styles.headerLabelStyle}
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
+    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.container}>
+          <View style={styles.headerStyle}>
+            <TouchableOpacity
+              testID="signin_back"
+              accessibilityLabel="signin_back"
+              onPress={() => navigateToSection('')}>
+              <View style={styles.headerContainer}>
+                <BackIcon fill={themeData.textColor} />
+                <Label
+                  children={t('signIn.return')}
+                  style={styles.headerLabelStyle}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.logoContainer}>
-          <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
-        </View>
+          <View style={styles.logoContainer}>
+            <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
+          </View>
 
-        <View style={styles.containerStyle}>
-        <AuthScreenInputSection
-            emailTestID='signIn_email'
-            email={email}
-            editableEmail={false}
-            isPassword
-            password={password}
-            passwordError={passwordError}
-            passwordTestID={'logIn_password'}
-            rightIconTestID={'logIn_password_icon'}
-            setChangeText={setEmail}
-            setChangePassword={setPassword}
-            navigateToSection={navigateToSection}
-            goToPasswordScreen={()=> 
-              forgotPassworRequest({email:email})}
-            onPressSignup={onPressSignIn}
-          />
-        </View>
+          <View style={styles.containerStyle}>
+            <AuthScreenInputSection
+              emailTestID="signIn_email"
+              email={email}
+              editableEmail={false}
+              isPassword
+              password={password}
+              passwordError={passwordError}
+              passwordTestID={'logIn_password'}
+              rightIconTestID={'logIn_password_icon'}
+              setChangeText={setEmail}
+              setChangePassword={setPassword}
+              navigateToSection={navigateToSection}
+              goToPasswordScreen={() => forgotPassworRequest({email: email})}
+              onPressSignup={onPressSignIn}
+            />
+          </View>
 
-        <View style={styles.footerStyle} />
-      </View>
+          <View style={styles.footerStyle} />
+        </View>
+      </TouchableWithoutFeedback>
     </ScreenContainer>
   );
 };
 
 const createStyles = (theme: CustomThemeType) =>
-StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingVertical: normalize(20),
-    marginHorizontal: normalize(20),
-    justifyContent: 'space-between',
-    backgroundColor: theme.backgroundColor,
-  },
-  logoContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 0.1,
-  },
-  headerStyle: {
-    flex: 0.05,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-  },
-  headerContainer:{
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  headerLabelStyle: {
-    fontSize: normalize(15),
-    color: theme.textColor,
-    lineHeight: normalize(16),
-    marginLeft: normalize(5),
-  },
-  containerStyle: {
-    flex: 0.8,
-    paddingHorizontal: normalize(30),
-    backgroundColor: theme.secondaryWhite,
-  },
-  footerStyle: {
-    flex: 0.05,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  logo: {
-    width: normalize(150),
-    height: normalize(30),
-  },
-})
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingVertical: normalize(20),
+      marginHorizontal: normalize(20),
+      justifyContent: 'space-between',
+      backgroundColor: theme.backgroundColor,
+    },
+    logoContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      flex: 0.1,
+    },
+    headerStyle: {
+      flex: 0.05,
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+    },
+    headerContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    headerLabelStyle: {
+      fontSize: normalize(15),
+      color: theme.textColor,
+      lineHeight: normalize(16),
+      marginLeft: normalize(5),
+    },
+    containerStyle: {
+      flex: 0.8,
+      paddingHorizontal: normalize(30),
+      backgroundColor: theme.secondaryWhite,
+    },
+    footerStyle: {
+      flex: 0.05,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    logo: {
+      width: normalize(150),
+      height: normalize(30),
+    },
+  });

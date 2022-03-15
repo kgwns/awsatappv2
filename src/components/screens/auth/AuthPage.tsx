@@ -1,7 +1,13 @@
 import React, {FunctionComponent, useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, TouchableOpacity, Keyboard} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {isIOS, normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
@@ -14,11 +20,11 @@ import {useTranslation} from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useEmailCheck,useRegister} from 'src/hooks';
+import {useEmailCheck, useRegister} from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
-import { fetchLoginSuccess } from 'src/redux/login/action';
-import { useDispatch } from 'react-redux';
-import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
+import {fetchLoginSuccess} from 'src/redux/login/action';
+import {useDispatch} from 'react-redux';
+import {TERMS_AND_CONDITION} from 'src/services/apiEndPoints';
 import {useLogin} from 'src/hooks';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
 
@@ -41,14 +47,13 @@ export const AuthPage: FunctionComponent = () => {
   const {registerUserInfo, isRegisterLoading} = useRegister();
   const dispatch = useDispatch();
 
-  const {loginSkipped,emptyforgotPassworResponseInfo} = useLogin();
+  const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
 
-  const {fetchEmailCheckRequest, isLoading, emailCheckData } =
-    useEmailCheck();
+  const {fetchEmailCheckRequest, isLoading, emailCheckData} = useEmailCheck();
 
   useEffect(() => {
-    emptyforgotPassworResponseInfo()
-  }, [])
+    emptyforgotPassworResponseInfo();
+  }, []);
 
   useEffect(() => {
     const message = emailCheckData?.message;
@@ -102,64 +107,66 @@ export const AuthPage: FunctionComponent = () => {
 
   return (
     <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading}>
-      <View style={styles.container}>
-        <View style={styles.headerStyle}>
-          <TouchableOpacity
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: colors.greenishBlue,
-            }}
-            testID="signin_skip"
-            accessibilityLabel="signin_skip"
-            onPress={() => navigateToSection('')}>
-            <Label
-              children={t('signIn.skip')}
-              style={styles.headerLabelStyle}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.logoContainer}>
-          <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
-        </View>
-
-        <View style={styles.containerStyle}>
-          <AuthScreenInputSection
-            emailTestID="signIn_email"
-            emailError={emailError}
-            email={email}
-            setChangeText={setEmail}
-            navigateToSection={navigateToSection}
-            onPressSignup={onPressSignup}
-          />
-        </View>
-
-        <View style={styles.footerStyle}>
-          <View style={styles.footerLabelContainer}>
-            <Label
-              children={t('signIn.agreeTo')}
-              labelType="p5"
-              color={themeData.textColor}
-            />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.container}>
+          <View style={styles.headerStyle}>
             <TouchableOpacity
-              testID="terms_and_conditions"
-              accessibilityLabel="terms_and_conditions"
-              onPress={() => navigateToSection('TERMSANDCONDITIONS')}>
+              style={{
+                borderBottomWidth: 1,
+                borderBottomColor: colors.greenishBlue,
+              }}
+              testID="signin_skip"
+              accessibilityLabel="signin_skip"
+              onPress={() => navigateToSection('')}>
               <Label
-                children={t('signIn.termsAndConditions')}
-                labelType="p5"
-                color={colors.greenishBlue}
-                style={styles.spaceStyle}
+                children={t('signIn.skip')}
+                style={styles.headerLabelStyle}
               />
             </TouchableOpacity>
           </View>
-          <Label
-            children={t('signIn.rights')}
-            labelType="p5"
-            color={themeData.textColor}
-          />
+
+          <View style={styles.logoContainer}>
+            <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
+          </View>
+
+          <View style={styles.containerStyle}>
+            <AuthScreenInputSection
+              emailTestID="signIn_email"
+              emailError={emailError}
+              email={email}
+              setChangeText={setEmail}
+              navigateToSection={navigateToSection}
+              onPressSignup={onPressSignup}
+            />
+          </View>
+
+          <View style={styles.footerStyle}>
+            <View style={styles.footerLabelContainer}>
+              <Label
+                children={t('signIn.agreeTo')}
+                labelType="p5"
+                color={themeData.textColor}
+              />
+              <TouchableOpacity
+                testID="terms_and_conditions"
+                accessibilityLabel="terms_and_conditions"
+                onPress={() => navigateToSection('TERMSANDCONDITIONS')}>
+                <Label
+                  children={t('signIn.termsAndConditions')}
+                  labelType="p5"
+                  color={colors.greenishBlue}
+                  style={styles.spaceStyle}
+                />
+              </TouchableOpacity>
+            </View>
+            <Label
+              children={t('signIn.rights')}
+              labelType="p5"
+              color={themeData.textColor}
+            />
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </ScreenContainer>
   );
 };
