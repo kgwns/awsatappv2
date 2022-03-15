@@ -1,6 +1,6 @@
 import { all, takeLatest } from "redux-saga/effects";
-import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE } from "../actionType";
-import articleDetailSaga, { fetchArticleDetail, fetchRelatedArticle } from "../sagas";
+import { EMPTY_DATA, REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE } from "../actionType";
+import articleDetailSaga, { fetchArticleDetail, fetchRelatedArticle, emptyData } from "../sagas";
 
 const sampleResponse = {
     "rows": [
@@ -75,7 +75,8 @@ describe('<Article Detail Saga >', () => {
             expect(generator.value).toEqual(
                 all([
                     takeLatest(REQUEST_ARTICLE_DETAIL, fetchArticleDetail),
-                    takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle)
+                    takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle),
+                    takeLatest(EMPTY_DATA, emptyData),
                 ])
             );
         });

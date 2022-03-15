@@ -6,7 +6,7 @@ import {
   getRelatedArticleData,
 } from 'src/redux/articleDetail/selectors';
 import { ArticleDetailBodyGet, ArticleDetailDataType, RelatedArticleBodyGet, RelatedArticleDataType } from 'src/redux/articleDetail/types';
-import { requestArticleDetail, requestRelatedArticle } from 'src/redux/articleDetail/action';
+import { requestArticleDetail, requestRelatedArticle, emptyData } from 'src/redux/articleDetail/action';
 
 export interface UseArticleDetailReturn {
   isLoading: boolean;
@@ -15,6 +15,7 @@ export interface UseArticleDetailReturn {
   relatedArticleData: RelatedArticleDataType[]
   fetchArticleDetail(payload: ArticleDetailBodyGet): void;
   fetchRelatedArticle(payload: RelatedArticleBodyGet): void;
+  emptyAllData(): void;
 }
 
 export const useArticleDetail = (): UseArticleDetailReturn => {
@@ -29,6 +30,9 @@ export const useArticleDetail = (): UseArticleDetailReturn => {
   const fetchRelatedArticle = (payload: RelatedArticleBodyGet) => {
     dispatch(requestRelatedArticle(payload));
   };
+  const emptyAllData = () => {
+    dispatch(emptyData());
+  };
 
   return {
     isLoading,
@@ -36,6 +40,7 @@ export const useArticleDetail = (): UseArticleDetailReturn => {
     articleError,
     relatedArticleData,
     fetchArticleDetail,
-    fetchRelatedArticle
+    fetchRelatedArticle,
+    emptyAllData
   };
 };

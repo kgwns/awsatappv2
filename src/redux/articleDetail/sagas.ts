@@ -2,7 +2,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
 import { ArticleDetailSuccessPayload, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestRelatedArticleType } from './types';
 import { requestArticleDetail, requestRelatedArticle } from 'src/services/articleDetailService';
-import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE } from './actionType';
+import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA } from './actionType';
 import { requestArticleDetailFailed, requestArticleDetailSuccess, requestRelatedArticleSuccess } from './action';
 import { isNonEmptyArray } from 'src/shared/utils';
 import { getImageUrl } from 'src/shared/utils/utilities';
@@ -121,10 +121,15 @@ export function* fetchRelatedArticle(action: RequestRelatedArticleType) {
   }
 }
 
+export function* emptyData() {
+  emptyData();
+}
+
 export function* articleDetailSaga() {
   yield all([
     takeLatest(REQUEST_ARTICLE_DETAIL, fetchArticleDetail),
-    takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle)
+    takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle),
+    takeLatest(EMPTY_DATA, emptyData)
   ]);
 }
 
