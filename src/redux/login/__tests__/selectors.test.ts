@@ -4,6 +4,7 @@ import {
     getLoginData,
     getLoginError,
     getIsSkipped,
+    getForgotPasswordResponse
 } from '../selectors';
 
 describe('login Selector', () => {
@@ -26,5 +27,10 @@ describe('login Selector', () => {
     test('Get isSkipped state', () => {
         const error = getIsSkipped(storeData);
         expect(error).toEqual(false);
+    });
+
+    test('Get forgot password response data', () => {
+        const data: any = getForgotPasswordResponse(storeData);
+        expect(data).toEqual({});
     });
 });

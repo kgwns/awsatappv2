@@ -4,9 +4,10 @@ import {
   getIsLoading,
   getLoginError,
   getIsSkipped,
+  getForgotPasswordResponse,
 } from 'src/redux/login/selectors';
-import { fetchLogin, userLoginSkipped, userLogout } from 'src/redux/login/action';
-import { FetchLoginPayloadType } from 'src/redux/login/types';
+import { fetchLogin, userLoginSkipped, userLogout,requestForgotPassword,emptyForgotPasswordResponse } from 'src/redux/login/action';
+import { FetchLoginPayloadType, ForgotPasswordRequestPayloadType } from 'src/redux/login/types';
 import { useEffect } from 'react';
 
 export interface UseLoginReturn {
@@ -20,6 +21,9 @@ export interface UseLoginReturn {
   fetchLogoutRequest(): void;
   loginSkipped(): void;
   isSkipped: boolean;
+  forgotPassswordResponse: any
+  forgotPassworRequest(payload : ForgotPasswordRequestPayloadType): void
+  emptyforgotPassworResponseInfo():void
 }
 
 export const useLogin = (): UseLoginReturn => {
@@ -31,6 +35,7 @@ export const useLogin = (): UseLoginReturn => {
   const isLoggedIn = loginData?.token?.access_token ? true : false;
   const token = loginData?.token?.access_token ? loginData?.token?.access_token : null;
   const user = loginData?.user;
+  const forgotPassswordResponse = useSelector(getForgotPasswordResponse);
   const fetchLoginRequest = (payload: FetchLoginPayloadType) => {
     dispatch(fetchLogin(payload));
   };
@@ -39,6 +44,12 @@ export const useLogin = (): UseLoginReturn => {
   }
   const loginSkipped = () => {
     dispatch(userLoginSkipped());
+  }
+  const forgotPassworRequest = (payload :ForgotPasswordRequestPayloadType)=>{
+    dispatch(requestForgotPassword(payload));
+  }
+  const emptyforgotPassworResponseInfo = () => {
+    dispatch(emptyForgotPasswordResponse())
   }
   return {
     isLoading,
@@ -50,6 +61,9 @@ export const useLogin = (): UseLoginReturn => {
     user,
     fetchLogoutRequest,
     loginSkipped,
-    isSkipped
+    isSkipped,
+    forgotPassswordResponse,
+    forgotPassworRequest,
+    emptyforgotPassworResponseInfo
   };
 };

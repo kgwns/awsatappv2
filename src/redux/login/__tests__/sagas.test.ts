@@ -1,5 +1,5 @@
-import { FETCH_LOGIN } from '../actionTypes';
-import { fetchLogin, fetchLogout } from '../sagas';
+import { FETCH_LOGIN, FORGOT_PASSWORD_REQUEST } from '../actionTypes';
+import { fetchLogin, fetchLogout,requestForgotPassword } from '../sagas';
 
 const mockString = 'mockString';
 
@@ -25,6 +25,19 @@ describe('Test fetch login  error', () => {
 describe('Test fetch logout  error', () => {
     it('check fetchlogout error', () => {
         const genObject = fetchLogout();
+        genObject.next();
+        genObject.throw(errorResponse);
+    });
+});
+
+describe('Test requestForgotPassword error', () => {
+    it('check requestForgotPassword error', () => {
+        const genObject = requestForgotPassword({
+            type:FORGOT_PASSWORD_REQUEST,
+            payload:{
+                email:'email@email.com'
+            }
+        });
         genObject.next();
         genObject.throw(errorResponse);
     });
