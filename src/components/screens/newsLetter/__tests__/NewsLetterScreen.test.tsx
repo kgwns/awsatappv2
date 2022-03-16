@@ -21,11 +21,11 @@ describe('<NewsLettersScreen>', () => {
     instance.unmount();
   });
 
-  xtest('Should render NewsLettersScreen component', () => {
+  test('Should render NewsLettersScreen component', () => {
     expect(instance).toBeDefined();
   });
 
-  xit('Should Press Next Button', () => {
+  it('Should Press Next Button', () => {
     const element = instance.getByTestId('nextButtonTestId');
     fireEvent.press(element);
   });

@@ -45,6 +45,25 @@ export type FetchVideoFailedType = {
   payload: FetchVideoFailedPayloadtype;
 };
 
+
+export type RequestVideoUrlPayload = {
+  mediaID: string
+}
+
+export type JWTVideoSourceType = {
+  file: string,
+  label: string,
+  type: string
+}
+
+export type JWTVideoPlayListType = {
+  sources: JWTVideoSourceType[]
+}
+
+export type RequestVideoUrlSuccessResponse = {
+  playlist: JWTVideoPlayListType[]
+}
+
 export type VideoActions =
   | FetchVideoType
   | FetchVideoSuccessType

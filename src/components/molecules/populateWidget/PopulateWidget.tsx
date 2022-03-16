@@ -10,6 +10,7 @@ import { VideoItemProps } from '../video-item/VideoItem'
 import { ArticlePodCastWidget } from 'src/components/organisms'
 import { useNavigation } from '@react-navigation/native'
 import { ScreensConstants } from 'src/constants'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -49,7 +50,7 @@ export const PopulateWidget = ({
     onPressBookmark,
     ...props
 }: PopulateWidgetProps) => {
-    const navigation = useNavigation()
+    const navigation = useNavigation<StackNavigationProp<any>>()
     switch (type) {
         case PopulateWidgetType.ARTICLE:
             return <ArticleItem
@@ -72,7 +73,10 @@ export const PopulateWidget = ({
                 <VideoItem {...props}
                     isFirstItem={false}
                     testID='video_screen_id'
-                    onPress={() => { }}
+                    onPress={() => {
+                        navigation.navigate(ScreensConstants.VideoPlayerScreen,
+                            { mediaID: props.field_video_media_id_export })
+                    }}
                     onPressBookmark={onPressBookmark}
                 />
             );

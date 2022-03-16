@@ -17,7 +17,6 @@ import {
 import { isNonEmptyArray, joinArray } from 'src/shared/utils';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
-import { DUMMY_IMAGE_URL } from 'src/services/apiUrls';
 
 const filterNidInfo = (data: BookmarkIdSuccessDataFieldType[]) => {
   return data.reduce((prevValue: string[], item: BookmarkIdSuccessDataFieldType) => {
@@ -89,7 +88,7 @@ const populateBookmarkDetail = (response: any): any => {
         const podcastData = {
           ...item,
           author: item?.field_announcer_name_export,
-          imageUrl: item?.field_podcast_sect_export?.img_podcast_mobile ?? DUMMY_IMAGE_URL,
+          imageUrl: item?.field_podcast_sect_export?.img_podcast_mobile,
           title: item?.title,
           body: item?.body_export,
           timeDuration: item?.field_total_duration_export,
