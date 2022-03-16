@@ -14,7 +14,7 @@ export default class SignInFacebook extends SocialLogin {
   }
 
   login(): void {
-      LoginManager.logInWithPermissions(['public_profile', 'email', 'user_friends']).then((result: any) => {
+      LoginManager.logInWithPermissions(['public_profile', 'email']).then((result: any) => {
           if (result.isCancelled) {
               console.log('** Facebook Login Canceled **')
               this.callBack(undefined, false, 'facebook')
