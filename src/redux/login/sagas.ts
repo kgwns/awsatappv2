@@ -9,7 +9,7 @@ import {
   ForgotPasswordSuccessPayloadType,
 } from './types';
 import {fetchLoginFailed, fetchLoginSuccess, forgotPasswordFailed, forgotPasswordSuccess, userLogoutSuccess} from './action';
-import {EMPTY_FORGOT_PASSWORD_RESPONSE, FETCH_LOGIN, FETCH_USER_LOGOUT, FORGOT_PASSWORD_REQUEST} from './actionTypes';
+import {EMPTY_FORGOT_PASSWORD_RESPONSE, EMPTY_LOGIN_DATA, FETCH_LOGIN, FETCH_USER_LOGOUT, FORGOT_PASSWORD_REQUEST} from './actionTypes';
 import {fetchLoginApi, fetchLogoutApi, forgotPasswordApi} from 'src/services/loginService';
 import {Alert} from 'react-native';
 
@@ -67,12 +67,17 @@ export function* emptyForgotPasswordResponseInfo() {
   emptyForgotPasswordResponseInfo();
 }
 
+export function* emptyLoginDataInfo() {
+  emptyLoginDataInfo();
+}
+
 function* loginSaga() {
   yield all([
     takeLatest(FETCH_LOGIN, fetchLogin),
     takeLatest(FETCH_USER_LOGOUT, fetchLogout),
     takeLatest(FORGOT_PASSWORD_REQUEST,requestForgotPassword),
     takeLatest(EMPTY_FORGOT_PASSWORD_RESPONSE,emptyForgotPasswordResponseInfo),
+    takeLatest(EMPTY_LOGIN_DATA,emptyLoginDataInfo),
   ]);
 }
 

@@ -1,6 +1,7 @@
 import { getUpdatedObject } from 'src/shared/utils/utilities';
 import { 
   EMPTY_FORGOT_PASSWORD_RESPONSE,
+    EMPTY_LOGIN_DATA,
     FETCH_LOGIN,
     FETCH_LOGIN_ERROR,
     FETCH_LOGIN_SUCCESS,
@@ -52,6 +53,8 @@ export default (state = initialAuthState, action: LoginActions) => {
       return { ...state, isLoading: false, error: action.payload.error }
     case EMPTY_FORGOT_PASSWORD_RESPONSE:
       return { ...state,isLoading: false, error: '',forgotPasswordResponse:{}}
+    case EMPTY_LOGIN_DATA:
+      return { ...state, isLoading: false, error: '', loginData:null }
     default:
       return state;
   }

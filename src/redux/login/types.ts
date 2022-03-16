@@ -9,7 +9,8 @@ import {
     FORGOT_PASSWORD_SUCCESS,
     LOGIN_SKIPPED,
     ONBOARDING_SUCCESS,
-    EMPTY_FORGOT_PASSWORD_RESPONSE
+    EMPTY_FORGOT_PASSWORD_RESPONSE,
+    EMPTY_LOGIN_DATA
   } from './actionTypes';
   
   export interface FieldLoginExportType {
@@ -119,6 +120,10 @@ import {
   export type EmptyForgotPasswordResponse = {
     type: typeof EMPTY_FORGOT_PASSWORD_RESPONSE;
   };
+
+  export type EmptyLoginData = {
+    type: typeof EMPTY_LOGIN_DATA;
+  };
   
   export type LoginActions =
     | FetchLoginType
@@ -131,4 +136,5 @@ import {
     | ForgotPasswordRequestType
     | ForgotPasswordSuccessType
     | ForgotPasswordFailedType
-    | EmptyForgotPasswordResponse;
+    | EmptyForgotPasswordResponse
+    | EmptyLoginData;

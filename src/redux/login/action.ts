@@ -26,7 +26,8 @@ import {
     FORGOT_PASSWORD_REQUEST,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAILED,
-    EMPTY_FORGOT_PASSWORD_RESPONSE
+    EMPTY_FORGOT_PASSWORD_RESPONSE,
+    EMPTY_LOGIN_DATA
   } from './actionTypes';
   
   export const fetchLogin = (payload: FetchLoginPayloadType) => {
@@ -109,6 +110,12 @@ import {
       type: EMPTY_FORGOT_PASSWORD_RESPONSE,
     };
   };
+
+  export const emptyLoginData = () => {
+    return {
+      type: EMPTY_LOGIN_DATA,
+    };
+  };
   
   export const loginAction = {
     fetchLogin,
@@ -118,4 +125,5 @@ import {
     forgotPasswordFailed,
     requestForgotPassword,
     emptyForgotPasswordResponse,
+    emptyLoginData,
   };

@@ -72,6 +72,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     forgotPassworRequest,
     forgotPassswordResponse,
     emptyforgotPassworResponseInfo,
+    emptyLoginDataInfo,
   } = useLogin();
   const {getBookmarkedId} = useBookmark();
   const {fetchProfileDataRequest} = useUserProfileData();
@@ -96,6 +97,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
         });
       } else {
         Alert.alert(message.message);
+        emptyLoginDataInfo();
       }
     }
   }, [loginData]);
