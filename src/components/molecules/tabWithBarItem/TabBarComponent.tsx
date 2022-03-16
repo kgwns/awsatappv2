@@ -14,7 +14,7 @@ export const TabBarComponent = ({ tabItem, onPressTabItem, style }: TabBarWidget
     <View style={styles.container}>
       <ScrollView horizontal={true} bounces={false} style={style}
         contentContainerStyle={styles.contentStyle}
-        showsHorizontalScrollIndicator={false}>
+        showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
         {
           tabItem.map((item: TabBarDataProps, index: number) =>
             <TabWithBarItem key={index} {...item} index={index} onPress={onPressTabItem} />)
