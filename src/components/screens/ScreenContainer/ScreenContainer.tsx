@@ -185,7 +185,9 @@ const createStyles = (theme: CustomThemeType) => {
     },
     returnIconStyle: {
       tintColor: theme.secondaryDarkSlate,
-      marginRight: 10,
+      marginRight: normalize(5),
+      width: normalize(12),
+      height: normalize(12),
     },
     headerTitle: {
       position: 'absolute',
