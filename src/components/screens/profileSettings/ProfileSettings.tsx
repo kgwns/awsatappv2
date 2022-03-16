@@ -19,7 +19,7 @@ import { ToggleWithLabel } from 'src/components/molecules';
 import { useDispatch } from 'react-redux';
 import { storeAppTheme } from 'src/redux/appCommon/action';
 import { Theme } from 'src/redux/appCommon/types';
-import { useAppCommon, useBookmark, useKeepNotified, useLogin, useUserProfileData } from 'src/hooks';
+import { useAppCommon, useBookmark, useKeepNotified, useLogin, useUserProfileData, useAllSiteCategories, useAllWriters  } from 'src/hooks';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AlertPayloadType } from 'src/components/screens/ScreenContainer/ScreenContainer';
@@ -96,6 +96,8 @@ export const ProfileSettings = () => {
 
   const { fetchLogoutRequest } = useLogin();
   const { userProfileData } = useUserProfileData();
+  const { emptySelectedTopicsInfoData } = useAllSiteCategories();
+  const { emptySelectedAuthorsInfoData } = useAllWriters();
 
   const onPressToggle = (isOn: boolean) => {
       const themeData = isOn ? Theme.LIGHT : Theme.DARK;
@@ -117,6 +119,8 @@ export const ProfileSettings = () => {
     fetchLogoutRequest();
     removeBookmark()
     removeKeepNotificationInfo()
+    emptySelectedTopicsInfoData()
+    emptySelectedAuthorsInfoData()
     navigation.reset({
         index: 0,
         routes: [{ name: ScreensConstants.AuthNavigator }],

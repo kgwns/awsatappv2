@@ -46,7 +46,7 @@ export default (state = initialState, action: AllSiteCategoriesActions) => {
     case GET_SELECTED_TOPICS_ERROR:
       return { ...state, isLoading: false, error: action.payload.error }
     case EMPTY_SELECTED_TOPICS_INFO:
-      return {...state, isLoading: false, sendTopicInfo:{},error:'',}
+      return {...state, isLoading: false, sendTopicInfo:{},error:'',selectedTopicsData: {}}
     default:
       return { ...state };
   }

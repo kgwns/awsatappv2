@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
-import { View, StyleSheet, TouchableOpacity, Modal, Image, AppState, Alert } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Modal, Image, AppState, Alert, Keyboard } from 'react-native';
 import { isIOS, normalize, screenHeight, screenWidth } from '../../../shared/utils';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -299,6 +299,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   )
 
   const onChangePasswordUpdate = () => {
+    Keyboard.dismiss();
     setOldPasswordError(oldPasswordValidation(oldPassword));
     setNewPasswordError(loginPasswordValidation(newPassword));
     setConfirmNewPasswordError(reTypePasswordValidation(newPassword, confirmNewPassword));

@@ -46,7 +46,7 @@ export default (state = initialState, action: AllWritersActions) => {
     case GET_SELECTED_AUTHOR_ERROR:
       return { ...state, isLoading: false, error: action.payload.error }
     case EMPTY_SELECTED_AUTHORS_INFO:
-      return {...state, isLoading: false, sendAuthorInfo:{},error:'',}
+      return {...state, isLoading: false, sendAuthorInfo:{},error:'', selectedAuthorsData: {}}
     default:
       return { ...state };
   }
