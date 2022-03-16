@@ -117,17 +117,19 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     updateBookmarkInfo(item.nid, newBookmarked)
   }
 
-  const onPressSaveEpisodeList = (index: number) => {
+  const onPressSaveEpisodeList = (nid: string) => {
     const data = [...podcastEpisodeListInfo]
+    const index = data.findIndex((item)=>item.nid===nid)
+    if(index>-1){
     const item = data[index]
     const newBookmarked = !item.isBookmarked
     data[index].isBookmarked = newBookmarked
     setPodcastEpisodeListInfo(data)
-    updateBookmarkInfo(item.nid, newBookmarked)
+    updateBookmarkInfo(item.nid, newBookmarked)}
   }
 
-  const onPressEpisodeListBookmark = (index: number) => {
-    isLoggedIn ? onPressSaveEpisodeList(index) : makeSignUpAlert()
+  const onPressEpisodeListBookmark = (nid: string) => {
+    isLoggedIn ? onPressSaveEpisodeList(nid) : makeSignUpAlert()
   }
 
   const onPressEpisodeBookmark = () => {
