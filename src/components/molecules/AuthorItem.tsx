@@ -12,6 +12,7 @@ import { ScreensConstants } from 'src/constants';
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTranslation } from 'react-i18next'
+import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 
 export interface AuthorItemProps {
     author: string,
@@ -62,7 +63,13 @@ const AuthorItem = ({
                 </View>
             </View>
             <View>
-                <Image url={image} backgroundColor={themeData.secondaryDavyGrey} size={normalize(80)} resizeMode={'cover'} type={'round'} />
+                <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'}
+                fallback={true}
+                fallbackContent={<AuthorDefault
+                style={{backgroundColor:Styles.color.cyanGreen}}
+                width={normalize(80)} 
+                height={normalize(80)}/>}
+                />
             </View>
         </TouchableOpacity>
     )

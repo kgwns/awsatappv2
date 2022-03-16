@@ -21,6 +21,8 @@ export interface OpinionsListItemType {
   published_at_export: Date;
   body: string;
   field_edit_letter_writer_export?: any;
+  field_jwplayer_id_opinion_export?: any;
+  type?: string;
   isBookmarked: boolean;
 }
 

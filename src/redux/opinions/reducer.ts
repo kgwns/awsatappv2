@@ -13,10 +13,11 @@ const initialState: OpinionsListState = {
 
 export default (state = initialState, action: OpinionsActions) => {
   const concatData = (data: any) => {
-    state.opinionData.rows = state.opinionData.rows.concat(data.rows);
-    state.opinionData.pager.current_page = data.pager.current_page;
-    state.opinionData.pager.items_per_page = data.pager.items_per_page;
-    return state.opinionData;
+    const temp = {...state}
+    temp.opinionData.rows = temp.opinionData.rows.concat(data.rows);
+    temp.opinionData.pager.current_page = data.pager.current_page;
+    temp.opinionData.pager.items_per_page = data.pager.items_per_page;
+    return temp.opinionData;
   };
   switch (action.type) {
     case FETCH_OPINIONS_SUCCESS:

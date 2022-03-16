@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
+import React from 'react';
+import {ActivityIndicator, FlatList, Platform, StyleSheet, View} from 'react-native';
 import {flatListUniqueKey} from 'src/constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import OpinionWritersCardView from 'src/components/molecules/opinionWriters/OpinionWriterCardView';
-import {normalize} from 'src/shared/utils';
+import {normalize, screenWidth} from 'src/shared/utils';
 import {OpinionsListItemType} from 'src/redux/opinions/types';
 import {
   decodeHTMLTags,
@@ -28,7 +28,8 @@ const OpinionWritersArticlesSection = ({
 }: OpinionWritersArticlesSectionProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
-  const [onEndReachedCalledDuringMomentum,setOnEndReachedCalledDuringMomentum]=useState(false);
+  const audioLabel = 'استمع الي المقالة ';
+  const slice = screenWidth*0.80;
   const renderItem = (item: any, index: number) => {
     return (
       <View key={flatListUniqueKey.OPINION_WRITER_ARTICLES_SECTION + index}>
@@ -46,12 +47,14 @@ const OpinionWritersArticlesSection = ({
             ?item.field_opinion_writer_node_export[0].name
             :item.field_opinion_writer_node_export.name}
           headLine={item.title}
-          subHeadLine={decodeHTMLTags(item.body)}
-          audioLabel={'استمع الي المقالة '}
+          subHeadLine={ (Platform.OS==='android')
+          ?decodeHTMLTags(item.body.slice(0,slice))
+          :decodeHTMLTags(item.body)}
           duration={'3:22'}
           nid={item.nid}
           isBookmarked={item.isBookmarked}
           onPressBookmark={() => {onUpdateOpinionArticlesBookmark(index)}}
+          audioLabel={audioLabel}
         />
         {isLoading && data.length - 1 == index && (
           <View style={{margin: normalize(28)}}>
@@ -65,20 +68,11 @@ const OpinionWritersArticlesSection = ({
     <View style={style.container}>
       <FlatList
         keyExtractor={(_, index) => index.toString()}
-        listKey={
-          flatListUniqueKey.OPINION_WRITER_ARTICLES_SECTION +
-          new Date().getTime().toString()
-        }
         showsHorizontalScrollIndicator={false}
         data={data}
         renderItem={({item, index}) => renderItem(item, index)}
-        onEndReached={()=> { 
-          if(!onEndReachedCalledDuringMomentum) 
-          { onScroll() 
-            setOnEndReachedCalledDuringMomentum(true) }
-          }} 
-        onEndReachedThreshold={0.5} 
-        onMomentumScrollBegin = {() => {setOnEndReachedCalledDuringMomentum(false)}}
+        onEndReached={()=> onScroll()} 
+        onEndReachedThreshold={0.5}
       />
     </View>
   );

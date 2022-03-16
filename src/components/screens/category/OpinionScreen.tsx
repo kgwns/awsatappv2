@@ -33,7 +33,9 @@ export const OpinionScreen = () => {
   };
 
   const gotoNextPage = () => {
-    setPage(page + 1);
+    if (!isLoading) {
+      setPage(page + 1);
+    }
   };
 
   const style = useThemeAwareObject(customStyle);
