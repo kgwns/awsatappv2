@@ -150,7 +150,7 @@ export const ContentForYou = () => {
                 formatArticleSectionData.push(formattedData)
             }else{
                 formattedData.image = favouriteArticlesData[i].field_image
-                formattedData.flag= favouriteArticlesData[i].field_news_categories_export.title,
+                formattedData.flag= favouriteArticlesData[i].field_news_categories_export?.title,
                 formatShortArticleData.push(formattedData)
             }
         }

@@ -53,7 +53,7 @@ const HeadlinesSection = ({
     let stringWidth = 0
     useEffect(() => {
         setHeadNews(tickerData[0].title as any ?? '')
-        setHeaderNews(tickerData[0].news_categories.title as any ?? '')
+        setHeaderNews(tickerData[0]?.news_categories?.title ?? '')
         setIndexValue(1)
         return () => { }
     }, [])
@@ -69,7 +69,7 @@ const HeadlinesSection = ({
         return (
             <>
                 {setHeadNews(tickerData[indexValue].title as any ?? '')}
-                {setHeaderNews(tickerData[indexValue].news_categories.title as any ?? '')}
+                {setHeaderNews(tickerData[indexValue]?.news_categories?.title ?? '')}
             </>
         )
     }
@@ -92,7 +92,7 @@ const HeadlinesSection = ({
             <TouchableWithoutFeedback onPress={onPress}>
                 <View style={HeadlinesSectionStyle.contentContainer}>
                     <Label color={titleColor} children={headerNews} labelType={LabelTypeProp.p5} onLayout={e => { setTitleWidth(e.nativeEvent.layout.width) }} />
-                    {tickerData[indexValue].news_categories.title as any && <View style={[HeadlinesSectionStyle.separator, { backgroundColor: separatorColor }]} />}
+                    {tickerData[indexValue]?.news_categories?.title && <View style={[HeadlinesSectionStyle.separator, { backgroundColor: separatorColor }]} />}
                     <View onLayout={e => { setTextWidth(e.nativeEvent.layout.width) }}>
                         <TextTicker
                             style={[HeadlinesSectionStyle.headlineDescription, { color: bodyColor }]}
