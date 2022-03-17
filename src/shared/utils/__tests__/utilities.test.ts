@@ -86,11 +86,6 @@ describe('<Utilities>', () => {
             expect(result).toBe('0 timeSince.seconds')
         })
 
-        it('Check date is return correctly', () => {
-            const date = "2021-05-20T21:05:00+0000"
-            const result = calculateDate(date)
-            expect(result).toBe(21)
-        })
 
         it('Check month is return correctly', () => {
             const date = "2021-05-20T21:05:00+0000"
