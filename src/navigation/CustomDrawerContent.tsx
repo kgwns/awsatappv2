@@ -135,6 +135,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       <ButtonList
         showIcon={icon ? true : false}
         iconName={icon}
+        iconStyle={{padding: normalize(8)}}
         key={index}
         title={item.title}
         onPress={() =>

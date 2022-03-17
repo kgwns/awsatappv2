@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, StyleSheet, TouchableOpacity, StyleProp, TextStyle} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, StyleProp, TextStyle, ViewStyle} from 'react-native';
 import LeftArrow from 'src/assets/images/icons/left_arrow.svg';
 import { ImagesName } from '/shared/styles';
 import {Label} from '../';
@@ -13,15 +13,16 @@ interface ButtonListProps {
   showIcon?: boolean,
   iconName?: ImagesName,
   iconSize?: number,
-  onPressIcon?: () => void
+  onPressIcon?: () => void,
+  iconStyle?: StyleProp<ViewStyle>
 }
 
 export const ButtonList = (props: ButtonListProps) => {
   const renderIcon = () => {
-    return <TouchableOpacity onPress={props.onPressIcon ? props.onPressIcon : props.onPress}>
+    return <TouchableOpacity onPress={props.onPressIcon ? props.onPressIcon : props.onPress} style={props.iconStyle}>
       {props.iconName ? getSvgImages({
         name: props.iconName,
-        size: normalize(props.iconSize || 10)
+        size: normalize(props.iconSize || 12)
       }) : <LeftArrow />}
     </TouchableOpacity>
   }
