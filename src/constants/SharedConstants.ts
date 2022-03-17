@@ -27,6 +27,11 @@ export const PODCAST_URL_SUFFIX = '/play.mp3'
 //Date picker
 export const DEFAULT_MINIMUM_DATE = '1970-01-01'
 
+
+//UserProfile
+export const CONST_PLEASE_ENTER_THE_NAME = 'الرجاء إدخال الاسم'
+export const CONST_OK = 'نعم'
+
 //Social Media URLs
 export const FACEBOOK_URL = 'https://www.facebook.com/asharqalawsat.a';
 export const INSTAGRAM_URL = 'https://www.instagram.com/asharqalawsat/';

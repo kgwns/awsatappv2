@@ -131,11 +131,12 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   );
 
   const buttonListItem = (item: any,index: number,icon?: ImagesName | null) => {
+    const hipSlopValue = normalize(12)
     return (
       <ButtonList
         showIcon={icon ? true : false}
         iconName={icon}
-        iconStyle={{padding: normalize(8)}}
+        hitSlop={{top: hipSlopValue,bottom: hipSlopValue,left: hipSlopValue,right: hipSlopValue}}
         key={index}
         title={item.title}
         onPress={() =>

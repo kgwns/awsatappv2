@@ -1,6 +1,6 @@
-import { Alert, ColorSchemeName, Platform } from "react-native"
+import { Alert, ColorSchemeName } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
-import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX, PODCAST_URL_SUFFIX } from "../../constants/SharedConstants"
+import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX, PODCAST_URL_SUFFIX, CONST_OK } from "src/constants/SharedConstants"
 import { Edge } from "react-native-safe-area-context";
 import { BASE_URL, PODCAST_SPREAKER_URL } from "src/services/apiUrls";
 import { arabic } from "src/assets/locales/ar/common-ar";
@@ -12,15 +12,21 @@ export interface CustomAlertProps {
   title?: string;
   message?: string;
   delay?: number;
+  buttonTitle?: string;
+  onPress?: () => void
 }
 
 export const CustomAlert = ({
   title = DEFAULT_ALERT_TITLE,
   message = DEFAULT_ALERT_MESSAGE,
   delay = 0,
+  buttonTitle = CONST_OK,
+  onPress
 }: CustomAlertProps) => {
   setTimeout(() => {
-    Alert.alert(title, message);
+    Alert.alert(title, message, [
+      {text: buttonTitle, onPress: () => onPress && onPress()}
+    ]);
   }, delay);
 };
 

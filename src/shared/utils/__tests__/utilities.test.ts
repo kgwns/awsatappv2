@@ -24,11 +24,12 @@ describe('<Utilities>', () => {
         jest.spyOn(Alert, 'alert');
         const alertInfo = {
             title: 'title',
-            message: 'Message'
+            message: 'Message',
+            data: [{ text: 'نعم', onPress: () => jest.fn() }]
         }
         CustomAlert({...alertInfo})
         jest.runAllTimers(); // or jest.advanceTimersByTime(1000)
-        expect(Alert.alert).toHaveBeenCalledWith(...Object.values(alertInfo))
+        expect(Alert.alert).toHaveBeenCalled()
 
     })
 

@@ -11,7 +11,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { TextInputField, Label, ButtonOutline } from '../../atoms';
 import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
-import { getFullDate, isObjectNonEmpty, getFormatedDate, getProfileImageUrl, CustomAlert, isNotEmpty} from 'src/shared/utils/utilities';
+import { getFullDate, isObjectNonEmpty, getFormatedDate as getFormattedDate, getProfileImageUrl, CustomAlert, isNotEmpty} from 'src/shared/utils/utilities';
 import DatePicker from 'react-native-date-picker';
 import { TabBarComponent, TabBarDataProps } from 'src/components/molecules';
 import { KeyboardAwareView } from 'keyboard-aware-view';
@@ -23,7 +23,7 @@ import { UpdateUserImageBodyType } from 'src/redux/profileUserDetail/types';
 import { isDarkTheme } from 'src/shared/utils';
 import { useAppCommon, useLogin } from 'src/hooks';
 import { SystemPermissions } from 'src/shared/utils';
-import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS, DEFAULT_MINIMUM_DATE } from 'src/constants/SharedConstants';
+import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS, DEFAULT_MINIMUM_DATE, CONST_PLEASE_ENTER_THE_NAME } from 'src/constants/SharedConstants';
 import {useNewPassword} from 'src/hooks/useNewPassword'
 import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
 
@@ -33,6 +33,8 @@ export const UserDetailScreen: FunctionComponent = () => {
   const isDarkMode = isDarkTheme(theme)
   const { themeData } = useTheme();
   const [t] = useTranslation();
+  const CONST_NAME_PLACE_HOLDER = t('profile.userDetail.nameTitle')
+
   const styles = useThemeAwareObject(createStyles);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -185,11 +187,15 @@ export const UserDetailScreen: FunctionComponent = () => {
       {getSvgImages({ name: ImagesName.dropDownIcon, width: styles.dropDownIcon.width, height: styles.dropDownIcon.height, style: styles.dropDownIcon })}
     </>
   )
-  const onpressConfirm = () => {
+  const onPressConfirm = () => {
+    isNotEmpty(name) ? sendUpdatedProfileInfo() : CustomAlert({message: CONST_PLEASE_ENTER_THE_NAME})
+  }
+
+  const sendUpdatedProfileInfo = () => {
     sendUserProfileInfo({
       email: email,
       first_name: name ?? '',
-      birthday: selectedDate.toString() != t('profile.userDetail.selectBirthdayText')? getFormatedDate(date) : (userProfileData.user?.birthday ? getFormatedDate(userProfileData.user?.birthday): '' ),
+      birthday: selectedDate.toString() != t('profile.userDetail.selectBirthdayText')? getFormattedDate(date) : (userProfileData.user?.birthday ? getFormattedDate(userProfileData.user?.birthday): '' ),
       occupation: occupation ?? ''
     })        
     setUserName(name)
@@ -214,7 +220,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         </View>
         <View style={styles.fieldContainer}>
           <Label style={styles.nameTitle} color={colors.greenishBlue} children={t('profile.userDetail.nameTitle')} />
-          <TextInputField placeholder={t('profile.userDetail.nameTitle')}
+          <TextInputField placeholder={CONST_NAME_PLACE_HOLDER}
             testID={'profile_name'}
             onChangeText={setName}
             value={name}
@@ -271,7 +277,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         <ButtonOutline
           style={styles.updateButton}
           labelStyle={styles.updateButtonLabel} title={t('profile.userDetail.updateButtonText')}
-          onPress={onpressConfirm} />
+          onPress={onPressConfirm} />
       </View>
     </KeyboardAwareView>
   )
