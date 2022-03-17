@@ -81,6 +81,10 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   }
 
   useEffect(() => {
+    return () => emptyAllListData()
+  }, []);
+
+  useEffect(() => {
     fetchBottomListRequest(bottomListPayload);
   }, [sectionId,page]);
 

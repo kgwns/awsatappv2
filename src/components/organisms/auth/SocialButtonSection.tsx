@@ -20,6 +20,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { appleSignin } from 'src/shared/utils/appleSignin';
+import moment from 'moment';
 
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
@@ -43,6 +44,9 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       provider: provider,
       provider_id:userDetails.id,
     };
+    if(provider === 'facebook' && userDetails.birthday){
+      payload.birthday = moment(userDetails.birthday).locale('en').format('YYYY-MM-DD')
+    }
     console.log(payload);
     createUserRequest(payload);
   }
@@ -112,7 +116,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   //-------end AppleSignin--
 
   const buttonPressAction = (type: string) => {
-    recordLogEvent('login', {loginType: type});
+    recordLogEvent('Login');
     switch (type) {
       case NavigateTypes.google:
         let googleSignIn = LoginFactory.getInstance(Connection.Google,onResult);

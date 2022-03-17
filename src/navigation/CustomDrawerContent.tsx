@@ -24,6 +24,14 @@ import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
 import { getProfileImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
 import { FACEBOOK_URL, INSTAGRAM_URL, LINKEDIN_URL, TWITTER_URL } from 'src/constants/SharedConstants';
+import { recordLogEvent } from 'src/shared/utils';
+
+export enum SocialMediaType {
+  instagram = 'Instagram',
+  facebook = 'Facebook',
+  twitter = 'Twitter',
+  linkedIn = 'LinkedIn',
+}
 
 interface CustomDrawerContentProps {}
 
@@ -148,6 +156,29 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     )
   }
 
+  const openSocialMedia = (type: string) =>{
+    switch (type) {
+      case SocialMediaType.facebook:
+        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.facebook});
+        Linking.openURL(FACEBOOK_URL);
+        return;
+      case SocialMediaType.instagram:
+        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.instagram});
+        Linking.openURL(INSTAGRAM_URL);
+        return;
+      case SocialMediaType.linkedIn:
+        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.linkedIn});
+        Linking.openURL(LINKEDIN_URL);
+        return;
+      case SocialMediaType.twitter:
+        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.twitter});
+        Linking.openURL(TWITTER_URL);
+        return;
+      default:
+        return;
+    }
+  }
+
 
   return (
     <SafeAreaView>
@@ -205,19 +236,19 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           <View style={styles.socialContainer}>
             <ButtonImage
               icon={() => <LinkedinIcon />}
-              onPress={() => Linking.openURL(LINKEDIN_URL)}
+              onPress={() => openSocialMedia(SocialMediaType.linkedIn)}
             />
             <ButtonImage
               icon={() => <TwitterIcon />}
-              onPress={() => Linking.openURL(TWITTER_URL)}
+              onPress={() => openSocialMedia(SocialMediaType.twitter)}
             />
             <ButtonImage
               icon={() => <FacebookIcon />}
-              onPress={() => Linking.openURL(FACEBOOK_URL)}
+              onPress={() => openSocialMedia(SocialMediaType.facebook)}
             />
             <ButtonImage
               icon={() => <InstagramIcon />}
-              onPress={() => Linking.openURL(INSTAGRAM_URL)}
+              onPress={() => openSocialMedia(SocialMediaType.instagram)}
             />
           </View>
         </View>

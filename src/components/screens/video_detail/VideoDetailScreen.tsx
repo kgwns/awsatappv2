@@ -6,7 +6,7 @@ import Share from 'react-native-share';
 import {VideosList, VideoInfo} from 'src/components/organisms';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge, isNonEmptyArray, recordLogEvent} from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isNonEmptyArray } from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useBookmark, useLogin, useVideoList } from 'src/hooks';
@@ -85,8 +85,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
 
   const goToPlayer = (item:VideoItemType) =>{
     if(item.field_mp4_link_export){
-      recordLogEvent('Played_Video', {id: item.nid, title: item.title, url: item.field_mp4_link_export });
-       navigation.navigate(ScreensConstants.VideoPlayerScreen,{videoUrl:item.field_mp4_link_export})
+      navigation.navigate(ScreensConstants.VideoPlayerScreen,{videoUrl:item.field_mp4_link_export, nid: item.nid})
     }
   }
 

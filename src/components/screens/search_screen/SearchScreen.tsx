@@ -3,7 +3,7 @@ import { ScreenContainer } from '..';
 import {useNavigation} from '@react-navigation/native';
 import {View, StyleSheet, TouchableOpacity } from 'react-native';
 import { SearchList } from 'src/components/organisms/';
-import { normalize, recordLogEvent } from 'src/shared/utils';
+import { normalize } from 'src/shared/utils';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import { useSearch } from 'src/hooks';
 import { SearchItemType } from 'src/redux/search/types';
@@ -24,8 +24,6 @@ export const SearchScreen = () => {
   const onPressItem = (item:SearchItemType)=>{
     if (item.nid) {
       AdjustAnalyticsManager.trackEvent(AdjustEventID.SEARCH)
-      recordLogEvent('Search_Content', {articleId: item.nid, articleTitle: item.title });
-
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: item.nid})
     }
   }

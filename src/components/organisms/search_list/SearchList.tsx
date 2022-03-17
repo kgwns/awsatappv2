@@ -2,7 +2,7 @@ import React, {useState, FunctionComponent} from 'react';
 import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet} from 'react-native';
 import { Label, LoadingState } from 'src/components/atoms/';
 import { SearchBar } from 'src/components/molecules/';
-import { normalize } from 'src/shared/utils';
+import { normalize, recordLogEvent } from 'src/shared/utils';
 import { SearchItemType } from 'src/redux/search/types';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -40,6 +40,10 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
       onItemActionPress(item);
     }
   };
+
+  const onSubmit = () => {
+    recordLogEvent('Search_Content', {searchKeyword: searchText});
+  }
 
   const renderItem: ListRenderItem<SearchItemType> = ({item,index}) => {
     return (
@@ -112,6 +116,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
           }
           setSearchText('');
         }}
+        onSubmitSearch={onSubmit}
       />
       {searchText.length > 0 && getSearchResults()}
     </View>

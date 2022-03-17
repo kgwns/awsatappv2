@@ -43,6 +43,7 @@ export interface RegisterBodyType {
   registered_by?: string;
   provider?: string;
   provider_id?: string;
+  birthday?: string;
 }
 
 export interface RegisterSuccessPayloadType {

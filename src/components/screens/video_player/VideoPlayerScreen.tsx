@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { LoadingState } from 'src/components/atoms';
 import { fetchVideoDetailInfo } from 'src/services/VideoServices';
 import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types';
-import { isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils';
+import { isNonEmptyArray, isObjectNonEmpty, recordLogEvent } from 'src/shared/utils';
 export interface VideoPlayerScreenProps {
   route: any
 }
@@ -16,7 +16,7 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
   const styles = useThemeAwareObject(createStyles);
   const navigation = useNavigation();
 
-  const { mediaID, videoUrl } = route.params
+  const { mediaID, videoUrl, nid } = route.params
   const [playerUrl, setPlayerUrl] = useState<string>(videoUrl)
 
   const goBack = () =>{
@@ -24,6 +24,7 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
   }
 
   useEffect(() => {
+    if(nid) recordLogEvent('Played_Specific_Video', {videoid: nid});
     getVideoUrlInfo()
   }, [])
 

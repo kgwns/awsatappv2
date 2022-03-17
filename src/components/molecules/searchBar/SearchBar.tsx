@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 export interface SearchBarProps {
   searchText: string;
   onChangeText: (searchText: string) => void;
+  onSubmitSearch?: () => void;
   onClearSearchText: () => void;
   testID?: string;
 }
@@ -21,6 +22,7 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
   onChangeText,
   onClearSearchText,
   testID,
+  onSubmitSearch,
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
@@ -56,6 +58,7 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
         containerStyle={styles.containerStyle}
         leftIconContainerStyle={styles.leftIconContainerStyle}
         rightIconContainerStyle={styles.rightIconContainerStyle}
+        onSubmitEditing={onSubmitSearch}
       />
     </View>
   );

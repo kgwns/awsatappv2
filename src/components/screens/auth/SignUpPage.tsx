@@ -64,7 +64,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
-        recordLogEvent('Completed_Registration');
+        recordLogEvent('Completed_registration');
         dispatch(fetchLoginSuccess({loginData: registerUserInfo}));
         fetchProfileDataRequest();
         AdjustAnalyticsManager.trackEvent(AdjustEventID.REGISTRATION);

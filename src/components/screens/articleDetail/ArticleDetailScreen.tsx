@@ -87,6 +87,7 @@ export const ArticleDetailScreen = ({
   }
 
   useEffect(() => {
+    recordLogEvent('Article_Details_Screen', {articleId: route.params.nid});
     Orientation.unlockAllOrientations()
     Orientation.getDeviceOrientation(updateScreenEdge)
     Orientation.addDeviceOrientationListener(updateScreenEdge)
@@ -118,7 +119,7 @@ export const ArticleDetailScreen = ({
   }
 
   const onPressArticle = (nid: string) => {
-    recordLogEvent('Related_Article', {id: nid});
+    recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
     nid && getArticleDetail(nid)
   }
 

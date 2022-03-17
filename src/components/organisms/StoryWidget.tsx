@@ -32,7 +32,7 @@ const StoryWidget: FunctionComponent<StoryWidgetProps> = ({
         <View style={style.circleContainer}>
           <StoryCircle testID={`${testID}_${index}`} storyImageUrl={item.data[0]?.imageUrl}
               onPress={() => {
-                recordLogEvent('Viewed_Story', {id: item.nid, title: item.title });
+                recordLogEvent('Viewed_Story', {storyId: item.id});
                 handleOnItemPressAction(item,index);
               }}
           />

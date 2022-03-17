@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { colors } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent } from 'src/shared/utils';
 import { useTranslation } from 'react-i18next';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
-import { useAllSiteCategories } from 'src/hooks';
+import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
@@ -18,6 +18,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest,selectedTopicsData} = useAllSiteCategories();
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [topicsData,setTopicsData] = useState<AllSiteCategoriesItemType[]>([])
+  const {userProfileData} = useUserProfileData();
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -87,6 +88,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
 
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
+      recordLogEvent('Add_Interests_Topic',{userId: userProfileData.user?.id,interestsIds: joinArray(getSelectedData())});
       sendSelectedTopicInfo({ tid: joinArray(getSelectedData()) })
     }
   }

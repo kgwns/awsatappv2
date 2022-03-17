@@ -32,7 +32,7 @@ export const ArticleDetailFooter = ({
 
     const onPressShare = async () => {
         const { title, view_node, nid } = articleDetailData
-        recordLogEvent('Share_Article', {id: nid});
+        recordLogEvent('Share_Article', {articleId: nid});
         await Share.open({
             title,
             url: view_node,

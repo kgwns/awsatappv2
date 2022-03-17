@@ -8,7 +8,7 @@ import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { ScreensConstants } from 'src/constants';
-import { useAllSiteCategories } from 'src/hooks';
+import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
@@ -17,6 +17,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
   const [t] = useTranslation();
   const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest} = useAllSiteCategories();
+  const {userProfileData} = useUserProfileData();
   const [disableNext, setDisableNext] = useState<boolean>(true)
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
@@ -30,7 +31,6 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   useEffect(() => {
     if (isObjectNonEmpty(sentTopicsData)) {
       if (sentTopicsData.code === 200) {
-      recordLogEvent('Add_Interests_Topic');
         gotoNext()
 
       } else {
@@ -51,6 +51,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
 
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
+      recordLogEvent('Add_Interests_Topic',{userId: userProfileData.user?.id,interestsIds: joinArray(getSelectedData())});
       sendSelectedTopicInfo({ tid: joinArray(getSelectedData()) })
     }
   }

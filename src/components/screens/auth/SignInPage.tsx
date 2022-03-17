@@ -174,7 +174,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const onPressSignIn = () => {
     setPasswordError(emptyPasswordValidation(password));
 
-    recordLogEvent('login', {loginType: 'email'});
+    recordLogEvent('Login');
 
     const payload: FetchLoginPayloadType = {
       email: email,

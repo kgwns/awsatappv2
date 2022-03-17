@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, recordLogEvent } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useAllWriters } from 'src/hooks';
+import { useAllWriters, useUserProfileData } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
 
@@ -23,6 +23,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
     items_per_page: 50,
   };
   const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, selectedAuthorsData } = useAllWriters();
+  const {userProfileData} = useUserProfileData();
 
   useEffect(() => {
     fetchAllWritersRequest(allWritersPayload);
@@ -93,6 +94,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
 
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
+      recordLogEvent('Add_Favorite_Authors',{userId: userProfileData.user?.id,favoriteIds: joinArray(getSelectedData())});
       sendSelectedWriterInfo({ tid: joinArray(getSelectedData()) })
     }
   }

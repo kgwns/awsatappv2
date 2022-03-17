@@ -2,7 +2,7 @@ import React, {useState, FunctionComponent} from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import { Styles } from 'src/shared/styles';
 import { Label, LabelTypeProp, ButtonOutline, Image } from 'src/components/atoms';
-import { normalize } from 'src/shared/utils';
+import { normalize, recordLogEvent } from 'src/shared/utils';
 import { StoryContainer } from 'react-native-stories-view';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import {useNavigation} from '@react-navigation/native';
@@ -45,6 +45,10 @@ export const StoryListView: FunctionComponent<StoryListDataProps> = ({
       </View>
   )
 
+  const onStoryPress = () => {
+    recordLogEvent('Pressed_On_Read_Story', {storyId: data[selectedItemIndex].data[selectedImageIndex].id});
+  }
+
   const footerComponent = (
     <View style={styles.backgroundTransparent}>
         <View style={styles.footerContainer} />
@@ -55,7 +59,7 @@ export const StoryListView: FunctionComponent<StoryListDataProps> = ({
         <View style={styles.paddingStyle}>
           <Label labelType={LabelTypeProp.h1} numberOfLines={2} children={data[selectedItemIndex].data[selectedImageIndex].description} color={Styles.color.white} />
         </View>
-        <ButtonOutline title={data[selectedItemIndex].data[selectedImageIndex].buttonTitle} style={styles.buttonStyle} titleType={LabelTypeProp.h1} />
+        <ButtonOutline title={data[selectedItemIndex].data[selectedImageIndex].buttonTitle} style={styles.buttonStyle} titleType={LabelTypeProp.h1} onPress={onStoryPress} />
     </View>
   )
 

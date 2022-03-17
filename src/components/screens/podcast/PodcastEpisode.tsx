@@ -6,7 +6,7 @@ import Share from 'react-native-share';
 import { PodcastEpisodeContent, PodcastEpisodeInfo } from 'src/components/organisms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray } from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray, recordLogEvent } from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useBookmark, useLogin, usePodcast } from 'src/hooks';
@@ -181,6 +181,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
       title: podcastEpisodeInfo.title,
       artist: podcastEpisodeInfo.title,
     });
+    recordLogEvent('Played_Podcast', {podcastid: podcastEpisodeInfo.nid });
     await TrackPlayer.play();
   }
 

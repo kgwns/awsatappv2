@@ -7,7 +7,7 @@ import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteA
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useAllWriters } from 'src/hooks';
+import { useAllWriters, useUserProfileData } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
 import { ScreensConstants } from 'src/constants';
@@ -22,6 +22,7 @@ export const FollowFavoriteAuthorScreen = () => {
     items_per_page: 50,
   };
   const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo } = useAllWriters();
+  const {userProfileData} = useUserProfileData();
 
   useEffect(() => {
     fetchAllWritersRequest(allWritersPayload);
@@ -30,7 +31,6 @@ export const FollowFavoriteAuthorScreen = () => {
   useEffect(() => {
     if (isObjectNonEmpty(sentAuthorInfoData)) {
       if (sentAuthorInfoData.code === 200) {
-        recordLogEvent('Add_Favorite_Authors');
         gotoNext()
       } else {
         CustomAlert({
@@ -59,6 +59,7 @@ export const FollowFavoriteAuthorScreen = () => {
 
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
+      recordLogEvent('Add_Favorite_Authors',{userId: userProfileData.user?.id,favoriteIds: joinArray(getSelectedData())});
       sendSelectedWriterInfo({ tid: joinArray(getSelectedData()) })
     }
   }
