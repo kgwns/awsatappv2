@@ -25,7 +25,7 @@ import { useAppCommon, useLogin } from 'src/hooks';
 import { SystemPermissions } from 'src/shared/utils';
 import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS, DEFAULT_MINIMUM_DATE } from 'src/constants/SharedConstants';
 import {useNewPassword} from 'src/hooks/useNewPassword'
-import { AlertModal } from 'src/components/organisms';
+import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -55,6 +55,13 @@ export const UserDetailScreen: FunctionComponent = () => {
   const currentDate = new Date();
   const {changePasswordInfo,emptyPasswordResponseInfo,changePasswordData} = useNewPassword()
   const {loginData} = useLogin();
+  const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const [alertPayload, setAlertPayload] = useState<AlertPayloadType>();
+  const ok = t('common.ok');
+  const success = t('profile.userDetail.success');
+  const passwordChangedSuccessfully = t('profile.userDetail.passwordChangedSuccessfully');
+  const tryAgain =  t('profile.userDetail.tryAgain');
+  const oldPasswordDoesNotMatch = t('profile.userDetail.oldPasswordDoesNotMatch');
   
   useEffect(() => {
     fetchProfileDataRequest();
@@ -82,8 +89,29 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   useEffect(() => {
     const message = changePasswordData?.message;
-    if (isObjectNonEmpty(message) && message.message) {
-      showAlert(message.message)
+    if (isObjectNonEmpty(changePasswordData?.message)) {
+      if (message.code === 200) {
+        setAlertPayload({
+          title: success,
+          message: passwordChangedSuccessfully,
+          buttonTitle: ok
+        })
+        setIsAlertVisible(true)
+        setOldPassword('')
+        setNewPassword('')
+        setConfirmNewPassword('')
+        emptyPasswordResponseInfo();
+      } else if (message.code === 0 && isNotEmpty(message?.message)) {
+        setAlertPayload({
+          title: tryAgain,
+          message: oldPasswordDoesNotMatch,
+          buttonTitle: ok
+        })
+        setIsAlertVisible(true)
+        emptyPasswordResponseInfo();
+      } else {
+        showAlert(message.message)
+      }
     }
   }, [changePasswordData])
 
@@ -103,6 +131,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       setConfirmNewPassword('')
     }
     emptyPasswordResponseInfo();
+    setIsAlertVisible(false)
   }
 
   const tabItemData: TabBarDataProps[] = [
@@ -391,7 +420,8 @@ export const UserDetailScreen: FunctionComponent = () => {
   }
 
   return (
-    <ScreenContainer isOverlayLoading={isLoading}>
+    <ScreenContainer isOverlayLoading={isLoading} isAlertVisible={isAlertVisible} setIsAlertVisible={setIsAlertVisible}
+      alertOnPress={onAlertOkPressed} alertPayload={alertPayload} >
       {renderOptionModal()}
       {renderTabBarComponent()}
       {tabContent()}

@@ -33,6 +33,7 @@ import {useDispatch} from 'react-redux';
 import AdjustAnalyticsManager, {
   AdjustEventID,
 } from 'src/shared/utils/AdjustAnalyticsManager';
+import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
 
 export enum SocialNavigate {
   google = 'GOOGLE',
@@ -54,6 +55,16 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const [deviceName, setDeviceName] = useState('');
   const {registerUserInfo, isRegisterLoading} = useRegister();
   const dispatch = useDispatch();
+  const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
+  const verifyMailAndPasswordAndTryAgain = t('signIn.verifyMailAndPasswordAndTryAgain');
+  const ok = t('common.ok');
+  
+  const incorrectCredentialPayload: AlertPayloadType = {
+    title: credentialsAreIncorrect,
+    message: verifyMailAndPasswordAndTryAgain,
+    buttonTitle: ok
+  }
 
   useEffect(() => {
     getDeviceName();
@@ -96,8 +107,13 @@ export const SignInPage = ({route}: SignInPageProps) => {
           ],
         });
       } else {
-        Alert.alert(message.message);
-        emptyLoginDataInfo();
+        if (message.code === 0) {
+          setIsAlertVisible(true)
+          emptyLoginDataInfo();
+        }
+        else {
+          Alert.alert(message.message)
+        }
       }
     }
   }, [loginData]);
@@ -173,7 +189,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
   };
 
   return (
-    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading}>
+    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading} isAlertVisible={isAlertVisible}
+      setIsAlertVisible={setIsAlertVisible} alertPayload={incorrectCredentialPayload} alertOnPress={() => setIsAlertVisible(false)}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
           <View style={styles.headerStyle}>
