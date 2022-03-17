@@ -1,7 +1,9 @@
 import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { ArticleDetailBodyGet, RelatedArticleBodyGet } from 'src/redux/articleDetail/types';
+import { LatestArticleBodyGet } from 'src/redux/latestNews/types';
 import { requestArticleDetail, requestRelatedArticle } from '../articleDetailService';
+import { writerOpinionApi } from '../latestTabService';
 
 describe('Test LatestNews Tab Services', () => {
     const mock = new MockAdapter(axios);
@@ -57,6 +59,34 @@ describe('Test LatestNews Tab Services', () => {
             });
 
             return requestRelatedArticle(requestObject).catch((error: unknown) => {
+                const errorResponse = error as AxiosError;
+                expect(errorResponse.response?.status).toEqual(500);
+            });
+        });
+    })
+
+    describe('Check writerOpinionApi method', () => {
+        const requestObject: LatestArticleBodyGet = {
+            page:0,
+            items_per_page:10,
+            offset:2
+        };
+
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return writerOpinionApi(requestObject).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+        it('test when response code is 500', () => {
+            mock.onGet().reply(500, {
+                error: 'Something Went Wrong',
+            });
+
+            return writerOpinionApi(requestObject).catch((error: unknown) => {
                 const errorResponse = error as AxiosError;
                 expect(errorResponse.response?.status).toEqual(500);
             });

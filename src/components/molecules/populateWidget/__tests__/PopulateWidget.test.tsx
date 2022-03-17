@@ -51,4 +51,52 @@ describe('<PopulateWidget/>', () => {
       expect(instance).toBeDefined();
     });
   });
+
+  describe('when opinion data only', () => {
+    beforeEach(() => {
+      const component = <PopulateWidget type={PopulateWidgetType.OPINION} props={sampleArticleData}
+        onPressBookmark={mockOnPressBookmark} />;
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render widget', () => {
+      expect(instance).toBeDefined();
+    });
+  });
+
+  describe('when podcast data only', () => {
+    beforeEach(() => {
+      const component = <PopulateWidget type={PopulateWidgetType.PODCAST} props={sampleArticleData}
+        onPressBookmark={mockOnPressBookmark} />;
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render widget', () => {
+      expect(instance).toBeDefined();
+    });
+  });
+
+  describe('when video data only', () => {
+    beforeEach(() => {
+      const component = <PopulateWidget type={PopulateWidgetType.VIDEO} props={sampleArticleData}
+        onPressBookmark={mockOnPressBookmark} />;
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render widget', () => {
+      expect(instance).toBeDefined();
+    });
+  });
 });

@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { requestLatestArticle, requestSectionCombo } from '../latestTabService';
 
-describe('Test Search Services', () => {
+describe('Test Article Detail Services', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
         jest.useFakeTimers('legacy');
