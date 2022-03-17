@@ -57,6 +57,11 @@ export const UserDetailScreen: FunctionComponent = () => {
   const {loginData} = useLogin();
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const [alertPayload, setAlertPayload] = useState<AlertPayloadType>();
+  const ok = t('common.ok');
+  const success = t('profile.userDetail.success');
+  const passwordChangedSuccessfully = t('profile.userDetail.passwordChangedSuccessfully');
+  const tryAgain =  t('profile.userDetail.tryAgain');
+  const oldPasswordDoesNotMatch = t('profile.userDetail.oldPasswordDoesNotMatch');
   
   useEffect(() => {
     fetchProfileDataRequest();
@@ -88,9 +93,9 @@ export const UserDetailScreen: FunctionComponent = () => {
     {
       if (message.code === 200) {
         setAlertPayload({
-          title: t('profile.userDetail.success'),
-          message: t('profile.userDetail.passwordChangedSuccessfully'),
-          buttonTitle: t('common.ok')
+          title: success,
+          message: passwordChangedSuccessfully,
+          buttonTitle: ok
         })
         setIsAlertVisible(true)
         setOldPassword('')
@@ -99,9 +104,9 @@ export const UserDetailScreen: FunctionComponent = () => {
         emptyPasswordResponseInfo();
       } else if (message.code === 0 && isNotEmpty(message?.message)) {
         setAlertPayload({
-          title: t('profile.userDetail.tryAgain'),
-          message: t('profile.userDetail.oldPasswordDoesNotMatch'),
-          buttonTitle: t('common.ok')
+          title: tryAgain,
+          message: oldPasswordDoesNotMatch,
+          buttonTitle: ok
         })
         setIsAlertVisible(true)
         emptyPasswordResponseInfo();
@@ -416,7 +421,7 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   return (
     <ScreenContainer isOverlayLoading={isLoading} isAlertVisible={isAlertVisible} setIsAlertVisible={setIsAlertVisible}
-      alertOnPress={() => onAlertOkPressed()} alertPayload={alertPayload} >
+      alertOnPress={onAlertOkPressed} alertPayload={alertPayload} >
       {renderOptionModal()}
       {renderTabBarComponent()}
       {tabContent()}

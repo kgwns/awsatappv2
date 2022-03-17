@@ -56,11 +56,14 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const {registerUserInfo, isRegisterLoading} = useRegister();
   const dispatch = useDispatch();
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
+  const verifyMailAndPasswordAndTryAgain = t('signIn.verifyMailAndPasswordAndTryAgain');
+  const ok = t('common.ok');
   
   const incorrectCredentialPayload: AlertPayloadType = {
-    title: t('signIn.credentialsAreIncorrect'),
-    message: t('signIn.verifyMailAndPasswordAndTryAgain'),
-    buttonTitle: t('common.ok')
+    title: credentialsAreIncorrect,
+    message: verifyMailAndPasswordAndTryAgain,
+    buttonTitle: ok
   }
 
   useEffect(() => {
@@ -104,7 +107,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
           ],
         });
       } else {
-        if (message.message === 'credentials are incorrect.') {
+        if (message.code === 0) {
           setIsAlertVisible(true)
           emptyLoginDataInfo();
         }
