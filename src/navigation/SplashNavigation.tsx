@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Appearance, ColorSchemeName, I18nManager, NativeEventSubscription, useColorScheme } from 'react-native'
+import { Appearance, ColorSchemeName, I18nManager, NativeEventSubscription, useColorScheme, AppState } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { useDispatch } from 'react-redux'
 import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'
@@ -7,6 +7,7 @@ import { Theme } from 'src/redux/appCommon/types'
 import { useAppCommon, useBookmark, useLogin, useUserProfileData } from 'src/hooks'
 import { isDarkTheme } from '../shared/utils'
 import AppStackContainer from './AppStackContainer'
+import TrackPlayer from 'react-native-track-player'
 
 const SplashNavigation = () => {
     const dispatch = useDispatch()
@@ -30,6 +31,17 @@ const SplashNavigation = () => {
             fetchProfileDataRequest()
         }
     }, [])
+
+    useEffect(() => {
+        const subscription = AppState.addEventListener("change", () => {
+            if (AppState.currentState.match(/inactive|background/)) {
+                TrackPlayer.pause();
+            }
+        });
+        return () => {
+            subscription.remove();
+        };
+    }, []);
 
     const updateAppThemeState = () => {
         if (isFirstSession) { // Listen OS theme only first time

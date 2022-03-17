@@ -1,11 +1,11 @@
 import { getApiRequest } from 'src/services/api';
 import { RequestVideoUrlPayload } from 'src/redux/videoList/types';
-import { GET_VIDEO_SOURCE_END_POINT } from './apiEndPoints';
+import { GET_JW_MEDIA_PLAYER_URL } from './apiUrls';
 
 export const fetchVideoDetailInfo = async (payload: RequestVideoUrlPayload) => {
     try {
         const response = await getApiRequest(
-            `${GET_VIDEO_SOURCE_END_POINT}${payload.mediaID}`,
+            `${GET_JW_MEDIA_PLAYER_URL}${payload.mediaID}`,
         );
         return response;
     } catch (error) {

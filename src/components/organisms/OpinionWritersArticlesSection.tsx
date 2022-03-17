@@ -10,6 +10,7 @@ import {
   decodeHTMLTags,
   getImageUrl,
   isNonEmptyArray,
+  isNotEmpty,
 } from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 
@@ -33,7 +34,7 @@ const OpinionWritersArticlesSection = ({
   const renderItem = (item: any, index: number) => {
     return (
       <View key={flatListUniqueKey.OPINION_WRITER_ARTICLES_SECTION + index}>
-        <OpinionWritersCardView
+        <OpinionWritersCardView 
           imageUrl={
             isNonEmptyArray(item.field_opinion_writer_node_export)
               ? getImageUrl(
@@ -50,9 +51,10 @@ const OpinionWritersArticlesSection = ({
           subHeadLine={ (Platform.OS==='android')
           ?decodeHTMLTags(item.body.slice(0,slice))
           :decodeHTMLTags(item.body)}
-          duration={'3:22'}
+          duration={''} //TODO: duration key should be passed from backend
           nid={item.nid}
           isBookmarked={item.isBookmarked}
+          mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)}
           onPressBookmark={() => {onUpdateOpinionArticlesBookmark(index)}}
           audioLabel={audioLabel}
         />

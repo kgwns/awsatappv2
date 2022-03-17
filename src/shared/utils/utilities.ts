@@ -6,7 +6,7 @@ import { BASE_URL, PODCAST_SPREAKER_URL } from "src/services/apiUrls";
 import { arabic } from "src/assets/locales/ar/common-ar";
 import moment from "moment";
 import 'moment/locale/ar';
-import { PROFILE_IMAGE_URL } from "src/services/apiEndPoints";
+import { PROFILE_IMAGE_URL } from "src/services/apiUrls";
 
 export interface CustomAlertProps {
   title?: string;

@@ -175,6 +175,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
       return
     }
     await TrackPlayer.setupPlayer();
+    await TrackPlayer.updateOptions({ stopWithApp: true });
     await TrackPlayer.add({
       id: podcastEpisodeInfo.nid,
       url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
@@ -188,6 +189,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const togglePlayback = async () => {
     if (playbackState !== State.Playing) {
       await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({ stopWithApp: true });
       await TrackPlayer.add({
         id: podcastEpisodeInfo.nid,
         url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
@@ -15,11 +15,13 @@ import {
 } from '../molecules';
 import {MixedStyleRecord} from 'react-native-render-html';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {getImageUrl, timeAgo} from 'src/shared/utils/utilities';
+import {getImageUrl, timeAgo, isNotEmpty} from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
 import Orientation from 'react-native-orientation-locker';
 import { ArticleFontSize } from '../screens/opinionArticleDetail/OpinionArticleDetail';
+import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
+import TrackPlayer, {State, usePlaybackState} from 'react-native-track-player';
 
 export interface OpinionArticleDetailWidgetProp {
   data: OpinionArticleDetailItemType;
@@ -35,6 +37,15 @@ export const OpinionArticleDetailWidget = ({
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation();
+  const [visibleMedia, setMediaVisibility] = useState(isNotEmpty(data.jwplayer));
+  const [mediaData, setMediaData] = useState({})
+  const playbackState = usePlaybackState();
+  
+  useEffect(() => {
+    fetchNarratedOpinionArticleApi(data.jwplayer).then(response => {
+      setMediaData(response)
+    })
+  }, [])
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -92,7 +103,10 @@ export const OpinionArticleDetailWidget = ({
     </View>
   );
 
-  const onPressReturn = () => {
+  const onPressReturn = async() => {
+    if (playbackState == State.Playing) {
+      await TrackPlayer.stop();
+    }
     Orientation.unlockAllOrientations();
     Orientation.lockToPortrait();
     navigation.goBack();
@@ -117,9 +131,9 @@ export const OpinionArticleDetailWidget = ({
           rightTitle={data.writer[0].name}
           leftTitle={t(timeAgo(data.created_export))}
         />
-        <View style={style.listenToArticleCard}>
-          <ListenToArticleCard />
-        </View>
+        {visibleMedia &&<View style={style.listenToArticleCard}>
+          <ListenToArticleCard data={mediaData} />
+        </View>}
         {articleHtmlContent()}
       </View>
       <Divider />

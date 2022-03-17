@@ -24,6 +24,7 @@ export interface OpinionWritersCardViewProps {
   duration:string
   nid:string
   isBookmarked:boolean
+  mediaVisibility:boolean
   onPressBookmark:()=>void
 }
 
@@ -36,6 +37,7 @@ const OpinionWritersCardView = ({
   duration,
   nid,
   isBookmarked,
+  mediaVisibility,
   onPressBookmark,
 }: OpinionWritersCardViewProps) => {
   const style = useThemeAwareObject(customStyle);
@@ -74,14 +76,16 @@ const OpinionWritersCardView = ({
       </View>
       <View style={style.footerContainer}>
         <View style={style.listenArticleContainer}>
-          <ButtonImage
-            icon={() => <PlayIcon />}
-            style={style.playIcon}
-            onPress={() => console.log('play icon pressed')}
-            testId={'playIconTestId'}
-          />
-          <Label style={style.footerLabel}>{audioLabel}</Label>
-          <Label style={style.duration}>{duration}</Label>
+          {mediaVisibility && <>
+            <ButtonImage
+              icon={() => <PlayIcon />}
+              style={style.playIcon}
+              onPress={() => console.log('play icon pressed')}
+              testId={'playIconTestId'}
+            />
+            <Label style={style.footerLabel}>{audioLabel}</Label>
+            <Label style={style.duration}>{duration}</Label>
+          </>}
         </View>
         <View>
           <ButtonImage
@@ -144,6 +148,7 @@ const customStyle = (theme: CustomThemeType) => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
+      marginTop: normalize(15),
     },
     listenArticleContainer: {
       flexDirection: 'row',

@@ -8,22 +8,56 @@ import {ImagesName} from 'src/shared/styles';
 import {normalize} from 'src/shared/utils';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
+import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import { getSecondsToHms, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 
-export const ListenToArticleCard = () => {
+export const ListenToArticleCard = (data: any) => {
   const style = useThemeAwareObject(customStyle);
   const [t] = useTranslation();
-  
+  const playbackState = usePlaybackState();
+  const mediaData = data.data && isObjectNonEmpty(data.data) ? data.data : {}
+  const playList = isObjectNonEmpty(mediaData) && isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+  const duration = isObjectNonEmpty(playList) ? playList.duration : 0;
+
+  const togglePlayback = async () => {
+
+    if (!isObjectNonEmpty(playList)) {
+      return
+    }
+
+    const id = mediaData.feed_instance_id ? mediaData.feed_instance_id : '1';
+    const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
+    const title = mediaData.title ? mediaData.title : '';
+
+    if (playbackState !== State.Playing) {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({ stopWithApp: true });
+      await TrackPlayer.add({
+        id: id,
+        url: media,
+        title: title,
+        artist: title,
+      });
+      await TrackPlayer.setRepeatMode(RepeatMode.Off);
+      await TrackPlayer.play();
+    }
+    else {
+      await TrackPlayer.pause();
+    }
+  }
+
   return (
-    <TouchableWithoutFeedback style={style.container}>
+    <TouchableWithoutFeedback onPress={() => togglePlayback()} style={style.container}>
       <ButtonImage
         icon={() =>
+          playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
           getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
         }
-        onPress={() => {}}
+        onPress={() => togglePlayback()}
         style={style.icon}
       />
       <Label style={style.title}> {t('opinionArticleDetail.listenToArticle')}</Label>
-      <Label style={style.duration}>3:22</Label>
+      <Label style={style.duration}>{getSecondsToHms(duration)}</Label>
     </TouchableWithoutFeedback>
   );
 };
