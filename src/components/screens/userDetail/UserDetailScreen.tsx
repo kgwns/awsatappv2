@@ -80,17 +80,12 @@ export const UserDetailScreen: FunctionComponent = () => {
     }
   },[] )
 
-  useEffect(() =>{
+  useEffect(() => {
     const message = changePasswordData?.message;
-    if(isObjectNonEmpty(changePasswordData?.message))
-    {if (message.code === 200) {
+    if (isObjectNonEmpty(message) && message.message) {
       showAlert(message.message)
-    }else if(message.code === 0 && isNotEmpty(message?.message)){
-      showAlert(message.message)
-    }else{
-      showAlert(message.message)
-    }}
-  },[changePasswordData] )
+    }
+  }, [changePasswordData])
 
   const showAlert=(text:string)=>{
     Alert.alert(text,'',[
