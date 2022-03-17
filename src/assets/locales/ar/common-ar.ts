@@ -156,6 +156,9 @@ export const arabic = {
     password: 'كلمة المرور',
     forgotPassword: 'نسيت كلمة المرور',
     return: 'الرجوع',
+    success:'نجاح',
+    credentialsAreIncorrect:'أوراق الاعتماد غير صحيحة',
+    verifyMailAndPasswordAndTryAgain:'تحقق من معرف البريد الخاص بك وكلمة المرور وحاول مرة أخرى.',
   },
   validation: {
     emailEmpty: 'Email required',
@@ -240,6 +243,10 @@ export const arabic = {
       moveAndScale: 'تحرك و مقياس',
       openCameraOption: 'افتح الة تصوير',
       chooseFromGallery: 'اختر من المعرض',
+      success:'نجاح',
+      passwordChangedSuccessfully: 'تم تغيير كلمة المرور بنجاح',
+      oldPasswordDoesNotMatch: 'كلمة المرور القديمة لا تتطابق مع سجلاتنا.',
+      tryAgain:'حاول مرة اخرى',
     },
     newPassword: {
       createNewPassword: 'أنشئ كلمة مرور جديدة',
@@ -267,5 +274,8 @@ export const arabic = {
     message: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و تتمتع بخاصية حفظ المقالات',
     signUp: 'قم بالتسجيل'
   },
-  listen_to_podcast: 'استمع الي البودكاست '
+  listen_to_podcast: 'استمع الي البودكاست ',
+  common: {
+    ok: 'نعم'
+  }
 }
