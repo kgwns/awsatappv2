@@ -87,10 +87,9 @@ export const UserDetailScreen: FunctionComponent = () => {
     }
   },[] )
 
-  useEffect(() =>{
+  useEffect(() => {
     const message = changePasswordData?.message;
-    if(isObjectNonEmpty(changePasswordData?.message))
-    {
+    if (isObjectNonEmpty(changePasswordData?.message)) {
       if (message.code === 200) {
         setAlertPayload({
           title: success,
@@ -110,10 +109,11 @@ export const UserDetailScreen: FunctionComponent = () => {
         })
         setIsAlertVisible(true)
         emptyPasswordResponseInfo();
-    }else{
-      showAlert(message.message)
-    }}
-  },[changePasswordData] )
+      } else {
+        showAlert(message.message)
+      }
+    }
+  }, [changePasswordData])
 
   const showAlert=(text:string)=>{
     Alert.alert(text,'',[

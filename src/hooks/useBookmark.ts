@@ -46,7 +46,11 @@ export const useBookmark = (): UseBookMarkReturn => {
   }
 
   const removeBookmarkedInfo = (payload: RemoveBookmarkDetailDataBody) => {
-    recordLogEvent('Remove_Bookmark', {id: payload.nid});
+    const nid = payload.nid
+    recordLogEvent('Remove_Bookmark', {id: nid});
+    let bookmarkInfo = [...bookmarkDetail]
+    const updatedBookmarkInfo = bookmarkInfo.filter((item) => item.nid != nid)
+    updateBookDetailInfo(updatedBookmarkInfo)
     dispatch(removeBookmarked(payload))
   }
 
