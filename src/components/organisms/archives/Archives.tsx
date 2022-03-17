@@ -75,8 +75,6 @@ export const Archives = () => {
         const data = [...bookmarkDetail]
         const index = data.findIndex((item) => item.nid == removeItem.nid)
         if (index >= 0) {
-            const updatedInfo = data.filter((bookmarkedItem) => bookmarkedItem.nid != removeItem.nid)
-            updateBookDetailInfo(updatedInfo)
             removeBookmarkedInfo({ nid: removeItem.nid })
         }
     }

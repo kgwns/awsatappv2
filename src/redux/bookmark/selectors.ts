@@ -1,5 +1,5 @@
 import { AppState, Selector } from 'src/redux/rootReducer';
-import { BookmarkIdSuccessDataFieldType, RemoveBookMarkSuccessInfoType, SendBookMarkSuccessInfoType } from './types';
+import { BookmarkIdSuccessDataFieldType, BookmarkDetailDataType, RemoveBookMarkSuccessInfoType, SendBookMarkSuccessInfoType } from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
   state.bookmark.isLoading;
@@ -16,7 +16,7 @@ export const getAllBookmark: Selector<BookmarkIdSuccessDataFieldType[]> = (state
 export const getRemoveBookmarkSuccessInfo: Selector<RemoveBookMarkSuccessInfoType> = (state: AppState) =>
   state.bookmark.removeBookmarkInfo;
 
-export const getBookmarkedDetailSuccessInfo: Selector<RemoveBookMarkSuccessInfoType> = (state: AppState) =>
+export const getBookmarkedDetailSuccessInfo: Selector<BookmarkDetailDataType[]> = (state: AppState) =>
 state.bookmark.bookmarkDetailSuccessInfo;
 
 export const getRemoveBookmarkError: Selector<string> = (state: AppState) =>
