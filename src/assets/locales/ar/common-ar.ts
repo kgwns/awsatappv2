@@ -210,7 +210,8 @@ export const arabic = {
     darkMode: 'وضع غامق',
     welcome: 'أهلاً، ',
     logoutAlertMessage: 'هل أنت متأكد أنك تريد تسجيل الخروج',
-    alert: 'إنذار'
+    alert: 'إنذار',
+    arithmetic:'حسابي',
   },
   opinionArticleDetail: {
     return: 'الرجوع',
