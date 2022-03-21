@@ -9,7 +9,7 @@ import { shortArticleWithTagProperties, storyWidgetData } from 'src/constants/Sa
 import { horizontalEdge, isNonEmptyArray, isTab, normalize } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useBookmark, useLatestNewsTab, useLogin } from 'src/hooks';
+import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -76,6 +76,7 @@ export const LatestNewsScreen = () => {
   } = useBookmark()
 
   const { isLoggedIn } = useLogin()
+  const {fetchProfileDataRequest} = useUserProfileData();
 
   const [heroInfo, setHeroInfo] = useState(hero)
   const [sectionComboOneInfo, setSectionComboOneInfo] = useState(sectionComboOne)
@@ -247,6 +248,7 @@ export const LatestNewsScreen = () => {
     fetchSectionComboTwo(sectionComboTwoPayload)
     fetchSectionComboThree(sectionComboThreePayload)
     fetchSectionComboFour(sectionComboFourPayload)
+    fetchProfileDataRequest();
   }, [])
 
 
