@@ -27,7 +27,7 @@ const OpinionWritersSection = ({data}: OpinionWritersWidgetProps) => {
     return (
       <TouchableWithoutFeedback
         onPress={() => console.log('pressed ' + item.tid)}
-        style={style.writerContainer}
+        style={[style.writerContainer,{paddingEnd:(data.length-1===index)?normalize(20):0}]}
         key={flatListUniqueKey.OPINION_WRITER_SECTION + index}>
         <View style={style.itemContainer}>
           <View style={[{overflow: 'hidden'}]}>

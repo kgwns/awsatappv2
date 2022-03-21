@@ -80,7 +80,8 @@ const customStyle = (theme: CustomThemeType) => {
     return StyleSheet.create({
         container: {
             width: '100%',
-            height: normalize(80),
+            height: normalize(70),
+            paddingBottom: normalize(15),
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',

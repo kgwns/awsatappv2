@@ -18,8 +18,8 @@ const InterestedTopics = (props:any) => {
   let previousIndex = 0
   let dataLength = data ? data.length : []
   for (let i = 0; i < dataLength; i++) {
-    totalLengthOfElements = totalLengthOfElements + data[i].name.length + 50
-    arrayOfLengths.push(data[i].name.length + 50)
+    totalLengthOfElements = totalLengthOfElements + data[i].name.length + 10
+    arrayOfLengths.push(data[i].name.length + 10)
   }
   for (let i = 0; i < arrayOfLengths.length; i++) {
     lengthOfElementsInRow = lengthOfElementsInRow + arrayOfLengths[i]

@@ -22,6 +22,7 @@ export const arabic = {
       skip: 'تخطى',
       return: 'الرجوع',
       completed: 'تم',
+      done: 'حفظ'
     },
     followFavoriteAuthor: {
       title: 'تابع كتابك المفضلين',
@@ -168,7 +169,7 @@ export const arabic = {
     passwordStrength: 'Password is too short',
     passwordRequirement:'Password must contain (1)uppercase,(1)lowercase,(1)numeric and (1)special character',
     maxLengthPassword: 'Password should contain maximum 20 characters',
-    minLengthPassword: 'Password should contain minimum 8 characters',
+    minLengthPassword: 'Password should contain minimum 5 characters',
   },
   about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',
@@ -209,7 +210,8 @@ export const arabic = {
     darkMode: 'وضع غامق',
     welcome: 'أهلاً، ',
     logoutAlertMessage: 'هل أنت متأكد أنك تريد تسجيل الخروج',
-    alert: 'إنذار'
+    alert: 'إنذار',
+    arithmetic:'حسابي',
   },
   opinionArticleDetail: {
     return: 'الرجوع',
