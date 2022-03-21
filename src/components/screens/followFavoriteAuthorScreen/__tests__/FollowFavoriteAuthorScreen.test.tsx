@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import {storeSampleData} from 'src/constants/SampleData';
 import {FollowFavoriteAuthorScreen} from '../FollowFavoriteAuthorScreen';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
 
 jest.mock("src/hooks/useAllWriters", () => ({
   useAllWriters: (...args: any) => {
@@ -20,7 +25,10 @@ jest.mock("src/hooks/useAllWriters", () => ({
 describe('<FollowFavoriteAuthorScreen>', () => {
   let instance: RenderAPI;
 
+  const mockDisableNext = jest.fn()
+
   beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [false, mockDisableNext]);
     const component = (
       <Provider store={storeSampleData}>
         <FollowFavoriteAuthorScreen />
