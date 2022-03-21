@@ -1,6 +1,5 @@
 import * as React from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { View, StyleSheet, TouchableOpacity} from 'react-native';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -10,7 +9,6 @@ import {
   Label,
 } from 'src/components/atoms';
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
-import BookmarkIcon from 'src/assets/images/icons/bookmark.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
 import DateIcon from 'src/assets/images/icons/date.svg';
 import {normalize} from 'src/shared/utils';

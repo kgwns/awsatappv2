@@ -78,7 +78,7 @@ export const OpinionArticleDetailWidget = ({
         onPress={onPressReturn}>
         {getSvgImages({
           name: ImagesName.returnBlackSvg,
-          size: normalize(12)
+          size: normalize(12),
         })}
         <Label style={style.returnLabel}>
           {t('opinionArticleDetail.return')}
