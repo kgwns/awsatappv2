@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, BackHandler} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {horizontalEdge, isNonEmptyArray, normalize} from 'src/shared/utils';
@@ -13,6 +13,7 @@ import {useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
 import {Edge} from 'react-native-safe-area-context';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import { RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
+import TrackPlayer from 'react-native-track-player';
 
 export interface OpinionArticleDetailScreenProps {
   route: any;
@@ -69,6 +70,20 @@ export const OpinionArticleDetail = ({
   useEffect(() => {
     fetchRelatedOpinionData(relatedOpinionPayload);
   }, [page]);
+
+  useEffect(() => {
+    const backAction = () => {
+      TrackPlayer.stop();
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   const validateBookmark = (nid: string): boolean => {
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
