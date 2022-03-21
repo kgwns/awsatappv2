@@ -122,7 +122,7 @@ export const VideoScreen = (props: VideoScreenProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: normalize(15),
+    // marginHorizontal: normalize(15),
     marginTop: normalize(10)
   },
 });
