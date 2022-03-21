@@ -136,9 +136,10 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
           <NextButton 
             testID="nextButtonTestId"
             disabled={disableNext}
-            title={t('onBoard.common.nextBtn')}
+            title={t('onBoard.common.done')}
             onPress={onPressNext}
             style={style}
+            icon={false}
           />
         </View>
       </View>

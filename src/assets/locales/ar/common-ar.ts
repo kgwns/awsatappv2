@@ -22,6 +22,7 @@ export const arabic = {
       skip: 'تخطى',
       return: 'الرجوع',
       completed: 'تم',
+      done: 'حفظ'
     },
     followFavoriteAuthor: {
       title: 'تابع كتابك المفضلين',
