@@ -18,7 +18,9 @@ const CaptionWithImage = ({ title, icon, color, style }: captionWithImageProps) 
                     icon()
                 }
                 <View style={captionImageStyle.labelContainer}>
-                <Label children={title} color={color} labelType={LabelTypeProp.p5} numberOfLines={1} />
+                <Label children={title} color={color} labelType={LabelTypeProp.p5} numberOfLines={1} 
+                style={captionImageStyle.textLabel}
+                />
                 </View>
             </View>
         </View>
@@ -35,6 +37,11 @@ const captionImageStyle = StyleSheet.create({
     },
     labelContainer: {
         flexShrink: 1,
-        flexBasis: "auto",
+        flexBasis: 'auto',
+        paddingRight: normalize(5),
+        paddingLeft: normalize(3)
+    },
+    textLabel: {
+        paddingVertical: normalize(1)
     }
 })
