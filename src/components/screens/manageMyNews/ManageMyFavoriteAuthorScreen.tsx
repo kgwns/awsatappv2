@@ -136,14 +136,14 @@ export const ManageMyFavoriteAuthorScreen = () => {
           }
         </View>
         <View style={style.nextButtonView}>
-          <NextButton
+          {!disableNext && <NextButton
             disabled={disableNext}
             testID="nextButtonTestId"
             title={t('onBoard.common.done')}
             onPress={onPressNext}
             style={style}
             icon={false}
-          />
+          />}
         </View>
       </View>
     </ScreenContainer>

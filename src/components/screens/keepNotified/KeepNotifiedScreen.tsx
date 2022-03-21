@@ -148,14 +148,14 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
           <KeepNotifiedWidget data={notificationDate} onPress={changeStatus} />
         </View>
         <View style={style.nextButtonView}>
-          <NextButton
+          {!disableNext && <NextButton
             testID="nextButtonTestId"
             title={t('onBoard.common.completed')}
             icon={false}
             disabled={disableNext}
             onPress={onPressNext}
             style={style}
-          />
+          />}
         </View>
       </View>
     </ScreenContainer>

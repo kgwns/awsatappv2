@@ -96,13 +96,13 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
           }
         </View>
         <View style={style.nextButtonView}>
-          <NextButton 
+        {!disableNext && <NextButton 
             testID="nextButtonTestId"
             disabled={disableNext}
             title={t('onBoard.common.nextBtn')}
             onPress={onPressNext}
             style={style}
-          />
+          />}
         </View>
       </View>
     </ScreenContainer>
