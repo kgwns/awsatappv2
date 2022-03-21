@@ -125,7 +125,7 @@ StyleSheet.create({
     width: normalize(62),
   },
   labelStyle: {
-    paddingLeft: normalize(5),
+    marginLeft: normalize(10),
     color: colors.white,
   },
   buttonStyle: {
