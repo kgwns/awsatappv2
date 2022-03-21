@@ -113,10 +113,9 @@ const AppNavigator = () => {
         component={Routes.ProfileSettings}
         options={{
           headerStyle: style.container,
-          headerLeft: Menu,
-          headerTitle: HeaderLogo,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: ()=>HeaderTitle(t('profileSetting.arithmetic')),
           headerTitleAlign: 'center',
-          headerRight: Search,
         }}
         />
       <Stack.Screen
