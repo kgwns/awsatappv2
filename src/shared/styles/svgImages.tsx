@@ -83,6 +83,7 @@ import Return from 'src/assets/images/icons/returnIcon.svg'
 import PlusSVG from 'src/assets/images/icons/plus.svg'
 import ReturnGreenish from 'src/assets/images/icons/returnGreenish.svg'
 import ReturnGreenishDark from 'src/assets/images/icons/returnGreenishDark.svg'
+import ArrowWhite from 'src/assets/images/icons/arrowWhite.svg'
 
 import ReturnIconDark from 'src/assets/images/icons/returnIconDark.svg'
 
@@ -226,6 +227,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <PlayerCloseIconDark {...props} /> : <PlayerCloseIcon {...props} />
         case ImagesName.pauseIcon:
             return <PauseIcon {...props} />
+        case ImagesName.arrowWhite:
+            return <ArrowWhite {...props}/>
         default: return null
     }
 }

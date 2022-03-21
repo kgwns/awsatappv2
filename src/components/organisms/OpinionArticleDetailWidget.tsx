@@ -77,8 +77,8 @@ export const OpinionArticleDetailWidget = ({
         style={{flexDirection: 'row', alignItems: 'center'}}
         onPress={onPressReturn}>
         {getSvgImages({
-          name: ImagesName.returnBlackSvg,
-          size: normalize(12),
+          name: ImagesName.arrowWhite,
+          size: normalize(12)
         })}
         <Label style={style.returnLabel}>
           {t('opinionArticleDetail.return')}
@@ -196,7 +196,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(13),
       lineHeight: normalize(16),
       fontWeight: 'bold',
-      color: Styles.color.black,
+      color: Styles.color.white,
     },
   });
   return OpinionArticleDetailWidgetStyle;
