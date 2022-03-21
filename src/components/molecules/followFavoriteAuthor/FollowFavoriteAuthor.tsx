@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Image} from 'src/components/atoms';
 import {Label} from 'src/components/atoms';
-import {isTab, normalize, screenWidth} from 'src/shared/utils';
+import {isTab, normalize, screenHeight, screenWidth} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {ImagesName} from 'src/shared/styles';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -122,7 +122,9 @@ const customStyle = (theme: CustomThemeType) => {
   const FollowFavoriteAuthorStyle = StyleSheet.create({
     container: {
       marginVertical: normalize(0.025 * screenWidth),
-      marginHorizontal: normalize(0.045 * screenWidth),
+      marginHorizontal: (Platform.OS==='ios')
+      ?normalize(0.030 * screenHeight)
+      :normalize(0.035 * screenHeight),
       justifyContent: 'center',
       backgroundColor: theme.backgroundColor,
     },
