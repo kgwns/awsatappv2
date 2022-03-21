@@ -64,6 +64,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const passwordChangedSuccessfully = t('profile.userDetail.passwordChangedSuccessfully');
   const tryAgain =  t('profile.userDetail.tryAgain');
   const oldPasswordDoesNotMatch = t('profile.userDetail.oldPasswordDoesNotMatch');
+  const maxDate = currentDate.setFullYear(currentDate.getFullYear() - 15)
   
   useEffect(() => {
     fetchProfileDataRequest();
@@ -234,7 +235,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             <DatePicker
               locale= 'ar_AE'
               minimumDate={new Date(DEFAULT_MINIMUM_DATE)}
-              maximumDate={new Date(currentDate)}
+              maximumDate={new Date(maxDate)}
               cancelText={t('profile.userDetail.cancelText')}
               confirmText={t('profile.userDetail.confirmText')}
               modal
