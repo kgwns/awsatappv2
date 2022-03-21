@@ -13,12 +13,13 @@ export interface ImageIconProps {
     url?: string,
     bottomTag?: string,
     onPress?:()=>void,
+    fallback?: boolean,
 }
 
-export const ImageWithIcon = ({ name, url, bottomTag,onPress}: ImageIconProps) => {
+export const ImageWithIcon = ({ name, url, bottomTag,onPress, fallback= false}: ImageIconProps) => {
     return (
         <View>
-            <Image name={name} url={url} style={articleImage} resizeMode={ImageResize.COVER}/>
+            <Image fallback={fallback} name={name} url={url} style={articleImage} resizeMode={ImageResize.COVER}/>
             {bottomTag &&
             <View style={bottomTagContainer}>
                 <Text children={bottomTag}
