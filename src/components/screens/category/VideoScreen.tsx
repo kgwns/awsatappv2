@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 
 import {VideoItem, VideoItemProps} from 'src/components/molecules';
-import {isNonEmptyArray, normalize} from 'src/shared/utils';
+import {horizontalEdge, isNonEmptyArray, normalize} from 'src/shared/utils';
 // import {videoTabData} from 'src/constants/SampleData';
 import {useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -105,7 +105,7 @@ export const VideoScreen = (props: VideoScreenProps) => {
     );
   };
   return (
-    <ScreenContainer isLoading={isLoading}
+    <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={styles.container}>
@@ -121,5 +121,8 @@ export const VideoScreen = (props: VideoScreenProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {marginHorizontal: normalize(15)},
+  container: {
+    marginHorizontal: normalize(15),
+    marginTop: normalize(10)
+  },
 });
