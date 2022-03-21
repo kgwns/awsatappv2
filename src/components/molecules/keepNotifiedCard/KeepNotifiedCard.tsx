@@ -21,20 +21,17 @@ const KeepNotifiedCard = ({
 }: KeepNotifiedCardProps) => {
   const style = useThemeAwareObject(customStyle);
   return (
-    <View style={style.container}>
-      <TouchableOpacity
-        testID={"ImageTestID"}
-        onPress={() => {
-          onPress(selected);
-        }}>
+    <TouchableOpacity testID={"ImageTestID"} style={style.container}
+      onPress={() => { onPress(selected) }}>
+      <View>
         {getSvgImages({
           name: selected ? ImagesName.notificationSelected : ImagesName.notification,
           width: style.iconStyle.width,
           height: style.iconStyle.height
         })}
-      </TouchableOpacity>
+      </View>
       <Label style={style.textStyle}>{label}</Label>
-    </View>
+    </TouchableOpacity>
   );
 };
 const customStyle = (theme: CustomThemeType) => {
