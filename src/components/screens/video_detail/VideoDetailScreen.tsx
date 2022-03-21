@@ -27,6 +27,8 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<StackNavigationProp<any>>()
 
+  const [selectedVideo, setSelectedVideo] = useState(route.params.data)
+  const [videolistData, setVideolistData] = useState<VideoItemType[]>([])
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
   
@@ -34,11 +36,21 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
 
   useEffect(() => {
+    formatVideoListData()
+  }, [videoData,bookmarkIdInfo])
+
+  const formatVideoListData = () => {
+    let selectedVideoId = selectedVideo.nid
+    const selectedVideoIndex = videoData.findIndex((item: any) => item.nid === selectedVideoId);
+    const videoInfo = videoData ? videoData[selectedVideoIndex] : selectedVideo
+    const otherVideosList = videoData.filter((item: any) => item.nid != selectedVideoId);
     if (isNonEmptyArray(videoData)) {
-      const isBookmarked = validateBookmark(videoData[0].nid)
+      const isBookmarked = validateBookmark(videoInfo.nid)
       setIsBookmarked(isBookmarked)
     }
-  }, [videoData,bookmarkIdInfo])
+    setSelectedVideo(videoInfo)
+    setVideolistData(otherVideosList)
+  }
 
   const validateBookmark = (nid: string): boolean => {
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
@@ -46,8 +58,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
 
   const onPressSave = (nid: string) => {
     const newBookmarked = !isBookmarked
-    const data = [...videoData]
-    data[0].isBookmarked = !data[0].isBookmarked
+    selectedVideo.isBookmarked = !selectedVideo.isBookmarked
     setIsBookmarked(newBookmarked)
     onUpdateBookMark(nid, newBookmarked)
   }
@@ -69,8 +80,8 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }
 
   const onPressShare = async () => {
-    if(!videoData[0]) return;
-    const { title, field_mp4_link_export } = videoData[0]
+    if(!selectedVideo) return;
+    const { title, field_mp4_link_export } = selectedVideo
     await Share.open({
         title,
         url: field_mp4_link_export,
@@ -102,14 +113,14 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           headerBackIconTestId={'video_detail_back'}
           onPressShare={onPressShare}
           onGoBack={onGoBack}
-          onPressSave={()=> isNonEmptyArray(videoData) && checkAndUpdateBookmark(videoData[0].nid)}
+          onPressSave={()=> isNonEmptyArray(videoData) && checkAndUpdateBookmark(selectedVideo.nid)}
           isSaved={isBookmarked}
           isCloseIcon
         />
-        {videoData.length&&<VideoInfo data={videoData[0]} onPress={(item:VideoItemType)=>{goToPlayer(item)}}/>}
+        {videoData.length&&<VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}}/>}
       </View>
       <View style={styles.container}>
-        <VideosList data={videoData.slice(1)} onItemActionPress={(item:VideoItemType)=>goToPlayer(item)} />
+        <VideosList data={videolistData} onItemActionPress={(item:VideoItemType)=>goToPlayer(item)} />
       </View>
     </View>
   )
