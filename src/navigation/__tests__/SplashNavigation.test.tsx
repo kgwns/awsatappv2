@@ -27,6 +27,14 @@ jest.mock("src/hooks/useLogin", () => ({
   },
 }));
 
+jest.mock("src/hooks/useRegister", () => ({
+  useRegister: (...args: any) => {
+      return {
+        socialLoginEnded:()=>{}
+      }
+  },
+}));
+
 describe('<SplashNavigation>', () => {
   let instance: RenderAPI;
   const dispatchMock = jest.fn();
