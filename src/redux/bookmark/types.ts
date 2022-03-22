@@ -67,7 +67,7 @@ export interface GetBookmarkIdType {
 
 export interface BookmarkIdSuccessDataFieldType {
   nid: string,
-  bundle: string
+  bundle?: string
 }
 
 export interface GetBookMarkIdSuccessMessageType {
