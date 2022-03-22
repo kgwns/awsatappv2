@@ -113,11 +113,11 @@ const SectionArticleItem = ({
             return isBookmarked
               ? getSvgImages({
                   name: ImagesName.bookMarkActiveSVG,
-                  size: normalize(20),
+                  size: normalize(15),
                 })
               : getSvgImages({
                   name: ImagesName.bookMarkSVG,
-                  size: normalize(20),
+                  size: normalize(15),
                 });
           }}
           onPress={onPressBookmark}

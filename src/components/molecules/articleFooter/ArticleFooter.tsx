@@ -45,11 +45,11 @@ const ArticleFooter = ({
     return isBookmarked
       ? getSvgImages({
           name: ImagesName.bookMarkActiveSVG,
-          size: normalize(18),
+          size: normalize(15),
         })
       : getSvgImages({
           name: ImagesName.bookMarkSVG,
-          size: normalize(18),
+          size: normalize(15),
         });
   }
   
@@ -58,11 +58,11 @@ const ArticleFooter = ({
       return isBookmarked
         ? getSvgImages({
             name: ImagesName.bookMarkWhiteActive,
-            size: normalize(18),
+            size: normalize(15),
           })
         : getSvgImages({
             name: ImagesName.bookMarkWhite,
-            size: normalize(18),
+            size: normalize(15),
           });
     }
   }
