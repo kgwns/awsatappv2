@@ -16,7 +16,7 @@ import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 
-export const RelatedOpinionCard = ({item,onPress}:any) => {
+export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
   const style = useThemeAwareObject(customStyle);
   const [t] = useTranslation();
   const { themeData } = useTheme();
@@ -36,7 +36,7 @@ export const RelatedOpinionCard = ({item,onPress}:any) => {
           numberOfLines={1}
           style={style.body}
         />
-        <View style={style.footer}>
+        {mediaVisibility && <View style={style.footer}>
           <ButtonImage
             icon={() => {
               return getSvgImages({
@@ -51,7 +51,7 @@ export const RelatedOpinionCard = ({item,onPress}:any) => {
             style={style.audioLabel}
           />
           <Label children={DURATION} style={style.durationLabel} />
-        </View>
+        </View>}
       </View>
       <View>
         <Image

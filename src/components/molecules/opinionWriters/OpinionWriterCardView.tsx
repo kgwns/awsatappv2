@@ -80,7 +80,7 @@ const OpinionWritersCardView = ({
             <ButtonImage
               icon={() => <PlayIcon />}
               style={style.playIcon}
-              onPress={() => console.log('play icon pressed')}
+              onPress={() => onPress()}
               testId={'playIconTestId'}
             />
             <Label style={style.footerLabel}>{audioLabel}</Label>
