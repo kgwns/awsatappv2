@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Appearance, ColorSchemeName, I18nManager, NativeEventSubscription, useColorScheme, AppState } from 'react-native'
+import { I18nManager, NativeEventSubscription, useColorScheme, AppState } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { useDispatch } from 'react-redux'
 import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'
@@ -51,12 +51,6 @@ const SplashNavigation = () => {
     }
 
     const updateColorScheme = () => {
-        dispatch(storeAppTheme(isDarkMode ? Theme.DARK : Theme.LIGHT))
-        subscription = Appearance.addChangeListener(onThemeChange)
-    }
-
-    const onThemeChange = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
-        isDarkMode = isDarkTheme(colorScheme)
         dispatch(storeAppTheme(isDarkMode ? Theme.DARK : Theme.LIGHT))
     }
 
