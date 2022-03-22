@@ -9,3 +9,6 @@ export const getRegisterUserInfo: Selector<RegisterSuccessPayloadType | null> =
 
 export const getRegisterError: Selector<string> = (state: AppState) =>
   state.register.error;
+
+export const getSocialLoginInProgress: Selector<boolean> = (state: AppState) =>
+  state.register.socialLoginInProgress;

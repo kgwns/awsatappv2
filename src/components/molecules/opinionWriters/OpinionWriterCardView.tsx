@@ -94,11 +94,11 @@ const OpinionWritersCardView = ({
               return isBookmarked
                 ? getSvgImages({
                     name: ImagesName.bookMarkActiveSVG,
-                    size: normalize(18),
+                    size: normalize(15),
                   })
                 : getSvgImages({
                     name: ImagesName.bookMarkSVG,
-                    size: normalize(18),
+                    size: normalize(15),
                   });
             }}
             onPress={onPressBookmark}

@@ -53,7 +53,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [deviceName, setDeviceName] = useState('');
-  const {registerUserInfo, isRegisterLoading} = useRegister();
+  const {registerUserInfo, isRegisterLoading, socialLoginEnded, socialLoginInProgress, socialLoginStarted} = useRegister();
   const dispatch = useDispatch();
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
@@ -65,6 +65,10 @@ export const SignInPage = ({route}: SignInPageProps) => {
     message: verifyMailAndPasswordAndTryAgain,
     buttonTitle: ok
   }
+
+  useEffect(() => {
+    socialLoginEnded();
+  }, [registerUserInfo])
 
   useEffect(() => {
     getDeviceName();
@@ -165,6 +169,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
       case SocialNavigate.apple:
         return;
       case SocialNavigate.facebook:
+        socialLoginStarted();
         return;
       default:
         navigation.goBack();
@@ -189,7 +194,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
   };
 
   return (
-    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading} isAlertVisible={isAlertVisible}
+    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading || socialLoginInProgress} isAlertVisible={isAlertVisible}
       setIsAlertVisible={setIsAlertVisible} alertPayload={incorrectCredentialPayload} alertOnPress={() => setIsAlertVisible(false)}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
@@ -283,3 +288,4 @@ const createStyles = (theme: CustomThemeType) =>
       height: normalize(30),
     },
   });
+
