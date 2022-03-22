@@ -1,7 +1,7 @@
 import { ScrollView, StyleProp, StyleSheet, View } from 'react-native'
 import React, {useRef} from 'react'
 import { TabWithBarItem, TabBarDataProps } from '..'
-import { normalize, screenWidth } from 'src/shared/utils'
+import { isIOS, normalize, screenWidth } from 'src/shared/utils'
 
 export interface TabBarWidgetProps {
   tabItem: TabBarDataProps[],
@@ -11,12 +11,16 @@ export interface TabBarWidgetProps {
 
 export const TabBarComponent = ({ tabItem, onPressTabItem, style }: TabBarWidgetProps) => {
   const scrollRef = useRef<ScrollView>(null)
+  const scrollToEnd = () => {
+    if(isIOS) return;
+    scrollRef.current?.scrollToEnd()
+  }
   return (
     <View style={styles.container}>
       <ScrollView ref={scrollRef} horizontal={true} bounces={false} style={style}
         contentContainerStyle={styles.contentStyle}
         showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'}
-        onContentSizeChange={() => scrollRef.current?.scrollToEnd()}
+        onContentSizeChange={() => scrollToEnd()}
         >
         {
           tabItem.map((item: TabBarDataProps, index: number) =>
