@@ -12,8 +12,11 @@ import {ScreenContainer} from '..';
 import {useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
 import {Edge} from 'react-native-safe-area-context';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
-import { RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
+import { OpinionArticleDetailItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 import TrackPlayer from 'react-native-track-player';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ScreensConstants } from 'src/constants';
 
 export interface OpinionArticleDetailScreenProps {
   route: any;
@@ -29,11 +32,14 @@ export const OpinionArticleDetail = ({
   route,
 }: OpinionArticleDetailScreenProps) => {
   const style = useThemeAwareObject(customStyle);
+  const navigation = useNavigation<StackNavigationProp<any>>()
+  const isFocused = useIsFocused();
+  const currentNId = route.params.nid;
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge);
   const [fontSize,setFontSize] = useState<ArticleFontSize>(ArticleFontSize.normal)
   const { isLoading, opinionArticleDetailData, fetchOpinionArticleDetail,
     fetchRelatedOpinionData, relatedOpinionListData,
-    isLoadingRelatedOpinion, emptyRelatedOpinionData } =
+    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData } =
     useOpinionArticleDetail();
 
 
@@ -48,13 +54,16 @@ export const OpinionArticleDetail = ({
     page: page,
   };
 
+  const [opinionArticle,setOpinionArticle]=useState<OpinionArticleDetailItemType[]>([])
+
   useEffect(() => {
+    emptyRelatedOpinionData()
     Orientation.unlockAllOrientations();
     Orientation.getDeviceOrientation(updateScreenEdge);
     Orientation.addDeviceOrientationListener(updateScreenEdge);
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
-      emptyRelatedOpinionData()
+      emptyOpinionArticleData();
       Orientation.lockToPortrait();
       Orientation.removeOrientationListener(updateScreenEdge);
     };
@@ -62,8 +71,12 @@ export const OpinionArticleDetail = ({
 
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData)) {
-      const isBookmarked = validateBookmark(opinionArticleDetailData[0].nid_export)
-      setIsBookmarked(isBookmarked)
+      if(route.params && route.params.nid && isFocused){
+        setOpinionArticle(opinionArticleDetailData)
+        setPage(0)
+        const isBookmarked = validateBookmark(opinionArticleDetailData[0].nid_export)
+        setIsBookmarked(isBookmarked)
+      }
     }
   }, [opinionArticleDetailData])
 
@@ -133,11 +146,9 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressRelatedOpinion = (nid: string) => {
-    nid && getOpinionDetail(nid)
-  }
-
-  const getOpinionDetail = (id: string) => {
-    fetchOpinionArticleDetail({ nid: parseInt(id) })
+    if (nid && nid!=currentNId) {
+      navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid })
+    }
   }
 
   const gotoNextPage = () => {
@@ -156,8 +167,8 @@ export const OpinionArticleDetail = ({
 
   const renderItem = () => (
     <View style={style.container}>
-      {isNonEmptyArray(opinionArticleDetailData) && (
-        <OpinionArticleDetailWidget data={opinionArticleDetailData[0]} fontSize={fontSize}/>
+      {isNonEmptyArray(opinionArticle) && (
+        <OpinionArticleDetailWidget data={opinionArticle[0]} fontSize={fontSize}/>
       )}
       {isNonEmptyArray(relatedOpinionListData) && (
         <RelatedOpinionArticlesWidget data={relatedOpinionListData}
@@ -172,7 +183,7 @@ export const OpinionArticleDetail = ({
     <ScreenContainer edge={edge} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
-      {!isLoading && isNonEmptyArray(opinionArticleDetailData) && <>
+      {!isLoading && isNonEmptyArray(opinionArticle) && <>
       <FlatList
         style={style.flatList}
         data={[{}]}
@@ -181,14 +192,16 @@ export const OpinionArticleDetail = ({
         showsVerticalScrollIndicator={false}
         bounces={false}
       />
+      { isNonEmptyArray(opinionArticle) && 
         <View style={style.footer}>
           <OpinionArticleDetailFooter
-            opinionArticleDetailData={opinionArticleDetailData[0]}
+            opinionArticleDetailData={opinionArticle[0]}
             isBookmarked={isBookmarked}
-            onPressSave={() => onPressSave(opinionArticleDetailData[0].nid_export)}
+            onPressSave={() => onPressSave(opinionArticle[0].nid_export)}
             onPressFontSizeChange={onPressFontSizeChange}
           />
         </View>
+}
       </>}
     </ScreenContainer>
   );

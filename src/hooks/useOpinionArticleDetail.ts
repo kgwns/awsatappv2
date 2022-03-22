@@ -5,7 +5,7 @@ import {
   RelatedOpinionBodyGet,
   OpinionsListItemType
 } from 'src/redux/opinionArticleDetail/types';
-import {requestOpinionArticleDetail,fetchRelatedOpinion,emptyRelatedOpinionDataList} from 'src/redux/opinionArticleDetail/action';
+import {requestOpinionArticleDetail,fetchRelatedOpinion,emptyRelatedOpinionDataList,emptyOpinionArticleDetailData} from 'src/redux/opinionArticleDetail/action';
 import {
   getOpinionArticleData,
   getIsLoading,
@@ -25,6 +25,7 @@ export interface UseOpinionArticleDetailReturn {
   relatedOpinionListData: OpinionsListItemType[],
   fetchRelatedOpinionData(payload: RelatedOpinionBodyGet): void;
   emptyRelatedOpinionData(): void;
+  emptyOpinionArticleData(): void;
 }
 
 export const useOpinionArticleDetail = (): UseOpinionArticleDetailReturn => {
@@ -44,6 +45,9 @@ export const useOpinionArticleDetail = (): UseOpinionArticleDetailReturn => {
   const emptyRelatedOpinionData = () => {
     dispatch(emptyRelatedOpinionDataList());
   };
+  const emptyOpinionArticleData = () =>{
+    dispatch(emptyOpinionArticleDetailData())
+  }
 
   return {
     isLoading,
@@ -54,6 +58,7 @@ export const useOpinionArticleDetail = (): UseOpinionArticleDetailReturn => {
     relatedOpinionListData,
     relatedOpinionError,
     fetchRelatedOpinionData,
-    emptyRelatedOpinionData
+    emptyRelatedOpinionData,
+    emptyOpinionArticleData
   };
 };

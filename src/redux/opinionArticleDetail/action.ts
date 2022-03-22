@@ -6,6 +6,7 @@ import {
   REQUEST_RELATED_OPINION_SUCCESS,
   REQUEST_RELATED_OPINION_FAILED,
   EMPTY_RELATED_OPINION_DATA,
+  EMPTY_OPINION_ARTICLE_DETAIL,
 } from './actionTypes';
 import {
   OpinionArticleDetailBodyGet,
@@ -79,6 +80,12 @@ export const emptyRelatedOpinionDataList = () => {
   };
 };
 
+export const emptyOpinionArticleDetailData = () => {
+  return {
+    type: EMPTY_OPINION_ARTICLE_DETAIL,
+  };
+};
+
 export const opinionArticleDetailAction = {
   requestOpinionArticleDetail,
   requestOpinionArticleDetailSuccess,
@@ -87,4 +94,5 @@ export const opinionArticleDetailAction = {
   fetchRelatedOpinionSuccess,
   fetchRelatedOpinionFailed,
   emptyRelatedOpinionDataList,
+  emptyOpinionArticleDetailData,
 };

@@ -5,7 +5,8 @@ import {
   REQUEST_RELATED_OPINION,
   REQUEST_RELATED_OPINION_SUCCESS,
   REQUEST_RELATED_OPINION_FAILED,
-  EMPTY_RELATED_OPINION_DATA
+  EMPTY_RELATED_OPINION_DATA,
+  EMPTY_OPINION_ARTICLE_DETAIL
 } from './actionTypes';
 export interface OpinionArticleDetailBodyGet {
   nid: number;
@@ -130,6 +131,10 @@ export type EmptyRelatedOpinionDataList = {
   type: typeof EMPTY_RELATED_OPINION_DATA;
 };
 
+export type EmptyOpinionArticleDetailData = {
+  type: typeof EMPTY_OPINION_ARTICLE_DETAIL;
+};
+
 export type OpinionArticleDetailAction =
   | RequestOpinionArticleDetailType
   | OpinionArticleDetailSuccessType
@@ -137,4 +142,5 @@ export type OpinionArticleDetailAction =
   | FetchRelatedOpinionType
   | FetchRelatedOpinionSuccessType
   | FetchRelatedOpinionFailedType
-  | EmptyRelatedOpinionDataList;
+  | EmptyRelatedOpinionDataList
+  | EmptyOpinionArticleDetailData;
