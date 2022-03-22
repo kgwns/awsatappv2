@@ -65,6 +65,13 @@ export const TermsAndAboutUs = ({
     )
   }
 
+  const getIgnoredTags = () => {
+    if (id == TERMS_AND_CONDITION) {
+      return ['h2']
+    }
+    return []
+  }
+
   return (
     <ScreenContainer edge={horizontalAndBottomEdge} isLoading={isLoading}
       statusbarColor={themeData.secondaryGreen}>
@@ -83,7 +90,7 @@ export const TermsAndAboutUs = ({
         {
           isNonEmptyArray(data) &&
           <View style={style.htmlContainer}>
-            <HtmlRenderer source={data[0].body} tagsStyles={htmlTagStyle} />
+            <HtmlRenderer source={data[0].body} tagsStyles={htmlTagStyle} ignoredDomTags={getIgnoredTags()} />
           </View>
         }
       </ScrollView>

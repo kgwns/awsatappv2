@@ -201,7 +201,7 @@ const createStyles = (theme: CustomThemeType) =>
       position: 'absolute',
     },
     buttonContainer: {
-      bottom: normalize(15),
+      bottom: 0,
       right: 0,
       left: 0,
       position: 'absolute',
@@ -221,7 +221,7 @@ const createStyles = (theme: CustomThemeType) =>
     buttonStyle: {
       backgroundColor:colors.black,
       borderWidth: 0,
-      width: '50%',
+      width: normalize(150),
       alignSelf: 'center',
     },
     rightIconStyle: {
