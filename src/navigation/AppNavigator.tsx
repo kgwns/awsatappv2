@@ -175,7 +175,7 @@ const AppNavigator = () => {
         options={{
           headerStyle: style.container,
           headerLeft: () => onBoardReturn(),
-          headerTitle: HeaderLogo,
+          headerTitle: () => HeaderTitle(t('profileSetting.myNewsLetter')),
           headerTitleAlign: 'center'
         }}
       />
@@ -185,7 +185,7 @@ const AppNavigator = () => {
         options={{
           headerStyle: style.container,
           headerLeft: () => onBoardReturn(),
-          headerTitle: HeaderLogo,
+          headerTitle: () => HeaderTitle(t('profileSetting.manageMyNotification')),
           headerTitleAlign: 'center'
         }}
       />
