@@ -68,9 +68,10 @@ const populateBookmarkDetail = (response: any): any => {
           headLine: item.title,
           subHeadLine: decodeHTMLTags(item.body_export),
           audioLabel: 'استمع الي المقالة ',
-          duration: '3:22',
+          duration: '',
           nid: item.nid,
-          isBookmarked: true
+          isBookmarked: true,
+          field_jwplayer_id_opinion_export: item.field_jwplayer_id_opinion_export,
         }
         return prevValue.concat(opinionData)
       }

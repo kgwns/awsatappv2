@@ -11,6 +11,7 @@ import { ArticlePodCastWidget } from 'src/components/organisms'
 import { useNavigation } from '@react-navigation/native'
 import { ScreensConstants } from 'src/constants'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { isNotEmpty } from 'src/shared/utils'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -65,7 +66,7 @@ export const PopulateWidget = ({
                 onPressBookmark={onPressBookmark}
             />
         case PopulateWidgetType.OPINION:
-            return <OpinionWritersCardView {...props} 
+            return <OpinionWritersCardView {...props} mediaVisibility={isNotEmpty(props.field_jwplayer_id_opinion_export)}
             onPressBookmark={onPressBookmark}
             />
         case PopulateWidgetType.VIDEO:
