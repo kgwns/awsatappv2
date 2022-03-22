@@ -1,4 +1,4 @@
-import {REGISTER_USER, REGISTER_SUCCESS, REGISTER_FAILED} from './actionTypes';
+import {REGISTER_USER, REGISTER_SUCCESS, REGISTER_FAILED, SOCIAL_LOGIN_START, SOCIAL_LOGIN_END} from './actionTypes';
 import {
   RegisterBodyType,
   UserRegisterType,
@@ -31,3 +31,14 @@ export const registerFailed = (
     payload,
   };
 };
+
+export const socialLoginStart = () => {
+  return {
+    type: SOCIAL_LOGIN_START
+  }
+}
+export const socialLoginEnd = () => {
+  return {
+    type: SOCIAL_LOGIN_END
+  }
+}

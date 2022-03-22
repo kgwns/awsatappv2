@@ -1,5 +1,6 @@
 import { LoginManager, AccessToken, Settings, GraphRequest, GraphRequestManager  } from "react-native-fbsdk-next";
 import SocialLogin from './socialLogin';
+import { store } from 'src/redux/store';
 
 export default class SignInFacebook extends SocialLogin {
   fbUserId: string;
@@ -16,6 +17,7 @@ export default class SignInFacebook extends SocialLogin {
   login(): void {
       LoginManager.logInWithPermissions(['public_profile', 'email', 'user_birthday']).then((result: any) => {
           if (result.isCancelled) {
+              //store.dispatch(socialLoginEnded());
               console.log('** Facebook Login Canceled **')
               this.callBack(undefined, false, 'facebook')
           } else {
@@ -65,4 +67,8 @@ export default class SignInFacebook extends SocialLogin {
           this.callBack(resultData, true, 'facebook')
       }
   }
+}
+
+function socialLoginEnded(): any {
+    throw new Error("Function not implemented.");
 }
