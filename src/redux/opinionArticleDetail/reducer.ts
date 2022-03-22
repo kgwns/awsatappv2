@@ -6,6 +6,7 @@ import {
   REQUEST_RELATED_OPINION_SUCCESS,
   REQUEST_RELATED_OPINION_FAILED,
   EMPTY_RELATED_OPINION_DATA,
+  EMPTY_OPINION_ARTICLE_DETAIL,
 } from './actionTypes';
 import {OpinionArticleDetailAction, OpinionArticleDetailState} from './types';
 
@@ -66,6 +67,13 @@ export default (state = initialData, action: OpinionArticleDetailAction) => {
         ...state,
         isLoadingRelatedOpinion: false,
         relatedOpinionListData:  {rows: [], pager: {current_page: 0, items_per_page: ''}},
+      }
+    case EMPTY_OPINION_ARTICLE_DETAIL:
+      return {
+        ...state,
+        sLoading: true,
+        error: '',
+        articleDetailData: [],
       }
     default:
       return {...state};

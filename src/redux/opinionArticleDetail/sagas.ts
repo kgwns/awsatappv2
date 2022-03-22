@@ -13,7 +13,7 @@ import {
   requestOpinionArticleDetailSuccess,
 } from './action';
 import {requestOpinionArticleDetailAPI,fetchRelatedOpinionAPI} from 'src/services/opinionArticleDetailService';
-import { EMPTY_RELATED_OPINION_DATA, REQUEST_OPINION_ARTICLE_DETAIL,REQUEST_RELATED_OPINION } from './actionTypes';
+import { EMPTY_OPINION_ARTICLE_DETAIL, EMPTY_RELATED_OPINION_DATA, REQUEST_OPINION_ARTICLE_DETAIL,REQUEST_RELATED_OPINION } from './actionTypes';
 
 export function* fetchOpinionArticleDetail(
   action: RequestOpinionArticleDetailType,
@@ -65,10 +65,15 @@ export function* emptyRelatedOpinionDataList() {
   emptyRelatedOpinionDataList();
 }
 
+export function* emptyOpinionArticleDetailData() {
+  emptyOpinionArticleDetailData();
+}
+
 function* opinionArticleDetailSaga() {
   yield all([takeLatest(REQUEST_OPINION_ARTICLE_DETAIL, fetchOpinionArticleDetail)]);
   yield all([takeLatest(REQUEST_RELATED_OPINION, fetchRelatedOpinion)]);
   yield all([takeLatest(EMPTY_RELATED_OPINION_DATA, emptyRelatedOpinionDataList)]);
+  yield all([takeLatest(EMPTY_OPINION_ARTICLE_DETAIL, emptyOpinionArticleDetailData)]);
 }
 
 export default opinionArticleDetailSaga;

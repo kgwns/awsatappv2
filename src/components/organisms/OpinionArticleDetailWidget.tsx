@@ -120,6 +120,7 @@ export const OpinionArticleDetailWidget = ({
           style={style.image}
           resizeMode="cover"
           backgroundColor={Styles.color.white}
+          fallback={true}
         />
         <ReturnButton onPressReturn={onPressReturn} />
       </View>
