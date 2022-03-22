@@ -49,6 +49,7 @@ interface ButtonOutlineProps {
   testID?: string;
   leftIcon?: () => void;
   rightIcon?: () => void;
+  isDisable?: boolean
 }
 export const ButtonOutline: FunctionComponent<ButtonOutlineProps> = ({
   title,
@@ -59,13 +60,15 @@ export const ButtonOutline: FunctionComponent<ButtonOutlineProps> = ({
   labelStyle,
   testID,
   leftIcon,
-  rightIcon
+  rightIcon,
+  isDisable = false
 }) => (
   <TouchableOpacity
+    disabled={isDisable}
     testID={testID}
     accessibilityLabel={testID}
     onPress={onPress}
-    style={[container, style]}
+    style={[container, style, isDisable? createStyles.disableStyle : null]}
   >
     <View style={[labelContainer]}>
       {rightIcon && rightIcon()}
@@ -76,5 +79,11 @@ export const ButtonOutline: FunctionComponent<ButtonOutlineProps> = ({
     </View>
   </TouchableOpacity>
 );
+
+const createStyles = StyleSheet.create({
+    disableStyle: {
+      opacity: 0.7
+    },
+  })
 
 

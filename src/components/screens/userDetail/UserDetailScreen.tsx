@@ -101,6 +101,9 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [alertPayload, setAlertPayload] = useState<AlertPayloadType>();
   const ok = t('common.ok');
   const success = t('profile.userDetail.success');
+  const [isDisableDate, setDisableDate] = useState(false)
+  let disableName = false
+  let disableOccupation = false
   const passwordChangedSuccessfully = t(
     'profile.userDetail.passwordChangedSuccessfully',
   );
@@ -281,6 +284,15 @@ export const UserDetailScreen: FunctionComponent = () => {
       : CustomAlert({message: CONST_PLEASE_ENTER_THE_NAME});
   };
 
+  const setDisableButton = () => {
+    if(isNotEmpty(name)){
+      disableName = !(userProfileData.user?.name == name)
+    }
+    if(isNotEmpty(occupation)){
+      disableOccupation = !(userProfileData.user?.occupation == occupation)
+    }
+  }
+
   const sendUpdatedProfileInfo = () => {
     sendUserProfileInfo({
       email: email,
@@ -359,6 +371,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               onConfirm={date => {
                 setOpen(false);
                 setDate(date);
+                setDisableDate(true);
                 setSelectedDate(getFullDate(date));
                 setBirthday('');
               }}
@@ -403,7 +416,9 @@ export const UserDetailScreen: FunctionComponent = () => {
             style={styles.nameInputStyle}
           />
         </View>
+        {setDisableButton()}
         <ButtonOutline
+          isDisable={!(disableName || isDisableDate || disableOccupation)}
           style={styles.updateButton}
           labelStyle={styles.updateButtonLabel}
           title={t('profile.userDetail.updateButtonText')}
