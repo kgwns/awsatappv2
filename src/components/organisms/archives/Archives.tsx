@@ -39,7 +39,7 @@ export const Archives = () => {
     const [filterItem, setFilterItem] = useState<FilterDataType[]>(filterData);
     const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
 
-    const { getBookmarkedId, removeBookmarkedInfo, updateBookDetailInfo, bookmarkDetail } = useBookmark()
+    const { getBookmarkedId, removeBookmarkedInfo, bookmarkDetail } = useBookmark()
     const [filteredData, setFilteredData] = useState(bookmarkDetail)
 
     useEffect(() => {

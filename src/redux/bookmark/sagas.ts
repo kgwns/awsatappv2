@@ -110,7 +110,7 @@ export function* sendBookMarkId(action: SendBookMarkDetailType) {
       sendBookMarkInfo,
       action.payload
     );
-    yield call(getBookmarked)
+    // yield call(getBookmarked)
     yield put(sendBookMarkIdSuccess({ sendBookMarkSuccessInfo: payload }));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
@@ -151,7 +151,7 @@ export function* removeBookmarked(action: RemoveBookMarkDetailType) {
       removeBookMarkInfo,
       action.payload
     );
-    yield call(getBookmarked)
+    // yield call(getBookmarked)
     yield put(removeBookMarkedSuccess(payload));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
