@@ -5,11 +5,11 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Modal,
   Image,
-  AppState,
   Alert,
   Keyboard,
+  Modal,
+  ActionSheetIOS,
 } from 'react-native';
 import {
   isIOS,
@@ -112,6 +112,10 @@ export const UserDetailScreen: FunctionComponent = () => {
     'profile.userDetail.oldPasswordDoesNotMatch',
   );
   const maxDate = currentDate.setFullYear(currentDate.getFullYear() - 15);
+
+  const OPEN_CAMERA_OPTION = t('profile.userDetail.openCameraOption');
+  const OPEN_GALLERY_OPTION = t('profile.userDetail.chooseFromGallery');
+  const CANCEL = t('profile.userDetail.cancelText');
 
   useEffect(() => {
     fetchProfileDataRequest();
@@ -312,7 +316,8 @@ export const UserDetailScreen: FunctionComponent = () => {
       <View style={styles.container}>
         <View style={styles.userContainer}>
           <View style={styles.dpContainer}>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <TouchableOpacity onPress={() => 
+              isIOS? renderOptionModalIOS() :  setModalVisible(true)}>
               <View style={styles.dpEditContainer}>
                 <EditIcon />
               </View>
@@ -496,6 +501,28 @@ export const UserDetailScreen: FunctionComponent = () => {
     }
   };
 
+  const renderOptionModalIOS=()=>{
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: [OPEN_CAMERA_OPTION, 
+        OPEN_GALLERY_OPTION, 
+        CANCEL],
+        destructiveButtonIndex: 2,
+        cancelButtonIndex: 2,
+        userInterfaceStyle: isDarkMode ?'dark' :'light'
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          openCamera()
+        } else if (buttonIndex === 1) {
+          openGallery()
+        } else if (buttonIndex === 2) {
+          
+        }
+      }
+    );
+  }
+
   const renderOptionModal = () => (
     <Modal
       visible={isModalVisible}
@@ -517,7 +544,9 @@ export const UserDetailScreen: FunctionComponent = () => {
             </TouchableOpacity>
             <TouchableOpacity
               testID={'gallery_option'}
-              onPress={() => openGallery()}>
+              onPress={() => {
+              openGallery()
+             }}>
               <View style={styles.optionStyle}>
                 <Label
                   style={styles.optionTextStyle}
@@ -542,6 +571,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   );
 
   const openGallery = () => {
+    setModalVisible(false);
     ImagePicker.openPicker({
       width: 300,
       height: 400,
@@ -555,6 +585,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   const openCamera = async () => {
+    setModalVisible(false);
     ImagePicker.openCamera({
       width: 300,
       height: 400,
@@ -598,7 +629,8 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   return (
-    <KeyboardAwareView extraKeyboardOffset={isIOS ? 750 : 0}>
+    <KeyboardAwareView extraKeyboardOffset={isIOS ? 750 : 0} 
+     contentContainerStyle={{height:screenHeight}}>
       <ScreenContainer
         isOverlayLoading={isLoading}
         isAlertVisible={isAlertVisible}
@@ -609,7 +641,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         {renderTabBarComponent()}
         {tabContent()}
       </ScreenContainer>
-    </KeyboardAwareView>
+     </KeyboardAwareView>
   );
 };
 
