@@ -5,8 +5,10 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {
   ButtonImage,
+  ButtonOutline,
   Image,
   Label,
+  LabelTypeProp,
 } from 'src/components/atoms';
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
@@ -18,6 +20,7 @@ import {timeAgo} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
+import PlayIconSmall from 'src/assets/images/icons/Play_black.svg';
 export interface VideoItemProps {
   imageUrl: string;
   videoLabel?: string;
@@ -64,9 +67,18 @@ export const VideoItem = ({
         {isFirstItem ? (
           <View style={styles.videoContainer}>
             <Image fallback resizeMode={'cover'} url={imageLink} style={styles.imageBig} />
+            <View style={styles.buttonContainer}>
+              <ButtonOutline title={t('videoDetail.employement')}
+              style={styles.buttonStyle}
+              labelStyle={styles.buttonLabel}
+              titleType={LabelTypeProp.h1}
+              onPress={onPress}
+              rightIcon={() => <View style={styles.rightIconStyle}><PlayIconSmall fill={colors.white}/></View>}
+              />
+             </View>
           </View>
         ) : (
-            <View style={styles.videoContainer}>
+            <View style={[styles.videoContainer,styles.spaceContainer]}>
               <Image fallback resizeMode={'cover'} url={imageLink} style={styles.image} />
               <PlayIcon fill={colors.white} style={styles.playIcon} />
               {time && (<Label style={styles.time} color={colors.white}>
@@ -78,10 +90,12 @@ export const VideoItem = ({
         </View>
       </TouchableOpacity>
 
-      <Label labelType={'h2'}>{decode(title)}</Label>
-      {des&&<Label labelType={'p3'} color={themeData.secondaryDavyGrey}>
-        {decode(des)}
-      </Label>}
+      <View style={styles.spaceContainer}>
+        <Label labelType={'h2'}>{decode(title)}</Label>
+        {des&&<Label labelType={'p3'} color={themeData.secondaryDavyGrey}>
+          {decode(des)}
+        </Label>}
+      </View>
 
       <View style={styles.footerContainer}>
         <View style={styles.footerRight}>
@@ -129,6 +143,10 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'space-between',
       marginTop: normalize(10),
       marginBottom: normalize(20),
+      marginHorizontal: normalize(15),
+    },
+    spaceContainer: {
+      paddingHorizontal: normalize(15),
     },
     day: {
       marginHorizontal: normalize(8),
@@ -179,7 +197,13 @@ const createStyles = (theme: CustomThemeType) =>
     },
     playIcon: {
       top: normalize(10),
-      right: normalize(10),
+      right: normalize(20),
+      position: 'absolute',
+    },
+    buttonContainer: {
+      bottom: 0,
+      right: 0,
+      left: 0,
       position: 'absolute',
     },
     labelContainer: {
@@ -193,5 +217,17 @@ const createStyles = (theme: CustomThemeType) =>
       padding: normalize(5),
       bottom: 0,
       left: 0,
+    },
+    buttonStyle: {
+      backgroundColor:colors.black,
+      borderWidth: 0,
+      width: normalize(150),
+      alignSelf: 'center',
+    },
+    rightIconStyle: {
+      marginRight: normalize(15),
+    },
+    buttonLabel: {
+      color: colors.white,
     },
   });

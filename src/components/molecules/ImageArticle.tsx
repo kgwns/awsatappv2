@@ -29,11 +29,12 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     author: string,
     created: string,
     isBookmarked: boolean
-    onPressBookmark: () => void
+    onPressBookmark: () => void,
+    isTabFooterInside: boolean,
 }
 
 const ImageArticle = ({
-    image, title, containerStyle, nid, author, created,isBookmarked,onPressBookmark
+    image, title, containerStyle, nid, author, created,isBookmarked,onPressBookmark, isTabFooterInside=true
 }: ImageArticleProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
     const onPress = () => {
@@ -44,15 +45,27 @@ const ImageArticle = ({
 
     return (
         <TouchableWithoutFeedback onPress={onPress}>
-            <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
-                <BannerImageWithOverlay image={image} />
-                <View style={imageArticleStyle.slideContent}>
-                    <Label labelType={LabelTypeProp.h1} children={title} color={Styles.color.white} />
-                    <ArticleFooter {...carouselFooterSample} leftTitle={author} rightTitle={timeAgo(created)}
-                        isBookmarked={isBookmarked}
-                        onPress={onPressBookmark}
-                    />
+            <View>
+                <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
+                    <BannerImageWithOverlay image={image} />
+                    <View style={imageArticleStyle.slideContent}>
+                        <Label labelType={LabelTypeProp.h1} children={title} color={Styles.color.white} />
+                        {isTabFooterInside&&<ArticleFooter {...carouselFooterSample} leftTitle={author} rightTitle={timeAgo(created)}
+                            isBookmarked={isBookmarked}
+                            onPress={onPressBookmark}
+                        />}
+                    </View>
                 </View>
+                {!isTabFooterInside&&<View style={imageArticleStyle.tabletFooterStyle}>
+                    <View style={imageArticleStyle.footerContent}>
+                        <ArticleFooter {...carouselFooterSample} leftTitle={author} rightTitle={timeAgo(created)}
+                            isBookmarked={isBookmarked}
+                            onPress={onPressBookmark}
+                            leftTitleColor={Styles.color.greenishBlue}
+                            bookMarkColorType={BookMarkColorType.BLACK}
+                        />
+                    </View>
+                </View>}
             </View>
         </TouchableWithoutFeedback>
 
@@ -71,6 +84,15 @@ const imageArticleStyle = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     paddingHorizontal: normalize(16),
+    paddingVertical: normalize(15),
+  },
+  tabletFooterStyle: {
+    width: 0.40 * screenWidth,
+    paddingRight: normalize(20)
+  },
+  footerContent: {
+    width: '100%',
+    flex: 1,
     paddingVertical: normalize(15),
   },
   headNewsContainer: {
