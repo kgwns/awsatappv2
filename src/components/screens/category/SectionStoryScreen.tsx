@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {ShortArticle, NewsFeed, AlertModal} from '../../organisms';
+import {ShortArticle, NewsFeed, AlertModal, VideoContent} from '../../organisms';
 import {isTab, normalize, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
@@ -18,9 +18,11 @@ import {ScreensConstants} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {LabelTypeProp, LoadingState} from 'src/components/atoms';
-import { useBookmark, useLogin } from 'src/hooks';
+import { useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { useTranslation } from 'react-i18next';
+import { videoTabData } from 'src/constants/SampleData';
+import { VideoItemType } from 'src/redux/videoList/types';
 
 export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   const [t] = useTranslation()
@@ -78,7 +80,10 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
     setHeroListDataInfo([]);
     setBottomListDataInfo([]);
     setTopListDataInfo([]);
+    setVideolistData([]);
   }
+
+  const {videoData,fetchVideoRequest} = useVideoList();
 
   useEffect(() => {
     return () => emptyAllListData()
@@ -87,6 +92,10 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   useEffect(() => {
     fetchBottomListRequest(bottomListPayload);
   }, [sectionId,page]);
+
+  useEffect(() => {
+    fetchVideoRequest();
+  }, [sectionId]);
 
   const gotoNextPage = () => {
     setPage(page + 1);
@@ -100,6 +109,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   const [heroListDataInfo,setHeroListDataInfo] = useState(heroListData)
   const [bottomListDataInfo,setBottomListDataInfo] = useState(bottomListData)
   const [topListDataInfo,setTopListDataInfo] = useState(topListData)
+  const [videolistData,setVideolistData] = useState<VideoItemType[]>([])
   const [showupUp,setShowPopUp] = useState(false)
 
 
@@ -114,6 +124,10 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   useEffect(() => {
     updateTopListData()
   }, [topListData,bookmarkIdInfo])
+
+  useEffect(() => {
+    setVideolistData(videoData)
+  }, [videoData])
 
   const updateHeroListData = () => {
     if(isNonEmptyArray(heroListData)) {
@@ -219,6 +233,11 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
     setBottomListDataInfo(updatedData)
   }
 
+  const onVideoItemPress = (item: VideoItemType) => {
+    navigation.navigate(ScreensConstants.VideoPlayerScreen,
+      { videoUrl: item.field_mp4_link_export, nid: item.nid })
+  }
+
   const renderItem = () => (
     <View style={{backgroundColor: themeData.backgroundColor}}>
       {isNonEmptyArray(heroListDataInfo) && heroListDataInfo[0] && (
@@ -259,7 +278,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
           showSignUpPopUp={makeSignUpAlert}
         />
       )}
-      {/* <VideoContent data={videoTabData} /> */}
+      <VideoContent data={videolistData} onPress={onVideoItemPress} />
       <NewsFeed
         data={bottomListDataInfo}
         onScroll={() => gotoNextPage()}

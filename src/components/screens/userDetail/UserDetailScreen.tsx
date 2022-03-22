@@ -233,7 +233,7 @@ export const UserDetailScreen: FunctionComponent = () => {
           <View>
             <Label style={styles.birthdayTitle} color={colors.greenishBlue} children={t('profile.userDetail.birthdayTitle')} />
             <DatePicker
-              locale= 'ar_DZ'
+              locale= 'ar_AE'
               minimumDate={new Date(DEFAULT_MINIMUM_DATE)}
               maximumDate={new Date(maxDate)}
               cancelText={t('profile.userDetail.cancelText')}

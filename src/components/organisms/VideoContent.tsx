@@ -10,6 +10,10 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTranslation } from 'react-i18next';
+import { VideoItemType } from 'src/redux/videoList/types';
+import { getImageUrl, timeAgo } from 'src/shared/utils/utilities';
+import { decode } from 'html-entities';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export interface videoProps {
     storyImage: string,
@@ -20,28 +24,35 @@ export interface videoProps {
     newsMonth: string
 }
 
-export const VideoContent = ({ data }: { data: VideoItemProps[] }) => {
+export const VideoContent = ({ data, onPress }: { data: VideoItemType[], onPress?: (item: VideoItemType) => void }) => {
     const [t] = useTranslation();
     const theme = useTheme();
     const style = useThemeAwareObject(customStyle);
-    const renderItem = (item: VideoItemProps) => {
+    const onItemPress = (item: VideoItemType) => {
+        if(onPress){
+            onPress(item)
+        }
+    }
+    const renderItem = (item: VideoItemType) => {
+        const imageLink = item.field_thumbnil_multimedia_export ? getImageUrl(item.field_thumbnil_multimedia_export) : undefined;
+        const date = t(timeAgo(item.created_export))
         return (
-            <View style={style.container}>
-                <ImageWithIcon url={item.imageUrl} bottomTag={item.time} />
-                <Label style={style.textStyle} labelType={LabelTypeProp.h3} children={item.title} numberOfLines={2} />
-                <SectionVideoFooter
-                    leftTitle={item.videoLabel}
-                    rightTitle={item.month}
-                    leftTitleColor={Styles.color.smokeyGrey}
-                    rightIcon={() => <CalendarIcon color={Styles.color.smokeyGrey} />}
-                    rightDate={item.date}
-                    rightDateColor={Styles.color.smokeyGrey}
-                    rightTitleColor={Styles.color.smokeyGrey}
-                    leftIcon={() => <EyeIcon color={Styles.color.smokeyGrey} />}
-                    leftViews={item.views}
-                    leftViewsColor={theme.themeData.primary}
-                />
-            </View>
+            <TouchableOpacity onPress={()=>onItemPress(item)}>
+                <View style={style.container}>
+                    <ImageWithIcon fallback url={imageLink}  />
+                    <Label style={style.textStyle} labelType={LabelTypeProp.h3} numberOfLines={2} >
+                        {decode(item.title)}
+                    </Label>
+                    <SectionVideoFooter
+                        leftTitleColor={Styles.color.smokeyGrey}
+                        rightIcon={() => <CalendarIcon color={Styles.color.smokeyGrey} />}
+                        rightDate={date}
+                        rightDateColor={Styles.color.smokeyGrey}
+                        rightTitleColor={Styles.color.smokeyGrey}
+                        leftViewsColor={theme.themeData.primary}
+                    />
+                </View>
+            </TouchableOpacity>
         )
     }
     return (
@@ -64,7 +75,7 @@ export default VideoContent;
 const customStyle = (theme: CustomThemeType) => {
     const videoContentStyle = StyleSheet.create({
         container: {
-            height: normalize(330),
+            height: normalize(310),
             paddingHorizontal: normalize(10),
             backgroundColor: theme.secondaryWhite
         },
@@ -88,7 +99,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         textStyle: {
             width: normalize(263),
-            paddingBottom: normalize(20)
+            paddingVertical: normalize(10)
         },
         baseStyle: {
             alignSelf: 'flex-start',

@@ -81,7 +81,7 @@ export const VideoScreen = (props: VideoScreenProps) => {
 
   
   useEffect(() => { fetchVideoRequest(); }, []);
-  const onPressItem = (item:VideoItemProps)=>{
+  const onPressItem = (item:VideoItemType)=>{
     navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item})
   }
   const [t] = useTranslation();
