@@ -16,7 +16,7 @@ export default class SignInFacebook extends SocialLogin {
   login(): void {
       LoginManager.logInWithPermissions(['public_profile', 'email', 'user_birthday']).then((result: any) => {
           if (result.isCancelled) {
-              console.log('** Facebook Login Canceled **')
+              //console.log('** Facebook Login Canceled **')
               this.callBack(undefined, false, 'facebook')
           } else {
               AccessToken.getCurrentAccessToken().then((data: any) => {
@@ -65,4 +65,8 @@ export default class SignInFacebook extends SocialLogin {
           this.callBack(resultData, true, 'facebook')
       }
   }
+}
+
+function socialLoginEnded(): any {
+    throw new Error("Function not implemented.");
 }

@@ -34,6 +34,8 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   const [deviceName, setDeviceName] = useState('');
   const {createUserRequest, registerUserInfo} = useRegister();
 
+  const {socialLoginEnded} = useRegister();
+
   const onSuccessSocialLogin = (userInfo:any,provider='google')=>{
     const userDetails = userInfo.user
     const payload: RegisterBodyType = {
@@ -52,8 +54,11 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   }
 
   const onResult = (userInfo:any,success:boolean, provider:string)=>{
+
     if(success){
       onSuccessSocialLogin(userInfo,provider)
+    }else{
+      socialLoginEnded();
     }
   }
 

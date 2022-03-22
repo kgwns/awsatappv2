@@ -44,7 +44,7 @@ export const AuthPage: FunctionComponent = () => {
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
-  const {registerUserInfo, isRegisterLoading} = useRegister();
+  const {registerUserInfo, isRegisterLoading, socialLoginInProgress, socialLoginStarted, socialLoginEnded} = useRegister();
   const dispatch = useDispatch();
 
   const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
@@ -54,6 +54,10 @@ export const AuthPage: FunctionComponent = () => {
   useEffect(() => {
     emptyforgotPassworResponseInfo();
   }, []);
+
+  useEffect(() => {
+    socialLoginEnded();
+  }, [registerUserInfo])
 
   useEffect(() => {
     const message = emailCheckData?.message;
@@ -73,6 +77,7 @@ export const AuthPage: FunctionComponent = () => {
       case NavigateTypes.apple:
         return;
       case NavigateTypes.facebook:
+        socialLoginStarted()
         return;
       case NavigateTypes.email:
         return;
@@ -106,7 +111,7 @@ export const AuthPage: FunctionComponent = () => {
   };
 
   return (
-    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading}>
+    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading || socialLoginInProgress}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
           <View style={styles.headerStyle}>

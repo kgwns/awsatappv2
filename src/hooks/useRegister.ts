@@ -4,19 +4,27 @@ import {
   getIsLoading,
   getRegisterError,
   getRegisterUserInfo,
+  getSocialLoginInProgress,
 } from 'src/redux/register/selectors';
 
 import {
   RegisterBodyType,
   RegisterSuccessPayloadType,
 } from 'src/redux/register/types';
-import {userRegister} from 'src/redux/register/action';
+import {
+  userRegister,
+  socialLoginStart,
+  socialLoginEnd,
+} from 'src/redux/register/action';
 
 export interface UseRegisterReturn {
   isRegisterLoading: boolean;
   registerUserInfo: RegisterSuccessPayloadType | null;
   registerError: string;
+  socialLoginInProgress: boolean;
   createUserRequest(payload: RegisterBodyType): void;
+  socialLoginStarted(): void;
+  socialLoginEnded(): void;
 }
 
 export const useRegister = (): UseRegisterReturn => {
@@ -24,13 +32,25 @@ export const useRegister = (): UseRegisterReturn => {
   const isRegisterLoading = useSelector(getIsLoading);
   const registerUserInfo = useSelector(getRegisterUserInfo);
   const registerError = useSelector(getRegisterError);
+  const socialLoginInProgress = useSelector(getSocialLoginInProgress);
   const createUserRequest = (payload: RegisterBodyType) => {
     dispatch(userRegister(payload));
   };
+  const socialLoginStarted = () => {
+    dispatch(socialLoginStart());
+  };
+
+  const socialLoginEnded = () => {
+    dispatch(socialLoginEnd());
+  };
+
   return {
     isRegisterLoading,
     registerUserInfo,
     registerError,
+    socialLoginInProgress,
     createUserRequest,
+    socialLoginStarted,
+    socialLoginEnded,
   };
 };

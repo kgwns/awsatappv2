@@ -1,5 +1,5 @@
 import { FETCH_USER_LOGOUT } from '../login/actionTypes';
-import {REGISTER_USER, REGISTER_SUCCESS, REGISTER_FAILED} from './actionTypes';
+import {REGISTER_USER, REGISTER_SUCCESS, REGISTER_FAILED, SOCIAL_LOGIN_START, SOCIAL_LOGIN_END} from './actionTypes';
 
 export interface RegisterUserSuccessType {
   name?: string;
@@ -56,6 +56,7 @@ export interface RegisterState {
   userInfo: RegisterSuccessPayloadType | null;
   error: string;
   isLoading: boolean;
+  socialLoginInProgress: boolean;
 }
 
 export type UserRegisterType = {
@@ -80,8 +81,17 @@ export type UserLogoutType = {
   type: typeof FETCH_USER_LOGOUT;
 };
 
+export type SocialLoginStartType = {
+  type: typeof SOCIAL_LOGIN_START
+}
+export type SocialLoginEndType = {
+  type: typeof SOCIAL_LOGIN_END
+}
+
 export type RegisterAction =
   | UserRegisterType
   | RegisterSuccessType
   | RegisterFailedType
-  | UserLogoutType;
+  | UserLogoutType
+  | SocialLoginStartType
+  | SocialLoginEndType;
