@@ -16,6 +16,8 @@ import { useTranslation } from 'react-i18next';
 import { getImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { useLogin } from 'src/hooks';
+import { CustomThemeType } from 'src/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -55,7 +57,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const { isLoggedIn } = useLogin()
-
+  const style = useThemeAwareObject(customStyle);
   const [articleData, setArticleData] = useState(data)
 
   useEffect(() => {
@@ -92,16 +94,16 @@ const ShortArticle = ({ data, headerLeft, onPress,
             />
           </View>
           <View style={{ flex: 0.30, paddingRight: normalize(5), }}>
-            <Image fallback url={getImageUrl(item.image)} style={ShortArticleStyle.image} resizeMode={ImageResize.COVER} />
+            <Image fallback url={getImageUrl(item.image)} style={style.image} resizeMode={ImageResize.COVER} />
           </View>
         </View>
-        {index < data.length - 1 && <Divider/>}
+        {index < data.length - 1 && <Divider style={style.divider}/>}
       </View>
     </TouchableWithoutFeedback>
   };
 
   return (
-    <View style={ShortArticleStyle.container}>
+    <View style={style.container}>
       <WidgetHeader headerLeft={headerLeft} />
       <FlatList
         keyExtractor={(_, index) => index.toString()}
@@ -117,14 +119,17 @@ const ShortArticle = ({ data, headerLeft, onPress,
 };
 
 export default ShortArticle;
-
-const ShortArticleStyle = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     paddingHorizontal: 0.04 * screenWidth
   },
   image: {
     width: '100%',
     height: normalize(85)
-  }
+  },
+  divider: {
+    height: 1,
+    backgroundColor: theme.dividerColor,
+}
 })
 
