@@ -122,11 +122,11 @@ export const VideoItem = ({
               return isBookmarked
                 ? getSvgImages({
                     name: ImagesName.bookMarkActiveSVG,
-                    size: normalize(18),
+                    size: normalize(17),
                   })
                 : getSvgImages({
                     name: ImagesName.bookMarkSVG,
-                    size: normalize(18),
+                    size: normalize(17),
                   });
             }}
             onPress={onPressBookmark}

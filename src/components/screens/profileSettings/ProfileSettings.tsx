@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants } from 'src/constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { horizontalEdge, isDarkTheme, isNotEmpty, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
+import { horizontalAndBottomEdge, horizontalEdge, isDarkTheme, isNotEmpty, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { ButtonImage, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -205,6 +205,7 @@ export const ProfileSettings = () => {
       <ScreenContainer edge={horizontalEdge} isAlertVisible={isAlertVisible}
           alertPayload={signOutAlertPayload} alertOnPress={logout}
           setIsAlertVisible={setIsAlertVisible}>
+        <View style={style.container}>
           {welcomeView()}
           <View style={style.titleDivider} />
           <FlatList
@@ -216,12 +217,16 @@ export const ProfileSettings = () => {
               ItemSeparatorComponent={itemSeparator}
               bounces={false}
           />
+        </View>
       </ScreenContainer>
   );
 };
 
 const customStyle = (theme: CustomThemeType) =>
   StyleSheet.create({
+      container:{
+        marginTop:normalize(25),
+      },
       listContainer: {
           marginHorizontal: 0.04 * screenWidth,
           paddingTop: normalize(20),
