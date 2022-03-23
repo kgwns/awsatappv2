@@ -219,7 +219,7 @@ const customStyle = (theme: CustomThemeType) => (
     onBoardReturn: {
       flexDirection: 'row-reverse',
       alignItems: 'center',
-      marginEnd: normalize(10),
+      marginEnd: normalize(20),
     },
     onBoardPrevTitle: {
       color: theme.primaryDarkSlateGray,
