@@ -1,13 +1,10 @@
 import { View, FlatList, StyleSheet } from 'react-native'
 import React, {useState, useEffect} from 'react'
-import { AuthorWidget, PodcastForYou, ShortArticle, PodcastForYouListType, ArticleSection } from 'src/components/organisms';
+import { AuthorWidget, ShortArticle, ArticleSection } from 'src/components/organisms';
 import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label } from 'src/components/atoms';
-import { shortArticleWithTagProperties, videoArchiveData } from 'src/constants/SampleData';
-import { DUMMY_IMAGE_URL } from 'src/services/apiUrls';
+import { shortArticleWithTagProperties } from 'src/constants/SampleData';
 import { useTranslation } from 'react-i18next';
-import { ShortArticleProps } from '../ShortArticle';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { FavoriteVideo } from '../favoriteVideo/favoriteVideo';
 import { screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
@@ -18,13 +15,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { normalize } from 'react-native-elements';
 
-const podcastForYouData: PodcastForYouListType = {
-    image: DUMMY_IMAGE_URL,
-    name: 'إسم البودكاست',
-    title: 'عنوان حلثه البودكاست',
-    author: 'الخميس',
-    created: '45 دقيقه'
-}
 
 interface AllContentData {
     opinionsData: any,
@@ -273,6 +263,12 @@ export const ContentForYou = () => {
         )
     }
 
+    const loadingView = () => (
+        <View style={styles.container}>
+            <LoadingState />
+        </View>
+    )
+
     return (
         <View style={styles.contentContainer}>
             {!initialLoading  ?
@@ -288,14 +284,10 @@ export const ContentForYou = () => {
                     renderItem={({ item, index }) => renderContentForYou(item, index)}
                     ListFooterComponent={renderFooterComponent}
                     />:
-                    <View style={styles.container}>
-                        <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
-                    </View>
+                    loadingView()
                 }
                 </View> :
-                <View style={styles.container}>
-                    <LoadingState />
-                </View>
+                loadingView()
             }
         </View>
     )
@@ -303,14 +295,13 @@ export const ContentForYou = () => {
 
 const styles = StyleSheet.create({
     contentContainer: {
-        flex: 1,
+        flex: 1
     },
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100%',
-        marginTop: 0.32 * screenHeight
+        height: 0.80 * screenHeight
     },
     loaderStyle: {
         width: '100%',
