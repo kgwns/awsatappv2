@@ -39,7 +39,6 @@ export const OpinionArticleDetailWidget = ({
   const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation();
   const [visibleMedia, setMediaVisibility] = useState(isNotEmpty(data.jwplayer));
-  // const [mediaData, setMediaData] = useState({})
   const playbackState = usePlaybackState();
 
   const { narratedOpinionData,fetchNarratedOpinionData} =
