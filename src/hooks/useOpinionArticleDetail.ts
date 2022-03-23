@@ -3,9 +3,10 @@ import {
   OpinionArticleDetailBodyGet,
   OpinionArticleDetailItemType,
   RelatedOpinionBodyGet,
-  OpinionsListItemType
+  OpinionsListItemType,
+  NarratedOpinionBodyGet
 } from 'src/redux/opinionArticleDetail/types';
-import {requestOpinionArticleDetail,fetchRelatedOpinion,emptyRelatedOpinionDataList,emptyOpinionArticleDetailData} from 'src/redux/opinionArticleDetail/action';
+import {requestOpinionArticleDetail,fetchRelatedOpinion,emptyRelatedOpinionDataList,emptyOpinionArticleDetailData, fetchNarratedOpinion} from 'src/redux/opinionArticleDetail/action';
 import {
   getOpinionArticleData,
   getIsLoading,
@@ -13,6 +14,7 @@ import {
   getIsLoadingRelatedOpinion,
   getRelatedOpinionData,
   getRelatedOpinionError,
+  getNarratedOpinionData
 } from 'src/redux/opinionArticleDetail/selectors';
 
 export interface UseOpinionArticleDetailReturn {
@@ -26,6 +28,8 @@ export interface UseOpinionArticleDetailReturn {
   fetchRelatedOpinionData(payload: RelatedOpinionBodyGet): void;
   emptyRelatedOpinionData(): void;
   emptyOpinionArticleData(): void;
+  narratedOpinionData: any,
+  fetchNarratedOpinionData(payload: NarratedOpinionBodyGet): void;
 }
 
 export const useOpinionArticleDetail = (): UseOpinionArticleDetailReturn => {
@@ -36,6 +40,7 @@ export const useOpinionArticleDetail = (): UseOpinionArticleDetailReturn => {
   const isLoadingRelatedOpinion = useSelector(getIsLoadingRelatedOpinion);
   const relatedOpinionListData = useSelector(getRelatedOpinionData);
   const relatedOpinionError = useSelector(getRelatedOpinionError);
+  const narratedOpinionData = useSelector(getNarratedOpinionData);
   const fetchOpinionArticleDetail = (payload: OpinionArticleDetailBodyGet) => {
     dispatch(requestOpinionArticleDetail(payload));
   };
@@ -48,6 +53,9 @@ export const useOpinionArticleDetail = (): UseOpinionArticleDetailReturn => {
   const emptyOpinionArticleData = () =>{
     dispatch(emptyOpinionArticleDetailData())
   }
+  const fetchNarratedOpinionData = (payload: NarratedOpinionBodyGet) => {
+    dispatch(fetchNarratedOpinion(payload));
+  };
 
   return {
     isLoading,
@@ -57,8 +65,10 @@ export const useOpinionArticleDetail = (): UseOpinionArticleDetailReturn => {
     isLoadingRelatedOpinion,
     relatedOpinionListData,
     relatedOpinionError,
+    narratedOpinionData,
     fetchRelatedOpinionData,
     emptyRelatedOpinionData,
-    emptyOpinionArticleData
+    emptyOpinionArticleData,
+    fetchNarratedOpinionData,
   };
 };

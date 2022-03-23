@@ -15,13 +15,14 @@ import {
 } from '../molecules';
 import {MixedStyleRecord} from 'react-native-render-html';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {getImageUrl, timeAgo, isNotEmpty} from 'src/shared/utils/utilities';
+import {getImageUrl, timeAgo, isNotEmpty, isObjectNonEmpty} from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
 import Orientation from 'react-native-orientation-locker';
 import { ArticleFontSize } from '../screens/opinionArticleDetail/OpinionArticleDetail';
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
 import TrackPlayer, {State, usePlaybackState} from 'react-native-track-player';
+import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
 
 export interface OpinionArticleDetailWidgetProp {
   data: OpinionArticleDetailItemType;
@@ -38,14 +39,12 @@ export const OpinionArticleDetailWidget = ({
   const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation();
   const [visibleMedia, setMediaVisibility] = useState(isNotEmpty(data.jwplayer));
-  const [mediaData, setMediaData] = useState({})
   const playbackState = usePlaybackState();
-  
-  useEffect(() => {
-    fetchNarratedOpinionArticleApi(data.jwplayer).then(response => {
-      setMediaData(response)
-    })
-  }, [])
+
+  const { narratedOpinionData,fetchNarratedOpinionData} =
+    useOpinionArticleDetail();
+
+  const [mediaData] = useState(narratedOpinionData)
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -132,7 +131,7 @@ export const OpinionArticleDetailWidget = ({
           rightTitle={data.writer[0].name}
           leftTitle={t(timeAgo(data.created_export))}
         />
-        {visibleMedia &&<View style={style.listenToArticleCard}>
+        {isNotEmpty(data.jwplayer) && isObjectNonEmpty(mediaData) && <View style={style.listenToArticleCard}>
           <ListenToArticleCard data={mediaData} />
         </View>}
         {articleHtmlContent()}

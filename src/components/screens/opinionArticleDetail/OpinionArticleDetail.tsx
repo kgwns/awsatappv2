@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, FlatList, BackHandler} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {horizontalEdge, isNonEmptyArray, normalize} from 'src/shared/utils';
+import {horizontalEdge, isNonEmptyArray, isNotEmpty, normalize} from 'src/shared/utils';
 import {OpinionArticleDetailFooter} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
@@ -39,7 +39,7 @@ export const OpinionArticleDetail = ({
   const [fontSize,setFontSize] = useState<ArticleFontSize>(ArticleFontSize.normal)
   const { isLoading, opinionArticleDetailData, fetchOpinionArticleDetail,
     fetchRelatedOpinionData, relatedOpinionListData,
-    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData } =
+    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData,fetchNarratedOpinionData,narratedOpinionData } =
     useOpinionArticleDetail();
   const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid != currentNId})
 
@@ -63,6 +63,8 @@ export const OpinionArticleDetail = ({
     Orientation.addDeviceOrientationListener(updateScreenEdge);
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
+      setOpinionArticle([]);
+      emptyRelatedOpinionData();
       emptyOpinionArticleData();
       Orientation.lockToPortrait();
       Orientation.removeOrientationListener(updateScreenEdge);
@@ -77,8 +79,23 @@ export const OpinionArticleDetail = ({
         const isBookmarked = validateBookmark(opinionArticleDetailData[0].nid_export)
         setIsBookmarked(isBookmarked)
       }
+      if(isNotEmpty(opinionArticleDetailData[0].jwplayer)){
+        fetchNarratedOpinionData({
+          jwPlayerID:opinionArticleDetailData[0].jwplayer
+        })
+      }
     }
   }, [opinionArticleDetailData])
+
+  useEffect(() => {
+    if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isFocused) {
+        if(isNotEmpty(opinionArticle[0].jwplayer)){
+         fetchNarratedOpinionData({
+           jwPlayerID:opinionArticle[0].jwplayer
+         })
+       }
+      }
+  }, [isFocused,opinionArticle])
 
   useEffect(() => {
     fetchRelatedOpinionData(relatedOpinionPayload);

@@ -20,3 +20,7 @@ export const getRelatedOpinionData: Selector<OpinionsListItemType[]> = (
 
 export const getRelatedOpinionError: Selector<string> = (state: AppState) =>
   state.opinionArticleDetail.relatedOpinionError;
+
+  export const getNarratedOpinionData: Selector<any> = (
+    state: AppState,
+  ) => state.opinionArticleDetail.mediaData;
