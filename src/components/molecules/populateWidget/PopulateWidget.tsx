@@ -3,7 +3,7 @@ import { ArticleItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
 import { t } from 'i18next'
-import { normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { ArticleItemProps } from '../ArticleItem'
 import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
@@ -80,15 +80,18 @@ export const PopulateWidget = ({
             </View>
         case PopulateWidgetType.VIDEO:
             return (
-                <VideoItem {...props}
-                    isFirstItem={false}
-                    testID='video_screen_id'
-                    onPress={() => {
-                        navigation.navigate(ScreensConstants.VideoPlayerScreen,
-                            { mediaID: props.field_video_media_id_export, nid: props.nid })
-                    }}
-                    onPressBookmark={onPressBookmark}
-                />
+                <View style={style.videoContainer}>
+                    <VideoItem {...props}
+                        isFirstItem={false}
+                        testID='video_screen_id'
+                        onPress={() => {
+                            navigation.navigate(ScreensConstants.VideoPlayerScreen,
+                                { mediaID: props.field_video_media_id_export, nid: props.nid })
+                        }}
+                        onPressBookmark={onPressBookmark}
+                    />
+                    <Divider style={style.videoDivider} />
+                </View>
             );
         case PopulateWidgetType.PODCAST:
             return (
@@ -118,5 +121,14 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     podcastContainer: {
         backgroundColor: theme.secondaryWhite
+    },
+    videoContainer: {
+        paddingHorizontal: isTab ? normalize(15) : 0
+    },
+    videoDivider: {
+        height: 1,
+        backgroundColor: theme.dividerColor,
+        marginBottom: normalize(15),
+        marginTop: 0
     }
 })

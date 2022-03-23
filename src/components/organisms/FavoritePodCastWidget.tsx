@@ -7,7 +7,6 @@ import { Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { DetailPodCastFooter } from 'src/components/molecules'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { CustomThemeType } from 'src/shared/styles/colors'
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useTranslation } from 'react-i18next'
 import { getSecondsToHms } from 'src/shared/utils/utilities'
@@ -42,9 +41,9 @@ const ArticlePodCastWidget = ({
     const { themeData } = useTheme()
     return (
         <TouchableOpacity style={style.container} onPress={onPress}>
-            <View style={{ flexDirection: 'row' }}>
-                <View style={{paddingRight: normalize(10)}}>
-                    <Label labelType={LabelTypeProp.h1} children={title} color={themeData.primaryBlack} style={style.titleContainer} numberOfLines={1}/>
+            <View style={style.topViewContainer}>
+                <View style={style.leftContainer}>
+                    <Label labelType={LabelTypeProp.h1} children={title} color={themeData.primaryBlack} style={style.titleContainer} numberOfLines={1} />
                     <Label labelType={LabelTypeProp.h3} children={body} color={themeData.secondaryDavyGrey} style={style.bodyContainer} numberOfLines={2} />
                 </View>
                 <Image style={style.imageContainer} url={imageUrl} resizeMode={ImageResize.COVER} />
@@ -64,27 +63,30 @@ const ArticlePodCastWidget = ({
 }
 
 export default ArticlePodCastWidget
-const customStyle = (theme: CustomThemeType) => {
-    const detailPodCastStyle = StyleSheet.create({
-        container: {
-            flex: 1,
-            backgroundColor: theme.secondaryWhite,
-            height: normalize(120),
-            paddingTop: normalize(10),
-            paddingHorizontal: 0.04 * screenWidth
-        },
-        imageContainer: {
-            width: normalize(92),
-            height: normalize(73)
-        },
-        titleContainer: {
-            fontSize: normalize(15),
-            width: normalize(240)
-        },
-        bodyContainer: {
-            fontSize: normalize(13),
-            width: normalize(240)
-        }
-    })
-    return detailPodCastStyle
-}
+const customStyle = () => StyleSheet.create({
+    container: {
+        flex: 1,
+        height: normalize(120),
+        paddingTop: normalize(10),
+        paddingHorizontal: 0.04 * screenWidth
+    },
+    topViewContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    imageContainer: {
+        width: normalize(92),
+        height: normalize(73)
+    },
+    titleContainer: {
+        fontSize: normalize(15)
+    },
+    bodyContainer: {
+        fontSize: normalize(13)
+    },
+    leftContainer: {
+        flex: 1,
+        paddingRight: normalize(10),
+    }
+})
