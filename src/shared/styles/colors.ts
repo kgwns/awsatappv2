@@ -63,6 +63,7 @@ export const colors = {
   chineseWhite: '#E0E0E0',
   whiteTransparent: '#FFFFFFF2',
   blackTransparent: '#000000F2',
+  paleRed: '#F0F0F0',
 };
 
 export interface CustomThemeType {
@@ -92,6 +93,7 @@ export interface CustomThemeType {
   podcastEpisodeCardColor: string,
   miniPlayerBackgroundColor: string,
   miniPlayerBorderColor: string,
+  lightRed: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -123,7 +125,8 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   dividerColor: colors.gableGreenOpacity15,
   podcastEpisodeCardColor: colors.white,
   miniPlayerBackgroundColor: colors.whiteTransparent,
-  miniPlayerBorderColor: colors. chineseWhite,
+  miniPlayerBorderColor: colors.chineseWhite,
+  lightRed: colors.paleRed,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -152,6 +155,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   dividerColor: colors.nightRiderGray,
   podcastEpisodeCardColor: colors.onyx,
   miniPlayerBackgroundColor: colors.blackTransparent,
-  miniPlayerBorderColor:colors.onyx
+  miniPlayerBorderColor:colors.onyx,
+  lightRed:colors.nightBlack,
 }
 

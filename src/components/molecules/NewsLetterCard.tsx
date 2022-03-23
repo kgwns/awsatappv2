@@ -40,7 +40,7 @@ export const NewsLetterCard = ({
         {
           backgroundColor: selected
             ? theme.themeData.secondaryGreen
-            : theme.themeData.secondaryWhite,
+            : theme.themeData.lightRed,
         },
       ]}
       onPress={changeStatus}>
