@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { normalize, screenWidth } from 'src/shared/utils'
-import { Image } from 'src/components/atoms'
+import { Divider, Image } from 'src/components/atoms'
 import { Label, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles';
@@ -10,6 +10,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useTranslation } from 'react-i18next'
 import { getSecondsToHms } from 'src/shared/utils/utilities'
+import { CustomThemeType } from 'src/shared/styles/colors'
 
 
 export interface ArticlePodCastWidgetProps {
@@ -58,12 +59,13 @@ const ArticlePodCastWidget = ({
                 isBookmarked={isBookmarked}
                 onPressBookmark={onPressBookmark}
             />
+            <Divider style={style.divider} />
         </TouchableOpacity>
     )
 }
 
 export default ArticlePodCastWidget
-const customStyle = () => StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         flex: 1,
         height: normalize(120),
@@ -88,5 +90,9 @@ const customStyle = () => StyleSheet.create({
     leftContainer: {
         flex: 1,
         paddingRight: normalize(10),
-    }
+    },
+    divider: {
+        height: 1,
+        backgroundColor: theme.dividerColor
+    },
 })

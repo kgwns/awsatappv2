@@ -12,8 +12,7 @@ import { useNavigation } from '@react-navigation/native'
 import { ScreensConstants } from 'src/constants'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { isNotEmpty } from 'src/shared/utils'
-import { Divider } from 'src/components/atoms'
-import { CustomThemeType } from '~/shared/styles/colors'
+import { CustomThemeType } from 'src/shared/styles/colors'
 import { StyleSheet, View } from 'react-native'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
@@ -90,7 +89,6 @@ export const PopulateWidget = ({
                         }}
                         onPressBookmark={onPressBookmark}
                     />
-                    <Divider style={style.videoDivider} />
                 </View>
             );
         case PopulateWidgetType.PODCAST:
@@ -103,7 +101,6 @@ export const PopulateWidget = ({
                             navigation.navigate(ScreensConstants.PodcastEpisode, { data: { ...props }, podcastListData: [] })
                         }}
                     />
-                    <Divider style={style.divider} />
                 </View>
             )
         default: return null
@@ -112,10 +109,6 @@ export const PopulateWidget = ({
 }
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
-    divider: {
-        height: 1,
-        backgroundColor: theme.dividerColor
-    },
     widgetContainer: {
         paddingHorizontal: 0.04 * screenWidth
     },
@@ -124,11 +117,5 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     videoContainer: {
         paddingHorizontal: isTab ? normalize(15) : 0
-    },
-    videoDivider: {
-        height: 1,
-        backgroundColor: theme.dividerColor,
-        marginBottom: normalize(15),
-        marginTop: 0
     }
 })
