@@ -6,13 +6,19 @@ import {
   REQUEST_RELATED_OPINION_SUCCESS,
   REQUEST_RELATED_OPINION_FAILED,
   EMPTY_RELATED_OPINION_DATA,
-  EMPTY_OPINION_ARTICLE_DETAIL
+  EMPTY_OPINION_ARTICLE_DETAIL,
+  REQUEST_NARRATED_OPINION_ARTICLE,
+  REQUEST_NARRATED_OPINION_ARTICLE_SUCCESS,
+  REQUEST_NARRATED_OPINION_ARTICLE_FAILED
 } from './actionTypes';
 export interface OpinionArticleDetailBodyGet {
   nid: number;
 }
 export interface RelatedOpinionBodyGet {
   page: number;
+}
+export interface NarratedOpinionBodyGet {
+  jwPlayerID: string;
 }
 export interface RequestOpinionArticleDetailType {
   type: typeof REQUEST_OPINION_ARTICLE_DETAIL;
@@ -89,7 +95,8 @@ export type OpinionArticleDetailState = {
   opinionArticleDetailData: OpinionArticleDetailItemType[];
   relatedOpinionError: string,
   isLoadingRelatedOpinion:boolean,
-  relatedOpinionListData: payloadType;
+  relatedOpinionListData: payloadType,
+  mediaData: any;
 };
 
 export interface OpinionArticleDetailSuccessType {
@@ -109,6 +116,13 @@ export interface FetchRelatedOpinionSuccessPayloadType {
   relatedOpinionListData: any;
 }
 export interface FetchRelatedOpinionFailedPayloadtype {
+  error: string;
+}
+
+export interface FetchNarratedOpinionSuccessPayloadType {
+  mediaData: any;
+}
+export interface FetchNarratedOpinionFailedPayloadtype {
   error: string;
 }
 
@@ -135,6 +149,21 @@ export type EmptyOpinionArticleDetailData = {
   type: typeof EMPTY_OPINION_ARTICLE_DETAIL;
 };
 
+export type FetchNarratedOpinionType = {
+  type: typeof REQUEST_NARRATED_OPINION_ARTICLE;
+  payload: NarratedOpinionBodyGet;
+};
+
+export type FetchNarratedOpinionSuccessType = {
+  type: typeof REQUEST_NARRATED_OPINION_ARTICLE_SUCCESS;
+  payload: FetchNarratedOpinionSuccessPayloadType;
+};
+
+export type FetchNarratedOpinionFailedType = {
+  type: typeof REQUEST_NARRATED_OPINION_ARTICLE_FAILED;
+  payload: FetchNarratedOpinionFailedPayloadtype;
+};
+
 export type OpinionArticleDetailAction =
   | RequestOpinionArticleDetailType
   | OpinionArticleDetailSuccessType
@@ -143,4 +172,7 @@ export type OpinionArticleDetailAction =
   | FetchRelatedOpinionSuccessType
   | FetchRelatedOpinionFailedType
   | EmptyRelatedOpinionDataList
-  | EmptyOpinionArticleDetailData;
+  | EmptyOpinionArticleDetailData
+  | FetchNarratedOpinionType
+  | FetchNarratedOpinionSuccessPayloadType
+  | FetchNarratedOpinionFailedPayloadtype;

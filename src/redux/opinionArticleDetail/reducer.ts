@@ -7,6 +7,9 @@ import {
   REQUEST_RELATED_OPINION_FAILED,
   EMPTY_RELATED_OPINION_DATA,
   EMPTY_OPINION_ARTICLE_DETAIL,
+  REQUEST_NARRATED_OPINION_ARTICLE,
+  REQUEST_NARRATED_OPINION_ARTICLE_SUCCESS,
+  REQUEST_NARRATED_OPINION_ARTICLE_FAILED,
 } from './actionTypes';
 import {OpinionArticleDetailAction, OpinionArticleDetailState} from './types';
 
@@ -17,6 +20,7 @@ const initialData: OpinionArticleDetailState = {
   isLoadingRelatedOpinion:true,
   relatedOpinionError: '',
   relatedOpinionListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
+  mediaData:{}
 };
 
 export default (state = initialData, action: OpinionArticleDetailAction) => {
@@ -74,6 +78,24 @@ export default (state = initialData, action: OpinionArticleDetailAction) => {
         sLoading: true,
         error: '',
         articleDetailData: [],
+        mediaData:{}
+      }
+    case REQUEST_NARRATED_OPINION_ARTICLE:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_NARRATED_OPINION_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        mediaData: action.payload.mediaData,
+      }
+    case REQUEST_NARRATED_OPINION_ARTICLE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        mediaData: action.payload.error
       }
     default:
       return {...state};
