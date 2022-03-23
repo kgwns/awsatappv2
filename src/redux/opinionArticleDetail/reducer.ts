@@ -77,7 +77,7 @@ export default (state = initialData, action: OpinionArticleDetailAction) => {
         ...state,
         sLoading: true,
         error: '',
-        articleDetailData: [],
+        opinionArticleDetailData: [],
         mediaData:{}
       }
     case REQUEST_NARRATED_OPINION_ARTICLE:

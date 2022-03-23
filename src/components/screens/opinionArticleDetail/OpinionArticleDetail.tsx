@@ -63,6 +63,8 @@ export const OpinionArticleDetail = ({
     Orientation.addDeviceOrientationListener(updateScreenEdge);
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
+      setOpinionArticle([]);
+      emptyRelatedOpinionData();
       emptyOpinionArticleData();
       Orientation.lockToPortrait();
       Orientation.removeOrientationListener(updateScreenEdge);
