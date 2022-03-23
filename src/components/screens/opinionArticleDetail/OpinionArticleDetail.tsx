@@ -41,7 +41,7 @@ export const OpinionArticleDetail = ({
     fetchRelatedOpinionData, relatedOpinionListData,
     isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData } =
     useOpinionArticleDetail();
-
+  const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid != currentNId})
 
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
@@ -170,8 +170,8 @@ export const OpinionArticleDetail = ({
       {isNonEmptyArray(opinionArticle) && (
         <OpinionArticleDetailWidget data={opinionArticle[0]} fontSize={fontSize}/>
       )}
-      {isNonEmptyArray(relatedOpinionListData) && (
-        <RelatedOpinionArticlesWidget data={relatedOpinionListData}
+      {isNonEmptyArray(relatedOpinionData) && (
+        <RelatedOpinionArticlesWidget data={relatedOpinionData}
           onPress={onPressRelatedOpinion}
           onScroll={() => gotoNextPage()}
           isLoading={isLoadingRelatedOpinion} />

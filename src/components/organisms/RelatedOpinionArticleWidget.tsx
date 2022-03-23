@@ -9,6 +9,7 @@ import { RelatedOpinionCard } from '../molecules/RelatedOpinionCard';
 import { useTranslation } from 'react-i18next';
 import { OpinionsListItemType } from 'src/redux/opinionArticleDetail/types';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { isNotEmpty } from 'src/shared/utils/utilities'
 
 interface RelatedOpinionArticlesWidgetProps {
   data: OpinionsListItemType[];
@@ -24,7 +25,7 @@ export const RelatedOpinionArticlesWidget = ({ data, onScroll, isLoading, onPres
 
   const renderItem = (item: OpinionsListItemType, index: number) => (
     <View style={style.item}>
-      <RelatedOpinionCard item={item} onPress={() => onPress(item.nid)} />
+      <RelatedOpinionCard item={item} mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)} onPress={() => onPress(item.nid)} />
       {data.length - 1 != index && <Divider style={style.itemDivider} />}
       {isLoading && data.length - 1 == index && (
         <View style={{ margin: normalize(28) }}>
@@ -80,7 +81,8 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: normalize(20),
     },
     itemDivider: {
-      marginTop: normalize(5),
+      height: 1,
+      backgroundColor: theme.dividerColor
     },
   });
   return RelatedOpinionArticlesWidgetStyle;
