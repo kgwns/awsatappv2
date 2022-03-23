@@ -3,7 +3,7 @@ import { ArticleItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
 import { t } from 'i18next'
-import { timeAgo } from 'src/shared/utils'
+import { normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { ArticleItemProps } from '../ArticleItem'
 import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
@@ -12,6 +12,10 @@ import { useNavigation } from '@react-navigation/native'
 import { ScreensConstants } from 'src/constants'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { isNotEmpty } from 'src/shared/utils'
+import { Divider } from 'src/components/atoms'
+import { CustomThemeType } from '~/shared/styles/colors'
+import { StyleSheet, View } from 'react-native'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -52,23 +56,28 @@ export const PopulateWidget = ({
     ...props
 }: PopulateWidgetProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
+    const style = useThemeAwareObject(customStyle)
     switch (type) {
         case PopulateWidgetType.ARTICLE:
-            return <ArticleItem
-                index={0}
-                {...props}
-                footerInfo = {{
-                    ...articleFooterDataSet,
-                    leftTitle: props.author,
-                    rightTitle: t(timeAgo(props.created))
-                }}
-                isBookmarked={true}
-                onPressBookmark={onPressBookmark}
-            />
+            return <View style={style.widgetContainer}>
+                <ArticleItem
+                    index={0}
+                    {...props}
+                    footerInfo={{
+                        ...articleFooterDataSet,
+                        leftTitle: props.author,
+                        rightTitle: t(timeAgo(props.created))
+                    }}
+                    isBookmarked={true}
+                    onPressBookmark={onPressBookmark}
+                />
+            </View>
         case PopulateWidgetType.OPINION:
-            return <OpinionWritersCardView {...props} mediaVisibility={isNotEmpty(props.field_jwplayer_id_opinion_export)}
-            onPressBookmark={onPressBookmark}
-            />
+            return <View style={style.widgetContainer}>
+                <OpinionWritersCardView {...props} mediaVisibility={isNotEmpty(props.field_jwplayer_id_opinion_export)}
+                    onPressBookmark={onPressBookmark}
+                />
+            </View>
         case PopulateWidgetType.VIDEO:
             return (
                 <VideoItem {...props}
@@ -83,15 +92,31 @@ export const PopulateWidget = ({
             );
         case PopulateWidgetType.PODCAST:
             return (
-                <ArticlePodCastWidget
-                    {...props}
-                    onPressBookmark={onPressBookmark}
-                    onPress={() => {
-                        navigation.navigate(ScreensConstants.PodcastEpisode, { data: {...props},podcastListData: [] })
-                    }}
-                />
+                <View style={style.podcastContainer}>
+                    <ArticlePodCastWidget
+                        {...props}
+                        onPressBookmark={onPressBookmark}
+                        onPress={() => {
+                            navigation.navigate(ScreensConstants.PodcastEpisode, { data: { ...props }, podcastListData: [] })
+                        }}
+                    />
+                    <Divider style={style.divider} />
+                </View>
             )
         default: return null
     }
 
 }
+
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
+    divider: {
+        height: 1,
+        backgroundColor: theme.dividerColor
+    },
+    widgetContainer: {
+        paddingHorizontal: 0.04 * screenWidth
+    },
+    podcastContainer: {
+        backgroundColor: theme.secondaryWhite
+    }
+})

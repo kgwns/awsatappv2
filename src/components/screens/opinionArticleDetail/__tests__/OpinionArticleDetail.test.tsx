@@ -4,6 +4,31 @@ import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../../constants/SampleData';
 import {OpinionArticleDetail} from '../OpinionArticleDetail';
 
+jest.mock("src/hooks/useOpinionArticleDetail", () => ({
+  useOpinionArticleDetail: (...args: any) => {
+      return {
+        isLoading: false,
+        opinionArticleDetailData: [],
+        opinionArticleError: '',
+        fetchOpinionArticleDetail: () => {
+          return []
+        },
+        isLoadingRelatedOpinion:false,
+        relatedOpinionError: '',
+        relatedOpinionListData: [],
+        fetchRelatedOpinionData: () => {
+          return []
+        },
+        emptyRelatedOpinionData: () => {
+          return []
+        },
+        emptyOpinionArticleData: () => {
+          return []
+        }
+      }
+  },
+}));
+
 describe('<OpinionArticleDetail>', () => {
   let instance: RenderAPI;
 
