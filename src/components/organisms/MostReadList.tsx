@@ -148,7 +148,7 @@ const MostReadList = ({
   return (
     <View style={mostReadListStyle.container}>
       {showupUp && <AlertModal
-        title={t('signUpAlert.subscribe')}
+        title={t('signUpAlert.notSubscribed')}
         message={t('signUpAlert.description')}
         buttonText={t('signUpAlert.signUp')}
         isVisible={showupUp}

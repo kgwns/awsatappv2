@@ -135,7 +135,7 @@ export const OpinionScreen = () => {
   return (
     <View style={style.container}>
       {showupUp && <AlertModal
-        title={t('signUpAlert.subscribe')}
+        title={t('signUpAlert.notSubscribed')}
         message={t('signUpAlert.description')}
         buttonText={t('signUpAlert.signUp')}
         isVisible={showupUp}
