@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet, BackHandler } from 'react-native';
 import { ScreenContainer } from '..';
 import { PodCastMiniPlayer, PodcastProgramHeader } from 'src/components/molecules';
 import Share from 'react-native-share';
@@ -78,6 +78,19 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     setPodcastEpisodeListInfo(podcastListDataInfo)
   }
 
+  useEffect(() => {
+    const backAction = () => {
+      TrackPlayer.stop();
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   useEffect(() => {
     updatePodcastEpisodeData()
