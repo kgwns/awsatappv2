@@ -3,7 +3,7 @@ import { ArticleItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
 import { t } from 'i18next'
-import { timeAgo } from 'src/shared/utils'
+import { normalize, timeAgo } from 'src/shared/utils'
 import { ArticleItemProps } from '../ArticleItem'
 import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
@@ -92,7 +92,7 @@ export const PopulateWidget = ({
                             navigation.navigate(ScreensConstants.PodcastEpisode, { data: { ...props }, podcastListData: [] })
                         }}
                     />
-                    <Divider style={{ marginBottom: 5 }} />
+                    <Divider style={{ marginBottom: normalize(5) }} />
                 </>
             )
         default: return null
