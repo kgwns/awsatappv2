@@ -100,16 +100,6 @@ export const ManageMyNewsScreen = () => {
     }
   };
 
-  const renderItemBooks = (item: any) => (
-    <FollowFavoriteAuthor
-      authorName={item.name}
-      authorImage={item.field_opinion_writer_photo_export}
-      isSelected={true}
-      onPress={() => { }}
-      clickable={false}
-    />
-  );
-
   const renderItemTopics = (item: any) => (
     <View style={style.renderItemTopics}>
       <BorderLabel label={decode(item.name)} onPress={() => { }} isSelected={true} clickable={false} />
@@ -136,12 +126,19 @@ export const ManageMyNewsScreen = () => {
         <Label style={style.titleLabel}>
           {t('manageMyNews.myFavoriteBooks')}
         </Label>
-        <FlatList
-          horizontal
-          data={data}
-          renderItem={({ item }) => renderItemBooks(item)}
-          showsHorizontalScrollIndicator={false}
-        />
+        <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
+          {
+            data.map((item: any, index: number) =>
+            <FollowFavoriteAuthor
+            authorName={item.name}
+            authorImage={item.field_opinion_writer_photo_export}
+            isSelected={true}
+            onPress={() => { }}
+            clickable={false}
+            key={'manageAuthor' + index}
+          />)
+          }
+        </ScrollView>
         <View style={style.booksContinue}>
           <ContinueLabel label={t('manageMyNews.continueReadingMoreBooks')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} />
         </View>

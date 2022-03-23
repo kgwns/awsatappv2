@@ -15,7 +15,7 @@ import { ScreenHeight } from 'react-native-elements/dist/helpers';
 export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
   const [t] = useTranslation();
-  const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest,selectedTopicsData} = useAllSiteCategories();
+  const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest,selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [topicsData,setTopicsData] = useState<AllSiteCategoriesItemType[]>([])
   const {userProfileData} = useUserProfileData();
@@ -25,6 +25,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   };
 
   useEffect(() => {
+    getSelectedTopicsData();
     fetchAllSiteCategoriesRequest(allSiteCategoriesPayload);
   }, []);
 
