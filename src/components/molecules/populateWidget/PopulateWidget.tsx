@@ -110,7 +110,6 @@ export const PopulateWidget = ({
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     divider: {
-        marginVertical: normalize(5),
         height: 1,
         backgroundColor: theme.dividerColor
     },
