@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { normalize } from 'src/shared/utils'
+import { normalize, screenWidth } from 'src/shared/utils'
 import { Image } from 'src/components/atoms'
 import { Label, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
@@ -71,6 +71,7 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: theme.secondaryWhite,
             height: normalize(120),
             paddingTop: normalize(10),
+            paddingHorizontal: 0.04 * screenWidth
         },
         imageContainer: {
             width: normalize(92),

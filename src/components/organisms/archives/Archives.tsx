@@ -109,10 +109,12 @@ export const Archives = () => {
         <View style={{ flex: 1 }}>
             <View style={{ paddingHorizontal: 0.04 * screenWidth }}>
                 <FilterComponent data={filterItem} onPress={onPressFilterItem} />
-                {isNonEmptyArray(filteredData) && <DynamicWidget data={filteredData}
-                    onPressBookmark={removeBookmarkItem}
-                />}
             </View>
+            {isNonEmptyArray(filteredData) &&
+                <DynamicWidget data={filteredData}
+                    onPressBookmark={removeBookmarkItem}
+                />
+            }
            {emptyFavoriteData()}
         </View>
     )
