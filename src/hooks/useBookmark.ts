@@ -20,7 +20,7 @@ export interface UseBookMarkReturn {
   getBookmarkedId(): void
   removeBookmarkedInfo(payload: RemoveBookmarkDetailDataBody): void
   getBookmarkDetailData(payload: GetBookmarkDetailBodyGet): void
-  updateBookDetailInfo(payload: BookmarkDetailDataType[]): void
+  updateBookDetailInfo(payload: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[]): void
   removeBookmark(): void
 }
 
@@ -36,6 +36,9 @@ export const useBookmark = (): UseBookMarkReturn => {
   const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {
     AdjustAnalyticsManager.trackEvent(AdjustEventID.BOOK_MARK_ARTICLE)
     recordLogEvent('Add_Bookmark_to_Article', {userId: userProfileData.user?.id,articleId: payload.nid});
+    const lastBookmarkInfo = [...bookmarkIdInfo]
+    const updatedBookmarkIdDetail = lastBookmarkInfo.concat({nid: payload.nid})
+    dispatch(getBookMarkedSuccess({ bookmarkedInfo: updatedBookmarkIdDetail }))
     dispatch(sendBookMarkId(payload));
   };
 
@@ -50,14 +53,17 @@ export const useBookmark = (): UseBookMarkReturn => {
   const removeBookmarkedInfo = (payload: RemoveBookmarkDetailDataBody) => {
     const nid = payload.nid
     recordLogEvent('Remove_Bookmark', {id: nid});
-    let bookmarkInfo = [...bookmarkDetail]
+    const bookmarkInfo = [...bookmarkDetail]
+    const bookmarkIdDetail = [...bookmarkIdInfo]
     const updatedBookmarkInfo = bookmarkInfo.filter((item) => item.nid != nid)
-    updateBookDetailInfo(updatedBookmarkInfo)
+    const updatedBookmarkIdDetail = bookmarkIdDetail.filter((item) => item.nid != nid)
+    updateBookDetailInfo(updatedBookmarkInfo,updatedBookmarkIdDetail)
     dispatch(removeBookmarked(payload))
   }
 
-  const updateBookDetailInfo = (payload: BookmarkDetailDataType[]) => {
-    dispatch(getBookMarkedSuccessDetailInfo({bookmarkedDetailInfo: payload}))
+  const updateBookDetailInfo = (bookmarkDetail: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[]) => {
+    dispatch(getBookMarkedSuccess({ bookmarkedInfo: bookmarkIDDetail }))
+    dispatch(getBookMarkedSuccessDetailInfo({ bookmarkedDetailInfo: bookmarkDetail }))
   }
 
   const removeBookmark = () => {

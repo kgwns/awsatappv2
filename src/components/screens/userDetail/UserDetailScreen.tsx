@@ -5,11 +5,11 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Modal,
   Image,
-  AppState,
   Alert,
   Keyboard,
+  Modal,
+  ActionSheetIOS,
 } from 'react-native';
 import {
   isIOS,
@@ -53,9 +53,12 @@ import {
   REQUIRE_ACCESS,
   DEFAULT_MINIMUM_DATE,
   CONST_PLEASE_ENTER_THE_NAME,
+  DEFAULT_ALERT_TITLE,
+  CONST_OK,
 } from 'src/constants/SharedConstants';
 import {useNewPassword} from 'src/hooks/useNewPassword';
 import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
+import { AlertModal } from 'src/components/organisms';
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -101,6 +104,9 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [alertPayload, setAlertPayload] = useState<AlertPayloadType>();
   const ok = t('common.ok');
   const success = t('profile.userDetail.success');
+  const [isDisableDate, setDisableDate] = useState(false)
+  let disableName = false
+  let disableOccupation = false
   const passwordChangedSuccessfully = t(
     'profile.userDetail.passwordChangedSuccessfully',
   );
@@ -109,6 +115,11 @@ export const UserDetailScreen: FunctionComponent = () => {
     'profile.userDetail.oldPasswordDoesNotMatch',
   );
   const maxDate = currentDate.setFullYear(currentDate.getFullYear() - 15);
+
+  const OPEN_CAMERA_OPTION = t('profile.userDetail.openCameraOption');
+  const OPEN_GALLERY_OPTION = t('profile.userDetail.chooseFromGallery');
+  const CANCEL = t('profile.userDetail.cancelText');
+  const [showupUp,setShowPopUp] = useState(false)
 
   useEffect(() => {
     fetchProfileDataRequest();
@@ -278,8 +289,21 @@ export const UserDetailScreen: FunctionComponent = () => {
   const onPressConfirm = () => {
     isNotEmpty(name)
       ? sendUpdatedProfileInfo()
-      : CustomAlert({message: CONST_PLEASE_ENTER_THE_NAME});
+      : setShowPopUp(true);
   };
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
+  }
+
+  const setDisableButton = () => {
+    if(isNotEmpty(name)){
+      disableName = !(userProfileData.user?.name == name)
+    }
+    if(isNotEmpty(occupation)){
+      disableOccupation = !(userProfileData.user?.occupation == occupation)
+    }
+  }
 
   const sendUpdatedProfileInfo = () => {
     sendUserProfileInfo({
@@ -300,7 +324,8 @@ export const UserDetailScreen: FunctionComponent = () => {
       <View style={styles.container}>
         <View style={styles.userContainer}>
           <View style={styles.dpContainer}>
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <TouchableOpacity onPress={() => 
+              isIOS? renderOptionModalIOS() :  setModalVisible(true)}>
               <View style={styles.dpEditContainer}>
                 <EditIcon />
               </View>
@@ -359,6 +384,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               onConfirm={date => {
                 setOpen(false);
                 setDate(date);
+                setDisableDate(true);
                 setSelectedDate(getFullDate(date));
                 setBirthday('');
               }}
@@ -403,7 +429,9 @@ export const UserDetailScreen: FunctionComponent = () => {
             style={styles.nameInputStyle}
           />
         </View>
+        {setDisableButton()}
         <ButtonOutline
+          isDisable={!(disableName || isDisableDate || disableOccupation)}
           style={styles.updateButton}
           labelStyle={styles.updateButtonLabel}
           title={t('profile.userDetail.updateButtonText')}
@@ -481,6 +509,28 @@ export const UserDetailScreen: FunctionComponent = () => {
     }
   };
 
+  const renderOptionModalIOS=()=>{
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: [OPEN_CAMERA_OPTION, 
+        OPEN_GALLERY_OPTION, 
+        CANCEL],
+        destructiveButtonIndex: 2,
+        cancelButtonIndex: 2,
+        userInterfaceStyle: isDarkMode ?'dark' :'light'
+      },
+      buttonIndex => {
+        if (buttonIndex === 0) {
+          openCamera()
+        } else if (buttonIndex === 1) {
+          openGallery()
+        } else if (buttonIndex === 2) {
+          
+        }
+      }
+    );
+  }
+
   const renderOptionModal = () => (
     <Modal
       visible={isModalVisible}
@@ -502,7 +552,9 @@ export const UserDetailScreen: FunctionComponent = () => {
             </TouchableOpacity>
             <TouchableOpacity
               testID={'gallery_option'}
-              onPress={() => openGallery()}>
+              onPress={() => {
+              openGallery()
+             }}>
               <View style={styles.optionStyle}>
                 <Label
                   style={styles.optionTextStyle}
@@ -527,6 +579,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   );
 
   const openGallery = () => {
+    setModalVisible(false);
     ImagePicker.openPicker({
       width: 300,
       height: 400,
@@ -540,6 +593,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   const openCamera = async () => {
+    setModalVisible(false);
     ImagePicker.openCamera({
       width: 300,
       height: 400,
@@ -583,18 +637,27 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   return (
-    <KeyboardAwareView extraKeyboardOffset={isIOS ? 750 : 0}>
+    <KeyboardAwareView extraKeyboardOffset={isIOS ? 750 : 0} 
+     contentContainerStyle={{height:screenHeight}}>
       <ScreenContainer
         isOverlayLoading={isLoading}
         isAlertVisible={isAlertVisible}
         setIsAlertVisible={setIsAlertVisible}
         alertOnPress={onAlertOkPressed}
         alertPayload={alertPayload}>
+          {showupUp && <AlertModal
+          title={DEFAULT_ALERT_TITLE}
+          message={CONST_PLEASE_ENTER_THE_NAME}
+          buttonText={CONST_OK}
+          isVisible={true}
+          onPressSuccess={onCloseSignUpAlert}
+          onClose={onCloseSignUpAlert}
+        />}
         {renderOptionModal()}
         {renderTabBarComponent()}
         {tabContent()}
       </ScreenContainer>
-    </KeyboardAwareView>
+     </KeyboardAwareView>
   );
 };
 

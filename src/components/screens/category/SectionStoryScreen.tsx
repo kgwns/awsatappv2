@@ -290,7 +290,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   return (
     <View style={style.contentContainer}>
       {showupUp && <AlertModal
-        title={t('signUpAlert.subscribe')}
+        title={t('signUpAlert.notSubscribed')}
         message={t('signUpAlert.description')}
         buttonText={t('signUpAlert.signUp')}
         isVisible={showupUp}

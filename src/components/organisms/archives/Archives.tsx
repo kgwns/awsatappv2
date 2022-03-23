@@ -39,7 +39,7 @@ export const Archives = () => {
     const [filterItem, setFilterItem] = useState<FilterDataType[]>(filterData);
     const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
 
-    const { getBookmarkedId, removeBookmarkedInfo, updateBookDetailInfo, bookmarkDetail } = useBookmark()
+    const { getBookmarkedId, removeBookmarkedInfo, bookmarkDetail } = useBookmark()
     const [filteredData, setFilteredData] = useState(bookmarkDetail)
 
     useEffect(() => {
@@ -109,10 +109,12 @@ export const Archives = () => {
         <View style={{ flex: 1 }}>
             <View style={{ paddingHorizontal: 0.04 * screenWidth }}>
                 <FilterComponent data={filterItem} onPress={onPressFilterItem} />
-                {isNonEmptyArray(filteredData) && <DynamicWidget data={filteredData}
-                    onPressBookmark={removeBookmarkItem}
-                />}
             </View>
+            {isNonEmptyArray(filteredData) &&
+                <DynamicWidget data={filteredData}
+                    onPressBookmark={removeBookmarkItem}
+                />
+            }
            {emptyFavoriteData()}
         </View>
     )

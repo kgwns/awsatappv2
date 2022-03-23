@@ -100,16 +100,6 @@ export const ManageMyNewsScreen = () => {
     }
   };
 
-  const renderItemBooks = (item: any) => (
-    <FollowFavoriteAuthor
-      authorName={item.name}
-      authorImage={item.field_opinion_writer_photo_export}
-      isSelected={true}
-      onPress={() => { }}
-      clickable={false}
-    />
-  );
-
   const renderItemTopics = (item: any) => (
     <View style={style.renderItemTopics}>
       <BorderLabel label={decode(item.name)} onPress={() => { }} isSelected={true} clickable={false} />
@@ -136,17 +126,21 @@ export const ManageMyNewsScreen = () => {
         <Label style={style.titleLabel}>
           {t('manageMyNews.myFavoriteBooks')}
         </Label>
-        <FlatList
-          horizontal
-          data={data}
-          renderItem={({ item }) => renderItemBooks(item)}
-          showsHorizontalScrollIndicator={false}
-        />
+        <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
+          {
+            data.map((item: any, index: number) =>
+            <FollowFavoriteAuthor
+            authorName={item.name}
+            authorImage={item.field_opinion_writer_photo_export}
+            isSelected={true}
+            onPress={() => { }}
+            clickable={false}
+            key={'manageAuthor' + index}
+          />)
+          }
+        </ScrollView>
         <View style={style.booksContinue}>
           <ContinueLabel label={t('manageMyNews.continueReadingMoreBooks')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} />
-        </View>
-        <View style={style.booksDivider}>
-          <Divider />
         </View>
       </View>
     );
@@ -188,6 +182,7 @@ export const ManageMyNewsScreen = () => {
         <View style={style.favBooks}>
             <MyFavoriteBooks data={selectedWriters} />
         </View>
+        <Divider style={style.divider}/>
         <View style={style.favTopics}>
             <MyFavoriteTopics data={selectedInterested} />
         </View>
@@ -202,12 +197,12 @@ const customStyle = (theme: CustomThemeType) => {
       flex: 1,
     },
     favBooks: {
-      flex: 0.5,
-      paddingTop: 0.01 * screenHeight,
+      flex: 0.46,
+      paddingTop: 0.05 * screenHeight,
     },
     favTopics: {
       flex: 0.5,
-      paddingVertical: 0.02 * screenHeight,
+      paddingVertical: 0.04 * screenHeight,
     },
     favBooksView: {
       paddingTop: 0.05 * screenWidth,
@@ -229,7 +224,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: 0.04 * screenWidth,
     },
     booksContinue: {
-      paddingTop: 0.02 * screenWidth,
+      paddingVertical: 0.05 * screenWidth,
       paddingStart: 0.04 * screenWidth,
     },
     topicsContinue: {
@@ -258,6 +253,11 @@ const customStyle = (theme: CustomThemeType) => {
       paddingBottom: 0.03 * screenWidth,
       paddingStart: 0.02 * screenWidth,
     },
+    divider: {
+      height: 1,
+      backgroundColor: theme.dividerColor,
+      marginStart: 0.04 * screenWidth,
+  },
   });
   return ManageMyNewsScreenStyle;
 };

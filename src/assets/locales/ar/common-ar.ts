@@ -268,8 +268,9 @@ export const arabic = {
   },
   signUpAlert: {
     subscribe: 'مشترك',
+    notSubscribed: 'أنت غير مشترك',
     description: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و تتمتع بخاصية حفظ المقالات',
-    signUp: 'بالتسجيل'
+    signUp: 'قم بالتسجيل'
   },
   signUpPH: {
     title: 'أنت غير مشترك',

@@ -18,8 +18,14 @@ const FooterCaptionWithImage = ({ title, icon, color, subTitle, subTitleColor }:
             {subTitle &&
                 <Label children={subTitle} color={subTitleColor} labelType={LabelTypeProp.p5} style={captionImageStyle.subtitle} />
             }
-            <Label children={title} color={color} labelType={LabelTypeProp.p5} />
-
+            <View style={captionImageStyle.titleStyle}>
+                <Label children={title}
+                    color={color} 
+                    labelType={LabelTypeProp.p5} 
+                    numberOfLines={1} 
+                    style={captionImageStyle.textLabel}
+                />
+            </View>
         </View>
     )
 }
@@ -33,5 +39,11 @@ const captionImageStyle = StyleSheet.create({
     },
     subtitle: {
         paddingHorizontal: normalize(5)
+    },
+    titleStyle: {
+        width: normalize(100)
+    },
+    textLabel: {
+        paddingVertical: normalize(1)
     }
 })

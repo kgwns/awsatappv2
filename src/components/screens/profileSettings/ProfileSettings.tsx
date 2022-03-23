@@ -128,8 +128,9 @@ export const ProfileSettings = () => {
   };
 
   const renderItem: ListRenderItem<SettingDataType> = ({ item, index }) => {
+      const disableClick = item.title === CONST_APP_APPEARANCE
       return (
-          <TouchableOpacity activeOpacity={0.8} key={index} onPress={() => onPressGoNext(item)}>
+          <TouchableOpacity activeOpacity={0.8} disabled={disableClick} key={index} onPress={() => onPressGoNext(item)}>
               <View style={style.itemContainer}>
                   <View style={style.itemLeftContainer}>
                       <ButtonImage

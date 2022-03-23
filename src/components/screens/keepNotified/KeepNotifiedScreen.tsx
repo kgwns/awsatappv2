@@ -52,6 +52,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
 
   const [notificationDate, setNotificationData] = useState(data)
   const [disableNext, setDisableNext] = useState<boolean>(true)
+  const [canGoBack, setCanGoBack] = useState((route.params && route.params.canGoBack)?true:false)
 
   const {
     sendSelectedInfoRequest, sendSelectedNotificationInfo,
@@ -61,6 +62,9 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
 
   useEffect(() => {
     getSelectedInfoRequest()
+    if (route.params && route.params.canGoBack) {
+      setCanGoBack(route.params.canBoBack)
+    }
   }, [])
 
   useEffect(() => {
@@ -79,6 +83,9 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
         title: '',
         message: sendSelectedNotificationInfo?.message?.message || ''
       })
+    }
+    if (route.params && route.params.canGoBack) {
+      setCanGoBack(route.params.canGoBack)
     }
   }, [sendSelectedNotificationInfo.message]);
 
@@ -140,10 +147,10 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
-        <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' },]}>
+      {!canGoBack && <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' },]}>
           <Label style={style.titleStyle} children={t('onBoard.keepNotified.title')} />
           <Label style={style.descStyle} children={t('onBoard.keepNotified.description')} />
-        </View>
+        </View>}
         <View style={style.contentStyle}>
           <KeepNotifiedWidget data={notificationDate} onPress={changeStatus} />
         </View>
