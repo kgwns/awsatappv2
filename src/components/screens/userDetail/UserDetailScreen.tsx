@@ -53,9 +53,12 @@ import {
   REQUIRE_ACCESS,
   DEFAULT_MINIMUM_DATE,
   CONST_PLEASE_ENTER_THE_NAME,
+  DEFAULT_ALERT_TITLE,
+  CONST_OK,
 } from 'src/constants/SharedConstants';
 import {useNewPassword} from 'src/hooks/useNewPassword';
 import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
+import { AlertModal } from 'src/components/organisms';
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -116,6 +119,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const OPEN_CAMERA_OPTION = t('profile.userDetail.openCameraOption');
   const OPEN_GALLERY_OPTION = t('profile.userDetail.chooseFromGallery');
   const CANCEL = t('profile.userDetail.cancelText');
+  const [showupUp,setShowPopUp] = useState(false)
 
   useEffect(() => {
     fetchProfileDataRequest();
@@ -285,8 +289,12 @@ export const UserDetailScreen: FunctionComponent = () => {
   const onPressConfirm = () => {
     isNotEmpty(name)
       ? sendUpdatedProfileInfo()
-      : CustomAlert({message: CONST_PLEASE_ENTER_THE_NAME});
+      : setShowPopUp(true);
   };
+
+  const onCloseSignUpAlert = () => {
+    setShowPopUp(false)
+  }
 
   const setDisableButton = () => {
     if(isNotEmpty(name)){
@@ -637,6 +645,14 @@ export const UserDetailScreen: FunctionComponent = () => {
         setIsAlertVisible={setIsAlertVisible}
         alertOnPress={onAlertOkPressed}
         alertPayload={alertPayload}>
+          {showupUp && <AlertModal
+          title={DEFAULT_ALERT_TITLE}
+          message={CONST_PLEASE_ENTER_THE_NAME}
+          buttonText={CONST_OK}
+          isVisible={true}
+          onPressSuccess={onCloseSignUpAlert}
+          onClose={onCloseSignUpAlert}
+        />}
         {renderOptionModal()}
         {renderTabBarComponent()}
         {tabContent()}
