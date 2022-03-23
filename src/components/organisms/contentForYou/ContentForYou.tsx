@@ -124,7 +124,6 @@ export const ContentForYou = () => {
         for(let i = 0; i < favouriteArticlesData.length; i++){
             let formattedData = {
                 ...shortArticleWithTagProperties,
-                titleColor: themeData.primaryBlack,
                 body: favouriteArticlesData[i].body,
                 flag: '',
                 title: favouriteArticlesData[i].title,
