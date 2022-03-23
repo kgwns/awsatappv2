@@ -69,8 +69,8 @@ const customStyle = (theme: CustomThemeType) => {
         container: {
             flex: 1,
             backgroundColor: theme.secondaryWhite,
-            height: normalize(140),
-            paddingVertical: normalize(10),
+            height: normalize(120),
+            paddingTop: normalize(10),
         },
         imageContainer: {
             width: normalize(92),

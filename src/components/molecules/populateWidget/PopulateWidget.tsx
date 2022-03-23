@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native'
 import { ScreensConstants } from 'src/constants'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { isNotEmpty } from 'src/shared/utils'
+import { Divider } from 'src/components/atoms'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -83,13 +84,16 @@ export const PopulateWidget = ({
             );
         case PopulateWidgetType.PODCAST:
             return (
-                <ArticlePodCastWidget
-                    {...props}
-                    onPressBookmark={onPressBookmark}
-                    onPress={() => {
-                        navigation.navigate(ScreensConstants.PodcastEpisode, { data: {...props},podcastListData: [] })
-                    }}
-                />
+                <>
+                    <ArticlePodCastWidget
+                        {...props}
+                        onPressBookmark={onPressBookmark}
+                        onPress={() => {
+                            navigation.navigate(ScreensConstants.PodcastEpisode, { data: { ...props }, podcastListData: [] })
+                        }}
+                    />
+                    <Divider style={{ marginBottom: 5 }} />
+                </>
             )
         default: return null
     }
