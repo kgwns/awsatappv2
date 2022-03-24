@@ -43,7 +43,7 @@ export const reTypePasswordValidation = (
   if (password === '') {
     return i18next.t('validation.passwordEmpty');
   }
-  if (password.length < 8) {
+  if (password.length < 5) {
     return i18next.t('validation.minLengthPassword');
   }
   if (password.length >20) {
