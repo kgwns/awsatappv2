@@ -5,7 +5,7 @@ import { normalize } from 'src/shared/utils';
 import { Styles } from '../../shared/styles';
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules';
 import { TextWithFlagProps } from 'src/components/atoms';
-import { decodeHTMLTags } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, isNotEmpty } from 'src/shared/utils/utilities';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
@@ -34,7 +34,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     <TouchableWithoutFeedback onPress={onPress}>
         <View style={[{ ...props.contentStyle }, !showDivider && {paddingBottom: normalize(10)}]}>
             <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
-            {body && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)} color={Styles.color.davyGrey} numberOfLines={3} />}
+            {isNotEmpty(body) && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)} color={Styles.color.davyGrey} numberOfLines={3} />}
             <View style={style.footerContainer}>
                 <ArticleFooter showFooterTitle={showFooterTitle} {...props.footerInfo}
                     onPress={onPressBookmark}

@@ -46,9 +46,9 @@ export const getImageUrl = (imageURL: string) => {
   return isValidHttpUrl(imageURL) ? imageURL : BASE_URL + imageURL;
 };
 
-export const decodeHTMLTags = (description: string) => {
+export const decodeHTMLTags = (description: string) : string => {
   const regex = /(<([^>]+)>)/gi; // to find the html tags in the description ex: <p>, <br>, etc.,
-  return description ? description.replace(regex, '') : description;
+  return isNotEmpty(description) ? description.replace(regex, '') : '';
 };
 
 export const isNonEmptyArray = (data: any): boolean => {
