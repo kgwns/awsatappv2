@@ -3,7 +3,7 @@ import { ArticleItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
 import { t } from 'i18next'
-import { normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { ArticleItemProps } from '../ArticleItem'
 import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
@@ -12,8 +12,7 @@ import { useNavigation } from '@react-navigation/native'
 import { ScreensConstants } from 'src/constants'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { isNotEmpty } from 'src/shared/utils'
-import { Divider } from 'src/components/atoms'
-import { CustomThemeType } from '~/shared/styles/colors'
+import { CustomThemeType } from 'src/shared/styles/colors'
 import { StyleSheet, View } from 'react-native'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
@@ -80,15 +79,17 @@ export const PopulateWidget = ({
             </View>
         case PopulateWidgetType.VIDEO:
             return (
-                <VideoItem {...props}
-                    isFirstItem={false}
-                    testID='video_screen_id'
-                    onPress={() => {
-                        navigation.navigate(ScreensConstants.VideoPlayerScreen,
-                            { mediaID: props.field_video_media_id_export, nid: props.nid })
-                    }}
-                    onPressBookmark={onPressBookmark}
-                />
+                <View style={style.videoContainer}>
+                    <VideoItem {...props}
+                        isFirstItem={false}
+                        testID='video_screen_id'
+                        onPress={() => {
+                            navigation.navigate(ScreensConstants.VideoPlayerScreen,
+                                { mediaID: props.field_video_media_id_export, nid: props.nid })
+                        }}
+                        onPressBookmark={onPressBookmark}
+                    />
+                </View>
             );
         case PopulateWidgetType.PODCAST:
             return (
@@ -100,7 +101,6 @@ export const PopulateWidget = ({
                             navigation.navigate(ScreensConstants.PodcastEpisode, { data: { ...props }, podcastListData: [] })
                         }}
                     />
-                    <Divider style={style.divider} />
                 </View>
             )
         default: return null
@@ -109,14 +109,13 @@ export const PopulateWidget = ({
 }
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
-    divider: {
-        height: 1,
-        backgroundColor: theme.dividerColor
-    },
     widgetContainer: {
         paddingHorizontal: 0.04 * screenWidth
     },
     podcastContainer: {
         backgroundColor: theme.secondaryWhite
+    },
+    videoContainer: {
+        paddingHorizontal: isTab ? normalize(15) : 0
     }
 })
