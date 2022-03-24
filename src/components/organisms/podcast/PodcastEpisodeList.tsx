@@ -59,7 +59,7 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
           <Label style={styles.textStyle} children={t('podcastProgram.episodes')} />
         </View>
         <View style={styles.headerRightStyle}>
-          <ArrowUpDown />
+          {/* <ArrowUpDown /> will enable this icon once mini player implementation started  */} 
         </View>
       </View>
       <View style={styles.containerStyle}>
