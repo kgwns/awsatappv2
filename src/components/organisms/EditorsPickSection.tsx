@@ -1,17 +1,20 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {flatListUniqueKey} from 'src/constants';
 import {Divider} from '../atoms';
 import {NewsWithImageItemProps} from '../molecules/podcast/NewsWithImageItem';
 import {SectionHeader} from '../molecules/podcast/SectionHeader';
 import {NewsWithImageItem} from '../molecules';
+import { CustomThemeType } from 'src/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
 interface EditorsPickSectionProps {
   data: NewsWithImageItemProps[];
 }
 
 export const EditorsPickSection = ({data}: EditorsPickSectionProps) => {
+  const style = useThemeAwareObject(customStyle)
   const renderItem = (item: NewsWithImageItemProps, index: number) => {
     return (
       <View key={flatListUniqueKey.EDITORS_PICK_WIDGET + index}>
@@ -39,9 +42,16 @@ export const EditorsPickSection = ({data}: EditorsPickSectionProps) => {
         data={data}
         renderItem={({item, index}) => renderItem(item, index)}
       />
-      <Divider />
+      <Divider style={style.divider}/>
     </View>
   );
 };
 
 export default EditorsPickSection;
+
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
+  divider: {
+      height: 1,
+      backgroundColor: theme.dividerColor
+  },
+});

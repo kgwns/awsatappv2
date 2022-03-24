@@ -64,6 +64,7 @@ export const colors = {
   whiteTransparent: '#FFFFFFF2',
   blackTransparent: '#000000F2',
   paleRed: '#F0F0F0',
+  nobelGray: '#959595'
 };
 
 export interface CustomThemeType {
@@ -94,6 +95,7 @@ export interface CustomThemeType {
   miniPlayerBackgroundColor: string,
   miniPlayerBorderColor: string,
   lightRed: string,
+  primaryNobel: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -127,6 +129,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   miniPlayerBackgroundColor: colors.whiteTransparent,
   miniPlayerBorderColor: colors.chineseWhite,
   lightRed: colors.paleRed,
+  primaryNobel: colors.nobelGray,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -157,5 +160,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   miniPlayerBackgroundColor: colors.blackTransparent,
   miniPlayerBorderColor:colors.onyx,
   lightRed:colors.nightBlack,
+  primaryNobel: colors.white,
 }
 

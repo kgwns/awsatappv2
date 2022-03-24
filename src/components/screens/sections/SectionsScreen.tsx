@@ -3,8 +3,10 @@ import analytics from '@react-native-firebase/analytics';
 import {OpinionScreen, ScreenContainer, VideoScreen, PodcastProgram, SectionStoryScreen} from '..';
 import {TabBarComponent} from 'src/components/molecules';
 import {horizontalEdge, recordCurrentScreen} from 'src/shared/utils';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {useTopMenu} from 'src/hooks';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { CustomThemeType } from 'src/shared/styles/colors';
 
 export enum TabType {
   home = 'home',
@@ -17,6 +19,7 @@ export enum TabType {
 export const SectionsScreen = () => {
   const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
   const {isLoading,topMenuData,fetchTopMenuRequest} = useTopMenu();
+  const style = useThemeAwareObject(customStyle)
   useEffect(() => { fetchTopMenuRequest(); }, []);
   const onPressTabItem = (index: number) => {
     topMenuData[tabSelectedIndex].isSelected = false;
@@ -26,7 +29,7 @@ export const SectionsScreen = () => {
   };
 
   const renderTabBarComponent = () => (
-    <TabBarComponent tabItem={topMenuData} onPressTabItem={onPressTabItem} />
+    <TabBarComponent tabItem={topMenuData} onPressTabItem={onPressTabItem} style={style.tabBarStyle}/>
   );
 
   const tabContent = () => {
@@ -51,3 +54,11 @@ export const SectionsScreen = () => {
     </ScreenContainer>
   );
 };
+const customStyle = (theme: CustomThemeType) => {
+  return StyleSheet.create({
+    tabBarStyle: {
+      borderBottomColor: theme.dividerColor,
+      borderBottomWidth: 1.2,
+    }
+  })
+}

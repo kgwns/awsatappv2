@@ -18,6 +18,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import { CustomThemeType } from 'src/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
 export interface SectionArticleItemProps {
   headerTitle?: string;
@@ -62,7 +64,7 @@ const SectionArticleItem = ({
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
     }
   };
-
+  const style = useThemeAwareObject(customStyle);
   const {themeData} = useTheme();
   return (
     <View
@@ -87,8 +89,8 @@ const SectionArticleItem = ({
       <View
         style={
           !hideFooter
-            ? articleFooterStyle.container
-            : articleFooterStyle.hideFooterContainer
+            ? style.container
+            : style.hideFooterContainer
         }>
         {!hideFooter && (
           <View style={{flexDirection: 'row'}}>
@@ -97,7 +99,7 @@ const SectionArticleItem = ({
               icon={leftIcon}
               color={leftTitleColor}
             />
-            <Text children={'|'} style={articleFooterStyle.verticalDivider} />
+            <Text children={'|'} style={style.verticalDivider} />
             <CaptionWithImage
               title={rightTitle}
               icon={rightIcon}
@@ -124,14 +126,14 @@ const SectionArticleItem = ({
         />
         )}
       </View>
-      <Divider />
+      <Divider style={style.divider}/>
     </View>
   );
 };
 
 export default SectionArticleItem;
 
-const articleFooterStyle = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -148,5 +150,9 @@ const articleFooterStyle = StyleSheet.create({
   verticalDivider: {
     color: Styles.color.silverChalice,
     paddingTop: normalize(2),
+  },
+  divider: {
+    height: 1,
+    backgroundColor: theme.dividerColor
   },
 });

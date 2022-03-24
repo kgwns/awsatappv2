@@ -105,7 +105,7 @@ const OpinionWritersCardView = ({
           />
         </View>
       </View>
-      <Divider />
+      <Divider style={style.divider}/>
     </TouchableOpacity>
   );
 };
@@ -170,6 +170,10 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.secondaryDavyGrey,
       marginLeft: normalize(10),
     },
+    divider: {
+      height: 1,
+      backgroundColor: theme.dividerColor
+    }
   });
   return OpinionWritersCardViewStyle;
 };

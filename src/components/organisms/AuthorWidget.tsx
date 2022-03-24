@@ -85,7 +85,7 @@ const AuthorWidget = ({
                 numColumns={numberOfColumn}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
-                ItemSeparatorComponent={() => <Divider style={{ marginBottom: normalize(20) }} />}
+                ItemSeparatorComponent={() => <Divider style={style.divider} />}
                 bounces={false}
             />
         </View>
@@ -109,7 +109,12 @@ const customStyle = (theme: CustomThemeType) => {
             paddingTop: normalize(20),
             paddingHorizontal: 0.04 * screenWidth,
             backgroundColor: theme.secondaryWhite
-        }
+        },
+        divider: {
+            marginBottom: normalize(20),
+            height: 1,
+            backgroundColor: theme.dividerColor
+        },
     })
     return authorWidgetStyle
 }

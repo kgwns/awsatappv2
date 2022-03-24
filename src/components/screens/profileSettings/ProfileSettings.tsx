@@ -227,6 +227,7 @@ const customStyle = (theme: CustomThemeType) =>
   StyleSheet.create({
       container:{
         marginTop:normalize(25),
+        paddingLeft: normalize(5)
       },
       listContainer: {
           marginHorizontal: 0.04 * screenWidth,
@@ -236,6 +237,7 @@ const customStyle = (theme: CustomThemeType) =>
           backgroundColor: Styles.color.greenishBlue,
           width: screenWidth,
           height: 1,
+          marginStart: 0.04 * screenWidth,
       },
       itemContainer: {
           flexDirection: 'row',

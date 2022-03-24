@@ -159,7 +159,7 @@ export const OpinionArticleDetailWidget = ({
         </View>}
         {articleHtmlContent()}
       </View>
-      <Divider />
+      <Divider style={style.divider}/>
     </View>
   );
 };
@@ -221,6 +221,10 @@ const customStyle = (theme: CustomThemeType) => {
       fontWeight: 'bold',
       color: Styles.color.black,
     },
+    divider: {
+      height: 1,
+      backgroundColor: theme.dividerColor
+  },
   });
   return OpinionArticleDetailWidgetStyle;
 };

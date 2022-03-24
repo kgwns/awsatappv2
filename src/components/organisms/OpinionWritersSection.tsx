@@ -67,7 +67,7 @@ const OpinionWritersSection = ({data}: OpinionWritersWidgetProps) => {
         renderItem={({item, index}) => renderItem(item, index)}
       />
       <View style={{paddingHorizontal: 0.04 * screenWidth}}>
-        <Divider />
+        <Divider style={style.divider}/>
       </View>
     </View>
   );
@@ -98,6 +98,10 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(10),
       color: theme.secondaryDavyGrey,
       lineHeight: normalize(14),
+    },
+    divider: {
+      height: 1,
+      backgroundColor: theme.dividerColor
     },
   });
   return OpinionWritersSectionStyle;

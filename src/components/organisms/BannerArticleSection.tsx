@@ -12,6 +12,8 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { getSvgImages } from 'src/shared/styles/svgImages'
+import { CustomThemeType } from 'src/shared/styles/colors'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
 export const sectionComboArticleFooter: articleFooterProps = {
     leftTitle: 'يتحمل',
@@ -41,6 +43,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const { themeData } = useTheme()
     const bannerData = [...data].splice(0, 4)
     const verticalArticleData = isTab ? [...data].splice(4, 2) : [...data].splice(1, 3)
+    const style = useThemeAwareObject(createStyles);
 
     const articleNewsItem = (item: articleProps, index: number) => {
         sectionComboArticleFooter.rightTitle = item.author
@@ -81,7 +84,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
                 {bannerData.map((item: articleProps, index: number) => {
                     if (isTab || index == 0) return <ImageArticle key={index} {...item}
                         onPressBookmark={() => onUpdateBookmark(item)}
-                        containerStyle={isTab ? bannerArticleSectionStyle.tabletImageStyle : {}}
+                        containerStyle={isTab ? style.tabletImageStyle : {}}
                         isTabFooterInside={isTab?false:true} />
                     return null
                 })}
@@ -97,9 +100,9 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     if (!isNonEmptyArray(data)) return null
 
     return (
-        <View style={[bannerArticleSectionStyle.container, isTab && bannerArticleSectionStyle.tabContainer]}>
-            {isDivider  && <Divider/>}
-            <View style={!isTab && bannerArticleSectionStyle.headerContainer}>
+        <View style={[style.container, isTab && style.tabContainer]}>
+            {isDivider  && <Divider style={style.divider}/>}
+            <View style={!isTab && style.headerContainer}>
                 <WidgetHeader {...widgetHeaderData} onPress={onPressMore} />
             </View>
             {listHeaderSection()}
@@ -107,7 +110,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
                 keyExtractor={(_, index) => index.toString()}
                 data={verticalArticleData}
                 listKey={flatListUniqueKey.BANNER_ARTICLE_LIST + new Date().getTime().toString()}
-                style={!isTab && bannerArticleSectionStyle.verticalList}
+                style={!isTab && style.verticalList}
                 horizontal={false}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => articleNewsItem(item, index)}
@@ -118,7 +121,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
 
 export default BannerArticleSection
 
-const bannerArticleSectionStyle = StyleSheet.create({
+const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         paddingTop: normalize(5)
     },
@@ -136,5 +139,9 @@ const bannerArticleSectionStyle = StyleSheet.create({
         width: 0.40 * screenWidth,
         height: 0.42 * screenWidth,
         paddingRight: normalize(20)
-    }
+    },
+    divider: {
+        height: 1,
+        backgroundColor: theme.dividerColor
+    },
 })

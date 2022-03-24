@@ -62,7 +62,7 @@ export const PodcastOpinionArticleSection = ({
         data={data}
         renderItem={() => makeColumn()}
       />
-      <Divider />
+      <Divider style={style.divider}/>
     </View>
   );
 };
@@ -73,6 +73,10 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
       width: '100%',
     },
+    divider: {
+      height: 1,
+      backgroundColor: theme.dividerColor
+  },
   });
   return PosdcasOpinionArticleSectionStyle;
 };

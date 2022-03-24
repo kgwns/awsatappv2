@@ -20,6 +20,8 @@ import {
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import { CustomThemeType } from 'src/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
 export interface NewsFeedProps {
   title: string;
@@ -43,6 +45,7 @@ interface NewsFeedWidgetProps {
 const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeedWidgetProps) => {
   const theme = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>();
+  const style = useThemeAwareObject(customStyle)
   const onPress = (nid: string) => {
     if (nid) {
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
@@ -79,7 +82,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
             />
           </View>
           <Label
-            style={NewsFeedStyle.descriptionStyle}
+            style={style.descriptionStyle}
             children={decodeHTMLTags(item.body)}
             numberOfLines={3}
           />
@@ -98,7 +101,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
             onPressBookmark={()=>{onUpdateNewsFeedBookmark(index)}}
           />
         </View>
-        <Divider />
+        <Divider style={style.divider}/>
         {isLoading && data.length - 1 == index && (
           <View style={{margin: normalize(28)}}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
@@ -109,9 +112,9 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   };
 
   return (
-    <View style={NewsFeedStyle.container}>
+    <View style={style.container}>
       <FlatList
-        style={NewsFeedStyle.listContainer}
+        style={style.listContainer}
         keyExtractor={(_, index) => index.toString()}
         listKey={flatListUniqueKey.NEWS_FEED + new Date().getTime().toString()}
         data={data}
@@ -132,7 +135,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
 
 export default NewsFeed;
 
-const NewsFeedStyle = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     paddingHorizontal: 0.04 * screenWidth,
   },
@@ -151,4 +154,8 @@ const NewsFeedStyle = StyleSheet.create({
     paddingVertical: normalize(20),
     lineHeight: normalize(18),
   },
+  divider: {
+    height: 1,
+    backgroundColor: theme.dividerColor
+},
 });

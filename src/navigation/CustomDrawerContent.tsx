@@ -200,7 +200,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
                 </View>
               );
             })}
-          <Divider />
+          <Divider style={styles.divider}/>
           <ButtonList
             title={t('drawer.advertiseWithUs')}
             onPress={() => onPressNavigation(
@@ -313,5 +313,9 @@ const createStyles = (theme: CustomThemeType) =>
     childDropdownItem: {
       borderBottomColor: theme.dividerColor,
       borderBottomWidth: 1 
-    }
+    },
+    divider: {
+      height: 1,
+      backgroundColor: theme.dividerColor
+  },
   });

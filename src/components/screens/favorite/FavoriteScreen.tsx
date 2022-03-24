@@ -10,6 +10,7 @@ import { Archives, ContentForYou } from 'src/components/organisms';
 import {useLogin} from 'src/hooks';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
+import { CustomThemeType } from 'src/shared/styles/colors';
 
 
 export const FavoriteScreen = () => {
@@ -99,11 +100,11 @@ export const FavoriteScreen = () => {
   );
 };
 
-const customStyle = () => {
+const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
     tabBarStyle: {
-      borderBottomColor: Styles.color.gableGreen,
-      borderBottomWidth: 1.2
+      borderBottomColor: theme.dividerColor,
+      borderBottomWidth: 1.2,
     }
   })
 }

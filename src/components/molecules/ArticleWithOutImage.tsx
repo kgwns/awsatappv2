@@ -6,6 +6,8 @@ import { Styles } from '../../shared/styles';
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules';
 import { TextWithFlagProps } from 'src/components/atoms';
 import { decodeHTMLTags } from 'src/shared/utils/utilities';
+import { CustomThemeType } from 'src/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
     body?: string,
@@ -26,27 +28,33 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     showDivider = true,
     showFooterTitle,
     ...props
-}) => (
+}) => {
+    const style = useThemeAwareObject(customStyle)
+    return (
     <TouchableWithoutFeedback onPress={onPress}>
         <View style={[{ ...props.contentStyle }, !showDivider && {paddingBottom: normalize(10)}]}>
             <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
             {body && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)} color={Styles.color.davyGrey} numberOfLines={3} />}
-            <View style={ArticleWithOutImageStyle.footerContainer}>
+            <View style={style.footerContainer}>
                 <ArticleFooter showFooterTitle={showFooterTitle} {...props.footerInfo}
                     onPress={onPressBookmark}
                     isBookmarked={isBookmarked}
                 />
             </View>
-            {showDivider && <Divider />}
+            {showDivider && <Divider style={style.divider}/>}
         </View>
     </TouchableWithoutFeedback>
-)
+    )}
 
 export default ArticleWithOutImage
 
-const ArticleWithOutImageStyle = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     footerContainer: {
         flex: 1,
         paddingTop: normalize(10),
+    },
+    divider: {
+        height: 1,
+        backgroundColor: theme.dividerColor
     },
 });

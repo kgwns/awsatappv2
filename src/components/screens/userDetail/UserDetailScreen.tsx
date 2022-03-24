@@ -772,7 +772,7 @@ const createStyles = (theme: CustomThemeType) =>
       color: theme.primaryLightGray,
     },
     tabBarStyle: {
-      borderBottomColor: colors.gableGreen,
+      borderBottomColor: theme.dividerColor,
       borderBottomWidth: 1.2,
     },
     inputStyle: {

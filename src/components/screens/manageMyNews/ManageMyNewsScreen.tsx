@@ -195,9 +195,10 @@ const customStyle = (theme: CustomThemeType) => {
   const ManageMyNewsScreenStyle = StyleSheet.create({
     container: {
       flex: 1,
+      paddingLeft: normalize(3)
     },
     favBooks: {
-      flex: 0.46,
+      flex: 0.47,
       paddingTop: 0.05 * screenHeight,
     },
     favTopics: {
