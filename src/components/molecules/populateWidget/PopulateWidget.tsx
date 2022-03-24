@@ -84,8 +84,8 @@ export const PopulateWidget = ({
                         isFirstItem={false}
                         testID='video_screen_id'
                         onPress={() => {
-                            navigation.navigate(ScreensConstants.VideoPlayerScreen,
-                                { mediaID: props.field_video_media_id_export, nid: props.nid })
+                            navigation.navigate(ScreensConstants.VideoDetailScreen,
+                                { data: props })
                         }}
                         onPressBookmark={onPressBookmark}
                     />
