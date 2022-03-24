@@ -18,7 +18,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {getImageUrl, timeAgo, isNotEmpty, isObjectNonEmpty} from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
-import Orientation from 'react-native-orientation-locker';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { ArticleFontSize } from '../screens/opinionArticleDetail/OpinionArticleDetail';
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
 import TrackPlayer, {State, usePlaybackState} from 'react-native-track-player';
@@ -40,11 +40,34 @@ export const OpinionArticleDetailWidget = ({
   const navigation = useNavigation();
   const [visibleMedia, setMediaVisibility] = useState(isNotEmpty(data.jwplayer));
   const playbackState = usePlaybackState();
+  const [getOrientation, setOrientation] = useState('')
+  
+  useEffect(() => {
+    Orientation.getDeviceOrientation(updateScreenEdge)
+    Orientation.addDeviceOrientationListener(updateScreenEdge)
+    return () => {
+      Orientation.removeOrientationListener(updateScreenEdge)
+    }
+  }, [])
 
-  const { narratedOpinionData,fetchNarratedOpinionData} =
+  const { narratedOpinionData, fetchNarratedOpinionData} =
     useOpinionArticleDetail();
 
   const [mediaData] = useState(narratedOpinionData)
+
+  const updateScreenEdge = (deviceOrientation: OrientationType) => {
+    switch (deviceOrientation) {
+      case 'LANDSCAPE-LEFT': 
+        setOrientation('LANDSCAPE')
+        break
+      case 'LANDSCAPE-RIGHT': 
+        setOrientation('LANDSCAPE')
+        break
+      default: 
+        setOrientation('PORTRAIT')
+        break
+    }
+  } 
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -117,7 +140,7 @@ export const OpinionArticleDetailWidget = ({
         <Image
           url={getImageUrl(data.writer[0].opinion_writer_photo)}
           style={style.image}
-          resizeMode="cover"
+          resizeMode={getOrientation == 'LANDSCAPE' ? 'contain' : 'cover'}
           backgroundColor={Styles.color.white}
           fallback={true}
         />
