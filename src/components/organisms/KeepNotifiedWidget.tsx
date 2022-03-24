@@ -32,7 +32,7 @@ const KeepNotifiedWidget = ({
           selected={item.selected}
           onPress={() => onPress(index)}
         />
-        <Divider style={style.divider}/>
+        {data.length !== index+1 &&  <Divider style={style.divider}/>}
       </View>
     );
   };
