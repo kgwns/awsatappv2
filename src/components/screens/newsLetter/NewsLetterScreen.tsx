@@ -178,6 +178,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
             title={t('onBoard.common.nextBtn')}
             onPress={onPressNext}
             style={style}
+            icon={!canGoBack}
           />}
         </View>
       </View>
