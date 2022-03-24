@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Keyboard, StyleSheet, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ScreensConstants } from '../constants/ScreenConstants';
 import { Routes } from './index';
@@ -50,7 +50,10 @@ const AppNavigator = () => {
   const onBoardReturn = () => (
     <TouchableOpacity
       style={style.onBoardReturn}
-      onPress={() => navigation.goBack()}>
+      onPress={() => {
+        Keyboard.dismiss()
+        navigation.goBack()
+         }}>
       <Label style={style.onBoardPrevTitle}>{t('onBoard.common.return')}</Label>
       {getSvgImages({
         name: ImagesName.returnGreenish,
