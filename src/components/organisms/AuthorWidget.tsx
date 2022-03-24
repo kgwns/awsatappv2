@@ -2,11 +2,10 @@ import { View, StyleSheet, FlatList, StyleProp, ViewStyle } from 'react-native'
 import React from 'react'
 import { WidgetHeader, Divider, LabelTypeProp,WidgetHeaderProps } from '../atoms'
 import { AuthorItem } from '../molecules'
-import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenWidth, isNotEmpty } from 'src/shared/utils'
 import { flatListUniqueKey } from '../../constants'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
-import { LatestOpinionDataType } from 'src/redux/latestNews/types'
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { getImageUrl } from 'src/shared/utils/utilities'
@@ -21,7 +20,7 @@ const AuthorWidget = ({
     widgetHeaderStyle,
     widgetHeaderContainerStyle
 }: {
-    data: LatestOpinionDataType[], listKey?: string,
+    data: any, listKey?: string,
     widgetHeader?: string,
     containerStyle?: StyleProp<ViewStyle>,
     widgetHeaderContainerStyle: StyleProp<ViewStyle>,
@@ -32,12 +31,13 @@ const AuthorWidget = ({
     const { themeData } = useTheme()
     const renderItem = (item: any, index: number) => (
         <AuthorItem body={item.title}  
+        mediaVisibility={isNotEmpty(data?.field_jwplayer_id_opinion_export)} 
         author={
             isNonEmptyArray(item.field_opinion_writer_node_export)
               ? item.field_opinion_writer_node_export[0].name
               : item.field_opinion_writer_node_export.opinion_writer_photo
           }
-        duration={'3:30'} 
+        duration={''} 
         image={
             isNonEmptyArray(item.field_opinion_writer_node_export)
               ? getImageUrl(

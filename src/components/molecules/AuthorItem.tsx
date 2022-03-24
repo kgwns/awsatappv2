@@ -20,7 +20,8 @@ export interface AuthorItemProps {
     duration: string,
     image: string,
     index?: number,
-    nid?: string
+    nid?: string,
+    mediaVisibility: boolean,
 }
 
 const AuthorItem = ({
@@ -29,7 +30,8 @@ const AuthorItem = ({
     duration,
     image,
     index,
-    nid
+    nid,
+    mediaVisibility,
 }: AuthorItemProps) => {
     const { themeData } = useTheme()
     const [t] = useTranslation();
@@ -48,7 +50,7 @@ const AuthorItem = ({
                     color={themeData.primary} numberOfLines={1} />
                 <Label children={body} labelType={LabelTypeProp.h3}
                     numberOfLines={1} style={style.body} />
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {mediaVisibility && <View style={style.mediaFooter}>
                     <ButtonImage
                         icon={() => {
                             return getSvgImages({
@@ -56,11 +58,11 @@ const AuthorItem = ({
                                 size: normalize(14),
                             });
                         }}
-                        onPress={() => console.log('Pressed :::::')} />
+                        onPress={onPress} />
                     <Label children={t('opinion.listenToActicleText')} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
                     <Label children={duration} style={style.durationLabel} />
-                </View>
+                </View>}
             </View>
             <View>
                 <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'}
@@ -95,5 +97,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingHorizontal: normalize(10),
         color: theme.primary
 
+    },
+    mediaFooter: {
+        flexDirection: 'row',
+        alignItems: 'center' 
     }
 })
