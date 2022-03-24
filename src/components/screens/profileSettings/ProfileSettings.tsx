@@ -4,14 +4,15 @@ import {
   FlatList,
   ListRenderItem,
   TouchableOpacity,
+  Text
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants } from 'src/constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { horizontalAndBottomEdge, horizontalEdge, isDarkTheme, isNotEmpty, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isDarkTheme, isNotEmpty, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { ButtonImage, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -185,7 +186,7 @@ export const ProfileSettings = () => {
   };
 
   const welcomeView = () => (
-      <View style={style.title}>
+      <Text style={style.title}>
           <Label
               children={CONST_WELCOME}
               style={style.welcome}
@@ -197,9 +198,8 @@ export const ProfileSettings = () => {
                   :userProfileData.user?.email}
               style={style.userName}
               labelType={LabelTypeProp.h1}
-              numberOfLines={1}
           />
-      </View>
+      </Text>
   );
 
   return (
@@ -257,7 +257,6 @@ const customStyle = (theme: CustomThemeType) =>
           marginTop: 0,
       },
       title: {
-          flexDirection: 'row',
           alignItems: 'center',
           marginHorizontal: 0.04 * screenWidth,
           paddingBottom: normalize(10),
