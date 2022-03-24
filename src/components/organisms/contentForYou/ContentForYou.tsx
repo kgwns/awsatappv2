@@ -14,6 +14,8 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { normalize } from 'react-native-elements';
+import { CustomThemeType } from 'src/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
 
 interface AllContentData {
@@ -57,6 +59,7 @@ export const ContentForYou = () => {
         },
     };
     const navigation = useNavigation<StackNavigationProp<any>>()
+    const styles = useThemeAwareObject(customStyles)
 
     useEffect(() => {
         emptyAllData();
@@ -225,14 +228,20 @@ export const ContentForYou = () => {
     const renderContentForYou = (item: AllContentData, index: number) => (
         <View key={flatListUniqueKey.CONTENT_FOR_YOU + index} style={styles.spaceStyle}>
             {/* <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} /> */}
-            {item.opinionsData.data.length>0 && <AuthorWidget
+            {item.opinionsData.data.length > 0 && <AuthorWidget
                 widgetHeader={t('favorite.articles_from_your_favorite_writers')}
-                listKey={flatListUniqueKey.CONTENT_FOR_YOU+'authorWidget'+index}
+                listKey={flatListUniqueKey.CONTENT_FOR_YOU + 'authorWidget' + index}
                 data={item.opinionsData.data}
-            />}
-            {item.articleSectionData.data.length>0 && <View style={{paddingHorizontal: 0.04 * screenWidth}}>
-                <WidgetHeader {...widgetHeaderData} />
-            </View>}
+                containerStyle={{ paddingTop: 0 }}
+                widgetHeaderContainerStyle={styles.authorWidgetContainer}
+                widgetHeaderStyle={styles.authorWidgetHeader}
+            />
+            }
+            {isNonEmptyArray(item.articleSectionData.data) &&
+                <View style={styles.articleWidgetHeader}>
+                    <WidgetHeader {...widgetHeaderData} />
+                </View>
+            }
             {/* <View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <FavoriteVideo data={videoArchiveData} />
             </View> */}
@@ -292,7 +301,7 @@ export const ContentForYou = () => {
     )
 }
 
-const styles = StyleSheet.create({
+const customStyles = (theme: CustomThemeType) => StyleSheet.create({
     contentContainer: {
         flex: 1
     },
@@ -311,5 +320,17 @@ const styles = StyleSheet.create({
     spaceStyle: {
         flex: 1,
         paddingVertical: normalize(10),
+    },
+    authorWidgetContainer: {
+        paddingHorizontal: 0,
+        paddingTop: normalize(20),
+        backgroundColor: theme.backgroundColor
+    },
+    authorWidgetHeader: {
+        paddingHorizontal: 0.04 * screenWidth
+    },
+    articleWidgetHeader: {
+        paddingHorizontal: 0.04 * screenWidth,
+        backgroundColor: theme.backgroundColor
     }
 })

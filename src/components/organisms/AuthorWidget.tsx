@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList } from 'react-native'
+import { View, StyleSheet, FlatList, StyleProp, ViewStyle } from 'react-native'
 import React from 'react'
 import { WidgetHeader, Divider, LabelTypeProp,WidgetHeaderProps } from '../atoms'
 import { AuthorItem } from '../molecules'
@@ -13,7 +13,20 @@ import { getImageUrl } from 'src/shared/utils/utilities'
 
 
 
-const AuthorWidget = ({data,listKey,widgetHeader}: { data: LatestOpinionDataType[], listKey?: string, widgetHeader?: string }) => {
+const AuthorWidget = ({
+    data,
+    listKey,
+    widgetHeader,
+    containerStyle,
+    widgetHeaderStyle,
+    widgetHeaderContainerStyle
+}: {
+    data: LatestOpinionDataType[], listKey?: string,
+    widgetHeader?: string,
+    containerStyle?: StyleProp<ViewStyle>,
+    widgetHeaderContainerStyle: StyleProp<ViewStyle>,
+    widgetHeaderStyle?: StyleProp<ViewStyle>
+}) => {
     const style = useThemeAwareObject(customStyle)
     const [t] = useTranslation()
     const { themeData } = useTheme()
@@ -60,8 +73,10 @@ const AuthorWidget = ({data,listKey,widgetHeader}: { data: LatestOpinionDataType
     const numberOfColumn = isTab ? 2 : 1
     if(!isNonEmptyArray(data)) return null
     return (
-        <View style={style.container}>
-            <WidgetHeader {...widgetHeaderData} />
+        <View style={StyleSheet.flatten([style.container,containerStyle])}>
+            <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>
+                <WidgetHeader {...widgetHeaderData} widgetHeaderStyle={widgetHeaderStyle} />
+            </View>
             <FlatList
                 style={style.listContainer}
                 keyExtractor={(_, index) => index.toString()}
@@ -82,13 +97,18 @@ export default AuthorWidget
 const customStyle = (theme: CustomThemeType) => {
     const authorWidgetStyle = StyleSheet.create({
         container: {
-            paddingHorizontal: 0.04 * screenWidth,
             paddingVertical: normalize(20),
+            backgroundColor: theme.secondaryWhite
+        },
+        headerContainer: {
+            paddingHorizontal: 0.04 * screenWidth,
             backgroundColor: theme.secondaryWhite
         },
         listContainer: {
             flex: 1,
-            paddingTop: normalize(20)
+            paddingTop: normalize(20),
+            paddingHorizontal: 0.04 * screenWidth,
+            backgroundColor: theme.secondaryWhite
         }
     })
     return authorWidgetStyle

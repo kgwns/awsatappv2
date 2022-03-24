@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import React from 'react'
 import { LabelTypeProp } from '..'
 import { WidgetHeaderElement } from '../index'
@@ -16,17 +16,26 @@ export interface WidgetHeaderProps {
     headerLeft?: HeaderElementProps,
     headerRight?: HeaderElementProps,
     onPress? : () => void,
+    widgetHeaderStyle?: StyleProp<ViewStyle>
 }
 
 export const WidgetHeader = ({
     headerLeft,
     headerRight,
-    onPress
+    onPress,
+    widgetHeaderStyle
 }: WidgetHeaderProps) => {
     return (
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <View style={StyleSheet.flatten([styles.container,widgetHeaderStyle])}>
             {headerLeft && <WidgetHeaderElement {...headerLeft} />}
             {headerRight && <WidgetHeaderElement {...headerRight} onPress={onPress} />}
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    }
+})
