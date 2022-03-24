@@ -138,8 +138,8 @@ export const ContentForYou = () => {
             if(i<2){
                 formatArticleSectionData.push(formattedData)
             }else{
-                formattedData.image = favouriteArticlesData[i].field_image
-                formattedData.flag= favouriteArticlesData[i].field_news_categories_export?.title,
+                formattedData.image = favouriteArticlesData[i].field_image;
+                formattedData.flag= favouriteArticlesData[i].field_news_categories_export?.title;
                 formatShortArticleData.push(formattedData)
             }
         }

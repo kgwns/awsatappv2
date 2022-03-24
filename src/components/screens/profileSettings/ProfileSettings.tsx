@@ -110,7 +110,7 @@ export const ProfileSettings = () => {
         setIsAlertVisible(true);
       } else {
           const params = (item.title === CONST_MY_NEWS_LETTER || item.title === CONST_MANAGE_NOTIFICATION) ? {canGoBack: true} : {};
-          (item.screenName.length > 0) ? navigation.navigate(item.screenName,params) : {}
+          item.screenName.length > 0 && navigation.navigate(item.screenName, params)
       }
   }
 
