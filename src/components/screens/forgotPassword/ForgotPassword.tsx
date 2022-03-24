@@ -12,13 +12,13 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useTranslation } from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
-import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import MailAnimation from '../../../assets/lottie-animation/mail.json';
 import LottieView from 'lottie-react-native';
 import { NavigateTypes } from '../auth/AuthPage';
 import { useLogin } from 'src/hooks';
 import { openInbox } from "react-native-email-link";
 import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
+import BackIcon from 'src/assets/images/icons/back_icon.svg';
 
 
 export const ForgotPassword: FunctionComponent = () => {
@@ -81,7 +81,7 @@ export const ForgotPassword: FunctionComponent = () => {
           testID="signin_skip"
           accessibilityLabel="signin_skip"
           onPress={onPressBack}>
-          <ReturnArrow style={styles.prevIconStyle} fill={colors.spanishGray} />
+          <BackIcon style={styles.prevIconStyle} fill={colors.spanishGray} />
           <Label
             children={t('onBoard.common.return')}
             style={styles.prevTitleStyle}
@@ -236,6 +236,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: normalize(13),
       lineHeight: normalize(16),
       color: colors.spanishGray,
+      paddingRight: normalize(5)
     },
     buttonLabelStyle: {
       paddingHorizontal: normalize(30),

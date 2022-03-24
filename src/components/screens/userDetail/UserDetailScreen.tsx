@@ -105,8 +105,8 @@ export const UserDetailScreen: FunctionComponent = () => {
   const ok = t('common.ok');
   const success = t('profile.userDetail.success');
   const [isDisableDate, setDisableDate] = useState(false)
-  let disableName = false
-  let disableOccupation = false
+  const [isDisableName, setDisableName] = useState(false)
+  const [isDisableOccupation, setDisableOccupation] = useState(false)
   const passwordChangedSuccessfully = t(
     'profile.userDetail.passwordChangedSuccessfully',
   );
@@ -166,6 +166,22 @@ export const UserDetailScreen: FunctionComponent = () => {
       setUserName(name);
     }
   }, []);
+
+  useEffect(()=>{
+    if(isNotEmpty(name)){
+      setDisableName(!(userProfileData.user?.name == name))
+    }
+    else{
+      setDisableName(false)
+    }
+    if(isNotEmpty(occupation)){
+      setDisableOccupation(!(userProfileData.user?.occupation == occupation))
+    }
+    else{
+      setDisableOccupation(false)
+    }
+    
+  }, [name, occupation]);
 
   useEffect(() => {
     const message = changePasswordData?.message;
@@ -296,14 +312,6 @@ export const UserDetailScreen: FunctionComponent = () => {
     setShowPopUp(false)
   }
 
-  const setDisableButton = () => {
-    if(isNotEmpty(name)){
-      disableName = !(userProfileData.user?.name == name)
-    }
-    if(isNotEmpty(occupation)){
-      disableOccupation = !(userProfileData.user?.occupation == occupation)
-    }
-  }
 
   const sendUpdatedProfileInfo = () => {
     sendUserProfileInfo({
@@ -429,9 +437,8 @@ export const UserDetailScreen: FunctionComponent = () => {
             style={styles.nameInputStyle}
           />
         </View>
-        {setDisableButton()}
         <ButtonOutline
-          isDisable={!(disableName || isDisableDate || disableOccupation)}
+          isDisable={!(isDisableName || isDisableDate || isDisableOccupation)}
           style={styles.updateButton}
           labelStyle={styles.updateButtonLabel}
           title={t('profile.userDetail.updateButtonText')}
