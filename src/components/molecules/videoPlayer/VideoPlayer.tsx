@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useRef, useState, useEffect} from 'react';
-import {View, StyleSheet, I18nManager} from 'react-native';
+import {View, StyleSheet, I18nManager, BackHandler} from 'react-native';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors} from 'src/shared/styles/colors';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
@@ -29,11 +29,26 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
 
   const goBackToScreen = () =>{
     if(goBack){
+      setIsPaused(true)
       goBack()
     }
   }
   useEffect(() => {
     if(videoUrl&&typeof videoUrl==='string') setvideoUrl(videoUrl.trim())
+  }, []);
+
+  useEffect(() => {
+    const backAction = () => {
+      setIsPaused(true)
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
   }, []);
 
   useEffect(() => {
