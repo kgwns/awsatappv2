@@ -35,24 +35,3 @@ index 7927a5c..87878b7 100644
                },
              ]}
              pointerEvents={'none'}
-diff --git a/node_modules/react-native-video-controls/assets/img/volume.png b/node_modules/react-native-video-controls/assets/img/volume.png
-index 506b8b0..9bdeb8c 100644
-Binary files a/node_modules/react-native-video-controls/assets/img/volume.png and b/node_modules/react-native-video-controls/assets/img/volume.png differ
-diff --git a/node_modules/react-native-video-controls/assets/img/volume@2x.png b/node_modules/react-native-video-controls/assets/img/volume@2x.png
-index 4baafbc..8664581 100644
-Binary files a/node_modules/react-native-video-controls/assets/img/volume@2x.png and b/node_modules/react-native-video-controls/assets/img/volume@2x.png differ
-diff --git a/node_modules/react-native-video-controls/assets/img/volume@3x.png b/node_modules/react-native-video-controls/assets/img/volume@3x.png
-index 4a330fb..2678db9 100644
-Binary files a/node_modules/react-native-video-controls/assets/img/volume@3x.png and b/node_modules/react-native-video-controls/assets/img/volume@3x.png differ
-diff --git a/node_modules/react-native-video-controls/assets/img/volume_mute.png b/node_modules/react-native-video-controls/assets/img/volume_mute.png
-new file mode 100644
-index 0000000..561172d
-Binary files /dev/null and b/node_modules/react-native-video-controls/assets/img/volume_mute.png differ
-diff --git a/node_modules/react-native-video-controls/assets/img/volume_mute@2x.png b/node_modules/react-native-video-controls/assets/img/volume_mute@2x.png
-new file mode 100644
-index 0000000..2ef3dc0
-Binary files /dev/null and b/node_modules/react-native-video-controls/assets/img/volume_mute@2x.png differ
-diff --git a/node_modules/react-native-video-controls/assets/img/volume_mute@3x.png b/node_modules/react-native-video-controls/assets/img/volume_mute@3x.png
-new file mode 100644
-index 0000000..57d1c30
-Binary files /dev/null and b/node_modules/react-native-video-controls/assets/img/volume_mute@3x.png differ
