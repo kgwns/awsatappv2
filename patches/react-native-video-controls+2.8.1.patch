@@ -1,0 +1,46 @@
+diff --git a/node_modules/react-native-video-controls/VideoPlayer.js b/node_modules/react-native-video-controls/VideoPlayer.js
+index 7927a5c..faddce5 100644
+--- a/node_modules/react-native-video-controls/VideoPlayer.js
++++ b/node_modules/react-native-video-controls/VideoPlayer.js
+@@ -549,10 +549,10 @@ export default class VideoPlayer extends Component {
+    * or duration. Formatted to look as 00:00.
+    */
+   calculateTime() {
+-    if (this.state.showTimeRemaining) {
+-      const time = this.state.duration - this.state.currentTime;
+-      return `-${this.formatTime(time)}`;
+-    }
++    // if (this.state.showTimeRemaining) {
++    //   const time = this.state.duration - this.state.currentTime;
++    //   return `-${this.formatTime(time)}`;
++    // }
+ 
+     return this.formatTime(this.state.currentTime);
+   }
+@@ -1035,7 +1035,7 @@ export default class VideoPlayer extends Component {
+           {...this.player.volumePanResponder.panHandlers}>
+           <Image
+             style={styles.volume.icon}
+-            source={require('./assets/img/volume.png')}
++            source={(this.state.volume === 0) ? require('../../patches/assets/img/volume_mute.png') : require('../../patches/assets/img/volume.png')}
+           />
+         </View>
+       </View>
+@@ -1122,7 +1122,7 @@ export default class VideoPlayer extends Component {
+               styles.seekbar.fill,
+               {
+                 width: this.state.seekerFillWidth,
+-                backgroundColor: this.props.seekColor || '#FFF',
++                backgroundColor: this.props.seekColor || '#333',
+               },
+             ]}
+             pointerEvents={'none'}
+diff --git a/node_modules/react-native-video-controls/assets/img/volume_mute.png b/node_modules/react-native-video-controls/assets/img/volume_mute.png
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-video-controls/assets/img/volume_mute@2x.png b/node_modules/react-native-video-controls/assets/img/volume_mute@2x.png
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-video-controls/assets/img/volume_mute@3x.png b/node_modules/react-native-video-controls/assets/img/volume_mute@3x.png
+new file mode 100644
+index 0000000..e69de29

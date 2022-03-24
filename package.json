@@ -9,7 +9,8 @@
     "test": "jest",
     "lint": "eslint .",
     "precommit": "prettier --write . && tsc && eslint .",
-    "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.host.url=$host -Dsonar.login=$login"
+    "sonar-scanner": "node_modules/sonar-scanner/bin/sonar-scanner -Dsonar.host.url=$host -Dsonar.login=$login",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.1.5",
@@ -36,6 +37,8 @@
     "lottie-ios": "3.2.3",
     "lottie-react-native": "^5.0.1",
     "moment": "^2.29.1",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "prop-types": "^15.7.2",
     "react": "17.0.2",
     "react-i18next": "^11.14.3",
