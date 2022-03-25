@@ -65,7 +65,12 @@ const AppNavigator = () => {
   );
 
   return (
-    <Stack.Navigator initialRouteName={ScreensConstants.LatestNewsScreen}>
+    <Stack.Navigator initialRouteName={ScreensConstants.LatestNewsScreen}
+      screenOptions={({ navigation }) => {
+        return {
+          detachPreviousScreen: !navigation.isFocused(),
+        }
+      }}>
       <Stack.Screen
         name={ScreensConstants.HOME_SCREEN}
         component={DrawerNavigator}

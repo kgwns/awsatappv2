@@ -5,6 +5,7 @@ import {horizontalEdge} from 'src/shared/utils';
 import {useSectionArticles} from 'src/hooks';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {SectionArticlesBodyGet} from 'src/redux/sectionArticles/types';
+import { LoadingState } from 'src/components/atoms';
 
 export const SectionArticlesScreen = () => {
   const {params} = useRoute<RouteProp<any>>();
@@ -37,6 +38,7 @@ export const SectionArticlesScreen = () => {
   return (
     <ScreenContainer edge={horizontalEdge} showHeader={true} headerTitle={params?.title}>
       {
+      isLoading ? <LoadingState/> :
         <MostReadList
           data={sectionArticlesData}
           onScroll={onScroll}
