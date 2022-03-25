@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { normalize } from 'react-native-elements'
 import { Styles } from '../../../shared/styles'
@@ -6,7 +6,6 @@ import { ButtonImage } from '../../atoms'
 import { ImagesName } from '../../../shared/styles/images'
 import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 export interface SectionVideoFooterProps {
   leftTitle?: string,
@@ -41,7 +40,7 @@ const SectionVideoFooter = ({
   isBookmarked,
   onPressBookmark,
 }: SectionVideoFooterProps) => {
-  
+  const bookmarkIcon = isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG
   return (
     <View style={{ ...SectionVideoFooterStyle.container, ...style }}>
       <View style={{ flexDirection: 'row' }}>
@@ -53,15 +52,11 @@ const SectionVideoFooter = ({
       <ButtonImage
             testId={'bookmarkTestId'}
             icon={() => {
-              return isBookmarked
-                ? getSvgImages({
-                    name: ImagesName.bookMarkActiveSVG,
-                    size: normalize(15),
-                  })
-                : getSvgImages({
-                    name: ImagesName.bookMarkSVG,
-                    size: normalize(15),
-                  });
+              return getSvgImages({
+                name: bookmarkIcon,
+                width: normalize(10),
+                height: normalize(15)
+              });
             }}
             onPress={onPressBookmark}
           />

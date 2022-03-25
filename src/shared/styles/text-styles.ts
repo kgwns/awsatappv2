@@ -57,7 +57,7 @@ export const textStyles = (theme: CustomThemeType) => {
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(13),
       fontWeight: FontWeight.BOLD,
-      lineHeight: normalize(13),
+      lineHeight: normalize(16),
       textAlign: TextAlign.LEFT,
       color: colors.greyDark,
     },

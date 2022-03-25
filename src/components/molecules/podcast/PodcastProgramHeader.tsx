@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
-import {Image, Label, ButtonImage} from 'src/components/atoms';
+import {Image, Label, ButtonImage, LabelTypeProp} from 'src/components/atoms';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
@@ -43,12 +43,12 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
     return (
       <TouchableOpacity testID={headerBackIconTestId} accessibilityLabel={headerBackIconTestId} onPress={onGoBack}>
         <View style={styles.itemContainer}>
-          {isCloseIcon?
-          <CloseIcon height={13} width={13}  fill={colors.white} />:
-          <View style={styles.itemContainer}> 
-            <BackIcon fill={colors.white} width={normalize(15)} height={normalize(15)}/>
-            <Label style={styles.labelStyle} children={t('podcastProgram.return')} />
-          </View>
+          {isCloseIcon ?
+            <CloseIcon height={13} width={13} fill={colors.white} /> :
+            <View style={styles.itemContainer}>
+              <BackIcon fill={colors.white} width={normalize(13)} height={normalize(11)} />
+              <Label style={styles.labelStyle} children={t('podcastProgram.return')} labelType={LabelTypeProp.h4} />
+            </View>
           }
         </View>
       </TouchableOpacity>
