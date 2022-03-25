@@ -1,8 +1,36 @@
 diff --git a/node_modules/react-native-video-controls/VideoPlayer.js b/node_modules/react-native-video-controls/VideoPlayer.js
-index 7927a5c..faddce5 100644
+index 7927a5c..20fdc82 100644
 --- a/node_modules/react-native-video-controls/VideoPlayer.js
 +++ b/node_modules/react-native-video-controls/VideoPlayer.js
-@@ -549,10 +549,10 @@ export default class VideoPlayer extends Component {
+@@ -13,8 +13,10 @@ import {
+   View,
+   Text,
+   I18nManager,
++  Dimensions,
+ } from 'react-native';
+ import padStart from 'lodash/padStart';
++import { ScreenWidth } from 'react-native-elements/dist/helpers';
+ 
+ export default class VideoPlayer extends Component {
+   static defaultProps = {
+@@ -61,7 +63,7 @@ export default class VideoPlayer extends Component {
+       seekerFillWidth: 0,
+       showControls: this.props.showOnStart,
+       volumePosition: 0,
+-      seekerPosition: 0,
++      seekerPosition: Dimensions.get('window').width - 40,
+       volumeOffset: 0,
+       seekerOffset: 0,
+       seeking: false,
+@@ -233,7 +235,6 @@ export default class VideoPlayer extends Component {
+ 
+       if (!state.seeking) {
+         const position = this.calculateSeekerPosition();
+-        // console.log(position);
+         this.setSeekerPosition(position);
+       }
+ 
+@@ -549,11 +550,12 @@ export default class VideoPlayer extends Component {
     * or duration. Formatted to look as 00:00.
     */
    calculateTime() {
@@ -15,9 +43,11 @@ index 7927a5c..faddce5 100644
 +    //   return `-${this.formatTime(time)}`;
 +    // }
  
++    // console.log('this.state.currentTime',this.state.currentTime)
      return this.formatTime(this.state.currentTime);
    }
-@@ -1035,7 +1035,7 @@ export default class VideoPlayer extends Component {
+ 
+@@ -1035,7 +1037,7 @@ export default class VideoPlayer extends Component {
            {...this.player.volumePanResponder.panHandlers}>
            <Image
              style={styles.volume.icon}
@@ -26,7 +56,16 @@ index 7927a5c..faddce5 100644
            />
          </View>
        </View>
-@@ -1122,7 +1122,7 @@ export default class VideoPlayer extends Component {
+@@ -1112,7 +1114,7 @@ export default class VideoPlayer extends Component {
+         collapsable={false}
+         {...this.player.seekPanResponder.panHandlers}>
+         <View
+-          style={styles.seekbar.track}
++          style={[styles.seekbar.track, (this.state.currentTime == 0) && { backgroundColor: '#333' }]}
+           onLayout={event =>
+             (this.player.seekerWidth = event.nativeEvent.layout.width)
+           }
+@@ -1122,7 +1124,7 @@ export default class VideoPlayer extends Component {
                styles.seekbar.fill,
                {
                  width: this.state.seekerFillWidth,
