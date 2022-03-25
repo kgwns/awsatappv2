@@ -14,6 +14,7 @@ import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/ty
 import { useNavigation } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { getPodcastUrl } from 'src/shared/utils/utilities';
+import { Styles } from 'src/shared/styles';
 
 export interface PodcastEpisodeProps {
   route: any
@@ -251,6 +252,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   )
   return (
     <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading}
+      statusbarColor={Styles.color.codGray}
       isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={{ height: insets.top, backgroundColor: colors.black }} />
       <FlatList
