@@ -5,12 +5,14 @@ import {Image} from 'src/components/atoms';
 import {Label} from 'src/components/atoms';
 import {isTab, normalize, screenHeight, screenWidth} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {ImagesName} from 'src/shared/styles';
+import {ImagesName, Styles} from 'src/shared/styles';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ScreenHeight} from 'react-native-elements/dist/helpers';
+import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
+import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
 
 export interface FollowFavoriteAuthorProps {
   authorName: string;
@@ -33,6 +35,7 @@ const FollowFavoriteAuthor = ({
 }: FollowFavoriteAuthorProps) => {
   const [isSelectedState, setIsSelectedState] = useState(isSelected);
   const changeStatus = () => {
+    console.log(authorImage)
     if(clickable){
     onPress(!isSelectedState);
     setIsSelectedState(!isSelectedState);}
@@ -57,7 +60,12 @@ const FollowFavoriteAuthor = ({
               type="round"
               size={isTab ? normalize(tabSize) : normalize(size)}
               resizeMode="cover"
-              backgroundColor={theme.themeData.secondaryDavyGrey}
+              fallback={true}
+              fallbackContent={
+                <AuthorDefaultGrey
+                style={{ backgroundColor: Styles.color.silverChalice }}
+                width={isTab ? normalize(tabSize) : normalize(size)}
+                height={isTab ? normalize(tabSize) : normalize(size)}/>}
             />
           </Grayscale>
         ) : (
@@ -66,8 +74,12 @@ const FollowFavoriteAuthor = ({
             type="round"
             size={isTab ? normalize(tabSize) : normalize(size)}
             resizeMode="cover"
-            backgroundColor={theme.themeData.secondaryDavyGrey}
-          />
+              fallback={true}
+              fallbackContent={<AuthorDefault
+                style={{ backgroundColor: Styles.color.cyanGreen }}
+                width={isTab ? normalize(tabSize) : normalize(size)}
+                height={isTab ? normalize(tabSize) : normalize(size)} />}
+            />
         )}
         <View style={style.tickIconContainer}>
           {clickable &&

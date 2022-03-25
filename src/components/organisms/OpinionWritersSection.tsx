@@ -13,7 +13,7 @@ import {OpinionWriterItemType} from 'src/redux/writers/types';
 import {useTranslation} from 'react-i18next';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import { Styles } from 'src/shared/styles';
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
+import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
 
 interface OpinionWritersWidgetProps {
   data: OpinionWriterItemType[];
@@ -38,8 +38,8 @@ const OpinionWritersSection = ({data}: OpinionWritersWidgetProps) => {
                 type="round"
                 resizeMode="cover"
                 fallback={true}
-                fallbackContent={<AuthorDefault
-                style={{backgroundColor:Styles.color.cyanGreen}}
+                fallbackContent={<AuthorDefaultGrey
+                style={{ backgroundColor:Styles.color.silverChalice }}
                 width={normalize(54)} 
                 height={normalize(54)}/>}
               />

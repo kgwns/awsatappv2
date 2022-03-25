@@ -45,7 +45,7 @@ export const GET_SELECTED_AUTHORS_ENDPOINT = 'api/ums/v1/getFavoriteAuthor';
 
 //all site categories
 export const ALL_SITE_CATEGORIES_ENDPOINT = "/api/v2/sections/news_categories";
-export const GET_SELECTED_TOPICS_ENDPOINT = 'api/ums/v1/getYourTopics';
+export const GET_SELECTED_TOPICS_ENDPOINT = 'api/ums/v1/getFavoriteTopics';
 
 export const INFO = '/api/v2/info/'
 
