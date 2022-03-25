@@ -76,6 +76,8 @@ export enum ImagesName {
   returnBlackSvg = 'returnBlackSvg',
   playerCloseIcon = 'playerCloseIcon',
   pauseIcon = 'pauseIcon',
+  leftArrowIcon = 'leftArrowIcon',
+  downArrowIcon = 'downArrowIcon',
 }
 
 export const images = {

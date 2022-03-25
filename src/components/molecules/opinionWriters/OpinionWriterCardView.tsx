@@ -163,6 +163,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(36),
       color: theme.primary,
       marginLeft: normalize(10),
+      fontWeight: 'bold'
     },
     duration: {
       fontSize: normalize(12),
