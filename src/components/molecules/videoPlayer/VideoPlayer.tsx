@@ -82,9 +82,6 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   const onLoad = () => {
     setIsLoading(false);
   };
-  const onBuffer = (data:any) => {
-    console.log(data,'buffering');
-  };
 
   return (
     <ScreenContainer barStyle={'light-content'} statusbarColor={colors.black} edge={edge} >
@@ -100,7 +97,6 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
           onLoadStart={onLoadStart}
           onLoad={onLoad}
           onError={goBackToScreen}
-          onBuffer={onBuffer}
           paused={isPaused}
           navigator={navigation}
           onBack={goBackToScreen}
