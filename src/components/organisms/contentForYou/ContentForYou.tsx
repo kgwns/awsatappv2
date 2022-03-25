@@ -249,7 +249,7 @@ export const ContentForYou = () => {
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'articleSection'+index}
                 data={item.articleSectionData.data}
                 showFooterTitle={false}
-                showDivider={false}
+                isFromFavorites={true}
                 onUpdateBookmark={updateBookmarkInfo}
             />}
             {item.shortArticleData.data.length>0 && <ShortArticle

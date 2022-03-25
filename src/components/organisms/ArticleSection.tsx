@@ -22,6 +22,7 @@ export interface ArticleSectionProps {
     listKey?: string,
     showDivider?: boolean,
     showFooterTitle?: boolean,
+    isFromFavorites?: boolean
 }
 
 export const articleFooterDataSet: articleFooterProps = {
@@ -41,6 +42,7 @@ const ArticleSection = ({
     listKey,
     showDivider,
     showFooterTitle,
+    isFromFavorites = false,
 }: ArticleSectionProps) => {
     const [t] = useTranslation();
     const [articleData,setArticleData] = useState(data)
@@ -68,7 +70,7 @@ const ArticleSection = ({
             imageStyle={{ height: normalize(189) }}
             footerInfo={articleFooterDataSet}
             onPressBookmark={() => onPressBookmark(index)}
-            showDivider={showDivider}
+            showDivider={isFromFavorites? articleData.length == index+1 : showDivider}
             showFooterTitle={showFooterTitle}
         />
     }

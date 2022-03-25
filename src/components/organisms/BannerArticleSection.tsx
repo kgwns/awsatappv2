@@ -52,6 +52,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             footerInfo={sectionComboArticleFooter}
             onPress={() => onPress(item.nid)}
             onPressBookmark={() => onUpdateBookmark(item)}
+            contentStyle={style.spacingStyle}
         />
     }
     const widgetHeaderData: WidgetHeaderProps = {
@@ -130,7 +131,8 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     headerContainer: {
         paddingHorizontal: 0.04 * screenWidth,
-        paddingVertical: normalize(10)
+        paddingVertical: normalize(10),
+        paddingTop: normalize(20)
     },
     verticalList: {
         paddingHorizontal: 0.04 * screenWidth
@@ -144,4 +146,7 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         height: 1,
         backgroundColor: theme.dividerColor
     },
+    spacingStyle: {
+        paddingBottom: normalize(10)
+    }
 })
