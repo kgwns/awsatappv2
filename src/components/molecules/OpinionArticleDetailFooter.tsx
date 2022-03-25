@@ -3,7 +3,7 @@ import React from 'react';
 import {ButtonImage} from 'src/components/atoms';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
-import {normalize} from 'src/shared/utils';
+import {isIOS, normalize} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
@@ -82,8 +82,8 @@ const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
     container: {
       width: '100%',
-      height: normalize(70),
-      paddingBottom: normalize(15),
+      height: isIOS ? normalize(70) : normalize(60),
+      paddingBottom: isIOS ? normalize(15) : 0,
       flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
