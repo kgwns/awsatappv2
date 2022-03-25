@@ -68,7 +68,6 @@ export default ArticlePodCastWidget
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         flex: 1,
-        height: normalize(120),
         paddingTop: normalize(10),
         paddingHorizontal: 0.04 * screenWidth
     },
