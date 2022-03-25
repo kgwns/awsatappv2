@@ -13,7 +13,7 @@ describe('<Author Item>', () => {
     }
 
     beforeEach(() => {
-        const component = <AuthorItem  {...data}/>
+        const component = <AuthorItem  {...data} mediaVisibility={true}/>
         instance = render(component)
     })
 
