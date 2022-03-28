@@ -49,7 +49,7 @@ export const ContentForYou = () => {
         articleSectionData: {data:[],loaded: false},
         shortArticleData: {data:[],loaded: false}
     }
-    const [pageAllData,setPageAllData] = useState<AllContentData[]>([initialPageData])
+    const [pageAllData,setPageAllData] = useState<AllContentData[]>([])
 
     const widgetHeaderData: WidgetHeaderProps = {
         headerLeft: {
@@ -63,20 +63,33 @@ export const ContentForYou = () => {
 
     useEffect(() => {
         emptyAllData();
-        setPageAllData([initialPageData]);
         getSelectedTopicsData();
         getSelectedAuthorsData();
     }, []);
 
     useEffect(() => {
-        setPageAllData([initialPageData]);
-        fetchSelectedDataFromAllTopics()
+        if(isNonEmptyArray(selectedTopicsData.data)){
+            setPageAllData([initialPageData]);
+            fetchSelectedDataFromAllTopics()
+        }else{
+            checkDataLoaded()
+        }
     }, [selectedTopicsData]);
 
     useEffect(() => {
-        setPageAllData([initialPageData]);
-        fetchSelectedDataFromAllAuthors();
+        if(isNonEmptyArray(selectedAuthorsData.data)){
+            setPageAllData([initialPageData]);
+            fetchSelectedDataFromAllAuthors();
+        }else{
+            setInitialLoading(false)
+        }
     }, [selectedAuthorsData]);
+
+    const checkDataLoaded = () => {
+        if(isNonEmptyArray(selectedTopicsData.data) && isNonEmptyArray(selectedAuthorsData.data)){
+            setInitialLoading(false)
+        }
+    }
 
     useEffect(() => {
         setIsAllLoading(true)
@@ -117,9 +130,7 @@ export const ContentForYou = () => {
             pageAllData[page].opinionsData.loaded && pageAllData[page].shortArticleData.loaded){
             checkBookmarkUpdate();
             setIsAllLoading(false);
-            if(initialLoading){
-                setTimeout(() => {setInitialLoading(false)}, 1500)
-            }
+            setInitialLoading(false)
         }
     }
 
@@ -232,15 +243,15 @@ export const ContentForYou = () => {
     const renderContentForYou = (item: AllContentData, index: number) => (
         <View key={flatListUniqueKey.CONTENT_FOR_YOU + index} style={styles.spaceStyle}>
             {/* <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} /> */}
-            {item.opinionsData.data.length > 0 && <AuthorWidget
+            {isNonEmptyArray(item.opinionsData.data) && <AuthorWidget
                 widgetHeader={t('favorite.articles_from_your_favorite_writers')}
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU + 'authorWidget' + index}
                 data={item.opinionsData.data}
                 containerStyle={{ paddingTop: 0 }}
                 widgetHeaderContainerStyle={styles.authorWidgetContainer}
                 widgetHeaderStyle={styles.authorWidgetHeader}
-            />
-            }
+            />}
+            
             {isNonEmptyArray(item.articleSectionData.data) &&
                 <View style={styles.articleWidgetHeader}>
                     <WidgetHeader {...widgetHeaderData} />
@@ -249,14 +260,14 @@ export const ContentForYou = () => {
             {/* <View style={{paddingHorizontal: 0.04 * screenWidth}}>
                 <FavoriteVideo data={videoArchiveData} />
             </View> */}
-            {item.articleSectionData.data.length>0 && <ArticleSection
+            {isNonEmptyArray(item.articleSectionData.data) && <ArticleSection
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'articleSection'+index}
                 data={item.articleSectionData.data}
                 showFooterTitle={false}
                 isFromFavorites={true}
                 onUpdateBookmark={updateBookmarkInfo}
             />}
-            {item.shortArticleData.data.length>0 && <ShortArticle
+            {isNonEmptyArray(item.shortArticleData.data)&& <ShortArticle
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'shortArticle'+index}
                 data={item.shortArticleData.data}
                 onPress={onPressArticle}
@@ -268,9 +279,12 @@ export const ContentForYou = () => {
     const renderFooterComponent = () =>{
         return (
             <View>
-                <View style={styles.loaderStyle}>
-                    {(isLoading || isArticalLoading) && <LoadingState />}
-                </View>
+                {isNonEmptyArray(pageAllData)?
+                    <View style={styles.loaderStyle}>
+                        {(isLoading || isArticalLoading) && <LoadingState />}
+                    </View>:
+                    showEmptyData()
+                }
             </View>
         )
     }
@@ -291,7 +305,6 @@ export const ContentForYou = () => {
         <View style={styles.contentContainer}>
             {!initialLoading  ?
                 <View>
-                {(pageAllData[0].opinionsData.data.length>0 || pageAllData[0].articleSectionData.data.length>0)?
                     <FlatList
                     data={pageAllData}
                     keyExtractor={(_, index) => index.toString()}
@@ -301,9 +314,7 @@ export const ContentForYou = () => {
                     listKey={flatListUniqueKey.CONTENT_FOR_YOU + new Date().getTime().toString()}
                     renderItem={({ item, index }) => renderContentForYou(item, index)}
                     ListFooterComponent={renderFooterComponent}
-                    />:
-                    showEmptyData()
-                }
+                    />
                 </View> :
                 loadingView()
             }
