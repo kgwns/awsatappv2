@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {isIOS, normalize} from '../../../shared/utils';
+import {normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from '../../../components/organisms/';
 import {ScreensConstants} from 'src/constants';
@@ -22,11 +22,10 @@ import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useEmailCheck, useRegister} from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
-import {fetchLoginSuccess} from 'src/redux/login/action';
 import {useDispatch} from 'react-redux';
 import {TERMS_AND_CONDITION} from 'src/services/apiEndPoints';
 import {useLogin} from 'src/hooks';
-import {appleAuth} from '@invertase/react-native-apple-authentication';
+import { AlertPayloadType } from 'src/components/screens/ScreenContainer/ScreenContainer';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -45,11 +44,26 @@ export const AuthPage: FunctionComponent = () => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const {registerUserInfo, isRegisterLoading, socialLoginInProgress, socialLoginStarted, socialLoginEnded} = useRegister();
-  const dispatch = useDispatch();
 
   const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
 
-  const {fetchEmailCheckRequest, isLoading, emailCheckData} = useEmailCheck();
+  const {fetchEmailCheckRequest, isLoading, emailCheckData, emailCheckError} = useEmailCheck();
+
+  
+
+  const noInternetConnection : AlertPayloadType = {
+    title : t('common.alert'),
+    message: t('common.noInternetConnection'),
+    buttonTitle: t('common.ok')
+  }
+  const somthingWentWrong : AlertPayloadType = {
+    title : t('common.alert'),
+    message: t('common.somthingWentWrong'),
+    buttonTitle: t('common.ok')
+  }
+
+  const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(noInternetConnection);
 
   useEffect(() => {
     emptyforgotPassworResponseInfo();
@@ -58,6 +72,13 @@ export const AuthPage: FunctionComponent = () => {
   useEffect(() => {
     socialLoginEnded();
   }, [registerUserInfo])
+
+  useEffect(() => {
+   if(emailCheckError === "Network Error"){
+    setAlertPayload(noInternetConnection);
+    setIsAlertVisible(true)
+   } 
+  }, [emailCheckError])
 
   useEffect(() => {
     const message = emailCheckData?.message;
@@ -111,7 +132,11 @@ export const AuthPage: FunctionComponent = () => {
   };
 
   return (
-    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading || socialLoginInProgress}>
+    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading || socialLoginInProgress}
+    isAlertVisible={isAlertVisible}
+    alertPayload={alertPayload} alertOnPress={() => setIsAlertVisible(false)}
+    setIsAlertVisible={setIsAlertVisible}
+    >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
           <View style={styles.headerStyle}>

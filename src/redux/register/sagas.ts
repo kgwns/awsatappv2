@@ -4,7 +4,6 @@ import { registerUser } from 'src/services/registerService';
 import {registerSuccess, registerFailed} from './action';
 import {RegisterSuccessPayloadType, UserRegisterType} from './types';
 import {AxiosError} from 'axios';
-import {Alert} from 'react-native';
 
 export function* createUser(action: UserRegisterType) {
   try {
@@ -16,8 +15,17 @@ export function* createUser(action: UserRegisterType) {
     yield put(registerSuccess(payload));
   } catch (error) {
       const errorResponse: AxiosError = error as AxiosError;
-      Alert.alert(errorResponse.message);
-      yield put(registerFailed({ error: errorResponse.message }));
+      if (errorResponse.response) {
+        // Request made and server responded
+        const errorMessage: { message: string } = errorResponse.response.data;
+        yield put(registerFailed({ error: errorMessage.message }));
+      } else if (errorResponse.request && errorResponse.message) {
+        // The request was made but no response was received
+       yield put(registerFailed({ error: errorResponse.message }));
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log(errorResponse.message);
+      }
   }
 }
 

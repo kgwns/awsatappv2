@@ -59,6 +59,17 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
   const verifyMailAndPasswordAndTryAgain = t('signIn.verifyMailAndPasswordAndTryAgain');
   const ok = t('common.ok');
+
+  const noInternetConnection : AlertPayloadType = {
+    title : t('common.alert'),
+    message: t('common.noInternetConnection'),
+    buttonTitle: t('common.ok')
+  }
+  const somthingWentWrong : AlertPayloadType = {
+    title : t('common.alert'),
+    message: t('common.somthingWentWrong'),
+    buttonTitle: t('common.ok')
+  }
   
   const incorrectCredentialPayload: AlertPayloadType = {
     title: credentialsAreIncorrect,
@@ -66,18 +77,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     buttonTitle: ok
   }
 
-  useEffect(() => {
-    socialLoginEnded();
-  }, [registerUserInfo])
-
-  useEffect(() => {
-    getDeviceName();
-  }, []);
-
-  const getDeviceName = async () => {
-    const deviceName = await DeviceInfo.getDeviceName();
-    setDeviceName(deviceName);
-  };
+  const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(incorrectCredentialPayload);
 
   const {
     fetchLoginRequest,
@@ -89,6 +89,28 @@ export const SignInPage = ({route}: SignInPageProps) => {
     emptyforgotPassworResponseInfo,
     emptyLoginDataInfo,
   } = useLogin();
+
+  useEffect(() => {
+    socialLoginEnded();
+  }, [registerUserInfo])
+
+  useEffect(() => {
+    getDeviceName();
+  }, []);
+
+  useEffect(() => {
+    if(loginError === "Network Error"){
+     setAlertPayload(noInternetConnection);
+     setIsAlertVisible(true)
+    }
+   }, [loginError])
+
+  const getDeviceName = async () => {
+    const deviceName = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceName);
+  };
+
+  
   const {getBookmarkedId} = useBookmark();
   const {fetchProfileDataRequest} = useUserProfileData();
 
@@ -112,6 +134,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
         });
       } else {
         if (message.code === 0) {
+          setAlertPayload(incorrectCredentialPayload)
           setIsAlertVisible(true)
           emptyLoginDataInfo();
         }
@@ -195,7 +218,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
 
   return (
     <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading || socialLoginInProgress} isAlertVisible={isAlertVisible}
-      setIsAlertVisible={setIsAlertVisible} alertPayload={incorrectCredentialPayload} alertOnPress={() => setIsAlertVisible(false)}>
+      setIsAlertVisible={setIsAlertVisible} alertPayload={alertPayload} alertOnPress={() => setIsAlertVisible(false)}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
           <View style={styles.headerStyle}>

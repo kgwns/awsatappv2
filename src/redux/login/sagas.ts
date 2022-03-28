@@ -25,9 +25,15 @@ export function* fetchLogin(action: FetchLoginType) {
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
     if (errorResponse.response) {
-      const errorMessage: {message: string} = errorResponse.response.data;
-      Alert.alert(errorMessage.message);
-      yield put(fetchLoginFailed({error: errorMessage.message}));
+      // Request made and server responded
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(fetchLoginFailed({ error: errorMessage.message }));
+    } else if (errorResponse.request && errorResponse.message) {
+      // The request was made but no response was received
+     yield put(fetchLoginFailed({ error: errorResponse.message }));
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log(errorResponse.message);
     }
   }
 }

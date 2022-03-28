@@ -279,6 +279,9 @@ export const arabic = {
   },
   listen_to_podcast: 'استمع الي البودكاست ',
   common: {
-    ok: 'نعم'
+    ok: 'نعم',
+    alert: 'إنذار',
+    noInternetConnection: 'لا يوجد اتصال بالإنترنت',
+    somthingWentWrong: 'هناك خطأ ما',
   }
 }

@@ -33,6 +33,7 @@ import {useDispatch} from 'react-redux';
 import AdjustAnalyticsManager, {
   AdjustEventID,
 } from 'src/shared/utils/AdjustAnalyticsManager';
+import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
 
 export interface SignUpPageProps {
   route: any;
@@ -49,16 +50,37 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setonfirmPasswordError] = useState('');
   const [deviceName, setDeviceName] = useState('');
-  const {createUserRequest, registerUserInfo, isRegisterLoading} =
+  const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const {createUserRequest, registerUserInfo, isRegisterLoading, registerError} =
     useRegister();
   const initialRender = useRef(true);
 
   const dispatch = useDispatch();
   const {fetchProfileDataRequest} = useUserProfileData();
 
+  const noInternetConnection : AlertPayloadType = {
+    title : t('common.alert'),
+    message: t('common.noInternetConnection'),
+    buttonTitle: t('common.ok')
+  }
+  const somthingWentWrong : AlertPayloadType = {
+    title : t('common.alert'),
+    message: t('common.somthingWentWrong'),
+    buttonTitle: t('common.ok')
+  }
+
+  const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(noInternetConnection);
+
   useEffect(() => {
     getDeviceName();
   }, []);
+
+  useEffect(() => {
+    if(registerError === "Network Error"){
+     setAlertPayload(noInternetConnection);
+     setIsAlertVisible(true)
+    }
+   }, [registerError])
 
   useEffect(() => {
     const message = registerUserInfo?.message;
@@ -110,7 +132,8 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   };
 
   return (
-    <ScreenContainer isOverlayLoading={isRegisterLoading}>
+    <ScreenContainer isOverlayLoading={isRegisterLoading} isAlertVisible={isAlertVisible}
+    setIsAlertVisible={setIsAlertVisible} alertPayload={alertPayload} alertOnPress={() => setIsAlertVisible(false)}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View style={styles.container}>
           <View style={styles.headerStyle}>

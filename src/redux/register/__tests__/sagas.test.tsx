@@ -63,7 +63,7 @@ describe('Test createUser success', () => {
 
 describe('test createUser  error', () => {
   const error = new Error('error');
-  it('fire on REGISTER_USER', () => {
+  xit('fire on REGISTER_USER', () => {
     testSaga(createUser, requestAction)
       .next()
       .call(registerUser, requestObject)
