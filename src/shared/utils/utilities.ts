@@ -41,6 +41,7 @@ export const testProps = (testID: string | undefined) => {
 
 export const horizontalEdge: Edge[] = ['left', 'right'];
 export const horizontalAndBottomEdge: Edge[] = [...horizontalEdge, 'bottom'];
+export const horizontalAndTop: Edge[] = [...horizontalEdge, 'top']
 
 export const getImageUrl = (imageURL: string) => {
   return isValidHttpUrl(imageURL) ? imageURL : BASE_URL + imageURL;

@@ -57,7 +57,8 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const {
     sendSelectedInfoRequest, sendSelectedNotificationInfo,
     getSelectedInfoRequest, selectedNotificationInfo,
-    removeSelectedNotificationInfo,isLoading
+    removeSelectedNotificationInfo,isLoading,
+    removeKeepNotificationInfo
   } = useKeepNotified()
 
   useEffect(() => {
@@ -65,6 +66,11 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
     if (route.params && route.params.canGoBack) {
       setCanGoBack(route.params.canBoBack)
     }
+
+    return () => {
+      removeKeepNotificationInfo()
+    }
+
   }, [])
 
   useEffect(() => {

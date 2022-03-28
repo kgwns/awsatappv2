@@ -181,7 +181,6 @@ const createStyles = (theme: CustomThemeType) => {
       height: normalize(55),
       backgroundColor: theme.backgroundColor,
       justifyContent: 'center',
-      marginTop: isIphoneX ? normalize(30) : 0,
     },
     returnIconStyle: {
       tintColor: theme.secondaryDarkSlate,

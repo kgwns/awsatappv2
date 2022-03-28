@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {MostReadList} from 'src/components/organisms';
 import {ScreenContainer} from '..';
-import {horizontalEdge} from 'src/shared/utils';
+import { horizontalAndTop } from 'src/shared/utils';
 import {useSectionArticles} from 'src/hooks';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {SectionArticlesBodyGet} from 'src/redux/sectionArticles/types';
@@ -36,7 +36,7 @@ export const SectionArticlesScreen = () => {
   };
 
   return (
-    <ScreenContainer edge={horizontalEdge} showHeader={true} headerTitle={params?.title}>
+    <ScreenContainer edge={horizontalAndTop} showHeader={true} headerTitle={params?.title}>
       {
       isLoading ? <LoadingState/> :
         <MostReadList

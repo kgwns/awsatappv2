@@ -13,6 +13,7 @@ export {
   testProps,
   horizontalEdge,
   horizontalAndBottomEdge,
+  horizontalAndTop,
   isNonEmptyArray,
   isObjectNonEmpty,
   timeAgo,
