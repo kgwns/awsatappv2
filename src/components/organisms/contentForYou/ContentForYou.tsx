@@ -125,18 +125,20 @@ export const ContentForYou = () => {
         let formatArticleSectionData = []
         let formatShortArticleData = []
         for(let i = 0; i < favouriteArticlesData.length; i++){
+            const item = favouriteArticlesData[i]
             let formattedData = {
                 ...shortArticleWithTagProperties,
-                body: favouriteArticlesData[i].body,
-                flag: '',
-                title: favouriteArticlesData[i].title,
-                nid: favouriteArticlesData[i].nid,
-                image: getImageUrl(favouriteArticlesData[i].field_image),
-                news_categories: favouriteArticlesData[i].field_news_categories_export,
-                author: favouriteArticlesData[i].author_resource,
-                created: favouriteArticlesData[i].created_export,
+                body: item.body,
+                flag: item.field_news_categories_export?.title,
+                title: item.title,
+                nid: item.nid,
+                image: getImageUrl(item.field_image),
+                news_categories: item.field_news_categories_export,
+                author: item.author_resource,
+                created: item.created_export,
                 isBookmarked: false,
-                loaded: true
+                loaded: true,
+                tagName: item.field_news_categories_export?.title
             }
             if(i<2){
                 formatArticleSectionData.push(formattedData)
