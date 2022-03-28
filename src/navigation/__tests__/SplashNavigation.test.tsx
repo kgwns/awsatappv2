@@ -30,7 +30,8 @@ jest.mock("src/hooks/useLogin", () => ({
 jest.mock("src/hooks/useRegister", () => ({
   useRegister: (...args: any) => {
       return {
-        socialLoginEnded:()=>{}
+        socialLoginEnded:()=>{},
+        emptyUserInfo:()=>{}
       }
   },
 }));

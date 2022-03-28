@@ -15,6 +15,7 @@ import {
   userRegister,
   socialLoginStart,
   socialLoginEnd,
+  emptyUserInfoData
 } from 'src/redux/register/action';
 
 export interface UseRegisterReturn {
@@ -25,6 +26,7 @@ export interface UseRegisterReturn {
   createUserRequest(payload: RegisterBodyType): void;
   socialLoginStarted(): void;
   socialLoginEnded(): void;
+  emptyUserInfo(): void;
 }
 
 export const useRegister = (): UseRegisterReturn => {
@@ -43,6 +45,9 @@ export const useRegister = (): UseRegisterReturn => {
   const socialLoginEnded = () => {
     dispatch(socialLoginEnd());
   };
+  const emptyUserInfo = () => {
+    dispatch(emptyUserInfoData());
+  };
 
   return {
     isRegisterLoading,
@@ -52,5 +57,6 @@ export const useRegister = (): UseRegisterReturn => {
     createUserRequest,
     socialLoginStarted,
     socialLoginEnded,
+    emptyUserInfo
   };
 };

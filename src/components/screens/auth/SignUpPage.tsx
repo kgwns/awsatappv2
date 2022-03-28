@@ -51,7 +51,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const [confirmPasswordError, setonfirmPasswordError] = useState('');
   const [deviceName, setDeviceName] = useState('');
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
-  const {createUserRequest, registerUserInfo, isRegisterLoading, registerError} =
+  const {createUserRequest, registerUserInfo, isRegisterLoading, registerError,emptyUserInfo} =
     useRegister();
   const initialRender = useRef(true);
 
@@ -73,6 +73,13 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
 
   useEffect(() => {
     getDeviceName();
+  }, []);
+
+  useEffect(() => {
+    emptyUserInfo()
+    return () => {
+      emptyUserInfo()
+    };
   }, []);
 
   useEffect(() => {
