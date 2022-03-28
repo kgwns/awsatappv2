@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
+import { normalize, screenWidth} from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {Divider, HtmlRenderer, Image, Label} from '../atoms';
 import {ImagesName, Styles} from 'src/shared/styles';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {
   ArticleFooter,
   articleFooterProps,
   ListenToArticleCard,
+  WriterBannerImage,
 } from '../molecules';
 import {MixedStyleRecord} from 'react-native-render-html';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {getImageUrl, timeAgo, isNotEmpty, isObjectNonEmpty} from 'src/shared/utils/utilities';
+import { timeAgo, isNotEmpty, isObjectNonEmpty} from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { ArticleFontSize } from '../screens/opinionArticleDetail/OpinionArticleDetail';
-import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
 import TrackPlayer, {State, usePlaybackState} from 'react-native-track-player';
 import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
 
@@ -28,8 +27,6 @@ export interface OpinionArticleDetailWidgetProp {
   data: OpinionArticleDetailItemType;
   fontSize: ArticleFontSize
 }
-
-const containerHeight = isTab ? 0.5 * screenWidth : 0.8 * screenWidth;
 
 export const OpinionArticleDetailWidget = ({
   data,fontSize
@@ -93,22 +90,6 @@ export const OpinionArticleDetailWidget = ({
     style: {marginVertical: normalize(0.01 * screenWidth)},
   };
 
-  const ReturnButton = ({onPressReturn}: any) => (
-    <View style={style.return}>
-      <TouchableOpacity
-        style={{flexDirection: 'row', alignItems: 'center'}}
-        onPress={onPressReturn}>
-        {getSvgImages({
-          name: ImagesName.returnBlackSvg,
-          size: normalize(12),
-        })}
-        <Label style={style.returnLabel}>
-          {t('opinionArticleDetail.return')}
-        </Label>
-      </TouchableOpacity>
-    </View>
-  );
-
   const AuthorCard = ({title}: any) => (
     <View style={style.authorCard}>
       {getSvgImages({
@@ -136,16 +117,10 @@ export const OpinionArticleDetailWidget = ({
 
   return (
     <View>
-      <View style={style.imageView}>
-        <Image
-          url={getImageUrl(data.writer[0].opinion_writer_photo)}
-          style={style.image}
-          resizeMode={getOrientation == 'LANDSCAPE' ? 'contain' : 'cover'}
-          backgroundColor={Styles.color.white}
-          fallback={true}
-        />
-        <ReturnButton onPressReturn={onPressReturn} />
-      </View>
+      <WriterBannerImage data={{ authorImage: data.writer[0]?.opinion_writer_photo }}
+        orientation={getOrientation}
+        onPressReturn={onPressReturn}
+      />
       <View style={style.contentContainer}>
         <AuthorCard title={data.writer[0].name} />
         <Label style={style.title}>{data.title}</Label>
@@ -169,11 +144,6 @@ const customStyle = (theme: CustomThemeType) => {
     contentContainer: {
       paddingHorizontal: normalize(0.03 * screenWidth),
       paddingTop: normalize(0.02 * screenWidth),
-    },
-    imageView: {
-      flex: 1,
-      width: '100%',
-      height: containerHeight,
     },
     image: {
       width: '100%',
@@ -205,21 +175,6 @@ const customStyle = (theme: CustomThemeType) => {
       fontWeight: 'bold',
       marginStart: normalize(5),
       color: theme.primaryBlack,
-    },
-    return: {
-      position: 'absolute',
-      left: normalize(15),
-      alignContent: 'center',
-      top: isIOS ? normalize(50) : normalize(20),
-      flexWrap: 'wrap',
-      alignItems: 'center',
-    },
-    returnLabel: {
-      marginStart: normalize(5),
-      fontSize: normalize(13),
-      lineHeight: normalize(16),
-      fontWeight: 'bold',
-      color: Styles.color.black,
     },
     divider: {
       height: 1,
