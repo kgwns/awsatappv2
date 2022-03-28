@@ -1,5 +1,5 @@
 import { FETCH_USER_LOGOUT } from '../login/actionTypes';
-import {REGISTER_USER, REGISTER_SUCCESS, REGISTER_FAILED, SOCIAL_LOGIN_START, SOCIAL_LOGIN_END} from './actionTypes';
+import {REGISTER_USER, REGISTER_SUCCESS, REGISTER_FAILED, SOCIAL_LOGIN_START, SOCIAL_LOGIN_END, EMPTY_USER_INFO} from './actionTypes';
 
 export interface RegisterUserSuccessType {
   name?: string;
@@ -88,10 +88,15 @@ export type SocialLoginEndType = {
   type: typeof SOCIAL_LOGIN_END
 }
 
+export type EmptyUserInfoData = {
+  type: typeof EMPTY_USER_INFO;
+};
+
 export type RegisterAction =
   | UserRegisterType
   | RegisterSuccessType
   | RegisterFailedType
   | UserLogoutType
   | SocialLoginStartType
-  | SocialLoginEndType;
+  | SocialLoginEndType
+  | EmptyUserInfoData;

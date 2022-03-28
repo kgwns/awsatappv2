@@ -53,7 +53,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [deviceName, setDeviceName] = useState('');
-  const {registerUserInfo, isRegisterLoading, socialLoginEnded, socialLoginInProgress, socialLoginStarted} = useRegister();
+  const {registerUserInfo, isRegisterLoading, socialLoginEnded, socialLoginInProgress, socialLoginStarted,emptyUserInfo} = useRegister();
   const dispatch = useDispatch();
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
@@ -180,8 +180,10 @@ export const SignInPage = ({route}: SignInPageProps) => {
 
   useEffect(() => {
     emptyforgotPassworResponseInfo();
+    emptyUserInfo()
     return () => {
       emptyforgotPassworResponseInfo();
+      emptyUserInfo()
     };
   }, []);
 

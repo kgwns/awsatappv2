@@ -43,7 +43,7 @@ export const AuthPage: FunctionComponent = () => {
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
-  const {registerUserInfo, isRegisterLoading, socialLoginInProgress, socialLoginStarted, socialLoginEnded} = useRegister();
+  const {registerUserInfo, isRegisterLoading, socialLoginInProgress, socialLoginStarted, socialLoginEnded,emptyUserInfo} = useRegister();
 
   const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
 
@@ -67,6 +67,7 @@ export const AuthPage: FunctionComponent = () => {
 
   useEffect(() => {
     emptyforgotPassworResponseInfo();
+    emptyUserInfo();
   }, []);
 
   useEffect(() => {

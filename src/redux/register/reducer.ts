@@ -1,5 +1,5 @@
 import { FETCH_USER_LOGOUT } from '../login/actionTypes';
-import {REGISTER_FAILED, REGISTER_SUCCESS, REGISTER_USER, SOCIAL_LOGIN_END, SOCIAL_LOGIN_START} from './actionTypes';
+import {EMPTY_USER_INFO, REGISTER_FAILED, REGISTER_SUCCESS, REGISTER_USER, SOCIAL_LOGIN_END, SOCIAL_LOGIN_START} from './actionTypes';
 import {RegisterAction, RegisterState} from './types';
 const initialState: RegisterState = {
   userInfo: null,
@@ -22,6 +22,8 @@ export default (state = initialState, action: RegisterAction) => {
         return {...state, socialLoginInProgress: true};
       case SOCIAL_LOGIN_END:
         return {...state, socialLoginInProgress: false};
+    case EMPTY_USER_INFO:
+      return { ...state, isLoading: false, userInfo: null, error: '' };
     default:
       return {...state};
   }
