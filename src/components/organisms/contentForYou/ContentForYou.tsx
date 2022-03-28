@@ -91,7 +91,7 @@ export const ContentForYou = () => {
     useEffect(() => {
         checkBookmarkUpdate()
     }, [bookmarkIdInfo]);
-
+    
     const checkBookmarkUpdate = () => {
         let bookmarkData = [...pageAllData]
         for (let i = 0; i < bookmarkData.length; i++) {
@@ -116,8 +116,10 @@ export const ContentForYou = () => {
         if(pageAllData[page] && pageAllData[page].articleSectionData.loaded &&
             pageAllData[page].opinionsData.loaded && pageAllData[page].shortArticleData.loaded){
             checkBookmarkUpdate();
-            setIsAllLoading(false)
-            setInitialLoading(false)
+            setIsAllLoading(false);
+            if(initialLoading){
+                setTimeout(() => {setInitialLoading(false)}, 1500)
+            }
         }
     }
 
@@ -279,11 +281,17 @@ export const ContentForYou = () => {
         </View>
     )
 
+    const showEmptyData = () => {
+        return <View style={styles.container}>
+            <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
+        </View>
+    }
+
     return (
         <View style={styles.contentContainer}>
             {!initialLoading  ?
                 <View>
-                {(pageAllData[0].opinionsData.data.length>0 || pageAllData[0].articleSectionData.data.length>0 )?
+                {(pageAllData[0].opinionsData.data.length>0 || pageAllData[0].articleSectionData.data.length>0)?
                     <FlatList
                     data={pageAllData}
                     keyExtractor={(_, index) => index.toString()}
@@ -294,7 +302,7 @@ export const ContentForYou = () => {
                     renderItem={({ item, index }) => renderContentForYou(item, index)}
                     ListFooterComponent={renderFooterComponent}
                     />:
-                    loadingView()
+                    showEmptyData()
                 }
                 </View> :
                 loadingView()
