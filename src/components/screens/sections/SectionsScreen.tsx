@@ -1,12 +1,29 @@
 import React, {useState, useEffect} from 'react';
 import analytics from '@react-native-firebase/analytics';
-import {OpinionScreen, ScreenContainer, VideoScreen, PodcastProgram, SectionStoryScreen} from '..';
+import {TabView, SceneMap, TabBar, TabBarProps} from 'react-native-tab-view';
+import {
+  OpinionScreen,
+  ScreenContainer,
+  VideoScreen,
+  PodcastProgram,
+  SectionStoryScreen,
+} from '..';
 import {TabBarComponent} from 'src/components/molecules';
-import {horizontalEdge, recordCurrentScreen} from 'src/shared/utils';
-import {View, StyleSheet} from 'react-native';
+import {horizontalEdge, normalize, normalizeBy320, recordCurrentScreen} from 'src/shared/utils';
+import {
+  View,
+  Dimensions,
+  StyleSheet,
+  StatusBar,
+  TouchableOpacity,
+  Animated,
+  Text,
+} from 'react-native';
 import {useTopMenu} from 'src/hooks';
-import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { CustomThemeType } from 'src/shared/styles/colors';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import {CustomThemeType} from 'src/shared/styles/colors';
+import PagerView from 'react-native-pager-view';
+import { Styles } from 'src/shared/styles';
 
 export enum TabType {
   home = 'home',
@@ -18,10 +35,53 @@ export enum TabType {
 
 export const SectionsScreen = () => {
   const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
-  const {isLoading,topMenuData,fetchTopMenuRequest} = useTopMenu();
-  const style = useThemeAwareObject(customStyle)
-  useEffect(() => { fetchTopMenuRequest(); }, []);
+  const {isLoading, topMenuData, fetchTopMenuRequest} = useTopMenu();
+  const style = useThemeAwareObject(customStyle);
+
+  const [index, setIndex] = React.useState(0);
+
+  const [routes, setNewRoutes] = useState([]);
+
+
+  const renderScene = ({ route }) => {
+    switch (route.key.substring(1)) {
+      case TabType.home:
+        return <SectionStoryScreen sectionId={11} />;
+      case TabType.opinion:
+        return <OpinionScreen />;
+      case TabType.podcast:
+        return <PodcastProgram />;
+      case TabType.video:
+        return <VideoScreen />;
+      default:
+        return (
+          <SectionStoryScreen
+            sectionId={route.sectionId}
+          />
+        );
+    }
+  }
+
+  useEffect(() => {
+    if(topMenuData.length > 0){
+      let newRoutesArray = topMenuData.map((item, index) => {
+        return {
+          key: `${index}${item.keyName}`,
+          title: item.tabName,
+          sectionId: item.sectionId
+        };
+      })
+      setNewRoutes(newRoutesArray)
+    }
+  }, [topMenuData])
+
+
+
+  useEffect(() => {
+    fetchTopMenuRequest();
+  }, []);
   const onPressTabItem = (index: number) => {
+    setIndex(index);
     topMenuData[tabSelectedIndex].isSelected = false;
     topMenuData[index].isSelected = true;
     setTabSelectedIndex(index);
@@ -29,28 +89,80 @@ export const SectionsScreen = () => {
   };
 
   const renderTabBarComponent = () => (
-    <TabBarComponent tabItem={topMenuData} onPressTabItem={onPressTabItem} style={style.tabBarStyle}/>
+    <TabBarComponent
+      tabItem={topMenuData}
+      onPressTabItem={onPressTabItem}
+      style={style.tabBarStyle}
+    />
   );
 
   const tabContent = () => {
     if (!topMenuData.length) return null;
     switch (topMenuData[tabSelectedIndex].keyName) {
       case TabType.home:
-        return <SectionStoryScreen sectionId={11}/>;
+        return <SectionStoryScreen sectionId={11} />;
       case TabType.opinion:
         return <OpinionScreen />;
       case TabType.podcast:
         return <PodcastProgram />;
       case TabType.video:
-        return <VideoScreen/>;
+        return <VideoScreen />;
       default:
-        return <SectionStoryScreen sectionId={topMenuData[tabSelectedIndex].sectionId} />;
+        return (
+          <VideoScreen />
+          // <SectionStoryScreen
+          //   sectionId={topMenuData[tabSelectedIndex].sectionId}
+          // />
+        );
     }
+  };
+
+  
+
+
+
+  const _renderTabBar = props => {
+    return (
+      <TabBar
+        {...props}
+        scrollEnabled
+        indicatorStyle={styles.indicator}
+        style={styles.tabbar}
+        tabStyle={[styles.tab, style.tabBarStyle]}
+        labelStyle={styles.label}
+        onTabPress={scene => {
+          const {route} = scene;
+          // topMenuData[tabSelectedIndex].isSelected = false;
+          // topMenuData[index].isSelected = true;
+          // setTabSelectedIndex(index);
+          // recordCurrentScreen(topMenuData[tabSelectedIndex].tabName as string);
+          //console.log('route.key', route.key);
+          props.jumpTo(route.key);
+        }}
+      />
+    );
+  };
+
+
+  const tabsView = () => {
+    return (
+      <TabView
+        navigationState={{index, routes}}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        renderTabBar={_renderTabBar}
+        initialLayout={initialLayout}
+        style={styles.container}
+      />
+    );
   };
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
-      {renderTabBarComponent()}
-      {!isLoading&&<View style={{flex: 1}} testID={'tabContent'}>{tabContent()}</View>}
+      {!isLoading && (
+        <View style={{flex: 1}} testID={'tabContent'}>
+         {routes.length > 0 && tabsView()}
+        </View>
+      )}
     </ScreenContainer>
   );
 };
@@ -59,6 +171,40 @@ const customStyle = (theme: CustomThemeType) => {
     tabBarStyle: {
       borderBottomColor: theme.dividerColor,
       borderBottomWidth: 1.2,
-    }
-  })
-}
+    },
+  });
+};
+
+const initialLayout = {width: Dimensions.get('window').width};
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: StatusBar.currentHeight,
+  },
+  scene: {
+    flex: 1,
+  },
+
+  tabbar: {
+    backgroundColor: 'transparent',
+  },
+  tab: {
+   width: normalize(120),
+  },
+  indicator: {
+    backgroundColor: Styles.color.greenishBlue ,
+    height: 3,
+    marginBottom:2
+  },
+  label: {
+    fontStyle: 'normal',
+    fontSize: normalize(13),
+    fontWeight: 'bold',
+    lineHeight: normalize(16),
+    textAlign: 'left',
+    color: Styles.color.doveGray,
+  },
+   pagerViewStyle: {
+    flex: 1,
+  },
+});
