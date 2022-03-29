@@ -258,7 +258,6 @@ export const UserDetailScreen: FunctionComponent = () => {
     <TabBarComponent
       tabItem={tabItem}
       onPressTabItem={onPressTabItem}
-      style={styles.tabBarStyle}
     />
   );
 
@@ -777,10 +776,6 @@ const createStyles = (theme: CustomThemeType) =>
     nameInputStyle: {
       width: '100%',
       color: theme.primaryLightGray,
-    },
-    tabBarStyle: {
-      borderBottomColor: theme.dividerColor,
-      borderBottomWidth: 1.2,
     },
     inputStyle: {
       width: '100%',
