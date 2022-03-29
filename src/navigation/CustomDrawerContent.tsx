@@ -189,7 +189,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             sideMenuDataInfo.map((item:any, index:number) => {
               const icon = isNonEmptyArray(item.child) ? ImagesName.downArrowIcon : null
               return (
-                <View>
+                <View key={index}>
                   {buttonListItem(item, index, icon)}
                   {isNonEmptyArray(item.child) && item.showDropDown && <View style={styles.childDropdownItem}>
                     {item.child.map((childItem: any, childIndex: number) => {
