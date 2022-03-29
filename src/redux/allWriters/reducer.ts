@@ -9,6 +9,9 @@ import {
   GET_SELECTED_AUTHOR_SUCCESS,
   GET_SELECTED_AUTHOR_ERROR,
   EMPTY_SELECTED_AUTHORS_INFO,
+  REMOVE_AUTHOR,
+  REMOVE_AUTHOR_ERROR,
+  REMOVE_AUTHOR_SUCCESS
 } from './actionTypes';
 import { AllWritersActions, AllWritersState } from './types';
 
@@ -47,6 +50,12 @@ export default (state = initialState, action: AllWritersActions) => {
       return { ...state, isLoading: false, error: action.payload.error }
     case EMPTY_SELECTED_AUTHORS_INFO:
       return {...state, isLoading: false, sendAuthorInfo:{},error:'', selectedAuthorsData: {}}
+    case REMOVE_AUTHOR:
+        return { ...state, isLoading: true }
+    case REMOVE_AUTHOR_SUCCESS:
+        return { ...state, isLoading: false,}
+    case REMOVE_AUTHOR_ERROR:
+        return { ...state, isLoading: false, }
     default:
       return { ...state };
   }
