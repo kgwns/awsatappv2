@@ -64,7 +64,8 @@ export const colors = {
   whiteTransparent: '#FFFFFFF2',
   blackTransparent: '#000000F2',
   paleRed: '#F0F0F0',
-  nobelGray: '#959595'
+  nobelGray: '#959595',
+  searchGrey: '#707070',
 };
 
 export interface CustomThemeType {
@@ -96,6 +97,7 @@ export interface CustomThemeType {
   miniPlayerBorderColor: string,
   lightRed: string,
   primaryNobel: string,
+  searchGrey: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -130,6 +132,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   miniPlayerBorderColor: colors.chineseWhite,
   lightRed: colors.paleRed,
   primaryNobel: colors.nobelGray,
+  searchGrey: colors.searchGrey,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -161,5 +164,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   miniPlayerBorderColor:colors.onyx,
   lightRed:colors.nightBlack,
   primaryNobel: colors.white,
+  searchGrey: colors.white,
 }
 

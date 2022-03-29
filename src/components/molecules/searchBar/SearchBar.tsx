@@ -91,7 +91,7 @@ const createStyles = (theme: CustomThemeType) =>
     inputContainerStyle: {
       height: normalize(40),
       borderBottomWidth: 1.2,
-      borderColor: theme.primaryNobel,
+      borderColor: theme.searchGrey,
       alignItems: 'center',
     },
     containerStyle: {
