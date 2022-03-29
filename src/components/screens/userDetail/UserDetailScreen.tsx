@@ -68,11 +68,19 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [t] = useTranslation();
   const CONST_NAME_PLACE_HOLDER = t('profile.userDetail.nameTitle');
 
+  const {
+    isLoading,
+    userProfileData,
+    sentUserProfileData,
+    fetchProfileDataRequest,
+    sendUserProfileInfo,
+    updateUserImageRequest,
+  } = useUserProfileData();
   const styles = useThemeAwareObject(createStyles);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [occupation, setOccupation] = useState('');
-  const [date, setDate] = useState(new Date(DEFAULT_MINIMUM_DATE));
+  const [date, setDate] = useState(userProfileData.user?.birthday ? new Date(userProfileData.user?.birthday) :  new Date(DEFAULT_MINIMUM_DATE));
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
     t('profile.userDetail.selectBirthdayText'),
@@ -86,14 +94,6 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [confirmNewPasswordError, setConfirmNewPasswordError] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
   const [profileImage, setProfileImage] = useState(Object);
-  const {
-    isLoading,
-    userProfileData,
-    sentUserProfileData,
-    fetchProfileDataRequest,
-    sendUserProfileInfo,
-    updateUserImageRequest,
-  } = useUserProfileData();
   const [userProfileImage, setUserProfileImage] = useState('');
   const [birthday, setBirthday] = useState('');
   const currentDate = new Date();
