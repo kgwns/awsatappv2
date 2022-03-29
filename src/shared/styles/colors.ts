@@ -64,7 +64,7 @@ export const colors = {
   whiteTransparent: '#FFFFFFF2',
   blackTransparent: '#000000F2',
   paleRed: '#F0F0F0',
-  nobelGray: '#959595'
+  nobelGray: '#959595',
 };
 
 export interface CustomThemeType {

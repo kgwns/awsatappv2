@@ -68,40 +68,48 @@ const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       marginVertical: normalize(12),
-      height: normalize(40),
+      height: normalize(38),
     },
     leftIconStyle: {
       tintColor: Styles.color.black,
     },
     leftIconContainerStyle: {
-      height: normalize(40),
+      height: normalize(38),
       paddingRight: normalize(15),
       justifyContent: 'center',
       alignItems: 'center',
+      marginTop: normalize(5),
     },
     rightIconContainerStyle: {
-      height: normalize(40),
+      height: normalize(38),
       paddingLeft: normalize(15),
       justifyContent: 'center',
       alignItems: 'center',
+      marginTop: normalize(5),
     },
     rightIconStyle: {
       tintColor: Styles.color.black,
     },
     inputContainerStyle: {
-      height: normalize(40),
-      borderBottomWidth: 1.2,
-      borderColor: theme.primaryNobel,
-      alignItems: 'center',
+      height: normalize(20),
+      justifyContent: 'flex-start',
+      paddingVertical: 0,
+      borderBottomWidth: 0,
     },
     containerStyle: {
       flex: 1,
-      height: normalize(40),
+      height: normalize(38),
       paddingHorizontal: 0,
+      paddingVertical: 0,
+      marginVertical: 0,
+      borderBottomWidth: 1.07,
+      borderColor: theme.primaryNobel,
     },
     inputStyle: {
       color: theme.primaryDarkSlateGray,
       fontSize: normalize(15),
       textAlign: I18nManager.isRTL?'right':'left',
+      paddingVertical: 0,
+      marginTop: 0,
     },
   });
