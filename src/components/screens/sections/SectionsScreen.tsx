@@ -44,26 +44,26 @@ export const SectionsScreen = () => {
 
 
   const renderScene = ({ route }) => {
+    console.log('renderScene: ', route)
     switch (route.key.substring(1)) {
       case TabType.home:
         return <SectionStoryScreen sectionId={11} />;
       case TabType.opinion:
-        return <OpinionScreen />;
+        return <OpinionScreen  />;
       case TabType.podcast:
-        return <PodcastProgram />;
+        return <PodcastProgram  />;
       case TabType.video:
-        return <VideoScreen />;
+        return <VideoScreen   />;
       default:
         return (
-          <SectionStoryScreen
-            sectionId={route.sectionId}
-          />
+          <SectionStoryScreen sectionId={route.sectionId}/>
         );
     }
   }
 
   useEffect(() => {
     if(topMenuData.length > 0){
+      console.log('topMenuData-data', JSON.stringify(topMenuData))
       let newRoutesArray = topMenuData.map((item, index) => {
         return {
           key: `${index}${item.keyName}`,
@@ -109,10 +109,9 @@ export const SectionsScreen = () => {
         return <VideoScreen />;
       default:
         return (
-          <VideoScreen />
-          // <SectionStoryScreen
-          //   sectionId={topMenuData[tabSelectedIndex].sectionId}
-          // />
+          <SectionStoryScreen
+            sectionId={topMenuData[tabSelectedIndex].sectionId}
+          />
         );
     }
   };
@@ -130,6 +129,7 @@ export const SectionsScreen = () => {
         style={styles.tabbar}
         tabStyle={[styles.tab, style.tabBarStyle]}
         labelStyle={styles.label}
+        pressColor={'transparent'}
         onTabPress={scene => {
           const {route} = scene;
           // topMenuData[tabSelectedIndex].isSelected = false;
