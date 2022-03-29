@@ -1,12 +1,14 @@
 import { BASE_URL, UMS_BASE_URL } from 'src/services/apiUrls';
 import { getApiRequest, postApiRequest } from 'src/services/api';
-import { ALL_WRITERS_ENDPOINT, SEND_SELECTED_WRITERS_ENDPOINT,GET_SELECTED_AUTHORS_ENDPOINT } from './apiEndPoints';
+import { ALL_WRITERS_ENDPOINT, SEND_SELECTED_WRITERS_ENDPOINT,GET_SELECTED_AUTHORS_ENDPOINT, REMOVE_WRITERS_ENDPOINT } from './apiEndPoints';
 import {
     FetchAllWritersListSuccessPayloadType,
     AllWritersBodyGet,
     SendSelectedAuthorBody,
     SendSelectedAuthorSuccessPayloadType,
     GetSelectedAuthorSuccessPayloadType,
+    RemoveAuthorBody,
+    RemoveAuthorSuccessPayloadType,
 } from 'src/redux/allWriters/types';
 
 export const fetchAllWritersApi = async (body: AllWritersBodyGet) => {
@@ -44,6 +46,21 @@ export const getSelectedAuthorsApi = async () => {
         const response: GetSelectedAuthorSuccessPayloadType =
             await postApiRequest(
                 `${UMS_BASE_URL}${GET_SELECTED_AUTHORS_ENDPOINT}`,
+            );
+        return response;
+    } catch (error) {
+        console.log(`error: ${error}`);
+        throw error;
+    }
+};
+
+export const removeWritersApi = async (body: RemoveAuthorBody) => {
+
+    try {
+        const response: RemoveAuthorSuccessPayloadType =
+            await postApiRequest(
+                `${UMS_BASE_URL}${REMOVE_WRITERS_ENDPOINT}${body.tid}`,
+                body
             );
         return response;
     } catch (error) {

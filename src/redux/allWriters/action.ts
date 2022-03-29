@@ -13,6 +13,11 @@ import {
   GetSelectedAuthorFailedType,
   GetSelectedAuthorSuccessPayloadType,
   GetSelectedAuthorFailedPayloadtype,
+  RemoveAuthorBody,
+  RemoveAuthorSuccessPayloadType,
+  RemoveAuthorFailedPayloadtype,
+  RemoveAuthorSuccessType,
+  RemoveAuthorFailedType,
 } from 'src/redux/allWriters/types';
 import {
   FETCH_ALL_WRITERS,
@@ -25,6 +30,9 @@ import {
   GET_SELECTED_AUTHOR_SUCCESS,
   GET_SELECTED_AUTHOR_ERROR,
   EMPTY_SELECTED_AUTHORS_INFO,
+  REMOVE_AUTHOR,
+  REMOVE_AUTHOR_SUCCESS,
+  REMOVE_AUTHOR_ERROR,
 } from 'src/redux/allWriters/actionTypes';
 
 export const fetchAllWriters = (payload: AllWritersBodyGet) => {
@@ -108,6 +116,31 @@ export const emptySelectedAuthorsInfo = () => {
   };
 };
 
+export const removeAuthor = (payload: RemoveAuthorBody) => {
+  return {
+    type: REMOVE_AUTHOR,
+    payload,
+  };
+};
+
+export const removeAuthorSuccess = (
+  payload: RemoveAuthorSuccessPayloadType,
+): RemoveAuthorSuccessType => {
+  return {
+    type: REMOVE_AUTHOR_SUCCESS,
+    payload,
+  };
+};
+
+export const removeAuthorFailed = (
+  payload: RemoveAuthorFailedPayloadtype,
+): RemoveAuthorFailedType => {
+  return {
+    type: REMOVE_AUTHOR_ERROR,
+    payload,
+  };
+};
+
 export const allWritersActions = {
   fetchAllWriters,
   fetchAllWritersSuccess,
@@ -119,4 +152,7 @@ export const allWritersActions = {
   getSelectedAuthorsSuccess,
   getSelectedAuthorsFailed,
   emptySelectedAuthorsInfo,
+  removeAuthor,
+  removeAuthorSuccess,
+  removeAuthorFailed
 };

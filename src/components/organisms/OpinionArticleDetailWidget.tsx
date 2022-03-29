@@ -25,11 +25,13 @@ import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
 
 export interface OpinionArticleDetailWidgetProp {
   data: OpinionArticleDetailItemType;
-  fontSize: ArticleFontSize
+  fontSize: ArticleFontSize;
+  isFollowed: boolean;
+  onPressFollow:()=>void;
 }
 
 export const OpinionArticleDetailWidget = ({
-  data,fontSize
+  data,fontSize,isFollowed,onPressFollow
 }: OpinionArticleDetailWidgetProp) => {
   const [t] = useTranslation();
   const {themeData} = useTheme();
@@ -117,12 +119,14 @@ export const OpinionArticleDetailWidget = ({
 
   return (
     <View>
-      <WriterBannerImage data={{ authorImage: data.writer[0]?.opinion_writer_photo }}
+      <WriterBannerImage data={{ authorImage: data.writer[0]?.opinion_writer_photo, authorName: data.writer[0]?.name }}
         orientation={getOrientation}
         onPressReturn={onPressReturn}
+        isFollowed={isFollowed}
+        onPressFollow={onPressFollow}
       />
       <View style={style.contentContainer}>
-        <AuthorCard title={data.writer[0].name} />
+        {/* <AuthorCard title={data.writer[0].name} /> */}
         <Label style={style.title}>{data.title}</Label>
         <ArticleFooter
           {...articleDetailFooterData}

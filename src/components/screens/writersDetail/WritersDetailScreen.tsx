@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, FlatList, BackHandler } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
+import { horizontalAndTop, isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils';
 import { ScreenContainer } from '..';
-import { useBookmark, useLogin } from 'src/hooks';
+import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
 import { Edge } from 'react-native-safe-area-context';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import TrackPlayer from 'react-native-track-player';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useWriterDetail } from 'src/hooks';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
@@ -25,27 +25,46 @@ export const WritersDetailScreen = ({
     route,
 }: WritersDetailScreenProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
+    const isFocused = useIsFocused();
+
     const style = useThemeAwareObject(customStyle);
 
-    const { isLoading, writerDetailData, getWriterDetailData, emptyWriterDetailData } = useWriterDetail();
+    const { isLoading, writerDetailData,
+        getWriterDetailData, emptyWriterDetailData
+    } = useWriterDetail();
+
     const {
         writerOpinionsData, isWriterOpinionLoading,
         fetchWriterOpinionsRequest, emptyWriterOpinionData
     } = useOpinions()
-    const { bookmarkIdInfo, sendBookmarkInfo, removeBookmarkedInfo } = useBookmark()
-    const { isLoggedIn } = useLogin()
+
+    const { 
+        bookmarkIdInfo, 
+        sendBookmarkInfo, removeBookmarkedInfo 
+    } = useBookmark()
+
+    const { 
+        isLoggedIn 
+    } = useLogin()
+
+    const { selectedAuthorsData, getSelectedAuthorsData,
+        sendSelectedWriterInfo, removeAuthorRequest
+    } = useAllWriters();
 
 
-    const [edge, setEdge] = useState<Edge[]>(horizontalEdge);
+
+    const [edge, setEdge] = useState<Edge[]>(horizontalAndTop);
     const [writerDetailInfo, setWriterDetailInfo] = useState<WriterDetailDataType[]>([])
     const [showupUp, setShowPopUp] = useState(false)
     const [getOrientation, setOrientation] = useState('')
     const [page, setPage] = useState(0);
     const [opinionsDataInfo, setOpinionsDataInfo] = useState(writerOpinionsData)
+    const [isFollowed, setIsFollowed] = useState(false)
 
 
     useEffect(() => {
         getWriterDetailData({ tid: route.params.tid })
+        getSelectedAuthorsData()
 
         return () => {
             emptyWriterDetailData()
@@ -66,6 +85,17 @@ export const WritersDetailScreen = ({
     useEffect(() => {
         updateOpinionsData()
     }, [writerOpinionsData, bookmarkIdInfo])
+
+    useEffect(() => {
+        if (isNonEmptyArray(writerDetailData) && isObjectNonEmpty(selectedAuthorsData) && isFocused) {
+            const isFollowed = validateFollow(writerDetailData[0].tid)
+            setIsFollowed(isFollowed)
+        }
+    }, [isFocused, writerDetailData, selectedAuthorsData])
+
+    const validateFollow = (id: string): boolean => {
+        return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
+    }
 
     const updateOpinionsData = () => {
         if (isNonEmptyArray(writerOpinionsData)) {
@@ -112,7 +142,7 @@ export const WritersDetailScreen = ({
                 return ['left'];
             default:
                 setOrientation('PORTRAIT')
-                return horizontalEdge;
+                return horizontalAndTop;
         }
     };
 
@@ -168,13 +198,37 @@ export const WritersDetailScreen = ({
         }
     };
 
+    const onPressFollow = (id: string) => {
+        if (!isLoggedIn) {
+            setShowPopUp(true)
+            return
+        }
+
+        const newFollowed = !isFollowed
+        const data = [...writerDetailInfo]
+        data[0].isFollowed = !data[0].isFollowed
+        setIsFollowed(newFollowed)
+        onUpdateFollow(id, newFollowed)
+    }
+
+    const onUpdateFollow = (id: string, hasFollowed: boolean) => {
+        if (isLoggedIn) {
+            hasFollowed ? sendSelectedWriterInfo({ tid: id, isList: false }) : removeAuthorRequest({ tid: id })
+        } else {
+            setShowPopUp(true)
+        }
+    }
+
     const renderItem = () => (
         <View style={style.container}>
             {isNonEmptyArray(writerDetailInfo) && <WriterBannerImage data={{
                 authorImage: writerDetailInfo[0].field_opinion_writer_photo_export,
+                authorName: writerDetailInfo[0].name
             }}
                 orientation={getOrientation}
                 onPressReturn={onPressBack}
+                isFollowed={isFollowed}
+                onPressFollow={() => onPressFollow(writerDetailInfo[0].tid)}
             />}
             <OpinionWritersArticlesSection
                 data={opinionsDataInfo}
