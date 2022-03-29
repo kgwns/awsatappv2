@@ -174,5 +174,5 @@ export type OpinionArticleDetailAction =
   | EmptyRelatedOpinionDataList
   | EmptyOpinionArticleDetailData
   | FetchNarratedOpinionType
-  | FetchNarratedOpinionSuccessPayloadType
-  | FetchNarratedOpinionFailedPayloadtype;
+  | FetchNarratedOpinionSuccessType
+  | FetchNarratedOpinionFailedType;

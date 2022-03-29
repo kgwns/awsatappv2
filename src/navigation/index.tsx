@@ -28,6 +28,7 @@ import {
   ManageMyFavoriteTopicsScreen,
   UserDetailScreen,
   VideoPlayerScreen,
+  WritersDetailScreen
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -66,6 +67,7 @@ export const Routes = {
   ManageMyFavoriteTopicsScreen,
   UserDetailScreen,
   VideoPlayerScreen,
+  WritersDetailScreen,
 };
 
 /**
@@ -97,6 +99,7 @@ export type ScreenList = {
   ManageMyFavoriteAuthorScreen: undefined;
   ManageMyFavoriteTopicsScreen: undefined;
   UserDetailScreen: undefined;
+  WritersDetailScreen: undefined
 };
 
 export type ScreenName = keyof undefined;
@@ -123,6 +126,7 @@ const manageMyNewsScreen = 'manageMyNewsScreen' as ScreenName;
 const manageMyFavoriteAuthorScreen = 'manageMyFavoriteAuthorScreen' as ScreenName;
 const manageMyFavoriteTopicsScreen = 'manageMyFavoriteTopicsScreen' as ScreenName;
 const userDetailScreen = 'userDetailScreen' as ScreenName;
+const writersDetailScreen = 'writersDetailScreen' as ScreenName
 
 export const RoutesName = {
   favoriteScreen,
@@ -147,4 +151,5 @@ export const RoutesName = {
   manageMyFavoriteAuthorScreen,
   manageMyFavoriteTopicsScreen,
   userDetailScreen,
+  writersDetailScreen,
 };

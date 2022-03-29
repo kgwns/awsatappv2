@@ -52,8 +52,9 @@ const HeadlinesSection = ({
     let nextIndex = 0
     let stringWidth = 0
     useEffect(() => {
-        setHeadNews(tickerData[0].title as any ?? '')
-        setHeaderNews(tickerData[0]?.news_categories?.title ?? '')
+        console.log("🚀 ~ file: HeadlinesSection.tsx ~ line 56 ~ useEffect ~ tickerData", tickerData)
+        setHeadNews(tickerData[0].title as any ?? 'Test')
+        setHeaderNews(tickerData[0]?.news_categories?.title ?? 'title')
         setIndexValue(1)
         return () => { }
     }, [])

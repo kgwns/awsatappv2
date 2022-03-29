@@ -26,6 +26,7 @@ import newsLetters from 'src/redux/newsLetter/reducer';
 import keepNotified from 'src/redux/keepNotified/reducer';
 import podcastReducer from 'src/redux/podcast/reducer';
 import contentForYouReducer from 'src/redux/contentForYou/reducer';
+import writerDetailReducer from 'src/redux/writersDetail/reducer'
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -57,6 +58,7 @@ const rootReducer = combineReducers({
   keepNotified: keepNotified,
   podcast: podcastReducer,
   contentForYou: contentForYouReducer,
+  writerDetail: writerDetailReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
