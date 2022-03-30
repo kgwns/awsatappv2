@@ -44,10 +44,15 @@ const SectionVideoFooter = ({
   return (
     <View style={{ ...SectionVideoFooterStyle.container, ...style }}>
       <View style={{ flexDirection: 'row' }}>
-                    {(leftTitle || leftViews) && <FooterCaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} subTitle={leftViews} subTitleColor={leftViewsColor} />}
-                    {(leftTitle || leftViews) && (rightDate || rightTitle) && <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />}
-                    {(rightDate || rightTitle) &&<FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
-    </View>
+        {(leftTitle || leftViews) && <FooterCaptionWithImage title={leftTitle} icon={leftIcon}
+          color={leftTitleColor}
+          subTitle={leftViews}
+          subTitleColor={leftViewsColor}
+          labelStyle={SectionVideoFooterStyle.leftStyle}
+        />}
+        {(leftTitle || leftViews) && (rightDate || rightTitle) && <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />}
+        {(rightDate || rightTitle) && <FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
+      </View>
     {addBookMark && 
       <ButtonImage
             testId={'bookmarkTestId'}
@@ -76,10 +81,14 @@ const SectionVideoFooterStyle = StyleSheet.create({
   },
   verticalDivider: {
     color: Styles.color.silverChalice,
-    paddingRight: normalize(7),
+    paddingHorizontal: normalize(10),
   },
   footerTextStyle: {
     fontSize:normalize(11), 
     paddingLeft: normalize(5),
   },
+  leftStyle: {
+    paddingRight: normalize(6),
+    fontWeight: 'bold'
+  }
 })
