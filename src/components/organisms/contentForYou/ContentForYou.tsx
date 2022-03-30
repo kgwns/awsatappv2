@@ -126,9 +126,9 @@ export const ContentForYou = () => {
     }
 
     const checkLoadData = () =>{
+        checkBookmarkUpdate();
         if(pageAllData[page] && pageAllData[page].articleSectionData.loaded &&
             pageAllData[page].opinionsData.loaded && pageAllData[page].shortArticleData.loaded){
-            checkBookmarkUpdate();
             setIsAllLoading(false);
             setInitialLoading(false)
         }
