@@ -123,7 +123,11 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         }
         
         }}>
-        {useLogin().isLoggedIn && userProfileData.user?.image ? <Image style={styles.user} source={{uri: getProfileImageUrl(userProfileData.user?.image as string)}}/> : <UserIcon/>}  
+        {useLogin().isLoggedIn && userProfileData.user?.image ?
+          <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.image as string) }} />
+          : userProfileData.user?.profile_url 
+          ? <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.profile_url as string) }} /> 
+          : <UserIcon />  }  
         {/* {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })} */}
       </TouchableOpacity>
       <View style={styles.logoContainer}>

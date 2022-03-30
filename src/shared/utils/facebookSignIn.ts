@@ -59,7 +59,8 @@ export default class SignInFacebook extends SocialLogin {
               givenName: result?.first_name,
               familyName: result?.last_name,
               id: this.fbUserId,
-              birthday: result?.birthday
+              birthday: result?.birthday,
+              profile_url: result?.picture
             },
           }
           this.callBack(resultData, true, 'facebook')

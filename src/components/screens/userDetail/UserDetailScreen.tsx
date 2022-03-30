@@ -159,6 +159,12 @@ export const UserDetailScreen: FunctionComponent = () => {
         userProfileData.user?.name !== ' ' &&
         setUserName(userProfileData.user?.name as string);
     }
+    if(userProfileData.user?.image == null){
+      userProfileData.user?.profile_url &&
+        setUserProfileImage(
+          getProfileImageUrl(userProfileData.user?.profile_url as string),
+        );
+    }
   }, [userProfileData]);
 
   useEffect(() => {

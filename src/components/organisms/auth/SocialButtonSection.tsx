@@ -49,7 +49,13 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     if(provider === 'facebook' && userDetails.birthday){
       payload.birthday = moment(userDetails.birthday).locale('en').format('YYYY-MM-DD')
     }
-    console.log(payload);
+    if(provider === 'facebook' && userDetails.profile_url){
+      payload.profile_url = userDetails.profile_url?.url
+    }
+    if (provider === 'google' && userInfo) {
+      payload.profile_url = userInfo.user.photo
+    }
+    console.log(payload, userInfo);
     createUserRequest(payload);
   }
 
