@@ -116,7 +116,8 @@ const customStyle = (theme: CustomThemeType) => {
   const OpinionWritersCardViewStyle = StyleSheet.create({
     container: {
       width: '100%',
-      padding: 0.04 * screenWidth,
+      paddingHorizontal: 0.04 * screenWidth,
+      marginVertical: normalize(12),
       backgroundColor: theme.backgroundColor,
     },
     topImageWithLabelContainer: {

@@ -87,12 +87,17 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.primary,
       textAlign: 'left',
       marginLeft: normalize(14),
+      marginTop: normalize(20)
     },
     writerContainer: {
       marginVertical: normalize(10),
       marginLeft: normalize(14),
     },
-    itemContainer: {alignItems: 'center', width: normalize(54)},
+    itemContainer: {
+      alignItems: 'center',
+      width: normalize(54),
+      marginBottom : normalize(10)
+    },
     labelStyle: {
       textAlign: 'center',
       marginTop: normalize(10),

@@ -60,8 +60,9 @@ const PodcastWidget = () => {
 const createStyles = (theme: CustomThemeType) => {
   const podcastWidgetStyle = StyleSheet.create({
     container: {
-      marginHorizontal: 0.04 * screenWidth,
-      marginVertical: normalize(15),
+      marginHorizontal: 0.05 * screenWidth,
+      marginTop: normalize(28),
+      marginBottom: normalize(25),
       backgroundColor: theme.secondaryGreen,
       flexDirection: 'row',
       height: normalize(71),

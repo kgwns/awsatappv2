@@ -12,7 +12,7 @@ import {useOpinions} from 'src/hooks/useOpinions';
 import {WritersBodyGet} from 'src/redux/writers/types';
 import {OpinionsBodyGet, OpinionsListItemType} from 'src/redux/opinions/types';
 import { useBookmark, useLogin } from 'src/hooks';
-import { isNonEmptyArray } from 'src/shared/utils';
+import { isNonEmptyArray, normalize } from 'src/shared/utils';
 import { AlertModal } from 'src/components/organisms';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
@@ -127,14 +127,14 @@ export const OpinionScreen = () => {
 
   const renderItem = () => (
     <View style={{width:'100%'}}>
-      <OpinionWritersSection data={opinionWriterData} onPressWriter={onPressWriter} />    
-      <OpinionWritersArticlesSection
-        data={opinionsDataInfo}
-        onScroll={() => gotoNextPage()}
-        isLoading={isLoading}
-        onUpdateOpinionArticlesBookmark={updatedOpinionArticlesBookmark}
-      />
-    </View>
+    <OpinionWritersSection data={opinionWriterData} onPressWriter={onPressWriter} />    
+    <OpinionWritersArticlesSection
+      data={opinionsDataInfo}
+      onScroll={() => gotoNextPage()}
+      isLoading={isLoading}
+      onUpdateOpinionArticlesBookmark={updatedOpinionArticlesBookmark}
+    />
+  </View>
   );
 
   return (
@@ -163,6 +163,9 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       backgroundColor: theme.backgroundColor,
     },
+    articleSection: {
+      marginTop: normalize(10)
+    }
   });
   return OpinionScreenStyle;
 };
