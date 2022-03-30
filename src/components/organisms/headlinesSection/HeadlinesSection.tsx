@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View, Text, Dimensions } from 'react-native';
-import { normalize } from 'src/shared/utils';
+import { isNonEmptyArray, isNotEmpty, normalize } from 'src/shared/utils';
 import TextTicker from 'react-native-text-ticker';
 import { Label, LabelTypeProp } from 'src/components/atoms';
-import { LatestArticleDataType } from 'src/redux/latestNews/types';
+import { LatestArticleDataType, NewsCategoriesType } from 'src/redux/latestNews/types';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -52,11 +52,20 @@ const HeadlinesSection = ({
     let nextIndex = 0
     let stringWidth = 0
     useEffect(() => {
+        const title = getTitle(tickerData, 0)
         setHeadNews(tickerData[0].title as any ?? '')
-        setHeaderNews(tickerData[0]?.news_categories?.title ?? '')
+        setHeaderNews(title)
         setIndexValue(1)
         return () => { }
     }, [])
+
+    const getTitle = (data: LatestArticleDataType[], index: number): string => {
+        if (isNonEmptyArray(data[index]?.news_categories)) {
+            const newsInfo = data[index]?.news_categories as NewsCategoriesType[]
+            return newsInfo[0]?.title ?? ''
+        }
+        return data[index]?.news_categories?.title ?? ''
+    }
 
     const getNextData = () => {
         nextIndex = indexValue + 1
@@ -66,10 +75,11 @@ const HeadlinesSection = ({
         else {
             setIndexValue(nextIndex)
         }
+        const title = getTitle(tickerData, indexValue)
         return (
             <>
                 {setHeadNews(tickerData[indexValue].title as any ?? '')}
-                {setHeaderNews(tickerData[indexValue]?.news_categories?.title ?? '')}
+                {setHeaderNews(title)}
             </>
         )
     }
@@ -91,8 +101,8 @@ const HeadlinesSection = ({
         return (
             <TouchableWithoutFeedback onPress={onPress}>
                 <View style={HeadlinesSectionStyle.contentContainer}>
-                    <Label color={titleColor} children={headerNews} labelType={LabelTypeProp.p5} onLayout={e => { setTitleWidth(e.nativeEvent.layout.width) }} />
-                    {tickerData[indexValue]?.news_categories?.title && <View style={[HeadlinesSectionStyle.separator, { backgroundColor: separatorColor }]} />}
+                    <Label color={titleColor} children={headerNews} labelType={LabelTypeProp.h5} onLayout={e => { setTitleWidth(e.nativeEvent.layout.width) }} />
+                    {isNotEmpty(headerNews) && <View style={[HeadlinesSectionStyle.separator, { backgroundColor: separatorColor }]} />}
                     <View onLayout={e => { setTextWidth(e.nativeEvent.layout.width) }}>
                         <TextTicker
                             style={[HeadlinesSectionStyle.headlineDescription, { color: bodyColor }]}
@@ -139,12 +149,12 @@ const HeadlinesSectionStyle = StyleSheet.create({
         overflow: 'hidden',
     },
     separator: {
-        width: '.3%',
+        width: '0.5%',
         height: '45%',
         marginHorizontal: normalize(8)
     },
     headlineDescription: {
-        fontSize: 12,
+        fontSize: normalize(12),
         textAlign: 'left',
     }
 })
