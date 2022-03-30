@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
 import { View, StyleSheet, TouchableOpacity, AppState } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
-import { normalize } from '../../../shared/utils';
+import { CustomAlert, normalize } from '../../../shared/utils';
 import { Label } from '../../atoms';
 import { ScreensConstants } from 'src/constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -65,8 +65,12 @@ export const ForgotPassword: FunctionComponent = () => {
   const onPressBack = () => {
     navigation.goBack();
   }
-  const onPressGoToMail = () => {
-    openInbox();
+  const onPressGoToMail = async () => {
+    try {
+      await openInbox();
+    } catch (error) {
+      CustomAlert({ message: JSON.stringify(error) })
+    }
   }
   
   const onPressSkip = () => {
