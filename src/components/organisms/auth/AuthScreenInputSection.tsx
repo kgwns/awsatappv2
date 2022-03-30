@@ -21,11 +21,12 @@ interface AuthScreenInputSectionProps {
   email?: string;
   emailError?: string;
   passwordTestID?: string;
-  password?: string;
+  password?: string; 
   passwordError?: string;
   rightIconTestID?: string;
-  isPassword?: boolean,
-  editableEmail?: boolean,
+  isPassword?: boolean;
+  editableEmail?: boolean;
+  showAlertNoInternet?: () => void;
 }
 
 export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionProps> =({
@@ -44,6 +45,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
   passwordError,
   isPassword= false,
   editableEmail= true,
+  showAlertNoInternet,
 }) => {
 
   const [t] = useTranslation();
@@ -146,6 +148,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
           <View style={[styles.bottomContainerStyle,isPassword&&{flex:0.35}]}>
             <SocialButtonSection
               onButtonPress={navigate}
+              showAlertNoInternet={showAlertNoInternet}
             />
           </View>
         </View>

@@ -78,6 +78,8 @@ export enum ImagesName {
   pauseIcon = 'pauseIcon',
   leftArrowIcon = 'leftArrowIcon',
   downArrowIcon = 'downArrowIcon',
+  plusGreen = 'plusGreen',
+  tickIcon = 'tickIcon',
 }
 
 export const images = {

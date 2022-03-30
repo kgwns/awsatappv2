@@ -35,7 +35,6 @@ const FollowFavoriteAuthor = ({
 }: FollowFavoriteAuthorProps) => {
   const [isSelectedState, setIsSelectedState] = useState(isSelected);
   const changeStatus = () => {
-    console.log(authorImage)
     if(clickable){
     onPress(!isSelectedState);
     setIsSelectedState(!isSelectedState);}

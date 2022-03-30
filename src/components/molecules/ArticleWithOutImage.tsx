@@ -51,7 +51,7 @@ export default ArticleWithOutImage
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     footerContainer: {
         flex: 1,
-        paddingTop: normalize(10),
+        paddingTop: normalize(15),
     },
     divider: {
         height: 1,

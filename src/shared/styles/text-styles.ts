@@ -63,10 +63,11 @@ export const textStyles = (theme: CustomThemeType) => {
     },
     h5: {
       fontStyle: FontStyle.NORMAL,
-      fontSize: 12,
-      lineHeight: 18,
+      fontSize: normalize(12),
+      lineHeight: normalize(16),
+      fontWeight: FontWeight.BOLD,
       textAlign: TextAlign.LEFT,
-      color: colors.blue,
+      color: colors.black,
     },
     h6: {
       fontStyle: FontStyle.NORMAL,

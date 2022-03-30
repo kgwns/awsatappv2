@@ -98,6 +98,8 @@ import PlayerCloseIconDark from 'src/assets/images/icons/playerCloseIconDark.svg
 import PauseIcon from 'src/assets/images/icons/pauseIcon.svg' 
 import LeftArrow from 'src/assets/images/icons/left_arrow.svg'
 import DownArrow from 'src/assets/images/icons/downArrow.svg'
+import PlusGreen from 'src/assets/images/icons/plusGreen.svg'
+import TickIcon from 'src/assets/images/icons/tickIcon.svg'
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -232,6 +234,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <LeftArrow {...props} />
         case ImagesName.downArrowIcon:
             return <DownArrow {...props} />
+        case ImagesName.plusGreen:
+            return <PlusGreen {...props} />
+        case ImagesName.tickIcon:
+            return <TickIcon {...props} />
         default: return null
     }
 }

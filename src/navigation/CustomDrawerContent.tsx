@@ -23,7 +23,16 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
 import { getProfileImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
-import { FACEBOOK_URL, INSTAGRAM_URL, LINKEDIN_URL, TWITTER_URL } from 'src/constants/SharedConstants';
+import {
+  FACEBOOK_APP_URL,
+  INSTAGRAM_APP_URL,
+  LINKEDIN_APP_URL,
+  TWITTER_APP_URL,
+  FACEBOOK_URL,
+  INSTAGRAM_URL,
+  LINKEDIN_URL,
+  TWITTER_URL,
+} from 'src/constants/SharedConstants';
 import { recordLogEvent } from 'src/shared/utils';
 
 export enum SocialMediaType {
@@ -163,20 +172,28 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const openSocialMedia = (type: string) =>{
     switch (type) {
       case SocialMediaType.facebook:
-        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.facebook});
-        Linking.openURL(FACEBOOK_URL);
+        recordLogEvent('Pressed_on_social_media_extensions', {socialMedia: SocialMediaType.facebook});
+        Linking.openURL(FACEBOOK_APP_URL).catch(() => {
+          Linking.openURL(FACEBOOK_URL)
+        });
         return;
       case SocialMediaType.instagram:
-        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.instagram});
-        Linking.openURL(INSTAGRAM_URL);
+        recordLogEvent('Pressed_on_social_media_extensions', {socialMedia: SocialMediaType.instagram});
+        Linking.openURL(INSTAGRAM_APP_URL).catch(() => {
+          Linking.openURL(INSTAGRAM_URL)
+        });
         return;
       case SocialMediaType.linkedIn:
-        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.linkedIn});
-        Linking.openURL(LINKEDIN_URL);
+        recordLogEvent('Pressed_on_social_media_extensions', {socialMedia: SocialMediaType.linkedIn});
+        Linking.openURL(LINKEDIN_APP_URL).catch(() => {
+          Linking.openURL(LINKEDIN_URL)
+        });
         return;
       case SocialMediaType.twitter:
-        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.twitter});
-        Linking.openURL(TWITTER_URL);
+        recordLogEvent('Pressed_on_social_media_extensions', {socialMedia: SocialMediaType.twitter});
+        Linking.openURL(TWITTER_APP_URL).catch(() => {
+          Linking.openURL(TWITTER_URL)
+        });
         return;
       default:
         return;

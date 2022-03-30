@@ -1,3 +1,5 @@
+import { isIOS } from "src/shared/utils";
+
 export const DEFAULT_ALERT_TITLE = '';
 export const DEFAULT_ALERT_MESSAGE = 'Need to implement';
 
@@ -37,3 +39,8 @@ export const FACEBOOK_URL = 'https://www.facebook.com/asharqalawsat.a';
 export const INSTAGRAM_URL = 'https://www.instagram.com/asharqalawsat/';
 export const LINKEDIN_URL = 'https://www.linkedin.com/company/asharq-alawsat';
 export const TWITTER_URL = 'https://twitter.com/aawsat_News'; 
+
+export const FACEBOOK_APP_URL = isIOS ? 'fb://page/?id=145726335465699' : 'fb://page/145726335465699';
+export const INSTAGRAM_APP_URL = 'instagram://user?username=asharqalawsat';
+export const LINKEDIN_APP_URL = 'linkedin://company/asharq-alawsat';
+export const TWITTER_APP_URL = 'twitter://user?screen_name=aawsat_News';

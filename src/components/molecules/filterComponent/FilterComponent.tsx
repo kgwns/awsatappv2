@@ -3,7 +3,7 @@ import React from 'react'
 import { Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { normalize } from 'src/shared/utils'
+import { isIOS, normalize, normalizeBy320 } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { moleculesTestID } from 'src/constants'
@@ -50,11 +50,12 @@ const customStyle = (theme: CustomThemeType) => (
             alignSelf: 'flex-start'
         },
         filterItem: {
-            marginRight: normalize(20),
+            marginRight: normalizeBy320(5),
             borderWidth: 1,
             borderColor: Styles.color.cyanGray,
-            paddingHorizontal: normalize(15),
-            paddingVertical: normalize(10),
+            paddingLeft: normalize(15),
+            paddingRight: normalize(30),
+            paddingVertical: isIOS ? normalize(10) : normalize(7),
             borderRadius: normalize(20)
         },
         filterActive: {
