@@ -60,7 +60,7 @@ export const FollowFavoriteAuthorScreen = () => {
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
       recordLogEvent('Add_Favorite_Authors',{userId: userProfileData.user?.id,favoriteIds: joinArray(getSelectedData())});
-      sendSelectedWriterInfo({ tid: joinArray(getSelectedData()) })
+      sendSelectedWriterInfo({ tid: joinArray(getSelectedData()), isList: true })
     }
   }
 

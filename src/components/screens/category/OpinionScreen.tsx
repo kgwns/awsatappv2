@@ -17,11 +17,12 @@ import { AlertModal } from 'src/components/organisms';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 
 export const OpinionScreen = () => {
   const [t] = useTranslation()
-  const navigation = useNavigation()
+  const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [page, setPage] = useState(0);
   const writersPayload: WritersBodyGet = {
@@ -120,9 +121,13 @@ export const OpinionScreen = () => {
     setOpinionsDataInfo(updatedData)
   }
 
+  const onPressWriter = (tid: string) => {
+    navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, {tid})
+  }
+
   const renderItem = () => (
     <View style={{width:'100%'}}>
-      <OpinionWritersSection data={opinionWriterData} />    
+      <OpinionWritersSection data={opinionWriterData} onPressWriter={onPressWriter} />    
       <OpinionWritersArticlesSection
         data={opinionsDataInfo}
         onScroll={() => gotoNextPage()}

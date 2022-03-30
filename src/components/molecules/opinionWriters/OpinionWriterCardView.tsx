@@ -26,6 +26,7 @@ export interface OpinionWritersCardViewProps {
   isBookmarked:boolean
   mediaVisibility:boolean
   onPressBookmark:()=>void
+  hideImageView?: boolean
 }
 
 const OpinionWritersCardView = ({
@@ -39,6 +40,7 @@ const OpinionWritersCardView = ({
   isBookmarked,
   mediaVisibility,
   onPressBookmark,
+  hideImageView = false
 }: OpinionWritersCardViewProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -52,7 +54,7 @@ const OpinionWritersCardView = ({
 
   return (
     <TouchableOpacity style={style.container} onPress={()=>onPress()}>
-      <View style={style.topImageWithLabelContainer}>
+      {!hideImageView && <View style={style.topImageWithLabelContainer}>
         <Image
           size={normalize(43)}
           url={imageUrl}
@@ -60,12 +62,12 @@ const OpinionWritersCardView = ({
           resizeMode="cover"
           fallback={true}
           fallbackContent={<AuthorDefault
-          style={{backgroundColor:Styles.color.cyanGreen}}
-          width={normalize(43)} 
-          height={normalize(43)}/>}
+            style={{ backgroundColor: Styles.color.cyanGreen }}
+            width={normalize(43)}
+            height={normalize(43)} />}
         />
         <Label style={style.writerLabel}>{writerTitle}</Label>
-      </View>
+      </View>}
       <View style={style.headLineContainer}>
         <Label style={style.headLine} numberOfLines={2}>
           {headLine}

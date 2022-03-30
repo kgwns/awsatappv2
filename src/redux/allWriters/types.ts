@@ -9,6 +9,9 @@ import {
   GET_SELECTED_AUTHOR_SUCCESS,
   GET_SELECTED_AUTHOR_ERROR,
   EMPTY_SELECTED_AUTHORS_INFO,
+  REMOVE_AUTHOR,
+  REMOVE_AUTHOR_SUCCESS,
+  REMOVE_AUTHOR_ERROR,
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -47,9 +50,21 @@ export interface SendSelectedAuthorFailedPayloadtype {
 }
 
 export interface SendSelectedAuthorBody {
-  tid: string
+  tid: string,
+  isList:boolean,
 }
 
+export interface RemoveAuthorBody {
+  tid: string,
+}
+
+export interface RemoveAuthorSuccessPayloadType {
+  removeData: ResponseMessage;
+}
+
+export interface RemoveAuthorFailedPayloadtype {
+  error: string;
+}
 export interface ResponseMessage {
   code?: number,
   message?: string
@@ -130,6 +145,22 @@ export type EmptySelectedAuthorsInfo = {
   type: typeof EMPTY_SELECTED_AUTHORS_INFO;
 };
 
+export type RemoveAuthorType = {
+  type: typeof REMOVE_AUTHOR;
+  payload: RemoveAuthorBody;
+};
+
+export type RemoveAuthorSuccessType = {
+  type: typeof REMOVE_AUTHOR_SUCCESS;
+  payload: RemoveAuthorSuccessPayloadType;
+};
+
+export type RemoveAuthorFailedType = {
+  type: typeof REMOVE_AUTHOR_ERROR;
+  payload: RemoveAuthorFailedPayloadtype;
+};
+
+
 export type AllWritersActions =
   | FetchAllWritersType
   | FetchAllWritersSuccessType
@@ -140,4 +171,7 @@ export type AllWritersActions =
   | GetSelectedAuthorType
   | GetSelectedAuthorSuccessType
   | GetSelectedAuthorFailedType
-  | EmptySelectedAuthorsInfo;
+  | EmptySelectedAuthorsInfo
+  | RemoveAuthorBody
+  | RemoveAuthorSuccessPayloadType
+  | RemoveAuthorFailedPayloadtype;

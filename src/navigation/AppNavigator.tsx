@@ -197,6 +197,11 @@ const AppNavigator = () => {
           headerTitleAlign: 'center'
         }}
       />
+       <Stack.Screen
+        name={ScreensConstants.WRITERS_DETAIL_SCREEN}
+        component={Routes.WritersDetailScreen}
+        options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };

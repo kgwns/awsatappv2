@@ -1,7 +1,12 @@
+import { FetchWriterDetailFailedPayloadType } from '../writersDetail/types';
 import {
   FETCH_OPINIONS,
   FETCH_OPINIONS_SUCCESS,
   FETCH_OPINIONS_ERROR,
+  FETCH_WRITER_OPINIONS,
+  FETCH_WRITER_OPINIONS_SUCCESS,
+  FETCH_WRITER_OPINIONS_ERROR,
+  EMPTY_WRITER_OPINION_DATA,
 } from './actionTypes';
 
 export interface Pager {
@@ -59,6 +64,9 @@ export type OpinionsListState = {
   opinionData: payloadType;
   error: string;
   isLoading: boolean;
+  writerOpinionLoading: boolean;
+  writerOpinionData: payloadType;
+  writerOpinionError: string
 };
 
 export type FetchOpinionsType = {
@@ -76,7 +84,46 @@ export type FetchOpinionsFailedType = {
   payload: FetchOpinionsFailedPayloadtype;
 };
 
+
+
+export interface WriterOpinionsBodyGet {
+  tid: string;
+  page: number
+}
+
+export interface FetchWriterOpinionsSuccessPayloadType {
+  writerOpinionListData: any;
+}
+
+export interface FetchWriterOpinionsFailedPayloadtype {
+  error: string;
+}
+
+
+export type FetchWriterOpinionsType = {
+  type: typeof FETCH_WRITER_OPINIONS;
+  payload: WriterOpinionsBodyGet;
+};
+
+export type FetchWriterOpinionsSuccessType = {
+  type: typeof FETCH_WRITER_OPINIONS_SUCCESS;
+  payload: FetchWriterOpinionsSuccessPayloadType;
+};
+
+export type FetchWriterOpinionsFailedType = {
+  type: typeof FETCH_WRITER_OPINIONS_ERROR;
+  payload: FetchWriterDetailFailedPayloadType;
+};
+
+export type EmptyWriterOpinionDataType = {
+  type: typeof EMPTY_WRITER_OPINION_DATA
+}
+
 export type OpinionsActions =
   | FetchOpinionsType
   | FetchOpinionsSuccessType
-  | FetchOpinionsFailedType;
+  | FetchOpinionsFailedType
+  | FetchWriterOpinionsType
+  | FetchWriterOpinionsSuccessType
+  | FetchWriterOpinionsFailedType
+  | EmptyWriterOpinionDataType

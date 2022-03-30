@@ -17,16 +17,17 @@ import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
 
 interface OpinionWritersWidgetProps {
   data: OpinionWriterItemType[];
+  onPressWriter: (tid: string) => void;
 }
 
-const OpinionWritersSection = ({data}: OpinionWritersWidgetProps) => {
+const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const [t] = useTranslation();
-  const renderItem = (item: any, index: number) => {
+  const renderItem = (item: OpinionWriterItemType, index: number) => {
     return (
       <TouchableWithoutFeedback
-        onPress={() => console.log('pressed ' + item.tid)}
+        onPress={() => onPressWriter(item.tid)}
         style={[style.writerContainer,{paddingEnd:(data.length-1===index)?normalize(20):0}]}
         key={flatListUniqueKey.OPINION_WRITER_SECTION + index}>
         <View style={style.itemContainer}>

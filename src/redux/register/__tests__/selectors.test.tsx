@@ -11,7 +11,7 @@ describe('Register Selector', () => {
 
     test('Get user info state', () => {
         const data: RegisterSuccessPayloadType|null = getRegisterUserInfo(registerData)
-        expect(data).toEqual({})
+        expect(data).toEqual(null)
     })
 
     test('Get error state', () => {

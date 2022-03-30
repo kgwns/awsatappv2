@@ -19,6 +19,7 @@ interface OpinionWritersArticlesSectionProps {
   onScroll: () => void;
   isLoading: boolean;
   onUpdateOpinionArticlesBookmark: (index: number) => void
+  hideImageView?: boolean
 }
 
 const OpinionWritersArticlesSection = ({
@@ -26,6 +27,7 @@ const OpinionWritersArticlesSection = ({
   onScroll,
   isLoading,
   onUpdateOpinionArticlesBookmark,
+  hideImageView
 }: OpinionWritersArticlesSectionProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -57,6 +59,7 @@ const OpinionWritersArticlesSection = ({
           mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)}
           onPressBookmark={() => {onUpdateOpinionArticlesBookmark(index)}}
           audioLabel={audioLabel}
+          hideImageView={hideImageView}
         />
         {isLoading && data.length - 1 == index && (
           <View style={{margin: normalize(28)}}>
