@@ -18,6 +18,6 @@ export default abstract class SocialLogin {
 
     showErrorMessage(message: string) {
         //this.callBack(undefined, false)
-        Alert.alert(message)
+       // Alert.alert(message)
     }
 }

@@ -50,12 +50,10 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     if(provider === 'facebook' && userDetails.birthday){
       payload.birthday = moment(userDetails.birthday).locale('en').format('YYYY-MM-DD')
     }
-    console.log(payload);
     createUserRequest(payload);
   }
 
   const onResult = (userInfo:any,success:boolean, provider:string, message?:String)=>{
-
     if(success){
       onSuccessSocialLogin(userInfo,provider)
     }else{
@@ -159,7 +157,6 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
             onPress={() => {
               buttonPressAction('APPLE')
               appleSignin().then(response => {
-                console.log('component appleSignin response:- ', response)
                 appleSigninApi(response);
               })
             }}
