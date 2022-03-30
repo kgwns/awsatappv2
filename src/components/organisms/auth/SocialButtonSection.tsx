@@ -50,8 +50,9 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       payload.birthday = moment(userDetails.birthday).locale('en').format('YYYY-MM-DD')
     }
     if(provider === 'facebook' && userDetails.profile_url){
-      payload.profile_url = userDetails.profile_url?.url
+      payload.profile_url = userDetails.profile_url
     }
+    
     if (provider === 'google' && userInfo) {
       payload.profile_url = userInfo.user.photo
     }
