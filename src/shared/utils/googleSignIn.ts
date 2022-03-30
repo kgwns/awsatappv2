@@ -54,7 +54,6 @@ export default class SigninGoogle extends SocialLogin {
             await GoogleSignin.signOut()
             this.callBack(undefined, false, 'google')
         } catch (error:any) {
-            this.showErrorMessage(error)
             this.callBack(undefined, false, 'google')
         }
     };
