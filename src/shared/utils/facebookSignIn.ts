@@ -27,7 +27,9 @@ export default class SignInFacebook extends SocialLogin {
               })
           }},
           (error: any) => {
-              this.showErrorMessage('FB Login fail with error: ' + error)
+              //this.showErrorMessage('FB Login fail with error: ' + error)
+              console.log('Facebook Error:', error);
+              this.callBack(undefined, false, 'facebook', 'ErrorOccured');
           }
       )
   }
@@ -49,7 +51,9 @@ export default class SignInFacebook extends SocialLogin {
 
   _responseInfoCallback = (error: any, result: any) => {
       if (error) {
-          this.showErrorMessage('Error fetching data: ' +error.toString());
+          //this.showErrorMessage('Error fetching data: ' +error.toString());
+          console.log('Facebook Error: ', error.toString());
+          this.callBack(undefined, false, 'facebook', 'ErrorOccured');
       } else {
           console.log('** FB Response result::', result)
           let resultData = {

@@ -92,6 +92,11 @@ export const AuthPage: FunctionComponent = () => {
     }
   }, [emailCheckData]);
 
+  const showAlertNoInternet = () => {
+    setAlertPayload(noInternetConnection);
+    setIsAlertVisible(true);
+  }
+
   const navigateToSection = (type: string) => {
     switch (type) {
       case NavigateTypes.google:
@@ -168,6 +173,7 @@ export const AuthPage: FunctionComponent = () => {
               setChangeText={setEmail}
               navigateToSection={navigateToSection}
               onPressSignup={onPressSignup}
+              showAlertNoInternet={showAlertNoInternet}
             />
           </View>
 

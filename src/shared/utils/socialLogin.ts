@@ -17,7 +17,7 @@ export default abstract class SocialLogin {
     abstract logout(): void
 
     showErrorMessage(message: string) {
-        this.callBack(undefined, false)
+        //this.callBack(undefined, false)
         Alert.alert(message)
     }
 }

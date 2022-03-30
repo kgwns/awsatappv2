@@ -25,9 +25,10 @@ import moment from 'moment';
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
   style?: StyleProp<ViewStyle>;
+  showAlertNoInternet?: () => void;
 }
 
-export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =({ onButtonPress, style }) => {
+export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =({ onButtonPress, style, showAlertNoInternet }) => {
 
   const [t] = useTranslation();
   const {themeData} = useTheme();
@@ -53,12 +54,18 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     createUserRequest(payload);
   }
 
-  const onResult = (userInfo:any,success:boolean, provider:string)=>{
+  const onResult = (userInfo:any,success:boolean, provider:string, message?:String)=>{
 
     if(success){
       onSuccessSocialLogin(userInfo,provider)
     }else{
       socialLoginEnded();
+      if(message){
+        if(message === 'ErrorOccured'){
+          //show Alert
+          showAlertNoInternet && showAlertNoInternet()
+        }
+      }
     }
   }
 
