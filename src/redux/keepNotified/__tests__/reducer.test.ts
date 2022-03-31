@@ -24,7 +24,7 @@ describe('KeepNotified Reducer', () => {
             sendSelectedError: '',
             sendSelectedNotificationInfo: {},
             getSelectedNotificationInfo: {},
-            getSelectedError: ''
+            getSelectedError: '',
         }
     })
 
@@ -64,7 +64,7 @@ describe('KeepNotified Reducer', () => {
             type: GET_SELECTED_NOTIFICATION_SUCCESS,
             payload: getNotificationResponse
         })
-        expect(nextState.isLoading).toBe(false)
+        expect(nextState.isLoading).toBe(true)
     })
 
     test('On Failed of keep notification details API', () => {
@@ -72,6 +72,6 @@ describe('KeepNotified Reducer', () => {
             type: GET_SELECTED_NOTIFICATION_FAILED,
             payload: { error: errorMessage }
         })
-        expect(nextState.isLoading).toBe(false)
+        expect(nextState.isLoading).toBe(true)
     })
 })
