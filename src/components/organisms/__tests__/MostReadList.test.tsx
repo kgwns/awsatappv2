@@ -13,13 +13,13 @@ describe('<MostReadList>', () => {
       body: 'body',
       field_image: 'field_image',
       view_node: 'view_node',
-      field_news_categories_export: {
+      field_news_categories_export: [{
         id: 'id',
         title: 'title',
         url: 'url',
         bundle: 'bundle',
         name: 'name',
-      },
+      }],
       field_publication_date_export: 'field_publication_date_export',
     },
   ];

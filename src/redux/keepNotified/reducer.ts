@@ -54,7 +54,8 @@ export default (state = initialData, action: KeepNotifiedAction) => {
     case REMOVE_SELECTED_NOTIFICATION:
       return {
         ...state,
-        sendSelectedNotificationInfo: {}
+        sendSelectedNotificationInfo: {},
+        getSelectedNotificationInfo: {}
       }
     default:
       return { ...state }

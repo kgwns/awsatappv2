@@ -36,12 +36,20 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
                 style={StyleSheet.flatten([{ paddingBottom: normalize(25) }, articleItemStyle])}>
                 {isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
-                <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
-                   onPressBookmark={onPressBookmark}
-                />
+                <View style={style.contentContainer}>
+                    <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
+                        onPressBookmark={onPressBookmark}
+                    />
+                </View>
             </View>
         </TouchableWithoutFeedback>
     )
 }
 
 export default ArticleItem;
+
+const style = StyleSheet.create({
+    contentContainer: {
+        paddingTop: normalize(10)
+    }
+})
