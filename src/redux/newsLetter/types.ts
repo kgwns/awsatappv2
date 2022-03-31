@@ -1,10 +1,13 @@
-import { EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_SELECTED_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS_ERROR, GET_SELECTED_NEWS_LETTERS_SUCCESS, SEND_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS_ERROR, SEND_SELECTED_NEWS_LETTERS_SUCCESS } from "./actionTypes";
+import { EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_SELECTED_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS_ERROR, GET_SELECTED_NEWS_LETTERS_SUCCESS, SEND_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS_ERROR, SEND_SELECTED_NEWS_LETTERS_SUCCESS, GET_MY_NEWS_LETTERS, GET_MY_NEWS_LETTERS_SUCCESS, GET_MY_NEWS_LETTERS_ERROR } from "./actionTypes";
 
 export type NewsLetterState = {
   error: string;
   isLoading: boolean;
   sendNewsLettersInfo: ResponseMessage;
   selectedNewsLettersData: SelectedNewsLettersDataType;
+  myNewsLetters: any;
+  isMyNewsLoading: boolean;
+  myNewsError: string;
 };
 
 export interface NewsLetterItemType {
@@ -45,6 +48,13 @@ export interface SelectedNewsLettersDataType {
 export interface GetSelectedNewsLettersSuccessPayloadType {
   selectedNewsLettersData: any;
 }
+export interface GetMyNewsLettersSuccessPayloadType {
+  myNewsLettersData: any;
+}
+
+export interface GetMyNewsLettersFailedPayloadtype {
+  error: string;
+}
 
 export interface GetSelectedNewsLettersFailedPayloadtype {
   error: string;
@@ -79,6 +89,20 @@ export type GetSelectedNewsLettersFailedType = {
   payload: GetSelectedNewsLettersFailedPayloadtype;
 };
 
+export type GetMyNewsLettersType = {
+  type: typeof GET_MY_NEWS_LETTERS;
+};
+
+export type GetMyNewsLettersSuccessType = {
+  type: typeof GET_MY_NEWS_LETTERS_SUCCESS;
+  payload: GetMyNewsLettersSuccessPayloadType;
+};
+
+export type GetMyNewsLettersFailedType = {
+  type: typeof GET_MY_NEWS_LETTERS_ERROR;
+  payload: GetMyNewsLettersFailedPayloadtype;
+};
+
 export type EmptySelectedNewsLettersInfo = {
   type: typeof EMPTY_SELECTED_NEWS_LETTERS_INFO;
 };
@@ -90,4 +114,7 @@ export type NewsLettersActions =
   | GetSelectedNewsLettersType
   | GetSelectedNewsLettersSuccessType
   | GetSelectedNewsLettersFailedType
+  | GetMyNewsLettersSuccessType
+  | GetMyNewsLettersType
+  | GetMyNewsLettersFailedType
   | EmptySelectedNewsLettersInfo;

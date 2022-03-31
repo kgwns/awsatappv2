@@ -38,7 +38,7 @@ describe('Test News Letters Services', () => {
         });
     });
     it('test when getSelectedNewsLettersApi response code is 200', () => {
-        mock.onPost().reply(200, {
+        mock.onGet().reply(200, {
             result: true,
         });
 
@@ -47,7 +47,7 @@ describe('Test News Letters Services', () => {
         });
     });
     it('test when getSelectedNewsLettersApi response code is 500', () => {
-        mock.onPost().reply(500, {
+        mock.onGet().reply(500, {
             error: 'Something Went Wrong',
         });
 
