@@ -160,6 +160,9 @@ export const storeInfo = [
       isLoading: false,
       sendNewsLettersInfo: {},
       selectedNewsLettersData: {},
+      isMyNewsLoading: false,
+      myNewsError: '',
+      myNewsLetters: {}
     },
     keepNotified: {
       isLoading: true,

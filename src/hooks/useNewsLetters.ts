@@ -2,11 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     getIsLoading,
     getSentNewsLettersInfoData,
-    getSelectedNewsLettersDataList
+    getSelectedNewsLettersDataList,
+    getIsMyNewsLoading,
+    getMyNewsLettersDataList,
 } from 'src/redux/newsLetter/selectors';
 import { ResponseMessage } from 'src/redux/allWriters/types';
 import { SelectedNewsLettersDataType, SendSelectedNewsLettersBody } from 'src/redux/newsLetter/types';
-import { emptySelectedNewsLettersInfo, getSelectedNewsletters, sendSelectedNewsLetters } from 'src/redux/newsLetter/action';
+import { emptySelectedNewsLettersInfo, getSelectedNewsletters, sendSelectedNewsLetters, getMyNewsletters } from 'src/redux/newsLetter/action';
 
 export interface UseNewsLettersReturn {
     isLoading: boolean;
@@ -14,6 +16,9 @@ export interface UseNewsLettersReturn {
     selectedNewsLettersData: SelectedNewsLettersDataType
     sendSelectedNewsLettersInfo(payload: SendSelectedNewsLettersBody): void
     getSelectedNewsLettersData(): void;
+    isMyNewsLoading: boolean,
+    myNewsLetters: SelectedNewsLettersDataType,
+    getMyNewsLettersData(): void;
     emptySelectedNewsLettersInfoData(): void;
 }
 
@@ -22,6 +27,8 @@ export const useNewsLetters = (): UseNewsLettersReturn => {
     const isLoading = useSelector(getIsLoading);
     const sentNewsLettersInfoData = useSelector(getSentNewsLettersInfoData);
     const selectedNewsLettersData = useSelector(getSelectedNewsLettersDataList);
+    const isMyNewsLoading = useSelector(getIsMyNewsLoading);
+    const myNewsLetters = useSelector(getMyNewsLettersDataList);
 
     const sendSelectedNewsLettersInfo = (payload: SendSelectedNewsLettersBody) => {
         dispatch(sendSelectedNewsLetters(payload))
@@ -29,6 +36,10 @@ export const useNewsLetters = (): UseNewsLettersReturn => {
 
     const getSelectedNewsLettersData = () => {
         dispatch(getSelectedNewsletters())
+    }
+
+    const getMyNewsLettersData = () => {
+        dispatch(getMyNewsletters())
     }
 
     const emptySelectedNewsLettersInfoData = () => {
@@ -42,6 +53,9 @@ export const useNewsLetters = (): UseNewsLettersReturn => {
         selectedNewsLettersData,
         sendSelectedNewsLettersInfo,
         getSelectedNewsLettersData,
+        isMyNewsLoading,
+        myNewsLetters,
+        getMyNewsLettersData,
         emptySelectedNewsLettersInfoData,
     };
 };
