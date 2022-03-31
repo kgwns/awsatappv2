@@ -48,8 +48,11 @@ const createStyles = (theme: CustomThemeType) =>
     starLabelStyle: {
       textAlign: 'right', 
       lineHeight: normalize(17), 
-      marginLeft: 10, 
       fontSize: normalize(16) 
+    },
+    starContainer: {
+      width: '5%',
+      marginLeft: 5,
     },
     containerStyle: {
       flexDirection: 'row'
@@ -117,7 +120,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   return (
     <View>
       <View style={styles.containerStyle}>
-        <View style={[styles.container, style]}>
+        <View style={[styles.container, style, isMandatory&&{width: '95%'}]}>
           <View style={[styles.iconContainerStyle]}>
             {isPassword && <LockIcon width={normalize(15)} height={normalize(15)} fill={themeData.textColor} />}
             {leftIcon && leftIcon()}
@@ -153,7 +156,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
           </TouchableOpacity>
           }
         </View>
-        {isMandatory && <Label children={'*'} color={colors.greenishBlue} style={styles.starLabelStyle} />}
+        {isMandatory && <View style={styles.starContainer}><Label children={'*'} color={colors.greenishBlue} style={styles.starLabelStyle} /></View>}
       </View>
       <View style={[styles.errorTextContainer, errorStyle]}>
         <Label style={styles.errorTextStyle}>{error}</Label>

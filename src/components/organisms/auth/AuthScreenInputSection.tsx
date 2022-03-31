@@ -87,6 +87,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
               children={isPassword?t('signIn.loginAccount'):t('signIn.signUp')}
               labelType="h2"
               color={colors.greenishBlue}
+              style={styles.loginStyle}
             />
             <Label
               children={t('signIn.signUpReceive')}
@@ -157,12 +158,16 @@ StyleSheet.create({
   container:{
     flex: 1,
   },
+  loginStyle: {
+    fontSize: normalize(20),
+    fontWeight: 'bold',
+  },
   spaceStyle: {
     marginHorizontal: normalize(10),
   },
   textStyle: {
     fontSize: normalize(15),
-    color: theme.textColor,
+    color: theme.signInTextColor,
     lineHeight: normalize(22),
     fontWeight: '400',
     marginBottom: normalize(15),
@@ -175,7 +180,7 @@ StyleSheet.create({
   buttonStyle: {
     backgroundColor: theme.primary,
     borderWidth: 0,
-    width: '50%',
+    width: '60%',
   },
   topContainerStyle: {
     flex: 0.5,
@@ -190,6 +195,7 @@ StyleSheet.create({
   labelStyle: {
     color: theme.secondaryWhite,
     fontWeight: 'bold',
+    fontSize: normalize(20),
     lineHeight: normalize(22),
   },
   dividerContainber: {

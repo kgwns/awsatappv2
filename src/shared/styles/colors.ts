@@ -96,6 +96,8 @@ export interface CustomThemeType {
   miniPlayerBorderColor: string,
   lightRed: string,
   primaryNobel: string,
+  signInTextColor: string,
+  signinRightsColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -130,6 +132,8 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   miniPlayerBorderColor: colors.chineseWhite,
   lightRed: colors.paleRed,
   primaryNobel: colors.nobelGray,
+  signInTextColor: colors.davyGrey,
+  signinRightsColor: colors.spanishGray,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -161,5 +165,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   miniPlayerBorderColor:colors.onyx,
   lightRed:colors.nightBlack,
   primaryNobel: colors.white,
+  signInTextColor: colors.white,
+  signinRightsColor: colors.white,
 }
 

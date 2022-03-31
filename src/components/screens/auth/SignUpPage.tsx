@@ -169,6 +169,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
               <Label
                 children={t('signUp.createAccount')}
                 labelType="h2"
+                style={styles.accountStyle}
                 color={colors.greenishBlue}
               />
               <Label
@@ -287,7 +288,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     textStyle: {
       fontSize: normalize(13),
-      color: theme.textColor,
+      color: theme.signInTextColor,
       lineHeight: normalize(16),
       fontWeight: '400',
       marginBottom: normalize(20),
@@ -295,10 +296,16 @@ const createStyles = (theme: CustomThemeType) =>
     buttonStyle: {
       backgroundColor: theme.primary,
       borderWidth: 0,
-      width: '50%',
+      width: '60%',
     },
     labelStyle: {
       color: colors.white,
+      fontSize: normalize(20),
+      fontWeight: 'bold',
+      lineHeight: 22,
+    },
+    accountStyle: {
+      fontSize: normalize(20),
       fontWeight: 'bold',
       lineHeight: 22,
     },
