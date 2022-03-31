@@ -85,7 +85,9 @@ export const NewsLetterCard = ({
           <View style={style.labelContainer} >
             <Label
               style={selected ? style.statusSelectedLabel : style.statusLabel} numberOfLines={1}>
-              {description}
+              {selected
+              ? t('onBoard.newsLetter.subscribed')
+              : t('onBoard.newsLetter.notSubscribed')}
             </Label>
           </View>
         </View>
@@ -152,7 +154,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(12),
       color: theme.primary,
       lineHeight: normalize(14),
-      marginStart: normalize(5),
+      marginStart: normalize(8),
       fontWeight: 'bold',
     },
     labelContainer: {

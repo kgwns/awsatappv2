@@ -15,7 +15,7 @@ import ViewIcon from 'src/assets/images/icons/view.svg';
 import DateIcon from 'src/assets/images/icons/date.svg';
 import {normalize} from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
-import {getImageUrl} from 'src/shared/utils/utilities';
+import {getImageUrl, getSecondsToHms} from 'src/shared/utils/utilities';
 import {timeAgo} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
@@ -60,13 +60,17 @@ export const VideoItem = ({
   const showSeparator = (views || toWatchTitle) && (date)
   const imageLink = imageUrl ? getImageUrl(imageUrl) : undefined;
   const monthDate = t(timeAgo(date))
+  const duration = time ? getSecondsToHms(time.split('|')[1]) : undefined;
   return (
     <View>
       <TouchableOpacity testID={testID} accessibilityLabel={testID} onPress={onPress}>
         <View>
         {isFirstItem ? (
-          <View style={styles.videoContainer}>
+          <View style={[styles.videoContainer,{ marginTop: 0}]}>
             <Image fallback resizeMode={'cover'} url={imageLink} style={styles.imageBig} />
+            <View style={styles.titleContainer} >
+                <Label style={styles.titleStyle}>{t('videoDetail.documentaryText')}</Label>
+              </View>
             <View style={styles.buttonContainer}>
               <ButtonOutline title={t('videoDetail.employement')}
               style={styles.buttonStyle}
@@ -75,14 +79,15 @@ export const VideoItem = ({
               onPress={onPress}
               rightIcon={() => <View style={styles.rightIconStyle}><PlayIconSmall fill={colors.white}/></View>}
               />
+              
              </View>
           </View>
         ) : (
-            <View style={[styles.videoContainer,styles.spaceContainer]}>
+            <View style={[styles.videoContainer,styles.spaceContainer, !isFirstItem && { marginTop: 0}]}>
               <Image fallback resizeMode={'cover'} url={imageLink} style={styles.image} />
               <PlayIcon fill={colors.white} style={styles.playIcon} />
-              {time && (<Label style={styles.time} color={colors.white}>
-                {time}
+              {duration && (<Label style={styles.time} color={colors.white}>
+                {duration}
               </Label>)}
               {videoLabel &&(<Label style={styles.videoLable}>{videoLabel}</Label>)}
             </View>
@@ -178,16 +183,18 @@ const createStyles = (theme: CustomThemeType) =>
     },
     videoContainer: {
       width: '100%',
+      marginTop: normalize(10)
     },
     time: {
       position: 'absolute',
-      right: 0,
+      right: normalize(15),
       bottom: 0,
-      backgroundColor: colors.greyDark20,
+      opacity: 0.8,
+      backgroundColor: colors.darkGreenishBlue,
       padding: normalize(5),
     },
     videoLable: {
-      left: 0,
+      left: normalize(15),
       top: 0,
       position: 'absolute',
       backgroundColor: colors.greenishBlue,
@@ -205,6 +212,15 @@ const createStyles = (theme: CustomThemeType) =>
       right: 0,
       left: 0,
       position: 'absolute',
+    },
+    titleContainer: {
+      bottom: 0,
+      right: 0,
+      left: 0,
+      top: 0,
+      position: 'absolute',
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     labelContainer: {
       backgroundColor: colors.greenishBlue,
@@ -229,5 +245,11 @@ const createStyles = (theme: CustomThemeType) =>
     },
     buttonLabel: {
       color: colors.white,
+    },
+    titleStyle: {
+      color: colors.darkRed,
+      fontSize: normalize(40),
+      fontWeight: 'bold',
+      lineHeight: normalize(55),
     },
   });

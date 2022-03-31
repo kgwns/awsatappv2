@@ -82,7 +82,7 @@ export const VideoScreen = (props: VideoScreenProps) => {
   
   useEffect(() => { fetchVideoRequest(); }, []);
   const onPressItem = (item:VideoItemType)=>{
-    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item})
+    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: false})
   }
   const [t] = useTranslation();
 
@@ -95,11 +95,13 @@ export const VideoScreen = (props: VideoScreenProps) => {
         imageUrl={item.field_thumbnil_multimedia_export}
         des={item.description}
         date={item.created_export}
-        isFirstItem={index === 0}
+        // isFirstItem={index === 0}
         testID='video_screen_id'
         onPress={()=>onPressItem(item)}
         video={item.field_mp4_link_export}
         isBookmarked={item.isBookmarked}
+        time={item.field_jwplayerinfo_export}
+        videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
         onPressBookmark={() => {updateVideosBookmark(index)}}
       />
     );
@@ -122,6 +124,6 @@ export const VideoScreen = (props: VideoScreenProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: normalize(10)
+    marginBottom: normalize(10)
   },
 });

@@ -11,10 +11,11 @@ export interface VideoItemType {
   created_export?: string;
   field_image_upload_export?: string|null;
   field_mp4_link_export?: string;
-  field_multimedia_section_export?: string|null;
+  field_multimedia_section_export?: any;
   field_thumbnil_multimedia_export?: string;
   description?: string|null;
   isBookmarked:boolean;
+  field_jwplayerinfo_export?: string;
 }
 
 export interface FetchVideoSuccessPayloadType {

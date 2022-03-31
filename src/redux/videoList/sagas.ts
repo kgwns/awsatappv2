@@ -12,7 +12,7 @@ const formatData = (response: any): VideoItemType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ nid,title,created_export,field_image_upload_export,field_mp4_link_export,field_multimedia_section_export,field_thumbnil_multimedia_export,description }: any) => ({
+        ({ nid,title,created_export,field_image_upload_export,field_mp4_link_export,field_multimedia_section_export,field_thumbnil_multimedia_export,description,field_jwplayerinfo_export }: any) => ({
           nid,
           title,
           created_export,
@@ -20,7 +20,8 @@ const formatData = (response: any): VideoItemType[] => {
           field_mp4_link_export,
           field_multimedia_section_export,
           field_thumbnil_multimedia_export,
-          description
+          description,
+          field_jwplayerinfo_export
         })
       );
     }
