@@ -18,3 +18,6 @@ export const getAllNotificationSuccessInfo: Selector<GetListOfNotificationSucces
 
 export const getAllNotificationError: Selector<string> = (state: AppState) =>
   state.keepNotified.allNotificationListError;
+
+export const getIsMyNotificationLoading: Selector<boolean> = (state: AppState) =>
+  state.keepNotified.isMyNotificationLoading;

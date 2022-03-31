@@ -16,7 +16,7 @@ export interface KeepNotifiedDataProps {
 
 interface KeepNotifiedWidgetProps {
   data: NotificationDataType[],
-  onPress: (index: number) => void
+  onPress: (item: any, selected: boolean) => void
 }
 
 const KeepNotifiedWidget = ({
@@ -31,7 +31,7 @@ const KeepNotifiedWidget = ({
           key={item.id}
           label={item.name}
           selected={item.selected}
-          onPress={() => onPress(index)}
+          onPress={selected => onPress(item, selected)}
         />
         {data.length !== index+1 &&  <Divider style={style.divider}/>}
       </View>

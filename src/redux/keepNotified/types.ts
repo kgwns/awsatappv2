@@ -10,6 +10,7 @@ export interface KeepNotifiedState {
   getSelectedError: string;
   allNotificationList: GetListOfNotificationSuccessPayload;
   allNotificationListError: string;
+  isMyNotificationLoading: boolean;
 }
 
 export interface SendSelectedNotificationBody {
@@ -50,10 +51,14 @@ export interface GetSelectedNotificationType {
   type: typeof GET_SELECTED_NOTIFICATION
 }
 
+export type GetSelectedNotificationDataType = {
+  nid: number,
+}
+
 export type GetSelectedNotificationSuccessPayload = {
   code?: number,
   message?: string,
-  data?: number[]
+  data?: any
 }
 
 
@@ -94,7 +99,7 @@ export type NotificationDataType = {
 export type GetListOfNotificationSuccessPayload = {
   code?: number,
   message?: string,
-  data?: NotificationDataType[]
+  data?: any
 }
 
 

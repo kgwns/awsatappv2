@@ -2,13 +2,14 @@ import { GET_LIST_OF_NOTIFICATION, GET_LIST_OF_NOTIFICATION_FAILED, GET_LIST_OF_
 import { KeepNotifiedState, KeepNotifiedAction } from './types';
 
 const initialData: KeepNotifiedState = {
-  isLoading: true,
+  isLoading: false,
   sendSelectedError: '',
   sendSelectedNotificationInfo: {},
   getSelectedNotificationInfo: {},
   getSelectedError: '',
   allNotificationList: {},
-  allNotificationListError: ''
+  allNotificationListError: '',
+  isMyNotificationLoading: false,
 };
 
 export default (state = initialData, action: KeepNotifiedAction) => {
@@ -34,19 +35,19 @@ export default (state = initialData, action: KeepNotifiedAction) => {
     case GET_SELECTED_NOTIFICATION:
       return {
         ...state,
-        isLoading: true,
+        isMyNotificationLoading: true,
         sendSelectedNotificationInfo: {}
       }
     case GET_SELECTED_NOTIFICATION_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        isMyNotificationLoading: false,
         getSelectedNotificationInfo: action.payload
       }
     case GET_SELECTED_NOTIFICATION_FAILED:
       return {
         ...state,
-        isLoading: false,
+        isMyNotificationLoading: false,
         getSelectedError: action.payload.error
       }
     case REMOVE_NOTIFICATION_INFO:

@@ -99,7 +99,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   }
 
   const setMyNewsLettersData = () => {
-    if (isNonEmptyArray(myNewsLetters.data)) {
+    if (isNonEmptyArray(myNewsLetters.data) && isNonEmptyArray(selectedNewsLettersData.data)) {
       const data = []
       for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
         let item = selectedNewsLettersData.data[i]
@@ -166,14 +166,14 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
-        <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' }]}>
-          {!canGoBack && <Label style={style.titleStyle}>
+        {!canGoBack && <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' }]}>
+          <Label style={style.titleStyle}>
             {t('onBoard.newsLetter.title')}
-          </Label>}
+          </Label>
           <Label style={style.descStyle}>
             {t('onBoard.newsLetter.description')}
           </Label>
-        </View>
+        </View>}
         <View style={style.contentStyle}>
           {isNonEmptyArray(newsLettersDataInfo) &&
             <View>

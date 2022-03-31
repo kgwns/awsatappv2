@@ -4,7 +4,8 @@ import {
     sendSelectedNotificationSuccessInfo,
     sendSelectedNotificationErrorInfo,
     getSelectedNotificationSuccessInfo,
-    getAllNotificationSuccessInfo
+    getAllNotificationSuccessInfo,
+    getIsMyNotificationLoading
 } from 'src/redux/keepNotified/selectors';
 import { GetListOfNotificationSuccessPayload, GetSelectedNotificationSuccessPayload, SendSelectedNotificationBody, SendSelectedNotificationSuccessPayload } from 'src/redux/keepNotified/types';
 import { sendSelectedNotification,getSelectedNotification,removeNotificationInfo, removeSelectedNotification, getListOfNotification } from 'src/redux/keepNotified/action';
@@ -20,6 +21,7 @@ export interface UseKeepNotifiedReturn {
     removeSelectedNotificationInfo(): void
     getAllNotificationList(): void
     allNotificationList: GetListOfNotificationSuccessPayload
+    isMyNotificationLoading: boolean,
 }
 
 export const useKeepNotified = (): UseKeepNotifiedReturn => {
@@ -29,6 +31,7 @@ export const useKeepNotified = (): UseKeepNotifiedReturn => {
     const sendSelectedError = useSelector(sendSelectedNotificationErrorInfo);
     const selectedNotificationInfo = useSelector(getSelectedNotificationSuccessInfo)
     const allNotificationList = useSelector(getAllNotificationSuccessInfo)
+    const isMyNotificationLoading = useSelector(getIsMyNotificationLoading)
 
     const sendSelectedInfoRequest = (payload: SendSelectedNotificationBody) => {
         dispatch(sendSelectedNotification(payload));
@@ -55,6 +58,7 @@ export const useKeepNotified = (): UseKeepNotifiedReturn => {
         sendSelectedNotificationInfo,
         sendSelectedError,
         sendSelectedInfoRequest,
+        isMyNotificationLoading,
         getSelectedInfoRequest,
         selectedNotificationInfo,
         removeKeepNotificationInfo,

@@ -76,7 +76,7 @@ const OpinionWritersCardView = ({
           {subHeadLine}
         </Label>
       </View>
-      <View style={style.footerContainer}>
+      <View style={[style.footerContainer, mediaVisibility && style.footerContainerMedia]}>
         <View style={style.listenArticleContainer}>
           {mediaVisibility && <>
             <ButtonImage
@@ -107,7 +107,7 @@ const OpinionWritersCardView = ({
           />
         </View>
       </View>
-      <Divider style={style.divider}/>
+      <Divider style={[style.divider, mediaVisibility && { marginTop: normalize(10) }]} />
     </TouchableOpacity>
   );
 };
@@ -152,6 +152,10 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'center',
       justifyContent: 'space-between',
       marginTop: normalize(15),
+    },
+    footerContainerMedia: {
+      height: normalize(38),
+      marginTop: normalize(8)
     },
     listenArticleContainer: {
       flexDirection: 'row',
