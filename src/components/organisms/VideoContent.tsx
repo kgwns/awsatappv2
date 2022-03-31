@@ -11,7 +11,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTranslation } from 'react-i18next';
 import { VideoItemType } from 'src/redux/videoList/types';
-import { getImageUrl, timeAgo } from 'src/shared/utils/utilities';
+import { getImageUrl, getSecondsToHms, timeAgo } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -36,13 +36,16 @@ export const VideoContent = ({ data, onPress }: { data: VideoItemType[], onPress
     const renderItem = (item: VideoItemType) => {
         const imageLink = item.field_thumbnil_multimedia_export ? getImageUrl(item.field_thumbnil_multimedia_export) : undefined;
         const date = t(timeAgo(item.created_export))
+        const time = item.field_jwplayerinfo_export ? getSecondsToHms(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
+        
         return (
             <TouchableOpacity onPress={()=>onItemPress(item)}>
                 <View style={style.container}>
-                    <ImageWithIcon fallback url={imageLink}  />
+                    <ImageWithIcon bottomTag={time} fallback url={imageLink}  />
                     <Label style={style.textStyle} labelType={LabelTypeProp.h3} numberOfLines={2} >
                         {decode(item.title)}
                     </Label>
+                    
                     <SectionVideoFooter
                         leftTitleColor={Styles.color.smokeyGrey}
                         rightIcon={() => <CalendarIcon color={Styles.color.smokeyGrey} />}
@@ -110,7 +113,18 @@ const customStyle = (theme: CustomThemeType) => {
             color: Styles.color.silverChalice,
             paddingBottom: normalize(10),
             paddingHorizontal: normalize(10)
-        }
+        },
+        timeStyle: {
+            right: 0,
+            bottom: 0,
+            position: 'absolute',
+            backgroundColor: Styles.color.greyDark,
+            paddingHorizontal: normalize(5),
+            paddingVertical: normalize(3),
+            marginVertical: 3,
+            fontSize: normalize(10),
+            color: Styles.color.white,
+        },
     })
     return videoContentStyle
 }

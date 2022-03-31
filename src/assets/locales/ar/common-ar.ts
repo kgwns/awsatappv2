@@ -123,6 +123,8 @@ export const arabic = {
   videoDetail: {
     watch: 'مشاهده',
     employement: 'تشغيل',
+    documentaryText: 'الإقتصاد الإلكتروني',
+    subtext: 'عنوان صغير يوضع هنا'
   },
   favorite: {
     tabItem: {

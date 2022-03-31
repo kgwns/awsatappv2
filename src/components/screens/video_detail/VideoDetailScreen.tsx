@@ -28,6 +28,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [selectedVideo, setSelectedVideo] = useState(route.params.data)
+  const isDocumentary = route.params.isDocumentary
   const [videolistData, setVideolistData] = useState<VideoItemType[]>([])
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
@@ -117,7 +118,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           isSaved={isBookmarked}
           isCloseIcon
         />
-        {selectedVideo!=undefined && <VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}}/>}
+        {selectedVideo!=undefined && <VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}} isDocumentary={isDocumentary} />}
       </View>
       <View style={styles.container}>
         <VideosList data={videolistData} onItemActionPress={(item:VideoItemType)=>goToPlayer(item)} />
