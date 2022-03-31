@@ -47,7 +47,7 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
           title,
           nid,
           image: getImageUrl(field_image),
-          news_categories: field_news_categories_export,
+          news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: author_resource,
           created: created_export,
           isBookmarked: false

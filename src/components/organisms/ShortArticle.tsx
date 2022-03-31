@@ -88,10 +88,12 @@ const ShortArticle = ({ data, headerLeft, onPress,
         <View style={{ flexDirection: 'row' }}>
           <View style={{ flex: 0.70, paddingRight: normalize(5) }}>
             <TextWithFlag {...item} numberOfLines={2} labelType={labelType} />
-            <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
-              onPress={() => checkAndUpdateBookmark(index)}
-              isBookmarked={item.isBookmarked}
-            />
+            <View style={style.footerContainer}>
+              <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
+                onPress={() => checkAndUpdateBookmark(index)}
+                isBookmarked={item.isBookmarked}
+              />
+            </View>
           </View>
           <View style={{ flex: 0.30, paddingRight: normalize(5), }}>
             <Image fallback url={getImageUrl(item.image)} style={style.image} resizeMode={ImageResize.COVER} />
@@ -121,15 +123,21 @@ const ShortArticle = ({ data, headerLeft, onPress,
 export default ShortArticle;
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
-    paddingHorizontal: 0.04 * screenWidth
+    paddingHorizontal: 0.04 * screenWidth,
+    paddingBottom: normalize(20)
   },
   image: {
     width: '100%',
-    height: normalize(85)
+    height: normalize(73)
   },
   divider: {
     height: 1,
     backgroundColor: theme.dividerColor,
-}
+  },
+  footerContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%'
+  }
 })
 

@@ -135,7 +135,8 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         paddingTop: normalize(20)
     },
     verticalList: {
-        paddingHorizontal: 0.04 * screenWidth
+        paddingHorizontal: 0.04 * screenWidth,
+        paddingTop: normalize(15)
     },
     tabletImageStyle: {
         width: 0.40 * screenWidth,

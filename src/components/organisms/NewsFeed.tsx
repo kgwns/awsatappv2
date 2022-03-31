@@ -136,6 +136,7 @@ export default NewsFeed;
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     paddingHorizontal: 0.04 * screenWidth,
+    paddingTop: normalize(25),
   },
   listContainer: {},
   footerContainer: {

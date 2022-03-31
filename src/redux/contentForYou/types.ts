@@ -88,7 +88,7 @@ export type ArticlesListItemType = {
   body: string,
   field_image: string,
   view_node: string,
-  field_news_categories_export: FieldArticlesNewsExport,
+  field_news_categories_export: FieldArticlesNewsExport[],
   field_publication_date_export: string,
   created_export: string,
   author_resource: string,

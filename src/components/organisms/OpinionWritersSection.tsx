@@ -87,10 +87,10 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.primary,
       textAlign: 'left',
       marginLeft: normalize(14),
-      marginTop: normalize(20)
+      marginTop: normalize(16),
+      marginBottom: normalize(8)
     },
     writerContainer: {
-      marginVertical: normalize(10),
       marginLeft: normalize(14),
     },
     itemContainer: {

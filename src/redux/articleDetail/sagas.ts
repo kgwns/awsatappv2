@@ -24,7 +24,7 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
           title,
           nid,
           image: parseImageData(field_image, field_image_export),
-          news_categories: field_news_categories_export,
+          news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: author_resource,
           created: created_export
         })
@@ -53,7 +53,7 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
             nid: nid_export,
             image: isNonEmptyArray(field_image_export) ? getImageUrl(field_image_export[0]) : '',
             view_node: view_node,
-            news_categories: field_news_categories_export,
+          news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             tag_topics: isNonEmptyArray(field_tags_topics_export) ? field_tags_topics_export[0] : field_tags_topics_export,
             author: author_resource,
             created: created_export

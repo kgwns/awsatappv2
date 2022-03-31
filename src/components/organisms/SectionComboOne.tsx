@@ -108,7 +108,7 @@ const SectionComboOne = ({
       ) : (
         <>
           {renderMainArticleImage()}
-          <ShortArticle data={sectionComboOneData} onPress={onPress}
+          <ShortArticle data={[...sectionComboOneData].splice(1, 3)} onPress={onPress}
             onUpdateBookmark={onUpdateBookmark}
             showSignUpPopUp={showSignUpPopUp}
           />

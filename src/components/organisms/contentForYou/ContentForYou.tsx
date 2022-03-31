@@ -16,6 +16,7 @@ import { ScreensConstants } from 'src/constants';
 import { normalize } from 'react-native-elements';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { NewsCategoriesType } from 'src/redux/latestNews/types';
 
 
 interface AllContentData {
@@ -139,25 +140,27 @@ export const ContentForYou = () => {
         let formatShortArticleData = []
         for(let i = 0; i < favouriteArticlesData.length; i++){
             const item = favouriteArticlesData[i]
+            const newsCategory = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0] : {} as NewsCategoriesType
             let formattedData = {
                 ...shortArticleWithTagProperties,
                 body: item.body,
-                flag: item.field_news_categories_export?.title,
+                flag: newsCategory?.title,
                 title: item.title,
                 nid: item.nid,
                 image: getImageUrl(item.field_image),
-                news_categories: item.field_news_categories_export,
+                news_categories: newsCategory,
                 author: item.author_resource,
                 created: item.created_export,
                 isBookmarked: false,
                 loaded: true,
-                tagName: item.field_news_categories_export?.title
+                tagName: newsCategory?.title
             }
             if(i<2){
                 formatArticleSectionData.push(formattedData)
             }else{
+                const newsCategory = isNonEmptyArray(favouriteArticlesData[i].field_news_categories_export) ? favouriteArticlesData[i].field_news_categories_export[0] : {} as NewsCategoriesType
                 formattedData.image = favouriteArticlesData[i].field_image;
-                formattedData.flag= favouriteArticlesData[i].field_news_categories_export?.title;
+                formattedData.flag= newsCategory?.title;
                 formatShortArticleData.push(formattedData)
             }
         }

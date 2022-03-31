@@ -102,18 +102,20 @@ const MostReadList = ({
       leftTitle: item.author_resource,
       leftTitleColor: Styles.color.greenishBlue,
       rightTitle: t(timeAgo(item.created_export)),
-      rightIcon: () => {return getSvgImages({
+      rightIcon: () => {
+        return getSvgImages({
         name: ImagesName.clock,
         size: normalize(12),
         style: { marginRight: normalize(5) }
     })},
       rightTitleColor: Styles.color.silverChalice,
+      leftTitleStyle: mostReadListStyle.leftFooterStyle
     };
     enableTag && (item.tagName = (index + 1).toString())
     item.tagStyle = {marginLeft: normalize(16)};
     item.tagLabelType = LabelTypeProp.p3;
     item.image = item.image ? item.image : getImageUrl(item.field_image);
-    item.flag = item.field_news_categories_export?.title;
+    item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : ''
     item.flagColor = Styles.color.greenishBlue;
     item.barColor = Styles.color.greenishBlue;
     return (
@@ -179,4 +181,7 @@ const mostReadListStyle = StyleSheet.create({
   contentStyle: {
     paddingHorizontal: 0.04 * screenWidth,
   },
+  leftFooterStyle: {
+    fontWeight: 'bold'
+  }
 });
