@@ -1,5 +1,5 @@
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import React, { FunctionComponent } from 'react'
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
+import React, { FunctionComponent, useState } from 'react'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { Image } from 'src/components/atoms'
@@ -24,6 +24,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
     const fieldData = data ? data : podcastEpisodeInitialData
+    const [isLoading,setLoading] = useState(playbackState === State.Buffering || playbackState === State.Connecting)
     return (
         <View style={style.container}>
             <View style={style.miniPlayer}>
@@ -43,7 +44,8 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     </View>
                     <TouchableOpacity onPress={onPlaybackPress}>
                         <View style={style.buttonContainer}>
-                            {playbackState === State.Playing ?
+                            {isLoading ? <ActivityIndicator/> :
+                            playbackState === State.Playing ?
                                 getSvgImages({ name: ImagesName.pauseIcon, width: normalize(17), height: normalize(17) })
                                 : getSvgImages({ name: ImagesName.playIconSVG, width: normalize(15), height: normalize(17) })}
                         </View>

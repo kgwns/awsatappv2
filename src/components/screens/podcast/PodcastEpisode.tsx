@@ -201,7 +201,13 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   }
 
   const togglePlayback = async () => {
-    if (playbackState !== State.Playing) {
+    if (playbackState === State.Playing) {
+      await TrackPlayer.pause();
+    }
+    else if (playbackState === State.Paused) {
+      await TrackPlayer.play();
+    }
+    else if (playbackState == State.None || playbackState == State.Stopped) {
       await TrackPlayer.setupPlayer();
       await TrackPlayer.updateOptions({ stopWithApp: true });
       await TrackPlayer.add({
@@ -212,8 +218,6 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
       });
       TrackPlayer.setRepeatMode(RepeatMode.Off);
       await TrackPlayer.play();
-    } else {
-      await TrackPlayer.pause();
     }
   };
 
