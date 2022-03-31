@@ -1,4 +1,4 @@
-import { GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION_SUCCESS, REMOVE_NOTIFICATION_INFO, REMOVE_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_FAILED, SEND_SELECTED_NOTIFICATION_SUCCESS } from './actionType';
+import { GET_LIST_OF_NOTIFICATION, GET_LIST_OF_NOTIFICATION_FAILED, GET_LIST_OF_NOTIFICATION_SUCCESS, GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION_SUCCESS, REMOVE_NOTIFICATION_INFO, REMOVE_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_FAILED, SEND_SELECTED_NOTIFICATION_SUCCESS } from './actionType';
 import { KeepNotifiedState, KeepNotifiedAction } from './types';
 
 const initialData: KeepNotifiedState = {
@@ -6,7 +6,9 @@ const initialData: KeepNotifiedState = {
   sendSelectedError: '',
   sendSelectedNotificationInfo: {},
   getSelectedNotificationInfo: {},
-  getSelectedError: ''
+  getSelectedError: '',
+  allNotificationList: {},
+  allNotificationListError: ''
 };
 
 export default (state = initialData, action: KeepNotifiedAction) => {
@@ -55,6 +57,23 @@ export default (state = initialData, action: KeepNotifiedAction) => {
       return {
         ...state,
         sendSelectedNotificationInfo: {}
+      }
+    case GET_LIST_OF_NOTIFICATION:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case GET_LIST_OF_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        allNotificationList: action.payload
+      }
+    case GET_LIST_OF_NOTIFICATION_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        allNotificationListError: action.payload.error
       }
     default:
       return { ...state }

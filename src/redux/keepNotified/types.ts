@@ -1,5 +1,5 @@
 import {
-  SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_SUCCESS, SEND_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_SUCCESS, GET_SELECTED_NOTIFICATION_FAILED, REMOVE_NOTIFICATION_INFO, REMOVE_SELECTED_NOTIFICATION
+  SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_SUCCESS, SEND_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_SUCCESS, GET_SELECTED_NOTIFICATION_FAILED, REMOVE_NOTIFICATION_INFO, REMOVE_SELECTED_NOTIFICATION, GET_LIST_OF_NOTIFICATION, GET_LIST_OF_NOTIFICATION_SUCCESS, GET_LIST_OF_NOTIFICATION_FAILED
 } from "./actionType"
 
 export interface KeepNotifiedState {
@@ -7,7 +7,9 @@ export interface KeepNotifiedState {
   sendSelectedNotificationInfo: SendSelectedNotificationSuccessPayload
   sendSelectedError: string,
   getSelectedNotificationInfo: GetSelectedNotificationSuccessPayload
-  getSelectedError: string
+  getSelectedError: string;
+  allNotificationList: GetListOfNotificationSuccessPayload;
+  allNotificationListError: string;
 }
 
 export interface SendSelectedNotificationBody {
@@ -77,6 +79,39 @@ export interface RemoveSelectedNotificationInfoType {
   type: typeof REMOVE_SELECTED_NOTIFICATION
 }
 
+
+export interface GetListOfNotificationType {
+  type: typeof GET_LIST_OF_NOTIFICATION
+}
+
+
+export type NotificationDataType = {
+  id: number,
+  name: string,
+  selected: boolean
+}
+
+export type GetListOfNotificationSuccessPayload = {
+  code?: number,
+  message?: string,
+  data?: NotificationDataType[]
+}
+
+
+export interface GetListOfNotificationSuccessType {
+  type: typeof GET_LIST_OF_NOTIFICATION_SUCCESS,
+  payload: GetListOfNotificationSuccessPayload
+}
+
+export interface GetListOfNotificationFailedPayload {
+  error: string
+}
+
+export interface GetListOfNotificationFailedType {
+  type: typeof GET_LIST_OF_NOTIFICATION_FAILED,
+  payload: GetListOfNotificationFailedPayload
+}
+
 export type KeepNotifiedAction =
   SendSelectedNotificationType
   | SendSelectedNotificationSuccessType
@@ -86,3 +121,6 @@ export type KeepNotifiedAction =
   | GetSelectedNotificationFailedType
   | RemoveNotificationInfoType
   | RemoveSelectedNotificationInfoType
+  | GetListOfNotificationType
+  | GetListOfNotificationSuccessType
+  | GetListOfNotificationFailedType
