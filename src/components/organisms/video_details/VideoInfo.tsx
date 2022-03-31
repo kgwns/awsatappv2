@@ -39,7 +39,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            {isDocumentary ? <Image fallback url={imageLink} style={styles.imageStyle} /> : <Image fallback url={imageLink} style={styles.imageVideoStyle} /> }
+            {isDocumentary ? <Image fallback url={imageLink} style={styles.imageStyle} /> : <Image fallback url={imageLink} style={styles.imageVideoStyle} resizeMode='cover' /> }
             <View style={styles.containerSpace} />
             <ButtonOutline title={t('videoDetail.employement')}
              style={styles.buttonStyle}
@@ -95,7 +95,6 @@ StyleSheet.create({
   imageVideoStyle: {
     width: normalize(349),
     height: normalize(187),
-    resizeMode: 'cover',
   },
   shortDescriptionStyle: {
     color: colors.spanishGray,
