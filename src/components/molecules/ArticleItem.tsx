@@ -38,7 +38,6 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
                 {isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
                 <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
                    onPressBookmark={onPressBookmark}
-                   contentStyle={{paddingTop: normalize(10)}}
                 />
             </View>
         </TouchableWithoutFeedback>

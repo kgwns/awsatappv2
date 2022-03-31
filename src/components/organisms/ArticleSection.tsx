@@ -75,6 +75,7 @@ const ArticleSection = ({
             onPressBookmark={() => onPressBookmark(index)}
             showDivider={isFromFavorites? articleData.length == index+1 : showDivider}
             showFooterTitle={showFooterTitle}
+            contentStyle={{paddingTop: normalize(10)}}
         />
     }
     return (

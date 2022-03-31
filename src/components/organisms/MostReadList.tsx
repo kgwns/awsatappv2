@@ -102,12 +102,14 @@ const MostReadList = ({
       leftTitle: item.author_resource,
       leftTitleColor: Styles.color.greenishBlue,
       rightTitle: t(timeAgo(item.created_export)),
-      rightIcon: () => {return getSvgImages({
+      rightIcon: () => {
+        return getSvgImages({
         name: ImagesName.clock,
         size: normalize(12),
         style: { marginRight: normalize(5) }
     })},
       rightTitleColor: Styles.color.silverChalice,
+      leftTitleStyle: mostReadListStyle.leftFooterStyle
     };
     enableTag && (item.tagName = (index + 1).toString())
     item.tagStyle = {marginLeft: normalize(16)};
@@ -178,5 +180,9 @@ const mostReadListStyle = StyleSheet.create({
   },
   contentStyle: {
     paddingHorizontal: 0.04 * screenWidth,
+    paddingTop: normalize(10)
   },
+  leftFooterStyle: {
+    fontWeight: 'bold'
+  }
 });
