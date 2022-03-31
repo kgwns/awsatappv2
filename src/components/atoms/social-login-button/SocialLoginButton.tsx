@@ -25,7 +25,7 @@ StyleSheet.create({
   textStyle: {
     fontSize: normalize(14),
     lineHeight: normalize(15),
-    color: theme.textColor,
+    color: theme.signInTextColor,
   },
   labelContainer: {
     flex: 1,
@@ -41,6 +41,7 @@ interface SocialLoginButtonProps {
   icon?: () => void;
   style?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
+  labelContainer?: StyleProp<TextStyle>;
   testID?: string;
 }
 export const SocialLoginButton: FunctionComponent<SocialLoginButtonProps> = ({
@@ -51,6 +52,7 @@ export const SocialLoginButton: FunctionComponent<SocialLoginButtonProps> = ({
   style,
   onPress,
   labelStyle,
+  labelContainer,
   testID,
 }) => {
   const styles = useThemeAwareObject(createStyles);
@@ -61,7 +63,7 @@ export const SocialLoginButton: FunctionComponent<SocialLoginButtonProps> = ({
     onPress={onPress}
     style={[styles.container, style]}
   >
-    <View style={[styles.labelContainer]}>
+    <View style={[styles.labelContainer, labelContainer]}>
       <Label color={color} style={[styles.textStyle, labelStyle]} labelType={labelType}>
         {label}
       </Label>

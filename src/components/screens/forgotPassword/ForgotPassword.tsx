@@ -148,7 +148,8 @@ export const ForgotPassword: FunctionComponent = () => {
           <Label
             children={t('signIn.rights')}
             labelType="p5"
-            color={themeData.textColor}
+            color={themeData.signinRightsColor}
+            style={styles.rightsStyle}
           />
         </View>
       </View>
@@ -188,7 +189,6 @@ const createStyles = (theme: CustomThemeType) =>
     footerLabelContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
-      marginTop: normalize(15),
     },
     logo: {
       width: normalize(150),
@@ -214,7 +214,7 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: normalize(25),
       textAlign: 'center',
       top: normalize(10),
-      width: normalize(300)
+      width: normalize(302)
     },
     returnStyle: {
       flexDirection: 'row',
@@ -259,7 +259,7 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'center',
     },
     skipViewStyle: {
-      borderBottomWidth: .4,
+      borderBottomWidth: 1,
       borderBottomColor: colors.greenishBlue,
       top: normalize(80)
     
@@ -269,5 +269,8 @@ const createStyles = (theme: CustomThemeType) =>
       height: normalize(200),
       marginVertical: '10%',
       alignSelf: 'center'
+    },
+    rightsStyle: {
+      fontSize: normalize(12),
     }
   })

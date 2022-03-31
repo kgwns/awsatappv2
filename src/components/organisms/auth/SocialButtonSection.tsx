@@ -9,7 +9,7 @@ import {useTranslation} from 'react-i18next';
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
-import { isIOS, recordLogEvent } from 'src/shared/utils';
+import { isIOS, normalize, recordLogEvent } from 'src/shared/utils';
 import {LoginFactory,Connection}  from 'src/shared/utils/loginFactory';
 import {NavigateTypes} from 'src/components/screens';
 import {RegisterBodyType} from 'src/redux/register/types';
@@ -154,11 +154,17 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
           <SocialLoginButton testID="signin_facebook"
             onPress={() => {buttonPressAction('FACEBOOK')}}
             label={t('signIn.loginFacebook')}
+            labelStyle={styles.labelStyle}
+            style={styles.labelContainer}
+            labelContainer={styles.textContainer}
             icon={() => <View style={styles.container}><FaceBookIcon /></View>}
           />
           <SocialLoginButton testID="signin_google"
             onPress={() => {buttonPressAction('GOOGLE')}}
             label={t('signIn.loginGoogle')}
+            labelStyle={styles.labelStyle}
+            style={styles.labelContainer}
+            labelContainer={styles.textContainer}
             icon={() => <View style={styles.container}><GoogleIcon /></View>}
           />
           {(isIOS && appleAuth.isSupported) &&  <SocialLoginButton testID="signin_apple"
@@ -168,7 +174,10 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
                 appleSigninApi(response);
               })
             }}
+            labelStyle={styles.labelStyle}
+            style={styles.labelContainer}
             label={t('signIn.loginApple')}
+            labelContainer={styles.textContainer}
             icon={() => <View style={styles.container}><AppleIcon fill={themeData.primaryBlack} /></View>}
           /> }
 
@@ -182,4 +191,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  labelStyle: {
+    fontSize: normalize(18)
+  },
+  labelContainer: {
+    justifyContent:'flex-start',
+  },
+  textContainer:{
+    alignItems:'flex-start',
+  }
 });
