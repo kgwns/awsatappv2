@@ -95,7 +95,6 @@ export const VideoScreen = (props: VideoScreenProps) => {
         imageUrl={item.field_thumbnil_multimedia_export}
         des={item.description}
         date={item.created_export}
-        // isFirstItem={index === 0}
         testID='video_screen_id'
         onPress={()=>onPressItem(item)}
         video={item.field_mp4_link_export}
