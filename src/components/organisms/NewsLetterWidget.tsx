@@ -16,6 +16,7 @@ export const NewsLettersWidget = (props:any) => {
       <NewsLetterCard
         title={item.title}
         subTitle={item.subTitle}
+        description={item.description}
         image={item.image}
         isSelected={item.isSelected}
         onPress={selected => {

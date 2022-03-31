@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -11,6 +11,7 @@ import {useTranslation} from 'react-i18next';
 export interface NewsLetterCardProps {
   title: string;
   subTitle: string;
+  description: string;
   image: any;
   isSelected: boolean;
   onPress: (isSelected: boolean) => void;
@@ -20,6 +21,7 @@ export const NewsLetterCard = ({
   subTitle,
   image,
   isSelected,
+  description,
   onPress,
 }: NewsLetterCardProps) => {
   const style = useThemeAwareObject(customStyle);
@@ -31,6 +33,10 @@ export const NewsLetterCard = ({
     onPress(!selected);
     setSelected(!selected)
   };
+
+  useEffect(()=>{
+    setSelected(isSelected)
+  },[isSelected])
 
   return (
     <TouchableOpacity
@@ -46,7 +52,7 @@ export const NewsLetterCard = ({
       onPress={changeStatus}>
       <View style={style.imageContainer}>
         <Image
-        name={image}
+        url={image}
         style={style.image}
         />
       </View>
@@ -60,7 +66,7 @@ export const NewsLetterCard = ({
               {
                 backgroundColor: selected
                   ? theme.themeData.secondaryWhite
-                  : theme.themeData.secondaryGreen,
+                  : theme.themeData.secondaryWhite,
               },
             ]}>
             <View>
@@ -76,12 +82,12 @@ export const NewsLetterCard = ({
                   })}
             </View>
           </View>
-          <Label
-            style={selected ? style.statusSelectedLabel : style.statusLabel}>
-            {selected
-              ? t('onBoard.newsLetter.subscribed')
-              : t('onBoard.newsLetter.notSubscribed')}
-          </Label>
+          <View style={style.labelContainer} >
+            <Label
+              style={selected ? style.statusSelectedLabel : style.statusLabel} numberOfLines={1}>
+              {description}
+            </Label>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -107,6 +113,7 @@ const customStyle = (theme: CustomThemeType) => {
       height: normalize(85),
     },
     contentContainer: {
+      flex: 1,
       height: normalize(85),
       alignItems: 'flex-start',
       marginTop: 2,
@@ -124,8 +131,8 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: normalize(5),
     },
     footerContent: {
+      flex: 1,
       flexDirection: 'row',
-      alignItems: 'center',
       marginTop: normalize(15),
     },
     circleShape: {
@@ -148,6 +155,11 @@ const customStyle = (theme: CustomThemeType) => {
       marginStart: normalize(5),
       fontWeight: 'bold',
     },
+    labelContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      marginRight: normalize(3),
+    }
   });
   return NewsLetterCardStyle;
 };

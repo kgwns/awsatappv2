@@ -14,3 +14,13 @@ export const getSelectedNewsLettersDataList: Selector<SelectedNewsLettersDataTyp
 
 export const getNewsLettersError: Selector<string> = (state: AppState) =>
     state.newsLetters.error;
+
+export const getIsMyNewsLoading: Selector<boolean> = (state: AppState) =>
+    state.newsLetters.isMyNewsLoading;
+
+export const getMyNewsLettersDataList: Selector<SelectedNewsLettersDataType> = (
+    state: AppState,
+) => state.newsLetters.myNewsLetters;
+
+export const getMyNewsLettersError: Selector<string> = (state: AppState) =>
+    state.newsLetters.myNewsError;
