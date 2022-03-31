@@ -94,10 +94,8 @@ export const ManageMyFavoriteAuthorScreen = () => {
   }
 
   const onPressNext = () => {
-    if (isNonEmptyArray(getSelectedData())) {
       recordLogEvent('Add_Favorite_Authors',{userId: userProfileData.user?.id,favoriteIds: joinArray(getSelectedData())});
       sendSelectedWriterInfo({ tid: joinArray(getSelectedData()), isList: true })
-    }
   }
 
   const getSelectedData = () => {
@@ -137,14 +135,13 @@ export const ManageMyFavoriteAuthorScreen = () => {
           }
         </View>
         <View style={style.nextButtonView}>
-          {!disableNext && <NextButton
-            disabled={disableNext}
+          <NextButton
             testID="nextButtonTestId"
             title={t('onBoard.common.done')}
             onPress={onPressNext}
             style={style}
             icon={false}
-          />}
+          />
         </View>
       </View>
     </ScreenContainer>

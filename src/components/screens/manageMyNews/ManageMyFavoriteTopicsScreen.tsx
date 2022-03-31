@@ -88,10 +88,8 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   };
 
   const onPressNext = () => {
-    if (isNonEmptyArray(getSelectedData())) {
       recordLogEvent('Add_Interests_Topic',{userId: userProfileData.user?.id,interestsIds: joinArray(getSelectedData())});
       sendSelectedTopicInfo({ tid: joinArray(getSelectedData()) })
-    }
   }
 
   const updateNextButton = () => {
@@ -134,14 +132,13 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
           }
         </View>
         <View style={style.nextButtonView}>
-          {!disableNext && <NextButton 
+          <NextButton
             testID="nextButtonTestId"
-            disabled={disableNext}
             title={t('onBoard.common.done')}
             onPress={onPressNext}
             style={style}
             icon={false}
-          />}
+          />
         </View>
       </View>
     </ScreenContainer>

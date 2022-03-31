@@ -97,7 +97,8 @@ export const GET_MY_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getMyNewsletters';
 
 //Keep Notified
 export const SEND_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/addNotifications'
-export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getNotifications'
+export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getMyNotifications'
+export const GET_LIST_OF_NOTIFICATION_END_POINT = 'api/ums/v1/getAPPNotificationsList'
 
 //Podcast
 export const PODCAST_LIST_ENDPOINT = '/api/v2/podcastsection/';
