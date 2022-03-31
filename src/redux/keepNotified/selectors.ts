@@ -1,5 +1,5 @@
 import { AppState, Selector } from 'src/redux/rootReducer';
-import { GetSelectedNotificationSuccessPayload, SendSelectedNotificationSuccessPayload } from './types';
+import { GetListOfNotificationSuccessPayload, GetSelectedNotificationSuccessPayload, SendSelectedNotificationSuccessPayload } from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
   state.keepNotified.isLoading;
@@ -12,3 +12,12 @@ export const getSelectedNotificationSuccessInfo: Selector<GetSelectedNotificatio
 
 export const sendSelectedNotificationErrorInfo: Selector<string> = (state: AppState) =>
   state.keepNotified.sendSelectedError;
+
+export const getAllNotificationSuccessInfo: Selector<GetListOfNotificationSuccessPayload> = (state: AppState) =>
+  state.keepNotified.allNotificationList;
+
+export const getAllNotificationError: Selector<string> = (state: AppState) =>
+  state.keepNotified.allNotificationListError;
+
+export const getIsMyNotificationLoading: Selector<boolean> = (state: AppState) =>
+  state.keepNotified.isMyNotificationLoading;

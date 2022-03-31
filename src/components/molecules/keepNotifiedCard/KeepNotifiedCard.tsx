@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import { Label} from 'src/components/atoms';
 import {ImagesName} from 'src/shared/styles';
@@ -20,12 +20,23 @@ const KeepNotifiedCard = ({
   onPress,
 }: KeepNotifiedCardProps) => {
   const style = useThemeAwareObject(customStyle);
+  const [isSelected, setIsSelected] = useState(selected);
+
+  const changeStatus = () => {
+    onPress(!isSelected);
+    setIsSelected(!isSelected)
+  };
+
+  useEffect(() => {
+    setIsSelected(selected)
+  }, [selected])
+
   return (
     <TouchableOpacity testID={"ImageTestID"} style={style.container}
-      onPress={() => { onPress(selected) }}>
+      onPress={changeStatus}>
       <View>
         {getSvgImages({
-          name: selected ? ImagesName.notificationSelected : ImagesName.notification,
+          name: isSelected ? ImagesName.notificationSelected : ImagesName.notification,
           width: style.iconStyle.width,
           height: style.iconStyle.height
         })}

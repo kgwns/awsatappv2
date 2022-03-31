@@ -153,7 +153,7 @@ export const OpinionArticleDetail = ({
       case 'PORTRAIT':
         return horizontalAndTop;
       default:
-        return horizontalEdge;
+        return horizontalAndTop;
     }
   };
 

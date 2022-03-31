@@ -6,9 +6,17 @@ import {
   SEND_SELECTED_NOTIFICATION_FAILED,
   SEND_SELECTED_NOTIFICATION_SUCCESS,
   REMOVE_NOTIFICATION_INFO,
-  REMOVE_SELECTED_NOTIFICATION
+  REMOVE_SELECTED_NOTIFICATION,
+  GET_LIST_OF_NOTIFICATION,
+  GET_LIST_OF_NOTIFICATION_SUCCESS,
+  GET_LIST_OF_NOTIFICATION_FAILED
 } from "./actionType";
 import {
+  GetListOfNotificationFailedPayload,
+  GetListOfNotificationFailedType,
+  GetListOfNotificationSuccessPayload,
+  GetListOfNotificationSuccessType,
+  GetListOfNotificationType,
   GetSelectedNotificationFailedPayload,
   GetSelectedNotificationFailedType,
   GetSelectedNotificationSuccessPayload,
@@ -88,6 +96,31 @@ export const removeSelectedNotification = (): RemoveSelectedNotificationInfoType
 }
 
 
+export const getListOfNotification = (): GetListOfNotificationType => {
+  return {
+    type: GET_LIST_OF_NOTIFICATION
+  }
+}
+
+export const getListOfNotificationSuccess = (
+  payload: GetListOfNotificationSuccessPayload
+): GetListOfNotificationSuccessType => {
+  return {
+    type: GET_LIST_OF_NOTIFICATION_SUCCESS,
+    payload
+  };
+};
+
+export const getListOfNotificationFailed = (
+  payload: GetListOfNotificationFailedPayload,
+): GetListOfNotificationFailedType => {
+  return {
+    type: GET_LIST_OF_NOTIFICATION_FAILED,
+    payload,
+  };
+};
+
+
 export const homeActions = {
   sendSelectedNotification,
   sendSelectedNotificationSuccess,
@@ -95,5 +128,8 @@ export const homeActions = {
   getSelectedNotification,
   getSelectedNotificationSuccess,
   getSelectedNotificationFailed,
-  removeSelectedNotification
+  removeSelectedNotification,
+  getListOfNotification,
+  getListOfNotificationSuccess,
+  getListOfNotificationFailed
 };

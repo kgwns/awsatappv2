@@ -170,7 +170,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
   useEffect(() => {
     const message = forgotPassswordResponse?.message;
     if (isObjectNonEmpty(message)) {
-      if (message.code === 1) {
+      if (message.code === 200) {
         navigation.navigate(ScreensConstants.FORGOT_PASSWORD);
       } else {
         Alert.alert(message.message);

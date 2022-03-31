@@ -3,46 +3,16 @@ import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
 import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize } from 'src/shared/utils';
-import KeepNotifiedWidget, { KeepNotifiedDataProps } from 'src/components/organisms/KeepNotifiedWidget';
+import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
 import { useTranslation } from 'react-i18next';
 import { ScreensConstants } from 'src/constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreenContainer } from '..';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
 import { useKeepNotified } from 'src/hooks';
+import { NotificationDataType } from 'src/redux/keepNotified/types';
+import { useIsFocused } from '@react-navigation/native';
 
-const data = [
-  {
-    nid: 1,
-    label: 'أخبار عاجلة',
-    selected: false
-  },
-  {
-    nid: 2,
-    label: 'إحاطة الصباح',
-    selected: false,
-  },
-  {
-    nid: 3,
-    label: 'أهم الأخبار',
-    selected: false,
-  },
-  {
-    nid: 4,
-    label: 'أخبار فيروس كورونا',
-    selected: false,
-  },
-  {
-    nid: 5,
-    label: 'إحاطة الصباح',
-    selected: false,
-  },
-  {
-    nid: 6,
-    label: 'أخبار عاجلة',
-    selected: false,
-  }
-]
 
 export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const [t] = useTranslation();
@@ -50,67 +20,107 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
 
   const { params } = route
 
-  const [notificationDate, setNotificationData] = useState(data)
+  const [notificationDate, setNotificationData] = useState<NotificationDataType[]>([])
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [canGoBack, setCanGoBack] = useState((route.params && route.params.canGoBack)?true:false)
+  const isFocused = useIsFocused();
 
   const {
     sendSelectedInfoRequest, sendSelectedNotificationInfo,
     getSelectedInfoRequest, selectedNotificationInfo,
     removeSelectedNotificationInfo,isLoading,
-    removeKeepNotificationInfo
-  } = useKeepNotified()
+    removeKeepNotificationInfo,
+    getAllNotificationList, allNotificationList  } = useKeepNotified()
 
   useEffect(() => {
-    getSelectedInfoRequest()
+    getAllNotificationList()
     if (route.params && route.params.canGoBack) {
-      setCanGoBack(route.params.canBoBack)
+      setCanGoBack(true)
+    } else {
+      setCanGoBack(false)
     }
-
     return () => {
       removeKeepNotificationInfo()
-    }
-
-  }, [])
-
-  useEffect(() => {
-    updateNextButtonActive()
-
-    return () => {
       removeSelectedNotificationInfo()
     }
-  }, [notificationDate])
+  }, [isFocused])
 
   useEffect(() => {
-    if (sendSelectedNotificationInfo?.message?.code === 200) {
-      gotoNext()
-    } else if (isObjectNonEmpty(sendSelectedNotificationInfo.message?.message)) {
-      CustomAlert({
-        title: '',
-        message: sendSelectedNotificationInfo?.message?.message || ''
-      })
+    if (canGoBack) {
+      getSelectedInfoRequest();
+    } else {
+      setInitialData()
     }
-    if (route.params && route.params.canGoBack) {
-      setCanGoBack(route.params.canGoBack)
+  }, [allNotificationList])
+
+  useEffect(() => {
+    if (canGoBack) {
+      setMyNewsLettersData();
+    }
+  }, [selectedNotificationInfo])
+
+  useEffect(() => {
+    if (isObjectNonEmpty(sendSelectedNotificationInfo)) {
+      if (sendSelectedNotificationInfo.message?.code === 200) {
+        if (!canGoBack) {
+          gotoNext()
+        }
+      } else {
+        CustomAlert({
+          title: '',
+          message: sendSelectedNotificationInfo.message?.message || ''
+        })
+      }
     }
   }, [sendSelectedNotificationInfo.message]);
 
-  useEffect(() => {
-    populateSelectedFields()
-  }, [selectedNotificationInfo.data]);
+  const setInitialData = () => {
+    let data = formatNotificationData()
+    setNotificationData(data)
+    updateNextButtonActive()
+  }
 
-  const populateSelectedFields = () => {
-    if (selectedNotificationInfo?.code == 200) {
-      const selectedData = selectedNotificationInfo.data ?? []
-      if (isNonEmptyArray(selectedData)) {
-        let allData = [...data]
-        const newData = allData.map((item: KeepNotifiedDataProps) => ({
-          ...item,
-          selected: selectedData.includes(item.nid)
-        }))
-        setNotificationData(newData)
+  const formatNotificationData = () => {
+    const data = []
+    if (allNotificationList.code && allNotificationList.code === 200 && isNonEmptyArray(allNotificationList.data)) {
+      for (let i = 0; i < allNotificationList.data.length; i++) {
+        let item = allNotificationList.data[i]
+        data.push({
+          id: item.id,
+          name: item.name,
+          selected: false,
+        })
       }
     }
+    return data
+  }
+
+  const setMyNewsLettersData = () => {
+    if (isNonEmptyArray(selectedNotificationInfo.data) && isNonEmptyArray(allNotificationList.data)) {
+      const data = []
+      for (let i = 0; i < allNotificationList.data.length; i++) {
+        let item = allNotificationList.data[i]
+        data.push({
+          name: item.name,
+          id: item.id,
+          selected: getSelectedOrNot(item.id),
+        })
+      }
+      setNotificationData(data)
+    } else {
+      let newsLettersData = formatNotificationData()
+      setNotificationData(newsLettersData)
+    }
+    setDisableNext(true)
+  }
+
+  const getSelectedOrNot = (id: any) => {
+    for (let i = 0; i < selectedNotificationInfo.data.length; i++) {
+      if (id == selectedNotificationInfo.data[i].nid) {
+        return true
+      }
+    }
+    return false
   }
 
   const onPressNext = () => {
@@ -129,10 +139,19 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
     }
   }
 
-  const changeStatus = (index: number) => {
-    const data = [...notificationDate]
-    data[index].selected = !data[index].selected
-    setNotificationData(data)
+  const changeSelectedStatus = (item: any) => {
+    for (let i = 0; i < notificationDate.length; i++) {
+      if (item.id == notificationDate[i].id) {
+        notificationDate[i].selected = !notificationDate[i].selected;
+      }
+    }
+    if (canGoBack) {
+      let selectedList = getSelectedData();
+      console.log('getselecteddata', getSelectedData())
+      sendSelectedInfoRequest({ nid: joinArray(selectedList) })
+    } else {
+      updateNextButtonActive()
+    }
   };
 
   const updateNextButtonActive = () => {
@@ -142,9 +161,9 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   }
 
   const getSelectedData = () => {
-    return notificationDate.reduce((prevValue: number[], item: KeepNotifiedDataProps) => {
+    return notificationDate.reduce((prevValue: number[], item: NotificationDataType) => {
       if (item.selected) {
-        return prevValue.concat(item.nid)
+        return prevValue.concat(item.id)
       }
       return prevValue
     }, [])
@@ -158,7 +177,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
           <Label style={style.descStyle} children={t('onBoard.keepNotified.description')} />
         </View>}
         <View style={style.contentStyle}>
-          <KeepNotifiedWidget data={notificationDate} onPress={changeStatus} />
+          <KeepNotifiedWidget data={notificationDate} onPress={changeSelectedStatus} />
         </View>
         <View style={style.nextButtonView}>
           {!disableNext && <NextButton
