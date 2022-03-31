@@ -72,7 +72,10 @@ export const ManageMyNewsScreen = () => {
   }, [selectedTopicsData, allSiteCategoriesData]);
 
   const fetchSelectedDataFromAllWriters = () => {
-    
+    if (selectedAuthorsData.data && selectedAuthorsData.data.length === 0) {
+      setSelectedWriters([])
+    }
+
     if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
       const selectedAuthors = [];
       for (let i = 0; i < selectedAuthorsData.data.length; i++) {
@@ -87,6 +90,9 @@ export const ManageMyNewsScreen = () => {
   };
 
   const fetchSelectedDataFromAllTopics = () => {
+    if (selectedTopicsData.data && selectedTopicsData.data.length === 0) {
+      setSelectedInterested([])
+    }
     if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
       const selectedTopics = []
       for (let i = 0; i < selectedTopicsData.data.length; i++) {
