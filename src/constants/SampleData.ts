@@ -48,6 +48,7 @@ export const storeInfo = [
       sectionComboTwo: [],
       sectionComboThree: [],
       sectionComboFour: [],
+      podcastHome: [],
     },
     articleDetail: {
       isLoading: true,

@@ -3,13 +3,16 @@ import {
     getHeroData,
     getHeroListData,
     getIsLoading, getOpinionData, getTickerData, getTopListData,
-    getSectionComboFourData, getSectionComboOneData, getSectionComboThreeData, getSectionComboTwoData
+    getSectionComboFourData, getSectionComboOneData, getSectionComboThreeData, getSectionComboTwoData,
+    getPodcastHomeData,
 } from 'src/redux/latestNews/selectors';
-import {  LatestOpinionDataType } from 'src/redux/latestNews/types';
+import {  LatestOpinionDataType, LatestPodcastDataType } from 'src/redux/latestNews/types';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { requestHeroListTopList, requestSectionComboFour, 
     requestSectionComboOne, requestSectionComboThree, 
-    requestSectionComboTwo, requestTickerAndHero, requestOpinionList } from 'src/redux/latestNews/action';
+    requestSectionComboTwo, requestTickerAndHero, requestOpinionList,
+    requestPodcastHomeData,
+} from 'src/redux/latestNews/action';
 
 export interface UseLatestNewsReturn {
     isLoading: boolean;
@@ -23,12 +26,14 @@ export interface UseLatestNewsReturn {
     sectionComboTwo: LatestArticleDataType[];
     sectionComboThree: LatestArticleDataType[];
     sectionComboFour: LatestArticleDataType[];
+    podcastHome: LatestPodcastDataType[];
     fetchTickerAndHeroArticle(payload: LatestArticleBodyGet): void;
     fetchHeroListTopList(payload: LatestArticleBodyGet): void
     fetchSectionComboOne(payload: RequestSectionComboBodyGet): void
     fetchSectionComboTwo(payload: RequestSectionComboBodyGet): void
     fetchSectionComboThree(payload: RequestSectionComboBodyGet): void
     fetchSectionComboFour(payload: RequestSectionComboBodyGet): void
+    fetchPodcastHome(): void
 }
 
 export const useLatestNewsTab = (): UseLatestNewsReturn => {
@@ -43,6 +48,7 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const sectionComboTwo = useSelector(getSectionComboTwoData)
     const sectionComboThree = useSelector(getSectionComboThreeData)
     const sectionComboFour = useSelector(getSectionComboFourData)
+    const podcastHome = useSelector(getPodcastHomeData)
     const fetchTickerAndHeroArticle = (payload: LatestArticleBodyGet) => {
         dispatch(requestTickerAndHero(payload));
     };
@@ -64,6 +70,9 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const fetchSectionComboFour = (payload: RequestSectionComboBodyGet) => {
         dispatch(requestSectionComboFour(payload));
     };
+    const fetchPodcastHome = () => {
+        dispatch(requestPodcastHomeData());
+    };
 
     return {
         isLoading,
@@ -82,6 +91,8 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         fetchSectionComboOne,
         fetchSectionComboTwo,
         fetchSectionComboThree,
-        fetchSectionComboFour
+        fetchSectionComboFour,
+        podcastHome,
+        fetchPodcastHome,
     };
 };

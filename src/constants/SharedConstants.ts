@@ -44,3 +44,7 @@ export const FACEBOOK_APP_URL = isIOS ? 'fb://page/?id=145726335465699' : 'fb://
 export const INSTAGRAM_APP_URL = 'instagram://user?username=asharqalawsat';
 export const LINKEDIN_APP_URL = 'linkedin://company/asharq-alawsat';
 export const TWITTER_APP_URL = 'twitter://user?screen_name=aawsat_News';
+
+//PodcastHome - Latest news
+export const PODCAST_TITLE = 'استمع لبودكاست آخر أخبار اليوم';
+export const PODCAST_LISTEN_TEXT = 'استمع الي البودكاست ';

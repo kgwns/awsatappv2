@@ -6,13 +6,15 @@ import {
     REQUEST_SECTION_COMBO_ONE,
     REQUEST_SECTION_COMBO_TWO,
     REQUEST_SECTION_COMBO_THREE,
-    REQUEST_SECTION_COMBO_FOUR
+    REQUEST_SECTION_COMBO_FOUR,
+    REQUEST_PODCAST_HOME_DATA,
 } from "../actionType";
 import articleDetailSaga, {
     fetchTickerAndHeroWidgetData,
     fetchHeroListTopListWidgetData,
     fetchOpinionWidgetData,
-    fetchSectionCombo
+    fetchSectionCombo,
+    fetchPodcastHomeData
 } from "../sagas";
 
 const sampleResponse = {
@@ -136,6 +138,14 @@ describe('<LatestNewsSaga >', () => {
             expect(generator.value).toEqual(
                 all([
                     takeLatest(REQUEST_SECTION_COMBO_FOUR, fetchSectionCombo),
+                ])
+            );
+        });
+        it('should wait for latest REQUEST_PODCAST_HOME_DATA action and call fetchPodcastHomeData', () => {
+            const generator = genObject.next();
+            expect(generator.value).toEqual(
+                all([
+                    takeLatest(REQUEST_PODCAST_HOME_DATA, fetchPodcastHomeData),
                 ])
             );
         });

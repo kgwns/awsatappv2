@@ -14,8 +14,8 @@ export const RELATED_ARTICLE_GET = 'api/v2/relatedarticles/';
 //page start from 0
 //offset is about from which position need to get the data
 export const LATEST_ARTICLE_GET = '/api/v2/latestarticles';
-
 export const SECTION_COMBO = '/api/v2/articlesection';
+export const PODCAST_HOME = '/api/v2/podcasthome';
 
 //opinion tab in category section
 //writer list

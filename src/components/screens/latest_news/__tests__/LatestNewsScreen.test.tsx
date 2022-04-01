@@ -17,6 +17,7 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
             sectionComboTwo: [],
             sectionComboThree: [],
             sectionComboFour: [],
+            podcastHome: [],
             fetchTickerAndHeroArticle: () => {
                 return []
             },
@@ -37,7 +38,10 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
             },
             fetchSectionComboFour: () => {
                 return []
-            }
+            },
+            fetchPodcastHome: () => {
+                return []
+            },
         }
     },
 }));

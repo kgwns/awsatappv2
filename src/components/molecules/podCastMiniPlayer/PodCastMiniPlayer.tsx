@@ -5,7 +5,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { Image } from 'src/components/atoms'
 import { ImagesName } from 'src/shared/styles'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { normalize } from 'src/shared/utils'
+import { isTab, normalize } from 'src/shared/utils'
 import TextTicker from 'react-native-text-ticker';
 import { State, usePlaybackState } from 'react-native-track-player';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode'
@@ -88,8 +88,8 @@ const customStyle = (theme: CustomThemeType) => {
             padding: normalize(12)
         },
         imageContainer: {
-            width: normalize(46),
-            height: normalize(41),
+            width: isTab ? normalize(120) : normalize(46),
+            height: isTab ? normalize(52) : normalize(41),
             backgroundColor: 'black'
         },
         image: {
@@ -103,8 +103,8 @@ const customStyle = (theme: CustomThemeType) => {
         },
         title: {
             textAlign: 'left',
-            fontSize: 13,
-            lineHeight: 16,
+            fontSize: isTab ? 16 : 13,
+            lineHeight: isTab ? 19 : 16,
             marginTop: normalize(10),
             color: theme.primaryBlack
         },

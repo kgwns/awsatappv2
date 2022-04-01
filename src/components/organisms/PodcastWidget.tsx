@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
-
 import {ButtonImage, Image, Label} from '../atoms';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {ImagesName} from 'src/shared/styles';
@@ -8,17 +7,28 @@ import {normalize, screenWidth} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {getSvgImages} from 'src/shared/styles/svgImages';
+import { PODCAST_LISTEN_TEXT } from 'src/constants/SharedConstants'
+import { getSecondsToHms } from 'src/shared/utils/utilities';
 
-const PodcastWidget = () => {
+export interface PodcastWidgetProps {
+  onPress: () => void;
+  data: any;
+}
+
+const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
+  data,
+  onPress,
+}) => {
   const {themeData} = useTheme();
   const style = useThemeAwareObject(createStyles);
+  const podcastData = data[0];
 
   return (
     <View style={style.container}>
       <View style={style.podcastImageContainer}>
         <Image
           resizeMode="stretch"
-          url={'https://picsum.photos/200'}
+          url={podcastData?.field_podcast_sect_export?.img_podcast_mobile}
           style={style.podcastImage}
         />
       </View>
@@ -26,13 +36,13 @@ const PodcastWidget = () => {
         <Label
           color={themeData.primaryBlack}
           style={style.podcastTitle}
-          children={'استمع لبودكاست آخر أخبار اليوم'}
+          children={podcastData?.title}
           numberOfLines={1}
         />
         <View style={style.durationContainer}>
           <Label
             color={colors.greenishBlue}
-            children={'استمع الي البودكاست '}
+            children={PODCAST_LISTEN_TEXT}
             style={style.authorTitle}
             numberOfLines={1}
           />
@@ -43,12 +53,12 @@ const PodcastWidget = () => {
                 size: normalize(13),
               });
             }}
-            onPress={() => {}}
+            onPress={onPress}
             style={style.playIcon}
           />
           <Label
             color={colors.spanishGray}
-            children={'3:22'}
+            children={getSecondsToHms(podcastData?.field_total_duration_export)}
             style={style.duration}
           />
         </View>
@@ -69,7 +79,7 @@ const createStyles = (theme: CustomThemeType) => {
       alignContent: 'center',
     },
     podcastImageContainer: {
-      width: '22%',
+      width: '25%',
     },
     podcastImage: {
       width: '100%',
@@ -77,7 +87,7 @@ const createStyles = (theme: CustomThemeType) => {
     },
     bodyContainer: {
       overflow: 'hidden',
-      width: '78%',
+      width: '75%',
     },
     podcastTitle: {
       marginTop: normalize(10),

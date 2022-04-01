@@ -11,7 +11,8 @@ import {
   RequestSectionComboTwoSuccessPayload,
   RequestSectionComboType,
   RequestTickerAndHeroType, TickerHeroSuccessPayload,
-  OpinionSuccessPayload, RequestOpinionListType, LatestOpinionDataType
+  OpinionSuccessPayload, RequestOpinionListType, LatestOpinionDataType,
+  LatestPodcastDataType, PodcastHomeSuccessPayload
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -20,7 +21,8 @@ import {
   REQUEST_SECTION_COMBO_THREE,
   REQUEST_SECTION_COMBO_TWO,
   REQUEST_TICKER_HERO_DATA,
-  REQUEST_OPINION_LIST_DATA
+  REQUEST_OPINION_LIST_DATA,
+  REQUEST_PODCAST_HOME_DATA,
 } from './actionType';
 import {
   requestHeroListTopListFailed, requestHeroListTopListSuccess,
@@ -29,11 +31,17 @@ import {
   requestSectionComboThreeFailed, requestSectionComboThreeSuccess,
   requestSectionComboTwoFailed, requestSectionComboTwoSuccess,
   requestTickerAndHeroFailed, requestTickerAndHeroSuccess,
-  requestOpinionSuccess
+  requestOpinionSuccess,
+  requestPodcastHomeSuccess, requestPodcastHomeFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
 import { getImageUrl } from 'src/shared/utils/utilities';
-import { requestLatestArticle, requestSectionCombo, writerOpinionApi } from 'src/services/latestTabService';
+import {
+  requestLatestArticle,
+  requestSectionCombo,
+  writerOpinionApi,
+  podcastHomeApi,
+} from 'src/services/latestTabService';
 
 
 const formatLatestArticle = (response: any): LatestArticleDataType[] => {
@@ -74,6 +82,26 @@ const formatOpinion = (response: any): LatestOpinionDataType[] => {
     }
   }
   return formattedOpinionData
+}
+
+const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
+  let formattedPodcastHomeData: LatestPodcastDataType[] = []
+  if (response) {
+    if (isNonEmptyArray(response.rows)) {
+      const rows = response.rows
+      formattedPodcastHomeData = rows.map(
+        ({ nid, field_podcast_sect_export, title, body_export, field_total_duration_export, created_export, field_spreaker_episode_export }: any) => ({
+          nid,
+          field_podcast_sect_export,
+          title, body_export,
+          field_total_duration_export,
+          created_export,
+          field_spreaker_episode_export
+        })
+      );
+    }
+  }
+  return formattedPodcastHomeData;
 }
 
 const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPayload => {
@@ -142,6 +170,16 @@ const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {
   responseData.opinionList = formattedData.splice(0, 4)
   return responseData
 }
+
+const parsePodcastHomeSuccess = (response: any): PodcastHomeSuccessPayload => {
+  const formattedData = formatPodcastHome(response)
+  let responseData: PodcastHomeSuccessPayload = {
+    podcastHome: []
+  }
+  responseData.podcastHome = formattedData;
+  return responseData;
+}
+
 export function* fetchTickerAndHeroWidgetData(action: RequestTickerAndHeroType) {
   try {
     const payload: payloadType = yield call(
@@ -228,6 +266,22 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
   }
 }
 
+export function* fetchPodcastHomeData() {
+  try {
+    const payload: payloadType = yield call(
+      podcastHomeApi,
+    );
+    const response = parsePodcastHomeSuccess(payload)
+    yield put(requestPodcastHomeSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestPodcastHomeFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
 function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)]);
   yield all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)]);
@@ -236,6 +290,7 @@ function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_SECTION_COMBO_TWO, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_THREE, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_FOUR, fetchSectionCombo)]);
+  yield all([takeLatest(REQUEST_PODCAST_HOME_DATA, fetchPodcastHomeData)])
 }
 
 export default articleDetailSaga;
