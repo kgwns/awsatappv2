@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, View, StyleSheet, ScrollView } from 'react-native'
+import React from 'react'
+import { FlatList, View, StyleSheet, ScrollView, StyleProp, ViewStyle } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { articleProps } from './ArticleSection'
@@ -34,11 +34,12 @@ interface BannerArticleSectionProps {
     sectionId: string,
     onPress: (nid: string) => void,
     onUpdateBookmark: (item: any) => void,
-    isDivider?: boolean 
+    isDivider?: boolean;
+    dividerStyle?: StyleProp<ViewStyle>
 }
 
 const BannerArticleSection = (props: BannerArticleSectionProps) => {
-    const { data, sectionId, onPress, onUpdateBookmark, isDivider } = props
+    const { data, sectionId, onPress, onUpdateBookmark, isDivider, dividerStyle } = props
     const [t] = useTranslation()
     const { themeData } = useTheme()
     const bannerData = [...data].splice(0, 4)
@@ -102,7 +103,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
 
     return (
         <View style={[style.container, isTab && style.tabContainer]}>
-            {isDivider  && <Divider style={style.divider}/>}
+            {isDivider  && <Divider style={StyleSheet.flatten([style.divider, dividerStyle])}/>}
             <View style={!isTab ? style.headerContainer : style.tabHeaderContainer}>
                 <WidgetHeader {...widgetHeaderData} onPress={onPressMore} />
             </View>
