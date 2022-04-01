@@ -318,6 +318,7 @@ export const LatestNewsScreen = () => {
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboTwoBookmark}
         isDivider
+        dividerStyle={latestNewsScreenStyle.firstBannerDivider}
       />
       <Divider style={{ height: normalize(20) }} />
       <AuthorWidget data={opinionList} />
@@ -369,5 +370,8 @@ const latestNewsScreenStyle = StyleSheet.create({
     borderColor:Styles.color.gableGreen,
     borderBottomWidth:1,
     opacity:0.15
+  },
+  firstBannerDivider: {
+    marginTop: 0
   }
 })
