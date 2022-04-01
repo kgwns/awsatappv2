@@ -58,23 +58,24 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
   const verifyMailAndPasswordAndTryAgain = t('signIn.verifyMailAndPasswordAndTryAgain');
-  const ok = t('common.ok');
+  const CONST_OK = t('common.ok');
+  const CONST_ALERT = t('common.alert')
 
   const noInternetConnection : AlertPayloadType = {
-    title : t('common.alert'),
+    title : CONST_ALERT,
     message: t('common.noInternetConnection'),
-    buttonTitle: t('common.ok')
+    buttonTitle: CONST_OK
   }
   const somthingWentWrong : AlertPayloadType = {
-    title : t('common.alert'),
+    title : CONST_ALERT,
     message: t('common.somthingWentWrong'),
-    buttonTitle: t('common.ok')
+    buttonTitle:CONST_OK
   }
   
   const incorrectCredentialPayload: AlertPayloadType = {
     title: credentialsAreIncorrect,
     message: verifyMailAndPasswordAndTryAgain,
-    buttonTitle: ok
+    buttonTitle: CONST_OK
   }
 
   const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(incorrectCredentialPayload);
@@ -173,7 +174,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
       if (message.code === 200) {
         navigation.navigate(ScreensConstants.FORGOT_PASSWORD);
       } else {
-        Alert.alert(message.message);
+        setAlertPayload({ title: CONST_ALERT, message: message.message, buttonTitle: CONST_OK })
+        setIsAlertVisible(true)
       }
     }
   }, [forgotPassswordResponse]);

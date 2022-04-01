@@ -4,7 +4,7 @@ import { flatListUniqueKey, ScreensConstants } from 'src/constants'
 import { ImageWithLabel } from '../atoms'
 import { articleProps } from '../organisms'
 import { ArticleWithOutImage } from '../molecules'
-import { isNotEmpty, normalize } from 'src/shared/utils'
+import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -50,6 +50,6 @@ export default ArticleItem;
 
 const style = StyleSheet.create({
     contentContainer: {
-        paddingTop: normalize(10)
+        paddingTop: isTab ? normalize(15) : normalize(10)
     }
 })

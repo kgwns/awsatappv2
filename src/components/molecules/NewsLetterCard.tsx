@@ -160,6 +160,7 @@ const customStyle = (theme: CustomThemeType) => {
     labelContainer: {
       flex: 1,
       justifyContent: 'center',
+      alignItems: 'flex-start',
       marginRight: normalize(3),
     }
   });

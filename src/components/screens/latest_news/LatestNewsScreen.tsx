@@ -6,7 +6,7 @@ import {
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties, storyWidgetData } from 'src/constants/SampleData';
-import { horizontalEdge, isNonEmptyArray, isTab, normalize } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isTab, normalize, isIOS } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData } from 'src/hooks';
@@ -16,6 +16,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Styles } from 'src/shared/styles';
+import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import { getPodcastUrl } from 'src/shared/utils/utilities';
+import { PodCastMiniPlayer } from 'src/components/molecules';
+import { useFocusEffect } from '@react-navigation/native';
 
 const tickerAndHeroPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -63,10 +67,11 @@ export const LatestNewsScreen = () => {
 
   const {
     isLoading, ticker, hero, heroList, topList, opinionList,
-    sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour,
+    sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour, podcastHome,
     fetchTickerAndHeroArticle, fetchHeroListTopList, fetchOpinionTopList,
     fetchSectionComboOne, fetchSectionComboTwo,
-    fetchSectionComboThree, fetchSectionComboFour
+    fetchSectionComboThree, fetchSectionComboFour,
+    fetchPodcastHome
   } = useLatestNewsTab()
 
   const {
@@ -240,6 +245,18 @@ export const LatestNewsScreen = () => {
     }
   ))
 
+  //PodcastHome 
+  const [isPlayerVisible, setPlayerVisibility] = useState(false)
+  const playbackState = usePlaybackState();
+  const podcastData = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {};
+  useFocusEffect(
+    React.useCallback(() => {
+      const unsubscribe = () => { TrackPlayer.stop() };
+      return () => unsubscribe();
+    }, [isPlayerVisible])
+  );
+
+
   useEffect(() => {
     fetchTickerAndHeroArticle(tickerAndHeroPayload)
     fetchHeroListTopList(heroListTopListPayload)
@@ -249,6 +266,7 @@ export const LatestNewsScreen = () => {
     fetchSectionComboThree(sectionComboThreePayload)
     fetchSectionComboFour(sectionComboFourPayload)
     fetchProfileDataRequest();
+    fetchPodcastHome();
   }, [])
 
 
@@ -272,9 +290,51 @@ export const LatestNewsScreen = () => {
     setShowPopUp(true)
   }
 
+  const onListenPodcast = async () => {
+    setPlayerVisibility(true)
+    if (playbackState == State.Playing) {
+      return
+    }
+    await TrackPlayer.setupPlayer();
+    await TrackPlayer.updateOptions({ stopWithApp: true });
+    await TrackPlayer.add({
+      id: podcastData.nid,
+      url: getPodcastUrl(podcastData.field_spreaker_episode_export),
+      title: podcastData.title,
+      artist: podcastData.title,
+    });
+    await TrackPlayer.play();
+  }
+
+  const togglePlayback = async () => {
+    if (playbackState === State.Playing) {
+      await TrackPlayer.pause();
+    }
+    else if (playbackState === State.Paused) {
+      await TrackPlayer.play();
+    }
+    else if ( playbackState === State.Paused || playbackState == State.None || playbackState == State.Stopped) {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({ stopWithApp: true });
+      await TrackPlayer.add({
+        id: podcastData.nid,
+        url: getPodcastUrl(podcastData.field_spreaker_episode_export),
+        title: podcastData.title,
+        artist: podcastData.title,
+      });
+      TrackPlayer.setRepeatMode(RepeatMode.Off);
+      await TrackPlayer.play();
+    }
+  };
+
+  const onClose = async () => {
+    await TrackPlayer.stop()
+    setPlayerVisibility(false)
+  }
+
   const renderItem = () => (
     <View>
-      <Divider style={latestNewsScreenStyle.dividerTop}/>
+      <Divider style={latestNewsScreenStyle.dividerTop} />
       <CarouselSlider tickerData={ticker} heroData={heroInfo}
         onUpdateHeroBookmark={updatedHeroBookmark}
       />
@@ -282,7 +342,7 @@ export const LatestNewsScreen = () => {
         isTab ? <View style={latestNewsScreenStyle.tabSplitter}>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
             <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
-            <PodcastWidget />
+            {isNonEmptyArray(podcastHome) && <PodcastWidget data={podcastHome} onPress={onListenPodcast} />}
           </View>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
             <ShortArticle data={topListData} onPress={onPressArticle}
@@ -293,7 +353,7 @@ export const LatestNewsScreen = () => {
         </View>
           :
           <>
-            <PodcastWidget />
+            {isNonEmptyArray(podcastHome) && <PodcastWidget data={podcastHome} onPress={onListenPodcast} />}
             <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
             <ShortArticle data={topListData} onPress={onPressArticle}
               onUpdateBookmark={updateBookmarkInfo}
@@ -318,6 +378,7 @@ export const LatestNewsScreen = () => {
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboTwoBookmark}
         isDivider
+        dividerStyle={latestNewsScreenStyle.firstBannerDivider}
       />
       <Divider style={{ height: normalize(20) }} />
       <AuthorWidget data={opinionList} />
@@ -352,6 +413,9 @@ export const LatestNewsScreen = () => {
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
       />
+      {isPlayerVisible && <View style={latestNewsScreenStyle.miniPlayerContainer}>
+        <PodCastMiniPlayer data={podcastData} onClose={onClose} onPlaybackPress={togglePlayback} />
+      </View>}
     </ScreenContainer>
   )
 }
@@ -365,9 +429,18 @@ const latestNewsScreenStyle = StyleSheet.create({
   tabWidgetContainer: {
     flex: 0.5
   },
-  dividerTop:{
-    borderColor:Styles.color.gableGreen,
-    borderBottomWidth:1,
-    opacity:0.15
-  }
+  dividerTop: {
+    borderColor: Styles.color.gableGreen,
+    borderBottomWidth: 1,
+    opacity: 0.15
+  },
+  miniPlayerContainer: {
+    width: '100%',
+    height: normalize(80),
+    position: 'absolute',
+    bottom: 0,
+  },
+  firstBannerDivider: {
+    marginTop: 0
+  },
 })

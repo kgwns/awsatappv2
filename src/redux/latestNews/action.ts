@@ -7,7 +7,8 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
   REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE, 
   REQUEST_SECTION_COMBO_TWO_FAILED, REQUEST_SECTION_COMBO_TWO_SUCCESS, 
   REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_FOUR_SUCCESS,
-  REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA, REQUEST_OPINION_DATA_LIST_FAILED 
+  REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA, REQUEST_OPINION_DATA_LIST_FAILED,
+  REQUEST_PODCAST_HOME_DATA, REQUEST_PODCAST_HOME_DATA_SUCCESS, REQUEST_PODCAST_HOME_DATA_FAILED,
 } from "./actionType"
 import { HeroListTopListFailedPayload, HeroListTopListFailedType, 
   HeroListTopListSuccessPayload, HeroListTopListSuccessType, 
@@ -24,7 +25,15 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   RequestSectionComboTwoSuccessPayload, RequestSectionComboTwoSuccessType, 
   RequestTickerAndHeroType, TickerHeroFailedPayload, TickerHeroFailedType, 
   TickerHeroSuccessPayload, TickerHeroSuccessType, OpinionSuccessPayload, 
-  OpinionSuccessType, RequestOpinionListType, OpinionFailedType } from "./types"
+  OpinionSuccessType,
+  RequestOpinionListType,
+  OpinionFailedType,
+  RequestPodcastHomeType,
+  PodcastHomeSuccessPayload,
+  PodcastHomeSuccessType,
+  PodcastHomeFailedPayload,
+  PodcastHomeFailedType
+} from "./types"
 
 export const requestTickerAndHero = (
   payload: LatestArticleBodyGet
@@ -224,6 +233,31 @@ export const requestSectionComboFourFailed = (
   }
 }
 
+export const requestPodcastHomeData = (
+): RequestPodcastHomeType => {
+  return {
+    type: REQUEST_PODCAST_HOME_DATA,
+  }
+}
+
+export const requestPodcastHomeSuccess = (
+  payload: PodcastHomeSuccessPayload
+): PodcastHomeSuccessType => {
+  return {
+    type: REQUEST_PODCAST_HOME_DATA_SUCCESS,
+    payload
+  }
+}
+
+export const requestPodcastHomeFailed = (
+  payload: PodcastHomeFailedPayload
+): PodcastHomeFailedType => {
+  return {
+    type: REQUEST_PODCAST_HOME_DATA_FAILED,
+    payload
+  }
+}
+
 export const latestTabActions = {
   requestTickerAndHero,
   requestTickerAndHeroSuccess,
@@ -245,5 +279,8 @@ export const latestTabActions = {
   requestSectionComboThreeFailed,
   requestSectionComboFour,
   requestSectionComboFourSuccess,
-  requestSectionComboFourFailed
+  requestSectionComboFourFailed,
+  requestPodcastHomeData,
+  requestPodcastHomeSuccess,
+  requestPodcastHomeFailed,
 };

@@ -44,7 +44,7 @@ export const AlertModal = ({
                     <Label
                         children={message}
                         style={styles.instructionTextStyle}
-                        numberOfLines={2}
+                        numberOfLines={3}
                     />
                     <TouchableOpacity onPress={onPressSuccess}>
                         <View style={styles.buttonBackgroundStyle}>

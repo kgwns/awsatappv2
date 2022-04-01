@@ -207,7 +207,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     else if (playbackState === State.Paused) {
       await TrackPlayer.play();
     }
-    else if (playbackState == State.None || playbackState == State.Stopped) {
+    else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
       await TrackPlayer.setupPlayer();
       await TrackPlayer.updateOptions({ stopWithApp: true });
       await TrackPlayer.add({
