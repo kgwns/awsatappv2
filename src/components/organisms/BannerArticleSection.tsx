@@ -103,10 +103,11 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     return (
         <View style={[style.container, isTab && style.tabContainer]}>
             {isDivider  && <Divider style={style.divider}/>}
-            <View style={!isTab && style.headerContainer}>
+            <View style={!isTab ? style.headerContainer : style.tabHeaderContainer}>
                 <WidgetHeader {...widgetHeaderData} onPress={onPressMore} />
             </View>
             {listHeaderSection()}
+            {isTab && <Divider style={style.divider}/>}
             <FlatList
                 keyExtractor={(_, index) => index.toString()}
                 data={verticalArticleData}
@@ -134,6 +135,9 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         paddingVertical: normalize(10),
         paddingTop: normalize(20)
     },
+    tabHeaderContainer: {
+        paddingVertical: normalize(10),
+    },
     verticalList: {
         paddingHorizontal: 0.04 * screenWidth,
         paddingTop: normalize(15)
@@ -148,6 +152,7 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: theme.dividerColor
     },
     spacingStyle: {
-        paddingBottom: normalize(10)
+        paddingBottom: normalize(10),
+        paddingTop: isTab ? normalize(20) : normalize(10)
     }
 })

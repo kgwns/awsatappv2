@@ -82,8 +82,9 @@ const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPaylo
     heroList: [],
     topList: []
   }
+  const topListCount = isTab ? 5 : 4
   responseData.heroList =  isNonEmptyArray(formattedData) ? [...formattedData].splice(0, 2) : []
-  responseData.topList =  isNonEmptyArray(formattedData) ? [...formattedData].splice(2, 4) : []
+  responseData.topList =  isNonEmptyArray(formattedData) ? [...formattedData].splice(2, topListCount) : []
   return responseData
 }
 
