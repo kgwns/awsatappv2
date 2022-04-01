@@ -17,6 +17,7 @@ import {
   screenHeight,
   screenWidth,
 } from '../../../shared/utils';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
@@ -58,7 +59,7 @@ import {
 } from 'src/constants/SharedConstants';
 import {useNewPassword} from 'src/hooks/useNewPassword';
 import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
-import { AlertModal } from 'src/components/organisms';
+import {AlertModal} from 'src/components/organisms';
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -80,7 +81,11 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [occupation, setOccupation] = useState('');
-  const [date, setDate] = useState(userProfileData.user?.birthday ? new Date(userProfileData.user?.birthday) :  new Date(DEFAULT_MINIMUM_DATE));
+  const [date, setDate] = useState(
+    userProfileData.user?.birthday
+      ? new Date(userProfileData.user?.birthday)
+      : new Date(DEFAULT_MINIMUM_DATE),
+  );
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
     t('profile.userDetail.selectBirthdayText'),
@@ -104,9 +109,9 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [alertPayload, setAlertPayload] = useState<AlertPayloadType>();
   const ok = t('common.ok');
   const success = t('profile.userDetail.success');
-  const [isDisableDate, setDisableDate] = useState(false)
-  const [isDisableName, setDisableName] = useState(false)
-  const [isDisableOccupation, setDisableOccupation] = useState(false)
+  const [isDisableDate, setDisableDate] = useState(false);
+  const [isDisableName, setDisableName] = useState(false);
+  const [isDisableOccupation, setDisableOccupation] = useState(false);
   const passwordChangedSuccessfully = t(
     'profile.userDetail.passwordChangedSuccessfully',
   );
@@ -119,7 +124,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const OPEN_CAMERA_OPTION = t('profile.userDetail.openCameraOption');
   const OPEN_GALLERY_OPTION = t('profile.userDetail.chooseFromGallery');
   const CANCEL = t('profile.userDetail.cancelText');
-  const [showupUp,setShowPopUp] = useState(false)
+  const [showupUp, setShowPopUp] = useState(false);
 
   useEffect(() => {
     fetchProfileDataRequest();
@@ -159,7 +164,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         userProfileData.user?.name !== ' ' &&
         setUserName(userProfileData.user?.name as string);
     }
-    if(userProfileData.user?.image == null){
+    if (userProfileData.user?.image == null) {
       userProfileData.user?.profile_url &&
         setUserProfileImage(
           getProfileImageUrl(userProfileData.user?.profile_url as string),
@@ -173,20 +178,17 @@ export const UserDetailScreen: FunctionComponent = () => {
     }
   }, []);
 
-  useEffect(()=>{
-    if(isNotEmpty(name)){
-      setDisableName(!(userProfileData.user?.name == name))
+  useEffect(() => {
+    if (isNotEmpty(name)) {
+      setDisableName(!(userProfileData.user?.name == name));
+    } else {
+      setDisableName(false);
     }
-    else{
-      setDisableName(false)
+    if (isNotEmpty(occupation)) {
+      setDisableOccupation(!(userProfileData.user?.occupation == occupation));
+    } else {
+      setDisableOccupation(false);
     }
-    if(isNotEmpty(occupation)){
-      setDisableOccupation(!(userProfileData.user?.occupation == occupation))
-    }
-    else{
-      setDisableOccupation(false)
-    }
-    
   }, [name, occupation]);
 
   useEffect(() => {
@@ -261,10 +263,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   const renderTabBarComponent = () => (
-    <TabBarComponent
-      tabItem={tabItem}
-      onPressTabItem={onPressTabItem}
-    />
+    <TabBarComponent tabItem={tabItem} onPressTabItem={onPressTabItem} />
   );
 
   const tabContent = () => {
@@ -308,15 +307,12 @@ export const UserDetailScreen: FunctionComponent = () => {
     </>
   );
   const onPressConfirm = () => {
-    isNotEmpty(name)
-      ? sendUpdatedProfileInfo()
-      : setShowPopUp(true);
+    isNotEmpty(name) ? sendUpdatedProfileInfo() : setShowPopUp(true);
   };
 
   const onCloseSignUpAlert = () => {
-    setShowPopUp(false)
-  }
-
+    setShowPopUp(false);
+  };
 
   const sendUpdatedProfileInfo = () => {
     sendUserProfileInfo({
@@ -334,122 +330,122 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   const renderUserDetails = () => (
-      <View style={styles.container}>
-        <View style={styles.userContainer}>
-          <View style={styles.dpContainer}>
-            <TouchableOpacity onPress={() => 
-              isIOS? renderOptionModalIOS() :  setModalVisible(true)}>
-              <View style={styles.dpEditContainer}>
-                <EditIcon />
-              </View>
-            </TouchableOpacity>
-            {userProfileImage ? (
-              <Image
-                style={styles.dpDefaultIcon}
-                source={{uri: userProfileImage}}
-              />
-            ) : (
-              <UserIcon />
-            )}
-          </View>
-          <View style={styles.emailContainer}>
-            <Label
-              style={styles.emailTitle}
-              color={colors.greenishBlue}
-              children={
-                userName ? userName : t('profile.userDetail.userNameTitle')
-              }
+    <View style={styles.container}>
+      <View style={styles.userContainer}>
+        <View style={styles.dpContainer}>
+          <TouchableOpacity
+            onPress={() =>
+              isIOS ? renderOptionModalIOS() : setModalVisible(true)
+            }>
+            <View style={styles.dpEditContainer}>
+              <EditIcon />
+            </View>
+          </TouchableOpacity>
+          {userProfileImage ? (
+            <Image
+              style={styles.dpDefaultIcon}
+              source={{uri: userProfileImage}}
             />
-            <Label style={styles.email} children={email} />
-          </View>
+          ) : (
+            <UserIcon />
+          )}
         </View>
-        <View style={styles.fieldContainer}>
+        <View style={styles.emailContainer}>
           <Label
-            style={styles.nameTitle}
+            style={styles.emailTitle}
             color={colors.greenishBlue}
-            children={t('profile.userDetail.nameTitle')}
+            children={
+              userName ? userName : t('profile.userDetail.userNameTitle')
+            }
           />
-          <TextInputField
-            placeholder={CONST_NAME_PLACE_HOLDER}
-            testID={'profile_name'}
-            onChangeText={setName}
-            value={name}
-            style={styles.nameInputStyle}
-            isMandatory
-            maxLength={20}
-            leftIcon={() => <UserTextFieldIcon fill={themeData.textColor} />}
-          />
-          <View>
-            <Label
-              style={styles.birthdayTitle}
-              color={colors.greenishBlue}
-              children={t('profile.userDetail.birthdayTitle')}
-            />
-            <DatePicker
-              locale="ar_AE"
-              minimumDate={new Date(DEFAULT_MINIMUM_DATE)}
-              maximumDate={new Date(maxDate)}
-              cancelText={t('profile.userDetail.cancelText')}
-              confirmText={t('profile.userDetail.confirmText')}
-              modal
-              open={open}
-              date={date}
-              onConfirm={date => {
-                setOpen(false);
-                setDate(date);
-                setDisableDate(true);
-                setSelectedDate(getFullDate(date));
-                setBirthday('');
-              }}
-              onCancel={() => {
-                setOpen(false);
-              }}
-              mode={'date'}
-              title={t('profile.userDetail.selectTheDate')}
-              theme={isDarkMode ? 'dark' : 'light'}
-              textColor={isIOS ? themeData.textInputColor : colors.black}
-            />
-            <TouchableOpacity onPress={() => setOpen(true)}>
-              <View style={styles.dropDownContainer}>
-                <View>
-                  <Label
-                    children={
-                      birthday != '' ? birthday : selectedDate.toString()
-                    }
-                    style={[
-                      styles.dropDownLabel,
-                      selectedDate.toString() ==
-                        t('profile.userDetail.selectBirthdayText') &&
-                        styles.dropDownLabelPlaceholder,
-                    ]}
-                  />
-                </View>
-                <DropDownIcon />
-              </View>
-            </TouchableOpacity>
-          </View>
-          <Label
-            style={styles.occupationTitle}
-            color={colors.greenishBlue}
-            children={t('profile.userDetail.occupationTitle')}
-          />
-          <TextInputField
-            placeholder={t('profile.userDetail.occupationPlaceholder')}
-            testID={'profile_occupation'}
-            onChangeText={setOccupation}
-            maxLength={20}
-            value={occupation}
-            style={styles.nameInputStyle}
-          />
+          <Label style={styles.email} children={email} />
         </View>
-        <ButtonOutline
-          isDisable={!(isDisableName || isDisableDate || isDisableOccupation)}
-          style={styles.updateButton}
-          labelStyle={styles.updateButtonLabel}
-          title={t('profile.userDetail.updateButtonText')}
-          onPress={onPressConfirm}
+      </View>
+      <View style={styles.fieldContainer}>
+        <Label
+          style={styles.nameTitle}
+          color={colors.greenishBlue}
+          children={t('profile.userDetail.nameTitle')}
+        />
+        <TextInputField
+          placeholder={CONST_NAME_PLACE_HOLDER}
+          testID={'profile_name'}
+          onChangeText={setName}
+          value={name}
+          style={styles.nameInputStyle}
+          isMandatory
+          maxLength={20}
+          leftIcon={() => <UserTextFieldIcon fill={themeData.textColor} />}
+        />
+        <View>
+          <Label
+            style={styles.birthdayTitle}
+            color={colors.greenishBlue}
+            children={t('profile.userDetail.birthdayTitle')}
+          />
+          <DatePicker
+            locale="ar_AE"
+            minimumDate={new Date(DEFAULT_MINIMUM_DATE)}
+            maximumDate={new Date(maxDate)}
+            cancelText={t('profile.userDetail.cancelText')}
+            confirmText={t('profile.userDetail.confirmText')}
+            modal
+            open={open}
+            date={date}
+            onConfirm={date => {
+              setOpen(false);
+              setDate(date);
+              setDisableDate(true);
+              setSelectedDate(getFullDate(date));
+              setBirthday('');
+            }}
+            onCancel={() => {
+              setOpen(false);
+            }}
+            mode={'date'}
+            title={t('profile.userDetail.selectTheDate')}
+            theme={isDarkMode ? 'dark' : 'light'}
+            textColor={isIOS ? themeData.textInputColor : colors.black}
+          />
+          <TouchableOpacity onPress={() => setOpen(true)}>
+            <View style={styles.dropDownContainer}>
+              <View>
+                <Label
+                  children={birthday != '' ? birthday : selectedDate.toString()}
+                  style={[
+                    styles.dropDownLabel,
+                    selectedDate.toString() ==
+                      t('profile.userDetail.selectBirthdayText') &&
+                      styles.dropDownLabelPlaceholder,
+                  ]}
+                />
+              </View>
+              <DropDownIcon />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <Label
+          style={styles.occupationTitle}
+          color={colors.greenishBlue}
+          children={t('profile.userDetail.occupationTitle')}
+        />
+        <TextInputField
+          placeholder={t('profile.userDetail.occupationPlaceholder')}
+          testID={'profile_occupation'}
+          onChangeText={setOccupation}
+          maxLength={20}
+          value={occupation}
+          style={styles.nameInputStyle}
         />
       </View>
+      <ButtonOutline
+        isDisable={!(isDisableName || isDisableDate || isDisableOccupation)}
+        style={styles.updateButton}
+        labelStyle={styles.updateButtonLabel}
+        title={t('profile.userDetail.updateButtonText')}
+        onPress={onPressConfirm}
+      />
+    </View>
   );
 
   const renderPassword = () => (
@@ -521,27 +517,24 @@ export const UserDetailScreen: FunctionComponent = () => {
     }
   };
 
-  const renderOptionModalIOS=()=>{
+  const renderOptionModalIOS = () => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
-        options: [OPEN_CAMERA_OPTION, 
-        OPEN_GALLERY_OPTION, 
-        CANCEL],
+        options: [OPEN_CAMERA_OPTION, OPEN_GALLERY_OPTION, CANCEL],
         destructiveButtonIndex: 2,
         cancelButtonIndex: 2,
-        userInterfaceStyle: isDarkMode ?'dark' :'light'
+        userInterfaceStyle: isDarkMode ? 'dark' : 'light',
       },
       buttonIndex => {
         if (buttonIndex === 0) {
-          openCamera()
+          openCamera();
         } else if (buttonIndex === 1) {
-          openGallery()
+          openGallery();
         } else if (buttonIndex === 2) {
-          
         }
-      }
+      },
     );
-  }
+  };
 
   const renderOptionModal = () => (
     <Modal
@@ -565,8 +558,8 @@ export const UserDetailScreen: FunctionComponent = () => {
             <TouchableOpacity
               testID={'gallery_option'}
               onPress={() => {
-              openGallery()
-             }}>
+                openGallery();
+              }}>
               <View style={styles.optionStyle}>
                 <Label
                   style={styles.optionTextStyle}
@@ -649,27 +642,32 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   return (
-    <KeyboardAwareView extraKeyboardOffset={isIOS ? 750 : 0} 
-     contentContainerStyle={{height:screenHeight}}>
-      <ScreenContainer
-        isOverlayLoading={isLoading}
-        isAlertVisible={isAlertVisible}
-        setIsAlertVisible={setIsAlertVisible}
-        alertOnPress={onAlertOkPressed}
-        alertPayload={alertPayload}>
-          {showupUp && <AlertModal
+    <ScreenContainer
+      isOverlayLoading={isLoading}
+      isAlertVisible={isAlertVisible}
+      setIsAlertVisible={setIsAlertVisible}
+      alertOnPress={onAlertOkPressed}
+      alertPayload={alertPayload}>
+      {showupUp && (
+        <AlertModal
           title={DEFAULT_ALERT_TITLE}
           message={CONST_PLEASE_ENTER_THE_NAME}
           buttonText={CONST_OK}
           isVisible={true}
           onPressSuccess={onCloseSignUpAlert}
           onClose={onCloseSignUpAlert}
-        />}
-        {renderOptionModal()}
-        {renderTabBarComponent()}
+        />
+      )}
+      {renderOptionModal()}
+      {renderTabBarComponent()}
+      <KeyboardAwareScrollView
+        bounces={false}
+        extraHeight={230}
+        enableOnAndroid={true}
+        scrollEnabled>
         {tabContent()}
-      </ScreenContainer>
-     </KeyboardAwareView>
+      </KeyboardAwareScrollView>
+    </ScreenContainer>
   );
 };
 
