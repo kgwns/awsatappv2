@@ -46,7 +46,7 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
       paddingHorizontal: 0.05 * screenWidth,
     },
-    cardContainer: {paddingVertical: normalize(5)},
+    cardContainer: {paddingVertical: normalize(15)},
   });
   return NewsLettersWidgetStyle;
 };

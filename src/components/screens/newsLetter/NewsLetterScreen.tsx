@@ -166,7 +166,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
-        <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' }]}>
+        <View style={[style.textContainer, { justifyContent:  'center' }]}>
           {!canGoBack && <Label style={style.titleStyle}>
             {t('onBoard.newsLetter.title')}
           </Label>}
