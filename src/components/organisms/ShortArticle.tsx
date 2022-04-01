@@ -86,7 +86,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     return <TouchableWithoutFeedback onPress={() => onPress(item.nid)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index} style={{ paddingBottom: normalize(20) }}>
         <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 0.70, paddingRight: normalize(12) }}>
+          <View style={style.footerStyle}>
             <TextWithFlag {...item} numberOfLines={2} labelType={labelType} />
             <View style={style.footerContainer}>
               <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
@@ -138,6 +138,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%'
+  },
+  footerStyle: {
+    flex: 0.70,
+    paddingRight: normalize(12)
   }
 })
 

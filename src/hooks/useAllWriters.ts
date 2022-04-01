@@ -5,9 +5,10 @@ import {
   getAllWritersError,
   getSentAuthorInfoData,
   getSelectedAuthorsDataList,
+  getSelectedAllWritersDetailsData
 } from 'src/redux/allWriters/selectors';
-import { fetchAllWriters, sendSelectedAuthor, getSelectedAuthors, emptySelectedAuthorsInfo, removeAuthor, getSelectedAuthorsSuccess } from 'src/redux/allWriters/action';
-import { AllWritersItemType, AllWritersBodyGet, SendSelectedAuthorBody, ResponseMessage, SelectedAuthorDataType, RemoveAuthorBody } from 'src/redux/allWriters/types';
+import { fetchAllWriters, sendSelectedAuthor, getSelectedAuthors, emptySelectedAuthorsInfo, removeAuthor, getSelectedAuthorsSuccess, fetchAllSelectedWritersDetails } from 'src/redux/allWriters/action';
+import { AllWritersItemType, AllWritersBodyGet, SendSelectedAuthorBody, ResponseMessage, SelectedAuthorDataType, RemoveAuthorBody,AllSelectedWritersDetailsBodyGet } from 'src/redux/allWriters/types';
 import { isNonEmptyArray } from 'src/shared/utils';
 
 export interface UseAllWritersReturn {
@@ -21,6 +22,8 @@ export interface UseAllWritersReturn {
   getSelectedAuthorsData(): void;
   emptySelectedAuthorsInfoData(): void;
   removeAuthorRequest(payload: RemoveAuthorBody): void;
+  requestAllSelectedWritersDetailsData(payload: AllSelectedWritersDetailsBodyGet) : void;
+  allSelectedWritersDetailList : AllWritersItemType[];
 }
 
 export const useAllWriters = (): UseAllWritersReturn => {
@@ -30,6 +33,7 @@ export const useAllWriters = (): UseAllWritersReturn => {
   const sentAuthorInfoData = useSelector(getSentAuthorInfoData);
   const selectedAuthorsData = useSelector(getSelectedAuthorsDataList);
   const allWritersError = useSelector(getAllWritersError);
+  const allSelectedWritersDetailList = useSelector(getSelectedAllWritersDetailsData);
   const fetchAllWritersRequest = (payload: AllWritersBodyGet) => {
     dispatch(fetchAllWriters(payload));
   };
@@ -58,6 +62,10 @@ export const useAllWriters = (): UseAllWritersReturn => {
     dispatch(removeAuthor(payload))
   }
 
+  const requestAllSelectedWritersDetailsData = (payload: AllSelectedWritersDetailsBodyGet) => {
+    dispatch(fetchAllSelectedWritersDetails(payload));
+  };
+
   return {
     isLoading,
     allWritersData,
@@ -68,6 +76,8 @@ export const useAllWriters = (): UseAllWritersReturn => {
     sendSelectedWriterInfo,
     getSelectedAuthorsData,
     emptySelectedAuthorsInfoData,
-    removeAuthorRequest
+    removeAuthorRequest,
+    requestAllSelectedWritersDetailsData,
+    allSelectedWritersDetailList,
   };
 };

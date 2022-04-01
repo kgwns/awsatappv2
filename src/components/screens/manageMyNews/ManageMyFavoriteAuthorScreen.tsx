@@ -17,12 +17,12 @@ export const ManageMyFavoriteAuthorScreen = () => {
   const style = useThemeAwareObject(customStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [authorsData,setAuthorsData] = useState<AllWritersItemType[]>([])
-
+  const [selectedCheck,setselectedCheck] = useState<boolean>(false)
 
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
-  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, selectedAuthorsData, getSelectedAuthorsData } = useAllWriters();
+  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, selectedAuthorsData, getSelectedAuthorsData,allSelectedWritersDetailList } = useAllWriters();
   const {userProfileData} = useUserProfileData();
 
   useEffect(() => {
@@ -33,8 +33,11 @@ export const ManageMyFavoriteAuthorScreen = () => {
   useEffect(() => {
     if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
       setAllAuthorsData();
-    }else{
+      checkSelectedAuthorCondition();
+    }
+    else{
       setAuthorsData(allWritersData)
+      checkSelectedAuthorCondition();
     }
   }, [allWritersData]);
 
@@ -49,6 +52,23 @@ export const ManageMyFavoriteAuthorScreen = () => {
 
   const setAllAuthorsData = () => {
     if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
+      if (isNonEmptyArray(allSelectedWritersDetailList)) {
+        allSelectedWritersDetailList.forEach(item => {
+          let flag = false
+          allWritersData.forEach(data => {
+            if (item.tid === data.tid) {
+              flag = true
+            }
+          })
+          if (!flag) {
+            authorsData.push({
+              ...item,
+              isSelected: true
+            })
+          }
+        });
+
+      }
       for (let i = 0; i < allWritersData.length; i++) {
         authorsData[i] = ({
           name: allWritersData[i].name,
@@ -112,6 +132,15 @@ export const ManageMyFavoriteAuthorScreen = () => {
     navigation.goBack();
   }
 
+
+  const checkSelectedAuthorCondition = () =>{
+    if(isObjectNonEmpty(selectedAuthorsData) && isNonEmptyArray(selectedAuthorsData.data)){
+       setselectedCheck(selectedAuthorsData.data.length <= authorsData.length )
+    }else{
+       setselectedCheck(true)
+    }
+  }
+
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
@@ -128,7 +157,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
           </Label>
         </View>
         <View style={style.contentStyle}>
-          {isNonEmptyArray(authorsData) &&
+          {isNonEmptyArray(authorsData) && selectedCheck &&
           <View>
             <FollowFavoriteAuthorWidget writersData={authorsData} changeSelectedStatus={changeSelectedStatus} />
           </View>

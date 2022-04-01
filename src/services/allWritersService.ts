@@ -1,6 +1,6 @@
 import { BASE_URL, UMS_BASE_URL } from 'src/services/apiUrls';
-import { getApiRequest, postApiRequest } from 'src/services/api';
-import { ALL_WRITERS_ENDPOINT, SEND_SELECTED_WRITERS_ENDPOINT,GET_SELECTED_AUTHORS_ENDPOINT, REMOVE_WRITERS_ENDPOINT } from './apiEndPoints';
+import { getApiRequest, postApiRequest,getApiRequestWithoutAuth } from 'src/services/api';
+import { ALL_WRITERS_ENDPOINT, SEND_SELECTED_WRITERS_ENDPOINT,GET_SELECTED_AUTHORS_ENDPOINT, REMOVE_WRITERS_ENDPOINT, ALL_SELECTED_WRITERS_ENDPOINT } from './apiEndPoints';
 import {
     FetchAllWritersListSuccessPayloadType,
     AllWritersBodyGet,
@@ -9,6 +9,8 @@ import {
     GetSelectedAuthorSuccessPayloadType,
     RemoveAuthorBody,
     RemoveAuthorSuccessPayloadType,
+    AllSelectedWritersDetailsBodyGet,
+    FetchAllSelectedWritersDetailsListSuccessPayloadType
 } from 'src/redux/allWriters/types';
 
 export const fetchAllWritersApi = async (body: AllWritersBodyGet) => {
@@ -65,6 +67,19 @@ export const removeWritersApi = async (body: RemoveAuthorBody) => {
         return response;
     } catch (error) {
         console.log(`error: ${error}`);
+        throw error;
+    }
+};
+
+export const fetchAllSelectedWritersDataApi = async (body: AllSelectedWritersDetailsBodyGet) => {
+    try {
+        const response: FetchAllSelectedWritersDetailsListSuccessPayloadType =
+            await getApiRequestWithoutAuth(
+                `${BASE_URL}${ALL_SELECTED_WRITERS_ENDPOINT}/${body.tid}?items_per_page=${body.items_per_page}`,
+            );
+        return response;
+    } catch (error) {
+        console.log(`error api: ${error}`);
         throw error;
     }
 };

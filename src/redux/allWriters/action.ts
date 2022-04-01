@@ -18,6 +18,11 @@ import {
   RemoveAuthorFailedPayloadtype,
   RemoveAuthorSuccessType,
   RemoveAuthorFailedType,
+  AllSelectedWritersDetailsBodyGet,
+  FetchAllSelectedWritersDetailsFailedType,
+  FetchAllSelectedWritersDetailsListFailedPayloadType,
+  FetchAllSelectedWritersDetailsSuccessType,
+  FetchAllSelectedWritersDetailsListSuccessPayloadType,
 } from 'src/redux/allWriters/types';
 import {
   FETCH_ALL_WRITERS,
@@ -33,6 +38,9 @@ import {
   REMOVE_AUTHOR,
   REMOVE_AUTHOR_SUCCESS,
   REMOVE_AUTHOR_ERROR,
+  FETCH_ALL_SELECTED_WRITERS_DETAILS,
+  FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
+  FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR,
 } from 'src/redux/allWriters/actionTypes';
 
 export const fetchAllWriters = (payload: AllWritersBodyGet) => {
@@ -141,6 +149,31 @@ export const removeAuthorFailed = (
   };
 };
 
+export const fetchAllSelectedWritersDetails = (payload: AllSelectedWritersDetailsBodyGet) => {
+  return {
+    type: FETCH_ALL_SELECTED_WRITERS_DETAILS,
+    payload,
+  };
+};
+
+export const fetchAllSelectedWritersDetailsSuccess = (
+  payload: FetchAllSelectedWritersDetailsListSuccessPayloadType,
+): FetchAllSelectedWritersDetailsSuccessType => {
+  return {
+    type: FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
+    payload,
+  };
+};
+
+export const fetchAllSelectedWritersDetailsFailed = (
+  payload: FetchAllSelectedWritersDetailsListFailedPayloadType,
+): FetchAllSelectedWritersDetailsFailedType => {
+  return {
+    type: FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR,
+    payload,
+  };
+};
+
 export const allWritersActions = {
   fetchAllWriters,
   fetchAllWritersSuccess,
@@ -154,5 +187,8 @@ export const allWritersActions = {
   emptySelectedAuthorsInfo,
   removeAuthor,
   removeAuthorSuccess,
-  removeAuthorFailed
+  removeAuthorFailed,
+  fetchAllSelectedWritersDetails,
+  fetchAllSelectedWritersDetailsFailed,
+  fetchAllSelectedWritersDetailsSuccess,
 };
