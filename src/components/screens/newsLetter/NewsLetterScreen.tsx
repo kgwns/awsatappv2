@@ -28,6 +28,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     getSelectedNewsLettersData();
     if (route.params && route.params.canGoBack) {
       setCanGoBack(true)
+      setDisableNext(true)
     }else{
       setCanGoBack(false)
     }
@@ -117,7 +118,6 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
       let newsLettersData = formatNewsLettersData()
       setNewsLettersDataInfo(newsLettersData)
     }
-    setDisableNext(true)
   }
 
   const changeSelectedStatus = (item: any, selected: boolean) => {
@@ -166,14 +166,14 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
-        {!canGoBack && <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' }]}>
-          <Label style={style.titleStyle}>
+        <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' }]}>
+          {!canGoBack && <Label style={style.titleStyle}>
             {t('onBoard.newsLetter.title')}
-          </Label>
+          </Label>}
           <Label style={style.descStyle}>
             {t('onBoard.newsLetter.description')}
           </Label>
-        </View>}
+        </View>
         <View style={style.contentStyle}>
           {isNonEmptyArray(newsLettersDataInfo) &&
             <View>
