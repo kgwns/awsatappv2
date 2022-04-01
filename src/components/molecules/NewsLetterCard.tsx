@@ -100,7 +100,7 @@ const customStyle = (theme: CustomThemeType) => {
     imageContainer: {
       height: '100%',
       justifyContent: 'center',
-      marginEnd: normalize(0.04 * screenWidth),
+      marginHorizontal: normalize(15),
     },
     image: {
       width: normalize(107),
