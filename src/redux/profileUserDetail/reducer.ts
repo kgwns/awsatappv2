@@ -5,7 +5,7 @@ import {
   SEND_USER_DETAILS,
   SEND_USER_DETAILS_ERROR,
   SEND_USER_DETAILS_SUCCESS,
-  UPDATE_USER_IMAGE_FAILED, UPDATE_USER_IMAGE_SUCCESS, UPDATE_PROFILE_USER_IMAGE
+  UPDATE_USER_IMAGE_FAILED, UPDATE_USER_IMAGE_SUCCESS, UPDATE_PROFILE_USER_IMAGE,EMPTY_USER_PROFILE_DATA
 } from './actionTypes';
 import { UserProfileActions, ProfileUserDetailsState } from './types';
 
@@ -42,6 +42,8 @@ export default (state = initialState, action: UserProfileActions) => {
       return { ...state, error: action.payload.error, isLoading: false };
     case UPDATE_PROFILE_USER_IMAGE:
       return { ...state, isLoading: true, userDetail: null };
+    case EMPTY_USER_PROFILE_DATA:
+      return { ...state, userProfileData: {} };
     default:
       return { ...state };
   }

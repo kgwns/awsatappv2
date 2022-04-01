@@ -96,7 +96,7 @@ export const ProfileSettings = () => {
   ]
 
   const { fetchLogoutRequest } = useLogin();
-  const { userProfileData } = useUserProfileData();
+  const { userProfileData,emptyUserProfileInfoData } = useUserProfileData();
   const { emptySelectedTopicsInfoData } = useAllSiteCategories();
   const { emptySelectedAuthorsInfoData } = useAllWriters();
 
@@ -120,6 +120,7 @@ export const ProfileSettings = () => {
     fetchLogoutRequest();
     removeBookmark()
     removeKeepNotificationInfo()
+    emptyUserProfileInfoData();
     emptySelectedTopicsInfoData()
     emptySelectedAuthorsInfoData()
     navigation.reset({

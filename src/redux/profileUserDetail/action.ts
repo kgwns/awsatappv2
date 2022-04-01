@@ -22,7 +22,7 @@ import {
   SEND_USER_DETAILS,
   SEND_USER_DETAILS_SUCCESS,
   SEND_USER_DETAILS_ERROR,
-  UPDATE_PROFILE_USER_IMAGE, UPDATE_USER_IMAGE_SUCCESS, UPDATE_USER_IMAGE_FAILED
+  UPDATE_PROFILE_USER_IMAGE, UPDATE_USER_IMAGE_SUCCESS, UPDATE_USER_IMAGE_FAILED,EMPTY_USER_PROFILE_DATA
 } from 'src/redux/profileUserDetail/actionTypes';
 
 export const fetchUserProfileDetail = () => {
@@ -99,6 +99,11 @@ export const updateUserImageFailed = (
   };
 };
 
+export const emptyUserProfileData = () => {
+  return {
+    type: EMPTY_USER_PROFILE_DATA,
+  };
+};
 
 export const UserProfileDetailActions = {
   fetchUserProfileDetail,
@@ -109,5 +114,6 @@ export const UserProfileDetailActions = {
   sendUserDataFailed,
   updateUserImage,
   updateUserImageSuccess,
-  updateUserImageFailed
+  updateUserImageFailed,
+  emptyUserProfileData,
 };
