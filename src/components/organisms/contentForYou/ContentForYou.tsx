@@ -144,7 +144,6 @@ export const ContentForYou = () => {
             let formattedData = {
                 ...shortArticleWithTagProperties,
                 body: item.body,
-                flag: newsCategory?.title,
                 title: item.title,
                 nid: item.nid,
                 image: getImageUrl(item.field_image),
@@ -160,7 +159,7 @@ export const ContentForYou = () => {
             }else{
                 const newsCategory = isNonEmptyArray(favouriteArticlesData[i].field_news_categories_export) ? favouriteArticlesData[i].field_news_categories_export[0] : {} as NewsCategoriesType
                 formattedData.image = favouriteArticlesData[i].field_image;
-                formattedData.flag= newsCategory?.title;
+                formattedData.tagName= newsCategory?.title;
                 formatShortArticleData.push(formattedData)
             }
         }

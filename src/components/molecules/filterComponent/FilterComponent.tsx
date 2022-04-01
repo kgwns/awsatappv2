@@ -54,7 +54,7 @@ const customStyle = (theme: CustomThemeType) => (
             borderWidth: 1,
             borderColor: Styles.color.cyanGray,
             paddingLeft: normalize(15),
-            paddingRight: normalize(22),
+            paddingRight: normalize(15),
             paddingVertical: isIOS ? normalize(9) : normalize(7),
             borderRadius: normalize(20)
         },
