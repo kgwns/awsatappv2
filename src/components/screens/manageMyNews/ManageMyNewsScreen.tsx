@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isNonEmptyArray, normalize, screenHeight, screenWidth, } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, normalize, screenHeight, screenWidth, } from 'src/shared/utils';
 import { BorderLabel, Divider, Label } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { useTranslation } from 'react-i18next';
@@ -40,6 +40,8 @@ export const ManageMyNewsScreen = () => {
     fetchAllWritersRequest,
     isLoading,
     emptySelectedAuthorsInfoData,
+    requestAllSelectedWritersDetailsData,
+    allSelectedWritersDetailList,
   } = useAllWriters();
 
   const {
@@ -52,42 +54,51 @@ export const ManageMyNewsScreen = () => {
 
   useEffect(() => {
     if (isFocused) {
+      setSelectedWriters([])
+      console.log(isFocused,isFocused)
       emptySelectedAuthorsInfoData()
       emptySelectedTopicsInfoData()
       fetchAllWritersRequest(allWritersPayload)
       fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
       getSelectedAuthorsData()
       getSelectedTopicsData()
-      fetchSelectedDataFromAllWriters()
+      // fetchSelectedDataFromAllWriters()
       fetchSelectedDataFromAllTopics()
     }
   }, [isFocused]);
 
   useEffect(() => {
-    fetchSelectedDataFromAllWriters();
-  }, [selectedAuthorsData, allWritersData]);
+    if (isObjectNonEmpty(selectedAuthorsData)) { 
+      fetchSelectedDataFromAllWriters(); }
+    else { setSelectedWriters([]) }
+  }, [selectedAuthorsData]);
 
   useEffect(() => {
     fetchSelectedDataFromAllTopics();
   }, [selectedTopicsData, allSiteCategoriesData]);
 
-  const fetchSelectedDataFromAllWriters = () => {
-    if (selectedAuthorsData.data && selectedAuthorsData.data.length === 0) {
-      setSelectedWriters([])
+  useEffect(() => {
+    if (isFocused && allSelectedWritersDetailList) {
+      setSelectedWriters(allSelectedWritersDetailList)
     }
+  }, [allSelectedWritersDetailList]);
 
-    if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
-      const selectedAuthors = [];
-      for (let i = 0; i < selectedAuthorsData.data.length; i++) {
-        for (let j = 0; j < allWritersData.length; j++) {
-          if (selectedAuthorsData.data[i].tid == allWritersData[j].tid) {
-            selectedAuthors?.push(allWritersData[j]);
-          }
-        }
-      }
-      setSelectedWriters(selectedAuthors)
+  const fetchSelectedDataFromAllWriters = () => {
+    setSelectedWriters([])
+    if (isNonEmptyArray(selectedAuthorsData.data)) {
+      const selectedAuthorsString = getSelectedData().join('+')
+      requestAllSelectedWritersDetailsData({tid:selectedAuthorsString,items_per_page:100})
     }
   };
+
+  const getSelectedData = () => {
+    return selectedAuthorsData.data.reduce((prevValue: string[], item:any ) => {
+      if (item.tid) {
+        return prevValue.concat(item.tid)
+      }
+      return prevValue
+    }, [])
+  }
 
   const fetchSelectedDataFromAllTopics = () => {
     if (selectedTopicsData.data && selectedTopicsData.data.length === 0) {
@@ -132,7 +143,7 @@ export const ManageMyNewsScreen = () => {
         <Label style={style.titleLabel}>
           {t('manageMyNews.myFavoriteBooks')}
         </Label>
-        <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
+        {selectedWriters && <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
           {
             data.map((item: any, index: number) =>
             <FollowFavoriteAuthor
@@ -144,7 +155,7 @@ export const ManageMyNewsScreen = () => {
             key={'manageAuthor' + index}
           />)
           }
-        </ScrollView>
+        </ScrollView>}
         <View style={style.booksContinue}>
           <ContinueLabel label={t('manageMyNews.continueReadingMoreBooks')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} />
         </View>

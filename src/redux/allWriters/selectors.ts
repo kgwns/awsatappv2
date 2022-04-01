@@ -18,3 +18,7 @@ export const getSelectedAuthorsDataList: Selector<SelectedAuthorDataType> = (
 
 export const getAllWritersError: Selector<string> = (state: AppState) =>
   state.allWriters.error;
+
+export const getSelectedAllWritersDetailsData: Selector<AllWritersItemType[]> = (
+  state: AppState,
+) => state.allWriters.allSelectedWritersDetailsList.rows;

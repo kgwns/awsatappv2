@@ -114,3 +114,6 @@ export const FAVOURITE_OPINIONS_ENDPOINT = 'api/v2/opinions';
 
 //Forgot Password
 export const FORGOT_PASSWORD_ENDPOINT = 'api/ums/v1/forgotPassword'
+
+//Details of Selected Writers
+export const ALL_SELECTED_WRITERS_ENDPOINT = 'api/v2/sections/writer';

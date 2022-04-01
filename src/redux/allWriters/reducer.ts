@@ -11,7 +11,10 @@ import {
   EMPTY_SELECTED_AUTHORS_INFO,
   REMOVE_AUTHOR,
   REMOVE_AUTHOR_ERROR,
-  REMOVE_AUTHOR_SUCCESS
+  REMOVE_AUTHOR_SUCCESS,
+  FETCH_ALL_SELECTED_WRITERS_DETAILS,
+  FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR,
+  FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
 } from './actionTypes';
 import { AllWritersActions, AllWritersState } from './types';
 
@@ -21,6 +24,7 @@ const initialState: AllWritersState = {
   isLoading: false,
   sendAuthorInfo: {},
   selectedAuthorsData:{},
+  allSelectedWritersDetailsList:[],
 };
 
 export default (state = initialState, action: AllWritersActions) => {
@@ -49,13 +53,24 @@ export default (state = initialState, action: AllWritersActions) => {
     case GET_SELECTED_AUTHOR_ERROR:
       return { ...state, isLoading: false, error: action.payload.error }
     case EMPTY_SELECTED_AUTHORS_INFO:
-      return {...state, isLoading: false, sendAuthorInfo:{},error:'', selectedAuthorsData: {}}
+      return {...state, isLoading: false, sendAuthorInfo:{},error:'', selectedAuthorsData: {},allSelectedWritersDetailsList:[]}
     case REMOVE_AUTHOR:
         return { ...state, isLoading: true }
     case REMOVE_AUTHOR_SUCCESS:
         return { ...state, isLoading: false,}
     case REMOVE_AUTHOR_ERROR:
         return { ...state, isLoading: false, }
+    case FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS:
+      return {
+        ...state,
+        isLoading: false,
+        allSelectedWritersDetailsList: action.payload.allSelectedWritersDetails,
+        error: '',
+      };
+    case FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR:
+      return { ...state, error: action.payload.error, isLoading: false };
+    case FETCH_ALL_SELECTED_WRITERS_DETAILS:
+      return { ...state, isLoading: true, error: '' };
     default:
       return { ...state };
   }
