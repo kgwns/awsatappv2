@@ -55,7 +55,6 @@ export const ManageMyNewsScreen = () => {
   useEffect(() => {
     if (isFocused) {
       setSelectedWriters([])
-      console.log(isFocused,isFocused)
       emptySelectedAuthorsInfoData()
       emptySelectedTopicsInfoData()
       fetchAllWritersRequest(allWritersPayload)

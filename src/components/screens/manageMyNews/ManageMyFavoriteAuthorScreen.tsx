@@ -17,7 +17,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
   const style = useThemeAwareObject(customStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [authorsData,setAuthorsData] = useState<AllWritersItemType[]>([])
-  const [check,setcheck] = useState<boolean>(false)
+  const [selectedCheck,setselectedCheck] = useState<boolean>(false)
 
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
@@ -33,11 +33,11 @@ export const ManageMyFavoriteAuthorScreen = () => {
   useEffect(() => {
     if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
       setAllAuthorsData();
-      checkCondition();
+      checkSelectedAuthorCondition();
     }
     else{
       setAuthorsData(allWritersData)
-      checkCondition();
+      checkSelectedAuthorCondition();
     }
   }, [allWritersData]);
 
@@ -133,11 +133,11 @@ export const ManageMyFavoriteAuthorScreen = () => {
   }
 
 
-  const checkCondition = () =>{
+  const checkSelectedAuthorCondition = () =>{
     if(isObjectNonEmpty(selectedAuthorsData) && isNonEmptyArray(selectedAuthorsData.data)){
-       setcheck(selectedAuthorsData.data.length <= authorsData.length )
+       setselectedCheck(selectedAuthorsData.data.length <= authorsData.length )
     }else{
-       setcheck(true)
+       setselectedCheck(true)
     }
   }
 
@@ -157,7 +157,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
           </Label>
         </View>
         <View style={style.contentStyle}>
-          {isNonEmptyArray(authorsData) && check &&
+          {isNonEmptyArray(authorsData) && selectedCheck &&
           <View>
             <FollowFavoriteAuthorWidget writersData={authorsData} changeSelectedStatus={changeSelectedStatus} />
           </View>
