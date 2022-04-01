@@ -60,15 +60,7 @@ export const NewsLetterCard = ({
         <Label style={style.title}>{title}</Label>
         <Label style={style.subTitle}>{subTitle}</Label>
         <View style={style.footerContent}>
-          <View
-            style={[
-              style.circleShape,
-              {
-                backgroundColor: selected
-                  ? theme.themeData.secondaryWhite
-                  : theme.themeData.secondaryWhite,
-              },
-            ]}>
+          <View style={style.circleShape}>
             <View>
               {selected
                 ? getSvgImages({
@@ -143,6 +135,7 @@ const customStyle = (theme: CustomThemeType) => {
       borderRadius: normalize(30 / 2),
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: theme.secondaryWhite,
     },
     statusLabel: {
       fontSize: normalize(12),
