@@ -26,9 +26,10 @@ interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
   style?: StyleProp<ViewStyle>;
   showAlertNoInternet?: () => void;
+  socialButtonBoldStyle?: boolean;
 }
 
-export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =({ onButtonPress, style, showAlertNoInternet }) => {
+export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =({ onButtonPress, style, showAlertNoInternet, socialButtonBoldStyle }) => {
 
   const [t] = useTranslation();
   const {themeData} = useTheme();
@@ -149,12 +150,13 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
         onPressButton(type);
     }
   };
+  const socialButtonLabelStyle = socialButtonBoldStyle ? styles.socialLoginButtonBoldLabel : styles.socialLoginButtonLabel
   return (
         <View {...style}>
           <SocialLoginButton testID="signin_facebook"
             onPress={() => {buttonPressAction('FACEBOOK')}}
             label={t('signIn.loginFacebook')}
-            labelStyle={styles.labelStyle}
+            labelStyle={socialButtonLabelStyle}
             style={styles.labelContainer}
             labelContainer={styles.textContainer}
             icon={() => <View style={styles.container}><FaceBookIcon /></View>}
@@ -162,7 +164,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
           <SocialLoginButton testID="signin_google"
             onPress={() => {buttonPressAction('GOOGLE')}}
             label={t('signIn.loginGoogle')}
-            labelStyle={styles.labelStyle}
+            labelStyle={socialButtonLabelStyle}
             style={styles.labelContainer}
             labelContainer={styles.textContainer}
             icon={() => <View style={styles.container}><GoogleIcon /></View>}
@@ -174,7 +176,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
                 appleSigninApi(response);
               })
             }}
-            labelStyle={styles.labelStyle}
+            labelStyle={socialButtonLabelStyle}
             style={styles.labelContainer}
             label={t('signIn.loginApple')}
             labelContainer={styles.textContainer}
@@ -192,12 +194,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   labelStyle: {
-    fontSize: normalize(18)
+    fontSize: normalize(16)
   },
   labelContainer: {
     justifyContent:'flex-start',
   },
   textContainer:{
     alignItems:'flex-start',
+  },
+  socialLoginButtonLabel: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  socialLoginButtonBoldLabel: {
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: 'bold',
   }
 });
