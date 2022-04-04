@@ -78,6 +78,12 @@ jest.mock('keyboard-aware-view', () => {
   }
 })
 
+jest.mock('react-native-keyboard-aware-scroll-view', () => {
+  return {
+    KeyboardAwareScrollView: jest.fn().mockImplementation(() => jest.fn())
+  }
+})
+
 jest.mock('@react-native-google-signin/google-signin', () => {});
 
 jest.mock('react-native-image-crop-picker', () => {

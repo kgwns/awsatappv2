@@ -17,6 +17,7 @@ import {
   screenHeight,
   screenWidth,
 } from '../../../shared/utils';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
@@ -649,8 +650,6 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   return (
-    <KeyboardAwareView extraKeyboardOffset={isIOS ? 750 : 0} 
-     contentContainerStyle={{height:screenHeight}}>
       <ScreenContainer
         isOverlayLoading={isLoading}
         isAlertVisible={isAlertVisible}
@@ -667,9 +666,14 @@ export const UserDetailScreen: FunctionComponent = () => {
         />}
         {renderOptionModal()}
         {renderTabBarComponent()}
+        <KeyboardAwareScrollView
+        bounces={false}
+        extraHeight={230}
+        enableOnAndroid={true}
+        scrollEnabled>
         {tabContent()}
+        </KeyboardAwareScrollView>
       </ScreenContainer>
-     </KeyboardAwareView>
   );
 };
 
