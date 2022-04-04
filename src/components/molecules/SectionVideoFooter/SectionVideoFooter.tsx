@@ -6,6 +6,7 @@ import { ButtonImage } from '../../atoms'
 import { ImagesName } from '../../../shared/styles/images'
 import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
 import { getSvgImages } from 'src/shared/styles/svgImages'
+import { isIOS } from 'src/shared/utils'
 
 export interface SectionVideoFooterProps {
   leftTitle?: string,
@@ -59,7 +60,7 @@ const SectionVideoFooter = ({
             icon={() => {
               return getSvgImages({
                 name: bookmarkIcon,
-                size: normalize(15)
+                size: isIOS ? normalize(17) : normalize(14)
               });
             }}
             onPress={onPressBookmark}

@@ -20,6 +20,8 @@ import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-
 import { getPodcastUrl } from 'src/shared/utils/utilities';
 import { PodCastMiniPlayer } from 'src/components/molecules';
 import { useFocusEffect } from '@react-navigation/native';
+import { CustomThemeType } from 'src/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
 const tickerAndHeroPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -64,6 +66,7 @@ export const LatestNewsScreen = () => {
   const { themeData } = useTheme()
   const [t] = useTranslation()
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const latestNewsScreenStyle = useThemeAwareObject(customStyle)
 
   const {
     isLoading, ticker, hero, heroList, topList, opinionList,
@@ -248,7 +251,7 @@ export const LatestNewsScreen = () => {
   //PodcastHome 
   const [isPlayerVisible, setPlayerVisibility] = useState(false)
   const playbackState = usePlaybackState();
-  const podcastData = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {};
+  const podcastData = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
   useFocusEffect(
     React.useCallback(() => {
       const unsubscribe = () => { TrackPlayer.stop() };
@@ -353,7 +356,7 @@ export const LatestNewsScreen = () => {
         </View>
           :
           <>
-            {isNonEmptyArray(podcastHome) && <PodcastWidget data={podcastHome} onPress={onListenPodcast} />}
+            {isNonEmptyArray(podcastHome) ? <PodcastWidget data={podcastHome} onPress={onListenPodcast} /> : <View style={latestNewsScreenStyle.podcastDivider}/>}
             <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
             <ShortArticle data={topListData} onPress={onPressArticle}
               onUpdateBookmark={updateBookmarkInfo}
@@ -420,27 +423,33 @@ export const LatestNewsScreen = () => {
   )
 }
 
-const latestNewsScreenStyle = StyleSheet.create({
-  tabSplitter: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingTop: normalize(40)
-  },
-  tabWidgetContainer: {
-    flex: 0.5
-  },
-  dividerTop: {
-    borderColor: Styles.color.gableGreen,
-    borderBottomWidth: 1,
-    opacity: 0.15
-  },
-  miniPlayerContainer: {
-    width: '100%',
-    height: normalize(80),
-    position: 'absolute',
-    bottom: 0,
-  },
-  firstBannerDivider: {
-    marginTop: 0
-  },
-})
+const customStyle = (theme: CustomThemeType) => {
+  return StyleSheet.create({
+    tabSplitter: {
+      flex: 1,
+      flexDirection: 'row',
+      paddingTop: normalize(40)
+    },
+    tabWidgetContainer: {
+      flex: 0.5
+    },
+    dividerTop: {
+      borderColor: Styles.color.gableGreen,
+      borderBottomWidth: 1,
+      opacity: 0.15
+    },
+    miniPlayerContainer: {
+      width: '100%',
+      height: normalize(80),
+      position: 'absolute',
+      bottom: 0,
+    },
+    firstBannerDivider: {
+      marginTop: 0
+    },
+    podcastDivider: {
+      width: '100%',
+      height: normalize(20),
+    }
+  })
+}
