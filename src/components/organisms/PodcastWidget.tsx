@@ -9,6 +9,7 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { PODCAST_LISTEN_TEXT } from 'src/constants/SharedConstants'
 import { getSecondsToHms } from 'src/shared/utils/utilities';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export interface PodcastWidgetProps {
   onPress: () => void;
@@ -24,46 +25,48 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   const podcastData = data[0];
 
   return (
-    <View style={style.container}>
-      <View style={style.podcastImageContainer}>
-        <Image
-          resizeMode="stretch"
-          url={podcastData?.field_podcast_sect_export?.img_podcast_mobile}
-          style={style.podcastImage}
-        />
-      </View>
-      <View style={style.bodyContainer}>
-        <Label
-          color={themeData.primaryBlack}
-          style={style.podcastTitle}
-          children={podcastData?.title}
-          numberOfLines={1}
-        />
-        <View style={style.durationContainer}>
-          <Label
-            color={colors.greenishBlue}
-            children={PODCAST_LISTEN_TEXT}
-            style={style.authorTitle}
-            numberOfLines={1}
-          />
-          <ButtonImage
-            icon={() => {
-              return getSvgImages({
-                name: ImagesName.playIconSVG,
-                size: normalize(13),
-              });
-            }}
-            onPress={onPress}
-            style={style.playIcon}
-          />
-          <Label
-            color={colors.spanishGray}
-            children={getSecondsToHms(podcastData?.field_total_duration_export)}
-            style={style.duration}
+    <TouchableOpacity onPress={onPress}>
+      <View style={style.container}>
+        <View style={style.podcastImageContainer}>
+          <Image
+            resizeMode="stretch"
+            url={podcastData?.field_podcast_sect_export?.img_podcast_mobile}
+            style={style.podcastImage}
           />
         </View>
+        <View style={style.bodyContainer}>
+          <Label
+            color={themeData.primaryBlack}
+            style={style.podcastTitle}
+            children={podcastData?.title}
+            numberOfLines={1}
+          />
+          <View style={style.durationContainer}>
+            <Label
+              color={colors.greenishBlue}
+              children={PODCAST_LISTEN_TEXT}
+              style={style.authorTitle}
+              numberOfLines={1}
+            />
+            <ButtonImage
+              icon={() => {
+                return getSvgImages({
+                  name: ImagesName.playIconSVG,
+                  size: normalize(13),
+                });
+              }}
+              onPress={onPress}
+              style={style.playIcon}
+            />
+            <Label
+              color={colors.spanishGray}
+              children={getSecondsToHms(podcastData?.field_total_duration_export)}
+              style={style.duration}
+            />
+          </View>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
