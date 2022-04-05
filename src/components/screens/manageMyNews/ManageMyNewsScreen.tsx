@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, normalize, screenHeight, screenWidth, } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenHeight, screenWidth, } from 'src/shared/utils';
 import { BorderLabel, Divider, Label } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { useTranslation } from 'react-i18next';
@@ -152,6 +152,7 @@ export const ManageMyNewsScreen = () => {
             onPress={() => { }}
             clickable={false}
             key={'manageAuthor' + index}
+            imageSize={85}
           />)
           }
         </ScrollView>}
@@ -214,7 +215,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingLeft: normalize(3)
     },
     favBooks: {
-      flex: 0.47,
+      flex: isTab ? 0.55 : 0.47,
       paddingTop: 0.05 * screenHeight,
     },
     favTopics: {

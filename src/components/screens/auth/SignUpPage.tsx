@@ -300,9 +300,9 @@ const createStyles = (theme: CustomThemeType) =>
     },
     labelStyle: {
       color: colors.white,
-      fontSize: normalize(20),
+      fontSize: 16,
       fontWeight: 'bold',
-      lineHeight: 22,
+      lineHeight: 25,
     },
     accountStyle: {
       fontSize: normalize(20),
