@@ -167,6 +167,7 @@ StyleSheet.create({
   loginStyle: {
     fontSize: normalize(20),
     fontWeight: 'bold',
+    marginTop: normalize(20)
   },
   spaceStyle: {
     marginHorizontal: normalize(10),
@@ -176,7 +177,7 @@ StyleSheet.create({
     color: theme.signInTextColor,
     lineHeight: normalize(22),
     fontWeight: '400',
-    marginBottom: normalize(15),
+    marginBottom: normalize(25),
   },
   textStyleBlack: {
     fontSize: normalize(15),
@@ -187,6 +188,8 @@ StyleSheet.create({
     backgroundColor: theme.primary,
     borderWidth: 0,
     width: '60%',
+    marginBottom: normalize(30)
+
   },
   topContainerStyle: {
     flex: 0.5,
@@ -197,6 +200,7 @@ StyleSheet.create({
     flex: 0.45,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: normalize(25)
   },
   signInLabelStyle: {
     color: theme.secondaryWhite,
@@ -209,6 +213,7 @@ StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: normalize(25)
   },
   divider: {
     height: 1,
