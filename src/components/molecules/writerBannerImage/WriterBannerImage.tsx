@@ -70,15 +70,15 @@ export const WriterBannerImage = ({
     <View style={style.container}>
       <ReturnButton />
       <View style={style.contentContainer}>
-        <View style={orientation == 'LANDSCAPE' ? style.landscapeimageContainer : style.imageContainer}>
+        <View style={style.imageContainer}>
           <Image
             url={getImageUrl(data.authorImage)}
-            style={orientation == 'LANDSCAPE' ? style.landscapeImage : style.image}
-            resizeMode={orientation == 'LANDSCAPE' ? 'stretch' : 'cover'}
+            style={style.image}
+            resizeMode={'cover'}
             fallback={true}
           />
         </View>
-        <View style={[style.labelButtonContainer, { width: orientation == 'LANDSCAPE' ? isTab ? '38%' : '40%' : '35%', }]}>
+        <View style={[style.labelButtonContainer, { width: '35%', }]}>
           <Label style={style.authorName} numberOfLines={3}>
             {data.authorName}
           </Label>

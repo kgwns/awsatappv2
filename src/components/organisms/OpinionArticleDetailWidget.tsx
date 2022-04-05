@@ -42,7 +42,8 @@ export const OpinionArticleDetailWidget = ({
   const [getOrientation, setOrientation] = useState('')
   
   useEffect(() => {
-    Orientation.getDeviceOrientation(updateScreenEdge)
+    const initialOrientation = Orientation.getInitialOrientation()
+    setOrientation(initialOrientation)
     Orientation.addDeviceOrientationListener(updateScreenEdge)
     return () => {
       Orientation.removeOrientationListener(updateScreenEdge)
