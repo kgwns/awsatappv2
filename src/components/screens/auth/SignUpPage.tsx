@@ -33,7 +33,8 @@ import {useDispatch} from 'react-redux';
 import AdjustAnalyticsManager, {
   AdjustEventID,
 } from 'src/shared/utils/AdjustAnalyticsManager';
-import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
+import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export interface SignUpPageProps {
   route: any;
@@ -51,43 +52,49 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const [confirmPasswordError, setonfirmPasswordError] = useState('');
   const [deviceName, setDeviceName] = useState('');
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
-  const {createUserRequest, registerUserInfo, isRegisterLoading, registerError,emptyUserInfo} =
-    useRegister();
+  const {
+    createUserRequest,
+    registerUserInfo,
+    isRegisterLoading,
+    registerError,
+    emptyUserInfo,
+  } = useRegister();
   const initialRender = useRef(true);
 
   const dispatch = useDispatch();
   const {fetchProfileDataRequest} = useUserProfileData();
 
-  const noInternetConnection : AlertPayloadType = {
-    title : t('common.alert'),
+  const noInternetConnection: AlertPayloadType = {
+    title: t('common.alert'),
     message: t('common.noInternetConnection'),
-    buttonTitle: t('common.ok')
-  }
-  const somthingWentWrong : AlertPayloadType = {
-    title : t('common.alert'),
+    buttonTitle: t('common.ok'),
+  };
+  const somthingWentWrong: AlertPayloadType = {
+    title: t('common.alert'),
     message: t('common.somthingWentWrong'),
-    buttonTitle: t('common.ok')
-  }
+    buttonTitle: t('common.ok'),
+  };
 
-  const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(noInternetConnection);
+  const [alertPayload, setAlertPayload] =
+    useState<AlertPayloadType>(noInternetConnection);
 
   useEffect(() => {
     getDeviceName();
   }, []);
 
   useEffect(() => {
-    emptyUserInfo()
+    emptyUserInfo();
     return () => {
-      emptyUserInfo()
+      emptyUserInfo();
     };
   }, []);
 
   useEffect(() => {
-    if(registerError === "Network Error"){
-     setAlertPayload(noInternetConnection);
-     setIsAlertVisible(true)
+    if (registerError === 'Network Error') {
+      setAlertPayload(noInternetConnection);
+      setIsAlertVisible(true);
     }
-   }, [registerError])
+  }, [registerError]);
 
   useEffect(() => {
     const message = registerUserInfo?.message;
@@ -139,90 +146,99 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   };
 
   return (
-    <ScreenContainer isOverlayLoading={isRegisterLoading} isAlertVisible={isAlertVisible}
-    setIsAlertVisible={setIsAlertVisible} alertPayload={alertPayload} alertOnPress={() => setIsAlertVisible(false)}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.container}>
-          <View style={styles.headerStyle}>
-            <TouchableOpacity
-              testID="signUp_back"
-              accessibilityLabel="signUp_back"
-              onPress={() => {
-                navigation.goBack();
-              }}>
-              <View style={styles.headerContainer}>
-                <BackIcon fill={themeData.textColor} />
+    <ScreenContainer
+      isOverlayLoading={isRegisterLoading}
+      isAlertVisible={isAlertVisible}
+      setIsAlertVisible={setIsAlertVisible}
+      alertPayload={alertPayload}
+      alertOnPress={() => setIsAlertVisible(false)}>
+      <KeyboardAwareScrollView
+        bounces={false}
+        enableOnAndroid={true}
+        scrollEnabled>
+        <View>
+          <View style={styles.container}>
+            <View style={styles.headerStyle}>
+              <TouchableOpacity
+                testID="signUp_back"
+                accessibilityLabel="signUp_back"
+                onPress={() => {
+                  navigation.goBack();
+                }}>
+                <View style={styles.headerContainer}>
+                  <BackIcon fill={themeData.textColor} />
+                  <Label
+                    children={t('signUp.return')}
+                    style={styles.headerLabelStyle}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.logoContainer}>
+              <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
+            </View>
+
+            <View style={styles.containerStyle}>
+              <View style={styles.topContainerStyle}>
                 <Label
-                  children={t('signUp.return')}
-                  style={styles.headerLabelStyle}
+                  children={t('signUp.createAccount')}
+                  labelType="h2"
+                  style={styles.accountStyle}
+                  color={colors.greenishBlue}
+                />
+                <Label
+                  children={t('signUp.accountDescription')}
+                  style={styles.textStyle}
+                />
+                <TextInputField
+                  placeholder={t('signUp.email')}
+                  testID={'signUp_email'}
+                  onChangeText={setEmail}
+                  editable={false}
+                  value={email}
+                  style={styles.inputStyle}
+                  leftIcon={() => <EmailIcon fill={themeData.textColor} />}
+                  isMandatory
+                />
+                <TextInputField
+                  placeholder={t('signUp.password')}
+                  testID={'signUp_password'}
+                  rightIconTestID={'signUp_password_icon'}
+                  onChangeText={setPassword}
+                  value={password}
+                  style={styles.inputStyle}
+                  error={passwordError}
+                  isPassword
+                  isMandatory
+                  maxLength={20}
+                />
+                <TextInputField
+                  placeholder={t('signUp.confirmPassword')}
+                  testID={'signUp_confirm_password'}
+                  rightIconTestID={'signUp_confirm_password_icon'}
+                  onChangeText={setConfirmPassword}
+                  value={confirmPassword}
+                  style={styles.inputStyle}
+                  error={confirmPasswordError}
+                  isPassword
+                  isMandatory
+                  maxLength={20}
+                />
+                <SocialLoginButton
+                  testID="signUp_signUp"
+                  onPress={onPressSignIn}
+                  label={t('signUp.signUp')}
+                  style={styles.buttonStyle}
+                  labelStyle={styles.labelStyle}
                 />
               </View>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.logoContainer}>
-            <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
-          </View>
-
-          <View style={styles.containerStyle}>
-            <View style={styles.topContainerStyle}>
-              <Label
-                children={t('signUp.createAccount')}
-                labelType="h2"
-                style={styles.accountStyle}
-                color={colors.greenishBlue}
-              />
-              <Label
-                children={t('signUp.accountDescription')}
-                style={styles.textStyle}
-              />
-              <TextInputField
-                placeholder={t('signUp.email')}
-                testID={'signUp_email'}
-                onChangeText={setEmail}
-                editable={false}
-                value={email}
-                style={styles.inputStyle}
-                leftIcon={() => <EmailIcon fill={themeData.textColor} />}
-                isMandatory
-              />
-              <TextInputField
-                placeholder={t('signUp.password')}
-                testID={'signUp_password'}
-                rightIconTestID={'signUp_password_icon'}
-                onChangeText={setPassword}
-                value={password}
-                style={styles.inputStyle}
-                error={passwordError}
-                isPassword
-                isMandatory
-                maxLength={20}
-              />
-              <TextInputField
-                placeholder={t('signUp.confirmPassword')}
-                testID={'signUp_confirm_password'}
-                rightIconTestID={'signUp_confirm_password_icon'}
-                onChangeText={setConfirmPassword}
-                value={confirmPassword}
-                style={styles.inputStyle}
-                error={confirmPasswordError}
-                isPassword
-                isMandatory
-                maxLength={20}
-              />
-              <SocialLoginButton
-                testID="signUp_signUp"
-                onPress={onPressSignIn}
-                label={t('signUp.signUp')}
-                style={styles.buttonStyle}
-                labelStyle={styles.labelStyle}
-              />
             </View>
-          </View>
 
-          <View style={styles.footerStyle} />
+            <View style={styles.footerStyle} />
+          </View>
         </View>
-      </TouchableWithoutFeedback>
+      </KeyboardAwareScrollView>
     </ScreenContainer>
   );
 };
@@ -240,6 +256,8 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
       flex: 0.1,
+      marginBottom: normalize(35),
+      marginTop: normalize(20)
     },
     headerStyle: {
       flex: 0.05,

@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {normalize} from '../../../shared/utils';
+import {normalize, } from '../../../shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from '../../../components/organisms/';
 import {ScreensConstants} from 'src/constants';
@@ -22,10 +22,10 @@ import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useEmailCheck, useRegister} from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
-import {useDispatch} from 'react-redux';
 import {TERMS_AND_CONDITION} from 'src/services/apiEndPoints';
 import {useLogin} from 'src/hooks';
-import { AlertPayloadType } from 'src/components/screens/ScreenContainer/ScreenContainer';
+import {AlertPayloadType} from 'src/components/screens/ScreenContainer/ScreenContainer';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -43,27 +43,34 @@ export const AuthPage: FunctionComponent = () => {
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
-  const {registerUserInfo, isRegisterLoading, socialLoginInProgress, socialLoginStarted, socialLoginEnded,emptyUserInfo} = useRegister();
+  const {
+    registerUserInfo,
+    isRegisterLoading,
+    socialLoginInProgress,
+    socialLoginStarted,
+    socialLoginEnded,
+    emptyUserInfo,
+  } = useRegister();
 
   const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
 
-  const {fetchEmailCheckRequest, isLoading, emailCheckData, emailCheckError} = useEmailCheck();
+  const {fetchEmailCheckRequest, isLoading, emailCheckData, emailCheckError} =
+    useEmailCheck();
 
-  
-
-  const noInternetConnection : AlertPayloadType = {
-    title : t('common.alert'),
+  const noInternetConnection: AlertPayloadType = {
+    title: t('common.alert'),
     message: t('common.noInternetConnection'),
-    buttonTitle: t('common.ok')
-  }
-  const somthingWentWrong : AlertPayloadType = {
-    title : t('common.alert'),
+    buttonTitle: t('common.ok'),
+  };
+  const somthingWentWrong: AlertPayloadType = {
+    title: t('common.alert'),
     message: t('common.somthingWentWrong'),
-    buttonTitle: t('common.ok')
-  }
+    buttonTitle: t('common.ok'),
+  };
 
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
-  const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(noInternetConnection);
+  const [alertPayload, setAlertPayload] =
+    useState<AlertPayloadType>(noInternetConnection);
 
   useEffect(() => {
     emptyforgotPassworResponseInfo();
@@ -72,14 +79,14 @@ export const AuthPage: FunctionComponent = () => {
 
   useEffect(() => {
     socialLoginEnded();
-  }, [registerUserInfo])
+  }, [registerUserInfo]);
 
   useEffect(() => {
-   if(emailCheckError === "Network Error"){
-    setAlertPayload(noInternetConnection);
-    setIsAlertVisible(true)
-   } 
-  }, [emailCheckError])
+    if (emailCheckError === 'Network Error') {
+      setAlertPayload(noInternetConnection);
+      setIsAlertVisible(true);
+    }
+  }, [emailCheckError]);
 
   useEffect(() => {
     const message = emailCheckData?.message;
@@ -95,7 +102,7 @@ export const AuthPage: FunctionComponent = () => {
   const showAlertNoInternet = () => {
     setAlertPayload(noInternetConnection);
     setIsAlertVisible(true);
-  }
+  };
 
   const navigateToSection = (type: string) => {
     switch (type) {
@@ -104,7 +111,7 @@ export const AuthPage: FunctionComponent = () => {
       case NavigateTypes.apple:
         return;
       case NavigateTypes.facebook:
-        socialLoginStarted()
+        socialLoginStarted();
         return;
       case NavigateTypes.email:
         return;
@@ -138,72 +145,77 @@ export const AuthPage: FunctionComponent = () => {
   };
 
   return (
-    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading || socialLoginInProgress}
-    isAlertVisible={isAlertVisible}
-    alertPayload={alertPayload} alertOnPress={() => setIsAlertVisible(false)}
-    setIsAlertVisible={setIsAlertVisible}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.container}>
-          <View style={styles.headerStyle}>
-            <TouchableOpacity
-              style={{
-                borderBottomWidth: 1,
-                borderBottomColor: colors.greenishBlue,
-              }}
-              testID="signin_skip"
-              accessibilityLabel="signin_skip"
-              onPress={() => navigateToSection('')}>
-              <Label
-                children={t('signIn.skip')}
-                style={styles.headerLabelStyle}
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.logoContainer}>
-            <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
-          </View>
-
-          <View style={styles.containerStyle}>
-            <AuthScreenInputSection
-              emailTestID="signIn_email"
-              emailError={emailError}
-              email={email}
-              setChangeText={setEmail}
-              navigateToSection={navigateToSection}
-              onPressSignup={onPressSignup}
-              showAlertNoInternet={showAlertNoInternet}
-            />
-          </View>
-
-          <View style={styles.footerStyle}>
-            <View style={styles.footerLabelContainer}>
-              <Label
-                children={t('signIn.agreeTo')}
-                labelType="p5"
-                color={themeData.textColor}
-              />
+    <ScreenContainer
+      isOverlayLoading={isLoading || isRegisterLoading || socialLoginInProgress}
+      isAlertVisible={isAlertVisible}
+      alertPayload={alertPayload}
+      alertOnPress={() => setIsAlertVisible(false)}
+      setIsAlertVisible={setIsAlertVisible}>
+      <KeyboardAwareScrollView
+        bounces={false}
+        enableOnAndroid={true}
+        scrollEnabled>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View style={styles.container}>
+            <View style={styles.headerStyle}>
               <TouchableOpacity
-                testID="terms_and_conditions"
-                accessibilityLabel="terms_and_conditions"
-                onPress={() => navigateToSection('TERMSANDCONDITIONS')}>
+                style={{
+                  borderBottomWidth: 1,
+                  borderBottomColor: colors.greenishBlue,
+                }}
+                testID="signin_skip"
+                accessibilityLabel="signin_skip"
+                onPress={() => navigateToSection('')}>
                 <Label
-                  children={t('signIn.termsAndConditions')}
-                  labelType="p5"
-                  color={colors.greenishBlue}
-                  style={styles.spaceStyle}
+                  children={t('signIn.skip')}
+                  style={styles.headerLabelStyle}
                 />
               </TouchableOpacity>
             </View>
-            <Label
-              children={t('signIn.rights')}
-              labelType="p5"
-              color={themeData.textColor}
-            />
+
+            <View style={styles.logoContainer}>
+              <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
+            </View>
+
+            <View style={styles.containerStyle}>
+              <AuthScreenInputSection
+                emailTestID="signIn_email"
+                emailError={emailError}
+                email={email}
+                setChangeText={setEmail}
+                navigateToSection={navigateToSection}
+                onPressSignup={onPressSignup}
+                showAlertNoInternet={showAlertNoInternet}
+              />
+            </View>
           </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAwareScrollView>
+      <View style={styles.footerStyle}>
+        <View style={styles.footerLabelContainer}>
+          <Label
+            children={t('signIn.agreeTo')}
+            labelType="p5"
+            color={themeData.textColor}
+          />
+          <TouchableOpacity
+            testID="terms_and_conditions"
+            accessibilityLabel="terms_and_conditions"
+            onPress={() => navigateToSection('TERMSANDCONDITIONS')}>
+            <Label
+              children={t('signIn.termsAndConditions')}
+              labelType="p5"
+              color={colors.greenishBlue}
+              style={styles.spaceStyle}
+            />
+          </TouchableOpacity>
         </View>
-      </TouchableWithoutFeedback>
+        <Label
+          children={t('signIn.rights')}
+          labelType="p5"
+          color={themeData.textColor}
+        />
+      </View>
     </ScreenContainer>
   );
 };
@@ -221,6 +233,8 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
       flex: 0.09,
+      marginBottom: normalize(35),
+      marginTop: normalize(20),
     },
     headerStyle: {
       flex: 0.05,
@@ -238,14 +252,16 @@ const createStyles = (theme: CustomThemeType) =>
       backgroundColor: theme.secondaryWhite,
     },
     footerStyle: {
-      flex: 0.15,
-      justifyContent: 'center',
+      flex: 1,
       alignItems: 'center',
+      position: 'absolute',
+      bottom: normalize(40),
+      width: '100%',
+      justifyContent: 'center',
     },
     footerLabelContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
-      marginTop: normalize(15),
     },
     logo: {
       width: normalize(150),
