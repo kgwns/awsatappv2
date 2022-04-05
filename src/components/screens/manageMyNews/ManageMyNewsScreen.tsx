@@ -42,6 +42,7 @@ export const ManageMyNewsScreen = () => {
     emptySelectedAuthorsInfoData,
     requestAllSelectedWritersDetailsData,
     allSelectedWritersDetailList,
+    selectedAuthorLoadingState
   } = useAllWriters();
 
   const {
@@ -55,7 +56,6 @@ export const ManageMyNewsScreen = () => {
   useEffect(() => {
     if (isFocused) {
       setSelectedWriters([])
-      emptySelectedAuthorsInfoData()
       emptySelectedTopicsInfoData()
       fetchAllWritersRequest(allWritersPayload)
       fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
@@ -65,6 +65,12 @@ export const ManageMyNewsScreen = () => {
       fetchSelectedDataFromAllTopics()
     }
   }, [isFocused]);
+
+  useEffect(() => {
+    return () => {
+      emptySelectedAuthorsInfoData()
+    }
+  }, [])
 
   useEffect(() => {
     if (isObjectNonEmpty(selectedAuthorsData)) { 
@@ -193,8 +199,9 @@ export const ManageMyNewsScreen = () => {
     );
   }
 
+  const loadingState = isLoading || selectedAuthorLoadingState
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={loadingState}>
       <View style={style.container}>
         <View style={style.favBooks}>
             <MyFavoriteBooks data={selectedWriters} />

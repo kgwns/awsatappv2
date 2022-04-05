@@ -15,6 +15,7 @@ import {
   FETCH_ALL_SELECTED_WRITERS_DETAILS,
   FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR,
   FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
+  EMPTY_SEND_AUTHOR_INFO,
 } from './actionTypes';
 import { AllWritersActions, AllWritersState } from './types';
 
@@ -25,6 +26,7 @@ const initialState: AllWritersState = {
   sendAuthorInfo: {},
   selectedAuthorsData:{},
   allSelectedWritersDetailsList:[],
+  selectedAuthorLoading: false
 };
 
 export default (state = initialState, action: AllWritersActions) => {
@@ -47,11 +49,11 @@ export default (state = initialState, action: AllWritersActions) => {
     case SEND_SELECTED_AUTHOR_ERROR:
       return { ...state, isLoading: false, error: action.payload.error }
     case GET_SELECTED_AUTHOR:
-      return { ...state, isLoading: true }
+      return { ...state, selectedAuthorLoading: true }
     case GET_SELECTED_AUTHOR_SUCCESS:
-      return { ...state, isLoading: false, selectedAuthorsData: action.payload.selectedAuthorsData,  error: '' }
+      return { ...state, selectedAuthorLoading: false, selectedAuthorsData: action.payload.selectedAuthorsData,  error: '' }
     case GET_SELECTED_AUTHOR_ERROR:
-      return { ...state, isLoading: false, error: action.payload.error }
+      return { ...state, selectedAuthorLoading: false, error: action.payload.error }
     case EMPTY_SELECTED_AUTHORS_INFO:
       return {...state, isLoading: false, sendAuthorInfo:{},error:'', selectedAuthorsData: {},allSelectedWritersDetailsList:[]}
     case REMOVE_AUTHOR:
@@ -71,6 +73,8 @@ export default (state = initialState, action: AllWritersActions) => {
       return { ...state, error: action.payload.error, isLoading: false };
     case FETCH_ALL_SELECTED_WRITERS_DETAILS:
       return { ...state, isLoading: true, error: '' };
+    case EMPTY_SEND_AUTHOR_INFO:
+      return { ...state, sendAuthorInfo: {} }
     default:
       return { ...state };
   }

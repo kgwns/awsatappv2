@@ -22,3 +22,7 @@ export const getAllWritersError: Selector<string> = (state: AppState) =>
 export const getSelectedAllWritersDetailsData: Selector<AllWritersItemType[]> = (
   state: AppState,
 ) => state.allWriters.allSelectedWritersDetailsList.rows;
+
+export const getSelectedAuthorLoading: Selector<boolean> = (
+  state: AppState
+) => state.allWriters.selectedAuthorLoading

@@ -14,7 +14,8 @@ import {
   REMOVE_AUTHOR_ERROR,
   FETCH_ALL_SELECTED_WRITERS_DETAILS,
   FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR,
-  FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS
+  FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
+  EMPTY_SEND_AUTHOR_INFO
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -98,6 +99,7 @@ export type AllWritersState = {
   sendAuthorInfo: ResponseMessage;
   selectedAuthorsData: SelectedAuthorDataType;
   allSelectedWritersDetailsList: AllWritersItemType[];
+  selectedAuthorLoading: boolean;
 };
 
 export type FetchAllWritersType = {
@@ -189,6 +191,10 @@ export type FetchAllSelectedWritersDetailsFailedType = {
   payload: FetchAllSelectedWritersDetailsListFailedPayloadType;
 };
 
+export type EmptySendAuthorInfoType = {
+  type: typeof EMPTY_SEND_AUTHOR_INFO
+}
+
 
 export type AllWritersActions =
   | FetchAllWritersType
@@ -201,9 +207,10 @@ export type AllWritersActions =
   | GetSelectedAuthorSuccessType
   | GetSelectedAuthorFailedType
   | EmptySelectedAuthorsInfo
-  | RemoveAuthorBody
-  | RemoveAuthorSuccessPayloadType
-  | RemoveAuthorFailedPayloadtype
+  | RemoveAuthorType
+  | RemoveAuthorSuccessType
+  | RemoveAuthorFailedType
   | FetchAllSelectedWritersDetailsType
   | FetchAllSelectedWritersDetailsSuccessType
-  | FetchAllSelectedWritersDetailsFailedType;
+  | FetchAllSelectedWritersDetailsFailedType
+  | EmptySendAuthorInfoType;

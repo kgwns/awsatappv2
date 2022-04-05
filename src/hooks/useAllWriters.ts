@@ -5,9 +5,10 @@ import {
   getAllWritersError,
   getSentAuthorInfoData,
   getSelectedAuthorsDataList,
-  getSelectedAllWritersDetailsData
+  getSelectedAllWritersDetailsData,
+  getSelectedAuthorLoading
 } from 'src/redux/allWriters/selectors';
-import { fetchAllWriters, sendSelectedAuthor, getSelectedAuthors, emptySelectedAuthorsInfo, removeAuthor, getSelectedAuthorsSuccess, fetchAllSelectedWritersDetails } from 'src/redux/allWriters/action';
+import { fetchAllWriters, sendSelectedAuthor, getSelectedAuthors, emptySelectedAuthorsInfo, removeAuthor, getSelectedAuthorsSuccess, fetchAllSelectedWritersDetails, emptySendAuthorInfo } from 'src/redux/allWriters/action';
 import { AllWritersItemType, AllWritersBodyGet, SendSelectedAuthorBody, ResponseMessage, SelectedAuthorDataType, RemoveAuthorBody,AllSelectedWritersDetailsBodyGet } from 'src/redux/allWriters/types';
 import { isNonEmptyArray } from 'src/shared/utils';
 
@@ -24,6 +25,8 @@ export interface UseAllWritersReturn {
   removeAuthorRequest(payload: RemoveAuthorBody): void;
   requestAllSelectedWritersDetailsData(payload: AllSelectedWritersDetailsBodyGet) : void;
   allSelectedWritersDetailList : AllWritersItemType[];
+  selectedAuthorLoadingState: boolean;
+  emptySendAuthorInfoData(): void;
 }
 
 export const useAllWriters = (): UseAllWritersReturn => {
@@ -34,6 +37,7 @@ export const useAllWriters = (): UseAllWritersReturn => {
   const selectedAuthorsData = useSelector(getSelectedAuthorsDataList);
   const allWritersError = useSelector(getAllWritersError);
   const allSelectedWritersDetailList = useSelector(getSelectedAllWritersDetailsData);
+  const selectedAuthorLoadingState = useSelector(getSelectedAuthorLoading)
   const fetchAllWritersRequest = (payload: AllWritersBodyGet) => {
     dispatch(fetchAllWriters(payload));
   };
@@ -49,6 +53,10 @@ export const useAllWriters = (): UseAllWritersReturn => {
   const emptySelectedAuthorsInfoData = () => {
     dispatch(emptySelectedAuthorsInfo())
   };
+
+  const emptySendAuthorInfoData = () => {
+    dispatch(emptySendAuthorInfo())
+  }
 
   const removeAuthorRequest = (payload: RemoveAuthorBody) => {
     if (isNonEmptyArray(selectedAuthorsData.data)) {
@@ -79,5 +87,7 @@ export const useAllWriters = (): UseAllWritersReturn => {
     removeAuthorRequest,
     requestAllSelectedWritersDetailsData,
     allSelectedWritersDetailList,
+    selectedAuthorLoadingState,
+    emptySendAuthorInfoData,
   };
 };
