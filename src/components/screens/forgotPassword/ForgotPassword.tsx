@@ -108,11 +108,9 @@ export const ForgotPassword: FunctionComponent = () => {
               style={styles.instructionTextStyle}
               numberOfLines={2}
             />
-            <TouchableOpacity onPress={onPressGoToMail}>
-              <View style={styles.buttonBackgroundStyle}>
+            <TouchableOpacity style={styles.buttonBackgroundStyle} onPress={onPressGoToMail}>
                 <Label style={styles.buttonLabelStyle}
                   children={t('ForgotPassword.openMailApp')} />
-              </View>
             </TouchableOpacity>
 
             <View style={styles.skipViewStyle}>
