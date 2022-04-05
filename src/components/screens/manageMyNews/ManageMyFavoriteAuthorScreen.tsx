@@ -22,12 +22,20 @@ export const ManageMyFavoriteAuthorScreen = () => {
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
-  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, selectedAuthorsData, getSelectedAuthorsData,allSelectedWritersDetailList } = useAllWriters();
+
+  const { isLoading, allWritersData, sentAuthorInfoData,
+    fetchAllWritersRequest, sendSelectedWriterInfo, selectedAuthorsData,
+    getSelectedAuthorsData, allSelectedWritersDetailList, emptySendAuthorInfoData
+  } = useAllWriters();
   const {userProfileData} = useUserProfileData();
 
   useEffect(() => {
     getSelectedAuthorsData();
     fetchAllWritersRequest(allWritersPayload);
+
+    return () => {
+      emptySendAuthorInfoData()
+    }
   }, []);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Platform, StyleSheet, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Image} from 'src/components/atoms';
@@ -34,6 +34,15 @@ const FollowFavoriteAuthor = ({
   clickable = true,
 }: FollowFavoriteAuthorProps) => {
   const [isSelectedState, setIsSelectedState] = useState(isSelected);
+  const [fallback, setFallBack] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFallBack(true)
+    },2000)
+  }, [])
+
+
   const changeStatus = () => {
     if(clickable){
     onPress(!isSelectedState);
@@ -59,7 +68,7 @@ const FollowFavoriteAuthor = ({
               type="round"
               size={isTab ? normalize(tabSize) : normalize(size)}
               resizeMode="cover"
-              fallback={true}
+              fallback={fallback}
               fallbackContent={
                 <AuthorDefaultGrey
                 style={{ backgroundColor: Styles.color.silverChalice }}
@@ -73,7 +82,7 @@ const FollowFavoriteAuthor = ({
             type="round"
             size={isTab ? normalize(tabSize) : normalize(size)}
             resizeMode="cover"
-              fallback={true}
+              fallback={fallback}
               fallbackContent={<AuthorDefault
                 style={{ backgroundColor: Styles.color.cyanGreen }}
                 width={isTab ? normalize(tabSize) : normalize(size)}
