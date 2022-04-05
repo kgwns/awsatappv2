@@ -150,6 +150,7 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
+          gestureEnabled: false
         }}
       />
       <Stack.Screen
@@ -165,6 +166,7 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
+          gestureEnabled: false
         }}
       />
          <Stack.Screen
@@ -175,6 +177,7 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
+          gestureEnabled: false
         }}
       />
       <Stack.Screen

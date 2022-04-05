@@ -259,6 +259,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
               navigateToSection={navigateToSection}
               goToPasswordScreen={() => forgotPassworRequest({email: email})}
               onPressSignup={onPressSignIn}
+              socialButtonBoldStyle={true}
             />
           </View>
 

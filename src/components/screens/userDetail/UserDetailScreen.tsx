@@ -493,6 +493,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       />
       <View style={styles.updateButtonContainer}>
         <ButtonOutline
+          isDisable={!(isNotEmpty(oldPassword) && isNotEmpty(newPassword) && isNotEmpty(confirmNewPassword))}
           style={styles.updateButton}
           labelStyle={styles.updateButtonLabel}
           title={t('profile.userDetail.updateButtonText')}

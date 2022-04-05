@@ -27,6 +27,7 @@ interface AuthScreenInputSectionProps {
   isPassword?: boolean;
   editableEmail?: boolean;
   showAlertNoInternet?: () => void;
+  socialButtonBoldStyle?: boolean;
 }
 
 export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionProps> =({
@@ -46,6 +47,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
   isPassword= false,
   editableEmail= true,
   showAlertNoInternet,
+  socialButtonBoldStyle= false,
 }) => {
 
   const [t] = useTranslation();
@@ -135,7 +137,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
               onPress={onPress}
               label={t('signIn.signIn')}
               style={styles.buttonStyle}
-              labelStyle={styles.labelStyle}
+              labelStyle={styles.signInLabelStyle}
             />
           </View>
           <View style={styles.dividerContainber}>
@@ -150,6 +152,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
             <SocialButtonSection
               onButtonPress={navigate}
               showAlertNoInternet={showAlertNoInternet}
+              socialButtonBoldStyle = {socialButtonBoldStyle}
             />
           </View>
         </View>
@@ -195,11 +198,11 @@ StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  labelStyle: {
+  signInLabelStyle: {
     color: theme.secondaryWhite,
     fontWeight: 'bold',
-    fontSize: normalize(20),
-    lineHeight: normalize(22),
+    fontSize: 16,
+    lineHeight: 25,
   },
   dividerContainber: {
     flex: 0.05,

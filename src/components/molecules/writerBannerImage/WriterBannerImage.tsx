@@ -5,7 +5,7 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { Image, Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -36,7 +36,7 @@ export const WriterBannerImage = ({
   const FOLLOWER = 'متابع';
 
   const ReturnButton = () => (
-    <View style={[orientation == 'LANDSCAPE' ? style.landscapeReturn : style.return,]}>
+    <View style={[style.return, orientation == 'LANDSCAPE' && style.landscapeReturn]}>
       <TouchableOpacity
         style={{ flexDirection: 'row', alignItems: 'center' }}
         onPress={onPressReturn}>
@@ -68,8 +68,8 @@ export const WriterBannerImage = ({
 
   return (
     <View style={style.container}>
-      <ReturnButton />
       <View style={style.contentContainer}>
+        <ReturnButton />
         <View style={style.imageContainer}>
           <Image
             url={getImageUrl(data.authorImage)}
@@ -109,6 +109,7 @@ const customStyle = (theme: CustomThemeType) => {
       width: '60%',
       height: '100%',
       marginRight: normalize(20),
+      marginTop: isIOS ? normalize(2) : normalize(10),
     },
     landscapeImage: {
       width: isTab ? 0.6 * screenWidth : 0.65 * screenWidth,
@@ -137,13 +138,14 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.primaryBlack
     },
     return: {
-      left: normalize(15),
+      position: 'absolute',
+      top: normalize(15),
+      right: normalize(20),
       alignContent: 'center',
-      marginTop: normalize(5),
+      marginTop: isIOS ? 0 : normalize(5),
+      zIndex: 9999
     },
     landscapeReturn: {
-      left: normalize(15),
-      alignContent: 'center',
       marginTop: normalize(10),
       marginStart: normalize(5)
     },
