@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -16,10 +16,20 @@ import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 
+
 export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
   const style = useThemeAwareObject(customStyle);
   const [t] = useTranslation();
   const { themeData } = useTheme();
+
+  const renderHtmlContent = (item: any) => {
+    const description = decodeHTMLTags(item.body).length > 200 ? decodeHTMLTags(item.body).slice(0,200) : decodeHTMLTags(item.body)
+    return(
+      <View >
+        <Text children={description} numberOfLines={1} style={style.body}/>
+      </View>
+    )
+  }
 
   return (
     <TouchableWithoutFeedback
@@ -31,11 +41,7 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
           style={style.topLabel}
           numberOfLines={1}
         />
-        <Label
-          children={decodeHTMLTags(item.body)}
-          numberOfLines={1}
-          style={style.body}
-        />
+        {renderHtmlContent(item)}
         {mediaVisibility && <View style={style.footer}>
           <ButtonImage
             icon={() => {

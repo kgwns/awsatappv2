@@ -74,7 +74,6 @@ export const WriterBannerImage = ({
           <Image
             url={getImageUrl(data.authorImage)}
             style={style.image}
-            resizeMode={'cover'}
             fallback={true}
           />
         </View>
@@ -95,21 +94,20 @@ const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      width: '100%',
-      height: containerHeight,
+      height: 'auto',
     },
     contentContainer: {
       flex: 1,
       flexDirection: 'row-reverse',
       width: '100%',
-      height: '100%',
-      backgroundColor: theme.backgroundColor
+      backgroundColor: theme.backgroundColor,
+      paddingTop: isIOS ? normalize(2) : normalize(10),
+      
     },
     imageContainer: {
       width: '60%',
-      height: '100%',
-      marginRight: normalize(20),
-      marginTop: isIOS ? normalize(2) : normalize(10),
+      paddingRight: 20,
+      aspectRatio: 1.04,
     },
     landscapeImage: {
       width: isTab ? 0.6 * screenWidth : 0.65 * screenWidth,

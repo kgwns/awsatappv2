@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, FlatList, BackHandler} from 'react-native';
+import {StyleSheet, View, FlatList, BackHandler, Dimensions} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {horizontalAndTop, horizontalEdge, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, normalize} from 'src/shared/utils';
+import {horizontalAndTop, horizontalEdge, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, normalize, screenHeight, screenWidth} from 'src/shared/utils';
 import {OpinionArticleDetailFooter} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
@@ -63,15 +63,15 @@ export const OpinionArticleDetail = ({
     getSelectedAuthorsData()
     emptyRelatedOpinionData()
     Orientation.unlockAllOrientations();
-    Orientation.getDeviceOrientation(updateScreenEdge);
-    Orientation.addDeviceOrientationListener(updateScreenEdge);
+    // Orientation.getDeviceOrientation(updateScreenEdge);
+    // Orientation.addDeviceOrientationListener(updateScreenEdge);
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
       setOpinionArticle([]);
       emptyRelatedOpinionData();
       emptyOpinionArticleData();
       Orientation.lockToPortrait();
-      Orientation.removeOrientationListener(updateScreenEdge);
+      // Orientation.removeOrientationListener(updateScreenEdge);
     };
   }, []);
 
@@ -225,7 +225,7 @@ export const OpinionArticleDetail = ({
   }
 
   const renderItem = () => (
-    <View style={style.container}>
+    <View style={[style.container]}>
       {isNonEmptyArray(opinionArticle) && (
         <OpinionArticleDetailWidget
           data={opinionArticle[0]} fontSize={fontSize}
@@ -241,29 +241,26 @@ export const OpinionArticleDetail = ({
   );
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading}
+    <ScreenContainer edge={edge}  isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
-      {!isLoading && isNonEmptyArray(opinionArticle) && <>
-      <FlatList
-        style={style.flatList}
-        data={[{}]}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        bounces={false}
-      />
-      { isNonEmptyArray(opinionArticle) && 
-        <View style={style.footer}>
-          <OpinionArticleDetailFooter
-            opinionArticleDetailData={opinionArticle[0]}
-            isBookmarked={isBookmarked}
-            onPressSave={() => onPressSave(opinionArticle[0].nid_export)}
-            onPressFontSizeChange={onPressFontSizeChange}
+        {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>
+          <FlatList
+          data={[{}]}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
           />
-        </View>
-}
-      </>}
+          <View>
+            <OpinionArticleDetailFooter
+              opinionArticleDetailData={opinionArticle[0]}
+              isBookmarked={isBookmarked}
+              onPressSave={() => onPressSave(opinionArticle[0].nid_export)}
+              onPressFontSizeChange={onPressFontSizeChange}
+            />
+          </View>
+        </View>}
     </ScreenContainer>
   );
 };
@@ -271,15 +268,12 @@ export const OpinionArticleDetail = ({
 const customStyle = (theme: CustomThemeType) => {
   const OpinionArticleDetailStyle = StyleSheet.create({
     container: {
-      paddingBottom: normalize(80),
+      flex: 1,
+      marginBottom: normalize(80),
       backgroundColor: theme.backgroundColor,
     },
-    flatList: {
+    containerBase: {
       flex: 1,
-      height: '100%',
-    },
-    footer: {
-      width: '100%',
     },
   });
   return OpinionArticleDetailStyle;
