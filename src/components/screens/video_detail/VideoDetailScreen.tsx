@@ -14,6 +14,7 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import {useNavigation} from '@react-navigation/native';
 import {ScreensConstants} from 'src/constants/ScreenConstants';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Styles } from 'src/shared/styles';
  
 export interface VideoDetailScreenProps {
   route: any
@@ -128,6 +129,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   return (
     <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
+      statusbarColor={Styles.color.black}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={{height:insets.top,backgroundColor: colors.black}} />
       <FlatList
