@@ -9,13 +9,13 @@ import {
   emptySectionArticlesData,
 } from 'src/redux/sectionArticles/action';
 import {
+  payloadType,
   SectionArticlesBodyGet,
-  SectionArticlesItemType,
 } from 'src/redux/sectionArticles/types';
 
 export interface UseSectionArticlesReturn {
   isLoading: boolean;
-  sectionArticlesData: SectionArticlesItemType[];
+  sectionArticlesData: payloadType;
   sectionArticlesError: string;
   emptySectionArticleData(): void;
   fetchSectionArticlesRequest(payload: SectionArticlesBodyGet): void;
