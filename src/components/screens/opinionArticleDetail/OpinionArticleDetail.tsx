@@ -241,7 +241,7 @@ export const OpinionArticleDetail = ({
   );
 
   return (
-    <ScreenContainer edge={edge}  isLoading={isLoading}
+    <ScreenContainer edge={edge} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
         {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>

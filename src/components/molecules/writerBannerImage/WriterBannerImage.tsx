@@ -77,7 +77,7 @@ export const WriterBannerImage = ({
             fallback={true}
           />
         </View>
-        <View style={[style.labelButtonContainer, { width: '35%', }]}>
+        <View style={[style.labelButtonContainer]}>
           <Label style={style.authorName} numberOfLines={3}>
             {data.authorName}
           </Label>
@@ -126,6 +126,7 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'flex-end',
       paddingStart: normalize(15),
       paddingEnd: normalize(5),
+      width: '35%',
     },
     authorName: {
       textAlign: 'left',
