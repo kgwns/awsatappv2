@@ -70,15 +70,14 @@ export const WriterBannerImage = ({
     <View style={style.container}>
       <View style={style.contentContainer}>
         <ReturnButton />
-        <View style={orientation == 'LANDSCAPE' ? style.landscapeimageContainer : style.imageContainer}>
+        <View style={style.imageContainer}>
           <Image
             url={getImageUrl(data.authorImage)}
-            style={orientation == 'LANDSCAPE' ? style.landscapeImage : style.image}
-            resizeMode={orientation == 'LANDSCAPE' ? 'stretch' : 'cover'}
+            style={style.image}
             fallback={true}
           />
         </View>
-        <View style={[style.labelButtonContainer, { width: orientation == 'LANDSCAPE' ? isTab ? '38%' : '40%' : '35%', }]}>
+        <View style={[style.labelButtonContainer]}>
           <Label style={style.authorName} numberOfLines={3}>
             {data.authorName}
           </Label>
@@ -95,21 +94,20 @@ const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      width: '100%',
-      height: containerHeight,
+      height: 'auto',
     },
     contentContainer: {
       flex: 1,
       flexDirection: 'row-reverse',
       width: '100%',
-      height: '100%',
-      backgroundColor: theme.backgroundColor
+      backgroundColor: theme.backgroundColor,
+      paddingTop: isIOS ? normalize(2) : normalize(10),
+      
     },
     imageContainer: {
       width: '60%',
-      height: '100%',
-      marginRight: normalize(20),
-      marginTop: isIOS ? normalize(2) : normalize(10),
+      paddingRight: 20,
+      aspectRatio: 1.04,
     },
     landscapeImage: {
       width: isTab ? 0.6 * screenWidth : 0.65 * screenWidth,
@@ -128,6 +126,7 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'flex-end',
       paddingStart: normalize(15),
       paddingEnd: normalize(5),
+      width: '35%',
     },
     authorName: {
       textAlign: 'left',

@@ -74,7 +74,7 @@ export const OpinionArticleDetailWidget = ({
       textAlign: 'left',
       direction: 'rtl',
       fontSize: fontSize,
-      lineHeight: 1.5 * fontSize
+      lineHeight: 1.5 * fontSize,
     },
   };
 
@@ -136,7 +136,7 @@ export const OpinionArticleDetailWidget = ({
         {isNotEmpty(data.jwplayer) && isObjectNonEmpty(mediaData) && <View style={style.listenToArticleCard}>
           <ListenToArticleCard data={mediaData} />
         </View>}
-        {articleHtmlContent()}
+         {articleHtmlContent()}
       </View>
       <Divider style={style.divider}/>
     </View>
