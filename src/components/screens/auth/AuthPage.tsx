@@ -153,6 +153,7 @@ export const AuthPage: FunctionComponent = () => {
       setIsAlertVisible={setIsAlertVisible}>
       <KeyboardAwareScrollView
         bounces={false}
+        extraScrollHeight={30}
         enableOnAndroid={true}
         scrollEnabled>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -190,7 +191,7 @@ export const AuthPage: FunctionComponent = () => {
             </View>
           </View>
         </TouchableWithoutFeedback>
-      </KeyboardAwareScrollView>
+     
       <View style={styles.footerStyle}>
         <View style={styles.footerLabelContainer}>
           <Label
@@ -216,6 +217,7 @@ export const AuthPage: FunctionComponent = () => {
           color={themeData.textColor}
         />
       </View>
+      </KeyboardAwareScrollView>
     </ScreenContainer>
   );
 };
@@ -254,8 +256,6 @@ const createStyles = (theme: CustomThemeType) =>
     footerStyle: {
       flex: 1,
       alignItems: 'center',
-      position: 'absolute',
-      bottom: normalize(40),
       width: '100%',
       justifyContent: 'center',
     },

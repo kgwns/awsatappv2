@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
+import React, {FunctionComponent, useEffect, useRef, useState, useCallback} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
@@ -60,6 +60,8 @@ import {
 import {useNewPassword} from 'src/hooks/useNewPassword';
 import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
 import { AlertModal } from 'src/components/organisms';
+import { useFocusEffect } from '@react-navigation/native';
+import { AvoidSoftInput } from "react-native-avoid-softinput";
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -121,6 +123,15 @@ export const UserDetailScreen: FunctionComponent = () => {
   const OPEN_GALLERY_OPTION = t('profile.userDetail.chooseFromGallery');
   const CANCEL = t('profile.userDetail.cancelText');
   const [showupUp,setShowPopUp] = useState(false)
+
+  const onFocusEffect = useCallback(() => {
+    AvoidSoftInput.setAdjustResize();
+    return () => {
+      AvoidSoftInput.setDefaultAppSoftInputMode();
+    };
+  }, []);
+  
+  useFocusEffect(onFocusEffect);
 
   useEffect(() => {
     fetchProfileDataRequest();
@@ -670,7 +681,6 @@ export const UserDetailScreen: FunctionComponent = () => {
         <KeyboardAwareScrollView
         bounces={false}
         extraHeight={230}
-        enableOnAndroid={true}
         scrollEnabled>
         {tabContent()}
         </KeyboardAwareScrollView>
@@ -851,4 +861,7 @@ const createStyles = (theme: CustomThemeType) =>
       width: screenWidth,
       height: screenHeight,
     },
+    scrollContainer: {
+      flexGrow: 1
+    }
   });
