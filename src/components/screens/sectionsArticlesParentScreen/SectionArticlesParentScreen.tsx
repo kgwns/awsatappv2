@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react';
-import { horizontalAndTop } from 'src/shared/utils';
+import { horizontalAndTop, isNotEmpty } from 'src/shared/utils';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { SectionStoryScreen } from '../category/SectionStoryScreen';
 import { useNewsView } from 'src/hooks/useNewsview';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
+import { TabType } from '../sections/SectionsScreen';
+import { OpinionScreen } from '../category/OpinionScreen';
+import { PodcastProgram } from '../podcast/PodcastProgram';
+import { VideoScreen } from '../category/VideoScreen';
 
 export const SectionArticlesParentScreen = () => {
   const { params } = useRoute<RouteProp<any>>();
   const sectionId = params?.sectionId;
+  const keyName = params?.keyName || ''
 
   const { emptyAllListData } = useNewsView();
 
@@ -15,9 +20,23 @@ export const SectionArticlesParentScreen = () => {
     emptyAllListData();
   }, [sectionId]);
 
+  const renderDynamicScreen = () => {
+    if (!isNotEmpty(keyName)) return null;
+    switch (keyName) {
+      case TabType.opinion:
+        return <OpinionScreen />;
+      case TabType.podcast:
+        return <PodcastProgram />;
+      case TabType.video:
+        return <VideoScreen />;
+      default:
+        return <SectionStoryScreen sectionId={sectionId} />;
+    }
+  }
+
   return (
     <ScreenContainer edge={horizontalAndTop} showHeader={true} headerTitle={params?.title}>
-      <SectionStoryScreen sectionId={sectionId} />
+      {renderDynamicScreen()}
     </ScreenContainer>
   );
 };

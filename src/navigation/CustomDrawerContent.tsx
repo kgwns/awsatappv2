@@ -170,18 +170,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   }
 
   const onPressNavigationDynamicMenu = (isChild: boolean, menuInfo: any) => {
-    const screenName = isChild ? ScreensConstants.SectionArticlesScreen : getDynamicScreenName(menuInfo)
-    onPressNavigation(screenName, { sectionId: menuInfo.field_sectionid_export, title: menuInfo.title })
-  }
-
-  const getDynamicScreenName = (item: any) : string => {
-    switch (item.field_app_key_name_export) {
-      case TabType.opinion:
-      case TabType.podcast:
-      case TabType.video:
-      default:
-        return ScreensConstants.SectionArticlesParentScreen
-    }
+    const screenName = isChild ? ScreensConstants.SectionArticlesScreen : ScreensConstants.SectionArticlesParentScreen
+    const defaultParams = { sectionId: menuInfo.field_sectionid_export, title: menuInfo.title }
+    const params = isChild ? defaultParams : {...defaultParams, keyName: menuInfo.field_app_key_name_export}
+    onPressNavigation(screenName, params)
   }
 
   const openSocialMedia = (type: string) =>{
