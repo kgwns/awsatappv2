@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenHeight, screenWidth, } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenHeight, screenWidth, joinArray} from 'src/shared/utils';
 import { BorderLabel, Divider, Label } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +16,9 @@ import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/type
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType, } from 'src/redux/allSiteCategories/types';
 import { decode } from 'html-entities';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
+
+
 
 export const ManageMyNewsScreen = () => {
   const navigation = useNavigation();
@@ -24,6 +27,41 @@ export const ManageMyNewsScreen = () => {
   const isFocused = useIsFocused();
   const [selectedWriters,setSelectedWriters]=useState<AllWritersItemType[]>([])
   const [selectedInterested,setSelectedInterested]=useState<AllSiteCategoriesItemType[]>([])
+
+  const [filteredSelectedAuthor, setFilteredSelectedAuthor] = useState([]);
+  const [filteredSelectedTopic, setFilteredSelectedTopic] = useState<string[]>([]);
+
+  
+
+  const removeFavAuthorAlertPayload : AlertPayloadType = {
+    title : t('manageMyNews.alert'),
+    message: t('manageMyNews.removeAuthor'),
+    buttonTitle: t('manageMyNews.remove')
+  }
+
+  const removeTopicAlertPayload : AlertPayloadType = {
+    title : t('manageMyNews.alert'),
+    message: t('manageMyNews.removeTopic'),
+    buttonTitle: t('manageMyNews.remove')
+  }
+
+  const Remove_Author = 'Remove_Author';
+  const Remove_Topic = 'Remove_Topic';
+
+  const [alertPayload, setAlertPayload] = useState(removeFavAuthorAlertPayload);
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
+  const [popupType, setPopupType] = useState(Remove_Author);
+
+  const alertOnPress = () => {
+    if(popupType === Remove_Author){
+       sendSelectedWriterInfo({ tid: joinArray(filteredSelectedAuthor), isList: true })
+       setIsAlertVisible(false);
+       setFilteredSelectedAuthor([]);
+    }else if( popupType === Remove_Topic) {
+      sendSelectedTopicInfo({ tid: joinArray(filteredSelectedTopic) })
+      setIsAlertVisible(false);
+    }
+  }
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -42,7 +80,10 @@ export const ManageMyNewsScreen = () => {
     emptySelectedAuthorsInfoData,
     requestAllSelectedWritersDetailsData,
     allSelectedWritersDetailList,
-    selectedAuthorLoadingState
+    selectedAuthorLoadingState,
+    sendSelectedWriterInfo,
+    sentAuthorInfoData,
+    emptySendAuthorInfoData
   } = useAllWriters();
 
   const {
@@ -51,6 +92,9 @@ export const ManageMyNewsScreen = () => {
     getSelectedTopicsData,
     selectedTopicsData,
     emptySelectedTopicsInfoData,
+    sendSelectedTopicInfo,
+    sentTopicsData,
+    emptySendTopicsInfoData
   } = useAllSiteCategories()
 
   useEffect(() => {
@@ -71,6 +115,22 @@ export const ManageMyNewsScreen = () => {
       emptySelectedAuthorsInfoData()
     }
   }, [])
+
+  useEffect(() => {
+    if(selectedAuthorsData !== {}){
+      setSelectedWriters([])
+      fetchAllWritersRequest(allWritersPayload)
+      getSelectedAuthorsData()
+    }
+  }, [sentAuthorInfoData])
+
+   useEffect(() => {
+    if(sentTopicsData !== {}){
+      fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
+      getSelectedTopicsData()
+    }
+  }, [sentTopicsData])
+
 
   useEffect(() => {
     if (isObjectNonEmpty(selectedAuthorsData)) { 
@@ -122,14 +182,27 @@ export const ManageMyNewsScreen = () => {
     }
   };
 
+  const onPressTopicItem = (item: any) => {
+    setAlertPayload(removeTopicAlertPayload)
+    setPopupType(Remove_Topic);
+    setIsAlertVisible(true);
+    setFilteredSelectedTopic(getSelectedTopicIds.filter(e => e !== item.tid))
+  }
+
+  const getSelectedTopicIds = selectedInterested.reduce((prevValue: string[], item: AllSiteCategoriesItemType) => {
+    return prevValue.concat(item.tid)
+  }, [])
+
   const renderItemTopics = (item: any) => (
     <View style={style.renderItemTopics}>
-      <BorderLabel label={decode(item.name)} onPress={() => { }} isSelected={true} clickable={false} />
+      <BorderLabel label={decode(item.name)} onPress={() => onPressTopicItem(item)} isSelected={true} clickable={true} />
     </View>
   );
 
   const ContinueLabel = ({ label, goToScreen }: { label: any, goToScreen: any }) => (
     <TouchableWithoutFeedback style={style.continueLabelView} onPress={() => {
+      emptySendAuthorInfoData()
+      emptySendTopicsInfoData()
       navigation.navigate(goToScreen)
     }
     }>
@@ -140,6 +213,13 @@ export const ManageMyNewsScreen = () => {
       <Label style={style.continueLabel}>{label}</Label>
     </TouchableWithoutFeedback>
   );
+
+  const favAuthorOnPress = (item: any) => {
+    setAlertPayload(removeFavAuthorAlertPayload)
+    setIsAlertVisible(true);
+    setPopupType(Remove_Author);
+    setFilteredSelectedAuthor(getSelectedData().filter(e => e !== Number(item.tid)))
+  }
 
   const MyFavoriteBooks = (props: any) => {
     const data = props.data;
@@ -155,8 +235,8 @@ export const ManageMyNewsScreen = () => {
             authorName={item.name}
             authorImage={item.field_opinion_writer_photo_export}
             isSelected={true}
-            onPress={() => { }}
-            clickable={false}
+            onPress={() => favAuthorOnPress(item)}
+            clickable={true}
             key={'manageAuthor' + index}
             imageSize={85}
           />)
@@ -201,7 +281,12 @@ export const ManageMyNewsScreen = () => {
 
   const loadingState = isLoading || selectedAuthorLoadingState
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={loadingState}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={loadingState}
+    isAlertVisible={isAlertVisible}
+          alertPayload={alertPayload} alertOnPress={alertOnPress}
+          setIsAlertVisible={setIsAlertVisible}
+          
+          >
       <View style={style.container}>
         <View style={style.favBooks}>
             <MyFavoriteBooks data={selectedWriters} />
@@ -286,3 +371,4 @@ const customStyle = (theme: CustomThemeType) => {
   });
   return ManageMyNewsScreenStyle;
 };
+

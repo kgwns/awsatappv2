@@ -266,7 +266,11 @@ export const arabic = {
     myFavoriteBooks: 'كتابي المفضلين',
     myFavoriteTopics: 'مواضيعي المفضله',
     continueReadingMoreBooks: 'تابع المزيد من الكتاب',
-    followMoreTopics: 'تابع المزيد من المواضيع'
+    followMoreTopics: 'تابع المزيد من المواضيع',
+    alert: 'إنذار',
+    removeAuthor: 'هل تريد إزالة المؤلف',
+    removeTopic: 'هل تريد إزالة الموضوع',
+    remove: 'إزالة',
   },
   signUpAlert: {
     subscribe: 'مشترك',
