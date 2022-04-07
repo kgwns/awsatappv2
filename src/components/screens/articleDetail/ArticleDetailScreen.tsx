@@ -12,10 +12,13 @@ import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import { HtmlRenderer } from 'src/components/atoms'
 import type { MixedStyleRecord } from '@native-html/transient-render-engine';
-import { RelatedArticleDataType } from 'src/redux/articleDetail/types'
+import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useBookmark, useLogin } from 'src/hooks'
+import { ScreensConstants } from 'src/constants'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -36,16 +39,21 @@ enum ArticleFontSize {
 export const ArticleDetailScreen = ({
   route
 }: ArticleDetailScreenProps) => {
+  const navigation = useNavigation<StackNavigationProp<any>>()
+  const isFocused = useIsFocused();
+
   const { themeData } = useTheme()
   const { isLoggedIn } = useLogin()
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
 
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
-
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [fontSize,setFontSize] = useState<ArticleFontSize>(ArticleFontSize.normal)
-
-  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
   const [showupUp,setShowPopUp] = useState(false)
+  const [articleDetailState, setArticleDetail] = useState<ArticleDetailDataType[]>([])
+  const [relatedArticleState, setRelatedArticle] = useState<RelatedArticleDataType[]>([])
+
+  const currentNId = route.params.nid;
 
   const {
     isLoading,
@@ -59,22 +67,30 @@ export const ArticleDetailScreen = ({
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
-  const relatedArticleInfo = relatedArticleData.map((item: RelatedArticleDataType) => {
-    return {
-      ...item,
-      ...shortArticleWithTagProperties,
-      titleColor: themeData.primaryBlack,
-      flag: item.news_categories && item.news_categories.title,
-      isBookmarked: validateBookmark(item.nid)
-    }
-  })
-
   useEffect(() => {
-    if (isNonEmptyArray(articleDetailData)) {
+    if (isNonEmptyArray(articleDetailData) && route.params && route.params.nid && isFocused) {
       const isBookmarked = validateBookmark(articleDetailData[0].nid)
       setIsBookmarked(isBookmarked)
+      setArticleDetail(articleDetailData)
     }
   }, [articleDetailData])
+
+  useEffect(() => {
+    if (isNonEmptyArray(relatedArticleData) && route.params && route.params.nid && isFocused) {
+      console.log('Called relatedArticleData ::::::::::::', currentNId)
+      const relatedArticleListData = relatedArticleData.filter((data) => { return data.nid != currentNId})
+      const relatedArticleInfo = relatedArticleListData.map((item: RelatedArticleDataType) => {
+        return {
+          ...item,
+          ...shortArticleWithTagProperties,
+          titleColor: themeData.primaryBlack,
+          flag: item.news_categories && item.news_categories.title,
+          isBookmarked: validateBookmark(item.nid)
+        }
+      })
+      setRelatedArticle(relatedArticleInfo)
+    }
+  }, [relatedArticleData])
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -87,12 +103,13 @@ export const ArticleDetailScreen = ({
   }
 
   useEffect(() => {
-    recordLogEvent('Article_Details_Screen', {articleId: route.params.nid});
+    recordLogEvent('Article_Details_Screen', {articleId: currentNId});
     Orientation.unlockAllOrientations()
     Orientation.getDeviceOrientation(updateScreenEdge)
     Orientation.addDeviceOrientationListener(updateScreenEdge)
-    getArticleDetail(route.params.nid)
+    getArticleDetail(currentNId)
     return () => {
+      console.log('Called :::::::::')
       emptyAllData()
       Orientation.lockToPortrait()
       Orientation.removeOrientationListener(updateScreenEdge)
@@ -119,13 +136,15 @@ export const ArticleDetailScreen = ({
   }
 
   const onPressArticle = (nid: string) => {
-    recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
-    nid && getArticleDetail(nid)
+    if (nid && nid!=currentNId) {
+      recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
+      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+    }
   }
 
   const onPressSave = (nid: string) => {
     const newBookmarked = !isBookmarked
-    const data = [...articleDetailData]
+    const data = [...articleDetailState]
     data[0].isBookmarked = !data[0].isBookmarked
     setIsBookmarked(newBookmarked)
     onUpdateBookMark(nid, newBookmarked)
@@ -163,20 +182,20 @@ export const ArticleDetailScreen = ({
 
   const articleHtmlContent = () => (
     <View style={articleDetailScreenStyle.labelStyle}>
-      <HtmlRenderer source={articleDetailData[0].body}
+      <HtmlRenderer source={articleDetailState[0].body}
         tagsStyles={htmlTagStyle} />
     </View>
   )
 
   const renderItem = () => (
     <View>
-      {isNonEmptyArray(articleDetailData) && <>
-        <ArticleDetailWidget articleData={articleDetailData[0]} />
+      {isNonEmptyArray(articleDetailState) && <>
+        <ArticleDetailWidget articleData={articleDetailState[0]} />
         {articleHtmlContent()}
       </>
       }
       {isNonEmptyArray(relatedArticleData) &&
-        <ShortArticle data={relatedArticleInfo}
+        <ShortArticle data={relatedArticleState}
           headerLeft={relatedShortArticleHeaderLeft}
           onPress={onPressArticle}
           onUpdateBookmark={onUpdateBookMark}
@@ -189,7 +208,7 @@ export const ArticleDetailScreen = ({
   return (
     <ScreenContainer edge={edge} isLoading={isLoading} 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
-      {!isLoading && isNonEmptyArray(articleDetailData) && <>
+      {!isLoading && isNonEmptyArray(articleDetailState) && <>
         <FlatList
           style={{ flex: 1, height: '100%' }}
           data={[{}]}
@@ -199,9 +218,9 @@ export const ArticleDetailScreen = ({
           bounces={false}
         />
         <View style={articleDetailScreenStyle.footer}>
-          <ArticleDetailFooter articleDetailData={articleDetailData[0]}
+          <ArticleDetailFooter articleDetailData={articleDetailState[0]}
             isBookmarked={isBookmarked}
-            onPressSave={() => checkAndUpdateBookmark(articleDetailData[0].nid)}
+            onPressSave={() => checkAndUpdateBookmark(articleDetailState[0].nid)}
             onPressFontChange={onPressFontChange}
           />
         </View>
