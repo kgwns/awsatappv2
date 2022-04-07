@@ -4,7 +4,7 @@ import {
   getIsLoading,
   getEmailCheckError,
 } from 'src/redux/auth/selectors';
-import { fetchEmailCheck } from 'src/redux/auth/action';
+import { emptyEmailCheckAction, fetchEmailCheck } from 'src/redux/auth/action';
 import { FetchEmailCheckPayloadType } from 'src/redux/auth/types';
 
 export interface UseEmailCheckReturn {
@@ -12,6 +12,7 @@ export interface UseEmailCheckReturn {
   emailCheckData: any;
   emailCheckError: string;
   fetchEmailCheckRequest(payload: FetchEmailCheckPayloadType): void;
+  emptyEmailCheckInfo(): void;
 }
 
 export const useEmailCheck = (): UseEmailCheckReturn => {
@@ -22,10 +23,16 @@ export const useEmailCheck = (): UseEmailCheckReturn => {
   const fetchEmailCheckRequest = (payload: FetchEmailCheckPayloadType) => {
     dispatch(fetchEmailCheck(payload));
   };
+
+  const emptyEmailCheckInfo = () => {
+    dispatch(emptyEmailCheckAction());
+  }
+
   return {
     isLoading,
     emailCheckData,
     emailCheckError,
     fetchEmailCheckRequest,
+    emptyEmailCheckInfo,
   };
 };

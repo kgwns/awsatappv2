@@ -54,8 +54,10 @@ export const AuthPage: FunctionComponent = () => {
 
   const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
 
-  const {fetchEmailCheckRequest, isLoading, emailCheckData, emailCheckError} =
-    useEmailCheck();
+  const { fetchEmailCheckRequest,
+    isLoading, emailCheckData, emailCheckError,
+    emptyEmailCheckInfo
+  } = useEmailCheck();
 
   const noInternetConnection: AlertPayloadType = {
     title: t('common.alert'),
@@ -125,6 +127,7 @@ export const AuthPage: FunctionComponent = () => {
         return;
       default:
         loginSkipped();
+        emptyEmailCheckInfo()
         navigation.reset({
           index: 0,
           routes: [{name: ScreensConstants.AppNavigator}],
