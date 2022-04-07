@@ -6,7 +6,6 @@ import { View } from 'react-native';
 import {useTopMenu} from 'src/hooks';
 
 export enum TabType {
-  home = 'home',
   opinion = 'opinion',
   podcast = 'podcast',
   video = 'video',
@@ -33,8 +32,6 @@ export const SectionsScreen = () => {
   const tabContent = () => {
     if (!topMenuData.length) return null;
     switch (topMenuData[tabSelectedIndex].keyName) {
-      case TabType.home:
-        return <SectionStoryScreen sectionId={11}/>;
       case TabType.opinion:
         return <OpinionScreen />;
       case TabType.podcast:

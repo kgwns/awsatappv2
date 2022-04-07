@@ -34,6 +34,7 @@ import {
   TWITTER_URL,
 } from 'src/constants/SharedConstants';
 import { recordLogEvent } from 'src/shared/utils';
+import { TabType } from 'src/components/screens/sections/SectionsScreen';
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -160,15 +161,27 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         hitSlop={{top: hipSlopValue,bottom: hipSlopValue,left: hipSlopValue,right: hipSlopValue}}
         key={index}
         title={item.title}
-        onPress={() =>
-          isChild ? onPressNavigation(ScreensConstants.SectionArticlesScreen,
-            { sectionId: item.field_sectionid_export, title: item.title }) :
-            onPressNavigation(ScreensConstants.SectionArticlesParentScreen,
-              { sectionId: item.field_sectionid_export, title: item.title })
-        }
+        onPress={() => {
+          onPressNavigationDynamicMenu(isChild, item)
+        }}
         onPressIcon={() => onPressDropDownIcon(index)}
       />
     )
+  }
+
+  const onPressNavigationDynamicMenu = (isChild: boolean, menuInfo: any) => {
+    const screenName = isChild ? ScreensConstants.SectionArticlesScreen : getDynamicScreenName(menuInfo)
+    onPressNavigation(screenName, { sectionId: menuInfo.field_sectionid_export, title: menuInfo.title })
+  }
+
+  const getDynamicScreenName = (item: any) : string => {
+    switch (item.field_app_key_name_export) {
+      case TabType.opinion:
+      case TabType.podcast:
+      case TabType.video:
+      default:
+        return ScreensConstants.SectionArticlesParentScreen
+    }
   }
 
   const openSocialMedia = (type: string) =>{
