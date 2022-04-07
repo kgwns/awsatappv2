@@ -191,6 +191,7 @@ export const AuthPage: FunctionComponent = () => {
             </View>
           </View>
         </TouchableWithoutFeedback>
+        </KeyboardAwareScrollView>
      
       <View style={styles.footerStyle}>
         <View style={styles.footerLabelContainer}>
@@ -217,7 +218,6 @@ export const AuthPage: FunctionComponent = () => {
           color={themeData.textColor}
         />
       </View>
-      </KeyboardAwareScrollView>
     </ScreenContainer>
   );
 };
@@ -256,6 +256,8 @@ const createStyles = (theme: CustomThemeType) =>
     footerStyle: {
       flex: 1,
       alignItems: 'center',
+      position: 'absolute',
+      bottom: normalize(40),
       width: '100%',
       justifyContent: 'center',
     },

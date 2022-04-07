@@ -861,7 +861,4 @@ const createStyles = (theme: CustomThemeType) =>
       width: screenWidth,
       height: screenHeight,
     },
-    scrollContainer: {
-      flexGrow: 1
-    }
   });
