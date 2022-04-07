@@ -1,9 +1,9 @@
 import React from 'react'
 import { render, RenderAPI } from '@testing-library/react-native'
-import { useRoute } from '@react-navigation/native';
 import { Provider } from 'react-redux'
-import { storeSampleData } from 'src/constants/SampleData'
-import { SectionArticlesScreen } from '../SectionArticlesScreen'
+import { storeSampleData } from '../../../../constants/SampleData'
+import { SectionArticlesParentScreen } from '../SectionArticlesParentScreen'
+import { useRoute } from '@react-navigation/native'
 
 jest.mock('@react-navigation/native', () => ({
     useRoute: jest.fn(),
@@ -15,16 +15,16 @@ jest.mock('@react-navigation/native', () => ({
       }),
   }));
 
-describe('<SectionArticlesScreen>', () => {
+describe('<SectionArticlesParentScreen>', () => {
     let instance: RenderAPI
 
-    const params = {"key":"SectionArticlesScreen-91cFeh9o2Kg1fsaaeteVu","name":"SectionArticlesScreen","params":{"sectionId":102811,"title":"رياضة عالمية"}}
+    const params = {"key":"SectionArticlesParentScreen-91cFeh9o2Kg1fsaaeteVu","name":"SectionArticlesParentScreen","params":{"sectionId":102811,"title":"رياضة عالمية"}}
 
     beforeEach(() => {
         (useRoute as jest.Mock).mockReturnValue(params);
         const component = 
             <Provider store={storeSampleData}>
-                <SectionArticlesScreen />
+                <SectionArticlesParentScreen />
             </Provider> 
         instance = render(component)
     })
@@ -38,7 +38,3 @@ describe('<SectionArticlesScreen>', () => {
         expect(instance).toBeDefined()
     })
 })
-
-function navigationParams(navigationParams: any) {
-    throw new Error('Function not implemented.');
-}

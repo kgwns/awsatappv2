@@ -151,7 +151,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     </View>
   );
 
-  const buttonListItem = (item: any,index: number,icon?: ImagesName | null) => {
+  const buttonListItem = (isChild: boolean, item: any, index: number, icon?: ImagesName | null) => {
     const hipSlopValue = normalize(12)
     return (
       <ButtonList
@@ -161,8 +161,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         key={index}
         title={item.title}
         onPress={() =>
-          onPressNavigation(ScreensConstants.SectionArticlesScreen,
-            { sectionId: item.field_sectionid_export, title: item.title })
+          isChild ? onPressNavigation(ScreensConstants.SectionArticlesScreen,
+            { sectionId: item.field_sectionid_export, title: item.title }) :
+            onPressNavigation(ScreensConstants.SectionArticlesParentScreen,
+              { sectionId: item.field_sectionid_export, title: item.title })
         }
         onPressIcon={() => onPressDropDownIcon(index)}
       />
@@ -211,10 +213,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               const icon = isNonEmptyArray(item.child) ? ImagesName.downArrowIcon : null
               return (
                 <View key={index}>
-                  {buttonListItem(item, index, icon)}
+                  {buttonListItem(false, item, index, icon)}
                   {isNonEmptyArray(item.child) && item.showDropDown && <View style={styles.childDropdownItem}>
                     {item.child.map((childItem: any, childIndex: number) => {
-                      return buttonListItem(childItem, childIndex)
+                      return buttonListItem(true, childItem, childIndex)
                     })}
                     </View>
                   }
