@@ -117,7 +117,8 @@ export const ManageMyNewsScreen = () => {
   }, [])
 
   useEffect(() => {
-    if(selectedAuthorsData !== {}){
+    
+    if(isObjectNonEmpty(selectedAuthorsData)){
       setSelectedWriters([])
       fetchAllWritersRequest(allWritersPayload)
       getSelectedAuthorsData()
@@ -125,7 +126,7 @@ export const ManageMyNewsScreen = () => {
   }, [sentAuthorInfoData])
 
    useEffect(() => {
-    if(sentTopicsData !== {}){
+    if(isObjectNonEmpty(sentTopicsData)){
       fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
       getSelectedTopicsData()
     }
