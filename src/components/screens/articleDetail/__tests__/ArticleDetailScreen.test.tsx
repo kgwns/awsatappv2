@@ -20,7 +20,10 @@ jest.mock("src/hooks/useArticleDetail", () => ({
             },
             fetchRelatedArticle: () => {
                 return []
-            }
+            },
+            emptyAllData: () => {
+                return
+            },
         }
     },
 }));
