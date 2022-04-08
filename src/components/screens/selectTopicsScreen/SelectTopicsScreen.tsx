@@ -19,6 +19,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest} = useAllSiteCategories();
   const {userProfileData} = useUserProfileData();
   const [disableNext, setDisableNext] = useState<boolean>(true)
+  const OK = t('common.ok');
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -34,7 +35,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
         gotoNext()
 
       } else {
-        Alert.alert(sentTopicsData.message || '');
+        Alert.alert(sentTopicsData.message || '', undefined, [{ text: OK }]);
       }
     }
   }, [sentTopicsData]);

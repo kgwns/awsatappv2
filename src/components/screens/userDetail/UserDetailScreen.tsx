@@ -221,7 +221,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const showAlert = (text: string) => {
     Alert.alert(text, '', [
       {
-        text: 'OK',
+        text: ok,
         onPress: () => onAlertOkPressed(),
       },
     ]);

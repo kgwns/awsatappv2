@@ -18,6 +18,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [authorsData,setAuthorsData] = useState<AllWritersItemType[]>([])
   const [selectedCheck,setselectedCheck] = useState<boolean>(false)
+  const OK = t('common.ok');
 
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
@@ -100,7 +101,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
       if (sentAuthorInfoData.code === 200) {
         gotoNext()
       } else {
-        Alert.alert(sentAuthorInfoData.message || '');
+        Alert.alert(sentAuthorInfoData.message || '', undefined, [{ text: OK }]);
       }
     }
   }, [sentAuthorInfoData]);

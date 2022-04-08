@@ -77,6 +77,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
 
   const [alertPayload, setAlertPayload] =
     useState<AlertPayloadType>(noInternetConnection);
+  const OK = t('common.ok');
 
   useEffect(() => {
     getDeviceName();
@@ -116,7 +117,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
           ],
         });
       } else {
-        Alert.alert(message.message);
+        Alert.alert(message.message, undefined, [{ text: OK }]);
       }
     }
   }, [registerUserInfo]);

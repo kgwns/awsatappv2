@@ -37,6 +37,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   const {createUserRequest, registerUserInfo} = useRegister();
 
   const {socialLoginEnded} = useRegister();
+  const OK = t('common.ok');
 
   const onSuccessSocialLogin = (userInfo:any,provider='google')=>{
     const userDetails = userInfo.user
@@ -107,7 +108,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
           routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
         });
       }else{
-        Alert.alert(message.message);
+        Alert.alert(message.message, undefined, [{ text: OK }]);
       }
     }
   }, [registerUserInfo]);
