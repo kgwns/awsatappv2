@@ -1,13 +1,17 @@
 import axios, {AxiosError} from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import {fetchOpinionsApi} from 'src/services/opinionsService';
-import {OpinionsBodyGet} from 'src/redux/opinions/types';
+import { fetchOpinionsApi, fetchWriterOpinionsApi } from 'src/services/opinionsService';
+import { OpinionsBodyGet, WriterOpinionsBodyGet } from 'src/redux/opinions/types';
 
 describe('Test Opinions Services', () => {
   const mock = new MockAdapter(axios);
   const body: OpinionsBodyGet = {
     page: 0,
   };
+  const payload: WriterOpinionsBodyGet = {
+    tid: '12345',
+    page: 1,
+  }
   beforeEach(() => {
     jest.useFakeTimers('legacy');
   });
@@ -30,6 +34,26 @@ describe('Test Opinions Services', () => {
     });
 
     return fetchOpinionsApi(body).catch((error: unknown) => {
+      const errorResponse = error as AxiosError;
+      expect(errorResponse.response?.status).toEqual(500);
+    });
+  });
+  it('test when response code is 200', () => {
+    mock.onGet().reply(200, {
+      result: true,
+    });
+
+    return fetchWriterOpinionsApi(payload).then(response => {
+      expect(response).toBeInstanceOf(Object);
+    });
+  });
+
+  it('test when response code is 500', () => {
+    mock.onGet().reply(500, {
+      error: 'Something Went Wrong',
+    });
+
+    return fetchWriterOpinionsApi(payload).catch((error: unknown) => {
       const errorResponse = error as AxiosError;
       expect(errorResponse.response?.status).toEqual(500);
     });

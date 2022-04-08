@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { SendSelectedNotificationBody } from 'src/redux/keepNotified/types';
-import { getSelectedNotificationService, sendSelectedNotificationService } from '../keepNotificationService';
+import { getSelectedNotificationService, sendSelectedNotificationService, getListOfNotificationService } from '../keepNotificationService';
 
 describe('Test Keep Notification Services', () => {
     const mock = new MockAdapter(axios);
@@ -52,6 +52,26 @@ describe('Test Keep Notification Services', () => {
         });
 
         return getSelectedNotificationService().catch((error: unknown) => {
+            const errorResponse = error as AxiosError;
+            expect(errorResponse.response?.status).toEqual(500);
+        });
+    });
+    it('test when getListOfNotificationService response code is 200', () => {
+        mock.onGet().reply(200, {
+            result: true,
+        });
+
+        return getListOfNotificationService().then(response => {
+            expect(response).toBeInstanceOf(Object);
+        });
+    });
+
+    it('test when getListOfNotificationService response code is 500', () => {
+        mock.onGet().reply(500, {
+            error: 'Something Went Wrong',
+        });
+
+        return getListOfNotificationService().catch((error: unknown) => {
             const errorResponse = error as AxiosError;
             expect(errorResponse.response?.status).toEqual(500);
         });
