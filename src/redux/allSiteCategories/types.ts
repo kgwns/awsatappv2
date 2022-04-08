@@ -9,6 +9,7 @@ import {
   GET_SELECTED_TOPICS_SUCCESS,
   GET_SELECTED_TOPICS_ERROR,
   EMPTY_SELECTED_TOPICS_INFO,
+  EMPTY_SEND_TOPICS_INFO,
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -133,6 +134,10 @@ export type EmptySelectedTopicsInfo = {
   type: typeof EMPTY_SELECTED_TOPICS_INFO;
 };
 
+export type EmptySendTopicsInfo = {
+  type: typeof EMPTY_SEND_TOPICS_INFO;
+};
+
 export type AllSiteCategoriesActions =
   | FetchAllSiteCategoriesType
   | FetchAllSiteCategoriesSuccessType
@@ -144,3 +149,4 @@ export type AllSiteCategoriesActions =
   | GetSelectedTopicsSuccessType
   | GetSelectedTopicsFailedType
   | EmptySelectedTopicsInfo
+  | EmptySendTopicsInfo

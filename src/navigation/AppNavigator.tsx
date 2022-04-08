@@ -205,6 +205,11 @@ const AppNavigator = () => {
         component={Routes.WritersDetailScreen}
         options={hideHeader}
       />
+      <Stack.Screen
+        name={ScreensConstants.SectionArticlesParentScreen}
+        component={Routes.SectionArticlesParentScreen}
+        options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };

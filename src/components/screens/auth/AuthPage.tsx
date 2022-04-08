@@ -54,8 +54,10 @@ export const AuthPage: FunctionComponent = () => {
 
   const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
 
-  const {fetchEmailCheckRequest, isLoading, emailCheckData, emailCheckError} =
-    useEmailCheck();
+  const { fetchEmailCheckRequest,
+    isLoading, emailCheckData, emailCheckError,
+    emptyEmailCheckInfo
+  } = useEmailCheck();
 
   const noInternetConnection: AlertPayloadType = {
     title: t('common.alert'),
@@ -125,6 +127,7 @@ export const AuthPage: FunctionComponent = () => {
         return;
       default:
         loginSkipped();
+        emptyEmailCheckInfo()
         navigation.reset({
           index: 0,
           routes: [{name: ScreensConstants.AppNavigator}],
@@ -153,6 +156,7 @@ export const AuthPage: FunctionComponent = () => {
       setIsAlertVisible={setIsAlertVisible}>
       <KeyboardAwareScrollView
         bounces={false}
+        extraScrollHeight={30}
         enableOnAndroid={true}
         scrollEnabled>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -190,7 +194,8 @@ export const AuthPage: FunctionComponent = () => {
             </View>
           </View>
         </TouchableWithoutFeedback>
-      </KeyboardAwareScrollView>
+        </KeyboardAwareScrollView>
+     
       <View style={styles.footerStyle}>
         <View style={styles.footerLabelContainer}>
           <Label

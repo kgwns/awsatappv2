@@ -47,8 +47,8 @@ const FollowFavoriteAuthor = ({
 
   const changeStatus = () => {
     if(clickable){
-    onPress(!isSelectedState);
-    setIsSelectedState(!isSelectedState);}
+      onPress(!isSelectedState);
+      setIsSelectedState(!isSelectedState);}
   };
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();

@@ -20,7 +20,6 @@ const initialState: OpinionsListState = {
 
 export default (state = initialState, action: OpinionsActions) => {
   const concatWriterOpinionData = (data: any) => {
-  console.log("🚀 ~ file: reducer.ts ~ line 23 ~ concatWriterOpinionData ~ data", data)
     const temp = { ...state }
     temp.writerOpinionData.rows = temp.writerOpinionData.rows.concat(data.rows);
     temp.writerOpinionData.pager.current_page = data.pager.current_page;

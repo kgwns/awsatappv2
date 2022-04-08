@@ -50,7 +50,7 @@ export default (state = initialData, action: ArticleDetailAction) => {
     case EMPTY_DATA:
       return {
         ...state,
-        isLoading: true,
+        isLoading: false,
         error: '',
         articleDetailData: [],
         pager: {},

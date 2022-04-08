@@ -1,5 +1,6 @@
 import { UserLogoutType } from '../login/types';
 import {
+  EMPTY_EMAIL_CHECK_DATA,
     FETCH_EMAIL_CHECK,
     FETCH_EMAIL_CHECK_ERROR,
     FETCH_EMAIL_CHECK_SUCCESS,
@@ -44,9 +45,14 @@ import {
     type: typeof FETCH_EMAIL_CHECK_ERROR;
     payload: FetchEmailCheckFailedPayloadType;
   };
+
+  export type emptyEmailCheckType = {
+    type: typeof EMPTY_EMAIL_CHECK_DATA
+  }
   
   export type EmailCheckActions =
     | FetchEmailCheckType
     | FetchEmailCheckSuccessType
     | FetchEmailCheckFailedType
-    | UserLogoutType;
+    | UserLogoutType
+    | emptyEmailCheckType;
