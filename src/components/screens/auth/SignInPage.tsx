@@ -149,7 +149,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
           setIsAlertVisible(true);
           emptyLoginDataInfo();
         } else {
-          Alert.alert(message.message);
+          Alert.alert(message.message, undefined, [{ text: CONST_OK }]);
         }
       }
     }
@@ -172,7 +172,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
           ],
         });
       } else {
-        Alert.alert(message.message);
+        Alert.alert(message.message, undefined, [{ text: CONST_OK }]);
       }
     }
   }, [registerUserInfo]);

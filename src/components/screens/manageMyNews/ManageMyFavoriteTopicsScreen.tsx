@@ -19,6 +19,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [topicsData,setTopicsData] = useState<AllSiteCategoriesItemType[]>([])
   const {userProfileData} = useUserProfileData();
+  const OK = t('common.ok');
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -72,7 +73,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
       if (sentTopicsData.code === 200) {
         gotoNext()
       } else {
-        Alert.alert(sentTopicsData.message || '');
+        Alert.alert(sentTopicsData.message || '', undefined, [{ text: OK }]);
       }
     }
   }, [sentTopicsData]);
