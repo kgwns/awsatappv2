@@ -45,7 +45,7 @@ export const NewsLetterCard = ({
         style.container,
         {
           backgroundColor: selected
-            ? theme.themeData.secondaryGreen
+            ? theme.themeData.newsletterHighlighter
             : theme.themeData.lightRed,
         },
       ]}
