@@ -156,6 +156,7 @@ export const AuthPage: FunctionComponent = () => {
       setIsAlertVisible={setIsAlertVisible}>
       <KeyboardAwareScrollView
         bounces={false}
+        extraScrollHeight={30}
         enableOnAndroid={true}
         scrollEnabled>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -193,7 +194,8 @@ export const AuthPage: FunctionComponent = () => {
             </View>
           </View>
         </TouchableWithoutFeedback>
-      </KeyboardAwareScrollView>
+        </KeyboardAwareScrollView>
+     
       <View style={styles.footerStyle}>
         <View style={styles.footerLabelContainer}>
           <Label
