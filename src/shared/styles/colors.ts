@@ -99,6 +99,7 @@ export interface CustomThemeType {
   primaryNobel: string,
   signInTextColor: string,
   signinRightsColor: string,
+  newsletterHighlighter: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -135,6 +136,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   primaryNobel: colors.nobelGray,
   signInTextColor: colors.davyGrey,
   signinRightsColor: colors.spanishGray,
+  newsletterHighlighter: colors.cyanGreen,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -164,9 +166,10 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   podcastEpisodeCardColor: colors.onyx,
   miniPlayerBackgroundColor: colors.blackTransparent,
   miniPlayerBorderColor:colors.onyx,
-  lightRed:colors.nightBlack,
+  lightRed:colors.onyx,
   primaryNobel: colors.white,
   signInTextColor: colors.white,
   signinRightsColor: colors.white,
+  newsletterHighlighter:colors.greyDark50,
 }
 
