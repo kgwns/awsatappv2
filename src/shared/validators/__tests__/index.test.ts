@@ -36,6 +36,10 @@ describe('Validators', () => {
         expect(loginPasswordValidation('Awsatapplic')).toBe(i18next.t('validation.passwordRequirement'))
     });
 
+    test('login password validation with password length less that 8', () => {
+        expect(loginPasswordValidation('#Aw')).toBe(i18next.t('validation.minLengthPassword'));
+    });
+
     test('empty password validation with empty password', () => {
         expect(emptyPasswordValidation('')).toBe(i18next.t('validation.passwordEmpty'))
     });
@@ -62,6 +66,10 @@ describe('Validators', () => {
 
     test('reType password validation with empty passwords', () => {
         expect(reTypePasswordValidation('', '')).toBe(i18next.t('validation.passwordEmpty'));
+    });
+
+    test('reType password validation with password length less than 5', () => {
+        expect(reTypePasswordValidation('#Aw', '#Awsat01')).toBe(i18next.t('validation.minLengthPassword'));
     });
 
     test('old password validation with empty password', () => {
