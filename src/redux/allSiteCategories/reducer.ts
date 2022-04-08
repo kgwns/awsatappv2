@@ -9,6 +9,7 @@ import {
   GET_SELECTED_TOPICS_SUCCESS,
   GET_SELECTED_TOPICS_ERROR,
   EMPTY_SELECTED_TOPICS_INFO,
+  EMPTY_SEND_TOPICS_INFO,
 } from './actionTypes';
 import { AllSiteCategoriesActions, AllSiteCategoriesState } from './types';
 
@@ -47,6 +48,8 @@ export default (state = initialState, action: AllSiteCategoriesActions) => {
       return { ...state, isLoading: false, error: action.payload.error }
     case EMPTY_SELECTED_TOPICS_INFO:
       return {...state, isLoading: false, sendTopicInfo:{},error:'',selectedTopicsData: {}}
+    case EMPTY_SEND_TOPICS_INFO:
+      return {...state, sendTopicInfo:{} }
     default:
       return { ...state };
   }
