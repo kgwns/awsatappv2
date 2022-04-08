@@ -77,7 +77,6 @@ export const ArticleDetailScreen = ({
 
   useEffect(() => {
     if (isNonEmptyArray(relatedArticleData) && route.params && route.params.nid && isFocused) {
-      console.log('Called relatedArticleData ::::::::::::', currentNId)
       const relatedArticleListData = relatedArticleData.filter((data) => { return data.nid != currentNId})
       const relatedArticleInfo = relatedArticleListData.map((item: RelatedArticleDataType) => {
         return {
@@ -90,7 +89,7 @@ export const ArticleDetailScreen = ({
       })
       setRelatedArticle(relatedArticleInfo)
     }
-  }, [relatedArticleData])
+  }, [relatedArticleData,isFocused])
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -103,18 +102,25 @@ export const ArticleDetailScreen = ({
   }
 
   useEffect(() => {
-    recordLogEvent('Article_Details_Screen', {articleId: currentNId});
-    Orientation.unlockAllOrientations()
-    Orientation.getDeviceOrientation(updateScreenEdge)
-    Orientation.addDeviceOrientationListener(updateScreenEdge)
-    getArticleDetail(currentNId)
+    Orientation.unlockAllOrientations();
+    Orientation.getDeviceOrientation(updateScreenEdge);
+    Orientation.addDeviceOrientationListener(updateScreenEdge);
     return () => {
-      console.log('Called :::::::::')
-      emptyAllData()
-      Orientation.lockToPortrait()
-      Orientation.removeOrientationListener(updateScreenEdge)
-    }
+      Orientation.lockToPortrait();
+      Orientation.removeOrientationListener(updateScreenEdge);
+    };
   }, [])
+
+  useEffect(() => {
+    emptyAllData();
+    if (isFocused) {
+      recordLogEvent('Article_Details_Screen', { articleId: currentNId });
+      getArticleDetail(currentNId)
+    }
+    return () => {
+      emptyAllData()
+    }
+  }, [isFocused])
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const edge = getScreenEdge(deviceOrientation)
@@ -138,6 +144,7 @@ export const ArticleDetailScreen = ({
   const onPressArticle = (nid: string) => {
     if (nid && nid!=currentNId) {
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
+      emptyAllData();
       navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
     }
   }
