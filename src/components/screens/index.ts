@@ -33,3 +33,4 @@ export { VideoPlayerScreen } from 'src/components/screens/video_player/VideoPlay
 export { ManageMyFavoriteAuthorScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteAuthorScreen';
 export { ManageMyFavoriteTopicsScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteTopicsScreen';
 export { WritersDetailScreen } from 'src/components/screens/writersDetail/WritersDetailScreen'
+export { SectionArticlesParentScreen } from 'src/components/screens/sectionsArticlesParentScreen/SectionArticlesParentScreen'
