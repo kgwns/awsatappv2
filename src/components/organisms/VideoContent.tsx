@@ -41,7 +41,7 @@ export const VideoContent = ({ data, onPress }: { data: VideoItemType[], onPress
         return (
             <TouchableOpacity onPress={()=>onItemPress(item)}>
                 <View style={style.container}>
-                    <ImageWithIcon bottomTag={time} fallback url={imageLink}  />
+                    <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
                     <Label style={style.textStyle} labelType={LabelTypeProp.h3} numberOfLines={2} >
                         {decode(item.title)}
                     </Label>
