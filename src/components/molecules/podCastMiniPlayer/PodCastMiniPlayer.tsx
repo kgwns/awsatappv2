@@ -1,5 +1,5 @@
 import { View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { Image } from 'src/components/atoms'
@@ -24,7 +24,20 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
     const fieldData = data ? data : podcastEpisodeInitialData
-    const [isLoading,setLoading] = useState(playbackState === State.Buffering || playbackState === State.Connecting)
+    const isLoading = playbackState === State.None ||  playbackState === State.Buffering || playbackState === State.Connecting
+    
+    const Pause = () => (
+        <>
+            {getSvgImages({ name: ImagesName.pauseIcon, width: normalize(17), height: normalize(17) })}
+        </>
+    )
+
+    const Play = () => (
+        <>
+            {getSvgImages({ name: ImagesName.playIconSVG, width: normalize(15), height: normalize(17) })}
+        </>
+    )
+    
     return (
         <View style={style.container}>
             <View style={style.miniPlayer}>
@@ -44,10 +57,8 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     </View>
                     <TouchableOpacity onPress={onPlaybackPress}>
                         <View style={style.buttonContainer}>
-                            {isLoading ? <ActivityIndicator/> :
-                            playbackState === State.Playing ?
-                                getSvgImages({ name: ImagesName.pauseIcon, width: normalize(17), height: normalize(17) })
-                                : getSvgImages({ name: ImagesName.playIconSVG, width: normalize(15), height: normalize(17) })}
+                            {isLoading ? <ActivityIndicator /> :
+                                playbackState === State.Playing ? <Pause /> : <Play />}
                         </View>
                     </TouchableOpacity>
                 </View>
