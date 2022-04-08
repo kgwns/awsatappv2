@@ -6,7 +6,7 @@ import { ButtonImage } from '../../atoms'
 import { ImagesName } from '../../../shared/styles/images'
 import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { isIOS } from 'src/shared/utils'
+import { isIOS, isTab } from 'src/shared/utils'
 
 export interface SectionVideoFooterProps {
   leftTitle?: string,
@@ -45,12 +45,12 @@ const SectionVideoFooter = ({
   return (
     <View style={{ ...SectionVideoFooterStyle.container, ...style }}>
       <View style={{ flexDirection: 'row' }}>
-        {(leftTitle || leftViews) && <FooterCaptionWithImage title={leftTitle} icon={leftIcon}
+        {(leftTitle || leftViews) && <View style={SectionVideoFooterStyle.leftViewStyle}><FooterCaptionWithImage title={leftTitle} icon={leftIcon}
           color={leftTitleColor}
           subTitle={leftViews}
           subTitleColor={leftViewsColor}
           labelStyle={SectionVideoFooterStyle.leftStyle}
-        />}
+        /></View>}
         {(leftTitle || leftViews) && (rightDate || rightTitle) && <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />}
         {(rightDate || rightTitle) && <FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
       </View>
@@ -91,5 +91,10 @@ const SectionVideoFooterStyle = StyleSheet.create({
   leftStyle: {
     paddingRight: normalize(6),
     fontWeight: 'bold'
+  },
+  leftViewStyle: {
+    maxWidth: isTab ? '80%' : '60%',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
