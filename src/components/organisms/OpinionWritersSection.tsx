@@ -14,6 +14,7 @@ import {useTranslation} from 'react-i18next';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import { Styles } from 'src/shared/styles';
 import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
+import { getImageUrl } from 'src/shared/utils/utilities';
 
 interface OpinionWritersWidgetProps {
   data: OpinionWriterItemType[];
@@ -34,7 +35,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
           <View style={[{overflow: 'hidden'}]}>
             <Grayscale>
               <Image
-                url={item.field_opinion_writer_photo_export}
+                url={getImageUrl(item.field_opinion_writer_photo_export)}
                 size={normalize(54)}
                 type="round"
                 resizeMode="cover"
