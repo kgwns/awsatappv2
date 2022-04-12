@@ -1,5 +1,5 @@
 diff --git a/node_modules/react-native-video-controls/VideoPlayer.js b/node_modules/react-native-video-controls/VideoPlayer.js
-index 7927a5c..20fdc82 100644
+index 7927a5c..32021e7 100644
 --- a/node_modules/react-native-video-controls/VideoPlayer.js
 +++ b/node_modules/react-native-video-controls/VideoPlayer.js
 @@ -13,8 +13,10 @@ import {
@@ -47,6 +47,29 @@ index 7927a5c..20fdc82 100644
      return this.formatTime(this.state.currentTime);
    }
  
+@@ -993,11 +995,11 @@ export default class VideoPlayer extends Component {
+           style={[styles.controls.column]}
+           imageStyle={[styles.controls.vignette]}>
+           <SafeAreaView style={[styles.controls.topControlGroup]}>
+-            {backControl}
+             <View style={[styles.controls.pullRight]}>
+-              {volumeControl}
+               {fullscreenControl}
++              {volumeControl}
+             </View>
++            {backControl}
+           </SafeAreaView>
+         </ImageBackground>
+       </Animated.View>
+@@ -1011,7 +1013,7 @@ export default class VideoPlayer extends Component {
+     return this.renderControl(
+       <Image
+         source={require('./assets/img/back.png')}
+-        style={styles.controls.back}
++        style={[styles.controls.back,{transform:[{rotate:'180deg'}]}]}
+       />,
+       this.events.onBack,
+       styles.controls.back,
 @@ -1035,7 +1037,7 @@ export default class VideoPlayer extends Component {
            {...this.player.volumePanResponder.panHandlers}>
            <Image
@@ -74,6 +97,15 @@ index 7927a5c..20fdc82 100644
                },
              ]}
              pointerEvents={'none'}
+@@ -1369,7 +1371,7 @@ const styles = {
+       justifyContent: 'space-between',
+       flexDirection: I18nManager.isRTL?'row-reverse':'row',
+       width: null,
+-      margin: 12,
++      margin: 5,
+       marginBottom: 18,
+     },
+     bottomControlGroup: {
 diff --git a/node_modules/react-native-video-controls/assets/img/volume_mute.png b/node_modules/react-native-video-controls/assets/img/volume_mute.png
 new file mode 100644
 index 0000000..e69de29
