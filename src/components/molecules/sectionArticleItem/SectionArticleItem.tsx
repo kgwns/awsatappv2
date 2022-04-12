@@ -7,7 +7,7 @@ import {
 import React, {useState} from 'react';
 import {ButtonImage, ImageWithLabel, Label, LabelTypeProp} from 'src/components/atoms';
 import {CaptionWithImage} from '../../atoms';
-import {normalize} from 'src/shared/utils';
+import {isTab, normalize} from 'src/shared/utils';
 import {moleculesTestID, ScreensConstants} from '../../../constants';
 import {Styles} from '../../../shared/styles';
 import {ImagesName} from '../../../shared/styles/images';
@@ -38,6 +38,7 @@ export interface SectionArticleItemProps {
   nid?: string;
   isBookmarked: boolean
   onPressBookmark: () => void
+  showDivider?: boolean
 }
 const SectionArticleItem = ({
     headerTitle,
@@ -56,6 +57,7 @@ const SectionArticleItem = ({
     nid,
     isBookmarked,
     onPressBookmark,
+    showDivider = true
 }: SectionArticleItemProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
@@ -74,17 +76,19 @@ const SectionArticleItem = ({
       }}>
       <TouchableWithoutFeedback testID={'onPressTestID'} onPress={onPress}>
         {image && <ImageWithLabel url={image} imageStyle={imageStyle} />}
-        <Label
-          labelType={LabelTypeProp.h2}
-          children={headerTitle}
-          color={themeData.primaryBlack}
-        />
-        <Label
-          labelType={LabelTypeProp.p3}
-          children={body}
-          color={themeData.secondaryDavyGrey}
-          numberOfLines={3}
-        />
+        <View style={style.sectionContent}>
+          <Label
+            labelType={LabelTypeProp.h2}
+            children={headerTitle}
+            color={themeData.primaryBlack}
+          />
+          <Label
+            labelType={LabelTypeProp.p3}
+            children={body}
+            color={themeData.secondaryDavyGrey}
+            numberOfLines={3}
+          />
+        </View>
       </TouchableWithoutFeedback>
       <View
         style={
@@ -128,7 +132,7 @@ const SectionArticleItem = ({
         />
         )}
       </View>
-      <Divider style={style.divider}/>
+      {showDivider && <Divider style={style.divider}/>}
     </View>
   );
 };
@@ -157,4 +161,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     height: 1,
     backgroundColor: theme.dividerColor
   },
+  sectionContent: {
+    paddingTop: isTab ? normalize(15) : normalize(10)
+  }
 });

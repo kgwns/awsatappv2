@@ -6,7 +6,7 @@ import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
-import { horizontalEdge, isNonEmptyArray, normalize, recordLogEvent } from 'src/shared/utils'
+import { horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
@@ -27,7 +27,8 @@ export interface ArticleDetailScreenProps {
 const relatedShortArticleHeaderLeft: HeaderElementProps = {
   title: 'مقالات ذات صلة',
   labelType: LabelTypeProp.h2,
-  color: Styles.color.greenishBlue
+  color: Styles.color.greenishBlue,
+  elementContainerStyle: {paddingHorizontal: 0}
 }
 
 enum ArticleFontSize {
@@ -212,6 +213,8 @@ export const ArticleDetailScreen = ({
           onPress={onPressArticle}
           onUpdateBookmark={onUpdateBookMark}
           showSignUpPopUp={makeSignUpAlert}
+          numColumns={isTab ? 2 : 1}
+          addStyle={articleDetailScreenStyle.relatedArticle}
         />}
       <Divider style={{ height: normalize(50) }} />
     </View>
@@ -248,5 +251,8 @@ const articleDetailScreenStyle = StyleSheet.create({
   },
   footer: {
     width: '100%'
+  },
+  relatedArticle: {
+    paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth
   }
 })

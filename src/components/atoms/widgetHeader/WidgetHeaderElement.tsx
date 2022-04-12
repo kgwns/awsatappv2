@@ -13,12 +13,13 @@ export const WidgetHeaderElement = ({
     labelType = LabelTypeProp.p5,
     clickable = false,
     onPress,
+    elementContainerStyle
 }: HeaderElementProps) => {
     return (
         <TouchableOpacity disabled={!clickable} activeOpacity={0.8}
             onPress={onPress}
             testID={atomTestID.widgetHeaderButton}
-            style={widgetHeaderStyle.headerElementContainer}>
+            style={StyleSheet.flatten([widgetHeaderStyle.headerElementContainer, elementContainerStyle])}>
             <Label children={title} color={color} labelType={labelType} />
             {icon &&
                 icon()

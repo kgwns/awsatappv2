@@ -17,7 +17,7 @@ import {
 import {ScreensConstants} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {LabelTypeProp, LoadingState} from 'src/components/atoms';
+import {Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';
 import { useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { useTranslation } from 'react-i18next';
@@ -238,46 +238,75 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       { videoUrl: item.field_mp4_link_export, nid: item.nid })
   }
 
+  const renderArticleStory = () => {
+    return <>
+      {isNonEmptyArray(heroListDataInfo) && heroListDataInfo[1] && (
+        <View style={style.sectionStoryContainer}>
+          <SectionArticleItem
+            headerTitle={heroListDataInfo[1].title}
+            body={decodeHTMLTags(heroListDataInfo[1].body)}
+            image={getImageUrl(heroListDataInfo[1].field_image)}
+            imageStyle={style.storyImageStyle}
+            hideFooter={true}
+            nid={heroListDataInfo[1].nid}
+            isBookmarked={heroListDataInfo[1].isBookmarked}
+            onPressBookmark={() => updatedHeroBookmark(1)}
+            showDivider={isTab ? false : true}
+          />
+        </View>
+      )
+      }
+    </>
+  }
+
+  const renderTopArticle = () => {
+    return (
+      <>
+        {isNonEmptyArray(topListDataInfo) && (
+          <ShortArticle
+            data={topListDataInfo}
+            onPress={onPressArticle}
+            labelType={LabelTypeProp.h3}
+            onUpdateBookmark={updateBookmarkInfo}
+            showSignUpPopUp={makeSignUpAlert}
+          />
+        )}
+      </>
+    )
+  }
+
   const renderItem = () => (
     <View style={{backgroundColor: themeData.backgroundColor}}>
       {isNonEmptyArray(heroListDataInfo) && heroListDataInfo[0] && (
         <ImageArticle
           image={getImageUrl(heroListDataInfo[0].field_image)}
           title={heroListDataInfo[0].title}
+          body={heroListDataInfo[0].body}
           containerStyle={isTab ? style.tabletImageStyle : style.imageStyle}
           author={heroListDataInfo[0].author_resource}
           nid={heroListDataInfo[0].nid}
           created={heroListDataInfo[0].created_export.toString()} 
           isBookmarked={heroListDataInfo[0].isBookmarked} 
-          onPressBookmark={()=>updatedHeroBookmark(0)}/>
-      )}
-      {isNonEmptyArray(heroListDataInfo) && heroListDataInfo[1] && (
-        <View
-          style={{paddingTop: normalize(15), paddingHorizontal: normalize(15)}}>
-          <SectionArticleItem
-            headerTitle={heroListDataInfo[1].title}
-            body={decodeHTMLTags(heroListDataInfo[1].body)}
-            image={getImageUrl(heroListDataInfo[1].field_image)}
-            imageStyle={{
-              height: normalize(0.52 * screenWidth),
-              paddingHorizontal: normalize(10),
-            }}
-            hideFooter={true}
-            nid={heroListDataInfo[1].nid}
-            isBookmarked={heroListDataInfo[1].isBookmarked}
-            onPressBookmark={()=>updatedHeroBookmark(1)}
+          onPressBookmark={()=>updatedHeroBookmark(0)}
+          hasTabletLayout={isTab ? true : false}
+          rightContainerStyle={style.footerRightStyle}
           />
-        </View>
       )}
-      {isNonEmptyArray(topListDataInfo) && (
-        <ShortArticle
-          data={topListDataInfo}
-          onPress={onPressArticle}
-          labelType={LabelTypeProp.h3}
-          onUpdateBookmark={updateBookmarkInfo}
-          showSignUpPopUp={makeSignUpAlert}
-        />
-      )}
+      {
+        isTab ? <View style={style.storyAndTopArticle}>
+          <View style={[style.tabWidgetContainer]}>
+            {renderArticleStory()}
+          </View>
+          <View style={style.verticalDivider}/>
+          <View style={style.tabWidgetContainer}>
+            {renderTopArticle()}
+          </View>
+        </View> :
+          <>
+            {renderArticleStory()}
+            {renderTopArticle()}
+          </>
+      }
       <VideoContent data={videolistData} onPress={onVideoItemPress} />
       <NewsFeed
         data={bottomListDataInfo}
@@ -330,6 +359,32 @@ const customStyle = (theme: CustomThemeType) => {
     },
     contentContainer: {
       flex: 1
+    },
+    tabWidgetContainer: {
+      flex: 0.47,
+    },
+    storyImageStyle: {
+      height: isTab ? normalize(189) : 0.52 * screenWidth,
+      paddingHorizontal: normalize(10),
+    },
+    storyAndTopArticle: {
+      flex: 1,
+      flexDirection: 'row',
+      paddingTop: normalize(15),
+      justifyContent: 'space-between',
+      marginHorizontal: normalize(10),
+    },
+    sectionStoryContainer: {
+      paddingTop: isTab ? 0 : normalize(15), 
+      paddingHorizontal: isTab ? 5 : normalize(15)
+    },
+    verticalDivider: {
+      height: '100%',
+      width: 1,
+      backgroundColor: theme.dividerColor,
+    },
+    footerRightStyle: {
+      flex: 0
     }
   });
   return sectionStoryStyle;

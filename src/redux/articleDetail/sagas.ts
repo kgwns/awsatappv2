@@ -4,7 +4,7 @@ import { ArticleDetailSuccessPayload, RelatedArticleDataType, RelatedArticleSucc
 import { requestArticleDetail, requestRelatedArticle } from 'src/services/articleDetailService';
 import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA } from './actionType';
 import { requestArticleDetailFailed, requestArticleDetailSuccess, requestRelatedArticleSuccess } from './action';
-import { isNonEmptyArray } from 'src/shared/utils';
+import { isNonEmptyArray, isTab } from 'src/shared/utils';
 import { getImageUrl } from 'src/shared/utils/utilities';
 
 
@@ -73,7 +73,8 @@ const parseRelatedArticleSuccess = (response: any): RelatedArticleSuccessPayload
   let responseData: RelatedArticleSuccessPayload = {
     relatedArticleData: []
   }
-  responseData.relatedArticleData = formattedData.splice(0, 6)
+  const count = isTab ? 7 : 6
+  responseData.relatedArticleData = formattedData.splice(0, count)
   return responseData
 }
 

@@ -1,6 +1,6 @@
-import { View, StyleSheet, FlatList } from 'react-native'
+import { View, StyleSheet, FlatList, StyleProp, ViewStyle } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { isNonEmptyArray, normalize, screenWidth, timeAgo } from '../../shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenWidth, timeAgo } from '../../shared/utils'
 import { flatListUniqueKey } from '../../constants'
 import { articleFooterProps, ArticleItem } from '../molecules'
 import { ArticleWithOutImageProps } from '../molecules/ArticleWithOutImage'
@@ -23,6 +23,8 @@ export interface ArticleSectionProps {
     showDivider?: boolean,
     showFooterTitle?: boolean,
     isFromFavorites?: boolean
+    numColumns?: number;
+    addStyle?: StyleProp<ViewStyle>
 }
 
 export const articleFooterDataSet: articleFooterProps = {
@@ -46,6 +48,8 @@ const ArticleSection = ({
     showDivider,
     showFooterTitle,
     isFromFavorites = false,
+    numColumns = 1,
+    addStyle
 }: ArticleSectionProps) => {
     const [t] = useTranslation();
     const [articleData,setArticleData] = useState(data)
@@ -69,16 +73,20 @@ const ArticleSection = ({
     const renderItem = (item: articleProps, index: number) => {
         articleFooterDataSet.leftTitle = item.author
         articleFooterDataSet.rightTitle = t(timeAgo(item.created))
+        const canShowDivider = showDivider || isFromFavorites && numColumns == 1 && articleData.length == index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
+        const articleItemStyle =  isTab && articleData.length > 1 ? (numColumns > 1 && index % 2 === 0) ? {marginRight: normalize(20)} : {marginLeft: normalize(20)} : {}
+
         return <ArticleItem {...item} index={index}
             imageStyle={{ height: normalize(187) }}
             footerInfo={articleFooterDataSet}
             onPressBookmark={() => onPressBookmark(index)}
-            showDivider={isFromFavorites? articleData.length == index+1 : showDivider}
+            showDivider={canShowDivider}
             showFooterTitle={showFooterTitle}
+            articleItemStyle={articleItemStyle}
         />
     }
     return (
-        <View style={articleSectionStyle.container}>
+        <View style={[articleSectionStyle.container, addStyle]}>
             <FlatList
                 keyExtractor={(_,index) => index.toString()}
                 listKey={listKey ? listKey : flatListUniqueKey.ARTICLE_SECTION}
@@ -86,6 +94,7 @@ const ArticleSection = ({
                 data={articleData}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
+                numColumns={numColumns}
             />
         </View>
     );
@@ -95,7 +104,7 @@ export default ArticleSection
 
 const articleSectionStyle = StyleSheet.create({
     container: {
-        paddingHorizontal: 0.05 * screenWidth
+        paddingHorizontal: (isTab ? 0 : 0.05) * screenWidth
     },
     listContainer: {
 
