@@ -28,10 +28,11 @@ export interface OpinionArticleDetailWidgetProp {
   fontSize: ArticleFontSize;
   isFollowed: boolean;
   onPressFollow:()=>void;
+  isRelatedArticle: boolean;
 }
 
 export const OpinionArticleDetailWidget = ({
-  data,fontSize,isFollowed,onPressFollow
+  data, fontSize, isFollowed, onPressFollow, isRelatedArticle = false,
 }: OpinionArticleDetailWidgetProp) => {
   const [t] = useTranslation();
   const {themeData} = useTheme();
@@ -112,8 +113,10 @@ export const OpinionArticleDetailWidget = ({
     if (playbackState == State.Playing) {
       await TrackPlayer.stop();
     }
-    Orientation.unlockAllOrientations();
-    Orientation.lockToPortrait();
+    if (!isRelatedArticle) {
+      Orientation.unlockAllOrientations();
+      Orientation.lockToPortrait();
+    }
     navigation.goBack();
   };
 
