@@ -347,6 +347,7 @@ export const LatestNewsScreen = () => {
             <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
             {isNonEmptyArray(podcastHome) && <PodcastWidget data={podcastHome} onPress={onListenPodcast} />}
           </View>
+          <View style={latestNewsScreenStyle.verticalDivider}/>
           <View style={latestNewsScreenStyle.tabWidgetContainer}>
             <ShortArticle data={topListData} onPress={onPressArticle}
               onUpdateBookmark={updateBookmarkInfo}
@@ -428,10 +429,12 @@ const customStyle = (theme: CustomThemeType) => {
     tabSplitter: {
       flex: 1,
       flexDirection: 'row',
-      paddingTop: normalize(40)
+      paddingTop: normalize(40),
+      justifyContent: 'space-between',
+      marginHorizontal: normalize(15),
     },
     tabWidgetContainer: {
-      flex: 0.5
+      flex: 0.47
     },
     dividerTop: {
       borderColor: Styles.color.gableGreen,
@@ -450,6 +453,11 @@ const customStyle = (theme: CustomThemeType) => {
     podcastDivider: {
       width: '100%',
       height: normalize(20),
+    },
+    verticalDivider: {
+      height: '100%',
+      width: 1,
+      backgroundColor: theme.dividerColor,
     }
   })
 }

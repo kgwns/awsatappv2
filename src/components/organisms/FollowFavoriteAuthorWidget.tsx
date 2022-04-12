@@ -6,6 +6,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {FollowFavoriteAuthor} from 'src/components/molecules';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { isIOS } from 'src/shared/utils';
+import { getImageUrl } from 'src/shared/utils/utilities';
 
 const FollowFavoriteAuthorWidget = (props: any) => {
   const data = props.writersData;
@@ -17,7 +18,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
       <FollowFavoriteAuthor
         authorName={item.name}
         // authorDescription={item.authorDescription}
-        authorImage={item.field_opinion_writer_photo_export}
+        authorImage={getImageUrl(item.field_opinion_writer_photo_export) }
         isSelected={item.isSelected}
         onPress={selected => props.changeSelectedStatus(item, selected)}
       />

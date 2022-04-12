@@ -1,7 +1,7 @@
 import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import React from 'react';
 import {Image} from '../atoms/image/Image';
-import {normalize, screenWidth} from '../../shared/utils';
+import {isTab, normalize, screenWidth} from '../../shared/utils';
 import {Styles} from '../../shared/styles';
 import {TextWithFlag, Divider, Label, LabelTypeProp} from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
@@ -52,53 +52,80 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
     }
   };
 
+  const renderArticleFooter = (item: NewsViewListItemType) => {
+    return (
+      <View>
+        <SectionVideoFooter
+          leftTitle={item.author_resource}
+          rightTitle={calculateYear(item.created_export) + ','}
+          leftTitleColor={theme.themeData.primary}
+          rightIcon={() => <CalendarIcon />}
+          rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString()}
+          rightDateColor={Styles.color.smokeyGrey}
+          rightTitleColor={Styles.color.smokeyGrey}
+          addBookMark={true}
+          isBookmarked={item.isBookmarked}
+          onPressBookmark={() => { onUpdateNewsFeedBookmark(index) }}
+        />
+      </View>
+    )
+  }
+
+  const renderArticleImage = (item: NewsViewListItemType) => (
+    <View style={isTab ? style.tabImageContainer : style.imageContainer}>
+      <Image
+        url={getImageUrl(item.field_image)}
+        fallback
+        style={style.image}
+        resizeMode={ImageResize.COVER}
+      />
+    </View>
+  )
+
+  const renderTitle = (title: string) => (
+    <TextWithFlag
+      title={title}
+      titleColor={theme.themeData.primaryBlack}
+      numberOfLines={2}
+      labelType={LabelTypeProp.h2}
+    />
+  )
+
+  const renderDescription = (body: string) => (
+    <Label
+      style={style.descriptionStyle}
+      children={decodeHTMLTags(body)}
+      numberOfLines={3}
+    />
+  )
+
   const renderItem = (item: NewsViewListItemType, index: number) => {
     return (
       <View key={flatListUniqueKey.NEWS_FEED + index}>
         <TouchableWithoutFeedback onPress={() => onPress(item.nid)}>
-          <View style={{flexDirection: 'row'}}>
-            <View
-              style={{
-                flex: 1,
-                paddingRight: normalize(15),
-                top: normalize(10),
-              }}>
-              <TextWithFlag
-                title={item.title}
-                titleColor={theme.themeData.primaryBlack}
-                numberOfLines={2}
-                labelType={LabelTypeProp.h2}
-              />
-            </View>
-            <View style={style.imageContainer}>
-              <Image
-                url={getImageUrl(item.field_image)}
-                fallback
-                style={style.image}
-                resizeMode={ImageResize.COVER}
-              />
-            </View>
-          </View>
-          <Label
-            style={style.descriptionStyle}
-            children={decodeHTMLTags(item.body)}
-            numberOfLines={3}
-          />
+          {
+            isTab ?
+              <View style={style.tabSplitter}>
+                <View style={style.tabLeftContainer}>
+                  {renderTitle(item.title)}
+                  {renderDescription(item.body)}
+                  {renderArticleFooter(item)}
+                </View>
+                {renderArticleImage(item)}
+              </View>
+              :
+              <>
+                <View style={{ flexDirection: 'row' }}>
+                  <View style={style.titleContainer}>
+                    {renderTitle(item.title)}
+                  </View>
+                  {renderArticleImage(item)}
+                </View>
+                {renderDescription(item.body)}
+                {renderArticleFooter(item)}
+              </>
+          }
         </TouchableWithoutFeedback>
-        <View>
-          <SectionVideoFooter
-            leftTitle={item.author_resource}
-            rightTitle={calculateYear(item.created_export)+ ','}
-            leftTitleColor={theme.themeData.primary}
-            rightIcon={() => <CalendarIcon />}
-            rightDate={calculateMonth(item.created_export) +' '+ calculateDate(item.created_export).toString()}
-            rightDateColor={Styles.color.smokeyGrey}
-            rightTitleColor={Styles.color.smokeyGrey}
-            addBookMark={true}
-            isBookmarked={item.isBookmarked}
-            onPressBookmark={()=>{onUpdateNewsFeedBookmark(index)}}
-          />
-        </View>
         <Divider style={style.divider}/>
         {isLoading && data.length - 1 == index && (
           <View style={{margin: normalize(28)}}>
@@ -163,8 +190,26 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     height: 73,
     marginTop:20
   },
+  tabImageContainer: {
+    width: 153,
+    height: 125
+  },
   image: {
     width: "100%",
     height: "100%",
+  },
+  titleContainer: {
+    flex: 1,
+    paddingRight: normalize(15),
+    top: normalize(10),
+  },
+  tabSplitter: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingTop: normalize(15),
+  },
+  tabLeftContainer: {
+    flex: 1,
+    paddingRight: normalize(30),
   },
 });

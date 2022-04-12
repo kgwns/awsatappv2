@@ -5,7 +5,7 @@ import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label } fr
 import { shortArticleWithTagProperties } from 'src/constants/SampleData';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { screenHeight, screenWidth } from 'src/shared/utils';
+import { isTab, screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
 import { getImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
@@ -57,6 +57,7 @@ export const ContentForYou = () => {
             title: t('favorite.articles_that_interest_you'),
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
+            elementContainerStyle: {paddingHorizontal: 0}
         },
     };
     const navigation = useNavigation<StackNavigationProp<any>>()
@@ -195,7 +196,7 @@ export const ContentForYou = () => {
     const fetchOpinionData =(authorsList:any, pageCount: number) => {
         let opinionBody : FavouriteOpinionsBodyGet = {
             page: pageCount,
-            items_per_page: 3,
+            items_per_page: isTab ? 4 : 3,
             authorsList: authorsList
         }
         fetchFavouriteOpinionsRequest(opinionBody)
@@ -268,6 +269,8 @@ export const ContentForYou = () => {
                 showFooterTitle={false}
                 isFromFavorites={true}
                 onUpdateBookmark={updateBookmarkInfo}
+                numColumns={isTab ? 2 : 1}
+                addStyle={styles.articleContainer}
             />}
             {isNonEmptyArray(item.shortArticleData.data)&& <ShortArticle
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'shortArticle'+index}
@@ -275,6 +278,11 @@ export const ContentForYou = () => {
                 onPress={onPressArticle}
                 onUpdateBookmark={updateBookmarkInfo}
                 showSignUpPopUp={() => {}}
+                addStyle={styles.topArticleContainer}
+                showBody={isTab ? true : false}
+                leftContainerStyle={isTab ? {flex: 1} : {}}
+                imageStyleProp={isTab ? styles.topArticleImage : {}}
+                
             />}
         </View>
     )
@@ -355,5 +363,16 @@ const customStyles = (theme: CustomThemeType) => StyleSheet.create({
     articleWidgetHeader: {
         paddingHorizontal: 0.04 * screenWidth,
         backgroundColor: theme.backgroundColor
-    }
+    },
+    articleContainer: {
+        paddingHorizontal: (isTab ? 0.02 : 0.05) * screenWidth
+    },
+    topArticleContainer: {
+        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth
+    },
+    topArticleImage: {
+        flex: 0,
+        width: 153,
+        height: 125
+    },
 })

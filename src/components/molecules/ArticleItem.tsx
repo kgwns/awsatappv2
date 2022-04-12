@@ -34,7 +34,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
-                style={StyleSheet.flatten([{ paddingBottom: normalize(25) }, articleItemStyle])}>
+                style={StyleSheet.flatten([style.container, articleItemStyle])}>
                 {isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
                 <View style={style.contentContainer}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
@@ -51,5 +51,9 @@ export default ArticleItem;
 const style = StyleSheet.create({
     contentContainer: {
         paddingTop: isTab ? normalize(15) : normalize(10)
+    },
+    container: {
+        paddingBottom: normalize(25),
+        flex: 1
     }
 })

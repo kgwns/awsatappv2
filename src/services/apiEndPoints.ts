@@ -19,7 +19,7 @@ export const PODCAST_HOME = '/api/v2/podcasthome';
 
 //opinion tab in category section
 //writer list
-export const OPINION_TAB_WRITER_ENDPOINT = '/api/v2/sections/writer';
+export const OPINION_TAB_WRITER_ENDPOINT = '/api/v2/applist/authors';
 
 //opinion tab in category section
 //opinions list
@@ -40,14 +40,14 @@ export const SECTION_ARTICLES = '/api/v2/articlesection'
 export const NEWS_VIEW_ENDPOINT = '/api/v2/articlesection';
 
 //all writers list
-export const ALL_WRITERS_ENDPOINT = '/api/v2/sections/writer';
+export const ALL_WRITERS_ENDPOINT = '/api/v2/applist/authors';
 export const SEND_SELECTED_WRITERS_ENDPOINT = 'api/ums/v1/addFavoriteAuthor?tid=';
 export const GET_SELECTED_AUTHORS_ENDPOINT = 'api/ums/v1/getFavoriteAuthor';
 export const REMOVE_WRITERS_ENDPOINT = 'api/ums/v1/removeFavoriteAuthor?tid=';
 
 
 //all site categories
-export const ALL_SITE_CATEGORIES_ENDPOINT = "/api/v2/sections/news_categories";
+export const ALL_SITE_CATEGORIES_ENDPOINT = "/api/v2/applist/sections";
 export const GET_SELECTED_TOPICS_ENDPOINT = 'api/ums/v1/getFavoriteTopics';
 
 export const INFO = '/api/v2/info/'

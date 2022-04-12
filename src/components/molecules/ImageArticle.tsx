@@ -1,15 +1,17 @@
 import React from 'react'
-import { View, StyleSheet, ViewStyle, TouchableWithoutFeedback } from 'react-native'
+import { View, StyleSheet, ViewStyle, TouchableWithoutFeedback, StyleProp } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from '../molecules'
 import { BannerImageWithOverlay, Label, LabelTypeProp } from '../atoms'
 import { articleFooterProps, BookMarkColorType } from '../molecules/articleFooter/ArticleFooter'
-import { normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isNotEmpty, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from '../atoms'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ScreensConstants } from 'src/constants'
 import { getSvgImages } from 'src/shared/styles/svgImages'
+import { useTheme } from 'src/shared/styles/ThemeProvider'
+import { decodeHTMLTags } from 'src/shared/utils/utilities'
 
 const carouselFooterSample: articleFooterProps = {
     leftTitleColor: Styles.color.white,
@@ -19,7 +21,8 @@ const carouselFooterSample: articleFooterProps = {
         style: { marginRight: normalize(5) }
     })},
     rightTitleColor: Styles.color.silverChalice,
-    bookMarkColorType: BookMarkColorType.WHITE
+    bookMarkColorType: BookMarkColorType.WHITE,
+    leftTitleStyle: { fontWeight: 'bold' }
 }
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
@@ -30,13 +33,30 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     created: string,
     isBookmarked: boolean
     onPressBookmark: () => void,
-    isTabFooterInside?: boolean,
+    isTabFooterInside?: boolean;
+    body?: string;
+    hasTabletLayout: boolean
+    rightContainerStyle?: StyleProp<ViewStyle>
 }
 
 const ImageArticle = ({
-    image, title, containerStyle, nid, author, created,isBookmarked,onPressBookmark, isTabFooterInside=true
+    image,
+    title,
+    containerStyle,
+    nid,
+    author,
+    created,
+    isBookmarked,
+    onPressBookmark,
+    isTabFooterInside = true,
+    body,
+    hasTabletLayout = false,
+    rightContainerStyle
 }: ImageArticleProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
+
+    const { themeData } = useTheme()
+
     const onPress = () => {
         if (nid) {
             navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
@@ -48,7 +68,7 @@ const ImageArticle = ({
             <View>
                 <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
                     <BannerImageWithOverlay image={image} />
-                    <View style={imageArticleStyle.slideContent}>
+                    {!hasTabletLayout && <View style={imageArticleStyle.slideContent}>
                         <Label labelType={LabelTypeProp.h1} children={title} color={Styles.color.white} />
                         {isTabFooterInside &&
                             <View style={imageArticleStyle.footerContainer}>
@@ -59,14 +79,38 @@ const ImageArticle = ({
                             </View>
                         }
                     </View>
+                    }
                 </View>
-                {!isTabFooterInside&&<View style={imageArticleStyle.tabletFooterStyle}>
-                    <View style={imageArticleStyle.footerContent}>
-                        <ArticleFooter {...carouselFooterSample} leftTitle={author} rightTitle={timeAgo(created)}
+                {!hasTabletLayout && !isTabFooterInside &&
+                    <View style={imageArticleStyle.tabletFooterStyle}>
+                        <View style={imageArticleStyle.footerContent}>
+                            <ArticleFooter {...carouselFooterSample} leftTitle={author}
+                                rightTitle={timeAgo(created)}
+                                isBookmarked={isBookmarked}
+                                onPress={onPressBookmark}
+                                leftTitleColor={Styles.color.greenishBlue}
+                                bookMarkColorType={BookMarkColorType.BLACK}
+                            />
+                        </View>
+                    </View>
+                }
+                {hasTabletLayout && <View style={imageArticleStyle.tabArticleContent}>
+                    <View style={imageArticleStyle.tabTitleContainer}>
+                        <Label labelType={LabelTypeProp.h1} children={title} color={themeData.primaryBlack} />
+                    </View>
+                    {isNotEmpty(body) &&
+                        <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)}
+                            color={Styles.color.davyGrey} numberOfLines={2} />
+                    }
+                    <View style={imageArticleStyle.tabFooterContainer}>
+                        <ArticleFooter {...carouselFooterSample}
+                            leftTitle={author} rightTitle={timeAgo(created)}
                             isBookmarked={isBookmarked}
                             onPress={onPressBookmark}
                             leftTitleColor={Styles.color.greenishBlue}
+                            rightTitleColor={Styles.color.silverChalice}
                             bookMarkColorType={BookMarkColorType.BLACK}
+                            rightContainerStyle={rightContainerStyle}
                         />
                     </View>
                 </View>}
@@ -105,5 +149,20 @@ const imageArticleStyle = StyleSheet.create({
   },
   footerContainer: {
     paddingTop: normalize(20)
+  },
+  tabArticleContent: {
+    paddingVertical: normalize(20),
+    marginHorizontal: 0.02 * screenWidth,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  tabTitleContainer: {
+    paddingBottom: normalize(10)
+  },
+  tabFooterContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent:'center',
+    paddingTop: normalize(10),
   }
 });
