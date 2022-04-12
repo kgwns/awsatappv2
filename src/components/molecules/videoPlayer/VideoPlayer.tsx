@@ -2,7 +2,7 @@ import React, {FunctionComponent, useRef, useState, useEffect} from 'react';
 import {View, StyleSheet, BackHandler, StatusBar} from 'react-native';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors} from 'src/shared/styles/colors';
-import Orientation from 'react-native-orientation-locker';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { Edge } from 'react-native-safe-area-context';
 import { horizontalEdge } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
@@ -27,6 +27,31 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
   const navigation = useNavigation();
+  const [getOrientation, setOrientation] = useState('')
+  
+  useEffect(() => {
+    Orientation.getDeviceOrientation(updateScreenEdge)
+    Orientation.addDeviceOrientationListener(updateScreenEdge)
+    return () => {
+      Orientation.removeOrientationListener(updateScreenEdge)
+    }
+  }, [])
+
+  const updateScreenEdge = (deviceOrientation: OrientationType) => {
+    Orientation.unlockAllOrientations();
+    switch (deviceOrientation) {
+      case 'LANDSCAPE-LEFT':
+        setOrientation('LANDSCAPE')
+        break
+      case 'LANDSCAPE-RIGHT':
+        setOrientation('LANDSCAPE')
+        break
+      default:
+        setOrientation('PORTRAIT')
+        break
+    }
+  } 
+
 
   const goBackToScreen = () =>{
     if(goBack){
@@ -71,6 +96,22 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
     setIsLoading(false);
   };
 
+  const onEnterFullscreen = () => {
+    Orientation.getDeviceOrientation(deviceOrientation => {
+      if (deviceOrientation === 'PORTRAIT') {
+        Orientation.lockToLandscape();
+      }
+    })
+  };
+
+  const onExitFullscreen = () => {
+    Orientation.getDeviceOrientation(deviceOrientation => {
+      if (deviceOrientation === 'LANDSCAPE-LEFT' || 'LANDSCAPE_RIGHT') {
+        Orientation.lockToPortrait();
+      }
+    })
+  };
+
   return (
     <ScreenContainer barStyle={'light-content'} statusbarColor={colors.black} edge={edge} >
       <View style={styles.container} >
@@ -88,6 +129,8 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
           paused={isPaused}
           navigator={navigation}
           onBack={goBackToScreen}
+          onEnterFullscreen={onEnterFullscreen}
+          onExitFullscreen={onExitFullscreen}
         />
       </View>
     </ScreenContainer>
