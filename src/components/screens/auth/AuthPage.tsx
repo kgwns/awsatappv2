@@ -99,6 +99,7 @@ export const AuthPage: FunctionComponent = () => {
         navigation.navigate(ScreensConstants.SignUpPage, {email: email});
       }
     }
+    emptyEmailCheckInfo();
   }, [emailCheckData]);
 
   const showAlertNoInternet = () => {

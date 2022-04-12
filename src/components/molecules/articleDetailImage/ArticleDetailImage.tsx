@@ -15,18 +15,23 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     title?: string,
     containerStyle?: ViewStyle,
     author: string,
-    created: string
+    created: string,
+    isRelatedArticle: boolean,
 }
 const ArticleDetailImage = ({
-    image, ...props
+    image,
+    isRelatedArticle,
+    ...props
 }: ImageArticleProps) => {
     const navigation = useNavigation()
 
     const CONST_RETURN = TranslateConstants({key: TranslateKey.RETURN})
 
     const onPressBack = () => {
-        Orientation.unlockAllOrientations()
-        Orientation.lockToPortrait()
+        if (!isRelatedArticle) {
+            Orientation.unlockAllOrientations()
+            Orientation.lockToPortrait()
+        }
         navigation.goBack()
     }
 

@@ -70,8 +70,10 @@ export const OpinionArticleDetail = ({
       setOpinionArticle([]);
       emptyRelatedOpinionData();
       emptyOpinionArticleData();
-      Orientation.lockToPortrait();
-      // Orientation.removeOrientationListener(updateScreenEdge);
+      if (!route.params.isRelatedArticle) {
+        Orientation.lockToPortrait();
+        // Orientation.removeOrientationListener(updateScreenEdge);
+      }
     };
   }, []);
 
@@ -198,7 +200,7 @@ export const OpinionArticleDetail = ({
 
   const onPressRelatedOpinion = (nid: string) => {
     if (nid && nid!=currentNId) {
-      navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid })
+      navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
     }
   }
 
@@ -229,7 +231,8 @@ export const OpinionArticleDetail = ({
       {isNonEmptyArray(opinionArticle) && (
         <OpinionArticleDetailWidget
           data={opinionArticle[0]} fontSize={fontSize}
-          isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)} />
+          isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
+          isRelatedArticle={route.params.isRelatedArticle} />
       )}
       {isNonEmptyArray(relatedOpinionData) && (
         <RelatedOpinionArticlesWidget data={relatedOpinionData}
