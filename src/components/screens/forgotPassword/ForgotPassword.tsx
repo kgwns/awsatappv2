@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
 import { View, StyleSheet, TouchableOpacity, AppState } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
-import { normalize } from '../../../shared/utils';
+import { CustomAlert, normalize } from '../../../shared/utils';
 import { Label } from '../../atoms';
 import { ScreensConstants } from 'src/constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -65,8 +65,12 @@ export const ForgotPassword: FunctionComponent = () => {
   const onPressBack = () => {
     navigation.goBack();
   }
-  const onPressGoToMail = () => {
-    openInbox();
+  const onPressGoToMail = async () => {
+    try {
+      await openInbox();
+    } catch (error) {
+      CustomAlert({ message: JSON.stringify(error) })
+    }
   }
   
   const onPressSkip = () => {
@@ -104,11 +108,9 @@ export const ForgotPassword: FunctionComponent = () => {
               style={styles.instructionTextStyle}
               numberOfLines={2}
             />
-            <TouchableOpacity onPress={onPressGoToMail}>
-              <View style={styles.buttonBackgroundStyle}>
+            <TouchableOpacity style={styles.buttonBackgroundStyle} onPress={onPressGoToMail}>
                 <Label style={styles.buttonLabelStyle}
                   children={t('ForgotPassword.openMailApp')} />
-              </View>
             </TouchableOpacity>
 
             <View style={styles.skipViewStyle}>
@@ -144,7 +146,8 @@ export const ForgotPassword: FunctionComponent = () => {
           <Label
             children={t('signIn.rights')}
             labelType="p5"
-            color={themeData.textColor}
+            color={themeData.signinRightsColor}
+            style={styles.rightsStyle}
           />
         </View>
       </View>
@@ -184,7 +187,6 @@ const createStyles = (theme: CustomThemeType) =>
     footerLabelContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
-      marginTop: normalize(15),
     },
     logo: {
       width: normalize(150),
@@ -210,7 +212,7 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: normalize(25),
       textAlign: 'center',
       top: normalize(10),
-      width: normalize(300)
+      width: normalize(302)
     },
     returnStyle: {
       flexDirection: 'row',
@@ -255,7 +257,7 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'center',
     },
     skipViewStyle: {
-      borderBottomWidth: .4,
+      borderBottomWidth: 1,
       borderBottomColor: colors.greenishBlue,
       top: normalize(80)
     
@@ -265,5 +267,8 @@ const createStyles = (theme: CustomThemeType) =>
       height: normalize(200),
       marginVertical: '10%',
       alignSelf: 'center'
+    },
+    rightsStyle: {
+      fontSize: normalize(12),
     }
   })

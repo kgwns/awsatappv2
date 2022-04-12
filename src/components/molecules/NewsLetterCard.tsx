@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -11,6 +11,7 @@ import {useTranslation} from 'react-i18next';
 export interface NewsLetterCardProps {
   title: string;
   subTitle: string;
+  description: string;
   image: any;
   isSelected: boolean;
   onPress: (isSelected: boolean) => void;
@@ -20,6 +21,7 @@ export const NewsLetterCard = ({
   subTitle,
   image,
   isSelected,
+  description,
   onPress,
 }: NewsLetterCardProps) => {
   const style = useThemeAwareObject(customStyle);
@@ -32,6 +34,10 @@ export const NewsLetterCard = ({
     setSelected(!selected)
   };
 
+  useEffect(()=>{
+    setSelected(isSelected)
+  },[isSelected])
+
   return (
     <TouchableOpacity
       testID={'CardTestId'}
@@ -39,14 +45,14 @@ export const NewsLetterCard = ({
         style.container,
         {
           backgroundColor: selected
-            ? theme.themeData.secondaryGreen
+            ? theme.themeData.newsletterHighlighter
             : theme.themeData.lightRed,
         },
       ]}
       onPress={changeStatus}>
       <View style={style.imageContainer}>
         <Image
-        name={image}
+        url={image}
         style={style.image}
         />
       </View>
@@ -54,15 +60,7 @@ export const NewsLetterCard = ({
         <Label style={style.title}>{title}</Label>
         <Label style={style.subTitle}>{subTitle}</Label>
         <View style={style.footerContent}>
-          <View
-            style={[
-              style.circleShape,
-              {
-                backgroundColor: selected
-                  ? theme.themeData.secondaryWhite
-                  : theme.themeData.secondaryGreen,
-              },
-            ]}>
+          <View style={style.circleShape}>
             <View>
               {selected
                 ? getSvgImages({
@@ -76,12 +74,14 @@ export const NewsLetterCard = ({
                   })}
             </View>
           </View>
-          <Label
-            style={selected ? style.statusSelectedLabel : style.statusLabel}>
-            {selected
+          <View style={style.labelContainer} >
+            <Label
+              style={selected ? style.statusSelectedLabel : style.statusLabel} numberOfLines={1}>
+              {selected
               ? t('onBoard.newsLetter.subscribed')
               : t('onBoard.newsLetter.notSubscribed')}
-          </Label>
+            </Label>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -100,13 +100,14 @@ const customStyle = (theme: CustomThemeType) => {
     imageContainer: {
       height: '100%',
       justifyContent: 'center',
-      marginEnd: normalize(0.04 * screenWidth),
+      marginHorizontal: normalize(15),
     },
     image: {
       width: normalize(107),
       height: normalize(85),
     },
     contentContainer: {
+      flex: 1,
       height: normalize(85),
       alignItems: 'flex-start',
       marginTop: 2,
@@ -124,8 +125,8 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: normalize(5),
     },
     footerContent: {
+      flex: 1,
       flexDirection: 'row',
-      alignItems: 'center',
       marginTop: normalize(15),
     },
     circleShape: {
@@ -134,6 +135,7 @@ const customStyle = (theme: CustomThemeType) => {
       borderRadius: normalize(30 / 2),
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: theme.secondaryWhite,
     },
     statusLabel: {
       fontSize: normalize(12),
@@ -145,9 +147,15 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(12),
       color: theme.primary,
       lineHeight: normalize(14),
-      marginStart: normalize(5),
+      marginStart: normalize(8),
       fontWeight: 'bold',
     },
+    labelContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      marginRight: normalize(3),
+    }
   });
   return NewsLetterCardStyle;
 };

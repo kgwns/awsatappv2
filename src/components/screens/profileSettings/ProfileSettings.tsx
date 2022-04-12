@@ -96,7 +96,7 @@ export const ProfileSettings = () => {
   ]
 
   const { fetchLogoutRequest } = useLogin();
-  const { userProfileData } = useUserProfileData();
+  const { userProfileData,emptyUserProfileInfoData } = useUserProfileData();
   const { emptySelectedTopicsInfoData } = useAllSiteCategories();
   const { emptySelectedAuthorsInfoData } = useAllWriters();
 
@@ -120,6 +120,7 @@ export const ProfileSettings = () => {
     fetchLogoutRequest();
     removeBookmark()
     removeKeepNotificationInfo()
+    emptyUserProfileInfoData();
     emptySelectedTopicsInfoData()
     emptySelectedAuthorsInfoData()
     navigation.reset({
@@ -134,17 +135,7 @@ export const ProfileSettings = () => {
           <TouchableOpacity activeOpacity={0.8} disabled={disableClick} key={index} onPress={() => onPressGoNext(item)}>
               <View style={style.itemContainer}>
                   <View style={style.itemLeftContainer}>
-                      <ButtonImage
-                          icon={() => {
-                              return getSvgImages({
-                                  name: item.iconName,
-                                  size: normalize(18),
-                              });
-                          }}
-                          onPress={() => {
-
-                          }}
-                      />
+                      <DynamicIcon iconName={item.iconName} />
                       <Label
                           children={item.title}
                           style={style.label}
@@ -172,18 +163,26 @@ export const ProfileSettings = () => {
           return null;
       }
 
-      return (
-          <ButtonImage
-              icon={() => {
-                  return getSvgImages({
-                      name: ImagesName.arrowLeftGrey,
-                      size: normalize(10),
-                  });
-              }}
-              onPress={() => { }}
-          />
-      );
+      return <ArrowIcon />
   };
+
+    const ArrowIcon = () => (
+        <>
+            {getSvgImages({
+                name: ImagesName.arrowLeftGrey,
+                size: normalize(10),
+            })}
+        </>
+    )
+
+    const DynamicIcon = ({iconName}: {iconName: ImagesName}) => (
+        <>
+            {getSvgImages({
+                name: iconName,
+                size: normalize(18),
+            })}
+        </>
+    )
 
   const welcomeView = () => (
       <Text style={style.title}>

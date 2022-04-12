@@ -4,7 +4,7 @@ import { flatListUniqueKey, ScreensConstants } from 'src/constants'
 import { ImageWithLabel } from '../atoms'
 import { articleProps } from '../organisms'
 import { ArticleWithOutImage } from '../molecules'
-import { isNotEmpty, normalize } from 'src/shared/utils'
+import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -34,14 +34,22 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
-                style={StyleSheet.flatten([{ paddingBottom: normalize(20) }, articleItemStyle])}>
+                style={StyleSheet.flatten([{ paddingBottom: normalize(25) }, articleItemStyle])}>
                 {isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
-                <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
-                   onPressBookmark={onPressBookmark}
-                />
+                <View style={style.contentContainer}>
+                    <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
+                        onPressBookmark={onPressBookmark}
+                    />
+                </View>
             </View>
         </TouchableWithoutFeedback>
     )
 }
 
 export default ArticleItem;
+
+const style = StyleSheet.create({
+    contentContainer: {
+        paddingTop: isTab ? normalize(15) : normalize(10)
+    }
+})

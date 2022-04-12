@@ -25,6 +25,7 @@ import {
   GET_SELECTED_TOPICS_SUCCESS,
   GET_SELECTED_TOPICS_ERROR,
   EMPTY_SELECTED_TOPICS_INFO,
+  EMPTY_SEND_TOPICS_INFO,
 } from 'src/redux/allSiteCategories/actionTypes';
 
 export const fetchAllSiteCategories = (payload: AllSiteCategoriesBodyGet) => {
@@ -107,6 +108,12 @@ export const emptySelectedTopicsInfo = () => {
   };
 };
 
+export const emptySendTopicsInfo = () => {
+  return {
+    type: EMPTY_SEND_TOPICS_INFO
+  };
+}
+
 export const allSiteCategoriesActions = {
   fetchAllSiteCategories,
   fetchAllSiteCategoriesSuccess,
@@ -118,4 +125,5 @@ export const allSiteCategoriesActions = {
   getSelectedTopicsSuccess,
   getSelectedTopicsFailed,
   emptySelectedTopicsInfo,
+  emptySendTopicsInfo
 };

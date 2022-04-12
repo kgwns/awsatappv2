@@ -26,11 +26,16 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
             <Image url={data.field_podcast_sect_export.img_podcast_mobile} style={styles.imageStyle} />
             <View style={styles.containerSpace} />
             <Label style={styles.textStyle} children={data.title} />
-            <View style={styles.containerSpace} />
-            <Label style={styles.announcerTextStyle} children={data.field_podcast_sect_export.name} />
-            <View style={styles.containerSpace} />
-            <Label style={styles.descriptionTextStyle} children={data.body_export} />
-            <View style={styles.containerSpace} />
+            {data.field_podcast_sect_export?.name&&
+              <View style={styles.containerSpace} >
+                <Label style={styles.announcerTextStyle} children={data.field_podcast_sect_export.name} />
+              </View>
+            }
+            {data.body_export&&
+              <View style={styles.containerSpace} >
+                <Label style={styles.descriptionTextStyle} children={data.body_export} />
+              </View>
+            }
           </View>
 
           <View style={styles.rowContainerStyle}>

@@ -29,6 +29,7 @@ export const storeInfo = [
   {
     appCommon: {
       theme: Theme.LIGHT,
+      isAppFirstSession: true
     },
     home: {
       isLoading: false,
@@ -47,6 +48,7 @@ export const storeInfo = [
       sectionComboTwo: [],
       sectionComboThree: [],
       sectionComboFour: [],
+      podcastHome: [],
     },
     articleDetail: {
       isLoading: true,
@@ -74,6 +76,9 @@ export const storeInfo = [
       opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
       isLoading: false,
+      writerOpinionLoading: true,
+      writerOpinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+      writerOpinionError: ''
     },
     sideMenu: {
       sideMenuData: [],
@@ -106,13 +111,15 @@ export const storeInfo = [
       allWritersData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
       isLoading: false,
-      sendAuthorInfo: {}
+      sendAuthorInfo: {},
+      selectedAuthorsData:{},
     },
     allSiteCategories: {
       allSiteCategoriesData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
       isLoading: false,
-      sendTopicInfo: {}
+      sendTopicInfo: {},
+      selectedTopicsData: {},
     },
     termsAndAboutUs: {
       isLoading: true,
@@ -120,9 +127,10 @@ export const storeInfo = [
       error: ''
     },
     register:{
+      userInfo: null,
+      error: '',
       isLoading: false,
-      userInfo: {},
-      error: ''
+      socialLoginInProgress: false,
     },
     topMenu: {
       topMenuData: [],
@@ -136,6 +144,7 @@ export const storeInfo = [
       isLoadingRelatedOpinion:true,
       relatedOpinionError: '',
       relatedOpinionListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
+      mediaData:{}
     },
     bookmark:{
       isLoading: true,
@@ -152,6 +161,9 @@ export const storeInfo = [
       isLoading: false,
       sendNewsLettersInfo: {},
       selectedNewsLettersData: {},
+      isMyNewsLoading: false,
+      myNewsError: '',
+      myNewsLetters: {}
     },
     keepNotified: {
       isLoading: true,
@@ -205,6 +217,16 @@ export const storeInfo = [
       error: '',
       isLoading: false,
       actionType: '',
+    },
+    writerDetail: {
+      writersDetail: [],
+      error: 'error',
+      isLoading: true,
+    },
+    videoList: {
+      videoData: [],
+      error: '',
+      isLoading: false,
     }
   },
 ];

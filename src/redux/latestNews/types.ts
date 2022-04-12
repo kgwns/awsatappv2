@@ -1,5 +1,30 @@
-import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS, REQUEST_TICKER_HERO_DATA_FAILED, REQUEST_HERO_AND_TOP_LIST_DATA, REQUEST_HERO_AND_TOP_LIST_SUCCESS, REQUEST_HERO_AND_TOP_LIST_FAILED, REQUEST_SECTION_COMBO_ONE, REQUEST_SECTION_COMBO_ONE_SUCCESS, REQUEST_SECTION_COMBO_ONE_FAILED, REQUEST_SECTION_COMBO_TWO_SUCCESS, REQUEST_SECTION_COMBO_TWO_FAILED, REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE_FAILED, REQUEST_SECTION_COMBO_FOUR_SUCCESS, REQUEST_SECTION_COMBO_FOUR_FAILED, REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_THREE, REQUEST_SECTION_COMBO_FOUR, REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_DATA_LIST_FAILED, REQUEST_OPINION_LIST_DATA  } from "./actionType"
-
+import { 
+  REQUEST_TICKER_HERO_DATA,
+  REQUEST_TICKER_HERO_DATA_SUCCESS,
+  REQUEST_TICKER_HERO_DATA_FAILED,
+  REQUEST_HERO_AND_TOP_LIST_DATA,
+  REQUEST_HERO_AND_TOP_LIST_SUCCESS,
+  REQUEST_HERO_AND_TOP_LIST_FAILED,
+  REQUEST_SECTION_COMBO_ONE,
+  REQUEST_SECTION_COMBO_ONE_SUCCESS,
+  REQUEST_SECTION_COMBO_ONE_FAILED,
+  REQUEST_SECTION_COMBO_TWO_SUCCESS,
+  REQUEST_SECTION_COMBO_TWO_FAILED,
+  REQUEST_SECTION_COMBO_THREE_SUCCESS,
+  REQUEST_SECTION_COMBO_THREE_FAILED,
+  REQUEST_SECTION_COMBO_FOUR_SUCCESS,
+  REQUEST_SECTION_COMBO_FOUR_FAILED,
+  REQUEST_SECTION_COMBO_TWO,
+  REQUEST_SECTION_COMBO_THREE,
+  REQUEST_SECTION_COMBO_FOUR,
+  REQUEST_OPINION_DATA_SUCCESS,
+  REQUEST_OPINION_DATA_LIST_FAILED,
+  REQUEST_OPINION_LIST_DATA,
+  REQUEST_PODCAST_HOME_DATA,
+  REQUEST_PODCAST_HOME_DATA_SUCCESS,
+  REQUEST_PODCAST_HOME_DATA_FAILED,
+} from "./actionType"
+import { PodcastListItemType } from '../podcast/types'
 export type payloadType = { rows: any[], pager: object }
 
 export interface NewsCategoriesType {
@@ -48,6 +73,10 @@ export interface RequestTickerAndHeroType {
   payload: LatestArticleBodyGet
 }
 
+export interface LatestPodcastDataType extends PodcastListItemType {
+  field_total_duration_export: number | null,
+}
+
 export type LatestNewsTabState = {
   error: string,
   isLoading: boolean,
@@ -59,7 +88,8 @@ export type LatestNewsTabState = {
   sectionComboOne: LatestArticleDataType[],
   sectionComboTwo: LatestArticleDataType[],
   sectionComboThree: LatestArticleDataType[],
-  sectionComboFour: LatestArticleDataType[]
+  sectionComboFour: LatestArticleDataType[],
+  podcastHome: LatestPodcastDataType[],
 }
 
 export type TickerHeroSuccessPayload = {
@@ -229,6 +259,26 @@ export interface RequestSectionComboFourFailedType {
   payload: RequestSectionComboFourFailedPayload
 }
 
+export interface RequestPodcastHomeType {
+  type: typeof REQUEST_PODCAST_HOME_DATA,
+}
+
+export type PodcastHomeSuccessPayload = {
+  podcastHome: LatestPodcastDataType[]
+}
+
+export interface PodcastHomeSuccessType {
+  type: typeof REQUEST_PODCAST_HOME_DATA_SUCCESS,
+  payload: PodcastHomeSuccessPayload
+}
+export interface PodcastHomeFailedPayload {
+  error: string
+}
+
+export interface PodcastHomeFailedType {
+  type: typeof REQUEST_PODCAST_HOME_DATA_FAILED,
+  payload: PodcastHomeFailedPayload
+}
 
 export type RequestSectionComboType =
   RequestSectionComboOne
@@ -258,3 +308,6 @@ export type LatestTabAction =
   | RequestSectionComboFour
   | RequestSectionComboFourSuccessType
   | RequestSectionComboFourFailedType
+  | PodcastHomeSuccessType
+  | PodcastHomeFailedType
+  | RequestPodcastHomeType

@@ -1,1 +1,1 @@
-export { sendSelectedNotificationService, getSelectedNotificationService } from './keepNotificationService'
+export { sendSelectedNotificationService, getSelectedNotificationService, getListOfNotificationService } from './keepNotificationService'

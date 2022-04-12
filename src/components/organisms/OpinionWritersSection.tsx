@@ -17,16 +17,17 @@ import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
 
 interface OpinionWritersWidgetProps {
   data: OpinionWriterItemType[];
+  onPressWriter: (tid: string) => void;
 }
 
-const OpinionWritersSection = ({data}: OpinionWritersWidgetProps) => {
+const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const [t] = useTranslation();
-  const renderItem = (item: any, index: number) => {
+  const renderItem = (item: OpinionWriterItemType, index: number) => {
     return (
       <TouchableWithoutFeedback
-        onPress={() => console.log('pressed ' + item.tid)}
+        onPress={() => onPressWriter(item.tid)}
         style={[style.writerContainer,{paddingEnd:(data.length-1===index)?normalize(20):0}]}
         key={flatListUniqueKey.OPINION_WRITER_SECTION + index}>
         <View style={style.itemContainer}>
@@ -86,12 +87,17 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.primary,
       textAlign: 'left',
       marginLeft: normalize(14),
+      marginTop: normalize(16),
+      marginBottom: normalize(8)
     },
     writerContainer: {
-      marginVertical: normalize(10),
       marginLeft: normalize(14),
     },
-    itemContainer: {alignItems: 'center', width: normalize(54)},
+    itemContainer: {
+      alignItems: 'center',
+      width: normalize(54),
+      marginBottom : normalize(10)
+    },
     labelStyle: {
       textAlign: 'center',
       marginTop: normalize(10),

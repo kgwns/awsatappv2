@@ -26,6 +26,7 @@ export interface OpinionWritersCardViewProps {
   isBookmarked:boolean
   mediaVisibility:boolean
   onPressBookmark:()=>void
+  hideImageView?: boolean
 }
 
 const OpinionWritersCardView = ({
@@ -39,6 +40,7 @@ const OpinionWritersCardView = ({
   isBookmarked,
   mediaVisibility,
   onPressBookmark,
+  hideImageView = false
 }: OpinionWritersCardViewProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -52,7 +54,7 @@ const OpinionWritersCardView = ({
 
   return (
     <TouchableOpacity style={style.container} onPress={()=>onPress()}>
-      <View style={style.topImageWithLabelContainer}>
+      {!hideImageView && <View style={style.topImageWithLabelContainer}>
         <Image
           size={normalize(43)}
           url={imageUrl}
@@ -60,12 +62,12 @@ const OpinionWritersCardView = ({
           resizeMode="cover"
           fallback={true}
           fallbackContent={<AuthorDefault
-          style={{backgroundColor:Styles.color.cyanGreen}}
-          width={normalize(43)} 
-          height={normalize(43)}/>}
+            style={{ backgroundColor: Styles.color.cyanGreen }}
+            width={normalize(43)}
+            height={normalize(43)} />}
         />
         <Label style={style.writerLabel}>{writerTitle}</Label>
-      </View>
+      </View>}
       <View style={style.headLineContainer}>
         <Label style={style.headLine} numberOfLines={2}>
           {headLine}
@@ -74,7 +76,7 @@ const OpinionWritersCardView = ({
           {subHeadLine}
         </Label>
       </View>
-      <View style={style.footerContainer}>
+      <View style={[style.footerContainer, mediaVisibility && style.footerContainerMedia]}>
         <View style={style.listenArticleContainer}>
           {mediaVisibility && <>
             <ButtonImage
@@ -94,18 +96,20 @@ const OpinionWritersCardView = ({
               return isBookmarked
                 ? getSvgImages({
                     name: ImagesName.bookMarkActiveSVG,
-                    size: normalize(15),
+                    width: 10,
+                    height: 15
                   })
                 : getSvgImages({
                     name: ImagesName.bookMarkSVG,
-                    size: normalize(15),
+                    width: 10,
+                    height: 15
                   });
             }}
             onPress={onPressBookmark}
           />
         </View>
       </View>
-      <Divider style={style.divider}/>
+      <Divider style={[style.divider, mediaVisibility && { marginTop: normalize(10) }]} />
     </TouchableOpacity>
   );
 };
@@ -114,7 +118,8 @@ const customStyle = (theme: CustomThemeType) => {
   const OpinionWritersCardViewStyle = StyleSheet.create({
     container: {
       width: '100%',
-      padding: 0.04 * screenWidth,
+      paddingHorizontal: 0.04 * screenWidth,
+      marginVertical: normalize(12),
       backgroundColor: theme.backgroundColor,
     },
     topImageWithLabelContainer: {
@@ -149,6 +154,10 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'center',
       justifyContent: 'space-between',
       marginTop: normalize(15),
+    },
+    footerContainerMedia: {
+      height: normalize(38),
+      marginTop: normalize(8)
     },
     listenArticleContainer: {
       flexDirection: 'row',

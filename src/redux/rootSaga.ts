@@ -25,6 +25,7 @@ import newsLettersSaga from './newsLetter/sagas';
 import keepNotifiedSaga from './keepNotified/sagas';
 import podcastSaga from './podcast/sagas';
 import contentForYouSaga from './contentForYou/sagas';
+import writerDetailSaga from './writersDetail/sagas'
 
 export function* rootSaga() {
   yield all([
@@ -54,5 +55,6 @@ export function* rootSaga() {
     fork(keepNotifiedSaga),
     fork(podcastSaga),
     fork(contentForYouSaga),
+    fork(writerDetailSaga)
   ]);
 }

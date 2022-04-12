@@ -17,24 +17,36 @@ export const ManageMyFavoriteAuthorScreen = () => {
   const style = useThemeAwareObject(customStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [authorsData,setAuthorsData] = useState<AllWritersItemType[]>([])
-
+  const [selectedCheck,setselectedCheck] = useState<boolean>(false)
+  const OK = t('common.ok');
 
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
-  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, selectedAuthorsData, getSelectedAuthorsData } = useAllWriters();
+
+  const { isLoading, allWritersData, sentAuthorInfoData,
+    fetchAllWritersRequest, sendSelectedWriterInfo, selectedAuthorsData,
+    getSelectedAuthorsData, allSelectedWritersDetailList, emptySendAuthorInfoData
+  } = useAllWriters();
   const {userProfileData} = useUserProfileData();
 
   useEffect(() => {
     getSelectedAuthorsData();
     fetchAllWritersRequest(allWritersPayload);
+
+    return () => {
+      emptySendAuthorInfoData()
+    }
   }, []);
 
   useEffect(() => {
     if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
       setAllAuthorsData();
-    }else{
+      checkSelectedAuthorCondition();
+    }
+    else{
       setAuthorsData(allWritersData)
+      checkSelectedAuthorCondition();
     }
   }, [allWritersData]);
 
@@ -49,6 +61,23 @@ export const ManageMyFavoriteAuthorScreen = () => {
 
   const setAllAuthorsData = () => {
     if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
+      if (isNonEmptyArray(allSelectedWritersDetailList)) {
+        allSelectedWritersDetailList.forEach(item => {
+          let flag = false
+          allWritersData.forEach(data => {
+            if (item.tid === data.tid) {
+              flag = true
+            }
+          })
+          if (!flag) {
+            authorsData.push({
+              ...item,
+              isSelected: true
+            })
+          }
+        });
+
+      }
       for (let i = 0; i < allWritersData.length; i++) {
         authorsData[i] = ({
           name: allWritersData[i].name,
@@ -72,7 +101,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
       if (sentAuthorInfoData.code === 200) {
         gotoNext()
       } else {
-        Alert.alert(sentAuthorInfoData.message || '');
+        Alert.alert(sentAuthorInfoData.message || '', undefined, [{ text: OK }]);
       }
     }
   }, [sentAuthorInfoData]);
@@ -94,10 +123,8 @@ export const ManageMyFavoriteAuthorScreen = () => {
   }
 
   const onPressNext = () => {
-    if (isNonEmptyArray(getSelectedData())) {
       recordLogEvent('Add_Favorite_Authors',{userId: userProfileData.user?.id,favoriteIds: joinArray(getSelectedData())});
-      sendSelectedWriterInfo({ tid: joinArray(getSelectedData()) })
-    }
+      sendSelectedWriterInfo({ tid: joinArray(getSelectedData()), isList: true })
   }
 
   const getSelectedData = () => {
@@ -112,6 +139,15 @@ export const ManageMyFavoriteAuthorScreen = () => {
 
   const gotoNext = () => {
     navigation.goBack();
+  }
+
+
+  const checkSelectedAuthorCondition = () =>{
+    if(isObjectNonEmpty(selectedAuthorsData) && isNonEmptyArray(selectedAuthorsData.data)){
+       setselectedCheck(selectedAuthorsData.data.length <= authorsData.length )
+    }else{
+       setselectedCheck(true)
+    }
   }
 
   return (
@@ -130,21 +166,20 @@ export const ManageMyFavoriteAuthorScreen = () => {
           </Label>
         </View>
         <View style={style.contentStyle}>
-          {isNonEmptyArray(authorsData) &&
+          {isNonEmptyArray(authorsData) && selectedCheck &&
           <View>
             <FollowFavoriteAuthorWidget writersData={authorsData} changeSelectedStatus={changeSelectedStatus} />
           </View>
           }
         </View>
         <View style={style.nextButtonView}>
-          {!disableNext && <NextButton
-            disabled={disableNext}
+          <NextButton
             testID="nextButtonTestId"
             title={t('onBoard.common.done')}
             onPress={onPressNext}
             style={style}
             icon={false}
-          />}
+          />
         </View>
       </View>
     </ScreenContainer>

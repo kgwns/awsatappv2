@@ -34,23 +34,34 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
           <View style={styles.centerContainer}>
             <Label style={styles.titleTextStyle} children={fieldData.title} />
             <Image fallback url={fieldData.field_podcast_sect_export.img_podcast_mobile} style={styles.imageStyle} />
-            <View style={styles.containerSpace} />
-            <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
-            <Label style={styles.announcerTextStyle} children={fieldData.field_announcer_name_export} />
+            {!!fieldData.field_new_sub_title_export &&
+              <View style={styles.containerSpace} >
+                <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
+              </View>
+            }
+            {!!fieldData.field_announcer_name_export&&
+              <View style={styles.bottomSpace} >
+                <Label style={styles.announcerTextStyle} children={fieldData.field_announcer_name_export} />
+              </View>
+            }   
             <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
              style={styles.buttonStyle}
              labelStyle={styles.buttonLabel}
              titleType={LabelTypeProp.h1}
              onPress={()=>onListenPress()}
              rightIcon={() => <View style={styles.rightIconStyle}><PlayIcon fill={colors.black}/></View>}
-             />
-             <View style={styles.containerSpace} />
+            />
+            <View style={styles.containerSpace} />
             <View style={styles.headerLeftStyle}>
               <Label style={styles.footerRightTextStyle} numberOfLines={1} children={getPodcastDate(fieldData.created_export)} />
               {barVisibility ? <Label color={colors.spanishGray} children={"|"}/> : <View/>}
               <Label style={styles.footerLeftTextStyle} numberOfLines={1} children={getSecondsToHms(fieldData.field_total_duration_export)} />
             </View>
-            <Label style={styles.descriptionTextStyle} children={decodeHTMLTags(fieldData.body_export)} numberOfLines={3} />
+            {!!fieldData.body_export&&
+              <View style={styles.containerSpace} >
+                <Label style={styles.descriptionTextStyle} children={decodeHTMLTags(fieldData.body_export)} numberOfLines={3} />
+              </View>
+            }
           </View>
 
           <View style={styles.rowContainerStyle}>
@@ -76,6 +87,7 @@ StyleSheet.create({
     flex : 1,
     paddingHorizontal: normalize(20),
     paddingVertical: normalize(15),
+    backgroundColor: colors.black,
   },
   centerContainer: {
     alignItems: 'center',
@@ -95,6 +107,8 @@ StyleSheet.create({
   announcerTextStyle: {
     fontSize: normalize(14),
     color: colors.greenishBlue,
+  },
+  bottomSpace: {
     paddingBottom: normalize(10),
   },
   titleTextStyle: {
@@ -109,7 +123,6 @@ StyleSheet.create({
     lineHeight: normalize(22),
     color: colors.white,
     textAlign: 'center',
-    paddingBottom: normalize(15),
   },
   labelStyle: {
     fontSize: normalize(11),
@@ -140,7 +153,6 @@ StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     alignItems: 'center',
-    paddingBottom: normalize(15),
   },
   footerLeftTextStyle: {
     fontSize: normalize(12),

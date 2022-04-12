@@ -72,7 +72,7 @@ export const PopulateWidget = ({
                 />
             </View>
         case PopulateWidgetType.OPINION:
-            return <View style={style.widgetContainer}>
+            return <View>
                 <OpinionWritersCardView {...props} mediaVisibility={isNotEmpty(props.field_jwplayer_id_opinion_export)}
                     onPressBookmark={onPressBookmark}
                 />

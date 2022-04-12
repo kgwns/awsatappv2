@@ -38,7 +38,7 @@ export const arabic = {
     },
     newsLetter: {
       title: 'نشراتك الإخبارية',
-      description: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى الإيميل الخاص بك.',
+      description:  'احصل على آخر التحديثات يتم تسليمها مباشرة إلى الإيميل \n الخاص بك.',
       subscribed: 'أنت مشترك بالنشره',
       notSubscribed: 'أنت غير مشترك بالنشره',
     },
@@ -123,6 +123,8 @@ export const arabic = {
   videoDetail: {
     watch: 'مشاهده',
     employement: 'تشغيل',
+    documentaryText: 'الإقتصاد الإلكتروني',
+    subtext: 'عنوان صغير يوضع هنا'
   },
   favorite: {
     tabItem: {
@@ -264,7 +266,11 @@ export const arabic = {
     myFavoriteBooks: 'كتابي المفضلين',
     myFavoriteTopics: 'مواضيعي المفضله',
     continueReadingMoreBooks: 'تابع المزيد من الكتاب',
-    followMoreTopics: 'تابع المزيد من المواضيع'
+    followMoreTopics: 'تابع المزيد من المواضيع',
+    alert: 'إنذار',
+    removeAuthor: 'هل تريد إزالة المؤلف',
+    removeTopic: 'هل تريد إزالة الموضوع',
+    remove: 'إزالة',
   },
   signUpAlert: {
     subscribe: 'مشترك',

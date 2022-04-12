@@ -6,6 +6,7 @@ import { ButtonImage } from '../../atoms'
 import { ImagesName } from '../../../shared/styles/images'
 import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
 import { getSvgImages } from 'src/shared/styles/svgImages'
+import { isIOS, isTab } from 'src/shared/utils'
 
 export interface SectionVideoFooterProps {
   leftTitle?: string,
@@ -44,18 +45,23 @@ const SectionVideoFooter = ({
   return (
     <View style={{ ...SectionVideoFooterStyle.container, ...style }}>
       <View style={{ flexDirection: 'row' }}>
-                    {(leftTitle || leftViews) && <FooterCaptionWithImage title={leftTitle} icon={leftIcon} color={leftTitleColor} subTitle={leftViews} subTitleColor={leftViewsColor} />}
-                    {(leftTitle || leftViews) && (rightDate || rightTitle) && <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />}
-                    {(rightDate || rightTitle) &&<FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
-    </View>
+        {(leftTitle || leftViews) && <View style={SectionVideoFooterStyle.leftViewStyle}><FooterCaptionWithImage title={leftTitle} icon={leftIcon}
+          color={leftTitleColor}
+          subTitle={leftViews}
+          subTitleColor={leftViewsColor}
+          labelStyle={SectionVideoFooterStyle.leftStyle}
+        /></View>}
+        {(leftTitle || leftViews) && (rightDate || rightTitle) && <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />}
+        {(rightDate || rightTitle) && <FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
+      </View>
     {addBookMark && 
       <ButtonImage
             testId={'bookmarkTestId'}
             icon={() => {
               return getSvgImages({
                 name: bookmarkIcon,
-                width: normalize(10),
-                height: normalize(15)
+                width: 10,
+                height: 15
               });
             }}
             onPress={onPressBookmark}
@@ -76,10 +82,19 @@ const SectionVideoFooterStyle = StyleSheet.create({
   },
   verticalDivider: {
     color: Styles.color.silverChalice,
-    paddingRight: normalize(7),
+    paddingHorizontal: normalize(10),
   },
   footerTextStyle: {
     fontSize:normalize(11), 
     paddingLeft: normalize(5),
   },
+  leftStyle: {
+    paddingRight: normalize(6),
+    fontWeight: 'bold'
+  },
+  leftViewStyle: {
+    maxWidth: isTab ? '80%' : '60%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 })

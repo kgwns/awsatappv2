@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
+import React, {FunctionComponent, useEffect, useRef, useState, useCallback} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
@@ -17,6 +17,7 @@ import {
   screenHeight,
   screenWidth,
 } from '../../../shared/utils';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
@@ -59,6 +60,8 @@ import {
 import {useNewPassword} from 'src/hooks/useNewPassword';
 import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
 import { AlertModal } from 'src/components/organisms';
+import { useFocusEffect } from '@react-navigation/native';
+import { AvoidSoftInput } from "react-native-avoid-softinput";
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -121,6 +124,15 @@ export const UserDetailScreen: FunctionComponent = () => {
   const CANCEL = t('profile.userDetail.cancelText');
   const [showupUp,setShowPopUp] = useState(false)
 
+  const onFocusEffect = useCallback(() => {
+    AvoidSoftInput.setAdjustResize();
+    return () => {
+      AvoidSoftInput.setDefaultAppSoftInputMode();
+    };
+  }, []);
+  
+  useFocusEffect(onFocusEffect);
+
   useEffect(() => {
     fetchProfileDataRequest();
     emptyPasswordResponseInfo();
@@ -158,6 +170,12 @@ export const UserDetailScreen: FunctionComponent = () => {
       userProfileData.user?.name &&
         userProfileData.user?.name !== ' ' &&
         setUserName(userProfileData.user?.name as string);
+    }
+    if(userProfileData.user?.image == null){
+      userProfileData.user?.profile_url &&
+        setUserProfileImage(
+          getProfileImageUrl(userProfileData.user?.profile_url as string),
+        );
     }
   }, [userProfileData]);
 
@@ -214,7 +232,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const showAlert = (text: string) => {
     Alert.alert(text, '', [
       {
-        text: 'OK',
+        text: ok,
         onPress: () => onAlertOkPressed(),
       },
     ]);
@@ -258,7 +276,6 @@ export const UserDetailScreen: FunctionComponent = () => {
     <TabBarComponent
       tabItem={tabItem}
       onPressTabItem={onPressTabItem}
-      style={styles.tabBarStyle}
     />
   );
 
@@ -487,6 +504,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       />
       <View style={styles.updateButtonContainer}>
         <ButtonOutline
+          isDisable={!(isNotEmpty(oldPassword) && isNotEmpty(newPassword) && isNotEmpty(confirmNewPassword))}
           style={styles.updateButton}
           labelStyle={styles.updateButtonLabel}
           title={t('profile.userDetail.updateButtonText')}
@@ -644,8 +662,6 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   return (
-    <KeyboardAwareView extraKeyboardOffset={isIOS ? 750 : 0} 
-     contentContainerStyle={{height:screenHeight}}>
       <ScreenContainer
         isOverlayLoading={isLoading}
         isAlertVisible={isAlertVisible}
@@ -662,9 +678,13 @@ export const UserDetailScreen: FunctionComponent = () => {
         />}
         {renderOptionModal()}
         {renderTabBarComponent()}
+        <KeyboardAwareScrollView
+        bounces={false}
+        extraHeight={230}
+        scrollEnabled>
         {tabContent()}
+        </KeyboardAwareScrollView>
       </ScreenContainer>
-     </KeyboardAwareView>
   );
 };
 
@@ -777,10 +797,6 @@ const createStyles = (theme: CustomThemeType) =>
     nameInputStyle: {
       width: '100%',
       color: theme.primaryLightGray,
-    },
-    tabBarStyle: {
-      borderBottomColor: theme.dividerColor,
-      borderBottomWidth: 1.2,
     },
     inputStyle: {
       width: '100%',

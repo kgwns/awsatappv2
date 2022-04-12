@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Alert,
   Keyboard,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import {isObjectNonEmpty, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
@@ -33,7 +32,8 @@ import {useDispatch} from 'react-redux';
 import AdjustAnalyticsManager, {
   AdjustEventID,
 } from 'src/shared/utils/AdjustAnalyticsManager';
-import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
+import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export enum SocialNavigate {
   google = 'GOOGLE',
@@ -53,31 +53,43 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [deviceName, setDeviceName] = useState('');
-  const {registerUserInfo, isRegisterLoading, socialLoginEnded, socialLoginInProgress, socialLoginStarted,emptyUserInfo} = useRegister();
+  const {
+    registerUserInfo,
+    isRegisterLoading,
+    socialLoginEnded,
+    socialLoginInProgress,
+    socialLoginStarted,
+    emptyUserInfo,
+  } = useRegister();
   const dispatch = useDispatch();
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
-  const verifyMailAndPasswordAndTryAgain = t('signIn.verifyMailAndPasswordAndTryAgain');
-  const ok = t('common.ok');
+  const verifyMailAndPasswordAndTryAgain = t(
+    'signIn.verifyMailAndPasswordAndTryAgain',
+  );
+  const CONST_OK = t('common.ok');
+  const CONST_ALERT = t('common.alert');
 
-  const noInternetConnection : AlertPayloadType = {
-    title : t('common.alert'),
+  const noInternetConnection: AlertPayloadType = {
+    title: CONST_ALERT,
     message: t('common.noInternetConnection'),
-    buttonTitle: t('common.ok')
-  }
-  const somthingWentWrong : AlertPayloadType = {
-    title : t('common.alert'),
+    buttonTitle: CONST_OK,
+  };
+  const somthingWentWrong: AlertPayloadType = {
+    title: CONST_ALERT,
     message: t('common.somthingWentWrong'),
-    buttonTitle: t('common.ok')
-  }
-  
+    buttonTitle: CONST_OK,
+  };
+
   const incorrectCredentialPayload: AlertPayloadType = {
     title: credentialsAreIncorrect,
     message: verifyMailAndPasswordAndTryAgain,
-    buttonTitle: ok
-  }
+    buttonTitle: CONST_OK,
+  };
 
-  const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(incorrectCredentialPayload);
+  const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(
+    incorrectCredentialPayload,
+  );
 
   const {
     fetchLoginRequest,
@@ -92,25 +104,24 @@ export const SignInPage = ({route}: SignInPageProps) => {
 
   useEffect(() => {
     socialLoginEnded();
-  }, [registerUserInfo])
+  }, [registerUserInfo]);
 
   useEffect(() => {
     getDeviceName();
   }, []);
 
   useEffect(() => {
-    if(loginError === "Network Error"){
-     setAlertPayload(noInternetConnection);
-     setIsAlertVisible(true)
+    if (loginError === 'Network Error') {
+      setAlertPayload(noInternetConnection);
+      setIsAlertVisible(true);
     }
-   }, [loginError])
+  }, [loginError]);
 
   const getDeviceName = async () => {
     const deviceName = await DeviceInfo.getDeviceName();
     setDeviceName(deviceName);
   };
 
-  
   const {getBookmarkedId} = useBookmark();
   const {fetchProfileDataRequest} = useUserProfileData();
 
@@ -134,12 +145,11 @@ export const SignInPage = ({route}: SignInPageProps) => {
         });
       } else {
         if (message.code === 0) {
-          setAlertPayload(incorrectCredentialPayload)
-          setIsAlertVisible(true)
+          setAlertPayload(incorrectCredentialPayload);
+          setIsAlertVisible(true);
           emptyLoginDataInfo();
-        }
-        else {
-          Alert.alert(message.message)
+        } else {
+          Alert.alert(message.message, undefined, [{ text: CONST_OK }]);
         }
       }
     }
@@ -162,7 +172,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
           ],
         });
       } else {
-        Alert.alert(message.message);
+        Alert.alert(message.message, undefined, [{ text: CONST_OK }]);
       }
     }
   }, [registerUserInfo]);
@@ -170,20 +180,25 @@ export const SignInPage = ({route}: SignInPageProps) => {
   useEffect(() => {
     const message = forgotPassswordResponse?.message;
     if (isObjectNonEmpty(message)) {
-      if (message.code === 1) {
+      if (message.code === 200) {
         navigation.navigate(ScreensConstants.FORGOT_PASSWORD);
       } else {
-        Alert.alert(message.message);
+        setAlertPayload({
+          title: CONST_ALERT,
+          message: message.message,
+          buttonTitle: CONST_OK,
+        });
+        setIsAlertVisible(true);
       }
     }
   }, [forgotPassswordResponse]);
 
   useEffect(() => {
     emptyforgotPassworResponseInfo();
-    emptyUserInfo()
+    emptyUserInfo();
     return () => {
       emptyforgotPassworResponseInfo();
-      emptyUserInfo()
+      emptyUserInfo();
     };
   }, []);
 
@@ -219,28 +234,36 @@ export const SignInPage = ({route}: SignInPageProps) => {
   };
 
   return (
-    <ScreenContainer isOverlayLoading={isLoading || isRegisterLoading || socialLoginInProgress} isAlertVisible={isAlertVisible}
-      setIsAlertVisible={setIsAlertVisible} alertPayload={alertPayload} alertOnPress={() => setIsAlertVisible(false)}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.container}>
-          <View style={styles.headerStyle}>
-            <TouchableOpacity
-              testID="signin_back"
-              accessibilityLabel="signin_back"
-              onPress={() => navigateToSection('')}>
-              <View style={styles.headerContainer}>
-                <BackIcon fill={themeData.textColor} />
-                <Label
-                  children={t('signIn.return')}
-                  style={styles.headerLabelStyle}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
+    <ScreenContainer
+      isOverlayLoading={isLoading || isRegisterLoading || socialLoginInProgress}
+      isAlertVisible={isAlertVisible}
+      setIsAlertVisible={setIsAlertVisible}
+      alertPayload={alertPayload}
+      alertOnPress={() => setIsAlertVisible(false)}>
+      <KeyboardAwareScrollView
+        bounces={false}
+        enableOnAndroid={true}
+        scrollEnabled>
+       <View>
+          <View style={styles.container}>
+            <View style={styles.headerStyle}>
+              <TouchableOpacity
+                testID="signin_back"
+                accessibilityLabel="signin_back"
+                onPress={() => navigateToSection('')}>
+                <View style={styles.headerContainer}>
+                  <BackIcon fill={themeData.textColor} />
+                  <Label
+                    children={t('signIn.return')}
+                    style={styles.headerLabelStyle}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
 
-          <View style={styles.logoContainer}>
-            <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
-          </View>
+            <View style={styles.logoContainer}>
+              <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
+            </View>
 
           <View style={styles.containerStyle}>
             <AuthScreenInputSection
@@ -257,12 +280,14 @@ export const SignInPage = ({route}: SignInPageProps) => {
               navigateToSection={navigateToSection}
               goToPasswordScreen={() => forgotPassworRequest({email: email})}
               onPressSignup={onPressSignIn}
+              socialButtonBoldStyle={true}
             />
           </View>
 
-          <View style={styles.footerStyle} />
+            <View style={styles.footerStyle} />
+          </View>
         </View>
-      </TouchableWithoutFeedback>
+      </KeyboardAwareScrollView>
     </ScreenContainer>
   );
 };
@@ -280,6 +305,8 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
       flex: 0.1,
+      marginBottom: normalize(35),
+      marginTop: normalize(20)
     },
     headerStyle: {
       flex: 0.05,
@@ -313,4 +340,3 @@ const createStyles = (theme: CustomThemeType) =>
       height: normalize(30),
     },
   });
-

@@ -8,6 +8,7 @@
 #import "Orientation.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Firebase.h>
+#import <AVFoundation/AVFoundation.h>
 
 
 #ifdef FB_SONARKIT_ENABLED
@@ -59,6 +60,12 @@ static void InitializeFlipper(UIApplication *application) {
   [[RCTI18nUtil sharedInstance] allowRTL:YES];
   [[RCTI18nUtil sharedInstance] forceRTL:YES];
   [RNSplashScreen show];
+  
+  // Play Audio in Silent Mode
+  AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+  NSError *setCategoryError = nil;
+  [audioSession setCategory:AVAudioSessionCategoryPlayback
+                      error:&setCategoryError];
   return YES;
 }
 

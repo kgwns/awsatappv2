@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {flatListUniqueKey} from 'src/constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {FollowFavoriteAuthor} from 'src/components/molecules';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import { isIOS } from 'src/shared/utils';
 
 const FollowFavoriteAuthorWidget = (props: any) => {
   const data = props.writersData;
   const style = useThemeAwareObject(customStyle);
+  const scrollRef = useRef<ScrollView>(null);
 
   const renderItem = (item: any) => {
     return (
@@ -21,12 +23,19 @@ const FollowFavoriteAuthorWidget = (props: any) => {
       />
     );
   };
+  const scrollToStart = () => {
+    if (isIOS) return
+    scrollRef.current?.scrollToEnd();
+  }
   return (
     <ScrollView
+      ref={scrollRef}
       horizontal
       showsHorizontalScrollIndicator={false}
+      onContentSizeChange={()=> scrollToStart()}
       style={style.container}>
-      <FlatList
+        <FlatList
+        key={data ? Math.ceil(data.length / 3) : 3}
         listKey={flatListUniqueKey.FOLLOW_FAVORITE_AUTHOR_WIDGET}
         keyExtractor={(_, index) => index.toString()}
         numColumns={data ? Math.ceil(data.length / 3) : 3}

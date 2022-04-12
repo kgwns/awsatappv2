@@ -44,6 +44,7 @@ export interface RegisterBodyType {
   provider?: string;
   provider_id?: string;
   birthday?: string;
+  image?:any
 }
 
 export interface RegisterSuccessPayloadType {

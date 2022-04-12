@@ -5,7 +5,7 @@ import {
   SEND_USER_DETAILS,
   SEND_USER_DETAILS_SUCCESS,
   SEND_USER_DETAILS_ERROR,
-  UPDATE_PROFILE_USER_IMAGE, UPDATE_USER_IMAGE_SUCCESS, UPDATE_USER_IMAGE_FAILED
+  UPDATE_PROFILE_USER_IMAGE, UPDATE_USER_IMAGE_SUCCESS, UPDATE_USER_IMAGE_FAILED,EMPTY_USER_PROFILE_DATA
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -139,6 +139,10 @@ export type SendUserDataFailedType = {
   payload: SendUserDataFailedPayloadtype;
 };
 
+export type EmptyUserProfileData = {
+  type: typeof EMPTY_USER_PROFILE_DATA;
+};
+
 export type UserProfileActions =
   | FetchProfileUserDetailsType
   | FetchProfileUserDetailsSuccessType
@@ -148,4 +152,5 @@ export type UserProfileActions =
   | SendUserDataFailedType
   | UpdateUserImageType
   | UpdateProfileUserImageSuccessType
-  | UpdateUserImageFailedType;
+  | UpdateUserImageFailedType
+  | EmptyUserProfileData;

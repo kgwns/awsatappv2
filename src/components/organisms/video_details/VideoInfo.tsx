@@ -16,12 +16,14 @@ import { decode } from 'html-entities';
 
 export interface VideoInfoProps {
   onPress?: (item:VideoItemProps)=>void;
+  isDocumentary?: boolean;
   data: any;
 }
 
 export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
   data,
   onPress,
+  isDocumentary= false,
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
@@ -37,7 +39,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <Image fallback url={imageLink} style={styles.imageStyle} />
+            {isDocumentary ? <Image fallback url={imageLink} style={styles.imageStyle} /> : <Image fallback url={imageLink} style={styles.imageVideoStyle} resizeMode='cover' /> }
             <View style={styles.containerSpace} />
             <ButtonOutline title={t('videoDetail.employement')}
              style={styles.buttonStyle}
@@ -89,6 +91,10 @@ StyleSheet.create({
     width: normalize(180),
     height: normalize(240),
     resizeMode: 'cover',
+  },
+  imageVideoStyle: {
+    width: normalize(349),
+    height: normalize(187),
   },
   shortDescriptionStyle: {
     color: colors.spanishGray,

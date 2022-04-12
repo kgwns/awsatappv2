@@ -14,6 +14,7 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import {useNavigation} from '@react-navigation/native';
 import {ScreensConstants} from 'src/constants/ScreenConstants';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Styles } from 'src/shared/styles';
  
 export interface VideoDetailScreenProps {
   route: any
@@ -28,6 +29,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [selectedVideo, setSelectedVideo] = useState(route.params.data)
+  const isDocumentary = route.params.isDocumentary
   const [videolistData, setVideolistData] = useState<VideoItemType[]>([])
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
@@ -117,7 +119,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           isSaved={isBookmarked}
           isCloseIcon
         />
-        {selectedVideo!=undefined && <VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}}/>}
+        {selectedVideo!=undefined && <VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}} isDocumentary={isDocumentary} />}
       </View>
       <View style={styles.container}>
         <VideosList data={videolistData} onItemActionPress={(item:VideoItemType)=>goToPlayer(item)} />
@@ -127,6 +129,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   return (
     <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
+      statusbarColor={Styles.color.black}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={{height:insets.top,backgroundColor: colors.black}} />
       <FlatList

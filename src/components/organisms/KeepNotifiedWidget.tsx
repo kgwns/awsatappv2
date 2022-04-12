@@ -6,6 +6,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Divider} from '../atoms';
 import {KeepNotifiedCard} from '../molecules';
+import { NotificationDataType } from 'src/redux/keepNotified/types';
 
 export interface KeepNotifiedDataProps {
   nid: number,
@@ -14,8 +15,8 @@ export interface KeepNotifiedDataProps {
 }
 
 interface KeepNotifiedWidgetProps {
-  data: KeepNotifiedDataProps[],
-  onPress: (index: number) => void
+  data: NotificationDataType[],
+  onPress: (item: any, selected: boolean) => void
 }
 
 const KeepNotifiedWidget = ({
@@ -23,14 +24,14 @@ const KeepNotifiedWidget = ({
   onPress
 }: KeepNotifiedWidgetProps) => {
   const style = useThemeAwareObject(customStyle);
-  const renderItem:ListRenderItem<KeepNotifiedDataProps> = ({item,index}) => {
+  const renderItem:ListRenderItem<NotificationDataType> = ({item,index}) => {
     return (
       <View>
         <KeepNotifiedCard
-          key={item.nid}
-          label={item.label}
+          key={item.id}
+          label={item.name}
           selected={item.selected}
-          onPress={() => onPress(index)}
+          onPress={selected => onPress(item, selected)}
         />
         {data.length !== index+1 &&  <Divider style={style.divider}/>}
       </View>

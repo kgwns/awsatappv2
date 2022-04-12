@@ -33,6 +33,9 @@ export const articleFooterDataSet: articleFooterProps = {
         style: { marginRight: normalize(5) }
     })},
     rightTitleColor: Styles.color.silverChalice,
+    leftTitleStyle: {
+        fontWeight: 'bold'
+    }
 };
 
 
@@ -67,7 +70,7 @@ const ArticleSection = ({
         articleFooterDataSet.leftTitle = item.author
         articleFooterDataSet.rightTitle = t(timeAgo(item.created))
         return <ArticleItem {...item} index={index}
-            imageStyle={{ height: normalize(189) }}
+            imageStyle={{ height: normalize(187) }}
             footerInfo={articleFooterDataSet}
             onPressBookmark={() => onPressBookmark(index)}
             showDivider={isFromFavorites? articleData.length == index+1 : showDivider}
@@ -92,7 +95,7 @@ export default ArticleSection
 
 const articleSectionStyle = StyleSheet.create({
     container: {
-        paddingHorizontal: 0.04 * screenWidth
+        paddingHorizontal: 0.05 * screenWidth
     },
     listContainer: {
 

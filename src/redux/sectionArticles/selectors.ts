@@ -1,10 +1,10 @@
 import { AppState, Selector } from 'src/redux/rootReducer';
-import { SectionArticlesItemType } from './types';
+import { payloadType } from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
   state.sectionArticles.isLoading;
 
-export const getSectionArticlesData: Selector<SectionArticlesItemType[]> = (state: AppState) =>
+export const getSectionArticlesData: Selector<payloadType> = (state: AppState) =>
   state.sectionArticles.sectionArticlesData;
 
 export const getSectionArticlesError: Selector<string> = (state: AppState) =>

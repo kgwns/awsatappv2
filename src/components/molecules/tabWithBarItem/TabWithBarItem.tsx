@@ -1,7 +1,7 @@
 import { TouchableWithoutFeedback, View, StyleSheet } from 'react-native'
 import React, { FunctionComponent } from 'react'
 import { Label, LabelTypeProp } from 'src/components/atoms'
-import { normalize, normalizeBy320 } from 'src/shared/utils'
+import { isTab, normalize, normalizeBy320 } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { moleculesTestID } from 'src/constants'
 import { testProps } from 'src/shared/utils'
@@ -43,9 +43,9 @@ const tabWitBarItemStyle = StyleSheet.create({
   },
   barLine: {
     width: '100%',
-    height: normalizeBy320(2),
+    height: isTab ? normalizeBy320(1) : normalizeBy320(2),
     marginTop: normalize(12),
-    marginBottom: 0.5
+    zIndex: 9999
   },
   labelStyle: {
     lineHeight:20

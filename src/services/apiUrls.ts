@@ -1,4 +1,8 @@
-export const BASE_URL = 'http://srpcawsatdev.prod.acquia-sites.com/';
+//PRODUCTION ENVIRONMENT
+export const BASE_URL = 'http://awsatapp.srpcdigital.com/';
+//DEV ENVIRONMENT
+// export const BASE_URL = 'http://srpcawsatdev.prod.acquia-sites.com/';
+
 export const UMS_BASE_URL = 'http://awsatapi.srpcdigital.com/';
 export const PROFILE_IMAGE_URL = 'http://awsatapi.srpcdigital.com/storage/'
 export const PODCAST_SPREAKER_URL = 'https://api.spreaker.com/v2/episodes/';

@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { horizontalEdge } from 'src/shared/utils';
 import { TabBarComponent, TabBarDataProps, SignupAlertCard } from 'src/components/molecules';
 import { ScreenContainer } from '..';
 import { useTranslation } from 'react-i18next';
-import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { Styles } from 'src/shared/styles';
 import { Archives, ContentForYou } from 'src/components/organisms';
 import {useLogin} from 'src/hooks';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
-import { CustomThemeType } from 'src/shared/styles/colors';
 
 
 export const FavoriteScreen = () => {
@@ -33,7 +30,6 @@ export const FavoriteScreen = () => {
 
   const [tabItem, setTabItem] = useState<TabBarDataProps[]>(tabItemData);
   const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
-  const style = useThemeAwareObject(customStyle)
 
 
   const onPressTabItem = (index: number) => {
@@ -45,7 +41,7 @@ export const FavoriteScreen = () => {
   };
 
   const renderTabBarComponent = () => (
-    <TabBarComponent tabItem={tabItem} onPressTabItem={onPressTabItem} style={style.tabBarStyle} />
+    <TabBarComponent tabItem={tabItem} onPressTabItem={onPressTabItem} />
   );
 
   const tabContent = () => {
@@ -99,12 +95,3 @@ export const FavoriteScreen = () => {
     </ScreenContainer>
   );
 };
-
-const customStyle = (theme: CustomThemeType) => {
-  return StyleSheet.create({
-    tabBarStyle: {
-      borderBottomColor: theme.dividerColor,
-      borderBottomWidth: 1.2,
-    }
-  })
-}

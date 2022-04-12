@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { fetchAllWritersApi, getSelectedAuthorsApi, sendSelectedWritersApi } from 'src/services/allWritersService';
-import { AllWritersBodyGet, SendSelectedAuthorBody } from 'src/redux/allWriters/types';
+import { fetchAllWritersApi, getSelectedAuthorsApi, sendSelectedWritersApi, removeWritersApi, fetchAllSelectedWritersDataApi } from 'src/services/allWritersService';
+import { AllSelectedWritersDetailsBodyGet, AllWritersBodyGet, RemoveAuthorBody, SendSelectedAuthorBody } from 'src/redux/allWriters/types';
 
 describe('Test All Writers Services', () => {
     const mock = new MockAdapter(axios);
@@ -15,8 +15,16 @@ describe('Test All Writers Services', () => {
         items_per_page: 50
     };
     const requesSendSelectedAuthortObject: SendSelectedAuthorBody = {
-        tid: '123'
+        tid: '123',
+        isList: true,
     };
+    const requestremoveWritersObject: RemoveAuthorBody = {
+        tid: '12345'
+    }
+    const requestAllSelectedWritersDataObject: AllSelectedWritersDetailsBodyGet = {
+        tid: '12345',
+        items_per_page: 100,
+    }
     it('test when fetchAllWritersApi response code is 200', () => {
         mock.onGet().reply(200, {
             result: true,
@@ -73,6 +81,46 @@ describe('Test All Writers Services', () => {
         });
 
         return getSelectedAuthorsApi().catch((error: unknown) => {
+            const errorResponse = error as AxiosError;
+            expect(errorResponse.response?.status).toEqual(500);
+        });
+    });
+    it('test when removeWritersApi response code is 200', () => {
+        mock.onPost().reply(200, {
+            result: true,
+        });
+
+        return removeWritersApi(requestremoveWritersObject).then(response => {
+            expect(response).toBeInstanceOf(Object);
+        });
+    });
+
+    it('test when removeWritersApi response code is 500', () => {
+        mock.onPost().reply(500, {
+            error: 'Something Went Wrong',
+        });
+
+        return removeWritersApi(requestremoveWritersObject).catch((error: unknown) => {
+            const errorResponse = error as AxiosError;
+            expect(errorResponse.response?.status).toEqual(500);
+        });
+    });
+    it('test when fetchAllSelectedWritersDataApi response code is 200', () => {
+        mock.onGet().reply(200, {
+            result: true,
+        });
+
+        return fetchAllSelectedWritersDataApi(requestAllSelectedWritersDataObject).then(response => {
+            expect(response).toBeInstanceOf(Object);
+        });
+    });
+
+    it('test when fetchAllSelectedWritersDataApi response code is 500', () => {
+        mock.onGet().reply(500, {
+            error: 'Something Went Wrong',
+        });
+
+        return fetchAllSelectedWritersDataApi(requestAllSelectedWritersDataObject).catch((error: unknown) => {
             const errorResponse = error as AxiosError;
             expect(errorResponse.response?.status).toEqual(500);
         });

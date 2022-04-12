@@ -15,30 +15,6 @@ import { NewsLetterItemType } from 'src/redux/newsLetter/types';
 
 export const NewsLetterScreen = ({ navigation, route }: any) => {
 
-  const [newsLetterData] = useState([
-    {
-      title: 'النشره الصباحيه',
-      subTitle: 'الاثنين الى السبت',
-      image: 'earlyEditionImg',
-      tid: '123',
-      isSelected: false,
-    },
-    {
-      title: 'المال و الأعمال',
-      subTitle: 'يومياً',
-      image: 'moneyAndBusinessImg',
-      tid: '456',
-      isSelected: false,
-    },
-    {
-      title: 'التكنولوجيا',
-      subTitle: 'كل سبت',
-      image: 'technologyImg',
-      tid: '789',
-      isSelected: false,
-    },
-  ])
-
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
@@ -46,17 +22,15 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const [newsLettersDataInfo, setNewsLettersDataInfo] = useState<NewsLetterItemType[]>([])
   const isFocused = useIsFocused();
 
-  const { getSelectedNewsLettersData, selectedNewsLettersData, sentNewsLettersInfoData, sendSelectedNewsLettersInfo, emptySelectedNewsLettersInfoData, isLoading } = useNewsLetters()
+  const { getSelectedNewsLettersData, selectedNewsLettersData, sentNewsLettersInfoData, sendSelectedNewsLettersInfo, emptySelectedNewsLettersInfoData, isLoading , myNewsLetters, isMyNewsLoading, getMyNewsLettersData } = useNewsLetters()
 
   useEffect(() => {
     getSelectedNewsLettersData();
-    emptySelectedNewsLettersInfoData();
     if (route.params && route.params.canGoBack) {
-      setCanGoBack(route.params.canBoBack)
-      setNewsLettersData();
-    }
-    else{
-      setNewsLettersDataInfo(newsLetterData)
+      setCanGoBack(true)
+      setDisableNext(true)
+    }else{
+      setCanGoBack(false)
     }
     return () => {
       emptySelectedNewsLettersInfoData();
@@ -64,16 +38,25 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   }, [isFocused]);
 
   useEffect(()=>{
-    if (route.params && route.params.canGoBack) {
-      setCanGoBack(route.params.canGoBack)
-      setNewsLettersData();
+    if (canGoBack) {
+      getMyNewsLettersData();
+    }else{
+      setInitialData()
     }
-  },[selectedNewsLettersData.data])
+  },[selectedNewsLettersData])
+
+  useEffect(()=>{
+    if (canGoBack) {
+      setMyNewsLettersData();
+    }
+  },[myNewsLetters])
 
   useEffect(() => {
     if (isObjectNonEmpty(sentNewsLettersInfoData)) {
       if (sentNewsLettersInfoData.code === 200) {
-        gotoNext()
+        if(!canGoBack){
+          gotoNext()
+        }
       } else {
         CustomAlert({
           title: '',
@@ -83,35 +66,58 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     }
   }, [sentNewsLettersInfoData]);
 
+  const formatNewsLettersData = () => {
+    const data = []
+    if(selectedNewsLettersData.code && selectedNewsLettersData.code===200 && isNonEmptyArray(selectedNewsLettersData.data)){
+      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
+        let item = selectedNewsLettersData.data[i]
+        data.push({
+          title: item.name,
+          subTitle: item.date,
+          description: item.description,
+          image: item.image,
+          tid: item.id,
+          isSelected: false,
+        })
+      }
+    }
+    return data
+  }
+
+  const setInitialData = () => {
+    let data = formatNewsLettersData()
+    setNewsLettersDataInfo(data)
+    updateNextButton()
+  }
+
   const getSelectedOrNot = (tid: any) => {
-    for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-      if (tid == selectedNewsLettersData.data[i].tid) {
+    for (let i = 0; i < myNewsLetters.data.length; i++) {
+      if (tid == myNewsLetters.data[i].tid) {
         return true
       }
     }
     return false
   }
 
-
-  const setNewsLettersData = () => {
-    if (isNonEmptyArray(newsLetterData) && isNonEmptyArray(selectedNewsLettersData.data)) {
+  const setMyNewsLettersData = () => {
+    if (isNonEmptyArray(myNewsLetters.data) && isNonEmptyArray(selectedNewsLettersData.data)) {
       const data = []
-      for (let i = 0; i < newsLetterData.length; i++) {
+      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
+        let item = selectedNewsLettersData.data[i]
         data.push({
-          title: newsLetterData[i].title,
-          subTitle: newsLetterData[i].subTitle,
-          image: newsLetterData[i].image,
-          tid: newsLetterData[i].tid,
-          isSelected: getSelectedOrNot(newsLetterData[i].tid),
+          title: item.name,
+          subTitle: item.date,
+          description: item.description,
+          image: item.image,
+          tid: item.id,
+          isSelected: getSelectedOrNot(item.id),
         })
       }
       setNewsLettersDataInfo(data)
     }else{
-      if(selectedNewsLettersData.code && selectedNewsLettersData.code===200 && !isNonEmptyArray(selectedNewsLettersData.data)){
-      setNewsLettersDataInfo(newsLetterData)
-     }
+      let newsLettersData = formatNewsLettersData()
+      setNewsLettersDataInfo(newsLettersData)
     }
-    updateNextButton()
   }
 
   const changeSelectedStatus = (item: any, selected: boolean) => {
@@ -120,7 +126,12 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
         newsLettersDataInfo[i].isSelected = !newsLettersDataInfo[i].isSelected;
       }
     }
-    updateNextButton()
+    if(canGoBack){
+      let selectedList = getSelectedData();
+      sendSelectedNewsLettersInfo({ tid: joinArray(selectedList) })
+    }else{
+      updateNextButton()
+    }
   };
 
   const updateNextButton = () => {
@@ -137,7 +148,6 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
       return prevValue
     }, [])
   }
-
 
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
@@ -156,7 +166,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
-        <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' }]}>
+        <View style={[style.textContainer, { justifyContent:  'center' }]}>
           {!canGoBack && <Label style={style.titleStyle}>
             {t('onBoard.newsLetter.title')}
           </Label>}

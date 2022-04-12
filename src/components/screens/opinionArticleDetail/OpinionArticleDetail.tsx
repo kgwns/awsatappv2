@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, FlatList, BackHandler} from 'react-native';
+import {StyleSheet, View, FlatList, BackHandler, Dimensions} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {horizontalEdge, isNonEmptyArray, isNotEmpty, normalize} from 'src/shared/utils';
+import {horizontalAndTop, horizontalEdge, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, normalize, screenHeight, screenWidth} from 'src/shared/utils';
 import {OpinionArticleDetailFooter} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
   RelatedOpinionArticlesWidget,
 } from 'src/components/organisms';
 import {ScreenContainer} from '..';
-import {useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
+import {useAllWriters, useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
 import {Edge} from 'react-native-safe-area-context';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
@@ -35,7 +35,7 @@ export const OpinionArticleDetail = ({
   const navigation = useNavigation<StackNavigationProp<any>>()
   const isFocused = useIsFocused();
   const currentNId = route.params.nid;
-  const [edge, setEdge] = useState<Edge[]>(horizontalEdge);
+  const [edge, setEdge] = useState<Edge[]>(horizontalAndTop);
   const [fontSize,setFontSize] = useState<ArticleFontSize>(ArticleFontSize.normal)
   const { isLoading, opinionArticleDetailData, fetchOpinionArticleDetail,
     fetchRelatedOpinionData, relatedOpinionListData,
@@ -48,6 +48,7 @@ export const OpinionArticleDetail = ({
 
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
   const { isLoggedIn } = useLogin()
+  const {selectedAuthorsData, getSelectedAuthorsData,sendSelectedWriterInfo,removeAuthorRequest} = useAllWriters();
 
   const [page,setPage]=useState(0)
   const relatedOpinionPayload: RelatedOpinionBodyGet = {
@@ -56,18 +57,23 @@ export const OpinionArticleDetail = ({
 
   const [opinionArticle,setOpinionArticle]=useState<OpinionArticleDetailItemType[]>([])
 
+  const [isFollowed, setIsFollowed] = useState(false)
+
   useEffect(() => {
+    getSelectedAuthorsData()
     emptyRelatedOpinionData()
     Orientation.unlockAllOrientations();
-    Orientation.getDeviceOrientation(updateScreenEdge);
-    Orientation.addDeviceOrientationListener(updateScreenEdge);
+    // Orientation.getDeviceOrientation(updateScreenEdge);
+    // Orientation.addDeviceOrientationListener(updateScreenEdge);
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
       setOpinionArticle([]);
       emptyRelatedOpinionData();
       emptyOpinionArticleData();
-      Orientation.lockToPortrait();
-      Orientation.removeOrientationListener(updateScreenEdge);
+      if (!route.params.isRelatedArticle) {
+        Orientation.lockToPortrait();
+        // Orientation.removeOrientationListener(updateScreenEdge);
+      }
     };
   }, []);
 
@@ -94,12 +100,24 @@ export const OpinionArticleDetail = ({
            jwPlayerID:opinionArticle[0].jwplayer
          })
        }
+       setTimeout(()=>{
+        fetchRelatedOpinionData(relatedOpinionPayload);
+       },1000)
       }
   }, [isFocused,opinionArticle])
 
   useEffect(() => {
     fetchRelatedOpinionData(relatedOpinionPayload);
   }, [page]);
+
+
+  useEffect(() => {
+    if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isObjectNonEmpty(selectedAuthorsData) && isFocused) {
+      const isFollowed = validateFollow(opinionArticle[0].writer[0].id)
+      // console.log('useeffect validate follow', opinionArticle[0].writer[0].id)
+      setIsFollowed(isFollowed)
+    }
+  }, [isFocused, opinionArticle, selectedAuthorsData])
 
   useEffect(() => {
     const backAction = () => {
@@ -119,6 +137,10 @@ export const OpinionArticleDetail = ({
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
+  const validateFollow = (id: string): boolean => {
+    return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
+  }
+
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const edge = getScreenEdge(deviceOrientation);
     setEdge(edge);
@@ -127,13 +149,13 @@ export const OpinionArticleDetail = ({
   const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
     switch (deviceOrientation) {
       case 'LANDSCAPE-LEFT':
-        return ['right'];
+        return ['right','top'];
       case 'LANDSCAPE-RIGHT':
-        return ['left'];
+        return ['left','top'];
       case 'PORTRAIT':
-        return horizontalEdge;
+        return horizontalAndTop;
       default:
-        return horizontalEdge;
+        return horizontalAndTop;
     }
   };
 
@@ -150,6 +172,20 @@ export const OpinionArticleDetail = ({
     onUpdateBookMark(nid, newBookmarked)
   }
 
+
+  const onPressFollow = (id: string) => {
+    if (!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+
+    const newFollowed = !isFollowed
+    const data = [...opinionArticle]
+    data[0].isFollowed = !data[0].isFollowed
+    setIsFollowed(newFollowed)
+    onUpdateFollow(id, newFollowed)
+  }
+
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
     if (isLoggedIn) {
       hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
@@ -164,7 +200,7 @@ export const OpinionArticleDetail = ({
 
   const onPressRelatedOpinion = (nid: string) => {
     if (nid && nid!=currentNId) {
-      navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid })
+      navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
     }
   }
 
@@ -182,10 +218,21 @@ export const OpinionArticleDetail = ({
     setFontSize(newFontSize)
   }
 
+  const onUpdateFollow = (id: string, hasFollowed: boolean) => {
+    if (isLoggedIn) {
+      hasFollowed ? sendSelectedWriterInfo({ tid: id, isList: false }) : removeAuthorRequest({ tid: id })
+    } else {
+      setShowPopUp(true)
+    }
+  }
+
   const renderItem = () => (
-    <View style={style.container}>
+    <View style={[style.container]}>
       {isNonEmptyArray(opinionArticle) && (
-        <OpinionArticleDetailWidget data={opinionArticle[0]} fontSize={fontSize}/>
+        <OpinionArticleDetailWidget
+          data={opinionArticle[0]} fontSize={fontSize}
+          isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
+          isRelatedArticle={route.params.isRelatedArticle} />
       )}
       {isNonEmptyArray(relatedOpinionData) && (
         <RelatedOpinionArticlesWidget data={relatedOpinionData}
@@ -200,26 +247,23 @@ export const OpinionArticleDetail = ({
     <ScreenContainer edge={edge} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
-      {!isLoading && isNonEmptyArray(opinionArticle) && <>
-      <FlatList
-        style={style.flatList}
-        data={[{}]}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        bounces={false}
-      />
-      { isNonEmptyArray(opinionArticle) && 
-        <View style={style.footer}>
-          <OpinionArticleDetailFooter
-            opinionArticleDetailData={opinionArticle[0]}
-            isBookmarked={isBookmarked}
-            onPressSave={() => onPressSave(opinionArticle[0].nid_export)}
-            onPressFontSizeChange={onPressFontSizeChange}
+        {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>
+          <FlatList
+          data={[{}]}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
           />
-        </View>
-}
-      </>}
+          <View>
+            <OpinionArticleDetailFooter
+              opinionArticleDetailData={opinionArticle[0]}
+              isBookmarked={isBookmarked}
+              onPressSave={() => onPressSave(opinionArticle[0].nid_export)}
+              onPressFontSizeChange={onPressFontSizeChange}
+            />
+          </View>
+        </View>}
     </ScreenContainer>
   );
 };
@@ -227,15 +271,12 @@ export const OpinionArticleDetail = ({
 const customStyle = (theme: CustomThemeType) => {
   const OpinionArticleDetailStyle = StyleSheet.create({
     container: {
-      paddingBottom: normalize(80),
+      flex: 1,
+      marginBottom: normalize(80),
       backgroundColor: theme.backgroundColor,
     },
-    flatList: {
+    containerBase: {
       flex: 1,
-      height: '100%',
-    },
-    footer: {
-      width: '100%',
     },
   });
   return OpinionArticleDetailStyle;

@@ -1,6 +1,6 @@
 import { UMS_BASE_URL } from 'src/services/apiUrls';
-import { postApiRequest } from 'src/services/api';
-import { SEND_SELECTED_NEWS_LETTERS_ENDPOINT, GET_SELECTED_NEWS_LETTERS_ENDPOINT } from './apiEndPoints';
+import { postApiRequest, getApiRequest } from 'src/services/api';
+import { SEND_SELECTED_NEWS_LETTERS_ENDPOINT, GET_SELECTED_NEWS_LETTERS_ENDPOINT, GET_MY_NEWS_LETTERS_ENDPOINT } from './apiEndPoints';
 import { GetSelectedNewsLettersSuccessPayloadType, SendSelectedNewsLettersBody, SendSelectedNewsLettesrsSuccessPayloadType } from 'src/redux/newsLetter/types';
 
 export const sendSelectedNewsLettersApi = async (body: SendSelectedNewsLettersBody) => {
@@ -11,6 +11,8 @@ export const sendSelectedNewsLettersApi = async (body: SendSelectedNewsLettersBo
                 `${UMS_BASE_URL}${SEND_SELECTED_NEWS_LETTERS_ENDPOINT}${body.tid}`,
                 body
             );
+        console.log(`${UMS_BASE_URL}${SEND_SELECTED_NEWS_LETTERS_ENDPOINT}${body.tid}`,body);
+        
         return response;
     } catch (error) {
         console.log(`error: ${error}`);
@@ -21,8 +23,21 @@ export const sendSelectedNewsLettersApi = async (body: SendSelectedNewsLettersBo
 export const getSelectedNewsLettersApi = async () => {
     try {
         const response: GetSelectedNewsLettersSuccessPayloadType =
-            await postApiRequest(
+            await getApiRequest(
                 `${UMS_BASE_URL}${GET_SELECTED_NEWS_LETTERS_ENDPOINT}`,
+            );
+        return response;
+    } catch (error) {
+        console.log(`error: ${error}`);
+        throw error;
+    }
+};
+
+export const getMyNewsLettersApi = async () => {
+    try {
+        const response: GetSelectedNewsLettersSuccessPayloadType =
+            await postApiRequest(
+                `${UMS_BASE_URL}${GET_MY_NEWS_LETTERS_ENDPOINT}`,
             );
         return response;
     } catch (error) {

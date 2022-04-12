@@ -150,6 +150,7 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
+          gestureEnabled: false
         }}
       />
       <Stack.Screen
@@ -165,6 +166,7 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
+          gestureEnabled: false
         }}
       />
          <Stack.Screen
@@ -175,6 +177,7 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
+          gestureEnabled: false
         }}
       />
       <Stack.Screen
@@ -196,6 +199,16 @@ const AppNavigator = () => {
           headerTitle: () => HeaderTitle(t('profileSetting.manageMyNotification')),
           headerTitleAlign: 'center'
         }}
+      />
+       <Stack.Screen
+        name={ScreensConstants.WRITERS_DETAIL_SCREEN}
+        component={Routes.WritersDetailScreen}
+        options={hideHeader}
+      />
+      <Stack.Screen
+        name={ScreensConstants.SectionArticlesParentScreen}
+        component={Routes.SectionArticlesParentScreen}
+        options={hideHeader}
       />
     </Stack.Navigator>
   );

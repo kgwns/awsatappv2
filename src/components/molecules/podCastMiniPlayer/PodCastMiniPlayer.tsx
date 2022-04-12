@@ -1,11 +1,11 @@
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { FunctionComponent } from 'react'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { Image } from 'src/components/atoms'
 import { ImagesName } from 'src/shared/styles'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { normalize } from 'src/shared/utils'
+import { isTab, normalize } from 'src/shared/utils'
 import TextTicker from 'react-native-text-ticker';
 import { State, usePlaybackState } from 'react-native-track-player';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode'
@@ -24,6 +24,20 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
     const fieldData = data ? data : podcastEpisodeInitialData
+    const isLoading = playbackState === State.None ||  playbackState === State.Buffering || playbackState === State.Connecting
+    
+    const Pause = () => (
+        <>
+            {getSvgImages({ name: ImagesName.pauseIcon, width: normalize(17), height: normalize(17) })}
+        </>
+    )
+
+    const Play = () => (
+        <>
+            {getSvgImages({ name: ImagesName.playIconSVG, width: normalize(15), height: normalize(17) })}
+        </>
+    )
+    
     return (
         <View style={style.container}>
             <View style={style.miniPlayer}>
@@ -43,9 +57,8 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     </View>
                     <TouchableOpacity onPress={onPlaybackPress}>
                         <View style={style.buttonContainer}>
-                            {playbackState === State.Playing ?
-                                getSvgImages({ name: ImagesName.pauseIcon, width: normalize(17), height: normalize(17) })
-                                : getSvgImages({ name: ImagesName.playIconSVG, width: normalize(15), height: normalize(17) })}
+                            {isLoading ? <ActivityIndicator /> :
+                                playbackState === State.Playing ? <Pause /> : <Play />}
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -86,8 +99,8 @@ const customStyle = (theme: CustomThemeType) => {
             padding: normalize(12)
         },
         imageContainer: {
-            width: normalize(46),
-            height: normalize(41),
+            width: isTab ? normalize(120) : normalize(46),
+            height: isTab ? normalize(52) : normalize(41),
             backgroundColor: 'black'
         },
         image: {
@@ -101,8 +114,8 @@ const customStyle = (theme: CustomThemeType) => {
         },
         title: {
             textAlign: 'left',
-            fontSize: 13,
-            lineHeight: 16,
+            fontSize: isTab ? 16 : 13,
+            lineHeight: isTab ? 19 : 16,
             marginTop: normalize(10),
             color: theme.primaryBlack
         },

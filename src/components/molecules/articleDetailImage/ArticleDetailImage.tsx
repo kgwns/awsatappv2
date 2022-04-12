@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, StyleSheet, ViewStyle, TouchableOpacity, Platform } from 'react-native'
+import { View, StyleSheet, ViewStyle, TouchableOpacity } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from 'src/components/molecules'
 import { BannerImageWithOverlay, Label, LabelTypeProp } from 'src/components/atoms'
 import { articleFooterProps } from 'src/components/molecules/articleFooter/ArticleFooter'
-import { isIOS, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isIOS, isNotEmpty, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from 'src/components/atoms'
 import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import { useTranslation } from 'react-i18next';
@@ -28,17 +28,20 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     title?: string,
     containerStyle?: ViewStyle,
     author: string,
-    created: string
+    created: string,
+    isRelatedArticle: boolean,
 }
 const ArticleDetailImage = ({
-    image, category, title, author, created
+    image, category, title, author, created, isRelatedArticle
 }: ImageArticleProps) => {
     const [t] = useTranslation();
     const navigation = useNavigation()
 
     const onPressBack = () => {
-        Orientation.unlockAllOrientations()
-        Orientation.lockToPortrait()
+        if (!isRelatedArticle) {
+            Orientation.unlockAllOrientations()
+            Orientation.lockToPortrait()
+        }
         navigation.goBack()
     }
 
@@ -54,9 +57,11 @@ const ArticleDetailImage = ({
                 </Label>
             </TouchableOpacity>
             <View style={imageArticleStyle.slideContent}>
-                <View style={imageArticleStyle.tagNameViewStyle}>
-                    <Label labelType={LabelTypeProp.h3} children={category} color={Styles.color.white} style={imageArticleStyle.tagNameStyle} />
-                </View>
+                {isNotEmpty(category) &&
+                    <View style={imageArticleStyle.tagNameViewStyle}>
+                        <Label labelType={LabelTypeProp.h3} children={category} color={Styles.color.white} style={imageArticleStyle.tagNameStyle} />
+                    </View>
+                }
                 <Label labelType={LabelTypeProp.h1}
                     children={title}
                     color={Styles.color.white}

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
-
 import {ButtonImage, Image, Label} from '../atoms';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {ImagesName} from 'src/shared/styles';
@@ -8,67 +7,82 @@ import {normalize, screenWidth} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {getSvgImages} from 'src/shared/styles/svgImages';
+import { PODCAST_LISTEN_TEXT } from 'src/constants/SharedConstants'
+import { getSecondsToHms } from 'src/shared/utils/utilities';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const PodcastWidget = () => {
+export interface PodcastWidgetProps {
+  onPress: () => void;
+  data: any;
+}
+
+const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
+  data,
+  onPress,
+}) => {
   const {themeData} = useTheme();
   const style = useThemeAwareObject(createStyles);
+  const podcastData = data[0];
 
   return (
-    <View style={style.container}>
-      <View style={style.podcastImageContainer}>
-        <Image
-          resizeMode="stretch"
-          url={'https://picsum.photos/200'}
-          style={style.podcastImage}
-        />
-      </View>
-      <View style={style.bodyContainer}>
-        <Label
-          color={themeData.primaryBlack}
-          style={style.podcastTitle}
-          children={'استمع لبودكاست آخر أخبار اليوم'}
-          numberOfLines={1}
-        />
-        <View style={style.durationContainer}>
-          <Label
-            color={colors.greenishBlue}
-            children={'استمع الي البودكاست '}
-            style={style.authorTitle}
-            numberOfLines={1}
-          />
-          <ButtonImage
-            icon={() => {
-              return getSvgImages({
-                name: ImagesName.playIconSVG,
-                size: normalize(13),
-              });
-            }}
-            onPress={() => {}}
-            style={style.playIcon}
-          />
-          <Label
-            color={colors.spanishGray}
-            children={'3:22'}
-            style={style.duration}
+    <TouchableOpacity onPress={onPress}>
+      <View style={style.container}>
+        <View style={style.podcastImageContainer}>
+          <Image
+            resizeMode="stretch"
+            url={podcastData?.field_podcast_sect_export?.img_podcast_mobile}
+            style={style.podcastImage}
           />
         </View>
+        <View style={style.bodyContainer}>
+          <Label
+            color={themeData.primaryBlack}
+            style={style.podcastTitle}
+            children={podcastData?.title}
+            numberOfLines={1}
+          />
+          <View style={style.durationContainer}>
+            <Label
+              color={colors.greenishBlue}
+              children={PODCAST_LISTEN_TEXT}
+              style={style.authorTitle}
+              numberOfLines={1}
+            />
+            <ButtonImage
+              icon={() => {
+                return getSvgImages({
+                  name: ImagesName.playIconSVG,
+                  size: normalize(13),
+                });
+              }}
+              onPress={onPress}
+              style={style.playIcon}
+            />
+            <Label
+              color={colors.spanishGray}
+              children={getSecondsToHms(podcastData?.field_total_duration_export)}
+              style={style.duration}
+            />
+          </View>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const createStyles = (theme: CustomThemeType) => {
   const podcastWidgetStyle = StyleSheet.create({
     container: {
-      marginHorizontal: 0.04 * screenWidth,
-      marginVertical: normalize(15),
+      marginHorizontal: 0.05 * screenWidth,
+      marginTop: normalize(28),
+      marginBottom: normalize(25),
       backgroundColor: theme.secondaryGreen,
       flexDirection: 'row',
       height: normalize(71),
       alignContent: 'center',
     },
     podcastImageContainer: {
-      width: '22%',
+      width: '25%',
     },
     podcastImage: {
       width: '100%',
@@ -76,7 +90,7 @@ const createStyles = (theme: CustomThemeType) => {
     },
     bodyContainer: {
       overflow: 'hidden',
-      width: '78%',
+      width: '75%',
     },
     podcastTitle: {
       marginTop: normalize(10),

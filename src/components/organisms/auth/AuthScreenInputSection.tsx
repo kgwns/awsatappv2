@@ -21,11 +21,13 @@ interface AuthScreenInputSectionProps {
   email?: string;
   emailError?: string;
   passwordTestID?: string;
-  password?: string;
+  password?: string; 
   passwordError?: string;
   rightIconTestID?: string;
-  isPassword?: boolean,
-  editableEmail?: boolean,
+  isPassword?: boolean;
+  editableEmail?: boolean;
+  showAlertNoInternet?: () => void;
+  socialButtonBoldStyle?: boolean;
 }
 
 export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionProps> =({
@@ -44,6 +46,8 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
   passwordError,
   isPassword= false,
   editableEmail= true,
+  showAlertNoInternet,
+  socialButtonBoldStyle= false,
 }) => {
 
   const [t] = useTranslation();
@@ -87,6 +91,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
               children={isPassword?t('signIn.loginAccount'):t('signIn.signUp')}
               labelType="h2"
               color={colors.greenishBlue}
+              style={styles.loginStyle}
             />
             <Label
               children={t('signIn.signUpReceive')}
@@ -132,7 +137,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
               onPress={onPress}
               label={t('signIn.signIn')}
               style={styles.buttonStyle}
-              labelStyle={styles.labelStyle}
+              labelStyle={styles.signInLabelStyle}
             />
           </View>
           <View style={styles.dividerContainber}>
@@ -146,6 +151,8 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
           <View style={[styles.bottomContainerStyle,isPassword&&{flex:0.35}]}>
             <SocialButtonSection
               onButtonPress={navigate}
+              showAlertNoInternet={showAlertNoInternet}
+              socialButtonBoldStyle = {socialButtonBoldStyle}
             />
           </View>
         </View>
@@ -157,15 +164,20 @@ StyleSheet.create({
   container:{
     flex: 1,
   },
+  loginStyle: {
+    fontSize: normalize(20),
+    fontWeight: 'bold',
+    marginTop: normalize(20)
+  },
   spaceStyle: {
     marginHorizontal: normalize(10),
   },
   textStyle: {
     fontSize: normalize(15),
-    color: theme.textColor,
+    color: theme.signInTextColor,
     lineHeight: normalize(22),
     fontWeight: '400',
-    marginBottom: normalize(15),
+    marginBottom: normalize(25),
   },
   textStyleBlack: {
     fontSize: normalize(15),
@@ -175,7 +187,9 @@ StyleSheet.create({
   buttonStyle: {
     backgroundColor: theme.primary,
     borderWidth: 0,
-    width: '50%',
+    width: '60%',
+    marginBottom: normalize(30)
+
   },
   topContainerStyle: {
     flex: 0.5,
@@ -186,17 +200,20 @@ StyleSheet.create({
     flex: 0.45,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: normalize(25)
   },
-  labelStyle: {
+  signInLabelStyle: {
     color: theme.secondaryWhite,
     fontWeight: 'bold',
-    lineHeight: normalize(22),
+    fontSize: 16,
+    lineHeight: 25,
   },
   dividerContainber: {
     flex: 0.05,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: normalize(25)
   },
   divider: {
     height: 1,

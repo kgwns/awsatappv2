@@ -14,8 +14,8 @@ export const RELATED_ARTICLE_GET = 'api/v2/relatedarticles/';
 //page start from 0
 //offset is about from which position need to get the data
 export const LATEST_ARTICLE_GET = '/api/v2/latestarticles';
-
 export const SECTION_COMBO = '/api/v2/articlesection';
+export const PODCAST_HOME = '/api/v2/podcasthome';
 
 //opinion tab in category section
 //writer list
@@ -24,6 +24,7 @@ export const OPINION_TAB_WRITER_ENDPOINT = '/api/v2/sections/writer';
 //opinion tab in category section
 //opinions list
 export const OPINIONS_ENDPOINT = '/api/v2/opinions/all';
+export const OPINION_BY_WRITER_END_POINT = '/api/v2/opinions/'
 
 export const NEWS_CATEGORIES_ENDPOINT = '/api/v2/sections/news_categories';
 
@@ -42,6 +43,8 @@ export const NEWS_VIEW_ENDPOINT = '/api/v2/articlesection';
 export const ALL_WRITERS_ENDPOINT = '/api/v2/sections/writer';
 export const SEND_SELECTED_WRITERS_ENDPOINT = 'api/ums/v1/addFavoriteAuthor?tid=';
 export const GET_SELECTED_AUTHORS_ENDPOINT = 'api/ums/v1/getFavoriteAuthor';
+export const REMOVE_WRITERS_ENDPOINT = 'api/ums/v1/removeFavoriteAuthor?tid=';
+
 
 //all site categories
 export const ALL_SITE_CATEGORIES_ENDPOINT = "/api/v2/sections/news_categories";
@@ -88,11 +91,14 @@ export const CHANGE_PASSWORD = 'api/ums/v1/changePassword?password='
 
 //News Letters
 export const SEND_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/addNewsletters?tid=';
-export const GET_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getNewsletters';
+// export const GET_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getNewsletters';
+export const GET_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getAPPNewslettersList';
+export const GET_MY_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getMyNewsletters';
 
 //Keep Notified
 export const SEND_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/addNotifications'
-export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getNotifications'
+export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getMyNotifications'
+export const GET_LIST_OF_NOTIFICATION_END_POINT = 'api/ums/v1/getAPPNotificationsList'
 
 //Podcast
 export const PODCAST_LIST_ENDPOINT = '/api/v2/podcastsection/';
@@ -108,3 +114,6 @@ export const FAVOURITE_OPINIONS_ENDPOINT = 'api/v2/opinions';
 
 //Forgot Password
 export const FORGOT_PASSWORD_ENDPOINT = 'api/ums/v1/forgotPassword'
+
+//Details of Selected Writers
+export const ALL_SELECTED_WRITERS_ENDPOINT = 'api/v2/sections/writer';

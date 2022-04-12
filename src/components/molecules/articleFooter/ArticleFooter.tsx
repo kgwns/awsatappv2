@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, StyleProp, TextStyle } from 'react-native'
 import { normalize } from 'src/shared/utils/dimensions'
 import { moleculesTestID } from 'src/constants'
 import { Styles } from 'src/shared/styles'
@@ -24,7 +24,8 @@ export interface articleFooterProps {
   hideBookmark?: boolean,
   isBookmarked?: boolean,
   showFooterTitle?: boolean,
-  onPress?: () => void
+  onPress?: () => void;
+  leftTitleStyle?: StyleProp<TextStyle>
 }
 
 const ArticleFooter = ({
@@ -39,17 +40,20 @@ const ArticleFooter = ({
   hideBookmark = false,
   isBookmarked,
   showFooterTitle = true,
-  onPress
+  onPress,
+  leftTitleStyle
 }: articleFooterProps) => {
   let storySaveIcon=() => {
     return isBookmarked
       ? getSvgImages({
           name: ImagesName.bookMarkActiveSVG,
-          size: normalize(15),
+          width: 10,
+          height: 15
         })
       : getSvgImages({
           name: ImagesName.bookMarkSVG,
-          size: normalize(15),
+          width: 10,
+          height: 15
         });
   }
   
@@ -58,11 +62,13 @@ const ArticleFooter = ({
       return isBookmarked
         ? getSvgImages({
             name: ImagesName.bookMarkWhiteActive,
-            size: normalize(15),
+            width: 10,
+            height: 15
           })
         : getSvgImages({
             name: ImagesName.bookMarkWhite,
-            size: normalize(15),
+            width: 10,
+            height: 15
           });
     }
   }
@@ -70,9 +76,22 @@ const ArticleFooter = ({
   return (
     <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
       <View style={[articleFooterStyle.authorContainer,hideBookmark&&{flex:1}]}>
-        {showFooterTitle && <CaptionWithImage style={articleFooterStyle.leftContainer} title={leftTitle} icon={leftIcon} color={leftTitleColor}  />}
-        {(rightTitle || leftTitle) && showFooterTitle && <View  style={articleFooterStyle.verticalDivider} />}
-        {showFooterTitle && <CaptionWithImage style={articleFooterStyle.rightContainer} title={rightTitle} icon={rightIcon} color={rightTitleColor} />}
+        {showFooterTitle && 
+        <CaptionWithImage style={articleFooterStyle.leftContainer}
+          title={leftTitle} 
+          icon={leftIcon} 
+          color={leftTitleColor}
+          labelStyle={leftTitleStyle}
+        />
+        }
+        {(rightTitle || leftTitle) && showFooterTitle && <View style={articleFooterStyle.verticalDivider} />}
+        {showFooterTitle && 
+        <CaptionWithImage style={articleFooterStyle.rightContainer}
+          title={rightTitle} 
+          icon={rightIcon}
+          color={rightTitleColor}
+        />
+        }
       </View>
       {!hideBookmark &&
         <View style={articleFooterStyle.bookMarkContainer}>
@@ -101,7 +120,8 @@ const articleFooterStyle = StyleSheet.create({
     height: 10,
     width: 1,
     backgroundColor: Styles.color.silverChalice,
-    marginLeft: normalize(3)
+    marginLeft: normalize(5),
+    marginRight: normalize(10)
   },
   leftContainer: {
     flexShrink: 1,

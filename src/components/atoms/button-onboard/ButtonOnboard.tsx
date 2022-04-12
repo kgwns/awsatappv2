@@ -32,9 +32,10 @@ const styles = StyleSheet.create({
         backgroundColor: colors.greenishBlue
     },
     titleStyle: {
-        fontSize: normalize(13),
+        fontSize: 13,
         textAlign: 'center',
         color: colors.white,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        lineHeight: 20,
     }
 });

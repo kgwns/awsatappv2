@@ -31,6 +31,8 @@ const MANAGE_MY_FAVORITE_AUTHOR_SCREEN = 'MANAGE_MY_FAVORITE_AUTHOR_SCREEN' as S
 const MANAGE_MY_FAVORITE_TOPICS_SCREEN = 'MANAGE_MY_FAVORITE_TOPICS_SCREEN' as ScreenName;
 const USER_DETAIL_SCREEN = 'UserDetailScreen' as ScreenName;
 const VideoPlayerScreen = 'VideoPlayerScreen' as ScreenName;
+const WRITERS_DETAIL_SCREEN = 'WriterDetailScreen' as ScreenName
+const SectionArticlesParentScreen = 'SectionArticlesParentScreen' as ScreenName
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -71,4 +73,6 @@ export const ScreensConstants = {
   MANAGE_MY_FAVORITE_TOPICS_SCREEN,
   USER_DETAIL_SCREEN,
   VideoPlayerScreen,
+  WRITERS_DETAIL_SCREEN,
+  SectionArticlesParentScreen,
 };

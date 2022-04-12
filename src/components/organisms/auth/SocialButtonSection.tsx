@@ -9,7 +9,7 @@ import {useTranslation} from 'react-i18next';
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
-import { isIOS, recordLogEvent } from 'src/shared/utils';
+import { isIOS, normalize, recordLogEvent } from 'src/shared/utils';
 import {LoginFactory,Connection}  from 'src/shared/utils/loginFactory';
 import {NavigateTypes} from 'src/components/screens';
 import {RegisterBodyType} from 'src/redux/register/types';
@@ -25,9 +25,11 @@ import moment from 'moment';
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
   style?: StyleProp<ViewStyle>;
+  showAlertNoInternet?: () => void;
+  socialButtonBoldStyle?: boolean;
 }
 
-export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =({ onButtonPress, style }) => {
+export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =({ onButtonPress, style, showAlertNoInternet, socialButtonBoldStyle }) => {
 
   const [t] = useTranslation();
   const {themeData} = useTheme();
@@ -35,6 +37,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   const {createUserRequest, registerUserInfo} = useRegister();
 
   const {socialLoginEnded} = useRegister();
+  const OK = t('common.ok');
 
   const onSuccessSocialLogin = (userInfo:any,provider='google')=>{
     const userDetails = userInfo.user
@@ -49,16 +52,28 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     if(provider === 'facebook' && userDetails.birthday){
       payload.birthday = moment(userDetails.birthday).locale('en').format('YYYY-MM-DD')
     }
-    console.log(payload);
+    if(provider === 'facebook' && userDetails.profile_url){
+      payload.profile_url = userDetails.profile_url
+    }
+    
+    if (provider === 'google' && userInfo) {
+      payload.profile_url = userInfo.user.photo
+    }
+    console.log(payload, userInfo);
     createUserRequest(payload);
   }
 
-  const onResult = (userInfo:any,success:boolean, provider:string)=>{
-
+  const onResult = (userInfo:any,success:boolean, provider:string, message?:String)=>{
     if(success){
       onSuccessSocialLogin(userInfo,provider)
     }else{
       socialLoginEnded();
+      if(message){
+        if(message === 'ErrorOccured'){
+          //show Alert
+          showAlertNoInternet && showAlertNoInternet()
+        }
+      }
     }
   }
 
@@ -93,7 +108,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
           routes: [{name: message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator}],
         });
       }else{
-        Alert.alert(message.message);
+        Alert.alert(message.message, undefined, [{ text: OK }]);
       }
     }
   }, [registerUserInfo]);
@@ -136,27 +151,36 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
         onPressButton(type);
     }
   };
+  const socialButtonLabelStyle = socialButtonBoldStyle ? styles.socialLoginButtonBoldLabel : styles.socialLoginButtonLabel
   return (
         <View {...style}>
           <SocialLoginButton testID="signin_facebook"
             onPress={() => {buttonPressAction('FACEBOOK')}}
             label={t('signIn.loginFacebook')}
+            labelStyle={socialButtonLabelStyle}
+            style={styles.labelContainer}
+            labelContainer={styles.textContainer}
             icon={() => <View style={styles.container}><FaceBookIcon /></View>}
           />
           <SocialLoginButton testID="signin_google"
             onPress={() => {buttonPressAction('GOOGLE')}}
             label={t('signIn.loginGoogle')}
+            labelStyle={socialButtonLabelStyle}
+            style={styles.labelContainer}
+            labelContainer={styles.textContainer}
             icon={() => <View style={styles.container}><GoogleIcon /></View>}
           />
           {(isIOS && appleAuth.isSupported) &&  <SocialLoginButton testID="signin_apple"
             onPress={() => {
               buttonPressAction('APPLE')
               appleSignin().then(response => {
-                console.log('component appleSignin response:- ', response)
                 appleSigninApi(response);
               })
             }}
+            labelStyle={socialButtonLabelStyle}
+            style={styles.labelContainer}
             label={t('signIn.loginApple')}
+            labelContainer={styles.textContainer}
             icon={() => <View style={styles.container}><AppleIcon fill={themeData.primaryBlack} /></View>}
           /> }
 
@@ -170,4 +194,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  labelStyle: {
+    fontSize: normalize(16)
+  },
+  labelContainer: {
+    justifyContent:'flex-start',
+  },
+  textContainer:{
+    alignItems:'flex-start',
+  },
+  socialLoginButtonLabel: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  socialLoginButtonBoldLabel: {
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: 'bold',
+  }
 });

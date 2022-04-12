@@ -19,6 +19,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [topicsData,setTopicsData] = useState<AllSiteCategoriesItemType[]>([])
   const {userProfileData} = useUserProfileData();
+  const OK = t('common.ok');
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -72,7 +73,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
       if (sentTopicsData.code === 200) {
         gotoNext()
       } else {
-        Alert.alert(sentTopicsData.message || '');
+        Alert.alert(sentTopicsData.message || '', undefined, [{ text: OK }]);
       }
     }
   }, [sentTopicsData]);
@@ -88,10 +89,8 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   };
 
   const onPressNext = () => {
-    if (isNonEmptyArray(getSelectedData())) {
       recordLogEvent('Add_Interests_Topic',{userId: userProfileData.user?.id,interestsIds: joinArray(getSelectedData())});
       sendSelectedTopicInfo({ tid: joinArray(getSelectedData()) })
-    }
   }
 
   const updateNextButton = () => {
@@ -134,14 +133,13 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
           }
         </View>
         <View style={style.nextButtonView}>
-          {!disableNext && <NextButton 
+          <NextButton
             testID="nextButtonTestId"
-            disabled={disableNext}
             title={t('onBoard.common.done')}
             onPress={onPressNext}
             style={style}
             icon={false}
-          />}
+          />
         </View>
       </View>
     </ScreenContainer>

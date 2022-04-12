@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, StyleProp, ViewStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { Divider, Label, LabelTypeProp, TextWithFlag } from '../atoms';
 import { normalize } from 'src/shared/utils';
@@ -12,7 +12,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
     body?: string,
     footerInfo?: articleFooterProps,
-    contentStyle?: object,
+    contentStyle?: StyleProp<ViewStyle>,
     showDivider?: boolean,
     showFooterTitle?: boolean,
     onPress: () => void
@@ -32,7 +32,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     const style = useThemeAwareObject(customStyle)
     return (
     <TouchableWithoutFeedback onPress={onPress}>
-        <View style={[{ ...props.contentStyle }, !showDivider && {paddingBottom: normalize(10)}]}>
+        <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>
             <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
             {isNotEmpty(body) && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)} color={Styles.color.davyGrey} numberOfLines={3} />}
             <View style={style.footerContainer}>
@@ -51,7 +51,7 @@ export default ArticleWithOutImage
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     footerContainer: {
         flex: 1,
-        paddingTop: normalize(10),
+        paddingTop: normalize(15),
     },
     divider: {
         height: 1,

@@ -70,16 +70,14 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
                 labelType={LabelTypeProp.h2}
               />
             </View>
-            <Image
-              url={getImageUrl(item.field_image)}
-              fallback
-              style={{
-                width: normalize(110),
-                height: normalize(85),
-                top: normalize(20),
-              }}
-              resizeMode={ImageResize.COVER}
-            />
+            <View style={style.imageContainer}>
+              <Image
+                url={getImageUrl(item.field_image)}
+                fallback
+                style={style.image}
+                resizeMode={ImageResize.COVER}
+              />
+            </View>
           </View>
           <Label
             style={style.descriptionStyle}
@@ -138,6 +136,7 @@ export default NewsFeed;
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     paddingHorizontal: 0.04 * screenWidth,
+    paddingTop: normalize(25),
   },
   listContainer: {},
   footerContainer: {
@@ -151,11 +150,21 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     fontSize: normalize(14),
     color: Styles.color.smokeyGrey,
     textAlign: 'left',
-    paddingVertical: normalize(20),
+    paddingBottom: normalize(20),
+    paddingTop: normalize(5),
     lineHeight: normalize(18),
   },
   divider: {
-    height: 1,
+    height: 1.07,
     backgroundColor: theme.dividerColor
-},
+  },
+  imageContainer: {
+    width: 93,
+    height: 73,
+    marginTop:20
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+  },
 });

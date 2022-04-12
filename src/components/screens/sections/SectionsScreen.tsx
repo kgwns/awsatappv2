@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import analytics from '@react-native-firebase/analytics';
-import {TabView, SceneMap, TabBar, TabBarProps} from 'react-native-tab-view';
+import {TabView, TabBar} from 'react-native-tab-view';
 import {
   OpinionScreen,
   ScreenContainer,
@@ -9,24 +8,19 @@ import {
   SectionStoryScreen,
 } from '..';
 import {TabBarComponent} from 'src/components/molecules';
-import {horizontalEdge, normalize, normalizeBy320, recordCurrentScreen} from 'src/shared/utils';
+import {horizontalEdge, normalize, recordCurrentScreen} from 'src/shared/utils';
 import {
   View,
   Dimensions,
   StyleSheet,
   StatusBar,
-  TouchableOpacity,
-  Animated,
-  Text,
 } from 'react-native';
 import {useTopMenu} from 'src/hooks';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import PagerView from 'react-native-pager-view';
 import { Styles } from 'src/shared/styles';
 
 export enum TabType {
-  home = 'home',
   opinion = 'opinion',
   podcast = 'podcast',
   video = 'video',
@@ -87,38 +81,6 @@ export const SectionsScreen = () => {
     setTabSelectedIndex(index);
     recordCurrentScreen(topMenuData[tabSelectedIndex].tabName as string);
   };
-
-  const renderTabBarComponent = () => (
-    <TabBarComponent
-      tabItem={topMenuData}
-      onPressTabItem={onPressTabItem}
-      style={style.tabBarStyle}
-    />
-  );
-
-  const tabContent = () => {
-    if (!topMenuData.length) return null;
-    switch (topMenuData[tabSelectedIndex].keyName) {
-      case TabType.home:
-        return <SectionStoryScreen sectionId={11} />;
-      case TabType.opinion:
-        return <OpinionScreen />;
-      case TabType.podcast:
-        return <PodcastProgram />;
-      case TabType.video:
-        return <VideoScreen />;
-      default:
-        return (
-          <SectionStoryScreen
-            sectionId={topMenuData[tabSelectedIndex].sectionId}
-          />
-        );
-    }
-  };
-
-  
-
-
 
   const _renderTabBar = props => {
     return (

@@ -29,7 +29,8 @@ jest.mock('@react-navigation/native', () => {
       goBack: jest.fn(),
       addListener: jest.fn(),
     }),
-    useIsFocused: () => jest.fn().mockImplementation(() => Boolean)
+    useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+    useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
   };
 });
 
@@ -76,6 +77,11 @@ jest.mock('keyboard-aware-view', () => {
     KeyboardAwareView: jest.fn().mockImplementation(() => jest.fn())
   }
 })
+
+jest.mock('react-native-keyboard-aware-scroll-view', () => {
+  const KeyboardAwareScrollView = ({ children }) => children;
+  return { KeyboardAwareScrollView };
+});
 
 jest.mock('@react-native-google-signin/google-signin', () => {});
 
@@ -135,3 +141,5 @@ jest.mock('react-native-adjust-oaid', () => {
     AdjustOaid: jest.fn().mockImplementation(() => jest.fn())
   };
 });
+
+

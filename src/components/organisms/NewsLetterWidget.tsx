@@ -5,7 +5,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {flatListUniqueKey} from 'src/constants';
 import {NewsLetterCard} from '../molecules';
-import {normalize, screenWidth} from 'src/shared/utils';
+import {normalizeBy320, screenWidth} from 'src/shared/utils';
 import { NewsLetterCardProps } from '../molecules/NewsLetterCard';
 
 export const NewsLettersWidget = (props:any) => {
@@ -16,6 +16,7 @@ export const NewsLettersWidget = (props:any) => {
       <NewsLetterCard
         title={item.title}
         subTitle={item.subTitle}
+        description={item.description}
         image={item.image}
         isSelected={item.isSelected}
         onPress={selected => {
@@ -45,7 +46,7 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
       paddingHorizontal: 0.05 * screenWidth,
     },
-    cardContainer: {paddingVertical: normalize(5)},
+    cardContainer: { paddingVertical: normalizeBy320(10) },
   });
   return NewsLettersWidgetStyle;
 };

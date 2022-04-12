@@ -35,6 +35,6 @@ const textWithFlagStyle = StyleSheet.create({
     container: {
         textAlign: 'left',
         flexWrap: 'wrap',
-        paddingVertical: normalize(8)
+        paddingBottom: normalize(8)
     }
 })

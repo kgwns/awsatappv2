@@ -30,7 +30,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     created: string,
     isBookmarked: boolean
     onPressBookmark: () => void,
-    isTabFooterInside: boolean,
+    isTabFooterInside?: boolean,
 }
 
 const ImageArticle = ({
@@ -50,10 +50,14 @@ const ImageArticle = ({
                     <BannerImageWithOverlay image={image} />
                     <View style={imageArticleStyle.slideContent}>
                         <Label labelType={LabelTypeProp.h1} children={title} color={Styles.color.white} />
-                        {isTabFooterInside&&<ArticleFooter {...carouselFooterSample} leftTitle={author} rightTitle={timeAgo(created)}
-                            isBookmarked={isBookmarked}
-                            onPress={onPressBookmark}
-                        />}
+                        {isTabFooterInside &&
+                            <View style={imageArticleStyle.footerContainer}>
+                                <ArticleFooter {...carouselFooterSample} leftTitle={author} rightTitle={timeAgo(created)}
+                                    isBookmarked={isBookmarked}
+                                    onPress={onPressBookmark}
+                                />
+                            </View>
+                        }
                     </View>
                 </View>
                 {!isTabFooterInside&&<View style={imageArticleStyle.tabletFooterStyle}>
@@ -99,4 +103,7 @@ const imageArticleStyle = StyleSheet.create({
     paddingHorizontal: 0.04 * screenWidth,
     paddingVertical: normalize(10),
   },
+  footerContainer: {
+    paddingTop: normalize(20)
+  }
 });

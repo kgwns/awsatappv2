@@ -23,8 +23,18 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
 import { getProfileImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
-import { FACEBOOK_URL, INSTAGRAM_URL, LINKEDIN_URL, TWITTER_URL } from 'src/constants/SharedConstants';
+import {
+  FACEBOOK_APP_URL,
+  INSTAGRAM_APP_URL,
+  LINKEDIN_APP_URL,
+  TWITTER_APP_URL,
+  FACEBOOK_URL,
+  INSTAGRAM_URL,
+  LINKEDIN_URL,
+  TWITTER_URL,
+} from 'src/constants/SharedConstants';
 import { recordLogEvent } from 'src/shared/utils';
+import { TabType } from 'src/components/screens/sections/SectionsScreen';
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -123,7 +133,11 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         }
         
         }}>
-        {useLogin().isLoggedIn && userProfileData.user?.image ? <Image style={styles.user} source={{uri: getProfileImageUrl(userProfileData.user?.image as string)}}/> : <UserIcon/>}  
+        {useLogin().isLoggedIn && userProfileData.user?.image ?
+          <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.image as string) }} />
+          : userProfileData.user?.profile_url 
+          ? <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.profile_url as string) }} /> 
+          : <UserIcon />  }  
         {/* {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })} */}
       </TouchableOpacity>
       <View style={styles.logoContainer}>
@@ -138,7 +152,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     </View>
   );
 
-  const buttonListItem = (item: any,index: number,icon?: ImagesName | null) => {
+  const buttonListItem = (isChild: boolean, item: any, index: number, icon?: ImagesName | null) => {
     const hipSlopValue = normalize(12)
     return (
       <ButtonList
@@ -147,32 +161,46 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         hitSlop={{top: hipSlopValue,bottom: hipSlopValue,left: hipSlopValue,right: hipSlopValue}}
         key={index}
         title={item.title}
-        onPress={() =>
-          onPressNavigation(ScreensConstants.SectionArticlesScreen,
-            { sectionId: item.field_sectionid_export, title: item.title })
-        }
+        onPress={() => {
+          onPressNavigationDynamicMenu(isChild, item)
+        }}
         onPressIcon={() => onPressDropDownIcon(index)}
       />
     )
   }
 
+  const onPressNavigationDynamicMenu = (isChild: boolean, menuInfo: any) => {
+    const screenName = isChild ? ScreensConstants.SectionArticlesScreen : ScreensConstants.SectionArticlesParentScreen
+    const defaultParams = { sectionId: menuInfo.field_sectionid_export, title: menuInfo.title }
+    const params = isChild ? defaultParams : {...defaultParams, keyName: menuInfo.field_app_key_name_export}
+    onPressNavigation(screenName, params)
+  }
+
   const openSocialMedia = (type: string) =>{
     switch (type) {
       case SocialMediaType.facebook:
-        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.facebook});
-        Linking.openURL(FACEBOOK_URL);
+        recordLogEvent('Pressed_on_social_media_extensions', {socialMedia: SocialMediaType.facebook});
+        Linking.openURL(FACEBOOK_APP_URL).catch(() => {
+          Linking.openURL(FACEBOOK_URL)
+        });
         return;
       case SocialMediaType.instagram:
-        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.instagram});
-        Linking.openURL(INSTAGRAM_URL);
+        recordLogEvent('Pressed_on_social_media_extensions', {socialMedia: SocialMediaType.instagram});
+        Linking.openURL(INSTAGRAM_APP_URL).catch(() => {
+          Linking.openURL(INSTAGRAM_URL)
+        });
         return;
       case SocialMediaType.linkedIn:
-        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.linkedIn});
-        Linking.openURL(LINKEDIN_URL);
+        recordLogEvent('Pressed_on_social_media_extensions', {socialMedia: SocialMediaType.linkedIn});
+        Linking.openURL(LINKEDIN_APP_URL).catch(() => {
+          Linking.openURL(LINKEDIN_URL)
+        });
         return;
       case SocialMediaType.twitter:
-        recordLogEvent('Pressed_on_social_media_extensions', {socialmedia: SocialMediaType.twitter});
-        Linking.openURL(TWITTER_URL);
+        recordLogEvent('Pressed_on_social_media_extensions', {socialMedia: SocialMediaType.twitter});
+        Linking.openURL(TWITTER_APP_URL).catch(() => {
+          Linking.openURL(TWITTER_URL)
+        });
         return;
       default:
         return;
@@ -189,11 +217,11 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             sideMenuDataInfo.map((item:any, index:number) => {
               const icon = isNonEmptyArray(item.child) ? ImagesName.downArrowIcon : null
               return (
-                <View>
-                  {buttonListItem(item, index, icon)}
+                <View key={index}>
+                  {buttonListItem(false, item, index, icon)}
                   {isNonEmptyArray(item.child) && item.showDropDown && <View style={styles.childDropdownItem}>
                     {item.child.map((childItem: any, childIndex: number) => {
-                      return buttonListItem(childItem, childIndex)
+                      return buttonListItem(true, childItem, childIndex)
                     })}
                     </View>
                   }

@@ -13,7 +13,7 @@ import { colors } from '../shared/styles/colors';
 import { ImagesName } from 'src/shared/styles/images';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { recordCurrentScreen } from 'src/shared/utils';
+import { isIOS, isTab, normalize, recordCurrentScreen } from 'src/shared/utils';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
@@ -67,13 +67,33 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                     return ImageName;
                 }
 
+                const getIconStyle = () : any  => {
+                    let iconStyle:any = TabNavigatorStyle.tabIcon ;
+                    switch (route.name) {
+                        case TabConstants.LATEST_NEWS:
+                            iconStyle = TabNavigatorStyle.latestNewsIcon
+                            break;
+                        case TabConstants.SECTIONS:
+                            iconStyle = TabNavigatorStyle.sectionsIcon
+                            break;
+                        case TabConstants.MOST_READ:
+                            iconStyle = TabNavigatorStyle.mostReadIcon
+                            break;
+                        case TabConstants.FAVORITE:
+                            iconStyle = TabNavigatorStyle.favoriteIcon
+                            break;
+                    }
+                    return iconStyle;
+                }
+
+                const iconStyle = getIconStyle();
                 return (
                     <View key={index}>
                         <TouchableOpacity
                             key={index}
                             onPress={() => onPress()}>
                             <View style={TabNavigatorStyle.tabIconContainer}>
-                                {(getSvgImages({ name: getImageName(), width: TabNavigatorStyle.tabIcon.width, height: TabNavigatorStyle.tabIcon.height }))}
+                                {(getSvgImages({ name: getImageName(), width: iconStyle.width, height: iconStyle.height , style: iconStyle}))}
                             </View>
                         </TouchableOpacity>
                         <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
@@ -87,19 +107,37 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
 const TabNavigatorStyle = StyleSheet.create({
     bottomBar: {
         width: "100%",
-        height: 80,
+        height: isTab ? 93 : 80,
         flexDirection: "row",
         justifyContent: "space-evenly",
-        paddingTop: 10,
+        paddingTop: isTab ? 20 : 15,
     },
     tabIconContainer: {
+        height: isTab ? 29 : 24,
         alignItems: "center",
         alignSelf: "center",
-        marginBottom: 10
+        marginBottom: normalize(2)
     },
     tabIcon: {
-        width: 25,
-        height: 25
+        width: 20,
+        height: 20
+    },
+    favoriteIcon: {
+        width: normalize(12),
+        height: normalize(17),
+        marginTop: isIOS ? normalize(2) : normalize(5)
+    },
+    mostReadIcon: {
+        width: normalize(17),
+        height: normalize(22)
+    },
+    sectionsIcon: {
+        width: normalize(20),
+        height: normalize(20)
+    },
+    latestNewsIcon: {
+        width: normalize(18),
+        height: normalize(21)
     }
 });
 

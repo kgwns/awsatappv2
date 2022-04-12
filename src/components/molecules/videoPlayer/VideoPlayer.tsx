@@ -1,13 +1,14 @@
 import React, {FunctionComponent, useRef, useState, useEffect} from 'react';
-import {View, StyleSheet, I18nManager, BackHandler} from 'react-native';
+import {View, StyleSheet, BackHandler, StatusBar} from 'react-native';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors} from 'src/shared/styles/colors';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
+import Orientation from 'react-native-orientation-locker';
 import { Edge } from 'react-native-safe-area-context';
 import { horizontalEdge } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
 import VideoPlayer from 'react-native-video-controls';
 import { useNavigation } from '@react-navigation/native';
+import SystemNavigationBar from 'react-native-system-navigation-bar';
 export interface VideoPlayerProps {
   goBack?: () => void;
   testID?: string;
@@ -53,27 +54,14 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
 
   useEffect(() => {
     Orientation.unlockAllOrientations()
-    Orientation.getDeviceOrientation(updateScreenEdge)
-    Orientation.addDeviceOrientationListener(updateScreenEdge)
+    SystemNavigationBar.navigationHide();
+    StatusBar.setHidden(true);
     return () => {
       Orientation.lockToPortrait()
-      Orientation.removeOrientationListener(updateScreenEdge)
+      StatusBar.setHidden(false)
+      SystemNavigationBar.navigationShow()
     }
   }, [])
-
-  const updateScreenEdge = (deviceOrientation: OrientationType) => {
-    const edge = getScreenEdge(deviceOrientation)
-    setEdge(edge)
-  }
-
-  const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
-    switch (deviceOrientation) {
-      case 'LANDSCAPE-LEFT': return ['right']
-      case 'LANDSCAPE-RIGHT': return ['left']
-      case 'PORTRAIT': return horizontalEdge
-      default: return horizontalEdge
-    }
-  }
 
   const onLoadStart = () => {
     setIsPaused(false)
@@ -113,6 +101,7 @@ const createStyles = () =>
       width: '100%',
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: colors.black,
     },
     videoStyles: {
       backgroundColor: colors.black,
