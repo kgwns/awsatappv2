@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {ButtonImage, Image, Label} from '../atoms';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {ImagesName} from 'src/shared/styles';
-import {normalize, screenWidth} from 'src/shared/utils';
+import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {getSvgImages} from 'src/shared/styles/svgImages';
@@ -73,7 +73,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
 const createStyles = (theme: CustomThemeType) => {
   const podcastWidgetStyle = StyleSheet.create({
     container: {
-      marginHorizontal: 0.05 * screenWidth,
+      marginHorizontal: isTab ? 0 : 0.05 * screenWidth,
       marginTop: normalize(28),
       marginBottom: normalize(25),
       backgroundColor: theme.secondaryGreen,

@@ -47,4 +47,5 @@ export { VideoPlayerComponent } from 'src/components/molecules/videoPlayer/Video
 export { PopulateWidget } from 'src/components/molecules/populateWidget/PopulateWidget'
 export { SignupAlertCard } from './signupAlertCard/SignupAlertCard';
 export { WriterBannerImage } from './writerBannerImage/WriterBannerImage'
+export { ArticleOverlayContent } from './articleOverlayContent/ArticleOverlayContent'
 

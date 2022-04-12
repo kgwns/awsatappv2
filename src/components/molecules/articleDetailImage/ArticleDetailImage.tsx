@@ -1,27 +1,14 @@
 import React from 'react'
 import { View, StyleSheet, ViewStyle, TouchableOpacity } from 'react-native'
-import { ImagesName, Styles } from 'src/shared/styles'
-import { ArticleFooter } from 'src/components/molecules'
-import { BannerImageWithOverlay, Label, LabelTypeProp } from 'src/components/atoms'
-import { articleFooterProps } from 'src/components/molecules/articleFooter/ArticleFooter'
-import { isIOS, isNotEmpty, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { Styles } from 'src/shared/styles'
+import { BannerImageWithOverlay, Label } from 'src/components/atoms'
+import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from 'src/components/atoms'
 import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
-import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native'
-import { getSvgImages } from 'src/shared/styles/svgImages'
 import Orientation from 'react-native-orientation-locker'
-
-const articleDetailFooterData: articleFooterProps = {
-    leftTitleColor: Styles.color.white,
-    leftIcon: () => {return getSvgImages({
-        name: ImagesName.clock,
-        size: normalize(12),
-        style: { marginRight: normalize(5) }
-    })},
-    rightTitleColor: Styles.color.white,
-    hideBookmark: true
-}
+import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
+import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -31,10 +18,11 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     created: string
 }
 const ArticleDetailImage = ({
-    image, category, title, author, created
+    image, ...props
 }: ImageArticleProps) => {
-    const [t] = useTranslation();
     const navigation = useNavigation()
+
+    const CONST_RETURN = TranslateConstants({key: TranslateKey.RETURN})
 
     const onPressBack = () => {
         Orientation.unlockAllOrientations()
@@ -43,28 +31,22 @@ const ArticleDetailImage = ({
     }
 
     return (
-        <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-            <BannerImageWithOverlay image={image} />
-            <TouchableOpacity testID={'onPressbackTestID'} 
-            style={imageArticleStyle.returnStyle} 
-            onPress={onPressBack}>
-                <ReturnArrow style={imageArticleStyle.prevIconStyle} />
-                <Label style={imageArticleStyle.prevTitleStyle}>
-                    {t('onBoard.common.return')}
-                </Label>
-            </TouchableOpacity>
-            <View style={imageArticleStyle.slideContent}>
-                {isNotEmpty(category) &&
-                    <View style={imageArticleStyle.tagNameViewStyle}>
-                        <Label labelType={LabelTypeProp.h3} children={category} color={Styles.color.white} style={imageArticleStyle.tagNameStyle} />
-                    </View>
-                }
-                <Label labelType={LabelTypeProp.h1}
-                    children={title}
-                    color={Styles.color.white}
-                    style={{ paddingBottom: normalize(5), paddingTop: normalize(15) }} />
-                <ArticleFooter {...articleDetailFooterData} rightTitle={author} leftTitle={t(timeAgo(created))}/>
+        <View>
+            <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
+                <BannerImageWithOverlay image={image} />
+                <TouchableOpacity testID={'onPressbackTestID'}
+                    style={imageArticleStyle.returnStyle}
+                    onPress={onPressBack}>
+                    <ReturnArrow style={imageArticleStyle.prevIconStyle} />
+                    <Label style={imageArticleStyle.prevTitleStyle} children={CONST_RETURN} />
+                </TouchableOpacity>
+                {!isTab && <View style={imageArticleStyle.slideContent}>
+                    <ArticleOverlayContent {...props} />
+                </View>}
             </View>
+            {isTab && <View style={imageArticleStyle.tabSlideContent}>
+                <ArticleOverlayContent {...props} />
+            </View>}
         </View>
     )
 }
@@ -89,10 +71,6 @@ const imageArticleStyle = StyleSheet.create({
         paddingHorizontal: 0.04 * screenWidth,
         paddingVertical: normalize(10)
     },
-    tagNameViewStyle: {
-        opacity: 0.7,
-        flexWrap: 'wrap'
-    },
     prevIconStyle: {
         width: normalize(12),
         height: normalize(8.8),
@@ -116,9 +94,9 @@ const imageArticleStyle = StyleSheet.create({
         alignItems: 'center',
         color: Styles.color.white
     },
-    tagNameStyle: {
-        paddingHorizontal: normalize(10),
-        backgroundColor: Styles.color.darkGreenishBlue,
-        flexWrap: 'wrap'
+    tabSlideContent: {
+        width: '100%',
+        paddingHorizontal: normalize(12),
+        paddingVertical: normalize(15),
     }
 })

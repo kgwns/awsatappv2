@@ -124,10 +124,12 @@ const sectionComboOneStyle = StyleSheet.create({
   tabSplitter: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingTop: normalize(20),
+    paddingHorizontal: normalize(10)
   },
   tabWidgetContainer: {
-    flex: 0.5,
+    flex: 0.48,
   },
   widgetContainer: {
     paddingTop: isTab ? normalize(25) : normalize(15),

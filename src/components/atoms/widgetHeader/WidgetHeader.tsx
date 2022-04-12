@@ -10,6 +10,7 @@ export interface HeaderElementProps {
     labelType?: LabelTypeProp,
     clickable?: boolean,
     onPress?: () => void,
+    elementContainerStyle?: StyleProp<ViewStyle>
 }
 
 export interface WidgetHeaderProps {

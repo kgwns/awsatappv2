@@ -3,17 +3,19 @@ import {
   StyleSheet,
   FlatList,
   TouchableWithoutFeedback,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
-import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider } from '../atoms'
+import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label } from '../atoms'
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
 import { ImagesName } from 'src/shared/styles/images';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants';
 import { useTranslation } from 'react-i18next';
-import { getImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty } from 'src/shared/utils/utilities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { useLogin } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -24,7 +26,8 @@ export interface ShortArticleProps extends TextWithFlagProps {
   nid: string,
   author: string,
   created: string,
-  isBookmarked: boolean
+  isBookmarked: boolean;
+  body: string
 }
 
 export interface ArticleSectionProps {
@@ -35,6 +38,11 @@ export interface ArticleSectionProps {
   onUpdateBookmark: (nid: string, bookmarkStatus: boolean) => void,
   showSignUpPopUp: () => void,
   listKey?: string,
+  numColumns?: number,
+  addStyle?: StyleProp<ViewStyle>;
+  showBody?: boolean;
+  leftContainerStyle?: StyleProp<ViewStyle>
+  imageStyleProp?: StyleProp<ViewStyle> 
 }
 
 export const shortArticleFooter: articleFooterProps = {
@@ -54,6 +62,11 @@ const ShortArticle = ({ data, headerLeft, onPress,
   onUpdateBookmark,
   showSignUpPopUp,
   listKey,
+  numColumns = 1,
+  addStyle,
+  showBody = false,
+  leftContainerStyle,
+  imageStyleProp
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const { isLoggedIn } = useLogin()
@@ -83,11 +96,22 @@ const ShortArticle = ({ data, headerLeft, onPress,
   const renderItem = (item: ShortArticleProps, index: number) => {
     shortArticleFooter.rightTitle = t(timeAgo(item.created))
     shortArticleFooter.leftTitle = item.author
+
+    const cardStyle = (numColumns > 1 && index % 2 == 0) ? {marginRight: normalize(20)} : {}
+    const showDivider = (numColumns == 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
     return <TouchableWithoutFeedback onPress={() => onPress(item.nid)}>
-      <View key={flatListUniqueKey.SHORT_ARTICLE + index} style={{ paddingBottom: normalize(20) }}>
+      <View key={flatListUniqueKey.SHORT_ARTICLE + index}
+        style={StyleSheet.flatten([style.cardContainer, cardStyle])}>
         <View style={{ flexDirection: 'row' }}>
-          <View style={style.footerStyle}>
+          <View style={[style.footerStyle, leftContainerStyle]}>
             <TextWithFlag {...item} numberOfLines={2} labelType={labelType} />
+            {isNotEmpty(item.body) && showBody &&
+              <Label labelType={LabelTypeProp.p3}
+                children={decodeHTMLTags(item.body)}
+                color={Styles.color.davyGrey}
+                numberOfLines={2}
+              />
+            }
             <View style={style.footerContainer}>
               <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
                 onPress={() => checkAndUpdateBookmark(index)}
@@ -95,18 +119,18 @@ const ShortArticle = ({ data, headerLeft, onPress,
               />
             </View>
           </View>
-          <View style={{ flex: 0.30, paddingRight: normalize(5), }}>
+          <View style={[style.imageContainer, imageStyleProp]}>
             <Image fallback url={getImageUrl(item.image)} style={style.image} resizeMode={ImageResize.COVER} />
           </View>
         </View>
-        {index < data.length - 1 && <Divider style={style.divider}/>}
+        {showDivider && <Divider style={style.divider}/>}
       </View>
     </TouchableWithoutFeedback>
   };
 
   return (
-    <View style={style.container}>
-      <WidgetHeader headerLeft={headerLeft} />
+    <View style={[style.container, addStyle]}>
+      <WidgetHeader headerLeft={headerLeft} widgetHeaderStyle={{}} />
       <FlatList
         keyExtractor={(_, index) => index.toString()}
         listKey={
@@ -115,6 +139,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
         data={articleData}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => renderItem(item, index)}
+        numColumns={numColumns}
       />
     </View>
   );
@@ -123,12 +148,12 @@ const ShortArticle = ({ data, headerLeft, onPress,
 export default ShortArticle;
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
-    paddingHorizontal: 0.04 * screenWidth,
+    paddingHorizontal: (isTab ? 0 : 0.04) * screenWidth,
     paddingBottom: normalize(20)
   },
   image: {
     width: '100%',
-    height: normalize(73)
+    height: '100%',
   },
   divider: {
     height: 1,
@@ -142,6 +167,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   footerStyle: {
     flex: 0.70,
     paddingRight: normalize(12)
+  },
+  cardContainer: {
+    paddingBottom: normalize(20),
+    flex: 1,
+  },
+  imageContainer: {
+    flex: 0.30, 
+    height: normalize(73),
+    paddingRight: normalize(5),
   }
 })
 

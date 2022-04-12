@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, StyleProp, TextStyle } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, StyleProp, TextStyle, ViewStyle } from 'react-native'
 import { normalize } from 'src/shared/utils/dimensions'
 import { moleculesTestID } from 'src/constants'
 import { Styles } from 'src/shared/styles'
@@ -25,7 +25,8 @@ export interface articleFooterProps {
   isBookmarked?: boolean,
   showFooterTitle?: boolean,
   onPress?: () => void;
-  leftTitleStyle?: StyleProp<TextStyle>
+  leftTitleStyle?: StyleProp<TextStyle>;
+  rightContainerStyle?: StyleProp<ViewStyle>
 }
 
 const ArticleFooter = ({
@@ -41,7 +42,8 @@ const ArticleFooter = ({
   isBookmarked,
   showFooterTitle = true,
   onPress,
-  leftTitleStyle
+  leftTitleStyle,
+  rightContainerStyle
 }: articleFooterProps) => {
   let storySaveIcon=() => {
     return isBookmarked
@@ -75,7 +77,7 @@ const ArticleFooter = ({
 
   return (
     <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
-      <View style={[articleFooterStyle.authorContainer,hideBookmark&&{flex:1}]}>
+      <View style={[articleFooterStyle.authorContainer, rightContainerStyle,hideBookmark&&{flex:1}]}>
         {showFooterTitle && 
         <CaptionWithImage style={articleFooterStyle.leftContainer}
           title={leftTitle} 
