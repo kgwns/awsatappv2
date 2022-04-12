@@ -36,6 +36,14 @@ jest.mock("src/hooks/useRegister", () => ({
   },
 }));
 
+jest.mock("src/hooks/useEmailCheck", () => ({
+  useEmailCheck: (...args: any) => {
+      return {
+        emptyEmailCheckInfo:()=>{}
+      }
+  },
+}));
+
 describe('<SplashNavigation>', () => {
   let instance: RenderAPI;
   const dispatchMock = jest.fn();

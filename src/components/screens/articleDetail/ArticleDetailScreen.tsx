@@ -63,6 +63,20 @@ export const ArticleDetailScreen = ({
     emptyAllData,
   } = useArticleDetail();
 
+  useEffect(() => {
+    if (isFocused) {
+      Orientation.unlockAllOrientations();
+      Orientation.getDeviceOrientation(updateScreenEdge);
+      Orientation.addDeviceOrientationListener(updateScreenEdge);
+    }
+    return () => {
+      if (!route.params.isRelatedArticle) {
+        Orientation.lockToPortrait();
+        Orientation.removeOrientationListener(updateScreenEdge);
+      }
+    };
+  }, [])
+
   const validateBookmark = (nid: string): boolean => {
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
@@ -102,16 +116,6 @@ export const ArticleDetailScreen = ({
   }
 
   useEffect(() => {
-    Orientation.unlockAllOrientations();
-    Orientation.getDeviceOrientation(updateScreenEdge);
-    Orientation.addDeviceOrientationListener(updateScreenEdge);
-    return () => {
-      Orientation.lockToPortrait();
-      Orientation.removeOrientationListener(updateScreenEdge);
-    };
-  }, [])
-
-  useEffect(() => {
     emptyAllData();
     if (isFocused) {
       recordLogEvent('Article_Details_Screen', { articleId: currentNId });
@@ -145,7 +149,7 @@ export const ArticleDetailScreen = ({
     if (nid && nid!=currentNId) {
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
       emptyAllData();
-      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
     }
   }
 
@@ -197,7 +201,8 @@ export const ArticleDetailScreen = ({
   const renderItem = () => (
     <View>
       {isNonEmptyArray(articleDetailState) && <>
-        <ArticleDetailWidget articleData={articleDetailState[0]} />
+        <ArticleDetailWidget articleData={articleDetailState[0]}
+          isRelatedArticle={route.params.isRelatedArticle} />
         {articleHtmlContent()}
       </>
       }
