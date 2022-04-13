@@ -362,6 +362,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     tabWidgetContainer: {
       flex: 0.47,
+      overflow: 'hidden',
     },
     storyImageStyle: {
       height: isTab ? normalize(189) : 0.52 * screenWidth,
