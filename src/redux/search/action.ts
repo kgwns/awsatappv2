@@ -5,11 +5,15 @@ import {
   FetchSearchFailedType,
   FetchSearchRequestPayloadType,
   FetchSearchRequestType,
+  UpdateSearchHistory,
+  ClearSearchHistory,
 } from './types';
 import {
   FETCH_SEARCH_SUCCESS,
   FETCH_SEARCH_ERROR,
   FETCH_SEARCH_REQUEST,
+  UPDATE_SEARCH_HISTORY,
+  CLEAR_SEARCH_HISTORY,
 } from './actionTypes';
 
 export const fetchSearchSuccess = (
@@ -20,6 +24,15 @@ export const fetchSearchSuccess = (
     payload,
   };
 };
+
+export const updateSearchHistory = (
+  payload: string[]): 
+  UpdateSearchHistory => {
+    return {
+      type: UPDATE_SEARCH_HISTORY,
+      payload
+    }
+}
 
 export const fetchSearchRequest = (
   payload: FetchSearchRequestPayloadType,
@@ -37,8 +50,16 @@ export const fetchSearchFailed = (
   };
 };
 
+export const clearSearchHistory = (): ClearSearchHistory => {
+  return {
+    type: CLEAR_SEARCH_HISTORY
+  }
+}
+
 export const searchActions = {
   fetchSearchSuccess,
   fetchSearchFailed,
   fetchSearchRequest,
+  updateSearchHistory,
+  clearSearchHistory
 };

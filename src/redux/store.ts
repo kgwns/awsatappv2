@@ -11,7 +11,8 @@ const persistConfig = {
   storage: AsyncStorage,
   whitelist: [
     'login',
-    'appCommon'
+    'appCommon',
+    'search'
   ]
 };
 

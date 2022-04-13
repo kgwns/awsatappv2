@@ -20,8 +20,9 @@ export const SearchScreen = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
   const {themeData} = useTheme();
   const styles = useThemeAwareObject(createStyles);
-  const {fetchSearchRequest,isLoading,searchData} = useSearch();
+  const {fetchSearchRequest,isLoading,searchData, setSearchHistory, searchHistory} = useSearch();
   const onPressItem = (item:SearchItemType)=>{
+    getUpdatedHistoryArray(searchText);
     if (item.nid) {
       AdjustAnalyticsManager.trackEvent(AdjustEventID.SEARCH)
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: item.nid})
@@ -33,6 +34,14 @@ export const SearchScreen = () => {
       searchText: searchText,
     });
   };
+
+  const getUpdatedHistoryArray = (text:string) => { 
+    const filterHistoryArray: string[] = searchHistory?.length > 0 ?  searchHistory.filter(v => v !== text) : [];  
+    const newHistoryArray: string[] = [text , ...filterHistoryArray];
+    setSearchHistory(newHistoryArray.length > 10 ? newHistoryArray.slice(0, 10) : newHistoryArray);
+  }
+
+  
 
   return (
     <ScreenContainer>
@@ -53,7 +62,13 @@ export const SearchScreen = () => {
             }}
             isLoading={isLoading}
             data={searchData.rows}
+            searchHistory={searchHistory}
+            onPressHistory={text => {
+              onSearchTextChange(text)
+            }}
           />
+          
+          
         </View>
     </ScreenContainer>
   );
