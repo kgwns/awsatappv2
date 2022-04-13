@@ -52,32 +52,20 @@ const ArticleFooter = ({
   let storySaveIcon=() => {
     console.log(favouriteIconWidth,'cc');
     
-    return isBookmarked
-      ? getSvgImages({
-          name: ImagesName.bookMarkActiveSVG,
+    return getSvgImages({
+          name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG,
           width: favouriteIconWidth,
           height: favouriteIconHeight
         })
-      : getSvgImages({
-          name: ImagesName.bookMarkSVG,
-          width: favouriteIconWidth,
-          height: favouriteIconHeight
-        });
   }
   
   if(bookMarkColorType == BookMarkColorType.WHITE) {
-    storySaveIcon =() => {
-      return isBookmarked
-        ? getSvgImages({
-            name: ImagesName.bookMarkWhiteActive,
-            width: favouriteIconWidth,
-            height: favouriteIconHeight
-          })
-        : getSvgImages({
-            name: ImagesName.bookMarkWhite,
-            width: favouriteIconWidth,
-            height: favouriteIconHeight
-          });
+    storySaveIcon = () => {
+      return getSvgImages({
+        name: isBookmarked ? ImagesName.bookMarkWhiteActive : ImagesName.bookMarkWhite,
+        width: favouriteIconWidth,
+        height: favouriteIconHeight
+      })
     }
   }
 
