@@ -32,11 +32,13 @@ const DetailPodCastFooter = ({
         return isBookmarked
           ? getSvgImages({
               name: ImagesName.bookMarkActiveSVG,
-              size: normalize(18),
+              width: 11,
+              height: 16
             })
           : getSvgImages({
               name: ImagesName.bookMarkSVG,
-              size: normalize(18),
+              width: 11,
+              height: 16
             });
       }
 

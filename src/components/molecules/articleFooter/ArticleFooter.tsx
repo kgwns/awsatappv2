@@ -26,7 +26,9 @@ export interface articleFooterProps {
   showFooterTitle?: boolean,
   onPress?: () => void;
   leftTitleStyle?: StyleProp<TextStyle>;
-  rightContainerStyle?: StyleProp<ViewStyle>
+  rightContainerStyle?: StyleProp<ViewStyle>;
+  favouriteIconWidth?: number;
+  favouriteIconHeight?: number;
 }
 
 const ArticleFooter = ({
@@ -43,19 +45,23 @@ const ArticleFooter = ({
   showFooterTitle = true,
   onPress,
   leftTitleStyle,
-  rightContainerStyle
+  rightContainerStyle,
+  favouriteIconWidth = 10,
+  favouriteIconHeight = 15,
 }: articleFooterProps) => {
   let storySaveIcon=() => {
+    console.log(favouriteIconWidth,'cc');
+    
     return isBookmarked
       ? getSvgImages({
           name: ImagesName.bookMarkActiveSVG,
-          width: 10,
-          height: 15
+          width: favouriteIconWidth,
+          height: favouriteIconHeight
         })
       : getSvgImages({
           name: ImagesName.bookMarkSVG,
-          width: 10,
-          height: 15
+          width: favouriteIconWidth,
+          height: favouriteIconHeight
         });
   }
   
@@ -64,13 +70,13 @@ const ArticleFooter = ({
       return isBookmarked
         ? getSvgImages({
             name: ImagesName.bookMarkWhiteActive,
-            width: 10,
-            height: 15
+            width: favouriteIconWidth,
+            height: favouriteIconHeight
           })
         : getSvgImages({
             name: ImagesName.bookMarkWhite,
-            width: 10,
-            height: 15
+            width: favouriteIconWidth,
+            height: favouriteIconHeight
           });
     }
   }

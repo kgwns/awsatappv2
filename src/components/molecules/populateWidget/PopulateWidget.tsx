@@ -65,7 +65,9 @@ export const PopulateWidget = ({
                     footerInfo={{
                         ...articleFooterDataSet,
                         leftTitle: props.author,
-                        rightTitle: t(timeAgo(props.created))
+                        rightTitle: t(timeAgo(props.created)),
+                        favouriteIconHeight: 16,
+                        favouriteIconWidth: 11,
                     }}
                     isBookmarked={true}
                     onPressBookmark={onPressBookmark}
