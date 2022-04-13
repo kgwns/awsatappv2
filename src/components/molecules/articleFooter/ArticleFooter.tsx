@@ -26,7 +26,9 @@ export interface articleFooterProps {
   showFooterTitle?: boolean,
   onPress?: () => void;
   leftTitleStyle?: StyleProp<TextStyle>;
-  rightContainerStyle?: StyleProp<ViewStyle>
+  rightContainerStyle?: StyleProp<ViewStyle>;
+  favouriteIconWidth?: number;
+  favouriteIconHeight?: number;
 }
 
 const ArticleFooter = ({
@@ -43,35 +45,27 @@ const ArticleFooter = ({
   showFooterTitle = true,
   onPress,
   leftTitleStyle,
-  rightContainerStyle
+  rightContainerStyle,
+  favouriteIconWidth = 10,
+  favouriteIconHeight = 15,
 }: articleFooterProps) => {
   let storySaveIcon=() => {
-    return isBookmarked
-      ? getSvgImages({
-          name: ImagesName.bookMarkActiveSVG,
-          width: 10,
-          height: 15
+    console.log(favouriteIconWidth,'cc');
+    
+    return getSvgImages({
+          name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG,
+          width: favouriteIconWidth,
+          height: favouriteIconHeight
         })
-      : getSvgImages({
-          name: ImagesName.bookMarkSVG,
-          width: 10,
-          height: 15
-        });
   }
   
   if(bookMarkColorType == BookMarkColorType.WHITE) {
-    storySaveIcon =() => {
-      return isBookmarked
-        ? getSvgImages({
-            name: ImagesName.bookMarkWhiteActive,
-            width: 10,
-            height: 15
-          })
-        : getSvgImages({
-            name: ImagesName.bookMarkWhite,
-            width: 10,
-            height: 15
-          });
+    storySaveIcon = () => {
+      return getSvgImages({
+        name: isBookmarked ? ImagesName.bookMarkWhiteActive : ImagesName.bookMarkWhite,
+        width: favouriteIconWidth,
+        height: favouriteIconHeight
+      })
     }
   }
 
