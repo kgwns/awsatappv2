@@ -20,7 +20,7 @@ import { ToggleWithLabel } from 'src/components/molecules';
 import { useDispatch } from 'react-redux';
 import { storeAppTheme } from 'src/redux/appCommon/action';
 import { Theme } from 'src/redux/appCommon/types';
-import { useAppCommon, useBookmark, useKeepNotified, useLogin, useUserProfileData, useAllSiteCategories, useAllWriters  } from 'src/hooks';
+import { useAppCommon, useBookmark, useKeepNotified, useLogin, useUserProfileData, useAllSiteCategories, useAllWriters, useSearch  } from 'src/hooks';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AlertPayloadType } from 'src/components/screens/ScreenContainer/ScreenContainer';
@@ -96,6 +96,7 @@ export const ProfileSettings = () => {
   ]
 
   const { fetchLogoutRequest } = useLogin();
+  const { emptySearchHistory } = useSearch();
   const { userProfileData,emptyUserProfileInfoData } = useUserProfileData();
   const { emptySelectedTopicsInfoData } = useAllSiteCategories();
   const { emptySelectedAuthorsInfoData } = useAllWriters();
@@ -123,6 +124,7 @@ export const ProfileSettings = () => {
     emptyUserProfileInfoData();
     emptySelectedTopicsInfoData()
     emptySelectedAuthorsInfoData()
+    emptySearchHistory();
     navigation.reset({
         index: 0,
         routes: [{ name: ScreensConstants.AuthNavigator }],

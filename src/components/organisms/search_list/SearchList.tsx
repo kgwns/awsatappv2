@@ -1,6 +1,6 @@
 import React, {useState, FunctionComponent} from 'react';
-import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet} from 'react-native';
-import { Label, LoadingState } from 'src/components/atoms/';
+import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet, ScrollView} from 'react-native';
+import { ButtonList, Label, LoadingState } from 'src/components/atoms/';
 import { SearchBar } from 'src/components/molecules/';
 import { normalize, recordLogEvent } from 'src/shared/utils';
 import { SearchItemType } from 'src/redux/search/types';
@@ -18,6 +18,8 @@ export interface SearchListProps {
   onTextChange?: (searctText: string) => void;
   isLoading: boolean;
   data: SearchItemType[];
+  searchHistory: string[];
+  onPressHistory: (historyText: string) => void;
 }
 
 const keyExtractor = (_item:SearchItemType,index: number) => {
@@ -30,6 +32,8 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   onTextChange,
   isLoading,
   data,
+  searchHistory,
+  onPressHistory
 }) => {
   const [searchText, setSearchText] = useState('');
   const styles = useThemeAwareObject(createStyles);
@@ -101,6 +105,27 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
       );
   };
 
+  const searchHistoryView = () => {
+    return(
+      <ScrollView bounces={false}>
+        <View style={{alignItems: 'flex-start'}}>
+        {searchHistory?.length > 0 && searchHistory.map(item => {
+          return(
+            <View>
+             <ButtonList
+              title={item}
+              titleStyle={styles.historyItemText}
+              showIcon={false}
+              onPress={() => onSearchTextChange(item)}
+             />
+            </View>
+          )
+        })}
+        </View>
+      </ScrollView>
+    )
+  }
+
   return (
     <View style={{flex:1}}>
       <SearchBar
@@ -118,7 +143,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
         }}
         onSubmitSearch={onSubmit}
       />
-      {searchText.length > 0 && getSearchResults()}
+      {searchText.length > 0 ? getSearchResults() : searchHistoryView()}
     </View>
   );
 };
@@ -145,5 +170,8 @@ StyleSheet.create({
     textAlign: 'center',
     fontSize: normalize(16),
     marginTop: normalize(30),
-  }
+  },
+  historyItemText: {
+    fontWeight: 'normal',
+  },
 });

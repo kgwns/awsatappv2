@@ -2,6 +2,8 @@ import {
   FETCH_SEARCH_SUCCESS,
   FETCH_SEARCH_ERROR,
   FETCH_SEARCH_REQUEST,
+  UPDATE_SEARCH_HISTORY,
+  CLEAR_SEARCH_HISTORY,
 } from './actionTypes';
 
 export interface SearchItemNewsCategory {
@@ -25,6 +27,8 @@ export interface FetchSearchSuccessPayloadType {
   searchData: any;
 }
 
+
+
 export interface FetchSearchRequestPayloadType {
   searchText: string;
 }
@@ -37,6 +41,7 @@ export interface SearchState {
   searchData: SearchItemType[];
   error: string;
   isLoading: boolean;
+  searchHistory: string[];
 }
 
 export interface FetchSearchRequestType {
@@ -54,7 +59,17 @@ export type FetchSearchFailedType = {
   payload: FetchSearchFailedPayloadtype;
 };
 
+export type UpdateSearchHistory = {
+  type: typeof UPDATE_SEARCH_HISTORY;
+  payload: string[]
+}
+export type ClearSearchHistory = {
+  type: typeof CLEAR_SEARCH_HISTORY,
+}
+
 export type SearchActions =
   | FetchSearchSuccessType
   | FetchSearchFailedType
-  | FetchSearchRequestType;
+  | FetchSearchRequestType
+  | UpdateSearchHistory
+  | ClearSearchHistory;
