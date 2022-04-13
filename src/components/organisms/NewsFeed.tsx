@@ -95,7 +95,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
     <Label
       style={style.descriptionStyle}
       children={decodeHTMLTags(body)}
-      numberOfLines={3}
+      numberOfLines={isTab ? 2 : 3}
     />
   )
 

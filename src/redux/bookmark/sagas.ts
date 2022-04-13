@@ -17,6 +17,8 @@ import {
 import { isNonEmptyArray, joinArray } from 'src/shared/utils';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
+import { sendUserEventTracking } from 'src/services';
+import { TrackingEventType } from 'src/services/eventTrackService';
 
 const filterNidInfo = (data: BookmarkIdSuccessDataFieldType[]) => {
   return data.reduce((prevValue: string[], item: BookmarkIdSuccessDataFieldType) => {
@@ -105,6 +107,13 @@ const populateBookmarkDetail = (response: any): any => {
 }
 
 export function* sendBookMarkId(action: SendBookMarkDetailType) {
+  sendUserEventTracking({
+    events: [{
+      contentId: action.payload.nid,
+      eventType: TrackingEventType.BOOKMARK
+    }]
+  })
+
   try {
     const payload: SendBookMarkSuccessInfoType = yield call(
       sendBookMarkInfo,
