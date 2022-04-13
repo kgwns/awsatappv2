@@ -1,3 +1,4 @@
+import axios, { AxiosError } from 'axios';
 import { store } from 'src/redux/store';
 
 export enum TrackingEventType {
@@ -24,12 +25,18 @@ export const sendUserEventTracking = async (body: TrackEventBody) => {
   }
 
   const url = `https://awsatapi.srpcdigital.com/baker/logger/event/srpcawsatdev`
-  fetch(url, {
-    method: 'post',
-    headers: new Headers({
-      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXZpY2UiOiJ3ZWIiLCJkb21haW4iOiJzcnBjYXdzYXRkZXYifQ.1mo2J6-2oziwAqPEqVcv0PO53ymrdEw8I5_j6GZvNYY',
-      'Content-Type': 'application/json'
-    }),
-    body: JSON.stringify(info)
-  })
+  axios
+    .post(url, JSON.stringify(info), {
+      headers: {
+        'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkZXZpY2UiOiJ3ZWIiLCJkb21haW4iOiJzcnBjYXdzYXRkZXYifQ.1mo2J6-2oziwAqPEqVcv0PO53ymrdEw8I5_j6GZvNYY',
+        'Content-Type': 'application/json'
+      },
+    })
+    .then(response => {
+      return response.data
+    })
+    .catch((error: unknown) => {
+      const errorResponse = error as AxiosError;
+      throw errorResponse
+    });
 };
