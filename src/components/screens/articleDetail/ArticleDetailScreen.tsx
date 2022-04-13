@@ -19,6 +19,8 @@ import { useBookmark, useLogin } from 'src/hooks'
 import { ScreensConstants } from 'src/constants'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { sendUserEventTracking } from 'src/services'
+import { TrackingEventType } from 'src/services/eventTrackService'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -63,8 +65,22 @@ export const ArticleDetailScreen = ({
     fetchArticleDetail,
     emptyAllData,
   } = useArticleDetail();
+  
 
+  const sendEventToServer = () => {
+    sendUserEventTracking(
+      {
+        events: [{
+          contentId: currentNId,
+          eventType: TrackingEventType.VIEW
+        }]
+      }
+    )
+  }
+  
   useEffect(() => {
+    sendEventToServer()
+
     if (isFocused) {
       Orientation.unlockAllOrientations();
       Orientation.getDeviceOrientation(updateScreenEdge);

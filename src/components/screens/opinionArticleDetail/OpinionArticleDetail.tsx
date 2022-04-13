@@ -17,6 +17,8 @@ import TrackPlayer from 'react-native-track-player';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
+import { sendUserEventTracking } from 'src/services'
+import { TrackingEventType } from 'src/services/eventTrackService'
 
 export interface OpinionArticleDetailScreenProps {
   route: any;
@@ -59,7 +61,18 @@ export const OpinionArticleDetail = ({
 
   const [isFollowed, setIsFollowed] = useState(false)
 
+  const sendEventToServer = () => {
+    sendUserEventTracking({
+      events: [{
+        contentId: currentNId,
+        eventType: TrackingEventType.VIEW
+      }]
+    })
+  }
+
   useEffect(() => {
+    sendEventToServer()
+
     getSelectedAuthorsData()
     emptyRelatedOpinionData()
     Orientation.unlockAllOrientations();
