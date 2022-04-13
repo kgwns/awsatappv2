@@ -16,8 +16,10 @@ import {
   FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR,
   FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
   EMPTY_SEND_AUTHOR_INFO,
+  DESELECT_ALL_WRITERS,
 } from './actionTypes';
 import { AllWritersActions, AllWritersState } from './types';
+import { isNonEmptyArray } from 'src/shared/utils';
 
 const initialState: AllWritersState = {
   allWritersData: [],
@@ -30,6 +32,14 @@ const initialState: AllWritersState = {
 };
 
 export default (state = initialState, action: AllWritersActions) => {
+  const deselectAllSelectedWritersData = (data: any, selectedData: string[]) => {
+    if (isNonEmptyArray(data.rows)) {
+      for (let i = 0; i < data.rows.length; i++) {
+        data.rows[i].isSelected = selectedData.includes(data.rows[i].tid);
+      }
+    }
+    return data;
+  };
   switch (action.type) {
     case FETCH_ALL_WRITERS_SUCCESS:
       return {
@@ -75,6 +85,8 @@ export default (state = initialState, action: AllWritersActions) => {
       return { ...state, isLoading: true, error: '' };
     case EMPTY_SEND_AUTHOR_INFO:
       return { ...state, sendAuthorInfo: {} }
+    case DESELECT_ALL_WRITERS:
+      return {...state, allSiteCategoriesData: deselectAllSelectedWritersData(state.allWritersData, action.payload)}
     default:
       return { ...state };
   }

@@ -1,3 +1,4 @@
+import { isNonEmptyArray } from 'src/shared/utils';
 import {
   FETCH_ALL_SITE_CATEGORIES,
   FETCH_ALL_SITE_CATEGORIES_SUCCESS,
@@ -10,6 +11,7 @@ import {
   GET_SELECTED_TOPICS_ERROR,
   EMPTY_SELECTED_TOPICS_INFO,
   EMPTY_SEND_TOPICS_INFO,
+  DESELECT_ALL_TOPICS_INFO,
 } from './actionTypes';
 import { AllSiteCategoriesActions, AllSiteCategoriesState } from './types';
 
@@ -22,6 +24,14 @@ const initialState: AllSiteCategoriesState = {
 };
 
 export default (state = initialState, action: AllSiteCategoriesActions) => {
+  const deselectAllSelectedData = (data: any, selectedData: string[]) => {
+    if (isNonEmptyArray(data.rows)) {
+      for (let i = 0; i < data.rows.length; i++) {
+        data.rows[i].isSelected = selectedData.includes(data.rows[i].tid);
+      }
+    }
+    return data;
+  };
   switch (action.type) {
     case FETCH_ALL_SITE_CATEGORIES_SUCCESS:
       return {
@@ -50,6 +60,8 @@ export default (state = initialState, action: AllSiteCategoriesActions) => {
       return {...state, isLoading: false, sendTopicInfo:{},error:'',selectedTopicsData: {}}
     case EMPTY_SEND_TOPICS_INFO:
       return {...state, sendTopicInfo:{} }
+    case DESELECT_ALL_TOPICS_INFO:
+      return {...state, allSiteCategoriesData: deselectAllSelectedData(state.allSiteCategoriesData, action.payload)}
     default:
       return { ...state };
   }

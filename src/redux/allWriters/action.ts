@@ -42,6 +42,7 @@ import {
   FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
   FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR,
   EMPTY_SEND_AUTHOR_INFO,
+  DESELECT_ALL_WRITERS,
 } from 'src/redux/allWriters/actionTypes';
 
 export const fetchAllWriters = (payload: AllWritersBodyGet) => {
@@ -181,6 +182,13 @@ export const emptySendAuthorInfo = () => {
   }
 }
 
+export const deselectAllWriters= (payload: string[]) => {
+  return {
+    type: DESELECT_ALL_WRITERS,
+    payload: payload
+  };
+}
+
 export const allWritersActions = {
   fetchAllWriters,
   fetchAllWritersSuccess,
@@ -199,4 +207,5 @@ export const allWritersActions = {
   fetchAllSelectedWritersDetailsFailed,
   fetchAllSelectedWritersDetailsSuccess,
   emptySendAuthorInfo,
+  deselectAllWriters,
 };

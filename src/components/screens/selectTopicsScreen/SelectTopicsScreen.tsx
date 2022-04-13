@@ -12,13 +12,19 @@ import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
+import { useIsFocused } from '@react-navigation/native';
 
 export const SelectTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
   const [t] = useTranslation();
-  const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest} = useAllSiteCategories();
+  const isFocused = useIsFocused()
+
+  const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest, updateAllSiteCategoriesData} = useAllSiteCategories();
   const {userProfileData} = useUserProfileData();
   const [disableNext, setDisableNext] = useState<boolean>(true)
+  const [categoriesInfo, setCategoriesInfo] = useState<AllSiteCategoriesItemType[]>([])
+  const [updatedTopics, setUpdatedTopics] = useState<string[]>([])
+
   const OK = t('common.ok');
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
@@ -30,8 +36,18 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   }, []);
 
   useEffect(() => {
+      updateAllSiteCategoriesData(updatedTopics);
+  }, [isFocused, updatedTopics])
+
+  useEffect(() => {
+    setCategoriesInfo(allSiteCategoriesData)
+  }, [isFocused, allSiteCategoriesData])
+
+  useEffect(() => {
     if (isObjectNonEmpty(sentTopicsData)) {
       if (sentTopicsData.code === 200) {
+        const selectedTIDData = getSelectedData()
+        setUpdatedTopics(selectedTIDData);
         gotoNext()
 
       } else {
@@ -41,12 +57,13 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   }, [sentTopicsData]);
 
   const onTopicsChanged = (item: any, selected: boolean) => {
-    const data = allSiteCategoriesData
+    const data = [...categoriesInfo]
     for (let i = 0; i < data.length; i++) {
       if (item.tid == data[i].tid) {
         data[i].isSelected = selected;
       }
     }
+    setCategoriesInfo(data)
     updateNextButton()
   };
 
@@ -64,7 +81,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   }
   
   const getSelectedData = () => {
-    return allSiteCategoriesData.reduce((prevValue: string[], item: AllSiteCategoriesItemType) => {
+    return categoriesInfo.reduce((prevValue: string[], item: AllSiteCategoriesItemType) => {
       if (item.isSelected) {
         return prevValue.concat(item.tid)
       }
@@ -75,7 +92,6 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   const gotoNext = () => {
     navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN)
   }
-
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
       <View style={style.container}>
@@ -92,8 +108,8 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
           </Label>
         </View>
         <View style={style.widgetContainer}>
-          {isNonEmptyArray(allSiteCategoriesData) &&
-            <InterestedTopics allSiteCategoriesData={allSiteCategoriesData} onTopicsChanged={onTopicsChanged} />
+          {isNonEmptyArray(categoriesInfo) &&
+            <InterestedTopics allSiteCategoriesData={categoriesInfo} onTopicsChanged={onTopicsChanged} />
           }
         </View>
         <View style={style.nextButtonView}>

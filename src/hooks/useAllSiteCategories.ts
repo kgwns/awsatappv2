@@ -6,7 +6,7 @@ import {
     getTopicsData,
     getSelectedTopicsDataList
 } from 'src/redux/allSiteCategories/selectors';
-import { fetchAllSiteCategories, sendSelectedTopic,getSelectedTopics,emptySelectedTopicsInfo, emptySendTopicsInfo } from 'src/redux/allSiteCategories/action';
+import { fetchAllSiteCategories, sendSelectedTopic,getSelectedTopics,emptySelectedTopicsInfo, emptySendTopicsInfo, deselectAllTopicsInfo } from 'src/redux/allSiteCategories/action';
 import { AllSiteCategoriesItemType, AllSiteCategoriesBodyGet,SelectedTopicsDataType } from 'src/redux/allSiteCategories/types';
 import { ResponseMessage, SendSelectedTopicBody } from 'src/redux/allSiteCategories/types';
 
@@ -21,6 +21,7 @@ export interface UseAllSiteCategoriesReturn {
     getSelectedTopicsData(): void;
     emptySelectedTopicsInfoData(): void;
     emptySendTopicsInfoData(): void;
+    updateAllSiteCategoriesData(payload: string[]):void;
 }
 
 export const useAllSiteCategories = (): UseAllSiteCategoriesReturn => {
@@ -49,6 +50,10 @@ export const useAllSiteCategories = (): UseAllSiteCategoriesReturn => {
         dispatch(emptySendTopicsInfo())
     }
 
+    const updateAllSiteCategoriesData = (payload: string[]) => {
+        dispatch(deselectAllTopicsInfo(payload));
+    }
+    
     return {
         isLoading,
         allSiteCategoriesData,
@@ -59,6 +64,7 @@ export const useAllSiteCategories = (): UseAllSiteCategoriesReturn => {
         sendSelectedTopicInfo,
         getSelectedTopicsData,
         emptySelectedTopicsInfoData,
-        emptySendTopicsInfoData
+        emptySendTopicsInfoData,
+        updateAllSiteCategoriesData
     };
 };
