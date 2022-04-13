@@ -94,7 +94,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         titleTextStyle: {
             paddingTop: normalize(10),
-            paddingLeft: normalize(20),
+            marginLeft: normalize(20),
             color: theme.primary,
             fontSize: normalize(18)
         },
