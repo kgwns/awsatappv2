@@ -35,14 +35,7 @@ export const useBookmark = (): UseBookMarkReturn => {
   const error = useSelector(getArticleError);
   const userProfileData = useSelector(getProfileUserDetails);
 
-  const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {
-    sendUserEventTracking({
-      events: [{
-        contentId: payload.nid,
-        eventType: TrackingEventType.BOOKMARK
-      }]
-    })
-    
+  const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {    
     AdjustAnalyticsManager.trackEvent(AdjustEventID.BOOK_MARK_ARTICLE)
     recordLogEvent('Add_Bookmark_to_Article', {userId: userProfileData.user?.id,articleId: payload.nid});
     const lastBookmarkInfo = [...bookmarkIdInfo]

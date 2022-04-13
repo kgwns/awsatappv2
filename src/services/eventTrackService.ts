@@ -24,6 +24,7 @@ export const sendUserEventTracking = async (body: TrackEventBody) => {
     personId: JSON.stringify(userProfileData.user?.id) ?? ''
   }
 
+  // Token will be static one and it won't have expire
   const url = `https://awsatapi.srpcdigital.com/baker/logger/event/srpcawsatdev`
   axios
     .post(url, JSON.stringify(info), {
