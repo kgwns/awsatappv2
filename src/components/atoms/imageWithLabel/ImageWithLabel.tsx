@@ -25,7 +25,7 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
 }: ImageLabelProps) => {
     return (
         <TouchableWithoutFeedback onPress={onPressImage}>
-            <View>
+            <View style={{alignItems: 'center'}}>
                 <Image fallback name={name} url={url} style={[imageWithLabelStyle.articleImage, imageStyle]} resizeMode={ImageResize.COVER} />
                 {tagName &&
                     <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>

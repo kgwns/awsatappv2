@@ -434,7 +434,8 @@ const customStyle = (theme: CustomThemeType) => {
       marginHorizontal: normalize(15),
     },
     tabWidgetContainer: {
-      flex: 0.47
+      flex: 0.47,
+      overflow: 'hidden',
     },
     dividerTop: {
       borderColor: Styles.color.gableGreen,

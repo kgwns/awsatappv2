@@ -54,6 +54,7 @@ const style = StyleSheet.create({
     },
     container: {
         paddingBottom: normalize(25),
-        flex: 1
+        flex: 1,
+        overflow: 'hidden'
     }
 })
