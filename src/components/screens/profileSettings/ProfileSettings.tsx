@@ -53,7 +53,7 @@ export const ProfileSettings = () => {
   const CONST_APP_APPEARANCE = t('profileSetting.appAppearance');
   const CONST_EXIT = t('profileSetting.exit');
   const CONST_DARK_MODE = t('profileSetting.darkMode');
-  const CONST_LIGHT_MODE = t('profileSetting.darkMode');
+  const CONST_LIGHT_MODE = t('profileSetting.lightMode');
   const CONST_WELCOME = t('profileSetting.welcome');
 
   const signOutAlertPayload : AlertPayloadType = {
