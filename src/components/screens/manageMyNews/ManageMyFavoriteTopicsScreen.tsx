@@ -79,12 +79,13 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   }, [sentTopicsData]);
 
   const onTopicsChanged = (item: any, selected: boolean) => {
-    const data = topicsData
+    const data = [...topicsData]
     for (let i = 0; i < data.length; i++) {
       if (item.tid == data[i].tid) {
         topicsData[i].isSelected = !topicsData[i].isSelected;
       }
     }
+    setTopicsData(data);
     updateNextButton()
   };
 

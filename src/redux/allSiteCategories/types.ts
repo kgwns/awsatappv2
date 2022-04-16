@@ -10,6 +10,7 @@ import {
   GET_SELECTED_TOPICS_ERROR,
   EMPTY_SELECTED_TOPICS_INFO,
   EMPTY_SEND_TOPICS_INFO,
+  DESELECT_ALL_TOPICS_INFO,
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -138,6 +139,11 @@ export type EmptySendTopicsInfo = {
   type: typeof EMPTY_SEND_TOPICS_INFO;
 };
 
+export type DeselectAllTopicsInfo = {
+  type: typeof DESELECT_ALL_TOPICS_INFO;
+  payload: string[];
+}
+
 export type AllSiteCategoriesActions =
   | FetchAllSiteCategoriesType
   | FetchAllSiteCategoriesSuccessType
@@ -150,3 +156,4 @@ export type AllSiteCategoriesActions =
   | GetSelectedTopicsFailedType
   | EmptySelectedTopicsInfo
   | EmptySendTopicsInfo
+  | DeselectAllTopicsInfo

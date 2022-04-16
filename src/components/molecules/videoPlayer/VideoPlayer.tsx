@@ -52,7 +52,7 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
     }
   } 
 
-
+  
   const goBackToScreen = () =>{
     if(goBack){
       setIsPaused(true)
@@ -131,6 +131,7 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
           onBack={goBackToScreen}
           onEnterFullscreen={onEnterFullscreen}
           onExitFullscreen={onExitFullscreen}
+          disableVolume={true}
         />
       </View>
     </ScreenContainer>

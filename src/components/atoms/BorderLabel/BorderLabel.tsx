@@ -1,6 +1,5 @@
-import React, { FunctionComponent, useState } from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import { Styles } from 'src/shared/styles';
+import React, { FunctionComponent } from 'react';
+import { Text } from 'react-native';
 import { customBorderLabelStyles } from './BorderLabel.style';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -16,14 +15,14 @@ export const BorderLabel: FunctionComponent<BorderLabelProps> = ({
   testID, label, onPress, isSelected,clickable=true }
 ) => {
   const style = useThemeAwareObject(customBorderLabelStyles)
-  const [isSelectedState, setIsSelectedState] = useState(isSelected);
   return (
-    <TouchableWithoutFeedback style={isSelectedState ? style.selectedTagContainer : style.tagContainer} testID={testID} onPress={() => {
-      if(clickable)
-      {onPress(!isSelectedState)
-      setIsSelectedState(!isSelectedState)}
-    }}>
-      <Text style={isSelectedState ? style.selectedLabelStyle : style.labelStyle}>{label}</Text>
+    <TouchableWithoutFeedback style={isSelected ? style.selectedTagContainer : style.tagContainer} testID={testID} 
+      onPress={() => {
+        if (clickable) {
+          onPress((isSelected === false || isSelected === true)  ? !isSelected : true)
+        }
+      }}>
+      <Text style={isSelected ? style.selectedLabelStyle : style.labelStyle}>{label}</Text>
     </TouchableWithoutFeedback>
   )
 };

@@ -9,3 +9,6 @@ export const getSearchData: Selector<SearchItemType[]> = (state: AppState) =>
 
 export const getSearchError: Selector<string> = (state: AppState) =>
   state.search.error;
+
+export const getSearchHistory: Selector<string[]> = (state: AppState) =>
+  state.search.searchHistory;

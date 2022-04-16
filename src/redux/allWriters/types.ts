@@ -15,7 +15,8 @@ import {
   FETCH_ALL_SELECTED_WRITERS_DETAILS,
   FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR,
   FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
-  EMPTY_SEND_AUTHOR_INFO
+  EMPTY_SEND_AUTHOR_INFO,
+  DESELECT_ALL_WRITERS,
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -195,6 +196,11 @@ export type EmptySendAuthorInfoType = {
   type: typeof EMPTY_SEND_AUTHOR_INFO
 }
 
+export type DeselectAllWriters = {
+  type: typeof DESELECT_ALL_WRITERS;
+  payload: string[];
+}
+
 
 export type AllWritersActions =
   | FetchAllWritersType
@@ -213,4 +219,5 @@ export type AllWritersActions =
   | FetchAllSelectedWritersDetailsType
   | FetchAllSelectedWritersDetailsSuccessType
   | FetchAllSelectedWritersDetailsFailedType
-  | EmptySendAuthorInfoType;
+  | EmptySendAuthorInfoType
+  | DeselectAllWriters

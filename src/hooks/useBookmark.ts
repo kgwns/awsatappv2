@@ -9,6 +9,8 @@ import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMa
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 import { recordLogEvent } from 'src/shared/utils';
 import {getProfileUserDetails} from 'src/redux/profileUserDetail/selectors';
+import { sendUserEventTracking } from 'src/services';
+import { TrackingEventType } from 'src/services/eventTrackService';
 
 export interface UseBookMarkReturn {
   isLoading: boolean;
@@ -33,7 +35,7 @@ export const useBookmark = (): UseBookMarkReturn => {
   const error = useSelector(getArticleError);
   const userProfileData = useSelector(getProfileUserDetails);
 
-  const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {
+  const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {    
     AdjustAnalyticsManager.trackEvent(AdjustEventID.BOOK_MARK_ARTICLE)
     recordLogEvent('Add_Bookmark_to_Article', {userId: userProfileData.user?.id,articleId: payload.nid});
     const lastBookmarkInfo = [...bookmarkIdInfo]

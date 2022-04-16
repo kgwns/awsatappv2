@@ -11,9 +11,11 @@ import { useAllWriters, useUserProfileData } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
 import { ScreensConstants } from 'src/constants';
+import { useIsFocused } from '@react-navigation/native';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
+  const isFocused = useIsFocused()
   const [t] = useTranslation();
   const style = useThemeAwareObject(customStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
@@ -21,8 +23,10 @@ export const FollowFavoriteAuthorScreen = () => {
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
-  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo } = useAllWriters();
+  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, updateAllWritersData } = useAllWriters();
   const {userProfileData} = useUserProfileData();
+  const [writersData, setWritersData] = useState<AllWritersItemType[]>([])
+  const [updatedWriters, setUpdatedWriters] = useState<string[]>([])
 
   useEffect(() => {
     fetchAllWritersRequest(allWritersPayload);
@@ -31,6 +35,8 @@ export const FollowFavoriteAuthorScreen = () => {
   useEffect(() => {
     if (isObjectNonEmpty(sentAuthorInfoData)) {
       if (sentAuthorInfoData.code === 200) {
+        const selectedTIDData = getSelectedData()
+        setUpdatedWriters(selectedTIDData);
         gotoNext()
       } else {
         CustomAlert({
@@ -41,13 +47,22 @@ export const FollowFavoriteAuthorScreen = () => {
     }
   }, [sentAuthorInfoData]);
 
+  useEffect(() => {
+      updateAllWritersData(updatedWriters);
+  }, [isFocused, updatedWriters])
+
+  useEffect(() => {
+    setWritersData(allWritersData)
+  }, [isFocused, allWritersData])
+
   const changeSelectedStatus = (item: any, selected: boolean) => {
-    const data = allWritersData
+    const data = [...writersData]
     for (let i = 0; i < data.length; i++) {
       if (item.tid == data[i].tid) {
         data[i].isSelected = selected;
       }
     }
+    setWritersData(data)
     updateNextButton()
   };
 
@@ -65,7 +80,7 @@ export const FollowFavoriteAuthorScreen = () => {
   }
 
   const getSelectedData = () => {
-    return allWritersData.reduce((prevValue: string[], item: AllWritersItemType) => {
+    return writersData.reduce((prevValue: string[], item: AllWritersItemType) => {
       if (item.isSelected) {
         return prevValue.concat(item.tid)
       }
@@ -93,9 +108,9 @@ export const FollowFavoriteAuthorScreen = () => {
           </Label>
         </View>
         <View style={style.contentStyle}>
-          {isNonEmptyArray(allWritersData) &&
+          {isNonEmptyArray(writersData) &&
           <View>
-            <FollowFavoriteAuthorWidget writersData={allWritersData} changeSelectedStatus={changeSelectedStatus} />
+            <FollowFavoriteAuthorWidget writersData={writersData} changeSelectedStatus={changeSelectedStatus} />
           </View>
           }
         </View>

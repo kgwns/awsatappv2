@@ -33,14 +33,14 @@ export const VideoContent = ({ data, onPress }: { data: VideoItemType[], onPress
             onPress(item)
         }
     }
-    const renderItem = (item: VideoItemType) => {
+    const renderItem = (item: VideoItemType, index: number) => {
         const imageLink = item.field_thumbnil_multimedia_export ? getImageUrl(item.field_thumbnil_multimedia_export) : undefined;
         const date = t(timeAgo(item.created_export))
         const time = item.field_jwplayerinfo_export ? getSecondsToHms(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
         return (
             <TouchableOpacity onPress={()=>onItemPress(item)}>
-                <View style={style.container}>
+                <View style={[style.videoCardContainer, index === data.length-1 && {paddingRight: normalize(20)}]}>
                     <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
                     <Label style={style.textStyle} labelType={LabelTypeProp.h3} numberOfLines={2} >
                         {decode(item.title)}
@@ -67,7 +67,7 @@ export const VideoContent = ({ data, onPress }: { data: VideoItemType[], onPress
                 style={style.listContainer}
                 data={data}
                 showsHorizontalScrollIndicator={false}
-                renderItem={({ item }) => renderItem(item)}
+                renderItem={({ item, index }) => renderItem(item, index)}
             />
         </View>
     );
@@ -79,8 +79,12 @@ const customStyle = (theme: CustomThemeType) => {
     const videoContentStyle = StyleSheet.create({
         container: {
             height: normalize(310),
-            paddingHorizontal: normalize(10),
-            backgroundColor: theme.secondaryWhite
+            backgroundColor: theme.secondaryWhite,
+        },
+        videoCardContainer: {
+            height: normalize(310),
+            backgroundColor: theme.secondaryWhite,
+            paddingLeft: normalize(20)
         },
         listContainer: {
             height: normalize(236),
@@ -90,7 +94,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         titleTextStyle: {
             paddingTop: normalize(10),
-            paddingLeft: normalize(20),
+            marginLeft: normalize(20),
             color: theme.primary,
             fontSize: normalize(18)
         },

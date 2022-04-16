@@ -35,7 +35,6 @@ const FollowFavoriteAuthor = ({
   clickable = true,
   imageSize = 99,
 }: FollowFavoriteAuthorProps) => {
-  const [isSelectedState, setIsSelectedState] = useState(isSelected);
   const [fallback, setFallBack] = useState(false)
 
   useEffect(() => {
@@ -46,9 +45,9 @@ const FollowFavoriteAuthor = ({
 
 
   const changeStatus = () => {
-    if(clickable){
-      onPress(!isSelectedState);
-      setIsSelectedState(!isSelectedState);}
+    if(clickable) {
+      onPress((isSelected === false || isSelected === true)  ? !isSelected : true)
+    }
   };
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -63,7 +62,7 @@ const FollowFavoriteAuthor = ({
         style={{
           alignItems: 'center',
         }}>
-        {!isSelectedState ? (
+        {!isSelected ? (
           <Grayscale>
             <Image
               url={authorImage}
@@ -94,7 +93,7 @@ const FollowFavoriteAuthor = ({
         <View style={style.tickIconContainer}>
           {clickable &&
             getSvgImages({
-              name: isSelectedState
+              name: isSelected
                 ? ImagesName.authorItemActive
                 : ImagesName.authorItem,
               size: normalize(22),
@@ -103,7 +102,7 @@ const FollowFavoriteAuthor = ({
         {authorName && (
           <Label
             color={
-              isSelectedState
+              isSelected
                 ? theme.themeData.primaryBlack
                 : colors.spanishGray
             }
@@ -121,7 +120,7 @@ const FollowFavoriteAuthor = ({
         {authorDescription && (
           <Label
             color={
-              isSelectedState
+              isSelected
                 ? theme.themeData.secondaryDavyGrey
                 : colors.spanishGray
             }

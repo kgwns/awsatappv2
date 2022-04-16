@@ -8,7 +8,7 @@ import {
   getSelectedAllWritersDetailsData,
   getSelectedAuthorLoading
 } from 'src/redux/allWriters/selectors';
-import { fetchAllWriters, sendSelectedAuthor, getSelectedAuthors, emptySelectedAuthorsInfo, removeAuthor, getSelectedAuthorsSuccess, fetchAllSelectedWritersDetails, emptySendAuthorInfo } from 'src/redux/allWriters/action';
+import { fetchAllWriters, sendSelectedAuthor, getSelectedAuthors, emptySelectedAuthorsInfo, removeAuthor, getSelectedAuthorsSuccess, fetchAllSelectedWritersDetails, emptySendAuthorInfo, deselectAllWriters } from 'src/redux/allWriters/action';
 import { AllWritersItemType, AllWritersBodyGet, SendSelectedAuthorBody, ResponseMessage, SelectedAuthorDataType, RemoveAuthorBody,AllSelectedWritersDetailsBodyGet } from 'src/redux/allWriters/types';
 import { isNonEmptyArray } from 'src/shared/utils';
 
@@ -27,6 +27,7 @@ export interface UseAllWritersReturn {
   allSelectedWritersDetailList : AllWritersItemType[];
   selectedAuthorLoadingState: boolean;
   emptySendAuthorInfoData(): void;
+  updateAllWritersData(payload: string[]): void;
 }
 
 export const useAllWriters = (): UseAllWritersReturn => {
@@ -56,6 +57,10 @@ export const useAllWriters = (): UseAllWritersReturn => {
 
   const emptySendAuthorInfoData = () => {
     dispatch(emptySendAuthorInfo())
+  }
+
+  const updateAllWritersData = (payload: string[]) => {
+    dispatch(deselectAllWriters(payload));
   }
 
   const removeAuthorRequest = (payload: RemoveAuthorBody) => {
@@ -89,5 +94,6 @@ export const useAllWriters = (): UseAllWritersReturn => {
     allSelectedWritersDetailList,
     selectedAuthorLoadingState,
     emptySendAuthorInfoData,
+    updateAllWritersData,
   };
 };
