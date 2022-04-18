@@ -8,7 +8,6 @@ export const fetchVideoListApi = async () => {
     const response: FetchVideoSuccessPayloadType = await getApiRequest(
       `${BASE_URL}${VIDEO_LIST_ENDPOINT}`
     );
-    console.log( `VideoService url: ${BASE_URL}${VIDEO_LIST_ENDPOINT} response: ${JSON.stringify(response)}`);
     return response;
   } catch (error) {
     console.log(`error: ${error}`);

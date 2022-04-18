@@ -27,7 +27,7 @@ import { isNonEmptyArray } from 'src/shared/utils';
 import { getImageUrl } from 'src/shared/utils/utilities';
 import { LatestArticleDataType } from '../latestNews/types';
 
-const formatTopListToLatestArticleType = (response: any): LatestArticleDataType[] => {
+export const formatTopListToLatestArticleType = (response: any): LatestArticleDataType[] => {
   let formattedData: LatestArticleDataType[] = []
   if (response) {
     if (isNonEmptyArray(response.rows)) {

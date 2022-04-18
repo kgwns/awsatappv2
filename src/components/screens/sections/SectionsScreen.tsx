@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {TabView, TabBar} from 'react-native-tab-view';
+import {TabView, TabBar } from 'react-native-tab-view';
 import {
   OpinionScreen,
   ScreenContainer,
@@ -7,8 +7,7 @@ import {
   PodcastProgram,
   SectionStoryScreen,
 } from '..';
-import {TabBarComponent} from 'src/components/molecules';
-import {horizontalEdge, normalize, recordCurrentScreen} from 'src/shared/utils';
+import {horizontalEdge, isIOS, normalize} from 'src/shared/utils';
 import {
   View,
   Dimensions,
@@ -28,20 +27,15 @@ export enum TabType {
 }
 
 export const SectionsScreen = () => {
-  const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
   const {isLoading, topMenuData, fetchTopMenuRequest} = useTopMenu();
-  const style = useThemeAwareObject(customStyle);
+  const styles = useThemeAwareObject(customStyle);
 
   const [index, setIndex] = React.useState(0);
+  const [routes, setNewRoutes] = useState<any>([]);
 
-  const [routes, setNewRoutes] = useState([]);
 
-
-  const renderScene = ({ route }) => {
-    console.log('renderScene: ', route)
+  const renderScene = ({ route }: any) => {
     switch (route.key.substring(1)) {
-      case TabType.home:
-        return <SectionStoryScreen sectionId={11} />;
       case TabType.opinion:
         return <OpinionScreen  />;
       case TabType.podcast:
@@ -74,22 +68,15 @@ export const SectionsScreen = () => {
   useEffect(() => {
     fetchTopMenuRequest();
   }, []);
-  const onPressTabItem = (index: number) => {
-    setIndex(index);
-    topMenuData[tabSelectedIndex].isSelected = false;
-    topMenuData[index].isSelected = true;
-    setTabSelectedIndex(index);
-    recordCurrentScreen(topMenuData[tabSelectedIndex].tabName as string);
-  };
 
-  const _renderTabBar = props => {
+  const _renderTabBar = (props: any) => {
     return (
       <TabBar
         {...props}
         scrollEnabled
         indicatorStyle={styles.indicator}
-        style={styles.tabbar}
-        tabStyle={[styles.tab, style.tabBarStyle]}
+        style={styles.tabBar}
+        tabStyle={styles.tabBarStyle}
         labelStyle={styles.label}
         pressColor={'transparent'}
         onTabPress={scene => {
@@ -128,35 +115,22 @@ export const SectionsScreen = () => {
     </ScreenContainer>
   );
 };
-const customStyle = (theme: CustomThemeType) => {
-  return StyleSheet.create({
-    tabBarStyle: {
-      borderBottomColor: theme.dividerColor,
-      borderBottomWidth: 1.2,
-    },
-  });
-};
 
 const initialLayout = {width: Dimensions.get('window').width};
-
-const styles = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
-    marginTop: StatusBar.currentHeight,
+    marginTop: isIOS ? StatusBar.currentHeight : 0,
   },
   scene: {
     flex: 1,
   },
-
-  tabbar: {
+  tabBar: {
     backgroundColor: 'transparent',
-  },
-  tab: {
-   width: normalize(120),
   },
   indicator: {
     backgroundColor: Styles.color.greenishBlue ,
     height: 3,
-    marginBottom:2
+    marginBottom:1
   },
   label: {
     fontStyle: 'normal',
@@ -166,7 +140,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: Styles.color.doveGray,
   },
-   pagerViewStyle: {
-    flex: 1,
+  tabBarStyle: {
+    width: isIOS ? normalize(100) : normalize(80),
+    borderBottomColor: theme.dividerColor,
+    borderBottomWidth: 1.2,
+    paddingHorizontal: 0
   },
 });
