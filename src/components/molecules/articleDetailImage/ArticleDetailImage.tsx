@@ -68,7 +68,7 @@ const imageArticleStyle = StyleSheet.create({
     slideContent: {
         position: 'absolute',
         bottom: 0,
-        paddingHorizontal: normalize(12),
+        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
         paddingVertical: normalize(15),
         width: '100%'
     },
@@ -101,7 +101,7 @@ const imageArticleStyle = StyleSheet.create({
     },
     tabSlideContent: {
         width: '100%',
-        paddingHorizontal: normalize(12),
+        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
         paddingVertical: normalize(15),
     }
 })

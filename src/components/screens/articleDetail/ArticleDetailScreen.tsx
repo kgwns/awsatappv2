@@ -21,6 +21,8 @@ import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { sendUserEventTracking } from 'src/services'
 import { TrackingEventType } from 'src/services/eventTrackService'
+import { CustomThemeType } from 'src/shared/styles/colors'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -30,7 +32,7 @@ const relatedShortArticleHeaderLeft: HeaderElementProps = {
   title: 'مقالات ذات صلة',
   labelType: LabelTypeProp.h2,
   color: Styles.color.greenishBlue,
-  elementContainerStyle: {paddingHorizontal: 0}
+  elementContainerStyle: { paddingVertical: normalize(15) }
 }
 
 enum ArticleFontSize {
@@ -43,6 +45,7 @@ export const ArticleDetailScreen = ({
   route
 }: ArticleDetailScreenProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const style = useThemeAwareObject(customStyle);
   const isFocused = useIsFocused();
 
   const { themeData } = useTheme()
@@ -209,7 +212,7 @@ export const ArticleDetailScreen = ({
   }
 
   const articleHtmlContent = () => (
-    <View style={articleDetailScreenStyle.labelStyle}>
+    <View style={style.labelStyle}>
       <HtmlRenderer source={articleDetailState[0].body}
         tagsStyles={htmlTagStyle} />
     </View>
@@ -221,6 +224,7 @@ export const ArticleDetailScreen = ({
         <ArticleDetailWidget articleData={articleDetailState[0]}
           isRelatedArticle={route.params.isRelatedArticle} />
         {articleHtmlContent()}
+        <Divider style={style.divider}/>
       </>
       }
       {isNonEmptyArray(relatedArticleData) &&
@@ -230,7 +234,7 @@ export const ArticleDetailScreen = ({
           onUpdateBookmark={onUpdateBookMark}
           showSignUpPopUp={makeSignUpAlert}
           numColumns={isTab ? 2 : 1}
-          addStyle={articleDetailScreenStyle.relatedArticle}
+          addStyle={style.relatedArticle}
         />}
       <Divider style={{ height: normalize(50) }} />
     </View>
@@ -248,7 +252,7 @@ export const ArticleDetailScreen = ({
           showsVerticalScrollIndicator={false}
           bounces={false}
         />
-        <View style={articleDetailScreenStyle.footer}>
+        <View style={style.footer}>
           <ArticleDetailFooter articleDetailData={articleDetailState[0]}
             isBookmarked={isBookmarked}
             onPressSave={() => checkAndUpdateBookmark(articleDetailState[0].nid)}
@@ -260,15 +264,19 @@ export const ArticleDetailScreen = ({
     </ScreenContainer>
   )
 }
-const articleDetailScreenStyle = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   labelStyle: {
-    paddingHorizontal: normalize(10),
-    paddingVertical: normalize(15),
+    paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+    paddingTop: normalize(15),
   },
   footer: {
     width: '100%'
   },
   relatedArticle: {
     paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth
-  }
+  },
+  divider: {
+    height: 1,
+    backgroundColor: theme.dividerColor,
+  },
 })
