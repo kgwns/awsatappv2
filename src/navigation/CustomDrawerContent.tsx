@@ -291,7 +291,7 @@ const createStyles = (theme: CustomThemeType) =>
     headerContainer: {
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: normalize(5)
+      marginTop: isIOS ? normalize(5) : normalize(15)
     },
     socialContainer: {
       flexDirection: 'row',
