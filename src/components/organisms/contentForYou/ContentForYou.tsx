@@ -350,25 +350,28 @@ const customStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     spaceStyle: {
         flex: 1,
-        paddingVertical: normalize(10),
     },
     authorWidgetContainer: {
         paddingHorizontal: 0,
-        paddingTop: normalize(20),
+        paddingTop: normalize(10),
         backgroundColor: theme.backgroundColor
     },
     authorWidgetHeader: {
-        paddingHorizontal: 0.04 * screenWidth
+        paddingHorizontal: 0.04 * screenWidth,
+        paddingBottom:normalize(8),
     },
     articleWidgetHeader: {
-        paddingHorizontal: 0.04 * screenWidth,
-        backgroundColor: theme.backgroundColor
+        paddingHorizontal: 0.05 * screenWidth,
+        backgroundColor: theme.backgroundColor,
+        paddingTop: normalize(20),
+        paddingBottom: normalize(8),
     },
     articleContainer: {
         paddingHorizontal: (isTab ? 0.02 : 0.05) * screenWidth
     },
     topArticleContainer: {
-        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth
+        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+        paddingBottom: 0,
     },
     topArticleImage: {
         flex: 0,
