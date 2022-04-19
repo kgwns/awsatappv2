@@ -7,31 +7,45 @@ import {FlatList} from 'react-native-gesture-handler';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {useNewsView} from 'src/hooks/useNewsview';
 import {NewsViewBodyGet, NewsViewListItemType} from 'src/redux/newsView/types';
 import {
   getImageUrl,
   decodeHTMLTags,
   isNonEmptyArray,
+  isObjectNonEmpty,
 } from 'src/shared/utils/utilities';
 import {ScreensConstants} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';
+import { LabelTypeProp, LoadingState} from 'src/components/atoms';
 import { useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
-import { useTranslation } from 'react-i18next';
-import { videoTabData } from 'src/constants/SampleData';
 import { VideoItemType } from 'src/redux/videoList/types';
+import { fetchNewsViewApi } from 'src/services/newsViewService';
+import { AxiosError } from 'axios';
+import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
+import { formatTopListToLatestArticleType } from 'src/redux/newsView/sagas';
+import { fetchVideoListApi } from 'src/services/videoListService';
+import { formatVideoData } from 'src/redux/videoList/sagas';
 
-export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
-  const [t] = useTranslation()
+export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) => {
+  const navigation = useNavigation<StackNavigationProp<any>>();
+
+  const CONST_NOT_SUBSCRIBED = TranslateConstants({key: TranslateKey.NOT_SUBSCRIBED})
+  const CONST_DESCRIPTION = TranslateConstants({key: TranslateKey.DESCRIPTION})
+  const CONST_SIGN_UP = TranslateConstants({key: TranslateKey.SIGN_UP})
+
+
   
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
-  const navigation = useNavigation<StackNavigationProp<any>>();
+  
   const [page, setPage] = useState(0);
   const [initialLoading, setInitialLoading] = useState(true);
+  const [heroData, setHeroData] = useState<any>([])
+  const [topData, setTopData] = useState<any>([])
+  const [bottomData, setBottomData] = useState<any>([])
+
 
   const heroListPayload: NewsViewBodyGet = {
     items_per_page: 2,
@@ -54,48 +68,87 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
     sectionId: sectionId,
   };
 
-  const {
-    isLoading,
-    heroListData,
-    topListData,
-    bottomListData,
-    fetchHeroListRequest,
-    fetchTopListRequest,
-    fetchBottomListRequest,
-    emptyAllListData,
-  } = useNewsView();
-
   const { sendBookmarkInfo, removeBookmarkedInfo,bookmarkIdInfo } = useBookmark()
   const { isLoggedIn } = useLogin()
 
+  const [heroListDataInfo,setHeroListDataInfo] = useState<NewsViewListItemType[]>([])
+  const [bottomListDataInfo,setBottomListDataInfo] = useState<NewsViewListItemType[]>([])
+  const [topListDataInfo,setTopListDataInfo] = useState<any[]>([])
+  const [videoListData,setVideoListData] = useState<VideoItemType[]>([])
+  const [showupUp,setShowPopUp] = useState(false)
+  const [isBottomListLoading, setIsBottomListLoading] = useState<boolean>(false)
+
   useEffect(() => {
-    emptyAllListData();
-    makeInitialDataEmpty();
+    // makeInitialDataEmpty();
     setInitialLoading(true);
-    fetchHeroListRequest(heroListPayload);
-    fetchTopListRequest(topListPayload);
+
+    getHeroListData();
+    getTopListData();
+    getVideoListData();
   }, [sectionId]);
 
-  const makeInitialDataEmpty = () => {
-    setHeroListDataInfo([]);
-    setBottomListDataInfo([]);
-    setTopListDataInfo([]);
-    setVideolistData([]);
+  const getHeroListData = async() => {
+    try {
+      const heroDataInfo = await fetchNewsViewApi(heroListPayload)
+      const heroData = heroDataInfo.rows ?? []
+      setHeroData(heroData)
+    } catch (error) {
+      const errorResponse: AxiosError = error as AxiosError;
+      if (errorResponse.response) {
+        const errorMessage: { message: string } = errorResponse.response.data;
+        console.log("🚀 getHeroListData ~ errorMessage", errorMessage)
+      }
+    }
   }
 
-  const {videoData,fetchVideoRequest} = useVideoList();
+  const getTopListData = async() => {
+    try {
+      const topListInfo = await fetchNewsViewApi(topListPayload)
+      const topListRows = formatTopListToLatestArticleType(topListInfo)
+      setTopData(topListRows)
+    } catch (error) {
+      const errorResponse: AxiosError = error as AxiosError;
+      if (errorResponse.response) {
+        const errorMessage: { message: string } = errorResponse.response.data;
+        console.log("🚀 getTopListData ~ errorMessage", errorMessage)
+      }
+    }
+  }
+
+  const getBottomListData = async() => {
+    setIsBottomListLoading(true)
+    try {
+      const bottomListInfo = await fetchNewsViewApi(bottomListPayload)
+      const bottomListRows = bottomListInfo.rows ?? []
+      const updatedBottomData = isNonEmptyArray(bottomListDataInfo) ? bottomListDataInfo.concat(bottomListRows) :  bottomListRows
+      setBottomData(updatedBottomData)
+    } catch (error) {
+      const errorResponse: AxiosError = error as AxiosError;
+      if (errorResponse.response) {
+        const errorMessage: { message: string } = errorResponse.response.data;
+        setIsBottomListLoading(false)
+        console.log("🚀 getBottomListData ~ errorMessage", errorMessage)
+      }
+    }
+  }
+
+  const getVideoListData = async() => {
+    try {
+      const videoListInfo = await fetchVideoListApi()
+      const videoList = formatVideoData(videoListInfo)
+      setVideoListData(videoList)
+    } catch (error) {
+      const errorResponse: AxiosError = error as AxiosError;
+      if (errorResponse.response) {
+        const errorMessage: { message: string } = errorResponse.response.data;
+        console.log("🚀 getVideoListData ~ errorMessage", errorMessage)
+      }
+    }
+  }
 
   useEffect(() => {
-    return () => emptyAllListData()
-  }, []);
-
-  useEffect(() => {
-    fetchBottomListRequest(bottomListPayload);
+    getBottomListData();
   }, [sectionId,page]);
-
-  useEffect(() => {
-    fetchVideoRequest();
-  }, [sectionId]);
 
   const gotoNextPage = () => {
     setPage(page + 1);
@@ -106,55 +159,45 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
   };
 
-  const [heroListDataInfo,setHeroListDataInfo] = useState(heroListData)
-  const [bottomListDataInfo,setBottomListDataInfo] = useState(bottomListData)
-  const [topListDataInfo,setTopListDataInfo] = useState(topListData)
-  const [videolistData,setVideolistData] = useState<VideoItemType[]>([])
-  const [showupUp,setShowPopUp] = useState(false)
-
-
   useEffect(() => {
     updateHeroListData()
-  }, [heroListData,bookmarkIdInfo])
+  }, [heroData, bookmarkIdInfo])
 
   useEffect(() => {
     updateBottomListData()
-  }, [bottomListData,bookmarkIdInfo])
+  }, [bottomData,bookmarkIdInfo])
 
   useEffect(() => {
     updateTopListData()
-  }, [topListData,bookmarkIdInfo])
-
-  useEffect(() => {
-    setVideolistData(videoData)
-  }, [videoData])
+  }, [topData,bookmarkIdInfo])
 
   const updateHeroListData = () => {
-    if(isNonEmptyArray(heroListData)) {
-      const heroData = updateBookmark(heroListData)
-      setHeroListDataInfo(heroData)
+    if(isNonEmptyArray(heroData)) {
+      const heroUpdatedInfo = updateBookmark(heroData)
+      setHeroListDataInfo(heroUpdatedInfo)
     }
     checkLoad()
   }
 
   const checkLoad = () => {
-    if(heroListDataInfo.length || bottomListDataInfo.length || topListDataInfo.length ){
+    if (heroListDataInfo.length || bottomListDataInfo.length || topListDataInfo.length) {
       setInitialLoading(false)
     }
   }
 
   const updateBottomListData = () => {
-    if(isNonEmptyArray(bottomListData)) {
-      const bottomData = updateBookmark(bottomListData)
-      setBottomListDataInfo(bottomData)
+    if(isNonEmptyArray(bottomData)) {
+      const updatedBottomDataInfo = updateBookmark(bottomData)
+      setBottomListDataInfo(updatedBottomDataInfo)
+      setIsBottomListLoading(false)
     }
     checkLoad()
   }
 
   const updateTopListData = () => {
-    if(isNonEmptyArray(topListData)) {
-      const topData = updateTopListBookmark(topListData)
-      setTopListDataInfo(topData)
+    if(isNonEmptyArray(topData)) {
+      const updatedTopData: any = updateTopListBookmark(topData)
+      setTopListDataInfo(updatedTopData)
     }
     checkLoad()
   }
@@ -211,7 +254,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       return
     }
 
-    const updatedData = updatedChangeBookmark(heroListDataInfo, index)
+    const updatedData: any = updatedChangeBookmark(heroListDataInfo, index)
     setHeroListDataInfo(updatedData)
   }
 
@@ -229,7 +272,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       return
     }
     
-    const updatedData = updatedChangeBookmark(bottomListDataInfo, index)
+    const updatedData: any = updatedChangeBookmark(bottomListDataInfo, index)
     setBottomListDataInfo(updatedData)
   }
 
@@ -238,25 +281,48 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       { videoUrl: item.field_mp4_link_export, nid: item.nid })
   }
 
-  const renderArticleStory = () => {
-    return <>
-      {isNonEmptyArray(heroListDataInfo) && heroListDataInfo[1] && (
-        <View style={style.sectionStoryContainer}>
-          <SectionArticleItem
-            headerTitle={heroListDataInfo[1].title}
-            body={decodeHTMLTags(heroListDataInfo[1].body)}
-            image={getImageUrl(heroListDataInfo[1].field_image)}
-            imageStyle={style.storyImageStyle}
-            hideFooter={true}
-            nid={heroListDataInfo[1].nid}
-            isBookmarked={heroListDataInfo[1].isBookmarked}
-            onPressBookmark={() => updatedHeroBookmark(1)}
-            showDivider={isTab ? false : true}
+  const renderBannerArticle = () => {
+    const bannerData = isNonEmptyArray(heroListDataInfo) ? heroListDataInfo[0] : {} as NewsViewListItemType
+    return (
+      <>
+        {isObjectNonEmpty(bannerData) && (
+          <ImageArticle
+            image={getImageUrl(bannerData.field_image)}
+            title={bannerData.title}
+            body={bannerData.body}
+            containerStyle={isTab ? style.tabletImageStyle : style.imageStyle}
+            author={bannerData.author_resource}
+            nid={bannerData.nid}
+            created={bannerData.created_export.toString()}
+            isBookmarked={bannerData.isBookmarked}
+            onPressBookmark={() => updatedHeroBookmark(0)}
+            hasTabletLayout={isTab ? true : false}
+            rightContainerStyle={style.footerRightStyle}
           />
-        </View>
-      )
-      }
-    </>
+        )}
+      </>
+    )
+  }
+
+  const renderArticleStory = () => {
+    const articleData = isNonEmptyArray(heroListDataInfo) && heroListDataInfo.length > 1 ? heroListDataInfo[1] : {} as NewsViewListItemType
+
+    if (!isObjectNonEmpty(articleData)) return null
+    return (
+      <View style={style.sectionStoryContainer}>
+        <SectionArticleItem
+          headerTitle={articleData.title}
+          body={decodeHTMLTags(articleData.body)}
+          image={getImageUrl(articleData.field_image)}
+          imageStyle={style.storyImageStyle}
+          hideFooter={true}
+          nid={articleData.nid}
+          isBookmarked={articleData.isBookmarked}
+          onPressBookmark={() => updatedHeroBookmark(1)}
+          showDivider={isTab ? false : true}
+        />
+      </View>
+    )
   }
 
   const renderTopArticle = () => {
@@ -275,53 +341,42 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
     )
   }
 
-  const renderItem = () => (
-    <View style={{backgroundColor: themeData.backgroundColor}}>
-      {isNonEmptyArray(heroListDataInfo) && heroListDataInfo[0] && (
-        <ImageArticle
-          image={getImageUrl(heroListDataInfo[0].field_image)}
-          title={heroListDataInfo[0].title}
-          body={heroListDataInfo[0].body}
-          containerStyle={isTab ? style.tabletImageStyle : style.imageStyle}
-          author={heroListDataInfo[0].author_resource}
-          nid={heroListDataInfo[0].nid}
-          created={heroListDataInfo[0].created_export.toString()} 
-          isBookmarked={heroListDataInfo[0].isBookmarked} 
-          onPressBookmark={()=>updatedHeroBookmark(0)}
-          hasTabletLayout={isTab ? true : false}
-          rightContainerStyle={style.footerRightStyle}
-          />
-      )}
-      {
-        isTab ? <View style={style.storyAndTopArticle}>
-          <View style={[style.tabWidgetContainer]}>
-            {renderArticleStory()}
-          </View>
-          <View style={style.verticalDivider}/>
-          <View style={style.tabWidgetContainer}>
-            {renderTopArticle()}
-          </View>
-        </View> :
-          <>
-            {renderArticleStory()}
-            {renderTopArticle()}
-          </>
-      }
-      <VideoContent data={videolistData} onPress={onVideoItemPress} />
-      <NewsFeed
-        data={bottomListDataInfo}
-        onScroll={() => gotoNextPage()}
-        isLoading={isLoading}
-        onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
-      />
-    </View>
-  );
+  const renderItem = () => {
+    return (
+      <View style={{ backgroundColor: themeData.backgroundColor }}>
+        {renderBannerArticle()}
+        {
+          isTab ? <View style={style.storyAndTopArticle}>
+            <View style={[style.tabWidgetContainer]}>
+              {renderArticleStory()}
+            </View>
+            <View style={style.verticalDivider} />
+            <View style={style.tabWidgetContainer}>
+              {renderTopArticle()}
+            </View>
+          </View> :
+            <>
+              {renderArticleStory()}
+              {renderTopArticle()}
+            </>
+        }
+        <VideoContent data={videoListData} onPress={onVideoItemPress} />
+        <NewsFeed
+          data={bottomListDataInfo}
+          onScroll={() => gotoNextPage()}
+          isLoading={isBottomListLoading}
+          onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
+        />
+      </View>
+    );
+  }
+    
   return (
     <View style={style.contentContainer}>
       {showupUp && <AlertModal
-        title={t('signUpAlert.notSubscribed')}
-        message={t('signUpAlert.description')}
-        buttonText={t('signUpAlert.signUp')}
+        title={CONST_NOT_SUBSCRIBED}
+        message={CONST_DESCRIPTION}
+        buttonText={CONST_SIGN_UP}
         isVisible={showupUp}
         onPressSuccess={onPressSignUp}
         onClose={onCloseSignUpAlert}
@@ -332,6 +387,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       keyExtractor={(_, index) => index.toString()}
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
+      scrollEnabled={true}
       /> :
       <View style={style.loaderContainer}>
         <LoadingState />
@@ -339,7 +395,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       }
     </View>
   );
-};
+});
 
 const customStyle = (theme: CustomThemeType) => {
   const sectionStoryStyle = StyleSheet.create({

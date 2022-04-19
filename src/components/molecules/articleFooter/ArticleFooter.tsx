@@ -50,7 +50,6 @@ const ArticleFooter = ({
   favouriteIconHeight = 15,
 }: articleFooterProps) => {
   let storySaveIcon=() => {
-    console.log(favouriteIconWidth,'cc');
     
     return getSvgImages({
           name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG,

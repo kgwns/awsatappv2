@@ -46,18 +46,18 @@ describe('<SectionsScreen>', () => {
     test('Should render component', () => {
         expect(instance).toBeDefined()
     })
-    test('Check tab getting change when onClick', () => {
-        const tabBar = instance.container.findByType(TabBarComponent)
-        fireEvent(tabBar, 'onPressTabItem', 0)
-        expect(tabBar).toBeTruthy()
-    })
-    test('Check tab getting change when SectionStoryScreen', () => {
-        const firstTab = instance.container.findByType(SectionStoryScreen)
-        fireEvent(firstTab, 'onCalled', 0)
-        expect(firstTab).toBeTruthy()
-    })
-    it('when onTextChange is called from SectionStoryScreen', () => {
-        const sectionStoryId = instance.getByTestId('tabContent');
-        expect(sectionStoryId).toBeTruthy
-    });    
+    // test('Check tab getting change when onClick', () => {
+    //     const tabBar = instance.container.findByType(TabBarComponent)
+    //     fireEvent(tabBar, 'onPressTabItem', 0)
+    //     expect(tabBar).toBeTruthy()
+    // })
+    // test('Check tab getting change when SectionStoryScreen', () => {
+    //     const firstTab = instance.container.findByType(SectionStoryScreen)
+    //     fireEvent(firstTab, 'onCalled', 0)
+    //     expect(firstTab).toBeTruthy()
+    // })
+    // it('when onTextChange is called from SectionStoryScreen', () => {
+    //     const sectionStoryId = instance.getByTestId('tabContent');
+    //     expect(sectionStoryId).toBeTruthy
+    // });    
 })
