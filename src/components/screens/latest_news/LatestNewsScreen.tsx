@@ -384,7 +384,7 @@ export const LatestNewsScreen = () => {
         isDivider
         dividerStyle={latestNewsScreenStyle.firstBannerDivider}
       />
-      <Divider style={{ height: normalize(20) }} />
+      <Divider style={latestNewsScreenStyle.sectionComboDivider} />
       <AuthorWidget data={opinionList} />
       <BannerArticleSection
         data={sectionComboThreeInfo}
@@ -458,6 +458,12 @@ const customStyle = (theme: CustomThemeType) => {
     verticalDivider: {
       height: '100%',
       width: 1,
+      backgroundColor: theme.dividerColor,
+    },
+    sectionComboDivider: {
+      width: '100%',
+      height: 1,
+      marginTop: normalize(20),
       backgroundColor: theme.dividerColor,
     }
   })

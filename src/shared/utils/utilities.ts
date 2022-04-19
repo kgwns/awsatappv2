@@ -175,7 +175,7 @@ export const  getSecondsToHms = (time:any): string => {
   var s = Math.floor(time % 3600 % 60);
 
   var secondsDisplay = s > 0 ? s  : "";
-  var minutesDisplay = m > 0 ? secondsDisplay > 0 ? m.toString() +  ":"  : m.toString() : "";
+  var minutesDisplay = (m > 0) ? (secondsDisplay > 0) ? m < 10 ? '0' + m.toString() + ":" :  m.toString() +  ":"  : m.toString() : "";
   var hoursDisplay = h > 0 ? m > 0 ? h.toString() + ":" : h.toString() : ""; 
   return hoursDisplay + minutesDisplay + secondsDisplay; 
 }

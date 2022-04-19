@@ -47,7 +47,7 @@ const AuthorItem = ({
         <TouchableOpacity key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
             <View style={{ flex: 1 }}>
                 <Label children={author} labelType={LabelTypeProp.p4}
-                    color={themeData.primary} numberOfLines={1} />
+                    color={themeData.authorTitle} numberOfLines={1} />
                 <Label children={body} labelType={LabelTypeProp.h3}
                     numberOfLines={1} style={style.body} />
                 {mediaVisibility && <View style={style.mediaFooter}>
