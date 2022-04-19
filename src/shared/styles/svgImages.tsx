@@ -57,6 +57,7 @@ import FacebookIcon from 'src/assets/images/socialButton/facebookIcon.svg'
 import AppleIcon from 'src/assets/images/socialButton/appleIconBlack.svg'
 
 import ClockIcon from 'src/assets/images/icons/clockIcon.svg'
+import ClockIconWhite from 'src/assets/images/icons/clockIcon_white.svg'
 import ArrowLeftFaced from 'src/assets/images/icons/arrowLeftFaced.svg'
 
 import Mail from 'src/assets/images/icons/mail.svg'
@@ -150,6 +151,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <MailIcon {...props} />
         case ImagesName.clock:
             return <ClockIcon {...props} />
+        case ImagesName.clockWhite:
+            return <ClockIconWhite {...props} />
         case ImagesName.arrowLeftFaced:
             return <ArrowLeftFaced {...props} />
         case ImagesName.returnIcon:

@@ -112,7 +112,7 @@ export const PopulateWidget = ({
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     widgetContainer: {
-        paddingHorizontal: 0.04 * screenWidth
+        paddingHorizontal: normalize(20)
     },
     podcastContainer: {
         backgroundColor: theme.secondaryWhite

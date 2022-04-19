@@ -346,7 +346,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   const renderUserDetails = () => (
-      <View style={styles.container}>
+      <View style={styles.userContainerStyle}>
         <View style={styles.userContainer}>
           <View style={styles.dpContainer}>
             <TouchableOpacity onPress={() => 
@@ -376,22 +376,24 @@ export const UserDetailScreen: FunctionComponent = () => {
           </View>
         </View>
         <View style={styles.fieldContainer}>
-          <Label
-            style={styles.nameTitle}
-            color={colors.greenishBlue}
-            children={t('profile.userDetail.nameTitle')}
-          />
-          <TextInputField
-            placeholder={CONST_NAME_PLACE_HOLDER}
-            testID={'profile_name'}
-            onChangeText={setName}
-            value={name}
-            style={styles.nameInputStyle}
-            isMandatory
-            maxLength={20}
-            leftIcon={() => <UserTextFieldIcon fill={themeData.textColor} />}
-          />
-          <View>
+          <View style={styles.nameInputContainer}>
+            <Label
+              style={styles.nameTitle}
+              color={colors.greenishBlue}
+              children={t('profile.userDetail.nameTitle')}
+            />
+            <TextInputField
+              placeholder={CONST_NAME_PLACE_HOLDER}
+              testID={'profile_name'}
+              onChangeText={setName}
+              value={name}
+              style={styles.nameInputStyle}
+              isMandatory
+              maxLength={20}
+              leftIcon={() => <UserTextFieldIcon fill={themeData.textColor} />}
+            />
+          </View>
+          <View style={styles.spaceStyle}>
             <Label
               style={styles.birthdayTitle}
               color={colors.greenishBlue}
@@ -440,19 +442,21 @@ export const UserDetailScreen: FunctionComponent = () => {
               </View>
             </TouchableOpacity>
           </View>
-          <Label
-            style={styles.occupationTitle}
-            color={colors.greenishBlue}
-            children={t('profile.userDetail.occupationTitle')}
-          />
-          <TextInputField
-            placeholder={t('profile.userDetail.occupationPlaceholder')}
-            testID={'profile_occupation'}
-            onChangeText={setOccupation}
-            maxLength={20}
-            value={occupation}
-            style={styles.nameInputStyle}
-          />
+          <View style={styles.spaceStyle}>
+            <Label
+              style={styles.occupationTitle}
+              color={colors.greenishBlue}
+              children={t('profile.userDetail.occupationTitle')}
+            />
+            <TextInputField
+              placeholder={t('profile.userDetail.occupationPlaceholder')}
+              testID={'profile_occupation'}
+              onChangeText={setOccupation}
+              maxLength={20}
+              value={occupation}
+              style={styles.nameInputStyle}
+            />
+          </View>
         </View>
         <ButtonOutline
           isDisable={!(isDisableName || isDisableDate || isDisableOccupation)}
@@ -693,12 +697,18 @@ const createStyles = (theme: CustomThemeType) =>
     container: {
       flex: 1,
       marginVertical: '20%',
-      marginHorizontal: '10%',
+      marginStart: '10%', 
+      marginEnd: '5%'
+    },
+    userContainerStyle: {
+      flex: 1,
+      marginVertical: '20%',
     },
     userContainer: {
       flexDirection: 'row',
       width: '100%',
       paddingVertical: '2%',
+      marginHorizontal: '10%',
     },
     dpContainer: {
       backgroundColor: colors.cyanGreen,
@@ -861,4 +871,11 @@ const createStyles = (theme: CustomThemeType) =>
       width: screenWidth,
       height: screenHeight,
     },
+    spaceStyle: {
+      paddingHorizontal: '10%'
+    },
+    nameInputContainer: {
+      paddingStart: '10%', 
+      paddingEnd: '5%'
+    }
   });

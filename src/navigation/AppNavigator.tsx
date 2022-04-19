@@ -225,7 +225,7 @@ const customStyle = (theme: CustomThemeType) => (
     search: {
       height: 20,
       width: 20,
-      marginHorizontal: 20,
+      marginHorizontal: normalize(20),
     },
     logo: {
       height: 30,
@@ -235,7 +235,7 @@ const customStyle = (theme: CustomThemeType) => (
     menu: {
       height: 22,
       width: 22,
-      marginHorizontal: 20,
+      marginHorizontal: normalize(20),
     },
     onBoardReturn: {
       flexDirection: 'row-reverse',

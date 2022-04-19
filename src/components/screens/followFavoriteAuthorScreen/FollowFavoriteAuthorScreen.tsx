@@ -23,10 +23,9 @@ export const FollowFavoriteAuthorScreen = () => {
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
-  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, updateAllWritersData } = useAllWriters();
+  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, updateAllWritersData, emptySendAuthorInfoData, sendSelectedFromOnboard } = useAllWriters();
   const {userProfileData} = useUserProfileData();
   const [writersData, setWritersData] = useState<AllWritersItemType[]>([])
-  const [updatedWriters, setUpdatedWriters] = useState<string[]>([])
 
   useEffect(() => {
     fetchAllWritersRequest(allWritersPayload);
@@ -36,7 +35,7 @@ export const FollowFavoriteAuthorScreen = () => {
     if (isObjectNonEmpty(sentAuthorInfoData)) {
       if (sentAuthorInfoData.code === 200) {
         const selectedTIDData = getSelectedData()
-        setUpdatedWriters(selectedTIDData);
+        sendSelectedFromOnboard(selectedTIDData)
         gotoNext()
       } else {
         CustomAlert({
@@ -48,8 +47,9 @@ export const FollowFavoriteAuthorScreen = () => {
   }, [sentAuthorInfoData]);
 
   useEffect(() => {
-      updateAllWritersData(updatedWriters);
-  }, [isFocused, updatedWriters])
+    updateAllWritersData();
+    isNonEmptyArray(writersData) && updateNextButton();
+  }, [isFocused, allWritersData])
 
   useEffect(() => {
     setWritersData(allWritersData)
@@ -90,6 +90,7 @@ export const FollowFavoriteAuthorScreen = () => {
 
   const gotoNext = () => {
     navigation.navigate(ScreensConstants.NEWS_LETTER_SCREEN)
+    emptySendAuthorInfoData();
   }
 
   return (

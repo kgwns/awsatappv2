@@ -23,6 +23,7 @@ import {
   FetchAllSelectedWritersDetailsListFailedPayloadType,
   FetchAllSelectedWritersDetailsSuccessType,
   FetchAllSelectedWritersDetailsListSuccessPayloadType,
+  SelectedDataFromOnboardPayload,
 } from 'src/redux/allWriters/types';
 import {
   FETCH_ALL_WRITERS,
@@ -43,6 +44,8 @@ import {
   FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR,
   EMPTY_SEND_AUTHOR_INFO,
   DESELECT_ALL_WRITERS,
+  SELECTED_DATA_FROM_ONBOARD,
+  EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD,
 } from 'src/redux/allWriters/actionTypes';
 
 export const fetchAllWriters = (payload: AllWritersBodyGet) => {
@@ -182,11 +185,23 @@ export const emptySendAuthorInfo = () => {
   }
 }
 
-export const deselectAllWriters= (payload: string[]) => {
+export const deselectAllWriters = () => {
   return {
     type: DESELECT_ALL_WRITERS,
-    payload: payload
   };
+}
+
+export const setSelectedDataFromOnboard = (payload: SelectedDataFromOnboardPayload) => {
+  return {
+    type: SELECTED_DATA_FROM_ONBOARD,
+    payload,
+  };
+};
+
+export const emptySelectedWritersDataFromOnboard = () => {
+  return {
+    type: EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD
+  }
 }
 
 export const allWritersActions = {
@@ -208,4 +223,6 @@ export const allWritersActions = {
   fetchAllSelectedWritersDetailsSuccess,
   emptySendAuthorInfo,
   deselectAllWriters,
+  setSelectedDataFromOnboard,
+  emptySelectedWritersDataFromOnboard,
 };

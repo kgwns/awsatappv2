@@ -57,6 +57,7 @@ const AuthorWidget = ({
             title: widgetHeader ? widgetHeader : t('latestNewsTab.sectionWriters.headerLeft'),
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
+            elementContainerStyle: style.headerLeftContainer
         },
         // headerRight: {
         //     title: t('latestNewsTab.sectionComboOne.headerRight'),
@@ -104,10 +105,13 @@ const customStyle = (theme: CustomThemeType) => {
             paddingHorizontal: 0.04 * screenWidth,
             backgroundColor: theme.secondaryWhite
         },
+        headerLeftContainer: {
+            paddingHorizontal: 0,
+        },
         listContainer: {
             flex: 1,
             paddingTop: normalize(20),
-            paddingHorizontal: 0.04 * screenWidth,
+            paddingHorizontal: normalize(20),
             backgroundColor: theme.secondaryWhite
         },
         divider: {
