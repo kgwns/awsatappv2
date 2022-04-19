@@ -297,6 +297,7 @@ const createStyles = (theme: CustomThemeType) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginTop: normalize(30),
+      marginHorizontal: 4
     },
     headerRight: {
       position: 'absolute',
@@ -309,7 +310,7 @@ const createStyles = (theme: CustomThemeType) =>
       position: 'absolute',
       alignItems: 'center',
       justifyContent: 'center',
-      right: normalize(20),
+      right: normalize(35),
       top : 0,
     },
     user: {
