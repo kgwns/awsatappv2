@@ -79,19 +79,57 @@ export const SectionsScreen = () => {
         tabStyle={styles.tabBarStyle}
         labelStyle={styles.label}
         pressColor={'transparent'}
-        onTabPress={scene => {
-          const {route} = scene;
-          // topMenuData[tabSelectedIndex].isSelected = false;
-          // topMenuData[index].isSelected = true;
-          // setTabSelectedIndex(index);
-          // recordCurrentScreen(topMenuData[tabSelectedIndex].tabName as string);
-          //console.log('route.key', route.key);
-          props.jumpTo(route.key);
-        }}
+        onTabPress={(scene) => updateRouteInTabPress(scene, props)}
       />
     );
   };
 
+  const updateRouteInTabPress = async (scene: any, props: any) => {
+    const { route } = scene;
+
+    if (!isIOS) {
+      props.jumpTo(route.key);
+    } else {
+      const newIndex = routes.findIndex((item: any) => item.key == route.key)
+      if (index + 3 < newIndex) {
+        updateSwipeLeftPager(props, route, index + 3, newIndex)
+        console.log("🚀 ~ file: SectionsScreen.tsx ~ line 97 ~ SectionsScreen ~ route", route)
+      } else if (index - 3 > newIndex) {
+        updateSwipeLeftPager(props, route, index - 3, newIndex)
+        console.log("🚀 ~ file: SectionsScreen.tsx ~ line 105 ~ SectionsScreen ~ route", route)
+      } else {
+        props.jumpTo(route.key)
+      }
+    }
+  }
+
+  const updateSwipeLeftPager = async (props: any, route: any, inProgressIndex: number, newIndex: number) => {
+    const updatedKey = routes[inProgressIndex].key
+    props.jumpTo(updatedKey)
+    await setTimeout(() => {
+      if (inProgressIndex + 3 >= newIndex) {
+        props.jumpTo(route.key)
+      } else {
+        const updatedKey = routes[inProgressIndex + 3].key
+        props.jumpTo(updatedKey)
+        updateSwipeLeftPager(props, route, inProgressIndex + 3, newIndex)
+      }
+    }, 500)
+  }
+
+  const updateSwipeRightPager = async (props: any, route: any, inProgressIndex: number, newIndex: number) => {
+    const updatedKey = routes[inProgressIndex].key
+    props.jumpTo(updatedKey)
+    await setTimeout(() => {
+      if (inProgressIndex - 3 <= newIndex) {
+        props.jumpTo(route.key)
+      } else {
+        const updatedKey = routes[inProgressIndex - 3].key
+        props.jumpTo(updatedKey)
+        updateSwipeRightPager(props, route, inProgressIndex - 3, newIndex)
+      }
+    }, 500)
+  }
 
   const tabsView = () => {
     return (
