@@ -54,7 +54,13 @@ export const TermsAndAboutUs = ({
 
   const renderHeaderElement = () => {
     if (id == TERMS_AND_CONDITION) {
-      return <Label children={title} style={style.termsAndConditionTitle} />
+      return  (
+        <View style={style.headerItems}>
+        <Label children={title} style={style.title} />
+        {getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height })}
+      </View>
+      )
+     
     }
 
     return (
