@@ -6,7 +6,7 @@ import { FETCH_VIDEO } from './actionTypes';
 import { fetchVideoListApi } from 'src/services/videoListService';
 import { isNonEmptyArray } from 'src/shared/utils';
 
-const formatData = (response: any): VideoItemType[] => {
+export const formatVideoData = (response: any): VideoItemType[] => {
   let formattedData: VideoItemType[] = []
   if (response) {
     if (isNonEmptyArray(response.rows)) {
@@ -34,7 +34,7 @@ const parseVideosList = (response: any): FetchVideoSuccessPayloadType => {
   let responseData: FetchVideoSuccessPayloadType = {
     videoData: []
   }
-  responseData.videoData = formatData(response)
+  responseData.videoData = formatVideoData(response)
   return responseData
 }
 

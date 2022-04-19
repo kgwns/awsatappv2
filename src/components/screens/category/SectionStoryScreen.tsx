@@ -25,8 +25,10 @@ import { fetchNewsViewApi } from 'src/services/newsViewService';
 import { AxiosError } from 'axios';
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
 import { formatTopListToLatestArticleType } from 'src/redux/newsView/sagas';
+import { fetchVideoListApi } from 'src/services/videoListService';
+import { formatVideoData } from 'src/redux/videoList/sagas';
 
-export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
+export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const CONST_NOT_SUBSCRIBED = TranslateConstants({key: TranslateKey.NOT_SUBSCRIBED})
@@ -68,7 +70,6 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
 
   const { sendBookmarkInfo, removeBookmarkedInfo,bookmarkIdInfo } = useBookmark()
   const { isLoggedIn } = useLogin()
-  const {videoData,fetchVideoRequest} = useVideoList();
 
   const [heroListDataInfo,setHeroListDataInfo] = useState<NewsViewListItemType[]>([])
   const [bottomListDataInfo,setBottomListDataInfo] = useState<NewsViewListItemType[]>([])
@@ -78,19 +79,13 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   const [isBottomListLoading, setIsBottomListLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    makeInitialDataEmpty();
+    // makeInitialDataEmpty();
     setInitialLoading(true);
 
     getHeroListData();
     getTopListData();
+    getVideoListData();
   }, [sectionId]);
-
-  const makeInitialDataEmpty = () => {
-    setHeroListDataInfo([]);
-    setBottomListDataInfo([]);
-    setTopListDataInfo([]);
-    setVideoListData([]);
-  }
 
   const getHeroListData = async() => {
     try {
@@ -137,13 +132,23 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
     }
   }
 
+  const getVideoListData = async() => {
+    try {
+      const videoListInfo = await fetchVideoListApi()
+      const videoList = formatVideoData(videoListInfo)
+      setVideoListData(videoList)
+    } catch (error) {
+      const errorResponse: AxiosError = error as AxiosError;
+      if (errorResponse.response) {
+        const errorMessage: { message: string } = errorResponse.response.data;
+        console.log("🚀 getVideoListData ~ errorMessage", errorMessage)
+      }
+    }
+  }
+
   useEffect(() => {
     getBottomListData();
   }, [sectionId,page]);
-
-  useEffect(() => {
-    fetchVideoRequest();
-  }, [sectionId]);
 
   const gotoNextPage = () => {
     setPage(page + 1);
@@ -165,10 +170,6 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
   useEffect(() => {
     updateTopListData()
   }, [topData,bookmarkIdInfo])
-
-  useEffect(() => {
-    setVideoListData(videoData)
-  }, [videoData])
 
   const updateHeroListData = () => {
     if(isNonEmptyArray(heroData)) {
@@ -394,7 +395,7 @@ export const SectionStoryScreen = ({sectionId}: {sectionId: any;}) => {
       }
     </View>
   );
-};
+});
 
 const customStyle = (theme: CustomThemeType) => {
   const sectionStoryStyle = StyleSheet.create({
