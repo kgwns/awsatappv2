@@ -2,7 +2,7 @@ import React from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { normalize, screenWidth } from 'src/shared/utils';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Label } from '../atoms';
 import { Divider } from 'src/components/atoms';
 import { RelatedOpinionCard } from '../molecules/RelatedOpinionCard';
@@ -64,7 +64,7 @@ const customStyle = (theme: CustomThemeType) => {
     conatiner: {
       backgroundColor: theme.backgroundColor,
       paddingTop: 0.03 * screenWidth,
-      paddingHorizontal: 0.03 * screenWidth,
+      paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
     },
     header: {
       textAlign: 'left',
