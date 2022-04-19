@@ -219,7 +219,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               return (
                 <View key={index}>
                   {buttonListItem(false, item, index, icon)}
-                  {isNonEmptyArray(item.child) && item.showDropDown && <View style={styles.childDropdownItem}>
+                  {isNonEmptyArray(item.child) && item.showDropDown && <View>
                     {item.child.map((childItem: any, childIndex: number) => {
                       return buttonListItem(true, childItem, childIndex)
                     })}
@@ -337,10 +337,6 @@ const createStyles = (theme: CustomThemeType) =>
     },
     nonBoldTitle: {
       fontWeight: 'normal',
-    },
-    childDropdownItem: {
-      borderBottomColor: theme.dividerColor,
-      borderBottomWidth: 1 
     },
     divider: {
       height: 1,
