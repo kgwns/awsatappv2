@@ -111,6 +111,12 @@ const TabNavigatorStyle = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-evenly",
         paddingTop: isTab ? 20 : 15,
+        borderColor: "transparent",
+        shadowColor: colors.black,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: .1,
+        shadowRadius: 4,  
+        elevation: 15
     },
     tabIconContainer: {
         height: isTab ? 29 : 24,

@@ -112,7 +112,7 @@ const MostReadList = ({
       leftTitleStyle: mostReadListStyle.leftFooterStyle
     };
     enableTag && (item.tagName = (index + 1).toString())
-    item.tagStyle = {marginLeft: normalize(16)};
+    item.tagStyle = {marginLeft: normalize(20)};
     item.tagLabelType = LabelTypeProp.p3;
     item.image = item.image ? item.image : getImageUrl(item.field_image);
     item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : ''
@@ -179,7 +179,7 @@ const mostReadListStyle = StyleSheet.create({
     flex: 1,
   },
   contentStyle: {
-    paddingHorizontal: 0.04 * screenWidth,
+    paddingHorizontal: normalize(20),
   },
   leftFooterStyle: {
     fontWeight: 'bold'

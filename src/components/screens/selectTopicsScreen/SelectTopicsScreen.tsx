@@ -19,7 +19,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   const [t] = useTranslation();
   const isFocused = useIsFocused()
 
-  const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest, updateAllSiteCategoriesData} = useAllSiteCategories();
+  const { isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest, updateAllSiteCategoriesData, emptySendTopicsInfoData } = useAllSiteCategories();
   const {userProfileData} = useUserProfileData();
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [categoriesInfo, setCategoriesInfo] = useState<AllSiteCategoriesItemType[]>([])
@@ -91,6 +91,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
 
   const gotoNext = () => {
     navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN)
+    emptySendTopicsInfoData();
   }
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>

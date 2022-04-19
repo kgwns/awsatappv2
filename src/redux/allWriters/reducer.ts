@@ -17,6 +17,8 @@ import {
   FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
   EMPTY_SEND_AUTHOR_INFO,
   DESELECT_ALL_WRITERS,
+  SELECTED_DATA_FROM_ONBOARD,
+  EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD,
 } from './actionTypes';
 import { AllWritersActions, AllWritersState } from './types';
 import { isNonEmptyArray } from 'src/shared/utils';
@@ -28,7 +30,8 @@ const initialState: AllWritersState = {
   sendAuthorInfo: {},
   selectedAuthorsData:{},
   allSelectedWritersDetailsList:[],
-  selectedAuthorLoading: false
+  selectedAuthorLoading: false,
+  selectedDataFromOnboard: [],
 };
 
 export default (state = initialState, action: AllWritersActions) => {
@@ -86,7 +89,11 @@ export default (state = initialState, action: AllWritersActions) => {
     case EMPTY_SEND_AUTHOR_INFO:
       return { ...state, sendAuthorInfo: {} }
     case DESELECT_ALL_WRITERS:
-      return {...state, allSiteCategoriesData: deselectAllSelectedWritersData(state.allWritersData, action.payload)}
+      return { ...state, allWritersData: deselectAllSelectedWritersData(state.allWritersData, state.selectedDataFromOnboard) }
+    case SELECTED_DATA_FROM_ONBOARD:
+      return { ...state, selectedDataFromOnboard: action.payload }
+    case EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD:
+      return { ...state, selectedDataFromOnboard: [] }
     default:
       return { ...state };
   }

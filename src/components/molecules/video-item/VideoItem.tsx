@@ -150,10 +150,10 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'space-between',
       marginTop: normalize(10),
       marginBottom: normalize(20),
-      marginHorizontal: normalize(15),
+      marginHorizontal: normalize(20),
     },
     spaceContainer: {
-      paddingHorizontal: normalize(15),
+      paddingHorizontal: normalize(20),
     },
     day: {
       marginHorizontal: normalize(8),

@@ -69,7 +69,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: normalize(10),
-        paddingHorizontal: 0.04 * screenWidth
+        paddingHorizontal: normalize(20)
     },
     topViewContainer: {
         flex: 1,

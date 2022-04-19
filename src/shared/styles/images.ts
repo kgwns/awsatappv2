@@ -25,6 +25,7 @@ export enum ImagesName {
   bookmarkBlackActive = 'bookmarkBlackActive',
   bookmarkBlack = ' bookmarkBlack',
   clock = 'clock',
+  clockWhite = 'clockWhite',
   headerLogo = 'headerLogo',
   searchIcon = 'searchIcon',
   menuIcon = 'menuIcon',

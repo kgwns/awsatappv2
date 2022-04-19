@@ -362,7 +362,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     renderItemTopics: {
       paddingBottom: 0.03 * screenWidth,
-      paddingStart: 0.02 * screenWidth,
+      paddingStart: normalize(20),
     },
     divider: {
       height: 1,
