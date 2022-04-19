@@ -51,7 +51,6 @@ export const SectionsScreen = () => {
 
   useEffect(() => {
     if(topMenuData.length > 0){
-      console.log('topMenuData-data', JSON.stringify(topMenuData))
       let newRoutesArray = topMenuData.map((item, index) => {
         return {
           key: `${index}${item.keyName}`,
@@ -93,10 +92,8 @@ export const SectionsScreen = () => {
       const newIndex = routes.findIndex((item: any) => item.key == route.key)
       if (index + 3 < newIndex) {
         updateSwipeLeftPager(props, route, index + 3, newIndex)
-        console.log("🚀 ~ file: SectionsScreen.tsx ~ line 97 ~ SectionsScreen ~ route", route)
       } else if (index - 3 > newIndex) {
         updateSwipeLeftPager(props, route, index - 3, newIndex)
-        console.log("🚀 ~ file: SectionsScreen.tsx ~ line 105 ~ SectionsScreen ~ route", route)
       } else {
         props.jumpTo(route.key)
       }
