@@ -8,6 +8,7 @@ import { DynamicWidget } from 'src/components/organisms'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { Label, LabelTypeProp } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
+import { normalize } from 'react-native-elements'
 
 export const Archives = () => {
     const [t] = useTranslation()
@@ -107,7 +108,7 @@ export const Archives = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <View style={{ paddingHorizontal: 0.04 * screenWidth }}>
+            <View style={{ paddingStart: normalize(20) }}>
                 <FilterComponent data={filterItem} onPress={onPressFilterItem} />
             </View>
             {isNonEmptyArray(filteredData) &&

@@ -358,17 +358,17 @@ const customStyles = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: theme.backgroundColor
     },
     authorWidgetHeader: {
-        paddingHorizontal: 0.04 * screenWidth
+        paddingHorizontal: normalize(20)
     },
     articleWidgetHeader: {
-        paddingHorizontal: 0.04 * screenWidth,
+        paddingHorizontal: normalize(20),
         backgroundColor: theme.backgroundColor
     },
     articleContainer: {
         paddingHorizontal: (isTab ? 0.02 : 0.05) * screenWidth
     },
     topArticleContainer: {
-        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth
+        paddingHorizontal: isTab ? (0.02 * screenWidth) : normalize(20)
     },
     topArticleImage: {
         flex: 0,
