@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import { normalize, screenWidth} from 'src/shared/utils';
+import { isTab, normalize, screenWidth} from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {Divider, HtmlRenderer, Image, Label} from '../atoms';
 import {ImagesName, Styles} from 'src/shared/styles';
@@ -149,7 +149,7 @@ export const OpinionArticleDetailWidget = ({
 const customStyle = (theme: CustomThemeType) => {
   const OpinionArticleDetailWidgetStyle = StyleSheet.create({
     contentContainer: {
-      paddingHorizontal: normalize(0.03 * screenWidth),
+      paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
       paddingTop: normalize(0.02 * screenWidth),
     },
     image: {
