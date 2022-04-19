@@ -189,14 +189,14 @@ const createStyles = (theme: CustomThemeType) =>
     },
     time: {
       position: 'absolute',
-      right: normalize(15),
+      right: normalize(20),
       bottom: 0,
       opacity: 0.8,
       backgroundColor: colors.darkGreenishBlue,
       padding: normalize(5),
     },
     videoLable: {
-      left: normalize(15),
+      left: normalize(20),
       top: 0,
       position: 'absolute',
       backgroundColor: colors.greenishBlue,
@@ -206,7 +206,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     playIcon: {
       top: normalize(10),
-      right: normalize(20),
+      right: normalize(25),
       position: 'absolute',
     },
     buttonContainer: {

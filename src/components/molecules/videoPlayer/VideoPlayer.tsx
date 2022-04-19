@@ -25,40 +25,26 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   const [isPaused, setIsPaused] = useState(true)
   const [videoUrl, setvideoUrl] = useState(url)
   const [isLoading, setIsLoading] = useState(true);
+  const [fullScreen, setFullScreen] = useState(false);
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
   const navigation = useNavigation();
-  const [getOrientation, setOrientation] = useState('')
   
-  useEffect(() => {
-    Orientation.getDeviceOrientation(updateScreenEdge)
-    Orientation.addDeviceOrientationListener(updateScreenEdge)
-    return () => {
-      Orientation.removeOrientationListener(updateScreenEdge)
-    }
-  }, [])
-
-  const updateScreenEdge = (deviceOrientation: OrientationType) => {
+  const changeOrientation = (deviceOrientation: OrientationType) => {
     Orientation.unlockAllOrientations();
-    switch (deviceOrientation) {
-      case 'LANDSCAPE-LEFT':
-        setOrientation('LANDSCAPE')
-        break
-      case 'LANDSCAPE-RIGHT':
-        setOrientation('LANDSCAPE')
-        break
-      default:
-        setOrientation('PORTRAIT')
-        break
+    if(deviceOrientation === 'LANDSCAPE-LEFT' || deviceOrientation === 'LANDSCAPE-RIGHT') {
+      setFullScreen(true)
+    }else if(deviceOrientation === 'PORTRAIT'){
+      setFullScreen(false)
     }
   } 
 
-  
   const goBackToScreen = () =>{
     if(goBack){
       setIsPaused(true)
       goBack()
     }
   }
+
   useEffect(() => {
     if(videoUrl&&typeof videoUrl==='string') setvideoUrl(videoUrl.trim())
   }, []);
@@ -78,10 +64,11 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   }, []);
 
   useEffect(() => {
-    Orientation.unlockAllOrientations()
     SystemNavigationBar.navigationHide();
     StatusBar.setHidden(true);
+    Orientation.addDeviceOrientationListener(changeOrientation)
     return () => {
+      Orientation.removeDeviceOrientationListener(changeOrientation)
       Orientation.lockToPortrait()
       StatusBar.setHidden(false)
       SystemNavigationBar.navigationShow()
@@ -97,19 +84,13 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   };
 
   const onEnterFullscreen = () => {
-    Orientation.getDeviceOrientation(deviceOrientation => {
-      if (deviceOrientation === 'PORTRAIT') {
-        Orientation.lockToLandscape();
-      }
-    })
+    Orientation.lockToLandscape()
+    setFullScreen(true)
   };
 
   const onExitFullscreen = () => {
-    Orientation.getDeviceOrientation(deviceOrientation => {
-      if (deviceOrientation === 'LANDSCAPE-LEFT' || 'LANDSCAPE_RIGHT') {
-        Orientation.lockToPortrait();
-      }
-    })
+    Orientation.lockToPortrait()
+    setFullScreen(false)
   };
 
   return (
@@ -132,6 +113,8 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
           onEnterFullscreen={onEnterFullscreen}
           onExitFullscreen={onExitFullscreen}
           disableVolume={true}
+          isFullscreen={fullScreen}
+          fullscreenAutorotate={false}
         />
       </View>
     </ScreenContainer>
