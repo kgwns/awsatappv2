@@ -17,6 +17,8 @@ import {
   FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
   EMPTY_SEND_AUTHOR_INFO,
   DESELECT_ALL_WRITERS,
+  SELECTED_DATA_FROM_ONBOARD,
+  EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD,
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -101,6 +103,7 @@ export type AllWritersState = {
   selectedAuthorsData: SelectedAuthorDataType;
   allSelectedWritersDetailsList: AllWritersItemType[];
   selectedAuthorLoading: boolean;
+  selectedDataFromOnboard: string[];
 };
 
 export type FetchAllWritersType = {
@@ -170,6 +173,9 @@ export interface AllSelectedWritersDetailsBodyGet {
   tid: string;
   items_per_page:number;
 }
+export interface SelectedDataFromOnboardPayload {
+  data: string[];
+}
 export interface FetchAllSelectedWritersDetailsListSuccessPayloadType {
   allSelectedWritersDetails: any;
 }
@@ -198,7 +204,15 @@ export type EmptySendAuthorInfoType = {
 
 export type DeselectAllWriters = {
   type: typeof DESELECT_ALL_WRITERS;
+}
+
+export type SetSelectedDataFromOnboard = {
+  type: typeof SELECTED_DATA_FROM_ONBOARD;
   payload: string[];
+}
+
+export type EmptySelectedWritersDataFromOnboard = {
+  type: typeof EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD;
 }
 
 
@@ -221,3 +235,5 @@ export type AllWritersActions =
   | FetchAllSelectedWritersDetailsFailedType
   | EmptySendAuthorInfoType
   | DeselectAllWriters
+  | SetSelectedDataFromOnboard
+  | EmptySelectedWritersDataFromOnboard

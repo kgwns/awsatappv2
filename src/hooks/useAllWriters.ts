@@ -8,7 +8,7 @@ import {
   getSelectedAllWritersDetailsData,
   getSelectedAuthorLoading
 } from 'src/redux/allWriters/selectors';
-import { fetchAllWriters, sendSelectedAuthor, getSelectedAuthors, emptySelectedAuthorsInfo, removeAuthor, getSelectedAuthorsSuccess, fetchAllSelectedWritersDetails, emptySendAuthorInfo, deselectAllWriters } from 'src/redux/allWriters/action';
+import { fetchAllWriters, sendSelectedAuthor, getSelectedAuthors, emptySelectedAuthorsInfo, removeAuthor, getSelectedAuthorsSuccess, fetchAllSelectedWritersDetails, emptySendAuthorInfo, deselectAllWriters, setSelectedDataFromOnboard, emptySelectedWritersDataFromOnboard } from 'src/redux/allWriters/action';
 import { AllWritersItemType, AllWritersBodyGet, SendSelectedAuthorBody, ResponseMessage, SelectedAuthorDataType, RemoveAuthorBody,AllSelectedWritersDetailsBodyGet } from 'src/redux/allWriters/types';
 import { isNonEmptyArray } from 'src/shared/utils';
 
@@ -27,7 +27,9 @@ export interface UseAllWritersReturn {
   allSelectedWritersDetailList : AllWritersItemType[];
   selectedAuthorLoadingState: boolean;
   emptySendAuthorInfoData(): void;
-  updateAllWritersData(payload: string[]): void;
+  updateAllWritersData(): void;
+  sendSelectedFromOnboard(payload: string[]): void
+  emptySelectedWritersDataOnboard(): void;
 }
 
 export const useAllWriters = (): UseAllWritersReturn => {
@@ -59,8 +61,16 @@ export const useAllWriters = (): UseAllWritersReturn => {
     dispatch(emptySendAuthorInfo())
   }
 
-  const updateAllWritersData = (payload: string[]) => {
-    dispatch(deselectAllWriters(payload));
+  const updateAllWritersData = () => {
+    dispatch(deselectAllWriters());
+  }
+
+  const sendSelectedFromOnboard = (payload: any) => {
+    dispatch(setSelectedDataFromOnboard(payload));
+  }
+
+  const emptySelectedWritersDataOnboard = () => {
+    dispatch(emptySelectedWritersDataFromOnboard());
   }
 
   const removeAuthorRequest = (payload: RemoveAuthorBody) => {
@@ -95,5 +105,7 @@ export const useAllWriters = (): UseAllWritersReturn => {
     selectedAuthorLoadingState,
     emptySendAuthorInfoData,
     updateAllWritersData,
+    sendSelectedFromOnboard,
+    emptySelectedWritersDataOnboard,
   };
 };
