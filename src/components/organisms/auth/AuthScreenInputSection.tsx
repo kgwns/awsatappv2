@@ -28,6 +28,7 @@ interface AuthScreenInputSectionProps {
   editableEmail?: boolean;
   showAlertNoInternet?: () => void;
   socialButtonBoldStyle?: boolean;
+  isSignInScreen?: boolean;
 }
 
 export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionProps> =({
@@ -48,6 +49,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
   editableEmail= true,
   showAlertNoInternet,
   socialButtonBoldStyle= false,
+  isSignInScreen= false,
 }) => {
 
   const [t] = useTranslation();
@@ -136,7 +138,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
             <SocialLoginButton testID="signin_signIn"
               onPress={onPress}
               label={t('signIn.signIn')}
-              style={styles.buttonStyle}
+              style={[styles.buttonStyle,!isSignInScreen&&{marginTop: normalize(-5)}]}
               labelStyle={styles.signInLabelStyle}
             />
           </View>
@@ -180,16 +182,17 @@ StyleSheet.create({
     marginBottom: normalize(25),
   },
   textStyleBlack: {
-    fontSize: normalize(15),
+    fontSize: normalize(16),
     color: theme.primaryBlack,
     lineHeight: normalize(22),
+    fontWeight: 'bold',
   },
   buttonStyle: {
     backgroundColor: theme.primary,
     borderWidth: 0,
     width: '60%',
-    marginBottom: normalize(30)
-
+    marginBottom: normalize(30),
+    marginVertical: 0,
   },
   topContainerStyle: {
     flex: 0.5,
@@ -220,7 +223,7 @@ StyleSheet.create({
     flex: 1,
     marginLeft: normalize(15),
     width: '100%',
-    backgroundColor: theme.textColor,
+    backgroundColor: theme.signInSeparator,
   },
   leftDivider: {
     marginRight: normalize(20),

@@ -281,6 +281,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
               goToPasswordScreen={() => forgotPassworRequest({email: email})}
               onPressSignup={onPressSignIn}
               socialButtonBoldStyle={true}
+              isSignInScreen={true}
             />
           </View>
 

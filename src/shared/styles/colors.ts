@@ -101,6 +101,7 @@ export interface CustomThemeType {
   signinRightsColor: string,
   newsletterHighlighter: string,
   authorTitle: string,
+  signInSeparator: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -139,6 +140,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   signinRightsColor: colors.spanishGray,
   newsletterHighlighter: colors.cyanGreen,
   authorTitle: colors.greenishBlue,
+  signInSeparator: colors.greyLight1,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -174,5 +176,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   signinRightsColor: colors.white,
   newsletterHighlighter:colors.greyDark50,
   authorTitle: colors.spanishGray,
+  signInSeparator: colors.white,
 }
 
