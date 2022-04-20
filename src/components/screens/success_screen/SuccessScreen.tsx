@@ -16,7 +16,7 @@ import {ScreensConstants} from 'src/constants';
 import { useDispatch } from 'react-redux';
 import { onBoardingSuccess } from 'src/redux/login/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
-import { useAllWriters } from 'src/hooks';
+import { useAllWriters, useNewsLetters } from 'src/hooks';
 
 export const SuccessScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -27,6 +27,7 @@ export const SuccessScreen: FunctionComponent = () => {
   const [animationRef,setAnimationRef] = useState<LottieView>()
 
   const { emptySelectedWritersDataOnboard } = useAllWriters();
+  const { emptySelectedNewsletterDataOnboard } = useNewsLetters();
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", nextAppState => {
@@ -42,6 +43,7 @@ export const SuccessScreen: FunctionComponent = () => {
 
   useEffect(() => {
     emptySelectedWritersDataOnboard()
+    emptySelectedNewsletterDataOnboard()
     AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN)
   }, [])
 

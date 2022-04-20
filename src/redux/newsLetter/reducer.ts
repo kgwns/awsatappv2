@@ -1,7 +1,7 @@
 import {
     EMPTY_SELECTED_NEWS_LETTERS_INFO,
     GET_SELECTED_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS_ERROR, GET_SELECTED_NEWS_LETTERS_SUCCESS, SEND_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS_ERROR, SEND_SELECTED_NEWS_LETTERS_SUCCESS,
-    GET_MY_NEWS_LETTERS, GET_MY_NEWS_LETTERS_SUCCESS, GET_MY_NEWS_LETTERS_ERROR
+    GET_MY_NEWS_LETTERS, GET_MY_NEWS_LETTERS_SUCCESS, GET_MY_NEWS_LETTERS_ERROR, SELECTED_DATA_FROM_NEWSLETTER_ONBOARD, EMPTY_SELECTED_NEWSLETTER_DATA_FROM_ONBOARD,
 } from './actionTypes';
 import { NewsLettersActions, NewsLetterState } from './types';
 
@@ -12,7 +12,8 @@ const initialState: NewsLetterState = {
     selectedNewsLettersData: {},
     isMyNewsLoading: false,
     myNewsError: '',
-    myNewsLetters: {}
+    myNewsLetters: {},
+    selectedDataFromNewsLetterOnboard: [],
 };
 
 export default (state = initialState, action: NewsLettersActions) => {
@@ -37,6 +38,10 @@ export default (state = initialState, action: NewsLettersActions) => {
             return { ...state, isMyNewsLoading: false, myNewsError: action.payload.error }
         case EMPTY_SELECTED_NEWS_LETTERS_INFO:
             return { ...state, isLoading: false, sendNewsLettersInfo: {}, error: '', myNewsLetters: {}, myNewsError: '', isMyNewsLoading: false}
+        case SELECTED_DATA_FROM_NEWSLETTER_ONBOARD:
+            return { ...state, selectedDataFromNewsLetterOnboard: action.payload }
+        case EMPTY_SELECTED_NEWSLETTER_DATA_FROM_ONBOARD:
+            return { ...state, selectedDataFromNewsLetterOnboard: [] }
         default:
             return { ...state };
     }

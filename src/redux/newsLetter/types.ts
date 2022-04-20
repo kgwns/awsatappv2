@@ -1,4 +1,4 @@
-import { EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_SELECTED_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS_ERROR, GET_SELECTED_NEWS_LETTERS_SUCCESS, SEND_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS_ERROR, SEND_SELECTED_NEWS_LETTERS_SUCCESS, GET_MY_NEWS_LETTERS, GET_MY_NEWS_LETTERS_SUCCESS, GET_MY_NEWS_LETTERS_ERROR } from "./actionTypes";
+import { EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_SELECTED_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS_ERROR, GET_SELECTED_NEWS_LETTERS_SUCCESS, SEND_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS_ERROR, SEND_SELECTED_NEWS_LETTERS_SUCCESS, GET_MY_NEWS_LETTERS, GET_MY_NEWS_LETTERS_SUCCESS, GET_MY_NEWS_LETTERS_ERROR, EMPTY_SELECTED_NEWSLETTER_DATA_FROM_ONBOARD, SELECTED_DATA_FROM_NEWSLETTER_ONBOARD } from "./actionTypes";
 
 export type NewsLetterState = {
   error: string;
@@ -8,6 +8,7 @@ export type NewsLetterState = {
   myNewsLetters: any;
   isMyNewsLoading: boolean;
   myNewsError: string;
+  selectedDataFromNewsLetterOnboard: string[];
 };
 
 export interface NewsLetterItemType {
@@ -36,8 +37,11 @@ export interface ResponseMessage {
 }
 
 export interface GetDataType {
-  tid: number,
-  created_date: string,
+  id: number,
+  date: string,
+  image: string,
+  name: string,
+  description: string,
 }
 export interface SelectedNewsLettersDataType {
   code?: number,
@@ -58,6 +62,9 @@ export interface GetMyNewsLettersFailedPayloadtype {
 
 export interface GetSelectedNewsLettersFailedPayloadtype {
   error: string;
+}
+export interface SelectedDataFromNewsLetterOnboardPayload {
+  data: string[];
 }
 
 export type SendSelectedNewsLettersType = {
@@ -107,6 +114,15 @@ export type EmptySelectedNewsLettersInfo = {
   type: typeof EMPTY_SELECTED_NEWS_LETTERS_INFO;
 };
 
+export type SetSelectedDataFromNewsletterOnboard = {
+  type: typeof SELECTED_DATA_FROM_NEWSLETTER_ONBOARD;
+  payload: string[];
+}
+
+export type EmptySelectedNewsletterDataFromOnboard = {
+  type: typeof EMPTY_SELECTED_NEWSLETTER_DATA_FROM_ONBOARD;
+}
+
 export type NewsLettersActions =
   | SendSelectedNewsLettersType
   | SendSelectedNewsLettersSuccessType
@@ -117,4 +133,6 @@ export type NewsLettersActions =
   | GetMyNewsLettersSuccessType
   | GetMyNewsLettersType
   | GetMyNewsLettersFailedType
-  | EmptySelectedNewsLettersInfo;
+  | EmptySelectedNewsLettersInfo
+  | SetSelectedDataFromNewsletterOnboard
+  | EmptySelectedNewsletterDataFromOnboard;
