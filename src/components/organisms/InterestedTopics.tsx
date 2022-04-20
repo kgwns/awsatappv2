@@ -101,6 +101,7 @@ const customInterestStyle = (theme: CustomThemeType) =>
       width: '100%',
       backgroundColor: theme.backgroundColor,
       alignSelf: 'center',
+      flexDirection: 'column',
     },
     interestedTopicsContainer: {
       marginVertical: normalize(7),

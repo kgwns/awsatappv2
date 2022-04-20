@@ -358,7 +358,7 @@ export const LatestNewsScreen = () => {
           :
           <>
             {isNonEmptyArray(podcastHome) ? <PodcastWidget data={podcastHome} onPress={onListenPodcast} /> : <View style={latestNewsScreenStyle.podcastDivider}/>}
-            <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
+            <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} showDivider={true}/>
             <ShortArticle data={topListData} onPress={onPressArticle}
               onUpdateBookmark={updateBookmarkInfo}
               showSignUpPopUp={makeSignUpAlert}
