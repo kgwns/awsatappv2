@@ -155,6 +155,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  imageLandscape: {
+    width: '100%',
+    height: 'auto',
+    aspectRatio: 16/9
+  },
   divider: {
     height: 1,
     backgroundColor: theme.dividerColor,

@@ -365,12 +365,13 @@ export const LatestNewsScreen = () => {
             />
           </>
       }
-      <StoryWidget data={storyWidgetData}
+      <Divider style={latestNewsScreenStyle.dividerAboveTrending} /> 
+      {/* <StoryWidget data={storyWidgetData}             // Will enable the Stories once required and remove the above Divider
         onPress={(item: StoryListProps, index: number) =>
           navigation.navigate(ScreensConstants.StoryScreen,
             { id: item.id, selectedIndex: index }
           )}
-      />
+      /> */}
       <SectionComboOne data={sectionComboOneInfo} onPress={onPressArticle}
         sectionId={'726'}
         onUpdateBookmark={updatedSectionComboOneBookmark}
@@ -465,6 +466,12 @@ const customStyle = (theme: CustomThemeType) => {
       height: 1,
       marginTop: normalize(20),
       backgroundColor: theme.dividerColor,
-    }
+    },
+    dividerAboveTrending: {
+      width: '100%',
+      height: 1,
+      backgroundColor: theme.dividerColor,
+    },
+
   })
 }

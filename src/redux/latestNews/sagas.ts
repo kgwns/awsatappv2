@@ -72,11 +72,12 @@ const formatOpinion = (response: any): LatestOpinionDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedOpinionData = rows.map(
-        ({ title, body, nid, field_opinion_writer_node_export  }: any) => ({
+        ({ title, body, nid, field_opinion_writer_node_export, field_jwplayer_id_opinion_export }: any) => ({
           body,
           title,
           nid,
           field_opinion_writer_node_export,
+          field_jwplayer_id_opinion_export,
         })
       );
     }

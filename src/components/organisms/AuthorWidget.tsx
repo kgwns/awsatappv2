@@ -31,7 +31,7 @@ const AuthorWidget = ({
     const { themeData } = useTheme()
     const renderItem = (item: any, index: number) => (
         <AuthorItem body={item.title}  
-        mediaVisibility={isNotEmpty(data?.field_jwplayer_id_opinion_export)} 
+        mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)} 
         author={
             isNonEmptyArray(item.field_opinion_writer_node_export)
               ? item.field_opinion_writer_node_export[0].name
