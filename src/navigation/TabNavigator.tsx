@@ -95,8 +95,8 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                             <View style={TabNavigatorStyle.tabIconContainer}>
                                 {(getSvgImages({ name: getImageName(), width: iconStyle.width, height: iconStyle.height , style: iconStyle}))}
                             </View>
+                            <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
                         </TouchableOpacity>
-                        <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
                     </View>
                 );
             })}
