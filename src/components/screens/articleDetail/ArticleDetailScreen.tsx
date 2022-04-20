@@ -58,6 +58,7 @@ export const ArticleDetailScreen = ({
   const [showupUp,setShowPopUp] = useState(false)
   const [articleDetailState, setArticleDetail] = useState<ArticleDetailDataType[]>([])
   const [relatedArticleState, setRelatedArticle] = useState<RelatedArticleDataType[]>([])
+  const [currentOrientation, setOrientation] = useState('')
 
   const currentNId = route.params.nid;
 
@@ -147,6 +148,7 @@ export const ArticleDetailScreen = ({
   }, [isFocused])
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
+    setOrientation(deviceOrientation);
     const edge = getScreenEdge(deviceOrientation)
     setEdge(edge)
   }
@@ -235,6 +237,7 @@ export const ArticleDetailScreen = ({
           showSignUpPopUp={makeSignUpAlert}
           numColumns={isTab ? 2 : 1}
           addStyle={style.relatedArticle}
+          orientation={currentOrientation}
         />}
       <Divider style={{ height: normalize(50) }} />
     </View>

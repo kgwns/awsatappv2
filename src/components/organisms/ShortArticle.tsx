@@ -42,7 +42,8 @@ export interface ArticleSectionProps {
   addStyle?: StyleProp<ViewStyle>;
   showBody?: boolean;
   leftContainerStyle?: StyleProp<ViewStyle>
-  imageStyleProp?: StyleProp<ViewStyle> 
+  imageStyleProp?: StyleProp<ViewStyle>
+  orientation?: string, 
 }
 
 export const shortArticleFooter: articleFooterProps = {
@@ -66,7 +67,8 @@ const ShortArticle = ({ data, headerLeft, onPress,
   addStyle,
   showBody = false,
   leftContainerStyle,
-  imageStyleProp
+  imageStyleProp,
+  orientation,
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const { isLoggedIn } = useLogin()
@@ -99,6 +101,8 @@ const ShortArticle = ({ data, headerLeft, onPress,
 
     const cardStyle = (numColumns > 1 && index % 2 == 0) ? {marginRight: normalize(20)} : {}
     const showDivider = (numColumns == 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
+    const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') ? style.imageLandscape : style.image
+    const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') ? style.imageContainerLandscape : style.imageContainer
     return <TouchableWithoutFeedback onPress={() => onPress(item.nid)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([style.cardContainer, cardStyle])}>
@@ -119,8 +123,8 @@ const ShortArticle = ({ data, headerLeft, onPress,
               />
             </View>
           </View>
-          <View style={[style.imageContainer, imageStyleProp]}>
-            <Image fallback url={getImageUrl(item.image)} style={style.image} resizeMode={ImageResize.COVER} />
+          <View style={[imageContainerStyle, imageStyleProp]}>
+            <Image fallback url={getImageUrl(item.image)} style={imageStyle} resizeMode={ImageResize.COVER} />
           </View>
         </View>
         {showDivider && <Divider style={style.divider}/>}
@@ -180,6 +184,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   imageContainer: {
     flex: 0.30, 
     height: normalize(73),
+    paddingRight: normalize(5),
+  },
+  imageContainerLandscape: {
+    flex: 0.30, 
     paddingRight: normalize(5),
   }
 })
