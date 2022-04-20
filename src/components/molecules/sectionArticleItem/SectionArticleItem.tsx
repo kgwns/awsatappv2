@@ -69,11 +69,7 @@ const SectionArticleItem = ({
   const style = useThemeAwareObject(customStyle);
   const {themeData} = useTheme();
   return (
-    <View
-      style={{
-        paddingBottom: normalize(20),
-        backgroundColor: themeData.backgroundColor,
-      }}>
+    <View style={style.sectionArticleItem}>
       <TouchableWithoutFeedback testID={'onPressTestID'} onPress={onPress}>
         {image && <ImageWithLabel url={image} imageStyle={imageStyle} />}
         <View style={style.sectionContent}>
@@ -115,19 +111,13 @@ const SectionArticleItem = ({
         {!hideBookMark && (
           <ButtonImage
           testId={moleculesTestID.storySaveBtn}
-          icon={() => {
-            return isBookmarked
-              ? getSvgImages({
-                  name: ImagesName.bookMarkActiveSVG,
-                  width: 10,
-                  height: 15
-                })
-              : getSvgImages({
-                  name: ImagesName.bookMarkSVG,
-                  width: 10,
-                  height: 15
-                });
-          }}
+            icon={() => {
+              return getSvgImages({
+                name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG,
+                width: 10,
+                height: 15
+              })
+            }}
           onPress={onPressBookmark}
         />
         )}
@@ -163,5 +153,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   sectionContent: {
     paddingTop: isTab ? normalize(15) : normalize(10)
+  },
+  sectionArticleItem: {
+    paddingBottom: normalize(20),
+    backgroundColor: theme.backgroundColor,
+    overflow: 'hidden'
   }
 });
