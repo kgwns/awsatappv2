@@ -44,6 +44,7 @@ export const ALL_WRITERS_ENDPOINT = '/api/v2/applist/authors';
 export const SEND_SELECTED_WRITERS_ENDPOINT = 'api/ums/v1/addFavoriteAuthor?tid=';
 export const GET_SELECTED_AUTHORS_ENDPOINT = 'api/ums/v1/getFavoriteAuthor';
 export const REMOVE_WRITERS_ENDPOINT = 'api/ums/v1/removeFavoriteAuthor?tid=';
+export const GET_WRITER_DETAIL_END_POINT = '/api/v2/sections/writer/'
 
 
 //all site categories

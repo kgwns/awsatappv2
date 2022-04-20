@@ -13,7 +13,7 @@ const articleDetailFooterData: articleFooterProps = {
     leftTitleColor: Styles.color.white,
     leftIcon: () => {
         return getSvgImages({
-            name: ImagesName.clockWhite,
+            name: isTab ? ImagesName.clock : ImagesName.clockWhite,
             size: normalize(12),
             style: { marginRight: normalize(5) }
         })
