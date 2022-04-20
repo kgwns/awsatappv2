@@ -139,7 +139,7 @@ const customStyle = (theme: CustomThemeType) => {
     return: {
       position: 'absolute',
       top: normalize(15),
-      right: normalize(20),
+      right: (isTab ? 0.02 : 0.04) * screenWidth,
       alignContent: 'center',
       marginTop: isIOS ? 0 : normalize(5),
       zIndex: 9999
