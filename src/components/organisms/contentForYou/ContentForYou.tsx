@@ -17,6 +17,7 @@ import { normalize } from 'react-native-elements';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { NewsCategoriesType } from 'src/redux/latestNews/types';
+import { useIsFocused } from '@react-navigation/native'
 
 
 interface AllContentData {
@@ -27,6 +28,7 @@ interface AllContentData {
 
 export const ContentForYou = () => {
     const { themeData } = useTheme()
+    const isFocused = useIsFocused()
     const [t] = useTranslation()
     const {selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
     const {selectedAuthorsData, getSelectedAuthorsData} = useAllWriters();
@@ -64,10 +66,12 @@ export const ContentForYou = () => {
     const styles = useThemeAwareObject(customStyles)
 
     useEffect(() => {
-        emptyAllData();
-        getSelectedTopicsData();
-        getSelectedAuthorsData();
-    }, []);
+        if(isFocused){
+            emptyAllData();
+            getSelectedTopicsData();
+            getSelectedAuthorsData();
+        }
+    }, [isFocused]);
 
     useEffect(() => {
         if(isNonEmptyArray(selectedTopicsData.data)){
