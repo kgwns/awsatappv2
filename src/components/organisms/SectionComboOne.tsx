@@ -43,7 +43,7 @@ const SectionComboOne = ({
 
   const widgetHeaderData: WidgetHeaderProps = {
     headerLeft: {
-      title: t('latestNewsTab.sectionComboOne.headerLeft'),
+      // title: t('latestNewsTab.sectionComboOne.headerLeft'),
       color: Styles.color.greenishBlue,
       labelType: LabelTypeProp.h2,
     },
