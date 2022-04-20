@@ -110,9 +110,7 @@ export const OpinionArticleDetailWidget = ({
   );
 
   const onPressReturn = async() => {
-    if (playbackState == State.Playing) {
-      await TrackPlayer.stop();
-    }
+    await TrackPlayer.stop();
     if (!isRelatedArticle) {
       Orientation.unlockAllOrientations();
       Orientation.lockToPortrait();
