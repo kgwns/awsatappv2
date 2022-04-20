@@ -61,15 +61,10 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
         <ButtonImage
           testId={headerBookmarkIconTestId}
           icon={() => {
-            return isSaved
-              ? getSvgImages({
-                  name: ImagesName.bookMarkWhiteActive,
+            return getSvgImages({
+                  name: isSaved ? ImagesName.bookMarkWhiteActive : ImagesName.bookMarkWhite,
                   size: normalize(15),
                 })
-              : getSvgImages({
-                  name: ImagesName.bookMarkWhite,
-                  size: normalize(15),
-                });
           }}
           onPress={onPressSave}
         />

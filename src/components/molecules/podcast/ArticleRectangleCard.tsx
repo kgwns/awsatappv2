@@ -103,15 +103,10 @@ export const ArticleRectangleCard = ({
         <ButtonImage
           testId={'bookMarkTestId'}
           icon={() => {
-            return isSaved
-              ? getSvgImages({
-                  name: ImagesName.bookMarkActiveSVG,
+            return getSvgImages({
+                  name: isSaved ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG,
                   size: normalize(13),
                 })
-              : getSvgImages({
-                  name: ImagesName.bookMarkSVG,
-                  size: normalize(13),
-                });
           }}
           onPress={() => setIsSaved(!isSaved)}
         />

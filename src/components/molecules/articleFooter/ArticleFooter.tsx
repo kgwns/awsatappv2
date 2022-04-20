@@ -6,6 +6,7 @@ import { Styles } from 'src/shared/styles'
 import { ImagesName } from 'src/shared/styles/images'
 import { CaptionWithImage } from 'src/components/atoms'
 import { getSvgImages } from 'src/shared/styles/svgImages'
+import { DEFAULT_HIT_SLOP } from 'src/shared/utils'
 
 export enum BookMarkColorType {
   WHITE = 'white',
@@ -90,8 +91,10 @@ const ArticleFooter = ({
       </View>
       {!hideBookmark &&
         <View style={articleFooterStyle.bookMarkContainer}>
-          <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPress}>
-            {storySaveIcon()} 
+          <TouchableOpacity
+            hitSlop={DEFAULT_HIT_SLOP}
+            testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPress}>
+            {storySaveIcon()}
           </TouchableOpacity>
         </View>
       }

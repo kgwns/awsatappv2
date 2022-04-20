@@ -71,15 +71,10 @@ export const PodcastVerticalList = ({
             <ButtonImage
               testId={'bookMarkTestId_podcast_episode'}
               icon={() => {
-                return isBookmarked
-                  ? getSvgImages({
-                      name: ImagesName.bookMarkActiveSVG,
+                return getSvgImages({
+                      name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG,
                       size: normalize(15),
                     })
-                  : getSvgImages({
-                      name: ImagesName.bookMarkSVG,
-                      size: normalize(15),
-                    });
               }}
               onPress={onPressBookmark}
             />

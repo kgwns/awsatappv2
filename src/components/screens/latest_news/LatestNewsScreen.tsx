@@ -365,7 +365,7 @@ export const LatestNewsScreen = () => {
             />
           </>
       }
-      <Divider style={latestNewsScreenStyle.dividerAboveTrending} /> 
+      {isNonEmptyArray(sectionComboOne) && <Divider style={latestNewsScreenStyle.dividerAboveTrending} /> }
       {/* <StoryWidget data={storyWidgetData}             // Will enable the Stories once required and remove the above Divider
         onPress={(item: StoryListProps, index: number) =>
           navigation.navigate(ScreensConstants.StoryScreen,
@@ -385,7 +385,7 @@ export const LatestNewsScreen = () => {
         isDivider
         dividerStyle={latestNewsScreenStyle.firstBannerDivider}
       />
-      <Divider style={latestNewsScreenStyle.sectionComboDivider} />
+      {isNonEmptyArray(opinionList) && <Divider style={latestNewsScreenStyle.sectionComboDivider} />}
       <AuthorWidget data={opinionList} />
       <BannerArticleSection
         data={sectionComboThreeInfo}

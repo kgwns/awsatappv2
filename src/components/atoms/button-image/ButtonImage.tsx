@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
-import {TouchableOpacity, ViewStyle, StyleProp} from 'react-native';
+import {TouchableOpacity, ViewStyle, StyleProp, Insets} from 'react-native';
 import {Image, ImageName} from 'src/components/atoms';
-import {normalize} from 'src/shared/utils';
+import {DEFAULT_HIT_SLOP, normalize} from 'src/shared/utils';
 
 interface ButtonImageProps {
   onPress: () => void;
@@ -10,6 +10,7 @@ interface ButtonImageProps {
   icon?: () => void;
   size?: number;
   testId?: string;
+  hitSlop?: Insets
 }
 
 export const ButtonImage: FunctionComponent<ButtonImageProps> = ({
@@ -19,9 +20,10 @@ export const ButtonImage: FunctionComponent<ButtonImageProps> = ({
   size = normalize(64),
   icon,
   testId,
+  hitSlop = DEFAULT_HIT_SLOP,
 }) => {
   return (
-    <TouchableOpacity style={style} onPress={onPress} testID={testId}>
+    <TouchableOpacity hitSlop={hitSlop} style={style} onPress={onPress} testID={testId}>
       {image && <Image name={image} size={size} />}
       {icon && icon()}
     </TouchableOpacity>

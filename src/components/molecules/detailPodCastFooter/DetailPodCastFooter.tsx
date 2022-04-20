@@ -5,6 +5,7 @@ import { moleculesTestID } from '../../../constants'
 import { ImageName, Label } from '../../atoms'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ImagesName } from 'src/shared/styles'
+import { DEFAULT_HIT_SLOP } from 'src/shared/utils'
 
 export interface detailPodCastFooterProps {
     leftTitle?: string,
@@ -56,7 +57,9 @@ const DetailPodCastFooter = ({
                 </TouchableOpacity>
                 <Label children={leftTimeLabel} color={leftTimeLabelColor} />
             </View>
-            <TouchableOpacity testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPressBookmark}>
+            <TouchableOpacity
+                hitSlop={DEFAULT_HIT_SLOP}
+                testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPressBookmark}>
                 {storySaveIcon()}
             </TouchableOpacity>
         </View>

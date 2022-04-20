@@ -22,6 +22,7 @@ export {
   calculateMonth,
   joinArray,
   isNotEmpty,
+  DEFAULT_HIT_SLOP
 } from 'src/shared/utils/utilities'
 export { SystemPermissions } from 'src/shared/utils/SystemPermissions'
 export {recordCurrentScreen, recordLogEvent} from './analytics';

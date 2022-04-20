@@ -1,4 +1,4 @@
-import { Alert, ColorSchemeName } from "react-native"
+import { Alert, ColorSchemeName, Insets } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
 import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX, PODCAST_URL_SUFFIX, CONST_OK } from "src/constants/SharedConstants"
 import { Edge } from "react-native-safe-area-context";
@@ -42,6 +42,8 @@ export const testProps = (testID: string | undefined) => {
 export const horizontalEdge: Edge[] = ['left', 'right'];
 export const horizontalAndBottomEdge: Edge[] = [...horizontalEdge, 'bottom'];
 export const horizontalAndTop: Edge[] = [...horizontalEdge, 'top']
+
+export const DEFAULT_HIT_SLOP: Insets = {top: 10, bottom: 10, left: 10, right: 10}
 
 export const getImageUrl = (imageURL: string) => {
   return isValidHttpUrl(imageURL) ? imageURL : BASE_URL + imageURL;
