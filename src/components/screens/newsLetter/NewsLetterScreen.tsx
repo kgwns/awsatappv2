@@ -22,7 +22,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const [newsLettersDataInfo, setNewsLettersDataInfo] = useState<NewsLetterItemType[]>([])
   const isFocused = useIsFocused();
 
-  const { getSelectedNewsLettersData, selectedNewsLettersData, sentNewsLettersInfoData, sendSelectedNewsLettersInfo, emptySelectedNewsLettersInfoData, isLoading , myNewsLetters, isMyNewsLoading, getMyNewsLettersData } = useNewsLetters()
+  const { getSelectedNewsLettersData, selectedNewsLettersData, sentNewsLettersInfoData, sendSelectedNewsLettersInfo, emptySelectedNewsLettersInfoData, isLoading , myNewsLetters, isMyNewsLoading, getMyNewsLettersData, sendSelectedFromNewsletterOnboard, selectedNewsLetterDataOnboard } = useNewsLetters()
 
   useEffect(() => {
     getSelectedNewsLettersData();
@@ -55,6 +55,8 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     if (isObjectNonEmpty(sentNewsLettersInfoData)) {
       if (sentNewsLettersInfoData.code === 200) {
         if(!canGoBack){
+          const selectedTIDData = getSelectedData()
+          sendSelectedFromNewsletterOnboard(selectedTIDData)
           gotoNext()
         }
       } else {
@@ -65,6 +67,46 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
       }
     }
   }, [sentNewsLettersInfoData]);
+
+  useEffect(() => {
+    if (!canGoBack) {
+      const data = updateNewsLettersData()
+      setNewsLettersDataInfo(data)
+      isNonEmptyArray(newsLettersDataInfo) && updateNextButton();
+    }
+  }, [isFocused, selectedNewsLettersData, selectedNewsLetterDataOnboard])
+
+  const updateNewsLettersData = () => {
+    const data = []
+    if (selectedNewsLettersData.code && selectedNewsLettersData.code === 200 && isNonEmptyArray(selectedNewsLettersData.data)) {
+      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
+        let item = selectedNewsLettersData.data[i]
+        data.push({
+          title: item.name,
+          subTitle: item.date,
+          description: item.description,
+          image: item.image,
+          tid: item.id,
+          isSelected: getSelectedStatus(item.id),
+        })
+      }
+    }
+    return data
+  }
+
+  const getSelectedStatus = (id: number) => {
+    if (isNonEmptyArray(selectedNewsLetterDataOnboard)) {
+      for (let j = 0; j < selectedNewsLetterDataOnboard.length; j++) {
+        if (selectedNewsLetterDataOnboard[j] === id) {
+          return true
+        }
+      }
+      return false
+    }
+    else {
+      return false
+    }
+  }
 
   const formatNewsLettersData = () => {
     const data = []

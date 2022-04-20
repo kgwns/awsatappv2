@@ -24,3 +24,7 @@ export const getMyNewsLettersDataList: Selector<SelectedNewsLettersDataType> = (
 
 export const getMyNewsLettersError: Selector<string> = (state: AppState) =>
     state.newsLetters.myNewsError;
+
+export const getSelectedNewsLettersDataFromOnBoard: Selector<string[]> = (
+    state: AppState,
+) => state.newsLetters.selectedDataFromNewsLetterOnboard;

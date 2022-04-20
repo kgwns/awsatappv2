@@ -5,10 +5,11 @@ import {
     getSelectedNewsLettersDataList,
     getIsMyNewsLoading,
     getMyNewsLettersDataList,
+    getSelectedNewsLettersDataFromOnBoard
 } from 'src/redux/newsLetter/selectors';
 import { ResponseMessage } from 'src/redux/allWriters/types';
 import { SelectedNewsLettersDataType, SendSelectedNewsLettersBody } from 'src/redux/newsLetter/types';
-import { emptySelectedNewsLettersInfo, getSelectedNewsletters, sendSelectedNewsLetters, getMyNewsletters } from 'src/redux/newsLetter/action';
+import { emptySelectedNewsLettersInfo, getSelectedNewsletters, sendSelectedNewsLetters, getMyNewsletters, setSelectedDataFromNewsLetterOnboard, emptySelectedNewsletterDataFromOnboard } from 'src/redux/newsLetter/action';
 
 export interface UseNewsLettersReturn {
     isLoading: boolean;
@@ -20,6 +21,9 @@ export interface UseNewsLettersReturn {
     myNewsLetters: SelectedNewsLettersDataType,
     getMyNewsLettersData(): void;
     emptySelectedNewsLettersInfoData(): void;
+    sendSelectedFromNewsletterOnboard(payload: string[]): void
+    emptySelectedNewsletterDataOnboard(): void;
+    selectedNewsLetterDataOnboard: any
 }
 
 export const useNewsLetters = (): UseNewsLettersReturn => {
@@ -27,6 +31,7 @@ export const useNewsLetters = (): UseNewsLettersReturn => {
     const isLoading = useSelector(getIsLoading);
     const sentNewsLettersInfoData = useSelector(getSentNewsLettersInfoData);
     const selectedNewsLettersData = useSelector(getSelectedNewsLettersDataList);
+    const selectedNewsLetterDataOnboard = useSelector(getSelectedNewsLettersDataFromOnBoard);
     const isMyNewsLoading = useSelector(getIsMyNewsLoading);
     const myNewsLetters = useSelector(getMyNewsLettersDataList);
 
@@ -46,6 +51,14 @@ export const useNewsLetters = (): UseNewsLettersReturn => {
         dispatch(emptySelectedNewsLettersInfo())
     };
 
+    const sendSelectedFromNewsletterOnboard = (payload: any) => {
+        dispatch(setSelectedDataFromNewsLetterOnboard(payload));
+    }
+
+    const emptySelectedNewsletterDataOnboard = () => {
+        dispatch(emptySelectedNewsletterDataFromOnboard());
+    }
+
 
     return {
         isLoading,
@@ -57,5 +70,8 @@ export const useNewsLetters = (): UseNewsLettersReturn => {
         myNewsLetters,
         getMyNewsLettersData,
         emptySelectedNewsLettersInfoData,
+        sendSelectedFromNewsletterOnboard,
+        emptySelectedNewsletterDataOnboard,
+        selectedNewsLetterDataOnboard,
     };
 };
