@@ -199,7 +199,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
                   editable={false}
                   value={email}
                   style={styles.inputStyle}
-                  leftIcon={() => <EmailIcon fill={themeData.textColor} />}
+                  leftIcon={() => <EmailIcon width={18} height={14} fill={themeData.textColor} />}
                   isMandatory
                 />
                 <TextInputField

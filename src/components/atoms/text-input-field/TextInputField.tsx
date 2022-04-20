@@ -122,7 +122,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
       <View style={styles.containerStyle}>
         <View style={[styles.container, style, isMandatory && {width: '95%'}]}>
           <View style={[styles.iconContainerStyle]}>
-            {isPassword && <LockIcon width={normalize(15)} height={normalize(15)} fill={themeData.textColor} />}
+            {isPassword && <LockIcon width={11} height={14.15} fill={themeData.textColor} />}
             {leftIcon && leftIcon()}
           </View>
           <View style={[styles.inputContainer, style]}>
