@@ -71,6 +71,8 @@ export const ContentForYou = () => {
 
     useEffect(() => {
         if(isNonEmptyArray(selectedTopicsData.data)){
+            setIsAllLoading(true);
+            setPage(0);
             setPageAllData([initialPageData]);
             fetchSelectedDataFromAllTopics()
         }else{
@@ -80,6 +82,8 @@ export const ContentForYou = () => {
 
     useEffect(() => {
         if(isNonEmptyArray(selectedAuthorsData.data)){
+            setIsAllLoading(true);
+            setPage(0);
             setPageAllData([initialPageData]);
             fetchSelectedDataFromAllAuthors();
         }else{
