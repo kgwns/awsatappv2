@@ -20,12 +20,6 @@ export const loginPasswordValidation = (password: string): string => {
   if (password.length < 5) {
     return i18next.t('validation.minLengthPassword');
   }
-  if (password.length >20) {
-    return i18next.t('validation.maxLengthPassword');
-  }
-  if (!regex.test(password)) {
-    return i18next.t('validation.passwordRequirement');
-  }
   return '';
 };
 
@@ -45,9 +39,6 @@ export const reTypePasswordValidation = (
   }
   if (password.length < 5) {
     return i18next.t('validation.minLengthPassword');
-  }
-  if (password.length >20) {
-    return i18next.t('validation.maxLengthPassword');
   }
   if (password !== reTypePassword) {
     return i18next.t('validation.passwordNotMatch');

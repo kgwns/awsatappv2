@@ -24,19 +24,11 @@ describe('Validators', () => {
         expect(loginPasswordValidation('')).toBe(i18next.t('validation.passwordEmpty'));
     });
 
-    test('login password validation with password length less that 8', () => {
-        expect(loginPasswordValidation('#Awsa')).toBe(i18next.t('validation.minLengthPassword'));
+    test('login password validation with password length less that 5', () => {
+        expect(loginPasswordValidation('#Aws')).toBe(i18next.t('validation.minLengthPassword'));
     });
 
-    test('login password validation with password length greater that 20', () => {
-        expect(loginPasswordValidation('#Awsat012345678912345')).toBe(i18next.t('validation.maxLengthPassword'));
-    });
-
-    test('login password validation with password fails in requirement', () => {
-        expect(loginPasswordValidation('Awsatapplic')).toBe(i18next.t('validation.passwordRequirement'))
-    });
-
-    test('login password validation with password length less that 8', () => {
+    test('login password validation with password length less that 5', () => {
         expect(loginPasswordValidation('#Aw')).toBe(i18next.t('validation.minLengthPassword'));
     });
 
@@ -52,12 +44,8 @@ describe('Validators', () => {
         expect(reTypePasswordValidation('#Awsat01', '#Awsat01')).toBe('');
     });
 
-    test('reType password validation with password length greater than 20', () => {
-        expect(reTypePasswordValidation('#Awsat01234566789234556', '#Awsat01')).toBe(i18next.t('validation.maxLengthPassword'));
-    });
-
-    test('reType password validation with password length less than 8', () => {
-        expect(reTypePasswordValidation('#Awsa', '#Awsat01')).toBe(i18next.t('validation.minLengthPassword'));
+    test('reType password validation with password length less than 5', () => {
+        expect(reTypePasswordValidation('#Aws', '#Awsat01')).toBe(i18next.t('validation.minLengthPassword'));
     });
 
     test('reType password validation with password not match with reType password', () => {
