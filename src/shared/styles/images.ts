@@ -82,6 +82,7 @@ export enum ImagesName {
   plusGreen = 'plusGreen',
   tickIcon = 'tickIcon',
   default = 'default',
+  returnWhiteIcon = 'returnWhiteIcon',
 }
 
 export const images = {

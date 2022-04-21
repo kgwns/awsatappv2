@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle, TouchableOpacity } from 'react-native'
-import { Styles } from 'src/shared/styles'
+import { ImagesName, Styles } from 'src/shared/styles'
 import { BannerImageWithOverlay, Label } from 'src/components/atoms'
 import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from 'src/components/atoms'
-import ReturnArrow from 'src/assets/images/icons/returnArrow.svg'
 import { useNavigation } from '@react-navigation/native'
 import Orientation from 'react-native-orientation-locker'
 import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
+import { getSvgImages } from 'src/shared/styles/svgImages'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -25,6 +25,8 @@ const ArticleDetailImage = ({
 }: ImageArticleProps) => {
     const navigation = useNavigation()
 
+    const [isImageLoaded , setImageLoaded] = useState(false)
+
     const CONST_RETURN = TranslateConstants({key: TranslateKey.RETURN})
 
     const onPressBack = () => {
@@ -35,17 +37,30 @@ const ArticleDetailImage = ({
         navigation.goBack()
     }
 
+    const onImageLoadEnd = (isSuccess: boolean) => {
+        setImageLoaded(isSuccess)
+    }
+
     return (
         <View>
             <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-                <BannerImageWithOverlay image={image} />
+                <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoadEnd}/>
                 <TouchableOpacity testID={'onPressbackTestID'}
                     style={imageArticleStyle.returnStyle}
                     onPress={onPressBack}>
-                    <ReturnArrow style={imageArticleStyle.prevIconStyle} />
-                    <Label style={imageArticleStyle.prevTitleStyle} children={CONST_RETURN} />
+                    {
+                        getSvgImages({
+                          name: isImageLoaded ? ImagesName.returnWhiteIcon : ImagesName.returnBlackSvg,
+                          width: normalize(12),
+                          height: normalize(8.8),
+                          style: [imageArticleStyle.prevIconStyle, {color: isImageLoaded ? Styles.color.white : Styles.color.black}]
+                        })
+                    }
+                    <Label style={[imageArticleStyle.prevTitleStyle, { color: isImageLoaded ? Styles.color.white : Styles.color.black }]}
+                        children={CONST_RETURN}
+                    />
                 </TouchableOpacity>
-                {!isTab && <View style={imageArticleStyle.slideContent}>
+                {!isTab && isImageLoaded && <View style={imageArticleStyle.slideContent}>
                     <ArticleOverlayContent {...props} />
                 </View>}
             </View>
@@ -81,7 +96,7 @@ const imageArticleStyle = StyleSheet.create({
         height: normalize(8.8),
         marginEnd: normalize(5),
         alignItems: 'center',
-        color: Styles.color.white,
+        // color: Styles.color.white,
         paddingHorizontal: normalize(10)
     },
     prevTitleStyle: {

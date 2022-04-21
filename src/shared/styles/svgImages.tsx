@@ -101,6 +101,8 @@ import LeftArrow from 'src/assets/images/icons/left_arrow.svg'
 import DownArrow from 'src/assets/images/icons/downArrow.svg'
 import PlusGreen from 'src/assets/images/icons/plusGreen.svg'
 import TickIcon from 'src/assets/images/icons/tickIcon.svg'
+import ReturnArrowWhite from 'src/assets/images/icons/returnArrow.svg'
+
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -241,6 +243,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <PlusGreen {...props} />
         case ImagesName.tickIcon:
             return <TickIcon {...props} />
+        case ImagesName.returnWhiteIcon:
+            return <ReturnArrowWhite {...props} />
         default: return null
     }
 }

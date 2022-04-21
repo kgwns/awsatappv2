@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle, TouchableWithoutFeedback, StyleProp } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from '../molecules'
@@ -39,7 +39,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     rightContainerStyle?: StyleProp<ViewStyle>
 }
 
-const ImageArticle = ({
+const  ImageArticle = ({
     image,
     title,
     containerStyle,
@@ -57,6 +57,12 @@ const ImageArticle = ({
 
     const { themeData } = useTheme()
 
+    const [isImageLoaded , setImageLoaded] = useState(false)
+
+    const onImageLoadEnd = (isSuccess: boolean) => {
+        setImageLoaded(isSuccess)
+    }
+
     const onPress = () => {
         if (nid) {
             navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
@@ -67,10 +73,10 @@ const ImageArticle = ({
         <TouchableWithoutFeedback onPress={onPress}>
             <View>
                 <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
-                    <BannerImageWithOverlay image={image} />
+                    <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoadEnd} isImageLoaded={isImageLoaded} />
                     {!hasTabletLayout && <View style={imageArticleStyle.slideContent}>
                         <Label labelType={LabelTypeProp.h1} children={title} color={Styles.color.white} />
-                        {isTabFooterInside &&
+                        {isTabFooterInside && isImageLoaded &&
                             <View style={imageArticleStyle.footerContainer}>
                                 <ArticleFooter {...carouselFooterSample} leftTitle={author} rightTitle={timeAgo(created)}
                                     isBookmarked={isBookmarked}
