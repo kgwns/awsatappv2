@@ -180,6 +180,7 @@ export const arabic = {
   searchScreen: {
     placeholder: 'ابحث في الشرق الأوسط …',
     notFound: 'لم يتم العثور على نتائج عن البحث',
+    clearSearchHistory: 'امسح البحث السابق',
   },
   signUp: {
     createAccount: 'إنشاء حساب',

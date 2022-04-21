@@ -38,7 +38,7 @@ export const SearchScreen = () => {
   const getUpdatedHistoryArray = (text:string) => { 
     const filterHistoryArray: string[] = searchHistory?.length > 0 ?  searchHistory.filter(v => v !== text) : [];  
     const newHistoryArray: string[] = [text , ...filterHistoryArray];
-    setSearchHistory(newHistoryArray.length > 10 ? newHistoryArray.slice(0, 10) : newHistoryArray);
+    setSearchHistory(newHistoryArray.length > 15 ? newHistoryArray.slice(0, 15) : newHistoryArray);
   }
 
   

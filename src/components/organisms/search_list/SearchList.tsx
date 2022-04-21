@@ -1,12 +1,13 @@
 import React, {useState, FunctionComponent} from 'react';
 import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet, ScrollView} from 'react-native';
-import { ButtonList, Label, LoadingState } from 'src/components/atoms/';
+import { ButtonList, Label, LoadingState, SocialLoginButton } from 'src/components/atoms/';
 import { SearchBar } from 'src/components/molecules/';
 import { normalize, recordLogEvent } from 'src/shared/utils';
 import { SearchItemType } from 'src/redux/search/types';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import { useTranslation } from 'react-i18next';
+import { useSearch } from 'src/hooks';
 export interface SearchResultsProps {
   id: string;
   label: string;
@@ -38,6 +39,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   const [searchText, setSearchText] = useState('');
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
+  const { emptySearchHistory } = useSearch();
 
   const handleOnItemPressAction = (item: SearchItemType) => {
     if (onItemActionPress) {
@@ -107,22 +109,35 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
 
   const searchHistoryView = () => {
     return(
-      <ScrollView bounces={false}>
-        <View style={{alignItems: 'flex-start'}}>
-        {searchHistory?.length > 0 && searchHistory.map(item => {
-          return(
-            <View>
-             <ButtonList
-              title={item}
-              titleStyle={styles.historyItemText}
-              showIcon={false}
-              onPress={() => onSearchTextChange(item)}
-             />
-            </View>
-          )
-        })}
-        </View>
-      </ScrollView>
+
+        <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+          <View style={{alignItems: 'flex-start'}}>
+          {searchHistory?.length > 0 && searchHistory.map(item => {
+            return(
+              <View>
+              <ButtonList
+                title={item}
+                titleStyle={styles.historyItemText}
+                showIcon={false}
+                onPress={() => onSearchTextChange(item)}
+              />
+              </View>
+            )
+          })}
+          </View>
+          {searchHistory?.length > 0 && 
+          <SocialLoginButton
+            testID="clear_search_history"
+            onPress={() => emptySearchHistory()}
+            label={t('searchScreen.clearSearchHistory')}
+            style={styles.clearButtonStyle}   
+            labelStyle={styles.clearButtonLabel}
+          />
+        }
+        </ScrollView>
+        
+      
+      
     )
   }
 
@@ -174,4 +189,13 @@ StyleSheet.create({
   historyItemText: {
     fontWeight: 'normal',
   },
+  clearButtonStyle: {
+   marginTop: normalize(20),
+   backgroundColor: colors.cyanGreen,
+   borderWidth: 0,
+   marginBottom: normalize(30)
+  },
+  clearButtonLabel: {
+    color: colors.greenishBlue
+  }
 });
