@@ -18,12 +18,14 @@ import {useTopMenu} from 'src/hooks';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { Styles } from 'src/shared/styles';
+import { GameScreen } from '../games/GameScreen';
 
 export enum TabType {
   opinion = 'opinion',
   podcast = 'podcast',
   video = 'video',
   section = 'section',
+  games = 'games',
 }
 
 export const SectionsScreen = () => {
@@ -42,6 +44,8 @@ export const SectionsScreen = () => {
         return <PodcastProgram  />;
       case TabType.video:
         return <VideoScreen   />;
+      case TabType.games:
+        return <GameScreen />
       default:
         return (
           <SectionStoryScreen sectionId={route.sectionId}/>

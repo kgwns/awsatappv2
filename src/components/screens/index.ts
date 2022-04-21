@@ -34,3 +34,5 @@ export { ManageMyFavoriteAuthorScreen } from 'src/components/screens/manageMyNew
 export { ManageMyFavoriteTopicsScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteTopicsScreen';
 export { WritersDetailScreen } from 'src/components/screens/writersDetail/WritersDetailScreen'
 export { SectionArticlesParentScreen } from 'src/components/screens/sectionsArticlesParentScreen/SectionArticlesParentScreen'
+export { GameScreen, } from 'src/components/screens/games/GameScreen'
+export { DynamicGameScreen } from 'src/components/screens/games/DynamicGameScreen'

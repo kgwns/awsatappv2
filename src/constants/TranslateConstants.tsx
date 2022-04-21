@@ -5,7 +5,12 @@ export enum TranslateKey {
     RETURN,
     NOT_SUBSCRIBED,
     DESCRIPTION,
-    SIGN_UP
+    SIGN_UP,
+    CROSSWORD,
+    SUDOKU,
+    SOLVING_CROSS_PUZZLES,
+    CROSS_WORD_AND_SUDOKU_DESCRIPTION,
+    GAMES,
 }
 
 export const TranslateConstants = ({
@@ -22,6 +27,16 @@ export const TranslateConstants = ({
             return t('signUpAlert.description')
         case TranslateKey.SIGN_UP:
             return t('signUpAlert.signUp')
+        case TranslateKey.CROSSWORD:
+            return t('games.crossword')
+        case TranslateKey.SUDOKU:
+            return t('games.sudoku')
+        case TranslateKey.SOLVING_CROSS_PUZZLES:
+            return t('games.solvingCrossPuzzles')
+        case TranslateKey.CROSS_WORD_AND_SUDOKU_DESCRIPTION:
+            return t('games.crosswordAndSudokuDescription')
+        case TranslateKey.GAMES:
+            return t('games.games')
         default: return ''
     }
 }

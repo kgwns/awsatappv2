@@ -10,6 +10,8 @@ import earlyEditionImg from 'src/assets/images/earlyEditionImg.png'
 import moneyAndBusinessImg from 'src/assets/images/moneyAndBusinessImg.png'
 import technologyImg from 'src/assets/images/technologyImg.png'
 import placeholderImg from 'src/assets/images/icons/placeholder_image.jpg'
+import crossWord from 'src/assets/images/cross_word_image.png'
+import sudoku from 'src/assets/images/sudoku_image.png'
 
 export enum ImagesName {
   newsIcon = 'newsIcon',
@@ -82,6 +84,9 @@ export enum ImagesName {
   plusGreen = 'plusGreen',
   tickIcon = 'tickIcon',
   default = 'default',
+  crossWord = 'crossWord',
+  sudoku = 'sudoku',
+  greenArrowLeft = 'greenArrowLeft',
   returnWhiteIcon = 'returnWhiteIcon',
 }
 
@@ -96,6 +101,8 @@ export const images = {
   moneyAndBusinessImg,
   technologyImg,
   placeholderImg,
+  crossWord,
+  sudoku,
 };
 
 export const darkImages = {

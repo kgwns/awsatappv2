@@ -290,5 +290,12 @@ export const arabic = {
     alert: 'إنذار',
     noInternetConnection: 'لا يوجد اتصال بالإنترنت',
     somthingWentWrong: 'هناك خطأ ما',
+  },
+  games: {
+    games: 'ألعاب',
+    crossword: 'الكلمات المتقاطعة',
+    solvingCrossPuzzles: 'حل الكلمات المتقاطعة',
+    sudoku: 'سودوكو',
+    crosswordAndSudokuDescription: 'لعبة الكلمات المتقاطعة تُجرى ثلاث مرات أسبوعياً وتتراوح ما بين سهله إلى صعبه.',
   }
 }

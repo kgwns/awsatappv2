@@ -48,4 +48,5 @@ export { PopulateWidget } from 'src/components/molecules/populateWidget/Populate
 export { SignupAlertCard } from './signupAlertCard/SignupAlertCard';
 export { WriterBannerImage } from './writerBannerImage/WriterBannerImage'
 export { ArticleOverlayContent } from './articleOverlayContent/ArticleOverlayContent'
+export { GameIntroCard, GameIntroCardProps } from './gameIntroCard/GameIntroCard'
 

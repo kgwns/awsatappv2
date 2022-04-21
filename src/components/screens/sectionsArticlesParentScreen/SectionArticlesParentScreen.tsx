@@ -8,6 +8,7 @@ import { TabType } from '../sections/SectionsScreen';
 import { OpinionScreen } from '../category/OpinionScreen';
 import { PodcastProgram } from '../podcast/PodcastProgram';
 import { VideoScreen } from '../category/VideoScreen';
+import { GameScreen } from '../games/GameScreen';
 
 export const SectionArticlesParentScreen = () => {
   const { params } = useRoute<RouteProp<any>>();
@@ -29,6 +30,8 @@ export const SectionArticlesParentScreen = () => {
         return <PodcastProgram />;
       case TabType.video:
         return <VideoScreen />;
+      case TabType.games:
+        return <GameScreen />
       default:
         return <SectionStoryScreen sectionId={sectionId} />;
     }

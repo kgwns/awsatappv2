@@ -33,6 +33,9 @@ const USER_DETAIL_SCREEN = 'UserDetailScreen' as ScreenName;
 const VideoPlayerScreen = 'VideoPlayerScreen' as ScreenName;
 const WRITERS_DETAIL_SCREEN = 'WriterDetailScreen' as ScreenName
 const SectionArticlesParentScreen = 'SectionArticlesParentScreen' as ScreenName
+const GAME_SCREEN = 'GameScreen' as ScreenName
+const DYNAMIC_GAME_SCREEN = 'DynamicGameScreen' as ScreenName
+
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -75,4 +78,6 @@ export const ScreensConstants = {
   VideoPlayerScreen,
   WRITERS_DETAIL_SCREEN,
   SectionArticlesParentScreen,
+  GAME_SCREEN,
+  DYNAMIC_GAME_SCREEN,
 };

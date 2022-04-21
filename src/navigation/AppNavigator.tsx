@@ -15,6 +15,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {normalize, screenWidth} from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { HeaderConstants } from '../constants/HeaderConstants'; 
+import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 
 const Stack = createStackNavigator();
 
@@ -209,6 +210,26 @@ const AppNavigator = () => {
         name={ScreensConstants.SectionArticlesParentScreen}
         component={Routes.SectionArticlesParentScreen}
         options={hideHeader}
+      />
+      <Stack.Screen
+        name={ScreensConstants.GAME_SCREEN}
+        component={Routes.GameScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(TranslateConstants({key: TranslateKey.GAMES})),
+          headerTitleAlign: 'center'
+        }}
+      />
+        <Stack.Screen
+        name={ScreensConstants.DYNAMIC_GAME_SCREEN}
+        component={Routes.DynamicGameScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(TranslateConstants({key: TranslateKey.GAMES})),
+          headerTitleAlign: 'center'
+        }}
       />
     </Stack.Navigator>
   );
