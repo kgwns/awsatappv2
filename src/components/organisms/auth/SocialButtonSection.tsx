@@ -13,7 +13,7 @@ import { isIOS, normalize, recordLogEvent } from 'src/shared/utils';
 import {LoginFactory,Connection}  from 'src/shared/utils/loginFactory';
 import {NavigateTypes} from 'src/components/screens';
 import {RegisterBodyType} from 'src/redux/register/types';
-import { useRegister } from 'src/hooks';
+import { useRegister, useSearch } from 'src/hooks';
 import { useDispatch } from 'react-redux';
 import { fetchLoginSuccess } from 'src/redux/login/action';
 import { useNavigation } from '@react-navigation/native';
@@ -38,6 +38,8 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
 
   const {socialLoginEnded} = useRegister();
   const OK = t('common.ok');
+
+  const { emptySearchHistory } = useSearch();
 
   const onSuccessSocialLogin = (userInfo:any,provider='google')=>{
     const userDetails = userInfo.user
@@ -102,6 +104,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
+        emptySearchHistory();
         dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
         navigation.reset({
           index: 0,

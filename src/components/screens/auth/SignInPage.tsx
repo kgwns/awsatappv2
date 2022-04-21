@@ -22,6 +22,7 @@ import {
   useBookmark,
   useLogin,
   useRegister,
+  useSearch,
   useUserProfileData,
 } from 'src/hooks';
 import {emptyPasswordValidation} from 'src/shared/validators';
@@ -61,6 +62,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     socialLoginStarted,
     emptyUserInfo,
   } = useRegister();
+  const { emptySearchHistory } = useSearch();
   const dispatch = useDispatch();
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
@@ -129,6 +131,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     const message = loginData?.message;
     if (message) {
       if (message.code === 200) {
+        emptySearchHistory();
         getBookmarkedId();
         AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN);
         fetchProfileDataRequest();
@@ -159,6 +162,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
+        emptySearchHistory();
         dispatch(fetchLoginSuccess({loginData: registerUserInfo}));
         navigation.reset({
           index: 0,
