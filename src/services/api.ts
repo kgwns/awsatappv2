@@ -1,5 +1,40 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import { store } from 'src/redux/store';
+import { setupCache } from 'axios-cache-adapter';
+
+const cache = setupCache({
+  maxAge: 15 * 60 * 1000,
+  exclude: {
+    // Store responses from requests with query parameters in cache
+    query: false
+}
+})
+
+const api = axios.create({
+  adapter: cache.adapter
+})
+
+export const getCacheApiRequest = (
+  url: string,
+  config?: AxiosRequestConfig | undefined,
+) => {
+  return api
+    .get(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: 'Bearer some_token',
+      },
+      ...config,
+    })
+    .then(response => {
+      return response.data;
+    })
+    .catch((error: unknown) => {
+      const errorResponse = error as AxiosError;
+      handleErrorResponses(errorResponse);
+    });
+};
 
 export const getApiRequest = (
   url: string,

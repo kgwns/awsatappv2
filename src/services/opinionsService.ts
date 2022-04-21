@@ -1,5 +1,5 @@
 import {BASE_URL} from 'src/services/apiUrls';
-import {getApiRequest} from 'src/services/api';
+import {getCacheApiRequest} from 'src/services/api';
 import {OPINIONS_ENDPOINT, OPINION_BY_WRITER_END_POINT} from './apiEndPoints';
 import {
   FetchOpinionsSuccessPayloadType,
@@ -9,7 +9,7 @@ import {
 
 export const fetchOpinionsApi = async (body: OpinionsBodyGet) => {
   try {
-    const response: FetchOpinionsSuccessPayloadType = await getApiRequest(
+    const response: FetchOpinionsSuccessPayloadType = await getCacheApiRequest(
       `${BASE_URL}${OPINIONS_ENDPOINT}?page=${body.page}`,
     );
     // console.log(
@@ -26,7 +26,7 @@ export const fetchOpinionsApi = async (body: OpinionsBodyGet) => {
 
 export const fetchWriterOpinionsApi = async (body: WriterOpinionsBodyGet) => {
   try {
-    const response: FetchOpinionsSuccessPayloadType = await getApiRequest(
+    const response: FetchOpinionsSuccessPayloadType = await getCacheApiRequest(
       `${BASE_URL}${OPINION_BY_WRITER_END_POINT}${body.tid}?items_per_page=10&page=${body.page}`,
     );
     return response;
