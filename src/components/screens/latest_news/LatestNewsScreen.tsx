@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
   ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne, StoryListProps, AlertModal
@@ -85,7 +85,8 @@ export const LatestNewsScreen = () => {
 
   const { isLoggedIn } = useLogin()
   const {fetchProfileDataRequest} = useUserProfileData();
-
+  
+  const [refreshing, setRefreshing] = useState(false);
   const [heroInfo, setHeroInfo] = useState(hero)
   const [sectionComboOneInfo, setSectionComboOneInfo] = useState(sectionComboOne)
   const [sectionComboTwoInfo, setSectionComboTwoInfo] = useState(sectionComboTwo)
@@ -261,6 +262,22 @@ export const LatestNewsScreen = () => {
 
 
   useEffect(() => {
+    allDataLoad();
+  }, [])
+
+  const wait = (timeout: any) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    allDataLoad();
+    TrackPlayer.stop()
+    setPlayerVisibility(false)
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  const allDataLoad = () => {
     fetchTickerAndHeroArticle(tickerAndHeroPayload)
     fetchHeroListTopList(heroListTopListPayload)
     fetchOpinionTopList(opinionListPayload)
@@ -270,7 +287,7 @@ export const LatestNewsScreen = () => {
     fetchSectionComboFour(sectionComboFourPayload)
     fetchProfileDataRequest();
     fetchPodcastHome();
-  }, [])
+  }
 
 
   const onPressArticle = (nid: string) => {
@@ -417,6 +434,14 @@ export const LatestNewsScreen = () => {
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={Styles.color.greenishBlue}
+            colors={[Styles.color.greenishBlue]}
+          />
+        }
       />
       {isPlayerVisible && <View style={latestNewsScreenStyle.miniPlayerContainer}>
         <PodCastMiniPlayer data={podcastData} onClose={onClose} onPlaybackPress={togglePlayback} />
