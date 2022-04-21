@@ -25,7 +25,7 @@ import {
   loginPasswordValidation,
   reTypePasswordValidation,
 } from 'src/shared/validators';
-import {useRegister, useUserProfileData} from 'src/hooks';
+import {useRegister, useSearch, useUserProfileData} from 'src/hooks';
 import {RegisterBodyType} from 'src/redux/register/types';
 import DeviceInfo from 'react-native-device-info';
 import {fetchLoginSuccess} from 'src/redux/login/action';
@@ -64,6 +64,8 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const dispatch = useDispatch();
   const {fetchProfileDataRequest} = useUserProfileData();
 
+  const { emptySearchHistory } = useSearch();
+
   const noInternetConnection: AlertPayloadType = {
     title: t('common.alert'),
     message: t('common.noInternetConnection'),
@@ -101,6 +103,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
+        emptySearchHistory();
         recordLogEvent('Completed_registration');
         dispatch(fetchLoginSuccess({loginData: registerUserInfo}));
         fetchProfileDataRequest();
