@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, recordLogEvent } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, recordLogEvent, screenWidth } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -221,7 +221,7 @@ const customStyle = (theme: CustomThemeType) => {
     nextButtonView: {
       flex: 0.1,
       justifyContent: 'flex-end',
-      width: '90%',
+      width: screenWidth - (2 * 0.04 * screenWidth),
       alignSelf: 'center',
       marginBottom: normalize(0.02 * screenHeight),
     },

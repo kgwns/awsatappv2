@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenWidth } from 'src/shared/utils';
 import { useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -275,7 +275,7 @@ const customStyle = (theme: CustomThemeType) => {
     nextButtonView: {
       flex: 0.1,
       justifyContent: 'flex-end',
-      width: '90%',
+      width: screenWidth - (2 * 0.04 * screenWidth),
       alignSelf: 'center',
       marginBottom: normalize(0.02 * ScreenHeight),
     },

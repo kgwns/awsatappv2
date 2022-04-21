@@ -1,5 +1,5 @@
 import { View, FlatList, StyleSheet } from 'react-native'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { AuthorWidget, ShortArticle, ArticleSection } from 'src/components/organisms';
 import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label } from 'src/components/atoms';
 import { shortArticleWithTagProperties } from 'src/constants/SampleData';
@@ -64,39 +64,55 @@ export const ContentForYou = () => {
     };
     const navigation = useNavigation<StackNavigationProp<any>>()
     const styles = useThemeAwareObject(customStyles)
+    const selectedTopicsRef = useRef(true);
+    const selectedAuthorsRef = useRef(true);
 
     useEffect(() => {
-        if(isFocused){
-            emptyAllData();
+        if (isFocused) {
+            setInitialLoading(true)
             getSelectedTopicsData();
             getSelectedAuthorsData();
+        }
+        return () => {
+            emptyAllData();
         }
     }, [isFocused]);
 
     useEffect(() => {
-        if(isNonEmptyArray(selectedTopicsData.data)){
-            setIsAllLoading(true);
-            setPage(0);
-            setPageAllData([initialPageData]);
-            fetchSelectedDataFromAllTopics()
-        }else{
-            checkDataLoaded()
+        if (selectedTopicsRef.current) {
+            selectedTopicsRef.current = false;
+        } else {
+            if (isNonEmptyArray(selectedTopicsData.data)) {
+                setIsAllLoading(true);
+                setPage(0);
+                setPageAllData([initialPageData]);
+                fetchSelectedDataFromAllTopics()
+            } else {
+
+                checkDataLoaded()
+            }
         }
     }, [selectedTopicsData]);
 
     useEffect(() => {
-        if(isNonEmptyArray(selectedAuthorsData.data)){
-            setIsAllLoading(true);
-            setPage(0);
-            setPageAllData([initialPageData]);
-            fetchSelectedDataFromAllAuthors();
-        }else{
-            setInitialLoading(false)
+        if (selectedAuthorsRef.current) {
+            selectedAuthorsRef.current = false;
+        } else {
+            if (isNonEmptyArray(selectedAuthorsData.data)) {
+                setIsAllLoading(true);
+                setPage(0);
+                setPageAllData([initialPageData]);
+                fetchSelectedDataFromAllAuthors();
+            } else {
+                checkDataLoaded()
+            }
         }
+
     }, [selectedAuthorsData]);
 
     const checkDataLoaded = () => {
-        if(isNonEmptyArray(selectedTopicsData.data) && isNonEmptyArray(selectedAuthorsData.data)){
+        if(!isNonEmptyArray(selectedTopicsData.data) && !isNonEmptyArray(selectedAuthorsData.data)){
+            setPageAllData([])
             setInitialLoading(false)
         }
     }

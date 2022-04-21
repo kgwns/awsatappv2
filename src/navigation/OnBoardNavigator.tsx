@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/stack';
 import {Routes, ScreenList} from './index';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {normalize} from 'src/shared/utils';
+import {normalize, screenWidth} from 'src/shared/utils';
 import {StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Label} from 'src/components/atoms';
@@ -166,7 +166,7 @@ const customStyle = (theme: CustomThemeType) => {
     onBoardReturn: {
       flexDirection: 'row-reverse',
       alignItems: 'center',
-      marginEnd: normalize(10),
+      marginEnd: normalize(0.04 * screenWidth),
     },
     onBoardPrevTitle: {
       color: colors.spanishGray,
@@ -185,7 +185,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(20),
     },
     skipContainer: {
-      marginEnd: normalize(10),
+      marginEnd: normalize(0.04 * screenWidth),
       borderBottomColor: colors.greenishBlue,
       borderBottomWidth: 1,
     },

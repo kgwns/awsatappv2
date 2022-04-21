@@ -111,7 +111,7 @@ const customInterestStyle = (theme: CustomThemeType) =>
     rowContainer: {
       width: '100%',
       alignSelf: 'flex-end',
-      marginEnd: normalize(5),
+      marginEnd: normalize(7),
       marginStart: 0.04 * screenWidth,
     },
     innerContainerStyle: {

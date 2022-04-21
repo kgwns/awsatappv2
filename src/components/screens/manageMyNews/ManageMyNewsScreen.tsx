@@ -321,6 +321,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     favTopicsScrollView: {
       paddingVertical: 0.04 * screenWidth,
+      marginLeft: 0.04 * screenWidth,
     },
     favTopicsView: {
       width: '100%',
@@ -362,7 +363,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     renderItemTopics: {
       paddingBottom: 0.03 * screenWidth,
-      paddingStart: normalize(20),
+      paddingRight: normalize(10),
     },
     divider: {
       height: 1,
