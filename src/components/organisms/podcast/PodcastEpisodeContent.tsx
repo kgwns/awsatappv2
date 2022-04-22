@@ -36,7 +36,7 @@ export const PodcastEpisodeContent: FunctionComponent<PodcastEpisodeContentProps
     return (
       <PodcastVerticalList
         nid={item?.nid}
-        imageUrl={item?.field_podcast_sect_export.img_podcast_mobile}
+        imageUrl={item?.field_podcast_sect_export?.img_podcast_mobile}
         title={item?.title}
         description={item?.body_export}
         footerLeft={item?.field_total_duration_export}

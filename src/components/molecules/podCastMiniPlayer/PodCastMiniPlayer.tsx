@@ -43,7 +43,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
             <View style={style.miniPlayer}>
                 <View style={style.rowStyleContainer}>
                     <View style={style.imageContainer}>
-                        <Image fallback url={fieldData.field_podcast_sect_export.img_podcast_mobile} style={style.image} />
+                        <Image fallback url={fieldData.field_podcast_sect_export?.img_podcast_mobile} style={style.image} />
                     </View>
                     <View style={style.titleContainer}>
                         <TextTicker

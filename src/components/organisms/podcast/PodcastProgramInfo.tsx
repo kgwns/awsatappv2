@@ -23,7 +23,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <Image url={data.field_podcast_sect_export.img_podcast_mobile} style={styles.imageStyle} />
+            <Image fallback url={data.field_podcast_sect_export?.img_podcast_mobile} style={styles.imageStyle} />
             <View style={styles.containerSpace} />
             <Label style={styles.textStyle} children={data.title} />
             {data.field_podcast_sect_export?.name&&

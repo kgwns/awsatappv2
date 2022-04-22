@@ -33,7 +33,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
         <View>
           <View style={styles.centerContainer}>
             <Label style={styles.titleTextStyle} children={fieldData.title} />
-            <Image fallback url={fieldData.field_podcast_sect_export.img_podcast_mobile} style={styles.imageStyle} />
+            <Image fallback url={fieldData.field_podcast_sect_export?.img_podcast_mobile} style={styles.imageStyle} />
             {!!fieldData.field_new_sub_title_export &&
               <View style={styles.containerSpace} >
                 <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
