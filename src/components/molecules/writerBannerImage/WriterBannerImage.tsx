@@ -15,7 +15,7 @@ export interface WriterBannerImageProps {
     authorImage: string
     authorName: string
   },
-  orientation: string,
+  orientation?: string,
   onPressReturn: () => void,
   isFollowed: boolean,
   onPressFollow: () => void,
@@ -36,7 +36,7 @@ export const WriterBannerImage = ({
   const FOLLOWER = 'متابع';
 
   const ReturnButton = () => (
-    <View style={[style.return, orientation == 'LANDSCAPE' && style.landscapeReturn]}>
+    <View style={[style.return]}>
       <TouchableOpacity
         style={{ flexDirection: 'row', alignItems: 'center' }}
         onPress={onPressReturn}>
@@ -75,6 +75,7 @@ export const WriterBannerImage = ({
             url={getImageUrl(data.authorImage)}
             style={style.image}
             fallback={true}
+            resizeMethod={'resize'}
           />
         </View>
         <View style={[style.labelButtonContainer]}>

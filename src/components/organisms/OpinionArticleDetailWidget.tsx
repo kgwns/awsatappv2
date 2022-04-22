@@ -40,34 +40,11 @@ export const OpinionArticleDetailWidget = ({
   const navigation = useNavigation();
   const [visibleMedia, setMediaVisibility] = useState(isNotEmpty(data.jwplayer));
   const playbackState = usePlaybackState();
-  const [getOrientation, setOrientation] = useState('')
-  
-  useEffect(() => {
-    Orientation.getDeviceOrientation(updateScreenEdge)
-    Orientation.addDeviceOrientationListener(updateScreenEdge)
-    return () => {
-      Orientation.removeOrientationListener(updateScreenEdge)
-    }
-  }, [])
 
   const { narratedOpinionData, fetchNarratedOpinionData} =
     useOpinionArticleDetail();
 
   const [mediaData] = useState(narratedOpinionData)
-
-  const updateScreenEdge = (deviceOrientation: OrientationType) => {
-    switch (deviceOrientation) {
-      case 'LANDSCAPE-LEFT': 
-        setOrientation('LANDSCAPE')
-        break
-      case 'LANDSCAPE-RIGHT': 
-        setOrientation('LANDSCAPE')
-        break
-      default: 
-        setOrientation('PORTRAIT')
-        break
-    }
-  } 
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -121,7 +98,6 @@ export const OpinionArticleDetailWidget = ({
   return (
     <View>
       <WriterBannerImage data={{ authorImage: data.writer[0]?.opinion_writer_photo, authorName: data.writer[0]?.name }}
-        orientation={getOrientation}
         onPressReturn={onPressReturn}
         isFollowed={isFollowed}
         onPressFollow={onPressFollow}
