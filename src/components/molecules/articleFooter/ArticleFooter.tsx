@@ -86,6 +86,7 @@ const ArticleFooter = ({
           title={rightTitle} 
           icon={rightIcon}
           color={rightTitleColor}
+          numberOfLine={2}
         />
         }
       </View>
