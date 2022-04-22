@@ -12,12 +12,13 @@ import {useOpinions} from 'src/hooks/useOpinions';
 import {WritersBodyGet} from 'src/redux/writers/types';
 import {OpinionsBodyGet, OpinionsListItemType} from 'src/redux/opinions/types';
 import { useBookmark, useLogin } from 'src/hooks';
-import { isNonEmptyArray, normalize } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { AlertModal } from 'src/components/organisms';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 
 
 export const OpinionScreen = () => {
@@ -127,7 +128,7 @@ export const OpinionScreen = () => {
 
   const renderItem = () => (
     <View style={{width:'100%'}}>
-    <OpinionWritersSection data={opinionWriterData} onPressWriter={onPressWriter} />    
+    {isNonEmptyArray(opinionWriterData) && <OpinionWritersSection data={opinionWriterData} onPressWriter={onPressWriter} />    }
     <OpinionWritersArticlesSection
       data={opinionsDataInfo}
       onScroll={() => gotoNextPage()}
@@ -138,7 +139,8 @@ export const OpinionScreen = () => {
   );
 
   return (
-    <View style={style.container}>
+    <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)}>
+      <View style={style.container}>
       {showupUp && <AlertModal
         title={t('signUpAlert.notSubscribed')}
         message={t('signUpAlert.description')}
@@ -155,6 +157,8 @@ export const OpinionScreen = () => {
         showsVerticalScrollIndicator={false}
       />
     </View>
+    </ScreenContainer>
+    
   );
 };
 
