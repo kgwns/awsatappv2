@@ -195,13 +195,14 @@ export const ProfileSettings = () => {
           />
           <Label
               children={isNotEmpty(userProfileData.user?.first_name)
-                  ?userProfileData.user?.first_name
+                  ? isNotEmpty(userProfileData.user?.last_name) ? `${userProfileData.user?.first_name} ${userProfileData.user?.last_name}` : userProfileData.user?.first_name
                   :userProfileData.user?.email}
               style={style.userName}
               labelType={LabelTypeProp.h1}
           />
       </Text>
   );
+
 
   return (
       <ScreenContainer edge={horizontalEdge} isAlertVisible={isAlertVisible}
