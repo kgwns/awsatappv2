@@ -23,7 +23,7 @@ const AuthorWidget = ({
     data: any, listKey?: string,
     widgetHeader?: string,
     containerStyle?: StyleProp<ViewStyle>,
-    widgetHeaderContainerStyle: StyleProp<ViewStyle>,
+    widgetHeaderContainerStyle?: StyleProp<ViewStyle>,
     widgetHeaderStyle?: StyleProp<ViewStyle>
 }) => {
     const style = useThemeAwareObject(customStyle)

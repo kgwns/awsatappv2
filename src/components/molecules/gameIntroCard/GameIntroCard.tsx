@@ -86,7 +86,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     buttonTitle: {
         fontSize: normalize(15),
         lineHeight: normalize(36),
-        paddingRight: normalize(10)
+        marginRight: normalize(10)
     },
     title: {
         fontWeight: '400',

@@ -5,8 +5,6 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { horizontalAndTop, isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils';
 import { ScreenContainer } from '..';
 import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
-import { Edge } from 'react-native-safe-area-context';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import TrackPlayer from 'react-native-track-player';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -52,11 +50,8 @@ export const WritersDetailScreen = ({
     } = useAllWriters();
 
 
-
-    const [edge, setEdge] = useState<Edge[]>(horizontalAndTop);
     const [writerDetailInfo, setWriterDetailInfo] = useState<WriterDetailDataType[]>([])
     const [showupUp, setShowPopUp] = useState(false)
-    const [getOrientation, setOrientation] = useState('')
     const [page, setPage] = useState(0);
     const [opinionsDataInfo, setOpinionsDataInfo] = useState(writerOpinionsData)
     const [isFollowed, setIsFollowed] = useState(false)
@@ -71,16 +66,6 @@ export const WritersDetailScreen = ({
             emptyWriterOpinionData()
         }
     }, [])
-
-    useEffect(() => {
-        Orientation.unlockAllOrientations();
-        Orientation.getDeviceOrientation(updateScreenEdge);
-        Orientation.addDeviceOrientationListener(updateScreenEdge);
-        return () => {
-            Orientation.lockToPortrait();
-            Orientation.removeOrientationListener(updateScreenEdge);
-        };
-    }, []);
 
     useEffect(() => {
         updateOpinionsData()
@@ -125,26 +110,6 @@ export const WritersDetailScreen = ({
 
         return () => backHandler.remove();
     }, []);
-
-
-    const updateScreenEdge = (deviceOrientation: OrientationType) => {
-        const edge = getScreenEdge(deviceOrientation);
-        setEdge(edge);
-    };
-
-    const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
-        switch (deviceOrientation) {
-            case 'LANDSCAPE-LEFT':
-                setOrientation('LANDSCAPE')
-                return ['right'];
-            case 'LANDSCAPE-RIGHT':
-                setOrientation('LANDSCAPE')
-                return ['left'];
-            default:
-                setOrientation('PORTRAIT')
-                return horizontalAndTop;
-        }
-    };
 
     const updateBookmark = (data: OpinionsListItemType[]) => {
         return data.map((item: OpinionsListItemType) => (
@@ -225,7 +190,7 @@ export const WritersDetailScreen = ({
                 authorImage: writerDetailInfo[0].field_opinion_writer_photo_export,
                 authorName: writerDetailInfo[0].name
             }}
-                orientation={getOrientation}
+                orientation={'PORTRAIT'}
                 onPressReturn={onPressBack}
                 isFollowed={isFollowed}
                 onPressFollow={() => onPressFollow(writerDetailInfo[0].tid)}
@@ -241,7 +206,7 @@ export const WritersDetailScreen = ({
     );
 
     return (
-        <ScreenContainer edge={edge} isLoading={isLoading}
+        <ScreenContainer edge={horizontalAndTop} isLoading={isLoading}
             isSignUpAlertVisible={showupUp}
             onCloseSignUpAlert={onCloseSignUpAlert}>
             {!isLoading && <>
