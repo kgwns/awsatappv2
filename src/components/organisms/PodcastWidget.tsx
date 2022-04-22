@@ -73,7 +73,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
 const createStyles = (theme: CustomThemeType) => {
   const podcastWidgetStyle = StyleSheet.create({
     container: {
-      marginHorizontal: isTab ? 0 : 0.05 * screenWidth,
+      marginHorizontal: isTab ? 0 : 0.04 * screenWidth,
       marginTop: normalize(28),
       marginBottom: normalize(25),
       backgroundColor: theme.secondaryGreen,

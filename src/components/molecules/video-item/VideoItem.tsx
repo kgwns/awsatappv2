@@ -13,7 +13,7 @@ import {
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
 import DateIcon from 'src/assets/images/icons/date.svg';
-import {normalize} from 'src/shared/utils';
+import {normalize, screenWidth} from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
 import {getImageUrl, getSecondsToHms} from 'src/shared/utils/utilities';
 import {timeAgo} from 'src/shared/utils/utilities';
@@ -150,10 +150,10 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'space-between',
       marginTop: normalize(10),
       marginBottom: normalize(20),
-      marginHorizontal: normalize(20),
+      marginHorizontal: normalize(0.04 * screenWidth),
     },
     spaceContainer: {
-      paddingHorizontal: normalize(20),
+      paddingHorizontal: normalize(0.04 * screenWidth),
     },
     day: {
       marginHorizontal: normalize(8),

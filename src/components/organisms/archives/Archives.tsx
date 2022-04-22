@@ -108,7 +108,7 @@ export const Archives = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <View style={{ paddingStart: normalize(20) }}>
+            <View style={{ paddingStart: normalize(0.04 * screenWidth) }}>
                 <FilterComponent data={filterItem} onPress={onPressFilterItem} />
             </View>
             {isNonEmptyArray(filteredData) &&

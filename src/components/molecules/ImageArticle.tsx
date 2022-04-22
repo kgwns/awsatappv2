@@ -137,7 +137,7 @@ const imageArticleStyle = StyleSheet.create({
     width: '100%',
     position: 'absolute',
     bottom: 0,
-    paddingHorizontal: normalize(16),
+    paddingHorizontal: 0.04 * screenWidth,
     paddingVertical: normalize(15),
   },
   tabletFooterStyle: {

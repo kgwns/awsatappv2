@@ -138,7 +138,7 @@ const MostReadList = ({
   };
 
   const listHeader = () => (
-    <View style={{paddingLeft: normalize(20), paddingVertical: normalize(5)}}>
+    <View style={{paddingLeft: normalize(0.04 * screenWidth), paddingVertical: normalize(5)}}>
       <Label
         children={MOST_READ}
         labelType={LabelTypeProp.h2}
@@ -179,7 +179,7 @@ const mostReadListStyle = StyleSheet.create({
     flex: 1,
   },
   contentStyle: {
-    paddingHorizontal: normalize(20),
+    paddingHorizontal: normalize(0.04 * screenWidth),
   },
   leftFooterStyle: {
     fontWeight: 'bold'

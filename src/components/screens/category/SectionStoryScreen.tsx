@@ -433,7 +433,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     sectionStoryContainer: {
       paddingTop: isTab ? 0 : normalize(15), 
-      paddingHorizontal: isTab ? 5 : normalize(15)
+      paddingHorizontal: isTab ? 5 : normalize(0.04 * screenWidth),
     },
     verticalDivider: {
       height: '100%',

@@ -104,7 +104,7 @@ export default ArticleSection
 
 const articleSectionStyle = StyleSheet.create({
     container: {
-        paddingHorizontal: (isTab ? 0 : 0.05) * screenWidth
+        paddingHorizontal: (isTab ? 0 : 0.04) * screenWidth
     },
     listContainer: {
 

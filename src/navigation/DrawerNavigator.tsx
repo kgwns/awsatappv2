@@ -69,7 +69,7 @@ const customStyle = (theme: CustomThemeType) => {
     search: {
       height: 20,
       width: 20,
-      marginHorizontal: 20,
+      marginHorizontal: 0.04 * screenWidth,
     },
     logo: {
       height: 30,

@@ -184,7 +184,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   imageContainer: {
     flex: 0.30, 
     height: normalize(73),
-    paddingRight: normalize(5),
   },
   imageContainerLandscape: {
     flex: 0.30, 

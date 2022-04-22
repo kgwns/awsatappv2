@@ -31,7 +31,6 @@ export const WidgetHeaderElement = ({
 const widgetHeaderStyle = StyleSheet.create({
     headerElementContainer: {
         flexDirection: 'row',
-        paddingHorizontal: normalize(7),
         alignItems: 'center'
     }
 })

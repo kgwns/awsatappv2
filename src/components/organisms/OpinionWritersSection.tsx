@@ -29,7 +29,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
     return (
       <TouchableWithoutFeedback
         onPress={() => onPressWriter(item.tid)}
-        style={[style.writerContainer,{paddingEnd:(data.length-1===index)?normalize(20):0}]}
+        style={[style.writerContainer, { paddingEnd: (data.length - 1 === index) ? normalize(0.04 * screenWidth) : 0 }]}
         key={flatListUniqueKey.OPINION_WRITER_SECTION + index}>
         <View style={style.itemContainer}>
           <View style={[{overflow: 'hidden'}]}>
@@ -87,12 +87,12 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(42),
       color: theme.primary,
       textAlign: 'left',
-      marginLeft: normalize(14),
+      marginLeft: normalize(0.04 * screenWidth),
       marginTop: normalize(16),
       marginBottom: normalize(8)
     },
     writerContainer: {
-      marginLeft: normalize(14),
+      marginLeft: normalize(0.04 * screenWidth),
     },
     itemContainer: {
       alignItems: 'center',

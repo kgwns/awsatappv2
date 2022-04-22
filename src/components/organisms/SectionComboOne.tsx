@@ -134,7 +134,7 @@ const sectionComboOneStyle = StyleSheet.create({
   widgetContainer: {
     paddingTop: isTab ? normalize(25) : normalize(15),
     paddingBottom: isTab ? 0 : normalize(15),
-    paddingHorizontal: normalize(10),
+    paddingHorizontal: normalize(0.04 * screenWidth),
   },
   topImage: {
     width: 0.92 * screenWidth,

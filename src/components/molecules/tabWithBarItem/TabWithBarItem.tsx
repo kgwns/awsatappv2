@@ -1,7 +1,7 @@
 import { TouchableWithoutFeedback, View, StyleSheet } from 'react-native'
 import React, { FunctionComponent } from 'react'
 import { Label, LabelTypeProp } from 'src/components/atoms'
-import { isTab, normalize, normalizeBy320 } from 'src/shared/utils'
+import { isTab, normalize, normalizeBy320, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { moleculesTestID } from 'src/constants'
 import { testProps } from 'src/shared/utils'
@@ -39,7 +39,7 @@ export const TabWithBarItem: FunctionComponent<TabBarItemProps> = ({
 
 const tabWitBarItemStyle = StyleSheet.create({
   container: {
-    marginHorizontal: normalize(20)
+    marginHorizontal: normalize(0.04 * screenWidth)
   },
   barLine: {
     width: '100%',

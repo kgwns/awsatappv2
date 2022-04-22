@@ -1,7 +1,7 @@
 import { View, StyleSheet, FlatList } from 'react-native';
 import React from 'react';
 import { Label, LabelTypeProp, ImageWithIcon } from '../atoms';
-import { normalize } from 'src/shared/utils';
+import { normalize, screenWidth } from 'src/shared/utils';
 import { Styles } from 'src/shared/styles';
 import { SectionVideoFooter, VideoItemProps } from '../molecules';
 import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg'
@@ -40,7 +40,7 @@ export const VideoContent = ({ data, onPress }: { data: VideoItemType[], onPress
         
         return (
             <TouchableOpacity onPress={()=>onItemPress(item)}>
-                <View style={[style.videoCardContainer, index === data.length-1 && {paddingRight: normalize(20)}]}>
+                <View style={[style.videoCardContainer, index === data.length - 1 && { paddingRight: normalize(0.04 * screenWidth) }]}>
                     <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
                     <Label style={style.textStyle} labelType={LabelTypeProp.h3} numberOfLines={2} >
                         {decode(item.title)}
@@ -84,7 +84,7 @@ const customStyle = (theme: CustomThemeType) => {
         videoCardContainer: {
             height: normalize(310),
             backgroundColor: theme.secondaryWhite,
-            paddingLeft: normalize(20)
+            paddingLeft: normalize(0.04 * screenWidth)
         },
         listContainer: {
             height: normalize(236),
@@ -94,7 +94,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         titleTextStyle: {
             paddingTop: normalize(10),
-            marginLeft: normalize(20),
+            marginLeft: normalize(0.04 * screenWidth),
             color: theme.primary,
             fontSize: normalize(18)
         },
