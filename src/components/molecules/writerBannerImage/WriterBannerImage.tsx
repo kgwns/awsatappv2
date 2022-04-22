@@ -70,7 +70,7 @@ export const WriterBannerImage = ({
     <View style={style.container}>
       <View style={style.contentContainer}>
         <ReturnButton />
-        <View style={style.imageContainer}>
+        <View style={[style.imageContainer, orientation == 'LANDSCAPE' && {width: '45%'}]}>
           <Image
             url={getImageUrl(data.authorImage)}
             style={style.image}
