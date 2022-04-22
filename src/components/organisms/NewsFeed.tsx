@@ -162,7 +162,7 @@ export default NewsFeed;
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
-    paddingHorizontal: 0.04 * screenWidth,
+    paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     paddingTop: normalize(25),
   },
   listContainer: {},

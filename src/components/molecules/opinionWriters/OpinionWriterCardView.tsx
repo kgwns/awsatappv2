@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
-import {normalize, screenWidth} from 'src/shared/utils';
+import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
@@ -118,7 +118,7 @@ const customStyle = (theme: CustomThemeType) => {
   const OpinionWritersCardViewStyle = StyleSheet.create({
     container: {
       width: '100%',
-      paddingHorizontal: normalize(0.04 * screenWidth),
+      paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       marginVertical: normalize(12),
       backgroundColor: theme.backgroundColor,
     },

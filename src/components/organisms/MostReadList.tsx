@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {flatListUniqueKey} from 'src/constants';
 import {ArticleItem, ArticleWithOutImageProps} from 'src/components/molecules';
 import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabel';
-import {screenWidth} from 'src/shared/utils';
+import {isTab, screenWidth} from 'src/shared/utils';
 import {Label, LabelTypeProp} from 'src/components/atoms';
 import {MOST_READ} from 'src/constants/SharedConstants';
 import {Styles, ImagesName} from 'src/shared/styles';
@@ -138,7 +138,7 @@ const MostReadList = ({
   };
 
   const listHeader = () => (
-    <View style={{paddingLeft: normalize(0.04 * screenWidth), paddingVertical: normalize(5)}}>
+    <View style={{paddingLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth), paddingVertical: normalize(5)}}>
       <Label
         children={MOST_READ}
         labelType={LabelTypeProp.h2}
@@ -179,7 +179,7 @@ const mostReadListStyle = StyleSheet.create({
     flex: 1,
   },
   contentStyle: {
-    paddingHorizontal: normalize(0.04 * screenWidth),
+    paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
   },
   leftFooterStyle: {
     fontWeight: 'bold'

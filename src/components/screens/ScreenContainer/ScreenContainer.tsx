@@ -9,7 +9,7 @@ import {
   Keyboard,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
-import {isDarkTheme, normalize, screenWidth} from '../../../shared/utils';
+import {isDarkTheme, isTab, normalize, screenWidth} from '../../../shared/utils';
 import {useAppCommon} from '../../../hooks/useAppCommon';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -171,7 +171,7 @@ const createStyles = (theme: CustomThemeType) => {
     returnStyle: {
       flexDirection: 'row',
       position: 'absolute',
-      left: normalize(0.04 * screenWidth),
+      left: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       alignContent: 'center',
       flexWrap: 'wrap',
       alignItems: 'center',

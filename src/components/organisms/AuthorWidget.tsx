@@ -102,7 +102,7 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: theme.secondaryWhite
         },
         headerContainer: {
-            paddingHorizontal: 0.04 * screenWidth,
+            paddingHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
             backgroundColor: theme.secondaryWhite
         },
         headerLeftContainer: {

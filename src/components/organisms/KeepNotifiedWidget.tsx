@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList, StyleSheet, View, ListRenderItem} from 'react-native';
 import {flatListUniqueKey} from 'src/constants';
-import {screenWidth} from 'src/shared/utils';
+import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Divider} from '../atoms';
@@ -54,7 +54,7 @@ const KeepNotifiedWidget = ({
 const customStyle = (theme: CustomThemeType) => {
   const KeepNotifiedWidgetStyle = StyleSheet.create({
     container: {
-      paddingHorizontal: 0.05 * screenWidth,
+      paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       backgroundColor: theme.backgroundColor,
     },
     divider: {

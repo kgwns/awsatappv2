@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
 import { View, StyleSheet, TouchableOpacity, AppState } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
-import { CustomAlert, normalize } from '../../../shared/utils';
+import { CustomAlert, isTab, normalize, screenWidth } from '../../../shared/utils';
 import { Label } from '../../atoms';
 import { ScreensConstants } from 'src/constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -160,7 +160,7 @@ const createStyles = (theme: CustomThemeType) =>
     container: {
       flex: 1,
       paddingVertical: normalize(20),
-      marginHorizontal: normalize(20),
+      marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       justifyContent: 'space-between',
       backgroundColor: theme.backgroundColor,
     },
@@ -217,7 +217,6 @@ const createStyles = (theme: CustomThemeType) =>
     returnStyle: {
       flexDirection: 'row',
       position: 'absolute',
-      left: normalize(5),
       alignContent: 'center',
       flexWrap: 'wrap',
       color: colors.white,

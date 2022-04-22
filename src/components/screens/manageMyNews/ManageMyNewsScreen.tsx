@@ -229,7 +229,7 @@ export const ManageMyNewsScreen = () => {
         <Label style={style.titleLabel}>
           {t('manageMyNews.myFavoriteBooks')}
         </Label>
-        {selectedWriters && <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'}>
+        {selectedWriters && <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'} >
           {
             data.map((item: any, index: number) =>
             <FollowFavoriteAuthor
@@ -240,6 +240,7 @@ export const ManageMyNewsScreen = () => {
             clickable={true}
             key={'manageAuthor' + index}
             imageSize={85}
+            containerStyle={index === 0 ? { paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) } : {}}
           />)
           }
         </ScrollView>}
@@ -270,6 +271,7 @@ export const ManageMyNewsScreen = () => {
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
               renderItem={({ item }) => renderItemTopics(item)}
+              style={{marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),}}
             />
           </ScrollView>
         </View>
@@ -321,7 +323,6 @@ const customStyle = (theme: CustomThemeType) => {
     },
     favTopicsScrollView: {
       paddingVertical: 0.04 * screenWidth,
-      marginLeft: 0.04 * screenWidth,
     },
     favTopicsView: {
       width: '100%',
@@ -333,14 +334,14 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.primary,
       fontWeight: 'bold',
       textAlign: 'left',
-      paddingHorizontal: 0.04 * screenWidth,
+      paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     booksContinue: {
       paddingVertical: 0.05 * screenWidth,
-      paddingStart: 0.04 * screenWidth,
+      paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     topicsContinue: {
-      paddingStart: 0.04 * screenWidth,
+      paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     booksDivider: {
       paddingTop: 0.05 * screenWidth,
@@ -362,13 +363,13 @@ const customStyle = (theme: CustomThemeType) => {
       marginStart: normalize(10),
     },
     renderItemTopics: {
-      paddingBottom: 0.03 * screenWidth,
+      paddingBottom: normalize(10),
       paddingRight: normalize(10),
     },
     divider: {
       height: 1,
       backgroundColor: theme.dividerColor,
-      marginStart: 0.04 * screenWidth,
+      marginStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
   },
   });
   return ManageMyNewsScreenStyle;

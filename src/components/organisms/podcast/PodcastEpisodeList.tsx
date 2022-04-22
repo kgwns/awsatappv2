@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { View, FlatList, ListRenderItem, StyleSheet} from 'react-native';
 import { Label } from 'src/components/atoms/';
 import { PodcastVerticalList, PodcastVerticalListProps } from 'src/components/molecules/';
-import { normalize } from 'src/shared/utils';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
@@ -53,7 +53,7 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
   };
 
   return (
-    <View style={{ marginHorizontal: normalize(20) }}>
+    <View style={{ marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) }}>
       <View style={styles.rowStyle} >
         <View style={styles.headerLeftStyle}>
           <Label style={styles.textStyle} children={t('podcastProgram.episodes')} />

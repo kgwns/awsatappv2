@@ -12,7 +12,7 @@ import {ScreensConstants} from '../constants/ScreenConstants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import TrackPlayer from 'react-native-track-player';
-import { screenWidth } from 'src/shared/utils';
+import { isTab, screenWidth } from 'src/shared/utils';
 
 const DrawerNavigator = () => {
   const navigation = useNavigation();
@@ -69,7 +69,7 @@ const customStyle = (theme: CustomThemeType) => {
     search: {
       height: 20,
       width: 20,
-      marginHorizontal: 0.04 * screenWidth,
+      marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
     },
     logo: {
       height: 30,
@@ -79,7 +79,7 @@ const customStyle = (theme: CustomThemeType) => {
     menu: {
       height: 22,
       width: 22,
-      marginHorizontal: 0.04 * screenWidth,
+      marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
     },
   });
   return headerStyles

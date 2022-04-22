@@ -5,7 +5,7 @@ import {flatListUniqueKey} from 'src/constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {FollowFavoriteAuthor} from 'src/components/molecules';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { isIOS } from 'src/shared/utils';
+import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { getImageUrl } from 'src/shared/utils/utilities';
 
 const FollowFavoriteAuthorWidget = (props: any) => {
@@ -44,6 +44,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => renderItem(item)}
+        style={{ marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) }}
       />
     </ScrollView>
   );

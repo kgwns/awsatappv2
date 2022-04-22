@@ -184,7 +184,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
     nextButtonView: {
       flex: 0.1,
       justifyContent: 'flex-end',
-      width: screenWidth - (2 * 0.04 * screenWidth),
+      width: isTab ? screenWidth - (2 * 0.02 * screenWidth) : screenWidth - (2 * 0.04 * screenWidth),
       alignSelf: 'center',
       marginBottom: 0.02 * ScreenHeight,
     },

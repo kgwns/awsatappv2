@@ -112,7 +112,7 @@ export const PopulateWidget = ({
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     widgetContainer: {
-        paddingHorizontal: normalize(0.04 * screenWidth)
+        paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     podcastContainer: {
         backgroundColor: theme.secondaryWhite

@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Label, Image } from 'src/components/atoms/';
-import { normalize } from 'src/shared/utils';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { colors } from 'src/shared/styles/colors';
@@ -60,7 +60,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
 const createStyles = (theme: CustomThemeType) =>
 StyleSheet.create({
   containerStyle: {
-    paddingHorizontal: normalize(20),
+    paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     paddingTop: normalize(25),
   },
   centerContainer: {

@@ -454,7 +454,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               onChangeText={setOccupation}
               maxLength={20}
               value={occupation}
-              style={styles.nameInputStyle}
+              style={styles.occupationInputStyle}
             />
           </View>
         </View>
@@ -698,7 +698,7 @@ const createStyles = (theme: CustomThemeType) =>
       flex: 1,
       marginVertical: '20%',
       marginStart: '10%', 
-      marginEnd: '5%'
+      marginEnd: '15%'
     },
     userContainerStyle: {
       flex: 1,
@@ -805,6 +805,10 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'left',
     },
     nameInputStyle: {
+      width: '94%',
+      color: theme.primaryLightGray,
+    },
+    occupationInputStyle: {
       width: '100%',
       color: theme.primaryLightGray,
     },

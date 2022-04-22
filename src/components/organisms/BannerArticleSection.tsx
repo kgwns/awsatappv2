@@ -129,7 +129,7 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         paddingTop: normalize(5)
     },
     tabContainer: {
-        paddingHorizontal: 0.04 * screenWidth
+        paddingHorizontal: 0.02 * screenWidth
     },
     headerContainer: {
         paddingHorizontal: 0.04 * screenWidth,

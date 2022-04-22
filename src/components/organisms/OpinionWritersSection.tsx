@@ -3,7 +3,7 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {flatListUniqueKey} from 'src/constants';
-import {normalize, screenWidth} from 'src/shared/utils';
+import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {Divider, Image, Label} from '../atoms';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {
@@ -87,7 +87,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(42),
       color: theme.primary,
       textAlign: 'left',
-      marginLeft: normalize(0.04 * screenWidth),
+      marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       marginTop: normalize(16),
       marginBottom: normalize(8)
     },

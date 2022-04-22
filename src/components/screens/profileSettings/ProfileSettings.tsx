@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants } from 'src/constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { horizontalEdge, isDarkTheme, isNotEmpty, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isDarkTheme, isNotEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { ButtonImage, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -232,14 +232,14 @@ const customStyle = (theme: CustomThemeType) =>
         paddingLeft: normalize(5)
       },
       listContainer: {
-          marginHorizontal: 0.04 * screenWidth,
+          marginHorizontal: isTab? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
           paddingTop: normalize(20),
       },
       titleDivider: {
           backgroundColor: Styles.color.greenishBlue,
           width: screenWidth,
           height: 1,
-          marginStart: 0.04 * screenWidth,
+          marginStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       },
       itemContainer: {
           flexDirection: 'row',
@@ -262,7 +262,7 @@ const customStyle = (theme: CustomThemeType) =>
       },
       title: {
           alignItems: 'center',
-          marginHorizontal: 0.04 * screenWidth,
+          marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
           paddingBottom: normalize(10),
       },
       welcome: {

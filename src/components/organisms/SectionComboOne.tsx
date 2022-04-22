@@ -126,7 +126,7 @@ const sectionComboOneStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingTop: normalize(20),
-    paddingHorizontal: normalize(10)
+    paddingHorizontal: normalize(0.02 * screenWidth)
   },
   tabWidgetContainer: {
     flex: 0.48,
@@ -134,7 +134,7 @@ const sectionComboOneStyle = StyleSheet.create({
   widgetContainer: {
     paddingTop: isTab ? normalize(25) : normalize(15),
     paddingBottom: isTab ? 0 : normalize(15),
-    paddingHorizontal: normalize(0.04 * screenWidth),
+    paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
   },
   topImage: {
     width: 0.92 * screenWidth,

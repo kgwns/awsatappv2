@@ -39,7 +39,7 @@ export const TabWithBarItem: FunctionComponent<TabBarItemProps> = ({
 
 const tabWitBarItemStyle = StyleSheet.create({
   container: {
-    marginHorizontal: normalize(0.04 * screenWidth)
+    marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
   },
   barLine: {
     width: '100%',

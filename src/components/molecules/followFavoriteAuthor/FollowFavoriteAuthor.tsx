@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Platform, StyleSheet, View} from 'react-native';
+import {Platform, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Image} from 'src/components/atoms';
 import {Label} from 'src/components/atoms';
@@ -23,6 +23,7 @@ export interface FollowFavoriteAuthorProps {
   onPress: (isSelected: boolean) => void;
   clickable?: boolean;
   imageSize?: number;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
 const FollowFavoriteAuthor = ({
@@ -34,6 +35,7 @@ const FollowFavoriteAuthor = ({
   testId,
   clickable = true,
   imageSize = 99,
+  containerStyle,
 }: FollowFavoriteAuthorProps) => {
   const [fallback, setFallBack] = useState(false)
 
@@ -57,7 +59,7 @@ const FollowFavoriteAuthor = ({
     <TouchableWithoutFeedback
       onPress={changeStatus}
       testID={testId}
-      style={style.container}>
+      style={[style.container,containerStyle]}>
       <View
         style={{
           alignItems: 'center',
@@ -143,7 +145,7 @@ const customStyle = (theme: CustomThemeType) => {
   const FollowFavoriteAuthorStyle = StyleSheet.create({
     container: {
       marginVertical: normalize(0.030 * screenWidth),
-      marginHorizontal: (Platform.OS==='ios')
+      marginEnd: (Platform.OS==='ios')
       ?normalize(0.020 * screenHeight)
       :normalize(0.026 * screenHeight),
       justifyContent: 'center',

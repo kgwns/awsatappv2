@@ -381,11 +381,11 @@ const customStyles = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: theme.backgroundColor
     },
     authorWidgetHeader: {
-        paddingHorizontal: 0.04 * screenWidth,
+        paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
         paddingBottom:normalize(8),
     },
     articleWidgetHeader: {
-        paddingHorizontal: 0.04 * screenWidth,
+        paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
         backgroundColor: theme.backgroundColor,
         paddingTop: normalize(20),
         paddingBottom: normalize(8),

@@ -175,7 +175,7 @@ StyleSheet.create({
     marginHorizontal: normalize(10),
   },
   textStyle: {
-    fontSize: normalize(15),
+    fontSize: normalize(13),
     color: theme.signInTextColor,
     lineHeight: normalize(22),
     fontWeight: '400',
@@ -198,6 +198,7 @@ StyleSheet.create({
     flex: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal:normalize(8)
   },
   bottomContainerStyle: {
     flex: 0.45,

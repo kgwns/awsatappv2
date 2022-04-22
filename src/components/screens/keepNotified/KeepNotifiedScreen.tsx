@@ -228,7 +228,7 @@ const customStyle = (theme: CustomThemeType) => (
     },
     nextButtonView: {
       flex: 0.1,
-      width: screenWidth - (2 * 0.04 * screenWidth),
+      width: isTab ? screenWidth - (2 * 0.02 * screenWidth) : screenWidth - (2 * 0.04 * screenWidth),
       alignSelf: 'center',
       justifyContent: 'flex-end',
       marginBottom: normalize(0.02 * ScreenHeight),

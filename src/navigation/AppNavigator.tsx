@@ -12,7 +12,7 @@ import {Label} from 'src/components/atoms';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {normalize, screenWidth} from 'src/shared/utils';
+import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { HeaderConstants } from '../constants/HeaderConstants'; 
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
@@ -261,7 +261,7 @@ const customStyle = (theme: CustomThemeType) => (
     onBoardReturn: {
       flexDirection: 'row-reverse',
       alignItems: 'center',
-      marginEnd: normalize(0.04 * screenWidth),
+      marginEnd: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     onBoardPrevTitle: {
       color: theme.primaryDarkSlateGray,

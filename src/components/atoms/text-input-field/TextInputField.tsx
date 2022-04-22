@@ -18,7 +18,7 @@ const createStyles = (theme: CustomThemeType) =>
       borderWidth: 1,
       borderRadius: normalize(25),
       borderColor: Styles.color.greyLight1,
-      paddingHorizontal: normalize(5),
+      paddingHorizontal: normalize(10),
     },
     textInputStyle: {
       fontSize: normalize(14),
@@ -46,12 +46,10 @@ const createStyles = (theme: CustomThemeType) =>
       paddingVertical: normalize(5),
     },
     starLabelStyle: {
-      textAlign: 'right', 
       lineHeight: normalize(17), 
-      fontSize: normalize(16) 
+      fontSize: normalize(16)
     },
     starContainer: {
-      width: '5%',
       marginLeft: 5,
     },
     containerStyle: {
@@ -120,7 +118,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   return (
     <View>
       <View style={styles.containerStyle}>
-        <View style={[styles.container, style, isMandatory && {width: '95%'}]}>
+        <View style={[styles.container, style]}>
           <View style={[styles.iconContainerStyle]}>
             {isPassword && <LockIcon width={11} height={14.15} fill={themeData.textColor} />}
             {leftIcon && leftIcon()}

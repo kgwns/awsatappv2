@@ -2,7 +2,7 @@ import { View,StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FilterComponent, FilterDataType } from 'src/components/molecules'
-import { isNonEmptyArray, screenHeight, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, screenHeight, screenWidth } from 'src/shared/utils'
 import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
@@ -108,7 +108,7 @@ export const Archives = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <View style={{ paddingStart: normalize(0.04 * screenWidth) }}>
+            <View style={{ paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) }}>
                 <FilterComponent data={filterItem} onPress={onPressFilterItem} />
             </View>
             {isNonEmptyArray(filteredData) &&
