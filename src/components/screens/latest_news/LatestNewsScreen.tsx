@@ -260,6 +260,14 @@ export const LatestNewsScreen = () => {
     }, [isPlayerVisible])
   );
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const unsubscribe = () => {
+        setPlayerVisibility(false)
+      };
+      return () => unsubscribe();
+    }, [])
+  );
 
   useEffect(() => {
     allDataLoad();

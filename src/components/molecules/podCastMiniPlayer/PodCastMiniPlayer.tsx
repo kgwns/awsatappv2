@@ -24,7 +24,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
     const fieldData = data ? data : podcastEpisodeInitialData
-    const isLoading = playbackState === State.None ||  playbackState === State.Buffering || playbackState === State.Connecting
+    const isLoading = playbackState === State.None ||  playbackState === State.Buffering || playbackState === State.Connecting || playbackState == State.Ready
     
     const Pause = () => (
         <>
