@@ -43,7 +43,7 @@ export const GameScreen = () => {
     }
 
     const navigateToDetailGame = (data: GameIntroCardProps) => {
-        const props = { gameData: data }
+        const props = { gameData: data, showIntro: true }
         navigation.navigate(ScreensConstants.DYNAMIC_GAME_SCREEN, props)
     }
 

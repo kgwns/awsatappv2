@@ -1,11 +1,15 @@
 import { ScrollView, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer'
-import WebView from 'react-native-webview'
+import WebView, { WebViewNavigation } from 'react-native-webview'
 import { horizontalAndBottomEdge, normalize, screenHeight } from 'src/shared/utils'
 import { GameIntroCard } from 'src/components/molecules'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { CustomThemeType } from '~/shared/styles/colors'
+import { CustomThemeType } from 'src/shared/styles/colors'
+import { CROSS_WORD_GAME_BASE_ID_URL, SUDOKU_GAME_BASE_ID_URL } from 'src/services/apiUrls'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { ScreensConstants } from 'src/constants'
 
 
 export interface DynamicGameScreenProps {
@@ -16,12 +20,31 @@ export interface DynamicGameScreenProps {
 export const DynamicGameScreen = ({
     route
 }: DynamicGameScreenProps) => {
+    const navigation = useNavigation<StackNavigationProp<any>>()
+
+    let webviewRef = useRef<WebView>().current
+
     const style = useThemeAwareObject(customStyle)
 
-    const { gameData } = route.params
+    const { gameData, showIntro } = route.params
+
+    const [currentUrl, setCurrentUrl] = useState(gameData.url || '')
 
     const onShouldStartLoadWithRequest = (request: any) => {
+        const { url } = request
+
+        if (url && (url.includes(SUDOKU_GAME_BASE_ID_URL) || url.includes(CROSS_WORD_GAME_BASE_ID_URL)) && currentUrl != url) {
+            navigation.push(ScreensConstants.DYNAMIC_GAME_SCREEN, { gameData: { url: url }, showIntro: false })
+            webviewRef?.stopLoading()
+            return false
+        }
+
         return true
+    }
+
+    const onNavigationStateChange = (request: WebViewNavigation) => {
+        const { url } = request
+        setCurrentUrl(url || '')
     }
 
     return (
@@ -30,8 +53,9 @@ export const DynamicGameScreen = ({
                 showsVerticalScrollIndicator={false}
                 bounces={false}
             >
-                <GameIntroCard {...gameData} hideButtonTitle={true} />
+                {showIntro && <GameIntroCard {...gameData} hideButtonTitle={true} />}
                 <WebView style={style.webview}
+                    ref={() => webviewRef}
                     startInLoadingState={true}
                     originWhitelist={['*']}
                     bounces={false}
@@ -40,6 +64,7 @@ export const DynamicGameScreen = ({
                     nestedScrollEnabled={true}
                     setSupportMultipleWindows={false}
                     onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
+                    onNavigationStateChange={onNavigationStateChange}
                 />
             </ScrollView>
         </ScreenContainer>
@@ -53,6 +78,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     webview: {
         width: '100%',
-        height: 0.9 * screenHeight,
+        height: 0.85 * screenHeight,
     }
 })
