@@ -228,6 +228,11 @@ export const storeInfo = [
       videoData: [],
       error: '',
       isLoading: false,
+    },
+    documentaryVideo: {
+      videoDocumentaryData: [],
+      videoDocumentaryError: '',
+      isVideoLoading: false,
     }
   },
 ];

@@ -20,4 +20,6 @@ export { useUserProfileData } from 'src/hooks/useUserProfileData';
 export { useKeepNotified } from 'src/hooks/useKeepNotified';
 export { usePodcast } from 'src/hooks/usePodcast';
 export { useContentForYou } from 'src/hooks/useContentForYou';
-export { useWriterDetail } from 'src/hooks/useWriterDetail'
+export { useWriterDetail } from 'src/hooks/useWriterDetail';
+export { useDocumentaryVideo } from 'src/hooks/useDocumentaryVideo';
+

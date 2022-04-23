@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
-import { Label, Image, ButtonOutline, LabelTypeProp} from 'src/components/atoms/';
+import { Label, Image, ButtonOutline, LabelTypeProp, HtmlRenderer} from 'src/components/atoms/';
 import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -13,6 +13,8 @@ import {getImageUrl} from 'src/shared/utils/utilities';
 import {timeAgo} from 'src/shared/utils/utilities';
 import { VideoItemProps } from 'src/components/molecules/video-item/VideoItem';
 import { decode } from 'html-entities';
+import { MixedStyleRecord } from 'react-native-render-html';
+import {useTheme} from 'src/shared/styles/ThemeProvider';
 
 export interface VideoInfoProps {
   onPress?: (item:VideoItemProps)=>void;
@@ -29,17 +31,34 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
   const [t] = useTranslation();
   const imageLink = data.field_thumbnil_multimedia_export ? getImageUrl(data.field_thumbnil_multimedia_export) : undefined;
   const monthDate = t(timeAgo(data.created_export))
+  const {themeData} = useTheme();
   const onPressPlay =()=>{
     if(onPress){
       onPress(data)
     }
   }
+  const htmlTagStyle: MixedStyleRecord = {
+    p: {
+      direction: 'rtl',
+      color: colors.spanishGray,
+      fontSize: normalize(13),
+      lineHeight: normalize(22),
+      textAlign: 'center',
+      paddingBottom: normalize(15),
+    },
+  };
   return (
     <View>
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            {isDocumentary ? <Image fallback url={imageLink} style={styles.imageStyle} /> : <Image fallback url={imageLink} style={styles.imageVideoStyle} resizeMode='cover' /> }
+            {!isDocumentary && <Image fallback url={imageLink} style={styles.imageVideoStyle} resizeMode='cover' /> }
+            {isDocumentary && <View style={styles.imageStyle} >
+              <Image fallback url={imageLink} style={styles.imageStyle} resizeMode='cover' />
+              <View style={styles.titleContainer} >
+                <Label style={styles.titleStyle} numberOfLines={1} >{decode(data.title)}</Label>
+              </View>
+            </View>}
             <View style={styles.containerSpace} />
             <ButtonOutline title={t('videoDetail.employement')}
              style={styles.buttonStyle}
@@ -50,7 +69,11 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
              />
              <View style={styles.containerSpace} />
             {data.title&&<Label style={styles.descriptionTextStyle} children={decode(data.title)} numberOfLines={4} />}
-            {data.description&&<Label style={styles.shortDescriptionStyle} children={decode(data.description)} numberOfLines={2} />}
+            {data.body_export && 
+            <View>
+              <HtmlRenderer source={data.body_export} tagsStyles={htmlTagStyle} />
+            </View>
+            }
             <View style={styles.headerLeftStyle}>
               {data.views&&
               <ViewIcon fill={colors.white} />
@@ -90,7 +113,6 @@ StyleSheet.create({
   imageStyle: {
     width: normalize(180),
     height: normalize(240),
-    resizeMode: 'cover',
   },
   imageVideoStyle: {
     width: normalize(349),
@@ -108,7 +130,7 @@ StyleSheet.create({
     lineHeight: normalize(22),
     color: colors.white,
     textAlign: 'center',
-    paddingBottom: normalize(15),
+    paddingBottom: normalize(10),
   },
   labelStyle: {
     fontSize: normalize(11),
@@ -147,5 +169,20 @@ StyleSheet.create({
   },
   buttonLabel: {
     color: colors.black,
+  },
+  titleContainer: {
+    bottom: 0,
+    right: 0,
+    left: 0,
+    top: 0,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  titleStyle: {
+    color: colors.darkRed,
+    fontSize: normalize(15),
+    fontWeight: 'bold',
+    lineHeight: normalize(55),
   },
 });

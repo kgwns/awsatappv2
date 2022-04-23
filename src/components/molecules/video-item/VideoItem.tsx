@@ -6,6 +6,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {
   ButtonImage,
   ButtonOutline,
+  HtmlRenderer,
   Image,
   Label,
   LabelTypeProp,
@@ -21,6 +22,7 @@ import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
 import PlayIconSmall from 'src/assets/images/icons/Play_black.svg';
+import { MixedStyleRecord } from 'react-native-render-html';
 export interface VideoItemProps {
   imageUrl: string;
   videoLabel?: string;
@@ -29,7 +31,7 @@ export interface VideoItemProps {
   des: string;
   date?: string;
   views?: string;
-  isFirstItem?: boolean;
+  isDocumentary?: boolean;
   onPress?: ()=> void;
   testID?: string;
   shortDescription?: string;
@@ -47,7 +49,7 @@ export const VideoItem = ({
   des,
   date,
   views,
-  isFirstItem,
+  isDocumentary,
   onPress,
   testID,
   toWatchTitle,
@@ -61,16 +63,25 @@ export const VideoItem = ({
   const imageLink = imageUrl ? getImageUrl(imageUrl) : undefined;
   const monthDate = t(timeAgo(date))
   const duration = time ? getSecondsToHms(time.split('|')[1]) : undefined;
+  const htmlTagStyle: MixedStyleRecord = {
+    p: {
+      color: themeData.secondaryDavyGrey,
+      textAlign: 'left',
+      direction: 'rtl',
+      fontSize: normalize(15),
+      lineHeight: normalize(25),
+    },
+  };
   return (
     <View>
       <TouchableOpacity testID={testID} accessibilityLabel={testID} onPress={onPress}>
         <View>
-        {isFirstItem ? (
+        {isDocumentary ? (
           <View style={[styles.videoContainer,{ marginTop: 0}]}>
             <Image fallback resizeMode={'cover'} url={imageLink} style={styles.imageBig} />
             <View style={styles.titleContainer} >
-                <Label style={styles.titleStyle}>{t('videoDetail.documentaryText')}</Label>
-              </View>
+              <Label style={styles.titleStyle} numberOfLines={1} >{decode(title)}</Label>
+            </View>
             <View style={styles.buttonContainer}>
               <ButtonOutline title={t('videoDetail.employement')}
               style={styles.buttonStyle}
@@ -83,7 +94,7 @@ export const VideoItem = ({
              </View>
           </View>
         ) : (
-            <View style={[styles.videoContainer,styles.spaceContainer, !isFirstItem && { marginTop: 0}]}>
+            <View style={[styles.videoContainer,styles.spaceContainer, !isDocumentary && { marginTop: 0}]}>
               <Image fallback resizeMode={'cover'} url={imageLink} style={styles.image} />
               <PlayIcon fill={colors.white} style={styles.playIcon} />
               {duration && (<Label style={styles.time} color={colors.white}>
@@ -96,10 +107,10 @@ export const VideoItem = ({
       </TouchableOpacity>
 
       <View style={styles.spaceContainer}>
-        <Label labelType={'h2'}>{decode(title)}</Label>
-        {des&&<Label labelType={'p3'} color={themeData.secondaryDavyGrey}>
-          {decode(des)}
-        </Label>}
+        {!isDocumentary && <Label labelType={'h2'}>{decode(title)}</Label>}
+        {des && <View>
+          <HtmlRenderer source={des} tagsStyles={htmlTagStyle} />
+       </View> }
       </View>
 
       <View style={styles.footerContainer}>
@@ -189,14 +200,14 @@ const createStyles = (theme: CustomThemeType) =>
     },
     time: {
       position: 'absolute',
-      right: normalize(20),
+      right: normalize(0.04 * screenWidth),
       bottom: 0,
       opacity: 0.8,
       backgroundColor: colors.darkGreenishBlue,
       padding: normalize(5),
     },
     videoLable: {
-      left: normalize(20),
+      left: normalize(0.04 * screenWidth),
       top: 0,
       position: 'absolute',
       backgroundColor: colors.greenishBlue,
@@ -210,7 +221,7 @@ const createStyles = (theme: CustomThemeType) =>
       position: 'absolute',
     },
     buttonContainer: {
-      bottom: 0,
+      bottom: normalize(10),
       right: 0,
       left: 0,
       position: 'absolute',
@@ -250,8 +261,12 @@ const createStyles = (theme: CustomThemeType) =>
     },
     titleStyle: {
       color: colors.darkRed,
-      fontSize: normalize(40),
+      fontSize: normalize(35),
       fontWeight: 'bold',
       lineHeight: normalize(55),
     },
+    documentaryTitle: {
+      color: colors.white,
+      fontSize: normalize(14)
+    }
   });
