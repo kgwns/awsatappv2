@@ -876,10 +876,10 @@ const createStyles = (theme: CustomThemeType) =>
       height: screenHeight,
     },
     spaceStyle: {
-      paddingHorizontal: '10%'
+      paddingHorizontal: 0.1 * screenWidth
     },
     nameInputContainer: {
       paddingStart: '10%', 
-      paddingEnd: '5%'
+      paddingEnd: 0.05 * screenWidth
     }
   });

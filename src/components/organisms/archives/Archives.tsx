@@ -108,7 +108,7 @@ export const Archives = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <View style={{ paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) }}>
+            <View style={{ paddingStart: isTab ? normalize(0.02 * screenWidth) : 0.04 * screenWidth }}>
                 <FilterComponent data={filterItem} onPress={onPressFilterItem} />
             </View>
             {isNonEmptyArray(filteredData) &&

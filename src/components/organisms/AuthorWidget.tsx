@@ -102,7 +102,7 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: theme.secondaryWhite
         },
         headerContainer: {
-            paddingHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
+            paddingHorizontal: isTab ? 0.02 * screenWidth : normalize(0.04 * screenWidth),
             backgroundColor: theme.secondaryWhite
         },
         headerLeftContainer: {
@@ -111,7 +111,7 @@ const customStyle = (theme: CustomThemeType) => {
         listContainer: {
             flex: 1,
             paddingTop: normalize(20),
-            paddingHorizontal: normalize(20),
+            paddingHorizontal: normalize(0.04 * screenWidth),
             backgroundColor: theme.secondaryWhite
         },
         divider: {
