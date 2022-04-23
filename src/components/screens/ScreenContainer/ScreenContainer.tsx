@@ -5,11 +5,9 @@ import {
   StatusBarStyle,
   View,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
-import {isDarkTheme, isTab, normalize, screenWidth} from '../../../shared/utils';
+import {DEFAULT_HIT_SLOP, isDarkTheme, isTab, normalize, screenWidth} from '../../../shared/utils';
 import {useAppCommon} from '../../../hooks/useAppCommon';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -95,7 +93,7 @@ export const ScreenContainer = ({
             {title}
           </Label>
         )}
-        <TouchableOpacity style={style.returnStyle} onPress={onPressBack}>
+        <TouchableOpacity hitSlop={isTab ? { top: 15, bottom: 15, left: 15, right: 15 } : DEFAULT_HIT_SLOP} style={style.returnStyle} onPress={onPressBack}>
           <Image name="returnIcon" style={style.returnIconStyle} />
           <Label style={style.prevTitleStyle}>
             {t('onBoard.common.return')}
@@ -176,6 +174,7 @@ const createStyles = (theme: CustomThemeType) => {
       flexWrap: 'wrap',
       alignItems: 'center',
       color: Styles.color.white,
+      backgroundColor: 'red'
     },
     headerContainer: {
       height: normalize(55),
