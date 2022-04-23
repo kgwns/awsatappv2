@@ -1,17 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, FlatList, BackHandler, Dimensions} from 'react-native';
+import { StyleSheet, View, FlatList, BackHandler } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {horizontalAndTop, horizontalEdge, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, normalize, screenHeight, screenWidth} from 'src/shared/utils';
+import {horizontalAndTop, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, normalize } from 'src/shared/utils';
 import {OpinionArticleDetailFooter} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
   RelatedOpinionArticlesWidget,
 } from 'src/components/organisms';
 import {ScreenContainer} from '..';
-import {useAllWriters, useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
-import {Edge} from 'react-native-safe-area-context';
-import Orientation, {OrientationType} from 'react-native-orientation-locker';
+import {useAllWriters, useAppCommon, useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
+import Orientation from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 import TrackPlayer from 'react-native-track-player';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -19,29 +18,28 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { sendUserEventTracking } from 'src/services'
 import { TrackingEventType } from 'src/services/eventTrackService'
+import { ArticleFontSize } from 'src/redux/appCommon/types';
 
 export interface OpinionArticleDetailScreenProps {
   route: any;
-}
-
-export enum ArticleFontSize {
-  normal = normalize(16),
-  medium = normalize(18),
-  high = normalize(20)
 }
 
 export const OpinionArticleDetail = ({
   route,
 }: OpinionArticleDetailScreenProps) => {
   const style = useThemeAwareObject(customStyle);
+  
   const navigation = useNavigation<StackNavigationProp<any>>()
   const isFocused = useIsFocused();
+
   const currentNId = route.params.nid;
-  const [edge, setEdge] = useState<Edge[]>(horizontalAndTop);
-  const [fontSize,setFontSize] = useState<ArticleFontSize>(ArticleFontSize.normal)
+
+  const { articleFontSize, storeArticleFontSizeInfo } = useAppCommon()
+
+  const [fontSize,setFontSize] = useState<ArticleFontSize>(articleFontSize)
   const { isLoading, opinionArticleDetailData, fetchOpinionArticleDetail,
     fetchRelatedOpinionData, relatedOpinionListData,
-    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData,fetchNarratedOpinionData,narratedOpinionData } =
+    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData,fetchNarratedOpinionData } =
     useOpinionArticleDetail();
   const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid != currentNId})
 
@@ -123,6 +121,11 @@ export const OpinionArticleDetail = ({
     fetchRelatedOpinionData(relatedOpinionPayload);
   }, [page]);
 
+  useEffect(() => {
+    if (fontSize != articleFontSize) {
+      setFontSize(articleFontSize)
+    }
+  }, [articleFontSize])
 
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isObjectNonEmpty(selectedAuthorsData) && isFocused) {
@@ -153,24 +156,6 @@ export const OpinionArticleDetail = ({
   const validateFollow = (id: string): boolean => {
     return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
   }
-
-  const updateScreenEdge = (deviceOrientation: OrientationType) => {
-    const edge = getScreenEdge(deviceOrientation);
-    setEdge(edge);
-  };
-
-  const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
-    switch (deviceOrientation) {
-      case 'LANDSCAPE-LEFT':
-        return ['right','top'];
-      case 'LANDSCAPE-RIGHT':
-        return ['left','top'];
-      case 'PORTRAIT':
-        return horizontalAndTop;
-      default:
-        return horizontalAndTop;
-    }
-  };
 
   const onPressSave = (nid: string) => {
     if(!isLoggedIn) {
@@ -222,13 +207,7 @@ export const OpinionArticleDetail = ({
   };
 
   const onPressFontSizeChange = () => {
-    let newFontSize = normalize(16)
-    if(fontSize === ArticleFontSize.normal) {
-      newFontSize = normalize(18)
-    } else if(fontSize === ArticleFontSize.medium) {
-      newFontSize = normalize(20)
-    }
-    setFontSize(newFontSize)
+    storeArticleFontSizeInfo()
   }
 
   const onUpdateFollow = (id: string, hasFollowed: boolean) => {
@@ -257,7 +236,7 @@ export const OpinionArticleDetail = ({
   );
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading}
+    <ScreenContainer edge={horizontalAndTop} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
         {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>

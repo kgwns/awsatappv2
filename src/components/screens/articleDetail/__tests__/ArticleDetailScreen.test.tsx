@@ -28,6 +28,17 @@ jest.mock("src/hooks/useArticleDetail", () => ({
     },
 }));
 
+jest.mock("src/hooks/useAppCommon", () => ({
+    useAppCommon: (...args: any) => {
+        return {
+            theme: 'light',
+            isFirstSession: true,
+            articleFontSize: 16,
+            storeArticleFontSizeInfo: () => {}
+        }
+    },
+}));
+
 describe('<ArticleDetailScreen>', () => {
     let instance: RenderAPI
 

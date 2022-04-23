@@ -8,7 +8,7 @@ import {
   VideoItemProps,
   PodcastVerticalListProps,
 } from 'src/components/molecules';
-import { Theme } from 'src/redux/appCommon/types';
+import { ArticleFontSize, Theme } from 'src/redux/appCommon/types';
 import configureStore from 'redux-mock-store';
 import {
   articleProps,
@@ -29,7 +29,8 @@ export const storeInfo = [
   {
     appCommon: {
       theme: Theme.LIGHT,
-      isAppFirstSession: true
+      isAppFirstSession: true,
+      articleFontSize: ArticleFontSize.normal
     },
     home: {
       isLoading: false,

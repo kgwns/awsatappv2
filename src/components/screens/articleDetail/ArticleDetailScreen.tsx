@@ -15,7 +15,7 @@ import type { MixedStyleRecord } from '@native-html/transient-render-engine';
 import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
-import { useBookmark, useLogin } from 'src/hooks'
+import { useAppCommon, useBookmark, useLogin } from 'src/hooks'
 import { ScreensConstants } from 'src/constants'
 import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -23,6 +23,7 @@ import { sendUserEventTracking } from 'src/services'
 import { TrackingEventType } from 'src/services/eventTrackService'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { ArticleFontSize } from 'src/redux/appCommon/types'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -35,12 +36,6 @@ const relatedShortArticleHeaderLeft: HeaderElementProps = {
   elementContainerStyle: { paddingVertical: normalize(15) }
 }
 
-enum ArticleFontSize {
-  normal = normalize(16),
-  medium = normalize(18),
-  high = normalize(20)
-}
-
 export const ArticleDetailScreen = ({
   route
 }: ArticleDetailScreenProps) => {
@@ -51,10 +46,11 @@ export const ArticleDetailScreen = ({
   const { themeData } = useTheme()
   const { isLoggedIn } = useLogin()
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { articleFontSize, storeArticleFontSizeInfo } = useAppCommon()
 
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
   const [isBookmarked, setIsBookmarked] = useState(false)
-  const [fontSize,setFontSize] = useState<ArticleFontSize>(ArticleFontSize.normal)
+  const [fontSize,setFontSize] = useState<ArticleFontSize>(articleFontSize)
   const [showupUp,setShowPopUp] = useState(false)
   const [articleDetailState, setArticleDetail] = useState<ArticleDetailDataType[]>([])
   const [relatedArticleState, setRelatedArticle] = useState<RelatedArticleDataType[]>([])
@@ -97,6 +93,13 @@ export const ArticleDetailScreen = ({
       }
     };
   }, [])
+
+  useEffect(() => {
+    if (fontSize != articleFontSize) {
+      setFontSize(articleFontSize)
+    }
+  }, [articleFontSize])
+
 
   const validateBookmark = (nid: string): boolean => {
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
@@ -184,13 +187,7 @@ export const ArticleDetailScreen = ({
   }
 
   const onPressFontChange = () => {
-    let newFontSize = normalize(16)
-    if(fontSize === ArticleFontSize.normal) {
-      newFontSize = normalize(18)
-    } else if(fontSize === ArticleFontSize.medium) {
-      newFontSize = normalize(20)
-    }
-    setFontSize(newFontSize)
+    storeArticleFontSizeInfo()
   }
 
   const checkAndUpdateBookmark = (nid: string) => {
@@ -229,7 +226,7 @@ export const ArticleDetailScreen = ({
         <Divider style={style.divider}/>
       </>
       }
-      {isNonEmptyArray(relatedArticleData) &&
+      {isNonEmptyArray(relatedArticleState) &&
         <ShortArticle data={relatedArticleState}
           headerLeft={relatedShortArticleHeaderLeft}
           onPress={onPressArticle}

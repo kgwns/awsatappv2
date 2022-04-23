@@ -2,7 +2,7 @@ import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import {OpinionArticleDetailWidget} from 'src/components/organisms/OpinionArticleDetailWidget';
 import { OpinionArticleDetailItemType } from 'src/redux/opinionArticleDetail/types';
-import { ArticleFontSize } from 'src/components/screens/opinionArticleDetail/OpinionArticleDetail';
+import { ArticleFontSize } from 'src/redux/appCommon/types';
 
 describe('<OpinionArticleDetailWidget>', () => {
   let instance: RenderAPI;

@@ -174,7 +174,6 @@ const createStyles = (theme: CustomThemeType) => {
       flexWrap: 'wrap',
       alignItems: 'center',
       color: Styles.color.white,
-      backgroundColor: 'red'
     },
     headerContainer: {
       height: normalize(55),

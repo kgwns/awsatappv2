@@ -29,6 +29,17 @@ jest.mock("src/hooks/useOpinionArticleDetail", () => ({
   },
 }));
 
+jest.mock("src/hooks/useAppCommon", () => ({
+  useAppCommon: (...args: any) => {
+      return {
+          theme: 'light',
+          isFirstSession: true,
+          articleFontSize: 16,
+          storeArticleFontSizeInfo: () => {}
+      }
+  },
+}));
+
 describe('<OpinionArticleDetail>', () => {
   let instance: RenderAPI;
 

@@ -1,9 +1,10 @@
 import {renderHook, RenderHookResult} from '@testing-library/react-hooks';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useAppCommon,UseAppCommonReturn} from '../useAppCommon';
 
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
+  useDispatch: jest.fn(),
 }));
 
 describe('#useAppCommon', () => {
@@ -17,9 +18,13 @@ describe('#useAppCommon', () => {
     .fn()
     .mockReturnValueOnce(theme);
 
+    const mockDispatch = jest.fn()
+
 
   beforeAll(() => {
     (useSelector as jest.Mock).mockImplementationOnce(selectIsLoginLoadingMock);
+    (useDispatch as jest.Mock).mockImplementationOnce(mockDispatch);
+
     result = renderHook<undefined,UseAppCommonReturn>(() => useAppCommon());
   });
 
