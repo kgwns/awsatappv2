@@ -88,6 +88,7 @@ export enum ImagesName {
   sudoku = 'sudoku',
   greenArrowLeft = 'greenArrowLeft',
   returnWhiteIcon = 'returnWhiteIcon',
+  arrowLeftFacedBlack = 'arrowLeftFacedBlack',
 }
 
 export const images = {
