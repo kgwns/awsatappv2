@@ -8,7 +8,7 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { decode } from 'html-entities';
 
 const InterestedTopics = (props:any) => {
-  const data = props.allSiteCategoriesData
+  const data = props.allSiteCategoriesData 
   const style = useThemeAwareObject(customInterestStyle)
   let totalLengthOfElements = 0
   let arrayOfLengths = []
@@ -85,7 +85,7 @@ const InterestedTopics = (props:any) => {
   }
 
   return (
-    <ScrollView style={style.container} horizontal={true} showsHorizontalScrollIndicator={false}>
+    <ScrollView style={style.container} horizontal={true} showsHorizontalScrollIndicator={false} bounces={false}>
       <ScrollView style={style.innerContainerStyle} horizontal={false} scrollEnabled={false}>
         {splicedArray.map((items, index) => renderer(items, index))}
       </ScrollView>

@@ -34,6 +34,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
       horizontal
       showsHorizontalScrollIndicator={false}
       onContentSizeChange={()=> scrollToStart()}
+      bounces={false}
       style={style.container}>
         <FlatList
         key={data ? Math.ceil(data.length / 3) : 3}
@@ -45,6 +46,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => renderItem(item)}
         style={{ marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) }}
+        bounces={false}
       />
     </ScrollView>
   );

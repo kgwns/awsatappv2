@@ -262,6 +262,7 @@ export const ManageMyNewsScreen = () => {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
+            bounces={false}
             style={style.favTopicsScrollView}>
             <FlatList
               listKey={flatListUniqueKey.INTERESTED_TOPICS}
@@ -270,6 +271,7 @@ export const ManageMyNewsScreen = () => {
               data={data}
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
+              bounces={false}
               renderItem={({ item }) => renderItemTopics(item)}
               style={{marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),}}
             />
