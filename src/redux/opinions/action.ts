@@ -10,8 +10,10 @@ import {
   FetchWriterOpinionsSuccessPayloadType,
   FetchWriterOpinionsSuccessType,
   EmptyWriterOpinionDataType,
+  EmptyOpinionsDataType,
 } from 'src/redux/opinions/types';
 import {
+  EMPTY_OPINION_DATA,
   EMPTY_WRITER_OPINION_DATA,
   FETCH_OPINIONS,
   FETCH_OPINIONS_ERROR,
@@ -78,9 +80,17 @@ export const emptyWriterOpinionAction = (
   };
 };
 
+export const emptyOpinionsAction = (
+  ): EmptyOpinionsDataType => {
+    return {
+      type: EMPTY_OPINION_DATA,
+    };
+  };
+
 export const opinionsActions = {
   fetchOpinions,
   fetchOpinionsSuccess,
   fetchOpinionsFailed,
-  emptyWriterOpinionAction
+  emptyWriterOpinionAction,
+  emptyOpinionsAction,
 };

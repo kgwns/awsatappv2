@@ -7,7 +7,7 @@ import {
   getWriterOpinionsData,
   getWriterOpinionsError,
 } from 'src/redux/opinions/selectors';
-import {emptyWriterOpinionAction, fetchOpinions, fetchWriterOpinions, fetchWriterOpinionsSuccess} from 'src/redux/opinions/action';
+import {emptyWriterOpinionAction, fetchOpinions, fetchWriterOpinions, fetchWriterOpinionsSuccess, emptyOpinionsAction} from 'src/redux/opinions/action';
 import {OpinionsBodyGet, OpinionsListItemType, WriterOpinionsBodyGet} from 'src/redux/opinions/types';
 
 export interface UseOpinionsReturn {
@@ -19,7 +19,8 @@ export interface UseOpinionsReturn {
   writerOpinionsData: OpinionsListItemType[];
   writerOpinionsError: string;
   fetchWriterOpinionsRequest(payload: WriterOpinionsBodyGet): void;
-  emptyWriterOpinionData(): void
+  emptyWriterOpinionData(): void;
+  emptyOpinionsData(): void;
 }
 
 export const useOpinions = (): UseOpinionsReturn => {
@@ -42,6 +43,10 @@ export const useOpinions = (): UseOpinionsReturn => {
     dispatch(emptyWriterOpinionAction())
   }
 
+  const emptyOpinionsData = () =>{
+    dispatch(emptyOpinionsAction())
+  }
+
   return {
     isLoading,
     opinionsData,
@@ -51,6 +56,7 @@ export const useOpinions = (): UseOpinionsReturn => {
     writerOpinionsData,
     writerOpinionsError,
     fetchWriterOpinionsRequest,
-    emptyWriterOpinionData
+    emptyWriterOpinionData,
+    emptyOpinionsData
   };
 };

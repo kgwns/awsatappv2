@@ -7,6 +7,7 @@ import {
   FETCH_WRITER_OPINIONS_SUCCESS,
   FETCH_WRITER_OPINIONS_ERROR,
   EMPTY_WRITER_OPINION_DATA,
+  EMPTY_OPINION_DATA,
 } from './actionTypes';
 
 export interface Pager {
@@ -119,6 +120,10 @@ export type EmptyWriterOpinionDataType = {
   type: typeof EMPTY_WRITER_OPINION_DATA
 }
 
+export type EmptyOpinionsDataType = {
+  type: typeof EMPTY_OPINION_DATA
+}
+
 export type OpinionsActions =
   | FetchOpinionsType
   | FetchOpinionsSuccessType
@@ -127,3 +132,4 @@ export type OpinionsActions =
   | FetchWriterOpinionsSuccessType
   | FetchWriterOpinionsFailedType
   | EmptyWriterOpinionDataType
+  | EmptyOpinionsDataType

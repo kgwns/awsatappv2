@@ -43,10 +43,16 @@ export const OpinionScreen = () => {
   const style = useThemeAwareObject(customStyle);
 
   const {opinionWriterData, fetchOpinionWriterRequest} = useOpinionWriter();
-  const {opinionsData, isLoading, fetchOpinionsRequest} = useOpinions();
+  const {opinionsData, isLoading, fetchOpinionsRequest, emptyOpinionsData} = useOpinions();
 
   useEffect(() => {
     fetchOpinionWriterRequest(writersPayload);
+    return()=>{
+      emptyOpinionsData();
+    }
+  }, []);
+
+  useEffect(() => {
     fetchOpinionsRequest(opinionsPayload);
   }, [page]);
 

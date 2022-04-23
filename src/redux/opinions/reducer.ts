@@ -1,5 +1,6 @@
 import { isNonEmptyArray } from 'src/shared/utils';
 import {
+  EMPTY_OPINION_DATA,
   EMPTY_WRITER_OPINION_DATA,
   FETCH_OPINIONS,
   FETCH_OPINIONS_ERROR,
@@ -71,6 +72,11 @@ export default (state = initialState, action: OpinionsActions) => {
         ...state,
         writerOpinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
         writerOpinionError: '',
+      }
+    case EMPTY_OPINION_DATA:
+      return {
+        ...state,
+        opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       }
     default:
       return { ...state };
