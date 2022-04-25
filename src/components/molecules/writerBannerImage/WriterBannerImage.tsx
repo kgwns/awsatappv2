@@ -1,11 +1,11 @@
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { getImageUrl } from 'src/shared/utils/utilities'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { Image, Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isIOS, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
 import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -34,6 +34,25 @@ export const WriterBannerImage = ({
 
   const FOLLOW = 'تابع';
   const FOLLOWER = 'متابع';
+
+
+  const isPortrait = () => {
+    const dim = Dimensions.get('screen');
+    return dim.height >= dim.width;
+  };
+
+  // State to hold the connection status
+  const [currentOrientation, setOrientation] = useState<'PORTRAIT' | 'LANDSCAPE'>(
+    isPortrait() ? 'PORTRAIT' : 'LANDSCAPE',
+  );
+
+  useEffect(() => {
+    const callback = () => {
+      setOrientation(isPortrait() ? 'PORTRAIT' : 'LANDSCAPE')
+    };
+    const subscription =  Dimensions.addEventListener('change', callback);
+    return () => subscription?.remove();
+  }, []);
 
   const ReturnButton = () => (
     <View style={[style.return]}>
@@ -70,7 +89,8 @@ export const WriterBannerImage = ({
     <View style={style.container}>
       <View style={style.contentContainer}>
         <ReturnButton />
-        <View style={[style.imageContainer, orientation == 'LANDSCAPE' && {width: '45%'}]}>
+        <View style={[style.imageContainer, currentOrientation == 'LANDSCAPE' && {width: '45%'}]}>
+        
           <Image
             url={getImageUrl(data.authorImage)}
             style={style.image}
