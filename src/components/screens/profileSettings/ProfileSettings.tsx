@@ -19,11 +19,12 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { ToggleWithLabel } from 'src/components/molecules';
 import { useDispatch } from 'react-redux';
 import { storeAppTheme } from 'src/redux/appCommon/action';
-import { Theme } from 'src/redux/appCommon/types';
+import { ServerEnvironment, Theme } from 'src/redux/appCommon/types';
 import { useAppCommon, useBookmark, useKeepNotified, useLogin, useUserProfileData, useAllSiteCategories, useAllWriters, useSearch  } from 'src/hooks';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AlertPayloadType } from 'src/components/screens/ScreenContainer/ScreenContainer';
+import RNRestart from 'react-native-restart'
 
 type SettingDataType = {
   iconName: ImagesName,
@@ -39,7 +40,7 @@ export const ProfileSettings = () => {
 
   const style = useThemeAwareObject(customStyle);
 
-  const { theme } = useAppCommon();
+    const { theme, serverEnvironment, storeServerEnvironmentInfo } = useAppCommon();
   const { removeBookmark } = useBookmark()
   const { removeKeepNotificationInfo } = useKeepNotified()
   const isDark = isDarkTheme(theme);
@@ -55,6 +56,7 @@ export const ProfileSettings = () => {
   const CONST_DARK_MODE = t('profileSetting.darkMode');
   const CONST_LIGHT_MODE = t('profileSetting.lightMode');
   const CONST_WELCOME = t('profileSetting.welcome');
+  const CONST_CHANGE_ENVIRONMENT = "Change Environment"
 
   const signOutAlertPayload : AlertPayloadType = {
     title : t('profileSetting.alert'),
@@ -89,6 +91,11 @@ export const ProfileSettings = () => {
           screenName: ''
       },
       {
+          iconName: ImagesName.Image,
+          title: CONST_CHANGE_ENVIRONMENT,
+          screenName: ''
+      },
+      {
           iconName: ImagesName.exit,
           title: CONST_EXIT,
           screenName: ''
@@ -106,6 +113,14 @@ export const ProfileSettings = () => {
       dispatch(storeAppTheme(themeData));
       setIsDarkMode(!isOn);
   };
+
+    const onPressToggleServer = () => {
+        const newServerType = serverEnvironment == ServerEnvironment.DEBUG ? ServerEnvironment.PRODUCTION : ServerEnvironment.DEBUG
+        storeServerEnvironmentInfo(newServerType)
+        setTimeout(() => {
+            RNRestart.Restart()
+        }, 1500);
+    }
 
   const onPressGoNext = (item: SettingDataType) => {
       if (item.title === CONST_EXIT) {
@@ -159,6 +174,14 @@ export const ProfileSettings = () => {
                   title={isDarkMode ? CONST_DARK_MODE : CONST_LIGHT_MODE}
                   isActive={!isDarkMode}
                   onPress={onPressToggle}
+              />
+          );
+      } else if (item.title == CONST_CHANGE_ENVIRONMENT) {
+          return (
+              <ToggleWithLabel
+                  title={serverEnvironment == ServerEnvironment.DEBUG ? 'Debug' : 'Production'}
+                  isActive={serverEnvironment == ServerEnvironment.DEBUG ? true : false}
+                  onPress={onPressToggleServer}
               />
           );
       } else if (item.title == CONST_EXIT) {

@@ -1,6 +1,5 @@
-import { ArticleFontSize } from "src/components/screens/opinionArticleDetail/OpinionArticleDetail"
-import { StoreAppFirstSessionType, StoreArticleFontType, Theme } from "../../redux/appCommon/types"
-import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_FONT_SIZE } from "./actionType"
+import { ServerEnvironment, StoreAppFirstSessionType, StoreServerEnvironmentType, Theme, StoreArticleFontType, ArticleFontSize } from "../../redux/appCommon/types"
+import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE } from "./actionType"
 import { StoreAppThemeType } from "./types"
 
 export const storeAppTheme = (theme: Theme): StoreAppThemeType => {
@@ -14,6 +13,13 @@ export const storeAppFirstSession = (): StoreAppFirstSessionType => {
     return {
         type: IS_APP_FIRST_SESSION,
         payload: { isAppFirstSession: false }
+    }
+}
+
+export const storeServerEnvironment = (serverType: ServerEnvironment): StoreServerEnvironmentType => {
+    return {
+        type: STORE_SERVER_ENVIRONMENT,
+        payload: { serverEnvironment: serverType }
     }
 }
 

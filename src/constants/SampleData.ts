@@ -8,7 +8,7 @@ import {
   VideoItemProps,
   PodcastVerticalListProps,
 } from 'src/components/molecules';
-import { ArticleFontSize, Theme } from 'src/redux/appCommon/types';
+import { ArticleFontSize, ServerEnvironment, Theme } from 'src/redux/appCommon/types';
 import configureStore from 'redux-mock-store';
 import {
   articleProps,
@@ -30,7 +30,8 @@ export const storeInfo = [
     appCommon: {
       theme: Theme.LIGHT,
       isAppFirstSession: true,
-      articleFontSize: ArticleFontSize.normal
+      articleFontSize: ArticleFontSize.normal,
+      serverEnvironment: ServerEnvironment.PRODUCTION
     },
     home: {
       isLoading: false,
@@ -62,6 +63,7 @@ export const storeInfo = [
       searchData: [],
       error: '',
       isLoading: false,
+      searchHistory: [],
     },
     mostRead: {
       mostReadData: [],
@@ -114,6 +116,9 @@ export const storeInfo = [
       isLoading: false,
       sendAuthorInfo: {},
       selectedAuthorsData:{},
+      allSelectedWritersDetailsList:[],
+      selectedAuthorLoading: false,
+      selectedDataFromOnboard: [],
     },
     allSiteCategories: {
       allSiteCategoriesData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
@@ -164,14 +169,18 @@ export const storeInfo = [
       selectedNewsLettersData: {},
       isMyNewsLoading: false,
       myNewsError: '',
-      myNewsLetters: {}
+      myNewsLetters: {},
+      selectedDataFromNewsLetterOnboard: [],
     },
     keepNotified: {
       isLoading: true,
       sendSelectedError: '',
       sendSelectedNotificationInfo: {},
       getSelectedNotificationInfo: {},
-      getSelectedError: ''
+      getSelectedError: '',
+      allNotificationList: {},
+      allNotificationListError: '',
+      isMyNotificationLoading: false,
     },
     podcast:{
       podcastListData: [],

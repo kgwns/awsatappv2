@@ -1,9 +1,14 @@
+import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE } from "./actionType"
 import { normalize } from "src/shared/utils"
-import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_FONT_SIZE } from "./actionType"
 
 export enum Theme {
   LIGHT = 'light',
   DARK = 'dark'
+}
+
+export enum ServerEnvironment {
+  DEBUG = 'Debug',
+  PRODUCTION = 'Production',
 }
 
 export enum ArticleFontSize {
@@ -14,7 +19,8 @@ export enum ArticleFontSize {
 
 export type AppCommonState = {
   theme: Theme,
-  isAppFirstSession: boolean
+  isAppFirstSession: boolean,
+  serverEnvironment: ServerEnvironment
   articleFontSize: number
 }
 
@@ -36,14 +42,26 @@ export type StoreAppFirstSessionType = {
   payload: StoreAppFirstSessionPayloadType
 }
 
+export type StoreServerEnvironmentPayload = {
+  serverEnvironment: ServerEnvironment
+}
+
+export type StoreServerEnvironmentType = {
+  type: typeof STORE_SERVER_ENVIRONMENT,
+  payload: StoreServerEnvironmentPayload
+}
+
 export type StoreArticleFontPayloadType = {
-   fontSize: ArticleFontSize
+  fontSize: ArticleFontSize
 }
 
 export type StoreArticleFontType = {
-  type: typeof STORE_FONT_SIZE,
-  payload: StoreArticleFontPayloadType
+ type: typeof STORE_FONT_SIZE,
+ payload: StoreArticleFontPayloadType
 }
 
 
-export type AppCommonAction = StoreAppThemeType | StoreAppFirstSessionType | StoreArticleFontType
+export type AppCommonAction = StoreAppThemeType
+  | StoreAppFirstSessionType
+  | StoreServerEnvironmentType
+  | StoreArticleFontType

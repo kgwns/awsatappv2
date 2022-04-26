@@ -142,4 +142,24 @@ jest.mock('react-native-adjust-oaid', () => {
   };
 });
 
+jest.mock('react-native-restart', () => {
+  return {
+    Restart: jest.fn().mockImplementation(() => jest.fn())
+  }
+})
+
+jest.mock('src/redux/store.ts', () => {
+  return {
+    store: {
+      getState: jest.fn().mockReturnValue({}),
+      subscribe: jest.fn().mockReturnValue(() => jest.fn())
+    },
+    persistor: {
+      getState: jest.fn().mockReturnValue({}),
+      subscribe: jest.fn().mockReturnValue(() => jest.fn())
+    }
+    
+  }
+})
+
 

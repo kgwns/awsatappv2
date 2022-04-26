@@ -1,7 +1,24 @@
+import { store } from "src/redux/store"
+import { ServerEnvironment } from "src/redux/appCommon/types";
+
+
 //PRODUCTION ENVIRONMENT
-export const BASE_URL = 'http://awsatapp.srpcdigital.com/';
+export const PROD_BASE_URL = 'https://awsatapp.srpcdigital.com/';
+
 //DEV ENVIRONMENT
-// export const BASE_URL = 'http://srpcawsatdev.prod.acquia-sites.com/';
+export const DEBUG_BASE_URL = 'https://devaawsatar.srpcdigital.com/';
+
+export const getBaseUrl = (): string => {
+    const serverEnvironment  = store.getState().appCommon?.serverEnvironment
+    if (serverEnvironment == 'Debug') {
+      return DEBUG_BASE_URL
+    }
+
+  return PROD_BASE_URL
+}
+
+export const BASE_URL = getBaseUrl();
+
 
 export const UMS_BASE_URL = 'http://awsatapi.srpcdigital.com/';
 export const PROFILE_IMAGE_URL = 'http://awsatapi.srpcdigital.com/storage/'

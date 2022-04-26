@@ -13,45 +13,45 @@ export const RELATED_ARTICLE_GET = 'api/v2/relatedarticles/';
 //items_per_page is 5 or 10
 //page start from 0
 //offset is about from which position need to get the data
-export const LATEST_ARTICLE_GET = '/api/v2/latestarticles';
-export const SECTION_COMBO = '/api/v2/articlesection';
-export const PODCAST_HOME = '/api/v2/podcasthome';
+export const LATEST_ARTICLE_GET = 'api/v2/latestarticles';
+export const SECTION_COMBO = 'api/v2/articlesection';
+export const PODCAST_HOME = 'api/v2/podcasthome';
 
 //opinion tab in category section
 //writer list
-export const OPINION_TAB_WRITER_ENDPOINT = '/api/v2/applist/authors';
+export const OPINION_TAB_WRITER_ENDPOINT = 'api/v2/applist/authors';
 
 //opinion tab in category section
 //opinions list
-export const OPINIONS_ENDPOINT = '/api/v2/opinions/all';
-export const OPINION_BY_WRITER_END_POINT = '/api/v2/opinions/'
+export const OPINIONS_ENDPOINT = 'api/v2/opinions/all';
+export const OPINION_BY_WRITER_END_POINT = 'api/v2/opinions/'
 
-export const NEWS_CATEGORIES_ENDPOINT = '/api/v2/sections/news_categories';
+export const NEWS_CATEGORIES_ENDPOINT = 'api/v2/sections/news_categories';
 
-export const SIDE_MENU_ENDPOINT = '/api/v2/sidemenu';
+export const SIDE_MENU_ENDPOINT = 'api/v2/sidemenu';
 
-export const SECTION_ARTICLES = '/api/v2/articlesection'
+export const SECTION_ARTICLES = 'api/v2/articlesection'
 
 
 //news View tab in category section
 //items_per_page is 10
 //page start from 0
 //offset is about from which position need to get the data
-export const NEWS_VIEW_ENDPOINT = '/api/v2/articlesection';
+export const NEWS_VIEW_ENDPOINT = 'api/v2/articlesection';
 
 //all writers list
-export const ALL_WRITERS_ENDPOINT = '/api/v2/applist/authors';
+export const ALL_WRITERS_ENDPOINT = 'api/v2/applist/authors';
 export const SEND_SELECTED_WRITERS_ENDPOINT = 'api/ums/v1/addFavoriteAuthor?tid=';
 export const GET_SELECTED_AUTHORS_ENDPOINT = 'api/ums/v1/getFavoriteAuthor';
 export const REMOVE_WRITERS_ENDPOINT = 'api/ums/v1/removeFavoriteAuthor?tid=';
-export const GET_WRITER_DETAIL_END_POINT = '/api/v2/sections/writer/'
+export const GET_WRITER_DETAIL_END_POINT = 'api/v2/sections/writer/'
 
 
 //all site categories
-export const ALL_SITE_CATEGORIES_ENDPOINT = "/api/v2/applist/sections";
+export const ALL_SITE_CATEGORIES_ENDPOINT = "api/v2/applist/sections";
 export const GET_SELECTED_TOPICS_ENDPOINT = 'api/ums/v1/getFavoriteTopics';
 
-export const INFO = '/api/v2/info/'
+export const INFO = 'api/v2/info/'
 
 export const ADVERTISE_INFO_ID = 49
 export const AWSATT_HISTORY_INFO_ID = 153
@@ -102,12 +102,12 @@ export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getMyNotification
 export const GET_LIST_OF_NOTIFICATION_END_POINT = 'api/ums/v1/getAPPNotificationsList'
 
 //Podcast
-export const PODCAST_LIST_ENDPOINT = '/api/v2/podcastsection/';
-export const PODCAST_NODE_ENDPOINT = '/api/v2/podcastnode/';
+export const PODCAST_LIST_ENDPOINT = 'api/v2/podcastsection/';
+export const PODCAST_NODE_ENDPOINT = 'api/v2/podcastnode/';
 
 
 //Related Opinion
-export const GET_RELATED_OPINION_ENDPOINT = '/api/v2/opinionsrelated';
+export const GET_RELATED_OPINION_ENDPOINT = 'api/v2/opinionsrelated';
 
 //favouriteOpinions
 //opinions list

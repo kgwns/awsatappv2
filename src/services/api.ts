@@ -85,7 +85,7 @@ export const postApiRequest = (
   config?: AxiosRequestConfig | undefined,
   header?: AxiosRequestHeaders | undefined
 ) => {
-  const { loginData } = store.getState().login
+  const loginData = store.getState().login?.loginData
   let tokenInfo = {}
   if (loginData) {
     const type = `${loginData.token.token_type} ` || 'Bearer '
