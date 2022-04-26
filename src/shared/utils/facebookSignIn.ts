@@ -62,7 +62,7 @@ export default class SignInFacebook extends SocialLogin {
               familyName: result?.last_name,
               id: this.fbUserId,
               birthday: result?.birthday,
-              profile_url: `https://graph.facebook.com/${this.fbUserId}/picture`
+              profile_url: `https://graph.facebook.com/${this.fbUserId}/picture?type=large&width=720&height=720`
             },
           }
           this.callBack(resultData, true, 'facebook')
