@@ -104,6 +104,7 @@ export interface CustomThemeType {
   newsletterHighlighter: string,
   authorTitle: string,
   signInSeparator: string,
+  primaryWhite: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -143,6 +144,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   newsletterHighlighter: colors.cyanGreen,
   authorTitle: colors.greenishBlue,
   signInSeparator: colors.greyLight1,
+  primaryWhite: colors.white,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -152,7 +154,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   primaryLightGray: colors.nightBlack,
   primaryDarkSlateGray: colors.white,
   secondaryGreen: colors.onyx,
-  secondaryWhite: colors.nightBlack,
+  secondaryWhite: colors.onyx,
   secondaryDavyGrey: colors.mountainMist,
   secondaryDarkSlate: colors.white,
   secondarySpanishGray: colors.spanishGray,
@@ -171,13 +173,14 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   dividerColor: colors.nightRiderGray,
   podcastEpisodeCardColor: colors.onyx,
   miniPlayerBackgroundColor: colors.blackTransparent,
-  miniPlayerBorderColor:colors.onyx,
+  miniPlayerBorderColor:colors.nightRiderGray,
   lightRed:colors.onyx,
   primaryNobel: colors.white,
   signInTextColor: colors.white,
   signinRightsColor: colors.white,
   newsletterHighlighter:colors.greyDark50,
   authorTitle: colors.spanishGray,
-  signInSeparator: colors.white,
+  signInSeparator: colors.doveGray,
+  primaryWhite: colors.black,
 }
 

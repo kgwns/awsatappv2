@@ -6,7 +6,7 @@ import Share from 'react-native-share';
 import { PodcastEpisodeContent, PodcastEpisodeInfo } from 'src/components/organisms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray, recordLogEvent } from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray, recordLogEvent, isTab, screenWidth } from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useBookmark, useLogin, usePodcast } from 'src/hooks';
@@ -277,7 +277,9 @@ const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      padding: normalize(15),
+      paddingTop: normalize(15),
+      paddingBottom: normalize(15),
+      paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       backgroundColor: theme.backgroundColor,
     },
     headerStyle: {

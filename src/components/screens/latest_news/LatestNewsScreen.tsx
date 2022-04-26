@@ -472,9 +472,8 @@ const customStyle = (theme: CustomThemeType) => {
       overflow: 'hidden',
     },
     dividerTop: {
-      borderColor: Styles.color.gableGreen,
       borderBottomWidth: 1,
-      opacity: 0.15
+      borderColor: theme.dividerColor,
     },
     miniPlayerContainer: {
       width: '100%',

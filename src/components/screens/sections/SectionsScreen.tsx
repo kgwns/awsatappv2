@@ -169,7 +169,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   indicator: {
     backgroundColor: Styles.color.greenishBlue ,
     height: 3,
-    marginBottom:1
   },
   label: {
     fontStyle: 'normal',

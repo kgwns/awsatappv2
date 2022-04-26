@@ -143,7 +143,7 @@ const sectionComboOneStyle = StyleSheet.create({
   },
   topImageTab: {
     flex: 1,
-    width: 0.44 * screenWidth,
+    width: 0.46 * screenWidth,
     height: '90%',
   },
 });

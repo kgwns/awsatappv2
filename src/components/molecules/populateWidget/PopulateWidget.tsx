@@ -118,6 +118,5 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: theme.secondaryWhite
     },
     videoContainer: {
-        paddingHorizontal: isTab ? normalize(15) : 0
     }
 })

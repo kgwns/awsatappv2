@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Label, Image, ButtonOutline, LabelTypeProp} from 'src/components/atoms/';
 import { PodcastVerticalListProps } from 'src/components/molecules/';
-import { normalize } from 'src/shared/utils';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { colors } from 'src/shared/styles/colors';
@@ -85,7 +85,7 @@ const createStyles = (theme: CustomThemeType) =>
 StyleSheet.create({
   containerStyle: {
     flex : 1,
-    paddingHorizontal: normalize(20),
+    paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     paddingVertical: normalize(15),
     backgroundColor: colors.black,
   },

@@ -15,7 +15,7 @@ import { useBookmark, useLogin } from 'src/hooks';
 import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { AlertModal } from 'src/components/organisms';
 import { ScreensConstants } from 'src/constants';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
@@ -44,11 +44,14 @@ export const OpinionScreen = () => {
 
   const {opinionWriterData, fetchOpinionWriterRequest} = useOpinionWriter();
   const {opinionsData, isLoading, fetchOpinionsRequest, emptyOpinionsData} = useOpinions();
+  const isFocused = useIsFocused();
 
   useEffect(() => {
+    isFocused && emptyOpinionsData();
+    setOpinionsDataInfo([]);
     fetchOpinionWriterRequest(writersPayload);
     return()=>{
-      emptyOpinionsData();
+      setOpinionsDataInfo([]);
     }
   }, []);
 
@@ -69,10 +72,10 @@ export const OpinionScreen = () => {
 
   useEffect(() => {
     updateOpinionsData()
-  }, [opinionsData,bookmarkIdInfo])
+  }, [opinionsData,bookmarkIdInfo,isFocused])
 
   const updateOpinionsData = () => {
-    if(isNonEmptyArray(opinionsData)) {
+    if(isNonEmptyArray(opinionsData) && isFocused) {
       const opinions = updateBookmark(opinionsData)
       setOpinionsDataInfo(opinions)
     }

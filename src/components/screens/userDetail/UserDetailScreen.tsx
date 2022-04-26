@@ -198,7 +198,7 @@ export const UserDetailScreen: FunctionComponent = () => {
     else{
       setDisableOccupation(false)
     }
-    
+
   }, [name, occupation]);
 
   useEffect(() => {
@@ -320,6 +320,9 @@ export const UserDetailScreen: FunctionComponent = () => {
     </>
   );
   const onPressConfirm = () => {
+    setDisableName(false)
+    setDisableOccupation(false)
+    setDisableDate(false)
     isNotEmpty(name)
       ? sendUpdatedProfileInfo()
       : setShowPopUp(true);

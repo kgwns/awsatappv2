@@ -9,11 +9,12 @@ import { useTranslation } from 'react-i18next';
 import { TabConstants } from '../constants/TabConstants';
 import { Label } from '../components/atoms';
 import { Routes, ScreenName } from '../navigation/';
-import { colors } from '../shared/styles/colors';
+import { colors, CustomThemeType } from '../shared/styles/colors';
 import { ImagesName } from 'src/shared/styles/images';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { isIOS, isTab, normalize, recordCurrentScreen } from 'src/shared/utils';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
@@ -34,8 +35,9 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
 }) => {
     const [t] = useTranslation();
     const { themeData } = useTheme()
+    const style = useThemeAwareObject(customStyle);
     return (
-        <View style={[TabNavigatorStyle.bottomBar, { backgroundColor: themeData.secondaryWhite }]}>
+        <View style={[style.bottomBar, { backgroundColor: themeData.primaryWhite }]}>
             {state.routes.map((route, index) => {
                 const isFocused = state.index === index;
 
@@ -68,19 +70,19 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                 }
 
                 const getIconStyle = () : any  => {
-                    let iconStyle:any = TabNavigatorStyle.tabIcon ;
+                    let iconStyle:any = style.tabIcon ;
                     switch (route.name) {
                         case TabConstants.LATEST_NEWS:
-                            iconStyle = TabNavigatorStyle.latestNewsIcon
+                            iconStyle = style.latestNewsIcon
                             break;
                         case TabConstants.SECTIONS:
-                            iconStyle = TabNavigatorStyle.sectionsIcon
+                            iconStyle = style.sectionsIcon
                             break;
                         case TabConstants.MOST_READ:
-                            iconStyle = TabNavigatorStyle.mostReadIcon
+                            iconStyle = style.mostReadIcon
                             break;
                         case TabConstants.FAVORITE:
-                            iconStyle = TabNavigatorStyle.favoriteIcon
+                            iconStyle = style.favoriteIcon
                             break;
                     }
                     return iconStyle;
@@ -92,7 +94,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                         <TouchableOpacity
                             key={index}
                             onPress={() => onPress()}>
-                            <View style={TabNavigatorStyle.tabIconContainer}>
+                            <View style={style.tabIconContainer}>
                                 {(getSvgImages({ name: getImageName(), width: iconStyle.width, height: iconStyle.height , style: iconStyle}))}
                             </View>
                             <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
@@ -104,47 +106,50 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
     );
 };
 
-const TabNavigatorStyle = StyleSheet.create({
-    bottomBar: {
-        width: "100%",
-        height: isTab ? 93 : 80,
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        paddingTop: isTab ? 20 : 15,
-        borderColor: "transparent",
-        shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: .1,
-        shadowRadius: 4,  
-        elevation: 15
-    },
-    tabIconContainer: {
-        height: isTab ? 29 : 24,
-        alignItems: "center",
-        alignSelf: "center",
-        marginBottom: normalize(2)
-    },
-    tabIcon: {
-        width: 20,
-        height: 20
-    },
-    favoriteIcon: {
-        width: normalize(12),
-        height: normalize(17),
-        marginTop: isIOS ? normalize(2) : normalize(5)
-    },
-    mostReadIcon: {
-        width: normalize(17),
-        height: normalize(22)
-    },
-    sectionsIcon: {
-        width: normalize(20),
-        height: normalize(20)
-    },
-    latestNewsIcon: {
-        width: normalize(18),
-        height: normalize(21)
-    }
-});
+const customStyle = (theme: CustomThemeType) => {
+    const TabNavigatorStyle = StyleSheet.create({
+        bottomBar: {
+            width: "100%",
+            height: isTab ? 93 : 80,
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            paddingTop: isTab ? 20 : 15,
+            borderColor: "transparent",
+            shadowColor: theme.primaryBlack,
+            shadowOffset: { width: 0, height: 1 },
+            shadowOpacity: .1,
+            shadowRadius: 4,
+            elevation: 15,
+        },
+        tabIconContainer: {
+            height: isTab ? 29 : 24,
+            alignItems: "center",
+            alignSelf: "center",
+            marginBottom: normalize(2),
+        },
+        tabIcon: {
+            width: 20,
+            height: 20
+        },
+        favoriteIcon: {
+            width: normalize(12),
+            height: normalize(17),
+            marginTop: isIOS ? normalize(2) : normalize(5)
+        },
+        mostReadIcon: {
+            width: normalize(17),
+            height: normalize(22)
+        },
+        sectionsIcon: {
+            width: normalize(20),
+            height: normalize(20)
+        },
+        latestNewsIcon: {
+            width: normalize(18),
+            height: normalize(21)
+        }
+    })
+    return TabNavigatorStyle;
+}
 
 export default TabNavigator;

@@ -99,11 +99,11 @@ const customStyle = (theme: CustomThemeType) => {
     const authorWidgetStyle = StyleSheet.create({
         container: {
             paddingVertical: normalize(20),
-            backgroundColor: theme.secondaryWhite
+            backgroundColor: isTab ?  theme.backgroundColor : theme.secondaryWhite
         },
         headerContainer: {
             paddingHorizontal: isTab ? 0.02 * screenWidth : normalize(0.04 * screenWidth),
-            backgroundColor: theme.secondaryWhite
+            backgroundColor: isTab ?  theme.backgroundColor : theme.secondaryWhite
         },
         headerLeftContainer: {
             paddingHorizontal: 0,
@@ -111,8 +111,10 @@ const customStyle = (theme: CustomThemeType) => {
         listContainer: {
             flex: 1,
             paddingTop: normalize(20),
-            paddingHorizontal: normalize(0.04 * screenWidth),
-            backgroundColor: theme.secondaryWhite
+            paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+            backgroundColor: theme.secondaryWhite,
+            marginHorizontal: isTab ? normalize(0.02 * screenWidth) : 0,
+            paddingBottom:isTab ? normalize(20) : 0
         },
         divider: {
             marginBottom: normalize(20),

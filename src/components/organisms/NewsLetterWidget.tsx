@@ -5,7 +5,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {flatListUniqueKey} from 'src/constants';
 import {NewsLetterCard} from '../molecules';
-import {normalizeBy320, screenWidth} from 'src/shared/utils';
+import {isTab, normalize, normalizeBy320, screenWidth} from 'src/shared/utils';
 import { NewsLetterCardProps } from '../molecules/NewsLetterCard';
 
 export const NewsLettersWidget = (props:any) => {
@@ -44,7 +44,7 @@ const customStyle = (theme: CustomThemeType) => {
   const NewsLettersWidgetStyle = StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
-      paddingHorizontal: 0.05 * screenWidth,
+      paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     cardContainer: { paddingVertical: normalizeBy320(10) },
   });

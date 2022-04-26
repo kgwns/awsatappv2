@@ -6,7 +6,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import ShareIcon from 'src/assets/images/icons/share_dark.svg';
 import {ImagesName} from 'src/shared/styles/images';
-import { normalize } from 'src/shared/utils';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {getSvgImages} from 'src/shared/styles/svgImages';
@@ -90,7 +90,7 @@ StyleSheet.create({
   containerStyle: {
     backgroundColor: colors.black,
     height: normalize(55),
-    paddingHorizontal: normalize(16),
+    paddingHorizontal: isTab ? normalize(0.02 * screenWidth): normalize(0.04 * screenWidth),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
