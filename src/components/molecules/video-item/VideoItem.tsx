@@ -250,8 +250,9 @@ const createStyles = (theme: CustomThemeType) =>
     buttonStyle: {
       backgroundColor:colors.black,
       borderWidth: 0,
-      width: normalize(150),
+      width: normalize(144),
       alignSelf: 'center',
+      height: normalize(40)
     },
     rightIconStyle: {
       marginRight: normalize(15),

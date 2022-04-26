@@ -65,7 +65,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
              labelStyle={styles.buttonLabel}
              titleType={LabelTypeProp.h1}
              onPress={onPressPlay}
-             rightIcon={() => <View style={styles.rightIconStyle}><PlayIcon fill={colors.black}/></View>}
+             rightIcon={() => <View style={styles.rightIconStyle}><PlayIcon fill={colors.black} height={14} width={12}/></View>}
              />
              <View style={styles.containerSpace} />
             {data.title&&<Label style={styles.descriptionTextStyle} children={decode(data.title)} numberOfLines={4} />}
@@ -144,7 +144,8 @@ StyleSheet.create({
   buttonStyle: {
     backgroundColor:colors.white,
     borderWidth: 0,
-    width: '60%',
+    width: normalize(144),
+    height: normalize(40)
   },
   rightIconStyle: {
     marginRight: normalize(15),
