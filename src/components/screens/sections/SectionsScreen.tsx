@@ -19,6 +19,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { Styles } from 'src/shared/styles';
 import { GameScreen } from '../games/GameScreen';
+import { TabWithBarItem } from 'src/components/molecules';
 
 export enum TabType {
   opinion = 'opinion',
@@ -82,7 +83,16 @@ export const SectionsScreen = () => {
         tabStyle={styles.tabBarStyle}
         labelStyle={styles.label}
         pressColor={'transparent'}
-        onTabPress={(scene) => updateRouteInTabPress(scene, props)}
+        renderIndicator={() => null}
+        bounces={false}
+        renderTabBarItem={(item) => {
+          const tabIndex = parseInt(item.key?.substring(0) || '0')
+          return <TabWithBarItem index={tabIndex}
+            onPress={setIndex}
+            tabName={item.route.title || ''}
+            isSelected={tabIndex == item.navigationState.index}
+          />
+        }}
       />
     );
   };

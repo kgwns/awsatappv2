@@ -1,0 +1,21 @@
+diff --git a/node_modules/react-native-tab-view/src/TabBar.tsx b/node_modules/react-native-tab-view/src/TabBar.tsx
+index f1137f4..95518e3 100644
+--- a/node_modules/react-native-tab-view/src/TabBar.tsx
++++ b/node_modules/react-native-tab-view/src/TabBar.tsx
+@@ -359,15 +359,8 @@ export default class TabBar<T extends Route> extends React.Component<
+             showsHorizontalScrollIndicator={false}
+             automaticallyAdjustContentInsets={false}
+             overScrollMode="never"
+-            contentContainerStyle={[
+-              styles.tabContent,
+-              scrollEnabled
+-                ? { width: tabBarWidth || tabBarWidthPercent }
+-                : styles.container,
+-              contentContainerStyle,
+-            ]}
+             scrollEventThrottle={16}
+-            onScroll={Animated.event(
++            onScroll={Platform.OS === 'android' && Animated.event(
+               [
+                 {
+                   nativeEvent: {

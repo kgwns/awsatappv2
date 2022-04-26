@@ -1,4 +1,4 @@
-import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, FlatList, ActivityIndicator, TouchableWithoutFeedback} from 'react-native';
 import React from 'react';
 import {Image} from '../atoms/image/Image';
 import {isTab, normalize, screenWidth} from '../../shared/utils';
@@ -17,7 +17,6 @@ import {
   getImageUrl,
   calculateYear,
 } from 'src/shared/utils/utilities';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -52,7 +51,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
     }
   };
 
-  const renderArticleFooter = (item: NewsViewListItemType) => {
+  const renderArticleFooter = (item: NewsViewListItemType, index: number) => {
     return (
       <View>
         <SectionVideoFooter
@@ -109,7 +108,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
                 <View style={style.tabLeftContainer}>
                   {renderTitle(item.title)}
                   {renderDescription(item.body)}
-                  {renderArticleFooter(item)}
+                  {renderArticleFooter(item, index)}
                 </View>
                 {renderArticleImage(item)}
               </View>
@@ -122,7 +121,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
                   {renderArticleImage(item)}
                 </View>
                 {renderDescription(item.body)}
-                {renderArticleFooter(item)}
+                {renderArticleFooter(item, index)}
               </>
           }
         </TouchableWithoutFeedback>
