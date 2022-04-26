@@ -1,8 +1,17 @@
 import { ImagesName } from "../images";
 import { getSvgImages } from "../svgImages";
 
+jest.mock('react', () => {
+    const ActualReact = jest.requireActual('react')
+    return {
+      ...ActualReact,
+      useContext: () => ({ }), // what you want to return when useContext get fired goes here
+    }
+  })
+
 describe('SvgImages', () => {
     test('svg', () => {
+
         expect(getSvgImages({ name: ImagesName.fontScaling })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.themeChange })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.share })).toBeDefined();

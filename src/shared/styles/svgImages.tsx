@@ -107,6 +107,8 @@ import ReturnArrowWhite from 'src/assets/images/icons/returnArrow.svg'
 import ArrowLeftFacedBlack from 'src/assets/images/icons/arrowLeftFacedBlack.svg'
 import ArrowLeftFacedWhite from 'src/assets/images/icons/arrowLeftFacedWhite.svg'
 
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { DARK_THEME_ID } from './colors'
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -118,8 +120,8 @@ export interface GetSVGProps {
 }
 
 export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGProps) => {
-    const { theme } = useAppCommon()
-    const isDark = isDarkTheme(theme)
+    const { themeData } = useTheme()
+    const isDark = themeData?.id === DARK_THEME_ID
     const props = {
         width: width ? width : size,
         height: height ? height : size,
