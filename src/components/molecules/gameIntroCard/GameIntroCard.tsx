@@ -54,7 +54,7 @@ export const GameIntroCard = ({
                     <Image name={image} style={style.image} />
                 </View>
                 <Label children={title} labelType={LabelTypeProp.h1} style={style.title} />
-                <Label children={description} labelType={LabelTypeProp.p3} style={style.description} />
+                <Label children={description} labelType={LabelTypeProp.p3} style={style.description} color={Styles.color.davyGrey}/>
                 {!hideButtonTitle && buttonWithArrow()}
             </View>
         </TouchableWithoutFeedback>
