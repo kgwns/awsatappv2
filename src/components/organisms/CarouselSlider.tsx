@@ -1,10 +1,7 @@
-import React, { useRef } from 'react'
-import { View, FlatList, StyleSheet } from 'react-native'
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
-import { articleProps } from './ArticleSection'
-import { flatListUniqueKey } from '../../constants'
-import { HeadlinesSection } from 'src/components/organisms';
 import { LatestArticleDataType } from 'src/redux/latestNews/types'
 
 type CarouselSliderProps = {
@@ -14,37 +11,18 @@ type CarouselSliderProps = {
 }
 
 const CarouselSlider = ({
-    tickerData, heroData, onUpdateHeroBookmark
+    heroData, onUpdateHeroBookmark
 }: CarouselSliderProps) => {
-    const sliderRef = useRef<FlatList<articleProps>>(null)
 
-    const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
-        return <ImageArticle key={index} {...item}
-            onPressBookmark={() => onUpdateHeroBookmark(index)}
-            containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
-    }
     return (
         <View>
-            <View style={carouselSliderStyle.headNewsContainer}>
-                {isNonEmptyArray(tickerData) ?
-                    <HeadlinesSection
-                        duration={10000}
-                        loop
-                        tickerData={tickerData} headlineTitle={''} headlineDescription={''}
-                    /> : null
-                } 
-            </View>
-            <FlatList
-                ref={sliderRef}
-                data={heroData}
-                keyExtractor={(_, index) => index.toString()}
-                listKey={flatListUniqueKey.CAROUSEL_WIDGET}
-                horizontal={true}
-                pagingEnabled={true}
-                showsHorizontalScrollIndicator={false}
-                renderItem={renderItem}
-                bounces={false}
-            />
+            {isNonEmptyArray(heroData) &&
+                <ImageArticle key={0} {...heroData[0]}
+                    onPressBookmark={() => onUpdateHeroBookmark(0)}
+                    containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle}
+                    rightContainerStyle={{ flex: 0.8 }}
+                />
+            }
         </View>
     )
 }
@@ -57,7 +35,7 @@ const carouselSliderStyle = StyleSheet.create({
         paddingVertical: normalize(10)
     },
     imageStyle: {
-        height: 1.05 * screenWidth
+        height: 0.66 * screenWidth
     },
     tabletImageStyle: {
         height: 0.5 * screenWidth

@@ -32,7 +32,7 @@ export const BannerImageWithOverlay = ({
                 onLoadEnd={onLoadEnd}
                 onError={onError}
             />
-            {isImageLoaded && <Overlay />}
+            {/* {isImageLoaded && <Overlay />} */}
         </View>
     )
 }

@@ -20,6 +20,8 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import { Styles } from 'src/shared/styles';
 import { GameScreen } from '../games/GameScreen';
 import { TabWithBarItem } from 'src/components/molecules';
+import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
+import { MainSectionScreen } from 'src/components/screens';
 
 export enum TabType {
   opinion = 'opinion',
@@ -27,14 +29,20 @@ export enum TabType {
   video = 'video',
   section = 'section',
   games = 'games',
+  main = 'main',
 }
 
 export const SectionsScreen = () => {
   const {isLoading, topMenuData, fetchTopMenuRequest} = useTopMenu();
   const styles = useThemeAwareObject(customStyle);
 
+  const mainTab = {
+      key: `0main`,
+      title: TranslateConstants({key: TranslateKey.SECTION_MAIN}),
+  }
+
   const [index, setIndex] = React.useState(0);
-  const [routes, setNewRoutes] = useState<any>([]);
+  const [routes, setNewRoutes] = useState<any>([mainTab]);
 
 
   const renderScene = ({ route }: any) => {
@@ -47,6 +55,8 @@ export const SectionsScreen = () => {
         return <VideoScreen   />;
       case TabType.games:
         return <GameScreen />
+      case TabType.main:
+        return <MainSectionScreen />
       default:
         return (
           <SectionStoryScreen sectionId={route.sectionId}/>
@@ -56,14 +66,15 @@ export const SectionsScreen = () => {
 
   useEffect(() => {
     if(topMenuData.length > 0){
+      let sectionRoutes = [...routes]
       let newRoutesArray = topMenuData.map((item, index) => {
         return {
-          key: `${index}${item.keyName}`,
+          key: `${index + 1}${item.keyName}`,
           title: item.tabName,
           sectionId: item.sectionId
         };
       })
-      setNewRoutes(newRoutesArray)
+      setNewRoutes(sectionRoutes.concat([...newRoutesArray]))
     }
   }, [topMenuData])
 
@@ -96,51 +107,6 @@ export const SectionsScreen = () => {
       />
     );
   };
-
-  const updateRouteInTabPress = async (scene: any, props: any) => {
-    const { route } = scene;
-
-    if (!isIOS) {
-      props.jumpTo(route.key);
-    } else {
-      const newIndex = routes.findIndex((item: any) => item.key == route.key)
-      if (index + 3 < newIndex) {
-        updateSwipeLeftPager(props, route, index + 3, newIndex)
-      } else if (index - 3 > newIndex) {
-        updateSwipeLeftPager(props, route, index - 3, newIndex)
-      } else {
-        props.jumpTo(route.key)
-      }
-    }
-  }
-
-  const updateSwipeLeftPager = async (props: any, route: any, inProgressIndex: number, newIndex: number) => {
-    const updatedKey = routes[inProgressIndex].key
-    props.jumpTo(updatedKey)
-    await setTimeout(() => {
-      if (inProgressIndex + 3 >= newIndex) {
-        props.jumpTo(route.key)
-      } else {
-        const updatedKey = routes[inProgressIndex + 3].key
-        props.jumpTo(updatedKey)
-        updateSwipeLeftPager(props, route, inProgressIndex + 3, newIndex)
-      }
-    }, 500)
-  }
-
-  const updateSwipeRightPager = async (props: any, route: any, inProgressIndex: number, newIndex: number) => {
-    const updatedKey = routes[inProgressIndex].key
-    props.jumpTo(updatedKey)
-    await setTimeout(() => {
-      if (inProgressIndex - 3 <= newIndex) {
-        props.jumpTo(route.key)
-      } else {
-        const updatedKey = routes[inProgressIndex - 3].key
-        props.jumpTo(updatedKey)
-        updateSwipeRightPager(props, route, inProgressIndex - 3, newIndex)
-      }
-    }, 500)
-  }
 
   const tabsView = () => {
     return (

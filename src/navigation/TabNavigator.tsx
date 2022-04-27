@@ -21,10 +21,10 @@ const Tab = createBottomTabNavigator<ScreenName>();
 const TabNavigator = () => {
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }} tabBar={props => <CustomTabBar {...props} />}>
-            <Tab.Screen name={TabConstants.LATEST_NEWS} component={Routes.LatestNewsScreen} />
-            <Tab.Screen name={TabConstants.SECTIONS} component={Routes.SectionsScreen} />
-            <Tab.Screen name={TabConstants.MOST_READ} component={Routes.MostReadScreen} />
+            <Tab.Screen name={TabConstants.LATEST_NEWS} component={Routes.SectionsScreen} />
+            {/* <Tab.Screen name={TabConstants.SECTIONS} component={Routes.SectionsScreen} /> */}
             <Tab.Screen name={TabConstants.FAVORITE} component={Routes.FavoriteScreen} />
+            <Tab.Screen name={TabConstants.MOST_READ} component={Routes.MostReadScreen} />
         </Tab.Navigator>
     );
 };

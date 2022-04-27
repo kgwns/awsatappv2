@@ -297,5 +297,8 @@ export const arabic = {
     solvingCrossPuzzles: 'حل الكلمات المتقاطعة',
     sudoku: 'سودوكو',
     crosswordAndSudokuDescription: 'لعبة الكلمات المتقاطعة تُجرى ثلاث مرات أسبوعياً وتتراوح ما بين سهله إلى صعبه.',
+  },
+  sectionTab: {
+    main: 'الرئيسية'
   }
 }
