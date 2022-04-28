@@ -2,14 +2,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
 import {
   ArticleSection, CarouselSlider,
-  ShortArticle, AuthorWidget, BannerArticleSection, SectionComboOne,
+  ShortArticle, AuthorWidget, BannerArticleSection, SectionComboOne, VideoContent,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties, topHeadLineNewsData } from 'src/constants/SampleData';
 import { horizontalEdge, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData } from 'src/hooks';
+import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -21,6 +21,9 @@ import { useFocusEffect } from '@react-navigation/native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { TopHeadLineNews } from 'src/components/molecules';
+import { VideoItemType } from 'src/redux/videoList/types';
+import AuthorSlider from 'src/components/organisms/AuthorsSlider';
+import { Label } from 'src/components/atoms';
 
 const tickerAndHeroPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -75,6 +78,7 @@ export const MainSectionScreen = () => {
     fetchSectionComboThree, fetchSectionComboFour,
     fetchPodcastHome
   } = useLatestNewsTab()
+  const {videoData,fetchVideoRequest} = useVideoList();
 
   const {
     sendBookmarkInfo,
@@ -92,7 +96,6 @@ export const MainSectionScreen = () => {
   const [sectionComboThreeInfo, setSectionComboThreeInfo] = useState(sectionComboThree)
   const [sectionComboFourInfo, setSectionComboFourInfo] = useState(sectionComboFour)
   const [showupUp,setShowPopUp] = useState(false)
-
 
   const updateBookmark = (data: LatestArticleDataType[]) => {
     return data.map((item: LatestArticleDataType) => (
@@ -272,6 +275,7 @@ export const MainSectionScreen = () => {
     fetchSectionComboThree(sectionComboThreePayload)
     fetchSectionComboFour(sectionComboFourPayload)
     fetchProfileDataRequest();
+    fetchVideoRequest();
     fetchPodcastHome();
   }
 
@@ -288,6 +292,11 @@ export const MainSectionScreen = () => {
     }
   }
 
+  const onVideoItemPress = (item: VideoItemType) => {
+    navigation.navigate(ScreensConstants.VideoPlayerScreen,
+      { videoUrl: item.field_mp4_link_export, nid: item.nid })
+  }
+
   const onCloseSignUpAlert = () => {
     setShowPopUp(false)
   }
@@ -299,41 +308,59 @@ export const MainSectionScreen = () => {
   const renderItem = () => (
     <View>
       <Divider style={mainSectionStyle.dividerTop} />
-      <CarouselSlider tickerData={ticker} heroData={heroInfo}
+      <CarouselSlider
+        tickerData={ticker}
+        heroData={heroInfo}
         onUpdateHeroBookmark={updatedHeroBookmark}
       />
-          <View style={{ marginHorizontal: 0.04 * screenWidth, overflow: 'hidden' }}>
-              <TopHeadLineNews data={topHeadLineNewsData} />
-          </View>
-      {
-        isTab ? <View style={mainSectionStyle.tabSplitter}>
+      <View style={{marginHorizontal: 0.04 * screenWidth, overflow: 'hidden'}}>
+        <TopHeadLineNews data={topHeadLineNewsData} />
+      </View>
+      {isTab ? (
+        <View style={mainSectionStyle.tabSplitter}>
           <View style={mainSectionStyle.tabWidgetContainer}>
-            <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
+            <ArticleSection
+              data={heroListData}
+              onUpdateBookmark={updateBookmarkInfo}
+            />
           </View>
-          <View style={mainSectionStyle.verticalDivider}/>
+          <View style={mainSectionStyle.verticalDivider} />
           <View style={mainSectionStyle.tabWidgetContainer}>
-            <ShortArticle data={topListData} onPress={onPressArticle}
+            <ShortArticle
+              data={topListData}
+              onPress={onPressArticle}
               onUpdateBookmark={updateBookmarkInfo}
               showSignUpPopUp={makeSignUpAlert}
             />
           </View>
         </View>
-          :
-          <>
-            <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} showDivider={true}/>
-            <ShortArticle data={topListData} onPress={onPressArticle}
-              onUpdateBookmark={updateBookmarkInfo}
-              showSignUpPopUp={makeSignUpAlert}
-            />
-          </>
-      }
-      {isNonEmptyArray(sectionComboOne) && <Divider style={mainSectionStyle.dividerAboveTrending} /> }
-      <SectionComboOne data={sectionComboOneInfo} onPress={onPressArticle}
+      ) : (
+        <>
+          <ArticleSection
+            data={heroListData}
+            onUpdateBookmark={updateBookmarkInfo}
+            showDivider={true}
+          />
+          <ShortArticle
+            data={topListData}
+            onPress={onPressArticle}
+            onUpdateBookmark={updateBookmarkInfo}
+            showSignUpPopUp={makeSignUpAlert}
+          />
+        </>
+      )}
+      {isNonEmptyArray(sectionComboOne) && (
+        <Divider style={mainSectionStyle.dividerAboveTrending} />
+      )}
+      <SectionComboOne
+        data={sectionComboOneInfo}
+        onPress={onPressArticle}
         sectionId={'726'}
         onUpdateBookmark={updatedSectionComboOneBookmark}
         showSignUpPopUp={makeSignUpAlert}
       />
-      <BannerArticleSection data={sectionComboTwoInfo}
+      <BannerArticleSection
+        data={sectionComboTwoInfo}
         title={t('latestNewsTab.sectionComboTwo.headerLeft')}
         sectionId={'871'}
         onPress={onPressArticle}
@@ -341,8 +368,14 @@ export const MainSectionScreen = () => {
         isDivider
         dividerStyle={mainSectionStyle.firstBannerDivider}
       />
-      {isNonEmptyArray(opinionList) && <Divider style={mainSectionStyle.sectionComboDivider} />}
-      <AuthorWidget data={opinionList} />
+      {isNonEmptyArray(opinionList) && (
+        <Divider style={mainSectionStyle.sectionComboDivider} />
+      )}
+      <AuthorSlider data={[opinionList, opinionList, opinionList]} />
+      {/* <AuthorWidget data={opinionList} /> */}
+      {isNonEmptyArray(videoData) && (
+        <VideoContent data={videoData} onPress={onVideoItemPress} />
+      )}
       <BannerArticleSection
         data={sectionComboThreeInfo}
         title={t('latestNewsTab.sectionComboThree.headerLeft')}
@@ -350,7 +383,7 @@ export const MainSectionScreen = () => {
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboThreeBookmark}
       />
-      <Divider style={{ height: normalize(20) }} />
+      <Divider style={{height: normalize(20)}} />
       <BannerArticleSection
         data={sectionComboFourInfo}
         title={t('latestNewsTab.sectionComboTwo.headerLeft')}
@@ -359,9 +392,26 @@ export const MainSectionScreen = () => {
         onUpdateBookmark={updatedSectionComboFourBookmark}
         isDivider
       />
-      <Divider style={{ height: normalize(50) }} />
+      <Divider style={{height: normalize(50)}} />
+      {isNonEmptyArray(topListData) && (
+        <View style={mainSectionStyle.articleContainer}>
+          <View style={mainSectionStyle.articleTitleContainer}>
+            <Label
+              children={t('latestNewsTab.articlSection.articleTitle')}
+              style={mainSectionStyle.articleTitleStyle}
+            />
+          </View>
+          <ShortArticle
+            data={topListData}
+            onPress={onPressArticle}
+            onUpdateBookmark={updateBookmarkInfo}
+            showSignUpPopUp={makeSignUpAlert}
+            isFooterOutside={true}
+          />
+        </View>
+      )}
     </View>
-  )
+  );
 
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
@@ -432,6 +482,18 @@ const customStyle = (theme: CustomThemeType) => {
       height: 1,
       backgroundColor: theme.dividerColor,
     },
-
+    articleContainer: {
+      backgroundColor: theme.secondaryWhite,
+    },
+    articleTitleContainer: {
+      paddingVertical: normalize(20),
+      alignItems: 'center'
+    },
+    articleTitleStyle: {
+      fontSize: normalize(33),
+      color: theme.primary,
+      fontWeight: 'bold',
+      lineHeight: normalize(35)
+    }
   })
 }

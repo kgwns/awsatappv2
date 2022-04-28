@@ -61,6 +61,9 @@ export const arabic = {
     sectionComboThree: {
       headerLeft: 'العالم العربي',
     },
+    articlSection: {
+      articleTitle: 'عين علي'
+    }
   },
   sectionVideo: {
     toWatch: 'مشاهدة',

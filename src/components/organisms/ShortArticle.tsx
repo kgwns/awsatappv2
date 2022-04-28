@@ -43,7 +43,8 @@ export interface ArticleSectionProps {
   showBody?: boolean;
   leftContainerStyle?: StyleProp<ViewStyle>
   imageStyleProp?: StyleProp<ViewStyle>
-  orientation?: string, 
+  orientation?: string,
+  isFooterOutside?: boolean
 }
 
 export const shortArticleFooter: articleFooterProps = {
@@ -69,6 +70,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
   leftContainerStyle,
   imageStyleProp,
   orientation,
+  isFooterOutside = false
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const { isLoggedIn } = useLogin()
@@ -116,17 +118,23 @@ const ShortArticle = ({ data, headerLeft, onPress,
                 numberOfLines={2}
               />
             }
-            <View style={style.footerContainer}>
+            {!isFooterOutside && <View style={style.footerContainer}>
               <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
                 onPress={() => checkAndUpdateBookmark(index)}
                 isBookmarked={item.isBookmarked}
               />
-            </View>
+            </View>}
           </View>
           <View style={[imageContainerStyle, imageStyleProp]}>
             <Image fallback url={getImageUrl(item.image)} style={imageStyle} resizeMode={ImageResize.COVER} />
           </View>
         </View>
+        {isFooterOutside && <View style={style.outsideFooterContainer}>
+              <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
+                onPress={() => checkAndUpdateBookmark(index)}
+                isBookmarked={item.isBookmarked}
+              />
+            </View>}
         {showDivider && <Divider style={style.divider}/>}
       </View>
     </TouchableWithoutFeedback>
@@ -173,6 +181,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     bottom: 0,
     width: '100%'
   },
+  outsideFooterContainer: {
+    marginTop: normalize(10),
+    width: '100%'
+  },
   footerStyle: {
     flex: 0.70,
     paddingRight: normalize(12)
@@ -183,7 +195,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   imageContainer: {
     flex: 0.30, 
-    height: normalize(73),
+    width: normalize(98),
+    height: normalize(65),
   },
   imageContainerLandscape: {
     flex: 0.30, 
