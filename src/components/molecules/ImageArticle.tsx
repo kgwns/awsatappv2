@@ -151,6 +151,6 @@ const imageArticleStyle = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: normalize(10),
+    paddingTop: normalize(15),
   }
 });

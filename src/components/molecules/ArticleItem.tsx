@@ -22,6 +22,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     onPressBookmark,
     showDivider,
     showFooterTitle,
+    hideImage,
     ...props
 }) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
@@ -35,7 +36,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
         <TouchableWithoutFeedback onPress={onPress}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
                 style={StyleSheet.flatten([style.container, articleItemStyle])}>
-                {isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
+                {!hideImage && isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
                 <View style={style.contentContainer}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
                         onPressBookmark={onPressBookmark}
@@ -55,6 +56,6 @@ const style = StyleSheet.create({
     container: {
         paddingBottom: normalize(25),
         flex: 1,
-        overflow: 'hidden'
+        overflow: 'hidden',
     }
 })

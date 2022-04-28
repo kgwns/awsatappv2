@@ -1,19 +1,25 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
-import {flatListUniqueKey} from 'src/constants';
-import {Divider} from '../atoms';
-import {NewsWithImageItemProps} from '../molecules/podcast/NewsWithImageItem';
-import {SectionHeader} from '../molecules/podcast/SectionHeader';
-import {NewsWithImageItem} from '../molecules';
+import { View, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { flatListUniqueKey } from 'src/constants';
+import { NewsWithImageItemProps } from '../molecules/podcast/NewsWithImageItem';
+import { SectionHeader } from '../molecules/podcast/SectionHeader';
+import { NewsWithImageItem } from '../molecules';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
 
 interface EditorsPickSectionProps {
   data: NewsWithImageItemProps[];
+  headerLeft?: string;
+  headerRight?: string
 }
 
-export const EditorsPickSection = ({data}: EditorsPickSectionProps) => {
+export const EditorsPickSection = ({
+  data,
+  headerLeft,
+  headerRight,
+}: EditorsPickSectionProps) => {
   const style = useThemeAwareObject(customStyle)
   const renderItem = (item: NewsWithImageItemProps, index: number) => {
     return (
@@ -28,11 +34,24 @@ export const EditorsPickSection = ({data}: EditorsPickSectionProps) => {
       </View>
     );
   };
+
+  const renderHeader = () => {
+    return (
+      <>
+        {headerLeft && headerRight && <View style={style.header}>
+          <SectionHeader headerLeft={headerLeft} headerRight={headerRight} />
+        </View>
+        }
+      </>
+    )
+  }
+
   return (
-    <View>
-      <SectionHeader headerLeft={'المزيد'} headerRight={'اختيارات المحررين'} />
+    <View style={style.container}>
+      {renderHeader()}
       <FlatList
         horizontal
+        style={style.listStyle}
         keyExtractor={(_, index) => index.toString()}
         listKey={
           flatListUniqueKey.EDITORS_PICK_WIDGET +
@@ -40,9 +59,9 @@ export const EditorsPickSection = ({data}: EditorsPickSectionProps) => {
         }
         showsHorizontalScrollIndicator={false}
         data={data}
-        renderItem={({item, index}) => renderItem(item, index)}
+        renderItem={({ item, index }) => renderItem(item, index)}
+        contentContainerStyle={style.contentContainer}
       />
-      <Divider style={style.divider}/>
     </View>
   );
 };
@@ -51,7 +70,21 @@ export default EditorsPickSection;
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   divider: {
-      height: 1,
-      backgroundColor: theme.dividerColor
+    height: 1,
+    backgroundColor: theme.dividerColor
   },
+  listStyle: {
+    paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+  },
+  contentContainer: {
+    paddingRight: (isTab ? 0.02 : 0.04) * screenWidth,
+  },
+  header: {
+    paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth
+  },
+  container: {
+    paddingTop: normalize(40),
+    paddingBottom: normalize(20),
+    backgroundColor: theme.backgroundColor
+  }
 });

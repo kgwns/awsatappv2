@@ -14,6 +14,7 @@ export interface articleProps extends ImageLabelProps,ArticleWithOutImageProps {
    nid: string,
    author: string,
    created: string,
+   hideImage?: boolean;
 }
 
 export interface ArticleSectionProps {
@@ -28,16 +29,13 @@ export interface ArticleSectionProps {
 }
 
 export const articleFooterDataSet: articleFooterProps = {
-    leftTitleColor: Styles.color.greenishBlue,
-    rightIcon: () => {return getSvgImages({
+    leftTitleColor: Styles.color.silverChalice,
+    leftIcon: () => {return getSvgImages({
         name: ImagesName.clock,
         size: normalize(12),
         style: { marginRight: normalize(5) }
     })},
     rightTitleColor: Styles.color.silverChalice,
-    leftTitleStyle: {
-        fontWeight: 'bold'
-    }
 };
 
 
@@ -71,9 +69,9 @@ const ArticleSection = ({
     }
 
     const renderItem = (item: articleProps, index: number) => {
-        articleFooterDataSet.leftTitle = item.author
-        articleFooterDataSet.rightTitle = t(timeAgo(item.created))
-        const canShowDivider = showDivider || isFromFavorites && numColumns == 1 && articleData.length == index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
+        articleFooterDataSet.rightTitle = item.author
+        articleFooterDataSet.leftTitle = t(timeAgo(item.created))
+        const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns == 1 && articleData.length == index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
         const articleItemStyle =  isTab && articleData.length > 1 ? (numColumns > 1 && index % 2 === 0) ? {marginRight: normalize(20)} : {marginLeft: normalize(20)} : {}
 
         return <ArticleItem {...item} index={index}
