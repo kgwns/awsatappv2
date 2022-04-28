@@ -341,9 +341,7 @@ export const MainSectionScreen = () => {
         onUpdateBookmark={updatedSectionComboOneBookmark}
         showSignUpPopUp={makeSignUpAlert}
       />
-      {isNonEmptyArray(videoData) && (
-        <VideoContent data={videoData} onPress={onVideoItemPress} />
-      )}
+      
       <BannerArticleSection data={sectionComboTwoInfo}
         title={t('latestNewsTab.sectionComboTwo.headerLeft')}
         sectionId={'871'}
@@ -352,6 +350,9 @@ export const MainSectionScreen = () => {
         isDivider
         dividerStyle={mainSectionStyle.firstBannerDivider}
       />
+      {isNonEmptyArray(videoData) && (
+        <VideoContent data={videoData} onPress={onVideoItemPress} />
+      )}
       {isNonEmptyArray(opinionList) && <Divider style={mainSectionStyle.sectionComboDivider} />}
       <BannerArticleSection
         data={sectionComboThreeInfo}

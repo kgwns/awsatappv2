@@ -141,7 +141,7 @@ const customStyle = (theme: CustomThemeType) => {
         flex: 1,
         paddingTop: normalize(20),
         backgroundColor: theme.secondaryWhite,
-        paddingBottom:isTab ? normalize(20) : 0,
+        paddingBottom:normalize(20),
         paddingEnd: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth)
     },
     itemListContainer: {
