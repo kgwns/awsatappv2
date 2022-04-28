@@ -9,6 +9,7 @@ import { isTab, normalize } from 'src/shared/utils'
 import TextTicker from 'react-native-text-ticker';
 import { State, usePlaybackState } from 'react-native-track-player';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode'
+import { ImageResize } from 'src/shared/styles/text-styles'
 
 export interface PodcastMiniPlayerProps {
     data: any;
@@ -43,7 +44,10 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
             <View style={style.miniPlayer}>
                 <View style={style.rowStyleContainer}>
                     <View style={style.imageContainer}>
-                        <Image fallback url={fieldData.field_podcast_sect_export?.img_podcast_mobile} style={style.image} />
+                        <Image fallback url={fieldData.field_podcast_sect_export?.img_podcast_mobile}
+                            style={style.image}
+                            resizeMode={ImageResize.COVER}
+                        />
                     </View>
                     <View style={style.titleContainer}>
                         <TextTicker

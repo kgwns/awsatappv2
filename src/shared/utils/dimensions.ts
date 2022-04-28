@@ -6,6 +6,7 @@ const screenWidth = Math.min(width, height);
 const screenHeight = Math.max(width, height);
 
 const isIOS = Platform.OS === 'ios';
+const isAndroid = Platform.OS === 'android'
 
 export const isTab = DeviceInfo.isTablet();
 
@@ -25,4 +26,4 @@ const normalizeBy320 = (size: sizeProp, based = 'width') => {
   return size / 320 * (based === 'height' ? scaleHeight : screenWidth)
 }
 
-export { screenWidth, screenHeight, isIOS, normalize, normalizeBy320 };
+export { screenWidth, screenHeight, isIOS, isAndroid, normalize, normalizeBy320 };

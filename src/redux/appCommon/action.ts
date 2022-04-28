@@ -1,5 +1,5 @@
-import { ServerEnvironment, StoreAppFirstSessionType, StoreServerEnvironmentType, Theme, StoreArticleFontType, ArticleFontSize } from "../../redux/appCommon/types"
-import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE } from "./actionType"
+import { ServerEnvironment, StoreAppFirstSessionType, StoreServerEnvironmentType, Theme, StoreArticleFontType, ArticleFontSize, ResetArticleFontSizeType } from "../../redux/appCommon/types"
+import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE, RESET_ARTICLE_FONT_SIZE } from "./actionType"
 import { StoreAppThemeType } from "./types"
 
 export const storeAppTheme = (theme: Theme): StoreAppThemeType => {
@@ -27,5 +27,11 @@ export const storeArticleFontSize = (size: ArticleFontSize): StoreArticleFontTyp
     return {
         type: STORE_FONT_SIZE,
         payload: { fontSize: size }
+    }
+}
+
+export const resetArticleFontSize = (): ResetArticleFontSizeType => {
+    return {
+        type: RESET_ARTICLE_FONT_SIZE
     }
 }
