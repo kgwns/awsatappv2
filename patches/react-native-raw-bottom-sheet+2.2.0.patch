@@ -1,0 +1,83 @@
+diff --git a/node_modules/react-native-raw-bottom-sheet/index.d.ts b/node_modules/react-native-raw-bottom-sheet/index.d.ts
+index 31a5259..d8434b6 100644
+--- a/node_modules/react-native-raw-bottom-sheet/index.d.ts
++++ b/node_modules/react-native-raw-bottom-sheet/index.d.ts
+@@ -20,6 +20,7 @@ declare module "react-native-raw-bottom-sheet" {
+       draggableIcon?: StyleProp<ViewStyle>;
+     };
+     keyboardAvoidingViewEnabled?: boolean;
++    closeOnDragAboveSheet?: boolean;
+   };
+ 
+   export default class RBSheet extends Component<RBSheetProps> {
+diff --git a/node_modules/react-native-raw-bottom-sheet/src/index.js b/node_modules/react-native-raw-bottom-sheet/src/index.js
+index 0b3eab0..988abc0 100644
+--- a/node_modules/react-native-raw-bottom-sheet/src/index.js
++++ b/node_modules/react-native-raw-bottom-sheet/src/index.js
+@@ -96,7 +96,8 @@ class RBSheet extends Component {
+       closeOnPressBack,
+       children,
+       customStyles,
+-      keyboardAvoidingViewEnabled
++      keyboardAvoidingViewEnabled,
++      closeOnDragAboveSheet,
+     } = this.props;
+     const { animatedHeight, pan, modalVisible } = this.state;
+     const panStyle = {
+@@ -132,7 +133,7 @@ class RBSheet extends Component {
+                 {...(dragFromTopOnly && this.panResponder.panHandlers)}
+                 style={styles.draggableContainer}
+               >
+-                <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
++                <View style={[styles.draggableIcon,closeOnDragAboveSheet && styles.draggableIconAboveSheet, customStyles.draggableIcon,]} />
+               </View>
+             )}
+             {children}
+@@ -157,7 +158,8 @@ RBSheet.propTypes = {
+   customStyles: PropTypes.objectOf(PropTypes.object),
+   onClose: PropTypes.func,
+   onOpen: PropTypes.func,
+-  children: PropTypes.node
++  children: PropTypes.node,
++  closeOnDragAboveSheet: PropTypes.bool,
+ };
+ 
+ RBSheet.defaultProps = {
+@@ -174,7 +176,8 @@ RBSheet.defaultProps = {
+   customStyles: {},
+   onClose: null,
+   onOpen: null,
+-  children: <View />
++  children: <View />,
++  closeOnDragAboveSheet: false
+ };
+ 
+ export default RBSheet;
+diff --git a/node_modules/react-native-raw-bottom-sheet/src/style.js b/node_modules/react-native-raw-bottom-sheet/src/style.js
+index a70d1fe..bb09258 100644
+--- a/node_modules/react-native-raw-bottom-sheet/src/style.js
++++ b/node_modules/react-native-raw-bottom-sheet/src/style.js
+@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
+     backgroundColor: "#fff",
+     width: "100%",
+     height: 0,
+-    overflow: "hidden"
++    // overflow: "hidden"
+   },
+   draggableContainer: {
+     width: "100%",
+@@ -26,6 +26,14 @@ const styles = StyleSheet.create({
+     borderRadius: 5,
+     margin: 10,
+     backgroundColor: "#ccc"
++  },
++  draggableIconAboveSheet:{
++    width: 35,
++    height: 5,
++    borderRadius: 5,
++    margin: 10,
++    position:'absolute',
++    top:-22
+   }
+ });
+ 
