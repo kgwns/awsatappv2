@@ -210,6 +210,14 @@ export const textStyles = (theme: CustomThemeType) => {
       lineHeight: normalize(36),
       textAlign: TextAlign.LEFT,
       color: theme.primaryBlack,
+    },
+    title3: {
+      fontStyle: FontStyle.NORMAL,
+      fontSize: normalize(20),
+      lineHeight: normalize(32),
+      textAlign: TextAlign.LEFT,
+      fontWeight: FontWeight.BOLD,
+      color: theme.primaryBlack,
     }
   })
 

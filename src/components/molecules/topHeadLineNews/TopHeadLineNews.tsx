@@ -20,7 +20,7 @@ export const TopHeadLineNews = ({
 
     const renderItem: ListRenderItem<TopNewsItemProps> = ({ item }) => {
         return (
-            <TouchableOpacity activeOpacity={0.8} style={style.rowItem}>
+            <TouchableOpacity activeOpacity={0.7} style={style.rowItem}>
                 <View style={style.circle} />
                 <Label children={item.title} style={style.title} numberOfLines={1} />
             </TouchableOpacity>
@@ -28,16 +28,21 @@ export const TopHeadLineNews = ({
 
     }
     return (
-        <FlatList
-            keyExtractor={(_, index) => index.toString()}
-            data={data}
-            renderItem={renderItem}
-            showsVerticalScrollIndicator={false}
-        />
+        <View style={style.container}>
+            <FlatList
+                keyExtractor={(_, index) => index.toString()}
+                data={data}
+                renderItem={renderItem}
+                showsVerticalScrollIndicator={false}
+            />
+        </View>
     )
 }
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
+    container: {
+        paddingBottom: normalize(15),
+    },
     rowItem: {
         flexDirection: 'row',
         alignItems: 'center',

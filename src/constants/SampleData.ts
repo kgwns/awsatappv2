@@ -290,6 +290,12 @@ export const shortArticleWithTagProperties = {
   labelType: LabelTypeProp.h3,
 };
 
+export const heroSectionProperties = {
+  flagColor: Styles.color.greenishBlue,
+  barColor: Styles.color.greenishBlue,
+  labelType: LabelTypeProp.title3,
+}
+
 const sortArticleWithTag = {
   image: 'https://picsum.photos/200/300',
   title: 'ميقاتي: استقالة قرداحي كانت ضرورية',
@@ -885,6 +891,14 @@ const editPickData: NewsWithImageItemProps = {
 }
 
 export const EditorsPickSectionData: NewsWithImageItemProps[] = Array(5).fill(editPickData)
+
+const podcastForYouInfo = {
+  imageUrl: 'https://picsum.photos/300/200',
+  highlightedTitle: 'إسم البودكاست',
+  title: 'قضية الطفل المغربي ريان بين أهمية القصة الإنسانية إعلامياً',
+}
+
+export const podcastForYouSection = Array(5).fill(podcastForYouInfo)
 
 
 const podcastOpinionData: ArticleRectangleCardProps = {

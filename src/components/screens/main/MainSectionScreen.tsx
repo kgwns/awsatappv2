@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
 import {
-  ArticleSection, CarouselSlider,
-  ShortArticle, AuthorWidget, BannerArticleSection, SectionComboOne, VideoContent,
+  ArticleSection, CarouselSlider,ShortArticle, AuthorWidget, BannerArticleSection, SectionComboOne, VideoContent, EditorsPickSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties, topHeadLineNewsData } from 'src/constants/SampleData';
+import { heroSectionProperties, podcastForYouSection, shortArticleWithTagProperties, topHeadLineNewsData } from 'src/constants/SampleData';
 import { horizontalEdge, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -17,7 +16,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Styles } from 'src/shared/styles';
 import TrackPlayer from 'react-native-track-player';
-import { useFocusEffect } from '@react-navigation/native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { TopHeadLineNews } from 'src/components/molecules';
@@ -87,15 +85,15 @@ export const MainSectionScreen = () => {
   } = useBookmark()
 
   const { isLoggedIn } = useLogin()
-  const {fetchProfileDataRequest} = useUserProfileData();
-  
+  const { fetchProfileDataRequest } = useUserProfileData();
+
   const [refreshing, setRefreshing] = useState(false);
   const [heroInfo, setHeroInfo] = useState(hero)
   const [sectionComboOneInfo, setSectionComboOneInfo] = useState(sectionComboOne)
   const [sectionComboTwoInfo, setSectionComboTwoInfo] = useState(sectionComboTwo)
   const [sectionComboThreeInfo, setSectionComboThreeInfo] = useState(sectionComboThree)
   const [sectionComboFourInfo, setSectionComboFourInfo] = useState(sectionComboFour)
-  const [showupUp,setShowPopUp] = useState(false)
+  const [showupUp, setShowPopUp] = useState(false)
 
   const updateBookmark = (data: LatestArticleDataType[]) => {
     return data.map((item: LatestArticleDataType) => (
@@ -117,17 +115,17 @@ export const MainSectionScreen = () => {
 
   useEffect(() => {
     updateHeroData()
-  }, [hero,bookmarkIdInfo])
+  }, [hero, bookmarkIdInfo])
 
   const updateHeroData = () => {
-    if(isNonEmptyArray(hero)) {
+    if (isNonEmptyArray(hero)) {
       const heroData = updateBookmark(hero)
       setHeroInfo(heroData)
     }
   }
 
   const updatedHeroBookmark = (index: number) => {
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
       setShowPopUp(true)
       return
     }
@@ -140,7 +138,7 @@ export const MainSectionScreen = () => {
     if (isNonEmptyArray(sectionComboOne)) {
       updateSectionComboOneData()
     }
-  }, [sectionComboOne,bookmarkIdInfo])
+  }, [sectionComboOne, bookmarkIdInfo])
 
   const updateSectionComboOneData = () => {
     const data = updateBookmark(sectionComboOne)
@@ -148,11 +146,11 @@ export const MainSectionScreen = () => {
   }
 
   const updatedSectionComboOneBookmark = (nid: string) => {
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
       setShowPopUp(true)
       return
     }
-    
+
     const index = sectionComboOneInfo.findIndex((item) => item.nid == nid)
     const updatedData = updatedChangeBookmark(sectionComboOneInfo, index)
     setSectionComboOneInfo(updatedData)
@@ -162,7 +160,7 @@ export const MainSectionScreen = () => {
     if (isNonEmptyArray(sectionComboTwo)) {
       updateSectionComboTwoData()
     }
-  }, [sectionComboTwo,bookmarkIdInfo])
+  }, [sectionComboTwo, bookmarkIdInfo])
 
   const updateSectionComboTwoData = () => {
     const data = updateBookmark(sectionComboTwo)
@@ -170,7 +168,7 @@ export const MainSectionScreen = () => {
   }
 
   const updatedSectionComboTwoBookmark = (article: LatestArticleDataType) => {
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
       setShowPopUp(true)
       return
     }
@@ -184,7 +182,7 @@ export const MainSectionScreen = () => {
     if (isNonEmptyArray(sectionComboThree)) {
       updateSectionComboThreeData()
     }
-  }, [sectionComboThree,bookmarkIdInfo])
+  }, [sectionComboThree, bookmarkIdInfo])
 
   const updateSectionComboThreeData = () => {
     const data = updateBookmark(sectionComboThree)
@@ -192,7 +190,7 @@ export const MainSectionScreen = () => {
   }
 
   const updatedSectionComboThreeBookmark = (article: LatestArticleDataType) => {
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
       setShowPopUp(true)
       return
     }
@@ -207,7 +205,7 @@ export const MainSectionScreen = () => {
     if (isNonEmptyArray(sectionComboFour)) {
       updateSectionComboFourData()
     }
-  }, [sectionComboFour,bookmarkIdInfo])
+  }, [sectionComboFour, bookmarkIdInfo])
 
   const updateSectionComboFourData = () => {
     const data = updateBookmark(sectionComboFour)
@@ -215,7 +213,7 @@ export const MainSectionScreen = () => {
   }
 
   const updatedSectionComboFourBookmark = (article: LatestArticleDataType) => {
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
       setShowPopUp(true)
       return
     }
@@ -231,13 +229,15 @@ export const MainSectionScreen = () => {
   }
 
   const heroListInfo = isTab ? heroList.slice(0, 1) : heroList
-  const heroListData = heroListInfo.map((item: LatestArticleDataType) => (
+  const heroListData = heroListInfo.map((item: LatestArticleDataType, index: number) => (
     {
       ...item,
-      ...shortArticleWithTagProperties,
+      ...heroSectionProperties,
       titleColor: themeData.primaryBlack,
       tagName: item.news_categories && item.news_categories.title,
-      isBookmarked: validateBookmark(item.nid)
+      isBookmarked: validateBookmark(item.nid),
+      hideImage: index > 2,
+      showDivider: heroListInfo.length > index + 1
     }
   ))
 
@@ -308,59 +308,43 @@ export const MainSectionScreen = () => {
   const renderItem = () => (
     <View>
       <Divider style={mainSectionStyle.dividerTop} />
-      <CarouselSlider
-        tickerData={ticker}
-        heroData={heroInfo}
+      <CarouselSlider tickerData={ticker} heroData={heroInfo}
         onUpdateHeroBookmark={updatedHeroBookmark}
       />
-      <View style={{marginHorizontal: 0.04 * screenWidth, overflow: 'hidden'}}>
+      <View style={mainSectionStyle.topNewsContainer}>
         <TopHeadLineNews data={topHeadLineNewsData} />
       </View>
-      {isTab ? (
-        <View style={mainSectionStyle.tabSplitter}>
+      {
+        isTab ? <View style={mainSectionStyle.tabSplitter}>
           <View style={mainSectionStyle.tabWidgetContainer}>
-            <ArticleSection
-              data={heroListData}
-              onUpdateBookmark={updateBookmarkInfo}
-            />
+            <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
           </View>
           <View style={mainSectionStyle.verticalDivider} />
           <View style={mainSectionStyle.tabWidgetContainer}>
-            <ShortArticle
-              data={topListData}
-              onPress={onPressArticle}
+            <ShortArticle data={topListData} onPress={onPressArticle}
               onUpdateBookmark={updateBookmarkInfo}
               showSignUpPopUp={makeSignUpAlert}
             />
           </View>
         </View>
-      ) : (
-        <>
-          <ArticleSection
-            data={heroListData}
-            onUpdateBookmark={updateBookmarkInfo}
-            showDivider={true}
-          />
-          <ShortArticle
-            data={topListData}
-            onPress={onPressArticle}
-            onUpdateBookmark={updateBookmarkInfo}
-            showSignUpPopUp={makeSignUpAlert}
-          />
-        </>
-      )}
-      {isNonEmptyArray(sectionComboOne) && (
-        <Divider style={mainSectionStyle.dividerAboveTrending} />
-      )}
-      <SectionComboOne
-        data={sectionComboOneInfo}
-        onPress={onPressArticle}
+          :
+          <>
+            <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
+          </>
+      }
+      {/* <AuthorWidget data={opinionList} /> */}
+      <AuthorSlider data={[opinionList, opinionList, opinionList]} />
+      <EditorsPickSection data={podcastForYouSection} />
+      {isNonEmptyArray(sectionComboOne) && <Divider style={mainSectionStyle.dividerAboveTrending} />}
+      <SectionComboOne data={sectionComboOneInfo} onPress={onPressArticle}
         sectionId={'726'}
         onUpdateBookmark={updatedSectionComboOneBookmark}
         showSignUpPopUp={makeSignUpAlert}
       />
-      <BannerArticleSection
-        data={sectionComboTwoInfo}
+      {isNonEmptyArray(videoData) && (
+        <VideoContent data={videoData} onPress={onVideoItemPress} />
+      )}
+      <BannerArticleSection data={sectionComboTwoInfo}
         title={t('latestNewsTab.sectionComboTwo.headerLeft')}
         sectionId={'871'}
         onPress={onPressArticle}
@@ -368,14 +352,7 @@ export const MainSectionScreen = () => {
         isDivider
         dividerStyle={mainSectionStyle.firstBannerDivider}
       />
-      {isNonEmptyArray(opinionList) && (
-        <Divider style={mainSectionStyle.sectionComboDivider} />
-      )}
-      <AuthorSlider data={[opinionList, opinionList, opinionList]} />
-      {/* <AuthorWidget data={opinionList} /> */}
-      {isNonEmptyArray(videoData) && (
-        <VideoContent data={videoData} onPress={onVideoItemPress} />
-      )}
+      {isNonEmptyArray(opinionList) && <Divider style={mainSectionStyle.sectionComboDivider} />}
       <BannerArticleSection
         data={sectionComboThreeInfo}
         title={t('latestNewsTab.sectionComboThree.headerLeft')}
@@ -383,16 +360,11 @@ export const MainSectionScreen = () => {
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboThreeBookmark}
       />
-      <Divider style={{height: normalize(20)}} />
-      <BannerArticleSection
-        data={sectionComboFourInfo}
-        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
-        sectionId={'10'}
-        onPress={onPressArticle}
-        onUpdateBookmark={updatedSectionComboFourBookmark}
-        isDivider
+      <ShortArticle data={topListData} onPress={onPressArticle}
+        onUpdateBookmark={updateBookmarkInfo}
+        showSignUpPopUp={makeSignUpAlert}
       />
-      <Divider style={{height: normalize(50)}} />
+      <Divider style={{ height: normalize(20) }} />
       {isNonEmptyArray(topListData) && (
         <View style={mainSectionStyle.articleContainer}>
           <View style={mainSectionStyle.articleTitleContainer}>
@@ -410,6 +382,15 @@ export const MainSectionScreen = () => {
           />
         </View>
       )}
+      <BannerArticleSection
+        data={sectionComboFourInfo}
+        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+        sectionId={'10'}
+        onPress={onPressArticle}
+        onUpdateBookmark={updatedSectionComboFourBookmark}
+        isDivider
+      />
+      <Divider style={{ height: normalize(50) }} />
     </View>
   );
 
@@ -494,6 +475,10 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.primary,
       fontWeight: 'bold',
       lineHeight: normalize(35)
+    },
+    topNewsContainer: {
+      marginHorizontal: 0.04 * screenWidth,
+      overflow: 'hidden'
     }
   })
 }
