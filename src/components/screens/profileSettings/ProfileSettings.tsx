@@ -40,7 +40,7 @@ export const ProfileSettings = () => {
 
   const style = useThemeAwareObject(customStyle);
 
-    const { theme, serverEnvironment, storeServerEnvironmentInfo } = useAppCommon();
+    const { theme, serverEnvironment, storeServerEnvironmentInfo, resetFontSizeInfo  } = useAppCommon();
   const { removeBookmark } = useBookmark()
   const { removeKeepNotificationInfo } = useKeepNotified()
   const isDark = isDarkTheme(theme);
@@ -140,6 +140,7 @@ export const ProfileSettings = () => {
     emptySelectedTopicsInfoData()
     emptySelectedAuthorsInfoData()
     emptySearchHistory();
+    resetFontSizeInfo();
     navigation.reset({
         index: 0,
         routes: [{ name: ScreensConstants.AuthNavigator }],

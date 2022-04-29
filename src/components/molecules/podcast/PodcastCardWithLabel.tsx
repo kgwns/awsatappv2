@@ -24,7 +24,7 @@ export const PodcastCardWithLabel = ({
   return (
     <TouchableWithoutFeedback testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
       <View style={style.cardContainer}>
-        <Image url={imageUrl} style={style.imageStyle} />
+        <Image fallback url={imageUrl} style={style.imageStyle} />
         <Label style={style.title} numberOfLines={1}>
           {title}
         </Label>

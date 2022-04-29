@@ -1,4 +1,4 @@
-import {View, StyleSheet, FlatList, ActivityIndicator, TouchableWithoutFeedback} from 'react-native';
+import { View, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
 import React from 'react';
 import {Image} from '../atoms/image/Image';
 import {isTab, normalize, screenWidth} from '../../shared/utils';
@@ -101,7 +101,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   const renderItem = (item: NewsViewListItemType, index: number) => {
     return (
       <View key={flatListUniqueKey.NEWS_FEED + index}>
-        <TouchableWithoutFeedback onPress={() => onPress(item.nid)}>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => onPress(item.nid)}>
           {
             isTab ?
               <View style={style.tabSplitter}>
@@ -124,7 +124,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
                 {renderArticleFooter(item, index)}
               </>
           }
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
         <Divider style={style.divider}/>
         {isLoading && data.length - 1 == index && (
           <View style={{margin: normalize(28)}}>

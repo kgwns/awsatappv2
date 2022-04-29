@@ -1,4 +1,4 @@
-import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE } from "./actionType"
+import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE, RESET_ARTICLE_FONT_SIZE } from "./actionType"
 import { normalize } from "src/shared/utils"
 
 export enum Theme {
@@ -60,8 +60,13 @@ export type StoreArticleFontType = {
  payload: StoreArticleFontPayloadType
 }
 
+export type ResetArticleFontSizeType = {
+  type: typeof RESET_ARTICLE_FONT_SIZE
+}
+
 
 export type AppCommonAction = StoreAppThemeType
   | StoreAppFirstSessionType
   | StoreServerEnvironmentType
   | StoreArticleFontType
+  | ResetArticleFontSizeType

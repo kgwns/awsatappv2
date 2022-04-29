@@ -30,6 +30,7 @@ export interface WriterType {
   title: string;
   url: string;
   bundle: string;
+  description: string;
   opinion_writer_photo: string;
   langcode: string;
   name: string;

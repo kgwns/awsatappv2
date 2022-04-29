@@ -1,19 +1,26 @@
-import { View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Dimensions, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { getImageUrl } from 'src/shared/utils/utilities'
 import { ImagesName, Styles } from 'src/shared/styles'
-import { Image, Label } from 'src/components/atoms'
+import { ButtonImage, Image, Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { isIOS, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
 import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
+import { ImageResize } from 'src/shared/styles/text-styles'
+import FacebookIcon from 'src/assets/images/icons/facebookGray.svg';
+import InstagramIcon from 'src/assets/images/icons/instagramGray.svg';
+import TwitterIcon from 'src/assets/images/icons/twitterGray.svg';
+import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
+import DeviceInfo from 'react-native-device-info';
 
 export interface WriterBannerImageProps {
   data: {
     authorImage: string
     authorName: string
+    authorDescription : string
   },
   orientation?: string,
   onPressReturn: () => void,
@@ -55,7 +62,7 @@ export const WriterBannerImage = ({
   }, []);
 
   const ReturnButton = () => (
-    <View style={[style.return]}>
+    <View>
       <TouchableOpacity
         style={{ flexDirection: 'row', alignItems: 'center' }}
         onPress={onPressReturn}>
@@ -72,7 +79,7 @@ export const WriterBannerImage = ({
 
   const SubscribeButton = ({ isFollowed }: { isFollowed: boolean }) => (
     <TouchableWithoutFeedback style={[style.followContainer,
-    { backgroundColor: isFollowed ? Styles.color.greenishBlue : Styles.color.cyanGreen, }]}
+      { backgroundColor: isFollowed ? Styles.color.greenishBlue : Styles.color.aquaHaze, }]}
       onPress={onPressFollow}>
       {
         getSvgImages({
@@ -87,22 +94,50 @@ export const WriterBannerImage = ({
 
   return (
     <View style={style.container}>
+      <ReturnButton />
       <View style={style.contentContainer}>
-        <ReturnButton />
-        <View style={[style.imageContainer, currentOrientation == 'LANDSCAPE' && {width: '45%'}]}>
-        
-          <Image
-            url={getImageUrl(data.authorImage)}
-            style={style.image}
-            fallback={true}
-            resizeMethod={'resize'}
-          />
+        <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : currentOrientation == 'PORTRAIT' ? 0.3 : 0.15 }}>
+          <View style={style.imageContainer}>
+            <Image url={getImageUrl(data.authorImage)}
+              type={'round'}
+              size={normalize(100)}
+              resizeMode={ImageResize.COVER}
+              fallback={true}
+              fallbackContent={<AuthorDefault
+                style={{ backgroundColor: Styles.color.lightCyanBlue }}
+                width={normalize(100)}
+                height={normalize(100)} />}
+            />
+          </View>
         </View>
-        <View style={[style.labelButtonContainer]}>
-          <Label style={style.authorName} numberOfLines={3}>
-            {data.authorName}
-          </Label>
-          <SubscribeButton isFollowed={isFollowed} />
+        <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.85 : 0.90 : currentOrientation == 'PORTRAIT' ? 0.7 : 0.85, paddingStart: normalize(10) }}>
+          <View style={style.authorSubscribeView}>
+            <View style={style.authorNameView}>
+              <Label style={style.authorName} numberOfLines={1}>{data.authorName}</Label>
+            </View>
+
+            <View style={style.subscribeView}>
+              <SubscribeButton isFollowed={isFollowed} />
+            </View>
+          </View>
+          <Label style={style.authorDescription}
+            numberOfLines={2} >{data.authorDescription}</Label>
+          <View style={{ flexDirection: 'row' }}>
+            <ButtonImage
+              icon={() => <InstagramIcon />}
+              onPress={() => console.log('instagram')}
+            />
+            <ButtonImage
+              icon={() => <TwitterIcon />}
+              onPress={() => console.log('twitter')}
+              style={{ marginStart: normalize(30) }}
+            />
+            <ButtonImage
+              icon={() => <FacebookIcon />}
+              onPress={() => console.log('facebook')}
+              style={{ marginStart: normalize(35) }}
+            />
+          </View>
         </View>
       </View>
     </View>
@@ -115,81 +150,68 @@ const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      height: 'auto',
+      height:'auto',
+      backgroundColor: Styles.color.pattensBlue51,
+      width: '100%',
+      paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      paddingTop: DeviceInfo.hasNotch() ? normalize(40) : normalize(20), 
+      paddingBottom:normalize(20),
     },
-    contentContainer: {
+    contentContainer:{
+      flexDirection:'row',
+      paddingTop: normalize(20),
+    },
+    imageContainer:{
+      overflow: 'hidden',
+      width: normalize(100),
+      height: normalize(100),
+      borderRadius: normalize(50)
+    },
+    authorSubscribeView:{
       flex: 1,
-      flexDirection: 'row-reverse',
-      width: '100%',
-      backgroundColor: theme.backgroundColor,
-      paddingTop: isIOS ? normalize(2) : normalize(10),
-      
+      flexDirection: 'row',
+      height: normalize(45),
     },
-    imageContainer: {
-      width: '60%',
-      paddingRight: 20,
-      aspectRatio: 1.04,
+    authorNameView:{
+      flex: 0.8,
+      alignItems: 'flex-start'
     },
-    landscapeImage: {
-      width: isTab ? 0.6 * screenWidth : 0.65 * screenWidth,
-      height: '100%',
-      marginLeft: isTab ? '20%' : '30%',
+    subscribeView:{
+      flex: 0.4,
+      alignItems: 'flex-end'
     },
-    image: {
-      width: '100%',
-      height: '100%',
-    },
-    landscapeimageContainer: {
-      width: '60%',
-      height: '100%',
-    },
-    labelButtonContainer: {
-      justifyContent: 'flex-end',
-      paddingStart: normalize(15),
-      paddingEnd: normalize(5),
-      width: '35%',
-    },
-    authorName: {
-      textAlign: 'left',
-      fontSize: normalize(16),
-      lineHeight: normalize(25),
-      fontWeight: 'bold',
-      marginBottom: normalize(18),
-      color: theme.primaryBlack
-    },
-    return: {
-      position: 'absolute',
-      top: normalize(15),
-      right: (isTab ? 0.02 : 0.04) * screenWidth,
-      alignContent: 'center',
-      marginTop: isIOS ? 0 : normalize(5),
-      zIndex: 9999
-    },
-    landscapeReturn: {
-      marginTop: normalize(10),
-      marginStart: normalize(5)
-    },
-    returnLabel: {
-      marginStart: normalize(5),
-      fontSize: normalize(13),
-      lineHeight: normalize(16),
+    authorName:{
+      fontSize: normalize(22),
+      lineHeight: normalize(33),
       fontWeight: 'bold',
       color: theme.primaryBlack,
     },
+    authorDescription:{
+      fontSize: normalize(13),
+      lineHeight: normalize(20),
+      textAlign: 'left',
+      marginBottom:normalize(15),
+      color: theme.primaryBlack,
+    },
+    returnLabel: {
+      marginStart: normalize(5),
+      fontSize: normalize(14),
+      lineHeight: normalize(17),
+      color: theme.primaryBlack,
+    },
     followContainer: {
+      width: normalize(80),
+      height: normalize(40),
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      alignSelf: 'flex-start',
       borderRadius: normalize(50 / 2),
-      paddingHorizontal: 0.05 * screenWidth,
-      marginBottom: normalize(10)
     },
     followLabel: {
       fontSize: normalize(13),
-      lineHeight: normalize(35),
+      lineHeight: normalize(27),
       fontWeight: 'bold',
-      marginStart: normalize(8),
+      marginStart: normalize(5),
     },
   })
 } 
