@@ -24,8 +24,8 @@ import SearchIcon from 'src/assets/images/headerIcons/searchIcon.svg'
 import SearchIconDark from 'src/assets/images/headerIcons/searchIconDark.svg'
 import MenuIcon from 'src/assets/images/headerIcons/menuIcon.svg'
 import MenuIconDark from 'src/assets/images/headerIcons/menuIconDark.svg'
-import HeaderLogo from 'src/assets/images/headerIcons/headerLogo.svg'
-import HeaderLogoDark from 'src/assets/images/headerIcons/headerLogoDark.svg'
+import HeaderLogo from 'src/assets/images/headerIcons/headerIcon.svg'
+import HeaderLogoDark from 'src/assets/images/headerIcons/headerIcon_dark.svg'
 
 //Tab Icons
 import NewsIcon from 'src/assets/images/tabIcons/newsIcon.svg'

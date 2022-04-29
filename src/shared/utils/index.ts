@@ -2,6 +2,7 @@ export {
   screenHeight,
   screenWidth,
   isIOS,
+  isAndroid,
   isTab,
   normalize,
   normalizeBy320

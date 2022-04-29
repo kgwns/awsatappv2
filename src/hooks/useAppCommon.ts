@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { storeServerEnvironment, storeArticleFontSize } from "src/redux/appCommon/action";
+import { storeServerEnvironment, storeArticleFontSize, resetArticleFontSize } from "src/redux/appCommon/action";
 import { getIsFirstSession, getThemeState, getServerEnvironment, getArticleFontSize } from "../redux/appCommon/selectors"
 import { ServerEnvironment, Theme } from "../redux/appCommon/types"
 import { ArticleFontSize } from "src/redux/appCommon/types"
@@ -13,6 +13,7 @@ export interface UseAppCommonReturn {
     storeServerEnvironmentInfo(type: ServerEnvironment): void;
     articleFontSize: number
     storeArticleFontSizeInfo(): void
+    resetFontSizeInfo(): void;
 }
 
 export const useAppCommon = (): UseAppCommonReturn => {
@@ -39,12 +40,17 @@ export const useAppCommon = (): UseAppCommonReturn => {
         dispatch(storeArticleFontSize(newFontSize))
     }
 
+    const resetFontSizeInfo = () => {
+        dispatch(resetArticleFontSize())
+    }
+
     return {
         theme,
         isFirstSession,
         serverEnvironment,
         storeServerEnvironmentInfo,
         articleFontSize,
-        storeArticleFontSizeInfo
+        storeArticleFontSizeInfo,
+        resetFontSizeInfo,
     }
 }

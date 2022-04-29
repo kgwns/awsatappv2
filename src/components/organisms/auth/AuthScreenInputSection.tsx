@@ -138,7 +138,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
             <SocialLoginButton testID="signin_signIn"
               onPress={onPress}
               label={t('signIn.signIn')}
-              style={[styles.buttonStyle,!isSignInScreen&&{marginTop: normalize(-5)}]}
+              style={styles.buttonStyle}
               labelStyle={styles.signInLabelStyle}
             />
           </View>
