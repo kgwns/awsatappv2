@@ -215,6 +215,9 @@ export const arabic = {
     logoutAlertMessage: 'هل أنت متأكد أنك تريد تسجيل الخروج',
     alert: 'إنذار',
     arithmetic:'حسابي',
+    debug: 'التصحيح',
+    production: 'إنتاج',
+    changeEnvironment: 'تغيير البيئة',
   },
   opinionArticleDetail: {
     return: 'الرجوع',
