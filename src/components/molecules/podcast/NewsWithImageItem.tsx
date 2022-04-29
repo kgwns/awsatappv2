@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { normalize } from 'src/shared/utils';
+import { isTab, normalize } from 'src/shared/utils';
 import { Label, Image, LabelTypeProp } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -32,9 +32,11 @@ export const NewsWithImageItem = ({
   const theme = useTheme();
   return (
     <View style={style.container}>
-      {imageUrl && (
-        <Image url={imageUrl} style={style.image} resizeMode={ImageResize.COVER} fallback/>
-      )}
+      {imageUrl &&
+        <Image url={imageUrl} style={isTab ? style.tabImage : style.image}
+          resizeMode={ImageResize.COVER} fallback
+        />
+      }
       {highlightedTitle && 
         <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5}/>
       }
@@ -88,7 +90,7 @@ export const NewsWithImageItem = ({
 const customStyle = (theme: CustomThemeType) => {
   const NewsWithImageItemStyle = StyleSheet.create({
     container: {
-      width: normalize(162),
+      width: isTab ? normalize(262) : normalize(162),
       alignItems: 'flex-start',
       backgroundColor: theme.backgroundColor,
       marginStart: normalize(15),
@@ -97,10 +99,14 @@ const customStyle = (theme: CustomThemeType) => {
       width: normalize(162),
       height: normalize(114)
     },
+    tabImage: {
+      width: normalize(262),
+      height: normalize(185),
+    },
     highlightedTitle: {
       fontSize: normalize(12),
       lineHeight: normalize(12),
-      marginTop: normalize(6),
+      marginTop: normalize(20),
       color: theme.primary,
     },
     title: {

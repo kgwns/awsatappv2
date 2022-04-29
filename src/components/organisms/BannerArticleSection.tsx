@@ -108,7 +108,6 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
                 <WidgetHeader {...widgetHeaderData} onPress={onPressMore} />
             </View>
             {listHeaderSection()}
-            {isTab && <Divider style={style.divider}/>}
             <FlatList
                 keyExtractor={(_, index) => index.toString()}
                 data={verticalArticleData}
