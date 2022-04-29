@@ -14,6 +14,7 @@ import { WriterBannerImage } from 'src/components/molecules';
 import { useOpinions } from 'src/hooks/useOpinions';
 import { OpinionWritersArticlesSection } from 'src/components/organisms';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
+import { decodeHTMLTags, horizontalEdge } from 'src/shared/utils/utilities';
 
 export interface WritersDetailScreenProps {
     route: any;
@@ -188,7 +189,8 @@ export const WritersDetailScreen = ({
         <View style={style.container}>
             {isNonEmptyArray(writerDetailInfo) && <WriterBannerImage data={{
                 authorImage: writerDetailInfo[0].field_opinion_writer_photo_export,
-                authorName: writerDetailInfo[0].name
+                authorName: writerDetailInfo[0].name,
+                authorDescription: decodeHTMLTags(writerDetailInfo[0].description__value_export)
             }}
                 orientation={'PORTRAIT'}
                 onPressReturn={onPressBack}
@@ -206,7 +208,7 @@ export const WritersDetailScreen = ({
     );
 
     return (
-        <ScreenContainer edge={horizontalAndTop} isLoading={isLoading}
+        <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
             isSignUpAlertVisible={showupUp}
             onCloseSignUpAlert={onCloseSignUpAlert}>
             {!isLoading && <>
