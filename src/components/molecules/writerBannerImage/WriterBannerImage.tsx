@@ -1,6 +1,6 @@
 import { View, StyleSheet, TouchableOpacity, Dimensions, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { getImageUrl } from 'src/shared/utils/utilities'
+import { getImageUrl, isNotEmpty } from 'src/shared/utils/utilities'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ButtonImage, Image, Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -15,12 +15,17 @@ import InstagramIcon from 'src/assets/images/icons/instagramGray.svg';
 import TwitterIcon from 'src/assets/images/icons/twitterGray.svg';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import DeviceInfo from 'react-native-device-info';
+import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
+import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TWITTER_APP_URL } from 'src/constants/SharedConstants'
 
 export interface WriterBannerImageProps {
   data: {
     authorImage: string
     authorName: string
     authorDescription : string
+    facebook_url: any
+    twitter_url: any
+    instagram_url: any
   },
   orientation?: string,
   onPressReturn: () => void,
@@ -92,6 +97,28 @@ export const WriterBannerImage = ({
     </TouchableWithoutFeedback>
   );
 
+  const openSocialMedia = (type: string,url : string) =>{
+    switch (type) {
+      case SocialMediaType.facebook:
+        Linking.openURL(FACEBOOK_APP_URL).catch(() => {
+          Linking.openURL(url)
+        });
+        return;
+      case SocialMediaType.instagram:
+        Linking.openURL(INSTAGRAM_APP_URL).catch(() => {
+          Linking.openURL(url)
+        });
+        return;
+      case SocialMediaType.twitter:
+        Linking.openURL(TWITTER_APP_URL).catch(() => {
+          Linking.openURL(url)
+        });
+        return;
+      default:
+        return;
+    }
+  }
+
   return (
     <View style={style.container}>
       <ReturnButton />
@@ -123,28 +150,26 @@ export const WriterBannerImage = ({
           <Label style={style.authorDescription}
             numberOfLines={2} >{data.authorDescription}</Label>
           <View style={{ flexDirection: 'row' }}>
-            <ButtonImage
+            {isNotEmpty(data.instagram_url) && <ButtonImage
               icon={() => <InstagramIcon />}
-              onPress={() => console.log('instagram')}
-            />
-            <ButtonImage
+              onPress={() => openSocialMedia(SocialMediaType.instagram, data.instagram_url)}
+              style={{ marginEnd: normalize(30) }}
+            />}
+            {isNotEmpty(data.twitter_url) && <ButtonImage
               icon={() => <TwitterIcon />}
-              onPress={() => console.log('twitter')}
-              style={{ marginStart: normalize(30) }}
-            />
-            <ButtonImage
+              onPress={() => openSocialMedia(SocialMediaType.twitter, data.twitter_url)}
+            />}
+            {isNotEmpty(data.facebook_url) && <ButtonImage
               icon={() => <FacebookIcon />}
-              onPress={() => console.log('facebook')}
-              style={{ marginStart: normalize(35) }}
-            />
+              onPress={() => openSocialMedia(SocialMediaType.facebook, data.facebook_url)}
+              style={{ marginStart: isNotEmpty(data.twitter_url) ? normalize(35) : normalize(5) }}
+            />}
           </View>
         </View>
       </View>
     </View>
   )
 }
-
-const containerHeight = isTab ? 0.5 * screenWidth : 0.8 * screenWidth;
 
 const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({

@@ -41,6 +41,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
 
   useEffect(() => {
     setCategoriesInfo(allSiteCategoriesData)
+    isNonEmptyArray(categoriesInfo) && updateNextButton();
   }, [isFocused, allSiteCategoriesData])
 
   useEffect(() => {
