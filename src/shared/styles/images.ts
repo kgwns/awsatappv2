@@ -89,6 +89,11 @@ export enum ImagesName {
   greenArrowLeft = 'greenArrowLeft',
   returnWhiteIcon = 'returnWhiteIcon',
   arrowLeftFacedBlack = 'arrowLeftFacedBlack',
+  facebookGray = 'facebookGray',
+  twitterGray = 'twitterGray',
+  instagramGray = 'instagramGray',
+  bookmarkGray = 'bookmarkGray',
+  shareGray = 'shareGray',
 }
 
 export const images = {

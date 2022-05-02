@@ -14,9 +14,9 @@ import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { useBookmark, useLogin } from 'src/hooks';
-import { AlertModal } from 'src/components/organisms';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
+import PopUp, { PopUpType } from './popUp/PopUp';
 
 export interface articleProps
   extends ImageLabelProps,
@@ -78,7 +78,7 @@ const MostReadList = ({
   }
 
   const checkAndUpdateBookmark = (index: number) => {
-    isLoggedIn ? onPressBookmark(index) : setShowPopUp(true)
+    isLoggedIn ? onPressBookmark(index) : setShowPopUp(true);
   }
 
   const onPressSignUp = () => {
@@ -93,7 +93,7 @@ const MostReadList = ({
     isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
   }
 
-  const onCloseSignUpAlert = () => {
+  const onClosePopUp = () => {
     setShowPopUp(false)
   }
 
@@ -149,15 +149,6 @@ const MostReadList = ({
 
   return (
     <View style={mostReadListStyle.container}>
-      {showupUp && <AlertModal
-        title={t('signUpAlert.notSubscribed')}
-        message={t('signUpAlert.description')}
-        buttonText={t('signUpAlert.signUp')}
-        isVisible={showupUp}
-        onPressSuccess={onPressSignUp}
-        onClose={onCloseSignUpAlert}
-      />
-      }
       <FlatList
         keyExtractor={(_, index) => index.toString()}
         listKey={flatListUniqueKey.MOST_READ_LIST}
@@ -168,6 +159,10 @@ const MostReadList = ({
         onEndReached={onScroll ? onScroll : () => {}}
         onEndReachedThreshold={0.3}
       />
+      <PopUp type={PopUpType.rbSheet}
+        onPressButton={onPressSignUp}
+        showPopUp={showupUp}
+        onClosePopUp={onClosePopUp} />
     </View>
   );
 };

@@ -91,7 +91,7 @@ export const WritersDetailScreen = ({
     }
 
     useEffect(() => {
-        setWriterDetailInfo(writerDetailData)
+        isFocused && setWriterDetailInfo(writerDetailData)
     }, [writerDetailData])
 
     useEffect(() => {
@@ -190,7 +190,10 @@ export const WritersDetailScreen = ({
             {isNonEmptyArray(writerDetailInfo) && <WriterBannerImage data={{
                 authorImage: writerDetailInfo[0].field_opinion_writer_photo_export,
                 authorName: writerDetailInfo[0].name,
-                authorDescription: decodeHTMLTags(writerDetailInfo[0].description__value_export)
+                authorDescription: decodeHTMLTags(writerDetailInfo[0].field_description),
+                facebook_url:writerDetailInfo[0].field_opinion_facebook_export,
+                twitter_url:writerDetailInfo[0].field_opinion_twitter_export,
+                instagram_url:writerDetailInfo[0].field_instagram_url_export,
             }}
                 orientation={'PORTRAIT'}
                 onPressReturn={onPressBack}

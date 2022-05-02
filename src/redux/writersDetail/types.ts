@@ -19,10 +19,13 @@ export interface FetchWriterDetailFailedPayloadType {
 
 export type WriterDetailDataType = {
   name: string;
-  description__value_export: string
+  field_description: string
   field_opinion_writer_photo_export: string
   tid: string
   isFollowed: boolean;
+  field_instagram_url_export: any;
+  field_opinion_twitter_export: any;
+  field_opinion_facebook_export: any;
 }
 
 export type WriterDetailState = {

@@ -1,6 +1,6 @@
 import { View, StyleSheet, TouchableOpacity, Dimensions, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { getImageUrl } from 'src/shared/utils/utilities'
+import { getImageUrl, isNotEmpty } from 'src/shared/utils/utilities'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ButtonImage, Image, Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -10,17 +10,19 @@ import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { ImageResize } from 'src/shared/styles/text-styles'
-import FacebookIcon from 'src/assets/images/icons/facebookGray.svg';
-import InstagramIcon from 'src/assets/images/icons/instagramGray.svg';
-import TwitterIcon from 'src/assets/images/icons/twitterGray.svg';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import DeviceInfo from 'react-native-device-info';
+import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
+import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TWITTER_APP_URL } from 'src/constants/SharedConstants'
 
 export interface WriterBannerImageProps {
   data: {
     authorImage: string
     authorName: string
     authorDescription : string
+    facebook_url: any
+    twitter_url: any
+    instagram_url: any
   },
   orientation?: string,
   onPressReturn: () => void,
@@ -92,6 +94,28 @@ export const WriterBannerImage = ({
     </TouchableWithoutFeedback>
   );
 
+  const openSocialMedia = (type: string,url : string) =>{
+    switch (type) {
+      case SocialMediaType.facebook:
+        Linking.openURL(FACEBOOK_APP_URL).catch(() => {
+          Linking.openURL(url)
+        });
+        return;
+      case SocialMediaType.instagram:
+        Linking.openURL(INSTAGRAM_APP_URL).catch(() => {
+          Linking.openURL(url)
+        });
+        return;
+      case SocialMediaType.twitter:
+        Linking.openURL(TWITTER_APP_URL).catch(() => {
+          Linking.openURL(url)
+        });
+        return;
+      default:
+        return;
+    }
+  }
+
   return (
     <View style={style.container}>
       <ReturnButton />
@@ -123,20 +147,29 @@ export const WriterBannerImage = ({
           <Label style={style.authorDescription}
             numberOfLines={2} >{data.authorDescription}</Label>
           <View style={{ flexDirection: 'row' }}>
-            <ButtonImage
-              icon={() => <InstagramIcon />}
-              onPress={() => console.log('instagram')}
-            />
-            <ButtonImage
-              icon={() => <TwitterIcon />}
-              onPress={() => console.log('twitter')}
-              style={{ marginStart: normalize(30) }}
-            />
-            <ButtonImage
-              icon={() => <FacebookIcon />}
-              onPress={() => console.log('facebook')}
-              style={{ marginStart: normalize(35) }}
-            />
+            {isNotEmpty(data.instagram_url) && <ButtonImage
+              icon={() => getSvgImages({
+                name: ImagesName.instagramGray,
+                size: normalize(13),
+              })}
+              onPress={() => openSocialMedia(SocialMediaType.instagram, data.instagram_url)}
+              style={{ marginEnd: normalize(30) }}
+            />}
+            {isNotEmpty(data.twitter_url) && <ButtonImage
+              icon={() => getSvgImages({
+                name: ImagesName.twitterGray,
+                size: normalize(13),
+              })}
+              onPress={() => openSocialMedia(SocialMediaType.twitter, data.twitter_url)}
+            />}
+            {isNotEmpty(data.facebook_url) && <ButtonImage
+              icon={() => getSvgImages({
+                name: ImagesName.facebookGray,
+                size: normalize(13),
+              })}
+              onPress={() => openSocialMedia(SocialMediaType.facebook, data.facebook_url)}
+              style={{ marginStart: isNotEmpty(data.twitter_url) ? normalize(35) : normalize(5) }}
+            />}
           </View>
         </View>
       </View>
@@ -144,14 +177,12 @@ export const WriterBannerImage = ({
   )
 }
 
-const containerHeight = isTab ? 0.5 * screenWidth : 0.8 * screenWidth;
-
 const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
     container: {
       flex: 1,
       height:'auto',
-      backgroundColor: Styles.color.pattensBlue51,
+      backgroundColor: theme.writerBackground,
       width: '100%',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       paddingTop: DeviceInfo.hasNotch() ? normalize(40) : normalize(20), 

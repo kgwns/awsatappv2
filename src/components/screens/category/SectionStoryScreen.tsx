@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {ShortArticle, NewsFeed, AlertModal, VideoContent} from '../../organisms';
+import {ShortArticle, NewsFeed, VideoContent} from '../../organisms';
 import {isTab, normalize, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
@@ -23,19 +23,13 @@ import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { fetchNewsViewApi } from 'src/services/newsViewService';
 import { AxiosError } from 'axios';
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
 import { formatTopListToLatestArticleType } from 'src/redux/newsView/sagas';
 import { fetchVideoListApi } from 'src/services/videoListService';
 import { formatVideoData } from 'src/redux/videoList/sagas';
+import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 
 export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
-
-  const CONST_NOT_SUBSCRIBED = TranslateConstants({key: TranslateKey.NOT_SUBSCRIBED})
-  const CONST_DESCRIPTION = TranslateConstants({key: TranslateKey.DESCRIPTION})
-  const CONST_SIGN_UP = TranslateConstants({key: TranslateKey.SIGN_UP})
-
-
   
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
@@ -240,7 +234,7 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
     });
   }
 
-  const onCloseSignUpAlert = () => {
+  const onClosePopUp = () => {
     setShowPopUp(false)
   }
 
@@ -374,15 +368,6 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
     
   return (
     <View style={style.contentContainer}>
-      {showupUp && <AlertModal
-        title={CONST_NOT_SUBSCRIBED}
-        message={CONST_DESCRIPTION}
-        buttonText={CONST_SIGN_UP}
-        isVisible={showupUp}
-        onPressSuccess={onPressSignUp}
-        onClose={onCloseSignUpAlert}
-      />
-      }
       {!initialLoading  ? <FlatList
       data={[{}]}
       keyExtractor={(_, index) => index.toString()}
@@ -394,6 +379,10 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
         <LoadingState />
       </View>
       }
+       <PopUp type={PopUpType.rbSheet}
+        onPressButton={onPressSignUp}
+        showPopUp={showupUp}
+        onClosePopUp={onClosePopUp} />
     </View>
   );
 });

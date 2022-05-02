@@ -107,6 +107,15 @@ import ReturnArrowWhite from 'src/assets/images/icons/returnArrow.svg'
 import ArrowLeftFacedBlack from 'src/assets/images/icons/arrowLeftFacedBlack.svg'
 import ArrowLeftFacedWhite from 'src/assets/images/icons/arrowLeftFacedWhite.svg'
 
+import FacebookGrayIcon from 'src/assets/images/icons/facebookGray.svg';
+import InstagramGrayIcon from 'src/assets/images/icons/instagramGray.svg';
+import TwitterGrayIcon from 'src/assets/images/icons/twitterGray.svg';
+import FacebookWhiteIcon from 'src/assets/images/icons/facebookWhite.svg';
+import InstagramWhiteIcon from 'src/assets/images/icons/instagramWhite.svg';
+import TwitterWhiteIcon from 'src/assets/images/icons/twitterWhite.svg';
+import ShareGrayIcon from 'src/assets/images/icons/shareGray.svg';
+import Bookmarkgray from 'src/assets/images/icons/bookmarkGray.svg';
+
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
 
@@ -255,6 +264,16 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <ReturnArrowWhite {...props} />
         case ImagesName.arrowLeftFacedBlack:
             return isDark ? <ArrowLeftFacedWhite {...props} /> : <ArrowLeftFacedBlack {...props} />
+        case ImagesName.facebookGray:
+            return isDark ? <FacebookWhiteIcon {...props} /> : <FacebookGrayIcon {...props} />
+        case ImagesName.instagramGray:
+            return isDark ? <InstagramWhiteIcon {...props} /> : <InstagramGrayIcon {...props} />
+        case ImagesName.twitterGray:
+            return isDark ? <TwitterWhiteIcon {...props} /> : <TwitterGrayIcon {...props} />
+        case ImagesName.shareGray:
+            return isDark ? <ShareGrayIcon {...props} /> : <Share {...props} />
+        case ImagesName.bookmarkGray:
+            return isDark ? <Bookmarkgray {...props} /> : <BookMarkBlackBdr {...props} />
         default: return null
     }
 }

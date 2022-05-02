@@ -49,5 +49,6 @@ export { SignupAlertCard } from './signupAlertCard/SignupAlertCard';
 export { WriterBannerImage } from './writerBannerImage/WriterBannerImage'
 export { ArticleOverlayContent } from './articleOverlayContent/ArticleOverlayContent'
 export { GameIntroCard, GameIntroCardProps } from './gameIntroCard/GameIntroCard'
-export { TopHeadLineNews, TopHeadLineNewsProps, TopNewsItemProps } from './topHeadLineNews/TopHeadLineNews'
+export { TopHeadLineNews, TopHeadLineNewsProps } from './topHeadLineNews/TopHeadLineNews'
+export { BottomSheetView } from 'src/components/molecules/bottomSheetView/BottomSheetView'
 

@@ -9,9 +9,9 @@ import {
   RelatedOpinionArticlesWidget,
 } from 'src/components/organisms';
 import {ScreenContainer} from '..';
-import {useAllWriters, useAppCommon, useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
+import {useAllWriters, useAppCommon, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
-import { OpinionArticleDetailItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
+import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 import TrackPlayer from 'react-native-track-player';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -20,6 +20,7 @@ import { sendUserEventTracking } from 'src/services'
 import { TrackingEventType } from 'src/services/eventTrackService'
 import { ArticleFontSize } from 'src/redux/appCommon/types';
 import { Edge } from 'react-native-safe-area-context';
+import { WriterDetailDataType } from 'src/redux/writersDetail/types';
 
 export interface OpinionArticleDetailScreenProps {
   route: any;
@@ -42,7 +43,9 @@ export const OpinionArticleDetail = ({
     fetchRelatedOpinionData, relatedOpinionListData,
     isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData,fetchNarratedOpinionData } =
     useOpinionArticleDetail();
-  const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid != currentNId})
+    const { writerDetailData,
+      getWriterDetailData, emptyWriterDetailData
+  } = useWriterDetail();
 
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
@@ -57,6 +60,8 @@ export const OpinionArticleDetail = ({
   };
 
   const [opinionArticle,setOpinionArticle]=useState<OpinionArticleDetailItemType[]>([])
+  const [writerDetailInfo, setWriterDetailInfo] = useState<WriterDetailDataType[]>([])
+  const [relatedOpinionInfo,setrelatedOpinioninfo]=useState<OpinionsListItemType[]>([])
 
   const [isFollowed, setIsFollowed] = useState(false)
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
@@ -81,6 +86,8 @@ export const OpinionArticleDetail = ({
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
       setOpinionArticle([]);
+      setWriterDetailInfo([])
+      setrelatedOpinioninfo([]);
       emptyRelatedOpinionData();
       emptyOpinionArticleData();
       if (!route.params.isRelatedArticle) {
@@ -89,6 +96,19 @@ export const OpinionArticleDetail = ({
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (isNonEmptyArray(writerDetailData) && isFocused) {
+      setWriterDetailInfo(writerDetailData)
+    }
+  }, [writerDetailData])
+
+  useEffect(() => {
+    if (isNonEmptyArray(relatedOpinionListData) && isFocused) {
+      const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid != currentNId})
+      setrelatedOpinioninfo(relatedOpinionData)
+    }
+  }, [relatedOpinionListData])
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const edge = getScreenEdge(deviceOrientation)
@@ -116,6 +136,9 @@ export const OpinionArticleDetail = ({
         fetchNarratedOpinionData({
           jwPlayerID:opinionArticleDetailData[0].jwplayer
         })
+      }
+      if (isNonEmptyArray(opinionArticleDetailData[0].writer) && isNotEmpty(opinionArticleDetailData[0].writer[0].id)) {
+        getWriterDetailData({ tid: opinionArticleDetailData[0].writer[0].id })
       }
     }
   }, [opinionArticleDetailData])
@@ -236,14 +259,14 @@ export const OpinionArticleDetail = ({
 
   const renderItem = () => (
     <View style={[style.container]}>
-      {isNonEmptyArray(opinionArticle) && (
+      {isNonEmptyArray(opinionArticle) &&  isNonEmptyArray(writerDetailInfo) &&  (
         <OpinionArticleDetailWidget
           data={opinionArticle[0]} fontSize={fontSize}
           isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
-          isRelatedArticle={route.params.isRelatedArticle} />
+          isRelatedArticle={route.params.isRelatedArticle} writerData={writerDetailInfo[0]}/>
       )}
-      {isNonEmptyArray(relatedOpinionData) && (
-        <RelatedOpinionArticlesWidget data={relatedOpinionData}
+      {isNonEmptyArray(relatedOpinionInfo) && (
+        <RelatedOpinionArticlesWidget data={relatedOpinionInfo}
           onPress={onPressRelatedOpinion}
           onScroll={() => gotoNextPage()}
           isLoading={isLoadingRelatedOpinion} />
