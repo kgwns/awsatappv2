@@ -10,9 +10,6 @@ import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { ImageResize } from 'src/shared/styles/text-styles'
-import FacebookIcon from 'src/assets/images/icons/facebookGray.svg';
-import InstagramIcon from 'src/assets/images/icons/instagramGray.svg';
-import TwitterIcon from 'src/assets/images/icons/twitterGray.svg';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import DeviceInfo from 'react-native-device-info';
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
@@ -151,16 +148,25 @@ export const WriterBannerImage = ({
             numberOfLines={2} >{data.authorDescription}</Label>
           <View style={{ flexDirection: 'row' }}>
             {isNotEmpty(data.instagram_url) && <ButtonImage
-              icon={() => <InstagramIcon />}
+              icon={() => getSvgImages({
+                name: ImagesName.instagramGray,
+                size: normalize(13),
+              })}
               onPress={() => openSocialMedia(SocialMediaType.instagram, data.instagram_url)}
               style={{ marginEnd: normalize(30) }}
             />}
             {isNotEmpty(data.twitter_url) && <ButtonImage
-              icon={() => <TwitterIcon />}
+              icon={() => getSvgImages({
+                name: ImagesName.twitterGray,
+                size: normalize(13),
+              })}
               onPress={() => openSocialMedia(SocialMediaType.twitter, data.twitter_url)}
             />}
             {isNotEmpty(data.facebook_url) && <ButtonImage
-              icon={() => <FacebookIcon />}
+              icon={() => getSvgImages({
+                name: ImagesName.facebookGray,
+                size: normalize(13),
+              })}
               onPress={() => openSocialMedia(SocialMediaType.facebook, data.facebook_url)}
               style={{ marginStart: isNotEmpty(data.twitter_url) ? normalize(35) : normalize(5) }}
             />}
@@ -176,7 +182,7 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       flex: 1,
       height:'auto',
-      backgroundColor: Styles.color.pattensBlue51,
+      backgroundColor: theme.writerBackground,
       width: '100%',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       paddingTop: DeviceInfo.hasNotch() ? normalize(40) : normalize(20), 

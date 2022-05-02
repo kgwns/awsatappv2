@@ -23,7 +23,7 @@ export const OpinionArticleDetailFooter = ({
 }) => {
   let articleSaveIcon = isBookmarked
     ? ImagesName.bookMarkActiveSVG
-    : ImagesName.bookmark;
+    : ImagesName.bookmarkGray;
 
 
   const onPressShare = async () => {
@@ -51,7 +51,7 @@ export const OpinionArticleDetailFooter = ({
           return getSvgImages({
             name: ImagesName.fontScaling,
             size: normalize(21), 
-            fill:themeData.primaryBlack
+            fill:themeData.secondarySpanishGray
           });
         }}
         onPress={onPressFontSizeChange}
@@ -59,7 +59,7 @@ export const OpinionArticleDetailFooter = ({
       <ButtonImage
         icon={() => {
           return getSvgImages({
-            name: ImagesName.share,
+            name: ImagesName.shareGray,
             size: normalize(18),
           });
         }}
