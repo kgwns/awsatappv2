@@ -9,6 +9,9 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { decodeHTMLTags, getSecondsToHms } from 'src/shared/utils/utilities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+import { ScreensConstants } from 'src/constants';
 
 export interface PodcastWidgetProps {
   onPress: () => void;
@@ -22,6 +25,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   const { themeData } = useTheme();
   const style = useThemeAwareObject(createStyles);
   const podcastData = data[0];
+  const navigation = useNavigation<StackNavigationProp<any>>();
 
 
   const widgetHeaderData: WidgetHeaderProps = {
@@ -45,10 +49,15 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     },
   };
 
+  const navigateToPodcast = () =>{
+    const params = {sectionId: null, title: "بودكاست", keyName: "podcast"}
+    navigation.navigate(ScreensConstants.SectionArticlesParentScreen,params)
+  }
+
   return (
     <View>
       <View style={style.spacing}>
-        <WidgetHeader {...widgetHeaderData} onPress={() => { console.log('more pressed') }} />
+        <WidgetHeader {...widgetHeaderData} onPress={navigateToPodcast} />
       </View>
       <View style={style.container}>
         <View style={style.topContainer}>
