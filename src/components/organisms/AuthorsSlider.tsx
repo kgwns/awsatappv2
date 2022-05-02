@@ -143,7 +143,7 @@ const customStyle = (theme: CustomThemeType) => {
         paddingTop: normalize(20),
         backgroundColor: theme.secondaryWhite,
         paddingBottom:normalize(20),
-        paddingEnd: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth)
+        paddingEnd: (isTab ? 0.02 : 0.04) * screenWidth
     },
     itemListContainer: {
         width: screenWidth * (isTab ? 0.43 : 0.84),
