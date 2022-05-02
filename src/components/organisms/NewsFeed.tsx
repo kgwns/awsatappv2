@@ -2,7 +2,7 @@ import { View, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 
 import React from 'react';
 import {Image} from '../atoms/image/Image';
 import {isTab, normalize, screenWidth} from '../../shared/utils';
-import {Styles} from '../../shared/styles';
+import {ImagesName, Styles} from '../../shared/styles';
 import {TextWithFlag, Divider, Label, LabelTypeProp} from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
 import {flatListUniqueKey, ScreensConstants} from '../../constants';
@@ -21,6 +21,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 export interface NewsFeedProps {
   title: string;
@@ -59,6 +60,31 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
           rightTitle={calculateYear(item.created_export) + ','}
           leftTitleColor={theme.themeData.primary}
           rightIcon={() => <CalendarIcon />}
+          rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString()}
+          rightDateColor={Styles.color.smokeyGrey}
+          rightTitleColor={Styles.color.smokeyGrey}
+          addBookMark={true}
+          isBookmarked={item.isBookmarked}
+          onPressBookmark={() => { onUpdateNewsFeedBookmark(index) }}
+        />
+      </View>
+    )
+  }
+
+  const renderArticleFooterMobile = (item: NewsViewListItemType, index: number) => {
+    return (
+      <View style={{marginTop: 10}}>
+        <SectionVideoFooter
+          
+          rightTitle={calculateYear(item.created_export) + ','}
+          leftTitleColor={theme.themeData.primary}
+          rightIcon={() => {
+            return getSvgImages({
+              name: ImagesName.clock,
+              size: normalize(12),
+              style: { marginRight: normalize(5) }
+            })
+          }}
           rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString()}
           rightDateColor={Styles.color.smokeyGrey}
           rightTitleColor={Styles.color.smokeyGrey}
@@ -120,8 +146,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
                   </View>
                   {renderArticleImage(item)}
                 </View>
-                {renderDescription(item.body)}
-                {renderArticleFooter(item, index)}
+                {renderArticleFooterMobile(item, index)}
               </>
           }
         </TouchableOpacity>

@@ -46,6 +46,7 @@ export interface ArticleSectionProps {
   orientation?: string,
   isFooterOutside?: boolean
   listStyle?: StyleProp<ViewStyle>
+  hideImage?: boolean;
 }
 
 export const shortArticleFooter: articleFooterProps = {
@@ -72,7 +73,8 @@ const ShortArticle = ({ data, headerLeft, onPress,
   imageStyleProp,
   orientation,
   isFooterOutside = false,
-  listStyle
+  listStyle,
+  hideImage = false,
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const { isLoggedIn } = useLogin()
@@ -111,8 +113,11 @@ const ShortArticle = ({ data, headerLeft, onPress,
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([style.cardContainer, cardStyle])}>
         <View style={{ flexDirection: 'row' }}>
-          <View style={[style.footerStyle, leftContainerStyle]}>
-            <TextWithFlag {...item} numberOfLines={2} labelType={labelType} />
+          <View style={[style.footerStyle, leftContainerStyle, hideImage && {flex: 1, paddingRight: 0, marginTop: 10}]}>
+            <View style={[hideImage && {marginBottom: 20}]}>
+              <TextWithFlag {...item} numberOfLines={2} labelType={labelType} />
+            </View>
+            
             {isNotEmpty(item.body) && showBody &&
               <Label labelType={LabelTypeProp.p3}
                 children={decodeHTMLTags(item.body)}
@@ -120,16 +125,16 @@ const ShortArticle = ({ data, headerLeft, onPress,
                 numberOfLines={2}
               />
             }
-            {!isFooterOutside && <View style={style.footerContainer}>
+            {!isFooterOutside && <View style={[style.footerContainer]}>
               <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
                 onPress={() => checkAndUpdateBookmark(index)}
                 isBookmarked={item.isBookmarked}
               />
             </View>}
           </View>
-          <View style={[imageContainerStyle, imageStyleProp]}>
+        {!hideImage &&  <View style={[imageContainerStyle, imageStyleProp]}>
             <Image fallback url={getImageUrl(item.image)} style={imageStyle} resizeMode={ImageResize.COVER} />
-          </View>
+          </View>}
         </View>
         {isFooterOutside && <View style={style.outsideFooterContainer}>
               <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
