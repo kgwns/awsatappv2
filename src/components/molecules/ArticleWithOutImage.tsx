@@ -34,12 +34,13 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     ...props
 }) => {
     const style = useThemeAwareObject(customStyle)
+    const bodyInfo = isNotEmpty(body) ? decodeHTMLTags(body) : ''
     return (
     <TouchableWithoutFeedback onPress={onPress}>
         <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>
                 <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
-                {isNotEmpty(body) && showBody && <Label labelType={LabelTypeProp.p3}
-                    children={decodeHTMLTags(body)}
+                {isNotEmpty(bodyInfo) && showBody && <Label labelType={LabelTypeProp.p3}
+                    children={bodyInfo}
                     color={Styles.color.davyGrey}
                     numberOfLines={bodyLineCount}
                 />

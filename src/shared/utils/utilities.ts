@@ -51,7 +51,8 @@ export const getImageUrl = (imageURL: string) => {
 
 export const decodeHTMLTags = (description: string) : string => {
   const regex = /(<([^>]+)>)/gi; // to find the html tags in the description ex: <p>, <br>, etc.,
-  return isNotEmpty(description) ? description.replace(regex, '') : '';
+  const dataInfo = isNotEmpty(description) ? description.replace(regex, '').trim() : '';
+  return isNotEmpty(dataInfo) ? dataInfo.trim() : ''
 };
 
 export const isNonEmptyArray = (data: any): boolean => {

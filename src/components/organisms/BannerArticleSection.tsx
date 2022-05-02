@@ -88,6 +88,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
                         containerStyle={isTab ? style.tabletImageStyle : {}}
                         titleStyle={{ fontSize: normalize(20), lineHeight: normalize(33), fontWeight: 'normal' }}
                         showBody={false}
+                        leftTitleColor={Styles.color.silverChalice}
                         />
                     return null
                 })}
