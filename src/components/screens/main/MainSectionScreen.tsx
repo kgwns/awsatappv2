@@ -527,7 +527,7 @@ export const MainSectionScreen = () => {
         onUpdateBookmark={updatedSectionComboOneBookmark}
       />
       <Divider style={{ height: normalize(20) }} />
-      <Divider style={{ height: normalize(1), backgroundColor: themeData.dividerColor }} />
+      <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />
       <BannerArticleSection
         data={sectionComboTwoInfo}
         title={_sectionComboTwoTitle}
@@ -536,7 +536,7 @@ export const MainSectionScreen = () => {
         onUpdateBookmark={updatedSectionComboTwoBookmark}
       />
       <Divider style={{ height: normalize(20) }} />
-      <Divider style={{ height: normalize(1), backgroundColor: themeData.dividerColor }} />
+      <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />
       <BannerArticleSection
         data={sectionComboThreeInfo}
         title={_sectionComboThreeTitle}
@@ -545,7 +545,7 @@ export const MainSectionScreen = () => {
         onUpdateBookmark={updatedSectionComboThreeBookmark}
       />
       <Divider style={{ height: normalize(20) }} />
-      <Divider style={{ height: normalize(1), backgroundColor: themeData.dividerColor }} />
+      <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />
       <BannerArticleSection
         data={sectionComboFourInfo}
         title={_sectionComboFourTitle}
@@ -580,7 +580,7 @@ export const MainSectionScreen = () => {
         isDivider
       />
       <Divider style={{ height: normalize(50) }} />
-      <Divider style={{ height: normalize(1), backgroundColor: themeData.dividerColor }} />
+      <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />
       <BannerArticleSection
         data={sectionComboSixInfo}
         title={_sectionComboSixTitle}

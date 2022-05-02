@@ -35,7 +35,7 @@ export const TopHeadLineNews = ({
 
     }
     return (
-        <View style={style.container}>
+        <View style={[style.container, isTab && {alignItems: 'center'}]}>
             <FlatList
                 keyExtractor={(_, index) => index.toString()}
                 data={data}

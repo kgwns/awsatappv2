@@ -3,6 +3,7 @@ import React from 'react';
 import {OpinionArticleDetailWidget} from 'src/components/organisms/OpinionArticleDetailWidget';
 import { OpinionArticleDetailItemType } from 'src/redux/opinionArticleDetail/types';
 import { ArticleFontSize } from 'src/redux/appCommon/types';
+import { WriterDetailDataType } from 'src/redux/writersDetail/types';
 
 describe('<OpinionArticleDetailWidget>', () => {
   let instance: RenderAPI;
@@ -28,11 +29,27 @@ describe('<OpinionArticleDetailWidget>', () => {
           opinion_writer_photo: 'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2021/01/13/1375877443597951100.jpg?itok=lW-Sn5Xw',
           langcode: 'Arabic',
           name: 'عثمان ميرغني',
+          description: '',
         },
       ],
       isBookmarked: false
     };
-    const component = <OpinionArticleDetailWidget data={data} fontSize={ArticleFontSize.normal} />;
+
+    const sampleWriterInfo: WriterDetailDataType = {
+      field_opinion_facebook_export: '',
+      field_opinion_twitter_export: '',
+      field_instagram_url_export: '',
+      name: '',
+      field_description: '',
+      field_opinion_writer_photo_export: '',
+      tid: '',
+      isFollowed: false
+    }
+
+    const component = <OpinionArticleDetailWidget data={data} 
+    writerData={sampleWriterInfo}
+    fontSize={ArticleFontSize.normal} 
+    />;
     instance = render(component);
   });
 

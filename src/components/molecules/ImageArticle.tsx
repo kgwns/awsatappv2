@@ -42,6 +42,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
   textStyles?:  StyleProp<TextStyle>
   titleStyle?:  StyleProp<TextStyle>,
   showBody?: boolean,
+  leftTitleColor?: string;
 }
 
 const ImageArticle = ({
@@ -60,10 +61,9 @@ const ImageArticle = ({
   textStyles,
   titleStyle,
   showBody= true,
+  leftTitleColor,
 }: ImageArticleProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
-
-  const { themeData } = useTheme()
 
   const [isImageLoaded, setImageLoaded] = useState(false)
 
@@ -102,7 +102,7 @@ const ImageArticle = ({
               leftTitle={author} rightTitle={timeAgo(created)}
               isBookmarked={isBookmarked}
               onPress={onPressBookmark}
-              leftTitleColor={Styles.color.greenishBlue}
+              leftTitleColor={leftTitleColor || Styles.color.greenishBlue}
               rightTitleColor={Styles.color.silverChalice}
               bookMarkColorType={BookMarkColorType.BLACK}
               rightContainerStyle={rightContainerStyle}
