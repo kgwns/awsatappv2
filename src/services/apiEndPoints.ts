@@ -19,6 +19,7 @@ export const PODCAST_HOME = 'api/v2/podcasthome';
 export const COVERAGE_ARTICLE_END_POINT = 'api/v2/home/topview/coverage'
 export const FEATURED_ARTICLE_ENDPOINT = 'api/v2/home/topview/almqalat_alryysyt_'
 export const HORIZONTAL_ARTICLE_END_POINT = 'api/v2/home/topview/tghtyt_khast'
+export const EDITORS_CHOICE = 'api/v2/home/editorschoice';
 
 //opinion tab in category section
 //writer list

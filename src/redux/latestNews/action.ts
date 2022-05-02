@@ -18,6 +18,7 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
   REQUEST_HORIZONTAL_ARTICLE_BLOCK,
   REQUEST_HORIZONTAL_ARTICLE_SUCCESS,
   REQUEST_HORIZONTAL_ARTICLE_FAILED,
+  REQUEST_EDITORS_CHOICE_DATA, REQUEST_EDITORS_CHOICE_DATA_SUCCESS, REQUEST_EDITORS_CHOICE_DATA_FAILED,
 } from "./actionType"
 import { HeroListTopListFailedPayload, HeroListTopListFailedType, 
   HeroListTopListSuccessPayload, HeroListTopListSuccessType, 
@@ -50,11 +51,15 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   RequestFeaturedBlockSuccessType,
   RequestFeaturedBlockFailedPayload,
   RequestFeaturedBlockFailedType,
-  RequestHorizontalBlockType,
   RequestHorizontalBlockSuccessPayloadType,
   RequestHorizontalBlockSuccessType,
   RequestHorizontalBlockFailedPayload,
-  RequestHorizontalBlockFailedType
+  RequestHorizontalBlockFailedType,
+  RequestEditorsChoiceType,
+  EditorsChoiceSuccessPayload,
+  EditorsChoiceSuccessType,
+  EditorsChoiceFailedPayload,
+  EditorsChoiceFailedType,
 } from "./types"
 
 export const requestTickerAndHero = (
@@ -295,6 +300,22 @@ export const requestCoverageBlockSuccess = (
   }
 }
 
+export const requestEditorsChoiceData = (
+): RequestEditorsChoiceType => {
+  return {
+    type: REQUEST_EDITORS_CHOICE_DATA,
+  }
+}
+
+export const requestEditorsChoiceSuccess = (
+  payload: EditorsChoiceSuccessPayload
+): EditorsChoiceSuccessType => {
+  return {
+    type: REQUEST_EDITORS_CHOICE_DATA_SUCCESS,
+    payload
+  }
+}
+
 export const requestCoverBlockFailed = (
   payload: RequestCoverageBlockFailedPayload
 ): RequestCoverageBlockFailedType => {
@@ -354,6 +375,15 @@ export const requestHorizontalArticleBlockFailed = (
   }
 }
 
+export const requestEditorsChoiceFailed = (
+  payload: EditorsChoiceFailedPayload
+): EditorsChoiceFailedType => {
+  return {
+    type: REQUEST_EDITORS_CHOICE_DATA_FAILED,
+    payload
+  }
+}
+
 export const latestTabActions = {
   requestTickerAndHero,
   requestTickerAndHeroSuccess,
@@ -388,4 +418,7 @@ export const latestTabActions = {
   requestHorizontalArticleBlock,
   requestHorizontalArticleBlockSuccess,
   requestHorizontalArticleBlockFailed,
+  requestEditorsChoiceData,
+  requestEditorsChoiceSuccess,
+  requestEditorsChoiceFailed,
 };

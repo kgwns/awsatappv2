@@ -32,6 +32,9 @@ import {
   REQUEST_HORIZONTAL_ARTICLE_BLOCK,
   REQUEST_HORIZONTAL_ARTICLE_SUCCESS,
   REQUEST_HORIZONTAL_ARTICLE_FAILED,
+  REQUEST_EDITORS_CHOICE_DATA,
+  REQUEST_EDITORS_CHOICE_DATA_SUCCESS,
+  REQUEST_EDITORS_CHOICE_DATA_FAILED,
 } from "./actionType"
 import { PodcastListItemType } from '../podcast/types'
 export type payloadType = { rows: any[], pager: object }
@@ -53,6 +56,15 @@ export interface LatestArticleDataType {
   author: string,
   created: string,
   isBookmarked: boolean
+}
+
+export interface EditorsChoiceDataType extends LatestArticleDataType {
+  field_news_categories: NewsCategoriesType,
+  created: string,
+  publication_date: string,
+  type: string,
+  blockname: string,
+  entityqueue_relationship_position: string,
 }
 
 export interface OpinionWriterType {
@@ -102,6 +114,7 @@ export type LatestNewsTabState = {
   coverageInfo: MainSectionBlockType[],
   featuredArticle: MainSectionBlockType[];
   horizontalArticle: MainSectionBlockType[];
+  editorsChoice: EditorsChoiceDataType[],
 }
 
 export type TickerHeroSuccessPayload = {
@@ -296,6 +309,7 @@ export enum MainSectionBlockName {
   COVERAGE = 'coverage',
   FEATURED_ARTICLE = 'almqalat_alryysyt_',
   HORIZONTAL_ARTICLE = 'tghtyt_khast',
+  EDITORS_CHOICE = 'akhtyarat_almhrr',
 }
 
 export type MainSectionBlockType = {
@@ -381,6 +395,26 @@ export type RequestHorizontalBlockFailedType = {
   type: typeof REQUEST_HORIZONTAL_ARTICLE_FAILED;
   payload: RequestCoverageBlockFailedPayload
 }
+export interface RequestEditorsChoiceType {
+  type: typeof REQUEST_EDITORS_CHOICE_DATA,
+}
+
+export type EditorsChoiceSuccessPayload = {
+  editorsChoice: EditorsChoiceDataType[]
+}
+
+export interface EditorsChoiceSuccessType {
+  type: typeof REQUEST_EDITORS_CHOICE_DATA_SUCCESS,
+  payload: EditorsChoiceSuccessPayload
+}
+export interface EditorsChoiceFailedPayload {
+  error: string
+}
+
+export interface EditorsChoiceFailedType {
+  type: typeof REQUEST_EDITORS_CHOICE_DATA_FAILED,
+  payload: EditorsChoiceFailedPayload
+}
 
 export type RequestSectionComboType =
   RequestSectionComboOne
@@ -421,4 +455,8 @@ export type LatestTabAction =
   | RequestFeaturedBlockFailedType
   | RequestHorizontalBlockType
   | RequestHorizontalBlockSuccessType
-  | RequestHorizontalBlockFailedType;
+  | RequestHorizontalBlockFailedType
+  | EditorsChoiceSuccessType
+  | EditorsChoiceFailedType
+  | RequestEditorsChoiceType
+

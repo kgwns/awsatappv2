@@ -8,6 +8,7 @@ import {
   REQUEST_OPINION_DATA_LIST_FAILED, REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA,
   REQUEST_PODCAST_HOME_DATA, REQUEST_PODCAST_HOME_DATA_SUCCESS, REQUEST_PODCAST_HOME_DATA_FAILED, REQUEST_COVERAGE_BLOCK_SUCCESS,
   REQUEST_FEATURED_ARTICLE_BLOCK_SUCCESS, REQUEST_HORIZONTAL_ARTICLE_SUCCESS,
+  REQUEST_EDITORS_CHOICE_DATA, REQUEST_EDITORS_CHOICE_DATA_SUCCESS, REQUEST_EDITORS_CHOICE_DATA_FAILED,
 } from './actionType';
 import { LatestNewsTabState, LatestTabAction } from './types';
 
@@ -27,6 +28,7 @@ const initialData: LatestNewsTabState = {
   coverageInfo: [],
   featuredArticle: [],
   horizontalArticle: [],
+  editorsChoice:[],
 };
 
 export default (state = initialData, action: LatestTabAction) => {
@@ -184,6 +186,23 @@ export default (state = initialData, action: LatestTabAction) => {
       return {
         ...state,
         horizontalArticle: action.payload.horizontalArticle
+      }
+    case REQUEST_EDITORS_CHOICE_DATA:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_EDITORS_CHOICE_DATA_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        editorsChoice: action.payload.editorsChoice
+      }
+    case REQUEST_EDITORS_CHOICE_DATA_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
       }
     default:
       return { ...state }

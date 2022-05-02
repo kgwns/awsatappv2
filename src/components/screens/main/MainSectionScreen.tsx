@@ -11,7 +11,7 @@ import { horizontalEdge, isNonEmptyArray, isTab, normalize, screenWidth } from '
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList } from 'src/hooks';
-import { LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
+import { EditorsChoiceDataType, LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -68,12 +68,13 @@ export const MainSectionScreen = () => {
   const {
     isLoading, topList, opinionList,podcastHome,
     sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour,
-    coverage, featuredArticle, horizontalArticle,
+    coverage, featuredArticle, horizontalArticle, editorsChoice,
     fetchHeroListTopList, fetchOpinionTopList,
     fetchSectionComboOne, fetchSectionComboTwo,
     fetchSectionComboThree, fetchSectionComboFour,
     fetchPodcastHome,
     fetchCoverageBlockData, fetchFeaturedArticleData, fetchHorizontalArticleData,
+    fetchEditorsChoice,
   } = useLatestNewsTab()
   const { videoData, fetchVideoRequest } = useVideoList();
 
@@ -98,6 +99,7 @@ export const MainSectionScreen = () => {
 
   const podcastData: any = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
   const headlineNews = isNonEmptyArray(coverageInfo) ? [...coverageInfo].splice(1, 4) : []
+  const [editorsChoiceInfo, setEditorsChoiceInfo] = useState(editorsChoice)
 
   useFocusEffect(
     React.useCallback(() => {
@@ -185,6 +187,17 @@ export const MainSectionScreen = () => {
   }
 
   useEffect(() => {
+    if (isNonEmptyArray(editorsChoice)) {
+      updateEditorsChoiceData()
+    }
+  }, [editorsChoice, bookmarkIdInfo])
+
+  const updateEditorsChoiceData = () => {
+    const data = updateBookmark(editorsChoice)
+    setEditorsChoiceInfo(data)
+  }
+
+  useEffect(() => {
     if (isNonEmptyArray(sectionComboTwo)) {
       updateSectionComboTwoData()
     }
@@ -204,6 +217,17 @@ export const MainSectionScreen = () => {
     const index = sectionComboTwoInfo.findIndex((item) => item.nid == article.nid)
     const updatedData = updatedChangeBookmark(sectionComboTwoInfo, index)
     setSectionComboTwoInfo(updatedData)
+  }
+
+  const updatedEditorsChoiceBookmark = (article: EditorsChoiceDataType) => {
+    if (!isLoggedIn) {
+      setShowPopUp(true)
+      return
+    }
+
+    const index = editorsChoiceInfo.findIndex((item) => item.nid == article.nid)
+    const updatedData = updatedChangeBookmark(editorsChoiceInfo, index)
+    setEditorsChoiceInfo(updatedData)
   }
 
   useEffect(() => {
@@ -311,6 +335,7 @@ export const MainSectionScreen = () => {
     fetchProfileDataRequest();
     fetchVideoRequest();
     fetchPodcastHome();
+    fetchEditorsChoice();
   }
 
 
@@ -400,11 +425,11 @@ export const MainSectionScreen = () => {
        <View>
          <PodcastWidget data={podcastHome} onPress={onListenPodcast} />  
          </View>}
-      <BannerArticleSection data={sectionComboTwoInfo}
-        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+      <BannerArticleSection data={editorsChoiceInfo}
+        title={t('latestNewsTab.editorsChoice.headerLeft')}
         sectionId={'871'}
         onPress={onPressArticle}
-        onUpdateBookmark={updatedSectionComboTwoBookmark}
+        onUpdateBookmark={updatedEditorsChoiceBookmark}
         isDivider
         dividerStyle={mainSectionStyle.firstBannerDivider}
       />
@@ -514,11 +539,11 @@ export const MainSectionScreen = () => {
       <EditorsPickSection data={horizontalArticle} />
       <View style={mainSectionStyle.tabSplitter}>
         <View style={mainSectionStyle.tabWidgetContainer}>
-          <BannerArticleSection data={sectionComboTwoInfo}
+          <BannerArticleSection data={editorsChoiceInfo}
             title={t('latestNewsTab.sectionComboTwo.headerLeft')}
             sectionId={'871'}
             onPress={onPressArticle}
-            onUpdateBookmark={updatedSectionComboTwoBookmark}
+            onUpdateBookmark={updatedEditorsChoiceBookmark}
           />
         </View>
         <View style={[mainSectionStyle.tabWidgetContainer, {alignItems: 'center',backgroundColor:themeData.secondaryWhite}]}>
