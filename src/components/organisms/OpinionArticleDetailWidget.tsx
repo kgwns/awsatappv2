@@ -22,6 +22,7 @@ import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { ArticleFontSize } from '../screens/opinionArticleDetail/OpinionArticleDetail';
 import TrackPlayer, {State, usePlaybackState} from 'react-native-track-player';
 import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
+import { WriterDetailDataType } from 'src/redux/writersDetail/types';
 
 export interface OpinionArticleDetailWidgetProp {
   data: OpinionArticleDetailItemType;
@@ -29,10 +30,11 @@ export interface OpinionArticleDetailWidgetProp {
   isFollowed: boolean;
   onPressFollow:()=>void;
   isRelatedArticle: boolean;
+  writerData : WriterDetailDataType
 }
 
 export const OpinionArticleDetailWidget = ({
-  data, fontSize, isFollowed, onPressFollow, isRelatedArticle = false,
+  data, fontSize, isFollowed, onPressFollow, isRelatedArticle = false,writerData
 }: OpinionArticleDetailWidgetProp) => {
   const [t] = useTranslation();
   const {themeData} = useTheme();
@@ -97,7 +99,14 @@ export const OpinionArticleDetailWidget = ({
 
   return (
     <View>
-      <WriterBannerImage data={{ authorImage: data.writer[0]?.opinion_writer_photo, authorName: data.writer[0]?.name, authorDescription: decodeHTMLTags(data.writer[0]?.description) }}
+      <WriterBannerImage data={{
+        authorImage: data.writer[0]?.opinion_writer_photo,
+        authorName: data.writer[0]?.name,
+        authorDescription: decodeHTMLTags(data.writer[0]?.description),
+        facebook_url: writerData.field_opinion_facebook_export,
+        twitter_url: writerData.field_opinion_twitter_export,
+        instagram_url: writerData.field_instagram_url_export
+      }}
         onPressReturn={onPressReturn}
         isFollowed={isFollowed}
         onPressFollow={onPressFollow}
