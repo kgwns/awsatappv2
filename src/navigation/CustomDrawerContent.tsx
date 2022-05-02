@@ -165,6 +165,8 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           onPressNavigationDynamicMenu(isChild, item)
         }}
         onPressIcon={() => onPressDropDownIcon(index)}
+        containerStyle={isChild && styles.childItemStyle}
+        titleStyle={isChild && styles.childTitleStyle}
       />
     )
   }
@@ -343,4 +345,11 @@ const createStyles = (theme: CustomThemeType) =>
       height: 1,
       backgroundColor: theme.dividerColor
   },
+    childItemStyle:{
+      marginLeft: 20
+    },
+    childTitleStyle:{
+      fontWeight : 'normal', 
+      opacity: .8
+    }
   });

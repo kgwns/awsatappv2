@@ -14,7 +14,8 @@ interface ButtonListProps {
   iconSize?: number,
   onPressIcon?: () => void,
   iconStyle?: any,
-  hitSlop?: Insets
+  hitSlop?: Insets,
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
 export const ButtonList = (props: ButtonListProps) => {
@@ -29,7 +30,7 @@ export const ButtonList = (props: ButtonListProps) => {
   return (
     <TouchableOpacity onPress={props.onPress}>
       <View
-        style={styles.container}>
+        style={[styles.container, props.containerStyle]}>
         <Label labelType="h3" style={props.titleStyle}>
           {props.title}
         </Label>
