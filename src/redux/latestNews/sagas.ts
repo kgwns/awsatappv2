@@ -9,6 +9,9 @@ import {
   RequestSectionComboOneSuccessPayload,
   RequestSectionComboThreeSuccessPayload,
   RequestSectionComboTwoSuccessPayload,
+  RequestSectionComboFiveSuccessPayload,
+  RequestSectionComboSixSuccessPayload,
+  RequestSectionComboSevenSuccessPayload,
   RequestSectionComboType,
   RequestTickerAndHeroType, TickerHeroSuccessPayload,
   OpinionSuccessPayload, RequestOpinionListType, LatestOpinionDataType,
@@ -24,6 +27,9 @@ import {
   REQUEST_SECTION_COMBO_ONE,
   REQUEST_SECTION_COMBO_THREE,
   REQUEST_SECTION_COMBO_TWO,
+  REQUEST_SECTION_COMBO_FIVE,
+  REQUEST_SECTION_COMBO_SIX,
+  REQUEST_SECTION_COMBO_SEVEN,
   REQUEST_TICKER_HERO_DATA,
   REQUEST_OPINION_LIST_DATA,
   REQUEST_PODCAST_HOME_DATA,
@@ -38,6 +44,9 @@ import {
   requestSectionComboOneFailed, requestSectionComboOneSuccess,
   requestSectionComboThreeFailed, requestSectionComboThreeSuccess,
   requestSectionComboTwoFailed, requestSectionComboTwoSuccess,
+  requestSectionComboFiveFailed, requestSectionComboFiveSuccess,
+  requestSectionComboSixFailed, requestSectionComboSixSuccess,
+  requestSectionComboSevenFailed, requestSectionComboSevenSuccess,
   requestTickerAndHeroFailed, requestTickerAndHeroSuccess,
   requestOpinionSuccess,
   requestPodcastHomeSuccess, requestPodcastHomeFailed,
@@ -300,12 +309,40 @@ const parseSectionComboFour = (response: payloadType) => {
   responseData.sectionComboFour = data.splice(0, 4)
   return responseData
 }
+
+const parseSectionComboFive= (response: payloadType) => {
+  const formattedData = formatLatestArticle(response)
+  let responseData: RequestSectionComboFiveSuccessPayload = {
+    sectionComboFive: []
+  }
+  responseData.sectionComboFive = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
+  return responseData
+}
+
+const parseSectionComboSix= (response: payloadType) => {
+  const formattedData = formatLatestArticle(response)
+  let responseData: RequestSectionComboSixSuccessPayload = {
+    sectionComboSix: []
+  }
+  responseData.sectionComboSix = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
+  return responseData
+}
+
+const parseSectionComboSeven= (response: payloadType) => {
+  const formattedData = formatLatestArticle(response)
+  let responseData: RequestSectionComboSevenSuccessPayload = {
+    sectionComboSeven: []
+  }
+  responseData.sectionComboSeven = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
+  return responseData
+}
+
 const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {
   const formattedData = formatOpinion(response)
   let responseData: OpinionSuccessPayload = {
     opinionList: []
   }
-  responseData.opinionList = formattedData.splice(0, 4)
+  responseData.opinionList = formattedData.splice(0, 12)
   return responseData
 }
 
@@ -400,6 +437,15 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
     } else if (action.type == REQUEST_SECTION_COMBO_FOUR) {
       const response = parseSectionComboFour(payload)
       yield put(requestSectionComboFourSuccess(response));
+    } else if (action.type == REQUEST_SECTION_COMBO_FIVE) {
+      const response = parseSectionComboFive(payload)
+      yield put(requestSectionComboFiveSuccess(response));
+    } else if (action.type == REQUEST_SECTION_COMBO_SIX) {
+      const response = parseSectionComboSix(payload)
+      yield put(requestSectionComboSixSuccess(response));
+    } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
+      const response = parseSectionComboSeven(payload)
+      yield put(requestSectionComboSevenSuccess(response));
     }
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
@@ -413,6 +459,12 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
         yield put(requestSectionComboThreeFailed({ error: errorMessage.message }));
       } else if (action.type == REQUEST_SECTION_COMBO_FOUR) {
         yield put(requestSectionComboFourFailed({ error: errorMessage.message }));
+      } else if (action.type == REQUEST_SECTION_COMBO_FIVE) {
+        yield put(requestSectionComboFiveFailed({ error: errorMessage.message }));
+      } else if (action.type == REQUEST_SECTION_COMBO_SIX) {
+        yield put(requestSectionComboSixFailed({ error: errorMessage.message }));
+      } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
+        yield put(requestSectionComboSixFailed({ error: errorMessage.message }));
       }
     }
   }
@@ -510,6 +562,9 @@ function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_COVERAGE_BLOCK, fetchCoverageBlockData)]);
   yield all([takeLatest(REQUEST_FEATURED_ARTICLE_BLOCK, fetchFeaturedArticleBlockData)]);
   yield all([takeLatest(REQUEST_HORIZONTAL_ARTICLE_BLOCK, fetchHorizontalBlockData)]);
+  yield all([takeLatest(REQUEST_SECTION_COMBO_FIVE, fetchSectionCombo)]);
+  yield all([takeLatest(REQUEST_SECTION_COMBO_SIX, fetchSectionCombo)]);
+  yield all([takeLatest(REQUEST_SECTION_COMBO_SEVEN, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_EDITORS_CHOICE_DATA, fetchEditorsChoiceData)]);
 }
 

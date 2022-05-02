@@ -30,6 +30,15 @@ export const getSectionComboThreeData: Selector<LatestArticleDataType[]> = (stat
 export const getSectionComboFourData: Selector<LatestArticleDataType[]> = (state: AppState) =>
   state.latestNewsTab.sectionComboFour;
 
+export const getSectionComboFiveData: Selector<LatestArticleDataType[]> = (state: AppState) =>
+  state.latestNewsTab.sectionComboFive;
+
+export const getSectionComboSixData: Selector<LatestArticleDataType[]> = (state: AppState) =>
+  state.latestNewsTab.sectionComboSix;
+
+export const getSectionComboSevenData: Selector<LatestArticleDataType[]> = (state: AppState) =>
+  state.latestNewsTab.sectionComboSeven;
+
 export const getPodcastHomeData: Selector<LatestPodcastDataType[]> = (state: AppState) =>
   state.latestNewsTab.podcastHome;
 

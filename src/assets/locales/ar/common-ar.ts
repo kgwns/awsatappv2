@@ -49,17 +49,29 @@ export const arabic = {
   },
   latestNewsTab: {
     sectionComboOne: {
-      headerLeft: 'الفيروسات المستجدة',
+      headerLeft: 'الخليج',
       headerRight: 'المزيد',
     },
     sectionComboTwo: {
-      headerLeft: 'الخليج',
+      headerLeft: 'العالم العربي',
     },
     sectionWriters: {
       headerLeft: 'آراء وكتّاب ',
     },
     sectionComboThree: {
-      headerLeft: 'العالم العربي',
+      headerLeft: 'العالم',
+    },
+    sectionComboFour: {
+      headerLeft: ' اقتصاد',
+    },
+    sectionComboFive: {
+      headerLeft: 'ثقافة وفنون',
+    },
+    sectionComboSix: {
+      headerLeft: 'منوعات',
+    },
+    sectionComboSeven: {
+      headerLeft: 'رياضة',
     },
     articlSection: {
       articleTitle: 'عين علي'

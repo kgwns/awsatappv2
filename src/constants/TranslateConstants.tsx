@@ -12,6 +12,13 @@ export enum TranslateKey {
     CROSS_WORD_AND_SUDOKU_DESCRIPTION,
     GAMES,
     SECTION_MAIN,
+    SECTION_COMBO_ONE,
+    SECTION_COMBO_TWO,
+    SECTION_COMBO_THREE,
+    SECTION_COMBO_FOUR,
+    SECTION_COMBO_FIVE,
+    SECTION_COMBO_SIX,
+    SECTION_COMBO_SEVEN,
 }
 
 export const TranslateConstants = ({
@@ -40,6 +47,20 @@ export const TranslateConstants = ({
             return t('games.games')
         case TranslateKey.SECTION_MAIN:
             return t('sectionTab.main')
+        case TranslateKey.SECTION_COMBO_ONE:
+            return t('latestNewsTab.sectionComboOne.headerLeft')
+        case TranslateKey.SECTION_COMBO_TWO:
+            return t('latestNewsTab.sectionComboTwo.headerLeft')
+        case TranslateKey.SECTION_COMBO_THREE:
+            return t('latestNewsTab.sectionComboThree.headerLeft')
+        case TranslateKey.SECTION_COMBO_FOUR:
+            return t('latestNewsTab.sectionComboFour.headerLeft')
+        case TranslateKey.SECTION_COMBO_FIVE:
+            return t('latestNewsTab.sectionComboFive.headerLeft')
+        case TranslateKey.SECTION_COMBO_SIX:
+            return t('latestNewsTab.sectionComboSix.headerLeft')
+        case TranslateKey.SECTION_COMBO_SEVEN:
+            return t('latestNewsTab.sectionComboSeven.headerLeft')
         default: return ''
     }
 }
