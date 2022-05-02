@@ -15,7 +15,7 @@ import {
 } from '../molecules';
 import {MixedStyleRecord} from 'react-native-render-html';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { timeAgo, isNotEmpty, isObjectNonEmpty} from 'src/shared/utils/utilities';
+import { timeAgo, isNotEmpty, isObjectNonEmpty, decodeHTMLTags} from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
@@ -97,22 +97,22 @@ export const OpinionArticleDetailWidget = ({
 
   return (
     <View>
-      <WriterBannerImage data={{ authorImage: data.writer[0]?.opinion_writer_photo, authorName: data.writer[0]?.name }}
+      <WriterBannerImage data={{ authorImage: data.writer[0]?.opinion_writer_photo, authorName: data.writer[0]?.name, authorDescription: decodeHTMLTags(data.writer[0]?.description) }}
         onPressReturn={onPressReturn}
         isFollowed={isFollowed}
         onPressFollow={onPressFollow}
       />
       <View style={style.contentContainer}>
         {/* <AuthorCard title={data.writer[0].name} /> */}
+        {isNotEmpty(data.jwplayer) && isObjectNonEmpty(mediaData) && <View style={style.listenToArticleCard}>
+          <ListenToArticleCard data={mediaData} />
+        </View>}
         <Label style={style.title}>{data.title}</Label>
         <ArticleFooter
           {...articleDetailFooterData}
           rightTitle={data.writer[0].name}
           leftTitle={t(timeAgo(data.created_export))}
         />
-        {isNotEmpty(data.jwplayer) && isObjectNonEmpty(mediaData) && <View style={style.listenToArticleCard}>
-          <ListenToArticleCard data={mediaData} />
-        </View>}
          {articleHtmlContent()}
       </View>
       <Divider style={style.divider}/>
@@ -131,8 +131,8 @@ const customStyle = (theme: CustomThemeType) => {
       height: '100%',
     },
     title: {
-      fontSize: normalize(24),
-      lineHeight: normalize(36),
+      fontSize: normalize(30),
+      lineHeight: normalize(42),
       fontWeight: 'bold',
       color: theme.primaryBlack,
       textAlign: 'left',

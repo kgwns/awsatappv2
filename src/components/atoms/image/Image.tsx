@@ -6,7 +6,7 @@ import {
 } from 'react-native-elements';
 
 import {ImagesName, Styles} from 'src/shared/styles';
-import { isDarkTheme } from 'src/shared/utils';
+import { isDarkTheme, isAndroid, isNotEmpty, isNonEmptyArray } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
 import {PlaceholderImage} from '../'
 
@@ -59,6 +59,10 @@ export const Image: FunctionComponent<ImageProps> = ({
   const placeholderStyleInternal: ViewStyle = {
     backgroundColor: 'transparent',
   };
+
+  if(isAndroid && !isNonEmptyArray(name) && !isNotEmpty(url)) {
+    name = ImagesName.placeholderImg
+  }
 
   return (
     <>

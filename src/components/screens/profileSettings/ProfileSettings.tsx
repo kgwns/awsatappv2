@@ -40,7 +40,7 @@ export const ProfileSettings = () => {
 
   const style = useThemeAwareObject(customStyle);
 
-    const { theme, serverEnvironment, storeServerEnvironmentInfo } = useAppCommon();
+    const { theme, serverEnvironment, storeServerEnvironmentInfo, resetFontSizeInfo  } = useAppCommon();
   const { removeBookmark } = useBookmark()
   const { removeKeepNotificationInfo } = useKeepNotified()
   const isDark = isDarkTheme(theme);
@@ -56,7 +56,7 @@ export const ProfileSettings = () => {
   const CONST_DARK_MODE = t('profileSetting.darkMode');
   const CONST_LIGHT_MODE = t('profileSetting.lightMode');
   const CONST_WELCOME = t('profileSetting.welcome');
-  const CONST_CHANGE_ENVIRONMENT = "Change Environment"
+  const CONST_CHANGE_ENVIRONMENT = t('profileSetting.changeEnvironment');
 
   const signOutAlertPayload : AlertPayloadType = {
     title : t('profileSetting.alert'),
@@ -140,6 +140,7 @@ export const ProfileSettings = () => {
     emptySelectedTopicsInfoData()
     emptySelectedAuthorsInfoData()
     emptySearchHistory();
+    resetFontSizeInfo();
     navigation.reset({
         index: 0,
         routes: [{ name: ScreensConstants.AuthNavigator }],
@@ -179,7 +180,7 @@ export const ProfileSettings = () => {
       } else if (item.title == CONST_CHANGE_ENVIRONMENT) {
           return (
               <ToggleWithLabel
-                  title={serverEnvironment == ServerEnvironment.DEBUG ? 'Debug' : 'Production'}
+                  title={serverEnvironment == ServerEnvironment.DEBUG ? t('profileSetting.debug') : t('profileSetting.production')}
                   isActive={serverEnvironment == ServerEnvironment.DEBUG ? true : false}
                   onPress={onPressToggleServer}
               />

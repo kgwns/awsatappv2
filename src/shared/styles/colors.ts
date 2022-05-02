@@ -68,6 +68,9 @@ export const colors = {
   darkRed: '#FC2C2C',
   iceCold: '#B2F5EA',
   deepPeach: '#F8CBB1',
+  pattensBlue51: '#E3EBF051',
+  lightCyanBlue: '#E1EBF1',
+  aliceBlue: '#EDF2F4',
 };
 
 export interface CustomThemeType {

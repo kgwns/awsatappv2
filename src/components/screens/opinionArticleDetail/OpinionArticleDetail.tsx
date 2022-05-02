@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { StyleSheet, View, FlatList, BackHandler } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {horizontalAndTop, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, normalize } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, normalize } from 'src/shared/utils';
 import {OpinionArticleDetailFooter} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
@@ -10,7 +10,7 @@ import {
 } from 'src/components/organisms';
 import {ScreenContainer} from '..';
 import {useAllWriters, useAppCommon, useBookmark, useLogin, useOpinionArticleDetail} from 'src/hooks';
-import Orientation from 'react-native-orientation-locker';
+import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 import TrackPlayer from 'react-native-track-player';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -19,6 +19,7 @@ import { ScreensConstants } from 'src/constants';
 import { sendUserEventTracking } from 'src/services'
 import { TrackingEventType } from 'src/services/eventTrackService'
 import { ArticleFontSize } from 'src/redux/appCommon/types';
+import { Edge } from 'react-native-safe-area-context';
 
 export interface OpinionArticleDetailScreenProps {
   route: any;
@@ -58,6 +59,7 @@ export const OpinionArticleDetail = ({
   const [opinionArticle,setOpinionArticle]=useState<OpinionArticleDetailItemType[]>([])
 
   const [isFollowed, setIsFollowed] = useState(false)
+  const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
 
   const sendEventToServer = () => {
     sendUserEventTracking({
@@ -74,8 +76,8 @@ export const OpinionArticleDetail = ({
     getSelectedAuthorsData()
     emptyRelatedOpinionData()
     Orientation.unlockAllOrientations();
-    // Orientation.getDeviceOrientation(updateScreenEdge);
-    // Orientation.addDeviceOrientationListener(updateScreenEdge);
+    Orientation.getDeviceOrientation(updateScreenEdge);
+    Orientation.addDeviceOrientationListener(updateScreenEdge);
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
       setOpinionArticle([]);
@@ -83,10 +85,24 @@ export const OpinionArticleDetail = ({
       emptyOpinionArticleData();
       if (!route.params.isRelatedArticle) {
         Orientation.lockToPortrait();
-        // Orientation.removeOrientationListener(updateScreenEdge);
+        Orientation.removeOrientationListener(updateScreenEdge);
       }
     };
   }, []);
+
+  const updateScreenEdge = (deviceOrientation: OrientationType) => {
+    const edge = getScreenEdge(deviceOrientation)
+    setEdge(edge)
+  }
+
+  const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
+    switch (deviceOrientation) {
+      case 'LANDSCAPE-LEFT': return ['right']
+      case 'LANDSCAPE-RIGHT': return ['left']
+      case 'PORTRAIT': return horizontalEdge
+      default: return horizontalEdge
+    }
+  }
 
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData)) {
@@ -236,7 +252,7 @@ export const OpinionArticleDetail = ({
   );
 
   return (
-    <ScreenContainer edge={horizontalAndTop} isLoading={isLoading}
+    <ScreenContainer edge={edge} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
         {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>

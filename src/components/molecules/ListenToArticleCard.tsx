@@ -54,7 +54,7 @@ export const ListenToArticleCard = (data: any) => {
       <ButtonImage
         icon={() =>
           playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
-          getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
+            getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
         }
         onPress={() => togglePlayback()}
         style={style.icon}
@@ -68,31 +68,33 @@ export default ListenToArticleCard;
 const customStyle = (theme: CustomThemeType) => {
   const ListenToArticleCardStyle = StyleSheet.create({
     container: {
-      backgroundColor: theme.whiteSurface,
       flexWrap: 'wrap',
       alignSelf: 'flex-start',
       flexDirection: 'row',
       justifyContent: 'center',
-      paddingHorizontal: normalize(15),
-      borderRadius: normalize(20),
     },
     title: {
-      fontSize: normalize(12),
+      fontSize: normalize(16),
       lineHeight: normalize(36),
       color: theme.primary,
-      fontWeight: 'bold',
     },
     duration: {
       justifyContent: 'center',
       alignSelf: 'center',
-      fontSize: normalize(12),
+      fontSize: normalize(14),
       lineHeight: normalize(14),
       marginStart: normalize(15),
       color: colors.spanishGray,
     },
     icon: {
+      width:normalize(33),
+      height:normalize(33),
       alignSelf: 'center',
       marginEnd: normalize(6),
+      backgroundColor: colors.aliceBlue,
+      borderRadius: normalize(33),
+      justifyContent:'center',
+      alignItems:'center',
     },
   });
   return ListenToArticleCardStyle;

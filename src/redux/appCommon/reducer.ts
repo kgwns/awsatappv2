@@ -1,5 +1,5 @@
-import { ServerEnvironment, Theme } from '../../redux/appCommon/types'
-import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE } from './actionType';
+import { ArticleFontSize, ServerEnvironment, Theme } from '../../redux/appCommon/types'
+import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE, RESET_ARTICLE_FONT_SIZE } from './actionType';
 import { normalize } from 'src/shared/utils';
 import { AppCommonAction, AppCommonState } from './types';
 
@@ -31,6 +31,11 @@ export default (state = initialAuthState, action: AppCommonAction) => {
       return {
         ...state,
         articleFontSize: action.payload.fontSize
+      }
+    case RESET_ARTICLE_FONT_SIZE:
+      return {
+        ...state,
+        articleFontSize: ArticleFontSize.normal
       }
     default:
       return state
