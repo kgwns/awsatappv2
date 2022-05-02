@@ -12,7 +12,6 @@ export interface BannerImageWithOverlayProps {
 export const BannerImageWithOverlay = ({
     image,
     onImageLoadEnd,
-    isImageLoaded = false
 }: BannerImageWithOverlayProps) => {
     const [isError, setIsError] = useState(false) 
 
@@ -32,7 +31,7 @@ export const BannerImageWithOverlay = ({
                 onLoadEnd={onLoadEnd}
                 onError={onError}
             />
-            {isImageLoaded && <Overlay />}
+            {/* {isImageLoaded && <Overlay />} */}
         </View>
     )
 }

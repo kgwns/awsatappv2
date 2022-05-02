@@ -204,6 +204,21 @@ export const textStyles = (theme: CustomThemeType) => {
       borderBottomWidth: 1,
       color: colors.blue,
     },
+    title1: {
+      fontStyle: FontStyle.NORMAL,
+      fontSize: normalize(24),
+      lineHeight: normalize(36),
+      textAlign: TextAlign.LEFT,
+      color: theme.primaryBlack,
+    },
+    title3: {
+      fontStyle: FontStyle.NORMAL,
+      fontSize: normalize(20),
+      lineHeight: normalize(32),
+      textAlign: TextAlign.LEFT,
+      fontWeight: FontWeight.BOLD,
+      color: theme.primaryBlack,
+    }
   })
 
     return style

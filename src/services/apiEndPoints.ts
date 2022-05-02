@@ -16,6 +16,9 @@ export const RELATED_ARTICLE_GET = 'api/v2/relatedarticles/';
 export const LATEST_ARTICLE_GET = 'api/v2/latestarticles';
 export const SECTION_COMBO = 'api/v2/articlesection';
 export const PODCAST_HOME = 'api/v2/podcasthome';
+export const COVERAGE_ARTICLE_END_POINT = 'api/v2/home/topview/coverage'
+export const FEATURED_ARTICLE_ENDPOINT = 'api/v2/home/topview/almqalat_alryysyt_'
+export const HORIZONTAL_ARTICLE_END_POINT = 'api/v2/home/topview/tghtyt_khast'
 
 //opinion tab in category section
 //writer list

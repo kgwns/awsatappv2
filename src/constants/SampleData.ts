@@ -290,6 +290,12 @@ export const shortArticleWithTagProperties = {
   labelType: LabelTypeProp.h3,
 };
 
+export const heroSectionProperties = {
+  flagColor: Styles.color.greenishBlue,
+  barColor: Styles.color.greenishBlue,
+  labelType: LabelTypeProp.title3,
+}
+
 const sortArticleWithTag = {
   image: 'https://picsum.photos/200/300',
   title: 'ميقاتي: استقالة قرداحي كانت ضرورية',
@@ -886,6 +892,14 @@ const editPickData: NewsWithImageItemProps = {
 
 export const EditorsPickSectionData: NewsWithImageItemProps[] = Array(5).fill(editPickData)
 
+const podcastForYouInfo = {
+  imageUrl: 'https://picsum.photos/300/200',
+  highlightedTitle: 'إسم البودكاست',
+  title: 'قضية الطفل المغربي ريان بين أهمية القصة الإنسانية إعلامياً',
+}
+
+export const podcastForYouSection = Array(5).fill(podcastForYouInfo)
+
 
 const podcastOpinionData: ArticleRectangleCardProps = {
   imageUrl: 'https://picsum.photos/200',
@@ -1126,3 +1140,18 @@ export const videoArchiveData: VideoItemProps[] = [
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
   },
 ];
+
+export const topHeadLineNewsData = [
+  {
+    title: 'بعد روسيا… ماكرون في أوكرانيا لمحاولة نزع فتيل الأزمة',
+    nid: '123'
+  },
+  {
+    title: 'بايدن وشولتز يبحثان توحيد المواقف الغربية ضد روسيا',
+    nid: '123'
+  },
+  {
+    title: 'رهانات داخلية وخارجية لوساطة ماكرون مع بوتين',
+    nid: '123'
+  }
+]

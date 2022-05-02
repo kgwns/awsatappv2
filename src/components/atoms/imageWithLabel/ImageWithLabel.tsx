@@ -1,7 +1,7 @@
 import { View, StyleSheet, ImageStyle, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 import { Image } from '../image/Image'
-import { normalize, screenWidth } from 'src/shared/utils'
+import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageName, Label, LabelTypeProp } from '..'
 import { Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles'
@@ -26,8 +26,11 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
     return (
         <TouchableWithoutFeedback onPress={onPressImage}>
             <View style={{alignItems: 'center'}}>
-                <Image fallback name={name} url={url} style={[imageWithLabelStyle.articleImage, imageStyle]} resizeMode={ImageResize.COVER} />
-                {tagName &&
+                <Image fallback name={name} url={url}
+                    style={[imageWithLabelStyle.articleImage, imageStyle]}
+                    resizeMode={isTab ? ImageResize.CONTAIN : ImageResize.COVER}
+                />
+                {isNotEmpty(tagName) &&
                     <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
                         <Label children={tagName}
                             style={imageWithLabelStyle.tagText}

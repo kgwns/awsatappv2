@@ -39,11 +39,11 @@ interface BannerArticleSectionProps {
 }
 
 const BannerArticleSection = (props: BannerArticleSectionProps) => {
-    const { data, sectionId, onPress, onUpdateBookmark, isDivider, dividerStyle } = props
+    const { data, sectionId, onPress, onUpdateBookmark } = props
     const [t] = useTranslation()
     const { themeData } = useTheme()
-    const bannerData = [...data].splice(0, 4)
-    const verticalArticleData = isTab ? [...data].splice(4, 2) : [...data].splice(1, 3)
+    const bannerData = [...data].splice(0, 1)
+    const verticalArticleData = [...data].splice(1, 4)
     const style = useThemeAwareObject(createStyles);
 
     const articleNewsItem = (item: articleProps, index: number) => {
@@ -54,6 +54,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             onPress={() => onPress(item.nid)}
             onPressBookmark={() => onUpdateBookmark(item)}
             contentStyle={style.spacingStyle}
+            showBody={false}
         />
     }
     const widgetHeaderData: WidgetHeaderProps = {
@@ -80,18 +81,18 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     const listHeaderSection = () => (
-        <ScrollView horizontal={true} bounces={false}
-            showsHorizontalScrollIndicator={false}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 {bannerData.map((item: articleProps, index: number) => {
-                    if (isTab || index == 0) return <ImageArticle key={index} {...item}
+                    if (index == 0) return <ImageArticle key={index} {...item}
                         onPressBookmark={() => onUpdateBookmark(item)}
                         containerStyle={isTab ? style.tabletImageStyle : {}}
-                        isTabFooterInside={isTab?false:true} />
+                        titleStyle={{ fontSize: normalize(20), lineHeight: normalize(33), fontWeight: 'normal' }}
+                        showBody={false}
+                        leftTitleColor={Styles.color.silverChalice}
+                        />
                     return null
                 })}
             </View>
-        </ScrollView>
     )
 
 
@@ -102,18 +103,15 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     if (!isNonEmptyArray(data)) return null
 
     return (
-        <View style={[style.container, isTab && style.tabContainer]}>
-            {isDivider  && <Divider style={StyleSheet.flatten([style.divider, dividerStyle])}/>}
+        <View style={[style.container]}>
             <View style={!isTab ? style.headerContainer : style.tabHeaderContainer}>
                 <WidgetHeader {...widgetHeaderData} onPress={onPressMore} />
             </View>
             {listHeaderSection()}
-            {isTab && <Divider style={style.divider}/>}
             <FlatList
                 keyExtractor={(_, index) => index.toString()}
                 data={verticalArticleData}
                 listKey={flatListUniqueKey.BANNER_ARTICLE_LIST + new Date().getTime().toString()}
-                style={!isTab && style.verticalList}
                 horizontal={false}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => articleNewsItem(item, index)}
@@ -126,27 +124,23 @@ export default BannerArticleSection
 
 const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     container: {
-        paddingTop: normalize(5)
+        paddingTop: normalize(5),
     },
     tabContainer: {
         paddingHorizontal: 0.02 * screenWidth
     },
     headerContainer: {
         paddingHorizontal: 0.04 * screenWidth,
-        paddingVertical: normalize(10),
-        paddingTop: normalize(20)
+        paddingBottom: normalize(10),
+        paddingTop: normalize(15)
     },
     tabHeaderContainer: {
         paddingVertical: normalize(10),
     },
-    verticalList: {
-        paddingHorizontal: 0.04 * screenWidth,
-        paddingTop: normalize(15)
-    },
     tabletImageStyle: {
-        width: 0.40 * screenWidth,
-        height: 0.42 * screenWidth,
-        paddingRight: normalize(20)
+        width: 0.47 * screenWidth,
+        height: 'auto',
+        aspectRatio: 1.67,
     },
     divider: {
         height: 1,
@@ -154,6 +148,7 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     spacingStyle: {
         paddingBottom: normalize(10),
-        paddingTop: isTab ? normalize(20) : normalize(10)
+        paddingTop: normalize(10),
+        paddingHorizontal: isTab ? 0 : 0.04 * screenWidth
     }
 })

@@ -11,6 +11,7 @@ export enum TranslateKey {
     SOLVING_CROSS_PUZZLES,
     CROSS_WORD_AND_SUDOKU_DESCRIPTION,
     GAMES,
+    SECTION_MAIN,
 }
 
 export const TranslateConstants = ({
@@ -37,6 +38,8 @@ export const TranslateConstants = ({
             return t('games.crosswordAndSudokuDescription')
         case TranslateKey.GAMES:
             return t('games.games')
+        case TranslateKey.SECTION_MAIN:
+            return t('sectionTab.main')
         default: return ''
     }
 }

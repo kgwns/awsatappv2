@@ -284,7 +284,7 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
             image={getImageUrl(bannerData.field_image)}
             title={bannerData.title}
             body={bannerData.body}
-            containerStyle={isTab ? style.tabletImageStyle : style.imageStyle}
+            containerStyle={isTab ? style.tabletImageStyle : {}}
             author={bannerData.author_resource}
             nid={bannerData.nid}
             created={bannerData.created_export.toString()}
@@ -292,6 +292,7 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
             onPressBookmark={() => updatedHeroBookmark(0)}
             hasTabletLayout={isTab ? true : false}
             rightContainerStyle={style.footerRightStyle}
+            textStyles={{textAlign:'center'}}
           />
         )}
       </>
@@ -390,9 +391,6 @@ const customStyle = (theme: CustomThemeType) => {
   const sectionStoryStyle = StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
-    },
-    imageStyle: {
-      height: 1.05 * screenWidth,
     },
     tabletImageStyle: {
       height: 0.5 * screenWidth,

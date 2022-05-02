@@ -1,50 +1,28 @@
-import React, { useRef } from 'react'
-import { View, FlatList, StyleSheet } from 'react-native'
-import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import { isNonEmptyArray, screenWidth } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
-import { articleProps } from './ArticleSection'
-import { flatListUniqueKey } from '../../constants'
-import { HeadlinesSection } from 'src/components/organisms';
-import { LatestArticleDataType } from 'src/redux/latestNews/types'
+import { MainSectionBlockType } from 'src/redux/latestNews/types'
 
 type CarouselSliderProps = {
-    tickerData: LatestArticleDataType[],
-    heroData: LatestArticleDataType[],
+    coverageInfo: MainSectionBlockType[],
     onUpdateHeroBookmark: (index: number) => void
 }
 
 const CarouselSlider = ({
-    tickerData, heroData, onUpdateHeroBookmark
+    coverageInfo, onUpdateHeroBookmark
 }: CarouselSliderProps) => {
-    const sliderRef = useRef<FlatList<articleProps>>(null)
 
-    const renderItem = ({ item, index }: { item: articleProps, index: number }) => {
-        return <ImageArticle key={index} {...item}
-            onPressBookmark={() => onUpdateHeroBookmark(index)}
-            containerStyle={isTab ? carouselSliderStyle.tabletImageStyle : carouselSliderStyle.imageStyle} />
-    }
     return (
         <View>
-            <View style={carouselSliderStyle.headNewsContainer}>
-                {isNonEmptyArray(tickerData) ?
-                    <HeadlinesSection
-                        duration={10000}
-                        loop
-                        tickerData={tickerData} headlineTitle={''} headlineDescription={''}
-                    /> : null
-                } 
-            </View>
-            <FlatList
-                ref={sliderRef}
-                data={heroData}
-                keyExtractor={(_, index) => index.toString()}
-                listKey={flatListUniqueKey.CAROUSEL_WIDGET}
-                horizontal={true}
-                pagingEnabled={true}
-                showsHorizontalScrollIndicator={false}
-                renderItem={renderItem}
-                bounces={false}
-            />
+            {isNonEmptyArray(coverageInfo) &&
+                <ImageArticle key={0} {...coverageInfo[0]}
+                    onPressBookmark={() => onUpdateHeroBookmark(0)}
+                    containerStyle={carouselSliderStyle.imageStyle}
+                    rightContainerStyle={{ flex: 0.8 }}
+                    textStyles={{textAlign:'center'}}
+                />
+            }
         </View>
     )
 }
@@ -52,14 +30,7 @@ const CarouselSlider = ({
 export default CarouselSlider
 
 const carouselSliderStyle = StyleSheet.create({
-    headNewsContainer: {
-        paddingHorizontal: 0.04 * screenWidth,
-        paddingVertical: normalize(10)
-    },
     imageStyle: {
-        height: 1.05 * screenWidth
+        height: 0.66 * screenWidth
     },
-    tabletImageStyle: {
-        height: 0.5 * screenWidth
-    }
 })

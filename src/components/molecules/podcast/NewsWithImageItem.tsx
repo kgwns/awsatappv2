@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {normalize} from 'src/shared/utils';
-import {Label, Image} from 'src/components/atoms';
-import {CustomThemeType} from 'src/shared/styles/colors';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
+import { StyleSheet, View } from 'react-native';
+import { isNotEmpty, isTab, normalize } from 'src/shared/utils';
+import { Label, Image, LabelTypeProp } from 'src/components/atoms';
+import { CustomThemeType } from 'src/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { ImageResize } from 'src/shared/styles/text-styles';
 
 export interface NewsWithImageItemProps {
   imageUrl?: string;
@@ -30,18 +31,27 @@ export const NewsWithImageItem = ({
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   return (
-    <View style={style.conatiner}>
-      {imageUrl && (
-        <Image url={imageUrl} style={style.image} resizeMode="cover" />
-      )}
-      {highlightedTitle && (
-        <Label style={style.highlightedTitle}>{highlightedTitle}</Label>
-      )}
-      {title && <Label style={style.title}>{title}</Label>}
+    <View style={style.container}>
+      {imageUrl &&
+        <Image url={imageUrl} style={isTab ? style.tabImage : style.image}
+          resizeMode={ImageResize.COVER} fallback
+        />
+      }
+      {isNotEmpty(highlightedTitle) && 
+        <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5}/>
+      }
+      {title &&
+        <Label style={style.title}
+          children={title}
+          numberOfLines={2}
+        />
+      }
       {description && (
-        <Label style={style.description} numberOfLines={2}>
-          {description}
-        </Label>
+        <Label children={description}
+          style={style.description}
+          numberOfLines={2}
+          labelType={LabelTypeProp.h3}
+        />
       )}
       <View
         style={{
@@ -60,7 +70,7 @@ export const NewsWithImageItem = ({
             {footerRightLabel}
           </Label>
         )}
-        <Label>|</Label>
+        {footerLeftLabel && footerRightLabel && <Label children={'|'} />}
         {footerLeftLabel && (
           <Label
             style={style.footerLeftLabel}
@@ -79,17 +89,24 @@ export const NewsWithImageItem = ({
 
 const customStyle = (theme: CustomThemeType) => {
   const NewsWithImageItemStyle = StyleSheet.create({
-    conatiner: {
-      width: normalize(162),
+    container: {
+      width: isTab ? normalize(262) : normalize(162),
       alignItems: 'flex-start',
       backgroundColor: theme.backgroundColor,
       marginStart: normalize(15),
     },
-    image: {width: normalize(162), height: normalize(97)},
+    image: {
+      width: normalize(162),
+      height: normalize(114)
+    },
+    tabImage: {
+      width: normalize(262),
+      height: normalize(185),
+    },
     highlightedTitle: {
       fontSize: normalize(12),
       lineHeight: normalize(12),
-      marginTop: normalize(6),
+      marginTop: normalize(20),
       color: theme.primary,
     },
     title: {
@@ -106,7 +123,9 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.secondaryDavyGrey,
       marginTop: normalize(5),
     },
-    footerRightLabel: {marginEnd: normalize(5)},
+    footerRightLabel: {
+      marginEnd: normalize(5)
+    },
     footerLeftLabel: {
       marginStart: normalize(5),
     },

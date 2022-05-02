@@ -9,6 +9,15 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
   REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_FOUR_SUCCESS,
   REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA, REQUEST_OPINION_DATA_LIST_FAILED,
   REQUEST_PODCAST_HOME_DATA, REQUEST_PODCAST_HOME_DATA_SUCCESS, REQUEST_PODCAST_HOME_DATA_FAILED,
+  REQUEST_COVERAGE_BLOCK,
+  REQUEST_COVERAGE_BLOCK_SUCCESS,
+  REQUEST_COVERAGE_BLOCK_FAILED,
+  REQUEST_FEATURED_ARTICLE_BLOCK,
+  REQUEST_FEATURED_ARTICLE_BLOCK_SUCCESS,
+  REQUEST_FEATURED_ARTICLE_BLOCK_FAILED,
+  REQUEST_HORIZONTAL_ARTICLE_BLOCK,
+  REQUEST_HORIZONTAL_ARTICLE_SUCCESS,
+  REQUEST_HORIZONTAL_ARTICLE_FAILED,
 } from "./actionType"
 import { HeroListTopListFailedPayload, HeroListTopListFailedType, 
   HeroListTopListSuccessPayload, HeroListTopListSuccessType, 
@@ -32,7 +41,20 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   PodcastHomeSuccessPayload,
   PodcastHomeSuccessType,
   PodcastHomeFailedPayload,
-  PodcastHomeFailedType
+  PodcastHomeFailedType,
+  RequestCoverageBlockSuccessPayloadType,
+  RequestCoverageBlockSuccessType,
+  RequestCoverageBlockFailedPayload,
+  RequestCoverageBlockFailedType,
+  RequestFeaturedBlockSuccessPayloadType,
+  RequestFeaturedBlockSuccessType,
+  RequestFeaturedBlockFailedPayload,
+  RequestFeaturedBlockFailedType,
+  RequestHorizontalBlockType,
+  RequestHorizontalBlockSuccessPayloadType,
+  RequestHorizontalBlockSuccessType,
+  RequestHorizontalBlockFailedPayload,
+  RequestHorizontalBlockFailedType
 } from "./types"
 
 export const requestTickerAndHero = (
@@ -258,6 +280,80 @@ export const requestPodcastHomeFailed = (
   }
 }
 
+export const requestCoverageBlock = () => {
+  return {
+    type: REQUEST_COVERAGE_BLOCK
+  }
+}
+
+export const requestCoverageBlockSuccess = (
+  payload: RequestCoverageBlockSuccessPayloadType
+): RequestCoverageBlockSuccessType => {
+  return {
+    type: REQUEST_COVERAGE_BLOCK_SUCCESS,
+    payload
+  }
+}
+
+export const requestCoverBlockFailed = (
+  payload: RequestCoverageBlockFailedPayload
+): RequestCoverageBlockFailedType => {
+  return {
+    type: REQUEST_COVERAGE_BLOCK_FAILED,
+    payload
+  }
+}
+
+
+export const requestFeatureArticleBlock = () => {
+  return {
+    type: REQUEST_FEATURED_ARTICLE_BLOCK
+  }
+}
+
+export const requestFeatureArticleBlockSuccess = (
+  payload: RequestFeaturedBlockSuccessPayloadType
+): RequestFeaturedBlockSuccessType => {
+  return {
+    type: REQUEST_FEATURED_ARTICLE_BLOCK_SUCCESS,
+    payload
+  }
+}
+
+export const requestFeatureArticleBlockFailed = (
+  payload: RequestFeaturedBlockFailedPayload
+): RequestFeaturedBlockFailedType => {
+  return {
+    type: REQUEST_FEATURED_ARTICLE_BLOCK_FAILED,
+    payload
+  }
+}
+
+
+export const requestHorizontalArticleBlock = () => {
+  return {
+    type: REQUEST_HORIZONTAL_ARTICLE_BLOCK
+  }
+}
+
+export const requestHorizontalArticleBlockSuccess = (
+  payload: RequestHorizontalBlockSuccessPayloadType
+): RequestHorizontalBlockSuccessType => {
+  return {
+    type: REQUEST_HORIZONTAL_ARTICLE_SUCCESS,
+    payload
+  }
+}
+
+export const requestHorizontalArticleBlockFailed = (
+  payload: RequestHorizontalBlockFailedPayload
+): RequestHorizontalBlockFailedType => {
+  return {
+    type: REQUEST_HORIZONTAL_ARTICLE_FAILED,
+    payload
+  }
+}
+
 export const latestTabActions = {
   requestTickerAndHero,
   requestTickerAndHeroSuccess,
@@ -283,4 +379,13 @@ export const latestTabActions = {
   requestPodcastHomeData,
   requestPodcastHomeSuccess,
   requestPodcastHomeFailed,
+  requestCoverageBlock,
+  requestCoverageBlockSuccess,
+  requestCoverBlockFailed,
+  requestFeatureArticleBlock,
+  requestFeatureArticleBlockSuccess,
+  requestFeatureArticleBlockFailed,
+  requestHorizontalArticleBlock,
+  requestHorizontalArticleBlockSuccess,
+  requestHorizontalArticleBlockFailed,
 };

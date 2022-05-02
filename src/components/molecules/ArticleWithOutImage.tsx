@@ -15,9 +15,11 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
     contentStyle?: StyleProp<ViewStyle>,
     showDivider?: boolean,
     showFooterTitle?: boolean,
-    onPress: () => void
+    onPress?: () => void
     isBookmarked: boolean
     onPressBookmark?: () => void
+    bodyLineCount?: number,
+    showBody?: boolean,
 }
 
 const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
@@ -27,14 +29,22 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     onPressBookmark,
     showDivider = true,
     showFooterTitle,
+    bodyLineCount = 3,
+    showBody= true,
     ...props
 }) => {
     const style = useThemeAwareObject(customStyle)
+    const bodyInfo = isNotEmpty(body) ? decodeHTMLTags(body) : ''
     return (
     <TouchableWithoutFeedback onPress={onPress}>
         <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>
-            <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
-            {isNotEmpty(body) && <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)} color={Styles.color.davyGrey} numberOfLines={3} />}
+                <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
+                {isNotEmpty(bodyInfo) && showBody && <Label labelType={LabelTypeProp.p3}
+                    children={bodyInfo}
+                    color={Styles.color.davyGrey}
+                    numberOfLines={bodyLineCount}
+                />
+                }
             <View style={style.footerContainer}>
                 <ArticleFooter showFooterTitle={showFooterTitle} {...props.footerInfo}
                     onPress={onPressBookmark}

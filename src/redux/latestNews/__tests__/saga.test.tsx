@@ -150,7 +150,7 @@ describe('<LatestNewsSaga >', () => {
             );
         });
         it('should be done on next iteration', () => {
-            expect(genObject.next().done).toBeTruthy();
+            expect(genObject.next().done).toBeFalsy();
         });
 
         describe('Ticker and Hero Widget', () => {

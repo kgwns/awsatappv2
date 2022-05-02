@@ -61,6 +61,9 @@ export const arabic = {
     sectionComboThree: {
       headerLeft: 'العالم العربي',
     },
+    articlSection: {
+      articleTitle: 'عين علي'
+    }
   },
   sectionVideo: {
     toWatch: 'مشاهدة',
@@ -300,5 +303,8 @@ export const arabic = {
     solvingCrossPuzzles: 'حل الكلمات المتقاطعة',
     sudoku: 'سودوكو',
     crosswordAndSudokuDescription: 'لعبة الكلمات المتقاطعة تُجرى ثلاث مرات أسبوعياً وتتراوح ما بين سهله إلى صعبه.',
+  },
+  sectionTab: {
+    main: 'الرئيسية'
   }
 }

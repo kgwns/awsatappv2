@@ -1,40 +1,43 @@
 import React, { useState } from 'react'
-import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
+import { render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData'
 import { SectionsScreen } from '../SectionsScreen'
-import { TabBarComponent } from 'src/components/molecules'
-import { SectionStoryScreen, OpinionScreen, PodcastProgram } from 'src/components/screens';
-import {useTopMenu} from 'src/hooks';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
-  }));
+}));
+
 const mockString = 'mockString'
+
 jest.mock("src/hooks/useTopMenu", () => ({
-useTopMenu: (...args: any) => {
-    return {
-    isLoading: false,
-    topMenuData: [{tabName:mockString,keyName:'home',isSelected:true,sectionId:1}],
-    topMenuError: 'error',
-    fetchTopMenuRequest: () => {
-        return []
+    useTopMenu: (...args: any) => {
+        return {
+            isLoading: false,
+            topMenuData: [{ tabName: mockString, keyName: 'home', isSelected: true, sectionId: 1 }],
+            topMenuError: 'error',
+            fetchTopMenuRequest: () => {
+                return []
+            },
+        }
     },
-    }
-},
 }));
 
 describe('<SectionsScreen>', () => {
     let instance: RenderAPI
+
     const setTabSelectedIndex = jest.fn()
-    // const tabContent = require('./tabContent');
+    const setNewRoutes = jest.fn()
+
     beforeEach(() => {
         (useState as jest.Mock).mockImplementation(() => [0, setTabSelectedIndex]);
-        const component = 
+        (useState as jest.Mock).mockImplementation(() => [[], setNewRoutes])
+
+        const component =
             <Provider store={storeSampleData}>
                 <SectionsScreen />
-            </Provider> 
+            </Provider>
         instance = render(component)
     })
 

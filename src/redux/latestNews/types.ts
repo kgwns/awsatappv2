@@ -23,6 +23,15 @@ import {
   REQUEST_PODCAST_HOME_DATA,
   REQUEST_PODCAST_HOME_DATA_SUCCESS,
   REQUEST_PODCAST_HOME_DATA_FAILED,
+  REQUEST_COVERAGE_BLOCK,
+  REQUEST_COVERAGE_BLOCK_SUCCESS,
+  REQUEST_COVERAGE_BLOCK_FAILED,
+  REQUEST_FEATURED_ARTICLE_BLOCK,
+  REQUEST_FEATURED_ARTICLE_BLOCK_SUCCESS,
+  REQUEST_FEATURED_ARTICLE_BLOCK_FAILED,
+  REQUEST_HORIZONTAL_ARTICLE_BLOCK,
+  REQUEST_HORIZONTAL_ARTICLE_SUCCESS,
+  REQUEST_HORIZONTAL_ARTICLE_FAILED,
 } from "./actionType"
 import { PodcastListItemType } from '../podcast/types'
 export type payloadType = { rows: any[], pager: object }
@@ -90,6 +99,9 @@ export type LatestNewsTabState = {
   sectionComboThree: LatestArticleDataType[],
   sectionComboFour: LatestArticleDataType[],
   podcastHome: LatestPodcastDataType[],
+  coverageInfo: MainSectionBlockType[],
+  featuredArticle: MainSectionBlockType[];
+  horizontalArticle: MainSectionBlockType[];
 }
 
 export type TickerHeroSuccessPayload = {
@@ -280,6 +292,96 @@ export interface PodcastHomeFailedType {
   payload: PodcastHomeFailedPayload
 }
 
+export enum MainSectionBlockName {
+  COVERAGE = 'coverage',
+  FEATURED_ARTICLE = 'almqalat_alryysyt_',
+  HORIZONTAL_ARTICLE = 'tghtyt_khast',
+}
+
+export type MainSectionBlockType = {
+  body: string;
+  title: string;
+  nid: string;
+  image: string;
+  news_categories : string;
+  author: string;
+  created: string;
+  isBookmarked: boolean,
+  type: string;
+  blockName: string;
+  position: string
+}
+
+export type RequestCoverageBlockType = {
+  type: typeof REQUEST_COVERAGE_BLOCK
+}
+
+export type RequestCoverageBlockSuccessPayloadType = {
+  coverageInfo: MainSectionBlockType[]
+}
+
+export type RequestCoverageBlockSuccessType = {
+  type: typeof REQUEST_COVERAGE_BLOCK_SUCCESS;
+  payload: RequestCoverageBlockSuccessPayloadType
+}
+
+export type RequestCoverageBlockFailedPayload = {
+  error: string
+}
+
+export type RequestCoverageBlockFailedType = {
+  type: typeof REQUEST_COVERAGE_BLOCK_FAILED;
+  payload: RequestCoverageBlockFailedPayload
+}
+
+
+
+export type RequestFeaturedBlockType = {
+  type: typeof REQUEST_FEATURED_ARTICLE_BLOCK
+}
+
+export type RequestFeaturedBlockSuccessPayloadType = {
+  featureArticle: MainSectionBlockType[]
+}
+
+export type RequestFeaturedBlockSuccessType = {
+  type: typeof REQUEST_FEATURED_ARTICLE_BLOCK_SUCCESS;
+  payload: RequestFeaturedBlockSuccessPayloadType
+}
+
+export type RequestFeaturedBlockFailedPayload = {
+  error: string
+}
+
+export type RequestFeaturedBlockFailedType = {
+  type: typeof REQUEST_FEATURED_ARTICLE_BLOCK_FAILED;
+  payload: RequestCoverageBlockFailedPayload
+}
+
+
+
+export type RequestHorizontalBlockType = {
+  type: typeof REQUEST_HORIZONTAL_ARTICLE_BLOCK
+}
+
+export type RequestHorizontalBlockSuccessPayloadType = {
+  horizontalArticle: MainSectionBlockType[]
+}
+
+export type RequestHorizontalBlockSuccessType = {
+  type: typeof REQUEST_HORIZONTAL_ARTICLE_SUCCESS;
+  payload: RequestHorizontalBlockSuccessPayloadType
+}
+
+export type RequestHorizontalBlockFailedPayload = {
+  error: string
+}
+
+export type RequestHorizontalBlockFailedType = {
+  type: typeof REQUEST_HORIZONTAL_ARTICLE_FAILED;
+  payload: RequestCoverageBlockFailedPayload
+}
+
 export type RequestSectionComboType =
   RequestSectionComboOne
   | RequestSectionComboTwo
@@ -311,3 +413,12 @@ export type LatestTabAction =
   | PodcastHomeSuccessType
   | PodcastHomeFailedType
   | RequestPodcastHomeType
+  | RequestCoverageBlockType
+  | RequestCoverageBlockSuccessType
+  | RequestCoverageBlockFailedType
+  | RequestFeaturedBlockType
+  | RequestFeaturedBlockSuccessType
+  | RequestFeaturedBlockFailedType
+  | RequestHorizontalBlockType
+  | RequestHorizontalBlockSuccessType
+  | RequestHorizontalBlockFailedType;

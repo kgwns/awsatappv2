@@ -24,9 +24,6 @@ const ArticleDetailImage = ({
     ...props
 }: ImageArticleProps) => {
     const navigation = useNavigation()
-
-    const [isImageLoaded , setImageLoaded] = useState(false)
-
     const CONST_RETURN = TranslateConstants({key: TranslateKey.RETURN})
 
     const onPressBack = () => {
@@ -37,36 +34,29 @@ const ArticleDetailImage = ({
         navigation.goBack()
     }
 
-    const onImageLoadEnd = (isSuccess: boolean) => {
-        setImageLoaded(isSuccess)
-    }
-
     return (
         <View>
             <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-                <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoadEnd}/>
+                <BannerImageWithOverlay image={image} />
                 <TouchableOpacity testID={'onPressbackTestID'}
                     style={imageArticleStyle.returnStyle}
                     onPress={onPressBack}>
                     {
                         getSvgImages({
-                          name: isImageLoaded ? ImagesName.returnWhiteIcon : ImagesName.returnBlackSvg,
+                          name: ImagesName.returnWhiteIcon,
                           width: normalize(12),
                           height: normalize(8.8),
-                          style: [imageArticleStyle.prevIconStyle, {color: isImageLoaded ? Styles.color.white : Styles.color.black}]
+                          style: imageArticleStyle.prevIconStyle
                         })
                     }
-                    <Label style={[imageArticleStyle.prevTitleStyle, { color: isImageLoaded ? Styles.color.white : Styles.color.black }]}
+                    <Label style={imageArticleStyle.prevTitleStyle}
                         children={CONST_RETURN}
                     />
                 </TouchableOpacity>
-                {!isTab && isImageLoaded && <View style={imageArticleStyle.slideContent}>
-                    <ArticleOverlayContent {...props} />
-                </View>}
             </View>
-            {isTab && <View style={imageArticleStyle.tabSlideContent}>
+            <View style={imageArticleStyle.tabSlideContent}>
                 <ArticleOverlayContent {...props} />
-            </View>}
+            </View>
         </View>
     )
 }

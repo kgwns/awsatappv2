@@ -20,4 +20,7 @@ export enum flatListUniqueKey {
   NEWS_FEED = 'NewsFeed',
   NEWS_LETTER_WIDGET = 'NewsLetterWidget',
   CONTENT_FOR_YOU = 'ContentForYou',
+  TAB_ARTICLE_SECTION_ONE = 'TAB_ARTICLE_SECTION_ONE',
+  TAB_ARTICLE_SECTION_TWO = 'TAB_ARTICLE_SECTION_TWO',
+  VIDEO_CONTENT = 'VideoContent'
 }
