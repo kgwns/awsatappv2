@@ -330,6 +330,7 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
             labelType={LabelTypeProp.h3}
             onUpdateBookmark={updateBookmarkInfo}
             showSignUpPopUp={makeSignUpAlert}
+            hideImage={isTab ? false : true}
           />
         )}
       </>
