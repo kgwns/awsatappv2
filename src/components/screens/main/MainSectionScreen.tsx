@@ -735,6 +735,28 @@ export const MainSectionScreen = () => {
         />
         </View>
       </View>
+      <View style={mainSectionStyle.tabSplitter}>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+          data={sectionComboSixInfo}
+          title={_sectionComboSixTitle}
+          sectionId={'66'}
+          onPress={onPressArticle}
+          onUpdateBookmark={updatedSectionComboSixBookmark}
+          isDivider
+        />
+        </View>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+          data={sectionComboSevenInfo}
+          title={_sectionComboSevenTitle}
+          sectionId={'36'}
+          onPress={onPressArticle}
+          onUpdateBookmark={updatedSectionComboSevenBookmark}
+          isDivider
+        />
+        </View>
+      </View>
     </View>
   )
 
