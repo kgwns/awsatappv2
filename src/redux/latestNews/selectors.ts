@@ -1,5 +1,5 @@
 import { AppState, Selector } from 'src/redux/rootReducer';
-import { LatestArticleDataType, LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType } from './types';
+import { EditorsChoiceDataType, LatestArticleDataType, LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType } from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
   state.latestNewsTab.isLoading;
@@ -41,6 +41,9 @@ export const getSectionComboSevenData: Selector<LatestArticleDataType[]> = (stat
 
 export const getPodcastHomeData: Selector<LatestPodcastDataType[]> = (state: AppState) =>
   state.latestNewsTab.podcastHome;
+
+export const getEditorsChoiceData: Selector<EditorsChoiceDataType[]> = (state: AppState) =>
+  state.latestNewsTab.editorsChoice;
 
 export const getError: Selector<string> = (state: AppState) =>
   state.latestNewsTab.error;

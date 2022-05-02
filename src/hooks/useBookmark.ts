@@ -7,7 +7,7 @@ import { BookmarkDetailDataType, BookmarkIdSuccessDataFieldType, GetBookmarkDeta
 import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookMarkSuccessInfo } from 'src/redux/bookmark/selectors';
 import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMarkedSuccessDetailInfo, removeBookmarked, sendBookMarkId } from 'src/redux/bookmark/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
-import { recordLogEvent } from 'src/shared/utils';
+import { isNonEmptyArray, recordLogEvent } from 'src/shared/utils';
 import {getProfileUserDetails} from 'src/redux/profileUserDetail/selectors';
 import { sendUserEventTracking } from 'src/services';
 import { TrackingEventType } from 'src/services/eventTrackService';
@@ -55,6 +55,10 @@ export const useBookmark = (): UseBookMarkReturn => {
   const removeBookmarkedInfo = (payload: RemoveBookmarkDetailDataBody) => {
     const nid = payload.nid
     recordLogEvent('Remove_Bookmark', {id: nid});
+
+    if(!isNonEmptyArray(bookmarkDetail)) 
+    return null
+
     const bookmarkInfo = [...bookmarkDetail]
     const bookmarkIdDetail = [...bookmarkIdInfo]
     const updatedBookmarkInfo = bookmarkInfo.filter((item) => item.nid != nid)

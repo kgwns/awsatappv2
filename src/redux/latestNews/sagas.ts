@@ -15,7 +15,11 @@ import {
   RequestSectionComboType,
   RequestTickerAndHeroType, TickerHeroSuccessPayload,
   OpinionSuccessPayload, RequestOpinionListType, LatestOpinionDataType,
-  LatestPodcastDataType, PodcastHomeSuccessPayload, MainSectionBlockType, MainSectionBlockName, RequestCoverageBlockSuccessType, RequestCoverageBlockSuccessPayloadType, RequestFeaturedBlockSuccessPayloadType, RequestHorizontalBlockSuccessPayloadType
+  LatestPodcastDataType, PodcastHomeSuccessPayload,
+  MainSectionBlockType, MainSectionBlockName,
+  RequestCoverageBlockSuccessPayloadType,
+  RequestFeaturedBlockSuccessPayloadType, RequestHorizontalBlockSuccessPayloadType,
+  EditorsChoiceDataType, EditorsChoiceSuccessPayload,
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -32,6 +36,7 @@ import {
   REQUEST_COVERAGE_BLOCK,
   REQUEST_FEATURED_ARTICLE_BLOCK,
   REQUEST_HORIZONTAL_ARTICLE_BLOCK,
+  REQUEST_EDITORS_CHOICE_DATA,
 } from './actionType';
 import {
   requestHeroListTopListFailed, requestHeroListTopListSuccess,
@@ -44,7 +49,11 @@ import {
   requestSectionComboSevenFailed, requestSectionComboSevenSuccess,
   requestTickerAndHeroFailed, requestTickerAndHeroSuccess,
   requestOpinionSuccess,
-  requestPodcastHomeSuccess, requestPodcastHomeFailed, requestCoverageBlockSuccess, requestCoverBlockFailed, requestFeatureArticleBlockSuccess, requestFeatureArticleBlockFailed, requestHorizontalArticleBlockSuccess, requestHorizontalArticleBlockFailed,
+  requestPodcastHomeSuccess, requestPodcastHomeFailed,
+  requestCoverageBlockSuccess, requestCoverBlockFailed,
+  requestFeatureArticleBlockSuccess, requestFeatureArticleBlockFailed,
+  requestHorizontalArticleBlockSuccess, requestHorizontalArticleBlockFailed,
+  requestEditorsChoiceSuccess, requestEditorsChoiceFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
 import { getImageUrl, isNotEmpty } from 'src/shared/utils/utilities';
@@ -56,6 +65,7 @@ import {
   mainCoverageBlockApi,
   mainHorizontalArticleApi,
   mainFeaturedArticleApi,
+  editorsChoiceApi,
 } from 'src/services/latestTabService';
 
 const formatMainSectionBlockData = (response: any) => {
@@ -193,6 +203,33 @@ const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
   return formattedPodcastHomeData;
 }
 
+const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
+  let formattedEditorsChoiceData: EditorsChoiceDataType[] = []
+  if (response) {
+    if (isNonEmptyArray(response.rows)) {
+      const rows = response.rows
+      formattedEditorsChoiceData = rows.map(
+        ({ title, body, nid, field_image, field_news_categories_export, author_resource, created_export, field_news_categories, field_publication_date, field_new_resource, type, blockname, entityqueue_relationship_position }: any) => ({
+          body,
+          title,
+          nid,
+          image: getImageUrl(field_image),
+          news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
+          author: field_new_resource,
+          created: created_export,
+          isBookmarked: false,
+          field_news_categories: field_news_categories,
+          publication_date: field_publication_date,
+          type: type,
+          blockname: blockname,
+          entityqueue_relationship_position: entityqueue_relationship_position,
+        })
+      );
+    }
+  }
+  return formattedEditorsChoiceData;
+}
+
 const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPayload => {
   const formattedData = formatLatestArticle(response)
   let responseData: HeroListTopListSuccessPayload = {
@@ -315,6 +352,20 @@ const parsePodcastHomeSuccess = (response: any): PodcastHomeSuccessPayload => {
     podcastHome: []
   }
   responseData.podcastHome = formattedData;
+  return responseData;
+}
+
+const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload => {
+  const formattedData = formatEditorsChoice(response)
+  let responseData: EditorsChoiceSuccessPayload = {
+    editorsChoice: []
+  }
+
+  const allEditorsChoiceInfo = formattedData.filter((item) => item.blockname == MainSectionBlockName.EDITORS_CHOICE)
+  const sortedEditorsChoiceInfo = allEditorsChoiceInfo.sort((a, b) => parseInt(a.entityqueue_relationship_position) - parseInt(b.entityqueue_relationship_position))
+  const editorsChoiceInfo = sortedEditorsChoiceInfo.splice(0, 4)
+
+  responseData.editorsChoice = editorsChoiceInfo;
   return responseData;
 }
 
@@ -451,6 +502,22 @@ export function* fetchCoverageBlockData() {
   }
 }
 
+export function* fetchEditorsChoiceData() {
+  try {
+    const payload: payloadType = yield call(
+      editorsChoiceApi,
+    );
+    const response = parseEditorsChoiceSuccess(payload)
+    yield put(requestEditorsChoiceSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestEditorsChoiceFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
 export function* fetchFeaturedArticleBlockData() {
   try {
     const payload: payloadType = yield call(
@@ -482,6 +549,7 @@ export function* fetchHorizontalBlockData() {
     }
   }
 }
+
 function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)]);
   yield all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)]);
@@ -497,6 +565,7 @@ function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_SECTION_COMBO_FIVE, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_SIX, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_SEVEN, fetchSectionCombo)]);
+  yield all([takeLatest(REQUEST_EDITORS_CHOICE_DATA, fetchEditorsChoiceData)]);
 }
 
 export default articleDetailSaga;

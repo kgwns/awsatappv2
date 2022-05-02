@@ -3,7 +3,8 @@ import { getApiRequest } from 'src/services/api';
 import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
   COVERAGE_ARTICLE_END_POINT,
   FEATURED_ARTICLE_ENDPOINT,
-  HORIZONTAL_ARTICLE_END_POINT
+  HORIZONTAL_ARTICLE_END_POINT,
+  EDITORS_CHOICE
 } from './apiEndPoints';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { payloadType } from 'src/redux/latestNews/types';
@@ -92,3 +93,15 @@ export const mainHorizontalArticleApi = async () => {
     throw error;
   }
 };
+
+export const editorsChoiceApi = async () => {
+  try {
+    const response: payloadType = await getApiRequest(
+      `${BASE_URL}${EDITORS_CHOICE}`
+    );
+    return response;
+  } catch (error) {
+    console.log(` requestEditorsChoice error: ${error}`);
+    throw error;
+  }
+}

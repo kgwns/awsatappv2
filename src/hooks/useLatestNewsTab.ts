@@ -11,9 +11,9 @@ import {
     getSectionComboFiveData,
     getSectionComboSixData,
     getSectionComboSevenData,
+    getEditorsChoiceData,
 } from 'src/redux/latestNews/selectors';
-import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType } from 'src/redux/latestNews/types';
-import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
+import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet, EditorsChoiceDataType } from 'src/redux/latestNews/types';
 import { requestHeroListTopList, requestSectionComboFour, 
     requestSectionComboOne, requestSectionComboThree, 
     requestSectionComboTwo, requestTickerAndHero, requestOpinionList,
@@ -21,6 +21,7 @@ import { requestHeroListTopList, requestSectionComboFour,
     requestHorizontalArticleBlock,
     requestFeatureArticleBlock,
     requestPodcastHomeData, requestSectionComboFive, requestSectionComboSix, requestSectionComboSeven, 
+    requestEditorsChoiceData,
 } from 'src/redux/latestNews/action';
 
 export interface UseLatestNewsReturn {
@@ -42,6 +43,7 @@ export interface UseLatestNewsReturn {
     coverage: MainSectionBlockType[];
     featuredArticle: MainSectionBlockType[];
     horizontalArticle: MainSectionBlockType[];
+    editorsChoice: EditorsChoiceDataType[];
     fetchTickerAndHeroArticle(payload: LatestArticleBodyGet): void;
     fetchHeroListTopList(payload: LatestArticleBodyGet): void
     fetchSectionComboOne(payload: RequestSectionComboBodyGet): void
@@ -55,6 +57,7 @@ export interface UseLatestNewsReturn {
     fetchCoverageBlockData(): void
     fetchFeaturedArticleData(): void;
     fetchHorizontalArticleData(): void;
+    fetchEditorsChoice(): void;
 }
 
 export const useLatestNewsTab = (): UseLatestNewsReturn => {
@@ -76,7 +79,8 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const coverage = useSelector(getCoverageData)
     const featuredArticle = useSelector(getFeaturedArticle)
     const horizontalArticle = useSelector(getHorizontalData)
-
+    const editorsChoice = useSelector(getEditorsChoiceData)
+    
     const fetchTickerAndHeroArticle = (payload: LatestArticleBodyGet) => {
         dispatch(requestTickerAndHero(payload));
     };
@@ -113,6 +117,9 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
 
     const fetchPodcastHome = () => {
         dispatch(requestPodcastHomeData());
+    };
+    const fetchEditorsChoice = () => {
+        dispatch(requestEditorsChoiceData());
     };
 
     const fetchCoverageBlockData = () => {
@@ -160,5 +167,7 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         fetchCoverageBlockData,
         fetchFeaturedArticleData,
         fetchHorizontalArticleData,
+        editorsChoice,
+        fetchEditorsChoice,
     };
 };

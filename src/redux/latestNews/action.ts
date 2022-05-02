@@ -21,6 +21,7 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
   REQUEST_SECTION_COMBO_FIVE, REQUEST_SECTION_COMBO_FIVE_SUCCESS, REQUEST_SECTION_COMBO_FIVE_FAILED,
   REQUEST_SECTION_COMBO_SIX, REQUEST_SECTION_COMBO_SIX_SUCCESS, REQUEST_SECTION_COMBO_SIX_FAILED,
   REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED,
+  REQUEST_EDITORS_CHOICE_DATA, REQUEST_EDITORS_CHOICE_DATA_SUCCESS, REQUEST_EDITORS_CHOICE_DATA_FAILED,
 } from "./actionType"
 import { HeroListTopListFailedPayload, HeroListTopListFailedType, 
   HeroListTopListSuccessPayload, HeroListTopListSuccessType, 
@@ -53,7 +54,6 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   RequestFeaturedBlockSuccessType,
   RequestFeaturedBlockFailedPayload,
   RequestFeaturedBlockFailedType,
-  RequestHorizontalBlockType,
   RequestHorizontalBlockSuccessPayloadType,
   RequestHorizontalBlockSuccessType,
   RequestHorizontalBlockFailedPayload,
@@ -61,6 +61,11 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   RequestSectionComboFive, RequestSectionComboFiveFailedPayload, RequestSectionComboFiveFailedType, RequestSectionComboFiveSuccessPayload, RequestSectionComboFiveSuccessType,
   RequestSectionComboSix, RequestSectionComboSixFailedPayload, RequestSectionComboSixFailedType, RequestSectionComboSixSuccessPayload, RequestSectionComboSixSuccessType,
   RequestSectionComboSeven, RequestSectionComboSevenFailedPayload, RequestSectionComboSevenFailedType, RequestSectionComboSevenSuccessPayload, RequestSectionComboSevenSuccessType,
+  RequestEditorsChoiceType,
+  EditorsChoiceSuccessPayload,
+  EditorsChoiceSuccessType,
+  EditorsChoiceFailedPayload,
+  EditorsChoiceFailedType,
 } from "./types"
 
 export const requestTickerAndHero = (
@@ -319,6 +324,22 @@ export const requestSectionComboFiveSuccess = (
   }
 }
 
+export const requestEditorsChoiceData = (
+): RequestEditorsChoiceType => {
+  return {
+    type: REQUEST_EDITORS_CHOICE_DATA,
+  }
+}
+
+export const requestEditorsChoiceSuccess = (
+  payload: EditorsChoiceSuccessPayload
+): EditorsChoiceSuccessType => {
+  return {
+    type: REQUEST_EDITORS_CHOICE_DATA_SUCCESS,
+    payload
+  }
+}
+
 export const requestCoverBlockFailed = (
   payload: RequestCoverageBlockFailedPayload
 ): RequestCoverageBlockFailedType => {
@@ -441,6 +462,15 @@ export const requestSectionComboSevenFailed = (
   }
 }
 
+export const requestEditorsChoiceFailed = (
+  payload: EditorsChoiceFailedPayload
+): EditorsChoiceFailedType => {
+  return {
+    type: REQUEST_EDITORS_CHOICE_DATA_FAILED,
+    payload
+  }
+}
+
 export const latestTabActions = {
   requestTickerAndHero,
   requestTickerAndHeroSuccess,
@@ -484,4 +514,7 @@ export const latestTabActions = {
   requestSectionComboSeven,
   requestSectionComboSevenSuccess,
   requestSectionComboSevenFailed,
+  requestEditorsChoiceData,
+  requestEditorsChoiceSuccess,
+  requestEditorsChoiceFailed,
 };

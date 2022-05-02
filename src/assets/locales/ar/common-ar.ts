@@ -75,6 +75,9 @@ export const arabic = {
     },
     articlSection: {
       articleTitle: 'عين علي'
+    },
+    editorsChoice: {
+      headerLeft: 'اختيارات المحرر'
     }
   },
   sectionVideo: {
