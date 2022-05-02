@@ -18,6 +18,9 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
   REQUEST_HORIZONTAL_ARTICLE_BLOCK,
   REQUEST_HORIZONTAL_ARTICLE_SUCCESS,
   REQUEST_HORIZONTAL_ARTICLE_FAILED,
+  REQUEST_SECTION_COMBO_FIVE, REQUEST_SECTION_COMBO_FIVE_SUCCESS, REQUEST_SECTION_COMBO_FIVE_FAILED,
+  REQUEST_SECTION_COMBO_SIX, REQUEST_SECTION_COMBO_SIX_SUCCESS, REQUEST_SECTION_COMBO_SIX_FAILED,
+  REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED,
 } from "./actionType"
 import { HeroListTopListFailedPayload, HeroListTopListFailedType, 
   HeroListTopListSuccessPayload, HeroListTopListSuccessType, 
@@ -54,7 +57,10 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   RequestHorizontalBlockSuccessPayloadType,
   RequestHorizontalBlockSuccessType,
   RequestHorizontalBlockFailedPayload,
-  RequestHorizontalBlockFailedType
+  RequestHorizontalBlockFailedType,
+  RequestSectionComboFive, RequestSectionComboFiveFailedPayload, RequestSectionComboFiveFailedType, RequestSectionComboFiveSuccessPayload, RequestSectionComboFiveSuccessType,
+  RequestSectionComboSix, RequestSectionComboSixFailedPayload, RequestSectionComboSixFailedType, RequestSectionComboSixSuccessPayload, RequestSectionComboSixSuccessType,
+  RequestSectionComboSeven, RequestSectionComboSevenFailedPayload, RequestSectionComboSevenFailedType, RequestSectionComboSevenSuccessPayload, RequestSectionComboSevenSuccessType,
 } from "./types"
 
 export const requestTickerAndHero = (
@@ -295,11 +301,38 @@ export const requestCoverageBlockSuccess = (
   }
 }
 
+export const requestSectionComboFive = (
+  payload: RequestSectionComboBodyGet
+): RequestSectionComboFive => {
+  return {
+    type: REQUEST_SECTION_COMBO_FIVE,
+    payload
+  }
+}
+
+export const requestSectionComboFiveSuccess = (
+  payload: RequestSectionComboFiveSuccessPayload
+): RequestSectionComboFiveSuccessType => {
+  return {
+    type: REQUEST_SECTION_COMBO_FIVE_SUCCESS,
+    payload
+  }
+}
+
 export const requestCoverBlockFailed = (
   payload: RequestCoverageBlockFailedPayload
 ): RequestCoverageBlockFailedType => {
   return {
     type: REQUEST_COVERAGE_BLOCK_FAILED,
+    payload
+  }
+}
+
+export const requestSectionComboFiveFailed = (
+  payload: RequestSectionComboFiveFailedPayload
+): RequestSectionComboFiveFailedType => {
+  return {
+    type: REQUEST_SECTION_COMBO_FIVE_FAILED,
     payload
   }
 }
@@ -320,11 +353,38 @@ export const requestFeatureArticleBlockSuccess = (
   }
 }
 
+export const requestSectionComboSix = (
+  payload: RequestSectionComboBodyGet
+): RequestSectionComboSix => {
+  return {
+    type: REQUEST_SECTION_COMBO_SIX,
+    payload
+  }
+}
+
+export const requestSectionComboSixSuccess = (
+  payload: RequestSectionComboSixSuccessPayload
+): RequestSectionComboSixSuccessType => {
+  return {
+    type: REQUEST_SECTION_COMBO_SIX_SUCCESS,
+    payload
+  }
+}
+
 export const requestFeatureArticleBlockFailed = (
   payload: RequestFeaturedBlockFailedPayload
 ): RequestFeaturedBlockFailedType => {
   return {
     type: REQUEST_FEATURED_ARTICLE_BLOCK_FAILED,
+    payload
+  }
+}
+
+export const requestSectionComboSixFailed = (
+  payload: RequestSectionComboSixFailedPayload
+): RequestSectionComboSixFailedType => {
+  return {
+    type: REQUEST_SECTION_COMBO_SIX_FAILED,
     payload
   }
 }
@@ -345,11 +405,38 @@ export const requestHorizontalArticleBlockSuccess = (
   }
 }
 
+export const requestSectionComboSeven = (
+  payload: RequestSectionComboBodyGet
+): RequestSectionComboSeven => {
+  return {
+    type: REQUEST_SECTION_COMBO_SEVEN,
+    payload
+  }
+}
+
+export const requestSectionComboSevenSuccess = (
+  payload: RequestSectionComboSevenSuccessPayload
+): RequestSectionComboSevenSuccessType => {
+  return {
+    type: REQUEST_SECTION_COMBO_SEVEN_SUCCESS,
+    payload
+  }
+}
+
 export const requestHorizontalArticleBlockFailed = (
   payload: RequestHorizontalBlockFailedPayload
 ): RequestHorizontalBlockFailedType => {
   return {
     type: REQUEST_HORIZONTAL_ARTICLE_FAILED,
+    payload
+  }
+}
+
+export const requestSectionComboSevenFailed = (
+  payload: RequestSectionComboSevenFailedPayload
+): RequestSectionComboSevenFailedType => {
+  return {
+    type: REQUEST_SECTION_COMBO_SEVEN_FAILED,
     payload
   }
 }
@@ -388,4 +475,13 @@ export const latestTabActions = {
   requestHorizontalArticleBlock,
   requestHorizontalArticleBlockSuccess,
   requestHorizontalArticleBlockFailed,
+  requestSectionComboFive,
+  requestSectionComboFiveSuccess,
+  requestSectionComboFiveFailed,
+  requestSectionComboSix,
+  requestSectionComboSixSuccess,
+  requestSectionComboSixFailed,
+  requestSectionComboSeven,
+  requestSectionComboSevenSuccess,
+  requestSectionComboSevenFailed,
 };

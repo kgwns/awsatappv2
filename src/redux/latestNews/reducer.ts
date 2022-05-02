@@ -8,6 +8,9 @@ import {
   REQUEST_OPINION_DATA_LIST_FAILED, REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA,
   REQUEST_PODCAST_HOME_DATA, REQUEST_PODCAST_HOME_DATA_SUCCESS, REQUEST_PODCAST_HOME_DATA_FAILED, REQUEST_COVERAGE_BLOCK_SUCCESS,
   REQUEST_FEATURED_ARTICLE_BLOCK_SUCCESS, REQUEST_HORIZONTAL_ARTICLE_SUCCESS,
+  REQUEST_SECTION_COMBO_FIVE, REQUEST_SECTION_COMBO_FIVE_SUCCESS, REQUEST_SECTION_COMBO_FIVE_FAILED,
+  REQUEST_SECTION_COMBO_SIX, REQUEST_SECTION_COMBO_SIX_SUCCESS, REQUEST_SECTION_COMBO_SIX_FAILED,
+  REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED,
 } from './actionType';
 import { LatestNewsTabState, LatestTabAction } from './types';
 
@@ -23,6 +26,9 @@ const initialData: LatestNewsTabState = {
   sectionComboTwo: [],
   sectionComboThree: [],
   sectionComboFour: [],
+  sectionComboFive: [],
+  sectionComboSix: [],
+  sectionComboSeven: [],
   podcastHome:[],
   coverageInfo: [],
   featuredArticle: [],
@@ -148,6 +154,57 @@ export default (state = initialData, action: LatestTabAction) => {
         sectionComboFour: action.payload.sectionComboFour
       }
     case REQUEST_SECTION_COMBO_FOUR_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    case REQUEST_SECTION_COMBO_FIVE:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_SECTION_COMBO_FIVE_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        sectionComboFive: action.payload.sectionComboFive
+      }
+    case REQUEST_SECTION_COMBO_FIVE_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    case REQUEST_SECTION_COMBO_SIX:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_SECTION_COMBO_SIX_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        sectionComboSix: action.payload.sectionComboSix
+      }
+    case REQUEST_SECTION_COMBO_SIX_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    case REQUEST_SECTION_COMBO_SEVEN:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_SECTION_COMBO_SEVEN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        sectionComboSeven: action.payload.sectionComboSeven
+      }
+    case REQUEST_SECTION_COMBO_SEVEN_FAILED:
       return {
         ...state,
         isLoading: false,

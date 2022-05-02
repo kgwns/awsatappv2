@@ -32,6 +32,15 @@ import {
   REQUEST_HORIZONTAL_ARTICLE_BLOCK,
   REQUEST_HORIZONTAL_ARTICLE_SUCCESS,
   REQUEST_HORIZONTAL_ARTICLE_FAILED,
+  REQUEST_SECTION_COMBO_FIVE,
+  REQUEST_SECTION_COMBO_FIVE_SUCCESS,
+  REQUEST_SECTION_COMBO_FIVE_FAILED,
+  REQUEST_SECTION_COMBO_SIX,
+  REQUEST_SECTION_COMBO_SIX_SUCCESS,
+  REQUEST_SECTION_COMBO_SIX_FAILED,
+  REQUEST_SECTION_COMBO_SEVEN,
+  REQUEST_SECTION_COMBO_SEVEN_SUCCESS,
+  REQUEST_SECTION_COMBO_SEVEN_FAILED,
 } from "./actionType"
 import { PodcastListItemType } from '../podcast/types'
 export type payloadType = { rows: any[], pager: object }
@@ -98,6 +107,9 @@ export type LatestNewsTabState = {
   sectionComboTwo: LatestArticleDataType[],
   sectionComboThree: LatestArticleDataType[],
   sectionComboFour: LatestArticleDataType[],
+  sectionComboFive: LatestArticleDataType[],
+  sectionComboSix: LatestArticleDataType[],
+  sectionComboSeven: LatestArticleDataType[],
   podcastHome: LatestPodcastDataType[],
   coverageInfo: MainSectionBlockType[],
   featuredArticle: MainSectionBlockType[];
@@ -291,6 +303,60 @@ export interface PodcastHomeFailedType {
   type: typeof REQUEST_PODCAST_HOME_DATA_FAILED,
   payload: PodcastHomeFailedPayload
 }
+export interface RequestSectionComboFive {
+  type: typeof REQUEST_SECTION_COMBO_FIVE,
+  payload: RequestSectionComboBodyGet
+}
+export interface RequestSectionComboFiveSuccessPayload {
+  sectionComboFive: LatestArticleDataType[]
+}
+export interface RequestSectionComboFiveSuccessType {
+  type: typeof REQUEST_SECTION_COMBO_FIVE_SUCCESS,
+  payload: RequestSectionComboFiveSuccessPayload
+}
+export interface RequestSectionComboFiveFailedPayload {
+  error: string
+}
+export interface RequestSectionComboFiveFailedType {
+  type: typeof REQUEST_SECTION_COMBO_FIVE_FAILED,
+  payload: RequestSectionComboFiveFailedPayload
+}
+export interface RequestSectionComboSix {
+  type: typeof REQUEST_SECTION_COMBO_SIX,
+  payload: RequestSectionComboBodyGet
+}
+export interface RequestSectionComboSixSuccessPayload {
+  sectionComboSix: LatestArticleDataType[]
+}
+export interface RequestSectionComboSixSuccessType {
+  type: typeof REQUEST_SECTION_COMBO_SIX_SUCCESS,
+  payload: RequestSectionComboSixSuccessPayload
+}
+export interface RequestSectionComboSixFailedPayload {
+  error: string
+}
+export interface RequestSectionComboSixFailedType {
+  type: typeof REQUEST_SECTION_COMBO_SIX_FAILED,
+  payload: RequestSectionComboSixFailedPayload
+}
+export interface RequestSectionComboSeven {
+  type: typeof REQUEST_SECTION_COMBO_SEVEN,
+  payload: RequestSectionComboBodyGet
+}
+export interface RequestSectionComboSevenSuccessPayload {
+  sectionComboSeven: LatestArticleDataType[]
+}
+export interface RequestSectionComboSevenSuccessType {
+  type: typeof REQUEST_SECTION_COMBO_SEVEN_SUCCESS,
+  payload: RequestSectionComboSevenSuccessPayload
+}
+export interface RequestSectionComboSevenFailedPayload {
+  error: string
+}
+export interface RequestSectionComboSevenFailedType {
+  type: typeof REQUEST_SECTION_COMBO_SEVEN_FAILED,
+  payload: RequestSectionComboSevenFailedPayload
+}
 
 export enum MainSectionBlockName {
   COVERAGE = 'coverage',
@@ -387,6 +453,9 @@ export type RequestSectionComboType =
   | RequestSectionComboTwo
   | RequestSectionComboThree
   | RequestSectionComboFour
+  | RequestSectionComboFive
+  | RequestSectionComboSix
+  | RequestSectionComboSeven
 
 export type LatestTabAction =
   RequestTickerAndHeroType
@@ -421,4 +490,13 @@ export type LatestTabAction =
   | RequestFeaturedBlockFailedType
   | RequestHorizontalBlockType
   | RequestHorizontalBlockSuccessType
-  | RequestHorizontalBlockFailedType;
+  | RequestHorizontalBlockFailedType
+  | RequestSectionComboFive
+  | RequestSectionComboFiveSuccessType
+  | RequestSectionComboFiveFailedType
+  | RequestSectionComboSix
+  | RequestSectionComboSixSuccessType
+  | RequestSectionComboSixFailedType
+  | RequestSectionComboSeven
+  | RequestSectionComboSevenSuccessType
+  | RequestSectionComboSevenFailedType;
