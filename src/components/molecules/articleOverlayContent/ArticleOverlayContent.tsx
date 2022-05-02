@@ -4,7 +4,7 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from 'src/components/molecules'
 import { Label, LabelTypeProp } from 'src/components/atoms'
 import { articleFooterProps } from 'src/components/molecules/articleFooter/ArticleFooter'
-import { isNotEmpty, isTab, normalize, timeAgo } from 'src/shared/utils'
+import { isNotEmpty, normalize, timeAgo } from 'src/shared/utils'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
@@ -13,7 +13,7 @@ const articleDetailFooterData: articleFooterProps = {
     leftTitleColor: Styles.color.white,
     leftIcon: () => {
         return getSvgImages({
-            name: isTab ? ImagesName.clock : ImagesName.clockWhite,
+            name: ImagesName.clock,
             size: normalize(12),
             style: { marginRight: normalize(5) }
         })
@@ -36,8 +36,8 @@ export const ArticleOverlayContent = ({
     const [t] = useTranslation();
     
     const { themeData } = useTheme()
-    const textColor = isTab ? themeData.primaryBlack : Styles.color.white
-    const footerTextColor = isTab ? themeData.secondaryMediumGrey : Styles.color.white
+    const textColor =  themeData.primaryBlack
+    const footerTextColor = themeData.secondaryMediumGrey
     articleDetailFooterData.leftTitleColor = footerTextColor
     articleDetailFooterData.rightTitleColor = footerTextColor
 

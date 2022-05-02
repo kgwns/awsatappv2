@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { isTab, normalize } from 'src/shared/utils';
+import { isNotEmpty, isTab, normalize } from 'src/shared/utils';
 import { Label, Image, LabelTypeProp } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -37,7 +37,7 @@ export const NewsWithImageItem = ({
           resizeMode={ImageResize.COVER} fallback
         />
       }
-      {highlightedTitle && 
+      {isNotEmpty(highlightedTitle) && 
         <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5}/>
       }
       {title &&

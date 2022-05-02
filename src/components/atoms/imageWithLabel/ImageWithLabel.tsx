@@ -1,7 +1,7 @@
 import { View, StyleSheet, ImageStyle, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 import { Image } from '../image/Image'
-import { isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageName, Label, LabelTypeProp } from '..'
 import { Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles'
@@ -30,7 +30,7 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
                     style={[imageWithLabelStyle.articleImage, imageStyle]}
                     resizeMode={isTab ? ImageResize.CONTAIN : ImageResize.COVER}
                 />
-                {tagName &&
+                {isNotEmpty(tagName) &&
                     <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
                         <Label children={tagName}
                             style={imageWithLabelStyle.tagText}

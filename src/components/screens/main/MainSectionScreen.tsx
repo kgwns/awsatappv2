@@ -2,16 +2,16 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
 import {
   ArticleSection, CarouselSlider,
-  ShortArticle, AuthorWidget, BannerArticleSection, SectionComboOne,
+  ShortArticle, BannerArticleSection,
   EditorsPickSection, articleProps, VideoContent, PodcastWidget
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { heroSectionProperties, podcastForYouSection, shortArticleWithTagProperties, topHeadLineNewsData } from 'src/constants/SampleData';
+import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/SampleData';
 import { horizontalEdge, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList } from 'src/hooks';
-import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
+import { LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -25,12 +25,6 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { Label } from 'src/components/atoms';
 import { getPodcastUrl } from 'src/shared/utils/utilities';
-
-const tickerAndHeroPayload: LatestArticleBodyGet = {
-  items_per_page: 10,
-  page: 0,
-  offset: 0
-}
 
 const heroListTopListPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -72,12 +66,14 @@ export const MainSectionScreen = () => {
   const mainSectionStyle = useThemeAwareObject(customStyle)
 
   const {
-    isLoading, ticker, hero, heroList, topList, opinionList,
-    sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour, podcastHome,
-    fetchTickerAndHeroArticle, fetchHeroListTopList, fetchOpinionTopList,
+    isLoading, topList, opinionList,podcastHome,
+    sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour,
+    coverage, featuredArticle, horizontalArticle,
+    fetchHeroListTopList, fetchOpinionTopList,
     fetchSectionComboOne, fetchSectionComboTwo,
     fetchSectionComboThree, fetchSectionComboFour,
-    fetchPodcastHome
+    fetchPodcastHome,
+    fetchCoverageBlockData, fetchFeaturedArticleData, fetchHorizontalArticleData,
   } = useLatestNewsTab()
   const { videoData, fetchVideoRequest } = useVideoList();
 
@@ -91,7 +87,7 @@ export const MainSectionScreen = () => {
   const { fetchProfileDataRequest } = useUserProfileData();
 
   const [refreshing, setRefreshing] = useState(false);
-  const [heroInfo, setHeroInfo] = useState(hero)
+  const [coverageInfo, setCoverageInfo] = useState<MainSectionBlockType[]>(coverage)
   const [sectionComboOneInfo, setSectionComboOneInfo] = useState(sectionComboOne)
   const [sectionComboTwoInfo, setSectionComboTwoInfo] = useState(sectionComboTwo)
   const [sectionComboThreeInfo, setSectionComboThreeInfo] = useState(sectionComboThree)
@@ -99,7 +95,9 @@ export const MainSectionScreen = () => {
   const [showupUp, setShowPopUp] = useState(false)
   const [isPlayerVisible, setPlayerVisibility] = useState(false)
   const playbackState = usePlaybackState();
-  const podcastData = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
+
+  const podcastData: any = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
+  const headlineNews = isNonEmptyArray(coverageInfo) ? [...coverageInfo].splice(1, 4) : []
 
   useFocusEffect(
     React.useCallback(() => {
@@ -118,7 +116,7 @@ export const MainSectionScreen = () => {
   );
 
   
-  const updateBookmark = (data: LatestArticleDataType[]) => {
+  const updateBookmark = (data: any[]): any => {
     return data.map((item: LatestArticleDataType) => (
       {
         ...item,
@@ -135,25 +133,32 @@ export const MainSectionScreen = () => {
     return updatedData
   }
 
+  const mainBlockUpdatedBookMark = (data: MainSectionBlockType[], index: number) => {
+    const updatedData = [...data]
+    const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
+    updatedData[index].isBookmarked = bookmarkStatus
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    return updatedData
+  }
 
   useEffect(() => {
-    updateHeroData()
-  }, [hero, bookmarkIdInfo])
+    updateCoverageData()
+  }, [coverage, bookmarkIdInfo])
 
-  const updateHeroData = () => {
-    if (isNonEmptyArray(hero)) {
-      const heroData = updateBookmark(hero)
-      setHeroInfo(heroData)
+  const updateCoverageData = () => {
+    if (isNonEmptyArray(coverage)) {
+      const coverageData = updateBookmark(coverage)
+      setCoverageInfo(coverageData)
     }
   }
 
-  const updatedHeroBookmark = (index: number) => {
+  const updateCoverageBookMark = (index: number) => {
     if (!isLoggedIn) {
       setShowPopUp(true)
       return
     }
-    const updatedData = updatedChangeBookmark(heroInfo, index)
-    setHeroInfo(updatedData)
+    const updatedData = mainBlockUpdatedBookMark(coverageInfo, index)
+    setCoverageInfo(updatedData)
   }
 
 
@@ -251,22 +256,21 @@ export const MainSectionScreen = () => {
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
-  const heroListInfo = isTab ? heroList.slice(0, 5) : heroList
-  const heroListData: articleProps[] = heroListInfo.map((item: LatestArticleDataType, index: number) => (
+  const featuredArticleInfo: articleProps[] = featuredArticle.map((item: MainSectionBlockType, index: number) => (
     {
       ...item,
       ...heroSectionProperties,
       titleColor: themeData.primaryBlack,
-      tagName: item.news_categories && item.news_categories.title,
+      tagName: item.news_categories || '',
       isBookmarked: validateBookmark(item.nid),
       hideImage: index > 2,
-      showDivider: (isTab && ([0, 2, 3].includes(index))) || (!isTab && heroListInfo.length > index + 1),
+      showDivider: (isTab && ([0, 2, 3].includes(index))) || (!isTab && featuredArticle.length > index + 1),
       bodyLineCount: index <= 2 ? 2 : 3,
     }
   ))
 
-  const heroListInfoOne = [...heroListData].splice(0, 2)
-  const heroListInfoTwo = [...heroListData].splice(2, 5)
+  const heroListInfoOne = [...featuredArticleInfo].splice(0, 2)
+  const heroListInfoTwo = [...featuredArticleInfo].splice(2, 5)
 
   const topListData = topList.map((item: LatestArticleDataType) => (
     {
@@ -294,7 +298,10 @@ export const MainSectionScreen = () => {
   }, []);
 
   const allDataLoad = () => {
-    fetchTickerAndHeroArticle(tickerAndHeroPayload)
+    fetchCoverageBlockData();
+    fetchFeaturedArticleData();
+    fetchHorizontalArticleData();
+
     fetchHeroListTopList(heroListTopListPayload)
     fetchOpinionTopList(opinionListPayload)
     fetchSectionComboOne(sectionComboOnePayload)
@@ -379,25 +386,16 @@ export const MainSectionScreen = () => {
     <View>
       <Divider style={mainSectionStyle.dividerTop} />
       <View style={mainSectionStyle.heroContainer}>
-        <CarouselSlider tickerData={ticker} heroData={heroInfo}
-          onUpdateHeroBookmark={updatedHeroBookmark}
+        <CarouselSlider coverageInfo={coverageInfo}
+          onUpdateHeroBookmark={updateCoverageBookMark}
         />
       </View>
       <View style={mainSectionStyle.topNewsContainer}>
-        <TopHeadLineNews data={topHeadLineNewsData} />
+        <TopHeadLineNews data={headlineNews} />
       </View>
-      <>
-        <ArticleSection data={heroListData} onUpdateBookmark={updateBookmarkInfo} />
-      </>
-      {/* <AuthorWidget data={opinionList} /> */}
+      <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />
       <AuthorSlider data={[opinionList, opinionList, opinionList]} />
-      <EditorsPickSection data={podcastForYouSection} />
-      {/* {isNonEmptyArray(sectionComboOne) && <Divider style={mainSectionStyle.dividerAboveTrending} />}
-      <SectionComboOne data={sectionComboOneInfo} onPress={onPressArticle}
-        sectionId={'726'}
-        onUpdateBookmark={updatedSectionComboOneBookmark}
-        showSignUpPopUp={makeSignUpAlert}
-      /> */}
+      <EditorsPickSection data={horizontalArticle} />
        {isNonEmptyArray(podcastHome) &&
        <View>
          <PodcastWidget data={podcastHome} onPress={onListenPodcast} />  
@@ -490,12 +488,12 @@ export const MainSectionScreen = () => {
     <View>
       <Divider style={mainSectionStyle.dividerTop} />
       <View style={mainSectionStyle.heroContainer}>
-        <CarouselSlider tickerData={ticker} heroData={heroInfo}
-          onUpdateHeroBookmark={updatedHeroBookmark}
+        <CarouselSlider coverageInfo={coverageInfo}
+          onUpdateHeroBookmark={updateCoverageBookMark}
         />
       </View>
       <View style={mainSectionStyle.topNewsContainer}>
-        <TopHeadLineNews data={topHeadLineNewsData} />
+        <TopHeadLineNews data={headlineNews} />
       </View>
       <View style={mainSectionStyle.tabSplitter}>
         <View style={mainSectionStyle.tabWidgetContainer}>
@@ -513,13 +511,7 @@ export const MainSectionScreen = () => {
         </View>
       </View>
       <AuthorSlider data={[opinionList, opinionList, opinionList]} />
-      <EditorsPickSection data={podcastForYouSection} />
-      {/* {isNonEmptyArray(sectionComboOne) && <Divider style={mainSectionStyle.dividerAboveTrending} />}
-      <SectionComboOne data={sectionComboOneInfo} onPress={onPressArticle}
-        sectionId={'726'}
-        onUpdateBookmark={updatedSectionComboOneBookmark}
-        showSignUpPopUp={makeSignUpAlert}
-      /> */}
+      <EditorsPickSection data={horizontalArticle} />
       <View style={mainSectionStyle.tabSplitter}>
         <View style={mainSectionStyle.tabWidgetContainer}>
           <BannerArticleSection data={sectionComboTwoInfo}

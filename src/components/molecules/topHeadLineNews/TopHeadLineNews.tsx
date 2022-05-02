@@ -7,14 +7,11 @@ import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { ScreensConstants } from 'src/constants'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { MainSectionBlockType } from '~/redux/latestNews/types'
 
-export type TopNewsItemProps = {
-    title: string;
-    nid: string
-}
 
 export type TopHeadLineNewsProps = {
-    data: TopNewsItemProps[]
+    data: MainSectionBlockType[]
 }
 
 export const TopHeadLineNews = ({
@@ -27,7 +24,7 @@ export const TopHeadLineNews = ({
         if (isNotEmpty(nid)) navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
     }
 
-    const renderItem: ListRenderItem<TopNewsItemProps> = ({ item }) => {
+    const renderItem: ListRenderItem<MainSectionBlockType> = ({ item }) => {
         return (
             <TouchableOpacity activeOpacity={0.7} style={style.rowItem}
                 onPress={() => onPress(item.nid)}>
@@ -52,8 +49,7 @@ export const TopHeadLineNews = ({
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         paddingBottom: isTab ? 0 : normalize(15),
-        alignItems: 'center',
-        paddingTop: isTab ? normalize(10) : 0
+        paddingTop: isTab ? normalize(10) : 0,
     },
     rowItem: {
         flexDirection: 'row',

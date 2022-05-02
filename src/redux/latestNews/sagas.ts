@@ -12,7 +12,7 @@ import {
   RequestSectionComboType,
   RequestTickerAndHeroType, TickerHeroSuccessPayload,
   OpinionSuccessPayload, RequestOpinionListType, LatestOpinionDataType,
-  LatestPodcastDataType, PodcastHomeSuccessPayload
+  LatestPodcastDataType, PodcastHomeSuccessPayload, MainSectionBlockType, MainSectionBlockName, RequestCoverageBlockSuccessType, RequestCoverageBlockSuccessPayloadType, RequestFeaturedBlockSuccessPayloadType, RequestHorizontalBlockSuccessPayloadType
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -23,6 +23,9 @@ import {
   REQUEST_TICKER_HERO_DATA,
   REQUEST_OPINION_LIST_DATA,
   REQUEST_PODCAST_HOME_DATA,
+  REQUEST_COVERAGE_BLOCK,
+  REQUEST_FEATURED_ARTICLE_BLOCK,
+  REQUEST_HORIZONTAL_ARTICLE_BLOCK,
 } from './actionType';
 import {
   requestHeroListTopListFailed, requestHeroListTopListSuccess,
@@ -32,16 +35,90 @@ import {
   requestSectionComboTwoFailed, requestSectionComboTwoSuccess,
   requestTickerAndHeroFailed, requestTickerAndHeroSuccess,
   requestOpinionSuccess,
-  requestPodcastHomeSuccess, requestPodcastHomeFailed,
+  requestPodcastHomeSuccess, requestPodcastHomeFailed, requestCoverageBlockSuccess, requestCoverBlockFailed, requestFeatureArticleBlockSuccess, requestFeatureArticleBlockFailed, requestHorizontalArticleBlockSuccess, requestHorizontalArticleBlockFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
-import { getImageUrl } from 'src/shared/utils/utilities';
+import { getImageUrl, isNotEmpty } from 'src/shared/utils/utilities';
 import {
   requestLatestArticle,
   requestSectionCombo,
   writerOpinionApi,
   podcastHomeApi,
+  mainCoverageBlockApi,
+  mainHorizontalArticleApi,
+  mainFeaturedArticleApi,
 } from 'src/services/latestTabService';
+
+const formatMainSectionBlockData = (response: any) => {
+  let formattedData: MainSectionBlockType[] = []
+  if (response) {
+    if (isNonEmptyArray(response.rows)) {
+      const rows = response.rows
+      formattedData = rows.map(
+        ({ title, body, nid, field_image, field_news_categories,field_new_resource,created_export,
+        type, blockname, entityqueue_relationship_position }: any) => ({
+          body,
+          title,
+          nid,
+          image: getImageUrl(field_image),
+          news_categories: isNotEmpty(field_news_categories) ? field_news_categories : '' ,
+          author: field_new_resource,
+          created: created_export,
+          isBookmarked: false,
+          type,
+          blockName: blockname,
+          position: entityqueue_relationship_position
+        })
+      );
+    }
+  }
+  return formattedData
+}
+
+const parseCoverageDataSuccess = (response: any) => {
+  const formattedData = formatMainSectionBlockData(response)
+  let responseData: RequestCoverageBlockSuccessPayloadType = {
+    coverageInfo: []
+  }
+   
+  const allCoverageInfo = formattedData.filter((item) => item.blockName == MainSectionBlockName.COVERAGE)
+  const sortedCoverageInfo = allCoverageInfo.sort((a, b) => parseInt(a.position) - parseInt(b.position))
+  const coverageInfo = sortedCoverageInfo.splice(0, 4)
+
+  responseData.coverageInfo = coverageInfo
+
+  return responseData
+}
+
+const parseFeaturedArticleSuccess = (response: any) => {
+  const formattedData = formatMainSectionBlockData(response)
+  let responseData: RequestFeaturedBlockSuccessPayloadType = {
+    featureArticle: [],
+  }
+   
+  const allFeaturedArticleData = formattedData.filter((item) => item.blockName == MainSectionBlockName.FEATURED_ARTICLE)
+  const sortedFeaturedArticleData = allFeaturedArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
+  const featuredArticleDataInfo = sortedFeaturedArticleData.splice(0, 5)
+
+  responseData.featureArticle = featuredArticleDataInfo
+
+  return responseData
+}
+
+const parseHorizontalArticleSuccess = (response: any) => {
+  const formattedData = formatMainSectionBlockData(response)
+  let responseData: RequestHorizontalBlockSuccessPayloadType = {
+    horizontalArticle: []
+  }
+   
+  const allHorizontalArticleData = formattedData.filter((item) => item.blockName == MainSectionBlockName.HORIZONTAL_ARTICLE)
+  const sortedHorizontalArticleData = allHorizontalArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
+  const horizontalArticleData = sortedHorizontalArticleData.splice(0, 5)
+
+  responseData.horizontalArticle = horizontalArticleData
+
+  return responseData
+}
 
 
 const formatLatestArticle = (response: any): LatestArticleDataType[] => {
@@ -306,6 +383,53 @@ export function* fetchPodcastHomeData() {
   }
 }
 
+export function* fetchCoverageBlockData() {
+  try {
+    const payload: payloadType = yield call(
+      mainCoverageBlockApi,
+    );
+    const response = parseCoverageDataSuccess(payload)
+    yield put(requestCoverageBlockSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestCoverBlockFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
+export function* fetchFeaturedArticleBlockData() {
+  try {
+    const payload: payloadType = yield call(
+      mainFeaturedArticleApi,
+    );
+    const response = parseFeaturedArticleSuccess(payload)
+    yield put(requestFeatureArticleBlockSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestFeatureArticleBlockFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
+export function* fetchHorizontalBlockData() {
+  try {
+    const payload: payloadType = yield call(
+      mainHorizontalArticleApi,
+    );
+    const response = parseHorizontalArticleSuccess(payload)
+    yield put(requestHorizontalArticleBlockSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestHorizontalArticleBlockFailed({ error: errorMessage.message }));
+    }
+  }
+}
 function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)]);
   yield all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)]);
@@ -314,7 +438,10 @@ function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_SECTION_COMBO_TWO, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_THREE, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_FOUR, fetchSectionCombo)]);
-  yield all([takeLatest(REQUEST_PODCAST_HOME_DATA, fetchPodcastHomeData)])
+  yield all([takeLatest(REQUEST_PODCAST_HOME_DATA, fetchPodcastHomeData)]);
+  yield all([takeLatest(REQUEST_COVERAGE_BLOCK, fetchCoverageBlockData)]);
+  yield all([takeLatest(REQUEST_FEATURED_ARTICLE_BLOCK, fetchFeaturedArticleBlockData)]);
+  yield all([takeLatest(REQUEST_HORIZONTAL_ARTICLE_BLOCK, fetchHorizontalBlockData)]);
 }
 
 export default articleDetailSaga;

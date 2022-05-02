@@ -2,22 +2,21 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { isNonEmptyArray, screenWidth } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
-import { LatestArticleDataType } from 'src/redux/latestNews/types'
+import { MainSectionBlockType } from 'src/redux/latestNews/types'
 
 type CarouselSliderProps = {
-    tickerData: LatestArticleDataType[],
-    heroData: LatestArticleDataType[],
+    coverageInfo: MainSectionBlockType[],
     onUpdateHeroBookmark: (index: number) => void
 }
 
 const CarouselSlider = ({
-    heroData, onUpdateHeroBookmark
+    coverageInfo, onUpdateHeroBookmark
 }: CarouselSliderProps) => {
 
     return (
         <View>
-            {isNonEmptyArray(heroData) &&
-                <ImageArticle key={0} {...heroData[0]}
+            {isNonEmptyArray(coverageInfo) &&
+                <ImageArticle key={0} {...coverageInfo[0]}
                     onPressBookmark={() => onUpdateHeroBookmark(0)}
                     containerStyle={carouselSliderStyle.imageStyle}
                     rightContainerStyle={{ flex: 0.8 }}

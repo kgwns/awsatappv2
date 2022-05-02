@@ -6,7 +6,8 @@ import {
   REQUEST_SECTION_COMBO_THREE, REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE_FAILED,
   REQUEST_SECTION_COMBO_FOUR, REQUEST_SECTION_COMBO_FOUR_SUCCESS, REQUEST_SECTION_COMBO_FOUR_FAILED,
   REQUEST_OPINION_DATA_LIST_FAILED, REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA,
-  REQUEST_PODCAST_HOME_DATA, REQUEST_PODCAST_HOME_DATA_SUCCESS, REQUEST_PODCAST_HOME_DATA_FAILED,
+  REQUEST_PODCAST_HOME_DATA, REQUEST_PODCAST_HOME_DATA_SUCCESS, REQUEST_PODCAST_HOME_DATA_FAILED, REQUEST_COVERAGE_BLOCK_SUCCESS,
+  REQUEST_FEATURED_ARTICLE_BLOCK_SUCCESS, REQUEST_HORIZONTAL_ARTICLE_SUCCESS,
 } from './actionType';
 import { LatestNewsTabState, LatestTabAction } from './types';
 
@@ -23,6 +24,9 @@ const initialData: LatestNewsTabState = {
   sectionComboThree: [],
   sectionComboFour: [],
   podcastHome:[],
+  coverageInfo: [],
+  featuredArticle: [],
+  horizontalArticle: [],
 };
 
 export default (state = initialData, action: LatestTabAction) => {
@@ -165,6 +169,21 @@ export default (state = initialData, action: LatestTabAction) => {
         ...state,
         isLoading: false,
         error: action.payload.error
+      }
+    case REQUEST_COVERAGE_BLOCK_SUCCESS:
+      return {
+        ...state,
+        coverageInfo: action.payload.coverageInfo
+      }
+    case REQUEST_FEATURED_ARTICLE_BLOCK_SUCCESS:
+      return {
+        ...state,
+        featuredArticle: action.payload.featureArticle
+      }
+    case REQUEST_HORIZONTAL_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        horizontalArticle: action.payload.horizontalArticle
       }
     default:
       return { ...state }
