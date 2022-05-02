@@ -39,3 +39,4 @@ export { OpinionArticleDetailWidget } from 'src/components/organisms/OpinionArti
 export { RelatedOpinionArticlesWidget } from 'src/components/organisms/RelatedOpinionArticleWidget';
 export { AlertModal } from 'src/components/organisms/AlertModal/AlertModal'
 export { DynamicWidget } from 'src/components/organisms/dynamicWidget/DynamicWidget'
+export { PopUp } from 'src/components/organisms/popUp/PopUp'

@@ -17,8 +17,9 @@ import {Styles} from 'src/shared/styles';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import DeviceInfo from 'react-native-device-info';
-import {AlertModal} from 'src/components/organisms';
+import {AlertModal, PopUp} from 'src/components/organisms';
 import {ScreensConstants} from 'src/constants';
+import { PopUpType } from 'src/components/organisms/popUp/PopUp';
 
 const isIphoneX = DeviceInfo.hasNotch();
 
@@ -122,7 +123,7 @@ export const ScreenContainer = ({
             <LoadingState />
           </View>
         )}
-        {isSignUpAlertVisible && (
+        {/* {isSignUpAlertVisible && (
           <AlertModal
             title={t('signUpAlert.notSubscribed')}
             message={t('signUpAlert.description')}
@@ -131,7 +132,11 @@ export const ScreenContainer = ({
             onPressSuccess={onPressSignUp}
             onClose={() => onCloseSignUpAlert && onCloseSignUpAlert()}
           />
-        )}
+        )} */}
+        {isSignUpAlertVisible && <PopUp type={PopUpType.rbSheet}
+        onPressButton={onPressSignUp}
+        showPopUp={isSignUpAlertVisible}
+        onClosePopUp={() => onCloseSignUpAlert && onCloseSignUpAlert()} />}
 
         {isAlertVisible && (
           <AlertModal

@@ -49,4 +49,5 @@ export { SignupAlertCard } from './signupAlertCard/SignupAlertCard';
 export { WriterBannerImage } from './writerBannerImage/WriterBannerImage'
 export { ArticleOverlayContent } from './articleOverlayContent/ArticleOverlayContent'
 export { GameIntroCard, GameIntroCardProps } from './gameIntroCard/GameIntroCard'
+export { BottomSheetView } from 'src/components/molecules/bottomSheetView/BottomSheetView'
 

@@ -49,3 +49,9 @@ export const TWITTER_APP_URL = 'twitter://user?screen_name=aawsat_News';
 export const PODCAST_TITLE = 'استمع لبودكاست آخر أخبار اليوم';
 export const PODCAST_LISTEN_TEXT = 'استمع الي البودكاست ';
 export const ALL_EPISODES = 'كل الحلقات';
+
+//Not Registered Pop Up
+export const NOT_SUBSCRIBED = 'أنت غير مشترك';
+export const SAVE_ARTICLE_TO_YOUR_FAVOURITES = 'لحفظ المقالة لمفضلاتك ';
+export const CREATE_ACCOUNT_DESCRIPTION = 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و تتمتع بخاصية حفظ المقالات و تتمتع بأخبار لا محدوده'
+export const SIGN_UP = 'قم بالتسجيل'

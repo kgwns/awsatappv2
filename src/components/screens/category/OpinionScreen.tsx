@@ -13,16 +13,14 @@ import {WritersBodyGet} from 'src/redux/writers/types';
 import {OpinionsBodyGet, OpinionsListItemType} from 'src/redux/opinions/types';
 import { useBookmark, useLogin } from 'src/hooks';
 import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
-import { AlertModal } from 'src/components/organisms';
 import { ScreensConstants } from 'src/constants';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
+import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 
 
 export const OpinionScreen = () => {
-  const [t] = useTranslation()
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [page, setPage] = useState(0);
@@ -118,7 +116,7 @@ export const OpinionScreen = () => {
     }
   }
 
-  const onCloseSignUpAlert = () => {
+  const onClosePopUp = () => {
     setShowPopUp(false)
   }
 
@@ -150,21 +148,16 @@ export const OpinionScreen = () => {
   return (
     <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)}>
       <View style={style.container}>
-      {showupUp && <AlertModal
-        title={t('signUpAlert.notSubscribed')}
-        message={t('signUpAlert.description')}
-        buttonText={t('signUpAlert.signUp')}
-        isVisible={showupUp}
-        onPressSuccess={onPressSignUp}
-        onClose={() => onCloseSignUpAlert()}
-      />
-      }
       <FlatList
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
       />
+       <PopUp type={PopUpType.rbSheet}
+        onPressButton={onPressSignUp}
+        showPopUp={showupUp}
+        onClosePopUp={onClosePopUp} />
     </View>
     </ScreenContainer>
     
