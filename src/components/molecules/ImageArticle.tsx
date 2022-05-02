@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, ViewStyle, TouchableWithoutFeedback, StyleProp } from 'react-native'
+import { View, StyleSheet, ViewStyle, TouchableWithoutFeedback, StyleProp, TextStyle } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from '../molecules'
 import { BannerImageWithOverlay, Label, LabelTypeProp } from '../atoms'
@@ -39,6 +39,9 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
   body?: string;
   hasTabletLayout?: boolean
   rightContainerStyle?: StyleProp<ViewStyle>
+  textStyles?:  StyleProp<TextStyle>
+  titleStyle?:  StyleProp<TextStyle>,
+  showBody?: boolean,
 }
 
 const ImageArticle = ({
@@ -53,7 +56,10 @@ const ImageArticle = ({
   isTabFooterInside = true,
   body,
   hasTabletLayout = false,
-  rightContainerStyle
+  rightContainerStyle,
+  textStyles,
+  titleStyle,
+  showBody= true,
 }: ImageArticleProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
@@ -77,18 +83,19 @@ const ImageArticle = ({
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
           <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoadEnd} isImageLoaded={isImageLoaded} />
         </View>
-        <View style={imageArticleStyle.tabArticleContent}>
+        <View style={isTab ? imageArticleStyle.tabArticleContent : imageArticleStyle.articleContent}>
           {isNotEmpty(title) &&
-            <View style={imageArticleStyle.tabTitleContainer}>
+            <View style={imageArticleStyle.titleContainer}>
               <Label labelType={LabelTypeProp.title1}
                 children={title}
                 numberOfLines={2}
+                style={[textStyles,titleStyle]}
               />
             </View>
           }
-          {isNotEmpty(body) &&
+          {isNotEmpty(body) && showBody &&
             <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)}
-              color={Styles.color.davyGrey} numberOfLines={2} />
+              color={Styles.color.davyGrey} numberOfLines={3} style={textStyles}/>
           }
           <View style={imageArticleStyle.tabFooterContainer}>
             <ArticleFooter {...carouselFooterSample}
@@ -138,14 +145,17 @@ const imageArticleStyle = StyleSheet.create({
     paddingTop: normalize(20)
   },
   tabArticleContent: {
-    marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
+    marginHorizontal: isTab ? 0 : 0.04 * screenWidth,
     marginTop: normalize(10),
     marginBottom: normalize(25),
-    alignItems: 'center',
-    justifyContent: 'center'
   },
-  tabTitleContainer: {
-    paddingBottom: normalize(40),
+  articleContent:{
+     marginHorizontal: 0.04 * screenWidth,
+     marginTop: normalize(10),
+     marginBottom: normalize(25),
+  },
+  titleContainer: {
+    paddingBottom: normalize(10),
   },
   tabFooterContainer: {
     flex: 1,

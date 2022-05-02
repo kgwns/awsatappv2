@@ -21,6 +21,7 @@ const CarouselSlider = ({
                     onPressBookmark={() => onUpdateHeroBookmark(0)}
                     containerStyle={carouselSliderStyle.imageStyle}
                     rightContainerStyle={{ flex: 0.8 }}
+                    textStyles={{textAlign:'center'}}
                 />
             }
         </View>

@@ -298,6 +298,7 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
             onPressBookmark={() => updatedHeroBookmark(0)}
             hasTabletLayout={isTab ? true : false}
             rightContainerStyle={style.footerRightStyle}
+            textStyles={{textAlign:'center'}}
           />
         )}
       </>

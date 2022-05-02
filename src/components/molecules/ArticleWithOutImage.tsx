@@ -18,7 +18,8 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
     onPress?: () => void
     isBookmarked: boolean
     onPressBookmark?: () => void
-    bodyLineCount?: number
+    bodyLineCount?: number,
+    showBody?: boolean,
 }
 
 const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
@@ -29,6 +30,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     showDivider = true,
     showFooterTitle,
     bodyLineCount = 3,
+    showBody= true,
     ...props
 }) => {
     const style = useThemeAwareObject(customStyle)
@@ -36,7 +38,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     <TouchableWithoutFeedback onPress={onPress}>
         <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>
                 <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
-                {isNotEmpty(body) && <Label labelType={LabelTypeProp.p3}
+                {isNotEmpty(body) && showBody && <Label labelType={LabelTypeProp.p3}
                     children={decodeHTMLTags(body)}
                     color={Styles.color.davyGrey}
                     numberOfLines={bodyLineCount}

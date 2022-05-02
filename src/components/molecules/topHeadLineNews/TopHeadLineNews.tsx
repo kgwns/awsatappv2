@@ -66,6 +66,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         borderRadius: 4,
         backgroundColor: theme.primaryBlack,
         marginRight: normalize(8),
+        marginLeft:normalize(12),
     },
     title: {
         fontSize: normalize(15),

@@ -91,13 +91,15 @@ const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedPodcastHomeData = rows.map(
-        ({ nid, field_podcast_sect_export, title, body_export, field_total_duration_export, created_export, field_spreaker_episode_export }: any) => ({
+        ({ nid, field_podcast_sect_export, title, body_export, field_total_duration_export, created_export, field_spreaker_episode_export, field_announcer_name_export, field_podcast_image_export }: any) => ({
           nid,
           field_podcast_sect_export,
           title, body_export,
           field_total_duration_export,
           created_export,
-          field_spreaker_episode_export
+          field_spreaker_episode_export,
+          field_announcer_name_export,
+          field_podcast_image_export
         })
       );
     }

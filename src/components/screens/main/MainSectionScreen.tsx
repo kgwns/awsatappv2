@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, AuthorWidget, BannerArticleSection, SectionComboOne,
-  EditorsPickSection, articleProps, VideoContent
+  EditorsPickSection, articleProps, VideoContent, PodcastWidget
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { heroSectionProperties, podcastForYouSection, shortArticleWithTagProperties, topHeadLineNewsData } from 'src/constants/SampleData';
@@ -14,16 +14,17 @@ import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoLi
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Styles } from 'src/shared/styles';
-import TrackPlayer from 'react-native-track-player';
+import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { TopHeadLineNews } from 'src/components/molecules';
+import { PodCastMiniPlayer, TopHeadLineNews } from 'src/components/molecules';
 import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { Label } from 'src/components/atoms';
+import { getPodcastUrl } from 'src/shared/utils/utilities';
 
 const tickerAndHeroPayload: LatestArticleBodyGet = {
   items_per_page: 10,
@@ -72,7 +73,7 @@ export const MainSectionScreen = () => {
 
   const {
     isLoading, ticker, hero, heroList, topList, opinionList,
-    sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour,
+    sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour, podcastHome,
     fetchTickerAndHeroArticle, fetchHeroListTopList, fetchOpinionTopList,
     fetchSectionComboOne, fetchSectionComboTwo,
     fetchSectionComboThree, fetchSectionComboFour,
@@ -96,7 +97,27 @@ export const MainSectionScreen = () => {
   const [sectionComboThreeInfo, setSectionComboThreeInfo] = useState(sectionComboThree)
   const [sectionComboFourInfo, setSectionComboFourInfo] = useState(sectionComboFour)
   const [showupUp, setShowPopUp] = useState(false)
+  const [isPlayerVisible, setPlayerVisibility] = useState(false)
+  const playbackState = usePlaybackState();
+  const podcastData = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
 
+  useFocusEffect(
+    React.useCallback(() => {
+      const unsubscribe = () => { TrackPlayer.stop() };
+      return () => unsubscribe();
+    }, [isPlayerVisible])
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const unsubscribe = () => {
+        setPlayerVisibility(false)
+      };
+      return () => unsubscribe();
+    }, [])
+  );
+
+  
   const updateBookmark = (data: LatestArticleDataType[]) => {
     return data.map((item: LatestArticleDataType) => (
       {
@@ -311,6 +332,49 @@ export const MainSectionScreen = () => {
     setShowPopUp(true)
   }
 
+
+  const onListenPodcast = async () => {
+    setPlayerVisibility(true)
+    if (playbackState == State.Playing) {
+      return
+    }
+    await TrackPlayer.setupPlayer();
+    await TrackPlayer.updateOptions({ stopWithApp: true });
+    await TrackPlayer.add({
+      id: podcastData.nid,
+      url: getPodcastUrl(podcastData.field_spreaker_episode_export),
+      title: podcastData.title,
+      artist: podcastData.title,
+    });
+    await TrackPlayer.play();
+  }
+
+  const togglePlayback = async () => {
+    if (playbackState === State.Playing) {
+      await TrackPlayer.pause();
+    }
+    else if (playbackState === State.Paused) {
+      await TrackPlayer.play();
+    }
+    else if ( playbackState === State.Paused || playbackState == State.None || playbackState == State.Stopped) {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({ stopWithApp: true });
+      await TrackPlayer.add({
+        id: podcastData.nid,
+        url: getPodcastUrl(podcastData.field_spreaker_episode_export),
+        title: podcastData.title,
+        artist: podcastData.title,
+      });
+      TrackPlayer.setRepeatMode(RepeatMode.Off);
+      await TrackPlayer.play();
+    }
+  };
+
+  const onClose = async () => {
+    await TrackPlayer.stop()
+    setPlayerVisibility(false)
+  }
+
   const renderMobile = () => (
     <View>
       <Divider style={mainSectionStyle.dividerTop} />
@@ -334,6 +398,10 @@ export const MainSectionScreen = () => {
         onUpdateBookmark={updatedSectionComboOneBookmark}
         showSignUpPopUp={makeSignUpAlert}
       /> */}
+       {isNonEmptyArray(podcastHome) &&
+       <View>
+         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />  
+         </View>}
       <BannerArticleSection data={sectionComboTwoInfo}
         title={t('latestNewsTab.sectionComboTwo.headerLeft')}
         sectionId={'871'}
@@ -444,7 +512,6 @@ export const MainSectionScreen = () => {
           />
         </View>
       </View>
-      {/* <AuthorWidget data={opinionList} /> */}
       <AuthorSlider data={[opinionList, opinionList, opinionList]} />
       <EditorsPickSection data={podcastForYouSection} />
       {/* {isNonEmptyArray(sectionComboOne) && <Divider style={mainSectionStyle.dividerAboveTrending} />}
@@ -453,87 +520,95 @@ export const MainSectionScreen = () => {
         onUpdateBookmark={updatedSectionComboOneBookmark}
         showSignUpPopUp={makeSignUpAlert}
       /> */}
-      <BannerArticleSection data={sectionComboTwoInfo}
-        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
-        sectionId={'871'}
-        onPress={onPressArticle}
-        onUpdateBookmark={updatedSectionComboTwoBookmark}
-        isDivider
-        dividerStyle={mainSectionStyle.firstBannerDivider}
-      />
-      {isNonEmptyArray(videoData) && (
-        <VideoContent data={videoData} onPress={onVideoItemPress} />
-      )}
-      <BannerArticleSection
-        data={sectionComboThreeInfo}
-        title={t('latestNewsTab.sectionComboThree.headerLeft')}
-        sectionId={'11'}
-        onPress={onPressArticle}
-        onUpdateBookmark={updatedSectionComboThreeBookmark}
-      />
-      <Divider style={{ height: normalize(20) }} />
-      <Divider style={{ height: normalize(1), backgroundColor: themeData.dividerColor }} />
-      <BannerArticleSection
-        data={sectionComboThreeInfo}
-        title={t('latestNewsTab.sectionComboThree.headerLeft')}
-        sectionId={'11'}
-        onPress={onPressArticle}
-        onUpdateBookmark={updatedSectionComboThreeBookmark}
-      />
-      <Divider style={{ height: normalize(20) }} />
-      <Divider style={{ height: normalize(1), backgroundColor: themeData.dividerColor }} />
-      <BannerArticleSection
-        data={sectionComboThreeInfo}
-        title={t('latestNewsTab.sectionComboThree.headerLeft')}
-        sectionId={'11'}
-        onPress={onPressArticle}
-        onUpdateBookmark={updatedSectionComboThreeBookmark}
-      />
-      <Divider style={{ height: normalize(20) }} />
-      <Divider style={{ height: normalize(1), backgroundColor: themeData.dividerColor }} />
-      <BannerArticleSection
-        data={sectionComboThreeInfo}
-        title={t('latestNewsTab.sectionComboThree.headerLeft')}
-        sectionId={'11'}
-        onPress={onPressArticle}
-        onUpdateBookmark={updatedSectionComboThreeBookmark}
-      />
-      <Divider style={{ height: normalize(20) }} />
-      {isNonEmptyArray(topListData) && (
-        <View style={mainSectionStyle.articleContainer}>
-          <View style={mainSectionStyle.articleTitleContainer}>
-            <Label
-              children={t('latestNewsTab.articlSection.articleTitle')}
-              style={mainSectionStyle.articleTitleStyle}
-            />
-          </View>
-          <ShortArticle
-            data={topListData}
+      <View style={mainSectionStyle.tabSplitter}>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection data={sectionComboTwoInfo}
+            title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+            sectionId={'871'}
             onPress={onPressArticle}
-            onUpdateBookmark={updateBookmarkInfo}
-            showSignUpPopUp={makeSignUpAlert}
-            isFooterOutside={true}
+            onUpdateBookmark={updatedSectionComboTwoBookmark}
           />
         </View>
-      )}
-      <BannerArticleSection
-        data={sectionComboFourInfo}
-        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
-        sectionId={'10'}
-        onPress={onPressArticle}
-        onUpdateBookmark={updatedSectionComboFourBookmark}
-        isDivider
-      />
-      <Divider style={{ height: normalize(50) }} />
-      <Divider style={{ height: normalize(1), backgroundColor: themeData.dividerColor }} />
-      <BannerArticleSection
-        data={sectionComboFourInfo}
-        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
-        sectionId={'10'}
-        onPress={onPressArticle}
-        onUpdateBookmark={updatedSectionComboFourBookmark}
-        isDivider
-      />
+        <View style={[mainSectionStyle.tabWidgetContainer, {alignItems: 'center',backgroundColor:themeData.secondaryWhite}]}>
+          {isNonEmptyArray(videoData) && (
+            <VideoContent data={[...videoData].splice(0, 3)}
+              onPress={onVideoItemPress}
+              isTabDesign={true}
+            />
+          )}
+        </View>
+      </View>
+      <View style={mainSectionStyle.tabSplitter}>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+            data={sectionComboThreeInfo}
+            title={t('latestNewsTab.sectionComboThree.headerLeft')}
+            sectionId={'11'}
+            onPress={onPressArticle}
+            onUpdateBookmark={updatedSectionComboThreeBookmark}
+          />
+        </View>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+            data={sectionComboThreeInfo}
+            title={t('latestNewsTab.sectionComboThree.headerLeft')}
+            sectionId={'11'}
+            onPress={onPressArticle}
+            onUpdateBookmark={updatedSectionComboThreeBookmark}
+          />
+        </View>
+      </View>
+      <View style={mainSectionStyle.tabSplitter}>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+            data={sectionComboThreeInfo}
+            title={t('latestNewsTab.sectionComboThree.headerLeft')}
+            sectionId={'11'}
+            onPress={onPressArticle}
+            onUpdateBookmark={updatedSectionComboThreeBookmark}
+          />
+        </View>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          {isNonEmptyArray(topListData) && (
+            <View style={mainSectionStyle.articleContainer}>
+              <View style={mainSectionStyle.articleTitleContainer}>
+                <Label
+                  children={t('latestNewsTab.articlSection.articleTitle')}
+                  style={mainSectionStyle.articleTitleStyle}
+                />
+              </View>
+              <ShortArticle
+                data={topListData}
+                onPress={onPressArticle}
+                onUpdateBookmark={updateBookmarkInfo}
+                showSignUpPopUp={makeSignUpAlert}
+                isFooterOutside={true}
+                listStyle={{marginHorizontal: normalize(20)}}
+              />
+            </View>
+          )}
+        </View>
+      </View>
+      <View style={mainSectionStyle.tabSplitter}>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+            data={sectionComboFourInfo}
+            title={t('latestNewsTab.sectionComboThree.headerLeft')}
+            sectionId={'11'}
+            onPress={onPressArticle}
+            onUpdateBookmark={updatedSectionComboThreeBookmark}
+          />
+        </View>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+            data={sectionComboFourInfo}
+            title={t('latestNewsTab.sectionComboThree.headerLeft')}
+            sectionId={'11'}
+            onPress={onPressArticle}
+            onUpdateBookmark={updatedSectionComboThreeBookmark}
+          />
+        </View>
+      </View>
     </View>
   )
 
@@ -561,6 +636,9 @@ export const MainSectionScreen = () => {
           />
         }
       />
+      {isPlayerVisible && <View style={mainSectionStyle.miniPlayerContainer}>
+        <PodCastMiniPlayer data={podcastData} onClose={onClose} onPlaybackPress={togglePlayback} />
+      </View>}
     </ScreenContainer>
   )
 }
