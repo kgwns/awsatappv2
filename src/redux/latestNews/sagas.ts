@@ -142,7 +142,14 @@ const parseSectionComboTwo = (response: payloadType) => {
   let responseData: RequestSectionComboTwoSuccessPayload = {
     sectionComboTwo: []
   }
-  responseData.sectionComboTwo = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
+
+  const data = formattedData.map((item) => {
+    return {
+      ...item,
+      body: ''
+    }
+  })
+  responseData.sectionComboTwo = data.splice(0, 4)
   return responseData
 }
 
@@ -151,7 +158,14 @@ const parseSectionComboThree = (response: payloadType) => {
   let responseData: RequestSectionComboThreeSuccessPayload = {
     sectionComboThree: []
   }
-  responseData.sectionComboThree = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
+
+  const data = formattedData.map((item) => {
+    return {
+      ...item,
+      body: ''
+    }
+  })
+  responseData.sectionComboThree = data.splice(0, 4)
   return responseData
 }
 
@@ -160,7 +174,14 @@ const parseSectionComboFour = (response: payloadType) => {
   let responseData: RequestSectionComboFourSuccessPayload = {
     sectionComboFour: []
   }
-  responseData.sectionComboFour = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
+
+  const data = formattedData.map((item) => {
+    return {
+      ...item,
+      body: ''
+    }
+  })
+  responseData.sectionComboFour = data.splice(0, 4)
   return responseData
 }
 const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {

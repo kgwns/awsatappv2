@@ -3,9 +3,8 @@ import React from 'react';
 import { Label, LabelTypeProp, ImageWithIcon } from '../atoms';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Styles } from 'src/shared/styles';
-import { SectionVideoFooter, VideoItemProps } from '../molecules';
+import { SectionVideoFooter } from '../molecules';
 import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg'
-import EyeIcon from 'src/assets/images/icons/eyeIcon.svg'
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -14,6 +13,7 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import { getImageUrl, getSecondsToHms, timeAgo } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { flatListUniqueKey } from 'src/constants';
 
 export interface videoProps {
     storyImage: string,
@@ -24,7 +24,15 @@ export interface videoProps {
     newsMonth: string
 }
 
-export const VideoContent = ({ data, onPress }: { data: VideoItemType[], onPress?: (item: VideoItemType) => void }) => {
+export const VideoContent = ({ 
+    data, 
+    onPress,
+    isTabDesign = false
+}: { 
+    data: VideoItemType[], 
+    onPress?: (item: VideoItemType) => void,
+    isTabDesign?: boolean
+}) => {
     const [t] = useTranslation();
     const theme = useTheme();
     const style = useThemeAwareObject(customStyle);
@@ -38,9 +46,12 @@ export const VideoContent = ({ data, onPress }: { data: VideoItemType[], onPress
         const date = t(timeAgo(item.created_export))
         const time = item.field_jwplayerinfo_export ? getSecondsToHms(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
+        const itemStyle = isTab ? { paddingHorizontal: 0.02 * screenWidth, height: normalize(260) } :
+            index === data.length - 1 && { marginRight: 0.04 * screenWidth }
+
         return (
             <TouchableOpacity onPress={()=>onItemPress(item)}>
-                <View style={[style.videoCardContainer, index === data.length - 1 && { paddingRight: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) }]}>
+                <View style={[style.videoCardContainer, itemStyle]}>
                     <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
                     <Label style={style.textStyle} labelType={LabelTypeProp.h3} numberOfLines={2} >
                         {decode(item.title)}
@@ -62,8 +73,9 @@ export const VideoContent = ({ data, onPress }: { data: VideoItemType[], onPress
         <View style={style.container}>
             <Label style={style.titleTextStyle} labelType={LabelTypeProp.h3} children={t('categoryPage.videoContent')} numberOfLines={2} />
             <FlatList
-                horizontal
+                horizontal={!isTabDesign}
                 keyExtractor={(_, index) => index.toString()}
+                listKey={flatListUniqueKey.VIDEO_CONTENT}
                 style={style.listContainer}
                 data={data}
                 showsHorizontalScrollIndicator={false}
@@ -78,7 +90,7 @@ export default VideoContent;
 const customStyle = (theme: CustomThemeType) => {
     const videoContentStyle = StyleSheet.create({
         container: {
-            height: normalize(310),
+            height: isTab ? 'auto' : normalize(310),
             backgroundColor: theme.secondaryWhite,
         },
         videoCardContainer: {

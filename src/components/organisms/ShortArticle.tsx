@@ -45,6 +45,7 @@ export interface ArticleSectionProps {
   imageStyleProp?: StyleProp<ViewStyle>
   orientation?: string,
   isFooterOutside?: boolean
+  listStyle?: StyleProp<ViewStyle>
 }
 
 export const shortArticleFooter: articleFooterProps = {
@@ -70,7 +71,8 @@ const ShortArticle = ({ data, headerLeft, onPress,
   leftContainerStyle,
   imageStyleProp,
   orientation,
-  isFooterOutside = false
+  isFooterOutside = false,
+  listStyle
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const { isLoggedIn } = useLogin()
@@ -144,6 +146,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     <View style={[style.container, addStyle]}>
       <WidgetHeader headerLeft={headerLeft} widgetHeaderStyle={{}} />
       <FlatList
+        style={listStyle}
         keyExtractor={(_, index) => index.toString()}
         listKey={
           listKey ? listKey : flatListUniqueKey.SHORT_ARTICLE + new Date().getTime().toString()

@@ -145,7 +145,7 @@ const imageArticleStyle = StyleSheet.create({
     justifyContent: 'center'
   },
   tabTitleContainer: {
-    paddingBottom: normalize(40),
+    paddingBottom: normalize(15),
   },
   tabFooterContainer: {
     flex: 1,

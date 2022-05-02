@@ -37,7 +37,7 @@ const AuthorSlider = ({
             showsVerticalScrollIndicator={false}
             listKey={'AuthorSlider'+ index + new Date().getTime().toString()}
             renderItem={({ item, index }) => renderAuthorList(item, index)}
-            style={style.itemListContainer}
+            style={[style.itemListContainer, isTab && index === 2 && {marginLeft: 0}]}
             ItemSeparatorComponent={() => <Divider style={style.divider} />}
         />
     );
@@ -142,11 +142,11 @@ const customStyle = (theme: CustomThemeType) => {
         paddingTop: normalize(20),
         backgroundColor: theme.secondaryWhite,
         paddingBottom:normalize(20),
-        paddingEnd: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth)
+        paddingEnd: (isTab ? 0.02 : 0.04) * screenWidth
     },
     itemListContainer: {
-        width: screenWidth * 0.84,
-        marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+        width: screenWidth * (isTab ? 0.45 : 0.84),
+        marginHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
     },
     itemStyle: {
         flex: 1,
