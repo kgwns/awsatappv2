@@ -35,6 +35,8 @@ import AdjustAnalyticsManager, {
 } from 'src/shared/utils/AdjustAnalyticsManager';
 import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {getSvgImages} from 'src/shared/styles/svgImages';
+import { ImagesName } from 'src/shared/styles/images';
 
 export enum SocialNavigate {
   google = 'GOOGLE',
@@ -92,6 +94,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(
     incorrectCredentialPayload,
   );
+
+  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
 
   const {
     fetchLoginRequest,
@@ -266,7 +270,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
             </View>
 
             <View style={styles.logoContainer}>
-              <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
+              {HeaderLogo()}
             </View>
 
           <View style={styles.containerStyle}>

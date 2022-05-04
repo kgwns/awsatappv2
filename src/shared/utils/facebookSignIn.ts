@@ -14,7 +14,7 @@ export default class SignInFacebook extends SocialLogin {
   }
 
   login(): void {
-      LoginManager.logInWithPermissions(['public_profile', 'email', 'user_birthday']).then((result: any) => {
+      LoginManager.logInWithPermissions(['public_profile', 'email']).then((result: any) => {
           if (result.isCancelled) {
               //console.log('** Facebook Login Canceled **')
               this.callBack(undefined, false, 'facebook')
@@ -39,7 +39,7 @@ export default class SignInFacebook extends SocialLogin {
   }
 
   fetchUserInfo = (accessToken: String) => {
-      const FB_FIELDS = 'email,gender,name,first_name,last_name,picture.type(large),birthday'
+      const FB_FIELDS = 'email,gender,name,first_name,last_name,picture.type(large)'
       const config = {
           accessToken: accessToken.toString(),
           parameters: {fields: {string: FB_FIELDS}}
@@ -61,7 +61,6 @@ export default class SignInFacebook extends SocialLogin {
               givenName: result?.first_name,
               familyName: result?.last_name,
               id: this.fbUserId,
-              birthday: result?.birthday,
               profile_url: `https://graph.facebook.com/${this.fbUserId}/picture?type=large&width=720&height=720`
             },
           }
