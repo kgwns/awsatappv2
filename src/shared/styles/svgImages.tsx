@@ -81,6 +81,7 @@ import BookMarkBlackBdr from 'src/assets/images/icons/bookmark_black_bdr.svg'
 import ShareDarkSVG from 'src/assets/images/icons/share_dark.svg'
 import PenDark from 'src/assets/images/icons/penDark.svg'
 import Return from 'src/assets/images/icons/returnIcon.svg'
+import ReturnWhite from 'src/assets/images/icons/returnIconWhite.svg'
 import PlusSVG from 'src/assets/images/icons/plus.svg'
 import ReturnGreenish from 'src/assets/images/icons/returnGreenish.svg'
 import ReturnGreenishDark from 'src/assets/images/icons/returnGreenishDark.svg'
@@ -245,7 +246,7 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.dropDownIcon:
             return isDark ? <DropDownIconDark {...props} /> : <DropDownIcon {...props} />
         case ImagesName.returnBlackSvg:
-            return <Return {...props} />
+            return isDark ? <ReturnWhite {...props} /> :<Return {...props} />
         case ImagesName.playerCloseIcon:
             return isDark ? <PlayerCloseIconDark {...props} /> : <PlayerCloseIcon {...props} />
         case ImagesName.pauseIcon:

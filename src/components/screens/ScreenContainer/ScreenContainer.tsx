@@ -13,13 +13,14 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Label, LoadingState, Image} from 'src/components/atoms';
 import {useNavigation} from '@react-navigation/native';
-import {Styles} from 'src/shared/styles';
+import {ImagesName, Styles} from 'src/shared/styles';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import DeviceInfo from 'react-native-device-info';
 import {AlertModal, PopUp} from 'src/components/organisms';
 import {ScreensConstants} from 'src/constants';
 import { PopUpType } from 'src/components/organisms/popUp/PopUp';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 const isIphoneX = DeviceInfo.hasNotch();
 
@@ -95,7 +96,7 @@ export const ScreenContainer = ({
           </Label>
         )}
         <TouchableOpacity hitSlop={isTab ? { top: 15, bottom: 15, left: 15, right: 15 } : DEFAULT_HIT_SLOP} style={style.returnStyle} onPress={onPressBack}>
-          <Image name="returnIcon" style={style.returnIconStyle} />
+          {getSvgImages({ name: ImagesName.returnBlackSvg, size: normalize(12), style: { marginRight: 5 }})}
           <Label style={style.prevTitleStyle}>
             {t('onBoard.common.return')}
           </Label>
