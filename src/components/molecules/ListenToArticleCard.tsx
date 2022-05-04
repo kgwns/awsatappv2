@@ -1,12 +1,11 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {ButtonImage, Label} from 'src/components/atoms';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {normalize} from 'src/shared/utils';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import { useTranslation } from 'react-i18next';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { getSecondsToHms, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
@@ -50,8 +49,9 @@ export const ListenToArticleCard = (data: any) => {
   }
 
   return (
-    <TouchableWithoutFeedback onPress={() => togglePlayback()} style={style.container}>
+    <View style={style.container}>
       <ButtonImage
+        hitSlop={{}}
         icon={() =>
           playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
             getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
@@ -61,7 +61,7 @@ export const ListenToArticleCard = (data: any) => {
       />
       <Label style={style.title}> {t('opinionArticleDetail.listenToArticle')}</Label>
       <Label style={style.duration}>{getSecondsToHms(duration)}</Label>
-    </TouchableWithoutFeedback>
+    </View>
   );
 };
 export default ListenToArticleCard;
