@@ -26,6 +26,8 @@ const ArticleDetailImage = ({
     const navigation = useNavigation()
     const CONST_RETURN = TranslateConstants({key: TranslateKey.RETURN})
 
+    const [imageLoaded, setImageLoaded] = useState<boolean>(false)
+
     const onPressBack = () => {
         if (!isRelatedArticle) {
             Orientation.unlockAllOrientations()
@@ -34,22 +36,27 @@ const ArticleDetailImage = ({
         navigation.goBack()
     }
 
+    const onImageLoaded = () => {
+        setImageLoaded(true)
+    }
+
     return (
         <View>
             <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-                <BannerImageWithOverlay image={image} />
+                <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoaded}/>
                 <TouchableOpacity testID={'onPressbackTestID'}
                     style={imageArticleStyle.returnStyle}
                     onPress={onPressBack}>
                     {
                         getSvgImages({
-                          name: ImagesName.returnWhiteIcon,
+                          name: imageLoaded ? ImagesName.returnWhiteIcon : ImagesName.returnBlackSvg ,
                           width: normalize(12),
                           height: normalize(8.8),
                           style: imageArticleStyle.prevIconStyle
                         })
                     }
-                    <Label style={imageArticleStyle.prevTitleStyle}
+                    <Label style={[imageArticleStyle.prevTitleStyle,
+                    { color: imageLoaded ? Styles.color.white : Styles.color.black }]}
                         children={CONST_RETURN}
                     />
                 </TouchableOpacity>
@@ -63,12 +70,12 @@ const ArticleDetailImage = ({
 
 export default ArticleDetailImage
 
-const containerHeight = isTab ? 0.5 * screenWidth : 1.05 * screenWidth
 const imageArticleStyle = StyleSheet.create({
     sliderItemContainer: {
         flex: 1,
         width: '100%',
-        height: containerHeight
+        height: 'auto',
+        aspectRatio: 1.62,
     },
     slideContent: {
         position: 'absolute',
