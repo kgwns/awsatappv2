@@ -20,7 +20,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { appleSignin } from 'src/shared/utils/appleSignin';
-import moment from 'moment';
 
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
@@ -51,13 +50,9 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       provider: provider,
       provider_id:userDetails.id,
     };
-    if(provider === 'facebook' && userDetails.birthday){
-      payload.birthday = moment(userDetails.birthday).locale('en').format('YYYY-MM-DD')
-    }
     if(provider === 'facebook' && userDetails.profile_url){
       payload.profile_url = userDetails.profile_url
-    }
-    
+    }   
     if (provider === 'google' && userInfo) {
       payload.profile_url = userInfo.user.photo
     }

@@ -112,7 +112,7 @@ export const ManageMyNewsScreen = () => {
 
   useEffect(() => {
     return () => {
-      emptySelectedAuthorsInfoData()
+      // emptySelectedAuthorsInfoData()
     }
   }, [])
 

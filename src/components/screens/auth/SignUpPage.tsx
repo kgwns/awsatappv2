@@ -35,6 +35,8 @@ import AdjustAnalyticsManager, {
 } from 'src/shared/utils/AdjustAnalyticsManager';
 import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {getSvgImages} from 'src/shared/styles/svgImages';
+import { ImagesName } from 'src/shared/styles/images';
 
 export interface SignUpPageProps {
   route: any;
@@ -65,6 +67,8 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const {fetchProfileDataRequest} = useUserProfileData();
 
   const { emptySearchHistory } = useSearch();
+
+  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
 
   const noInternetConnection: AlertPayloadType = {
     title: t('common.alert'),
@@ -180,7 +184,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
             </View>
 
             <View style={styles.logoContainer}>
-              <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
+              {HeaderLogo()}
             </View>
 
             <View style={styles.containerStyle}>

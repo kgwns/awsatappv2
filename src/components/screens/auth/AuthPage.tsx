@@ -26,6 +26,8 @@ import {TERMS_AND_CONDITION} from 'src/services/apiEndPoints';
 import {useLogin} from 'src/hooks';
 import {AlertPayloadType} from 'src/components/screens/ScreenContainer/ScreenContainer';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {getSvgImages} from 'src/shared/styles/svgImages';
+import { ImagesName } from 'src/shared/styles/images';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -53,6 +55,8 @@ export const AuthPage: FunctionComponent = () => {
   } = useRegister();
 
   const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
+
+  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
 
   const { fetchEmailCheckRequest,
     isLoading, emailCheckData, emailCheckError,
@@ -179,7 +183,7 @@ export const AuthPage: FunctionComponent = () => {
             </View>
 
             <View style={styles.logoContainer}>
-              <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
+              {HeaderLogo()}
             </View>
 
             <View style={styles.containerStyle}>

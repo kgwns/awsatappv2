@@ -17,8 +17,6 @@ import { normalize } from 'react-native-elements';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { NewsCategoriesType } from 'src/redux/latestNews/types';
-import { useIsFocused } from '@react-navigation/native'
-
 
 interface AllContentData {
     opinionsData: any,
@@ -28,18 +26,16 @@ interface AllContentData {
 
 export const ContentForYou = () => {
     const { themeData } = useTheme()
-    const isFocused = useIsFocused()
     const [t] = useTranslation()
     const {selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
     const {selectedAuthorsData, getSelectedAuthorsData} = useAllWriters();
     const {
-        isLoading,
+        isLoading: opinionLoading,
         favouriteOpinionsData,
         fetchFavouriteOpinionsRequest,
         isArticalLoading,
         favouriteArticlesData,
         fetchFavouriteArticlesRequest,
-        emptyAllData,
     } = useContentForYou();
     const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo} = useBookmark()
     const [selectedAuthors, setSelectedAuthors] = useState([])
@@ -68,27 +64,31 @@ export const ContentForYou = () => {
     const selectedAuthorsRef = useRef(true);
 
     useEffect(() => {
-        if (isFocused) {
-            setInitialLoading(true)
-            getSelectedTopicsData();
-            getSelectedAuthorsData();
-        }
-        return () => {
-            emptyAllData();
-        }
-    }, [isFocused]);
+        getSelectedTopicsData();
+        getSelectedAuthorsData();
+    }, []);
 
     useEffect(() => {
         if (selectedTopicsRef.current) {
             selectedTopicsRef.current = false;
         } else {
-            if (isNonEmptyArray(selectedTopicsData.data)) {
-                setIsAllLoading(true);
-                setPage(0);
-                setPageAllData([initialPageData]);
-                fetchSelectedDataFromAllTopics()
-            } else {
-
+            const topicsSelected = returnItems(selectedTopicsData.data)
+            const authorsSelected = returnItems(selectedAuthorsData.data)
+            if( JSON.stringify(topicsSelected) != JSON.stringify(selectedTopics)){
+                if (isNonEmptyArray(selectedTopicsData.data)) {
+                    setIsAllLoading(true);
+                    setPage(0);
+                    setPageAllData([{
+                        opinionsData: {data:[],loaded: false},
+                        articleSectionData: {data:[],loaded: false},
+                        shortArticleData: {data:[],loaded: false}
+                    }]);
+                    fetchSelectedDataFromAllTopics()
+                    if(JSON.stringify(authorsSelected) == JSON.stringify(selectedAuthors)) fetchSelectedDataFromAllAuthors();
+                } else {
+                    checkDataLoaded()
+                }               
+            }else{
                 checkDataLoaded()
             }
         }
@@ -98,22 +98,59 @@ export const ContentForYou = () => {
         if (selectedAuthorsRef.current) {
             selectedAuthorsRef.current = false;
         } else {
-            if (isNonEmptyArray(selectedAuthorsData.data)) {
-                setIsAllLoading(true);
-                setPage(0);
-                setPageAllData([initialPageData]);
-                fetchSelectedDataFromAllAuthors();
-            } else {
+            const authorsSelected = returnItems(selectedAuthorsData.data)
+            const topicsSelected = returnItems(selectedTopicsData.data)
+            if(JSON.stringify(authorsSelected) != JSON.stringify(selectedAuthors)){
+                if (isNonEmptyArray(selectedAuthorsData.data)) {
+                    setIsAllLoading(true);
+                    setPage(0);
+                    setPageAllData([{
+                        opinionsData: {data:[],loaded: false},
+                        articleSectionData: {data:[],loaded: false},
+                        shortArticleData: {data:[],loaded: false}
+                    }]);
+                    fetchSelectedDataFromAllAuthors();
+                    if(JSON.stringify(topicsSelected) == JSON.stringify(selectedTopics)) fetchSelectedDataFromAllTopics();
+                } else {
+                    checkDataLoaded()
+                }                
+            }else{
                 checkDataLoaded()
             }
         }
-
     }, [selectedAuthorsData]);
+
+    const returnItems = (data:any) => {
+        if(isNonEmptyArray(data)){
+            return data.map((item:any)=>{
+                return item.tid
+            })
+        }else{
+            return [];
+        }
+    }
 
     const checkDataLoaded = () => {
         if(!isNonEmptyArray(selectedTopicsData.data) && !isNonEmptyArray(selectedAuthorsData.data)){
             setPageAllData([])
+            setSelectedTopics([])
+            setSelectedAuthors([])
             setInitialLoading(false)
+        }else if(!isNonEmptyArray(selectedTopicsData.data)){
+            setSelectedTopics([])
+            let updatedPageData = [...pageAllData];
+            updatedPageData.forEach((i:any)=>{
+                i.articleSectionData = {data: [], loaded: true}
+                i.shortArticleData = {data: [], loaded: true}
+            })
+            setPageAllData(updatedPageData)
+        }else if(!isNonEmptyArray(selectedAuthorsData.data)){
+            setSelectedAuthors([])
+            let updatedPageData = [...pageAllData];
+            updatedPageData.forEach((i:any)=>{
+                i.opinionsData = {data: [], loaded: true}
+            })
+            setPageAllData(updatedPageData)
         }
     }
 
@@ -130,6 +167,12 @@ export const ContentForYou = () => {
     useEffect(() => {
         checkBookmarkUpdate()
     }, [bookmarkIdInfo]);
+
+    useEffect(() => {
+        if(!isAllLoading && page == 0 && !isNonEmptyArray(selectedTopicsData.data)){
+            loadMoreData();
+        } 
+    }, [isAllLoading]);
     
     const checkBookmarkUpdate = () => {
         let bookmarkData = [...pageAllData]
@@ -153,10 +196,10 @@ export const ContentForYou = () => {
 
     const checkLoadData = () =>{
         checkBookmarkUpdate();
-        if(pageAllData[page] && pageAllData[page].articleSectionData.loaded &&
-            pageAllData[page].opinionsData.loaded && pageAllData[page].shortArticleData.loaded){
+        if(pageAllData[page] && pageAllData[page] && (pageAllData[page].articleSectionData.loaded || pageAllData[page].opinionsData.loaded)){
             setIsAllLoading(false);
-            setInitialLoading(false)
+            setInitialLoading(false);
+            checkDataLoaded();
         }
     }
 
@@ -204,6 +247,8 @@ export const ContentForYou = () => {
             });
             setSelectedAuthors(selectedAuthors);
             fetchOpinionData(selectedAuthors,0);
+        }else{
+            setSelectedAuthors([]);
         }
     };
 
@@ -214,6 +259,8 @@ export const ContentForYou = () => {
             });
             setSelectedTopics(selectedTopics);
             fetchArticleData(selectedTopics,0);
+        }else{
+            setSelectedTopics([]);
         }
     };
 
@@ -240,8 +287,8 @@ export const ContentForYou = () => {
             let pageCount = page+1
             setPage(pageCount)
             setPageAllData(pageData => [...pageData, initialPageData]);
-            fetchOpinionData(selectedAuthors,pageCount)
-            fetchArticleData(selectedTopics,pageCount)
+            if(isNonEmptyArray(selectedAuthors)) fetchOpinionData(selectedAuthors,pageCount);
+            if(isNonEmptyArray(selectedTopics)) fetchArticleData(selectedTopics,pageCount);
             setIsAllLoading(true)
         }
     }
@@ -315,7 +362,7 @@ export const ContentForYou = () => {
             <View>
                 {isNonEmptyArray(pageAllData)?
                     <View style={styles.loaderStyle}>
-                        {(isLoading || isArticalLoading) && <LoadingState />}
+                        {(opinionLoading || isArticalLoading) && <LoadingState />}
                     </View>:
                     showEmptyData()
                 }

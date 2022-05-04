@@ -19,6 +19,8 @@ import { useLogin } from 'src/hooks';
 import { openInbox } from "react-native-email-link";
 import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
+import {getSvgImages} from 'src/shared/styles/svgImages';
+import { ImagesName } from 'src/shared/styles/images';
 
 
 export const ForgotPassword: FunctionComponent = () => {
@@ -29,6 +31,7 @@ export const ForgotPassword: FunctionComponent = () => {
   const appState = useRef(AppState.currentState);
   const [animationRef,setAnimationRef] = useState<LottieView>()
   const {emptyforgotPassworResponseInfo} = useLogin();
+  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", nextAppState => {
@@ -92,7 +95,7 @@ export const ForgotPassword: FunctionComponent = () => {
           />
         </TouchableOpacity >
         <View style={styles.logoContainer}>
-          <HeaderIcon style={styles.logo} fill={themeData.headerColor} />
+          {HeaderLogo()}
         </View>
         <View style={styles.containerStyle}>
           <View style={styles.topContainerStyle}>

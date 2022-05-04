@@ -247,46 +247,46 @@ export const MainSectionScreen = () => {
     setSectionComboSevenInfo(data)
   }
 
-  const updatedSectionComboOneBookmark = (nid: string) => {
+  const updatedSectionComboOneBookmark = (article: LatestArticleDataType) => {
     if (!isLoggedIn) {
       setShowPopUp(true)
       return
     }
 
-    const index = sectionComboOneInfo.findIndex((item) => item.nid == nid)
+    const index = sectionComboOneInfo.findIndex((item) => item.nid == article.nid)
     const updatedData = updatedChangeBookmark(sectionComboOneInfo, index)
     setSectionComboOneInfo(updatedData)
   }
 
-  const updatedSectionComboFiveBookmark = (nid: string) => {
+  const updatedSectionComboFiveBookmark = (article: LatestArticleDataType) => {
     if (!isLoggedIn) {
       setShowPopUp(true)
       return
     }
 
-    const index = sectionComboFiveInfo.findIndex((item) => item.nid == nid)
+    const index = sectionComboFiveInfo.findIndex((item) => item.nid == article.nid)
     const updatedData = updatedChangeBookmark(sectionComboFiveInfo, index)
     setSectionComboFiveInfo(updatedData)
   }
 
-  const updatedSectionComboSixBookmark = (nid: string) => {
+  const updatedSectionComboSixBookmark = (article: LatestArticleDataType) => {
     if (!isLoggedIn) {
       setShowPopUp(true)
       return
     }
 
-    const index = sectionComboSixInfo.findIndex((item) => item.nid == nid)
+    const index = sectionComboSixInfo.findIndex((item) => item.nid == article.nid)
     const updatedData = updatedChangeBookmark(sectionComboSixInfo, index)
     setSectionComboSixInfo(updatedData)
   }
 
-  const updatedSectionComboSevenBookmark = (nid: string) => {
+  const updatedSectionComboSevenBookmark = (article: LatestArticleDataType) => {
     if (!isLoggedIn) {
       setShowPopUp(true)
       return
     }
 
-    const index = sectionComboSevenInfo.findIndex((item) => item.nid == nid)
+    const index = sectionComboSevenInfo.findIndex((item) => item.nid == article.nid)
     const updatedData = updatedChangeBookmark(sectionComboSevenInfo, index)
     setSectionComboSevenInfo(updatedData)
   }
