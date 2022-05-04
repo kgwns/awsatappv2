@@ -7,7 +7,7 @@ import {
   PodcastProgram,
   SectionStoryScreen,
 } from '..';
-import {horizontalEdge, isIOS, normalize} from 'src/shared/utils';
+import {horizontalEdge, isIOS, isNonEmptyArray, normalize} from 'src/shared/utils';
 import {
   View,
   Dimensions,
@@ -20,7 +20,6 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import { Styles } from 'src/shared/styles';
 import { GameScreen } from '../games/GameScreen';
 import { TabWithBarItem } from 'src/components/molecules';
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { MainSectionScreen } from 'src/components/screens';
 
 export enum TabType {
@@ -29,20 +28,15 @@ export enum TabType {
   video = 'video',
   section = 'section',
   games = 'games',
-  main = 'main',
+  main = 'section-main-tab',
 }
 
 export const SectionsScreen = () => {
   const {isLoading, topMenuData, fetchTopMenuRequest} = useTopMenu();
   const styles = useThemeAwareObject(customStyle);
 
-  const mainTab = {
-      key: `0main`,
-      title: TranslateConstants({key: TranslateKey.SECTION_MAIN}),
-  }
-
   const [index, setIndex] = React.useState(0);
-  const [routes, setNewRoutes] = useState<any>([mainTab]);
+  const [routes, setNewRoutes] = useState<any>([]);
 
 
   const renderScene = ({ route }: any) => {
@@ -66,15 +60,14 @@ export const SectionsScreen = () => {
 
   useEffect(() => {
     if(topMenuData.length > 0){
-      let sectionRoutes = [...routes]
       let newRoutesArray = topMenuData.map((item, index) => {
         return {
-          key: `${index + 1}${item.keyName}`,
+          key: `${index}${item.keyName}`,
           title: item.tabName,
           sectionId: item.sectionId
         };
       })
-      setNewRoutes(sectionRoutes.concat([...newRoutesArray]))
+      setNewRoutes(newRoutesArray)
     }
   }, [topMenuData])
 
@@ -97,7 +90,9 @@ export const SectionsScreen = () => {
         renderIndicator={() => null}
         bounces={false}
         renderTabBarItem={(item) => {
-          const tabIndex = parseInt(item.key?.substring(0) || '0')
+          const number = item.key.match(/\d+/g) || '0';
+          const tabIndex = isNonEmptyArray(number) ? parseInt(number[0]) : 0
+
           return <TabWithBarItem index={tabIndex}
             onPress={setIndex}
             tabName={item.route.title || ''}
