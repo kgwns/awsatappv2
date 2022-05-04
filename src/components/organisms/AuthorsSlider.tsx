@@ -11,6 +11,9 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { t } from 'i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+import { ScreensConstants } from 'src/constants';
 
 const AuthorSlider = ({
     data,
@@ -28,6 +31,7 @@ const AuthorSlider = ({
   const style = useThemeAwareObject(customStyle);
   const scrollRef = useRef<ScrollView>(null);
   const { themeData } = useTheme()
+  const navigation = useNavigation<StackNavigationProp<any>>();
 
   const renderItem = (item: any, index: number) => {
     return (
@@ -95,10 +99,16 @@ const AuthorSlider = ({
       clickable: true,
     },
 };
+
+  const onPressMore = () => {
+    const params = { sectionId: null, title: "الرأي", keyName: "opinion" }
+    navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
+  }
+
   return (
     <View style={StyleSheet.flatten([style.container,containerStyle])}>
         <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>
-            <WidgetHeader {...widgetHeaderData} widgetHeaderStyle={widgetHeaderStyle} />
+            <WidgetHeader {...widgetHeaderData} widgetHeaderStyle={widgetHeaderStyle} onPress={onPressMore} />
         </View>
         <ScrollView
         ref={scrollRef}

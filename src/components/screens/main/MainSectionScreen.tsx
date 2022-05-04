@@ -551,8 +551,8 @@ export const MainSectionScreen = () => {
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboOneBookmark}
       />
-      <Divider style={{ height: normalize(20) }} />
-      <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />
+      {isNonEmptyArray(sectionComboOneInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboOneInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboTwoInfo}
         title={_sectionComboTwoTitle}
@@ -560,8 +560,8 @@ export const MainSectionScreen = () => {
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboTwoBookmark}
       />
-      <Divider style={{ height: normalize(20) }} />
-      <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />
+      {isNonEmptyArray(sectionComboTwoInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboTwoInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboThreeInfo}
         title={_sectionComboThreeTitle}
@@ -569,8 +569,8 @@ export const MainSectionScreen = () => {
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboThreeBookmark}
       />
-      <Divider style={{ height: normalize(20) }} />
-      <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />
+      {isNonEmptyArray(sectionComboThreeInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboThreeInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboFourInfo}
         title={_sectionComboFourTitle}
@@ -578,7 +578,7 @@ export const MainSectionScreen = () => {
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboFourBookmark}
       />
-      <Divider style={{ height: normalize(20) }} />
+      {isNonEmptyArray(sectionComboFourInfo) && <Divider style={{ height: normalize(20) }} />}
       {isNonEmptyArray(topListData) && (
         <View style={mainSectionStyle.articleContainer}>
           <View style={mainSectionStyle.articleTitleContainer}>
@@ -604,8 +604,8 @@ export const MainSectionScreen = () => {
         onUpdateBookmark={updatedSectionComboFiveBookmark}
         isDivider
       />
-      <Divider style={{ height: normalize(50) }} />
-      <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />
+      {isNonEmptyArray(sectionComboFiveInfo) && <Divider style={{ height: normalize(50) }} />}
+      {isNonEmptyArray(sectionComboFiveInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboSixInfo}
         title={_sectionComboSixTitle}
