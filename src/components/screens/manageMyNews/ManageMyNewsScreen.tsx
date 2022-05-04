@@ -100,7 +100,6 @@ export const ManageMyNewsScreen = () => {
   useEffect(() => {
     if (isFocused) {
       setSelectedWriters([])
-      emptySelectedTopicsInfoData()
       fetchAllWritersRequest(allWritersPayload)
       fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
       getSelectedAuthorsData()
@@ -112,7 +111,6 @@ export const ManageMyNewsScreen = () => {
 
   useEffect(() => {
     return () => {
-      // emptySelectedAuthorsInfoData()
     }
   }, [])
 

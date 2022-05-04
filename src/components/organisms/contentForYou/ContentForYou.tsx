@@ -62,6 +62,7 @@ export const ContentForYou = () => {
     const styles = useThemeAwareObject(customStyles)
     const selectedTopicsRef = useRef(true);
     const selectedAuthorsRef = useRef(true);
+    const selectedLoaderRef = useRef(true);
 
     useEffect(() => {
         getSelectedTopicsData();
@@ -73,7 +74,6 @@ export const ContentForYou = () => {
             selectedTopicsRef.current = false;
         } else {
             const topicsSelected = returnItems(selectedTopicsData.data)
-            const authorsSelected = returnItems(selectedAuthorsData.data)
             if( JSON.stringify(topicsSelected) != JSON.stringify(selectedTopics)){
                 if (isNonEmptyArray(selectedTopicsData.data)) {
                     setIsAllLoading(true);
@@ -84,11 +84,11 @@ export const ContentForYou = () => {
                         shortArticleData: {data:[],loaded: false}
                     }]);
                     fetchSelectedDataFromAllTopics()
-                    if(JSON.stringify(authorsSelected) == JSON.stringify(selectedAuthors)) fetchSelectedDataFromAllAuthors();
                 } else {
                     checkDataLoaded()
                 }               
-            }else{
+            }
+            else{
                 checkDataLoaded()
             }
         }
@@ -99,7 +99,6 @@ export const ContentForYou = () => {
             selectedAuthorsRef.current = false;
         } else {
             const authorsSelected = returnItems(selectedAuthorsData.data)
-            const topicsSelected = returnItems(selectedTopicsData.data)
             if(JSON.stringify(authorsSelected) != JSON.stringify(selectedAuthors)){
                 if (isNonEmptyArray(selectedAuthorsData.data)) {
                     setIsAllLoading(true);
@@ -110,7 +109,6 @@ export const ContentForYou = () => {
                         shortArticleData: {data:[],loaded: false}
                     }]);
                     fetchSelectedDataFromAllAuthors();
-                    if(JSON.stringify(topicsSelected) == JSON.stringify(selectedTopics)) fetchSelectedDataFromAllTopics();
                 } else {
                     checkDataLoaded()
                 }                
@@ -171,7 +169,21 @@ export const ContentForYou = () => {
     useEffect(() => {
         if(!isAllLoading && page == 0 && !isNonEmptyArray(selectedTopicsData.data)){
             loadMoreData();
-        } 
+        }
+        if(selectedLoaderRef.current) {
+            selectedLoaderRef.current = false;
+        } else {
+            if(!isAllLoading && page == 0 ){
+                console.log('cameeeee',isNonEmptyArray(selectedAuthorsData.data) && !isNonEmptyArray(pageAllData[0]?.opinionsData.data));
+                
+                if(isNonEmptyArray(selectedTopicsData.data) && !isNonEmptyArray(pageAllData[0]?.articleSectionData.data)){
+                    fetchSelectedDataFromAllTopics();
+                }
+                if(isNonEmptyArray(selectedAuthorsData.data) && !isNonEmptyArray(pageAllData[0]?.opinionsData.data)){
+                    fetchSelectedDataFromAllAuthors();
+                }
+            }
+        }
     }, [isAllLoading]);
     
     const checkBookmarkUpdate = () => {
@@ -283,7 +295,7 @@ export const ContentForYou = () => {
     }
 
     const loadMoreData = () => {
-        if(!isAllLoading){
+        if(!isAllLoading && !isArticalLoading && !opinionLoading){
             let pageCount = page+1
             setPage(pageCount)
             setPageAllData(pageData => [...pageData, initialPageData]);
