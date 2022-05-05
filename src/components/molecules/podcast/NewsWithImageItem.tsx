@@ -37,9 +37,7 @@ export const NewsWithImageItem = ({
           resizeMode={ImageResize.COVER} fallback
         />
       }
-      {isNotEmpty(highlightedTitle) && 
-        <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5}/>
-      }
+      <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />
       {title &&
         <Label style={style.title}
           children={title}

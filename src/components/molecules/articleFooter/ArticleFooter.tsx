@@ -6,7 +6,7 @@ import { Styles } from 'src/shared/styles'
 import { ImagesName } from 'src/shared/styles/images'
 import { CaptionWithImage } from 'src/components/atoms'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { DEFAULT_HIT_SLOP } from 'src/shared/utils'
+import { DEFAULT_HIT_SLOP, isNotEmpty } from 'src/shared/utils'
 
 export enum BookMarkColorType {
   WHITE = 'white',
@@ -80,7 +80,9 @@ const ArticleFooter = ({
           labelStyle={leftTitleStyle}
         />
         }
-        {(rightTitle || leftTitle) && showFooterTitle && <View style={articleFooterStyle.verticalDivider} />}
+        {(isNotEmpty(rightTitle) && isNotEmpty(leftTitle)) && showFooterTitle &&
+          <View style={articleFooterStyle.verticalDivider} />
+        }
         {showFooterTitle && 
         <CaptionWithImage style={articleFooterStyle.rightContainer}
           title={rightTitle} 

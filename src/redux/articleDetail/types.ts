@@ -40,7 +40,8 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   news_categories: fieldExportType,
   tag_topics: fieldExportType,
   author: string,
-  isBookmarked: boolean
+  isBookmarked: boolean,
+  caption: string
 }
 
 export interface RelatedArticleDataType extends GeneralArticleFields { }

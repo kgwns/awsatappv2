@@ -16,10 +16,10 @@ const CarouselSlider = ({
     return (
         <View style={!isTab && carouselSliderStyle.view}>
             {isNonEmptyArray(coverageInfo) &&
-                <ImageArticle key={0} {...coverageInfo[0]}
+                <ImageArticle key={0} {...coverageInfo[0]} author={''}
                     onPressBookmark={() => onUpdateHeroBookmark(0)}
                     containerStyle={carouselSliderStyle.imageStyle}
-                    rightContainerStyle={{ flex: 0.8 }}
+                    rightContainerStyle={{ flex: 0 }}
                     textStyles={{textAlign:'center'}}
                 />
             }

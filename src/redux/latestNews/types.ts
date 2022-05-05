@@ -383,7 +383,7 @@ export type MainSectionBlockType = {
   title: string;
   nid: string;
   image: string;
-  news_categories : string;
+  news_categories : NewsCategoriesType;
   author: string;
   created: string;
   isBookmarked: boolean,

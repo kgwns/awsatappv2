@@ -81,7 +81,11 @@ const sectionComboSevenPayload: RequestSectionComboBodyGet = {
 
 export const MainSectionScreen = () => {
   const { themeData } = useTheme()
+  const mainSectionStyle = useThemeAwareObject(customStyle)
+
   const [t] = useTranslation()
+  const navigation = useNavigation<StackNavigationProp<any>>()
+
   const _sectionComboOneTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_ONE})
   const _sectionComboTwoTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_TWO})
   const _sectionComboThreeTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_THREE})
@@ -89,8 +93,9 @@ export const MainSectionScreen = () => {
   const _sectionComboFiveTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_FIVE})
   const _sectionComboSixTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SIX})
   const _sectionComboSevenTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SEVEN})
-  const navigation = useNavigation<StackNavigationProp<any>>()
-  const mainSectionStyle = useThemeAwareObject(customStyle)
+  const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
+
+  
 
   const {
     isLoading, topList, opinionList,podcastHome,
@@ -390,7 +395,7 @@ export const MainSectionScreen = () => {
       ...item,
       ...heroSectionProperties,
       titleColor: themeData.primaryBlack,
-      tagName: item.news_categories || '',
+      tagName: item.news_categories && item.news_categories.title || '',
       isBookmarked: validateBookmark(item.nid),
       hideImage: index > 2,
       showDivider: (isTab && ([0, 2, 3].includes(index))) || (!isTab && featuredArticle.length > index + 1),
@@ -534,12 +539,13 @@ export const MainSectionScreen = () => {
          <PodcastWidget data={podcastHome} onPress={onListenPodcast} />  
          </View>}
       <BannerArticleSection data={editorsChoiceInfo}
-        title={t('latestNewsTab.editorsChoice.headerLeft')}
+        title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         sectionId={'871'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedEditorsChoiceBookmark}
         isDivider
         dividerStyle={mainSectionStyle.firstBannerDivider}
+        hideMore={true}
         containerStyle={mainSectionStyle.editorChoiceContainer}
       />
       {isNonEmptyArray(videoData) && (
@@ -649,10 +655,11 @@ export const MainSectionScreen = () => {
       <View style={mainSectionStyle.tabSplitter}>
         <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
-            title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+            title={CONST_EDITOR_CHOICE_HEADER_TITLE}
             sectionId={'871'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedEditorsChoiceBookmark}
+            hideMore={true}
           />
         </View>
         <View style={[mainSectionStyle.tabWidgetContainer, {alignItems: 'center',backgroundColor:themeData.secondaryWhite}]}>

@@ -38,7 +38,7 @@ export const EditorsPickSection = ({
         <NewsWithImageItem
           imageUrl={item.image}
           title={item.title}
-          highlightedTitle={item.news_categories}
+          highlightedTitle={item.news_categories?.title || ''}
         />
       </TouchableOpacity>
     );

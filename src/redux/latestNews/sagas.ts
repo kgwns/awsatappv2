@@ -80,7 +80,7 @@ const formatMainSectionBlockData = (response: any) => {
           title,
           nid,
           image: getImageUrl(field_image),
-          news_categories: isNotEmpty(field_news_categories) ? field_news_categories : '' ,
+          news_categories: isNonEmptyArray(field_news_categories) ? field_news_categories[0] : field_news_categories,
           author: field_new_resource,
           created: created_export,
           isBookmarked: false,

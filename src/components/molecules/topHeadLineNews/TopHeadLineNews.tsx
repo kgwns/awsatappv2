@@ -29,7 +29,7 @@ export const TopHeadLineNews = ({
             <TouchableOpacity activeOpacity={0.7} style={[style.rowItem, isTab && { alignSelf: 'center' }]}
                 onPress={() => onPress(item.nid)}>
                 <View style={style.circle} />
-                <Label children={item.title} style={style.title} numberOfLines={1} />
+                <Label children={item.title} style={style.title} />
             </TouchableOpacity>
         )
 
@@ -53,7 +53,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     rowItem: {
         flexDirection: 'row',
-        alignItems: 'center',
         paddingVertical: normalize(7),
     },
     circle: {
@@ -62,6 +61,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         borderRadius: 4,
         backgroundColor: theme.primaryBlack,
         marginRight: normalize(10),
+        marginTop: normalize(10),
         marginLeft: 2,
     },
     title: {

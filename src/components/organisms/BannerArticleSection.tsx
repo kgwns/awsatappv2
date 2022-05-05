@@ -35,8 +35,9 @@ interface BannerArticleSectionProps {
     onPress: (nid: string) => void,
     onUpdateBookmark: (item: any) => void,
     isDivider?: boolean;
-    dividerStyle?: StyleProp<ViewStyle>,
+    dividerStyle?: StyleProp<ViewStyle>
     containerStyle?: StyleProp<ViewStyle>
+    hideMore?: boolean;
 }
 
 const BannerArticleSection = (props: BannerArticleSectionProps) => {
@@ -64,7 +65,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
         },
-        headerRight: {
+        headerRight: props.hideMore ? {} : {
             title: t('latestNewsTab.sectionComboOne.headerRight'),
             icon: () => {
                 return getSvgImages({
