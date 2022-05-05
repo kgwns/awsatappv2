@@ -80,7 +80,7 @@ const ArticleFooter = ({
           labelStyle={leftTitleStyle}
         />
         }
-        {(rightTitle || leftTitle) && showFooterTitle && <View style={articleFooterStyle.verticalDivider} />}
+        {(rightTitle) && showFooterTitle && <View style={articleFooterStyle.verticalDivider} />}
         {showFooterTitle && 
         <CaptionWithImage style={articleFooterStyle.rightContainer}
           title={rightTitle} 

@@ -29,12 +29,13 @@ export interface OpinionArticleDetailWidgetProp {
   fontSize: ArticleFontSize;
   isFollowed: boolean;
   onPressFollow:()=>void;
+  onPressWriter:()=>void;
   isRelatedArticle: boolean;
   writerData : WriterDetailDataType
 }
 
 export const OpinionArticleDetailWidget = ({
-  data, fontSize, isFollowed, onPressFollow, isRelatedArticle = false,writerData
+  data, fontSize, isFollowed, onPressFollow, onPressWriter, isRelatedArticle = false,writerData
 }: OpinionArticleDetailWidgetProp) => {
   const [t] = useTranslation();
   const {themeData} = useTheme();
@@ -110,6 +111,7 @@ export const OpinionArticleDetailWidget = ({
         onPressReturn={onPressReturn}
         isFollowed={isFollowed}
         onPressFollow={onPressFollow}
+        onPressWriter={onPressWriter}
       />
       <View style={style.contentContainer}>
         {/* <AuthorCard title={data.writer[0].name} /> */}
@@ -119,7 +121,6 @@ export const OpinionArticleDetailWidget = ({
         <Label style={style.title}>{data.title}</Label>
         <ArticleFooter
           {...articleDetailFooterData}
-          rightTitle={data.writer[0].name}
           leftTitle={t(timeAgo(data.created_export))}
         />
          {articleHtmlContent()}

@@ -43,7 +43,6 @@ export const NewsWithImageItem = ({
       {title &&
         <Label style={style.title}
           children={title}
-          numberOfLines={2}
         />
       }
       {description && (

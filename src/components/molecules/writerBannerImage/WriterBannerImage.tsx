@@ -28,6 +28,7 @@ export interface WriterBannerImageProps {
   onPressReturn: () => void,
   isFollowed: boolean,
   onPressFollow: () => void,
+  onPressWriter?: () => void,
 }
 
 export const WriterBannerImage = ({
@@ -36,6 +37,7 @@ export const WriterBannerImage = ({
   onPressReturn,
   isFollowed,
   onPressFollow,
+  onPressWriter,
 }: WriterBannerImageProps) => {
   const [t] = useTranslation()
 
@@ -121,31 +123,35 @@ export const WriterBannerImage = ({
       <ReturnButton />
       <View style={style.contentContainer}>
         <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : currentOrientation == 'PORTRAIT' ? 0.3 : 0.15 }}>
-          <View style={style.imageContainer}>
-            <Image url={getImageUrl(data.authorImage)}
-              type={'round'}
-              size={normalize(100)}
-              resizeMode={ImageResize.COVER}
-              fallback={true}
-              fallbackContent={<AuthorDefault
-                style={{ backgroundColor: Styles.color.lightCyanBlue }}
-                width={normalize(100)}
-                height={normalize(100)} />}
-            />
-          </View>
+          <TouchableWithoutFeedback onPress={onPressWriter}>
+            <View style={style.imageContainer}>
+              <Image url={getImageUrl(data.authorImage)}
+                type={'round'}
+                size={normalize(100)}
+                resizeMode={ImageResize.COVER}
+                fallback={true}
+                fallbackContent={<AuthorDefault
+                  style={{ backgroundColor: Styles.color.lightCyanBlue }}
+                  width={normalize(100)}
+                  height={normalize(100)} />}
+              />
+            </View>
+          </TouchableWithoutFeedback>
         </View>
         <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.85 : 0.90 : currentOrientation == 'PORTRAIT' ? 0.7 : 0.85, paddingStart: normalize(10) }}>
           <View style={style.authorSubscribeView}>
-            <View style={style.authorNameView}>
-              <Label style={style.authorName} numberOfLines={1}>{data.authorName}</Label>
-            </View>
+              <View style={style.authorNameView}>
+                <TouchableWithoutFeedback onPress={onPressWriter}>
+                  <Label style={style.authorName} numberOfLines={1}>{data.authorName}</Label>
+                </TouchableWithoutFeedback>
+              </View>
+            
 
             <View style={style.subscribeView}>
               <SubscribeButton isFollowed={isFollowed} />
             </View>
           </View>
-          <Label style={style.authorDescription}
-            numberOfLines={2} >{data.authorDescription}</Label>
+          <Label style={style.authorDescription}>{data.authorDescription}</Label>
           <View style={{ flexDirection: 'row' }}>
             {isNotEmpty(data.instagram_url) && <ButtonImage
               icon={() => getSvgImages({
