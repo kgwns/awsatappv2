@@ -89,8 +89,11 @@ const SectionVideoFooterStyle = StyleSheet.create({
     paddingLeft: normalize(5),
   },
   leftStyle: {
-    paddingRight: normalize(6),
-    fontWeight: 'bold'
+    paddingRight: normalize(4),
+    fontWeight: 'bold',
+    paddingLeft: 4,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   leftViewStyle: {
     maxWidth: isTab ? '80%' : '60%',

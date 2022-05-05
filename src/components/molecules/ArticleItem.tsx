@@ -51,7 +51,7 @@ export default ArticleItem;
 
 const style = StyleSheet.create({
     contentContainer: {
-        paddingTop: isTab ? normalize(15) : normalize(10)
+        paddingTop: isTab ? normalize(15) : normalize(5),
     },
     container: {
         paddingBottom: normalize(25),

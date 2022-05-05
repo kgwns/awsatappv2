@@ -4,7 +4,7 @@ import {ShortArticle, NewsFeed, VideoContent} from '../../organisms';
 import {isTab, normalize, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {NewsViewBodyGet, NewsViewListItemType} from 'src/redux/newsView/types';
@@ -13,11 +13,12 @@ import {
   decodeHTMLTags,
   isNonEmptyArray,
   isObjectNonEmpty,
+  timeAgo,
 } from 'src/shared/utils/utilities';
 import {ScreensConstants} from 'src/constants';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import { LabelTypeProp, LoadingState} from 'src/components/atoms';
+import { Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';
 import { useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { VideoItemType } from 'src/redux/videoList/types';
@@ -27,6 +28,8 @@ import { formatTopListToLatestArticleType } from 'src/redux/newsView/sagas';
 import { fetchVideoListApi } from 'src/services/videoListService';
 import { formatVideoData } from 'src/redux/videoList/sagas';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
+import { getSvgImages } from 'src/shared/styles/svgImages';
+import { ImagesName } from 'src/shared/styles';
 
 export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -310,11 +313,19 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
           body={decodeHTMLTags(articleData.body)}
           image={getImageUrl(articleData.field_image)}
           imageStyle={style.storyImageStyle}
-          hideFooter={true}
           nid={articleData.nid}
           isBookmarked={articleData.isBookmarked}
           onPressBookmark={() => updatedHeroBookmark(1)}
           showDivider={isTab ? false : true}
+          leftTitle={articleData.author_resource}
+          rightTitle={timeAgo(articleData.created_export)}
+          leftTitleColor={themeData.primary}
+          rightIcon= {()=>getSvgImages({
+            name: ImagesName.clock,
+            size: normalize(11),
+            style: { marginRight: normalize(5) }
+          })}
+          rightTitleColor={colors.silverChalice}
         />
       </View>
     )
@@ -324,14 +335,19 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
     return (
       <>
         {isNonEmptyArray(topListDataInfo) && (
+          <View>
+            {!isTab && <View style={style.dividerView}>
+              <Divider style={style.divider} />
+            </View>}
           <ShortArticle
             data={topListDataInfo}
             onPress={onPressArticle}
             labelType={LabelTypeProp.h3}
             onUpdateBookmark={updateBookmarkInfo}
             showSignUpPopUp={makeSignUpAlert}
-            hideImage={isTab ? false : true}
+            hideImage={!isTab}
           />
+          </View>
         )}
       </>
     )
@@ -352,7 +368,6 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
             </View>
           </View> :
             <>
-              {renderArticleStory()}
               {renderTopArticle()}
             </>
         }
@@ -430,6 +445,14 @@ const customStyle = (theme: CustomThemeType) => {
     },
     footerRightStyle: {
       flex: 0
+    },
+    divider: {
+      height: 1,
+      backgroundColor: theme.dividerColor
+    },
+    dividerView: {
+      marginBottom: 10,
+      paddingHorizontal: 0.04 * screenWidth,
     }
   });
   return sectionStoryStyle;

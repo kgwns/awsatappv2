@@ -19,6 +19,7 @@ export enum TranslateKey {
     SECTION_COMBO_FIVE,
     SECTION_COMBO_SIX,
     SECTION_COMBO_SEVEN,
+    EDITOR_CHOICE_HEADER_TITLE,
 }
 
 export const TranslateConstants = ({
@@ -61,6 +62,8 @@ export const TranslateConstants = ({
             return t('latestNewsTab.sectionComboSix.headerLeft')
         case TranslateKey.SECTION_COMBO_SEVEN:
             return t('latestNewsTab.sectionComboSeven.headerLeft')
+        case TranslateKey.EDITOR_CHOICE_HEADER_TITLE:
+            return t('latestNewsTab.editorsChoice.headerLeft')
         default: return ''
     }
 }

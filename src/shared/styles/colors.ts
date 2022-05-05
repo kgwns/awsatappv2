@@ -110,6 +110,7 @@ export interface CustomThemeType {
   signInSeparator: string,
   primaryWhite: string,
   writerBackground: string,
+  captionBackground: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -151,6 +152,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   signInSeparator: colors.greyLight1,
   primaryWhite: colors.white,
   writerBackground: colors.pattensBlue51,
+  captionBackground: colors.whiteSmoke,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -189,5 +191,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   signInSeparator: colors.doveGray,
   primaryWhite: colors.black,
   writerBackground: colors.pattensBlue15,
+  captionBackground: colors.onyx,
 }
 

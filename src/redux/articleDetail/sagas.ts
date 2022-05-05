@@ -51,9 +51,10 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
             body: body_export,
             title,
             nid: nid_export,
-            image: isNonEmptyArray(field_image_export) ? getImageUrl(field_image_export[0]) : '',
+            image: isNonEmptyArray(field_image_export) ? getImageUrl(field_image_export[0].url) : '',
+            caption: isNonEmptyArray(field_image_export) ? field_image_export[0].alt : '',
             view_node: view_node,
-          news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
+            news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             tag_topics: isNonEmptyArray(field_tags_topics_export) ? field_tags_topics_export[0] : field_tags_topics_export,
             author: author_resource,
             created: created_export

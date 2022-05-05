@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle, TouchableWithoutFeedback, StyleProp, TextStyle } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from '../molecules'
-import { BannerImageWithOverlay, Label, LabelTypeProp } from '../atoms'
+import { BannerImageWithOverlay, Divider, Label, LabelTypeProp } from '../atoms'
 import { articleFooterProps, BookMarkColorType } from '../molecules/articleFooter/ArticleFooter'
 import { isNotEmpty, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from '../atoms'
@@ -43,6 +43,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
   titleStyle?:  StyleProp<TextStyle>,
   showBody?: boolean,
   leftTitleColor?: string;
+  showDivider?: boolean,
 }
 
 const ImageArticle = ({
@@ -62,10 +63,12 @@ const ImageArticle = ({
   titleStyle,
   showBody= true,
   leftTitleColor,
+  showDivider= false,
 }: ImageArticleProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [isImageLoaded, setImageLoaded] = useState(false)
+  const { themeData } = useTheme();
 
   const onImageLoadEnd = (isSuccess: boolean) => {
     setImageLoaded(isSuccess)
@@ -108,6 +111,7 @@ const ImageArticle = ({
               rightContainerStyle={rightContainerStyle}
             />
           </View>
+          {showDivider && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -152,7 +156,6 @@ const imageArticleStyle = StyleSheet.create({
   articleContent:{
      marginHorizontal: 0.04 * screenWidth,
      marginTop: normalize(10),
-     marginBottom: normalize(25),
   },
   titleContainer: {
     paddingBottom: normalize(10),

@@ -17,6 +17,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
                 category={articleData.news_categories?.title} author={articleData.author}
                 created={articleData.created}
                 isRelatedArticle={isRelatedArticle}
+                caption={articleData.caption}
             />
         </View>
     )

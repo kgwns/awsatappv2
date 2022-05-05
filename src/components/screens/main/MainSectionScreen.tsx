@@ -81,7 +81,11 @@ const sectionComboSevenPayload: RequestSectionComboBodyGet = {
 
 export const MainSectionScreen = () => {
   const { themeData } = useTheme()
+  const mainSectionStyle = useThemeAwareObject(customStyle)
+
   const [t] = useTranslation()
+  const navigation = useNavigation<StackNavigationProp<any>>()
+
   const _sectionComboOneTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_ONE})
   const _sectionComboTwoTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_TWO})
   const _sectionComboThreeTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_THREE})
@@ -89,8 +93,9 @@ export const MainSectionScreen = () => {
   const _sectionComboFiveTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_FIVE})
   const _sectionComboSixTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SIX})
   const _sectionComboSevenTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SEVEN})
-  const navigation = useNavigation<StackNavigationProp<any>>()
-  const mainSectionStyle = useThemeAwareObject(customStyle)
+  const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
+
+  
 
   const {
     isLoading, topList, opinionList,podcastHome,
@@ -390,7 +395,7 @@ export const MainSectionScreen = () => {
       ...item,
       ...heroSectionProperties,
       titleColor: themeData.primaryBlack,
-      tagName: item.news_categories || '',
+      tagName: item.news_categories && item.news_categories.title || '',
       isBookmarked: validateBookmark(item.nid),
       hideImage: index > 2,
       showDivider: (isTab && ([0, 2, 3].includes(index))) || (!isTab && featuredArticle.length > index + 1),
@@ -534,12 +539,14 @@ export const MainSectionScreen = () => {
          <PodcastWidget data={podcastHome} onPress={onListenPodcast} />  
          </View>}
       <BannerArticleSection data={editorsChoiceInfo}
-        title={t('latestNewsTab.editorsChoice.headerLeft')}
+        title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         sectionId={'871'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedEditorsChoiceBookmark}
         isDivider
         dividerStyle={mainSectionStyle.firstBannerDivider}
+        hideMore={true}
+        containerStyle={mainSectionStyle.editorChoiceContainer}
       />
       {isNonEmptyArray(videoData) && (
         <VideoContent data={videoData} onPress={onVideoItemPress} />
@@ -643,15 +650,16 @@ export const MainSectionScreen = () => {
           />
         </View>
       </View>
-      <AuthorSlider data={[opinionList, opinionList, opinionList]} />
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} />}
       <EditorsPickSection data={horizontalArticle} />
       <View style={mainSectionStyle.tabSplitter}>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+        <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
-            title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+            title={CONST_EDITOR_CHOICE_HEADER_TITLE}
             sectionId={'871'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedEditorsChoiceBookmark}
+            hideMore={true}
           />
         </View>
         <View style={[mainSectionStyle.tabWidgetContainer, {alignItems: 'center',backgroundColor:themeData.secondaryWhite}]}>
@@ -691,6 +699,7 @@ export const MainSectionScreen = () => {
           sectionId={'871'}
           onPress={onPressArticle}
           onUpdateBookmark={updatedSectionComboThreeBookmark}
+          containerStyle={{ paddingTop: 0 }}
           />
         </View>
         <View style={mainSectionStyle.tabWidgetContainer}>
@@ -769,8 +778,8 @@ export const MainSectionScreen = () => {
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <FlatList
-        style={{ flex: 1, height: '100%' }}
-        contentContainerStyle={{ paddingBottom: normalize(120) }}
+        style={mainSectionStyle.flatList}
+        contentContainerStyle={mainSectionStyle.flatListContentContainer}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -822,9 +831,10 @@ const customStyle = (theme: CustomThemeType) => {
       height: normalize(20),
     },
     verticalDivider: {
-      height: '100%',
+      height: 'auto',
       width: 1,
       backgroundColor: theme.dividerColor,
+      marginVertical: normalize(30),
     },
     sectionComboDivider: {
       width: '100%',
@@ -857,6 +867,16 @@ const customStyle = (theme: CustomThemeType) => {
     heroContainer: {
       marginHorizontal: isTab ? 0.04 * screenWidth : 0,
       overflow: 'hidden'
-    }
+    },
+    flatList: {
+      flex: 1,
+      height: '100%',
+    },
+    flatListContentContainer: {
+      paddingBottom: normalize(50),
+    },
+    editorChoiceContainer: {
+      marginBottom: normalize(25),
+    },
   })
 }

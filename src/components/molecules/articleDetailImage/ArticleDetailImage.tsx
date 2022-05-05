@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle, TouchableOpacity } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
-import { BannerImageWithOverlay, Label } from 'src/components/atoms'
-import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { BannerImageWithOverlay, Label, LabelTypeProp } from 'src/components/atoms'
+import { isIOS, isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from 'src/components/atoms'
 import { useNavigation } from '@react-navigation/native'
 import Orientation from 'react-native-orientation-locker'
 import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
 import { getSvgImages } from 'src/shared/styles/svgImages'
+import { CustomThemeType } from 'src/shared/styles/colors'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -17,14 +19,18 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     author: string,
     created: string,
     isRelatedArticle: boolean,
+    caption?: string
 }
 const ArticleDetailImage = ({
     image,
     isRelatedArticle,
+    caption,
     ...props
 }: ImageArticleProps) => {
     const navigation = useNavigation()
     const CONST_RETURN = TranslateConstants({key: TranslateKey.RETURN})
+
+    const imageArticleStyle = useThemeAwareObject(customStyle)
 
     const [imageLoaded, setImageLoaded] = useState<boolean>(false)
 
@@ -40,10 +46,24 @@ const ArticleDetailImage = ({
         setImageLoaded(true)
     }
 
+    const renderCaption = () => {
+        if (!isNotEmpty(caption)) return null
+
+        return (
+            <View style={imageArticleStyle.captionView}>
+                <Label children={caption} labelType={LabelTypeProp.p5}
+                    color={Styles.color.lightGray}
+                    style={{ paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth }}
+                />
+            </View>
+        )
+    }
+
     return (
         <View>
             <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
                 <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoaded}/>
+                {renderCaption()}
                 <TouchableOpacity testID={'onPressbackTestID'}
                     style={imageArticleStyle.returnStyle}
                     onPress={onPressBack}>
@@ -70,7 +90,7 @@ const ArticleDetailImage = ({
 
 export default ArticleDetailImage
 
-const imageArticleStyle = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     sliderItemContainer: {
         flex: 1,
         width: '100%',
@@ -115,5 +135,9 @@ const imageArticleStyle = StyleSheet.create({
         width: '100%',
         paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
         paddingVertical: normalize(15),
+    },
+    captionView: {
+        backgroundColor: theme.captionBackground, 
+        paddingVertical: 4
     }
 })
