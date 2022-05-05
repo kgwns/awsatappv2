@@ -104,9 +104,9 @@ export const OpinionArticleDetailWidget = ({
         authorImage: data.writer[0]?.opinion_writer_photo,
         authorName: data.writer[0]?.name,
         authorDescription: decodeHTMLTags(data.writer[0]?.description),
-        facebook_url: writerData.field_opinion_facebook_export,
-        twitter_url: writerData.field_opinion_twitter_export,
-        instagram_url: writerData.field_instagram_url_export
+        facebook_url: writerData?.field_opinion_facebook_export,
+        twitter_url: writerData?.field_opinion_twitter_export,
+        instagram_url: writerData?.field_instagram_url_export
       }}
         onPressReturn={onPressReturn}
         isFollowed={isFollowed}

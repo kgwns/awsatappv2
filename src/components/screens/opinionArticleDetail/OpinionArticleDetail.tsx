@@ -137,7 +137,8 @@ export const OpinionArticleDetail = ({
           jwPlayerID:opinionArticleDetailData[0].jwplayer
         })
       }
-      if (isNonEmptyArray(opinionArticleDetailData[0].writer) && isNotEmpty(opinionArticleDetailData[0].writer[0].id)) {
+
+      if (isNonEmptyArray(opinionArticleDetailData[0].writer) && isNotEmpty(opinionArticleDetailData[0].writer[0]?.id)) {
         getWriterDetailData({ tid: opinionArticleDetailData[0].writer[0].id })
       }
     }
@@ -168,7 +169,7 @@ export const OpinionArticleDetail = ({
 
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isObjectNonEmpty(selectedAuthorsData) && isFocused) {
-      const isFollowed = validateFollow(opinionArticle[0].writer[0].id)
+      const isFollowed = isNonEmptyArray(opinionArticle[0].writer) && validateFollow(opinionArticle[0].writer[0].id)
       // console.log('useeffect validate follow', opinionArticle[0].writer[0].id)
       setIsFollowed(isFollowed)
     }
@@ -263,7 +264,7 @@ export const OpinionArticleDetail = ({
 
   const renderItem = () => (
     <View style={[style.container]}>
-      {isNonEmptyArray(opinionArticle) &&  isNonEmptyArray(writerDetailInfo) &&  (
+      {isNonEmptyArray(opinionArticle) &&  (
         <OpinionArticleDetailWidget
           data={opinionArticle[0]} fontSize={fontSize}
           isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
