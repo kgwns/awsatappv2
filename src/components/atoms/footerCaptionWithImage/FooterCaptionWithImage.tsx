@@ -17,7 +17,7 @@ const FooterCaptionWithImage = ({ title, icon, color, subTitle, subTitleColor,la
             {icon && icon()
             }
             {subTitle &&
-                <Label children={subTitle} color={subTitleColor} labelType={LabelTypeProp.p5} style={captionImageStyle.subtitle} />
+                <Label children={subTitle} color={subTitleColor} labelType={LabelTypeProp.p5} style={icon && captionImageStyle.subtitle} />
             }
             <View>
                 <Label children={title}

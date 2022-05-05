@@ -98,12 +98,14 @@ const SectionArticleItem = ({
               title={leftTitle}
               icon={leftIcon}
               color={leftTitleColor}
+              style={style.leftTitle}
             />
             <Text children={'|'} style={style.verticalDivider} />
             <CaptionWithImage
               title={rightTitle}
               icon={rightIcon}
               color={rightTitleColor}
+              style={style.rightTitle}
             />
           </View>
         )}
@@ -158,5 +160,13 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingBottom: normalize(20),
     backgroundColor: theme.backgroundColor,
     overflow: 'hidden'
+  },
+  leftTitle: {
+    marginRight: 10,
+    alignself: 'center',
+  },
+  rightTitle: {
+    marginLeft: 10,
+    alignself: 'center',
   }
 });

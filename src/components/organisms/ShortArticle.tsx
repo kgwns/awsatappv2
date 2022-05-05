@@ -113,8 +113,8 @@ const ShortArticle = ({ data, headerLeft, onPress,
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([style.cardContainer, cardStyle])}>
         <View style={{ flexDirection: 'row' }}>
-          <View style={[style.footerStyle, leftContainerStyle, hideImage && {flex: 1, paddingRight: 0, marginTop: 10}]}>
-            <View style={[hideImage && {marginBottom: 20}]}>
+          <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
+            <View style={[hideImage && style.titleViewHideImage]}>
               <TextWithFlag {...item} numberOfLines={2} labelType={labelType} />
             </View>
             
@@ -209,6 +209,14 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   imageContainerLandscape: {
     flex: 0.30, 
     paddingRight: normalize(5),
+  },
+  hideImage: {
+    flex: 1,
+    paddingRight: 0,
+    marginTop: 10,
+  },
+  titleViewHideImage: {
+    marginBottom: 30,
   }
 })
 

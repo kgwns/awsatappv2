@@ -19,7 +19,7 @@ import {
 } from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import { CustomThemeType } from 'src/shared/styles/colors';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 
@@ -59,7 +59,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
           leftTitle={item.author_resource}
           rightTitle={calculateYear(item.created_export) + ','}
           leftTitleColor={theme.themeData.primary}
-          rightIcon={() => <CalendarIcon />}
+          leftIcon={() => <CalendarIcon />}
           rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString()}
           rightDateColor={Styles.color.smokeyGrey}
           rightTitleColor={Styles.color.smokeyGrey}
@@ -74,11 +74,10 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   const renderArticleFooterMobile = (item: NewsViewListItemType, index: number) => {
     return (
       <View style={{marginTop: 10}}>
-        <SectionVideoFooter
-          
+        <SectionVideoFooter  
           rightTitle={calculateYear(item.created_export) + ','}
-          leftTitleColor={theme.themeData.primary}
-          rightIcon={() => {
+          leftTitleColor={colors.spanishGray}
+          leftIcon={() => {
             return getSvgImages({
               name: ImagesName.clock,
               size: normalize(12),
@@ -86,11 +85,12 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
             })
           }}
           rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString()}
-          rightDateColor={Styles.color.smokeyGrey}
-          rightTitleColor={Styles.color.smokeyGrey}
+          rightDateColor={colors.spanishGray}
+          rightTitleColor={colors.spanishGray}
           addBookMark={true}
           isBookmarked={item.isBookmarked}
           onPressBookmark={() => { onUpdateNewsFeedBookmark(index) }}
+          leftTitle={item.author_resource}
         />
       </View>
     )

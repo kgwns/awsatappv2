@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { isNonEmptyArray, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
 import { MainSectionBlockType } from 'src/redux/latestNews/types'
 
@@ -14,7 +14,7 @@ const CarouselSlider = ({
 }: CarouselSliderProps) => {
 
     return (
-        <View>
+        <View style={!isTab && carouselSliderStyle.view}>
             {isNonEmptyArray(coverageInfo) &&
                 <ImageArticle key={0} {...coverageInfo[0]}
                     onPressBookmark={() => onUpdateHeroBookmark(0)}
@@ -33,4 +33,7 @@ const carouselSliderStyle = StyleSheet.create({
     imageStyle: {
         height: 0.66 * screenWidth
     },
+    view: {
+        marginBottom: normalize(20),
+    }
 })

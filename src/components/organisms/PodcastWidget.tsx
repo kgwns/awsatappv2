@@ -59,7 +59,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       <View style={style.spacing}>
         <WidgetHeader {...widgetHeaderData} onPress={navigateToPodcast} />
       </View>
-      <View style={style.container}>
+      <TouchableOpacity style={style.container} onPress={onPress}>
         <View style={style.topContainer}>
           <Label
             children={podcastData.field_announcer_name_export}
@@ -74,8 +74,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
               style={{ marginEnd: normalize(10) }}
               numberOfLines={1}
             />
-            <TouchableOpacity style={style.playView}
-              onPress={onPress}>
+            <View style={style.playView}>
               <ButtonImage
                 icon={() => {
                   return getSvgImages({
@@ -86,7 +85,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
                 onPress={onPress}
                 style={{ marginRight: 4 }}
               />
-            </TouchableOpacity>
+            </View>
           </View>
         </View>
         <View style={{ flexDirection: 'row', }}>
@@ -115,7 +114,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
             </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
       <Divider style={style.divider} />
     </View>
   );

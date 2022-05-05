@@ -540,6 +540,7 @@ export const MainSectionScreen = () => {
         onUpdateBookmark={updatedEditorsChoiceBookmark}
         isDivider
         dividerStyle={mainSectionStyle.firstBannerDivider}
+        containerStyle={mainSectionStyle.editorChoiceContainer}
       />
       {isNonEmptyArray(videoData) && (
         <VideoContent data={videoData} onPress={onVideoItemPress} />
@@ -643,10 +644,10 @@ export const MainSectionScreen = () => {
           />
         </View>
       </View>
-      <AuthorSlider data={[opinionList, opinionList, opinionList]} />
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} />}
       <EditorsPickSection data={horizontalArticle} />
       <View style={mainSectionStyle.tabSplitter}>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+        <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
             title={t('latestNewsTab.sectionComboTwo.headerLeft')}
             sectionId={'871'}
@@ -691,6 +692,7 @@ export const MainSectionScreen = () => {
           sectionId={'871'}
           onPress={onPressArticle}
           onUpdateBookmark={updatedSectionComboThreeBookmark}
+          containerStyle={{ paddingTop: 0 }}
           />
         </View>
         <View style={mainSectionStyle.tabWidgetContainer}>
@@ -769,8 +771,8 @@ export const MainSectionScreen = () => {
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <FlatList
-        style={{ flex: 1, height: '100%' }}
-        contentContainerStyle={{ paddingBottom: normalize(120) }}
+        style={mainSectionStyle.flatList}
+        contentContainerStyle={mainSectionStyle.flatListContentContainer}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -822,9 +824,10 @@ const customStyle = (theme: CustomThemeType) => {
       height: normalize(20),
     },
     verticalDivider: {
-      height: '100%',
+      height: 'auto',
       width: 1,
       backgroundColor: theme.dividerColor,
+      marginVertical: normalize(30),
     },
     sectionComboDivider: {
       width: '100%',
@@ -857,6 +860,16 @@ const customStyle = (theme: CustomThemeType) => {
     heroContainer: {
       marginHorizontal: isTab ? 0.04 * screenWidth : 0,
       overflow: 'hidden'
-    }
+    },
+    flatList: {
+      flex: 1,
+      height: '100%',
+    },
+    flatListContentContainer: {
+      paddingBottom: normalize(50),
+    },
+    editorChoiceContainer: {
+      marginBottom: normalize(25),
+    },
   })
 }

@@ -72,7 +72,7 @@ const ArticleSection = ({
         articleFooterDataSet.rightTitle = item.author
         articleFooterDataSet.leftTitle = t(timeAgo(item.created))
         const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns == 1 && articleData.length == index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
-        const articleItemStyle =  isTab && numColumns > 1 && articleData.length > 1 ? (index % 2 === 0) ? {marginRight: normalize(20)} : {marginLeft: normalize(20)} : {}
+        const articleItemStyle = isTab ? numColumns > 1 && articleData.length > 1 ? (index % 2 === 0) ? articleSectionStyle.evenStyle : articleSectionStyle.oddStyle : {} : articleSectionStyle.mobileArticleItem
         return <ArticleItem {...item} index={index}
             imageStyle={{ height: normalize(187) }}
             footerInfo={articleFooterDataSet}
@@ -105,5 +105,14 @@ const articleSectionStyle = StyleSheet.create({
     },
     listContainer: {
 
+    },
+    mobileArticleItem: {
+        paddingBottom: normalize(20),
+    },
+    evenStyle: {
+        marginRight: normalize(20),
+    },
+    oddStyle: {
+        marginLeft: normalize(20),
     }
 })

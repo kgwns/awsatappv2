@@ -35,7 +35,8 @@ interface BannerArticleSectionProps {
     onPress: (nid: string) => void,
     onUpdateBookmark: (item: any) => void,
     isDivider?: boolean;
-    dividerStyle?: StyleProp<ViewStyle>
+    dividerStyle?: StyleProp<ViewStyle>,
+    containerStyle?: StyleProp<ViewStyle>
 }
 
 const BannerArticleSection = (props: BannerArticleSectionProps) => {
@@ -53,7 +54,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             footerInfo={sectionComboArticleFooter}
             onPress={() => onPress(item.nid)}
             onPressBookmark={() => onUpdateBookmark(item)}
-            contentStyle={style.spacingStyle}
+            contentStyle={[style.spacingStyle, index == 0 && style.contentStyleFirst]}
             showBody={false}
         />
     }
@@ -89,6 +90,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
                         titleStyle={{ fontSize: normalize(20), lineHeight: normalize(33), fontWeight: 'normal' }}
                         showBody={false}
                         leftTitleColor={Styles.color.silverChalice}
+                        showDivider={true}
                         />
                     return null
                 })}
@@ -103,7 +105,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     if (!isNonEmptyArray(data)) return null
 
     return (
-        <View style={[style.container]}>
+        <View style={[style.container, props.containerStyle]}>
             <View style={!isTab ? style.headerContainer : style.tabHeaderContainer}>
                 <WidgetHeader {...widgetHeaderData} onPress={onPressMore} />
             </View>
@@ -135,7 +137,7 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         paddingTop: normalize(15)
     },
     tabHeaderContainer: {
-        paddingVertical: normalize(10),
+        paddingBottom:normalize(10)
     },
     tabletImageStyle: {
         width: 0.47 * screenWidth,
@@ -148,7 +150,10 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     spacingStyle: {
         paddingBottom: normalize(10),
-        paddingTop: normalize(10),
-        paddingHorizontal: isTab ? 0 : 0.04 * screenWidth
+        paddingTop: normalize(5),
+        paddingHorizontal: isTab ? 0 : 0.04 * screenWidth,
+    },
+    contentStyleFirst: {
+        marginTop: 5,
     }
 })
