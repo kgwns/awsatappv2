@@ -26,7 +26,7 @@ export const TopHeadLineNews = ({
 
     const renderItem: ListRenderItem<MainSectionBlockType> = ({ item }) => {
         return (
-            <TouchableOpacity activeOpacity={0.7} style={[style.rowItem, isTab && { alignSelf: 'center' }]}
+            <TouchableOpacity activeOpacity={0.7} style={style.rowItem}
                 onPress={() => onPress(item.nid)}>
                 <View style={style.circle} />
                 <Label children={item.title} style={style.title} />

@@ -652,6 +652,9 @@ export const MainSectionScreen = () => {
       </View>
       {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} />}
       <EditorsPickSection data={horizontalArticle} />
+      {isNonEmptyArray(podcastHome) &&
+        <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
+      }
       <View style={mainSectionStyle.tabSplitter}>
         <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
