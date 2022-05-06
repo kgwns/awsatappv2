@@ -152,7 +152,7 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
           nid,
           image: getImageUrl(field_image),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
-          author: author_resource,
+          author: '', //Need to hide author name in UI
           created: created_export,
           isBookmarked: false
         })
@@ -215,7 +215,7 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
           nid,
           image: getImageUrl(field_image),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
-          author: field_new_resource,
+          author: '', //Need to hide author name in UI
           created: created_export,
           isBookmarked: false,
           field_news_categories: field_news_categories,

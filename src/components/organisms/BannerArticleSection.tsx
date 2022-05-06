@@ -1,13 +1,13 @@
 import React from 'react'
-import { FlatList, View, StyleSheet, ScrollView, StyleProp, ViewStyle } from 'react-native'
-import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { FlatList, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
+import { isNonEmptyArray, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { articleProps } from './ArticleSection'
 import { flatListUniqueKey, ScreensConstants } from 'src/constants'
 import { LatestArticleDataType } from 'src/redux/latestNews/types'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { useTranslation } from 'react-i18next';
-import { Divider, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
+import { LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -16,7 +16,6 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
 export const sectionComboArticleFooter: articleFooterProps = {
-    leftTitle: 'يتحمل',
     leftIcon: () => {
         return getSvgImages({
             name: ImagesName.clock,
@@ -49,7 +48,8 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const style = useThemeAwareObject(createStyles);
 
     const articleNewsItem = (item: articleProps, index: number) => {
-        sectionComboArticleFooter.rightTitle = item.author
+        sectionComboArticleFooter.leftTitle = t(timeAgo(item.created))
+
         return <ArticleWithOutImage key={index} {...item}
             showDivider={index < verticalArticleData.length - 1}
             footerInfo={sectionComboArticleFooter}

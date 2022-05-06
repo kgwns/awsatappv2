@@ -203,7 +203,8 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
     return data.map((item: LatestArticleDataType) => (
       {
         ...item,
-        isBookmarked: validateBookmark(item.nid)
+        isBookmarked: validateBookmark(item.nid),
+        author: '' //Need to hide author name in UI
       }
     ))
   }
@@ -212,7 +213,8 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
     return data.map((item: NewsViewListItemType) => (
       {
         ...item,
-        isBookmarked: validateBookmark(item.nid)
+        isBookmarked: validateBookmark(item.nid),
+        author_resource: '' //Need to hide author name in UI
       }
     ))
   }
@@ -316,7 +318,7 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
           isBookmarked={articleData.isBookmarked}
           onPressBookmark={() => updatedHeroBookmark(1)}
           showDivider={isTab ? false : true}
-          leftTitle={articleData.author_resource}
+          leftTitle={''} //Need to hide author name in UI
           rightTitle={timeAgo(articleData.created_export)}
           leftTitleColor={themeData.primary}
           rightIcon= {()=>getSvgImages({
