@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet } from 'react-native'
+import { View, FlatList, StyleSheet, Animated } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
@@ -6,7 +6,7 @@ import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
-import { horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
+import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
@@ -24,6 +24,7 @@ import { TrackingEventType } from 'src/services/eventTrackService'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ArticleFontSize } from 'src/redux/appCommon/types'
+import { BackIcon } from 'src/components/atoms'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -55,6 +56,7 @@ export const ArticleDetailScreen = ({
   const [articleDetailState, setArticleDetail] = useState<ArticleDetailDataType[]>([])
   const [relatedArticleState, setRelatedArticle] = useState<RelatedArticleDataType[]>([])
   const [currentOrientation, setOrientation] = useState('')
+  const [scrollY, setScrollY] = useState(new Animated.Value(0))
 
   const currentNId = route.params.nid;
 
@@ -210,6 +212,24 @@ export const ArticleDetailScreen = ({
     setShowPopUp(true)
   }
 
+  const onScroll = (event: any) => {
+    setScrollY(event.nativeEvent.contentOffset.y)
+  }
+
+  const onPressBack = () => {
+    if (!route.params.isRelatedArticle) {
+      Orientation.unlockAllOrientations()
+      Orientation.lockToPortrait()
+    }
+    navigation.goBack()
+  }
+
+  const renderBackIcon = () => (
+    <View style={[style.backContainer, style.shadowEffect]}>
+      <BackIcon onPressBack={onPressBack} />
+    </View>
+  )
+
   const articleHtmlContent = (index: number) => (
     <View style={style.labelStyle}>
       <HtmlRenderer source={articleDetailState[index].body}
@@ -223,7 +243,9 @@ export const ArticleDetailScreen = ({
       <View>
         {isNonEmptyArray(articleDetailState) && <>
           <ArticleDetailWidget articleData={item}
-            isRelatedArticle={route.params.isRelatedArticle} />
+            isRelatedArticle={route.params.isRelatedArticle} 
+            isFirstItem={index === 0}
+          />
           {articleHtmlContent(index)}
           <Divider style={style.divider} />
         </>
@@ -252,15 +274,17 @@ export const ArticleDetailScreen = ({
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
           bounces={false}
+          onScroll={onScroll}
         />
         <View style={style.bottom} />
-        <View style={style.footer}>
+        <View style={[style.footer, style.shadowEffect]}>
           <ArticleDetailFooter articleDetailData={articleDetailState[0]}
             isBookmarked={isBookmarked}
             onPressSave={() => checkAndUpdateBookmark(articleDetailState[0].nid)}
             onPressFontChange={onPressFontChange}
           />
         </View>
+        {(Number.parseInt(JSON.stringify(scrollY)) > 50) && renderBackIcon()}
       </>
       }
     </ScreenContainer>
@@ -284,4 +308,19 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   bottom: {
     height: normalize(50)
   },
+  backContainer: {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    height: isIOS ? normalize(80) : normalize(30),
+    backgroundColor: theme.backgroundColor,
+    justifyContent: 'center',
+  },
+  shadowEffect: {
+    shadowColor: Styles.color.onyx,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: .5,
+    shadowRadius: 4,
+    elevation: 15,
+  }
 })

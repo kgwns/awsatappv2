@@ -50,7 +50,9 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   caption: string
 }
 
-export interface RelatedArticleDataType extends GeneralArticleFields { }
+export interface RelatedArticleDataType extends GeneralArticleFields { 
+  isBookmarked: boolean
+}
 
 interface PagerType {
   current_page?: number | null | undefined,

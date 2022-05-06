@@ -20,11 +20,13 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     created: string,
     isRelatedArticle: boolean,
     caption?: string
+    isFirstItem: boolean;
 }
 const ArticleDetailImage = ({
     image,
     isRelatedArticle,
     caption,
+    isFirstItem,
     ...props
 }: ImageArticleProps) => {
     const navigation = useNavigation()
@@ -59,27 +61,37 @@ const ArticleDetailImage = ({
         )
     }
 
+    const renderBackIcon = () => {
+        if (!isFirstItem) return null
+        return (
+            <TouchableOpacity testID={'onPressbackTestID'}
+                style={imageArticleStyle.returnStyle}
+                onPress={onPressBack}>
+                {
+                    getSvgImages({
+                        name: imageLoaded ? ImagesName.returnWhiteIcon : ImagesName.returnBlackSvg,
+                        width: normalize(12),
+                        height: normalize(8.8),
+                        style: imageArticleStyle.prevIconStyle
+                    })
+                }
+                <Label style={[imageArticleStyle.prevTitleStyle,
+                { color: imageLoaded ? Styles.color.white : Styles.color.black }]}
+                    children={CONST_RETURN}
+                />
+            </TouchableOpacity>
+        )
+    }
+
     return (
         <View>
             <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-                <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoaded}/>
+                <BannerImageWithOverlay image={image}
+                    onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
+                    showOverlay={isFirstItem}
+                />
                 {renderCaption()}
-                <TouchableOpacity testID={'onPressbackTestID'}
-                    style={imageArticleStyle.returnStyle}
-                    onPress={onPressBack}>
-                    {
-                        getSvgImages({
-                          name: imageLoaded ? ImagesName.returnWhiteIcon : ImagesName.returnBlackSvg ,
-                          width: normalize(12),
-                          height: normalize(8.8),
-                          style: imageArticleStyle.prevIconStyle
-                        })
-                    }
-                    <Label style={[imageArticleStyle.prevTitleStyle,
-                    { color: imageLoaded ? Styles.color.white : Styles.color.black }]}
-                        children={CONST_RETURN}
-                    />
-                </TouchableOpacity>
+                {renderBackIcon()}
             </View>
             <View style={imageArticleStyle.tabSlideContent}>
                 <ArticleOverlayContent {...props} />

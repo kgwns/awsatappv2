@@ -6,10 +6,11 @@ import { ArticleDetailDataType } from 'src/redux/articleDetail/types'
 interface ArticleDetailWidgetProps {
     articleData: ArticleDetailDataType,
     isRelatedArticle: boolean,
+    isFirstItem: boolean
 }
 
 const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
-    articleData, isRelatedArticle = false
+    articleData, isRelatedArticle = false, isFirstItem,
 }) => {
     return (
         <View>
@@ -18,6 +19,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
                 created={articleData.created}
                 isRelatedArticle={isRelatedArticle}
                 caption={articleData.caption}
+                isFirstItem={isFirstItem}
             />
         </View>
     )

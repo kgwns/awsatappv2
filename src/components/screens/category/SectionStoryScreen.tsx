@@ -287,7 +287,7 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
             image={getImageUrl(bannerData.field_image)}
             title={bannerData.title}
             body={bannerData.body}
-            author={bannerData.author_resource}
+            author={''} //No need to author name
             nid={bannerData.nid}
             created={bannerData.created_export.toString()}
             isBookmarked={bannerData.isBookmarked}
