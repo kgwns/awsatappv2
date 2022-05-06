@@ -269,9 +269,12 @@ export const OpinionArticleDetail = ({
     setScrollY(event.nativeEvent.contentOffset.y)
   }
 
-  const onPressBack = () => {
-    Orientation.unlockAllOrientations()
-    Orientation.lockToPortrait()
+  const onPressBack = async () => {
+    await TrackPlayer.stop();
+    if (!route.params.isRelatedArticle) {
+      Orientation.unlockAllOrientations()
+      Orientation.lockToPortrait()
+    }
     navigation.goBack()
   }
 
