@@ -94,7 +94,6 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
               color={themeData.primaryBlack}
               style={style.title}
               children={podcastData?.title}
-              numberOfLines={1}
             />
             <Label
               color={themeData.secondaryDavyGrey}
@@ -166,7 +165,7 @@ const createStyles = (theme: CustomThemeType) => {
     },
     imageView: {
       width: isTab ? '12%' : '25%',
-      alignSelf: 'flex-end',
+      alignSelf: 'flex-start',
       alignItems: 'flex-end',
     },
     divider: {

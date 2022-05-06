@@ -224,6 +224,10 @@ export const OpinionArticleDetail = ({
     onUpdateFollow(id, newFollowed)
   }
 
+  const onPressWriter = (tid: string) => {
+    navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, {tid})
+  }
+
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
     if (isLoggedIn) {
       hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
@@ -264,6 +268,7 @@ export const OpinionArticleDetail = ({
         <OpinionArticleDetailWidget
           data={opinionArticle[0]} fontSize={fontSize}
           isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
+          onPressWriter={() => onPressWriter(writerDetailInfo[0].tid)}
           isRelatedArticle={route.params.isRelatedArticle} writerData={writerDetailInfo[0]}/>
       )}
       {isNonEmptyArray(relatedOpinionInfo) && (
