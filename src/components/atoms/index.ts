@@ -25,3 +25,4 @@ export { ButtonIconWithLabel } from 'src/components/atoms/buttonIconWithLabel/Bu
 export { NextButton } from '../atoms/NextButton/NextButton';
 export { ButtonOnboard } from '../atoms/button-onboard/ButtonOnboard';
 export { PlaceholderImage } from 'src/components/atoms/placeholderImage/PlaceHolderImage';
+export { BackIcon } from 'src/components/atoms/backIcon/BackIcon'

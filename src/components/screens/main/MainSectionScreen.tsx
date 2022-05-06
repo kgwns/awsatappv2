@@ -411,7 +411,7 @@ export const MainSectionScreen = () => {
       ...item,
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
-      flag: item.news_categories && item.news_categories.title,
+      flag: item.news_categories && item.news_categories.title || '',
       isBookmarked: validateBookmark(item.nid)
     }
   ))
@@ -652,6 +652,9 @@ export const MainSectionScreen = () => {
       </View>
       {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} />}
       <EditorsPickSection data={horizontalArticle} />
+      {isNonEmptyArray(podcastHome) &&
+        <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
+      }
       <View style={mainSectionStyle.tabSplitter}>
         <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}

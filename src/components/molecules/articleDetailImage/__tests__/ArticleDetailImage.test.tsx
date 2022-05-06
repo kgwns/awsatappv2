@@ -7,7 +7,10 @@ describe('<ArticleDetailImage>', () => {
     const mockString = 'mockString'
 
     beforeEach(() => {
-        const component = <ArticleDetailImage title={mockString} author={mockString} />
+        const component = <ArticleDetailImage
+            title={mockString} author={mockString}
+            isFirstItem
+        />
         instance = render(component)
     })
 
@@ -23,5 +26,5 @@ describe('<ArticleDetailImage>', () => {
     it('Should Press onBack', () => {
         const element = instance.getByTestId('onPressbackTestID');
         fireEvent.press(element);
-      });
+    });
 })
