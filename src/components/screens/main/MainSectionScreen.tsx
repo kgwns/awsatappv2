@@ -400,6 +400,7 @@ export const MainSectionScreen = () => {
       hideImage: index > 2,
       showDivider: (isTab && ([0, 2, 3].includes(index))) || (!isTab && featuredArticle.length > index + 1),
       bodyLineCount: index <= 2 ? 2 : 3,
+      author: '',
     }
   ))
 

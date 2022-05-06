@@ -90,9 +90,9 @@ const ArticleDetailImage = ({
                     onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
                     showOverlay={isFirstItem}
                 />
-                {renderCaption()}
                 {renderBackIcon()}
             </View>
+            {renderCaption()}
             <View style={imageArticleStyle.tabSlideContent}>
                 <ArticleOverlayContent {...props} />
             </View>

@@ -12,6 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants';
+import { HOME_PODCAST_TITLE } from 'src/constants/SharedConstants';
 
 export interface PodcastWidgetProps {
   onPress: () => void;
@@ -62,7 +63,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       <TouchableOpacity style={style.container} onPress={onPress}>
         <View style={style.topContainer}>
           <Label
-            children={podcastData.field_announcer_name_export}
+            children={HOME_PODCAST_TITLE}
             style={style.announcer}
             color={colors.greenishBlue}
             numberOfLines={1}

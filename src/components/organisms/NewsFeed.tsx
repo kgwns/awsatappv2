@@ -59,7 +59,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
           leftTitle={item.author_resource}
           rightTitle={calculateYear(item.created_export) + ','}
           leftTitleColor={theme.themeData.primary}
-          leftIcon={() => <CalendarIcon />}
+          rightIcon={() => <CalendarIcon />}
           rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString()}
           rightDateColor={Styles.color.smokeyGrey}
           rightTitleColor={Styles.color.smokeyGrey}
@@ -77,11 +77,10 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
         <SectionVideoFooter  
           rightTitle={calculateYear(item.created_export) + ','}
           leftTitleColor={colors.spanishGray}
-          leftIcon={() => {
+          rightIcon={() => {
             return getSvgImages({
               name: ImagesName.clock,
               size: normalize(12),
-              style: { marginRight: normalize(5) }
             })
           }}
           rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString()}

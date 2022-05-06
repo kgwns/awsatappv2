@@ -113,6 +113,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontWeight: 'bold',
       marginTop: normalize(10),
       color: theme.primaryBlack,
+      textAlign: 'left',
     },
     description: {
       textAlign: 'left',
