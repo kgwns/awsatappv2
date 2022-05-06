@@ -287,7 +287,6 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
             image={getImageUrl(bannerData.field_image)}
             title={bannerData.title}
             body={bannerData.body}
-            containerStyle={isTab ? style.tabletImageStyle : {}}
             author={bannerData.author_resource}
             nid={bannerData.nid}
             created={bannerData.created_export.toString()}
@@ -407,9 +406,6 @@ const customStyle = (theme: CustomThemeType) => {
   const sectionStoryStyle = StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
-    },
-    tabletImageStyle: {
-      height: 0.5 * screenWidth,
     },
     loaderContainer : {
       flex: 1,

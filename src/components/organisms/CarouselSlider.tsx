@@ -18,7 +18,6 @@ const CarouselSlider = ({
             {isNonEmptyArray(coverageInfo) &&
                 <ImageArticle key={0} {...coverageInfo[0]} author={''}
                     onPressBookmark={() => onUpdateHeroBookmark(0)}
-                    containerStyle={carouselSliderStyle.imageStyle}
                     rightContainerStyle={{ flex: 0 }}
                     textStyles={{textAlign:'center'}}
                 />
@@ -30,9 +29,6 @@ const CarouselSlider = ({
 export default CarouselSlider
 
 const carouselSliderStyle = StyleSheet.create({
-    imageStyle: {
-        height: 0.66 * screenWidth
-    },
     view: {
         marginBottom: normalize(20),
     }

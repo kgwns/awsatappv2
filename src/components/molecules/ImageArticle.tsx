@@ -123,7 +123,8 @@ export default ImageArticle;
 const imageArticleStyle = StyleSheet.create({
   sliderItemContainer: {
     width: screenWidth,
-    height: 0.66 * screenWidth,
+    height: 'auto',
+    aspectRatio: 1.62,
   },
   slideContent: {
     width: '100%',
