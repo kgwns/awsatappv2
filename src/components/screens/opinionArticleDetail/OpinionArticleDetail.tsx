@@ -270,10 +270,8 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressBack = () => {
-    if (!route.params.isRelatedArticle) {
-      Orientation.unlockAllOrientations()
-      Orientation.lockToPortrait()
-    }
+    Orientation.unlockAllOrientations()
+    Orientation.lockToPortrait()
     navigation.goBack()
   }
 

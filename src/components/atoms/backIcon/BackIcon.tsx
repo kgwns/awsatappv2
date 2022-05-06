@@ -43,7 +43,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         height: normalize(8.8),
         marginEnd: normalize(5),
         alignItems: 'center',
-        // color: Styles.color.white,
         paddingHorizontal: normalize(10)
     },
     prevTitleStyle: {
