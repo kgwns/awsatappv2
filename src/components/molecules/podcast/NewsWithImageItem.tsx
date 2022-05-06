@@ -41,6 +41,7 @@ export const NewsWithImageItem = ({
       {title &&
         <Label style={style.title}
           children={title}
+          numberOfLines={5}
         />
       }
       {description && (
@@ -103,7 +104,7 @@ const customStyle = (theme: CustomThemeType) => {
     highlightedTitle: {
       fontSize: normalize(12),
       lineHeight: normalize(12),
-      marginTop: normalize(20),
+      marginTop: normalize(15),
       color: theme.primary,
     },
     title: {
