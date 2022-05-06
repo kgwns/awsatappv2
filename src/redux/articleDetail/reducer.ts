@@ -1,4 +1,4 @@
-import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA } from './actionType';
+import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_ARTICLE_SECTION_SUCCESS, REQUEST_ARTICLE_SECTION_FAILED } from './actionType';
 import { ArticleDetailAction, ArticleDetailState } from './types';
 
 const initialData: ArticleDetailState = {
@@ -6,10 +6,15 @@ const initialData: ArticleDetailState = {
   error: '',
   articleDetailData: [],
   pager: {},
-  relatedArticleData: []
+  relatedArticleData: [],
+  articleSectionData:[],
 };
 
 export default (state = initialData, action: ArticleDetailAction) => {
+  const combineData = (data :  any) => {
+    state.articleDetailData = state.articleDetailData.concat(data)
+    return data
+  }
   switch (action.type) {
     case REQUEST_ARTICLE_DETAIL:
       return {
@@ -56,6 +61,24 @@ export default (state = initialData, action: ArticleDetailAction) => {
         pager: {},
         relatedArticleData: []
       };
+    case REQUEST_ARTICLE_SECTION:
+      return {
+        ...state,
+        isLoading: true,
+        articleSectionData: []
+      }
+    case REQUEST_ARTICLE_SECTION_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        articleSectionData: combineData(action.payload.articleSectionData),
+      }
+    case REQUEST_ARTICLE_SECTION_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error,
+      }
     default:
       return { ...state }
   }

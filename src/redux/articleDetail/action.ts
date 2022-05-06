@@ -1,16 +1,22 @@
-import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA } from "./actionType"
+import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_ARTICLE_SECTION_SUCCESS, REQUEST_ARTICLE_SECTION_FAILED } from "./actionType"
 import {
   ArticleDetailBodyGet,
   ArticleDetailFailedPayload,
   ArticleDetailFailedType,
   ArticleDetailSuccessPayload,
   ArticleDetailSuccessType,
+  ArticleSectionBodyGet,
+  ArticleSectionFailedPayload,
+  ArticleSectionFailedType,
+  ArticleSectionSuccessPayload,
+  ArticleSectionSuccessType,
   RelatedArticleBodyGet,
   RelatedArticleFailedPayload,
   RelatedArticleFailedType,
   RelatedArticleSuccessPayload,
   RelatedArticleSuccessType,
   RequestArticleDetailType,
+  RequestArticleSectionType,
   RequestRelatedArticleType
 } from "./types"
 
@@ -76,6 +82,34 @@ export const emptyData = () => {
 };
 
 
+export const requestArticleSection = (
+  payload: ArticleSectionBodyGet
+): RequestArticleSectionType => {
+  return {
+    type: REQUEST_ARTICLE_SECTION,
+    payload
+  }
+}
+
+export const requestArticleSectionSuccess = (
+  payload: ArticleSectionSuccessPayload,
+): ArticleSectionSuccessType => {
+  return {
+    type: REQUEST_ARTICLE_SECTION_SUCCESS,
+    payload,
+  };
+};
+
+export const requestArticleSectionFailed = (
+  payload: ArticleSectionFailedPayload,
+): ArticleSectionFailedType => {
+  return {
+    type: REQUEST_ARTICLE_SECTION_FAILED,
+    payload,
+  };
+};
+
+
 export const homeActions = {
   requestArticleDetail,
   requestArticleDetailSuccess,
@@ -83,5 +117,8 @@ export const homeActions = {
   requestRelatedArticle,
   requestRelatedArticleSuccess,
   requestRelatedArticleFailed,
-  emptyData
+  emptyData,
+  requestArticleSection,
+  requestArticleSectionSuccess,
+  requestArticleSectionFailed
 };

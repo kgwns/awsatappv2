@@ -1,8 +1,8 @@
 import { BASE_URL } from 'src/services/apiUrls';
 import { getCacheApiRequest } from 'src/services/api';
-import { ARTICLE_DETAIL_GET, RELATED_ARTICLE_GET } from './apiEndPoints';
+import { ARTICLE_DETAIL_GET, ARTICLE_SECTION_GET, RELATED_ARTICLE_GET } from './apiEndPoints';
 import { FetchMostReadSuccessPayloadType } from 'src/redux/mostRead/types';
-import { ArticleDetailBodyGet, RelatedArticleBodyGet } from 'src/redux/articleDetail/types';
+import { ArticleDetailBodyGet, ArticleSectionBodyGet, RelatedArticleBodyGet } from 'src/redux/articleDetail/types';
 
 export const requestArticleDetail = async (body: ArticleDetailBodyGet) => {
   try {
@@ -19,7 +19,19 @@ export const requestArticleDetail = async (body: ArticleDetailBodyGet) => {
 export const requestRelatedArticle = async (body: RelatedArticleBodyGet) => {
   try {
     const response: FetchMostReadSuccessPayloadType = await getCacheApiRequest(
-      `${BASE_URL}${RELATED_ARTICLE_GET}${body.tid}`,
+      `${BASE_URL}${RELATED_ARTICLE_GET}${body.tid}?items_per_page=${50}`,
+    );
+    return response;
+  } catch (error) {
+    console.log(`error: ${error}`);
+    throw error;
+  }
+};
+
+export const requestArticleSection = async (body: ArticleSectionBodyGet) => {
+  try {
+    const response: FetchMostReadSuccessPayloadType = await getCacheApiRequest(
+      `${BASE_URL}${ARTICLE_SECTION_GET}${body.id}?page=${body.page}&items_per_page=${body.items_per_page}`,
     );
     return response;
   } catch (error) {

@@ -210,35 +210,36 @@ export const ArticleDetailScreen = ({
     setShowPopUp(true)
   }
 
-  const articleHtmlContent = () => (
+  const articleHtmlContent = (index: number) => (
     <View style={style.labelStyle}>
-      <HtmlRenderer source={articleDetailState[0].body}
+      <HtmlRenderer source={articleDetailState[index].body}
         tagsStyles={htmlTagStyle} />
     </View>
   )
 
-  const renderItem = () => (
-    <View>
-      {isNonEmptyArray(articleDetailState) && <>
-        <ArticleDetailWidget articleData={articleDetailState[0]}
-          isRelatedArticle={route.params.isRelatedArticle} />
-        {articleHtmlContent()}
-        <Divider style={style.divider}/>
-      </>
-      }
-      {isNonEmptyArray(relatedArticleState) &&
-        <ShortArticle data={relatedArticleState}
-          headerLeft={relatedShortArticleHeaderLeft}
-          onPress={onPressArticle}
-          onUpdateBookmark={onUpdateBookMark}
-          showSignUpPopUp={makeSignUpAlert}
-          numColumns={isTab ? 2 : 1}
-          addStyle={style.relatedArticle}
-          orientation={currentOrientation}
-        />}
-      <Divider style={{ height: normalize(50) }} />
-    </View>
-  )
+  const renderItem = ({ item, index }: { item: ArticleDetailDataType, index: number }) => {
+    const relatedArticles = relatedArticleState.slice(index * 2, (index * 2) + 2)
+    return (
+      <View>
+        {isNonEmptyArray(articleDetailState) && <>
+          <ArticleDetailWidget articleData={item}
+            isRelatedArticle={route.params.isRelatedArticle} />
+          {articleHtmlContent(index)}
+          <Divider style={style.divider} />
+        </>
+        }
+        {isNonEmptyArray(relatedArticles) &&
+          <ShortArticle data={relatedArticles}
+            headerLeft={relatedShortArticleHeaderLeft}
+            onPress={onPressArticle}
+            onUpdateBookmark={onUpdateBookMark}
+            showSignUpPopUp={makeSignUpAlert}
+            numColumns={isTab ? 2 : 1}
+            addStyle={style.relatedArticle}
+            orientation={currentOrientation}
+          />}
+      </View>
+  )}
 
   return (
     <ScreenContainer edge={edge} isLoading={isLoading} 
@@ -246,12 +247,13 @@ export const ArticleDetailScreen = ({
       {!isLoading && isNonEmptyArray(articleDetailState) && <>
         <FlatList
           style={{ flex: 1, height: '100%' }}
-          data={[{}]}
+          data={articleDetailState}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
           bounces={false}
         />
+        <View style={style.bottom} />
         <View style={style.footer}>
           <ArticleDetailFooter articleDetailData={articleDetailState[0]}
             isBookmarked={isBookmarked}
@@ -278,5 +280,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: theme.dividerColor,
+  },
+  bottom: {
+    height: normalize(50)
   },
 })
