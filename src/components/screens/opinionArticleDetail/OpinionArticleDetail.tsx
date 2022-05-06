@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { StyleSheet, View, FlatList, BackHandler } from 'react-native';
+import { StyleSheet, View, FlatList, BackHandler, Animated } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, normalize } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, normalize } from 'src/shared/utils';
 import {OpinionArticleDetailFooter} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
@@ -21,6 +21,8 @@ import { TrackingEventType } from 'src/services/eventTrackService'
 import { ArticleFontSize } from 'src/redux/appCommon/types';
 import { Edge } from 'react-native-safe-area-context';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
+import { BackIcon } from 'src/components/atoms';
+import { Styles } from 'src/shared/styles';
 
 export interface OpinionArticleDetailScreenProps {
   route: any;
@@ -65,6 +67,7 @@ export const OpinionArticleDetail = ({
 
   const [isFollowed, setIsFollowed] = useState(false)
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
+  const [scrollY, setScrollY] = useState(new Animated.Value(0))
 
   const sendEventToServer = () => {
     sendUserEventTracking({
@@ -262,6 +265,22 @@ export const OpinionArticleDetail = ({
     }
   }
 
+  const onScroll = (event: any) => {
+    setScrollY(event.nativeEvent.contentOffset.y)
+  }
+
+  const onPressBack = () => {
+    Orientation.unlockAllOrientations()
+    Orientation.lockToPortrait()
+    navigation.goBack()
+  }
+
+  const renderBackIcon = () => (
+    <View style={[style.backContainer, style.shadowEffect]}>
+      <BackIcon onPressBack={onPressBack} />
+    </View>
+  )
+
   const renderItem = () => (
     <View style={[style.container]}>
       {isNonEmptyArray(opinionArticle) &&  (
@@ -291,6 +310,7 @@ export const OpinionArticleDetail = ({
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
           bounces={false}
+          onScroll={onScroll}
           />
           <View>
             <OpinionArticleDetailFooter
@@ -300,6 +320,7 @@ export const OpinionArticleDetail = ({
               onPressFontSizeChange={onPressFontSizeChange}
             />
           </View>
+          {(Number.parseInt(JSON.stringify(scrollY)) > 50) && renderBackIcon()}
         </View>}
     </ScreenContainer>
   );
@@ -315,6 +336,21 @@ const customStyle = (theme: CustomThemeType) => {
     containerBase: {
       flex: 1,
     },
+    backContainer: {
+      position: 'absolute',
+      top: 0,
+      width: '100%',
+      height: isIOS ? normalize(80) : normalize(30),
+      backgroundColor: theme.backgroundColor,
+      justifyContent: 'center',
+    },
+    shadowEffect: {
+      shadowColor: Styles.color.onyx,
+      shadowOffset: { width: 0, height: 1 },
+      shadowOpacity: .5,
+      shadowRadius: 4,
+      elevation: 15,
+    }
   });
   return OpinionArticleDetailStyle;
 };
