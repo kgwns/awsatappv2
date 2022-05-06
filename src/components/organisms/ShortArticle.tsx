@@ -59,6 +59,8 @@ export const shortArticleFooter: articleFooterProps = {
   },
   leftTitleColor: Styles.color.silverChalice,
   rightTitleColor: Styles.color.silverChalice,
+  leftTitleStyle: { fontSize: 11, lineHeight: 13 },
+  rightTitleStyle: { fontSize: 11, lineHeight: 13 },
 };
 
 const ShortArticle = ({ data, headerLeft, onPress,

@@ -30,6 +30,7 @@ export interface articleFooterProps {
   rightContainerStyle?: StyleProp<ViewStyle>;
   favouriteIconWidth?: number;
   favouriteIconHeight?: number;
+  rightTitleStyle?: StyleProp<TextStyle>;
 }
 
 const ArticleFooter = ({
@@ -49,6 +50,7 @@ const ArticleFooter = ({
   rightContainerStyle,
   favouriteIconWidth = 10,
   favouriteIconHeight = 15,
+  rightTitleStyle,
 }: articleFooterProps) => {
   let storySaveIcon=() => {
     
@@ -89,6 +91,7 @@ const ArticleFooter = ({
           icon={rightIcon}
           color={rightTitleColor}
           numberOfLine={2}
+          labelStyle={rightTitleStyle}
         />
         }
       </View>
