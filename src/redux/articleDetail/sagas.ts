@@ -1,11 +1,11 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
-import { ArticleDetailSuccessPayload, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestRelatedArticleType } from './types';
-import { requestArticleDetail, requestRelatedArticle } from 'src/services/articleDetailService';
-import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA } from './actionType';
-import { requestArticleDetailFailed, requestArticleDetailSuccess, requestRelatedArticleSuccess } from './action';
-import { isNonEmptyArray, isTab } from 'src/shared/utils';
-import { getImageUrl } from 'src/shared/utils/utilities';
+import { ArticleDetailSuccessPayload, ArticleSectionSuccessPayload, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestArticleSectionType, RequestRelatedArticleType } from './types';
+import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService';
+import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA, REQUEST_ARTICLE_SECTION } from './actionType';
+import { requestArticleDetailFailed, requestArticleDetailSuccess, requestArticleSectionFailed, requestArticleSectionSuccess, requestRelatedArticleSuccess } from './action';
+import { isNonEmptyArray } from 'src/shared/utils';
+import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 
 
 const parseImageData = (field_image: string, field_image_export: string) => {
@@ -69,13 +69,48 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
   return responseData
 }
 
+
+const parseArticleSectionSuccess = (response: any, current_nid: number): ArticleSectionSuccessPayload => {
+  let responseData: ArticleSectionSuccessPayload = {
+    articleSectionData: [],
+    pager: {}
+  }
+
+  if (response) {
+    if (isNonEmptyArray(response.rows)) {
+      const rows = response.rows
+          responseData.articleSectionData = rows.map(
+            ({ title, body, nid, field_image, view_node,
+              field_news_categories_export, author_resource, field_tags_topics_export, created_export }: any) => ({
+                body: body,
+                title,
+                nid: nid,
+                image: isNonEmptyArray(field_image) ? getImageUrl(field_image[0].url) : isNotEmpty(field_image) ? getImageUrl(field_image) : '',
+                caption: isNonEmptyArray(field_image) ? field_image[0].alt : '',
+                view_node: view_node,
+                news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
+                tag_topics: isNonEmptyArray(field_tags_topics_export) ? field_tags_topics_export[0] : field_tags_topics_export,
+                author: author_resource,
+                created: created_export
+              })
+          );
+       responseData.articleSectionData=responseData.articleSectionData.filter((item)=> parseInt(item.nid) !== current_nid)
+       responseData.articleSectionData = responseData.articleSectionData.splice(0,4)
+    }
+
+    if (response.pager) {
+      responseData.pager = response.pager
+    }
+  }
+  return responseData
+}
+
 const parseRelatedArticleSuccess = (response: any): RelatedArticleSuccessPayload => {
   const formattedData = formatRelatedArticleData(response)
   let responseData: RelatedArticleSuccessPayload = {
     relatedArticleData: []
   }
-  const count = isTab ? 7 : 6
-  responseData.relatedArticleData = formattedData.splice(0, count)
+  responseData.relatedArticleData = formattedData
   return responseData
 }
 
@@ -87,7 +122,7 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
       action.payload
     );
     const response = parseArticleDetailSuccess(payload)
-
+    yield put(requestArticleDetailSuccess(response));
     if (isNonEmptyArray(response.articleDetailData)) {
       yield call(
         fetchRelatedArticle, {
@@ -96,7 +131,17 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
       }
       )
     }
-    yield put(requestArticleDetailSuccess(response));
+
+    if (isNonEmptyArray(response.articleDetailData) 
+    && isObjectNonEmpty(response.articleDetailData[0].news_categories) 
+    && isNotEmpty(response.articleDetailData[0].news_categories.id)) {
+      yield call(
+        fetchArticleSection, {
+        type: REQUEST_ARTICLE_SECTION,
+        payload: { id: parseInt(response.articleDetailData[0].news_categories.id), page: 0, items_per_page: 10, current_nid: action.payload.nid }
+      }
+      )
+    }
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
     if (errorResponse.response) {
@@ -123,6 +168,23 @@ export function* fetchRelatedArticle(action: RequestRelatedArticleType) {
   }
 }
 
+export function* fetchArticleSection(action: RequestArticleSectionType) {
+  try {
+    const payload: { rows: any[], pager: object } = yield call(
+      requestArticleSection,
+      action.payload
+    );
+    const response = parseArticleSectionSuccess(payload, action.payload.current_nid)
+    yield put(requestArticleSectionSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestArticleSectionFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
 export function* emptyData() {
   emptyData();
 }
@@ -131,6 +193,7 @@ export function* articleDetailSaga() {
   yield all([
     takeLatest(REQUEST_ARTICLE_DETAIL, fetchArticleDetail),
     takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle),
+    takeLatest(REQUEST_ARTICLE_SECTION,fetchArticleSection),
     takeLatest(EMPTY_DATA, emptyData)
   ]);
 }

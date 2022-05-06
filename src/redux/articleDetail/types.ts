@@ -1,10 +1,16 @@
 import {
   REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS,
-  REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA
+  REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_ARTICLE_SECTION_SUCCESS, REQUEST_ARTICLE_SECTION_FAILED
 } from "./actionType"
 
 export interface ArticleDetailBodyGet {
   nid: number
+}
+export interface ArticleSectionBodyGet {
+  id: number,
+  page: number,
+  items_per_page:number,
+  current_nid: number,
 }
 
 export interface RequestArticleDetailType {
@@ -62,6 +68,7 @@ export type ArticleDetailState = {
   articleDetailData: ArticleDetailDataType[],
   pager: PagerType,
   relatedArticleData: RelatedArticleDataType[]
+  articleSectionData: ArticleDetailDataType[],
 }
 
 export interface ArticleDetailSuccessType {
@@ -109,6 +116,27 @@ export interface RelatedArticleFailedType {
 export type emptyData = {
   type: typeof EMPTY_DATA;
 };
+export interface RequestArticleSectionType {
+  type: typeof REQUEST_ARTICLE_SECTION,
+  payload: ArticleSectionBodyGet
+}
+
+export type ArticleSectionSuccessPayload = {
+  articleSectionData: ArticleDetailDataType[]
+  pager: PagerType
+}
+export interface ArticleSectionSuccessType {
+  type: typeof REQUEST_ARTICLE_SECTION_SUCCESS,
+  payload: ArticleSectionSuccessPayload
+}
+
+export interface ArticleSectionFailedType {
+  type: typeof REQUEST_ARTICLE_SECTION_FAILED,
+  payload: ArticleSectionFailedPayload
+}
+export interface ArticleSectionFailedPayload {
+  error: string
+}
 
 
 export type ArticleDetailAction =
@@ -119,3 +147,6 @@ export type ArticleDetailAction =
   | RelatedArticleSuccessType
   | RelatedArticleFailedType
   | emptyData
+  | RequestArticleSectionType
+  | ArticleSectionFailedType
+  | ArticleSectionSuccessType
