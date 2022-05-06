@@ -20,7 +20,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     created: string,
     isRelatedArticle: boolean,
     caption?: string
-    isFirstItem: boolean;
+    isFirstItem?: boolean;
 }
 const ArticleDetailImage = ({
     image,
