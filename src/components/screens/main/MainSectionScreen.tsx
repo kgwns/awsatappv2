@@ -892,7 +892,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(33),
       color: theme.primary,
       fontWeight: 'bold',
-      lineHeight: normalize(35)
+      lineHeight: normalize(50),
     },
     topNewsContainer: {
       marginHorizontal: 0.04 * screenWidth,

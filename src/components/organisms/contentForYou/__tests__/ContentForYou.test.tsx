@@ -60,6 +60,7 @@ jest.mock("src/hooks/useAllWriters", () => ({
     ...jest.requireActual('@react-navigation/native'),
     useNavigation: jest.fn(),
     useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+    useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
   }));
 
 describe('<Content for you>', () => {

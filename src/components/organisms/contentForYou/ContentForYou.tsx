@@ -10,7 +10,7 @@ import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } fr
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
 import { getImageUrl, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import {flatListUniqueKey} from 'src/constants';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { normalize } from 'react-native-elements';
@@ -107,6 +107,19 @@ export const ContentForYou = () => {
             setupPlayer()
         }
         setSelectedTrack(nid) 
+    }
+
+    useFocusEffect(
+        React.useCallback(() => {
+            const unsubscribe = () => { stopTrackPlayer() };
+            return () => {
+                unsubscribe();
+            }
+        }, [])
+    );
+
+    const stopTrackPlayer = async () => {
+        await TrackPlayer.reset();
     }
 
 

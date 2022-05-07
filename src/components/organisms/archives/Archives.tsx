@@ -83,10 +83,7 @@ export const Archives = () => {
       }, [tabSelectedIndex]);
     
       const stopTrackPlayer = async () => {
-        const state = await TrackPlayer.getState();
-        if(state === State.Playing){
           await TrackPlayer.reset();
-        }
       }
 
     const updatedFilteredData = (index: number) => {

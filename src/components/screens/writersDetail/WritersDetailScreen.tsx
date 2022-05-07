@@ -6,7 +6,7 @@ import { horizontalAndTop, isNonEmptyArray, isObjectNonEmpty, normalize } from '
 import { ScreenContainer } from '..';
 import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
 import TrackPlayer from 'react-native-track-player';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useWriterDetail } from 'src/hooks';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
@@ -56,7 +56,19 @@ export const WritersDetailScreen = ({
     const [page, setPage] = useState(0);
     const [opinionsDataInfo, setOpinionsDataInfo] = useState(writerOpinionsData)
     const [isFollowed, setIsFollowed] = useState(false)
+    
+    const stopTrackPlayer = async () => {
+        await TrackPlayer.reset();
+    }
 
+    useFocusEffect(
+        React.useCallback(() => {
+            const unsubscribe = () => { stopTrackPlayer() };
+            return () => {
+                unsubscribe();
+            }
+        }, [])
+    );
 
     useEffect(() => {
         getWriterDetailData({ tid: route.params.tid })

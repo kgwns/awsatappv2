@@ -74,7 +74,7 @@ export const arabic = {
       headerLeft: 'رياضة',
     },
     articlSection: {
-      articleTitle: 'عين علي'
+      articleTitle: 'عِينٌ علي'
     },
     editorsChoice: {
       headerLeft: 'اختيارات المحرر'

@@ -9,7 +9,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
-import { CustomThemeType } from 'src/shared/styles/colors'
+import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTranslation } from 'react-i18next'
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
@@ -93,7 +93,7 @@ const AuthorItem = ({
         <TouchableOpacity key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
             <View style={{ flex: 1 }}>
                 <Label children={author} labelType={LabelTypeProp.p4}
-                    color={themeData.authorTitle} numberOfLines={1} onPress={() => onPressWriter(authorId)} />
+                    color={themeData.authorTitle} numberOfLines={1} onPress={() => onPressWriter(authorId)} suppressHighlighting={true} />
                 <Label children={body} labelType={LabelTypeProp.h3}
                     numberOfLines={2} style={style.body} />
                 {mediaVisibility && <View style={style.mediaFooter}>
