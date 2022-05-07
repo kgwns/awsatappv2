@@ -34,7 +34,7 @@ import {
   TWITTER_URL,
 } from 'src/constants/SharedConstants';
 import { recordLogEvent } from 'src/shared/utils';
-import { TabType } from 'src/components/screens/sections/SectionsScreen';
+import { ScreenContainer } from 'src/components/screens';
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -211,9 +211,11 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
 
   return (
-    <SafeAreaView>
+    <ScreenContainer>
       {header()}
-      <ScrollView bounces={false}>
+      <ScrollView bounces={false}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.menuContainer}>
           {sideMenuDataInfo.length > 0 &&
             sideMenuDataInfo.map((item:any, index:number) => {
@@ -283,7 +285,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </ScreenContainer>
   );
 };
 
@@ -298,7 +300,7 @@ const createStyles = (theme: CustomThemeType) =>
     socialContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginTop: normalize(30),
+      marginVertical: normalize(30),
       marginHorizontal: 4
     },
     headerRight: {
