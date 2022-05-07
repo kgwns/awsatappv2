@@ -72,6 +72,7 @@ export const colors = {
   pattensBlue15: '#E3EBF015',
   lightCyanBlue: '#E1EBF1',
   aliceBlue: '#EDF2F4',
+  flamingo: '#EF652E',
 };
 
 export interface CustomThemeType {

@@ -22,6 +22,7 @@ export interface GameIntroCardProps {
 
 
 export const GameIntroCard = ({
+    type,
     imageBackgroundColor,
     image,
     title,
@@ -31,6 +32,8 @@ export const GameIntroCard = ({
     onPress
 }: GameIntroCardProps) => {
     const style = useThemeAwareObject(customStyle)
+    const imageContainerStyle = type == GameType.CROSS_WORD ? style.imageContainer : style.sudokuImageContainer;
+    const imageStyle = type == GameType.CROSS_WORD ? style.image : style.sudokuImage;
 
     const buttonWithArrow = () => {
         return (
@@ -50,8 +53,8 @@ export const GameIntroCard = ({
     return (
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={style.container}>
-                <View style={StyleSheet.flatten([style.imageContainer, { backgroundColor: imageBackgroundColor }])}>
-                    <Image name={image} style={style.image} />
+                <View style={StyleSheet.flatten([imageContainerStyle, { backgroundColor: imageBackgroundColor }])}>
+                    <Image name={image} style={imageStyle} />
                 </View>
                 <Label children={title} labelType={LabelTypeProp.h1} style={style.title} />
                 <Label children={description} labelType={LabelTypeProp.p3} style={style.description} color={Styles.color.davyGrey}/>
@@ -70,10 +73,18 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     imageContainer: {
         width: '100%',
         height: normalize(202),
+    },
+    sudokuImageContainer: {
+        width: '100%',
+        height: normalize(202),
         alignItems: 'center',
         justifyContent: 'center',
     },
-    image: {
+    image:{
+        width: '100%',
+        height: '100%'
+    },
+    sudokuImage: {
         width: normalize(171),
         height: normalize(141),
     },

@@ -24,7 +24,7 @@ export const GameScreen = () => {
 
     const crossWordInfo: GameIntroCardProps = {
         type: GameType.CROSS_WORD,
-        imageBackgroundColor: Styles.color.iceCold,
+        imageBackgroundColor: Styles.color.flamingo,
         image: ImagesName.crossWord,
         title: TranslateConstants({ key: TranslateKey.CROSSWORD }),
         description: TranslateConstants({ key: TranslateKey.CROSS_WORD_AND_SUDOKU_DESCRIPTION }),
