@@ -73,6 +73,7 @@ export const colors = {
   lightCyanBlue: '#E1EBF1',
   aliceBlue: '#EDF2F4',
   flamingo: '#EF652E',
+  darkerAquaHaze: '#F2F8F6',
 };
 
 export interface CustomThemeType {
@@ -112,6 +113,7 @@ export interface CustomThemeType {
   primaryWhite: string,
   writerBackground: string,
   captionBackground: string,
+  mainBackground: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -154,6 +156,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   primaryWhite: colors.white,
   writerBackground: colors.pattensBlue51,
   captionBackground: colors.whiteSmoke,
+  mainBackground: colors.darkerAquaHaze,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -193,5 +196,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   primaryWhite: colors.black,
   writerBackground: colors.pattensBlue15,
   captionBackground: colors.onyx,
+  mainBackground:colors.codGray
 }
 

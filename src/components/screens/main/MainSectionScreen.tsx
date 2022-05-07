@@ -522,7 +522,7 @@ export const MainSectionScreen = () => {
   }
 
   const renderMobile = () => (
-    <View>
+    <View style={mainSectionStyle.mainContainer}>
       <Divider style={mainSectionStyle.dividerTop} />
       <View style={mainSectionStyle.heroContainer}>
         <CarouselSlider coverageInfo={coverageInfo}
@@ -626,7 +626,7 @@ export const MainSectionScreen = () => {
   )
 
   const renderTabItem = () => (
-    <View>
+    <View style={mainSectionStyle.mainContainer}>
       <Divider style={mainSectionStyle.dividerTop} />
       <View style={mainSectionStyle.heroContainer}>
         <CarouselSlider coverageInfo={coverageInfo}
@@ -806,6 +806,9 @@ export const MainSectionScreen = () => {
 
 const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
+    mainContainer: {
+      backgroundColor: theme.mainBackground
+    },
     tabSplitter: {
       flex: 1,
       flexDirection: 'row',

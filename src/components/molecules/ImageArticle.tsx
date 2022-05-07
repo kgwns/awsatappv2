@@ -152,7 +152,7 @@ const imageArticleStyle = StyleSheet.create({
   tabArticleContent: {
     marginHorizontal: isTab ? 0 : 0.04 * screenWidth,
     marginTop: normalize(10),
-    marginBottom: normalize(25),
+    marginBottom: isTab ? 10 : normalize(25),
   },
   articleContent:{
      marginHorizontal: 0.04 * screenWidth,

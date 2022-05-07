@@ -155,6 +155,6 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         paddingHorizontal: isTab ? 0 : 0.04 * screenWidth,
     },
     contentStyleFirst: {
-        marginTop: 5,
+        marginTop: isTab ? 0 : 5,
     }
 })

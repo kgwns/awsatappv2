@@ -98,6 +98,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   container: {
     paddingTop: normalize(25),
-    backgroundColor: theme.backgroundColor,
+    backgroundColor: theme.mainBackground,
   }
 });

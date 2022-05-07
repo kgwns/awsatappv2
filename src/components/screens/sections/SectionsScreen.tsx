@@ -135,7 +135,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     flex: 1,
   },
   tabBar: {
-    backgroundColor: 'transparent',
+    backgroundColor: theme.mainBackground,
+    paddingTop: 10
   },
   indicator: {
     backgroundColor: Styles.color.greenishBlue ,
