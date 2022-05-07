@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
-import {isTab, normalize, screenWidth} from 'src/shared/utils';
+import {isTab, normalize, screenWidth, isNotEmpty} from 'src/shared/utils';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
@@ -27,6 +27,7 @@ export interface OpinionWritersCardViewProps {
   mediaVisibility:boolean
   onPressBookmark:()=>void
   hideImageView?: boolean
+  authorId:string
 }
 
 const OpinionWritersCardView = ({
@@ -40,7 +41,8 @@ const OpinionWritersCardView = ({
   isBookmarked,
   mediaVisibility,
   onPressBookmark,
-  hideImageView = false
+  hideImageView = false,
+  authorId
 }: OpinionWritersCardViewProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -48,9 +50,15 @@ const OpinionWritersCardView = ({
 
   const onPress = () => {
     if (nid) {
-        navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid:nid})
+      navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid })
     }
-}
+  }
+
+  const onPressWriter = (tid: string) => {
+    if (isNotEmpty(tid)) {
+      navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
+    }
+  }
 
   return (
     <TouchableOpacity style={style.container} onPress={()=>onPress()}>
@@ -65,8 +73,9 @@ const OpinionWritersCardView = ({
             style={{ backgroundColor: Styles.color.cyanGreen }}
             width={normalize(43)}
             height={normalize(43)} />}
+          onPress={() => onPressWriter(authorId)}
         />
-        <Label style={style.writerLabel}>{writerTitle}</Label>
+        <Label style={style.writerLabel} onPress={() => onPressWriter(authorId)}>{writerTitle}</Label>
       </View>}
       <View style={style.headLineContainer}>
         <Label style={style.headLine} numberOfLines={2}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet,TouchableOpacity } from 'react-native'
 import { ButtonImage, Image, Label, LabelTypeProp } from '../atoms'
-import { normalize } from '../../shared/utils'
+import { isNotEmpty, normalize } from '../../shared/utils'
 import { ImagesName, Styles } from '../../shared/styles'
 import { isTab } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
@@ -16,6 +16,7 @@ import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 
 export interface AuthorItemProps {
     author: string,
+    authorId: string,
     body: string,
     duration: string,
     image: string,
@@ -26,6 +27,7 @@ export interface AuthorItemProps {
 
 const AuthorItem = ({
     author,
+    authorId,
     body,
     duration,
     image,
@@ -43,13 +45,19 @@ const AuthorItem = ({
         }
     }
 
+    const onPressWriter = (tid: string) => {
+        if (isNotEmpty(tid)) {
+            navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
+        }
+    }
+
     return (
         <TouchableOpacity key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
             <View style={{ flex: 1 }}>
                 <Label children={author} labelType={LabelTypeProp.p4}
-                    color={themeData.authorTitle} numberOfLines={1} />
+                    color={themeData.authorTitle} numberOfLines={1} onPress={() => onPressWriter(authorId)} />
                 <Label children={body} labelType={LabelTypeProp.h3}
-                    numberOfLines={1} style={style.body} />
+                    numberOfLines={2} style={style.body} />
                 {mediaVisibility && <View style={style.mediaFooter}>
                     <ButtonImage
                         icon={() => {
@@ -66,11 +74,12 @@ const AuthorItem = ({
             </View>
             <View>
                 <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'}
-                fallback={true}
-                fallbackContent={<AuthorDefault
-                style={{backgroundColor:Styles.color.cyanGreen}}
-                width={normalize(80)} 
-                height={normalize(80)}/>}
+                    fallback={true}
+                    fallbackContent={<AuthorDefault
+                    style={{backgroundColor:Styles.color.cyanGreen}}
+                    width={normalize(80)} 
+                    height={normalize(80)}/>}
+                    onPress={() => onPressWriter(authorId)}
                 />
             </View>
         </TouchableOpacity>

@@ -37,6 +37,9 @@ const AuthorWidget = ({
               ? item.field_opinion_writer_node_export[0].name
               : item.field_opinion_writer_node_export.opinion_writer_photo
           }
+        authorId={
+            isNonEmptyArray(item.field_opinion_writer_node_export) && item.field_opinion_writer_node_export[0].id
+        }
         duration={''} 
         image={
             isNonEmptyArray(item.field_opinion_writer_node_export)

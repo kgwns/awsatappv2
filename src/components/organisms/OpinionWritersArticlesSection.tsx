@@ -36,7 +36,10 @@ const OpinionWritersArticlesSection = ({
   const renderItem = (item: any, index: number) => {
     return (
       <View key={flatListUniqueKey.OPINION_WRITER_ARTICLES_SECTION + index}>
-        <OpinionWritersCardView 
+        <OpinionWritersCardView
+          authorId={
+            isNonEmptyArray(item.field_opinion_writer_node_export) && item.field_opinion_writer_node_export[0].id
+          } 
           imageUrl={
             isNonEmptyArray(item.field_opinion_writer_node_export)
               ? getImageUrl(

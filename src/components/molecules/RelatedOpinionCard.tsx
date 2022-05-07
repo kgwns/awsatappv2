@@ -1,9 +1,8 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
+import {isNonEmptyArray, isTab, normalize, isNotEmpty} from 'src/shared/utils';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ButtonImage, Image, Label} from '../atoms';
@@ -15,12 +14,16 @@ import {ImageResize} from 'src/shared/styles/text-styles';
 import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ScreensConstants } from 'src/constants';
 
 
 export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
   const style = useThemeAwareObject(customStyle);
   const [t] = useTranslation();
   const { themeData } = useTheme();
+  const navigation = useNavigation<StackNavigationProp<any>>()
 
   const renderHtmlContent = (item: any) => {
     const description = decodeHTMLTags(item.body).length > 200 ? decodeHTMLTags(item.body).slice(0,200) : decodeHTMLTags(item.body)
@@ -31,17 +34,32 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
     )
   }
 
+  const renderTitle = (item: any) => {
+    return (
+      <View >
+        <Text children={item.title} numberOfLines={2} style={style.contentTitle} />
+      </View>
+    )
+  }
+
+  const onPressWriter = (tid: string) => {
+    if (isNotEmpty(tid)) {
+      navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
+    }
+  }
+
   return (
-    <TouchableWithoutFeedback
+    <TouchableOpacity
       onPress={()=>onPress()}
       style={[style.container, isTab && {paddingRight: 20}]}>
       <View style={style.contentView}>
         <Label
-          children={item.title}
+          children={isNonEmptyArray(item.field_opinion_writer_node_export) && item.field_opinion_writer_node_export[0].name}
           style={style.topLabel}
           numberOfLines={1}
+          onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}
         />
-        {renderHtmlContent(item)}
+        {renderTitle(item)}
         {mediaVisibility && <View style={style.footer}>
           <ButtonImage
             icon={() => {
@@ -77,9 +95,10 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
           style={{backgroundColor:Styles.color.cyanGreen}}
           width={normalize(80)} 
           height={normalize(80)}/>}
+          onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}
         />
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 
@@ -124,6 +143,15 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: normalize(10),
       color: colors.spanishGray,
     },
+    contentTitle: {
+      textAlign: 'left',
+      fontSize: normalize(14),
+      lineHeight: normalize(24),
+      color: theme.primaryBlack,
+      fontWeight: 'bold',
+      paddingVertical: normalize(10),
+      paddingRight: normalize(5),
+    }
   });
   return RelatedOpinionCardStyle;
 };

@@ -15,7 +15,7 @@ interface RelatedOpinionArticlesWidgetProps {
   data: OpinionsListItemType[];
   onScroll: () => void;
   isLoading: boolean;
-  onPress: (nid: string) => void
+  onPress: (nid: string) => void;
 }
 
 export const RelatedOpinionArticlesWidget = ({ data, onScroll, isLoading, onPress }: RelatedOpinionArticlesWidgetProps) => {

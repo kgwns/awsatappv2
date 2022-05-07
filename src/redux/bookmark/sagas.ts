@@ -66,7 +66,8 @@ const populateBookmarkDetail = (response: any): any => {
         const opinionData = {
           type: item.type,
           imageUrl: getOpinionImage(item),
-          writerTitle: item.field_opinion_writer_node_export.name,
+          writerTitle: item.field_opinion_writer_node_export[0].name,
+          authorId: item.field_opinion_writer_node_export[0].id,
           headLine: item.title,
           subHeadLine: decodeHTMLTags(item.body_export),
           audioLabel: 'استمع الي المقالة ',

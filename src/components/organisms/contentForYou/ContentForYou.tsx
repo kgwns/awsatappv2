@@ -173,9 +173,7 @@ export const ContentForYou = () => {
         if(selectedLoaderRef.current) {
             selectedLoaderRef.current = false;
         } else {
-            if(!isAllLoading && page == 0 ){
-                console.log('cameeeee',isNonEmptyArray(selectedAuthorsData.data) && !isNonEmptyArray(pageAllData[0]?.opinionsData.data));
-                
+            if(!isAllLoading && page == 0 ){                
                 if(isNonEmptyArray(selectedTopicsData.data) && !isNonEmptyArray(pageAllData[0]?.articleSectionData.data)){
                     fetchSelectedDataFromAllTopics();
                 }
