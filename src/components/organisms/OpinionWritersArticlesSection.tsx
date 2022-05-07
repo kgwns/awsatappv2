@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {ActivityIndicator, FlatList, Platform, StyleSheet, View} from 'react-native';
 import {flatListUniqueKey} from 'src/constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -11,8 +11,10 @@ import {
   getImageUrl,
   isNonEmptyArray,
   isNotEmpty,
+  isObjectNonEmpty,
 } from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
+import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 
 interface OpinionWritersArticlesSectionProps {
   data: OpinionsListItemType[];
@@ -33,6 +35,51 @@ const OpinionWritersArticlesSection = ({
   const theme = useTheme();
   const audioLabel = 'استمع الي المقالة ';
   const slice = screenWidth*0.80;
+  const [selectedTrack, setSelectedTrack] = useState<any>(null);
+  const playbackState = usePlaybackState();
+
+  const togglePlayback = async (nid: string, mediaData: any) => {
+    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+
+    if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
+      return
+    }
+
+    const id = nid
+    const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
+    const title = mediaData.title ? mediaData.title : '';
+
+    let setupPlayer = async () => {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({ stopWithApp: true });
+      await TrackPlayer.add({
+        id: id,
+        url: media,
+        title: title,
+        artist: title,
+      });
+      await TrackPlayer.setRepeatMode(RepeatMode.Off);
+      await TrackPlayer.play();
+    }
+
+    if(selectedTrack == nid){
+      if (playbackState === State.Playing) {
+        await TrackPlayer.pause();
+      }
+      else if (playbackState === State.Paused) {
+        await TrackPlayer.play();
+      }
+      else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
+        setupPlayer()
+      }
+    }else{
+        await TrackPlayer.reset();
+        setupPlayer()
+    }
+    setSelectedTrack(nid) 
+  }
+
+
   const renderItem = (item: any, index: number) => {
     return (
       <View key={flatListUniqueKey.OPINION_WRITER_ARTICLES_SECTION + index}>
@@ -59,7 +106,10 @@ const OpinionWritersArticlesSection = ({
           duration={''} //TODO: duration key should be passed from backend
           nid={item.nid}
           isBookmarked={item.isBookmarked}
-          mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)}
+          mediaVisibility={item.field_jwplayer_id_opinion_export ? isNotEmpty(item.field_jwplayer_id_opinion_export) : isNotEmpty(item.jwplayer)}
+          jwPlayerID={isNotEmpty(item.field_jwplayer_id_opinion_export) ? item.field_jwplayer_id_opinion_export : (isNotEmpty(item.jwplayer) ? item.jwplayer : null)}
+          togglePlayback={togglePlayback}
+          selectedTrack={selectedTrack}
           onPressBookmark={() => {onUpdateOpinionArticlesBookmark(index)}}
           audioLabel={audioLabel}
           hideImageView={hideImageView}

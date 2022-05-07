@@ -58,6 +58,7 @@ const ArticlePodCastWidget = ({
                 rightTitleColor={themeData.primaryBlack}
                 isBookmarked={isBookmarked}
                 onPressBookmark={onPressBookmark}
+                onPress={onPress}
             />
             <Divider style={style.divider} />
         </TouchableOpacity>

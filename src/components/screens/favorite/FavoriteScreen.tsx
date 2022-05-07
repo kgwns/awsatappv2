@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { horizontalEdge } from 'src/shared/utils';
 import { TabBarComponent, TabBarDataProps, SignupAlertCard } from 'src/components/molecules';
@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next';
 import { Archives, ContentForYou } from 'src/components/organisms';
 import {useLogin} from 'src/hooks';
 import { ScreensConstants } from 'src/constants';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
 
 
 export const FavoriteScreen = () => {
@@ -31,6 +32,16 @@ export const FavoriteScreen = () => {
   const [tabItem, setTabItem] = useState<TabBarDataProps[]>(tabItemData);
   const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
 
+  useEffect(() => {
+    stopTrackPlayer()
+  }, [tabSelectedIndex]);
+
+  const stopTrackPlayer = async () => {
+    const state = await TrackPlayer.getState();
+    if(state === State.Playing){
+      await TrackPlayer.reset();
+    }
+  }
 
   const onPressTabItem = (index: number) => {
     const tabData = tabItem

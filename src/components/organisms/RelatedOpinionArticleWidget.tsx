@@ -25,7 +25,7 @@ export const RelatedOpinionArticlesWidget = ({ data, onScroll, isLoading, onPres
 
   const renderItem = (item: OpinionsListItemType, index: number) => (
     <View style={style.item}>
-      <RelatedOpinionCard item={item} mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)} onPress={() => onPress(item.nid)} />
+      <RelatedOpinionCard item={item} mediaVisibility={isNotEmpty(item.jwplayer)} onPress={() => onPress(item.nid)} />
       {data.length - 1 != index && <Divider style={style.itemDivider} />}
       {isLoading && data.length - 1 == index && (
         <View style={{ margin: normalize(28) }}>

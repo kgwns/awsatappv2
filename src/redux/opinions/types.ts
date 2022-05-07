@@ -30,6 +30,7 @@ export interface OpinionsListItemType {
   field_jwplayer_id_opinion_export?: any;
   type?: string;
   isBookmarked: boolean;
+  jwplayer?: any;
 }
 
 export interface FieldOpinionWriterNodeExport {

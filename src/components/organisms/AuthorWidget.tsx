@@ -1,5 +1,5 @@
 import { View, StyleSheet, FlatList, StyleProp, ViewStyle } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { WidgetHeader, Divider, LabelTypeProp,WidgetHeaderProps } from '../atoms'
 import { AuthorItem } from '../molecules'
 import { isNonEmptyArray, isTab, normalize, screenWidth, isNotEmpty } from 'src/shared/utils'
@@ -8,7 +8,8 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { getImageUrl } from 'src/shared/utils/utilities'
+import { getImageUrl, getSecondsToHms, isObjectNonEmpty } from 'src/shared/utils/utilities'
+
 
 
 
@@ -18,29 +19,38 @@ const AuthorWidget = ({
     widgetHeader,
     containerStyle,
     widgetHeaderStyle,
-    widgetHeaderContainerStyle
+    widgetHeaderContainerStyle,
+    togglePlayback,
+    selectedTrack
 }: {
     data: any, listKey?: string,
     widgetHeader?: string,
     containerStyle?: StyleProp<ViewStyle>,
     widgetHeaderContainerStyle?: StyleProp<ViewStyle>,
-    widgetHeaderStyle?: StyleProp<ViewStyle>
+    widgetHeaderStyle?: StyleProp<ViewStyle>,
+    togglePlayback?: (nid: string, mediaData: any)=> void,
+    selectedTrack?: string,
 }) => {
     const style = useThemeAwareObject(customStyle)
     const [t] = useTranslation()
     const { themeData } = useTheme()
+    
+
     const renderItem = (item: any, index: number) => (
         <AuthorItem body={item.title}  
-        mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)} 
+        mediaVisibility={item.field_jwplayer_id_opinion_export ? isNotEmpty(item.field_jwplayer_id_opinion_export) : isNotEmpty(item.jwplayer)} 
+        jwPlayerID={isNotEmpty(item.field_jwplayer_id_opinion_export) ? item.field_jwplayer_id_opinion_export : (isNotEmpty(item.jwplayer) ? item.jwplayer : null)}
+        togglePlayback={togglePlayback}
+        selectedTrack={selectedTrack}
         author={
             isNonEmptyArray(item.field_opinion_writer_node_export)
               ? item.field_opinion_writer_node_export[0].name
               : item.field_opinion_writer_node_export.opinion_writer_photo
           }
+        duration = {item.jwplayer_info ? getSecondsToHms(item.jwplayer_info.split('|')[1]) : null}
         authorId={
             isNonEmptyArray(item.field_opinion_writer_node_export) && item.field_opinion_writer_node_export[0].id
         }
-        duration={''} 
         image={
             isNonEmptyArray(item.field_opinion_writer_node_export)
               ? getImageUrl(
@@ -52,6 +62,7 @@ const AuthorWidget = ({
           }
         index={index} 
         nid={item.nid}
+        selectedType={'OPINION'}
         />
     )
 

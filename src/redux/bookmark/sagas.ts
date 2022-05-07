@@ -74,7 +74,7 @@ const populateBookmarkDetail = (response: any): any => {
           duration: '',
           nid: item.nid,
           isBookmarked: true,
-          field_jwplayer_id_opinion_export: item.field_jwplayer_id_opinion_export,
+          field_jwplayer_id_opinion_export: item.field_jwplayer_id_opinion_export ? item.field_jwplayer_id_opinion_export : item.jwplayer,
         }
         return prevValue.concat(opinionData)
       }

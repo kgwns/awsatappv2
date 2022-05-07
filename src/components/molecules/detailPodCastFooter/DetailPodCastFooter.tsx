@@ -18,7 +18,8 @@ export interface detailPodCastFooterProps {
     rightTitleColor?: string,
     rightIconColor?: string,
     isBookmarked: boolean,
-    onPressBookmark: () => void
+    onPressBookmark: () => void,
+    onPress: () => void,
 }
 
 const DetailPodCastFooter = ({
@@ -27,7 +28,8 @@ const DetailPodCastFooter = ({
     leftTimeLabel,
     leftTimeLabelColor,
     isBookmarked,
-    onPressBookmark
+    onPressBookmark,
+    onPress
 }: detailPodCastFooterProps) => {
     const storySaveIcon =() => {
         return isBookmarked
@@ -46,7 +48,7 @@ const DetailPodCastFooter = ({
     return (
         <View style={{ ...articleFooterStyle.container }}>
             <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity style={{ flexDirection: 'row' }} testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={() => { console.log('play podcasts') }}>
+                <TouchableOpacity style={{ flexDirection: 'row' }} testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPress}>
                     {
                         getSvgImages({
                             name: ImagesName.playIconSVG,

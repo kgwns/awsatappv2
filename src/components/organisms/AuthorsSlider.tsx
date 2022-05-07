@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {FlatList, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {AuthorItem} from 'src/components/molecules';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
-import { getImageUrl, isNonEmptyArray, isNotEmpty } from 'src/shared/utils/utilities';
+import { getImageUrl, isNonEmptyArray, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Divider, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { t } from 'i18next';
@@ -14,24 +14,82 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants';
+import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 
 const AuthorSlider = ({
     data,
     widgetHeader,
     containerStyle,
     widgetHeaderStyle,
-    widgetHeaderContainerStyle
+    widgetHeaderContainerStyle,
+    getSelectedTrack,
+    selectedType,
+    onClose
 }: {
     data: any, listKey?: string,
     widgetHeader?: string,
     containerStyle?: StyleProp<ViewStyle>,
     widgetHeaderContainerStyle?: StyleProp<ViewStyle>,
     widgetHeaderStyle?: StyleProp<ViewStyle>
+    getSelectedTrack?: (id: any, type: 'OPINION' | 'PODCAST')=> void,
+    selectedType?: string,
+    onClose?: ()=> void
 }) => {
   const style = useThemeAwareObject(customStyle);
   const scrollRef = useRef<ScrollView>(null);
   const { themeData } = useTheme()
   const navigation = useNavigation<StackNavigationProp<any>>();
+
+  const [selectedTrack, setSelectedTrack] = useState<any>(null);
+  const playbackState = usePlaybackState();
+
+  const togglePlayback = async (nid: string, mediaData: any) => {
+    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+
+    if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
+      return
+    }
+
+    const id = nid
+    const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
+    const title = mediaData.title ? mediaData.title : '';
+
+    let setupPlayer = async () => {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({ stopWithApp: true });
+      await TrackPlayer.add({
+        id: id,
+        url: media,
+        title: title,
+        artist: title,
+      });
+      await TrackPlayer.setRepeatMode(RepeatMode.Off);
+      await TrackPlayer.play();
+    }
+
+    if(selectedType == 'PODCAST' && onClose){
+      onClose();
+      await TrackPlayer.reset();
+      setupPlayer();
+    }else{
+      if(selectedTrack == nid){
+        if (playbackState === State.Playing) {
+          await TrackPlayer.pause();
+        }
+        else if (playbackState === State.Paused) {
+          await TrackPlayer.play();
+        }
+        else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
+          setupPlayer()
+        }
+      }else{
+          await TrackPlayer.reset();
+          setupPlayer()
+      }
+    }
+    setSelectedTrack(nid)
+    if(getSelectedTrack) getSelectedTrack(nid, 'OPINION');
+  }
 
   const renderItem = (item: any, index: number) => {
     return (
@@ -52,6 +110,10 @@ const AuthorSlider = ({
         <View style={{}}>
             <AuthorItem body={item.title}  
             mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)} 
+            jwPlayerID={isNotEmpty(item.field_jwplayer_id_opinion_export) ? item.field_jwplayer_id_opinion_export : null}
+            togglePlayback={togglePlayback}
+            selectedTrack={selectedTrack}
+            selectedType={selectedType}
             author={
                 isNonEmptyArray(item.field_opinion_writer_node_export)
                 ? item.field_opinion_writer_node_export[0].name

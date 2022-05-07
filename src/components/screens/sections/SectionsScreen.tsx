@@ -21,6 +21,7 @@ import { Styles } from 'src/shared/styles';
 import { GameScreen } from '../games/GameScreen';
 import { TabWithBarItem } from 'src/components/molecules';
 import { MainSectionScreen } from 'src/components/screens';
+import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
 
 export enum TabType {
   opinion = 'opinion',
@@ -37,6 +38,20 @@ export const SectionsScreen = () => {
 
   const [index, setIndex] = React.useState(0);
   const [routes, setNewRoutes] = useState<any>([]);
+  const [hidePlayerVisibility, setHidePlayerVisibility] = useState<any>(false);
+
+  const playbackState = usePlaybackState();
+
+  useEffect(() => {
+    stopTrackPlayer()
+  }, [index]);
+
+  const stopTrackPlayer = async () => {
+    setHidePlayerVisibility(!hidePlayerVisibility)
+    if(playbackState === State.Playing){
+      await TrackPlayer.reset();
+    }
+  }
 
 
   const renderScene = ({ route }: any) => {
@@ -50,7 +65,7 @@ export const SectionsScreen = () => {
       case TabType.games:
         return <GameScreen />
       case TabType.main:
-        return <MainSectionScreen />
+        return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} />
       default:
         return (
           <SectionStoryScreen sectionId={route.sectionId}/>

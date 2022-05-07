@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ArticleItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
 import { t } from 'i18next'
-import { isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { ArticleItemProps } from '../ArticleItem'
 import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
@@ -15,6 +15,7 @@ import { isNotEmpty } from 'src/shared/utils'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { StyleSheet, View } from 'react-native'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { getSecondsToHms } from 'src/shared/utils/utilities'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -56,6 +57,8 @@ export const PopulateWidget = ({
 }: PopulateWidgetProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
     const style = useThemeAwareObject(customStyle)
+    
+
     switch (type) {
         case PopulateWidgetType.ARTICLE:
             return <View style={style.widgetContainer}>
@@ -75,8 +78,12 @@ export const PopulateWidget = ({
             </View>
         case PopulateWidgetType.OPINION:
             return <View>
-                <OpinionWritersCardView {...props} mediaVisibility={isNotEmpty(props.field_jwplayer_id_opinion_export)}
+                <OpinionWritersCardView {...props} mediaVisibility={props.field_jwplayer_id_opinion_export ? isNotEmpty(props.field_jwplayer_id_opinion_export) : isNotEmpty(props.jwplayer)}
+                    jwPlayerID={isNotEmpty(props.field_jwplayer_id_opinion_export) ? props.field_jwplayer_id_opinion_export : (isNotEmpty(props.jwplayer) ? props.jwplayer : null)}
                     onPressBookmark={onPressBookmark}
+                    togglePlayback={props?.togglePlayback}
+                    selectedTrack={props?.selectedTrack}
+                    duration = {props.jwplayer_info ? getSecondsToHms(props.jwplayer_info.split('|')[1]) : null}
                 />
             </View>
         case PopulateWidgetType.VIDEO:

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, StyleSheet,TouchableOpacity } from 'react-native'
 import { ButtonImage, Image, Label, LabelTypeProp } from '../atoms'
-import { isNotEmpty, normalize } from '../../shared/utils'
+import { isNonEmptyArray, isObjectNonEmpty, normalize, isNotEmpty } from '../../shared/utils'
 import { ImagesName, Styles } from '../../shared/styles'
 import { isTab } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
@@ -13,16 +13,23 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTranslation } from 'react-i18next'
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
+import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
+import { getSecondsToHms } from 'src/shared/utils/utilities'
 
 export interface AuthorItemProps {
     author: string,
     authorId: string,
     body: string,
-    duration: string,
+    duration: string | null,
     image: string,
     index?: number,
     nid?: string,
     mediaVisibility: boolean,
+    jwPlayerID?: string | null
+    togglePlayback?: (nid: string, mediaData: any)=> void,
+    selectedTrack?: string,
+    selectedType?: string,
 }
 
 const AuthorItem = ({
@@ -34,17 +41,48 @@ const AuthorItem = ({
     index,
     nid,
     mediaVisibility,
+    jwPlayerID = null,
+    togglePlayback,
+    selectedTrack,
+    selectedType
 }: AuthorItemProps) => {
     const { themeData } = useTheme()
     const [t] = useTranslation();
     const style = useThemeAwareObject(customStyle);
     const navigation = useNavigation<StackNavigationProp<any>>()
+    const playbackState = usePlaybackState();
+    const { narratedOpinionData, fetchNarratedOpinionData} = useOpinionArticleDetail();
+    const[mediaData, setMediaData] = useState<any>({});
+    const[timeDuration, setTimeDuration] = useState<any>(null);
+  
+    useEffect(() => {
+        if(jwPlayerID){
+          fetchNarratedOpinionData({jwPlayerID: jwPlayerID})
+        }
+    }, [])
+  
+    useEffect(() => {
+        if(isObjectNonEmpty(narratedOpinionData)){
+          setMediaData(narratedOpinionData);
+          let playList = isNonEmptyArray(narratedOpinionData.playlist) ? narratedOpinionData.playlist[0] : null;
+            if(playList){
+            let time = playList.duration? getSecondsToHms(playList.duration) : null;
+            setTimeDuration(time)
+            } 
+        }
+    }, [narratedOpinionData])
+    
     const onPress = () => {
         if (nid) {
             navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid:nid})
         }
     }
 
+    const onPressPlay = () => {
+        if (nid && mediaData && togglePlayback) {
+          togglePlayback(nid, mediaData)
+        }
+      }
     const onPressWriter = (tid: string) => {
         if (isNotEmpty(tid)) {
             navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
@@ -60,16 +98,14 @@ const AuthorItem = ({
                     numberOfLines={2} style={style.body} />
                 {mediaVisibility && <View style={style.mediaFooter}>
                     <ButtonImage
-                        icon={() => {
-                            return getSvgImages({
-                                name: ImagesName.playIconSVG,
-                                size: normalize(14),
-                            });
-                        }}
-                        onPress={onPress} />
+                    icon={() =>
+                        playbackState === State.Playing && selectedType == 'OPINION' && selectedTrack == nid ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                        getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
+                      }
+                    onPress={onPressPlay} />
                     <Label children={t('opinion.listenToActicleText')} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
-                    <Label children={duration} style={style.durationLabel} />
+                    { timeDuration && <Label children={timeDuration} style={style.durationLabel} /> }
                 </View>}
             </View>
             <View>

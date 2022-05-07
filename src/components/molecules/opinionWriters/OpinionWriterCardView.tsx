@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
-import {isTab, normalize, screenWidth, isNotEmpty} from 'src/shared/utils';
+import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty} from 'src/shared/utils';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
@@ -13,6 +13,9 @@ import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
+import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
+import { getSecondsToHms } from 'src/shared/utils/utilities';
 
 
 export interface OpinionWritersCardViewProps {
@@ -26,7 +29,10 @@ export interface OpinionWritersCardViewProps {
   isBookmarked:boolean
   mediaVisibility:boolean
   onPressBookmark:()=>void
-  hideImageView?: boolean
+  hideImageView?: boolean,
+  jwPlayerID?: string | null
+  togglePlayback?: (nid: string, mediaData: any)=> void,
+  selectedTrack?: string,
   authorId:string
 }
 
@@ -42,11 +48,35 @@ const OpinionWritersCardView = ({
   mediaVisibility,
   onPressBookmark,
   hideImageView = false,
+  jwPlayerID = null,
+  togglePlayback,
+  selectedTrack,
   authorId
 }: OpinionWritersCardViewProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const playbackState = usePlaybackState();
+  const { narratedOpinionData, fetchNarratedOpinionData} = useOpinionArticleDetail();
+  const[mediaData, setMediaData] = useState<any>({});
+  const[timeDuration, setTimeDuration] = useState<any>(null);
+
+  useEffect(() => {
+      if(jwPlayerID){
+        fetchNarratedOpinionData({jwPlayerID: jwPlayerID})
+      }
+  }, [])
+
+  useEffect(() => {
+      if(isObjectNonEmpty(narratedOpinionData)){
+        setMediaData(narratedOpinionData);
+        let playList = isNonEmptyArray(narratedOpinionData.playlist) ? narratedOpinionData.playlist[0] : null;
+        if(playList){
+          let time = playList.duration? getSecondsToHms(playList.duration) : null;
+          setTimeDuration(time)
+        } 
+      }
+  }, [narratedOpinionData])
 
   const onPress = () => {
     if (nid) {
@@ -59,6 +89,12 @@ const OpinionWritersCardView = ({
       navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
     }
   }
+
+const onPressPlay = () => {
+  if (nid && mediaData && togglePlayback) {
+    togglePlayback(nid, mediaData)
+  }
+}
 
   return (
     <TouchableOpacity style={style.container} onPress={()=>onPress()}>
@@ -89,13 +125,16 @@ const OpinionWritersCardView = ({
         <View style={style.listenArticleContainer}>
           {mediaVisibility && <>
             <ButtonImage
-              icon={() => <PlayIcon />}
+              icon={() =>
+                playbackState === State.Playing && selectedTrack == nid ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
+              }
               style={style.playIcon}
-              onPress={() => onPress()}
+              onPress={() => onPressPlay()}
               testId={'playIconTestId'}
             />
             <Label style={style.footerLabel}>{audioLabel}</Label>
-            <Label style={style.duration}>{duration}</Label>
+            {timeDuration && <Label style={style.duration}>{timeDuration}</Label>}
           </>}
         </View>
         <View>

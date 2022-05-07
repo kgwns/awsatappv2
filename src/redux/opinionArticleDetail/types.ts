@@ -62,6 +62,7 @@ export interface OpinionsListItemType {
   body: string;
   field_edit_letter_writer_export?: any;
   field_jwplayer_id_opinion_export?:any;
+  jwplayer?:any;
   type:string;
 }
 export interface FieldOpinionWriterNodeExport {

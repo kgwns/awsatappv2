@@ -7,8 +7,9 @@ import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { Label, LabelTypeProp } from 'src/components/atoms'
-import { useIsFocused } from '@react-navigation/native'
+import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import { normalize } from 'react-native-elements'
+import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
 
 export const Archives = () => {
     const [t] = useTranslation()
@@ -39,6 +40,7 @@ export const Archives = () => {
 
     const [filterItem, setFilterItem] = useState<FilterDataType[]>(filterData);
     const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
+    const playbackState = usePlaybackState();
 
     const { getBookmarkedId, removeBookmarkedInfo, bookmarkDetail } = useBookmark()
     const [filteredData, setFilteredData] = useState(bookmarkDetail)
@@ -50,6 +52,15 @@ export const Archives = () => {
     useEffect(() => {
         isFocused && getBookmarkedId()
     }, [isFocused])
+
+    useFocusEffect(
+    React.useCallback(() => {
+        const unsubscribe = () => { stopTrackPlayer() };
+        return () => {
+            unsubscribe();
+        }
+    }, [])
+    );
 
     useEffect(() => {
         if (isNonEmptyArray(bookmarkDetail) ||
@@ -67,6 +78,17 @@ export const Archives = () => {
         updatedFilteredData(index)
     }
 
+    useEffect(() => {
+        stopTrackPlayer()
+      }, [tabSelectedIndex]);
+    
+      const stopTrackPlayer = async () => {
+        const state = await TrackPlayer.getState();
+        if(state === State.Playing){
+          await TrackPlayer.reset();
+        }
+      }
+
     const updatedFilteredData = (index: number) => {
         const data = getFilteredData(index)
         setFilteredData(data)
@@ -83,6 +105,7 @@ export const Archives = () => {
     const getFilteredData = (index: number) => {
         if (!isNonEmptyArray(bookmarkDetail)) return null
         const data = [...bookmarkDetail]
+        
         switch (index) {
             case 0:
                 return data

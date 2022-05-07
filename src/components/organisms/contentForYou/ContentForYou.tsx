@@ -8,7 +8,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { isTab, screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
-import { getImageUrl, isNonEmptyArray } from 'src/shared/utils/utilities';
+import { getImageUrl, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import {flatListUniqueKey} from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -17,6 +17,7 @@ import { normalize } from 'react-native-elements';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { NewsCategoriesType } from 'src/redux/latestNews/types';
+import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 
 interface AllContentData {
     opinionsData: any,
@@ -63,6 +64,51 @@ export const ContentForYou = () => {
     const selectedTopicsRef = useRef(true);
     const selectedAuthorsRef = useRef(true);
     const selectedLoaderRef = useRef(true);
+
+    const [selectedTrack, setSelectedTrack] = useState<any>(null);
+    const playbackState = usePlaybackState();
+
+    const togglePlayback = async (nid: string, mediaData: any) => {
+        let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+
+        if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
+        return
+        }
+
+        const id = nid
+        const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
+        const title = mediaData.title ? mediaData.title : '';
+
+        let setupPlayer = async () => {
+        await TrackPlayer.setupPlayer();
+        await TrackPlayer.updateOptions({ stopWithApp: true });
+        await TrackPlayer.add({
+            id: id,
+            url: media,
+            title: title,
+            artist: title,
+        });
+        await TrackPlayer.setRepeatMode(RepeatMode.Off);
+        await TrackPlayer.play();
+        }
+
+        if(selectedTrack == nid){
+        if (playbackState === State.Playing) {
+            await TrackPlayer.pause();
+        }
+        else if (playbackState === State.Paused) {
+            await TrackPlayer.play();
+        }
+        else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
+            setupPlayer()
+        }
+        }else{
+            await TrackPlayer.reset();
+            setupPlayer()
+        }
+        setSelectedTrack(nid) 
+    }
+
 
     useEffect(() => {
         getSelectedTopicsData();
@@ -173,7 +219,7 @@ export const ContentForYou = () => {
         if(selectedLoaderRef.current) {
             selectedLoaderRef.current = false;
         } else {
-            if(!isAllLoading && page == 0 ){                
+            if(!isAllLoading && page == 0 ){              
                 if(isNonEmptyArray(selectedTopicsData.data) && !isNonEmptyArray(pageAllData[0]?.articleSectionData.data)){
                     fetchSelectedDataFromAllTopics();
                 }
@@ -334,6 +380,8 @@ export const ContentForYou = () => {
                 containerStyle={{ paddingTop: 0 }}
                 widgetHeaderContainerStyle={styles.authorWidgetContainer}
                 widgetHeaderStyle={styles.authorWidgetHeader}
+                togglePlayback={togglePlayback}
+                selectedTrack={selectedTrack}
             />}
             
             {isNonEmptyArray(item.articleSectionData.data) &&

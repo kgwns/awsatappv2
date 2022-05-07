@@ -79,7 +79,7 @@ const sectionComboSevenPayload: RequestSectionComboBodyGet = {
   page: 0
 }
 
-export const MainSectionScreen = () => {
+export const MainSectionScreen = ({hidePlayerVisibility}:{hidePlayerVisibility?: boolean}) => {
   const { themeData } = useTheme()
   const mainSectionStyle = useThemeAwareObject(customStyle)
 
@@ -132,6 +132,8 @@ export const MainSectionScreen = () => {
   const [showupUp, setShowPopUp] = useState(false)
   const [isPlayerVisible, setPlayerVisibility] = useState(false)
   const playbackState = usePlaybackState();
+  const [selectedTrack, setSelectedTrack] = useState<any>(null);
+  const [selectedType, setSelectedType] = useState<any>(null);
 
   const podcastData: any = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
   const headlineNews = isNonEmptyArray(coverageInfo) ? [...coverageInfo].splice(1, 4) : []
@@ -152,6 +154,10 @@ export const MainSectionScreen = () => {
       return () => unsubscribe();
     }, [])
   );
+
+  useEffect(() => {
+    if(isPlayerVisible) setPlayerVisibility(false);
+  }, [hidePlayerVisibility])
 
   
   const updateBookmark = (data: any[]): any => {
@@ -210,8 +216,9 @@ export const MainSectionScreen = () => {
     const listPartition = (list: any, value: any):any => {
       return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
     }
-    let opinionListData = listPartition(opinionList, 4)
-    setOpinionListData(opinionListData)
+    const newData = [...opinionList]
+    let data = listPartition(newData, 4)
+    setOpinionListData(data)
   }, [opinionList])
 
   useEffect(() => {
@@ -480,19 +487,31 @@ export const MainSectionScreen = () => {
 
 
   const onListenPodcast = async () => {
-    setPlayerVisibility(true)
-    if (playbackState == State.Playing) {
-      return
+    let setupPlayer = async () => {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({ stopWithApp: true });
+      await TrackPlayer.add({
+        id: podcastData.nid,
+        url: getPodcastUrl(podcastData.field_spreaker_episode_export),
+        title: podcastData.title,
+        artist: podcastData.title,
+      });
+      await TrackPlayer.setRepeatMode(RepeatMode.Off);
+      await TrackPlayer.play();
     }
-    await TrackPlayer.setupPlayer();
-    await TrackPlayer.updateOptions({ stopWithApp: true });
-    await TrackPlayer.add({
-      id: podcastData.nid,
-      url: getPodcastUrl(podcastData.field_spreaker_episode_export),
-      title: podcastData.title,
-      artist: podcastData.title,
-    });
-    await TrackPlayer.play();
+    if(selectedTrack == podcastData.nid){
+      setPlayerVisibility(true)
+      if (playbackState == State.Playing) {
+        return
+      }
+      setupPlayer()
+    }else{
+      await TrackPlayer.reset();
+      setPlayerVisibility(true)
+      setupPlayer()
+    }
+    setSelectedTrack(podcastData.nid);
+    setSelectedType('PODCAST');
   }
 
   const togglePlayback = async () => {
@@ -517,8 +536,15 @@ export const MainSectionScreen = () => {
   };
 
   const onClose = async () => {
-    await TrackPlayer.stop()
+    await TrackPlayer.reset();
     setPlayerVisibility(false)
+  }
+
+  const getSelectedTrack = (id: any, type: 'OPINION' | 'PODCAST') => {
+    if(selectedTrack != id){
+      setSelectedTrack(id);
+      setSelectedType(type);
+    }
   }
 
   const renderMobile = () => (
@@ -533,7 +559,7 @@ export const MainSectionScreen = () => {
         <TopHeadLineNews data={headlineNews} />
       </View>
       <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} />}
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       <EditorsPickSection data={horizontalArticle} />
        {isNonEmptyArray(podcastHome) &&
        <View>
@@ -651,7 +677,7 @@ export const MainSectionScreen = () => {
           />
         </View>
       </View>
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} />}
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       <EditorsPickSection data={horizontalArticle} />
       {isNonEmptyArray(podcastHome) &&
         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
@@ -774,6 +800,7 @@ export const MainSectionScreen = () => {
   )
 
   const renderItem = () => {
+    console.log('opinionListData',opinionListData)
     return isTab ? renderTabItem() : renderMobile()
   }
 
