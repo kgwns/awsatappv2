@@ -60,7 +60,7 @@ export const Image: FunctionComponent<ImageProps> = ({
     backgroundColor: 'transparent',
   };
 
-  if(isAndroid && !isNonEmptyArray(name) && !isNotEmpty(url)) {
+  if(isAndroid && !isNotEmpty(name) && !isNotEmpty(url)) {
     name = ImagesName.placeholderImg
   }
 
