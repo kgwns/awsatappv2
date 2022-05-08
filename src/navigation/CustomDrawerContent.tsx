@@ -414,13 +414,10 @@ const createStyles = (theme: CustomThemeType) =>
       marginLeft: 20
     },
     childTitleStyle:{
-      opacity: .8,
       fontFamily: fonts.Almaria_Regular,
     },
     parentTitleStyle: {
       fontFamily: fonts.Almarai_Bold,
-      fontWeight : 'normal', 
-      opacity: .8
     },
     itemContainer: {
       flexDirection: 'row',

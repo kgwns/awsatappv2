@@ -111,7 +111,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     title: {
       fontSize: normalize(14),
-      lineHeight: normalize(16),
+      lineHeight: normalize(22),// When reduce size text are cropping
       marginTop: normalize(10),
       color: theme.primaryBlack,
       textAlign: 'left',

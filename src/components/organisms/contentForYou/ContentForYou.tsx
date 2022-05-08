@@ -290,7 +290,7 @@ export const ContentForYou = () => {
                 created: item.created_export,
                 isBookmarked: false,
                 loaded: true,
-                tagName: newsCategory?.title
+                flag: newsCategory?.title
             }
             if(i<2){
                 formatArticleSectionData.push(formattedData)
