@@ -14,6 +14,7 @@ import { getImageUrl, getSecondsToHms, timeAgo } from 'src/shared/utils/utilitie
 import { decode } from 'html-entities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { flatListUniqueKey } from 'src/constants';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface videoProps {
     storyImage: string,
@@ -71,7 +72,7 @@ export const VideoContent = ({
     }
     return (
         <View style={style.container}>
-            <Label style={style.titleTextStyle} labelType={LabelTypeProp.h3} children={t('categoryPage.videoContent')} numberOfLines={2} />
+            <Label style={style.titleTextStyle} labelType={LabelTypeProp.title3} children={t('categoryPage.videoContent')} numberOfLines={2} />
             <FlatList
                 horizontal={!isTabDesign}
                 keyExtractor={(_, index) => index.toString()}
@@ -99,7 +100,7 @@ const customStyle = (theme: CustomThemeType) => {
             paddingLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
         },
         listContainer: {
-            height: normalize(236),
+            height: isTab ? 'auto' : normalize(236),
             alignSelf: 'flex-start',
             paddingTop: normalize(15),
             marginVertical: normalize(7),
@@ -108,7 +109,6 @@ const customStyle = (theme: CustomThemeType) => {
             paddingTop: normalize(10),
             marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
             color: theme.primary,
-            fontSize: normalize(18)
         },
         imageStyle: {
             width: normalize(263),
@@ -118,7 +118,8 @@ const customStyle = (theme: CustomThemeType) => {
         },
         textStyle: {
             width: normalize(263),
-            paddingVertical: normalize(10)
+            paddingVertical: normalize(10),
+            fontFamily: fonts.Almarai_Bold,
         },
         baseStyle: {
             alignSelf: 'flex-start',

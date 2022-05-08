@@ -13,6 +13,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants';
 import { HOME_PODCAST_TITLE } from 'src/constants/SharedConstants';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface PodcastWidgetProps {
   onPress: () => void;
@@ -28,12 +29,12 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   const podcastData = data[0];
   const navigation = useNavigation<StackNavigationProp<any>>();
 
-
   const widgetHeaderData: WidgetHeaderProps = {
     headerLeft: {
       title: 'بودكاست',
       color: themeData.primaryDarkSlateGray,
-      labelType: LabelTypeProp.h2,
+      labelType: LabelTypeProp.title3,
+      textStyle: {fontFamily: fonts.AwsatDigitalBetav10_Black}
     },
     headerRight: {
       title: 'المزيد',
@@ -47,6 +48,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       color: Styles.color.smokeyGrey,
       labelType: LabelTypeProp.h3,
       clickable: true,
+      textStyle: {fontFamily: fonts.Effra_Arbc_Medium}
     },
   };
 
@@ -72,7 +74,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
             <Label
               color={colors.greenishBlue}
               children={getSecondsToHms(podcastData?.field_total_duration_export)}
-              style={{ marginEnd: normalize(10) }}
+              style={{ marginEnd: normalize(10), fontFamily: fonts.Effra_Regular }}
               numberOfLines={1}
             />
             <View style={style.playView}>
@@ -124,7 +126,8 @@ const createStyles = (theme: CustomThemeType) => {
   const podcastWidgetStyle = StyleSheet.create({
     spacing: {
       paddingHorizontal: 0.04 * screenWidth,
-      paddingTop: normalize(12)
+      paddingTop: normalize(20),
+      paddingBottom: normalize(14),
     },
     container: {
       backgroundColor: theme.secondaryWhite,
@@ -139,7 +142,8 @@ const createStyles = (theme: CustomThemeType) => {
     announcer: {
       fontSize: normalize(15),
       lineHeight: normalize(24),
-      maxWidth: '70%'
+      maxWidth: '70%',
+      fontFamily: fonts.Effra_Regular,
     },
     playView: {
       width: normalize(29),
@@ -153,12 +157,13 @@ const createStyles = (theme: CustomThemeType) => {
       textAlign: 'left',
       fontSize: normalize(16),
       lineHeight: normalize(24),
-      fontWeight: 'bold'
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     body: {
       textAlign: 'left',
       fontSize: normalize(13),
-      lineHeight: normalize(24)
+      lineHeight: normalize(24),
+      fontFamily: fonts.Effra_Regular,
     },
     image: {
       width: '100%',

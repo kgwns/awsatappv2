@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { onBoardingSuccess } from 'src/redux/login/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 import { useAllWriters, useNewsLetters } from 'src/hooks';
+import { fonts } from 'src/shared/styles/fonts';
 
 export const SuccessScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -64,7 +65,7 @@ export const SuccessScreen: FunctionComponent = () => {
           ref={ref => setAnimationRef(ref)}
         />
         <View style={styles.messageContainer}>
-          <Label labelType="h1" children={t('onboardSuccess.successMessage')} />
+          <Label style={styles.titleStyle} labelType="h1" children={t('onboardSuccess.successMessage')} />
           <Label
             labelType="content"
             style={styles.mailAcknowledgement}
@@ -117,6 +118,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     mailAcknowledgement: {
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
       fontSize: normalize(13),
       marginTop: '5%',
       lineHeight: 19,
@@ -125,4 +127,7 @@ const createStyles = (theme: CustomThemeType) =>
     buttonContainer: {
       marginTop: '15%',
     },
+    titleStyle: {
+      fontSize: normalize(22),
+    }
   });

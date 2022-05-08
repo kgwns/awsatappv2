@@ -6,8 +6,8 @@ import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
-import ArrowUpDown from 'src/assets/images/icons/arrow_up_down.svg';
 import { colors } from 'src/shared/styles/colors';
+import { fonts } from 'src/shared/styles/fonts';
  
 export interface PodcastEpisodeListProps {
   onItemActionPress?: (item: any) => void;
@@ -102,7 +102,7 @@ StyleSheet.create({
   textStyle: {
     fontSize: normalize(14),
     lineHeight: normalize(16),
-    fontWeight: 'bold',
+    fontFamily: fonts.Almarai_Bold,
     color: colors.greenishBlue,
   },
   dividerStyle: {

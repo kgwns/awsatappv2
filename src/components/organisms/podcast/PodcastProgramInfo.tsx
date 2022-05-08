@@ -8,6 +8,7 @@ import { colors } from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {PodcastListItemType} from 'src/redux/podcast/types'
+import { fonts } from 'src/shared/styles/fonts';
 
 interface PodcastProgramProps {
   data: PodcastListItemType;
@@ -72,20 +73,23 @@ StyleSheet.create({
   },
   textStyle: {
     fontSize: normalize(14),
-    fontWeight: 'bold',
     color: theme.primaryBlack,
     textAlign:'center',
-    lineHeight: normalize(20)
+    lineHeight: normalize(20),
+    fontFamily: fonts.Almarai_Bold,
   },
   announcerTextStyle: {
-    fontSize: normalize(14),
+    fontSize: normalize(13),
+    lineHeight: normalize(14),
     color: colors.greenishBlue,
+    fontFamily: fonts.Almaria_Regular,
   },
   descriptionTextStyle: {
     fontSize: normalize(13),
     lineHeight: normalize(20),
     color: colors.spanishGray,
     textAlign: 'center',
+    fontFamily: fonts.IBMPlexSansArabic_Regular,
   },
   labelStyle: {
     fontSize: normalize(11),

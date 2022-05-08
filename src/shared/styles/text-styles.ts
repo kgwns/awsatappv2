@@ -1,6 +1,7 @@
 import {StyleSheet, TextStyle} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {normalize} from 'src/shared/utils/dimensions';
+import { fonts } from './fonts';
 
 export enum ImageResize {
   CONTAIN = 'contain',
@@ -28,20 +29,20 @@ enum TextAlign {
 export const textStyles = (theme: CustomThemeType) => {
   const style = StyleSheet.create<Record<string, TextStyle>>({
     h2: {
+      fontFamily: fonts.Almarai_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(16),
       lineHeight: normalize(26),
       textAlign: TextAlign.LEFT,
-      fontWeight: FontWeight.SEMI_BOLD,
       paddingVertical: normalize(8),
       color: theme.primaryBlack
     },
     h3: {
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(14),
       lineHeight: normalize(23),
       textAlign: TextAlign.LEFT,
-      fontWeight: FontWeight.SEMI_BOLD,
       color: theme.primaryBlack,
     },
     content: {
@@ -112,11 +113,12 @@ export const textStyles = (theme: CustomThemeType) => {
       color: colors.blue,
     },
     caption2: {
+      fontFamily: fonts.Effra_Arbc_Regular,
       fontStyle: FontStyle.NORMAL,
-      fontSize: 22,
-      lineHeight: 33,
-      textAlign: TextAlign.RIGHT,
-      color: colors.white,
+      fontSize: normalize(17),
+      lineHeight: normalize(36),
+      textAlign: TextAlign.LEFT,
+      color: colors.smokeyGrey,
     },
     caption9: {
       fontStyle: FontStyle.NORMAL,
@@ -140,13 +142,15 @@ export const textStyles = (theme: CustomThemeType) => {
       color: theme.primaryBlack,
     },
     p3: {
+      fontFamily: fonts.Effra_Arbc_Regular,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(15),
-      lineHeight: normalize(25),
+      lineHeight: normalize(26),
       textAlign: TextAlign.LEFT,
       color: colors.greyDark,
     },
     p4: {
+      fontFamily: fonts.Effra_Arbc_Regular,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(14),
       lineHeight: normalize(18),
@@ -154,6 +158,7 @@ export const textStyles = (theme: CustomThemeType) => {
       color: colors.smokeyGrey,
     },
     p5: {
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(12),
       lineHeight: normalize(16),
@@ -168,11 +173,11 @@ export const textStyles = (theme: CustomThemeType) => {
       color: colors.red,
     },
     h1: {
+      fontFamily: fonts.IBMPlexSansArabic_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(21),
       lineHeight: normalize(33),
       textAlign: TextAlign.LEFT,
-      fontWeight: FontWeight.SEMI_BOLD,
       color: theme.primaryBlack,
     },
     caption3: {
@@ -185,14 +190,15 @@ export const textStyles = (theme: CustomThemeType) => {
       fontStyle: FontStyle.NORMAL,
       fontSize: 12,
       lineHeight: 13,
-      fontWeight: FontWeight.REGULAR,
+      //fontWeight: FontWeight.REGULAR,
     },
     label10: {
       fontStyle: FontStyle.NORMAL,
       fontSize: 10,
-      lineHeight: 13,
+      lineHeight: 18,
       fontWeight: FontWeight.REGULAR,
       color: colors.greyLight,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     underlinedTitle: {
       fontStyle: FontStyle.NORMAL,
@@ -205,6 +211,7 @@ export const textStyles = (theme: CustomThemeType) => {
       color: colors.blue,
     },
     title1: {
+      fontFamily: fonts.AwsatDigitalBetav10_Black,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(24),
       lineHeight: normalize(36),
@@ -212,11 +219,19 @@ export const textStyles = (theme: CustomThemeType) => {
       color: theme.primaryBlack,
     },
     title3: {
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(20),
       lineHeight: normalize(32),
       textAlign: TextAlign.LEFT,
-      fontWeight: FontWeight.BOLD,
+      color: theme.primaryBlack,
+    },
+    title4: {
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontStyle: FontStyle.NORMAL,
+      fontSize: normalize(17),
+      lineHeight: normalize(28),
+      textAlign: TextAlign.LEFT,
       color: theme.primaryBlack,
     }
   })

@@ -7,6 +7,7 @@ import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import CloseIcon from 'src/assets/images/icons/close.svg'
 import { isDarkTheme } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
+import { fonts } from "src/shared/styles/fonts";
 
 export const AlertModal = ({
     message,
@@ -78,7 +79,7 @@ const customStyle = (theme: CustomThemeType) =>
             fontSize: normalize(24),
             color: theme.primary,
             lineHeight: normalize(29),
-            fontWeight: 'bold',
+            fontFamily: fonts.Almarai_Bold,
             justifyContent: 'center',
             textAlign: 'center',
             paddingBottom: normalize(20)
@@ -89,7 +90,8 @@ const customStyle = (theme: CustomThemeType) =>
             lineHeight: normalize(25),
             textAlign: 'center',
             paddingBottom: normalize(50),
-            width: normalize(278)
+            width: normalize(278),
+            fontFamily: fonts.IBMPlexSansArabic_Regular,
         },
         buttonBackgroundStyle: {
             height: normalize(46),
@@ -102,7 +104,7 @@ const customStyle = (theme: CustomThemeType) =>
         buttonLabelStyle: {
             paddingHorizontal: normalize(10),
             fontSize: normalize(16),
-            fontWeight: 'bold',
+            fontFamily: fonts.Almarai_Bold,
             color: colors.white,
             lineHeight: normalize(20),
             textAlign: 'center',

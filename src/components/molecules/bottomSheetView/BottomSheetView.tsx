@@ -5,6 +5,7 @@ import { Label } from 'src/components/atoms';
 import { normalize } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
+import { fonts } from 'src/shared/styles/fonts';
 
 interface BottomSheetViewProp {
     onPressSignUp: () => void;
@@ -48,10 +49,10 @@ const customStyle = (theme: CustomThemeType) => {
             overflow: 'hidden'
         },
         title: {
+            fontFamily: fonts.AwsatDigitalBetav10_Bold,
             fontSize: normalize(30),
             lineHeight: normalize(53),
             color: theme.primary,
-            fontWeight: 'bold',
             alignSelf: 'center',
             textAlign: 'center',
             marginTop: normalize(25)
@@ -64,17 +65,18 @@ const customStyle = (theme: CustomThemeType) => {
             marginTop: normalize(10)
         },
         subTitle: {
+            fontFamily: fonts.AwsatDigitalBetav10_Bold,
             fontSize: normalize(20),
-            lineHeight: normalize(22),
+            lineHeight: normalize(33),
             color: theme.primaryBlack,
-            fontWeight: 'bold',
             alignSelf: 'center',
             textAlign: 'center',
-            marginTop: normalize(25)
+            marginTop: normalize(20)
         },
         description: {
+            fontFamily: fonts.Effra_Regular,
             fontSize: normalize(19),
-            lineHeight: normalize(26),
+            lineHeight: normalize(32),
             color: theme.primaryBlack,
             alignSelf: 'center',
             textAlign: 'center',
@@ -88,11 +90,11 @@ const customStyle = (theme: CustomThemeType) => {
             borderRadius: normalize(50),
             alignSelf: 'center',
             justifyContent: 'center',
-            marginTop: normalize(15)
+            marginTop: normalize(20)
         },
         buttonLabel: {
+            fontFamily: fonts.AwsatDigitalBetav10_Bold,
             fontSize: normalize(16),
-            fontWeight: 'bold',
             color: 'white',
             lineHeight: normalize(25),
             textAlign: 'center'

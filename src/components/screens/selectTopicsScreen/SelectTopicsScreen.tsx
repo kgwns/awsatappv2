@@ -13,6 +13,7 @@ import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/a
 import { ScreenContainer } from 'src/components/screens';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
 import { useIsFocused } from '@react-navigation/native';
+import { fonts } from 'src/shared/styles/fonts';
 
 export const SelectTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
@@ -151,6 +152,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       paddingTop: normalize(10),
     },
     titleStyle: {
+      fontFamily: fonts.Almarai_Bold,
       textAlign: 'center',
       fontSize: normalize(20),
       fontWeight: 'bold',
@@ -158,6 +160,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       lineHeight: normalize(30),
     },
     descStyle: {
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
       textAlign: 'center',
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,
@@ -183,12 +186,13 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       left: normalize(20)
     },
     nextButtonText: {
+      fontFamily: fonts.Almarai_Bold,
       color: theme.primary,
       textAlign: 'center',
       width: '100%',
       fontSize: normalize(16),
       fontWeight: 'bold',
-      lineHeight: normalize(20),
+      lineHeight: normalize(40),
     },
 });
 

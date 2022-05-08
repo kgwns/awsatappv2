@@ -13,6 +13,7 @@ import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import {useTranslation} from 'react-i18next';
 import { decodeHTMLTags, getPodcastDate, getSecondsToHms } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface PodcastEpisodeInfoProps {
   data: PodcastVerticalListProps;
@@ -117,6 +118,7 @@ StyleSheet.create({
     color: colors.spanishGray,
     textAlign: 'center',
     paddingBottom: normalize(15),
+    fontFamily: fonts.Almaria_Regular,
   },
   descriptionTextStyle: {
     fontSize: normalize(13),
@@ -159,14 +161,17 @@ StyleSheet.create({
     lineHeight: normalize(16),
     color: colors.white,
     marginLeft: normalize(5),
+    fontFamily: fonts.Almaria_Regular,
   },
   footerRightTextStyle: {
     fontSize: normalize(12),
     lineHeight: normalize(16),
     color: colors.white,
     marginRight: normalize(5),
+    fontFamily: fonts.Almaria_Regular,
   },
   buttonLabel: {
     color: colors.black,
+    fontFamily: fonts.Almaria_Regular,
   },
 });

@@ -13,6 +13,7 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ScreenHeight} from 'react-native-elements/dist/helpers';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface FollowFavoriteAuthorProps {
   authorName: string;
@@ -152,12 +153,13 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
     },
     titleStyle: {
+      fontFamily: fonts.Almarai_Bold,
       textAlign: 'center',
       fontSize: normalize(14),
       lineHeight: normalize(17),
-      fontWeight: 'bold',
     },
     descStyle: {
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
       textAlign: 'center',
       fontSize: normalize(10),
       lineHeight: normalize(17),

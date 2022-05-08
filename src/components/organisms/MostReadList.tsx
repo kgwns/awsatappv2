@@ -17,6 +17,7 @@ import { useBookmark, useLogin } from 'src/hooks';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import PopUp, { PopUpType } from './popUp/PopUp';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface articleProps
   extends ImageLabelProps,
@@ -104,14 +105,15 @@ const MostReadList = ({
       leftTitle: item.author_resource,
       leftTitleColor: Styles.color.greenishBlue,
       rightTitle: t(timeAgo(item.created_export)),
+      rightTitleStyle: {fontFamily: fonts.Almaria_Regular},
       rightIcon: () => {
         return getSvgImages({
         name: ImagesName.clock,
         size: normalize(12),
-        style: { marginRight: normalize(5) }
+        style: { marginRight: normalize(7) }
     })},
       rightTitleColor: Styles.color.silverChalice,
-      leftTitleStyle: mostReadListStyle.leftFooterStyle
+      leftTitleStyle: mostReadListStyle.leftFooterStyle,
     };
     enableTag && (item.tagName = (index + 1).toString())
     item.tagStyle = {marginLeft: normalize(20)};
@@ -124,6 +126,7 @@ const MostReadList = ({
       <View>
         <ArticleItem
           {...item}
+          bodyStyle={{ fontFamily: fonts.IBMPlexSansArabic_Regular }}
           showDivider={false}
           index={index}
           contentStyle={mostReadListStyle.contentStyle}
@@ -179,6 +182,6 @@ const mostReadListStyle = StyleSheet.create({
     paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
   },
   leftFooterStyle: {
-    fontWeight: 'bold'
+    fontFamily: fonts.Almarai_Bold,
   }
 });

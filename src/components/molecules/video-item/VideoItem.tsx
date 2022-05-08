@@ -23,6 +23,8 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
 import PlayIconSmall from 'src/assets/images/icons/Play_black.svg';
 import { MixedStyleRecord } from 'react-native-render-html';
+import { fonts } from 'src/shared/styles/fonts';
+
 export interface VideoItemProps {
   imageUrl: string;
   videoLabel?: string;
@@ -70,6 +72,7 @@ export const VideoItem = ({
       direction: 'rtl',
       fontSize: normalize(15),
       lineHeight: normalize(25),
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
   };
   return (
@@ -168,6 +171,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     day: {
       marginHorizontal: normalize(8),
+      fontFamily: fonts.Almaria_Regular,
     },
     footerRight: {
       flexDirection: 'row',
@@ -259,12 +263,13 @@ const createStyles = (theme: CustomThemeType) =>
     },
     buttonLabel: {
       color: colors.white,
+      fontFamily: fonts.Almaria_Regular,
     },
     titleStyle: {
       color: colors.darkRed,
       fontSize: normalize(35),
-      fontWeight: 'bold',
       lineHeight: normalize(55),
+      fontFamily: fonts.Beirut,
     },
     documentaryTitle: {
       color: colors.white,

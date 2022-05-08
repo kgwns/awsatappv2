@@ -22,6 +22,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface NewsFeedProps {
   title: string;
@@ -112,6 +113,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
       titleColor={theme.themeData.primaryBlack}
       numberOfLines={2}
       labelType={LabelTypeProp.h2}
+      style={style.title}
     />
   )
 
@@ -235,4 +237,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     flex: 1,
     paddingRight: normalize(30),
   },
+  title: {
+    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontSize: normalize(18),
+    lineHeight: normalize(29),
+  }
 });

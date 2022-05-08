@@ -26,6 +26,7 @@ import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { Label } from 'src/components/atoms';
 import { getPodcastUrl } from 'src/shared/utils/utilities';
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
+import { fonts } from 'src/shared/styles/fonts';
 
 
 const heroListTopListPayload: LatestArticleBodyGet = {
@@ -891,8 +892,8 @@ const customStyle = (theme: CustomThemeType) => {
     articleTitleStyle: {
       fontSize: normalize(33),
       color: theme.primary,
-      fontWeight: 'bold',
       lineHeight: normalize(50),
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     topNewsContainer: {
       marginHorizontal: 0.04 * screenWidth,

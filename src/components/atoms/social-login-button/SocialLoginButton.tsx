@@ -7,6 +7,7 @@ import { Styles } from 'src/shared/styles';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { isIOS } from 'src/shared/utils';
+import { fonts } from 'src/shared/styles/fonts';
 
 const createStyles = (theme: CustomThemeType) =>
 StyleSheet.create({
@@ -23,7 +24,8 @@ StyleSheet.create({
     marginVertical: normalize(7)
   },
   textStyle: {
-    fontSize: normalize(14),
+    fontFamily: fonts.Almarai_Bold,
+    fontSize: normalize(16),
     lineHeight: normalize(15),
     color: theme.signInTextColor,
   },

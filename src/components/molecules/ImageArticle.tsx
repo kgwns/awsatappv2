@@ -12,6 +12,7 @@ import { ScreensConstants } from 'src/constants'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { decodeHTMLTags } from 'src/shared/utils/utilities'
+import { fonts } from 'src/shared/styles/fonts'
 
 const carouselFooterSample: articleFooterProps = {
   leftTitleColor: Styles.color.white,
@@ -19,12 +20,13 @@ const carouselFooterSample: articleFooterProps = {
     return getSvgImages({
       name: ImagesName.clock,
       size: normalize(12),
-      style: { marginRight: normalize(5) }
+      style: { marginRight: normalize(7) }
     })
   },
   rightTitleColor: Styles.color.silverChalice,
   bookMarkColorType: BookMarkColorType.WHITE,
-  leftTitleStyle: { fontWeight: 'bold' }
+  leftTitleStyle: { fontWeight: 'bold' },
+  rightTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular }
 }
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {

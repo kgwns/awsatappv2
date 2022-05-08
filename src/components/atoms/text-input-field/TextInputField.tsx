@@ -8,6 +8,7 @@ import { Label } from 'src/components/atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { fonts } from 'src/shared/styles/fonts';
 
 const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
@@ -21,6 +22,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingHorizontal: normalize(10),
     },
     textInputStyle: {
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
       fontSize: normalize(14),
       textAlign: I18nManager.isRTL ? 'right' : 'left',
       paddingVertical: normalize(5),

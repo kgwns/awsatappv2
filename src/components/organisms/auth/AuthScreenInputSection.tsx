@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleProp, ViewStyle, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleProp, ViewStyle, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { Label, SocialLoginButton, TextInputField } from '../../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -9,6 +9,7 @@ import { SocialButtonSection } from '..';
 import {colors} from '../../../shared/styles/colors';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import {CustomThemeType} from 'src/shared/styles/colors';
+import { fonts } from 'src/shared/styles/fonts';
 
 interface AuthScreenInputSectionProps {
   onPressSignup?: () => void;
@@ -133,6 +134,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
                       children={t('signIn.forgotPassword')}
                       style={styles.passwordLabel}
                     />
+                    <View style={styles.passwordLabelUnderline}/>
             </TouchableOpacity>
             }
             <SocialLoginButton testID="signin_signIn"
@@ -147,7 +149,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
             <Label
               children={t('signIn.or')}
               style={styles.textStyleBlack}
-            />
+            /> 
             <View style={styles.divider} />
           </View>
           <View style={[styles.bottomContainerStyle,isPassword&&{flex:0.35}]}>
@@ -168,24 +170,23 @@ StyleSheet.create({
   },
   loginStyle: {
     fontSize: normalize(20),
-    fontWeight: 'bold',
     marginTop: normalize(20)
   },
   spaceStyle: {
     marginHorizontal: normalize(10),
   },
   textStyle: {
+    fontFamily: fonts.IBMPlexSansArabic_Regular,
     fontSize: normalize(13),
     color: theme.signInTextColor,
     lineHeight: normalize(22),
-    fontWeight: '400',
     marginBottom: normalize(25),
   },
   textStyleBlack: {
-    fontSize: normalize(16),
+    fontFamily: fonts.Almaria_ExtraBold,
+    fontSize: normalize(18),
     color: theme.primaryBlack,
     lineHeight: normalize(22),
-    fontWeight: 'bold',
   },
   buttonStyle: {
     backgroundColor: theme.primary,
@@ -208,8 +209,6 @@ StyleSheet.create({
   },
   signInLabelStyle: {
     color: theme.secondaryWhite,
-    fontWeight: 'bold',
-    fontSize: 16,
     lineHeight: 25,
   },
   dividerContainber: {
@@ -235,10 +234,15 @@ StyleSheet.create({
     color: theme.primaryLightGray,
   },
   passwordLabel: {
-    fontSize: normalize(15),
-    textDecorationLine: 'underline',
+    fontFamily: fonts.IBMPlexSansArabic_Regular,
+    fontSize: normalize(14),
     color: theme.primary,
     lineHeight: normalize(22),
+  },
+  passwordLabelUnderline: {
+    height: 1, 
+    backgroundColor: theme.primary, 
+    opacity: .3,
     marginBottom: normalize(10),
   }
 })

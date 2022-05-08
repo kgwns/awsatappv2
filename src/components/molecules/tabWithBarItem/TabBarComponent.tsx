@@ -4,6 +4,7 @@ import { TabWithBarItem, TabBarDataProps } from '..'
 import { isIOS, normalize, screenWidth } from 'src/shared/utils'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
+import { fonts } from 'src/shared/styles/fonts'
 
 export interface TabBarWidgetProps {
   tabItem: TabBarDataProps[],
@@ -28,7 +29,12 @@ export const TabBarComponent = ({ tabItem, onPressTabItem, style }: TabBarWidget
       >
         {
           tabItem.map((item: TabBarDataProps, index: number) =>
-            <TabWithBarItem key={index} {...item} index={index} onPress={onPressTabItem} />)
+            <TabWithBarItem key={index}
+              {...item} index={index}
+              onPress={onPressTabItem}
+              labelFont={item.isSelected ? fonts.Almaria_ExtraBold : fonts.Almaria_Regular}
+            />
+          )
         }
       </ScrollView>
       <View style={styles.tabBarBottomView} />

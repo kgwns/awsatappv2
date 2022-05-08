@@ -132,9 +132,6 @@ const customStyle = (theme: CustomThemeType) => {
         contentStyle: {
             paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
         },
-        leftFooterStyle: {
-            fontWeight: 'bold'
-        },
         rbSheetContainer: {
             alignItems: "center",
             borderRadius: normalize(20),

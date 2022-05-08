@@ -16,6 +16,7 @@ import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { HeaderConstants } from '../constants/HeaderConstants'; 
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
+import { fonts } from 'src/shared/styles/fonts'
 
 const Stack = createStackNavigator();
 
@@ -267,6 +268,7 @@ const customStyle = (theme: CustomThemeType) => (
       color: theme.primaryDarkSlateGray,
       fontSize: normalize(12),
       lineHeight: normalize(16),
+      fontFamily: fonts.Almaria_Regular,
     },
     onBoardPrevIcon: {
       width: normalize(12),
@@ -276,8 +278,8 @@ const customStyle = (theme: CustomThemeType) => (
     headerTitle:{
       fontSize:normalize(24),
       lineHeight:normalize(50),
-      fontWeight:'bold',
       color:theme.primaryDarkSlateGray,
+      fontFamily: fonts.IBMPlexSansArabic_Bold,
     }
   })
 )

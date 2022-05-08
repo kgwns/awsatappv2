@@ -147,7 +147,7 @@ const AuthorSlider = ({
     headerLeft: {
         title: widgetHeader ? widgetHeader : t('latestNewsTab.sectionWriters.headerLeft'),
         color: themeData.primary,
-        labelType: LabelTypeProp.h2,
+        labelType: LabelTypeProp.title3,
         elementContainerStyle: style.headerLeftContainer
     },
     headerRight: {
@@ -159,8 +159,7 @@ const AuthorSlider = ({
           style: { marginLeft: normalize(10) }
         })
       },
-      color: Styles.color.smokeyGrey,
-      labelType: LabelTypeProp.h3,
+      labelType: LabelTypeProp.caption2,
       clickable: true,
     },
 };
@@ -208,7 +207,8 @@ const customStyle = (theme: CustomThemeType) => {
     headerContainer: {
         paddingHorizontal:0.04 * screenWidth,
         backgroundColor: theme.secondaryWhite,
-        paddingTop:normalize(10)
+        paddingTop:normalize(30),
+        paddingBottom: normalize(10),
     },
     headerLeftContainer: {
         paddingHorizontal: 0,

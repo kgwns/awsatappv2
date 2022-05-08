@@ -12,6 +12,7 @@ import { ScreenHeight } from 'react-native-elements/dist/helpers';
 import { NewsLettersWidget } from 'src/components/organisms';
 import { useNewsLetters } from 'src/hooks';
 import { NewsLetterItemType } from 'src/redux/newsLetter/types';
+import { fonts } from 'src/shared/styles/fonts';
 
 export const NewsLetterScreen = ({ navigation, route }: any) => {
 
@@ -255,13 +256,14 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: normalize(5),
     },
     titleStyle: {
+      fontFamily: fonts.Almarai_Bold,
       textAlign: 'center',
       fontSize: normalize(20),
-      fontWeight: 'bold',
       color: theme.primary,
       lineHeight: normalize(30),
     },
     descStyle: {
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
       textAlign: 'center',
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,
@@ -289,12 +291,12 @@ const customStyle = (theme: CustomThemeType) => {
     },
     nextButtonIconContainer: { position: 'absolute', left: normalize(20) },
     nextButtonText: {
+      fontFamily: fonts.Almarai_Bold,
       color: theme.primary,
       textAlign: 'center',
       width: '100%',
       fontSize: normalize(16),
-      fontWeight: 'bold',
-      lineHeight: normalize(20),
+      lineHeight: normalize(30),
     },
   });
   return NewsLetterScreenStyle;

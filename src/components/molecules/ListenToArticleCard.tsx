@@ -9,6 +9,7 @@ import {normalize} from 'src/shared/utils';
 import { useTranslation } from 'react-i18next';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { getSecondsToHms, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { fonts } from 'src/shared/styles/fonts';
 
 export const ListenToArticleCard = (data: any) => {
   const style = useThemeAwareObject(customStyle);
@@ -77,6 +78,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(16),
       lineHeight: normalize(36),
       color: theme.primary,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     duration: {
       justifyContent: 'center',
@@ -85,6 +87,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(14),
       marginStart: normalize(15),
       color: colors.spanishGray,
+      fontFamily: fonts.Effra_Arbc_Medium,
     },
     icon: {
       width:normalize(33),

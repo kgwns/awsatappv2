@@ -7,6 +7,7 @@ import { isIOS, normalize, normalizeBy320 } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { moleculesTestID } from 'src/constants'
+import { fonts } from 'src/shared/styles/fonts'
 
 export type FilterDataType = {
     name: string,
@@ -63,7 +64,8 @@ const customStyle = (theme: CustomThemeType) => (
             borderColor: theme.filterBorderColor,
         },
         label: {
-            fontSize: normalize(13)
+            fontSize: normalize(13),
+            fontFamily: fonts.Almaria_Regular,
         }
     })
 )

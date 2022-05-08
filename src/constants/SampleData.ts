@@ -322,7 +322,7 @@ export const authorHeaderData: WidgetHeaderProps = {
     icon: () => {return getSvgImages({
       name: ImagesName.clock,
       size: normalize(12),
-      style: { marginRight: normalize(5) }
+      style: { marginRight: normalize(7) }
   })},
     color: Styles.color.smokeyGrey,
     labelType: LabelTypeProp.h3,
@@ -364,7 +364,7 @@ export const articleFooterSample: articleFooterProps = {
   rightIcon: () => {return getSvgImages({
     name: ImagesName.clock,
     size: normalize(12),
-    style: { marginRight: normalize(5) }
+    style: { marginRight: normalize(7) }
 })},
   rightTitleColor: Styles.color.silverChalice,
 };

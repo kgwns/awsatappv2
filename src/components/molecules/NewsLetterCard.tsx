@@ -8,6 +8,7 @@ import {ImagesName} from 'src/shared/styles/images';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useTranslation} from 'react-i18next';
+import { fonts } from 'src/shared/styles/fonts';
 export interface NewsLetterCardProps {
   title: string;
   subTitle: string;
@@ -113,12 +114,13 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: 2,
     },
     title: {
+      fontFamily: fonts.Almaria_ExtraBold,
       fontSize: normalize(16),
-      fontWeight: 'bold',
       lineHeight: normalize(19),
       color: theme.primaryDarkSlateGray,
     },
     subTitle: {
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
       fontSize: normalize(10),
       lineHeight: normalize(15),
       color: colors.doveGray,
@@ -138,17 +140,18 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.secondaryWhite,
     },
     statusLabel: {
+      fontFamily: fonts.Almaria_Regular,
       fontSize: normalize(12),
       lineHeight: normalize(14),
       marginStart: normalize(8),
       color: colors.doveGray,
     },
     statusSelectedLabel: {
+      fontFamily: fonts.Almarai_Bold,
       fontSize: normalize(12),
       color: theme.primary,
       lineHeight: normalize(14),
       marginStart: normalize(8),
-      fontWeight: 'bold',
     },
     labelContainer: {
       flex: 1,

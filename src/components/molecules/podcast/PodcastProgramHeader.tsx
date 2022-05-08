@@ -12,6 +12,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { colors } from 'src/shared/styles/colors';
 import CloseIcon from 'src/assets/images/icons/close.svg';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface PodcastProgramHeaderProps {
   headerBackIconTestId?: string;
@@ -122,6 +123,7 @@ StyleSheet.create({
   labelStyle: {
     marginLeft: normalize(10),
     color: colors.white,
+    fontFamily: fonts.Almarai_Bold,
   },
   buttonStyle: {
     paddingLeft: normalize(20),

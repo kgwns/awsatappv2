@@ -12,6 +12,7 @@ import { ScreenHeight } from 'react-native-elements/dist/helpers';
 import { useKeepNotified } from 'src/hooks';
 import { NotificationDataType } from 'src/redux/keepNotified/types';
 import { useIsFocused } from '@react-navigation/native';
+import { fonts } from 'src/shared/styles/fonts';
 
 
 export const KeepNotifiedScreen = ({ navigation, route }: any) => {
@@ -210,13 +211,14 @@ const customStyle = (theme: CustomThemeType) => (
       flex: 0.13,
     },
     titleStyle: {
+      fontFamily: fonts.Almarai_Bold,
       textAlign: 'center',
       fontSize: normalize(20),
-      fontWeight: 'bold',
       color: theme.primary,
       lineHeight: normalize(30),
     },
     descStyle: {
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
       textAlign: 'center',
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,
@@ -246,12 +248,12 @@ const customStyle = (theme: CustomThemeType) => (
       left: normalize(20)
     },
     nextButtonText: {
+      fontFamily: fonts.Almarai_Bold,
       color: 'white',
       textAlign: 'center',
       width: '100%',
       fontSize: normalize(16),
-      fontWeight: 'bold',
-      lineHeight: normalize(20),
+      lineHeight: normalize(30),
     },
   })
 )

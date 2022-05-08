@@ -7,6 +7,7 @@ import { normalize } from 'src/shared/utils'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { GameType } from 'src/components/screens/games/GameScreen'
+import { fonts } from 'src/shared/styles/fonts'
 
 export interface GameIntroCardProps {
     type: GameType;
@@ -97,15 +98,20 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     buttonTitle: {
         fontSize: normalize(15),
         lineHeight: normalize(36),
-        marginRight: normalize(10)
+        marginRight: normalize(10),
+        fontFamily: fonts.Effra_Arbc_Medium,
     },
     title: {
-        fontWeight: '400',
-        marginTop: normalize(17)
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        marginTop: normalize(17),
+        fontSize: normalize(27),
+        lineHeight: normalize(42),
+        fontWeight: 'normal'
     },
     description: {
         lineHeight: normalize(24),
         paddingBottom: normalize(20),
         paddingTop: normalize(8),
+        fontFamily: fonts.Effra_Regular,
     }
 })

@@ -20,6 +20,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { useLogin } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -54,12 +55,12 @@ export const shortArticleFooter: articleFooterProps = {
     return getSvgImages({
       name: ImagesName.clock,
       size: normalize(12),
-      style: { marginRight: normalize(5) }
+      style: { marginRight: normalize(7) }
     })
   },
   leftTitleColor: Styles.color.silverChalice,
   rightTitleColor: Styles.color.silverChalice,
-  leftTitleStyle: { fontSize: 11, lineHeight: 13 },
+  leftTitleStyle: { fontSize: 11, lineHeight: 13, fontFamily: fonts.Effra_Arbc_Regular },
   rightTitleStyle: { fontSize: 11, lineHeight: 13 },
 };
 

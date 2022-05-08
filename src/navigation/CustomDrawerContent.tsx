@@ -35,6 +35,7 @@ import {
 } from 'src/constants/SharedConstants';
 import { recordLogEvent } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
+import { fonts } from 'src/shared/styles/fonts';
 import { ToggleWithLabel } from 'src/components/molecules';
 import { useAppCommon } from 'src/hooks';
 import { Theme } from 'src/redux/appCommon/types';
@@ -171,7 +172,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         }}
         onPressIcon={() => onPressDropDownIcon(index)}
         containerStyle={isChild && styles.childItemStyle}
-        titleStyle={isChild && styles.childTitleStyle}
+        titleStyle={isChild ? styles.childTitleStyle : styles.parentTitleStyle}
       />
     )
   }
@@ -403,7 +404,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     nonBoldTitle: {
-      fontWeight: 'normal',
+      fontFamily: fonts.Almaria_Regular,
     },
     divider: {
       height: 1,
@@ -413,6 +414,11 @@ const createStyles = (theme: CustomThemeType) =>
       marginLeft: 20
     },
     childTitleStyle:{
+      opacity: .8,
+      fontFamily: fonts.Almaria_Regular,
+    },
+    parentTitleStyle: {
+      fontFamily: fonts.Almarai_Bold,
       fontWeight : 'normal', 
       opacity: .8
     },

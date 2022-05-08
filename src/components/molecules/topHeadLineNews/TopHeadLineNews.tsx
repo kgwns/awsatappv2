@@ -8,6 +8,7 @@ import { ScreensConstants } from 'src/constants'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { MainSectionBlockType } from '~/redux/latestNews/types'
+import { fonts } from 'src/shared/styles/fonts'
 
 
 export type TopHeadLineNewsProps = {
@@ -69,6 +70,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight: normalize(24),
         textAlign: 'left',
         color: theme.primaryBlack,
-        fontWeight: 'bold'
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
     }
 })

@@ -8,6 +8,7 @@ import { TextWithFlagProps } from 'src/components/atoms';
 import { decodeHTMLTags, isNotEmpty } from 'src/shared/utils/utilities';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
     body?: string,
@@ -20,6 +21,7 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
     onPressBookmark?: () => void
     bodyLineCount?: number,
     showBody?: boolean,
+    bodyStyle?: StyleProp<ViewStyle>
 }
 
 const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
@@ -31,6 +33,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     showFooterTitle,
     bodyLineCount = 3,
     showBody= true,
+    bodyStyle,
     ...props
 }) => {
     const style = useThemeAwareObject(customStyle)
@@ -43,6 +46,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
                     children={bodyInfo}
                     color={Styles.color.davyGrey}
                     numberOfLines={bodyLineCount}
+                    style={bodyStyle}
                 />
                 }
             <View style={style.footerContainer}>

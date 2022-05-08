@@ -14,8 +14,10 @@ export enum LabelTypeProp {
   p4 = 'p4',
   p5 = 'p5',
   caption3 = 'caption3',
+  caption2 = 'caption2',
   title1 = 'title1',
   title3 = 'title3',
+  title4 = 'title4',
 }
 
 export type LabelType =
@@ -45,6 +47,7 @@ export type LabelType =
   | 'content'
   | 'title1'
   | 'title3'
+  | 'title4'
   | undefined;
 export interface LabelProps extends TextProps {
   labelType?: LabelType | LabelTypeProp;
@@ -135,6 +138,9 @@ export const Label: FunctionComponent<LabelProps> = ({
       break;
     case 'title3':
       textStyle = labelStyle.title3;
+      break;
+    case 'title4':
+      textStyle = labelStyle.title4;
       break;
     default:
       textStyle = labelStyle.default;

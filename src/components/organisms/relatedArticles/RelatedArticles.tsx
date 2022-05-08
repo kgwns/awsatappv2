@@ -19,7 +19,7 @@ const sampleRelatedArticle: articleProps = {
     leftIcon: () => {return getSvgImages({
       name: ImagesName.clock,
       size: normalize(12),
-      style: { marginRight: normalize(5) }
+      style: { marginRight: normalize(7) }
   })},
     hideBookmark: true
   },

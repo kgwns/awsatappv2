@@ -8,6 +8,8 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from 'src/hooks';
+import { fonts } from 'src/shared/styles/fonts';
+
 export interface SearchResultsProps {
   id: string;
   label: string;
@@ -170,6 +172,7 @@ StyleSheet.create({
     textAlign: 'left',
     marginVertical: normalize(16),
     fontSize: normalize(16),
+    fontFamily: fonts.Almaria_Regular,
   },
   containerStyle: {
     flex : 1
@@ -188,6 +191,7 @@ StyleSheet.create({
   },
   historyItemText: {
     fontWeight: 'normal',
+    fontFamily: fonts.Almaria_Regular,
   },
   clearButtonStyle: {
    marginTop: normalize(20),

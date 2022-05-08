@@ -1,7 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import { TouchableOpacity, View, StyleSheet, I18nManager} from 'react-native';
 import {Input} from 'react-native-elements';
-import { Image } from '../../atoms'
 import {Styles} from 'src/shared/styles';
 import {normalize} from 'src/shared/utils';
 import CloseIcon from 'src/assets/images/icons/close.svg';
@@ -10,6 +9,8 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { useTranslation } from 'react-i18next';
+import { fonts } from 'src/shared/styles/fonts';
+
 export interface SearchBarProps {
   searchText: string;
   onChangeText: (searchText: string) => void;
@@ -111,5 +112,6 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: I18nManager.isRTL?'right':'left',
       paddingVertical: 0,
       marginTop: 0,
+      fontFamily: fonts.Almaria_Regular,
     },
   });

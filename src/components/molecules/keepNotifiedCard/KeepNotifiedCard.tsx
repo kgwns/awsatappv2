@@ -7,6 +7,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import { fonts } from 'src/shared/styles/fonts';
 
 interface KeepNotifiedCardProps {
   label: string;
@@ -56,8 +57,8 @@ const customStyle = (theme: CustomThemeType) => {
       paddingTop: normalize(10),
     },
     textStyle: {
+      fontFamily: fonts.Almarai_Bold,
       fontSize: normalize(18),
-      fontWeight: 'bold',
       lineHeight: normalize(30),
       color: theme.primaryBlack,
     },

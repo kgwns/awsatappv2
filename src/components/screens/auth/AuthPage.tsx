@@ -28,6 +28,7 @@ import {AlertPayloadType} from 'src/components/screens/ScreenContainer/ScreenCon
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
+import { fonts } from 'src/shared/styles/fonts';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -195,6 +196,7 @@ export const AuthPage: FunctionComponent = () => {
                 navigateToSection={navigateToSection}
                 onPressSignup={onPressSignup}
                 showAlertNoInternet={showAlertNoInternet}
+                socialButtonBoldStyle={true}
               />
             </View>
           </View>
@@ -252,7 +254,8 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'flex-end',
     },
     headerLabelStyle: {
-      fontSize: normalize(15),
+      fontFamily: fonts.Almaria_Regular,
+      fontSize: normalize(12),
       color: theme.primary,
       lineHeight: normalize(16),
     },

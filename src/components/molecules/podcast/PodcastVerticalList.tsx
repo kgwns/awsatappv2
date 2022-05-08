@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
 import {normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -9,6 +9,7 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {getPodcastDate, getSecondsToHms} from 'src/shared/utils/utilities';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface PodcastVerticalListProps {
   nid: string;
@@ -112,7 +113,7 @@ const customStyle = (theme: CustomThemeType) => {
     title: {
       fontSize: normalize(14),
       lineHeight: normalize(16),
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),
       textAlign: 'left',
@@ -122,12 +123,14 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(16),
       color: colors.spanishGray,
       marginLeft: normalize(5),
+      fontFamily: fonts.Almaria_Regular,
     },
     footerRightTextStyle: {
       fontSize: normalize(12),
       lineHeight: normalize(16),
       color: colors.greenishBlue,
       marginRight: normalize(5),
+      fontFamily: fonts.Almaria_Regular,
     },
     description: {
       fontSize: normalize(13),

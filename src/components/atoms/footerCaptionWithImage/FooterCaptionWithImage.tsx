@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, StyleProp, TextStyle } from 'react-native'
+import { fonts } from 'src/shared/styles/fonts'
 import { Label, LabelTypeProp } from '..'
 import { normalize } from '../../../shared/utils'
 
@@ -41,6 +42,7 @@ const captionImageStyle = StyleSheet.create({
         paddingHorizontal: normalize(5)
     },
     textLabel: {
-        paddingVertical: normalize(1)
+        paddingVertical: normalize(1),
+        fontFamily: fonts.Almaria_Regular,
     }
 })

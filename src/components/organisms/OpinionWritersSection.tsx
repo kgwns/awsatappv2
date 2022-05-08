@@ -15,6 +15,7 @@ import {Grayscale} from 'react-native-color-matrix-image-filters';
 import { Styles } from 'src/shared/styles';
 import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
 import { getImageUrl } from 'src/shared/utils/utilities';
+import { fonts } from 'src/shared/styles/fonts';
 
 interface OpinionWritersWidgetProps {
   data: OpinionWriterItemType[];
@@ -83,13 +84,13 @@ const customStyle = (theme: CustomThemeType) => {
     },
     headerStyle: {
       fontSize: normalize(15),
-      fontWeight: 'bold',
       lineHeight: normalize(42),
       color: theme.primary,
       textAlign: 'left',
       marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       marginTop: normalize(16),
-      marginBottom: normalize(8)
+      marginBottom: normalize(8),
+      fontFamily: fonts.Almarai_Bold,
     },
     writerContainer: {
       marginRight: normalize(20),
@@ -105,6 +106,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(10),
       color: theme.secondaryDavyGrey,
       lineHeight: normalize(14),
+      fontFamily: fonts.IBMPlexSansArabic_Medium,
     },
     divider: {
       height: 1,

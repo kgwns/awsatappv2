@@ -13,6 +13,7 @@ import { MixedStyleRecord } from 'react-native-render-html'
 import { useNavigation } from '@react-navigation/native'
 import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints'
 import { getSvgImages } from 'src/shared/styles/svgImages'
+import { fonts } from 'src/shared/styles/fonts'
 
 type TermsAndAboutUsProps = {
   route: any
@@ -33,7 +34,8 @@ export const TermsAndAboutUs = ({
       textAlign: 'left',
       direction: 'rtl',
       fontSize: normalize(16),
-      lineHeight: normalize(33)
+      lineHeight: normalize(33),
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     h2: {
       color: themeData.primaryBlack,
@@ -125,13 +127,15 @@ const customStyle = (theme: CustomThemeType) => (
       alignContent: 'center',
       top: isIOS ? normalize(50) : normalize(25),
       flexWrap: 'wrap',
-      alignItems: 'center'
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     title: {
       fontSize: normalize(20),
       color: Styles.color.greenishBlue,
       textAlign: 'left',
-      paddingVertical: normalize(15)
+      paddingVertical: normalize(15),
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     logo: {
       height: normalize(40),
@@ -141,16 +145,5 @@ const customStyle = (theme: CustomThemeType) => (
       paddingHorizontal: 0.04 * screenWidth,
       paddingVertical: normalize(10)
     },
-    termsAndConditionTitle: {
-      position: 'absolute',
-      left: 0.04 * screenWidth,
-      bottom: normalize(30),
-      alignContent: 'center',
-      alignItems: 'center',
-      color: theme.primaryBlack,
-      fontSize: normalize(22),
-      lineHeight: normalize(33),
-      fontWeight: 'bold'
-    }
   })
 )

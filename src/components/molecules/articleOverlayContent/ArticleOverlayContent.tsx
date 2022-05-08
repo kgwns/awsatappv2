@@ -8,6 +8,7 @@ import { isNotEmpty, normalize, timeAgo } from 'src/shared/utils'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
+import { fonts } from 'src/shared/styles/fonts'
 
 const articleDetailFooterData: articleFooterProps = {
     leftTitleColor: Styles.color.white,
@@ -15,11 +16,13 @@ const articleDetailFooterData: articleFooterProps = {
         return getSvgImages({
             name: ImagesName.clock,
             size: normalize(12),
-            style: { marginRight: normalize(5) }
+            style: { marginRight: normalize(7) }
         })
     },
     rightTitleColor: Styles.color.white,
-    hideBookmark: true
+    hideBookmark: true,
+    leftTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular },
+    rightTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular }
 }
 
 export interface ArticleOverlayContentProps {
@@ -53,7 +56,7 @@ export const ArticleOverlayContent = ({
             <Label labelType={LabelTypeProp.h1}
                 children={title}
                 color={textColor}
-                style={{ paddingBottom: normalize(5), paddingTop: normalize(15) }} />
+                style={{ paddingBottom: normalize(5), paddingTop: normalize(15), fontFamily: fonts.AwsatDigitalBetav10_Bold }} />
             <ArticleFooter {...articleDetailFooterData} rightTitle={author} leftTitle={t(timeAgo(created))} />
         </View>
     )
@@ -67,6 +70,7 @@ const imageArticleStyle = StyleSheet.create({
     tagNameStyle: {
         paddingHorizontal: normalize(10),
         backgroundColor: Styles.color.darkGreenishBlue,
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        fontFamily: fonts.Effra_Arbc_Regular,
     }
 })

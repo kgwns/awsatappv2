@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native'
 import { Label, LabelTypeProp } from '..'
 import { normalize } from 'src/shared/utils'
 
@@ -11,6 +11,7 @@ export interface TextWithFlagProps {
     flagColor?: string,
     labelType?: LabelTypeProp,
     numberOfLines?: number,
+    style?: StyleProp<TextStyle>;
 }
 
 export const TextWithFlag = ({
@@ -20,13 +21,14 @@ export const TextWithFlag = ({
     titleColor,
     barColor,
     labelType = LabelTypeProp.p5,
-    numberOfLines = 2
+    numberOfLines = 2,
+    style,
 }: TextWithFlagProps) => {
     return (
         <Text style={textWithFlagStyle.container} numberOfLines={numberOfLines} >
-            {flag && <Label style={[{ color: flagColor }]} children={`${flag}`} labelType={labelType} />}
-            {flag && <Label style={[{ color: barColor }]} children={`   |    `} labelType={labelType} />}
-            <Label children={title} labelType={labelType} color={titleColor} />
+            {flag && <Label style={[{ color: flagColor }, style]} children={`${flag}`} labelType={labelType} />}
+            {flag && <Label style={[{ color: barColor }, style]} children={`   |    `} labelType={labelType} />}
+            <Label children={title} labelType={labelType} color={titleColor} style={style} />
         </Text>
     )
 }

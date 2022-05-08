@@ -16,6 +16,8 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { StyleSheet, View } from 'react-native'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { getSecondsToHms } from 'src/shared/utils/utilities'
+import { getSvgImages } from 'src/shared/styles/svgImages'
+import { ImagesName } from 'src/shared/styles'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -67,6 +69,12 @@ export const PopulateWidget = ({
                     {...props}
                     footerInfo={{
                         ...articleFooterDataSet,
+                        leftIcon: null,
+                        rightIcon: () => {return getSvgImages({
+                            name: ImagesName.clock,
+                            size: normalize(12),
+                            style: { marginRight: normalize(7) }
+                        })},
                         leftTitle: props.author,
                         rightTitle: t(timeAgo(props.created)),
                         favouriteIconHeight: 16,

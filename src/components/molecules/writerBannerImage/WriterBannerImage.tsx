@@ -14,6 +14,7 @@ import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import DeviceInfo from 'react-native-device-info';
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
 import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TWITTER_APP_URL } from 'src/constants/SharedConstants'
+import { fonts } from 'src/shared/styles/fonts'
 
 export interface WriterBannerImageProps {
   data: {
@@ -220,8 +221,8 @@ const customStyle = (theme: CustomThemeType) => {
     authorName:{
       fontSize: normalize(22),
       lineHeight: normalize(33),
-      fontWeight: 'bold',
       color: theme.primaryBlack,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     authorDescription:{
       fontSize: normalize(13),
@@ -229,12 +230,14 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'left',
       marginBottom:normalize(15),
       color: theme.primaryBlack,
+      fontFamily: fonts.Effra_Arbc_Regular,
     },
     returnLabel: {
       marginStart: normalize(5),
       fontSize: normalize(14),
-      lineHeight: normalize(17),
+      lineHeight: normalize(32),
       color: theme.primaryBlack,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     followContainer: {
       width: normalize(80),
@@ -247,8 +250,8 @@ const customStyle = (theme: CustomThemeType) => {
     followLabel: {
       fontSize: normalize(13),
       lineHeight: normalize(27),
-      fontWeight: 'bold',
       marginStart: normalize(5),
+      fontFamily: fonts.Almarai_Bold,
     },
   })
 } 

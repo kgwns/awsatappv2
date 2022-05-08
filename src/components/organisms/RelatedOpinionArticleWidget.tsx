@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { OpinionsListItemType } from 'src/redux/opinionArticleDetail/types';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { isNotEmpty } from 'src/shared/utils/utilities'
+import { fonts } from 'src/shared/styles/fonts';
 
 interface RelatedOpinionArticlesWidgetProps {
   data: OpinionsListItemType[];
@@ -68,9 +69,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     header: {
       textAlign: 'left',
-      fontSize: normalize(16),
+      fontSize: normalize(20),
       lineHeight: normalize(42),
-      fontWeight: 'bold',
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: theme.primary,
       paddingBottom: 0.02 * screenWidth,
     },

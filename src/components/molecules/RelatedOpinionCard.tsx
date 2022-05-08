@@ -17,6 +17,7 @@ import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
+import { fonts } from 'src/shared/styles/fonts';
 
 
 export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
@@ -118,6 +119,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(14),
       lineHeight: normalize(14),
       color: theme.primary,
+      fontFamily: fonts.Effra_Arbc_Regular,
     },
     body: {
       textAlign: 'left',
@@ -137,18 +139,19 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(12),
       lineHeight: normalize(36),
       color: theme.primary,
-      fontWeight: 'bold',
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     durationLabel: {
       paddingHorizontal: normalize(10),
       color: colors.spanishGray,
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     contentTitle: {
       textAlign: 'left',
       fontSize: normalize(14),
       lineHeight: normalize(24),
       color: theme.primaryBlack,
-      fontWeight: 'bold',
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       paddingVertical: normalize(10),
       paddingRight: normalize(5),
     }

@@ -11,6 +11,7 @@ import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstan
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { fonts } from 'src/shared/styles/fonts'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -55,7 +56,10 @@ const ArticleDetailImage = ({
             <View style={imageArticleStyle.captionView}>
                 <Label children={caption} labelType={LabelTypeProp.p5}
                     color={Styles.color.lightGray}
-                    style={{ paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth }}
+                    style={{
+                        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+                        fontFamily: fonts.Almaria_Regular
+                    }}
                 />
             </View>
         )
@@ -129,9 +133,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingHorizontal: normalize(10)
     },
     prevTitleStyle: {
-        fontSize: normalize(13),
-        lineHeight: normalize(16),
-        color: Styles.color.white
+        fontSize: normalize(14),
+        lineHeight: normalize(32),
+        color: Styles.color.white,
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     returnStyle: {
         flexDirection: 'row',

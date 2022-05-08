@@ -9,13 +9,14 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
-import { colors, CustomThemeType } from 'src/shared/styles/colors'
+import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTranslation } from 'react-i18next'
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import { State, usePlaybackState, } from 'react-native-track-player';
 import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
 import { getSecondsToHms } from 'src/shared/utils/utilities'
+import { fonts } from 'src/shared/styles/fonts'
 
 export interface AuthorItemProps {
     author: string,
@@ -140,8 +141,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     articleLabelSyle: {
         paddingHorizontal: normalize(10),
-        color: theme.primary
-
+        color: theme.primary,
+        fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     mediaFooter: {
         flexDirection: 'row',

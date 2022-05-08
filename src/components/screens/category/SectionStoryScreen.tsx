@@ -324,7 +324,7 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
           rightIcon= {()=>getSvgImages({
             name: ImagesName.clock,
             size: normalize(11),
-            style: { marginRight: normalize(5) }
+            style: { marginRight: normalize(7) }
           })}
           rightTitleColor={colors.silverChalice}
         />
@@ -343,7 +343,7 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
           <ShortArticle
             data={topListDataInfo}
             onPress={onPressArticle}
-            labelType={LabelTypeProp.h3}
+            labelType={LabelTypeProp.title4}
             onUpdateBookmark={updateBookmarkInfo}
             showSignUpPopUp={makeSignUpAlert}
             hideImage={!isTab}

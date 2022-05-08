@@ -14,17 +14,19 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { fonts } from 'src/shared/styles/fonts'
 
 export const sectionComboArticleFooter: articleFooterProps = {
     leftIcon: () => {
         return getSvgImages({
             name: ImagesName.clock,
             size: normalize(12),
-            style: { marginRight: normalize(5) }
+            style: { marginRight: normalize(7) }
         })
     },
     leftTitleColor: Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
+    leftTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular }
 }
 
 interface BannerArticleSectionProps {
@@ -57,13 +59,15 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             onPressBookmark={() => onUpdateBookmark(item)}
             contentStyle={[style.spacingStyle, index == 0 && style.contentStyleFirst]}
             showBody={false}
+            labelType={LabelTypeProp.title4}
         />
     }
     const widgetHeaderData: WidgetHeaderProps = {
         headerLeft: {
             title: props.title,
             color: themeData.primary,
-            labelType: LabelTypeProp.h2,
+            labelType: LabelTypeProp.title3,
+            textStyle: { fontFamily: fonts.AwsatDigitalBetav10_Bold }
         },
         headerRight: props.hideMore ? {} : {
             title: t('latestNewsTab.sectionComboOne.headerRight'),
@@ -77,6 +81,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             color: Styles.color.smokeyGrey,
             labelType: LabelTypeProp.h3,
             clickable: true,
+            textStyle: { fontFamily: fonts.Effra_Arbc_Regular }
         },
     };
 
@@ -88,7 +93,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
                     if (index == 0) return <ImageArticle key={index} {...item}
                         onPressBookmark={() => onUpdateBookmark(item)}
                         containerStyle={isTab ? style.tabletImageStyle : {}}
-                        titleStyle={{ fontSize: normalize(20), lineHeight: normalize(33), fontWeight: 'normal' }}
+                        titleStyle={style.titleStyle}
                         showBody={false}
                         leftTitleColor={Styles.color.silverChalice}
                         showDivider={true}
@@ -156,5 +161,15 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     contentStyleFirst: {
         marginTop: isTab ? 0 : 5,
+    },
+    titleStyle: { 
+        fontSize: normalize(20), 
+        lineHeight: normalize(33), 
+        fontFamily: fonts.AwsatDigitalBetav10_Black,
+    },
+    listArticleTitle: {
+        fontSize: normalize(17), 
+        lineHeight: normalize(28), 
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
     }
 })

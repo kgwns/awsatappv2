@@ -2,9 +2,9 @@ import * as React from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Label} from 'src/components/atoms';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {isDarkTheme, normalize} from 'src/shared/utils';
+import { normalize} from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { useAppCommon } from 'src/hooks';
+import { fonts } from 'src/shared/styles/fonts';
 
 interface SignupAlertCardProps {
     title: string;
@@ -17,9 +17,8 @@ interface SignupAlertCardProps {
 export const SignupAlertCard = ({title, message, buttonText, onPress}: SignupAlertCardProps) => {
 
     const styles = useThemeAwareObject(customStyle)
-    const { theme } = useAppCommon()
-  const isDarkMode = isDarkTheme(theme)
-  return (
+
+    return (
     <View style={styles.container}>
       <View>
         <Label children={title} style={styles.titleTextStyle} />
@@ -58,7 +57,7 @@ const customStyle = (theme: CustomThemeType) =>
       fontSize: normalize(24),
       color: theme.primary,
       lineHeight: normalize(29),
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       justifyContent: 'center',
       textAlign: 'center',
       paddingBottom: normalize(20),
@@ -69,7 +68,8 @@ const customStyle = (theme: CustomThemeType) =>
       lineHeight: normalize(25),
       textAlign: 'center',
       paddingBottom: normalize(50),
-      paddingHorizontal: normalize(20)
+      paddingHorizontal: normalize(20),
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     buttonBackgroundStyle: {
       height: normalize(46),
@@ -82,7 +82,7 @@ const customStyle = (theme: CustomThemeType) =>
     buttonLabelStyle: {
       paddingHorizontal: normalize(10),
       fontSize: normalize(16),
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       color: colors.white,
       lineHeight: normalize(20),
       textAlign: 'center',

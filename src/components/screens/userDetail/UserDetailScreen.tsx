@@ -62,6 +62,7 @@ import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
 import { AlertModal } from 'src/components/organisms';
 import { useFocusEffect } from '@react-navigation/native';
 import { AvoidSoftInput } from "react-native-avoid-softinput";
+import { fonts } from 'src/shared/styles/fonts'
 
 export const UserDetailScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -746,17 +747,18 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'center',
     },
     emailTitle: {
-      fontSize: normalize(13),
-      fontWeight: 'bold',
+      fontSize: normalize(14),
       lineHeight: normalize(17),
       marginBottom: '6%',
       textAlign: 'left',
+      fontFamily: fonts.Almarai_Bold,
     },
     email: {
       fontSize: normalize(12),
       lineHeight: normalize(17),
       textAlign: 'left',
       color: theme.textInputColor,
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     fieldContainer: {
       marginVertical: '10%',
@@ -766,6 +768,7 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: normalize(17),
       marginBottom: '2%',
       textAlign: 'left',
+      fontFamily: fonts.Almarai_Bold,
     },
     birthdayTitle: {
       fontSize: normalize(13),
@@ -773,6 +776,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: '2%',
       marginTop: '2%',
       textAlign: 'left',
+      fontFamily: fonts.Almarai_Bold,
     },
     dropDownContainer: {
       flexDirection: 'row',
@@ -806,6 +810,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginTop: '10%',
       marginBottom: '2%',
       textAlign: 'left',
+      fontFamily: fonts.Almarai_Bold,
     },
     nameInputStyle: {
       width: '94%',
@@ -830,9 +835,9 @@ const createStyles = (theme: CustomThemeType) =>
     },
     updateButtonLabel: {
       color: colors.white,
-      fontWeight: 'bold',
       fontSize: normalize(16),
       lineHeight: 20,
+      fontFamily: fonts.Almarai_Bold,
     },
     overlayStyle: {
       flex: 1,

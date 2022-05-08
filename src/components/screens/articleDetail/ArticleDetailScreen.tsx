@@ -24,6 +24,7 @@ import { TrackingEventType } from 'src/services/eventTrackService'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ArticleFontSize } from 'src/redux/appCommon/types'
+import { fonts } from 'src/shared/styles/fonts'
 import { BackIcon } from 'src/components/atoms'
 
 export interface ArticleDetailScreenProps {
@@ -137,7 +138,8 @@ export const ArticleDetailScreen = ({
       textAlign: 'left',
       direction: 'rtl',
       fontSize: fontSize,
-      lineHeight: 1.5 * fontSize
+      lineHeight: 1.8 * fontSize,
+      fontFamily: fonts.IBMPlexSansArabic_Regular
     }
   }
 

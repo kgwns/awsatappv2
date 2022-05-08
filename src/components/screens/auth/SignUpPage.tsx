@@ -37,6 +37,7 @@ import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface SignUpPageProps {
   route: any;
@@ -279,7 +280,8 @@ const createStyles = (theme: CustomThemeType) =>
       flexDirection: 'row',
     },
     headerLabelStyle: {
-      fontSize: normalize(15),
+      fontFamily: fonts.Almaria_Regular,
+      fontSize: normalize(12),
       color: theme.textColor,
       lineHeight: normalize(16),
       marginLeft: normalize(5),
@@ -327,12 +329,10 @@ const createStyles = (theme: CustomThemeType) =>
     labelStyle: {
       color: colors.white,
       fontSize: 16,
-      fontWeight: 'bold',
       lineHeight: 25,
     },
     accountStyle: {
       fontSize: normalize(20),
-      fontWeight: 'bold',
       lineHeight: 22,
     },
     inputStyle: {

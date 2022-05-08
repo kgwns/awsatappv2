@@ -7,6 +7,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { Label } from '../label/Label'
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
 import { CustomThemeType } from 'src/shared/styles/colors'
+import { fonts } from 'src/shared/styles/fonts'
 
 type BackIconType = {
     onPressBack: () => void
@@ -47,8 +48,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     prevTitleStyle: {
         fontSize: normalize(13),
-        lineHeight: normalize(16),
+        lineHeight: normalize(20),
         color: theme.primaryBlack,
+        fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     returnStyle: {
         flexDirection: 'row',

@@ -22,6 +22,7 @@ import { GameScreen } from '../games/GameScreen';
 import { TabWithBarItem } from 'src/components/molecules';
 import { MainSectionScreen } from 'src/components/screens';
 import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
+import { fonts } from 'src/shared/styles/fonts';
 
 export enum TabType {
   opinion = 'opinion',
@@ -112,6 +113,7 @@ export const SectionsScreen = () => {
             onPress={setIndex}
             tabName={item.route.title || ''}
             isSelected={tabIndex == item.navigationState.index}
+            labelFont={fonts.Effra_Arbc_Regular}
           />
         }}
       />

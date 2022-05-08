@@ -6,6 +6,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { normalize } from 'src/shared/utils'
+import { fonts } from 'src/shared/styles/fonts'
 
 export interface ToggleWithLabelProps {
     title: string,
@@ -42,7 +43,8 @@ const customStyle = (theme: CustomThemeType) => (
             color: theme.secondaryMediumGrey,
             fontSize: normalize(12),
             lineHeight: normalize(18),
-            textAlign: 'left'
+            textAlign: 'left',
+            fontFamily: fonts.Almaria_Regular,
         }
     })
 )

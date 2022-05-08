@@ -280,6 +280,7 @@ export const ContentForYou = () => {
             const newsCategory = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0] : {} as NewsCategoriesType
             let formattedData = {
                 ...shortArticleWithTagProperties,
+                labelType: LabelTypeProp.h2,
                 body: item.body,
                 title: item.title,
                 nid: item.nid,

@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { isNotEmpty, isTab, normalize } from 'src/shared/utils';
+import { isTab, normalize } from 'src/shared/utils';
 import { Label, Image, LabelTypeProp } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { ImageResize } from 'src/shared/styles/text-styles';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface NewsWithImageItemProps {
   imageUrl?: string;
@@ -106,14 +107,15 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(12),
       marginTop: normalize(15),
       color: theme.primary,
+      fontFamily: fonts.Effra_Arbc_Regular,
     },
     title: {
       fontSize: normalize(14),
       lineHeight: normalize(16),
-      fontWeight: 'bold',
       marginTop: normalize(10),
       color: theme.primaryBlack,
       textAlign: 'left',
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     description: {
       textAlign: 'left',

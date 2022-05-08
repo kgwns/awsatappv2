@@ -6,6 +6,7 @@ import { ImageName, Label, LabelTypeProp } from '..'
 import { Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles'
 import { LabelType } from '../label/Label'
+import { fonts } from 'src/shared/styles/fonts'
 
 export interface ImageLabelProps {
     name?: ImageName,
@@ -58,6 +59,7 @@ const imageWithLabelStyle = StyleSheet.create({
     tagText: {
         paddingVertical: normalize(3),
         paddingHorizontal: normalize(7),
-        color: Styles.color.white
+        color: Styles.color.white,
+        fontFamily: fonts.Effra_Arbc_Regular,
     }
 })

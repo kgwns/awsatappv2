@@ -25,6 +25,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AlertPayloadType } from 'src/components/screens/ScreenContainer/ScreenContainer';
 import RNRestart from 'react-native-restart'
+import { fonts } from 'src/shared/styles/fonts';
 
 type SettingDataType = {
   iconName: ImagesName,
@@ -273,6 +274,7 @@ const customStyle = (theme: CustomThemeType) =>
       label: {
           marginLeft: normalize(20),
           color: theme.secondaryMediumGrey,
+          fontFamily: fonts.Almaria_Regular,
       },
       divider: {
           height: 1,
@@ -283,6 +285,7 @@ const customStyle = (theme: CustomThemeType) =>
           alignItems: 'center',
           marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
           paddingBottom: normalize(10),
+          fontFamily: fonts.IBMPlexSansArabic_Bold,
       },
       welcome: {
           color: Styles.color.greenishBlue,

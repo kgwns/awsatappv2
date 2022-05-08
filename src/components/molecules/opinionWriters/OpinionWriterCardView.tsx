@@ -4,18 +4,17 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty} from 'src/shared/utils';
-import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { TouchableOpacity } from 'react-native';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import { State, usePlaybackState, } from 'react-native-track-player';
 import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
 import { getSecondsToHms } from 'src/shared/utils/utilities';
+import { fonts } from 'src/shared/styles/fonts';
 
 
 export interface OpinionWritersCardViewProps {
@@ -54,7 +53,6 @@ const OpinionWritersCardView = ({
   authorId
 }: OpinionWritersCardViewProps) => {
   const style = useThemeAwareObject(customStyle);
-  const theme = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>()
   const playbackState = usePlaybackState();
   const { narratedOpinionData, fetchNarratedOpinionData} = useOpinionArticleDetail();
@@ -179,16 +177,17 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.primary,
       marginStart: normalize(8),
       lineHeight:normalize(14),
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     headLineContainer: {
       marginTop: normalize(10),
     },
     headLine: {
       fontSize: normalize(15),
-      fontWeight: 'bold',
       textAlign: 'left',
       lineHeight: normalize(24),
       color: theme.primaryBlack,
+      fontFamily: fonts.Almarai_Bold,
     },
     subHeadLine: {
       fontSize: normalize(15),
@@ -196,6 +195,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: normalize(8),
       lineHeight: normalize(26),
       color: theme.secondaryDavyGrey,
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     footerContainer: {
       flexDirection: 'row',
@@ -220,13 +220,14 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(36),
       color: theme.primary,
       marginLeft: normalize(10),
-      fontWeight: 'bold'
+      fontFamily: fonts.Almarai_Bold,
     },
     duration: {
       fontSize: normalize(12),
       lineHeight: normalize(14),
       color: theme.secondaryDavyGrey,
       marginLeft: normalize(10),
+      fontFamily: fonts.Effra_Arbc_Medium,
     },
     divider: {
       height: 1,

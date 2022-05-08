@@ -20,6 +20,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { appleSignin } from 'src/shared/utils/appleSignin';
+import { fonts } from 'src/shared/styles/fonts';
 
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
@@ -202,12 +203,12 @@ const styles = StyleSheet.create({
     alignItems:'flex-start',
   },
   socialLoginButtonLabel: {
+    fontFamily: fonts.Almaria_Regular,
     fontSize: 14,
     lineHeight: 20,
   },
   socialLoginButtonBoldLabel: {
     fontSize: 14,
     lineHeight: 20,
-    fontWeight: 'bold',
   }
 });

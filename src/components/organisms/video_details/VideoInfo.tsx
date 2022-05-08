@@ -15,6 +15,7 @@ import { VideoItemProps } from 'src/components/molecules/video-item/VideoItem';
 import { decode } from 'html-entities';
 import { MixedStyleRecord } from 'react-native-render-html';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface VideoInfoProps {
   onPress?: (item:VideoItemProps)=>void;
@@ -45,6 +46,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
       lineHeight: normalize(22),
       textAlign: 'center',
       paddingBottom: normalize(15),
+      fontFamily: fonts.Effra_Arbc_Regular
     },
   };
   return (

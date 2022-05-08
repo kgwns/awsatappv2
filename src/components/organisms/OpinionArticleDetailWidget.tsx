@@ -23,6 +23,7 @@ import { ArticleFontSize } from '../screens/opinionArticleDetail/OpinionArticleD
 import TrackPlayer, {State, usePlaybackState} from 'react-native-track-player';
 import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface OpinionArticleDetailWidgetProp {
   data: OpinionArticleDetailItemType;
@@ -56,6 +57,7 @@ export const OpinionArticleDetailWidget = ({
       direction: 'rtl',
       fontSize: fontSize,
       lineHeight: 1.5 * fontSize,
+      fontFamily: fonts.Effra_Arbc_Regular,
     },
   };
 
@@ -68,20 +70,11 @@ export const OpinionArticleDetailWidget = ({
         style: {marginRight: normalize(5)},
       });
     },
+    leftTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular },
     rightTitleColor: Styles.color.spanishGray,
     hideBookmark: true,
     style: {marginVertical: normalize(0.01 * screenWidth)},
   };
-
-  const AuthorCard = ({title}: any) => (
-    <View style={style.authorCard}>
-      {getSvgImages({
-        name: ImagesName.pen,
-        size: normalize(14),
-      })}
-      <Label style={style.authorCardLabel}>{title}</Label>
-    </View>
-  );
 
   const articleHtmlContent = () => (
     <View>
@@ -143,10 +136,10 @@ const customStyle = (theme: CustomThemeType) => {
     title: {
       fontSize: normalize(30),
       lineHeight: normalize(42),
-      fontWeight: 'bold',
       color: theme.primaryBlack,
       textAlign: 'left',
       marginVertical: normalize(0.01 * screenWidth),
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     listenToArticleCard: {
       marginTop: normalize(0.02 * screenWidth),
@@ -158,14 +151,6 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'center',
       justifyContent: 'flex-start',
       marginVertical: normalize(0.01 * screenWidth),
-    },
-    authorCardLabel: {
-      alignSelf: 'center',
-      fontSize: normalize(16),
-      lineHeight: normalize(25),
-      fontWeight: 'bold',
-      marginStart: normalize(5),
-      color: theme.primaryBlack,
     },
     divider: {
       height: 1,

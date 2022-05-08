@@ -5,6 +5,7 @@ import { ImagesName } from 'src/shared/styles'
 import { normalize } from 'src/shared/utils'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { fonts } from 'src/shared/styles/fonts'
 
 interface ButtonIconWithLabelProps {
     icon: ImagesName,
@@ -41,13 +42,14 @@ const customStyle = () => (
             flexDirection: 'row',
             alignContent: 'center',
             flexWrap: 'wrap',
-            alignItems: 'center'
+            alignItems: 'center',
+            justifyContent: 'center'
         },
         title: {
             fontSize: normalize(13),
             lineHeight: normalize(16),
-            fontWeight: 'bold',
-            marginLeft: normalize(5)
+            marginLeft: normalize(5),
+            fontFamily: fonts.Almarai_Bold,
         },
     })
 )

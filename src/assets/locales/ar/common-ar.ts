@@ -26,25 +26,25 @@ export const arabic = {
     },
     followFavoriteAuthor: {
       title: 'تابع كتابك المفضلين',
-      description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
+      description: 'اختر كتاب الرأي المفضلين لتصلك مقالاتهم في صفحة «أخباري»',
     },
     keepNotified: {
       title: 'ما الذي تريد أن تبقى على اطلاع عليه؟',
       description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
     selectTopics: {
-      title: 'ما هي اهتماماتك',
-      description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
+      title: 'اختر مواضيعك المفضلة لتصلك أولاً بأول في صفحة «أخباري» ',
+      description: 'ما هي اهتماماتك؟',
     },
     newsLetter: {
       title: 'نشراتك الإخبارية',
-      description:  'احصل على آخر التحديثات يتم تسليمها مباشرة إلى الإيميل \n الخاص بك.',
-      subscribed: 'أنت مشترك بالنشره',
-      notSubscribed: 'أنت غير مشترك بالنشره',
+      description:  'احصل على آخر التحديثات يتم تسليمها مباشرة إلى الإيميل  الخاص احصل على ما يهمك في البريد الإلكتروني الخاص بك.',
+      subscribed: 'أنت مشترك في النشرة',
+      notSubscribed: 'أنت غير مشترك بالنشرة',
     },
   },
   opinion: {
-    opinionWriters: 'كتاّاب الرأي',
+    opinionWriters: 'الرأي',
     listenToActicleText: 'استمع الي المقالة'
   },
   latestNewsTab: {
@@ -74,7 +74,7 @@ export const arabic = {
       headerLeft: 'رياضة',
     },
     articlSection: {
-      articleTitle: 'عِينٌ علي'
+      articleTitle: 'عين علي'
     },
     editorsChoice: {
       headerLeft: 'اختيارات المحرر'
@@ -128,11 +128,11 @@ export const arabic = {
   day: [
     'الأحد',
     'الإثنين',
-    'يوم الثلاثاء',
+    'الثلاثاء',
     'الأربعاء',
-    'يوم الخميس',
-    'يوم الجمعة',
-    'يوم السبت',
+    'الخميس',
+    'الجمعة',
+    'السبت',
   ],
   podcastEpisode: {
     moreEpisodes: 'المزيد من حلقات البودكاست',
@@ -167,9 +167,9 @@ export const arabic = {
     email: 'الإيميل',
     signIn: 'تسجيل الدخول',
     or: 'أو',
-    loginFacebook: 'الدخول بحساب الفيسبوك',
-    loginGoogle: 'الدخول بحساب جوجل',
-    loginApple: 'الدخول بحساب ابل',
+    loginFacebook: 'الدخول بحساب فيسبوك',
+    loginGoogle: 'الدخول بحساب غوغل',
+    loginApple: 'الدخول بحساب أبل',
     termsAndConditions: 'القواعد والشروط',
     agreeTo: 'عن طريق تسجيل الدخول تكون قد وافقت على',
     rights: 'لاستخدام التطبيق و باق حقوق تلكه و الواقعة للبراجراف',
@@ -193,7 +193,7 @@ export const arabic = {
   },
   about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',
-  terms_and_condition: 'القواعد و الشروط',
+  terms_and_condition: 'الأحكام والشروط',
   return: 'الرجوع',
   searchScreen: {
     placeholder: 'ابحث في الشرق الأوسط …',
@@ -205,7 +205,7 @@ export const arabic = {
     accountDescription: 'هذا الإيميل غير مسجل لدينا، قم بإنشاء حسابك',
     email: 'الإيميل',
     password: 'كلمة المرور',
-    confirmPassword: 'تأكيد تكلمة المرور',
+    confirmPassword: 'تأكيد كلمة المرور',
     signUp: 'تسجيل الدخول',
     return: 'الرجوع',
   },
@@ -223,7 +223,7 @@ export const arabic = {
   profileSetting: {
     manageMyNotification: 'إدارة إخطاراتي',
     manageMyNews: 'إدارة أخباري',
-    myNewsLetter: 'نشرتي الإخبارية',
+    myNewsLetter: 'نشراتي البريدية',
     myAccountDetails: 'تفاصيل حسابي',
     appAppearance: 'مظهر التطبيق',
     exit: 'خروج',
@@ -240,13 +240,13 @@ export const arabic = {
   opinionArticleDetail: {
     return: 'الرجوع',
     listenToArticle: 'استمع الي المقالة',
-    relatedOpinionTitle: 'مقالات ذات صلة',
+    relatedOpinionTitle: 'المزيد من مقالات الرآي',
   },
   profile: {
     userDetail: {
       userDetailTitle: 'تفاصيل حسابي',
-      userNameTitle: 'إسم المستخدم',
-      nameTitle: 'الإسم',
+      userNameTitle: 'اسم المستخدم',
+      nameTitle: 'الاسم',
       passwordTitle: 'كلمة المرور',
       changePasswordTitle: 'تغيير كلمة المرور',
       birthdayTitle: 'يوم الميلاد',
@@ -267,7 +267,7 @@ export const arabic = {
       newPassword: 'كلمة مرور جديدة',
       confirmNewPassword: 'قم بتأكيد كلمة المرور الجديدة',
       moveAndScale: 'تحرك و مقياس',
-      openCameraOption: 'افتح الة تصوير',
+      openCameraOption: 'افتح الكاميرا',
       chooseFromGallery: 'اختر من المعرض',
       success:'نجاح',
       passwordChangedSuccessfully: 'تم تغيير كلمة المرور بنجاح',
@@ -297,13 +297,13 @@ export const arabic = {
   signUpAlert: {
     subscribe: 'مشترك',
     notSubscribed: 'أنت غير مشترك',
-    description: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و تتمتع بخاصية حفظ المقالات',
-    signUp: 'قم بالتسجيل'
+    description: 'سجل للحصول على تجربة فريدة',
+    signUp: 'ادخل لحسابك أو اشترك'
   },
   signUpPH: {
     title: 'أنت غير مشترك',
-    message: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و تتمتع بخاصية حفظ المقالات',
-    signUp: 'قم بالتسجيل'
+    message: 'سجل للحصول على تجربة فريدة',
+    signUp: 'ادخل لحسابك أو اشترك'
   },
   listen_to_podcast: 'استمع الي البودكاست ',
   common: {

@@ -1,4 +1,4 @@
-import { TouchableWithoutFeedback, View, StyleSheet } from 'react-native'
+import { TouchableWithoutFeedback, View, StyleSheet, StyleProp, TextStyle } from 'react-native'
 import React, { FunctionComponent } from 'react'
 import { Label, LabelTypeProp } from 'src/components/atoms'
 import { isTab, normalize, normalizeBy320, screenWidth } from 'src/shared/utils'
@@ -16,13 +16,15 @@ export interface TabBarDataProps {
 export interface TabBarItemProps extends TabBarDataProps {
   index: number,
   onPress: (index: number) => void
+  labelFont?: string;
 }
 
 export const TabWithBarItem: FunctionComponent<TabBarItemProps> = ({
   tabName,
   isSelected,
   index,
-  onPress
+  onPress,
+  labelFont,
 }) => {
   const color = isSelected ? Styles.color.greenishBlue : Styles.color.doveGray
   const barColor = { backgroundColor: color }
@@ -30,7 +32,9 @@ export const TabWithBarItem: FunctionComponent<TabBarItemProps> = ({
     <TouchableWithoutFeedback key={index} {...testProps(moleculesTestID.tabItemBtn)}
       onPress={() => onPress(index)}>
       <View style={tabWitBarItemStyle.container}>
-        <Label children={tabName} labelType={LabelTypeProp.h4} color={color} style={[tabWitBarItemStyle.labelStyle,{ fontWeight: isSelected ? 'bold' : 'normal' }]}/>
+        <Label children={tabName} labelType={LabelTypeProp.h4} color={color}
+          style={[tabWitBarItemStyle.labelStyle, {fontFamily: labelFont}]}
+        />
         {isSelected && <View style={StyleSheet.flatten([tabWitBarItemStyle.barLine, barColor])} />}
       </View>
     </TouchableWithoutFeedback>
