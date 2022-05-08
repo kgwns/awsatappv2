@@ -86,11 +86,6 @@ export const ProfileSettings = () => {
           screenName: ScreensConstants.USER_DETAIL_SCREEN
       },
       {
-          iconName: ImagesName.themeChange,
-          title: CONST_APP_APPEARANCE,
-          screenName: ''
-      },
-      {
           iconName: ImagesName.Image,
           title: CONST_CHANGE_ENVIRONMENT,
           screenName: ''

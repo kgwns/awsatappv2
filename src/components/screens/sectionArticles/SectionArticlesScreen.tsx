@@ -52,6 +52,7 @@ export const SectionArticlesScreen = () => {
               data={sectionArticlesData}
               onScroll={onScroll}
               isLoading={isLoading}
+              flag={false}
             />
             {(isLoading && sectionArticlesData && isNonEmptyArray(sectionArticlesData.rows)) &&
             <View style={{ margin: normalize(28) }}>

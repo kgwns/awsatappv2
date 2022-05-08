@@ -44,7 +44,7 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
 
   const onPressWriter = (tid: string) => {
     if (isNotEmpty(tid)) {
-      navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
+      navigation.push(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
     }
   }
 

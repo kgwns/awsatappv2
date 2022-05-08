@@ -30,13 +30,15 @@ export interface ArticleSectionProps {
   onScroll?: () => void;
   isLoading?: boolean;
   enableTag?:boolean;
+  flag?:boolean;
 }
 
 const MostReadList = ({
   data,
   onScroll,
   isLoading = false,
-  enableTag = false
+  enableTag = false,
+  flag = true,
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const navigation = useNavigation();
@@ -115,7 +117,7 @@ const MostReadList = ({
     item.tagStyle = {marginLeft: normalize(20)};
     item.tagLabelType = LabelTypeProp.p3;
     item.image = item.image ? item.image : getImageUrl(item.field_image);
-    item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : ''
+    if(flag) item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : '';
     item.flagColor = Styles.color.greenishBlue;
     item.barColor = Styles.color.greenishBlue;
     return (

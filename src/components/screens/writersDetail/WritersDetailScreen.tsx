@@ -71,25 +71,27 @@ export const WritersDetailScreen = ({
     );
 
     useEffect(() => {
-        getWriterDetailData({ tid: route.params.tid })
-        getSelectedAuthorsData()
+        if(isFocused){
+            getWriterDetailData({ tid: route.params.tid })
+            getSelectedAuthorsData()
 
-        return () => {
-            emptyWriterDetailData()
-            emptyWriterOpinionData()
+            return () => {
+                emptyWriterDetailData()
+                emptyWriterOpinionData()
+            }
         }
-    }, [])
+    }, [isFocused])
 
     useEffect(() => {
         updateOpinionsData()
     }, [writerOpinionsData, bookmarkIdInfo])
 
     useEffect(() => {
-        if (isNonEmptyArray(writerDetailData) && isObjectNonEmpty(selectedAuthorsData) && isFocused) {
+        if (isNonEmptyArray(writerDetailData) && isObjectNonEmpty(selectedAuthorsData) ) {
             const isFollowed = validateFollow(writerDetailData[0].tid)
             setIsFollowed(isFollowed)
         }
-    }, [isFocused, writerDetailData, selectedAuthorsData])
+    }, [ writerDetailData, selectedAuthorsData])
 
     const validateFollow = (id: string): boolean => {
         return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
@@ -103,7 +105,7 @@ export const WritersDetailScreen = ({
     }
 
     useEffect(() => {
-        isFocused && setWriterDetailInfo(writerDetailData)
+        setWriterDetailInfo(writerDetailData)
     }, [writerDetailData])
 
     useEffect(() => {
