@@ -21,7 +21,9 @@ const AuthorWidget = ({
     widgetHeaderStyle,
     widgetHeaderContainerStyle,
     togglePlayback,
-    selectedTrack
+    selectedTrack,
+    lastIndexDivider = false,
+    showHeader = true,
 }: {
     data: any, listKey?: string,
     widgetHeader?: string,
@@ -30,6 +32,8 @@ const AuthorWidget = ({
     widgetHeaderStyle?: StyleProp<ViewStyle>,
     togglePlayback?: (nid: string, mediaData: any)=> void,
     selectedTrack?: string,
+    lastIndexDivider?: boolean,
+    showHeader?: boolean
 }) => {
     const style = useThemeAwareObject(customStyle)
     const [t] = useTranslation()
@@ -89,9 +93,9 @@ const AuthorWidget = ({
     if(!isNonEmptyArray(data)) return null
     return (
         <View style={StyleSheet.flatten([style.container,containerStyle])}>
-            <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>
+            { showHeader && <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>
                 <WidgetHeader {...widgetHeaderData} widgetHeaderStyle={widgetHeaderStyle} />
-            </View>
+            </View>}
             <FlatList
                 style={style.listContainer}
                 keyExtractor={(_, index) => index.toString()}
@@ -101,6 +105,7 @@ const AuthorWidget = ({
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
                 ItemSeparatorComponent={() => <Divider style={style.divider} />}
+                ListFooterComponent={() => lastIndexDivider ? <Divider style={style.footerDivider} /> : null}
                 bounces={false}
             />
         </View>
@@ -135,6 +140,10 @@ const customStyle = (theme: CustomThemeType) => {
             height: 1,
             backgroundColor: theme.dividerColor
         },
+        footerDivider: {
+            height: 1,
+            backgroundColor: theme.dividerColor
+        }
     })
     return authorWidgetStyle
 }

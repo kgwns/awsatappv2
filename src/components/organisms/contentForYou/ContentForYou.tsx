@@ -18,6 +18,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { NewsCategoriesType } from 'src/redux/latestNews/types';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import { Divider } from 'src/components/atoms';
 
 interface AllContentData {
     opinionsData: any,
@@ -391,14 +392,20 @@ export const ContentForYou = () => {
                 widgetHeader={t('favorite.articles_from_your_favorite_writers')}
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU + 'authorWidget' + index}
                 data={item.opinionsData.data}
-                containerStyle={{ paddingTop: 0 }}
+                containerStyle={[{ paddingTop: 0 }, !isNonEmptyArray(selectedTopics) && {paddingVertical: 0}]}
                 widgetHeaderContainerStyle={styles.authorWidgetContainer}
                 widgetHeaderStyle={styles.authorWidgetHeader}
                 togglePlayback={togglePlayback}
                 selectedTrack={selectedTrack}
+                lastIndexDivider={ !isNonEmptyArray(selectedTopics)}
+                showHeader={!isNonEmptyArray(selectedTopics) && index != 0 ? false : true}
             />}
             
-            {isNonEmptyArray(item.articleSectionData.data) &&
+            { (!isNonEmptyArray(selectedAuthors) && index != 0 && isNonEmptyArray(item.articleSectionData.data)) ? <View style={styles.articleContainer}> 
+                <Divider style={styles.divider} /> 
+                </View>
+            : 
+            isNonEmptyArray(item.articleSectionData.data) &&
                 <View style={styles.articleWidgetHeader}>
                     <WidgetHeader {...widgetHeaderData} />
                 </View>
@@ -520,5 +527,10 @@ const customStyles = (theme: CustomThemeType) => StyleSheet.create({
         flex: 0,
         width: 153,
         height: 125
+    },
+    divider: {
+        marginBottom: normalize(20),
+        height: 1,
+        backgroundColor: theme.dividerColor
     },
 })
