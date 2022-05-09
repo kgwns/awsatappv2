@@ -46,7 +46,7 @@ export const PodcastVerticalList = ({
       <View style={style.cardContainer}>
         <View style={style.headerStyle}>
           <View style={style.headerLeftStyle}>
-            <Image resizeMode='cover' url={imageUrl} style={style.imageStyle} />
+            <Image fallback resizeMode='cover' url={imageUrl} style={style.imageStyle} />
             <Label style={style.title} numberOfLines={2}>
               {title}
             </Label>
