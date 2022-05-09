@@ -12,8 +12,8 @@ import {ScreenContainer} from '..';
 import {useAllWriters, useAppCommon, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
-import TrackPlayer from 'react-native-track-player';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player';
+import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { sendUserEventTracking } from 'src/services'
@@ -68,6 +68,63 @@ export const OpinionArticleDetail = ({
   const [isFollowed, setIsFollowed] = useState(false)
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
   const [scrollY, setScrollY] = useState(new Animated.Value(0))
+
+  const [selectedTrack, setSelectedTrack] = useState<any>(null);
+  const playbackState = usePlaybackState();
+
+  useFocusEffect(
+    React.useCallback(() => {
+        const unsubscribe = () => { stopTrackPlayer() };
+        return () => {
+            unsubscribe();
+        }
+    }, [])
+);
+
+  const stopTrackPlayer = async () => {
+    await TrackPlayer.reset();
+  }
+
+  const togglePlayback = async (nid: string, mediaData: any) => {
+    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+
+    if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
+      return
+    }
+
+    const id = nid
+    const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
+    const title = mediaData.title ? mediaData.title : '';
+
+
+    let setupPlayer = async () => {
+      await TrackPlayer.setupPlayer();
+      await TrackPlayer.updateOptions({ stopWithApp: true });
+      await TrackPlayer.add({
+        id: id,
+        url: media,
+        title: title,
+        artist: title,
+      });
+      await TrackPlayer.setRepeatMode(RepeatMode.Off);
+      await TrackPlayer.play();
+    }
+    if(selectedTrack == nid){
+      if (playbackState === State.Playing) {
+        await TrackPlayer.pause();
+      }
+      else if (playbackState === State.Paused) {
+        await TrackPlayer.play();
+      }
+      else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
+        setupPlayer()
+      }
+    }else{
+        await TrackPlayer.reset();
+        setupPlayer()
+    }
+    setSelectedTrack(nid)
+  }
 
   const sendEventToServer = () => {
     sendUserEventTracking({
@@ -135,11 +192,6 @@ export const OpinionArticleDetail = ({
         const isBookmarked = validateBookmark(opinionArticleDetailData[0].nid_export)
         setIsBookmarked(isBookmarked)
       }
-      if(isNotEmpty(opinionArticleDetailData[0].jwplayer)){
-        fetchNarratedOpinionData({
-          jwPlayerID:opinionArticleDetailData[0].jwplayer
-        })
-      }
 
       if (isNonEmptyArray(opinionArticleDetailData[0].writer) && isNotEmpty(opinionArticleDetailData[0].writer[0]?.id)) {
         getWriterDetailData({ tid: opinionArticleDetailData[0].writer[0].id })
@@ -149,11 +201,6 @@ export const OpinionArticleDetail = ({
 
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isFocused) {
-        if(isNotEmpty(opinionArticle[0].jwplayer)){
-         fetchNarratedOpinionData({
-           jwPlayerID:opinionArticle[0].jwplayer
-         })
-       }
        setTimeout(()=>{
         fetchRelatedOpinionData(relatedOpinionPayload);
        },1000)
@@ -291,13 +338,19 @@ export const OpinionArticleDetail = ({
           data={opinionArticle[0]} fontSize={fontSize}
           isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
           onPressWriter={() => onPressWriter(writerDetailInfo[0].tid)}
-          isRelatedArticle={route.params.isRelatedArticle} writerData={writerDetailInfo[0]}/>
+          isRelatedArticle={route.params.isRelatedArticle} writerData={writerDetailInfo[0]}
+          togglePlayback={togglePlayback}
+          selectedTrack={selectedTrack}
+        />
       )}
       {isNonEmptyArray(relatedOpinionInfo) && (
         <RelatedOpinionArticlesWidget data={relatedOpinionInfo}
           onPress={onPressRelatedOpinion}
           onScroll={() => gotoNextPage()}
-          isLoading={isLoadingRelatedOpinion} />
+          isLoading={isLoadingRelatedOpinion} 
+          togglePlayback={togglePlayback}
+          selectedTrack={selectedTrack}
+        />
       )}
     </View>
   );

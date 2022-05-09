@@ -83,7 +83,7 @@ export default (state = initialData, action: OpinionArticleDetailAction) => {
     case REQUEST_NARRATED_OPINION_ARTICLE:
       return {
         ...state,
-        isLoading: true
+        isLoading: false
       }
     case REQUEST_NARRATED_OPINION_ARTICLE_SUCCESS:
       return {

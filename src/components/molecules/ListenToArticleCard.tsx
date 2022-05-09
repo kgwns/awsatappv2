@@ -19,33 +19,9 @@ export const ListenToArticleCard = (data: any) => {
   const playList = isObjectNonEmpty(mediaData) && isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
   const duration = isObjectNonEmpty(playList) ? playList.duration : 0;
 
-  const togglePlayback = async () => {
-
-    if (!isObjectNonEmpty(playList)) {
-      return
-    }
-
-    const id = mediaData.feed_instance_id ? mediaData.feed_instance_id : '1';
-    const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
-    const title = mediaData.title ? mediaData.title : '';
-
-    if (playbackState === State.Playing) {
-      await TrackPlayer.pause();
-    }
-    else if (playbackState === State.Paused) {
-      await TrackPlayer.play();
-    }
-    else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({ stopWithApp: true });
-      await TrackPlayer.add({
-        id: id,
-        url: media,
-        title: title,
-        artist: title,
-      });
-      await TrackPlayer.setRepeatMode(RepeatMode.Off);
-      await TrackPlayer.play();
+  const onPressPlay = () => {
+    if (data.nid && data.data && data.togglePlayback) {
+      data.togglePlayback(data.nid, data.data)
     }
   }
 
@@ -54,10 +30,10 @@ export const ListenToArticleCard = (data: any) => {
       <ButtonImage
         hitSlop={{}}
         icon={() =>
-          playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+          data.selectedTrack == data.nid && playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
             getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
         }
-        onPress={() => togglePlayback()}
+        onPress={onPressPlay}
         style={style.icon}
       />
       <Label style={style.title}> {t('opinionArticleDetail.listenToArticle')}</Label>

@@ -50,6 +50,7 @@ export interface OpinionArticleDetailItemType {
   writer: WriterType[];
   isBookmarked: boolean;
   isFollowed: boolean;
+  field_jwplayer_id_opinion_export?: any;
 }
 export interface OpinionsListItemType {
   title: string;

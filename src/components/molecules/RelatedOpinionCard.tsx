@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -11,20 +11,27 @@ import {
   DURATION,
 } from 'src/constants/SharedConstants';
 import {ImageResize} from 'src/shared/styles/text-styles';
-import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getImageUrl, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { fonts } from 'src/shared/styles/fonts';
+import { State, usePlaybackState, } from 'react-native-track-player';
+import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
+import { getSecondsToHms } from 'src/shared/utils/utilities'
 
 
-export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
+export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayback, selectedTrack, jwPlayerID}:any) => {
   const style = useThemeAwareObject(customStyle);
   const [t] = useTranslation();
   const { themeData } = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const playbackState = usePlaybackState();
+  const { narratedOpinionData, fetchNarratedOpinionData} = useOpinionArticleDetail();
+  const[mediaData, setMediaData] = useState<any>({});
+  const[timeDuration, setTimeDuration] = useState<any>(null);
 
   const renderHtmlContent = (item: any) => {
     const description = decodeHTMLTags(item.body).length > 200 ? decodeHTMLTags(item.body).slice(0,200) : decodeHTMLTags(item.body)
@@ -43,9 +50,32 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
     )
   }
 
+  useEffect(() => {
+    if(jwPlayerID){
+      fetchNarratedOpinionData({jwPlayerID: jwPlayerID})
+    }
+}, [])
+
+  useEffect(() => {
+    if(isObjectNonEmpty(narratedOpinionData)){
+      setMediaData(narratedOpinionData);
+      let playList = isNonEmptyArray(narratedOpinionData.playlist) ? narratedOpinionData.playlist[0] : null;
+        if(playList){
+        let time = playList.duration? getSecondsToHms(playList.duration) : null;
+        setTimeDuration(time)
+        } 
+    }
+}, [narratedOpinionData])
+
   const onPressWriter = (tid: string) => {
     if (isNotEmpty(tid)) {
       navigation.push(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
+    }
+  }
+
+  const onPressPlay = () => {
+    if (item.nid && mediaData && togglePlayback) {
+      togglePlayback(item.nid, mediaData)
     }
   }
 
@@ -59,23 +89,22 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility}:any) => {
           style={style.topLabel}
           numberOfLines={1}
           onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}
+          suppressHighlighting={true}
         />
         {renderTitle(item)}
         {mediaVisibility && <View style={style.footer}>
           <ButtonImage
-            icon={() => {
-              return getSvgImages({
-                name: ImagesName.playIconSVG,
-                size: normalize(14),
-              });
-            }}
-            onPress={() => {}}
+            icon={() =>
+              selectedTrack == item.nid && playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+              getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
+            }
+            onPress={onPressPlay}
           />
           <Label
             children={t('opinionArticleDetail.listenToArticle')}
             style={style.audioLabel}
           />
-          <Label children={DURATION} style={style.durationLabel} />
+          <Label children={timeDuration} style={style.durationLabel} />
         </View>}
       </View>
       <View>

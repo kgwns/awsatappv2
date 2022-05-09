@@ -32,11 +32,13 @@ export interface OpinionArticleDetailWidgetProp {
   onPressFollow:()=>void;
   onPressWriter:()=>void;
   isRelatedArticle: boolean;
-  writerData : WriterDetailDataType
+  writerData : WriterDetailDataType;
+  togglePlayback?: (nid: string, mediaData: any)=> void,
+  selectedTrack?: string,
 }
 
 export const OpinionArticleDetailWidget = ({
-  data, fontSize, isFollowed, onPressFollow, onPressWriter, isRelatedArticle = false,writerData
+  data, fontSize, isFollowed, onPressFollow, onPressWriter, isRelatedArticle = false,writerData, togglePlayback, selectedTrack
 }: OpinionArticleDetailWidgetProp) => {
   const [t] = useTranslation();
   const {themeData} = useTheme();
@@ -44,11 +46,24 @@ export const OpinionArticleDetailWidget = ({
   const navigation = useNavigation();
   const [visibleMedia, setMediaVisibility] = useState(isNotEmpty(data.jwplayer));
   const playbackState = usePlaybackState();
+  const nid = data.nid_export
 
   const { narratedOpinionData, fetchNarratedOpinionData} =
     useOpinionArticleDetail();
 
-  const [mediaData] = useState(narratedOpinionData)
+    const[mediaData, setMediaData] = useState<any>({});
+
+  useEffect(() => {
+    if(isNotEmpty(data.jwplayer)){
+      fetchNarratedOpinionData({jwPlayerID:data.jwplayer})
+    }
+}, [])
+
+useEffect(() => {
+  if(isObjectNonEmpty(narratedOpinionData)){
+    setMediaData(narratedOpinionData);
+  }
+}, [narratedOpinionData])
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -109,7 +124,7 @@ export const OpinionArticleDetailWidget = ({
       <View style={style.contentContainer}>
         {/* <AuthorCard title={data.writer[0].name} /> */}
         {isNotEmpty(data.jwplayer) && isObjectNonEmpty(mediaData) && <View style={style.listenToArticleCard}>
-          <ListenToArticleCard data={mediaData} />
+          <ListenToArticleCard data={mediaData} togglePlayback={togglePlayback} selectedTrack={selectedTrack} nid={nid} />
         </View>}
         <Label style={style.title}>{data.title}</Label>
         <ArticleFooter
