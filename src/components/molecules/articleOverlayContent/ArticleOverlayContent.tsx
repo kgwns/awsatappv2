@@ -21,8 +21,8 @@ const articleDetailFooterData: articleFooterProps = {
     },
     rightTitleColor: Styles.color.white,
     hideBookmark: true,
-    leftTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular },
-    rightTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular }
+    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular },
+    rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular }
 }
 
 export interface ArticleOverlayContentProps {

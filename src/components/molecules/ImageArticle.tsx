@@ -26,7 +26,7 @@ const carouselFooterSample: articleFooterProps = {
   rightTitleColor: Styles.color.silverChalice,
   bookMarkColorType: BookMarkColorType.WHITE,
   leftTitleStyle: { fontWeight: 'bold' },
-  rightTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular }
+  rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular }
 }
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {

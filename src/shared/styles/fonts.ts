@@ -39,7 +39,7 @@ export const fonts = {
 
     Subjectivity_Medium: 'subjectivity-medium',
 
-    Effra_Arbc_Regular: 'IBMPlexSansArabic-Regular',
+    Effra_Arbc_Regular: 'Effra-Regular',
 
     Effra_Arbc_Medium: 'Effra Medium',
 

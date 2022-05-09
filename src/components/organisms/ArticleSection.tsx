@@ -37,7 +37,7 @@ export const articleFooterDataSet: articleFooterProps = {
         style: { marginRight: normalize(7) }
     })},
     rightTitleColor: Styles.color.silverChalice,
-    leftTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular }
+    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular }
 };
 
 

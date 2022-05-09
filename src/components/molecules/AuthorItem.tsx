@@ -93,7 +93,7 @@ const AuthorItem = ({
     return (
         <TouchableOpacity key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
             <View style={{ flex: 1 }}>
-                <Label children={author} labelType={LabelTypeProp.p4}
+                <Label children={author} labelType={LabelTypeProp.p4} style={{lineHeight: 22}}
                     color={themeData.authorTitle} numberOfLines={1} onPress={() => onPressWriter(authorId)} suppressHighlighting={true} />
                 <Label children={body} labelType={LabelTypeProp.h3}
                     numberOfLines={2} style={style.body} />

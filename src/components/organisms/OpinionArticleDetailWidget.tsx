@@ -85,7 +85,7 @@ useEffect(() => {
         style: {marginRight: normalize(5)},
       });
     },
-    leftTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular },
+    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular },
     rightTitleColor: Styles.color.spanishGray,
     hideBookmark: true,
     style: {marginVertical: normalize(0.01 * screenWidth)},

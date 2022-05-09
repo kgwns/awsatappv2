@@ -60,7 +60,7 @@ export const shortArticleFooter: articleFooterProps = {
   },
   leftTitleColor: Styles.color.silverChalice,
   rightTitleColor: Styles.color.silverChalice,
-  leftTitleStyle: { fontSize: 11, lineHeight: 13, fontFamily: fonts.Effra_Arbc_Regular },
+  leftTitleStyle: { fontSize: 11, lineHeight: 13, fontFamily: fonts.IBMPlexSansArabic_Regular },
   rightTitleStyle: { fontSize: 11, lineHeight: 13 },
 };
 

@@ -143,7 +143,7 @@ export const WriterBannerImage = ({
           <View style={style.authorSubscribeView}>
               <View style={style.authorNameView}>
                 <TouchableWithoutFeedback onPress={onPressWriter}>
-                  <Label style={style.authorName} numberOfLines={1}>{data.authorName}</Label>
+                  <Label style={style.authorName} numberOfLines={2}>{data.authorName}</Label>
                 </TouchableWithoutFeedback>
               </View>
             
@@ -209,6 +209,7 @@ const customStyle = (theme: CustomThemeType) => {
       flex: 1,
       flexDirection: 'row',
       height: normalize(45),
+      alignItems: 'center'
     },
     authorNameView:{
       flex: 0.8,
@@ -222,7 +223,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(22),
       lineHeight: normalize(33),
       color: theme.primaryBlack,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.Almarai_Bold,
     },
     authorDescription:{
       fontSize: normalize(13),

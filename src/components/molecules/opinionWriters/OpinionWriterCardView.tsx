@@ -109,7 +109,7 @@ const onPressPlay = () => {
             height={normalize(43)} />}
           onPress={() => onPressWriter(authorId)}
         />
-        <Label style={style.writerLabel} onPress={() => onPressWriter(authorId)}>{writerTitle}</Label>
+        <Label suppressHighlighting={true} style={style.writerLabel} onPress={() => onPressWriter(authorId)}>{writerTitle}</Label>
       </View>}
       <View style={style.headLineContainer}>
         <Label style={style.headLine} numberOfLines={2}>
@@ -176,7 +176,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(14),
       color: theme.primary,
       marginStart: normalize(8),
-      lineHeight:normalize(14),
+      lineHeight:normalize(22),
       fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     headLineContainer: {
