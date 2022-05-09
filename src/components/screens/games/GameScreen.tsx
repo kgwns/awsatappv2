@@ -27,7 +27,7 @@ export const GameScreen = () => {
         imageBackgroundColor: Styles.color.flamingo,
         image: ImagesName.crossWord,
         title: TranslateConstants({ key: TranslateKey.CROSSWORD }),
-        description: TranslateConstants({ key: TranslateKey.CROSS_WORD_AND_SUDOKU_DESCRIPTION }),
+        description: TranslateConstants({ key: TranslateKey.CROSS_WORD_DESCRIPTION }),
         buttonTitle: TranslateConstants({ key: TranslateKey.SOLVING_CROSS_PUZZLES }),
         url: CROSS_WORD_URL
     }
@@ -37,8 +37,8 @@ export const GameScreen = () => {
         imageBackgroundColor: Styles.color.deepPeach,
         image: ImagesName.sudoku,
         title: TranslateConstants({ key: TranslateKey.SUDOKU }),
-        description: TranslateConstants({ key: TranslateKey.CROSS_WORD_AND_SUDOKU_DESCRIPTION }),
-        buttonTitle: TranslateConstants({ key: TranslateKey.SOLVING_CROSS_PUZZLES }),
+        description: TranslateConstants({ key: TranslateKey.SUDOKU_DESCRIPTION }),
+        buttonTitle: TranslateConstants({ key: TranslateKey.SOLVING_SUDOKU }),
         url: SUDOKU_URL
     }
 

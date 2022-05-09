@@ -9,7 +9,9 @@ export enum TranslateKey {
     CROSSWORD,
     SUDOKU,
     SOLVING_CROSS_PUZZLES,
-    CROSS_WORD_AND_SUDOKU_DESCRIPTION,
+    SOLVING_SUDOKU,
+    CROSS_WORD_DESCRIPTION,
+    SUDOKU_DESCRIPTION,
     GAMES,
     SECTION_MAIN,
     SECTION_COMBO_ONE,
@@ -42,8 +44,12 @@ export const TranslateConstants = ({
             return t('games.sudoku')
         case TranslateKey.SOLVING_CROSS_PUZZLES:
             return t('games.solvingCrossPuzzles')
-        case TranslateKey.CROSS_WORD_AND_SUDOKU_DESCRIPTION:
-            return t('games.crosswordAndSudokuDescription')
+        case TranslateKey.SOLVING_SUDOKU:
+            return t('games.solvingSudoku')
+        case TranslateKey.CROSS_WORD_DESCRIPTION:
+            return t('games.crosswordDescription')
+        case TranslateKey.SUDOKU_DESCRIPTION:
+            return t('games.sudokuDescription')
         case TranslateKey.GAMES:
             return t('games.games')
         case TranslateKey.SECTION_MAIN:
