@@ -6,15 +6,13 @@ import {
   FavouriteOpinionsBodyGet,
   FavouriteArticlesBodyGet,
   FetchFavouriteArticlesSuccessPayloadType,
-} from '~/redux/contentForYou/types';
+} from 'src/redux/contentForYou/types';
+import { joinArray } from 'src/shared/utils/';
 
 const getFavouriteOpinionUrl = (body:FavouriteOpinionsBodyGet) => {
   let url = `${BASE_URL}${FAVOURITE_OPINIONS_ENDPOINT}`
   if(body.authorsList){
-    url += '/';
-    body.authorsList.forEach((i: any) => {
-      url += `${i}+`
-    });
+    url += '/'+ joinArray(body.authorsList, '+');
   }
   return url
 }
@@ -22,10 +20,7 @@ const getFavouriteOpinionUrl = (body:FavouriteOpinionsBodyGet) => {
 const getFavouriteArticleUrl = (body:FavouriteArticlesBodyGet) => {
   let url = `${BASE_URL}${SECTION_ARTICLES}`
   if(body.topicsList){
-    url += '/';
-    body.topicsList.forEach((i: any) => {
-      url += `${i}+`
-    });
+    url += '/'+ joinArray(body.topicsList, '+');
   }
   return url
 }
