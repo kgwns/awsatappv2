@@ -368,7 +368,7 @@ export const OpinionArticleDetail = ({
           bounces={false}
           onScroll={onScroll}
           />
-          <View>
+          <View style={style.shadowEffect}>
             <OpinionArticleDetailFooter
               opinionArticleDetailData={opinionArticle[0]}
               isBookmarked={isBookmarked}

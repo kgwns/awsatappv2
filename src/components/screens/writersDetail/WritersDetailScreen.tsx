@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, FlatList, BackHandler } from 'react-native';
+import { StyleSheet, View, FlatList, BackHandler, Animated } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { horizontalAndTop, isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils';
+import { isNonEmptyArray, isObjectNonEmpty, normalize, isIOS, } from 'src/shared/utils';
 import { ScreenContainer } from '..';
 import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
 import TrackPlayer from 'react-native-track-player';
@@ -15,6 +15,8 @@ import { useOpinions } from 'src/hooks/useOpinions';
 import { OpinionWritersArticlesSection } from 'src/components/organisms';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
 import { decodeHTMLTags, horizontalEdge } from 'src/shared/utils/utilities';
+import { Styles } from 'src/shared/styles';
+import { BackIcon } from 'src/components/atoms';
 
 export interface WritersDetailScreenProps {
     route: any;
@@ -56,6 +58,7 @@ export const WritersDetailScreen = ({
     const [page, setPage] = useState(0);
     const [opinionsDataInfo, setOpinionsDataInfo] = useState(writerOpinionsData)
     const [isFollowed, setIsFollowed] = useState(false)
+    const [scrollY, setScrollY] = useState(new Animated.Value(0))
     
     const stopTrackPlayer = async () => {
         await TrackPlayer.reset();
@@ -199,6 +202,16 @@ export const WritersDetailScreen = ({
         }
     }
 
+    const onScroll = (event: any) => {
+        setScrollY(event.nativeEvent.contentOffset.y)
+    }
+
+    const renderBackIcon = () => (
+        <View style={[style.backContainer, style.shadowEffect]}>
+            <BackIcon onPressBack={onPressBack} />
+        </View>
+    )
+
     const renderItem = () => (
         <View style={style.container}>
             {isNonEmptyArray(writerDetailInfo) && <WriterBannerImage data={{
@@ -236,7 +249,9 @@ export const WritersDetailScreen = ({
                     renderItem={renderItem}
                     showsVerticalScrollIndicator={false}
                     bounces={false}
+                    onScroll={onScroll}
                 />
+                {(Number.parseInt(JSON.stringify(scrollY)) > 50) && renderBackIcon()}
             </>
             }
         </ScreenContainer>
@@ -255,4 +270,19 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     footer: {
         width: '100%',
     },
+    backContainer: {
+        position: 'absolute',
+        top: 0,
+        width: '100%',
+        height: isIOS ? normalize(80) : normalize(30),
+        backgroundColor: theme.backgroundColor,
+        justifyContent: 'center',
+    },
+    shadowEffect: {
+        shadowColor: Styles.color.onyx,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: .5,
+        shadowRadius: 4,
+        elevation: 15,
+    }
 });
