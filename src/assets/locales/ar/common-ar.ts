@@ -316,7 +316,7 @@ export const arabic = {
     games: 'ألعاب',
     crossword: 'الكلمات المتقاطعة',
     solvingCrossPuzzles: 'حل الكلمات المتقاطعة',
-    solvingSudoku: 'يحل سودوكو',
+    solvingSudoku: 'حل سودوكو',
     sudoku: 'سودوكو',
     crosswordDescription: 'اختبر قاموسك اللغوي مع لعبة الكلمات المتقاطعة يومياً',
     sudokuDescription: 'لعبة سودوكو تنشر يومياً لمحبي أحجيات الأرقام',
