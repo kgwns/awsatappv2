@@ -139,7 +139,7 @@ export const ArticleDetailScreen = ({
       direction: 'rtl',
       fontSize: fontSize,
       lineHeight: 1.8 * fontSize,
-      fontFamily: fonts.IBMPlexSansArabic_Regular
+      fontFamily: fonts.Effra_Arbc_Regular
     }
   }
 
@@ -241,12 +241,14 @@ export const ArticleDetailScreen = ({
 
   const renderItem = ({ item, index }: { item: ArticleDetailDataType, index: number }) => {
     const relatedArticles = relatedArticleState.slice(index * 2, (index * 2) + 2)
+    const showBackArrow = (Number.parseInt(JSON.stringify(scrollY)) < 50)
+
     return (
       <View>
         {isNonEmptyArray(articleDetailState) && <>
           <ArticleDetailWidget articleData={item}
             isRelatedArticle={route.params.isRelatedArticle} 
-            isFirstItem={index === 0}
+            isFirstItem={index === 0 && showBackArrow}
           />
           {articleHtmlContent(index)}
           <Divider style={style.divider} />
@@ -314,7 +316,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     position: 'absolute',
     top: 0,
     width: '100%',
-    height: isIOS ? normalize(80) : normalize(30),
+    height: isIOS ? normalize(80) : normalize(45),
     backgroundColor: theme.backgroundColor,
     justifyContent: 'center',
   },

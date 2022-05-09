@@ -212,30 +212,35 @@ export const WritersDetailScreen = ({
         </View>
     )
 
-    const renderItem = () => (
-        <View style={style.container}>
-            {isNonEmptyArray(writerDetailInfo) && <WriterBannerImage data={{
-                authorImage: writerDetailInfo[0].field_opinion_writer_photo_export,
-                authorName: writerDetailInfo[0].name,
-                authorDescription: decodeHTMLTags(writerDetailInfo[0].field_description),
-                facebook_url:writerDetailInfo[0].field_opinion_facebook_export,
-                twitter_url:writerDetailInfo[0].field_opinion_twitter_export,
-                instagram_url:writerDetailInfo[0].field_instagram_url_export,
-            }}
-                orientation={'PORTRAIT'}
-                onPressReturn={onPressBack}
-                isFollowed={isFollowed}
-                onPressFollow={() => onPressFollow(writerDetailInfo[0].tid)}
-            />}
-            <OpinionWritersArticlesSection
-                data={opinionsDataInfo}
-                onScroll={gotoNextPage}
-                isLoading={isWriterOpinionLoading}
-                hideImageView={true}
-                onUpdateOpinionArticlesBookmark={updatedOpinionArticlesBookmark}
-            />
-        </View>
-    );
+    const renderItem = () => {
+        const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
+
+        return (
+            <View style={style.container}>
+                {isNonEmptyArray(writerDetailInfo) && <WriterBannerImage data={{
+                    authorImage: writerDetailInfo[0].field_opinion_writer_photo_export,
+                    authorName: writerDetailInfo[0].name,
+                    authorDescription: decodeHTMLTags(writerDetailInfo[0].field_description),
+                    facebook_url: writerDetailInfo[0].field_opinion_facebook_export,
+                    twitter_url: writerDetailInfo[0].field_opinion_twitter_export,
+                    instagram_url: writerDetailInfo[0].field_instagram_url_export,
+                }}
+                    orientation={'PORTRAIT'}
+                    onPressReturn={onPressBack}
+                    isFollowed={isFollowed}
+                    onPressFollow={() => onPressFollow(writerDetailInfo[0].tid)}
+                    hideBackArrow={hideBackArrow}
+                />}
+                <OpinionWritersArticlesSection
+                    data={opinionsDataInfo}
+                    onScroll={gotoNextPage}
+                    isLoading={isWriterOpinionLoading}
+                    hideImageView={true}
+                    onUpdateOpinionArticlesBookmark={updatedOpinionArticlesBookmark}
+                />
+            </View>
+        )
+    };
 
     return (
         <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
@@ -274,7 +279,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         position: 'absolute',
         top: 0,
         width: '100%',
-        height: isIOS ? normalize(80) : normalize(30),
+        height: isIOS ? normalize(80) : normalize(45),
         backgroundColor: theme.backgroundColor,
         justifyContent: 'center',
     },

@@ -331,29 +331,34 @@ export const OpinionArticleDetail = ({
     </View>
   )
 
-  const renderItem = () => (
-    <View style={[style.container]}>
-      {isNonEmptyArray(opinionArticle) &&  (
-        <OpinionArticleDetailWidget
-          data={opinionArticle[0]} fontSize={fontSize}
-          isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
-          onPressWriter={() => onPressWriter(writerDetailInfo[0].tid)}
-          isRelatedArticle={route.params.isRelatedArticle} writerData={writerDetailInfo[0]}
-          togglePlayback={togglePlayback}
-          selectedTrack={selectedTrack}
-        />
-      )}
-      {isNonEmptyArray(relatedOpinionInfo) && (
-        <RelatedOpinionArticlesWidget data={relatedOpinionInfo}
-          onPress={onPressRelatedOpinion}
-          onScroll={() => gotoNextPage()}
-          isLoading={isLoadingRelatedOpinion} 
-          togglePlayback={togglePlayback}
-          selectedTrack={selectedTrack}
-        />
-      )}
-    </View>
-  );
+  const renderItem = () => {
+    const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
+
+    return (
+      <View style={[style.container]}>
+        {isNonEmptyArray(opinionArticle) && (
+          <OpinionArticleDetailWidget
+            data={opinionArticle[0]} fontSize={fontSize}
+            isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
+            onPressWriter={() => onPressWriter(writerDetailInfo[0].tid)}
+            isRelatedArticle={route.params.isRelatedArticle} writerData={writerDetailInfo[0]}
+            togglePlayback={togglePlayback}
+            selectedTrack={selectedTrack}
+            hideBackArrow={hideBackArrow}
+          />
+        )}
+        {isNonEmptyArray(relatedOpinionInfo) && (
+          <RelatedOpinionArticlesWidget data={relatedOpinionInfo}
+            onPress={onPressRelatedOpinion}
+            onScroll={() => gotoNextPage()}
+            isLoading={isLoadingRelatedOpinion}
+            togglePlayback={togglePlayback}
+            selectedTrack={selectedTrack}
+          />
+        )}
+      </View>
+    )
+  };
 
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}
@@ -396,7 +401,7 @@ const customStyle = (theme: CustomThemeType) => {
       position: 'absolute',
       top: 0,
       width: '100%',
-      height: isIOS ? normalize(80) : normalize(30),
+      height: isIOS ? normalize(80) : normalize(45),
       backgroundColor: theme.backgroundColor,
       justifyContent: 'center',
     },
