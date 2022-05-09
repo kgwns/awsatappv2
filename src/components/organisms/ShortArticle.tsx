@@ -207,7 +207,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   imageContainer: {
     flex: 0.30, 
     width: normalize(98),
-    height: normalize(65),
+    height: isTab ? normalize(80) : normalize(65),
   },
   imageContainerLandscape: {
     flex: 0.30, 
