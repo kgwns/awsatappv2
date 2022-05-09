@@ -1,7 +1,7 @@
 import { View, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
 import React from 'react';
 import {Image} from '../atoms/image/Image';
-import {isTab, normalize, screenWidth} from '../../shared/utils';
+import {isAndroid, isTab, normalize, screenWidth} from '../../shared/utils';
 import {ImagesName, Styles} from '../../shared/styles';
 import {TextWithFlag, Divider, Label, LabelTypeProp} from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
@@ -76,7 +76,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
     return (
       <View style={{marginTop: 10}}>
         <SectionVideoFooter  
-          rightTitle={calculateYear(item.created_export) + ','}
+          rightTitle={isAndroid ?  ',' + calculateYear(item.created_export) : calculateYear(item.created_export) + ','}
           leftTitleColor={colors.spanishGray}
           rightIcon={() => {
             return getSvgImages({

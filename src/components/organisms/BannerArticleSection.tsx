@@ -26,7 +26,7 @@ export const sectionComboArticleFooter: articleFooterProps = {
     },
     leftTitleColor: Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
-    leftTitleStyle: { fontFamily: fonts.Effra_Arbc_Regular }
+    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular }
 }
 
 interface BannerArticleSectionProps {
