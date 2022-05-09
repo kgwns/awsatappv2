@@ -3,7 +3,7 @@ import { ArticleItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
 import { t } from 'i18next'
-import { isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isObjectNonEmpty, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
 import { ArticleItemProps } from '../ArticleItem'
 import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
@@ -17,7 +17,7 @@ import { StyleSheet, View } from 'react-native'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { getSecondsToHms } from 'src/shared/utils/utilities'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { ImagesName } from 'src/shared/styles'
+import { ImagesName, Styles } from 'src/shared/styles'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -67,6 +67,8 @@ export const PopulateWidget = ({
                 <ArticleItem
                     index={0}
                     {...props}
+                    flag={isObjectNonEmpty(props.news_categories) ? props.news_categories?.title : ''}
+                    flagColor={Styles.color.greenishBlue}
                     footerInfo={{
                         ...articleFooterDataSet,
                         leftIcon: null,

@@ -74,7 +74,7 @@ export const arabic = {
       headerLeft: 'رياضة',
     },
     articlSection: {
-      articleTitle: 'عِينٌ علي'
+      articleTitle: 'عِينٌ على'
     },
     editorsChoice: {
       headerLeft: 'اختيارات المحرر'
@@ -170,9 +170,9 @@ export const arabic = {
     loginFacebook: 'الدخول بحساب فيسبوك',
     loginGoogle: 'الدخول بحساب غوغل',
     loginApple: 'الدخول بحساب أبل',
-    termsAndConditions: 'القواعد والشروط',
-    agreeTo: 'عن طريق تسجيل الدخول تكون قد وافقت على',
-    rights: 'لاستخدام التطبيق و باق حقوق تلكه و الواقعة للبراجراف',
+    termsAndConditions: 'الشروط والاحكام',
+    agreeTo: 'تسجيل الدخول يعنى موافقتك على',
+    rights: '',
     loginAccount: 'الدخول لحسابك',
     password: 'كلمة المرور',
     forgotPassword: 'نسيت كلمة المرور',
@@ -182,14 +182,14 @@ export const arabic = {
     verifyMailAndPasswordAndTryAgain:'تحقق من معرف البريد الخاص بك وكلمة المرور وحاول مرة أخرى.',
   },
   validation: {
-    emailEmpty: 'Email required',
-    emailNotValid: 'Email not valid',
-    passwordEmpty: 'Password required',
-    passwordNotMatch: 'Password do not match',
+    emailEmpty: 'عنوان البريد الإلكتروني مطلوب',
+    emailNotValid: 'البريد الإلكتروني غير صحيح ',
+    passwordEmpty: 'كلمة المرور مطلوبة',
+    passwordNotMatch: 'كلمة المرور غير متطابقة',
     passwordStrength: 'Password is too short',
     passwordRequirement:'Password must contain (1)uppercase,(1)lowercase,(1)numeric and (1)special character',
     maxLengthPassword: 'Password should contain maximum 20 characters',
-    minLengthPassword: 'Password should contain minimum 5 characters',
+    minLengthPassword: 'كلمة المرور يجب أن تحتوي على ٥ أحرف على الأقل',
   },
   about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',
@@ -268,7 +268,7 @@ export const arabic = {
       confirmNewPassword: 'قم بتأكيد كلمة المرور الجديدة',
       moveAndScale: 'تحرك و مقياس',
       openCameraOption: 'افتح الكاميرا',
-      chooseFromGallery: 'اختر من المعرض',
+      chooseFromGallery: 'اختر من جهازك',
       success:'نجاح',
       passwordChangedSuccessfully: 'تم تغيير كلمة المرور بنجاح',
       oldPasswordDoesNotMatch: 'كلمة المرور القديمة لا تتطابق مع سجلاتنا.',
@@ -317,7 +317,7 @@ export const arabic = {
     crossword: 'الكلمات المتقاطعة',
     solvingCrossPuzzles: 'حل الكلمات المتقاطعة',
     sudoku: 'سودوكو',
-    crosswordAndSudokuDescription: 'لعبة الكلمات المتقاطعة تُجرى ثلاث مرات أسبوعياً وتتراوح ما بين سهله إلى صعبه.',
+    crosswordAndSudokuDescription: 'اختبر قاموسك اللغوي مع لعبة الكلمات المتقاطعة يومياً',
   },
   sectionTab: {
     main: 'الرئيسية'
