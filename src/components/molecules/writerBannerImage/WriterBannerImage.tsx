@@ -30,6 +30,7 @@ export interface WriterBannerImageProps {
   isFollowed: boolean,
   onPressFollow: () => void,
   onPressWriter?: () => void,
+  hideBackArrow?: boolean;
 }
 
 export const WriterBannerImage = ({
@@ -39,6 +40,7 @@ export const WriterBannerImage = ({
   isFollowed,
   onPressFollow,
   onPressWriter,
+  hideBackArrow = false,
 }: WriterBannerImageProps) => {
   const [t] = useTranslation()
 
@@ -66,21 +68,24 @@ export const WriterBannerImage = ({
     return () => subscription?.remove();
   }, []);
 
-  const ReturnButton = () => (
-    <View>
-      <TouchableOpacity
-        style={{ flexDirection: 'row', alignItems: 'center' }}
-        onPress={onPressReturn}>
-        {getSvgImages({
-          name: ImagesName.returnSvg,
-          size: normalize(12),
-        })}
-        <Label style={style.returnLabel}>
-          {t('opinionArticleDetail.return')}
-        </Label>
-      </TouchableOpacity>
-    </View>
-  );
+  const ReturnButton = () => {
+    if(hideBackArrow) return null
+    return (
+      <View>
+        <TouchableOpacity
+          style={{ flexDirection: 'row', alignItems: 'center' }}
+          onPress={onPressReturn}>
+          {getSvgImages({
+            name: ImagesName.returnSvg,
+            size: normalize(12),
+          })}
+          <Label style={style.returnLabel}>
+            {t('opinionArticleDetail.return')}
+          </Label>
+        </TouchableOpacity>
+      </View>
+    )
+  }
 
   const SubscribeButton = ({ isFollowed }: { isFollowed: boolean }) => (
     <TouchableWithoutFeedback style={[style.followContainer,

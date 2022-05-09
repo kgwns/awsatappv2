@@ -35,10 +35,14 @@ export interface OpinionArticleDetailWidgetProp {
   writerData : WriterDetailDataType;
   togglePlayback?: (nid: string, mediaData: any)=> void,
   selectedTrack?: string,
+  hideBackArrow?: boolean
 }
 
 export const OpinionArticleDetailWidget = ({
-  data, fontSize, isFollowed, onPressFollow, onPressWriter, isRelatedArticle = false,writerData, togglePlayback, selectedTrack
+  data, fontSize, isFollowed, onPressFollow, onPressWriter, 
+  isRelatedArticle = false,writerData, togglePlayback, 
+  selectedTrack,
+  hideBackArrow = false,
 }: OpinionArticleDetailWidgetProp) => {
   const [t] = useTranslation();
   const {themeData} = useTheme();
@@ -71,7 +75,7 @@ useEffect(() => {
       textAlign: 'left',
       direction: 'rtl',
       fontSize: fontSize,
-      lineHeight: 1.5 * fontSize,
+      lineHeight: 1.8 * fontSize,
       fontFamily: fonts.Effra_Arbc_Regular,
     },
   };
@@ -120,6 +124,7 @@ useEffect(() => {
         isFollowed={isFollowed}
         onPressFollow={onPressFollow}
         onPressWriter={onPressWriter}
+        hideBackArrow={hideBackArrow}
       />
       <View style={style.contentContainer}>
         {/* <AuthorCard title={data.writer[0].name} /> */}

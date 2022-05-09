@@ -56,7 +56,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flexDirection: 'row',
         position: 'absolute',
         left: normalize(15),
-        top: isIOS ? normalize(50) : 0,
+        top: isIOS ? normalize(50) : normalize(10),
         alignContent: 'center',
         flexWrap: 'wrap',
         alignItems: 'center',
