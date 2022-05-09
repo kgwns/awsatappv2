@@ -104,15 +104,15 @@ const customStyle = (theme: CustomThemeType) => {
     },
     highlightedTitle: {
       fontSize: normalize(12),
-      lineHeight: normalize(12),
-      marginTop: normalize(15),
+      lineHeight: normalize(18),
+      marginTop: normalize(10),
       color: theme.primary,
       fontFamily: fonts.Effra_Arbc_Regular,
     },
     title: {
       fontSize: normalize(14),
-      lineHeight: normalize(22),// When reduce size text are cropping
-      marginTop: normalize(10),
+      lineHeight: normalize(22),
+      marginTop: normalize(8),
       color: theme.primaryBlack,
       textAlign: 'left',
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
