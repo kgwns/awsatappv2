@@ -18,8 +18,8 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
     },
     labelStyle: {
       fontFamily: fonts.Almaria_Regular,
-      height: normalize(18),
       fontSize: normalize(14),
+      lineHeight: normalize(22),
       paddingHorizontal: normalize(20),
       paddingBottom: normalize(5),
       color: theme.primaryBlack
@@ -36,8 +36,8 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
     },
     selectedLabelStyle: {
       fontFamily: fonts.Almaria_Regular,
-      height: normalize(18),
       fontSize: normalize(14),
+      lineHeight: normalize(22),
       paddingHorizontal: normalize(20),
       paddingBottom: normalize(5),
       color: Styles.color.white

@@ -1,7 +1,7 @@
 import { View, StyleSheet, ScrollView, FlatList, Platform } from 'react-native';
 import React from 'react';
 import { BorderLabel } from 'src/components/atoms/BorderLabel/BorderLabel';
-import { normalize, screenWidth } from 'src/shared/utils';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { flatListUniqueKey } from 'src/constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -85,7 +85,8 @@ const InterestedTopics = (props:any) => {
   }
 
   return (
-    <ScrollView style={style.container} horizontal={true} showsHorizontalScrollIndicator={false} bounces={false}>
+    <ScrollView style={style.container} horizontal={true} showsHorizontalScrollIndicator={false} 
+      bounces={isTab ? false : true}>
       <ScrollView style={style.innerContainerStyle} horizontal={false} scrollEnabled={false}>
         {splicedArray.map((items, index) => renderer(items, index))}
       </ScrollView>
@@ -101,7 +102,6 @@ const customInterestStyle = (theme: CustomThemeType) =>
       width: '100%',
       backgroundColor: theme.backgroundColor,
       alignSelf: 'center',
-      flexDirection: 'column',
     },
     interestedTopicsContainer: {
       marginVertical: normalize(7),
