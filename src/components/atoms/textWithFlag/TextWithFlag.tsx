@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native'
 import { Label, LabelTypeProp } from '..'
-import { normalize } from 'src/shared/utils'
+import { isIOS, normalize } from 'src/shared/utils'
 
 export interface TextWithFlagProps {
     title: string,
@@ -40,7 +40,7 @@ const textWithFlagStyle = StyleSheet.create({
         paddingBottom: normalize(8),
     },
     dividerStyle: {
-        fontSize: normalize(17),
+        fontSize: isIOS ? normalize(15) : normalize(17),
         fontWeight: 'bold',
         lineHeight: 17,
         fontFamily: 'arial'
