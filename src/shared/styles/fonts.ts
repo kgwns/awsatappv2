@@ -9,7 +9,7 @@ export const fonts = {
 
     Effra_Regular: 'Effra-Regular',
 
-    Effra_Medium: 'Effra Medium',
+    Effra_Medium: 'Effra-Medium',
 
     AwsatDigitalBetav10_Black: 'AwsatDigitalBetav10-Black',
 
@@ -41,7 +41,7 @@ export const fonts = {
 
     Effra_Arbc_Regular: 'Effra-Regular',
 
-    Effra_Arbc_Medium: 'Effra Medium',
+    Effra_Arbc_Medium: 'Effra-Medium',
 
     Beirut: 'Beirut',
 };

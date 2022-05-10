@@ -141,6 +141,9 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
         payload: { id: parseInt(response.articleDetailData[0].news_categories.id), page: 0, items_per_page: 10, current_nid: action.payload.nid }
       }
       )
+    } else {
+      const sectionResponse = parseArticleSectionSuccess([], action.payload.nid)
+      yield put(requestArticleSectionSuccess(sectionResponse));
     }
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;

@@ -65,25 +65,35 @@ export const ArticleDetailScreen = ({
     isLoading,
     articleDetailData,
     relatedArticleData,
+    isArticleSectionLoaded,
     fetchArticleDetail,
     emptyAllData,
   } = useArticleDetail();
   
 
   const sendEventToServer = () => {
+    const listOfNID = getArticleID()
+    const allEvents = listOfNID.map((item) => {
+      return {
+        contentId: item,
+        eventType: TrackingEventType.VIEW
+      }
+    })
+
     sendUserEventTracking(
       {
-        events: [{
-          contentId: currentNId,
-          eventType: TrackingEventType.VIEW
-        }]
+        events: allEvents
       }
     )
   }
+
+  const getArticleID = () => {
+    return articleDetailData.reduce((prevValue: string[], item: ArticleDetailDataType) => {
+      return prevValue.concat(item.nid)
+    }, [])
+  }
   
   useEffect(() => {
-    sendEventToServer()
-
     if (isFocused) {
       Orientation.unlockAllOrientations();
       Orientation.getDeviceOrientation(updateScreenEdge);
@@ -96,6 +106,12 @@ export const ArticleDetailScreen = ({
       }
     };
   }, [])
+
+  useEffect(() => {
+    if (isFocused && isArticleSectionLoaded) {
+      sendEventToServer()
+    }
+  }, [isArticleSectionLoaded])
 
   useEffect(() => {
     if (fontSize != articleFontSize) {

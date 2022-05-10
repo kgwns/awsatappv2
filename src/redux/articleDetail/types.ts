@@ -71,6 +71,7 @@ export type ArticleDetailState = {
   pager: PagerType,
   relatedArticleData: RelatedArticleDataType[]
   articleSectionData: ArticleDetailDataType[],
+  articleSectionLoaded: boolean;
 }
 
 export interface ArticleDetailSuccessType {

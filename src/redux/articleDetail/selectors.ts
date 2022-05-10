@@ -12,3 +12,6 @@ export const getRelatedArticleData: Selector<RelatedArticleDataType[]> = (state:
 
 export const getArticleError: Selector<string> = (state: AppState) =>
   state.articleDetail.error;
+
+export const getArticleSectionLoaded: Selector<boolean> = (state: AppState) =>
+  state.articleDetail.articleSectionLoaded;

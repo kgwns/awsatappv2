@@ -125,7 +125,6 @@
 		<string>AwsatDigitalv2b-Black.ttf</string>
 		<string>AwsatDigitalv2b-Bold.ttf</string>
 		<string>AwsatDigitalv2b-Regular.ttf</string>
-		<string>Effra Medium.ttf</string>
 		<string>IBMPlexSansArabic-Bold.ttf</string>
 		<string>IBMPlexSansArabic-ExtraLight.ttf</string>
 		<string>IBMPlexSansArabic-Light.ttf</string>
@@ -135,6 +134,7 @@
 		<string>IBMPlexSansArabic-Thin.ttf</string>
 		<string>subjectivity-medium.otf</string>
 		<string>Beirut.ttf</string>
+		<string>Effra-Medium.ttf</string>
 	</array>
 </dict>
 </plist>

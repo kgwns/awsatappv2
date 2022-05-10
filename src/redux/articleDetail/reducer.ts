@@ -8,6 +8,7 @@ const initialData: ArticleDetailState = {
   pager: {},
   relatedArticleData: [],
   articleSectionData:[],
+  articleSectionLoaded: false,
 };
 
 export default (state = initialData, action: ArticleDetailAction) => {
@@ -59,7 +60,8 @@ export default (state = initialData, action: ArticleDetailAction) => {
         error: '',
         articleDetailData: [],
         pager: {},
-        relatedArticleData: []
+        relatedArticleData: [],
+        articleSectionLoaded: false,
       };
     case REQUEST_ARTICLE_SECTION:
       return {
@@ -72,12 +74,14 @@ export default (state = initialData, action: ArticleDetailAction) => {
         ...state,
         isLoading: false,
         articleSectionData: combineData(action.payload.articleSectionData),
+        articleSectionLoaded: true,
       }
     case REQUEST_ARTICLE_SECTION_FAILED:
       return {
         ...state,
         isLoading: false,
         error: action.payload.error,
+        articleSectionLoaded: true,
       }
     default:
       return { ...state }
