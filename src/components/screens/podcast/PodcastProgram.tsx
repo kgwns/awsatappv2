@@ -3,7 +3,7 @@ import { FlatList, StyleSheet } from 'react-native';
 import { ScreenContainer } from '..';
 import { PodcastProgramInfo } from 'src/components/organisms';
 import { horizontalEdge, isNonEmptyArray } from 'src/shared/utils';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useBookmark, usePodcast } from 'src/hooks';
@@ -13,7 +13,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useLogin } from 'src/hooks';
 
-export const PodcastProgram = () => {
+export const PodcastProgram = ({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const {
@@ -33,6 +33,14 @@ export const PodcastProgram = () => {
   const validateBookmark = (nid: string): boolean => {
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
+
+  const ref = React.useRef(null);
+  useEffect(() => {
+    if(tabIndex === currentIndex){
+      global.refFlatList = ref;
+    }
+  }, [currentIndex])
+
 
   useEffect(() => {
     updatePodcastListData()
@@ -107,11 +115,14 @@ export const PodcastProgram = () => {
       />
     </>
   )
+  
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
       isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
       {isNonEmptyArray(podcastListData) &&
         <FlatList
+          ref={ref}
+          onScrollBeginDrag={() => global.refFlatList = ref}
           style={styles.containerStyle}
           data={[{}]}
           keyExtractor={(_, index) => index.toString()}

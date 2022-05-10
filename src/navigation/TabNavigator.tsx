@@ -44,9 +44,12 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                 
 
                 const onPress = async () => {
+                    
                     if (!isFocused) {
                         navigation.navigate(route.name);
                         recordCurrentScreen(route.name);
+                    }else{
+                        global.refFlatList.current?.scrollToOffset({ offset: -100 })
                     }
                 };
 

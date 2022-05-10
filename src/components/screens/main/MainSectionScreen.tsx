@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
+import { FlatList, StyleSheet, View, RefreshControl, TouchableOpacity } from 'react-native';
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
@@ -80,12 +80,22 @@ const sectionComboSevenPayload: RequestSectionComboBodyGet = {
   page: 0
 }
 
-export const MainSectionScreen = ({hidePlayerVisibility}:{hidePlayerVisibility?: boolean}) => {
+export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}:{hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number;}) => {
   const { themeData } = useTheme()
   const mainSectionStyle = useThemeAwareObject(customStyle)
 
   const [t] = useTranslation()
   const navigation = useNavigation<StackNavigationProp<any>>()
+
+  const ref = React.useRef(null);
+  useEffect(() => {
+    if(tabIndex === currentIndex){
+      global.refFlatList = ref;
+    }
+  }, [currentIndex])
+
+
+
 
   const _sectionComboOneTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_ONE})
   const _sectionComboTwoTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_TWO})
@@ -147,8 +157,15 @@ export const MainSectionScreen = ({hidePlayerVisibility}:{hidePlayerVisibility?:
     }, [isPlayerVisible])
   );
 
+
+
   useFocusEffect(
     React.useCallback(() => {
+      if(tabIndex === currentIndex){
+        global.refFlatList = ref;
+      }
+      console.log('MainSection on focus');
+      
       const unsubscribe = () => {
         setPlayerVisibility(false)
       };
@@ -801,7 +818,6 @@ export const MainSectionScreen = ({hidePlayerVisibility}:{hidePlayerVisibility?:
   )
 
   const renderItem = () => {
-    console.log('opinionListData',opinionListData)
     return isTab ? renderTabItem() : renderMobile()
   }
 
@@ -810,6 +826,8 @@ export const MainSectionScreen = ({hidePlayerVisibility}:{hidePlayerVisibility?:
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <FlatList
+        ref={ref}
+        onScrollBeginDrag={() => global.refFlatList = ref}
         style={mainSectionStyle.flatList}
         contentContainerStyle={mainSectionStyle.flatListContentContainer}
         data={[{}]}

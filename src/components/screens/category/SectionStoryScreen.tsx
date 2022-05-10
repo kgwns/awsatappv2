@@ -16,7 +16,7 @@ import {
   timeAgo,
 } from 'src/shared/utils/utilities';
 import {ScreensConstants} from 'src/constants';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import { Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';
 import { useBookmark, useLogin, useVideoList } from 'src/hooks';
@@ -31,7 +31,7 @@ import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
 
-export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) => {
+export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex}: {sectionId: any; tabIndex?: number; currentIndex?:number }) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   
   const {themeData} = useTheme();
@@ -42,6 +42,13 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
   const [heroData, setHeroData] = useState<any>([])
   const [topData, setTopData] = useState<any>([])
   const [bottomData, setBottomData] = useState<any>([])
+
+  const ref = React.useRef(null);
+    useEffect(() => {
+        if(tabIndex === currentIndex){
+        global.refFlatList = ref;
+        }
+    }, [currentIndex])
 
 
   const heroListPayload: NewsViewBodyGet = {
@@ -382,10 +389,12 @@ export const SectionStoryScreen = React.memo(({sectionId}: {sectionId: any;}) =>
       </View>
     );
   }
-    
+
   return (
     <View style={style.contentContainer}>
       {!initialLoading  ? <FlatList
+       ref={ref}
+       onScrollBeginDrag={() => global.refFlatList = ref}
       data={[{}]}
       keyExtractor={(_, index) => index.toString()}
       renderItem={renderItem}

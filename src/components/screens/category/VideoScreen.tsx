@@ -4,7 +4,7 @@ import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 import {VideoItem, VideoItemProps} from 'src/components/molecules';
 import {horizontalEdge, isNonEmptyArray, normalize} from 'src/shared/utils';
 // import {videoTabData} from 'src/constants/SampleData';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants';
 import {useTranslation} from 'react-i18next';
@@ -13,19 +13,26 @@ import {VideoItemType} from 'src/redux/videoList/types';
 import { ScreenContainer } from '..';
 import { RequestDocumentaryVideoPayload } from 'src/redux/documentaryVideo/types';
 
-interface VideoScreenProps {}
 
 const documentaryVideoPayload: RequestDocumentaryVideoPayload = {
   items_per_page: 1,
   page: 1,
 }
 
-export const VideoScreen = (props: VideoScreenProps) => {
+export const VideoScreen = ({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
 
   const {isLoading,videoData,fetchVideoRequest} = useVideoList();
   const {isVideoLoading, videoDocumentaryData, fetchDocumentaryVideoRequest} = useDocumentaryVideo();
   const [showupUp,setShowPopUp] = useState(false)
   const navigation = useNavigation<StackNavigationProp<any>>()
+
+  const ref = React.useRef(null);
+  useEffect(() => {
+    if(tabIndex === currentIndex){
+      global.refFlatList = ref;
+    }
+  }, [currentIndex])
+
 
   const {
     sendBookmarkInfo,
@@ -169,6 +176,7 @@ export const VideoScreen = (props: VideoScreenProps) => {
       />
     );
   };
+  
 
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading || isVideoLoading}
@@ -176,6 +184,8 @@ export const VideoScreen = (props: VideoScreenProps) => {
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={styles.container}>
         <FlatList
+           ref={ref}
+           onScrollBeginDrag={() => global.refFlatList = ref}
           data={[{}]}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderItem}

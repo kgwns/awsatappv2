@@ -41,6 +41,7 @@ export const SectionsScreen = () => {
   const [routes, setNewRoutes] = useState<any>([]);
   const [hidePlayerVisibility, setHidePlayerVisibility] = useState<any>(false);
 
+
   const playbackState = usePlaybackState();
 
   useEffect(() => {
@@ -56,20 +57,21 @@ export const SectionsScreen = () => {
 
 
   const renderScene = ({ route }: any) => {
+    const tabIndex = route.key.match(/\d+/g) || ['0'];
     switch (route.key.substring(1)) {
       case TabType.opinion:
-        return <OpinionScreen  />;
+        return <OpinionScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}  />;
       case TabType.podcast:
-        return <PodcastProgram  />;
+        return <PodcastProgram currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>;
       case TabType.video:
-        return <VideoScreen   />;
+        return <VideoScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>;
       case TabType.games:
-        return <GameScreen />
+        return <GameScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
       case TabType.main:
-        return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} />
+        return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} currentIndex={index} tabIndex={parseInt(tabIndex[0])} />
       default:
         return (
-          <SectionStoryScreen sectionId={route.sectionId}/>
+          <SectionStoryScreen sectionId={route.sectionId} currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
         );
     }
   }

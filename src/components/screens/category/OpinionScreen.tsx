@@ -14,13 +14,13 @@ import {OpinionsBodyGet, OpinionsListItemType} from 'src/redux/opinions/types';
 import { useBookmark, useLogin } from 'src/hooks';
 import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { ScreensConstants } from 'src/constants';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 
 
-export const OpinionScreen = () => {
+export const OpinionScreen = ({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [page, setPage] = useState(0);
@@ -43,6 +43,13 @@ export const OpinionScreen = () => {
   const {opinionWriterData, fetchOpinionWriterRequest} = useOpinionWriter();
   const {opinionsData, isLoading, fetchOpinionsRequest, emptyOpinionsData} = useOpinions();
   const isFocused = useIsFocused();
+
+  const ref = React.useRef(null);
+  useEffect(() => {
+    if(tabIndex === currentIndex){
+      global.refFlatList = ref;
+    }
+  }, [currentIndex])
 
   useEffect(() => {
     isFocused && emptyOpinionsData();
@@ -145,10 +152,14 @@ export const OpinionScreen = () => {
   </View>
   );
 
+  
+
   return (
     <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)}>
       <View style={style.container}>
       <FlatList
+        ref={ref}
+        onScrollBeginDrag={() => global.refFlatList = ref}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}

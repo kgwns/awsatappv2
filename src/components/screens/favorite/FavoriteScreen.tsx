@@ -32,6 +32,14 @@ export const FavoriteScreen = () => {
   const [tabItem, setTabItem] = useState<TabBarDataProps[]>(tabItemData);
   const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
 
+  const ref = React.useRef(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      global.refFlatList = ref;
+    }, [])
+  );
+
   useEffect(() => {
     stopTrackPlayer()
   }, [tabSelectedIndex]);
@@ -87,10 +95,13 @@ export const FavoriteScreen = () => {
     });
   }
 
+
   return (
     <ScreenContainer edge={horizontalEdge}>
       {isLoggedIn  ?
        <FlatList
+        ref={ref}
+        onScrollBeginDrag={() => global.refFlatList = ref}
        keyExtractor={(_, index) => index.toString()}
        data={[{}]}
        showsVerticalScrollIndicator={false}

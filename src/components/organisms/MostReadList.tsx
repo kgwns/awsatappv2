@@ -15,7 +15,7 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { useBookmark, useLogin } from 'src/hooks';
 import { ScreensConstants } from 'src/constants';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import PopUp, { PopUpType } from './popUp/PopUp';
 import { fonts } from 'src/shared/styles/fonts';
 
@@ -52,7 +52,16 @@ const MostReadList = ({
   const [articleData,setArticleData] = useState(data)
   const [showupUp,setShowPopUp] = useState(false)
 
+  const ref = React.useRef(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      global.refFlatList = ref;
+    }, [])
+  );
+
   useEffect(() => {
+    
     if (isNonEmptyArray(data.rows)) {
       updateArticleDataBookmark()
     }
@@ -152,9 +161,13 @@ const MostReadList = ({
     </View>
   );
 
+  
+
   return (
     <View style={mostReadListStyle.container}>
       <FlatList
+        ref={ref}
+         onScrollBeginDrag={() => global.refFlatList = ref}
         keyExtractor={(_, index) => index.toString()}
         listKey={flatListUniqueKey.MOST_READ_LIST}
         ListHeaderComponent={enableTag ? listHeader : <View/>}

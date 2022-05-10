@@ -1,5 +1,5 @@
 import { ScrollView, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer'
 import { horizontalAndBottomEdge, normalize } from 'src/shared/utils'
 import { GameIntroCard, GameIntroCardProps } from 'src/components/molecules'
@@ -7,7 +7,7 @@ import { CustomThemeType } from '~/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { ScreensConstants } from 'src/constants'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { CROSS_WORD_URL, SUDOKU_URL } from 'src/services/apiUrls'
@@ -17,10 +17,18 @@ export enum GameType {
     SUDOKU
 }
 
-export const GameScreen = () => {
+export const GameScreen = ({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
     const style = useThemeAwareObject(customStyle)
+
+    const ref = React.useRef(null);
+    useEffect(() => {
+        if(tabIndex === currentIndex){
+            global.refFlatList = ref;
+        }
+    }, [currentIndex])
+
 
     const crossWordInfo: GameIntroCardProps = {
         type: GameType.CROSS_WORD,
@@ -46,10 +54,9 @@ export const GameScreen = () => {
         const props = { gameData: data, showIntro: true }
         navigation.navigate(ScreensConstants.DYNAMIC_GAME_SCREEN, props)
     }
-
     return (
         <ScreenContainer edge={horizontalAndBottomEdge}>
-            <ScrollView style={style.scrollContainer}
+            <ScrollView ref={ref} onScrollBeginDrag={() => global.refFlatList = ref} style={style.scrollContainer}
                 showsVerticalScrollIndicator={false}>
                 <GameIntroCard {...crossWordInfo} onPress={() => navigateToDetailGame(crossWordInfo)} />
                 <GameIntroCard {...sudokuInfo} onPress={() => navigateToDetailGame(sudokuInfo)} />
