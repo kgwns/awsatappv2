@@ -68,6 +68,7 @@ export const PopulateWidget = ({
                     index={0}
                     {...props}
                     flag={isObjectNonEmpty(props.news_categories) ? props.news_categories?.title : ''}
+                    barColor={Styles.color.greenishBlue}
                     flagColor={Styles.color.greenishBlue}
                     footerInfo={{
                         ...articleFooterDataSet,
