@@ -27,7 +27,7 @@ export const TextWithFlag = ({
     return (
         <Text style={textWithFlagStyle.container} numberOfLines={numberOfLines} >
             {flag && <Label style={[{ color: flagColor }, style]} children={`${flag}`} labelType={labelType} />}
-            {flag && <Label style={[{ color: barColor }, style]} children={`   |    `} labelType={labelType} />}
+            {flag && <Label style={[{ color: barColor }, textWithFlagStyle.dividerStyle, style]} children={`  |  `} labelType={labelType} />}
             <Label children={title} labelType={labelType} color={titleColor} style={style} />
         </Text>
     )
@@ -37,6 +37,12 @@ const textWithFlagStyle = StyleSheet.create({
     container: {
         textAlign: 'left',
         flexWrap: 'wrap',
-        paddingBottom: normalize(8)
+        paddingBottom: normalize(8),
+    },
+    dividerStyle: {
+        fontSize: normalize(17),
+        fontWeight: 'bold',
+        lineHeight: 17,
+        fontFamily: 'arial'
     }
 })
