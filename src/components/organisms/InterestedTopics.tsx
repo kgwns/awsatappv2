@@ -86,7 +86,7 @@ const InterestedTopics = (props:any) => {
 
   return (
     <ScrollView style={style.container} horizontal={true} showsHorizontalScrollIndicator={false} 
-      bounces={isTab ? false : false}>
+      bounces={isTab ? false : true}>
       <ScrollView style={style.innerContainerStyle} horizontal={false} scrollEnabled={false}>
         {splicedArray.map((items, index) => renderer(items, index))}
       </ScrollView>
