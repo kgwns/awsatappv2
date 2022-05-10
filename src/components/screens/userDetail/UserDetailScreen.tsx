@@ -863,7 +863,7 @@ const createStyles = (theme: CustomThemeType) =>
     cancelTextStyle: {
       textAlign: 'center',
       color: colors.white,
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       fontSize: normalize(16),
       lineHeight: 20,
     },
@@ -875,7 +875,7 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'center',
       fontSize: normalize(16),
       lineHeight: 20,
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       color: theme.secondaryDarkSlate,
     },
     optionModalContainer: {

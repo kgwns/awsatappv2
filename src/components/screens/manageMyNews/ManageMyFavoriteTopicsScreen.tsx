@@ -11,6 +11,7 @@ import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
 import { ScreenHeight } from 'react-native-elements/dist/helpers';
+import { fonts } from 'src/shared/styles/fonts';
 
 export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
@@ -171,7 +172,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
     titleStyle: {
       textAlign: 'center',
       fontSize: normalize(20),
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       color: theme.primary,
       lineHeight: normalize(30),
     },
@@ -180,6 +181,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,
       lineHeight: normalize(30),
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     nextButtonView: {
       flex: 0.1,
@@ -205,8 +207,8 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       textAlign: 'center',
       width: '100%',
       fontSize: normalize(16),
-      fontWeight: 'bold',
-      lineHeight: normalize(20),
+      fontFamily: fonts.Almarai_Bold,
+      lineHeight: normalize(25),
     },
 });
 

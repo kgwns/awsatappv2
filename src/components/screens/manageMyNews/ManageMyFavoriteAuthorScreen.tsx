@@ -10,6 +10,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useAllWriters, useUserProfileData } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
+import { fonts } from 'src/shared/styles/fonts';
 
 export const ManageMyFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
@@ -204,7 +205,7 @@ const customStyle = (theme: CustomThemeType) => {
     titleStyle: {
       textAlign: 'center',
       fontSize: normalize(20),
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       color: theme.primary,
       lineHeight: normalize(30),
     },
@@ -213,6 +214,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,
       lineHeight: normalize(30),
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     contentStyle: {
       flex: 0.77,
@@ -239,7 +241,7 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'center',
       width: '100%',
       fontSize: normalize(16),
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       lineHeight: normalize(20),
     },
   });

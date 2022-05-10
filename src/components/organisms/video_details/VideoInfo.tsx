@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Label, Image, ButtonOutline, LabelTypeProp, HtmlRenderer} from 'src/components/atoms/';
-import { normalize } from 'src/shared/utils';
+import { normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { colors } from 'src/shared/styles/colors';
@@ -46,7 +46,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
       lineHeight: normalize(22),
       textAlign: 'center',
       paddingBottom: normalize(15),
-      fontFamily: fonts.Effra_Arbc_Regular
+      fontFamily: fonts.Almaria_Regular,
     },
   };
   return (
@@ -58,7 +58,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
             {isDocumentary && <View style={styles.imageStyle} >
               <Image fallback url={imageLink} style={styles.imageStyle} resizeMode='cover' />
               <View style={styles.titleContainer} >
-                <Label style={styles.titleStyle} numberOfLines={1} >{decode(data.title)}</Label>
+                <Label style={styles.titleStyle} numberOfLines={2} >{decode(data.title)}</Label>
               </View>
             </View>}
             <View style={styles.containerSpace} />
@@ -128,11 +128,12 @@ StyleSheet.create({
     paddingBottom: normalize(15),
   },
   descriptionTextStyle: {
-    fontSize: normalize(13),
-    lineHeight: normalize(22),
+    fontSize: normalize(15),
+    lineHeight: normalize(26),
     color: colors.white,
     textAlign: 'center',
     paddingBottom: normalize(10),
+    fontFamily: fonts.IBMPlexSansArabic_Regular,
   },
   labelStyle: {
     fontSize: normalize(11),
@@ -169,9 +170,11 @@ StyleSheet.create({
     lineHeight: normalize(16),
     color: colors.greenishBlue,
     marginHorizontal: normalize(5),
+    fontFamily: fonts.Almaria_Regular,
   },
   buttonLabel: {
     color: colors.black,
+    fontFamily: fonts.Almaria_Regular,
   },
   titleContainer: {
     bottom: 0,
@@ -184,8 +187,10 @@ StyleSheet.create({
   },
   titleStyle: {
     color: colors.darkRed,
-    fontSize: normalize(15),
-    fontWeight: 'bold',
-    lineHeight: normalize(55),
+    fontSize: normalize(30),
+    lineHeight: normalize(40),
+    fontFamily: fonts.Beirut,
+    width: 0.8 * screenWidth,
+    textAlign: 'center',
   },
 });

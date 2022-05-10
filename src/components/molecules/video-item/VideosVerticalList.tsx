@@ -5,6 +5,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Label, Image} from 'src/components/atoms';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
 import { decode } from 'html-entities';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface VideosVerticalListProps {
   imageUrl?: string;
@@ -72,7 +73,7 @@ const customStyle = (theme: CustomThemeType) => {
     title: {
       fontSize: normalize(14),
       lineHeight: normalize(22),
-      fontWeight: '400',
+      fontFamily: fonts.Almarai_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),
       textAlign: 'left',
@@ -88,6 +89,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginVertical: 3,
       fontSize: normalize(10),
       color: colors.white,
+      fontFamily: fonts.Almarai_Bold,
     },
   });
   return PodcastCardStyle;

@@ -99,7 +99,7 @@ StyleSheet.create({
   },
   textStyle: {
     fontSize: normalize(14),
-    fontWeight: 'bold',
+    fontFamily: fonts.Almarai_Bold,
     lineHeight: normalize(26),
     color: colors.white,
     paddingBottom: normalize(10),

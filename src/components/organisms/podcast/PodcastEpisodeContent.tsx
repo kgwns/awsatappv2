@@ -7,6 +7,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import { colors } from 'src/shared/styles/colors';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface PodcastEpisodeContentProps {
   onItemActionPress?: (item: PodcastVerticalListProps) => void;
@@ -90,8 +91,8 @@ StyleSheet.create({
   },
   textStyle: {
     fontSize: normalize(14),
-    lineHeight: normalize(16),
-    fontWeight: 'bold',
+    lineHeight: normalize(20),
+    fontFamily: fonts.Almarai_Bold,
     color: colors.greenishBlue,
   },
   dividerStyle: {

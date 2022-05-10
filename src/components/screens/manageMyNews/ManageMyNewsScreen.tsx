@@ -17,6 +17,7 @@ import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType, } from 'src/redux/
 import { decode } from 'html-entities';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
+import { fonts } from 'src/shared/styles/fonts';
 
 
 
@@ -332,7 +333,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(18),
       lineHeight: normalize(42),
       color: theme.primary,
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       textAlign: 'left',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
@@ -358,7 +359,7 @@ const customStyle = (theme: CustomThemeType) => {
     continueLabel: {
       fontSize: normalize(12),
       lineHeight: normalize(42),
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       color: theme.secondaryDavyGrey,
       marginStart: normalize(10),
     },

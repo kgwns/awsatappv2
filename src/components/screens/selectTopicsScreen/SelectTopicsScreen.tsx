@@ -155,7 +155,6 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       fontFamily: fonts.Almarai_Bold,
       textAlign: 'center',
       fontSize: normalize(20),
-      fontWeight: 'bold',
       color: theme.primary,
       lineHeight: normalize(30),
     },
@@ -191,7 +190,6 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       textAlign: 'center',
       width: '100%',
       fontSize: normalize(16),
-      fontWeight: 'bold',
       lineHeight: normalize(40),
     },
 });

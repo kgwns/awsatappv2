@@ -1,6 +1,8 @@
 import {StyleSheet} from 'react-native';
 import {Styles} from 'src/shared/styles';
 import {normalize} from 'src/shared/utils';
+import { fonts } from 'src/shared/styles/fonts';
+
 export const ImageWithIconStyle = StyleSheet.create({
     articleImage: {
         width: normalize(263),
@@ -12,7 +14,7 @@ export const ImageWithIconStyle = StyleSheet.create({
         paddingHorizontal: normalize(7),
         fontSize: normalize(12),
         color: Styles.color.white,
-        fontWeight: 'bold',
+        fontFamily: fonts.Almarai_Bold,
     },
     bottomTagContainer: {
         position: 'absolute',

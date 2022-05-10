@@ -317,8 +317,8 @@ const createStyles = (theme: CustomThemeType) =>
     textStyle: {
       fontSize: normalize(13),
       color: theme.signInTextColor,
-      lineHeight: normalize(16),
-      fontWeight: '400',
+      lineHeight: normalize(22),
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
       marginBottom: normalize(20),
     },
     buttonStyle: {

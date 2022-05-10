@@ -21,6 +21,7 @@ import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
+import { fonts } from 'src/shared/styles/fonts';
 
 
 export const ForgotPassword: FunctionComponent = () => {
@@ -201,13 +202,14 @@ const createStyles = (theme: CustomThemeType) =>
     skipTextStyle: {
       fontSize: normalize(14),
       color: theme.primary,
-      lineHeight: normalize(16),
+      lineHeight: normalize(22),
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     checkMailTextStyle: {
       fontSize: normalize(20),
       color: theme.primary,
-      lineHeight: normalize(25),
-      fontWeight: 'bold',
+      lineHeight: normalize(30),
+      fontFamily: fonts.Almarai_Bold,
     },
     instructionTextStyle: {
       fontSize: normalize(15),
@@ -215,7 +217,8 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: normalize(25),
       textAlign: 'center',
       top: normalize(10),
-      width: normalize(302)
+      width: normalize(302),
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     returnStyle: {
       flexDirection: 'row',
@@ -245,7 +248,7 @@ const createStyles = (theme: CustomThemeType) =>
     buttonLabelStyle: {
       paddingHorizontal: normalize(30),
       fontSize: normalize(16),
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       color: colors.white,
       lineHeight: normalize(20),
       textAlign: 'center',

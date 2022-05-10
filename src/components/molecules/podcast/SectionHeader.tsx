@@ -6,6 +6,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {normalize} from 'src/shared/utils';
 import MoreLeftArrow from 'src/assets/images/icons/more_left_arrow.svg';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface SectionHeaderProps {
   headerLeft?: string;
@@ -44,7 +45,7 @@ const customStyle = (theme: CustomThemeType) => {
     header: {
       fontSize: normalize(16),
       lineHeight: normalize(42),
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       textAlign: 'left',
       color: theme.primary,
       marginStart: normalize(10),
@@ -57,7 +58,7 @@ const customStyle = (theme: CustomThemeType) => {
     moreLabel: {
       fontSize: normalize(14),
       lineHeight: normalize(36),
-      fontWeight: 'bold',
+      fontFamily: fonts.Almarai_Bold,
       color: theme.secondaryDavyGrey,
       marginEnd: normalize(5),
     },

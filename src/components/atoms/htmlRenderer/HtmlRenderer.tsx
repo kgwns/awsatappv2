@@ -16,7 +16,9 @@ export const HtmlRenderer = ({ source, tagsStyles, ignoredDomTags }: HtmlRendere
     const { width } = useWindowDimensions();
     const systemFonts = [
         ...defaultSystemFonts,
-        fonts.IBMPlexSansArabic_Regular, fonts.Effra_Arbc_Regular
+        fonts.IBMPlexSansArabic_Regular, 
+        fonts.Effra_Arbc_Regular,
+        fonts.Almaria_Regular,
     ] //Need to add what are the fonts we are gonna use
 
     return (
