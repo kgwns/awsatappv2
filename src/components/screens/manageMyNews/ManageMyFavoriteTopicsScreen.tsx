@@ -159,7 +159,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     textContainer: {
-      flex: 0.13,
+      flex: 0.15,
     },
     widgetContainer: {
       flex: 0.77,
@@ -175,6 +175,8 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       fontFamily: fonts.Almarai_Bold,
       color: theme.primary,
       lineHeight: normalize(30),
+      paddingBottom: 5,
+      paddingHorizontal: 5
     },
     descStyle: {
       textAlign: 'center',

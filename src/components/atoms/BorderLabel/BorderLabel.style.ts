@@ -1,13 +1,16 @@
 import { StyleSheet } from 'react-native';
 import { Styles } from 'src/shared/styles';
-import { normalize } from 'src/shared/utils';
+import { normalize, isIOS } from 'src/shared/utils';
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { fonts } from 'src/shared/styles/fonts';
 
 export const customBorderLabelStyles = (theme: CustomThemeType) => {
+  const containerHeight = isIOS ? normalize(36) : normalize(40);
+  const fontSize = isIOS ? normalize(14) : normalize(17);
+  const lineHeight = isIOS ? normalize(22) : normalize(28);
   const BorderLabelStyle = StyleSheet.create({
     tagContainer: {
-      height: normalize(36),
+      height: containerHeight,
       paddingVertical: normalize(6),
       borderRadius: normalize(20),
       alignItems: 'center',
@@ -18,14 +21,14 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
     },
     labelStyle: {
       fontFamily: fonts.Almaria_Regular,
-      fontSize: normalize(14),
-      lineHeight: normalize(22),
+      fontSize: fontSize,
+      lineHeight: lineHeight,
       paddingHorizontal: normalize(20),
       paddingBottom: normalize(5),
       color: theme.primaryBlack
     },
     selectedTagContainer: {
-      height: normalize(36),
+      height: containerHeight,
       paddingVertical: normalize(6),
       borderRadius: normalize(20),
       alignItems: 'center',
@@ -36,8 +39,8 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
     },
     selectedLabelStyle: {
       fontFamily: fonts.Almaria_Regular,
-      fontSize: normalize(14),
-      lineHeight: normalize(22),
+      fontSize: fontSize,
+      lineHeight: lineHeight,
       paddingHorizontal: normalize(20),
       paddingBottom: normalize(5),
       color: Styles.color.white
