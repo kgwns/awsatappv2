@@ -21,9 +21,11 @@ import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { ArticleFontSize } from '../screens/opinionArticleDetail/OpinionArticleDetail';
 import TrackPlayer, {State, usePlaybackState} from 'react-native-track-player';
-import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
 import { fonts } from 'src/shared/styles/fonts';
+import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
+import { AxiosError } from 'axios';
+
 
 export interface OpinionArticleDetailWidgetProp {
   data: OpinionArticleDetailItemType;
@@ -52,22 +54,28 @@ export const OpinionArticleDetailWidget = ({
   const playbackState = usePlaybackState();
   const nid = data.nid_export
 
-  const { narratedOpinionData, fetchNarratedOpinionData} =
-    useOpinionArticleDetail();
 
-    const[mediaData, setMediaData] = useState<any>({});
+  const[mediaData, setMediaData] = useState<any>({});
 
   useEffect(() => {
     if(isNotEmpty(data.jwplayer)){
-      fetchNarratedOpinionData({jwPlayerID:data.jwplayer})
+      getNarratedOpinion()
     }
-}, [])
+  }, [])
 
-useEffect(() => {
-  if(isObjectNonEmpty(narratedOpinionData)){
-    setMediaData(narratedOpinionData);
+  const getNarratedOpinion = async() => {
+    try {
+      const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: data.jwplayer})
+      if(isObjectNonEmpty(opinionData)){
+        setMediaData(opinionData);
+      }
+    } catch (error) {
+      const errorResponse: AxiosError = error as AxiosError;
+      if (errorResponse.response) {
+        const errorMessage: { message: string } = errorResponse.response.data;
+      }
+    }
   }
-}, [narratedOpinionData])
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {

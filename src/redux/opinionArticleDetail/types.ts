@@ -18,7 +18,7 @@ export interface RelatedOpinionBodyGet {
   page: number;
 }
 export interface NarratedOpinionBodyGet {
-  jwPlayerID: string;
+  jwPlayerID: string | null;
 }
 export interface RequestOpinionArticleDetailType {
   type: typeof REQUEST_OPINION_ARTICLE_DETAIL;
