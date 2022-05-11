@@ -354,6 +354,7 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
             onUpdateBookmark={updateBookmarkInfo}
             showSignUpPopUp={makeSignUpAlert}
             hideImage={!isTab}
+            containerStyle={style.shortContainer}
           />
           </View>
         )}
@@ -460,6 +461,9 @@ const customStyle = (theme: CustomThemeType) => {
     dividerView: {
       marginBottom: 10,
       paddingHorizontal: 0.04 * screenWidth,
+    },
+    shortContainer: {
+      paddingBottom: 0
     }
   });
   return sectionStoryStyle;
