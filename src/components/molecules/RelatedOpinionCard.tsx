@@ -71,7 +71,6 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
         const errorResponse: AxiosError = error as AxiosError;
         if (errorResponse.response) {
           const errorMessage: { message: string } = errorResponse.response.data;
-          console.log("🚀 getOpinion ~ Related opinion", errorMessage)
         }
       }
   }

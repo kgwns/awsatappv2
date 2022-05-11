@@ -80,7 +80,6 @@ const OpinionWritersCardView = ({
         const errorResponse: AxiosError = error as AxiosError;
         if (errorResponse.response) {
           const errorMessage: { message: string } = errorResponse.response.data;
-          console.log("🚀 getOpinion ~ writer opinion", errorMessage)
         }
       }
   }
