@@ -116,6 +116,8 @@ import InstagramWhiteIcon from 'src/assets/images/icons/instagramWhite.svg';
 import TwitterWhiteIcon from 'src/assets/images/icons/twitterWhite.svg';
 import ShareGrayIcon from 'src/assets/images/icons/shareGray.svg';
 import Bookmarkgray from 'src/assets/images/icons/bookmarkGray.svg';
+import MenuCloseIcon from 'src/assets/images/icons/closeSideMenu.svg';
+import MenuCloseIconDark from 'src/assets/images/icons/closeSideMenuDark.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
@@ -275,6 +277,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <ShareGrayIcon {...props} /> : <Share {...props} />
         case ImagesName.bookmarkGray:
             return isDark ? <Bookmarkgray {...props} /> : <BookMarkBlackBdr {...props} />
+        case ImagesName.menuCloseIcon:
+            return isDark ? <MenuCloseIconDark {...props} /> : <MenuCloseIcon {...props} />
         default: return null
     }
 }

@@ -5,7 +5,7 @@ import {ButtonImage, Label, LabelTypeProp} from '../components/atoms';
 import {ButtonList, Divider} from 'src/components/atoms';
 import {useTranslation} from 'react-i18next';
 import {isIOS, normalize, isDarkTheme} from 'src/shared/utils';
-import CloseIcon from 'src/assets/images/icons/close.svg';
+// import CloseIcon from 'src/assets/images/icons/close.svg';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
 import InstagramIcon from 'src/assets/images/icons/instagram.svg';
 import TwitterIcon from 'src/assets/images/icons/twitter.svg';
@@ -126,6 +126,12 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     </>
   )
 
+  const CloseIcon = () => (
+    <>
+      {getSvgImages({ name: ImagesName.menuCloseIcon, width: styles.close.width, height: styles.close.height, style: styles.close})}
+    </>
+  )
+
   const header = () => (
     <View style={styles.headerContainer}>
       <TouchableOpacity style={styles.headerLeft} onPress={() => {
@@ -152,7 +158,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       <View style={styles.headerRight}>
         <TouchableOpacity
           onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
-          <CloseIcon fill={themeData.secondaryDarkSlate} />
+          <CloseIcon />
         </TouchableOpacity>
       </View>
     </View>
@@ -378,12 +384,12 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
       right: normalize(35),
-      top : 0,
+      bottom : 1,
     },
     user: {
-      width: normalize(27),
-      height: normalize(27),
-      borderRadius: normalize(27)/2,
+      width: 27,
+      height: 27,
+      borderRadius: 27/2,
       borderWidth: isIOS? normalize(2): normalize(3),
       borderColor: colors.lightGreenishBlue,
     },
@@ -396,8 +402,8 @@ const createStyles = (theme: CustomThemeType) =>
       width: '100%',
     },
     logo: {
-      height: normalize(30),
-      width: normalize(140),
+      height: 25,
+      width: 135,
       alignItems: 'center',
     },
     logoContainer: {
@@ -432,5 +438,9 @@ const createStyles = (theme: CustomThemeType) =>
     appearanceLabel: {
       marginLeft: normalize(20),
       color: theme.secondaryMediumGrey,
+    },
+    close: {
+      width: 15,
+      height: 15
     }
   });

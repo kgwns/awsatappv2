@@ -94,7 +94,7 @@ export const PopUp = ({
             closeOnDragAboveSheet={true}
             onClose={onClosePopUp}
             customStyles={{
-                container: [style.rbSheetContainer, { height: height }],
+                container: StyleSheet.flatten([style.rbSheetContainer, { height: height }]),
                 wrapper: {
                     backgroundColor: "transparent",
                 },

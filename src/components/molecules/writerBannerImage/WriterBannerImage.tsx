@@ -202,7 +202,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     contentContainer:{
       flexDirection:'row',
-      paddingTop: normalize(20),
+      paddingTop: normalize(30),
     },
     imageContainer:{
       overflow: 'hidden',
@@ -226,16 +226,17 @@ const customStyle = (theme: CustomThemeType) => {
     },
     authorName:{
       fontSize: normalize(22),
-      lineHeight: normalize(33),
+      lineHeight: normalize(26),
       color: theme.primaryBlack,
       fontFamily: fonts.Almarai_Bold,
+      textAlign: 'left',
     },
     authorDescription:{
       fontSize: normalize(13),
       lineHeight: normalize(20),
       textAlign: 'left',
       marginBottom:normalize(15),
-      color: theme.primaryBlack,
+      color: theme.secondaryMediumGrey,
       fontFamily: fonts.Effra_Arbc_Regular,
     },
     returnLabel: {
@@ -246,12 +247,12 @@ const customStyle = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     followContainer: {
-      width: normalize(80),
-      height: normalize(40),
+      width: 75,
+      height: 31,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: normalize(50 / 2),
+      borderRadius: 16,
     },
     followLabel: {
       fontSize: normalize(13),
