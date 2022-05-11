@@ -26,10 +26,12 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   const [videoUrl, setvideoUrl] = useState(url)
   const [isLoading, setIsLoading] = useState(true);
   const [fullScreen, setFullScreen] = useState(false);
+  const [toggleControl, setTogglecontrol] = useState('');
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
   const navigation = useNavigation();
   
   const changeOrientation = (deviceOrientation: OrientationType) => {
+    setTogglecontrol(deviceOrientation)
     Orientation.getAutoRotateState((rotationLock) => {
       if(rotationLock){
         if(deviceOrientation === 'LANDSCAPE-LEFT' || deviceOrientation === 'LANDSCAPE-RIGHT') {
@@ -92,11 +94,13 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   };
 
   const onEnterFullscreen = () => {
+    setTogglecontrol('LANDSCAPE')
     Orientation.lockToLandscape()
     setFullScreen(true)
   };
 
   const onExitFullscreen = () => {
+    setTogglecontrol('POTRAIT')
     Orientation.lockToPortrait()
     setFullScreen(false)
   };
@@ -123,6 +127,7 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
           disableVolume={true}
           isFullscreen={fullScreen}
           fullscreenAutorotate={false}
+          toggleControl={toggleControl}
         />
       </View>
     </ScreenContainer>
