@@ -43,6 +43,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         width: normalize(12),
         height: normalize(8.8),
         marginEnd: normalize(5),
+        paddingTop: isIOS ? 10 : 9,
         alignItems: 'center',
         paddingHorizontal: normalize(10)
     },

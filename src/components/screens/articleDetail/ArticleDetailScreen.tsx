@@ -243,7 +243,7 @@ export const ArticleDetailScreen = ({
   }
 
   const renderBackIcon = () => (
-    <View style={[style.backContainer, style.shadowEffect]}>
+    <View style={style.backContainer}>
       <BackIcon onPressBack={onPressBack} />
     </View>
   )
@@ -332,8 +332,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     position: 'absolute',
     top: 0,
     width: '100%',
-    height: isIOS ? normalize(80) : normalize(45),
-    backgroundColor: theme.backgroundColor,
+    height: isIOS ? normalize(90) : normalize(45),
+    backgroundColor: theme.secondaryWhite,
     justifyContent: 'center',
   },
   shadowEffect: {
