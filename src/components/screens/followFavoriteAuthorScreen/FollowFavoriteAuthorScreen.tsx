@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, LoadingState, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenHeight, screenWidth } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenHeight, screenWidth } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -143,7 +143,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingBottom: normalize(10)
     },
     textContainer: {
-      flex: 0.13,
+      flex: 0.18,
     },
     titleStyle: {
       fontFamily: fonts.Almarai_Bold,
@@ -158,6 +158,8 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,
       lineHeight: normalize(30),
+      marginTop: 5,
+      marginBottom: isIOS ? 20 : 10,
     },
     contentStyle: {
       flex: 0.77,
