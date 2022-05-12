@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+final class TargetAction: NSObject {
+    let callback: () -> ()
+    init(callback: @escaping () -> ()) {
+        self.callback = callback
+    }
+    
+    @objc func action(sender: Any) {
+        self.callback()
+    }
+}

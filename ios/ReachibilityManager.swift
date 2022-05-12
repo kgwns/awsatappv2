@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ReachabilitySwift //Need_to_uncomment
+import ReachabilitySwift
 
 
 final class ReachibilityManager {

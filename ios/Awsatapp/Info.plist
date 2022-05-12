@@ -58,7 +58,7 @@
 		<string>protonmail</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
-	<string/>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -77,7 +77,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your camera (For upload your photo)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery (For Upload your photo / adding image)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -98,6 +98,9 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>AwsatBlack.otf</string>
+		<string>AwsatBold.otf</string>
+		<string>AwsatLight.otf</string>
 		<string>AwsatDigitalBetav10-Black.ttf</string>
 		<string>AwsatDigitalBetav10-Bold.ttf</string>
 		<string>AwsatDigitalBetav10-Regular.ttf</string>

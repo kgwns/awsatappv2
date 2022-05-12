@@ -16,10 +16,10 @@ extension CollectionViewCellType {
     var collectionViewCellDescriptor: CollectionViewCellDescriptor {
         switch self {
         case .pdfEdition(let pdfEdition):
-            return CollectionViewCellDescriptor(reuseIdentifier: PDFEditionCollectionViewCell.className, configure:pdfEdition.configurePDFEditionCollectionViewCell)
+          return CollectionViewCellDescriptor(reuseIdentifier: String(describing: PDFEditionCollectionViewCell.self), configure:pdfEdition.configurePDFEditionCollectionViewCell)
             
         case .largePDFEdition(let pdfEdition):
-            return CollectionViewCellDescriptor(reuseIdentifier: PDFEditionLargeCollectionViewCell.className, configure:pdfEdition.configurePDFEditionLargeCollectionViewCell)
+          return CollectionViewCellDescriptor(reuseIdentifier: String(describing: PDFEditionLargeCollectionViewCell.self), configure:pdfEdition.configurePDFEditionLargeCollectionViewCell)
         }
     }
 }

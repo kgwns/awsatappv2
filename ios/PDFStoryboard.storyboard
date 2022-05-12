@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Download View Controller-->
+        <scene sceneID="wQK-dP-zpE">
+            <objects>
+                <viewController id="Xac-6D-xGd" customClass="DownloadViewController" customModule="Awsatapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="A14-ll-n1f">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="language_selection_background_image" translatesAutoresizingMaskIntoConstraints="NO" id="Q7w-sb-PYA">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                            </imageView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVd-w7-rq2">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="E2X-Lt-kfx"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DVd-w7-rq2" firstAttribute="leading" secondItem="E2X-Lt-kfx" secondAttribute="leading" id="4My-Eb-cfF"/>
+                            <constraint firstItem="E2X-Lt-kfx" firstAttribute="trailing" secondItem="DVd-w7-rq2" secondAttribute="trailing" id="9Ac-np-fuo"/>
+                            <constraint firstAttribute="bottom" secondItem="Q7w-sb-PYA" secondAttribute="bottom" id="QzM-zj-lvs"/>
+                            <constraint firstItem="E2X-Lt-kfx" firstAttribute="trailing" secondItem="Q7w-sb-PYA" secondAttribute="trailing" id="UOU-gI-4w3"/>
+                            <constraint firstItem="Q7w-sb-PYA" firstAttribute="top" secondItem="E2X-Lt-kfx" secondAttribute="top" id="de1-NI-rzj"/>
+                            <constraint firstItem="Q7w-sb-PYA" firstAttribute="leading" secondItem="E2X-Lt-kfx" secondAttribute="leading" id="ntc-ih-Qhe"/>
+                            <constraint firstItem="DVd-w7-rq2" firstAttribute="top" secondItem="E2X-Lt-kfx" secondAttribute="top" id="qNF-Fx-XrC"/>
+                            <constraint firstItem="E2X-Lt-kfx" firstAttribute="bottom" secondItem="DVd-w7-rq2" secondAttribute="bottom" id="sgo-K9-DqZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="kfx-M5-XQW"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <connections>
+                        <outlet property="containerView" destination="DVd-w7-rq2" id="Flc-NI-0VW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kWe-aF-ak1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1056.5217391304348" y="1080.163043478261"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="language_selection_background_image" width="375" height="508"/>
+    </resources>
+</document>
