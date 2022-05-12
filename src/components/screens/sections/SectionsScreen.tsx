@@ -112,6 +112,7 @@ export const SectionsScreen = () => {
           const tabIndex = isNonEmptyArray(number) ? parseInt(number[0]) : 0
 
           return <TabWithBarItem index={tabIndex}
+            key={tabIndex}
             onPress={setIndex}
             tabName={item.route.title || ''}
             isSelected={tabIndex == item.navigationState.index}

@@ -173,7 +173,7 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       width: '100%',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
-      marginVertical: normalize(12),
+      marginBottom: normalize(12),
       backgroundColor: theme.backgroundColor,
     },
     topImageWithLabelContainer: {
