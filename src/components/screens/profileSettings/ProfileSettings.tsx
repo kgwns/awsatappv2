@@ -72,7 +72,7 @@ export const ProfileSettings = () => {
     {
         iconName: ImagesName.notificationGrey,
         title: CONST_MANAGE_NOTIFICATION,
-        screenName: ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN
+        screenName: ''
     }, 
     {
         iconName: ImagesName.themeChange,
