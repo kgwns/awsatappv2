@@ -236,6 +236,9 @@ export const arabic = {
     debug: 'التصحيح',
     production: 'إنتاج',
     changeEnvironment: 'تغيير البيئة',
+    notSubscribed: 'أنت غير مشترك',
+    loginFeature: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و\n تتمتع بخاصية حفظ المقالات',
+    signUp: 'قم بالتسجيل',
   },
   opinionArticleDetail: {
     return: 'الرجوع',
