@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, recordLogEvent, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, recordLogEvent, screenWidth, isIOS } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -200,7 +200,7 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
     },
     textContainer: {
-      flex: 0.13,
+      flex: 0.18,
     },
     titleStyle: {
       textAlign: 'center',
@@ -215,6 +215,8 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.secondaryDavyGrey,
       lineHeight: normalize(30),
       fontFamily: fonts.IBMPlexSansArabic_Regular,
+      marginTop: 5,
+      marginBottom: isIOS ? 20 : 10,
     },
     contentStyle: {
       flex: 0.77,
