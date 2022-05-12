@@ -255,6 +255,7 @@ export const ProfileSettings = () => {
     if(isLoggedIn) return null;
     return (
         <View style={style.footerStyle}>
+            <Divider style={style.divider} />
             <Label
               children={CONST_NOT_SUBSCRIBE}
               style={style.subscribeStyle}
@@ -350,13 +351,13 @@ const customStyle = (theme: CustomThemeType) =>
       footerStyle: {
           alignItems: 'center',
           justifyContent: 'center',
-          marginTop: screenWidth * 0.1
       },
       subscribeStyle: {
           fontSize: normalize(24),
           fontFamily: fonts.AwsatDigitalBetav10_Bold,
           lineHeight: normalize(42),
           color: Styles.color.greenishBlue,
+          marginTop: screenWidth * 0.1
       },
       loginTextStyle: {
           lineHeight: normalize(28),
