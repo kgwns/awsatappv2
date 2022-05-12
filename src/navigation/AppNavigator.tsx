@@ -232,6 +232,11 @@ const AppNavigator = () => {
           headerTitleAlign: 'center'
         }}
       />
+      <Stack.Screen
+        name={ScreensConstants.PDFArchive}
+        component={Routes.PDFArchive}
+        options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };

@@ -7,7 +7,7 @@ import {
 import analytics from '@react-native-firebase/analytics';
 import { useTranslation } from 'react-i18next';
 import { TabConstants } from '../constants/TabConstants';
-import { Label } from '../components/atoms';
+import { Label, Image } from '../components/atoms';
 import { Routes, ScreenName } from '../navigation/';
 import { colors, CustomThemeType } from '../shared/styles/colors';
 import { ImagesName } from 'src/shared/styles/images';
@@ -25,6 +25,7 @@ const TabNavigator = () => {
             {/* <Tab.Screen name={TabConstants.SECTIONS} component={Routes.SectionsScreen} /> */}
             <Tab.Screen name={TabConstants.FAVORITE} component={Routes.FavoriteScreen} />
             <Tab.Screen name={TabConstants.MOST_READ} component={Routes.MostReadScreen} />
+            <Tab.Screen name={TabConstants.DOWNLOAD_NEWS} component={Routes.DownloadNews} />
         </Tab.Navigator>
     );
 };
@@ -68,6 +69,8 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                         case TabConstants.FAVORITE:
                             ImageName = isFocused ? ImagesName.favoriteActiveIcon : ImagesName.favoriteIcon
                             break;
+                        case TabConstants.DOWNLOAD_NEWS:
+                            ImageName = isFocused ? ImagesName.pdfIcon : ImagesName.pdfIcon
                     }
                     return ImageName;
                 }
@@ -98,7 +101,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                             key={index}
                             onPress={() => onPress()}>
                             <View style={style.tabIconContainer}>
-                                {(getSvgImages({ name: getImageName(), width: iconStyle.width, height: iconStyle.height , style: iconStyle}))}
+                                {route.name === TabConstants.DOWNLOAD_NEWS ? <Image style={isFocused ? style.newsDownloadIconActive : style.newsDownloadIcon} name={ImagesName.pdfIcon} /> : (getSvgImages({ name: getImageName(), width: iconStyle.width, height: iconStyle.height , style: iconStyle}))}
                             </View>
                             <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
                         </TouchableOpacity>
@@ -150,6 +153,12 @@ const customStyle = (theme: CustomThemeType) => {
         latestNewsIcon: {
             width: normalize(18),
             height: normalize(21)
+        },
+        newsDownloadIconActive: {
+            tintColor: colors.greenishBlue
+        },
+        newsDownloadIcon: {
+            tintColor: colors.lightToneGreen
         }
     })
     return TabNavigatorStyle;
