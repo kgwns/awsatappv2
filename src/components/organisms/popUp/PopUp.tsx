@@ -95,9 +95,7 @@ export const PopUp = ({
             onClose={onClosePopUp}
             customStyles={{
                 container: StyleSheet.flatten([style.rbSheetContainer, { height: height }]),
-                wrapper: {
-                    backgroundColor: "transparent",
-                },
+                wrapper: style.popupBackground,
                 draggableIcon: style.rbDraggableIcon
             }}
         >
@@ -141,6 +139,9 @@ const customStyle = (theme: CustomThemeType) => {
             width: normalize(122),
             height: 4,
             backgroundColor: theme.primaryBlack
+        },
+        popupBackground: {
+            backgroundColor: theme.popupBackground,
         }
     });
     return popUpStyle
