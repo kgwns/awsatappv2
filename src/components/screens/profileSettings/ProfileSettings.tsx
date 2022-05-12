@@ -13,7 +13,7 @@ import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants } from 'src/constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { horizontalEdge, isDarkTheme, isNotEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
-import { ButtonImage, Divider, Label, LabelTypeProp } from 'src/components/atoms';
+import { ButtonImage, ButtonOutline, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { ToggleWithLabel } from 'src/components/molecules';
@@ -58,12 +58,28 @@ export const ProfileSettings = () => {
   const CONST_LIGHT_MODE = t('profileSetting.lightMode');
   const CONST_WELCOME = t('profileSetting.welcome');
   const CONST_CHANGE_ENVIRONMENT = t('profileSetting.changeEnvironment');
+  const CONST_NOT_SUBSCRIBE = t('profileSetting.notSubscribed');
+  const CONST_LOGIN_FEATURE = t('profileSetting.loginFeature');
+  const CONST_SIGN_UP = t('profileSetting.signUp');
 
   const signOutAlertPayload : AlertPayloadType = {
     title : t('profileSetting.alert'),
     message: t('profileSetting.logoutAlertMessage'),
     buttonTitle: t('profileSetting.exit')
   }
+
+  const nonRegisteredData: SettingDataType[] = [
+    {
+        iconName: ImagesName.notificationGrey,
+        title: CONST_MANAGE_NOTIFICATION,
+        screenName: ''
+    }, 
+    {
+        iconName: ImagesName.themeChange,
+        title: CONST_APP_APPEARANCE,
+        screenName: ''
+    }
+  ]
 
   const data: SettingDataType[] = [
       {
@@ -87,6 +103,11 @@ export const ProfileSettings = () => {
           screenName: ScreensConstants.USER_DETAIL_SCREEN
       },
       {
+        iconName: ImagesName.themeChange,
+        title: CONST_APP_APPEARANCE,
+        screenName: ''
+      },
+      {
           iconName: ImagesName.Image,
           title: CONST_CHANGE_ENVIRONMENT,
           screenName: ''
@@ -98,7 +119,7 @@ export const ProfileSettings = () => {
       }
   ]
 
-  const { fetchLogoutRequest } = useLogin();
+  const { fetchLogoutRequest, isLoggedIn } = useLogin();
   const { emptySearchHistory } = useSearch();
   const { userProfileData,emptyUserProfileInfoData } = useUserProfileData();
   const { emptySelectedTopicsInfoData } = useAllSiteCategories();
@@ -213,15 +234,47 @@ export const ProfileSettings = () => {
               style={style.welcome}
               labelType={LabelTypeProp.h1}
           />
-          <Label
+          { isLoggedIn && <Label
               children={isNotEmpty(userProfileData.user?.first_name)
                   ? isNotEmpty(userProfileData.user?.last_name) ? `${userProfileData.user?.first_name} ${userProfileData.user?.last_name}` : userProfileData.user?.first_name
                   :userProfileData.user?.email}
               style={style.userName}
               labelType={LabelTypeProp.h1}
-          />
+          />}
       </Text>
   );
+
+  const goToSignUp = () => {
+    navigation.reset({
+        index: 0,
+        routes: [{ name: ScreensConstants.AuthNavigator }],
+    });
+  }
+
+  const renderFooterComponent = () =>{
+    if(isLoggedIn) return null;
+    return (
+        <View style={style.footerStyle}>
+            <Divider style={style.divider} />
+            <Label
+              children={CONST_NOT_SUBSCRIBE}
+              style={style.subscribeStyle}
+            />
+            <Label
+              children={CONST_LOGIN_FEATURE}
+              style={style.loginTextStyle}
+              labelType={LabelTypeProp.p2}
+            />
+            <ButtonOutline
+                style={style.signUpButton}
+                labelStyle={style.signUpButtonLabel}
+                title={CONST_SIGN_UP}
+                testID={'SettingSignup'}
+                onPress={goToSignUp}
+            />
+        </View>
+    )
+    }
 
 
   return (
@@ -234,10 +287,11 @@ export const ProfileSettings = () => {
           <FlatList
               keyExtractor={(_, index) => index.toString()}
               style={style.listContainer}
-              data={data}
+              data={isLoggedIn ? data : nonRegisteredData}
               showsVerticalScrollIndicator={false}
               renderItem={renderItem}
               ItemSeparatorComponent={itemSeparator}
+              ListFooterComponent={renderFooterComponent}
               bounces={false}
           />
         </View>
@@ -293,5 +347,37 @@ const customStyle = (theme: CustomThemeType) =>
       },
       userName: {
           color: theme.primaryBlack,
+      },
+      footerStyle: {
+          alignItems: 'center',
+          justifyContent: 'center',
+      },
+      subscribeStyle: {
+          fontSize: normalize(24),
+          fontFamily: fonts.AwsatDigitalBetav10_Bold,
+          lineHeight: normalize(42),
+          color: Styles.color.greenishBlue,
+          marginTop: screenWidth * 0.1
+      },
+      loginTextStyle: {
+          lineHeight: normalize(28),
+          fontFamily: fonts.IBMPlexSansArabic_Regular,
+          color: theme.secondaryDavyGrey,
+          textAlign: 'center',
+          marginTop: normalize(10),
+      },
+      signUpButton: {
+          width: normalize(172),
+          height: normalize(46),
+          alignSelf: 'center',
+          backgroundColor: Styles.color.greenishBlue,
+          borderWidth: 0,
+          marginTop: normalize(40),
+      },
+      signUpButtonLabel: {
+          color: Styles.color.white,
+          fontSize: normalize(16),
+          lineHeight: normalize(25),
+          fontFamily: fonts.AwsatDigitalBetav10_Bold,
       },
   });
