@@ -77,7 +77,9 @@ export const WriterBannerImage = ({
           onPress={onPressReturn}>
           {getSvgImages({
             name: ImagesName.returnSvg,
-            size: normalize(12),
+            width: normalize(12),
+            height: normalize(8.8), 
+            style: style.prevIconStyle
           })}
           <Label style={style.returnLabel}>
             {t('opinionArticleDetail.return')}
@@ -259,6 +261,13 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(27),
       marginStart: normalize(5),
       fontFamily: fonts.Almarai_Bold,
+    },
+    prevIconStyle: {
+      width: normalize(12),
+      height: normalize(8.8),
+      paddingTop: isIOS ? 10 : 9,
+      alignItems: 'center',
+      paddingHorizontal: normalize(10)
     },
   })
 } 
