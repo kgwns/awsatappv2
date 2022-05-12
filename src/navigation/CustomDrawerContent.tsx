@@ -36,11 +36,6 @@ import {
 import { recordLogEvent } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
-import { ToggleWithLabel } from 'src/components/molecules';
-import { useAppCommon } from 'src/hooks';
-import { Theme } from 'src/redux/appCommon/types';
-import { storeAppTheme } from 'src/redux/appCommon/action';
-import { useDispatch } from 'react-redux';
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -135,15 +130,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const header = () => (
     <View style={styles.headerContainer}>
       <TouchableOpacity style={styles.headerLeft} onPress={() => {
-        if(isLoggedIn){
-          navigation.navigate(ScreensConstants.PROFILE_SETTING)
-        }else{
-          navigation.reset({
-            index: 0,
-            routes: [{ name: ScreensConstants.AuthNavigator }],
-        });
-        }
-        
+        navigation.navigate(ScreensConstants.PROFILE_SETTING)      
         }}>
         {useLogin().isLoggedIn && userProfileData.user?.image ?
           <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.image as string) }} />
@@ -221,49 +208,6 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     }
   }
   
-  const { theme } = useAppCommon();
-  const isDark = isDarkTheme(theme);
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(isDark);
-  const CONST_APP_APPEARANCE = t('profileSetting.appAppearance');
-  const CONST_DARK_MODE = t('profileSetting.darkMode');
-  const CONST_LIGHT_MODE = t('profileSetting.lightMode');
-  const dispatch = useDispatch()
-
-  const apperanceData: any = {
-    iconName: ImagesName.themeChange,
-    title: CONST_APP_APPEARANCE,
-    screenName: ''
-  }
-
-  const DynamicIcon = ({iconName}: {iconName: ImagesName}) => (
-    <>
-        {getSvgImages({
-            name: iconName,
-            size: normalize(18),
-        })}
-    </>
-  )
-
-  const renderRightElement = (item: any) => {
-    if (item.title == CONST_APP_APPEARANCE) {
-        return (
-            <ToggleWithLabel
-                title={isDarkMode ? CONST_DARK_MODE : CONST_LIGHT_MODE}
-                isActive={!isDarkMode}
-                onPress={onPressToggle}
-            />
-        );
-    }
-  };
-
-  const onPressToggle = (isOn: boolean) => {
-    const themeData = isOn ? Theme.LIGHT : Theme.DARK;
-    dispatch(storeAppTheme(themeData));
-    setIsDarkMode(!isOn);
-};
-
-
-
   return (
     <ScreenContainer>
       {header()}
@@ -319,20 +263,6 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             )}
             titleStyle={styles.nonBoldTitle}
           />
-
-          <Divider style={styles.divider}/>
-
-          <View style={styles.itemContainer}>
-            <View style={styles.itemLeftContainer}>
-                <DynamicIcon iconName={apperanceData.iconName} />
-                <Label
-                    children={apperanceData.title}
-                    style={styles.appearanceLabel}
-                    labelType={LabelTypeProp.h3}
-                />
-            </View>
-            {renderRightElement(apperanceData)}
-          </View>
 
           <View style={styles.socialContainer}>
             <ButtonImage
