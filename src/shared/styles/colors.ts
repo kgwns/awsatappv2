@@ -74,6 +74,8 @@ export const colors = {
   aliceBlue: '#EDF2F4',
   flamingo: '#EF652E',
   darkerAquaHaze: '#F2F8F6',
+  blackOpacity50: '#00000080',
+  blueCharcoalOpacity80: '#222324CC'
 };
 
 export interface CustomThemeType {
@@ -114,6 +116,7 @@ export interface CustomThemeType {
   writerBackground: string,
   captionBackground: string,
   mainBackground: string,
+  popupBackground: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -157,6 +160,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   writerBackground: colors.pattensBlue51,
   captionBackground: colors.whiteSmoke,
   mainBackground: colors.darkerAquaHaze,
+  popupBackground: colors.blackOpacity50,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -196,6 +200,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   primaryWhite: colors.black,
   writerBackground: colors.pattensBlue15,
   captionBackground: colors.onyx,
-  mainBackground:colors.codGray
+  mainBackground:colors.codGray,
+  popupBackground: colors.blueCharcoalOpacity80,
 }
 
