@@ -7,7 +7,6 @@
     <string name="com.twitter.sdk.android.CONSUMER_SECRET">XeKQwnABVdzpQq3rcxmymFTR3Th0yxrAwxlfeKf1M8fN0sEgx4</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="app_name">AsharqAlawsat</string>
     <string name="title_language">Language</string>
     <string name="select_language">Select Language</string>
     <string name="please_login">Please log in to start\nusing our app</string>
