@@ -228,7 +228,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     authorName:{
       fontSize: normalize(22),
-      lineHeight: normalize(26),
+      lineHeight: normalize(22),
       color: theme.primaryBlack,
       fontFamily: fonts.Almarai_Bold,
       textAlign: 'left',
