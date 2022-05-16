@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyUserDefaults
+import DateToolsSwift
 
 
 extension NSObject {

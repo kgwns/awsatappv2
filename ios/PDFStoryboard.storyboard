@@ -47,6 +47,36 @@
             </objects>
             <point key="canvasLocation" x="1056.5217391304348" y="1080.163043478261"/>
         </scene>
+        <!--Edition View Controller-->
+        <scene sceneID="QNY-oq-o20">
+            <objects>
+                <viewController storyboardIdentifier="PDFEditionViewController" id="WPl-TF-jgu" customClass="PDFEditionViewController" customModule="Awsatapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sS0-Ay-jon">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9JZ-Nv-2fq">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5MN-BF-61n"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="9JZ-Nv-2fq" secondAttribute="bottom" id="ABE-Oq-cGO"/>
+                            <constraint firstItem="9JZ-Nv-2fq" firstAttribute="top" secondItem="5MN-BF-61n" secondAttribute="top" id="Ueo-ew-JtA"/>
+                            <constraint firstItem="5MN-BF-61n" firstAttribute="trailing" secondItem="9JZ-Nv-2fq" secondAttribute="trailing" id="c9a-by-WWT"/>
+                            <constraint firstItem="9JZ-Nv-2fq" firstAttribute="leading" secondItem="5MN-BF-61n" secondAttribute="leading" id="r6B-ui-42j"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="containerView" destination="9JZ-Nv-2fq" id="RGb-0y-B5N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c59-ao-geG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1990" y="1080"/>
+        </scene>
     </scenes>
     <resources>
         <image name="language_selection_background_image" width="375" height="508"/>

@@ -80,7 +80,10 @@ class DownloadViewController: BaseViewController, LoadingViewController {
     
     private func addObservers() {
         readPDFEditionNotificationToken = center.addObserver(descriptor: PDFEdition.readPDFEditionNotification) { (pdfEditionNotificationInfoPayload) in
-            self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
+          //TODO: Need to handle this
+//        self.showPDFEditionViewController(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
+          self.showPDFEditionViewController(pdfEdition: pdfEditionNotificationInfoPayload.pdfEditon, localPDFFilePath: pdfEditionNotificationInfoPayload.localPDFFilePath)
+
         }
         
         downloadCompleteNotificationToke = center.addObserver(descriptor: PDFFileManager.downlaodCompleteNotification) { (pdfEditionNotificationInfoPayload) in
@@ -93,6 +96,20 @@ class DownloadViewController: BaseViewController, LoadingViewController {
         }
 
     }
+
+//TODO: Need to handle this
+//  func showPDFEditionViewController(pdfEdition: PDFEdition, localPDFFilePath: URL, navigationController: UINavigationController) {
+  func showPDFEditionViewController(pdfEdition: PDFEdition, localPDFFilePath: URL) {
+    let storyboard = UIStoryboard(name: "PDFStoryboard", bundle: nil)
+
+    let pdfEditionViewController = storyboard.instantiateViewController(withIdentifier: "PDFEditionViewController") as! PDFEditionViewController
+      
+      pdfEditionViewController.pdfEdition = pdfEdition
+      pdfEditionViewController.pdfFilePath = localPDFFilePath
+//      pdfEditionViewController.hidesBottomBarWhenPushed = true //TODO: Need to remove this
+    self.present(pdfEditionViewController, animated: true, completion: nil)
+//      navigationController.pushViewController(pdfEditionViewController, animated: true)
+  }
     
     private func showMobileDataAlert() {
         let okayAlertAction = UIAlertAction(title: Strings.OK, style: .default, handler: nil)
