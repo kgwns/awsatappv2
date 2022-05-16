@@ -32,6 +32,8 @@ import {
   SectionArticlesParentScreen,
   GameScreen,
   DynamicGameScreen,
+  DownloadNews,
+  PDFArchive,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -74,6 +76,8 @@ export const Routes = {
   SectionArticlesParentScreen,
   GameScreen,
   DynamicGameScreen,
+  DownloadNews,
+  PDFArchive,
 };
 
 /**
@@ -161,4 +165,6 @@ export const RoutesName = {
   userDetailScreen,
   writersDetailScreen,
   sectionArticlesParentScreen,
+  DownloadNews,
+  PDFArchive,
 };
