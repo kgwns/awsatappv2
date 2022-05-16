@@ -48,6 +48,7 @@ export interface ArticleSectionProps {
   isFooterOutside?: boolean
   listStyle?: StyleProp<ViewStyle>
   hideImage?: boolean;
+  containerStyle?: StyleProp<ViewStyle>
 }
 
 export const shortArticleFooter: articleFooterProps = {
@@ -78,6 +79,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
   isFooterOutside = false,
   listStyle,
   hideImage = false,
+  containerStyle,
 }: ArticleSectionProps) => {
   const [t] = useTranslation();
   const { isLoggedIn } = useLogin()
@@ -114,7 +116,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') ? style.imageContainerLandscape : style.imageContainer
     return <TouchableWithoutFeedback onPress={() => onPress(item.nid)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
-        style={StyleSheet.flatten([style.cardContainer, cardStyle])}>
+        style={StyleSheet.flatten([style.cardContainer, cardStyle, containerStyle])}>
         <View style={{ flexDirection: 'row' }}>
           <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
             <View style={[hideImage && style.titleViewHideImage]}>

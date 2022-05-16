@@ -19,8 +19,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { State, usePlaybackState, } from 'react-native-track-player';
-import { useOpinionArticleDetail } from 'src/hooks/useOpinionArticleDetail';
 import { getSecondsToHms } from 'src/shared/utils/utilities'
+import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
+import { AxiosError } from 'axios';
 
 
 export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayback, selectedTrack, jwPlayerID}:any) => {
@@ -29,7 +30,6 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
   const { themeData } = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>()
   const playbackState = usePlaybackState();
-  const { narratedOpinionData, fetchNarratedOpinionData} = useOpinionArticleDetail();
   const[mediaData, setMediaData] = useState<any>({});
   const[timeDuration, setTimeDuration] = useState<any>(null);
 
@@ -52,20 +52,28 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
 
   useEffect(() => {
     if(jwPlayerID){
-      fetchNarratedOpinionData({jwPlayerID: jwPlayerID})
+      getNarratedOpinion()
     }
-}, [])
+  }, [])
 
-  useEffect(() => {
-    if(isObjectNonEmpty(narratedOpinionData)){
-      setMediaData(narratedOpinionData);
-      let playList = isNonEmptyArray(narratedOpinionData.playlist) ? narratedOpinionData.playlist[0] : null;
-        if(playList){
-        let time = playList.duration? getSecondsToHms(playList.duration) : null;
-        setTimeDuration(time)
-        } 
-    }
-}, [narratedOpinionData])
+  const getNarratedOpinion = async() => {
+      try {
+        const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
+        if(isObjectNonEmpty(opinionData)){
+          setMediaData(opinionData);
+          let playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
+            if(playList){
+            let time = playList.duration? getSecondsToHms(playList.duration) : null;
+            setTimeDuration(time)
+            } 
+        }
+      } catch (error) {
+        const errorResponse: AxiosError = error as AxiosError;
+        if (errorResponse.response) {
+          const errorMessage: { message: string } = errorResponse.response.data;
+        }
+      }
+  }
 
   const onPressWriter = (tid: string) => {
     if (isNotEmpty(tid)) {

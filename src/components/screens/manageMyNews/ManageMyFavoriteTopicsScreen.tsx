@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { colors } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS } from 'src/shared/utils';
 import { useTranslation } from 'react-i18next';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -159,7 +159,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     textContainer: {
-      flex: 0.15,
+      flex: 0.25,
     },
     widgetContainer: {
       flex: 0.77,
@@ -176,7 +176,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       color: theme.primary,
       lineHeight: normalize(30),
       paddingBottom: 5,
-      paddingHorizontal: 5
+      paddingHorizontal: 10
     },
     descStyle: {
       textAlign: 'center',
@@ -184,6 +184,8 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       color: theme.secondaryDavyGrey,
       lineHeight: normalize(30),
       fontFamily: fonts.IBMPlexSansArabic_Regular,
+      marginTop: 10,
+      marginBottom: isIOS ? 20 : 10,
     },
     nextButtonView: {
       flex: 0.1,

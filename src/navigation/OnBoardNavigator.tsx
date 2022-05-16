@@ -150,18 +150,18 @@ const customStyle = (theme: CustomThemeType) => {
       shadowColor: colors.transparent,
     },
     search: {
-      height: 20,
-      width: 20,
+      height: 19,
+      width: 18,
       marginHorizontal: 20,
     },
     logo: {
-      height: 30,
-      width: 140,
+      height: 25,
+      width: 135,
       alignItems: 'center',
     },
     menu: {
-      height: 22,
-      width: 22,
+      height: 16,
+      width: 19,
       marginHorizontal: 20,
     },
     onBoardReturn: {
