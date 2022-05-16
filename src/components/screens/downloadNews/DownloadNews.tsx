@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Text, View, requireNativeComponent } from 'react-native';
+import { View, requireNativeComponent } from 'react-native';
 
 interface DownloadNewsProps {}
 
 export const DownloadNews = (props: DownloadNewsProps) => {
   return (
-    <View>
-      <Text>DownloadNews</Text>
+    <View style={{flex: 1}}>
       <PSPDFView />
     </View>
   );

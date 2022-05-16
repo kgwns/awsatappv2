@@ -9,6 +9,16 @@ import UIKit
 import SwiftyUserDefaults
 
 
+extension NSObject {
+    var className: String {
+        return String(describing: type(of: self))
+    }
+    
+    class var className: String {
+        return String(describing: self)
+    }
+}
+
 extension UIView {
     func addRoundedCorners() {
         self.layer.cornerRadius = self.bounds.size.height / 2.0

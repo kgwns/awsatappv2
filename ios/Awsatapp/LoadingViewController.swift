@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SVProgressHUD
+//import SVProgressHUD
 import SwiftyJSON
 
 protocol LoadingViewController {
@@ -18,13 +18,13 @@ protocol LoadingViewController {
 extension LoadingViewController where Self: UIViewController {
     func load(_ endpoint: Endpoint<EndPointResultType>, showActicityIndicator: Bool = true) {
         if showActicityIndicator == true {
-            SVProgressHUD.show()
+//            SVProgressHUD.show()
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
         
         API.request(endpoint) { result,isFromCache  in
             if showActicityIndicator == true {
-                SVProgressHUD.dismiss()
+//                SVProgressHUD.dismiss()
             }
             
             if isFromCache == false && showActicityIndicator == true {

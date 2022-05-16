@@ -34,6 +34,14 @@
 		AE89E1526D3058190A29EB55 /* libPods-Awsatapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF273F72F625EF60E47B1CF6 /* libPods-Awsatapp.a */; };
 		B1CB1AAEFF814EBBBA090FC2 /* AwsatDigitalv2b-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CC96FCB89FE43DCAD20BD5B /* AwsatDigitalv2b-Bold.ttf */; };
 		C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5437AF089D81496AB07BB20A /* Effra-Regular.ttf */; };
+		D72EB4CD28324046008BFB99 /* PDFEditionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4CA28324039008BFB99 /* PDFEditionCollectionViewCell.xib */; };
+		D72EB4CE2832404E008BFB99 /* PDFEditionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4CB28324039008BFB99 /* PDFEditionTableViewCell.xib */; };
+		D72EB4D7283245D8008BFB99 /* AwsatLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D4283245CE008BFB99 /* AwsatLight.otf */; };
+		D72EB4D8283245DC008BFB99 /* AwsatBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */; };
+		D72EB4D9283245DF008BFB99 /* AwsatBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D5283245CE008BFB99 /* AwsatBold.otf */; };
+		D72EB4E028325703008BFB99 /* TestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4DE28325703008BFB99 /* TestCollectionViewCell.swift */; };
+		D72EB4E128325703008BFB99 /* TestCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4DF28325703008BFB99 /* TestCollectionViewCell.xib */; };
+		D72EB4E528325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */; };
 		D77DFBD7282BBF8100EFAF13 /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D77DFBD6282BBF8100EFAF13 /* SampleViewController.m */; };
 		D77DFBDC282BD67800EFAF13 /* PDFStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D77DFBDB282BD67800EFAF13 /* PDFStoryboard.storyboard */; };
 		D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4927D9C9CE0028999D /* iAd.framework */; };
@@ -65,7 +73,6 @@
 		D7F15A99282C0AEC004368A7 /* PDFArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A98282C0AEC004368A7 /* PDFArchiveData.swift */; };
 		D7F15A9C282C0B6D004368A7 /* PDFEditionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A9B282C0B6D004368A7 /* PDFEditionCollectionViewCell.swift */; };
 		D7F15A9E282C0BB7004368A7 /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A9D282C0BB7004368A7 /* TargetAction.swift */; };
-		D7F15AA0282C0C48004368A7 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = D7F15A9F282C0C48004368A7 /* Fonts */; };
 		D7F15AA2282C0D49004368A7 /* DefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AA1282C0D49004368A7 /* DefaultKeys.swift */; };
 		D7F15AA4282C0E21004368A7 /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AA3282C0E21004368A7 /* NotificationCenterManager.swift */; };
 		D7F15AA6282C0EAB004368A7 /* PDFEditionLargeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AA5282C0EAB004368A7 /* PDFEditionLargeCollectionViewCell.swift */; };
@@ -77,7 +84,6 @@
 		D7F15AB2282C132E004368A7 /* PDFEditionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AB1282C132E004368A7 /* PDFEditionTableViewCell.swift */; };
 		D7F15AB5282C142D004368A7 /* PDFEdition+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AB4282C142D004368A7 /* PDFEdition+ViewModel.swift */; };
 		D7F15AB7282C1559004368A7 /* kingfiser+networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AB6282C1559004368A7 /* kingfiser+networking.swift */; };
-		D7F15AB9282C1D2B004368A7 /* Xibs in Resources */ = {isa = PBXBuildFile; fileRef = D7F15AB8282C1D2B004368A7 /* Xibs */; };
 		E3A1C6A163A44E35BA56387D /* AwsatDigitalBetav10-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8D82F8C72494F68981F642E /* AwsatDigitalBetav10-Regular.ttf */; };
 		F2B68E5A9A4D47CCB204FFC6 /* IBMPlexSansArabic-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B92C60AB24178BA12F9B8 /* IBMPlexSansArabic-Medium.ttf */; };
 		FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B45D19788C4478787AF7891 /* Almarai-ExtraBold.ttf */; };
@@ -139,6 +145,14 @@
 		C71F0B6A5BAD4BC1BE74D43A /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		CF273F72F625EF60E47B1CF6 /* libPods-Awsatapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65511C7F87248D4B2F00011 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		D72EB4CA28324039008BFB99 /* PDFEditionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PDFEditionCollectionViewCell.xib; sourceTree = "<group>"; };
+		D72EB4CB28324039008BFB99 /* PDFEditionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PDFEditionTableViewCell.xib; sourceTree = "<group>"; };
+		D72EB4D4283245CE008BFB99 /* AwsatLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatLight.otf; sourceTree = "<group>"; };
+		D72EB4D5283245CE008BFB99 /* AwsatBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBold.otf; sourceTree = "<group>"; };
+		D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBlack.otf; sourceTree = "<group>"; };
+		D72EB4DE28325703008BFB99 /* TestCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCollectionViewCell.swift; sourceTree = "<group>"; };
+		D72EB4DF28325703008BFB99 /* TestCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestCollectionViewCell.xib; sourceTree = "<group>"; };
+		D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PDFEditionLargeCollectionViewCell.xib; path = Awsatapp/PDFEditionLargeCollectionViewCell.xib; sourceTree = "<group>"; };
 		D77DFBD5282BBF8100EFAF13 /* SampleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleViewController.h; sourceTree = "<group>"; };
 		D77DFBD6282BBF8100EFAF13 /* SampleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleViewController.m; sourceTree = "<group>"; };
 		D77DFBDB282BD67800EFAF13 /* PDFStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PDFStoryboard.storyboard; sourceTree = "<group>"; };
@@ -174,7 +188,6 @@
 		D7F15A98282C0AEC004368A7 /* PDFArchiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFArchiveData.swift; sourceTree = "<group>"; };
 		D7F15A9B282C0B6D004368A7 /* PDFEditionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionCollectionViewCell.swift; sourceTree = "<group>"; };
 		D7F15A9D282C0BB7004368A7 /* TargetAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetAction.swift; sourceTree = "<group>"; };
-		D7F15A9F282C0C48004368A7 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		D7F15AA1282C0D49004368A7 /* DefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeys.swift; sourceTree = "<group>"; };
 		D7F15AA3282C0E21004368A7 /* NotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
 		D7F15AA5282C0EAB004368A7 /* PDFEditionLargeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionLargeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -186,7 +199,6 @@
 		D7F15AB1282C132E004368A7 /* PDFEditionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionTableViewCell.swift; sourceTree = "<group>"; };
 		D7F15AB4282C142D004368A7 /* PDFEdition+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFEdition+ViewModel.swift"; sourceTree = "<group>"; };
 		D7F15AB6282C1559004368A7 /* kingfiser+networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "kingfiser+networking.swift"; sourceTree = "<group>"; };
-		D7F15AB8282C1D2B004368A7 /* Xibs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Xibs; sourceTree = "<group>"; };
 		D8AA95078BE64015A4C75555 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		DCAF97FCEBA04671A1F23140 /* IBMPlexSansArabic-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Bold.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Bold.ttf"; sourceTree = "<group>"; };
 		DE43288E83E54802B0102ECA /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
@@ -348,9 +360,15 @@
 		D7F15A6A282BF4A2004368A7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D7F15AB8282C1D2B004368A7 /* Xibs */,
-				D7F15A9F282C0C48004368A7 /* Fonts */,
+				D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */,
+				D72EB4D5283245CE008BFB99 /* AwsatBold.otf */,
+				D72EB4D4283245CE008BFB99 /* AwsatLight.otf */,
+				D72EB4CA28324039008BFB99 /* PDFEditionCollectionViewCell.xib */,
+				D72EB4CB28324039008BFB99 /* PDFEditionTableViewCell.xib */,
+				D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */,
 				D7F15A6B282BF4B2004368A7 /* MpFoundation */,
+				D72EB4DE28325703008BFB99 /* TestCollectionViewCell.swift */,
+				D72EB4DF28325703008BFB99 /* TestCollectionViewCell.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -598,20 +616,24 @@
 				5E92D08527D24F7700592089 /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				D72EB4E128325703008BFB99 /* TestCollectionViewCell.xib in Resources */,
 				383C0A0AB8874E17A395D2DD /* AwsatDigitalBetav10-Black.ttf in Resources */,
+				D72EB4CD28324046008BFB99 /* PDFEditionCollectionViewCell.xib in Resources */,
 				8B3BA46F3B5548999CD39890 /* AwsatDigitalBetav10-Bold.ttf in Resources */,
-				D7F15AA0282C0C48004368A7 /* Fonts in Resources */,
+				D72EB4D9283245DF008BFB99 /* AwsatBold.otf in Resources */,
 				E3A1C6A163A44E35BA56387D /* AwsatDigitalBetav10-Regular.ttf in Resources */,
 				C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */,
 				5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */,
 				FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */,
 				52B5C8CA19974215925660F6 /* Almarai-Light.ttf in Resources */,
 				7CBB19684ACB44F8882E4025 /* Almarai-Regular.ttf in Resources */,
+				D72EB4E528325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib in Resources */,
 				D77DFBDC282BD67800EFAF13 /* PDFStoryboard.storyboard in Resources */,
 				928468CA882F4F17B52EF50A /* AwsatDigitalv2b-Black.ttf in Resources */,
 				B1CB1AAEFF814EBBBA090FC2 /* AwsatDigitalv2b-Bold.ttf in Resources */,
 				09780F0B561145AD914E833A /* AwsatDigitalv2b-Regular.ttf in Resources */,
 				5357BE729B3C4A038D324F02 /* IBMPlexSansArabic-Bold.ttf in Resources */,
+				D72EB4D8283245DC008BFB99 /* AwsatBlack.otf in Resources */,
 				AE824C7EF2A34A76AE26EFFE /* IBMPlexSansArabic-ExtraLight.ttf in Resources */,
 				AD2D4C4F9729485684CF8B20 /* IBMPlexSansArabic-Light.ttf in Resources */,
 				F2B68E5A9A4D47CCB204FFC6 /* IBMPlexSansArabic-Medium.ttf in Resources */,
@@ -621,7 +643,8 @@
 				8D00CD9EF80B4DB8852B9964 /* subjectivity-medium.otf in Resources */,
 				1BCC838D77E04AD686D4BE54 /* Beirut.ttf in Resources */,
 				7476FD19439D42338A420F44 /* Effra-Medium.ttf in Resources */,
-				D7F15AB9282C1D2B004368A7 /* Xibs in Resources */,
+				D72EB4D7283245D8008BFB99 /* AwsatLight.otf in Resources */,
+				D72EB4CE2832404E008BFB99 /* PDFEditionTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,6 +864,7 @@
 				D7F15A71282BFBAE004368A7 /* CollectionViewCellDescriper.swift in Sources */,
 				D7F15A8A282C06AB004368A7 /* CustomNotifications.swift in Sources */,
 				D7F15AAC282C115A004368A7 /* DataSourceFactory.swift in Sources */,
+				D72EB4E028325703008BFB99 /* TestCollectionViewCell.swift in Sources */,
 				D7F15A84282C01F1004368A7 /* PDFEdition.swift in Sources */,
 				D7F15A9E282C0BB7004368A7 /* TargetAction.swift in Sources */,
 				D7F15A7E282C00C7004368A7 /* Extensions.swift in Sources */,

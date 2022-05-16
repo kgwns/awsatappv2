@@ -40,7 +40,7 @@
                     <navigationItem key="navigationItem" id="kfx-M5-XQW"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
-                        <outlet property="containerView" destination="DVd-w7-rq2" id="Flc-NI-0VW"/>
+                        <outlet property="containerView" destination="DVd-w7-rq2" id="csV-KZ-Vac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kWe-aF-ak1" userLabel="First Responder" sceneMemberID="firstResponder"/>
