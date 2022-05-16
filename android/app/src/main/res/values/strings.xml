@@ -186,4 +186,6 @@
     <string name="notifications_admin_channel_name" translatable="false">AsharqAlawsat</string>
     <string name="world_cup">World Cup</string>
     <string name="view_all">View All</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
