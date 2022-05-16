@@ -32,10 +32,18 @@ class DownloadViewController: BaseViewController, LoadingViewController {
     var collectionViewController: GenericCollectionViewController<CollectionViewCellType>?
 
     // MARK: - View Life Cycle
-    
+    let myView = UIView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViewController()
+
+      myView.frame = self.view.frame
+      self.view.addSubview(myView)
+      
+      setupViewController()
+      
+      load(EndPoints.pdfArchive.endPoint)
+      addObservers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,7 +139,7 @@ class DownloadViewController: BaseViewController, LoadingViewController {
         self.collectionViewController?.didSelect = didSelectCollectionViewCellType
         collectionViewController?.collectionView?.isScrollEnabled = true
         collectionViewController?.collectionView?.showsVerticalScrollIndicator = false
-        add(contentViewController: collectionViewController!, toContainerView: containerView)
+        add(contentViewController: collectionViewController!, toContainerView: myView)
     }
 }
 
