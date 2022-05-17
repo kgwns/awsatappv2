@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import {View } from 'react-native';
 import {horizontalAndTop} from 'src/shared/utils';
-import {ScreenContainer} from '..';
+import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
 import { UIManager, findNodeHandle, PixelRatio, Dimensions, StatusBar } from 'react-native';
 import { PDFViewManager } from './PDFArchiveViewManager';
 

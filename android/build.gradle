@@ -37,7 +37,6 @@ allprojects {
             url("$rootDir/../node_modules/jsc-android/dist")
         }
 
-        jcenter()
         maven {
             url "https://maven.google.com"
         }

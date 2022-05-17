@@ -1,10 +1,17 @@
 package com.awsatapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+
+import com.awsatapp.reactPackage.Constant;
+import com.awsatapp.reactPackage.MyContextWrapper;
+import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
+
+import java.util.Locale;
 
 public class MainActivity extends ReactActivity {
   @Override
@@ -16,6 +23,12 @@ public class MainActivity extends ReactActivity {
   @Override
   protected void onResume() {
     super.onResume();
+  }
+
+  @Override
+  protected void attachBaseContext(Context base) {
+    Context context = MyContextWrapper.wrap(base, new Locale(CoreCacheManager.getInstance(base).get(Constant.CACHE_LANGUAGE, "ar")));
+    super.attachBaseContext(context);
   }
 
   @Override

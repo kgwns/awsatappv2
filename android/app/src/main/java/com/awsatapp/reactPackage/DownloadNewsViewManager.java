@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import com.awsatapp.reactPackage.fragment.DownloadNewsFragment;
-import com.awsatapp.reactPackage.fragment.SampleFragment;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.SimpleViewManager;
@@ -20,46 +19,48 @@ import com.facebook.react.uimanager.annotations.ReactPropGroup;
 
 /**
  * @Author: Saravanakumar Subramanian
- * @Date: 16/05/22
+ * @Date: 17/05/22
  */
+public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>
 
-public class PDFViewManager extends SimpleViewManager<FrameLayout> {
-    public final int COMMAND_CREATE = 1;
-    ReactApplicationContext reactContext;
-    private int propWidth;
-    private int propHeight;
+    {
+        public final int DOWNLOAD_NEWS  = 2;
+        ReactApplicationContext reactContext;
+        private int propWidth;
+        private int propHeight;
 
-    public PDFViewManager(ReactApplicationContext reactContext) {
+    public DownloadNewsViewManager(ReactApplicationContext reactContext) {
         this.reactContext = reactContext;
     }
-    @NonNull
-    @Override
-    public String getName() {
-        return "PDFViewManager";
+        @NonNull
+        @Override
+        public String getName() {
+        return "DownloadNewsViewManager";
     }
 
-    @NonNull
-    @Override
-    protected FrameLayout createViewInstance(@NonNull ThemedReactContext reactContext) {
+        @NonNull
+        @Override
+        protected FrameLayout createViewInstance(@NonNull ThemedReactContext reactContext) {
         return new FrameLayout(reactContext);
     }
 
-    @Override
-    public void receiveCommand(@NonNull FrameLayout root, String commandId, @Nullable ReadableArray args) {
+        @Override
+        public void receiveCommand(@NonNull FrameLayout root, String commandId, @Nullable ReadableArray args) {
         super.receiveCommand(root, commandId, args);
         int reactNativeViewId = args.getInt(0);
         int commandIdInt = Integer.parseInt(commandId);
         Log.d("reactNativeViewId", "reactNativeViewIde: " +commandIdInt);
         switch (commandIdInt) {
-            case COMMAND_CREATE:
-                createFragment(root, reactNativeViewId);
+
+            case DOWNLOAD_NEWS:
+                createDownloadNewsFragment(root, reactNativeViewId);
                 break;
             default: {}
         }
     }
 
-    @ReactPropGroup(names = {"width", "height"}, customType = "Style")
-    public void setStyle(FrameLayout view, int index, Integer value) {
+        @ReactPropGroup(names = {"width", "height"}, customType = "Style")
+        public void setStyle(FrameLayout view, int index, Integer value) {
         if (index == 0) {
             propWidth = value;
         }
@@ -69,11 +70,11 @@ public class PDFViewManager extends SimpleViewManager<FrameLayout> {
         }
     }
 
-    public void createFragment(FrameLayout root, int reactNativeViewId) {
+    public void createDownloadNewsFragment(FrameLayout root, int reactNativeViewId) {
         ViewGroup parentView = (ViewGroup) root.findViewById(reactNativeViewId);
         setupLayout(parentView);
 
-        final SampleFragment myFragment = new SampleFragment();
+        final DownloadNewsFragment myFragment = new DownloadNewsFragment();
         FragmentActivity activity = (FragmentActivity) reactContext.getCurrentActivity();
         activity.getSupportFragmentManager()
                 .beginTransaction()
@@ -81,7 +82,7 @@ public class PDFViewManager extends SimpleViewManager<FrameLayout> {
                 .commit();
     }
 
-    public void setupLayout(View view) {
+        public void setupLayout(View view) {
         Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
             @Override
             public void doFrame(long frameTimeNanos) {
@@ -92,10 +93,10 @@ public class PDFViewManager extends SimpleViewManager<FrameLayout> {
         });
     }
 
-    /**
-     * Layout all children properly
-     */
-    public void manuallyLayoutChildren(View view) {
+        /**
+         * Layout all children properly
+         */
+        public void manuallyLayoutChildren(View view) {
         // propWidth and propHeight coming from react-native props
         int width = propWidth;
         int height = propHeight;

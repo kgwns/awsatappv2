@@ -24,7 +24,8 @@ public class PDFPackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(@NonNull ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
-                new PDFViewManager(reactContext)
+                new PDFViewManager(reactContext),
+                new DownloadNewsViewManager(reactContext)
         );
     }
 
