@@ -42,8 +42,11 @@
 		D72EB4E528325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */; };
 		D72EB4ED28326EB2008BFB99 /* PDFEditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4EC28326EB2008BFB99 /* PDFEditionViewController.swift */; };
 		D72EB4F12832701B008BFB99 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F02832701B008BFB99 /* Colors.swift */; };
+		D72EB4F328328C81008BFB99 /* PDFArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F228328C81008BFB99 /* PDFArchiveViewController.swift */; };
+		D72EB4F528328FC8008BFB99 /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */; };
 		D77DFBD7282BBF8100EFAF13 /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D77DFBD6282BBF8100EFAF13 /* SampleViewController.m */; };
 		D77DFBDC282BD67800EFAF13 /* PDFStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D77DFBDB282BD67800EFAF13 /* PDFStoryboard.storyboard */; };
+		D781E46B283370BA00B3A231 /* PDFArchivesRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D781E46A283370BA00B3A231 /* PDFArchivesRootViewController.m */; };
 		D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4927D9C9CE0028999D /* iAd.framework */; };
 		D7D85B4C27D9C9D90028999D /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4B27D9C9D90028999D /* AdServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D7D85B4E27D9C9E50028999D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4D27D9C9E50028999D /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -152,9 +155,13 @@
 		D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PDFEditionLargeCollectionViewCell.xib; path = Awsatapp/PDFEditionLargeCollectionViewCell.xib; sourceTree = "<group>"; };
 		D72EB4EC28326EB2008BFB99 /* PDFEditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionViewController.swift; sourceTree = "<group>"; };
 		D72EB4F02832701B008BFB99 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		D72EB4F228328C81008BFB99 /* PDFArchiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFArchiveViewController.swift; sourceTree = "<group>"; };
+		D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
 		D77DFBD5282BBF8100EFAF13 /* SampleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleViewController.h; sourceTree = "<group>"; };
 		D77DFBD6282BBF8100EFAF13 /* SampleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleViewController.m; sourceTree = "<group>"; };
 		D77DFBDB282BD67800EFAF13 /* PDFStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PDFStoryboard.storyboard; sourceTree = "<group>"; };
+		D781E469283370BA00B3A231 /* PDFArchivesRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDFArchivesRootViewController.h; sourceTree = "<group>"; };
+		D781E46A283370BA00B3A231 /* PDFArchivesRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFArchivesRootViewController.m; sourceTree = "<group>"; };
 		D7D85B4927D9C9CE0028999D /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		D7D85B4B27D9C9D90028999D /* AdServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdServices.framework; path = System/Library/Frameworks/AdServices.framework; sourceTree = SDKROOT; };
 		D7D85B4D27D9C9E50028999D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -277,6 +284,8 @@
 				D77DFBD6282BBF8100EFAF13 /* SampleViewController.m */,
 				D7F15A5C282BE8CD004368A7 /* BaseViewController.swift */,
 				D7F15A5E282BE9A7004368A7 /* LoadingViewController.swift */,
+				D781E469283370BA00B3A231 /* PDFArchivesRootViewController.h */,
+				D781E46A283370BA00B3A231 /* PDFArchivesRootViewController.m */,
 			);
 			name = Awsatapp;
 			sourceTree = "<group>";
@@ -360,6 +369,7 @@
 			isa = PBXGroup;
 			children = (
 				D72EB4EC28326EB2008BFB99 /* PDFEditionViewController.swift */,
+				D72EB4F228328C81008BFB99 /* PDFArchiveViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -399,6 +409,7 @@
 				D7F15A90282C0790004368A7 /* URLConfig.swift */,
 				D7F15A9D282C0BB7004368A7 /* TargetAction.swift */,
 				D7F15AAF282C12CE004368A7 /* TableViewCellDescriper.swift */,
+				D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */,
 			);
 			name = MpFoundation;
 			sourceTree = "<group>";
@@ -857,7 +868,9 @@
 				D7F15A81282C0174004368A7 /* CollectionViewCellType.swift in Sources */,
 				D7F15AB2282C132E004368A7 /* PDFEditionTableViewCell.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				D781E46B283370BA00B3A231 /* PDFArchivesRootViewController.m in Sources */,
 				0DADE4D627DA4AAD009F9C8A /* trackPlayerDummy.swift in Sources */,
+				D72EB4F328328C81008BFB99 /* PDFArchiveViewController.swift in Sources */,
 				D7F15A99282C0AEC004368A7 /* PDFArchiveData.swift in Sources */,
 				D77DFBD7282BBF8100EFAF13 /* SampleViewController.m in Sources */,
 				D7F15AB5282C142D004368A7 /* PDFEdition+ViewModel.swift in Sources */,
@@ -882,6 +895,7 @@
 				D7F15AAC282C115A004368A7 /* DataSourceFactory.swift in Sources */,
 				D7F15A84282C01F1004368A7 /* PDFEdition.swift in Sources */,
 				D7F15A9E282C0BB7004368A7 /* TargetAction.swift in Sources */,
+				D72EB4F528328FC8008BFB99 /* GenericTableViewController.swift in Sources */,
 				D7F15A7E282C00C7004368A7 /* Extensions.swift in Sources */,
 				D7F15A73282BFBFC004368A7 /* DeviceOrientation.swift in Sources */,
 				D7F15AAA282C10F5004368A7 /* UserBase.swift in Sources */,

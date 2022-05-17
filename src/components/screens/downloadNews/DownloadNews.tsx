@@ -6,9 +6,9 @@ interface DownloadNewsProps {}
 export const DownloadNews = (props: DownloadNewsProps) => {
   return (
     <View style={{flex: 1}}>
-      <PSPDFView />
+      <PDFView />
     </View>
   );
 };
 
-const PSPDFView = requireNativeComponent('SampleViewController')
+const PDFView = requireNativeComponent('SampleViewController')

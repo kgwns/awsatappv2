@@ -77,6 +77,45 @@
             </objects>
             <point key="canvasLocation" x="1990" y="1080"/>
         </scene>
+        <!--Archive View Controller-->
+        <scene sceneID="a7F-1c-SAN">
+            <objects>
+                <viewController storyboardIdentifier="PDFArchiveViewController" id="qwD-l0-9c2" customClass="PDFArchiveViewController" customModule="Awsatapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GDQ-Il-Ece">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="language_selection_background_image" translatesAutoresizingMaskIntoConstraints="NO" id="JRL-8N-LKx">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dVo-p2-w9n">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5Tw-fN-1rT"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JRL-8N-LKx" firstAttribute="leading" secondItem="5Tw-fN-1rT" secondAttribute="leading" id="6W5-xN-RtV"/>
+                            <constraint firstItem="JRL-8N-LKx" firstAttribute="top" secondItem="GDQ-Il-Ece" secondAttribute="top" id="GEU-oV-AqL"/>
+                            <constraint firstAttribute="bottom" secondItem="dVo-p2-w9n" secondAttribute="bottom" id="IyQ-Ax-Q3f"/>
+                            <constraint firstAttribute="bottom" secondItem="JRL-8N-LKx" secondAttribute="bottom" id="NNQ-nD-FhG"/>
+                            <constraint firstItem="dVo-p2-w9n" firstAttribute="leading" secondItem="5Tw-fN-1rT" secondAttribute="leading" id="Ogd-uC-37O"/>
+                            <constraint firstItem="dVo-p2-w9n" firstAttribute="top" secondItem="5Tw-fN-1rT" secondAttribute="top" id="YKT-LD-E0o"/>
+                            <constraint firstItem="5Tw-fN-1rT" firstAttribute="trailing" secondItem="JRL-8N-LKx" secondAttribute="trailing" id="dmf-8F-nGb"/>
+                            <constraint firstItem="5Tw-fN-1rT" firstAttribute="trailing" secondItem="dVo-p2-w9n" secondAttribute="trailing" id="oTg-0G-MWn"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="fKx-ll-H7t"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="containerView" destination="dVo-p2-w9n" id="Yzf-bo-q4L"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uch-pW-Bfw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3781.1594202898555" y="1078.7946428571429"/>
+        </scene>
     </scenes>
     <resources>
         <image name="language_selection_background_image" width="375" height="508"/>

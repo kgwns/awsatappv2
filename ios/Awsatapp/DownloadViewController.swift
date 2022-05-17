@@ -88,8 +88,7 @@ class DownloadViewController: BaseViewController, LoadingViewController {
         
         downloadCompleteNotificationToke = center.addObserver(descriptor: PDFFileManager.downlaodCompleteNotification) { (pdfEditionNotificationInfoPayload) in
             self.collectionViewController?.collectionView?.reloadData()
-            self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
-        }
+            self.showPDFEditionViewController(pdfEdition: pdfEditionNotificationInfoPayload.pdfEditon, localPDFFilePath: pdfEditionNotificationInfoPayload.localPDFFilePath)        }
         
         showMobileDataAlertNotification =  center.addObserver(descriptor: UIApplication.userMobileDataAlertNotification) { _ in
             self.showMobileDataAlert()
