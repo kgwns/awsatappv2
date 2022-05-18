@@ -1,20 +1,22 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import { requireNativeComponent } from 'react-native';
 import { horizontalAndTop } from 'src/shared/utils';
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { ScreenContainer } from '..';
 
+const PDFArchiveView = requireNativeComponent('PDFArchivesRootViewController')
+
+const Props = {
+  style: { flex: 1 }
+}
+
 export const PDFArchive = () => {
-  const [t] = useTranslation()
   return (
     <ScreenContainer
       edge={horizontalAndTop}
       showHeader={true}
-      headerTitle={TranslateConstants({key: TranslateKey.DRAWER_PDF_ARCHIVE})}>
-        <PDFArchiveView />
+      headerTitle={TranslateConstants({ key: TranslateKey.DRAWER_PDF_ARCHIVE })}>
+      <PDFArchiveView {...Props} />
     </ScreenContainer>
   );
 };
-
-const PDFArchiveView = requireNativeComponent('PDFArchivesRootViewController')
