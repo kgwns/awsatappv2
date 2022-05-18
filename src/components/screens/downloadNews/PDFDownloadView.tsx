@@ -5,7 +5,7 @@ const NativeView = requireNativeComponent('SampleViewController');
 
 const PDFDownloadView = () => {
     return (
-        <NativeView style={{flex: 1}}/>
+        <NativeView style={{flex: 1}} enabled={true} onItemClick={(selectedPDF: any) => console.log("GOT::", selectedPDF) }/>
     );
 }
 

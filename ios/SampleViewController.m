@@ -11,14 +11,16 @@
 
 @implementation SampleViewController
 
-//+ (BOOL)requiresMainQueueSetup {
-//    return true;
-//}
++ (BOOL)requiresMainQueueSetup {
+    return true;
+}
 
 RCT_EXPORT_MODULE()
 
-- (UIView *)view {
+-(UIView *) view {
     return [TodayTabView new];
 }
+
+RCT_EXPORT_VIEW_PROPERTY(onItemClick, RCTBubblingEventBlock)
 
 @end

@@ -10,8 +10,9 @@ import SwiftyJSON
 
 class TodayTabView: UIView, LoadingView {
   
-    var showPDFEdition: (PDFEdition, URL) -> () = { _,_  in }
+//    var showPDFEdition: (PDFEdition, URL) -> () = { _,_  in }
 
+    @objc var onItemClick: RCTBubblingEventBlock?
     private var readPDFEditionNotificationToken: Token?
     private var downloadCompleteNotificationToken: Token?
     private var showMobileDataAlertNotification: Token?
@@ -76,7 +77,8 @@ class TodayTabView: UIView, LoadingView {
     }
 
     private func addObservers() {
-        readPDFEditionNotificationToken = NotificationCenter.default.addObserver(descriptor: PDFEdition.readPDFEditionNotification) { (pdfEditionNotificationInfoPayload) in
+        readPDFEditionNotificationToken = NotificationCenter.default.addObserver(descriptor: PDFEdition.readPDFEditionNotification) { [weak self] (pdfEditionNotificationInfoPayload) in
+            guard let self = self else { return }
             self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
         }
         
@@ -88,6 +90,12 @@ class TodayTabView: UIView, LoadingView {
         showMobileDataAlertNotification =  NotificationCenter.default.addObserver(descriptor: UIApplication.userMobileDataAlertNotification) { _ in
             self.showMobileDataAlert()
         }
+    }
+  
+    private func showPDFEdition(_ pdfEdition: PDFEdition, _ localFilePath: URL) {
+        var consolidatedDictionary = pdfEdition.dictionaryRepresentation()
+        consolidatedDictionary["localPDFFilePath"] = localFilePath
+        onItemClick?(["SelectedPDF": consolidatedDictionary])
     }
 
     private func showMobileDataAlert() {
