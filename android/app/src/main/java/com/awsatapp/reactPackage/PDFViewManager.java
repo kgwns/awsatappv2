@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
+import com.awsatapp.reactPackage.Activity.PdfArchiveActivity;
 import com.awsatapp.reactPackage.fragment.DownloadNewsFragment;
 import com.awsatapp.reactPackage.fragment.SampleFragment;
 import com.facebook.react.bridge.ReactApplicationContext;

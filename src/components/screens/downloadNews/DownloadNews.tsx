@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {horizontalAndTop} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
 import { View } from 'react-native';
-import { UIManager, findNodeHandle, PixelRatio, Dimensions, StatusBar } from 'react-native';
+import { UIManager, findNodeHandle, PixelRatio, Dimensions } from 'react-native';
 import { DownloadNewsViewManager } from './DownloadNewsViewManager';
 
 interface DownloadNewsProps {}
