@@ -7,6 +7,7 @@ import { ImagesName } from 'src/shared/styles/images'
 import { CaptionWithImage } from 'src/components/atoms'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { DEFAULT_HIT_SLOP, isNotEmpty } from 'src/shared/utils'
+import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 export enum BookMarkColorType {
   WHITE = 'white',
@@ -31,6 +32,7 @@ export interface articleFooterProps {
   favouriteIconWidth?: number;
   favouriteIconHeight?: number;
   rightTitleStyle?: StyleProp<TextStyle>;
+  isDetail?: boolean;
 }
 
 const ArticleFooter = ({
@@ -51,6 +53,7 @@ const ArticleFooter = ({
   favouriteIconWidth = 10,
   favouriteIconHeight = 15,
   rightTitleStyle,
+  isDetail = false
 }: articleFooterProps) => {
   let storySaveIcon=() => {
     
@@ -71,9 +74,11 @@ const ArticleFooter = ({
     }
   }
 
+  const { themeData } = useTheme()
+
   return (
     <View style={StyleSheet.flatten([articleFooterStyle.container, style])} >
-      <View style={[articleFooterStyle.authorContainer, rightContainerStyle,hideBookmark&&{flex:1}]}>
+      <View style={[articleFooterStyle.authorContainer, rightContainerStyle,hideBookmark && {flex:1}, isDetail && articleFooterStyle.articleDetailUi]}>
         {showFooterTitle && 
         <CaptionWithImage style={articleFooterStyle.leftContainer}
           title={leftTitle} 
@@ -82,16 +87,16 @@ const ArticleFooter = ({
           labelStyle={leftTitleStyle}
         />
         }
-        {(isNotEmpty(rightTitle) && isNotEmpty(leftTitle)) && showFooterTitle &&
+        {(isNotEmpty(rightTitle) && isNotEmpty(leftTitle)) && showFooterTitle && !isDetail &&
           <View style={articleFooterStyle.verticalDivider} />
         }
         {showFooterTitle && 
         <CaptionWithImage style={articleFooterStyle.rightContainer}
           title={rightTitle} 
           icon={rightIcon}
-          color={rightTitleColor}
+          color={isDetail ? themeData.primaryBlack : rightTitleColor}
           numberOfLine={2}
-          labelStyle={rightTitleStyle}
+          labelStyle={StyleSheet.flatten([rightTitleStyle, isDetail && articleFooterStyle.authorTopMargin])}
         />
         }
       </View>
@@ -139,5 +144,12 @@ const articleFooterStyle = StyleSheet.create({
     flex:0.1,
     alignItems: 'flex-end',
     justifyContent: 'center',
+  },
+  authorTopMargin: {
+    marginTop:5
+  },
+  articleDetailUi: {
+    flexDirection:'column',
+    alignItems: 'flex-start'
   }
 })
