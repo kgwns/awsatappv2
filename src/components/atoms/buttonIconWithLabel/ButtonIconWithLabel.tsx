@@ -49,7 +49,7 @@ const customStyle = () => (
             fontSize: normalize(13),
             lineHeight: normalize(16),
             marginLeft: normalize(5),
-            fontFamily: fonts.Almarai_Bold,
+            fontFamily: fonts.AwsatDigitalBetav10_Bold,
         },
     })
 )

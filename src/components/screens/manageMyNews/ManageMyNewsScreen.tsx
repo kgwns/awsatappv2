@@ -333,7 +333,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(18),
       lineHeight: normalize(42),
       color: theme.primary,
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       textAlign: 'left',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
@@ -359,7 +359,7 @@ const customStyle = (theme: CustomThemeType) => {
     continueLabel: {
       fontSize: normalize(12),
       lineHeight: normalize(42),
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: theme.secondaryDavyGrey,
       marginStart: normalize(10),
     },

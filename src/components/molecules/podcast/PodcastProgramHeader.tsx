@@ -123,7 +123,7 @@ StyleSheet.create({
   labelStyle: {
     marginLeft: normalize(10),
     color: colors.white,
-    fontFamily: fonts.Almarai_Bold,
+    fontFamily: fonts.AwsatDigitalBetav10_Bold,
   },
   buttonStyle: {
     paddingLeft: normalize(20),

@@ -195,7 +195,7 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'left',
       lineHeight: normalize(24),
       color: theme.primaryBlack,
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     subHeadLine: {
       fontSize: normalize(15),
@@ -228,7 +228,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(36),
       color: theme.primary,
       marginLeft: normalize(10),
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     duration: {
       fontSize: normalize(12),

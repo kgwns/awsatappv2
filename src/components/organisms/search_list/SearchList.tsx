@@ -172,7 +172,7 @@ StyleSheet.create({
     textAlign: 'left',
     marginVertical: normalize(16),
     fontSize: normalize(16),
-    fontFamily: fonts.Almaria_Regular,
+    fontFamily: fonts.AwsatDigitalBetav10_Regular,
   },
   containerStyle: {
     flex : 1
@@ -191,7 +191,7 @@ StyleSheet.create({
   },
   historyItemText: {
     fontWeight: 'normal',
-    fontFamily: fonts.Almaria_Regular,
+    fontFamily: fonts.AwsatDigitalBetav10_Regular,
   },
   clearButtonStyle: {
    marginTop: normalize(20),

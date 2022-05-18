@@ -171,7 +171,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     day: {
       marginHorizontal: normalize(8),
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     footerRight: {
       flexDirection: 'row',
@@ -263,7 +263,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     buttonLabel: {
       color: colors.white,
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     titleStyle: {
       color: colors.darkRed,

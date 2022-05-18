@@ -230,7 +230,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(22),
       lineHeight: normalize(22),
       color: theme.primaryBlack,
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       textAlign: 'left',
     },
     authorDescription:{
@@ -260,7 +260,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(13),
       lineHeight: normalize(27),
       marginStart: normalize(5),
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     prevIconStyle: {
       width: normalize(12),

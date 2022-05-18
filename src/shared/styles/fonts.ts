@@ -1,11 +1,11 @@
 export const fonts = {
     Almarai_Bold: 'AwsatDigitalBetav10-Bold',
 
-    Almaria_ExtraBold: 'Almarai-ExtraBold',
+    Almaria_ExtraBold: 'AwsatDigitalBetav10-Bold',
 
     Almaria_Light: 'Almarai-Light',
     
-    Almaria_Regular: 'Almarai-Regular',
+    Almaria_Regular: 'AwsatDigitalBetav10-Regular',
 
     Effra_Regular: 'Effra-Regular',
 

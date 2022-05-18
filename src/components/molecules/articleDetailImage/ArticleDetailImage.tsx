@@ -45,7 +45,7 @@ const ArticleDetailImage = ({
                     color={Styles.color.lightGray}
                     style={{
                         paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-                        fontFamily: fonts.Almaria_Regular
+                        fontFamily: fonts.AwsatDigitalBetav10_Regular
                     }}
                 />
             </View>

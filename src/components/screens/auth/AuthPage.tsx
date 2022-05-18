@@ -254,7 +254,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'flex-end',
     },
     headerLabelStyle: {
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
       fontSize: normalize(12),
       color: theme.primary,
       lineHeight: normalize(16),

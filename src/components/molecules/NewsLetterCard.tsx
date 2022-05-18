@@ -114,7 +114,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: 2,
     },
     title: {
-      fontFamily: fonts.Almaria_ExtraBold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       fontSize: normalize(16),
       lineHeight: normalize(19),
       color: theme.primaryDarkSlateGray,
@@ -140,14 +140,14 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.secondaryWhite,
     },
     statusLabel: {
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
       fontSize: normalize(12),
       lineHeight: normalize(14),
       marginStart: normalize(8),
       color: colors.doveGray,
     },
     statusSelectedLabel: {
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       fontSize: normalize(12),
       color: theme.primary,
       lineHeight: normalize(14),

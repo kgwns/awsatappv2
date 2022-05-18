@@ -73,7 +73,7 @@ const customStyle = (theme: CustomThemeType) => {
     title: {
       fontSize: normalize(14),
       lineHeight: normalize(22),
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),
       textAlign: 'left',
@@ -89,7 +89,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginVertical: 3,
       fontSize: normalize(10),
       color: colors.white,
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
   });
   return PodcastCardStyle;

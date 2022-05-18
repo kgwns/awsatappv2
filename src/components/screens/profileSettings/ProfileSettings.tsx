@@ -329,7 +329,7 @@ const customStyle = (theme: CustomThemeType) =>
       label: {
           marginLeft: normalize(20),
           color: theme.secondaryMediumGrey,
-          fontFamily: fonts.Almaria_Regular,
+          fontFamily: fonts.AwsatDigitalBetav10_Regular,
       },
       divider: {
           height: 1,
