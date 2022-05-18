@@ -1,22 +1,22 @@
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import * as React from 'react';
-import PDFDownloadView from './PDFDownloadView';
-import {
-  CardStyleInterpolators,
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
+import {requireNativeComponent} from 'react-native'
+import { ScreensConstants } from 'src/constants';
 
-const Stack = createStackNavigator();
-const defaultScreenOptions: StackNavigationOptions = {
-  gestureEnabled: false,
-  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-  headerShown: false,
-};
+
+const NativeView: any = requireNativeComponent('SampleViewController');
 
 export const DownloadNews = () => {
+  const navigation = useNavigation<StackNavigationProp<any>>()
+
+  const onClickOpenPDF = (selectedPDF: any) => {
+      navigation.navigate(ScreensConstants.PDF_EDITOR_VIEW, {selectedPDF: selectedPDF})
+  }
+
   return (
-    <Stack.Navigator screenOptions={defaultScreenOptions}>
-      <Stack.Screen name="PDFDownloadView" component={PDFDownloadView} />
-    </Stack.Navigator>
+      <NativeView style={{ flex: 1 }}
+          onItemClick={(data: any) => onClickOpenPDF(data.nativeEvent.SelectedPDF)}
+      />
   );
 };

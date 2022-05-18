@@ -39,3 +39,4 @@ export { DynamicGameScreen } from 'src/components/screens/games/DynamicGameScree
 export { MainSectionScreen } from 'src/components/screens/main/MainSectionScreen'
 export { DownloadNews } from 'src/components/screens/downloadNews/DownloadNews'
 export { PDFArchive } from 'src/components/screens/pdfArchive/PDFArchive'
+export { PDFEditorView } from 'src/components/screens/pdfEditorViewer/PDFEditorView'

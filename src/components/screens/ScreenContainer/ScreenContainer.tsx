@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
-import {DEFAULT_HIT_SLOP, isDarkTheme, isTab, normalize, screenWidth} from '../../../shared/utils';
+import {DEFAULT_HIT_SLOP, isDarkTheme, isNotEmpty, isTab, normalize, screenWidth} from '../../../shared/utils';
 import {useAppCommon} from '../../../hooks/useAppCommon';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -87,11 +87,11 @@ export const ScreenContainer = ({
   const header = (title?: string) => {
     return (
       <View style={style.headerContainer}>
-        {title && (
+        {isNotEmpty(title) && (
           <Label
             labelType="h2"
             color={themeData.secondaryDarkSlate}
-            style={style.headerTitle}>
+            style={[style.headerTitle, { marginLeft: (title && title?.length > 20) ? normalize(30) : 0 }]}>
             {title}
           </Label>
         )}
@@ -185,6 +185,8 @@ const createStyles = (theme: CustomThemeType) => {
       height: normalize(55),
       backgroundColor: theme.backgroundColor,
       justifyContent: 'center',
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     returnIconStyle: {
       tintColor: theme.secondaryDarkSlate,
@@ -193,8 +195,7 @@ const createStyles = (theme: CustomThemeType) => {
       height: normalize(12),
     },
     headerTitle: {
-      position: 'absolute',
-      alignSelf: 'center',
+      paddingLeft: 0
     },
     loadingOverlay: {
       width: '100%',

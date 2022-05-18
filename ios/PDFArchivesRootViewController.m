@@ -11,6 +11,9 @@
 
 @implementation PDFArchivesRootViewController
 
++ (BOOL)requiresMainQueueSetup {
+    return true;
+}
 
 RCT_EXPORT_MODULE()
 
@@ -18,5 +21,7 @@ RCT_EXPORT_MODULE()
   PDFArchiveViewController *vc = [PDFArchiveViewController new];
   return  vc.view;
 }
+
+RCT_EXPORT_VIEW_PROPERTY(onItemClicked, RCTBubblingEventBlock)
 
 @end

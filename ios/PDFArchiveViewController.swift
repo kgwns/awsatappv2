@@ -15,7 +15,9 @@ enum PDFArchiveViewControllerTypes {
 
 class PDFArchiveViewController: UIViewController, LoadingView {
     
-    var showPDFEdition: (PDFEdition, URL) -> () = { _,_  in }
+//    var showPDFEdition: (PDFEdition, URL) -> () = { _,_  in }
+  
+    @objc var onItemClick: RCTBubblingEventBlock?
     var readPDFEditionNotificationToken: Token?
     var downloadCompleteNotificationToke: Token?
     var showMobileDataAlertNotification: Token?
@@ -170,7 +172,8 @@ class PDFArchiveViewController: UIViewController, LoadingView {
         }
         
         readPDFEditionNotificationToken = center.addObserver(descriptor: PDFEdition.readPDFEditionNotification) { (pdfEditionNotificationInfoPayload) in
-          self.showPDFEditionViewController(pdfEdition: pdfEditionNotificationInfoPayload.pdfEditon, localPDFFilePath: pdfEditionNotificationInfoPayload.localPDFFilePath)
+          self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
+
         }
         
         downloadCompleteNotificationToke = center.addObserver(descriptor: PDFFileManager.downloadCompleteNotification) { _ in
@@ -179,17 +182,39 @@ class PDFArchiveViewController: UIViewController, LoadingView {
         }
     }
   
+  private func showPDFEdition(_ pdfEdition: PDFEdition, _ localFilePath: URL) {
+      var consolidatedDictionary = pdfEdition.dictionaryRepresentation()
+    consolidatedDictionary["localPDFFilePath"] = localFilePath.absoluteString
+    var title: String = ""
+    if let timestamp = pdfEdition.issueDate, let timeInterval = TimeInterval(timestamp) {
+      if let issueNumber = pdfEdition.issueNumber {
+              title = Date(timeIntervalSince1970: timeInterval).format(with: .full, locale: Locale(identifier:  "ar-AE")) + " " + Strings.edition + " " +  issueNumber
+          } else {
+              title =  Date(timeIntervalSince1970: timeInterval).format(with: .full, locale: Locale(identifier:  "ar-AE"))
+          }
+      } else {
+        if let issueNumber = pdfEdition.issueNumber {
+              title = Strings.edition + " " +  issueNumber
+          } else {
+              title = ""
+          }
+      }
+    
+    consolidatedDictionary["title"] = title
+    onItemClicked?(["SelectedPDF": consolidatedDictionary])
+  }
+  
   //TODO: Need to handle this
   //  func showPDFEditionViewController(pdfEdition: PDFEdition, localPDFFilePath: URL, navigationController: UINavigationController) {
     func showPDFEditionViewController(pdfEdition: PDFEdition, localPDFFilePath: URL) {
       let storyboard = UIStoryboard(name: "PDFStoryboard", bundle: nil)
 
-      let pdfEditionViewController = storyboard.instantiateViewController(withIdentifier: "PDFEditionViewController") as! PDFEditionViewController
+      let pdfEditionViewController = storyboard.instantiateViewController(withIdentifier: "PDFEditionViewController") as! PDFEditionViewer
         
-        pdfEditionViewController.pdfEdition = pdfEdition
-        pdfEditionViewController.pdfFilePath = localPDFFilePath
+//        pdfEditionViewController.pdfEdition = pdfEdition
+//        pdfEditionViewController.pdfFilePath = localPDFFilePath
   //      pdfEditionViewController.hidesBottomBarWhenPushed = true //TODO: Need to remove this
-        self.present(pdfEditionViewController, animated: true, completion: nil)
+//        self.present(pdfEditionViewController, animated: true, completion: nil)
   //      navigationController.pushViewController(pdfEditionViewController, animated: true)
     }
     

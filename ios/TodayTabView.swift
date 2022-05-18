@@ -94,8 +94,24 @@ class TodayTabView: UIView, LoadingView {
   
     private func showPDFEdition(_ pdfEdition: PDFEdition, _ localFilePath: URL) {
         var consolidatedDictionary = pdfEdition.dictionaryRepresentation()
-        consolidatedDictionary["localPDFFilePath"] = localFilePath
-        onItemClick?(["SelectedPDF": consolidatedDictionary])
+      consolidatedDictionary["localPDFFilePath"] = localFilePath.absoluteString
+      var title: String = ""
+      if let timestamp = pdfEdition.issueDate, let timeInterval = TimeInterval(timestamp) {
+        if let issueNumber = pdfEdition.issueNumber {
+                title = Date(timeIntervalSince1970: timeInterval).format(with: .full, locale: Locale(identifier:  "ar-AE")) + " " + Strings.edition + " " +  issueNumber
+            } else {
+                title =  Date(timeIntervalSince1970: timeInterval).format(with: .full, locale: Locale(identifier:  "ar-AE"))
+            }
+        } else {
+          if let issueNumber = pdfEdition.issueNumber {
+                title = Strings.edition + " " +  issueNumber
+            } else {
+                title = ""
+            }
+        }
+      
+      consolidatedDictionary["title"] = title
+      onItemClick?(["SelectedPDF": consolidatedDictionary])
     }
 
     private func showMobileDataAlert() {
@@ -115,7 +131,7 @@ class TodayTabView: UIView, LoadingView {
     func configure(value: JSON) {
         let pdfArchiveData = PDFArchiveData(json: value)
         if let pdfEditions = pdfArchiveData.data, pdfEditions.count > 0 {
-          datasource = DataSourceFactory.dataSourceForLargePDFCollage(pdfEditions)
+          datasource = DataSourceFactory.dataSourceForLargePDFCollage([pdfEditions.last!])
         }
     }
 

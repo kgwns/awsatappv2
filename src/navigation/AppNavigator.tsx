@@ -237,6 +237,11 @@ const AppNavigator = () => {
         component={Routes.PDFArchive}
         options={hideHeader}
       />
+      <Stack.Screen
+        name={ScreensConstants.PDF_EDITOR_VIEW}
+        component={Routes.PDFEditorView}
+        options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };

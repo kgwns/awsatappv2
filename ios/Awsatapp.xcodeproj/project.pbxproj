@@ -36,13 +36,14 @@
 		AFC909FA2834CD8200993110 /* PDFStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFC909F92834CD8100993110 /* PDFStoryboard.storyboard */; };
 		B1CB1AAEFF814EBBBA090FC2 /* AwsatDigitalv2b-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CC96FCB89FE43DCAD20BD5B /* AwsatDigitalv2b-Bold.ttf */; };
 		C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5437AF089D81496AB07BB20A /* Effra-Regular.ttf */; };
+		D7286B7A28353B060056BFB0 /* PDFArchivesRootViewControllerOne.m in Sources */ = {isa = PBXBuildFile; fileRef = D7286B7828353B060056BFB0 /* PDFArchivesRootViewControllerOne.m */; };
 		D72EB4CD28324046008BFB99 /* PDFEditionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4CA28324039008BFB99 /* PDFEditionCollectionViewCell.xib */; };
 		D72EB4CE2832404E008BFB99 /* PDFEditionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4CB28324039008BFB99 /* PDFEditionTableViewCell.xib */; };
 		D72EB4D7283245D8008BFB99 /* AwsatLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D4283245CE008BFB99 /* AwsatLight.otf */; };
 		D72EB4D8283245DC008BFB99 /* AwsatBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */; };
 		D72EB4D9283245DF008BFB99 /* AwsatBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D5283245CE008BFB99 /* AwsatBold.otf */; };
 		D72EB4E528325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */; };
-		D72EB4ED28326EB2008BFB99 /* PDFEditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4EC28326EB2008BFB99 /* PDFEditionViewController.swift */; };
+		D72EB4ED28326EB2008BFB99 /* PDFEditionViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4EC28326EB2008BFB99 /* PDFEditionViewer.swift */; };
 		D72EB4F12832701B008BFB99 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F02832701B008BFB99 /* Colors.swift */; };
 		D72EB4F328328C81008BFB99 /* PDFArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F228328C81008BFB99 /* PDFArchiveViewController.swift */; };
 		D72EB4F528328FC8008BFB99 /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */; };
@@ -147,13 +148,15 @@
 		C512A59BE94247A5B2850233 /* Effra-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra-Medium.ttf"; path = "../src/assets/fonts/Effra-Medium.ttf"; sourceTree = "<group>"; };
 		C71F0B6A5BAD4BC1BE74D43A /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		D65511C7F87248D4B2F00011 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		D7286B7828353B060056BFB0 /* PDFArchivesRootViewControllerOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFArchivesRootViewControllerOne.m; sourceTree = "<group>"; };
+		D7286B7928353B060056BFB0 /* PDFArchivesRootViewControllerOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFArchivesRootViewControllerOne.h; sourceTree = "<group>"; };
 		D72EB4CA28324039008BFB99 /* PDFEditionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PDFEditionCollectionViewCell.xib; sourceTree = "<group>"; };
 		D72EB4CB28324039008BFB99 /* PDFEditionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PDFEditionTableViewCell.xib; sourceTree = "<group>"; };
 		D72EB4D4283245CE008BFB99 /* AwsatLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatLight.otf; sourceTree = "<group>"; };
 		D72EB4D5283245CE008BFB99 /* AwsatBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBold.otf; sourceTree = "<group>"; };
 		D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBlack.otf; sourceTree = "<group>"; };
 		D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PDFEditionLargeCollectionViewCell.xib; path = Awsatapp/PDFEditionLargeCollectionViewCell.xib; sourceTree = "<group>"; };
-		D72EB4EC28326EB2008BFB99 /* PDFEditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionViewController.swift; sourceTree = "<group>"; };
+		D72EB4EC28326EB2008BFB99 /* PDFEditionViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionViewer.swift; sourceTree = "<group>"; };
 		D72EB4F02832701B008BFB99 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D72EB4F228328C81008BFB99 /* PDFArchiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFArchiveViewController.swift; sourceTree = "<group>"; };
 		D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 				D7F15A5E282BE9A7004368A7 /* LoadingView.swift */,
 				D781E469283370BA00B3A231 /* PDFArchivesRootViewController.h */,
 				D781E46A283370BA00B3A231 /* PDFArchivesRootViewController.m */,
+				D7286B7928353B060056BFB0 /* PDFArchivesRootViewControllerOne.h */,
+				D7286B7828353B060056BFB0 /* PDFArchivesRootViewControllerOne.m */,
 			);
 			name = Awsatapp;
 			sourceTree = "<group>";
@@ -361,7 +366,7 @@
 		D72EB4EB2832642F008BFB99 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				D72EB4EC28326EB2008BFB99 /* PDFEditionViewController.swift */,
+				D72EB4EC28326EB2008BFB99 /* PDFEditionViewer.swift */,
 				D72EB4F228328C81008BFB99 /* PDFArchiveViewController.swift */,
 			);
 			name = ViewControllers;
@@ -857,7 +862,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D72EB4ED28326EB2008BFB99 /* PDFEditionViewController.swift in Sources */,
+				D72EB4ED28326EB2008BFB99 /* PDFEditionViewer.swift in Sources */,
 				D7F15A81282C0174004368A7 /* CollectionViewCellType.swift in Sources */,
 				D7F15AB2282C132E004368A7 /* PDFEditionTableViewCell.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
@@ -886,6 +891,7 @@
 				D7F15A8A282C06AB004368A7 /* CustomNotifications.swift in Sources */,
 				D7F15AAC282C115A004368A7 /* DataSourceFactory.swift in Sources */,
 				D7F15A84282C01F1004368A7 /* PDFEdition.swift in Sources */,
+				D7286B7A28353B060056BFB0 /* PDFArchivesRootViewControllerOne.m in Sources */,
 				D7F15A9E282C0BB7004368A7 /* TargetAction.swift in Sources */,
 				D72EB4F528328FC8008BFB99 /* GenericTableViewController.swift in Sources */,
 				D7F15A7E282C00C7004368A7 /* Extensions.swift in Sources */,
