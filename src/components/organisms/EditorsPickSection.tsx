@@ -73,9 +73,9 @@ export const EditorsPickSection = ({
         renderItem={({ item, index }) => renderItem(item, index)}
         contentContainerStyle={style.contentContainer}
       />
-      <View style={isTab ? { paddingHorizontal: 0.04 * screenWidth } : { paddingStart: 0.04 * screenWidth }}>
+      {isTab && <View style={style.dividerContainer}>
         <Divider style={style.divider} />
-      </View>
+      </View>}
     </View>
   );
 };
@@ -99,5 +99,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     paddingTop: normalize(25),
     backgroundColor: theme.mainBackground,
+  },
+  dividerContainer: {
+    paddingHorizontal: 0.04 * screenWidth
   }
 });

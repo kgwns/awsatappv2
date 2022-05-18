@@ -577,12 +577,12 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         <TopHeadLineNews data={headlineNews} />
       </View>
       <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       <EditorsPickSection data={horizontalArticle} />
-       {isNonEmptyArray(podcastHome) &&
-       <View>
-         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />  
-         </View>}
+      {isNonEmptyArray(podcastHome) &&
+        <View>
+          <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
+        </View>}
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       <BannerArticleSection data={editorsChoiceInfo}
         title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         sectionId={'871'}
@@ -695,11 +695,11 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
           />
         </View>
       </View>
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
-      <EditorsPickSection data={horizontalArticle} />
       {isNonEmptyArray(podcastHome) &&
         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
       }
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
+      <EditorsPickSection data={horizontalArticle} />
       <View style={mainSectionStyle.tabSplitter}>
         <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
