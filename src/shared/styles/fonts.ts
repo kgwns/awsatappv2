@@ -1,5 +1,5 @@
 export const fonts = {
-    Almarai_Bold: 'Almarai-Bold',
+    Almarai_Bold: 'AwsatDigitalBetav10-Bold',
 
     Almaria_ExtraBold: 'Almarai-ExtraBold',
 
