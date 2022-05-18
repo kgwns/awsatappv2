@@ -18,10 +18,10 @@
 RCT_EXPORT_MODULE()
 
 - (UIView *)view {
-  PDFArchiveViewController *vc = [PDFArchiveViewController new];
-  return  vc.view;
+  PDFArchiveView *view = [PDFArchiveView new];
+  return view;
 }
 
-RCT_EXPORT_VIEW_PROPERTY(onItemClicked, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onItemClick, RCTBubblingEventBlock)
 
 @end

@@ -16,14 +16,11 @@ export const PDFArchive = () => {
     navigation.navigate(ScreensConstants.PDF_EDITOR_VIEW, { selectedPDF: selectedPDF })
   }
 
+  const headerTitle = TranslateConstants({ key: TranslateKey.DRAWER_PDF_ARCHIVE })
+  
   return (
-    <ScreenContainer
-      edge={horizontalAndTop}
-      showHeader={true}
-      headerTitle={TranslateConstants({ key: TranslateKey.DRAWER_PDF_ARCHIVE })}>
-      <PDFArchiveView style={{flex: 1}}
-        onItemClicked={(data: any) => onClickOpenPDF(data.nativeEvent.SelectedPDF)}
-      />
+    <ScreenContainer edge={horizontalAndTop} showHeader={true} headerTitle={headerTitle}>
+        <PDFArchiveView style={{flex: 1}} onItemClick={(data: any) => onClickOpenPDF(data.nativeEvent.SelectedPDF)}/>
     </ScreenContainer>
   );
 };

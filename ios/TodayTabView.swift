@@ -143,10 +143,6 @@ class TodayTabView: UIView, LoadingView {
 
 // MARK: UICollectionViewDataSource
 extension TodayTabView: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return datasource.count
     }
