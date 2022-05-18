@@ -11,16 +11,14 @@
 
 @implementation SampleViewController
 
+//+ (BOOL)requiresMainQueueSetup {
+//    return true;
+//}
+
 RCT_EXPORT_MODULE()
 
 - (UIView *)view {
-  DownloadViewController *vc = [DownloadViewController new];
-  return  vc.view;
-  
-  
-  
-//  ViewController *vc = [ViewController new];
-//  return vc.view;
+    return [TodayTabView new];
 }
 
 @end

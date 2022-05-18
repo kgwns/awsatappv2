@@ -32,7 +32,7 @@ extension PDFEdition {
 }
 
 extension PDFFileManager {
-    static let downlaodCompleteNotification = CustomNotificationDescriptor<PDFEditionNotificationInfoPayload>(name: Notification.Name("downlaodCompleteNotification"))
+    static let downloadCompleteNotification = CustomNotificationDescriptor<PDFEditionNotificationInfoPayload>(name: Notification.Name("downlaodCompleteNotification"))
 }
 
 struct PDFEditionNotificationInfoPayload {

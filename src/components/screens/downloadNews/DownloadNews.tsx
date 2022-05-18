@@ -1,14 +1,22 @@
 import * as React from 'react';
-import { View, requireNativeComponent } from 'react-native';
+import PDFDownloadView from './PDFDownloadView';
+import {
+  CardStyleInterpolators,
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
 
-interface DownloadNewsProps {}
-
-export const DownloadNews = (props: DownloadNewsProps) => {
-  return (
-    <View style={{flex: 1}}>
-      <PDFView />
-    </View>
-  );
+const Stack = createStackNavigator();
+const defaultScreenOptions: StackNavigationOptions = {
+  gestureEnabled: false,
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  headerShown: false,
 };
 
-const PDFView = requireNativeComponent('SampleViewController')
+export const DownloadNews = () => {
+  return (
+    <Stack.Navigator screenOptions={defaultScreenOptions}>
+      <Stack.Screen name="PDFDownloadView" component={PDFDownloadView} />
+    </Stack.Navigator>
+  );
+};

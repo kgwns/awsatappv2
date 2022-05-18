@@ -73,7 +73,7 @@ extension PDFEdition {
                 Alamofire.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
                 }).response { response in
                     if response.error == nil, let _ = response.destinationURL?.path {
-                        center.post(descriptor: PDFFileManager.downlaodCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
+                        center.post(descriptor: PDFFileManager.downloadCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
                         PDFFileManager.currentEditionsInDownloadProgress = PDFFileManager.currentEditionsInDownloadProgress?.filter() { $0 != editionNumber}
                         cell.setDownloadComplete()
                     }
@@ -147,7 +147,7 @@ extension PDFEdition {
                     cell.downloadProgressView.progress = Float(prog.fractionCompleted)
                 }).response { response in
                     if response.error == nil, let _ = response.destinationURL?.path {
-                        center.post(descriptor: PDFFileManager.downlaodCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
+                        center.post(descriptor: PDFFileManager.downloadCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
                         PDFFileManager.currentEditionsInDownloadProgress = PDFFileManager.currentEditionsInDownloadProgress?.filter() { $0 != editionNumber}
                         cell.setDownloadComplete()
                     }
@@ -221,7 +221,7 @@ extension PDFEdition {
                     cell.downloadProgressView.progress = Float(prog.fractionCompleted)
                 }).response { response in
                     if response.error == nil, let _ = response.destinationURL?.path {
-                        center.post(descriptor: PDFFileManager.downlaodCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
+                        center.post(descriptor: PDFFileManager.downloadCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
                         PDFFileManager.currentEditionsInDownloadProgress = PDFFileManager.currentEditionsInDownloadProgress?.filter() { $0 != editionNumber}
                         cell.setDownloadComplete()
                     }

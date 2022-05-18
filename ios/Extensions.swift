@@ -9,7 +9,6 @@ import UIKit
 import SwiftyUserDefaults
 import DateToolsSwift
 
-
 extension NSObject {
     var className: String {
         return String(describing: type(of: self))

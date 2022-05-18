@@ -13,7 +13,7 @@ enum PDFArchiveViewControllerTypes {
     case list
 }
 
-class PDFArchiveViewController: BaseViewController, LoadingViewController {
+class PDFArchiveViewController: UIViewController, LoadingView {
     
     var showPDFEdition: (PDFEdition, URL) -> () = { _,_  in }
     var readPDFEditionNotificationToken: Token?
@@ -173,7 +173,7 @@ class PDFArchiveViewController: BaseViewController, LoadingViewController {
           self.showPDFEditionViewController(pdfEdition: pdfEditionNotificationInfoPayload.pdfEditon, localPDFFilePath: pdfEditionNotificationInfoPayload.localPDFFilePath)
         }
         
-        downloadCompleteNotificationToke = center.addObserver(descriptor: PDFFileManager.downlaodCompleteNotification) { _ in
+        downloadCompleteNotificationToke = center.addObserver(descriptor: PDFFileManager.downloadCompleteNotification) { _ in
             self.collectionViewController?.collectionView?.reloadData()
             self.tableViewController.tableView.reloadData()
         }

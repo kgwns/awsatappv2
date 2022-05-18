@@ -10,7 +10,7 @@ import WebKit
 import SwiftyUserDefaults
 import DateToolsSwift
 
-class PDFEditionViewController: BaseViewController {
+class PDFEditionViewController: UIViewController {
 
     // MARK: - Outlets
     

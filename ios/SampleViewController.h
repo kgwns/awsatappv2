@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SampleViewController : RCTViewManager
 
-
 @end
 
 NS_ASSUME_NONNULL_END
