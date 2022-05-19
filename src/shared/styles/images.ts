@@ -94,7 +94,9 @@ export enum ImagesName {
   instagramGray = 'instagramGray',
   bookmarkGray = 'bookmarkGray',
   shareGray = 'shareGray',
-  menuCloseIcon = 'menuCloseIcon'
+  menuCloseIcon = 'menuCloseIcon',
+  playForwardIcon = 'playForwardIcon',
+  playBackwardIcon = 'playBackwardIcon',
 }
 
 export const images = {

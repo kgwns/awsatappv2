@@ -110,7 +110,6 @@ export const OpinionArticleDetailWidget = ({
   );
 
   const onPressReturn = async() => {
-    await TrackPlayer.stop();
     if (!isRelatedArticle) {
       Orientation.unlockAllOrientations();
       Orientation.lockToPortrait();
@@ -137,7 +136,7 @@ export const OpinionArticleDetailWidget = ({
       <View style={style.contentContainer}>
         {/* <AuthorCard title={data.writer[0].name} /> */}
         {isNotEmpty(data.jwplayer) && isObjectNonEmpty(mediaData) && <View style={style.listenToArticleCard}>
-          <ListenToArticleCard data={mediaData} togglePlayback={togglePlayback} selectedTrack={selectedTrack} nid={nid} />
+          <ListenToArticleCard data={mediaData} togglePlayback={togglePlayback} selectedTrack={selectedTrack} nid={nid} authorImage={data.writer[0]?.opinion_writer_photo} />
         </View>}
         <Label style={style.title}>{data.title}</Label>
         <ArticleFooter

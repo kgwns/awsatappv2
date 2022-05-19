@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { getSecondsToHms, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
+import { useAppPlayer } from 'src/hooks';
 
 export const ListenToArticleCard = (data: any) => {
   const style = useThemeAwareObject(customStyle);
@@ -19,18 +20,61 @@ export const ListenToArticleCard = (data: any) => {
   const playList = isObjectNonEmpty(mediaData) && isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
   const duration = isObjectNonEmpty(playList) ? playList.duration : 0;
 
-  const onPressPlay = () => {
-    if (data.nid && data.data && data.togglePlayback) {
-      data.togglePlayback(data.nid, data.data)
+  const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
+
+  // const onPressPlay = () => {
+  //   if (data.nid && data.data && data.togglePlayback) {
+  //     data.togglePlayback(data.nid, data.data)
+  //   }
+  // }
+
+  const onPlayPausePress = async (playbackState: any) => {
+    const state = await TrackPlayer.getState()
+
+    if(trackData != null){
+        if(state == State.Paused){
+            await TrackPlayer.play()
+        }else{
+            await TrackPlayer.pause()
+        }
     }
+};
+
+const onPressPlay = () => {
+      
+  if (data.nid && isObjectNonEmpty(mediaData)) {
+    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+
+    if (!isObjectNonEmpty(playList)) {
+      return
+    }
+
+    let trackPlayerData = {
+      id: data.nid + 'opinion',
+      url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
+      title: mediaData.title ? mediaData.title : '',
+      duration: playList.duration? getSecondsToHms(playList.duration) : 0,
+      artist: mediaData.title ? mediaData.title : '',
+      artwork: data.authorImage
+    }
+
+    if((trackData && trackData.id != trackPlayerData.id) || trackData == null ){
+      setPlayerTrack(trackPlayerData);
+      !showMiniPlayer && setShowMiniPlayer(true);
+    }else{
+      showMiniPlayer ? onPlayPausePress(playbackState) : setShowMiniPlayer(true);
+      
+    }
+    
   }
+}
 
   return (
     <View style={style.container}>
       <ButtonImage
         hitSlop={{}}
         icon={() =>
-          data.selectedTrack == data.nid && playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+          trackData && trackData.id == (data.nid+'opinion') && playbackState === State.Playing   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
             getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
         }
         onPress={onPressPlay}

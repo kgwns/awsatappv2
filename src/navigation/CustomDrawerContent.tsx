@@ -209,7 +209,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   }
   
   return (
-    <ScreenContainer>
+    <ScreenContainer showPlayer={false}>
       {header()}
       <ScrollView bounces={false}
         showsVerticalScrollIndicator={false}

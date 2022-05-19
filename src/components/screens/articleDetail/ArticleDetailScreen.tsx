@@ -285,7 +285,7 @@ export const ArticleDetailScreen = ({
 
   return (
     <ScreenContainer edge={edge} isLoading={isLoading} 
-    isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
+    isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
       {!isLoading && isNonEmptyArray(articleDetailState) && <>
         <FlatList
           style={{ flex: 1, height: '100%' }}

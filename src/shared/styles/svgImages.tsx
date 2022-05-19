@@ -118,6 +118,8 @@ import ShareGrayIcon from 'src/assets/images/icons/shareGray.svg';
 import Bookmarkgray from 'src/assets/images/icons/bookmarkGray.svg';
 import MenuCloseIcon from 'src/assets/images/icons/closeSideMenu.svg';
 import MenuCloseIconDark from 'src/assets/images/icons/closeSideMenuDark.svg';
+import PlayForwardIcon from 'src/assets/images/icons/playForward.svg';
+import PlayBackwardIcon from 'src/assets/images/icons/playBackward.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
@@ -279,6 +281,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <Bookmarkgray {...props} /> : <BookMarkBlackBdr {...props} />
         case ImagesName.menuCloseIcon:
             return isDark ? <MenuCloseIconDark {...props} /> : <MenuCloseIcon {...props} />
+        case ImagesName.playForwardIcon:
+            return <PlayForwardIcon {...props} />
+        case ImagesName.playBackwardIcon:
+            return <PlayBackwardIcon {...props} />
         default: return null
     }
 }

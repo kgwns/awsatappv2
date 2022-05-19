@@ -53,14 +53,7 @@ export const Archives = () => {
         isFocused && getBookmarkedId()
     }, [isFocused])
 
-    useFocusEffect(
-    React.useCallback(() => {
-        const unsubscribe = () => { stopTrackPlayer() };
-        return () => {
-            unsubscribe();
-        }
-    }, [])
-    );
+
 
     useEffect(() => {
         if (isNonEmptyArray(bookmarkDetail) ||
@@ -78,13 +71,6 @@ export const Archives = () => {
         updatedFilteredData(index)
     }
 
-    useEffect(() => {
-        stopTrackPlayer()
-      }, [tabSelectedIndex]);
-    
-      const stopTrackPlayer = async () => {
-          await TrackPlayer.reset();
-      }
 
     const updatedFilteredData = (index: number) => {
         const data = getFilteredData(index)
