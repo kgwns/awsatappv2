@@ -81,6 +81,7 @@ class TodayTabView: UIView, LoadingView {
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = true
+        collectionView.backgroundColor = UIColor(named: "backgroundColor")
         addSubview(collectionView)
     }
 

@@ -218,6 +218,7 @@ class PDFArchiveView: UIView, LoadingView {
         collectionView?.refreshControl = collectionViewRefreshControl
         collectionView?.isScrollEnabled = true
         collectionView?.showsVerticalScrollIndicator = false
+        collectionView?.backgroundColor = UIColor(named: "backgroundColor")
         addSubview(collectionView!)
     }
 }
