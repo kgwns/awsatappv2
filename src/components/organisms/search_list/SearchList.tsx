@@ -172,6 +172,7 @@ StyleSheet.create({
     textAlign: 'left',
     marginVertical: normalize(16),
     fontSize: normalize(16),
+    lineHeight: normalize(26),
     fontFamily: fonts.AwsatDigitalBetav10_Regular,
   },
   containerStyle: {

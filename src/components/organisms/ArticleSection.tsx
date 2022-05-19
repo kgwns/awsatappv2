@@ -76,7 +76,7 @@ const ArticleSection = ({
         const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns == 1 && articleData.length == index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
         const articleItemStyle = isTab ? numColumns > 1 && articleData.length > 1 ? (index % 2 === 0) ? articleSectionStyle.evenStyle : articleSectionStyle.oddStyle : {} : articleSectionStyle.mobileArticleItem
         return <ArticleItem {...item} index={index}
-            imageStyle={{ height: normalize(187) }}
+            imageStyle={isTab ? articleSectionStyle.tabImageStyle : articleSectionStyle.mobileImageStyle}
             footerInfo={articleFooterDataSet}
             onPressBookmark={() => onPressBookmark(index)}
             showDivider={canShowDivider}
@@ -116,5 +116,14 @@ const articleSectionStyle = StyleSheet.create({
     },
     oddStyle: {
         marginLeft: normalize(20),
+    },
+    tabImageStyle: {
+        width: 0.5 * screenWidth,
+        height: 'auto',
+        aspectRatio: 1.52,
+    },
+    mobileImageStyle: {
+        height: 'auto',
+        aspectRatio: 1.52,
     }
 })
