@@ -24,7 +24,6 @@ class PDFEditionCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         self.downloadProgressView.isHidden = true
         self.editionFrontPageImageView.alpha = 1.0
-        self.actionButton.backgroundColor = #colorLiteral(red: 0.7568627451, green: 0.7450980392, blue: 0.7450980392, alpha: 1)
         self.actionButton.setTitle(nil, for: .normal)
     }
     
@@ -35,8 +34,7 @@ class PDFEditionCollectionViewCell: UICollectionViewCell {
     }
     
     private func customizeUI() {
-      actionButton.addRoundedCorners()
-      issueNumberLabel.textColor = UIColor(named: "primaryBlack")
+        actionButton.addRoundedCorners()
     }
     
     private func applyArabicStyleIfNeeded() {
@@ -47,13 +45,11 @@ class PDFEditionCollectionViewCell: UICollectionViewCell {
     
     public func setDownlaodButtonStatus() {
         self.actionButton.setTitle(Strings.download, for: .normal)
-        self.actionButton.backgroundColor = #colorLiteral(red: 0.7568627451, green: 0.7450980392, blue: 0.7450980392, alpha: 1)
         self.actionButton.isEnabled = true
     }
     
     public func setReadButtonStatus() {
         self.actionButton.setTitle(Strings.readEdition, for: .normal)
-        self.actionButton.backgroundColor = #colorLiteral(red: 0.5725490196, green: 0.6823529412, blue: 0.5725490196, alpha: 1)
         self.actionButton.isEnabled = true
     }
     

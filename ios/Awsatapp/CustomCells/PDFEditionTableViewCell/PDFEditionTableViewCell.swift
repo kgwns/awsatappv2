@@ -18,7 +18,6 @@ class PDFEditionTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.actionButton.backgroundColor = #colorLiteral(red: 0.7568627451, green: 0.7450980392, blue: 0.7450980392, alpha: 1)
         self.actionButton.setTitle(nil, for: .normal)
     }
     
@@ -33,20 +32,18 @@ class PDFEditionTableViewCell: UITableViewCell {
     }
     
     private func applyArabicStyleIfNeeded() {
-            editionDateLabel.font = UIFont.boldAwsatFont(size: 15)
-            issueNumberLabel.font = UIFont.boldAwsatFont(size: 15)
-            actionButton.titleLabel?.font = UIFont.boldAwsatFont(size: 16)
+        editionDateLabel.font = UIFont.boldAwsatFont(size: 15)
+        issueNumberLabel.font = UIFont.boldAwsatFont(size: 15)
+        actionButton.titleLabel?.font = UIFont.boldAwsatFont(size: 16)
     }
     
     public func setDownlaodButtonStatus() {
         self.actionButton.setTitle(Strings.download, for: .normal)
-        self.actionButton.backgroundColor = #colorLiteral(red: 0.7568627451, green: 0.7450980392, blue: 0.7450980392, alpha: 1)
         self.actionButton.isEnabled = true
     }
     
     public func setReadButtonStatus() {
         self.actionButton.setTitle(Strings.readEdition, for: .normal)
-        self.actionButton.backgroundColor = #colorLiteral(red: 0.5725490196, green: 0.6823529412, blue: 0.5725490196, alpha: 1)
         self.actionButton.isEnabled = true
     }
     
