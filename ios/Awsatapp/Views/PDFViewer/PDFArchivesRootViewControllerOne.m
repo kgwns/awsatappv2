@@ -14,7 +14,7 @@
 RCT_EXPORT_MODULE()
 
 - (UIView *)view {
-    return [PDFEditionViewer new];
+    return [PDFViewer new];
 }
 
 RCT_EXPORT_VIEW_PROPERTY(selectedPDF, NSDictionary)

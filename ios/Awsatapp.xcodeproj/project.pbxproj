@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* AwsatappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AwsatappTests.m */; };
 		09780F0B561145AD914E833A /* AwsatDigitalv2b-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F35CA0AC7E842CC989B0C26 /* AwsatDigitalv2b-Regular.ttf */; };
-		0DADE4D627DA4AAD009F9C8A /* trackPlayerDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DADE4D527DA4AAD009F9C8A /* trackPlayerDummy.swift */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1BCC838D77E04AD686D4BE54 /* Beirut.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24FC697514344A82B3783D7A /* Beirut.ttf */; };
 		383C0A0AB8874E17A395D2DD /* AwsatDigitalBetav10-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1921403A746E47BD885480D8 /* AwsatDigitalBetav10-Black.ttf */; };
@@ -32,25 +30,54 @@
 		A281F88502F1503BC5D5065B /* libPods-Awsatapp-AwsatappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25742A46B7D80C9727BAF371 /* libPods-Awsatapp-AwsatappTests.a */; };
 		AD2D4C4F9729485684CF8B20 /* IBMPlexSansArabic-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FB492873A7A498EBF07352A /* IBMPlexSansArabic-Light.ttf */; };
 		AE824C7EF2A34A76AE26EFFE /* IBMPlexSansArabic-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E986D753AAC0403D87D94AB7 /* IBMPlexSansArabic-ExtraLight.ttf */; };
-		AF14A10028369BB600E6311D /* PDFEditionHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A0FF28369BB600E6311D /* PDFEditionHeaderCollectionViewCell.swift */; };
-		AF14A10228369C5300E6311D /* PDFEditionHeaderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A10128369C5300E6311D /* PDFEditionHeaderCollectionViewCell.xib */; };
-		AF5774D32833A11900823EBE /* TodayTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5774D22833A11900823EBE /* TodayTabView.swift */; };
-		AFC909FA2834CD8200993110 /* PDFStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFC909F92834CD8100993110 /* PDFStoryboard.storyboard */; };
+		AF14A1102836CF8B00E6311D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1072836CF8B00E6311D /* Images.xcassets */; };
+		AF14A14D2836D0C700E6311D /* CollectionViewCellDescriper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1162836D0C600E6311D /* CollectionViewCellDescriper.swift */; };
+		AF14A14E2836D0C700E6311D /* CollectionViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1172836D0C600E6311D /* CollectionViewCellType.swift */; };
+		AF14A14F2836D0C700E6311D /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1182836D0C600E6311D /* GenericTableViewController.swift */; };
+		AF14A1502836D0C700E6311D /* GenericCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1192836D0C600E6311D /* GenericCollectionViewController.swift */; };
+		AF14A1512836D0C700E6311D /* TableViewCellDescriper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A11A2836D0C600E6311D /* TableViewCellDescriper.swift */; };
+		AF14A1522836D0C700E6311D /* TableViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A11B2836D0C600E6311D /* TableViewCellType.swift */; };
+		AF14A1532836D0C700E6311D /* DataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A11C2836D0C600E6311D /* DataSourceFactory.swift */; };
+		AF14A1552836D0C700E6311D /* ReachibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A11F2836D0C600E6311D /* ReachibilityManager.swift */; };
+		AF14A1562836D0C700E6311D /* ErrorJSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1202836D0C600E6311D /* ErrorJSONData.swift */; };
+		AF14A1572836D0C700E6311D /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1212836D0C600E6311D /* NotificationCenterManager.swift */; };
+		AF14A1582836D0C700E6311D /* PDFFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1222836D0C600E6311D /* PDFFileManager.swift */; };
+		AF14A1592836D0C700E6311D /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1242836D0C600E6311D /* EndPoints.swift */; };
+		AF14A15A2836D0C700E6311D /* URLFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1252836D0C600E6311D /* URLFactory.swift */; };
+		AF14A15B2836D0C700E6311D /* Kingfiser+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1262836D0C600E6311D /* Kingfiser+Networking.swift */; };
+		AF14A15C2836D0C700E6311D /* WebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1272836D0C600E6311D /* WebServices.swift */; };
+		AF14A15D2836D0C700E6311D /* PDFViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12A2836D0C600E6311D /* PDFViewer.swift */; };
+		AF14A15E2836D0C700E6311D /* PDFArchivesRootViewControllerOne.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12B2836D0C600E6311D /* PDFArchivesRootViewControllerOne.m */; };
+		AF14A15F2836D0C700E6311D /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12E2836D0C600E6311D /* SampleViewController.m */; };
+		AF14A1602836D0C700E6311D /* TodayTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12F2836D0C600E6311D /* TodayTabView.swift */; };
+		AF14A1612836D0C700E6311D /* PDFArchivesRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1322836D0C600E6311D /* PDFArchivesRootViewController.m */; };
+		AF14A1622836D0C700E6311D /* PDFArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1332836D0C600E6311D /* PDFArchiveView.swift */; };
+		AF14A1632836D0C700E6311D /* PDFEditionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1372836D0C600E6311D /* PDFEditionCollectionViewCell.xib */; };
+		AF14A1642836D0C700E6311D /* PDFEditionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1382836D0C600E6311D /* PDFEditionCollectionViewCell.swift */; };
+		AF14A1652836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A13A2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.swift */; };
+		AF14A1662836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A13B2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.xib */; };
+		AF14A1672836D0C700E6311D /* PDFEditionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A13D2836D0C600E6311D /* PDFEditionTableViewCell.xib */; };
+		AF14A1682836D0C700E6311D /* PDFEditionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A13E2836D0C600E6311D /* PDFEditionTableViewCell.swift */; };
+		AF14A1692836D0C700E6311D /* PDFEditionLargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1402836D0C600E6311D /* PDFEditionLargeCollectionViewCell.xib */; };
+		AF14A16A2836D0C700E6311D /* PDFEditionLargeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1412836D0C600E6311D /* PDFEditionLargeCollectionViewCell.swift */; };
+		AF14A16B2836D0C700E6311D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1432836D0C600E6311D /* Strings.swift */; };
+		AF14A16C2836D0C700E6311D /* DefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1442836D0C600E6311D /* DefaultKeys.swift */; };
+		AF14A16D2836D0C700E6311D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1452836D0C600E6311D /* Colors.swift */; };
+		AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1472836D0C600E6311D /* AuthenticationData.swift */; };
+		AF14A16F2836D0C700E6311D /* PDFArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1482836D0C600E6311D /* PDFArchiveData.swift */; };
+		AF14A1702836D0C700E6311D /* UserBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1492836D0C600E6311D /* UserBase.swift */; };
+		AF14A1712836D0C700E6311D /* PDFEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A14A2836D0C600E6311D /* PDFEdition.swift */; };
+		AF14A1722836D0C700E6311D /* PDFEdition+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A14C2836D0C700E6311D /* PDFEdition+ViewModel.swift */; };
+		AF14A1742836D24B00E6311D /* URLConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1732836D24B00E6311D /* URLConfig.swift */; };
+		AF14A1762836D30700E6311D /* CustomNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1752836D30700E6311D /* CustomNotifications.swift */; };
+		AF14A1782836D34300E6311D /* DeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1772836D34300E6311D /* DeviceOrientation.swift */; };
+		AF14A17B2836D35B00E6311D /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1792836D35B00E6311D /* TargetAction.swift */; };
+		AF14A17C2836D35B00E6311D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A17A2836D35B00E6311D /* Extensions.swift */; };
+		AF14A1852836D3C200E6311D /* AwsatLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF14A17F2836D3C200E6311D /* AwsatLight.otf */; };
+		AF14A18A2836D3C200E6311D /* AwsatBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1842836D3C200E6311D /* AwsatBlack.otf */; };
+		AF14A18B2836D71B00E6311D /* AwsatBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1822836D3C200E6311D /* AwsatBold.otf */; };
 		B1CB1AAEFF814EBBBA090FC2 /* AwsatDigitalv2b-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CC96FCB89FE43DCAD20BD5B /* AwsatDigitalv2b-Bold.ttf */; };
 		C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5437AF089D81496AB07BB20A /* Effra-Regular.ttf */; };
-		D7286B7A28353B060056BFB0 /* PDFArchivesRootViewControllerOne.m in Sources */ = {isa = PBXBuildFile; fileRef = D7286B7828353B060056BFB0 /* PDFArchivesRootViewControllerOne.m */; };
-		D72EB4CD28324046008BFB99 /* PDFEditionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4CA28324039008BFB99 /* PDFEditionCollectionViewCell.xib */; };
-		D72EB4CE2832404E008BFB99 /* PDFEditionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4CB28324039008BFB99 /* PDFEditionTableViewCell.xib */; };
-		D72EB4D7283245D8008BFB99 /* AwsatLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D4283245CE008BFB99 /* AwsatLight.otf */; };
-		D72EB4D8283245DC008BFB99 /* AwsatBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */; };
-		D72EB4D9283245DF008BFB99 /* AwsatBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D5283245CE008BFB99 /* AwsatBold.otf */; };
-		D72EB4E528325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */; };
-		D72EB4ED28326EB2008BFB99 /* PDFViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4EC28326EB2008BFB99 /* PDFViewer.swift */; };
-		D72EB4F12832701B008BFB99 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F02832701B008BFB99 /* Colors.swift */; };
-		D72EB4F328328C81008BFB99 /* PDFArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F228328C81008BFB99 /* PDFArchiveView.swift */; };
-		D72EB4F528328FC8008BFB99 /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */; };
-		D77DFBD7282BBF8100EFAF13 /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D77DFBD6282BBF8100EFAF13 /* SampleViewController.m */; };
-		D781E46B283370BA00B3A231 /* PDFArchivesRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D781E46A283370BA00B3A231 /* PDFArchivesRootViewController.m */; };
 		D7CB52E628364E3F003B6457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E528364E3F003B6457 /* Localizable.strings */; };
 		D7CB52E828366F63003B6457 /* colorPalatte.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E728366F63003B6457 /* colorPalatte.xcassets */; };
 		D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4927D9C9CE0028999D /* iAd.framework */; };
@@ -61,35 +88,6 @@
 		D7D85B5427D9CA080028999D /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D7F15A5F282BE9A7004368A7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A5E282BE9A7004368A7 /* LoadingView.swift */; };
 		D7F15A65282BED4A004368A7 /* libSwiftyJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F15A64282BED4A004368A7 /* libSwiftyJSON.a */; };
-		D7F15A6D282BF4D2004368A7 /* WebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A6C282BF4D2004368A7 /* WebServices.swift */; };
-		D7F15A6F282BFB2D004368A7 /* GenericCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A6E282BFB2D004368A7 /* GenericCollectionViewController.swift */; };
-		D7F15A71282BFBAE004368A7 /* CollectionViewCellDescriper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A70282BFBAE004368A7 /* CollectionViewCellDescriper.swift */; };
-		D7F15A73282BFBFC004368A7 /* DeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A72282BFBFC004368A7 /* DeviceOrientation.swift */; };
-		D7F15A76282BFC55004368A7 /* ReachibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A75282BFC55004368A7 /* ReachibilityManager.swift */; };
-		D7F15A78282BFF07004368A7 /* ErrorJSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A77282BFF07004368A7 /* ErrorJSONData.swift */; };
-		D7F15A7E282C00C7004368A7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A7D282C00C7004368A7 /* Extensions.swift */; };
-		D7F15A81282C0174004368A7 /* CollectionViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A80282C0174004368A7 /* CollectionViewCellType.swift */; };
-		D7F15A84282C01F1004368A7 /* PDFEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A83282C01F1004368A7 /* PDFEdition.swift */; };
-		D7F15A8A282C06AB004368A7 /* CustomNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A89282C06AB004368A7 /* CustomNotifications.swift */; };
-		D7F15A8D282C0704004368A7 /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A8C282C0704004368A7 /* EndPoints.swift */; };
-		D7F15A8F282C0760004368A7 /* URLFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A8E282C0760004368A7 /* URLFactory.swift */; };
-		D7F15A91282C0790004368A7 /* URLConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A90282C0790004368A7 /* URLConfig.swift */; };
-		D7F15A94282C0A50004368A7 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A93282C0A50004368A7 /* Strings.swift */; };
-		D7F15A97282C0A92004368A7 /* PDFFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A96282C0A92004368A7 /* PDFFileManager.swift */; };
-		D7F15A99282C0AEC004368A7 /* PDFArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A98282C0AEC004368A7 /* PDFArchiveData.swift */; };
-		D7F15A9C282C0B6D004368A7 /* PDFEditionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A9B282C0B6D004368A7 /* PDFEditionCollectionViewCell.swift */; };
-		D7F15A9E282C0BB7004368A7 /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A9D282C0BB7004368A7 /* TargetAction.swift */; };
-		D7F15AA2282C0D49004368A7 /* DefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AA1282C0D49004368A7 /* DefaultKeys.swift */; };
-		D7F15AA4282C0E21004368A7 /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AA3282C0E21004368A7 /* NotificationCenterManager.swift */; };
-		D7F15AA6282C0EAB004368A7 /* PDFEditionLargeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AA5282C0EAB004368A7 /* PDFEditionLargeCollectionViewCell.swift */; };
-		D7F15AA8282C1003004368A7 /* AuthenticationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AA7282C1003004368A7 /* AuthenticationData.swift */; };
-		D7F15AAA282C10F5004368A7 /* UserBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AA9282C10F5004368A7 /* UserBase.swift */; };
-		D7F15AAC282C115A004368A7 /* DataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AAB282C115A004368A7 /* DataSourceFactory.swift */; };
-		D7F15AAE282C11F4004368A7 /* TableViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AAD282C11F4004368A7 /* TableViewCellType.swift */; };
-		D7F15AB0282C12CE004368A7 /* TableViewCellDescriper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AAF282C12CE004368A7 /* TableViewCellDescriper.swift */; };
-		D7F15AB2282C132E004368A7 /* PDFEditionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AB1282C132E004368A7 /* PDFEditionTableViewCell.swift */; };
-		D7F15AB5282C142D004368A7 /* PDFEdition+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AB4282C142D004368A7 /* PDFEdition+ViewModel.swift */; };
-		D7F15AB7282C1559004368A7 /* kingfiser+networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15AB6282C1559004368A7 /* kingfiser+networking.swift */; };
 		E3A1C6A163A44E35BA56387D /* AwsatDigitalBetav10-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8D82F8C72494F68981F642E /* AwsatDigitalBetav10-Regular.ttf */; };
 		F2B68E5A9A4D47CCB204FFC6 /* IBMPlexSansArabic-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B92C60AB24178BA12F9B8 /* IBMPlexSansArabic-Medium.ttf */; };
 		FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B45D19788C4478787AF7891 /* Almarai-ExtraBold.ttf */; };
@@ -112,13 +110,10 @@
 		03D70E1F425647C1BAD8922A /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		0813FFC6016E49F58063CA2B /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		0B1F1D1A2B2842B9A6761A36 /* IBMPlexSansArabic-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-SemiBold.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-SemiBold.ttf"; sourceTree = "<group>"; };
-		0DADE4D427DA4AAD009F9C8A /* Awsatapp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Awsatapp-Bridging-Header.h"; sourceTree = "<group>"; };
-		0DADE4D527DA4AAD009F9C8A /* trackPlayerDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trackPlayerDummy.swift; sourceTree = "<group>"; };
 		12E7BE3A7CC445D8BAB40327 /* subjectivity-medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "subjectivity-medium.otf"; path = "../src/assets/fonts/subjectivity-medium.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Awsatapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Awsatapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Awsatapp/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Awsatapp/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Awsatapp/Images.xcassets; sourceTree = "<group>"; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Awsatapp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Awsatapp/main.m; sourceTree = "<group>"; };
 		153FB4BA9DEB49FBBF9941AF /* IBMPlexSansArabic-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Thin.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Thin.ttf"; sourceTree = "<group>"; };
@@ -146,34 +141,62 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Awsatapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A3FDE2C970357A496A5A5514 /* Pods-Awsatapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.debug.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA4A435E3C93425CA0D7EB9C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		AF14A0F428366A5400E6311D /* Effra-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Effra-Medium.ttf"; path = "../src/assets/fonts/Effra-Medium.ttf"; sourceTree = "<group>"; };
-		AF14A0F528366A5500E6311D /* Effra Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Effra Medium.ttf"; path = "../src/assets/fonts/Effra Medium.ttf"; sourceTree = "<group>"; };
-		AF14A0F628366A5500E6311D /* Effra-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Effra-Regular.ttf"; path = "../src/assets/fonts/Effra-Regular.ttf"; sourceTree = "<group>"; };
-		AF14A0FF28369BB600E6311D /* PDFEditionHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
-		AF14A10128369C5300E6311D /* PDFEditionHeaderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PDFEditionHeaderCollectionViewCell.xib; sourceTree = "<group>"; };
-		AF5774D22833A11900823EBE /* TodayTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTabView.swift; sourceTree = "<group>"; };
-		AFC909F92834CD8100993110 /* PDFStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PDFStoryboard.storyboard; sourceTree = "<group>"; };
+		AF14A1072836CF8B00E6311D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AF14A1162836D0C600E6311D /* CollectionViewCellDescriper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellDescriper.swift; sourceTree = "<group>"; };
+		AF14A1172836D0C600E6311D /* CollectionViewCellType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellType.swift; sourceTree = "<group>"; };
+		AF14A1182836D0C600E6311D /* GenericTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
+		AF14A1192836D0C600E6311D /* GenericCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewController.swift; sourceTree = "<group>"; };
+		AF14A11A2836D0C600E6311D /* TableViewCellDescriper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellDescriper.swift; sourceTree = "<group>"; };
+		AF14A11B2836D0C600E6311D /* TableViewCellType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellType.swift; sourceTree = "<group>"; };
+		AF14A11C2836D0C600E6311D /* DataSourceFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceFactory.swift; sourceTree = "<group>"; };
+		AF14A11F2836D0C600E6311D /* ReachibilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachibilityManager.swift; sourceTree = "<group>"; };
+		AF14A1202836D0C600E6311D /* ErrorJSONData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorJSONData.swift; sourceTree = "<group>"; };
+		AF14A1212836D0C600E6311D /* NotificationCenterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
+		AF14A1222836D0C600E6311D /* PDFFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFFileManager.swift; sourceTree = "<group>"; };
+		AF14A1242836D0C600E6311D /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
+		AF14A1252836D0C600E6311D /* URLFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLFactory.swift; sourceTree = "<group>"; };
+		AF14A1262836D0C600E6311D /* Kingfiser+Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Kingfiser+Networking.swift"; sourceTree = "<group>"; };
+		AF14A1272836D0C600E6311D /* WebServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServices.swift; sourceTree = "<group>"; };
+		AF14A12A2836D0C600E6311D /* PDFViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewer.swift; sourceTree = "<group>"; };
+		AF14A12B2836D0C600E6311D /* PDFArchivesRootViewControllerOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFArchivesRootViewControllerOne.m; sourceTree = "<group>"; };
+		AF14A12C2836D0C600E6311D /* PDFArchivesRootViewControllerOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFArchivesRootViewControllerOne.h; sourceTree = "<group>"; };
+		AF14A12E2836D0C600E6311D /* SampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleViewController.m; sourceTree = "<group>"; };
+		AF14A12F2836D0C600E6311D /* TodayTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayTabView.swift; sourceTree = "<group>"; };
+		AF14A1302836D0C600E6311D /* SampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleViewController.h; sourceTree = "<group>"; };
+		AF14A1322836D0C600E6311D /* PDFArchivesRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFArchivesRootViewController.m; sourceTree = "<group>"; };
+		AF14A1332836D0C600E6311D /* PDFArchiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFArchiveView.swift; sourceTree = "<group>"; };
+		AF14A1342836D0C600E6311D /* PDFArchivesRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFArchivesRootViewController.h; sourceTree = "<group>"; };
+		AF14A1372836D0C600E6311D /* PDFEditionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFEditionCollectionViewCell.xib; sourceTree = "<group>"; };
+		AF14A1382836D0C600E6311D /* PDFEditionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEditionCollectionViewCell.swift; sourceTree = "<group>"; };
+		AF14A13A2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEditionHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
+		AF14A13B2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFEditionHeaderCollectionViewCell.xib; sourceTree = "<group>"; };
+		AF14A13D2836D0C600E6311D /* PDFEditionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFEditionTableViewCell.xib; sourceTree = "<group>"; };
+		AF14A13E2836D0C600E6311D /* PDFEditionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEditionTableViewCell.swift; sourceTree = "<group>"; };
+		AF14A1402836D0C600E6311D /* PDFEditionLargeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFEditionLargeCollectionViewCell.xib; sourceTree = "<group>"; };
+		AF14A1412836D0C600E6311D /* PDFEditionLargeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEditionLargeCollectionViewCell.swift; sourceTree = "<group>"; };
+		AF14A1432836D0C600E6311D /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		AF14A1442836D0C600E6311D /* DefaultKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultKeys.swift; sourceTree = "<group>"; };
+		AF14A1452836D0C600E6311D /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		AF14A1472836D0C600E6311D /* AuthenticationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationData.swift; sourceTree = "<group>"; };
+		AF14A1482836D0C600E6311D /* PDFArchiveData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFArchiveData.swift; sourceTree = "<group>"; };
+		AF14A1492836D0C600E6311D /* UserBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBase.swift; sourceTree = "<group>"; };
+		AF14A14A2836D0C600E6311D /* PDFEdition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEdition.swift; sourceTree = "<group>"; };
+		AF14A14C2836D0C700E6311D /* PDFEdition+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFEdition+ViewModel.swift"; sourceTree = "<group>"; };
+		AF14A1732836D24B00E6311D /* URLConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConfig.swift; sourceTree = "<group>"; };
+		AF14A1752836D30700E6311D /* CustomNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNotifications.swift; sourceTree = "<group>"; };
+		AF14A1772836D34300E6311D /* DeviceOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceOrientation.swift; sourceTree = "<group>"; };
+		AF14A1792836D35B00E6311D /* TargetAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetAction.swift; sourceTree = "<group>"; };
+		AF14A17A2836D35B00E6311D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		AF14A17F2836D3C200E6311D /* AwsatLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatLight.otf; sourceTree = "<group>"; };
+		AF14A1802836D3C200E6311D /* Effra-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Effra-Medium.ttf"; sourceTree = "<group>"; };
+		AF14A1822836D3C200E6311D /* AwsatBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBold.otf; sourceTree = "<group>"; };
+		AF14A1832836D3C200E6311D /* Effra-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Effra-Regular.ttf"; sourceTree = "<group>"; };
+		AF14A1842836D3C200E6311D /* AwsatBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBlack.otf; sourceTree = "<group>"; };
+		AF14A18E2836D95700E6311D /* Awsatapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Awsatapp-Bridging-Header.h"; sourceTree = "<group>"; };
 		C201F5BCD31F4C9A97A70B04 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		C512A59BE94247A5B2850233 /* Effra-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra-Medium.ttf"; path = "../src/assets/fonts/Effra-Medium.ttf"; sourceTree = "<group>"; };
 		C71F0B6A5BAD4BC1BE74D43A /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		D65511C7F87248D4B2F00011 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
-		D7286B7828353B060056BFB0 /* PDFArchivesRootViewControllerOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFArchivesRootViewControllerOne.m; sourceTree = "<group>"; };
-		D7286B7928353B060056BFB0 /* PDFArchivesRootViewControllerOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFArchivesRootViewControllerOne.h; sourceTree = "<group>"; };
-		D72EB4CA28324039008BFB99 /* PDFEditionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PDFEditionCollectionViewCell.xib; sourceTree = "<group>"; };
-		D72EB4CB28324039008BFB99 /* PDFEditionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PDFEditionTableViewCell.xib; sourceTree = "<group>"; };
-		D72EB4D4283245CE008BFB99 /* AwsatLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatLight.otf; sourceTree = "<group>"; };
-		D72EB4D5283245CE008BFB99 /* AwsatBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBold.otf; sourceTree = "<group>"; };
-		D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBlack.otf; sourceTree = "<group>"; };
-		D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PDFEditionLargeCollectionViewCell.xib; path = Awsatapp/PDFEditionLargeCollectionViewCell.xib; sourceTree = "<group>"; };
-		D72EB4EC28326EB2008BFB99 /* PDFViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewer.swift; sourceTree = "<group>"; };
-		D72EB4F02832701B008BFB99 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		D72EB4F228328C81008BFB99 /* PDFArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFArchiveView.swift; sourceTree = "<group>"; };
-		D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
-		D77DFBD5282BBF8100EFAF13 /* SampleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SampleViewController.h; sourceTree = "<group>"; };
-		D77DFBD6282BBF8100EFAF13 /* SampleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleViewController.m; sourceTree = "<group>"; };
-		D77DFBDB282BD67800EFAF13 /* PDFStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PDFStoryboard.storyboard; sourceTree = "<group>"; };
-		D781E469283370BA00B3A231 /* PDFArchivesRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDFArchivesRootViewController.h; sourceTree = "<group>"; };
-		D781E46A283370BA00B3A231 /* PDFArchivesRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFArchivesRootViewController.m; sourceTree = "<group>"; };
 		D7CB52E528364E3F003B6457 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D7CB52E728366F63003B6457 /* colorPalatte.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = colorPalatte.xcassets; sourceTree = "<group>"; };
 		D7D85B4927D9C9CE0028999D /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
@@ -182,39 +205,10 @@
 		D7D85B4F27D9C9F10028999D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D7D85B5127D9C9FD0028999D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
-		D7F15A5E282BE9A7004368A7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadingView.swift; path = Awsatapp/LoadingView.swift; sourceTree = "<group>"; };
+		D7F15A5E282BE9A7004368A7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		D7F15A60282BEA15004368A7 /* libSwiftyJSON.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSwiftyJSON.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F15A62282BEB82004368A7 /* libSVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSVProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F15A64282BED4A004368A7 /* libSwiftyJSON.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSwiftyJSON.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D7F15A6C282BF4D2004368A7 /* WebServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WebServices.swift; path = Awsatapp/WebServices.swift; sourceTree = "<group>"; };
-		D7F15A6E282BFB2D004368A7 /* GenericCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewController.swift; sourceTree = "<group>"; };
-		D7F15A70282BFBAE004368A7 /* CollectionViewCellDescriper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellDescriper.swift; sourceTree = "<group>"; };
-		D7F15A72282BFBFC004368A7 /* DeviceOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOrientation.swift; sourceTree = "<group>"; };
-		D7F15A75282BFC55004368A7 /* ReachibilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachibilityManager.swift; sourceTree = "<group>"; };
-		D7F15A77282BFF07004368A7 /* ErrorJSONData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorJSONData.swift; sourceTree = "<group>"; };
-		D7F15A7D282C00C7004368A7 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		D7F15A80282C0174004368A7 /* CollectionViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellType.swift; sourceTree = "<group>"; };
-		D7F15A83282C01F1004368A7 /* PDFEdition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEdition.swift; sourceTree = "<group>"; };
-		D7F15A89282C06AB004368A7 /* CustomNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNotifications.swift; sourceTree = "<group>"; };
-		D7F15A8C282C0704004368A7 /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
-		D7F15A8E282C0760004368A7 /* URLFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLFactory.swift; sourceTree = "<group>"; };
-		D7F15A90282C0790004368A7 /* URLConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConfig.swift; sourceTree = "<group>"; };
-		D7F15A93282C0A50004368A7 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
-		D7F15A96282C0A92004368A7 /* PDFFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFFileManager.swift; sourceTree = "<group>"; };
-		D7F15A98282C0AEC004368A7 /* PDFArchiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFArchiveData.swift; sourceTree = "<group>"; };
-		D7F15A9B282C0B6D004368A7 /* PDFEditionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionCollectionViewCell.swift; sourceTree = "<group>"; };
-		D7F15A9D282C0BB7004368A7 /* TargetAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetAction.swift; sourceTree = "<group>"; };
-		D7F15AA1282C0D49004368A7 /* DefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeys.swift; sourceTree = "<group>"; };
-		D7F15AA3282C0E21004368A7 /* NotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
-		D7F15AA5282C0EAB004368A7 /* PDFEditionLargeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionLargeCollectionViewCell.swift; sourceTree = "<group>"; };
-		D7F15AA7282C1003004368A7 /* AuthenticationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationData.swift; sourceTree = "<group>"; };
-		D7F15AA9282C10F5004368A7 /* UserBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBase.swift; sourceTree = "<group>"; };
-		D7F15AAB282C115A004368A7 /* DataSourceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceFactory.swift; sourceTree = "<group>"; };
-		D7F15AAD282C11F4004368A7 /* TableViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellType.swift; sourceTree = "<group>"; };
-		D7F15AAF282C12CE004368A7 /* TableViewCellDescriper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellDescriper.swift; sourceTree = "<group>"; };
-		D7F15AB1282C132E004368A7 /* PDFEditionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionTableViewCell.swift; sourceTree = "<group>"; };
-		D7F15AB4282C142D004368A7 /* PDFEdition+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFEdition+ViewModel.swift"; sourceTree = "<group>"; };
-		D7F15AB6282C1559004368A7 /* kingfiser+networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "kingfiser+networking.swift"; sourceTree = "<group>"; };
 		D8AA95078BE64015A4C75555 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		DCAF97FCEBA04671A1F23140 /* IBMPlexSansArabic-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Bold.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Bold.ttf"; sourceTree = "<group>"; };
 		DE43288E83E54802B0102ECA /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
@@ -279,26 +273,20 @@
 		13B07FAE1A68108700A75B9A /* Awsatapp */ = {
 			isa = PBXGroup;
 			children = (
-				D7F15A74282BFC41004368A7 /* classes */,
-				D7F15A6A282BF4A2004368A7 /* Resources */,
-				D77DFBDD282BDC0900EFAF13 /* TodayTabView */,
+				5E92D08427D24F7700592089 /* GoogleService-Info.plist */,
+				AF14A17D2836D3C200E6311D /* Resources */,
+				AF14A1352836D0C600E6311D /* CustomCells */,
+				AF14A1152836D0C600E6311D /* DataSources */,
+				AF14A11E2836D0C600E6311D /* Managers */,
+				AF14A1462836D0C600E6311D /* Models */,
+				AF14A1232836D0C600E6311D /* Networking */,
+				AF14A1422836D0C600E6311D /* Utilities */,
+				AF14A14B2836D0C700E6311D /* ViewModels */,
+				AF14A1282836D0C600E6311D /* Views */,
 				3265B71127D5DD040025B815 /* Awsatapp.entitlements */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
-				AFC909F92834CD8100993110 /* PDFStoryboard.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				D77DFBD5282BBF8100EFAF13 /* SampleViewController.h */,
-				D77DFBD6282BBF8100EFAF13 /* SampleViewController.m */,
-				D7F15A5E282BE9A7004368A7 /* LoadingView.swift */,
-				D7CB52E528364E3F003B6457 /* Localizable.strings */,
-				D781E469283370BA00B3A231 /* PDFArchivesRootViewController.h */,
-				D781E46A283370BA00B3A231 /* PDFArchivesRootViewController.m */,
-				D7286B7928353B060056BFB0 /* PDFArchivesRootViewControllerOne.h */,
-				D7286B7828353B060056BFB0 /* PDFArchivesRootViewControllerOne.m */,
-				D7CB52E728366F63003B6457 /* colorPalatte.xcassets */,
 			);
 			name = Awsatapp;
 			sourceTree = "<group>";
@@ -322,25 +310,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Libraries;
-			sourceTree = "<group>";
-		};
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				0DADE4D527DA4AAD009F9C8A /* trackPlayerDummy.swift */,
-				5E92D08427D24F7700592089 /* GoogleService-Info.plist */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				AF14A18E2836D95700E6311D /* Awsatapp-Bridging-Header.h */,
 				13B07FAE1A68108700A75B9A /* Awsatapp */,
-				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* AwsatappTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				8D698A178F9B4EB96887F05E /* Pods */,
-				0DADE4D427DA4AAD009F9C8A /* Awsatapp-Bridging-Header.h */,
 				D8EA38B5AEA443098005BABB /* Resources */,
 			);
 			indentWidth = 2;
@@ -368,151 +348,194 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		D72EB4E628326377008BFB99 /* storyboard */ = {
+		AF14A1152836D0C600E6311D /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				D77DFBDB282BD67800EFAF13 /* PDFStoryboard.storyboard */,
+				AF14A1162836D0C600E6311D /* CollectionViewCellDescriper.swift */,
+				AF14A1172836D0C600E6311D /* CollectionViewCellType.swift */,
+				AF14A1182836D0C600E6311D /* GenericTableViewController.swift */,
+				AF14A1192836D0C600E6311D /* GenericCollectionViewController.swift */,
+				AF14A11A2836D0C600E6311D /* TableViewCellDescriper.swift */,
+				AF14A11B2836D0C600E6311D /* TableViewCellType.swift */,
+				AF14A11C2836D0C600E6311D /* DataSourceFactory.swift */,
 			);
-			name = storyboard;
+			name = DataSources;
+			path = Awsatapp/DataSources;
 			sourceTree = "<group>";
 		};
-		D72EB4EB2832642F008BFB99 /* ViewControllers */ = {
+		AF14A11E2836D0C600E6311D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				D72EB4EC28326EB2008BFB99 /* PDFViewer.swift */,
-				D72EB4F228328C81008BFB99 /* PDFArchiveView.swift */,
+				AF14A11F2836D0C600E6311D /* ReachibilityManager.swift */,
+				AF14A1202836D0C600E6311D /* ErrorJSONData.swift */,
+				AF14A1212836D0C600E6311D /* NotificationCenterManager.swift */,
+				AF14A1222836D0C600E6311D /* PDFFileManager.swift */,
 			);
-			name = ViewControllers;
+			name = Managers;
+			path = Awsatapp/Managers;
 			sourceTree = "<group>";
 		};
-		D77DFBDD282BDC0900EFAF13 /* TodayTabView */ = {
+		AF14A1232836D0C600E6311D /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				AF5774D22833A11900823EBE /* TodayTabView.swift */,
+				AF14A1242836D0C600E6311D /* EndPoints.swift */,
+				AF14A1252836D0C600E6311D /* URLFactory.swift */,
+				AF14A1262836D0C600E6311D /* Kingfiser+Networking.swift */,
+				AF14A1272836D0C600E6311D /* WebServices.swift */,
+				AF14A1732836D24B00E6311D /* URLConfig.swift */,
 			);
-			name = TodayTabView;
+			name = Networking;
+			path = Awsatapp/Networking;
 			sourceTree = "<group>";
 		};
-		D7F15A6A282BF4A2004368A7 /* Resources */ = {
+		AF14A1282836D0C600E6311D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D72EB4E628326377008BFB99 /* storyboard */,
-				D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */,
-				D72EB4D5283245CE008BFB99 /* AwsatBold.otf */,
-				AF14A0F528366A5500E6311D /* Effra Medium.ttf */,
-				AF14A0F428366A5400E6311D /* Effra-Medium.ttf */,
-				AF14A0F628366A5500E6311D /* Effra-Regular.ttf */,
-				D72EB4D4283245CE008BFB99 /* AwsatLight.otf */,
-				D72EB4CA28324039008BFB99 /* PDFEditionCollectionViewCell.xib */,
-				AF14A10128369C5300E6311D /* PDFEditionHeaderCollectionViewCell.xib */,
-				D72EB4CB28324039008BFB99 /* PDFEditionTableViewCell.xib */,
-				D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */,
-				D7F15A6B282BF4B2004368A7 /* MpFoundation */,
+				AF14A1292836D0C600E6311D /* PDFViewer */,
+				AF14A12D2836D0C600E6311D /* TodayTabView */,
+				AF14A1312836D0C600E6311D /* PDFArchiveView */,
+			);
+			name = Views;
+			path = Awsatapp/Views;
+			sourceTree = "<group>";
+		};
+		AF14A1292836D0C600E6311D /* PDFViewer */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A12A2836D0C600E6311D /* PDFViewer.swift */,
+				AF14A12B2836D0C600E6311D /* PDFArchivesRootViewControllerOne.m */,
+				AF14A12C2836D0C600E6311D /* PDFArchivesRootViewControllerOne.h */,
+			);
+			path = PDFViewer;
+			sourceTree = "<group>";
+		};
+		AF14A12D2836D0C600E6311D /* TodayTabView */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A12E2836D0C600E6311D /* SampleViewController.m */,
+				AF14A12F2836D0C600E6311D /* TodayTabView.swift */,
+				AF14A1302836D0C600E6311D /* SampleViewController.h */,
+			);
+			path = TodayTabView;
+			sourceTree = "<group>";
+		};
+		AF14A1312836D0C600E6311D /* PDFArchiveView */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1322836D0C600E6311D /* PDFArchivesRootViewController.m */,
+				AF14A1332836D0C600E6311D /* PDFArchiveView.swift */,
+				AF14A1342836D0C600E6311D /* PDFArchivesRootViewController.h */,
+			);
+			path = PDFArchiveView;
+			sourceTree = "<group>";
+		};
+		AF14A1352836D0C600E6311D /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1362836D0C600E6311D /* PDFEditionCollectionViewCell */,
+				AF14A1392836D0C600E6311D /* PDFEditionHeaderCollectionViewCell */,
+				AF14A13C2836D0C600E6311D /* PDFEditionTableViewCell */,
+				AF14A13F2836D0C600E6311D /* PDFEditionLargeCollectionViewCell */,
+			);
+			name = CustomCells;
+			path = Awsatapp/CustomCells;
+			sourceTree = "<group>";
+		};
+		AF14A1362836D0C600E6311D /* PDFEditionCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1372836D0C600E6311D /* PDFEditionCollectionViewCell.xib */,
+				AF14A1382836D0C600E6311D /* PDFEditionCollectionViewCell.swift */,
+			);
+			path = PDFEditionCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		AF14A1392836D0C600E6311D /* PDFEditionHeaderCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A13A2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.swift */,
+				AF14A13B2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.xib */,
+			);
+			path = PDFEditionHeaderCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		AF14A13C2836D0C600E6311D /* PDFEditionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A13D2836D0C600E6311D /* PDFEditionTableViewCell.xib */,
+				AF14A13E2836D0C600E6311D /* PDFEditionTableViewCell.swift */,
+			);
+			path = PDFEditionTableViewCell;
+			sourceTree = "<group>";
+		};
+		AF14A13F2836D0C600E6311D /* PDFEditionLargeCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1402836D0C600E6311D /* PDFEditionLargeCollectionViewCell.xib */,
+				AF14A1412836D0C600E6311D /* PDFEditionLargeCollectionViewCell.swift */,
+			);
+			path = PDFEditionLargeCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		AF14A1422836D0C600E6311D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1432836D0C600E6311D /* Strings.swift */,
+				AF14A1442836D0C600E6311D /* DefaultKeys.swift */,
+				AF14A1452836D0C600E6311D /* Colors.swift */,
+				AF14A1752836D30700E6311D /* CustomNotifications.swift */,
+				AF14A1772836D34300E6311D /* DeviceOrientation.swift */,
+				AF14A17A2836D35B00E6311D /* Extensions.swift */,
+				AF14A1792836D35B00E6311D /* TargetAction.swift */,
+				D7F15A5E282BE9A7004368A7 /* LoadingView.swift */,
+			);
+			name = Utilities;
+			path = Awsatapp/Utilities;
+			sourceTree = "<group>";
+		};
+		AF14A1462836D0C600E6311D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1472836D0C600E6311D /* AuthenticationData.swift */,
+				AF14A1482836D0C600E6311D /* PDFArchiveData.swift */,
+				AF14A1492836D0C600E6311D /* UserBase.swift */,
+				AF14A14A2836D0C600E6311D /* PDFEdition.swift */,
+			);
+			name = Models;
+			path = Awsatapp/Models;
+			sourceTree = "<group>";
+		};
+		AF14A14B2836D0C700E6311D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A14C2836D0C700E6311D /* PDFEdition+ViewModel.swift */,
+			);
+			name = ViewModels;
+			path = Awsatapp/ViewModels;
+			sourceTree = "<group>";
+		};
+		AF14A17D2836D3C200E6311D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D7CB52E728366F63003B6457 /* colorPalatte.xcassets */,
+				AF14A1072836CF8B00E6311D /* Images.xcassets */,
+				D7CB52E528364E3F003B6457 /* Localizable.strings */,
+				AF14A17E2836D3C200E6311D /* Fonts */,
 			);
 			name = Resources;
+			path = Awsatapp/Resources;
 			sourceTree = "<group>";
 		};
-		D7F15A6B282BF4B2004368A7 /* MpFoundation */ = {
+		AF14A17E2836D3C200E6311D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				D7F15A6C282BF4D2004368A7 /* WebServices.swift */,
-				D7F15A6E282BFB2D004368A7 /* GenericCollectionViewController.swift */,
-				D7F15A70282BFBAE004368A7 /* CollectionViewCellDescriper.swift */,
-				D7F15A72282BFBFC004368A7 /* DeviceOrientation.swift */,
-				D7F15A7D282C00C7004368A7 /* Extensions.swift */,
-				D7F15A89282C06AB004368A7 /* CustomNotifications.swift */,
-				D7F15A90282C0790004368A7 /* URLConfig.swift */,
-				D7F15A9D282C0BB7004368A7 /* TargetAction.swift */,
-				D7F15AAF282C12CE004368A7 /* TableViewCellDescriper.swift */,
-				D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */,
+				AF14A17F2836D3C200E6311D /* AwsatLight.otf */,
+				AF14A1802836D3C200E6311D /* Effra-Medium.ttf */,
+				AF14A1822836D3C200E6311D /* AwsatBold.otf */,
+				AF14A1832836D3C200E6311D /* Effra-Regular.ttf */,
+				AF14A1842836D3C200E6311D /* AwsatBlack.otf */,
 			);
-			name = MpFoundation;
-			sourceTree = "<group>";
-		};
-		D7F15A74282BFC41004368A7 /* classes */ = {
-			isa = PBXGroup;
-			children = (
-				D72EB4EB2832642F008BFB99 /* ViewControllers */,
-				D7F15AB3282C1405004368A7 /* viewmodels */,
-				D7F15A9A282C0B55004368A7 /* views */,
-				D7F15A95282C0A83004368A7 /* manager */,
-				D7F15A92282C0A3E004368A7 /* utilities */,
-				D7F15A8B282C06F2004368A7 /* networking */,
-				D7F15A82282C01D5004368A7 /* models */,
-				D7F15A7F282C0143004368A7 /* dataSources */,
-			);
-			name = classes;
-			sourceTree = "<group>";
-		};
-		D7F15A7F282C0143004368A7 /* dataSources */ = {
-			isa = PBXGroup;
-			children = (
-				D7F15A80282C0174004368A7 /* CollectionViewCellType.swift */,
-				D7F15AAB282C115A004368A7 /* DataSourceFactory.swift */,
-				D7F15AAD282C11F4004368A7 /* TableViewCellType.swift */,
-			);
-			name = dataSources;
-			sourceTree = "<group>";
-		};
-		D7F15A82282C01D5004368A7 /* models */ = {
-			isa = PBXGroup;
-			children = (
-				D7F15A83282C01F1004368A7 /* PDFEdition.swift */,
-				D7F15A98282C0AEC004368A7 /* PDFArchiveData.swift */,
-				D7F15AA7282C1003004368A7 /* AuthenticationData.swift */,
-				D7F15AA9282C10F5004368A7 /* UserBase.swift */,
-			);
-			name = models;
-			sourceTree = "<group>";
-		};
-		D7F15A8B282C06F2004368A7 /* networking */ = {
-			isa = PBXGroup;
-			children = (
-				D7F15A8C282C0704004368A7 /* EndPoints.swift */,
-				D7F15A8E282C0760004368A7 /* URLFactory.swift */,
-				D7F15AB6282C1559004368A7 /* kingfiser+networking.swift */,
-			);
-			name = networking;
-			sourceTree = "<group>";
-		};
-		D7F15A92282C0A3E004368A7 /* utilities */ = {
-			isa = PBXGroup;
-			children = (
-				D7F15A93282C0A50004368A7 /* Strings.swift */,
-				D7F15AA1282C0D49004368A7 /* DefaultKeys.swift */,
-				D72EB4F02832701B008BFB99 /* Colors.swift */,
-			);
-			name = utilities;
-			sourceTree = "<group>";
-		};
-		D7F15A95282C0A83004368A7 /* manager */ = {
-			isa = PBXGroup;
-			children = (
-				D7F15A96282C0A92004368A7 /* PDFFileManager.swift */,
-				D7F15AA3282C0E21004368A7 /* NotificationCenterManager.swift */,
-				D7F15A75282BFC55004368A7 /* ReachibilityManager.swift */,
-				D7F15A77282BFF07004368A7 /* ErrorJSONData.swift */,
-			);
-			name = manager;
-			sourceTree = "<group>";
-		};
-		D7F15A9A282C0B55004368A7 /* views */ = {
-			isa = PBXGroup;
-			children = (
-				D7F15A9B282C0B6D004368A7 /* PDFEditionCollectionViewCell.swift */,
-				D7F15AA5282C0EAB004368A7 /* PDFEditionLargeCollectionViewCell.swift */,
-				D7F15AB1282C132E004368A7 /* PDFEditionTableViewCell.swift */,
-				AF14A0FF28369BB600E6311D /* PDFEditionHeaderCollectionViewCell.swift */,
-			);
-			name = views;
-			sourceTree = "<group>";
-		};
-		D7F15AB3282C1405004368A7 /* viewmodels */ = {
-			isa = PBXGroup;
-			children = (
-				D7F15AB4282C142D004368A7 /* PDFEdition+ViewModel.swift */,
-			);
-			name = viewmodels;
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		D8EA38B5AEA443098005BABB /* Resources */ = {
@@ -656,40 +679,39 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF14A18B2836D71B00E6311D /* AwsatBold.otf in Resources */,
 				5E92D08527D24F7700592089 /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				383C0A0AB8874E17A395D2DD /* AwsatDigitalBetav10-Black.ttf in Resources */,
-				D72EB4CD28324046008BFB99 /* PDFEditionCollectionViewCell.xib in Resources */,
 				8B3BA46F3B5548999CD39890 /* AwsatDigitalBetav10-Bold.ttf in Resources */,
-				D72EB4D9283245DF008BFB99 /* AwsatBold.otf in Resources */,
-				AFC909FA2834CD8200993110 /* PDFStoryboard.storyboard in Resources */,
 				E3A1C6A163A44E35BA56387D /* AwsatDigitalBetav10-Regular.ttf in Resources */,
 				C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */,
 				5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */,
-				AF14A10228369C5300E6311D /* PDFEditionHeaderCollectionViewCell.xib in Resources */,
+				AF14A1662836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.xib in Resources */,
 				FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */,
 				52B5C8CA19974215925660F6 /* Almarai-Light.ttf in Resources */,
 				D7CB52E628364E3F003B6457 /* Localizable.strings in Resources */,
+				AF14A1102836CF8B00E6311D /* Images.xcassets in Resources */,
 				D7CB52E828366F63003B6457 /* colorPalatte.xcassets in Resources */,
 				7CBB19684ACB44F8882E4025 /* Almarai-Regular.ttf in Resources */,
-				D72EB4E528325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib in Resources */,
 				928468CA882F4F17B52EF50A /* AwsatDigitalv2b-Black.ttf in Resources */,
 				B1CB1AAEFF814EBBBA090FC2 /* AwsatDigitalv2b-Bold.ttf in Resources */,
 				09780F0B561145AD914E833A /* AwsatDigitalv2b-Regular.ttf in Resources */,
 				5357BE729B3C4A038D324F02 /* IBMPlexSansArabic-Bold.ttf in Resources */,
-				D72EB4D8283245DC008BFB99 /* AwsatBlack.otf in Resources */,
 				AE824C7EF2A34A76AE26EFFE /* IBMPlexSansArabic-ExtraLight.ttf in Resources */,
 				AD2D4C4F9729485684CF8B20 /* IBMPlexSansArabic-Light.ttf in Resources */,
+				AF14A18A2836D3C200E6311D /* AwsatBlack.otf in Resources */,
+				AF14A1632836D0C700E6311D /* PDFEditionCollectionViewCell.xib in Resources */,
+				AF14A1692836D0C700E6311D /* PDFEditionLargeCollectionViewCell.xib in Resources */,
 				F2B68E5A9A4D47CCB204FFC6 /* IBMPlexSansArabic-Medium.ttf in Resources */,
 				966D9D379C6F4BD99099A78E /* IBMPlexSansArabic-Regular.ttf in Resources */,
 				3E172E253DB7408A9818A83A /* IBMPlexSansArabic-SemiBold.ttf in Resources */,
 				833DA4AA2F9544EC98A8D7BA /* IBMPlexSansArabic-Thin.ttf in Resources */,
 				8D00CD9EF80B4DB8852B9964 /* subjectivity-medium.otf in Resources */,
+				AF14A1672836D0C700E6311D /* PDFEditionTableViewCell.xib in Resources */,
+				AF14A1852836D3C200E6311D /* AwsatLight.otf in Resources */,
 				1BCC838D77E04AD686D4BE54 /* Beirut.ttf in Resources */,
 				7476FD19439D42338A420F44 /* Effra-Medium.ttf in Resources */,
-				D72EB4D7283245D8008BFB99 /* AwsatLight.otf in Resources */,
-				D72EB4CE2832404E008BFB99 /* PDFEditionTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,48 +905,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D72EB4ED28326EB2008BFB99 /* PDFViewer.swift in Sources */,
-				D7F15A81282C0174004368A7 /* CollectionViewCellType.swift in Sources */,
-				D7F15AB2282C132E004368A7 /* PDFEditionTableViewCell.swift in Sources */,
+				AF14A1612836D0C700E6311D /* PDFArchivesRootViewController.m in Sources */,
+				AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */,
+				AF14A14E2836D0C700E6311D /* CollectionViewCellType.swift in Sources */,
+				AF14A16B2836D0C700E6311D /* Strings.swift in Sources */,
+				AF14A1702836D0C700E6311D /* UserBase.swift in Sources */,
+				AF14A1762836D30700E6311D /* CustomNotifications.swift in Sources */,
+				AF14A16C2836D0C700E6311D /* DefaultKeys.swift in Sources */,
+				AF14A1652836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				D781E46B283370BA00B3A231 /* PDFArchivesRootViewController.m in Sources */,
-				0DADE4D627DA4AAD009F9C8A /* trackPlayerDummy.swift in Sources */,
-				D72EB4F328328C81008BFB99 /* PDFArchiveView.swift in Sources */,
-				D7F15A99282C0AEC004368A7 /* PDFArchiveData.swift in Sources */,
-				AF5774D32833A11900823EBE /* TodayTabView.swift in Sources */,
-				D77DFBD7282BBF8100EFAF13 /* SampleViewController.m in Sources */,
-				D7F15AB5282C142D004368A7 /* PDFEdition+ViewModel.swift in Sources */,
-				D7F15A97282C0A92004368A7 /* PDFFileManager.swift in Sources */,
-				D7F15A91282C0790004368A7 /* URLConfig.swift in Sources */,
-				D7F15AAE282C11F4004368A7 /* TableViewCellType.swift in Sources */,
+				AF14A1552836D0C700E6311D /* ReachibilityManager.swift in Sources */,
+				AF14A15E2836D0C700E6311D /* PDFArchivesRootViewControllerOne.m in Sources */,
+				AF14A16F2836D0C700E6311D /* PDFArchiveData.swift in Sources */,
+				AF14A15C2836D0C700E6311D /* WebServices.swift in Sources */,
+				AF14A17C2836D35B00E6311D /* Extensions.swift in Sources */,
+				AF14A1682836D0C700E6311D /* PDFEditionTableViewCell.swift in Sources */,
+				AF14A1622836D0C700E6311D /* PDFArchiveView.swift in Sources */,
+				AF14A1592836D0C700E6311D /* EndPoints.swift in Sources */,
+				AF14A1572836D0C700E6311D /* NotificationCenterManager.swift in Sources */,
+				AF14A15D2836D0C700E6311D /* PDFViewer.swift in Sources */,
 				D7F15A5F282BE9A7004368A7 /* LoadingView.swift in Sources */,
-				D7F15A78282BFF07004368A7 /* ErrorJSONData.swift in Sources */,
-				D7F15A8F282C0760004368A7 /* URLFactory.swift in Sources */,
-				D7F15A9C282C0B6D004368A7 /* PDFEditionCollectionViewCell.swift in Sources */,
-				D7F15AB7282C1559004368A7 /* kingfiser+networking.swift in Sources */,
-				D7F15A6F282BFB2D004368A7 /* GenericCollectionViewController.swift in Sources */,
-				D7F15AA8282C1003004368A7 /* AuthenticationData.swift in Sources */,
-				D7F15A8D282C0704004368A7 /* EndPoints.swift in Sources */,
-				D7F15AA2282C0D49004368A7 /* DefaultKeys.swift in Sources */,
+				AF14A1642836D0C700E6311D /* PDFEditionCollectionViewCell.swift in Sources */,
+				AF14A14D2836D0C700E6311D /* CollectionViewCellDescriper.swift in Sources */,
+				AF14A16A2836D0C700E6311D /* PDFEditionLargeCollectionViewCell.swift in Sources */,
+				AF14A1602836D0C700E6311D /* TodayTabView.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				D7F15A94282C0A50004368A7 /* Strings.swift in Sources */,
-				AF14A10028369BB600E6311D /* PDFEditionHeaderCollectionViewCell.swift in Sources */,
-				D7F15A71282BFBAE004368A7 /* CollectionViewCellDescriper.swift in Sources */,
-				D7F15A8A282C06AB004368A7 /* CustomNotifications.swift in Sources */,
-				D7F15AAC282C115A004368A7 /* DataSourceFactory.swift in Sources */,
-				D7F15A84282C01F1004368A7 /* PDFEdition.swift in Sources */,
-				D7286B7A28353B060056BFB0 /* PDFArchivesRootViewControllerOne.m in Sources */,
-				D7F15A9E282C0BB7004368A7 /* TargetAction.swift in Sources */,
-				D72EB4F528328FC8008BFB99 /* GenericTableViewController.swift in Sources */,
-				D7F15A7E282C00C7004368A7 /* Extensions.swift in Sources */,
-				D7F15A73282BFBFC004368A7 /* DeviceOrientation.swift in Sources */,
-				D7F15AAA282C10F5004368A7 /* UserBase.swift in Sources */,
-				D7F15AB0282C12CE004368A7 /* TableViewCellDescriper.swift in Sources */,
-				D72EB4F12832701B008BFB99 /* Colors.swift in Sources */,
-				D7F15AA4282C0E21004368A7 /* NotificationCenterManager.swift in Sources */,
-				D7F15AA6282C0EAB004368A7 /* PDFEditionLargeCollectionViewCell.swift in Sources */,
-				D7F15A6D282BF4D2004368A7 /* WebServices.swift in Sources */,
-				D7F15A76282BFC55004368A7 /* ReachibilityManager.swift in Sources */,
+				AF14A1562836D0C700E6311D /* ErrorJSONData.swift in Sources */,
+				AF14A15F2836D0C700E6311D /* SampleViewController.m in Sources */,
+				AF14A1522836D0C700E6311D /* TableViewCellType.swift in Sources */,
+				AF14A1582836D0C700E6311D /* PDFFileManager.swift in Sources */,
+				AF14A16D2836D0C700E6311D /* Colors.swift in Sources */,
+				AF14A1782836D34300E6311D /* DeviceOrientation.swift in Sources */,
+				AF14A14F2836D0C700E6311D /* GenericTableViewController.swift in Sources */,
+				AF14A15B2836D0C700E6311D /* Kingfiser+Networking.swift in Sources */,
+				AF14A1742836D24B00E6311D /* URLConfig.swift in Sources */,
+				AF14A1532836D0C700E6311D /* DataSourceFactory.swift in Sources */,
+				AF14A17B2836D35B00E6311D /* TargetAction.swift in Sources */,
+				AF14A1712836D0C700E6311D /* PDFEdition.swift in Sources */,
+				AF14A15A2836D0C700E6311D /* URLFactory.swift in Sources */,
+				AF14A1722836D0C700E6311D /* PDFEdition+ViewModel.swift in Sources */,
+				AF14A1502836D0C700E6311D /* GenericCollectionViewController.swift in Sources */,
+				AF14A1512836D0C700E6311D /* TableViewCellDescriper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

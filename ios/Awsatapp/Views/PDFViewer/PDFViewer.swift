@@ -35,7 +35,7 @@ class PDFViewer: UIView {
   }
 
   deinit {
-    print("PDFEditionViewer Deinit Called :::::::")
+    print("<- PDFEditionViewer DeInit ->")
   }
   
     

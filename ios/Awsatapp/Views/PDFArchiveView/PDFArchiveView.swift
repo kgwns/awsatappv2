@@ -96,6 +96,7 @@ class PDFArchiveView: UIView, LoadingView {
     }
     
     deinit {
+        print("<- PDFArchiveView DeInit ->")
         //TODO: Need to remove observers to eliminate memory leak
         removeObservers()
     }
