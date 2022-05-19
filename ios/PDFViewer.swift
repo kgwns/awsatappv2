@@ -10,7 +10,7 @@ import WebKit
 import SwiftyUserDefaults
 import DateToolsSwift
 
-class PDFEditionViewer: UIView {
+class PDFViewer: UIView {
       
     // MARK: - Properties
     

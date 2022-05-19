@@ -45,7 +45,7 @@
 		D72EB4D8283245DC008BFB99 /* AwsatBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */; };
 		D72EB4D9283245DF008BFB99 /* AwsatBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4D5283245CE008BFB99 /* AwsatBold.otf */; };
 		D72EB4E528325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */; };
-		D72EB4ED28326EB2008BFB99 /* PDFEditionViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4EC28326EB2008BFB99 /* PDFEditionViewer.swift */; };
+		D72EB4ED28326EB2008BFB99 /* PDFViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4EC28326EB2008BFB99 /* PDFViewer.swift */; };
 		D72EB4F12832701B008BFB99 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F02832701B008BFB99 /* Colors.swift */; };
 		D72EB4F328328C81008BFB99 /* PDFArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F228328C81008BFB99 /* PDFArchiveView.swift */; };
 		D72EB4F528328FC8008BFB99 /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */; };
@@ -165,7 +165,7 @@
 		D72EB4D5283245CE008BFB99 /* AwsatBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBold.otf; sourceTree = "<group>"; };
 		D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBlack.otf; sourceTree = "<group>"; };
 		D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PDFEditionLargeCollectionViewCell.xib; path = Awsatapp/PDFEditionLargeCollectionViewCell.xib; sourceTree = "<group>"; };
-		D72EB4EC28326EB2008BFB99 /* PDFEditionViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionViewer.swift; sourceTree = "<group>"; };
+		D72EB4EC28326EB2008BFB99 /* PDFViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFViewer.swift; sourceTree = "<group>"; };
 		D72EB4F02832701B008BFB99 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D72EB4F228328C81008BFB99 /* PDFArchiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFArchiveView.swift; sourceTree = "<group>"; };
 		D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
@@ -379,7 +379,7 @@
 		D72EB4EB2832642F008BFB99 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				D72EB4EC28326EB2008BFB99 /* PDFEditionViewer.swift */,
+				D72EB4EC28326EB2008BFB99 /* PDFViewer.swift */,
 				D72EB4F228328C81008BFB99 /* PDFArchiveView.swift */,
 			);
 			name = ViewControllers;
@@ -883,7 +883,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D72EB4ED28326EB2008BFB99 /* PDFEditionViewer.swift in Sources */,
+				D72EB4ED28326EB2008BFB99 /* PDFViewer.swift in Sources */,
 				D7F15A81282C0174004368A7 /* CollectionViewCellType.swift in Sources */,
 				D7F15AB2282C132E004368A7 /* PDFEditionTableViewCell.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
