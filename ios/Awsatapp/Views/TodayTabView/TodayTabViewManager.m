@@ -5,17 +5,17 @@
 //  Created by Deepak Kumar on 11/05/22.
 //
 
-#import "SampleViewController.h"
+#import "TodayTabViewManager.h"
 #import "Awsatapp-Swift.h"
 
 
-@implementation SampleViewController
+@implementation TodayTabViewManager
 
 + (BOOL)requiresMainQueueSetup {
     return true;
 }
 
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE(RNTodayTabView)
 
 -(UIView *) view {
     return [TodayTabView new];

@@ -48,7 +48,7 @@
 		AF14A15C2836D0C700E6311D /* WebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1272836D0C600E6311D /* WebServices.swift */; };
 		AF14A15D2836D0C700E6311D /* PDFViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12A2836D0C600E6311D /* PDFViewer.swift */; };
 		AF14A15E2836D0C700E6311D /* RNPDFViewerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12B2836D0C600E6311D /* RNPDFViewerManager.m */; };
-		AF14A15F2836D0C700E6311D /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12E2836D0C600E6311D /* SampleViewController.m */; };
+		AF14A15F2836D0C700E6311D /* TodayTabViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12E2836D0C600E6311D /* TodayTabViewManager.m */; };
 		AF14A1602836D0C700E6311D /* TodayTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12F2836D0C600E6311D /* TodayTabView.swift */; };
 		AF14A1612836D0C700E6311D /* PDFArchivesRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1322836D0C600E6311D /* PDFArchivesRootViewController.m */; };
 		AF14A1622836D0C700E6311D /* PDFArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1332836D0C600E6311D /* PDFArchiveView.swift */; };
@@ -160,9 +160,9 @@
 		AF14A12A2836D0C600E6311D /* PDFViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewer.swift; sourceTree = "<group>"; };
 		AF14A12B2836D0C600E6311D /* RNPDFViewerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNPDFViewerManager.m; sourceTree = "<group>"; };
 		AF14A12C2836D0C600E6311D /* RNPDFViewerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNPDFViewerManager.h; sourceTree = "<group>"; };
-		AF14A12E2836D0C600E6311D /* SampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleViewController.m; sourceTree = "<group>"; };
+		AF14A12E2836D0C600E6311D /* TodayTabViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayTabViewManager.m; sourceTree = "<group>"; };
 		AF14A12F2836D0C600E6311D /* TodayTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayTabView.swift; sourceTree = "<group>"; };
-		AF14A1302836D0C600E6311D /* SampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleViewController.h; sourceTree = "<group>"; };
+		AF14A1302836D0C600E6311D /* TodayTabViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayTabViewManager.h; sourceTree = "<group>"; };
 		AF14A1322836D0C600E6311D /* PDFArchivesRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFArchivesRootViewController.m; sourceTree = "<group>"; };
 		AF14A1332836D0C600E6311D /* PDFArchiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFArchiveView.swift; sourceTree = "<group>"; };
 		AF14A1342836D0C600E6311D /* PDFArchivesRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFArchivesRootViewController.h; sourceTree = "<group>"; };
@@ -402,9 +402,9 @@
 		AF14A1292836D0C600E6311D /* PDFViewer */ = {
 			isa = PBXGroup;
 			children = (
-				AF14A12A2836D0C600E6311D /* PDFViewer.swift */,
-				AF14A12B2836D0C600E6311D /* RNPDFViewerManager.m */,
 				AF14A12C2836D0C600E6311D /* RNPDFViewerManager.h */,
+				AF14A12B2836D0C600E6311D /* RNPDFViewerManager.m */,
+				AF14A12A2836D0C600E6311D /* PDFViewer.swift */,
 			);
 			path = PDFViewer;
 			sourceTree = "<group>";
@@ -412,9 +412,9 @@
 		AF14A12D2836D0C600E6311D /* TodayTabView */ = {
 			isa = PBXGroup;
 			children = (
-				AF14A12E2836D0C600E6311D /* SampleViewController.m */,
+				AF14A1302836D0C600E6311D /* TodayTabViewManager.h */,
+				AF14A12E2836D0C600E6311D /* TodayTabViewManager.m */,
 				AF14A12F2836D0C600E6311D /* TodayTabView.swift */,
-				AF14A1302836D0C600E6311D /* SampleViewController.h */,
 			);
 			path = TodayTabView;
 			sourceTree = "<group>";
@@ -422,9 +422,9 @@
 		AF14A1312836D0C600E6311D /* PDFArchiveView */ = {
 			isa = PBXGroup;
 			children = (
+				AF14A1342836D0C600E6311D /* PDFArchivesRootViewController.h */,
 				AF14A1322836D0C600E6311D /* PDFArchivesRootViewController.m */,
 				AF14A1332836D0C600E6311D /* PDFArchiveView.swift */,
-				AF14A1342836D0C600E6311D /* PDFArchivesRootViewController.h */,
 			);
 			path = PDFArchiveView;
 			sourceTree = "<group>";
@@ -931,7 +931,7 @@
 				AF14A1602836D0C700E6311D /* TodayTabView.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				AF14A1562836D0C700E6311D /* ErrorJSONData.swift in Sources */,
-				AF14A15F2836D0C700E6311D /* SampleViewController.m in Sources */,
+				AF14A15F2836D0C700E6311D /* TodayTabViewManager.m in Sources */,
 				AF14A1522836D0C700E6311D /* TableViewCellType.swift in Sources */,
 				AF14A1582836D0C700E6311D /* PDFFileManager.swift in Sources */,
 				AF14A16D2836D0C700E6311D /* Colors.swift in Sources */,

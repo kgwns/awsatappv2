@@ -7,7 +7,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { LIGHT_THEME_ID } from 'src/shared/styles/colors';
 
 
-const NativeView: any = requireNativeComponent('SampleViewController');
+const NativeView: any = requireNativeComponent('RNTodayTabView');
 
 export const DownloadNews = () => {
     const navigation = useNavigation<StackNavigationProp<any>>()
