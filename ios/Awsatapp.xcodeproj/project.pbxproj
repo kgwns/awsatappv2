@@ -50,7 +50,7 @@
 		AF14A15E2836D0C700E6311D /* RNPDFViewerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12B2836D0C600E6311D /* RNPDFViewerManager.m */; };
 		AF14A15F2836D0C700E6311D /* TodayTabViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12E2836D0C600E6311D /* TodayTabViewManager.m */; };
 		AF14A1602836D0C700E6311D /* TodayTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12F2836D0C600E6311D /* TodayTabView.swift */; };
-		AF14A1612836D0C700E6311D /* PDFArchivesRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1322836D0C600E6311D /* PDFArchivesRootViewController.m */; };
+		AF14A1612836D0C700E6311D /* PDFArchiveViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1322836D0C600E6311D /* PDFArchiveViewManager.m */; };
 		AF14A1622836D0C700E6311D /* PDFArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1332836D0C600E6311D /* PDFArchiveView.swift */; };
 		AF14A1632836D0C700E6311D /* PDFEditionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1372836D0C600E6311D /* PDFEditionCollectionViewCell.xib */; };
 		AF14A1642836D0C700E6311D /* PDFEditionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1382836D0C600E6311D /* PDFEditionCollectionViewCell.swift */; };
@@ -163,9 +163,9 @@
 		AF14A12E2836D0C600E6311D /* TodayTabViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayTabViewManager.m; sourceTree = "<group>"; };
 		AF14A12F2836D0C600E6311D /* TodayTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayTabView.swift; sourceTree = "<group>"; };
 		AF14A1302836D0C600E6311D /* TodayTabViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayTabViewManager.h; sourceTree = "<group>"; };
-		AF14A1322836D0C600E6311D /* PDFArchivesRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFArchivesRootViewController.m; sourceTree = "<group>"; };
+		AF14A1322836D0C600E6311D /* PDFArchiveViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFArchiveViewManager.m; sourceTree = "<group>"; };
 		AF14A1332836D0C600E6311D /* PDFArchiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFArchiveView.swift; sourceTree = "<group>"; };
-		AF14A1342836D0C600E6311D /* PDFArchivesRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFArchivesRootViewController.h; sourceTree = "<group>"; };
+		AF14A1342836D0C600E6311D /* PDFArchiveViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFArchiveViewManager.h; sourceTree = "<group>"; };
 		AF14A1372836D0C600E6311D /* PDFEditionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFEditionCollectionViewCell.xib; sourceTree = "<group>"; };
 		AF14A1382836D0C600E6311D /* PDFEditionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEditionCollectionViewCell.swift; sourceTree = "<group>"; };
 		AF14A13A2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEditionHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -422,8 +422,8 @@
 		AF14A1312836D0C600E6311D /* PDFArchiveView */ = {
 			isa = PBXGroup;
 			children = (
-				AF14A1342836D0C600E6311D /* PDFArchivesRootViewController.h */,
-				AF14A1322836D0C600E6311D /* PDFArchivesRootViewController.m */,
+				AF14A1342836D0C600E6311D /* PDFArchiveViewManager.h */,
+				AF14A1322836D0C600E6311D /* PDFArchiveViewManager.m */,
 				AF14A1332836D0C600E6311D /* PDFArchiveView.swift */,
 			);
 			path = PDFArchiveView;
@@ -905,7 +905,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF14A1612836D0C700E6311D /* PDFArchivesRootViewController.m in Sources */,
+				AF14A1612836D0C700E6311D /* PDFArchiveViewManager.m in Sources */,
 				AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */,
 				AF14A14E2836D0C700E6311D /* CollectionViewCellType.swift in Sources */,
 				AF14A16B2836D0C700E6311D /* Strings.swift in Sources */,

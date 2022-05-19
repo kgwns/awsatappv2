@@ -7,7 +7,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 
-const PDFArchiveView: any = requireNativeComponent('PDFArchivesRootViewController')
+const PDFArchiveView: any = requireNativeComponent('RNPDFArchiveView')
 
 export const PDFArchive = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
