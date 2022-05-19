@@ -302,8 +302,10 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
             isBookmarked={bannerData.isBookmarked}
             onPressBookmark={() => updatedHeroBookmark(0)}
             hasTabletLayout={isTab ? true : false}
-            rightContainerStyle={style.footerRightStyle}
+            containerStyle={style.imageArticleContainerStyle}
+            // rightContainerStyle={style.footerRightStyle}  enable to align footer center
             textStyles={{textAlign:'center'}}
+            contentStyle={style.imageArticleContentStyle}
           />
         )}
       </>
@@ -380,13 +382,17 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
               {renderTopArticle()}
             </>
         }
-        <VideoContent data={videoListData} onPress={onVideoItemPress} />
-        <NewsFeed
-          data={bottomListDataInfo}
-          onScroll={() => gotoNextPage()}
-          isLoading={isBottomListLoading}
-          onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
-        />
+        <View style={style.videoContainer}>
+          <VideoContent data={videoListData} onPress={onVideoItemPress} />
+        </View>
+        <View style={style.newsFeedContainer}>
+          <NewsFeed
+            data={bottomListDataInfo}
+            onScroll={() => gotoNextPage()}
+            isLoading={isBottomListLoading}
+            onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
+          />
+        </View>
       </View>
     );
   }
@@ -440,11 +446,11 @@ const customStyle = (theme: CustomThemeType) => {
       flexDirection: 'row',
       paddingTop: normalize(15),
       justifyContent: 'space-between',
-      marginHorizontal: normalize(10),
+      marginHorizontal: isTab ? 0.04 * screenWidth : 0,
     },
     sectionStoryContainer: {
       paddingTop: isTab ? 0 : normalize(15), 
-      paddingHorizontal: isTab ? 5 : normalize(0.04 * screenWidth),
+      paddingHorizontal: isTab ? 5 : 0.04 * screenWidth,
     },
     verticalDivider: {
       height: '100%',
@@ -464,6 +470,22 @@ const customStyle = (theme: CustomThemeType) => {
     },
     shortContainer: {
       paddingBottom: 0
+    },
+    imageArticleContainerStyle: {
+      width: '100%',
+      height: 'auto',
+      aspectRatio: 1.62,
+      paddingHorizontal: isTab ? 0.04 * screenWidth : 0,
+    },
+    imageArticleContentStyle: {
+      paddingHorizontal: isTab ? 0.04 * screenWidth : 0
+    },
+    videoContainer: {
+      paddingLeft: isTab ? 0.02 * screenWidth : 0,
+      backgroundColor:theme.secondaryWhite
+    },
+    newsFeedContainer: {
+      paddingHorizontal: isTab ? 0.02 * screenWidth : 0
     }
   });
   return sectionStoryStyle;

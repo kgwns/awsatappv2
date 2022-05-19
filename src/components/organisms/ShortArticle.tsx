@@ -61,8 +61,8 @@ export const shortArticleFooter: articleFooterProps = {
   },
   leftTitleColor: Styles.color.silverChalice,
   rightTitleColor: Styles.color.silverChalice,
-  leftTitleStyle: { fontSize: 11, lineHeight: 13, fontFamily: fonts.IBMPlexSansArabic_Regular },
-  rightTitleStyle: { fontSize: 11, lineHeight: 13 },
+  leftTitleStyle: { fontSize: 13, lineHeight: 18, fontFamily: fonts.IBMPlexSansArabic_Regular },
+  rightTitleStyle: isTab ? {} : { fontSize: 13, lineHeight: 18, fontFamily: fonts.IBMPlexSansArabic_Regular },
 };
 
 const ShortArticle = ({ data, headerLeft, onPress,

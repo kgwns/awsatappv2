@@ -29,7 +29,7 @@ enum TextAlign {
 export const textStyles = (theme: CustomThemeType) => {
   const style = StyleSheet.create<Record<string, TextStyle>>({
     h2: {
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(16),
       lineHeight: normalize(26),

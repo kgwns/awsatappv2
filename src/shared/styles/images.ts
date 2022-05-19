@@ -97,6 +97,8 @@ export enum ImagesName {
   menuCloseIcon = 'menuCloseIcon',
   playForwardIcon = 'playForwardIcon',
   playBackwardIcon = 'playBackwardIcon',
+  headPhoneIcon = 'headPhoneIcon',
+  arrowLeftBlack = 'arrowLeftBlack',
 }
 
 export const images = {

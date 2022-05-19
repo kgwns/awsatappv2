@@ -209,7 +209,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: normalize(20),
       color: theme.primary,
       lineHeight: normalize(30),
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     instructionTextStyle: {
       fontSize: normalize(15),
@@ -248,7 +248,7 @@ const createStyles = (theme: CustomThemeType) =>
     buttonLabelStyle: {
       paddingHorizontal: normalize(30),
       fontSize: normalize(16),
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: colors.white,
       lineHeight: normalize(20),
       textAlign: 'center',

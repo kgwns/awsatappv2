@@ -561,12 +561,12 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         <TopHeadLineNews data={headlineNews} />
       </View>
       <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       <EditorsPickSection data={horizontalArticle} />
-       {isNonEmptyArray(podcastHome) &&
-       <View>
-         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />  
-         </View>}
+      {isNonEmptyArray(podcastHome) &&
+        <View>
+          <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
+        </View>}
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       <BannerArticleSection data={editorsChoiceInfo}
         title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         sectionId={'871'}
@@ -650,6 +650,16 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         onUpdateBookmark={updatedSectionComboSixBookmark}
         isDivider
       />
+      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: normalize(50) }} />}
+      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
+      <BannerArticleSection
+        data={sectionComboSevenInfo}
+        title={_sectionComboSevenTitle}
+        sectionId={'36'}
+        onPress={onPressArticle}
+        onUpdateBookmark={updatedSectionComboSevenBookmark}
+        isDivider
+      />
     </View>
   )
 
@@ -679,11 +689,11 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
           />
         </View>
       </View>
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
-      <EditorsPickSection data={horizontalArticle} />
       {isNonEmptyArray(podcastHome) &&
         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
       }
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
+      <EditorsPickSection data={horizontalArticle} />
       <View style={mainSectionStyle.tabSplitter}>
         <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}

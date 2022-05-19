@@ -146,7 +146,7 @@ const customStyle = (theme: CustomThemeType) => {
       flex: 0.18,
     },
     titleStyle: {
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       textAlign: 'center',
       fontSize: normalize(20),
       color: theme.primary,
@@ -182,7 +182,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     nextButtonIconContainer: { position: 'absolute', left: normalize(20) },
     nextButtonText: {
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: theme.primary,
       textAlign: 'center',
       width: '100%',

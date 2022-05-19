@@ -280,7 +280,7 @@ const createStyles = (theme: CustomThemeType) =>
       flexDirection: 'row',
     },
     headerLabelStyle: {
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
       fontSize: normalize(12),
       color: theme.textColor,
       lineHeight: normalize(16),

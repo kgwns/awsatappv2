@@ -120,6 +120,7 @@ import MenuCloseIcon from 'src/assets/images/icons/closeSideMenu.svg';
 import MenuCloseIconDark from 'src/assets/images/icons/closeSideMenuDark.svg';
 import PlayForwardIcon from 'src/assets/images/icons/playForward.svg';
 import PlayBackwardIcon from 'src/assets/images/icons/playBackward.svg';
+import HeadPhoneIcon from 'src/assets/images/icons/headPhoneIcon.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
@@ -285,6 +286,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <PlayForwardIcon {...props} />
         case ImagesName.playBackwardIcon:
             return <PlayBackwardIcon {...props} />
+        case ImagesName.headPhoneIcon:
+            return <HeadPhoneIcon {...props} />
         default: return null
     }
 }

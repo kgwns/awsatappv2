@@ -49,7 +49,7 @@ const ArticlePodCastWidget = ({
                 </View>
                 <Image style={style.imageContainer} url={imageUrl} resizeMode={ImageResize.COVER} />
             </View>
-            <DetailPodCastFooter leftTitle={t('listen_to_podcast')}
+            <DetailPodCastFooter leftTitle={t('podcastHome.listen_to_podcast')}
                 leftTitleColor={themeData.primary}
                 leftTimeLabel={getSecondsToHms(timeDuration)}
                 leftTimeLabelColor={Styles.color.spanishGray}

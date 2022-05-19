@@ -119,7 +119,7 @@ const customStyle = (theme: CustomThemeType) => {
         textStyle: {
             width: normalize(263),
             paddingVertical: normalize(10),
-            fontFamily: fonts.Almarai_Bold,
+            fontFamily: fonts.AwsatDigitalBetav10_Bold,
         },
         baseStyle: {
             alignSelf: 'flex-start',

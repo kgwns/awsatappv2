@@ -23,8 +23,4 @@ describe('<ArticleDetailImage>', () => {
         expect(instance).toBeDefined()
     })
 
-    it('Should Press onBack', () => {
-        const element = instance.getByTestId('onPressbackTestID');
-        fireEvent.press(element);
-    });
 })
