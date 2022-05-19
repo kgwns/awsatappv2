@@ -5,13 +5,12 @@
 //  Created by Deepak Kumar on 17/05/22.
 //
 
-#import "PDFArchivesRootViewControllerOne.h"
+#import "RNPDFViewerManager.h"
 #import "Awsatapp-Swift.h"
 
+@implementation RNPDFViewerManager
 
-@implementation PDFArchivesRootViewControllerOne
-
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE(RNPDFViewer)
 
 - (UIView *)view {
     return [PDFViewer new];

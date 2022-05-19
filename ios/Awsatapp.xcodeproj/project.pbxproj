@@ -47,7 +47,7 @@
 		AF14A15B2836D0C700E6311D /* Kingfiser+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1262836D0C600E6311D /* Kingfiser+Networking.swift */; };
 		AF14A15C2836D0C700E6311D /* WebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1272836D0C600E6311D /* WebServices.swift */; };
 		AF14A15D2836D0C700E6311D /* PDFViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12A2836D0C600E6311D /* PDFViewer.swift */; };
-		AF14A15E2836D0C700E6311D /* PDFArchivesRootViewControllerOne.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12B2836D0C600E6311D /* PDFArchivesRootViewControllerOne.m */; };
+		AF14A15E2836D0C700E6311D /* RNPDFViewerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12B2836D0C600E6311D /* RNPDFViewerManager.m */; };
 		AF14A15F2836D0C700E6311D /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12E2836D0C600E6311D /* SampleViewController.m */; };
 		AF14A1602836D0C700E6311D /* TodayTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12F2836D0C600E6311D /* TodayTabView.swift */; };
 		AF14A1612836D0C700E6311D /* PDFArchivesRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1322836D0C600E6311D /* PDFArchivesRootViewController.m */; };
@@ -158,8 +158,8 @@
 		AF14A1262836D0C600E6311D /* Kingfiser+Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Kingfiser+Networking.swift"; sourceTree = "<group>"; };
 		AF14A1272836D0C600E6311D /* WebServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServices.swift; sourceTree = "<group>"; };
 		AF14A12A2836D0C600E6311D /* PDFViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewer.swift; sourceTree = "<group>"; };
-		AF14A12B2836D0C600E6311D /* PDFArchivesRootViewControllerOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFArchivesRootViewControllerOne.m; sourceTree = "<group>"; };
-		AF14A12C2836D0C600E6311D /* PDFArchivesRootViewControllerOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFArchivesRootViewControllerOne.h; sourceTree = "<group>"; };
+		AF14A12B2836D0C600E6311D /* RNPDFViewerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNPDFViewerManager.m; sourceTree = "<group>"; };
+		AF14A12C2836D0C600E6311D /* RNPDFViewerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNPDFViewerManager.h; sourceTree = "<group>"; };
 		AF14A12E2836D0C600E6311D /* SampleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleViewController.m; sourceTree = "<group>"; };
 		AF14A12F2836D0C600E6311D /* TodayTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayTabView.swift; sourceTree = "<group>"; };
 		AF14A1302836D0C600E6311D /* SampleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleViewController.h; sourceTree = "<group>"; };
@@ -403,8 +403,8 @@
 			isa = PBXGroup;
 			children = (
 				AF14A12A2836D0C600E6311D /* PDFViewer.swift */,
-				AF14A12B2836D0C600E6311D /* PDFArchivesRootViewControllerOne.m */,
-				AF14A12C2836D0C600E6311D /* PDFArchivesRootViewControllerOne.h */,
+				AF14A12B2836D0C600E6311D /* RNPDFViewerManager.m */,
+				AF14A12C2836D0C600E6311D /* RNPDFViewerManager.h */,
 			);
 			path = PDFViewer;
 			sourceTree = "<group>";
@@ -915,7 +915,7 @@
 				AF14A1652836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				AF14A1552836D0C700E6311D /* ReachibilityManager.swift in Sources */,
-				AF14A15E2836D0C700E6311D /* PDFArchivesRootViewControllerOne.m in Sources */,
+				AF14A15E2836D0C700E6311D /* RNPDFViewerManager.m in Sources */,
 				AF14A16F2836D0C700E6311D /* PDFArchiveData.swift in Sources */,
 				AF14A15C2836D0C700E6311D /* WebServices.swift in Sources */,
 				AF14A17C2836D35B00E6311D /* Extensions.swift in Sources */,
