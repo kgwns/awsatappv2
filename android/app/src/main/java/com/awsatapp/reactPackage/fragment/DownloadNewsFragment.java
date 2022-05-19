@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.Activity.PdfActivity;
+import com.awsatapp.reactPackage.Activity.PdfArchiveActivity;
 import com.awsatapp.reactPackage.Constant;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.manager.CoreNetworkManager;
@@ -50,6 +51,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     private ImageView mImage;
     private TextView mDate;
     private Button mDownlaodBtn;
+    private Button archiveBtn;
     private ProgressBar mLoader;
     private LinearLayout mContainer;
     private Pdf mPdf;
@@ -62,7 +64,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_daily_pdf, container, false);
+        return inflater.inflate(R.layout.fragment_download_news, container, false);
     }
 
     @Override
@@ -72,6 +74,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         mImage = (ImageView) view.findViewById(R.id.image);
         mDate = (TextView) view.findViewById(R.id.date);
         mDownlaodBtn = (Button) view.findViewById(R.id.download_btn);
+        archiveBtn = (Button) view.findViewById(R.id.newsArchive);
         mLoader = (ProgressBar) view.findViewById(R.id.loader);
         mContainer = (LinearLayout) view.findViewById(R.id.pdf_container);
 
@@ -80,6 +83,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         }
 
         mDownlaodBtn.setOnClickListener(this);
+        archiveBtn.setOnClickListener(this);
         getPdfArchive();
     }
 
@@ -94,7 +98,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                         mPdf = response.getData()[response.getData().length -1];
                         mTitle.setText(mTitle.getContext().getString(R.string.issue_number) + " " + mPdf.getIssueNumber());
 
-                        String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE);
+                        String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE,"ar");
                         mDate.setText(Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()));
 
                         Glide.with(requireContext()).load(mPdf.getThumb()).listener(new RequestListener<Drawable>() {
@@ -232,10 +236,14 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                     }
                 } else if (mPdf.getStatus() == 2) {
                     final String path = mContext.getFilesDir().getPath() + "/" + mPdf.getIssueNumber() + ".pdf";
-                    String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE);
+                    String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
                     String title = Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()) + " " + getString(R.string.issue_number) + " " + mPdf.getIssueNumber();
                     startActivity(PdfActivity.newInstance(mContext, path, title));
                 }
+            break;
+            case R.id.newsArchive:
+                startActivity(PdfArchiveActivity.class);
+                break;
         }
     }
 }

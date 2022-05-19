@@ -106,7 +106,7 @@ public class DataManager {
     }
 
     public String getLanguage() {
-        return mCacheManager.get(Constant.CACHE_LANGUAGE, "en");
+        return mCacheManager.get(Constant.CACHE_LANGUAGE, "ar");
     }
 
 

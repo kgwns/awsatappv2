@@ -50,7 +50,7 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
 
         mTitle.setText(mTitle.getContext().getString(R.string.issue_number) + " " + data.getIssueNumber());
 
-        String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE);
+        String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE,"ar");
         mDate.setText(Utils.getFullDateFromTimestamp(new Locale(lang), data.getCreated()));
 
         Glide.with(mImage.getContext()).load(data.getThumb()).into(mImage);

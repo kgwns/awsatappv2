@@ -38,4 +38,4 @@ export { GameScreen, } from 'src/components/screens/games/GameScreen'
 export { DynamicGameScreen } from 'src/components/screens/games/DynamicGameScreen'
 export { MainSectionScreen } from 'src/components/screens/main/MainSectionScreen'
 export { DownloadNews } from './downloadNews/DownloadNews'
-export { PDFArchive } from './pdfArchive/PDFArchive'
+

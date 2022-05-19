@@ -31,7 +31,7 @@ export const DownloadNews = (props: DownloadNewsProps) => {
   return (
     <ScreenContainer
       edge={horizontalAndTop}
-      showHeader={true}
+      showHeader={false}
       headerTitle={t('drawer.pdfArchive')}>
       <View>
         <DownloadNewsViewManager

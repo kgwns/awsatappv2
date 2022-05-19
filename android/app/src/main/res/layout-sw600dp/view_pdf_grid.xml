@@ -61,7 +61,7 @@
         android:layout_height="45dp"
         android:layout_gravity="center"
         android:layout_marginTop="-17dp"
-        android:background="@drawable/unfollow_cancel_btn"
+        android:background="@drawable/download_btn_black"
         android:paddingBottom="0dp"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"

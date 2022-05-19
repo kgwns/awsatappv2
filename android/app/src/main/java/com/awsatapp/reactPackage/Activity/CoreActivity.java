@@ -69,7 +69,7 @@ public class CoreActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
     public void setBackButtonEnabled(Toolbar tb, boolean blackColor) {
         if (tb != null) {
-            Context context = MyContextWrapper.wrap(mContext, new Locale(CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE, "en")));
+            Context context = MyContextWrapper.wrap(mContext, new Locale(CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE, "ar")));
             Drawable upArrow = ContextCompat.getDrawable(context, R.drawable.ic_arrow_back_white_24dp);
             if (blackColor) {
                 upArrow.setColorFilter(ContextCompat.getColor(context, android.R.color.black), PorterDuff.Mode.SRC_ATOP);
@@ -192,7 +192,7 @@ public class CoreActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
     @Override
     protected void attachBaseContext(Context base) {
-        Context context = MyContextWrapper.wrap(base, new Locale(CoreCacheManager.getInstance(base).get(Constant.CACHE_LANGUAGE, "en")));
+        Context context = MyContextWrapper.wrap(base, new Locale(CoreCacheManager.getInstance(base).get(Constant.CACHE_LANGUAGE, "ar")));
         super.attachBaseContext(context);
     }
 

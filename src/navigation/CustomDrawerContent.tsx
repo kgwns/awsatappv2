@@ -263,11 +263,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             )}
             titleStyle={styles.nonBoldTitle}
           />
-          <ButtonList
-            title={t('drawer.pdfArchive')}
-            onPress={() => navigation.navigate(ScreensConstants.PDFArchive)}
-            titleStyle={styles.nonBoldTitle}
-          />
+
 
           <View style={styles.socialContainer}>
             <ButtonImage

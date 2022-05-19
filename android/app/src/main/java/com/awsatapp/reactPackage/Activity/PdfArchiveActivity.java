@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +54,8 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setBackButtonEnabled();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_green));
         setTitle(getString(R.string.pdf_archive_title));
         setOptionsMenu(R.menu.pdf_archive);
         rvList.addItemDecoration(new SimpleDividerItemDecoration(getResources()));
@@ -132,7 +135,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                     }
                 } else if (pdf.getStatus() == 2) {
                     final String path = mContext.getFilesDir().getPath() + "/" + pdf.getIssueNumber() + ".pdf";
-                    String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE);
+                    String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
                     String title = Utils.getFullDateFromTimestamp(new Locale(lang), pdf.getCreated()) + " " + getString(R.string.issue_number) + " " + pdf.getIssueNumber();
                     startActivity(PdfActivity.newInstance(mContext, path, title));
                 }

@@ -55,6 +55,6 @@ public class NetworkManager extends CoreNetworkManager {
     }
 
     private String getLanguage() {
-        return CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE, "en");
+        return CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE, "ar");
     }
 }

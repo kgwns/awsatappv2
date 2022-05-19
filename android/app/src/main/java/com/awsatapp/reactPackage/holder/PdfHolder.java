@@ -44,7 +44,7 @@ public class PdfHolder extends CoreHolder<Pdf> {
     public void bindData(Pdf data) {
         mTitle.setText(mTitle.getContext().getString(R.string.issue_number) + " " + data.getIssueNumber());
 
-        String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE);
+        String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE,"ar");
         mDate.setText(Utils.getFullDateFromTimestamp(new Locale(lang), data.getCreated()));
         if (data.getmDownloadTask() != null) {
             data.setStatus(1);
