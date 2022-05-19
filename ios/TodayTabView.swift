@@ -10,26 +10,25 @@ import SwiftyJSON
 
 class TodayTabView: UIView, LoadingView {
   
-//    var showPDFEdition: (PDFEdition, URL) -> () = { _,_  in }
-
-  @objc var userInterfaceStyle: String = "" {
-    willSet {
-      if(!newValue.isEmpty) {
-        window?.overrideUserInterfaceStyle = newValue == "light" ? .light : .dark
+    @objc var userInterfaceStyle: String = "" {
+      willSet {
+        if(!newValue.isEmpty) {
+          window?.overrideUserInterfaceStyle = newValue == "light" ? .light : .dark
+        }
       }
     }
-  }
-  
     @objc var onItemClick: RCTBubblingEventBlock?
+    @objc var onArchiveButtonClick: RCTBubblingEventBlock?
+  
     private var readPDFEditionNotificationToken: Token?
     private var downloadCompleteNotificationToken: Token?
     private var showMobileDataAlertNotification: Token?
     private var reuseIdentifiers: Set<String> = []
     private var sectionInset: UIEdgeInsets {
         if UIDevice.current.userInterfaceIdiom == .pad {
-            return UIEdgeInsets.init(top: 20, left: 20, bottom: 20, right: 20)
+            return UIEdgeInsets.init(top: 5, left: 20, bottom: 20, right: 20)
         }
-        return UIEdgeInsets.init(top: 10, left: 0, bottom: 10, right: 0)
+        return UIEdgeInsets.init(top: 0, left: 0, bottom: 10, right: 0)
     }
 
     private let MINIMUM_LINE_SPACING: CGFloat = 20
@@ -58,7 +57,7 @@ class TodayTabView: UIView, LoadingView {
     }
   
     deinit {
-        removeObservers()
+        //TODO: Need to remove observers
     }
       
     // MARK: - Private
@@ -75,6 +74,7 @@ class TodayTabView: UIView, LoadingView {
         flowLayout.minimumInteritemSpacing = MINIMUM_INTERIM_SPACING
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = sectionInset
+        flowLayout.headerReferenceSize = CGSize(width: self.frame.width, height: 40)
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.dataSource = self
@@ -174,6 +174,23 @@ extension TodayTabView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: descriptor.reuseIdentifier, for: indexPath)
         descriptor.configure(cell)
         return cell
+    }
+  
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if (kind == UICollectionView.elementKindSectionHeader) {
+            if !reuseIdentifiers.contains(PDFEditionHeaderCollectionViewCell.reuseIdentifier) {
+                let nib = UINib(nibName: "PDFEditionHeaderCollectionViewCell", bundle: nil)
+                collectionView.register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PDFEditionHeaderCollectionViewCell.reuseIdentifier)
+                reuseIdentifiers.insert(PDFEditionHeaderCollectionViewCell.reuseIdentifier)
+            }
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "PDFEditionHeaderCell", for: indexPath as IndexPath) as! PDFEditionHeaderCollectionViewCell
+            header.setArchiveButtonAction { [weak self] in
+                guard let self = self else { return }
+                self.onArchiveButtonClick?(nil)
+            }
+            return header
+        }
+        return UICollectionReusableView()
     }
 }
 

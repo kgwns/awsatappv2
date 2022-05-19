@@ -11,14 +11,12 @@
 
 @implementation PDFArchivesRootViewControllerOne
 
-
 RCT_EXPORT_MODULE()
 
 - (UIView *)view {
-  return [PDFEditionViewer new];
+    return [PDFEditionViewer new];
 }
 
 RCT_EXPORT_VIEW_PROPERTY(selectedPDF, NSDictionary)
-
 
 @end

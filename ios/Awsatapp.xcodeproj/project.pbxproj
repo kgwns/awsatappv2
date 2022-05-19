@@ -32,6 +32,8 @@
 		A281F88502F1503BC5D5065B /* libPods-Awsatapp-AwsatappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25742A46B7D80C9727BAF371 /* libPods-Awsatapp-AwsatappTests.a */; };
 		AD2D4C4F9729485684CF8B20 /* IBMPlexSansArabic-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FB492873A7A498EBF07352A /* IBMPlexSansArabic-Light.ttf */; };
 		AE824C7EF2A34A76AE26EFFE /* IBMPlexSansArabic-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E986D753AAC0403D87D94AB7 /* IBMPlexSansArabic-ExtraLight.ttf */; };
+		AF14A10028369BB600E6311D /* PDFEditionHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A0FF28369BB600E6311D /* PDFEditionHeaderCollectionViewCell.swift */; };
+		AF14A10228369C5300E6311D /* PDFEditionHeaderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A10128369C5300E6311D /* PDFEditionHeaderCollectionViewCell.xib */; };
 		AF5774D32833A11900823EBE /* TodayTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5774D22833A11900823EBE /* TodayTabView.swift */; };
 		AFC909FA2834CD8200993110 /* PDFStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFC909F92834CD8100993110 /* PDFStoryboard.storyboard */; };
 		B1CB1AAEFF814EBBBA090FC2 /* AwsatDigitalv2b-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CC96FCB89FE43DCAD20BD5B /* AwsatDigitalv2b-Bold.ttf */; };
@@ -147,6 +149,8 @@
 		AF14A0F428366A5400E6311D /* Effra-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Effra-Medium.ttf"; path = "../src/assets/fonts/Effra-Medium.ttf"; sourceTree = "<group>"; };
 		AF14A0F528366A5500E6311D /* Effra Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Effra Medium.ttf"; path = "../src/assets/fonts/Effra Medium.ttf"; sourceTree = "<group>"; };
 		AF14A0F628366A5500E6311D /* Effra-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Effra-Regular.ttf"; path = "../src/assets/fonts/Effra-Regular.ttf"; sourceTree = "<group>"; };
+		AF14A0FF28369BB600E6311D /* PDFEditionHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFEditionHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
+		AF14A10128369C5300E6311D /* PDFEditionHeaderCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PDFEditionHeaderCollectionViewCell.xib; sourceTree = "<group>"; };
 		AF5774D22833A11900823EBE /* TodayTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTabView.swift; sourceTree = "<group>"; };
 		AFC909F92834CD8100993110 /* PDFStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PDFStoryboard.storyboard; sourceTree = "<group>"; };
 		C201F5BCD31F4C9A97A70B04 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
@@ -400,6 +404,7 @@
 				AF14A0F628366A5500E6311D /* Effra-Regular.ttf */,
 				D72EB4D4283245CE008BFB99 /* AwsatLight.otf */,
 				D72EB4CA28324039008BFB99 /* PDFEditionCollectionViewCell.xib */,
+				AF14A10128369C5300E6311D /* PDFEditionHeaderCollectionViewCell.xib */,
 				D72EB4CB28324039008BFB99 /* PDFEditionTableViewCell.xib */,
 				D72EB4E328325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib */,
 				D7F15A6B282BF4B2004368A7 /* MpFoundation */,
@@ -497,6 +502,7 @@
 				D7F15A9B282C0B6D004368A7 /* PDFEditionCollectionViewCell.swift */,
 				D7F15AA5282C0EAB004368A7 /* PDFEditionLargeCollectionViewCell.swift */,
 				D7F15AB1282C132E004368A7 /* PDFEditionTableViewCell.swift */,
+				AF14A0FF28369BB600E6311D /* PDFEditionHeaderCollectionViewCell.swift */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -661,6 +667,7 @@
 				E3A1C6A163A44E35BA56387D /* AwsatDigitalBetav10-Regular.ttf in Resources */,
 				C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */,
 				5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */,
+				AF14A10228369C5300E6311D /* PDFEditionHeaderCollectionViewCell.xib in Resources */,
 				FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */,
 				52B5C8CA19974215925660F6 /* Almarai-Light.ttf in Resources */,
 				D7CB52E628364E3F003B6457 /* Localizable.strings in Resources */,
@@ -901,6 +908,7 @@
 				D7F15AA2282C0D49004368A7 /* DefaultKeys.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				D7F15A94282C0A50004368A7 /* Strings.swift in Sources */,
+				AF14A10028369BB600E6311D /* PDFEditionHeaderCollectionViewCell.swift in Sources */,
 				D7F15A71282BFBAE004368A7 /* CollectionViewCellDescriper.swift in Sources */,
 				D7F15A8A282C06AB004368A7 /* CustomNotifications.swift in Sources */,
 				D7F15AAC282C115A004368A7 /* DataSourceFactory.swift in Sources */,
