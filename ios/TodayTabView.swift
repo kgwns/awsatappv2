@@ -76,13 +76,21 @@ class TodayTabView: UIView, LoadingView {
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = sectionInset
 
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = true
         collectionView.backgroundColor = UIColor(named: "backgroundColor")
         addSubview(collectionView)
+      
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: self.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            collectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: self.rightAnchor)
+        ])
     }
 
     private func addObservers() {
@@ -103,24 +111,24 @@ class TodayTabView: UIView, LoadingView {
   
     private func showPDFEdition(_ pdfEdition: PDFEdition, _ localFilePath: URL) {
         var consolidatedDictionary = pdfEdition.dictionaryRepresentation()
-      consolidatedDictionary["localPDFFilePath"] = localFilePath.absoluteString
-      var title: String = ""
-      if let timestamp = pdfEdition.issueDate, let timeInterval = TimeInterval(timestamp) {
-        if let issueNumber = pdfEdition.issueNumber {
+        consolidatedDictionary["localPDFFilePath"] = localFilePath.absoluteString
+        var title: String = ""
+        if let timestamp = pdfEdition.issueDate, let timeInterval = TimeInterval(timestamp) {
+            if let issueNumber = pdfEdition.issueNumber {
                 title = Date(timeIntervalSince1970: timeInterval).format(with: .full, locale: Locale(identifier:  "ar-AE")) + " " + Strings.edition + " " +  issueNumber
             } else {
                 title =  Date(timeIntervalSince1970: timeInterval).format(with: .full, locale: Locale(identifier:  "ar-AE"))
             }
-        } else {
-          if let issueNumber = pdfEdition.issueNumber {
+          }
+        else {
+            if let issueNumber = pdfEdition.issueNumber {
                 title = Strings.edition + " " +  issueNumber
             } else {
                 title = ""
             }
         }
-      
-      consolidatedDictionary["title"] = title
-      onItemClick?(["SelectedPDF": consolidatedDictionary])
+        consolidatedDictionary["title"] = title
+        onItemClick?(["SelectedPDF": consolidatedDictionary])
     }
 
     private func showMobileDataAlert() {
@@ -172,28 +180,21 @@ extension TodayTabView: UICollectionViewDataSource {
 // MARK: UICollectionViewDelegate
 extension TodayTabView: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
   
-    var aspectRatio: CGFloat {
+    private var aspectRatio: CGFloat {
       get {
-        UIDevice.current.userInterfaceIdiom == .pad ? CGFloat(768.0/916.0) : CGFloat(414.0/590.0)
+        return 800.0 / 1231
       }
     }
-
-    var itemWidth: CGFloat {
+    private var itemWidth: CGFloat {
         get {
             let screenWidth = UIScreen.main.bounds.width
             return screenWidth - collectionView!.contentInset.left - collectionView!.contentInset.right - sectionInset.left - sectionInset.right
         }
     }
-
-    var itemHeight: CGFloat {
+    private var itemHeight: CGFloat {
         get {
             return itemWidth / aspectRatio
         }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//      let item = datasource[indexPath.row]
-//      didSelect(item)
     }
   
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

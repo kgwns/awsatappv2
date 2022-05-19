@@ -14,11 +14,9 @@ class PDFEditionLargeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var editionFrontPageImageView: UIImageView!
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var editionDateLabel: UILabel!
-    @IBOutlet weak var issueNumberLabel: UILabel!
     @IBOutlet weak var downloadProgressView: UIProgressView!
     
     var actionButtonTargetAction: TargetAction?
-    
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -39,9 +37,7 @@ class PDFEditionLargeCollectionViewCell: UICollectionViewCell {
     }
     
     private func applyArabicStyleIfNeeded() {
-            editionDateLabel.font = UIFont.boldAwsatFont(size: 15*2*0.7)
-            issueNumberLabel.font = UIFont.boldAwsatFont(size: 15*2*0.7)
-            actionButton.titleLabel?.font = UIFont.boldAwsatFont(size: 16*2*0.7)
+          actionButton.titleLabel?.font = UIFont.boldAwsatFont(size: 16*2*0.7)
     }
     
     public func setDownlaodButtonStatus() {

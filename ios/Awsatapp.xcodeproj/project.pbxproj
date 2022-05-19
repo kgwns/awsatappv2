@@ -144,6 +144,9 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Awsatapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A3FDE2C970357A496A5A5514 /* Pods-Awsatapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.debug.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA4A435E3C93425CA0D7EB9C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		AF14A0F428366A5400E6311D /* Effra-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Effra-Medium.ttf"; path = "../src/assets/fonts/Effra-Medium.ttf"; sourceTree = "<group>"; };
+		AF14A0F528366A5500E6311D /* Effra Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Effra Medium.ttf"; path = "../src/assets/fonts/Effra Medium.ttf"; sourceTree = "<group>"; };
+		AF14A0F628366A5500E6311D /* Effra-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Effra-Regular.ttf"; path = "../src/assets/fonts/Effra-Regular.ttf"; sourceTree = "<group>"; };
 		AF5774D22833A11900823EBE /* TodayTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTabView.swift; sourceTree = "<group>"; };
 		AFC909F92834CD8100993110 /* PDFStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PDFStoryboard.storyboard; sourceTree = "<group>"; };
 		C201F5BCD31F4C9A97A70B04 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
@@ -392,6 +395,9 @@
 				D72EB4E628326377008BFB99 /* storyboard */,
 				D72EB4D6283245CE008BFB99 /* AwsatBlack.otf */,
 				D72EB4D5283245CE008BFB99 /* AwsatBold.otf */,
+				AF14A0F528366A5500E6311D /* Effra Medium.ttf */,
+				AF14A0F428366A5400E6311D /* Effra-Medium.ttf */,
+				AF14A0F628366A5500E6311D /* Effra-Regular.ttf */,
 				D72EB4D4283245CE008BFB99 /* AwsatLight.otf */,
 				D72EB4CA28324039008BFB99 /* PDFEditionCollectionViewCell.xib */,
 				D72EB4CB28324039008BFB99 /* PDFEditionTableViewCell.xib */,

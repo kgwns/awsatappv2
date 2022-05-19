@@ -86,18 +86,17 @@ extension PDFEdition {
     
     func configurePDFEditionLargeCollectionViewCell( _ cell: PDFEditionLargeCollectionViewCell) {
         cell.editionFrontPageImageView.aaa_setImage(self.thumbnailLarge)
-        
         cell.editionDateLabel.setFullDateLabel(self.issueDate)
         
-        if self.issueDate == nil {
-            cell.editionDateLabel.text = nil
-        }
+//        if self.issueDate == nil {
+//            cell.editionDateLabel.text = nil
+//        }
         
-        if let issueNumber = self.issueNumber {
-            cell.issueNumberLabel.text = Strings.edition + " " + issueNumber
-        } else {
-            cell.issueNumberLabel.text = nil
-        }
+//        if let issueNumber = self.issueNumber {
+//            cell.issueNumberLabel.text = Strings.edition + " " + issueNumber
+//        } else {
+//            cell.issueNumberLabel.text = nil
+//        }
         
         
         DispatchQueue.main.async {
