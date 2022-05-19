@@ -1,14 +1,17 @@
 import React, {useState, FunctionComponent} from 'react';
-import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet, ScrollView} from 'react-native';
-import { ButtonList, Label, LoadingState, SocialLoginButton } from 'src/components/atoms/';
+import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet, ScrollView, Text} from 'react-native';
+import { ButtonList, Label, LoadingState, SocialLoginButton, Image, Divider } from 'src/components/atoms/';
 import { SearchBar } from 'src/components/molecules/';
-import { normalize, recordLogEvent } from 'src/shared/utils';
+import { isTab, normalize, recordLogEvent } from 'src/shared/utils';
 import { SearchItemType } from 'src/redux/search/types';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
+import { getImageUrl, decodeHTMLTags, isNonEmptyArray } from 'src/shared/utils/utilities';
+import { ImageResize } from 'src/shared/styles/text-styles';
+import { decode } from 'html-entities';
 
 export interface SearchResultsProps {
   id: string;
@@ -54,6 +57,8 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   }
 
   const renderItem: ListRenderItem<SearchItemType> = ({item,index}) => {
+    const tagLabel =  item.field_news_categories_export && isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0].title + '  |  ' : ''
+    const title = decode(item.title)
     return (
       <TouchableWithoutFeedback
         testID={`searchItem_${index}`}
@@ -61,12 +66,27 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
         onPress={() => {
           handleOnItemPressAction(item);
         }}>
-        <View>
-          <Label
-            labelType='caption4'
-            style={styles.searchText} numberOfLines={2}>
-            {item.title}
-          </Label>
+        <View style={styles.searchItemContainer}>
+          <View style={styles.rowContentContainer}>
+            <View style={isTab ? styles.tabTitleContainer : styles.titleContainer}>
+              <Text style={styles.searchTag} numberOfLines={2}> {tagLabel}
+                <Text style={styles.searchText}>{decodeHTMLTags(title)}</Text>
+              </Text>
+            </View>
+            <View style={isTab ? styles.tabImageWrapper : styles.imageWrapper}>
+              <View style={isTab ? styles.tabImageContainer : styles.imageContainer}>
+                <Image fallback url={getImageUrl(item.field_image)} style={styles.image} resizeMode={ImageResize.COVER} />
+              </View>
+            </View>
+          </View>
+          <View style={styles.descriptionContainer}>
+            <Label 
+              style={styles.descriptionText}
+              numberOfLines={5}>
+              {decodeHTMLTags(item.body)}
+            </Label>
+          </View>
+          <Divider style={styles.divider} />
         </View>
       </TouchableWithoutFeedback>
     );
@@ -167,13 +187,21 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
 
 const createStyles = (theme: CustomThemeType) =>
 StyleSheet.create({
-  searchText: {
-    color: theme.primaryDarkSlateGray,
+  searchItemContainer: {
+    marginTop: normalize(20)
+  },
+  searchTag: {
+    color: theme.primary,
     textAlign: 'left',
-    marginVertical: normalize(16),
-    fontSize: normalize(16),
+    fontSize: normalize(18),
     lineHeight: normalize(26),
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+  },
+  searchText: {
+    color: theme.primaryBlack,
+    fontSize: normalize(18),
+    lineHeight: normalize(26),
+    fontFamily: fonts.AwsatDigitalBetav10_Bold,
   },
   containerStyle: {
     flex : 1
@@ -201,6 +229,56 @@ StyleSheet.create({
    marginBottom: normalize(30)
   },
   clearButtonLabel: {
-    color: colors.greenishBlue
+    color: colors.greenishBlue,
+    lineHeight: isTab ? 36 : 32
+  },
+  rowContentContainer: {
+    flexDirection:'row'
+  },
+  tabTitleContainer: {
+    width: '83%',
+    flexDirection: 'row',
+    flexShrink: 1 
+  },
+  titleContainer: {
+    width: '73%',
+    flexDirection: 'row',
+    flexShrink: 1 
+  },
+  descriptionContainer: {
+    marginTop: 5
+  },
+  descriptionText: {
+    color: theme.secondaryDavyGrey,
+    textAlign: 'left',
+    fontSize: normalize(15),
+    lineHeight: normalize(23),
+    fontFamily: fonts.Effra_Regular,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: theme.dividerColor
+  },
+  tabImageWrapper: {
+    width: '15%',
+    marginLeft: '2%',
+    alignItems: 'flex-end'
+  },
+  imageWrapper: {
+    width: '25%',
+    marginLeft: '2%',
+    alignItems: 'flex-end'
+  },
+  tabImageContainer: {
+    width: 153,
+    height: 125
+  },
+  imageContainer: {
+    width: 92,
+    height: 69
+  },
+  image: {
+    width: '100%',
+    height:'100%'
   }
 });
