@@ -1,5 +1,5 @@
 //
-//  PDFArchivesRootViewController.h
+//  PDFViewerManager.h
 //  Awsatapp
 //
 //  Created by Deepak Kumar on 17/05/22.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RNPDFViewerManager : RCTViewManager
+@interface PDFViewerManager : RCTViewManager
 
 
 @end

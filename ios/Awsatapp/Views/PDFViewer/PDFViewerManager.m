@@ -1,14 +1,14 @@
 //
-//  PDFArchivesRootViewController.m
+//  PDFViewerManager.m
 //  Awsatapp
 //
 //  Created by Deepak Kumar on 17/05/22.
 //
 
-#import "RNPDFViewerManager.h"
+#import "PDFViewerManager.h"
 #import "Awsatapp-Swift.h"
 
-@implementation RNPDFViewerManager
+@implementation PDFViewerManager
 
 RCT_EXPORT_MODULE(RNPDFViewer)
 
