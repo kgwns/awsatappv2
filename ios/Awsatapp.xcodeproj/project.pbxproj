@@ -49,6 +49,8 @@
 		D72EB4F528328FC8008BFB99 /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB4F428328FC8008BFB99 /* GenericTableViewController.swift */; };
 		D77DFBD7282BBF8100EFAF13 /* SampleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D77DFBD6282BBF8100EFAF13 /* SampleViewController.m */; };
 		D781E46B283370BA00B3A231 /* PDFArchivesRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D781E46A283370BA00B3A231 /* PDFArchivesRootViewController.m */; };
+		D7CB52E628364E3F003B6457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E528364E3F003B6457 /* Localizable.strings */; };
+		D7CB52E828366F63003B6457 /* colorPalatte.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E728366F63003B6457 /* colorPalatte.xcassets */; };
 		D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4927D9C9CE0028999D /* iAd.framework */; };
 		D7D85B4C27D9C9D90028999D /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4B27D9C9D90028999D /* AdServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D7D85B4E27D9C9E50028999D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4D27D9C9E50028999D /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -165,6 +167,8 @@
 		D77DFBDB282BD67800EFAF13 /* PDFStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PDFStoryboard.storyboard; sourceTree = "<group>"; };
 		D781E469283370BA00B3A231 /* PDFArchivesRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PDFArchivesRootViewController.h; sourceTree = "<group>"; };
 		D781E46A283370BA00B3A231 /* PDFArchivesRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFArchivesRootViewController.m; sourceTree = "<group>"; };
+		D7CB52E528364E3F003B6457 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		D7CB52E728366F63003B6457 /* colorPalatte.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = colorPalatte.xcassets; sourceTree = "<group>"; };
 		D7D85B4927D9C9CE0028999D /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		D7D85B4B27D9C9D90028999D /* AdServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdServices.framework; path = System/Library/Frameworks/AdServices.framework; sourceTree = SDKROOT; };
 		D7D85B4D27D9C9E50028999D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -282,10 +286,12 @@
 				D77DFBD5282BBF8100EFAF13 /* SampleViewController.h */,
 				D77DFBD6282BBF8100EFAF13 /* SampleViewController.m */,
 				D7F15A5E282BE9A7004368A7 /* LoadingView.swift */,
+				D7CB52E528364E3F003B6457 /* Localizable.strings */,
 				D781E469283370BA00B3A231 /* PDFArchivesRootViewController.h */,
 				D781E46A283370BA00B3A231 /* PDFArchivesRootViewController.m */,
 				D7286B7928353B060056BFB0 /* PDFArchivesRootViewControllerOne.h */,
 				D7286B7828353B060056BFB0 /* PDFArchivesRootViewControllerOne.m */,
+				D7CB52E728366F63003B6457 /* colorPalatte.xcassets */,
 			);
 			name = Awsatapp;
 			sourceTree = "<group>";
@@ -651,6 +657,8 @@
 				5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */,
 				FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */,
 				52B5C8CA19974215925660F6 /* Almarai-Light.ttf in Resources */,
+				D7CB52E628364E3F003B6457 /* Localizable.strings in Resources */,
+				D7CB52E828366F63003B6457 /* colorPalatte.xcassets in Resources */,
 				7CBB19684ACB44F8882E4025 /* Almarai-Regular.ttf in Resources */,
 				D72EB4E528325ED9008BFB99 /* PDFEditionLargeCollectionViewCell.xib in Resources */,
 				928468CA882F4F17B52EF50A /* AwsatDigitalv2b-Black.ttf in Resources */,
@@ -982,6 +990,7 @@
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1014,6 +1023,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

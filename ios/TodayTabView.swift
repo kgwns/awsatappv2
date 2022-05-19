@@ -12,6 +12,14 @@ class TodayTabView: UIView, LoadingView {
   
 //    var showPDFEdition: (PDFEdition, URL) -> () = { _,_  in }
 
+  @objc var userInterfaceStyle: String = "" {
+    willSet {
+      if(!newValue.isEmpty) {
+        window?.overrideUserInterfaceStyle = newValue == "light" ? .light : .dark
+      }
+    }
+  }
+  
     @objc var onItemClick: RCTBubblingEventBlock?
     private var readPDFEditionNotificationToken: Token?
     private var downloadCompleteNotificationToken: Token?
@@ -84,7 +92,7 @@ class TodayTabView: UIView, LoadingView {
         
         downloadCompleteNotificationToken = NotificationCenter.default.addObserver(descriptor: PDFFileManager.downloadCompleteNotification) { (pdfEditionNotificationInfoPayload) in
             self.collectionView?.reloadData()
-            self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
+//            self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
         }
         
         showMobileDataAlertNotification =  NotificationCenter.default.addObserver(descriptor: UIApplication.userMobileDataAlertNotification) { _ in
