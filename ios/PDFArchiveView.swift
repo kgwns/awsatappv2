@@ -14,9 +14,7 @@ enum PDFArchiveViewControllerTypes {
 }
 
 class PDFArchiveView: UIView, LoadingView {
-    
-//    var showPDFEdition: (PDFEdition, URL) -> () = { _,_  in }
-  
+      
     @objc var onItemClick: RCTBubblingEventBlock?
     private var readPDFEditionNotificationToken: Token?
     private var downloadCompleteNotificationToke: Token?
@@ -98,14 +96,15 @@ class PDFArchiveView: UIView, LoadingView {
     }
     
     deinit {
-        //TODO: Need to add this correctly
+        //TODO: Need to remove observers to eliminate memory leak
         removeObservers()
     }
     
     // MARK: - Loading View
     func configure(value: JSON) {
         let pdfArchiveData = PDFArchiveData(json: value)
-        if let pdfEditions = pdfArchiveData.data, pdfEditions.count > 0 {
+      if pdfArchiveData.data?.isEmpty == false {
+            let pdfEditions = Array(pdfArchiveData.data!.suffix(14))
             if isFromCache == false {
                 collectionViewDataSource = DataSourceFactory.dataSourceForPDFCollage(pdfEditions)
                 tableViewDataSource = DataSourceFactory.dataSourceForPDFList(pdfEditions)
@@ -195,7 +194,7 @@ class PDFArchiveView: UIView, LoadingView {
     }
         
     private func setUpTableView() {
-        tableView = UITableView(frame: self.frame)
+        tableView = UITableView(frame: .zero)
         tableView?.dataSource = self
         tableView?.delegate = self
         tableView?.separatorStyle = .none
@@ -203,6 +202,14 @@ class PDFArchiveView: UIView, LoadingView {
         tableView?.showsVerticalScrollIndicator = false
         tableView?.refreshControl = tableViewRefreshControl
         addSubview(tableView!)
+      
+        tableView?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView!.topAnchor.constraint(equalTo: self.topAnchor),
+            tableView!.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            tableView!.leftAnchor.constraint(equalTo: self.leftAnchor),
+            tableView!.rightAnchor.constraint(equalTo: self.rightAnchor)
+        ])
     }
     
     private func setUpGridCollectionView() {
@@ -212,7 +219,7 @@ class PDFArchiveView: UIView, LoadingView {
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = sectionInset
       
-        collectionView = UICollectionView(frame: self.frame, collectionViewLayout: flowLayout)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView?.delegate = self
         collectionView?.dataSource = self
         collectionView?.refreshControl = collectionViewRefreshControl
@@ -220,6 +227,14 @@ class PDFArchiveView: UIView, LoadingView {
         collectionView?.showsVerticalScrollIndicator = false
         collectionView?.backgroundColor = UIColor(named: "backgroundColor")
         addSubview(collectionView!)
+      
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView!.topAnchor.constraint(equalTo: self.topAnchor),
+            collectionView!.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            collectionView!.leftAnchor.constraint(equalTo: self.leftAnchor),
+            collectionView!.rightAnchor.constraint(equalTo: self.rightAnchor)
+        ])
     }
 }
 

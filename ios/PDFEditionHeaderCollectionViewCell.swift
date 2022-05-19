@@ -20,11 +20,11 @@ final class PDFEditionHeaderCollectionViewCell: UICollectionReusableView {
     }
       
     private func setUp() {
-      archiveButton.addRoundedCorners()
-      archiveButton.semanticContentAttribute = .forceRightToLeft
-      archiveButton.titleLabel?.font = UIFont.boldAwsatFont(size: 13)
-      archiveButton.setTitle(Strings.newsArchiveMenu, for: .normal)
-      titleLabel.text = "جريدة اليوم"
+        archiveButton.addRoundedCorners()
+        archiveButton.semanticContentAttribute = .forceRightToLeft
+        archiveButton.titleLabel?.font = UIFont.boldAwsatFont(size: 13)
+        archiveButton.setTitle(Strings.newsArchiveMenu, for: .normal)
+        titleLabel.text = "جريدة اليوم"
     }
   
     func setArchiveButtonAction(_ action: @escaping () -> (Void)) {

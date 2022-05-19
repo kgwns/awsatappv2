@@ -27,9 +27,14 @@ export const DownloadNews = () => {
         navigation.navigate(ScreensConstants.PDF_EDITOR_VIEW, { selectedPDF: selectedPDF })
     }
 
+    const onClickArchive = () => {
+        navigation.navigate(ScreensConstants.PDFArchive)
+    }
+
     return (
         <NativeView style={{ flex: 1 }}
             onItemClick={(data: any) => onClickOpenPDF(data.nativeEvent.SelectedPDF)}
+            onArchiveButtonClick={onClickArchive}
             userInterfaceStyle={appTheme}
         />
     );

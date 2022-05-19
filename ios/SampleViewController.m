@@ -22,6 +22,7 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_VIEW_PROPERTY(onItemClick, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onArchiveButtonClick, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(userInterfaceStyle, NSString)
 
 @end
