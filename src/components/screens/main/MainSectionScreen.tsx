@@ -666,6 +666,16 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         onUpdateBookmark={updatedSectionComboSixBookmark}
         isDivider
       />
+      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: normalize(50) }} />}
+      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
+      <BannerArticleSection
+        data={sectionComboSevenInfo}
+        title={_sectionComboSevenTitle}
+        sectionId={'36'}
+        onPress={onPressArticle}
+        onUpdateBookmark={updatedSectionComboSevenBookmark}
+        isDivider
+      />
     </View>
   )
 

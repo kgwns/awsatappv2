@@ -120,10 +120,9 @@ const articleSectionStyle = StyleSheet.create({
     tabImageStyle: {
         width: 0.5 * screenWidth,
         height: 'auto',
-        aspectRatio: 1.52,
+        aspectRatio: 1.82,
     },
     mobileImageStyle: {
-        height: 'auto',
-        aspectRatio: 1.52,
+        height: normalize(187),
     }
 })

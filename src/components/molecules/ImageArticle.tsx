@@ -46,6 +46,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
   showBody?: boolean,
   leftTitleColor?: string;
   showDivider?: boolean,
+  contentStyle?: StyleProp<TextStyle>
 }
 
 const ImageArticle = ({
@@ -66,6 +67,7 @@ const ImageArticle = ({
   showBody= true,
   leftTitleColor,
   showDivider= false,
+  contentStyle
 }: ImageArticleProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
@@ -88,7 +90,7 @@ const ImageArticle = ({
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
           <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoadEnd} isImageLoaded={isImageLoaded} />
         </View>
-        <View style={isTab ? imageArticleStyle.tabArticleContent : imageArticleStyle.articleContent}>
+        <View style={isTab ? [imageArticleStyle.tabArticleContent, contentStyle ] : imageArticleStyle.articleContent}>
           {isNotEmpty(title) &&
             <View style={imageArticleStyle.titleContainer}>
               <Label labelType={LabelTypeProp.title1}
