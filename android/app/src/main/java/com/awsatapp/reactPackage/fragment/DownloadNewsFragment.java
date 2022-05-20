@@ -81,6 +81,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         @Override
         public void onReceive(Context context, Intent intent) {
             String themeData = intent.getStringExtra("theme");
+            Log.i("fragment broadcast",themeData);
             if(Objects.equals(themeData, "light")){
                 AppCompatDelegate.setDefaultNightMode( MODE_NIGHT_NO);
                 constraintLayout.setBackgroundColor(getResources().getColor(R.color.background_color));
@@ -88,7 +89,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                 mDownlaodBtn.setTextColor(Color.parseColor("#FFFFFF"));
             }else {
                 constraintLayout.setBackgroundColor(Color.parseColor("#070606"));
-                mDownlaodBtn.setBackground(ContextCompat.getDrawable(context,R.drawable.download_btn));
+                mDownlaodBtn.setBackground(ContextCompat.getDrawable(context,R.drawable.download_btn_white));
                 mDownlaodBtn.setTextColor(Color.parseColor("#070606"));
                 AppCompatDelegate.setDefaultNightMode( MODE_NIGHT_YES);
             }
@@ -101,11 +102,6 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String theme = getArguments().getString("theme");
         Log.i("fragment",getArguments().toString());
-//        if(Objects.equals(theme, "light")){
-//            AppCompatDelegate.setDefaultNightMode( MODE_NIGHT_NO);
-//        }else{
-//            AppCompatDelegate.setDefaultNightMode( MODE_NIGHT_YES);
-//        }
         rootView = inflater.inflate(R.layout.fragment_download_news, container, false);
 
         return rootView;
@@ -135,13 +131,14 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     @Override
     public void onResume() {
         IntentFilter filter = new IntentFilter("custom-action-local-broadcast");
-        LocalBroadcastManager.getInstance(requireActivity()).registerReceiver(fragmentBroadcast,filter);
+        requireActivity().registerReceiver(fragmentBroadcast,filter);
 
         super.onResume();
     }
 
     @Override
     public void onPause() {
+        requireActivity().unregisterReceiver(fragmentBroadcast);
         super.onPause();
     }
 

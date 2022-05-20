@@ -42,7 +42,7 @@ public class MainActivity extends ReactActivity{
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     SplashScreen.show(this);
-    LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter("custom-action-local-broadcast"));
+    registerReceiver(broadcastReceiver, new IntentFilter("custom-action-local-broadcast"));
     super.onCreate(null);
 
   }
@@ -51,6 +51,12 @@ public class MainActivity extends ReactActivity{
   protected void onResume() {
     super.onResume();
 
+  }
+
+  @Override
+  protected void onDestroy() {
+    unregisterReceiver(broadcastReceiver);
+    super.onDestroy();
   }
 
   @Override

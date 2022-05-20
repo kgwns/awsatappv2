@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 
 
@@ -59,9 +60,13 @@ public class PdfActivity extends CoreActivity {
         toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
         toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
         toolbar.setElevation(0);
-        setBackButtonEnabled(toolbar);
         setTitle(toolbar, mTitle);
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         LinearLayout layout = (LinearLayout) findViewById(R.id.main);
         boolean isLollipopOrHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 

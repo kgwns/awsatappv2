@@ -56,7 +56,6 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>{
         int reactNativeViewId = args.getInt(0);
         int commandIdInt = Integer.parseInt(commandId);
         switch (commandIdInt) {
-
             case DOWNLOAD_NEWS:
                 createDownloadNewsFragment(root, reactNativeViewId);
                 break;
@@ -68,7 +67,7 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>{
     public void setUserTheme(FrameLayout view, @Nullable String themeData) {
         Intent intent = new Intent("custom-action-local-broadcast");
         intent.putExtra("theme", themeData);
-        LocalBroadcastManager.getInstance(reactContext).sendBroadcast(intent);
+        reactContext.sendBroadcast(intent);
         this.theme = themeData;
     }
 

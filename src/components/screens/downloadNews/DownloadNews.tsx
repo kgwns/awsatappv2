@@ -24,7 +24,7 @@ export const DownloadNews = (props: DownloadNewsProps) => {
   const [t] = useTranslation()
   const theme = useAppCommon()
   const ref = React.useRef(null);
-  const [userTheme,setUserTheme] = React.useState<String>("")
+  const [userTheme,setUserTheme] = React.useState<String>(theme.theme)
   
   React.useEffect(() => {
     const viewId = findNodeHandle(ref.current);

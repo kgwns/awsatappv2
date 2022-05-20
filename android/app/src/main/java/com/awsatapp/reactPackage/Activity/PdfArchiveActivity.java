@@ -58,11 +58,15 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setBackButtonEnabled();
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb);
         toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
         toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
-        setBackButtonEnabled(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         toolbar.setElevation(0);
         setTitle(getString(R.string.pdf_archive_title));
         setOptionsMenu(R.menu.pdf_archive);
@@ -249,14 +253,25 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     }
 
     public void setBackButtonEnabled(Toolbar tb, boolean blackColor) {
+
         if (tb != null) {
             Context context = MyContextWrapper.wrap(mContext, new Locale(CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE, "ar")));
-            Drawable upArrow = ContextCompat.getDrawable(context, R.drawable.ic_back);
-//            if (blackColor) {
-//                upArrow.setColorFilter(ContextCompat.getColor(context, android.R.color.black), PorterDuff.Mode.SRC_ATOP);
-//            } else {
-//                upArrow.setColorFilter(ContextCompat.getColor(context, android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-//            }
+            int nightModeFlags = mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            Drawable upArrow =  ContextCompat.getDrawable(mContext, R.drawable.ic_back);
+            Log.i("mode", String.valueOf(mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK));
+            switch (nightModeFlags) {
+
+                case Configuration.UI_MODE_NIGHT_YES:
+
+                case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                    upArrow = ContextCompat.getDrawable(context, R.drawable.ic_back_white);
+                    break;
+
+                case Configuration.UI_MODE_NIGHT_NO:
+                    upArrow = ContextCompat.getDrawable(context, R.drawable.ic_back);
+                    break;
+            }
+//
             tb.setNavigationIcon(upArrow);
 
             tb.setNavigationOnClickListener(new View.OnClickListener() {
