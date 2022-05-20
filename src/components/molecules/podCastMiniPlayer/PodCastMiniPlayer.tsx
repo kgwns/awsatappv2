@@ -14,6 +14,7 @@ import RBSheet from 'react-native-raw-bottom-sheet'
 import { fonts } from 'src/shared/styles/fonts'
 import Slider from '@react-native-community/slider'
 import { secondsToHHMMSS } from 'src/shared/utils/utilities'
+
 export interface PodcastMiniPlayerProps {
     onClose?: () => void;
     toggleControl?: () => void;
@@ -24,6 +25,7 @@ export interface PodcastMiniPlayerProps {
 const events = [
     Event.PlaybackState,
     Event.PlaybackError,
+    Event.PlaybackQueueEnded
   ];
 
 export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
@@ -52,9 +54,18 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
         if (event.type === Event.PlaybackError) {
             console.log('An error occured while playing the current track.');
         }
+        if (event.type === Event.PlaybackQueueEnded) {
+            setTrackToStart()
+        }
     });
 
-
+    const setTrackToStart = async() => {
+        const currentTrack = await TrackPlayer.getCurrentTrack()
+        if(currentTrack != null){
+            await TrackPlayer.seekTo(0)
+        }
+    }
+    
     const Pause = () => (
         <>
             {getSvgImages({ name: ImagesName.pauseIcon, width: normalize(17), height: normalize(17) })}
@@ -83,7 +94,6 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
         let seekValue = 10
         let position = progress.position
         let duration = progress.duration
-
         let seekPosition = position
         
         if(type == 'forward'){
@@ -137,7 +147,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     />
                 </View>
                 <View style={[style.durationContainer, isAndroid && {paddingHorizontal: 15} ]} >
-                    <Label children={secondsToHHMMSS(Math.floor(progress.position || 0))} style={style.durationText}/>
+                    <Label children={secondsToHHMMSS(progress.duration < progress.position ? progress.duration : Math.floor(progress.position || 0))} style={style.durationText}/>
                     <Label children={secondsToHHMMSS(progress.duration || 0)} style={style.durationText}/>
                 </View>
                 <View style={style.controls} >
@@ -265,7 +275,7 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: colors.lightToneGreen
         },
         popupBackground: {
-            backgroundColor: 'transparent',
+            backgroundColor: theme.playerBackground,
         },
         imageStyle: {
             width: normalize(62),
