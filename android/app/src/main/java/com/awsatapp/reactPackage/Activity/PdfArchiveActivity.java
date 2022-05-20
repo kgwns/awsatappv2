@@ -2,7 +2,6 @@ package com.awsatapp.reactPackage.Activity;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -10,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -47,8 +47,9 @@ import java.util.Locale;
  */
 
 public class PdfArchiveActivity extends CoreListActivity<Pdf> {
-    private boolean isGrid = false;
+    private boolean isGrid = true;
     private ArrayList<Pdf> mPdfs = new ArrayList<>();
+    private ImageView backIcon;
 
     @Override
     public int getContentView() {
@@ -59,16 +60,17 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb);
+        backIcon = tb.findViewById(R.id.backIcon);
         toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
         toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
         toolbar.setElevation(0);
-        setTitle(getString(R.string.pdf_archive_title));
+        //setTitle(getString(R.string.pdf_archive_title));
         setOptionsMenu(R.menu.pdf_archive);
         rvList.addItemDecoration(new SimpleDividerItemDecoration(getResources()));
         getPdfArchive();
@@ -222,7 +224,9 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mi_grid:
+                item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_list));
                 if (!isGrid) {
+                    item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_list));
                     isGrid = true;
                     boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
                     if (tabletSize) {
@@ -238,6 +242,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
 
                 } else {
 
+                    item.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_view_grid));
                     isGrid = false;
                     rvList.setLayoutManager(new LinearLayoutManager(mContext));
                     rvList.setAdapter(initAdapter());
