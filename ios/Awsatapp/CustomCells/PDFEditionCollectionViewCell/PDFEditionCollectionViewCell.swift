@@ -35,6 +35,8 @@ class PDFEditionCollectionViewCell: UICollectionViewCell {
     
     private func customizeUI() {
         actionButton.addRoundedCorners()
+        editionDateLabel.textColor = UIColor(named: "primaryGrey")
+        issueNumberLabel.textColor = UIColor(named: "primaryGrey")
     }
     
     private func applyArabicStyleIfNeeded() {
