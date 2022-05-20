@@ -65,7 +65,7 @@
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" name="primarySurface"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="aM9-SF-L7z" firstAttribute="leading" secondItem="rFI-mC-kBO" secondAttribute="trailing" constant="13" id="1mI-7U-Npd"/>
                             <constraint firstItem="yeD-GW-GT8" firstAttribute="centerY" secondItem="JM8-gq-PCL" secondAttribute="centerY" id="44d-EQ-Dt6"/>
@@ -99,14 +99,14 @@
     </objects>
     <resources>
         <image name="pdf_archive_pdf_icon" width="22" height="21"/>
+        <namedColor name="backgroundColor">
+            <color red="0.94901960784313721" green="0.97254901960784312" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="primaryButton">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="primaryGrey">
             <color red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="primarySurface">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="whiteSurface">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
