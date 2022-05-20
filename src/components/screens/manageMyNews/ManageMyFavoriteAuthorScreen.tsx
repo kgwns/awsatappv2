@@ -153,7 +153,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} showPlayer={false}>
       <View style={style.container}>
         <View
           style={[

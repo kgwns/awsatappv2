@@ -1,11 +1,11 @@
 import { View, StyleSheet, TouchableOpacity, ActivityIndicator, StyleProp, ViewStyle } from 'react-native'
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
-import { CustomThemeType } from 'src/shared/styles/colors'
+import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { Image, Label } from 'src/components/atoms'
 import { ImagesName } from 'src/shared/styles'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isAndroid, isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
 import TextTicker from 'react-native-text-ticker';
 import TrackPlayer, { State, usePlaybackState, useProgress, Event, useTrackPlayerEvents } from 'react-native-track-player';
 import { ImageResize } from 'src/shared/styles/text-styles'
@@ -124,7 +124,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
             }}
         >
             <View style={style.playerContainer}>
-                <Label children={selectedTrack.title} style={style.titleStyle}/>
+                <Label children={selectedTrack.title} style={style.titleStyle} numberOfLines={1} />
                 <View style={style.imageContainerStyle}>
                     <Image fallback url={selectedTrack.artwork}
                         style={style.imageStyle}
@@ -147,7 +147,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                         }}
                     />
                 </View>
-                <View style={style.durationContainer} >
+                <View style={[style.durationContainer, isAndroid && {paddingHorizontal: 15} ]} >
                     <Label children={AppPlayer.secondsToHHMMSS(Math.floor(progress.position || 0))} style={style.durationText}/>
                     <Label children={AppPlayer.secondsToHHMMSS(progress.duration || 0)} style={style.durationText}/>
                 </View>
@@ -274,7 +274,7 @@ const customStyle = (theme: CustomThemeType) => {
         rbDraggableIcon: {
             width: normalize(33),
             height: 3,
-            backgroundColor: theme.secondaryWhite
+            backgroundColor: colors.lightToneGreen
         },
         popupBackground: {
             backgroundColor: 'transparent',
@@ -313,7 +313,7 @@ const customStyle = (theme: CustomThemeType) => {
             fontFamily: fonts.Effra_Arbc_Regular,
             fontSize: normalize(11),
             lineHeight: normalize(25),
-            color: theme.secondaryDavyGrey,
+            color: colors.lightToneGreen,
         },
         controls: {
             width: '100%',
