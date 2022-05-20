@@ -66,6 +66,7 @@ class TodayTabView: UIView, LoadingView {
         setUpCollectionView()
         addObservers()
         load(EndPoints.pdfArchive.endPoint)
+        window?.overrideUserInterfaceStyle = userInterfaceStyle == "light" ? .light : .dark
     }
   
     private func setUpCollectionView() {

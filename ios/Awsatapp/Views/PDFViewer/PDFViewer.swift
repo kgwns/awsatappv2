@@ -18,44 +18,29 @@ class PDFViewer: UIView {
         return WKWebView(frame: .zero)
     }()
     
-  @objc var selectedPDF: [String: String]? {
-    didSet {
-      setUp()
+    @objc var selectedPDF: [String: String]? {
+        didSet {
+            setUp()
+        }
     }
-  }
     
     // MARK: - View Life Cycle
-  
-  override init(frame: CGRect) {
-    super.init(frame: UIScreen.main.bounds)
-  }
-    
-  required init?(coder: NSCoder) {
-      super.init(coder: coder)
-  }
+    override init(frame: CGRect) {
+        super.init(frame: UIScreen.main.bounds)
+    }
+      
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 
-  deinit {
-    print("<- PDFEditionViewer DeInit ->")
-  }
+    deinit {
+        print("<- PDFEditionViewer DeInit ->")
+    }
   
     
     // MARK: - Private
     
     private func setUp() {
-//      if let timestamp = pdfEdition.issueDate, let timeInterval = TimeInterval(timestamp) {
-//            if let issueNumber = pdfEdition?.issueNumber {
-//                self.title = Date(timeIntervalSince1970: timeInterval).format(with: .full, locale: currentLocale) + " " + Strings.edition + " " + issueNumber
-//            } else {
-//                self.title =  Date(timeIntervalSince1970: timeInterval).format(with: .full, locale: currentLocale)
-//            }
-//        } else {
-//            if let issueNumber = self.pdfEdition?.issueNumber {
-//                self.title = Strings.edition + " " + issueNumber
-//            } else {
-//                self.title = nil
-//            }
-//        }
-        
         guard let pdfFilePath = selectedPDF?["localPDFFilePath"], let pathUrl = URL(string: pdfFilePath) else { return }
         wKWebView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(wKWebView)

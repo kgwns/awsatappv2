@@ -48,7 +48,7 @@ export const PDFArchiveIOS = () => {
   }
 
   const headerLeftElement = () => {
-    const iconName = layoutSelectedType == ArchiveLayoutType.grid ? ImagesName.gridToggleIcon : ImagesName.listToggleIcon
+    const iconName = layoutSelectedType == ArchiveLayoutType.grid ? ImagesName.listToggleIcon : ImagesName.gridToggleIcon
     return (
       <TouchableOpacity style={style.iconContainer} onPress={onPressChangeLayout}>
         <ToggleSVG iconName={iconName} />
