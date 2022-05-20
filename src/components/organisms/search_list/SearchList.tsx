@@ -2,7 +2,7 @@ import React, {useState, FunctionComponent} from 'react';
 import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet, ScrollView, Text} from 'react-native';
 import { ButtonList, Label, LoadingState, SocialLoginButton, Image, Divider } from 'src/components/atoms/';
 import { SearchBar } from 'src/components/molecules/';
-import { isTab, normalize, recordLogEvent } from 'src/shared/utils';
+import { isIOS, isTab, normalize, recordLogEvent } from 'src/shared/utils';
 import { SearchItemType } from 'src/redux/search/types';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
@@ -241,9 +241,10 @@ StyleSheet.create({
     flexShrink: 1 
   },
   titleContainer: {
-    width: '73%',
+    width: '70%',
     flexDirection: 'row',
-    flexShrink: 1 
+    flexShrink: 1,
+    marginRight: isIOS ? '3%' : '4%' 
   },
   descriptionContainer: {
     marginTop: 5

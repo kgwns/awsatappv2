@@ -114,7 +114,7 @@ const MostReadList = ({
       leftTitle: item.author_resource,
       leftTitleColor: Styles.color.greenishBlue,
       rightTitle: t(timeAgo(item.created_export)),
-      rightTitleStyle: {fontFamily: fonts.AwsatDigitalBetav10_Regular},
+      rightTitleStyle: {fontFamily: fonts.Effra_Arbc_Regular, lineHeight: 40},
       rightIcon: () => {
         return getSvgImages({
         name: ImagesName.clock,
@@ -195,6 +195,6 @@ const mostReadListStyle = StyleSheet.create({
     paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
   },
   leftFooterStyle: {
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.IBMPlexSansArabic_Regular,
   }
 });

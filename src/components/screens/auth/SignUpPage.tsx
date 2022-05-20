@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {normalize, recordLogEvent} from 'src/shared/utils';
+import {isIOS, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {ScreensConstants} from 'src/constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
@@ -175,7 +175,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
                   navigation.goBack();
                 }}>
                 <View style={styles.headerContainer}>
-                  <BackIcon fill={themeData.textColor} />
+                  <BackIcon fill={themeData.textColor} style={{marginBottom: isIOS ? 5 : 0}}/>
                   <Label
                     children={t('signUp.return')}
                     style={styles.headerLabelStyle}

@@ -209,7 +209,7 @@ StyleSheet.create({
   },
   signInLabelStyle: {
     color: theme.secondaryWhite,
-    lineHeight: 25,
+    lineHeight: 28,
   },
   dividerContainber: {
     flex: 0.05,

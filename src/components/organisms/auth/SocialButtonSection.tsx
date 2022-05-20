@@ -205,10 +205,10 @@ const styles = StyleSheet.create({
   socialLoginButtonLabel: {
     fontFamily: fonts.AwsatDigitalBetav10_Regular,
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: isIOS ? 25 : 20,
   },
   socialLoginButtonBoldLabel: {
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: isIOS ? 25 : 20,
   }
 });
