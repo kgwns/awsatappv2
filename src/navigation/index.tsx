@@ -32,6 +32,7 @@ import {
   SectionArticlesParentScreen,
   GameScreen,
   DynamicGameScreen,
+  DownloadNews,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -74,6 +75,7 @@ export const Routes = {
   SectionArticlesParentScreen,
   GameScreen,
   DynamicGameScreen,
+  DownloadNews,
 };
 
 /**
@@ -135,6 +137,7 @@ const manageMyFavoriteTopicsScreen = 'manageMyFavoriteTopicsScreen' as ScreenNam
 const userDetailScreen = 'userDetailScreen' as ScreenName;
 const writersDetailScreen = 'writersDetailScreen' as ScreenName
 const sectionArticlesParentScreen = 'sectionArticlesParentScreen' as ScreenName;
+
 
 export const RoutesName = {
   favoriteScreen,

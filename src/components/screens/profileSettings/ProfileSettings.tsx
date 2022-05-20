@@ -4,7 +4,8 @@ import {
   FlatList,
   ListRenderItem,
   TouchableOpacity,
-  Text
+  Text,
+  NativeModules
 } from 'react-native';
 import React, { useState } from 'react';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -33,7 +34,7 @@ type SettingDataType = {
   screenName: string,
 }
 
-
+const { ReactTheme } = NativeModules;
 export const ProfileSettings = () => {
   const [t] = useTranslation()
   const dispatch = useDispatch()
@@ -129,6 +130,7 @@ export const ProfileSettings = () => {
   const onPressToggle = (isOn: boolean) => {
       const themeData = isOn ? Theme.LIGHT : Theme.DARK;
       dispatch(storeAppTheme(themeData));
+      //ReactTheme.getReactTheme(themeData)
       setIsDarkMode(!isOn);
   };
 

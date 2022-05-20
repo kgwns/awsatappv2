@@ -12,6 +12,7 @@ import technologyImg from 'src/assets/images/technologyImg.png'
 import placeholderImg from 'src/assets/images/icons/placeholder_image.png'
 import crossWord from 'src/assets/images/cross_word_image.png'
 import sudoku from 'src/assets/images/sudoku_image.png'
+import pdfIcon from 'src/assets/images/pdf_icon.png'
 
 export enum ImagesName {
   newsIcon = 'newsIcon',
@@ -99,6 +100,7 @@ export enum ImagesName {
   playBackwardIcon = 'playBackwardIcon',
   headPhoneIcon = 'headPhoneIcon',
   arrowLeftBlack = 'arrowLeftBlack',
+  pdfIcon = 'pdfIcon',
 }
 
 export const images = {
@@ -114,6 +116,7 @@ export const images = {
   placeholderImg,
   crossWord,
   sudoku,
+  pdfIcon,
 };
 
 export const darkImages = {

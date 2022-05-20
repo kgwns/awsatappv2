@@ -14,7 +14,8 @@ export const arabic = {
     aboutTheEast: 'عن الشرق',
     callUs: 'اتصل بنا',
     myPersonalAccount: 'حسابي الشخصي',
-    termsOfUse: 'شروط الإنتفاع'
+    termsOfUse: 'شروط الإنتفاع',
+    pdfArchive: 'بي دي اف أرشيف'
   },
   onBoard: {
     common: {

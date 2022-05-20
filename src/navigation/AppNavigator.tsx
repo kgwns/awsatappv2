@@ -232,6 +232,7 @@ const AppNavigator = () => {
           headerTitleAlign: 'center'
         }}
       />
+
     </Stack.Navigator>
   );
 };

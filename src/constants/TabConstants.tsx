@@ -4,6 +4,7 @@ const LATEST_NEWS = 'آخر الأخبار';
 const SECTIONS = 'أقسام';
 const MOST_READ = 'الأكثر قراءة';
 const FAVORITE =  'أخبارك';
+const DOWNLOAD_NEWS = 'تحميل'
 
 const TABICONS = {
     NEWS: 'newsIcon' as ImageName,
@@ -14,6 +15,7 @@ const TABICONS = {
     MOST_READ_ACTIVE: 'mostReadActiveIcon' as ImageName,
     FAVORITE: 'favoriteIcon' as ImageName,
     FAVORITE_ACTIVE: 'favoriteActiveIcon' as ImageName,
+    DOWNLOAD_PDF: 'pdfIcon' as ImageName
 }
 
 export const TabConstants = {
@@ -21,5 +23,6 @@ export const TabConstants = {
     SECTIONS,
     MOST_READ,
     FAVORITE,
-    TABICONS
+    TABICONS,
+    DOWNLOAD_NEWS
 };
