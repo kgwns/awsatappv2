@@ -1,4 +1,4 @@
-import TrackPlayer, { Capability } from 'react-native-track-player';
+import TrackPlayer, { Capability, RepeatMode } from 'react-native-track-player';
 
 class AppPlayer {
     static selectedTrack: null;
@@ -14,7 +14,15 @@ class AppPlayer {
                     Capability.Stop,
                     Capability.SeekTo,
                 ],
+                compactCapabilities: [Capability.Play, Capability.Pause],
+                alwaysPauseOnInterruption: true,
+                notificationCapabilities: [
+                    Capability.Play,
+                    Capability.Pause,
+                  ],
             });
+
+            // TrackPlayer.setRepeatMode(RepeatMode.Track);
 
             await TrackPlayer.setupPlayer();
         } catch (e) {
