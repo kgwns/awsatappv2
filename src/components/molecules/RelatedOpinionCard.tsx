@@ -124,7 +124,7 @@ const onPressPlay = () => {
     
   }
 }
-
+  // Older Opinion Implementation for reference
   // const onPressPlay = () => {
   //   if (item.nid && mediaData && togglePlayback) {
   //     togglePlayback(item.nid, mediaData)

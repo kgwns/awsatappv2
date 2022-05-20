@@ -22,6 +22,7 @@ export const ListenToArticleCard = (data: any) => {
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
 
+  // Older Opinion Implementation for reference
   // const onPressPlay = () => {
   //   if (data.nid && data.data && data.togglePlayback) {
   //     data.togglePlayback(data.nid, data.data)

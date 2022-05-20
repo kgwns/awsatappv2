@@ -30,7 +30,8 @@ const SplashNavigation = () => {
             fetchProfileDataRequest()
         }
     }, [])
-
+    
+    // Enable the background mode for the trackplayer. if don't we can use this lines in future. 
     // useEffect(() => {
     //     const subscription = AppState.addEventListener("change", () => {
     //         if (AppState.currentState.match(/inactive|background/)) {

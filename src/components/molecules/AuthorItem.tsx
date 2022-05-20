@@ -130,7 +130,7 @@ const AuthorItem = ({
         }
         
       }
-    
+      // Older Opinion Implementation for reference
       // if (nid && mediaData && togglePlayback) {
       //   togglePlayback(nid, mediaData)
       // }

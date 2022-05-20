@@ -13,7 +13,7 @@ import { useAppPlayer } from 'src/hooks/useAppPlayer'
 import RBSheet from 'react-native-raw-bottom-sheet'
 import { fonts } from 'src/shared/styles/fonts'
 import Slider from '@react-native-community/slider'
-import AppPlayer from 'src/shared/utils/appPlayer'
+import { secondsToHHMMSS } from 'src/shared/utils/utilities'
 export interface PodcastMiniPlayerProps {
     onClose?: () => void;
     toggleControl?: () => void;
@@ -24,9 +24,6 @@ export interface PodcastMiniPlayerProps {
 const events = [
     Event.PlaybackState,
     Event.PlaybackError,
-    Event.PlaybackMetadataReceived,
-    Event.PlaybackQueueEnded,
-    Event.PlaybackTrackChanged,
   ];
 
 export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
@@ -50,19 +47,11 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
         showControl && refRBSheet.current?.open();
     },[showControl])
 
+    // check playback error
     useTrackPlayerEvents(events, (event) => {
         if (event.type === Event.PlaybackError) {
-            console.warn('An error occured while playing the current track.');
+            console.log('An error occured while playing the current track.');
         }
-        // if (event.type === Event.PlaybackState) {
-        //     console.log(event);
-        // }
-        // if (event.type === Event.PlaybackQueueEnded) {
-        //     console.log(event);
-        // }
-        // if (event.type === Event.PlaybackTrackChanged) {
-        //     console.log(event);
-        // }
     });
 
 
@@ -148,8 +137,8 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     />
                 </View>
                 <View style={[style.durationContainer, isAndroid && {paddingHorizontal: 15} ]} >
-                    <Label children={AppPlayer.secondsToHHMMSS(Math.floor(progress.position || 0))} style={style.durationText}/>
-                    <Label children={AppPlayer.secondsToHHMMSS(progress.duration || 0)} style={style.durationText}/>
+                    <Label children={secondsToHHMMSS(Math.floor(progress.position || 0))} style={style.durationText}/>
+                    <Label children={secondsToHHMMSS(progress.duration || 0)} style={style.durationText}/>
                 </View>
                 <View style={style.controls} >
                     <TouchableOpacity onPress={() => { seekForwardBackward('backward') }}>
@@ -269,7 +258,6 @@ const customStyle = (theme: CustomThemeType) => {
             borderTopRightRadius: normalize(20),
             backgroundColor: theme.secondaryWhite,
             height: normalize(220),
-            // marginBottom: isTab ? 94 : 81
         },
         rbDraggableIcon: {
             width: normalize(33),
