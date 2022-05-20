@@ -35,21 +35,23 @@ export const PDFArchiveIOS = () => {
     setLayoutSelectedType(newLayout)
   }
 
-  const ToggleSVG = ({ iconName, tintColor }: { iconName: ImagesName, tintColor: string }) => (
-    <>
-      {getSvgImages({
-        name: iconName, width: 20, height: 20,
-        style: { tintColor }
-      })}
-    </>
-  )
+  const ToggleSVG = ({ iconName }: { iconName: ImagesName }) => {
+    const iconSize = iconName === ImagesName.listToggleIcon ? 25 : 22
+    const iconStyle = {marginRight: iconName === ImagesName.listToggleIcon ? 5 : 0}
+    return (
+      <>
+        {getSvgImages({
+          name: iconName, width: iconSize, height: iconSize, style:{iconStyle}
+        })}
+      </>
+    )
+  }
 
   const headerLeftElement = () => {
     const iconName = layoutSelectedType == ArchiveLayoutType.grid ? ImagesName.gridToggleIcon : ImagesName.listToggleIcon
-    const tintColor = theme === Theme.DARK ? Styles.color.white : Styles.color.black
     return (
       <TouchableOpacity style={style.iconContainer} onPress={onPressChangeLayout}>
-        <ToggleSVG iconName={iconName} tintColor={tintColor} />
+        <ToggleSVG iconName={iconName} />
       </TouchableOpacity>
     )
   }
