@@ -76,13 +76,13 @@ StyleSheet.create({
     color: theme.primaryBlack,
     textAlign:'center',
     lineHeight: normalize(20),
-    fontFamily: fonts.Almarai_Bold,
+    fontFamily: fonts.AwsatDigitalBetav10_Bold,
   },
   announcerTextStyle: {
     fontSize: normalize(13),
     lineHeight: normalize(14),
     color: colors.greenishBlue,
-    fontFamily: fonts.Almaria_Regular,
+    fontFamily: fonts.AwsatDigitalBetav10_Regular,
   },
   descriptionTextStyle: {
     fontSize: normalize(13),

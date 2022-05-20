@@ -9,6 +9,8 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTranslation } from 'react-i18next'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { fonts } from 'src/shared/styles/fonts'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { CustomThemeType } from 'src/shared/styles/colors'
 
 const articleDetailFooterData: articleFooterProps = {
     leftTitleColor: Styles.color.white,
@@ -30,15 +32,17 @@ export interface ArticleOverlayContentProps {
     title?: string,
     containerStyle?: ViewStyle,
     author: string,
-    created: string
+    created: string,
+    subtitle?: string 
 }
 
 export const ArticleOverlayContent = ({
-    category, title, author, created
+    category, title, author, created, subtitle
 }: ArticleOverlayContentProps) => {
     const [t] = useTranslation();
     
     const { themeData } = useTheme()
+    const imageArticleStyle = useThemeAwareObject(customStyle)
     const textColor =  themeData.primaryBlack
     const footerTextColor = themeData.secondaryMediumGrey
     articleDetailFooterData.leftTitleColor = footerTextColor
@@ -56,13 +60,18 @@ export const ArticleOverlayContent = ({
             <Label labelType={LabelTypeProp.h1}
                 children={title}
                 color={textColor}
-                style={{ paddingBottom: normalize(5), paddingTop: normalize(15), fontFamily: fonts.AwsatDigitalBetav10_Bold }} />
-            <ArticleFooter {...articleDetailFooterData} rightTitle={author} leftTitle={t(timeAgo(created))} />
+                style={imageArticleStyle.title} />
+            <Label
+                numberOfLines={2} 
+                children={subtitle}
+                color={textColor}
+                style={imageArticleStyle.subtitle} />
+            <ArticleFooter {...articleDetailFooterData} isDetail={true} rightTitle={author} leftTitle={t(timeAgo(created))} />
         </View>
     )
 }
 
-const imageArticleStyle = StyleSheet.create({
+const customStyle = (theme:CustomThemeType) => StyleSheet.create({
     tagNameViewStyle: {
         opacity: 0.7,
         flexWrap: 'wrap'
@@ -72,5 +81,22 @@ const imageArticleStyle = StyleSheet.create({
         backgroundColor: Styles.color.darkGreenishBlue,
         flexWrap: 'wrap',
         fontFamily: fonts.Effra_Arbc_Regular,
+    },
+    title: {
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontSize: normalize(30),
+        lineHeight: normalize(33),
+        textAlign: 'left',
+        color: theme.primaryBlack,
+        paddingBottom: normalize(5),
+        paddingTop: normalize(15),
+    },
+    subtitle: {
+        fontFamily: fonts.AwsatDigitalBetav10_Regular,
+        fontSize: normalize(21),
+        lineHeight: normalize(33),
+        textAlign: 'left',
+        color: theme.primaryBlack,
+        paddingBottom: normalize(10),
     }
 })

@@ -106,7 +106,7 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   };
 
   return (
-    <ScreenContainer barStyle={'light-content'} statusbarColor={colors.black} edge={edge} >
+    <ScreenContainer barStyle={'light-content'} statusbarColor={colors.black} edge={edge} showPlayer={false}>
       <View style={styles.container} >
         <VideoPlayer source={{uri:videoUrl}}
           repeat={true}

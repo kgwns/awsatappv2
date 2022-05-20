@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import { ButtonImage, Divider, Image, Label, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { ImagesName, Styles } from 'src/shared/styles';
@@ -11,9 +11,10 @@ import { decodeHTMLTags, getSecondsToHms } from 'src/shared/utils/utilities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants';
+import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { HOME_PODCAST_TITLE } from 'src/constants/SharedConstants';
 import { fonts } from 'src/shared/styles/fonts';
+import { useTranslation } from 'react-i18next'
 
 export interface PodcastWidgetProps {
   onPress: () => void;
@@ -24,6 +25,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   data,
   onPress,
 }) => {
+  const [t] = useTranslation();
   const { themeData } = useTheme();
   const style = useThemeAwareObject(createStyles);
   const podcastData = data[0];
@@ -34,7 +36,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       title: 'بودكاست',
       color: themeData.primaryDarkSlateGray,
       labelType: LabelTypeProp.title3,
-      textStyle: {fontFamily: fonts.AwsatDigitalBetav10_Black}
+      textStyle: { fontFamily: fonts.AwsatDigitalBetav10_Black }
     },
     headerRight: {
       title: 'المزيد',
@@ -48,53 +50,73 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       color: Styles.color.smokeyGrey,
       labelType: LabelTypeProp.h3,
       clickable: true,
-      textStyle: {fontFamily: fonts.Effra_Arbc_Medium}
+      textStyle: { fontFamily: fonts.Effra_Arbc_Medium }
     },
   };
 
-  const navigateToPodcast = () =>{
-    const params = {sectionId: null, title: "بودكاست", keyName: "podcast"}
-    navigation.navigate(ScreensConstants.SectionArticlesParentScreen,params)
+  const navigateToPodcast = () => {
+    const params = { sectionId: null, title: "بودكاست", keyName: "podcast" }
+    navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   }
 
-  return (
-    <View>
-      <View style={style.spacing}>
-        <WidgetHeader {...widgetHeaderData} onPress={navigateToPodcast} />
+  const ListenToPodcast = () => (
+    <View style={style.listenContainer}>
+      <ButtonImage
+        icon={() => {
+          return getSvgImages({
+            name: ImagesName.headPhoneIcon,
+            size: normalize(15),
+          });
+        }}
+        onPress={onPress}
+        style={style.headPhoneIconMargin}
+      />
+      <Label
+        style={style.listenToPodcastTitle}
+        color={themeData.primary}
+        children={t('podcastHome.listen_to_podcast')}
+      />
+      <Label
+        color={colors.spanishGray}
+        children={getSecondsToHms(podcastData?.field_total_duration_export)}
+        style={style.duration}
+        numberOfLines={1}
+      />
+    </View>
+  )
+
+  const AllEpisodesCard = () => (
+    <View style={style.allEpisodeContainer}>
+      <Label
+        numberOfLines={1}
+        color={themeData.primaryBlack}
+        style={style.allEpisodeTitle}
+        children={t('podcastHome.allEpisodes')}
+      />
+      <View style={style.leftArrowContainer}>
+        <ButtonImage
+          icon={() => {
+            return getSvgImages({
+              name: ImagesName.arrowLeftFacedBlack,
+              width: 7,
+              height: 9,
+            });
+          }}
+          onPress={onPress}
+          style={style.leftArrow}
+        />
       </View>
-      <TouchableOpacity style={style.container} onPress={onPress}>
-        <View style={style.topContainer}>
-          <Label
-            children={HOME_PODCAST_TITLE}
-            style={style.announcer}
-            color={colors.greenishBlue}
-            numberOfLines={1}
-          />
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: normalize(10) }}>
+    </View>
+  )
+
+  const renderPodcastItem = () => (
+    <View style={style.podcastContainer}>
+      <TouchableOpacity onPress={onPress}>
+        <View style={style.podcastItemContainer}>
+          <View style={style.podcastContentContainer}>
             <Label
-              color={colors.greenishBlue}
-              children={getSecondsToHms(podcastData?.field_total_duration_export)}
-              style={{ marginEnd: normalize(10), fontFamily: fonts.Effra_Regular }}
               numberOfLines={1}
-            />
-            <View style={style.playView}>
-              <ButtonImage
-                icon={() => {
-                  return getSvgImages({
-                    name: ImagesName.playIconSVG,
-                    size: normalize(13),
-                  });
-                }}
-                onPress={onPress}
-                style={{ marginRight: 4 }}
-              />
-            </View>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row', }}>
-          <View style={{ width: isTab ? '88%' : '75%', paddingEnd: normalize(10) }}>
-            <Label
-              color={themeData.primaryBlack}
+              color={themeData.primary}
               style={style.title}
               children={podcastData?.title}
             />
@@ -105,54 +127,49 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
               numberOfLines={2}
             />
           </View>
-          <View style={style.imageView}>
-            <View style={{ height: normalize(70), width: normalize(79) }}>
+          <View style={style.podcastImageContainer}>
+            <View style={style.imageWrapper}>
               <Image
                 fallback
                 resizeMode="stretch"
-                url={podcastData?.field_podcast_sect_export?.img_podcast_mobile}
+                url={podcastData?.field_podcast_image_export}
                 style={style.image}
               />
             </View>
           </View>
         </View>
+        <View style={style.podcastBottomContainer}>
+          <View style={style.listenCardContainer}>
+            <ListenToPodcast />
+          </View>
+          <View style={style.labelContainer}>
+            {/* <AllEpisodesCard/> enable when list of episodes available */}
+          </View>
+        </View>
       </TouchableOpacity>
-      <Divider style={style.divider} />
     </View>
-  );
+  )
+
+  const tabletData = data.slice(0, 2)
+  const renderTablet = () => (
+    <View style={style.tabletContainer}>
+      <FlatList
+        data={tabletData}
+        numColumns={2}
+        style={style.flatList}
+        listKey={flatListUniqueKey.TAB_PODCAST_HOME}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={renderPodcastItem}
+      />
+    </View>
+  )
+
+  return  isTab ?  renderTablet() : renderPodcastItem();
+
 };
 
 const createStyles = (theme: CustomThemeType) => {
   const podcastWidgetStyle = StyleSheet.create({
-    spacing: {
-      paddingHorizontal: 0.04 * screenWidth,
-      paddingTop: normalize(20),
-      paddingBottom: normalize(14),
-    },
-    container: {
-      backgroundColor: theme.secondaryWhite,
-      padding: normalize(12),
-      marginHorizontal: 0.04 * screenWidth,
-    },
-    topContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      paddingBottom: normalize(5)
-    },
-    announcer: {
-      fontSize: normalize(15),
-      lineHeight: normalize(24),
-      maxWidth: '70%',
-      fontFamily: fonts.Effra_Regular,
-    },
-    playView: {
-      width: normalize(29),
-      height: normalize(29),
-      borderRadius: normalize(29),
-      backgroundColor: colors.aliceBlue,
-      alignItems: 'center',
-      justifyContent: 'center'
-    },
     title: {
       textAlign: 'left',
       fontSize: normalize(16),
@@ -169,15 +186,82 @@ const createStyles = (theme: CustomThemeType) => {
       width: '100%',
       height: '100%',
     },
-    imageView: {
-      width: isTab ? '12%' : '25%',
+    headPhoneIconMargin: {
+      marginRight: 10,
+    },
+    listenContainer: {
+      flexDirection: 'row',
+      alignContent: 'center',
+    },
+    listenToPodcastTitle: {
+      fontSize: normalize(13),
+      lineHeight: normalize(19),
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    },
+    duration: {
+      fontSize: normalize(12),
+      lineHeight: normalize(16),
+      fontFamily: fonts.IBMPlexSansArabic_Medium,
+      marginLeft: 5
+    },
+    allEpisodeContainer: {
+      flexDirection: 'row',
+    },
+    allEpisodeTitle: {
+      fontSize: normalize(14),
+      lineHeight: 14,
+      fontFamily: fonts.Effra_Arbc_Medium
+    },
+    leftArrowContainer: {
+      marginStart: 5,
+      marginTop: 2,
+    },
+    leftArrow: {
+      marginRight: 5
+    },
+    podcastContainer: {
+      padding: 20,
+      backgroundColor: theme.secondaryGreen,
+      marginBottom: 25
+    },
+    podcastItemContainer: {
+      flexDirection: 'row'
+    },
+    podcastContentContainer: {
+      width: '70%',
+      paddingEnd: normalize(5)
+    },
+    podcastImageContainer: {
+      width: '30%',
       alignSelf: 'flex-start',
       alignItems: 'flex-end',
     },
-    divider: {
-      height: 1,
-      backgroundColor: theme.dividerColor,
-    }
+    imageWrapper: {
+      height: isTab ? normalize(70) : 73,
+      width: isTab ? normalize(90) : 92
+    },
+    podcastBottomContainer: {
+      flexDirection: 'row',
+      marginTop: normalize(15),
+    },
+    listenCardContainer: {
+      width: '70%',
+      paddingEnd: normalize(10)
+    },
+    labelContainer: {
+      width: '30%',
+      alignSelf: 'flex-start',
+      alignItems: 'flex-end',
+    },
+    tabletContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      backgroundColor: theme.mainBackground,
+      paddingHorizontal: 20
+    },
+    flatList: {
+      width: '50%'
+    },
   });
   return podcastWidgetStyle;
 };

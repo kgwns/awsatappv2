@@ -1,32 +1,60 @@
-import { View, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { FunctionComponent } from 'react'
-import { CustomThemeType } from 'src/shared/styles/colors'
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator, StyleProp, ViewStyle } from 'react-native'
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
+import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { Image } from 'src/components/atoms'
+import { Image, Label } from 'src/components/atoms'
 import { ImagesName } from 'src/shared/styles'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { isTab, normalize } from 'src/shared/utils'
+import { isAndroid, isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
 import TextTicker from 'react-native-text-ticker';
-import { State, usePlaybackState } from 'react-native-track-player';
-import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode'
+import TrackPlayer, { State, usePlaybackState, useProgress, Event, useTrackPlayerEvents } from 'react-native-track-player';
 import { ImageResize } from 'src/shared/styles/text-styles'
-
+import { useAppPlayer } from 'src/hooks/useAppPlayer'
+import RBSheet from 'react-native-raw-bottom-sheet'
+import { fonts } from 'src/shared/styles/fonts'
+import Slider from '@react-native-community/slider'
+import { secondsToHHMMSS } from 'src/shared/utils/utilities'
 export interface PodcastMiniPlayerProps {
-    data: any;
-    onClose: () => void;
-    onPlaybackPress?: (item: any) => void;
+    onClose?: () => void;
+    toggleControl?: () => void;
+    showUI?: boolean;
+    playerPosition?: StyleProp<ViewStyle>;
 }
 
+const events = [
+    Event.PlaybackState,
+    Event.PlaybackError,
+  ];
+
 export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
-    data,
-    onClose,
-    onPlaybackPress
+    onClose, playerPosition
 }) => {
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
-    const fieldData = data ? data : podcastEpisodeInitialData
-    const isLoading = (playbackState === State.None ||  playbackState === State.Buffering || playbackState === State.Connecting || playbackState == State.Ready) && (playbackState !== State.Paused && playbackState !== State.Playing)
+    const isLoading = (playbackState === State.None || playbackState === State.Connecting ) && (playbackState !== State.Paused && playbackState !== State.Playing)
+    const { selectedTrack } = useAppPlayer()
     
+    let refRBSheet = useRef<RBSheet>();
+    const _playForwardIcon = getSvgImages({ name: ImagesName.playForwardIcon, width: normalize(25), height: normalize(25) })
+    const _playBackwardIcon = getSvgImages({ name: ImagesName.playBackwardIcon, width: normalize(25), height: normalize(25) })
+    const _playIcon = getSvgImages({ name: ImagesName.playIconSVG, width: normalize(18), height: normalize(18) })
+    const _pauseIcon = getSvgImages({ name: ImagesName.pauseIcon, width: normalize(18), height: normalize(18) })
+
+    const progress = useProgress();
+    const [showControl, setShowControl] = useState(false)
+
+    useEffect(()=> {
+        showControl && refRBSheet.current?.open();
+    },[showControl])
+
+    // check playback error
+    useTrackPlayerEvents(events, (event) => {
+        if (event.type === Event.PlaybackError) {
+            console.log('An error occured while playing the current track.');
+        }
+    });
+
+
     const Pause = () => (
         <>
             {getSvgImages({ name: ImagesName.pauseIcon, width: normalize(17), height: normalize(17) })}
@@ -38,13 +66,102 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
             {getSvgImages({ name: ImagesName.playIconSVG, width: normalize(15), height: normalize(17) })}
         </>
     )
+
+    const onPlayPausePress = async (playbackState: any) => {
+        const state = await TrackPlayer.getState()
+
+        if(selectedTrack != null){
+            if(state == State.Paused){
+                await TrackPlayer.play()
+            }else{
+                await TrackPlayer.pause()
+            }
+        }
+    };
+
+    const seekForwardBackward = async(type: any) => {
+        let seekValue = 10
+        let position = progress.position
+        let duration = progress.duration
+
+        let seekPosition = position
+        
+        if(type == 'forward'){
+            seekPosition = duration > (position + seekValue) ? (position + seekValue) : position
+        }else{
+            seekPosition = (position - seekValue) > 0 ? (position - seekValue) : position
+        }
+        await TrackPlayer.seekTo(seekPosition); 
+    }
+
+    const onCloseControl = () => {
+        setShowControl(false)
+    }
+
+    const renderRBSheet = () => (
+        <RBSheet
+        ref={(ref: RBSheet) => refRBSheet.current = ref}
+            animationType={'slide'}
+            closeOnDragDown={true}
+            closeOnPressMask={true}
+            closeOnDragAboveSheet={true}
+            onClose={onCloseControl}
+            customStyles={{
+                container: StyleSheet.flatten([style.rbSheetContainer]),
+                wrapper: style.popupBackground,
+                draggableIcon: style.rbDraggableIcon
+            }}
+        >
+            <View style={style.playerContainer}>
+                <Label children={selectedTrack.title} style={style.titleStyle} numberOfLines={1} />
+                <View style={style.imageContainerStyle}>
+                    <Image fallback url={selectedTrack.artwork}
+                        style={style.imageStyle}
+                        resizeMode={'cover'}
+                    />
+                </View>
+                <View style={style.progrsBarSection}>
+                    <Slider
+                        style={[{ width: '100%', height: 30 }, isIOS && { direction: 'ltr'  }]}
+                        minimumValue={0}
+                        maximumValue={progress.duration}
+                        minimumTrackTintColor="#2C8A82"
+                        maximumTrackTintColor="#E0E0E0"
+                        thumbTintColor="#2C8A82"
+                        value={progress.position}
+                        tapToSeek
+                        inverted={ isIOS ? true : false}
+                        onSlidingComplete={ async(value) => {
+                            await TrackPlayer.seekTo(value);
+                        }}
+                    />
+                </View>
+                <View style={[style.durationContainer, isAndroid && {paddingHorizontal: 15} ]} >
+                    <Label children={secondsToHHMMSS(Math.floor(progress.position || 0))} style={style.durationText}/>
+                    <Label children={secondsToHHMMSS(progress.duration || 0)} style={style.durationText}/>
+                </View>
+                <View style={style.controls} >
+                    <TouchableOpacity onPress={() => { seekForwardBackward('backward') }}>
+                        {_playForwardIcon}
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => onPlayPausePress(playbackState)}>
+                        { playbackState === State.Playing ? _pauseIcon : _playIcon }
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { seekForwardBackward('forward') }}>
+                        {_playBackwardIcon}
+                    </TouchableOpacity>
+                </View>
+            </View>
+
+        </RBSheet>
+    )
     
     return (
-        <View style={style.container}>
+        <View style={StyleSheet.flatten([style.container, playerPosition]) }>
             <View style={style.miniPlayer}>
-                <View style={style.rowStyleContainer}>
+                <TouchableOpacity onPress={() => { setShowControl(true);} } style={style.rowStyleContainer}>
                     <View style={style.imageContainer}>
-                        <Image fallback url={fieldData.field_podcast_sect_export?.img_podcast_mobile}
+                        <Image fallback url={selectedTrack.artwork}
                             style={style.image}
                             resizeMode={ImageResize.COVER}
                         />
@@ -55,25 +172,23 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                             animationType={'scroll'}
                             shouldAnimateTreshold={50}
                             duration={8000}
-                            children={fieldData.title}
+                            children={selectedTrack.title}
                             style={style.title}
                         />
                     </View>
-                    <TouchableOpacity onPress={onPlaybackPress}>
+                    <TouchableOpacity onPress={() => onPlayPausePress(playbackState)}>
                         <View style={style.buttonContainer}>
-                            {isLoading ? <ActivityIndicator /> :
-                                playbackState === State.Playing ? <Pause /> : <Play />}
+                            {isLoading ? <ActivityIndicator /> : playbackState === State.Playing ? <Pause /> : <Play /> }
                         </View>
                     </TouchableOpacity>
-                </View>
-                <View style={style.closeContainer}>
-                    <TouchableOpacity onPress={onClose}>
-                        <View style={style.closeIcon}>
-                            {getSvgImages({ name: ImagesName.playerCloseIcon, width: normalize(12), height: normalize(12) })}
-                        </View>
-                    </TouchableOpacity>
-                </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={onClose} style={style.closeContainer}>
+                    <View style={style.closeIcon}>
+                        {getSvgImages({ name: ImagesName.playerCloseIcon, width: normalize(12), height: normalize(12) })}
+                    </View>
+                </TouchableOpacity>
             </View>
+            {showControl && renderRBSheet()}
         </View>
     )
 }
@@ -137,6 +252,63 @@ const customStyle = (theme: CustomThemeType) => {
         closeIcon: {
             alignItems: 'center',
             margin: normalize(24)
+        },
+        rbSheetContainer: {
+            borderTopLeftRadius: normalize(20),
+            borderTopRightRadius: normalize(20),
+            backgroundColor: theme.secondaryWhite,
+            height: normalize(220),
+        },
+        rbDraggableIcon: {
+            width: normalize(33),
+            height: 3,
+            backgroundColor: colors.lightToneGreen
+        },
+        popupBackground: {
+            backgroundColor: 'transparent',
+        },
+        imageStyle: {
+            width: normalize(62),
+            height: normalize(55)
+        },
+        titleStyle: {
+            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontSize: normalize(16),
+            lineHeight: normalize(25),
+            color: theme.primaryBlack,
+            marginTop: normalize(15),
+            textAlign: 'center'
+        },
+        imageContainerStyle: {
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginVertical: normalize(10)
+        },
+        playerContainer: {
+            flex: 1,
+            paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+        },
+        progrsBarSection: {
+            width: '100%',
+        },
+        durationContainer: {
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            paddingHorizontal: 4,
+        },
+        durationText: {
+            fontFamily: fonts.Effra_Arbc_Regular,
+            fontSize: normalize(11),
+            lineHeight: normalize(25),
+            color: colors.lightToneGreen,
+        },
+        controls: {
+            width: '100%',
+            paddingHorizontal: '20%',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center'
         }
     })
 }

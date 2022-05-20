@@ -40,13 +40,7 @@ export const FavoriteScreen = () => {
     }, [])
   );
 
-  useEffect(() => {
-    stopTrackPlayer()
-  }, [tabSelectedIndex]);
 
-  const stopTrackPlayer = async () => {
-    await TrackPlayer.reset();
-  }
 
   const onPressTabItem = (index: number) => {
     const tabData = tabItem

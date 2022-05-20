@@ -7,7 +7,6 @@ import { Theme } from 'src/redux/appCommon/types'
 import { useAppCommon, useBookmark, useLogin, useUserProfileData } from 'src/hooks'
 import { isDarkTheme } from '../shared/utils'
 import AppStackContainer from './AppStackContainer'
-import TrackPlayer from 'react-native-track-player'
 
 const SplashNavigation = () => {
     const dispatch = useDispatch()
@@ -31,17 +30,18 @@ const SplashNavigation = () => {
             fetchProfileDataRequest()
         }
     }, [])
-
-    useEffect(() => {
-        const subscription = AppState.addEventListener("change", () => {
-            if (AppState.currentState.match(/inactive|background/)) {
-                TrackPlayer.pause();
-            }
-        });
-        return () => {
-            subscription.remove();
-        };
-    }, []);
+    
+    // Enable the background mode for the trackplayer. if don't we can use this lines in future. 
+    // useEffect(() => {
+    //     const subscription = AppState.addEventListener("change", () => {
+    //         if (AppState.currentState.match(/inactive|background/)) {
+    //             TrackPlayer.pause();
+    //         }
+    //     });
+    //     return () => {
+    //         subscription.remove();
+    //     };
+    // }, []);
 
     const updateAppThemeState = () => {
         if (isFirstSession) { // Listen OS theme only first time

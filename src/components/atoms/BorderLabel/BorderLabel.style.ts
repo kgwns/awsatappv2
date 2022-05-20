@@ -20,7 +20,7 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor
     },
     labelStyle: {
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
       fontSize: fontSize,
       lineHeight: lineHeight,
       paddingHorizontal: normalize(20),
@@ -38,7 +38,7 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
       backgroundColor: theme.primary
     },
     selectedLabelStyle: {
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
       fontSize: fontSize,
       lineHeight: lineHeight,
       paddingHorizontal: normalize(20),

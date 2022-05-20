@@ -11,7 +11,6 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import {ScreensConstants} from '../constants/ScreenConstants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import TrackPlayer from 'react-native-track-player';
 import { isTab, screenWidth } from 'src/shared/utils';
 
 const DrawerNavigator = () => {
@@ -31,7 +30,6 @@ const DrawerNavigator = () => {
     <TouchableOpacity onPress={
       () => {
         navigation.dispatch(DrawerActions.toggleDrawer());
-        TrackPlayer.stop();
       }
       }>
       {getSvgImages({ name: ImagesName.menuIcon, width: style.menu.width, height: style.menu.height, style: style.menu })}

@@ -47,7 +47,7 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
       const rows = response.rows
       responseData.articleDetailData = rows.map(
         ({ title, body_export, nid_export, field_image_export, view_node,
-          field_news_categories_export, author_resource, field_tags_topics_export,created_export }: any) => ({
+          field_news_categories_export, author_resource, field_tags_topics_export,created_export, field_new_sub_title_export }: any) => ({
             body: body_export,
             title,
             nid: nid_export,
@@ -57,7 +57,8 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
             news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             tag_topics: isNonEmptyArray(field_tags_topics_export) ? field_tags_topics_export[0] : field_tags_topics_export,
             author: author_resource,
-            created: created_export
+            created: created_export,
+            subtitle: field_new_sub_title_export
           })
       );
     }

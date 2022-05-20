@@ -46,7 +46,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
       lineHeight: normalize(22),
       textAlign: 'center',
       paddingBottom: normalize(15),
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
   };
   return (
@@ -170,11 +170,11 @@ StyleSheet.create({
     lineHeight: normalize(16),
     color: colors.greenishBlue,
     marginHorizontal: normalize(5),
-    fontFamily: fonts.Almaria_Regular,
+    fontFamily: fonts.AwsatDigitalBetav10_Regular,
   },
   buttonLabel: {
     color: colors.black,
-    fontFamily: fonts.Almaria_Regular,
+    fontFamily: fonts.AwsatDigitalBetav10_Regular,
   },
   titleContainer: {
     bottom: 0,

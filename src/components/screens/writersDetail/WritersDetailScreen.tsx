@@ -64,14 +64,7 @@ export const WritersDetailScreen = ({
         await TrackPlayer.reset();
     }
 
-    useFocusEffect(
-        React.useCallback(() => {
-            const unsubscribe = () => { stopTrackPlayer() };
-            return () => {
-                unsubscribe();
-            }
-        }, [])
-    );
+  
 
     useEffect(() => {
         if(isFocused){
@@ -115,19 +108,7 @@ export const WritersDetailScreen = ({
         fetchWriterOpinionsRequest({ tid: route.params.tid, page: page });
     }, [page]);
 
-    useEffect(() => {
-        const backAction = () => {
-            TrackPlayer.stop();
-            return false;
-        };
-
-        const backHandler = BackHandler.addEventListener(
-            "hardwareBackPress",
-            backAction
-        );
-
-        return () => backHandler.remove();
-    }, []);
+  
 
     const updateBookmark = (data: OpinionsListItemType[]) => {
         return data.map((item: OpinionsListItemType) => (

@@ -100,7 +100,10 @@ jest.mock("react-native-track-player", () => "TrackPlayer");
 jest.mock("react-native-track-player", () => {
   return {
     usePlaybackState: jest.fn().mockImplementation(() => jest.fn()),
-    State: jest.fn().mockImplementation(() => jest.fn())
+    State: jest.fn().mockImplementation(() => jest.fn()),
+    useProgress: jest.fn().mockImplementation(() => jest.fn()),
+    useTrackPlayerEvents: jest.fn().mockImplementation(() => jest.fn()),
+    Event: jest.fn().mockImplementation(() => jest.fn()),
   }
 })
 jest.mock('react-native-adjust', () => {

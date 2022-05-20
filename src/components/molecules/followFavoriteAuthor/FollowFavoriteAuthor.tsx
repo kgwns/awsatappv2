@@ -153,7 +153,7 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
     },
     titleStyle: {
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       textAlign: 'center',
       fontSize: normalize(14),
       lineHeight: normalize(17),

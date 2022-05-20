@@ -90,7 +90,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       marginTop: normalize(16),
       marginBottom: normalize(8),
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     writerContainer: {
       marginRight: normalize(20),

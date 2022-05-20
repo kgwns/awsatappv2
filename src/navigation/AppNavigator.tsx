@@ -278,7 +278,7 @@ const customStyle = (theme: CustomThemeType) => (
       color: theme.primaryDarkSlateGray,
       fontSize: normalize(12),
       lineHeight: normalize(16),
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     onBoardPrevIcon: {
       width: normalize(12),

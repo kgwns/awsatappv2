@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.greenishBlue
     },
     titleStyle: {
-        fontFamily: fonts.Almarai_Bold,
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
         fontSize: 13,
         textAlign: 'center',
         color: colors.white,

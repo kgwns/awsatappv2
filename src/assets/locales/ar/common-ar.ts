@@ -57,13 +57,13 @@ export const arabic = {
       headerLeft: 'العالم العربي',
     },
     sectionWriters: {
-      headerLeft: 'آراء وكتّاب ',
+      headerLeft: 'الرأي',
     },
     sectionComboThree: {
       headerLeft: 'العالم',
     },
     sectionComboFour: {
-      headerLeft: ' اقتصاد',
+      headerLeft: 'الاقتصاد',
     },
     sectionComboFive: {
       headerLeft: 'ثقافة وفنون',
@@ -72,7 +72,7 @@ export const arabic = {
       headerLeft: 'منوعات',
     },
     sectionComboSeven: {
-      headerLeft: 'رياضة',
+      headerLeft: 'الرياضة',
     },
     articlSection: {
       articleTitle: 'عِينٌ على'
@@ -85,7 +85,7 @@ export const arabic = {
     toWatch: 'مشاهدة',
   },
   categoryPage: {
-    videoContent: 'محتوي فيديو',
+    videoContent: 'فيديو',
   },
   podcastProgram: {
     episodes: 'الحلقات',
@@ -309,7 +309,6 @@ export const arabic = {
     message: 'سجل للحصول على تجربة فريدة',
     signUp: 'ادخل لحسابك أو اشترك'
   },
-  listen_to_podcast: 'استمع الي البودكاست ',
   common: {
     ok: 'نعم',
     alert: 'إنذار',
@@ -327,5 +326,9 @@ export const arabic = {
   },
   sectionTab: {
     main: 'الرئيسية'
+  },
+  podcastHome: {
+    listen_to_podcast: 'استمع الي البودكاست ',
+    allEpisodes: 'كل الحلقات'
   }
 }

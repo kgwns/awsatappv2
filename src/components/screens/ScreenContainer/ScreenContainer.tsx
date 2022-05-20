@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   StatusBar,
   StatusBarStyle,
   View,
   TouchableOpacity,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
 import {DEFAULT_HIT_SLOP, isDarkTheme, isNotEmpty, isTab, normalize, screenWidth} from '../../../shared/utils';
@@ -21,6 +23,9 @@ import {AlertModal, PopUp} from 'src/components/organisms';
 import {ScreensConstants} from 'src/constants';
 import { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import TrackPlayer from 'react-native-track-player';
+import { PodCastMiniPlayer } from 'src/components/molecules';
+import  { useAppPlayer } from 'src/hooks/useAppPlayer';
 
 const isIphoneX = DeviceInfo.hasNotch();
 
@@ -46,6 +51,8 @@ export interface ScreenContainerProps {
   alertPayload?: AlertPayloadType;
   alertOnPress?: () => void;
   headerLeft?: any;
+  playerPosition?: StyleProp<ViewStyle>;
+  showPlayer?: boolean;
 }
 
 export const ScreenContainer = ({
@@ -63,7 +70,9 @@ export const ScreenContainer = ({
   alertOnPress,
   isAlertVisible,
   setIsAlertVisible,
-  headerLeft
+  headerLeft,
+  playerPosition,
+  showPlayer = true,
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -77,6 +86,16 @@ export const ScreenContainer = ({
   const onPressBack = () => {
     navigation.goBack();
   };
+
+  const { showMiniPlayer, setShowMiniPlayer, setPlayerTrack } = useAppPlayer()
+  const [showPlayerControls, setShowPlayerControls] = useState(false);
+
+  const onClose = async () => {
+    await TrackPlayer.stop();
+    await TrackPlayer.reset();
+    setShowMiniPlayer(false)
+    setPlayerTrack(null)
+  }
 
   const onPressSignUp = () => {
     onCloseSignUpAlert && onCloseSignUpAlert();
@@ -152,6 +171,8 @@ export const ScreenContainer = ({
             onClose={() => setIsAlertVisible && setIsAlertVisible(false)}
           />
         )}
+
+        { showPlayer && showMiniPlayer && <PodCastMiniPlayer onClose={onClose} toggleControl={() => { setShowPlayerControls(!showPlayerControls)}} playerPosition={playerPosition} />}
       </SafeAreaView>
   );
 };

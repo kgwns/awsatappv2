@@ -102,6 +102,10 @@ export enum ImagesName {
   pdfIcon = 'pdfIcon',
   gridToggleIcon = 'gridToggleIcon',
   listToggleIcon = 'listToggleIcon',
+  playForwardIcon = 'playForwardIcon',
+  playBackwardIcon = 'playBackwardIcon',
+  headPhoneIcon = 'headPhoneIcon',
+  arrowLeftBlack = 'arrowLeftBlack',
 }
 
 export const images = {
