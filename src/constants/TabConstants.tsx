@@ -4,7 +4,7 @@ const LATEST_NEWS = 'آخر الأخبار';
 const SECTIONS = 'أقسام';
 const MOST_READ = 'الأكثر قراءة';
 const FAVORITE =  'أخبارك';
-const DOWNLOAD_NEWS = 'تحميل'
+const DOWNLOAD_NEWS = 'النسخة المطبوعة'
 
 const TABICONS = {
     NEWS: 'newsIcon' as ImageName,

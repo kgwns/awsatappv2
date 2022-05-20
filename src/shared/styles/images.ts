@@ -101,6 +101,8 @@ export enum ImagesName {
   headPhoneIcon = 'headPhoneIcon',
   arrowLeftBlack = 'arrowLeftBlack',
   pdfIcon = 'pdfIcon',
+  printVersionActiveIcon = 'printVersionActiveIcon',
+  printVersionGrayIcon = 'printVersionGrayIcon'
 }
 
 export const images = {

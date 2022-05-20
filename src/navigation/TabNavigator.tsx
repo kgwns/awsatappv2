@@ -70,7 +70,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                             ImageName = isFocused ? ImagesName.favoriteActiveIcon : ImagesName.favoriteIcon
                             break;
                         case TabConstants.DOWNLOAD_NEWS:
-                            ImageName = isFocused ? ImagesName.pdfIcon : ImagesName.pdfIcon
+                            ImageName = isFocused ? ImagesName.printVersionActiveIcon : ImagesName.printVersionGrayIcon
                     }
                     return ImageName;
                 }
@@ -90,6 +90,9 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                         case TabConstants.FAVORITE:
                             iconStyle = style.favoriteIcon
                             break;
+                        case TabConstants.DOWNLOAD_NEWS:
+                            iconStyle = style.newsIcon
+                            break;
                     }
                     return iconStyle;
                 }
@@ -101,7 +104,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                             key={index}
                             onPress={() => onPress()}>
                             <View style={style.tabIconContainer}>
-                                {route.name === TabConstants.DOWNLOAD_NEWS ? <Image style={isFocused ? style.newsDownloadIconActive : style.newsDownloadIcon} name={ImagesName.pdfIcon} /> : (getSvgImages({ name: getImageName(), width: iconStyle.width, height: iconStyle.height , style: iconStyle}))}
+                            {(getSvgImages({ name: getImageName(), width: iconStyle.width, height: iconStyle.height , style: iconStyle}))}
                             </View>
                             <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
                         </TouchableOpacity>
@@ -141,6 +144,10 @@ const customStyle = (theme: CustomThemeType) => {
             width: normalize(12),
             height: normalize(17),
             marginTop: isIOS ? normalize(2) : normalize(5)
+        },
+        newsIcon: {
+            width: normalize(31),
+            height: normalize(22),
         },
         mostReadIcon: {
             width: normalize(17),
