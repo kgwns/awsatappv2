@@ -275,7 +275,7 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: colors.lightToneGreen
         },
         popupBackground: {
-            backgroundColor: 'transparent',
+            backgroundColor: theme.playerBackground,
         },
         imageStyle: {
             width: normalize(62),
