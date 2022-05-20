@@ -1,0 +1,4 @@
+export const SHOW_MINI_PLAYER = 'SHOW_MINI_PLAYER'
+export const SELECTED_TRACK = 'SELECTED_TRACK'
+export const IS_PLAYING = 'IS_PLAYING'
+export const SHOW_CONTROL = 'SHOW_CONTROL'

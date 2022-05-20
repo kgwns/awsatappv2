@@ -95,6 +95,8 @@ export enum ImagesName {
   bookmarkGray = 'bookmarkGray',
   shareGray = 'shareGray',
   menuCloseIcon = 'menuCloseIcon',
+  playForwardIcon = 'playForwardIcon',
+  playBackwardIcon = 'playBackwardIcon',
   headPhoneIcon = 'headPhoneIcon',
   arrowLeftBlack = 'arrowLeftBlack',
 }
