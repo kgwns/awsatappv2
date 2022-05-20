@@ -1,8 +1,9 @@
 import { isIOS } from "src/shared/utils";
 import { PDFArchiveIOS } from './PDFArchive.ios'
+import { PDFArchive } from './PDFArchive'
 
-const PDFArchive = isIOS ? PDFArchiveIOS : PDFArchiveIOS
+const pdfArchive = isIOS ? PDFArchiveIOS : PDFArchive
 
 export { 
-    PDFArchive
+    pdfArchive as PDFArchive
 }
