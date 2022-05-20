@@ -45,7 +45,7 @@ export const PDFArchiveIOS = () => {
   )
 
   const headerLeftElement = () => {
-    const iconName = layoutSelectedType == ArchiveLayoutType.grid ? ImagesName.gridToggleIcon : ImagesName.listToggleIcon
+    const iconName = layoutSelectedType == ArchiveLayoutType.grid ? ImagesName.listToggleIcon : ImagesName.gridToggleIcon
     const tintColor = theme === Theme.DARK ? Styles.color.white : Styles.color.black
     return (
       <TouchableOpacity style={style.iconContainer} onPress={onPressChangeLayout}>
