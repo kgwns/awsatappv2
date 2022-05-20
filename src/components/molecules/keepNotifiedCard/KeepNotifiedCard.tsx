@@ -57,7 +57,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingTop: normalize(10),
     },
     textStyle: {
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       fontSize: normalize(18),
       lineHeight: normalize(30),
       color: theme.primaryBlack,

@@ -72,18 +72,9 @@ export const OpinionArticleDetail = ({
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const playbackState = usePlaybackState();
 
-  useFocusEffect(
-    React.useCallback(() => {
-        const unsubscribe = () => { stopTrackPlayer() };
-        return () => {
-            unsubscribe();
-        }
-    }, [])
-);
 
-  const stopTrackPlayer = async () => {
-    await TrackPlayer.reset();
-  }
+
+ 
 
   const togglePlayback = async (nid: string, mediaData: any) => {
     let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
@@ -225,19 +216,7 @@ export const OpinionArticleDetail = ({
     }
   }, [isFocused, opinionArticle, selectedAuthorsData])
 
-  useEffect(() => {
-    const backAction = () => {
-      TrackPlayer.stop();
-      return false;
-    };
 
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove();
-  }, []);
 
   const validateBookmark = (nid: string): boolean => {
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
@@ -317,7 +296,6 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressBack = async () => {
-    await TrackPlayer.stop();
     if (!route.params.isRelatedArticle) {
       Orientation.unlockAllOrientations()
       Orientation.lockToPortrait()
@@ -363,7 +341,7 @@ export const OpinionArticleDetail = ({
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}
       isSignUpAlertVisible={showupUp}
-      onCloseSignUpAlert={onCloseSignUpAlert}>
+      onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{ bottom : isIOS ? normalize(70) : normalize(60) }}>
         {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>
           <FlatList
           data={[{}]}

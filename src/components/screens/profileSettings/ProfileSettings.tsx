@@ -108,11 +108,12 @@ export const ProfileSettings = () => {
         title: CONST_APP_APPEARANCE,
         screenName: ''
       },
-      {
-          iconName: ImagesName.Image,
-          title: CONST_CHANGE_ENVIRONMENT,
-          screenName: ''
-      },
+      // Enable when environment switch required
+    //   {
+    //       iconName: ImagesName.Image,
+    //       title: CONST_CHANGE_ENVIRONMENT,
+    //       screenName: ''
+    //   },
       {
           iconName: ImagesName.exit,
           title: CONST_EXIT,
@@ -330,7 +331,7 @@ const customStyle = (theme: CustomThemeType) =>
       label: {
           marginLeft: normalize(20),
           color: theme.secondaryMediumGrey,
-          fontFamily: fonts.Almaria_Regular,
+          fontFamily: fonts.AwsatDigitalBetav10_Regular,
       },
       divider: {
           height: 1,

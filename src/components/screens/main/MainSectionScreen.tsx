@@ -10,7 +10,7 @@ import { heroSectionProperties, shortArticleWithTagProperties } from 'src/consta
 import { horizontalEdge, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList } from 'src/hooks';
+import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppCommon, useAppPlayer } from 'src/hooks';
 import { EditorsChoiceDataType, LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -20,11 +20,11 @@ import { Styles } from 'src/shared/styles';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { PodCastMiniPlayer, TopHeadLineNews } from 'src/components/molecules';
+import { PodCastMiniPlayer, TopHeadLineNews, MiniPlayerWithControls } from 'src/components/molecules';
 import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { Label } from 'src/components/atoms';
-import { getPodcastUrl } from 'src/shared/utils/utilities';
+import { getPodcastUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { fonts } from 'src/shared/styles/fonts';
 
@@ -106,7 +106,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
   const _sectionComboSevenTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SEVEN})
   const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
 
-  
+  const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
 
   const {
     isLoading, topList, opinionList,podcastHome,
@@ -142,6 +142,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
   const [opinionListData, setOpinionListData] = useState([])
   const [showupUp, setShowPopUp] = useState(false)
   const [isPlayerVisible, setPlayerVisibility] = useState(false)
+  const [showPlayerControls, setShowPlayerControls] = useState(false)
   const playbackState = usePlaybackState();
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [selectedType, setSelectedType] = useState<any>(null);
@@ -150,12 +151,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
   const headlineNews = isNonEmptyArray(coverageInfo) ? [...coverageInfo].splice(1, 4) : []
   const [editorsChoiceInfo, setEditorsChoiceInfo] = useState(editorsChoice)
 
-  useFocusEffect(
-    React.useCallback(() => {
-      const unsubscribe = () => { TrackPlayer.stop() };
-      return () => unsubscribe();
-    }, [isPlayerVisible])
-  );
+
 
 
 
@@ -173,9 +169,6 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
     }, [])
   );
 
-  useEffect(() => {
-    if(isPlayerVisible) setPlayerVisibility(false);
-  }, [hidePlayerVisibility])
 
   
   const updateBookmark = (data: any[]): any => {
@@ -504,30 +497,21 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
   }
 
 
-  const onListenPodcast = async () => {
-    let setupPlayer = async () => {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({ stopWithApp: true });
-      await TrackPlayer.add({
+  const onListenPodcast = () => {
+    if(isObjectNonEmpty(podcastData)){
+      let trackPlayerData = {
         id: podcastData.nid,
         url: getPodcastUrl(podcastData.field_spreaker_episode_export),
         title: podcastData.title,
+        duration: podcastData.field_total_duration_export,
         artist: podcastData.title,
-      });
-      await TrackPlayer.setRepeatMode(RepeatMode.Off);
-      await TrackPlayer.play();
-    }
-    if(selectedTrack == podcastData.nid){
-      setPlayerVisibility(true)
-      if (playbackState == State.Playing) {
-        return
+        artwork: podcastData.field_podcast_sect_export?.img_podcast_mobile
       }
-      setupPlayer()
-    }else{
-      await TrackPlayer.reset();
-      setPlayerVisibility(true)
-      setupPlayer()
+      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) setPlayerTrack(trackPlayerData);
+      !showMiniPlayer && setShowMiniPlayer(true);
     }
+    
+
     setSelectedTrack(podcastData.nid);
     setSelectedType('PODCAST');
   }
@@ -577,12 +561,12 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         <TopHeadLineNews data={headlineNews} />
       </View>
       <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       <EditorsPickSection data={horizontalArticle} />
-       {isNonEmptyArray(podcastHome) &&
-       <View>
-         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />  
-         </View>}
+      {isNonEmptyArray(podcastHome) &&
+        <View>
+          <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
+        </View>}
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       <BannerArticleSection data={editorsChoiceInfo}
         title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         sectionId={'871'}
@@ -666,6 +650,16 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         onUpdateBookmark={updatedSectionComboSixBookmark}
         isDivider
       />
+      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: normalize(50) }} />}
+      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
+      <BannerArticleSection
+        data={sectionComboSevenInfo}
+        title={_sectionComboSevenTitle}
+        sectionId={'36'}
+        onPress={onPressArticle}
+        onUpdateBookmark={updatedSectionComboSevenBookmark}
+        isDivider
+      />
     </View>
   )
 
@@ -695,11 +689,11 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
           />
         </View>
       </View>
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
-      <EditorsPickSection data={horizontalArticle} />
       {isNonEmptyArray(podcastHome) &&
         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
       }
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
+      <EditorsPickSection data={horizontalArticle} />
       <View style={mainSectionStyle.tabSplitter}>
         <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
@@ -843,9 +837,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
           />
         }
       />
-      {isPlayerVisible && <View style={mainSectionStyle.miniPlayerContainer}>
-        <PodCastMiniPlayer data={podcastData} onClose={onClose} onPlaybackPress={togglePlayback} />
-      </View>}
+      
     </ScreenContainer>
   )
 }

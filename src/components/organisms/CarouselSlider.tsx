@@ -18,7 +18,7 @@ const CarouselSlider = ({
             {isNonEmptyArray(coverageInfo) &&
                 <ImageArticle key={0} {...coverageInfo[0]} author={''}
                     onPressBookmark={() => onUpdateHeroBookmark(0)}
-                    rightContainerStyle={{ flex: 0 }}
+                    // rightContainerStyle={{ flex: 0 }} //enable to center align
                     textStyles={{textAlign:'center'}}
                 />
             }

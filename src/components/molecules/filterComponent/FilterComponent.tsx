@@ -65,7 +65,7 @@ const customStyle = (theme: CustomThemeType) => (
         },
         label: {
             fontSize: normalize(13),
-            fontFamily: fonts.Almaria_Regular,
+            fontFamily: fonts.AwsatDigitalBetav10_Regular,
         }
     })
 )

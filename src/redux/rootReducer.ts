@@ -28,6 +28,7 @@ import podcastReducer from 'src/redux/podcast/reducer';
 import contentForYouReducer from 'src/redux/contentForYou/reducer';
 import writerDetailReducer from 'src/redux/writersDetail/reducer';
 import documentaryVideoReducer from 'src/redux/documentaryVideo/reducer';
+import appPlayerReducer from 'src/redux/appPlayer/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -61,6 +62,7 @@ const rootReducer = combineReducers({
   contentForYou: contentForYouReducer,
   writerDetail: writerDetailReducer,
   documentaryVideo: documentaryVideoReducer,
+  appPlayer: appPlayerReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

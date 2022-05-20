@@ -20,6 +20,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
                 isRelatedArticle={isRelatedArticle}
                 caption={articleData.caption}
                 isFirstItem={isFirstItem}
+                subtitle={articleData.subtitle}
             />
         </View>
     )

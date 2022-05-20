@@ -285,8 +285,9 @@ export const ArticleDetailScreen = ({
 
   return (
     <ScreenContainer edge={edge} isLoading={isLoading} 
-    isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
+    isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
       {!isLoading && isNonEmptyArray(articleDetailState) && <>
+        {renderBackIcon()}
         <FlatList
           style={{ flex: 1, height: '100%' }}
           data={articleDetailState}
@@ -304,7 +305,6 @@ export const ArticleDetailScreen = ({
             onPressFontChange={onPressFontChange}
           />
         </View>
-        {(Number.parseInt(JSON.stringify(scrollY)) > 50) && renderBackIcon()}
       </>
       }
     </ScreenContainer>
@@ -329,10 +329,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     height: normalize(50)
   },
   backContainer: {
-    position: 'absolute',
-    top: 0,
     width: '100%',
-    height: isIOS ? normalize(90) : normalize(45),
+    height: isIOS ? normalize(80) : normalize(45),
     backgroundColor: theme.secondaryWhite,
     justifyContent: 'center',
   },

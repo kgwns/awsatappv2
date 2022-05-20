@@ -3,6 +3,7 @@ import { useAppCommon } from 'src/hooks';
 import {NativeModules} from 'react-native';
 import { DEFAULT_LIGHT_THEME, CustomThemeType, DEFAULT_DARK_THEME, LIGHT_THEME_ID, DARK_THEME_ID } from './colors';
 import { Theme } from 'src/redux/appCommon/types';
+import { isAndroid } from '../utils';
 
 interface ProvidedValue {
   themeData: CustomThemeType;
@@ -33,7 +34,9 @@ export const ThemeProvider = React.memo<Props>((props) => {
     } else if (theme == Theme.LIGHT) {
       setTheme(DEFAULT_LIGHT_THEME)
     }
-    ReactTheme.getReactTheme(theme)
+    if(isAndroid) {
+      ReactTheme.getReactTheme(theme)
+    }
   }, [theme])
 
 

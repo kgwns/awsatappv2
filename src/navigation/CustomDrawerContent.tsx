@@ -209,7 +209,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   }
   
   return (
-    <ScreenContainer>
+    <ScreenContainer showPlayer={false}>
       {header()}
       <ScrollView bounces={false}
         showsVerticalScrollIndicator={false}
@@ -263,7 +263,6 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             )}
             titleStyle={styles.nonBoldTitle}
           />
-
 
           <View style={styles.socialContainer}>
             <ButtonImage
@@ -341,7 +340,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     nonBoldTitle: {
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     divider: {
       height: 1,
@@ -351,10 +350,10 @@ const createStyles = (theme: CustomThemeType) =>
       marginLeft: 20
     },
     childTitleStyle:{
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     parentTitleStyle: {
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     itemContainer: {
       flexDirection: 'row',

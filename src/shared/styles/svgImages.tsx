@@ -118,6 +118,15 @@ import ShareGrayIcon from 'src/assets/images/icons/shareGray.svg';
 import Bookmarkgray from 'src/assets/images/icons/bookmarkGray.svg';
 import MenuCloseIcon from 'src/assets/images/icons/closeSideMenu.svg';
 import MenuCloseIconDark from 'src/assets/images/icons/closeSideMenuDark.svg';
+import GridToggleLightIcon from 'src/assets/images/pdf_archive/pdf_archive_toggle_grid_light_icon.svg'
+import GridToggleDarkIcon from 'src/assets/images/pdf_archive/pdf_archive_toggle_grid_dark_icon.svg'
+import ListToggleLightIcon from 'src/assets/images/pdf_archive/pdf_archive_list_light_icon.svg'
+import ListToggleDarkIcon from 'src/assets/images/pdf_archive/pdf_archive_list_dark_icon.svg'
+import PlayForwardIcon from 'src/assets/images/icons/playForward.svg';
+import PlayBackwardIcon from 'src/assets/images/icons/playBackward.svg';
+import HeadPhoneIcon from 'src/assets/images/icons/headPhoneIcon.svg';
+import PrintVersionActiveIcon from 'src/assets/images/icons/print_version_green.svg';
+import PrintVersionGrayIcon from 'src/assets/images/icons/print_version_gray.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
@@ -279,6 +288,20 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <Bookmarkgray {...props} /> : <BookMarkBlackBdr {...props} />
         case ImagesName.menuCloseIcon:
             return isDark ? <MenuCloseIconDark {...props} /> : <MenuCloseIcon {...props} />
+        case ImagesName.gridToggleIcon:
+            return isDark ? <GridToggleDarkIcon {...props}/> : <GridToggleLightIcon {...props}/>
+        case ImagesName.listToggleIcon:
+            return isDark ? <ListToggleDarkIcon {...props} /> : <ListToggleLightIcon {...props}/>
+        case ImagesName.playForwardIcon:
+            return <PlayForwardIcon {...props} />
+        case ImagesName.playBackwardIcon:
+            return <PlayBackwardIcon {...props} />
+        case ImagesName.headPhoneIcon:
+            return <HeadPhoneIcon {...props} />
+        case ImagesName.printVersionActiveIcon:
+            return <PrintVersionActiveIcon {...props} />
+        case ImagesName.printVersionGrayIcon:
+            return<PrintVersionGrayIcon {...props} />
         default: return null
     }
 }

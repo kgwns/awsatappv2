@@ -232,7 +232,16 @@ const AppNavigator = () => {
           headerTitleAlign: 'center'
         }}
       />
-
+      <Stack.Screen
+        name={ScreensConstants.PDFArchive}
+        component={Routes.PDFArchive}
+        options={hideHeader}
+      />
+      <Stack.Screen
+        name={ScreensConstants.PDF_EDITOR_VIEW}
+        component={Routes.PDFEditorView}
+        options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };
@@ -269,7 +278,7 @@ const customStyle = (theme: CustomThemeType) => (
       color: theme.primaryDarkSlateGray,
       fontSize: normalize(12),
       lineHeight: normalize(16),
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     onBoardPrevIcon: {
       width: normalize(12),

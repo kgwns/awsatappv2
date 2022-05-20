@@ -113,7 +113,7 @@ const customStyle = (theme: CustomThemeType) => {
     title: {
       fontSize: normalize(14),
       lineHeight: normalize(16),
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),
       textAlign: 'left',
@@ -123,14 +123,14 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(16),
       color: colors.spanishGray,
       marginLeft: normalize(5),
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     footerRightTextStyle: {
       fontSize: normalize(12),
       lineHeight: normalize(16),
       color: colors.greenishBlue,
       marginRight: normalize(5),
-      fontFamily: fonts.Almaria_Regular,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     description: {
       fontSize: normalize(13),

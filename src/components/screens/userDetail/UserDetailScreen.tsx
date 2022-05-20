@@ -751,7 +751,7 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: normalize(17),
       marginBottom: '6%',
       textAlign: 'left',
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     email: {
       fontSize: normalize(12),
@@ -768,7 +768,7 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: normalize(17),
       marginBottom: '2%',
       textAlign: 'left',
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     birthdayTitle: {
       fontSize: normalize(13),
@@ -776,7 +776,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: '2%',
       marginTop: '2%',
       textAlign: 'left',
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     dropDownContainer: {
       flexDirection: 'row',
@@ -810,7 +810,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginTop: '10%',
       marginBottom: '2%',
       textAlign: 'left',
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     nameInputStyle: {
       width: '94%',
@@ -837,7 +837,7 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.white,
       fontSize: normalize(16),
       lineHeight: 20,
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     overlayStyle: {
       flex: 1,
@@ -863,7 +863,7 @@ const createStyles = (theme: CustomThemeType) =>
     cancelTextStyle: {
       textAlign: 'center',
       color: colors.white,
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       fontSize: normalize(16),
       lineHeight: 20,
     },
@@ -875,7 +875,7 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'center',
       fontSize: normalize(16),
       lineHeight: 20,
-      fontFamily: fonts.Almarai_Bold,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: theme.secondaryDarkSlate,
     },
     optionModalContainer: {

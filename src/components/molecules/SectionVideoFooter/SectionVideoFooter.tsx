@@ -53,7 +53,7 @@ const SectionVideoFooter = ({
           labelStyle={SectionVideoFooterStyle.leftStyle}
         /></View>}
         {(leftTitle || leftViews) && (rightDate || rightTitle) && <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />}
-        {(rightDate || rightTitle) && <FooterCaptionWithImage title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
+        {(rightDate || rightTitle) && <FooterCaptionWithImage labelStyle={SectionVideoFooterStyle.rightTitleStyle} title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
       </View>
     {addBookMark && 
       <ButtonImage
@@ -91,7 +91,7 @@ const SectionVideoFooterStyle = StyleSheet.create({
   },
   leftStyle: {
     paddingRight: normalize(4),
-    fontFamily: fonts.Almarai_Bold,
+    fontFamily: fonts.AwsatDigitalBetav10_Bold,
     paddingLeft: 4,
     alignItems: 'center',
     justifyContent: 'center'
@@ -100,5 +100,9 @@ const SectionVideoFooterStyle = StyleSheet.create({
     maxWidth: isTab ? '80%' : '60%',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  rightTitleStyle: {
+    fontFamily: fonts.IBMPlexSansArabic_Regular,
+    fontSize: isTab ? normalize(11) : normalize(11)
   }
 })

@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
     alignItems:'flex-start',
   },
   socialLoginButtonLabel: {
-    fontFamily: fonts.Almaria_Regular,
+    fontFamily: fonts.AwsatDigitalBetav10_Regular,
     fontSize: 14,
     lineHeight: 20,
   },
