@@ -13,6 +13,9 @@ import placeholderImg from 'src/assets/images/icons/placeholder_image.png'
 import crossWord from 'src/assets/images/cross_word_image.png'
 import sudoku from 'src/assets/images/sudoku_image.png'
 import pdfIcon from 'src/assets/images/pdf_icon.png'
+import gridToggleIcon from 'src/assets/images/pdf_archive/pdf_archive_toggle_grid_icon.png'
+import listToggleIcon from 'src/assets/images/pdf_archive/pdf_archive_toggle_list_icon.png'
+
 
 export enum ImagesName {
   newsIcon = 'newsIcon',
@@ -97,6 +100,8 @@ export enum ImagesName {
   shareGray = 'shareGray',
   menuCloseIcon = 'menuCloseIcon',
   pdfIcon = 'pdfIcon',
+  gridToggleIcon = 'gridToggleIcon',
+  listToggleIcon = 'listToggleIcon',
 }
 
 export const images = {
@@ -113,6 +118,8 @@ export const images = {
   crossWord,
   sudoku,
   pdfIcon,
+  gridToggleIcon,
+  listToggleIcon,
 };
 
 export const darkImages = {

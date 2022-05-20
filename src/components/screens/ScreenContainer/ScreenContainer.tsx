@@ -45,6 +45,7 @@ export interface ScreenContainerProps {
   setIsAlertVisible?: any;
   alertPayload?: AlertPayloadType;
   alertOnPress?: () => void;
+  headerLeft?: any;
 }
 
 export const ScreenContainer = ({
@@ -62,6 +63,7 @@ export const ScreenContainer = ({
   alertOnPress,
   isAlertVisible,
   setIsAlertVisible,
+  headerLeft
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -95,6 +97,7 @@ export const ScreenContainer = ({
             {title}
           </Label>
         )}
+        {headerLeft && headerLeft()}
         <TouchableOpacity hitSlop={isTab ? { top: 15, bottom: 15, left: 15, right: 15 } : DEFAULT_HIT_SLOP} style={style.returnStyle} onPress={onPressBack}>
           {getSvgImages({ name: ImagesName.returnBlackSvg, size: normalize(12), style: { marginRight: 5 }})}
           <Label style={style.prevTitleStyle}>

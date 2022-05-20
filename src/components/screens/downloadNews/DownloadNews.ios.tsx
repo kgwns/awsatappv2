@@ -9,7 +9,7 @@ import { LIGHT_THEME_ID } from 'src/shared/styles/colors';
 
 const NativeView: any = requireNativeComponent('RNTodayTabView');
 
-export const DownloadNews = () => {
+export const DownloadNewsIOS = () => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
     const { themeData } = useTheme()
@@ -19,7 +19,7 @@ export const DownloadNews = () => {
         setTimeout(() => { //Adding some delay then only willsSet will call in iOS Native
             const themeMode = themeData.id === LIGHT_THEME_ID ? 'light' : 'dark'
             setAppTheme(themeMode)
-        }, 100)
+        }, 50)
     }, [themeData])
 
 
