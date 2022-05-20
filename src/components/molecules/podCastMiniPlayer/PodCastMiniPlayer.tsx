@@ -62,6 +62,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const setTrackToStart = async() => {
         const currentTrack = await TrackPlayer.getCurrentTrack()
         if(currentTrack != null){
+            await TrackPlayer.pause();
             await TrackPlayer.seekTo(0)
         }
     }
