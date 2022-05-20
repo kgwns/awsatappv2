@@ -118,8 +118,10 @@ import ShareGrayIcon from 'src/assets/images/icons/shareGray.svg';
 import Bookmarkgray from 'src/assets/images/icons/bookmarkGray.svg';
 import MenuCloseIcon from 'src/assets/images/icons/closeSideMenu.svg';
 import MenuCloseIconDark from 'src/assets/images/icons/closeSideMenuDark.svg';
-import GridToggleIcon from 'src/assets/images/pdf_archive/pdf_archive_toggle_grid_icon.svg'
-import ListToggleIcon from 'src/assets/images/pdf_archive/pdf_archive_toggle_list_icon.svg'
+import GridToggleLightIcon from 'src/assets/images/pdf_archive/pdf_archive_toggle_grid_light_icon.svg'
+import GridToggleDarkIcon from 'src/assets/images/pdf_archive/pdf_archive_toggle_grid_dark_icon.svg'
+import ListToggleLightIcon from 'src/assets/images/pdf_archive/pdf_archive_list_light_icon.svg'
+import ListToggleDarkIcon from 'src/assets/images/pdf_archive/pdf_archive_list_dark_icon.svg'
 import PlayForwardIcon from 'src/assets/images/icons/playForward.svg';
 import PlayBackwardIcon from 'src/assets/images/icons/playBackward.svg';
 import HeadPhoneIcon from 'src/assets/images/icons/headPhoneIcon.svg';
@@ -285,9 +287,9 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.menuCloseIcon:
             return isDark ? <MenuCloseIconDark {...props} /> : <MenuCloseIcon {...props} />
         case ImagesName.gridToggleIcon:
-            return <GridToggleIcon {...props}/>
+            return isDark ? <GridToggleDarkIcon {...props}/> : <GridToggleLightIcon {...props}/>
         case ImagesName.listToggleIcon:
-            return <ListToggleIcon {...props} />
+            return isDark ? <ListToggleDarkIcon {...props} /> : <ListToggleLightIcon {...props}/>
         case ImagesName.playForwardIcon:
             return <PlayForwardIcon {...props} />
         case ImagesName.playBackwardIcon:
