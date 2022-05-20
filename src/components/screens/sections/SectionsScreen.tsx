@@ -44,16 +44,6 @@ export const SectionsScreen = () => {
 
   const playbackState = usePlaybackState();
 
-  useEffect(() => {
-    stopTrackPlayer()
-  }, [index]);
-
-  const stopTrackPlayer = async () => {
-    setHidePlayerVisibility(!hidePlayerVisibility)
-    if(playbackState === State.Playing){
-      await TrackPlayer.reset();
-    }
-  }
 
 
   const renderScene = ({ route }: any) => {

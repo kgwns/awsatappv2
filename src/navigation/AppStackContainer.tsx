@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {NavigationContainer, NavigationContainerProps, NavigationContainerRef} from '@react-navigation/native';
 import {
@@ -9,8 +9,9 @@ import {
 import analytics from '@react-native-firebase/analytics';
 import {ScreenList, Routes} from 'src/navigation';
 import { ScreensConstants } from 'src/constants';
-import { useLogin } from 'src/hooks';
-import { recordCurrentScreen } from 'src/shared/utils';
+import { useAppPlayer, useLogin } from 'src/hooks';
+import { isNotEmpty, isObjectNonEmpty, recordCurrentScreen } from 'src/shared/utils';
+import TrackPlayer from 'react-native-track-player';
 
 const Stack = createStackNavigator<ScreenList>();
 
@@ -23,9 +24,34 @@ const defaultScreenOptions: StackNavigationOptions = {
 const AppStackContainer = () => {
 
   const {isLoggedIn, loginData, isSkipped} = useLogin();
+  const { selectedTrack, showMiniPlayer } = useAppPlayer()
+  const [previousTrack, setPreviousTrack] = useState<any>(null)
 
   const routeNameRef = React.useRef();
   const navigationRef = React.useRef<NavigationContainerRef<any>>();
+
+  useEffect(() => {
+    if(showMiniPlayer &&  isNotEmpty(selectedTrack) && selectedTrack != previousTrack){
+        setPreviousTrack(selectedTrack);
+        resetAndPlay();
+    }
+  }, [showMiniPlayer]);
+
+  useEffect(() => {
+    if(showMiniPlayer && selectedTrack != previousTrack){
+      setPreviousTrack(selectedTrack);
+      resetAndPlay();
+    }
+  }, [selectedTrack]);
+
+  const resetAndPlay = async () => { 
+      await TrackPlayer.stop();
+      await TrackPlayer.reset();
+      if(isObjectNonEmpty(selectedTrack)){
+          await TrackPlayer.add(selectedTrack);
+          await TrackPlayer.play();
+      }
+  };
 
   return (
     <NavigationContainer

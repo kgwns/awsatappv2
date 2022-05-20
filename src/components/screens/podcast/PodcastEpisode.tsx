@@ -9,11 +9,11 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray, recordLogEvent, isTab, screenWidth } from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useBookmark, useLogin, usePodcast } from 'src/hooks';
+import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
 import { useNavigation } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
-import { getPodcastUrl } from 'src/shared/utils/utilities';
+import { getPodcastUrl, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Styles } from 'src/shared/styles';
 
 export interface PodcastEpisodeProps {
@@ -48,6 +48,8 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     nid: nid
   }
 
+  const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
+
   useEffect(() => {
     fetchPodcastEpisodeRequest(payload)
   }, [])
@@ -79,19 +81,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     setPodcastEpisodeListInfo(podcastListDataInfo)
   }
 
-  useEffect(() => {
-    const backAction = () => {
-      TrackPlayer.stop();
-      return false;
-    };
 
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
-
-    return () => backHandler.remove();
-  }, []);
 
   useEffect(() => {
     updatePodcastEpisodeData()
@@ -184,20 +174,19 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   }
 
   const onListenPress = async () => {
-    setPlayerVisibility(true)
-    if (playbackState == State.Playing) {
-      return
+    if(isObjectNonEmpty(podcastEpisodeInfo)){
+      let trackPlayerData = {
+        id: podcastEpisodeInfo.nid,
+        url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
+        title: podcastEpisodeInfo.title,
+        duration: podcastEpisodeInfo.field_total_duration_export,
+        artist: podcastEpisodeInfo.title,
+        artwork: podcastEpisodeInfo.field_podcast_sect_export?.img_podcast_mobile
+      }
+      recordLogEvent('Played_Podcast', {podcastid: podcastEpisodeInfo.nid });
+      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) setPlayerTrack(trackPlayerData);
+      !showMiniPlayer && setShowMiniPlayer(true);
     }
-    await TrackPlayer.setupPlayer();
-    await TrackPlayer.updateOptions({ stopWithApp: true });
-    await TrackPlayer.add({
-      id: podcastEpisodeInfo.nid,
-      url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
-      title: podcastEpisodeInfo.title,
-      artist: podcastEpisodeInfo.title,
-    });
-    recordLogEvent('Played_Podcast', {podcastid: podcastEpisodeInfo.nid });
-    await TrackPlayer.play();
   }
 
   const togglePlayback = async () => {
@@ -221,14 +210,10 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     }
   };
 
-  const onClose = async () => {
-    await TrackPlayer.stop()
-    setPlayerVisibility(false)
-  }
+ 
 
   const onGoBack = () => {
     navigation.goBack()
-    TrackPlayer.stop()
   }
 
   const renderItem = () => (
@@ -266,9 +251,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
       />
-      {isPlayerVisible && <View style={styles.miniPlayerContainer}>
-        <PodCastMiniPlayer data={podcastEpisodeInfo} onClose={() => onClose()} onPlaybackPress={() => togglePlayback()} />
-      </View>}
+
     </ScreenContainer>
   )
 }

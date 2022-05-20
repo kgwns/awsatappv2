@@ -7,6 +7,8 @@ import { LoadingState } from 'src/components/atoms';
 import { fetchVideoDetailInfo } from 'src/services/VideoServices';
 import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types';
 import { isNonEmptyArray, isObjectNonEmpty, recordLogEvent } from 'src/shared/utils';
+import TrackPlayer from 'react-native-track-player';
+import { useAppPlayer } from 'src/hooks';
 export interface VideoPlayerScreenProps {
   route: any
 }
@@ -15,6 +17,7 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
 
   const styles = useThemeAwareObject(createStyles);
   const navigation = useNavigation();
+  const { setShowMiniPlayer, setPlayerTrack } = useAppPlayer()
 
   const { mediaID, videoUrl, nid } = route.params
   const [playerUrl, setPlayerUrl] = useState<string>(videoUrl)
@@ -26,7 +29,15 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
   useEffect(() => {
     if(nid) recordLogEvent('Played_Specific_Video', {videoid: nid});
     getVideoUrlInfo()
+    stopTrackPlayer()
   }, [])
+
+  const stopTrackPlayer = async () => {
+    await TrackPlayer.stop();
+    await TrackPlayer.reset();
+    setShowMiniPlayer(false);
+    setPlayerTrack(null);
+  }
 
   const getVideoUrlInfo = async () => {
     if (mediaID) {

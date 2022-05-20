@@ -7,10 +7,15 @@ import SplashNavigation from './src/navigation/SplashNavigation';
 import { ThemeProvider } from 'src/shared/styles/ThemeProvider';
 import { DEFAULT_LIGHT_THEME } from 'src/shared/styles/colors';
 import Orientation from 'react-native-orientation-locker'
+import AppPlayer from 'src/shared/utils/appPlayer';
 
 const App = () => {
   useEffect(() => {
     Orientation.lockToPortrait()
+  }, [])
+
+  useEffect(() => {
+    AppPlayer.initializePlayer()
   }, [])
 
   return (

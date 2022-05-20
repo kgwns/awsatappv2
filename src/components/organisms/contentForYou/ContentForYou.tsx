@@ -109,19 +109,7 @@ export const ContentForYou = () => {
         }
         setSelectedTrack(nid) 
     }
-
-    useFocusEffect(
-        React.useCallback(() => {
-            const unsubscribe = () => { stopTrackPlayer() };
-            return () => {
-                unsubscribe();
-            }
-        }, [])
-    );
-
-    const stopTrackPlayer = async () => {
-        await TrackPlayer.reset();
-    }
+  
 
 
     useEffect(() => {
