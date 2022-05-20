@@ -1,5 +1,7 @@
 package com.awsatapp.reactPackage;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Choreographer;
 import android.view.View;
@@ -9,38 +11,42 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.awsatapp.MainActivity;
 import com.awsatapp.reactPackage.fragment.DownloadNewsFragment;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 
 /**
  * @Author: Saravanakumar Subramanian
  * @Date: 17/05/22
  */
-public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>
+public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>{
+    public final int DOWNLOAD_NEWS  = 2;
+    ReactApplicationContext reactContext;
 
-    {
-        public final int DOWNLOAD_NEWS  = 2;
-        ReactApplicationContext reactContext;
-        private int propWidth;
-        private int propHeight;
+    private String theme;
+    private int propWidth;
+    private int propHeight;
 
     public DownloadNewsViewManager(ReactApplicationContext reactContext) {
         this.reactContext = reactContext;
-    }
-        @NonNull
-        @Override
-        public String getName() {
-        return "DownloadNewsViewManager";
-    }
 
-        @NonNull
-        @Override
-        protected FrameLayout createViewInstance(@NonNull ThemedReactContext reactContext) {
+    }
+    @NonNull
+    @Override
+    public String getName() {
+    return "DownloadNewsViewManager";
+}
+
+    @NonNull
+    @Override
+    protected FrameLayout createViewInstance(@NonNull ThemedReactContext reactContext) {
         return new FrameLayout(reactContext);
     }
 
@@ -49,7 +55,6 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>
         super.receiveCommand(root, commandId, args);
         int reactNativeViewId = args.getInt(0);
         int commandIdInt = Integer.parseInt(commandId);
-        Log.d("reactNativeViewId", "reactNativeViewIde: " +commandIdInt);
         switch (commandIdInt) {
 
             case DOWNLOAD_NEWS:
@@ -59,8 +64,16 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>
         }
     }
 
-        @ReactPropGroup(names = {"width", "height"}, customType = "Style")
-        public void setStyle(FrameLayout view, int index, Integer value) {
+    @ReactProp(name = "userTheme")
+    public void setUserTheme(FrameLayout view, @Nullable String themeData) {
+        Intent intent = new Intent("custom-action-local-broadcast");
+        intent.putExtra("theme", themeData);
+        LocalBroadcastManager.getInstance(reactContext).sendBroadcast(intent);
+        this.theme = themeData;
+    }
+
+    @ReactPropGroup(names = {"width", "height"}, customType = "Style")
+    public void setStyle(FrameLayout view, int index, Integer value) {
         if (index == 0) {
             propWidth = value;
         }
@@ -73,12 +86,15 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>
     public void createDownloadNewsFragment(FrameLayout root, int reactNativeViewId) {
         ViewGroup parentView = (ViewGroup) root.findViewById(reactNativeViewId);
         setupLayout(parentView);
+        Bundle bundle = new Bundle();
+        bundle.putString("theme",this.theme);
+        final DownloadNewsFragment downloadNewsFragment = new DownloadNewsFragment();
+        downloadNewsFragment.setArguments(bundle);
+        MainActivity activity = (MainActivity) reactContext.getCurrentActivity();
 
-        final DownloadNewsFragment myFragment = new DownloadNewsFragment();
-        FragmentActivity activity = (FragmentActivity) reactContext.getCurrentActivity();
         activity.getSupportFragmentManager()
                 .beginTransaction()
-                .replace(reactNativeViewId, myFragment, String.valueOf(reactNativeViewId))
+                .replace(reactNativeViewId, downloadNewsFragment, String.valueOf(reactNativeViewId))
                 .commit();
     }
 

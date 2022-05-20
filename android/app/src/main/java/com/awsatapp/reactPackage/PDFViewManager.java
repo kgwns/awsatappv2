@@ -50,7 +50,6 @@ public class PDFViewManager extends SimpleViewManager<FrameLayout> {
         super.receiveCommand(root, commandId, args);
         int reactNativeViewId = args.getInt(0);
         int commandIdInt = Integer.parseInt(commandId);
-        Log.d("reactNativeViewId", "reactNativeViewIde: " +commandIdInt);
         switch (commandIdInt) {
             case COMMAND_CREATE:
                 createFragment(root, reactNativeViewId);

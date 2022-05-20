@@ -1,6 +1,9 @@
 package com.awsatapp.reactPackage.Activity;
 
+import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -9,12 +12,14 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.Constant;
+import com.awsatapp.reactPackage.MyContextWrapper;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.CoreListAdapter;
 import com.awsatapp.reactPackage.PdfAdapter;
@@ -55,7 +60,10 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
         super.onCreate(savedInstanceState);
         setBackButtonEnabled();
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_green));
+        toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
+        setBackButtonEnabled(toolbar);
+        toolbar.setElevation(0);
         setTitle(getString(R.string.pdf_archive_title));
         setOptionsMenu(R.menu.pdf_archive);
         rvList.addItemDecoration(new SimpleDividerItemDecoration(getResources()));
@@ -94,7 +102,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                 public void onSuccess(PdfWrapper response) {
                     ArrayList<Pdf> pdfs = new ArrayList<>(Arrays.asList(response.getData()));
                     Collections.reverse(pdfs);
-                    getAdapter().updateItems(pdfs);
+                    getAdapter().updateItems(new ArrayList<>(pdfs.subList(0,14)));
                     mPdfs = (ArrayList<Pdf>) getAdapter().getItems();
                     hideLoader();
                 }
@@ -136,7 +144,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                 } else if (pdf.getStatus() == 2) {
                     final String path = mContext.getFilesDir().getPath() + "/" + pdf.getIssueNumber() + ".pdf";
                     String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
-                    String title = Utils.getFullDateFromTimestamp(new Locale(lang), pdf.getCreated()) + " " + getString(R.string.issue_number) + " " + pdf.getIssueNumber();
+                    String title = Utils.getFullDateFromTimestamp(new Locale(lang), pdf.getCreated()) + " " + getString(R.string.issue_number);
                     startActivity(PdfActivity.newInstance(mContext, path, title));
                 }
         }
@@ -234,5 +242,29 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
 
         }
         return super.onMenuItemClick(item);
+    }
+
+    public void setBackButtonEnabled(Toolbar tb) {
+        setBackButtonEnabled(tb, true);
+    }
+
+    public void setBackButtonEnabled(Toolbar tb, boolean blackColor) {
+        if (tb != null) {
+            Context context = MyContextWrapper.wrap(mContext, new Locale(CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE, "ar")));
+            Drawable upArrow = ContextCompat.getDrawable(context, R.drawable.ic_back);
+//            if (blackColor) {
+//                upArrow.setColorFilter(ContextCompat.getColor(context, android.R.color.black), PorterDuff.Mode.SRC_ATOP);
+//            } else {
+//                upArrow.setColorFilter(ContextCompat.getColor(context, android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+//            }
+            tb.setNavigationIcon(upArrow);
+
+            tb.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
+        }
     }
 }

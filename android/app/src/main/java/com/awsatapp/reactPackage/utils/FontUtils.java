@@ -19,16 +19,16 @@ import androidx.appcompat.widget.Toolbar;
 
 public class FontUtils {
     public static Typeface getBold(Context context) {
-        return Utils.getTypeFace(context, "AwsatBold.otf");
+        return Utils.getTypeFace(context, "AwsatDigitalBetav10-Bold.ttf");
     }
 
     public static Typeface getBlack(Context context) {
-        return Utils.getTypeFace(context, "AwsatBlack.otf");
+        return Utils.getTypeFace(context, "AwsatDigitalBetav10-Black.ttf");
 
     }
 
     public static Typeface getLight(Context context) {
-        return Utils.getTypeFace(context, "AwsatLight.otf");
+        return Utils.getTypeFace(context, "AwsatDigitalBetav10-Regular.ttf");
     }
 
     public static void setBold(Context context, TextView... textViews) {

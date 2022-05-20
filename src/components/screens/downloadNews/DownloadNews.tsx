@@ -5,6 +5,7 @@ import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
 import { View } from 'react-native';
 import { UIManager, findNodeHandle, PixelRatio, Dimensions } from 'react-native';
 import { DownloadNewsViewManager } from './DownloadNewsViewManager';
+import { useAppCommon } from 'src/hooks';
 
 interface DownloadNewsProps {}
 
@@ -21,12 +22,19 @@ const WINDOW_WIDTH = Dimensions.get('window').width; // device height
 
 export const DownloadNews = (props: DownloadNewsProps) => {
   const [t] = useTranslation()
+  const theme = useAppCommon()
   const ref = React.useRef(null);
+  const [userTheme,setUserTheme] = React.useState<String>("")
   
   React.useEffect(() => {
     const viewId = findNodeHandle(ref.current);
     createFragment(viewId);
   }, []);
+
+  React.useEffect(()=>{
+    console.log('themeSelected',theme)
+    setUserTheme(theme.theme)
+  },[theme])
 
   return (
     <ScreenContainer
@@ -39,6 +47,7 @@ export const DownloadNews = (props: DownloadNewsProps) => {
             height: PixelRatio.getPixelSizeForLayoutSize(WINDOW_HEIGHT),
             width: PixelRatio.getPixelSizeForLayoutSize(WINDOW_WIDTH)
           }}
+          userTheme={userTheme}
           ref={ref}
         />
       </View>

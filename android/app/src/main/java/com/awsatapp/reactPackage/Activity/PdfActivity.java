@@ -56,7 +56,9 @@ public class PdfActivity extends CoreActivity {
         mTitle = getIntent().getStringExtra(EXTRA_TITLE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_green));
+        toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
+        toolbar.setElevation(0);
         setBackButtonEnabled(toolbar);
         setTitle(toolbar, mTitle);
 

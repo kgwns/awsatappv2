@@ -34,7 +34,7 @@ public class PDFPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(
             @NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new RenderPDF());
+        modules.add(new GetReactTheme());
         return modules;
     }
 

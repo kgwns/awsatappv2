@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@color/background_color">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/abl"
@@ -20,7 +20,9 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:elevation="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:titleTextColor="@color/toolbar_title"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
+            app:navigationIcon="@drawable/ic_back" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

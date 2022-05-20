@@ -2,6 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_color"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -36,7 +38,7 @@
                 android:paddingBottom="0dp"
                 android:text="@string/news_archive_title"
                 android:textAllCaps="false"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/archive_btn_label" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,8 +63,7 @@
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:textAlignment="textStart"
                 android:textSize="18sp"
-                android:textColor="#174038"
-                android:textColorHint="#174038"
+                android:textColor="@color/download_news_title"
                 android:textStyle="bold"/>
 
             <TextView
@@ -71,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/download_news_subtitle" />
 
 
         </LinearLayout>
@@ -120,14 +121,15 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_gravity="center"
-        android:background="@drawable/download_btn_black"
+        android:background="@drawable/download_news_btn"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingTop="0dp"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingBottom="0dp"
+        android:fontFamily="@font/bold"
         android:text="@string/download"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/download_news_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />

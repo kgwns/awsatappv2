@@ -64,18 +64,18 @@ public class CoreActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     }
 
     public void setBackButtonEnabled(Toolbar tb) {
-        setBackButtonEnabled(tb, false);
+        setBackButtonEnabled(tb, true);
     }
 
     public void setBackButtonEnabled(Toolbar tb, boolean blackColor) {
         if (tb != null) {
             Context context = MyContextWrapper.wrap(mContext, new Locale(CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE, "ar")));
-            Drawable upArrow = ContextCompat.getDrawable(context, R.drawable.ic_arrow_back_white_24dp);
-            if (blackColor) {
-                upArrow.setColorFilter(ContextCompat.getColor(context, android.R.color.black), PorterDuff.Mode.SRC_ATOP);
-            } else {
-                upArrow.setColorFilter(ContextCompat.getColor(context, android.R.color.white), PorterDuff.Mode.SRC_ATOP);
-            }
+            Drawable upArrow = ContextCompat.getDrawable(context, R.drawable.ic_back);
+//            if (blackColor) {
+//                upArrow.setColorFilter(ContextCompat.getColor(context, android.R.color.black), PorterDuff.Mode.SRC_ATOP);
+//            } else {
+//                upArrow.setColorFilter(ContextCompat.getColor(context, android.R.color.white), PorterDuff.Mode.SRC_ATOP);
+//            }
             tb.setNavigationIcon(upArrow);
 
             tb.setNavigationOnClickListener(new View.OnClickListener() {

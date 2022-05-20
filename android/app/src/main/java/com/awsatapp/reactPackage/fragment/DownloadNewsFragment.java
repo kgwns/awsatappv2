@@ -1,5 +1,14 @@
 package com.awsatapp.reactPackage.fragment;
 
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
+
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,7 +22,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.awsatapp.MainActivity;
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.Activity.PdfActivity;
 import com.awsatapp.reactPackage.Activity.PdfArchiveActivity;
@@ -39,6 +53,7 @@ import org.json.JSONException;
 
 import java.io.File;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Copyright (C) 2017 Mtech.mobi. All rights reserved.
@@ -46,7 +61,8 @@ import java.util.Locale;
  */
 
 public class DownloadNewsFragment extends CoreFragment implements View.OnClickListener {
-
+    private ConstraintLayout constraintLayout;
+    private View rootView;
     private TextView mTitle;
     private ImageView mImage;
     private TextView mDate;
@@ -54,22 +70,51 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     private Button archiveBtn;
     private ProgressBar mLoader;
     private LinearLayout mContainer;
+    private PendingIntent pi;
     private Pdf mPdf;
 
     public static DownloadNewsFragment newInstance() {
         return new DownloadNewsFragment();
     }
 
+    private final BroadcastReceiver fragmentBroadcast = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String themeData = intent.getStringExtra("theme");
+            if(Objects.equals(themeData, "light")){
+                AppCompatDelegate.setDefaultNightMode( MODE_NIGHT_NO);
+                constraintLayout.setBackgroundColor(getResources().getColor(R.color.background_color));
+                mDownlaodBtn.setBackground(ContextCompat.getDrawable(context,R.drawable.download_btn_black));
+                mDownlaodBtn.setTextColor(Color.parseColor("#FFFFFF"));
+            }else {
+                constraintLayout.setBackgroundColor(Color.parseColor("#070606"));
+                mDownlaodBtn.setBackground(ContextCompat.getDrawable(context,R.drawable.download_btn));
+                mDownlaodBtn.setTextColor(Color.parseColor("#070606"));
+                AppCompatDelegate.setDefaultNightMode( MODE_NIGHT_YES);
+            }
 
+
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_download_news, container, false);
+        String theme = getArguments().getString("theme");
+        Log.i("fragment",getArguments().toString());
+//        if(Objects.equals(theme, "light")){
+//            AppCompatDelegate.setDefaultNightMode( MODE_NIGHT_NO);
+//        }else{
+//            AppCompatDelegate.setDefaultNightMode( MODE_NIGHT_YES);
+//        }
+        rootView = inflater.inflate(R.layout.fragment_download_news, container, false);
+
+        return rootView;
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        constraintLayout = (ConstraintLayout)  view.findViewById(R.id.container);
         mTitle = (TextView) view.findViewById(R.id.title);
         mImage = (ImageView) view.findViewById(R.id.image);
         mDate = (TextView) view.findViewById(R.id.date);
@@ -87,6 +132,19 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         getPdfArchive();
     }
 
+    @Override
+    public void onResume() {
+        IntentFilter filter = new IntentFilter("custom-action-local-broadcast");
+        LocalBroadcastManager.getInstance(requireActivity()).registerReceiver(fragmentBroadcast,filter);
+
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
     private void getPdfArchive() {
         NetworkManager networkManager = new NetworkManager(mContext);
         showLoader();
@@ -96,7 +154,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                 public void onSuccess(PdfWrapper response) {
                     if (response != null) {
                         mPdf = response.getData()[response.getData().length -1];
-                        mTitle.setText(mTitle.getContext().getString(R.string.issue_number) + " " + mPdf.getIssueNumber());
+                        mTitle.setText(mTitle.getContext().getString(R.string.issue_number));
 
                         String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE,"ar");
                         mDate.setText(Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()));
@@ -237,7 +295,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                 } else if (mPdf.getStatus() == 2) {
                     final String path = mContext.getFilesDir().getPath() + "/" + mPdf.getIssueNumber() + ".pdf";
                     String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
-                    String title = Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()) + " " + getString(R.string.issue_number) + " " + mPdf.getIssueNumber();
+                    String title = Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()) + " " + getString(R.string.issue_number);
                     startActivity(PdfActivity.newInstance(mContext, path, title));
                 }
             break;
