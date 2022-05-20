@@ -6,10 +6,10 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
-import { Image } from 'src/components/atoms';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { useAppCommon } from 'src/hooks';
 import { Theme } from 'src/redux/appCommon/types';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 const PDFArchiveView: any = requireNativeComponent('RNPDFArchiveView')
 
@@ -35,12 +35,21 @@ export const PDFArchiveIOS = () => {
     setLayoutSelectedType(newLayout)
   }
 
+  const ToggleSVG = ({ iconName, tintColor }: { iconName: ImagesName, tintColor: string }) => (
+    <>
+      {getSvgImages({
+        name: iconName, width: 20, height: 20,
+        style: { tintColor }
+      })}
+    </>
+  )
+
   const headerLeftElement = () => {
     const iconName = layoutSelectedType == ArchiveLayoutType.grid ? ImagesName.gridToggleIcon : ImagesName.listToggleIcon
     const tintColor = theme === Theme.DARK ? Styles.color.white : Styles.color.black
     return (
       <TouchableOpacity style={style.iconContainer} onPress={onPressChangeLayout}>
-        <Image name={iconName} size={20} style={{ tintColor: tintColor }} />
+        <ToggleSVG iconName={iconName} tintColor={tintColor} />
       </TouchableOpacity>
     )
   }
