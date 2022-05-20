@@ -16,7 +16,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import androidx.appcompat.widget.Toolbar;
@@ -41,6 +43,8 @@ public class PdfActivity extends CoreActivity {
     private String mTitle;
 
     private PDFViewPager mPdfViewPager;
+    private ImageView backIcon;
+    private TextView title;
 
     public static Intent newInstance(Context context, String pathToFile, String title) {
         Intent intent = new Intent(context, PdfActivity.class);
@@ -57,11 +61,14 @@ public class PdfActivity extends CoreActivity {
         mTitle = getIntent().getStringExtra(EXTRA_TITLE);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        backIcon = toolbar.findViewById(R.id.backIcon);
+        title = toolbar.findViewById(R.id.title);
         toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
         toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
         toolbar.setElevation(0);
-        setTitle(toolbar, mTitle);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        //setTitle(toolbar, mTitle);
+        title.setText(mTitle);
+        backIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
