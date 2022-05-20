@@ -106,6 +106,8 @@ export enum ImagesName {
   playBackwardIcon = 'playBackwardIcon',
   headPhoneIcon = 'headPhoneIcon',
   arrowLeftBlack = 'arrowLeftBlack',
+  printVersionActiveIcon = 'printVersionActiveIcon',
+  printVersionGrayIcon = 'printVersionGrayIcon'
 }
 
 export const images = {

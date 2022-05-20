@@ -123,6 +123,8 @@ import ListToggleIcon from 'src/assets/images/pdf_archive/pdf_archive_toggle_lis
 import PlayForwardIcon from 'src/assets/images/icons/playForward.svg';
 import PlayBackwardIcon from 'src/assets/images/icons/playBackward.svg';
 import HeadPhoneIcon from 'src/assets/images/icons/headPhoneIcon.svg';
+import PrintVersionActiveIcon from 'src/assets/images/icons/print_version_green.svg';
+import PrintVersionGrayIcon from 'src/assets/images/icons/print_version_gray.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
@@ -294,6 +296,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <PlayBackwardIcon {...props} />
         case ImagesName.headPhoneIcon:
             return <HeadPhoneIcon {...props} />
+        case ImagesName.printVersionActiveIcon:
+            return <PrintVersionActiveIcon {...props} />
+        case ImagesName.printVersionGrayIcon:
+            return<PrintVersionGrayIcon {...props} />
         default: return null
     }
 }

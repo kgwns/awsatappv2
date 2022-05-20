@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_half_horizontal_margin">8dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_quarter_horizontal_margin">4dp</dimen>
+
+
+    <!--Padding and margins-->
+    <dimen name="xxsmall">2.5dp</dimen>
+    <dimen name="xsmall">5dp</dimen>
+    <dimen name="small">10dp</dimen>
+    <dimen name="smedium">15dp</dimen>
+    <dimen name="medium">20dp</dimen>
+    <dimen name="slarge">30dp</dimen>
+    <dimen name="large">40dp</dimen>
+    <dimen name="xlarge">80dp</dimen>
+
+    <dimen name="login_header_height">140dp</dimen>
+
+    <!--Button Progress -->
+
+    <dimen name="text_size_default">16sp</dimen>
+    <dimen name="default_width">150dp</dimen>
+    <dimen name="default_height">50dp</dimen>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+</resources>
