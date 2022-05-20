@@ -22,7 +22,7 @@ interface Props {
   initial: CustomThemeType;
   children?: React.ReactNode;
 }
-const { ReactTheme } = NativeModules;
+const { ReactTheme, ThemeManager } = NativeModules;
 export const ThemeProvider = React.memo<Props>((props) => {
   const { theme } = useAppCommon()
 
@@ -34,8 +34,10 @@ export const ThemeProvider = React.memo<Props>((props) => {
     } else if (theme == Theme.LIGHT) {
       setTheme(DEFAULT_LIGHT_THEME)
     }
-    if(isAndroid) {
+    if (isAndroid) {
       ReactTheme.getReactTheme(theme)
+    } else {
+      ThemeManager.setTheme(theme)
     }
   }, [theme])
 

@@ -10,13 +10,6 @@ import SwiftyJSON
 
 class TodayTabView: UIView, LoadingView {
   
-    @objc var userInterfaceStyle: String = "" {
-      willSet {
-        if(!newValue.isEmpty) {
-          window?.overrideUserInterfaceStyle = newValue == "light" ? .light : .dark
-        }
-      }
-    }
     @objc var onItemClick: RCTBubblingEventBlock?
     @objc var onArchiveButtonClick: RCTBubblingEventBlock?
   
@@ -66,7 +59,6 @@ class TodayTabView: UIView, LoadingView {
         setUpCollectionView()
         addObservers()
         load(EndPoints.pdfArchive.endPoint)
-        window?.overrideUserInterfaceStyle = userInterfaceStyle == "light" ? .light : .dark
     }
   
     private func setUpCollectionView() {
