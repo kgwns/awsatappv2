@@ -26,6 +26,7 @@ import MenuIcon from 'src/assets/images/headerIcons/menuIcon.svg'
 import MenuIconDark from 'src/assets/images/headerIcons/menuIconDark.svg'
 import HeaderLogo from 'src/assets/images/headerIcons/headerIcon.svg'
 import HeaderLogoDark from 'src/assets/images/headerIcons/headerIcon_dark.svg'
+import LogoBlack from 'src/assets/images/logoBlack.svg'
 
 //Tab Icons
 import NewsIcon from 'src/assets/images/tabIcons/newsIcon.svg'
@@ -127,6 +128,8 @@ import PlayBackwardIcon from 'src/assets/images/icons/playBackward.svg';
 import HeadPhoneIcon from 'src/assets/images/icons/headPhoneIcon.svg';
 import PrintVersionActiveIcon from 'src/assets/images/icons/print_version_green.svg';
 import PrintVersionGrayIcon from 'src/assets/images/icons/print_version_gray.svg';
+
+import PopupImage from 'src/assets/images/popupImage.svg'
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
@@ -302,6 +305,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <PrintVersionActiveIcon {...props} />
         case ImagesName.printVersionGrayIcon:
             return<PrintVersionGrayIcon {...props} />
+        case ImagesName.logoBlack:
+            return <LogoBlack {...props} />
+        case ImagesName.popupImage:
+            return <PopupImage {...props} />    
         default: return null
     }
 }

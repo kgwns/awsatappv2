@@ -3,10 +3,10 @@ import { Dimensions, StyleSheet } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { BottomSheetView } from 'src/components/molecules';
 import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
-import { CustomThemeType } from 'src/shared/styles/colors';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { AlertModal } from '../AlertModal/AlertModal';
-import { SIGN_UP, NOT_SUBSCRIBED, SAVE_ARTICLE_TO_YOUR_FAVOURITES, CREATE_ACCOUNT_DESCRIPTION } from 'src/constants/SharedConstants'
+import { SIGN_UP, NOT_SUBSCRIBED, SAVE_ARTICLE_TO_YOUR_FAVOURITES, CREATE_ACCOUNT_DESCRIPTION, LOG_IN } from 'src/constants/SharedConstants'
 
 
 export enum PopUpType {
@@ -23,6 +23,8 @@ export interface PopUpProp {
     subTitle?: string,
     description?: string,
     buttonLabel?: string,
+    signUpLabel?: string,
+    logInLabel?: string,
 }
 
 
@@ -34,11 +36,13 @@ export const PopUp = ({
     title = NOT_SUBSCRIBED,
     subTitle = SAVE_ARTICLE_TO_YOUR_FAVOURITES,
     description = CREATE_ACCOUNT_DESCRIPTION,
-    buttonLabel = SIGN_UP
+    buttonLabel = SIGN_UP,
+    signUpLabel = SIGN_UP,
+    logInLabel = LOG_IN
 }: PopUpProp) => {
     let refRBSheet: RBSheet = useRef();
     const style = useThemeAwareObject(customStyle);
-    const [height, setheight] = useState(0.8 * screenHeight)
+    const [height, setheight] = useState(0.85 * screenHeight)
 
     useEffect(() => {
         if (type === PopUpType.rbSheet) { (showPopUp) ? refRBSheet.open() : refRBSheet.close() }
@@ -63,7 +67,7 @@ export const PopUp = ({
 
     useEffect(() => {
         if (currentOrientation === 'PORTRAIT')
-            setheight(0.8 * screenHeight)
+            setheight(0.85 * screenHeight)
         else
             setheight(0.7 * screenWidth)
     }, [currentOrientation]);
@@ -104,7 +108,8 @@ export const PopUp = ({
                 title={title}
                 subTitle={subTitle}
                 description={description}
-                buttonLabel={buttonLabel} />
+                signUpLabel={signUpLabel}
+                logInLabel={logInLabel} />
         </RBSheet>
     )
 
@@ -133,7 +138,7 @@ const customStyle = (theme: CustomThemeType) => {
         rbSheetContainer: {
             alignItems: "center",
             borderRadius: normalize(20),
-            backgroundColor: theme.backgroundColor
+            backgroundColor: theme.bottomSheetBackground
         },
         rbDraggableIcon: {
             width: normalize(122),
@@ -141,7 +146,7 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: theme.primaryBlack
         },
         popupBackground: {
-            backgroundColor: theme.popupBackground,
+            backgroundColor: colors.dim_gray
         }
     });
     return popUpStyle

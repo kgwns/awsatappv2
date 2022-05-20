@@ -228,7 +228,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     authorName:{
       fontSize: normalize(22),
-      lineHeight: normalize(22),
+      lineHeight: normalize(36),
       color: theme.primaryBlack,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       textAlign: 'left',

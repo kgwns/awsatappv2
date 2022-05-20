@@ -91,10 +91,10 @@ export const ScreenContainer = ({
   const [showPlayerControls, setShowPlayerControls] = useState(false);
 
   const onClose = async () => {
-    await TrackPlayer.stop();
-    await TrackPlayer.reset();
     setShowMiniPlayer(false)
     setPlayerTrack(null)
+    await TrackPlayer.stop();
+    await TrackPlayer.reset();
   }
 
   const onPressSignUp = () => {

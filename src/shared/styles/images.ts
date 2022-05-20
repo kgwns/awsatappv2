@@ -13,7 +13,7 @@ import placeholderImg from 'src/assets/images/icons/placeholder_image.png'
 import crossWord from 'src/assets/images/cross_word_image.png'
 import sudoku from 'src/assets/images/sudoku_image.png'
 import pdfIcon from 'src/assets/images/pdf_icon.png'
-
+import popupImage from 'src/assets/images/popupImage.png'
 
 export enum ImagesName {
   newsIcon = 'newsIcon',
@@ -31,6 +31,7 @@ export enum ImagesName {
   clock = 'clock',
   clockWhite = 'clockWhite',
   headerLogo = 'headerLogo',
+  logoBlack = 'logoBlack',
   searchIcon = 'searchIcon',
   menuIcon = 'menuIcon',
   bookMarkWhite = 'bookMarkWhite',
@@ -105,7 +106,8 @@ export enum ImagesName {
   headPhoneIcon = 'headPhoneIcon',
   arrowLeftBlack = 'arrowLeftBlack',
   printVersionActiveIcon = 'printVersionActiveIcon',
-  printVersionGrayIcon = 'printVersionGrayIcon'
+  printVersionGrayIcon = 'printVersionGrayIcon',
+  popupImage = 'popupImage',
 }
 
 export const images = {
@@ -122,6 +124,7 @@ export const images = {
   crossWord,
   sudoku,
   pdfIcon,
+  popupImage
 };
 
 export const darkImages = {

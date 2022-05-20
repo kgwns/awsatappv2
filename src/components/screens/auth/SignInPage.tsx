@@ -8,7 +8,7 @@ import {
   Alert,
   Keyboard,
 } from 'react-native';
-import {isObjectNonEmpty, normalize, recordLogEvent} from 'src/shared/utils';
+import {isIOS, isObjectNonEmpty, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from 'src/components/organisms/';
 import {ScreensConstants} from 'src/constants';
@@ -262,7 +262,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
                 accessibilityLabel="signin_back"
                 onPress={() => navigateToSection('')}>
                 <View style={styles.headerContainer}>
-                  <BackIcon fill={themeData.textColor} />
+                  <BackIcon fill={themeData.textColor} style={{marginBottom: isIOS ? 5 : 0}} />
                   <Label
                     children={t('signIn.return')}
                     style={styles.headerLabelStyle}
