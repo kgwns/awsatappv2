@@ -22,8 +22,6 @@ class AppPlayer {
                   ],
             });
 
-            // TrackPlayer.setRepeatMode(RepeatMode.Track);
-
             await TrackPlayer.setupPlayer();
         } catch (e) {
             console.log(e);

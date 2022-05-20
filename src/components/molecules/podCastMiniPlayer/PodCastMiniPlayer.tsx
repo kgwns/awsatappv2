@@ -94,9 +94,6 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
         let seekValue = 10
         let position = progress.position
         let duration = progress.duration
-
-        
-
         let seekPosition = position
         
         if(type == 'forward'){
