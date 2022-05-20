@@ -22,6 +22,7 @@ export enum TranslateKey {
     SECTION_COMBO_SIX,
     SECTION_COMBO_SEVEN,
     EDITOR_CHOICE_HEADER_TITLE,
+    DRAWER_PDF_ARCHIVE
 }
 
 export const TranslateConstants = ({
@@ -70,6 +71,8 @@ export const TranslateConstants = ({
             return t('latestNewsTab.sectionComboSeven.headerLeft')
         case TranslateKey.EDITOR_CHOICE_HEADER_TITLE:
             return t('latestNewsTab.editorsChoice.headerLeft')
+        case TranslateKey.DRAWER_PDF_ARCHIVE:
+            return t('drawer.pdfArchive')
         default: return ''
     }
 }

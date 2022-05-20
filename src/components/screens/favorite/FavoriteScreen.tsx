@@ -77,6 +77,7 @@ export const FavoriteScreen = () => {
 
   const renderItem = () => (
     <View style={{ flex: 1 }}>
+      {renderTabBarComponent()}
       {tabContent()}
     </View>
   )
@@ -91,7 +92,6 @@ export const FavoriteScreen = () => {
 
   return (
     <ScreenContainer edge={horizontalEdge}>
-      {renderTabBarComponent()}
       {isLoggedIn  ?
        <FlatList
         ref={ref}

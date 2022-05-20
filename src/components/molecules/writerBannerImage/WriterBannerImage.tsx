@@ -269,5 +269,12 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'center',
       paddingHorizontal: normalize(10)
     },
+    prevIconStyle: {
+      width: normalize(12),
+      height: normalize(8.8),
+      paddingTop: isIOS ? 10 : 9,
+      alignItems: 'center',
+      paddingHorizontal: normalize(10)
+    },
   })
 } 

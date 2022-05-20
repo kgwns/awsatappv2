@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useAppCommon } from 'src/hooks';
+import {NativeModules} from 'react-native';
 import { DEFAULT_LIGHT_THEME, CustomThemeType, DEFAULT_DARK_THEME, LIGHT_THEME_ID, DARK_THEME_ID } from './colors';
 import { Theme } from 'src/redux/appCommon/types';
+import { isAndroid } from '../utils';
 
 interface ProvidedValue {
   themeData: CustomThemeType;
@@ -20,7 +22,7 @@ interface Props {
   initial: CustomThemeType;
   children?: React.ReactNode;
 }
-
+const { ReactTheme, ThemeManager } = NativeModules;
 export const ThemeProvider = React.memo<Props>((props) => {
   const { theme } = useAppCommon()
 
@@ -31,6 +33,11 @@ export const ThemeProvider = React.memo<Props>((props) => {
       setTheme(DEFAULT_DARK_THEME)
     } else if (theme == Theme.LIGHT) {
       setTheme(DEFAULT_LIGHT_THEME)
+    }
+    if (isAndroid) {
+      ReactTheme.getReactTheme(theme)
+    } else {
+      ThemeManager.setTheme(theme)
     }
   }, [theme])
 

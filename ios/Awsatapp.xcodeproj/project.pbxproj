@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* AwsatappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AwsatappTests.m */; };
 		09780F0B561145AD914E833A /* AwsatDigitalv2b-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F35CA0AC7E842CC989B0C26 /* AwsatDigitalv2b-Regular.ttf */; };
-		0DADE4D627DA4AAD009F9C8A /* trackPlayerDummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DADE4D527DA4AAD009F9C8A /* trackPlayerDummy.swift */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1BCC838D77E04AD686D4BE54 /* Beirut.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24FC697514344A82B3783D7A /* Beirut.ttf */; };
 		383C0A0AB8874E17A395D2DD /* AwsatDigitalBetav10-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1921403A746E47BD885480D8 /* AwsatDigitalBetav10-Black.ttf */; };
@@ -20,6 +18,7 @@
 		52B5C8CA19974215925660F6 /* Almarai-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5754958B03F4F8697391B05 /* Almarai-Light.ttf */; };
 		5357BE729B3C4A038D324F02 /* IBMPlexSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCAF97FCEBA04671A1F23140 /* IBMPlexSansArabic-Bold.ttf */; };
 		5E92D08527D24F7700592089 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E92D08427D24F7700592089 /* GoogleService-Info.plist */; };
+		726652B4F4065671C8A71E8D /* libPods-Awsatapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F2F1644163037A2C5978CF /* libPods-Awsatapp.a */; };
 		7476FD19439D42338A420F44 /* Effra-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C512A59BE94247A5B2850233 /* Effra-Medium.ttf */; };
 		7CBB19684ACB44F8882E4025 /* Almarai-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F73EBFEE44F14FD689B8CD00 /* Almarai-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -27,19 +26,70 @@
 		8B3BA46F3B5548999CD39890 /* AwsatDigitalBetav10-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6F92F68DFA74CDC8DDDD536 /* AwsatDigitalBetav10-Bold.ttf */; };
 		8D00CD9EF80B4DB8852B9964 /* subjectivity-medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E7BE3A7CC445D8BAB40327 /* subjectivity-medium.otf */; };
 		928468CA882F4F17B52EF50A /* AwsatDigitalv2b-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E412FC49EB497C9B8E3575 /* AwsatDigitalv2b-Black.ttf */; };
-		93EAB321D62DFD35FEFD4ED7 /* libPods-Awsatapp-AwsatappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F12B9E34FDF31B7EE2F6980 /* libPods-Awsatapp-AwsatappTests.a */; };
 		966D9D379C6F4BD99099A78E /* IBMPlexSansArabic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D3FCA19E5074AAC9164401F /* IBMPlexSansArabic-Regular.ttf */; };
+		A281F88502F1503BC5D5065B /* libPods-Awsatapp-AwsatappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25742A46B7D80C9727BAF371 /* libPods-Awsatapp-AwsatappTests.a */; };
 		AD2D4C4F9729485684CF8B20 /* IBMPlexSansArabic-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FB492873A7A498EBF07352A /* IBMPlexSansArabic-Light.ttf */; };
 		AE824C7EF2A34A76AE26EFFE /* IBMPlexSansArabic-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E986D753AAC0403D87D94AB7 /* IBMPlexSansArabic-ExtraLight.ttf */; };
-		AE89E1526D3058190A29EB55 /* libPods-Awsatapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF273F72F625EF60E47B1CF6 /* libPods-Awsatapp.a */; };
+		AF14A1102836CF8B00E6311D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1072836CF8B00E6311D /* Images.xcassets */; };
+		AF14A14D2836D0C700E6311D /* CollectionViewCellDescriper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1162836D0C600E6311D /* CollectionViewCellDescriper.swift */; };
+		AF14A14E2836D0C700E6311D /* CollectionViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1172836D0C600E6311D /* CollectionViewCellType.swift */; };
+		AF14A14F2836D0C700E6311D /* GenericTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1182836D0C600E6311D /* GenericTableViewController.swift */; };
+		AF14A1502836D0C700E6311D /* GenericCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1192836D0C600E6311D /* GenericCollectionViewController.swift */; };
+		AF14A1512836D0C700E6311D /* TableViewCellDescriper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A11A2836D0C600E6311D /* TableViewCellDescriper.swift */; };
+		AF14A1522836D0C700E6311D /* TableViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A11B2836D0C600E6311D /* TableViewCellType.swift */; };
+		AF14A1532836D0C700E6311D /* DataSourceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A11C2836D0C600E6311D /* DataSourceFactory.swift */; };
+		AF14A1552836D0C700E6311D /* ReachibilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A11F2836D0C600E6311D /* ReachibilityManager.swift */; };
+		AF14A1562836D0C700E6311D /* ErrorJSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1202836D0C600E6311D /* ErrorJSONData.swift */; };
+		AF14A1572836D0C700E6311D /* NotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1212836D0C600E6311D /* NotificationCenterManager.swift */; };
+		AF14A1582836D0C700E6311D /* PDFFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1222836D0C600E6311D /* PDFFileManager.swift */; };
+		AF14A1592836D0C700E6311D /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1242836D0C600E6311D /* EndPoints.swift */; };
+		AF14A15A2836D0C700E6311D /* URLFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1252836D0C600E6311D /* URLFactory.swift */; };
+		AF14A15B2836D0C700E6311D /* Kingfiser+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1262836D0C600E6311D /* Kingfiser+Networking.swift */; };
+		AF14A15C2836D0C700E6311D /* WebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1272836D0C600E6311D /* WebServices.swift */; };
+		AF14A15D2836D0C700E6311D /* PDFViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12A2836D0C600E6311D /* PDFViewer.swift */; };
+		AF14A15E2836D0C700E6311D /* PDFViewerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12B2836D0C600E6311D /* PDFViewerManager.m */; };
+		AF14A15F2836D0C700E6311D /* TodayTabViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12E2836D0C600E6311D /* TodayTabViewManager.m */; };
+		AF14A1602836D0C700E6311D /* TodayTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A12F2836D0C600E6311D /* TodayTabView.swift */; };
+		AF14A1612836D0C700E6311D /* PDFArchiveViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1322836D0C600E6311D /* PDFArchiveViewManager.m */; };
+		AF14A1622836D0C700E6311D /* PDFArchiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1332836D0C600E6311D /* PDFArchiveView.swift */; };
+		AF14A1632836D0C700E6311D /* PDFEditionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1372836D0C600E6311D /* PDFEditionCollectionViewCell.xib */; };
+		AF14A1642836D0C700E6311D /* PDFEditionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1382836D0C600E6311D /* PDFEditionCollectionViewCell.swift */; };
+		AF14A1652836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A13A2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.swift */; };
+		AF14A1662836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A13B2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.xib */; };
+		AF14A1672836D0C700E6311D /* PDFEditionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A13D2836D0C600E6311D /* PDFEditionTableViewCell.xib */; };
+		AF14A1682836D0C700E6311D /* PDFEditionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A13E2836D0C600E6311D /* PDFEditionTableViewCell.swift */; };
+		AF14A1692836D0C700E6311D /* PDFEditionLargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1402836D0C600E6311D /* PDFEditionLargeCollectionViewCell.xib */; };
+		AF14A16A2836D0C700E6311D /* PDFEditionLargeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1412836D0C600E6311D /* PDFEditionLargeCollectionViewCell.swift */; };
+		AF14A16B2836D0C700E6311D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1432836D0C600E6311D /* Strings.swift */; };
+		AF14A16C2836D0C700E6311D /* DefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1442836D0C600E6311D /* DefaultKeys.swift */; };
+		AF14A16D2836D0C700E6311D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1452836D0C600E6311D /* Colors.swift */; };
+		AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1472836D0C600E6311D /* AuthenticationData.swift */; };
+		AF14A16F2836D0C700E6311D /* PDFArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1482836D0C600E6311D /* PDFArchiveData.swift */; };
+		AF14A1702836D0C700E6311D /* UserBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1492836D0C600E6311D /* UserBase.swift */; };
+		AF14A1712836D0C700E6311D /* PDFEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A14A2836D0C600E6311D /* PDFEdition.swift */; };
+		AF14A1722836D0C700E6311D /* PDFEdition+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A14C2836D0C700E6311D /* PDFEdition+ViewModel.swift */; };
+		AF14A1742836D24B00E6311D /* URLConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1732836D24B00E6311D /* URLConfig.swift */; };
+		AF14A1762836D30700E6311D /* CustomNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1752836D30700E6311D /* CustomNotifications.swift */; };
+		AF14A1782836D34300E6311D /* DeviceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1772836D34300E6311D /* DeviceOrientation.swift */; };
+		AF14A17B2836D35B00E6311D /* TargetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1792836D35B00E6311D /* TargetAction.swift */; };
+		AF14A17C2836D35B00E6311D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A17A2836D35B00E6311D /* Extensions.swift */; };
+		AF14A1852836D3C200E6311D /* AwsatLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF14A17F2836D3C200E6311D /* AwsatLight.otf */; };
+		AF14A18A2836D3C200E6311D /* AwsatBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1842836D3C200E6311D /* AwsatBlack.otf */; };
+		AF14A18B2836D71B00E6311D /* AwsatBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1822836D3C200E6311D /* AwsatBold.otf */; };
 		B1CB1AAEFF814EBBBA090FC2 /* AwsatDigitalv2b-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CC96FCB89FE43DCAD20BD5B /* AwsatDigitalv2b-Bold.ttf */; };
 		C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5437AF089D81496AB07BB20A /* Effra-Regular.ttf */; };
+		D7CB52E628364E3F003B6457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E528364E3F003B6457 /* Localizable.strings */; };
+		D7CB52E828366F63003B6457 /* colorPalatte.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E728366F63003B6457 /* colorPalatte.xcassets */; };
 		D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4927D9C9CE0028999D /* iAd.framework */; };
 		D7D85B4C27D9C9D90028999D /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4B27D9C9D90028999D /* AdServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D7D85B4E27D9C9E50028999D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4D27D9C9E50028999D /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D7D85B5027D9C9F10028999D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4F27D9C9F10028999D /* CoreTelephony.framework */; };
 		D7D85B5227D9C9FD0028999D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B5127D9C9FD0028999D /* StoreKit.framework */; };
 		D7D85B5427D9CA080028999D /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		D7F15A5F282BE9A7004368A7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A5E282BE9A7004368A7 /* LoadingView.swift */; };
+		D7F15A65282BED4A004368A7 /* libSwiftyJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F15A64282BED4A004368A7 /* libSwiftyJSON.a */; };
+		D7FDC0AF2837E1BC003F33E9 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FDC0AE2837E1BC003F33E9 /* ThemeManager.swift */; };
+		D7FDC0B12837E1DC003F33E9 /* ThemeManagerBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = D7FDC0B02837E1DC003F33E9 /* ThemeManagerBridge.m */; };
 		E3A1C6A163A44E35BA56387D /* AwsatDigitalBetav10-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8D82F8C72494F68981F642E /* AwsatDigitalBetav10-Regular.ttf */; };
 		F2B68E5A9A4D47CCB204FFC6 /* IBMPlexSansArabic-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B92C60AB24178BA12F9B8 /* IBMPlexSansArabic-Medium.ttf */; };
 		FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B45D19788C4478787AF7891 /* Almarai-ExtraBold.ttf */; };
@@ -62,13 +112,10 @@
 		03D70E1F425647C1BAD8922A /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		0813FFC6016E49F58063CA2B /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		0B1F1D1A2B2842B9A6761A36 /* IBMPlexSansArabic-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-SemiBold.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-SemiBold.ttf"; sourceTree = "<group>"; };
-		0DADE4D427DA4AAD009F9C8A /* Awsatapp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Awsatapp-Bridging-Header.h"; sourceTree = "<group>"; };
-		0DADE4D527DA4AAD009F9C8A /* trackPlayerDummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = trackPlayerDummy.swift; sourceTree = "<group>"; };
 		12E7BE3A7CC445D8BAB40327 /* subjectivity-medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "subjectivity-medium.otf"; path = "../src/assets/fonts/subjectivity-medium.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Awsatapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Awsatapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Awsatapp/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Awsatapp/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Awsatapp/Images.xcassets; sourceTree = "<group>"; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Awsatapp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Awsatapp/main.m; sourceTree = "<group>"; };
 		153FB4BA9DEB49FBBF9941AF /* IBMPlexSansArabic-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Thin.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Thin.ttf"; sourceTree = "<group>"; };
@@ -78,6 +125,7 @@
 		20B6024A099E4A169CBB5362 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		22E412FC49EB497C9B8E3575 /* AwsatDigitalv2b-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Black.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Black.ttf"; sourceTree = "<group>"; };
 		24FC697514344A82B3783D7A /* Beirut.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Beirut.ttf; path = ../src/assets/fonts/Beirut.ttf; sourceTree = "<group>"; };
+		25742A46B7D80C9727BAF371 /* libPods-Awsatapp-AwsatappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp-AwsatappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CC96FCB89FE43DCAD20BD5B /* AwsatDigitalv2b-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Bold.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Bold.ttf"; sourceTree = "<group>"; };
 		2F2447FE4CCC4506AFDE3CB3 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		3265B71127D5DD040025B815 /* Awsatapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Awsatapp.entitlements; path = Awsatapp/Awsatapp.entitlements; sourceTree = "<group>"; };
@@ -91,28 +139,87 @@
 		5D3FCA19E5074AAC9164401F /* IBMPlexSansArabic-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Regular.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Regular.ttf"; sourceTree = "<group>"; };
 		5E92D08427D24F7700592089 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Awsatapp/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F35CA0AC7E842CC989B0C26 /* AwsatDigitalv2b-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Regular.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Regular.ttf"; sourceTree = "<group>"; };
-		6F12B9E34FDF31B7EE2F6980 /* libPods-Awsatapp-AwsatappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp-AwsatappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CC5870F22DF4018A97C651F /* Almarai-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Almarai-Bold.ttf"; path = "../src/assets/fonts/Almarai-Bold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Awsatapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A3FDE2C970357A496A5A5514 /* Pods-Awsatapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.debug.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA4A435E3C93425CA0D7EB9C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		AF14A1072836CF8B00E6311D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AF14A1162836D0C600E6311D /* CollectionViewCellDescriper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellDescriper.swift; sourceTree = "<group>"; };
+		AF14A1172836D0C600E6311D /* CollectionViewCellType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellType.swift; sourceTree = "<group>"; };
+		AF14A1182836D0C600E6311D /* GenericTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTableViewController.swift; sourceTree = "<group>"; };
+		AF14A1192836D0C600E6311D /* GenericCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewController.swift; sourceTree = "<group>"; };
+		AF14A11A2836D0C600E6311D /* TableViewCellDescriper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellDescriper.swift; sourceTree = "<group>"; };
+		AF14A11B2836D0C600E6311D /* TableViewCellType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCellType.swift; sourceTree = "<group>"; };
+		AF14A11C2836D0C600E6311D /* DataSourceFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceFactory.swift; sourceTree = "<group>"; };
+		AF14A11F2836D0C600E6311D /* ReachibilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachibilityManager.swift; sourceTree = "<group>"; };
+		AF14A1202836D0C600E6311D /* ErrorJSONData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorJSONData.swift; sourceTree = "<group>"; };
+		AF14A1212836D0C600E6311D /* NotificationCenterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenterManager.swift; sourceTree = "<group>"; };
+		AF14A1222836D0C600E6311D /* PDFFileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFFileManager.swift; sourceTree = "<group>"; };
+		AF14A1242836D0C600E6311D /* EndPoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
+		AF14A1252836D0C600E6311D /* URLFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLFactory.swift; sourceTree = "<group>"; };
+		AF14A1262836D0C600E6311D /* Kingfiser+Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Kingfiser+Networking.swift"; sourceTree = "<group>"; };
+		AF14A1272836D0C600E6311D /* WebServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServices.swift; sourceTree = "<group>"; };
+		AF14A12A2836D0C600E6311D /* PDFViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewer.swift; sourceTree = "<group>"; };
+		AF14A12B2836D0C600E6311D /* PDFViewerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFViewerManager.m; sourceTree = "<group>"; };
+		AF14A12C2836D0C600E6311D /* PDFViewerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFViewerManager.h; sourceTree = "<group>"; };
+		AF14A12E2836D0C600E6311D /* TodayTabViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayTabViewManager.m; sourceTree = "<group>"; };
+		AF14A12F2836D0C600E6311D /* TodayTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodayTabView.swift; sourceTree = "<group>"; };
+		AF14A1302836D0C600E6311D /* TodayTabViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayTabViewManager.h; sourceTree = "<group>"; };
+		AF14A1322836D0C600E6311D /* PDFArchiveViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFArchiveViewManager.m; sourceTree = "<group>"; };
+		AF14A1332836D0C600E6311D /* PDFArchiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFArchiveView.swift; sourceTree = "<group>"; };
+		AF14A1342836D0C600E6311D /* PDFArchiveViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFArchiveViewManager.h; sourceTree = "<group>"; };
+		AF14A1372836D0C600E6311D /* PDFEditionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFEditionCollectionViewCell.xib; sourceTree = "<group>"; };
+		AF14A1382836D0C600E6311D /* PDFEditionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEditionCollectionViewCell.swift; sourceTree = "<group>"; };
+		AF14A13A2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEditionHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
+		AF14A13B2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFEditionHeaderCollectionViewCell.xib; sourceTree = "<group>"; };
+		AF14A13D2836D0C600E6311D /* PDFEditionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFEditionTableViewCell.xib; sourceTree = "<group>"; };
+		AF14A13E2836D0C600E6311D /* PDFEditionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEditionTableViewCell.swift; sourceTree = "<group>"; };
+		AF14A1402836D0C600E6311D /* PDFEditionLargeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFEditionLargeCollectionViewCell.xib; sourceTree = "<group>"; };
+		AF14A1412836D0C600E6311D /* PDFEditionLargeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEditionLargeCollectionViewCell.swift; sourceTree = "<group>"; };
+		AF14A1432836D0C600E6311D /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		AF14A1442836D0C600E6311D /* DefaultKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultKeys.swift; sourceTree = "<group>"; };
+		AF14A1452836D0C600E6311D /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		AF14A1472836D0C600E6311D /* AuthenticationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationData.swift; sourceTree = "<group>"; };
+		AF14A1482836D0C600E6311D /* PDFArchiveData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFArchiveData.swift; sourceTree = "<group>"; };
+		AF14A1492836D0C600E6311D /* UserBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBase.swift; sourceTree = "<group>"; };
+		AF14A14A2836D0C600E6311D /* PDFEdition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEdition.swift; sourceTree = "<group>"; };
+		AF14A14C2836D0C700E6311D /* PDFEdition+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFEdition+ViewModel.swift"; sourceTree = "<group>"; };
+		AF14A1732836D24B00E6311D /* URLConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConfig.swift; sourceTree = "<group>"; };
+		AF14A1752836D30700E6311D /* CustomNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNotifications.swift; sourceTree = "<group>"; };
+		AF14A1772836D34300E6311D /* DeviceOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceOrientation.swift; sourceTree = "<group>"; };
+		AF14A1792836D35B00E6311D /* TargetAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetAction.swift; sourceTree = "<group>"; };
+		AF14A17A2836D35B00E6311D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		AF14A17F2836D3C200E6311D /* AwsatLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatLight.otf; sourceTree = "<group>"; };
+		AF14A1802836D3C200E6311D /* Effra-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Effra-Medium.ttf"; sourceTree = "<group>"; };
+		AF14A1822836D3C200E6311D /* AwsatBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBold.otf; sourceTree = "<group>"; };
+		AF14A1832836D3C200E6311D /* Effra-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Effra-Regular.ttf"; sourceTree = "<group>"; };
+		AF14A1842836D3C200E6311D /* AwsatBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBlack.otf; sourceTree = "<group>"; };
+		AF14A18E2836D95700E6311D /* Awsatapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Awsatapp-Bridging-Header.h"; sourceTree = "<group>"; };
 		C201F5BCD31F4C9A97A70B04 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		C512A59BE94247A5B2850233 /* Effra-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra-Medium.ttf"; path = "../src/assets/fonts/Effra-Medium.ttf"; sourceTree = "<group>"; };
 		C71F0B6A5BAD4BC1BE74D43A /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
-		CF273F72F625EF60E47B1CF6 /* libPods-Awsatapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65511C7F87248D4B2F00011 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		D7CB52E528364E3F003B6457 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		D7CB52E728366F63003B6457 /* colorPalatte.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = colorPalatte.xcassets; sourceTree = "<group>"; };
 		D7D85B4927D9C9CE0028999D /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		D7D85B4B27D9C9D90028999D /* AdServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdServices.framework; path = System/Library/Frameworks/AdServices.framework; sourceTree = SDKROOT; };
 		D7D85B4D27D9C9E50028999D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		D7D85B4F27D9C9F10028999D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		D7D85B5127D9C9FD0028999D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
+		D7F15A5E282BE9A7004368A7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		D7F15A60282BEA15004368A7 /* libSwiftyJSON.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSwiftyJSON.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7F15A62282BEB82004368A7 /* libSVProgressHUD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSVProgressHUD.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7F15A64282BED4A004368A7 /* libSwiftyJSON.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libSwiftyJSON.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7FDC0AE2837E1BC003F33E9 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		D7FDC0B02837E1DC003F33E9 /* ThemeManagerBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemeManagerBridge.m; sourceTree = "<group>"; };
 		D8AA95078BE64015A4C75555 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		DCAF97FCEBA04671A1F23140 /* IBMPlexSansArabic-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Bold.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Bold.ttf"; sourceTree = "<group>"; };
 		DE43288E83E54802B0102ECA /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		E6F92F68DFA74CDC8DDDD536 /* AwsatDigitalBetav10-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalBetav10-Bold.ttf"; path = "../src/assets/fonts/AwsatDigitalBetav10-Bold.ttf"; sourceTree = "<group>"; };
 		E9851DB237B24939BF49AB0D /* Pods-Awsatapp-AwsatappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp-AwsatappTests.release.xcconfig"; path = "Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests.release.xcconfig"; sourceTree = "<group>"; };
 		E986D753AAC0403D87D94AB7 /* IBMPlexSansArabic-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-ExtraLight.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-ExtraLight.ttf"; sourceTree = "<group>"; };
+		E9F2F1644163037A2C5978CF /* libPods-Awsatapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EEC75ED21FE14073B4FD84D7 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		F17AA6230FD852F939D1B14B /* Pods-Awsatapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.release.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.release.xcconfig"; sourceTree = "<group>"; };
@@ -128,7 +235,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93EAB321D62DFD35FEFD4ED7 /* libPods-Awsatapp-AwsatappTests.a in Frameworks */,
+				A281F88502F1503BC5D5065B /* libPods-Awsatapp-AwsatappTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,13 +243,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7F15A65282BED4A004368A7 /* libSwiftyJSON.a in Frameworks */,
 				D7D85B5427D9CA080028999D /* AppTrackingTransparency.framework in Frameworks */,
 				D7D85B5227D9C9FD0028999D /* StoreKit.framework in Frameworks */,
 				D7D85B5027D9C9F10028999D /* CoreTelephony.framework in Frameworks */,
 				D7D85B4E27D9C9E50028999D /* AdSupport.framework in Frameworks */,
 				D7D85B4C27D9C9D90028999D /* AdServices.framework in Frameworks */,
 				D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */,
-				AE89E1526D3058190A29EB55 /* libPods-Awsatapp.a in Frameworks */,
+				726652B4F4065671C8A71E8D /* libPods-Awsatapp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,13 +277,22 @@
 		13B07FAE1A68108700A75B9A /* Awsatapp */ = {
 			isa = PBXGroup;
 			children = (
+				5E92D08427D24F7700592089 /* GoogleService-Info.plist */,
+				AF14A17D2836D3C200E6311D /* Resources */,
+				AF14A1352836D0C600E6311D /* CustomCells */,
+				AF14A1152836D0C600E6311D /* DataSources */,
+				AF14A11E2836D0C600E6311D /* Managers */,
+				AF14A1462836D0C600E6311D /* Models */,
+				AF14A1232836D0C600E6311D /* Networking */,
+				AF14A1422836D0C600E6311D /* Utilities */,
+				AF14A14B2836D0C700E6311D /* ViewModels */,
+				AF14A1282836D0C600E6311D /* Views */,
 				3265B71127D5DD040025B815 /* Awsatapp.entitlements */,
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				D7FDC0AE2837E1BC003F33E9 /* ThemeManager.swift */,
+				D7FDC0B02837E1DC003F33E9 /* ThemeManagerBridge.m */,
 			);
 			name = Awsatapp;
 			sourceTree = "<group>";
@@ -183,6 +300,9 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D7F15A64282BED4A004368A7 /* libSwiftyJSON.a */,
+				D7F15A62282BEB82004368A7 /* libSVProgressHUD.a */,
+				D7F15A60282BEA15004368A7 /* libSwiftyJSON.a */,
 				D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */,
 				D7D85B5127D9C9FD0028999D /* StoreKit.framework */,
 				D7D85B4F27D9C9F10028999D /* CoreTelephony.framework */,
@@ -190,31 +310,23 @@
 				D7D85B4B27D9C9D90028999D /* AdServices.framework */,
 				D7D85B4927D9C9CE0028999D /* iAd.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				CF273F72F625EF60E47B1CF6 /* libPods-Awsatapp.a */,
-				6F12B9E34FDF31B7EE2F6980 /* libPods-Awsatapp-AwsatappTests.a */,
+				E9F2F1644163037A2C5978CF /* libPods-Awsatapp.a */,
+				25742A46B7D80C9727BAF371 /* libPods-Awsatapp-AwsatappTests.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Libraries;
 			sourceTree = "<group>";
 		};
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				0DADE4D527DA4AAD009F9C8A /* trackPlayerDummy.swift */,
-				5E92D08427D24F7700592089 /* GoogleService-Info.plist */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				AF14A18E2836D95700E6311D /* Awsatapp-Bridging-Header.h */,
 				13B07FAE1A68108700A75B9A /* Awsatapp */,
-				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* AwsatappTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				8D698A178F9B4EB96887F05E /* Pods */,
-				0DADE4D427DA4AAD009F9C8A /* Awsatapp-Bridging-Header.h */,
 				D8EA38B5AEA443098005BABB /* Resources */,
 			);
 			indentWidth = 2;
@@ -240,6 +352,196 @@
 				E9851DB237B24939BF49AB0D /* Pods-Awsatapp-AwsatappTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		AF14A1152836D0C600E6311D /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1162836D0C600E6311D /* CollectionViewCellDescriper.swift */,
+				AF14A1172836D0C600E6311D /* CollectionViewCellType.swift */,
+				AF14A1182836D0C600E6311D /* GenericTableViewController.swift */,
+				AF14A1192836D0C600E6311D /* GenericCollectionViewController.swift */,
+				AF14A11A2836D0C600E6311D /* TableViewCellDescriper.swift */,
+				AF14A11B2836D0C600E6311D /* TableViewCellType.swift */,
+				AF14A11C2836D0C600E6311D /* DataSourceFactory.swift */,
+			);
+			name = DataSources;
+			path = Awsatapp/DataSources;
+			sourceTree = "<group>";
+		};
+		AF14A11E2836D0C600E6311D /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A11F2836D0C600E6311D /* ReachibilityManager.swift */,
+				AF14A1202836D0C600E6311D /* ErrorJSONData.swift */,
+				AF14A1212836D0C600E6311D /* NotificationCenterManager.swift */,
+				AF14A1222836D0C600E6311D /* PDFFileManager.swift */,
+			);
+			name = Managers;
+			path = Awsatapp/Managers;
+			sourceTree = "<group>";
+		};
+		AF14A1232836D0C600E6311D /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1242836D0C600E6311D /* EndPoints.swift */,
+				AF14A1252836D0C600E6311D /* URLFactory.swift */,
+				AF14A1262836D0C600E6311D /* Kingfiser+Networking.swift */,
+				AF14A1272836D0C600E6311D /* WebServices.swift */,
+				AF14A1732836D24B00E6311D /* URLConfig.swift */,
+			);
+			name = Networking;
+			path = Awsatapp/Networking;
+			sourceTree = "<group>";
+		};
+		AF14A1282836D0C600E6311D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1292836D0C600E6311D /* PDFViewer */,
+				AF14A12D2836D0C600E6311D /* TodayTabView */,
+				AF14A1312836D0C600E6311D /* PDFArchiveView */,
+			);
+			name = Views;
+			path = Awsatapp/Views;
+			sourceTree = "<group>";
+		};
+		AF14A1292836D0C600E6311D /* PDFViewer */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A12C2836D0C600E6311D /* PDFViewerManager.h */,
+				AF14A12B2836D0C600E6311D /* PDFViewerManager.m */,
+				AF14A12A2836D0C600E6311D /* PDFViewer.swift */,
+			);
+			path = PDFViewer;
+			sourceTree = "<group>";
+		};
+		AF14A12D2836D0C600E6311D /* TodayTabView */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1302836D0C600E6311D /* TodayTabViewManager.h */,
+				AF14A12E2836D0C600E6311D /* TodayTabViewManager.m */,
+				AF14A12F2836D0C600E6311D /* TodayTabView.swift */,
+			);
+			path = TodayTabView;
+			sourceTree = "<group>";
+		};
+		AF14A1312836D0C600E6311D /* PDFArchiveView */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1342836D0C600E6311D /* PDFArchiveViewManager.h */,
+				AF14A1322836D0C600E6311D /* PDFArchiveViewManager.m */,
+				AF14A1332836D0C600E6311D /* PDFArchiveView.swift */,
+			);
+			path = PDFArchiveView;
+			sourceTree = "<group>";
+		};
+		AF14A1352836D0C600E6311D /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1362836D0C600E6311D /* PDFEditionCollectionViewCell */,
+				AF14A1392836D0C600E6311D /* PDFEditionHeaderCollectionViewCell */,
+				AF14A13C2836D0C600E6311D /* PDFEditionTableViewCell */,
+				AF14A13F2836D0C600E6311D /* PDFEditionLargeCollectionViewCell */,
+			);
+			name = CustomCells;
+			path = Awsatapp/CustomCells;
+			sourceTree = "<group>";
+		};
+		AF14A1362836D0C600E6311D /* PDFEditionCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1372836D0C600E6311D /* PDFEditionCollectionViewCell.xib */,
+				AF14A1382836D0C600E6311D /* PDFEditionCollectionViewCell.swift */,
+			);
+			path = PDFEditionCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		AF14A1392836D0C600E6311D /* PDFEditionHeaderCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A13A2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.swift */,
+				AF14A13B2836D0C600E6311D /* PDFEditionHeaderCollectionViewCell.xib */,
+			);
+			path = PDFEditionHeaderCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		AF14A13C2836D0C600E6311D /* PDFEditionTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A13D2836D0C600E6311D /* PDFEditionTableViewCell.xib */,
+				AF14A13E2836D0C600E6311D /* PDFEditionTableViewCell.swift */,
+			);
+			path = PDFEditionTableViewCell;
+			sourceTree = "<group>";
+		};
+		AF14A13F2836D0C600E6311D /* PDFEditionLargeCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1402836D0C600E6311D /* PDFEditionLargeCollectionViewCell.xib */,
+				AF14A1412836D0C600E6311D /* PDFEditionLargeCollectionViewCell.swift */,
+			);
+			path = PDFEditionLargeCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		AF14A1422836D0C600E6311D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1432836D0C600E6311D /* Strings.swift */,
+				AF14A1442836D0C600E6311D /* DefaultKeys.swift */,
+				AF14A1452836D0C600E6311D /* Colors.swift */,
+				AF14A1752836D30700E6311D /* CustomNotifications.swift */,
+				AF14A1772836D34300E6311D /* DeviceOrientation.swift */,
+				AF14A17A2836D35B00E6311D /* Extensions.swift */,
+				AF14A1792836D35B00E6311D /* TargetAction.swift */,
+				D7F15A5E282BE9A7004368A7 /* LoadingView.swift */,
+			);
+			name = Utilities;
+			path = Awsatapp/Utilities;
+			sourceTree = "<group>";
+		};
+		AF14A1462836D0C600E6311D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A1472836D0C600E6311D /* AuthenticationData.swift */,
+				AF14A1482836D0C600E6311D /* PDFArchiveData.swift */,
+				AF14A1492836D0C600E6311D /* UserBase.swift */,
+				AF14A14A2836D0C600E6311D /* PDFEdition.swift */,
+			);
+			name = Models;
+			path = Awsatapp/Models;
+			sourceTree = "<group>";
+		};
+		AF14A14B2836D0C700E6311D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A14C2836D0C700E6311D /* PDFEdition+ViewModel.swift */,
+			);
+			name = ViewModels;
+			path = Awsatapp/ViewModels;
+			sourceTree = "<group>";
+		};
+		AF14A17D2836D3C200E6311D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D7CB52E728366F63003B6457 /* colorPalatte.xcassets */,
+				AF14A1072836CF8B00E6311D /* Images.xcassets */,
+				D7CB52E528364E3F003B6457 /* Localizable.strings */,
+				AF14A17E2836D3C200E6311D /* Fonts */,
+			);
+			name = Resources;
+			path = Awsatapp/Resources;
+			sourceTree = "<group>";
+		};
+		AF14A17E2836D3C200E6311D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				AF14A17F2836D3C200E6311D /* AwsatLight.otf */,
+				AF14A1802836D3C200E6311D /* Effra-Medium.ttf */,
+				AF14A1822836D3C200E6311D /* AwsatBold.otf */,
+				AF14A1832836D3C200E6311D /* Effra-Regular.ttf */,
+				AF14A1842836D3C200E6311D /* AwsatBlack.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		D8EA38B5AEA443098005BABB /* Resources */ = {
@@ -299,7 +601,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				E32334E9D2DF3990D3C5DF78 /* [CP] Embed Pods Frameworks */,
-				EDF5B3B22A7D3CDDD0B2D640 /* [CP] Copy Pods Resources */,
+				8844963A932FCB3ECBB6F553 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -322,9 +624,9 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				4AB331EA92B69268E7B56156 /* [CP] Embed Pods Frameworks */,
-				0E264E8EA6E681B0B027FC17 /* [CP] Copy Pods Resources */,
 				5F546F24D5E37563250CCAE7 /* [CP-User] [RNFB] Core Configuration */,
 				0A8AA18AACED3C5082C8A67C /* [CP-User] [RNFB] Crashlytics Configuration */,
+				18A09C68998F07C24A06A79A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -383,16 +685,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF14A18B2836D71B00E6311D /* AwsatBold.otf in Resources */,
 				5E92D08527D24F7700592089 /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				383C0A0AB8874E17A395D2DD /* AwsatDigitalBetav10-Black.ttf in Resources */,
 				8B3BA46F3B5548999CD39890 /* AwsatDigitalBetav10-Bold.ttf in Resources */,
 				E3A1C6A163A44E35BA56387D /* AwsatDigitalBetav10-Regular.ttf in Resources */,
 				C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */,
 				5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */,
+				AF14A1662836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.xib in Resources */,
 				FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */,
 				52B5C8CA19974215925660F6 /* Almarai-Light.ttf in Resources */,
+				D7CB52E628364E3F003B6457 /* Localizable.strings in Resources */,
+				AF14A1102836CF8B00E6311D /* Images.xcassets in Resources */,
+				D7CB52E828366F63003B6457 /* colorPalatte.xcassets in Resources */,
 				7CBB19684ACB44F8882E4025 /* Almarai-Regular.ttf in Resources */,
 				928468CA882F4F17B52EF50A /* AwsatDigitalv2b-Black.ttf in Resources */,
 				B1CB1AAEFF814EBBBA090FC2 /* AwsatDigitalv2b-Bold.ttf in Resources */,
@@ -400,11 +706,16 @@
 				5357BE729B3C4A038D324F02 /* IBMPlexSansArabic-Bold.ttf in Resources */,
 				AE824C7EF2A34A76AE26EFFE /* IBMPlexSansArabic-ExtraLight.ttf in Resources */,
 				AD2D4C4F9729485684CF8B20 /* IBMPlexSansArabic-Light.ttf in Resources */,
+				AF14A18A2836D3C200E6311D /* AwsatBlack.otf in Resources */,
+				AF14A1632836D0C700E6311D /* PDFEditionCollectionViewCell.xib in Resources */,
+				AF14A1692836D0C700E6311D /* PDFEditionLargeCollectionViewCell.xib in Resources */,
 				F2B68E5A9A4D47CCB204FFC6 /* IBMPlexSansArabic-Medium.ttf in Resources */,
 				966D9D379C6F4BD99099A78E /* IBMPlexSansArabic-Regular.ttf in Resources */,
 				3E172E253DB7408A9818A83A /* IBMPlexSansArabic-SemiBold.ttf in Resources */,
 				833DA4AA2F9544EC98A8D7BA /* IBMPlexSansArabic-Thin.ttf in Resources */,
 				8D00CD9EF80B4DB8852B9964 /* subjectivity-medium.otf in Resources */,
+				AF14A1672836D0C700E6311D /* PDFEditionTableViewCell.xib in Resources */,
+				AF14A1852836D3C200E6311D /* AwsatLight.otf in Resources */,
 				1BCC838D77E04AD686D4BE54 /* Beirut.ttf in Resources */,
 				7476FD19439D42338A420F44 /* Effra-Medium.ttf in Resources */,
 			);
@@ -441,7 +752,7 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\nif [[ ${PODS_ROOT} ]]; then\n  echo \"info: Exec FirebaseCrashlytics Run from Pods\"\n  \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nelse\n  echo \"info: Exec FirebaseCrashlytics Run from framework\"\n  \"${PROJECT_DIR}/FirebaseCrashlytics.framework/run\"\nfi\n";
 		};
-		0E264E8EA6E681B0B027FC17 /* [CP] Copy Pods Resources */ = {
+		18A09C68998F07C24A06A79A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -488,6 +799,23 @@
 			shellPath = /bin/sh;
 			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    _JSON_OUTPUT_BASE64=$(python -c 'import json,sys,base64;print(base64.b64encode(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"').read())['${_JSON_ROOT}'])))' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
 		};
+		8844963A932FCB3ECBB6F553 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E32334E9D2DF3990D3C5DF78 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -525,23 +853,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EDF5B3B22A7D3CDDD0B2D640 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F0535C552F8621C3CDE477E4 /* [CP] Check Pods Manifest.lock */ = {
@@ -600,9 +911,50 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF14A1612836D0C700E6311D /* PDFArchiveViewManager.m in Sources */,
+				AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */,
+				AF14A14E2836D0C700E6311D /* CollectionViewCellType.swift in Sources */,
+				AF14A16B2836D0C700E6311D /* Strings.swift in Sources */,
+				AF14A1702836D0C700E6311D /* UserBase.swift in Sources */,
+				AF14A1762836D30700E6311D /* CustomNotifications.swift in Sources */,
+				AF14A16C2836D0C700E6311D /* DefaultKeys.swift in Sources */,
+				AF14A1652836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				0DADE4D627DA4AAD009F9C8A /* trackPlayerDummy.swift in Sources */,
+				AF14A1552836D0C700E6311D /* ReachibilityManager.swift in Sources */,
+				AF14A15E2836D0C700E6311D /* PDFViewerManager.m in Sources */,
+				AF14A16F2836D0C700E6311D /* PDFArchiveData.swift in Sources */,
+				AF14A15C2836D0C700E6311D /* WebServices.swift in Sources */,
+				AF14A17C2836D35B00E6311D /* Extensions.swift in Sources */,
+				AF14A1682836D0C700E6311D /* PDFEditionTableViewCell.swift in Sources */,
+				AF14A1622836D0C700E6311D /* PDFArchiveView.swift in Sources */,
+				AF14A1592836D0C700E6311D /* EndPoints.swift in Sources */,
+				AF14A1572836D0C700E6311D /* NotificationCenterManager.swift in Sources */,
+				AF14A15D2836D0C700E6311D /* PDFViewer.swift in Sources */,
+				D7F15A5F282BE9A7004368A7 /* LoadingView.swift in Sources */,
+				AF14A1642836D0C700E6311D /* PDFEditionCollectionViewCell.swift in Sources */,
+				AF14A14D2836D0C700E6311D /* CollectionViewCellDescriper.swift in Sources */,
+				AF14A16A2836D0C700E6311D /* PDFEditionLargeCollectionViewCell.swift in Sources */,
+				AF14A1602836D0C700E6311D /* TodayTabView.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				AF14A1562836D0C700E6311D /* ErrorJSONData.swift in Sources */,
+				AF14A15F2836D0C700E6311D /* TodayTabViewManager.m in Sources */,
+				AF14A1522836D0C700E6311D /* TableViewCellType.swift in Sources */,
+				AF14A1582836D0C700E6311D /* PDFFileManager.swift in Sources */,
+				AF14A16D2836D0C700E6311D /* Colors.swift in Sources */,
+				AF14A1782836D34300E6311D /* DeviceOrientation.swift in Sources */,
+				AF14A14F2836D0C700E6311D /* GenericTableViewController.swift in Sources */,
+				AF14A15B2836D0C700E6311D /* Kingfiser+Networking.swift in Sources */,
+				AF14A1742836D24B00E6311D /* URLConfig.swift in Sources */,
+				AF14A1532836D0C700E6311D /* DataSourceFactory.swift in Sources */,
+				AF14A17B2836D35B00E6311D /* TargetAction.swift in Sources */,
+				AF14A1712836D0C700E6311D /* PDFEdition.swift in Sources */,
+				AF14A15A2836D0C700E6311D /* URLFactory.swift in Sources */,
+				AF14A1722836D0C700E6311D /* PDFEdition+ViewModel.swift in Sources */,
+				AF14A1502836D0C700E6311D /* GenericCollectionViewController.swift in Sources */,
+				AF14A1512836D0C700E6311D /* TableViewCellDescriper.swift in Sources */,
+				D7FDC0AF2837E1BC003F33E9 /* ThemeManager.swift in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				D7FDC0B12837E1DC003F33E9 /* ThemeManagerBridge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +1034,7 @@
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -714,6 +1067,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

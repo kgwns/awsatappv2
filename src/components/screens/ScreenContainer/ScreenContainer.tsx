@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
-import {DEFAULT_HIT_SLOP, isDarkTheme, isTab, normalize, screenWidth} from '../../../shared/utils';
+import {DEFAULT_HIT_SLOP, isDarkTheme, isNotEmpty, isTab, normalize, screenWidth} from '../../../shared/utils';
 import {useAppCommon} from '../../../hooks/useAppCommon';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -50,6 +50,7 @@ export interface ScreenContainerProps {
   setIsAlertVisible?: any;
   alertPayload?: AlertPayloadType;
   alertOnPress?: () => void;
+  headerLeft?: any;
   playerPosition?: StyleProp<ViewStyle>;
   showPlayer?: boolean;
 }
@@ -69,8 +70,9 @@ export const ScreenContainer = ({
   alertOnPress,
   isAlertVisible,
   setIsAlertVisible,
+  headerLeft,
   playerPosition,
-  showPlayer = true
+  showPlayer = true,
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -106,14 +108,15 @@ export const ScreenContainer = ({
   const header = (title?: string) => {
     return (
       <View style={style.headerContainer}>
-        {title && (
+        {isNotEmpty(title) && (
           <Label
             labelType="h2"
             color={themeData.secondaryDarkSlate}
-            style={style.headerTitle}>
+            style={[style.headerTitle, { marginLeft: (title && title?.length > 20) ? normalize(30) : 0 }]}>
             {title}
           </Label>
         )}
+        {headerLeft && headerLeft()}
         <TouchableOpacity hitSlop={isTab ? { top: 15, bottom: 15, left: 15, right: 15 } : DEFAULT_HIT_SLOP} style={style.returnStyle} onPress={onPressBack}>
           {getSvgImages({ name: ImagesName.returnBlackSvg, size: normalize(12), style: { marginRight: 5 }})}
           <Label style={style.prevTitleStyle}>
@@ -206,6 +209,8 @@ const createStyles = (theme: CustomThemeType) => {
       height: normalize(55),
       backgroundColor: theme.backgroundColor,
       justifyContent: 'center',
+      flexDirection: 'row',
+      alignItems: 'center',
     },
     returnIconStyle: {
       tintColor: theme.secondaryDarkSlate,
@@ -214,8 +219,7 @@ const createStyles = (theme: CustomThemeType) => {
       height: normalize(12),
     },
     headerTitle: {
-      position: 'absolute',
-      alignSelf: 'center',
+      paddingLeft: 0
     },
     loadingOverlay: {
       width: '100%',

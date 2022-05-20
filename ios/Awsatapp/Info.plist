@@ -59,6 +59,8 @@
 		<string>fastmail</string>
 		<string>protonmail</string>
 	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -84,6 +86,9 @@
 	<string>$(PRODUCT_NAME) would like access to your photo gallery (For Upload your photo)</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>AwsatBlack.otf</string>
+		<string>AwsatBold.otf</string>
+		<string>AwsatLight.otf</string>
 		<string>AwsatDigitalBetav10-Black.ttf</string>
 		<string>AwsatDigitalBetav10-Bold.ttf</string>
 		<string>AwsatDigitalBetav10-Regular.ttf</string>

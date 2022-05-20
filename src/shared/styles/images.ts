@@ -12,6 +12,7 @@ import technologyImg from 'src/assets/images/technologyImg.png'
 import placeholderImg from 'src/assets/images/icons/placeholder_image.png'
 import crossWord from 'src/assets/images/cross_word_image.png'
 import sudoku from 'src/assets/images/sudoku_image.png'
+import pdfIcon from 'src/assets/images/pdf_icon.png'
 import popupImage from 'src/assets/images/popupImage.png'
 
 export enum ImagesName {
@@ -97,10 +98,15 @@ export enum ImagesName {
   bookmarkGray = 'bookmarkGray',
   shareGray = 'shareGray',
   menuCloseIcon = 'menuCloseIcon',
+  pdfIcon = 'pdfIcon',
+  gridToggleIcon = 'gridToggleIcon',
+  listToggleIcon = 'listToggleIcon',
   playForwardIcon = 'playForwardIcon',
   playBackwardIcon = 'playBackwardIcon',
   headPhoneIcon = 'headPhoneIcon',
   arrowLeftBlack = 'arrowLeftBlack',
+  printVersionActiveIcon = 'printVersionActiveIcon',
+  printVersionGrayIcon = 'printVersionGrayIcon',
   popupImage = 'popupImage',
 }
 
@@ -117,6 +123,7 @@ export const images = {
   placeholderImg,
   crossWord,
   sudoku,
+  pdfIcon,
   popupImage
 };
 

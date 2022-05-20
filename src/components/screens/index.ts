@@ -37,3 +37,6 @@ export { SectionArticlesParentScreen } from 'src/components/screens/sectionsArti
 export { GameScreen, } from 'src/components/screens/games/GameScreen'
 export { DynamicGameScreen } from 'src/components/screens/games/DynamicGameScreen'
 export { MainSectionScreen } from 'src/components/screens/main/MainSectionScreen'
+export { DownloadNews } from 'src/components/screens/downloadNews/index'
+export { PDFArchive } from 'src/components/screens/pdfArchive/index'
+export { PDFEditorView } from 'src/components/screens/pdfEditorViewer/PDFEditorView'

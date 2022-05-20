@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/abl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:fitsSystemWindows="true"
+        android:elevation="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="0dp"
+            app:titleTextColor="@color/toolbar_title"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight" >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:layout_gravity="start"
+                android:gravity="center|center_vertical">
+
+                <ImageView
+                    android:id="@+id/backIcon"
+                    android:src="@drawable/ic_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/back_text"
+                    android:padding="4dp"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pdf_archive_title"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:id="@+id/toolbar_title" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/background_color"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
