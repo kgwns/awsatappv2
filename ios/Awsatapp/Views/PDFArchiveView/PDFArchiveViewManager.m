@@ -21,5 +21,6 @@ RCT_EXPORT_MODULE(RNPDFArchiveView)
 }
 
 RCT_EXPORT_VIEW_PROPERTY(onItemClick, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(selectedLayoutTypeInfo, NSString)
 
 @end

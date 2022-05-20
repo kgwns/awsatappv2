@@ -17,5 +17,6 @@ RCT_EXPORT_MODULE(RNPDFViewer)
 }
 
 RCT_EXPORT_VIEW_PROPERTY(selectedPDF, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(selectedLayoutTypeInfo, NSString)
 
 @end

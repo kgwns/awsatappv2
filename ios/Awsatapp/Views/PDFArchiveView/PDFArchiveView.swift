@@ -8,14 +8,22 @@
 import UIKit
 import SwiftyJSON
 
-enum PDFArchiveViewControllerTypes {
+enum PDFArchiveViewControllerTypes: String {
     case grid
     case list
 }
 
 class PDFArchiveView: UIView, LoadingView {
-      
-    @objc var onItemClick: RCTBubblingEventBlock?
+    
+//    var showPDFEdition: (PDFEdition, URL) -> () = { _,_  in }
+  
+  @objc var onItemClick: RCTBubblingEventBlock?
+  @objc var selectedLayoutTypeInfo: String = PDFArchiveViewControllerTypes.grid.rawValue {
+    didSet {
+      self.pdfArchiveViewControllerType = PDFArchiveViewControllerTypes(rawValue: selectedLayoutTypeInfo)!
+    }
+  }
+    
     private var readPDFEditionNotificationToken: Token?
     private var downloadCompleteNotificationToke: Token?
     private var showMobileDataAlertNotification: Token?
@@ -26,10 +34,14 @@ class PDFArchiveView: UIView, LoadingView {
         didSet {
             switch pdfArchiveViewControllerType {
             case .grid:
+                tableView?.isHidden = true
+                collectionView?.isHidden = false
                 if collectionViewDataSource.count > 0 {
                     collectionView?.setContentOffset(.zero, animated: false)
                 }
             case .list:
+                tableView?.isHidden = false
+                collectionView?.isHidden = true
                 if tableViewDataSource.count > 0 {
                     tableView?.scrollToRow(at: IndexPath(row: 0, section:0), at: .top, animated: false)
                 }
@@ -182,7 +194,7 @@ class PDFArchiveView: UIView, LoadingView {
     private func setUp() {
       //TODO: Need to add toggle between Grid & List
         setUpGridCollectionView()
-//        setUpTableView()
+        setUpTableView()
         load(EndPoints.pdfArchive.endPoint)
         addObservers()
     }
@@ -202,6 +214,7 @@ class PDFArchiveView: UIView, LoadingView {
         tableView?.rowHeight = UITableView.automaticDimension
         tableView?.showsVerticalScrollIndicator = false
         tableView?.refreshControl = tableViewRefreshControl
+        tableView?.isHidden = true
         addSubview(tableView!)
       
         tableView?.translatesAutoresizingMaskIntoConstraints = false

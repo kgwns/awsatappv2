@@ -14,8 +14,8 @@ import { Theme } from 'src/redux/appCommon/types';
 const PDFArchiveView: any = requireNativeComponent('RNPDFArchiveView')
 
 enum ArchiveLayoutType {
-  grid,
-  list,
+  grid = 'grid',
+  list = 'list',
 }
 
 export const PDFArchiveIOS = () => {
@@ -48,7 +48,10 @@ export const PDFArchiveIOS = () => {
   return (
     <ScreenContainer edge={horizontalAndTop} showHeader={true} headerTitle={headerTitle}
       headerLeft={headerLeftElement}>
-      <PDFArchiveView style={{ flex: 1 }} onItemClick={(data: any) => onClickOpenPDF(data.nativeEvent.SelectedPDF)} />
+      <PDFArchiveView style={{ flex: 1 }}
+        onItemClick={(data: any) => onClickOpenPDF(data.nativeEvent.SelectedPDF)}
+        selectedLayoutTypeInfo={layoutSelectedType.toString()}
+      />
     </ScreenContainer>
   );
 };
