@@ -3,6 +3,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { requireNativeComponent } from 'react-native'
 import { ScreensConstants } from 'src/constants';
+import { ScreenContainer } from 'src/components/screens/ScreenContainer/ScreenContainer';
+import { horizontalEdge } from 'src/shared/utils/utilities';
 
 const NativeView: any = requireNativeComponent('RNTodayTabView');
 
@@ -18,9 +20,11 @@ export const DownloadNewsIOS = () => {
     }
 
     return (
-        <NativeView style={{ flex: 1 }}
-            onItemClick={(data: any) => onClickOpenPDF(data.nativeEvent.SelectedPDF)}
-            onArchiveButtonClick={onClickArchive}
-        />
+        <ScreenContainer edge={horizontalEdge}>
+            <NativeView style={{ flex: 1 }}
+                onItemClick={(data: any) => onClickOpenPDF(data.nativeEvent.SelectedPDF)}
+                onArchiveButtonClick={onClickArchive}
+            />
+        </ScreenContainer>
     );
 };

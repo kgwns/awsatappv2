@@ -172,6 +172,7 @@ const createStyles = (theme: CustomThemeType) =>
     day: {
       marginHorizontal: normalize(8),
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      lineHeight: normalize(26),
     },
     footerRight: {
       flexDirection: 'row',
@@ -180,6 +181,7 @@ const createStyles = (theme: CustomThemeType) =>
     viewsStyle: {
       marginHorizontal: normalize(5),
       color: theme.primary,
+      lineHeight: normalize(26),
     },
     dividerV: {
       width: 1,
@@ -264,6 +266,7 @@ const createStyles = (theme: CustomThemeType) =>
     buttonLabel: {
       color: colors.white,
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      lineHeight: normalize(26)
     },
     titleStyle: {
       color: colors.darkRed,

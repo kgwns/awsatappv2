@@ -175,6 +175,7 @@ StyleSheet.create({
   buttonLabel: {
     color: colors.black,
     fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    lineHeight: normalize(26),
   },
   titleContainer: {
     bottom: 0,
