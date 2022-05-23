@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View, RefreshControl, TouchableOpacity } from 'react-native';
+import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
@@ -10,21 +10,21 @@ import { heroSectionProperties, shortArticleWithTagProperties } from 'src/consta
 import { horizontalEdge, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppCommon, useAppPlayer } from 'src/hooks';
+import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer } from 'src/hooks';
 import { EditorsChoiceDataType, LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Styles } from 'src/shared/styles';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import TrackPlayer, { usePlaybackState, } from 'react-native-track-player';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { PodCastMiniPlayer, TopHeadLineNews, MiniPlayerWithControls } from 'src/components/molecules';
+import { TopHeadLineNews } from 'src/components/molecules';
 import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { Label } from 'src/components/atoms';
-import { getPodcastUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getPodcastUrl, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { fonts } from 'src/shared/styles/fonts';
 
@@ -94,9 +94,6 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
     }
   }, [currentIndex])
 
-
-
-
   const _sectionComboOneTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_ONE})
   const _sectionComboTwoTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_TWO})
   const _sectionComboThreeTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_THREE})
@@ -150,10 +147,6 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
   const podcastData: any = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
   const headlineNews = isNonEmptyArray(coverageInfo) ? [...coverageInfo].splice(1, 4) : []
   const [editorsChoiceInfo, setEditorsChoiceInfo] = useState(editorsChoice)
-
-
-
-
 
   useFocusEffect(
     React.useCallback(() => {
@@ -515,27 +508,6 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
     setSelectedTrack(podcastData.nid);
     setSelectedType('PODCAST');
   }
-
-  const togglePlayback = async () => {
-    if (playbackState === State.Playing) {
-      await TrackPlayer.pause();
-    }
-    else if (playbackState === State.Paused) {
-      await TrackPlayer.play();
-    }
-    else if ( playbackState === State.Paused || playbackState == State.None || playbackState == State.Stopped) {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({ stopWithApp: true });
-      await TrackPlayer.add({
-        id: podcastData.nid,
-        url: getPodcastUrl(podcastData.field_spreaker_episode_export),
-        title: podcastData.title,
-        artist: podcastData.title,
-      });
-      TrackPlayer.setRepeatMode(RepeatMode.Off);
-      await TrackPlayer.play();
-    }
-  };
 
   const onClose = async () => {
     await TrackPlayer.reset();
