@@ -19,9 +19,9 @@ class TodayTabView: UIView, LoadingView {
     private var reuseIdentifiers: Set<String> = []
     private var sectionInset: UIEdgeInsets {
         if UIDevice.current.userInterfaceIdiom == .pad {
-            return UIEdgeInsets.init(top: 5, left: 20, bottom: 20, right: 20)
+            return UIEdgeInsets.init(top: 5, left: 40, bottom: 20, right: 40)
         }
-        return UIEdgeInsets.init(top: 0, left: 0, bottom: 10, right: 0)
+        return UIEdgeInsets.init(top: 0, left: 40, bottom: 10, right: 40)
     }
 
     private let MINIMUM_LINE_SPACING: CGFloat = 20
@@ -203,7 +203,7 @@ extension TodayTabView: UICollectionViewDelegate, UICollectionViewDelegateFlowLa
     }
     private var itemHeight: CGFloat {
         get {
-            return itemWidth / aspectRatio
+          return UIScreen.main.bounds.height * 0.725
         }
     }
   
