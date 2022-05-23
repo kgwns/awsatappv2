@@ -18,18 +18,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JM8-gq-PCL">
+                    <view contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" translatesAutoresizingMaskIntoConstraints="NO" id="JM8-gq-PCL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pdf_archive_pdf_icon" translatesAutoresizingMaskIntoConstraints="NO" id="rFI-mC-kBO">
-                                <rect key="frame" x="16" y="26" width="24" height="24"/>
+                                <rect key="frame" x="335" y="26" width="24" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="9VZ-F8-LMm"/>
                                     <constraint firstAttribute="width" constant="24" id="xIh-BM-1sK"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aM9-SF-L7z">
-                                <rect key="frame" x="53" y="20" width="144" height="36"/>
+                                <rect key="frame" x="178" y="20" width="144" height="36"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="February 17, 2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FGm-OZ-68C">
                                         <rect key="frame" x="0.0" y="0.0" width="144" height="18"/>
@@ -53,7 +53,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeD-GW-GT8">
-                                <rect key="frame" x="259" y="21" width="100" height="34"/>
+                                <rect key="frame" x="16" y="21" width="100" height="34"/>
                                 <color key="backgroundColor" name="primaryButton"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="Kcu-Jh-HOU"/>

@@ -60,7 +60,6 @@ static void InitializeFlipper(UIApplication *application) {
   [[RCTI18nUtil sharedInstance] allowRTL:YES];
   [[RCTI18nUtil sharedInstance] forceRTL:YES];
   [RNSplashScreen show];
-  [[UIView appearance] setSemanticContentAttribute: UISemanticContentAttributeForceRightToLeft];
   
   // Play Audio in Silent Mode
   AVAudioSession *audioSession = [AVAudioSession sharedInstance];
