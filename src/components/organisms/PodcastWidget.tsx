@@ -1,18 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { ButtonImage, Divider, Image, Label, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
+import { ButtonImage, Image, Label } from '../atoms';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
-import { ImagesName, Styles } from 'src/shared/styles';
-import { isTab, normalize, screenWidth } from 'src/shared/utils';
+import { ImagesName } from 'src/shared/styles';
+import { isTab, normalize } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { decodeHTMLTags, getSecondsToHms } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getSecondsToHms, isNonEmptyArray } from 'src/shared/utils/utilities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
-import { HOME_PODCAST_TITLE } from 'src/constants/SharedConstants';
+import { flatListUniqueKey } from 'src/constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { useTranslation } from 'react-i18next'
 
@@ -29,35 +26,6 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   const { themeData } = useTheme();
   const style = useThemeAwareObject(createStyles);
   const podcastData = data[0];
-  const navigation = useNavigation<StackNavigationProp<any>>();
-
-  const widgetHeaderData: WidgetHeaderProps = {
-    headerLeft: {
-      title: 'بودكاست',
-      color: themeData.primaryDarkSlateGray,
-      labelType: LabelTypeProp.title3,
-      textStyle: { fontFamily: fonts.AwsatDigitalBetav10_Black }
-    },
-    headerRight: {
-      title: 'المزيد',
-      icon: () => {
-        return getSvgImages({
-          name: ImagesName.arrowLeftFaced,
-          size: normalize(12),
-          style: { marginLeft: normalize(10) }
-        })
-      },
-      color: Styles.color.smokeyGrey,
-      labelType: LabelTypeProp.h3,
-      clickable: true,
-      textStyle: { fontFamily: fonts.Effra_Arbc_Medium }
-    },
-  };
-
-  const navigateToPodcast = () => {
-    const params = { sectionId: null, title: "بودكاست", keyName: "podcast" }
-    navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
-  }
 
   const ListenToPodcast = () => (
     <View style={style.listenContainer}>
@@ -82,30 +50,6 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
         style={style.duration}
         numberOfLines={1}
       />
-    </View>
-  )
-
-  const AllEpisodesCard = () => (
-    <View style={style.allEpisodeContainer}>
-      <Label
-        numberOfLines={1}
-        color={themeData.primaryBlack}
-        style={style.allEpisodeTitle}
-        children={t('podcastHome.allEpisodes')}
-      />
-      <View style={style.leftArrowContainer}>
-        <ButtonImage
-          icon={() => {
-            return getSvgImages({
-              name: ImagesName.arrowLeftFacedBlack,
-              width: 7,
-              height: 9,
-            });
-          }}
-          onPress={onPress}
-          style={style.leftArrow}
-        />
-      </View>
     </View>
   )
 
@@ -150,7 +94,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     </View>
   )
 
-  const tabletData = data.slice(0, 2)
+  const tabletData = isNonEmptyArray(data) && (data.length > 2) ? data.slice(0, 2) : data
   const renderTablet = () => (
     <View style={style.tabletContainer}>
       <FlatList
