@@ -91,7 +91,7 @@ export const PopUp = ({
     const renderRBSheet = () => (
         <RBSheet
             ref={ref => refRBSheet = ref}
-            animationType={'slide'}
+            animationType={'fade'}
             height={height}
             closeOnDragDown={true}
             closeOnPressMask={true}
@@ -102,6 +102,7 @@ export const PopUp = ({
                 wrapper: style.popupBackground,
                 draggableIcon: style.rbDraggableIcon
             }}
+            openDuration={50}
         >
             <BottomSheetView
                 onPressSignUp={onPressSuccessButton}
@@ -146,7 +147,7 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: theme.primaryBlack
         },
         popupBackground: {
-            backgroundColor: colors.dim_gray
+            backgroundColor: theme.popupBackground
         }
     });
     return popUpStyle
