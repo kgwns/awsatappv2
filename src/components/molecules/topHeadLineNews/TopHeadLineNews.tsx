@@ -3,7 +3,7 @@ import React from 'react'
 import { Label } from 'src/components/atoms'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
-import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
+import { isIOS, isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { ScreensConstants } from 'src/constants'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -29,8 +29,12 @@ export const TopHeadLineNews = ({
         return (
             <TouchableOpacity activeOpacity={0.7} style={style.rowItem}
                 onPress={() => onPress(item.nid)}>
-                <View style={style.circle} />
-                <Label children={item.title} style={style.title} />
+                <View style={style.circleContainer}>
+                    <View style={style.circle} />
+                </View>
+                <View style={style.titleContainer}>
+                    <Label children={item.title} style={style.title} />
+                </View>
             </TouchableOpacity>
         )
 
@@ -61,8 +65,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         height: 8,
         borderRadius: 4,
         backgroundColor: theme.primaryBlack,
-        marginRight: normalize(10),
-        marginTop: normalize(10),
+        marginTop: isIOS ? normalize(9) : normalize(12),
         marginLeft: 2,
     },
     title: {
@@ -71,5 +74,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         textAlign: 'left',
         color: theme.primaryBlack,
         fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    },
+    circleContainer: {
+        width:'5%'
+    },
+    titleContainer: {
+        width:'94%'
     }
 })

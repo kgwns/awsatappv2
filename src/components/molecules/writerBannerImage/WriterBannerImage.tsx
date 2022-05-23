@@ -215,7 +215,6 @@ const customStyle = (theme: CustomThemeType) => {
     authorSubscribeView:{
       flex: 1,
       flexDirection: 'row',
-      height: normalize(45),
       alignItems: 'center'
     },
     authorNameView:{

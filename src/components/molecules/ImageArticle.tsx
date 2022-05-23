@@ -95,7 +95,7 @@ const ImageArticle = ({
             <View style={imageArticleStyle.titleContainer}>
               <Label labelType={LabelTypeProp.title1}
                 children={title}
-                numberOfLines={2}
+                numberOfLines={3}
                 style={[textStyles,titleStyle]}
               />
             </View>
