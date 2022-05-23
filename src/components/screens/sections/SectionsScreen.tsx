@@ -42,7 +42,8 @@ export const SectionsScreen = () => {
 
   const renderScene = ({ route }: any) => {
     const tabIndex = route.key.match(/\d+/g) || ['0'];
-    switch (route.key.substring(1)) {
+    
+    switch (route.keyName) {
       case TabType.opinion:
         return <OpinionScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}  />;
       case TabType.podcast:
@@ -66,7 +67,8 @@ export const SectionsScreen = () => {
         return {
           key: `${index}${item.keyName}`,
           title: item.tabName,
-          sectionId: item.sectionId
+          sectionId: item.sectionId,
+          keyName: item.keyName,
         };
       })
       setNewRoutes(newRoutesArray)

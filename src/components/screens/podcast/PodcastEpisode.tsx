@@ -181,7 +181,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         title: podcastEpisodeInfo.title,
         duration: podcastEpisodeInfo.field_total_duration_export,
         artist: podcastEpisodeInfo.title,
-        artwork: podcastEpisodeInfo.field_podcast_sect_export?.img_podcast_mobile
+        artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
       }
       recordLogEvent('Played_Podcast', {podcastid: podcastEpisodeInfo.nid });
       if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) setPlayerTrack(trackPlayerData);

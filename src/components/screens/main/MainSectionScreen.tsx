@@ -505,7 +505,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         title: podcastData.title,
         duration: podcastData.field_total_duration_export,
         artist: podcastData.title,
-        artwork: podcastData.field_podcast_sect_export?.img_podcast_mobile
+        artwork: podcastData?.field_podcast_sect_export?.image
       }
       if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) setPlayerTrack(trackPlayerData);
       !showMiniPlayer && setShowMiniPlayer(true);

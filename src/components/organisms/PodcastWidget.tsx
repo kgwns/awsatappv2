@@ -132,7 +132,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
               <Image
                 fallback
                 resizeMode="stretch"
-                url={podcastData?.field_podcast_image_export}
+                url={podcastData?.field_podcast_sect_export?.image}
                 style={style.image}
               />
             </View>

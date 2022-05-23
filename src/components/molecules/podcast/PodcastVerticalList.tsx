@@ -8,7 +8,7 @@ import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {getPodcastDate, getSecondsToHms} from 'src/shared/utils/utilities';
+import {decodeHTMLTags, getPodcastDate, getSecondsToHms, isNotEmpty} from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 
 export interface PodcastVerticalListProps {
@@ -56,7 +56,7 @@ export const PodcastVerticalList = ({
           </View>
         </View>
         {!hideDescription&&<Label style={style.description} numberOfLines={2}>
-          {description}
+          {isNotEmpty(description) ? decodeHTMLTags(description) : ''}
         </Label>}
         <View style={[style.headerStyle,hideDescription&&style.spaceStyle]}>
           <View style={style.headerLeftStyle}>
@@ -147,3 +147,5 @@ const customStyle = (theme: CustomThemeType) => {
 };
 
 export default PodcastVerticalList;
+
+

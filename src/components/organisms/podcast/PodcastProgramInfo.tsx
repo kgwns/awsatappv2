@@ -9,6 +9,7 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {PodcastListItemType} from 'src/redux/podcast/types'
 import { fonts } from 'src/shared/styles/fonts';
+import { decodeHTMLTags } from 'src/shared/utils/utilities';
 
 interface PodcastProgramProps {
   data: PodcastListItemType;
@@ -24,7 +25,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <Image fallback url={data.field_podcast_sect_export?.img_podcast_mobile} style={styles.imageStyle} />
+            <Image fallback url={data?.field_podcast_sect_export?.image} style={styles.imageStyle} />
             <View style={styles.containerSpace} />
             <Label style={styles.textStyle} children={data.title} />
             {data.field_podcast_sect_export?.name&&
@@ -34,7 +35,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
             }
             {data.body_export&&
               <View style={styles.containerSpace} >
-                <Label style={styles.descriptionTextStyle} children={data.body_export} />
+                <Label style={styles.descriptionTextStyle} children={decodeHTMLTags(data.body_export)} />
               </View>
             }
           </View>

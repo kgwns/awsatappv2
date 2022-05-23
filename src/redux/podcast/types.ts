@@ -23,7 +23,8 @@ type FieldPodcastSectionExport = {
   description: string,
   img_podcast_desktop: string,
   img_podcast_mobile: string,
-  name: string
+  name: string,
+  image: string,
 }
 
 export interface PodcastListItemType {
