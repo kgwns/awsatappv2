@@ -124,6 +124,7 @@ StyleSheet.create({
     marginLeft: normalize(10),
     color: colors.white,
     fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    lineHeight: normalize(26)
   },
   buttonStyle: {
     paddingLeft: normalize(20),
