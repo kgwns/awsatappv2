@@ -7,7 +7,7 @@ import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { decodeHTMLTags, getSecondsToHms } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getSecondsToHms, isNonEmptyArray } from 'src/shared/utils/utilities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
@@ -150,7 +150,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     </View>
   )
 
-  const tabletData = data.slice(0, 2)
+  const tabletData = isNonEmptyArray(data) && (data.length > 2) ? data.slice(0, 2) : data
   const renderTablet = () => (
     <View style={style.tabletContainer}>
       <FlatList
