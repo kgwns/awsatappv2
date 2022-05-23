@@ -100,7 +100,7 @@
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="whiteSurface"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Y8x-VP-PEa" secondAttribute="bottom" id="09L-8k-sHc"/>
                             <constraint firstItem="Y8x-VP-PEa" firstAttribute="top" secondItem="GjD-ga-dVJ" secondAttribute="bottom" id="6RT-4f-0gA"/>
@@ -137,6 +137,9 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="primarySurface">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="whiteSurface">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
