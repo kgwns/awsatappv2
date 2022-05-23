@@ -24,7 +24,7 @@ final class PDFEditionHeaderCollectionViewCell: UICollectionReusableView {
         archiveButton.semanticContentAttribute = .forceRightToLeft
         archiveButton.titleLabel?.font = UIFont.boldAwsatFont(size: 13)
         archiveButton.setTitle(Strings.newsArchiveMenu, for: .normal)
-        titleLabel.text = "جريدة اليوم"
+      titleLabel.text = Strings.paperNewsPaper
     }
   
     func setArchiveButtonAction(_ action: @escaping () -> (Void)) {
