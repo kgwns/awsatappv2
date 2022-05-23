@@ -56,7 +56,8 @@ const customStyle = (theme: CustomThemeType) => (
             borderColor: Styles.color.cyanGray,
             paddingLeft: normalize(15),
             paddingRight: normalize(15),
-            paddingVertical: isIOS ? normalize(9) : normalize(7),
+            paddingTop: isIOS ? normalize(10) : normalize(7),
+            paddingBottom: isIOS ? normalize(4) : normalize(7),
             borderRadius: normalize(20)
         },
         filterActive: {
@@ -65,6 +66,7 @@ const customStyle = (theme: CustomThemeType) => (
         },
         label: {
             fontSize: normalize(13),
+            lineHeight: normalize(16),
             fontFamily: fonts.AwsatDigitalBetav10_Regular,
         }
     })

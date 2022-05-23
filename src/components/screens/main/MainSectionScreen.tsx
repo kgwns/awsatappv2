@@ -569,7 +569,6 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
       {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       <BannerArticleSection data={editorsChoiceInfo}
         title={CONST_EDITOR_CHOICE_HEADER_TITLE}
-        sectionId={'871'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedEditorsChoiceBookmark}
         isDivider
@@ -698,7 +697,6 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
             title={CONST_EDITOR_CHOICE_HEADER_TITLE}
-            sectionId={'871'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedEditorsChoiceBookmark}
             hideMore={true}

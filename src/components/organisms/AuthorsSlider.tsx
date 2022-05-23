@@ -9,12 +9,13 @@ import { getImageUrl, isNonEmptyArray, isNotEmpty, isObjectNonEmpty } from 'src/
 import { Divider, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { t } from 'i18next';
-import { ImagesName, Styles } from 'src/shared/styles';
+import { ImagesName } from 'src/shared/styles';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 
 const AuthorSlider = ({
     data,
@@ -35,10 +36,14 @@ const AuthorSlider = ({
     selectedType?: string,
     onClose?: ()=> void
 }) => {
-  const style = useThemeAwareObject(customStyle);
-  const scrollRef = useRef<ScrollView>(null);
-  const { themeData } = useTheme()
   const navigation = useNavigation<StackNavigationProp<any>>();
+
+  const CONST_OPINION_COMBO_TITLE = TranslateConstants({key: TranslateKey.OPINION_COMBO_TITLE})
+
+  const { themeData } = useTheme()
+  const style = useThemeAwareObject(customStyle);
+
+  const scrollRef = useRef<ScrollView>(null);
 
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const playbackState = usePlaybackState();
@@ -143,9 +148,10 @@ const AuthorSlider = ({
     if (isIOS) return
     scrollRef.current?.scrollToEnd();
   }
+
   const widgetHeaderData: WidgetHeaderProps = {
     headerLeft: {
-        title: widgetHeader ? widgetHeader : t('latestNewsTab.sectionWriters.headerLeft'),
+        title: widgetHeader ? widgetHeader : CONST_OPINION_COMBO_TITLE,
         color: themeData.primary,
         labelType: LabelTypeProp.title3,
         elementContainerStyle: style.headerLeftContainer
@@ -162,7 +168,7 @@ const AuthorSlider = ({
       labelType: LabelTypeProp.caption2,
       clickable: true,
     },
-};
+  };
 
   const onPressMore = () => {
     const params = { sectionId: null, title: "الرأي", keyName: "opinion" }

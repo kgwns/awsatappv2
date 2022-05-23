@@ -32,7 +32,7 @@ export const sectionComboArticleFooter: articleFooterProps = {
 interface BannerArticleSectionProps {
     data: LatestArticleDataType[],
     title: string,
-    sectionId: string,
+    sectionId?: string,
     onPress: (nid: string) => void,
     onUpdateBookmark: (item: any) => void,
     isDivider?: boolean;

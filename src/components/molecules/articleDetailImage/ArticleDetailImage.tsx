@@ -25,6 +25,7 @@ const ArticleDetailImage = ({
     isRelatedArticle,
     caption,
     isFirstItem,
+    category,
     ...props
 }: ImageArticleProps) => {
 
@@ -52,13 +53,26 @@ const ArticleDetailImage = ({
         )
     }
 
+    const renderTagName = () => {
+        if (!isNotEmpty(category)) return null
+
+        return (
+            <View style={imageArticleStyle.tagNameViewStyle}>
+                <Label labelType={LabelTypeProp.h3} children={category}
+                    color={Styles.color.white} style={imageArticleStyle.tagNameStyle}
+                />
+            </View>
+        )
+    }
+
     return (
         <View>
             <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
                 <BannerImageWithOverlay image={image}
                     onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
-                    showOverlay={isFirstItem}
+                    showOverlay={false}
                 />
+                {renderTagName()}
             </View>
             {renderCaption()}
             <View style={imageArticleStyle.tabSlideContent}>
@@ -96,5 +110,17 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     captionView: {
         backgroundColor: theme.captionBackground, 
         paddingVertical: 4
-    }
+    },
+    tagNameViewStyle: {
+        flexWrap: 'wrap',
+        position: 'absolute',
+        left: normalize(15),
+        top: 11,
+    },
+    tagNameStyle: {
+        paddingHorizontal: normalize(10),
+        backgroundColor: Styles.color.greenishBlue,
+        flexWrap: 'wrap',
+        fontFamily: fonts.Effra_Arbc_Regular,
+    },
 })

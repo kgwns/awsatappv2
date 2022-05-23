@@ -50,13 +50,6 @@ export const ArticleOverlayContent = ({
 
     return (
         <View>
-            {isNotEmpty(category) &&
-                <View style={imageArticleStyle.tagNameViewStyle}>
-                    <Label labelType={LabelTypeProp.h3} children={category}
-                        color={Styles.color.white} style={imageArticleStyle.tagNameStyle}
-                    />
-                </View>
-            }
             <Label labelType={LabelTypeProp.h1}
                 children={title}
                 color={textColor}
@@ -72,16 +65,6 @@ export const ArticleOverlayContent = ({
 }
 
 const customStyle = (theme:CustomThemeType) => StyleSheet.create({
-    tagNameViewStyle: {
-        opacity: 0.7,
-        flexWrap: 'wrap'
-    },
-    tagNameStyle: {
-        paddingHorizontal: normalize(10),
-        backgroundColor: Styles.color.darkGreenishBlue,
-        flexWrap: 'wrap',
-        fontFamily: fonts.Effra_Arbc_Regular,
-    },
     title: {
         fontFamily: fonts.AwsatDigitalBetav10_Bold,
         fontSize: normalize(30),
