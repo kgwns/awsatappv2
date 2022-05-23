@@ -51,7 +51,7 @@
     <string name="message">رسالة</string>
     <string name="send_btn">إرسال</string>
     <string name="games_title">ألعاب</string>
-    <string name="pdf_archive_title">بي دي أف أرشيف</string>
+    <string name="pdf_archive_title">الأرشيف</string>
     <string name="likes_title">اعجابات</string>
     <string name="user_account_title">حساب المستخدم</string>
     <string name="news_archive_title">الأرشيف</string>
@@ -61,7 +61,7 @@
 
     <string name="latest_articles">أخبار الأقسام المختارة</string>
     <string name="unfollow">إلغاء التتبع</string>
-    <string name="download">حمل الجريدة</string>
+    <string name="download">تحميل</string>
     <string name="share_this_article">شارك بهذا المقال</string>
     <string name="mark_as_read">ضع إشارة مقروء</string>
     <string name="like">إعجاب</string>
@@ -112,7 +112,7 @@
     <string name="type_your_search_text_and_click_on_icon_to_ge_results">إكتب نص البحث وانقر على الرمز لتحصل على النتائج</string>
     <string name="your_search_text">أكتب نص البحث</string>
     <string name="has_returned_no_results">لا توجد نتائج للبحث... حاول مجددا</string>
-    <string name="read">قرئ</string>
+    <string name="read">أقرأ</string>
     <string name="commented_on">علق</string>
     <string name="nearby">قريب مني</string>
     <string name="nearby_news">أخبار قريبة من مكاني</string>
@@ -170,7 +170,7 @@
     <string name="more_of_this_author">اقرأ المزيد من مقالات الكتّاب</string>
     <string name="read_more_opinions">المزيد من الرأي</string>
     <string name="check_internet">تأكد من ربط جهازك بالانترنت</string>
-    <string name="issue_number">جريدة اليوم</string>
+    <string name="issue_number">صحيفة اليوم</string>
     <string name="downloading">جاري التحميل...</string>
     <string name="good_morning">صباح الخير</string>
     <string name="good_afternoon">طاب مساؤك</string>

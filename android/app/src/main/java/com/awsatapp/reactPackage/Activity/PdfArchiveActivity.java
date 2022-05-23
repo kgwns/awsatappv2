@@ -159,6 +159,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     private void downloadPdf(final Button button, final Pdf pdf) {
         final String path = mContext.getFilesDir().getPath() + "/" + pdf.getIssueNumber() + ".pdf";
         if (fileExist(pdf.getIssueNumber() + ".pdf")) {
+            //when file is already downloaded
             button.setText(getString(R.string.read));
         } else {
             BaseDownloadTask downloadTask = FileDownloader.getImpl().create(pdf.getUrl())
@@ -171,6 +172,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
 
                         @Override
                         protected void progress(BaseDownloadTask task, long soFarBytes, long totalBytes) {
+                            //set text when downloading in progress
                             button.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
                             Log.v("Progress", "" + soFarBytes);
                         }
@@ -184,6 +186,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                         protected void completed(BaseDownloadTask task) {
                             Log.v("Progress", "completed " + task.getPath());
                             pdf.setStatus(2);
+                            //when the dowload is completed
                             button.setText(getString(R.string.read));
                         }
 
