@@ -88,7 +88,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     const listHeaderSection = () => (
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>
                 {bannerData.map((item: articleProps, index: number) => {
                     if (index == 0) return <ImageArticle key={index} {...item}
                         onPressBookmark={() => onUpdateBookmark(item)}
