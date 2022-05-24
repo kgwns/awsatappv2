@@ -103,6 +103,6 @@ const SectionVideoFooterStyle = StyleSheet.create({
   },
   rightTitleStyle: {
     fontFamily: fonts.IBMPlexSansArabic_Regular,
-    fontSize: isTab ? normalize(11) : normalize(11)
+    fontSize: normalize(11)
   }
 })

@@ -254,7 +254,7 @@ export const ContentForYou = () => {
 
     const checkLoadData = () =>{
         checkBookmarkUpdate();
-        if(pageAllData[page] && pageAllData[page] && (pageAllData[page].articleSectionData.loaded || pageAllData[page].opinionsData.loaded)){
+        if(pageAllData && pageAllData[page] && (pageAllData[page].articleSectionData.loaded || pageAllData[page].opinionsData.loaded)){
             setIsAllLoading(false);
             setInitialLoading(false);
             checkDataLoaded();

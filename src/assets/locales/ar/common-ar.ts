@@ -58,7 +58,6 @@ export const arabic = {
     },
     sectionWriters: {
       headerLeft: 'الرأي',
-      opinionComboTitle: 'آراء وكتاب',
     },
     sectionComboThree: {
       headerLeft: 'العالم',

@@ -75,7 +75,7 @@ export const TranslateConstants = ({
         case TranslateKey.DRAWER_PDF_ARCHIVE:
             return t('drawer.pdfArchive')
         case TranslateKey.OPINION_COMBO_TITLE:
-            return t('latestNewsTab.sectionWriters.opinionComboTitle')
+            return t('latestNewsTab.sectionWriters.headerLeft')
         default: return ''
     }
 }
