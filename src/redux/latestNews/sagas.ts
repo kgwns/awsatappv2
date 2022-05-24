@@ -1,8 +1,5 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
-
-
-
 import {
   HeroListTopListSuccessPayload, LatestArticleDataType, payloadType, RequestHeroListTopList,
   RequestSectionComboFourSuccessPayload,
@@ -67,6 +64,7 @@ import {
   mainFeaturedArticleApi,
   editorsChoiceApi,
 } from 'src/services/latestTabService';
+import { decode } from 'html-entities';
 
 const formatMainSectionBlockData = (response: any) => {
   let formattedData: MainSectionBlockType[] = []
@@ -148,7 +146,7 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export }: any) => ({
           body,
-          title,
+          title: isNotEmpty(title) ? decode(title) : '',
           nid,
           image: getImageUrl(field_image),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
@@ -170,7 +168,7 @@ const formatOpinion = (response: any): LatestOpinionDataType[] => {
       formattedOpinionData = rows.map(
         ({ title, body, nid, field_opinion_writer_node_export, jwplayer, jwplayer_info }: any) => ({
           body,
-          title,
+          title: isNotEmpty(title) ? decode(title) : '',
           nid,
           field_opinion_writer_node_export,
           field_jwplayer_id_opinion_export:jwplayer,
@@ -191,7 +189,8 @@ const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
         ({ nid, field_podcast_sect_export, title, body_export, field_total_duration_export, created_export, field_spreaker_episode_export, field_announcer_name_export, field_podcast_image_export }: any) => ({
           nid,
           field_podcast_sect_export,
-          title, body_export,
+          title: isNotEmpty(title) ? decode(title) : '',
+          body_export,
           field_total_duration_export,
           created_export,
           field_spreaker_episode_export,
@@ -465,7 +464,7 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
       } else if (action.type == REQUEST_SECTION_COMBO_SIX) {
         yield put(requestSectionComboSixFailed({ error: errorMessage.message }));
       } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
-        yield put(requestSectionComboSixFailed({ error: errorMessage.message }));
+        yield put(requestSectionComboSevenFailed({ error: errorMessage.message }));
       }
     }
   }

@@ -140,6 +140,7 @@ const customStyle = (theme: CustomThemeType) => {
   const OpinionWritersArticlesSectionStyle = StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
+      paddingTop: normalize(15),
     },
     scrollMore: {
       fontSize: normalize(16),

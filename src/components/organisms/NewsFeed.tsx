@@ -16,6 +16,7 @@ import {
   decodeHTMLTags,
   getImageUrl,
   calculateYear,
+  isNotEmpty,
 } from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -23,6 +24,7 @@ import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';
+import { decode } from 'html-entities';
 
 export interface NewsFeedProps {
   title: string;
@@ -57,7 +59,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
     return (
       <View>
         <SectionVideoFooter
-          leftTitle={item.author_resource}
+          leftTitle={isNotEmpty(item.author_resource) ? decode(item.author_resource) : ''}
           rightTitle={calculateYear(item.created_export) + ','}
           leftTitleColor={theme.themeData.primary}
           rightIcon={() => <CalendarIcon />}
@@ -90,7 +92,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
           addBookMark={true}
           isBookmarked={item.isBookmarked}
           onPressBookmark={() => { onUpdateNewsFeedBookmark(index) }}
-          leftTitle={item.author_resource}
+          leftTitle={isNotEmpty(item.author_resource) ? decode(item.author_resource) : ''}
         />
       </View>
     )

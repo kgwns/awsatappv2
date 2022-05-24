@@ -250,6 +250,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        bounces={false}
       />
 
     </ScreenContainer>

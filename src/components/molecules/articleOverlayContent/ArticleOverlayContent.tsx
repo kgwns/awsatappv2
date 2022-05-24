@@ -54,11 +54,14 @@ export const ArticleOverlayContent = ({
                 children={title}
                 color={textColor}
                 style={imageArticleStyle.title} />
-            <Label
-                numberOfLines={2} 
-                children={subtitle}
-                color={textColor}
-                style={imageArticleStyle.subtitle} />
+            {isNotEmpty(subtitle) &&
+                <Label
+                    numberOfLines={3}
+                    children={subtitle}
+                    color={textColor}
+                    style={imageArticleStyle.subtitle}
+                />
+            }
             <ArticleFooter {...articleDetailFooterData} isDetail={true} rightTitle={author} leftTitle={t(timeAgo(created))} />
         </View>
     )

@@ -14,7 +14,8 @@ import {
 } from './action';
 import { FETCH_PODCAST_EPISODE, FETCH_PODCAST_LIST } from './actionTypes';
 import { fetchPodcastListApi, fetchPodcastEpisodeApi } from 'src/services/podcastService';
-import { isNonEmptyArray } from 'src/shared/utils';
+import { isNonEmptyArray, isNotEmpty } from 'src/shared/utils';
+import { decode } from 'html-entities';
 
 const formatData = (response: any): FetchPodcastEpisodeType[] => {
   let formattedData: FetchPodcastEpisodeType[] = []
@@ -42,8 +43,8 @@ const formatData = (response: any): FetchPodcastEpisodeType[] => {
             nid,
             type,
             view_node,
-            field_new_sub_title_export,
-            title,
+            field_new_sub_title_export: isNotEmpty(field_new_sub_title_export) ? decode(field_new_sub_title_export) : '',
+            title: isNotEmpty(title) ? decode(title) : '',
             field_announcer_name_export,
             field_apple_podcast_export,
             body_export,
