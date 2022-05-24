@@ -28,6 +28,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
   const [t] = useTranslation();
   const fieldData = data ? data : podcastEpisodeInitialData
   const barVisibility = fieldData.created_export && fieldData.field_total_duration_export
+  const hasNewSubTitle = !!fieldData.field_new_sub_title_export
   return (
     <View>
       <View style={styles.containerStyle}>
@@ -35,13 +36,13 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
           <View style={styles.centerContainer}>
             <Label style={styles.titleTextStyle} children={fieldData.title} />
             <Image fallback url={fieldData?.field_podcast_sect_export?.image} style={styles.imageStyle} />
-            {!!fieldData.field_new_sub_title_export &&
-              <View style={styles.containerSpace} >
+            {hasNewSubTitle &&
+              <View style={[styles.containerSpace, {paddingTop: normalize(15)}]} >
                 <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
               </View>
             }
             {!!fieldData.field_announcer_name_export&&
-              <View style={styles.bottomSpace} >
+              <View style={[styles.bottomSpace, !hasNewSubTitle && {paddingTop: normalize(16)}]} >
                 <Label style={styles.announcerTextStyle} children={fieldData.field_announcer_name_export} />
               </View>
             }   
@@ -110,7 +111,7 @@ StyleSheet.create({
     color: colors.greenishBlue,
   },
   bottomSpace: {
-    paddingBottom: normalize(10),
+    paddingBottom: normalize(13),
   },
   titleTextStyle: {
     fontSize: normalize(13),
@@ -147,6 +148,7 @@ StyleSheet.create({
     backgroundColor:colors.white,
     borderWidth: 0,
     width: '60%',
+    marginTop: normalize(20),
   },
   rightIconStyle: {
     paddingRight: normalize(15),

@@ -4,7 +4,8 @@ import { FetchVideoSuccessPayloadType, VideoItemType } from './types';
 import { fetchVideoListFailed, fetchVideoListSuccess } from './action';
 import { FETCH_VIDEO } from './actionTypes';
 import { fetchVideoListApi } from 'src/services/videoListService';
-import { isNonEmptyArray } from 'src/shared/utils';
+import { isNonEmptyArray, isNotEmpty } from 'src/shared/utils';
+import { decode } from 'html-entities';
 
 export const formatVideoData = (response: any): VideoItemType[] => {
   let formattedData: VideoItemType[] = []
@@ -14,7 +15,7 @@ export const formatVideoData = (response: any): VideoItemType[] => {
       formattedData = rows.map(
         ({ nid,title,created_export,field_image_upload_export,field_mp4_link_export,field_multimedia_section_export,field_thumbnil_multimedia_export,description,field_jwplayerinfo_export,body_export }: any) => ({
           nid,
-          title,
+          title: isNotEmpty(title) ? decode(title) : '',
           created_export,
           field_image_upload_export,
           field_mp4_link_export,

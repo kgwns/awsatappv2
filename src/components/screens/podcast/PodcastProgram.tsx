@@ -128,6 +128,7 @@ export const PodcastProgram = ({tabIndex, currentIndex}: {tabIndex?:number; curr
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderPodcast}
           showsVerticalScrollIndicator={false}
+          bounces={false}
         />}
     </ScreenContainer>
   )

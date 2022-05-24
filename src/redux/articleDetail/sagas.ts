@@ -6,7 +6,7 @@ import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA, REQUEST_AR
 import { requestArticleDetailFailed, requestArticleDetailSuccess, requestArticleSectionFailed, requestArticleSectionSuccess, requestRelatedArticleSuccess } from './action';
 import { isNonEmptyArray } from 'src/shared/utils';
 import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
-
+import { decode } from 'html-entities';
 
 const parseImageData = (field_image: string, field_image_export: string) => {
   const image = field_image ?? field_image_export
@@ -21,11 +21,11 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_image_export, field_news_categories_export, author_resource,created_export }: any) => ({
           body,
-          title,
+          title: isNotEmpty(title) ? decode(title) : '',
           nid,
           image: parseImageData(field_image, field_image_export),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
-          author: author_resource,
+          author: isNotEmpty(author_resource) ? decode(author_resource) : '',
           created: created_export
         })
       );
@@ -49,16 +49,16 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
         ({ title, body_export, nid_export, field_image_export, view_node,
           field_news_categories_export, author_resource, field_tags_topics_export,created_export, field_new_sub_title_export }: any) => ({
             body: body_export,
-            title,
+            title: isNotEmpty(title) ? decode(title) : '',
             nid: nid_export,
             image: isNonEmptyArray(field_image_export) ? getImageUrl(field_image_export[0].url) : '',
             caption: isNonEmptyArray(field_image_export) ? field_image_export[0].alt : '',
             view_node: view_node,
             news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             tag_topics: isNonEmptyArray(field_tags_topics_export) ? field_tags_topics_export[0] : field_tags_topics_export,
-            author: author_resource,
+            author: isNotEmpty(author_resource) ? decode(author_resource) : '',
             created: created_export,
-            subtitle: field_new_sub_title_export
+            subtitle: isNotEmpty(field_new_sub_title_export) ? decode(field_new_sub_title_export) : '',
           })
       );
     }

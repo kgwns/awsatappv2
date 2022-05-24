@@ -14,12 +14,13 @@ import {
   isNonEmptyArray,
   isObjectNonEmpty,
   timeAgo,
+  isNotEmpty,
 } from 'src/shared/utils/utilities';
 import {ScreensConstants} from 'src/constants';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import { useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import { Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';
-import { useBookmark, useLogin, useVideoList } from 'src/hooks';
+import { useBookmark, useLogin } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { fetchNewsViewApi } from 'src/services/newsViewService';
@@ -30,6 +31,7 @@ import { formatVideoData } from 'src/redux/videoList/sagas';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
+import { decode } from 'html-entities';
 
 export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex}: {sectionId: any; tabIndex?: number; currentIndex?:number }) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -294,7 +296,7 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
         {isObjectNonEmpty(bannerData) && (
           <ImageArticle
             image={getImageUrl(bannerData.field_image)}
-            title={bannerData.title}
+            title={isNotEmpty(bannerData.title) ? decode(bannerData.title) : ''}
             body={bannerData.body}
             author={''} //No need to author name
             nid={bannerData.nid}

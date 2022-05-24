@@ -14,8 +14,9 @@ import {useTranslation} from 'react-i18next';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import { Styles } from 'src/shared/styles';
 import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
-import { getImageUrl } from 'src/shared/utils/utilities';
+import { getImageUrl, isNotEmpty } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
+import { decode } from 'html-entities';
 
 interface OpinionWritersWidgetProps {
   data: OpinionWriterItemType[];
@@ -48,9 +49,9 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
               />
             </Grayscale>
           </View>
-          <Label style={style.labelStyle} numberOfLines={2}>
-            {item.name}
-          </Label>
+          <Label children={isNotEmpty(item.name) ? decode(item.name) : ''}
+            style={style.labelStyle} numberOfLines={2}
+          />
         </View>
       </TouchableWithoutFeedback>
     );
