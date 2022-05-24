@@ -5,6 +5,7 @@ import { isTab, normalize, normalizeBy320, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { moleculesTestID } from 'src/constants'
 import { testProps } from 'src/shared/utils'
+import { fonts } from 'src/shared/styles/fonts'
 
 export interface TabBarDataProps {
   tabName: string,
@@ -32,8 +33,8 @@ export const TabWithBarItem: FunctionComponent<TabBarItemProps> = ({
     <TouchableWithoutFeedback key={index} {...testProps(moleculesTestID.tabItemBtn)}
       onPress={() => onPress(index)}>
       <View style={tabWitBarItemStyle.container}>
-        <Label children={tabName} labelType={LabelTypeProp.h4} color={color}
-          style={[tabWitBarItemStyle.labelStyle, {fontFamily: labelFont}]}
+        <Label children={tabName}  color={color}
+          style={tabWitBarItemStyle.labelStyle}
         />
         {isSelected && <View style={StyleSheet.flatten([tabWitBarItemStyle.barLine, barColor])} />}
       </View>
@@ -52,6 +53,8 @@ const tabWitBarItemStyle = StyleSheet.create({
     zIndex: 9999
   },
   labelStyle: {
-    lineHeight:20
+    fontSize: 14,
+    lineHeight:20,
+    fontFamily: fonts.Effra_Arbc_Regular
   }
 })

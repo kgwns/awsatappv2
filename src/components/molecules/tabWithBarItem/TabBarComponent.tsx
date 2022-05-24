@@ -32,7 +32,6 @@ export const TabBarComponent = ({ tabItem, onPressTabItem, style }: TabBarWidget
             <TabWithBarItem key={index}
               {...item} index={index}
               onPress={onPressTabItem}
-              labelFont={item.isSelected ? fonts.AwsatDigitalBetav10_Bold : fonts.AwsatDigitalBetav10_Regular}
             />
           )
         }
