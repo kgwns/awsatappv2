@@ -29,7 +29,7 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
             <View style={{alignItems: 'center'}}>
                 <Image fallback name={name} url={url}
                     style={[imageWithLabelStyle.articleImage, imageStyle]}
-                    resizeMode={isTab ? ImageResize.COVER : ImageResize.COVER}
+                    resizeMode={ImageResize.COVER}
                 />
                 {isNotEmpty(tagName) &&
                     <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
