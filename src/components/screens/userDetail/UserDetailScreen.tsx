@@ -748,7 +748,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     emailTitle: {
       fontSize: normalize(14),
-      lineHeight: normalize(17),
+      lineHeight: normalize(20),
       marginBottom: '6%',
       textAlign: 'left',
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
@@ -836,7 +836,7 @@ const createStyles = (theme: CustomThemeType) =>
     updateButtonLabel: {
       color: colors.white,
       fontSize: normalize(16),
-      lineHeight: 20,
+      lineHeight: 26,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     overlayStyle: {

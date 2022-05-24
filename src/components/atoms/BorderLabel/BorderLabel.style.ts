@@ -7,7 +7,7 @@ import { fonts } from 'src/shared/styles/fonts';
 export const customBorderLabelStyles = (theme: CustomThemeType) => {
   const containerHeight = isIOS ? normalize(36) : normalize(40);
   const fontSize = isIOS ? normalize(14) : normalize(17);
-  const lineHeight = isIOS ? normalize(22) : normalize(28);
+  const lineHeight = isIOS ? normalize(24) : normalize(28);
   const BorderLabelStyle = StyleSheet.create({
     tagContainer: {
       height: containerHeight,

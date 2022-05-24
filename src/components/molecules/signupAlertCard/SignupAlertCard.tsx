@@ -56,7 +56,7 @@ const customStyle = (theme: CustomThemeType) =>
     titleTextStyle: {
       fontSize: normalize(24),
       color: theme.primary,
-      lineHeight: normalize(29),
+      lineHeight: normalize(42),
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       justifyContent: 'center',
       textAlign: 'center',
@@ -65,7 +65,7 @@ const customStyle = (theme: CustomThemeType) =>
     instructionTextStyle: {
       fontSize: normalize(16),
       color: theme.secondaryDavyGrey,
-      lineHeight: normalize(25),
+      lineHeight: normalize(28),
       textAlign: 'center',
       paddingBottom: normalize(50),
       paddingHorizontal: normalize(20),
@@ -84,7 +84,7 @@ const customStyle = (theme: CustomThemeType) =>
       fontSize: normalize(16),
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: colors.white,
-      lineHeight: normalize(20),
+      lineHeight: normalize(26),
       textAlign: 'center',
     },
     iconStyle: {

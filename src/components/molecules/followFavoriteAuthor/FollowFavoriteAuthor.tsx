@@ -3,7 +3,7 @@ import {Platform, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Image} from 'src/components/atoms';
 import {Label} from 'src/components/atoms';
-import {isTab, normalize, screenHeight, screenWidth} from 'src/shared/utils';
+import {isIOS, isTab, normalize, screenHeight, screenWidth} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -145,7 +145,7 @@ const FollowFavoriteAuthor = ({
 const customStyle = (theme: CustomThemeType) => {
   const FollowFavoriteAuthorStyle = StyleSheet.create({
     container: {
-      marginVertical: normalize(0.030 * screenWidth),
+      marginVertical: isIOS ? normalize(0.015 * screenWidth) : normalize(0.030 * screenWidth),
       marginEnd: (Platform.OS==='ios')
       ?normalize(0.020 * screenHeight)
       :normalize(0.026 * screenHeight),
@@ -156,7 +156,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       textAlign: 'center',
       fontSize: normalize(14),
-      lineHeight: normalize(17),
+      lineHeight: normalize(22),
     },
     descStyle: {
       fontFamily: fonts.IBMPlexSansArabic_Regular,

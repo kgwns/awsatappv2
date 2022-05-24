@@ -12,7 +12,7 @@ import {Label} from 'src/components/atoms';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {isTab, normalize, screenWidth} from 'src/shared/utils';
+import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { HeaderConstants } from '../constants/HeaderConstants'; 
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
@@ -284,6 +284,7 @@ const customStyle = (theme: CustomThemeType) => (
       width: normalize(12),
       height: normalize(8.8),
       marginEnd: normalize(5),
+      marginBottom: isIOS ? 5 : 0
     },
     headerTitle:{
       fontSize:normalize(24),

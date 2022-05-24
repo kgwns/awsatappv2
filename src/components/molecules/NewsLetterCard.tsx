@@ -3,7 +3,7 @@ import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Image, Label} from 'src/components/atoms';
-import {normalize, screenWidth} from 'src/shared/utils';
+import {isIOS, normalize, screenWidth} from 'src/shared/utils';
 import {ImagesName} from 'src/shared/styles/images';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
@@ -116,20 +116,20 @@ const customStyle = (theme: CustomThemeType) => {
     title: {
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       fontSize: normalize(16),
-      lineHeight: normalize(19),
+      lineHeight: isIOS ? normalize(28): normalize(32),
       color: theme.primaryDarkSlateGray,
     },
     subTitle: {
-      fontFamily: fonts.IBMPlexSansArabic_Regular,
+      fontFamily: fonts.Effra_Arbc_Regular,
       fontSize: normalize(10),
       lineHeight: normalize(15),
       color: colors.doveGray,
-      marginTop: normalize(5),
+      // marginTop: normalize(5),
     },
     footerContent: {
       flex: 1,
       flexDirection: 'row',
-      marginTop: normalize(15),
+      marginTop: normalize(12),
     },
     circleShape: {
       width: normalize(30),
@@ -140,14 +140,14 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.secondaryWhite,
     },
     statusLabel: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.Effra_Regular,
       fontSize: normalize(12),
       lineHeight: normalize(14),
       marginStart: normalize(8),
       color: colors.doveGray,
     },
     statusSelectedLabel: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.Effra_Regular,
       fontSize: normalize(12),
       color: theme.primary,
       lineHeight: normalize(14),

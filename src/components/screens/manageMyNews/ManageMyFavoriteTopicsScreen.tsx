@@ -212,7 +212,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       width: '100%',
       fontSize: normalize(16),
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
-      lineHeight: normalize(25),
+      lineHeight: normalize(26),
     },
 });
 
