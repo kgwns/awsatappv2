@@ -149,14 +149,16 @@ const AuthorItem = ({
                 <Label children={body} labelType={LabelTypeProp.h3}
                     numberOfLines={2} style={style.body} />
                 {mediaVisibility && <View style={style.mediaFooter}>
-                    <ButtonImage
-                    icon={() =>
-                        trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
-                        getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
-                      }
-                    onPress={onPressPlay} />
-                    <Label children={t('opinion.listenToActicleText')} style={style.articleLabelSyle}
+                    <TouchableOpacity onPress={onPressPlay} style={style.mediaFooter}>
+                        <ButtonImage
+                        icon={() =>
+                            trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                            getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
+                        }
+                        onPress={onPressPlay} />
+                        <Label children={t('opinion.listenToActicleText')} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
+                    </TouchableOpacity>
                     { timeDuration && <Label children={timeDuration} style={style.durationLabel} /> }
                 </View>}
             </View>

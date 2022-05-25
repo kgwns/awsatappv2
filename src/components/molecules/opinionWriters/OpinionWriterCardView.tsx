@@ -173,16 +173,18 @@ const onPressPlay = () => {
       <View style={[style.footerContainer, mediaVisibility && style.footerContainerMedia]}>
         <View style={style.listenArticleContainer}>
           {mediaVisibility && <>
-            <ButtonImage
-              icon={() =>
-                trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
-                getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
-              }
-              style={style.playIcon}
-              onPress={() => onPressPlay()}
-              testId={'playIconTestId'}
-            />
-            <Label style={style.footerLabel}>{audioLabel}</Label>
+            <TouchableOpacity onPress={onPressPlay} style={style.listenArticleContainer}>
+              <ButtonImage
+                icon={() =>
+                  trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                  getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
+                }
+                style={style.playIcon}
+                onPress={() => onPressPlay()}
+                testId={'playIconTestId'}
+              />
+              <Label style={style.footerLabel}>{audioLabel}</Label> 
+            </TouchableOpacity>
             {timeDuration && <Label style={style.duration}>{timeDuration}</Label>}
           </>}
         </View>
