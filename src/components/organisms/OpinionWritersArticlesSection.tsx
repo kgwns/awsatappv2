@@ -4,7 +4,7 @@ import {flatListUniqueKey} from 'src/constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import OpinionWritersCardView from 'src/components/molecules/opinionWriters/OpinionWriterCardView';
-import {normalize, screenWidth} from 'src/shared/utils';
+import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {OpinionsListItemType} from 'src/redux/opinions/types';
 import {
   decodeHTMLTags,
@@ -15,6 +15,9 @@ import {
 } from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import { fonts } from 'src/shared/styles/fonts';
+import { Label } from '../atoms';
+import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 
 interface OpinionWritersArticlesSectionProps {
   data: OpinionsListItemType[];
@@ -37,6 +40,8 @@ const OpinionWritersArticlesSection = ({
   const slice = screenWidth*0.80;
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const playbackState = usePlaybackState();
+
+  const CONST_OPINION_ARTICLE_TITLE = TranslateConstants({key: TranslateKey.OPINION_ARTICLE_TITLE})
 
   const togglePlayback = async (nid: string, mediaData: any) => {
     let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
@@ -124,6 +129,7 @@ const OpinionWritersArticlesSection = ({
   };
   return (
     <View style={style.container}>
+      <Label style={style.headerStyle} children={CONST_OPINION_ARTICLE_TITLE} />
       <FlatList
         keyExtractor={(_, index) => index.toString()}
         showsHorizontalScrollIndicator={false}
@@ -147,6 +153,15 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(73),
       color: theme.primary,
       textAlign: 'center',
+    },
+    headerStyle: {
+      fontSize: 20,
+      lineHeight: 42,
+      color: theme.primary,
+      textAlign: 'left',
+      marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      marginBottom: normalize(8),
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
   });
   return OpinionWritersArticlesSectionStyle;

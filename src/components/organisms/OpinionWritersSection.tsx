@@ -84,7 +84,7 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
     },
     headerStyle: {
-      fontSize: 15,
+      fontSize: 20,
       lineHeight: 42,
       color: theme.primary,
       textAlign: 'left',

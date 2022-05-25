@@ -45,8 +45,9 @@ export const arabic = {
     },
   },
   opinion: {
-    opinionWriters: 'الرأي',
-    listenToActicleText: 'استمع الي المقالة'
+    opinionWriters: 'كتاب الرأي',
+    listenToActicleText: 'استمع الي المقالة',
+    opinionArticles: 'مقالات الرأي'
   },
   latestNewsTab: {
     sectionComboOne: {
