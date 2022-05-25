@@ -144,7 +144,7 @@ const AuthorItem = ({
     return (
         <TouchableOpacity key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
             <View style={{ flex: 1 }}>
-                <Label children={author} labelType={LabelTypeProp.p4} style={{lineHeight: 22}}
+                <Label children={author} labelType={LabelTypeProp.p4} style={style.authorTitle}
                     color={themeData.authorTitle} numberOfLines={1} onPress={() => onPressWriter(authorId)} suppressHighlighting={true} />
                 <Label children={body} labelType={LabelTypeProp.h3}
                     numberOfLines={2} style={style.body} />
@@ -198,5 +198,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     mediaFooter: {
         flexDirection: 'row',
         alignItems: 'center' 
+    },
+    authorTitle: {
+        fontSize: 14,
+        lineHeight:22,
+        fontFamily: fonts.IBMPlexSansArabic_Regular
     }
 })

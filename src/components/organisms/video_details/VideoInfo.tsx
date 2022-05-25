@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Label, Image, ButtonOutline, LabelTypeProp, HtmlRenderer} from 'src/components/atoms/';
-import { normalize, screenWidth } from 'src/shared/utils';
+import { isIOS, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { colors } from 'src/shared/styles/colors';
@@ -128,8 +128,8 @@ StyleSheet.create({
     paddingBottom: normalize(15),
   },
   descriptionTextStyle: {
-    fontSize: normalize(15),
-    lineHeight: normalize(26),
+    fontSize: 14,
+    lineHeight: 25,
     color: colors.white,
     textAlign: 'center',
     paddingBottom: normalize(10),
@@ -166,8 +166,8 @@ StyleSheet.create({
     marginRight: normalize(5),
   },
   footerRightTextStyle: {
-    fontSize: normalize(12),
-    lineHeight: normalize(16),
+    fontSize: 12,
+    lineHeight: 26,
     color: colors.greenishBlue,
     marginHorizontal: normalize(5),
     fontFamily: fonts.AwsatDigitalBetav10_Regular,
@@ -175,7 +175,8 @@ StyleSheet.create({
   buttonLabel: {
     color: colors.black,
     fontFamily: fonts.AwsatDigitalBetav10_Regular,
-    lineHeight: normalize(26),
+    fontSize: 14,
+    lineHeight: 26
   },
   titleContainer: {
     bottom: 0,

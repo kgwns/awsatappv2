@@ -62,7 +62,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
         icon={() => {
           return getSvgImages({
             name: ImagesName.headPhoneIcon,
-            size: normalize(15),
+            size: 15,
           });
         }}
         onPress={onPress}
@@ -169,14 +169,14 @@ const createStyles = (theme: CustomThemeType) => {
   const podcastWidgetStyle = StyleSheet.create({
     title: {
       textAlign: 'left',
-      fontSize: normalize(16),
-      lineHeight: normalize(24),
+      fontSize: 16,
+      lineHeight: 24,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     body: {
       textAlign: 'left',
-      fontSize: normalize(13),
-      lineHeight: normalize(24),
+      fontSize: 13,
+      lineHeight: 24,
       fontFamily: fonts.Effra_Regular,
     },
     image: {
@@ -191,13 +191,13 @@ const createStyles = (theme: CustomThemeType) => {
       alignContent: 'center',
     },
     listenToPodcastTitle: {
-      fontSize: normalize(13),
-      lineHeight: normalize(19),
+      fontSize: 13,
+      lineHeight: 19,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     duration: {
-      fontSize: normalize(12),
-      lineHeight: normalize(16),
+      fontSize: 12,
+      lineHeight: 16,
       fontFamily: fonts.IBMPlexSansArabic_Medium,
       marginLeft: 5
     },
@@ -205,7 +205,7 @@ const createStyles = (theme: CustomThemeType) => {
       flexDirection: 'row',
     },
     allEpisodeTitle: {
-      fontSize: normalize(14),
+      fontSize: 14,
       lineHeight: 14,
       fontFamily: fonts.Effra_Arbc_Medium
     },

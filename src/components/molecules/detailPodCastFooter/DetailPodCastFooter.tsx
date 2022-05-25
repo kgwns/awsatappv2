@@ -1,11 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { normalize } from '../../../shared/utils/dimensions'
+import { isIOS, normalize } from '../../../shared/utils/dimensions'
 import { moleculesTestID } from '../../../constants'
 import { ImageName, Label } from '../../atoms'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ImagesName } from 'src/shared/styles'
 import { DEFAULT_HIT_SLOP } from 'src/shared/utils'
+import { fonts } from 'src/shared/styles/fonts'
 
 export interface detailPodCastFooterProps {
     leftTitle?: string,
@@ -47,17 +48,17 @@ const DetailPodCastFooter = ({
 
     return (
         <View style={{ ...articleFooterStyle.container }}>
-            <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity style={{ flexDirection: 'row' }} testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPress}>
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems:'center' }} testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPress}>
                     {
                         getSvgImages({
-                            name: ImagesName.playIconSVG,
-                            size: normalize(14)
+                            name: ImagesName.headPhoneIcon,
+                            size: 15
                         })
                     }
                     <Label children={leftTitle} color={leftTitleColor} style={articleFooterStyle.leftTitleStyle} />
                 </TouchableOpacity>
-                <Label children={leftTimeLabel} color={leftTimeLabelColor} />
+                <Label style={articleFooterStyle.rightTitleStyle} children={leftTimeLabel} color={leftTimeLabelColor} />
             </View>
             <TouchableOpacity
                 hitSlop={DEFAULT_HIT_SLOP}
@@ -78,10 +79,16 @@ const articleFooterStyle = StyleSheet.create({
         paddingVertical: normalize(10)
     },
     leftTitleStyle: {
+        fontSize: 13,
+        lineHeight: 24,
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
         paddingRight: normalize(10),
-        paddingLeft: normalize(20)
+        paddingLeft: normalize(5)
     },
     rightTitleStyle: {
-        paddingHorizontal: normalize(10),
+        fontSize: 13,
+        lineHeight: 24,
+        fontFamily: fonts.Effra_Arbc_Medium,
+        paddingTop: isIOS ? 0 : 5
     }
 })

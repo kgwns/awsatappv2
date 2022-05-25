@@ -197,8 +197,8 @@ const customStyle = (theme: CustomThemeType) => {
     },
     topLabel: {
       textAlign: 'left',
-      fontSize: normalize(14),
-      lineHeight: normalize(14),
+      fontSize: 14,
+      lineHeight: 14,
       color: theme.primary,
       fontFamily: fonts.Effra_Arbc_Regular,
     },
@@ -229,8 +229,8 @@ const customStyle = (theme: CustomThemeType) => {
     },
     contentTitle: {
       textAlign: 'left',
-      fontSize: normalize(14),
-      lineHeight: normalize(24),
+      fontSize: 14,
+      lineHeight: 24,
       color: theme.primaryBlack,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       paddingVertical: normalize(10),

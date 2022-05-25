@@ -18,6 +18,8 @@ import { ScreensConstants } from 'src/constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import PopUp, { PopUpType } from './popUp/PopUp';
 import { fonts } from 'src/shared/styles/fonts';
+import { CustomThemeType } from '~/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
 export interface articleProps
   extends ImageLabelProps,
@@ -51,6 +53,7 @@ const MostReadList = ({
 
   const [articleData,setArticleData] = useState(data)
   const [showupUp,setShowPopUp] = useState(false)
+  const style = useThemeAwareObject(mostReadListStyle)
 
   const ref = React.useRef(null);
 
@@ -114,7 +117,7 @@ const MostReadList = ({
       leftTitle: item.author_resource,
       leftTitleColor: Styles.color.greenishBlue,
       rightTitle: t(timeAgo(item.created_export)),
-      rightTitleStyle: {fontFamily: fonts.Effra_Arbc_Regular, lineHeight: 40},
+      rightTitleStyle: {fontFamily: fonts.Effra_Arbc_Regular, lineHeight: 40, fontSize: 12},
       rightIcon: () => {
         return getSvgImages({
         name: ImagesName.clock,
@@ -122,7 +125,7 @@ const MostReadList = ({
         style: { marginRight: normalize(7) }
     })},
       rightTitleColor: Styles.color.silverChalice,
-      leftTitleStyle: mostReadListStyle.leftFooterStyle,
+      leftTitleStyle: style.leftFooterStyle,
     };
     enableTag && (item.tagName = (index + 1).toString())
     item.tagStyle = {marginLeft: normalize(20)};
@@ -135,12 +138,14 @@ const MostReadList = ({
       <View>
         <ArticleItem
           {...item}
-          bodyStyle={{ fontFamily: fonts.IBMPlexSansArabic_Regular }}
+          bodyStyle={style.bodyStyle}
           showDivider={false}
           index={index}
-          contentStyle={mostReadListStyle.contentStyle}
+          contentStyle={style.contentStyle}
           footerInfo={footerData}
           onPressBookmark={() => checkAndUpdateBookmark(index)}
+          titleStyle={style.titleStyle}
+          articleItemStyle={{paddingBottom: 0}}
         />
         {isLoading && (data.length - 1 == index) && (
           <View style={{margin: normalize(28)}}>
@@ -164,7 +169,7 @@ const MostReadList = ({
   
 
   return (
-    <View style={mostReadListStyle.container}>
+    <View style={style.container}>
       <FlatList
         ref={ref}
          onScrollBeginDrag={() => global.refFlatList = ref}
@@ -187,7 +192,7 @@ const MostReadList = ({
 
 export default MostReadList;
 
-const mostReadListStyle = StyleSheet.create({
+const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -195,6 +200,22 @@ const mostReadListStyle = StyleSheet.create({
     paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
   },
   leftFooterStyle: {
-    fontFamily: fonts.IBMPlexSansArabic_Regular,
-  }
+    fontFamily: fonts.IBMPlexSansArabic_Bold,
+    fontSize:12,
+    lineHeight:14
+  },
+  titleStyle: {
+    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontSize: 16,
+    lineHeight: 26,
+    textAlign: 'left',
+    paddingVertical: normalize(8),
+    color: theme.primaryBlack
+  },
+  bodyStyle: {
+    fontFamily: fonts.Effra_Arbc_Regular,
+    fontSize: 16,
+    lineHeight: 26,
+    textAlign: 'left'
+  },
 });

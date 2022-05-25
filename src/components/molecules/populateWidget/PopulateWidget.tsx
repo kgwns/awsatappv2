@@ -18,6 +18,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { getSecondsToHms } from 'src/shared/utils/utilities'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ImagesName, Styles } from 'src/shared/styles'
+import { fonts } from 'src/shared/styles/fonts'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -85,10 +86,12 @@ export const PopulateWidget = ({
                     }}
                     isBookmarked={true}
                     onPressBookmark={onPressBookmark}
+                    titleStyle={style.titleStyle}
+                    bodyStyle={style.bodyStyle}
                 />
             </View>
         case PopulateWidgetType.OPINION:
-            return <View>
+            return <View style={{paddingTop: 20}}>
                 <OpinionWritersCardView {...props} mediaVisibility={props.field_jwplayer_id_opinion_export ? isNotEmpty(props.field_jwplayer_id_opinion_export) : isNotEmpty(props.jwplayer)}
                     jwPlayerID={isNotEmpty(props.field_jwplayer_id_opinion_export) ? props.field_jwplayer_id_opinion_export : (isNotEmpty(props.jwplayer) ? props.jwplayer : null)}
                     onPressBookmark={onPressBookmark}
@@ -136,5 +139,19 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: theme.secondaryWhite
     },
     videoContainer: {
-    }
+    },
+    titleStyle:{
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontSize: 16,
+        lineHeight: 26,
+        textAlign: 'left', 
+        paddingVertical: normalize(8),
+        color: theme.primaryBlack
+    },
+    bodyStyle:{
+        fontFamily: fonts.Effra_Arbc_Regular,
+        fontSize:16,
+        lineHeight:26,
+        textAlign: 'left' 
+    },
 })

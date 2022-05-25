@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
-import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty} from 'src/shared/utils';
+import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty, isIOS} from 'src/shared/utils';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { TouchableOpacity } from 'react-native';
@@ -224,29 +224,29 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'center',
     },
     writerLabel: {
-      fontSize: normalize(14),
+      fontSize: 14,
       color: theme.primary,
       marginStart: normalize(8),
-      lineHeight:normalize(22),
+      lineHeight: 22,
       fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     headLineContainer: {
       marginTop: normalize(10),
     },
     headLine: {
-      fontSize: normalize(15),
+      fontSize: 18,
       textAlign: 'left',
-      lineHeight: normalize(24),
+      lineHeight: 24,
       color: theme.primaryBlack,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     subHeadLine: {
-      fontSize: normalize(15),
+      fontSize: 16,
       textAlign: 'left',
       marginTop: normalize(8),
-      lineHeight: normalize(26),
+      lineHeight: 26,
       color: theme.secondaryDavyGrey,
-      fontFamily: fonts.IBMPlexSansArabic_Regular,
+      fontFamily: fonts.Effra_Arbc_Regular,
     },
     footerContainer: {
       flexDirection: 'row',
@@ -267,15 +267,15 @@ const customStyle = (theme: CustomThemeType) => {
       height: normalize(13),
     },
     footerLabel: {
-      fontSize: normalize(12),
-      lineHeight: normalize(36),
+      fontSize: 12,
+      lineHeight: 24,
       color: theme.primary,
       marginLeft: normalize(10),
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     duration: {
-      fontSize: normalize(12),
-      lineHeight: normalize(14),
+      fontSize: 12,
+      lineHeight: isIOS ? 13 :24,
       color: theme.secondaryDavyGrey,
       marginLeft: normalize(10),
       fontFamily: fonts.Effra_Arbc_Medium,

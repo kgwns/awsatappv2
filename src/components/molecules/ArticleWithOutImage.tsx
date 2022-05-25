@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableWithoutFeedback, StyleProp, ViewStyle } from 'react-native';
+import { View, StyleSheet, TouchableWithoutFeedback, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { Divider, Label, LabelTypeProp, TextWithFlag } from '../atoms';
 import { normalize } from 'src/shared/utils';
@@ -21,7 +21,8 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
     onPressBookmark?: () => void
     bodyLineCount?: number,
     showBody?: boolean,
-    bodyStyle?: StyleProp<ViewStyle>
+    titleStyle?: StyleProp<TextStyle>,
+    bodyStyle?: StyleProp<TextStyle>
 }
 
 const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
@@ -33,6 +34,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     showFooterTitle,
     bodyLineCount = 3,
     showBody= true,
+    titleStyle,
     bodyStyle,
     ...props
 }) => {
@@ -41,8 +43,8 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     return (
     <TouchableWithoutFeedback onPress={onPress}>
         <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>
-                <TextWithFlag labelType={LabelTypeProp.h2} {...props} />
-                {isNotEmpty(bodyInfo) && showBody && <Label labelType={LabelTypeProp.p3}
+                <TextWithFlag {...props} style={titleStyle}/>
+                {isNotEmpty(bodyInfo) && showBody && <Label 
                     children={bodyInfo}
                     color={Styles.color.davyGrey}
                     numberOfLines={bodyLineCount}

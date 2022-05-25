@@ -23,8 +23,8 @@ const articleDetailFooterData: articleFooterProps = {
     },
     rightTitleColor: Styles.color.white,
     hideBookmark: true,
-    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular },
-    rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular }
+    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 13, lineHeight:16 },
+    rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:14 }
 }
 
 export interface ArticleOverlayContentProps {
@@ -70,8 +70,8 @@ export const ArticleOverlayContent = ({
 const customStyle = (theme:CustomThemeType) => StyleSheet.create({
     title: {
         fontFamily: fonts.AwsatDigitalBetav10_Bold,
-        fontSize: normalize(30),
-        lineHeight: normalize(33),
+        fontSize: 30,
+        lineHeight: 33,
         textAlign: 'left',
         color: theme.primaryBlack,
         paddingBottom: normalize(5),
@@ -79,8 +79,8 @@ const customStyle = (theme:CustomThemeType) => StyleSheet.create({
     },
     subtitle: {
         fontFamily: fonts.AwsatDigitalBetav10_Regular,
-        fontSize: normalize(21),
-        lineHeight: normalize(33),
+        fontSize: 21,
+        lineHeight: 33,
         textAlign: 'left',
         color: theme.primaryBlack,
         paddingBottom: normalize(10),

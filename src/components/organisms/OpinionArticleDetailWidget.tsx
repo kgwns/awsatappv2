@@ -161,8 +161,8 @@ const customStyle = (theme: CustomThemeType) => {
       height: '100%',
     },
     title: {
-      fontSize: normalize(30),
-      lineHeight: normalize(42),
+      fontSize: 30,
+      lineHeight: 42,
       color: theme.primaryBlack,
       textAlign: 'left',
       marginVertical: normalize(0.01 * screenWidth),

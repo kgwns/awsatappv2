@@ -870,9 +870,9 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'center'
     },
     articleTitleStyle: {
-      fontSize: normalize(33),
+      fontSize: 33,
       color: theme.primary,
-      lineHeight: normalize(50),
+      lineHeight: 42,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     topNewsContainer: {

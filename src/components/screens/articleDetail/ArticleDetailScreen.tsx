@@ -11,7 +11,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import { HtmlRenderer } from 'src/components/atoms'
-import type { MixedStyleRecord } from '@native-html/transient-render-engine';
+import type { MixedStyleRecord, MixedStyleDeclaration } from '@native-html/transient-render-engine';
 import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
@@ -35,7 +35,8 @@ const relatedShortArticleHeaderLeft: HeaderElementProps = {
   title: 'مقالات ذات صلة',
   labelType: LabelTypeProp.h2,
   color: Styles.color.greenishBlue,
-  elementContainerStyle: { paddingVertical: normalize(15) }
+  elementContainerStyle: { paddingVertical: normalize(15) },
+  textStyle: {fontSize:20, lineHeight:30}
 }
 
 export const ArticleDetailScreen = ({
@@ -148,15 +149,18 @@ export const ArticleDetailScreen = ({
     }
   }, [relatedArticleData,isFocused])
 
+  const commonHtmlTagStyle: MixedStyleDeclaration = {
+    color: themeData.primaryBlack,
+    textAlign: 'left',
+    direction: 'rtl',
+    fontSize: fontSize,
+    lineHeight: 1.8 * fontSize,
+    fontFamily: fonts.Effra_Arbc_Regular
+  }
+  
   const htmlTagStyle: MixedStyleRecord = {
-    p: {
-      color: themeData.primaryBlack,
-      textAlign: 'left',
-      direction: 'rtl',
-      fontSize: fontSize,
-      lineHeight: 1.8 * fontSize,
-      fontFamily: fonts.Effra_Arbc_Regular
-    }
+    p: commonHtmlTagStyle,
+    div: commonHtmlTagStyle
   }
 
   useEffect(() => {
@@ -279,6 +283,7 @@ export const ArticleDetailScreen = ({
             numColumns={isTab ? 2 : 1}
             addStyle={style.relatedArticle}
             orientation={currentOrientation}
+            isFooterOutside={true}
           />}
       </View>
   )}
