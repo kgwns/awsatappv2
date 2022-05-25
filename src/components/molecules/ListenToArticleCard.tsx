@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {ButtonImage, Label} from 'src/components/atoms';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
@@ -72,16 +72,18 @@ const onPressPlay = () => {
 
   return (
     <View style={style.container}>
-      <ButtonImage
-        hitSlop={{}}
-        icon={() =>
-          trackData && trackData.id == (data.nid+'opinion') && playbackState === State.Playing   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
-            getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
-        }
-        onPress={onPressPlay}
-        style={style.icon}
-      />
-      <Label style={style.title}> {t('opinionArticleDetail.listenToArticle')}</Label>
+      <TouchableOpacity onPress={onPressPlay} style={style.listenButton}>
+        <ButtonImage
+          hitSlop={{}}
+          icon={() =>
+            trackData && trackData.id == (data.nid+'opinion') && playbackState === State.Playing   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+              getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
+          }
+          onPress={onPressPlay}
+          style={style.icon}
+        />
+        <Label style={style.title}> {t('opinionArticleDetail.listenToArticle')}</Label>
+      </TouchableOpacity>
       <Label style={style.duration}>{getSecondsToHms(duration)}</Label>
     </View>
   );
@@ -92,6 +94,10 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       flexWrap: 'wrap',
       alignSelf: 'flex-start',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    listenButton: {
       flexDirection: 'row',
       justifyContent: 'center',
     },
