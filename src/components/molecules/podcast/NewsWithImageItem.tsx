@@ -91,7 +91,6 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       width: isTab ? normalize(262) : normalize(162),
       alignItems: 'flex-start',
-      backgroundColor: theme.backgroundColor,
       marginStart: normalize(15),
     },
     image: {
