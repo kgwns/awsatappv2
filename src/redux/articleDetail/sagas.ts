@@ -47,12 +47,13 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
       const rows = response.rows
       responseData.articleDetailData = rows.map(
         ({ title, body_export, nid_export, field_image_export, view_node,
-          field_news_categories_export, author_resource, field_tags_topics_export,created_export, field_new_sub_title_export }: any) => ({
+          field_news_categories_export, author_resource, field_tags_topics_export,created_export, field_new_sub_title_export,
+          field_new_photo_export }: any) => ({
             body: body_export,
             title: isNotEmpty(title) ? decode(title) : '',
             nid: nid_export,
-            image: isNonEmptyArray(field_image_export) ? getImageUrl(field_image_export[0].url) : '',
-            caption: isNonEmptyArray(field_image_export) ? field_image_export[0].alt : '',
+            image: getArticleImageAndType(field_image_export, field_new_photo_export).image,
+            caption: getArticleImageAndType(field_image_export, field_new_photo_export).caption,
             view_node: view_node,
             news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             tag_topics: isNonEmptyArray(field_tags_topics_export) ? field_tags_topics_export[0] : field_tags_topics_export,
@@ -70,6 +71,26 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
   return responseData
 }
 
+type ImageAndCaptionType = { image: string, caption: string}
+
+const getArticleImageAndType = (fieldImage: any, detailPhotoList: any) : ImageAndCaptionType => {
+  let image = ''
+  let caption = ''
+
+  if(isNonEmptyArray(detailPhotoList)) {
+    const imageInfo = detailPhotoList[0]
+    if(isObjectNonEmpty(imageInfo) && isNotEmpty(imageInfo.url)) {
+      image = getImageUrl(imageInfo.url)
+      caption = imageInfo.alt
+    }
+  } else {
+    image = isNonEmptyArray(fieldImage) ? getImageUrl(fieldImage[0].url) : isNotEmpty(fieldImage) ? getImageUrl(fieldImage) : ''
+    caption = fieldImage[0].alt
+  }
+
+  return { image, caption }
+}
+
 
 const parseArticleSectionSuccess = (response: any, current_nid: number): ArticleSectionSuccessPayload => {
   let responseData: ArticleSectionSuccessPayload = {
@@ -82,12 +103,13 @@ const parseArticleSectionSuccess = (response: any, current_nid: number): Article
       const rows = response.rows
           responseData.articleSectionData = rows.map(
             ({ title, body, nid, field_image, view_node,
-              field_news_categories_export, author_resource, field_tags_topics_export, created_export }: any) => ({
+              field_news_categories_export, author_resource, field_tags_topics_export, created_export,
+              field_new_photo_export }: any) => ({
                 body: body,
                 title,
                 nid: nid,
-                image: isNonEmptyArray(field_image) ? getImageUrl(field_image[0].url) : isNotEmpty(field_image) ? getImageUrl(field_image) : '',
-                caption: isNonEmptyArray(field_image) ? field_image[0].alt : '',
+                image: getArticleImageAndType(field_image, field_new_photo_export).image,
+                caption: getArticleImageAndType(field_image, field_new_photo_export).caption,
                 view_node: view_node,
                 news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
                 tag_topics: isNonEmptyArray(field_tags_topics_export) ? field_tags_topics_export[0] : field_tags_topics_export,
