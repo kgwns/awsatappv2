@@ -84,7 +84,7 @@ const parseArticleSectionSuccess = (response: any, current_nid: number): Article
             ({ title, body, nid, field_image, view_node,
               field_news_categories_export, author_resource, field_tags_topics_export, created_export }: any) => ({
                 body: body,
-                title,
+                title: isNotEmpty(title) ? decode(title) : '',
                 nid: nid,
                 image: isNonEmptyArray(field_image) ? getImageUrl(field_image[0].url) : isNotEmpty(field_image) ? getImageUrl(field_image) : '',
                 caption: isNonEmptyArray(field_image) ? field_image[0].alt : '',
