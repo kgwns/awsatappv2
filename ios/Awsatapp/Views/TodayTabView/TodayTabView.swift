@@ -65,10 +65,10 @@ class TodayTabView: UIView, LoadingView {
     }
   
     private func setUpLoadingIndicator() {
-      activityIndicator.frame = CGRect(x: 0, y: 100, width: 100, height: 100)
+      activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
       activityIndicator.startAnimating()
       activityIndicator.color = UIColor(named: "lightGreen")
-      activityIndicator.transform = CGAffineTransform(scaleX: 2, y: 2)
+      activityIndicator.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
 
       activityIndicator.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY - 100)
       addSubview(activityIndicator)
