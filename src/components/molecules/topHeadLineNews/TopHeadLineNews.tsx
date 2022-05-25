@@ -69,8 +69,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         marginLeft: 2,
     },
     title: {
-        fontSize: normalize(15),
-        lineHeight: normalize(24),
+        fontSize: 15,
+        lineHeight: 24,
         textAlign: 'left',
         color: theme.primaryBlack,
         fontFamily: fonts.AwsatDigitalBetav10_Bold,

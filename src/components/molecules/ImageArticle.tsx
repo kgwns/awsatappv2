@@ -96,13 +96,13 @@ const ImageArticle = ({
               <Label labelType={LabelTypeProp.title1}
                 children={title}
                 numberOfLines={3}
-                style={[textStyles,titleStyle]}
+                style={titleStyle}
               />
             </View>
           }
           {isNotEmpty(body) && showBody &&
-            <Label labelType={LabelTypeProp.p3} children={decodeHTMLTags(body)}
-              color={Styles.color.davyGrey} numberOfLines={3} style={textStyles}/>
+            <Label children={decodeHTMLTags(body)}
+            color={Styles.color.davyGrey} numberOfLines={3} style={textStyles}/>
           }
           <View style={imageArticleStyle.tabFooterContainer}>
             <ArticleFooter {...carouselFooterSample}

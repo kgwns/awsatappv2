@@ -39,7 +39,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
                 {!hideImage && isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
                 <View style={style.contentContainer}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
-                        onPressBookmark={onPressBookmark}
+                        onPressBookmark={onPressBookmark} titleStyle={props.titleStyle} bodyStyle={props.bodyStyle}
                     />
                 </View>
             </View>

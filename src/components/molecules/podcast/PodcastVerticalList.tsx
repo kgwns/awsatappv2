@@ -63,7 +63,7 @@ export const PodcastVerticalList = ({
             <Label style={style.footerRightTextStyle} numberOfLines={1}>
               {getPodcastDate(footerRight)}
             </Label>
-            {footerRight && footerLeft &&<Label color={colors.spanishGray}>|</Label>}
+            {footerRight && footerLeft &&<Label style={{fontSize:12}} color={colors.spanishGray}>|</Label>}
             <Label style={style.footerLeftTextStyle} numberOfLines={1}>
               {getSecondsToHms(footerLeft)}
             </Label>
@@ -111,30 +111,30 @@ const customStyle = (theme: CustomThemeType) => {
       height: normalize(36)
     },
     title: {
-      fontSize: normalize(14),
-      lineHeight: normalize(16),
+      fontSize: 14,
+      lineHeight: 18,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),
       textAlign: 'left',
     },
     footerLeftTextStyle: {
-      fontSize: normalize(12),
-      lineHeight: normalize(16),
+      fontSize: 12,
+      lineHeight: 28,
       color: colors.spanishGray,
       marginLeft: normalize(5),
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     footerRightTextStyle: {
-      fontSize: normalize(12),
-      lineHeight: normalize(16),
+      fontSize: 12,
+      lineHeight: 20,
       color: colors.greenishBlue,
       marginRight: normalize(5),
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     description: {
-      fontSize: normalize(13),
-      lineHeight: normalize(20),
+      fontSize: 13,
+      lineHeight: 21,
       color: colors.spanishGray,
       paddingVertical: normalize(15),
       textAlign: 'left',

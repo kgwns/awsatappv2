@@ -31,11 +31,11 @@ export const useAppCommon = (): UseAppCommonReturn => {
 
 
     const storeArticleFontSizeInfo = () => {
-        let newFontSize = normalize(16)
+        let newFontSize = 16
         if(articleFontSize === ArticleFontSize.normal) {
-          newFontSize = normalize(18)
+          newFontSize = 18
         } else if(articleFontSize === ArticleFontSize.medium) {
-          newFontSize = normalize(20)
+          newFontSize = 20
         }
         dispatch(storeArticleFontSize(newFontSize))
     }

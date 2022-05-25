@@ -9,8 +9,9 @@ import { DetailPodCastFooter } from 'src/components/molecules'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useTranslation } from 'react-i18next'
-import { getSecondsToHms } from 'src/shared/utils/utilities'
+import { decodeHTMLTags, getSecondsToHms } from 'src/shared/utils/utilities'
 import { CustomThemeType } from 'src/shared/styles/colors'
+import { fonts } from 'src/shared/styles/fonts'
 
 
 export interface ArticlePodCastWidgetProps {
@@ -44,8 +45,8 @@ const ArticlePodCastWidget = ({
         <TouchableOpacity style={style.container} onPress={onPress}>
             <View style={style.topViewContainer}>
                 <View style={style.leftContainer}>
-                    <Label labelType={LabelTypeProp.h1} children={title} color={themeData.primaryBlack} style={style.titleContainer} numberOfLines={1} />
-                    <Label labelType={LabelTypeProp.h3} children={body} color={themeData.secondaryDavyGrey} style={style.bodyContainer} numberOfLines={2} />
+                    <Label labelType={LabelTypeProp.h1} children={title} color={themeData.primaryBlack} style={style.title} numberOfLines={1} />
+                    <Label labelType={LabelTypeProp.h3} children={decodeHTMLTags(body)} color={themeData.secondaryDavyGrey} style={style.body} numberOfLines={2} />
                 </View>
                 <Image style={style.imageContainer} url={imageUrl} resizeMode={ImageResize.COVER} />
             </View>
@@ -81,11 +82,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         width: normalize(92),
         height: normalize(73)
     },
-    titleContainer: {
-        fontSize: normalize(15)
+    title: {
+        fontSize: 16,
+        lineHeight: 36,
+        fontFamily: fonts.AwsatDigitalBetav10_Bold
     },
-    bodyContainer: {
-        fontSize: normalize(13)
+    body: {
+        fontSize: 14,
+        lineHeight: 20,
+        fontFamily: fonts.Effra_Arbc_Regular
     },
     leftContainer: {
         flex: 1,

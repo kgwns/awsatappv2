@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList, StyleProp, ViewStyle } from 'react-native'
+import { View, StyleSheet, FlatList, StyleProp, ViewStyle, TextStyle } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { isNonEmptyArray, isTab, normalize, screenWidth, timeAgo } from '../../shared/utils'
 import { flatListUniqueKey } from '../../constants'
@@ -9,6 +9,8 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { useTranslation } from 'react-i18next'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { fonts } from 'src/shared/styles/fonts'
+import { CustomThemeType } from 'src/shared/styles/colors'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
 export interface articleProps extends ImageLabelProps,ArticleWithOutImageProps {
    image?: string,
@@ -53,6 +55,7 @@ const ArticleSection = ({
 }: ArticleSectionProps) => {
     const [t] = useTranslation();
     const [articleData,setArticleData] = useState(data)
+    const style = useThemeAwareObject(articleSectionStyle)
 
     useEffect(() => {
         updateData()
@@ -74,22 +77,24 @@ const ArticleSection = ({
         articleFooterDataSet.rightTitle = item.author
         articleFooterDataSet.leftTitle = t(timeAgo(item.created))
         const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns == 1 && articleData.length == index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
-        const articleItemStyle = isTab ? numColumns > 1 && articleData.length > 1 ? (index % 2 === 0) ? articleSectionStyle.evenStyle : articleSectionStyle.oddStyle : {} : articleSectionStyle.mobileArticleItem
+        const articleItemStyle = isTab ? numColumns > 1 && articleData.length > 1 ? (index % 2 === 0) ? style.evenStyle : style.oddStyle : {} : style.mobileArticleItem
         return <ArticleItem {...item} index={index}
-            imageStyle={isTab ? articleSectionStyle.tabImageStyle : articleSectionStyle.mobileImageStyle}
+            imageStyle={isTab ? style.tabImageStyle : style.mobileImageStyle}
             footerInfo={articleFooterDataSet}
             onPressBookmark={() => onPressBookmark(index)}
             showDivider={canShowDivider}
             showFooterTitle={showFooterTitle}
             articleItemStyle={articleItemStyle}
+            titleStyle={style.titleStyle}
+            bodyStyle={style.bodyStyle}
         />
     }
     return (
-        <View style={[articleSectionStyle.container, addStyle]}>
+        <View style={[style.container, addStyle]}>
             <FlatList
                 keyExtractor={(_,index) => index.toString()}
                 listKey={listKey ? listKey : flatListUniqueKey.ARTICLE_SECTION}
-                style={articleSectionStyle.listContainer}
+                style={style.listContainer}
                 data={articleData}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
@@ -101,7 +106,7 @@ const ArticleSection = ({
 
 export default ArticleSection
 
-const articleSectionStyle = StyleSheet.create({
+const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         paddingHorizontal: (isTab ? 0 : 0.04) * screenWidth
     },
@@ -124,5 +129,19 @@ const articleSectionStyle = StyleSheet.create({
     },
     mobileImageStyle: {
         height: normalize(187),
-    }
+    },
+    titleStyle:{
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontSize: 16,
+        lineHeight: 26,
+        textAlign: 'left', 
+        paddingVertical: normalize(8),
+        color: theme.primaryBlack
+    },
+    bodyStyle:{
+        fontFamily: fonts.Effra_Arbc_Regular,
+        fontSize:16,
+        lineHeight:26,
+        textAlign: 'left' 
+    },
 })

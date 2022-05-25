@@ -1,5 +1,5 @@
 import { View, StyleSheet, FlatList, StyleProp, ViewStyle } from 'react-native'
-import React, { useState } from 'react'
+import React from 'react'
 import { WidgetHeader, Divider, LabelTypeProp,WidgetHeaderProps } from '../atoms'
 import { AuthorItem } from '../molecules'
 import { isNonEmptyArray, isTab, normalize, screenWidth, isNotEmpty } from 'src/shared/utils'
@@ -8,9 +8,8 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { getImageUrl, getSecondsToHms, isObjectNonEmpty } from 'src/shared/utils/utilities'
-
-
+import { getImageUrl, getSecondsToHms } from 'src/shared/utils/utilities'
+import { fonts } from 'src/shared/styles/fonts'
 
 
 const AuthorWidget = ({
@@ -75,7 +74,8 @@ const AuthorWidget = ({
             title: widgetHeader ? widgetHeader : t('latestNewsTab.sectionWriters.headerLeft'),
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
-            elementContainerStyle: style.headerLeftContainer
+            elementContainerStyle: style.headerLeftContainer,
+            textStyle: { fontSize:16, lineHeight:32, fontFamily: fonts.AwsatDigitalBetav10_Bold}
         },
         // headerRight: {
         //     title: t('latestNewsTab.sectionComboOne.headerRight'),

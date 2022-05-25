@@ -226,15 +226,15 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'flex-end'
     },
     authorName:{
-      fontSize: normalize(22),
-      lineHeight: normalize(36),
+      fontSize: 22,
+      lineHeight: 36,
       color: theme.primaryBlack,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       textAlign: 'left',
     },
     authorDescription:{
-      fontSize: normalize(13),
-      lineHeight: normalize(20),
+      fontSize: 13,
+      lineHeight: 22,
       textAlign: 'left',
       marginBottom:normalize(15),
       color: theme.secondaryMediumGrey,
@@ -256,17 +256,10 @@ const customStyle = (theme: CustomThemeType) => {
       borderRadius: 16,
     },
     followLabel: {
-      fontSize: normalize(13),
-      lineHeight: normalize(27),
+      fontSize: 13,
+      lineHeight: 27,
       marginStart: normalize(5),
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
-    },
-    prevIconStyle: {
-      width: normalize(12),
-      height: normalize(8.8),
-      paddingTop: isIOS ? 10 : 9,
-      alignItems: 'center',
-      paddingHorizontal: normalize(10)
     },
     prevIconStyle: {
       width: normalize(12),

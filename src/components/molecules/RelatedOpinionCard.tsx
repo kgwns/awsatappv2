@@ -145,17 +145,19 @@ const onPressPlay = () => {
         />
         {renderTitle(item)}
         {mediaVisibility && <View style={style.footer}>
-          <ButtonImage
-            icon={() =>
-              trackData && trackData.id == (item.nid+'opinion') && playbackState === State.Playing    ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
-              getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
-            }
-            onPress={onPressPlay}
-          />
-          <Label
-            children={t('opinionArticleDetail.listenToArticle')}
-            style={style.audioLabel}
-          />
+          <TouchableOpacity onPress={onPressPlay} style={style.footer}>
+            <ButtonImage
+              icon={() =>
+                trackData && trackData.id == (item.nid+'opinion') && playbackState === State.Playing    ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
+              }
+              onPress={onPressPlay}
+            />
+            <Label
+              children={t('opinionArticleDetail.listenToArticle')}
+              style={style.audioLabel}
+            />
+          </TouchableOpacity>
           <Label children={timeDuration} style={style.durationLabel} />
         </View>}
       </View>
@@ -197,8 +199,8 @@ const customStyle = (theme: CustomThemeType) => {
     },
     topLabel: {
       textAlign: 'left',
-      fontSize: normalize(14),
-      lineHeight: normalize(14),
+      fontSize: 14,
+      lineHeight: 14,
       color: theme.primary,
       fontFamily: fonts.Effra_Arbc_Regular,
     },
@@ -229,8 +231,8 @@ const customStyle = (theme: CustomThemeType) => {
     },
     contentTitle: {
       textAlign: 'left',
-      fontSize: normalize(14),
-      lineHeight: normalize(24),
+      fontSize: 14,
+      lineHeight: 24,
       color: theme.primaryBlack,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       paddingVertical: normalize(10),

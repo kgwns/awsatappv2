@@ -60,6 +60,8 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             contentStyle={[style.spacingStyle, index == 0 && style.contentStyleFirst]}
             showBody={false}
             labelType={LabelTypeProp.title4}
+            titleStyle={style.articleTitleStyle}
+            bodyStyle={style.bodyStyle}
         />
     }
     const widgetHeaderData: WidgetHeaderProps = {
@@ -163,13 +165,27 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         marginTop: isTab ? 0 : 5,
     },
     titleStyle: { 
-        fontSize: normalize(20), 
-        lineHeight: normalize(33), 
+        fontSize: 20, 
+        lineHeight: 32, 
         fontFamily: fonts.AwsatDigitalBetav10_Black,
     },
     listArticleTitle: {
         fontSize: normalize(17), 
         lineHeight: normalize(28), 
         fontFamily: fonts.AwsatDigitalBetav10_Bold,
-    }
+    },
+    articleTitleStyle:{
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontSize: 17,
+        lineHeight: 28,
+        textAlign: 'left', 
+        paddingVertical: normalize(8),
+        color: theme.primaryBlack
+    },
+    bodyStyle:{
+        fontFamily: fonts.Effra_Arbc_Regular,
+        fontSize:16,
+        lineHeight:26,
+        textAlign: 'left' 
+    },
 })

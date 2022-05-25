@@ -110,7 +110,7 @@ export const VideoItem = ({
       </TouchableOpacity>
 
       <View style={styles.spaceContainer}>
-        {!isDocumentary && <Label labelType={'h2'}>{decode(title)}</Label>}
+        {!isDocumentary && <Label style={styles.titleLabelStyle}>{decode(title)}</Label>}
         {des && <View>
           <HtmlRenderer source={des} tagsStyles={htmlTagStyle} />
        </View> }
@@ -277,5 +277,13 @@ const createStyles = (theme: CustomThemeType) =>
     documentaryTitle: {
       color: colors.white,
       fontSize: normalize(14)
+    },
+    titleLabelStyle: {
+      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontSize: 16,
+      lineHeight: 28,
+      textAlign: 'left',
+      paddingVertical: normalize(8),
+      color: theme.primaryBlack
     }
   });

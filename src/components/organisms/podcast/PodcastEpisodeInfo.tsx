@@ -99,31 +99,32 @@ StyleSheet.create({
     height: normalize(100),
   },
   textStyle: {
-    fontSize: normalize(14),
+    fontSize: 16,
     fontFamily: fonts.AwsatDigitalBetav10_Bold,
-    lineHeight: normalize(26),
+    lineHeight: 26,
     color: colors.white,
     paddingBottom: normalize(10),
     textAlign: 'center',
   },
   announcerTextStyle: {
-    fontSize: normalize(14),
+    fontSize: 14,
+    lineHeight: 16,
     color: colors.greenishBlue,
   },
   bottomSpace: {
     paddingBottom: normalize(13),
   },
   titleTextStyle: {
-    fontSize: normalize(13),
-    lineHeight: normalize(22),
+    fontSize: 13,
+    lineHeight: 22,
     color: colors.spanishGray,
     textAlign: 'center',
     paddingBottom: normalize(15),
     fontFamily: fonts.AwsatDigitalBetav10_Regular,
   },
   descriptionTextStyle: {
-    fontSize: normalize(13),
-    lineHeight: normalize(22),
+    fontSize: 14,
+    lineHeight: 25,
     color: colors.white,
     textAlign: 'center',
   },
@@ -159,15 +160,15 @@ StyleSheet.create({
     alignItems: 'center',
   },
   footerLeftTextStyle: {
-    fontSize: normalize(12),
-    lineHeight: normalize(16),
+    fontSize: 12,
+    lineHeight: 16,
     color: colors.white,
     marginLeft: normalize(5),
     fontFamily: fonts.AwsatDigitalBetav10_Regular,
   },
   footerRightTextStyle: {
-    fontSize: normalize(12),
-    lineHeight: normalize(16),
+    fontSize: 12,
+    lineHeight: 16,
     color: colors.white,
     marginRight: normalize(5),
     fontFamily: fonts.AwsatDigitalBetav10_Regular,
@@ -175,6 +176,7 @@ StyleSheet.create({
   buttonLabel: {
     color: colors.black,
     fontFamily: fonts.AwsatDigitalBetav10_Regular,
-    lineHeight: normalize(26)
+    fontSize: 14,
+    lineHeight: 26
   },
 });

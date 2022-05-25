@@ -71,8 +71,8 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
     },
     title: {
-      fontSize: normalize(14),
-      lineHeight: normalize(22),
+      fontSize: 14,
+      lineHeight: 24,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),

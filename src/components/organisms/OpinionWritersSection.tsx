@@ -84,8 +84,8 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
     },
     headerStyle: {
-      fontSize: normalize(20),
-      lineHeight: normalize(42),
+      fontSize: 20,
+      lineHeight: 42,
       color: theme.primary,
       textAlign: 'left',
       marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
@@ -104,9 +104,9 @@ const customStyle = (theme: CustomThemeType) => {
     labelStyle: {
       textAlign: 'center',
       marginTop: normalize(10),
-      fontSize: normalize(10),
+      fontSize: 10,
       color: theme.secondaryDavyGrey,
-      lineHeight: normalize(14),
+      lineHeight: 14,
       fontFamily: fonts.IBMPlexSansArabic_Medium,
     },
     divider: {

@@ -59,6 +59,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   const renderItem: ListRenderItem<SearchItemType> = ({item,index}) => {
     const tagLabel =  item.field_news_categories_export && isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0].title + '  |  ' : ''
     const title = decode(item.title)
+    const body = decode(item.body)
     return (
       <TouchableWithoutFeedback
         testID={`searchItem_${index}`}
@@ -69,7 +70,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
         <View style={styles.searchItemContainer}>
           <View style={styles.rowContentContainer}>
             <View style={isTab ? styles.tabTitleContainer : styles.titleContainer}>
-              <Text style={styles.searchTag} numberOfLines={2}> {tagLabel}
+              <Text style={styles.searchTag}> {tagLabel}
                 <Text style={styles.searchText}>{decodeHTMLTags(title)}</Text>
               </Text>
             </View>
@@ -81,9 +82,8 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
           </View>
           <View style={styles.descriptionContainer}>
             <Label 
-              style={styles.descriptionText}
-              numberOfLines={5}>
-              {decodeHTMLTags(item.body)}
+              style={styles.descriptionText}>
+              {decodeHTMLTags(body)}
             </Label>
           </View>
           <Divider style={styles.divider} />
@@ -193,14 +193,14 @@ StyleSheet.create({
   searchTag: {
     color: theme.primary,
     textAlign: 'left',
-    fontSize: normalize(18),
-    lineHeight: normalize(26),
+    fontSize: 18,
+    lineHeight: 26,
     fontFamily: fonts.AwsatDigitalBetav10_Bold,
   },
   searchText: {
     color: theme.primaryBlack,
-    fontSize: normalize(18),
-    lineHeight: normalize(26),
+    fontSize: 18,
+    lineHeight: 26,
     fontFamily: fonts.AwsatDigitalBetav10_Bold,
   },
   containerStyle: {
@@ -215,8 +215,8 @@ StyleSheet.create({
   emptyText: {
     color: theme.primaryDarkSlateGray,
     textAlign: 'center',
-    fontSize: normalize(16),
-    marginTop: normalize(30),
+    fontSize: 16,
+    marginTop:30,
   },
   historyItemText: {
     fontWeight: 'normal',
@@ -252,8 +252,8 @@ StyleSheet.create({
   descriptionText: {
     color: theme.secondaryDavyGrey,
     textAlign: 'left',
-    fontSize: normalize(15),
-    lineHeight: normalize(23),
+    fontSize: 15,
+    lineHeight: 23,
     fontFamily: fonts.Effra_Regular,
   },
   divider: {

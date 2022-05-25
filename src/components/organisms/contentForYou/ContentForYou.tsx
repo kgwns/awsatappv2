@@ -420,7 +420,7 @@ export const ContentForYou = () => {
                 showBody={isTab ? true : false}
                 leftContainerStyle={isTab ? {flex: 1} : {}}
                 imageStyleProp={isTab ? styles.topArticleImage : {}}
-                
+                isFooterOutside={true}
             />}
         </View>
     )

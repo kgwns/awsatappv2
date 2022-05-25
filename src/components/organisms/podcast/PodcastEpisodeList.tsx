@@ -100,8 +100,8 @@ StyleSheet.create({
     alignItems: 'flex-end',
   },
   textStyle: {
-    fontSize: normalize(14),
-    lineHeight: normalize(16),
+    fontSize: 14,
+    lineHeight: 18,
     fontFamily: fonts.AwsatDigitalBetav10_Bold,
     color: colors.greenishBlue,
   },

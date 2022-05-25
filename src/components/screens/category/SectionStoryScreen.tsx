@@ -32,6 +32,7 @@ import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
 import { decode } from 'html-entities';
+import { fonts } from 'src/shared/styles/fonts';
 
 export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex}: {sectionId: any; tabIndex?: number; currentIndex?:number }) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -306,8 +307,9 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
             hasTabletLayout={isTab ? true : false}
             containerStyle={style.imageArticleContainerStyle}
             // rightContainerStyle={style.footerRightStyle}  enable to align footer center
-            textStyles={{textAlign:'center'}}
+            textStyles={style.textStyle}
             contentStyle={style.imageArticleContentStyle}
+            titleStyle={style.titleStyle}
           />
         )}
       </>
@@ -488,6 +490,18 @@ const customStyle = (theme: CustomThemeType) => {
     },
     newsFeedContainer: {
       paddingHorizontal: isTab ? 0.02 * screenWidth : 0
+    },
+    titleStyle:{
+      textAlign:'center',
+      fontSize: 24,
+      lineHeight: 36,
+      fontFamily: fonts.AwsatDigitalBetav10_Black,
+    },
+    textStyle:{
+        textAlign:'center',
+        fontSize: 16,
+        lineHeight: 26,
+        fontFamily: fonts.IBMPlexSansArabic_Regular,
     }
   });
   return sectionStoryStyle;
