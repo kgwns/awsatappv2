@@ -155,8 +155,8 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'center',
     },
     headerStyle: {
-      fontSize: normalize(20),
-      lineHeight: normalize(42),
+      fontSize: 20,
+      lineHeight: 42,
       color: theme.primary,
       textAlign: 'left',
       marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
