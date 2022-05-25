@@ -332,6 +332,7 @@ const customStyle = (theme: CustomThemeType) =>
           marginLeft: normalize(20),
           color: theme.secondaryMediumGrey,
           fontFamily: fonts.AwsatDigitalBetav10_Regular,
+          lineHeight: normalize(30)
       },
       divider: {
           height: 1,

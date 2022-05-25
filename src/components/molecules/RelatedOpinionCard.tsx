@@ -108,7 +108,7 @@ const onPressPlay = () => {
     let trackPlayerData = {
       id: item.nid + 'opinion',
       url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
-      title: mediaData.title ? mediaData.title : '',
+      title: isNotEmpty(item.title) ? item.title : '',
       duration: playList.duration? getSecondsToHms(playList.duration) : 0,
       artist: mediaData.title ? mediaData.title : '',
       artwork: isNonEmptyArray(item.field_opinion_writer_node_export) ? getImageUrl(item.field_opinion_writer_node_export[0].opinion_writer_photo) : getImageUrl(item.field_opinion_writer_node_export.opinion_writer_photo)

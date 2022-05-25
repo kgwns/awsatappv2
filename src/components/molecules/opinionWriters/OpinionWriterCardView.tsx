@@ -124,7 +124,7 @@ const onPressPlay = () => {
     let trackPlayerData = {
       id: nid + 'opinion',
       url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
-      title: mediaData.title ? mediaData.title : '',
+      title: isNotEmpty(headLine) ? headLine : '',
       duration: playList.duration? getSecondsToHms(playList.duration) : 0,
       artist: mediaData.title ? mediaData.title : '',
       artwork: imageUrl
