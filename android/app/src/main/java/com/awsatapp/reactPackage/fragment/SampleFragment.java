@@ -66,7 +66,12 @@ public class SampleFragment extends Fragment implements ItemClickListener {
 
 
         rvList.setLayoutManager(initLayoutManager());
-        adapter = new PdfAdapter(getContext(), rvList, mPdfs);
+        adapter = new PdfAdapter(getContext(), rvList, mPdfs, new ItemClickListener() {
+            @Override
+            public void itemClicked(View view, int integer) {
+
+            }
+        });
         //adapter.setItemClickListener(this);
         //adapter.setOnLoadMoreListener(this);
         rvList.setAdapter(adapter);

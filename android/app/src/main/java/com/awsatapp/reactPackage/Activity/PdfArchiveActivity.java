@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.Constant;
 import com.awsatapp.reactPackage.MyContextWrapper;
+import com.awsatapp.reactPackage.listener.ItemClickListener;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.CoreListAdapter;
 import com.awsatapp.reactPackage.PdfAdapter;
@@ -50,6 +52,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     private boolean isGrid = true;
     private ArrayList<Pdf> mPdfs = new ArrayList<>();
     private ImageView backIcon;
+    private LinearLayout backContainer;
 
     @Override
     public int getContentView() {
@@ -61,9 +64,10 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb);
         backIcon = tb.findViewById(R.id.backIcon);
+        backContainer = tb.findViewById(R.id.backIconContainer);
         toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
         toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
-        backIcon.setOnClickListener(new View.OnClickListener() {
+        backContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -72,13 +76,41 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
         toolbar.setElevation(0);
         //setTitle(getString(R.string.pdf_archive_title));
         setOptionsMenu(R.menu.pdf_archive);
-        rvList.addItemDecoration(new SimpleDividerItemDecoration(getResources()));
+
         getPdfArchive();
     }
 
     @Override
     public CoreListAdapter<Pdf> initAdapter() {
-        return new PdfAdapter(mContext, rvList, mPdfs);
+        return new PdfAdapter(mContext, rvList, mPdfs, new ItemClickListener() {
+            @Override
+            public void itemClicked(View view, int integer) {
+                Log.i("clicked",String.valueOf(integer));
+                switch (view.getId()) {
+                    case R.id.download_btn:
+                        Button button = (Button) view;
+                        Pdf pdf = getAdapter().getItem(integer);
+                        if (pdf.getStatus() == 0) {
+                            FileDownloader.setup(mContext);
+                            downloadPdf(button, getAdapter().getItem(integer));
+                            getAdapter().getItem(integer).setStatus(1);
+                            button.setText(getString(R.string.downloading));
+                        } else if (pdf.getStatus() == 1) {
+                            if (pdf.getmDownloadTask() != null) {
+                                pdf.getmDownloadTask().pause();
+                                pdf.setmDownloadTask(null);
+                                pdf.setStatus(0);
+                                button.setText(getString(R.string.download));
+                            }
+                        } else if (pdf.getStatus() == 2) {
+                            final String path = mContext.getFilesDir().getPath() + "/" + pdf.getIssueNumber() + ".pdf";
+                            String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
+                            String title = Utils.getFullDateFromTimestamp(new Locale(lang), pdf.getCreated()) + " " + getString(R.string.issue_number);
+                            startActivity(PdfActivity.newInstance(mContext, path, title));
+                        }
+                }
+            }
+        });
     }
 
     @Override
@@ -95,8 +127,12 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
             } else {
                 return new GridLayoutManager(mContext, 2);
             }
+        }else{
+            rvList.addItemDecoration(new SimpleDividerItemDecoration(getResources()));
+            return new LinearLayoutManager(mContext);
         }
-        return new LinearLayoutManager(mContext);
+
+
     }
 
     private void getPdfArchive() {
@@ -110,6 +146,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                     Collections.reverse(pdfs);
                     getAdapter().updateItems(new ArrayList<>(pdfs.subList(0,14)));
                     mPdfs = (ArrayList<Pdf>) getAdapter().getItems();
+                    rvList.setAdapter(initAdapter());
                     hideLoader();
                 }
 
@@ -131,29 +168,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
 
     @Override
     public void itemClicked(View view, int integer) {
-        switch (view.getId()) {
-            case R.id.download_btn:
-                Button button = (Button) view;
-                Pdf pdf = getAdapter().getItem(integer);
-                if (pdf.getStatus() == 0) {
-                    FileDownloader.setup(mContext);
-                    downloadPdf(button, getAdapter().getItem(integer));
-                    getAdapter().getItem(integer).setStatus(1);
-                    button.setText(getString(R.string.downloading));
-                } else if (pdf.getStatus() == 1) {
-                    if (pdf.getmDownloadTask() != null) {
-                        pdf.getmDownloadTask().pause();
-                        pdf.setmDownloadTask(null);
-                        pdf.setStatus(0);
-                        button.setText(getString(R.string.download));
-                    }
-                } else if (pdf.getStatus() == 2) {
-                    final String path = mContext.getFilesDir().getPath() + "/" + pdf.getIssueNumber() + ".pdf";
-                    String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
-                    String title = Utils.getFullDateFromTimestamp(new Locale(lang), pdf.getCreated()) + " " + getString(R.string.issue_number);
-                    startActivity(PdfActivity.newInstance(mContext, path, title));
-                }
-        }
+
     }
 
     private void downloadPdf(final Button button, final Pdf pdf) {

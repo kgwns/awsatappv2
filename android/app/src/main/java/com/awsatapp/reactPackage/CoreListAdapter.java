@@ -60,17 +60,18 @@ public abstract class CoreListAdapter<T> extends RecyclerView.Adapter<CoreHolder
 
     /**
      * The constructor for the CoreListAdapter
-     *
-     * @param context      application context
+     *  @param context      application context
      * @param recyclerView recycler view assosicated with this adapter (for setting up infiniate
      *                     scrolling and scroll state change listeners)
      * @param items        the list of items of type T passed in the class
+     * @param itemClickListener
      */
-    public CoreListAdapter(Context context, RecyclerView recyclerView, List<T> items) {
+    public CoreListAdapter(Context context, RecyclerView recyclerView, List<T> items, ItemClickListener itemClickListener) {
         this.mContext = context;
         this.mRecyclerView = recyclerView;
         this.items = items;
         this.model = new CoreModel<T>();
+        this.mItemClickListener = itemClickListener;
     }
 
     /**

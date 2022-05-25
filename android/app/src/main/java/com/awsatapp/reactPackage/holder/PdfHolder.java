@@ -37,13 +37,13 @@ public class PdfHolder extends CoreHolder<Pdf> {
         if (DataManager.getInstance(mTitle.getContext()).isArabic()) {
             FontUtils.setBold(mTitle.getContext(), mDate, mTitle, mDownlaodBtn);
         }
-        mDownlaodBtn.setOnClickListener(this);
+
     }
 
     @Override
     public void bindData(Pdf data) {
         mTitle.setText(mTitle.getContext().getString(R.string.issue_number) + " " + data.getIssueNumber());
-
+        mDownlaodBtn.setOnClickListener(this);
         String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE,"ar");
         mDate.setText(Utils.getFullDateFromTimestamp(new Locale(lang), data.getCreated()));
         if (data.getmDownloadTask() != null) {

@@ -44,6 +44,7 @@ public class PdfActivity extends CoreActivity {
 
     private PDFViewPager mPdfViewPager;
     private ImageView backIcon;
+    private LinearLayout backContainer;
     private TextView title;
 
     public static Intent newInstance(Context context, String pathToFile, String title) {
@@ -62,13 +63,14 @@ public class PdfActivity extends CoreActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         backIcon = toolbar.findViewById(R.id.backIcon);
-        title = toolbar.findViewById(R.id.title);
+        backContainer = toolbar.findViewById(R.id.backIconContainer);
+        title = toolbar.findViewById(R.id.toolbar_title);
         toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
         toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
         toolbar.setElevation(0);
         //setTitle(toolbar, mTitle);
         title.setText(mTitle);
-        backIcon.setOnClickListener(new View.OnClickListener() {
+        backContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
