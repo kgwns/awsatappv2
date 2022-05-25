@@ -141,14 +141,20 @@ export const OpinionScreen = ({tabIndex, currentIndex}: {tabIndex?:number; curre
   }
 
   const renderItem = () => (
-    <View style={{width:'100%'}}>
-    {isNonEmptyArray(opinionWriterData) && <OpinionWritersSection data={opinionWriterData} onPressWriter={onPressWriter} />    }
-    <OpinionWritersArticlesSection
-      data={opinionsDataInfo}
-      onScroll={() => gotoNextPage()}
-      isLoading={isLoading}
-      onUpdateOpinionArticlesBookmark={updatedOpinionArticlesBookmark}
-    />
+    <View style={{ width: '100%' }}>
+      {isNonEmptyArray(opinionWriterData) &&
+        <OpinionWritersSection data={opinionWriterData}
+          onPressWriter={onPressWriter}
+        />
+      }
+      {isNonEmptyArray(opinionsDataInfo) &&
+        <OpinionWritersArticlesSection
+          data={opinionsDataInfo}
+          onScroll={() => gotoNextPage()}
+          isLoading={isLoading}
+          onUpdateOpinionArticlesBookmark={updatedOpinionArticlesBookmark}
+        />
+      }
   </View>
   );
 

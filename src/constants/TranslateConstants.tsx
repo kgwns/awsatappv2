@@ -24,6 +24,7 @@ export enum TranslateKey {
     EDITOR_CHOICE_HEADER_TITLE,
     DRAWER_PDF_ARCHIVE,
     OPINION_COMBO_TITLE,
+    OPINION_ARTICLE_TITLE,
 }
 
 export const TranslateConstants = ({
@@ -76,6 +77,8 @@ export const TranslateConstants = ({
             return t('drawer.pdfArchive')
         case TranslateKey.OPINION_COMBO_TITLE:
             return t('latestNewsTab.sectionWriters.headerLeft')
+        case TranslateKey.OPINION_ARTICLE_TITLE:
+            return t('opinion.opinionArticles')
         default: return ''
     }
 }
