@@ -181,7 +181,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                         <TextTicker
                             disabled={playbackState === State.Playing ? false : true}
                             animationType={'scroll'}
-                            shouldAnimateTreshold={ 0 }
+                            shouldAnimateTreshold={50}
                             duration={8000}
                             children={selectedTrack.title}
                             style={style.title}
@@ -239,7 +239,6 @@ const customStyle = (theme: CustomThemeType) => {
         },
         titleContainer: {
             justifyContent: 'flex-start',
-            alignItems: 'flex-start',
             width: '70%',
             marginLeft: normalize(10)
         },

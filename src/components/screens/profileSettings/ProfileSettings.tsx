@@ -238,9 +238,9 @@ export const ProfileSettings = () => {
               labelType={LabelTypeProp.h1}
           />
           { isLoggedIn && <Label
-              children={isNotEmpty(userProfileData.user?.first_name)
+              children={isNotEmpty(userProfileData.user?.display_name) ? userProfileData.user?.display_name : (isNotEmpty(userProfileData.user?.first_name)
                   ? isNotEmpty(userProfileData.user?.last_name) ? `${userProfileData.user?.first_name} ${userProfileData.user?.last_name}` : userProfileData.user?.first_name
-                  :userProfileData.user?.email}
+                  :userProfileData.user?.email)}
               style={style.userName}
               labelType={LabelTypeProp.h1}
           />}

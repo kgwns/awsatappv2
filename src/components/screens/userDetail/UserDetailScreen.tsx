@@ -153,7 +153,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       );
     }
     {
-      userProfileData.user?.name &&
+      userProfileData.user?.display_name && userProfileData.user?.display_name !== ' ' ?  setName(userProfileData.user?.display_name as string) : userProfileData.user?.name &&
         userProfileData.user?.name !== ' ' &&
         setName(userProfileData.user?.name as string);
     }
@@ -168,7 +168,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         setBirthday(getFullDate(userProfileData.user?.birthday));
     }
     {
-      userProfileData.user?.name &&
+      userProfileData.user?.display_name && userProfileData.user?.display_name !== ' ' ?  setUserName(userProfileData.user?.display_name as string) : userProfileData.user?.name &&
         userProfileData.user?.name !== ' ' &&
         setUserName(userProfileData.user?.name as string);
     }
@@ -337,6 +337,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const sendUpdatedProfileInfo = () => {
     sendUserProfileInfo({
       email: email,
+      display_name: name ?? '',
       first_name: name ?? '',
       birthday:
         selectedDate.toString() != t('profile.userDetail.selectBirthdayText')
