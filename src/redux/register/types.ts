@@ -18,6 +18,7 @@ export interface RegisterUserSuccessType {
   updated_at?: string;
   provider?: string;
   provider_id?: string;
+  display_name?: any;
 }
 
 export interface RegisterUserTokenType {

@@ -35,6 +35,7 @@ export interface UserDataType {
   occupation?: string;
   created_at?: string;
   updated_at?: string;
+  display_name?: any;
 }
 
 export interface messageDataType {
@@ -60,6 +61,7 @@ export interface SendUserDataFailedPayloadtype {
 
 export interface SendUserData {
   first_name?: string,
+  display_name?: string,
   birthday?: string,
   occupation?: string,
   email: string
