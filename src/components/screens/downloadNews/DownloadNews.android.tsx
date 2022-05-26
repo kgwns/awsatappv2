@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import {horizontalAndTop} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { UIManager, findNodeHandle, PixelRatio, Dimensions } from 'react-native';
 import { DownloadNewsViewManager } from './DownloadNewsViewManager';
 import { useAppCommon } from 'src/hooks';
@@ -41,16 +41,14 @@ export const DownloadNews = (props: DownloadNewsProps) => {
       edge={horizontalAndTop}
       showHeader={false}
       headerTitle={t('drawer.pdfArchive')}>
-      <View>
-        <DownloadNewsViewManager
-          style={{
-            height: PixelRatio.getPixelSizeForLayoutSize(WINDOW_HEIGHT),
-            width: PixelRatio.getPixelSizeForLayoutSize(WINDOW_WIDTH)
-          }}
-          userTheme={userTheme}
-          ref={ref}
-        />
-      </View>
+      <DownloadNewsViewManager
+        style={{
+          height: PixelRatio.getPixelSizeForLayoutSize(WINDOW_HEIGHT),
+          width: PixelRatio.getPixelSizeForLayoutSize(WINDOW_WIDTH)
+        }}
+        userTheme={userTheme}
+        ref={ref}
+      />
     </ScreenContainer>
   );
 };
