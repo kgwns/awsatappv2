@@ -1,4 +1,4 @@
-import { View, FlatList, ListRenderItem, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, FlatList, ListRenderItem, StyleSheet } from 'react-native'
 import React from 'react'
 import { Label } from 'src/components/atoms'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -10,6 +10,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { MainSectionBlockType } from '~/redux/latestNews/types'
 import { fonts } from 'src/shared/styles/fonts'
 import { decode } from 'html-entities'
+import FixedTouchable from 'src/shared/utils/FixedTouchable'
 
 
 export type TopHeadLineNewsProps = {
@@ -28,7 +29,7 @@ export const TopHeadLineNews = ({
 
     const renderItem: ListRenderItem<MainSectionBlockType> = ({ item }) => {
         return (
-            <TouchableOpacity activeOpacity={0.7} style={style.rowItem}
+            <FixedTouchable activeOpacity={0.7} style={style.rowItem}
                 onPress={() => onPress(item.nid)}>
                 <View style={style.circleContainer}>
                     <View style={style.circle} />
@@ -36,7 +37,7 @@ export const TopHeadLineNews = ({
                 <View style={style.titleContainer}>
                     <Label children={decode(item.title)} style={style.title} />
                 </View>
-            </TouchableOpacity>
+            </FixedTouchable>
         )
 
     }

@@ -1,4 +1,4 @@
-import { View, StyleSheet, ImageStyle, TouchableWithoutFeedback } from 'react-native'
+import { View, StyleSheet, ImageStyle } from 'react-native'
 import React from 'react'
 import { Image } from '../image/Image'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
@@ -7,6 +7,7 @@ import { Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles'
 import { LabelType } from '../label/Label'
 import { fonts } from 'src/shared/styles/fonts'
+import FixedTouchable from 'src/shared/utils/FixedTouchable'
 
 export interface ImageLabelProps {
     name?: ImageName,
@@ -25,7 +26,7 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
     onPressImage
 }: ImageLabelProps) => {
     return (
-        <TouchableWithoutFeedback onPress={onPressImage}>
+        <FixedTouchable onPress={onPressImage}>
             <View style={{alignItems: 'center'}}>
                 <Image fallback name={name} url={url}
                     style={[imageWithLabelStyle.articleImage, imageStyle]}
@@ -40,7 +41,7 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
                     </View>
                 }
             </View>
-        </TouchableWithoutFeedback>
+        </FixedTouchable>
     )
 }
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -24,6 +24,7 @@ import { ImagesName } from 'src/shared/styles';
 import PlayIconSmall from 'src/assets/images/icons/Play_black.svg';
 import { MixedStyleRecord } from 'react-native-render-html';
 import { fonts } from 'src/shared/styles/fonts';
+import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
 export interface VideoItemProps {
   imageUrl: string;
@@ -77,7 +78,7 @@ export const VideoItem = ({
   };
   return (
     <View>
-      <TouchableOpacity testID={testID} accessibilityLabel={testID} onPress={onPress}>
+      <FixedTouchable testID={testID} accessibilityLabel={testID} onPress={onPress}>
         <View>
         {isDocumentary ? (
           <View style={[styles.videoContainer,{ marginTop: 0}]}>
@@ -107,7 +108,7 @@ export const VideoItem = ({
             </View>
         )}
         </View>
-      </TouchableOpacity>
+      </FixedTouchable>
 
       <View style={styles.spaceContainer}>
         {!isDocumentary && <Label style={styles.titleLabelStyle}>{decode(title)}</Label>}

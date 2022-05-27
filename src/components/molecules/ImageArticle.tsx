@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, ViewStyle, TouchableWithoutFeedback, StyleProp, TextStyle } from 'react-native'
+import { View, StyleSheet, ViewStyle, StyleProp, TextStyle } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from '../molecules'
 import { BannerImageWithOverlay, Divider, Label, LabelTypeProp } from '../atoms'
@@ -13,6 +13,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { decodeHTMLTags } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
+import FixedTouchable from 'src/shared/utils/FixedTouchable'
 
 const carouselFooterSample: articleFooterProps = {
   leftTitleColor: Styles.color.white,
@@ -85,7 +86,7 @@ const ImageArticle = ({
   }
 
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <FixedTouchable onPress={onPress}>
       <View>
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
           <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoadEnd} isImageLoaded={isImageLoaded} />
@@ -117,7 +118,7 @@ const ImageArticle = ({
           {showDivider && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </FixedTouchable>
   )
 }
 

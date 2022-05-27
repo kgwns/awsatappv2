@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import React from 'react';
 import {Image} from '../atoms/image/Image';
 import {isAndroid, isTab, normalize, screenWidth} from '../../shared/utils';
@@ -25,6 +25,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
+import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
 export interface NewsFeedProps {
   title: string;
@@ -130,7 +131,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   const renderItem = (item: NewsViewListItemType, index: number) => {
     return (
       <View key={flatListUniqueKey.NEWS_FEED + index}>
-        <TouchableOpacity activeOpacity={0.8} onPress={() => onPress(item.nid)}>
+        <FixedTouchable activeOpacity={0.8} onPress={() => onPress(item.nid)}>
           {
             isTab ?
               <View style={style.tabSplitter}>
@@ -152,7 +153,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
                 {renderArticleFooterMobile(item, index)}
               </>
           }
-        </TouchableOpacity>
+        </FixedTouchable>
         <Divider style={style.divider}/>
         {isLoading && data.length - 1 == index && (
           <View style={{margin: normalize(28)}}>

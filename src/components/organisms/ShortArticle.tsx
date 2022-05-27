@@ -2,7 +2,6 @@ import {
   View,
   StyleSheet,
   FlatList,
-  TouchableWithoutFeedback,
   StyleProp,
   ViewStyle,
 } from 'react-native';
@@ -21,6 +20,7 @@ import { useLogin } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
+import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -114,7 +114,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const showDivider = (numColumns == 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
     const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') ? style.imageLandscape : style.image
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') ? style.imageContainerLandscape : style.imageContainer
-    return <TouchableWithoutFeedback onPress={() => onPress(item.nid)}>
+    return <FixedTouchable onPress={() => onPress(item.nid)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([style.cardContainer, cardStyle, containerStyle])}>
         <View style={{ flexDirection: 'row' }}>
@@ -149,7 +149,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
             </View>}
         {showDivider && <Divider style={style.divider}/>}
       </View>
-    </TouchableWithoutFeedback>
+    </FixedTouchable>
   };
 
   return (
