@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
-import { isNonEmptyArray, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { articleProps } from './ArticleSection'
 import { flatListUniqueKey, ScreensConstants } from 'src/constants'
@@ -15,15 +15,9 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
+import { dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities'
 
 export const sectionComboArticleFooter: articleFooterProps = {
-    leftIcon: () => {
-        return getSvgImages({
-            name: ImagesName.clock,
-            size: normalize(12),
-            style: { marginRight: normalize(7) }
-        })
-    },
     leftTitleColor: Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
     leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular }
@@ -50,7 +44,10 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const style = useThemeAwareObject(createStyles);
 
     const articleNewsItem = (item: articleProps, index: number) => {
-        sectionComboArticleFooter.leftTitle = t(timeAgo(item.created))
+        const timeFormat = dateTimeAgo(item.created)
+
+        sectionComboArticleFooter.leftTitle = timeFormat.time
+        sectionComboArticleFooter.leftIcon = () => TimeIcon(timeFormat.icon) 
 
         return <ArticleWithOutImage key={index} {...item}
             showDivider={index < verticalArticleData.length - 1}

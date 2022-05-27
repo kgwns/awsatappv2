@@ -4,14 +4,14 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from '../molecules'
 import { BannerImageWithOverlay, Divider, Label, LabelTypeProp } from '../atoms'
 import { articleFooterProps, BookMarkColorType } from '../molecules/articleFooter/ArticleFooter'
-import { isNotEmpty, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from '../atoms'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ScreensConstants } from 'src/constants'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { decodeHTMLTags } from 'src/shared/utils/utilities'
+import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 
@@ -59,9 +59,7 @@ const ImageArticle = ({
   created,
   isBookmarked,
   onPressBookmark,
-  isTabFooterInside = true,
   body,
-  hasTabletLayout = false,
   rightContainerStyle,
   textStyles,
   titleStyle,
@@ -85,6 +83,7 @@ const ImageArticle = ({
     }
   }
 
+  const timeFormat = dateTimeAgo(created)
   return (
     <FixedTouchable onPress={onPress}>
       <View>
@@ -106,13 +105,14 @@ const ImageArticle = ({
           }
           <View style={imageArticleStyle.tabFooterContainer}>
             <ArticleFooter {...carouselFooterSample}
-              leftTitle={author} rightTitle={timeAgo(created)}
+              leftTitle={author} rightTitle={timeFormat.time}
               isBookmarked={isBookmarked}
               onPress={onPressBookmark}
               leftTitleColor={leftTitleColor || Styles.color.greenishBlue}
               rightTitleColor={Styles.color.silverChalice}
               bookMarkColorType={BookMarkColorType.BLACK}
               rightContainerStyle={rightContainerStyle}
+              rightIcon={() => TimeIcon(timeFormat.icon)}
             />
           </View>
           {showDivider && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}

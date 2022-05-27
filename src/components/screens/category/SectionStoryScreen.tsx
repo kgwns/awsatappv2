@@ -13,8 +13,9 @@ import {
   decodeHTMLTags,
   isNonEmptyArray,
   isObjectNonEmpty,
-  timeAgo,
   isNotEmpty,
+  dateTimeAgo,
+  TimeIcon,
 } from 'src/shared/utils/utilities';
 import {ScreensConstants} from 'src/constants';
 import { useNavigation} from '@react-navigation/native';
@@ -320,6 +321,7 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
     const articleData = isNonEmptyArray(heroListDataInfo) && heroListDataInfo.length > 1 ? heroListDataInfo[1] : {} as NewsViewListItemType
 
     if (!isObjectNonEmpty(articleData)) return null
+    const timeFormat = dateTimeAgo(articleData.created_export)
     return (
       <View style={style.sectionStoryContainer}>
         <SectionArticleItem
@@ -332,13 +334,9 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
           onPressBookmark={() => updatedHeroBookmark(1)}
           showDivider={isTab ? false : true}
           leftTitle={''} //Need to hide author name in UI
-          rightTitle={timeAgo(articleData.created_export)}
+          rightTitle={timeFormat.time}
           leftTitleColor={themeData.primary}
-          rightIcon= {()=>getSvgImages({
-            name: ImagesName.clock,
-            size: normalize(11),
-            style: { marginRight: normalize(7) }
-          })}
+          rightIcon={() => TimeIcon(timeFormat.icon)}
           rightTitleColor={colors.silverChalice}
         />
       </View>

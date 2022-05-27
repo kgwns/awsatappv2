@@ -7,6 +7,14 @@ import { arabic } from "src/assets/locales/ar/common-ar";
 import moment from "moment";
 import 'moment/locale/ar';
 import { PROFILE_IMAGE_URL } from "src/services/apiUrls";
+import { getSvgImages } from "../styles/svgImages";
+import { normalize } from 'src/shared/utils';
+import { ImagesName } from "../styles";
+
+export enum DateIcon {
+  CLOCK,
+  CALENDAR
+}
 
 export interface CustomAlertProps {
   title?: string;
@@ -92,6 +100,45 @@ export const timeAgo = (time: any) => {
   }
 };
 
+export type DateTimeAgoType = {
+  icon: DateIcon, 
+  time: string
+}
+
+export const dateTimeAgo = (time: any): DateTimeAgoType => {
+  var today = new Date();
+
+  var startTime = moment(time).format();
+  var endTime = moment(today).format();
+
+  var duration = moment.duration(moment(endTime).diff(startTime));
+  var minutes = Number((duration.asMinutes()).toFixed(0));
+
+  const isLessThanHour = minutes < 60;
+  const isLessThanTwoHours = minutes < 120;
+  const isLessThanThreeHours = minutes < 180;
+  const isLessThanFourHours = minutes < 240;  
+
+  if (isLessThanFourHours) {
+    if (isLessThanHour) {
+      return { icon: DateIcon.CLOCK, time: `${arabic.timeSince.since} ${JSON.stringify(minutes)} ${arabic.timeSince.from}` }
+    } else if (isLessThanTwoHours) {
+      return { icon: DateIcon.CLOCK, time: arabic.timeSince.fromHour }
+    } else if (isLessThanThreeHours) {
+      return { icon: DateIcon.CLOCK, time: arabic.timeSince.fromTwoHours }
+    } if (isLessThanFourHours) {
+      return { icon: DateIcon.CLOCK, time: arabic.timeSince.fromThreeHours }
+    }
+  }
+
+  const day =  calculateDay(time)
+  const dayString = arabic.day[day] + ' '
+  const timeAgoFormatInfo = `${calculateDate(time)}/${calculateMothNumber(time)} ${calculateHour(time)}:${calculateMinutes(time)}`
+  const fullDateFormat = (dayString + timeAgoFormatInfo).toString();
+  return { icon: DateIcon.CALENDAR, time: fullDateFormat }
+};
+
+
 export const calculateTimeSince = (time: any) => {
   switch (typeof time) {
     case 'number':
@@ -137,6 +184,23 @@ export const calculateTimeSince = (time: any) => {
         return Math.floor(seconds / format[2]) + ' ' + format[1];
     }
   return time;
+};
+
+export const calculateDay = (time: any) => {
+  return moment(time).get('day');
+};
+
+export const calculateHour = (time: any) => {
+  return moment(time).get('hours');
+};
+
+export const calculateMinutes = (time: any) => {
+  return moment(time).get('minutes');
+};
+
+export const calculateMothNumber = (time: any) => {
+  const month = moment(time).get('months') + 1
+  return month < 10 ? '0' + month : month;
 };
 
 export const calculateDate = (time: any) => {
@@ -208,3 +272,11 @@ export const secondsToHHMMSS = (seconds: number | string) => {
   const scnds = s > 0 ? (s < 10 ? `0${s}` : s) : '00';
   return `${hrs}${mins}${scnds}`;
 };
+
+export const TimeIcon = (type: DateIcon) => (
+  getSvgImages({
+    name: type === DateIcon.CALENDAR ? ImagesName.calendarIcon : ImagesName.clock,
+    size: normalize(12),
+    style: { marginRight: normalize(7) }
+  })
+)

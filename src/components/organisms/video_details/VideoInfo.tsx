@@ -1,21 +1,20 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Label, Image, ButtonOutline, LabelTypeProp, HtmlRenderer} from 'src/components/atoms/';
-import { isIOS, normalize, screenWidth } from 'src/shared/utils';
+import { normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { colors } from 'src/shared/styles/colors';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import {useTranslation} from 'react-i18next';
 import ViewIcon from 'src/assets/images/icons/view.svg';
-import DateIcon from 'src/assets/images/icons/date.svg';
-import {getImageUrl} from 'src/shared/utils/utilities';
-import {timeAgo} from 'src/shared/utils/utilities';
+import CalendarIcon from 'src/assets/images/icons/date.svg';
+import { DateIcon, dateTimeAgo, getImageUrl } from 'src/shared/utils/utilities';
 import { VideoItemProps } from 'src/components/molecules/video-item/VideoItem';
 import { decode } from 'html-entities';
 import { MixedStyleRecord } from 'react-native-render-html';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { fonts } from 'src/shared/styles/fonts';
+import ClockIconWhite from 'src/assets/images/icons/clockIcon_white.svg'
 
 export interface VideoInfoProps {
   onPress?: (item:VideoItemProps)=>void;
@@ -30,9 +29,12 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
+
+  const timeFormat = dateTimeAgo(data.created_export)
+  
   const imageLink = data.field_thumbnil_multimedia_export ? getImageUrl(data.field_thumbnil_multimedia_export) : undefined;
-  const monthDate = t(timeAgo(data.created_export))
-  const {themeData} = useTheme();
+  const monthDate = timeFormat.time
+
   const onPressPlay =()=>{
     if(onPress){
       onPress(data)
@@ -89,7 +91,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
                 {t('videoDetail.watch')}
               </Label>}
               {data.views&&<Label color={colors.white} style={{marginRight: normalize(10)}}>|</Label>}
-              <DateIcon fill={colors.white} />
+              {timeFormat.icon == DateIcon.CALENDAR ? <CalendarIcon fill={colors.white} /> : <ClockIconWhite />}
               <Label style={[styles.footerRightTextStyle,{color: colors.white}]} numberOfLines={1}>
                 {monthDate}
               </Label>
