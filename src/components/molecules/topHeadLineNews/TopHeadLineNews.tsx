@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { MainSectionBlockType } from '~/redux/latestNews/types'
 import { fonts } from 'src/shared/styles/fonts'
+import { decode } from 'html-entities'
 
 
 export type TopHeadLineNewsProps = {
@@ -33,7 +34,7 @@ export const TopHeadLineNews = ({
                     <View style={style.circle} />
                 </View>
                 <View style={style.titleContainer}>
-                    <Label children={item.title} style={style.title} />
+                    <Label children={decode(item.title)} style={style.title} />
                 </View>
             </TouchableOpacity>
         )

@@ -46,7 +46,9 @@ const ArticleDetailImage = ({
                     color={Styles.color.lightGray}
                     style={{
                         paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-                        fontFamily: fonts.AwsatDigitalBetav10_Regular
+                        fontFamily: fonts.Almaria_Regular,
+                        fontSize: 12,
+                        lineHeight: 20,
                     }}
                 />
             </View>
@@ -90,13 +92,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         width: '100%',
         height: 'auto',
         aspectRatio: 1.62,
-    },
-    slideContent: {
-        position: 'absolute',
-        bottom: 0,
-        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-        paddingVertical: normalize(15),
-        width: '100%'
     },
     headNewsContainer: {
         paddingHorizontal: 0.04 * screenWidth,
