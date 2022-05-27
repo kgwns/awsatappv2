@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableWithoutFeedback, StyleProp, ViewStyle, TextStyle } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { Divider, Label, LabelTypeProp, TextWithFlag } from '../atoms';
 import { normalize } from 'src/shared/utils';
@@ -9,6 +9,7 @@ import { decodeHTMLTags, isNotEmpty } from 'src/shared/utils/utilities';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
+import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
     body?: string,
@@ -41,7 +42,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     const style = useThemeAwareObject(customStyle)
     const bodyInfo = isNotEmpty(body) ? decodeHTMLTags(body) : ''
     return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <FixedTouchable onPress={onPress}>
         <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>
                 <TextWithFlag {...props} style={titleStyle}/>
                 {isNotEmpty(bodyInfo) && showBody && <Label 
@@ -59,7 +60,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
             </View>
             {showDivider && <Divider style={style.divider}/>}
         </View>
-    </TouchableWithoutFeedback>
+    </FixedTouchable>
     )}
 
 export default ArticleWithOutImage

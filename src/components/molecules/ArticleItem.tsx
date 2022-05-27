@@ -1,4 +1,4 @@
-import { StyleSheet, View, ViewStyle, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, ViewStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants'
 import { ImageWithLabel } from '../atoms'
@@ -7,6 +7,7 @@ import { ArticleWithOutImage } from '../molecules'
 import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
 export interface ArticleItemProps extends articleProps {
     index: number,
@@ -33,7 +34,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     }
 
     return (
-        <TouchableWithoutFeedback onPress={onPress}>
+        <FixedTouchable onPress={onPress}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
                 style={StyleSheet.flatten([style.container, articleItemStyle])}>
                 {!hideImage && isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
@@ -43,7 +44,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
                     />
                 </View>
             </View>
-        </TouchableWithoutFeedback>
+        </FixedTouchable>
     )
 }
 

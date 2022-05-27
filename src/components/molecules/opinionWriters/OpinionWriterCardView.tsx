@@ -17,6 +17,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
 import { AxiosError } from 'axios';
 import { useAppPlayer } from 'src/hooks';
+import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
 
 export interface OpinionWritersCardViewProps {
@@ -146,7 +147,7 @@ const onPressPlay = () => {
 }
 
   return (
-    <TouchableOpacity style={style.container} onPress={()=>onPress()}>
+    <FixedTouchable style={style.container} onPress={()=>onPress()}>
       {!hideImageView && <View style={style.topImageWithLabelContainer}>
         <Image
           size={normalize(43)}
@@ -209,7 +210,7 @@ const onPressPlay = () => {
         </View>
       </View>
       <Divider style={[style.divider, mediaVisibility && { marginTop: normalize(10) }]} />
-    </TouchableOpacity>
+    </FixedTouchable>
   );
 };
 

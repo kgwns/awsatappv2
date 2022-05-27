@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
+import {StyleSheet, View } from 'react-native';
 import {normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image} from 'src/components/atoms';
@@ -10,6 +10,7 @@ import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {decodeHTMLTags, getPodcastDate, getSecondsToHms, isNotEmpty} from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
+import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
 export interface PodcastVerticalListProps {
   nid: string;
@@ -42,7 +43,7 @@ export const PodcastVerticalList = ({
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   return (
-    <TouchableWithoutFeedback testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
+    <FixedTouchable testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
       <View style={style.cardContainer}>
         <View style={style.headerStyle}>
           <View style={style.headerLeftStyle}>
@@ -82,7 +83,7 @@ export const PodcastVerticalList = ({
           </View>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </FixedTouchable>
   );
 };
 
