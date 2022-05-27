@@ -240,6 +240,7 @@ class PDFArchiveView: UIView, LoadingView {
         collectionView?.isScrollEnabled = true
         collectionView?.showsVerticalScrollIndicator = false
         collectionView?.backgroundColor = UIColor(named: "backgroundColor")
+        collectionView?.semanticContentAttribute = .forceRightToLeft
         addSubview(collectionView!)
       
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
