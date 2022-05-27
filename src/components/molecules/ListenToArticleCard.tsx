@@ -5,7 +5,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
-import {normalize} from 'src/shared/utils';
+import {isIOS, normalize} from 'src/shared/utils';
 import { useTranslation } from 'react-i18next';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { getSecondsToHms, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
@@ -102,16 +102,15 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
     },
     title: {
-      fontSize: normalize(16),
-      lineHeight: normalize(36),
+      fontSize: 16,
+      lineHeight: 34,
       color: theme.primary,
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     duration: {
-      justifyContent: 'center',
       alignSelf: 'center',
-      fontSize: normalize(14),
-      lineHeight: normalize(14),
+      fontSize: 14,
+      lineHeight: isIOS ? 34 : 38,
       marginStart: normalize(15),
       color: colors.spanishGray,
       fontFamily: fonts.Effra_Arbc_Medium,

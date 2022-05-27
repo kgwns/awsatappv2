@@ -1,5 +1,4 @@
 import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE, RESET_ARTICLE_FONT_SIZE } from "./actionType"
-import { normalize } from "src/shared/utils"
 
 export enum Theme {
   LIGHT = 'light',
@@ -12,9 +11,9 @@ export enum ServerEnvironment {
 }
 
 export enum ArticleFontSize {
-  normal = normalize(16),
-  medium = normalize(18),
-  high = normalize(20)
+  normal = 16,
+  medium = 18,
+  high = 20
 }
 
 export type AppCommonState = {
