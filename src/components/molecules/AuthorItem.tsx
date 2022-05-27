@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet,TouchableOpacity } from 'react-native'
 import { ButtonImage, Image, Label, LabelTypeProp } from '../atoms'
-import { isNonEmptyArray, isObjectNonEmpty, normalize, isNotEmpty } from '../../shared/utils'
+import { isNonEmptyArray, isObjectNonEmpty, normalize, isNotEmpty, isIOS } from '../../shared/utils'
 import { ImagesName, Styles } from '../../shared/styles'
 import { isTab } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
@@ -196,6 +196,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingHorizontal: normalize(10),
         color: theme.primary,
         fontFamily: fonts.AwsatDigitalBetav10_Regular,
+        lineHeight: isIOS ? 36 : 25,
     },
     mediaFooter: {
         flexDirection: 'row',

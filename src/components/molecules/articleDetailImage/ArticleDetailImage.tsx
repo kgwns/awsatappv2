@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
 import { Styles } from 'src/shared/styles'
 import { BannerImageWithOverlay, Label, LabelTypeProp } from 'src/components/atoms'
-import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isIOS, isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from 'src/components/atoms'
 import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -111,11 +111,14 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         position: 'absolute',
         left: normalize(15),
         top: 11,
+        backgroundColor: Styles.color.greenishBlue,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 1
     },
     tagNameStyle: {
-        paddingHorizontal: normalize(10),
-        backgroundColor: Styles.color.greenishBlue,
-        flexWrap: 'wrap',
-        fontFamily: fonts.Effra_Arbc_Regular,
+        paddingHorizontal: normalize(10),  
+        fontFamily: fonts.Almaria_Regular,
+        lineHeight: isIOS ? 28 : 25
     },
 })
