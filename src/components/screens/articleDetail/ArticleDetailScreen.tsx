@@ -318,7 +318,6 @@ export const ArticleDetailScreen = ({
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   labelStyle: {
     paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-    paddingTop: normalize(15),
   },
   footer: {
     width: '100%'
