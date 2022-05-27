@@ -188,7 +188,7 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   useEffect(()=>{
     if(isNotEmpty(name)){
-      setDisableName(!(userProfileData.user?.name == name))
+      setDisableName(!(userProfileData.user?.display_name == name))
     }
     else{
       setDisableName(false)
