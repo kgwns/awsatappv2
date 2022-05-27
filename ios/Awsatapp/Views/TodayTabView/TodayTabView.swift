@@ -13,8 +13,7 @@ class TodayTabView: UIView, LoadingView {
     @objc var onItemClick: RCTBubblingEventBlock?
     @objc var onArchiveButtonClick: RCTBubblingEventBlock?
   
-  var activityIndicator = UIActivityIndicatorView()
-  
+    private var activityIndicator = UIActivityIndicatorView()
     private var readPDFEditionNotificationToken: Token?
     private var downloadCompleteNotificationToken: Token?
     private var showMobileDataAlertNotification: Token?
@@ -69,9 +68,9 @@ class TodayTabView: UIView, LoadingView {
       activityIndicator.startAnimating()
       activityIndicator.color = UIColor(named: "lightGreen")
       activityIndicator.transform = CGAffineTransform(scaleX: 1.8, y: 1.8)
-
       activityIndicator.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY - 100)
       addSubview(activityIndicator)
+      bringSubviewToFront(activityIndicator)
     }
   
     private func setUpCollectionView() {
@@ -156,7 +155,7 @@ class TodayTabView: UIView, LoadingView {
         if let pdfEditions = pdfArchiveData.data, pdfEditions.count > 0 {
           datasource = DataSourceFactory.dataSourceForLargePDFCollage([pdfEditions.last!])
         }
-      activityIndicator.stopAnimating()
+        activityIndicator.stopAnimating()
     }
 
     func didLoad(fromCache: Bool) {

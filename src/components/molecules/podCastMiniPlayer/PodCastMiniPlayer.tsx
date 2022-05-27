@@ -112,7 +112,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const renderRBSheet = () => (
         <RBSheet
         ref={(ref: RBSheet) => refRBSheet.current = ref}
-            animationType={'slide'}
+            animationType={'fade'}
             closeOnDragDown={true}
             closeOnPressMask={true}
             closeOnDragAboveSheet={true}
@@ -122,6 +122,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                 wrapper: style.popupBackground,
                 draggableIcon: style.rbDraggableIcon
             }}
+            openDuration={50}
         >
             <View style={style.playerContainer}>
                 <Label children={selectedTrack.title} style={style.titleStyle} numberOfLines={1} />

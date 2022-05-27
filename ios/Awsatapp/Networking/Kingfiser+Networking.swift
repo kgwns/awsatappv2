@@ -10,13 +10,14 @@ import Kingfisher
 
 extension UIImageView {
     func aaa_setImage(_ stringURL: String?, indicatorType: IndicatorType = .activity) {
-        let placeHolderImage =  #imageLiteral(resourceName: "globe-placeholder")
+        let placeHolderImage =  UIImage(named: "placeholder_image")
         guard let stringURL = stringURL else {
             self.image = placeHolderImage
             return
         }
         guard let url = URL(string: stringURL) else { return }
         self.kf.indicatorType = indicatorType
-        self.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(1.0))])
+        (self.kf.indicator?.view as? UIActivityIndicatorView)?.color = UIColor(named: "lightGreen")
+        self.kf.setImage(with: url, options: [.transition(.fade(0.3))])
     }
 }

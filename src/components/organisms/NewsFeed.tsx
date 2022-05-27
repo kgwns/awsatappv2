@@ -78,7 +78,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
     return (
       <View style={{marginTop: 10}}>
         <SectionVideoFooter  
-          rightTitle={isAndroid ?  ',' + calculateYear(item.created_export) : calculateYear(item.created_export) + ','}
+          // rightTitle={isAndroid ?  ',' + calculateYear(item.created_export) : calculateYear(item.created_export) + ','} for older reference
           leftTitleColor={colors.spanishGray}
           rightIcon={() => {
             return getSvgImages({
@@ -86,7 +86,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
               size: normalize(12),
             })
           }}
-          rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString()}
+          rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString() + ', ' + calculateYear(item.created_export)}
           rightDateColor={colors.spanishGray}
           rightTitleColor={colors.spanishGray}
           addBookMark={true}
