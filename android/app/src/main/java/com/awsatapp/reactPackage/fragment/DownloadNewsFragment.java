@@ -1,5 +1,6 @@
 package com.awsatapp.reactPackage.fragment;
 
+import static android.graphics.Color.rgb;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
 import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +28,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.awsatapp.MainActivity;
 import com.awsatapp.R;
@@ -158,7 +161,16 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                         String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE,"ar");
                         mDate.setText(Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()));
 
-                        Glide.with(requireContext()).load(mPdf.getThumb()).listener(new RequestListener<Drawable>() {
+                        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(mContext);
+                        circularProgressDrawable.setColorSchemeColors(rgb(165,192,167));
+                        circularProgressDrawable.setCenterRadius(30f);
+                        circularProgressDrawable.setStrokeWidth(5f);
+                        circularProgressDrawable.start();
+
+                        Glide.with(requireContext())
+                                .load(mPdf.getThumb())
+                                .placeholder(circularProgressDrawable)
+                                .listener(new RequestListener<Drawable>() {
                             @Override
                             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                                 return false;

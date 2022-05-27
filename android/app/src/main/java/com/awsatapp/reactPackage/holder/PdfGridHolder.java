@@ -1,10 +1,16 @@
 package com.awsatapp.reactPackage.holder;
 
+import static android.graphics.Color.rgb;
+
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.Constant;
@@ -53,7 +59,16 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
         String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE,"ar");
         mDate.setText(Utils.getFullDateFromTimestamp(new Locale(lang), data.getCreated()));
 
-        Glide.with(mImage.getContext()).load(data.getThumb()).into(mImage);
+        CircularProgressDrawable circularProgressDrawable = new CircularProgressDrawable(mContext);
+        circularProgressDrawable.setColorSchemeColors(rgb(165,192,167));
+        circularProgressDrawable.setCenterRadius(30f);
+        circularProgressDrawable.setStrokeWidth(5f);
+        circularProgressDrawable.start();
+
+        Glide.with(mImage.getContext())
+                .load(data.getThumb())
+                .placeholder(circularProgressDrawable)
+                .into(mImage);
         if (fileExist(data.getIssueNumber() + ".pdf")) {
             mDownlaodBtn.setText(mTitle.getContext().getString(R.string.read));
             data.setStatus(2);
