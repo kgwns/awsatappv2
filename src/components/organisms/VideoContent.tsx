@@ -4,13 +4,12 @@ import { Label, LabelTypeProp, ImageWithIcon } from '../atoms';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Styles } from 'src/shared/styles';
 import { SectionVideoFooter } from '../molecules';
-import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg'
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTranslation } from 'react-i18next';
 import { VideoItemType } from 'src/redux/videoList/types';
-import { getImageUrl, getSecondsToHms, timeAgo } from 'src/shared/utils/utilities';
+import { dateTimeAgo, getImageUrl, getSecondsToHms, TimeIcon } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { flatListUniqueKey } from 'src/constants';
@@ -43,8 +42,10 @@ export const VideoContent = ({
         }
     }
     const renderItem = (item: VideoItemType, index: number) => {
+        const timeFormat = dateTimeAgo(item.created_export)
+        
         const imageLink = item.field_thumbnil_multimedia_export ? getImageUrl(item.field_thumbnil_multimedia_export) : undefined;
-        const date = t(timeAgo(item.created_export))
+        const date = timeFormat.time
         const time = item.field_jwplayerinfo_export ? getSecondsToHms(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
         const itemStyle = isTab ? { paddingHorizontal: 0.02 * screenWidth, height: normalize(260) } :
@@ -60,7 +61,7 @@ export const VideoContent = ({
                     
                     <SectionVideoFooter
                         leftTitleColor={Styles.color.smokeyGrey}
-                        rightIcon={() => <CalendarIcon color={Styles.color.smokeyGrey} />}
+                        rightIcon={() => TimeIcon(timeFormat.icon)}
                         rightDate={date}
                         rightDateColor={Styles.color.smokeyGrey}
                         rightTitleColor={Styles.color.smokeyGrey}

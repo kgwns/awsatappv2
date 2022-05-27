@@ -112,6 +112,10 @@ export const arabic = {
     weeks: 'أسابيع',
     one_minute: '1 دقيقة',
     one_hour: '1 ساعة',
+    from: 'من',
+    fromHour: "من ساعة",
+    fromTwoHours: "من ساعتين",
+    fromThreeHours:  "من ثلاث ساعات",
   },
   months: [
     'يناير',
@@ -128,13 +132,13 @@ export const arabic = {
     'ديسمبر',
   ],
   day: [
-    'الأحد',
     'الإثنين',
     'الثلاثاء',
     'الأربعاء',
     'الخميس',
     'الجمعة',
     'السبت',
+    'الأحد',
   ],
   podcastEpisode: {
     moreEpisodes: 'المزيد من حلقات البودكاست',

@@ -6,19 +6,17 @@ import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabe
 import {isTab, screenWidth} from 'src/shared/utils';
 import {Label, LabelTypeProp} from 'src/components/atoms';
 import {MOST_READ} from 'src/constants/SharedConstants';
-import {Styles, ImagesName} from 'src/shared/styles';
+import { Styles } from 'src/shared/styles';
 import {normalize} from 'src/shared/utils';
-import {getImageUrl, isNonEmptyArray} from 'src/shared/utils/utilities';
-import {timeAgo} from 'src/shared/utils/utilities';
+import {dateTimeAgo, getImageUrl, isNonEmptyArray, TimeIcon} from 'src/shared/utils/utilities';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import { getSvgImages } from 'src/shared/styles/svgImages';
 import { useBookmark, useLogin } from 'src/hooks';
 import { ScreensConstants } from 'src/constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import PopUp, { PopUpType } from './popUp/PopUp';
 import { fonts } from 'src/shared/styles/fonts';
-import { CustomThemeType } from '~/shared/styles/colors';
+import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
 export interface articleProps
@@ -113,20 +111,18 @@ const MostReadList = ({
   }
 
   const renderItem = (item: any, index: number) => {
+    const timeFormat = dateTimeAgo(item.created_export)
+
     const footerData = {
       leftTitle: item.author_resource,
       leftTitleColor: Styles.color.greenishBlue,
-      rightTitle: t(timeAgo(item.created_export)),
+      rightTitle: timeFormat.time,
       rightTitleStyle: {fontFamily: fonts.Effra_Arbc_Regular, lineHeight: 40, fontSize: 12},
-      rightIcon: () => {
-        return getSvgImages({
-        name: ImagesName.clock,
-        size: normalize(12),
-        style: { marginRight: normalize(7) }
-    })},
+      rightIcon: () => TimeIcon(timeFormat.icon),
       rightTitleColor: Styles.color.silverChalice,
       leftTitleStyle: style.leftFooterStyle,
     };
+
     enableTag && (item.tagName = (index + 1).toString())
     item.tagStyle = {marginLeft: normalize(20)};
     item.tagLabelType = LabelTypeProp.p3;
