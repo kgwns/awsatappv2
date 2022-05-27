@@ -66,8 +66,9 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     private TextView mTitle;
     private ImageView mImage;
     private TextView mDate;
+    private LinearLayout mDownlaodBtnContainer;
     private Button mDownlaodBtn;
-    private Button archiveBtn;
+    private TextView archiveBtn;
     private ProgressBar mLoader;
     private LinearLayout mContainer;
     private PendingIntent pi;
@@ -115,7 +116,8 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         mImage = (ImageView) view.findViewById(R.id.image);
         mDate = (TextView) view.findViewById(R.id.date);
         mDownlaodBtn = (Button) view.findViewById(R.id.download_btn);
-        archiveBtn = (Button) view.findViewById(R.id.newsArchive);
+        archiveBtn = (TextView) view.findViewById(R.id.newsArchive);
+        mDownlaodBtnContainer = (LinearLayout) view.findViewById(R.id.newsArchiveBtn);
         mLoader = (ProgressBar) view.findViewById(R.id.loader);
         mContainer = (LinearLayout) view.findViewById(R.id.pdf_container);
 
@@ -124,7 +126,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         }
 
         mDownlaodBtn.setOnClickListener(this);
-        archiveBtn.setOnClickListener(this);
+        mDownlaodBtnContainer.setOnClickListener(this);
         getPdfArchive();
     }
 
@@ -151,7 +153,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                 public void onSuccess(PdfWrapper response) {
                     if (response != null) {
                         mPdf = response.getData()[response.getData().length -1];
-                        mTitle.setText(mTitle.getContext().getString(R.string.issue_number));
+                        //mTitle.setText(mTitle.getContext().getString(R.string.issue_number));
 
                         String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE,"ar");
                         mDate.setText(Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()));
@@ -296,7 +298,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                     startActivity(PdfActivity.newInstance(mContext, path, title));
                 }
             break;
-            case R.id.newsArchive:
+            case R.id.newsArchiveBtn:
                 startActivity(PdfArchiveActivity.class);
                 break;
         }
