@@ -13,11 +13,10 @@ import {
 } from 'src/components/atoms';
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
-import DateIcon from 'src/assets/images/icons/date.svg';
 import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
-import {getImageUrl, secondsToHHMMSS} from 'src/shared/utils/utilities';
 import {timeAgo} from 'src/shared/utils/utilities';
+import {dateTimeAgo, getImageUrl, secondsToHHMMSS, TimeIcon} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
@@ -61,10 +60,12 @@ export const VideoItem = ({
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
-  const [t] = useTranslation();
+
+  const timeFormat = dateTimeAgo(date)
+
   const showSeparator = (views || toWatchTitle) && (date)
   const imageLink = imageUrl ? getImageUrl(imageUrl) : undefined;
-  const monthDate = t(timeAgo(date))
+  const monthDate = timeFormat.time
   const duration = time ? secondsToHHMMSS(time.split('|')[1]) : undefined;
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -127,11 +128,7 @@ export const VideoItem = ({
           {views && (<Label style={styles.viewsStyle}>{views}</Label>)}
           {toWatchTitle && (<Label labelType="caption5">{toWatchTitle}</Label>)}
           {showSeparator && (<View style={styles.dividerV} />)}
-          {monthDate  && (<DateIcon
-            fill={colors.silverChalice}
-            width={normalize(14)}
-            height={normalize(14)}
-          />)}
+          {monthDate  && TimeIcon(timeFormat.icon)}
           <Label style={styles.day} color={colors.silverChalice}>
             {monthDate}
           </Label>
@@ -172,7 +169,6 @@ const createStyles = (theme: CustomThemeType) =>
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     day: {
-      marginHorizontal: normalize(8),
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
       lineHeight: normalize(26),
     },

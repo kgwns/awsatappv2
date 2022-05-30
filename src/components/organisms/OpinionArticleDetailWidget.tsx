@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { isTab, normalize, screenWidth} from 'src/shared/utils';
-import {getSvgImages} from 'src/shared/styles/svgImages';
-import {Divider, HtmlRenderer, Image, Label} from '../atoms';
-import {ImagesName, Styles} from 'src/shared/styles';
-import {useTranslation} from 'react-i18next';
+import {Divider, HtmlRenderer, Label} from '../atoms';
+import { Styles} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {
   ArticleFooter,
@@ -15,12 +13,11 @@ import {
 } from '../molecules';
 import {MixedStyleRecord} from 'react-native-render-html';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { timeAgo, isNotEmpty, isObjectNonEmpty, decodeHTMLTags} from 'src/shared/utils/utilities';
+import { isNotEmpty, isObjectNonEmpty, decodeHTMLTags, dateTimeAgo, TimeIcon} from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
-import { ArticleFontSize } from '../screens/opinionArticleDetail/OpinionArticleDetail';
-import TrackPlayer, {State, usePlaybackState} from 'react-native-track-player';
+import Orientation from 'react-native-orientation-locker';
+import { ArticleFontSize } from 'src/redux/appCommon/types';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
@@ -46,14 +43,10 @@ export const OpinionArticleDetailWidget = ({
   selectedTrack,
   hideBackArrow = false,
 }: OpinionArticleDetailWidgetProp) => {
-  const [t] = useTranslation();
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation();
-  const [visibleMedia, setMediaVisibility] = useState(isNotEmpty(data.jwplayer));
-  const playbackState = usePlaybackState();
   const nid = data.nid_export
-
 
   const[mediaData, setMediaData] = useState<any>({});
 
@@ -88,21 +81,6 @@ export const OpinionArticleDetailWidget = ({
     },
   };
 
-  const articleDetailFooterData: articleFooterProps = {
-    leftTitleColor: Styles.color.spanishGray,
-    leftIcon: () => {
-      return getSvgImages({
-        name: ImagesName.clock,
-        size: normalize(12),
-        style: {marginRight: normalize(5)},
-      });
-    },
-    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular },
-    rightTitleColor: Styles.color.spanishGray,
-    hideBookmark: true,
-    style: {marginVertical: normalize(0.01 * screenWidth)},
-  };
-
   const articleHtmlContent = () => (
     <View>
       <HtmlRenderer source={data.body_export} tagsStyles={htmlTagStyle} />
@@ -115,6 +93,17 @@ export const OpinionArticleDetailWidget = ({
       Orientation.lockToPortrait();
     }
     navigation.goBack();
+  };
+
+  const timeFormat = dateTimeAgo(data.created_export)
+
+  const articleDetailFooterData: articleFooterProps = {
+    leftTitleColor: Styles.color.spanishGray,
+    leftIcon: () => TimeIcon(timeFormat.icon),
+    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular },
+    rightTitleColor: Styles.color.spanishGray,
+    hideBookmark: true,
+    style: {marginVertical: normalize(0.01 * screenWidth)},
   };
 
   return (
@@ -141,7 +130,7 @@ export const OpinionArticleDetailWidget = ({
         <Label style={style.title}>{data.title}</Label>
         <ArticleFooter
           {...articleDetailFooterData}
-          leftTitle={t(timeAgo(data.created_export))}
+          leftTitle={timeFormat.time}
         />
          {articleHtmlContent()}
       </View>

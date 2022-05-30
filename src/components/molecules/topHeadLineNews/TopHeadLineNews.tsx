@@ -57,6 +57,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         paddingBottom: isTab ? 0 : normalize(15),
         paddingTop: isTab ? normalize(10) : 0,
+        marginHorizontal: isTab ? 15 : 0
     },
     rowItem: {
         flexDirection: 'row',
@@ -67,20 +68,21 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         height: 8,
         borderRadius: 4,
         backgroundColor: theme.primaryBlack,
-        marginTop: isIOS ? normalize(9) : normalize(12),
+        marginTop: isIOS ?  isTab ? normalize(5) : normalize(9) : normalize(12),
         marginLeft: 2,
+        marginRight: isTab ? 10 : 0,
     },
     title: {
         fontSize: 15,
         lineHeight: 24,
-        textAlign: 'left',
+        textAlign: isTab ? 'center' : 'left',
         color: theme.primaryBlack,
         fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     circleContainer: {
-        width:'5%'
+        width: isTab ? 'auto' :'5%'
     },
     titleContainer: {
-        width:'94%'
+        width:isTab ? 'auto' :'94%'
     }
 })

@@ -1,28 +1,25 @@
 import { View, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import React from 'react';
 import {Image} from '../atoms/image/Image';
-import {isAndroid, isTab, normalize, screenWidth} from '../../shared/utils';
-import {ImagesName, Styles} from '../../shared/styles';
+import { isTab, normalize, screenWidth} from '../../shared/utils';
+import { Styles} from '../../shared/styles';
 import {TextWithFlag, Divider, Label, LabelTypeProp} from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
 import {flatListUniqueKey, ScreensConstants} from '../../constants';
 import {SectionVideoFooter} from '../molecules';
-import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {NewsViewListItemType} from 'src/redux/newsView/types';
 import {
-  calculateDate,
-  calculateMonth,
   decodeHTMLTags,
   getImageUrl,
-  calculateYear,
   isNotEmpty,
+  dateTimeAgo,
+  TimeIcon,
 } from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { getSvgImages } from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
@@ -57,14 +54,15 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   };
 
   const renderArticleFooter = (item: NewsViewListItemType, index: number) => {
+    const timeFormat = dateTimeAgo(item.created_export)
+
     return (
       <View>
         <SectionVideoFooter
           leftTitle={isNotEmpty(item.author_resource) ? decode(item.author_resource) : ''}
-          rightTitle={calculateYear(item.created_export) + ','}
           leftTitleColor={theme.themeData.primary}
-          rightIcon={() => <CalendarIcon />}
-          rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString()}
+          rightIcon={() => TimeIcon(timeFormat.icon)}
+          rightDate={timeFormat.time}
           rightDateColor={Styles.color.smokeyGrey}
           rightTitleColor={Styles.color.smokeyGrey}
           addBookMark={true}
@@ -76,18 +74,15 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   }
 
   const renderArticleFooterMobile = (item: NewsViewListItemType, index: number) => {
+    const timeFormat = dateTimeAgo(item.created_export)
+
     return (
       <View style={{marginTop: 10}}>
         <SectionVideoFooter  
           // rightTitle={isAndroid ?  ',' + calculateYear(item.created_export) : calculateYear(item.created_export) + ','} for older reference
           leftTitleColor={colors.spanishGray}
-          rightIcon={() => {
-            return getSvgImages({
-              name: ImagesName.clock,
-              size: normalize(12),
-            })
-          }}
-          rightDate={calculateMonth(item.created_export) + ' ' + calculateDate(item.created_export).toString() + ', ' + calculateYear(item.created_export)}
+          rightIcon={() => TimeIcon(timeFormat.icon)}
+          rightDate={timeFormat.time}
           rightDateColor={colors.spanishGray}
           rightTitleColor={colors.spanishGray}
           addBookMark={true}

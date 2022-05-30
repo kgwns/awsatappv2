@@ -18,6 +18,7 @@ export {
   isNonEmptyArray,
   isObjectNonEmpty,
   timeAgo,
+  dateTimeAgo,
   calculateDate,
   calculateTimeSince,
   calculateMonth,

@@ -130,6 +130,7 @@ import PrintVersionActiveIcon from 'src/assets/images/icons/print_version_green.
 import PrintVersionGrayIcon from 'src/assets/images/icons/print_version_gray.svg';
 
 import PopupImage from 'src/assets/images/popupImage.svg'
+import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
@@ -309,6 +310,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <LogoBlack {...props} />
         case ImagesName.popupImage:
             return <PopupImage {...props} />    
+        case ImagesName.calendarIcon:
+            return <CalendarIcon {...props} /> 
         default: return null
     }
 }

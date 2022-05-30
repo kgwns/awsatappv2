@@ -4,13 +4,13 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from 'src/components/molecules'
 import { Label, LabelTypeProp } from 'src/components/atoms'
 import { articleFooterProps } from 'src/components/molecules/articleFooter/ArticleFooter'
-import { isNotEmpty, normalize, timeAgo } from 'src/shared/utils'
+import { isNotEmpty, normalize } from 'src/shared/utils'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { useTranslation } from 'react-i18next'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { fonts } from 'src/shared/styles/fonts'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
+import { dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities'
 
 const articleDetailFooterData: articleFooterProps = {
     leftTitleColor: Styles.color.white,
@@ -38,15 +38,14 @@ export interface ArticleOverlayContentProps {
 
 export const ArticleOverlayContent = ({
     category, title, author, created, subtitle
-}: ArticleOverlayContentProps) => {
-    const [t] = useTranslation();
-    
+}: ArticleOverlayContentProps) => {    
     const { themeData } = useTheme()
     const imageArticleStyle = useThemeAwareObject(customStyle)
     const textColor =  themeData.primaryBlack
     const footerTextColor = themeData.secondaryMediumGrey
     articleDetailFooterData.leftTitleColor = footerTextColor
     articleDetailFooterData.rightTitleColor = footerTextColor
+    const timeFormat = dateTimeAgo(created)
 
     return (
         <View>
@@ -62,7 +61,10 @@ export const ArticleOverlayContent = ({
                     style={imageArticleStyle.subtitle}
                 />
             }
-            <ArticleFooter {...articleDetailFooterData} isDetail={true} rightTitle={author} leftTitle={t(timeAgo(created))} />
+            <ArticleFooter {...articleDetailFooterData} isDetail={true}
+                rightTitle={author} leftTitle={timeFormat.time}
+                rightIcon={() => TimeIcon(timeFormat.icon)}
+            />
         </View>
     )
 }

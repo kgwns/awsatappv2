@@ -108,6 +108,7 @@ export enum ImagesName {
   printVersionActiveIcon = 'printVersionActiveIcon',
   printVersionGrayIcon = 'printVersionGrayIcon',
   popupImage = 'popupImage',
+  calendarIcon = 'calendarIcon'
 }
 
 export const images = {

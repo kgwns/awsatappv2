@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ArticleItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
-import { t } from 'i18next'
-import { isObjectNonEmpty, isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isObjectNonEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ArticleItemProps } from '../ArticleItem'
 import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
@@ -15,9 +14,8 @@ import { isNotEmpty } from 'src/shared/utils'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { StyleSheet, View } from 'react-native'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { getSecondsToHms } from 'src/shared/utils/utilities'
-import { getSvgImages } from 'src/shared/styles/svgImages'
-import { ImagesName, Styles } from 'src/shared/styles'
+import { dateTimeAgo, getSecondsToHms, TimeIcon } from 'src/shared/utils/utilities'
+import { Styles } from 'src/shared/styles'
 import { fonts } from 'src/shared/styles/fonts'
 
 export enum PopulateWidgetType {
@@ -60,7 +58,7 @@ export const PopulateWidget = ({
 }: PopulateWidgetProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
     const style = useThemeAwareObject(customStyle)
-    
+    const timeFormat = dateTimeAgo(props.created)
 
     switch (type) {
         case PopulateWidgetType.ARTICLE:
@@ -74,13 +72,9 @@ export const PopulateWidget = ({
                     footerInfo={{
                         ...articleFooterDataSet,
                         leftIcon: null,
-                        rightIcon: () => {return getSvgImages({
-                            name: ImagesName.clock,
-                            size: normalize(12),
-                            style: { marginRight: normalize(7) }
-                        })},
+                        rightIcon: () => TimeIcon(timeFormat.icon),
                         leftTitle: props.author,
-                        rightTitle: t(timeAgo(props.created)),
+                        rightTitle: timeFormat.time,
                         favouriteIconHeight: 16,
                         favouriteIconWidth: 11,
                     }}

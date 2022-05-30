@@ -6,16 +6,13 @@ import {
   ViewStyle,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { isTab, normalize, screenWidth, timeAgo } from 'src/shared/utils'
+import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label } from '../atoms'
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
-import { ImagesName } from 'src/shared/styles/images';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants';
-import { useTranslation } from 'react-i18next';
-import { decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty } from 'src/shared/utils/utilities';
-import { getSvgImages } from 'src/shared/styles/svgImages';
+import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, TimeIcon } from 'src/shared/utils/utilities';
 import { useLogin } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -52,13 +49,6 @@ export interface ArticleSectionProps {
 }
 
 export const shortArticleFooter: articleFooterProps = {
-  leftIcon: () => {
-    return getSvgImages({
-      name: ImagesName.clock,
-      size: normalize(12),
-      style: { marginRight: normalize(7) }
-    })
-  },
   leftTitleColor: Styles.color.silverChalice,
   rightTitleColor: Styles.color.silverChalice,
   leftTitleStyle: { fontSize: 13, lineHeight: 18, fontFamily: fonts.IBMPlexSansArabic_Regular },
@@ -81,7 +71,6 @@ const ShortArticle = ({ data, headerLeft, onPress,
   hideImage = false,
   containerStyle,
 }: ArticleSectionProps) => {
-  const [t] = useTranslation();
   const { isLoggedIn } = useLogin()
   const style = useThemeAwareObject(customStyle);
   const [articleData, setArticleData] = useState(data)
@@ -107,7 +96,10 @@ const ShortArticle = ({ data, headerLeft, onPress,
   }
 
   const renderItem = (item: ShortArticleProps, index: number) => {
-    shortArticleFooter.rightTitle = t(timeAgo(item.created))
+    const timeFormat = dateTimeAgo(item.created)
+
+    shortArticleFooter.rightTitle = timeFormat.time
+    shortArticleFooter.rightIcon = () => TimeIcon(timeFormat.icon)
     shortArticleFooter.leftTitle = item.author
 
     const cardStyle = (numColumns > 1 && index % 2 == 0) ? {marginRight: normalize(20)} : {}
