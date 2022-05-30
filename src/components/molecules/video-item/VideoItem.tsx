@@ -16,7 +16,7 @@ import ViewIcon from 'src/assets/images/icons/view.svg';
 import DateIcon from 'src/assets/images/icons/date.svg';
 import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
-import {getImageUrl, getSecondsToHms} from 'src/shared/utils/utilities';
+import {getImageUrl, secondsToHHMMSS} from 'src/shared/utils/utilities';
 import {timeAgo} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
@@ -65,7 +65,7 @@ export const VideoItem = ({
   const showSeparator = (views || toWatchTitle) && (date)
   const imageLink = imageUrl ? getImageUrl(imageUrl) : undefined;
   const monthDate = t(timeAgo(date))
-  const duration = time ? getSecondsToHms(time.split('|')[1]) : undefined;
+  const duration = time ? secondsToHHMMSS(time.split('|')[1]) : undefined;
   const htmlTagStyle: MixedStyleRecord = {
     p: {
       color: themeData.secondaryDavyGrey,
@@ -108,7 +108,7 @@ export const VideoItem = ({
             </View>
         )}
         </View>
-      </FixedTouchable>
+      
 
       <View style={styles.spaceContainer}>
         {!isDocumentary && <Label style={styles.titleLabelStyle}>{decode(title)}</Label>}
@@ -154,6 +154,7 @@ export const VideoItem = ({
             onPress={onPressBookmark}
           />
       </View>
+      </FixedTouchable>
     </View>
   );
 };

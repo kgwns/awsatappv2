@@ -6,7 +6,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import { colors } from 'src/shared/styles/colors';
-import {getImageUrl, getSecondsToHms} from 'src/shared/utils/utilities';
+import {getImageUrl, secondsToHHMMSS} from 'src/shared/utils/utilities';
 
 export interface VideosListProps {
   onItemActionPress?: (item: any) => void;
@@ -32,7 +32,7 @@ export const VideosList: FunctionComponent<VideosListProps> = ({
 
   const renderItem: ListRenderItem<any> = ({item,index}) => {
     const imageLink = item.field_thumbnil_multimedia_export ? getImageUrl(item.field_thumbnil_multimedia_export) : undefined;
-    const time = item.field_jwplayerinfo_export ? getSecondsToHms(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
+    const time = item.field_jwplayerinfo_export ? secondsToHHMMSS(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
     return (
       <VideosVerticalList
         imageUrl={imageLink}

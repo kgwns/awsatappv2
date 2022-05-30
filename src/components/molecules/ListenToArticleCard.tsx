@@ -8,7 +8,7 @@ import {ImagesName} from 'src/shared/styles';
 import {isIOS, normalize} from 'src/shared/utils';
 import { useTranslation } from 'react-i18next';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
-import { getSecondsToHms, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { secondsToHHMMSS, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { useAppPlayer } from 'src/hooks';
 
@@ -54,7 +54,7 @@ const onPressPlay = () => {
       id: data.nid + 'opinion',
       url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
       title: data.title,
-      duration: playList.duration? getSecondsToHms(playList.duration) : 0,
+      duration: playList.duration? secondsToHHMMSS(playList.duration) : 0,
       artist: mediaData.title ? mediaData.title : '',
       artwork: data.authorImage
     }
@@ -84,7 +84,7 @@ const onPressPlay = () => {
         />
         <Label style={style.title}> {t('opinionArticleDetail.listenToArticle')}</Label>
       </TouchableOpacity>
-      <Label style={style.duration}>{getSecondsToHms(duration)}</Label>
+      <Label style={style.duration}>{secondsToHHMMSS(duration)}</Label>
     </View>
   );
 };

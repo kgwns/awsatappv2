@@ -10,7 +10,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTranslation } from 'react-i18next';
 import { VideoItemType } from 'src/redux/videoList/types';
-import { getImageUrl, getSecondsToHms, timeAgo } from 'src/shared/utils/utilities';
+import { getImageUrl, secondsToHHMMSS, timeAgo } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { flatListUniqueKey } from 'src/constants';
@@ -45,7 +45,7 @@ export const VideoContent = ({
     const renderItem = (item: VideoItemType, index: number) => {
         const imageLink = item.field_thumbnil_multimedia_export ? getImageUrl(item.field_thumbnil_multimedia_export) : undefined;
         const date = t(timeAgo(item.created_export))
-        const time = item.field_jwplayerinfo_export ? getSecondsToHms(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
+        const time = item.field_jwplayerinfo_export ? secondsToHHMMSS(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
         const itemStyle = isTab ? { paddingHorizontal: 0.02 * screenWidth, height: normalize(260) } :
             index === data.length - 1 && { marginRight: 0.04 * screenWidth }
