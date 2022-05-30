@@ -20,6 +20,7 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { decode } from 'html-entities';
 
 export interface SectionArticleItemProps {
   headerTitle?: string;
@@ -75,7 +76,7 @@ const SectionArticleItem = ({
         <View style={style.sectionContent}>
           <Label
             labelType={LabelTypeProp.h2}
-            children={headerTitle}
+            children={decode(headerTitle)}
             color={themeData.primaryBlack}
           />
           <Label
