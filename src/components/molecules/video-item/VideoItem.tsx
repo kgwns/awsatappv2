@@ -14,7 +14,6 @@ import {
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
 import {isTab, normalize, screenWidth} from 'src/shared/utils';
-import {useTranslation} from 'react-i18next';
 import {timeAgo} from 'src/shared/utils/utilities';
 import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
