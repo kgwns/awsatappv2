@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
-import { getSecondsToHms } from 'src/shared/utils/utilities';
+import { convertSecondsToHMS } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
 import { AxiosError } from 'axios';
@@ -77,7 +77,7 @@ const OpinionWritersCardView = ({
           setMediaData(opinionData);
           let playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
           if(playList){
-            let time = playList.duration? getSecondsToHms(playList.duration) : null;
+            let time = playList.duration? convertSecondsToHMS(playList.duration) : null;
             setTimeDuration(time)
           } 
         }
@@ -126,7 +126,7 @@ const onPressPlay = () => {
       id: nid + 'opinion',
       url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
       title: isNotEmpty(headLine) ? headLine : '',
-      duration: playList.duration? getSecondsToHms(playList.duration) : 0,
+      duration: playList.duration? convertSecondsToHMS(playList.duration) : 0,
       artist: mediaData.title ? mediaData.title : '',
       artwork: imageUrl
     }
