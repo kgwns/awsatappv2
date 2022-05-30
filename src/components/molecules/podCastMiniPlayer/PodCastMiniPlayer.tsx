@@ -13,7 +13,7 @@ import { useAppPlayer } from 'src/hooks/useAppPlayer'
 import RBSheet from 'react-native-raw-bottom-sheet'
 import { fonts } from 'src/shared/styles/fonts'
 import Slider from '@react-native-community/slider'
-import { secondsToHHMMSS } from 'src/shared/utils/utilities'
+import { convertSecondsToHMS } from 'src/shared/utils/utilities'
 
 export interface PodcastMiniPlayerProps {
     onClose?: () => void;
@@ -149,8 +149,8 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     />
                 </View>
                 <View style={[style.durationContainer, isAndroid && {paddingHorizontal: 15} ]} >
-                    <Label children={secondsToHHMMSS(progress.duration < progress.position ? progress.duration : Math.floor(progress.position || 0))} style={style.durationText}/>
-                    <Label children={secondsToHHMMSS(progress.duration || 0)} style={style.durationText}/>
+                    <Label children={convertSecondsToHMS(progress.duration < progress.position ? progress.duration : Math.floor(progress.position || 0))} style={style.durationText}/>
+                    <Label children={convertSecondsToHMS(progress.duration || 0)} style={style.durationText}/>
                 </View>
                 <View style={style.controls} >
                     <TouchableOpacity onPress={() => { seekForwardBackward('backward') }}>

@@ -16,7 +16,7 @@ import ViewIcon from 'src/assets/images/icons/view.svg';
 import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
 import {timeAgo} from 'src/shared/utils/utilities';
-import {dateTimeAgo, getImageUrl, secondsToHHMMSS, TimeIcon} from 'src/shared/utils/utilities';
+import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
@@ -66,7 +66,7 @@ export const VideoItem = ({
   const showSeparator = (views || toWatchTitle) && (date)
   const imageLink = imageUrl ? getImageUrl(imageUrl) : undefined;
   const monthDate = timeFormat.time
-  const duration = time ? secondsToHHMMSS(time.split('|')[1]) : undefined;
+  const duration = time ? convertSecondsToHMS(time.split('|')[1]) : undefined;
   const htmlTagStyle: MixedStyleRecord = {
     p: {
       color: themeData.secondaryDavyGrey,

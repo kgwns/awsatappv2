@@ -261,7 +261,7 @@ export const getUpdatedObject = (obj:any, key: string, val: any, newVal: any) =>
     return obj;
 }
 
-export const secondsToHHMMSS = (seconds: number | string) => {
+export const convertSecondsToHMS = (seconds: number | string) => {
   seconds = Number(seconds);
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
