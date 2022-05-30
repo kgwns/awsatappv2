@@ -22,6 +22,7 @@ import PlayIconSmall from 'src/assets/images/icons/Play_black.svg';
 import { MixedStyleRecord } from 'react-native-render-html';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
+import { useTranslation } from 'react-i18next';
 
 export interface VideoItemProps {
   imageUrl: string;
@@ -58,6 +59,7 @@ export const VideoItem = ({
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
+  const [t] = useTranslation();
 
   const timeFormat = dateTimeAgo(date)
 

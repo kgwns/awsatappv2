@@ -133,7 +133,12 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
 
   const day =  calculateDay(time)
   const dayString = arabic.day[day] + ' '
-  const timeAgoFormatInfo = `${calculateDate(time)}/${calculateMothNumber(time)} ${calculateHour(time)}:${calculateMinutes(time)}`
+  const hourValue = calculateHour(time)
+  const hourString = hourValue  < 10 ? '0' + hourValue : hourValue
+  const minuteValue = calculateMinutes(time)
+  const minuteString = minuteValue  < 10 ? '0' + minuteValue : minuteValue
+
+  const timeAgoFormatInfo = `${calculateDate(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
   const fullDateFormat = (dayString + timeAgoFormatInfo).toString();
   return { icon: DateIcon.CALENDAR, time: fullDateFormat }
 };

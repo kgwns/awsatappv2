@@ -39,7 +39,6 @@ const captionImageStyle = StyleSheet.create({
     labelContainer: {
         flexShrink: 1,
         flexBasis: 'auto',
-        paddingRight: normalize(5),
         maxWidth: screenWidth * 0.6
     },
     textLabel: {

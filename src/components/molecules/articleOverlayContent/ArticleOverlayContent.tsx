@@ -63,7 +63,7 @@ export const ArticleOverlayContent = ({
             }
             <ArticleFooter {...articleDetailFooterData} isDetail={true}
                 rightTitle={author} leftTitle={timeFormat.time}
-                rightIcon={() => TimeIcon(timeFormat.icon)}
+                leftIcon={() => TimeIcon(timeFormat.icon)}
             />
         </View>
     )

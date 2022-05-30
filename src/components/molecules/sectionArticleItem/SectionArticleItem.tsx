@@ -4,10 +4,10 @@ import {
   StyleSheet,
   ImageStyle,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {ButtonImage, ImageWithLabel, Label, LabelTypeProp} from 'src/components/atoms';
 import {CaptionWithImage} from '../../atoms';
-import {isTab, normalize} from 'src/shared/utils';
+import {isNotEmpty, isTab, normalize} from 'src/shared/utils';
 import {moleculesTestID, ScreensConstants} from '../../../constants';
 import {Styles} from '../../../shared/styles';
 import {ImagesName} from '../../../shared/styles/images';
@@ -93,20 +93,24 @@ const SectionArticleItem = ({
             : style.hideFooterContainer
         }>
         {!hideFooter && (
-          <View style={{flexDirection: 'row'}}>
-            <CaptionWithImage
-              title={leftTitle}
-              icon={leftIcon}
-              color={leftTitleColor}
-              style={style.leftTitle}
-            />
-            <Text children={'|'} style={style.verticalDivider} />
-            <CaptionWithImage
-              title={rightTitle}
-              icon={rightIcon}
-              color={rightTitleColor}
-              style={style.rightTitle}
-            />
+          <View style={{ flexDirection: 'row' }}>
+            {(leftIcon || isNotEmpty(leftTitle)) &&
+              <CaptionWithImage
+                title={leftTitle}
+                icon={leftIcon}
+                color={leftTitleColor}
+                style={style.leftTitle}
+              />}
+            {((isNotEmpty(leftTitle) || leftIcon) && (isNotEmpty(rightTitle) || rightIcon)) &&
+              <Text children={'|'} style={style.verticalDivider} />}
+            {(rightIcon || isNotEmpty(rightTitle)) &&
+              <CaptionWithImage
+                title={rightTitle}
+                icon={rightIcon}
+                color={rightTitleColor}
+                style={style.rightTitle}
+              />
+            }
           </View>
         )}
 
