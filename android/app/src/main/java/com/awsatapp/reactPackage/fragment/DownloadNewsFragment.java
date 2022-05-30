@@ -124,9 +124,9 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         mLoader = (ProgressBar) view.findViewById(R.id.loader);
         mContainer = (LinearLayout) view.findViewById(R.id.pdf_container);
 
-        if (DataManager.getInstance(mTitle.getContext()).isArabic()) {
-            FontUtils.setBold(mTitle.getContext(), mDate, mTitle, mDownlaodBtn);
-        }
+        FontUtils.setBold(mTitle.getContext(),archiveBtn, mDownlaodBtn);
+        FontUtils.setLight(mTitle.getContext(), mTitle);
+        FontUtils.setEffraRegular(mDate.getContext(),mDate);
 
         mDownlaodBtn.setOnClickListener(this);
         mDownlaodBtnContainer.setOnClickListener(this);
