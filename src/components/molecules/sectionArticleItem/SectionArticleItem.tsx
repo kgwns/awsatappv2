@@ -153,6 +153,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   verticalDivider: {
     color: Styles.color.silverChalice,
     paddingTop: normalize(2),
+    paddingHorizontal: 10,
   },
   divider: {
     height: 1,
@@ -167,11 +168,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     overflow: 'hidden'
   },
   leftTitle: {
-    marginRight: 10,
-    alignself: 'center',
+    alignSelf: 'center',
   },
   rightTitle: {
-    marginLeft: 10,
-    alignself: 'center',
+    alignSelf: 'center',
   }
 });

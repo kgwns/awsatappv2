@@ -106,13 +106,14 @@ export const ScreenContainer = ({
   };
 
   const header = (title?: string) => {
+    const titleStyle = {marginLeft: title && ((isTab && title.length > 60) || (title?.length > 35)) ? normalize(80) : 0 }
     return (
       <View style={style.headerContainer}>
         {isNotEmpty(title) && (
           <Label
             labelType="h2"
             color={themeData.secondaryDarkSlate}
-            style={[style.headerTitle, { marginLeft: (title && title?.length > 20) ? normalize(30) : 0 }]}>
+            style={[style.headerTitle, titleStyle]}>
             {title}
           </Label>
         )}
@@ -206,20 +207,17 @@ const createStyles = (theme: CustomThemeType) => {
       color: Styles.color.white,
     },
     headerContainer: {
-      height: normalize(55),
+      minHeight: normalize(55),
       backgroundColor: theme.backgroundColor,
       justifyContent: 'center',
       flexDirection: 'row',
       alignItems: 'center',
     },
-    returnIconStyle: {
-      tintColor: theme.secondaryDarkSlate,
-      marginRight: normalize(5),
-      width: normalize(12),
-      height: normalize(12),
-    },
     headerTitle: {
-      paddingLeft: 0
+      paddingLeft: 0,
+      paddingVertical: 0,
+      paddingTop: 8,
+      maxWidth: screenWidth - 100,
     },
     loadingOverlay: {
       width: '100%',

@@ -471,7 +471,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: 0.04 * screenWidth,
     },
     shortContainer: {
-      paddingBottom: 0
+      paddingBottom: isTab ? 20 : 0
     },
     imageArticleContainerStyle: {
       width: '100%',
