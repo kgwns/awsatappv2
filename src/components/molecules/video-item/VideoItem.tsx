@@ -269,8 +269,8 @@ const createStyles = (theme: CustomThemeType) =>
     },
     titleStyle: {
       color: colors.darkRed,
-      fontSize: normalize(35),
-      lineHeight: normalize(55),
+      fontSize: 45,
+      lineHeight: 55,
       fontFamily: fonts.Beirut,
     },
     documentaryTitle: {

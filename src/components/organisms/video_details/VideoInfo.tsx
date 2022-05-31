@@ -191,8 +191,8 @@ StyleSheet.create({
   },
   titleStyle: {
     color: colors.darkRed,
-    fontSize: normalize(30),
-    lineHeight: normalize(40),
+    fontSize: 45,
+    lineHeight: 55,
     fontFamily: fonts.Beirut,
     width: 0.8 * screenWidth,
     textAlign: 'center',
