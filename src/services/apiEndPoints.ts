@@ -20,6 +20,7 @@ export const COVERAGE_ARTICLE_END_POINT = 'api/v2/home/topview/coverage'
 export const FEATURED_ARTICLE_ENDPOINT = 'api/v2/home/topview/almqalat_alryysyt_'
 export const HORIZONTAL_ARTICLE_END_POINT = 'api/v2/home/topview/tghtyt_khast'
 export const EDITORS_CHOICE = 'api/v2/home/editorschoice';
+export const SPOTLIGHT_COMBO = 'api/v2/home/spotlight';
 
 //opinion tab in category section
 //writer list

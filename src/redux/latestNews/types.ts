@@ -44,6 +44,12 @@ import {
   REQUEST_EDITORS_CHOICE_DATA,
   REQUEST_EDITORS_CHOICE_DATA_SUCCESS,
   REQUEST_EDITORS_CHOICE_DATA_FAILED,
+  REQUEST_SPOTLIGHT_COMBO,
+  REQUEST_SPOTLIGHT_COMBO_SUCCESS,
+  REQUEST_SPOTLIGHT_COMBO_FAILED,
+  REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+  REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS,
+  REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_FAILED,
 } from "./actionType"
 import { PodcastListItemType } from '../podcast/types'
 export type payloadType = { rows: any[], pager: object }
@@ -74,6 +80,22 @@ export interface EditorsChoiceDataType extends LatestArticleDataType {
   type: string,
   blockname: string,
   entityqueue_relationship_position: string,
+}
+
+interface PagerType {
+  current_page?: number | null | undefined,
+  items_per_page?: number
+}
+
+export interface SpotlightDataType {
+  title: string,
+  field_tag_spotlight_export: {
+    id: string,
+    title: string,
+    bundle: string,
+    name: string
+  },
+  field_image: string,
 }
 
 export interface OpinionWriterType {
@@ -127,6 +149,8 @@ export type LatestNewsTabState = {
   featuredArticle: MainSectionBlockType[];
   horizontalArticle: MainSectionBlockType[];
   editorsChoice: EditorsChoiceDataType[],
+  spotlight: SpotlightDataType[],
+  spotlightArticleSection: LatestArticleDataType[],
 }
 
 export type TickerHeroSuccessPayload = {
@@ -482,6 +506,59 @@ export interface EditorsChoiceFailedType {
   payload: EditorsChoiceFailedPayload
 }
 
+export interface RequestSpotlightType {
+  type: typeof REQUEST_SPOTLIGHT_COMBO,
+}
+
+export type SpotlightSuccessPayload = {
+  spotlight: SpotlightDataType[],
+}
+
+export interface SpotlightSuccessType {
+  type: typeof REQUEST_SPOTLIGHT_COMBO_SUCCESS,
+  payload: SpotlightSuccessPayload
+}
+export interface SpotlightFailedPayload {
+  error: string
+}
+
+export interface SpotlightFailedType {
+  type: typeof REQUEST_SPOTLIGHT_COMBO_FAILED,
+  payload: EditorsChoiceFailedPayload
+}
+
+export interface SpotlightArticleSectionBodyGet {
+  id: number,
+  page: number,
+  items_per_page:number,
+}
+
+export interface SpotlightArticleSectionSuccessPayloadType {
+  spotlightArticleSection: any;
+}
+
+export interface RequestSpotlightArticleSectionType {
+  type: typeof REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+  payload: SpotlightArticleSectionBodyGet
+}
+
+export type SpotlightArticleSectionSuccessPayload = {
+  spotlightArticleSectionData: LatestArticleDataType[]
+  pager: PagerType
+}
+export interface SpotlightArticleSectionSuccessType {
+  type: typeof REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS,
+  payload: SpotlightArticleSectionSuccessPayload
+}
+
+export interface SpotlightArticleSectionFailedType {
+  type: typeof REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_FAILED,
+  payload: SpotlightArticleSectionFailedPayload
+}
+export interface SpotlightArticleSectionFailedPayload {
+  error: string
+}
+
 export type RequestSectionComboType =
   RequestSectionComboOne
   | RequestSectionComboTwo
@@ -536,5 +613,11 @@ export type LatestTabAction =
   | RequestSectionComboSevenFailedType
   | EditorsChoiceSuccessType
   | EditorsChoiceFailedType
-  | RequestEditorsChoiceType;
+  | RequestEditorsChoiceType
+  | SpotlightSuccessType
+  | SpotlightFailedType
+  | RequestSpotlightType
+  | SpotlightArticleSectionSuccessType
+  | SpotlightArticleSectionFailedType
+  | RequestSpotlightArticleSectionType;
 

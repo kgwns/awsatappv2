@@ -1,12 +1,14 @@
 import { BASE_URL, HOME_OPINIONS_GET } from 'src/services/apiUrls';
-import { getApiRequest } from 'src/services/api';
+import { getApiRequest, getCacheApiRequest } from 'src/services/api';
 import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
   COVERAGE_ARTICLE_END_POINT,
   FEATURED_ARTICLE_ENDPOINT,
   HORIZONTAL_ARTICLE_END_POINT,
-  EDITORS_CHOICE
+  EDITORS_CHOICE,
+  SPOTLIGHT_COMBO,
+  ARTICLE_SECTION_GET
 } from './apiEndPoints';
-import { LatestArticleBodyGet, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
+import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet, SpotlightArticleSectionSuccessPayloadType } from 'src/redux/latestNews/types';
 import { payloadType } from 'src/redux/latestNews/types';
 
 export const requestLatestArticle = async (body: LatestArticleBodyGet) => {
@@ -105,3 +107,27 @@ export const editorsChoiceApi = async () => {
     throw error;
   }
 }
+
+export const spotlightApi = async () => {
+  try {
+    const response: payloadType = await getApiRequest(
+      `${BASE_URL}${SPOTLIGHT_COMBO}`
+    );
+    return response;
+  } catch (error) {
+    console.log(` requestSpotlight error: ${error}`);
+    throw error;
+  }
+}
+
+export const requestSpotlightArticleSection = async (body: SpotlightArticleSectionBodyGet) => {
+  try {
+    const response: payloadType = await getCacheApiRequest(
+      `${BASE_URL}${ARTICLE_SECTION_GET}${body.id}?page=${body.page}&items_per_page=${body.items_per_page}`,
+    );
+    return response;
+  } catch (error) {
+    console.log(`error: ${error}`);
+    throw error;
+  }
+};

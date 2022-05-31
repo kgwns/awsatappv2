@@ -29,11 +29,11 @@ import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstan
 import { fonts } from 'src/shared/styles/fonts';
 
 
-const heroListTopListPayload: LatestArticleBodyGet = {
-  items_per_page: 10,
-  page: 0,
-  offset: 6
-}
+// const heroListTopListPayload: LatestArticleBodyGet = {
+//   items_per_page: 10,
+//   page: 0,
+//   offset: 6
+// }
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 12,
   page: 0,
@@ -106,15 +106,18 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
 
   const {
-    isLoading, topList, opinionList,podcastHome,
+    isLoading,
+    // topList,  // enable when toplist is required
+    opinionList,podcastHome,
     sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour, sectionComboFive, sectionComboSix, sectionComboSeven,
-    coverage, featuredArticle, horizontalArticle, editorsChoice,
-    fetchHeroListTopList, fetchOpinionTopList,
+    coverage, featuredArticle, horizontalArticle, editorsChoice, spotlight, spotlightArticleSection,
+    // fetchHeroListTopList, // enable when toplist is required
+    fetchOpinionTopList,
     fetchSectionComboOne, fetchSectionComboTwo,
     fetchSectionComboThree, fetchSectionComboFour, fetchSectionComboFive, fetchSectionComboSix, fetchSectionComboSeven,
     fetchPodcastHome,
     fetchCoverageBlockData, fetchFeaturedArticleData, fetchHorizontalArticleData,
-    fetchEditorsChoice,
+    fetchEditorsChoice, fetchSpotlight, 
   } = useLatestNewsTab()
   const { videoData, fetchVideoRequest } = useVideoList();
 
@@ -153,7 +156,6 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
       if(tabIndex === currentIndex){
         global.refFlatList = ref;
       }
-      console.log('MainSection on focus');
       
       const unsubscribe = () => {
         setPlayerVisibility(false)
@@ -417,8 +419,18 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
 
   const heroListInfoOne = [...featuredArticleInfo].splice(0, 2)
   const heroListInfoTwo = [...featuredArticleInfo].splice(2, 5)
+  // ENABLE WHEN TOP LIST IS REQUIRED
+  // const topListData = topList.map((item: LatestArticleDataType) => (
+  //   {
+  //     ...item,
+  //     ...shortArticleWithTagProperties,
+  //     titleColor: themeData.primaryBlack,
+  //     flag: item.news_categories && item.news_categories.title || '',
+  //     isBookmarked: validateBookmark(item.nid)
+  //   }
+  // ))
 
-  const topListData = topList.map((item: LatestArticleDataType) => (
+  const spotlightArticleSectionData = spotlightArticleSection.map((item: LatestArticleDataType) => (
     {
       ...item,
       ...shortArticleWithTagProperties,
@@ -448,7 +460,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
     fetchFeaturedArticleData();
     fetchHorizontalArticleData();
 
-    fetchHeroListTopList(heroListTopListPayload)
+    // fetchHeroListTopList(heroListTopListPayload)
     fetchOpinionTopList(opinionListPayload)
     fetchSectionComboOne(sectionComboOnePayload)
     fetchSectionComboTwo(sectionComboTwoPayload)
@@ -461,6 +473,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
     fetchVideoRequest();
     fetchPodcastHome();
     fetchEditorsChoice();
+    fetchSpotlight();
   }
 
 
@@ -586,7 +599,8 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         onUpdateBookmark={updatedSectionComboFourBookmark}
       />
       {isNonEmptyArray(sectionComboFourInfo) && <Divider style={{ height: normalize(20) }} />}
-      {isNonEmptyArray(topListData) && (
+      {/* Enable below code when top list required */}
+      {/* {isNonEmptyArray(topListData) && (
         <View style={mainSectionStyle.articleContainer}>
           <View style={mainSectionStyle.articleTitleContainer}>
             <Label
@@ -596,6 +610,23 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
           </View>
           <ShortArticle
             data={topListData}
+            onPress={onPressArticle}
+            onUpdateBookmark={updateBookmarkInfo}
+            showSignUpPopUp={makeSignUpAlert}
+            isFooterOutside={true}
+          />
+        </View>
+      )} */}
+      {isNonEmptyArray(spotlight) && isNonEmptyArray(spotlightArticleSection) && (
+        <View style={mainSectionStyle.articleContainer}>
+          <View style={mainSectionStyle.articleTitleContainer}>
+            <Label
+              children={spotlight[0].title}
+              style={mainSectionStyle.articleTitleStyle}
+            />
+          </View>
+          <ShortArticle
+            data={spotlightArticleSectionData}
             onPress={onPressArticle}
             onUpdateBookmark={updateBookmarkInfo}
             showSignUpPopUp={makeSignUpAlert}
@@ -715,7 +746,8 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
           />
         </View>
         <View style={mainSectionStyle.tabWidgetContainer}>
-          {isNonEmptyArray(topListData) && (
+          {/* Enable below code when top list required */}
+          {/* {isNonEmptyArray(topListData) && (
             <View style={mainSectionStyle.articleContainer}>
               <View style={mainSectionStyle.articleTitleContainer}>
                 <Label
@@ -731,6 +763,25 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
                 isFooterOutside={true}
                 listStyle={{marginHorizontal: normalize(20)}}
               />
+            </View>
+          )} */}
+          {isNonEmptyArray(spotlight) && isNonEmptyArray(spotlightArticleSection) && (
+            <View style={mainSectionStyle.articleContainer}>
+              <View style={mainSectionStyle.articleTitleContainer}>
+                <Label
+                  children={spotlight[0].title}
+                  style={mainSectionStyle.articleTitleStyle}
+                />
+              </View>
+              <View style={mainSectionStyle.spotlightSectionContainer}>
+                <ShortArticle
+                  data={spotlightArticleSectionData}
+                  onPress={onPressArticle}
+                  onUpdateBookmark={updateBookmarkInfo}
+                  showSignUpPopUp={makeSignUpAlert}
+                  isFooterOutside={true}
+                />
+              </View>
             </View>
           )}
         </View>
@@ -872,7 +923,7 @@ const customStyle = (theme: CustomThemeType) => {
     articleTitleStyle: {
       fontSize: 33,
       color: theme.primary,
-      lineHeight: 42,
+      lineHeight: 46,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     topNewsContainer: {
@@ -893,5 +944,8 @@ const customStyle = (theme: CustomThemeType) => {
     editorChoiceContainer: {
       marginBottom: normalize(25),
     },
+    spotlightSectionContainer: {
+      marginHorizontal: 20
+    }
   })
 }

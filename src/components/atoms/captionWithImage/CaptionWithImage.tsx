@@ -20,7 +20,7 @@ const CaptionWithImage = ({ title, icon, color, style, labelStyle, numberOfLine 
                     icon()
                 }
                 <View style={captionImageStyle.labelContainer}>
-                    <Label children={title} color={color} labelType={LabelTypeProp.p5} numberOfLines={numberOfLine ? numberOfLine :1}
+                    <Label children={title} color={color} numberOfLines={numberOfLine ? numberOfLine :1}
                         style={StyleSheet.flatten([captionImageStyle.textLabel, labelStyle])}
                     />
                 </View>

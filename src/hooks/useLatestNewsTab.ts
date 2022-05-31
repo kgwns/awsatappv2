@@ -12,8 +12,10 @@ import {
     getSectionComboSixData,
     getSectionComboSevenData,
     getEditorsChoiceData,
+    getSpotlightData,
+    getSpotlightArticleSectionData,
 } from 'src/redux/latestNews/selectors';
-import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet, EditorsChoiceDataType } from 'src/redux/latestNews/types';
+import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet, EditorsChoiceDataType, SpotlightDataType, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { requestHeroListTopList, requestSectionComboFour, 
     requestSectionComboOne, requestSectionComboThree, 
     requestSectionComboTwo, requestTickerAndHero, requestOpinionList,
@@ -21,7 +23,7 @@ import { requestHeroListTopList, requestSectionComboFour,
     requestHorizontalArticleBlock,
     requestFeatureArticleBlock,
     requestPodcastHomeData, requestSectionComboFive, requestSectionComboSix, requestSectionComboSeven, 
-    requestEditorsChoiceData,
+    requestEditorsChoiceData, requestSpotlightData, requestSpotlightArticleSection, 
 } from 'src/redux/latestNews/action';
 
 export interface UseLatestNewsReturn {
@@ -44,6 +46,8 @@ export interface UseLatestNewsReturn {
     featuredArticle: MainSectionBlockType[];
     horizontalArticle: MainSectionBlockType[];
     editorsChoice: EditorsChoiceDataType[];
+    spotlight: SpotlightDataType[];
+    spotlightArticleSection: LatestArticleDataType[];
     fetchTickerAndHeroArticle(payload: LatestArticleBodyGet): void;
     fetchHeroListTopList(payload: LatestArticleBodyGet): void
     fetchSectionComboOne(payload: RequestSectionComboBodyGet): void
@@ -58,6 +62,8 @@ export interface UseLatestNewsReturn {
     fetchFeaturedArticleData(): void;
     fetchHorizontalArticleData(): void;
     fetchEditorsChoice(): void;
+    fetchSpotlight():void;
+    fetchSpotlightArticleSection(payload: SpotlightArticleSectionBodyGet): void;
 }
 
 export const useLatestNewsTab = (): UseLatestNewsReturn => {
@@ -80,6 +86,8 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const featuredArticle = useSelector(getFeaturedArticle)
     const horizontalArticle = useSelector(getHorizontalData)
     const editorsChoice = useSelector(getEditorsChoiceData)
+    const spotlight = useSelector(getSpotlightData)
+    const spotlightArticleSection = useSelector(getSpotlightArticleSectionData)
     
     const fetchTickerAndHeroArticle = (payload: LatestArticleBodyGet) => {
         dispatch(requestTickerAndHero(payload));
@@ -134,6 +142,13 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         dispatch(requestHorizontalArticleBlock())
     }
 
+    const fetchSpotlight = () => {
+        dispatch(requestSpotlightData());
+    };
+
+    const fetchSpotlightArticleSection = (payload: SpotlightArticleSectionBodyGet) => {
+        dispatch(requestSpotlightArticleSection(payload));
+    };
 
     return {
         isLoading,
@@ -169,5 +184,9 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         fetchHorizontalArticleData,
         editorsChoice,
         fetchEditorsChoice,
+        spotlight,
+        fetchSpotlight,
+        spotlightArticleSection,
+        fetchSpotlightArticleSection,
     };
 };
