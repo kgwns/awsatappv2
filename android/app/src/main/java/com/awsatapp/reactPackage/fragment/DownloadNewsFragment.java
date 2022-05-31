@@ -124,7 +124,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         mLoader = (ProgressBar) view.findViewById(R.id.loader);
         mContainer = (LinearLayout) view.findViewById(R.id.pdf_container);
 
-        FontUtils.setBold(mTitle.getContext(),archiveBtn, mDownlaodBtn);
+        //FontUtils.setBold(archiveBtn.getContext(),archiveBtn);
         FontUtils.setLight(mTitle.getContext(), mTitle);
         FontUtils.setEffraRegular(mDate.getContext(),mDate);
 
@@ -253,7 +253,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
 
                         @Override
                         protected void progress(BaseDownloadTask task, long soFarBytes, long totalBytes) {
-                            button.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
+                            button.setText(soFarBytes / 1000000 + "mb / " + totalBytes / 1000000 + "mb");
                             Log.v("Progress", "" + soFarBytes);
                         }
 
@@ -306,7 +306,23 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                 } else if (mPdf.getStatus() == 2) {
                     final String path = mContext.getFilesDir().getPath() + "/" + mPdf.getIssueNumber() + ".pdf";
                     String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
-                    String title = Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()) + " " + getString(R.string.issue_number);
+                    String timeStamp = !String.valueOf(mPdf.getCreated()).isEmpty() ? Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()):"";
+                    String edition = getString(R.string.edition);
+                    String issueNumber = !String.valueOf(mPdf.getIssueNumber()).isEmpty()?mPdf.getIssueNumber():"";
+                    String title = "";
+                    if(!timeStamp.isEmpty()){
+                        if(!issueNumber.isEmpty()){
+                            title = timeStamp + " " + edition +" "+ issueNumber;
+                        }else{
+                            title = timeStamp + " " + edition;
+                        }
+                    }else{
+                        if(!issueNumber.isEmpty()){
+                            title = edition + " " + issueNumber;
+                        }else {
+                            title = "";
+                        }
+                    }
                     startActivity(PdfActivity.newInstance(mContext, path, title));
                 }
             break;

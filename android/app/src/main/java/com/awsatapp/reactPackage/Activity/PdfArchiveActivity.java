@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -29,6 +30,7 @@ import com.awsatapp.reactPackage.manager.CoreNetworkManager;
 import com.awsatapp.reactPackage.manager.NetworkManager;
 import com.awsatapp.reactPackage.model.Pdf;
 import com.awsatapp.reactPackage.model.PdfWrapper;
+import com.awsatapp.reactPackage.utils.FontUtils;
 import com.awsatapp.reactPackage.utils.SimpleDividerItemDecoration;
 import com.awsatapp.reactPackage.utils.Utils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -53,6 +55,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     private ArrayList<Pdf> mPdfs = new ArrayList<>();
     private ImageView backIcon;
     private LinearLayout backContainer;
+    private TextView title;
 
     @Override
     public int getContentView() {
@@ -63,6 +66,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb);
+        title = toolbar.findViewById(R.id.toolbar_title);
         backIcon = tb.findViewById(R.id.backIcon);
         backContainer = tb.findViewById(R.id.backIconContainer);
         toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
@@ -75,6 +79,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
         });
         toolbar.setElevation(0);
         //setTitle(getString(R.string.pdf_archive_title));
+        FontUtils.setBold(title.getContext(),title);
         setOptionsMenu(R.menu.pdf_archive);
 
         getPdfArchive();

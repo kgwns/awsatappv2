@@ -24,6 +24,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.awsatapp.R;
+import com.awsatapp.reactPackage.utils.FontUtils;
 import com.awsatapp.reactPackage.utils.Utils;
 import com.awsatapp.reactPackage.view.PDFPagerAdapter;
 import com.awsatapp.reactPackage.view.PDFViewPager;
@@ -70,6 +71,7 @@ public class PdfActivity extends CoreActivity {
         toolbar.setElevation(0);
         //setTitle(toolbar, mTitle);
         title.setText(mTitle);
+        FontUtils.setBold(title.getContext(),title);
         backContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

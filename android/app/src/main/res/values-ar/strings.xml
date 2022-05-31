@@ -190,4 +190,6 @@
     <string name="view_all">المزيد</string>
     <string name="back_text">الرجوع</string>
     <string name="download_news_issue_title">الصحيفة الورقية</string>
+    <string name="edition">العدد</string>
+
 </resources>
