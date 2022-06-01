@@ -442,6 +442,8 @@ const customStyle = (theme: CustomThemeType) => {
     storyImageStyle: {
       height: isTab ? normalize(189) : 0.52 * screenWidth,
       paddingHorizontal: normalize(10),
+      width: 'auto',
+      aspectRatio: 1.78,
     },
     storyAndTopArticle: {
       flex: 1,
