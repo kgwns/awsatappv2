@@ -9,6 +9,7 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import ArticleDetailVideo from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo'
+import { decode } from 'html-entities'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -45,7 +46,7 @@ const ArticleDetailImage = ({
 
         return (
             <View style={imageArticleStyle.captionView}>
-                <Label children={caption} labelType={LabelTypeProp.p5}
+                <Label children={decode(caption)} labelType={LabelTypeProp.p5}
                     color={Styles.color.lightGray}
                     style={{
                         paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
@@ -63,7 +64,7 @@ const ArticleDetailImage = ({
 
         return (
             <View style={imageArticleStyle.tagNameViewStyle}>
-                <Label labelType={LabelTypeProp.h3} children={category}
+                <Label labelType={LabelTypeProp.h3} children={decode(category)}
                     color={Styles.color.white} style={imageArticleStyle.tagNameStyle}
                 />
             </View>

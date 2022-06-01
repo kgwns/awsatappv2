@@ -10,7 +10,8 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { fonts } from 'src/shared/styles/fonts'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
-import { dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities'
+import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilities'
+import { decode } from 'html-entities'
 
 const articleDetailFooterData: articleFooterProps = {
     leftTitleColor: Styles.color.white,
@@ -62,7 +63,7 @@ export const ArticleOverlayContent = ({
                 />
             }
             <ArticleFooter {...articleDetailFooterData} isDetail={true}
-                rightTitle={author} leftTitle={timeFormat.time}
+                rightTitle={decodeHTMLTags(decode(author))} leftTitle={timeFormat.time}
                 leftIcon={() => TimeIcon(timeFormat.icon)}
             />
         </View>
