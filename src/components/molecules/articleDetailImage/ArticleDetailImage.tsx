@@ -20,7 +20,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     caption?: string
     isFirstItem?: boolean;
     subtitle?: string 
-    field_jwplayer_id_export?: string ,
+    jwplayerId?: string ,
 }
 const ArticleDetailImage = ({
     image,
@@ -28,7 +28,7 @@ const ArticleDetailImage = ({
     caption,
     isFirstItem,
     category,
-    field_jwplayer_id_export,
+    jwplayerId,
     ...props
 }: ImageArticleProps) => {
 
@@ -75,13 +75,13 @@ const ArticleDetailImage = ({
             
             <View>
                 <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-                { isNotEmpty(field_jwplayer_id_export) ? <ArticleDetailVideo mediaId={field_jwplayer_id_export}  /> : 
+                { isNotEmpty(jwplayerId) ? <ArticleDetailVideo mediaId={jwplayerId}  /> : 
                     <BannerImageWithOverlay image={image}
                         onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
                         showOverlay={false}
                     />
                 }
-                    {!isNotEmpty(field_jwplayer_id_export) && renderTagName()}
+                    {!isNotEmpty(jwplayerId) && renderTagName()}
                 </View>
                 {renderCaption()}
                 <View style={imageArticleStyle.tabSlideContent}>

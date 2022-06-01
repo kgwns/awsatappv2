@@ -15,6 +15,11 @@ import sudoku from 'src/assets/images/sudoku_image.png'
 import pdfIcon from 'src/assets/images/pdf_icon.png'
 import popupImage from 'src/assets/images/popupImage.png'
 
+// Video Controls Icon
+import bottomShadowImg from 'src/assets/images/bottom-vignette.png'
+import playIconWhite from 'src/assets/images/play.png'
+import pauseIconWhite from 'src/assets/images/pause.png'
+
 export enum ImagesName {
   newsIcon = 'newsIcon',
   newsActiveIcon = 'newsActiveIcon',
@@ -125,7 +130,10 @@ export const images = {
   crossWord,
   sudoku,
   pdfIcon,
-  popupImage
+  popupImage,
+  bottomShadowImg,
+  playIconWhite,
+  pauseIconWhite
 };
 
 export const darkImages = {

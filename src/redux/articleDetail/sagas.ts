@@ -60,7 +60,7 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
             author: isNotEmpty(author_resource) ? decode(author_resource) : '',
             created: created_export,
             subtitle: isNotEmpty(field_new_sub_title_export) ? decode(field_new_sub_title_export) : '',
-            field_jwplayer_id_export: field_jwplayer_id_export
+            jwplayerId: field_jwplayer_id_export
           })
       );
     }
