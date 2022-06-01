@@ -51,4 +51,5 @@ export { ArticleOverlayContent } from './articleOverlayContent/ArticleOverlayCon
 export { GameIntroCard, GameIntroCardProps } from './gameIntroCard/GameIntroCard'
 export { TopHeadLineNews, TopHeadLineNewsProps } from './topHeadLineNews/TopHeadLineNews'
 export { BottomSheetView } from 'src/components/molecules/bottomSheetView/BottomSheetView'
+export { default as ArticleDetailVideo } from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo';
 

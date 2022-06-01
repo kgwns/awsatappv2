@@ -21,6 +21,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
                 caption={articleData.caption}
                 isFirstItem={isFirstItem}
                 subtitle={articleData.subtitle}
+                field_jwplayer_id_export={articleData.field_jwplayer_id_export}
             />
         </View>
     )

@@ -8,6 +8,7 @@ import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayCo
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
+import ArticleDetailVideo from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -19,6 +20,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     caption?: string
     isFirstItem?: boolean;
     subtitle?: string 
+    field_jwplayer_id_export?: string ,
 }
 const ArticleDetailImage = ({
     image,
@@ -26,6 +28,7 @@ const ArticleDetailImage = ({
     caption,
     isFirstItem,
     category,
+    field_jwplayer_id_export,
     ...props
 }: ImageArticleProps) => {
 
@@ -69,17 +72,23 @@ const ArticleDetailImage = ({
 
     return (
         <View>
-            <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-                <BannerImageWithOverlay image={image}
-                    onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
-                    showOverlay={false}
-                />
-                {renderTagName()}
+            
+            <View>
+                <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
+                { isNotEmpty(field_jwplayer_id_export) ? <ArticleDetailVideo mediaId={field_jwplayer_id_export}  /> : 
+                    <BannerImageWithOverlay image={image}
+                        onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
+                        showOverlay={false}
+                    />
+                }
+                    {!isNotEmpty(field_jwplayer_id_export) && renderTagName()}
+                </View>
+                {renderCaption()}
+                <View style={imageArticleStyle.tabSlideContent}>
+                    <ArticleOverlayContent {...props} />
+                </View>
             </View>
-            {renderCaption()}
-            <View style={imageArticleStyle.tabSlideContent}>
-                <ArticleOverlayContent {...props} />
-            </View>
+            
         </View>
     )
 }
