@@ -248,7 +248,7 @@ export const ArticleDetailScreen = ({
 
   const renderBackIcon = () => (
     <View style={style.backContainer}>
-      <BackIcon onPressBack={onPressBack} />
+      <BackIcon onPressBack={onPressBack} containerStyle={style.backIconContainerStyle}/>
     </View>
   )
 
@@ -317,7 +317,7 @@ export const ArticleDetailScreen = ({
 }
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   labelStyle: {
-    paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+    paddingHorizontal: 0.04 * screenWidth,
   },
   footer: {
     width: '100%'
@@ -344,5 +344,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     shadowOpacity: .5,
     shadowRadius: 4,
     elevation: 15,
+  },
+  backIconContainerStyle: {
+    marginLeft: isTab ? 15 : 0
   }
 })

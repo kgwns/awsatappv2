@@ -99,7 +99,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     tabSlideContent: {
         width: '100%',
-        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+        paddingHorizontal: 0.04 * screenWidth,
         paddingVertical: normalize(15),
     },
     captionView: {
@@ -109,16 +109,17 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     tagNameViewStyle: {
         flexWrap: 'wrap',
         position: 'absolute',
-        left: normalize(15),
-        top: 11,
+        left: isTab ? normalize(30) : normalize(15),
+        top: 0,
         backgroundColor: Styles.color.greenishBlue,
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 1
     },
     tagNameStyle: {
-        paddingHorizontal: normalize(10),  
+        paddingHorizontal: normalize(10),
+        fontSize:  isTab ? 16 : 12, 
         fontFamily: fonts.Almaria_Regular,
-        lineHeight: isIOS ? 28 : 25
+        lineHeight: isTab ? 25 : 18
     },
 })
