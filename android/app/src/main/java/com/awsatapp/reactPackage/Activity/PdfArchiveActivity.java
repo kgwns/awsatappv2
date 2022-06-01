@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -69,8 +71,8 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
         title = toolbar.findViewById(R.id.toolbar_title);
         backIcon = tb.findViewById(R.id.backIcon);
         backContainer = tb.findViewById(R.id.backIconContainer);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
-        toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
+        //toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
+        //toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
         backContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -106,6 +106,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String theme = getArguments().getString("theme");
         Log.i("fragment",getArguments().toString());
+
         rootView = inflater.inflate(R.layout.fragment_download_news, container, false);
 
         return rootView;

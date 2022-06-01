@@ -46,7 +46,7 @@
         <Button
             android:id="@+id/download_btn"
             android:layout_width="wrap_content"
-            android:layout_height="25dp"
+            android:layout_height="34dp"
             android:layout_gravity="center"
             android:layout_marginTop="-12dp"
             android:background="@drawable/download_btn"
