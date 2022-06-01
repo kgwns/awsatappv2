@@ -78,14 +78,14 @@ const getArticleImageAndType = (fieldImage: any, detailPhotoList: any, detailPho
   let image = ''
   let caption = ''
 
-  if(isNonEmptyArray(detailPhotoList)) {
+  if(isNonEmptyArray(detailPhotoList) && isNotEmpty(detailPhotoList[0])) {
     image = detailPhotoList[0]
     if(isNonEmptyArray(detailPhotoTitle)) {
       caption = detailPhotoTitle[0]
     }
   } else {
     image = isNonEmptyArray(fieldImage) ? getImageUrl(fieldImage[0].url) : isNotEmpty(fieldImage) ? getImageUrl(fieldImage) : ''
-    caption = fieldImage[0].alt
+    caption = isNonEmptyArray(fieldImage) ? fieldImage[0].alt || '' : ''
   }
 
   return { image, caption }
