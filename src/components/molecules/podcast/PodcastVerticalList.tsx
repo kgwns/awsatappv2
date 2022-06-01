@@ -75,7 +75,8 @@ export const PodcastVerticalList = ({
               icon={() => {
                 return getSvgImages({
                       name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG,
-                      size: normalize(15),
+                      width: 11,
+                      height: 16
                     })
               }}
               onPress={onPressBookmark}

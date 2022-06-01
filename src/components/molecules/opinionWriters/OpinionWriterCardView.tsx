@@ -196,13 +196,13 @@ const onPressPlay = () => {
               return isBookmarked
                 ? getSvgImages({
                     name: ImagesName.bookMarkActiveSVG,
-                    width: 10,
-                    height: 15
+                    width: 11,
+                    height: 16
                   })
                 : getSvgImages({
                     name: ImagesName.bookMarkSVG,
-                    width: 10,
-                    height: 15
+                    width: 11,
+                    height: 16
                   });
             }}
             onPress={onPressBookmark}

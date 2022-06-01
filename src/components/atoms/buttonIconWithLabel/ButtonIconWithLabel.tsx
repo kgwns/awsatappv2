@@ -2,7 +2,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Label, LabelTypeProp } from '..'
 import { ImagesName } from 'src/shared/styles'
-import { normalize } from 'src/shared/utils'
+import { isIOS, normalize } from 'src/shared/utils'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
@@ -26,8 +26,8 @@ export const ButtonIconWithLabel = ({
             {
                 getSvgImages({
                     name: icon,
-                    width: normalize(14),
-                    height: normalize(12),
+                    width: 14,
+                    height: 12,
                     fill: iconColor,
                 })
             }
@@ -46,10 +46,11 @@ const customStyle = () => (
             justifyContent: 'center'
         },
         title: {
-            fontSize: normalize(13),
-            lineHeight: normalize(16),
-            marginLeft: normalize(5),
+            fontSize: 13,
+            lineHeight: 16,
+            marginLeft: 5,
             fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            paddingTop: isIOS ? 5 : 0
         },
     })
 )
