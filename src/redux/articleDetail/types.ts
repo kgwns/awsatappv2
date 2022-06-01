@@ -49,6 +49,7 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   isBookmarked: boolean,
   caption: string,
   subtitle: string,
+  jwplayerId: string,
 }
 
 export interface RelatedArticleDataType extends GeneralArticleFields { 

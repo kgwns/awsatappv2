@@ -48,7 +48,7 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
       responseData.articleDetailData = rows.map(
         ({ title, body_export, nid_export, field_image_export, view_node,
           field_news_categories_export, author_resource, field_tags_topics_export,created_export, field_new_sub_title_export,
-          field_new_photo_export, field_new_photo_titles }: any) => ({
+          field_new_photo_export, field_new_photo_titles, field_jwplayer_id_export }: any) => ({
             body: body_export,
             title: isNotEmpty(title) ? decode(title) : '',
             nid: nid_export,
@@ -60,6 +60,7 @@ const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload =
             author: isNotEmpty(author_resource) ? decode(author_resource) : '',
             created: created_export,
             subtitle: isNotEmpty(field_new_sub_title_export) ? decode(field_new_sub_title_export) : '',
+            jwplayerId: field_jwplayer_id_export
           })
       );
     }

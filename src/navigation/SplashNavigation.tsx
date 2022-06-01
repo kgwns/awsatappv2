@@ -51,7 +51,7 @@ const SplashNavigation = () => {
     }
 
     const updateColorScheme = () => {
-        dispatch(storeAppTheme(isDarkMode ? Theme.DARK : Theme.LIGHT))
+        dispatch(storeAppTheme(Theme.LIGHT))
     }
 
     useEffect(() => {
