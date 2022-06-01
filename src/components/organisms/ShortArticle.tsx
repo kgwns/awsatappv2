@@ -106,7 +106,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const showDivider = (numColumns == 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
     const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') ? style.imageLandscape : style.image
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT') ? style.imageContainerLandscape : style.imageContainer
-    return <FixedTouchable onPress={() => onPress(item.nid)}>
+    return <FixedTouchable style={{flex:1}} onPress={() => onPress(item.nid)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([style.cardContainer, cardStyle, containerStyle])}>
         <View style={{ flexDirection: 'row' }}>
