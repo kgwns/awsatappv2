@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleProp, StyleSheet, Text, TextStyle } from 'react-native'
 import { Label, LabelTypeProp } from '..'
-import { isIOS, isNotEmpty, normalize } from 'src/shared/utils'
+import { isIOS, isNotEmpty, normalize, decodeHTMLTags } from 'src/shared/utils'
 import { decode } from 'html-entities';
 
 export interface TextWithFlagProps {
@@ -29,7 +29,7 @@ export const TextWithFlag = ({
         <Text style={textWithFlagStyle.container} numberOfLines={numberOfLines} >
             {flag && <Label style={[{ color: flagColor }, style]} children={`${flag}`} labelType={labelType} />}
             {flag && <Label style={[{ color: barColor }, textWithFlagStyle.dividerStyle, style]} children={`  |  `} labelType={labelType} />}
-            <Label children={isNotEmpty(title) ? decode(title) : ''}
+            <Label children={isNotEmpty(title) ? decodeHTMLTags(decode(title)) : ''}
                 labelType={labelType} color={titleColor}
                 style={style}
             />
