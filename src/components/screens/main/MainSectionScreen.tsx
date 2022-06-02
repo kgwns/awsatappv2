@@ -35,7 +35,7 @@ import { fonts } from 'src/shared/styles/fonts';
 //   offset: 6
 // }
 const opinionListPayload: LatestArticleBodyGet = {
-  items_per_page: 12,
+  items_per_page: 20,
   page: 0,
   offset: 0
 }

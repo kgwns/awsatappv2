@@ -365,7 +365,7 @@ const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {
   let responseData: OpinionSuccessPayload = {
     opinionList: []
   }
-  responseData.opinionList = formattedData.splice(0, 12)
+  responseData.opinionList = formattedData.splice(0, 16)
   return responseData
 }
 
