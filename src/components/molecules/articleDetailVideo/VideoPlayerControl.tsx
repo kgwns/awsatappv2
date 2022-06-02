@@ -18,6 +18,7 @@ import {LoadingState} from 'src/components/atoms';
 import TrackPlayer from 'react-native-track-player';
 import {useAppPlayer} from 'src/hooks';
 import {images} from 'src/shared/styles/images';
+import { NativeViewGestureHandler } from 'react-native-gesture-handler';
 
 export interface VideoPlayerControlProp {
   url: string;
@@ -166,20 +167,25 @@ const VideoPlayerControl = ({url, posterUrl, currentTime: time, paused: isPaused
       style={[styles.column]}
       imageStyle={[styles.vignette]}>
       <View style={styles.progrsBarSection}>
-        <Slider
-          style={[{width: '100%', height: 15}, isIOS && {direction: 'ltr'}]}
-          minimumValue={0}
-          maximumValue={Math.floor(duration)}
-          minimumTrackTintColor="#FFF"
-          maximumTrackTintColor="#666"
-          thumbTintColor="#FFF"
-          value={currentTime > duration ? duration : currentTime}
-          tapToSeek
-          inverted={isIOS ? false : true}
-          onSlidingComplete={value => {
-            onSeek(value);
-          }}
-        />
+        <NativeViewGestureHandler
+          disallowInterruption={true}
+          enabled
+          shouldActivateOnStart={true}>
+          <Slider
+            style={[{width: '100%', height: 15}, isIOS && {direction: 'ltr'}]}
+            minimumValue={0}
+            maximumValue={Math.floor(duration)}
+            minimumTrackTintColor="#FFF"
+            maximumTrackTintColor="#666"
+            thumbTintColor="#FFF"
+            value={currentTime > duration ? duration : currentTime}
+            tapToSeek
+            inverted={isIOS ? false : true}
+            onSlidingComplete={value => {
+              onSeek(value);
+            }}
+          />
+        </NativeViewGestureHandler>
       </View>
       <View style={styles.timeContainer}>
         {renderTimer()}

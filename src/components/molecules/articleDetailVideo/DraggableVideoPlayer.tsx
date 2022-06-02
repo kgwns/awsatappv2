@@ -32,11 +32,21 @@ const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
 
   const panResponder = React.useRef(
     PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
 
-      onStartShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetPanResponder: (_, gestureState) => {
+        const {dx, dy} = gestureState;
+        return dx > 2 || dx < -2 || dy > 2 || dy < -2;
+      },
 
-      onMoveShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponderCapture: (_, gestureState) => {
+        const {dx, dy} = gestureState;
+        return dx > 2 || dx < -2 || dy > 2 || dy < -2;
+      },
+
+      // onMoveShouldSetPanResponder: (evt, gestureState) => {
+      //   //return true if user is swiping, return false if it's a single click
+      //   return !(gestureState.dx === 0 && gestureState.dy === 0)
+      // },
 
       onPanResponderGrant: () => {
         props.setScroll && props.setScroll(false);
@@ -60,9 +70,11 @@ const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
         props.setScroll && props.setScroll(true);
       },
 
-      onPanResponderTerminate: () => {
-        props.setScroll && props.setScroll(true);
-      },
+      // onPanResponderTerminate: () => {
+      //   props.setScroll && props.setScroll(true);
+      // },
+
+      onShouldBlockNativeResponder: () => true,
     }),
   ).current;
 
