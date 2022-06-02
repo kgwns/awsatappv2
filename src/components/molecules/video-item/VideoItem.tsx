@@ -34,6 +34,7 @@ export interface VideoItemProps {
   date?: string;
   views?: string;
   isDocumentary?: boolean;
+  isVideoContents?: boolean;
   onPress?: ()=> void;
   testID?: string;
   shortDescription?: string;
@@ -52,6 +53,7 @@ export const VideoItem = ({
   date,
   views,
   isDocumentary,
+  isVideoContents=false,
   onPress,
   testID,
   toWatchTitle,
@@ -79,7 +81,7 @@ export const VideoItem = ({
     },
   };
   return (
-    <View>
+    <View style={isVideoContents && styles.containerStyle}>
       <FixedTouchable testID={testID} accessibilityLabel={testID} onPress={onPress}>
         <View>
         {isDocumentary ? (
@@ -101,12 +103,14 @@ export const VideoItem = ({
           </View>
         ) : (
             <View style={[styles.videoContainer,styles.spaceContainer, !isDocumentary && { marginTop: 0}]}>
+              <View>
               <Image fallback resizeMode={'cover'} url={imageLink} style={styles.image} />
               <PlayIcon fill={colors.white} style={styles.playIcon} />
               {duration && (<Label style={styles.time} color={colors.white}>
                 {duration}
               </Label>)}
               {videoLabel &&(<Label style={styles.videoLable}>{videoLabel}</Label>)}
+            </View>
             </View>
         )}
         </View>
@@ -205,24 +209,27 @@ const createStyles = (theme: CustomThemeType) =>
     },
     time: {
       position: 'absolute',
-      right: normalize(0.04 * screenWidth),
+      right: 0,
       bottom: 0,
       opacity: 0.8,
       backgroundColor: colors.darkGreenishBlue,
       padding: normalize(5),
     },
     videoLable: {
-      left: normalize(0.04 * screenWidth),
+      left: 0,
       top: 0,
       position: 'absolute',
       backgroundColor: colors.greenishBlue,
       paddingHorizontal: normalize(8),
       paddingVertical: 3,
-      color: colors.white
+      color: colors.white,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontSize: 12,
+      lineHeight: 16
     },
     playIcon: {
       top: normalize(10),
-      right: normalize(25),
+      right: normalize(10),
       position: 'absolute',
     },
     buttonContainer: {
@@ -284,5 +291,8 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'left',
       paddingVertical: normalize(8),
       color: theme.primaryBlack
+    },
+    containerStyle: {
+      width: isTab? '50%' : '100%'
     }
   });
