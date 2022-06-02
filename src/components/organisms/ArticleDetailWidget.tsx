@@ -6,11 +6,15 @@ import { ArticleDetailDataType } from 'src/redux/articleDetail/types'
 interface ArticleDetailWidgetProps {
     articleData: ArticleDetailDataType,
     isRelatedArticle: boolean,
-    isFirstItem: boolean
+    isFirstItem: boolean,
+    currentTime?: any,
+    paused: boolean,
+    playerVisible?: boolean,
+    setPlayerDetails?: ( time:any, paused: any) => void; 
 }
 
 const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
-    articleData, isRelatedArticle = false, isFirstItem,
+    articleData, isRelatedArticle = false, isFirstItem, ...props
 }) => {
     return (
         <View>
@@ -22,6 +26,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
                 isFirstItem={isFirstItem}
                 subtitle={articleData.subtitle}
                 jwplayerId={articleData.jwplayerId}
+                {...props}
             />
         </View>
     )

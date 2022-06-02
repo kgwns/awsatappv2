@@ -12,7 +12,7 @@ import {isIOS} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import Video from 'react-native-video';
-import {convertSecondsToHMS} from 'src/shared/utils/utilities';
+import {convertSecondsToHMS, isNotEmpty} from 'src/shared/utils/utilities';
 import Slider from '@react-native-community/slider';
 import {LoadingState} from 'src/components/atoms';
 import TrackPlayer from 'react-native-track-player';
@@ -21,8 +21,14 @@ import {images} from 'src/shared/styles/images';
 
 export interface VideoPlayerControlProp {
   url: string;
+  posterUrl?: string;
+  currentTime?: any;
+  paused: boolean;
+  playerVisible?: boolean; 
+  isMiniPlayer?: boolean; 
+  setPlayerDetails?: ( time:any, paused: any) => void; 
 }
-const VideoPlayerControl = ({url}: VideoPlayerControlProp) => {
+const VideoPlayerControl = ({url, posterUrl, currentTime: time, paused: isPaused, playerVisible, setPlayerDetails, isMiniPlayer = false}: VideoPlayerControlProp) => {
   const styles = useThemeAwareObject(customStyle);
 
   const videoPlayer = useRef<any>(null);
@@ -76,6 +82,18 @@ const VideoPlayerControl = ({url}: VideoPlayerControlProp) => {
   useEffect(() => {
     if (!paused && initialPlay && showMiniPlayer) stopTrackPlayer();
   }, [paused]);
+
+  useEffect(() => {
+    if((playerVisible && !isMiniPlayer) || (!playerVisible && isMiniPlayer)){
+      setPlayerDetails && setPlayerDetails(currentTime,paused);
+      setPaused(true)
+    }
+  }, [playerVisible]);
+
+  useEffect(() => {
+    onSeek(time)
+    setPaused(isPaused)
+  }, [time]);
 
   const onScreenTouch = () => {
     if (tapActionTimeout) {
@@ -137,6 +155,7 @@ const VideoPlayerControl = ({url}: VideoPlayerControlProp) => {
       resizeMode={screenType}
       onFullScreen={isFullScreen}
       source={{uri: url}}
+      poster={ isNotEmpty(posterUrl) ? posterUrl : undefined}
       style={styles.backgroundVideo}
     />
   );

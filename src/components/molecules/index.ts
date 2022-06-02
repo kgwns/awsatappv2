@@ -53,4 +53,5 @@ export { TopHeadLineNews, TopHeadLineNewsProps } from './topHeadLineNews/TopHead
 export { BottomSheetView } from 'src/components/molecules/bottomSheetView/BottomSheetView'
 export { default as ArticleDetailVideo } from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo';
 export { default as VideoPlayerControl } from 'src/components/molecules/articleDetailVideo/VideoPlayerControl';
+export { default as DraggableVideoPlayer } from 'src/components/molecules/articleDetailVideo/DraggableVideoPlayer';
 

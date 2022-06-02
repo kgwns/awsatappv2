@@ -21,6 +21,10 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     isFirstItem?: boolean;
     subtitle?: string 
     jwplayerId?: string ,
+    currentTime?: any,
+    paused: boolean,
+    playerVisible?: boolean,
+    setPlayerDetails?: ( time:any, paused: any) => void; 
 }
 const ArticleDetailImage = ({
     image,
@@ -75,7 +79,7 @@ const ArticleDetailImage = ({
             
             <View>
                 <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-                { isNotEmpty(jwplayerId) ? <ArticleDetailVideo mediaId={jwplayerId}  /> : 
+                { isNotEmpty(jwplayerId) ? <ArticleDetailVideo mediaId={jwplayerId} {...props}  /> : 
                     <BannerImageWithOverlay image={image}
                         onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
                         showOverlay={false}

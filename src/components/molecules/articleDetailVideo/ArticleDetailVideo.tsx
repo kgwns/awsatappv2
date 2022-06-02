@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {isNonEmptyArray, isObjectNonEmpty} from 'src/shared/utils';
+import {isNonEmptyArray, isNotEmpty, isObjectNonEmpty} from 'src/shared/utils';
+import {Image} from 'src/components/atoms';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {RequestVideoUrlSuccessResponse} from 'src/redux/videoList/types';
 import {fetchVideoDetailInfo} from 'src/services/VideoServices';
@@ -8,11 +9,16 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import VideoPlayerControl from 'src/components/molecules/articleDetailVideo/VideoPlayerControl';
 export interface ArticleVideoProps {
   mediaId?: string;
+  currentTime?: any;
+  paused: boolean;
+  playerVisible?: boolean;
+  setPlayerDetails?: ( time:any, paused: any) => void; 
 }
-const ArticleDetailVideo = ({mediaId}: ArticleVideoProps) => {
+const ArticleDetailVideo = ({mediaId, ...props}: ArticleVideoProps) => {
   const styles = useThemeAwareObject(customStyle);
 
   const [playerUrl, setPlayerUrl] = useState<string>();
+  const [posterUrl, setPosterUrl] = useState<string>();
 
   const getVideoUrlInfo = async () => {
     if (mediaId) {
@@ -24,12 +30,14 @@ const ArticleDetailVideo = ({mediaId}: ArticleVideoProps) => {
           isNonEmptyArray(response.playlist[0].sources)
         ) {
           const sources = response.playlist[0].sources;
+          const images = response.playlist[0].images;
           const videoItem = sources.find(
             item => item.type && item.type.includes('mp4'),
           );
           videoItem &&
             isObjectNonEmpty(videoItem) &&
             setPlayerUrl(videoItem.file);
+          isNonEmptyArray(images) && isNotEmpty(images[images.length-1].src) && setPosterUrl(images[images.length-1].src);
         }
       } catch (error) {
         console.log('error', error);
@@ -43,7 +51,7 @@ const ArticleDetailVideo = ({mediaId}: ArticleVideoProps) => {
 
   return (
     <View style={styles.container}>
-      {playerUrl && <VideoPlayerControl url={playerUrl} />}
+      {playerUrl && <VideoPlayerControl url={playerUrl} setPlayerDetails={props?.setPlayerDetails}  posterUrl={posterUrl} currentTime={props?.currentTime} paused={props?.paused} playerVisible={props?.playerVisible} />}
     </View>
   );
 };
