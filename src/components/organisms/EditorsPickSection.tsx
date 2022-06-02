@@ -15,13 +15,15 @@ import { StackNavigationProp } from '@react-navigation/stack';
 interface EditorsPickSectionProps {
   data: MainSectionBlockType[];
   headerLeft?: string;
-  headerRight?: string
+  headerRight?: string;
+  showHighlightTitle?: boolean;
 }
 
 export const EditorsPickSection = ({
   data,
   headerLeft,
   headerRight,
+  showHighlightTitle=true,
 }: EditorsPickSectionProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
   const style = useThemeAwareObject(customStyle)
@@ -29,8 +31,8 @@ export const EditorsPickSection = ({
   const onPress = (nid: string) => {
     if (isNotEmpty(nid)) navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
   }
-
   const renderItem = (item: MainSectionBlockType, index: number) => {
+    const highlightTitle=  item.news_categories?.title || ''
     return (
       <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.EDITORS_PICK_WIDGET + index}
         onPress={() => onPress(item.nid)}
@@ -38,7 +40,8 @@ export const EditorsPickSection = ({
         <NewsWithImageItem
           imageUrl={item.image}
           title={item.title}
-          highlightedTitle={item.news_categories?.title || ''}
+          highlightedTitle={highlightTitle}
+          showHighlightTitle={showHighlightTitle}
         />
       </TouchableOpacity>
     );

@@ -546,7 +546,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         <TopHeadLineNews data={headlineNews} />
       </View>
       <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />
-      <EditorsPickSection data={horizontalArticle} />
+      <EditorsPickSection data={horizontalArticle} showHighlightTitle={false}/>
       {isNonEmptyArray(podcastHome) &&
         <View>
           <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
@@ -695,7 +695,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
       }
       {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
-      <EditorsPickSection data={horizontalArticle} />
+      <EditorsPickSection data={horizontalArticle} showHighlightTitle={false}/>
       <View style={mainSectionStyle.tabSplitter}>
         <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
