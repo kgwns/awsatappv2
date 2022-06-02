@@ -57,7 +57,8 @@ export const ContentForYou = () => {
             title: t('favorite.articles_that_interest_you'),
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
-            elementContainerStyle: {paddingHorizontal: 0}
+            elementContainerStyle: {paddingHorizontal: 0},
+            textStyle: { fontSize: 20 }
         },
     };
     const navigation = useNavigation<StackNavigationProp<any>>()
