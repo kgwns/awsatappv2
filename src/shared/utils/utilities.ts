@@ -138,7 +138,7 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
   const minuteValue = calculateMinutes(time)
   const minuteString = minuteValue  < 10 ? '0' + minuteValue : minuteValue
 
-  const timeAgoFormatInfo = `${calculateDate(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
+  const timeAgoFormatInfo = `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
   const fullDateFormat = (dayString + timeAgoFormatInfo).toString();
   return { icon: DateIcon.CALENDAR, time: fullDateFormat }
 };
@@ -201,6 +201,11 @@ export const calculateHour = (time: any) => {
 
 export const calculateMinutes = (time: any) => {
   return moment(time).get('minutes');
+};
+
+export const calculateDateNumber = (time: any) => {
+  const date = calculateDate(time)
+  return date < 10 ? '0' + date : date;
 };
 
 export const calculateMothNumber = (time: any) => {
