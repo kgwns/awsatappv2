@@ -73,7 +73,6 @@ const ArticleDetailImage = ({
 
     return (
         <View>
-            
             <View>
                 <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
                 { isNotEmpty(jwplayerId) ? <ArticleDetailVideo mediaId={jwplayerId}  /> : 
@@ -103,14 +102,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         height: 'auto',
         aspectRatio: 1.62,
     },
-    headNewsContainer: {
-        paddingHorizontal: 0.04 * screenWidth,
-        paddingVertical: normalize(10)
-    },
     tabSlideContent: {
         width: '100%',
         paddingHorizontal: 0.04 * screenWidth,
-        paddingVertical: normalize(15),
+        paddingTop: normalize(5),
     },
     captionView: {
         backgroundColor: theme.captionBackground, 

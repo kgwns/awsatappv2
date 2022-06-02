@@ -25,7 +25,7 @@ const articleDetailFooterData: articleFooterProps = {
     rightTitleColor: Styles.color.white,
     hideBookmark: true,
     leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 13, lineHeight:16 },
-    rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:14 }
+    rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 14, lineHeight: 18 }
 }
 
 export interface ArticleOverlayContentProps {
@@ -74,7 +74,7 @@ const customStyle = (theme:CustomThemeType) => StyleSheet.create({
     title: {
         fontFamily: fonts.AwsatDigitalBetav10_Bold,
         fontSize: 30,
-        lineHeight: 33,
+        lineHeight: 42,
         textAlign: 'left',
         color: theme.primaryBlack,
         paddingBottom: normalize(5),
