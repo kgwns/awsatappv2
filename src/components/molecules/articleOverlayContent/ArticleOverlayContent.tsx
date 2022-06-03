@@ -51,13 +51,13 @@ export const ArticleOverlayContent = ({
     return (
         <View>
             <Label labelType={LabelTypeProp.h1}
-                children={title}
+                children={decodeHTMLTags(decode(title))}
                 color={textColor}
                 style={imageArticleStyle.title} />
             {isNotEmpty(subtitle) &&
                 <Label
                     numberOfLines={3}
-                    children={subtitle}
+                    children={decodeHTMLTags(decode(subtitle))}
                     color={textColor}
                     style={imageArticleStyle.subtitle}
                 />
