@@ -41,7 +41,7 @@ const carouselSliderStyle = StyleSheet.create({
         fontFamily: fonts.AwsatDigitalBetav10_Black,
     },
     textStyle:{
-        textAlign:'center',
+        textAlign:'justify',
         fontSize: 16,
         lineHeight: 26,
         fontFamily: fonts.IBMPlexSansArabic_Regular,
