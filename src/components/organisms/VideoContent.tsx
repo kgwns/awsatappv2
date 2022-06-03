@@ -108,6 +108,7 @@ const customStyle = (theme: CustomThemeType) => {
         container: {
             height: 'auto',
             backgroundColor: theme.secondaryWhite,
+            paddingBottom: isTab ? 0 : 20,
         },
         videoCardContainer: {
             backgroundColor: theme.secondaryWhite,
