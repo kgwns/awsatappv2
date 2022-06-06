@@ -85,9 +85,9 @@ const ArticleDetailImage = ({
                         showOverlay={false}
                     />
                 }
-                    {!isNotEmpty(jwplayerId) && renderTagName()}
+                {!isNotEmpty(jwplayerId) && renderTagName()}
                 </View>
-                {renderCaption()}
+                {!isNotEmpty(jwplayerId) && renderCaption()}
                 <View style={imageArticleStyle.tabSlideContent}>
                     <ArticleOverlayContent {...props} />
                 </View>

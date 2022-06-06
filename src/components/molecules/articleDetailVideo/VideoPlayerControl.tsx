@@ -18,18 +18,26 @@ import {LoadingState} from 'src/components/atoms';
 import TrackPlayer from 'react-native-track-player';
 import {useAppPlayer} from 'src/hooks';
 import {images} from 'src/shared/styles/images';
-import { NativeViewGestureHandler } from 'react-native-gesture-handler';
+import {NativeViewGestureHandler} from 'react-native-gesture-handler';
 
 export interface VideoPlayerControlProp {
   url: string;
   posterUrl?: string;
   currentTime?: any;
   paused: boolean;
-  playerVisible?: boolean; 
-  isMiniPlayer?: boolean; 
-  setPlayerDetails?: ( time:any, paused: any) => void; 
+  playerVisible?: boolean;
+  isMiniPlayer?: boolean;
+  setPlayerDetails?: (time: any, paused: any) => void;
 }
-const VideoPlayerControl = ({url, posterUrl, currentTime: time, paused: isPaused, playerVisible, setPlayerDetails, isMiniPlayer = false}: VideoPlayerControlProp) => {
+const VideoPlayerControl = ({
+  url,
+  posterUrl,
+  currentTime: time,
+  paused: isPaused,
+  playerVisible,
+  setPlayerDetails,
+  isMiniPlayer = false,
+}: VideoPlayerControlProp) => {
   const styles = useThemeAwareObject(customStyle);
 
   const videoPlayer = useRef<any>(null);
@@ -85,31 +93,35 @@ const VideoPlayerControl = ({url, posterUrl, currentTime: time, paused: isPaused
   }, [paused]);
 
   useEffect(() => {
-    if((playerVisible && !isMiniPlayer) || (!playerVisible && isMiniPlayer)){
-      setPlayerDetails && setPlayerDetails(currentTime,paused);
-      setPaused(true)
+    if ((playerVisible && !isMiniPlayer) || (!playerVisible && isMiniPlayer)) {
+      setPlayerDetails && setPlayerDetails(currentTime, paused);
+      setPaused(true);
     }
   }, [playerVisible]);
 
   useEffect(() => {
-    onSeek(time)
-    setPaused(isPaused)
+    onSeek(time);
+    setPaused(isPaused);
   }, [time]);
 
   const onScreenTouch = () => {
-    if (tapActionTimeout) {
-      clearTimeout(tapActionTimeout);
-      setTapActionTimeout(null);
-      if (showControls) {
-        resetControlTimeout();
-      }
+    if (playerVisible && !isMiniPlayer) {
+      setShowControls(false);
     } else {
-      setTapActionTimeout(
-        setTimeout(() => {
-          toggleControls();
-          setTapActionTimeout(null);
-        }, 130),
-      );
+      if (tapActionTimeout) {
+        clearTimeout(tapActionTimeout);
+        setTapActionTimeout(null);
+        if (showControls) {
+          resetControlTimeout();
+        }
+      } else {
+        setTapActionTimeout(
+          setTimeout(() => {
+            toggleControls();
+            setTapActionTimeout(null);
+          }, 130),
+        );
+      }
     }
   };
 
@@ -156,7 +168,7 @@ const VideoPlayerControl = ({url, posterUrl, currentTime: time, paused: isPaused
       resizeMode={screenType}
       onFullScreen={isFullScreen}
       source={{uri: url}}
-      poster={ isNotEmpty(posterUrl) ? posterUrl : undefined}
+      poster={isNotEmpty(posterUrl) ? posterUrl : undefined}
       style={styles.backgroundVideo}
     />
   );

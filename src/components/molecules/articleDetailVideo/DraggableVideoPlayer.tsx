@@ -9,13 +9,7 @@ import {
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import VideoPlayerControl from 'src/components/molecules/articleDetailVideo/VideoPlayerControl';
-import {
-  isIOS,
-  isTab,
-  normalize,
-  screenHeight,
-  screenWidth,
-} from 'src/shared/utils';
+import {isIOS, isTab, screenHeight, screenWidth} from 'src/shared/utils';
 
 export interface DraggableVideoPlayerProps {
   url?: string;
@@ -29,10 +23,24 @@ export interface DraggableVideoPlayerProps {
 const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
   const styles = useThemeAwareObject(customStyle);
   const animate = useRef(new Animated.ValueXY()).current;
+  const [orientation, setOrientation] = useState('PORTRAIT');
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener(
+      'change',
+      ({window: {width, height}}) => {
+        if (width < height) {
+          setOrientation('PORTRAIT');
+        } else {
+          setOrientation('LANDSCAPE');
+        }
+      },
+    );
+    return () => subscription?.remove();
+  }, []);
 
   const panResponder = React.useRef(
     PanResponder.create({
-
       onMoveShouldSetPanResponder: (_, gestureState) => {
         const {dx, dy} = gestureState;
         return dx > 2 || dx < -2 || dy > 2 || dy < -2;
@@ -43,13 +51,9 @@ const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
         return dx > 2 || dx < -2 || dy > 2 || dy < -2;
       },
 
-      // onMoveShouldSetPanResponder: (evt, gestureState) => {
-      //   //return true if user is swiping, return false if it's a single click
-      //   return !(gestureState.dx === 0 && gestureState.dy === 0)
-      // },
-
-      onPanResponderGrant: () => {
+      onPanResponderGrant: (_, gesture) => {
         props.setScroll && props.setScroll(false);
+
         animate.setOffset({
           x: animate.x._value,
           y: animate.y._value,
@@ -63,42 +67,93 @@ const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
           y: gesture.dy,
         });
       },
-      // onPanResponderMove: Animated.event([null, { dx: animate.x, dy: animate.y}], {useNativeDriver: false}),
 
       onPanResponderRelease: () => {
         animate.flattenOffset();
         props.setScroll && props.setScroll(true);
       },
 
-      // onPanResponderTerminate: () => {
-      //   props.setScroll && props.setScroll(true);
-      // },
-
       onShouldBlockNativeResponder: () => true,
     }),
   ).current;
 
-  let boundX = animate.x.interpolate({
-    inputRange: [-10, screenWidth - 100],
-    outputRange: [-10, screenWidth - 100],
-    extrapolate: 'clamp',
-  });
-  let boundY = animate.y.interpolate({
-    inputRange: [-10, screenHeight - 90],
-    outputRange: [-10, screenHeight - 90],
-    extrapolate: 'clamp',
-  });
+  let boundX = () => {
+    if (orientation == 'PORTRAIT') {
+      return animate.x.interpolate({
+        inputRange: [-0.25 * screenWidth, 0],
+        outputRange: [-0.25 * screenWidth, 0],
+        extrapolate: 'clamp',
+      });
+    } else {
+      if (isIOS) {
+        if (isTab) {
+          return animate.x.interpolate({
+            inputRange: [-0.6 * screenWidth, 0],
+            outputRange: [-0.6 * screenWidth, 0],
+            extrapolate: 'clamp',
+          });
+        } else {
+          return animate.x.interpolate({
+            inputRange: [-1.32 * screenWidth, 0],
+            outputRange: [-1.32 * screenWidth, 0],
+            extrapolate: 'clamp',
+          });
+        }
+      } else {
+        return animate.x.interpolate({
+          inputRange: [-1.08 * screenWidth, 0],
+          outputRange: [-1.08 * screenWidth, 0],
+          extrapolate: 'clamp',
+        });
+      }
+    }
+  };
+  let boundY = () => {
+    if (orientation == 'PORTRAIT') {
+      if (isIOS) {
+        return animate.y.interpolate({
+          inputRange: [-(screenHeight - screenWidth * 0.45), 0],
+          outputRange: [-(screenHeight - (screenWidth * 0.45 + 170)), 0],
+          extrapolate: 'clamp',
+        });
+      } else {
+        return animate.y.interpolate({
+          inputRange: [-(screenHeight - screenWidth * 0.45), 0],
+          outputRange: [-(screenHeight - (screenWidth * 0.45 + 140)), 0],
+          extrapolate: 'clamp',
+        });
+      }
+    } else {
+      if (isTab) {
+        return animate.y.interpolate({
+          inputRange: [-(screenHeight - screenWidth), 0],
+          outputRange: [-(screenHeight - screenWidth), 0],
+          extrapolate: 'clamp',
+        });
+      } else {
+        return animate.y.interpolate({
+          inputRange: [-30, 0],
+          outputRange: [-30, 0],
+          extrapolate: 'clamp',
+        });
+      }
+    }
+  };
 
   return (
     <Animated.View
       {...panResponder.panHandlers}
       style={[
-        {transform:  [{
-          translateX: animate.x
-        },
         {
-          translateY: animate.y
-        },]},
+          transform: [
+            {
+              translateX: boundX(),
+            },
+            {
+              translateY: boundY(),
+            },
+          ],
+        },
       ]}>
       <View
         style={[
@@ -125,24 +180,15 @@ const customStyle = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       position: 'absolute',
-      bottom: isIOS ? normalize(80) : normalize(70),
-      right: (isTab ? 0.02 : 0.04) * screenWidth,
-      left: (isTab ? 0.02 : 0.04) * screenWidth,
-      height: 'auto',
+      bottom: 30,
+      left: 10,
+      height: screenWidth * 0.45,
+      width: screenWidth * 0.7,
       aspectRatio: 1.62,
       backgroundColor: colors.black,
-      // zIndex: 9999,
     },
     initialContainer: {
       width: 0,
       height: 0,
-      // position: 'absolute',
-      // top: normalize(55),
-      // right: 0,
-      // left: 0,
-      // height: 'auto',
-      // aspectRatio: 1.62,
-      // backgroundColor: colors.black,
-      // zIndex: 99,
     },
   });
