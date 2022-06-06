@@ -196,11 +196,11 @@ export const calculateDay = (time: any) => {
 };
 
 export const calculateHour = (time: any) => {
-  return moment(time).get('hours');
+  return moment(time).utcOffset(time).get('hours');
 };
 
 export const calculateMinutes = (time: any) => {
-  return moment(time).get('minutes');
+  return moment(time).utcOffset(time).get('minutes');
 };
 
 export const calculateDateNumber = (time: any) => {
