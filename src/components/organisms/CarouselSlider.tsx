@@ -42,6 +42,7 @@ const carouselSliderStyle = StyleSheet.create({
     },
     textStyle:{
         textAlign:'justify',
+        writingDirection: 'rtl',
         fontSize: 16,
         lineHeight: 26,
         fontFamily: fonts.IBMPlexSansArabic_Regular,
