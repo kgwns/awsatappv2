@@ -9,6 +9,8 @@ import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types';
 import { isNonEmptyArray, isObjectNonEmpty, recordLogEvent } from 'src/shared/utils';
 import TrackPlayer from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
+import { colors } from 'src/shared/styles/colors';
+
 export interface VideoPlayerScreenProps {
   route: any
 }
@@ -65,5 +67,6 @@ const createStyles = () =>
 StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.black
   },
 })

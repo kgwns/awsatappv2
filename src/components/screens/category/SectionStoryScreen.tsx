@@ -288,7 +288,7 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
 
   const onVideoItemPress = (item: VideoItemType) => {
     navigation.navigate(ScreensConstants.VideoPlayerScreen,
-      { videoUrl: item.field_mp4_link_export, nid: item.nid })
+      { mediaID: item.mediaId, nid: item.nid })
   }
 
   const renderBannerArticle = () => {
