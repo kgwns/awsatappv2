@@ -2,13 +2,12 @@ import { View,StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FilterComponent, FilterDataType } from 'src/components/molecules'
-import { isNonEmptyArray, isTab, screenHeight, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
 import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { Label, LabelTypeProp } from 'src/components/atoms'
 import { useFocusEffect, useIsFocused } from '@react-navigation/native'
-import { normalize } from 'react-native-elements'
 import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
 
 export const Archives = () => {

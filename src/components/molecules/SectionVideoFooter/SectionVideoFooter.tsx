@@ -1,12 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { normalize } from 'react-native-elements'
 import { Styles } from '../../../shared/styles'
 import { ButtonImage } from '../../atoms'
 import { ImagesName } from '../../../shared/styles/images'
 import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { isIOS, isTab } from 'src/shared/utils'
+import { isTab, normalize } from 'src/shared/utils'
 import { fonts } from 'src/shared/styles/fonts'
 
 export interface SectionVideoFooterProps {

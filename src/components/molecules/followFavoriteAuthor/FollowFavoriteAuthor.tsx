@@ -10,7 +10,6 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import {ScreenHeight} from 'react-native-elements/dist/helpers';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
 import { fonts } from 'src/shared/styles/fonts';
@@ -55,7 +54,7 @@ const FollowFavoriteAuthor = ({
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const size = imageSize;
-  const tabSize = 0.11 * ScreenHeight;
+  const tabSize = 0.11 * screenHeight;
   return (
     <TouchableWithoutFeedback
       onPress={changeStatus}
