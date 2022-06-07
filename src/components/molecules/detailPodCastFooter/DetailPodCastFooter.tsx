@@ -76,7 +76,7 @@ const articleFooterStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingVertical: normalize(10)
+        paddingTop: normalize(10)
     },
     leftTitleStyle: {
         fontSize: 13,
