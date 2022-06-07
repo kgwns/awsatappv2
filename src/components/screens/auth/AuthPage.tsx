@@ -115,6 +115,7 @@ export const AuthPage: FunctionComponent = () => {
   const navigateToSection = (type: string) => {
     switch (type) {
       case NavigateTypes.google:
+        socialLoginStarted();
         return;
       case NavigateTypes.apple:
         return;
