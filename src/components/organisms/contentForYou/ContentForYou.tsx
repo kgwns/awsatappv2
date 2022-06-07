@@ -57,7 +57,8 @@ export const ContentForYou = () => {
             title: t('favorite.articles_that_interest_you'),
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
-            elementContainerStyle: {paddingHorizontal: 0}
+            elementContainerStyle: {paddingHorizontal: 0},
+            textStyle: { fontSize: 20 }
         },
     };
     const navigation = useNavigation<StackNavigationProp<any>>()
@@ -275,7 +276,7 @@ export const ContentForYou = () => {
                 nid: item.nid,
                 image: getImageUrl(item.field_image),
                 news_categories: newsCategory,
-                author: item.author_resource,
+                // author: item.author_resource, //enable when author name required in footer
                 created: item.created_export,
                 isBookmarked: false,
                 loaded: true,
@@ -404,7 +405,6 @@ export const ContentForYou = () => {
             {isNonEmptyArray(item.articleSectionData.data) && <ArticleSection
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU+'articleSection'+index}
                 data={item.articleSectionData.data}
-                showFooterTitle={false}
                 isFromFavorites={true}
                 onUpdateBookmark={updateBookmarkInfo}
                 numColumns={isTab ? 2 : 1}

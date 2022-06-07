@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { normalize, screenWidth } from 'src/shared/utils'
+import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { Divider, Image } from 'src/components/atoms'
 import { Label, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
@@ -71,7 +71,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: normalize(10),
-        paddingHorizontal: normalize(0.04 * screenWidth)
+        paddingHorizontal: (isTab ? 0.025 : 0.04) * screenWidth
     },
     topViewContainer: {
         flex: 1,

@@ -23,6 +23,8 @@
         android:layout_toStartOf="@+id/download_btn"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"
+        android:fontFamily="@font/bold"
+        android:textSize="15sp"
         android:textColor="@color/pdf_list_btn_label" />
 
 
@@ -36,6 +38,8 @@
         android:layout_toStartOf="@+id/download_btn"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"
+        android:fontFamily="@font/bold"
+        android:textSize="15sp"
         android:textColor="@color/pdf_list_btn_label" />
 
 
@@ -51,6 +55,8 @@
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingBottom="0dp"
         android:text="@string/download"
+        android:fontFamily="@font/bold"
+        android:textSize="16sp"
         android:textAllCaps="false"
         android:textColor="@color/download_btn_label" />
 </RelativeLayout>

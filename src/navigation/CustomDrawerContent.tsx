@@ -4,7 +4,7 @@ import {ImagesName} from '../shared/styles/images';
 import {ButtonImage, Label, LabelTypeProp} from '../components/atoms';
 import {ButtonList, Divider} from 'src/components/atoms';
 import {useTranslation} from 'react-i18next';
-import {isIOS, normalize, isDarkTheme} from 'src/shared/utils';
+import {isIOS, normalize, isDarkTheme, isTab} from 'src/shared/utils';
 // import CloseIcon from 'src/assets/images/icons/close.svg';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
 import InstagramIcon from 'src/assets/images/icons/instagram.svg';
@@ -208,6 +208,8 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     }
   }
   
+  const socialIconSize = isTab ? 33 : 23; 
+
   return (
     <ScreenContainer showPlayer={false}>
       {header()}
@@ -266,19 +268,19 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
           <View style={styles.socialContainer}>
             <ButtonImage
-              icon={() => <LinkedinIcon />}
+              icon={() => <LinkedinIcon width={socialIconSize} height={socialIconSize} />}
               onPress={() => openSocialMedia(SocialMediaType.linkedIn)}
             />
             <ButtonImage
-              icon={() => <TwitterIcon />}
+              icon={() => <TwitterIcon width={socialIconSize} height={socialIconSize} />}
               onPress={() => openSocialMedia(SocialMediaType.twitter)}
             />
             <ButtonImage
-              icon={() => <FacebookIcon />}
+              icon={() => <FacebookIcon width={socialIconSize} height={socialIconSize} />}
               onPress={() => openSocialMedia(SocialMediaType.facebook)}
             />
             <ButtonImage
-              icon={() => <InstagramIcon />}
+              icon={() => <InstagramIcon width={socialIconSize} height={socialIconSize} />}
               onPress={() => openSocialMedia(SocialMediaType.instagram)}
             />
           </View>

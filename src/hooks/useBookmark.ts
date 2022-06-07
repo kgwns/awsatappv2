@@ -9,8 +9,6 @@ import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMa
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 import { isNonEmptyArray, recordLogEvent } from 'src/shared/utils';
 import {getProfileUserDetails} from 'src/redux/profileUserDetail/selectors';
-import { sendUserEventTracking } from 'src/services';
-import { TrackingEventType } from 'src/services/eventTrackService';
 
 export interface UseBookMarkReturn {
   isLoading: boolean;
@@ -54,17 +52,18 @@ export const useBookmark = (): UseBookMarkReturn => {
 
   const removeBookmarkedInfo = (payload: RemoveBookmarkDetailDataBody) => {
     const nid = payload.nid
-    recordLogEvent('Remove_Bookmark', {id: nid});
 
-    if(!isNonEmptyArray(bookmarkDetail)) 
-    return null
+    if(!isNonEmptyArray(bookmarkIdInfo)) {
+      return null
+    } 
 
-    const bookmarkInfo = [...bookmarkDetail]
+    const bookmarkInfo = Array.isArray(bookmarkDetail) ? [...bookmarkDetail] : []
     const bookmarkIdDetail = [...bookmarkIdInfo]
     const updatedBookmarkInfo = bookmarkInfo.filter((item) => item.nid != nid)
     const updatedBookmarkIdDetail = bookmarkIdDetail.filter((item) => item.nid != nid)
     updateBookDetailInfo(updatedBookmarkInfo,updatedBookmarkIdDetail)
     dispatch(removeBookmarked(payload))
+    recordLogEvent('Remove_Bookmark', {id: nid});
   }
 
   const updateBookDetailInfo = (bookmarkDetail: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[]) => {

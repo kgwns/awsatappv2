@@ -12,6 +12,8 @@ import {
   REQUEST_SECTION_COMBO_SIX, REQUEST_SECTION_COMBO_SIX_SUCCESS, REQUEST_SECTION_COMBO_SIX_FAILED,
   REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED,
   REQUEST_EDITORS_CHOICE_DATA, REQUEST_EDITORS_CHOICE_DATA_SUCCESS, REQUEST_EDITORS_CHOICE_DATA_FAILED,
+  REQUEST_SPOTLIGHT_COMBO, REQUEST_SPOTLIGHT_COMBO_SUCCESS, REQUEST_SPOTLIGHT_COMBO_FAILED,
+  REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS,
 } from './actionType';
 import { LatestNewsTabState, LatestTabAction } from './types';
 
@@ -35,6 +37,8 @@ const initialData: LatestNewsTabState = {
   featuredArticle: [],
   horizontalArticle: [],
   editorsChoice:[],
+  spotlight:[],
+  spotlightArticleSection:[]
 };
 
 export default (state = initialData, action: LatestTabAction) => {
@@ -256,6 +260,40 @@ export default (state = initialData, action: LatestTabAction) => {
         editorsChoice: action.payload.editorsChoice
       }
     case REQUEST_EDITORS_CHOICE_DATA_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    case REQUEST_SPOTLIGHT_COMBO:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_SPOTLIGHT_COMBO_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        spotlight: action.payload.spotlight
+      }
+    case REQUEST_SPOTLIGHT_COMBO_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    case REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        spotlightArticleSection: action.payload.spotlightArticleSectionData
+      }
+    case REQUEST_SPOTLIGHT_COMBO_FAILED:
       return {
         ...state,
         isLoading: false,

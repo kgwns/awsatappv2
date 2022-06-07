@@ -252,6 +252,8 @@ export const ManageMyNewsScreen = () => {
 
   const MyFavoriteTopics = (props: any) => {
     const data = props.data;
+    let numberOfTopics = data.length as number
+    let numberOfRows = isTab? numberOfTopics > 7 ? 3 : 1 : numberOfTopics > 3 ? 3 : 1
     return (
       <View>
         <Label style={style.titleLabel}>
@@ -266,7 +268,7 @@ export const ManageMyNewsScreen = () => {
             <FlatList
               listKey={flatListUniqueKey.INTERESTED_TOPICS}
               keyExtractor={(_, index) => index.toString()}
-              numColumns={data ? Math.ceil(data.length / 3) : 3}
+              numColumns={data ? Math.ceil(data.length / numberOfRows) : 3}
               data={data}
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}

@@ -40,7 +40,7 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
         selectionColor={themeData.primaryDarkSlateGray}
         value={searchText}
         onChangeText={onChangeText}
-        maxLength={20}
+        maxLength={50}
         leftIcon={
           searchText.length > 0 && (
             <TouchableOpacity

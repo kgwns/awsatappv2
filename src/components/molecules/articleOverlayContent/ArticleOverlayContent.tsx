@@ -10,7 +10,8 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { fonts } from 'src/shared/styles/fonts'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
-import { dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities'
+import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilities'
+import { decode } from 'html-entities'
 
 const articleDetailFooterData: articleFooterProps = {
     leftTitleColor: Styles.color.white,
@@ -23,8 +24,8 @@ const articleDetailFooterData: articleFooterProps = {
     },
     rightTitleColor: Styles.color.white,
     hideBookmark: true,
-    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 13, lineHeight:16 },
-    rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:14 }
+    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20 },
+    rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
 }
 
 export interface ArticleOverlayContentProps {
@@ -50,19 +51,19 @@ export const ArticleOverlayContent = ({
     return (
         <View>
             <Label labelType={LabelTypeProp.h1}
-                children={title}
+                children={decodeHTMLTags(decode(title))}
                 color={textColor}
                 style={imageArticleStyle.title} />
             {isNotEmpty(subtitle) &&
                 <Label
                     numberOfLines={3}
-                    children={subtitle}
+                    children={decodeHTMLTags(decode(subtitle))}
                     color={textColor}
                     style={imageArticleStyle.subtitle}
                 />
             }
             <ArticleFooter {...articleDetailFooterData} isDetail={true}
-                rightTitle={author} leftTitle={timeFormat.time}
+                rightTitle={decodeHTMLTags(decode(author))} leftTitle={timeFormat.time}
                 leftIcon={() => TimeIcon(timeFormat.icon)}
             />
         </View>
@@ -73,7 +74,7 @@ const customStyle = (theme:CustomThemeType) => StyleSheet.create({
     title: {
         fontFamily: fonts.AwsatDigitalBetav10_Bold,
         fontSize: 30,
-        lineHeight: 33,
+        lineHeight: 42,
         textAlign: 'left',
         color: theme.primaryBlack,
         paddingBottom: normalize(5),

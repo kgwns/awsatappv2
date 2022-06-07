@@ -21,7 +21,9 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
   REQUEST_SECTION_COMBO_FIVE, REQUEST_SECTION_COMBO_FIVE_SUCCESS, REQUEST_SECTION_COMBO_FIVE_FAILED,
   REQUEST_SECTION_COMBO_SIX, REQUEST_SECTION_COMBO_SIX_SUCCESS, REQUEST_SECTION_COMBO_SIX_FAILED,
   REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED,
-  REQUEST_EDITORS_CHOICE_DATA, REQUEST_EDITORS_CHOICE_DATA_SUCCESS, REQUEST_EDITORS_CHOICE_DATA_FAILED,
+  REQUEST_EDITORS_CHOICE_DATA, REQUEST_EDITORS_CHOICE_DATA_SUCCESS, REQUEST_EDITORS_CHOICE_DATA_FAILED, 
+  REQUEST_SPOTLIGHT_COMBO, REQUEST_SPOTLIGHT_COMBO_SUCCESS, REQUEST_SPOTLIGHT_COMBO_FAILED,
+  REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_FAILED,
 } from "./actionType"
 import { HeroListTopListFailedPayload, HeroListTopListFailedType, 
   HeroListTopListSuccessPayload, HeroListTopListSuccessType, 
@@ -66,6 +68,8 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   EditorsChoiceSuccessType,
   EditorsChoiceFailedPayload,
   EditorsChoiceFailedType,
+  RequestSpotlightType, SpotlightSuccessPayload, SpotlightSuccessType, SpotlightFailedPayload, SpotlightFailedType,
+  RequestSpotlightArticleSectionType, SpotlightArticleSectionBodyGet, SpotlightArticleSectionSuccessPayload, SpotlightArticleSectionSuccessType, SpotlightArticleSectionFailedPayload, SpotlightArticleSectionFailedType,
 } from "./types"
 
 export const requestTickerAndHero = (
@@ -340,6 +344,58 @@ export const requestEditorsChoiceSuccess = (
   }
 }
 
+export const requestSpotlightData = (
+): RequestSpotlightType => {
+  return {
+    type: REQUEST_SPOTLIGHT_COMBO,
+  }
+}
+
+export const requestSpotlightSuccess = (
+  payload: SpotlightSuccessPayload
+): SpotlightSuccessType => {
+  return {
+    type: REQUEST_SPOTLIGHT_COMBO_SUCCESS,
+    payload
+  }
+}
+
+export const requestSpotlightFailed = (
+  payload: SpotlightFailedPayload
+): SpotlightFailedType => {
+  return {
+    type: REQUEST_SPOTLIGHT_COMBO_FAILED,
+    payload
+  }
+}
+
+export const requestSpotlightArticleSection = (
+  payload: SpotlightArticleSectionBodyGet
+): RequestSpotlightArticleSectionType => {
+  return {
+    type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+    payload
+  }
+}
+
+export const requestSpotlightArticleSectionSuccess = (
+  payload: SpotlightArticleSectionSuccessPayload,
+): SpotlightArticleSectionSuccessType => {
+  return {
+    type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS,
+    payload,
+  };
+};
+
+export const requestSpotlightArticleSectionFailed = (
+  payload: SpotlightArticleSectionFailedPayload,
+): SpotlightArticleSectionFailedType => {
+  return {
+    type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_FAILED,
+    payload,
+  };
+};
+
 export const requestCoverBlockFailed = (
   payload: RequestCoverageBlockFailedPayload
 ): RequestCoverageBlockFailedType => {
@@ -517,4 +573,10 @@ export const latestTabActions = {
   requestEditorsChoiceData,
   requestEditorsChoiceSuccess,
   requestEditorsChoiceFailed,
+  requestSpotlightData,
+  requestSpotlightSuccess,
+  requestSpotlightFailed,
+  requestSpotlightArticleSection,
+  requestSpotlightArticleSectionSuccess,
+  requestSpotlightArticleSectionFailed,
 };

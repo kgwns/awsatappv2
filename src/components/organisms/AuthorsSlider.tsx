@@ -190,7 +190,7 @@ const AuthorSlider = ({
             <FlatList
             listKey={'AuthorSlider' + new Date().getTime().toString()}
             keyExtractor={(_, index) => index.toString()}
-            numColumns={3}
+            numColumns={4}
             data={data}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}

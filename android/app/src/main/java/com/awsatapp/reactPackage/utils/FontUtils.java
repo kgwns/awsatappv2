@@ -31,6 +31,10 @@ public class FontUtils {
         return Utils.getTypeFace(context, "AwsatDigitalBetav10-Regular.ttf");
     }
 
+    public static Typeface getEffraRegular(Context context) {
+        return Utils.getTypeFace(context, "Effra-Regular.ttf");
+    }
+
     public static void setBold(Context context, TextView... textViews) {
         Typeface tf = getBold(context);
         for (TextView view : textViews) {
@@ -51,6 +55,15 @@ public class FontUtils {
 
     public static void setLight(Context context, TextView... textViews) {
         Typeface tf = getLight(context);
+        for (TextView view : textViews) {
+            if (view != null) {
+                view.setTypeface(tf);
+            }
+        }
+    }
+
+    public static void setEffraRegular(Context context, TextView... textViews) {
+        Typeface tf = getEffraRegular(context);
         for (TextView view : textViews) {
             if (view != null) {
                 view.setTypeface(tf);

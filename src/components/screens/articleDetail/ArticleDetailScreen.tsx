@@ -158,11 +158,12 @@ export const ArticleDetailScreen = ({
 
   const commonHtmlTagStyle: MixedStyleDeclaration = {
     color: themeData.primaryBlack,
-    textAlign: 'left',
+    textAlign: 'justify',
     direction: 'rtl',
     fontSize: fontSize,
     lineHeight: 1.8 * fontSize,
-    fontFamily: fonts.Effra_Arbc_Regular
+    fontFamily: fonts.Effra_Arbc_Regular,
+    writingDirection: 'rtl',
   }
   
   const htmlTagStyle: MixedStyleRecord = {
@@ -284,7 +285,7 @@ export const ArticleDetailScreen = ({
 
   const renderBackIcon = () => (
     <View style={style.backContainer}>
-      <BackIcon onPressBack={onPressBack} />
+      <BackIcon onPressBack={onPressBack} containerStyle={style.backIconContainerStyle}/>
     </View>
   )
 
@@ -366,7 +367,7 @@ export const ArticleDetailScreen = ({
 }
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   labelStyle: {
-    paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+    paddingHorizontal: 0.04 * screenWidth,
   },
   footer: {
     width: '100%'
@@ -403,5 +404,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     aspectRatio: 1.62,
     backgroundColor: colors.black,
   },
-  
+  backIconContainerStyle: {
+    marginLeft: isTab ? 15 : 0
+  }
 })

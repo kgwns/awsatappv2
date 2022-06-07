@@ -26,7 +26,7 @@
     <color name="background_color">#F2F8F6</color>
     <color name="list_background_color">#FFFFFF</color>
     <color name="download_btn_label">#FFFFFF</color>
-    <color name="pdf_list_btn_label">#000000</color>
+    <color name="pdf_list_btn_label">#555555</color>
     <color name="toolbar">#F7FAFA</color>
     <color name="toolbar_title">#070606</color>
     <color name="download_news_title">#2C8A82</color>

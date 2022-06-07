@@ -61,8 +61,8 @@ const SectionVideoFooter = ({
             icon={() => {
               return getSvgImages({
                 name: bookmarkIcon,
-                width: 10,
-                height: 15
+                width: 11,
+                height: 16
               });
             }}
             onPress={onPressBookmark}

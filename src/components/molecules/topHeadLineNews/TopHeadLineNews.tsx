@@ -31,11 +31,13 @@ export const TopHeadLineNews = ({
         return (
             <FixedTouchable activeOpacity={0.7} style={style.rowItem}
                 onPress={() => onPress(item.nid)}>
-                <View style={style.circleContainer}>
-                    <View style={style.circle} />
-                </View>
-                <View style={style.titleContainer}>
-                    <Label children={decode(item.title)} style={style.title} />
+                <View style={style.rowContainer}>
+                    <View style={style.circleContainer}>
+                        <View style={style.circle} />
+                    </View>
+                    <View style={style.titleContainer}>
+                        <Label children={decode(item.title)} style={style.title} />
+                    </View>
                 </View>
             </FixedTouchable>
         )
@@ -60,8 +62,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         marginHorizontal: isTab ? 15 : 0
     },
     rowItem: {
-        flexDirection: 'row',
-        paddingVertical: normalize(7),
+        justifyContent: 'center',
+        alignItems:'center'
     },
     circle: {
         width: 8,
@@ -84,5 +86,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     titleContainer: {
         width:isTab ? 'auto' :'94%'
+    },
+    rowContainer: {
+        flexDirection: 'row',
+        paddingVertical: normalize(7),
     }
 })

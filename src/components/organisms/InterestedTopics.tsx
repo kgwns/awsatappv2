@@ -17,6 +17,7 @@ const InterestedTopics = (props:any) => {
   let lengthOfElementsInRow = 0
   let previousIndex = 0
   let dataLength = data ? data.length : []
+  let lengthOfIndividualSpliceArray = 0
   for (let i = 0; i < dataLength; i++) {
     totalLengthOfElements = totalLengthOfElements + data[i].name.length + 10
     arrayOfLengths.push(data[i].name.length + 10)
@@ -46,6 +47,7 @@ const InterestedTopics = (props:any) => {
       for (let j = previousIndex; j <= i; j++) {
         individualSpliceArray.push(data[j])
       }
+      (individualSpliceArray.length > lengthOfIndividualSpliceArray) && (lengthOfIndividualSpliceArray = individualSpliceArray.length)
       splicedArray.push(individualSpliceArray)
       previousIndex = i + 1
       individualSpliceArray = []
@@ -85,8 +87,22 @@ const InterestedTopics = (props:any) => {
   }
 
   return (
-    <ScrollView style={style.container} horizontal={true} showsHorizontalScrollIndicator={false} 
-      bounces={isTab ? false : true}>
+    isTab ? 
+    <View style={style.tabContainer} >
+        <FlatList
+          scrollEnabled={false}
+          numColumns={7}
+          keyExtractor={(_, index) => index.toString()}
+          listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
+          data={props.allSiteCategoriesData }
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item, index }) => renderItem(item, index)}
+          columnWrapperStyle={style.topicsStyle}
+        />
+      </View>
+      :
+    <ScrollView style={style.container} horizontal={lengthOfIndividualSpliceArray>4} showsHorizontalScrollIndicator={false} 
+      bounces={true}>
       <ScrollView style={style.innerContainerStyle} horizontal={false} scrollEnabled={false}>
         {splicedArray.map((items, index) => renderer(items, index))}
       </ScrollView>
@@ -103,6 +119,14 @@ const customInterestStyle = (theme: CustomThemeType) =>
       backgroundColor: theme.backgroundColor,
       alignSelf: 'center',
     },
+    tabContainer: {
+      alignItems: 'flex-start',
+      backgroundColor: theme.backgroundColor,
+      alignSelf: 'center',
+      flexDirection:'row',
+      flex: 1, 
+      flexWrap: 'wrap'
+    },
     interestedTopicsContainer: {
       marginVertical: normalize(7),
       marginLeft: normalize(10),
@@ -116,6 +140,9 @@ const customInterestStyle = (theme: CustomThemeType) =>
     },
     innerContainerStyle: {
       marginLeft: normalize(15)
+    },
+    topicsStyle: {
+      flexWrap: 'wrap', 
     }
 })
 

@@ -442,6 +442,8 @@ const customStyle = (theme: CustomThemeType) => {
     storyImageStyle: {
       height: isTab ? normalize(189) : 0.52 * screenWidth,
       paddingHorizontal: normalize(10),
+      width: 'auto',
+      aspectRatio: 1.78,
     },
     storyAndTopArticle: {
       flex: 1,
@@ -471,7 +473,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: 0.04 * screenWidth,
     },
     shortContainer: {
-      paddingBottom: 0
+      paddingBottom: isTab ? 20 : 0
     },
     imageArticleContainerStyle: {
       width: '100%',
@@ -496,7 +498,8 @@ const customStyle = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigitalBetav10_Black,
     },
     textStyle:{
-        textAlign:'center',
+        textAlign:'justify',
+        writingDirection: 'rtl',
         fontSize: 16,
         lineHeight: 26,
         fontFamily: fonts.IBMPlexSansArabic_Regular,

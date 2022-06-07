@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleProp, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native'
 import React from 'react'
 import { isIOS, normalize } from 'src/shared/utils'
 import { ImagesName } from 'src/shared/styles'
@@ -10,10 +10,12 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { fonts } from 'src/shared/styles/fonts'
 
 type BackIconType = {
+    containerStyle?: StyleProp<ViewStyle>, 
     onPressBack: () => void
 }
 
 export const BackIcon = ({
+    containerStyle,
     onPressBack
 }: BackIconType) => {
     const style = useThemeAwareObject(customStyle)
@@ -21,7 +23,7 @@ export const BackIcon = ({
 
     return (
         <TouchableOpacity testID={'onPressbackTestID'}
-            style={style.returnStyle}
+            style={[style.returnStyle,containerStyle]}
             onPress={onPressBack}>
             {
                 getSvgImages({

@@ -34,7 +34,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     }
 
     return (
-        <FixedTouchable onPress={onPress}>
+        <FixedTouchable onPress={onPress} style={{flex:1}}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
                 style={StyleSheet.flatten([style.container, articleItemStyle])}>
                 {!hideImage && isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}

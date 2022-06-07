@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 
 import {VideoItem, VideoItemProps} from 'src/components/molecules';
-import {horizontalEdge, isNonEmptyArray, normalize} from 'src/shared/utils';
+import {horizontalEdge, isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
 // import {videoTabData} from 'src/constants/SampleData';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -133,6 +133,7 @@ export const VideoScreen = ({tabIndex, currentIndex}: {tabIndex?:number; current
         />
       <FlatList
           data={videoDataInfo}
+          numColumns={isTab? 2 : 1}
           listKey={'videoList'+ new Date().getTime().toString()}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderVideoItem}
@@ -164,7 +165,7 @@ export const VideoScreen = ({tabIndex, currentIndex}: {tabIndex?:number; current
       <VideoItem
         title={item.title}
         imageUrl={item.field_thumbnil_multimedia_export}
-        des={item.body_export}
+        des={!isTab && item.body_export}
         date={item.created_export}
         testID='video_screen_id'
         onPress={()=>onPressItem(item, false)}
@@ -172,6 +173,7 @@ export const VideoScreen = ({tabIndex, currentIndex}: {tabIndex?:number; current
         isBookmarked={item.isBookmarked}
         time={item.field_jwplayerinfo_export}
         videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
+        isVideoContents={true} 
         onPressBookmark={() => {updateVideosBookmark(index, videoDataInfo)}}
       />
     );

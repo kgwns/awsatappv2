@@ -1,5 +1,5 @@
-import { View, StyleSheet, FlatList } from 'react-native';
-import React from 'react';
+import { View, StyleSheet, FlatList, LayoutChangeEvent } from 'react-native';
+import React, { useState } from 'react';
 import { Label, LabelTypeProp, ImageWithIcon } from '../atoms';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Styles } from 'src/shared/styles';
@@ -36,11 +36,21 @@ export const VideoContent = ({
     const [t] = useTranslation();
     const theme = useTheme();
     const style = useThemeAwareObject(customStyle);
+
+    const [isTwoLine, setIsTwoLine] = useState<boolean>(false)
+
     const onItemPress = (item: VideoItemType) => {
         if(onPress){
             onPress(item)
         }
     }
+
+    const onTextLayout = (e: any) => {
+        if (e.nativeEvent.lines.length > 1 && !isTwoLine) {
+            setIsTwoLine(true)
+        }
+    }
+
     const renderItem = (item: VideoItemType, index: number) => {
         const timeFormat = dateTimeAgo(item.created_export)
         
@@ -51,11 +61,15 @@ export const VideoContent = ({
         const itemStyle = isTab ? { paddingHorizontal: 0.02 * screenWidth, height: normalize(260) } :
             index === data.length - 1 && { marginRight: 0.04 * screenWidth }
 
+        const moreStyle = isTwoLine ? {height: normalize(70)} : {}
         return (
             <TouchableOpacity onPress={()=>onItemPress(item)}>
                 <View style={[style.videoCardContainer, itemStyle]}>
                     <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
-                    <Label style={style.textStyle} labelType={LabelTypeProp.h3} numberOfLines={2} >
+                    <Label
+                        onTextLayout={onTextLayout}
+                        style={[style.textStyle, moreStyle]}
+                        labelType={LabelTypeProp.h3} numberOfLines={2}>
                         {decode(item.title)}
                     </Label>
                     
@@ -92,16 +106,16 @@ export default VideoContent;
 const customStyle = (theme: CustomThemeType) => {
     const videoContentStyle = StyleSheet.create({
         container: {
-            height: isTab ? 'auto' : normalize(310),
+            height: 'auto',
             backgroundColor: theme.secondaryWhite,
+            paddingBottom: isTab ? 0 : 20,
         },
         videoCardContainer: {
-            height: normalize(310),
             backgroundColor: theme.secondaryWhite,
             paddingLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
         },
         listContainer: {
-            height: isTab ? 'auto' : normalize(236),
+            height: 'auto',
             alignSelf: 'flex-start',
             paddingTop: normalize(15),
             marginVertical: normalize(7),

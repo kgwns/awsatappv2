@@ -17,6 +17,7 @@ export interface NewsWithImageItemProps {
   footerRightHighlight?: boolean;
   footerLeftHighlight?: boolean;
   footerLeftLabel?: string;
+  showHighlightTitle?: boolean;
 }
 
 export const NewsWithImageItem = ({
@@ -28,6 +29,7 @@ export const NewsWithImageItem = ({
   footerRightHighlight = false,
   footerLeftHighlight = false,
   footerLeftLabel,
+  showHighlightTitle = true,
 }: NewsWithImageItemProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -38,7 +40,7 @@ export const NewsWithImageItem = ({
           resizeMode={ImageResize.COVER} fallback
         />
       }
-      <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />
+      { showHighlightTitle && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
       {title &&
         <Label style={style.title}
           children={title}

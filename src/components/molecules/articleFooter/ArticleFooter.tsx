@@ -50,8 +50,8 @@ const ArticleFooter = ({
   onPress,
   leftTitleStyle,
   rightContainerStyle,
-  favouriteIconWidth = 10,
-  favouriteIconHeight = 15,
+  favouriteIconWidth = 11,
+  favouriteIconHeight = 16,
   rightTitleStyle,
   isDetail = false
 }: articleFooterProps) => {

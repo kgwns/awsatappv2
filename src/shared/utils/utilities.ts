@@ -10,6 +10,7 @@ import { PROFILE_IMAGE_URL } from "src/services/apiUrls";
 import { getSvgImages } from "../styles/svgImages";
 import { normalize } from 'src/shared/utils';
 import { ImagesName } from "../styles";
+import { isIOS } from "./dimensions";
 
 export enum DateIcon {
   CLOCK,
@@ -138,7 +139,7 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
   const minuteValue = calculateMinutes(time)
   const minuteString = minuteValue  < 10 ? '0' + minuteValue : minuteValue
 
-  const timeAgoFormatInfo = `${calculateDate(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
+  const timeAgoFormatInfo = `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
   const fullDateFormat = (dayString + timeAgoFormatInfo).toString();
   return { icon: DateIcon.CALENDAR, time: fullDateFormat }
 };
@@ -196,11 +197,16 @@ export const calculateDay = (time: any) => {
 };
 
 export const calculateHour = (time: any) => {
-  return moment(time).get('hours');
+  return moment(time).utcOffset(time).get('hours');
 };
 
 export const calculateMinutes = (time: any) => {
-  return moment(time).get('minutes');
+  return moment(time).utcOffset(time).get('minutes');
+};
+
+export const calculateDateNumber = (time: any) => {
+  const date = calculateDate(time)
+  return date < 10 ? '0' + date : date;
 };
 
 export const calculateMothNumber = (time: any) => {
@@ -281,7 +287,8 @@ export const convertSecondsToHMS = (seconds: number | string) => {
 export const TimeIcon = (type: DateIcon) => (
   getSvgImages({
     name: type === DateIcon.CALENDAR ? ImagesName.calendarIcon : ImagesName.clock,
-    size: normalize(12),
-    style: { marginRight: normalize(7) }
+    width: 12,
+    height: 12,
+    style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
   })
 )

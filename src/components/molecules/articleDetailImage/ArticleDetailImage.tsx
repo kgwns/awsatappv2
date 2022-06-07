@@ -9,6 +9,7 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import ArticleDetailVideo from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo'
+import { decode } from 'html-entities'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -49,7 +50,7 @@ const ArticleDetailImage = ({
 
         return (
             <View style={imageArticleStyle.captionView}>
-                <Label children={caption} labelType={LabelTypeProp.p5}
+                <Label children={decode(caption)} labelType={LabelTypeProp.p5}
                     color={Styles.color.lightGray}
                     style={{
                         paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
@@ -67,7 +68,7 @@ const ArticleDetailImage = ({
 
         return (
             <View style={imageArticleStyle.tagNameViewStyle}>
-                <Label labelType={LabelTypeProp.h3} children={category}
+                <Label labelType={LabelTypeProp.h3} children={decode(category)}
                     color={Styles.color.white} style={imageArticleStyle.tagNameStyle}
                 />
             </View>
@@ -106,14 +107,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         height: 'auto',
         aspectRatio: 1.62,
     },
-    headNewsContainer: {
-        paddingHorizontal: 0.04 * screenWidth,
-        paddingVertical: normalize(10)
-    },
     tabSlideContent: {
         width: '100%',
-        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-        paddingVertical: normalize(15),
+        paddingHorizontal: 0.04 * screenWidth,
+        paddingTop: normalize(5),
     },
     captionView: {
         backgroundColor: theme.captionBackground, 
@@ -122,16 +119,17 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     tagNameViewStyle: {
         flexWrap: 'wrap',
         position: 'absolute',
-        left: normalize(15),
-        top: 11,
+        left: isTab ? normalize(30) : normalize(15),
+        top: 0,
         backgroundColor: Styles.color.greenishBlue,
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 1
     },
     tagNameStyle: {
-        paddingHorizontal: normalize(10),  
+        paddingHorizontal: normalize(10),
+        fontSize:  isTab ? 16 : 12, 
         fontFamily: fonts.Almaria_Regular,
-        lineHeight: isIOS ? 28 : 25
+        lineHeight: isTab ? 25 : 18
     },
 })

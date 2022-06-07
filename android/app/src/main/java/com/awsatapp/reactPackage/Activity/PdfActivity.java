@@ -24,6 +24,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.awsatapp.R;
+import com.awsatapp.reactPackage.utils.FontUtils;
 import com.awsatapp.reactPackage.utils.Utils;
 import com.awsatapp.reactPackage.view.PDFPagerAdapter;
 import com.awsatapp.reactPackage.view.PDFViewPager;
@@ -65,11 +66,12 @@ public class PdfActivity extends CoreActivity {
         backIcon = toolbar.findViewById(R.id.backIcon);
         backContainer = toolbar.findViewById(R.id.backIconContainer);
         title = toolbar.findViewById(R.id.toolbar_title);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
-        toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
+        //toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
+        //toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
         toolbar.setElevation(0);
         //setTitle(toolbar, mTitle);
         title.setText(mTitle);
+        FontUtils.setBold(title.getContext(),title);
         backContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -8,9 +8,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -29,6 +32,7 @@ import com.awsatapp.reactPackage.manager.CoreNetworkManager;
 import com.awsatapp.reactPackage.manager.NetworkManager;
 import com.awsatapp.reactPackage.model.Pdf;
 import com.awsatapp.reactPackage.model.PdfWrapper;
+import com.awsatapp.reactPackage.utils.FontUtils;
 import com.awsatapp.reactPackage.utils.SimpleDividerItemDecoration;
 import com.awsatapp.reactPackage.utils.Utils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -53,6 +57,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     private ArrayList<Pdf> mPdfs = new ArrayList<>();
     private ImageView backIcon;
     private LinearLayout backContainer;
+    private TextView title;
 
     @Override
     public int getContentView() {
@@ -63,10 +68,11 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb);
+        title = toolbar.findViewById(R.id.toolbar_title);
         backIcon = tb.findViewById(R.id.backIcon);
         backContainer = tb.findViewById(R.id.backIconContainer);
-        toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
-        toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
+        //toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
+        //toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
         backContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +81,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
         });
         toolbar.setElevation(0);
         //setTitle(getString(R.string.pdf_archive_title));
+        FontUtils.setBold(title.getContext(),title);
         setOptionsMenu(R.menu.pdf_archive);
 
         getPdfArchive();
@@ -105,7 +112,23 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                         } else if (pdf.getStatus() == 2) {
                             final String path = mContext.getFilesDir().getPath() + "/" + pdf.getIssueNumber() + ".pdf";
                             String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
-                            String title = Utils.getFullDateFromTimestamp(new Locale(lang), pdf.getCreated()) + " " + getString(R.string.issue_number);
+                            String timeStamp = !String.valueOf(mPdfs.get(integer).getCreated()).isEmpty() ? Utils.getFullDateFromTimestamp(new Locale(lang), mPdfs.get(integer).getCreated()):"";
+                            String edition = getString(R.string.edition);
+                            String issueNumber = !String.valueOf(mPdfs.get(integer).getIssueNumber()).isEmpty()?mPdfs.get(integer).getIssueNumber():"";
+                            String title = "";
+                            if(!timeStamp.isEmpty()){
+                                if(!issueNumber.isEmpty()){
+                                    title = timeStamp + " " + edition +" "+ issueNumber;
+                                }else{
+                                    title = timeStamp + " " + edition;
+                                }
+                            }else{
+                                if(!issueNumber.isEmpty()){
+                                    title = edition + " " + issueNumber;
+                                }else {
+                                    title = "";
+                                }
+                            }
                             startActivity(PdfActivity.newInstance(mContext, path, title));
                         }
                 }

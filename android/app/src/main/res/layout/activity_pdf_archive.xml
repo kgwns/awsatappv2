@@ -17,9 +17,10 @@
             android:id="@+id/tb"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/background_color"
             app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
-
+            app:contentInsetStart="4dp"
+            app:contentInsetLeft="0dp"
             app:titleCentered="true">
             <LinearLayout
                 android:id="@+id/backIconContainer"
@@ -40,6 +41,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/back_text"
                     android:padding="4dp"
+                    android:fontFamily="@font/bold"
                     android:layout_gravity="center"/>
             </LinearLayout>
             <TextView
@@ -48,7 +50,8 @@
                 android:text="@string/pdf_archive_title"
                 android:layout_gravity="center"
                 android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="17sp"
+                android:textColor="@color/toolbar_title"
                 android:id="@+id/toolbar_title" />
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -58,6 +61,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/activity_half_horizontal_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout

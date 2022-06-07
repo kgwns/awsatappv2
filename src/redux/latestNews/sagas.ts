@@ -17,6 +17,7 @@ import {
   RequestCoverageBlockSuccessPayloadType,
   RequestFeaturedBlockSuccessPayloadType, RequestHorizontalBlockSuccessPayloadType,
   EditorsChoiceDataType, EditorsChoiceSuccessPayload,
+  SpotlightDataType, SpotlightSuccessPayload, RequestSpotlightArticleSectionType, SpotlightArticleSectionSuccessPayload,
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -34,6 +35,8 @@ import {
   REQUEST_FEATURED_ARTICLE_BLOCK,
   REQUEST_HORIZONTAL_ARTICLE_BLOCK,
   REQUEST_EDITORS_CHOICE_DATA,
+  REQUEST_SPOTLIGHT_COMBO,
+  REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
 } from './actionType';
 import {
   requestHeroListTopListFailed, requestHeroListTopListSuccess,
@@ -51,9 +54,10 @@ import {
   requestFeatureArticleBlockSuccess, requestFeatureArticleBlockFailed,
   requestHorizontalArticleBlockSuccess, requestHorizontalArticleBlockFailed,
   requestEditorsChoiceSuccess, requestEditorsChoiceFailed,
+  requestSpotlightSuccess, requestSpotlightFailed, requestSpotlightArticleSectionSuccess, requestSpotlightArticleSectionFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
-import { getImageUrl, isNotEmpty } from 'src/shared/utils/utilities';
+import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import {
   requestLatestArticle,
   requestSectionCombo,
@@ -63,6 +67,8 @@ import {
   mainHorizontalArticleApi,
   mainFeaturedArticleApi,
   editorsChoiceApi,
+  spotlightApi,
+  requestSpotlightArticleSection,
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
@@ -230,6 +236,23 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
   return formattedEditorsChoiceData;
 }
 
+const formatSpotlight = (response: any): SpotlightDataType[] => {
+  let formattedSpotlightData: SpotlightDataType[] = []
+  if (response) {
+    if (isNonEmptyArray(response.rows)) {
+      const rows = response.rows
+      formattedSpotlightData = rows.map(
+        ({ title, field_tag_spotlight_export, field_image }: any) => ({
+          title,
+          field_tag_spotlight_export: field_tag_spotlight_export,
+          field_image: getImageUrl(field_image),
+        })
+      );
+    }
+  }
+  return formattedSpotlightData;
+}
+
 const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPayload => {
   const formattedData = formatLatestArticle(response)
   let responseData: HeroListTopListSuccessPayload = {
@@ -342,7 +365,7 @@ const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {
   let responseData: OpinionSuccessPayload = {
     opinionList: []
   }
-  responseData.opinionList = formattedData.splice(0, 12)
+  responseData.opinionList = formattedData.splice(0, 16)
   return responseData
 }
 
@@ -367,6 +390,45 @@ const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload =
 
   responseData.editorsChoice = editorsChoiceInfo;
   return responseData;
+}
+const parseSpotlightSuccess = (response: any): SpotlightSuccessPayload => {
+  const formattedData = formatSpotlight(response)
+  let responseData: SpotlightSuccessPayload = {
+    spotlight: []
+  }
+  responseData.spotlight = formattedData;
+  return responseData;
+}
+
+const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSectionSuccessPayload => {
+  let responseData: SpotlightArticleSectionSuccessPayload = {
+    spotlightArticleSectionData: [],
+    pager: {}
+  }
+  if (response) {
+    if (isNonEmptyArray(response.rows)) {
+      const rows = response.rows
+      responseData.spotlightArticleSectionData = rows.map(
+        ({ nid, title, body, field_image, view_node,
+          field_news_categories_export, created_export, author_resource }: any) => ({
+            nid: nid,
+            title: isNotEmpty(title) ? decode(title) : '',
+            body: body,
+            image: getImageUrl(field_image),
+            view_node: view_node,
+            news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
+            created: created_export,
+            author: author_resource,
+          })
+      );
+      responseData.spotlightArticleSectionData = responseData.spotlightArticleSectionData.splice(0, 4)
+    }
+
+    if (response.pager) {
+      responseData.pager = response.pager
+    }
+  }
+  return responseData
 }
 
 export function* fetchTickerAndHeroWidgetData(action: RequestTickerAndHeroType) {
@@ -550,6 +612,50 @@ export function* fetchHorizontalBlockData() {
   }
 }
 
+export function* fetchSpotlightData() {
+
+  try {
+    const payload: payloadType = yield call(
+      spotlightApi,
+    );
+    const response = parseSpotlightSuccess(payload)
+    yield put(requestSpotlightSuccess(response));
+    if (isNonEmptyArray(response.spotlight)
+      && isObjectNonEmpty(response.spotlight[0].field_tag_spotlight_export)
+      && isNotEmpty(response.spotlight[0].field_tag_spotlight_export.id)) {
+      yield call(
+        fetchSpotlightArticleSection, {
+        type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+        payload: { id: parseInt(response.spotlight[0].field_tag_spotlight_export.id), page: 0, items_per_page: 10 }
+      }
+      )
+    }
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestSpotlightFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
+export function* fetchSpotlightArticleSection(action: RequestSpotlightArticleSectionType) {
+  try {
+    const payload: payloadType = yield call(
+      requestSpotlightArticleSection,
+      action.payload
+    );
+    const response = parseSpotlightArticleSectionSuccess(payload)
+    yield put(requestSpotlightArticleSectionSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestSpotlightArticleSectionFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
 function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)]);
   yield all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)]);
@@ -566,6 +672,8 @@ function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_SECTION_COMBO_SIX, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_SEVEN, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_EDITORS_CHOICE_DATA, fetchEditorsChoiceData)]);
+  yield all([takeLatest(REQUEST_SPOTLIGHT_COMBO,fetchSpotlightData)]);
+  yield all ([takeLatest(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,fetchSpotlightArticleSection)]);
 }
 
 export default articleDetailSaga;

@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, StyleSheet, StyleProp, TextStyle } from 'react-native'
 import { Label, LabelTypeProp } from '..'
-import { normalize, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, normalize, screenWidth } from 'src/shared/utils'
+import { decode } from 'html-entities'
 
 interface captionWithImageProps {
     title?: string,
@@ -20,7 +21,7 @@ const CaptionWithImage = ({ title, icon, color, style, labelStyle, numberOfLine 
                     icon()
                 }
                 <View style={captionImageStyle.labelContainer}>
-                    <Label children={title} color={color} labelType={LabelTypeProp.p5} numberOfLines={numberOfLine ? numberOfLine :1}
+                    <Label children={decodeHTMLTags(decode(title))} color={color} numberOfLines={numberOfLine ? numberOfLine :1}
                         style={StyleSheet.flatten([captionImageStyle.textLabel, labelStyle])}
                     />
                 </View>

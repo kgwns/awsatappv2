@@ -64,7 +64,8 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
           icon={() => {
             return getSvgImages({
                   name: isSaved ? ImagesName.bookMarkWhiteActive : ImagesName.bookMarkWhite,
-                  size: normalize(15),
+                  width: 11,
+                  height: 16
                 })
           }}
           onPress={onPressSave}
