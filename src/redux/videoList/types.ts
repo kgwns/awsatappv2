@@ -56,7 +56,8 @@ export type RequestVideoUrlPayload = {
 export type JWTVideoSourceType = {
   file: string,
   label: string,
-  type: string
+  type: string,
+  height: any
 }
 
 export type JWTVideoPlayListType = {
