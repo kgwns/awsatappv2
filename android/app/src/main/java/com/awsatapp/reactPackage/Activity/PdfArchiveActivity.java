@@ -112,7 +112,23 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                         } else if (pdf.getStatus() == 2) {
                             final String path = mContext.getFilesDir().getPath() + "/" + pdf.getIssueNumber() + ".pdf";
                             String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
-                            String title = Utils.getFullDateFromTimestamp(new Locale(lang), pdf.getCreated()) + " " + getString(R.string.issue_number);
+                            String timeStamp = !String.valueOf(mPdfs.get(integer).getCreated()).isEmpty() ? Utils.getFullDateFromTimestamp(new Locale(lang), mPdfs.get(integer).getCreated()):"";
+                            String edition = getString(R.string.edition);
+                            String issueNumber = !String.valueOf(mPdfs.get(integer).getIssueNumber()).isEmpty()?mPdfs.get(integer).getIssueNumber():"";
+                            String title = "";
+                            if(!timeStamp.isEmpty()){
+                                if(!issueNumber.isEmpty()){
+                                    title = timeStamp + " " + edition +" "+ issueNumber;
+                                }else{
+                                    title = timeStamp + " " + edition;
+                                }
+                            }else{
+                                if(!issueNumber.isEmpty()){
+                                    title = edition + " " + issueNumber;
+                                }else {
+                                    title = "";
+                                }
+                            }
                             startActivity(PdfActivity.newInstance(mContext, path, title));
                         }
                 }
