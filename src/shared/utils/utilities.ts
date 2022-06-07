@@ -10,6 +10,7 @@ import { PROFILE_IMAGE_URL } from "src/services/apiUrls";
 import { getSvgImages } from "../styles/svgImages";
 import { normalize } from 'src/shared/utils';
 import { ImagesName } from "../styles";
+import { isIOS } from "./dimensions";
 
 export enum DateIcon {
   CLOCK,
@@ -286,7 +287,8 @@ export const convertSecondsToHMS = (seconds: number | string) => {
 export const TimeIcon = (type: DateIcon) => (
   getSvgImages({
     name: type === DateIcon.CALENDAR ? ImagesName.calendarIcon : ImagesName.clock,
-    size: normalize(12),
-    style: { marginRight: normalize(7) }
+    width: 12,
+    height: 12,
+    style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
   })
 )

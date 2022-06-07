@@ -24,8 +24,8 @@ const articleDetailFooterData: articleFooterProps = {
     },
     rightTitleColor: Styles.color.white,
     hideBookmark: true,
-    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 13, lineHeight:16 },
-    rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 14, lineHeight: 18 }
+    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20 },
+    rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
 }
 
 export interface ArticleOverlayContentProps {

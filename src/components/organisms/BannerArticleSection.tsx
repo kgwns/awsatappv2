@@ -20,7 +20,7 @@ import { dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities'
 export const sectionComboArticleFooter: articleFooterProps = {
     leftTitleColor: Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
-    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular }
+    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
 }
 
 interface BannerArticleSectionProps {
