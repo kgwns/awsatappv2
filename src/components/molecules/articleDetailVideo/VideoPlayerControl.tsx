@@ -77,10 +77,10 @@ const VideoPlayerControl = ({
   const onLoadStart = (data: any) => setIsLoading(true);
 
   const onEnd = () => {
-    if( !isIOS){
+    if (!isIOS) {
       videoPlayer.current?.seek(0);
       setPaused(true);
-    }else{
+    } else {
       setPaused(true);
     }
   };
@@ -194,7 +194,7 @@ const VideoPlayerControl = ({
           enabled
           shouldActivateOnStart={true}>
           <Slider
-            style={[{width: '100%', height: 15}, isIOS && {direction: 'ltr'}]}
+            style={[styles.sliderStyle, isIOS && styles.directionStyle]}
             minimumValue={0}
             maximumValue={duration}
             minimumTrackTintColor="#FFF"
@@ -310,5 +310,12 @@ const customStyle = (theme: CustomThemeType) =>
       justifyContent: 'flex-end',
       paddingHorizontal: isIOS ? 15 : 0,
       paddingVertical: 20,
+    },
+    sliderStyle: {
+      width: '100%',
+      height: 15,
+    },
+    directionStyle: {
+      direction: 'ltr'
     },
   });
