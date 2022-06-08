@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
 import { Styles } from 'src/shared/styles'
 import { BannerImageWithOverlay, Label, LabelTypeProp } from 'src/components/atoms'
-import { isIOS, isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from 'src/components/atoms'
 import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -22,6 +22,10 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     isFirstItem?: boolean;
     subtitle?: string 
     jwplayerId?: string ,
+    currentTime?: any,
+    paused: boolean,
+    playerVisible?: boolean,
+    setPlayerDetails?: ( time:any, paused: any) => void; 
 }
 const ArticleDetailImage = ({
     image,
@@ -73,17 +77,18 @@ const ArticleDetailImage = ({
 
     return (
         <View>
+            
             <View>
                 <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-                { isNotEmpty(jwplayerId) ? <ArticleDetailVideo mediaId={jwplayerId}  /> : 
+                { isNotEmpty(jwplayerId) && isFirstItem ? <ArticleDetailVideo mediaId={jwplayerId} {...props}  /> : 
                     <BannerImageWithOverlay image={image}
                         onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
                         showOverlay={false}
                     />
                 }
-                    {!isNotEmpty(jwplayerId) && renderTagName()}
+                {!isNotEmpty(jwplayerId) && renderTagName()}
                 </View>
-                {renderCaption()}
+                {!isNotEmpty(jwplayerId) && renderCaption()}
                 <View style={imageArticleStyle.tabSlideContent}>
                     <ArticleOverlayContent {...props} />
                 </View>
