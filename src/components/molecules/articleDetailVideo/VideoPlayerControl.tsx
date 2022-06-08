@@ -22,7 +22,6 @@ import {NativeViewGestureHandler} from 'react-native-gesture-handler';
 
 export interface VideoPlayerControlProp {
   url: string;
-  posterUrl?: string;
   currentTime?: any;
   paused: boolean;
   playerVisible?: boolean;
@@ -31,7 +30,6 @@ export interface VideoPlayerControlProp {
 }
 const VideoPlayerControl = ({
   url,
-  posterUrl,
   currentTime: time,
   paused: isPaused,
   playerVisible,
@@ -50,6 +48,7 @@ const VideoPlayerControl = ({
   const [showControls, setShowControls] = useState(false);
   const [initialPlay, setInitialPlay] = useState(true);
   const [screenType, setScreenType] = useState('contain');
+  const initialLoadRef = useRef(true);
 
   const {setShowMiniPlayer, setPlayerTrack, showMiniPlayer} = useAppPlayer();
 
@@ -70,14 +69,20 @@ const VideoPlayerControl = ({
   const onLoad = (data: any) => {
     setDuration(data.duration);
     setIsLoading(false);
-    videoPlayer.current?.seek(0.1);
+    !isIOS && videoPlayer.current?.seek(0.1);
     onScreenTouch();
+    if (initialLoadRef.current) videoPlayer.current?.seek(time);
   };
 
   const onLoadStart = (data: any) => setIsLoading(true);
 
   const onEnd = () => {
-    setPaused(true);
+    if( !isIOS){
+      videoPlayer.current?.seek(0);
+      setPaused(true);
+    }else{
+      setPaused(true);
+    }
   };
 
   const exitFullScreen = () => {
@@ -97,6 +102,10 @@ const VideoPlayerControl = ({
       setPlayerDetails && setPlayerDetails(currentTime, paused);
       setPaused(true);
     }
+    if (playerVisible && !isMiniPlayer) {
+      setShowControls(false);
+    }
+    if (initialLoadRef.current) initialLoadRef.current = false;
   }, [playerVisible]);
 
   useEffect(() => {
@@ -157,19 +166,20 @@ const VideoPlayerControl = ({
 
   const renderVideo = () => (
     <Video
-      autoplay={false}
       onEnd={onEnd}
       onLoad={onLoad}
       onLoadStart={onLoadStart}
       onProgress={onProgress}
       onSeek={onProgress}
       paused={paused}
-      ref={videoPlayer}
+      ref={(ref: any) => {
+        videoPlayer.current = ref;
+      }}
       resizeMode={screenType}
       onFullScreen={isFullScreen}
       source={{uri: url}}
-      poster={isNotEmpty(posterUrl) ? posterUrl : undefined}
       style={styles.backgroundVideo}
+      repeat={false}
     />
   );
 
@@ -186,7 +196,7 @@ const VideoPlayerControl = ({
           <Slider
             style={[{width: '100%', height: 15}, isIOS && {direction: 'ltr'}]}
             minimumValue={0}
-            maximumValue={Math.floor(duration)}
+            maximumValue={duration}
             minimumTrackTintColor="#FFF"
             maximumTrackTintColor="#666"
             thumbTintColor="#FFF"
@@ -266,12 +276,10 @@ const customStyle = (theme: CustomThemeType) =>
       left: 0,
       bottom: 0,
       right: 0,
-      zIndex: 5,
     },
     videoControls: {
       width: '100%',
       height: '100%',
-      zIndex: 10,
     },
     timeContainer: {
       flexDirection: 'row',

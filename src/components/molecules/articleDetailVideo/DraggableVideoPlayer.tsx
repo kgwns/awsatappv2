@@ -73,6 +73,10 @@ const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
         props.setScroll && props.setScroll(true);
       },
 
+      onPanResponderTerminate: () => {
+        props.setScroll && props.setScroll(true);
+      },
+
       onShouldBlockNativeResponder: () => true,
     }),
   ).current;
@@ -157,7 +161,8 @@ const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
       ]}>
       <View
         style={[
-          props.playerVisible ? styles.container : styles.initialContainer,
+          styles.container,
+          {display: props.playerVisible ? 'flex' : 'none'},
         ]}>
         {url && (
           <VideoPlayerControl

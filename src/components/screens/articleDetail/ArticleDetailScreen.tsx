@@ -305,7 +305,7 @@ export const ArticleDetailScreen = ({
         {isNonEmptyArray(articleDetailState) && <>
           <ArticleDetailWidget articleData={item}
             isRelatedArticle={route.params.isRelatedArticle} 
-            isFirstItem={index === 0 && showBackArrow}
+            isFirstItem={index === 0 }
             currentTime={currentTime} 
             paused={playerVisible ? true : paused}
             playerVisible={playerVisible}
@@ -346,6 +346,7 @@ export const ArticleDetailScreen = ({
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
           bounces={false}
+          removeClippedSubviews={false}
           onScroll={onScroll}
           scrollEnabled={scrollEnabled}
         />

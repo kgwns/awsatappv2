@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
 import { Styles } from 'src/shared/styles'
 import { BannerImageWithOverlay, Label, LabelTypeProp } from 'src/components/atoms'
-import { isIOS, isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { BannerImageWithOverlayProps } from 'src/components/atoms'
 import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -80,7 +80,7 @@ const ArticleDetailImage = ({
             
             <View>
                 <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-                { isNotEmpty(jwplayerId) ? <ArticleDetailVideo mediaId={jwplayerId} {...props}  /> : 
+                { isNotEmpty(jwplayerId) && isFirstItem ? <ArticleDetailVideo mediaId={jwplayerId} {...props}  /> : 
                     <BannerImageWithOverlay image={image}
                         onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
                         showOverlay={false}
