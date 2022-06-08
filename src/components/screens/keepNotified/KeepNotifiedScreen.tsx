@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenWidth } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
 import { useTranslation } from 'react-i18next';
 import { ScreensConstants } from 'src/constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreenContainer } from '..';
-import { ScreenHeight } from 'react-native-elements/dist/helpers';
 import { useKeepNotified } from 'src/hooks';
 import { NotificationDataType } from 'src/redux/keepNotified/types';
 import { useIsFocused } from '@react-navigation/native';
@@ -233,7 +232,7 @@ const customStyle = (theme: CustomThemeType) => (
       width: isTab ? screenWidth - (2 * 0.02 * screenWidth) : screenWidth - (2 * 0.04 * screenWidth),
       alignSelf: 'center',
       justifyContent: 'flex-end',
-      marginBottom: normalize(0.02 * ScreenHeight),
+      marginBottom: normalize(0.02 * screenHeight),
     },
     nextButtonContainer: {
       height: normalize(51),

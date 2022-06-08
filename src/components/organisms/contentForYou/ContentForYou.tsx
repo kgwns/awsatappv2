@@ -5,7 +5,7 @@ import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label } fr
 import { shortArticleWithTagProperties } from 'src/constants/SampleData';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { isTab, screenHeight, screenWidth } from 'src/shared/utils';
+import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
 import { getImageUrl, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
@@ -13,7 +13,6 @@ import {flatListUniqueKey} from 'src/constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
-import { normalize } from 'react-native-elements';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { NewsCategoriesType } from 'src/redux/latestNews/types';

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { colors } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight } from 'src/shared/utils';
 import { useTranslation } from 'react-i18next';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -10,7 +10,6 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
-import { ScreenHeight } from 'react-native-elements/dist/helpers';
 import { fonts } from 'src/shared/styles/fonts';
 
 export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
@@ -192,7 +191,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       justifyContent: 'flex-end',
       width: isTab ? screenWidth - (2 * 0.02 * screenWidth) : screenWidth - (2 * 0.04 * screenWidth),
       alignSelf: 'center',
-      marginBottom: 0.02 * ScreenHeight,
+      marginBottom: 0.02 * screenHeight,
     },
     nextButtonContainer: {
       height: normalize(51),
