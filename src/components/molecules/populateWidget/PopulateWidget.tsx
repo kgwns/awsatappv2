@@ -66,6 +66,7 @@ export const PopulateWidget = ({
                 <ArticleItem
                     index={0}
                     {...props}
+                    imageStyle={style.imageStyle}
                     flag={isObjectNonEmpty(props.news_categories) ? props.news_categories?.title : ''}
                     barColor={Styles.color.greenishBlue}
                     flagColor={Styles.color.greenishBlue}
@@ -128,6 +129,7 @@ export const PopulateWidget = ({
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     widgetContainer: {
         paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+        
     },
     podcastContainer: {
         backgroundColor: theme.secondaryWhite
@@ -147,5 +149,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontSize:16,
         lineHeight:26,
         textAlign: 'left' 
+    },
+    imageStyle: {
+        width: '100%',
+        height: isTab ? 0.65 * screenWidth : normalize(230),
+        aspectRatio: 1.5
     },
 })
