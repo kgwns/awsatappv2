@@ -12,17 +12,30 @@ import {isIOS} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import Video from 'react-native-video';
-import {convertSecondsToHMS} from 'src/shared/utils/utilities';
+import {convertSecondsToHMS, isNotEmpty} from 'src/shared/utils/utilities';
 import Slider from '@react-native-community/slider';
 import {LoadingState} from 'src/components/atoms';
 import TrackPlayer from 'react-native-track-player';
 import {useAppPlayer} from 'src/hooks';
 import {images} from 'src/shared/styles/images';
+import {NativeViewGestureHandler} from 'react-native-gesture-handler';
 
 export interface VideoPlayerControlProp {
   url: string;
+  currentTime?: any;
+  paused: boolean;
+  playerVisible?: boolean;
+  isMiniPlayer?: boolean;
+  setPlayerDetails?: (time: any, paused: any) => void;
 }
-const VideoPlayerControl = ({url}: VideoPlayerControlProp) => {
+const VideoPlayerControl = ({
+  url,
+  currentTime: time,
+  paused: isPaused,
+  playerVisible,
+  setPlayerDetails,
+  isMiniPlayer = false,
+}: VideoPlayerControlProp) => {
   const styles = useThemeAwareObject(customStyle);
 
   const videoPlayer = useRef<any>(null);
@@ -35,6 +48,7 @@ const VideoPlayerControl = ({url}: VideoPlayerControlProp) => {
   const [showControls, setShowControls] = useState(false);
   const [initialPlay, setInitialPlay] = useState(true);
   const [screenType, setScreenType] = useState('contain');
+  const initialLoadRef = useRef(true);
 
   const {setShowMiniPlayer, setPlayerTrack, showMiniPlayer} = useAppPlayer();
 
@@ -55,14 +69,20 @@ const VideoPlayerControl = ({url}: VideoPlayerControlProp) => {
   const onLoad = (data: any) => {
     setDuration(data.duration);
     setIsLoading(false);
-    videoPlayer.current?.seek(0.1);
+    !isIOS && videoPlayer.current?.seek(0.1);
     onScreenTouch();
+    if (initialLoadRef.current) videoPlayer.current?.seek(time);
   };
 
   const onLoadStart = (data: any) => setIsLoading(true);
 
   const onEnd = () => {
-    setPaused(true);
+    if (!isIOS) {
+      videoPlayer.current?.seek(0);
+      setPaused(true);
+    } else {
+      setPaused(true);
+    }
   };
 
   const exitFullScreen = () => {
@@ -77,20 +97,40 @@ const VideoPlayerControl = ({url}: VideoPlayerControlProp) => {
     if (!paused && initialPlay && showMiniPlayer) stopTrackPlayer();
   }, [paused]);
 
+  useEffect(() => {
+    if ((playerVisible && !isMiniPlayer) || (!playerVisible && isMiniPlayer)) {
+      setPlayerDetails && setPlayerDetails(currentTime, paused);
+      setPaused(true);
+    }
+    if (playerVisible && !isMiniPlayer) {
+      setShowControls(false);
+    }
+    if (initialLoadRef.current) initialLoadRef.current = false;
+  }, [playerVisible]);
+
+  useEffect(() => {
+    onSeek(time);
+    setPaused(isPaused);
+  }, [time]);
+
   const onScreenTouch = () => {
-    if (tapActionTimeout) {
-      clearTimeout(tapActionTimeout);
-      setTapActionTimeout(null);
-      if (showControls) {
-        resetControlTimeout();
-      }
+    if (playerVisible && !isMiniPlayer) {
+      setShowControls(false);
     } else {
-      setTapActionTimeout(
-        setTimeout(() => {
-          toggleControls();
-          setTapActionTimeout(null);
-        }, 130),
-      );
+      if (tapActionTimeout) {
+        clearTimeout(tapActionTimeout);
+        setTapActionTimeout(null);
+        if (showControls) {
+          resetControlTimeout();
+        }
+      } else {
+        setTapActionTimeout(
+          setTimeout(() => {
+            toggleControls();
+            setTapActionTimeout(null);
+          }, 130),
+        );
+      }
     }
   };
 
@@ -126,18 +166,20 @@ const VideoPlayerControl = ({url}: VideoPlayerControlProp) => {
 
   const renderVideo = () => (
     <Video
-      autoplay={false}
       onEnd={onEnd}
       onLoad={onLoad}
       onLoadStart={onLoadStart}
       onProgress={onProgress}
       onSeek={onProgress}
       paused={paused}
-      ref={videoPlayer}
+      ref={(ref: any) => {
+        videoPlayer.current = ref;
+      }}
       resizeMode={screenType}
       onFullScreen={isFullScreen}
       source={{uri: url}}
       style={styles.backgroundVideo}
+      repeat={false}
     />
   );
 
@@ -147,20 +189,25 @@ const VideoPlayerControl = ({url}: VideoPlayerControlProp) => {
       style={[styles.column]}
       imageStyle={[styles.vignette]}>
       <View style={styles.progrsBarSection}>
-        <Slider
-          style={[{width: '100%', height: 15}, isIOS && {direction: 'ltr'}]}
-          minimumValue={0}
-          maximumValue={Math.floor(duration)}
-          minimumTrackTintColor="#FFF"
-          maximumTrackTintColor="#666"
-          thumbTintColor="#FFF"
-          value={currentTime > duration ? duration : currentTime}
-          tapToSeek
-          inverted={isIOS ? false : true}
-          onSlidingComplete={value => {
-            onSeek(value);
-          }}
-        />
+        <NativeViewGestureHandler
+          disallowInterruption={true}
+          enabled
+          shouldActivateOnStart={true}>
+          <Slider
+            style={[styles.sliderStyle, isIOS && styles.directionStyle]}
+            minimumValue={0}
+            maximumValue={duration}
+            minimumTrackTintColor="#FFF"
+            maximumTrackTintColor="#666"
+            thumbTintColor="#FFF"
+            value={currentTime > duration ? duration : currentTime}
+            tapToSeek
+            inverted={isIOS ? false : true}
+            onSlidingComplete={value => {
+              onSeek(value);
+            }}
+          />
+        </NativeViewGestureHandler>
       </View>
       <View style={styles.timeContainer}>
         {renderTimer()}
@@ -229,12 +276,10 @@ const customStyle = (theme: CustomThemeType) =>
       left: 0,
       bottom: 0,
       right: 0,
-      zIndex: 5,
     },
     videoControls: {
       width: '100%',
       height: '100%',
-      zIndex: 10,
     },
     timeContainer: {
       flexDirection: 'row',
@@ -265,5 +310,12 @@ const customStyle = (theme: CustomThemeType) =>
       justifyContent: 'flex-end',
       paddingHorizontal: isIOS ? 15 : 0,
       paddingVertical: 20,
+    },
+    sliderStyle: {
+      width: '100%',
+      height: 15,
+    },
+    directionStyle: {
+      direction: 'ltr'
     },
   });

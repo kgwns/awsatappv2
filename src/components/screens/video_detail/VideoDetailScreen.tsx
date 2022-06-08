@@ -6,15 +6,16 @@ import Share from 'react-native-share';
 import {VideosList, VideoInfo} from 'src/components/organisms';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge, isNonEmptyArray } from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isNonEmptyArray, isObjectNonEmpty, isNotEmpty } from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useBookmark, useLogin, useVideoList } from 'src/hooks';
-import { VideoItemType } from 'src/redux/videoList/types';
+import { RequestVideoUrlSuccessResponse, VideoItemType } from 'src/redux/videoList/types';
 import {useNavigation} from '@react-navigation/native';
 import {ScreensConstants} from 'src/constants/ScreenConstants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Styles } from 'src/shared/styles';
+import { fetchVideoDetailInfo } from 'src/services/VideoServices';
  
 export interface VideoDetailScreenProps {
   route: any
@@ -33,13 +34,38 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const [videolistData, setVideolistData] = useState<VideoItemType[]>([])
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
+  const [videoUrl,setVideoUrl] = useState('')
   
   const { isLoggedIn } = useLogin()
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
 
   useEffect(() => {
     formatVideoListData()
+    getVideoUrlInfo()
   }, [videoData,bookmarkIdInfo])
+
+  const getVideoUrlInfo = async () => {
+    if (isObjectNonEmpty(selectedVideo) && isNotEmpty(selectedVideo.mediaId)) {
+      try {
+        const response: RequestVideoUrlSuccessResponse =
+          await fetchVideoDetailInfo({mediaID: selectedVideo.mediaId});
+        if (
+          isNonEmptyArray(response.playlist) &&
+          isNonEmptyArray(response.playlist[0].sources)
+        ) {
+          const sources = response.playlist[0].sources;
+          const videoItem = sources.find(
+            item => item.type && item.type.includes('mp4'),
+          );
+          videoItem &&
+            isObjectNonEmpty(videoItem) &&
+            setVideoUrl(videoItem.file);
+        }
+      } catch (error) {
+        console.log('video url error');
+      }
+    }
+  };
 
   const formatVideoListData = () => {
     let selectedVideoId = route.params.data.nid
@@ -82,11 +108,11 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }
 
   const onPressShare = async () => {
-    if(!selectedVideo) return;
-    const { title, field_mp4_link_export } = selectedVideo
+    if(!selectedVideo || !isNotEmpty(videoUrl)) return;
+    const { title } = selectedVideo
     await Share.open({
         title,
-        url: field_mp4_link_export,
+        url: videoUrl,
         failOnCancel: true,
         subject: title
     }).then(response => {
@@ -97,8 +123,8 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }
 
   const goToPlayer = (item:VideoItemType) =>{
-    if(item.field_mp4_link_export){
-      navigation.navigate(ScreensConstants.VideoPlayerScreen,{videoUrl:item.field_mp4_link_export, nid: item.nid})
+    if(item.mediaId){
+      navigation.navigate(ScreensConstants.VideoPlayerScreen,{mediaID: item.mediaId, nid: item.nid})
     }
   }
 

@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
-import { ArticleDetailFooter } from 'src/components/molecules'
+import { ArticleDetailFooter, DraggableVideoPlayer } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
-import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
+import { horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
@@ -21,11 +21,13 @@ import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { sendUserEventTracking } from 'src/services'
 import { TrackingEventType } from 'src/services/eventTrackService'
-import { CustomThemeType } from 'src/shared/styles/colors'
+import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ArticleFontSize } from 'src/redux/appCommon/types'
 import { fonts } from 'src/shared/styles/fonts'
 import { BackIcon } from 'src/components/atoms'
+import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types'
+import { fetchVideoDetailInfo } from 'src/services/VideoServices'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -59,6 +61,11 @@ export const ArticleDetailScreen = ({
   const [relatedArticleState, setRelatedArticle] = useState<RelatedArticleDataType[]>([])
   const [currentOrientation, setOrientation] = useState('')
   const [scrollY, setScrollY] = useState(new Animated.Value(0))
+  const [playerUrl, setPlayerUrl] = useState<string>();
+  const [playerVisible, setPlayerVisible] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [paused, setPaused] = useState(true);
+  const [scrollEnabled, setScrollEnabled] = useState(true);
 
   const currentNId = route.params.nid;
 
@@ -237,6 +244,7 @@ export const ArticleDetailScreen = ({
 
   const onScroll = (event: any) => {
     setScrollY(event.nativeEvent.contentOffset.y)
+    Number.parseInt(event.nativeEvent.contentOffset.y) > 100 ? setPlayerVisible(true) : setPlayerVisible(false);
   }
 
   const onPressBack = () => {
@@ -246,6 +254,34 @@ export const ArticleDetailScreen = ({
     }
     navigation.goBack()
   }
+
+  useEffect(() => {
+    getVideoUrlInfo();
+  }, [articleDetailState]);
+
+  const getVideoUrlInfo = async () => {
+    let jwplayerId = articleDetailState[0].jwplayerId
+    if (isNotEmpty(jwplayerId)) {
+      try {
+        const response: RequestVideoUrlSuccessResponse =
+          await fetchVideoDetailInfo({mediaID: jwplayerId});
+        if (
+          isNonEmptyArray(response.playlist) &&
+          isNonEmptyArray(response.playlist[0].sources)
+        ) {
+          const sources = response.playlist[0].sources;
+          const videoItem = sources.find(
+            item => item.type && item.type.includes('mp4'),
+          );
+          videoItem &&
+            isObjectNonEmpty(videoItem) &&
+            setPlayerUrl(videoItem.file);
+        }
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+  };
 
   const renderBackIcon = () => (
     <View style={style.backContainer}>
@@ -269,7 +305,11 @@ export const ArticleDetailScreen = ({
         {isNonEmptyArray(articleDetailState) && <>
           <ArticleDetailWidget articleData={item}
             isRelatedArticle={route.params.isRelatedArticle} 
-            isFirstItem={index === 0 && showBackArrow}
+            isFirstItem={index === 0 }
+            currentTime={currentTime} 
+            paused={playerVisible ? true : paused}
+            playerVisible={playerVisible}
+            setPlayerDetails={setPlayerDetails}
           />
           {articleHtmlContent(index)}
           <Divider style={style.divider} />
@@ -289,6 +329,11 @@ export const ArticleDetailScreen = ({
       </View>
   )}
 
+  const setPlayerDetails = (time: any , paused: boolean) => {
+    setCurrentTime(time)
+    setPaused(paused)
+  }
+
   return (
     <ScreenContainer edge={edge} isLoading={isLoading} 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
@@ -301,8 +346,13 @@ export const ArticleDetailScreen = ({
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
           bounces={false}
+          removeClippedSubviews={false}
           onScroll={onScroll}
+          scrollEnabled={scrollEnabled}
         />
+        { isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl &&
+            <DraggableVideoPlayer url={playerUrl} setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}  currentTime={currentTime} setPlayerDetails={setPlayerDetails} paused={playerVisible ? paused : true} playerVisible={playerVisible} /> 
+        }
         <View style={style.bottom} />
         <View style={[style.footer, style.shadowEffect]}>
           <ArticleDetailFooter articleDetailData={articleDetailState[0]}
@@ -345,6 +395,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     shadowOpacity: .5,
     shadowRadius: 4,
     elevation: 15,
+  },
+  videoContainer: {
+    position: 'absolute',
+    bottom: isIOS ? normalize(80) : normalize(70),
+    right: (isTab ? 0.02 : 0.04) * screenWidth,
+    left: (isTab ? 0.02 : 0.04) * screenWidth,
+    height: 'auto',
+    aspectRatio: 1.62,
+    backgroundColor: colors.black,
   },
   backIconContainerStyle: {
     marginLeft: isTab ? 15 : 0

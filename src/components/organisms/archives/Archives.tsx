@@ -1,12 +1,12 @@
 import { View,StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FilterComponent, FilterDataType } from 'src/components/molecules'
 import { isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
 import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
-import { Label, LabelTypeProp } from 'src/components/atoms'
+import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useFocusEffect, useIsFocused } from '@react-navigation/native'
 import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
 
@@ -40,9 +40,10 @@ export const Archives = () => {
     const [filterItem, setFilterItem] = useState<FilterDataType[]>(filterData);
     const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
     const playbackState = usePlaybackState();
-
+    const selectedDataRef = useRef(true);
     const { getBookmarkedId, removeBookmarkedInfo, bookmarkDetail } = useBookmark()
     const [filteredData, setFilteredData] = useState(bookmarkDetail)
+    const [initialLoading, setInitialLoading] = useState(true)
 
     useEffect(() => {
         getBookmarkedId()
@@ -50,9 +51,8 @@ export const Archives = () => {
 
     useEffect(() => {
         isFocused && getBookmarkedId()
+        setInitialLoading(isFocused)
     }, [isFocused])
-
-
 
     useEffect(() => {
         if (isNonEmptyArray(bookmarkDetail) ||
@@ -60,6 +60,31 @@ export const Archives = () => {
             onPressFilterItem(tabSelectedIndex)
         }
     }, [bookmarkDetail])
+    
+    useEffect(() => {
+        if (selectedDataRef.current) {
+            selectedDataRef.current = false;
+        } else {
+            const dataSelected = returnItems(bookmarkDetail.data)
+            if( JSON.stringify(dataSelected) != JSON.stringify(filteredData)){
+                if (!isNonEmptyArray(bookmarkDetail.data)) {
+                    setInitialLoading(false)
+                }             
+            } else {
+                setInitialLoading(false)
+            }
+        }
+    }, [bookmarkDetail]);  
+
+    const returnItems = (data:any) => {
+        if(isNonEmptyArray(data)){
+            return data.map((item:any)=>{
+                return item.tid
+            })
+        } else {
+            return [];
+        }
+    }
 
     const onPressFilterItem = (index: number) => {
         const filterItemData = [...filterItem]
@@ -70,10 +95,10 @@ export const Archives = () => {
         updatedFilteredData(index)
     }
 
-
     const updatedFilteredData = (index: number) => {
         const data = getFilteredData(index)
         setFilteredData(data)
+        setInitialLoading(false)
     }
 
     const removeBookmarkItem = (removeItem: any) => {
@@ -103,6 +128,12 @@ export const Archives = () => {
         }
     }
 
+    const loadingView = () => (
+        <View style={styles.container}>
+            <LoadingState />
+        </View>
+    )
+
     const emptyFavoriteData = () => {
         if (isNonEmptyArray(filteredData)) return null
         return <View
@@ -116,12 +147,17 @@ export const Archives = () => {
             <View style={{ paddingStart: isTab ? normalize(0.02 * screenWidth) : 0.04 * screenWidth }}>
                 <FilterComponent data={filterItem} onPress={onPressFilterItem} />
             </View>
-            {isNonEmptyArray(filteredData) &&
-                <DynamicWidget data={filteredData}
-                    onPressBookmark={removeBookmarkItem}
-                />
+            {!initialLoading ?
+                <>
+                    {isNonEmptyArray(filteredData) &&
+                        <DynamicWidget data={filteredData}
+                            onPressBookmark={removeBookmarkItem}
+                        />
+                    }
+                    {emptyFavoriteData()}
+                </> :
+                loadingView()
             }
-           {emptyFavoriteData()}
         </View>
     )
 }
@@ -132,5 +168,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 0.32 * screenHeight
-    }
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 0.80 * screenHeight
+    },
 })

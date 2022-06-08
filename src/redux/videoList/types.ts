@@ -17,6 +17,7 @@ export interface VideoItemType {
   body_export?: string|null;
   isBookmarked:boolean;
   field_jwplayerinfo_export?: string;
+  mediaId?: string;
 }
 
 export interface FetchVideoSuccessPayloadType {
@@ -55,11 +56,13 @@ export type RequestVideoUrlPayload = {
 export type JWTVideoSourceType = {
   file: string,
   label: string,
-  type: string
+  type: string,
+  height: any
 }
 
 export type JWTVideoPlayListType = {
-  sources: JWTVideoSourceType[]
+  sources: JWTVideoSourceType[],
+  images?: any,
 }
 
 export type RequestVideoUrlSuccessResponse = {

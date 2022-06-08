@@ -6,9 +6,11 @@ import { useNavigation } from '@react-navigation/native';
 import { LoadingState } from 'src/components/atoms';
 import { fetchVideoDetailInfo } from 'src/services/VideoServices';
 import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types';
-import { isNonEmptyArray, isObjectNonEmpty, recordLogEvent } from 'src/shared/utils';
+import { isNonEmptyArray, isObjectNonEmpty, recordLogEvent, screenHeight } from 'src/shared/utils';
 import TrackPlayer from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
+import { colors } from 'src/shared/styles/colors';
+
 export interface VideoPlayerScreenProps {
   route: any
 }
@@ -39,13 +41,30 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
     setPlayerTrack(null);
   }
 
+  const  getDeviceResolutionVideo = (deveiceHeight: any, videoSources: any) => {    
+    let selectedResolution = Math.max.apply(Math, videoSources);
+    for (var val = 0; val < videoSources.length; val++) {
+        if (videoSources[val] >= deveiceHeight && videoSources[val] < selectedResolution) selectedResolution = videoSources[val];        
+    }    
+    return selectedResolution;
+  }
+
   const getVideoUrlInfo = async () => {
     if (mediaID) {
       try {
         const response: RequestVideoUrlSuccessResponse = await fetchVideoDetailInfo({ mediaID: mediaID })
         if (isNonEmptyArray(response.playlist) && isNonEmptyArray(response.playlist[0].sources)) {
           const sources = response.playlist[0].sources
-          const videoItem = sources.find((item) => item.type && item.type.includes('mp4'))
+          let videoFiles = sources.filter((item)=>{
+            if(item.type && item.type.includes('video/mp4')){
+             return item
+            }
+          })
+          let videoResolutions = videoFiles.map((item: any) => {
+            return item.height
+          })
+          let selectedItem = getDeviceResolutionVideo(screenHeight, videoResolutions)
+          const videoItem = sources.find((item) => item.height == selectedItem)
           videoItem && isObjectNonEmpty(videoItem) && setPlayerUrl(videoItem.file)
         }
       } catch (error) {
@@ -65,5 +84,6 @@ const createStyles = () =>
 StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.black
   },
 })

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {isNonEmptyArray, isObjectNonEmpty} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
@@ -8,8 +8,12 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import VideoPlayerControl from 'src/components/molecules/articleDetailVideo/VideoPlayerControl';
 export interface ArticleVideoProps {
   mediaId?: string;
+  currentTime?: any;
+  paused: boolean;
+  playerVisible?: boolean;
+  setPlayerDetails?: (time: any, paused: any) => void;
 }
-const ArticleDetailVideo = ({mediaId}: ArticleVideoProps) => {
+const ArticleDetailVideo = ({mediaId, ...props}: ArticleVideoProps) => {
   const styles = useThemeAwareObject(customStyle);
 
   const [playerUrl, setPlayerUrl] = useState<string>();
@@ -43,7 +47,15 @@ const ArticleDetailVideo = ({mediaId}: ArticleVideoProps) => {
 
   return (
     <View style={styles.container}>
-      {playerUrl && <VideoPlayerControl url={playerUrl} />}
+      {playerUrl && (
+        <VideoPlayerControl
+          url={playerUrl}
+          setPlayerDetails={props?.setPlayerDetails}
+          currentTime={props?.currentTime}
+          paused={props?.paused}
+          playerVisible={props?.playerVisible}
+        />
+      )}
     </View>
   );
 };

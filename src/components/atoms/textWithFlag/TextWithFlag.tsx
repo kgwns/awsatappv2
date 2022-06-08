@@ -42,6 +42,7 @@ const textWithFlagStyle = StyleSheet.create({
         textAlign: 'left',
         flexWrap: 'wrap',
         paddingBottom: normalize(8),
+        marginLeft: 2
     },
     dividerStyle: {
         fontSize: isIOS ? normalize(15) : normalize(17),

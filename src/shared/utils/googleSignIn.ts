@@ -29,6 +29,7 @@ export default class SigninGoogle extends SocialLogin {
       } catch (error:any) {
         if (error.code === statusCodes.SIGN_IN_CANCELLED) {
           console.log('User Cancelled the Login Flow')
+          this.callBack(undefined, false, 'google')
         } else if (error.code === statusCodes.IN_PROGRESS) {
           console.log('Google Error: ','Signing In');
           this.callBack(undefined, false, 'google', 'ErrorOccured')
