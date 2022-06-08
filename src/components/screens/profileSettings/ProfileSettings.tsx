@@ -108,12 +108,11 @@ export const ProfileSettings = () => {
         title: CONST_APP_APPEARANCE,
         screenName: ''
       },
-      // Enable when environment switch required
-    //   {
-    //       iconName: ImagesName.Image,
-    //       title: CONST_CHANGE_ENVIRONMENT,
-    //       screenName: ''
-    //   },
+      {
+          iconName: ImagesName.Image,
+          title: CONST_CHANGE_ENVIRONMENT,
+          screenName: ''
+      },
       {
           iconName: ImagesName.exit,
           title: CONST_EXIT,
