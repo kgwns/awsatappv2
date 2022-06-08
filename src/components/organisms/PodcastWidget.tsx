@@ -7,14 +7,14 @@ import { isTab, normalize } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { decodeHTMLTags, getSecondsToHms, isNonEmptyArray } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getSecondsToHms, isNonEmptyArray, isNotEmpty } from 'src/shared/utils/utilities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { flatListUniqueKey } from 'src/constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { useTranslation } from 'react-i18next'
 
 export interface PodcastWidgetProps {
-  onPress: () => void;
+  onPress: (podcastData: any) => void;
   data: any;
 }
 
@@ -25,7 +25,6 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   const [t] = useTranslation();
   const { themeData } = useTheme();
   const style = useThemeAwareObject(createStyles);
-  const podcastData = data[0];
   /* const navigation = useNavigation<StackNavigationProp<any>>();
 
   const widgetHeaderData: WidgetHeaderProps = {
@@ -56,7 +55,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   } */
 
-  const ListenToPodcast = () => (
+  const ListenToPodcast = (podcastData: any) => (
     <View style={style.listenContainer}>
       <ButtonImage
         icon={() => {
@@ -65,7 +64,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
             size: 15,
           });
         }}
-        onPress={onPress}
+        onPress={() => onPress(podcastData)}
         style={style.headPhoneIconMargin}
       />
       <Label
@@ -106,46 +105,50 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     </View>
   )*/
 
-  const renderPodcastItem = () => (
-    <View style={style.podcastContainer}>
-      <TouchableOpacity onPress={onPress}>
-        <View style={style.podcastItemContainer}>
-          <View style={style.podcastContentContainer}>
-            <Label
-              numberOfLines={1}
-              color={themeData.primary}
-              style={style.title}
-              children={podcastData?.title}
-            />
-            <Label
-              color={themeData.secondaryDavyGrey}
-              style={style.body}
-              children={decodeHTMLTags(podcastData?.body_export)}
-              numberOfLines={2}
-            />
-          </View>
-          <View style={style.podcastImageContainer}>
-            <View style={style.imageWrapper}>
-              <Image
-                fallback
-                resizeMode="stretch"
-                url={podcastData?.field_podcast_sect_export?.image}
-                style={style.image}
+  const renderPodcastItem = (podcastData: any) => {
+    const bodyInfo = isNotEmpty(podcastData?.body_export) ? podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? podcastData.field_podcast_sect_export.description : ''
+    const description = decodeHTMLTags(bodyInfo)
+    return (
+      <View style={style.podcastContainer}>
+        <TouchableOpacity onPress={() => onPress(podcastData)}>
+          <View style={style.podcastItemContainer}>
+            <View style={style.podcastContentContainer}>
+              <Label
+                numberOfLines={1}
+                color={themeData.primary}
+                style={style.title}
+                children={podcastData?.title}
+              />
+              <Label
+                color={themeData.secondaryDavyGrey}
+                style={style.body}
+                children={description}
+                numberOfLines={2}
               />
             </View>
+            <View style={style.podcastImageContainer}>
+              <View style={style.imageWrapper}>
+                <Image
+                  fallback
+                  resizeMode="stretch"
+                  url={podcastData?.field_podcast_sect_export?.image}
+                  style={style.image}
+                />
+              </View>
+            </View>
           </View>
-        </View>
-        <View style={style.podcastBottomContainer}>
-          <View style={style.listenCardContainer}>
-            <ListenToPodcast />
+          <View style={style.podcastBottomContainer}>
+            <View style={style.listenCardContainer}>
+              <ListenToPodcast podcastData={podcastData} />
+            </View>
+            <View style={style.labelContainer}>
+              {/* <AllEpisodesCard/> enable when list of episodes available */}
+            </View>
           </View>
-          <View style={style.labelContainer}>
-            {/* <AllEpisodesCard/> enable when list of episodes available */}
-          </View>
-        </View>
-      </TouchableOpacity>
-    </View>
-  )
+        </TouchableOpacity>
+      </View>
+    )
+  }
 
   const tabletData = isNonEmptyArray(data) && (data.length > 2) ? data.slice(0, 2) : data
   const renderTablet = () => (
@@ -156,12 +159,13 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
         style={style.flatList}
         listKey={flatListUniqueKey.TAB_PODCAST_HOME}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={renderPodcastItem}
+        renderItem={({item}) => renderPodcastItem(item)}
       />
     </View>
   )
 
-  return  isTab ?  renderTablet() : renderPodcastItem();
+  const podcastMobileData = data[0];
+  return  isTab ?  renderTablet() : renderPodcastItem(podcastMobileData);
 
 };
 

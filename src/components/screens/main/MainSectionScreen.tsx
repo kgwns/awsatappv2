@@ -141,13 +141,9 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
   const [sectionComboSevenInfo, setSectionComboSevenInfo] = useState(sectionComboSeven)
   const [opinionListData, setOpinionListData] = useState([])
   const [showupUp, setShowPopUp] = useState(false)
-  const [isPlayerVisible, setPlayerVisibility] = useState(false)
-  const [showPlayerControls, setShowPlayerControls] = useState(false)
-  const playbackState = usePlaybackState();
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [selectedType, setSelectedType] = useState<any>(null);
 
-  const podcastData: any = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
   const headlineNews = isNonEmptyArray(coverageInfo) ? [...coverageInfo].splice(1, 4) : []
   const [editorsChoiceInfo, setEditorsChoiceInfo] = useState(editorsChoice)
 
@@ -156,11 +152,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
       if(tabIndex === currentIndex){
         global.refFlatList = ref;
       }
-      
-      const unsubscribe = () => {
-        setPlayerVisibility(false)
-      };
-      return () => unsubscribe();
+
     }, [])
   );
 
@@ -503,7 +495,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
   }
 
 
-  const onListenPodcast = () => {
+  const onListenPodcast = (podcastData: any) => {
     if(isObjectNonEmpty(podcastData)){
       let trackPlayerData = {
         id: podcastData.nid,
@@ -524,7 +516,6 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
 
   const onClose = async () => {
     await TrackPlayer.reset();
-    setPlayerVisibility(false)
   }
 
   const getSelectedTrack = (id: any, type: 'OPINION' | 'PODCAST') => {
