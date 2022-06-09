@@ -92,7 +92,8 @@ export interface ArticleDetailFailedType {
 
 
 export interface RelatedArticleBodyGet {
-  tid: number
+  tid?: number;
+  nid?: number;
 }
 
 export interface RequestRelatedArticleType {

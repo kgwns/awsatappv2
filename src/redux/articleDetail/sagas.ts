@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
-import { ArticleDetailSuccessPayload, ArticleSectionSuccessPayload, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestArticleSectionType, RequestRelatedArticleType } from './types';
+import { ArticleDetailSuccessPayload, ArticleSectionSuccessPayload, RelatedArticleBodyGet, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestArticleSectionType, RequestRelatedArticleType } from './types';
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService';
 import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA, REQUEST_ARTICLE_SECTION } from './actionType';
 import { requestArticleDetailFailed, requestArticleDetailSuccess, requestArticleSectionFailed, requestArticleSectionSuccess, requestRelatedArticleSuccess } from './action';
@@ -147,12 +147,25 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
     const response = parseArticleDetailSuccess(payload)
     yield put(requestArticleDetailSuccess(response));
     if (isNonEmptyArray(response.articleDetailData)) {
+      const tid = isObjectNonEmpty(response.articleDetailData[0].tag_topics) ? response.articleDetailData[0].tag_topics.id : ''
+      const nid = isObjectNonEmpty(response.articleDetailData[0].news_categories) ? response.articleDetailData[0].news_categories.id : ''
+
+      let payload: RelatedArticleBodyGet = {}
+      if (isNotEmpty(tid)) {
+        payload.tid = parseInt(tid)
+      }
+
+      if (isNotEmpty(nid)) {
+        payload.nid = parseInt(nid)
+      }
+
+      if (!isObjectNonEmpty(payload)) return
+
       yield call(
         fetchRelatedArticle, {
         type: REQUEST_RELATED_ARTICLE,
-        payload: { tid: parseInt(response.articleDetailData[0].tag_topics.id) }
-      }
-      )
+        payload: payload
+      })
     }
 
     if (isNonEmptyArray(response.articleDetailData) 

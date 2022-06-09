@@ -12,7 +12,8 @@ export type HtmlRendererType = {
 }
 
 export const HtmlRenderer = ({ source, tagsStyles, ignoredDomTags }: HtmlRendererType) => {
-    const ignoredTags = ignoredDomTags?ignoredDomTags.concat(['img']):['img']
+    const defaultIgnoreTag = ['img', 'iframe']
+    const ignoredTags = ignoredDomTags ? ignoredDomTags.concat(defaultIgnoreTag) : defaultIgnoreTag
     const { width } = useWindowDimensions();
     const systemFonts = [
         ...defaultSystemFonts,

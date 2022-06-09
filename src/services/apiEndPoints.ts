@@ -7,7 +7,7 @@ export const SEARCH_ENDPOINT = 'api/v2/search';
 //Article Details
 export const ARTICLE_DETAIL_GET = 'api/v2/articlenode/';
 export const RELATED_ARTICLE_GET = 'api/v2/relatedarticles/';
-export const ARTICLE_SECTION_GET = '/api/v2/articlesection/';
+export const ARTICLE_SECTION_GET = '/api/v2/articlenext/';
 
 //LatestNews
 //items_per_page is 5 or 10
