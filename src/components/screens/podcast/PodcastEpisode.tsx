@@ -173,13 +173,13 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     setEpisode(item.nid)
   }
 
-  const onListenPress = async () => {
+  const onListenPress = async (duration: any) => {
     if(isObjectNonEmpty(podcastEpisodeInfo)){
       let trackPlayerData = {
         id: podcastEpisodeInfo.nid,
         url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
         title: podcastEpisodeInfo.title,
-        duration: podcastEpisodeInfo.field_total_duration_export,
+        duration: duration,
         artist: podcastEpisodeInfo.title,
         artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
       }
