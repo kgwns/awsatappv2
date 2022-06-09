@@ -48,6 +48,7 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
         itemOnPress={() => handleOnItemPressAction(item)}
         isBookmarked={item.isBookmarked}
         onPressBookmark={() => onUpdateBookmark(index)}
+        spreakerId={item?.field_spreaker_episode_export}
       />
     );
   };

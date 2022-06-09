@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { ButtonImage, Image, Label } from '../atoms';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
@@ -7,11 +7,12 @@ import { isTab, normalize } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { decodeHTMLTags, getSecondsToHms, isNonEmptyArray, isNotEmpty } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, convertSecondsToHMS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, getPodcastUrl } from 'src/shared/utils/utilities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { flatListUniqueKey } from 'src/constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { useTranslation } from 'react-i18next'
+import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 
 export interface PodcastWidgetProps {
   onPress: (podcastData: any) => void;
@@ -25,6 +26,31 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   const [t] = useTranslation();
   const { themeData } = useTheme();
   const style = useThemeAwareObject(createStyles);
+  const [episodeData, setEpisodeData] = useState<any>([])
+
+  useEffect(() => {
+    getPodcastDuration()
+  }, [])
+
+  const getPodcastDuration = async () => {
+    if(isNonEmptyArray(data)){
+      let podcastData = [...data]
+      for( let i = 0; i <= data.length-1; i++){
+        if(isNotEmpty(data[i].field_spreaker_episode_export)){
+          try {
+            let response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: data[i].field_spreaker_episode_export })
+            if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
+              let episode = response.response.episode
+              data[i].duration = Math.floor(episode.duration / 1000) ;
+            }
+          }catch(error){
+            data[i].duration = null
+          }
+        }
+      }
+      setEpisodeData(podcastData)
+    }
+  }
   /* const navigation = useNavigation<StackNavigationProp<any>>();
 
   const widgetHeaderData: WidgetHeaderProps = {
@@ -55,7 +81,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   } */
 
-  const ListenToPodcast = (podcastData: any) => (
+  const ListenToPodcast = ({podcastData} : {podcastData: any}) => (
     <View style={style.listenContainer}>
       <ButtonImage
         icon={() => {
@@ -74,7 +100,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       />
       <Label
         color={colors.spanishGray}
-        children={getSecondsToHms(podcastData?.field_total_duration_export)}
+        children={convertSecondsToHMS(podcastData?.duration)}
         style={style.duration}
         numberOfLines={1}
       />
@@ -106,6 +132,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   )*/
 
   const renderPodcastItem = (podcastData: any) => {
+    if(!isObjectNonEmpty(podcastData)) return null;
     const bodyInfo = isNotEmpty(podcastData?.body_export) ? podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? podcastData.field_podcast_sect_export.description : ''
     const description = decodeHTMLTags(bodyInfo)
     return (
@@ -150,7 +177,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     )
   }
 
-  const tabletData = isNonEmptyArray(data) && (data.length > 2) ? data.slice(0, 2) : data
+  const tabletData = isNonEmptyArray(episodeData) && (episodeData.length > 2) ? episodeData.slice(0, 2) : episodeData
   const renderTablet = () => (
     <View style={style.tabletContainer}>
       <FlatList
@@ -164,7 +191,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     </View>
   )
 
-  const podcastMobileData = data[0];
+  const podcastMobileData = isNonEmptyArray(episodeData) ? data[0] : {};
   return  isTab ?  renderTablet() : renderPodcastItem(podcastMobileData);
 
 };

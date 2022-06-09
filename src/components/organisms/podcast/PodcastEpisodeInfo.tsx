@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import { Label, Image, ButtonOutline, LabelTypeProp} from 'src/components/atoms/';
 import { PodcastVerticalListProps } from 'src/components/molecules/';
@@ -11,13 +11,14 @@ import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.s
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import {useTranslation} from 'react-i18next';
-import { decodeHTMLTags, getPodcastDate, getSecondsToHms } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getPodcastDate, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
+import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 
 export interface PodcastEpisodeInfoProps {
   data: PodcastVerticalListProps;
-  onListenPress?: (item: any) => void;
+  onListenPress?: (duration: any) => void;
 }
 
 export const PodcastEpisodeInfo: FunctionComponent<any> = ({
@@ -29,6 +30,26 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
   const fieldData = data ? data : podcastEpisodeInitialData
   const barVisibility = fieldData.created_export && fieldData.field_total_duration_export
   const hasNewSubTitle = !!fieldData.field_new_sub_title_export
+  const [duration, setDuration] = useState<any>(null)
+
+  useEffect(() => {
+    getPodcastDuration()
+  }, [fieldData])
+
+  const getPodcastDuration = async () => {
+    if(isNotEmpty(fieldData.field_spreaker_episode_export)){
+      try {
+        let response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: fieldData.field_spreaker_episode_export })
+        if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
+          let episode = response.response.episode
+          setDuration(Math.floor(episode.duration / 1000))
+        }
+      }catch(error){
+        console.log(error)
+      }
+    }
+  }
+  
   return (
     <View>
       <View style={styles.containerStyle}>
@@ -50,14 +71,14 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
              style={styles.buttonStyle}
              labelStyle={styles.buttonLabel}
              titleType={LabelTypeProp.h1}
-             onPress={()=>onListenPress()}
+             onPress={()=>onListenPress(duration)}
              rightIcon={() => <View style={styles.rightIconStyle}><PlayIcon fill={colors.black}/></View>}
             />
             <View style={styles.containerSpace} />
             <View style={styles.headerLeftStyle}>
               <Label style={styles.footerRightTextStyle} numberOfLines={1} children={getPodcastDate(fieldData.created_export)} />
-              {barVisibility ? <Label color={colors.spanishGray} children={"|"}/> : <View/>}
-              <Label style={styles.footerLeftTextStyle} numberOfLines={1} children={getSecondsToHms(fieldData.field_total_duration_export)} />
+              { fieldData.created_export && duration ? <Label color={colors.spanishGray} children={"|"}/> : <View/>}
+              <Label style={styles.footerLeftTextStyle} numberOfLines={1} children={ convertSecondsToHMS(duration)} />
             </View>
             {!!fieldData.body_export&&
               <View style={styles.containerSpace} >
