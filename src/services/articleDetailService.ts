@@ -18,8 +18,10 @@ export const requestArticleDetail = async (body: ArticleDetailBodyGet) => {
 
 export const requestRelatedArticle = async (body: RelatedArticleBodyGet) => {
   try {
+    const params = (body.nid && body.tid) ? `${body.tid}+${body.nid}` : body.nid ? body.nid : body.tid //Need to validate nid or tid not empty in saga itself
+    const url = `${BASE_URL}${RELATED_ARTICLE_GET}${params}?items_per_page=${50}`
     const response: FetchMostReadSuccessPayloadType = await getCacheApiRequest(
-      `${BASE_URL}${RELATED_ARTICLE_GET}${body.tid}?items_per_page=${50}`,
+      url,
     );
     return response;
   } catch (error) {

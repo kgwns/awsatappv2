@@ -165,10 +165,19 @@ export const ArticleDetailScreen = ({
     fontFamily: fonts.Effra_Arbc_Regular,
     writingDirection: 'rtl',
   }
+
+  const h1TagStyle: MixedStyleDeclaration = {
+    color: themeData.primaryBlack,
+    textAlign: 'justify',
+    direction: 'rtl',
+    fontFamily: fonts.Effra_Arbc_Regular,
+    writingDirection: 'rtl',
+  }
   
   const htmlTagStyle: MixedStyleRecord = {
     p: commonHtmlTagStyle,
-    div: commonHtmlTagStyle
+    div: commonHtmlTagStyle,
+    h1: h1TagStyle,
   }
 
   useEffect(() => {
