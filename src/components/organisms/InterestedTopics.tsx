@@ -17,7 +17,6 @@ const InterestedTopics = (props:any) => {
   let lengthOfElementsInRow = 0
   let previousIndex = 0
   let dataLength = data ? data.length : []
-  let lengthOfIndividualSpliceArray = 0
   for (let i = 0; i < dataLength; i++) {
     totalLengthOfElements = totalLengthOfElements + data[i].name.length + 10
     arrayOfLengths.push(data[i].name.length + 10)
@@ -47,7 +46,6 @@ const InterestedTopics = (props:any) => {
       for (let j = previousIndex; j <= i; j++) {
         individualSpliceArray.push(data[j])
       }
-      (individualSpliceArray.length > lengthOfIndividualSpliceArray) && (lengthOfIndividualSpliceArray = individualSpliceArray.length)
       splicedArray.push(individualSpliceArray)
       previousIndex = i + 1
       individualSpliceArray = []
@@ -91,7 +89,7 @@ const InterestedTopics = (props:any) => {
     <View style={style.tabContainer} >
         <FlatList
           scrollEnabled={false}
-          numColumns={7}
+          numColumns={6}
           keyExtractor={(_, index) => index.toString()}
           listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
           data={props.allSiteCategoriesData }
@@ -101,7 +99,7 @@ const InterestedTopics = (props:any) => {
         />
       </View>
       :
-    <ScrollView style={style.container} horizontal={lengthOfIndividualSpliceArray>4} showsHorizontalScrollIndicator={false} 
+    <ScrollView contentContainerStyle={style.containerStyle} style={style.container} horizontal={true} showsHorizontalScrollIndicator={false} 
       bounces={true}>
       <ScrollView style={style.innerContainerStyle} horizontal={false} scrollEnabled={false}>
         {splicedArray.map((items, index) => renderer(items, index))}
@@ -118,6 +116,10 @@ const customInterestStyle = (theme: CustomThemeType) =>
       width: '100%',
       backgroundColor: theme.backgroundColor,
       alignSelf: 'center',
+    },
+    containerStyle: {
+      flexGrow: 1, 
+      justifyContent: 'center'
     },
     tabContainer: {
       alignItems: 'flex-start',

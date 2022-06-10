@@ -174,7 +174,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     )
     
     return (
-        <View style={StyleSheet.flatten([style.container, playerPosition]) }>
+        <View style={StyleSheet.flatten([style.container, playerPosition, (!isPortrait() && !isTab) ? style.containerLandscape : null]) }>
             <View style={style.miniPlayer}>
                 <TouchableOpacity onPress={() => { setShowControl(true);} } style={style.rowStyleContainer}>
                     <View style={style.imageContainer}>
@@ -218,6 +218,9 @@ const customStyle = (theme: CustomThemeType) => {
             position: 'absolute',
             bottom: 0,
         },
+        containerLandscape: {
+            alignSelf: 'flex-end'
+        },
         miniPlayer: {
             flexDirection: 'row',
             width: '100%',
@@ -235,7 +238,7 @@ const customStyle = (theme: CustomThemeType) => {
             padding: normalize(12)
         },
         imageContainer: {
-            width: isTab ? normalize(120) : normalize(46),
+            width: isTab ? normalize(70) : normalize(46),
             height: isTab ? normalize(52) : normalize(41),
             backgroundColor: 'black'
         },
@@ -261,10 +264,10 @@ const customStyle = (theme: CustomThemeType) => {
             marginTop: normalize(10),
         },
         buttonContainerPortrait: {
-            marginLeft: normalize(10)
+            marginLeft: isTab? normalize(60) : normalize(10)
         },
         buttonContainerLandscape: {
-            marginLeft: normalize(70)
+            marginLeft: isTab? normalize(120) : normalize(70),
         },
         closeContainer: {
             width: '15%',
