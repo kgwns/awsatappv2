@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity, ActivityIndicator, StyleProp, ViewStyle } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, ActivityIndicator, StyleProp, ViewStyle, Dimensions } from 'react-native'
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -89,6 +89,11 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                 await TrackPlayer.pause()
             }
         }
+    };
+
+    const isPortrait = () => {
+        const dim = Dimensions.get('screen');
+        return dim.height >= dim.width;
     };
 
     const seekForwardBackward = async(type: any) => {
@@ -189,7 +194,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                         />
                     </View>
                     <TouchableOpacity onPress={() => onPlayPausePress(playbackState)}>
-                        <View style={style.buttonContainer}>
+                        <View style={[style.buttonContainer, isPortrait() ? style.buttonContainerPortrait : style.buttonContainerLandscape]}>
                             {isLoading ? <ActivityIndicator /> : playbackState === State.Playing ? <Pause /> : <Play /> }
                         </View>
                     </TouchableOpacity>
@@ -254,7 +259,12 @@ const customStyle = (theme: CustomThemeType) => {
         buttonContainer: {
             alignItems: 'center',
             marginTop: normalize(10),
+        },
+        buttonContainerPortrait: {
             marginLeft: normalize(10)
+        },
+        buttonContainerLandscape: {
+            marginLeft: normalize(70)
         },
         closeContainer: {
             width: '15%',
