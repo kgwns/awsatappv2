@@ -146,7 +146,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
       const payload: RegisterBodyType = {
         name: '',
         email,
-        password,
+        password: password.trim(),
         device_name: deviceName,
       };
       Keyboard.dismiss();

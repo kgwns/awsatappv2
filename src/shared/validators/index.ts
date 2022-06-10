@@ -12,7 +12,8 @@ export const emailValidation = (email: string): string => {
   return '';
 };
 
-export const loginPasswordValidation = (password: string): string => {
+export const loginPasswordValidation = (passwordText: string): string => {
+  const password = passwordText.trim()
   const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/;
   if (password === '') {
     return i18next.t('validation.passwordEmpty');
@@ -31,9 +32,10 @@ export const emptyPasswordValidation = (password: string): string => {
 }
 
 export const reTypePasswordValidation = (
-  password: string,
+  passwordText: string,
   reTypePassword: string,
 ): string => {
+  const password = passwordText.trim()
   if (password === '') {
     return i18next.t('validation.passwordEmpty');
   }
