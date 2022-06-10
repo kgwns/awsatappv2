@@ -32,13 +32,12 @@ export default class SigninGoogle extends SocialLogin {
           this.callBack(undefined, false, 'google')
         } else if (error.code === statusCodes.IN_PROGRESS) {
           console.log('Google Error: ','Signing In');
-          this.callBack(undefined, false, 'google', 'ErrorOccured')
         } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
           console.log('Google Error: ','Play Services Not Available or Outdated');
           this.callBack(undefined, false, 'google', 'ErrorOccured')
         } else {
           console.log(`Google Error statusCode${JSON.stringify(statusCodes)}`,error.message);
-          if(error.message !== 'DEVELOPER_ERROR'){
+          if(error.message !== 'DEVELOPER_ERROR' && error.message !== 'Sign-in in progress'){
             this.callBack(undefined, false, 'google', 'ErrorOccured')
           } 
         }
