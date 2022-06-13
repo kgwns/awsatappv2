@@ -208,7 +208,7 @@ StyleSheet.create({
     marginBottom: normalize(25)
   },
   signInLabelStyle: {
-    color: theme.secondaryWhite,
+    color: colors.white,
     lineHeight: 28,
   },
   dividerContainber: {
