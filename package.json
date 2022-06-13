@@ -47,6 +47,7 @@
     "react-native": "0.66.1",
     "react-native-adjust": "^4.29.6",
     "react-native-adjust-oaid": "^4.29.6",
+    "react-native-autoheight-webview": "^1.6.1",
     "react-native-avoid-softinput": "^2.4.3",
     "react-native-color-matrix-image-filters": "^5.2.14",
     "react-native-date-picker": "^4.2.0",

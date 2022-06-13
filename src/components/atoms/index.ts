@@ -26,3 +26,4 @@ export { NextButton } from '../atoms/NextButton/NextButton';
 export { ButtonOnboard } from '../atoms/button-onboard/ButtonOnboard';
 export { PlaceholderImage } from 'src/components/atoms/placeholderImage/PlaceHolderImage';
 export { BackIcon } from 'src/components/atoms/backIcon/BackIcon'
+export { TitleWithUnderLine } from 'src/components/atoms/titleWithUnderLine/TitleWithUnderLine'
