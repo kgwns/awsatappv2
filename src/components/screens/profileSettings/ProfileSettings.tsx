@@ -343,7 +343,8 @@ const customStyle = (theme: CustomThemeType) =>
           marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
           paddingBottom: normalize(10),
           fontFamily: fonts.IBMPlexSansArabic_Bold,
-          flexDirection: 'row'
+          flexDirection: 'row',
+          flexWrap: 'wrap'
       },
       welcome: {
           color: Styles.color.greenishBlue,
