@@ -25,7 +25,8 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     currentTime?: any,
     paused: boolean,
     playerVisible?: boolean,
-    setPlayerDetails?: ( time:any, paused: any) => void; 
+    setPlayerDetails?: ( time:any, paused: any) => void;
+    setMiniPlayerVisible?: (visible: boolean) => void;
 }
 const ArticleDetailImage = ({
     image,

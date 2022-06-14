@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useRef, useState, useEffect} from 'react';
-import {View, StyleSheet, BackHandler, StatusBar} from 'react-native';
+import {View, StyleSheet, BackHandler, StatusBar, AppState} from 'react-native';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors} from 'src/shared/styles/colors';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
@@ -54,6 +54,17 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
       goBack()
     }
   }
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', () => {
+      if (AppState.currentState.match(/inactive|background/)) {  
+        setIsPaused(true)
+      }
+    });
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   useEffect(() => {
     if(videoUrl&&typeof videoUrl==='string') setvideoUrl(videoUrl.trim())

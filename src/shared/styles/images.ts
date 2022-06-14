@@ -17,6 +17,7 @@ import popupImage from 'src/assets/images/popupImage.png'
 
 // Video Controls Icon
 import bottomShadowImg from 'src/assets/images/bottom-vignette.png'
+import topShadowImg from 'src/assets/images/top-vignette.png'
 import playIconWhite from 'src/assets/images/play.png'
 import pauseIconWhite from 'src/assets/images/pause.png'
 
@@ -113,7 +114,8 @@ export enum ImagesName {
   printVersionActiveIcon = 'printVersionActiveIcon',
   printVersionGrayIcon = 'printVersionGrayIcon',
   popupImage = 'popupImage',
-  calendarIcon = 'calendarIcon'
+  calendarIcon = 'calendarIcon',
+  videoCloseIcon = 'videoCloseIcon'
 }
 
 export const images = {
@@ -133,7 +135,8 @@ export const images = {
   popupImage,
   bottomShadowImg,
   playIconWhite,
-  pauseIconWhite
+  pauseIconWhite,
+  topShadowImg
 };
 
 export const darkImages = {

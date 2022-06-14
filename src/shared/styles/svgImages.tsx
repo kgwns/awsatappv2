@@ -311,7 +311,9 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.popupImage:
             return <PopupImage {...props} />    
         case ImagesName.calendarIcon:
-            return <CalendarIcon {...props} /> 
+            return <CalendarIcon {...props} />
+        case ImagesName.videoCloseIcon:
+            return <MenuCloseIconDark {...props} />
         default: return null
     }
 }

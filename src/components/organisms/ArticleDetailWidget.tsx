@@ -10,7 +10,8 @@ interface ArticleDetailWidgetProps {
     currentTime?: any,
     paused: boolean,
     playerVisible?: boolean,
-    setPlayerDetails?: ( time:any, paused: any) => void; 
+    setPlayerDetails?: ( time:any, paused: any) => void;
+    setMiniPlayerVisible?: (visible: boolean) => void; 
 }
 
 const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
