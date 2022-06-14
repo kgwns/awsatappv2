@@ -5,7 +5,7 @@ import { requestArticleDetail, requestArticleSection, requestRelatedArticle } fr
 import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA, REQUEST_ARTICLE_SECTION } from './actionType';
 import { requestArticleDetailFailed, requestArticleDetailSuccess, requestArticleSectionFailed, requestArticleSectionSuccess, requestRelatedArticleSuccess } from './action';
 import { isNonEmptyArray } from 'src/shared/utils';
-import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getArticleImage, getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 
 const parseRichHTML = (htmlContent: []): any[] => {
@@ -36,9 +36,9 @@ const parseRichHTML = (htmlContent: []): any[] => {
   return element
 }
 
-const parseImageData = (field_image: string, field_image_export: string) => {
-  const image = field_image ?? field_image_export
-  return isNonEmptyArray(image) ? getImageUrl(image[0]) : getImageUrl(image)
+const parseImageData = (field_image: string, newPhoto: string) => {
+  const image = isNonEmptyArray(field_image) ? field_image[0] : isNotEmpty(field_image) ? field_image : ''
+  return getArticleImage(image, newPhoto)
 }
 
 const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
@@ -47,11 +47,11 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_image_export, field_news_categories_export, author_resource,created_export }: any) => ({
+        ({ title, body, nid, field_image, field_new_photo, field_news_categories_export, author_resource,created_export }: any) => ({
           body,
           title: isNotEmpty(title) ? decode(title) : '',
           nid,
-          image: parseImageData(field_image, field_image_export),
+          image: parseImageData(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: isNotEmpty(author_resource) ? decode(author_resource) : '',
           created: created_export
