@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   Image,
   ImageBackground,
+  AppState,
 } from 'react-native';
 import {isIOS} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -37,7 +38,7 @@ const VideoPlayerControl = ({
   playerVisible,
   setPlayerDetails,
   isMiniPlayer = false,
-  setMiniPlayerVisible
+  setMiniPlayerVisible,
 }: VideoPlayerControlProp) => {
   const styles = useThemeAwareObject(customStyle);
 
@@ -98,7 +99,8 @@ const VideoPlayerControl = ({
 
   useEffect(() => {
     if (!paused && initialPlay && showMiniPlayer) stopTrackPlayer();
-    if (!paused && !isMiniPlayer) setMiniPlayerVisible && setMiniPlayerVisible(true);
+    if (!paused && !isMiniPlayer)
+      setMiniPlayerVisible && setMiniPlayerVisible(true);
   }, [paused]);
 
   useEffect(() => {
@@ -116,6 +118,17 @@ const VideoPlayerControl = ({
     onSeek(time);
     setPaused(isPaused);
   }, [time]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', () => {
+      if (AppState.currentState.match(/inactive|background/)) {
+        setPaused(true)
+      }
+    });
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   const onScreenTouch = () => {
     if (playerVisible && !isMiniPlayer) {
@@ -169,8 +182,8 @@ const VideoPlayerControl = ({
   };
 
   const closePlayer = () => {
-    setPaused(true)
-    setMiniPlayerVisible && setMiniPlayerVisible(false)
+    setPaused(true);
+    setMiniPlayerVisible && setMiniPlayerVisible(false);
   };
 
   const renderVideo = () => (
@@ -280,7 +293,9 @@ const VideoPlayerControl = ({
             {isLoading && <LoadingState />}
             {showControls && (
               <>
-                {isMiniPlayer && <View style={{flex: 1}}>{renderTopControls()}</View>}
+                {isMiniPlayer && (
+                  <View style={{flex: 1}}>{renderTopControls()}</View>
+                )}
                 <View style={{flex: 1}}>{renderBottomControls()}</View>
               </>
             )}
