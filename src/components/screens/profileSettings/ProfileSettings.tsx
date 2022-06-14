@@ -230,7 +230,7 @@ export const ProfileSettings = () => {
     )
 
   const welcomeView = () => (
-      <Text style={style.title}>
+      <View style={style.title}>
           <Label
               children={CONST_WELCOME}
               style={style.welcome}
@@ -243,7 +243,7 @@ export const ProfileSettings = () => {
               style={style.userName}
               labelType={LabelTypeProp.h1}
           />}
-      </Text>
+      </View>
   );
 
   const goToSignUp = () => {
@@ -343,6 +343,8 @@ const customStyle = (theme: CustomThemeType) =>
           marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
           paddingBottom: normalize(10),
           fontFamily: fonts.IBMPlexSansArabic_Bold,
+          flexDirection: 'row',
+          flexWrap: 'wrap'
       },
       welcome: {
           color: Styles.color.greenishBlue,
