@@ -252,8 +252,9 @@ export const ArticleDetailScreen = ({
   }
 
   const onScroll = (event: any) => {
+    let direction = event.nativeEvent.contentOffset.y > scrollY ? 'down' : 'up';
     setScrollY(event.nativeEvent.contentOffset.y)
-    Number.parseInt(event.nativeEvent.contentOffset.y) > 100 ? setPlayerVisible(true) : setPlayerVisible(false);
+    Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && direction == 'down' ? setPlayerVisible(true) : setPlayerVisible(false);
   }
 
   const onPressBack = () => {
@@ -360,7 +361,7 @@ export const ArticleDetailScreen = ({
           scrollEnabled={scrollEnabled}
         />
         { isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl &&
-            <DraggableVideoPlayer url={playerUrl} setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}  currentTime={currentTime} setPlayerDetails={setPlayerDetails} paused={playerVisible ? paused : true} playerVisible={playerVisible} /> 
+            <DraggableVideoPlayer setMiniPlayerVisible={(visible: boolean) => setPlayerVisible(visible)} url={playerUrl} setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}  currentTime={currentTime} setPlayerDetails={setPlayerDetails} paused={playerVisible ? paused : true} playerVisible={playerVisible} /> 
         }
         <View style={style.bottom} />
         <View style={[style.footer, style.shadowEffect]}>

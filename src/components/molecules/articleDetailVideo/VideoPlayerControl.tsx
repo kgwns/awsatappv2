@@ -17,8 +17,9 @@ import Slider from '@react-native-community/slider';
 import {LoadingState} from 'src/components/atoms';
 import TrackPlayer from 'react-native-track-player';
 import {useAppPlayer} from 'src/hooks';
-import {images} from 'src/shared/styles/images';
+import {images, ImagesName} from 'src/shared/styles/images';
 import {NativeViewGestureHandler} from 'react-native-gesture-handler';
+import {getSvgImages} from 'src/shared/styles/svgImages';
 
 export interface VideoPlayerControlProp {
   url: string;
@@ -27,6 +28,7 @@ export interface VideoPlayerControlProp {
   playerVisible?: boolean;
   isMiniPlayer?: boolean;
   setPlayerDetails?: (time: any, paused: any) => void;
+  setMiniPlayerVisible?: (visible: boolean) => void;
 }
 const VideoPlayerControl = ({
   url,
@@ -35,6 +37,7 @@ const VideoPlayerControl = ({
   playerVisible,
   setPlayerDetails,
   isMiniPlayer = false,
+  setMiniPlayerVisible
 }: VideoPlayerControlProp) => {
   const styles = useThemeAwareObject(customStyle);
 
@@ -164,6 +167,11 @@ const VideoPlayerControl = ({
     clearTimeout(tapActionTimeout);
   };
 
+  const closePlayer = () => {
+    setPaused(true)
+    setMiniPlayerVisible && setMiniPlayerVisible(false)
+  };
+
   const renderVideo = () => (
     <Video
       onEnd={onEnd}
@@ -216,10 +224,29 @@ const VideoPlayerControl = ({
     </ImageBackground>
   );
 
+  const renderTopControls = () => (
+    <ImageBackground
+      source={images.topShadowImg}
+      style={[styles.topContainer]}
+      imageStyle={[styles.vignette]}>
+      <View style={styles.closeButtonContainer}>{renderCloseButton()}</View>
+    </ImageBackground>
+  );
+
   const renderTimer = () => (
     <View style={styles.control}>
       <Text style={styles.timerText}>{convertSecondsToHMS(currentTime)}</Text>
     </View>
+  );
+
+  const renderCloseButton = () => (
+    <TouchableHighlight
+      underlayColor="transparent"
+      activeOpacity={0.3}
+      onPress={closePlayer}
+      style={styles.control}>
+      {getSvgImages({name: ImagesName.videoCloseIcon, width: 13, height: 13})}
+    </TouchableHighlight>
   );
 
   const renderPlaypause = () => {
@@ -229,9 +256,7 @@ const VideoPlayerControl = ({
       <TouchableHighlight
         underlayColor="transparent"
         activeOpacity={0.3}
-        onPress={() => {
-          onPaused();
-        }}
+        onPress={onPaused}
         style={styles.control}>
         <Image source={source} />
       </TouchableHighlight>
@@ -253,7 +278,10 @@ const VideoPlayerControl = ({
           <View style={styles.videoControls}>
             {isLoading && <LoadingState />}
             {showControls && (
-              <View style={{flex: 1}}>{renderBottomControls()}</View>
+              <>
+                {isMiniPlayer && <View style={{flex: 1}}>{renderTopControls()}</View>}
+                <View style={{flex: 1}}>{renderBottomControls()}</View>
+              </>
             )}
           </View>
         </View>
@@ -298,12 +326,17 @@ const customStyle = (theme: CustomThemeType) =>
     },
     control: {
       paddingHorizontal: isIOS ? 20 : 15,
-      paddingBottom: 15,
+      paddingVertical: 15,
     },
     column: {
       flex: 1,
       alignSelf: 'stretch',
       justifyContent: 'flex-end',
+    },
+    topContainer: {
+      flex: 1,
+      alignSelf: 'stretch',
+      justifyContent: 'flex-start',
     },
     progrsBarSection: {
       width: '100%',
@@ -316,6 +349,12 @@ const customStyle = (theme: CustomThemeType) =>
       height: 15,
     },
     directionStyle: {
-      direction: 'ltr'
+      direction: 'ltr',
+    },
+    closeButtonContainer: {
+      flexDirection: 'row',
+      alignSelf: 'stretch',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
     },
   });
