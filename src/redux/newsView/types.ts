@@ -31,6 +31,7 @@ export interface NewsViewListItemType {
   created_export: Date;
   author_resource: string;
   isBookmarked: boolean;
+  field_new_photo: string;
 }
 
 export interface Pager {

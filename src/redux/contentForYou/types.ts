@@ -93,6 +93,7 @@ export type ArticlesListItemType = {
   created_export: string,
   author_resource: string,
   type: string
+  field_new_photo: string;
 };
 
 export type FavouriteListState = {

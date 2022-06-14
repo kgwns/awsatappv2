@@ -8,7 +8,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
-import { getImageUrl, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getArticleImage, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import {flatListUniqueKey} from 'src/constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -273,7 +273,7 @@ export const ContentForYou = () => {
                 body: item.body,
                 title: item.title,
                 nid: item.nid,
-                image: getImageUrl(item.field_image),
+                image: getArticleImage(item.field_image, item.field_new_photo),
                 news_categories: newsCategory,
                 // author: item.author_resource, //enable when author name required in footer
                 created: item.created_export,
@@ -285,7 +285,7 @@ export const ContentForYou = () => {
                 formatArticleSectionData.push(formattedData)
             }else{
                 const newsCategory = isNonEmptyArray(favouriteArticlesData[i].field_news_categories_export) ? favouriteArticlesData[i].field_news_categories_export[0] : {} as NewsCategoriesType
-                formattedData.image = favouriteArticlesData[i].field_image;
+                formattedData.image = getArticleImage(favouriteArticlesData[i].field_image, favouriteArticlesData[i].field_new_photo);
                 formattedData.tagName= newsCategory?.title;
                 formatShortArticleData.push(formattedData)
             }

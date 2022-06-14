@@ -72,6 +72,16 @@ import {
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
+const getArticleImage = (fieldImage: any, newPhoto: any) : String => {
+  let image = fieldImage
+
+  if(isNotEmpty(newPhoto)) {
+    image = newPhoto
+  }
+
+  return getImageUrl(image)
+}
+
 const formatMainSectionBlockData = (response: any) => {
   let formattedData: MainSectionBlockType[] = []
   if (response) {
@@ -79,11 +89,11 @@ const formatMainSectionBlockData = (response: any) => {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories,field_new_resource,created_export,
-        type, blockname, entityqueue_relationship_position }: any) => ({
+        type, blockname, entityqueue_relationship_position, field_new_photo }: any) => ({
           body,
           title,
           nid,
-          image: getImageUrl(field_image),
+          image: getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories) ? field_news_categories[0] : field_news_categories,
           author: field_new_resource,
           created: created_export,
@@ -150,11 +160,11 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export }: any) => ({
+        ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export, field_new_photo }: any) => ({
           body,
           title: isNotEmpty(title) ? decode(title) : '',
           nid,
-          image: getImageUrl(field_image),
+          image: getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: '', //Need to hide author name in UI
           created: created_export,
@@ -210,16 +220,19 @@ const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
 }
 
 const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
+console.log("🚀 ~ file: sagas.ts ~ line 223 ~ response", response)
   let formattedEditorsChoiceData: EditorsChoiceDataType[] = []
   if (response) {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedEditorsChoiceData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export, author_resource, created_export, field_news_categories, field_publication_date, field_new_resource, type, blockname, entityqueue_relationship_position }: any) => ({
+        ({ title, body, nid, field_image, field_news_categories_export, author_resource, created_export, field_news_categories, field_publication_date, field_new_resource, type, blockname, entityqueue_relationship_position,
+          field_new_photo
+        }: any) => ({
           body,
           title,
           nid,
-          image: getImageUrl(field_image),
+          image: getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: '', //Need to hide author name in UI
           created: created_export,
@@ -410,11 +423,11 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
       const rows = response.rows
       responseData.spotlightArticleSectionData = rows.map(
         ({ nid, title, body, field_image, view_node,
-          field_news_categories_export, created_export, author_resource }: any) => ({
+          field_news_categories_export, created_export, author_resource, field_new_photo }: any) => ({
             nid: nid,
             title: isNotEmpty(title) ? decode(title) : '',
             body: body,
-            image: getImageUrl(field_image),
+            image: getArticleImage(field_image, field_new_photo),
             view_node: view_node,
             news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             created: created_export,

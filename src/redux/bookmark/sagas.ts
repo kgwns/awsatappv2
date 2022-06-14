@@ -16,7 +16,7 @@ import {
 } from './action';
 import { isNonEmptyArray, joinArray } from 'src/shared/utils';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
-import { decodeHTMLTags, getImageUrl } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getArticleImage, getImageUrl } from 'src/shared/utils/utilities';
 import { sendUserEventTracking } from 'src/services';
 import { TrackingEventType } from 'src/services/eventTrackService';
 
@@ -53,7 +53,7 @@ const populateBookmarkDetail = (response: any): any => {
           body: item.body_export,
           title: item.title,
           nid: item.nid,
-          image: isNonEmptyArray(item.field_image_export) ? getImageUrl(item.field_image_export[0]) : '',
+          image: getArticleImage(isNonEmptyArray(item.field_image_export) ? item.field_image_export[0] : '', item.field_new_photo),
           view_node: item.view_node,
           news_categories: isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0] : item.field_news_categories_export,
           tag_topics: isNonEmptyArray(item.field_tags_topics_export) ? item.field_tags_topics_export[0] : item.field_tags_topics_export,
