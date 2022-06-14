@@ -50,6 +50,7 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   caption: string,
   subtitle: string,
   jwplayerId: string,
+  richHTML?: HTMLElementParseStore[],
 }
 
 export interface RelatedArticleDataType extends GeneralArticleFields { 
@@ -156,3 +157,94 @@ export type ArticleDetailAction =
   | RequestArticleSectionType
   | ArticleSectionFailedType
   | ArticleSectionSuccessType
+
+export enum RichHTMLType {
+  QUOTE = 'quote',
+  CONTENT = 'content',
+  DESCRIPTION = 'description',
+  OPINION = 'opinion',
+  READ_ALSO = 'read_also',
+  NUMBERS = 'numbers',
+}
+
+export type ArticleQuoteDataType = {
+  id: string
+  type: string
+  bundle: string
+  description: string
+  title: string
+}
+
+export type ArticleContentDataType = {
+  id: string
+  type: string
+  bundle: string
+  content: string
+  title: string
+}
+
+export type ArticleDescriptionDataType = {
+  id: string
+  type: string
+  bundle: string
+  description: string
+}
+
+export type ArticleOpinionDataType = {
+  id: string
+  type: string
+  bundle: string
+  opinion: string
+}
+
+export type ArticleReadAlsoDataType = {
+  id: string
+  type: string
+  bundle: string
+  related_content: [string],
+  title: string
+}
+
+export type ArticleNumberDataType = {
+  id: string
+  bundle: string
+  description: string
+  title: string
+}
+
+export type ArticleQuoteType = {
+  type: RichHTMLType.QUOTE
+  data: ArticleQuoteDataType
+}
+
+export type ArticleContentType = {
+  type: RichHTMLType.CONTENT
+  data: ArticleContentDataType
+}
+
+export type ArticleDescriptionType = {
+  type: RichHTMLType.DESCRIPTION
+  data: ArticleDescriptionDataType
+}
+
+export type ArticleOpinionType = {
+  type: RichHTMLType.OPINION
+  data: ArticleOpinionDataType
+}
+
+export type ArticleReadAlsoType = {
+  type: RichHTMLType.READ_ALSO
+  data: ArticleReadAlsoDataType
+}
+
+export type ArticleNumberType = {
+  type: RichHTMLType.NUMBERS
+  data: ArticleNumberDataType
+}
+
+export type HTMLElementParseStore = ArticleQuoteType
+| ArticleContentType
+| ArticleDescriptionType
+| ArticleOpinionType
+| ArticleReadAlsoType
+| ArticleNumberType

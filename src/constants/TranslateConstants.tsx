@@ -25,6 +25,7 @@ export enum TranslateKey {
     DRAWER_PDF_ARCHIVE,
     OPINION_COMBO_TITLE,
     OPINION_ARTICLE_TITLE,
+    RICH_HTML_FACTS,
 }
 
 export const TranslateConstants = ({
@@ -79,6 +80,8 @@ export const TranslateConstants = ({
             return t('latestNewsTab.sectionWriters.headerLeft')
         case TranslateKey.OPINION_ARTICLE_TITLE:
             return t('opinion.opinionArticles')
+        case TranslateKey.RICH_HTML_FACTS:
+            return t('richHTMLContent.facts')
         default: return ''
     }
 }

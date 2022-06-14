@@ -335,5 +335,8 @@ export const arabic = {
   podcastHome: {
     listen_to_podcast: 'استمع الي البودكاست ',
     allEpisodes: 'كل الحلقات'
+  },
+  richHTMLContent: {
+    facts: 'حقائق'
   }
 }

@@ -12,7 +12,7 @@ import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import { HtmlRenderer } from 'src/components/atoms'
 import type { MixedStyleRecord, MixedStyleDeclaration } from '@native-html/transient-render-engine';
-import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/articleDetail/types'
+import { ArticleDetailDataType, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useAppCommon, useBookmark, useLogin } from 'src/hooks'
@@ -28,6 +28,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import { BackIcon } from 'src/components/atoms'
 import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types'
 import { fetchVideoDetailInfo } from 'src/services/VideoServices'
+import { RenderContentElement, RenderDescriptionElement, RenderNumberElement, RenderOpinionElement, RenderQuoteElement, RenderReadAlsoElement } from './components/ArticleDetailRichContent'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -306,9 +307,41 @@ export const ArticleDetailScreen = ({
     </View>
   )
 
+  const renderRichHTMLContent = (articleItem: ArticleDetailDataType) => {
+    const htmlContent = articleItem.richHTML
+    if (!isNonEmptyArray(htmlContent)) {
+      return null
+    }
+
+    return (
+      <View style={{padding: 0.04 * screenWidth}}>
+        {
+          htmlContent?.map((item) => {
+            if(!item || !item.type) return null
+
+            switch (item.type) {
+              case RichHTMLType.QUOTE:
+                return <RenderQuoteElement paragraphInfo={item.data} />
+              // case RichHTMLType.CONTENT:
+              //   return RenderContentElement(item.data)
+              // case RichHTMLType.DESCRIPTION:
+              //   return <RenderDescriptionElement paragraphInfo={item.data}  />
+              // case RichHTMLType.OPINION:
+              //   return RenderOpinionElement(item.data)
+              // case RichHTMLType.READ_ALSO:
+              //   return RenderReadAlsoElement(item.data)
+              case RichHTMLType.NUMBERS:
+                return <RenderNumberElement paragraphInfo={item.data}  />
+              default: return null
+            }
+          })
+     }
+    </View>
+    )
+  }
+
   const renderItem = ({ item, index }: { item: ArticleDetailDataType, index: number }) => {
     const relatedArticles = relatedArticleState.slice(index * 2, (index * 2) + 2)
-    const showBackArrow = (Number.parseInt(JSON.stringify(scrollY)) < 50)
 
     return (
       <View>
@@ -322,6 +355,7 @@ export const ArticleDetailScreen = ({
             setPlayerDetails={setPlayerDetails}
           />
           {articleHtmlContent(index)}
+          {index == 0 && renderRichHTMLContent(item)}
           <Divider style={style.divider} />
         </>
         }
