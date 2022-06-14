@@ -12,6 +12,7 @@ export interface ArticleVideoProps {
   paused: boolean;
   playerVisible?: boolean;
   setPlayerDetails?: (time: any, paused: any) => void;
+  setMiniPlayerVisible?: (visible: boolean) => void;
 }
 const ArticleDetailVideo = ({mediaId, ...props}: ArticleVideoProps) => {
   const styles = useThemeAwareObject(customStyle);
@@ -54,6 +55,7 @@ const ArticleDetailVideo = ({mediaId, ...props}: ArticleVideoProps) => {
           currentTime={props?.currentTime}
           paused={props?.paused}
           playerVisible={props?.playerVisible}
+          setMiniPlayerVisible={props?.setMiniPlayerVisible}
         />
       )}
     </View>

@@ -64,6 +64,7 @@ export const ArticleDetailScreen = ({
   const [scrollY, setScrollY] = useState(new Animated.Value(0))
   const [playerUrl, setPlayerUrl] = useState<string>();
   const [playerVisible, setPlayerVisible] = useState<boolean>(false);
+  const [showVideoMiniPlayer, setShowVideoMiniPlayer] = useState<boolean>(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [paused, setPaused] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true);
@@ -253,9 +254,8 @@ export const ArticleDetailScreen = ({
   }
 
   const onScroll = (event: any) => {
-    let direction = event.nativeEvent.contentOffset.y > scrollY ? 'down' : 'up';
     setScrollY(event.nativeEvent.contentOffset.y)
-    Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && direction == 'down' ? setPlayerVisible(true) : setPlayerVisible(false);
+    Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer ? setPlayerVisible(true) : setPlayerVisible(false);
   }
 
   const onPressBack = () => {
@@ -353,6 +353,7 @@ export const ArticleDetailScreen = ({
             paused={playerVisible ? true : paused}
             playerVisible={playerVisible}
             setPlayerDetails={setPlayerDetails}
+            setMiniPlayerVisible={(visible: boolean) => setShowVideoMiniPlayer(visible)}
           />
           {articleHtmlContent(index)}
           {index == 0 && renderRichHTMLContent(item)}
@@ -378,6 +379,11 @@ export const ArticleDetailScreen = ({
     setPaused(paused)
   }
 
+  const closeMiniPlayer = (visible: boolean) => {
+    setPlayerVisible(visible);
+    setShowVideoMiniPlayer(visible)
+  }
+
   return (
     <ScreenContainer edge={edge} isLoading={isLoading} 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
@@ -395,7 +401,7 @@ export const ArticleDetailScreen = ({
           scrollEnabled={scrollEnabled}
         />
         { isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl &&
-            <DraggableVideoPlayer setMiniPlayerVisible={(visible: boolean) => setPlayerVisible(visible)} url={playerUrl} setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}  currentTime={currentTime} setPlayerDetails={setPlayerDetails} paused={playerVisible ? paused : true} playerVisible={playerVisible} /> 
+            <DraggableVideoPlayer setMiniPlayerVisible={closeMiniPlayer} url={playerUrl} setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}  currentTime={currentTime} setPlayerDetails={setPlayerDetails} paused={playerVisible ? paused : true} playerVisible={playerVisible} /> 
         }
         <View style={style.bottom} />
         <View style={[style.footer, style.shadowEffect]}>

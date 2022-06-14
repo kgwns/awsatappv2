@@ -98,12 +98,13 @@ const VideoPlayerControl = ({
 
   useEffect(() => {
     if (!paused && initialPlay && showMiniPlayer) stopTrackPlayer();
+    if (!paused && !isMiniPlayer) setMiniPlayerVisible && setMiniPlayerVisible(true);
   }, [paused]);
 
   useEffect(() => {
     if ((playerVisible && !isMiniPlayer) || (!playerVisible && isMiniPlayer)) {
-      setPlayerDetails && setPlayerDetails(currentTime, paused);
       setPaused(true);
+      setPlayerDetails && setPlayerDetails(currentTime, paused);
     }
     if (playerVisible && !isMiniPlayer) {
       setShowControls(false);
@@ -257,7 +258,7 @@ const VideoPlayerControl = ({
         underlayColor="transparent"
         activeOpacity={0.3}
         onPress={onPaused}
-        style={styles.control}>
+        style={styles.playButtoncontainer}>
         <Image source={source} />
       </TouchableHighlight>
     );
@@ -328,6 +329,10 @@ const customStyle = (theme: CustomThemeType) =>
       paddingHorizontal: isIOS ? 20 : 15,
       paddingVertical: 15,
     },
+    playButtoncontainer: {
+      paddingHorizontal: isIOS ? 20 : 15,
+      paddingBottom: 15,
+    },
     column: {
       flex: 1,
       alignSelf: 'stretch',
@@ -342,7 +347,7 @@ const customStyle = (theme: CustomThemeType) =>
       width: '100%',
       justifyContent: 'flex-end',
       paddingHorizontal: isIOS ? 15 : 0,
-      paddingVertical: 20,
+      paddingVertical: 15,
     },
     sliderStyle: {
       width: '100%',
