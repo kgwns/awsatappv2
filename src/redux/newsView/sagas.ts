@@ -24,7 +24,7 @@ import {
 } from './actionTypes';
 import {fetchNewsViewApi} from 'src/services/newsViewService';
 import { isNonEmptyArray } from 'src/shared/utils';
-import { getImageUrl } from 'src/shared/utils/utilities';
+import { getArticleImage } from 'src/shared/utils/utilities';
 import { LatestArticleDataType } from '../latestNews/types';
 
 export const formatTopListToLatestArticleType = (response: any): LatestArticleDataType[] => {
@@ -33,11 +33,13 @@ export const formatTopListToLatestArticleType = (response: any): LatestArticleDa
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export }: any) => ({
+        ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export,
+          field_new_photo
+        }: any) => ({
           body,
           title,
           nid,
-          image: getImageUrl(field_image),
+          image: getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: author_resource,
           created: created_export,

@@ -58,6 +58,16 @@ export const getImageUrl = (imageURL: string) => {
   return isValidHttpUrl(imageURL) ? imageURL : BASE_URL + imageURL;
 };
 
+export const getArticleImage = (fieldImage: any, newPhoto: any) : string => {
+  let image = fieldImage ?? ''
+
+  if(isNotEmpty(newPhoto)) {
+    image = newPhoto
+  }
+
+  return getImageUrl(image)
+}
+
 export const decodeHTMLTags = (description: string) : string => {
   const regex = /(<([^>]+)>)/gi; // to find the html tags in the description ex: <p>, <br>, etc.,
   const dataInfo = isNotEmpty(description) ? description.replace(regex, '').trim() : '';

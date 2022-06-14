@@ -11,10 +11,10 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {NewsViewListItemType} from 'src/redux/newsView/types';
 import {
   decodeHTMLTags,
-  getImageUrl,
   isNotEmpty,
   dateTimeAgo,
   TimeIcon,
+  getArticleImage,
 } from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -97,7 +97,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   const renderArticleImage = (item: NewsViewListItemType) => (
     <View style={isTab ? style.tabImageContainer : style.imageContainer}>
       <Image
-        url={getImageUrl(item.field_image)}
+        url={getArticleImage(item.field_image, item.field_new_photo)}
         fallback
         style={style.image}
         resizeMode={ImageResize.COVER}

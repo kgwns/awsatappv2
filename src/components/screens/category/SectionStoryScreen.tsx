@@ -16,6 +16,7 @@ import {
   isNotEmpty,
   dateTimeAgo,
   TimeIcon,
+  getArticleImage,
 } from 'src/shared/utils/utilities';
 import {ScreensConstants} from 'src/constants';
 import { useNavigation} from '@react-navigation/native';
@@ -30,8 +31,6 @@ import { formatTopListToLatestArticleType } from 'src/redux/newsView/sagas';
 import { fetchVideoListApi } from 'src/services/videoListService';
 import { formatVideoData } from 'src/redux/videoList/sagas';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
-import { getSvgImages } from 'src/shared/styles/svgImages';
-import { ImagesName } from 'src/shared/styles';
 import { decode } from 'html-entities';
 import { fonts } from 'src/shared/styles/fonts';
 
@@ -297,7 +296,7 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
       <>
         {isObjectNonEmpty(bannerData) && (
           <ImageArticle
-            image={getImageUrl(bannerData.field_image)}
+            image={getArticleImage(bannerData.field_image, bannerData.field_new_photo)}
             title={isNotEmpty(bannerData.title) ? decode(bannerData.title) : ''}
             body={bannerData.body}
             author={''} //No need to author name

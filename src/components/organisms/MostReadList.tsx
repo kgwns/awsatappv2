@@ -8,7 +8,7 @@ import {Label, LabelTypeProp} from 'src/components/atoms';
 import {MOST_READ} from 'src/constants/SharedConstants';
 import { Styles } from 'src/shared/styles';
 import {normalize} from 'src/shared/utils';
-import {dateTimeAgo, getImageUrl, isNonEmptyArray, TimeIcon} from 'src/shared/utils/utilities';
+import {dateTimeAgo, getArticleImage, isNonEmptyArray, TimeIcon} from 'src/shared/utils/utilities';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLogin } from 'src/hooks';
@@ -126,7 +126,7 @@ const MostReadList = ({
     enableTag && (item.tagName = (index + 1).toString())
     item.tagStyle = {marginLeft: normalize(20)};
     item.tagLabelType = LabelTypeProp.p3;
-    item.image = item.image ? item.image : getImageUrl(item.field_image);
+    item.image = item.image ? item.image : getArticleImage(item.field_image, item.field_new_photo);
     if(flag) item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : '';
     item.flagColor = Styles.color.greenishBlue;
     item.barColor = Styles.color.greenishBlue;
