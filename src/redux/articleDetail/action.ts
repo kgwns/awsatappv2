@@ -1,4 +1,4 @@
-import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_ARTICLE_SECTION_SUCCESS, REQUEST_ARTICLE_SECTION_FAILED } from "./actionType"
+import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_ARTICLE_SECTION_SUCCESS, REQUEST_ARTICLE_SECTION_FAILED, REQUEST_RICH_ARTICLE_READ_ALSO_SUCCESS, REQUEST_RICH_ARTICLE_READ_ALSO_FAILED, REQUEST_RICH_ARTICLE_CONTENT_SUCCESS, REQUEST_RICH_ARTICLE_CONTENT_FAILED, REQUEST_RICH_ARTICLE_OPINION_SUCCESS, REQUEST_RICH_ARTICLE_OPINION_FAILED } from "./actionType"
 import {
   ArticleDetailBodyGet,
   ArticleDetailFailedPayload,
@@ -10,6 +10,14 @@ import {
   ArticleSectionFailedType,
   ArticleSectionSuccessPayload,
   ArticleSectionSuccessType,
+  FetchRichHTMLOpinionsBundleFailedPayloadtype,
+  FetchRichHTMLOpinionsBundleFailedType,
+  FetchRichOpinionsBundleSuccessPayloadType,
+  FetchRichOpinionsBundleSuccessType,
+  GetRichArticleReadAlsoErrorType,
+  GetRichArticleReadAlsoFailedBody,
+  GetRichArticleReadAlsoSuccessBody,
+  GetRichArticleReadAlsoSuccessType,
   RelatedArticleBodyGet,
   RelatedArticleFailedPayload,
   RelatedArticleFailedType,
@@ -17,7 +25,11 @@ import {
   RelatedArticleSuccessType,
   RequestArticleDetailType,
   RequestArticleSectionType,
-  RequestRelatedArticleType
+  RequestRelatedArticleType,
+  RichArticleContentFailedPayload,
+  RichArticleContentFailedType,
+  RichArticleContentSuccessPayload,
+  RichArticleContentSuccessType
 } from "./types"
 
 export const requestArticleDetail = (
@@ -109,6 +121,61 @@ export const requestArticleSectionFailed = (
   };
 };
 
+export const requestRichArticleReadAlsoSuccessType = (
+  payload: GetRichArticleReadAlsoSuccessBody
+): GetRichArticleReadAlsoSuccessType => {
+  return {
+    type: REQUEST_RICH_ARTICLE_READ_ALSO_SUCCESS,
+    payload
+  }
+}
+
+export const requestRichArticleReadAlsoFailedType = (
+  payload: GetRichArticleReadAlsoFailedBody
+): GetRichArticleReadAlsoErrorType => {
+  return {
+    type: REQUEST_RICH_ARTICLE_READ_ALSO_FAILED,
+    payload
+  }
+}
+
+
+export const requestRichArticleContentBundleSuccessType = (
+  payload: RichArticleContentSuccessPayload
+): RichArticleContentSuccessType => {
+  return {
+    type: REQUEST_RICH_ARTICLE_CONTENT_SUCCESS,
+    payload
+  }
+}
+
+export const requestRichArticleContentBundleFailedType = (
+  payload: RichArticleContentFailedPayload
+): RichArticleContentFailedType => {
+  return {
+    type: REQUEST_RICH_ARTICLE_CONTENT_FAILED,
+    payload
+  }
+}
+
+export const fetchRichOpinionsBundleSuccess = (
+  payload: FetchRichOpinionsBundleSuccessPayloadType,
+): FetchRichOpinionsBundleSuccessType => {
+  return {
+    type: REQUEST_RICH_ARTICLE_OPINION_SUCCESS,
+    payload,
+  };
+};
+
+export const fetchRichOpinionsBundleFailed = (
+  payload: FetchRichHTMLOpinionsBundleFailedPayloadtype,
+): FetchRichHTMLOpinionsBundleFailedType => {
+  return {
+    type: REQUEST_RICH_ARTICLE_OPINION_FAILED,
+    payload,
+  };
+};
+
 
 export const homeActions = {
   requestArticleDetail,
@@ -120,5 +187,7 @@ export const homeActions = {
   emptyData,
   requestArticleSection,
   requestArticleSectionSuccess,
-  requestArticleSectionFailed
+  requestArticleSectionFailed,
+  requestRichArticleReadAlsoSuccessType,
+  requestRichArticleReadAlsoFailedType,
 };

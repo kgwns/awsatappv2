@@ -1,12 +1,70 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
-import { ArticleDetailSuccessPayload, ArticleSectionSuccessPayload, RelatedArticleBodyGet, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestArticleSectionType, RequestRelatedArticleType, RichHTMLType } from './types';
+import { ArticleDetailSuccessPayload, ArticleSectionSuccessPayload, FetchRichOpinionsBundleSuccessPayloadType, FetchRichOpinionsBundleType, GetRichArticleReadAlsoBody, RelatedArticleBodyGet, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestArticleSectionType, RequestRelatedArticleType, RequestRichArticleContentBundleType, RichHTMLOpinionDataType, RichHTMLType } from './types';
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService';
-import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA, REQUEST_ARTICLE_SECTION } from './actionType';
-import { requestArticleDetailFailed, requestArticleDetailSuccess, requestArticleSectionFailed, requestArticleSectionSuccess, requestRelatedArticleSuccess } from './action';
+import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_RICH_ARTICLE_READ_ALSO, REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION } from './actionType';
+import { requestArticleDetailFailed, requestArticleDetailSuccess, requestArticleSectionFailed, requestArticleSectionSuccess, requestRelatedArticleSuccess, requestRichArticleReadAlsoSuccessType, requestRichArticleReadAlsoFailedType, requestRichArticleContentBundleFailedType, requestRichArticleContentBundleSuccessType, fetchRichOpinionsBundleSuccess, fetchRichOpinionsBundleFailed } from './action';
 import { isNonEmptyArray } from 'src/shared/utils';
-import { getArticleImage, getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty, joinArray, getArticleImage } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
+import { getBookMarkDetailInfoService } from 'src/services/bookmarkService';
+import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService';
+
+const parseRichArticleReadAlso = (response: any) => {
+  let readAlsoData = []
+
+  if (isNonEmptyArray(response)) {
+    readAlsoData = response.map(
+      ({ title, nid
+      }: any) => ({
+        title,
+        nid
+      })
+    )
+  }
+
+  return readAlsoData
+}
+
+const parseRichArticleContentBundleSuccess = (response: any) => {
+  let richArticleContentBundleData = []
+
+  if (response && isNonEmptyArray(response.rows)) {
+      const rows = response.rows
+      richArticleContentBundleData = rows.map(
+        ({ title, body_export, nid_export, field_image_export,
+          field_new_photo_export, field_new_photo_titles,
+         }: any) => ({
+            body: body_export,
+            title: isNotEmpty(title) ? decode(decodeHTMLTags(title)): '',
+            nid: nid_export,
+            image: getArticleImageAndType(field_image_export, field_new_photo_export, field_new_photo_titles).image,
+          })
+      );
+    }
+  return richArticleContentBundleData
+}
+
+const parseOpinionBundleSuccess = (response: any) => {
+  let richOpinionData: RichHTMLOpinionDataType[] = []
+
+  if (response && isNonEmptyArray(response.rows)) {
+    const rows = response.rows
+    richOpinionData = rows.map(
+      ({ title, nid_export, writer
+      }: any) => ({
+        title: isNotEmpty(title) ? decode(decodeHTMLTags(title)) : '',
+        nid: nid_export,
+        image: isNonEmptyArray(writer) ? writer[0].opinion_writer_photo : '',
+        name: isNonEmptyArray(writer) ? writer[0].name : '',
+        writerId: isNonEmptyArray(writer) ? writer[0].id : '',
+      })
+    );
+  }
+
+
+  return richOpinionData
+}
 
 const parseRichHTML = (htmlContent: []): any[] => {
   let element: any[] = []
@@ -16,7 +74,7 @@ const parseRichHTML = (htmlContent: []): any[] => {
   }
  
   element = htmlContent.map((item: any) => {
-    switch (item.bundle) {
+    switch (item.bundle || '') {
       case RichHTMLType.QUOTE:
         return { type: RichHTMLType.QUOTE, data: item }
       case RichHTMLType.CONTENT:
@@ -177,6 +235,42 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
     );
     const response = parseArticleDetailSuccess(payload)
     yield put(requestArticleDetailSuccess(response));
+
+    if (isNonEmptyArray(response.articleDetailData) && isNonEmptyArray(response.articleDetailData[0].richHTML)) {
+      //Read Also Bundle
+      const readAlsoElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type == RichHTMLType.READ_ALSO)
+      if (isNonEmptyArray(readAlsoElement) && isNonEmptyArray(readAlsoElement[0].data.related_content)) {
+        const nidList = joinArray(readAlsoElement[0].data.related_content, '+')
+        yield call(
+          getRichReadAlsoInfo,
+          {nid: nidList}
+        )
+      }
+
+
+      //Content Also Bundle
+      const contentElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type == RichHTMLType.CONTENT)
+      if (isNonEmptyArray(contentElement) && contentElement[0].data.content) {
+        yield call(
+          fetchRichHTMLContentBundle, {
+          type: REQUEST_RICH_ARTICLE_CONTENT,
+          payload: { nid: contentElement[0].data.content }
+        }
+        )
+      }
+
+      //Opinion Bundle
+      const opinionElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type == RichHTMLType.OPINION)
+      if (isNonEmptyArray(opinionElement) && opinionElement[0].data.opinion) {
+        yield call(
+          fetchRichHTMLOpinionsBundle, {
+          type: REQUEST_RICH_ARTICLE_OPINION,
+          payload: { nid: parseInt(opinionElement[0].data.opinion) }
+        }
+        )
+      }
+    }
+
     if (isNonEmptyArray(response.articleDetailData)) {
       const tid = isObjectNonEmpty(response.articleDetailData[0].tag_topics) ? response.articleDetailData[0].tag_topics.id : ''
       const nid = isObjectNonEmpty(response.articleDetailData[0].news_categories) ? response.articleDetailData[0].news_categories.id : ''
@@ -259,12 +353,65 @@ export function* emptyData() {
   emptyData();
 }
 
+export function* getRichReadAlsoInfo(action: any) {
+  try {
+    const payload: { rows: any[], pager: object } = yield call(
+      getBookMarkDetailInfoService,
+      action
+    );
+
+    const response = parseRichArticleReadAlso(payload)
+    yield put(requestRichArticleReadAlsoSuccessType(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestRichArticleReadAlsoFailedType({ error: errorMessage.message }));
+    }
+  }
+}
+
+export function* fetchRichHTMLContentBundle(action: RequestRichArticleContentBundleType) {
+  try {
+    const payload: { rows: any[], pager: object } = yield call(
+      requestArticleDetail,
+      action.payload
+    );
+    const response = parseRichArticleContentBundleSuccess(payload)
+    yield put(requestRichArticleContentBundleSuccessType({ contentBundleData: response }));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestRichArticleContentBundleFailedType({ error: errorMessage.message }));
+    }
+  }
+}
+
+export function* fetchRichHTMLOpinionsBundle(action: FetchRichOpinionsBundleType) {
+  try {
+    const payload: FetchRichOpinionsBundleSuccessPayloadType = yield call(
+      requestOpinionArticleDetailAPI,
+      action.payload,
+    );
+    const response = parseOpinionBundleSuccess(payload)
+    yield put(fetchRichOpinionsBundleSuccess({ opinionData: response }));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(fetchRichOpinionsBundleFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
 export function* articleDetailSaga() {
   yield all([
     takeLatest(REQUEST_ARTICLE_DETAIL, fetchArticleDetail),
     takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle),
     takeLatest(REQUEST_ARTICLE_SECTION,fetchArticleSection),
-    takeLatest(EMPTY_DATA, emptyData)
+    takeLatest(EMPTY_DATA, emptyData),
+    takeLatest(REQUEST_RICH_ARTICLE_READ_ALSO, getRichReadAlsoInfo),
   ]);
 }
 

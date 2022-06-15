@@ -26,6 +26,9 @@ export enum TranslateKey {
     OPINION_COMBO_TITLE,
     OPINION_ARTICLE_TITLE,
     RICH_HTML_FACTS,
+    CONST_MORE,
+    CONST_READ_ARTICLE,
+    RICH_OPINION_TITLE,
 }
 
 export const TranslateConstants = ({
@@ -82,6 +85,12 @@ export const TranslateConstants = ({
             return t('opinion.opinionArticles')
         case TranslateKey.RICH_HTML_FACTS:
             return t('richHTMLContent.facts')
+        case TranslateKey.CONST_MORE:
+            return t('common.more')
+        case TranslateKey.CONST_READ_ARTICLE:
+            return t('richHTMLContent.readArticle')
+        case TranslateKey.RICH_OPINION_TITLE:
+            return t('richHTMLContent.opinionTitle')
         default: return ''
     }
 }

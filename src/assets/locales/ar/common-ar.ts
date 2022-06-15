@@ -319,6 +319,7 @@ export const arabic = {
     alert: 'للتأكيد',
     noInternetConnection: 'لا يوجد اتصال بالإنترنت',
     somthingWentWrong: 'هناك خطأ ما',
+    more: 'المزيد',
   },
   games: {
     games: 'ألعاب',
@@ -337,6 +338,8 @@ export const arabic = {
     allEpisodes: 'كل الحلقات'
   },
   richHTMLContent: {
-    facts: 'حقائق'
+    facts: 'حقائق',
+    readArticle: 'اقرأ المقالة',
+    opinionTitle: 'الرأي',
   }
 }
