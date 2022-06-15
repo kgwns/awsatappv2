@@ -308,7 +308,7 @@ export const ArticleDetailScreen = ({
   )
 
   const renderRichHTMLContent = (articleItem: ArticleDetailDataType) => {
-    const htmlContent = articleItem.richHTML
+    const htmlContent = articleItem.richHTML ?? []
     if (!isNonEmptyArray(htmlContent)) {
       return null
     }
@@ -322,14 +322,14 @@ export const ArticleDetailScreen = ({
             switch (item.type) {
               case RichHTMLType.QUOTE:
                 return <RenderQuoteElement paragraphInfo={item.data} />
-              // case RichHTMLType.CONTENT:
-              //   return RenderContentElement(item.data)
+              case RichHTMLType.CONTENT:
+                return <RenderContentElement paragraphInfo={item.data} />
               // case RichHTMLType.DESCRIPTION:
               //   return <RenderDescriptionElement paragraphInfo={item.data}  />
-              // case RichHTMLType.OPINION:
-              //   return RenderOpinionElement(item.data)
-              // case RichHTMLType.READ_ALSO:
-              //   return RenderReadAlsoElement(item.data)
+              case RichHTMLType.OPINION:
+                return <RenderOpinionElement paragraphInfo={item.data}/>
+              case RichHTMLType.READ_ALSO:
+                return <RenderReadAlsoElement paragraphInfo={item.data}/>
               case RichHTMLType.NUMBERS:
                 return <RenderNumberElement paragraphInfo={item.data}  />
               default: return null
@@ -356,7 +356,7 @@ export const ArticleDetailScreen = ({
             setMiniPlayerVisible={(visible: boolean) => setShowVideoMiniPlayer(visible)}
           />
           {articleHtmlContent(index)}
-          {index == 0 && renderRichHTMLContent(item)}
+          {index === 0 && renderRichHTMLContent(item)}
           <Divider style={style.divider} />
         </>
         }
@@ -401,7 +401,7 @@ export const ArticleDetailScreen = ({
           scrollEnabled={scrollEnabled}
         />
         { isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl &&
-            <DraggableVideoPlayer setMiniPlayerVisible={closeMiniPlayer} url={playerUrl} setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}  currentTime={currentTime} setPlayerDetails={setPlayerDetails} paused={playerVisible ? paused : true} playerVisible={playerVisible} /> 
+          <DraggableVideoPlayer setMiniPlayerVisible={closeMiniPlayer} url={playerUrl} setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}  currentTime={currentTime} setPlayerDetails={setPlayerDetails} paused={playerVisible ? paused : true} playerVisible={playerVisible} /> 
         }
         <View style={style.bottom} />
         <View style={[style.footer, style.shadowEffect]}>

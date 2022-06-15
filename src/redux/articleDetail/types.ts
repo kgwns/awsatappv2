@@ -1,6 +1,6 @@
 import {
   REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS,
-  REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_ARTICLE_SECTION_SUCCESS, REQUEST_ARTICLE_SECTION_FAILED
+  REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_ARTICLE_SECTION_SUCCESS, REQUEST_ARTICLE_SECTION_FAILED, REQUEST_RICH_ARTICLE_READ_ALSO, REQUEST_RICH_ARTICLE_READ_ALSO_FAILED, REQUEST_RICH_ARTICLE_READ_ALSO_SUCCESS, REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_CONTENT_SUCCESS, REQUEST_RICH_ARTICLE_CONTENT_FAILED, REQUEST_RICH_ARTICLE_OPINION_SUCCESS, REQUEST_RICH_ARTICLE_OPINION_FAILED, REQUEST_RICH_ARTICLE_OPINION
 } from "./actionType"
 
 export interface ArticleDetailBodyGet {
@@ -157,6 +157,10 @@ export type ArticleDetailAction =
   | RequestArticleSectionType
   | ArticleSectionFailedType
   | ArticleSectionSuccessType
+  | GetRichArticleReadAlsoInfo
+  | GetRichArticleReadAlsoSuccessType
+  | RichArticleContentSuccessType
+  | FetchRichOpinionsBundleSuccessType
 
 export enum RichHTMLType {
   QUOTE = 'quote',
@@ -175,12 +179,20 @@ export type ArticleQuoteDataType = {
   title: string
 }
 
+export type ArticleContentDataInfoType = {
+  title: string;
+  body: string;
+  nid: string;
+  image: string;
+}
+
 export type ArticleContentDataType = {
   id: string
   type: string
   bundle: string
   content: string
   title: string
+  contentData: ArticleContentDataInfoType
 }
 
 export type ArticleDescriptionDataType = {
@@ -195,6 +207,7 @@ export type ArticleOpinionDataType = {
   type: string
   bundle: string
   opinion: string
+  opinionData: RichHTMLOpinionDataType
 }
 
 export type ArticleReadAlsoDataType = {
@@ -202,7 +215,8 @@ export type ArticleReadAlsoDataType = {
   type: string
   bundle: string
   related_content: [string],
-  title: string
+  title: string,
+  readAlsoData: any[]
 }
 
 export type ArticleNumberDataType = {
@@ -248,3 +262,93 @@ export type HTMLElementParseStore = ArticleQuoteType
 | ArticleOpinionType
 | ArticleReadAlsoType
 | ArticleNumberType
+
+
+export type GetRichArticleReadAlsoBody = {
+  nid: string
+}
+
+export type GetRichArticleReadAlsoInfo = {
+  type: typeof REQUEST_RICH_ARTICLE_READ_ALSO,
+  payload: GetRichArticleReadAlsoBody
+}
+
+export type GetRichArticleReadAlsoSuccessBody = {
+  nid: string
+}
+
+export type GetRichArticleReadAlsoSuccessType = {
+  type: typeof REQUEST_RICH_ARTICLE_READ_ALSO_SUCCESS,
+  payload: GetRichArticleReadAlsoBody
+}
+
+export type GetRichArticleReadAlsoFailedBody = {
+  error: string
+}
+
+export type GetRichArticleReadAlsoErrorType = {
+  type: typeof REQUEST_RICH_ARTICLE_READ_ALSO_FAILED,
+  payload: GetRichArticleReadAlsoFailedBody
+}
+
+export interface RichArticleBundleBodyGet {
+  nid: string;
+}
+
+export interface RequestRichArticleContentBundleType {
+  type: typeof REQUEST_RICH_ARTICLE_CONTENT,
+  payload: ArticleDetailBodyGet
+}
+
+export type RichArticleContentSuccessPayload = {
+  contentBundleData: any
+}
+
+export interface RichArticleContentSuccessType {
+  type: typeof REQUEST_RICH_ARTICLE_CONTENT_SUCCESS,
+  payload: RichArticleContentSuccessPayload
+}
+
+export interface  RichArticleContentFailedPayload {
+  error: string
+}
+
+export interface  RichArticleContentFailedType {
+  type: typeof REQUEST_RICH_ARTICLE_CONTENT_FAILED,
+  payload: RichArticleContentFailedPayload
+}
+
+export type RichHTMLOpinionDataType = {
+  name: string;
+  title: string;
+  image: string;
+  nid: string;
+  writerId: string;
+}
+
+export interface RichOpinionsBundleBodyGet {
+  nid: number;
+}
+
+export type FetchRichOpinionsBundleType = {
+  type: typeof REQUEST_RICH_ARTICLE_OPINION;
+  payload: RichOpinionsBundleBodyGet;
+};
+
+export interface FetchRichOpinionsBundleSuccessPayloadType {
+  opinionData: any;
+}
+
+export type FetchRichOpinionsBundleSuccessType = {
+  type: typeof REQUEST_RICH_ARTICLE_OPINION_SUCCESS;
+  payload: FetchRichOpinionsBundleSuccessPayloadType;
+};
+
+export interface FetchRichHTMLOpinionsBundleFailedPayloadtype {
+  error: string;
+}
+
+export type FetchRichHTMLOpinionsBundleFailedType = {
+  type: typeof REQUEST_RICH_ARTICLE_OPINION_FAILED;
+  payload: FetchRichHTMLOpinionsBundleFailedPayloadtype;
+};

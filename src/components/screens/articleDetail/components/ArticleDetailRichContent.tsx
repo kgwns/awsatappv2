@@ -1,7 +1,6 @@
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
-import { WebViewMessageEvent, WebViewNavigation } from 'react-native-webview'
-import { isNonEmptyArray, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, isNonEmptyArray, isObjectNonEmpty, screenWidth } from 'src/shared/utils'
 import { ArticleContentDataType, ArticleDescriptionDataType, ArticleNumberDataType, ArticleOpinionDataType, ArticleQuoteDataType, ArticleReadAlsoDataType } from 'src/redux/articleDetail/types'
 import { Styles } from 'src/shared/styles'
 import AutoHeightWebView from 'react-native-autoheight-webview'
@@ -12,6 +11,10 @@ import { CustomThemeType, DARK_THEME_ID } from 'src/shared/styles/colors'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
 import { ReadAlsoArticle } from './ReadAlsoArticle'
+import { ContentBundleWidget } from './ContentBundleWidget'
+import { decode } from 'html-entities'
+import { WebViewErrorEvent } from 'react-native-webview/lib/WebViewTypes'
+import { RichHTMLOpinonWidget } from './RichHTMLOpinonWidget'
 
 export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQuoteDataType }) => {
     const style = useThemeAwareObject(customStyle)
@@ -38,20 +41,24 @@ export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQu
         <View style={style.quoteContainer}>
             <Label style={style.upperArrow} children={`${'"'}`} />
             <View style={{ paddingHorizontal: 40 }}>
-                {renderWebView(paragraphInfo.description, injectedStyle)}
+                {renderWebView(paragraphInfo.description || '', injectedStyle)}
             </View>
             <View style={style.quoteFooter}>
-                <Label style={style.quoteTitle} children={paragraphInfo.title} />
+                <Label style={style.quoteTitle} children={decode(decodeHTMLTags(paragraphInfo.title))} />
                 <Label style={style.bottomArrow} children={`${'"'}`} />
             </View>
         </View>
     )
 }
 
-export const RenderContentElement = (paragraphInfo: ArticleContentDataType) => {
+export const RenderContentElement = ({ paragraphInfo }: { paragraphInfo: ArticleContentDataType }) => {
+    if (!paragraphInfo || !isObjectNonEmpty(paragraphInfo.contentData)) {
+        return null
+    }
+
     return (
-        <View style={{ backgroundColor: Styles.color.greenishBlue, paddingVertical: 20 }}>
-            {renderWebView(paragraphInfo.content)}
+        <View style={{ paddingBottom: 20 }}>
+            <ContentBundleWidget title={paragraphInfo.title} data={paragraphInfo.contentData} />
         </View>
     )
 }
@@ -82,32 +89,40 @@ export const RenderDescriptionElement = ({ paragraphInfo }: { paragraphInfo: Art
     return (
         <View style={style.descriptionContainer}>
             {/* <TitleWithUnderLine title={'CONST_FACTS'} titleContainerStyle={{ backgroundColor: themeData.backgroundColor }} /> */}
-            {renderWebView(paragraphInfo.description, injectedStyle)}
+            {/* {renderWebView(paragraphInfo.description, injectedStyle)} */}
         </View>
     )
 }
 
-export const RenderOpinionElement = (paragraphInfo: ArticleOpinionDataType) => {
+export const RenderOpinionElement = ({ paragraphInfo }: { paragraphInfo: ArticleOpinionDataType }) => {
+    if(!isObjectNonEmpty(paragraphInfo.opinionData)) {
+        return null
+    }
+    
     return (
-        <View style={{ backgroundColor: Styles.color.greenishBlue, paddingVertical: 20 }}>
-            {renderWebView(paragraphInfo.opinion)}
+        <View>
+            <RichHTMLOpinonWidget data={paragraphInfo.opinionData} />
         </View>
     )
 }
 
-export const RenderReadAlsoElement = (paragraphInfo: ArticleReadAlsoDataType) => {
-    if (!isNonEmptyArray(paragraphInfo.related_content)) {
+export const RenderReadAlsoElement = ({ paragraphInfo }: { paragraphInfo: ArticleReadAlsoDataType }) => {
+    if (!isNonEmptyArray(paragraphInfo.readAlsoData)) {
         return null
     }
 
     return (
-        <View style={{ backgroundColor: Styles.color.greenishBlue }}>
-            <ReadAlsoArticle title={paragraphInfo.title} data={Array(5).fill({ title: "This is read also title :::", nid: '123456' })} />
+        <View>
+            <ReadAlsoArticle title={paragraphInfo.title} data={paragraphInfo.readAlsoData} />
         </View>
     )
 }
 
 export const RenderNumberElement = ({ paragraphInfo }: { paragraphInfo: ArticleNumberDataType }) => {
+    if (!paragraphInfo || !paragraphInfo.description) {
+        return null
+    }
+
     const style = useThemeAwareObject(customStyle)
     const CONST_FACTS = TranslateConstants({ key: TranslateKey.RICH_HTML_FACTS })
 
@@ -117,8 +132,6 @@ export const RenderNumberElement = ({ paragraphInfo }: { paragraphInfo: ArticleN
     setTimeout(function() {   
         //Description Element
         var descriptionText = document.getElementsByTagName("p");
-        window.ReactNativeWebView.postMessage(descriptionText.length)
-
         if(descriptionText && descriptionText.length > 0) {
             for(i=0; i < descriptionText.length; i++) {
                 descriptionText[i].style["font-size"] = "inherit";
@@ -138,7 +151,7 @@ export const RenderNumberElement = ({ paragraphInfo }: { paragraphInfo: ArticleN
             <View style={style.numberBodyMainContainer}>
                 <View style={style.numberBodyContainer}>
                     <Label children={paragraphInfo.title} style={style.numberTitle} />
-                    {renderWebView(paragraphInfo.description, injectedStyle)}
+                    {renderWebView(paragraphInfo.description || '', injectedStyle)}
                 </View>
             </View>
         </View>
@@ -147,33 +160,20 @@ export const RenderNumberElement = ({ paragraphInfo }: { paragraphInfo: ArticleN
 
 const renderWebView = (htmlInfo: string, injectedStyle?: string) => {
     return (
-        <AutoHeightWebView style={{ width: '100%', backgroundColor: 'transparent' }}
-            javaScriptEnabled={true}
-            domStorageEnabled={true}
-            bounces={false}
-            nestedScrollEnabled={false}
-            injectedJavaScript={injectedStyle}
-            injectedJavaScriptBeforeContentLoaded={injectedStyle}
-            onMessage={onMessage}
-            source={{ html: htmlInfo }}
-            scrollEnabled={false}
-            onNavigationStateChange={onNavigationStateChange}
-            onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
-        />
+        <ScrollView scrollEnabled={false}>
+            <AutoHeightWebView style={{ width: '100%', backgroundColor: 'transparent', opacity: 0.99, overflow: 'hidden' }}
+                javaScriptEnabled={true}
+                domStorageEnabled={true}
+                bounces={false}
+                nestedScrollEnabled={false}
+                injectedJavaScript={injectedStyle}
+                injectedJavaScriptBeforeContentLoaded={injectedStyle}
+                source={{ html: htmlInfo }}
+                scrollEnabled={false}
+                onError={(error: WebViewErrorEvent) => console.log('Error ::::::::::', error.nativeEvent)}
+            />
+        </ScrollView>
     )
-}
-
-const onMessage = (event: WebViewMessageEvent) => {
-    console.log('Event :::::::', event.nativeEvent.data)
-}
-
-const onNavigationStateChange = (event: WebViewNavigation) => {
-    // console.log("🚀 ~ file: ArticleDetailRichHtmlContent.tsx ~ line 77 ~ onNavigationStateChange ~ event", event)
-}
-
-const onShouldStartLoadWithRequest = (request: any) => {
-    // console.log("🚀 ~ file: ArticleDetailRichHtmlContent.tsx ~ line 81 ~ onShouldStartLoadWithRequest ~ request", request)
-    return true
 }
 
 
@@ -186,7 +186,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     upperArrow: {
         textAlign: 'left',
-        paddingLeft: 30,
+        marginLeft: 30,
         fontSize: 40,
         lineHeight: 45,
         fontWeight: 'bold',
@@ -197,20 +197,24 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         justifyContent: 'space-between',
         paddingRight: 30,
         paddingLeft: 40,
-        paddingTop: 20
+        paddingTop: 20,
+        overflow: 'hidden',
+        flex: 1,
     },
     bottomArrow: {
-        paddingLeft: 30,
         fontSize: 40,
         lineHeight: 45,
         fontWeight: 'bold',
         color: Styles.color.greenishBlue,
+        flex: 0.3,
     },
     quoteTitle: {
         color: Styles.color.greenishBlue,
         fontFamily: fonts.Effra_Arbc_Medium,
         fontSize: 14,
         lineHeight: 18,
+        flex: 0.7,
+        textAlign: 'left',
     },
     descriptionContainer: {
         paddingVertical: 20,
@@ -224,8 +228,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingVertical: 30,
     },
     numberTitle: {
-        fontSize: 40,
-        lineHeight: 50,
+        fontSize: 72,
+        lineHeight: 85,
         textAlign: 'left',
         color: Styles.color.greenishBlue,
         fontWeight: 'bold',
