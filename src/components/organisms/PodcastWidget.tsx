@@ -19,6 +19,11 @@ export interface PodcastWidgetProps {
   data: any;
 }
 
+type podCastType = {
+  podcastData: any, 
+  index: number
+}
+
 const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   data,
   onPress,
@@ -81,7 +86,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   } */
 
-  const ListenToPodcast = ({podcastData} : {podcastData: any}) => (
+  const ListenToPodcast = ({podcastData, index } : podCastType) => (
     <View style={style.listenContainer}>
       <ButtonImage
         icon={() => {
@@ -100,7 +105,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       />
       <Label
         color={colors.spanishGray}
-        children={convertSecondsToHMS(podcastData?.duration)}
+        children={convertSecondsToHMS(episodeData[index]?.duration)}
         style={style.duration}
         numberOfLines={1}
       />
@@ -131,7 +136,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     </View>
   )*/
 
-  const renderPodcastItem = (podcastData: any) => {
+  const renderPodcastItem = (podcastData: any, index: number) => {
     if(!isObjectNonEmpty(podcastData)) return null;
     const bodyInfo = isNotEmpty(podcastData?.body_export) ? podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? podcastData.field_podcast_sect_export.description : ''
     const description = decodeHTMLTags(bodyInfo)
@@ -166,7 +171,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
           </View>
           <View style={style.podcastBottomContainer}>
             <View style={style.listenCardContainer}>
-              <ListenToPodcast podcastData={podcastData} />
+              <ListenToPodcast podcastData={podcastData} index={index} />
             </View>
             <View style={style.labelContainer}>
               {/* <AllEpisodesCard/> enable when list of episodes available */}
@@ -186,13 +191,13 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
         style={style.flatList}
         listKey={flatListUniqueKey.TAB_PODCAST_HOME}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({item}) => renderPodcastItem(item)}
+        renderItem={({item, index}) => renderPodcastItem(item, index)}
       />
     </View>
   )
 
   const podcastMobileData = isNonEmptyArray(episodeData) ? data[0] : {};
-  return  isTab ?  renderTablet() : renderPodcastItem(podcastMobileData);
+  return  isTab ?  renderTablet() : renderPodcastItem(podcastMobileData, 0);
 
 };
 
