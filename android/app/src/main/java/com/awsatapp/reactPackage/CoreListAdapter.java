@@ -23,6 +23,7 @@ import com.awsatapp.reactPackage.holder.CoreHolder;
 import com.awsatapp.reactPackage.holder.ProgressViewHolder;
 import com.awsatapp.reactPackage.listener.ItemClickListener;
 import com.awsatapp.reactPackage.listener.ItemLongClickListener;
+import com.awsatapp.reactPackage.listener.ItemProgressListener;
 import com.awsatapp.reactPackage.listener.OnLoadMoreListener;
 import com.awsatapp.reactPackage.listener.OnScrollStateChangedListener;
 import com.awsatapp.reactPackage.listener.OnScrolledListener;
@@ -43,6 +44,7 @@ public abstract class CoreListAdapter<T> extends RecyclerView.Adapter<CoreHolder
     private Context mContext;
     private ItemClickListener mItemClickListener;
     private ItemLongClickListener mItemLongClickListener;
+    private ItemProgressListener itemProgressListener;
     private OnLoadMoreListener mOnLoadMoreListener = null;
     private OnScrolledListener mOnScrolledListener;
     private OnScrollStateChangedListener mOnScrollStateChangedListener;
@@ -72,6 +74,16 @@ public abstract class CoreListAdapter<T> extends RecyclerView.Adapter<CoreHolder
         this.items = items;
         this.model = new CoreModel<T>();
         this.mItemClickListener = itemClickListener;
+    }
+
+    public CoreListAdapter(Context context, RecyclerView recyclerView, List<T> items,
+                           ItemClickListener itemClickListener,ItemProgressListener itemProgressListener) {
+        this.mContext = context;
+        this.mRecyclerView = recyclerView;
+        this.items = items;
+        this.model = new CoreModel<T>();
+        this.mItemClickListener = itemClickListener;
+        this.itemProgressListener = itemProgressListener;
     }
 
     /**
@@ -156,7 +168,7 @@ public abstract class CoreListAdapter<T> extends RecyclerView.Adapter<CoreHolder
                 mFooterLoader.setVisibility(View.VISIBLE);
             }
         } else {
-            coreHolder.bindData(getItem(position));
+            coreHolder.bindData(getItem(position),position,itemProgressListener);
         }
     }
 
@@ -194,6 +206,10 @@ public abstract class CoreListAdapter<T> extends RecyclerView.Adapter<CoreHolder
 
     public ItemLongClickListener getItemLongClickListener() {
         return this.mItemLongClickListener;
+    }
+
+    public ItemProgressListener getItemProgressListener() {
+        return this.itemProgressListener;
     }
 
     public List<T> getItems() {

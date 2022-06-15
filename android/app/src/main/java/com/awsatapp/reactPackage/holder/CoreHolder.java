@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.awsatapp.reactPackage.listener.ItemClickListener;
 import com.awsatapp.reactPackage.listener.ItemLongClickListener;
+import com.awsatapp.reactPackage.listener.ItemProgressListener;
 
 
 /**
@@ -16,6 +17,7 @@ public abstract class CoreHolder<T> extends RecyclerView.ViewHolder implements V
     public View rootView;
     private ItemClickListener mItemClickListener;
     private ItemLongClickListener mItemLongClickListener;
+    public ItemProgressListener itemProgressListener;
     public Context mContext;
     public CoreHolder(View itemView) {
         this(itemView, null);
@@ -37,7 +39,21 @@ public abstract class CoreHolder<T> extends RecyclerView.ViewHolder implements V
         }
     }
 
-    public abstract void bindData(T data);
+    public CoreHolder(View itemView, ItemClickListener itemClickListener,ItemLongClickListener itemLongClickListener,
+                      ItemProgressListener itemProgressListener) {
+        super(itemView);
+        this.rootView = itemView;
+        this.mContext = rootView.getContext();
+        this.mItemClickListener = itemClickListener;
+        this.itemProgressListener = itemProgressListener;
+        this.mItemLongClickListener = itemLongClickListener;
+        itemView.setOnClickListener(this);
+        if (mItemLongClickListener != null) {
+            itemView.setOnLongClickListener(this);
+        }
+    }
+
+    public abstract void bindData(T data,int position,ItemProgressListener itemProgressListener);
 
     @Override
     public void onClick(View view) {

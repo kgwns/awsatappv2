@@ -71,7 +71,7 @@ public class SampleFragment extends Fragment implements ItemClickListener {
             public void itemClicked(View view, int integer) {
 
             }
-        });
+        },null);
         //adapter.setItemClickListener(this);
         //adapter.setOnLoadMoreListener(this);
         rvList.setAdapter(adapter);

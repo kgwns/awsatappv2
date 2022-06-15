@@ -25,6 +25,7 @@ import com.awsatapp.R;
 import com.awsatapp.reactPackage.Constant;
 import com.awsatapp.reactPackage.MyContextWrapper;
 import com.awsatapp.reactPackage.listener.ItemClickListener;
+import com.awsatapp.reactPackage.listener.ItemProgressListener;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.CoreListAdapter;
 import com.awsatapp.reactPackage.PdfAdapter;
@@ -38,6 +39,7 @@ import com.awsatapp.reactPackage.utils.Utils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadLargeFileListener;
 import com.liulishuo.filedownloader.FileDownloader;
+import com.liulishuo.filedownloader.model.FileDownloadStatus;
 
 import org.json.JSONException;
 
@@ -111,26 +113,68 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                             }
                         } else if (pdf.getStatus() == 2) {
                             final String path = mContext.getFilesDir().getPath() + "/" + pdf.getIssueNumber() + ".pdf";
-                            String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
-                            String timeStamp = !String.valueOf(mPdfs.get(integer).getCreated()).isEmpty() ? Utils.getFullDateFromTimestamp(new Locale(lang), mPdfs.get(integer).getCreated()):"";
+
+                            String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE, "ar");
+                            String timeStamp = !String.valueOf(mPdfs.get(integer).getCreated()).isEmpty() ? Utils.getFullDateFromTimestamp(new Locale(lang), mPdfs.get(integer).getCreated()) : "";
                             String edition = getString(R.string.edition);
-                            String issueNumber = !String.valueOf(mPdfs.get(integer).getIssueNumber()).isEmpty()?mPdfs.get(integer).getIssueNumber():"";
+                            String issueNumber = !String.valueOf(mPdfs.get(integer).getIssueNumber()).isEmpty() ? mPdfs.get(integer).getIssueNumber() : "";
                             String title = "";
-                            if(!timeStamp.isEmpty()){
-                                if(!issueNumber.isEmpty()){
-                                    title = timeStamp + " " + edition +" "+ issueNumber;
-                                }else{
+                            if (!timeStamp.isEmpty()) {
+                                if (!issueNumber.isEmpty()) {
+                                    title = timeStamp + " " + edition + " " + issueNumber;
+                                } else {
                                     title = timeStamp + " " + edition;
                                 }
-                            }else{
-                                if(!issueNumber.isEmpty()){
+                            } else {
+                                if (!issueNumber.isEmpty()) {
                                     title = edition + " " + issueNumber;
-                                }else {
+                                } else {
                                     title = "";
                                 }
                             }
                             startActivity(PdfActivity.newInstance(mContext, path, title));
                         }
+                }
+            }
+        }, new ItemProgressListener() {
+            @Override
+            public void onProgress(View view, int position,String progress) {
+                Button mDownloadBtn = (Button) view.findViewById(R.id.download_btn);
+                if(mPdfs.get(position).getStatus() == 1) {
+                    mPdfs.get(position).getmDownloadTask().setListener(new FileDownloadLargeFileListener() {
+                        @Override
+                        protected void pending(BaseDownloadTask task, long soFarBytes, long totalBytes) {
+
+                        }
+
+                        @Override
+                        protected void progress(BaseDownloadTask task, long soFarBytes, long totalBytes) {
+                            mDownloadBtn.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
+                        }
+
+                        @Override
+                        protected void paused(BaseDownloadTask task, long soFarBytes, long totalBytes) {
+
+                        }
+
+                        @Override
+                        protected void completed(BaseDownloadTask task) {
+                            mPdfs.get(position).setStatus(2);
+                            //when the dowload is completed
+                            mDownloadBtn.setText(getString(R.string.read));
+                        }
+
+                        @Override
+                        protected void error(BaseDownloadTask task, Throwable e) {
+
+                        }
+
+                        @Override
+                        protected void warn(BaseDownloadTask task) {
+
+                        }
+                    });
+
                 }
             }
         });
@@ -241,7 +285,6 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                     });
             pdf.setmDownloadTask(downloadTask);
             downloadTask.start();
-
         }
     }
 

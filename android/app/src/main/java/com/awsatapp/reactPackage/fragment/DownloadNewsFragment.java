@@ -138,14 +138,17 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     public void onResume() {
         IntentFilter filter = new IntentFilter("custom-action-local-broadcast");
         requireActivity().registerReceiver(fragmentBroadcast,filter);
-        if (fileExist(mPdf.getIssueNumber() + ".pdf")) {
-            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.read));
-            mPdf.setStatus(2);
-        } else if (mPdf.getStatus() == 1) {
-            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.downloading));
-        } else if (mPdf.getStatus() == 0) {
-            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.download));
+        if(mPdf!=null){
+            if (fileExist(mPdf.getIssueNumber() + ".pdf")) {
+                mDownlaodBtn.setText(mTitle.getContext().getString(R.string.read));
+                mPdf.setStatus(2);
+            } else if (mPdf.getStatus() == 1) {
+                mDownlaodBtn.setText(mTitle.getContext().getString(R.string.downloading));
+            } else if (mPdf.getStatus() == 0) {
+                mDownlaodBtn.setText(mTitle.getContext().getString(R.string.download));
+            }
         }
+
         super.onResume();
     }
 

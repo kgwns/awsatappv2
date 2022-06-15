@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.awsatapp.R;
+import com.awsatapp.reactPackage.listener.ItemProgressListener;
 
 
 /**
@@ -19,7 +20,7 @@ public class ProgressViewHolder extends CoreHolder {
     }
 
     @Override
-    public void bindData(Object data) {
+    public void bindData(Object data, int position, ItemProgressListener itemProgressListener) {
 
     }
 }

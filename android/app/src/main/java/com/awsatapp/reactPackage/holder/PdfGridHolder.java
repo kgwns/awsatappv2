@@ -10,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.Constant;
+import com.awsatapp.reactPackage.listener.ItemProgressListener;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.manager.DataManager;
 import com.awsatapp.reactPackage.listener.ItemClickListener;
@@ -21,6 +23,7 @@ import com.awsatapp.reactPackage.model.Pdf;
 import com.awsatapp.reactPackage.utils.FontUtils;
 import com.awsatapp.reactPackage.utils.Utils;
 import com.bumptech.glide.Glide;
+import com.liulishuo.filedownloader.model.FileDownloadStatus;
 
 import java.io.File;
 import java.util.Locale;
@@ -35,14 +38,14 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
     private ImageView mImage;
     private TextView mDate;
     private Button mDownlaodBtn;
-
-    public PdfGridHolder(View itemView, ItemClickListener listener) {
-        super(itemView, listener);
+    private ItemProgressListener itemProgressListener;
+    public PdfGridHolder(View itemView, ItemClickListener listener, ItemProgressListener itemProgressListener) {
+        super(itemView, listener,null,itemProgressListener);
         mTitle = (TextView) itemView.findViewById(R.id.title);
         mImage = (ImageView) itemView.findViewById(R.id.image);
         mDate = (TextView) itemView.findViewById(R.id.date);
         mDownlaodBtn = (Button) itemView.findViewById(R.id.download_btn);
-
+        this.itemProgressListener = itemProgressListener;
         if (DataManager.getInstance(mTitle.getContext()).isArabic()) {
             FontUtils.setBold(mTitle.getContext(), mDate, mTitle, mDownlaodBtn);
         }
@@ -52,7 +55,7 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
     }
 
     @Override
-    public void bindData(Pdf data) {
+    public void bindData(Pdf data,int position,ItemProgressListener itemProgressListener) {
 
         mTitle.setText(mTitle.getContext().getString(R.string.issue_number) + " " + data.getIssueNumber());
 
@@ -69,11 +72,24 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
                 .load(data.getThumb())
                 .placeholder(circularProgressDrawable)
                 .into(mImage);
+
         if (fileExist(data.getIssueNumber() + ".pdf")) {
             mDownlaodBtn.setText(mTitle.getContext().getString(R.string.read));
             data.setStatus(2);
         } else if (data.getStatus() == 1) {
-            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.downloading));
+            if(data.getmDownloadTask().getStatus() == FileDownloadStatus.pending){
+                mDownlaodBtn.setText(mContext.getString(R.string.downloading));
+            }else if(data.getmDownloadTask().getStatus() == FileDownloadStatus.started ){
+                mDownlaodBtn.setText(mContext.getString(R.string.downloading));
+            } else if(data.getmDownloadTask().getStatus() == FileDownloadStatus.progress){
+                long soFarBytes = data.getmDownloadTask().getLargeFileSoFarBytes();
+                long totalBytes = data.getmDownloadTask().getLargeFileTotalBytes();
+                mDownlaodBtn.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
+                itemProgressListener.onProgress(itemView,position,soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
+            }else{
+                mDownlaodBtn.setText(mContext.getString(R.string.downloading));
+            }
+           // mDownlaodBtn.setText(mTitle.getContext().getString(R.string.downloading));
         } else if (data.getStatus() == 0) {
             mDownlaodBtn.setText(mTitle.getContext().getString(R.string.download));
         }

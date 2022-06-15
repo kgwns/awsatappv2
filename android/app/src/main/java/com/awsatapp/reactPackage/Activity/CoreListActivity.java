@@ -23,7 +23,6 @@ import com.awsatapp.reactPackage.listener.ItemClickListener;
 import com.awsatapp.reactPackage.listener.OnLoadMoreListener;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.List;
 
 
@@ -54,14 +53,10 @@ public abstract class CoreListActivity<T> extends CoreActivity implements SwipeR
         rvList = (RecyclerView) findViewById(R.id.rv);
         pbLoader = (ProgressBar) findViewById(R.id.pbLoader);
         srl = (SwipeRefreshLayout) findViewById(R.id.srl);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         setupRefreshLayout();
         setupRecyclerView();
 
-        if(fab != null) {
-            fab.setOnClickListener(this);
-        }
     }
 
     private void setupRefreshLayout() {
