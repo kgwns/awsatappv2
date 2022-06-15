@@ -80,7 +80,7 @@ const sectionComboSevenPayload: RequestSectionComboBodyGet = {
   page: 0
 }
 
-export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}:{hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number;}) => {
+export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, currentIndex}:{hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number;}) => {
   const { themeData } = useTheme()
   const mainSectionStyle = useThemeAwareObject(customStyle)
 
@@ -851,7 +851,7 @@ export const MainSectionScreen = ({hidePlayerVisibility, tabIndex, currentIndex}
       
     </ScreenContainer>
   )
-}
+})
 
 const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
