@@ -42,6 +42,10 @@ export const SectionsScreen = () => {
 
   const renderScene = ({ route }: any) => {
     const tabIndex = route.key.match(/\d+/g) || ['0'];
+
+    if (Math.abs(index - routes.indexOf(route)) > 2) {
+      return <View />;
+    }
     
     switch (route.keyName) {
       case TabType.opinion:

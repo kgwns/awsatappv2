@@ -19,7 +19,7 @@ const documentaryVideoPayload: RequestDocumentaryVideoPayload = {
   page: 1,
 }
 
-export const VideoScreen = ({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
+export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
 
   const {isLoading,videoData,fetchVideoRequest} = useVideoList();
   const {isVideoLoading, videoDocumentaryData, fetchDocumentaryVideoRequest} = useDocumentaryVideo();
@@ -196,7 +196,7 @@ export const VideoScreen = ({tabIndex, currentIndex}: {tabIndex?:number; current
       </View>
     </ScreenContainer>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

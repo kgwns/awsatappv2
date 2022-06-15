@@ -17,7 +17,7 @@ export enum GameType {
     SUDOKU
 }
 
-export const GameScreen = ({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
+export const GameScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
     const style = useThemeAwareObject(customStyle)
@@ -63,7 +63,7 @@ export const GameScreen = ({tabIndex, currentIndex}: {tabIndex?:number; currentI
             </ScrollView>
         </ScreenContainer>
     )
-}
+})
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     scrollContainer: {

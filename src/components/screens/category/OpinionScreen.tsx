@@ -20,7 +20,7 @@ import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 
 
-export const OpinionScreen = ({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
+export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [page, setPage] = useState(0);
@@ -179,7 +179,7 @@ export const OpinionScreen = ({tabIndex, currentIndex}: {tabIndex?:number; curre
     </ScreenContainer>
     
   );
-};
+});
 
 const customStyle = (theme: CustomThemeType) => {
   const OpinionScreenStyle = StyleSheet.create({

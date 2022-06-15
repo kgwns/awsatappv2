@@ -13,7 +13,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useLogin } from 'src/hooks';
 
-export const PodcastProgram = ({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
+export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const {
@@ -132,7 +132,7 @@ export const PodcastProgram = ({tabIndex, currentIndex}: {tabIndex?:number; curr
         />}
     </ScreenContainer>
   )
-}
+})
 
 const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
