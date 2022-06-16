@@ -12,6 +12,7 @@ interface ArticleDetailWidgetProps {
     playerVisible?: boolean,
     setPlayerDetails?: ( time:any, paused: any) => void;
     setMiniPlayerVisible?: (visible: boolean) => void; 
+    videoRefs?: any;
 }
 
 const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({

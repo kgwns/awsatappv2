@@ -19,6 +19,7 @@ export interface DraggableVideoPlayerProps {
   setPlayerDetails?: (time: any, paused: any) => void;
   setScroll?: (scrollEnabled: boolean) => void;
   setMiniPlayerVisible?: (visible: boolean) => void;
+  videoRefs?: any;
 }
 
 const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
@@ -174,6 +175,7 @@ const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
             paused={props?.paused}
             playerVisible={props?.playerVisible}
             setMiniPlayerVisible={props?.setMiniPlayerVisible}
+            videoRefs={props?.videoRefs}
           />
         )}
       </View>
