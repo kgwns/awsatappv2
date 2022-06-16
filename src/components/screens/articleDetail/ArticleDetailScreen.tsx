@@ -189,8 +189,16 @@ export const ArticleDetailScreen = ({
       recordLogEvent('Article_Details_Screen', { articleId: currentNId });
       getArticleDetail(currentNId)
     }
+
+    const makeEmptyArticleData = () => {
+      const { hasHTMLContent } = route.params
+      if(!hasHTMLContent) {
+        emptyAllData()
+      }
+    }
+
     return () => {
-      emptyAllData()
+      makeEmptyArticleData()
     }
   }, [isFocused])
 
@@ -228,9 +236,10 @@ export const ArticleDetailScreen = ({
   const onPressArticle = (nid: string) => {
     if (nid && nid!=currentNId) {
       stopVideoPlayer();
+      const hasHTMLContent = isNonEmptyArray(articleDetailData) && isNonEmptyArray(articleDetailData[0].richHTML)
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
       emptyAllData();
-      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
+      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true, hasHTMLContent })
     }
   }
 
@@ -336,7 +345,7 @@ export const ArticleDetailScreen = ({
   )
 
   const renderRichHTMLContent = (articleItem: ArticleDetailDataType) => {
-    const htmlContent = articleItem.richHTML
+    const htmlContent = articleItem.richHTML ?? []
     if (!isNonEmptyArray(htmlContent)) {
       return null
     }
@@ -350,14 +359,14 @@ export const ArticleDetailScreen = ({
             switch (item.type) {
               case RichHTMLType.QUOTE:
                 return <RenderQuoteElement paragraphInfo={item.data} />
-              // case RichHTMLType.CONTENT:
-              //   return RenderContentElement(item.data)
+              case RichHTMLType.CONTENT:
+                return <RenderContentElement paragraphInfo={item.data} />
               // case RichHTMLType.DESCRIPTION:
               //   return <RenderDescriptionElement paragraphInfo={item.data}  />
-              // case RichHTMLType.OPINION:
-              //   return RenderOpinionElement(item.data)
-              // case RichHTMLType.READ_ALSO:
-              //   return RenderReadAlsoElement(item.data)
+              case RichHTMLType.OPINION:
+                return <RenderOpinionElement paragraphInfo={item.data}/>
+              case RichHTMLType.READ_ALSO:
+                return <RenderReadAlsoElement paragraphInfo={item.data}/>
               case RichHTMLType.NUMBERS:
                 return <RenderNumberElement paragraphInfo={item.data}  />
               default: return null
@@ -385,7 +394,7 @@ export const ArticleDetailScreen = ({
             videoRefs={videoRefs}
           />
           {articleHtmlContent(index)}
-          {index == 0 && renderRichHTMLContent(item)}
+          {index === 0 && renderRichHTMLContent(item)}
           <Divider style={style.divider} />
         </>
         }

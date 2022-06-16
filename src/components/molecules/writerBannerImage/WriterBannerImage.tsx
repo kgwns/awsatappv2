@@ -1,6 +1,6 @@
 import { View, StyleSheet, TouchableOpacity, Dimensions, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { getImageUrl, isNotEmpty } from 'src/shared/utils/utilities'
+import { decodeHTMLTags, getImageUrl, isNotEmpty } from 'src/shared/utils/utilities'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ButtonImage, Image, Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -15,6 +15,7 @@ import DeviceInfo from 'react-native-device-info';
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
 import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TWITTER_APP_URL } from 'src/constants/SharedConstants'
 import { fonts } from 'src/shared/styles/fonts'
+import { decode } from 'html-entities'
 
 export interface WriterBannerImageProps {
   data: {
@@ -159,7 +160,7 @@ export const WriterBannerImage = ({
               <SubscribeButton isFollowed={isFollowed} />
             </View>
           </View>
-          <Label style={style.authorDescription}>{data.authorDescription}</Label>
+          <Label style={style.authorDescription}>{decode(decodeHTMLTags(data.authorDescription))}</Label>
           <View style={{ flexDirection: 'row' }}>
             {isNotEmpty(data.instagram_url) && <ButtonImage
               icon={() => getSvgImages({

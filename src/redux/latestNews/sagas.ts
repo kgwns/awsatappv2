@@ -220,7 +220,6 @@ const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
 }
 
 const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
-console.log("🚀 ~ file: sagas.ts ~ line 223 ~ response", response)
   let formattedEditorsChoiceData: EditorsChoiceDataType[] = []
   if (response) {
     if (isNonEmptyArray(response.rows)) {

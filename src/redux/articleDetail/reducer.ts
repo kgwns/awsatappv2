@@ -1,5 +1,6 @@
-import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_ARTICLE_SECTION_SUCCESS, REQUEST_ARTICLE_SECTION_FAILED } from './actionType';
-import { ArticleDetailAction, ArticleDetailState } from './types';
+import { isNonEmptyArray } from 'src/shared/utils';
+import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_ARTICLE_SECTION_SUCCESS, REQUEST_ARTICLE_SECTION_FAILED, REQUEST_RICH_ARTICLE_READ_ALSO_SUCCESS, REQUEST_RICH_ARTICLE_CONTENT_SUCCESS, REQUEST_RICH_ARTICLE_OPINION_SUCCESS } from './actionType';
+import { ArticleDetailAction, ArticleDetailState, HTMLElementParseStore, RichHTMLOpinionDataType, RichHTMLType } from './types';
 
 const initialData: ArticleDetailState = {
   isLoading: true,
@@ -7,15 +8,58 @@ const initialData: ArticleDetailState = {
   articleDetailData: [],
   pager: {},
   relatedArticleData: [],
-  articleSectionData:[],
+  articleSectionData: [],
   articleSectionLoaded: false,
 };
 
 export default (state = initialData, action: ArticleDetailAction) => {
-  const combineData = (data :  any) => {
+  const combineData = (data: any) => {
     state.articleDetailData = state.articleDetailData.concat(data)
     return data
   }
+
+  const updatedReadAlsoContent = (readAlsoInfo: any) => {
+    const articleInfo = [...state.articleDetailData]
+    if (isNonEmptyArray(articleInfo) && isNonEmptyArray(readAlsoInfo)) {
+      const richHTML: any[] = articleInfo[0].richHTML ?? []
+      const readAlsoIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.READ_ALSO)
+      if (readAlsoIndex > -1) {
+        richHTML[readAlsoIndex].data.readAlsoData = readAlsoInfo
+        articleInfo[0].richHTML = richHTML
+      }
+    }
+
+    return articleInfo
+  }
+
+  const updatedContentContent = (contentInfo: any) => {
+    const articleInfo = [...state.articleDetailData]
+    if (isNonEmptyArray(articleInfo) && isNonEmptyArray(contentInfo.contentBundleData)) {
+      const richHTML: any[] = articleInfo[0].richHTML ?? []
+      const contentIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.CONTENT)
+      if (contentIndex > -1) {
+        richHTML[contentIndex].data.contentData = contentInfo.contentBundleData[0]
+        articleInfo[0].richHTML = richHTML
+      }
+    }
+
+    return articleInfo
+  }
+
+  const updatedOpinionBundle = (opinionInfo: RichHTMLOpinionDataType[]) => {
+    const articleInfo = [...state.articleDetailData]
+    if (isNonEmptyArray(articleInfo) && isNonEmptyArray(opinionInfo)) {
+      const richHTML: any[] = articleInfo[0].richHTML ?? []
+      const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION)
+      if (opinionIndex > -1) {
+        richHTML[opinionIndex].data.opinionData = opinionInfo[0]
+        articleInfo[0].richHTML = richHTML
+      }
+    }
+
+    return articleInfo
+  }
+
   switch (action.type) {
     case REQUEST_ARTICLE_DETAIL:
       return {
@@ -82,6 +126,21 @@ export default (state = initialData, action: ArticleDetailAction) => {
         isLoading: false,
         error: action.payload.error,
         articleSectionLoaded: true,
+      }
+    case REQUEST_RICH_ARTICLE_READ_ALSO_SUCCESS:
+      return {
+        ...state,
+        articleDetailData: updatedReadAlsoContent(action.payload)
+      }
+    case REQUEST_RICH_ARTICLE_CONTENT_SUCCESS:
+      return {
+        ...state,
+        articleDetailData: updatedContentContent(action.payload)
+      }
+    case REQUEST_RICH_ARTICLE_OPINION_SUCCESS:
+      return {
+        ...state,
+        articleDetailData: updatedOpinionBundle(action.payload.opinionData)
       }
     default:
       return { ...state }
