@@ -1,5 +1,5 @@
-import { View, FlatList, StyleSheet, Animated } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, FlatList, StyleSheet, Animated, BackHandler } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
@@ -68,6 +68,7 @@ export const ArticleDetailScreen = ({
   const [currentTime, setCurrentTime] = useState(0);
   const [paused, setPaused] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true);
+  const videoRefs = useRef([]);
 
   const currentNId = route.params.nid;
 
@@ -213,8 +214,20 @@ export const ArticleDetailScreen = ({
     fetchArticleDetail({ nid: parseInt(id) })
   }
 
+  const stopVideoPlayer = () => {
+    console.log(videoRefs.current[0],videoRefs.current[1],'videoRefsvideoRefssss');
+    videoRefs?.current[0]?.setNativeProps({
+      paused: true
+    })
+    videoRefs?.current[1]?.setNativeProps({
+      paused: true
+    })
+    setPlayerVisible(false);
+  }
+
   const onPressArticle = (nid: string) => {
     if (nid && nid!=currentNId) {
+      stopVideoPlayer();
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
       emptyAllData();
       navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
@@ -258,7 +271,22 @@ export const ArticleDetailScreen = ({
     Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer ? setPlayerVisible(true) : setPlayerVisible(false);
   }
 
+  useEffect(() => {
+    const backAction = () => {
+      stopVideoPlayer()
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   const onPressBack = () => {
+    stopVideoPlayer()
     if (!route.params.isRelatedArticle) {
       Orientation.unlockAllOrientations()
       Orientation.lockToPortrait()
@@ -354,6 +382,7 @@ export const ArticleDetailScreen = ({
             playerVisible={playerVisible}
             setPlayerDetails={setPlayerDetails}
             setMiniPlayerVisible={(visible: boolean) => setShowVideoMiniPlayer(visible)}
+            videoRefs={videoRefs}
           />
           {articleHtmlContent(index)}
           {index == 0 && renderRichHTMLContent(item)}
@@ -401,7 +430,7 @@ export const ArticleDetailScreen = ({
           scrollEnabled={scrollEnabled}
         />
         { isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl &&
-            <DraggableVideoPlayer setMiniPlayerVisible={closeMiniPlayer} url={playerUrl} setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}  currentTime={currentTime} setPlayerDetails={setPlayerDetails} paused={playerVisible ? paused : true} playerVisible={playerVisible} /> 
+            <DraggableVideoPlayer videoRefs={videoRefs} setMiniPlayerVisible={closeMiniPlayer} url={playerUrl} setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}  currentTime={currentTime} setPlayerDetails={setPlayerDetails} paused={playerVisible ? paused : true} playerVisible={playerVisible} /> 
         }
         <View style={style.bottom} />
         <View style={[style.footer, style.shadowEffect]}>

@@ -30,6 +30,7 @@ export interface VideoPlayerControlProp {
   isMiniPlayer?: boolean;
   setPlayerDetails?: (time: any, paused: any) => void;
   setMiniPlayerVisible?: (visible: boolean) => void;
+  videoRefs?: any;
 }
 const VideoPlayerControl = ({
   url,
@@ -39,6 +40,7 @@ const VideoPlayerControl = ({
   setPlayerDetails,
   isMiniPlayer = false,
   setMiniPlayerVisible,
+  videoRefs,
 }: VideoPlayerControlProp) => {
   const styles = useThemeAwareObject(customStyle);
 
@@ -111,7 +113,7 @@ const VideoPlayerControl = ({
     if (playerVisible && !isMiniPlayer) {
       setShowControls(false);
     }
-    if (initialLoadRef.current) initialLoadRef.current = false;
+    if (playerVisible && initialLoadRef.current) initialLoadRef.current = false;
   }, [playerVisible]);
 
   useEffect(() => {
@@ -196,6 +198,7 @@ const VideoPlayerControl = ({
       paused={paused}
       ref={(ref: any) => {
         videoPlayer.current = ref;
+        isMiniPlayer ? videoRefs.current[1] = ref : videoRefs.current[0] =ref ;
       }}
       resizeMode={screenType}
       onFullScreen={isFullScreen}
