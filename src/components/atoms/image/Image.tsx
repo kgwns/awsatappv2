@@ -1,21 +1,21 @@
-import React, {FunctionComponent} from 'react';
-import { ImageStyle, StyleProp, StyleSheet, ViewStyle} from 'react-native';
-import {
-  Image as RNEImage,
-  ImageProps as RNEImageProps,
-} from 'react-native-elements';
+import React, {FunctionComponent, useState} from 'react';
+import { ImageStyle, StyleProp, StyleSheet, ActivityIndicator } from 'react-native';
+
+import FastImage, { ResizeMode } from 'react-native-fast-image';
+import { createImageProgress,  } from 'react-native-image-progress';
 
 import {ImagesName, Styles} from 'src/shared/styles';
-import { isDarkTheme, isAndroid, isNotEmpty, isNonEmptyArray } from 'src/shared/utils';
+import { isDarkTheme, isAndroid, isNotEmpty } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
 import {PlaceholderImage} from '../'
+import { colors } from 'src/shared/styles/colors';
 
 const DEFAULT_IMAGE_SIZE = 24;
 const DEFAULT_RADIUS_DIVIDER = 2;
 
 export type ImageName = keyof typeof Styles.image;
 
-export interface ImageProps extends Omit<RNEImageProps, 'source'> {
+export interface ImageProps extends Omit<ImageStyle, 'source'> {
   style?: StyleProp<ImageStyle>;
   name?: ImageName;
   url?: string;
@@ -24,17 +24,18 @@ export interface ImageProps extends Omit<RNEImageProps, 'source'> {
   type?: 'round' | 'standard';
   fallback?: boolean;
   fallbackContent?:any
+  resizeMode?: ResizeMode;
 }
 
+const FImage = createImageProgress(FastImage);
+
 export const Image: FunctionComponent<ImageProps> = ({
-  containerStyle,
   name,
   size = DEFAULT_IMAGE_SIZE,
   style,
   backgroundColor = 'transparent',
   type = 'standard',
   resizeMode = 'contain',
-  placeholderStyle,
   url,
   fallback=false,
   fallbackContent=<PlaceholderImage name={'placeholderImg'}/>,
@@ -42,13 +43,13 @@ export const Image: FunctionComponent<ImageProps> = ({
 }) => {
   const { theme } = useAppCommon()
   const isDarkMode = isDarkTheme(theme)
+  const [showPlaceholder, setShowPlaceholder] = useState(false);
 
   const isRounded = type === 'round';
 
   const imageStyle: ImageStyle = {
     height: size,
     width: size,
-    resizeMode,
   };
 
   const borderStyle: ImageStyle = {
@@ -56,9 +57,6 @@ export const Image: FunctionComponent<ImageProps> = ({
     backgroundColor,
   };
 
-  const placeholderStyleInternal: ViewStyle = {
-    backgroundColor: 'transparent',
-  };
 
   if(isAndroid && !isNotEmpty(name) && !isNotEmpty(url)) {
     name = ImagesName.placeholderImg
@@ -66,17 +64,16 @@ export const Image: FunctionComponent<ImageProps> = ({
 
   return (
     <>
-      <RNEImage
-        containerStyle={StyleSheet.flatten([containerStyle, borderStyle])}
-        style={StyleSheet.flatten([imageStyle, style])}
-        source={name ? (isDarkMode ? Styles.darkImage[name] : Styles.image[name]) : { uri: url }}
-        placeholderStyle={StyleSheet.flatten([
-          placeholderStyleInternal,
-          placeholderStyle,
-        ])}
-        PlaceholderContent={fallback?fallbackContent:undefined}
+    <FImage
+        style={StyleSheet.flatten([imageStyle, borderStyle, style])}
+        imageStyle={borderStyle}
+        indicator={() => <ActivityIndicator color={colors.greenishBlue}/>}
+        source={name ? (isDarkMode ? Styles.darkImage[name] : Styles.image[name]) : (showPlaceholder ? fallbackContent : { uri: url })}
+        onError={() => !name && setShowPlaceholder(true)}
+        resizeMode={resizeMode}
         {...props}
       />
+      
     </>
   );
 };
