@@ -69,6 +69,8 @@ export const ArticleDetailScreen = ({
   const [paused, setPaused] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const videoRefs = useRef([]);
+  const [bookmarkIndex, setBookmarkIndex] = useState(0);
+  const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
 
   const currentNId = route.params.nid;
 
@@ -137,11 +139,11 @@ export const ArticleDetailScreen = ({
 
   useEffect(() => {
     if (isNonEmptyArray(articleDetailData) && route.params && route.params.nid && isFocused) {
-      const isBookmarked = validateBookmark(articleDetailData[0].nid)
+      const isBookmarked = validateBookmark(articleDetailData[bookmarkIndex].nid)
       setIsBookmarked(isBookmarked)
       setArticleDetail(articleDetailData)
     }
-  }, [articleDetailData])
+  }, [articleDetailData, bookmarkIndex])
 
   useEffect(() => {
     if (isNonEmptyArray(relatedArticleData) && route.params && route.params.nid && isFocused) {
@@ -246,7 +248,7 @@ export const ArticleDetailScreen = ({
   const onPressSave = (nid: string) => {
     const newBookmarked = !isBookmarked
     const data = [...articleDetailState]
-    data[0].isBookmarked = !data[0].isBookmarked
+    data[bookmarkIndex].isBookmarked = !data[bookmarkIndex].isBookmarked
     setIsBookmarked(newBookmarked)
     onUpdateBookMark(nid, newBookmarked)
   }
@@ -422,12 +424,18 @@ export const ArticleDetailScreen = ({
     setShowVideoMiniPlayer(visible)
   }
 
+  const onViewableItemRef = useRef((viewableItems: any) => {
+    setBookmarkIndex(viewableItems.changed[0].index)
+  })
+
   return (
     <ScreenContainer edge={edge} isLoading={isLoading} 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
       {!isLoading && isNonEmptyArray(articleDetailState) && <>
         {renderBackIcon()}
         <FlatList
+          onViewableItemsChanged={onViewableItemRef.current}
+          viewabilityConfig={viewConfigRef.current}
           style={{ flex: 1, height: '100%' }}
           data={articleDetailState}
           keyExtractor={(_, index) => index.toString()}
@@ -443,9 +451,9 @@ export const ArticleDetailScreen = ({
         }
         <View style={style.bottom} />
         <View style={[style.footer, style.shadowEffect]}>
-          <ArticleDetailFooter articleDetailData={articleDetailState[0]}
+          <ArticleDetailFooter articleDetailData={articleDetailState[bookmarkIndex]}
             isBookmarked={isBookmarked}
-            onPressSave={() => checkAndUpdateBookmark(articleDetailState[0].nid)}
+            onPressSave={() => checkAndUpdateBookmark(articleDetailState[bookmarkIndex].nid)}
             onPressFontChange={onPressFontChange}
           />
         </View>
