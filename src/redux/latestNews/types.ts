@@ -151,6 +151,15 @@ export type LatestNewsTabState = {
   editorsChoice: EditorsChoiceDataType[],
   spotlight: SpotlightDataType[],
   spotlightArticleSection: LatestArticleDataType[],
+  coverageInfoLoaded: boolean,
+  featuredArticleLoaded: boolean,
+  horizontalArticleLoaded: boolean,
+  opinionLoaded: boolean,
+  podcastHomeLoaded: boolean,
+  editorChoiceLoaded: boolean,
+  sectionComboOneLoaded: boolean,
+  sectionComboTwoLoaded: boolean,
+  sectionComboThreeLoaded: boolean,
 }
 
 export type TickerHeroSuccessPayload = {
