@@ -188,8 +188,16 @@ export const ArticleDetailScreen = ({
       recordLogEvent('Article_Details_Screen', { articleId: currentNId });
       getArticleDetail(currentNId)
     }
+
+    const makeEmptyArticleData = () => {
+      const { hasHTMLContent } = route.params
+      if(!hasHTMLContent) {
+        emptyAllData()
+      }
+    }
+
     return () => {
-      emptyAllData()
+      makeEmptyArticleData()
     }
   }, [isFocused])
 
@@ -215,9 +223,10 @@ export const ArticleDetailScreen = ({
 
   const onPressArticle = (nid: string) => {
     if (nid && nid!=currentNId) {
+      const hasHTMLContent = isNonEmptyArray(articleDetailData) && isNonEmptyArray(articleDetailData[0].richHTML)
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
       emptyAllData();
-      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
+      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true, hasHTMLContent })
     }
   }
 
