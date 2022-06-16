@@ -34,7 +34,7 @@ export const ContentBundleWidget = ({
     const onPress = () => {
         if (data.nid) {
             emptyAllData()
-            navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: data.nid });
+            navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: data.nid, hasHTMLContent: true });
         }
     };
 

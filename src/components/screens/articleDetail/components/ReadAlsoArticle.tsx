@@ -34,7 +34,7 @@ export const ReadAlsoArticle = ({
     const onPress = (item: ReadAlsoDataType) => {
         if (item.nid) {
             emptyAllData()
-            navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: item.nid });
+            navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: item.nid, hasHTMLContent: true });
         }
     };
 
