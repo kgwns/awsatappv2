@@ -68,7 +68,7 @@ export const ArticleDetailScreen = ({
   const [currentTime, setCurrentTime] = useState(0);
   const [paused, setPaused] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true);
-  const videoRefs = useRef([]);
+  const videoRefs = useRef<any[]>([]);
   const [bookmarkIndex, setBookmarkIndex] = useState(0);
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
 
@@ -446,8 +446,12 @@ export const ArticleDetailScreen = ({
           onScroll={onScroll}
           scrollEnabled={scrollEnabled}
         />
-        { isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl &&
-            <DraggableVideoPlayer videoRefs={videoRefs} setMiniPlayerVisible={closeMiniPlayer} url={playerUrl} setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}  currentTime={currentTime} setPlayerDetails={setPlayerDetails} paused={playerVisible ? paused : true} playerVisible={playerVisible} /> 
+        {isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl &&
+          <DraggableVideoPlayer videoRefs={videoRefs} setMiniPlayerVisible={closeMiniPlayer} url={playerUrl}
+            setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}
+            currentTime={currentTime} setPlayerDetails={setPlayerDetails}
+            paused={playerVisible ? paused : true} playerVisible={playerVisible}
+          />
         }
         <View style={style.bottom} />
         <View style={[style.footer, style.shadowEffect]}>
