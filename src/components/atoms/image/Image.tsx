@@ -1,14 +1,12 @@
 import React, {FunctionComponent, useState} from 'react';
-import { ImageStyle, StyleProp, StyleSheet, ActivityIndicator } from 'react-native';
+import { ImageStyle, StyleSheet } from 'react-native';
 
 import FastImage, { ResizeMode } from 'react-native-fast-image';
-import { createImageProgress,  } from 'react-native-image-progress';
 
 import {ImagesName, Styles} from 'src/shared/styles';
 import { isDarkTheme, isAndroid, isNotEmpty } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
 import {PlaceholderImage} from '../'
-import { colors } from 'src/shared/styles/colors';
 
 const DEFAULT_IMAGE_SIZE = 24;
 const DEFAULT_RADIUS_DIVIDER = 2;
@@ -16,7 +14,7 @@ const DEFAULT_RADIUS_DIVIDER = 2;
 export type ImageName = keyof typeof Styles.image;
 
 export interface ImageProps extends Omit<ImageStyle, 'source'> {
-  style?: StyleProp<ImageStyle>;
+  style?: ImageStyle;
   name?: ImageName;
   url?: string;
   size?: number;
@@ -27,7 +25,6 @@ export interface ImageProps extends Omit<ImageStyle, 'source'> {
   resizeMode?: ResizeMode;
 }
 
-const FImage = createImageProgress(FastImage);
 
 export const Image: FunctionComponent<ImageProps> = ({
   name,
@@ -64,10 +61,8 @@ export const Image: FunctionComponent<ImageProps> = ({
 
   return (
     <>
-    <FImage
+    <FastImage
         style={StyleSheet.flatten([imageStyle, borderStyle, style])}
-        imageStyle={borderStyle}
-        indicator={() => <ActivityIndicator color={colors.greenishBlue}/>}
         source={name ? (isDarkMode ? Styles.darkImage[name] : Styles.image[name]) : (showPlaceholder ? fallbackContent : { uri: url })}
         onError={() => !name && setShowPlaceholder(true)}
         resizeMode={resizeMode}
