@@ -326,7 +326,7 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
         <SectionArticleItem
           headerTitle={articleData.title}
           body={decodeHTMLTags(articleData.body)}
-          image={getImageUrl(articleData.field_image)}
+          image={getArticleImage(articleData.field_image, articleData.field_new_photo)}
           imageStyle={style.storyImageStyle}
           nid={articleData.nid}
           isBookmarked={articleData.isBookmarked}

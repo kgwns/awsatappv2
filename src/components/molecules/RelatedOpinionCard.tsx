@@ -162,25 +162,27 @@ const onPressPlay = () => {
         </View>}
       </View>
       <View>
-        <Image
-          url={
-            isNonEmptyArray(item.field_opinion_writer_node_export)
-              ? getImageUrl(
-                item.field_opinion_writer_node_export[0].opinion_writer_photo,
-              )
-              : getImageUrl(
-                item.field_opinion_writer_node_export.opinion_writer_photo,
-              )}
-          size={normalize(80)}
-          resizeMode={ImageResize.COVER}
-          type={'round'}
-          fallback={true}
-          fallbackContent={ <AuthorDefault
-          style={{backgroundColor:Styles.color.cyanGreen}}
-          width={normalize(80)} 
-          height={normalize(80)}/>}
-          onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}
-        />
+        <TouchableOpacity  onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}>
+          <Image
+            url={
+              isNonEmptyArray(item.field_opinion_writer_node_export)
+                ? getImageUrl(
+                  item.field_opinion_writer_node_export[0].opinion_writer_photo,
+                )
+                : getImageUrl(
+                  item.field_opinion_writer_node_export.opinion_writer_photo,
+                )}
+            size={normalize(80)}
+            resizeMode={ImageResize.COVER}
+            type={'round'}
+            fallback={true}
+            fallbackContent={<AuthorDefault
+              style={{ backgroundColor: Styles.color.cyanGreen }}
+              width={normalize(80)}
+              height={normalize(80)} />}
+            fallbackName={ImagesName.authorDefault}
+          />
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
