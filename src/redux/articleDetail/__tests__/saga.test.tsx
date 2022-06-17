@@ -1,6 +1,6 @@
 import { all, takeLatest } from "redux-saga/effects";
-import { EMPTY_DATA, REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_SECTION, REQUEST_RELATED_ARTICLE } from "../actionType";
-import articleDetailSaga, { fetchArticleDetail, fetchRelatedArticle, emptyData, fetchArticleSection } from "../sagas";
+import { EMPTY_DATA, REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_SECTION, REQUEST_RELATED_ARTICLE, REQUEST_RICH_ARTICLE_READ_ALSO } from "../actionType";
+import articleDetailSaga, { fetchArticleDetail, fetchRelatedArticle, emptyData, fetchArticleSection, getRichReadAlsoInfo } from "../sagas";
 
 const sampleResponse = {
     "rows": [
@@ -78,6 +78,7 @@ describe('<Article Detail Saga >', () => {
                     takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle),
                     takeLatest(REQUEST_ARTICLE_SECTION,fetchArticleSection),
                     takeLatest(EMPTY_DATA, emptyData),
+                    takeLatest(REQUEST_RICH_ARTICLE_READ_ALSO, getRichReadAlsoInfo),
                 ])
             );
         });
