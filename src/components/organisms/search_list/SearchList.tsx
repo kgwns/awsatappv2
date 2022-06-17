@@ -180,7 +180,8 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
         }}
         onSubmitSearch={onSubmit}
       />
-      {searchText.length > 0 ? getSearchResults() : searchHistoryView()}
+      {/* User Need to type minimum four char */}
+      {searchText.length >= 4 ? getSearchResults() : searchHistoryView()}
     </View>
   );
 };

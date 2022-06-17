@@ -3,7 +3,7 @@ import { ScreenContainer } from '..';
 import {useNavigation} from '@react-navigation/native';
 import {View, StyleSheet, TouchableOpacity } from 'react-native';
 import { SearchList } from 'src/components/organisms/';
-import { normalize } from 'src/shared/utils';
+import { isNotEmpty, normalize } from 'src/shared/utils';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import { useSearch } from 'src/hooks';
 import { SearchItemType } from 'src/redux/search/types';
@@ -30,9 +30,13 @@ export const SearchScreen = () => {
   }
   const onSearchTextChange = (searchText: string) => {
     setSearchText(searchText);
-    fetchSearchRequest({
-      searchText: searchText,
-    });
+
+    {/* User Need to type minimum four char to enable search*/}
+    if (searchText && isNotEmpty(searchText.toString()) && searchText.trim().length >= 4) {
+      fetchSearchRequest({
+        searchText: searchText,
+      });
+    }
   };
 
   const getUpdatedHistoryArray = (text:string) => { 
