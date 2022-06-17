@@ -77,6 +77,7 @@ const FollowFavoriteAuthor = ({
                 style={{ backgroundColor: Styles.color.silverChalice }}
                 width={isTab ? normalize(tabSize) : normalize(size)}
                 height={isTab ? normalize(tabSize) : normalize(size)}/>}
+              fallbackName={ImagesName.authorDefaultGrey}
             />
           </Grayscale>
         ) : (
@@ -90,6 +91,7 @@ const FollowFavoriteAuthor = ({
                 style={{ backgroundColor: Styles.color.cyanGreen }}
                 width={isTab ? normalize(tabSize) : normalize(size)}
                 height={isTab ? normalize(tabSize) : normalize(size)} />}
+              fallbackName={ImagesName.authorDefault}
             />
         )}
         <View style={style.tickIconContainer}>

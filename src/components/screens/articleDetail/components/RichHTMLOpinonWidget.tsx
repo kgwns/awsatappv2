@@ -66,19 +66,21 @@ export const RichHTMLOpinonWidget = ({
                 <TouchableOpacity style={style.innerContainer} activeOpacity={0.9}
                     onPress={onPressOpinion}>
                     <View style={style.rightContainer}>
-                        <Image url={data.image}
-                            size={normalize(80)}
-                            resizeMode={'cover'}
-                            type={'round'}
-                            fallback={true}
-                            fallbackContent={
-                                <AuthorDefault
-                                    style={{ backgroundColor: Styles.color.cyanGreen }}
-                                    width={normalize(80)}
-                                    height={normalize(80)} />
-                            }
-                            onPress={onPressWriter}
-                        />
+                        <TouchableOpacity onPress={onPressWriter}>
+                            <Image url={data.image}
+                                size={normalize(80)}
+                                resizeMode={'cover'}
+                                type={'round'}
+                                fallback={true}
+                                fallbackContent={
+                                    <AuthorDefault
+                                        style={{ backgroundColor: Styles.color.cyanGreen }}
+                                        width={normalize(80)}
+                                        height={normalize(80)} />
+                                }
+                                fallbackName={ImagesName.authorDefault}
+                            />
+                        </TouchableOpacity>
                         <Label children={data.name} labelType={LabelTypeProp.p4}
                             style={style.authorName}
                             color={themeData.authorTitle}

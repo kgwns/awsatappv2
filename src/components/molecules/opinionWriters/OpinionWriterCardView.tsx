@@ -149,18 +149,20 @@ const onPressPlay = () => {
   return (
     <FixedTouchable style={style.container} onPress={()=>onPress()}>
       {!hideImageView && <View style={style.topImageWithLabelContainer}>
-        <Image
-          size={normalize(43)}
-          url={imageUrl}
-          type="round"
-          resizeMode="cover"
-          fallback={true}
-          fallbackContent={<AuthorDefault
-            style={{ backgroundColor: Styles.color.cyanGreen }}
-            width={normalize(43)}
-            height={normalize(43)} />}
-          onPress={() => onPressWriter(authorId)}
-        />
+        <TouchableOpacity onPress={() => onPressWriter(authorId)}>
+          <Image
+            size={normalize(43)}
+            url={imageUrl}
+            type="round"
+            resizeMode="cover"
+            fallback={true}
+            fallbackContent={<AuthorDefault
+              style={{ backgroundColor: Styles.color.cyanGreen }}
+              width={normalize(43)}
+              height={normalize(43)} />}
+            fallbackName={ImagesName.authorDefault}
+          />
+        </TouchableOpacity>
         <Label suppressHighlighting={true} style={style.writerLabel} onPress={() => onPressWriter(authorId)}>{writerTitle}</Label>
       </View>}
       <View style={style.headLineContainer}>

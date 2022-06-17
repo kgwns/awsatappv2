@@ -13,7 +13,7 @@ import {
   REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED,
   REQUEST_EDITORS_CHOICE_DATA, REQUEST_EDITORS_CHOICE_DATA_SUCCESS, REQUEST_EDITORS_CHOICE_DATA_FAILED,
   REQUEST_SPOTLIGHT_COMBO, REQUEST_SPOTLIGHT_COMBO_SUCCESS, REQUEST_SPOTLIGHT_COMBO_FAILED,
-  REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS,
+  REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS, REQUEST_COVERAGE_BLOCK_FAILED, REQUEST_FEATURED_ARTICLE_BLOCK_FAILED, REQUEST_HORIZONTAL_ARTICLE_FAILED, REQUEST_COVERAGE_BLOCK, REQUEST_FEATURED_ARTICLE_BLOCK, REQUEST_HORIZONTAL_ARTICLE_BLOCK,
 } from './actionType';
 import { LatestNewsTabState, LatestTabAction } from './types';
 
@@ -32,13 +32,22 @@ const initialData: LatestNewsTabState = {
   sectionComboFive: [],
   sectionComboSix: [],
   sectionComboSeven: [],
-  podcastHome:[],
+  podcastHome: [],
   coverageInfo: [],
   featuredArticle: [],
   horizontalArticle: [],
-  editorsChoice:[],
-  spotlight:[],
-  spotlightArticleSection:[]
+  editorsChoice: [],
+  spotlight: [],
+  spotlightArticleSection: [],
+  coverageInfoLoaded: false,
+  featuredArticleLoaded: false,
+  horizontalArticleLoaded: false,
+  opinionLoaded: false,
+  podcastHomeLoaded: false,
+  editorChoiceLoaded: false,
+  sectionComboOneLoaded: false,
+  sectionComboTwoLoaded: false,
+  sectionComboThreeLoaded: false,
 };
 
 export default (state = initialData, action: LatestTabAction) => {
@@ -79,79 +88,85 @@ export default (state = initialData, action: LatestTabAction) => {
         isLoading: false,
         error: action.payload.error
       }
-
-      case REQUEST_OPINION_LIST_DATA:
-        return {
-          ...state,
-          isLoading: true
-        }
-      case REQUEST_OPINION_DATA_SUCCESS:
-        return {
-          ...state,
-          isLoading: false,
-          opinionList: action.payload.opinionList
-        }
-      case REQUEST_OPINION_DATA_LIST_FAILED:
-        return {
-          ...state,
-          isLoading: false,
-          error: action.payload.error
-        }
+    case REQUEST_OPINION_LIST_DATA:
+      return {
+        ...state,
+        opinionLoaded: false,
+      }
+    case REQUEST_OPINION_DATA_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        opinionList: action.payload.opinionList,
+        opinionLoaded: true,
+      }
+    case REQUEST_OPINION_DATA_LIST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error,
+        opinionLoaded: true,
+      }
     case REQUEST_SECTION_COMBO_ONE:
       return {
         ...state,
-        isLoading: true
+        sectionComboOneLoaded: false,
       }
     case REQUEST_SECTION_COMBO_ONE_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        sectionComboOneLoaded: true,
         sectionComboOne: action.payload.sectionComboOne
       }
     case REQUEST_SECTION_COMBO_ONE_FAILED:
       return {
         ...state,
         isLoading: false,
+        sectionComboOneLoaded: true,
         error: action.payload.error
       }
     case REQUEST_SECTION_COMBO_TWO:
       return {
         ...state,
-        isLoading: true
+        sectionComboTwoLoaded: false,
       }
     case REQUEST_SECTION_COMBO_TWO_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        sectionComboTwoLoaded: true,
         sectionComboTwo: action.payload.sectionComboTwo
       }
     case REQUEST_SECTION_COMBO_TWO_FAILED:
       return {
         ...state,
         isLoading: false,
+        sectionComboTwoLoaded: true,
         error: action.payload.error
       }
     case REQUEST_SECTION_COMBO_THREE:
       return {
         ...state,
-        isLoading: true
+        sectionComboThreeLoaded: false,
       }
     case REQUEST_SECTION_COMBO_THREE_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        sectionComboThreeLoaded: true,
         sectionComboThree: action.payload.sectionComboThree
       }
     case REQUEST_SECTION_COMBO_THREE_FAILED:
       return {
         ...state,
         isLoading: false,
+        sectionComboThreeLoaded: true,
         error: action.payload.error
       }
     case REQUEST_SECTION_COMBO_FOUR:
       return {
         ...state,
-        isLoading: true
       }
     case REQUEST_SECTION_COMBO_FOUR_SUCCESS:
       return {
@@ -168,7 +183,6 @@ export default (state = initialData, action: LatestTabAction) => {
     case REQUEST_SECTION_COMBO_FIVE:
       return {
         ...state,
-        isLoading: true
       }
     case REQUEST_SECTION_COMBO_FIVE_SUCCESS:
       return {
@@ -185,7 +199,6 @@ export default (state = initialData, action: LatestTabAction) => {
     case REQUEST_SECTION_COMBO_SIX:
       return {
         ...state,
-        isLoading: true
       }
     case REQUEST_SECTION_COMBO_SIX_SUCCESS:
       return {
@@ -202,7 +215,6 @@ export default (state = initialData, action: LatestTabAction) => {
     case REQUEST_SECTION_COMBO_SEVEN:
       return {
         ...state,
-        isLoading: true
       }
     case REQUEST_SECTION_COMBO_SEVEN_SUCCESS:
       return {
@@ -219,56 +231,95 @@ export default (state = initialData, action: LatestTabAction) => {
     case REQUEST_PODCAST_HOME_DATA:
       return {
         ...state,
-        isLoading: true
+        podcastHomeLoaded: false,
       }
     case REQUEST_PODCAST_HOME_DATA_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        podcastHome: action.payload.podcastHome
+        podcastHome: action.payload.podcastHome,
+        podcastHomeLoaded: true,
       }
     case REQUEST_PODCAST_HOME_DATA_FAILED:
       return {
         ...state,
         isLoading: false,
-        error: action.payload.error
+        error: action.payload.error,
+        podcastHomeLoaded: true,
+      }
+    case REQUEST_COVERAGE_BLOCK:
+      return {
+        ...state,
+        coverageInfoLoaded: false,
       }
     case REQUEST_COVERAGE_BLOCK_SUCCESS:
       return {
         ...state,
-        coverageInfo: action.payload.coverageInfo
+        coverageInfo: action.payload.coverageInfo,
+        coverageInfoLoaded: true,
+        isLoading: false,
+      }
+    case REQUEST_COVERAGE_BLOCK_FAILED:
+      return {
+        ...state,
+        coverageInfoLoaded: true,
+      }
+    case REQUEST_FEATURED_ARTICLE_BLOCK:
+      return {
+        ...state,
+        featuredArticleLoaded: false,
       }
     case REQUEST_FEATURED_ARTICLE_BLOCK_SUCCESS:
       return {
         ...state,
-        featuredArticle: action.payload.featureArticle
+        featuredArticle: action.payload.featureArticle,
+        featuredArticleLoaded: true,
+        isLoading: false,
+      }
+    case REQUEST_FEATURED_ARTICLE_BLOCK_FAILED:
+      return {
+        ...state,
+        featuredArticleLoaded: true,
+      }
+    case REQUEST_HORIZONTAL_ARTICLE_BLOCK:
+      return {
+        ...state,
+        horizontalArticleLoaded: false,
       }
     case REQUEST_HORIZONTAL_ARTICLE_SUCCESS:
       return {
         ...state,
-        horizontalArticle: action.payload.horizontalArticle
+        horizontalArticle: action.payload.horizontalArticle,
+        horizontalArticleLoaded: true,
+        isLoading: false,
+      }
+    case REQUEST_HORIZONTAL_ARTICLE_FAILED:
+      return {
+        ...state,
+        horizontalArticleLoaded: true,
       }
     case REQUEST_EDITORS_CHOICE_DATA:
       return {
         ...state,
-        isLoading: true
+        editorChoiceLoaded: false,
       }
     case REQUEST_EDITORS_CHOICE_DATA_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        editorsChoice: action.payload.editorsChoice
+        editorsChoice: action.payload.editorsChoice,
+        editorChoiceLoaded: true,
       }
     case REQUEST_EDITORS_CHOICE_DATA_FAILED:
       return {
         ...state,
         isLoading: false,
-        error: action.payload.error
+        error: action.payload.error,
+        editorChoiceLoaded: false,
       }
     case REQUEST_SPOTLIGHT_COMBO:
       return {
         ...state,
-        isLoading: true
       }
     case REQUEST_SPOTLIGHT_COMBO_SUCCESS:
       return {
@@ -285,7 +336,6 @@ export default (state = initialData, action: LatestTabAction) => {
     case REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA:
       return {
         ...state,
-        isLoading: true
       }
     case REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS:
       return {

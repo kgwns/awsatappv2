@@ -143,6 +143,7 @@ export const WriterBannerImage = ({
                   style={{ backgroundColor: Styles.color.lightCyanBlue }}
                   width={normalize(100)}
                   height={normalize(100)} />}
+                fallbackName={ImagesName.authorDefault}
               />
             </View>
           </TouchableWithoutFeedback>

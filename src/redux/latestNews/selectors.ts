@@ -17,7 +17,8 @@ export const getTopListData: Selector<LatestArticleDataType[]> = (state: AppStat
   state.latestNewsTab.topList;
 
 export const getOpinionData: Selector<LatestOpinionDataType[]> = (state: AppState) =>
-state.latestNewsTab.opinionList;
+  state.latestNewsTab.opinionList;
+  
 export const getSectionComboOneData: Selector<LatestArticleDataType[]> = (state: AppState) =>
   state.latestNewsTab.sectionComboOne;
 
@@ -62,3 +63,30 @@ export const getFeaturedArticle: Selector<MainSectionBlockType[]> = (state: AppS
 
 export const getHorizontalData: Selector<MainSectionBlockType[]> = (state: AppState) =>
   state.latestNewsTab.horizontalArticle;
+
+export const getCoverageDataLoading: Selector<boolean> = (state: AppState) =>
+  state.latestNewsTab.coverageInfoLoaded;
+
+export const getFeaturedArticleLoading: Selector<boolean> = (state: AppState) =>
+  state.latestNewsTab.featuredArticleLoaded;
+
+export const getHorizontalDataLoading: Selector<boolean> = (state: AppState) =>
+  state.latestNewsTab.horizontalArticleLoaded;
+
+export const getOpinionDataLoading: Selector<boolean> = (state: AppState) =>
+  state.latestNewsTab.opinionLoaded;
+
+export const getPodcastHomeDataLoading: Selector<boolean> = (state: AppState) =>
+  state.latestNewsTab.podcastHomeLoaded;
+
+export const getEditorChoiceDataLoading: Selector<boolean> = (state: AppState) =>
+  state.latestNewsTab.editorChoiceLoaded;
+
+export const getSectionComboOneLoading: Selector<boolean> = (state: AppState) =>
+  state.latestNewsTab.sectionComboOneLoaded;
+
+export const getSectionComboTwoLoading: Selector<boolean> = (state: AppState) =>
+  state.latestNewsTab.sectionComboTwoLoaded;
+
+export const getSectionComboThreeLoading: Selector<boolean> = (state: AppState) =>
+  state.latestNewsTab.sectionComboThreeLoaded;

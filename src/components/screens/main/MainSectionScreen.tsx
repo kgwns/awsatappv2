@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
+import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator } from 'react-native';
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
@@ -111,6 +111,9 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     opinionList,podcastHome,
     sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour, sectionComboFive, sectionComboSix, sectionComboSeven,
     coverage, featuredArticle, horizontalArticle, editorsChoice, spotlight, spotlightArticleSection,
+    coverageInfoLoaded, featuredArticleLoaded, horizontalArticleLoaded,
+    opinionLoaded, podcastHomeLoaded, editorChoiceLoaded,
+    sectionComboOneLoaded, sectionComboTwoLoaded, sectionComboThreeLoaded,
     // fetchHeroListTopList, // enable when toplist is required
     fetchOpinionTopList,
     fetchSectionComboOne, fetchSectionComboTwo,
@@ -448,12 +451,24 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   }, []);
 
   const allDataLoad = () => {
+    loadTopWidgetAPI()
+  }
+
+  const loadTopWidgetAPI = () => {
     fetchCoverageBlockData();
     fetchFeaturedArticleData();
     fetchHorizontalArticleData();
+    fetchProfileDataRequest();
+  }
 
-    // fetchHeroListTopList(heroListTopListPayload)
+  const loadMiddleWidgetAPI = () => {
     fetchOpinionTopList(opinionListPayload)
+    fetchVideoRequest();
+    fetchPodcastHome();
+    fetchEditorsChoice();
+  }
+
+  const loadBottomWidgetAPI = () => {
     fetchSectionComboOne(sectionComboOnePayload)
     fetchSectionComboTwo(sectionComboTwoPayload)
     fetchSectionComboThree(sectionComboThreePayload)
@@ -461,12 +476,20 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     fetchSectionComboFive(sectionComboFivePayload)
     fetchSectionComboSix(sectionComboSixPayload)
     fetchSectionComboSeven(sectionComboSevenPayload)
-    fetchProfileDataRequest();
-    fetchVideoRequest();
-    fetchPodcastHome();
-    fetchEditorsChoice();
     fetchSpotlight();
   }
+
+  useEffect(() => {
+    if (coverageInfoLoaded && featuredArticleLoaded && horizontalArticleLoaded) {
+      loadMiddleWidgetAPI()
+    }
+  }, [coverageInfoLoaded, featuredArticleLoaded, horizontalArticleLoaded])
+
+  useEffect(() => {
+    if (opinionLoaded && podcastHomeLoaded && editorChoiceLoaded) {
+      loadBottomWidgetAPI()
+    }
+  }, [opinionLoaded, podcastHomeLoaded, editorChoiceLoaded])
 
 
   const onPressArticle = (nid: string) => {
@@ -652,6 +675,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboSevenBookmark}
         isDivider
       />
+      {showBottomSpinner()}
     </View>
   )
 
@@ -819,6 +843,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         />
         </View>
       </View>
+      {showBottomSpinner()}
     </View>
   )
 
@@ -826,8 +851,25 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     return isTab ? renderTabItem() : renderMobile()
   }
 
+  const showBottomSpinner = () => {
+    const isMainShowing = isLoading || !coverageInfoLoaded || !featuredArticleLoaded || !horizontalArticleLoaded
+    const middleWidgetLoaded = opinionLoaded && podcastHomeLoaded && editorChoiceLoaded
+    const isSectionComboLoaded = sectionComboOneLoaded && sectionComboTwoLoaded && sectionComboThreeLoaded
+    
+    if (isMainShowing || (middleWidgetLoaded && isSectionComboLoaded)) {
+      return null
+    }
+
+    return (
+      <View style={{ margin: normalize(28) }}>
+        <ActivityIndicator size={'large'} color={themeData.primary} />
+      </View>
+    )
+  }
+
+  const showSpinner = isLoading || !coverageInfoLoaded || !featuredArticleLoaded || !horizontalArticleLoaded
   return (
-    <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
+    <ScreenContainer edge={horizontalEdge} isLoading={showSpinner}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <FlatList
@@ -848,7 +890,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
           />
         }
       />
-      
     </ScreenContainer>
   )
 })

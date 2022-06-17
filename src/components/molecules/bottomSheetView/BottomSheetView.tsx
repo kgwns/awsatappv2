@@ -46,7 +46,7 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
                 </TouchableOpacity>
             </View>
             <View style={style.popupImageContainer}>
-                <Image fallback name={ImagesName.popupImage} style={style.popupImage} fallbackContent={<AlertImage />} />
+                <Image fallback name={ImagesName.popupImage} style={style.popupImage} fallbackContent={<AlertImage />} fallbackName={ImagesName.popupImage} />
             </View>
         </View>
     )

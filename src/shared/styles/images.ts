@@ -21,6 +21,9 @@ import topShadowImg from 'src/assets/images/top-vignette.png'
 import playIconWhite from 'src/assets/images/play.png'
 import pauseIconWhite from 'src/assets/images/pause.png'
 
+import authorDefault from 'src/assets/images/author_default.png'
+import authorDefaultGrey from 'src/assets/images/author_defaultGrey.png'
+
 export enum ImagesName {
   newsIcon = 'newsIcon',
   newsActiveIcon = 'newsActiveIcon',
@@ -115,7 +118,9 @@ export enum ImagesName {
   printVersionGrayIcon = 'printVersionGrayIcon',
   popupImage = 'popupImage',
   calendarIcon = 'calendarIcon',
-  videoCloseIcon = 'videoCloseIcon'
+  videoCloseIcon = 'videoCloseIcon',
+  authorDefault = 'authorDefault',
+  authorDefaultGrey = 'authorDefaultGrey',
 }
 
 export const images = {
@@ -136,7 +141,9 @@ export const images = {
   bottomShadowImg,
   playIconWhite,
   pauseIconWhite,
-  topShadowImg
+  topShadowImg,
+  authorDefault,
+  authorDefaultGrey,
 };
 
 export const darkImages = {

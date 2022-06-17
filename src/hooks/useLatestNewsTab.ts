@@ -14,6 +14,15 @@ import {
     getEditorsChoiceData,
     getSpotlightData,
     getSpotlightArticleSectionData,
+    getCoverageDataLoading,
+    getFeaturedArticleLoading,
+    getHorizontalDataLoading,
+    getOpinionDataLoading,
+    getPodcastHomeDataLoading,
+    getEditorChoiceDataLoading,
+    getSectionComboOneLoading,
+    getSectionComboTwoLoading,
+    getSectionComboThreeLoading,
 } from 'src/redux/latestNews/selectors';
 import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet, EditorsChoiceDataType, SpotlightDataType, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { requestHeroListTopList, requestSectionComboFour, 
@@ -48,6 +57,15 @@ export interface UseLatestNewsReturn {
     editorsChoice: EditorsChoiceDataType[];
     spotlight: SpotlightDataType[];
     spotlightArticleSection: LatestArticleDataType[];
+    coverageInfoLoaded: boolean;
+    featuredArticleLoaded: boolean;
+    horizontalArticleLoaded: boolean;
+    opinionLoaded: boolean;
+    podcastHomeLoaded: boolean;
+    editorChoiceLoaded: boolean;
+    sectionComboOneLoaded: boolean;
+    sectionComboTwoLoaded: boolean;
+    sectionComboThreeLoaded: boolean;
     fetchTickerAndHeroArticle(payload: LatestArticleBodyGet): void;
     fetchHeroListTopList(payload: LatestArticleBodyGet): void
     fetchSectionComboOne(payload: RequestSectionComboBodyGet): void
@@ -88,6 +106,16 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const editorsChoice = useSelector(getEditorsChoiceData)
     const spotlight = useSelector(getSpotlightData)
     const spotlightArticleSection = useSelector(getSpotlightArticleSectionData)
+    const coverageInfoLoaded = useSelector(getCoverageDataLoading)
+    const featuredArticleLoaded = useSelector(getFeaturedArticleLoading)
+    const horizontalArticleLoaded = useSelector(getHorizontalDataLoading)
+    const opinionLoaded = useSelector(getOpinionDataLoading)
+    const podcastHomeLoaded= useSelector(getPodcastHomeDataLoading)
+    const editorChoiceLoaded = useSelector(getEditorChoiceDataLoading)
+    const sectionComboOneLoaded = useSelector(getSectionComboOneLoading)
+    const sectionComboTwoLoaded = useSelector(getSectionComboTwoLoading)
+    const sectionComboThreeLoaded = useSelector(getSectionComboThreeLoading)
+
     
     const fetchTickerAndHeroArticle = (payload: LatestArticleBodyGet) => {
         dispatch(requestTickerAndHero(payload));
@@ -188,5 +216,14 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         fetchSpotlight,
         spotlightArticleSection,
         fetchSpotlightArticleSection,
+        coverageInfoLoaded,
+        featuredArticleLoaded,
+        horizontalArticleLoaded,
+        opinionLoaded,
+        podcastHomeLoaded,
+        editorChoiceLoaded,
+        sectionComboOneLoaded,
+        sectionComboTwoLoaded,
+        sectionComboThreeLoaded,
     };
 };
