@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useState} from 'react';
-import { ImageStyle, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import FastImage, { ResizeMode } from 'react-native-fast-image';
+import FastImage, { ImageStyle, ResizeMode } from 'react-native-fast-image';
 
 import {ImagesName, Styles} from 'src/shared/styles';
 import { isDarkTheme, isAndroid, isNotEmpty } from 'src/shared/utils';
