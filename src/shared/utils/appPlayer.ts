@@ -15,7 +15,8 @@ class AppPlayer {
                     Capability.SeekTo,
                 ],
                 compactCapabilities: [Capability.Play, Capability.Pause],
-                alwaysPauseOnInterruption: true,
+                // Enable Pause On Interruption
+                // alwaysPauseOnInterruption: true, 
                 notificationCapabilities: [
                     Capability.Play,
                     Capability.Pause,

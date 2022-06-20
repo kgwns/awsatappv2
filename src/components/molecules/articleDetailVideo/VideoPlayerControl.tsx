@@ -63,6 +63,8 @@ const VideoPlayerControl = ({
   };
 
   const onPaused = () => {
+    if (!isMiniPlayer && !paused)
+      setMiniPlayerVisible && setMiniPlayerVisible(false);
     setPaused(!paused);
   };
 
