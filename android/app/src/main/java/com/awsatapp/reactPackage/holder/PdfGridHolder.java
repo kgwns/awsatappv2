@@ -13,20 +13,27 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import com.awsatapp.MainApplication;
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.Constant;
 import com.awsatapp.reactPackage.listener.ItemProgressListener;
+import com.awsatapp.reactPackage.listener.OnPdfDownloadStart;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.manager.DataManager;
 import com.awsatapp.reactPackage.listener.ItemClickListener;
+import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.awsatapp.reactPackage.model.Pdf;
 import com.awsatapp.reactPackage.utils.FontUtils;
+import com.awsatapp.reactPackage.utils.SharedPreferenceManager;
 import com.awsatapp.reactPackage.utils.Utils;
 import com.bumptech.glide.Glide;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.model.FileDownloadStatus;
 
 import java.io.File;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Copyright (C) 2017 Mtech.mobi. All rights reserved.
@@ -39,7 +46,12 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
     private TextView mDate;
     private Button mDownlaodBtn;
     private ItemProgressListener itemProgressListener;
-    public PdfGridHolder(View itemView, ItemClickListener listener, ItemProgressListener itemProgressListener) {
+    private Pdf pdf;
+
+    private FileDownloadSerialQueue fileDownloadSerialQueue;
+
+    public PdfGridHolder(View itemView, ItemClickListener listener,
+                         ItemProgressListener itemProgressListener) {
         super(itemView, listener,null,itemProgressListener);
         mTitle = (TextView) itemView.findViewById(R.id.title);
         mImage = (ImageView) itemView.findViewById(R.id.image);
@@ -49,9 +61,9 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
         if (DataManager.getInstance(mTitle.getContext()).isArabic()) {
             FontUtils.setBold(mTitle.getContext(), mDate, mTitle, mDownlaodBtn);
         }
-
+//        pdf = (Pdf) SharedPreferenceManager.getSharedOBJECT(mContext,"downloadNews");
         mDownlaodBtn.setOnClickListener(this);
-
+        fileDownloadSerialQueue = ((MainApplication) mContext.getApplicationContext()).getPDFDownloadService();
     }
 
     @Override
@@ -72,6 +84,8 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
                 .load(data.getThumb())
                 .placeholder(circularProgressDrawable)
                 .into(mImage);
+        //onPdfDownloadStart.onDownloadProgress(fileDownloadSerialQueue);
+
 
         if (fileExist(data.getIssueNumber() + ".pdf")) {
             mDownlaodBtn.setText(mTitle.getContext().getString(R.string.read));
@@ -85,6 +99,7 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
                 long soFarBytes = data.getmDownloadTask().getLargeFileSoFarBytes();
                 long totalBytes = data.getmDownloadTask().getLargeFileTotalBytes();
                 mDownlaodBtn.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
+
                 itemProgressListener.onProgress(itemView,position,soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
             }else{
                 mDownlaodBtn.setText(mContext.getString(R.string.downloading));
@@ -93,6 +108,49 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
         } else if (data.getStatus() == 0) {
             mDownlaodBtn.setText(mTitle.getContext().getString(R.string.download));
         }
+
+        try{
+            if(fileDownloadSerialQueue.getTask()!=null) {
+                if(null != fileDownloadSerialQueue && Objects.equals(fileDownloadSerialQueue.getTask().getUrl(), data.getUrl())){
+
+                    fileDownloadSerialQueue.getTask().setListener(new FileDownloadListener() {
+                        @Override
+                        protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+
+                        }
+
+                        @Override
+                        protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                            mDownlaodBtn.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
+                        }
+
+                        @Override
+                        protected void completed(BaseDownloadTask task) {
+                            mDownlaodBtn.setText(mContext.getString(R.string.read));
+                        }
+
+                        @Override
+                        protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+
+                        }
+
+                        @Override
+                        protected void error(BaseDownloadTask task, Throwable e) {
+
+                        }
+
+                        @Override
+                        protected void warn(BaseDownloadTask task) {
+
+                        }
+                    });
+                }
+            }
+        }catch (Exception e){
+
+        }
+
+
     }
 
     private boolean fileExist(String key) {

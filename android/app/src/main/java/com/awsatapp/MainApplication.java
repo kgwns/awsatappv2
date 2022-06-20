@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.awsatapp.reactPackage.PDFPackage;
+import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -16,6 +17,13 @@ import java.util.List;
 import com.airbnb.android.react.lottie.LottiePackage;
 
 public class MainApplication extends Application implements ReactApplication {
+  public static FileDownloadSerialQueue fileDownloadSerialQueue;
+
+    private static MainApplication application;
+
+    public MainApplication getInstance() {
+        return application;
+    }
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -49,10 +57,13 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+      application = this;
+      application.initialize();
       SoLoader.init(this, /* native exopackage */ false);
       I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
       sharedI18nUtilInstance.forceRTL(this,true);
       sharedI18nUtilInstance.allowRTL(this, true);
+
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 
@@ -86,4 +97,11 @@ public class MainApplication extends Application implements ReactApplication {
       }
     }
   }
+
+  public void initialize(){
+      fileDownloadSerialQueue = new FileDownloadSerialQueue();
+  }
+    public FileDownloadSerialQueue getPDFDownloadService() {
+        return fileDownloadSerialQueue;
+    }
 }

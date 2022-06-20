@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,16 +19,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.awsatapp.MainApplication;
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.Constant;
 import com.awsatapp.reactPackage.MyContextWrapper;
 import com.awsatapp.reactPackage.listener.ItemClickListener;
 import com.awsatapp.reactPackage.listener.ItemProgressListener;
+import com.awsatapp.reactPackage.listener.OnPdfDownloadStart;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.CoreListAdapter;
 import com.awsatapp.reactPackage.PdfAdapter;
 import com.awsatapp.reactPackage.manager.CoreNetworkManager;
+import com.awsatapp.reactPackage.manager.DownloadStartManager;
+import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.awsatapp.reactPackage.manager.NetworkManager;
+import com.awsatapp.reactPackage.manager.PdfDownloadManager;
 import com.awsatapp.reactPackage.model.Pdf;
 import com.awsatapp.reactPackage.model.PdfWrapper;
 import com.awsatapp.reactPackage.utils.FontUtils;
@@ -38,8 +41,8 @@ import com.awsatapp.reactPackage.utils.SimpleDividerItemDecoration;
 import com.awsatapp.reactPackage.utils.Utils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadLargeFileListener;
+import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
-import com.liulishuo.filedownloader.model.FileDownloadStatus;
 
 import org.json.JSONException;
 
@@ -48,19 +51,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Copyright (C) 2017 Mtech.mobi. All rights reserved.
  * Created by malekhijazi on 5/16/17.
  */
 
-public class PdfArchiveActivity extends CoreListActivity<Pdf> {
+public class PdfArchiveActivity extends CoreListActivity<Pdf> implements OnPdfDownloadStart {
     private boolean isGrid = true;
     private ArrayList<Pdf> mPdfs = new ArrayList<>();
     private ImageView backIcon;
     private LinearLayout backContainer;
     private TextView title;
-
+    private PdfAdapter pdfAdapter;
+    private FileDownloadSerialQueue pdfDownloadService;
     @Override
     public int getContentView() {
         return R.layout.activity_pdf_archive;
@@ -69,6 +74,8 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //PdfDownloadManager.getInstance().setListener(this);
+        pdfDownloadService =  ((MainApplication) getApplication()).getPDFDownloadService();
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb);
         title = toolbar.findViewById(R.id.toolbar_title);
         backIcon = tb.findViewById(R.id.backIcon);
@@ -91,10 +98,9 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
 
     @Override
     public CoreListAdapter<Pdf> initAdapter() {
-        return new PdfAdapter(mContext, rvList, mPdfs, new ItemClickListener() {
+        pdfAdapter =  new PdfAdapter(mContext, rvList, mPdfs, new ItemClickListener() {
             @Override
             public void itemClicked(View view, int integer) {
-                Log.i("clicked",String.valueOf(integer));
                 switch (view.getId()) {
                     case R.id.download_btn:
                         Button button = (Button) view;
@@ -134,13 +140,14 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                             }
                             startActivity(PdfActivity.newInstance(mContext, path, title));
                         }
+                        DownloadStartManager.getInstance().onDownload(pdf);
                 }
             }
         }, new ItemProgressListener() {
             @Override
-            public void onProgress(View view, int position,String progress) {
+            public void onProgress(View view, int position, String progress) {
                 Button mDownloadBtn = (Button) view.findViewById(R.id.download_btn);
-                if(mPdfs.get(position).getStatus() == 1) {
+                if (mPdfs.get(position).getStatus() == 1) {
                     mPdfs.get(position).getmDownloadTask().setListener(new FileDownloadLargeFileListener() {
                         @Override
                         protected void pending(BaseDownloadTask task, long soFarBytes, long totalBytes) {
@@ -162,6 +169,8 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                             mPdfs.get(position).setStatus(2);
                             //when the dowload is completed
                             mDownloadBtn.setText(getString(R.string.read));
+                            Objects.requireNonNull(rvList.getAdapter()).notifyItemChanged(0);
+                            mPdfs.get(position).notify();
                         }
 
                         @Override
@@ -178,6 +187,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                 }
             }
         });
+        return pdfAdapter;
     }
 
     @Override
@@ -284,7 +294,10 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                         }
                     });
             pdf.setmDownloadTask(downloadTask);
-            downloadTask.start();
+            pdfDownloadService.enqueue(downloadTask);
+
+
+            //downloadTask.start();
         }
     }
 
@@ -302,6 +315,54 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public void onProgress(View view, int position, String progress) {
+
+    }
+
+    @Override
+    public void onDownloadProgress(FileDownloadSerialQueue fileDownloadSerialQueue) {
+        try {
+            fileDownloadSerialQueue.getTask().setListener(new FileDownloadListener() {
+                @Override
+                protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+
+                }
+
+                @Override
+                protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                    Button button = adapter.getRecyclerView().getChildAt(0).findViewById(R.id.download_btn);
+                    button.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
+                }
+
+                @Override
+                protected void completed(BaseDownloadTask task) {
+                    Button button = adapter.getRecyclerView().getChildAt(0).findViewById(R.id.download_btn);
+                    mPdfs.get(0).setStatus(2);
+                    //when the dowload is completed
+                    button.setText(getString(R.string.read));
+                }
+
+                @Override
+                protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+
+                }
+
+                @Override
+                protected void error(BaseDownloadTask task, Throwable e) {
+
+                }
+
+                @Override
+                protected void warn(BaseDownloadTask task) {
+
+                }
+            });
+        }catch (Exception e){
+            Log.i("param==>fileDown excep",e.toString());
+        }
     }
 
     @Override

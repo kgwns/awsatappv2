@@ -8,9 +8,11 @@ import android.widget.TextView;
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.Constant;
 import com.awsatapp.reactPackage.listener.ItemProgressListener;
+import com.awsatapp.reactPackage.listener.OnPdfDownloadStart;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.manager.DataManager;
 import com.awsatapp.reactPackage.listener.ItemClickListener;
+import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.awsatapp.reactPackage.model.Pdf;
 import com.awsatapp.reactPackage.utils.FontUtils;
 import com.awsatapp.reactPackage.utils.Utils;
@@ -43,7 +45,7 @@ public class PdfHolder extends CoreHolder<Pdf> {
     }
 
     @Override
-    public void bindData(Pdf data,int position,ItemProgressListener itemProgressListener) {
+    public void bindData(Pdf data, int position, ItemProgressListener itemProgressListener) {
         mTitle.setText(mTitle.getContext().getString(R.string.issue_number) + " " + data.getIssueNumber());
         mDownlaodBtn.setOnClickListener(this);
         String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE,"ar");

@@ -25,8 +25,10 @@ import com.awsatapp.reactPackage.listener.ItemClickListener;
 import com.awsatapp.reactPackage.listener.ItemLongClickListener;
 import com.awsatapp.reactPackage.listener.ItemProgressListener;
 import com.awsatapp.reactPackage.listener.OnLoadMoreListener;
+import com.awsatapp.reactPackage.listener.OnPdfDownloadStart;
 import com.awsatapp.reactPackage.listener.OnScrollStateChangedListener;
 import com.awsatapp.reactPackage.listener.OnScrolledListener;
+import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.awsatapp.reactPackage.model.CoreModel;
 
 import java.util.ArrayList;
@@ -60,6 +62,7 @@ public abstract class CoreListAdapter<T> extends RecyclerView.Adapter<CoreHolder
     private int pastVisiblesItems = 0;
     private boolean hideFooter = false;
 
+
     /**
      * The constructor for the CoreListAdapter
      *  @param context      application context
@@ -77,7 +80,7 @@ public abstract class CoreListAdapter<T> extends RecyclerView.Adapter<CoreHolder
     }
 
     public CoreListAdapter(Context context, RecyclerView recyclerView, List<T> items,
-                           ItemClickListener itemClickListener,ItemProgressListener itemProgressListener) {
+                           ItemClickListener itemClickListener, ItemProgressListener itemProgressListener) {
         this.mContext = context;
         this.mRecyclerView = recyclerView;
         this.items = items;
@@ -122,6 +125,7 @@ public abstract class CoreListAdapter<T> extends RecyclerView.Adapter<CoreHolder
     public void setOnScrollStateChangedListener(OnScrollStateChangedListener mOnScrollStateChangedListener) {
         this.mOnScrollStateChangedListener = mOnScrollStateChangedListener;
     }
+
 
     /**
      * Enables infinite scrolling on the adapter.
@@ -210,6 +214,10 @@ public abstract class CoreListAdapter<T> extends RecyclerView.Adapter<CoreHolder
 
     public ItemProgressListener getItemProgressListener() {
         return this.itemProgressListener;
+    }
+
+    public void setItemProgressListener(ItemProgressListener listener) {
+        this.itemProgressListener = listener;
     }
 
     public List<T> getItems() {

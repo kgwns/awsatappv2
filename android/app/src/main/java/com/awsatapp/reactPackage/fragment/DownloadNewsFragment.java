@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,21 +26,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-
-import com.awsatapp.MainActivity;
+import com.awsatapp.MainApplication;
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.Activity.PdfActivity;
 import com.awsatapp.reactPackage.Activity.PdfArchiveActivity;
 import com.awsatapp.reactPackage.Constant;
+import com.awsatapp.reactPackage.listener.OnDownloadStart;
+import com.awsatapp.reactPackage.listener.OnPdfDownloadStart;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.manager.CoreNetworkManager;
-import com.awsatapp.reactPackage.manager.DataManager;
+import com.awsatapp.reactPackage.manager.DownloadStartManager;
+import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.awsatapp.reactPackage.manager.NetworkManager;
+import com.awsatapp.reactPackage.manager.PdfDownloadManager;
 import com.awsatapp.reactPackage.model.Pdf;
 import com.awsatapp.reactPackage.model.PdfWrapper;
 import com.awsatapp.reactPackage.utils.FontUtils;
+import com.awsatapp.reactPackage.utils.SharedPreferenceManager;
 import com.awsatapp.reactPackage.utils.Utils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -63,7 +65,7 @@ import java.util.Objects;
  * Created by malekhijazi on 6/15/17.
  */
 
-public class DownloadNewsFragment extends CoreFragment implements View.OnClickListener {
+public class DownloadNewsFragment extends CoreFragment implements View.OnClickListener, OnDownloadStart {
     private ConstraintLayout constraintLayout;
     private View rootView;
     private TextView mTitle;
@@ -76,7 +78,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     private LinearLayout mContainer;
     private PendingIntent pi;
     private Pdf mPdf;
-
+    private FileDownloadSerialQueue pdfDownloadService = null;
     public static DownloadNewsFragment newInstance() {
         return new DownloadNewsFragment();
     }
@@ -105,10 +107,9 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         String theme = getArguments().getString("theme");
-        Log.i("fragment",getArguments().toString());
-
+        pdfDownloadService =  ((MainApplication) requireActivity().getApplication()).getPDFDownloadService();
         rootView = inflater.inflate(R.layout.fragment_download_news, container, false);
-
+        DownloadStartManager.getInstance().setListener(this);
         return rootView;
     }
 
@@ -254,6 +255,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         if (fileExist(pdf.getIssueNumber() + ".pdf")) {
             button.setText(getString(R.string.read));
         } else {
+
             BaseDownloadTask downloadTask = FileDownloader.getImpl().create(pdf.getUrl())
                     .setPath(path, false)
                     .setListener(new FileDownloadLargeFileListener() {
@@ -292,7 +294,10 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                         }
                     });
             pdf.setmDownloadTask(downloadTask);
-            downloadTask.start();
+            pdfDownloadService.enqueue(downloadTask);
+           // PdfDownloadManager.getInstance().setOnPdfDownloadStart(pdfDownloadService);
+            //SharedPreferenceManager.saveSharedOBJECT(requireActivity(),"downloadNews",pdf);
+            //downloadTask.start();
 
         }
     }
@@ -302,6 +307,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.download_btn:
                 Button button = (Button) v;
+
                 if (mPdf.getStatus() == 0) {
                     FileDownloader.setup(mContext);
                     downloadPdf(button, mPdf);
@@ -334,12 +340,62 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                             title = "";
                         }
                     }
+
                     startActivity(PdfActivity.newInstance(mContext, path, title));
                 }
             break;
             case R.id.newsArchiveBtn:
                 startActivity(PdfArchiveActivity.class);
                 break;
+        }
+    }
+
+    @Override
+    public void onDownloadProgress(Pdf pdf) {
+        if(Objects.equals(pdf.getIssueNumber(), mPdf.getIssueNumber())){
+            mPdf.setmDownloadTask(pdf.getmDownloadTask());
+            if(mPdf.getStatus()==0){
+                mPdf.setStatus(1);
+                mDownlaodBtn.setText(getString(R.string.downloading));
+            }
+
+        }
+        if (Objects.equals(pdf.getIssueNumber(), mPdf.getIssueNumber()) && mPdf.getStatus() == 1) {
+
+            mPdf.getmDownloadTask().setListener(new FileDownloadLargeFileListener() {
+                @Override
+                protected void pending(BaseDownloadTask task, long soFarBytes, long totalBytes) {
+
+                }
+
+                @Override
+                protected void progress(BaseDownloadTask task, long soFarBytes, long totalBytes) {
+                    mDownlaodBtn.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
+                }
+
+                @Override
+                protected void paused(BaseDownloadTask task, long soFarBytes, long totalBytes) {
+
+                }
+
+                @Override
+                protected void completed(BaseDownloadTask task) {
+                    mPdf.setStatus(2);
+                    pdf.setStatus(2);
+                    //when the dowload is completed
+                    mDownlaodBtn.setText(getString(R.string.read));
+                }
+
+                @Override
+                protected void error(BaseDownloadTask task, Throwable e) {
+
+                }
+
+                @Override
+                protected void warn(BaseDownloadTask task) {
+
+                }
+            });
         }
     }
 }
