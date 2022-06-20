@@ -27,6 +27,8 @@ public class FileDownloadSerialQueue {
     private final static int ID_INVALID = 0;
     private int mWorkingTaskId = ID_INVALID;
 
+    public BaseDownloadTask mCurrentTask = null;
+
     public FileDownloadSerialQueue() {
         mHandlerThread = new HandlerThread("SerialDownloadManager");
         mHandlerThread.start();
@@ -67,6 +69,10 @@ public class FileDownloadSerialQueue {
             FileDownloader.getImpl().pause(mWorkingTaskId);
         }
 
+        if(mCurrentTask !=null){
+            mCurrentTask = null;
+        }
+
         final List<BaseDownloadTask> unDealTaskList = new ArrayList<>();
         mTasks.drainTo(unDealTaskList);
         mHandlerThread.interrupt();
@@ -83,12 +89,16 @@ public class FileDownloadSerialQueue {
             switch (msg.what) {
                 case WHAT_NEXT:
                     try {
+                        mCurrentTask =  mTasks.take();
                         mWorkingTaskId =
-                                mTasks.take().addFinishListener(new SerialFinishCallback(
-                                                new WeakReference<>(FileDownloadSerialQueue.this))).
-                                start();
+                            mCurrentTask.addFinishListener(new SerialFinishCallback(
+                                    new WeakReference<>(FileDownloadSerialQueue.this))).
+                                    start();
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                    }catch (IllegalStateException e){
+                        mCurrentTask.reuse();
                     }
                     break;
             }
@@ -124,10 +134,15 @@ public class FileDownloadSerialQueue {
         mHandler.sendEmptyMessage(WHAT_NEXT);
     }
 
-    public BaseDownloadTask getTask() throws InterruptedException {
-        if(mTasks.size()>0)
-            return mTasks.take();
+    public BaseDownloadTask getTask()  {
+        if(mCurrentTask!=null)
+            return mCurrentTask;
         else
             return null;
+    }
+
+    public void removeCurrentTask(){
+        mCurrentTask.cancel();
+        mTasks.remove(mCurrentTask);
     }
 }

@@ -25,15 +25,12 @@ import com.awsatapp.reactPackage.Constant;
 import com.awsatapp.reactPackage.MyContextWrapper;
 import com.awsatapp.reactPackage.listener.ItemClickListener;
 import com.awsatapp.reactPackage.listener.ItemProgressListener;
-import com.awsatapp.reactPackage.listener.OnPdfDownloadStart;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.CoreListAdapter;
 import com.awsatapp.reactPackage.PdfAdapter;
 import com.awsatapp.reactPackage.manager.CoreNetworkManager;
-import com.awsatapp.reactPackage.manager.DownloadStartManager;
 import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.awsatapp.reactPackage.manager.NetworkManager;
-import com.awsatapp.reactPackage.manager.PdfDownloadManager;
 import com.awsatapp.reactPackage.model.Pdf;
 import com.awsatapp.reactPackage.model.PdfWrapper;
 import com.awsatapp.reactPackage.utils.FontUtils;
@@ -41,7 +38,6 @@ import com.awsatapp.reactPackage.utils.SimpleDividerItemDecoration;
 import com.awsatapp.reactPackage.utils.Utils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadLargeFileListener;
-import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 
 import org.json.JSONException;
@@ -58,7 +54,7 @@ import java.util.Objects;
  * Created by malekhijazi on 5/16/17.
  */
 
-public class PdfArchiveActivity extends CoreListActivity<Pdf> implements OnPdfDownloadStart {
+public class PdfArchiveActivity extends CoreListActivity<Pdf> {
     private boolean isGrid = true;
     private ArrayList<Pdf> mPdfs = new ArrayList<>();
     private ImageView backIcon;
@@ -74,7 +70,6 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> implements OnPdfDo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //PdfDownloadManager.getInstance().setListener(this);
         pdfDownloadService =  ((MainApplication) getApplication()).getPDFDownloadService();
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb);
         title = toolbar.findViewById(R.id.toolbar_title);
@@ -105,6 +100,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> implements OnPdfDo
                     case R.id.download_btn:
                         Button button = (Button) view;
                         Pdf pdf = getAdapter().getItem(integer);
+
                         if (pdf.getStatus() == 0) {
                             FileDownloader.setup(mContext);
                             downloadPdf(button, getAdapter().getItem(integer));
@@ -117,6 +113,11 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> implements OnPdfDo
                                 pdf.setStatus(0);
                                 button.setText(getString(R.string.download));
                             }
+                            if(pdfDownloadService.getTask()!=null &&
+                                    pdf.getUrl().equals(pdfDownloadService.getTask().getUrl())){
+                                pdfDownloadService.removeCurrentTask();
+                            }
+
                         } else if (pdf.getStatus() == 2) {
                             final String path = mContext.getFilesDir().getPath() + "/" + pdf.getIssueNumber() + ".pdf";
 
@@ -140,7 +141,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> implements OnPdfDo
                             }
                             startActivity(PdfActivity.newInstance(mContext, path, title));
                         }
-                        DownloadStartManager.getInstance().onDownload(pdf);
+
                 }
             }
         }, new ItemProgressListener() {
@@ -256,6 +257,7 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> implements OnPdfDo
         } else {
             BaseDownloadTask downloadTask = FileDownloader.getImpl().create(pdf.getUrl())
                     .setPath(path, false)
+                    .setForceReDownload(true)
                     .setListener(new FileDownloadLargeFileListener() {
                         @Override
                         protected void pending(BaseDownloadTask task, long soFarBytes, long totalBytes) {
@@ -295,8 +297,6 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> implements OnPdfDo
                     });
             pdf.setmDownloadTask(downloadTask);
             pdfDownloadService.enqueue(downloadTask);
-
-
             //downloadTask.start();
         }
     }
@@ -320,49 +320,6 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> implements OnPdfDo
     @Override
     public void onProgress(View view, int position, String progress) {
 
-    }
-
-    @Override
-    public void onDownloadProgress(FileDownloadSerialQueue fileDownloadSerialQueue) {
-        try {
-            fileDownloadSerialQueue.getTask().setListener(new FileDownloadListener() {
-                @Override
-                protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-
-                }
-
-                @Override
-                protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                    Button button = adapter.getRecyclerView().getChildAt(0).findViewById(R.id.download_btn);
-                    button.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
-                }
-
-                @Override
-                protected void completed(BaseDownloadTask task) {
-                    Button button = adapter.getRecyclerView().getChildAt(0).findViewById(R.id.download_btn);
-                    mPdfs.get(0).setStatus(2);
-                    //when the dowload is completed
-                    button.setText(getString(R.string.read));
-                }
-
-                @Override
-                protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-
-                }
-
-                @Override
-                protected void error(BaseDownloadTask task, Throwable e) {
-
-                }
-
-                @Override
-                protected void warn(BaseDownloadTask task) {
-
-                }
-            });
-        }catch (Exception e){
-            Log.i("param==>fileDown excep",e.toString());
-        }
     }
 
     @Override

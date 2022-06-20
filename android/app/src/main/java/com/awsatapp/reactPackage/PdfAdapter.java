@@ -12,8 +12,6 @@ import com.awsatapp.reactPackage.holder.PdfGridHolder;
 import com.awsatapp.reactPackage.holder.PdfHolder;
 import com.awsatapp.reactPackage.listener.ItemClickListener;
 import com.awsatapp.reactPackage.listener.ItemProgressListener;
-import com.awsatapp.reactPackage.listener.OnPdfDownloadStart;
-import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.awsatapp.reactPackage.model.Pdf;
 
 import java.util.List;

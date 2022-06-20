@@ -25,10 +25,8 @@ import com.awsatapp.reactPackage.listener.ItemClickListener;
 import com.awsatapp.reactPackage.listener.ItemLongClickListener;
 import com.awsatapp.reactPackage.listener.ItemProgressListener;
 import com.awsatapp.reactPackage.listener.OnLoadMoreListener;
-import com.awsatapp.reactPackage.listener.OnPdfDownloadStart;
 import com.awsatapp.reactPackage.listener.OnScrollStateChangedListener;
 import com.awsatapp.reactPackage.listener.OnScrolledListener;
-import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.awsatapp.reactPackage.model.CoreModel;
 
 import java.util.ArrayList;
