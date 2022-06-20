@@ -57,8 +57,8 @@ export const Image: FunctionComponent<ImageProps> = ({
   };
 
 
-  if(isAndroid && !isNotEmpty(name) && !isNotEmpty(url)) {
-    name = ImagesName.placeholderImg
+  if(!isNotEmpty(name) && !isNotEmpty(url)) {
+    name = fallback && fallbackName ? fallbackName : ImagesName.placeholderImg
   }
 
   return (
