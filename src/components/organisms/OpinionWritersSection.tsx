@@ -61,6 +61,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
     <View style={style.container}>
       <Label style={style.headerStyle}>{t('opinion.opinionWriters')}</Label>
       <FlatList
+        initialNumToRender={30}
         horizontal
         keyExtractor={(_, index) => index.toString()}
         listKey={
