@@ -30,10 +30,12 @@ public class PdfAdapter extends CoreListAdapter<Pdf> {
     @Override
     public CoreHolder onCreateViewHolder(ViewGroup parent) {
         if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
-            return new PdfGridHolder(inflate(parent, R.layout.view_pdf_grid), getItemClickListener(),getItemProgressListener());
+            return new PdfGridHolder(inflate(parent, R.layout.view_pdf_grid), getItemClickListener(),
+                    getItemProgressListener());
         }
         else{
-            return new PdfHolder(inflate(parent, R.layout.view_pdf), getItemClickListener(),getItemProgressListener());
+            return new PdfHolder(inflate(parent, R.layout.view_pdf), getItemClickListener(),
+                    getItemProgressListener());
         }
     }
 

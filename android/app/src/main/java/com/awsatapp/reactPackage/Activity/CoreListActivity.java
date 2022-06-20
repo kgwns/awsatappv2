@@ -20,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.awsatapp.R;
 import com.awsatapp.reactPackage.CoreListAdapter;
 import com.awsatapp.reactPackage.listener.ItemClickListener;
+import com.awsatapp.reactPackage.listener.ItemProgressListener;
 import com.awsatapp.reactPackage.listener.OnLoadMoreListener;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,7 +31,7 @@ import java.util.List;
  * Created by Malek Hijazi on 4/17/2016.
  */
 public abstract class CoreListActivity<T> extends CoreActivity implements SwipeRefreshLayout.OnRefreshListener,
-        ItemClickListener, OnLoadMoreListener, View.OnClickListener {
+        ItemClickListener, OnLoadMoreListener, View.OnClickListener, ItemProgressListener {
 
     public Toolbar tb;
     public AppBarLayout abl;
@@ -74,6 +75,7 @@ public abstract class CoreListActivity<T> extends CoreActivity implements SwipeR
         adapter = initAdapter();
         adapter.setItemClickListener(this);
         adapter.setOnLoadMoreListener(this);
+        adapter.setItemProgressListener(this);
         rvList.setAdapter(adapter);
         hideLoader();
     }
@@ -180,5 +182,8 @@ public abstract class CoreListActivity<T> extends CoreActivity implements SwipeR
 
     @Override
     public abstract void onClick(View view);
+
+    @Override
+    public abstract void onProgress(View view, int position,String progress);
 
 }
