@@ -145,8 +145,6 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                     pdfDownloadService.getTask().getStatus() == FileDownloadStatus.paused){
                 mPdf.setStatus(0);
                 mDownlaodBtn.setText(mContext.getString(R.string.download));
-            }else {
-                mDownlaodBtn.setText(mContext.getString(R.string.download));
             }
         }
         updateDownloadProgress();
@@ -281,6 +279,27 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                             Log.v("Progress", "completed " + task.getPath());
                             pdf.setStatus(2);
                             button.setText(getString(R.string.read));
+                            final String path = mContext.getFilesDir().getPath() + "/" + mPdf.getIssueNumber() + ".pdf";
+                            String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
+                            String timeStamp = !String.valueOf(mPdf.getCreated()).isEmpty() ? Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()):"";
+                            String edition = getString(R.string.edition);
+                            String issueNumber = !String.valueOf(mPdf.getIssueNumber()).isEmpty()?mPdf.getIssueNumber():"";
+                            String title = "";
+                            if(!timeStamp.isEmpty()){
+                                if(!issueNumber.isEmpty()){
+                                    title = timeStamp + " " + edition +" "+ issueNumber;
+                                }else{
+                                    title = timeStamp + " " + edition;
+                                }
+                            }else{
+                                if(!issueNumber.isEmpty()){
+                                    title = edition + " " + issueNumber;
+                                }else {
+                                    title = "";
+                                }
+                            }
+
+                            startActivity(PdfActivity.newInstance(mContext, path, title));
                         }
 
                         @Override
@@ -306,20 +325,17 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.download_btn:
                 Button button = (Button) v;
-                if (mPdf.getStatus() == 0) {
+                if (mPdf.getStatus() == 0 ) {
                     FileDownloader.setup(mContext);
                     downloadPdf(button, mPdf);
                     mPdf.setStatus(1);
                     button.setText(getString(R.string.downloading));
-                } else if (mPdf.getStatus() == 1) {
+                } else if (mPdf.getStatus() == 1 ) {
                     if (mPdf.getmDownloadTask() != null) {
                         mPdf.getmDownloadTask().pause();
                         mPdf.setmDownloadTask(null);
                         mPdf.setStatus(0);
                         button.setText(getString(R.string.download));
-                    }
-                    if(pdfDownloadService.getTask()!=null &&
-                            mPdf.getUrl().equals(pdfDownloadService.getTask().getUrl())){
                         pdfDownloadService.removeCurrentTask();
                     }
 
@@ -354,6 +370,18 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         }
     }
 
+    boolean checkIfTaskInQueue(){
+        boolean doesTaskExist = false;
+        if(pdfDownloadService!=null && pdfDownloadService.getTask()!=null){
+            if(pdfDownloadService.getTask().getUrl().equals(mPdf.getUrl())){
+                mPdf.setStatus(1);
+                mDownlaodBtn.setText(getString(R.string.downloading));
+                doesTaskExist = true;
+            }
+        }
+        return doesTaskExist;
+    }
+
     void updateDownloadProgress(){
         if(pdfDownloadService!=null && pdfDownloadService.getTask()!=null){
             if(pdfDownloadService.getTask().getUrl().equals(mPdf.getUrl())){
@@ -367,6 +395,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                         mPdf.setStatus(2);
                         mDownlaodBtn.setText(getString(R.string.read));
                         break;
+
                     default:
                         break;
                 }
@@ -384,6 +413,27 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                     protected void completed(BaseDownloadTask task) {
                         mPdf.setStatus(2);
                         mDownlaodBtn.setText(getString(R.string.read));
+                        final String path = mContext.getFilesDir().getPath() + "/" + mPdf.getIssueNumber() + ".pdf";
+                        String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
+                        String timeStamp = !String.valueOf(mPdf.getCreated()).isEmpty() ? Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()):"";
+                        String edition = getString(R.string.edition);
+                        String issueNumber = !String.valueOf(mPdf.getIssueNumber()).isEmpty()?mPdf.getIssueNumber():"";
+                        String title = "";
+                        if(!timeStamp.isEmpty()){
+                            if(!issueNumber.isEmpty()){
+                                title = timeStamp + " " + edition +" "+ issueNumber;
+                            }else{
+                                title = timeStamp + " " + edition;
+                            }
+                        }else{
+                            if(!issueNumber.isEmpty()){
+                                title = edition + " " + issueNumber;
+                            }else {
+                                title = "";
+                            }
+                        }
+
+                        startActivity(PdfActivity.newInstance(mContext, path, title));
                     }
 
                     @Override

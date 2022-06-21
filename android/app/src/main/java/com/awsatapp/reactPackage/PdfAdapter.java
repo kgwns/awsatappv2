@@ -11,7 +11,6 @@ import com.awsatapp.reactPackage.holder.CoreHolder;
 import com.awsatapp.reactPackage.holder.PdfGridHolder;
 import com.awsatapp.reactPackage.holder.PdfHolder;
 import com.awsatapp.reactPackage.listener.ItemClickListener;
-import com.awsatapp.reactPackage.listener.ItemProgressListener;
 import com.awsatapp.reactPackage.model.Pdf;
 
 import java.util.List;
@@ -23,19 +22,17 @@ import java.util.List;
 
 public class PdfAdapter extends CoreListAdapter<Pdf> {
     public PdfAdapter(Context context, RecyclerView recyclerView, List<Pdf> items,
-                      ItemClickListener itemClickListener, ItemProgressListener itemProgressListener) {
-        super(context, recyclerView, items,itemClickListener,itemProgressListener);
+                      ItemClickListener itemClickListener) {
+        super(context, recyclerView, items,itemClickListener);
     }
 
     @Override
     public CoreHolder onCreateViewHolder(ViewGroup parent) {
         if (getRecyclerView().getLayoutManager() instanceof GridLayoutManager) {
-            return new PdfGridHolder(inflate(parent, R.layout.view_pdf_grid), getItemClickListener(),
-                    getItemProgressListener());
+            return new PdfGridHolder(inflate(parent, R.layout.view_pdf_grid), getItemClickListener());
         }
         else{
-            return new PdfHolder(inflate(parent, R.layout.view_pdf), getItemClickListener(),
-                    getItemProgressListener());
+            return new PdfHolder(inflate(parent, R.layout.view_pdf), getItemClickListener());
         }
     }
 

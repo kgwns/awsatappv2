@@ -40,16 +40,13 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
     private ImageView mImage;
     private TextView mDate;
     private Button mDownlaodBtn;
-    private ItemProgressListener itemProgressListener;
     private FileDownloadSerialQueue fileDownloadSerialQueue;
-    public PdfGridHolder(View itemView, ItemClickListener listener,
-                         ItemProgressListener itemProgressListener) {
-        super(itemView, listener,null,itemProgressListener);
+    public PdfGridHolder(View itemView, ItemClickListener listener) {
+        super(itemView, listener,null);
         mTitle = (TextView) itemView.findViewById(R.id.title);
         mImage = (ImageView) itemView.findViewById(R.id.image);
         mDate = (TextView) itemView.findViewById(R.id.date);
         mDownlaodBtn = (Button) itemView.findViewById(R.id.download_btn);
-        this.itemProgressListener = itemProgressListener;
         if (DataManager.getInstance(mTitle.getContext()).isArabic()) {
             FontUtils.setBold(mTitle.getContext(), mDate, mTitle, mDownlaodBtn);
         }
@@ -76,21 +73,21 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
                 .placeholder(circularProgressDrawable)
                 .into(mImage);
 
-//        if (fileExist(data.getIssueNumber() + ".pdf")) {
-//            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.read));
-//            data.setStatus(2);
-//        } else if (data.getStatus() == 1) {
-//            long soFarBytes = data.getmDownloadTask().getLargeFileSoFarBytes();
-//            long totalBytes = data.getmDownloadTask().getLargeFileTotalBytes();
-//            if(totalBytes>soFarBytes){
-//                mDownlaodBtn.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
-//                itemProgressListener.onProgress(itemView,position,soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
-//            }else{
-//                mDownlaodBtn.setText(mContext.getString(R.string.downloading));
-//            }
-//        } else if (data.getStatus() == 0) {
-//            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.download));
-//        }
+
+        if (fileExist(data.getIssueNumber() + ".pdf")) {
+            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.read));
+            data.setStatus(2);
+        } else if (data.getStatus() == 1) {
+            long soFarBytes = data.getmDownloadTask().getLargeFileSoFarBytes();
+            long totalBytes = data.getmDownloadTask().getLargeFileTotalBytes();
+            if(totalBytes>soFarBytes){
+                mDownlaodBtn.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
+            }else{
+                mDownlaodBtn.setText(mContext.getString(R.string.downloading));
+            }
+        } else if (data.getStatus() == 0) {
+            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.download));
+        }
 
         try{
             if(fileDownloadSerialQueue.getTask()!=null) {
@@ -129,6 +126,8 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
                         }
                     });
                 }
+            }else{
+
             }
         }catch (Exception e){
 
