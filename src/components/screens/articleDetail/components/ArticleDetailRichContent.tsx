@@ -1,5 +1,5 @@
-import { View, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
+import { View, StyleSheet, ScrollView, Platform } from 'react-native'
+import React, { useEffect } from 'react'
 import { decodeHTMLTags, isNonEmptyArray, isObjectNonEmpty, screenWidth } from 'src/shared/utils'
 import { ArticleContentDataType, ArticleDescriptionDataType, ArticleNumberDataType, ArticleOpinionDataType, ArticleQuoteDataType, ArticleReadAlsoDataType } from 'src/redux/articleDetail/types'
 import { Styles } from 'src/shared/styles'
@@ -13,7 +13,7 @@ import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstan
 import { ReadAlsoArticle } from './ReadAlsoArticle'
 import { ContentBundleWidget } from './ContentBundleWidget'
 import { decode } from 'html-entities'
-import { WebViewErrorEvent } from 'react-native-webview/lib/WebViewTypes'
+import { WebViewErrorEvent, WebViewMessageEvent } from 'react-native-webview/lib/WebViewTypes'
 import { RichHTMLOpinonWidget } from './RichHTMLOpinonWidget'
 
 export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQuoteDataType }) => {
@@ -41,7 +41,7 @@ export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQu
         <View style={style.quoteContainer}>
             <Label style={style.upperArrow} children={`${'"'}`} />
             <View style={{ paddingHorizontal: 40 }}>
-                {renderWebView(paragraphInfo.description || '', injectedStyle)}
+                {RenderWebView(richContentTagStyle({body: paragraphInfo.description}) || '', injectedStyle)}
             </View>
             <View style={style.quoteFooter}>
                 <Label style={style.quoteTitle} children={decode(decodeHTMLTags(paragraphInfo.title))} />
@@ -89,7 +89,7 @@ export const RenderDescriptionElement = ({ paragraphInfo }: { paragraphInfo: Art
     return (
         <View style={style.descriptionContainer}>
             {/* <TitleWithUnderLine title={'CONST_FACTS'} titleContainerStyle={{ backgroundColor: themeData.backgroundColor }} /> */}
-            {/* {renderWebView(paragraphInfo.description, injectedStyle)} */}
+            {RenderWebView(richContentTagStyle({body: paragraphInfo.description}) , injectedStyle)}
         </View>
     )
 }
@@ -151,30 +151,109 @@ export const RenderNumberElement = ({ paragraphInfo }: { paragraphInfo: ArticleN
             <View style={style.numberBodyMainContainer}>
                 <View style={style.numberBodyContainer}>
                     <Label children={paragraphInfo.title} style={style.numberTitle} />
-                    {renderWebView(paragraphInfo.description || '', injectedStyle)}
+                    {RenderWebView(richContentTagStyle({body: paragraphInfo.description})  || '', injectedStyle)}
                 </View>
             </View>
         </View>
     )
 }
 
-const renderWebView = (htmlInfo: string, injectedStyle?: string) => {
+export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewRef?: any) => {
     return (
         <ScrollView scrollEnabled={false}>
-            <AutoHeightWebView style={{ width: '100%', backgroundColor: 'transparent', opacity: 0.99, overflow: 'hidden' }}
+            <AutoHeightWebView 
+                style={{ width: '100%',backgroundColor: 'transparent', opacity: 0.99, overflow: 'hidden' }}
+                ref={(ref) => {webViewRef = ref}}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
+                originWhitelist={["*"]}
                 bounces={false}
                 nestedScrollEnabled={false}
                 injectedJavaScript={injectedStyle}
                 injectedJavaScriptBeforeContentLoaded={injectedStyle}
-                source={{ html: htmlInfo }}
+                source={{ html: htmlInfo, baseUrl: '' }}
                 scrollEnabled={false}
+                onMessage={(event: WebViewMessageEvent) => {
+                    console.log("🚀 ~ file: ArticleDetailRichContent.tsx ~ line 176 ~ RenderWebView ~ event", event.nativeEvent.data)
+                }}
                 onError={(error: WebViewErrorEvent) => console.log('Error ::::::::::', error.nativeEvent)}
             />
         </ScrollView>
     )
 }
+
+export const generateAssetFontCss = ({
+    fontFileName,
+    extension = 'ttf',
+  }: {
+    fontFileName: string;
+    extension?: string;
+  }) => {
+    const fileUri = Platform.select({
+      ios: `${fontFileName}.${extension}`,
+      android: `file:///android_asset/fonts/${fontFileName}.${extension}`,
+    });
+  
+    return `@font-face {
+        font-family: '${fontFileName}';
+        src: local('${fontFileName}'), url('${fileUri}') ;
+    }`;
+  };
+  
+  export const articleHtml = ({body}: {body: string}) => `
+  <html>
+  <head>
+      <style>
+          ${generateAssetFontCss({
+            fontFileName: 'Effra-Regular',
+            extension: 'ttf',
+          })}
+          body {
+              font-family: Effra-Regular;
+          }
+          p {
+            font-family: Effra-Regular;
+          }
+          div {
+            font-family: Effra-Regular;
+          }
+      </style>
+      <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+      />
+  </head>
+  <body style="padding:0px">
+      ${body}
+  </body>
+  </html>
+  `;
+
+export const richContentTagStyle = ({body}: {body: string}) => `
+  <html>
+  <head>
+      <style>
+          ${generateAssetFontCss({
+            fontFileName: 'Effra-Regular',
+            extension: 'ttf',
+          })}
+          body {
+              font-family: Effra-Regular;
+          }
+          p {
+            font-family: Effra-Regular;
+          }
+      </style>
+      <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+      />
+  </head>
+  <body style="padding:0px">
+      ${body}
+  </body>
+  </html>
+  `;
 
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
