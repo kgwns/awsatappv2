@@ -29,6 +29,7 @@ import { BackIcon } from 'src/components/atoms'
 import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types'
 import { fetchVideoDetailInfo } from 'src/services/VideoServices'
 import { 
+  articleHtml,
   RenderContentElement, RenderDescriptionElement, RenderNumberElement, 
   RenderOpinionElement, RenderQuoteElement, RenderReadAlsoElement, RenderWebView 
 } from './components/ArticleDetailRichContent'
@@ -80,7 +81,6 @@ export const ArticleDetailScreen = ({
   var webviewRef: any[] =[React.createRef()];
 
   const currentNId = route.params.nid;
-  console.log("🚀 ~ file: ArticleDetailScreen.tsx ~ line 83 ~ currentNId", currentNId)
 
   const script = () => {
     return `
@@ -608,52 +608,3 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     overflow: 'hidden'
   },
 })
-
-
-
-export const generateAssetFontCss = ({
-  fontFileName,
-  extension = 'ttf',
-}: {
-  fontFileName: string;
-  extension?: string;
-}) => {
-  const fileUri = Platform.select({
-    ios: `${fontFileName}.${extension}`,
-    android: `file:///android_asset/fonts/${fontFileName}.${extension}`,
-  });
-
-  return `@font-face {
-      font-family: '${fontFileName}';
-      src: local('${fontFileName}'), url('${fileUri}') ;
-  }`;
-};
-
-export const articleHtml = ({body}: {body: string}) => `
-<html>
-<head>
-    <style>
-        ${generateAssetFontCss({
-          fontFileName: 'Effra-Regular',
-          extension: 'ttf',
-        })}
-        body {
-            font-family: Effra-Regular;
-        }
-        p {
-          font-family: Effra-Regular;
-        }
-        div {
-          font-family: Effra-Regular;
-        }
-    </style>
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1"
-    />
-</head>
-<body style="padding:0px">
-    ${body}
-</body>
-</html>
-`;
