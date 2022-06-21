@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import { StyleSheet, View, FlatList, BackHandler, Animated } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -71,6 +71,8 @@ export const OpinionArticleDetail = ({
 
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const playbackState = usePlaybackState();
+  const relatedOpinionRef = useRef(true);
+  const pageLoadingRef = useRef(false);
 
 
 
@@ -155,6 +157,7 @@ export const OpinionArticleDetail = ({
   }, [writerDetailData])
 
   useEffect(() => {
+    pageLoadingRef.current = false;
     if (isNonEmptyArray(relatedOpinionListData) && isFocused) {
       const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid != currentNId})
       setrelatedOpinioninfo(relatedOpinionData)
@@ -179,7 +182,6 @@ export const OpinionArticleDetail = ({
     if (isNonEmptyArray(opinionArticleDetailData)) {
       if(route.params && route.params.nid && isFocused){
         setOpinionArticle(opinionArticleDetailData)
-        setPage(0)
         const isBookmarked = validateBookmark(opinionArticleDetailData[0].nid_export)
         setIsBookmarked(isBookmarked)
       }
@@ -191,15 +193,24 @@ export const OpinionArticleDetail = ({
   }, [opinionArticleDetailData])
 
   useEffect(() => {
-    if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isFocused) {
-       setTimeout(()=>{
-        fetchRelatedOpinionData(relatedOpinionPayload);
-       },1000)
-      }
-  }, [isFocused,opinionArticle])
+    if (relatedOpinionRef.current) {
+      relatedOpinionRef.current = false;
+    } else {
+      if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isFocused) {
+        setTimeout(()=>{
+          pageLoadingRef.current = true;
+          setPage(0)
+          fetchRelatedOpinionData({page: 0});
+        },1000)
+        }
+    }
+  }, [isFocused, opinionArticle])
 
   useEffect(() => {
-    fetchRelatedOpinionData(relatedOpinionPayload);
+      if(page != 0 && !pageLoadingRef.current){
+        pageLoadingRef.current = true;
+        fetchRelatedOpinionData(relatedOpinionPayload);
+      }
   }, [page]);
 
   useEffect(() => {
@@ -271,6 +282,7 @@ export const OpinionArticleDetail = ({
 
   const onPressRelatedOpinion = (nid: string) => {
     if (nid && nid!=currentNId) {
+      emptyRelatedOpinionData()
       navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
     }
   }
