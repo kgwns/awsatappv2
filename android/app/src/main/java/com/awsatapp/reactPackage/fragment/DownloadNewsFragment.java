@@ -146,7 +146,6 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                 mPdf.setStatus(0);
                 mDownlaodBtn.setText(mContext.getString(R.string.download));
             }
-            checkIfTaskInQueue();
         }
         updateDownloadProgress();
         super.onResume();
@@ -326,12 +325,12 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.download_btn:
                 Button button = (Button) v;
-                if (mPdf.getStatus() == 0 || !pdfDownloadService.checkIfTaskEnqueued(mPdf.getUrl())) {
+                if (mPdf.getStatus() == 0 ) {
                     FileDownloader.setup(mContext);
                     downloadPdf(button, mPdf);
                     mPdf.setStatus(1);
                     button.setText(getString(R.string.downloading));
-                } else if (mPdf.getStatus() == 1 || pdfDownloadService.checkIfTaskEnqueued(mPdf.getUrl())) {
+                } else if (mPdf.getStatus() == 1 ) {
                     if (mPdf.getmDownloadTask() != null) {
                         mPdf.getmDownloadTask().pause();
                         mPdf.setmDownloadTask(null);

@@ -111,17 +111,13 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                         Button button = (Button) view;
                         Pdf pdf = getAdapter().getItem(integer);
 
-                        if (pdf.getStatus() == 0 || !pdfDownloadService.checkIfTaskEnqueued(pdf.getUrl())) {
+                        if (pdf.getStatus() == 0) {
                             FileDownloader.setup(mContext);
-                            if(integer == 0 && !checkIfTaskInQueue(pdf)){
-                                getAdapter().getItem(integer).setStatus(1);
-                                button.setText(getString(R.string.downloading));
-                            }else{
-                                downloadPdf(button, getAdapter().getItem(integer));
-                                getAdapter().getItem(integer).setStatus(1);
-                                button.setText(getString(R.string.downloading));
-                            }
-                        } else if (pdf.getStatus() == 1 || pdfDownloadService.checkIfTaskEnqueued(pdf.getUrl())) {
+                            downloadPdf(button, getAdapter().getItem(integer));
+                            getAdapter().getItem(integer).setStatus(1);
+                            button.setText(getString(R.string.downloading));
+
+                        } else if (pdf.getStatus() == 1) {
                             if (pdf.getmDownloadTask() != null) {
                                 pdf.getmDownloadTask().pause();
                                 pdf.setmDownloadTask(null);
