@@ -146,7 +146,8 @@ const articleFooterStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   authorTopMargin: {
-    marginTop:5
+    marginTop:5,
+    textAlign: 'left',
   },
   articleDetailUi: {
     flexDirection:'column',

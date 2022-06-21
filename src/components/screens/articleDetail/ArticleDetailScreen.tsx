@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions } from 'react-native'
+import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, Platform } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
@@ -80,6 +80,7 @@ export const ArticleDetailScreen = ({
   var webviewRef: any[] =[React.createRef()];
 
   const currentNId = route.params.nid;
+  console.log("🚀 ~ file: ArticleDetailScreen.tsx ~ line 83 ~ currentNId", currentNId)
 
   const script = () => {
     return `
@@ -94,6 +95,7 @@ export const ArticleDetailScreen = ({
           pTagElement[i].style.textAlign = "justify"
           pTagElement[i].style.direction = "rtl"
           pTagElement[i].style.writingDirection = "rtl"
+          pTagElement[i].style.margin = 0
         }
       }
 
@@ -411,14 +413,16 @@ export const ArticleDetailScreen = ({
   )
 
   const articleHtmlContent = (index: number) => {
+    const webviewWidth = deviceWidth * ((currentOrientation === 'LANDSCAPE-LEFT' || currentOrientation === 'LANDSCAPE-RIGHT') ? 0.88 : 0.92)
     return (
       <View style={style.labelStyle}>
           <AutoHeightWebView
-            style={[style.webView, {width: deviceWidth}]}
-            source={{ html: articleDetailState[index].body }}
+            style={[style.webView, { width: webviewWidth }]}
+            source={{ html: articleHtml({body: articleDetailState[index].body}), baseUrl: '' }}
             ref={(r) => (webviewRef[index] = r)}
             domStorageEnabled={true}
             bounces={false}
+            originWhitelist={["*"]}
             nestedScrollEnabled={false}
             scalesPageToFit={false}
             onMessage={(event) => {
@@ -604,3 +608,52 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     overflow: 'hidden'
   },
 })
+
+
+
+export const generateAssetFontCss = ({
+  fontFileName,
+  extension = 'ttf',
+}: {
+  fontFileName: string;
+  extension?: string;
+}) => {
+  const fileUri = Platform.select({
+    ios: `${fontFileName}.${extension}`,
+    android: `file:///android_asset/fonts/${fontFileName}.${extension}`,
+  });
+
+  return `@font-face {
+      font-family: '${fontFileName}';
+      src: local('${fontFileName}'), url('${fileUri}') ;
+  }`;
+};
+
+export const articleHtml = ({body}: {body: string}) => `
+<html>
+<head>
+    <style>
+        ${generateAssetFontCss({
+          fontFileName: 'Effra-Regular',
+          extension: 'ttf',
+        })}
+        body {
+            font-family: Effra-Regular;
+        }
+        p {
+          font-family: Effra-Regular;
+        }
+        div {
+          font-family: Effra-Regular;
+        }
+    </style>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    />
+</head>
+<body style="padding:0px">
+    ${body}
+</body>
+</html>
+`;
