@@ -76,6 +76,8 @@ export const ArticleDetailScreen = ({
   const videoRefs = useRef<any[]>([]);
   const [bookmarkIndex, setBookmarkIndex] = useState(0);
   const [deviceWidth, setDeviceWidth] = useState(screenWidth)
+  const [firstArticleLoaded, setFirstArticleLoaded] = useState(false)
+
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
 
   var webviewRef: any[] =[React.createRef()];
@@ -416,24 +418,27 @@ export const ArticleDetailScreen = ({
     const webviewWidth = deviceWidth * ((currentOrientation === 'LANDSCAPE-LEFT' || currentOrientation === 'LANDSCAPE-RIGHT') ? 0.88 : 0.92)
     return (
       <View style={style.labelStyle}>
-          <AutoHeightWebView
-            style={[style.webView, { width: webviewWidth }]}
-            source={{ html: articleHtml({body: articleDetailState[index].body}), baseUrl: '' }}
-            ref={(r) => (webviewRef[index] = r)}
-            domStorageEnabled={true}
-            bounces={false}
-            originWhitelist={["*"]}
-            nestedScrollEnabled={false}
-            scalesPageToFit={false}
-            onMessage={(event) => {
-              console.log(event.nativeEvent.data);
-            }}
-            onLoadEnd={() => {
-              webviewRef[index].injectJavaScript(script())
-            }}
-            injectedJavaScript={script()}
-            injectedJavaScriptBeforeContentLoaded={script()}
-          />
+        <AutoHeightWebView
+          style={[style.webView, { width: webviewWidth }]}
+          source={{ html: articleHtml({ body: articleDetailState[index].body }), baseUrl: '' }}
+          ref={(r) => (webviewRef[index] = r)}
+          domStorageEnabled={true}
+          bounces={false}
+          originWhitelist={["*"]}
+          nestedScrollEnabled={false}
+          scalesPageToFit={false}
+          onMessage={(event) => {
+            console.log(event.nativeEvent.data);
+          }}
+          onLoadEnd={() => {
+            webviewRef[index].injectJavaScript(script())
+            if (index === 0) {
+              setFirstArticleLoaded(true)
+            }
+          }}
+          injectedJavaScript={script()}
+          injectedJavaScriptBeforeContentLoaded={script()}
+        />
       </View>
     )
   }
@@ -521,7 +526,7 @@ export const ArticleDetailScreen = ({
   })
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading} 
+    <ScreenContainer edge={edge} isLoading={isLoading || !firstArticleLoaded} 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
       {!isLoading && isNonEmptyArray(articleDetailState) && <>
         {renderBackIcon()}
