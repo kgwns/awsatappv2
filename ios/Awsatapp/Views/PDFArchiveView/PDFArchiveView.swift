@@ -36,11 +36,13 @@ class PDFArchiveView: UIView, LoadingView {
             case .grid:
                 tableView?.isHidden = true
                 collectionView?.isHidden = false
+                collectionView?.reloadData()
                 if collectionViewDataSource.count > 0 {
                     collectionView?.setContentOffset(.zero, animated: false)
                 }
             case .list:
                 tableView?.isHidden = false
+                tableView?.reloadData()
                 collectionView?.isHidden = true
                 if tableViewDataSource.count > 0 {
                     tableView?.scrollToRow(at: IndexPath(row: 0, section:0), at: .top, animated: false)
@@ -107,10 +109,15 @@ class PDFArchiveView: UIView, LoadingView {
         collectionView?.collectionViewLayout.invalidateLayout()
     }
     
+    override func willMove(toWindow newWindow: UIWindow?) {
+        super.willMove(toWindow: newWindow)
+        if newWindow == nil {
+            removeObservers()
+        }
+    }
+
     deinit {
         print("<- PDFArchiveView DeInit ->")
-        //TODO: Need to remove observers to eliminate memory leak
-        removeObservers()
     }
     
     // MARK: - Loading View

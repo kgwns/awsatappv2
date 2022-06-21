@@ -12,6 +12,13 @@ class TodayTabView: UIView, LoadingView {
   
     @objc var onItemClick: RCTBubblingEventBlock?
     @objc var onArchiveButtonClick: RCTBubblingEventBlock?
+    @objc var isActive: Bool = false {
+        didSet {
+            if isActive {
+                collectionView.reloadData()
+            }
+        }
+    }
   
     private var activityIndicator = UIActivityIndicatorView()
     private var readPDFEditionNotificationToken: Token?
@@ -104,9 +111,23 @@ class TodayTabView: UIView, LoadingView {
             self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
         }
         
-        downloadCompleteNotificationToken = NotificationCenter.default.addObserver(descriptor: PDFFileManager.downloadCompleteNotification) { (pdfEditionNotificationInfoPayload) in
+        downloadCompleteNotificationToken = NotificationCenter.default.addObserver(descriptor: PDFFileManager.downloadCompleteNotification) { [weak self] (pdfEditionNotificationInfoPayload) in
+            
+            guard let self = self else { return }
+
             self.collectionView?.reloadData()
-//            self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
+            
+            guard self.datasource.first != nil && self.isActive else {
+                return
+            }
+            switch self.datasource.first {
+                case .largePDFEdition(let pdfEdition):
+                    if pdfEdition.issueNumber == pdfEditionNotificationInfoPayload.pdfEditon.issueNumber {
+                      self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
+                    }
+                default:
+                    break
+            }
         }
         
         showMobileDataAlertNotification =  NotificationCenter.default.addObserver(descriptor: UIApplication.userMobileDataAlertNotification) { _ in

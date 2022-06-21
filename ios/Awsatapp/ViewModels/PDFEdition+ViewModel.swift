@@ -62,22 +62,16 @@ extension PDFEdition {
                 }
                 
                 cell.setDownloadingStatus(hideProgerssView: false)
-                
-                if PDFFileManager.currentEditionsInDownloadProgress == nil {
-                    PDFFileManager.currentEditionsInDownloadProgress = [editionNumber]
-                } else {
-                    PDFFileManager.currentEditionsInDownloadProgress!.append(editionNumber)
-                }
-                
-                
-                Alamofire.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
+                                
+              let downloadTask = Alamofire.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
                 }).response { response in
                     if response.error == nil, let _ = response.destinationURL?.path {
                         center.post(descriptor: PDFFileManager.downloadCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
-                        PDFFileManager.currentEditionsInDownloadProgress = PDFFileManager.currentEditionsInDownloadProgress?.filter() { $0 != editionNumber}
                         cell.setDownloadComplete()
                     }
-                }
+                    PDFFileManager.currentEditionsInDownloadProgress[editionNumber] = nil
+              }
+              PDFFileManager.currentEditionsInDownloadProgress[editionNumber] = downloadTask
             }
         })
         
@@ -104,7 +98,11 @@ extension PDFEdition {
             case .downloaded:
                 cell.setReadButtonStatus()
             case .downloading:
-                cell.setDownloadingStatus(hideProgerssView: true)
+                cell.setDownloadingStatus(hideProgerssView: false)
+                let downloadTask: Alamofire.DownloadRequest? = PDFFileManager.currentEditionsInDownloadProgress[self.issueNumber!]
+                downloadTask?.downloadProgress(closure: { (prog) in
+                      cell.downloadProgressView.progress = Float(prog.fractionCompleted)
+                })
             case .notDownloaded:
                 cell.setDownlaodButtonStatus()
             }
@@ -135,22 +133,16 @@ extension PDFEdition {
                 
                 cell.setDownloadingStatus(hideProgerssView: false)
                 
-                if PDFFileManager.currentEditionsInDownloadProgress == nil {
-                    PDFFileManager.currentEditionsInDownloadProgress = [editionNumber]
-                } else {
-                    PDFFileManager.currentEditionsInDownloadProgress!.append(editionNumber)
-                }
-                
-                
-                Alamofire.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
+                let downloadTask = Alamofire.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
                     cell.downloadProgressView.progress = Float(prog.fractionCompleted)
                 }).response { response in
                     if response.error == nil, let _ = response.destinationURL?.path {
                         center.post(descriptor: PDFFileManager.downloadCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
-                        PDFFileManager.currentEditionsInDownloadProgress = PDFFileManager.currentEditionsInDownloadProgress?.filter() { $0 != editionNumber}
                         cell.setDownloadComplete()
                     }
+                    PDFFileManager.currentEditionsInDownloadProgress[editionNumber] = nil
                 }
+                PDFFileManager.currentEditionsInDownloadProgress[editionNumber] = downloadTask
             }
         })
         
@@ -178,7 +170,11 @@ extension PDFEdition {
             case .downloaded:
                 cell.setReadButtonStatus()
             case .downloading:
-                cell.setDownloadingStatus(hideProgerssView: true)
+                cell.setDownloadingStatus(hideProgerssView: false)
+                let downloadTask: Alamofire.DownloadRequest? = PDFFileManager.currentEditionsInDownloadProgress[self.issueNumber!]
+                downloadTask?.downloadProgress(closure: { (prog) in
+                      cell.downloadProgressView.progress = Float(prog.fractionCompleted)
+                })
             case .notDownloaded:
                 cell.setDownlaodButtonStatus()
             }
@@ -209,27 +205,19 @@ extension PDFEdition {
                 
                 cell.setDownloadingStatus(hideProgerssView: false)
                 
-                if PDFFileManager.currentEditionsInDownloadProgress == nil {
-                    PDFFileManager.currentEditionsInDownloadProgress = [editionNumber]
-                } else {
-                    PDFFileManager.currentEditionsInDownloadProgress!.append(editionNumber)
-                }
-                
-            
-                Alamofire.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
+                let downloadTask = Alamofire.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
                     cell.downloadProgressView.progress = Float(prog.fractionCompleted)
                 }).response { response in
                     if response.error == nil, let _ = response.destinationURL?.path {
                         center.post(descriptor: PDFFileManager.downloadCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
-                        PDFFileManager.currentEditionsInDownloadProgress = PDFFileManager.currentEditionsInDownloadProgress?.filter() { $0 != editionNumber}
                         cell.setDownloadComplete()
                     }
+                    PDFFileManager.currentEditionsInDownloadProgress[editionNumber] = nil
                 }
+                PDFFileManager.currentEditionsInDownloadProgress[editionNumber] = downloadTask
             }
         })
         
         cell.actionButton.addTarget(cell.actionButtonTargetAction, action: #selector(TargetAction.action(sender:)), for: .touchUpInside)
     }
 }
-
-

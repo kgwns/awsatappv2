@@ -17,7 +17,7 @@
 RCT_EXPORT_MODULE(RNPDFArchiveView)
 
 - (UIView *)view {
-    return [PDFArchiveView new];
+    return [[PDFArchiveView alloc] init];
 }
 
 RCT_EXPORT_VIEW_PROPERTY(onItemClick, RCTBubblingEventBlock)
