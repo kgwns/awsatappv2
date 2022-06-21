@@ -1,10 +1,10 @@
-import { View, FlatList, StyleSheet, Animated, BackHandler } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import { View, FlatList, StyleSheet, Animated, BackHandler, ScrollView, TouchableOpacity } from 'react-native'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter, DraggableVideoPlayer } from 'src/components/molecules'
-import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
+import { Divider, HeaderElementProps, Label, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
@@ -28,7 +28,11 @@ import { fonts } from 'src/shared/styles/fonts'
 import { BackIcon } from 'src/components/atoms'
 import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types'
 import { fetchVideoDetailInfo } from 'src/services/VideoServices'
-import { RenderContentElement, RenderDescriptionElement, RenderNumberElement, RenderOpinionElement, RenderQuoteElement, RenderReadAlsoElement } from './components/ArticleDetailRichContent'
+import { 
+  RenderContentElement, RenderDescriptionElement, RenderNumberElement, 
+  RenderOpinionElement, RenderQuoteElement, RenderReadAlsoElement, RenderWebView 
+} from './components/ArticleDetailRichContent'
+import AutoHeightWebView from 'react-native-autoheight-webview'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -72,7 +76,50 @@ export const ArticleDetailScreen = ({
   const [bookmarkIndex, setBookmarkIndex] = useState(0);
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
 
+  var webviewRef: any = React.createRef();
+
   const currentNId = route.params.nid;
+
+  const script = () => {
+    return `
+      var pTagElement = document.getElementsByTagName("p");
+
+      if(pTagElement && pTagElement.length > 0) {
+        for(i=0; i < pTagElement.length; i++) {
+          pTagElement[i].style.fontSize = "${articleFontSize}px"
+          pTagElement[i].style.lineHeight = "${1.8 * articleFontSize}px"
+          pTagElement[i].style.fontFamily = "${fonts.Effra_Arbc_Regular}"
+          pTagElement[i].style.color = "${themeData.primaryBlack}"
+          pTagElement[i].style.textAlign = "justify"
+          pTagElement[i].style.direction = "rtl"
+          pTagElement[i].style.writingDirection = "rtl"
+        }
+      }
+
+      var divTagElement = document.getElementsByTagName("div");
+      if(divTagElement && divTagElement.length > 0) {
+        for(i=0; i < divTagElement.length; i++) {
+          divTagElement[i].style.fontSize = "${articleFontSize}px"
+          divTagElement[i].style.lineHeight = "${1.8 * articleFontSize}px"
+          divTagElement[i].style.fontFamily = "${fonts.Effra_Arbc_Regular}"
+          divTagElement[i].style.color = "${themeData.primaryBlack}"
+          divTagElement[i].style.textAlign = "justify"
+          divTagElement[i].style.direction = "rtl"
+          divTagElement[i].style.writingDirection = "rtl"
+        }
+      }
+
+      var imageElement = document.getElementsByTagName("img");
+      if(imageElement && imageElement.length > 0) {
+        for(i=0; i < imageElement.length; i++) {
+          imageElement[i].style["max-width"] = "100%"; 
+          imageElement[i].style["height"] = "auto"; 
+        } 
+      }
+       
+      true;  // note: this is required, or you'll sometimes get silent failures
+      `;
+  };
 
   const {
     isLoading,
@@ -129,6 +176,9 @@ export const ArticleDetailScreen = ({
   useEffect(() => {
     if (fontSize != articleFontSize) {
       setFontSize(articleFontSize)
+      if(webviewRef) {
+        webviewRef.injectJavaScript(script());
+      }
     }
   }, [articleFontSize])
 
@@ -339,12 +389,36 @@ export const ArticleDetailScreen = ({
     </View>
   )
 
-  const articleHtmlContent = (index: number) => (
-    <View style={style.labelStyle}>
-      <HtmlRenderer source={articleDetailState[index].body}
-        tagsStyles={htmlTagStyle} />
-    </View>
-  )
+  const articleHtmlContent = (index: number) => {
+    return (
+      <View style={style.labelStyle}>
+        {index === 0 ?
+          <AutoHeightWebView
+            style={style.webView}
+            source={{ html: articleDetailState[index].body }}
+            ref={(r) => (webviewRef = r)}
+            domStorageEnabled={true}
+            bounces={false}
+            nestedScrollEnabled={false}
+            scalesPageToFit={false}
+            onMessage={(event) => {
+              console.log(event.nativeEvent.data);
+            }}
+            onLoadEnd={() => {
+              webviewRef.injectJavaScript(script())
+            }}
+            injectedJavaScript={script()}
+            injectedJavaScriptBeforeContentLoaded={script()}
+          />
+          :
+          <HtmlRenderer
+            source={articleDetailState[index].body}
+            tagsStyles={htmlTagStyle}
+          />
+        }
+      </View>
+    )
+  }
 
   const renderRichHTMLContent = (articleItem: ArticleDetailDataType) => {
     const htmlContent = articleItem.richHTML ?? []
@@ -363,8 +437,8 @@ export const ArticleDetailScreen = ({
                 return <RenderQuoteElement paragraphInfo={item.data} />
               case RichHTMLType.CONTENT:
                 return <RenderContentElement paragraphInfo={item.data} />
-              // case RichHTMLType.DESCRIPTION:
-              //   return <RenderDescriptionElement paragraphInfo={item.data}  />
+              case RichHTMLType.DESCRIPTION:
+                return <RenderDescriptionElement paragraphInfo={item.data}  />
               case RichHTMLType.OPINION:
                 return <RenderOpinionElement paragraphInfo={item.data}/>
               case RichHTMLType.READ_ALSO:
@@ -507,5 +581,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   backIconContainerStyle: {
     marginLeft: isTab ? 15 : 0
-  }
+  },
+  webView: {
+    width: 0.92 * screenWidth,
+    marginTop: 20,
+    backgroundColor: 'transparent',
+    opacity: 0.99,
+    overflow: 'hidden'
+  },
 })
