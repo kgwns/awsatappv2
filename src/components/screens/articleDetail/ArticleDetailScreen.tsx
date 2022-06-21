@@ -85,13 +85,14 @@ export const ArticleDetailScreen = ({
   const currentNId = route.params.nid;
 
   const script = () => {
+    const newFontSize = isTab ? 1.5 * articleFontSize : articleFontSize
     return `
       var pTagElement = document.getElementsByTagName("p");
 
       if(pTagElement && pTagElement.length > 0) {
         for(i=0; i < pTagElement.length; i++) {
-          pTagElement[i].style.fontSize = "${articleFontSize}px"
-          pTagElement[i].style.lineHeight = "${1.8 * articleFontSize}px"
+          pTagElement[i].style.fontSize = "${newFontSize}px"
+          pTagElement[i].style.lineHeight = "${1.8 * newFontSize}px"
           pTagElement[i].style.fontFamily = "${fonts.Effra_Arbc_Regular}"
           pTagElement[i].style.color = "${themeData.primaryBlack}"
           pTagElement[i].style.textAlign = "justify"
@@ -104,8 +105,8 @@ export const ArticleDetailScreen = ({
       var divTagElement = document.getElementsByTagName("div");
       if(divTagElement && divTagElement.length > 0) {
         for(i=0; i < divTagElement.length; i++) {
-          divTagElement[i].style.fontSize = "${articleFontSize}px"
-          divTagElement[i].style.lineHeight = "${1.8 * articleFontSize}px"
+          divTagElement[i].style.fontSize = "${newFontSize}px"
+          divTagElement[i].style.lineHeight = "${1.8 * newFontSize}px"
           divTagElement[i].style.fontFamily = "${fonts.Effra_Arbc_Regular}"
           divTagElement[i].style.color = "${themeData.primaryBlack}"
           divTagElement[i].style.textAlign = "justify"
