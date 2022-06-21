@@ -91,6 +91,16 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
         getPdfArchive();
     }
 
+    boolean checkIfTaskInQueue(Pdf data){
+        boolean doesTaskExist = false;
+        if(pdfDownloadService!=null && pdfDownloadService.getTask()!=null){
+            if(pdfDownloadService.getTask().getUrl().equals(data.getUrl())){
+                doesTaskExist = true;
+            }
+        }
+        return doesTaskExist;
+    }
+
     @Override
     public CoreListAdapter<Pdf> initAdapter() {
         pdfAdapter =  new PdfAdapter(mContext, rvList, mPdfs, new ItemClickListener() {
@@ -101,20 +111,22 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                         Button button = (Button) view;
                         Pdf pdf = getAdapter().getItem(integer);
 
-                        if (pdf.getStatus() == 0) {
+                        if (pdf.getStatus() == 0 || !pdfDownloadService.checkIfTaskEnqueued(pdf.getUrl())) {
                             FileDownloader.setup(mContext);
-                            downloadPdf(button, getAdapter().getItem(integer));
-                            getAdapter().getItem(integer).setStatus(1);
-                            button.setText(getString(R.string.downloading));
-                        } else if (pdf.getStatus() == 1) {
+                            if(integer == 0 && !checkIfTaskInQueue(pdf)){
+                                getAdapter().getItem(integer).setStatus(1);
+                                button.setText(getString(R.string.downloading));
+                            }else{
+                                downloadPdf(button, getAdapter().getItem(integer));
+                                getAdapter().getItem(integer).setStatus(1);
+                                button.setText(getString(R.string.downloading));
+                            }
+                        } else if (pdf.getStatus() == 1 || pdfDownloadService.checkIfTaskEnqueued(pdf.getUrl())) {
                             if (pdf.getmDownloadTask() != null) {
                                 pdf.getmDownloadTask().pause();
                                 pdf.setmDownloadTask(null);
                                 pdf.setStatus(0);
                                 button.setText(getString(R.string.download));
-                            }
-                            if(pdfDownloadService.getTask()!=null &&
-                                    pdf.getUrl().equals(pdfDownloadService.getTask().getUrl())){
                                 pdfDownloadService.removeCurrentTask();
                             }
 
@@ -142,51 +154,9 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                             startActivity(PdfActivity.newInstance(mContext, path, title));
                         }
 
+
+                    }
                 }
-            }
-        }, new ItemProgressListener() {
-            @Override
-            public void onProgress(View view, int position, String progress) {
-                Button mDownloadBtn = (Button) view.findViewById(R.id.download_btn);
-                if (mPdfs.get(position).getStatus() == 1) {
-                    mPdfs.get(position).getmDownloadTask().setListener(new FileDownloadLargeFileListener() {
-                        @Override
-                        protected void pending(BaseDownloadTask task, long soFarBytes, long totalBytes) {
-
-                        }
-
-                        @Override
-                        protected void progress(BaseDownloadTask task, long soFarBytes, long totalBytes) {
-                            mDownloadBtn.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
-                        }
-
-                        @Override
-                        protected void paused(BaseDownloadTask task, long soFarBytes, long totalBytes) {
-
-                        }
-
-                        @Override
-                        protected void completed(BaseDownloadTask task) {
-                            mPdfs.get(position).setStatus(2);
-                            //when the dowload is completed
-                            mDownloadBtn.setText(getString(R.string.read));
-                            Objects.requireNonNull(rvList.getAdapter()).notifyItemChanged(0);
-                            mPdfs.get(position).notify();
-                        }
-
-                        @Override
-                        protected void error(BaseDownloadTask task, Throwable e) {
-
-                        }
-
-                        @Override
-                        protected void warn(BaseDownloadTask task) {
-
-                        }
-                    });
-
-                }
-            }
         });
         return pdfAdapter;
     }

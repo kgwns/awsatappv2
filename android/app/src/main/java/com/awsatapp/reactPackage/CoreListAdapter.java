@@ -170,7 +170,9 @@ public abstract class CoreListAdapter<T> extends RecyclerView.Adapter<CoreHolder
                 mFooterLoader.setVisibility(View.VISIBLE);
             }
         } else {
+            coreHolder.setIsRecyclable(false);
             coreHolder.bindData(getItem(position),position,itemProgressListener);
+
         }
     }
 

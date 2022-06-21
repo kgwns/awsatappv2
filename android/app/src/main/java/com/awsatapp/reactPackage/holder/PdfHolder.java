@@ -35,8 +35,8 @@ public class PdfHolder extends CoreHolder<Pdf> {
     private Button mDownlaodBtn;
     private FileDownloadSerialQueue fileDownloadSerialQueue;
 
-    public PdfHolder(View itemView, ItemClickListener listener, ItemProgressListener itemProgressListener) {
-        super(itemView, listener,null,itemProgressListener);
+    public PdfHolder(View itemView, ItemClickListener listener) {
+        super(itemView, listener,null);
         mTitle = (TextView) itemView.findViewById(R.id.title);
         mDate = (TextView) itemView.findViewById(R.id.date);
         mDownlaodBtn = (Button) itemView.findViewById(R.id.download_btn);
@@ -54,21 +54,20 @@ public class PdfHolder extends CoreHolder<Pdf> {
         mDownlaodBtn.setOnClickListener(this);
         String lang = CoreCacheManager.getInstance(mDate.getContext()).get(Constant.CACHE_LANGUAGE,"ar");
         mDate.setText(Utils.getFullDateFromTimestamp(new Locale(lang), data.getCreated()));
-//        if (fileExist(data.getIssueNumber() + ".pdf")) {
-//            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.read));
-//            data.setStatus(2);
-//        } else if (data.getStatus() == 1) {
-//            long soFarBytes = data.getmDownloadTask().getLargeFileSoFarBytes();
-//            long totalBytes = data.getmDownloadTask().getLargeFileTotalBytes();
-//            if(totalBytes>soFarBytes){
-//                mDownlaodBtn.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
-//                itemProgressListener.onProgress(itemView,position,soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
-//            }else{
-//                mDownlaodBtn.setText(mContext.getString(R.string.downloading));
-//            }
-//        } else if (data.getStatus() == 0) {
-//            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.download));
-//        }
+        if (fileExist(data.getIssueNumber() + ".pdf")) {
+            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.read));
+            data.setStatus(2);
+        } else if (data.getStatus() == 1) {
+            long soFarBytes = data.getmDownloadTask().getLargeFileSoFarBytes();
+            long totalBytes = data.getmDownloadTask().getLargeFileTotalBytes();
+            if(totalBytes>soFarBytes){
+                mDownlaodBtn.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
+            }else{
+                mDownlaodBtn.setText(mContext.getString(R.string.downloading));
+            }
+        } else if (data.getStatus() == 0) {
+            mDownlaodBtn.setText(mTitle.getContext().getString(R.string.download));
+        }
 
         try{
             if(fileDownloadSerialQueue.getTask()!=null) {
