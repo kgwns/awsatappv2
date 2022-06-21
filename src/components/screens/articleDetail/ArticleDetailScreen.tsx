@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet, Animated, BackHandler, ScrollView, TouchableOpacity } from 'react-native'
+import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
@@ -74,9 +74,10 @@ export const ArticleDetailScreen = ({
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const videoRefs = useRef<any[]>([]);
   const [bookmarkIndex, setBookmarkIndex] = useState(0);
+  const [deviceWidth, setDeviceWidth] = useState(screenWidth)
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
 
-  var webviewRef: any = React.createRef();
+  var webviewRef: any[] =[React.createRef()];
 
   const currentNId = route.params.nid;
 
@@ -152,6 +153,16 @@ export const ArticleDetailScreen = ({
       return prevValue.concat(item.nid)
     }, [])
   }
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener(
+      'change',
+      ({ window: { width, height } }) => {
+        setDeviceWidth(width)
+      },
+    );
+    return () => subscription?.remove();
+  }, []);
   
   useEffect(() => {
     if (isFocused) {
@@ -177,7 +188,9 @@ export const ArticleDetailScreen = ({
     if (fontSize != articleFontSize) {
       setFontSize(articleFontSize)
       if(webviewRef) {
-        webviewRef.injectJavaScript(script());
+        webviewRef.map((_, index) => {
+          webviewRef[index].injectJavaScript(script());
+        })
       }
     }
   }, [articleFontSize])
@@ -191,6 +204,14 @@ export const ArticleDetailScreen = ({
     if (isNonEmptyArray(articleDetailData) && route.params && route.params.nid && isFocused) {
       const isBookmarked = validateBookmark(articleDetailData[bookmarkIndex].nid)
       setIsBookmarked(isBookmarked)
+
+      if(articleDetailData.length > webviewRef.length) {
+        const newReferenceCount = articleDetailData.length - webviewRef.length
+        let reference = React.createRef()
+        const newReference = Array(newReferenceCount).fill(reference)
+        webviewRef.concat(newReference)
+      }
+
       setArticleDetail(articleDetailData)
     }
   }, [articleDetailData, bookmarkIndex])
@@ -392,11 +413,10 @@ export const ArticleDetailScreen = ({
   const articleHtmlContent = (index: number) => {
     return (
       <View style={style.labelStyle}>
-        {index === 0 ?
           <AutoHeightWebView
-            style={style.webView}
+            style={[style.webView, {width: deviceWidth}]}
             source={{ html: articleDetailState[index].body }}
-            ref={(r) => (webviewRef = r)}
+            ref={(r) => (webviewRef[index] = r)}
             domStorageEnabled={true}
             bounces={false}
             nestedScrollEnabled={false}
@@ -405,17 +425,11 @@ export const ArticleDetailScreen = ({
               console.log(event.nativeEvent.data);
             }}
             onLoadEnd={() => {
-              webviewRef.injectJavaScript(script())
+              webviewRef[index].injectJavaScript(script())
             }}
             injectedJavaScript={script()}
             injectedJavaScriptBeforeContentLoaded={script()}
           />
-          :
-          <HtmlRenderer
-            source={articleDetailState[index].body}
-            tagsStyles={htmlTagStyle}
-          />
-        }
       </View>
     )
   }
