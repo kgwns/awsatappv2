@@ -88,7 +88,7 @@ export const RenderDescriptionElement = ({ paragraphInfo }: { paragraphInfo: Art
 
     return (
         <View style={style.descriptionContainer}>
-            <TitleWithUnderLine title={'CONST_FACTS'} titleContainerStyle={{ backgroundColor: themeData.backgroundColor }} />
+            {/* <TitleWithUnderLine title={'CONST_FACTS'} titleContainerStyle={{ backgroundColor: themeData.backgroundColor }} /> */}
             {RenderWebView(paragraphInfo.description, injectedStyle)}
         </View>
     )
