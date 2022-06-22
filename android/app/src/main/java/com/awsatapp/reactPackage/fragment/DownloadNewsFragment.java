@@ -144,7 +144,13 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                     Objects.equals(pdfDownloadService.getTask().getUrl(), mPdf.getUrl()) &&
                     pdfDownloadService.getTask().getStatus() == FileDownloadStatus.paused){
                 mPdf.setStatus(0);
+                mPdf.setmDownloadTask(pdfDownloadService.getTask());
                 mDownlaodBtn.setText(mContext.getString(R.string.download));
+            }else if(null != pdfDownloadService.getTask() &&
+                    Objects.equals(pdfDownloadService.getTask().getUrl(), mPdf.getUrl())){
+                mPdf.setStatus(1);
+                mPdf.setmDownloadTask(pdfDownloadService.getTask());
+                mDownlaodBtn.setText(mContext.getString(R.string.downloading));
             }
         }
         updateDownloadProgress();
@@ -155,6 +161,11 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     public void onPause() {
         requireActivity().unregisterReceiver(fragmentBroadcast);
         super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     private void getPdfArchive() {

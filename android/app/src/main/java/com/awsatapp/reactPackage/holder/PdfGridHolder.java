@@ -73,11 +73,24 @@ public class PdfGridHolder extends CoreHolder<Pdf> {
                 .placeholder(circularProgressDrawable)
                 .into(mImage);
 
-
         if (fileExist(data.getIssueNumber() + ".pdf")) {
             mDownlaodBtn.setText(mTitle.getContext().getString(R.string.read));
             data.setStatus(2);
-        } else if (data.getStatus() == 1) {
+        }
+//        else if(fileDownloadSerialQueue!=null && fileDownloadSerialQueue.checkIfTaskEnqueued(data.getUrl())){
+//            if(fileDownloadSerialQueue.getQueuedTask(data.getUrl()).getUrl().equals(data.getUrl())){
+//                data.setmDownloadTask(fileDownloadSerialQueue.getQueuedTask(data.getUrl()));
+//                data.setStatus(1);
+//            }
+//        }else{
+//            if(fileDownloadSerialQueue!=null && fileDownloadSerialQueue.checkIfTaskEnqueued(data.getUrl())){
+//                data.setmDownloadTask(fileDownloadSerialQueue.getTask());
+//                data.setStatus(0);
+//            }
+//
+//        }
+
+        else if (data.getStatus() == 1) {
             long soFarBytes = data.getmDownloadTask().getLargeFileSoFarBytes();
             long totalBytes = data.getmDownloadTask().getLargeFileTotalBytes();
             if(totalBytes>soFarBytes){

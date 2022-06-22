@@ -260,18 +260,7 @@ public class CoreFragment extends Fragment implements Toolbar.OnMenuItemClickLis
         sChildFragmentManagerField = f;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
 
-        if (sChildFragmentManagerField != null) {
-            try {
-                sChildFragmentManagerField.set(this, null);
-            } catch (Exception e) {
-                Log.e("FM", "Error setting mChildFragmentManager field", e);
-            }
-        }
-    }
 
     public void handleError(Exception e) {
         if (!isAdded()) {
