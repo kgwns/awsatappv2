@@ -272,7 +272,6 @@ export const ArticleDetailScreen = ({
   }
 
   const stopVideoPlayer = () => {
-    console.log(videoRefs.current[0],videoRefs.current[1],'videoRefsvideoRefssss');
     videoRefs?.current[0]?.setNativeProps({
       paused: true
     })
@@ -418,6 +417,7 @@ export const ArticleDetailScreen = ({
       return null
     }
 
+    const updatedFontSize = isTab ? 1.5 * articleFontSize : articleFontSize
     return (
       <View style={{padding: 0.04 * screenWidth}}>
         {
@@ -430,13 +430,13 @@ export const ArticleDetailScreen = ({
               case RichHTMLType.CONTENT:
                 return <RenderContentElement paragraphInfo={item.data} />
               case RichHTMLType.DESCRIPTION:
-                return <RenderDescriptionElement paragraphInfo={item.data}  />
+                return <RenderDescriptionElement paragraphInfo={item.data} fontSize={updatedFontSize} />
               case RichHTMLType.OPINION:
                 return <RenderOpinionElement paragraphInfo={item.data}/>
               case RichHTMLType.READ_ALSO:
                 return <RenderReadAlsoElement paragraphInfo={item.data}/>
               case RichHTMLType.NUMBERS:
-                return <RenderNumberElement paragraphInfo={item.data}  />
+                return <RenderNumberElement paragraphInfo={item.data}  fontSize={updatedFontSize}/>
               default: return null
             }
           })
