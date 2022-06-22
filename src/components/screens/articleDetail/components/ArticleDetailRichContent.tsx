@@ -1,6 +1,6 @@
 import { View, StyleSheet, ScrollView, Platform } from 'react-native'
 import React, { useEffect } from 'react'
-import { decodeHTMLTags, isNonEmptyArray, isObjectNonEmpty, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, screenWidth } from 'src/shared/utils'
 import { ArticleContentDataType, ArticleDescriptionDataType, ArticleNumberDataType, ArticleOpinionDataType, ArticleQuoteDataType, ArticleReadAlsoDataType } from 'src/redux/articleDetail/types'
 import { Styles } from 'src/shared/styles'
 import AutoHeightWebView from 'react-native-autoheight-webview'
@@ -17,6 +17,10 @@ import { WebViewErrorEvent, WebViewMessageEvent } from 'react-native-webview/lib
 import { RichHTMLOpinonWidget } from './RichHTMLOpinonWidget'
 
 export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQuoteDataType }) => {
+    if (!isNotEmpty(paragraphInfo.title) && !isNotEmpty(paragraphInfo.description)) {
+        return null
+    }
+
     const style = useThemeAwareObject(customStyle)
 
     const { themeData } = useTheme()
@@ -40,9 +44,11 @@ export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQu
     return (
         <View style={style.quoteContainer}>
             <Label style={style.upperArrow} children={`${'"'}`} />
-            <View style={{ paddingHorizontal: 40 }}>
-                {RenderWebView(richContentTagStyle({body: paragraphInfo.description}) || '', injectedStyle)}
-            </View>
+            {isNotEmpty(paragraphInfo.description) &&
+                <View style={{ paddingHorizontal: 40 }}>
+                    {RenderWebView(richContentTagStyle({ body: paragraphInfo.description }) || '', injectedStyle)}
+                </View>
+            }
             <View style={style.quoteFooter}>
                 <Label style={style.quoteTitle} children={decode(decodeHTMLTags(paragraphInfo.title))} />
                 <Label style={style.bottomArrow} children={`${'"'}`} />
@@ -213,9 +219,15 @@ export const generateAssetFontCss = ({
           }
           p {
             font-family: Effra-Regular;
+            text-align: justify;
+            direction: rtl;
+            writing-direction: rtl;
           }
           div {
             font-family: Effra-Regular;
+            text-align: justify;
+            direction: rtl;
+            writing-direction: rtl;
           }
       </style>
       <meta
