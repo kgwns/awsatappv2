@@ -1,6 +1,6 @@
 import { View, StyleSheet, ScrollView, Platform } from 'react-native'
 import React, { useEffect } from 'react'
-import { decodeHTMLTags, isNonEmptyArray, isObjectNonEmpty, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, screenWidth } from 'src/shared/utils'
 import { ArticleContentDataType, ArticleDescriptionDataType, ArticleNumberDataType, ArticleOpinionDataType, ArticleQuoteDataType, ArticleReadAlsoDataType } from 'src/redux/articleDetail/types'
 import { Styles } from 'src/shared/styles'
 import AutoHeightWebView from 'react-native-autoheight-webview'
@@ -17,6 +17,10 @@ import { WebViewErrorEvent, WebViewMessageEvent } from 'react-native-webview/lib
 import { RichHTMLOpinonWidget } from './RichHTMLOpinonWidget'
 
 export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQuoteDataType }) => {
+    if (!isNotEmpty(paragraphInfo.title) && !isNotEmpty(paragraphInfo.description)) {
+        return null
+    }
+
     const style = useThemeAwareObject(customStyle)
 
     const { themeData } = useTheme()
@@ -40,9 +44,11 @@ export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQu
     return (
         <View style={style.quoteContainer}>
             <Label style={style.upperArrow} children={`${'"'}`} />
-            <View style={{ paddingHorizontal: 40 }}>
-                {RenderWebView(richContentTagStyle({body: paragraphInfo.description}) || '', injectedStyle)}
-            </View>
+            {isNotEmpty(paragraphInfo.description) &&
+                <View style={{ paddingHorizontal: 40 }}>
+                    {RenderWebView(richContentTagStyle({ body: paragraphInfo.description }) || '', injectedStyle)}
+                </View>
+            }
             <View style={style.quoteFooter}>
                 <Label style={style.quoteTitle} children={decode(decodeHTMLTags(paragraphInfo.title))} />
                 <Label style={style.bottomArrow} children={`${'"'}`} />
@@ -63,10 +69,11 @@ export const RenderContentElement = ({ paragraphInfo }: { paragraphInfo: Article
     )
 }
 
-export const RenderDescriptionElement = ({ paragraphInfo }: { paragraphInfo: ArticleDescriptionDataType }) => {
+export const RenderDescriptionElement = ({ paragraphInfo, fontSize }: { paragraphInfo: ArticleDescriptionDataType, fontSize: number }) => {
     const style = useThemeAwareObject(customStyle)
 
     const { themeData } = useTheme()
+    const webviewRef = React.useRef<AutoHeightWebView>()
 
     var injectedStyle = `
     setTimeout(function() {   
@@ -75,10 +82,9 @@ export const RenderDescriptionElement = ({ paragraphInfo }: { paragraphInfo: Art
         window.ReactNativeWebView.postMessage(descriptionText.length)
         if(descriptionText && descriptionText.length > 0) {
             for(i=0; i < descriptionText.length; i++) {
-                descriptionText[i].style["font-size"] = "inherit";
-                descriptionText[i].style["font-family"] = "inherit";
+                descriptionText[i].style["font-size"] = "${fontSize}px";
+                descriptionText[i].style.lineHeight = "${1.8 * fontSize}px";
                 descriptionText[i].style["direction"] = "rtl"
-                descriptionText[i].style["line-height"] = "inherit";
                 descriptionText[i].style["text-align"] = "justify";  
                 descriptionText[i].style["color"] = "${themeData.primaryBlack}";
             } 
@@ -86,10 +92,16 @@ export const RenderDescriptionElement = ({ paragraphInfo }: { paragraphInfo: Art
     }, ` + 0 + `)
     `
 
+    useEffect(() => {       
+       if(webviewRef && webviewRef.current) {
+        webviewRef.current.injectJavaScript(injectedStyle)
+       }
+    }, [fontSize])
+
     return (
         <View style={style.descriptionContainer}>
             {/* <TitleWithUnderLine title={'CONST_FACTS'} titleContainerStyle={{ backgroundColor: themeData.backgroundColor }} /> */}
-            {RenderWebView(richContentTagStyle({body: paragraphInfo.description}) , injectedStyle)}
+            {RenderWebView(richContentTagStyle({body: paragraphInfo.description}) , injectedStyle, webviewRef)}
         </View>
     )
 }
@@ -118,11 +130,12 @@ export const RenderReadAlsoElement = ({ paragraphInfo }: { paragraphInfo: Articl
     )
 }
 
-export const RenderNumberElement = ({ paragraphInfo }: { paragraphInfo: ArticleNumberDataType }) => {
+export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo: ArticleNumberDataType, fontSize: number }) => {
     if (!paragraphInfo || !paragraphInfo.description) {
         return null
     }
 
+    const webviewRef = React.useRef<AutoHeightWebView>()
     const style = useThemeAwareObject(customStyle)
     const CONST_FACTS = TranslateConstants({ key: TranslateKey.RICH_HTML_FACTS })
 
@@ -134,10 +147,10 @@ export const RenderNumberElement = ({ paragraphInfo }: { paragraphInfo: ArticleN
         var descriptionText = document.getElementsByTagName("p");
         if(descriptionText && descriptionText.length > 0) {
             for(i=0; i < descriptionText.length; i++) {
-                descriptionText[i].style["font-size"] = "inherit";
+                descriptionText[i].style["font-size"] = "${fontSize}px";
+                descriptionText[i].style.lineHeight = "${1.8 * fontSize}px";
                 descriptionText[i].style["font-family"] = "inherit";
                 descriptionText[i].style["direction"] = "rtl"
-                descriptionText[i].style["line-height"] = "inherit";
                 descriptionText[i].style["text-align"] = "justify";  
                 descriptionText[i].style["color"] = "${themeData.primaryBlack}";
             } 
@@ -145,25 +158,31 @@ export const RenderNumberElement = ({ paragraphInfo }: { paragraphInfo: ArticleN
     }, ` + 0 + `)
     `
 
+    useEffect(() => {       
+        if(webviewRef && webviewRef.current) {
+         webviewRef.current.injectJavaScript(injectedStyle)
+        }
+     }, [fontSize])
+
     return (
         <View style={style.descriptionContainer}>
             <TitleWithUnderLine title={CONST_FACTS} />
             <View style={style.numberBodyMainContainer}>
                 <View style={style.numberBodyContainer}>
                     <Label children={paragraphInfo.title} style={style.numberTitle} />
-                    {RenderWebView(richContentTagStyle({body: paragraphInfo.description})  || '', injectedStyle)}
+                    {RenderWebView(richContentTagStyle({body: paragraphInfo.description})  || '', injectedStyle, webviewRef)}
                 </View>
             </View>
         </View>
     )
 }
 
-export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewRef?: any) => {
+export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewRef?: React.MutableRefObject<AutoHeightWebView | undefined | null>) => {
     return (
         <ScrollView scrollEnabled={false}>
             <AutoHeightWebView 
                 style={{ width: '100%',backgroundColor: 'transparent', opacity: 0.99, overflow: 'hidden' }}
-                ref={(ref) => {webViewRef = ref}}
+                ref={(ref) => {webViewRef ? webViewRef.current = ref : null}}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
                 originWhitelist={["*"]}
@@ -213,9 +232,15 @@ export const generateAssetFontCss = ({
           }
           p {
             font-family: Effra-Regular;
+            text-align: justify;
+            direction: rtl;
+            writing-direction: rtl;
           }
           div {
             font-family: Effra-Regular;
+            text-align: justify;
+            direction: rtl;
+            writing-direction: rtl;
           }
       </style>
       <meta

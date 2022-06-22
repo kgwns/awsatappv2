@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, Platform } from 'react-native'
+import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, ScrollView } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
@@ -10,8 +10,6 @@ import { horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, i
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
-import { HtmlRenderer } from 'src/components/atoms'
-import type { MixedStyleRecord, MixedStyleDeclaration } from '@native-html/transient-render-engine';
 import { ArticleDetailDataType, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
@@ -24,7 +22,6 @@ import { TrackingEventType } from 'src/services/eventTrackService'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ArticleFontSize } from 'src/redux/appCommon/types'
-import { fonts } from 'src/shared/styles/fonts'
 import { BackIcon } from 'src/components/atoms'
 import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types'
 import { fetchVideoDetailInfo } from 'src/services/VideoServices'
@@ -76,7 +73,6 @@ export const ArticleDetailScreen = ({
   const videoRefs = useRef<any[]>([]);
   const [bookmarkIndex, setBookmarkIndex] = useState(0);
   const [deviceWidth, setDeviceWidth] = useState(screenWidth)
-  const [firstArticleLoaded, setFirstArticleLoaded] = useState(false)
 
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
 
@@ -93,7 +89,6 @@ export const ArticleDetailScreen = ({
         for(i=0; i < pTagElement.length; i++) {
           pTagElement[i].style.fontSize = "${newFontSize}px"
           pTagElement[i].style.lineHeight = "${1.8 * newFontSize}px"
-          pTagElement[i].style.fontFamily = "${fonts.Effra_Arbc_Regular}"
           pTagElement[i].style.color = "${themeData.primaryBlack}"
           pTagElement[i].style.textAlign = "justify"
           pTagElement[i].style.direction = "rtl"
@@ -107,11 +102,11 @@ export const ArticleDetailScreen = ({
         for(i=0; i < divTagElement.length; i++) {
           divTagElement[i].style.fontSize = "${newFontSize}px"
           divTagElement[i].style.lineHeight = "${1.8 * newFontSize}px"
-          divTagElement[i].style.fontFamily = "${fonts.Effra_Arbc_Regular}"
           divTagElement[i].style.color = "${themeData.primaryBlack}"
           divTagElement[i].style.textAlign = "justify"
           divTagElement[i].style.direction = "rtl"
           divTagElement[i].style.writingDirection = "rtl"
+          divTagElement[i].style.margin = 0
         }
       }
 
@@ -237,30 +232,6 @@ export const ArticleDetailScreen = ({
     }
   }, [relatedArticleData,isFocused])
 
-  const commonHtmlTagStyle: MixedStyleDeclaration = {
-    color: themeData.primaryBlack,
-    textAlign: 'justify',
-    direction: 'rtl',
-    fontSize: fontSize,
-    lineHeight: 1.8 * fontSize,
-    fontFamily: fonts.Effra_Arbc_Regular,
-    writingDirection: 'rtl',
-  }
-
-  const h1TagStyle: MixedStyleDeclaration = {
-    color: themeData.primaryBlack,
-    textAlign: 'justify',
-    direction: 'rtl',
-    fontFamily: fonts.Effra_Arbc_Regular,
-    writingDirection: 'rtl',
-  }
-  
-  const htmlTagStyle: MixedStyleRecord = {
-    p: commonHtmlTagStyle,
-    div: commonHtmlTagStyle,
-    h1: h1TagStyle,
-  }
-
   useEffect(() => {
     emptyAllData();
     if (isFocused) {
@@ -301,7 +272,6 @@ export const ArticleDetailScreen = ({
   }
 
   const stopVideoPlayer = () => {
-    console.log(videoRefs.current[0],videoRefs.current[1],'videoRefsvideoRefssss');
     videoRefs?.current[0]?.setNativeProps({
       paused: true
     })
@@ -418,7 +388,7 @@ export const ArticleDetailScreen = ({
   const articleHtmlContent = (index: number) => {
     const webviewWidth = deviceWidth * ((currentOrientation === 'LANDSCAPE-LEFT' || currentOrientation === 'LANDSCAPE-RIGHT') ? 0.88 : 0.92)
     return (
-      <View style={style.labelStyle}>
+      <ScrollView scrollEnabled={true} style={style.labelStyle}>
         <AutoHeightWebView
           style={[style.webView, { width: webviewWidth }]}
           source={{ html: articleHtml({ body: articleDetailState[index].body }), baseUrl: '' }}
@@ -433,14 +403,11 @@ export const ArticleDetailScreen = ({
           }}
           onLoadEnd={() => {
             webviewRef[index].injectJavaScript(script())
-            if (index === 0) {
-              setFirstArticleLoaded(true)
-            }
           }}
           injectedJavaScript={script()}
           injectedJavaScriptBeforeContentLoaded={script()}
         />
-      </View>
+      </ScrollView>
     )
   }
 
@@ -450,6 +417,7 @@ export const ArticleDetailScreen = ({
       return null
     }
 
+    const updatedFontSize = isTab ? 1.5 * articleFontSize : articleFontSize
     return (
       <View style={{padding: 0.04 * screenWidth}}>
         {
@@ -462,13 +430,13 @@ export const ArticleDetailScreen = ({
               case RichHTMLType.CONTENT:
                 return <RenderContentElement paragraphInfo={item.data} />
               case RichHTMLType.DESCRIPTION:
-                return <RenderDescriptionElement paragraphInfo={item.data}  />
+                return <RenderDescriptionElement paragraphInfo={item.data} fontSize={updatedFontSize} />
               case RichHTMLType.OPINION:
                 return <RenderOpinionElement paragraphInfo={item.data}/>
               case RichHTMLType.READ_ALSO:
                 return <RenderReadAlsoElement paragraphInfo={item.data}/>
               case RichHTMLType.NUMBERS:
-                return <RenderNumberElement paragraphInfo={item.data}  />
+                return <RenderNumberElement paragraphInfo={item.data}  fontSize={updatedFontSize}/>
               default: return null
             }
           })
@@ -527,7 +495,7 @@ export const ArticleDetailScreen = ({
   })
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading || !firstArticleLoaded} 
+    <ScreenContainer edge={edge} isLoading={isLoading} 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
       {!isLoading && isNonEmptyArray(articleDetailState) && <>
         {renderBackIcon()}
@@ -566,7 +534,7 @@ export const ArticleDetailScreen = ({
 }
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   labelStyle: {
-    paddingHorizontal: 0.04 * screenWidth,
+    marginHorizontal: 0.04 * screenWidth,
   },
   footer: {
     width: '100%'

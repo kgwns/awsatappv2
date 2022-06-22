@@ -3,8 +3,6 @@ import { storeServerEnvironment, storeArticleFontSize, resetArticleFontSize } fr
 import { getIsFirstSession, getThemeState, getServerEnvironment, getArticleFontSize } from "../redux/appCommon/selectors"
 import { ServerEnvironment, Theme } from "../redux/appCommon/types"
 import { ArticleFontSize } from "src/redux/appCommon/types"
-import { normalize } from "src/shared/utils/dimensions"
-
 
 export interface UseAppCommonReturn {
     theme: Theme,
