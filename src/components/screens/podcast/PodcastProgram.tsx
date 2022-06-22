@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { ScreenContainer } from '..';
 import { PodcastProgramInfo } from 'src/components/organisms';
-import { horizontalEdge, isNonEmptyArray } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray } from 'src/shared/utils';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useBookmark, usePodcast } from 'src/hooks';
+import { useBookmark, usePodcast, useAppPlayer } from 'src/hooks';
 import { PodcastListBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
 import { PodcastEpisodeList } from 'src/components/organisms';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -21,6 +21,8 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
     podcastListData,
     fetchPodcastListRequest
   } = usePodcast()
+
+  const { showMiniPlayer } = useAppPlayer()
 
   const {
     sendBookmarkInfo,
@@ -123,7 +125,7 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
         <FlatList
           ref={ref}
           onScrollBeginDrag={() => global.refFlatList = ref}
-          style={styles.containerStyle}
+          style={[styles.containerStyle, showMiniPlayer && styles.enhanceMarginForPlayer]}
           data={[{}]}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderPodcast}
@@ -139,5 +141,8 @@ const createStyles = (theme: CustomThemeType) =>
     containerStyle: {
       flex: 1,
       height: '100%'
-    }
+    },
+    enhanceMarginForPlayer: {
+      marginBottom: isIOS ? 100 : 80
+    } 
   });

@@ -748,11 +748,11 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'center',
     },
     emailTitle: {
-      fontSize: normalize(14),
-      lineHeight: normalize(20),
+      fontSize: 14,
+      lineHeight: 20,
       marginBottom: '6%',
       textAlign: 'left',
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.IBMPlexSansArabic_Bold,
     },
     email: {
       fontSize: normalize(12),

@@ -245,7 +245,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
       isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={{ height: insets.top, backgroundColor: colors.black }} />
       <FlatList
-        style={styles.episodeList}
+        style={[styles.episodeList, showMiniPlayer && styles.enhanceMarginForPlayer ]}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -278,5 +278,8 @@ const createStyles = (theme: CustomThemeType) =>
       height: normalize(80),
       position: 'absolute',
       bottom: isIOS ? 25 : 0
+    },
+    enhanceMarginForPlayer: {
+      marginBottom: isIOS ? 50 : 70
     }
   })

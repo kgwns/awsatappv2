@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyUserDefaults
+import Alamofire
 
 enum EditionStatus {
     case notDownloaded
@@ -16,24 +17,20 @@ enum EditionStatus {
 
 class PDFFileManager {
     
-    static var currentEditionsInDownloadProgress: [String]?
-    
+    static var currentEditionsInDownloadProgress: [String: Alamofire.DownloadRequest] = [:]
+  
     static func editionStatusForIssueNumber(_ issueNumber: String?) -> EditionStatus {
         guard let issueNumber = issueNumber else { return .notDownloaded }
         
-        if let currentEditionsInDownloadProgress = currentEditionsInDownloadProgress {
-            if currentEditionsInDownloadProgress.contains(issueNumber) {
-                return .downloading
-            }
+        if currentEditionsInDownloadProgress[issueNumber] != nil {
+            return .downloading
         }
-        
-        if self.isPDFFileExisitForIssueNumber(issueNumber) {
+        else if self.isPDFFileExisitForIssueNumber(issueNumber) {
             return .downloaded
         } else {
             return .notDownloaded
         }
     }
-    
     
     static func isPDFFileExisitForIssueNumber(_ issueNumber: String?) -> Bool {
         if let issueNumber = issueNumber {

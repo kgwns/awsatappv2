@@ -1,8 +1,11 @@
 package com.awsatapp.reactPackage.manager;
 
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+
+import androidx.annotation.RequiresApi;
 
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloader;

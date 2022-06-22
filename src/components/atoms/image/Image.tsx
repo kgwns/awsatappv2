@@ -1,7 +1,7 @@
 import React, {FunctionComponent, useState} from 'react';
-import { ImageStyle, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import FastImage, { ResizeMode } from 'react-native-fast-image';
+import FastImage, { ImageStyle, ResizeMode } from 'react-native-fast-image';
 
 import {ImagesName, Styles} from 'src/shared/styles';
 import { isDarkTheme, isAndroid, isNotEmpty } from 'src/shared/utils';
@@ -22,6 +22,7 @@ export interface ImageProps extends Omit<ImageStyle, 'source'> {
   type?: 'round' | 'standard';
   fallback?: boolean;
   fallbackContent?:any
+  fallbackName:ImageName;
   resizeMode?: ResizeMode;
 }
 
@@ -36,6 +37,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   url,
   fallback=false,
   fallbackContent=<PlaceholderImage name={'placeholderImg'}/>,
+  fallbackName,
   ...props
 }) => {
   const { theme } = useAppCommon()
@@ -55,20 +57,19 @@ export const Image: FunctionComponent<ImageProps> = ({
   };
 
 
-  if(isAndroid && !isNotEmpty(name) && !isNotEmpty(url)) {
-    name = ImagesName.placeholderImg
+  if(!isNotEmpty(name) && !isNotEmpty(url)) {
+    name = fallback && fallbackName ? fallbackName : ImagesName.placeholderImg
   }
 
   return (
     <>
-    <FastImage
+      <FastImage
         style={StyleSheet.flatten([imageStyle, borderStyle, style])}
-        source={name ? (isDarkMode ? Styles.darkImage[name] : Styles.image[name]) : (showPlaceholder ? fallbackContent : { uri: url })}
+        source={name ? (isDarkMode ? Styles.darkImage[name] : Styles.image[name]) : (showPlaceholder ? Styles.image[fallbackName] : { uri: url })}
         onError={() => !name && setShowPlaceholder(true)}
         resizeMode={resizeMode}
         {...props}
       />
-      
     </>
   );
 };

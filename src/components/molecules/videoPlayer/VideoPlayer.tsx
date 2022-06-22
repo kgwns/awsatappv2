@@ -9,6 +9,9 @@ import { ScreenContainer } from 'src/components/screens';
 import VideoPlayer from 'react-native-video-controls';
 import { useNavigation } from '@react-navigation/native';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
+import { getSvgImages } from 'src/shared/styles/svgImages';
+import { ImagesName } from 'src/shared/styles';
+
 export interface VideoPlayerProps {
   goBack?: () => void;
   testID?: string;
@@ -139,6 +142,7 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
           isFullscreen={fullScreen}
           fullscreenAutorotate={false}
           toggleControl={toggleControl}
+          closeIcon={getSvgImages({name: ImagesName.videoCloseIcon, width: 14, height: 14})}
         />
       </View>
     </ScreenContainer>

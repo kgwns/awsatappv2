@@ -163,14 +163,16 @@ const AuthorItem = ({
                 </View>}
             </View>
             <View>
-                <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'}
-                    fallback={true}
-                    fallbackContent={<AuthorDefault
-                    style={{backgroundColor:Styles.color.cyanGreen}}
-                    width={normalize(80)} 
-                    height={normalize(80)}/>}
-                    onPress={() => onPressWriter(authorId)}
-                />
+                <TouchableOpacity  onPress={() => onPressWriter(authorId)}>
+                    <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'}
+                        fallback={true}
+                        fallbackContent={<AuthorDefault
+                        style={{backgroundColor:Styles.color.cyanGreen}}
+                        width={normalize(80)} 
+                        height={normalize(80)}/>}
+                        fallbackName={ImagesName.authorDefault}
+                    />
+                </TouchableOpacity>
             </View>
         </TouchableOpacity>
     )

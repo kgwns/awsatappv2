@@ -12,7 +12,7 @@ import {
 import {OpinionWriterItemType} from 'src/redux/writers/types';
 import {useTranslation} from 'react-i18next';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
-import { Styles } from 'src/shared/styles';
+import { ImagesName, Styles } from 'src/shared/styles';
 import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
 import { getImageUrl, isNotEmpty } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
@@ -46,6 +46,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
                 style={{ backgroundColor:Styles.color.silverChalice }}
                 width={normalize(54)} 
                 height={normalize(54)}/>}
+                fallbackName={ImagesName.authorDefaultGrey}
               />
             </Grayscale>
           </View>
@@ -60,6 +61,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
     <View style={style.container}>
       <Label style={style.headerStyle}>{t('opinion.opinionWriters')}</Label>
       <FlatList
+        initialNumToRender={30}
         horizontal
         keyExtractor={(_, index) => index.toString()}
         listKey={

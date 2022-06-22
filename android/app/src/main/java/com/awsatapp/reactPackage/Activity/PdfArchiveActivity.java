@@ -88,6 +88,16 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
         getPdfArchive();
     }
 
+    boolean checkIfTaskInQueue(Pdf data){
+        boolean doesTaskExist = false;
+        if(pdfDownloadService!=null && pdfDownloadService.getTask()!=null){
+            if(pdfDownloadService.getTask().getUrl().equals(data.getUrl())){
+                doesTaskExist = true;
+            }
+        }
+        return doesTaskExist;
+    }
+
     @Override
     protected void onResume() {
 
