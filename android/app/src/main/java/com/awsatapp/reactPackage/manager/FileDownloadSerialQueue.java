@@ -1,11 +1,8 @@
 package com.awsatapp.reactPackage.manager;
 
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
-
-import androidx.annotation.RequiresApi;
 
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloader;
@@ -146,12 +143,35 @@ public class FileDownloadSerialQueue {
 
     public boolean checkIfTaskEnqueued(String taskUrl){
         boolean hasTask = false;
-        for (BaseDownloadTask task : mTasks) {
-            if (task.getUrl().equals(taskUrl)) {
+        if(mTasks.size()>0){
+            for (BaseDownloadTask task : mTasks) {
+                if (task.getUrl().equals(taskUrl)) {
+                    hasTask = true;
+                }
+            }
+        }else if(mCurrentTask!=null){
+            if (mCurrentTask.getUrl().equals(taskUrl)) {
                 hasTask = true;
             }
         }
         return hasTask;
+    }
+
+    public BaseDownloadTask getQueuedTask(String taskUrl){
+        BaseDownloadTask inQueueTask = null;
+        if(mTasks.size()!=0){
+            for (BaseDownloadTask task : mTasks) {
+                if (task.getUrl().equals(taskUrl)) {
+                    inQueueTask = task;
+                }
+            }
+        }else if(mCurrentTask!=null){
+            if (mCurrentTask.getUrl().equals(taskUrl)) {
+                inQueueTask = mCurrentTask;
+            }
+        }
+
+        return inQueueTask;
     }
 
     public void removeCurrentTask(){

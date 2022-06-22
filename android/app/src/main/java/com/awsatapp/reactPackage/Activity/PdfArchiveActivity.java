@@ -75,8 +75,6 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
         title = toolbar.findViewById(R.id.toolbar_title);
         backIcon = tb.findViewById(R.id.backIcon);
         backContainer = tb.findViewById(R.id.backIconContainer);
-        //toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
-        //toolbar.setTitleTextColor(getResources().getColor(R.color.toolbar_title));
         backContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,25 +82,21 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
             }
         });
         toolbar.setElevation(0);
-        //setTitle(getString(R.string.pdf_archive_title));
         FontUtils.setBold(title.getContext(),title);
         setOptionsMenu(R.menu.pdf_archive);
 
         getPdfArchive();
     }
 
-    boolean checkIfTaskInQueue(Pdf data){
-        boolean doesTaskExist = false;
-        if(pdfDownloadService!=null && pdfDownloadService.getTask()!=null){
-            if(pdfDownloadService.getTask().getUrl().equals(data.getUrl())){
-                doesTaskExist = true;
-            }
-        }
-        return doesTaskExist;
+    @Override
+    protected void onResume() {
+
+        super.onResume();
     }
 
     @Override
     public CoreListAdapter<Pdf> initAdapter() {
+
         pdfAdapter =  new PdfAdapter(mContext, rvList, mPdfs, new ItemClickListener() {
             @Override
             public void itemClicked(View view, int integer) {
@@ -188,6 +182,20 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                 public void onSuccess(PdfWrapper response) {
                     ArrayList<Pdf> pdfs = new ArrayList<>(Arrays.asList(response.getData()));
                     Collections.reverse(pdfs);
+                    if (fileExist(pdfs.get(0).getIssueNumber() + ".pdf")) {
+                        pdfs.get(0).setStatus(2);
+                    } else if(pdfDownloadService!=null && pdfDownloadService.checkIfTaskEnqueued(pdfs.get(0).getUrl())){
+                        if(pdfDownloadService.getQueuedTask(pdfs.get(0).getUrl()).getUrl().equals(pdfs.get(0).getUrl())){
+                            pdfs.get(0).setmDownloadTask(pdfDownloadService.getQueuedTask(pdfs.get(0).getUrl()));
+                            pdfs.get(0).setStatus(1);
+                        }
+                    }else{
+                        if(pdfDownloadService!=null && pdfDownloadService.checkIfTaskEnqueued(pdfs.get(0).getUrl())){
+                            pdfs.get(0).setmDownloadTask(pdfDownloadService.getTask());
+                            pdfs.get(0).setStatus(0);
+                        }
+
+                    }
                     getAdapter().updateItems(new ArrayList<>(pdfs.subList(0,14)));
                     mPdfs = (ArrayList<Pdf>) getAdapter().getItems();
                     rvList.setAdapter(initAdapter());
@@ -234,7 +242,6 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
                         protected void progress(BaseDownloadTask task, long soFarBytes, long totalBytes) {
                             //set text when downloading in progress
                             button.setText(soFarBytes / 1000000 + "mb /" + totalBytes / 1000000 + "mb");
-                            Log.v("Progress", "" + soFarBytes);
                         }
 
                         @Override
@@ -244,7 +251,6 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
 
                         @Override
                         protected void completed(BaseDownloadTask task) {
-                            Log.v("Progress", "completed " + task.getPath());
                             pdf.setStatus(2);
                             //when the dowload is completed
                             button.setText(getString(R.string.read));
