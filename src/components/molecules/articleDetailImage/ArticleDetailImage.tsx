@@ -20,6 +20,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     isRelatedArticle: boolean,
     caption?: string
     isFirstItem?: boolean;
+    isFullScreen?: boolean,
     subtitle?: string 
     jwplayerId?: string ,
     currentTime?: any,
@@ -27,6 +28,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     playerVisible?: boolean,
     setPlayerDetails?: ( time:any, paused: any) => void;
     setMiniPlayerVisible?: (visible: boolean) => void;
+    onChangeFullScreen?: (isFullScreen: boolean) => void;
     videoRefs?: any;
 }
 const ArticleDetailImage = ({
