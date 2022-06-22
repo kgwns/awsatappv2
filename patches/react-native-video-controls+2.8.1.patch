@@ -1,5 +1,5 @@
 diff --git a/node_modules/react-native-video-controls/VideoPlayer.js b/node_modules/react-native-video-controls/VideoPlayer.js
-index 7927a5c..b3bb4d8 100644
+index 7927a5c..7acb98e 100644
 --- a/node_modules/react-native-video-controls/VideoPlayer.js
 +++ b/node_modules/react-native-video-controls/VideoPlayer.js
 @@ -13,8 +13,10 @@ import {
@@ -13,7 +13,15 @@ index 7927a5c..b3bb4d8 100644
  
  export default class VideoPlayer extends Component {
    static defaultProps = {
-@@ -61,7 +63,7 @@ export default class VideoPlayer extends Component {
+@@ -34,6 +36,7 @@ export default class VideoPlayer extends Component {
+     rate: 1,
+     showTimeRemaining: true,
+     showHours: false,
++    closeIcon: null
+   };
+ 
+   constructor(props) {
+@@ -61,7 +64,7 @@ export default class VideoPlayer extends Component {
        seekerFillWidth: 0,
        showControls: this.props.showOnStart,
        volumePosition: 0,
@@ -22,7 +30,7 @@ index 7927a5c..b3bb4d8 100644
        volumeOffset: 0,
        seekerOffset: 0,
        seeking: false,
-@@ -71,6 +73,7 @@ export default class VideoPlayer extends Component {
+@@ -71,6 +74,7 @@ export default class VideoPlayer extends Component {
        currentTime: 0,
        error: false,
        duration: 0,
@@ -30,7 +38,7 @@ index 7927a5c..b3bb4d8 100644
      };
  
      /**
-@@ -124,7 +127,7 @@ export default class VideoPlayer extends Component {
+@@ -124,7 +128,7 @@ export default class VideoPlayer extends Component {
        tapActionTimeout: null,
        volumeWidth: 150,
        iconOffset: 0,
@@ -39,7 +47,7 @@ index 7927a5c..b3bb4d8 100644
        ref: Video,
        scrubbingTimeStep: this.props.scrubbing || 0,
        tapAnywhereToPause: this.props.tapAnywhereToPause,
-@@ -162,14 +165,18 @@ export default class VideoPlayer extends Component {
+@@ -162,14 +166,18 @@ export default class VideoPlayer extends Component {
      };
    }
  
@@ -60,7 +68,7 @@ index 7927a5c..b3bb4d8 100644
    };
    /**
      | -------------------------------------------------------
-@@ -233,7 +240,6 @@ export default class VideoPlayer extends Component {
+@@ -233,7 +241,6 @@ export default class VideoPlayer extends Component {
  
        if (!state.seeking) {
          const position = this.calculateSeekerPosition();
@@ -68,7 +76,7 @@ index 7927a5c..b3bb4d8 100644
          this.setSeekerPosition(position);
        }
  
-@@ -488,7 +494,7 @@ export default class VideoPlayer extends Component {
+@@ -488,7 +495,7 @@ export default class VideoPlayer extends Component {
      state.isFullscreen = !state.isFullscreen;
  
      if (this.props.toggleResizeModeOnFullscreen) {
@@ -77,7 +85,7 @@ index 7927a5c..b3bb4d8 100644
      }
  
      if (state.isFullscreen) {
-@@ -549,11 +555,12 @@ export default class VideoPlayer extends Component {
+@@ -549,11 +556,12 @@ export default class VideoPlayer extends Component {
     * or duration. Formatted to look as 00:00.
     */
    calculateTime() {
@@ -94,7 +102,7 @@ index 7927a5c..b3bb4d8 100644
      return this.formatTime(this.state.currentTime);
    }
  
-@@ -993,11 +1000,11 @@ export default class VideoPlayer extends Component {
+@@ -993,11 +1001,11 @@ export default class VideoPlayer extends Component {
            style={[styles.controls.column]}
            imageStyle={[styles.controls.vignette]}>
            <SafeAreaView style={[styles.controls.topControlGroup]}>
@@ -108,8 +116,11 @@ index 7927a5c..b3bb4d8 100644
            </SafeAreaView>
          </ImageBackground>
        </Animated.View>
-@@ -1011,7 +1018,7 @@ export default class VideoPlayer extends Component {
+@@ -1009,9 +1017,10 @@ export default class VideoPlayer extends Component {
+    */
+   renderBack() {
      return this.renderControl(
++      this.props.closeIcon ? this.props.closeIcon : 
        <Image
          source={require('./assets/img/back.png')}
 -        style={styles.controls.back}
@@ -117,7 +128,7 @@ index 7927a5c..b3bb4d8 100644
        />,
        this.events.onBack,
        styles.controls.back,
-@@ -1035,7 +1042,7 @@ export default class VideoPlayer extends Component {
+@@ -1035,7 +1044,7 @@ export default class VideoPlayer extends Component {
            {...this.player.volumePanResponder.panHandlers}>
            <Image
              style={styles.volume.icon}
@@ -126,7 +137,7 @@ index 7927a5c..b3bb4d8 100644
            />
          </View>
        </View>
-@@ -1066,7 +1073,7 @@ export default class VideoPlayer extends Component {
+@@ -1066,7 +1075,7 @@ export default class VideoPlayer extends Component {
        : this.renderTimer();
      const seekbarControl = this.props.disableSeekbar
        ? this.renderNullControl()
@@ -135,7 +146,7 @@ index 7927a5c..b3bb4d8 100644
      const playPauseControl = this.props.disablePlayPause
        ? this.renderNullControl()
        : this.renderPlayPause();
-@@ -1112,7 +1119,7 @@ export default class VideoPlayer extends Component {
+@@ -1112,7 +1121,7 @@ export default class VideoPlayer extends Component {
          collapsable={false}
          {...this.player.seekPanResponder.panHandlers}>
          <View
@@ -144,7 +155,7 @@ index 7927a5c..b3bb4d8 100644
            onLayout={event =>
              (this.player.seekerWidth = event.nativeEvent.layout.width)
            }
-@@ -1122,7 +1129,7 @@ export default class VideoPlayer extends Component {
+@@ -1122,7 +1131,7 @@ export default class VideoPlayer extends Component {
                styles.seekbar.fill,
                {
                  width: this.state.seekerFillWidth,
@@ -153,7 +164,7 @@ index 7927a5c..b3bb4d8 100644
                },
              ]}
              pointerEvents={'none'}
-@@ -1369,7 +1376,7 @@ const styles = {
+@@ -1369,7 +1378,7 @@ const styles = {
        justifyContent: 'space-between',
        flexDirection: I18nManager.isRTL?'row-reverse':'row',
        width: null,
@@ -162,7 +173,7 @@ index 7927a5c..b3bb4d8 100644
        marginBottom: 18,
      },
      bottomControlGroup: {
-@@ -1443,8 +1450,7 @@ const styles = {
+@@ -1443,8 +1452,7 @@ const styles = {
      container: {
        alignSelf: 'stretch',
        height: 28,
