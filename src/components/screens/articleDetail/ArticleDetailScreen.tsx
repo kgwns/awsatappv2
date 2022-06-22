@@ -329,6 +329,16 @@ export const ArticleDetailScreen = ({
   }
 
   const onChangeFullScreen = (isFullscreen: boolean) => {
+    if(!isFullScreen){
+      StatusBar.setHidden(true);
+      SystemNavigationBar.navigationHide();
+      Orientation.lockToLandscape();
+    }else{
+      StatusBar.setHidden(false)
+      SystemNavigationBar.navigationShow();
+      Orientation.lockToPortrait();
+      Orientation.unlockAllOrientations();
+    }
     setIsFullScreen(isFullscreen)
   }
 
@@ -359,19 +369,6 @@ export const ArticleDetailScreen = ({
     }
     navigation.goBack()
   }
-
-  useEffect(() => {
-    if(isFullScreen){
-      StatusBar.setHidden(true);
-      SystemNavigationBar.navigationHide();
-      Orientation.lockToLandscape();
-    }else{
-      StatusBar.setHidden(false)
-      SystemNavigationBar.navigationShow();
-      Orientation.lockToPortrait();
-      Orientation.unlockAllOrientations();
-    }
-  }, [isFullScreen]);
 
   useEffect(() => {
     getVideoUrlInfo();
