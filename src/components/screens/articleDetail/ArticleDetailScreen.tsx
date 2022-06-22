@@ -28,7 +28,7 @@ import { fetchVideoDetailInfo } from 'src/services/VideoServices'
 import { 
   articleHtml,
   RenderContentElement, RenderDescriptionElement, RenderNumberElement, 
-  RenderOpinionElement, RenderQuoteElement, RenderReadAlsoElement, RenderWebView 
+  RenderOpinionElement, RenderQuoteElement, RenderReadAlsoElement 
 } from './components/ArticleDetailRichContent'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 
@@ -72,7 +72,6 @@ export const ArticleDetailScreen = ({
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const videoRefs = useRef<any[]>([]);
   const [bookmarkIndex, setBookmarkIndex] = useState(0);
-  const [deviceWidth, setDeviceWidth] = useState(screenWidth)
 
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
 
@@ -153,16 +152,6 @@ export const ArticleDetailScreen = ({
       return prevValue.concat(item.nid)
     }, [])
   }
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener(
-      'change',
-      ({ window: { width, height } }) => {
-        setDeviceWidth(width)
-      },
-    );
-    return () => subscription?.remove();
-  }, []);
   
   useEffect(() => {
     if (isFocused) {
@@ -386,11 +375,10 @@ export const ArticleDetailScreen = ({
   )
 
   const articleHtmlContent = (index: number) => {
-    const webviewWidth = deviceWidth * ((currentOrientation === 'LANDSCAPE-LEFT' || currentOrientation === 'LANDSCAPE-RIGHT') ? 0.88 : 0.92)
     return (
       <ScrollView scrollEnabled={true} style={style.labelStyle}>
         <AutoHeightWebView
-          style={[style.webView, { width: webviewWidth }]}
+          style={style.webView}
           source={{ html: articleHtml({ body: articleDetailState[index].body }), baseUrl: '' }}
           ref={(r) => (webviewRef[index] = r)}
           domStorageEnabled={true}
@@ -575,7 +563,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     marginLeft: isTab ? 15 : 0
   },
   webView: {
-    width: 0.92 * screenWidth,
+    width: '100%',
     marginTop: 20,
     backgroundColor: 'transparent',
     opacity: 0.99,
