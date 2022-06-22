@@ -96,7 +96,8 @@ const populateBookmarkDetail = (response: any): any => {
           title: item?.title,
           body: item?.body_export,
           timeDuration: item?.field_total_duration_export,
-          isBookmarked: true
+          isBookmarked: true,
+          spreakerEpisode: item?.field_spreaker_episode_export
         }
         return prevValue.concat(podcastData)
       }
