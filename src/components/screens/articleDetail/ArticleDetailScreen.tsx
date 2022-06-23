@@ -340,7 +340,7 @@ export const ArticleDetailScreen = ({
   useEffect(() => {
     const backAction = () => {
       let value  = false;
-      if(!isFullScreen){
+      if(isFullScreen){
         value  = true
         onChangeFullScreen(false);
       }else{
