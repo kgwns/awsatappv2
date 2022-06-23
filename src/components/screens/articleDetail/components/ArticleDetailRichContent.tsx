@@ -70,6 +70,10 @@ export const RenderContentElement = ({ paragraphInfo }: { paragraphInfo: Article
 }
 
 export const RenderDescriptionElement = ({ paragraphInfo, fontSize }: { paragraphInfo: ArticleDescriptionDataType, fontSize: number }) => {
+    if(!isObjectNonEmpty(paragraphInfo.description) || !isNotEmpty(paragraphInfo.description)) {
+        return null
+    }
+
     const style = useThemeAwareObject(customStyle)
 
     const { themeData } = useTheme()
@@ -250,6 +254,7 @@ export const generateAssetFontCss = ({
   </head>
   <body style="padding:0px">
       ${body}
+      <script async=\"\" src=\"https://platform.instagram.com/en_US/embeds.js\"></script>
   </body>
   </html>
   `;

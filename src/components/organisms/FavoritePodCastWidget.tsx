@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { Divider, Image } from 'src/components/atoms'
@@ -9,9 +9,10 @@ import { DetailPodCastFooter } from 'src/components/molecules'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useTranslation } from 'react-i18next'
-import { decodeHTMLTags, getSecondsToHms } from 'src/shared/utils/utilities'
+import { convertSecondsToHMS, decodeHTMLTags, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { fonts } from 'src/shared/styles/fonts'
+import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService'
 
 
 export interface ArticlePodCastWidgetProps {
@@ -25,14 +26,15 @@ export interface ArticlePodCastWidgetProps {
     rightTitle: string,
     isBookmarked: boolean,
     onPressBookmark: () => void,
-    onPress: () => void
+    onPress: () => void,
+    spreakerEpisode: string
 }
 
 const ArticlePodCastWidget = ({
     imageUrl,
     title,
     body,
-    timeDuration,
+    spreakerEpisode,
     rightTitle,
     isBookmarked,
     onPressBookmark,
@@ -41,6 +43,26 @@ const ArticlePodCastWidget = ({
     const [t] = useTranslation()
     const style = useThemeAwareObject(customStyle)
     const { themeData } = useTheme()
+    let [duration, setDurartion] = useState(0)
+
+    useEffect(() => {
+        getPodcastDuration()
+    },[])
+    
+    const getPodcastDuration = async () => {
+            if(isNotEmpty(spreakerEpisode)){
+              try {
+                let response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: spreakerEpisode })
+                if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
+                  let episode = response.response.episode
+                  setDurartion( Math.floor(episode.duration / 1000) )
+                }
+              }catch(error){
+                setDurartion(0)
+              }
+        }
+    }
+
     return (
         <TouchableOpacity style={style.container} onPress={onPress}>
             <View style={style.topViewContainer}>
@@ -52,7 +74,7 @@ const ArticlePodCastWidget = ({
             </View>
             <DetailPodCastFooter leftTitle={t('podcastHome.listen_to_podcast')}
                 leftTitleColor={themeData.primary}
-                leftTimeLabel={getSecondsToHms(timeDuration)}
+                leftTimeLabel={convertSecondsToHMS(duration)}
                 leftTimeLabelColor={Styles.color.spanishGray}
                 rightTitle={rightTitle}
                 rightIconColor={themeData.primaryBlack}

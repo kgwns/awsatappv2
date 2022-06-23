@@ -28,7 +28,7 @@ import { fetchVideoDetailInfo } from 'src/services/VideoServices'
 import { 
   articleHtml,
   RenderContentElement, RenderDescriptionElement, RenderNumberElement, 
-  RenderOpinionElement, RenderQuoteElement, RenderReadAlsoElement, RenderWebView 
+  RenderOpinionElement, RenderQuoteElement, RenderReadAlsoElement 
 } from './components/ArticleDetailRichContent'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import SystemNavigationBar from 'react-native-system-navigation-bar'
@@ -83,7 +83,7 @@ export const ArticleDetailScreen = ({
   const currentNId = route.params.nid;
 
   const script = () => {
-    const newFontSize = isTab ? 1.5 * articleFontSize : articleFontSize
+    const newFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
     return `
       var pTagElement = document.getElementsByTagName("p");
 
@@ -155,16 +155,6 @@ export const ArticleDetailScreen = ({
       return prevValue.concat(item.nid)
     }, [])
   }
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener(
-      'change',
-      ({ window: { width, height } }) => {
-        setDeviceWidth(width)
-      },
-    );
-    return () => subscription?.remove();
-  }, []);
   
   useEffect(() => {
     if (isFocused) {
@@ -411,11 +401,10 @@ export const ArticleDetailScreen = ({
   )
 
   const articleHtmlContent = (index: number) => {
-    const webviewWidth = deviceWidth * ((currentOrientation === 'LANDSCAPE-LEFT' || currentOrientation === 'LANDSCAPE-RIGHT') ? 0.88 : 0.92)
     return (
       <ScrollView scrollEnabled={true} style={style.labelStyle}>
         <AutoHeightWebView
-          style={[style.webView, { width: webviewWidth }]}
+          style={style.webView}
           source={{ html: articleHtml({ body: articleDetailState[index].body }), baseUrl: '' }}
           ref={(r) => (webviewRef[index] = r)}
           domStorageEnabled={true}
@@ -442,7 +431,7 @@ export const ArticleDetailScreen = ({
       return null
     }
 
-    const updatedFontSize = isTab ? 1.5 * articleFontSize : articleFontSize
+    const updatedFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
     return (
       <View style={{padding: 0.04 * screenWidth}}>
         {
@@ -614,7 +603,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     marginLeft: isTab ? 15 : 0
   },
   webView: {
-    width: 0.92 * screenWidth,
+    width: '100%',
     marginTop: 20,
     backgroundColor: 'transparent',
     opacity: 0.99,
