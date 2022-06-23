@@ -80,7 +80,7 @@ export const ArticleDetailScreen = ({
   const currentNId = route.params.nid;
 
   const script = () => {
-    const newFontSize = isTab ? 1.5 * articleFontSize : articleFontSize
+    const newFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
     return `
       var pTagElement = document.getElementsByTagName("p");
 
@@ -405,7 +405,7 @@ export const ArticleDetailScreen = ({
       return null
     }
 
-    const updatedFontSize = isTab ? 1.5 * articleFontSize : articleFontSize
+    const updatedFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
     return (
       <View style={{padding: 0.04 * screenWidth}}>
         {

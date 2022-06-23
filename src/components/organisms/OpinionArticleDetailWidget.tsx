@@ -73,11 +73,12 @@ export const OpinionArticleDetailWidget = ({
   const htmlTagStyle: MixedStyleRecord = {
     p: {
       color: themeData.primaryBlack,
-      textAlign: 'left',
+      textAlign: 'justify',
       direction: 'rtl',
       fontSize: fontSize,
       lineHeight: 1.8 * fontSize,
       fontFamily: fonts.Effra_Arbc_Regular,
+      writingDirection: 'rtl',
     },
   };
 
