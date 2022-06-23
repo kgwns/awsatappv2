@@ -13,7 +13,7 @@ import {isIOS} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import Video from 'react-native-video';
-import {convertSecondsToHMS, isNotEmpty} from 'src/shared/utils/utilities';
+import {convertSecondsToHMS} from 'src/shared/utils/utilities';
 import Slider from '@react-native-community/slider';
 import {LoadingState} from 'src/components/atoms';
 import TrackPlayer from 'react-native-track-player';
@@ -28,8 +28,11 @@ export interface VideoPlayerControlProp {
   paused: boolean;
   playerVisible?: boolean;
   isMiniPlayer?: boolean;
+  isFullScreen?: boolean;
+  isFullScreenPlayer?: boolean;
   setPlayerDetails?: (time: any, paused: any) => void;
   setMiniPlayerVisible?: (visible: boolean) => void;
+  onChangeFullScreen?: (isFullScreen: boolean) => void;
   videoRefs?: any;
 }
 const VideoPlayerControl = ({
@@ -39,7 +42,10 @@ const VideoPlayerControl = ({
   playerVisible,
   setPlayerDetails,
   isMiniPlayer = false,
+  isFullScreenPlayer = false,
+  isFullScreen = false,
   setMiniPlayerVisible,
+  onChangeFullScreen,
   videoRefs,
 }: VideoPlayerControlProp) => {
   const styles = useThemeAwareObject(customStyle);
@@ -47,7 +53,6 @@ const VideoPlayerControl = ({
   const videoPlayer = useRef<any>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isFullScreen, setIsFullScreen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [paused, setPaused] = useState(true);
   const [tapActionTimeout, setTapActionTimeout] = useState<any>(null);
@@ -93,17 +98,27 @@ const VideoPlayerControl = ({
     }
   };
 
-  const exitFullScreen = () => {
-    setIsFullScreen(false);
-  };
-
-  const onFullScreen = () => {
-    setIsFullScreen(true);
+  const toggleFullscreen = () => {
+    onChangeFullScreen &&
+      (isFullScreen ? onChangeFullScreen(false) : onChangeFullScreen(true));
   };
 
   useEffect(() => {
+    if (
+      (isFullScreen && !isFullScreenPlayer) ||
+      (!isFullScreen && isFullScreenPlayer)
+    ) {
+      setPaused(true);
+      setPlayerDetails && setPlayerDetails(currentTime, paused);
+    }
+    if (isFullScreen && !isFullScreenPlayer) {
+      setShowControls(false);
+    }
+  }, [isFullScreen]);
+
+  useEffect(() => {
     if (!paused && initialPlay && showMiniPlayer) stopTrackPlayer();
-    if (!paused && !isMiniPlayer)
+    if (!paused && !isMiniPlayer && !isFullScreenPlayer)
       setMiniPlayerVisible && setMiniPlayerVisible(true);
   }, [paused]);
 
@@ -126,7 +141,7 @@ const VideoPlayerControl = ({
   useEffect(() => {
     const subscription = AppState.addEventListener('change', () => {
       if (AppState.currentState.match(/inactive|background/)) {
-        setPaused(true)
+        setPaused(true);
       }
     });
     return () => {
@@ -186,8 +201,12 @@ const VideoPlayerControl = ({
   };
 
   const closePlayer = () => {
-    setPaused(true);
-    setMiniPlayerVisible && setMiniPlayerVisible(false);
+    if (isMiniPlayer) {
+      setPaused(true);
+      setMiniPlayerVisible && setMiniPlayerVisible(false);
+    } else {
+      toggleFullscreen();
+    }
   };
 
   const renderVideo = () => (
@@ -200,10 +219,14 @@ const VideoPlayerControl = ({
       paused={paused}
       ref={(ref: any) => {
         videoPlayer.current = ref;
-        isMiniPlayer ? videoRefs.current[1] = ref : videoRefs.current[0] =ref ;
+        isMiniPlayer
+          ? (videoRefs.current[1] = ref)
+          : isFullScreenPlayer
+          ? (videoRefs.current[2] = ref)
+          : (videoRefs.current[0] = ref);
       }}
       resizeMode={screenType}
-      onFullScreen={isFullScreen}
+      onFullScreen={isFullScreenPlayer}
       source={{uri: url}}
       style={styles.backgroundVideo}
       repeat={false}
@@ -248,9 +271,28 @@ const VideoPlayerControl = ({
       source={images.topShadowImg}
       style={[styles.topContainer]}
       imageStyle={[styles.vignette]}>
-      <View style={styles.closeButtonContainer}>{renderCloseButton()}</View>
+      <View style={styles.closeButtonContainer}>
+        {(isMiniPlayer || isFullScreenPlayer) && renderCloseButton()}
+      </View>
+      {!isMiniPlayer && (
+        <View style={styles.closeButtonContainer}>{renderFullScreen()}</View>
+      )}
     </ImageBackground>
   );
+
+  const renderFullScreen = () => {
+    let source = isFullScreenPlayer ? images.shirnkIcon : images.expandIcon;
+
+    return (
+      <TouchableHighlight
+        underlayColor="transparent"
+        activeOpacity={0.3}
+        onPress={toggleFullscreen}
+        style={styles.fullScreenBtnContainer}>
+        <Image source={source} />
+      </TouchableHighlight>
+    );
+  };
 
   const renderTimer = () => (
     <View style={styles.control}>
@@ -298,9 +340,7 @@ const VideoPlayerControl = ({
             {isLoading && <LoadingState />}
             {showControls && (
               <>
-                {isMiniPlayer && (
-                  <View style={{flex: 1}}>{renderTopControls()}</View>
-                )}
+                <View style={{flex: 1}}>{renderTopControls()}</View>
                 <View style={{flex: 1}}>{renderBottomControls()}</View>
               </>
             )}
@@ -353,15 +393,20 @@ const customStyle = (theme: CustomThemeType) =>
       paddingHorizontal: isIOS ? 20 : 15,
       paddingBottom: 15,
     },
+    fullScreenBtnContainer: {
+      paddingHorizontal: isIOS ? 20 : 15,
+      paddingVertical: 15,
+    },
     column: {
       flex: 1,
       alignSelf: 'stretch',
       justifyContent: 'flex-end',
     },
     topContainer: {
-      flex: 1,
+      flexDirection: 'row',
       alignSelf: 'stretch',
-      justifyContent: 'flex-start',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
     },
     progrsBarSection: {
       width: '100%',

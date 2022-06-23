@@ -13,6 +13,8 @@ export interface ArticleVideoProps {
   playerVisible?: boolean;
   setPlayerDetails?: (time: any, paused: any) => void;
   setMiniPlayerVisible?: (visible: boolean) => void;
+  isFullScreen?: boolean,
+  onChangeFullScreen?: (isFullScreen: boolean) => void;
   videoRefs?: any;
 }
 const ArticleDetailVideo = ({mediaId, ...props}: ArticleVideoProps) => {
@@ -58,6 +60,8 @@ const ArticleDetailVideo = ({mediaId, ...props}: ArticleVideoProps) => {
           playerVisible={props?.playerVisible}
           setMiniPlayerVisible={props?.setMiniPlayerVisible}
           videoRefs = {props?.videoRefs}
+          onChangeFullScreen={props?.onChangeFullScreen}
+          isFullScreen={props?.isFullScreen}
         />
       )}
     </View>
