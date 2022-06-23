@@ -329,7 +329,7 @@ export const ArticleDetailScreen = ({
   }
 
   const onChangeFullScreen = (isFullscreen: boolean) => {
-    if(!isFullScreen){
+    if(isFullscreen){
       StatusBar.setHidden(true);
       SystemNavigationBar.navigationHide();
       Orientation.lockToLandscape();
@@ -349,8 +349,14 @@ export const ArticleDetailScreen = ({
 
   useEffect(() => {
     const backAction = () => {
-      stopVideoPlayer()
-      return false;
+      let value  = false;
+      if(!isFullScreen){
+        value  = true
+        onChangeFullScreen(false);
+      }else{
+        stopVideoPlayer()
+      }
+      return value
     };
 
     const backHandler = BackHandler.addEventListener(
