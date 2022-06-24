@@ -1,6 +1,6 @@
 import React, {useState, FunctionComponent} from 'react';
 import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet, ScrollView, Text} from 'react-native';
-import { ButtonList, Label, LoadingState, SocialLoginButton, Image, Divider } from 'src/components/atoms/';
+import { ButtonList, Label, LoadingState, SocialLoginButton, Image, Divider, FooterCaptionWithImage } from 'src/components/atoms/';
 import { SearchBar } from 'src/components/molecules/';
 import { isIOS, isTab, normalize, recordLogEvent } from 'src/shared/utils';
 import { SearchItemType } from 'src/redux/search/types';
@@ -9,7 +9,7 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
-import { getImageUrl, decodeHTMLTags, isNonEmptyArray } from 'src/shared/utils/utilities';
+import { getImageUrl, decodeHTMLTags, isNonEmptyArray, dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { decode } from 'html-entities';
 
@@ -60,6 +60,8 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
     const tagLabel =  item.field_news_categories_export && isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0].title + '  |  ' : ''
     const title = decode(item.title)
     const body = decode(item.body)
+    const timeFormat = dateTimeAgo(item.field_publication_date_export)
+    const date = timeFormat.time
     return (
       <TouchableWithoutFeedback
         testID={`searchItem_${index}`}
@@ -79,6 +81,9 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
                 <Image fallback url={getImageUrl(item.field_image)} style={styles.image} resizeMode={ImageResize.COVER} />
               </View>
             </View>
+          </View>
+          <View style={styles.dateContainer}>
+            <FooterCaptionWithImage icon={() => TimeIcon(timeFormat.icon)} subTitle={date} subTitleColor={colors.smokeyGrey} />
           </View>
           <View style={styles.descriptionContainer}>
             <Label 
@@ -282,5 +287,8 @@ StyleSheet.create({
   image: {
     width: '100%',
     height:'100%'
+  },
+  dateContainer: {
+    marginTop: 5
   }
 });
