@@ -4,7 +4,7 @@ import { Styles } from 'src/shared/styles'
 import { Label, LabelTypeProp } from '../label/Label'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isNotEmpty, screenWidth } from 'src/shared/utils'
 
 type TitleWithUnderLineProps = {
     title: string;
@@ -20,8 +20,12 @@ export const TitleWithUnderLine = ({
     const style = useThemeAwareObject(customStyle)
 
     const onTextLayout = (event: NativeSyntheticEvent<TextLayoutEventData>) => {
-        setLineWidth(event.nativeEvent.lines[0].width + 50)
+        if (isNonEmptyArray(event.nativeEvent.lines)) {
+            setLineWidth(event.nativeEvent.lines[0].width + 50)
+        }
     }
+
+    if(!isNotEmpty(title)) return null
 
     return (
         <View style={StyleSheet.flatten([style.container, titleContainerStyle])}>
