@@ -1,9 +1,9 @@
-import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, ScrollView } from 'react-native'
+import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, ScrollView, StatusBar } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
-import { ArticleDetailFooter, DraggableVideoPlayer } from 'src/components/molecules'
+import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl } from 'src/components/molecules'
 import { Divider, HeaderElementProps, Label, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
@@ -31,6 +31,7 @@ import {
   RenderOpinionElement, RenderQuoteElement, RenderReadAlsoElement 
 } from './components/ArticleDetailRichContent'
 import AutoHeightWebView from 'react-native-autoheight-webview'
+import SystemNavigationBar from 'react-native-system-navigation-bar'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -72,6 +73,7 @@ export const ArticleDetailScreen = ({
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const videoRefs = useRef<any[]>([]);
   const [bookmarkIndex, setBookmarkIndex] = useState(0);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
 
@@ -80,7 +82,7 @@ export const ArticleDetailScreen = ({
   const currentNId = route.params.nid;
 
   const script = () => {
-    const newFontSize = isTab ? 1.5 * articleFontSize : articleFontSize
+    const newFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
     return `
       var pTagElement = document.getElementsByTagName("p");
 
@@ -249,8 +251,8 @@ export const ArticleDetailScreen = ({
 
   const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
     switch (deviceOrientation) {
-      case 'LANDSCAPE-LEFT': return ['right']
-      case 'LANDSCAPE-RIGHT': return ['left']
+      case 'LANDSCAPE-LEFT': return isFullScreen ? horizontalEdge : ['right']
+      case 'LANDSCAPE-RIGHT': return isFullScreen ? horizontalEdge : ['left']
       case 'PORTRAIT': return horizontalEdge
       default: return horizontalEdge
     }
@@ -265,6 +267,9 @@ export const ArticleDetailScreen = ({
       paused: true
     })
     videoRefs?.current[1]?.setNativeProps({
+      paused: true
+    })
+    videoRefs?.current[2]?.setNativeProps({
       paused: true
     })
     setPlayerVisible(false);
@@ -312,6 +317,20 @@ export const ArticleDetailScreen = ({
     setShowPopUp(true)
   }
 
+  const onChangeFullScreen = (isFullscreen: boolean) => {
+    if(isFullscreen){
+      StatusBar.setHidden(true);
+      SystemNavigationBar.navigationHide();
+      Orientation.lockToLandscape();
+    }else{
+      StatusBar.setHidden(false)
+      SystemNavigationBar.navigationShow();
+      Orientation.lockToPortrait();
+      Orientation.unlockAllOrientations();
+    }
+    setIsFullScreen(isFullscreen)
+  }
+
   const onScroll = (event: any) => {
     setScrollY(event.nativeEvent.contentOffset.y)
     Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer ? setPlayerVisible(true) : setPlayerVisible(false);
@@ -319,8 +338,14 @@ export const ArticleDetailScreen = ({
 
   useEffect(() => {
     const backAction = () => {
-      stopVideoPlayer()
-      return false;
+      let value  = false;
+      if(isFullScreen){
+        value  = true
+        onChangeFullScreen(false);
+      }else{
+        stopVideoPlayer()
+      }
+      return value
     };
 
     const backHandler = BackHandler.addEventListener(
@@ -405,7 +430,7 @@ export const ArticleDetailScreen = ({
       return null
     }
 
-    const updatedFontSize = isTab ? 1.5 * articleFontSize : articleFontSize
+    const updatedFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
     return (
       <View style={{padding: 0.04 * screenWidth}}>
         {
@@ -443,11 +468,13 @@ export const ArticleDetailScreen = ({
             isRelatedArticle={route.params.isRelatedArticle} 
             isFirstItem={index === 0 }
             currentTime={currentTime} 
-            paused={playerVisible ? true : paused}
+            paused={playerVisible || isFullScreen ? true : paused}
             playerVisible={playerVisible}
             setPlayerDetails={setPlayerDetails}
             setMiniPlayerVisible={(visible: boolean) => setShowVideoMiniPlayer(visible)}
             videoRefs={videoRefs}
+            onChangeFullScreen={onChangeFullScreen}
+            isFullScreen={isFullScreen}
           />
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
@@ -485,8 +512,8 @@ export const ArticleDetailScreen = ({
   return (
     <ScreenContainer edge={edge} isLoading={isLoading} 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
-      {!isLoading && isNonEmptyArray(articleDetailState) && <>
-        {renderBackIcon()}
+      {!isLoading && isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
+        { !isFullScreen &&  renderBackIcon()}
         <FlatList
           onViewableItemsChanged={onViewableItemRef.current}
           viewabilityConfig={viewConfigRef.current}
@@ -500,29 +527,42 @@ export const ArticleDetailScreen = ({
           onScroll={onScroll}
           scrollEnabled={scrollEnabled}
         />
-        {isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl &&
+        {isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl && !isFullScreen && 
           <DraggableVideoPlayer videoRefs={videoRefs} setMiniPlayerVisible={closeMiniPlayer} url={playerUrl}
             setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}
             currentTime={currentTime} setPlayerDetails={setPlayerDetails}
             paused={playerVisible ? paused : true} playerVisible={playerVisible}
           />
         }
-        <View style={style.bottom} />
-        <View style={[style.footer, style.shadowEffect]}>
+        { !isFullScreen && <View style={style.bottom} />}
+        {!isFullScreen && <View style={[style.footer, style.shadowEffect]}>
           <ArticleDetailFooter articleDetailData={articleDetailState[bookmarkIndex]}
             isBookmarked={isBookmarked}
             onPressSave={() => checkAndUpdateBookmark(articleDetailState[bookmarkIndex].nid)}
             onPressFontChange={onPressFontChange}
           />
-        </View>
-      </>
+        </View>}
+      </View>
       }
+      {playerUrl && <View style={[{display: isFullScreen ? 'flex' : 'none', flex: isFullScreen ? 1 : 0}, style.fullScreenContainer]}>
+        <VideoPlayerControl
+          url={playerUrl}
+          currentTime={currentTime} 
+          paused={isFullScreen ? paused : true}
+          setPlayerDetails={setPlayerDetails}
+          videoRefs={videoRefs}
+          onChangeFullScreen={onChangeFullScreen}
+          isFullScreenPlayer
+          isFullScreen={isFullScreen}
+        />
+      </View>}
     </ScreenContainer>
   )
 }
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   labelStyle: {
     marginHorizontal: 0.04 * screenWidth,
+    overflow: 'hidden',
   },
   footer: {
     width: '100%'
@@ -567,6 +607,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     marginTop: 20,
     backgroundColor: 'transparent',
     opacity: 0.99,
-    overflow: 'hidden'
+    flex: 1,
   },
+  fullScreenContainer: {
+    backgroundColor: Styles.color.black
+  }
 })

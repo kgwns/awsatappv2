@@ -73,9 +73,9 @@ import {
 import { decode } from 'html-entities';
 
 const getArticleImage = (fieldImage: any, newPhoto: any) : String => {
-  let image = fieldImage
+  let image = fieldImage ?? ''
 
-  if(isNotEmpty(newPhoto)) {
+  if(!isNotEmpty(fieldImage) && isNotEmpty(newPhoto)) {
     image = newPhoto
   }
 

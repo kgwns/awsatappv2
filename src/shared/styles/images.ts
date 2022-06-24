@@ -20,6 +20,8 @@ import bottomShadowImg from 'src/assets/images/bottom-vignette.png'
 import topShadowImg from 'src/assets/images/top-vignette.png'
 import playIconWhite from 'src/assets/images/play.png'
 import pauseIconWhite from 'src/assets/images/pause.png'
+import expandIcon from 'src/assets/images/expand.png'
+import shirnkIcon from 'src/assets/images/shrink.png'
 
 import authorDefault from 'src/assets/images/author_default.png'
 import authorDefaultGrey from 'src/assets/images/author_defaultGrey.png'
@@ -144,6 +146,8 @@ export const images = {
   topShadowImg,
   authorDefault,
   authorDefaultGrey,
+  expandIcon,
+  shirnkIcon,
 };
 
 export const darkImages = {

@@ -182,10 +182,12 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
 }
 
 export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewRef?: React.MutableRefObject<AutoHeightWebView | undefined | null>) => {
+    const style = useThemeAwareObject(customStyle)
+
     return (
-        <ScrollView scrollEnabled={false}>
+        <ScrollView scrollEnabled={false} style={{ overflow: 'hidden' }}>
             <AutoHeightWebView 
-                style={{ width: '100%',backgroundColor: 'transparent', opacity: 0.99, overflow: 'hidden' }}
+                style={style.webview}
                 ref={(ref) => {webViewRef ? webViewRef.current = ref : null}}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
@@ -343,5 +345,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         color: Styles.color.greenishBlue,
         fontWeight: 'bold',
         paddingBottom: 20,
+    },
+    webview: {
+        width: '100%',
+        backgroundColor: 'transparent',
+        opacity: 0.99,
+        flex: 1,
     }
 })

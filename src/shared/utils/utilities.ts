@@ -61,7 +61,7 @@ export const getImageUrl = (imageURL: string) => {
 export const getArticleImage = (fieldImage: any, newPhoto: any) : string => {
   let image = fieldImage ?? ''
 
-  if(isNotEmpty(newPhoto)) {
+  if(!isNotEmpty(fieldImage) && isNotEmpty(newPhoto)) {
     image = newPhoto
   }
 
