@@ -19,6 +19,7 @@ export interface SearchItemType {
   field_image: string;
   view_node: string;
   field_publication_date_export: string;
+  created_export: string;
   field_news_categories_export: SearchItemNewsCategory[];
   type: string;
   body: string;

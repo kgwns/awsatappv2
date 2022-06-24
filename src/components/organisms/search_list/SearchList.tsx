@@ -60,7 +60,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
     const tagLabel =  item.field_news_categories_export && isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0].title + '  |  ' : ''
     const title = decode(item.title)
     const body = decode(item.body)
-    const timeFormat = dateTimeAgo(item.field_publication_date_export)
+    const timeFormat = dateTimeAgo(item.created_export)
     const date = timeFormat.time
     return (
       <TouchableWithoutFeedback
