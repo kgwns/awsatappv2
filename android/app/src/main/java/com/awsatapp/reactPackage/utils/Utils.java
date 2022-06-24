@@ -26,6 +26,13 @@ import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.MonthDay;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DecimalStyle;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
@@ -348,9 +355,26 @@ public class Utils {
 
     public static String getFullDateFromTimestamp(Locale locale, long timeStamp) {
         try {
-            DateFormat sdf = new SimpleDateFormat("EEE, d MMM, yyyy", locale);
-            Date netDate = (new Date(timeStamp * 1000L));
-            return sdf.format(netDate);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                DateFormat sdf = new SimpleDateFormat("EEE, d MMM, yyyy",Locale.ENGLISH);
+                Date netDate = (new Date(timeStamp * 1000L));
+                 String date = sdf.format(netDate);
+                DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                        .parseCaseInsensitive()
+                        .append(DateTimeFormatter.ofPattern("EEE, d MMM, yyyy"))
+                        .toFormatter(Locale.ENGLISH);
+
+                MonthDay monthDay = MonthDay.parse(date, formatter);
+                LocalDate parsedDate = monthDay.atYear(netDate.getYear()+1900);
+                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("EEE, d MMM, yyyy",locale)
+                        .withDecimalStyle(DecimalStyle.of(new Locale("en")));
+                return parsedDate.format(formatter1);
+            }else{
+                DateFormat sdf = new SimpleDateFormat("EEE, d MMM, yyyy", locale);
+                Date netDate = (new Date(timeStamp * 1000L));
+                return sdf.format(netDate);
+            }
+
         } catch (Exception ex) {
             return "xx";
         }
