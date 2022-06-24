@@ -10,6 +10,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
+import { decode } from 'html-entities';
 
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
     body?: string,
@@ -40,7 +41,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     ...props
 }) => {
     const style = useThemeAwareObject(customStyle)
-    const bodyInfo = isNotEmpty(body) ? decodeHTMLTags(body) : ''
+    const bodyInfo = isNotEmpty(body) ? decodeHTMLTags(decode(body)) : ''
     return (
     <FixedTouchable onPress={onPress}>
         <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>

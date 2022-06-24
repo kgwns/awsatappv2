@@ -32,6 +32,8 @@ import {
 } from './components/ArticleDetailRichContent'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import SystemNavigationBar from 'react-native-system-navigation-bar'
+import { InAppBrowser } from 'react-native-inappbrowser-reborn'
+import { ANDROID_WEBVIEW_URL, IOS_WEBVIEW_URL } from 'src/constants/SharedConstants'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -399,6 +401,43 @@ export const ArticleDetailScreen = ({
     </View>
   )
 
+  const browserOptions = async (url: string) => {
+    try {
+      const result = await InAppBrowser.open(url, {
+        // iOS Properties
+        dismissButtonStyle: 'close',
+        readerMode: false,
+        modalEnabled: true,
+        animated: true,
+        enableBarCollapsing: true,
+        // // Android Properties
+        showTitle: true,
+      })
+      console.log('InAppBrowser result', JSON.stringify(result))
+    } catch (error: any) {
+      console.log('InAppBrowser ERROR', error.message)
+    }
+  }
+
+  const onShouldStartLoadWithRequest = (event: any) => {
+    const HTML_URL = isIOS ? IOS_WEBVIEW_URL : ANDROID_WEBVIEW_URL; // "file:///" : "about:blank"
+    const URL = event.url
+
+    if (isIOS) {
+      if (event.navigationType == 'click') {
+        browserOptions(URL);
+        return false
+      }
+    }
+    else {
+      if (!URL.includes(HTML_URL)) {
+        browserOptions(URL);
+        return false
+      }
+    }
+    return true
+  }
+
   const articleHtmlContent = (index: number) => {
     return (
       <ScrollView scrollEnabled={true} style={style.labelStyle}>
@@ -419,6 +458,7 @@ export const ArticleDetailScreen = ({
           }}
           injectedJavaScript={script()}
           injectedJavaScriptBeforeContentLoaded={script()}
+          onShouldStartLoadWithRequest={(event) => onShouldStartLoadWithRequest(event)}
         />
       </ScrollView>
     )
