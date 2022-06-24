@@ -73,7 +73,6 @@ export const ArticleDetailScreen = ({
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const videoRefs = useRef<any[]>([]);
   const [bookmarkIndex, setBookmarkIndex] = useState(0);
-  const [deviceWidth, setDeviceWidth] = useState(screenWidth)
   const [isFullScreen, setIsFullScreen] = useState(false);
 
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
@@ -563,6 +562,7 @@ export const ArticleDetailScreen = ({
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   labelStyle: {
     marginHorizontal: 0.04 * screenWidth,
+    overflow: 'hidden',
   },
   footer: {
     width: '100%'
@@ -607,7 +607,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     marginTop: 20,
     backgroundColor: 'transparent',
     opacity: 0.99,
-    overflow: 'hidden'
+    flex: 1,
   },
   fullScreenContainer: {
     backgroundColor: Styles.color.black
