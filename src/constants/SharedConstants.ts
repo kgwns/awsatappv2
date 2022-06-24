@@ -57,3 +57,7 @@ export const SAVE_ARTICLE_TO_YOUR_FAVOURITES = 'لحفظ المقالة لمفض
 export const CREATE_ACCOUNT_DESCRIPTION = 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك\n و تتمتع بخاصية حفظ المقالات و تتمتع بأخبار لا محدوده'
 export const SIGN_UP = 'قم بالتسجيل'
 export const LOG_IN = 'ادخل لحسابك'
+
+//Detail URLs
+export const IOS_WEBVIEW_URL = 'file:///';
+export const ANDROID_WEBVIEW_URL = 'about:blank';

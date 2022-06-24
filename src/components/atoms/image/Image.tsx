@@ -22,7 +22,7 @@ export interface ImageProps extends Omit<ImageStyle, 'source'> {
   type?: 'round' | 'standard';
   fallback?: boolean;
   fallbackContent?:any
-  fallbackName:ImageName;
+  fallbackName?:ImageName;
   resizeMode?: ResizeMode;
 }
 
