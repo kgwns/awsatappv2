@@ -113,6 +113,11 @@ export const SectionsScreen = () => {
     );
   };
 
+  const isPortrait = () => {
+    const dim = Dimensions.get('screen');
+    return dim.height >= dim.width;
+};
+
   const tabsView = () => {
     return (
       <TabView
@@ -128,7 +133,7 @@ export const SectionsScreen = () => {
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
       {!isLoading && (
-        <View style={{flex: 1}} testID={'tabContent'}>
+        <View style={isPortrait()? styles.orientationStyle : styles.scene} testID={'tabContent'}>
          {routes.length > 0 && tabsView()}
         </View>
       )}
@@ -166,4 +171,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     borderBottomWidth: 1.2,
     paddingHorizontal: 0
   },
+  orientationStyle:{
+    flex: 1,
+    width: Dimensions.get('window').width
+  }
 });
