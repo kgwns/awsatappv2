@@ -356,7 +356,7 @@ export const ArticleDetailScreen = ({
     );
 
     return () => backHandler.remove();
-  }, []);
+  }, [isFullScreen]);
 
   const onPressBack = () => {
     stopVideoPlayer()
