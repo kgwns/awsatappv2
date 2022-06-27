@@ -9,7 +9,7 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import { useTranslation } from 'react-i18next';
 import { useSearch } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
-import { getImageUrl, decodeHTMLTags, isNonEmptyArray, dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, isNonEmptyArray, dateTimeAgo, TimeIcon, getArticleImage } from 'src/shared/utils/utilities';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { decode } from 'html-entities';
 
@@ -78,7 +78,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
             </View>
             <View style={isTab ? styles.tabImageWrapper : styles.imageWrapper}>
               <View style={isTab ? styles.tabImageContainer : styles.imageContainer}>
-                <Image fallback url={getImageUrl(item.field_image)} style={styles.image} resizeMode={ImageResize.COVER} />
+                <Image fallback url={getArticleImage(item.field_image, item.field_new_photo)} style={styles.image} resizeMode={ImageResize.COVER} />
               </View>
             </View>
           </View>
