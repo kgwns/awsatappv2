@@ -110,9 +110,9 @@ const customStyle = (theme: CustomThemeType) =>
             textAlign: 'center',
         },
         iconStyle: {
-            alignSelf: 'flex-end',
+            alignSelf: 'flex-start',
             bottom: normalize(20),
-            marginRight: normalize(30),
+            marginLeft: normalize(30),
             paddingBottom: normalize(20)
         }
     })
