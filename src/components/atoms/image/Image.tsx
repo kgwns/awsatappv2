@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import FastImage, { ImageStyle, ResizeMode } from 'react-native-fast-image';
 
 import {ImagesName, Styles} from 'src/shared/styles';
-import { isDarkTheme, isAndroid, isNotEmpty } from 'src/shared/utils';
+import { isDarkTheme, isNotEmpty, isNonEmptyArray } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
 import {PlaceholderImage} from '../'
 
@@ -56,8 +56,13 @@ export const Image: FunctionComponent<ImageProps> = ({
     backgroundColor,
   };
 
+  let isValidImageUrl = true
+  const imageUrlPathArray: any = isNotEmpty(url) && url?.split('/')
+  if(!isNonEmptyArray(imageUrlPathArray) || imageUrlPathArray.length < 3 || !isNotEmpty(imageUrlPathArray[3])) {
+    isValidImageUrl = false
+  }
 
-  if(!isNotEmpty(name) && !isNotEmpty(url)) {
+  if(!isNotEmpty(name) && !isValidImageUrl) {
     name = fallback && fallbackName ? fallbackName : ImagesName.placeholderImg
   }
 

@@ -23,6 +23,7 @@ export interface SearchItemType {
   field_news_categories_export: SearchItemNewsCategory[];
   type: string;
   body: string;
+  field_new_photo: string;
 }
 
 export interface FetchSearchSuccessPayloadType {
