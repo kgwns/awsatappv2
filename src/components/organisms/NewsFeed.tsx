@@ -118,7 +118,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   const renderDescription = (body: string) => (
     <Label
       style={style.descriptionStyle}
-      children={decodeHTMLTags(body)}
+      children={decodeHTMLTags(decode(body))}
       numberOfLines={isTab ? 2 : 3}
     />
   )

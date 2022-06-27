@@ -55,7 +55,7 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
 
 
   const heroListPayload: NewsViewBodyGet = {
-    items_per_page: 2,
+    items_per_page: isTab ? 2 : 1,
     page: 0,
     offset: 0,
     sectionId: sectionId,
@@ -64,14 +64,14 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
   const topListPayload: NewsViewBodyGet = {
     items_per_page: 4,
     page: 0,
-    offset: 2,
+    offset: isTab ? 2 : 1,
     sectionId: sectionId,
   };
 
   const bottomListPayload: NewsViewBodyGet = {
     items_per_page: 10,
     page: page,
-    offset: 6,
+    offset: isTab ? 6 : 5,
     sectionId: sectionId,
   };
 
