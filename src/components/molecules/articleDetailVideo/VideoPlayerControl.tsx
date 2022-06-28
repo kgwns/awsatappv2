@@ -13,7 +13,7 @@ import {isIOS} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import Video from 'react-native-video';
-import {convertSecondsToHMS} from 'src/shared/utils/utilities';
+import {convertSecondsToHMS, DEFAULT_HIT_SLOP} from 'src/shared/utils/utilities';
 import Slider from '@react-native-community/slider';
 import {LoadingState} from 'src/components/atoms';
 import TrackPlayer from 'react-native-track-player';
@@ -288,6 +288,7 @@ const VideoPlayerControl = ({
         underlayColor="transparent"
         activeOpacity={0.3}
         onPress={toggleFullscreen}
+        hitSlop={DEFAULT_HIT_SLOP}
         style={styles.fullScreenBtnContainer}>
         <Image source={source} />
       </TouchableHighlight>
@@ -305,6 +306,7 @@ const VideoPlayerControl = ({
       underlayColor="transparent"
       activeOpacity={0.3}
       onPress={closePlayer}
+      hitSlop={DEFAULT_HIT_SLOP}
       style={styles.control}>
       {getSvgImages({name: ImagesName.videoCloseIcon, width: 13, height: 13})}
     </TouchableHighlight>
@@ -318,6 +320,7 @@ const VideoPlayerControl = ({
         underlayColor="transparent"
         activeOpacity={0.3}
         onPress={onPaused}
+        hitSlop={DEFAULT_HIT_SLOP}
         style={styles.playButtoncontainer}>
         <Image source={source} />
       </TouchableHighlight>
