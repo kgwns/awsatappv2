@@ -203,15 +203,16 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   titleStyle: {
     fontFamily: fonts.AwsatDigitalBetav10_Bold,
     fontSize: 16,
-    lineHeight: 26,
+    lineHeight: 28,
     textAlign: 'left',
     paddingVertical: normalize(8),
     color: theme.primaryBlack
   },
   bodyStyle: {
-    fontFamily: fonts.Effra_Arbc_Regular,
-    fontSize: 16,
+    fontFamily: fonts.IBMPlexSansArabic_Regular,
+    fontSize: 15,
     lineHeight: 26,
-    textAlign: 'left'
+    textAlign: 'left',
+    writingDirection: 'rtl'
   },
 });
