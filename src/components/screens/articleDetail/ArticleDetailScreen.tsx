@@ -459,6 +459,7 @@ export const ArticleDetailScreen = ({
           injectedJavaScript={script()}
           injectedJavaScriptBeforeContentLoaded={script()}
           onShouldStartLoadWithRequest={(event) => onShouldStartLoadWithRequest(event)}
+          androidLayerType="hardware"
         />
       </ScrollView>
     )
@@ -603,6 +604,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   labelStyle: {
     marginHorizontal: 0.04 * screenWidth,
     overflow: 'hidden',
+    marginTop: 20,
   },
   footer: {
     width: '100%'
@@ -644,7 +646,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   webView: {
     width: '100%',
-    marginTop: 20,
     backgroundColor: 'transparent',
     opacity: 0.99,
     flex: 1,
