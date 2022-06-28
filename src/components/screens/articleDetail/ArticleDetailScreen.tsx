@@ -459,6 +459,7 @@ export const ArticleDetailScreen = ({
           injectedJavaScript={script()}
           injectedJavaScriptBeforeContentLoaded={script()}
           onShouldStartLoadWithRequest={(event) => onShouldStartLoadWithRequest(event)}
+          allowsFullscreenVideo={true}
         />
       </ScrollView>
     )
