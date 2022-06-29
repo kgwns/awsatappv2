@@ -13,7 +13,9 @@ describe('<OpinionWritersSection>', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <OpinionWritersSection data={opinionWritersData} />
+        <OpinionWritersSection data={opinionWritersData} onPressWriter={function (tid: string): void {
+          throw new Error('Function not implemented.');
+        } } />
       </Provider>
     );
     instance = render(component);

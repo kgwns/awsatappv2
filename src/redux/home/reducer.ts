@@ -4,7 +4,8 @@ import {
   REQUEST_HOME_SUCCESS,
 } from 'src/redux/home/actionType';
 import {HomeActions, HomeState} from './types';
-const initialAuthState: HomeState = {
+
+export const initialAuthState: HomeState = {
   homeData: '',
   error: '',
   isLoading: false,

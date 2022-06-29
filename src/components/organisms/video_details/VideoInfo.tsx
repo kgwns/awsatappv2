@@ -36,6 +36,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
   const monthDate = timeFormat.time
 
   const onPressPlay =()=>{
+    console.log('onPressPlay');
     if(onPress){
       onPress(data)
     }
@@ -66,6 +67,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
             <View style={styles.containerSpace} />
             <ButtonOutline title={t('videoDetail.employement')}
              style={styles.buttonStyle}
+             testID='VideoInfoBOL1'
              labelStyle={styles.buttonLabel}
              titleType={LabelTypeProp.h1}
              onPress={onPressPlay}

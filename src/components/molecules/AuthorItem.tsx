@@ -104,7 +104,7 @@ const AuthorItem = ({
     };
     
     const onPressPlay = () => {
-          
+      console.log('onPressPlay');
       if (nid && isObjectNonEmpty(mediaData)) {
         let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
     
@@ -142,14 +142,14 @@ const AuthorItem = ({
     }
 
     return (
-        <TouchableOpacity key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
+        <TouchableOpacity testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
             <View style={{ flex: 1 }}>
-                <Label children={author} labelType={LabelTypeProp.p4} style={style.authorTitle}
+                <Label children={author} labelType={LabelTypeProp.p4} style={style.authorTitle} testID={'AutherItemLabel1'}
                     color={themeData.authorTitle} numberOfLines={1} onPress={() => onPressWriter(authorId)} suppressHighlighting={true} />
                 <Label children={body} labelType={LabelTypeProp.h3}
                     numberOfLines={2} style={style.body} />
                 {mediaVisibility && <View style={style.mediaFooter}>
-                    <TouchableOpacity onPress={onPressPlay} style={style.mediaFooter}>
+                    <TouchableOpacity testID='AutherItemTO2' onPress={onPressPlay} style={style.mediaFooter}>
                         <ButtonImage
                         icon={() =>
                             trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
@@ -163,7 +163,7 @@ const AuthorItem = ({
                 </View>}
             </View>
             <View>
-                <TouchableOpacity  onPress={() => onPressWriter(authorId)}>
+                <TouchableOpacity testID='AutherItemTO3' onPress={() => onPressWriter(authorId)}>
                     <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'}
                         fallback={true}
                         fallbackContent={<AuthorDefault

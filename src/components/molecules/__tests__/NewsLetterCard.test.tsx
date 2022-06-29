@@ -7,13 +7,7 @@ describe('<NewsLetterCard>', () => {
   const labelTitle = 'النشره الصباحيه';
   beforeEach(() => {
     const component = (
-      <NewsLetterCard
-        title={labelTitle}
-        subTitle={'الاثنين الى السبت'}
-        imageUrl={'https://picsum.photos/200/200'}
-        status={false}
-        onPress={mockFunction}
-      />
+      <NewsLetterCard title={''} subTitle={''} description={''} image={undefined} isSelected={false} onPress={mockFunction}/>
     );
     instance = render(component);
   });

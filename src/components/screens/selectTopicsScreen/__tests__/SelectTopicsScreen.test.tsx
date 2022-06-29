@@ -51,9 +51,4 @@ describe('<SelectTopicsScreen>', () => {
   test('Should render SelectTopicScreen', () => {
     expect(instance).toBeDefined();
   });
-  
-  xit('Should Press Next Button', () => {
-    const element = instance.getByTestId('nextButtonTestId');
-    fireEvent.press(element);
-  });
 });

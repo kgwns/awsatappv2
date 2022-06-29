@@ -47,7 +47,7 @@ export const ReadAlsoArticle = ({
                         data.map((item, index) => {
                             const showDivider = data.length > index + 1
                             return (
-                                <TouchableOpacity activeOpacity={0.8} onPress={() => onPress(item)}>
+                                <TouchableOpacity testID='ReadAlsoArticleTO1' activeOpacity={0.8} onPress={() => onPress(item)}>
                                     <Label children={decode(decodeHTMLTags(item.title))}
                                         labelType={LabelTypeProp.p2}
                                         color={Styles.color.greenishBlue}

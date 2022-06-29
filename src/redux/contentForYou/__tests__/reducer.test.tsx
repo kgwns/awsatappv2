@@ -1,5 +1,5 @@
 import {contentForYouActions} from '../action';
-import {FETCH_FAVOURITE_OPINIONS, FETCH_FAVOURITE_ARTICLES} from '../actionTypes';
+import {FETCH_FAVOURITE_OPINIONS, FETCH_FAVOURITE_ARTICLES, EMPTY_ALL_DATA} from '../actionTypes';
 import contentForYouReducer from '../reducer';
 import {FavouriteListState} from '../types';
 
@@ -87,4 +87,12 @@ describe('opinions reducer', () => {
     expect(nextState.isArticleLoading).toBe(true);
   });
 
+  test('empty state', () => {
+    const nextState = contentForYouReducer(initialState, {
+      type: EMPTY_ALL_DATA,
+    });
+    expect(nextState.isArticleLoading).toBe(false);
+  });
+
 });
+

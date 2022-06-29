@@ -33,7 +33,7 @@ export default function FixedTouchable({
   }
 
   return (
-    <Pressable onPressIn={_onPressIn} onPress={_onPress} {...props}>
+    <Pressable testID='FixedTouchable01' onPressIn={_onPressIn} onPress={_onPress} {...props}>
       {props.children}
     </Pressable>
   );

@@ -1,5 +1,5 @@
 import {opinionsActions} from '../action';
-import {FETCH_OPINIONS} from '../actionTypes';
+import {EMPTY_OPINION_DATA, EMPTY_WRITER_OPINION_DATA, FETCH_OPINIONS, FETCH_WRITER_OPINIONS, FETCH_WRITER_OPINIONS_SUCCESS} from '../actionTypes';
 import opinionsReducer from '../reducer';
 import {OpinionsListState} from '../types';
 
@@ -8,9 +8,12 @@ describe('opinions reducer', () => {
 
   beforeEach(() => {
     initialState = {
-      isLoading: false,
-      opinionData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
+      opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       error: '',
+      isLoading: false,
+      writerOpinionLoading: true,
+      writerOpinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+      writerOpinionError: ''
     };
   });
 
@@ -49,4 +52,34 @@ describe('opinions reducer', () => {
     expect(nextState.isLoading).toBe(true);
   });
   
+  test('Check loading state when FETCH_WRITER_OPINIONS request API', () => {
+    const nextState = opinionsReducer(initialState, {
+      type: FETCH_WRITER_OPINIONS,
+      payload: {tid: '123',
+    page: 1},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when get selected news letters FETCH_WRITER_OPINIONS_SUCCESS request API', () => {
+    const nextState = opinionsReducer(initialState, {
+      type: FETCH_WRITER_OPINIONS_SUCCESS,
+      payload: {writerOpinionListData: {}},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when EMPTY_WRITER_OPINION_DATA request API', () => {
+    const nextState = opinionsReducer(initialState, {
+      type: EMPTY_WRITER_OPINION_DATA,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when EMPTY_OPINION_DATA request API', () => {
+    const nextState = opinionsReducer(initialState, {
+      type: EMPTY_OPINION_DATA,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
 });

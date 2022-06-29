@@ -28,6 +28,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
 }) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
     const onPress = () => {
+        console.log('onPress');
         if (props.nid) {
             navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: props.nid })
         }

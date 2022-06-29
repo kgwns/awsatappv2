@@ -30,12 +30,14 @@ export const RichHTMLOpinonWidget = ({
     const { themeData } = useTheme()
 
     const onPressWriter = () => {
+        console.log('onPressWriter');
         if (data.writerId) {
             navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid: data.writerId })
         }
     }
 
     const onPressOpinion = () => {
+        console.log('onPressOpinion');
         if (data.nid) {
             navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: data.nid })
         }
@@ -63,10 +65,10 @@ export const RichHTMLOpinonWidget = ({
         <View>
             <TitleWithUnderLine title={CONST_OPINION_TITLE} />
             <View style={style.mainContainer}>
-                <TouchableOpacity style={style.innerContainer} activeOpacity={0.9}
+                <TouchableOpacity testID='RichHTMLOpinonWidgetTO1' style={style.innerContainer} activeOpacity={0.9}
                     onPress={onPressOpinion}>
                     <View style={style.rightContainer}>
-                        <TouchableOpacity onPress={onPressWriter}>
+                        <TouchableOpacity testID='RichHTMLOpinonWidgetTO2' onPress={onPressWriter}>
                             <Image url={data.image}
                                 size={normalize(80)}
                                 resizeMode={'cover'}
@@ -81,7 +83,7 @@ export const RichHTMLOpinonWidget = ({
                                 fallbackName={ImagesName.authorDefault}
                             />
                         </TouchableOpacity>
-                        <Label children={data.name} labelType={LabelTypeProp.p4}
+                        <Label testID='RichHTMLOpinonWidgetLabel1' children={data.name} labelType={LabelTypeProp.p4}
                             style={style.authorName}
                             color={themeData.authorTitle}
                             numberOfLines={1} onPress={onPressWriter}
@@ -89,7 +91,7 @@ export const RichHTMLOpinonWidget = ({
                         />
                     </View>
                     <View style={style.leftContainer}>
-                        <Label children={data.title} labelType={LabelTypeProp.h1}
+                        <Label testID='RichHTMLOpinonWidgetLabel2' children={data.title} labelType={LabelTypeProp.h1}
                             style={style.authorTitle}
                             color={themeData.authorTitle}
                             numberOfLines={3} onPress={onPressOpinion}

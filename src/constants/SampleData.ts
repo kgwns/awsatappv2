@@ -263,24 +263,21 @@ export const sampleTextWithFlag: TextWithFlagProps = {
 export const shortArticleData: ShortArticleProps[] = [
   {
     image: 'https://picsum.photos/200/300',
-    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-    labelType: LabelTypeProp.h3,
+    created: `لكن لا بد أن كل هذه الأفكار`,
+    body:  `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
     nid: '2982411',
-    author: 'يتحمل'
+    author: 'يتحمل',
+    isBookmarked: true,
+    title: 'الأفكار'
   },
   {
     image: 'https://picsum.photos/200/300',
-    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-    labelType: LabelTypeProp.h3,
+    created: `لكن لا بد أن كل هذه الأفكار`,
+    body:  `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
     nid: '2982411',
-    author: 'يتحمل'
-  },
-  {
-    image: 'https://picsum.photos/200/300',
-    title: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
-    labelType: LabelTypeProp.h3,
-    nid: '2982411',
-    author: 'يتحمل'
+    author: 'يتحمل',
+    isBookmarked: true,
+    title: 'الأفكار'
   },
 ];
 

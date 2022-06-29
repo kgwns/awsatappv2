@@ -26,6 +26,8 @@ jest.mock("src/hooks/useAllWriters", () => ({
 describe('<FollowFavoriteAuthorScreen>', () => {
   let instance: RenderAPI;
 
+  const mockFunction = jest.fn()
+
   const setDisableNext = jest.fn()
   const setWritersData = jest.fn();
   const setUpdatedWriters = jest.fn();
@@ -49,10 +51,5 @@ describe('<FollowFavoriteAuthorScreen>', () => {
 
   test('Should render FollowFavoriteAuthorScreen', () => {
     expect(instance).toBeDefined();
-  });
-
-  xit('Should Press Next Button', () => {
-    const element = instance.getByTestId('nextButtonTestId');
-    fireEvent.press(element);
   });
 });

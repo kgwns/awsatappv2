@@ -1,7 +1,7 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
-import {FETCH_ALL_WRITERS, GET_SELECTED_AUTHOR, SEND_SELECTED_AUTHOR} from '../actionTypes';
-import allWritersSaga, {fetchAllWriters, getSelectedtAuthors, postSelectedWriters} from '../sagas';
+import {EMPTY_SELECTED_AUTHORS_INFO, FETCH_ALL_SELECTED_WRITERS_DETAILS, FETCH_ALL_WRITERS, GET_SELECTED_AUTHOR, REMOVE_AUTHOR, SEND_SELECTED_AUTHOR} from '../actionTypes';
+import allWritersSaga, {emptySelectedAuthorInfo, fetchAllSelectedWritersDetailsData, fetchAllWriters, getSelectedtAuthors, postSelectedWriters, removeSelectedWriters} from '../sagas';
 import {fetchAllWritersSuccess} from '../action';
 import {fetchAllWritersApi} from 'src/services/allWritersService';
 
@@ -9,6 +9,7 @@ import {
   FetchAllWritersType,
   FetchAllWritersListSuccessPayloadType,
   AllWritersBodyGet,
+  RemoveAuthorBody,
 } from '../types';
 
 const mockItems = 10;
@@ -39,11 +40,25 @@ const sucessResponseObject: FetchAllWritersListSuccessPayloadType = {
   allWritersListData: reposnseObject,
 };
 
+const requestRemoveObject: RemoveAuthorBody = {
+  tid: '12'
+};
+
 describe('Test allWritersSaga  saga', () => {
-  xit('fire on allWritersSaga', async() => {
+  it('fire on allWritersSaga', () => {
     testSaga(allWritersSaga)
       .next()
       .all([takeLatest(FETCH_ALL_WRITERS, fetchAllWriters)])
+      .next()
+      .all([takeLatest(SEND_SELECTED_AUTHOR, postSelectedWriters)])
+      .next()
+      .all([takeLatest(GET_SELECTED_AUTHOR, getSelectedtAuthors)])
+      .next()
+      .all([takeLatest(EMPTY_SELECTED_AUTHORS_INFO, emptySelectedAuthorInfo)])
+      .next()
+      .all([takeLatest(REMOVE_AUTHOR, removeSelectedWriters)])
+      .next()
+      .all([takeLatest(FETCH_ALL_SELECTED_WRITERS_DETAILS, fetchAllSelectedWritersDetailsData)])
       .finish()
       .isDone();
   });
@@ -74,7 +89,8 @@ describe('Test allWriter  error', () => {
   it('check postSelectedWriters failed', () => {
     const genObject = postSelectedWriters({
       type: SEND_SELECTED_AUTHOR,
-      payload: {tid: '123'},
+      payload: {tid: '123',
+      isList: true},
     });
     genObject.next();
     genObject.throw(errorResponse);
@@ -86,5 +102,16 @@ describe('Test allWriter  error', () => {
     });
     genObject.next();
     genObject.throw(errorResponse);
+  });
+  
+  describe('Test removeSelectedWriters  error', () => {
+    it('check removeSelectedWriters failed', () => {
+      const genObject = removeSelectedWriters({
+        type: REMOVE_AUTHOR,
+        payload: requestRemoveObject,
+      });
+      genObject.next();
+      genObject.throw(errorResponse);
+    });
   });
 });

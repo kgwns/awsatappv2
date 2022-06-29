@@ -8,13 +8,28 @@ import {
     REQUEST_SECTION_COMBO_THREE,
     REQUEST_SECTION_COMBO_FOUR,
     REQUEST_PODCAST_HOME_DATA,
+    REQUEST_COVERAGE_BLOCK,
+    REQUEST_FEATURED_ARTICLE_BLOCK,
+    REQUEST_HORIZONTAL_ARTICLE_BLOCK,
+    REQUEST_SECTION_COMBO_FIVE,
+    REQUEST_SECTION_COMBO_SIX,
+    REQUEST_SECTION_COMBO_SEVEN,
+    REQUEST_EDITORS_CHOICE_DATA,
+    REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+    REQUEST_SPOTLIGHT_COMBO,
 } from "../actionType";
 import articleDetailSaga, {
     fetchTickerAndHeroWidgetData,
     fetchHeroListTopListWidgetData,
     fetchOpinionWidgetData,
     fetchSectionCombo,
-    fetchPodcastHomeData
+    fetchPodcastHomeData,
+    fetchCoverageBlockData,
+    fetchFeaturedArticleBlockData,
+    fetchHorizontalBlockData,
+    fetchEditorsChoiceData,
+    fetchSpotlightData,
+    fetchSpotlightArticleSection,
 } from "../sagas";
 
 const sampleResponse = {
@@ -82,6 +97,40 @@ describe('<LatestNewsSaga >', () => {
     beforeEach(() => {
         jest.useFakeTimers()
     })
+
+    // describe('Check articleDetailSaga sage method', () => {
+    //     const genObject = articleDetailSaga();
+
+    //     it('should test all articleDetailSaga', () => {
+    //         const generator = genObject.next();
+    //         expect(generator.value).toEqual(
+    //             all([
+    //                     takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData),
+    //                     takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData),
+    //                     takeLatest(REQUEST_OPINION_LIST_DATA, fetchOpinionWidgetData),
+    //                     takeLatest(REQUEST_SECTION_COMBO_ONE, fetchSectionCombo),
+    //                     takeLatest(REQUEST_SECTION_COMBO_TWO, fetchSectionCombo),
+    //                     takeLatest(REQUEST_SECTION_COMBO_THREE, fetchSectionCombo),
+    //                     takeLatest(REQUEST_SECTION_COMBO_FOUR, fetchSectionCombo),
+    //                     takeLatest(REQUEST_PODCAST_HOME_DATA, fetchPodcastHomeData),
+    //                     takeLatest(REQUEST_COVERAGE_BLOCK, fetchCoverageBlockData),
+    //                     takeLatest(REQUEST_FEATURED_ARTICLE_BLOCK, fetchFeaturedArticleBlockData),
+    //                     takeLatest(REQUEST_HORIZONTAL_ARTICLE_BLOCK, fetchHorizontalBlockData),
+    //                     takeLatest(REQUEST_SECTION_COMBO_FIVE, fetchSectionCombo),
+    //                     takeLatest(REQUEST_SECTION_COMBO_SIX, fetchSectionCombo),
+    //                     takeLatest(REQUEST_SECTION_COMBO_SEVEN, fetchSectionCombo),
+    //                     takeLatest(REQUEST_EDITORS_CHOICE_DATA, fetchEditorsChoiceData),
+    //                     takeLatest(REQUEST_SPOTLIGHT_COMBO,fetchSpotlightData),
+    //                     takeLatest(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,fetchSpotlightArticleSection),
+    //             ])
+    //         );
+    //     });
+
+    //     it('should be done on next iteration', () => {
+    //         expect(genObject.next().done).toBeTruthy();
+    //     });
+    // })
+
     describe('Check Latest news saga method', () => {
         const genObject = articleDetailSaga();
 

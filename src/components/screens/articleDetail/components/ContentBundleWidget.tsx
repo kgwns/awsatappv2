@@ -32,6 +32,7 @@ export const ContentBundleWidget = ({
     const { emptyAllData } = useArticleDetail()
 
     const onPress = () => {
+        console.log('ContentBundleWidget');
         if (data.nid) {
             emptyAllData()
             navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: data.nid, hasHTMLContent: true });
@@ -63,7 +64,7 @@ export const ContentBundleWidget = ({
         <View>
             <TitleWithUnderLine title={title} />
             <View style={style.bodyBackgroundContainer}>
-                <TouchableOpacity activeOpacity={0.8} style={style.contentListContainer} onPress={onPress}>
+                <TouchableOpacity testID='ContentBundleWidgetTO1' activeOpacity={0.8} style={style.contentListContainer} onPress={onPress}>
                     <Image
                         resizeMode={ImageResize.COVER}
                         style={style.image}

@@ -1,6 +1,20 @@
-import React from 'react';
-import { render, RenderAPI } from '@testing-library/react-native';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { RelatedOpinionCard } from '..';
+import {useNavigation} from '@react-navigation/native';
+import { useAppPlayer } from 'src/hooks';
+import React, {useState} from 'react';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+}));
+
+jest.mock('src/hooks/useAppPlayer', () => ({useAppPlayer: jest.fn()}));
 
 describe('<RelatedOpinionCard>', () => {
   let instance: RenderAPI;
@@ -44,8 +58,35 @@ describe('<RelatedOpinionCard>', () => {
     type: "opinion"
   }
   const mockFn = jest.fn();
+  const navigation = {
+    push: mockFn,
+    navigate: mockFn,
+  }
+
+    const setMediaData = jest.fn();
+    const setTimeDuration = jest.fn()
+
+    const useAppPlayerMock = jest.fn();
+    const setControlStateMock = jest.fn();
+    const setShowMiniPlayerMock = jest.fn();
+    const setPlayMock = jest.fn();
+    const setPlayerTrackMock = jest.fn();
 
   beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [{}, setMediaData]);
+    (useState as jest.Mock).mockImplementation(() => [null, setTimeDuration]);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
+    useAppPlayerMock.mockReturnValue({
+      showMiniPlayer: false,
+      isPlaying: false,
+      selectedTrack: {},
+      showControls: false,
+      setControlState: setControlStateMock,
+      setShowMiniPlayer: setShowMiniPlayerMock,
+      setPlay: setPlayMock,
+      setPlayerTrack: setPlayerTrackMock,
+    });
     const component = <RelatedOpinionCard item={mockItem} onPress={mockFn} />;
     instance = render(component);
   });
@@ -58,4 +99,23 @@ describe('<RelatedOpinionCard>', () => {
   test('Should render the RelatedOpinionCard component', () => {
     expect(instance).toBeDefined();
   });
+
+  it('When RelatedOpinionCardTO1 is pressed', () => {
+    const testItemId = instance.getByTestId('RelatedOpinionCardTO1');
+    fireEvent(testItemId, 'onPress');
+    expect(mockFn).toHaveBeenCalled();
+  });
+
+  it('When RelatedOpinionCardTO3 is pressed', () => {
+      const testItemId = instance.getByTestId('RelatedOpinionCardTO3');
+      fireEvent(testItemId, 'onPress', {tid:'0'});
+      expect(navigation.push).toBeTruthy();
+  });
+
+  it('When RelatedOpinionCardTO3 is pressed', () => {
+    const testItemId = instance.getByTestId('RelatedOpinionCardLabel1');
+    fireEvent(testItemId, 'onPress', {tid:'0'});
+    expect(navigation.push).toBeTruthy();
+  });
+
 });

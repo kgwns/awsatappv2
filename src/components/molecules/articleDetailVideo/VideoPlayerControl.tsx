@@ -303,6 +303,7 @@ const VideoPlayerControl = ({
 
   const renderCloseButton = () => (
     <TouchableHighlight
+      testID='renderCloseButtonID'
       underlayColor="transparent"
       activeOpacity={0.3}
       onPress={closePlayer}
@@ -317,6 +318,7 @@ const VideoPlayerControl = ({
 
     return (
       <TouchableHighlight
+      testID='renderPlaypauseID'
         underlayColor="transparent"
         activeOpacity={0.3}
         onPress={onPaused}
@@ -336,7 +338,7 @@ const VideoPlayerControl = ({
 
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback style={{flex: 1}} onPress={onScreenTouch}>
+      <TouchableWithoutFeedback testID='VideoPlayerControlId' style={{flex: 1}} onPress={onScreenTouch}>
         <View style={{flex: 1}}>
           {renderVideo()}
           <View style={styles.videoControls}>

@@ -73,7 +73,16 @@ describe('Test OpinionArticleDetail  error', () => {
     genObject.throw(errorResponse);
   });
 
-  describe('Test OpinionArticleDetail  error', () => {
+  describe('Test OpinionArticleDetail', () => {
+    it('check fetchRelatedOpinion success', () => {
+      const genObject = fetchRelatedOpinion({
+        type: REQUEST_RELATED_OPINION,
+        payload: { page: 0 },
+      });
+      genObject.next();
+      genObject.next();
+    });
+
     it('check fetchRelatedOpinion failed', () => {
       const genObject = fetchRelatedOpinion({
         type: REQUEST_RELATED_OPINION,

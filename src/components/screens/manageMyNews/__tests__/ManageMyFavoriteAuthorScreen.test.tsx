@@ -21,7 +21,7 @@ describe('<ManageMyFavoriteAuthorScreen>', () => {
         instance.unmount();
     });
 
-    test('Should render ManageMyFavoriteAuthorScreen component', () => {
+    it('Should render ManageMyFavoriteAuthorScreen component', () => {
         expect(instance).toBeDefined();
     });
 });

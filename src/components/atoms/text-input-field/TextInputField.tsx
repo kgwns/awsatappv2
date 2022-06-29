@@ -108,11 +108,13 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   const [isPasswordVisible, setIsPasswordVisible] = useState(isPassword);
 
   const handleFocus = () => {
+    console.log('handleFocus');
     if (!isFocused) {
       setIsFocused(true);
     }
   };
   const handleBlur = () => {
+    console.log('handleBlur');
     if ((isFocused && value === '') || !value) {
       setIsFocused(false);
     }

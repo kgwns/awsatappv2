@@ -1,6 +1,6 @@
 import {testSaga} from 'redux-saga-test-plan';
-import {CHANGE_PASSWORD} from '../actionTypes';
-import {postNewPassword} from '../sagas';
+import {CHANGE_PASSWORD, EMPTY_PASSWORD_RESPONSE_INFO} from '../actionTypes';
+import newPasswordSaga, {postNewPassword, emptyPasswordResponse} from '../sagas';
 import {changePasswordSuccess} from '../action';
 import {changePasswordApi} from 'src/services/changePasswordService';
 import {
@@ -8,11 +8,13 @@ import {
   SendChangePasswordType,
   SendNewPasswordSuccessPayloadType
 } from '../types';
+import { takeLatest } from 'redux-saga/effects';
 
 const mockPassword = '#AwsatApp01';
 
 const requestObject: SendNewPassword = {
   password: mockPassword,
+  old_password: ''
 };
 
 const requestAction: SendChangePasswordType = {
@@ -28,26 +30,45 @@ const sucessResponseObject: SendNewPasswordSuccessPayloadType = {
   message: {},
 };
 
-describe('Test changePassword success', () => {
-  it('fire on CHANGE_PASSWORD', () => {
-    testSaga(postNewPassword, requestAction)
-      .next()
-      .call(changePasswordApi, requestObject)
-      .next({})
-      .put(changePasswordSuccess(sucessResponseObject))
-      .finish()
-      .isDone();
+describe('<Change Password Saga>', () => {
+  beforeEach(() => {
+      jest.useFakeTimers()
   });
-});
-
-describe('Test change password error', () => {
-  it('check post new password failed', () => {
-    const genObject = postNewPassword({
-      type: CHANGE_PASSWORD,
-      payload: {password: mockPassword},
+  
+  describe('Test newPasswordSaga  saga', () => {
+    it('fire on newPasswordSaga', () => {
+      testSaga(newPasswordSaga)
+        .next()
+        .all([takeLatest(CHANGE_PASSWORD, postNewPassword)])
+        .next()
+        .all([takeLatest(EMPTY_PASSWORD_RESPONSE_INFO, emptyPasswordResponse)])
+        .finish()
+        .isDone();
     });
-    genObject.next();
-    genObject.throw(errorResponse);
+  });
+
+  describe('Test changePassword success', () => {
+    it('fire on CHANGE_PASSWORD', () => {
+      testSaga(postNewPassword, requestAction)
+        .next()
+        .call(changePasswordApi, requestObject)
+        .next({})
+        .put(changePasswordSuccess(sucessResponseObject))
+        .finish()
+        .isDone();
+    });
+  });
+
+  describe('Test change password error', () => {
+    it('check post new password failed', () => {
+      const genObject = postNewPassword({
+        type: CHANGE_PASSWORD,
+        payload: {password: mockPassword,
+          old_password: mockPassword},
+      });
+      genObject.next();
+      genObject.throw(errorResponse);
+    });
   });
 });
 

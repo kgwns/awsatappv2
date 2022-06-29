@@ -33,7 +33,7 @@ export const AlertModal = ({
         <Modal visible={modalVisible} transparent={true} >
             <View style={styles.container}>
                 <View style={styles.innerContainer}>
-                    <TouchableOpacity style={styles.iconStyle} onPress={() => {
+                    <TouchableOpacity testID="AlertModalTO1" style={styles.iconStyle} onPress={() => {
                         onClose(!modalVisible)
                         setModalVisibility(!modalVisible)}}>
                         <CloseIcon fill={isDarkMode? colors.white : colors.darkSlateGray} />
@@ -47,7 +47,7 @@ export const AlertModal = ({
                         style={styles.instructionTextStyle}
                         numberOfLines={3}
                     />
-                    <TouchableOpacity onPress={onPressSuccess}>
+                    <TouchableOpacity testID="AlertModalTO2" onPress={onPressSuccess}>
                         <View style={styles.buttonBackgroundStyle}>
                             <Label style={styles.buttonLabelStyle}
                                 children={buttonText} />

@@ -11,6 +11,7 @@ describe('Test OpinionArticleDetail Services', () => {
   const relatedOpinionBody: RelatedOpinionBodyGet = {
     page: 1,
   };
+  console.log = jest.fn();
   beforeEach(() => {
     jest.useFakeTimers('legacy');
   });
@@ -55,6 +56,7 @@ describe('Test OpinionArticleDetail Services', () => {
     return fetchRelatedOpinionAPI(relatedOpinionBody).catch((error: unknown) => {
       const errorResponse = error as AxiosError;
       expect(errorResponse.response?.status).toEqual(500);
+      expect(console.log).toHaveBeenCalledWith(`error: ${error}`);
     });
   });
 });

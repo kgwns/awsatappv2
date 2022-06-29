@@ -23,7 +23,7 @@ describe('<TabNavigator>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    xit('Should render TabNavigator', () => {
+    it('Should render TabNavigator', () => {
       expect(instance).toBeDefined();
     });
   });

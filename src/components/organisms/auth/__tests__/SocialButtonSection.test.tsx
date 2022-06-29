@@ -5,7 +5,6 @@ import {SocialButtonSection} from '../SocialButtonSection';
 describe('<SocialButtonSection>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn()
-  const testData = [{testId:'signin_google'},{testId:'signin_apple'},{testId:'signin_facebook'}]
   describe('when SocialButtonSection only', () => {
     beforeEach(() => {
       const component = <SocialButtonSection onButtonPress={mockFunction} />;
@@ -19,8 +18,13 @@ describe('<SocialButtonSection>', () => {
     it('Should render SocialButtonSection', () => {
       expect(instance).toBeDefined();
     });
-    xit.each(testData)('when onPree Social Buttons', ({ testId }) => {
-      const testID = instance.getByTestId(testId);
+    it('when onPree Social Buttons', () => {
+      const testID = instance.getByTestId('signin_facebook');
+      fireEvent(testID, 'onPress');
+      expect(mockFunction).toHaveBeenCalled();
+    })
+    it('when onPree Social Buttons', () => {
+      const testID = instance.getByTestId('signin_google');
       fireEvent(testID, 'onPress');
       expect(mockFunction).toHaveBeenCalled();
     })

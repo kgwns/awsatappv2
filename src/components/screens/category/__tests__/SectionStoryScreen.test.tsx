@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { render, RenderAPI } from '@testing-library/react-native'
 import { SectionStoryScreen } from '../SectionStoryScreen'
 import { Provider } from 'react-redux'
 import { storeSampleData } from 'src/constants/SampleData'
 
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useState: jest.fn(),
+  }));
 jest.mock("src/hooks/useNewsView", () => ({
     useNewsView: (...args: any) => {
         return {
@@ -31,9 +35,21 @@ jest.mock("src/hooks/useNewsView", () => ({
 describe('<SectionStoryScreen>', () => {
     let instance: RenderAPI
 
-    const mockOnPress = jest.fn()
+    const mockFunction = jest.fn()
+    const setHeroListDataInfo = mockFunction;
+    const setBottomListDataInfo = mockFunction;
+    const setTopListDataInfo = mockFunction;
+    const setVideoListData = mockFunction;
+    const setShowPopUp = mockFunction;
+    const setIsBottomListLoading = mockFunction;
 
     beforeEach(() => {
+        (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setBottomListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setTopListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setVideoListData]);
+        (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
+        (useState as jest.Mock).mockImplementation(() => [false, setIsBottomListLoading]);
         const component = <Provider store={storeSampleData}>
             <SectionStoryScreen />
         </Provider>

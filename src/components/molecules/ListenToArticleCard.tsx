@@ -42,7 +42,7 @@ export const ListenToArticleCard = (data: any) => {
 };
 
 const onPressPlay = () => {
-      
+  console.log('onPressPlay');
   if (data.nid && isObjectNonEmpty(mediaData)) {
     let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
@@ -72,13 +72,14 @@ const onPressPlay = () => {
 
   return (
     <View style={style.container}>
-      <TouchableOpacity onPress={onPressPlay} style={style.listenButton}>
+      <TouchableOpacity testID='ListenToArticleCardTO1' onPress={onPressPlay} style={style.listenButton}>
         <ButtonImage
           hitSlop={{}}
           icon={() =>
             trackData && trackData.id == (data.nid+'opinion') && playbackState === State.Playing   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
               getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
           }
+          testId='ListenToArticleCardBI1'
           onPress={onPressPlay}
           style={style.icon}
         />

@@ -14,6 +14,8 @@
 // });
 import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
+import { Provider } from 'react-redux';
+import { storeSampleData } from 'src/constants/SampleData';
 // import {Provider} from 'react-redux';
 // import {MockedStore} from 'src/data';
 import App from '../../App';
@@ -23,7 +25,11 @@ describe('<App>', () => {
 
   describe('when App only', () => {
     beforeEach(() => {
-      const component = <App />;
+      const component = (
+        <Provider store={storeSampleData}>
+          <App />
+        </Provider>
+      );
       instance = render(component);
     });
 

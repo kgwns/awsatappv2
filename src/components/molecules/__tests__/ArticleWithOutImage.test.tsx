@@ -12,7 +12,7 @@ describe('<ArticleWithOutImage>', () => {
     }
 
     beforeEach(() => {
-        const component = <ArticleWithOutImage {...data} />
+        const component = <ArticleWithOutImage isBookmarked={false} {...data} />
         instance = render(component)
     })
 

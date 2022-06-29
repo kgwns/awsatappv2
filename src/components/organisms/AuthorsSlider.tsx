@@ -145,6 +145,7 @@ const AuthorSlider = ({
   };
 
   const scrollToStart = () => {
+    console.log('scrollToStart');
     if (isIOS) return
     scrollRef.current?.scrollToEnd();
   }

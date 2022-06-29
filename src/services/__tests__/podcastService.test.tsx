@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { PodcastEpisodeBodyGet, PodcastListBodyGet } from 'src/redux/podcast/types';
-import { fetchPodcastEpisodeApi, fetchPodcastListApi } from '../podcastService';
+import { fetchPodcastEpisodeApi, fetchPodcastListApi, fetchSingleEpisodeSpreakerApi } from '../podcastService';
 
 describe('Test Podcast Services', () => {
     const mock = new MockAdapter(axios);
@@ -12,6 +12,10 @@ describe('Test Podcast Services', () => {
 
     const bodyPodcastEpisode: PodcastEpisodeBodyGet = {
         nid: 12345,
+    }
+
+    const bodySingleEpisodeSpreakerApi = {
+        episodeId: '12345',
     }
 
     beforeEach(() => {
@@ -61,6 +65,17 @@ describe('Test Podcast Services', () => {
         return fetchPodcastEpisodeApi(bodyPodcastEpisode).catch((error: unknown) => {
             const errorResponse = error as AxiosError;
             expect(errorResponse.response?.status).toEqual(500);
+        });
+    });
+
+    it('test when fetchSingleEpisodeSpreakerApi response code is 404', () => {
+        mock.onGet().reply(404, {
+            error: 'Something Went Wrong',
+        });
+
+        return fetchSingleEpisodeSpreakerApi(bodySingleEpisodeSpreakerApi).catch((error: unknown) => {
+            const errorResponse = error as AxiosError;
+            expect(errorResponse.response?.status).toEqual(404);
         });
     });
 });

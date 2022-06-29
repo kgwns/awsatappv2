@@ -137,4 +137,66 @@ describe('<Article Detail Saga >', () => {
             genObject.throw(errorResponse)
         })
     })
+
+    describe('Related fetchArticleSection', () => {
+        it('check fetchArticleSection success', () => {
+            const genObject = fetchArticleSection({
+                type: REQUEST_ARTICLE_SECTION,
+                payload: {
+                    id: 12,
+                    page: 1,
+                    items_per_page:10,
+                    current_nid: 1,
+                }
+            })
+            genObject.next(sampleResponse)
+            genObject.next(sampleResponse)
+        })
+
+
+        it('check fetchArticleSection failed', () => {
+            const genObject = fetchArticleSection({
+                type: REQUEST_ARTICLE_SECTION,
+                payload: {
+                    id: 12,
+                    page: 1,
+                    items_per_page:10,
+                    current_nid: 1,
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+    })
+
+    describe('Related getRichReadAlsoInfo', () => {
+        it('check getRichReadAlsoInfo success', () => {
+            const genObject = getRichReadAlsoInfo({
+                type: REQUEST_ARTICLE_SECTION,
+                payload: {
+                    id: 12,
+                    page: 1,
+                    items_per_page:10,
+                    current_nid: 1,
+                }
+            })
+            genObject.next(sampleResponse)
+            genObject.next(sampleResponse)
+        })
+
+
+        it('check getRichReadAlsoInfo failed', () => {
+            const genObject = getRichReadAlsoInfo({
+                type: REQUEST_ARTICLE_SECTION,
+                payload: {
+                    id: 12,
+                    page: 1,
+                    items_per_page:10,
+                    current_nid: 1,
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+    })
 })

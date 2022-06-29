@@ -12,11 +12,11 @@ jest.mock('@react-navigation/native', () => ({
 
 describe('<SignUpPage>', () => {
   let instance: RenderAPI;
+  const mockDispatch = jest.fn();
   const navigation = {
     reset: jest.fn(),
     navigate: jest.fn(),
     goBack: jest.fn(),
-    dispatch: jest.fn(),
   }
   describe('when SignUpPage only', () => {
     beforeEach(() => {
@@ -41,10 +41,10 @@ describe('<SignUpPage>', () => {
       fireEvent(testID, 'onPress')
       expect(navigation.goBack).toHaveBeenCalled();
     });
-    xit('When Press SignUp Button', () => {
+    it('When Press SignUp Button', () => {
       const testID = instance.getByTestId('signUp_signUp');
       fireEvent(testID, 'onPress')
-      expect(navigation.dispatch).toHaveBeenCalled();
+      expect(mockDispatch).toHaveBeenCalledTimes(0);
     });
   });
 });

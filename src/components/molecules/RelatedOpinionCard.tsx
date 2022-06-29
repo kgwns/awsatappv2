@@ -97,7 +97,6 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
 };
 
 const onPressPlay = () => {
-      
   if (item.nid && isObjectNonEmpty(mediaData)) {
     let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
@@ -133,6 +132,7 @@ const onPressPlay = () => {
 
   return (
     <TouchableOpacity
+      testID='RelatedOpinionCardTO1'
       onPress={()=>onPress()}
       style={[style.container, isTab && {paddingRight: 20}]}>
       <View style={style.contentView}>
@@ -140,12 +140,13 @@ const onPressPlay = () => {
           children={isNonEmptyArray(item.field_opinion_writer_node_export) && item.field_opinion_writer_node_export[0].name}
           style={style.topLabel}
           numberOfLines={1}
+          testID='RelatedOpinionCardLabel1'
           onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}
           suppressHighlighting={true}
         />
         {renderTitle(item)}
         {mediaVisibility && <View style={style.footer}>
-          <TouchableOpacity onPress={onPressPlay} style={style.footer}>
+          <TouchableOpacity testID='RelatedOpinionCardTO2' onPress={onPressPlay} style={style.footer}>
             <ButtonImage
               icon={() =>
                 trackData && trackData.id == (item.nid+'opinion') && playbackState === State.Playing    ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
@@ -162,7 +163,7 @@ const onPressPlay = () => {
         </View>}
       </View>
       <View>
-        <TouchableOpacity  onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}>
+        <TouchableOpacity testID='RelatedOpinionCardTO3' onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}>
           <Image
             url={
               isNonEmptyArray(item.field_opinion_writer_node_export)

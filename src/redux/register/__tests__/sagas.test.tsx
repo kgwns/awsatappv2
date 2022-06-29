@@ -1,75 +1,52 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
-import registerSaga, {createUser} from '../sagas';
-import {
-  registerSuccess,
-  registerFailed,
-} from '../action';
-import {REGISTER_USER} from '../actionTypes';
-import {registerUser} from 'src/services/registerService';
-import {
-  RegisterBodyType,
-  RegisterSuccessPayloadType,
-  UserRegisterType,
-} from '../types';
+import registerSaga, {createUser, emptyUserInfo} from '../sagas';
+import {REGISTER_USER, EMPTY_USER_INFO} from '../actionTypes';
 
 const mockString = 'mockString';
 
-const requestObject: RegisterBodyType = {
-  device_name: mockString,
-  email: mockString,
-  name: '',
-  password: ''
+const errorResponse = {
+  response: {data: 'Error', status: 500, statusText: 'Error'},
 };
-
-const requestAction: UserRegisterType = {
-  type: REGISTER_USER,
-  payload: requestObject,
-};
-
-const reposnseObject = {
-    user:{
-      id: mockString,
-      email: mockString
-    },
-    token:{},
-    message:{message:mockString}
-};
-
-const sucessResponseObject: RegisterSuccessPayloadType = reposnseObject
 
 describe('test registerSaga  saga', () => {
   it('fire on registerSaga', () => {
     testSaga(registerSaga)
       .next()
       .all([takeLatest(REGISTER_USER, createUser)])
+      .next()
+      .all([takeLatest(EMPTY_USER_INFO, emptyUserInfo)])
       .finish()
       .isDone();
   });
 });
 
-
-describe('Test createUser success', () => {
-  it('fire on REGISTER_USER', () => {
-    testSaga(createUser, requestAction)
-      .next()
-      .call(registerUser, requestObject)
-      .next(reposnseObject)
-      .put(registerSuccess(sucessResponseObject))
-      .finish()
-      .isDone();
+describe('Test createUser', () => {
+  it('check createUser success', () => {
+    const genObject = createUser({
+      type: REGISTER_USER,
+      payload: {
+        device_name: mockString,
+        email: mockString,
+        name: '',
+        password: ''
+      },
+    });
+    genObject.next();
+    genObject.next();
   });
-});
 
-describe('test createUser  error', () => {
-  const error = new Error('error');
-  xit('fire on REGISTER_USER', () => {
-    testSaga(createUser, requestAction)
-      .next()
-      .call(registerUser, requestObject)
-      .throw(error)
-      .put(registerFailed({error: error.message}))
-      .finish()
-      .isDone();
+   it('check createUser failed', () => {
+    const genObject = createUser({
+      type: REGISTER_USER,
+      payload: {
+        device_name: mockString,
+        email: mockString,
+        name: '',
+        password: ''
+      },
+    });
+    genObject.next();
+    genObject.throw(errorResponse);
   });
 });

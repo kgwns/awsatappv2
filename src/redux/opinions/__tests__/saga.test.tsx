@@ -1,7 +1,7 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
-import {FETCH_OPINIONS} from '../actionTypes';
-import opinionsSaga, {fetchOpinions} from '../sagas';
+import {FETCH_OPINIONS, FETCH_WRITER_OPINIONS} from '../actionTypes';
+import opinionsSaga, {fetchOpinions, fetchWriterOpinions} from '../sagas';
 import {fetchOpinionsSuccess} from '../action';
 import {fetchOpinionsApi} from 'src/services/opinionsService';
 
@@ -44,6 +44,8 @@ describe('Test opinions  saga', () => {
     testSaga(opinionsSaga)
       .next()
       .all([takeLatest(FETCH_OPINIONS, fetchOpinions)])
+      .next()
+      .all([takeLatest(FETCH_WRITER_OPINIONS, fetchWriterOpinions)])
       .finish()
       .isDone();
   });
@@ -66,6 +68,32 @@ describe('Test opinions  error', () => {
     const genObject = fetchOpinions({
       type: FETCH_OPINIONS,
       payload: {page: mockPage},
+    });
+    genObject.next();
+    genObject.throw(errorResponse);
+  });
+});
+
+describe('Test opinions', () => {
+  it('check fetchWriterOpinions success', () => {
+    const genObject = fetchWriterOpinions({
+      type: FETCH_WRITER_OPINIONS,
+      payload: {
+        tid: '12',
+        page: mockPage
+      },
+    });
+    genObject.next();
+    genObject.next();
+  });
+
+   it('check fetchWriterOpinions failed', () => {
+    const genObject = fetchWriterOpinions({
+      type: FETCH_WRITER_OPINIONS,
+      payload: {
+        tid: '12',
+        page: mockPage
+      },
     });
     genObject.next();
     genObject.throw(errorResponse);

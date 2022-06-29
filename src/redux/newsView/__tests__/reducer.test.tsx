@@ -1,5 +1,6 @@
 import {newsViewActions} from '../action';
 import {
+  EMPTY_ALL_LIST,
   REQUEST_BOTTOM_LIST_DATA,
   REQUEST_HERO_LIST_DATA,
   REQUEST_TOP_LIST_DATA,
@@ -91,7 +92,7 @@ describe('opinionWriter reducer', () => {
   test('Check loading state when newsViewReducer REQUEST_TOP_LIST_DATA request API', () => {
     const nextState = newsViewReducer(initialState, {
       type: REQUEST_TOP_LIST_DATA,
-      payload: {items_per_page: 10, page: 0, offset: 0},
+      payload: {items_per_page: 10, page: 0, offset: 0, sectionId: 1},
     });
     expect(nextState.isLoading).toBe(true);
   });
@@ -99,7 +100,7 @@ describe('opinionWriter reducer', () => {
   test('Check loading state when newsViewReducer REQUEST_HERO_LIST_DATA request API', () => {
     const nextState = newsViewReducer(initialState, {
       type: REQUEST_HERO_LIST_DATA,
-      payload: {items_per_page: 10, page: 0, offset: 0},
+      payload: {items_per_page: 10, page: 0, offset: 0, sectionId: 1},
     });
     expect(nextState.isLoading).toBe(true);
   });
@@ -107,8 +108,16 @@ describe('opinionWriter reducer', () => {
   test('Check loading state when newsViewReducer REQUEST_BOTTOM_LIST_DATA request API', () => {
     const nextState = newsViewReducer(initialState, {
       type: REQUEST_BOTTOM_LIST_DATA,
-      payload: {items_per_page: 10, page: 0, offset: 0},
+      payload: {items_per_page: 10, page: 0, offset: 0, sectionId: 1},
     });
     expect(nextState.isLoading).toBe(true);
   });
+
+  test('Check loading state when get selected news letters EMPTY_ALL_LIST', () => {
+    const nextState = newsViewReducer(initialState, {
+      type: EMPTY_ALL_LIST,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
 });

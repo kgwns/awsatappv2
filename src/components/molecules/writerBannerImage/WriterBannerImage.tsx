@@ -91,7 +91,7 @@ export const WriterBannerImage = ({
   }
 
   const SubscribeButton = ({ isFollowed }: { isFollowed: boolean }) => (
-    <TouchableWithoutFeedback style={[style.followContainer,
+    <TouchableWithoutFeedback testID={'subscribeButton'} style={[style.followContainer,
       { backgroundColor: isFollowed ? Styles.color.greenishBlue : Styles.color.aquaHaze, }]}
       onPress={onPressFollow}>
       {
@@ -132,7 +132,7 @@ export const WriterBannerImage = ({
       <ReturnButton />
       <View style={style.contentContainer}>
         <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : currentOrientation == 'PORTRAIT' ? 0.3 : 0.15 }}>
-          <TouchableWithoutFeedback onPress={onPressWriter}>
+          <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
             <View style={style.imageContainer}>
               <Image url={getImageUrl(data.authorImage)}
                 type={'round'}
@@ -151,7 +151,7 @@ export const WriterBannerImage = ({
         <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.85 : 0.90 : currentOrientation == 'PORTRAIT' ? 0.7 : 0.85, paddingStart: normalize(10) }}>
           <View style={style.authorSubscribeView}>
               <View style={style.authorNameView}>
-                <TouchableWithoutFeedback onPress={onPressWriter}>
+                <TouchableWithoutFeedback testID={'touchableLabel'} onPress={onPressWriter}>
                   <Label style={style.authorName} numberOfLines={2}>{data.authorName}</Label>
                 </TouchableWithoutFeedback>
               </View>

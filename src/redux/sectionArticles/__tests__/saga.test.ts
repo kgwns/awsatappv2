@@ -1,68 +1,46 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
-import sectionArticlesSaga, {fetchSectionArticles} from '../sagas';
-import {
-  fetchSectionArticlesFailed,
-  fetchSectionArticlesSuccess,
-} from '../action';
-import {FETCH_SECTION_ARTICLES} from '../actionTypes';
-import {fetchSectionArticlesApi} from 'src/services/sectionArticlesService';
-import {
-  FetchSectionArticlesSuccessPayloadType,
-  FetchSectionArticlesFailedPayloadtype,
-} from '../types';
+import sectionArticlesSaga, {fetchSectionArticles, emptySectionArticlesData} from '../sagas';
+import {FETCH_SECTION_ARTICLES, EMPTY_SECTION_ARTICLES} from '../actionTypes';
 
-const mockString = 'mockString';
-
-const reposnseObject = {
-  rows: [
-    {
-      title: mockString,
-      uuid_export: mockString,
-      parent_export: mockString,
-      link__options: mockString,
-      title_export: mockString,
-      field_sectionid_export: 11,
-      field_app_key_name_export: mockString,
-    },
-  ],
+const errorResponse = {
+  response: {data: 'Error', status: 500, statusText: 'Error'},
 };
 
-const sucessResponseObject: FetchSectionArticlesSuccessPayloadType = {
-    sectionArticlesData: reposnseObject,
-};
-const error = new Error('error');
-const faildResponseObject: FetchSectionArticlesFailedPayloadtype = {
-    error: error.message
-}
-
-describe('test Saga  saga', () => {
-  it('fire on sectionArticleSaga', () => {
+describe('test sectionArticlesSaga  saga', () => {
+  it('fire on sectionArticlesSaga', () => {
     testSaga(sectionArticlesSaga)
       .next()
       .all([takeLatest(FETCH_SECTION_ARTICLES, fetchSectionArticles)])
-      .finish()
-      .isDone();
-  });
-
-  xit('fire on FETCH_SECTION_ARTICLES_REQUEST', () => {
-    testSaga(sectionArticlesSaga)
       .next()
-      .call(fetchSectionArticlesApi)
-      .next(reposnseObject)
-      .put(fetchSectionArticlesSuccess(sucessResponseObject))
+      .all([takeLatest(EMPTY_SECTION_ARTICLES, emptySectionArticlesData)])
       .finish()
       .isDone();
   });
+});
 
-  xit('test fetchSectionArticles  error', () => {
-    const error = new Error('error');
-    testSaga(sectionArticlesSaga)
-      .next()
-      .call(fetchSectionArticlesApi)
-      .throw(error)
-      .finish()
-      .isDone();
+describe('Test fetchSectionArticles', () => {
+  it('check fetchSectionArticles success', () => {
+    const genObject = fetchSectionArticles({
+      type: FETCH_SECTION_ARTICLES,
+      payload: {
+        sectionId: '12',
+        page: 1,
+      },
+    });
+    genObject.next();
+    genObject.next();
   });
 
+   it('check fetchSectionArticles failed', () => {
+    const genObject = fetchSectionArticles({
+      type: FETCH_SECTION_ARTICLES,
+      payload: {
+        sectionId: '12',
+        page: 1,
+      },
+    });
+    genObject.next();
+    genObject.throw(errorResponse);
+  });
 });

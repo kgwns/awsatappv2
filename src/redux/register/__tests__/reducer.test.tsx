@@ -1,4 +1,6 @@
+import { FETCH_USER_LOGOUT } from 'src/redux/login/actionTypes';
 import { userRegister, registerSuccess, registerFailed } from '../action';
+import { EMPTY_USER_INFO, SOCIAL_LOGIN_END, SOCIAL_LOGIN_START } from '../actionTypes';
 import registerReducer from '../reducer';
 import { RegisterState } from '../types';
 
@@ -7,9 +9,10 @@ describe('Register reducer', () => {
 
   beforeEach(() => {
     initialState = {
-      isLoading: false,
       userInfo: null,
       error: '',
+      isLoading: false,
+      socialLoginInProgress: false,
     };
   });
 
@@ -22,6 +25,7 @@ describe('Register reducer', () => {
         email: mockString,
         name: mockString,
         password: mockString,
+        device_name: mockString,
       }),
     );
 
@@ -29,12 +33,13 @@ describe('Register reducer', () => {
   });
 
   test('Register Request Success', () => {
-    const testData = {};
     initialState.isLoading = true;
     const nextState = registerReducer(
       initialState,
       registerSuccess({
-        userInfo: testData,
+        user: null,
+        token: {},
+        message: {message: ''},
       }),
     );
 
@@ -53,5 +58,33 @@ describe('Register reducer', () => {
 
     expect(nextState.isLoading).toBeFalsy();
     expect(nextState.error).toEqual(testError);
+  });
+
+  test('Check loading state when get selected news letters FETCH_USER_LOGOUT', () => {
+    const nextState = registerReducer(initialState, {
+      type: FETCH_USER_LOGOUT,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when get selected news letters SOCIAL_LOGIN_START', () => {
+    const nextState = registerReducer(initialState, {
+      type: SOCIAL_LOGIN_START,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when get selected news letters EMPTY_USER_INFO', () => {
+    const nextState = registerReducer(initialState, {
+      type: EMPTY_USER_INFO,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when get selected news letters EMPTY_USER_INFO', () => {
+    const nextState = registerReducer(initialState, {
+      type: EMPTY_USER_INFO,
+    });
+    expect(nextState.isLoading).toBe(false);
   });
 });

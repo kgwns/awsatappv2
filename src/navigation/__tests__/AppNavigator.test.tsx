@@ -24,7 +24,7 @@ describe('<AppNavigator>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    xit('Should render AppNavigator', () => {
+    it('Should render AppNavigator', () => {
       expect(instance).toBeDefined();
     });
   });

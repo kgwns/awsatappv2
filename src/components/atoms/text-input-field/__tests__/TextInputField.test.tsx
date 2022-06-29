@@ -1,7 +1,7 @@
 import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import {TouchableOpacity,TextInput} from 'react-native';
-import {TextInputField} from '../TextInputField';
+import { TextInputField } from '../TextInputField';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -44,6 +44,21 @@ describe('<TextInputField>', () => {
       const testId = instance.container.findByType(TextInput);
       fireEvent(testId, 'onBlur');
       expect(setIsFocused).toBeTruthy();
+    });
+    it('Should Press PlayIcon', () => {
+      const element = instance.container.findAllByType(TextInput)[0];
+      fireEvent(element, 'onFocus');
+      expect(mockFunction).toHaveBeenCalled;
+    });
+    it('Should Press PlayIcon', () => {
+      const element = instance.container.findAllByType(TextInput)[0];
+      fireEvent(element, 'onBlur');
+      expect(mockFunction).toHaveBeenCalled;
+    });
+    it('Should Press PlayIcon', () => {
+      const element = instance.container.findAllByType(TextInput)[0];
+      fireEvent(element, 'onChangeText');
+      expect(mockFunction).toHaveBeenCalled;
     });
   });
 });

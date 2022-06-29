@@ -158,13 +158,13 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     <Label children={convertSecondsToHMS(progress.duration || 0)} style={style.durationText}/>
                 </View>
                 <View style={style.controls} >
-                    <TouchableOpacity onPress={() => { seekForwardBackward('backward') }}>
+                    <TouchableOpacity testID={'playForwardIcon'} onPress={() => { seekForwardBackward('backward') }}>
                         {_playForwardIcon}
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => onPlayPausePress(playbackState)}>
+                    <TouchableOpacity testID={'playPause'} onPress={() => onPlayPausePress(playbackState)}>
                         { playbackState === State.Playing ? _pauseIcon : _playIcon }
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { seekForwardBackward('forward') }}>
+                    <TouchableOpacity testID={'playBackwardIcon'} onPress={() => { seekForwardBackward('forward') }}>
                         {_playBackwardIcon}
                     </TouchableOpacity>
                 </View>
@@ -176,7 +176,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     return (
         <View style={StyleSheet.flatten([style.container, playerPosition, (!isPortrait() && !isTab) ? style.containerLandscape : null]) }>
             <View style={style.miniPlayer}>
-                <TouchableOpacity onPress={() => { setShowControl(true);} } style={style.rowStyleContainer}>
+                <TouchableOpacity testID={'Miniplayer'} onPress={() => { setShowControl(true);} } style={style.rowStyleContainer}>
                     <View style={style.imageContainer}>
                         <Image fallback url={selectedTrack.artwork}
                             style={style.image}
@@ -193,13 +193,13 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                             style={style.title}
                         />
                     </View>
-                    <TouchableOpacity onPress={() => onPlayPausePress(playbackState)}>
+                    <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
                         <View style={[style.buttonContainer, isPortrait() ? style.buttonContainerPortrait : style.buttonContainerLandscape]}>
                             {isLoading ? <ActivityIndicator /> : playbackState === State.Playing ? <Pause /> : <Play /> }
                         </View>
                     </TouchableOpacity>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={onClose} style={style.closeContainer}>
+                <TouchableOpacity testID={'closeIcon'} onPress={onClose} style={style.closeContainer}>
                     <View style={style.closeIcon}>
                         {getSvgImages({ name: ImagesName.playerCloseIcon, width: normalize(12), height: normalize(12) })}
                     </View>

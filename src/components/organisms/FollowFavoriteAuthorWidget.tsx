@@ -25,6 +25,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
     );
   };
   const scrollToStart = () => {
+    console.log('scrollToStart');
     if (isIOS) return
     scrollRef.current?.scrollToEnd();
   }
