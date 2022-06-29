@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, ScrollView, StatusBar } from 'react-native'
+import { View, FlatList, StyleSheet, Animated, BackHandler, ScrollView, StatusBar } from 'react-native'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
@@ -96,7 +96,6 @@ export const ArticleDetailScreen = ({
           pTagElement[i].style.textAlign = "justify"
           pTagElement[i].style.direction = "rtl"
           pTagElement[i].style.writingDirection = "rtl"
-          pTagElement[i].style.margin = 0
         }
       }
 
@@ -109,7 +108,6 @@ export const ArticleDetailScreen = ({
           divTagElement[i].style.textAlign = "justify"
           divTagElement[i].style.direction = "rtl"
           divTagElement[i].style.writingDirection = "rtl"
-          divTagElement[i].style.margin = 0
         }
       }
 
@@ -118,6 +116,14 @@ export const ArticleDetailScreen = ({
         for(i=0; i < imageElement.length; i++) {
           imageElement[i].style["max-width"] = "100%"; 
           imageElement[i].style["height"] = "auto"; 
+        } 
+      }
+
+      var iFrameElement = document.getElementsByTagName("iframe");
+      if(iFrameElement && iFrameElement.length > 0) {
+        for(i=0; i < iFrameElement.length; i++) {
+          iFrameElement[i].style["width"] = "100%"; 
+          iFrameElement[i].style["aspect-ratio"] = "2/3"; 
         } 
       }
        
@@ -440,7 +446,7 @@ export const ArticleDetailScreen = ({
 
   const articleHtmlContent = (index: number) => {
     return (
-      <ScrollView scrollEnabled={true} style={style.labelStyle}>
+      <ScrollView scrollEnabled={true} style={style.scrollViewStyle}>
         <AutoHeightWebView
           style={style.webView}
           source={{ html: articleHtml({ body: articleDetailState[index].body }), baseUrl: '' }}
@@ -602,7 +608,7 @@ export const ArticleDetailScreen = ({
   )
 }
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
-  labelStyle: {
+  scrollViewStyle: {
     marginHorizontal: 0.04 * screenWidth,
     overflow: 'hidden',
     marginTop: 20,
