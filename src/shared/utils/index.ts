@@ -3,6 +3,7 @@ export {
   screenWidth,
   isIOS,
   isAndroid,
+  isNotchDevice,
   isTab,
   normalize,
   normalizeBy320
