@@ -234,7 +234,11 @@ export const generateAssetFontCss = ({
             extension: 'ttf',
           })}
           body {
-              font-family: Effra-Regular;
+            font-family: Effra-Regular;
+            padding: 0;
+            margin: 0;
+            width:100%;
+            height: 100%;
           }
           p {
             font-family: Effra-Regular;
