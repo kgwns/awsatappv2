@@ -118,6 +118,14 @@ export const ArticleDetailScreen = ({
           imageElement[i].style["height"] = "auto"; 
         } 
       }
+
+      var iFrameElement = document.getElementsByTagName("iframe");
+      if(iFrameElement && iFrameElement.length > 0) {
+        for(i=0; i < iFrameElement.length; i++) {
+          iFrameElement[i].style["width"] = "100%"; 
+          iFrameElement[i].style["aspect-ratio"] = "2/3"; 
+        } 
+      }
        
       true;  // note: this is required, or you'll sometimes get silent failures
       `;
