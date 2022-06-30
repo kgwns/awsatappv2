@@ -238,7 +238,7 @@ const VideoPlayerControl = ({
       source={images.bottomShadowImg}
       style={[styles.column]}
       imageStyle={[styles.vignette]}>
-      <View style={styles.progrsBarSection}>
+      <View style={isMiniPlayer ? styles.miniProgrsBarSection : styles.progrsBarSection}>
         <NativeViewGestureHandler
           disallowInterruption={true}
           enabled
@@ -417,11 +417,17 @@ const customStyle = (theme: CustomThemeType) =>
       width: '100%',
       justifyContent: 'flex-end',
       paddingHorizontal: isIOS ? 15 : 0,
-      paddingVertical: 15,
+      paddingVertical: 10,
+    },
+    miniProgrsBarSection: {
+      width: '100%',
+      justifyContent: 'flex-end',
+      paddingHorizontal: isIOS ? 15 : 0,
+      paddingBottom: 0,
     },
     sliderStyle: {
       width: '100%',
-      height: 15,
+      height: 10,
     },
     directionStyle: {
       direction: 'ltr',
