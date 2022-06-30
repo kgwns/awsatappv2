@@ -6,7 +6,7 @@ import { isNonEmptyArray, isObjectNonEmpty, normalize, isIOS, } from 'src/shared
 import { ScreenContainer } from '..';
 import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
 import TrackPlayer from 'react-native-track-player';
-import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useWriterDetail } from 'src/hooks';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
@@ -15,8 +15,8 @@ import { useOpinions } from 'src/hooks/useOpinions';
 import { OpinionWritersArticlesSection } from 'src/components/organisms';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
 import { decodeHTMLTags, horizontalEdge } from 'src/shared/utils/utilities';
-import { Styles } from 'src/shared/styles';
 import { BackIcon } from 'src/components/atoms';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 export interface WritersDetailScreenProps {
     route: any;
@@ -133,7 +133,7 @@ export const WritersDetailScreen = ({
 
     const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
         if (isLoggedIn) {
-            isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+            isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.OPINION }) : removeBookmarkedInfo({ nid })
         } else {
             setShowPopUp(true)
         }

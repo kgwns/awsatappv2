@@ -34,6 +34,7 @@ import AutoHeightWebView from 'react-native-autoheight-webview'
 import SystemNavigationBar from 'react-native-system-navigation-bar'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { ANDROID_WEBVIEW_URL, IOS_WEBVIEW_URL } from 'src/constants/SharedConstants'
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -311,7 +312,7 @@ export const ArticleDetailScreen = ({
 
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
     if (isLoggedIn) {
-      hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+      hasBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
     } else {
       setShowPopUp(true)
     }

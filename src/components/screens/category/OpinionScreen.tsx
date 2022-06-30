@@ -18,6 +18,7 @@ import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/n
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 
 export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
@@ -117,7 +118,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.OPINION }) : removeBookmarkedInfo({ nid })
     } else {
       setShowPopUp(true)
     }

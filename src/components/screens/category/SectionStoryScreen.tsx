@@ -33,6 +33,7 @@ import { formatVideoData } from 'src/redux/videoList/sagas';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { decode } from 'html-entities';
 import { fonts } from 'src/shared/styles/fonts';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex}: {sectionId: any; tabIndex?: number; currentIndex?:number }) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -235,7 +236,7 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
     } else {
       makeSignUpAlert()
     }

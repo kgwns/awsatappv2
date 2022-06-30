@@ -12,6 +12,7 @@ import { PodcastEpisodeList } from 'src/components/organisms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useLogin } from 'src/hooks';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -66,7 +67,7 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST }) : removeBookmarkedInfo({ nid })
     } else {
       setShowPopUp(true)
     }

@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { getPodcastUrl, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Styles } from 'src/shared/styles';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 export interface PodcastEpisodeProps {
   route: any
@@ -105,7 +106,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST }) : removeBookmarkedInfo({ nid })
     } else {
       setShowPopUp(true)
     }

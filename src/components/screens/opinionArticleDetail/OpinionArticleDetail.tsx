@@ -23,6 +23,7 @@ import { Edge } from 'react-native-safe-area-context';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
 import { BackIcon } from 'src/components/atoms';
 import { Styles } from 'src/shared/styles';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 export interface OpinionArticleDetailScreenProps {
   route: any;
@@ -270,7 +271,7 @@ export const OpinionArticleDetail = ({
 
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
     if (isLoggedIn) {
-      hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+      hasBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.OPINION }) : removeBookmarkedInfo({ nid })
     } else {
       setShowPopUp(true)
     }

@@ -16,6 +16,7 @@ import {ScreensConstants} from 'src/constants/ScreenConstants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Styles } from 'src/shared/styles';
 import { fetchVideoDetailInfo } from 'src/services/VideoServices';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
  
 export interface VideoDetailScreenProps {
   route: any
@@ -97,7 +98,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
 
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
     if (isLoggedIn) {
-      hasBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+      hasBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.VIDEO }) : removeBookmarkedInfo({ nid })
     } else {
       setShowPopUp(true)
     }

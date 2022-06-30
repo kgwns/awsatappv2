@@ -10,7 +10,7 @@ import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } fr
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
 import { getArticleImage, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import {flatListUniqueKey} from 'src/constants';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -18,6 +18,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { NewsCategoriesType } from 'src/redux/latestNews/types';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { Divider } from 'src/components/atoms';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 interface AllContentData {
     opinionsData: any,
@@ -357,7 +358,7 @@ export const ContentForYou = () => {
     }
 
     const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
-        isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+        isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
     }
 
     const validateBookmark = (nid: string): boolean => {

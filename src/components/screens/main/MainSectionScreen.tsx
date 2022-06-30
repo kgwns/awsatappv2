@@ -27,6 +27,7 @@ import { Label } from 'src/components/atoms';
 import { getPodcastUrl, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { fonts } from 'src/shared/styles/fonts';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 
 // const heroListTopListPayload: LatestArticleBodyGet = {
@@ -498,7 +499,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
     } else {
       setShowPopUp(true)
     }

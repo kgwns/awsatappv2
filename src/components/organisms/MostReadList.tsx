@@ -18,6 +18,7 @@ import PopUp, { PopUpType } from './popUp/PopUp';
 import { fonts } from 'src/shared/styles/fonts';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { PopulateWidgetType } from '../molecules/populateWidget/PopulateWidget';
 
 export interface articleProps
   extends ImageLabelProps,
@@ -103,7 +104,7 @@ const MostReadList = ({
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
-    isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+    isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
   }
 
   const onClosePopUp = () => {

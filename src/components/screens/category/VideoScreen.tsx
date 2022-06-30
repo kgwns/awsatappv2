@@ -12,6 +12,7 @@ import { useBookmark, useLogin, useVideoList, useDocumentaryVideo } from 'src/ho
 import {VideoItemType} from 'src/redux/videoList/types';
 import { ScreenContainer } from '..';
 import { RequestDocumentaryVideoPayload } from 'src/redux/documentaryVideo/types';
+import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 
 const documentaryVideoPayload: RequestDocumentaryVideoPayload = {
@@ -85,7 +86,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid }) : removeBookmarkedInfo({ nid })
+      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.VIDEO }) : removeBookmarkedInfo({ nid })
     } else {
       setShowPopUp(true)
     }
