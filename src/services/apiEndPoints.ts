@@ -127,3 +127,6 @@ export const ALL_SELECTED_WRITERS_ENDPOINT = 'api/v2/sections/writer';
 
 //Documentary Video
 export const DOCUMENTARY_VIDEO_ENDPOINT = 'api/v2/docvideolist';
+
+//Content for you
+export const CONTENT_FOR_YOU_ARTICLE_ENDPOINT = 'api/v2/user/articlesection' 

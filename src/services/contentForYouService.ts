@@ -1,6 +1,6 @@
 import {BASE_URL} from 'src/services/apiUrls';
 import {getApiRequest} from 'src/services/api';
-import {FAVOURITE_OPINIONS_ENDPOINT,SECTION_ARTICLES} from './apiEndPoints';
+import {FAVOURITE_OPINIONS_ENDPOINT,CONTENT_FOR_YOU_ARTICLE_ENDPOINT} from './apiEndPoints';
 import {
   FetchFavouriteOpinionsSuccessPayloadType,
   FavouriteOpinionsBodyGet,
@@ -18,7 +18,7 @@ const getFavouriteOpinionUrl = (body:FavouriteOpinionsBodyGet) => {
 }
 
 const getFavouriteArticleUrl = (body:FavouriteArticlesBodyGet) => {
-  let url = `${BASE_URL}${SECTION_ARTICLES}`
+  let url = `${BASE_URL}${CONTENT_FOR_YOU_ARTICLE_ENDPOINT}`
   if(body.topicsList){
     url += '/'+ joinArray(body.topicsList, '+');
   }
