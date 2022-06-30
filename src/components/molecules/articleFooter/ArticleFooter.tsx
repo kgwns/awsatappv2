@@ -97,6 +97,7 @@ const ArticleFooter = ({
           color={isDetail ? themeData.primaryBlack : rightTitleColor}
           numberOfLine={2}
           labelStyle={StyleSheet.flatten([rightTitleStyle, isDetail && articleFooterStyle.authorTopMargin])}
+          labelContainerStyle={{ maxWidth: '100%' }}
         />
         }
       </View>

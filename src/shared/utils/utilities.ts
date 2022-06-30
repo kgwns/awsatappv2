@@ -55,7 +55,10 @@ export const horizontalAndTop: Edge[] = [...horizontalEdge, 'top']
 export const DEFAULT_HIT_SLOP: Insets = {top: 10, bottom: 10, left: 10, right: 10}
 
 export const getImageUrl = (imageURL: string) => {
-  return isValidHttpUrl(imageURL) ? imageURL : BASE_URL + imageURL;
+  if (isValidHttpUrl(imageURL)) {
+    return imageURL
+  }
+  return BASE_URL + (isNotEmpty(imageURL) && imageURL[0] === '/' ? imageURL.substring(1) : imageURL);
 };
 
 export const getArticleImage = (fieldImage: any, newPhoto: any) : string => {
