@@ -116,6 +116,7 @@ export const arabic = {
     fromHour: "من ساعة",
     fromTwoHours: "من ساعتين",
     fromThreeHours:  "من ثلاث ساعات",
+    minute: "دقيقة",
   },
   months: [
     'يناير',
