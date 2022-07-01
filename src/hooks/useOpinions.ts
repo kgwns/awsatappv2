@@ -7,20 +7,21 @@ import {
   getWriterOpinionsData,
   getWriterOpinionsError,
 } from 'src/redux/opinions/selectors';
-import {emptyWriterOpinionAction, fetchOpinions, fetchWriterOpinions, fetchWriterOpinionsSuccess, emptyOpinionsAction} from 'src/redux/opinions/action';
-import {OpinionsBodyGet, OpinionsListItemType, WriterOpinionsBodyGet} from 'src/redux/opinions/types';
+import {emptyWriterOpinionAction, fetchOpinions, fetchWriterOpinions, fetchWriterOpinionsSuccess, emptyOpinionsAction, fetchOpinionsSuccess} from 'src/redux/opinions/action';
+import { FetchOpinionsSuccessPayloadType, OpinionsListBodyGet, OpinionsListItemType, WriterOpinionsBodyGet} from 'src/redux/opinions/types';
 
 export interface UseOpinionsReturn {
   isLoading: boolean;
   opinionsData: OpinionsListItemType[];
   opinionsError: string;
-  fetchOpinionsRequest(payload: OpinionsBodyGet): void;
+  fetchOpinionsRequest(payload: OpinionsListBodyGet): void;
   isWriterOpinionLoading: boolean;
   writerOpinionsData: OpinionsListItemType[];
   writerOpinionsError: string;
   fetchWriterOpinionsRequest(payload: WriterOpinionsBodyGet): void;
   emptyWriterOpinionData(): void;
   emptyOpinionsData(): void;
+  saveOpinionsSuccessInfo(payload: FetchOpinionsSuccessPayloadType): void
 }
 
 export const useOpinions = (): UseOpinionsReturn => {
@@ -28,7 +29,7 @@ export const useOpinions = (): UseOpinionsReturn => {
   const isLoading = useSelector(getIsLoading);
   const opinionsData = useSelector(getOpinionsData);
   const opinionsError = useSelector(getOpinionsError);
-  const fetchOpinionsRequest = (payload: OpinionsBodyGet) => {
+  const fetchOpinionsRequest = (payload: OpinionsListBodyGet) => {
     dispatch(fetchOpinions(payload));
   };
 
@@ -47,6 +48,10 @@ export const useOpinions = (): UseOpinionsReturn => {
     dispatch(emptyOpinionsAction())
   }
 
+  const saveOpinionsSuccessInfo = (payload: FetchOpinionsSuccessPayloadType) => {
+    dispatch(fetchOpinionsSuccess(payload))
+  }
+
   return {
     isLoading,
     opinionsData,
@@ -57,6 +62,7 @@ export const useOpinions = (): UseOpinionsReturn => {
     writerOpinionsError,
     fetchWriterOpinionsRequest,
     emptyWriterOpinionData,
-    emptyOpinionsData
+    emptyOpinionsData,
+    saveOpinionsSuccessInfo,
   };
 };

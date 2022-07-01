@@ -54,6 +54,11 @@ export interface OpinionsBodyGet {
   page: number;
 }
 
+export interface OpinionsListBodyGet {
+  page: number;
+  nid: string;
+}
+
 export interface FetchOpinionsSuccessPayloadType {
   opinionListData: any;
 }
@@ -73,7 +78,7 @@ export type OpinionsListState = {
 
 export type FetchOpinionsType = {
   type: typeof FETCH_OPINIONS;
-  payload: OpinionsBodyGet;
+  payload: OpinionsListBodyGet;
 };
 
 export type FetchOpinionsSuccessType = {

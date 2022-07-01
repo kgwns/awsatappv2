@@ -1,9 +1,10 @@
 import {BASE_URL} from 'src/services/apiUrls';
 import {getCacheApiRequest} from 'src/services/api';
-import {OPINIONS_ENDPOINT, OPINION_BY_WRITER_END_POINT} from './apiEndPoints';
+import {OPINIONS_ENDPOINT, OPINION_BY_WRITER_END_POINT, OPINION_LIST_END_POINT} from './apiEndPoints';
 import {
   FetchOpinionsSuccessPayloadType,
   OpinionsBodyGet,
+  OpinionsListBodyGet,
   WriterOpinionsBodyGet,
 } from 'src/redux/opinions/types';
 
@@ -28,6 +29,18 @@ export const fetchWriterOpinionsApi = async (body: WriterOpinionsBodyGet) => {
   try {
     const response: FetchOpinionsSuccessPayloadType = await getCacheApiRequest(
       `${BASE_URL}${OPINION_BY_WRITER_END_POINT}${body.tid}?items_per_page=10&page=${body.page}`,
+    );
+    return response;
+  } catch (error) {
+    console.log(`error: ${error}`);
+    throw error;
+  }
+};
+
+export const fetchOpinionsListApi = async (body: OpinionsListBodyGet) => {
+  try {
+    const response: FetchOpinionsSuccessPayloadType = await getCacheApiRequest(
+      `${BASE_URL}${OPINION_LIST_END_POINT}${body.nid}?page=${body.page}`,
     );
     return response;
   } catch (error) {

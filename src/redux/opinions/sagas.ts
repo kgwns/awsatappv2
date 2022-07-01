@@ -3,7 +3,7 @@ import {AxiosError} from 'axios';
 import {FetchOpinionsSuccessPayloadType, FetchOpinionsType, FetchWriterOpinionsType} from './types';
 import {fetchOpinionsFailed, fetchOpinionsSuccess, fetchWriterOpinionsFailed, fetchWriterOpinionsSuccess} from './action';
 import {FETCH_OPINIONS, FETCH_WRITER_OPINIONS} from './actionTypes';
-import {fetchOpinionsApi, fetchWriterOpinionsApi} from 'src/services/opinionsService';
+import {fetchOpinionsApi, fetchOpinionsListApi, fetchWriterOpinionsApi} from 'src/services/opinionsService';
 
 export function* fetchOpinions(action: FetchOpinionsType) {
   // console.log("saga fetchOpinionWriter");
@@ -11,6 +11,22 @@ export function* fetchOpinions(action: FetchOpinionsType) {
   try {
     const payload: FetchOpinionsSuccessPayloadType = yield call(
       fetchOpinionsApi,
+      action.payload,
+    );
+    yield put(fetchOpinionsSuccess({opinionListData: payload}));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: {message: string} = errorResponse.response.data;
+      yield put(fetchOpinionsFailed({error: errorMessage.message}));
+    }
+  }
+}
+
+export function* fetchOpinionsList(action: FetchOpinionsType) {
+  try {
+    const payload: FetchOpinionsSuccessPayloadType = yield call(
+      fetchOpinionsListApi,
       action.payload,
     );
     yield put(fetchOpinionsSuccess({opinionListData: payload}));
@@ -40,7 +56,7 @@ export function* fetchWriterOpinions(action: FetchWriterOpinionsType) {
 }
 
 function* opinionsSaga() {
-  yield all([takeLatest(FETCH_OPINIONS, fetchOpinions)]);
+  yield all([takeLatest(FETCH_OPINIONS, fetchOpinionsList)]);
   yield all([takeLatest(FETCH_WRITER_OPINIONS, fetchWriterOpinions)])
 }
 

@@ -11,6 +11,7 @@ import {
   FetchWriterOpinionsSuccessType,
   EmptyWriterOpinionDataType,
   EmptyOpinionsDataType,
+  OpinionsListBodyGet,
 } from 'src/redux/opinions/types';
 import {
   EMPTY_OPINION_DATA,
@@ -23,7 +24,7 @@ import {
   FETCH_WRITER_OPINIONS_SUCCESS,
 } from './actionTypes';
 
-export const fetchOpinions = (payload: OpinionsBodyGet) => {
+export const fetchOpinions = (payload: OpinionsListBodyGet) => {
   return {
     type: FETCH_OPINIONS,
     payload,
