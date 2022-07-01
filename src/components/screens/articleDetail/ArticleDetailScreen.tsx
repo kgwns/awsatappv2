@@ -249,11 +249,11 @@ export const ArticleDetailScreen = ({
     emptyAllData();
     if (isFocused) {
       recordLogEvent('Article_Details_Screen', { articleId: currentNId });
-      if (isDimensionChanged && isIOS) {
+      if (isDimensionChanged) {
         getArticleDetail(currentNId)
       } else if (isEdgePortrait && isIOS) {
         getArticleDetail(currentNId)
-      } else if (!isIOS && isDimensionChanged) {
+      } else if (route.params.isRelatedArticle) {
         getArticleDetail(currentNId)
       }
     }
