@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import { isTab, normalize, screenWidth} from 'src/shared/utils';
+import { isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
 import {Divider, HtmlRenderer, Label} from '../atoms';
 import { Styles} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
@@ -93,7 +93,9 @@ export const OpinionArticleDetailWidget = ({
       Orientation.unlockAllOrientations();
       Orientation.lockToPortrait();
     }
-    navigation.goBack();
+    (isTab || isIOS) ? setTimeout(() => {
+      navigation.goBack()
+    },50) : navigation.goBack()
   };
 
   const timeFormat = dateTimeAgo(data.created_export)

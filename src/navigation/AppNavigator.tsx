@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { Keyboard, StyleSheet, TouchableOpacity } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ScreensConstants } from '../constants/ScreenConstants';
 import { Routes } from './index';
 import DrawerNavigator from './DrawerNavigator';
@@ -18,7 +18,7 @@ import { HeaderConstants } from '../constants/HeaderConstants';
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { fonts } from 'src/shared/styles/fonts'
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const hideHeader = {
   headerShown: false,
@@ -76,7 +76,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.HOME_SCREEN}
         component={DrawerNavigator}
-        options={hideHeader}
+        options={{...hideHeader, orientation: 'portrait_up'}}
       />
       <Stack.Screen
         name={ScreensConstants.SearchScreen}

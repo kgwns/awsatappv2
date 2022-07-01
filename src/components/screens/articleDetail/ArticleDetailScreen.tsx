@@ -1,5 +1,5 @@
-import { View, FlatList, StyleSheet, Animated, BackHandler, ScrollView, StatusBar } from 'react-native'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, ScrollView, StatusBar, useWindowDimensions } from 'react-native'
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
@@ -77,8 +77,12 @@ export const ArticleDetailScreen = ({
   const videoRefs = useRef<any[]>([]);
   const [bookmarkIndex, setBookmarkIndex] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
-
+  const [isEdgeUpdated, setIsEdgeUpdated] = useState(false)
+  const [isEdgePortrait, setIsEdgePortrait] = useState(false)
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
+  const [isDefaultDimension, setDefaultDimension] = useState(Dimensions.get('window').width)
+  const [isDimensionChanged, setIsDimensionChanged] = useState(false)
+  const dimensions = useWindowDimensions()
 
   var webviewRef: any[] =[React.createRef()];
 
@@ -173,7 +177,8 @@ export const ArticleDetailScreen = ({
     return () => {
       if (!route.params.isRelatedArticle) {
         Orientation.lockToPortrait();
-        Orientation.removeOrientationListener(updateScreenEdge);
+        Orientation.removeDeviceOrientationListener(updateScreenEdge);
+        Orientation.removeAllListeners()
       }
     };
   }, [])
@@ -232,13 +237,26 @@ export const ArticleDetailScreen = ({
     }
   }, [relatedArticleData,isFocused])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if(isDefaultDimension != dimensions.width && !isDimensionChanged){
+      setIsDimensionChanged(true)
+    } else if(!isEdgeUpdated && isEdgePortrait){
+      setIsDimensionChanged(true)
+    }
+  },[dimensions,isEdgeUpdated,isEdgePortrait])
+
+  useLayoutEffect(() => {
     emptyAllData();
     if (isFocused) {
       recordLogEvent('Article_Details_Screen', { articleId: currentNId });
-      getArticleDetail(currentNId)
+      if (isDimensionChanged && isIOS) {
+        getArticleDetail(currentNId)
+      } else if (isEdgePortrait && isIOS) {
+        getArticleDetail(currentNId)
+      } else if (!isIOS && isDimensionChanged) {
+        getArticleDetail(currentNId)
+      }
     }
-
     const makeEmptyArticleData = () => {
       const { hasHTMLContent } = route.params
       if(!hasHTMLContent) {
@@ -249,10 +267,15 @@ export const ArticleDetailScreen = ({
     return () => {
       makeEmptyArticleData()
     }
-  }, [isFocused])
+  }, [isFocused, isEdgePortrait, isDimensionChanged])
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     setOrientation(deviceOrientation);
+    if(!isEdgeUpdated && (deviceOrientation == 'LANDSCAPE-RIGHT' || deviceOrientation == 'LANDSCAPE-LEFT') && !isEdgePortrait){
+      setIsEdgeUpdated(true)
+   } else{
+     setIsEdgePortrait(true)
+   }
     const edge = getScreenEdge(deviceOrientation)
     setEdge(edge)
   }
@@ -371,7 +394,9 @@ export const ArticleDetailScreen = ({
       Orientation.unlockAllOrientations()
       Orientation.lockToPortrait()
     }
-    navigation.goBack()
+   (isTab && isIOS) ? setTimeout(() => {
+      navigation.goBack()
+    },50) : navigation.goBack()
   }
 
   useEffect(() => {
