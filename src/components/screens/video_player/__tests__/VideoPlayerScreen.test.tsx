@@ -24,7 +24,8 @@ describe('<VideoPlayerScreen>', () => {
     const route = {
       params:{
         videoUrl: 'https://content.jwplatform.com/videos/nzSJqVya-9mPGCDe7.mp4',
-        nid: 12
+        nid: '12',
+        mediaID: '12'
       },
     }
     const setPlayerUrl = jest.fn()

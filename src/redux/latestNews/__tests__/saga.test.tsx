@@ -1,3 +1,4 @@
+import { testSaga } from "redux-saga-test-plan";
 import { all, takeLatest } from "redux-saga/effects";
 import {
     REQUEST_TICKER_HERO_DATA,
@@ -98,38 +99,47 @@ describe('<LatestNewsSaga >', () => {
         jest.useFakeTimers()
     })
 
-    // describe('Check articleDetailSaga sage method', () => {
-    //     const genObject = articleDetailSaga();
-
-    //     it('should test all articleDetailSaga', () => {
-    //         const generator = genObject.next();
-    //         expect(generator.value).toEqual(
-    //             all([
-    //                     takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData),
-    //                     takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData),
-    //                     takeLatest(REQUEST_OPINION_LIST_DATA, fetchOpinionWidgetData),
-    //                     takeLatest(REQUEST_SECTION_COMBO_ONE, fetchSectionCombo),
-    //                     takeLatest(REQUEST_SECTION_COMBO_TWO, fetchSectionCombo),
-    //                     takeLatest(REQUEST_SECTION_COMBO_THREE, fetchSectionCombo),
-    //                     takeLatest(REQUEST_SECTION_COMBO_FOUR, fetchSectionCombo),
-    //                     takeLatest(REQUEST_PODCAST_HOME_DATA, fetchPodcastHomeData),
-    //                     takeLatest(REQUEST_COVERAGE_BLOCK, fetchCoverageBlockData),
-    //                     takeLatest(REQUEST_FEATURED_ARTICLE_BLOCK, fetchFeaturedArticleBlockData),
-    //                     takeLatest(REQUEST_HORIZONTAL_ARTICLE_BLOCK, fetchHorizontalBlockData),
-    //                     takeLatest(REQUEST_SECTION_COMBO_FIVE, fetchSectionCombo),
-    //                     takeLatest(REQUEST_SECTION_COMBO_SIX, fetchSectionCombo),
-    //                     takeLatest(REQUEST_SECTION_COMBO_SEVEN, fetchSectionCombo),
-    //                     takeLatest(REQUEST_EDITORS_CHOICE_DATA, fetchEditorsChoiceData),
-    //                     takeLatest(REQUEST_SPOTLIGHT_COMBO,fetchSpotlightData),
-    //                     takeLatest(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,fetchSpotlightArticleSection),
-    //             ])
-    //         );
-    //     });
-
-    //     it('should be done on next iteration', () => {
-    //         expect(genObject.next().done).toBeTruthy();
-    //     });
-    // })
+    describe('Test articleDetailSaga  saga', () => {
+        it('fire on articleDetailSaga', () => {
+          testSaga(articleDetailSaga)
+            .next()
+            .all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)])
+            .next()
+            .all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)])
+            .next()
+            .all([takeLatest(REQUEST_OPINION_LIST_DATA, fetchOpinionWidgetData)])
+            .next()
+            .all([takeLatest(REQUEST_SECTION_COMBO_ONE, fetchSectionCombo)])
+            .next()
+            .all([takeLatest(REQUEST_SECTION_COMBO_TWO, fetchSectionCombo)])
+            .next()
+            .all([takeLatest(REQUEST_SECTION_COMBO_THREE, fetchSectionCombo)])
+            .next()
+            .all([takeLatest(REQUEST_SECTION_COMBO_FOUR, fetchSectionCombo)])
+            .next()
+            .all([takeLatest(REQUEST_PODCAST_HOME_DATA, fetchPodcastHomeData)])
+            .next()
+            .all([takeLatest(REQUEST_COVERAGE_BLOCK, fetchCoverageBlockData)])
+            .next()
+            .all([takeLatest(REQUEST_FEATURED_ARTICLE_BLOCK, fetchFeaturedArticleBlockData)])
+            .next()
+            .all([takeLatest(REQUEST_HORIZONTAL_ARTICLE_BLOCK, fetchHorizontalBlockData)])
+            .next()
+            .all([takeLatest(REQUEST_SECTION_COMBO_FIVE, fetchSectionCombo)])
+            .next()
+            .all([takeLatest(REQUEST_SECTION_COMBO_SIX, fetchSectionCombo)])
+            .next()
+            .all([takeLatest(REQUEST_SECTION_COMBO_SEVEN, fetchSectionCombo)])
+            .next()
+            .all([takeLatest(REQUEST_EDITORS_CHOICE_DATA, fetchEditorsChoiceData)])
+            .next()
+            .all([takeLatest(REQUEST_SPOTLIGHT_COMBO,fetchSpotlightData)])
+            .next()
+            .all([takeLatest(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,fetchSpotlightArticleSection)])
+            .finish()
+            .isDone();
+        });
+    });
 
     describe('Check Latest news saga method', () => {
         const genObject = articleDetailSaga();
@@ -365,6 +375,114 @@ describe('<LatestNewsSaga >', () => {
             })
             genObject.next()
             genObject.throw(errorResponse)
+        })
+
+        describe('fetchPodcastHomeData', () => {
+            it('check fetchPodcastHomeData success', () => {
+                const genObject = fetchPodcastHomeData()
+                genObject.next(sampleResponse)
+                genObject.next(sampleResponse)
+            })
+    
+            it('check fetchPodcastHomeData failed', () => {
+                const genObject = fetchPodcastHomeData()
+                genObject.next()
+                genObject.throw(errorResponse)
+            })
+        })
+
+        describe('fetchCoverageBlockData', () => {
+            it('check fetchCoverageBlockData success', () => {
+                const genObject = fetchCoverageBlockData()
+                genObject.next(sampleResponse)
+                genObject.next(sampleResponse)
+            })
+    
+            it('check fetchPodcastHomeData failed', () => {
+                const genObject = fetchCoverageBlockData()
+                genObject.next()
+                genObject.throw(errorResponse)
+            })
+        })
+
+        describe('fetchEditorsChoiceData', () => {
+            it('check fetchEditorsChoiceData success', () => {
+                const genObject = fetchEditorsChoiceData()
+                genObject.next(sampleResponse)
+                genObject.next(sampleResponse)
+            })
+    
+            it('check fetchEditorsChoiceData failed', () => {
+                const genObject = fetchEditorsChoiceData()
+                genObject.next()
+                genObject.throw(errorResponse)
+            })
+        })
+
+        describe('fetchFeaturedArticleBlockData', () => {
+            it('check fetchFeaturedArticleBlockData success', () => {
+                const genObject = fetchFeaturedArticleBlockData()
+                genObject.next(sampleResponse)
+                genObject.next(sampleResponse)
+            })
+    
+            it('check fetchFeaturedArticleBlockData failed', () => {
+                const genObject = fetchFeaturedArticleBlockData()
+                genObject.next()
+                genObject.throw(errorResponse)
+            })
+        })
+
+        describe('fetchHorizontalBlockData', () => {
+            it('check fetchHorizontalBlockData success', () => {
+                const genObject = fetchHorizontalBlockData()
+                genObject.next(sampleResponse)
+                genObject.next(sampleResponse)
+            })
+    
+            it('check fetchHorizontalBlockData failed', () => {
+                const genObject = fetchHorizontalBlockData()
+                genObject.next()
+                genObject.throw(errorResponse)
+            })
+        })
+
+        describe('fetchSpotlightData', () => {
+            it('check fetchSpotlightData success', () => {
+                const genObject = fetchSpotlightData()
+                genObject.next(sampleResponse)
+                genObject.next(sampleResponse)
+            })
+    
+            it('check fetchSpotlightData failed', () => {
+                const genObject = fetchSpotlightData()
+                genObject.next()
+                genObject.throw(errorResponse)
+            })
+        })
+
+        describe('fetchSpotlightArticleSection', () => {
+            it('check fetchSpotlightArticleSection success', () => {
+                const genObject = fetchSpotlightArticleSection({
+                    type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+                    payload: {
+                        items_per_page: 10, page: 0, id: 0
+                    }
+                })
+                genObject.next(sampleResponse)
+                genObject.next(sampleResponse)
+            })
+    
+            it('check fetchSpotlightArticleSection failed', () => {
+                const genObject = fetchSpotlightArticleSection({
+                    type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+                    payload: {
+                        items_per_page: 10, page: 0, id: 0
+                    }
+                })
+                genObject.next()
+                genObject.throw(errorResponse)
+            })
         })
     })
 })
