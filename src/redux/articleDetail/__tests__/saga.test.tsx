@@ -1,6 +1,6 @@
 import { all, takeLatest } from "redux-saga/effects";
-import { EMPTY_DATA, REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_SECTION, REQUEST_RELATED_ARTICLE, REQUEST_RICH_ARTICLE_READ_ALSO } from "../actionType";
-import articleDetailSaga, { fetchArticleDetail, fetchRelatedArticle, emptyData, fetchArticleSection, getRichReadAlsoInfo } from "../sagas";
+import { EMPTY_DATA, REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_SECTION, REQUEST_RELATED_ARTICLE, REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION, REQUEST_RICH_ARTICLE_READ_ALSO } from "../actionType";
+import articleDetailSaga, { fetchArticleDetail, fetchRelatedArticle, emptyData, fetchArticleSection, getRichReadAlsoInfo, fetchRichHTMLContentBundle, fetchRichHTMLOpinionsBundle } from "../sagas";
 
 const sampleResponse = {
     "rows": [
@@ -57,6 +57,10 @@ const sampleResponse = {
         "current_page": null,
         "items_per_page": 1
     }
+}
+
+const HTMLOpinionsData = {
+    opinionData: {}
 }
 
 const errorResponse = {
@@ -193,6 +197,56 @@ describe('<Article Detail Saga >', () => {
                     page: 1,
                     items_per_page:10,
                     current_nid: 1,
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+    })
+
+    describe('Related fetchRichHTMLContentBundle', () => {
+        it('check fetchRichHTMLContentBundle success', () => {
+            const genObject = fetchRichHTMLContentBundle({
+                type: REQUEST_RICH_ARTICLE_CONTENT,
+                payload: {
+                    nid: 12
+                }
+            })
+            genObject.next(sampleResponse)
+            genObject.next(sampleResponse)
+        })
+
+
+        it('check fetchRichHTMLContentBundle failed', () => {
+            const genObject = fetchRichHTMLContentBundle({
+                type: REQUEST_RICH_ARTICLE_CONTENT,
+                payload: {
+                    nid: 12
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+    })
+
+    describe('Related fetchRichHTMLOpinionsBundle', () => {
+        it('check fetchRichHTMLOpinionsBundle success', () => {
+            const genObject = fetchRichHTMLOpinionsBundle({
+                type: REQUEST_RICH_ARTICLE_OPINION,
+                payload: {
+                    nid: 12
+                }
+            })
+            genObject.next(HTMLOpinionsData)
+            genObject.next(HTMLOpinionsData)
+        })
+
+
+        it('check fetchRichHTMLOpinionsBundle failed', () => {
+            const genObject = fetchRichHTMLOpinionsBundle({
+                type: REQUEST_RICH_ARTICLE_OPINION,
+                payload: {
+                    nid: 12
                 }
             })
             genObject.next()

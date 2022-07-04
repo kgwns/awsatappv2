@@ -25,7 +25,8 @@ jest.mock("src/hooks/useAppPlayer", () => ({
 describe('<VideoPlayerControl>', () => {
   let instance: RenderAPI;
   const url= "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842";
-  const sampleData: any = [
+  const sampleData: any = {current :
+    [
     {
       body: 'example',
       title: 'example',
@@ -62,7 +63,7 @@ describe('<VideoPlayerControl>', () => {
       blockName: 'example',
       position: 'example',
     },
-  ]
+  ]}
   
   const mockFunction = jest.fn();
   const setCurrentTime = mockFunction;
@@ -86,7 +87,7 @@ describe('<VideoPlayerControl>', () => {
     (useState as jest.Mock).mockImplementation(() => [true, setInitialPlay]);
     (useState as jest.Mock).mockImplementation(() => ['contain', setScreenType]);
 
-    const component = <VideoPlayerControl url={url} paused={true}/>;
+    const component = <VideoPlayerControl url={url} paused={true} videoRefs={sampleData}/>;
     instance = render(component);
   });
 
@@ -95,11 +96,11 @@ describe('<VideoPlayerControl>', () => {
     instance.unmount();
   });
 
-  xit('should render VideoPlayerControl component', () => {
+  it('should render VideoPlayerControl component', () => {
     expect(instance).toBeDefined();
   });
 
-  xit('Should call VideoPlayerControlId', () => {
+  it('Should call VideoPlayerControlId', () => {
     const element = instance.getByTestId('VideoPlayerControlId');
     fireEvent(element, 'onPress');
     expect(element).toBeTruthy();
