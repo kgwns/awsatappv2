@@ -1,0 +1,150 @@
+import axios, { AxiosError } from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import { LatestArticleBodyGet, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
+import { ArticleDetailBodyGet, ArticleSectionBodyGet, RelatedArticleBodyGet } from '~/redux/articleDetail/types';
+import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from '../articleDetailService';
+import { requestLatestArticle, requestSectionCombo } from '../latestTabService';
+
+describe('Test Article Detail Services', () => {
+    const mock = new MockAdapter(axios);
+    beforeEach(() => {
+        jest.useFakeTimers('legacy');
+    })
+    afterEach(() => {
+        mock.reset();
+    });
+    describe('Check requestLatestArticle method', () => {
+        const requestObject: LatestArticleBodyGet = {
+            items_per_page: 10,
+            page: 0,
+            offset: 0
+        };
+
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return requestLatestArticle(requestObject).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+        it('test when response code is 500', () => {
+            mock.onGet().reply(500, {
+                error: 'Something Went Wrong',
+            });
+
+            return requestLatestArticle(requestObject).catch((error: unknown) => {
+                const errorResponse = error as AxiosError;
+                expect(errorResponse.response?.status).toEqual(500);
+            });
+        });
+    })
+
+    describe('Check requestLatestArticle method', () => {
+        const requestObject: RequestSectionComboBodyGet = {
+            id: 11
+        };
+
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return requestSectionCombo(requestObject).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+        it('test when response code is 500', () => {
+            mock.onGet().reply(500, {
+                error: 'Something Went Wrong',
+            });
+
+            return requestSectionCombo(requestObject).catch((error: unknown) => {
+                const errorResponse = error as AxiosError;
+                expect(errorResponse.response?.status).toEqual(500);
+            });
+        });
+    })
+
+    describe('Check requestArticleDetail method', () => {
+        const requestObject: ArticleDetailBodyGet = {
+            nid: 123
+        };
+
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return requestArticleDetail(requestObject).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+        it('test when response code is 500', () => {
+            mock.onGet().reply(500, {
+                error: 'Something Went Wrong',
+            });
+
+            return requestArticleDetail(requestObject).catch((error: unknown) => {
+                const errorResponse = error as AxiosError;
+                expect(errorResponse.response?.status).toEqual(500);
+            });
+        });
+    })
+
+    describe('Check requestLatestArticle method', () => {
+        const requestObject: RelatedArticleBodyGet = {
+            tid: 11
+        };
+
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return requestRelatedArticle(requestObject).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+        it('test when response code is 500', () => {
+            mock.onGet().reply(500, {
+                error: 'Something Went Wrong',
+            });
+
+            return requestRelatedArticle(requestObject).catch((error: unknown) => {
+                const errorResponse = error as AxiosError;
+                expect(errorResponse.response?.status).toEqual(500);
+            });
+        });
+    })
+
+    describe('Check requestArticleSection method', () => {
+        const requestObject: ArticleSectionBodyGet = {
+            id: 11,
+            page: 1,
+            items_per_page: 10,
+            current_nid: 12
+        };
+
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return requestArticleSection(requestObject).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        }, 10000);
+        it('test when response code is 500', () => {
+            mock.onGet().reply(500, {
+                error: 'Something Went Wrong',
+            });
+
+            return requestArticleSection(requestObject).catch((error: unknown) => {
+                const errorResponse = error as AxiosError;
+                expect(errorResponse.response?.status).toEqual(500);
+            });
+        });
+    })
+});

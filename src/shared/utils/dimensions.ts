@@ -1,11 +1,18 @@
-import {Dimensions, Platform, PixelRatio} from 'react-native';
+import { Dimensions, Platform, PixelRatio } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 
-const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
+let { width, height } = Dimensions.get('window');
+const screenWidth = Math.min(width, height);
+const screenHeight = Math.max(width, height);
 
 const isIOS = Platform.OS === 'ios';
+const isAndroid = Platform.OS === 'android'
+const isNotchDevice = DeviceInfo.hasNotch();
 
-const scale = screenWidth / 375;
-const scaleHeight = screenHeight / 667;
+export const isTab = DeviceInfo.isTablet();
+
+const scale = isTab ? screenWidth / 768 : screenWidth / 375;
+const scaleHeight = isTab ? screenHeight / 1024 : screenHeight / 667;
 
 type sizeProp = number;
 const normalize = (size: sizeProp, based = 'width') => {
@@ -16,4 +23,8 @@ const normalize = (size: sizeProp, based = 'width') => {
   return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2;
 };
 
-export {screenWidth, screenHeight, isIOS, normalize};
+const normalizeBy320 = (size: sizeProp, based = 'width') => {
+  return size / 320 * (based === 'height' ? scaleHeight : screenWidth)
+}
+
+export { screenWidth, screenHeight, isIOS, isAndroid, isNotchDevice, normalize, normalizeBy320 };

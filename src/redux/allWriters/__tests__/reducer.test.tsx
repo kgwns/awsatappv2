@@ -1,0 +1,173 @@
+import {allWritersActions} from '../action';
+import {FETCH_ALL_SELECTED_WRITERS_DETAILS, FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR, FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS, FETCH_ALL_WRITERS, FETCH_ALL_WRITERS_ERROR, FETCH_ALL_WRITERS_SUCCESS, GET_SELECTED_AUTHOR, GET_SELECTED_AUTHOR_ERROR, GET_SELECTED_AUTHOR_SUCCESS, REMOVE_AUTHOR, REMOVE_AUTHOR_ERROR, REMOVE_AUTHOR_SUCCESS, SEND_SELECTED_AUTHOR, SEND_SELECTED_AUTHOR_ERROR, SEND_SELECTED_AUTHOR_SUCCESS} from '../actionTypes';
+import allWriters from '../reducer';
+import {AllWritersState} from '../types';
+
+describe('allWriters reducer', () => {
+  let initialState: AllWritersState;
+
+  beforeEach(() => {
+    initialState = {
+      allWritersData: [],
+      error: '',
+      isLoading: false,
+      sendAuthorInfo: {},
+      selectedAuthorsData:{},
+      allSelectedWritersDetailsList:[],
+      selectedAuthorLoading: false,
+      selectedDataFromOnboard: [],
+    };
+  });
+
+  test('fetchAllWritersSuccess', () => {
+    const testData = [{}];
+    initialState.isLoading = true;
+    const nextState = allWriters(
+      initialState,
+      allWritersActions.fetchAllWritersSuccess({
+        allWritersListData: testData,
+      }),
+    );
+
+    expect(nextState.isLoading).toBeFalsy();
+  });
+
+  test('fetchAllWritersFailure', () => {
+    const testError = 'some-error';
+    initialState.isLoading = true;
+    const nextState = allWriters(
+      initialState,
+      allWritersActions.fetchAllWritersFailed({
+        error: testError,
+      }),
+    );
+
+    expect(nextState.isLoading).toBeFalsy();
+    expect(nextState.error).toEqual(testError);
+  });
+
+  test('Check loading state when allWriters FETCH_ALL_WRITERS request API', () => {
+    const nextState = allWriters(initialState, {
+      type: FETCH_ALL_WRITERS,
+      payload: {items_per_page: 10},
+    });
+    expect(nextState.isLoading).toBe(true);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR_SUCCESS request API', () => {
+    const nextState = allWriters(initialState, {
+      type: FETCH_ALL_WRITERS_SUCCESS,
+      payload: {allWritersListData: {}},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR_ERROR request API', () => {
+    const nextState = allWriters(initialState, {
+      type: FETCH_ALL_WRITERS_ERROR,
+      payload: {error: 'sample error'},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR request API', () => {
+    const nextState = allWriters(initialState, {
+      type: SEND_SELECTED_AUTHOR,
+      payload: {tid: '123',
+      isList: true},
+    });
+    expect(nextState.isLoading).toBe(true);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR_SUCCESS request API', () => {
+    const nextState = allWriters(initialState, {
+      type: SEND_SELECTED_AUTHOR_SUCCESS,
+      payload: {saveData: {}},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR_ERROR request API', () => {
+    const nextState = allWriters(initialState, {
+      type: SEND_SELECTED_AUTHOR_ERROR,
+      payload: {error: 'sample error'},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR request API', () => {
+    const nextState = allWriters(initialState, {
+      type: GET_SELECTED_AUTHOR,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR_SUCCESS request API', () => {
+    const nextState = allWriters(initialState, {
+      type: GET_SELECTED_AUTHOR_SUCCESS,
+      payload: {selectedAuthorsData: {}},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR_ERROR request API', () => {
+    const nextState = allWriters(initialState, {
+      type: GET_SELECTED_AUTHOR_ERROR,
+      payload: {error: 'sample error'},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR request API', () => {
+    const nextState = allWriters(initialState, {
+      type: REMOVE_AUTHOR,
+      payload:{
+        tid: '12'
+      }
+    });
+    expect(nextState.isLoading).toBe(true);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR_SUCCESS request API', () => {
+    const nextState = allWriters(initialState, {
+      type: REMOVE_AUTHOR_SUCCESS,
+      payload: {removeData: {}},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR_ERROR request API', () => {
+    const nextState = allWriters(initialState, {
+      type: REMOVE_AUTHOR_ERROR,
+      payload: {error: 'sample error'},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR request API', () => {
+    const nextState = allWriters(initialState, {
+      type: FETCH_ALL_SELECTED_WRITERS_DETAILS,
+      payload:{
+        tid: '12',
+        items_per_page: 10,
+      }
+    });
+    expect(nextState.isLoading).toBe(true);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR_SUCCESS request API', () => {
+    const nextState = allWriters(initialState, {
+      type: FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS,
+      payload: {allSelectedWritersDetails: {}},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SEND_SELECTED_AUTHOR_ERROR request API', () => {
+    const nextState = allWriters(initialState, {
+      type: FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR,
+      payload: {error: 'sample error'},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+});

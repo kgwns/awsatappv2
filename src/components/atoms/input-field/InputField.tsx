@@ -35,13 +35,15 @@ interface InputFieldProps {
   style?: StyleProp<ViewStyle>;
   maxLength?: number;
   autoFocus?: boolean;
+  testID?: string;
 }
 
 export const InputField: FunctionComponent<InputFieldProps> = ({
   label,
   value = '',
   onChangeText,
-  onSubmitEditing,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onSubmitEditing = () => {},
   keyboardType = 'default',
   error = '',
   icon,
@@ -49,6 +51,7 @@ export const InputField: FunctionComponent<InputFieldProps> = ({
   style,
   maxLength = 30,
   autoFocus = false,
+  testID,
   ...props
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -66,17 +69,12 @@ export const InputField: FunctionComponent<InputFieldProps> = ({
     }
   };
 
-  const handleOnSubmitEditing = (text: string) => {
-    if (onSubmitEditing) {
-      onSubmitEditing(text);
-    }
-  };
-
   return (
     <View style={[container, style]}>
       <Label style={isFocused ? activeLabelStyle : labelStyle}>{label}</Label>
       <View style={inputContainer}>
         <TextInput
+          testID={testID}
           autoFocus={autoFocus}
           value={value.toString()}
           style={textInputStyle}
@@ -84,9 +82,7 @@ export const InputField: FunctionComponent<InputFieldProps> = ({
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChangeText={onChangeText}
-          onSubmitEditing={event => {
-            handleOnSubmitEditing(event.nativeEvent.text);
-          }}
+          onSubmitEditing={() => onSubmitEditing(value.toString())}
           keyboardType={keyboardType}
           secureTextEntry={!!isPasswordVisible}
           maxLength={maxLength}
@@ -95,11 +91,11 @@ export const InputField: FunctionComponent<InputFieldProps> = ({
 
         {isPassword ? (
           <TouchableOpacity
-            onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-          >
+            testID={`${testID}_passwordVisibilityID`}
+            onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
             <Image
               style={!isPasswordVisible ? iconStyle : iconGreyStyle}
-              name={'homeIcon'}
+              name={icon}
               size={normalize(24)}
               resizeMode="contain"
             />

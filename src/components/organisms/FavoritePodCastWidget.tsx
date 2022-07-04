@@ -1,0 +1,125 @@
+import React, { useEffect, useState } from 'react'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { isTab, normalize, screenWidth } from 'src/shared/utils'
+import { Divider, Image } from 'src/components/atoms'
+import { Label, LabelTypeProp } from 'src/components/atoms'
+import { Styles } from 'src/shared/styles'
+import { ImageResize } from 'src/shared/styles/text-styles';
+import { DetailPodCastFooter } from 'src/components/molecules'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { useTranslation } from 'react-i18next'
+import { convertSecondsToHMS, decodeHTMLTags, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities'
+import { CustomThemeType } from 'src/shared/styles/colors'
+import { fonts } from 'src/shared/styles/fonts'
+import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService'
+
+
+export interface ArticlePodCastWidgetProps {
+    imageUrl: string
+    title: string
+    body: string
+    podcastHeader: string
+    allEpisodes: string
+    tagName: string
+    timeDuration: string
+    rightTitle: string,
+    isBookmarked: boolean,
+    onPressBookmark: () => void,
+    onPress: () => void,
+    spreakerEpisode: string
+}
+
+const ArticlePodCastWidget = ({
+    imageUrl,
+    title,
+    body,
+    spreakerEpisode,
+    rightTitle,
+    isBookmarked,
+    onPressBookmark,
+    onPress
+}: ArticlePodCastWidgetProps) => {
+    const [t] = useTranslation()
+    const style = useThemeAwareObject(customStyle)
+    const { themeData } = useTheme()
+    let [duration, setDurartion] = useState(0)
+
+    useEffect(() => {
+        getPodcastDuration()
+    },[])
+    
+    const getPodcastDuration = async () => {
+            if(isNotEmpty(spreakerEpisode)){
+              try {
+                let response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: spreakerEpisode })
+                if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
+                  let episode = response.response.episode
+                  setDurartion( Math.floor(episode.duration / 1000) )
+                }
+              }catch(error){
+                setDurartion(0)
+              }
+        }
+    }
+
+    return (
+        <TouchableOpacity style={style.container} onPress={onPress}>
+            <View style={style.topViewContainer}>
+                <View style={style.leftContainer}>
+                    <Label labelType={LabelTypeProp.h1} children={title} color={themeData.primaryBlack} style={style.title} numberOfLines={1} />
+                    <Label labelType={LabelTypeProp.h3} children={decodeHTMLTags(body)} color={themeData.secondaryDavyGrey} style={style.body} numberOfLines={2} />
+                </View>
+                <Image style={style.imageContainer} url={imageUrl} resizeMode={ImageResize.COVER} />
+            </View>
+            <DetailPodCastFooter leftTitle={t('podcastHome.listen_to_podcast')}
+                leftTitleColor={themeData.primary}
+                leftTimeLabel={convertSecondsToHMS(duration)}
+                leftTimeLabelColor={Styles.color.spanishGray}
+                rightTitle={rightTitle}
+                rightIconColor={themeData.primaryBlack}
+                rightTitleColor={themeData.primaryBlack}
+                isBookmarked={isBookmarked}
+                onPressBookmark={onPressBookmark}
+                onPress={onPress}
+            />
+            <Divider style={style.divider} />
+        </TouchableOpacity>
+    )
+}
+
+export default ArticlePodCastWidget
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: normalize(10),
+        paddingHorizontal: (isTab ? 0.025 : 0.04) * screenWidth
+    },
+    topViewContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    imageContainer: {
+        width: normalize(92),
+        height: normalize(73)
+    },
+    title: {
+        fontSize: 16,
+        lineHeight: 36,
+        fontFamily: fonts.AwsatDigitalBetav10_Bold
+    },
+    body: {
+        fontSize: 14,
+        lineHeight: 20,
+        fontFamily: fonts.Effra_Arbc_Regular
+    },
+    leftContainer: {
+        flex: 1,
+        paddingRight: normalize(10),
+    },
+    divider: {
+        height: 1,
+        backgroundColor: theme.dividerColor
+    },
+})

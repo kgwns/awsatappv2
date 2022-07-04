@@ -24,6 +24,7 @@ export const CheckBox: FunctionComponent<CheckBoxProps> = ({
   const [isSelected, setIsSelected] = useState(selected);
   return (
     <TouchableWithoutFeedback
+    testID="checkBoxBtn"
       style={containerStyle}
       onPress={() => {
         setIsSelected(!isSelected);

@@ -1,5 +1,9 @@
 apply plugin: "com.android.application"
 
+apply plugin: "com.google.gms.google-services"
+
+apply plugin: 'com.google.firebase.crashlytics'
+
 import com.android.build.OutputFile
 
 /**
@@ -130,11 +134,15 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
-        applicationId "com.awsatapp"
+        applicationId "com.knowledgeview.tablet.aaa"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
+        versionCode 4
         versionName "1.0"
     }
     splits {
@@ -152,6 +160,14 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            }
+        }
     }
     buildTypes {
         debug {
@@ -165,7 +181,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -189,12 +205,19 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-analytics:18.0.1'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
+
+    implementation project(':react-native-orientation-locker')
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.core:core:1.6.0'
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }
@@ -215,6 +238,18 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    implementation project(':lottie-react-native')
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.liulishuo.filedownloader:library:1.7.7'
+    //pdf viewer
+    implementation 'es.voghdev.pdfviewpager:library:1.0.2'
+    implementation 'com.bogdwellers:pinchtozoom:0.1'
+    //Volley & glide
+    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    implementation project(':react-native-inappbrowser-reborn')
+
 }
 
 // Run this once to be able to run the application with BUCK

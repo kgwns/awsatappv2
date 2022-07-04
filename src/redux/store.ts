@@ -9,6 +9,11 @@ import logger from 'redux-logger';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  whitelist: [
+    'login',
+    'appCommon',
+    'search'
+  ]
 };
 
 const persistedReducer = persistReducer<any, any>(persistConfig, rootReducer);

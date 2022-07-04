@@ -5,12 +5,13 @@ module.exports = {
   testPathIgnorePatterns: ['src/data.ts', 'src/i18n.ts'],
   coveragePathIgnorePatterns: ['src/data.ts', 'src/i18n.ts'],
   transformIgnorePatterns: [
-    'node_modules/(?!(@react-native-community|@react-native|redux-persist|react-native|@react-navigation|redux-flipper|@react-navigation/native))',
+    'node_modules/(?!(@react-native-community|@react-native|redux-persist|react-native|@react-navigation|redux-flipper|@react-navigation/native|react-native-device-info|react-native-splash-screen|toggle-switch-react-native|react-native-image-crop-picker|@invertase/react-native-apple-authentication|react-native-adjust|react-native-adjust-oaid|react-native-restart))',
   ],
   testRegex: '/__tests__/.+\\.test\\.tsx?$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '^src(\\/?.*)$': '<rootDir>/src/$1',
+    '\\.svg': '<rootDir>/__mocks__/svgMock.js'
   },
   coverageThreshold: {
     global: {

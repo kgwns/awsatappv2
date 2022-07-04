@@ -1,0 +1,94 @@
+import { View, FlatList, ListRenderItem, StyleSheet } from 'react-native'
+import React from 'react'
+import { Label } from 'src/components/atoms'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { CustomThemeType } from 'src/shared/styles/colors'
+import { isIOS, isNotEmpty, isTab, normalize } from 'src/shared/utils'
+import { ScreensConstants } from 'src/constants'
+import { useNavigation } from '@react-navigation/native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { MainSectionBlockType } from '~/redux/latestNews/types'
+import { fonts } from 'src/shared/styles/fonts'
+import { decode } from 'html-entities'
+import FixedTouchable from 'src/shared/utils/FixedTouchable'
+
+
+export type TopHeadLineNewsProps = {
+    data: MainSectionBlockType[]
+}
+
+export const TopHeadLineNews = ({
+    data
+}: TopHeadLineNewsProps) => {
+    const navigation = useNavigation<StackNavigationProp<any>>()
+    const style = useThemeAwareObject(customStyle)
+
+    const onPress = (nid: string) => {
+        if (isNotEmpty(nid)) navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+    }
+
+    const renderItem: ListRenderItem<MainSectionBlockType> = ({ item }) => {
+        return (
+            <FixedTouchable activeOpacity={0.7} style={style.rowItem}
+                onPress={() => onPress(item.nid)}>
+                <View style={style.rowContainer}>
+                    <View style={style.circleContainer}>
+                        <View style={style.circle} />
+                    </View>
+                    <View style={style.titleContainer}>
+                        <Label children={decode(item.title)} style={style.title} />
+                    </View>
+                </View>
+            </FixedTouchable>
+        )
+
+    }
+    return (
+        <View style={[style.container, isTab && {alignItems: 'center'}]}>
+            <FlatList
+                keyExtractor={(_, index) => index.toString()}
+                data={data}
+                renderItem={renderItem}
+                showsVerticalScrollIndicator={false}
+            />
+        </View>
+    )
+}
+
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
+    container: {
+        paddingBottom: isTab ? 0 : normalize(15),
+        paddingTop: isTab ? normalize(10) : 0,
+        marginHorizontal: isTab ? 15 : 0
+    },
+    rowItem: {
+        justifyContent: 'center',
+        alignItems:'center'
+    },
+    circle: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: theme.primaryBlack,
+        marginTop: isIOS ?  isTab ? normalize(5) : normalize(9) : normalize(12),
+        marginLeft: 2,
+        marginRight: isTab ? 10 : 0,
+    },
+    title: {
+        fontSize: 15,
+        lineHeight: 24,
+        textAlign: isTab ? 'center' : 'left',
+        color: theme.primaryBlack,
+        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    },
+    circleContainer: {
+        width: isTab ? 'auto' :'5%'
+    },
+    titleContainer: {
+        width:isTab ? 'auto' :'94%'
+    },
+    rowContainer: {
+        flexDirection: 'row',
+        paddingVertical: normalize(7),
+    }
+})

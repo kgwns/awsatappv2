@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#19343F</color>
+    <color name="colorPrimaryDark">#19343F</color>
+    <color name="colorAccent">#A5C0A7</color>
+    <color name="colorSplash">#EDF0F2</color>
+    <color name="liveRed">#D23035</color>
+    <color name="invertedBg">#324650</color>
+
+
+    <color name="homeTabBackground">#d41c3743</color>
+    <color name="categoryTitle">#A6B2B7</color>
+    <color name="menuTextColor">#A6B2B7</color>
+    <color name="secondaryTextColor">#A6B2B7</color>
+
+    <color name="black">#000000</color>
+    <color name="hint_color">#808080</color>
+
+    <color name="category_selected_bg">#1f404d</color>
+
+    <color name="article_body">#4A4A4A</color>
+    <color name="author_container_bg">#fbfbfb</color>
+
+    <color name="opinion_username">#52717E</color>
+    <color name="toolbar_green">#2C8A82</color>
+    <color name="background_color">#070606</color>
+    <color name="list_background_color">#101010</color>
+    <color name="download_btn_label">#000000</color>
+    <color name="pdf_list_btn_label">#929898</color>
+    <color name="toolbar">#070606</color>
+    <color name="toolbar_title">#FFFFFF</color>
+    <color name="download_news_title">#2C8A82</color>
+    <color name="download_news_subtitle">#929898</color>
+    <color name="download_news_label">#000000</color>
+
+</resources>

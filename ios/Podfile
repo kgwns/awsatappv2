@@ -1,10 +1,24 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '11.0'
+platform :ios, '13.0'
+
+$RNFirebaseAnalyticsWithoutAdIdSupport = true # toggle this to true for the no-ad-tracking Analytics subspec
 
 target 'Awsatapp' do
   config = use_native_modules!
+  
+  # Pods For PDF Download Feature
+  pod 'SwiftyUserDefaults',         '~> 3.0'
+  pod 'SwiftyJSON',                 '~> 4.0'
+  pod 'Kingfisher',                 '~> 4.0'
+  pod 'ReachabilitySwift',          '~> 3.0'
+  pod 'Alamofire',                  '~> 4.7'
+  pod 'SwiftLocation',              '~> 3.2.3'
+  pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git', :commit => 'd860511'
+  pod 'CryptoSwift', :git => 'https://github.com/krzyzanowskim/CryptoSwift', :commit => '8742801'
+  pod 'DateToolsSwift', :git => 'https://github.com/MatthewYork/DateTools', :commit => '76ba8ba'
+  
 
   use_react_native!(
     :path => config[:reactNativePath],

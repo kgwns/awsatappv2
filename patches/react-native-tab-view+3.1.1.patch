@@ -1,0 +1,42 @@
+diff --git a/node_modules/react-native-tab-view/src/PanResponderAdapter.tsx b/node_modules/react-native-tab-view/src/PanResponderAdapter.tsx
+index 3d1964a..c70874a 100644
+--- a/node_modules/react-native-tab-view/src/PanResponderAdapter.tsx
++++ b/node_modules/react-native-tab-view/src/PanResponderAdapter.tsx
+@@ -80,7 +80,7 @@ export default function PanResponderAdapter<T extends Route>({
+       const offset = -index * layoutRef.current.width;
+ 
+       const { timing, ...transitionConfig } = DefaultTransitionSpec;
+-
++      onIndexChangeRef.current(index);
+       Animated.parallel([
+         timing(panX, {
+           ...transitionConfig,
+@@ -89,7 +89,6 @@ export default function PanResponderAdapter<T extends Route>({
+         }),
+       ]).start(({ finished }) => {
+         if (finished) {
+-          onIndexChangeRef.current(index);
+           pendingIndexRef.current = undefined;
+         }
+       });
+diff --git a/node_modules/react-native-tab-view/src/TabBar.tsx b/node_modules/react-native-tab-view/src/TabBar.tsx
+index f1137f4..95518e3 100644
+--- a/node_modules/react-native-tab-view/src/TabBar.tsx
++++ b/node_modules/react-native-tab-view/src/TabBar.tsx
+@@ -359,15 +359,8 @@ export default class TabBar<T extends Route> extends React.Component<
+             showsHorizontalScrollIndicator={false}
+             automaticallyAdjustContentInsets={false}
+             overScrollMode="never"
+-            contentContainerStyle={[
+-              styles.tabContent,
+-              scrollEnabled
+-                ? { width: tabBarWidth || tabBarWidthPercent }
+-                : styles.container,
+-              contentContainerStyle,
+-            ]}
+             scrollEventThrottle={16}
+-            onScroll={Animated.event(
++            onScroll={Platform.OS === 'android' && Animated.event(
+               [
+                 {
+                   nativeEvent: {

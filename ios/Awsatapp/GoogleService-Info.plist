@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>717375500993-tdfj1a2uaf96llfjt4ff71ag9rs98mfm.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.717375500993-tdfj1a2uaf96llfjt4ff71ag9rs98mfm</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBdZG7qAzLz7wC8ZsF0bUO491Zbe1yqXko</string>
+	<key>GCM_SENDER_ID</key>
+	<string>717375500993</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.srmg.ashaeqalawsat.iphoneapp</string>
+	<key>PROJECT_ID</key>
+	<string>asharqalawsat-android</string>
+	<key>STORAGE_BUCKET</key>
+	<string>asharqalawsat-android.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<true/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:717375500993:ios:dc18a340063ca9b6fa5a40</string>
+	<key>DATABASE_URL</key>
+	<string>https://asharqalawsat-android.firebaseio.com</string>
+</dict>
+</plist>

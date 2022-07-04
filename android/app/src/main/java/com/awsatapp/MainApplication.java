@@ -2,16 +2,29 @@ package com.awsatapp;
 
 import android.app.Application;
 import android.content.Context;
+
+import com.awsatapp.reactPackage.PDFPackage;
+import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.proyecto26.inappbrowser.RNInAppBrowserPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
+import com.facebook.react.modules.i18nmanager.I18nUtil;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.airbnb.android.react.lottie.LottiePackage;
 
 public class MainApplication extends Application implements ReactApplication {
+  public static FileDownloadSerialQueue fileDownloadSerialQueue;
+
+    private static MainApplication application;
+
+    public MainApplication getInstance() {
+        return application;
+    }
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -24,6 +37,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
+          packages.add(new LottiePackage());
+          packages.add(new PDFPackage());
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;
@@ -43,7 +58,13 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
+      application = this;
+      application.initialize();
+      SoLoader.init(this, /* native exopackage */ false);
+      I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
+      sharedI18nUtilInstance.forceRTL(this,true);
+      sharedI18nUtilInstance.allowRTL(this, true);
+
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 
@@ -77,4 +98,11 @@ public class MainApplication extends Application implements ReactApplication {
       }
     }
   }
+
+  public void initialize(){
+      fileDownloadSerialQueue = new FileDownloadSerialQueue();
+  }
+    public FileDownloadSerialQueue getPDFDownloadService() {
+        return fileDownloadSerialQueue;
+    }
 }

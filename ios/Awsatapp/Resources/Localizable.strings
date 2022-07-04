@@ -1,0 +1,25 @@
+/* News Archive view title */
+"NEWS ARCHIVE" = "الأرشيف";
+
+/* Alert title */
+"Please toggle use mobile data in settings to download" = "الرجاء تشغيل إستخدام بيانات هاتفك في إعدادات للتحميل";
+
+/* alert */
+"OK" = "موافق";
+
+/* Button title */
+"Download" = "تحميل";
+
+/* Button title */
+"Downloading..." = "جاري التحميل...";
+
+/* Button title */
+"Read Edition" = "إقرأ";
+
+/* Button title */
+"Edition" = "العدد";
+
+
+/* PDF Screen title */
+"PAPER NEWS PAPER" = "الصحيفة الورقية";
+

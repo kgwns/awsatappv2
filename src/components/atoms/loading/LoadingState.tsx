@@ -7,13 +7,11 @@ import {Styles} from 'src/shared/styles';
 export const LoadingState: FunctionComponent = () => {
   return (
     <View testID={'loading'} style={loadingStateStyle.container}>
-      <View style={loadingStateStyle.loadingContainer}>
         <ActivityIndicator
           testID={'activityIndicator'}
           size={'large'}
-          color={Styles.color.white}
+          color={Styles.color.greenishBlue}
         />
       </View>
-    </View>
   );
 };

@@ -1,0 +1,181 @@
+import React, {useState, useEffect} from 'react';
+import {TabView, TabBar } from 'react-native-tab-view';
+import {
+  OpinionScreen,
+  ScreenContainer,
+  VideoScreen,
+  PodcastProgram,
+  SectionStoryScreen,
+} from '..';
+import {horizontalEdge, isIOS, isNonEmptyArray, normalize} from 'src/shared/utils';
+import {
+  View,
+  Dimensions,
+  StyleSheet,
+  StatusBar,
+} from 'react-native';
+import {useTopMenu} from 'src/hooks';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import {CustomThemeType} from 'src/shared/styles/colors';
+import { Styles } from 'src/shared/styles';
+import { GameScreen } from '../games/GameScreen';
+import { TabWithBarItem } from 'src/components/molecules';
+import { MainSectionScreen } from 'src/components/screens';
+import { fonts } from 'src/shared/styles/fonts';
+
+export enum TabType {
+  opinion = 'opinion',
+  podcast = 'podcast',
+  video = 'video',
+  section = 'section',
+  games = 'games',
+  main = 'section-main-tab',
+}
+
+export const SectionsScreen = () => {
+  const {isLoading, topMenuData, fetchTopMenuRequest} = useTopMenu();
+  const styles = useThemeAwareObject(customStyle);
+
+  const [index, setIndex] = React.useState(0);
+  const [routes, setNewRoutes] = useState<any>([]);
+  const [hidePlayerVisibility, setHidePlayerVisibility] = useState<any>(false);
+
+  const renderScene = ({ route }: any) => {
+    const tabIndex = route.key.match(/\d+/g) || ['0'];
+
+    if (Math.abs(index - routes.indexOf(route)) > 2) {
+      return <View />;
+    }
+    
+    switch (route.keyName) {
+      case TabType.opinion:
+        return <OpinionScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}  />;
+      case TabType.podcast:
+        return <PodcastProgram currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>;
+      case TabType.video:
+        return <VideoScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>;
+      case TabType.games:
+        return <GameScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
+      case TabType.main:
+        return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} currentIndex={index} tabIndex={parseInt(tabIndex[0])} />
+      default:
+        return (
+          <SectionStoryScreen sectionId={route.sectionId} currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
+        );
+    }
+  }
+
+  useEffect(() => {
+    if(topMenuData.length > 0){
+      let newRoutesArray = topMenuData.map((item, index) => {
+        return {
+          key: `${index}${item.keyName}`,
+          title: item.tabName,
+          sectionId: item.sectionId,
+          keyName: item.keyName,
+        };
+      })
+      setNewRoutes(newRoutesArray)
+    }
+  }, [topMenuData])
+
+
+
+  useEffect(() => {
+    fetchTopMenuRequest();
+  }, []);
+
+  const _renderTabBar = (props: any) => {
+    return (
+      <TabBar
+        {...props}
+        scrollEnabled
+        indicatorStyle={styles.indicator}
+        style={styles.tabBar}
+        tabStyle={styles.tabBarStyle}
+        labelStyle={styles.label}
+        pressColor={'transparent'}
+        renderIndicator={() => null}
+        bounces={false}
+        renderTabBarItem={(item) => {
+          const number = item.key.match(/\d+/g) || '0';
+          const tabIndex = isNonEmptyArray(number) ? parseInt(number[0]) : 0
+
+          return <TabWithBarItem index={tabIndex}
+            key={tabIndex}
+            onPress={setIndex}
+            tabName={item.route.title || ''}
+            isSelected={tabIndex == item.navigationState.index}
+            labelFont={fonts.Effra_Arbc_Regular}
+          />
+        }}
+      />
+    );
+  };
+
+  const isPortrait = () => {
+    const dim = Dimensions.get('screen');
+    return dim.height >= dim.width;
+};
+
+  const tabsView = () => {
+    return (
+      <TabView
+        navigationState={{index, routes}}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        renderTabBar={_renderTabBar}
+        initialLayout={initialLayout}
+        style={styles.container}
+      />
+    );
+  };
+  return (
+    <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
+      {!isLoading && (
+        <View style={(isPortrait() && isIOS)? styles.orientationStyle : styles.scene} testID={'tabContent'}>
+         {routes.length > 0 && tabsView()}
+        </View>
+      )}
+    </ScreenContainer>
+  );
+};
+
+const initialLayout = {width: Dimensions.get('window').width};
+const { width : orientationWidth, height : orientationHeight } = Dimensions.get('window');
+const orientationStyleWidth = Math.min(orientationHeight, orientationWidth);
+
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
+  container: {
+    marginTop: isIOS ? StatusBar.currentHeight : 0,
+  },
+  scene: {
+    flex: 1,
+  },
+  tabBar: {
+    backgroundColor: theme.mainBackground,
+    paddingTop: 10
+  },
+  indicator: {
+    backgroundColor: Styles.color.greenishBlue ,
+    height: 3,
+  },
+  label: {
+    fontStyle: 'normal',
+    fontSize: normalize(13),
+    fontWeight: 'bold',
+    lineHeight: normalize(16),
+    textAlign: 'left',
+    color: Styles.color.doveGray,
+  },
+  tabBarStyle: {
+    width: isIOS ? normalize(100) : normalize(80),
+    borderBottomColor: theme.dividerColor,
+    borderBottomWidth: 1.2,
+    paddingHorizontal: 0
+  },
+  orientationStyle:{
+    flex: 1,
+    width: orientationStyleWidth
+  }
+});

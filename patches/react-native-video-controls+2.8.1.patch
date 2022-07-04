@@ -1,0 +1,182 @@
+diff --git a/node_modules/react-native-video-controls/VideoPlayer.js b/node_modules/react-native-video-controls/VideoPlayer.js
+index 7927a5c..7285371 100644
+--- a/node_modules/react-native-video-controls/VideoPlayer.js
++++ b/node_modules/react-native-video-controls/VideoPlayer.js
+@@ -13,8 +13,10 @@ import {
+   View,
+   Text,
+   I18nManager,
++  Dimensions,
+ } from 'react-native';
+ import padStart from 'lodash/padStart';
++import { ScreenWidth } from 'react-native-elements/dist/helpers';
+ 
+ export default class VideoPlayer extends Component {
+   static defaultProps = {
+@@ -34,6 +36,7 @@ export default class VideoPlayer extends Component {
+     rate: 1,
+     showTimeRemaining: true,
+     showHours: false,
++    closeIcon: null
+   };
+ 
+   constructor(props) {
+@@ -61,7 +64,7 @@ export default class VideoPlayer extends Component {
+       seekerFillWidth: 0,
+       showControls: this.props.showOnStart,
+       volumePosition: 0,
+-      seekerPosition: 0,
++      seekerPosition: Dimensions.get('window').width - 40,
+       volumeOffset: 0,
+       seekerOffset: 0,
+       seeking: false,
+@@ -124,7 +127,7 @@ export default class VideoPlayer extends Component {
+       tapActionTimeout: null,
+       volumeWidth: 150,
+       iconOffset: 0,
+-      seekerWidth: 0,
++      seekerWidth: Dimensions.get('window').width - 40,
+       ref: Video,
+       scrubbingTimeStep: this.props.scrubbing || 0,
+       tapAnywhereToPause: this.props.tapAnywhereToPause,
+@@ -162,14 +165,18 @@ export default class VideoPlayer extends Component {
+     };
+   }
+ 
+-  componentDidUpdate = prevProps => {
+-    const {isFullscreen} = this.props;
++  componentDidUpdate = (prevProps, prevState) => {
++    const {isFullscreen, toggleControl} = this.props;
+ 
+     if (prevProps.isFullscreen !== isFullscreen) {
+       this.setState({
+         isFullscreen,
+       });
+     }
++    if (prevState.toggleControl !== toggleControl) {
++      this._hideControls();
++      this.setState({toggleControl});
++    }
+   };
+   /**
+     | -------------------------------------------------------
+@@ -233,7 +240,6 @@ export default class VideoPlayer extends Component {
+ 
+       if (!state.seeking) {
+         const position = this.calculateSeekerPosition();
+-        // console.log(position);
+         this.setSeekerPosition(position);
+       }
+ 
+@@ -488,7 +494,7 @@ export default class VideoPlayer extends Component {
+     state.isFullscreen = !state.isFullscreen;
+ 
+     if (this.props.toggleResizeModeOnFullscreen) {
+-      state.resizeMode = state.isFullscreen === true ? 'cover' : 'contain';
++      state.resizeMode = 'contain';
+     }
+ 
+     if (state.isFullscreen) {
+@@ -549,11 +555,12 @@ export default class VideoPlayer extends Component {
+    * or duration. Formatted to look as 00:00.
+    */
+   calculateTime() {
+-    if (this.state.showTimeRemaining) {
+-      const time = this.state.duration - this.state.currentTime;
+-      return `-${this.formatTime(time)}`;
+-    }
++    // if (this.state.showTimeRemaining) {
++    //   const time = this.state.duration - this.state.currentTime;
++    //   return `-${this.formatTime(time)}`;
++    // }
+ 
++    // console.log('this.state.currentTime',this.state.currentTime)
+     return this.formatTime(this.state.currentTime);
+   }
+ 
+@@ -993,11 +1000,11 @@ export default class VideoPlayer extends Component {
+           style={[styles.controls.column]}
+           imageStyle={[styles.controls.vignette]}>
+           <SafeAreaView style={[styles.controls.topControlGroup]}>
+-            {backControl}
+             <View style={[styles.controls.pullRight]}>
+-              {volumeControl}
+               {fullscreenControl}
++              {volumeControl}
+             </View>
++            {backControl}
+           </SafeAreaView>
+         </ImageBackground>
+       </Animated.View>
+@@ -1009,6 +1016,7 @@ export default class VideoPlayer extends Component {
+    */
+   renderBack() {
+     return this.renderControl(
++      this.props.closeIcon ? this.props.closeIcon : 
+       <Image
+         source={require('./assets/img/back.png')}
+         style={styles.controls.back}
+@@ -1035,7 +1043,7 @@ export default class VideoPlayer extends Component {
+           {...this.player.volumePanResponder.panHandlers}>
+           <Image
+             style={styles.volume.icon}
+-            source={require('./assets/img/volume.png')}
++            source={(this.state.volume === 0) ? require('../../patches/assets/img/volume_mute.png') : require('../../patches/assets/img/volume.png')}
+           />
+         </View>
+       </View>
+@@ -1066,7 +1074,7 @@ export default class VideoPlayer extends Component {
+       : this.renderTimer();
+     const seekbarControl = this.props.disableSeekbar
+       ? this.renderNullControl()
+-      : this.renderSeekbar();
++      : this.renderSeekbar()
+     const playPauseControl = this.props.disablePlayPause
+       ? this.renderNullControl()
+       : this.renderPlayPause();
+@@ -1112,7 +1120,7 @@ export default class VideoPlayer extends Component {
+         collapsable={false}
+         {...this.player.seekPanResponder.panHandlers}>
+         <View
+-          style={styles.seekbar.track}
++          style={[styles.seekbar.track, (this.state.currentTime == 0) && { backgroundColor: '#333' }]}
+           onLayout={event =>
+             (this.player.seekerWidth = event.nativeEvent.layout.width)
+           }
+@@ -1122,7 +1130,7 @@ export default class VideoPlayer extends Component {
+               styles.seekbar.fill,
+               {
+                 width: this.state.seekerFillWidth,
+-                backgroundColor: this.props.seekColor || '#FFF',
++                backgroundColor: this.props.seekColor || '#333',
+               },
+             ]}
+             pointerEvents={'none'}
+@@ -1369,7 +1377,7 @@ const styles = {
+       justifyContent: 'space-between',
+       flexDirection: I18nManager.isRTL?'row-reverse':'row',
+       width: null,
+-      margin: 12,
++      margin: 5,
+       marginBottom: 18,
+     },
+     bottomControlGroup: {
+@@ -1443,8 +1451,7 @@ const styles = {
+     container: {
+       alignSelf: 'stretch',
+       height: 28,
+-      marginLeft: 20,
+-      marginRight: 20,
++      marginHorizontal: 20,
+     },
+     track: {
+       backgroundColor: I18nManager.isRTL?'#FFF':'#333',
+diff --git a/node_modules/react-native-video-controls/assets/img/volume_mute.png b/node_modules/react-native-video-controls/assets/img/volume_mute.png
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-video-controls/assets/img/volume_mute@2x.png b/node_modules/react-native-video-controls/assets/img/volume_mute@2x.png
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-video-controls/assets/img/volume_mute@3x.png b/node_modules/react-native-video-controls/assets/img/volume_mute@3x.png
+new file mode 100644
+index 0000000..e69de29
