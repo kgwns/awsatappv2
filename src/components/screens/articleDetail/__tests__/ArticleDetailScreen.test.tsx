@@ -1,90 +1,123 @@
-import React, { useState } from 'react'
-import { render, RenderAPI } from '@testing-library/react-native'
-import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData'
-import { ArticleDetailScreen } from '../ArticleDetailScreen'
-
-jest.mock('react', () => ({
-    ...jest.requireActual('react'),
-    useState: jest.fn(),
-  }));
-
-const mockUseLatestNewsTab = jest.fn();
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
+import React from 'react';
+import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
+import { ArticleDetailScreen } from '../ArticleDetailScreen';
+import { isIOS, normalize } from 'src/shared/utils/dimensions';
 
 jest.mock("src/hooks/useArticleDetail", () => ({
-    useArticleDetail: (...args: any) => {
-        return {
-            isLoading: true,
-            error: '',
-            articleDetailData: [],
-            pager: {},
-            relatedArticleData: [],
-            fetchArticleDetail: () => {
-                return []
-            },
-            fetchRelatedArticle: () => {
-                return []
-            },
-            emptyAllData: () => {
-                return
-            },
-        }
-    },
+  useArticleDetail: () => {
+    return {
+      isLoading: false,
+      articleDetailData: [],
+      articleError: '',
+      relatedArticleData: [],
+      fetchArticleDetail: () => [],
+      fetchRelatedArticle: () => [],
+      emptyAllData: () => [],
+      isArticleSectionLoaded: false
+    }
+  },
 }));
 
 jest.mock("src/hooks/useAppCommon", () => ({
-    useAppCommon: (...args: any) => {
-        return {
-            theme: 'light',
-            isFirstSession: true,
-            articleFontSize: 16,
-            storeArticleFontSizeInfo: () => {}
-        }
-    },
+  useAppCommon: () => {
+    return {
+      theme: {},
+      isFirstSession: false,
+      serverEnvironment: {},
+      storeServerEnvironmentInfo: () => [],
+      articleFontSize: 2,
+      storeArticleFontSizeInfo: () => [],
+      resetFontSizeInfo: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useBookmark", () => ({
+  useBookmark: () => {
+    return {
+      isLoading: false,
+      bookMarkSuccessInfo: {},
+      bookmarkDetail: {},
+      error: 'string',
+      bookmarkIdInfo: {},
+      sendBookmarkInfo: () => [],
+      getBookmarkedId: () => [],
+      removeBookmarkedInfo: () => [],
+      getBookmarkDetailData: () => [],
+      updateBookDetailInfo: () => [],
+      removeBookmark: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      isLoading: false,
+      loginData: {},
+      loginError: 'example',
+      fetchLoginRequest: () => [],
+      isLoggedIn: false,
+      token: 'string',
+      user: {},
+      fetchLogoutRequest: () => [],
+      loginSkipped: () => [],
+      isSkipped: false,
+      forgotPassswordResponse: {},
+      forgotPassworRequest: () => [],
+      emptyforgotPassworResponseInfo: () => [],
+      emptyLoginDataInfo: () => [],
+    }
+  },
 }));
 
 describe('<ArticleDetailScreen>', () => {
-    let instance: RenderAPI
-    const setEdge = jest.fn();
-    const setIsBookmarked = jest.fn();
-    const setFontSize = jest.fn();
-    const setPaused = jest.fn();
-    const setShowPopUp = jest.fn();
-    const setArticleDetail = jest.fn();
-    const setRelatedArticle = jest.fn();
-    const setOrientation = jest.fn();
-    const setScrollY = jest.fn();
-    const setPlayerUrl = jest.fn();
-    const setPlayerVisible = jest.fn();
-    const setCurrentTime = jest.fn();
-    const setScrollEnabled = jest.fn();
-    beforeEach(() => {
-        (useState as jest.Mock).mockImplementation(() => [[], setEdge]);
-        (useState as jest.Mock).mockImplementation(() => [false, setIsBookmarked]);
-        (useState as jest.Mock).mockImplementation(() => [0, setFontSize]);
-        (useState as jest.Mock).mockImplementation(() => [true, setPaused]);
-        (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
-        (useState as jest.Mock).mockImplementation(() => [[], setArticleDetail]);
-        (useState as jest.Mock).mockImplementation(() => [[], setRelatedArticle]);
-        (useState as jest.Mock).mockImplementation(() => ['', setOrientation]);
-        (useState as jest.Mock).mockImplementation(() => [0, setScrollY]);
-        (useState as jest.Mock).mockImplementation(() => ['', setPlayerUrl]);
-        (useState as jest.Mock).mockImplementation(() => [false, setPlayerVisible]);
-        (useState as jest.Mock).mockImplementation(() => [0, setCurrentTime]);
-        (useState as jest.Mock).mockImplementation(() => [true, setScrollEnabled]);
-        const component = 
-            <Provider store={storeSampleData}>
-                <ArticleDetailScreen route={{ params: { nid: 123 } }} />
-            </Provider> 
-        instance = render(component)
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+
+  const sampleData = { params: { nid: '123' } };
+
+  beforeEach(() => {
+    const component = <ArticleDetailScreen route={sampleData}/>;
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  it('should render ArticleDetailScreen component', () => {
+    expect(instance).toBeDefined();
+  });
+
+  test('Should call FlatList onPress', () => {
+    const element = instance.container.findByType(ScreenContainer)
+    fireEvent(element, 'onCloseSignUpAlert');
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call FlatList onPress', () => {
+    const element = instance.container.findByType(ScreenContainer)
+    fireEvent(element, 'isSignUpAlertVisible');
+    expect(mockFunction).toBeTruthy()
+  });
+
+  describe('android', () => {
+    it("normalize should return the pixel perfect value", () => {
+        !isIOS
+        let normalizeValue = (normalize(60, 'bottom'))
+        expect(normalizeValue).toEqual(120)
     })
 
-    afterEach(() => {
-        jest.clearAllMocks()
-        instance.unmount()
-    })
+    it("normalize should return the pixel perfect value", () => {
+      isIOS
+      let normalizeValue = (normalize(70, 'bottom'))
+      expect(normalizeValue).toEqual(140)
+  })
+  })
 
-    xit('Should render component', () => {
-        expect(instance).toBeDefined()
-    })
-})
+});
+
+   

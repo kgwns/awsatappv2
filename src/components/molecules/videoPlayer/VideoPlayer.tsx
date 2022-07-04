@@ -52,6 +52,7 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   } 
 
   const goBackToScreen = () =>{
+    console.log('goBackToScreen');
     if(goBack){
       setIsPaused(true)
       goBack()
