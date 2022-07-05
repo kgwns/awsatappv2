@@ -4,7 +4,7 @@ import { Label, SocialLoginButton, TextInputField } from '../../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTranslation} from 'react-i18next';
-import {normalize} from '../../../shared/utils';
+import {isTab, normalize} from 'src/shared/utils';
 import { SocialButtonSection } from '..';
 import {colors} from '../../../shared/styles/colors';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
@@ -209,7 +209,7 @@ StyleSheet.create({
   },
   signInLabelStyle: {
     color: colors.white,
-    lineHeight: 28,
+    lineHeight: isTab ? 35 :28,
   },
   dividerContainber: {
     flex: 0.05,

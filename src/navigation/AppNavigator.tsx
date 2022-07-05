@@ -12,7 +12,7 @@ import {Label} from 'src/components/atoms';
 import {useNavigation} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
+import {isAndroid, isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { HeaderConstants } from '../constants/HeaderConstants'; 
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
@@ -126,7 +126,8 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: ()=>HeaderTitle(t('profileSetting.arithmetic')),
           headerTitleAlign: 'center',
-          headerBackVisible: false
+          headerBackVisible: false,
+          headerShadowVisible: false
         }}
         />
       <Stack.Screen
@@ -140,9 +141,11 @@ const AppNavigator = () => {
         options={{
           headerStyle: style.container,
           headerLeft: () => onBoardReturn(),
-          headerTitle: HeaderConstants.USER_DETAIL_HEADER_TITLE,
+          headerTitle: () => HeaderTitle(HeaderConstants.USER_DETAIL_HEADER_TITLE),
           headerTitleStyle: style.headerTitle,
           headerTitleAlign: 'center',
+          headerBackVisible: false,
+          headerShadowVisible: false
         }}
       />
        <Stack.Screen
@@ -154,7 +157,8 @@ const AppNavigator = () => {
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
           gestureEnabled: false,
-          headerBackVisible: false
+          headerBackVisible: false,
+          headerShadowVisible: false
         }}
       />
       <Stack.Screen
@@ -170,7 +174,8 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
-          gestureEnabled: false
+          gestureEnabled: false,
+          headerShadowVisible: false
         }}
       />
          <Stack.Screen
@@ -181,7 +186,7 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
-          gestureEnabled: false
+          gestureEnabled: false,
         }}
       />
       <Stack.Screen
@@ -192,7 +197,8 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('profileSetting.myNewsLetter')),
           headerTitleAlign: 'center',
-          headerBackVisible: false
+          headerBackVisible: false,
+          headerShadowVisible: false
         }}
       />
       <Stack.Screen
@@ -203,7 +209,8 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('profileSetting.manageMyNotification')),
           headerTitleAlign: 'center',
-          headerBackVisible: false
+          headerBackVisible: false,
+          headerShadowVisible: false
         }}
       />
        <Stack.Screen
@@ -233,7 +240,9 @@ const AppNavigator = () => {
           headerStyle: style.container,
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(TranslateConstants({key: TranslateKey.GAMES})),
-          headerTitleAlign: 'center'
+          headerTitleAlign: 'center',
+          headerBackVisible: false,
+          headerShadowVisible: false
         }}
       />
       <Stack.Screen
@@ -276,23 +285,24 @@ const customStyle = (theme: CustomThemeType) => (
     onBoardReturn: {
       flexDirection: 'row-reverse',
       alignItems: 'center',
-      marginEnd: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      marginEnd: isTab ? normalize(0.01 * screenWidth) : 0,
+      marginTop: isIOS ? 3 : 1
     },
     onBoardPrevTitle: {
       color: theme.primaryDarkSlateGray,
-      fontSize: normalize(12),
-      lineHeight: normalize(16),
+      fontSize: isTab ? 16 : 12,
+      lineHeight: 50,
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     onBoardPrevIcon: {
-      width: normalize(12),
-      height: normalize(8.8),
-      marginEnd: normalize(5),
-      marginBottom: isIOS ? 5 : 0
+      width: isTab ? 14 : 12,
+      height: isTab ? 10.8 : 8.8,
+      marginEnd: 5,
+      marginTop: isAndroid ? 2 : 0
     },
     headerTitle:{
-      fontSize:normalize(24),
-      lineHeight:normalize(50),
+      fontSize: 24,
+      lineHeight: 50,
       color:theme.primaryDarkSlateGray,
       fontFamily: fonts.IBMPlexSansArabic_Bold,
     }

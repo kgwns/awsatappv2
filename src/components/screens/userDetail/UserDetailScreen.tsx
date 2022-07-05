@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useEffect, useRef, useState, useCallback} from 'react';
+import React, {FunctionComponent, useEffect, useState, useCallback} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {
   isIOS,
+  isTab,
   normalize,
   screenHeight,
   screenWidth,
@@ -33,6 +34,7 @@ import {
   getProfileImageUrl,
   CustomAlert,
   isNotEmpty,
+  horizontalEdge,
 } from 'src/shared/utils/utilities';
 import DatePicker from 'react-native-date-picker';
 import {TabBarComponent, TabBarDataProps} from 'src/components/molecules';
@@ -672,6 +674,7 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   return (
       <ScreenContainer
+        edge={horizontalEdge}
         isOverlayLoading={isLoading}
         isAlertVisible={isAlertVisible}
         setIsAlertVisible={setIsAlertVisible}
@@ -837,7 +840,7 @@ const createStyles = (theme: CustomThemeType) =>
     updateButtonLabel: {
       color: colors.white,
       fontSize: normalize(16),
-      lineHeight: 26,
+      lineHeight: isTab ? 36 :26,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     overlayStyle: {

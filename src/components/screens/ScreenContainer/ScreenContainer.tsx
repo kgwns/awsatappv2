@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   StatusBar,
@@ -26,8 +26,8 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import TrackPlayer from 'react-native-track-player';
 import { PodCastMiniPlayer } from 'src/components/molecules';
 import  { useAppPlayer } from 'src/hooks/useAppPlayer';
+import { fonts } from 'src/shared/styles/fonts';
 
-const isIphoneX = DeviceInfo.hasNotch();
 
 export interface AlertPayloadType {
   title: string;
@@ -106,7 +106,7 @@ export const ScreenContainer = ({
   };
 
   const header = (title?: string) => {
-    const titleStyle = {marginLeft: title && ((isTab && title.length > 60) || (title?.length > 35)) ? normalize(80) : 0 }
+    const titleStyle = {marginLeft: title && ((isTab && title.length > 60) || (title?.length > 15)) ? 80 : 0 }
     return (
       <View style={style.headerContainer}>
         {isNotEmpty(title) && (
@@ -185,16 +185,16 @@ const createStyles = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
     },
     prevIconStyle: {
-      width: normalize(12),
-      height: normalize(8.8),
-      marginEnd: normalize(5),
+      width: 12,
+      height: 8.8,
+      marginEnd: 5,
       alignItems: 'center',
 
       paddingHorizontal: normalize(10),
     },
     prevTitleStyle: {
-      fontSize: normalize(13),
-      lineHeight: normalize(16),
+      fontSize: 12,
+      lineHeight: 30,
       color: theme.secondaryDarkSlate,
     },
     returnStyle: {
@@ -207,13 +207,17 @@ const createStyles = (theme: CustomThemeType) => {
       color: Styles.color.white,
     },
     headerContainer: {
-      minHeight: normalize(55),
+      minHeight: 55,
       backgroundColor: theme.backgroundColor,
       justifyContent: 'center',
       flexDirection: 'row',
       alignItems: 'center',
     },
     headerTitle: {
+      fontSize:16,
+      lineHeight: 30,
+      color:theme.primaryDarkSlateGray,
+      fontFamily: fonts.IBMPlexSansArabic_Bold,
       paddingLeft: 0,
       paddingVertical: 0,
       paddingTop: 8,
