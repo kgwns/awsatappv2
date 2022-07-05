@@ -32,6 +32,8 @@ export const OPINION_TAB_WRITER_ENDPOINT = 'api/v2/applist/authors';
 export const OPINIONS_ENDPOINT = 'api/v2/opinions/all';
 export const OPINION_BY_WRITER_END_POINT = 'api/v2/opinions/'
 export const OPINION_LIST_END_POINT = 'api/v2/opinionslist/'
+export const OPINION_LIST_ALL_END_POINT = 'api/v2/opinionslist/all'
+export const HOME_OPINION_LIST_VIEW_END_POINT = 'api/v2/listview/opinion'
 
 export const NEWS_CATEGORIES_ENDPOINT = 'api/v2/sections/news_categories';
 

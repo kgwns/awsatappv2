@@ -7,6 +7,7 @@ import {
   FETCH_OPINIONS_SUCCESS,
   FETCH_WRITER_OPINIONS,
   FETCH_WRITER_OPINIONS_SUCCESS,
+  STORE_HOME_OPINION_NID,
 } from './actionTypes';
 import { OpinionsActions, OpinionsListState } from './types';
 
@@ -16,7 +17,8 @@ const initialState: OpinionsListState = {
   isLoading: false,
   writerOpinionLoading: true,
   writerOpinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
-  writerOpinionError: ''
+  writerOpinionError: '',
+  homeOpinionNid: '',
 };
 
 export default (state = initialState, action: OpinionsActions) => {
@@ -77,6 +79,11 @@ export default (state = initialState, action: OpinionsActions) => {
       return {
         ...state,
         opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+      }
+    case STORE_HOME_OPINION_NID:
+      return {
+        ...state,
+        homeOpinionNid: action.payload.nid,
       }
     default:
       return { ...state };

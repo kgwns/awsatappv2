@@ -8,6 +8,7 @@ import {
   FETCH_WRITER_OPINIONS_ERROR,
   EMPTY_WRITER_OPINION_DATA,
   EMPTY_OPINION_DATA,
+  STORE_HOME_OPINION_NID,
 } from './actionTypes';
 
 export interface Pager {
@@ -73,7 +74,8 @@ export type OpinionsListState = {
   isLoading: boolean;
   writerOpinionLoading: boolean;
   writerOpinionData: payloadType;
-  writerOpinionError: string
+  writerOpinionError: string;
+  homeOpinionNid: string;
 };
 
 export type FetchOpinionsType = {
@@ -130,6 +132,16 @@ export type EmptyOpinionsDataType = {
   type: typeof EMPTY_OPINION_DATA
 }
 
+export type StoreHomeOpinionNidPayload = {
+  nid: string
+}
+
+
+export type StoreHomeOpinionNid = {
+  type: typeof STORE_HOME_OPINION_NID,
+  payload: StoreHomeOpinionNidPayload
+}
+
 export type OpinionsActions =
   | FetchOpinionsType
   | FetchOpinionsSuccessType
@@ -139,3 +151,4 @@ export type OpinionsActions =
   | FetchWriterOpinionsFailedType
   | EmptyWriterOpinionDataType
   | EmptyOpinionsDataType
+  | StoreHomeOpinionNid

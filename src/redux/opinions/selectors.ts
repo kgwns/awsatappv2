@@ -20,3 +20,6 @@ export const getWriterOpinionsData: Selector<OpinionsListItemType[]> = (
 
 export const getWriterOpinionsError: Selector<string> = (state: AppState) =>
   state.opinionsReducer.writerOpinionError;
+
+export const getHomeOpinionNidData: Selector<string> = (state: AppState) =>
+  state.opinionsReducer.homeOpinionNid

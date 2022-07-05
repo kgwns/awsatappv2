@@ -6,15 +6,16 @@ import {
   getWriterOpinionIsLoading,
   getWriterOpinionsData,
   getWriterOpinionsError,
+  getHomeOpinionNidData,
 } from 'src/redux/opinions/selectors';
 import {emptyWriterOpinionAction, fetchOpinions, fetchWriterOpinions, fetchWriterOpinionsSuccess, emptyOpinionsAction, fetchOpinionsSuccess} from 'src/redux/opinions/action';
-import { FetchOpinionsSuccessPayloadType, OpinionsListBodyGet, OpinionsListItemType, WriterOpinionsBodyGet} from 'src/redux/opinions/types';
+import { FetchOpinionsSuccessPayloadType, OpinionsBodyGet, OpinionsListBodyGet, OpinionsListItemType, WriterOpinionsBodyGet} from 'src/redux/opinions/types';
 
 export interface UseOpinionsReturn {
   isLoading: boolean;
   opinionsData: OpinionsListItemType[];
   opinionsError: string;
-  fetchOpinionsRequest(payload: OpinionsListBodyGet): void;
+  fetchOpinionsRequest(payload: OpinionsBodyGet): void;
   isWriterOpinionLoading: boolean;
   writerOpinionsData: OpinionsListItemType[];
   writerOpinionsError: string;
@@ -29,8 +30,10 @@ export const useOpinions = (): UseOpinionsReturn => {
   const isLoading = useSelector(getIsLoading);
   const opinionsData = useSelector(getOpinionsData);
   const opinionsError = useSelector(getOpinionsError);
-  const fetchOpinionsRequest = (payload: OpinionsListBodyGet) => {
-    dispatch(fetchOpinions(payload));
+  const homeOpinionNidList = useSelector(getHomeOpinionNidData);
+
+  const fetchOpinionsRequest = (payload: OpinionsBodyGet) => {
+    dispatch(fetchOpinions({ page: payload.page, nid: homeOpinionNidList }));
   };
 
   const isWriterOpinionLoading = useSelector(getWriterOpinionIsLoading);

@@ -1,12 +1,13 @@
 import {BASE_URL} from 'src/services/apiUrls';
 import {getCacheApiRequest} from 'src/services/api';
-import {OPINIONS_ENDPOINT, OPINION_BY_WRITER_END_POINT, OPINION_LIST_END_POINT} from './apiEndPoints';
+import {HOME_OPINION_LIST_VIEW_END_POINT, OPINIONS_ENDPOINT, OPINION_BY_WRITER_END_POINT, OPINION_LIST_ALL_END_POINT, OPINION_LIST_END_POINT} from './apiEndPoints';
 import {
   FetchOpinionsSuccessPayloadType,
   OpinionsBodyGet,
   OpinionsListBodyGet,
   WriterOpinionsBodyGet,
 } from 'src/redux/opinions/types';
+import { isNotEmpty } from 'src/shared/utils';
 
 export const fetchOpinionsApi = async (body: OpinionsBodyGet) => {
   try {
@@ -39,8 +40,21 @@ export const fetchWriterOpinionsApi = async (body: WriterOpinionsBodyGet) => {
 
 export const fetchOpinionsListApi = async (body: OpinionsListBodyGet) => {
   try {
+    const relativeUrl = isNotEmpty(body.nid) ? `${OPINION_LIST_END_POINT}${body.nid}?page=${body.page}` : OPINION_LIST_ALL_END_POINT
     const response: FetchOpinionsSuccessPayloadType = await getCacheApiRequest(
-      `${BASE_URL}${OPINION_LIST_END_POINT}${body.nid}?page=${body.page}`,
+      `${BASE_URL}${relativeUrl}`,
+    );
+    return response;
+  } catch (error) {
+    console.log(`error: ${error}`);
+    throw error;
+  }
+};
+
+export const fetchHomeOpinionsListApi = async () => {
+  try {
+    const response: FetchOpinionsSuccessPayloadType = await getCacheApiRequest(
+      `${BASE_URL}${HOME_OPINION_LIST_VIEW_END_POINT}`,
     );
     return response;
   } catch (error) {

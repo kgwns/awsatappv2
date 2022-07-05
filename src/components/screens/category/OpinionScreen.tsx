@@ -12,7 +12,7 @@ import {useOpinions} from 'src/hooks/useOpinions';
 import {WritersBodyGet} from 'src/redux/writers/types';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
 import { useBookmark, useLatestNewsTab, useLogin } from 'src/hooks';
-import { horizontalEdge, isNonEmptyArray, joinArray, normalize } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { ScreensConstants } from 'src/constants';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -25,7 +25,6 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [page, setPage] = useState(0);
-  const homeNid = useRef<string>('')
 
   const writersPayload: WritersBodyGet = {
     items_per_page: 10,
@@ -40,8 +39,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   const style = useThemeAwareObject(customStyle);
 
   const {opinionWriterData, fetchOpinionWriterRequest} = useOpinionWriter();
-  const { opinionsData, isLoading, fetchOpinionsRequest, emptyOpinionsData, saveOpinionsSuccessInfo } = useOpinions();
-  const { opinionList, opinionLoaded } = useLatestNewsTab()
+  const { opinionsData, isLoading, fetchOpinionsRequest, emptyOpinionsData } = useOpinions();
 
   const isFocused = useIsFocused();
 
@@ -62,23 +60,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   }, []);
 
   useEffect(() => {
-    if (opinionLoaded) {
-      const nidArray = filterNidInfo(opinionList)
-      const nid = joinArray(nidArray, '+')
-      homeNid.current = nid
-
-      if (isNonEmptyArray(opinionList)) {
-        saveOpinionsSuccessInfo({ opinionListData: { rows: opinionList, pager: { current_page: 0, items_per_page: '' } } })
-      }
-
-      fetchOpinionsRequest({ page: page, nid: homeNid.current });
-    }
-  }, [opinionList, opinionLoaded])
-
-  useEffect(() => {
-    if (page > 0) {
-      fetchOpinionsRequest({ page: page, nid: homeNid.current });
-    }
+    fetchOpinionsRequest({ page: page });
   }, [page]);
 
   const {
@@ -101,15 +83,6 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
       const opinions = updateBookmark(opinionsData)
       setOpinionsDataInfo(opinions)
     }
-  }
-
-  const filterNidInfo = (data: any[]) => {
-    return data.reduce((prevValue: string[], item: any) => {
-      if (item.nid) {
-        return prevValue.concat(item.nid)
-      }
-      return prevValue
-    }, [])
   }
 
   const updateBookmark = (data: OpinionsListItemType[]) => {
