@@ -1,9 +1,19 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 import {AxiosError} from 'axios';
-import {FetchOpinionsSuccessPayloadType, FetchOpinionsType, FetchWriterOpinionsType} from './types';
-import {fetchOpinionsFailed, fetchOpinionsSuccess, fetchWriterOpinionsFailed, fetchWriterOpinionsSuccess} from './action';
+import {FetchOpinionsSuccessPayloadType, FetchOpinionsType, FetchWriterOpinionsType, payloadType} from './types';
+import {fetchOpinionsFailed, fetchOpinionsSuccess, fetchWriterOpinionsFailed, fetchWriterOpinionsSuccess, storeHomeOpinionNid} from './action';
 import {FETCH_OPINIONS, FETCH_WRITER_OPINIONS} from './actionTypes';
-import {fetchOpinionsApi, fetchWriterOpinionsApi} from 'src/services/opinionsService';
+import {fetchHomeOpinionsListApi, fetchOpinionsApi, fetchOpinionsListApi, fetchWriterOpinionsApi} from 'src/services/opinionsService';
+import { isNonEmptyArray, joinArray } from 'src/shared/utils';
+
+const filterNidInfo = (data: any[]) => {
+  return data.reduce((prevValue: string[], item: any) => {
+    if (item.nid) {
+      return prevValue.concat(item.nid)
+    }
+    return prevValue
+  }, [])
+}
 
 export function* fetchOpinions(action: FetchOpinionsType) {
   // console.log("saga fetchOpinionWriter");
@@ -12,6 +22,34 @@ export function* fetchOpinions(action: FetchOpinionsType) {
     const payload: FetchOpinionsSuccessPayloadType = yield call(
       fetchOpinionsApi,
       action.payload,
+    );
+    yield put(fetchOpinionsSuccess({opinionListData: payload}));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: {message: string} = errorResponse.response.data;
+      yield put(fetchOpinionsFailed({error: errorMessage.message}));
+    }
+  }
+}
+
+export function* fetchOpinionsList(action: FetchOpinionsType) {
+  try {
+    let nid = action.payload.nid
+    const page = action.payload.page
+    if (page === 0) {
+      const homeOpinionListPayload: payloadType = yield call(
+        fetchHomeOpinionsListApi,
+      );
+      yield put(fetchOpinionsSuccess({ opinionListData: homeOpinionListPayload }));
+      const nidArray = filterNidInfo(isNonEmptyArray(homeOpinionListPayload.rows) ? homeOpinionListPayload.rows : [])
+      nid = joinArray(nidArray, '+')
+      yield put(storeHomeOpinionNid({ nid }))
+    }
+
+    const payload: FetchOpinionsSuccessPayloadType = yield call(
+      fetchOpinionsListApi,
+      { page: action.payload.page, nid },
     );
     yield put(fetchOpinionsSuccess({opinionListData: payload}));
   } catch (error) {
@@ -40,7 +78,7 @@ export function* fetchWriterOpinions(action: FetchWriterOpinionsType) {
 }
 
 function* opinionsSaga() {
-  yield all([takeLatest(FETCH_OPINIONS, fetchOpinions)]);
+  yield all([takeLatest(FETCH_OPINIONS, fetchOpinionsList)]);
   yield all([takeLatest(FETCH_WRITER_OPINIONS, fetchWriterOpinions)])
 }
 

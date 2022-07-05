@@ -1,29 +1,30 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
 import {FETCH_OPINIONS, FETCH_WRITER_OPINIONS} from '../actionTypes';
-import opinionsSaga, {fetchOpinions, fetchWriterOpinions} from '../sagas';
+import opinionsSaga, {fetchOpinionsList, fetchWriterOpinions} from '../sagas';
 import {fetchOpinionsSuccess} from '../action';
-import {fetchOpinionsApi} from 'src/services/opinionsService';
+import { fetchOpinionsListApi } from 'src/services/opinionsService';
 
 import {
   FetchOpinionsType,
   FetchOpinionsSuccessPayloadType,
-  OpinionsBodyGet,
+  OpinionsListBodyGet,
 } from '../types';
 
-const mockPage = 0;
+const mockPage = 1;
 const mockString = 'mockString';
 
-const requestObject: OpinionsBodyGet = {
+const requestObject: OpinionsListBodyGet = {
   page: mockPage,
+  nid: '',
 };
 
 const requestAction: FetchOpinionsType = {
   type: FETCH_OPINIONS,
-  payload: requestObject,
+  payload: {...requestObject, nid: ''},
 };
 
-const reposnseObject = {
+const responseObject = {
   rows: [
     {
       title: mockString,
@@ -35,15 +36,15 @@ const errorResponse = {
   response: {data: 'Error', status: 500, statusText: 'Error'},
 };
 
-const sucessResponseObject: FetchOpinionsSuccessPayloadType = {
-  opinionListData: reposnseObject,
+const successResponseObject: FetchOpinionsSuccessPayloadType = {
+  opinionListData: responseObject,
 };
 
 describe('Test opinions  saga', () => {
   it('fire on opinionssaga', () => {
     testSaga(opinionsSaga)
       .next()
-      .all([takeLatest(FETCH_OPINIONS, fetchOpinions)])
+      .all([takeLatest(FETCH_OPINIONS, fetchOpinionsList)])
       .next()
       .all([takeLatest(FETCH_WRITER_OPINIONS, fetchWriterOpinions)])
       .finish()
@@ -53,11 +54,11 @@ describe('Test opinions  saga', () => {
 
 describe('Test opinions success', () => {
   it('fire on FETCH_OPINIONS', () => {
-    testSaga(fetchOpinions, requestAction)
+    testSaga(fetchOpinionsList, requestAction)
       .next()
-      .call(fetchOpinionsApi, requestObject)
-      .next(reposnseObject)
-      .put(fetchOpinionsSuccess(sucessResponseObject))
+      .call(fetchOpinionsListApi, requestObject)
+      .next(responseObject)
+      .put(fetchOpinionsSuccess(successResponseObject))
       .finish()
       .isDone();
   });
@@ -65,9 +66,9 @@ describe('Test opinions success', () => {
 
 describe('Test opinions  error', () => {
   it('check fetchOpinions failed', () => {
-    const genObject = fetchOpinions({
+    const genObject = fetchOpinionsList({
       type: FETCH_OPINIONS,
-      payload: {page: mockPage},
+      payload: {page: mockPage, nid: ''},
     });
     genObject.next();
     genObject.throw(errorResponse);

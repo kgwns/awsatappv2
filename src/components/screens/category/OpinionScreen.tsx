@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {
@@ -10,11 +10,11 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useOpinionWriter} from 'src/hooks/useOpinionWriter';
 import {useOpinions} from 'src/hooks/useOpinions';
 import {WritersBodyGet} from 'src/redux/writers/types';
-import {OpinionsBodyGet, OpinionsListItemType} from 'src/redux/opinions/types';
-import { useBookmark, useLogin } from 'src/hooks';
+import { OpinionsListItemType } from 'src/redux/opinions/types';
+import { useBookmark, useLatestNewsTab, useLogin } from 'src/hooks';
 import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { ScreensConstants } from 'src/constants';
-import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
@@ -25,12 +25,9 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [page, setPage] = useState(0);
+
   const writersPayload: WritersBodyGet = {
     items_per_page: 10,
-  };
-
-  const opinionsPayload: OpinionsBodyGet = {
-    page: page,
   };
 
   const gotoNextPage = () => {
@@ -42,7 +39,8 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   const style = useThemeAwareObject(customStyle);
 
   const {opinionWriterData, fetchOpinionWriterRequest} = useOpinionWriter();
-  const {opinionsData, isLoading, fetchOpinionsRequest, emptyOpinionsData} = useOpinions();
+  const { opinionsData, isLoading, fetchOpinionsRequest, emptyOpinionsData } = useOpinions();
+
   const isFocused = useIsFocused();
 
   const ref = React.useRef(null);
@@ -62,7 +60,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   }, []);
 
   useEffect(() => {
-    fetchOpinionsRequest(opinionsPayload);
+    fetchOpinionsRequest({ page: page });
   }, [page]);
 
   const {

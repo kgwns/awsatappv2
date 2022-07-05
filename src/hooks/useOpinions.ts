@@ -6,9 +6,10 @@ import {
   getWriterOpinionIsLoading,
   getWriterOpinionsData,
   getWriterOpinionsError,
+  getHomeOpinionNidData,
 } from 'src/redux/opinions/selectors';
-import {emptyWriterOpinionAction, fetchOpinions, fetchWriterOpinions, fetchWriterOpinionsSuccess, emptyOpinionsAction} from 'src/redux/opinions/action';
-import {OpinionsBodyGet, OpinionsListItemType, WriterOpinionsBodyGet} from 'src/redux/opinions/types';
+import {emptyWriterOpinionAction, fetchOpinions, fetchWriterOpinions, fetchWriterOpinionsSuccess, emptyOpinionsAction, fetchOpinionsSuccess} from 'src/redux/opinions/action';
+import { FetchOpinionsSuccessPayloadType, OpinionsBodyGet, OpinionsListBodyGet, OpinionsListItemType, WriterOpinionsBodyGet} from 'src/redux/opinions/types';
 
 export interface UseOpinionsReturn {
   isLoading: boolean;
@@ -21,6 +22,7 @@ export interface UseOpinionsReturn {
   fetchWriterOpinionsRequest(payload: WriterOpinionsBodyGet): void;
   emptyWriterOpinionData(): void;
   emptyOpinionsData(): void;
+  saveOpinionsSuccessInfo(payload: FetchOpinionsSuccessPayloadType): void
 }
 
 export const useOpinions = (): UseOpinionsReturn => {
@@ -28,8 +30,10 @@ export const useOpinions = (): UseOpinionsReturn => {
   const isLoading = useSelector(getIsLoading);
   const opinionsData = useSelector(getOpinionsData);
   const opinionsError = useSelector(getOpinionsError);
+  const homeOpinionNidList = useSelector(getHomeOpinionNidData);
+
   const fetchOpinionsRequest = (payload: OpinionsBodyGet) => {
-    dispatch(fetchOpinions(payload));
+    dispatch(fetchOpinions({ page: payload.page, nid: homeOpinionNidList }));
   };
 
   const isWriterOpinionLoading = useSelector(getWriterOpinionIsLoading);
@@ -47,6 +51,10 @@ export const useOpinions = (): UseOpinionsReturn => {
     dispatch(emptyOpinionsAction())
   }
 
+  const saveOpinionsSuccessInfo = (payload: FetchOpinionsSuccessPayloadType) => {
+    dispatch(fetchOpinionsSuccess(payload))
+  }
+
   return {
     isLoading,
     opinionsData,
@@ -57,6 +65,7 @@ export const useOpinions = (): UseOpinionsReturn => {
     writerOpinionsError,
     fetchWriterOpinionsRequest,
     emptyWriterOpinionData,
-    emptyOpinionsData
+    emptyOpinionsData,
+    saveOpinionsSuccessInfo,
   };
 };
