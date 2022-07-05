@@ -11,7 +11,7 @@ index 31a5259..d8434b6 100644
  
    export default class RBSheet extends Component<RBSheetProps> {
 diff --git a/node_modules/react-native-raw-bottom-sheet/src/index.js b/node_modules/react-native-raw-bottom-sheet/src/index.js
-index 0b3eab0..f92a0d5 100644
+index 0b3eab0..db0317c 100644
 --- a/node_modules/react-native-raw-bottom-sheet/src/index.js
 +++ b/node_modules/react-native-raw-bottom-sheet/src/index.js
 @@ -25,7 +25,8 @@ class RBSheet extends Component {
@@ -24,8 +24,12 @@ index 0b3eab0..f92a0d5 100644
      };
  
      this.createPanResponder(props);
-@@ -40,7 +41,7 @@ class RBSheet extends Component {
-       Animated.timing(animatedHeight, {
+@@ -37,10 +38,10 @@ class RBSheet extends Component {
+     if (visible) {
+       this.setState({ modalVisible: visible });
+       if (typeof onOpen === "function") onOpen(props);
+-      Animated.timing(animatedHeight, {
++      Animated.spring(animatedHeight, {
          useNativeDriver: false,
          toValue: height,
 -        duration: openDuration
