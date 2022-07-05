@@ -103,7 +103,7 @@ export const OpinionArticleDetailWidget = ({
   const articleDetailFooterData: articleFooterProps = {
     leftTitleColor: Styles.color.spanishGray,
     leftIcon: () => TimeIcon(timeFormat.icon),
-    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular },
+    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: isIOS ? 20 : 25 },
     rightTitleColor: Styles.color.spanishGray,
     hideBookmark: true,
     style: {marginVertical: normalize(0.01 * screenWidth)},
