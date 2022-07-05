@@ -1,5 +1,6 @@
-import {render, RenderAPI} from '@testing-library/react-native';
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
+import { ButtonImage } from 'src/components/atoms';
 import { PodcastVerticalList } from '../PodcastVerticalList';
 
 const mockData= {
@@ -12,11 +13,13 @@ const mockData= {
 
 describe('<PodcastVerticalList>', () => {
   let instance: RenderAPI;
+  const mockFunction = jest.fn();
 
   describe('when PodcastVerticalList only', () => {
+
     beforeEach(() => {
       const component = (
-          <PodcastVerticalList imageUrl={mockData.imageUrl} title={mockData.title} />
+          <PodcastVerticalList imageUrl={mockData.imageUrl} title={mockData.title} nid={''} isBookmarked={false} onPressBookmark={mockFunction} />
       );
       instance = render(component);
     });
@@ -25,8 +28,16 @@ describe('<PodcastVerticalList>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
+
     it('Should render PodcastVerticalList', () => {
       expect(instance).toBeDefined();
     });
+
+    test('Should call button image onPress', () => {
+      const element = instance.container.findByType(ButtonImage)
+      fireEvent(element, 'onPress');
+      expect(mockFunction).toBeTruthy();
+    })
+
   });
 });

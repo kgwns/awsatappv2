@@ -135,7 +135,7 @@ describe('Test Article Detail Services', () => {
             return requestArticleSection(requestObject).then(response => {
                 expect(response).toBeInstanceOf(Object);
             });
-        });
+        }, 10000);
         it('test when response code is 500', () => {
             mock.onGet().reply(500, {
                 error: 'Something Went Wrong',

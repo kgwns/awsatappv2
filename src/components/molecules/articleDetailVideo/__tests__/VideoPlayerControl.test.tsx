@@ -1,72 +1,110 @@
-import { fireEvent, render, RenderAPI} from '@testing-library/react-native'
-import React, { useState } from 'react'
-import  VideoPlayerControl from '../ArticleDetailVideo';
-import { useAppPlayer } from 'src/hooks';
-
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
+import React, {useState, useRef}  from 'react';
+import VideoPlayerControl from '../VideoPlayerControl';
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+  useRef: jest.fn(),
 }));
 
-jest.mock('src/hooks/useAppPlayer', () => ({useAppPlayer: jest.fn()}));
-
-describe('<VideoPlayerControl />', () => {
-  let instance: RenderAPI
-  const mockFunction = jest.fn();
-  const setCurrentTime = mockFunction;
-  const setDuration = mockFunction;
-  const setIsFullScreen = mockFunction;
-  const setPaused = mockFunction;
-  const setShowControls = mockFunction;
-  const setTapActionTimeout = mockFunction;
-
-  const useAppPlayerMock = jest.fn();
-  const setControlStateMock = jest.fn();
-  const setShowMiniPlayerMock = jest.fn();
-  const setPlayMock = jest.fn();
-  const setPlayerTrackMock = jest.fn();
-
-  beforeEach(() => {
-    (useState as jest.Mock).mockImplementation(() => [0, setCurrentTime]);
-    (useState as jest.Mock).mockImplementation(() => [0, setDuration]);
-    (useState as jest.Mock).mockImplementation(() => [false, setIsFullScreen]);
-    (useState as jest.Mock).mockImplementation(() => [true, setPaused]);
-    (useState as jest.Mock).mockImplementation(() => [false, setShowControls]);
-    (useState as jest.Mock).mockImplementation(() => [2, setTapActionTimeout]);
-    (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
-     useAppPlayerMock.mockReturnValue({
+jest.mock("src/hooks/useAppPlayer", () => ({
+  useAppPlayer: () => {
+    return {
       showMiniPlayer: false,
       isPlaying: false,
       selectedTrack: {},
       showControls: false,
-      setControlState: setControlStateMock,
-      setShowMiniPlayer: setShowMiniPlayerMock,
-      setPlay: setPlayMock,
-      setPlayerTrack: setPlayerTrackMock,
-    });
-    const component = <VideoPlayerControl paused={false}/>
-    instance = render(component)
-  })
+      setControlState: () => [],
+      setShowMiniPlayer: () => [],
+      setPlay: () => [],
+      setPlayerTrack: () => [],
+    }
+  },
+}));
+
+describe('<VideoPlayerControl>', () => {
+  let instance: RenderAPI;
+  const url= "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842";
+  const sampleData: any = {current :
+    [
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+  ]}
+  
+  const mockFunction = jest.fn();
+  const setCurrentTime = mockFunction;
+  const setDuration = mockFunction;
+  const setIsLoading = mockFunction;
+  const setPaused = mockFunction;
+  const setTapActionTimeout = mockFunction;
+  const setShowControls = mockFunction;
+  const setInitialPlay = mockFunction;
+  const setScreenType = mockFunction;
+  const videoPlayer = mockFunction;
+
+  beforeEach(() => {
+    (useRef as jest.Mock).mockImplementation(() => [sampleData, videoPlayer]);
+    (useState as jest.Mock).mockImplementation(() => [0, setCurrentTime]);
+    (useState as jest.Mock).mockImplementation(() => [0, setDuration]);
+    (useState as jest.Mock).mockImplementation(() => [true, setIsLoading]);
+    (useState as jest.Mock).mockImplementation(() => [true, setPaused]);
+    (useState as jest.Mock).mockImplementation(() => [null, setTapActionTimeout]);
+    (useState as jest.Mock).mockImplementation(() => [false, setShowControls]);
+    (useState as jest.Mock).mockImplementation(() => [true, setInitialPlay]);
+    (useState as jest.Mock).mockImplementation(() => ['contain', setScreenType]);
+
+    const component = <VideoPlayerControl url={url} paused={true} videoRefs={sampleData}/>;
+    instance = render(component);
+  });
 
   afterEach(() => {
-    jest.clearAllMocks()
-    instance.unmount()
-  })
-
-  xit('should render component', () => {
-    expect(instance).toBeDefined()
+    jest.clearAllMocks();
+    instance.unmount();
   });
 
-  xit('when playVideo is pressed', () => {
-    const testID = instance.getByTestId('VideoPlayerControlId');
-    fireEvent(testID, 'onPress');
-    expect(mockFunction).toHaveBeenCalled();
+  it('should render VideoPlayerControl component', () => {
+    expect(instance).toBeDefined();
   });
 
-  xit('when Playpause is pressed', () => {
-    const testID = instance.getByTestId('renderCloseButtonID');
-    fireEvent(testID, 'onPress');
-    expect(mockFunction).toHaveBeenCalled();
+  it('Should call VideoPlayerControlId', () => {
+    const element = instance.getByTestId('VideoPlayerControlId');
+    fireEvent(element, 'onPress');
+    expect(element).toBeTruthy();
   });
-})
+
+});
 

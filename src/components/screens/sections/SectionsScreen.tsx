@@ -133,7 +133,7 @@ export const SectionsScreen = () => {
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
       {!isLoading && (
-        <View style={isPortrait()? styles.orientationStyle : styles.scene} testID={'tabContent'}>
+        <View style={(isPortrait() && isIOS)? styles.orientationStyle : styles.scene} testID={'tabContent'}>
          {routes.length > 0 && tabsView()}
         </View>
       )}
@@ -142,6 +142,9 @@ export const SectionsScreen = () => {
 };
 
 const initialLayout = {width: Dimensions.get('window').width};
+const { width : orientationWidth, height : orientationHeight } = Dimensions.get('window');
+const orientationStyleWidth = Math.min(orientationHeight, orientationWidth);
+
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     marginTop: isIOS ? StatusBar.currentHeight : 0,
@@ -173,6 +176,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   orientationStyle:{
     flex: 1,
-    width: Dimensions.get('window').width
+    width: orientationStyleWidth
   }
 });

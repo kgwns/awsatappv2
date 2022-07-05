@@ -60,8 +60,10 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
   return (
     <View style={style.container}>
       <Label style={style.headerStyle}>{t('opinion.opinionWriters')}</Label>
+      {/* seted initialNumToRender = data.length to fix auto scrolling issue - this is open bug, added link below */}
+      {/* https://github.com/facebook/react-native/issues/26436 */}
       <FlatList
-        initialNumToRender={30}
+        initialNumToRender={data.length}
         horizontal
         keyExtractor={(_, index) => index.toString()}
         listKey={

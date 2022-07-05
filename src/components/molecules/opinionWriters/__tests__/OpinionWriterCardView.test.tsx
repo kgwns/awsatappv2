@@ -12,28 +12,36 @@ jest.mock('react', () => ({
 
 jest.mock('src/hooks/useAppPlayer', () => ({useAppPlayer: jest.fn()}));
 
+jest.mock("src/hooks/useAppPlayer", () => ({
+  useAppPlayer: () => {
+    return {
+      showMiniPlayer: false,
+      isPlaying: false,
+      selectedTrack: {},
+      showControls: false,
+      setControlState: () => [],
+      setShowMiniPlayer: () => [],
+      setPlay: () => [],
+      setPlayerTrack: () => [],
+    }
+  },
+}));
+
 describe('<OpinionWritersCardView>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
 
-  const setMediaData = jest.fn()
-  const setTimeDuration = jest.fn()
-
-  const useAppPlayerMock = jest.fn();
-  const setDisableNext = jest.fn();
-  const setCanGoBack = jest.fn();
-  const setNewsLettersDataInfo = jest.fn()
-  const setControlStateMock = jest.fn();
-  const setShowMiniPlayerMock = jest.fn();
-  const setPlayMock = jest.fn();
-  const setPlayerTrackMock = jest.fn();
+  const setMediaData = mockFunction;
+  const setTimeDuration = mockFunction;
+  const setDisableNext = mockFunction;
+  const setCanGoBack = mockFunction;
+  const setNewsLettersDataInfo = mockFunction;
 
   //Test Data
   const imageUrl = 'https://picsum.photos/200';
   const writerTitle = 'إياد أبو شقرا';
   const headLine = 'هل بدأ العد العكسي لنهاية حكم جونسون في بريطانيا؟';
-  const subHeadLine =
-    'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور';
+  const subHeadLine = 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور';
   const audioLabel = 'استمع الي المقالة ';
   const duration = '3:22';
 
@@ -43,17 +51,6 @@ describe('<OpinionWritersCardView>', () => {
     (useState as jest.Mock).mockImplementation(() => [false, setDisableNext]);
     (useState as jest.Mock).mockImplementation(() => [false, setCanGoBack]);
     (useState as jest.Mock).mockImplementation(() => [[], setNewsLettersDataInfo]);
-    (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
-     useAppPlayerMock.mockReturnValue({
-      showMiniPlayer: false,
-      isPlaying: false,
-      selectedTrack: {},
-      showControls: false,
-      setControlState: setControlStateMock,
-      setShowMiniPlayer: setShowMiniPlayerMock,
-      setPlay: setPlayMock,
-      setPlayerTrack: setPlayerTrackMock,
-    });
     const component = (
       <OpinionWriterCardView
         imageUrl={imageUrl}
@@ -61,9 +58,7 @@ describe('<OpinionWritersCardView>', () => {
         headLine={headLine}
         subHeadLine={subHeadLine}
         audioLabel={audioLabel}
-        duration={duration} nid={''} isBookmarked={false} mediaVisibility={false} onPressBookmark={function (): void {
-          throw new Error('Function not implemented.');
-        } } authorId={''}      />
+        duration={duration} nid={''} isBookmarked={false} mediaVisibility={false} onPressBookmark={mockFunction} authorId={''}      />
     );
     instance = render(component);
   });
@@ -77,10 +72,11 @@ describe('<OpinionWritersCardView>', () => {
     expect(instance).toBeDefined();
   });
 
-  // it('Should Press BookMark', () => {
-  //   const element = instance.getByTestId('bookmarkTestId');
-  //   fireEvent.press(element);
-  // });
+  it('Should Press BookMark', () => {
+    const element = instance.getByTestId('bookmarkTestId');
+    fireEvent(element, 'onPress');
+    expect(mockFunction).toHaveBeenCalled;
+  });
 
   it('Should Press PlayIcon', () => {
     const element = instance.container.findAllByType(TouchableOpacity)[0];
