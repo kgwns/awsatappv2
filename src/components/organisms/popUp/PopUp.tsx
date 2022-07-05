@@ -91,14 +91,14 @@ export const PopUp = ({
     const renderRBSheet = () => (
         <RBSheet
             ref={ref => refRBSheet = ref}
-            animationType={'fade'}
+            animationType={'none'}
             height={height}
             closeOnDragDown={true}
             closeOnPressMask={true}
             closeOnDragAboveSheet={true}
             onClose={onClosePopUp}
             customStyles={{
-                container: StyleSheet.flatten([style.rbSheetContainer, { height: height }]),
+                container: StyleSheet.flatten([style.rbSheetContainer]),
                 wrapper: style.popupBackground,
                 draggableIcon: style.rbDraggableIcon
             }}

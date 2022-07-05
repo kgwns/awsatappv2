@@ -11,6 +11,7 @@ import { getSvgImages } from "../styles/svgImages";
 import { normalize } from 'src/shared/utils';
 import { ImagesName } from "../styles";
 import { isIOS } from "./dimensions";
+import { decode } from "html-entities";
 
 export enum DateIcon {
   CLOCK,
@@ -74,7 +75,7 @@ export const getArticleImage = (fieldImage: any, newPhoto: any) : string => {
 export const decodeHTMLTags = (description: string) : string => {
   const regex = /(<([^>]+)>)/gi; // to find the html tags in the description ex: <p>, <br>, etc.,
   const dataInfo = isNotEmpty(description) ? description.replace(regex, '').trim() : '';
-  return isNotEmpty(dataInfo) ? dataInfo.trim() : ''
+  return isNotEmpty(dataInfo) ? decode(dataInfo.trim()) : ''
 };
 
 export const isNonEmptyArray = (data: any): boolean => {
