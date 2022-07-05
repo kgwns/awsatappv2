@@ -184,11 +184,13 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
 export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewRef?: React.MutableRefObject<AutoHeightWebView | undefined | null>) => {
     const style = useThemeAwareObject(customStyle)
 
+    const updateWebViewRef = (ref: any) => webViewRef ? webViewRef.current = ref : ref;
+
     return (
         <ScrollView scrollEnabled={false} style={{ overflow: 'hidden' }}>
             <AutoHeightWebView 
                 style={style.webview}
-                ref={(ref) => {webViewRef ? webViewRef.current = ref : null}}
+                ref={(ref) => {updateWebViewRef(ref)}}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
                 originWhitelist={["*"]}

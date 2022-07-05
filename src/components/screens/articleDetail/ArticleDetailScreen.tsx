@@ -193,7 +193,7 @@ export const ArticleDetailScreen = ({
     if (fontSize != articleFontSize) {
       setFontSize(articleFontSize)
       if(webviewRef) {
-        webviewRef.map((_, index) => {
+        webviewRef.forEach((_, index) => {
           webviewRef[index].injectJavaScript(script());
         })
       }
@@ -214,7 +214,7 @@ export const ArticleDetailScreen = ({
         const newReferenceCount = articleDetailData.length - webviewRef.length
         let reference = React.createRef()
         const newReference = Array(newReferenceCount).fill(reference)
-        webviewRef.concat(newReference)
+        webviewRef = webviewRef.concat(newReference)
       }
 
       setArticleDetail(articleDetailData)
