@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { horizontalEdge } from 'src/shared/utils';
 import { TabBarComponent, TabBarDataProps, SignupAlertCard } from 'src/components/molecules';
@@ -8,7 +8,6 @@ import { Archives, ContentForYou } from 'src/components/organisms';
 import {useLogin} from 'src/hooks';
 import { ScreensConstants } from 'src/constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
 
 
 export const FavoriteScreen = () => {
@@ -31,6 +30,7 @@ export const FavoriteScreen = () => {
 
   const [tabItem, setTabItem] = useState<TabBarDataProps[]>(tabItemData);
   const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
+  const showupUp = useRef(!isLoggedIn)
 
   const ref = React.useRef(null);
 
@@ -89,9 +89,15 @@ export const FavoriteScreen = () => {
     });
   }
 
+  const onCloseSignUpAlert = () => {
+    showupUp.current = false
+  }
 
   return (
-    <ScreenContainer edge={horizontalEdge}>
+    <ScreenContainer edge={horizontalEdge}
+      isSignUpAlertVisible={showupUp.current}
+      onCloseSignUpAlert={onCloseSignUpAlert}
+    >
       {isLoggedIn  ?
        <FlatList
         ref={ref}
