@@ -126,6 +126,7 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: ()=>HeaderTitle(t('profileSetting.arithmetic')),
           headerTitleAlign: 'center',
+          headerBackVisible: false
         }}
         />
       <Stack.Screen
@@ -152,7 +153,8 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
-          gestureEnabled: false
+          gestureEnabled: false,
+          headerBackVisible: false
         }}
       />
       <Stack.Screen
@@ -189,7 +191,8 @@ const AppNavigator = () => {
           headerStyle: style.container,
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('profileSetting.myNewsLetter')),
-          headerTitleAlign: 'center'
+          headerTitleAlign: 'center',
+          headerBackVisible: false
         }}
       />
       <Stack.Screen
@@ -199,7 +202,8 @@ const AppNavigator = () => {
           headerStyle: style.container,
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('profileSetting.manageMyNotification')),
-          headerTitleAlign: 'center'
+          headerTitleAlign: 'center',
+          headerBackVisible: false
         }}
       />
        <Stack.Screen
