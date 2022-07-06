@@ -37,7 +37,7 @@ export const ArticleDetailBody = ({
         const newFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
         return `
           var pTagElement = document.getElementsByTagName("p");
-    
+          //   This css to apply all the p tag element
           if(pTagElement && pTagElement.length > 0) {
             for(i=0; i < pTagElement.length; i++) {
               pTagElement[i].style.fontSize = "${newFontSize}px"
@@ -49,6 +49,7 @@ export const ArticleDetailBody = ({
             }
           }
     
+          //   This css to apply all the div tag element
           var divTagElement = document.getElementsByTagName("div");
           if(divTagElement && divTagElement.length > 0) {
             for(i=0; i < divTagElement.length; i++) {
@@ -61,6 +62,7 @@ export const ArticleDetailBody = ({
             }
           }
     
+          //   This css to apply all the image tag element
           var imageElement = document.getElementsByTagName("img");
           if(imageElement && imageElement.length > 0) {
             for(i=0; i < imageElement.length; i++) {
@@ -69,6 +71,7 @@ export const ArticleDetailBody = ({
             } 
           }
     
+          //   This css to apply all the iFrame tag element
           var iFrameElement = document.getElementsByTagName("iframe");
           if(iFrameElement && iFrameElement.length > 0) {
             for(i=0; i < iFrameElement.length; i++) {
@@ -134,7 +137,7 @@ export const ArticleDetailBody = ({
                 nestedScrollEnabled={false}
                 scalesPageToFit={false}
                 onMessage={(event) => {
-                    console.log(event.nativeEvent.data);
+                    // console.log(event.nativeEvent.data);
                 }}
                 onLoadEnd={updateWebViewStyle}
                 onLoadProgress={() => index == 0 && updateWebViewStyle()}
