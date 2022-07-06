@@ -80,7 +80,6 @@
     "react-native-track-player": "2.1.3",
     "react-native-vector-icons": "^9.0.0",
     "react-native-video": "^5.2.0",
-    "react-native-video-controls": "https://github.com/vigneshrajs/react-native-video-controls",
     "react-native-webview": "^11.22.2",
     "react-navigation-drawer": "^2.7.2",
     "react-redux": "^7.2.6",

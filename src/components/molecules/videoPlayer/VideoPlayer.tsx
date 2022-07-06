@@ -1,16 +1,13 @@
-import React, {FunctionComponent, useRef, useState, useEffect} from 'react';
-import {View, StyleSheet, BackHandler, StatusBar, AppState} from 'react-native';
+import React, {FunctionComponent, useState, useEffect} from 'react';
+import {View, StyleSheet, BackHandler, StatusBar} from 'react-native';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors} from 'src/shared/styles/colors';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { Edge } from 'react-native-safe-area-context';
 import { horizontalEdge } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
-import VideoPlayer from 'react-native-video-controls';
-import { useNavigation } from '@react-navigation/native';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
-import { getSvgImages } from 'src/shared/styles/svgImages';
-import { ImagesName } from 'src/shared/styles';
+import VideoPlayerFullScreen from './VideoPlayerFullScreen';
 
 export interface VideoPlayerProps {
   goBack?: () => void;
@@ -24,51 +21,31 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
 }) => {
 
   const styles = useThemeAwareObject(createStyles);
-  const videoPlayer = useRef(null);
-  const [isPaused, setIsPaused] = useState(true)
+  const [isPaused, setIsPaused] = useState(false)
   const [videoUrl, setvideoUrl] = useState(url)
-  const [isLoading, setIsLoading] = useState(true);
   const [fullScreen, setFullScreen] = useState(false);
-  const [toggleControl, setTogglecontrol] = useState('');
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
-  const navigation = useNavigation();
   
   const changeOrientation = (deviceOrientation: OrientationType) => {
-    setTogglecontrol(deviceOrientation)
     Orientation.getAutoRotateState((rotationLock) => {
-      if(rotationLock){
-        if(deviceOrientation === 'LANDSCAPE-LEFT' || deviceOrientation === 'LANDSCAPE-RIGHT') {
-          Orientation.unlockAllOrientations();
-          !fullScreen && setFullScreen(true)
-        }else if(deviceOrientation === 'PORTRAIT'){
-          Orientation.unlockAllOrientations();
-          fullScreen && setFullScreen(false)
-        }}
-        else{
-          if(fullScreen){
-          Orientation.lockToPortrait();}
+        if(rotationLock){
+          if(deviceOrientation === 'LANDSCAPE-LEFT' || deviceOrientation === 'LANDSCAPE-RIGHT'){
+            Orientation.lockToLandscape()
+            setFullScreen(true)
+          }else if(deviceOrientation === 'PORTRAIT'){
+            Orientation.lockToPortrait()
+            setFullScreen(false)
+          }
         }
     });  
   } 
 
   const goBackToScreen = () =>{
-    console.log('goBackToScreen');
     if(goBack){
       setIsPaused(true)
       goBack()
     }
   }
-
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', () => {
-      if (AppState.currentState.match(/inactive|background/)) {  
-        setIsPaused(true)
-      }
-    });
-    return () => {
-      subscription.remove();
-    };
-  }, []);
 
   useEffect(() => {
     if(videoUrl&&typeof videoUrl==='string') setvideoUrl(videoUrl.trim())
@@ -79,12 +56,10 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
       setIsPaused(true)
       return false;
     };
-
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       backAction
     );
-
     return () => backHandler.remove();
   }, []);
 
@@ -100,50 +75,26 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
     }
   }, [])
 
-  const onLoadStart = () => {
-    setIsPaused(false)
-    setIsLoading(true);
-  };
-  const onLoad = () => {
-    setIsLoading(false);
-  };
-
-  const onEnterFullscreen = () => {
-    setTogglecontrol('LANDSCAPE')
-    Orientation.lockToLandscape()
-    setFullScreen(true)
-  };
-
-  const onExitFullscreen = () => {
-    setTogglecontrol('POTRAIT')
-    Orientation.lockToPortrait()
-    setFullScreen(false)
-  };
+  const changeFullScreen = () => {
+    if(fullScreen){
+      Orientation.lockToPortrait()
+      setFullScreen(false)
+    }else{
+      Orientation.lockToLandscape()
+      setFullScreen(true)
+    }
+  }
 
   return (
     <ScreenContainer barStyle={'light-content'} statusbarColor={colors.black} edge={edge} showPlayer={false}>
-      <View style={styles.container} >
-        <VideoPlayer source={{uri:videoUrl}}
-          repeat={true}
-          controls={false}
+      <View style={styles.videoStyles} >
+        <VideoPlayerFullScreen
+          url={videoUrl}
+          isPaused={isPaused}
+          isFullScreen={fullScreen}
+          onChangeFullScreen={changeFullScreen}
+          onClose={goBackToScreen}
           testID={testID}
-          tapAnywhereToPause={false}
-          accessibilityLabel={testID}
-          ref={videoPlayer}
-          videoStyle={styles.videoStyles}
-          onLoadStart={onLoadStart}
-          onLoad={onLoad}
-          onError={goBackToScreen}
-          paused={isPaused}
-          navigator={navigation}
-          onBack={goBackToScreen}
-          onEnterFullscreen={onEnterFullscreen}
-          onExitFullscreen={onExitFullscreen}
-          disableVolume={true}
-          isFullscreen={fullScreen}
-          fullscreenAutorotate={false}
-          toggleControl={toggleControl}
-          closeIcon={getSvgImages({name: ImagesName.videoCloseIcon, width: 14, height: 14})}
         />
       </View>
     </ScreenContainer>
@@ -166,6 +117,5 @@ const createStyles = () =>
       left: 0,
       bottom: 0,
       right: 0,
-      direction:'ltr',
     }
   });
