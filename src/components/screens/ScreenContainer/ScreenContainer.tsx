@@ -9,16 +9,15 @@ import {
   ViewStyle,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
-import {DEFAULT_HIT_SLOP, isDarkTheme, isNotEmpty, isTab, normalize, screenWidth} from '../../../shared/utils';
+import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenWidth} from '../../../shared/utils';
 import {useAppCommon} from '../../../hooks/useAppCommon';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {Label, LoadingState, Image} from 'src/components/atoms';
+import {Label, LoadingState} from 'src/components/atoms';
 import {useNavigation} from '@react-navigation/native';
-import {ImagesName, Styles} from 'src/shared/styles';
+import {ImagesName} from 'src/shared/styles';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import DeviceInfo from 'react-native-device-info';
 import {AlertModal, PopUp} from 'src/components/organisms';
 import {ScreensConstants} from 'src/constants';
 import { PopUpType } from 'src/components/organisms/popUp/PopUp';
@@ -27,6 +26,7 @@ import TrackPlayer from 'react-native-track-player';
 import { PodCastMiniPlayer } from 'src/components/molecules';
 import  { useAppPlayer } from 'src/hooks/useAppPlayer';
 import { fonts } from 'src/shared/styles/fonts';
+import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
 
 
 export interface AlertPayloadType {
@@ -90,6 +90,8 @@ export const ScreenContainer = ({
   const { showMiniPlayer, setShowMiniPlayer, setPlayerTrack } = useAppPlayer()
   const [showPlayerControls, setShowPlayerControls] = useState(false);
 
+  const CONST_RETURN = TranslateConstants({ key: TranslateKey.RETURN })
+
   const onClose = async () => {
     setShowMiniPlayer(false)
     setPlayerTrack(null)
@@ -105,8 +107,23 @@ export const ScreenContainer = ({
     });
   };
 
+  const renderBack = () => (
+    <TouchableOpacity
+      hitSlop={isTab ? style.tabHitSlop : DEFAULT_HIT_SLOP}
+      style={style.returnStyle}
+      onPress={onPressBack}>
+      <Label style={style.prevTitleStyle}>{CONST_RETURN}</Label>
+      {getSvgImages({
+        name: ImagesName.returnGreenish,
+        width: style.prevIconStyle.width,
+        height: style.prevIconStyle.height,
+        style: style.prevIconStyle,
+      })}
+    </TouchableOpacity>
+  );
+
   const header = (title?: string) => {
-    const titleStyle = {marginLeft: title && ((isTab && title.length > 60) || (title?.length > 15)) ? 80 : 0 }
+    const titleStyle = {marginLeft: title && ((isTab && title.length > 60) || (title?.length > 15)) ? 35 : 0 }
     return (
       <View style={style.headerContainer}>
         {isNotEmpty(title) && (
@@ -118,12 +135,7 @@ export const ScreenContainer = ({
           </Label>
         )}
         {headerLeft && headerLeft()}
-        <TouchableOpacity hitSlop={isTab ? { top: 15, bottom: 15, left: 15, right: 15 } : DEFAULT_HIT_SLOP} style={style.returnStyle} onPress={onPressBack}>
-          {getSvgImages({ name: ImagesName.returnBlackSvg, size: normalize(12), style: { marginRight: 5 }})}
-          <Label style={style.prevTitleStyle}>
-            {t('onBoard.common.return')}
-          </Label>
-        </TouchableOpacity>
+        {renderBack()}
       </View>
     );
   };
@@ -185,26 +197,24 @@ const createStyles = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
     },
     prevIconStyle: {
-      width: 12,
-      height: 8.8,
+      width: isTab ? 14 : 12,
+      height: isTab ? 10.8 : 8.8,
       marginEnd: 5,
-      alignItems: 'center',
-
-      paddingHorizontal: normalize(10),
+      marginTop: isAndroid ? 2 : 0,
     },
     prevTitleStyle: {
-      fontSize: 12,
-      lineHeight: 30,
-      color: theme.secondaryDarkSlate,
+      color: theme.primaryDarkSlateGray,
+      fontSize: isTab ? 16 : 12,
+      lineHeight: 50,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     returnStyle: {
-      flexDirection: 'row',
+      flexDirection: 'row-reverse',
       position: 'absolute',
-      left: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      left: isTab ? normalize(0.02 * screenWidth) : (0.04 * screenWidth),
+      top: isIOS ? 6 : 5,
       alignContent: 'center',
-      flexWrap: 'wrap',
       alignItems: 'center',
-      color: Styles.color.white,
     },
     headerContainer: {
       minHeight: 55,
@@ -230,6 +240,12 @@ const createStyles = (theme: CustomThemeType) => {
       opacity: 0.8,
       position: 'absolute',
     },
+    tabHitSlop: {
+      top: 15,
+      bottom: 15,
+      left: 15,
+      right: 15
+    }
   });
   return styles;
 };
