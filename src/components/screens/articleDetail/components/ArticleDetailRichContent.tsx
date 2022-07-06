@@ -1,7 +1,7 @@
 import { View, StyleSheet, ScrollView, Platform } from 'react-native'
 import React, { useEffect } from 'react'
-import { decodeHTMLTags, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, screenWidth } from 'src/shared/utils'
-import { ArticleContentDataType, ArticleDescriptionDataType, ArticleNumberDataType, ArticleOpinionDataType, ArticleQuoteDataType, ArticleReadAlsoDataType } from 'src/redux/articleDetail/types'
+import { decodeHTMLTags, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab, screenWidth } from 'src/shared/utils'
+import { ArticleContentDataType, ArticleDescriptionDataType, ArticleDetailDataType, ArticleNumberDataType, ArticleOpinionDataType, ArticleQuoteDataType, ArticleReadAlsoDataType, RichHTMLType } from 'src/redux/articleDetail/types'
 import { Styles } from 'src/shared/styles'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import { Label, TitleWithUnderLine } from 'src/components/atoms'
@@ -15,6 +15,46 @@ import { ContentBundleWidget } from './ContentBundleWidget'
 import { decode } from 'html-entities'
 import { WebViewErrorEvent, WebViewMessageEvent } from 'react-native-webview/lib/WebViewTypes'
 import { RichHTMLOpinonWidget } from './RichHTMLOpinonWidget'
+
+export const RenderRichHTMLContent = ({
+    articleItem,
+    articleFontSize,
+}: {
+    articleItem: ArticleDetailDataType,
+    articleFontSize: number,
+}) => {
+    const htmlContent = articleItem.richHTML ?? []
+    if (!isNonEmptyArray(htmlContent)) {
+        return null
+    }
+
+    const updatedFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
+    return (
+        <View style={{ padding: 0.04 * screenWidth }}>
+            {
+                htmlContent?.map((item) => {
+                    if (!item || !item.type) return null
+
+                    switch (item.type) {
+                        case RichHTMLType.QUOTE:
+                            return <RenderQuoteElement paragraphInfo={item.data} />
+                        case RichHTMLType.CONTENT:
+                            return <RenderContentElement paragraphInfo={item.data} />
+                        case RichHTMLType.DESCRIPTION:
+                            return <RenderDescriptionElement paragraphInfo={item.data} fontSize={updatedFontSize} />
+                        case RichHTMLType.OPINION:
+                            return <RenderOpinionElement paragraphInfo={item.data} />
+                        case RichHTMLType.READ_ALSO:
+                            return <RenderReadAlsoElement paragraphInfo={item.data} />
+                        case RichHTMLType.NUMBERS:
+                            return <RenderNumberElement paragraphInfo={item.data} fontSize={updatedFontSize} />
+                        default: return null
+                    }
+                })
+            }
+        </View>
+    )
+}
 
 export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQuoteDataType }) => {
     if (!isNotEmpty(paragraphInfo.title) && !isNotEmpty(paragraphInfo.description)) {
@@ -70,7 +110,7 @@ export const RenderContentElement = ({ paragraphInfo }: { paragraphInfo: Article
 }
 
 export const RenderDescriptionElement = ({ paragraphInfo, fontSize }: { paragraphInfo: ArticleDescriptionDataType, fontSize: number }) => {
-    if(!isObjectNonEmpty(paragraphInfo.description) || !isNotEmpty(paragraphInfo.description)) {
+    if (!isObjectNonEmpty(paragraphInfo.description) || !isNotEmpty(paragraphInfo.description)) {
         return null
     }
 
@@ -96,25 +136,25 @@ export const RenderDescriptionElement = ({ paragraphInfo, fontSize }: { paragrap
     }, ` + 0 + `)
     `
 
-    useEffect(() => {       
-       if(webviewRef && webviewRef.current) {
-        webviewRef.current.injectJavaScript(injectedStyle)
-       }
+    useEffect(() => {
+        if (webviewRef && webviewRef.current) {
+            webviewRef.current.injectJavaScript(injectedStyle)
+        }
     }, [fontSize])
 
     return (
         <View style={style.descriptionContainer}>
             {/* <TitleWithUnderLine title={'CONST_FACTS'} titleContainerStyle={{ backgroundColor: themeData.backgroundColor }} /> */}
-            {RenderWebView(richContentTagStyle({body: paragraphInfo.description}) , injectedStyle, webviewRef)}
+            {RenderWebView(richContentTagStyle({ body: paragraphInfo.description }), injectedStyle, webviewRef)}
         </View>
     )
 }
 
 export const RenderOpinionElement = ({ paragraphInfo }: { paragraphInfo: ArticleOpinionDataType }) => {
-    if(!isObjectNonEmpty(paragraphInfo.opinionData)) {
+    if (!isObjectNonEmpty(paragraphInfo.opinionData)) {
         return null
     }
-    
+
     return (
         <View>
             <RichHTMLOpinonWidget data={paragraphInfo.opinionData} />
@@ -162,11 +202,11 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
     }, ` + 0 + `)
     `
 
-    useEffect(() => {       
-        if(webviewRef && webviewRef.current) {
-         webviewRef.current.injectJavaScript(injectedStyle)
+    useEffect(() => {
+        if (webviewRef && webviewRef.current) {
+            webviewRef.current.injectJavaScript(injectedStyle)
         }
-     }, [fontSize])
+    }, [fontSize])
 
     return (
         <View style={style.descriptionContainer}>
@@ -174,7 +214,7 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
             <View style={style.numberBodyMainContainer}>
                 <View style={style.numberBodyContainer}>
                     <Label children={paragraphInfo.title} style={style.numberTitle} />
-                    {RenderWebView(richContentTagStyle({body: paragraphInfo.description})  || '', injectedStyle, webviewRef)}
+                    {RenderWebView(richContentTagStyle({ body: paragraphInfo.description }) || '', injectedStyle, webviewRef)}
                 </View>
             </View>
         </View>
@@ -188,9 +228,9 @@ export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewR
 
     return (
         <ScrollView scrollEnabled={false} style={{ overflow: 'hidden' }}>
-            <AutoHeightWebView 
+            <AutoHeightWebView
                 style={style.webview}
-                ref={(ref) => {updateWebViewRef(ref)}}
+                ref={(ref) => { updateWebViewRef(ref) }}
                 javaScriptEnabled={true}
                 domStorageEnabled={true}
                 originWhitelist={["*"]}
@@ -212,29 +252,29 @@ export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewR
 export const generateAssetFontCss = ({
     fontFileName,
     extension = 'ttf',
-  }: {
+}: {
     fontFileName: string;
     extension?: string;
-  }) => {
+}) => {
     const fileUri = Platform.select({
-      ios: `${fontFileName}.${extension}`,
-      android: `file:///android_asset/fonts/${fontFileName}.${extension}`,
+        ios: `${fontFileName}.${extension}`,
+        android: `file:///android_asset/fonts/${fontFileName}.${extension}`,
     });
-  
+
     return `@font-face {
         font-family: '${fontFileName}';
         src: local('${fontFileName}'), url('${fileUri}') ;
     }`;
-  };
-  
-  export const articleHtml = ({body}: {body: string}) => `
+};
+
+export const articleHtml = ({ body }: { body: string }) => `
   <html>
   <head>
       <style>
           ${generateAssetFontCss({
-            fontFileName: 'Effra-Regular',
-            extension: 'ttf',
-          })}
+    fontFileName: 'Effra-Regular',
+    extension: 'ttf',
+})}
           body {
             font-family: Effra-Regular;
             padding: 0;
@@ -267,14 +307,14 @@ export const generateAssetFontCss = ({
   </html>
   `;
 
-export const richContentTagStyle = ({body}: {body: string}) => `
+export const richContentTagStyle = ({ body }: { body: string }) => `
   <html>
   <head>
       <style>
           ${generateAssetFontCss({
-            fontFileName: 'Effra-Regular',
-            extension: 'ttf',
-          })}
+    fontFileName: 'Effra-Regular',
+    extension: 'ttf',
+})}
           body {
               font-family: Effra-Regular;
           }
