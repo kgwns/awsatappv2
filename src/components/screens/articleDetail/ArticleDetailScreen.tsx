@@ -1,16 +1,16 @@
-import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, ScrollView, StatusBar, useWindowDimensions } from 'react-native'
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl } from 'src/components/molecules'
-import { Divider, HeaderElementProps, Label, LabelTypeProp } from 'src/components/atoms'
+import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
-import { ArticleDetailDataType, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
+import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useAppCommon, useBookmark, useLogin } from 'src/hooks'
@@ -25,16 +25,10 @@ import { ArticleFontSize } from 'src/redux/appCommon/types'
 import { BackIcon } from 'src/components/atoms'
 import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types'
 import { fetchVideoDetailInfo } from 'src/services/VideoServices'
-import { 
-  articleHtml,
-  RenderContentElement, RenderDescriptionElement, RenderNumberElement, 
-  RenderOpinionElement, RenderQuoteElement, RenderReadAlsoElement 
-} from './components/ArticleDetailRichContent'
-import AutoHeightWebView from 'react-native-autoheight-webview'
+import { RenderRichHTMLContent } from './components/ArticleDetailRichContent'
 import SystemNavigationBar from 'react-native-system-navigation-bar'
-import { InAppBrowser } from 'react-native-inappbrowser-reborn'
-import { ANDROID_WEBVIEW_URL, IOS_WEBVIEW_URL } from 'src/constants/SharedConstants'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
+import { ArticleDetailBody } from './components/ArticleDetailBody'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -87,54 +81,6 @@ export const ArticleDetailScreen = ({
   var webviewRef: any[] =[React.createRef()];
 
   const currentNId = route.params.nid;
-
-  const script = () => {
-    const newFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
-    return `
-      var pTagElement = document.getElementsByTagName("p");
-
-      if(pTagElement && pTagElement.length > 0) {
-        for(i=0; i < pTagElement.length; i++) {
-          pTagElement[i].style.fontSize = "${newFontSize}px"
-          pTagElement[i].style.lineHeight = "${1.8 * newFontSize}px"
-          pTagElement[i].style.color = "${themeData.primaryBlack}"
-          pTagElement[i].style.textAlign = "justify"
-          pTagElement[i].style.direction = "rtl"
-          pTagElement[i].style.writingDirection = "rtl"
-        }
-      }
-
-      var divTagElement = document.getElementsByTagName("div");
-      if(divTagElement && divTagElement.length > 0) {
-        for(i=0; i < divTagElement.length; i++) {
-          divTagElement[i].style.fontSize = "${newFontSize}px"
-          divTagElement[i].style.lineHeight = "${1.8 * newFontSize}px"
-          divTagElement[i].style.color = "${themeData.primaryBlack}"
-          divTagElement[i].style.textAlign = "justify"
-          divTagElement[i].style.direction = "rtl"
-          divTagElement[i].style.writingDirection = "rtl"
-        }
-      }
-
-      var imageElement = document.getElementsByTagName("img");
-      if(imageElement && imageElement.length > 0) {
-        for(i=0; i < imageElement.length; i++) {
-          imageElement[i].style["max-width"] = "100%"; 
-          imageElement[i].style["height"] = "auto"; 
-        } 
-      }
-
-      var iFrameElement = document.getElementsByTagName("iframe");
-      if(iFrameElement && iFrameElement.length > 0) {
-        for(i=0; i < iFrameElement.length; i++) {
-          iFrameElement[i].style["width"] = "100%"; 
-          iFrameElement[i].style["aspect-ratio"] = "2/3"; 
-        } 
-      }
-       
-      true;  // note: this is required, or you'll sometimes get silent failures
-      `;
-  };
 
   const {
     isLoading,
@@ -192,11 +138,6 @@ export const ArticleDetailScreen = ({
   useEffect(() => {
     if (fontSize != articleFontSize) {
       setFontSize(articleFontSize)
-      if(webviewRef) {
-        webviewRef.forEach((_, index) => {
-          webviewRef[index].injectJavaScript(script());
-        })
-      }
     }
   }, [articleFontSize])
 
@@ -433,104 +374,19 @@ export const ArticleDetailScreen = ({
     </View>
   )
 
-  const browserOptions = async (url: string) => {
-    try {
-      const result = await InAppBrowser.open(url, {
-        // iOS Properties
-        dismissButtonStyle: 'close',
-        readerMode: false,
-        modalEnabled: true,
-        animated: true,
-        enableBarCollapsing: true,
-        // // Android Properties
-        showTitle: true,
-      })
-      console.log('InAppBrowser result', JSON.stringify(result))
-    } catch (error: any) {
-      console.log('InAppBrowser ERROR', error.message)
-    }
-  }
+  const articleHtmlContent = (index: number) => (
+    <ArticleDetailBody body={articleDetailState[index].body}
+      index={index} articleFontSize={articleFontSize}
+      webviewRef={webviewRef}
+    />
+  )
 
-  const onShouldStartLoadWithRequest = (event: any) => {
-    const HTML_URL = isIOS ? IOS_WEBVIEW_URL : ANDROID_WEBVIEW_URL; // "file:///" : "about:blank"
-    const URL = event.url
-
-    if (isIOS) {
-      if (event.navigationType == 'click') {
-        browserOptions(URL);
-        return false
-      }
-    }
-    else {
-      if (!URL.includes(HTML_URL)) {
-        browserOptions(URL);
-        return false
-      }
-    }
-    return true
-  }
-
-  const articleHtmlContent = (index: number) => {
-    return (
-      <ScrollView scrollEnabled={true} style={style.scrollViewStyle}>
-        <AutoHeightWebView
-          style={style.webView}
-          source={{ html: articleHtml({ body: articleDetailState[index].body }), baseUrl: '' }}
-          ref={(r) => (webviewRef[index] = r)}
-          domStorageEnabled={true}
-          bounces={false}
-          originWhitelist={["*"]}
-          nestedScrollEnabled={false}
-          scalesPageToFit={false}
-          onMessage={(event) => {
-            console.log(event.nativeEvent.data);
-          }}
-          onLoadEnd={() => {
-            webviewRef[index].injectJavaScript(script())
-          }}
-          injectedJavaScript={script()}
-          injectedJavaScriptBeforeContentLoaded={script()}
-          onShouldStartLoadWithRequest={(event) => onShouldStartLoadWithRequest(event)}
-          androidLayerType="hardware"
-          allowsFullscreenVideo={true}
-        />
-      </ScrollView>
-    )
-  }
-
-  const renderRichHTMLContent = (articleItem: ArticleDetailDataType) => {
-    const htmlContent = articleItem.richHTML ?? []
-    if (!isNonEmptyArray(htmlContent)) {
-      return null
-    }
-
-    const updatedFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
-    return (
-      <View style={{padding: 0.04 * screenWidth}}>
-        {
-          htmlContent?.map((item) => {
-            if(!item || !item.type) return null
-
-            switch (item.type) {
-              case RichHTMLType.QUOTE:
-                return <RenderQuoteElement paragraphInfo={item.data} />
-              case RichHTMLType.CONTENT:
-                return <RenderContentElement paragraphInfo={item.data} />
-              case RichHTMLType.DESCRIPTION:
-                return <RenderDescriptionElement paragraphInfo={item.data} fontSize={updatedFontSize} />
-              case RichHTMLType.OPINION:
-                return <RenderOpinionElement paragraphInfo={item.data}/>
-              case RichHTMLType.READ_ALSO:
-                return <RenderReadAlsoElement paragraphInfo={item.data}/>
-              case RichHTMLType.NUMBERS:
-                return <RenderNumberElement paragraphInfo={item.data}  fontSize={updatedFontSize}/>
-              default: return null
-            }
-          })
-     }
-    </View>
-    )
-  }
+  const renderRichHTMLContent = (articleItem: ArticleDetailDataType) => (
+    <RenderRichHTMLContent
+      articleItem={articleItem}
+      articleFontSize={articleFontSize}
+    />
+  )
 
   const renderItem = ({ item, index }: { item: ArticleDetailDataType, index: number }) => {
     const relatedArticles = relatedArticleState.slice(index * 2, (index * 2) + 2)
@@ -634,11 +490,6 @@ export const ArticleDetailScreen = ({
   )
 }
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
-  scrollViewStyle: {
-    marginHorizontal: 0.04 * screenWidth,
-    overflow: 'hidden',
-    marginTop: 20,
-  },
   footer: {
     width: '100%'
   },
@@ -676,12 +527,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   backIconContainerStyle: {
     marginLeft: isTab ? 15 : 0
-  },
-  webView: {
-    width: '100%',
-    backgroundColor: 'transparent',
-    opacity: 0.99,
-    flex: 1,
   },
   fullScreenContainer: {
     backgroundColor: Styles.color.black

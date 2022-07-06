@@ -91,7 +91,7 @@ export const RichHTMLOpinonWidget = ({
                         />
                     </View>
                     <View style={style.leftContainer}>
-                        <Label testID='RichHTMLOpinonWidgetLabel2' children={data.title} labelType={LabelTypeProp.h1}
+                        <Label testID='RichHTMLOpinonWidgetLabel2' children={data.title} labelType={LabelTypeProp.h2}
                             style={style.authorTitle}
                             color={themeData.authorTitle}
                             numberOfLines={3} onPress={onPressOpinion}
