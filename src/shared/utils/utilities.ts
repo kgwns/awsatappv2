@@ -306,3 +306,7 @@ export const TimeIcon = (type: DateIcon) => (
     style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
   })
 )
+
+export const removeWhiteSpace = ( value: string) : string | any => {
+  return typeof value === 'string' ? value.trim() : value;
+}

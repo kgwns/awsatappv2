@@ -447,7 +447,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     allDataLoad();
-    TrackPlayer.stop()
     wait(2000).then(() => setRefreshing(false));
   }, []);
 

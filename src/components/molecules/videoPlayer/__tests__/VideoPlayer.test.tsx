@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { VideoPlayerComponent } from '../VideoPlayer';
 import { useNavigation } from '@react-navigation/native';
-import VideoPlayer from 'react-native-video-controls';
+import VideoPlayerFullScreen from '../VideoPlayerFullScreen';
 import { ImagesName } from 'src/shared/styles';
 
 jest.mock('react', () => ({
@@ -54,43 +54,43 @@ describe('<VideoPlayer>', () => {
     })
 
     test('Should call onLoadStart', () => {
-      const element = instance.container.findByType(VideoPlayer)
+      const element = instance.container.findByType(VideoPlayerFullScreen)
       fireEvent(element, 'onLoadStart');
       expect(mockFunction).toBeTruthy()
     });
 
     test('Should call onLoad', () => {
-      const element = instance.container.findByType(VideoPlayer)
+      const element = instance.container.findByType(VideoPlayerFullScreen)
       fireEvent(element, 'onLoad');
       expect(mockFunction).toBeTruthy()
     });
 
     test('Should call onError', () => {
-      const element = instance.container.findByType(VideoPlayer)
+      const element = instance.container.findByType(VideoPlayerFullScreen)
       fireEvent(element, 'onError');
       expect(mockFunction).toBeTruthy()
     });
 
     test('Should call onBack', () => {
-      const element = instance.container.findByType(VideoPlayer)
+      const element = instance.container.findByType(VideoPlayerFullScreen)
       fireEvent(element, 'onBack');
       expect(mockFunction).toBeTruthy()
     });
 
     test('Should call onExitFullscreen', () => {
-      const element = instance.container.findByType(VideoPlayer)
+      const element = instance.container.findByType(VideoPlayerFullScreen)
       fireEvent(element, 'onExitFullscreen');
       expect(mockFunction).toBeTruthy()
     });
 
     test('Should call closeIcon', () => {
-      const element = instance.container.findByType(VideoPlayer)
+      const element = instance.container.findByType(VideoPlayerFullScreen)
       fireEvent(element, 'closeIcon',{name: ImagesName.videoCloseIcon, width: 14, height: 14});
       expect(mockFunction).toBeTruthy()
     });
 
     test('Should call closeIcon', () => {
-      const element = instance.container.findByType(VideoPlayer)
+      const element = instance.container.findByType(VideoPlayerFullScreen)
       fireEvent(element, 'navigator');
       expect(navigation).toBeTruthy()
     });

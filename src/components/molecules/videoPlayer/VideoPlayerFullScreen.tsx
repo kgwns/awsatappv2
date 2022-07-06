@@ -1,0 +1,389 @@
+import React, {useEffect, useRef, useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  TouchableHighlight,
+  Image,
+  ImageBackground,
+  AppState,
+} from 'react-native';
+import {isIOS} from 'src/shared/utils';
+import {colors, CustomThemeType} from 'src/shared/styles/colors';
+import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import Video from 'react-native-video';
+import {
+  convertSecondsToHMS,
+  DEFAULT_HIT_SLOP,
+} from 'src/shared/utils/utilities';
+import Slider from '@react-native-community/slider';
+import {LoadingState} from 'src/components/atoms';
+import {images, ImagesName} from 'src/shared/styles/images';
+import {NativeViewGestureHandler} from 'react-native-gesture-handler';
+import {getSvgImages} from 'src/shared/styles/svgImages';
+
+export interface VideoPlayerFullScreenProp {
+  url: string;
+  testID?: string;
+  isPaused: boolean;
+  isFullScreen?: boolean;
+  onChangeFullScreen?: (isFullScreen: boolean) => void;
+  onClose?: () => void;
+}
+
+const VideoPlayerFullScreen = ({
+  url,
+  isPaused,
+  isFullScreen = false,
+  onChangeFullScreen,
+  onClose,
+  testID,
+}: VideoPlayerFullScreenProp) => {
+  const styles = useThemeAwareObject(customStyle);
+
+  const videoPlayer = useRef<any>(null);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [paused, setPaused] = useState(true);
+  const [tapActionTimeout, setTapActionTimeout] = useState<any>(null);
+  const [showControls, setShowControls] = useState(false);
+  const [screenType, setScreenType] = useState('contain');
+
+  const onSeek = (seek: any) => {
+    videoPlayer.current?.seek(seek);
+  };
+
+  const onPaused = () => {
+    setPaused(!paused);
+  };
+
+  const onProgress = (data: any) => {
+    if (!isLoading) {
+      setCurrentTime(data.currentTime);
+    }
+  };
+
+  const onLoad = (data: any) => {
+    setDuration(data.duration);
+    setIsLoading(false);
+    onScreenTouch();
+  };
+
+  const onLoadStart = (data: any) => setIsLoading(true);
+
+  const onEnd = () => {
+    videoPlayer.current?.seek(duration);
+    setTimeout(() => {
+      setPaused(true);
+      videoPlayer.current?.seek(0);
+    }, 500);
+  };
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', () => {
+      if (AppState.currentState.match(/inactive|background/)) {
+        setPaused(true);
+      }
+    });
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    setPaused(isPaused);
+  }, [isPaused]);
+
+  const onScreenTouch = () => {
+    if (tapActionTimeout) {
+      clearTimeout(tapActionTimeout);
+      setTapActionTimeout(null);
+      if (showControls) {
+        resetControlTimeout();
+      }
+    } else {
+      setTapActionTimeout(
+        setTimeout(() => {
+          toggleControls();
+          setTapActionTimeout(null);
+        }, 130),
+      );
+    }
+  };
+
+  const toggleControls = () => {
+    !showControls ? setControlTimeout() : clearControlTimeout();
+    setShowControls(!showControls);
+  };
+
+  const resetControlTimeout = () => {
+    clearControlTimeout();
+    setControlTimeout();
+  };
+
+  const setControlTimeout = () => {
+    setTapActionTimeout(
+      setTimeout(() => {
+        hideControls();
+      }, 15000),
+    );
+  };
+
+  const hideControls = () => {
+    setShowControls(false);
+  };
+
+  const clearControlTimeout = () => {
+    clearTimeout(tapActionTimeout);
+  };
+
+  const closePlayer = () => {
+    onClose && onClose();
+  };
+
+  const toggleFullscreen = () => {
+    onChangeFullScreen &&
+      (isFullScreen ? onChangeFullScreen(false) : onChangeFullScreen(true));
+  };
+
+  const renderVideo = () => (
+    <Video
+      onEnd={onEnd}
+      onLoad={onLoad}
+      onLoadStart={onLoadStart}
+      onProgress={onProgress}
+      onSeek={onProgress}
+      paused={paused}
+      ref={(ref: any) => {
+        videoPlayer.current = ref;
+      }}
+      testID={testID}
+      resizeMode={screenType}
+      onFullScreen={isFullScreen}
+      source={{uri: url}}
+      style={styles.backgroundVideo}
+      repeat={false}
+    />
+  );
+
+  const renderBottomControls = () => (
+    <ImageBackground
+      source={images.bottomShadowImg}
+      style={isFullScreen ? styles.fullScreenColoumn : styles.column}
+      imageStyle={styles.vignette}>
+      <View style={styles.progrsBarSection}>
+        <NativeViewGestureHandler
+          disallowInterruption={true}
+          enabled
+          shouldActivateOnStart={true}>
+          <Slider
+            style={[styles.sliderStyle, isIOS && styles.directionStyle]}
+            minimumValue={0}
+            maximumValue={duration}
+            minimumTrackTintColor={colors.white}
+            maximumTrackTintColor={colors.dimGray}
+            thumbTintColor={colors.white}
+            value={currentTime > duration ? duration : currentTime}
+            tapToSeek
+            inverted={isIOS ? false : true}
+            onSlidingComplete={(value: any) => {
+              onSeek(value);
+            }}
+          />
+        </NativeViewGestureHandler>
+      </View>
+      <View style={styles.timeContainer}>
+        {renderTimer()}
+        {renderPlaypause()}
+      </View>
+    </ImageBackground>
+  );
+
+  const renderTopControls = () => (
+    <ImageBackground
+      source={images.topShadowImg}
+      style={isFullScreen ? styles.fullScreenStyle : styles.topContainerStyle}
+      imageStyle={[styles.vignette]}>
+      <View style={styles.topContainer}>
+        <View style={styles.closeButtonContainer}>{renderCloseButton()}</View>
+        <View style={styles.closeButtonContainer}>{renderFullScreen()}</View>
+      </View>
+    </ImageBackground>
+  );
+
+  const renderFullScreen = () => {
+    let source = isFullScreen ? images.shirnkIcon : images.expandIcon;
+
+    return (
+      <TouchableHighlight
+        underlayColor={colors.transparent}
+        activeOpacity={0.3}
+        onPress={toggleFullscreen}
+        hitSlop={DEFAULT_HIT_SLOP}
+        style={styles.fullScreenBtnContainer}>
+        <Image source={source} />
+      </TouchableHighlight>
+    );
+  };
+
+  const renderTimer = () => (
+    <View style={styles.control}>
+      <Text style={styles.timerText}>
+        {currentTime > duration
+          ? convertSecondsToHMS(duration)
+          : convertSecondsToHMS(currentTime)}
+      </Text>
+    </View>
+  );
+
+  const renderCloseButton = () => (
+    <TouchableHighlight
+      testID="renderCloseButtonID"
+      underlayColor={colors.transparent}
+      activeOpacity={0.3}
+      onPress={closePlayer}
+      hitSlop={DEFAULT_HIT_SLOP}
+      style={styles.control}>
+      {getSvgImages({name: ImagesName.videoCloseIcon, width: 13, height: 13})}
+    </TouchableHighlight>
+  );
+
+  const renderPlaypause = () => {
+    let source = paused === true ? images.playIconWhite : images.pauseIconWhite;
+
+    return (
+      <TouchableHighlight
+        testID="renderPlaypauseID"
+        underlayColor={colors.transparent}
+        activeOpacity={0.3}
+        onPress={onPaused}
+        hitSlop={DEFAULT_HIT_SLOP}
+        style={styles.playButtoncontainer}>
+        <Image source={source} />
+      </TouchableHighlight>
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      <TouchableWithoutFeedback
+        testID="VideoPlayerControlId"
+        style={{flex: 1}}
+        onPress={onScreenTouch}>
+        <View style={{flex: 1}}>
+          {renderVideo()}
+          <View style={styles.videoControls}>
+            {isLoading && <LoadingState />}
+            {showControls && (
+              <>
+                <View style={{flex: 1}}>{renderTopControls()}</View>
+                <View style={{flex: 1}}>{renderBottomControls()}</View>
+              </>
+            )}
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </View>
+  );
+};
+
+export default VideoPlayerFullScreen;
+
+const customStyle = (theme: CustomThemeType) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    backgroundVideo: {
+      overflow: 'hidden',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+    },
+    videoControls: {
+      width: '100%',
+      height: '100%',
+    },
+    timeContainer: {
+      flexDirection: 'row',
+      alignSelf: 'stretch',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
+      paddingBottom: 15,
+    },
+    timerText: {
+      backgroundColor: colors.transparent,
+      color: colors.white,
+      fontSize: 11,
+      textAlign: 'right',
+    },
+    vignette: {
+      resizeMode: 'stretch',
+    },
+    control: {
+      paddingHorizontal: isIOS ? 20 : 15,
+      paddingVertical: 15,
+    },
+    playButtoncontainer: {
+      paddingHorizontal: isIOS ? 20 : 15,
+      paddingBottom: 15,
+    },
+    fullScreenBtnContainer: {
+      paddingHorizontal: isIOS ? 20 : 15,
+      paddingVertical: 15,
+    },
+    column: {
+      flex: 1,
+      alignSelf: 'stretch',
+      justifyContent: 'flex-end',
+    },
+    fullScreenColoumn: {
+      flex: 1,
+      alignSelf: 'stretch',
+      justifyContent: 'flex-end',
+      paddingHorizontal: isIOS ? 15 : 0,
+    },
+    topContainerStyle: {
+      flex: 1,
+      alignSelf: 'stretch',
+      justifyContent: 'flex-start',
+      paddingTop: isIOS ? 25 : 20,
+    },
+    fullScreenStyle: {
+      flex: 1,
+      alignSelf: 'stretch',
+      justifyContent: 'flex-start',
+      paddingTop: isIOS ? 25 : 20,
+      paddingHorizontal: isIOS ? 15 : 0,
+    },
+    topContainer: {
+      flexDirection: 'row',
+      alignSelf: 'stretch',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
+    },
+    progrsBarSection: {
+      width: '100%',
+      justifyContent: 'flex-end',
+      paddingHorizontal: isIOS ? 15 : 0,
+      paddingVertical: 10,
+    },
+    sliderStyle: {
+      width: '100%',
+      height: 10,
+    },
+    directionStyle: {
+      direction: 'ltr',
+    },
+    closeButtonContainer: {
+      flexDirection: 'row',
+      alignSelf: 'stretch',
+      alignItems: 'flex-end',
+      justifyContent: 'space-between',
+      paddingTop: 0,
+    },
+  });
