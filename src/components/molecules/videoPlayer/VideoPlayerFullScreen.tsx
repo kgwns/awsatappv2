@@ -92,11 +92,8 @@ const VideoPlayerFullScreen = ({
     };
   }, []);
 
-  useEffect(() => {}, [isFullScreen]);
-
   useEffect(() => {
     setPaused(isPaused);
-    console.log('fdsgsdfg', isPaused);
   }, [isPaused]);
 
   const onScreenTouch = () => {
