@@ -213,7 +213,7 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
             <TitleWithUnderLine title={CONST_FACTS} />
             <View style={style.numberBodyMainContainer}>
                 <View style={style.numberBodyContainer}>
-                    <Label children={paragraphInfo.title} style={style.numberTitle} />
+                    {isNotEmpty(paragraphInfo.title) && <Label children={paragraphInfo.title} style={style.numberTitle} />}
                     {RenderWebView(richContentTagStyle({ body: paragraphInfo.description }) || '', injectedStyle, webviewRef)}
                 </View>
             </View>
