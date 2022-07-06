@@ -29,12 +29,15 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   const changeOrientation = (deviceOrientation: OrientationType) => {
     Orientation.getAutoRotateState(rotationLock => {
       if (rotationLock) {
-        if(deviceOrientation === OrientationType['LANDSCAPE-LEFT'] || deviceOrientation ===  OrientationType['LANDSCAPE-RIGHT'] ){
-          Orientation.lockToLandscape()
-          setFullScreen(true)
-        }else if(deviceOrientation === OrientationType['PORTRAIT']){
-          Orientation.lockToPortrait()
-          setFullScreen(false)
+        if (
+          deviceOrientation === OrientationType['LANDSCAPE-LEFT'] ||
+          deviceOrientation === OrientationType['LANDSCAPE-RIGHT']
+        ) {
+          Orientation.lockToLandscape();
+          setFullScreen(true);
+        } else if (deviceOrientation === OrientationType['PORTRAIT']) {
+          Orientation.lockToPortrait();
+          setFullScreen(false);
         }
       }
     });
