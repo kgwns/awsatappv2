@@ -79,6 +79,7 @@ export const colors = {
   balckOpacity20: '#0000001A',  
   mandyPink : '#FFB596',
   carouselPink: '#FAE5DA',
+  dimGray: '#666666'
 };
 
 export interface CustomThemeType {

@@ -65,6 +65,8 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
           })
           let selectedItem = getDeviceResolutionVideo(screenHeight, videoResolutions)
           const videoItem = sources.find((item) => item.height == selectedItem)
+          console.log(playerUrl,'playerUrl');
+          
           videoItem && isObjectNonEmpty(videoItem) && setPlayerUrl(videoItem.file)
         }
       } catch (error) {

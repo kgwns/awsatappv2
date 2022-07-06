@@ -10,7 +10,7 @@ import {
   AppState,
 } from 'react-native';
 import {isIOS} from 'src/shared/utils';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import Video from 'react-native-video';
 import {
@@ -114,11 +114,7 @@ const VideoPlayerFullScreen = ({
   };
 
   const toggleControls = () => {
-    if (!showControls) {
-      setControlTimeout();
-    } else {
-      clearControlTimeout();
-    }
+    !showControls ? setControlTimeout() : clearControlTimeout();
     setShowControls(!showControls);
   };
 
@@ -186,9 +182,9 @@ const VideoPlayerFullScreen = ({
             style={[styles.sliderStyle, isIOS && styles.directionStyle]}
             minimumValue={0}
             maximumValue={duration}
-            minimumTrackTintColor="#FFF"
-            maximumTrackTintColor="#666"
-            thumbTintColor="#FFF"
+            minimumTrackTintColor={colors.white}
+            maximumTrackTintColor={colors.dimGray}
+            thumbTintColor={colors.white}
             value={currentTime > duration ? duration : currentTime}
             tapToSeek
             inverted={isIOS ? false : true}
@@ -222,7 +218,7 @@ const VideoPlayerFullScreen = ({
 
     return (
       <TouchableHighlight
-        underlayColor="transparent"
+        underlayColor={colors.transparent}
         activeOpacity={0.3}
         onPress={toggleFullscreen}
         hitSlop={DEFAULT_HIT_SLOP}
@@ -245,7 +241,7 @@ const VideoPlayerFullScreen = ({
   const renderCloseButton = () => (
     <TouchableHighlight
       testID="renderCloseButtonID"
-      underlayColor="transparent"
+      underlayColor={colors.transparent}
       activeOpacity={0.3}
       onPress={closePlayer}
       hitSlop={DEFAULT_HIT_SLOP}
@@ -260,7 +256,7 @@ const VideoPlayerFullScreen = ({
     return (
       <TouchableHighlight
         testID="renderPlaypauseID"
-        underlayColor="transparent"
+        underlayColor={colors.transparent}
         activeOpacity={0.3}
         onPress={onPaused}
         hitSlop={DEFAULT_HIT_SLOP}
@@ -320,8 +316,8 @@ const customStyle = (theme: CustomThemeType) =>
       paddingBottom: 15,
     },
     timerText: {
-      backgroundColor: 'transparent',
-      color: '#FFF',
+      backgroundColor: colors.transparent,
+      color: colors.white,
       fontSize: 11,
       textAlign: 'right',
     },
