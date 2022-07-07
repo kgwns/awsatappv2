@@ -6,8 +6,9 @@ import {
 } from '@react-navigation/stack';
 import { Routes, ScreenList } from './index'
 import { ScreensConstants } from 'src/constants';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator<ScreenList>();
+const Stack = createNativeStackNavigator<ScreenList>();
 const defaultScreenOptions: StackNavigationOptions = {
   gestureEnabled: false,
   cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -16,7 +17,7 @@ const defaultScreenOptions: StackNavigationOptions = {
 
 const AuthNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={defaultScreenOptions}>
+    <Stack.Navigator screenOptions={{...defaultScreenOptions, orientation: 'portrait_up', headerBackVisible: false, headerShadowVisible: false}}>
       <Stack.Screen name={ScreensConstants.AuthPage} component={Routes.AuthPage} />
       <Stack.Screen name={ScreensConstants.SignInPage} component={Routes.SignInPage} />
       <Stack.Screen name={ScreensConstants.SignUpPage} component={Routes.SignUpPage} />

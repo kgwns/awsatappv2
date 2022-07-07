@@ -71,6 +71,7 @@ const AppNavigator = () => {
       screenOptions={({ navigation }) => {
         return {
           detachPreviousScreen: !navigation.isFocused(),
+          orientation: 'portrait_up'
         }
       }}>
       <Stack.Screen
@@ -86,7 +87,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.ARTICLE_DETAIL_SCREEN}
         component={Routes.ArticleDetailScreen}
-        options={hideHeader}
+        options={{...hideHeader, orientation: 'default'}}
       />
       <Stack.Screen
         name={ScreensConstants.PodcastProgram}
@@ -127,13 +128,14 @@ const AppNavigator = () => {
           headerTitle: ()=>HeaderTitle(t('profileSetting.arithmetic')),
           headerTitleAlign: 'center',
           headerBackVisible: false,
-          headerShadowVisible: false
+          headerShadowVisible: false,
+          gestureEnabled: false
         }}
         />
       <Stack.Screen
         name={ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN}
         component={Routes.OpinionArticleDetail}
-        options={hideHeader}
+        options={{...hideHeader, orientation: 'default'}}
       />
       <Stack.Screen
         name={ScreensConstants.USER_DETAIL_SCREEN}
@@ -175,7 +177,8 @@ const AppNavigator = () => {
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
           gestureEnabled: false,
-          headerShadowVisible: false
+          headerShadowVisible: false,
+          headerBackVisible: false
         }}
       />
          <Stack.Screen
@@ -187,6 +190,8 @@ const AppNavigator = () => {
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
           gestureEnabled: false,
+          headerShadowVisible: false,
+          headerBackVisible: false
         }}
       />
       <Stack.Screen
@@ -286,7 +291,8 @@ const customStyle = (theme: CustomThemeType) => (
       flexDirection: 'row-reverse',
       alignItems: 'center',
       marginEnd: isTab ? normalize(0.01 * screenWidth) : 0,
-      marginTop: isIOS ? 3 : 1
+      marginTop: isIOS ? 3 : 1,
+      alignSelf: 'flex-end'
     },
     onBoardPrevTitle: {
       color: theme.primaryDarkSlateGray,
