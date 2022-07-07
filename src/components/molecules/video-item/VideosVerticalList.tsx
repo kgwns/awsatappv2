@@ -29,8 +29,8 @@ export const VideosVerticalList = ({
       <View style={style.cardContainer}>
         <View style={style.headerStyle}>
           <View style={style.imageContainer}>
-            <Image fallback url={imageUrl} style={style.imageStyle} />
-            {time&&<Label style={style.timeStyle} numberOfLines={1}>
+            <Image fallback url={imageUrl} style={style.imageStyle} resizeMode={'cover'} />
+            {time && <Label style={style.timeStyle} >
               {time}
             </Label>}
           </View>
@@ -64,7 +64,6 @@ const customStyle = (theme: CustomThemeType) => {
     imageStyle: {
       width: normalize(100),
       height: normalize(70),
-      resizeMode: 'cover'
     },
     titleContainer: {
       flex:1,
@@ -80,16 +79,15 @@ const customStyle = (theme: CustomThemeType) => {
     },
     timeStyle: {
       right: 0,
-      bottom: 0,
+      bottom: 3,
       position: 'absolute',
       opacity: 0.9,
       backgroundColor: colors.darkGreenishBlue,
       paddingHorizontal: normalize(5),
-      paddingVertical: normalize(3),
-      marginVertical: 3,
       fontSize: normalize(10),
       color: colors.white,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      lineHeight: 20
     },
   });
   return PodcastCardStyle;
