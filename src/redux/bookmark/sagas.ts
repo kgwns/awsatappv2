@@ -2,7 +2,7 @@ import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
 import { GET_BOOK_MARKED, GET_BOOK_MARKED_DETAIL_INFO, REMOVE_BOOK_MARKED, SEND_BOOK_MARK_ID } from './actionType';
 import {
-  BookmarkIdSuccessDataFieldType, GetBookmarkDetailInfoType,
+  BookmarkIdSuccessDataFieldType, GetBookmarkDetailBodyGet, GetBookmarkDetailInfoType,
   GetBookmarkDetailSuccessPayload,
   GetBookMarkIdSuccessMessageType, RemoveBookmarkDetailSuccessPayload, RemoveBookMarkDetailType,
   SendBookMarkDetailType, SendBookMarkSuccessInfoType
@@ -16,11 +16,11 @@ import {
 } from './action';
 import { isNonEmptyArray, joinArray } from 'src/shared/utils';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
-import { decodeHTMLTags, getArticleImage, getImageUrl } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getArticleImage, getImageUrl, spliceArray } from 'src/shared/utils/utilities';
 import { sendUserEventTracking } from 'src/services';
 import { TrackingEventType } from 'src/services/eventTrackService';
 
-const filterNidInfo = (data: BookmarkIdSuccessDataFieldType[]) => {
+export const filterNidInfoFromNodeList = (data: BookmarkIdSuccessDataFieldType[]) => {
   return data.reduce((prevValue: string[], item: BookmarkIdSuccessDataFieldType) => {
     if (item.nid) {
       return prevValue.concat(item.nid)
@@ -39,9 +39,11 @@ const getOpinionImage = (item: any) => {
     )
 }
 
-const populateBookmarkDetail = (response: any): any => {
+const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet): any => {
   let responseData: GetBookmarkDetailSuccessPayload = {
-    bookmarkedDetailInfo: []
+    bookmarkedDetailInfo: [],
+    page: payload.page,
+    bundle: payload.bundle,
   }
 
   // TODO: Need to remove those sample value when the API is available
@@ -139,10 +141,12 @@ export function* getBookmarked() {
     );
     yield put(getBookMarkedSuccess({ bookmarkedInfo: payload.data }));
     if (payload && isNonEmptyArray(payload.data)) {
-      const id = filterNidInfo(payload.data)
+      const data = [...payload.data]
+      const firstPageId = spliceArray(data, 0, 25)
+      const id = filterNidInfoFromNodeList(firstPageId)
       yield call(getDetailedBookmarkInfo, {
         type: GET_BOOK_MARKED_DETAIL_INFO,
-        payload: { nid: joinArray(id, '+') }
+        payload: { nid: joinArray(id, '+'), page: 0 }
       })
     } else {
       yield put(getBookMarkedSuccessDetailInfo({ bookmarkedDetailInfo: [] }));
@@ -179,7 +183,7 @@ export function* getDetailedBookmarkInfo(action: GetBookmarkDetailInfoType) {
       getBookMarkDetailInfoService,
       action.payload
     );
-    const response = populateBookmarkDetail(payload)
+    const response = populateBookmarkDetail(payload, action.payload)
     yield put(getBookMarkedSuccessDetailInfo(response));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;

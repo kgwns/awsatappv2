@@ -7,7 +7,7 @@ export const getIsLoading: Selector<boolean> = (state: AppState) =>
 export const getBookMarkSuccessInfo: Selector<SendBookMarkSuccessInfoType> = (state: AppState) =>
   state.bookmark.sendBookMarkSuccessInfo;
 
-export const getArticleError: Selector<string> = (state: AppState) =>
+export const getBookmarkError: Selector<string> = (state: AppState) =>
   state.bookmark.error;
 
 export const getAllBookmark: Selector<BookmarkIdSuccessDataFieldType[]> = (state: AppState) =>
@@ -21,3 +21,9 @@ state.bookmark.bookmarkDetailSuccessInfo;
 
 export const getRemoveBookmarkError: Selector<string> = (state: AppState) =>
   state.bookmark.removeBookmarkError;
+
+export const getBookmarkLoading: Selector<boolean> =
+  (state: AppState) => state.bookmark.bookmarkDetailLoading;
+
+export const getFilteredBookmarkDetailInfo: Selector<BookmarkDetailDataType[]> =
+  (state: AppState) => state.bookmark.filteredBookmarkDetailInfo;

@@ -1,18 +1,25 @@
-import { View } from 'react-native'
+import { ActivityIndicator, FlatList, ListRenderItem, View } from 'react-native'
 import React, { useState } from 'react'
 import { PopulateWidget } from 'src/components/molecules'
-import { isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils'
+import { isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils'
 import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player'
+import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 export interface DynamicWidgetProps {
     data: any[],
     onPressBookmark: (item: any) => void
+    onEndReached: () => void;
+    isLoading: boolean;
 }
 
 export const DynamicWidget = ({
     data,
-    onPressBookmark
+    onPressBookmark,
+    onEndReached,
+    isLoading,
 }: DynamicWidgetProps) => {
+    const { themeData } = useTheme()
+
     const [selectedTrack, setSelectedTrack] = useState<any>(null);
     const playbackState = usePlaybackState();
 
@@ -56,16 +63,37 @@ export const DynamicWidget = ({
         }
         setSelectedTrack(nid) 
     }
+
+    const listFooterComponent = () => {
+        if (!isLoading) return null
+        return (
+            <View style={{ margin: normalize(28) }}>
+                <ActivityIndicator size={'small'} color={themeData.primary} />
+            </View>
+        )
+    }
+
+    const renderItem: ListRenderItem<any> = ({ item, index }) => {
+        return (
+            <PopulateWidget key={index} {...item}
+                onPressBookmark={() => onPressBookmark(item)}
+                togglePlayback={togglePlayback}
+                selectedTrack={selectedTrack} />
+        )
+    }
     
     if(!isNonEmptyArray(data)) return null
-    return (
-        <View>
-            {
-                data.map((item: any, index: number) => {
-                    return <PopulateWidget key={index} {...item} onPressBookmark={() => onPressBookmark(item)} togglePlayback={togglePlayback}
-                    selectedTrack={selectedTrack} />
-                })
-            }
-        </View>
+
+    return(
+        <FlatList 
+           style={{flex: 1}}
+           data={data}
+           keyExtractor={(_,index) => index.toString()}
+           renderItem={renderItem}
+           showsVerticalScrollIndicator={false}
+           onEndReachedThreshold={0.5}
+           onEndReached={onEndReached}
+           ListFooterComponent={listFooterComponent}
+        />
     )
 }

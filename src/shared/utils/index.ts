@@ -28,6 +28,8 @@ export {
   DEFAULT_HIT_SLOP,
   decodeHTMLTags,
   getArticleImage,
+  spliceArray,
+  isNonNegativeNumber,
 } from 'src/shared/utils/utilities'
 export { SystemPermissions } from 'src/shared/utils/SystemPermissions'
 export {recordCurrentScreen, recordLogEvent} from './analytics';

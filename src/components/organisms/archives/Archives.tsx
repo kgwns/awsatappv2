@@ -1,14 +1,12 @@
 import { View,StyleSheet } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FilterComponent, FilterDataType } from 'src/components/molecules'
+import { FilterComponent, FilterDataType, PopulateWidgetType } from 'src/components/molecules'
 import { isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
 import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
-import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
-import { useFocusEffect, useIsFocused } from '@react-navigation/native'
-import TrackPlayer, { State, usePlaybackState } from 'react-native-track-player';
+import { useIsFocused } from '@react-navigation/native'
 
 export const Archives = () => {
     const [t] = useTranslation()
@@ -37,11 +35,28 @@ export const Archives = () => {
         }
     ]
 
+    const widgetNameByIndex = (index: number) => {
+        switch (index) {
+            case 1: return PopulateWidgetType.ARTICLE
+            case 2: return PopulateWidgetType.VIDEO
+            case 3: return PopulateWidgetType.OPINION
+            case 4: return PopulateWidgetType.PODCAST
+            default: return PopulateWidgetType.ARTICLE
+        }
+    }
+
+    //Hooks
+    const {
+        getBookmarkedId, removeBookmarkedInfo,
+        getBookmarkDetailData, getSpecificBundleFavoriteDetail,
+        bookmarkDetail, bookmarkLoading,
+        isAllBookmarkFetched, filterBookmarkDetailInfo,
+    } = useBookmark()
+
+    //State
     const [filterItem, setFilterItem] = useState<FilterDataType[]>(filterData);
     const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
-    const playbackState = usePlaybackState();
     const selectedDataRef = useRef(true);
-    const { getBookmarkedId, removeBookmarkedInfo, bookmarkDetail } = useBookmark()
     const [filteredData, setFilteredData] = useState(bookmarkDetail)
     const [initialLoading, setInitialLoading] = useState(true)
 
@@ -50,14 +65,19 @@ export const Archives = () => {
     }, [])
 
     useEffect(() => {
-        isFocused && getBookmarkedId()
+        if (isFocused) {
+            getBookmarkedId()
+            if (tabSelectedIndex != 0) {
+                getSpecificBundleFavoriteDetail(widgetNameByIndex(tabSelectedIndex), 0)
+            }
+        }
         setInitialLoading(isFocused)
     }, [isFocused])
 
     useEffect(() => {
         if (isNonEmptyArray(bookmarkDetail) ||
             !isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData)) {
-            onPressFilterItem(tabSelectedIndex)
+            updateBookmarkDetailInfo(tabSelectedIndex)
         }
     }, [bookmarkDetail])
     
@@ -74,7 +94,18 @@ export const Archives = () => {
                 setInitialLoading(false)
             }
         }
-    }, [bookmarkDetail]);  
+    }, [bookmarkDetail]);
+
+    useEffect(() => {
+        updatedBundleFilterBookmarkDetail()
+    }, [filterBookmarkDetailInfo])
+
+    const updatedBundleFilterBookmarkDetail = () => {
+        if (isNonEmptyArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0) {
+            setFilteredData(filterBookmarkDetailInfo)
+            setInitialLoading(false)
+        }
+    }
 
     const returnItems = (data:any) => {
         if(isNonEmptyArray(data)){
@@ -86,13 +117,27 @@ export const Archives = () => {
         }
     }
 
-    const onPressFilterItem = (index: number) => {
+    const updateBookmarkDetailInfo = (index: number) => {
+        updateFilterComponent(index)
+        updatedFilteredData(index)
+    }
+
+    const updateFilterComponent = (index: number) => {
         const filterItemData = [...filterItem]
         filterItemData[tabSelectedIndex].isSelected = false;
         filterItemData[index].isSelected = true;
         setFilterItem(filterItemData)
         setTabSelectedIndex(index);
-        updatedFilteredData(index)
+    }
+
+    const onPressFilterItem = (index: number) => {
+        if (index === 0 || isAllBookmarkFetched) {
+            updateBookmarkDetailInfo(index)
+        } else {
+            updateFilterComponent(index)
+            setInitialLoading(true)
+            getSpecificBundleFavoriteDetail(widgetNameByIndex(index), 0)
+        }
     }
 
     const updatedFilteredData = (index: number) => {
@@ -102,9 +147,9 @@ export const Archives = () => {
     }
 
     const removeBookmarkItem = (removeItem: any) => {
-        const data = [...bookmarkDetail]
-        const index = data.findIndex((item) => item.nid == removeItem.nid)
-        if (index >= 0) {
+        const data = tabSelectedIndex === 0 ? [...bookmarkDetail] : [...filterBookmarkDetailInfo]
+        const removeIndex = data.findIndex((item) => item.nid == removeItem.nid)
+        if (removeIndex >= 0) {
             removeBookmarkedInfo({ nid: removeItem.nid })
         }
     }
@@ -125,6 +170,17 @@ export const Archives = () => {
             case 4:
                 return data.filter((item: any) => item.type == PopulateWidgetType.PODCAST)
             default: return null
+        }
+    }
+
+    const onEndReachList = () => {
+        if (!bookmarkLoading) {
+            if (tabSelectedIndex === 0 && !isAllBookmarkFetched) {
+                getBookmarkDetailData()
+            } else if (tabSelectedIndex !== 0) {
+                const bundleName = widgetNameByIndex(tabSelectedIndex)
+                getSpecificBundleFavoriteDetail(bundleName)
+            }
         }
     }
 
@@ -152,6 +208,8 @@ export const Archives = () => {
                     {isNonEmptyArray(filteredData) &&
                         <DynamicWidget data={filteredData}
                             onPressBookmark={removeBookmarkItem}
+                            onEndReached={onEndReachList}
+                            isLoading={bookmarkLoading}
                         />
                     }
                     {emptyFavoriteData()}
