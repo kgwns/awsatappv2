@@ -261,13 +261,14 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
 
       //Opinion Bundle
       const opinionElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type == RichHTMLType.OPINION)
-      if (isNonEmptyArray(opinionElement) && opinionElement[0].data.opinion) {
-        yield call(
-          fetchRichHTMLOpinionsBundle, {
-          type: REQUEST_RICH_ARTICLE_OPINION,
-          payload: { nid: parseInt(opinionElement[0].data.opinion) }
-        }
-        )
+      if (isNonEmptyArray(opinionElement)) {
+        yield all(opinionElement.map((_: any, index: number) =>
+          call(fetchRichHTMLOpinionsBundle, {
+            type: REQUEST_RICH_ARTICLE_OPINION,
+            payload: { nid: parseInt(opinionElement[index].data.opinion) }
+          }
+          )
+        ));
       }
     }
 
