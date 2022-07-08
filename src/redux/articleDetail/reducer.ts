@@ -50,7 +50,7 @@ export default (state = initialData, action: ArticleDetailAction) => {
     const articleInfo = [...state.articleDetailData]
     if (isNonEmptyArray(articleInfo) && isNonEmptyArray(opinionInfo)) {
       const richHTML: any[] = articleInfo[0].richHTML ?? []
-      const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION)
+      const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION && item.data.opinion == opinionInfo[0].nid)
       if (opinionIndex > -1) {
         richHTML[opinionIndex].data.opinionData = opinionInfo[0]
         articleInfo[0].richHTML = richHTML
