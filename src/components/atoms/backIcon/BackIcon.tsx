@@ -28,8 +28,8 @@ export const BackIcon = ({
             {
                 getSvgImages({
                     name: ImagesName.returnBlackSvg,
-                    width: normalize(12),
-                    height: normalize(8.8),
+                    width: 12,
+                    height: 8.8,
                     style: style.prevIconStyle
                 })
             }
@@ -42,16 +42,14 @@ export const BackIcon = ({
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     prevIconStyle: {
-        width: normalize(12),
-        height: normalize(8.8),
-        marginEnd: normalize(5),
-        paddingTop: isIOS ? 10 : 9,
+        width: 12,
+        height: 8.8,
+        marginEnd: 5,
         alignItems: 'center',
-        paddingHorizontal: normalize(10)
     },
     prevTitleStyle: {
-        fontSize: normalize(13),
-        lineHeight: normalize(20),
+        fontSize: 14,
+        lineHeight: 30,
         color: theme.primaryBlack,
         fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
@@ -59,10 +57,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flexDirection: 'row',
         position: 'absolute',
         left: normalize(15),
-        top: isIOS ? normalize(50) : normalize(10),
+        top: isIOS ? normalize(40) : normalize(10),
         alignContent: 'center',
-        flexWrap: 'wrap',
         alignItems: 'center',
-        justifyContent: 'center',
     },
 })

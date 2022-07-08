@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants } from 'src/constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { horizontalEdge, isDarkTheme, isNotEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isDarkTheme, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { ButtonImage, ButtonOutline, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -229,6 +229,8 @@ export const ProfileSettings = () => {
         </>
     )
 
+  const email = isObjectNonEmpty(userProfileData) && isObjectNonEmpty(userProfileData.user) && isNotEmpty(userProfileData.user?.email) ? userProfileData.user?.email : ''
+  const usernameStyle = isNotEmpty(email) && email!.length > 24 && {width: '100%'}  
   const welcomeView = () => (
       <View style={style.title}>
           <Label
@@ -240,7 +242,7 @@ export const ProfileSettings = () => {
               children={isNotEmpty(userProfileData.user?.display_name) ? userProfileData.user?.display_name : (isNotEmpty(userProfileData.user?.first_name)
                   ? isNotEmpty(userProfileData.user?.last_name) ? `${userProfileData.user?.first_name} ${userProfileData.user?.last_name}` : userProfileData.user?.first_name
                   :userProfileData.user?.email)}
-              style={[style.userName, (userProfileData.user?.email.length > 24 && !isTab ) && {width: '100%'} ]}
+              style={[style.userName, usernameStyle ]}
               labelType={LabelTypeProp.h1}
           />}
       </View>

@@ -17,9 +17,8 @@ import {ScreensConstants} from 'src/constants';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Stack = createNativeStackNavigator<ScreenList>();
+const Stack = createStackNavigator<ScreenList>();
 
 const defaultScreenOptions: StackNavigationOptions = {
   gestureEnabled: false,
@@ -89,7 +88,7 @@ const OnBoardNavigator = () => {
   );
 
   return (
-    <Stack.Navigator screenOptions={{...defaultScreenOptions, orientation: 'portrait_up', headerBackVisible: false, headerShadowVisible: false}}>
+    <Stack.Navigator screenOptions={{...defaultScreenOptions, headerShadowVisible: false}}>
       <Stack.Screen
         name={ScreensConstants.SELECT_TOPICS_SCREEN}
         component={Routes.SelectTopicsScreen}

@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { Keyboard, StyleSheet, TouchableOpacity } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ScreensConstants } from '../constants/ScreenConstants';
 import { Routes } from './index';
 import DrawerNavigator from './DrawerNavigator';
@@ -17,8 +16,9 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { HeaderConstants } from '../constants/HeaderConstants'; 
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { fonts } from 'src/shared/styles/fonts'
+import { createStackNavigator } from '@react-navigation/stack';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const hideHeader = {
   headerShown: false,
@@ -71,13 +71,12 @@ const AppNavigator = () => {
       screenOptions={({ navigation }) => {
         return {
           detachPreviousScreen: !navigation.isFocused(),
-          orientation: 'portrait_up'
         }
       }}>
       <Stack.Screen
         name={ScreensConstants.HOME_SCREEN}
         component={DrawerNavigator}
-        options={{...hideHeader, orientation: 'portrait_up'}}
+        options={hideHeader}
       />
       <Stack.Screen
         name={ScreensConstants.SearchScreen}
@@ -87,7 +86,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.ARTICLE_DETAIL_SCREEN}
         component={Routes.ArticleDetailScreen}
-        options={{...hideHeader, orientation: 'default'}}
+        options={hideHeader}
       />
       <Stack.Screen
         name={ScreensConstants.PodcastProgram}
@@ -127,7 +126,6 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: ()=>HeaderTitle(t('profileSetting.arithmetic')),
           headerTitleAlign: 'center',
-          headerBackVisible: false,
           headerShadowVisible: false,
           gestureEnabled: false
         }}
@@ -135,7 +133,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN}
         component={Routes.OpinionArticleDetail}
-        options={{...hideHeader, orientation: 'default'}}
+        options={hideHeader}
       />
       <Stack.Screen
         name={ScreensConstants.USER_DETAIL_SCREEN}
@@ -146,7 +144,6 @@ const AppNavigator = () => {
           headerTitle: () => HeaderTitle(HeaderConstants.USER_DETAIL_HEADER_TITLE),
           headerTitleStyle: style.headerTitle,
           headerTitleAlign: 'center',
-          headerBackVisible: false,
           headerShadowVisible: false
         }}
       />
@@ -159,7 +156,6 @@ const AppNavigator = () => {
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
           gestureEnabled: false,
-          headerBackVisible: false,
           headerShadowVisible: false
         }}
       />
@@ -178,7 +174,6 @@ const AppNavigator = () => {
           headerTitleAlign: 'center',
           gestureEnabled: false,
           headerShadowVisible: false,
-          headerBackVisible: false
         }}
       />
          <Stack.Screen
@@ -191,7 +186,6 @@ const AppNavigator = () => {
           headerTitleAlign: 'center',
           gestureEnabled: false,
           headerShadowVisible: false,
-          headerBackVisible: false
         }}
       />
       <Stack.Screen
@@ -202,7 +196,6 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('profileSetting.myNewsLetter')),
           headerTitleAlign: 'center',
-          headerBackVisible: false,
           headerShadowVisible: false
         }}
       />
@@ -214,7 +207,6 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('profileSetting.manageMyNotification')),
           headerTitleAlign: 'center',
-          headerBackVisible: false,
           headerShadowVisible: false
         }}
       />
@@ -246,7 +238,6 @@ const AppNavigator = () => {
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(TranslateConstants({key: TranslateKey.GAMES})),
           headerTitleAlign: 'center',
-          headerBackVisible: false,
           headerShadowVisible: false
         }}
       />
@@ -290,14 +281,13 @@ const customStyle = (theme: CustomThemeType) => (
     onBoardReturn: {
       flexDirection: 'row-reverse',
       alignItems: 'center',
-      marginEnd: isTab ? normalize(0.01 * screenWidth) : 0,
+      marginEnd: isTab ? normalize(0.03 * screenWidth) : normalize(0.05 * screenWidth),
       marginTop: isIOS ? 3 : 1,
-      alignSelf: 'flex-end'
     },
     onBoardPrevTitle: {
       color: theme.primaryDarkSlateGray,
       fontSize: isTab ? 16 : 12,
-      lineHeight: 50,
+      lineHeight: 30,
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     onBoardPrevIcon: {
