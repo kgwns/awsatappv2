@@ -231,6 +231,8 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: normalize(10),
       color: colors.spanishGray,
       fontFamily: fonts.IBMPlexSansArabic_Regular,
+      fontSize: normalize(12),
+      lineHeight: normalize(36),
     },
     contentTitle: {
       textAlign: 'left',
