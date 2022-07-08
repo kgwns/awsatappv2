@@ -69,7 +69,7 @@ export const ArticleDetailScreen = ({
   const [paused, setPaused] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const videoRefs = useRef<any[]>([]);
-  const [bookmarkIndex, setBookmarkIndex] = useState(0);
+  const [bookmarkIndex, setBookmarkIndex] = useState<number>(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isEdgeUpdated, setIsEdgeUpdated] = useState(false)
   const [isEdgePortrait, setIsEdgePortrait] = useState(false)
@@ -147,7 +147,7 @@ export const ArticleDetailScreen = ({
   }
 
   useEffect(() => {
-    if (isNonEmptyArray(articleDetailData) && route.params && route.params.nid && isFocused) {
+    if (isNonEmptyArray(articleDetailData) && route.params && route.params.nid && isFocused && articleDetailData[bookmarkIndex].nid) {
       const isBookmarked = validateBookmark(articleDetailData[bookmarkIndex].nid)
       setIsBookmarked(isBookmarked)
 
