@@ -2,7 +2,7 @@ import { storeInfo } from 'src/constants/SampleData';
 import {
     getIsLoading,
     getAllBookmark,
-    getArticleError,
+    getBookmarkError,
     getBookMarkSuccessInfo,
     getBookmarkedDetailSuccessInfo,
     getRemoveBookmarkError,
@@ -23,7 +23,7 @@ describe('All Bookmark Selector', () => {
     });
 
     test('Get articleError data', () => {
-        const articleError: string = getArticleError(storeData);
+        const articleError: string = getBookmarkError(storeData);
         expect(articleError).toEqual('');
     });
 
@@ -38,8 +38,8 @@ describe('All Bookmark Selector', () => {
     });
 
     test('Get bookmarkedDetailSuccessInfo data', () => {
-        const bookmarkedDetailSuccessInfo: RemoveBookMarkSuccessInfoType = getBookmarkedDetailSuccessInfo(storeData);
-        expect(bookmarkedDetailSuccessInfo).toEqual({});
+        const bookmarkedDetailSuccessInfo: any[] = getBookmarkedDetailSuccessInfo(storeData);
+        expect(bookmarkedDetailSuccessInfo).toEqual([]);
     });
 
     test('Get removeBookmarkError data', () => {

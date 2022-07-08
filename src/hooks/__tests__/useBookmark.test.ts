@@ -14,9 +14,8 @@ describe('#useBookmark', () => {
   // test data
   const LoadingStateMock = true;
   const bookMarkSuccessInfoMock = {};
-  const bookmarkIdInfoMock = {
-    data: []
-  };
+  const bookmarkIdInfoMock: any[] = []
+  const bookmarkDetailMock: any = []
 
   // selectors mock
   const selectLoadingStateMock = jest
@@ -28,9 +27,12 @@ describe('#useBookmark', () => {
   const selectbookmarkIdInfoMockMock = jest
     .fn()
     .mockReturnValueOnce(bookmarkIdInfoMock);
+  const selectBookmarkDetailMock = jest.fn().mockReturnValueOnce(bookmarkDetailMock)
 
 
   beforeAll(() => {
+    (useDispatch as jest.Mock).mockImplementationOnce(mockDispatch);
+
     (useSelector as jest.Mock).mockImplementationOnce(
       selectLoadingStateMock,
     );
@@ -40,7 +42,8 @@ describe('#useBookmark', () => {
     (useSelector as jest.Mock).mockImplementationOnce(
       selectbookmarkIdInfoMockMock,
     );
-    (useDispatch as jest.Mock).mockImplementationOnce(mockDispatch);
+    (useSelector as jest.Mock).mockImplementationOnce(selectBookmarkDetailMock)
+
     result = renderHook<undefined,UseBookMarkReturn>(() => useBookmark());
   });
 

@@ -22,7 +22,7 @@ import { TrackingEventType } from 'src/services/eventTrackService';
 
 export const filterNidInfoFromNodeList = (data: BookmarkIdSuccessDataFieldType[]) => {
   return data.reduce((prevValue: string[], item: BookmarkIdSuccessDataFieldType) => {
-    if (item.nid) {
+    if (item && item.nid) {
       return prevValue.concat(item.nid)
     }
     return prevValue

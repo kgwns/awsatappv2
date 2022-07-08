@@ -107,6 +107,8 @@ export const isNonNegativeNumber = (data: any): boolean => {
    return !isNaN(data) && typeof data === 'number' && data >= 0 ? true : false
 }
 
+export const isArray = (data: any) => data && Array.isArray(data) ? true : false
+
 export const timeAgo = (time: any) => {
   var date = new Date(time);
   var today = new Date();

@@ -3,11 +3,20 @@ import { BookmarkDetailDataType, BookmarkIdSuccessDataFieldType, RemoveBookmarkD
 import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookmarkError, getBookmarkLoading, getBookMarkSuccessInfo, getFilteredBookmarkDetailInfo, getIsLoading } from 'src/redux/bookmark/selectors';
 import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMarkedSuccessDetailInfo, removeBookmarked, sendBookMarkId, updateFilteredBookMarkedInfo } from 'src/redux/bookmark/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
-import { isNonEmptyArray, joinArray, recordLogEvent } from 'src/shared/utils';
+import { isArray, isNonEmptyArray, joinArray, recordLogEvent } from 'src/shared/utils';
 import { getProfileUserDetails } from 'src/redux/profileUserDetail/selectors';
 import { PopulateWidgetType } from 'src/components/molecules';
-import { filterNidInfoFromNodeList } from 'src/redux/bookmark/sagas';
+// import { filterNidInfoFromNodeList } from 'src/redux/bookmark/sagas';
 import { isNotEmpty, spliceArray } from 'src/shared/utils';
+
+const filterNidInfoFromNodeList = (data: BookmarkIdSuccessDataFieldType[]) => {
+  return data.reduce((prevValue: string[], item: BookmarkIdSuccessDataFieldType) => {
+    if (item && item.nid) {
+      return prevValue.concat(item.nid)
+    }
+    return prevValue
+  }, [])
+}
 
 export interface UseBookMarkReturn {
   isLoading: boolean;
@@ -53,7 +62,7 @@ export const useBookmark = (): UseBookMarkReturn => {
   const getBookmarkDetailData = () => {
     const bookmarkId = [...bookmarkIdInfo]
     const bookmarkDetailInfo = [...bookmarkDetail]
-    const { nid } = getCurrentBatchNid(bookmarkId, bookmarkDetailInfo.length)
+    const nid = getCurrentBatchNid(bookmarkId, bookmarkDetailInfo.length)
     const page = Math.round(bookmarkDetailInfo.length / 25)
     dispatch(getBookmarkedDetailInfo({ nid, page }))
   }
@@ -65,9 +74,9 @@ export const useBookmark = (): UseBookMarkReturn => {
       return null
     }
 
-    const bookmarkInfo = Array.isArray(bookmarkDetail) ? [...bookmarkDetail] : []
+    const bookmarkInfo = isArray(bookmarkDetail) ? [...bookmarkDetail] : []
     const bookmarkIdDetail = [...bookmarkIdInfo]
-    const filteredBookmarkDetail = Array.isArray(filterBookmarkDetailInfo) ? [...filterBookmarkDetailInfo] : []
+    const filteredBookmarkDetail = isArray(filterBookmarkDetailInfo) ? [...filterBookmarkDetailInfo] : []
 
     const updatedBookmarkInfo = bookmarkInfo.filter((item) => item.nid != nid)
     const updatedBookmarkIdDetail = bookmarkIdDetail.filter((item) => item.nid != nid)
@@ -94,18 +103,18 @@ export const useBookmark = (): UseBookMarkReturn => {
     const bundleBookmarkList = bookmarkId.filter((item) => item.bundle === payload)
     const startingIndex = startIndex ?? filterBookmarkDetailInfo.length
     const page = startIndex ?? Math.round(filterBookmarkDetailInfo.length / 25)
-    const { nid } = getCurrentBatchNid(bundleBookmarkList, startingIndex)
+    const nid = getCurrentBatchNid(bundleBookmarkList, startingIndex)
     if (isNotEmpty(nid)) {
       dispatch(getBookmarkedDetailInfo({ nid, page, bundle: payload }))
     }
   }
 
-  const getCurrentBatchNid = (selectedData: any[], startIndex: number): { nid: string } => {
-    const selectedDataInfo = [...selectedData]
+  const getCurrentBatchNid = (selectedData: any[], startIndex: number) => {
+    const selectedDataInfo = isArray(selectedData) ? [...selectedData] : []
     const nextPageIdInfo = spliceArray(selectedDataInfo, startIndex, 25)
     const nidList = filterNidInfoFromNodeList(nextPageIdInfo)
     const nid = joinArray(nidList, '+')
-    return { nid }
+    return nid
   }
 
   const isAllBookmarkFetched = bookmarkIdInfo.length === bookmarkDetail.length
