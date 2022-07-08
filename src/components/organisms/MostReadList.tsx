@@ -142,6 +142,7 @@ const MostReadList = ({
           footerInfo={footerData}
           onPressBookmark={() => checkAndUpdateBookmark(index)}
           titleStyle={style.titleStyle}
+          titleContainerStyle={style.titleContainerStyle}
           articleItemStyle={{paddingBottom: 0}}
         />
         {isLoading && (data.length - 1 == index) && (
@@ -216,4 +217,7 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
     textAlign: 'left',
     writingDirection: 'rtl'
   },
+  titleContainerStyle: {
+    marginTop: 10
+  }
 });
