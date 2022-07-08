@@ -240,7 +240,7 @@ export const ProfileSettings = () => {
               children={isNotEmpty(userProfileData.user?.display_name) ? userProfileData.user?.display_name : (isNotEmpty(userProfileData.user?.first_name)
                   ? isNotEmpty(userProfileData.user?.last_name) ? `${userProfileData.user?.first_name} ${userProfileData.user?.last_name}` : userProfileData.user?.first_name
                   :userProfileData.user?.email)}
-              style={style.userName}
+              style={[style.userName, (userProfileData.user?.email.length > 24 && !isTab ) && {width: '100%'} ]}
               labelType={LabelTypeProp.h1}
           />}
       </View>
