@@ -146,6 +146,7 @@ export const ArticleDetailBody = ({
                 onShouldStartLoadWithRequest={(event) => onShouldStartLoadWithRequest(event)}
                 androidLayerType="hardware"
                 allowsFullscreenVideo={true}
+                scrollEnabled={false}
             />
         </ScrollView>
     )
