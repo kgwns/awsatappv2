@@ -1,8 +1,9 @@
+import { PopulateWidgetType } from "src/components/molecules"
 import {
   GET_BOOK_MARKED, GET_BOOK_MARKED_DETAIL_INFO, GET_BOOK_MARKED_FAILED, GET_BOOK_MARKED_FAILED_DETAIL_INFO, GET_BOOK_MARKED_SUCCESS,
   GET_BOOK_MARKED_SUCCESS_DETAIL_INFO,
   REMOVE_BOOK_MARKED, REMOVE_BOOK_MARKED_FAILED, REMOVE_BOOK_MARKED_SUCCESS,
-  SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS
+  SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS, UPDATED_FILTERED_DATA_SUCCESS
 } from "./actionType"
 
 
@@ -15,6 +16,8 @@ export type BookMarkState = {
   removeBookmarkInfo: RemoveBookMarkSuccessInfoType
   removeBookmarkError: string,
   getBookmarkDetailError: string
+  bookmarkDetailLoading: boolean;
+  filteredBookmarkDetailInfo: any[];
 }
 
 export interface SendBookMarkBodyGet {
@@ -105,6 +108,8 @@ export interface GetBookMarkIdFailedType {
 
 export type GetBookmarkDetailBodyGet = {
   nid: string
+  page: number
+  bundle?: PopulateWidgetType
 }
 
 export interface GetBookmarkDetailInfoType {
@@ -129,6 +134,8 @@ export interface GetBookMarkDetailSuccessInfoType {
 
 export type GetBookmarkDetailSuccessPayload = {
   bookmarkedDetailInfo: any[]
+  page?: number
+  bundle?: PopulateWidgetType
 }
 
 export interface GetBookmarkDetailSuccessType {
@@ -143,6 +150,15 @@ export interface GetBookMarkDetailFailedPayload {
 export interface GetBookMarkDetailFailedType {
   type: typeof GET_BOOK_MARKED_FAILED_DETAIL_INFO,
   payload: GetBookMarkDetailFailedPayload
+}
+
+export type UpdateFilterBookmarkPayload = {
+  filteredData: any[]
+}
+
+export type UpdatedFilterBookmarkType = {
+  type: typeof UPDATED_FILTERED_DATA_SUCCESS,
+  payload: UpdateFilterBookmarkPayload
 }
 
 
@@ -205,3 +221,4 @@ export type BookmarkAction =
   | GetBookmarkDetailInfoType
   | GetBookmarkDetailSuccessType
   | GetBookMarkDetailFailedType
+  | UpdatedFilterBookmarkType

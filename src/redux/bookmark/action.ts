@@ -1,13 +1,20 @@
-import { GET_BOOK_MARKED, GET_BOOK_MARKED_DETAIL_INFO, GET_BOOK_MARKED_FAILED, GET_BOOK_MARKED_FAILED_DETAIL_INFO, GET_BOOK_MARKED_SUCCESS, GET_BOOK_MARKED_SUCCESS_DETAIL_INFO, REMOVE_BOOK_MARKED, REMOVE_BOOK_MARKED_FAILED, REMOVE_BOOK_MARKED_SUCCESS, SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS } from "./actionType"
+import { GET_BOOK_MARKED, GET_BOOK_MARKED_DETAIL_INFO, GET_BOOK_MARKED_FAILED, GET_BOOK_MARKED_FAILED_DETAIL_INFO, GET_BOOK_MARKED_SUCCESS, GET_BOOK_MARKED_SUCCESS_DETAIL_INFO, REMOVE_BOOK_MARKED, REMOVE_BOOK_MARKED_FAILED, REMOVE_BOOK_MARKED_SUCCESS, SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS, UPDATED_FILTERED_DATA_SUCCESS } from "./actionType"
 import {
-  GetBookMarkIdFailedPayload, GetBookMarkIdFailedType, GetBookmarkIdSuccessPayload, GetBookmarkIdSuccessType, GetBookmarkIdType,
+  GetBookMarkIdFailedPayload, GetBookMarkIdFailedType, 
+  GetBookmarkIdSuccessPayload, GetBookmarkIdSuccessType, GetBookmarkIdType,
   RemoveBookmarkDetailDataBody,
   RemoveBookMarkDetailFailedPayload,
   RemoveBookMarkDetailFailedType,
   RemoveBookmarkDetailSuccessPayload,
   RemoveBookmarkDetailSuccessType,
   RemoveBookMarkDetailType,
-  SendBookMarkBodyGet, SendBookMarkDetailFailedPayload, SendBookMarkDetailFailedType, SendBookMarkDetailSuccessPayload, SendBookMarkDetailSuccessType, SendBookMarkDetailType, GetBookmarkDetailInfoType, GetBookmarkDetailBodyGet, GetBookMarkDetailFailedType, GetBookMarkDetailFailedPayload, GetBookmarkDetailSuccessType, GetBookmarkDetailSuccessPayload
+  SendBookMarkBodyGet, SendBookMarkDetailFailedPayload, 
+  SendBookMarkDetailFailedType, SendBookMarkDetailSuccessPayload, 
+  SendBookMarkDetailSuccessType, SendBookMarkDetailType, 
+  GetBookmarkDetailInfoType, GetBookmarkDetailBodyGet, 
+  GetBookMarkDetailFailedType, GetBookMarkDetailFailedPayload,
+  GetBookmarkDetailSuccessType, GetBookmarkDetailSuccessPayload, 
+  UpdateFilterBookmarkPayload, UpdatedFilterBookmarkType
 } from "./types"
 
 export const sendBookMarkId = (
@@ -90,6 +97,15 @@ export const getBookmarkedFailedDetailInfo = (
   };
 };
 
+export const updateFilteredBookMarkedInfo = (
+  payload: UpdateFilterBookmarkPayload
+): UpdatedFilterBookmarkType => {
+  return {
+    type: UPDATED_FILTERED_DATA_SUCCESS,
+    payload,
+  };
+};
+
 
 
 
@@ -130,4 +146,5 @@ export const homeActions = {
   removeBookmarked,
   removeBookMarkedSuccess,
   removeBookmarkedFailed,
+  updateFilteredBookMarkedInfo,
 };

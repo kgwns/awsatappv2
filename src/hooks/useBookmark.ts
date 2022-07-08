@@ -1,14 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getIsLoading,
-  getArticleError,
-} from 'src/redux/articleDetail/selectors';
-import { BookmarkDetailDataType, BookmarkIdSuccessDataFieldType, GetBookmarkDetailBodyGet, RemoveBookmarkDetailDataBody, SendBookMarkBodyGet, SendBookMarkSuccessInfoType } from 'src/redux/bookmark/types';
-import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookMarkSuccessInfo } from 'src/redux/bookmark/selectors';
-import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMarkedSuccessDetailInfo, removeBookmarked, sendBookMarkId } from 'src/redux/bookmark/action';
+import { BookmarkDetailDataType, BookmarkIdSuccessDataFieldType, RemoveBookmarkDetailDataBody, SendBookMarkBodyGet, SendBookMarkSuccessInfoType } from 'src/redux/bookmark/types';
+import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookmarkError, getBookmarkLoading, getBookMarkSuccessInfo, getFilteredBookmarkDetailInfo, getIsLoading } from 'src/redux/bookmark/selectors';
+import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMarkedSuccessDetailInfo, removeBookmarked, sendBookMarkId, updateFilteredBookMarkedInfo } from 'src/redux/bookmark/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
-import { isNonEmptyArray, recordLogEvent } from 'src/shared/utils';
-import {getProfileUserDetails} from 'src/redux/profileUserDetail/selectors';
+import { isArray, isNonEmptyArray, joinArray, recordLogEvent } from 'src/shared/utils';
+import { getProfileUserDetails } from 'src/redux/profileUserDetail/selectors';
+import { PopulateWidgetType } from 'src/components/molecules';
+// import { filterNidInfoFromNodeList } from 'src/redux/bookmark/sagas';
+import { isNotEmpty, spliceArray } from 'src/shared/utils';
+
+const filterNidInfoFromNodeList = (data: BookmarkIdSuccessDataFieldType[]) => {
+  return data.reduce((prevValue: string[], item: BookmarkIdSuccessDataFieldType) => {
+    if (item && item.nid) {
+      return prevValue.concat(item.nid)
+    }
+    return prevValue
+  }, [])
+}
 
 export interface UseBookMarkReturn {
   isLoading: boolean;
@@ -16,12 +24,15 @@ export interface UseBookMarkReturn {
   bookmarkDetail: any
   error: string;
   bookmarkIdInfo: BookmarkIdSuccessDataFieldType[]
+  bookmarkLoading: boolean;
+  isAllBookmarkFetched: boolean;
+  filterBookmarkDetailInfo: any[];
   sendBookmarkInfo(payload: SendBookMarkBodyGet): void;
   getBookmarkedId(): void
   removeBookmarkedInfo(payload: RemoveBookmarkDetailDataBody): void
-  getBookmarkDetailData(payload: GetBookmarkDetailBodyGet): void
-  updateBookDetailInfo(payload: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[]): void
+  getBookmarkDetailData(): void
   removeBookmark(): void
+  getSpecificBundleFavoriteDetail: (bundle: PopulateWidgetType, startIndex?: number) => void;
 }
 
 export const useBookmark = (): UseBookMarkReturn => {
@@ -30,14 +41,16 @@ export const useBookmark = (): UseBookMarkReturn => {
   const bookMarkSuccessInfo = useSelector(getBookMarkSuccessInfo);
   const bookmarkIdInfo = useSelector(getAllBookmark)
   const bookmarkDetail = useSelector(getBookmarkedDetailSuccessInfo)
-  const error = useSelector(getArticleError);
+  const error = useSelector(getBookmarkError);
   const userProfileData = useSelector(getProfileUserDetails);
+  const bookmarkLoading = useSelector(getBookmarkLoading)
+  const filterBookmarkDetailInfo = useSelector(getFilteredBookmarkDetailInfo)
 
-  const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {    
+  const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {
     AdjustAnalyticsManager.trackEvent(AdjustEventID.BOOK_MARK_ARTICLE)
-    recordLogEvent('Add_Bookmark_to_Article', {userId: userProfileData.user?.id,articleId: payload.nid});
+    recordLogEvent('Add_Bookmark_to_Article', { userId: userProfileData.user?.id, articleId: payload.nid });
     const lastBookmarkInfo = [...bookmarkIdInfo]
-    const updatedBookmarkIdDetail = lastBookmarkInfo.concat({nid: payload.nid})
+    const updatedBookmarkIdDetail = lastBookmarkInfo.concat({ nid: payload.nid })
     dispatch(getBookMarkedSuccess({ bookmarkedInfo: updatedBookmarkIdDetail }))
     dispatch(sendBookMarkId(payload));
   };
@@ -46,35 +59,65 @@ export const useBookmark = (): UseBookMarkReturn => {
     dispatch(getBookmarked());
   };
 
-  const getBookmarkDetailData = (payload: GetBookmarkDetailBodyGet) => {
-    dispatch(getBookmarkedDetailInfo(payload))
+  const getBookmarkDetailData = () => {
+    const bookmarkId = [...bookmarkIdInfo]
+    const bookmarkDetailInfo = [...bookmarkDetail]
+    const nid = getCurrentBatchNid(bookmarkId, bookmarkDetailInfo.length)
+    const page = Math.round(bookmarkDetailInfo.length / 25)
+    dispatch(getBookmarkedDetailInfo({ nid, page }))
   }
 
   const removeBookmarkedInfo = (payload: RemoveBookmarkDetailDataBody) => {
     const nid = payload.nid
 
-    if(!isNonEmptyArray(bookmarkIdInfo)) {
+    if (!isNonEmptyArray(bookmarkIdInfo)) {
       return null
-    } 
+    }
 
-    const bookmarkInfo = Array.isArray(bookmarkDetail) ? [...bookmarkDetail] : []
+    const bookmarkInfo = isArray(bookmarkDetail) ? [...bookmarkDetail] : []
     const bookmarkIdDetail = [...bookmarkIdInfo]
+    const filteredBookmarkDetail = isArray(filterBookmarkDetailInfo) ? [...filterBookmarkDetailInfo] : []
+
     const updatedBookmarkInfo = bookmarkInfo.filter((item) => item.nid != nid)
     const updatedBookmarkIdDetail = bookmarkIdDetail.filter((item) => item.nid != nid)
-    updateBookDetailInfo(updatedBookmarkInfo,updatedBookmarkIdDetail)
+    const updatedFilterBookmarkDetail = filteredBookmarkDetail.filter((item) => item.nid != nid)
+
+    updateBookDetailInfo(updatedBookmarkInfo, updatedBookmarkIdDetail, updatedFilterBookmarkDetail)
     dispatch(removeBookmarked(payload))
-    recordLogEvent('Remove_Bookmark', {id: nid});
+    recordLogEvent('Remove_Bookmark', { id: nid });
   }
 
-  const updateBookDetailInfo = (bookmarkDetail: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[]) => {
+  const updateBookDetailInfo = (bookmarkDetail: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[], filteredBookmarkDetail: any[]) => {
     dispatch(getBookMarkedSuccess({ bookmarkedInfo: bookmarkIDDetail }))
-    dispatch(getBookMarkedSuccessDetailInfo({ bookmarkedDetailInfo: bookmarkDetail }))
+    dispatch(getBookMarkedSuccessDetailInfo({ bookmarkedDetailInfo: bookmarkDetail, page: 0 }))
+    dispatch(updateFilteredBookMarkedInfo({ filteredData: filteredBookmarkDetail }))
   }
 
   const removeBookmark = () => {
-    dispatch(getBookMarkedSuccess({bookmarkedInfo: []}))
-    dispatch(getBookMarkedSuccessDetailInfo({bookmarkedDetailInfo: []}))
+    dispatch(getBookMarkedSuccess({ bookmarkedInfo: [] }))
+    dispatch(getBookMarkedSuccessDetailInfo({ bookmarkedDetailInfo: [], page: 0 }))
   }
+
+  const getSpecificBundleFavoriteDetail = (payload: PopulateWidgetType, startIndex?: number) => {
+    let bookmarkId = [...bookmarkIdInfo]
+    const bundleBookmarkList = bookmarkId.filter((item) => item.bundle === payload)
+    const startingIndex = startIndex ?? filterBookmarkDetailInfo.length
+    const page = startIndex ?? Math.round(filterBookmarkDetailInfo.length / 25)
+    const nid = getCurrentBatchNid(bundleBookmarkList, startingIndex)
+    if (isNotEmpty(nid)) {
+      dispatch(getBookmarkedDetailInfo({ nid, page, bundle: payload }))
+    }
+  }
+
+  const getCurrentBatchNid = (selectedData: any[], startIndex: number) => {
+    const selectedDataInfo = isArray(selectedData) ? [...selectedData] : []
+    const nextPageIdInfo = spliceArray(selectedDataInfo, startIndex, 25)
+    const nidList = filterNidInfoFromNodeList(nextPageIdInfo)
+    const nid = joinArray(nidList, '+')
+    return nid
+  }
+
+  const isAllBookmarkFetched = bookmarkIdInfo.length === bookmarkDetail.length
 
   return {
     isLoading,
@@ -86,7 +129,10 @@ export const useBookmark = (): UseBookMarkReturn => {
     getBookmarkedId,
     removeBookmarkedInfo,
     getBookmarkDetailData,
-    updateBookDetailInfo,
     removeBookmark,
+    bookmarkLoading,
+    isAllBookmarkFetched,
+    getSpecificBundleFavoriteDetail,
+    filterBookmarkDetailInfo,
   };
 };

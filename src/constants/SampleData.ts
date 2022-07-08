@@ -51,6 +51,24 @@ export const storeInfo = [
       sectionComboThree: [],
       sectionComboFour: [],
       podcastHome: [],
+      sectionComboFive: [],
+      sectionComboSix: [],
+      sectionComboSeven: [],
+      coverageInfo: [],
+      featuredArticle: [],
+      horizontalArticle: [],
+      editorsChoice: [],
+      spotlight: [],
+      spotlightArticleSection: [],
+      coverageInfoLoaded: false,
+      featuredArticleLoaded: false,
+      horizontalArticleLoaded: false,
+      opinionLoaded: false,
+      podcastHomeLoaded: false,
+      editorChoiceLoaded: false,
+      sectionComboOneLoaded: false,
+      sectionComboTwoLoaded: false,
+      sectionComboThreeLoaded: false,
     },
     articleDetail: {
       isLoading: true,
@@ -58,6 +76,8 @@ export const storeInfo = [
       articleDetailData: [],
       relatedArticleData: [],
       pager: {},
+      articleSectionData: [],
+      articleSectionLoaded: false,
     },
     search: {
       searchData: [],
@@ -81,7 +101,8 @@ export const storeInfo = [
       isLoading: false,
       writerOpinionLoading: true,
       writerOpinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
-      writerOpinionError: ''
+      writerOpinionError: '',
+      homeOpinionNid: '',
     },
     sideMenu: {
       sideMenuData: [],
@@ -157,10 +178,12 @@ export const storeInfo = [
       error: '',
       sendBookMarkSuccessInfo: {},
       bookmarkedSuccessInfo: [],
-      bookmarkDetailSuccessInfo: {},
+      bookmarkDetailSuccessInfo: [],
       removeBookmarkInfo: {},
       removeBookmarkError: '',
-      getBookmarkDetailError: ''
+      getBookmarkDetailError: '',
+      bookmarkDetailLoading: false,
+      filteredBookmarkDetailInfo: [],
     },
     newsLetters:{
       error: '',
@@ -242,6 +265,12 @@ export const storeInfo = [
       videoDocumentaryData: [],
       videoDocumentaryError: '',
       isVideoLoading: false,
+    },
+    appPlayer: {
+      showMiniPlayer: false,
+      selectedTrack: null,
+      isPlaying: false,
+      showControl: false
     }
   },
 ];
@@ -333,24 +362,32 @@ export const authorWidgetData: AuthorItemProps[] = [
     body: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
     image: 'https://picsum.photos/200/300',
+    authorId: '123',
+    mediaVisibility: false,
   },
   {
     author: 'عادل درويش',
     body: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
     image: 'https://picsum.photos/200/300',
+    authorId: '123',
+    mediaVisibility: false,
   },
   {
     author: 'عادل درويش',
     body: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
     image: 'https://picsum.photos/200/300',
+    authorId: '123',
+    mediaVisibility: false,
   },
   {
     author: 'عادل درويش',
     body: 'الصحافة بين الخصوصية والصالح العام',
     duration: '3:22',
     image: 'https://picsum.photos/200/300',
+    authorId: '123',
+    mediaVisibility: false,
   },
 ];
 
@@ -377,6 +414,10 @@ const mostReadItem = {
   tagStyle: { marginLeft: normalize(16) },
   tagLabelType: LabelTypeProp.p3,
   showDivider: false,
+  nid: '123',
+  author: '',
+  created: '',
+  isBookmarked: false,
 };
 
 export const mostReadData: articleProps[] = [
@@ -1117,6 +1158,8 @@ export const videoArchiveData: VideoItemProps[] = [
     imageUrl: 'https://picsum.photos/300/200',
     videoLabel: 'أمريكا',
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    isBookmarked: true,
+    onPressBookmark: () => {},
   },
   {
     title:
@@ -1127,7 +1170,9 @@ export const videoArchiveData: VideoItemProps[] = [
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
     date: '7 ديسمبر ',
     views: '1374',
-    toWatchTitle: 'ديسمبر'
+    toWatchTitle: 'ديسمبر',
+    isBookmarked: true,
+    onPressBookmark: () => {},
   },
   {
     title:
@@ -1135,6 +1180,8 @@ export const videoArchiveData: VideoItemProps[] = [
     imageUrl: 'https://picsum.photos/300/200',
     videoLabel: 'أمريكا',
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    isBookmarked: true,
+    onPressBookmark: () => {},
   },
 ];
 

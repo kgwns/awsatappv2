@@ -158,14 +158,13 @@ jest.mock("src/hooks/useBookmark", () => ({
     return {
       isLoading: false,
       bookMarkSuccessInfo: {},
-      bookmarkDetail: {},
+      bookmarkDetail: [],
       error: 'string',
       bookmarkIdInfo: {},
       sendBookmarkInfo: () => [],
       getBookmarkedId: () => [],
       removeBookmarkedInfo: () => [],
       getBookmarkDetailData: () => [],
-      updateBookDetailInfo: () => [],
       removeBookmark: () => [],
     }
   },

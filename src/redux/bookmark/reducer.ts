@@ -4,22 +4,50 @@ import {
   REMOVE_BOOK_MARKED,
   REMOVE_BOOK_MARKED_FAILED,
   REMOVE_BOOK_MARKED_SUCCESS,
-  SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS
+  SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS, UPDATED_FILTERED_DATA_SUCCESS
 } from './actionType';
-import { BookmarkAction, BookMarkState } from './types';
+import { BookmarkAction, BookMarkState, GetBookmarkDetailSuccessPayload } from './types';
+import { isNonEmptyArray, isNonNegativeNumber, isNotEmpty } from 'src/shared/utils';
 
 const initialData: BookMarkState = {
   isLoading: true,
   error: '',
   sendBookMarkSuccessInfo: {},
   bookmarkedSuccessInfo: [],
-  bookmarkDetailSuccessInfo: {},
+  bookmarkDetailSuccessInfo: [],
   removeBookmarkInfo: {},
   removeBookmarkError: '',
-  getBookmarkDetailError: ''
+  getBookmarkDetailError: '',
+  bookmarkDetailLoading: false,
+  filteredBookmarkDetailInfo: [],
 };
 
 export default (state = initialData, action: BookmarkAction) => {
+  const updateBookmarkDetailInfo = ({ bookmarkedDetailInfo, page, bundle }: GetBookmarkDetailSuccessPayload) => {
+    const isPageZero = isNonNegativeNumber(page) && page === 0
+    if (isNotEmpty(bundle)) {
+      let filteredBookmarkDetail = Array.isArray(state.filteredBookmarkDetailInfo) ? [...state.filteredBookmarkDetailInfo] : []
+      if (isNonEmptyArray(bookmarkedDetailInfo)) {
+        filteredBookmarkDetail = isPageZero ? bookmarkedDetailInfo : filteredBookmarkDetail.concat(bookmarkedDetailInfo)
+      }
+
+      return { filteredBookmarkDetailInfo: filteredBookmarkDetail }
+    } else {
+      let bookmarkDetail = Array.isArray(state.bookmarkDetailSuccessInfo) ? [...state.bookmarkDetailSuccessInfo] : []
+      if (isNonEmptyArray(bookmarkedDetailInfo)) {
+        bookmarkDetail = isPageZero ? bookmarkedDetailInfo : bookmarkDetail.concat(bookmarkedDetailInfo)
+      }
+
+      return { bookmarkDetailSuccessInfo: bookmarkDetail }
+    }
+  }
+
+  const updatedFilterBookmarkDetail = (page: number) => {
+    const isPageZero = isNonNegativeNumber(page) && page === 0
+
+    return isPageZero ? [] : state.filteredBookmarkDetailInfo
+  }
+
   switch (action.type) {
     case SEND_BOOK_MARK_ID:
       return {
@@ -41,7 +69,8 @@ export default (state = initialData, action: BookmarkAction) => {
     case GET_BOOK_MARKED:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        bookmarkDetailLoading: true,
       }
     case GET_BOOK_MARKED_SUCCESS:
       return {
@@ -53,24 +82,29 @@ export default (state = initialData, action: BookmarkAction) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload.error
+        error: action.payload.error,
+        bookmarkDetailLoading: false,
       }
     case GET_BOOK_MARKED_DETAIL_INFO:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        bookmarkDetailLoading: true,
+        filteredBookmarkDetailInfo: updatedFilterBookmarkDetail(action.payload.page),
       }
     case GET_BOOK_MARKED_SUCCESS_DETAIL_INFO:
       return {
         ...state,
         isLoading: false,
-        bookmarkDetailSuccessInfo: action.payload.bookmarkedDetailInfo,
+        bookmarkDetailLoading: false,
+        ...updateBookmarkDetailInfo(action.payload)
       }
     case GET_BOOK_MARKED_FAILED_DETAIL_INFO:
       return {
         ...state,
         isLoading: false,
-        getBookmarkDetailError: action.payload.getBookmarkDetailError
+        getBookmarkDetailError: action.payload.getBookmarkDetailError,
+        bookmarkDetailLoading: false,
       }
     case REMOVE_BOOK_MARKED:
       return {
@@ -88,6 +122,11 @@ export default (state = initialData, action: BookmarkAction) => {
         ...state,
         isLoading: false,
         removeBookmarkError: action.payload.removeBookmarkError
+      }
+    case UPDATED_FILTERED_DATA_SUCCESS:
+      return {
+        ...state,
+        filteredBookmarkDetailInfo: action.payload.filteredData
       }
     default:
       return { ...state }
