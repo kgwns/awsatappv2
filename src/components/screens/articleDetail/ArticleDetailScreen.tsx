@@ -170,7 +170,8 @@ export const ArticleDetailScreen = ({
           ...item,
           ...shortArticleWithTagProperties,
           titleColor: themeData.primaryBlack,
-          flag: item.news_categories && item.news_categories.title,
+          // flag: item.news_categories && item.news_categories.title, // AMAR-801 Removed section title 
+          author: '', // AMAR-801 Removed section title 
           isBookmarked: validateBookmark(item.nid)
         }
       })
