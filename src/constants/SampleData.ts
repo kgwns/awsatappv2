@@ -1199,3 +1199,23 @@ export const topHeadLineNewsData = [
     nid: '123'
   }
 ]
+
+export const myNewsTopTabData = [
+  {
+    isSelected: true, 
+    keyName: 'topics',
+    tabName: 'مواضيعي',
+  },
+  {
+    isSelected: false, 
+    keyName: 'writers', 
+    tabName: 'كتابي',
+  },
+  
+  {
+    isSelected: false, 
+    keyName: 'media', 
+    tabName: 'ميديا',
+  },
+
+]

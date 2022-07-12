@@ -40,3 +40,4 @@ export { MainSectionScreen } from 'src/components/screens/main/MainSectionScreen
 export { DownloadNews } from 'src/components/screens/downloadNews/index'
 export { PDFArchive } from 'src/components/screens/pdfArchive/index'
 export { PDFEditorView } from 'src/components/screens/pdfEditorViewer/PDFEditorView'
+export { MyNewsScreen } from 'src/components/screens/myNews/MyNewsScreen'

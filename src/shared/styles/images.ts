@@ -123,6 +123,8 @@ export enum ImagesName {
   videoCloseIcon = 'videoCloseIcon',
   authorDefault = 'authorDefault',
   authorDefaultGrey = 'authorDefaultGrey',
+  myNewsIcon = 'myNewsIcon',
+  myNewsActiveIcon = 'myNewsActiveIcon'
 }
 
 export const images = {

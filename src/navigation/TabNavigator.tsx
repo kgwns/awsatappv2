@@ -23,8 +23,9 @@ const TabNavigator = () => {
         <Tab.Navigator screenOptions={{ headerShown: false }} tabBar={props => <CustomTabBar {...props} />}>
             <Tab.Screen name={TabConstants.LATEST_NEWS} component={Routes.SectionsScreen} />
             {/* <Tab.Screen name={TabConstants.SECTIONS} component={Routes.SectionsScreen} /> */}
-            <Tab.Screen name={TabConstants.FAVORITE} component={Routes.FavoriteScreen} />
+            <Tab.Screen name={TabConstants.MY_NEWS} component={Routes.MyNewsScreen} />
             <Tab.Screen name={TabConstants.MOST_READ} component={Routes.MostReadScreen} />
+            <Tab.Screen name={TabConstants.FAVORITE} component={Routes.FavoriteScreen} />
             <Tab.Screen name={TabConstants.DOWNLOAD_NEWS} component={Routes.DownloadNews} />
         </Tab.Navigator>
     );
@@ -69,6 +70,9 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                         case TabConstants.FAVORITE:
                             ImageName = isFocused ? ImagesName.favoriteActiveIcon : ImagesName.favoriteIcon
                             break;
+                        case TabConstants.MY_NEWS:
+                            ImageName =  isFocused ? ImagesName.myNewsActiveIcon : ImagesName.myNewsIcon
+                            break;
                         case TabConstants.DOWNLOAD_NEWS:
                             ImageName = isFocused ? ImagesName.printVersionActiveIcon : ImagesName.printVersionGrayIcon
                     }
@@ -92,6 +96,9 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                             break;
                         case TabConstants.DOWNLOAD_NEWS:
                             iconStyle = style.newsIcon
+                            break;
+                        case TabConstants.MY_NEWS:
+                            iconStyle = style.myNewsIconStyle
                             break;
                     }
                     return iconStyle;
@@ -166,6 +173,10 @@ const customStyle = (theme: CustomThemeType) => {
         },
         newsDownloadIcon: {
             tintColor: colors.lightToneGreen
+        },
+        myNewsIconStyle: {
+            width: normalize(26),
+            height: normalize(22)
         }
     })
     return TabNavigatorStyle;

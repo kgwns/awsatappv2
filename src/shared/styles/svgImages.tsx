@@ -41,6 +41,8 @@ import MostReadIconDark from 'src/assets/images/tabIcons/mostReadIconDark.svg'
 import MostReadActiveIconDark from 'src/assets/images/tabIcons/mostReadActiveIconDark.svg'
 import FavoriteIcon from 'src/assets/images/tabIcons/favoriteIcon.svg'
 import FavoriteActiveIcon from 'src/assets/images/tabIcons/favoriteActiveIcon.svg'
+import MyNewsIcon from 'src/assets/images/tabIcons/myNewsIcon.svg'
+import MyNewsActiveIcon from 'src/assets/images/tabIcons/myNewsActiveIcon.svg'
 
 //Onboard screen Icons
 import ArrowNextIcon from 'src/assets/images/icons/nextArrowIcon.svg'
@@ -314,6 +316,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <CalendarIcon {...props} />
         case ImagesName.videoCloseIcon:
             return <MenuCloseIconDark {...props} />
+        case ImagesName.myNewsIcon:
+            return <MyNewsIcon {...props} />
+        case ImagesName.myNewsActiveIcon:
+                return <MyNewsActiveIcon {...props} />
         default: return null
     }
 }

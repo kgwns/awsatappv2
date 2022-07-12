@@ -1,17 +1,19 @@
-import { TouchableWithoutFeedback, View, StyleSheet } from 'react-native'
+import { TouchableWithoutFeedback, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import React, { FunctionComponent } from 'react'
 import { Label } from 'src/components/atoms'
-import { isAndroid, isTab, normalize, normalizeBy320, screenWidth } from 'src/shared/utils'
+import { isAndroid, isIOS, isTab, normalize, normalizeBy320, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { moleculesTestID } from 'src/constants'
 import { testProps } from 'src/shared/utils'
 import { fonts } from 'src/shared/styles/fonts'
+import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 export interface TabBarDataProps {
   tabName: string,
   isSelected: boolean,
   keyName?: string;
   sectionId?: number|null;
+  selectionColor?: boolean;
 }
 
 export interface TabBarItemProps extends TabBarDataProps {
@@ -26,9 +28,11 @@ export const TabWithBarItem: FunctionComponent<TabBarItemProps> = ({
   index,
   onPress,
   labelFont,
+  selectionColor = false,
 }) => {
-  const color = isSelected ? Styles.color.greenishBlue : Styles.color.doveGray
-  const barColor = { backgroundColor: color }
+  const theme = useTheme();
+  const color = isSelected ? selectionColor ? theme.themeData.primaryBlack : Styles.color.greenishBlue : Styles.color.doveGray
+  const barColor = { backgroundColor: isSelected ? Styles.color.greenishBlue : Styles.color.doveGray }
   return (
     <TouchableWithoutFeedback key={index} {...testProps(moleculesTestID.tabItemBtn)}
       onPress={() => onPress(index)}>
@@ -38,7 +42,7 @@ export const TabWithBarItem: FunctionComponent<TabBarItemProps> = ({
         />
         {isSelected && <View style={StyleSheet.flatten([tabWitBarItemStyle.barLine, barColor])} />}
       </View>
-    </TouchableWithoutFeedback>
+     </TouchableWithoutFeedback>
   )
 }
 

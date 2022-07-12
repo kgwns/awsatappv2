@@ -35,6 +35,7 @@ import {
   DownloadNews,
   PDFArchive,
   PDFEditorView,
+  MyNewsScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -80,6 +81,7 @@ export const Routes = {
   DownloadNews,
   PDFArchive,
   PDFEditorView,
+  MyNewsScreen,
 };
 
 /**
@@ -113,6 +115,7 @@ export type ScreenList = {
   UserDetailScreen: undefined;
   WritersDetailScreen: undefined;
   SectionArticlesParentScreen: undefined;
+  MyNewsScreen: undefined;
 };
 
 export type ScreenName = keyof undefined;
@@ -141,6 +144,7 @@ const manageMyFavoriteTopicsScreen = 'manageMyFavoriteTopicsScreen' as ScreenNam
 const userDetailScreen = 'userDetailScreen' as ScreenName;
 const writersDetailScreen = 'writersDetailScreen' as ScreenName
 const sectionArticlesParentScreen = 'sectionArticlesParentScreen' as ScreenName;
+const myNewsScreen = 'myNewsScreen' as ScreenName
 
 
 export const RoutesName = {
@@ -171,4 +175,5 @@ export const RoutesName = {
   DownloadNews,
   PDFArchive,
   PDFEditorView,
+  myNewsScreen,
 };

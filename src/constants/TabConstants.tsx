@@ -3,8 +3,9 @@ import { ImageName } from "src/components/atoms";
 const LATEST_NEWS = 'آخر الأخبار';
 const SECTIONS = 'أقسام';
 const MOST_READ = 'الأكثر قراءة';
-const FAVORITE =  'أخبارك';
-const DOWNLOAD_NEWS = 'النسخة المطبوعة'
+const FAVORITE =  'المحفوظات';
+const DOWNLOAD_NEWS = 'الجريدة';
+const MY_NEWS = 'أخباري'
 
 const TABICONS = {
     NEWS: 'newsIcon' as ImageName,
@@ -15,7 +16,9 @@ const TABICONS = {
     MOST_READ_ACTIVE: 'mostReadActiveIcon' as ImageName,
     FAVORITE: 'favoriteIcon' as ImageName,
     FAVORITE_ACTIVE: 'favoriteActiveIcon' as ImageName,
-    DOWNLOAD_PDF: 'pdfIcon' as ImageName
+    DOWNLOAD_PDF: 'pdfIcon' as ImageName,
+    MY_NEWS: 'myNewsIcon' as ImageName,
+    MY_NEWS_ACTIVE: 'myNewsActiveIcon' as ImageName,
 }
 
 export const TabConstants = {
@@ -25,4 +28,5 @@ export const TabConstants = {
     FAVORITE,
     TABICONS,
     DOWNLOAD_NEWS,
+    MY_NEWS,
 };
