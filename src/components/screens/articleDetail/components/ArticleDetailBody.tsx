@@ -75,7 +75,11 @@ export const ArticleDetailBody = ({
           var iFrameElement = document.getElementsByTagName("iframe");
           if(iFrameElement && iFrameElement.length > 0) {
             for(i=0; i < iFrameElement.length; i++) {
-              iFrameElement[i].style["width"] = "100%"; 
+              if("${isTab}") {
+                iFrameElement[i].style["width"] = "${0.92 * screenWidth}px"; 
+              } else {
+                iFrameElement[i].style["width"] = "100%";
+              }
               iFrameElement[i].style["aspect-ratio"] = "2/3"; 
             } 
           }
