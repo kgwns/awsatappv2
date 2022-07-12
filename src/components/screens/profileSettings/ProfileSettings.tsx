@@ -27,6 +27,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { AlertPayloadType } from 'src/components/screens/ScreenContainer/ScreenContainer';
 import RNRestart from 'react-native-restart'
 import { fonts } from 'src/shared/styles/fonts';
+import { LoginManager } from "react-native-fbsdk-next";
 
 type SettingDataType = {
   iconName: ImagesName,
@@ -150,7 +151,18 @@ export const ProfileSettings = () => {
       }
   }
 
+  const logoutFromfacebook = () => {
+    try {
+      if (userProfileData?.user?.provider == 'facebook') {
+        LoginManager.logOut();
+      }
+    } catch {
+      return;
+    }
+  };
+
   const logout = () => {
+    logoutFromfacebook()
     recordLogEvent('Logout');
     fetchLogoutRequest();
     removeBookmark()

@@ -21,6 +21,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { appleSignin } from 'src/shared/utils/appleSignin';
 import { fonts } from 'src/shared/styles/fonts';
+import { AccessToken } from 'react-native-fbsdk-next';
 
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;

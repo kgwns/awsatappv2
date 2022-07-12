@@ -41,6 +41,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
 	<string>374745497486996</string>
+	<key>FacebookClientToken</key>
+	<string>4b3ba28a80ce525af81a58bff91b23ed</string>
 	<key>FacebookDisplayName</key>
 	<string>الشرق الاوسط</string>
 	<key>LSApplicationCategoryType</key>
@@ -58,6 +60,8 @@
 		<string>yandexmail</string>
 		<string>fastmail</string>
 		<string>protonmail</string>
+		<string>fbapi</string>
+  		<string>fb-messenger-share-api</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

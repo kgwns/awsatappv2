@@ -48,6 +48,10 @@ export default class SigninGoogle extends SocialLogin {
         this.signOut()
     }
 
+    initialLogin(): void {
+      return
+    }
+
     signOut = async () => {
         try {
             await GoogleSignin.revokeAccess()

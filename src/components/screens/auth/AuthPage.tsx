@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState, useEffect} from 'react';
+import React, {FunctionComponent, useState, useEffect, useRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
@@ -29,6 +29,10 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
+import { useIsFocused } from '@react-navigation/native';
+import { Connection, LoginFactory } from 'src/shared/utils/loginFactory';
+import { SocialProviders } from './SignInPage';
+import { onSuccessSocialLogin } from './SignInPage';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -53,9 +57,12 @@ export const AuthPage: FunctionComponent = () => {
     socialLoginStarted,
     socialLoginEnded,
     emptyUserInfo,
+    createUserRequest
   } = useRegister();
 
   const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
+  const isFocused = useIsFocused()
+  const fbLoginRef = useRef(true);
 
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
 
@@ -83,6 +90,25 @@ export const AuthPage: FunctionComponent = () => {
     emptyforgotPassworResponseInfo();
     emptyUserInfo();
   }, []);
+
+  const onResult = async (userInfo:any,success:boolean, provider: SocialProviders, message?:String) => {
+    if(success){
+      fbLoginRef.current = false
+      const payload = await onSuccessSocialLogin(userInfo,provider)
+      createUserRequest(payload);
+    }
+  }
+
+  const checkFacebookLogin = () => {
+    const facebookSignIn = LoginFactory.getInstance(Connection.Facebook,onResult);
+    facebookSignIn?.initialLogin();
+  }
+
+  useEffect(() => {
+    if(isFocused && fbLoginRef.current){
+      checkFacebookLogin();
+    }
+  }, [isFocused])
 
   useEffect(() => {
     socialLoginEnded();
