@@ -27,6 +27,7 @@ import podcastSaga from './podcast/sagas';
 import contentForYouSaga from './contentForYou/sagas';
 import writerDetailSaga from './writersDetail/sagas';
 import documentaryVideoSaga from './documentaryVideo/sagas';
+import SaveTokenSaga from './notificationSaveToken/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -58,5 +59,6 @@ export function* rootSaga() {
     fork(contentForYouSaga),
     fork(writerDetailSaga),
     fork(documentaryVideoSaga),
+    fork(SaveTokenSaga),
   ]);
 }

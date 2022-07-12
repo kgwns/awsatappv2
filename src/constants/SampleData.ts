@@ -109,6 +109,12 @@ export const storeInfo = [
       error: '',
       isLoading: false,
     },
+    notificationSaveToken: {
+      SaveTokenInfo: { id: 2, message: '' },
+      SaveTokenAfterRegistraionInfo: { message: '' },
+      error: '',
+      isLoading: false,
+    },
     sectionArticles: {
       sectionArticlesData: {
         rows: [],

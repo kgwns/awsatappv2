@@ -21,6 +21,7 @@ import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {
   useBookmark,
   useLogin,
+  useNotificationSaveToken,
   useRegister,
   useSearch,
   useUserProfileData,
@@ -38,6 +39,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
+import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
 import { useIsFocused } from '@react-navigation/native';
 import { AccessToken } from 'react-native-fbsdk-next';
 import { Connection, LoginFactory } from 'src/shared/utils/loginFactory';
@@ -101,6 +103,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     createUserRequest
   } = useRegister();
   const { emptySearchHistory } = useSearch();
+  const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
   const dispatch = useDispatch();
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
@@ -199,6 +202,16 @@ export const SignInPage = ({route}: SignInPageProps) => {
           Alert.alert(message.message, undefined, [{ text: CONST_OK }]);
         }
       }
+    }
+  }, [loginData]);
+
+  useEffect(() => {
+    if((loginData?.user?.id) && saveTokenData?.id){
+      const payload: SaveTokenAfterRegistraionBodyType = {
+        id: (saveTokenData?.id).toString(),
+        uid: (loginData?.user?.id),
+      };
+      saveTokenAfterRegistrationRequest(payload)
     }
   }, [loginData]);
 

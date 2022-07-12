@@ -29,6 +29,7 @@ import podcastSaga from 'src/redux/podcast/sagas';
 import contentForYouSaga from 'src/redux/contentForYou/sagas';
 import writerDetailSaga from 'src/redux/writersDetail/sagas';
 import documentaryVideoSaga from 'src/redux/documentaryVideo/sagas';
+import SaveTokenSaga from 'src/redux/notificationSaveToken/sagas';
 
 describe('Test rootSaga  saga', () => {
   it('fire on rootSaga', () => {
@@ -63,6 +64,7 @@ describe('Test rootSaga  saga', () => {
         fork(contentForYouSaga),
         fork(writerDetailSaga),
         fork(documentaryVideoSaga), 
+        fork(SaveTokenSaga),
       ])
       .finish()
       .isDone();

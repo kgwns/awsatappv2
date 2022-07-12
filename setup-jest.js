@@ -165,4 +165,13 @@ jest.mock('redux-persist', () => {
   };
 });
 
+jest.mock('@react-native-firebase/messaging', () => {
+  return jest.fn().mockReturnValue({
+    getToken: jest.fn().mockResolvedValue(''),
+    requestPermission: jest.fn().mockResolvedValue(true),
+    registerDeviceForRemoteMessages: jest.fn().mockResolvedValue(),
+    AuthorizationStatus: jest.fn().mockResolvedValue(),
+  });
+});
+
 

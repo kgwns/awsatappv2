@@ -21,12 +21,13 @@ import { ToggleWithLabel } from 'src/components/molecules';
 import { useDispatch } from 'react-redux';
 import { storeAppTheme } from 'src/redux/appCommon/action';
 import { ServerEnvironment, Theme } from 'src/redux/appCommon/types';
-import { useAppCommon, useBookmark, useKeepNotified, useLogin, useUserProfileData, useAllSiteCategories, useAllWriters, useSearch  } from 'src/hooks';
+import { useAppCommon, useBookmark, useKeepNotified, useLogin, useUserProfileData, useAllSiteCategories, useAllWriters, useSearch, useNotificationSaveToken  } from 'src/hooks';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AlertPayloadType } from 'src/components/screens/ScreenContainer/ScreenContainer';
 import RNRestart from 'react-native-restart'
 import { fonts } from 'src/shared/styles/fonts';
+import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
 import { LoginManager } from "react-native-fbsdk-next";
 
 type SettingDataType = {
@@ -43,7 +44,9 @@ export const ProfileSettings = () => {
 
   const style = useThemeAwareObject(customStyle);
 
-    const { theme, serverEnvironment, storeServerEnvironmentInfo, resetFontSizeInfo  } = useAppCommon();
+const { theme, serverEnvironment, storeServerEnvironmentInfo, resetFontSizeInfo  } = useAppCommon();
+const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
+
   const { removeBookmark } = useBookmark()
   const { removeKeepNotificationInfo } = useKeepNotified()
   const isDark = isDarkTheme(theme);
@@ -151,6 +154,14 @@ export const ProfileSettings = () => {
       }
   }
 
+  const unlinkFcmToken = () => {
+    if(saveTokenData?.id){
+        const payload: SaveTokenAfterRegistraionBodyType = {
+          id: (saveTokenData?.id).toString(),
+          uid: -1,
+        };
+        saveTokenAfterRegistrationRequest(payload);
+      }
   const logoutFromfacebook = () => {
     try {
       if (userProfileData?.user?.provider == 'facebook') {
@@ -165,6 +176,7 @@ export const ProfileSettings = () => {
     logoutFromfacebook()
     recordLogEvent('Logout');
     fetchLogoutRequest();
+    unlinkFcmToken();
     removeBookmark()
     removeKeepNotificationInfo()
     emptyUserProfileInfoData();
