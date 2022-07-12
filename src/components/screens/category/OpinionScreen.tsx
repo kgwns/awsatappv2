@@ -25,6 +25,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [page, setPage] = useState(0);
+  const [isShowPlayer, setIsShowPlayer] = useState(false)
 
   const writersPayload: WritersBodyGet = {
     items_per_page: 10,
@@ -44,11 +45,16 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   const isFocused = useIsFocused();
 
   const ref = React.useRef(null);
+
   useEffect(() => {
     if(tabIndex === currentIndex){
       global.refFlatList = ref;
     }
   }, [currentIndex])
+
+  useEffect(() => {
+    setIsShowPlayer(true)  
+  },[])
 
   useEffect(() => {
     isFocused && emptyOpinionsData();
@@ -160,7 +166,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   
 
   return (
-    <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)}>
+    <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)} showPlayer={isShowPlayer}>
       <View style={style.container}>
       <FlatList
         ref={ref}

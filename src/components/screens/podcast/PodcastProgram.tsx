@@ -16,7 +16,8 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 
 export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
-
+  const [isShowPlayer, setIsShowPlayer] = useState(false)
+  
   const {
     isLoading,
     podcastListData,
@@ -48,6 +49,10 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
   useEffect(() => {
     updatePodcastListData()
   }, [podcastListData, bookmarkIdInfo])
+
+  useEffect(() => {
+    setIsShowPlayer(true)  
+  },[])
 
   const updatePodcastListData = () => {
     if (!isNonEmptyArray(podcastListData)) return
@@ -121,7 +126,7 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
   
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
-      isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
+      isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}>
       {isNonEmptyArray(podcastListData) &&
         <FlatList
           ref={ref}

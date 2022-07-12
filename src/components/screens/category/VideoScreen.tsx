@@ -26,6 +26,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
   const {isVideoLoading, videoDocumentaryData, fetchDocumentaryVideoRequest} = useDocumentaryVideo();
   const [showupUp,setShowPopUp] = useState(false)
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const [isShowPlayer, setIsShowPlayer] = useState(false)
 
   const ref = React.useRef(null);
   useEffect(() => {
@@ -34,7 +35,10 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
     }
   }, [currentIndex])
 
-
+  useEffect(() => {
+    setIsShowPlayer(true)  
+  },[])
+  
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
@@ -184,7 +188,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading || isVideoLoading}
       isSignUpAlertVisible={showupUp}
-      onCloseSignUpAlert={onCloseSignUpAlert}>
+      onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}>
       <View style={styles.container}>
         <FlatList
            ref={ref}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { horizontalAndTop, isNotEmpty } from 'src/shared/utils';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { SectionStoryScreen } from '../category/SectionStoryScreen';
@@ -16,10 +16,15 @@ export const SectionArticlesParentScreen = () => {
   const keyName = params?.keyName || ''
 
   const { emptyAllListData } = useNewsView();
+  const [isShowPlayer, setIsShowPlayer] = useState(false)
 
   useEffect(() => {
     emptyAllListData();
   }, [sectionId]);
+
+  useEffect(() => {
+      setIsShowPlayer(true)  
+  },[])
 
   const renderDynamicScreen = () => {
     if (!isNotEmpty(keyName)) return null;
@@ -38,7 +43,7 @@ export const SectionArticlesParentScreen = () => {
   }
 
   return (
-    <ScreenContainer edge={horizontalAndTop} showHeader={true} headerTitle={params?.title}>
+    <ScreenContainer edge={horizontalAndTop} showHeader={true} headerTitle={params?.title} showPlayer={isShowPlayer}>
       {renderDynamicScreen()}
     </ScreenContainer>
   );
