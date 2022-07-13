@@ -342,5 +342,10 @@ export const arabic = {
     facts: 'حقائق',
     readArticle: 'اقرأ المقالة',
     opinionTitle: 'الرأي',
+  },
+  myNewsTab: {
+    topics: 'مواضيعي',
+    writers: 'كتابي',
+    media: 'ميديا',
   }
 }
