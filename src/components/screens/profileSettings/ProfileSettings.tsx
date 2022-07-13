@@ -162,6 +162,8 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
         };
         saveTokenAfterRegistrationRequest(payload);
       }
+    }
+    
   const logoutFromfacebook = () => {
     try {
       if (userProfileData?.user?.provider == 'facebook') {

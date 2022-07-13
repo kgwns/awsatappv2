@@ -54,4 +54,4 @@ export { BottomSheetView } from 'src/components/molecules/bottomSheetView/Bottom
 export { default as ArticleDetailVideo } from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo';
 export { default as VideoPlayerControl } from 'src/components/molecules/articleDetailVideo/VideoPlayerControl';
 export { default as DraggableVideoPlayer } from 'src/components/molecules/articleDetailVideo/DraggableVideoPlayer';
-
+export { CustomTabBarItem } from 'src/components/molecules/customTabBarItem/CustomTabBarItem'

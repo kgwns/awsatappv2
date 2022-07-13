@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { ScreenContainer } from '..'
-import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, normalizeBy320, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils';
 import { Label } from 'src/components/atoms';
 import { Dimensions, View, StyleSheet, StatusBar } from 'react-native';
 import { Styles } from 'src/shared/styles';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { TabBar, TabView } from 'react-native-tab-view';
-import { TabWithBarItem } from 'src/components/molecules';
+import { CustomTabBarItem } from 'src/components/molecules';
 import { fonts } from 'src/shared/styles/fonts';
 import { myNewsTopTabData } from 'src/constants/SampleData'
 
@@ -23,7 +23,11 @@ export const MyNewsScreen = () => {
   const [index, setIndex] = React.useState(0);
 
   useEffect(() => {
-    let newRoutesArray = myNewsTopTabData.map((item, index) => {
+    configData()
+  }, [])
+
+  const configData = () => {
+    const newRoutesArray = myNewsTopTabData.map((item, index) => {
       return {
         key: `${index}${item.keyName}`,
         title: item.tabName,
@@ -31,7 +35,7 @@ export const MyNewsScreen = () => {
       };
     })
     setNewRoutes(newRoutesArray)
-  }, [])
+  }
 
   const renderScene = ({ route }: any) => {
     if (Math.abs(index - routes.indexOf(route)) > 2) {
@@ -90,15 +94,17 @@ export const MyNewsScreen = () => {
         renderTabBarItem={(item) => {
           const number = item.key.match(/\d+/g) || '0';
           const tabIndex = isNonEmptyArray(number) ? parseInt(number[0]) : 0
-        
-          return <TabWithBarItem index={tabIndex}
-            key={tabIndex}
-            onPress={setIndex}
-            tabName={item.route.title || ''}
-            isSelected={tabIndex == item.navigationState.index}
-            selectionColor={true}
-            labelFont={fonts.Effra_Arbc_Regular}
-          />
+
+          return <View>
+            <CustomTabBarItem index={tabIndex}
+              key={tabIndex}
+              onPress={setIndex}
+              tabName={item.route.title || ''}
+              isSelected={tabIndex == item.navigationState.index}
+              labelFont={fonts.Effra_Arbc_Regular}
+            />
+            <View style={styles.tabBarBottomView} />
+          </View>
         }}
       />
     );
@@ -140,8 +146,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   tabBarStyle: {
     marginHorizontal: 10,
-    backgroundColor: 'orange',
-    width: screenWidth * 0.33,
   },
   childStyle: {
     width: '100%',
@@ -149,7 +153,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  tabBarBottomView: {
+    width: '100%',
+    height: 1.2,
+    backgroundColor: theme.dividerColor,
+    position: 'absolute',
+    bottom: 0
+  }
 });
-
-
-
