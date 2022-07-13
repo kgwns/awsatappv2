@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import {StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
 import {normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -23,11 +23,16 @@ export const VideosVerticalList = ({
   time,
 }: VideosVerticalListProps) => {
   const style = useThemeAwareObject(customStyle);
+  const [isTitleLength, setIsTitleLength] = useState(1)
+
+  const onTextLayout = useCallback((e) => {
+    setIsTitleLength(e.nativeEvent.lines.length)
+  }, []);
 
   return (
     <TouchableWithoutFeedback testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
       <View style={style.cardContainer}>
-        <View style={style.headerStyle}>
+        <View style={[style.headerStyle, isTitleLength>2 && style.headerTitleStyle]}>
           <View style={style.imageContainer}>
             <Image fallback url={imageUrl} style={style.imageStyle} resizeMode={'cover'} />
             {time && <Label style={style.timeStyle} >
@@ -35,7 +40,7 @@ export const VideosVerticalList = ({
             </Label>}
           </View>
           <View style={style.titleContainer}>
-            <Label style={style.title} numberOfLines={3}>
+            <Label style={style.title} onTextLayout={onTextLayout}>
               {decode(title)}
             </Label>
           </View>
@@ -89,6 +94,9 @@ const customStyle = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       lineHeight: 20
     },
+    headerTitleStyle: {
+      alignItems: 'flex-start'
+    }
   });
   return PodcastCardStyle;
 };
