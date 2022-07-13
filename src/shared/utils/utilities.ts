@@ -12,6 +12,7 @@ import { normalize } from 'src/shared/utils';
 import { ImagesName } from "../styles";
 import { isIOS } from "./dimensions";
 import { decode } from "html-entities";
+import DeviceInfo from 'react-native-device-info';
 
 export enum DateIcon {
   CLOCK,
@@ -320,3 +321,9 @@ export const TimeIcon = (type: DateIcon) => (
 export const removeWhiteSpace = ( value: string) : string | any => {
   return typeof value === 'string' ? value.trim() : value;
 }
+
+
+export const getDeviceName = async () => {
+  const deviceName = await DeviceInfo.getDeviceName();
+  return deviceName
+};

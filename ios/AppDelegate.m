@@ -9,6 +9,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Firebase.h>
 #import <AVFoundation/AVFoundation.h>
+#import <React/RCTLinkingManager.h>  
 
 
 #ifdef FB_SONARKIT_ENABLED
@@ -68,6 +69,10 @@ static void InitializeFlipper(UIApplication *application) {
   NSError *setCategoryError = nil;
   [audioSession setCategory:AVAudioSessionCategoryPlayback
                       error:&setCategoryError];
+
+  [[FBSDKApplicationDelegate sharedInstance] application:application
+                        didFinishLaunchingWithOptions:launchOptions];
+
   return YES;
 }
 
@@ -87,5 +92,19 @@ static void InitializeFlipper(UIApplication *application) {
   
     return [Orientation getOrientation];
 }
-  
+
+
+- (BOOL)application:(UIApplication *)app
+openURL:(NSURL *)url
+options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  if ([[FBSDKApplicationDelegate sharedInstance] application:app openURL:url options:options]) {
+  return YES;
+  }
+  if ([RCTLinkingManager application:app openURL:url options:options]) {
+  return YES;
+  }
+  return NO;
+}
+
 @end

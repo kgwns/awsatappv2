@@ -13,7 +13,7 @@ import { isIOS, normalize, recordLogEvent } from 'src/shared/utils';
 import {LoginFactory,Connection}  from 'src/shared/utils/loginFactory';
 import {NavigateTypes} from 'src/components/screens';
 import {RegisterBodyType} from 'src/redux/register/types';
-import { useRegister, useSearch } from 'src/hooks';
+import { useLogin, useNotificationSaveToken, useRegister, useSearch } from 'src/hooks';
 import { useDispatch } from 'react-redux';
 import { fetchLoginSuccess } from 'src/redux/login/action';
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +21,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { appleSignin } from 'src/shared/utils/appleSignin';
 import { fonts } from 'src/shared/styles/fonts';
+import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
+import { AccessToken } from 'react-native-fbsdk-next';
 
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
@@ -37,6 +39,9 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   const {createUserRequest, registerUserInfo} = useRegister();
 
   const {socialLoginEnded} = useRegister();
+  const { loginData } = useLogin();
+  const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
+  
   const OK = t('common.ok');
 
   const { emptySearchHistory } = useSearch();
@@ -84,6 +89,17 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   useEffect(() => {
     getDeviceName();
   }, []);
+
+  useEffect(() => {
+    if((loginData?.user?.id) && saveTokenData?.id){
+      const payload: SaveTokenAfterRegistraionBodyType = {
+        id: (saveTokenData?.id).toString(),
+        uid: (loginData?.user?.id),
+      };
+      saveTokenAfterRegistrationRequest(payload)
+    }
+  }, [loginData]);
+  
 
   const navigation = useNavigation<StackNavigationProp<any>>();
 

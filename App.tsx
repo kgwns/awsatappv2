@@ -8,6 +8,7 @@ import { ThemeProvider } from 'src/shared/styles/ThemeProvider';
 import { DEFAULT_LIGHT_THEME } from 'src/shared/styles/colors';
 import Orientation from 'react-native-orientation-locker'
 import AppPlayer from 'src/shared/utils/appPlayer';
+import { GetFCMToken } from 'src/firebase/notification/notification';
 
 const App = () => {
   useEffect(() => {
@@ -20,6 +21,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
+      <GetFCMToken/>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider initial={DEFAULT_LIGHT_THEME} >
           <SplashNavigation />

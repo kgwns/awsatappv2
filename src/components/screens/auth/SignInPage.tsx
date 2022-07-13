@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
@@ -21,6 +21,7 @@ import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {
   useBookmark,
   useLogin,
+  useNotificationSaveToken,
   useRegister,
   useSearch,
   useUserProfileData,
@@ -38,12 +39,46 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
+import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
+import { useIsFocused } from '@react-navigation/native';
+import { AccessToken } from 'react-native-fbsdk-next';
+import { Connection, LoginFactory } from 'src/shared/utils/loginFactory';
+import { RegisterBodyType } from 'src/redux/register/types';
+import { getDeviceName as getDeviceType } from 'src/shared/utils/utilities';
+
+export const onSuccessSocialLogin = async (
+  userInfo: any,
+  provider = SocialProviders.facebook,
+) => {
+  const userDetails = userInfo.user;
+  const deviceType = await getDeviceType();
+  const payload: RegisterBodyType = {
+    email: userDetails.email,
+    device_name: deviceType,
+    first_name: userDetails.givenName,
+    last_name: userDetails.familyName,
+    provider: provider,
+    provider_id: userDetails.id,
+  };
+  if (provider === SocialProviders.facebook && userDetails.profile_url) {
+    payload.profile_url = userDetails.profile_url;
+  }
+  if (provider === SocialProviders.google && userInfo) {
+    payload.profile_url = userInfo.user.photo;
+  }
+  return payload
+};
 
 
 export enum SocialNavigate {
   google = 'GOOGLE',
   apple = 'APPLE',
   facebook = 'FACEBOOK',
+}
+
+export enum SocialProviders {
+  google = 'google',
+  facebook = 'facebook',
 }
 export interface SignInPageProps {
   route: any;
@@ -65,8 +100,10 @@ export const SignInPage = ({route}: SignInPageProps) => {
     socialLoginInProgress,
     socialLoginStarted,
     emptyUserInfo,
+    createUserRequest
   } = useRegister();
   const { emptySearchHistory } = useSearch();
+  const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
   const dispatch = useDispatch();
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
@@ -109,6 +146,10 @@ export const SignInPage = ({route}: SignInPageProps) => {
     emptyforgotPassworResponseInfo,
     emptyLoginDataInfo,
   } = useLogin();
+
+  const isFocused = useIsFocused()
+  const fbLoginRef = useRef(true);
+
 
   useEffect(() => {
     socialLoginEnded();
@@ -165,6 +206,16 @@ export const SignInPage = ({route}: SignInPageProps) => {
   }, [loginData]);
 
   useEffect(() => {
+    if((loginData?.user?.id) && saveTokenData?.id){
+      const payload: SaveTokenAfterRegistraionBodyType = {
+        id: (saveTokenData?.id).toString(),
+        uid: (loginData?.user?.id),
+      };
+      saveTokenAfterRegistrationRequest(payload)
+    }
+  }, [loginData]);
+
+  useEffect(() => {
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
@@ -211,6 +262,25 @@ export const SignInPage = ({route}: SignInPageProps) => {
       emptyUserInfo();
     };
   }, []);
+
+  const onResult = async (userInfo:any,success:boolean, provider: SocialProviders, message?:String) => {
+    if(success){
+      fbLoginRef.current = false
+      const payload = await onSuccessSocialLogin(userInfo,provider)
+      createUserRequest(payload);
+    }
+  }
+
+  const checkFacebookLogin = () => {
+    const facebookSignIn = LoginFactory.getInstance(Connection.Facebook,onResult);
+    facebookSignIn?.initialLogin();
+  }
+
+  useEffect(() => {
+    if(isFocused && fbLoginRef.current){
+      checkFacebookLogin()
+    }
+  }, [isFocused])
 
   const navigateToSection = (type: string) => {
     switch (type) {

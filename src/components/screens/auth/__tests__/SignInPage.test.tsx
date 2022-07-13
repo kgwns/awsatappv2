@@ -9,6 +9,41 @@ import {useNavigation} from '@react-navigation/native';
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+}));
+
+jest.mock("src/hooks/useNotificationSaveToken", () => ({
+  useNotificationSaveToken: () => {
+    return {
+      isSaveTokenLoading: false,
+      saveTokenData: {},
+      storeServerEnvironmentInfo: () => [],
+      saveTokenError: '',
+      saveTokenRequest: () => [],
+      saveTokenAfterRegistrationRequest: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      isLoading: false,
+      loginData: {},
+      loginError: 'example',
+      fetchLoginRequest: () => [],
+      isLoggedIn: false,
+      token: 'string',
+      user: {},
+      fetchLogoutRequest: () => [],
+      loginSkipped: () => [],
+      isSkipped: false,
+      forgotPassswordResponse: {},
+      forgotPassworRequest: () => [],
+      emptyforgotPassworResponseInfo: () => [],
+      emptyLoginDataInfo: () => [],
+    }
+  },
 }));
 
 describe('<SignInPage>', () => {

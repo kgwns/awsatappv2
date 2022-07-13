@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/native';
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
 describe('<AuthPage>', () => {

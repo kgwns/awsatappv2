@@ -133,3 +133,6 @@ export const DOCUMENTARY_VIDEO_ENDPOINT = 'api/v2/docvideolist';
 
 //Content for you
 export const CONTENT_FOR_YOU_ARTICLE_ENDPOINT = 'api/v2/user/articlesection' 
+
+//Notification FCM token
+export const SAVE_FCM_TOKEN_ENDPOINT = 'api/ums/v1/saveToken' 
