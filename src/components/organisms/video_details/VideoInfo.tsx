@@ -74,7 +74,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
              rightIcon={() => <View style={styles.rightIconStyle}><PlayIcon fill={colors.black} height={14} width={12}/></View>}
              />
              <View style={styles.containerSpace} />
-            {data.title&&<Label style={styles.descriptionTextStyle} children={decode(data.title)} />}
+            {data.title && <Label style={styles.descriptionTextStyle} children={decode(data.title)} />}
             {data.body_export && 
             <View>
               <HtmlRenderer source={data.body_export} tagsStyles={htmlTagStyle} />

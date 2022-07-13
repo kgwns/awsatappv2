@@ -107,7 +107,11 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
 
   const renderTitle = (title: string) => (
     <View style={style.titleContainer}>
-      <Label style={style.title} color={theme.themeData.primaryBlack}>{decodeHTMLTags(title)}</Label>
+      <Label
+        style={style.title}
+        color={theme.themeData.primaryBlack}
+        children={decodeHTMLTags(title)}
+      />
     </View>
   )
 
@@ -140,7 +144,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
                     {renderTitle(item.title)}
                   </View>
                   <View>
-                  {renderArticleImage(item)}
+                    {renderArticleImage(item)}
                   </View>
                 </View>
                 {renderArticleFooterMobile(item, index)}

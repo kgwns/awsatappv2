@@ -46,14 +46,14 @@ export const PodcastVerticalList = ({
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const [duration, setDuration] = useState<any>(null)
-  const [isTitleLength, setIsTitleLength] = useState(1)
+  const [isTitleLineCount, setIsTitleLineCount] = useState(1)
 
   useEffect(() => {
     getPodcastDuration()
   }, [])
 
   const onTextLayout = useCallback((e) => {
-    setIsTitleLength(e.nativeEvent.lines.length)
+    setIsTitleLineCount(e.nativeEvent.lines ? e.nativeEvent.lines.length : 1)
   }, []);
 
   const getPodcastDuration = async () => {
@@ -73,8 +73,8 @@ export const PodcastVerticalList = ({
   return (
     <FixedTouchable testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
       <View style={style.cardContainer}>
-        <View style={[style.headerStyle, isTitleLength>2 && style.headerTitleStyle]}>
-          <View style={[style.headerLeftStyle, isTitleLength>2 && style.headerTitleStyle]}>
+        <View style={[style.headerStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
+          <View style={[style.headerLeftStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
             <Image fallback resizeMode='cover' url={imageUrl} style={style.imageStyle} />
             <Label style={style.title} onTextLayout={onTextLayout}>
               {title}

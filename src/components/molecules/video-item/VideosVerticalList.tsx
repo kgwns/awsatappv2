@@ -23,16 +23,16 @@ export const VideosVerticalList = ({
   time,
 }: VideosVerticalListProps) => {
   const style = useThemeAwareObject(customStyle);
-  const [isTitleLength, setIsTitleLength] = useState(1)
+  const [isTitleLineCount, setIsTitleLineCount] = useState(1)
 
   const onTextLayout = useCallback((e) => {
-    setIsTitleLength(e.nativeEvent.lines.length)
+    setIsTitleLineCount(e.nativeEvent.lines ? e.nativeEvent.lines.length : 1)
   }, []);
 
   return (
     <TouchableWithoutFeedback testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
       <View style={style.cardContainer}>
-        <View style={[style.headerStyle, isTitleLength>2 && style.headerTitleStyle]}>
+        <View style={[style.headerStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
           <View style={style.imageContainer}>
             <Image fallback url={imageUrl} style={style.imageStyle} resizeMode={'cover'} />
             {time && <Label style={style.timeStyle} >
