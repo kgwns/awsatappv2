@@ -81,6 +81,7 @@ export const AuthorsHorizontalSlider = ({
   const renderAuthorsList = () => {
     return authorsList.map((item: AuthorsItemType, index: number) => {
       const imageUrl = getImageUrl(item.field_opinion_writer_photo_export);
+      const isLast = index === authorsList.length-1;
       return (
         <TouchableWithoutFeedback
           key={index}
@@ -91,6 +92,7 @@ export const AuthorsHorizontalSlider = ({
             style={[
               styles.allContainerStyle,
               styles.borderStyle,
+              isLast && styles.spaceEndStyle,
               selectedIndex == index
                 ? styles.containerbackgroundStyle
                 : {borderColor: colors.transparent},
@@ -183,4 +185,7 @@ const customStyle = (theme: CustomThemeType) =>
     containerbackgroundStyle: {
       backgroundColor: colors.black,
     },
+    spaceEndStyle: {
+      marginEnd: (isTab ? 0.02 : 0.04) * screenWidth,
+    }
   });
