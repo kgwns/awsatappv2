@@ -65,7 +65,7 @@ const customStyle = StyleSheet.create({
     fontFamily: fonts.Effra_Arbc_Regular
   },
   newStyle: {
-    width: 0.33 * screenWidth,
+    width: 0.5 * screenWidth,
   },
   containerTopics: {
     alignItems: 'flex-start',

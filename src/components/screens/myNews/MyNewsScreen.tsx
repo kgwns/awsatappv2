@@ -9,7 +9,8 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { TabBar, TabView } from 'react-native-tab-view';
 import { CustomTabBarItem } from 'src/components/molecules';
 import { fonts } from 'src/shared/styles/fonts';
-import { myNewsTopTabData } from 'src/constants/SampleData'
+import { myNewsTopTabData } from 'src/constants/SampleData';
+import { MyNewsWriters } from 'src/components/organisms';
 
 export enum MyNewsTabType {
   media = 'media',
@@ -51,9 +52,7 @@ export const MyNewsScreen = () => {
         )
       case MyNewsTabType.writers:
         return (
-          <View style={styles.childStyle}>
-            <Label children={'Work in Progress - Writers'} />
-          </View>
+          <MyNewsWriters />
         )
       case MyNewsTabType.topics:
         return (
