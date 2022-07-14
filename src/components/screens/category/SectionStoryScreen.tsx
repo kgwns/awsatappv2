@@ -350,7 +350,7 @@ export const SectionStoryScreen = React.memo(({
     })
 
     clearData()
-    onUpdateChildSection(updatedChildSection)
+    onUpdateChildSection && onUpdateChildSection(updatedChildSection)
   }
 
   const clearData = () => {
@@ -446,32 +446,32 @@ export const SectionStoryScreen = React.memo(({
 
   const renderSectionWidget = () => (
     <>
-            {renderBannerArticle()}
-            {isTab ? <View style={style.storyAndTopArticle}>
-              <View style={[style.tabWidgetContainer]}>
-                {renderArticleStory()}
-              </View>
-              <View style={style.verticalDivider} />
-              <View style={style.tabWidgetContainer}>
-                {renderTopArticle()}
-              </View>
-            </View> :
-              <>
-                {renderTopArticle()}
-              </>
-            }
-            <View style={style.videoContainer}>
-              <VideoContent data={videoListData} onPress={onVideoItemPress} />
-            </View>
-            <View style={style.newsFeedContainer}>
-              <NewsFeed
-                data={bottomListDataInfo}
-                onScroll={() => gotoNextPage()}
-                isLoading={isBottomListLoading}
-                onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
-              />
-            </View>
-          </>
+      {renderBannerArticle()}
+      {isTab ? <View style={style.storyAndTopArticle}>
+        <View style={[style.tabWidgetContainer]}>
+          {renderArticleStory()}
+        </View>
+        <View style={style.verticalDivider} />
+        <View style={style.tabWidgetContainer}>
+          {renderTopArticle()}
+        </View>
+      </View> :
+        <>
+          {renderTopArticle()}
+        </>
+      }
+      <View style={style.videoContainer}>
+        <VideoContent data={videoListData} onPress={onVideoItemPress} />
+      </View>
+      <View style={style.newsFeedContainer}>
+        <NewsFeed
+          data={bottomListDataInfo}
+          onScroll={() => gotoNextPage()}
+          isLoading={isBottomListLoading}
+          onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
+        />
+      </View>
+    </>
   )
 
   const renderItem = () => {
