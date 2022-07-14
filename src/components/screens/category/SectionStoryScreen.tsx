@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ViewStyle} from 'react-native';
 import {ShortArticle, NewsFeed, VideoContent} from '../../organisms';
-import {isTab, normalize, screenWidth} from '../../../shared/utils';
-import {SectionArticleItem, ImageArticle} from 'src/components/molecules';
+import {isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
+import {SectionArticleItem, ImageArticle, FilterComponent, FilterDataType} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {NewsViewBodyGet, NewsViewListItemType} from 'src/redux/newsView/types';
 import {
-  getImageUrl,
   decodeHTMLTags,
   isNonEmptyArray,
   isObjectNonEmpty,
@@ -34,8 +33,24 @@ import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { decode } from 'html-entities';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
+import { TopMenuItemType } from 'src/redux/topMenu/types';
+import { StyleProp } from 'react-native';
 
-export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex}: {sectionId: any; tabIndex?: number; currentIndex?:number }) => {
+export type SectionStoryScreenProps = {
+  sectionId: any;
+  tabIndex?: number;
+  currentIndex?: number;
+  childInfo: TopMenuItemType[];
+  onUpdateChildSection?: (data: TopMenuItemType[]) => void;
+}
+
+export const SectionStoryScreen = React.memo(({
+  sectionId,
+  tabIndex,
+  currentIndex,
+  childInfo,
+  onUpdateChildSection,
+}: SectionStoryScreenProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   
   const {themeData} = useTheme();
@@ -46,6 +61,8 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
   const [heroData, setHeroData] = useState<any>([])
   const [topData, setTopData] = useState<any>([])
   const [bottomData, setBottomData] = useState<any>([])
+  const [currentSectionId, setCurrentSectionId] = useState(sectionId)
+  const [childSection, setChildSection] = useState(childInfo)
 
   const ref = React.useRef(null);
     useEffect(() => {
@@ -59,21 +76,21 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
     items_per_page: isTab ? 2 : 1,
     page: 0,
     offset: 0,
-    sectionId: sectionId,
+    sectionId: currentSectionId,
   };
 
   const topListPayload: NewsViewBodyGet = {
     items_per_page: 4,
     page: 0,
     offset: isTab ? 2 : 1,
-    sectionId: sectionId,
+    sectionId: currentSectionId,
   };
 
   const bottomListPayload: NewsViewBodyGet = {
     items_per_page: 10,
     page: page,
     offset: isTab ? 6 : 5,
-    sectionId: sectionId,
+    sectionId: currentSectionId,
   };
 
   const { sendBookmarkInfo, removeBookmarkedInfo,bookmarkIdInfo } = useBookmark()
@@ -88,12 +105,37 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
 
   useEffect(() => {
     // makeInitialDataEmpty();
+    getSectionDetail()
+  }, [currentSectionId]);
+
+  useEffect(() => {
+     setCurrentSectionId(sectionId)
+  }, [sectionId])
+
+  useEffect(() => {
+    getCurrentSectionId()
+  }, [childInfo])
+
+  const getCurrentSectionId = () => {
+    const selectedIndex = childInfo.findIndex((item) => item.isSelected === true)
+    let activeSectionId = sectionId
+    if(selectedIndex > -1) {
+      activeSectionId = childInfo[selectedIndex].sectionId
+    }
+    setCurrentSectionId(activeSectionId)
+    setChildSection(childInfo)
+    if(activeSectionId != currentSectionId) {
+      clearData()
+    }
+  }
+
+  const getSectionDetail = () => {
     setInitialLoading(true);
 
     getHeroListData();
     getTopListData();
     getVideoListData();
-  }, [sectionId]);
+  }
 
   const getHeroListData = async() => {
     try {
@@ -154,9 +196,16 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
     }
   }
 
+  const childFilterData: FilterDataType[] = React.useMemo(() => childSection.map((item) => {
+    return {
+      name: item.tabName,
+      isSelected: item.isSelected,
+    }
+  }), [childSection]) 
+
   useEffect(() => {
     getBottomListData();
-  }, [sectionId,page]);
+  }, [currentSectionId,page]);
 
   const gotoNextPage = () => {
     setPage(page + 1);
@@ -291,6 +340,35 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
       { mediaID: item.mediaId, nid: item.nid })
   }
 
+  const onClickChildSection = (clickItemIndex: number) => {
+    const spreadChildSection = [...childSection]
+    const updatedChildSection = spreadChildSection.map((item,index) => {
+      return {
+        ...item,
+        isSelected: clickItemIndex != index ? false : !spreadChildSection[index].isSelected
+      }
+    })
+
+    clearData()
+    onUpdateChildSection && onUpdateChildSection(updatedChildSection)
+  }
+
+  const clearData = () => {
+    setHeroListDataInfo([])
+    setTopListDataInfo([])
+    setBottomListDataInfo([])
+  }
+
+  const renderFilterComponent = () => {
+    if(!isNonEmptyArray(childFilterData)) return null
+
+    return (
+      <View style={style.filterContainer}>
+        <FilterComponent data={childFilterData} onPress={onClickChildSection} />
+      </View>
+    ) 
+  }
+
   const renderBannerArticle = () => {
     const bannerData = isNonEmptyArray(heroListDataInfo) ? heroListDataInfo[0] : {} as NewsViewListItemType
     return (
@@ -366,42 +444,55 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
     )
   }
 
+  const renderSectionWidget = () => (
+    <>
+      {renderBannerArticle()}
+      {isTab ? <View style={style.storyAndTopArticle}>
+        <View style={[style.tabWidgetContainer]}>
+          {renderArticleStory()}
+        </View>
+        <View style={style.verticalDivider} />
+        <View style={style.tabWidgetContainer}>
+          {renderTopArticle()}
+        </View>
+      </View> :
+        <>
+          {renderTopArticle()}
+        </>
+      }
+      <View style={style.videoContainer}>
+        <VideoContent data={videoListData} onPress={onVideoItemPress} />
+      </View>
+      <View style={style.newsFeedContainer}>
+        <NewsFeed
+          data={bottomListDataInfo}
+          onScroll={() => gotoNextPage()}
+          isLoading={isBottomListLoading}
+          onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
+        />
+      </View>
+    </>
+  )
+
   const renderItem = () => {
     return (
       <View style={{ backgroundColor: themeData.backgroundColor }}>
-        {renderBannerArticle()}
-        {
-          isTab ? <View style={style.storyAndTopArticle}>
-            <View style={[style.tabWidgetContainer]}>
-              {renderArticleStory()}
-            </View>
-            <View style={style.verticalDivider} />
-            <View style={style.tabWidgetContainer}>
-              {renderTopArticle()}
-            </View>
-          </View> :
-            <>
-              {renderTopArticle()}
-            </>
-        }
-        <View style={style.videoContainer}>
-          <VideoContent data={videoListData} onPress={onVideoItemPress} />
-        </View>
-        <View style={style.newsFeedContainer}>
-          <NewsFeed
-            data={bottomListDataInfo}
-            onScroll={() => gotoNextPage()}
-            isLoading={isBottomListLoading}
-            onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
-          />
-        </View>
+        {renderFilterComponent()}
+        {initialLoading ? loadingView({ height: 0.60 * screenHeight }) : renderSectionWidget()}
       </View>
     );
   }
 
+  const loadingView = (moreStyle?: StyleProp<ViewStyle>) => (
+    <View style={[style.loaderContainer, moreStyle]}>
+      <LoadingState />
+    </View>
+  )
+
   return (
     <View style={style.contentContainer}>
-      {!initialLoading  ? <FlatList
+      {(initialLoading && sectionId === currentSectionId)  ? loadingView() :
+       <FlatList
        ref={ref}
        onScrollBeginDrag={() => global.refFlatList = ref}
       data={[{}]}
@@ -409,10 +500,7 @@ export const SectionStoryScreen = React.memo(({sectionId, tabIndex, currentIndex
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
       scrollEnabled={true}
-      /> :
-      <View style={style.loaderContainer}>
-        <LoadingState />
-      </View>
+      />
       }
        <PopUp type={PopUpType.rbSheet}
         onPressButton={onPressSignUp}
@@ -503,6 +591,11 @@ const customStyle = (theme: CustomThemeType) => {
         fontSize: 16,
         lineHeight: 26,
         fontFamily: fonts.IBMPlexSansArabic_Regular,
+    },
+    filterContainer: {
+      paddingHorizontal: 0.02 * screenWidth,
+      paddingVertical: 10,
+      backgroundColor: theme.backgroundColor,
     }
   });
   return sectionStoryStyle;

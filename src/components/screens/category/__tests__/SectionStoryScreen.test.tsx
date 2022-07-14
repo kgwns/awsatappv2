@@ -42,6 +42,8 @@ describe('<SectionStoryScreen>', () => {
     const setVideoListData = mockFunction;
     const setShowPopUp = mockFunction;
     const setIsBottomListLoading = mockFunction;
+    const setCurrentSectionId = mockFunction;
+    const setChildSection = mockFunction;
 
     beforeEach(() => {
         (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
@@ -50,8 +52,11 @@ describe('<SectionStoryScreen>', () => {
         (useState as jest.Mock).mockImplementation(() => [[], setVideoListData]);
         (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
         (useState as jest.Mock).mockImplementation(() => [false, setIsBottomListLoading]);
+        (useState as jest.Mock).mockImplementation(() => ['1', setCurrentSectionId]);
+        (useState as jest.Mock).mockImplementation(() => [[], setChildSection]);
+        
         const component = <Provider store={storeSampleData}>
-            <SectionStoryScreen />
+            <SectionStoryScreen sectionId={''} childInfo={[]} onUpdateChildSection={mockFunction} />
         </Provider>
         instance = render(component)
     })

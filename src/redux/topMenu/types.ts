@@ -11,13 +11,14 @@ export interface FieldTopMenuExportType {
 
 export interface TopMenuItemType {
   tabName: string;
-  uuid_export?: string;
-  parent_export?: string;
+  uuid?: string;
+  parentId?: string;
   link__options?: string;
   title_export?: string;
   sectionId?: number|null;
   keyName?: string;
   isSelected: boolean;
+  child?: TopMenuItemType[];
 }
 
 export interface FetchTopMenuSuccessPayloadType {
