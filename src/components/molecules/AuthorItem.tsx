@@ -153,7 +153,6 @@ const AuthorItem = ({
         switch (item) {
           case LabelsType.authorName:
             return (
-              <>
                 <Label
                   children={author}
                   labelType={LabelTypeProp.p4}
@@ -164,18 +163,15 @@ const AuthorItem = ({
                   onPress={() => onPressWriter(authorId)}
                   suppressHighlighting={true}
                 />
-              </>
             );
           case LabelsType.title:
             return (
-              <>
                 <Label
                   children={body}
                   labelType={LabelTypeProp.h3}
                   numberOfLines={2}
                   style={style.body}
                 />
-              </>
             );
           default:
             return null;

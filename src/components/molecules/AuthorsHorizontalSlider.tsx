@@ -15,9 +15,19 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {getImageUrl} from 'src/shared/utils/utilities';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import {ImagesName} from 'src/shared/styles';
+import {
+  TranslateConstants,
+  TranslateKey,
+} from 'src/constants/TranslateConstants';
+
+export interface AuthorsItemType {
+  name: string;
+  field_opinion_writer_photo_export: string;
+  tid: string | number;
+}
 
 export interface AuthorsHorizontalSliderProps {
-  authorsList: any[];
+  authorsList: AuthorsItemType[];
   onPress?: (item: any, index: number) => void;
   style?: StyleProp<any>;
   showAll?: boolean;
@@ -34,15 +44,85 @@ export const AuthorsHorizontalSlider = ({
   const {themeData} = useTheme();
   const styles = useThemeAwareObject(customStyle);
   const scrollRef = useRef<ScrollView>(null);
+  const allTitle = TranslateConstants({key: TranslateKey.TAB_ALL_TITLE});
+
   const scrollToEnd = () => {
     if (isIOS) return;
     scrollRef.current?.scrollToEnd();
   };
+
   const onItemPress = (item: any, index: number) => {
     onPress && onPress(item, index);
   };
+
   const onAllPress = () => {
     onPress && onPress(null, -1);
+  };
+
+  const renderShowAll = () => (
+    <TouchableWithoutFeedback onPress={onAllPress}>
+      <View
+        style={[
+          styles.allContainerStyle,
+          styles.borderStyle,
+          selectedIndex == -1 && styles.containerbackgroundStyle,
+        ]}>
+        <Label
+          children={allTitle}
+          style={[styles.labelStyle, styles.labelSpace]}
+          color={
+            selectedIndex == -1 ? colors.white : themeData.secondarySpanishGray
+          }
+        />
+      </View>
+    </TouchableWithoutFeedback>
+  );
+
+  const renderAuthorsList = () => {
+    return authorsList.map((item: AuthorsItemType, index: number) => {
+      const imageUrl = getImageUrl(item.field_opinion_writer_photo_export);
+      return (
+        <TouchableWithoutFeedback
+          key={index}
+          testID={`MyNewsAuthor_${index}`}
+          accessibilityLabel={`MyNewsAuthor_${index}`}
+          onPress={() => onItemPress(item, index)}>
+          <View
+            style={[
+              styles.allContainerStyle,
+              styles.borderStyle,
+              selectedIndex == index
+                ? styles.containerbackgroundStyle
+                : {borderColor: colors.transparent},
+            ]}>
+            <Image
+              url={imageUrl}
+              size={33}
+              resizeMode={'cover'}
+              type={'round'}
+              fallback={true}
+              fallbackContent={
+                <AuthorDefault
+                  style={{backgroundColor: colors.cyanGreen}}
+                  width={33}
+                  height={33}
+                />
+              }
+              fallbackName={ImagesName.authorDefault}
+            />
+            <Label
+              children={item.name}
+              style={styles.labelStyle}
+              color={
+                selectedIndex == index
+                  ? colors.white
+                  : themeData.secondarySpanishGray
+              }
+            />
+          </View>
+        </TouchableWithoutFeedback>
+      );
+    });
   };
 
   return (
@@ -56,70 +136,8 @@ export const AuthorsHorizontalSlider = ({
         showsHorizontalScrollIndicator={false}
         keyboardShouldPersistTaps={'always'}
         onContentSizeChange={() => scrollToEnd()}>
-        {showAll && (
-          <TouchableWithoutFeedback onPress={onAllPress}>
-            <View
-              style={[
-                styles.allContainerStyle,
-                styles.borderStyle,
-                selectedIndex == -1 && styles.containerbackgroundStyle,
-              ]}>
-              <Label
-                children={'الكل'}
-                style={[styles.labelStyle, styles.labelSpace]}
-                color={
-                  selectedIndex == -1
-                    ? colors.white
-                    : themeData.secondarySpanishGray
-                }
-              />
-            </View>
-          </TouchableWithoutFeedback>
-        )}
-        {authorsList.map((item: any, index: number) => {
-          const imageUrl = getImageUrl(item.field_opinion_writer_photo_export);
-          return (
-            <TouchableWithoutFeedback
-              key={index}
-              testID={`MyNewsAuthor_${index}`}
-              accessibilityLabel={`MyNewsAuthor_${index}`}
-              onPress={() => onItemPress(item, index)}>
-              <View
-                style={[
-                  styles.allContainerStyle,
-                  styles.borderStyle,
-                  selectedIndex == index
-                    ? styles.containerbackgroundStyle
-                    : {borderColor: colors.transparent},
-                ]}>
-                <Image
-                  url={imageUrl}
-                  size={33}
-                  resizeMode={'cover'}
-                  type={'round'}
-                  fallback={true}
-                  fallbackContent={
-                    <AuthorDefault
-                      style={{backgroundColor: colors.cyanGreen}}
-                      width={33}
-                      height={33}
-                    />
-                  }
-                  fallbackName={ImagesName.authorDefault}
-                />
-                <Label
-                  children={item.name}
-                  style={styles.labelStyle}
-                  color={
-                    selectedIndex == index
-                      ? colors.white
-                      : themeData.secondarySpanishGray
-                  }
-                />
-              </View>
-            </TouchableWithoutFeedback>
-          );
-        })}
+        {showAll && renderShowAll()}
+        {renderAuthorsList()}
       </ScrollView>
     </View>
   );

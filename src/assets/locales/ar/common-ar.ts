@@ -347,5 +347,9 @@ export const arabic = {
     topics: 'مواضيعي',
     writers: 'كتابي',
     media: 'ميديا',
+  },
+  myNewsWriters: {
+    noContent: 'لم يتم حفظ أي شيء حتى الآن',
+    allTxt: 'الكل'
   }
 }

@@ -68,7 +68,7 @@ const customStyle = StyleSheet.create({
     width: 0.5 * screenWidth,
   },
   containerTopics: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     paddingLeft: 15
   },
   containerWriters: {

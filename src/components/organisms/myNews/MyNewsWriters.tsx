@@ -21,6 +21,10 @@ import {
 import {AllWritersBodyGet} from 'src/redux/allWriters/types';
 import {FavouriteOpinionsBodyGet} from 'src/redux/contentForYou/types';
 import {getImageUrl} from 'src/shared/utils/utilities';
+import {
+  TranslateConstants,
+  TranslateKey,
+} from 'src/constants/TranslateConstants';
 
 const keyExtractor = (_: any, index: number) => index.toString();
 
@@ -37,6 +41,7 @@ export const MyNewsWriters = () => {
     favouriteOpinionsData,
     fetchFavouriteOpinionsRequest,
   } = useContentForYou();
+  const noContentTitle = TranslateConstants({key: TranslateKey.NO_CONTENT_TITLE});
   const [pageCount, setPageCount] = useState(0);
   const [selectedAuthors, setSelectedAuthors] = useState<any>(null);
   const [opinionData, setOpinionData] = useState<any>([]);
@@ -144,7 +149,7 @@ export const MyNewsWriters = () => {
     return (
       <View style={styles.centeredStyle}>
         <Label
-          children={'لم يتم حفظ أي شيء حتى الآن'}
+          children={noContentTitle}
           labelType={LabelTypeProp.h1}
         />
       </View>
