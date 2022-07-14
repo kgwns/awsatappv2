@@ -19,6 +19,6 @@
     "noEmit": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "global.d.ts"],
   "exclude": []
 }
