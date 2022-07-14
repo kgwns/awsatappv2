@@ -3,6 +3,7 @@ import React, {useState, useMemo} from 'react';
 import {MyNewsWriters} from 'src/components/organisms';
 import {AuthorsHorizontalSlider} from 'src/components/molecules';
 import {useNavigation} from '@react-navigation/native';
+import {FlatList} from 'react-native';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -60,6 +61,7 @@ describe('<MyNewsWriters>', () => {
   const setPageCount = mockFunction;
   const setOpinionData = mockFunction;
   const setSelectedIndex = mockFunction;
+  const setShowEmpty = mockFunction;
   const mockData = [
     {
       field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
@@ -79,6 +81,7 @@ describe('<MyNewsWriters>', () => {
     (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
     (useState as jest.Mock).mockImplementation(() => [[], setOpinionData]);
     (useState as jest.Mock).mockImplementation(() => [-1, setSelectedIndex]);
+    (useState as jest.Mock).mockImplementation(() => [false, setShowEmpty]);
     (useMemo as jest.Mock).mockReturnValue(mockData);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     const component = <MyNewsWriters />;
@@ -94,17 +97,6 @@ describe('<MyNewsWriters>', () => {
     expect(instance).toBeDefined();
   });
 
-  //   test('Should call AuthorItem onPress', () => {
-  //     const element = instance.getByTestId('MyNewsAuthor_0');
-  //     fireEvent(element, 'onPress', [mockData, 0]);
-  //     expect(mockFn).toBeCalled();
-  //   });
-
-  test('Should call setInitialData onPress', () => {
-    jest.useFakeTimers();
-    expect(setPageCount).toBeCalled();
-  });
-
   test('Should call AuthorsHorizontalSlider onPress', () => {
     const element = instance.container.findByType(
       AuthorsHorizontalSlider as any,
@@ -113,9 +105,9 @@ describe('<MyNewsWriters>', () => {
     expect(setPageCount).toBeCalled();
   });
 
-  //   test('Should call ScrollView onContentSizeChange', () => {
-  //     const element = instance.container.findByType(ScrollView as any);
-  //     fireEvent(element, 'onContentSizeChange');
-  //     expect(mockFn).toBeTruthy();
-  //   });
+  test('Should call LoadMore Data', () => {
+    const element = instance.container.findByType(FlatList as any);
+    fireEvent(element, 'onEndReached');
+    expect(setPageCount).toBeCalled();
+  });
 });

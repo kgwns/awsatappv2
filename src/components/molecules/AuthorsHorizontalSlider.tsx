@@ -130,7 +130,7 @@ const customStyle = (theme: CustomThemeType) =>
     container: {
       width: screenWidth,
       marginTop: normalize(10),
-      paddingVertical: 10,
+      paddingVertical: isTab ? 20 : 10,
     },
     contentStyle: {
       flexGrow: 1,

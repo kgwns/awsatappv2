@@ -12,7 +12,12 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {AuthorItem, AuthorsHorizontalSlider} from 'src/components/molecules';
 import {useAllWriters, useContentForYou} from 'src/hooks';
-import {Divider, LoadingState} from 'src/components/atoms';
+import {
+  Divider,
+  Label,
+  LabelTypeProp,
+  LoadingState,
+} from 'src/components/atoms';
 import {AllWritersBodyGet} from 'src/redux/allWriters/types';
 import {FavouriteOpinionsBodyGet} from 'src/redux/contentForYou/types';
 import {getImageUrl} from 'src/shared/utils/utilities';
@@ -36,6 +41,7 @@ export const MyNewsWriters = () => {
   const [selectedAuthors, setSelectedAuthors] = useState<any>(null);
   const [opinionData, setOpinionData] = useState<any>([]);
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
+  const [showEmpty, setShowEmpty] = useState<boolean>(false);
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
@@ -75,6 +81,12 @@ export const MyNewsWriters = () => {
   }, [pageCount]);
 
   useEffect(() => {
+    !opinionLoading && !isNonEmptyArray(opinionData) && pageCount == 0
+      ? setShowEmpty(true)
+      : setShowEmpty(false);
+  }, [opinionData]);
+
+  useEffect(() => {
     if (opinionData != favouriteOpinionsData) {
       setOpinionData((opinionData: any) => [
         ...opinionData,
@@ -95,13 +107,11 @@ export const MyNewsWriters = () => {
 
   const setInitialData = () => {
     const authorsIdList = getAuthorsList();
-    if (isNonEmptyArray(authorsIdList)) {
-      setPageCount(0);
-      setOpinionData([]);
-      setSelectedIndex(-1);
-      setSelectedAuthors(authorsIdList);
-      fetchOpinionData(authorsIdList, 0);
-    }
+    setPageCount(0);
+    setOpinionData([]);
+    setSelectedIndex(-1);
+    setSelectedAuthors(authorsIdList);
+    isNonEmptyArray(authorsIdList) && fetchOpinionData(authorsIdList, 0);
   };
 
   const fetchOpinionData = (authorsData: any, page: number) => {
@@ -128,6 +138,19 @@ export const MyNewsWriters = () => {
     setPageCount(pageCount + 1);
   };
 
+  const numberOfColumn = isTab ? 2 : 1;
+
+  const showEmptyData = () => {
+    return (
+      <View style={styles.centeredStyle}>
+        <Label
+          children={'لم يتم حفظ أي شيء حتى الآن'}
+          labelType={LabelTypeProp.h1}
+        />
+      </View>
+    );
+  };
+
   const renderFooterComponent = () => {
     return (
       <View>
@@ -142,8 +165,8 @@ export const MyNewsWriters = () => {
 
   const itemSeparatorComponent = () => <Divider style={styles.divider} />;
 
-  const renderOpinionItem = ({item, index}: {item: any; index: number}) => {
-    return (
+  const renderOpinionItem = ({item, index}: {item: any; index: number}) => (
+    <View style={styles.itemContainer}>
       <AuthorItem
         body={item.title}
         mediaVisibility={
@@ -179,9 +202,11 @@ export const MyNewsWriters = () => {
         }
         index={index}
         nid={item.nid}
+        renderLabelsOrder={['title', 'authorName']}
       />
-    );
-  };
+      {itemSeparatorComponent()}
+    </View>
+  );
 
   const renderOpinion = () => (
     <FlatList
@@ -192,8 +217,8 @@ export const MyNewsWriters = () => {
       renderItem={renderOpinionItem}
       onEndReached={loadMoreData}
       onEndReachedThreshold={0.5}
-      ItemSeparatorComponent={itemSeparatorComponent}
       ListFooterComponent={renderFooterComponent}
+      numColumns={numberOfColumn}
     />
   );
 
@@ -209,6 +234,8 @@ export const MyNewsWriters = () => {
           <View style={styles.centeredStyle}>
             <LoadingState />
           </View>
+        ) : showEmpty ? (
+          showEmptyData()
         ) : (
           renderOpinion()
         )}
@@ -234,15 +261,19 @@ const customStyle = (theme: CustomThemeType) =>
       justifyContent: 'center',
     },
     centeredStyle: {
-      flex: 1,
+      flex: 0.9,
       alignItems: 'center',
       justifyContent: 'center',
     },
     listContainer: {
       flex: 1,
       paddingTop: 20,
-      marginHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
       backgroundColor: colors.transparent,
       paddingBottom: isTab ? 20 : 0,
+      marginEnd: (isTab ? 0.02 : 0.04) * screenWidth,
+    },
+    itemContainer: {
+      flex: 1,
+      marginStart: (isTab ? 0.02 : 0.04) * screenWidth,
     },
   });
