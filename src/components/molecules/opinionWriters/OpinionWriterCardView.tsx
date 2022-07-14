@@ -166,7 +166,7 @@ const onPressPlay = () => {
         <Label suppressHighlighting={true} style={style.writerLabel} onPress={() => onPressWriter(authorId)}>{writerTitle}</Label>
       </View>}
       <View style={style.headLineContainer}>
-        <Label style={style.headLine} numberOfLines={2}>
+        <Label style={style.headLine}>
           {headLine}
         </Label>
         <Label style={style.subHeadLine} numberOfLines={3}>

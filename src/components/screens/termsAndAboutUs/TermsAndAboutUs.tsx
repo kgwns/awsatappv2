@@ -11,8 +11,6 @@ import { t } from 'i18next'
 import { useTermsAndAboutUs } from 'src/hooks'
 import { MixedStyleRecord } from 'react-native-render-html'
 import { useNavigation } from '@react-navigation/native'
-import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints'
-import { getSvgImages } from 'src/shared/styles/svgImages'
 import { fonts } from 'src/shared/styles/fonts'
 
 type TermsAndAboutUsProps = {
@@ -54,30 +52,12 @@ export const TermsAndAboutUs = ({
     navigation.goBack()
   }
 
-  const renderHeaderElement = () => {
-    if (id == TERMS_AND_CONDITION) {
-      return  (
-        <View style={style.headerItems}>
-        <Label children={title} style={style.title} />
-        {getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height })}
-      </View>
-      )
-     
-    }
-
-    return (
-      <View style={style.headerItems}>
-        <Label children={title} style={style.title} />
-        {getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height })}
-      </View>
-    )
-  }
+  const renderHeaderElement = () => (
+    <Label children={title} style={style.headerTitle} />
+  )
 
   const getIgnoredTags = () => {
-    if (id == TERMS_AND_CONDITION) {
       return ['h2']
-    }
-    return []
   }
 
   return (
@@ -145,5 +125,16 @@ const customStyle = (theme: CustomThemeType) => (
       paddingHorizontal: 0.04 * screenWidth,
       paddingVertical: normalize(10)
     },
+    headerTitle: {
+      position: 'absolute',
+      left: 0.04 * screenWidth,
+      bottom: normalize(30),
+      alignContent: 'center',
+      alignItems: 'center',
+      color: theme.primaryBlack,
+      fontSize: normalize(22),
+      lineHeight: normalize(33),
+      fontWeight: 'bold'
+    }
   })
 )
