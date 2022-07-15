@@ -110,6 +110,10 @@ export const isNonNegativeNumber = (data: any): boolean => {
 
 export const isArray = (data: any) => data && Array.isArray(data) ? true : false
 
+export const isStringIncludes = (data: any, searchText: string): boolean => {
+  return isNotEmpty(data) && data.includes(searchText) ? true : false
+}
+
 export const timeAgo = (time: any) => {
   var date = new Date(time);
   var today = new Date();
