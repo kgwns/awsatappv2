@@ -261,7 +261,7 @@ const customStyle = (theme: CustomThemeType) =>
     loaderStyle: {
       width: '100%',
       height: 80,
-      marginTop: -10,
+      marginTop: 0,
       alignItems: 'center',
       justifyContent: 'center',
     },
