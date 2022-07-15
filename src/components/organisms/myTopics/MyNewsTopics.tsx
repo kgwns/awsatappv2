@@ -128,6 +128,7 @@ export const MyNewsTopics = () => {
     };
 
     const onPress = (item: any, index: number) => {
+        if(index == selectedIndex) return;
         const payloadTopicsList = index == -1 ? getTopicsList() : [item.tid];
         if (payloadTopicsList != selectedTopics) {
             setPageCount(0);
@@ -259,7 +260,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     loaderStyle: {
         width: '100%',
-        height: 60,
+        height: 80,
         alignItems: 'center',
         justifyContent: 'center',
     },
