@@ -9,6 +9,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { TabBar, TabView } from 'react-native-tab-view';
 import { CustomTabBarItem, SignupAlertCard } from 'src/components/molecules';
 import { fonts } from 'src/shared/styles/fonts';
+import { MyNewsTopics } from 'src/components/organisms/myTopics/MyNewsTopics';
 import { myNewsTopTabData } from 'src/constants/SampleData';
 import { MyNewsWriters } from 'src/components/organisms';
 import { useLogin } from 'src/hooks';
@@ -74,9 +75,7 @@ export const MyNewsScreen = () => {
         )
       case MyNewsTabType.topics:
         return (
-          <View style={styles.childStyle}>
-            <Label children={'Work in Progress - Topics'} />
-          </View>
+          <MyNewsTopics />
         )
       default:
         return null
@@ -94,6 +93,11 @@ export const MyNewsScreen = () => {
         style={styles.container}
       />
     );
+  };
+
+  const isPortrait = () => {
+    const dim = Dimensions.get('screen');
+    return dim.height >= dim.width;
   };
 
   const _renderTabBar = (props: any) => {
@@ -133,7 +137,7 @@ export const MyNewsScreen = () => {
       isSignUpAlertVisible={showPopUp.current}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       {isLoggedIn ? (
-        <View style={styles.scene} testID={'tabContent'}>
+        <View style={(isPortrait() && isIOS) ? styles.orientationStyle : styles.scene} testID={'tabContent'}>
           {routes.length > 0 && tabsView()}
         </View>
       ) : (
@@ -149,6 +153,9 @@ export const MyNewsScreen = () => {
 }
 
 const initialLayout = { width: Dimensions.get('window').width };
+const { width: orientationWidth, height: orientationHeight } = Dimensions.get('window');
+const orientationStyleWidth = Math.min(orientationHeight, orientationWidth);
+
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     marginTop: isIOS ? StatusBar.currentHeight : 0,
@@ -188,5 +195,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     backgroundColor: theme.dividerColor,
     position: 'absolute',
     bottom: 0
+  },
+  orientationStyle: {
+    flex: 1,
+    width: orientationStyleWidth
   }
 });

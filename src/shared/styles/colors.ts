@@ -80,7 +80,8 @@ export const colors = {
   mandyPink : '#FFB596',
   carouselPink: '#FAE5DA',
   dimGray: '#666666',
-  lightGreen: '#C7D8D6'
+  grayishGreen: '#647e7c',
+  lightGreen: '#C7D8D6',
 };
 
 export interface CustomThemeType {
