@@ -1,6 +1,7 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import { FlatList } from 'react-native';
+import { BannerArticleSection, PodcastWidget, ShortArticle } from 'src/components/organisms';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { MainSectionScreen } from '../MainSectionScreen';
 
@@ -193,7 +194,6 @@ jest.mock("src/hooks/useLogin", () => ({
 
 describe('<MainSectionScreen>', () => {
   let instance: RenderAPI;
-  const sampleData = { params: { nid: 123 } };
 
   const mockFunction = jest.fn();
   const setRefreshing = mockFunction;
@@ -226,7 +226,7 @@ describe('<MainSectionScreen>', () => {
     (useState as jest.Mock).mockImplementation(() => [null, setSelectedTrack]);
     (useState as jest.Mock).mockImplementation(() => [null, setSelectedType]);
     (useState as jest.Mock).mockImplementation(() => [[], setEditorsChoiceInfo]);
-    const component = <MainSectionScreen/>;
+    const component = <MainSectionScreen tabIndex={0} currentIndex={0} />;
     instance = render(component);
   });
 
@@ -253,6 +253,18 @@ describe('<MainSectionScreen>', () => {
 
   test('Should call FlatList onPress', () => {
     expect(instance.container.findAllByType(FlatList).length).toBe(3)
+  });
+
+  it('when BannerArticleSection only When onPress', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[0];
+    fireEvent(testID, 'onPress');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[0];
+    fireEvent(testID, 'onUpdateBookmark');
+    expect(mockFunction).toBeTruthy();
   });
 
 });

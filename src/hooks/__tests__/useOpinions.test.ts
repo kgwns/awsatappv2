@@ -1,19 +1,83 @@
-import {renderHook} from '@testing-library/react-hooks';
-import {useSelector} from 'react-redux';
-import {useOpinions, UseOpinionsReturn} from '../useOpinions';
+import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
+import {useDispatch} from 'react-redux';
+import { EMPTY_OPINION_DATA } from 'src/redux/opinions/actionTypes';
+import {
+  useOpinions,
+  UseOpinionsReturn,
+} from '../useOpinions';
 
-describe('useOpinionsTabReactHook', () => {
-  const loadingStateMock = jest.fn().mockReturnValueOnce(false);
-  const opinionsDatarMock = jest.fn().mockReturnValueOnce([]);
+jest.mock('react-redux', () => ({
+  useDispatch: jest.fn(),
+  useSelector: jest.fn(),
+}));
+
+describe('#useOpinions', () => {
+  let result: RenderHookResult<undefined, UseOpinionsReturn>;
+
+  const dispatchMock = jest.fn();
 
   beforeAll(() => {
-    (useSelector as jest.Mock).mockImplementationOnce(loadingStateMock);
-    (useSelector as jest.Mock).mockImplementationOnce(opinionsDatarMock);
+    (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
+
+    result = renderHook<undefined, UseOpinionsReturn>(() =>
+      useOpinions(),
+    );
   });
 
-  it('Should provide a default loading state', () => {
-    const {result} = renderHook<undefined, UseOpinionsReturn>(useOpinions);
-    expect(result.current.isLoading).toEqual(false);
-    expect(result.current.opinionsData).toEqual([]);
+  afterAll(() => {
+    jest.clearAllMocks();
+    result.unmount();
   });
+
+  describe('#fetchOpinionsRequest', () => {
+    it('should call dispatch with fetchOpinionsRequest', () => {
+      const {
+        result: {
+          current: {fetchOpinionsRequest},
+        },
+      } = result;
+
+      act(() => {
+        fetchOpinionsRequest({page: 1});
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#saveOpinionsSuccessInfo', () => {
+    it('should call dispatch with saveOpinionsSuccessInfo', () => {
+      const {
+        result: {
+          current: {saveOpinionsSuccessInfo},
+        },
+      } = result;
+
+      act(() => {
+        saveOpinionsSuccessInfo({opinionListData: []});
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#emptyOpinionsData', () => {
+    it('should call dispatch with emptyOpinionsData', () => {
+      const {
+        result: {
+          current: {emptyOpinionsData},
+        },
+      } = result;
+
+      act(() => {
+        emptyOpinionsData();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+      expect(dispatchMock).toHaveBeenCalledWith({
+        type: EMPTY_OPINION_DATA,
+      });
+    });
+  });
+
 });

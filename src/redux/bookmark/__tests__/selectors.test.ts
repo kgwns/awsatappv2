@@ -7,8 +7,10 @@ import {
     getBookmarkedDetailSuccessInfo,
     getRemoveBookmarkError,
     getRemoveBookmarkSuccessInfo,
+    getBookmarkLoading,
+    getFilteredBookmarkDetailInfo,
 } from '../selectors';
-import { BookmarkIdSuccessDataFieldType, RemoveBookMarkSuccessInfoType, SendBookMarkSuccessInfoType } from '../types';
+import { BookmarkDetailDataType, BookmarkIdSuccessDataFieldType, RemoveBookMarkSuccessInfoType, SendBookMarkSuccessInfoType } from '../types';
 
 describe('All Bookmark Selector', () => {
     const storeData = storeInfo[0];
@@ -45,5 +47,15 @@ describe('All Bookmark Selector', () => {
     test('Get removeBookmarkError data', () => {
         const removeBookmarkError: string = getRemoveBookmarkError(storeData);
         expect(removeBookmarkError).toEqual('');
+    });
+
+    test('Get getBookmarkLoading state', () => {
+        const bookmarkDetailLoading: boolean = getBookmarkLoading(storeData);
+        expect(bookmarkDetailLoading).toEqual(false);
+    });
+
+    test('Get getFilteredBookmarkDetailInfo data', () => {
+        const filteredBookmarkDetailInfo: BookmarkDetailDataType[] = getFilteredBookmarkDetailInfo(storeData);
+        expect(filteredBookmarkDetailInfo).toEqual([]);
     });
 });

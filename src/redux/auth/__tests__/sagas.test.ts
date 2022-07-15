@@ -29,7 +29,16 @@ describe('<Article Detail Saga >', () => {
     });
   });
 
-  describe('Test emailcheck  error', () => {
+  describe('Test emailcheck', () => {
+    it('check fetchEmailCheck failed', () => {
+      const genObject = fetchEmailCheck({
+        type: FETCH_EMAIL_CHECK,
+        payload: {email: mockString},
+      });
+      genObject.next({emailCheckData: {}});
+      genObject.next({emailCheckData: {}});
+    });
+
     it('check fetchEmailCheck failed', () => {
       const genObject = fetchEmailCheck({
         type: FETCH_EMAIL_CHECK,
@@ -38,5 +47,7 @@ describe('<Article Detail Saga >', () => {
       genObject.next();
       genObject.throw(errorResponse);
     });
+    
   });
+
 });

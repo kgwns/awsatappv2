@@ -2,12 +2,16 @@ import {testSaga} from 'redux-saga-test-plan';
 import { takeLatest } from 'redux-saga/effects';
 import {FETCH_ALL_SITE_CATEGORIES, GET_SELECTED_TOPICS, SEND_SELECTED_TOPIC, EMPTY_SELECTED_TOPICS_INFO} from '../actionTypes';
 import allSiteCategoriesSaga, {fetchAllSiteCategories,getSelectedtTopics,postSelectedTopics, emptySelectedTopicsInfo} from '../sagas';
-import {fetchAllSiteCategoriesSuccess} from '../action';
-import {fetchAllSiteCategoriesApi} from 'src/services/allSiteCategoriesService';
+import {fetchAllSiteCategoriesSuccess, getSelectedTopicsSuccess, sendSelectedTopicSuccess} from '../action';
+import {fetchAllSiteCategoriesApi, getSelectedTopicsApi, sendSelectedTopicsApi} from 'src/services/allSiteCategoriesService';
 import {
   FetchAllSiteCategoriesType,
   FetchAllSiteCategoriesListSuccessPayloadType,
   AllSiteCategoriesBodyGet,
+  SendSelectedTopicType,
+  GetSelectedTopicsType,
+  SendSelectedTopicSuccessPayloadType,
+  GetSelectedTopicsSuccessPayloadType,
 } from '../types';
 
 const mockItems = 10;
@@ -20,6 +24,15 @@ const requestObject: AllSiteCategoriesBodyGet = {
 const requestAction: FetchAllSiteCategoriesType = {
   type: FETCH_ALL_SITE_CATEGORIES,
   payload: requestObject,
+};
+
+const requestAction2: SendSelectedTopicType = {
+  type: SEND_SELECTED_TOPIC,
+  payload: {tid: '123'},
+};
+
+const requestAction3: GetSelectedTopicsType = {
+  type: GET_SELECTED_TOPICS,
 };
 
 const reposnseObject = {
@@ -37,6 +50,10 @@ const errorResponse = {
 const sucessResponseObject: FetchAllSiteCategoriesListSuccessPayloadType = {
   allSiteCategoriesListData: reposnseObject,
 };
+
+const sucessResponseObject3: GetSelectedTopicsSuccessPayloadType = {
+  selectedTopicsData: {}
+}
 
 describe('Test allSiteCategoriesSaga  saga', () => {
   it('fire on allSiteCategoriesSaga', () => {
@@ -64,6 +81,16 @@ describe('Test allSiteCategories success', () => {
       .finish()
       .isDone();
   });
+
+  it('check postSelectedTopics failed', () => {
+    const genObject = postSelectedTopics({
+      type: SEND_SELECTED_TOPIC,
+      payload: {tid: '123'},
+    });
+    genObject.next({message: ''});
+    genObject.next({message: ''});
+  });
+
 });
 
 describe('Test allSiteCategories  error', () => {
@@ -85,6 +112,16 @@ describe('Test allSiteCategories  error', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+});
+
+describe('Test allSiteCategories', () => {
+  it('check getSelectedtTopics success', () => {
+    const genObject = getSelectedtTopics({
+      type: GET_SELECTED_TOPICS,
+    });
+    genObject.next({selectedTopicsData: {}});
+    genObject.next({selectedTopicsData: {}});
+  });
 
   it('check getSelectedtTopics failed', () => {
     const genObject = getSelectedtTopics({
@@ -93,5 +130,12 @@ describe('Test allSiteCategories  error', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+});
 
+describe('Test emptySelectedTopicsInfo', () => {
+  it('check emptySelectedTopicsInfo success', () => {
+    const genObject = emptySelectedTopicsInfo();
+    genObject.next();
+    genObject.next();
+  });
 });

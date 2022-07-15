@@ -8,7 +8,7 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
     REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE, 
     REQUEST_SECTION_COMBO_TWO_FAILED, REQUEST_SECTION_COMBO_TWO_SUCCESS, 
     REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_FOUR_SUCCESS,
-    REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA, REQUEST_OPINION_DATA_LIST_FAILED 
+    REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA, REQUEST_OPINION_DATA_LIST_FAILED, REQUEST_PODCAST_HOME_DATA, REQUEST_COVERAGE_BLOCK, REQUEST_SECTION_COMBO_FIVE_SUCCESS, REQUEST_SECTION_COMBO_FIVE, REQUEST_EDITORS_CHOICE_DATA, REQUEST_SPOTLIGHT_COMBO, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA, REQUEST_SECTION_COMBO_FIVE_FAILED, REQUEST_FEATURED_ARTICLE_BLOCK, REQUEST_SECTION_COMBO_SIX, REQUEST_SECTION_COMBO_SIX_SUCCESS, REQUEST_SECTION_COMBO_SIX_FAILED, REQUEST_HORIZONTAL_ARTICLE_BLOCK, REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED 
   } from "../actionType"
   import {
     requestHeroListTopListFailed, requestHeroListTopListSuccess, requestHeroListTopList,
@@ -17,7 +17,7 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
     requestSectionComboThreeFailed, requestSectionComboThreeSuccess, requestSectionComboThree,
     requestSectionComboTwoFailed, requestSectionComboTwoSuccess, requestSectionComboTwo,
     requestTickerAndHeroFailed, requestTickerAndHeroSuccess, requestTickerAndHero,
-    requestOpinionSuccess, requestOpinionList, requestOpinionFailed
+    requestOpinionSuccess, requestOpinionList, requestOpinionFailed, requestPodcastHomeData, requestCoverageBlock, requestSectionComboFive, requestSectionComboFiveSuccess, requestEditorsChoiceData, requestSpotlightData, requestSpotlightArticleSection, requestSectionComboFiveFailed, requestFeatureArticleBlock, requestSectionComboSix, requestSectionComboSixSuccess, requestSectionComboSixFailed, requestHorizontalArticleBlock, requestSectionComboSeven, requestSectionComboSevenSuccess, requestSectionComboSevenFailed
   } from '../action';
 
 describe('LatestNewsTab Action', () => {
@@ -141,5 +141,87 @@ describe('LatestNewsTab Action', () => {
     test('request Section ComboFour Failed', () => {
         const request = requestSectionComboFourFailed({error: ''})
         expect(request.type).toEqual(REQUEST_SECTION_COMBO_FOUR_FAILED)
+    })
+
+    test('requestPodcastHomeData', () => {
+        const request = requestPodcastHomeData()
+        expect(request.type).toEqual(REQUEST_PODCAST_HOME_DATA)
+    })
+
+    test('requestCoverageBlock', () => {
+        const request = requestCoverageBlock()
+        expect(request.type).toEqual(REQUEST_COVERAGE_BLOCK)
+    })
+
+    test('requestSectionComboFive', () => {
+        const request = requestSectionComboFive({id: 2})
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_FIVE)
+    })
+
+    test('requestSectionComboFiveSuccess', () => {
+        const request = requestSectionComboFiveSuccess({sectionComboFive: []})
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_FIVE_SUCCESS)
+    })
+
+    test('requestEditorsChoiceData', () => {
+        const request = requestEditorsChoiceData()
+        expect(request.type).toEqual(REQUEST_EDITORS_CHOICE_DATA)
+    })
+
+    test('requestSpotlightData', () => {
+        const request = requestSpotlightData()
+        expect(request.type).toEqual(REQUEST_SPOTLIGHT_COMBO)
+    })
+
+    test('requestSpotlightArticleSection', () => {
+        const request = requestSpotlightArticleSection({  id: 2,
+            page: 2,
+            items_per_page:2,})
+        expect(request.type).toEqual(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA)
+    })
+
+    test('requestSectionComboFiveFailed', () => {
+        const request = requestSectionComboFiveFailed({ error: '' })
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_FIVE_FAILED)
+    })
+
+    test('requestFeatureArticleBlock', () => {
+        const request = requestFeatureArticleBlock()
+        expect(request.type).toEqual(REQUEST_FEATURED_ARTICLE_BLOCK)
+    })
+
+    test('requestSectionComboSix', () => {
+        const request = requestSectionComboSix({id: 2})
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_SIX)
+    })
+
+    test('requestSectionComboSixSuccess', () => {
+        const request = requestSectionComboSixSuccess({sectionComboSix: []})
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_SIX_SUCCESS)
+    })
+
+    test('requestSectionComboSixFailed', () => {
+        const request = requestSectionComboSixFailed({error: ''})
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_SIX_FAILED)
+    })
+
+    test('requestHorizontalArticleBlock', () => {
+        const request = requestHorizontalArticleBlock()
+        expect(request.type).toEqual(REQUEST_HORIZONTAL_ARTICLE_BLOCK)
+    })
+
+    test('requestSectionComboSeven', () => {
+        const request = requestSectionComboSeven({id: 2})
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_SEVEN)
+    })
+
+    test('requestSectionComboSevenSuccess', () => {
+        const request = requestSectionComboSevenSuccess({sectionComboSeven: []})
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_SEVEN_SUCCESS)
+    })
+
+    test('requestSectionComboSevenFailed', () => {
+        const request = requestSectionComboSevenFailed({error: ''})
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_SEVEN_FAILED)
     })
 })

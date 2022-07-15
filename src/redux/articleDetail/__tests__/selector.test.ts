@@ -1,9 +1,10 @@
 import { storeInfo } from "src/constants/SampleData"
-import { getArticleData, getArticleError, getIsLoading, getRelatedArticleData } from "../selectors"
+import { getArticleData, getArticleError, getIsLoading, getRelatedArticleData, getArticleSectionLoaded } from "../selectors"
 import { ArticleDetailDataType, RelatedArticleDataType } from "../types"
 
 describe('LatestNewsTab Selector', () => {
     const storeData = storeInfo[0]
+
     test('Get loading state', () => {
        const isLoading: boolean = getIsLoading(storeData)
        expect(isLoading).toEqual(true)
@@ -23,4 +24,10 @@ describe('LatestNewsTab Selector', () => {
         const error:  string = getArticleError(storeData)
         expect(error).toEqual('')
     })
+
+    test('Get getArticleSectionLoaded state', () => {
+        const articleSectionLoaded: boolean = getArticleSectionLoaded(storeData)
+        expect(articleSectionLoaded).toEqual(false)
+     })
+
 })

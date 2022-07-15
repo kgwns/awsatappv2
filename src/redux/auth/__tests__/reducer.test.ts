@@ -1,6 +1,6 @@
 import { FETCH_USER_LOGOUT } from 'src/redux/login/actionTypes';
 import { emailCheckAction } from '../action';
-import { FETCH_EMAIL_CHECK, FETCH_EMAIL_CHECK_ERROR, FETCH_EMAIL_CHECK_SUCCESS } from '../actionTypes';
+import { EMPTY_EMAIL_CHECK_DATA, FETCH_EMAIL_CHECK, FETCH_EMAIL_CHECK_ERROR, FETCH_EMAIL_CHECK_SUCCESS } from '../actionTypes';
 import auth from '../reducer';
 import { EmailCheckState } from '../types';
 
@@ -70,6 +70,13 @@ describe('auth reducer', () => {
     test('Check loading state when fetch user logout request API', () => {
         const nextState = auth(initialState, {
             type: FETCH_USER_LOGOUT,
+        });
+        expect(nextState.isLoading).toBe(false);
+    });
+
+    test('Check loading state EMPTY_EMAIL_CHECK_DATA', () => {
+        const nextState = auth(initialState, {
+            type: EMPTY_EMAIL_CHECK_DATA,
         });
         expect(nextState.isLoading).toBe(false);
     });

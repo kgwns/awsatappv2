@@ -9,9 +9,11 @@ import {
     ONBOARDING_SUCCESS,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAILED,
-    EMPTY_FORGOT_PASSWORD_RESPONSE
+    EMPTY_FORGOT_PASSWORD_RESPONSE,
+    FORGOT_PASSWORD_REQUEST,
+    EMPTY_LOGIN_DATA
 } from 'src/redux/login/actionTypes';
-import { fetchLogin, fetchLoginSuccess, fetchLoginFailed, userLogout, userLogoutSuccess, userLoginSkipped, onBoardingSuccess,forgotPasswordSuccess,forgotPasswordFailed,emptyForgotPasswordResponse } from 'src/redux/login/action';
+import { fetchLogin, fetchLoginSuccess, fetchLoginFailed, userLogout, userLogoutSuccess, userLoginSkipped, onBoardingSuccess,forgotPasswordSuccess,forgotPasswordFailed,emptyForgotPasswordResponse, requestForgotPassword, emptyLoginData } from 'src/redux/login/action';
 
 describe('Login Action', () => {
     const payload: FetchLoginPayloadType = {
@@ -79,5 +81,15 @@ describe('Login Action', () => {
     test('Check empty forgot password type', () => {
         const request = emptyForgotPasswordResponse()
         expect(request.type).toEqual(EMPTY_FORGOT_PASSWORD_RESPONSE)
+    })
+
+    test('Check requestForgotPassword', () => {
+        const request = requestForgotPassword({email: 'abc@gmail.com'})
+        expect(request.type).toEqual(FORGOT_PASSWORD_REQUEST)
+    })
+
+    test('Check emptyLoginData', () => {
+        const request = emptyLoginData()
+        expect(request.type).toEqual(EMPTY_LOGIN_DATA)
     })
 })

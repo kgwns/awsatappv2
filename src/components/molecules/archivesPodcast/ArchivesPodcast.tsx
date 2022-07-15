@@ -27,7 +27,7 @@ export const ArchivesPodcast = () => {
     const footer = () => (
         <View style={style.footerContainer}>
             <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity style={{ flexDirection: 'row' }}
+                <TouchableOpacity testID='ArchivesPodcastTO1' style={{ flexDirection: 'row' }}
                     activeOpacity={0.8} onPress={() => { console.log('play podcasts') }}>
                     <ButtonImage icon={() => {
                         return getSvgImages({

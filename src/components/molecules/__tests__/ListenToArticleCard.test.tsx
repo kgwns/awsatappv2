@@ -17,6 +17,27 @@ describe('<ListenToArticleCard>', () => {
   const setPlayMock = jest.fn();
   const setPlayerTrackMock = jest.fn();
 
+  const data =   [
+    {
+      nid: '1',
+      title: 'عادل درويش',
+      authorImage: 'https://picsum.photos/200/300',
+      data: {
+        body: 'الصحافة بين الخصوصية والصالح العام',
+        duration: '3:22',
+      }
+    },
+    {
+      nid: '2',
+      title: 'عادل درويش',
+      authorImage: 'https://picsum.photos/200/300',
+      data: {
+        body: 'الصحافة بين الخصوصية والصالح العام',
+        duration: '3:22',
+      }
+    },
+  ]
+
   beforeEach(() => {
     (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
     useAppPlayerMock.mockReturnValue({
@@ -29,7 +50,7 @@ describe('<ListenToArticleCard>', () => {
       setPlay: setPlayMock,
       setPlayerTrack: setPlayerTrackMock,
     });
-    const component = <ListenToArticleCard />;
+    const component = <ListenToArticleCard data={data}/>;
     instance = render(component);
   });
 

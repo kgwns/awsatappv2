@@ -87,4 +87,12 @@ describe('Register reducer', () => {
     });
     expect(nextState.isLoading).toBe(false);
   });
+
+  test('Check loading state when get selected news letters SOCIAL_LOGIN_END', () => {
+    const nextState = registerReducer(initialState, {
+      type: SOCIAL_LOGIN_END,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
 });

@@ -82,7 +82,7 @@ describe('<ArticleDetailScreen>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
 
-  const sampleData = { params: { nid: '123' } };
+  const sampleData = { params: { nid: '123', isRelatedArticle: true } };
 
   beforeEach(() => {
     const component = <ArticleDetailScreen route={sampleData}/>;
@@ -96,6 +96,10 @@ describe('<ArticleDetailScreen>', () => {
 
   it('should render ArticleDetailScreen component', () => {
     expect(instance).toBeDefined();
+  });
+
+  it('should render ArticleDetailScreen component', () => {
+    expect(render(<ArticleDetailScreen route={{ params: { nid: '123', isRelatedArticle: false } }}/>)).toBeDefined();
   });
 
   test('Should call FlatList onPress', () => {

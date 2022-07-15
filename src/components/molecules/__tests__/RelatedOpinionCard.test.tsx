@@ -57,6 +57,7 @@ describe('<RelatedOpinionCard>', () => {
     field_jwplayer_id_opinion_export: null,
     type: "opinion"
   }
+  
   const mockFn = jest.fn();
   const navigation = {
     push: mockFn,
@@ -87,7 +88,7 @@ describe('<RelatedOpinionCard>', () => {
       setPlay: setPlayMock,
       setPlayerTrack: setPlayerTrackMock,
     });
-    const component = <RelatedOpinionCard item={mockItem} onPress={mockFn} />;
+    const component = <RelatedOpinionCard item={mockItem} onPress={mockFn} mediaVisibility='yes' togglePlayback='yes' selectedTrack='yes' jwPlayerID='2' />;
     instance = render(component);
   });
 
@@ -108,13 +109,13 @@ describe('<RelatedOpinionCard>', () => {
 
   it('When RelatedOpinionCardTO3 is pressed', () => {
       const testItemId = instance.getByTestId('RelatedOpinionCardTO3');
-      fireEvent(testItemId, 'onPress', {tid:'0'});
+      fireEvent(testItemId, 'onPress', {tid:'1'});
       expect(navigation.push).toBeTruthy();
   });
 
   it('When RelatedOpinionCardTO3 is pressed', () => {
     const testItemId = instance.getByTestId('RelatedOpinionCardLabel1');
-    fireEvent(testItemId, 'onPress', {tid:'0'});
+    fireEvent(testItemId, 'onPress', {tid:'1'});
     expect(navigation.push).toBeTruthy();
   });
 

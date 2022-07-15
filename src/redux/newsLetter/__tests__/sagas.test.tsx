@@ -77,3 +77,13 @@ describe('Test newsletters  success', () => {
         genObject.next();
     });
 });
+
+describe('Test emptySelectedNewsLettersInfo ', () => {
+
+    it('check emptySelectedNewsLettersInfo success', () => {
+      const genObject = emptySelectedNewsLettersInfo();
+      genObject.next();
+      genObject.next();
+    });
+
+});

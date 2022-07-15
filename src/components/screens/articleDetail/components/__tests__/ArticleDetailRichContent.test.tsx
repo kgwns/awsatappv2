@@ -1,9 +1,59 @@
 import React from 'react';
 import { render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { RenderQuoteElement, RenderContentElement, RenderDescriptionElement, RenderOpinionElement, RenderReadAlsoElement, RenderNumberElement, generateAssetFontCss } from 'src/components/screens/articleDetail/components/ArticleDetailRichContent';
+import { RenderQuoteElement, RenderContentElement, RenderDescriptionElement, RenderOpinionElement, RenderReadAlsoElement, RenderNumberElement, generateAssetFontCss, RenderRichHTMLContent } from 'src/components/screens/articleDetail/components/ArticleDetailRichContent';
 import { storeSampleData } from 'src/constants/SampleData';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
+import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
+
+
+const data: ArticleDetailDataType = {
+    title: 'as',
+    body: 'as',
+    nid: '1',
+    image: 'asxdc',
+    view_node: 'asdx',
+    news_categories: {
+        id: '2',
+        title: 'as',
+        url: 'asd',
+        bundle: 'asd',
+        name: 'asd'
+    },
+    tag_topics: {
+        id: '2',
+        title: 'asd',
+        url: 'asd',
+        bundle: 'asd',
+        name: 'azsxd'
+    },
+    author: 'azsxd',
+    isBookmarked: false,
+    caption: 'azsxd',
+    subtitle: 'asd',
+    jwplayerId: 'asdx',
+    created: 'asd'
+}
+
+describe('<RenderRichHTMLContent>', () => {
+    let instance: RenderAPI;
+    beforeEach(() => {
+        const component = 
+            <Provider store={storeSampleData}>
+                <RenderRichHTMLContent articleItem={data} articleFontSize={16} />
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+})
 
 describe('<RenderQuoteElement>', () => {
     let instance: RenderAPI;
@@ -11,11 +61,11 @@ describe('<RenderQuoteElement>', () => {
         const component = 
             <Provider store={storeSampleData}>
                 <RenderQuoteElement paragraphInfo={{
-                    id: '',
-                    type: '',
-                    bundle: '',
-                    description: '',
-                    title: ''
+                    id: '2',
+                    type: 'asd',
+                    bundle: 'qawse',
+                    description: 'awsed',
+                    title: 'awsd'
                 }} />
             </Provider> 
         instance = render(component)
@@ -37,16 +87,16 @@ describe('<RenderContentElement>', () => {
         const component = 
             <Provider store={storeSampleData}>
                 <RenderContentElement paragraphInfo={{
-                    id: '',
-                    type: '',
-                    bundle: '',
-                    content: '',
-                    title: '',
+                    id: '2',
+                    type: 'as',
+                    bundle: 'qwde',
+                    content: 'qwe',
+                    title: 'qsdw',
                     contentData: {
-                        title: '',
-                        body: '',
-                        nid: '',
-                        image: ''
+                        title: 'qwer',
+                        body: 'asd',
+                        nid: '2',
+                        image: 'sdfe'
                     }
                 }}/>
             </Provider> 
@@ -73,11 +123,11 @@ describe('<RenderDescriptionElement>', () => {
         const component = 
             <Provider store={storeSampleData}>
                 <RenderDescriptionElement paragraphInfo={{
-                    id: '',
-                    type: '',
-                    bundle: '',
-                    description: ''
-                }} fontSize={0}/>
+                    id: '2',
+                    type: 'qsw',
+                    bundle: 'qsdw',
+                    description: 'sqdwf'
+                }} fontSize={16}/>
             </Provider> 
         instance = render(component)
     })
@@ -102,16 +152,16 @@ describe('<RenderOpinionElement>', () => {
         const component = 
             <Provider store={storeSampleData}>
                 <RenderOpinionElement paragraphInfo={{
-                    id: '',
-                    type: '',
-                    bundle: '',
-                    opinion: '',
+                    id: '2',
+                    type: 'as',
+                    bundle: 'ASD',
+                    opinion: 'ASDF',
                     opinionData: {
-                        name: '',
-                        title: '',
-                        image: '',
-                        nid: '',
-                        writerId: ''
+                        name: 'ASDF',
+                        title: 'ASAD',
+                        image: 'qwe',
+                        nid: '2',
+                        writerId: '1'
                     }
                 }} />
             </Provider> 
@@ -134,12 +184,12 @@ describe('<RenderReadAlsoElement>', () => {
         const component = 
             <Provider store={storeSampleData}>
                 <RenderReadAlsoElement paragraphInfo={{
-                    id: '',
-                    type: '',
-                    bundle: '',
-                    related_content: [''],
-                    title: '',
-                    readAlsoData: []
+                    id: '2',
+                    type: 'qw',
+                    bundle: 'qawse',
+                    related_content: ['qws'],
+                    title: 'qawse',
+                    readAlsoData: [{id: 12}, {id: 21}]
                 }}/>
             </Provider> 
         instance = render(component)
@@ -161,11 +211,11 @@ describe('<RenderNumberElement>', () => {
         const component = 
             <Provider store={storeSampleData}>
                 <RenderNumberElement paragraphInfo={{
-                    id: '',
-                    bundle: '',
-                    description: '',
-                    title: ''
-                }} fontSize={0}/>
+                    id: '2',
+                    bundle: 'gh',
+                    description: 'vbnm',
+                    title: 'bnm'
+                }} fontSize={16}/>
             </Provider> 
         instance = render(component)
     })

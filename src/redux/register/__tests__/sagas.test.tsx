@@ -50,3 +50,11 @@ describe('Test createUser', () => {
     genObject.throw(errorResponse);
   });
 });
+
+describe('Test emptyUserInfo', () => {
+  it('check emptyUserInfo success', () => {
+    const genObject = emptyUserInfo();
+    genObject.next();
+    genObject.next();
+  });
+});

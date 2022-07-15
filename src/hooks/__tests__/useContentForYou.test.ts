@@ -1,38 +1,27 @@
-import {renderHook, RenderHookResult} from '@testing-library/react-hooks';
-import {useDispatch, useSelector} from 'react-redux';
-import {useContentForYou,UseContentForYouReturn} from '../useContentForYou';
+import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
+import {useDispatch} from 'react-redux';
+import { EMPTY_ALL_DATA } from 'src/redux/contentForYou/actionTypes';
+import {
+  useContentForYou,
+  UseContentForYouReturn,
+} from '../useContentForYou';
 
 jest.mock('react-redux', () => ({
-  useSelector: jest.fn(),
   useDispatch: jest.fn(),
+  useSelector: jest.fn(),
 }));
 
 describe('#useContentForYou', () => {
-  let result: RenderHookResult<undefined,UseContentForYouReturn>;
-  const mockDispatch = jest.fn()
-  
-  // test data
-  const LoadingStateMock = true;
-  const favouriteOpinionsDataMock = {};
+  let result: RenderHookResult<undefined, UseContentForYouReturn>;
 
-  // selectors mock
-  const selectLoadingStateMock = jest
-    .fn()
-    .mockReturnValueOnce(LoadingStateMock);
-  const selectfavouriteOpinionsDataMock = jest
-    .fn()
-    .mockReturnValueOnce(favouriteOpinionsDataMock);
-
+  const dispatchMock = jest.fn();
 
   beforeAll(() => {
-    (useSelector as jest.Mock).mockImplementationOnce(
-      selectLoadingStateMock,
+    (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
+
+    result = renderHook<undefined, UseContentForYouReturn>(() =>
+      useContentForYou(),
     );
-    (useSelector as jest.Mock).mockImplementationOnce(
-      selectfavouriteOpinionsDataMock,
-    );
-    (useDispatch as jest.Mock).mockImplementationOnce(mockDispatch);
-    result = renderHook<undefined,UseContentForYouReturn>(() => useContentForYou());
   });
 
   afterAll(() => {
@@ -40,25 +29,55 @@ describe('#useContentForYou', () => {
     result.unmount();
   });
 
-  describe('#isLoading', () => {
-    it('isLoading', () => {
+  describe('#fetchFavouriteOpinionsRequest', () => {
+    it('should call dispatch with fetchFavouriteOpinionsRequest', () => {
       const {
         result: {
-          current: {isLoading},
+          current: {fetchFavouriteOpinionsRequest},
         },
       } = result;
-      expect(isLoading).toBe(LoadingStateMock);
-    });
-  });
-  describe('#favouriteOpinionsData', () => {
-    it('favouriteOpinionsData', () => {
-      const {
-        result: {
-          current: {favouriteOpinionsData},
-        },
-      } = result;
-      expect(favouriteOpinionsData).toBe(favouriteOpinionsDataMock);
-    });
-  });
-});
 
+      act(() => {
+        fetchFavouriteOpinionsRequest({ page: 1 });
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#fetchFavouriteArticlesRequest', () => {
+    it('should call dispatch with fetchFavouriteArticlesRequest', () => {
+      const {
+        result: {
+          current: {fetchFavouriteArticlesRequest},
+        },
+      } = result;
+
+      act(() => {
+        fetchFavouriteArticlesRequest({ page: 1 });
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#emptyAllData', () => {
+    it('should call dispatch with emptyAllData', () => {
+      const {
+        result: {
+          current: {emptyAllData},
+        },
+      } = result;
+
+      act(() => {
+        emptyAllData();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+      expect(dispatchMock).toHaveBeenCalledWith({
+        type: EMPTY_ALL_DATA,
+      });
+    });
+  });
+
+});
