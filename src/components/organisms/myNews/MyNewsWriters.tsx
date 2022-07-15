@@ -41,7 +41,9 @@ export const MyNewsWriters = () => {
     favouriteOpinionsData,
     fetchFavouriteOpinionsRequest,
   } = useContentForYou();
-  const noContentTitle = TranslateConstants({key: TranslateKey.NO_CONTENT_TITLE});
+  const noContentTitle = TranslateConstants({
+    key: TranslateKey.NO_CONTENT_TITLE,
+  });
   const [pageCount, setPageCount] = useState(0);
   const [selectedAuthors, setSelectedAuthors] = useState<any>(null);
   const [opinionData, setOpinionData] = useState<any>([]);
@@ -129,6 +131,7 @@ export const MyNewsWriters = () => {
   };
 
   const onPress = (item: any, index: number) => {
+    if (index == selectedIndex) return;
     const payloadAuthorsList = index == -1 ? getAuthorsList() : [item.tid];
     if (payloadAuthorsList != selectedAuthors) {
       setPageCount(0);
@@ -148,24 +151,20 @@ export const MyNewsWriters = () => {
   const showEmptyData = () => {
     return (
       <View style={styles.centeredStyle}>
-        <Label
-          children={noContentTitle}
-          labelType={LabelTypeProp.h1}
-        />
+        <Label children={noContentTitle} labelType={LabelTypeProp.h1} />
       </View>
     );
   };
 
   const renderFooterComponent = () => {
-    return (
-      <View>
-        {isNonEmptyArray(opinionData) && (
-          <View style={styles.loaderStyle}>
-            {opinionLoading && <LoadingState />}
-          </View>
-        )}
-      </View>
-    );
+    if (isNonEmptyArray(opinionData)) {
+      return (
+        <View style={styles.loaderStyle}>
+          {opinionLoading && <LoadingState />}
+        </View>
+      );
+    }
+    return null;
   };
 
   const itemSeparatorComponent = () => <Divider style={styles.divider} />;
@@ -261,12 +260,13 @@ const customStyle = (theme: CustomThemeType) =>
     },
     loaderStyle: {
       width: '100%',
-      height: 60,
+      height: 80,
+      marginTop: 0,
       alignItems: 'center',
       justifyContent: 'center',
     },
     centeredStyle: {
-      flex: 0.9,
+      flex: 0.95,
       alignItems: 'center',
       justifyContent: 'center',
     },

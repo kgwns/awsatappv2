@@ -36,17 +36,24 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
   }
 
   return (
-    <View style={[customStyle.newStyle, renderStyle(tabName)]}>
-      <TouchableOpacity key={index} {...testProps(moleculesTestID.tabItemBtn)}
-        onPress={() => onPress(index)} >
+    <TouchableOpacity
+      key={index}
+      {...testProps(moleculesTestID.tabItemBtn)}
+      onPress={() => onPress(index)}>
+      <View style={[customStyle.newStyle, renderStyle(tabName)]}>
         <View>
-          <Label children={tabName} color={color} style={customStyle.labelStyle}
+          <Label
+            children={tabName}
+            color={color}
+            style={customStyle.labelStyle}
           />
-          {isSelected && <View style={StyleSheet.flatten([customStyle.barLine, barColor])} />}
         </View>
-      </TouchableOpacity>
-    </View>
-  )
+        {isSelected && (
+          <View style={StyleSheet.flatten([customStyle.barLine, barColor])} />
+        )}
+      </View>
+    </TouchableOpacity>
+  );
 }
 
 const customStyle = StyleSheet.create({
@@ -69,7 +76,6 @@ const customStyle = StyleSheet.create({
   },
   containerTopics: {
     alignItems: 'center',
-    paddingLeft: 15
   },
   containerWriters: {
     alignItems: 'center'
