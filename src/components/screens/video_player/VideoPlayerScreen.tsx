@@ -35,9 +35,9 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
   }, [])
 
   const stopTrackPlayer = async () => {
-    await TrackPlayer.reset();
-    setShowMiniPlayer(false);
-    setPlayerTrack(null);
+    await TrackPlayer.pause();
+    // setShowMiniPlayer(false);
+    // setPlayerTrack(null);
   }
 
   const  getDeviceResolutionVideo = (deveiceHeight: any, videoSources: any) => {    
