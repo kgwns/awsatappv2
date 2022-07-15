@@ -1218,10 +1218,10 @@ export const myNewsTopTabData = [
     tabName: 'كتابي',
   },
   
-  {
-    isSelected: false, 
-    keyName: 'media', 
-    tabName: 'ميديا',
-  },
+  // {
+  //   isSelected: false, 
+  //   keyName: 'media', 
+  //   tabName: 'ميديا',
+  // },
 
 ]

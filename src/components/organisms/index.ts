@@ -40,3 +40,4 @@ export { RelatedOpinionArticlesWidget } from 'src/components/organisms/RelatedOp
 export { AlertModal } from 'src/components/organisms/AlertModal/AlertModal'
 export { DynamicWidget } from 'src/components/organisms/dynamicWidget/DynamicWidget'
 export { PopUp } from 'src/components/organisms/popUp/PopUp'
+export { MyNewsWriters } from 'src/components/organisms/myNews/MyNewsWriters'
