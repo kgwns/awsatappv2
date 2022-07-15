@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, FlatList, BackHandler, Animated } from 'react-native';
+import React, { useEffect, useState, useMemo } from 'react';
+import { StyleSheet, View, FlatList, Animated } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { isNonEmptyArray, isObjectNonEmpty, normalize, isIOS, } from 'src/shared/utils';
+import { isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils';
 import { ScreenContainer } from '..';
 import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
 import TrackPlayer from 'react-native-track-player';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useWriterDetail } from 'src/hooks';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
-import { WriterBannerImage } from 'src/components/molecules';
+import { WriterBannerImage, DetailHeader } from 'src/components/molecules';
 import { useOpinions } from 'src/hooks/useOpinions';
 import { OpinionWritersArticlesSection } from 'src/components/organisms';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
 import { decodeHTMLTags, horizontalEdge } from 'src/shared/utils/utilities';
-import { BackIcon } from 'src/components/atoms';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
+import { ScreensConstants } from 'src/constants'
 
 export interface WritersDetailScreenProps {
     route: any;
@@ -26,6 +26,7 @@ export const WritersDetailScreen = ({
     route,
 }: WritersDetailScreenProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
+    const routes = useNavigationState(state => state.routes)
     const isFocused = useIsFocused();
 
     const style = useThemeAwareObject(customStyle);
@@ -59,12 +60,12 @@ export const WritersDetailScreen = ({
     const [opinionsDataInfo, setOpinionsDataInfo] = useState(writerOpinionsData)
     const [isFollowed, setIsFollowed] = useState(false)
     const [scrollY, setScrollY] = useState(new Animated.Value(0))
-    
-    const stopTrackPlayer = async () => {
-        await TrackPlayer.reset();
-    }
 
-  
+    const detailRoutes = useMemo(() => routes.filter((routes) =>
+        routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+        routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+        routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+    const noOfDetailRoutes = detailRoutes.length
 
     useEffect(() => {
         if(isFocused){
@@ -187,11 +188,10 @@ export const WritersDetailScreen = ({
         setScrollY(event.nativeEvent.contentOffset.y)
     }
 
-    const renderBackIcon = () => (
-        <View style={style.backContainer}>
-            <BackIcon onPressBack={onPressBack} />
-        </View>
-    )
+    const onPressHome = () => {
+        navigation.popToTop()
+    }
+
 
     const renderItem = () => {
         const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
@@ -211,6 +211,7 @@ export const WritersDetailScreen = ({
                     isFollowed={isFollowed}
                     onPressFollow={() => onPressFollow(writerDetailInfo[0].tid)}
                     hideBackArrow={hideBackArrow}
+                    onPressHome={onPressHome}
                 />}
                 <OpinionWritersArticlesSection
                     data={opinionsDataInfo}
@@ -237,7 +238,7 @@ export const WritersDetailScreen = ({
                     bounces={false}
                     onScroll={onScroll}
                 />
-                {(Number.parseInt(JSON.stringify(scrollY)) > 50) && renderBackIcon()}
+                {(Number.parseInt(JSON.stringify(scrollY)) > 50) && <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />}
             </>
             }
         </ScreenContainer>
@@ -255,13 +256,5 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     footer: {
         width: '100%',
-    },
-    backContainer: {
-        position: 'absolute',
-        top: 0,
-        width: '100%',
-        height: isIOS ? normalize(90) : normalize(45),
-        backgroundColor: theme.secondaryWhite,
-        justifyContent: 'center',
     },
 });

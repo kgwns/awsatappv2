@@ -40,6 +40,13 @@ jest.mock("src/hooks/useAppCommon", () => ({
   },
 }));
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useNavigationState: () => ([]),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+}));
+
 describe('<OpinionArticleDetail>', () => {
   let instance: RenderAPI;
 

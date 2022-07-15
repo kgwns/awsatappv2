@@ -56,3 +56,4 @@ export { default as VideoPlayerControl } from 'src/components/molecules/articleD
 export { default as DraggableVideoPlayer } from 'src/components/molecules/articleDetailVideo/DraggableVideoPlayer';
 export { CustomTabBarItem } from 'src/components/molecules/customTabBarItem/CustomTabBarItem'
 export { AuthorsHorizontalSlider } from 'src/components/molecules/AuthorsHorizontalSlider';
+export { DetailHeader } from 'src/components/molecules/detailHeader/DetailHeader';
