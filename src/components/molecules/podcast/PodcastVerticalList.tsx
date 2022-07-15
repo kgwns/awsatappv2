@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {StyleSheet, View } from 'react-native';
 import {normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -46,10 +46,15 @@ export const PodcastVerticalList = ({
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const [duration, setDuration] = useState<any>(null)
+  const [isTitleLineCount, setIsTitleLineCount] = useState(1)
 
   useEffect(() => {
     getPodcastDuration()
   }, [])
+
+  const onTextLayout = useCallback((e) => {
+    setIsTitleLineCount(e.nativeEvent.lines ? e.nativeEvent.lines.length : 1)
+  }, []);
 
   const getPodcastDuration = async () => {
     if(isNotEmpty(spreakerId)){
@@ -68,10 +73,10 @@ export const PodcastVerticalList = ({
   return (
     <FixedTouchable testID={testID} accessibilityLabel={testID} onPress={itemOnPress} >
       <View style={style.cardContainer}>
-        <View style={style.headerStyle}>
-          <View style={style.headerLeftStyle}>
+        <View style={[style.headerStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
+          <View style={[style.headerLeftStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
             <Image fallback resizeMode='cover' url={imageUrl} style={style.imageStyle} />
-            <Label style={style.title} numberOfLines={2}>
+            <Label style={style.title} onTextLayout={onTextLayout}>
               {title}
             </Label>
           </View>
@@ -166,6 +171,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     spaceStyle: {
       marginTop: normalize(20),
+    },
+    headerTitleStyle: {
+      alignItems: 'flex-start'
     }
   });
   return PodcastCardStyle;

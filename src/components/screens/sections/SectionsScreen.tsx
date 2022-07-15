@@ -7,7 +7,7 @@ import {
   PodcastProgram,
   SectionStoryScreen,
 } from '..';
-import {horizontalEdge, isIOS, isNonEmptyArray, normalize} from 'src/shared/utils';
+import {horizontalEdge, isIOS, isNonEmptyArray, isStringIncludes, normalize} from 'src/shared/utils';
 import {
   View,
   Dimensions,
@@ -22,6 +22,7 @@ import { GameScreen } from '../games/GameScreen';
 import { TabWithBarItem } from 'src/components/molecules';
 import { MainSectionScreen } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
+import { TopMenuItemType } from 'src/redux/topMenu/types';
 
 export enum TabType {
   opinion = 'opinion',
@@ -60,25 +61,92 @@ export const SectionsScreen = () => {
         return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} currentIndex={index} tabIndex={parseInt(tabIndex[0])} />
       default:
         return (
-          <SectionStoryScreen sectionId={route.sectionId} currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
+          <SectionStoryScreen sectionId={route.sectionId}
+            currentIndex={index}
+            tabIndex={parseInt(tabIndex[0])}
+            childInfo={route.child}
+            onUpdateChildSection={(data) => onUpdateChildSection(data, index)}
+          />
         );
     }
   }
 
   useEffect(() => {
-    if(topMenuData.length > 0){
-      let newRoutesArray = topMenuData.map((item, index) => {
-        return {
-          key: `${index}${item.keyName}`,
-          title: item.tabName,
-          sectionId: item.sectionId,
-          keyName: item.keyName,
-        };
-      })
-      setNewRoutes(newRoutesArray)
-    }
+    updatedTopMenuData()
   }, [topMenuData])
 
+  const updatedTopMenuData = () => {
+    if (isNonEmptyArray(topMenuData)) {
+      const data = formateChildMenuData(topMenuData)
+      if (isNonEmptyArray(data)) {
+        const newRoutesArray = data.map((item, index) => {
+          return {
+            key: `${index}${item.keyName}`,
+            title: item.tabName,
+            sectionId: item.sectionId,
+            keyName: item.keyName,
+            child: item.child,
+          };
+        })
+        setNewRoutes(newRoutesArray)
+      }
+    }
+  }
+
+  const formateChildMenuData = (menuData: any[], parentId: null | string = null) => {
+    const allMenuData = []
+    let filterMenuData = []
+    if (parentId == null) {
+      filterMenuData = menuData.reduce((data, item) => {
+        if (item.parentId == null) {
+          const updatedData = item
+          data.push(updatedData)
+        }
+        return data
+      }, [])
+    }
+    else {
+      filterMenuData = menuData.filter((item: TopMenuItemType) => isStringIncludes(item.parentId, parentId))
+    }
+
+    for (let i = 0; i < filterMenuData.length; i++) {
+      const item: TopMenuItemType = filterMenuData[i]
+      const newParentId = item.uuid ?? null
+      let customData: any = {
+        ...item,
+      }
+
+      customData.child = newParentId ? formateChildMenuData(menuData, newParentId) : []
+      allMenuData.push(customData)
+    }
+
+    return allMenuData
+  }
+
+  const onUpdateChildSection = (data: TopMenuItemType[], index: number) => {
+    let routeData = [...routes]
+    const selectedRoute = routeData[index]
+    if(selectedRoute && selectedRoute.child) {
+      selectedRoute.child = data
+    }
+    setNewRoutes(routeData)
+  }
+
+  const onPressTabItem = (index: number) => {
+    let routeData = [...routes]
+    let selectedRoute = routeData[index]
+    let selectedRouteChild: TopMenuItemType[] = [];
+    if(selectedRoute && selectedRoute.child) {
+      selectedRouteChild = selectedRoute.child.map((item: TopMenuItemType) => ({
+        ...item,
+        isSelected: false
+      }))
+    }
+    selectedRoute.child = selectedRouteChild
+    routeData[index] = selectedRoute
+    setNewRoutes(routeData)
+    setIndex(index)
+  }
 
 
   useEffect(() => {
@@ -103,7 +171,7 @@ export const SectionsScreen = () => {
 
           return <TabWithBarItem index={tabIndex}
             key={tabIndex}
-            onPress={setIndex}
+            onPress={onPressTabItem}
             tabName={item.route.title || ''}
             isSelected={tabIndex == item.navigationState.index}
             labelFont={fonts.Effra_Arbc_Regular}

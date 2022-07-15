@@ -31,7 +31,7 @@ export const ButtonIconWithLabel = ({
                     fill: iconColor,
                 })
             }
-            <Label style={style.title} children={title} labelType={LabelTypeProp.h3} />
+            <Label style={style.title} children={title} />
         </TouchableOpacity>
     )
 }
@@ -46,8 +46,8 @@ const customStyle = () => (
             justifyContent: 'center'
         },
         title: {
-            fontSize: 13,
-            lineHeight: 16,
+            fontSize: 14,
+            lineHeight: 17,
             marginLeft: 5,
             fontFamily: fonts.AwsatDigitalBetav10_Bold,
             paddingTop: isIOS ? 5 : 0

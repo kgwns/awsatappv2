@@ -18,7 +18,9 @@ const returnResponse = (response: any): FetchTopMenuSuccessPayloadType => {
           sectionId: item.sectionid,
           tabName: item.title,
           keyName: item.keyname,
-          isSelected: index===0?true:false,
+          isSelected: false,
+          parentId: item.parent_export,
+          uuid: item.uuid_export,
         };
         results.push(topMenuItem);
       }

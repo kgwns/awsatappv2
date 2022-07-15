@@ -48,7 +48,7 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
   const renderTitle = (item: any) => {
     return (
       <View >
-        <Text children={item.title} numberOfLines={2} style={style.contentTitle} />
+        <Text children={item.title} style={style.contentTitle} />
       </View>
     )
   }

@@ -16,6 +16,7 @@ export const arabic = {
     myPersonalAccount: 'حسابي الشخصي',
     termsOfUse: 'شروط الإنتفاع',
     pdfArchive: 'الأرشيف',
+    informationAboutUs: 'معلومات عنا',
   },
   onBoard: {
     common: {
@@ -198,9 +199,9 @@ export const arabic = {
     maxLengthPassword: 'Password should contain maximum 20 characters',
     minLengthPassword: 'كلمة المرور يجب أن تحتوي على ٥ أحرف على الأقل',
   },
-  about_the_news_paper: 'عن الصحيفة',
+  about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',
-  terms_and_condition: 'الأحكام والشروط',
+  terms_and_condition: 'القواعد و الشروط',
   return: 'الرجوع',
   searchScreen: {
     placeholder: 'ابحث في الشرق الأوسط …',

@@ -36,7 +36,7 @@ export const VideoContent = ({
     const [t] = useTranslation();
     const theme = useTheme();
     const style = useThemeAwareObject(customStyle);
-
+    const [isTitleLineCount, setIsTitleLineCount] = useState(1)
     const [isTwoLine, setIsTwoLine] = useState<boolean>(false)
 
     const onItemPress = (item: VideoItemType) => {
@@ -48,6 +48,7 @@ export const VideoContent = ({
     const onTextLayout = (e: any) => {
         if (e.nativeEvent.lines.length > 1 && !isTwoLine) {
             setIsTwoLine(true)
+            setIsTitleLineCount(e.nativeEvent.lines ? e.nativeEvent.lines.length : 1)
         }
     }
 
@@ -61,7 +62,7 @@ export const VideoContent = ({
         const itemStyle = isTab ? { paddingHorizontal: 0.02 * screenWidth, height: normalize(260) } :
             index === data.length - 1 && { marginRight: 0.04 * screenWidth }
 
-        const moreStyle = isTwoLine ? {height: normalize(70)} : {}
+        const moreStyle = isTwoLine ? { height: normalize(isTitleLineCount * 35) } : {}
         return (
             <TouchableOpacity onPress={()=>onItemPress(item)}>
                 <View style={[style.videoCardContainer, itemStyle]}>
@@ -69,7 +70,7 @@ export const VideoContent = ({
                     <Label
                         onTextLayout={onTextLayout}
                         style={[style.textStyle, moreStyle]}
-                        labelType={LabelTypeProp.h3} numberOfLines={2}>
+                        labelType={LabelTypeProp.h3}>
                         {decode(item.title)}
                     </Label>
                     
