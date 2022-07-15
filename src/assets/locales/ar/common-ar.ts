@@ -14,7 +14,7 @@ export const arabic = {
     aboutTheEast: 'عن الشرق',
     callUs: 'اتصل بنا',
     myPersonalAccount: 'حسابي الشخصي',
-    termsOfUse: 'شروط الإنتفاع',
+    termsOfUse: 'شروط الانتفاع',
     pdfArchive: 'الأرشيف',
     informationAboutUs: 'معلومات عنا',
   },
@@ -348,5 +348,9 @@ export const arabic = {
     topics: 'مواضيعي',
     writers: 'كتابي',
     media: 'ميديا',
+  },
+  myNewsWriters: {
+    noContent: 'لم يتم حفظ أي شيء حتى الآن',
+    allTxt: 'الكل'
   }
 }

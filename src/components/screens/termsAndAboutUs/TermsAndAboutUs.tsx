@@ -134,7 +134,8 @@ const customStyle = (theme: CustomThemeType) => (
       color: theme.primaryBlack,
       fontSize: normalize(22),
       lineHeight: normalize(33),
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      fontFamily: fonts.AwsatDigitalBetav10_Bold
     }
   })
 )

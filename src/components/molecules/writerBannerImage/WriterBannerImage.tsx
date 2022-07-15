@@ -2,10 +2,10 @@ import { View, StyleSheet, TouchableOpacity, Dimensions, Linking } from 'react-n
 import React, { useEffect, useState } from 'react'
 import { decodeHTMLTags, getImageUrl, isNotEmpty } from 'src/shared/utils/utilities'
 import { ImagesName, Styles } from 'src/shared/styles'
-import { ButtonImage, Image, Label } from 'src/components/atoms'
+import { ButtonImage, HomeButton, Image, Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { isIOS, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
+import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -32,6 +32,8 @@ export interface WriterBannerImageProps {
   onPressFollow: () => void,
   onPressWriter?: () => void,
   hideBackArrow?: boolean;
+  visibleHome?: boolean
+  onPressHome: () => void,
 }
 
 export const WriterBannerImage = ({
@@ -42,6 +44,8 @@ export const WriterBannerImage = ({
   onPressFollow,
   onPressWriter,
   hideBackArrow = false,
+  visibleHome = false,
+  onPressHome
 }: WriterBannerImageProps) => {
   const [t] = useTranslation()
 
@@ -129,7 +133,10 @@ export const WriterBannerImage = ({
 
   return (
     <View style={style.container}>
-      <ReturnButton />
+      <View style={style.headerContainer}>
+        {visibleHome && <HomeButton containerStyle={style.homeIconContainer} onPress={onPressHome} />}
+        <ReturnButton />
+      </View>
       <View style={style.contentContainer}>
         <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : currentOrientation == 'PORTRAIT' ? 0.3 : 0.15 }}>
           <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
@@ -201,7 +208,7 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.writerBackground,
       width: '100%',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
-      paddingTop: DeviceInfo.hasNotch() ? normalize(40) : normalize(20), 
+      paddingTop: isTab ? normalize(40) : DeviceInfo.hasNotch() ? normalize(40) : normalize(20), 
       paddingBottom:normalize(20),
     },
     contentContainer:{
@@ -270,5 +277,12 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'center',
       paddingHorizontal: normalize(10)
     },
+    homeIconContainer: {
+      position:'absolute',
+      right: 5,
+    },
+    headerContainer: {
+      flexDirection: 'row' 
+    }
   })
 } 

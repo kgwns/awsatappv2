@@ -19,8 +19,8 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
 }) => {
   const [t] = useTranslation();
   const theme = useTheme();
-  const color = isSelected ? theme.themeData.primaryBlack : Styles.color.doveGray
-  const barColor = { backgroundColor: isSelected ? Styles.color.greenishBlue : Styles.color.doveGray }
+  const color = isSelected ? Styles.color.greenishBlue : Styles.color.doveGray
+  const barColor = { backgroundColor: color }
 
   const renderStyle = (tabName: String) => {
     switch (tabName) {
@@ -36,17 +36,24 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
   }
 
   return (
-    <View style={[customStyle.newStyle, renderStyle(tabName)]}>
-      <TouchableOpacity key={index} {...testProps(moleculesTestID.tabItemBtn)}
-        onPress={() => onPress(index)} >
+    <TouchableOpacity
+      key={index}
+      {...testProps(moleculesTestID.tabItemBtn)}
+      onPress={() => onPress(index)}>
+      <View style={[customStyle.newStyle, renderStyle(tabName)]}>
         <View>
-          <Label children={tabName} color={color} style={customStyle.labelStyle}
+          <Label
+            children={tabName}
+            color={color}
+            style={customStyle.labelStyle}
           />
-          {isSelected && <View style={StyleSheet.flatten([customStyle.barLine, barColor])} />}
         </View>
-      </TouchableOpacity>
-    </View>
-  )
+        {isSelected && (
+          <View style={StyleSheet.flatten([customStyle.barLine, barColor])} />
+        )}
+      </View>
+    </TouchableOpacity>
+  );
 }
 
 const customStyle = StyleSheet.create({
@@ -65,11 +72,10 @@ const customStyle = StyleSheet.create({
     fontFamily: fonts.Effra_Arbc_Regular
   },
   newStyle: {
-    width: 0.33 * screenWidth,
+    width: 0.5 * screenWidth,
   },
   containerTopics: {
-    alignItems: 'flex-start',
-    paddingLeft: 15
+    alignItems: 'center',
   },
   containerWriters: {
     alignItems: 'center'

@@ -1,9 +1,9 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useMemo} from 'react';
 import { StyleSheet, View, FlatList, BackHandler, Animated } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, normalize } from 'src/shared/utils';
-import {OpinionArticleDetailFooter} from 'src/components/molecules';
+import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, normalize } from 'src/shared/utils';
+import {OpinionArticleDetailFooter, DetailHeader} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
   RelatedOpinionArticlesWidget,
@@ -13,7 +13,7 @@ import {useAllWriters, useAppCommon, useBookmark, useLogin, useOpinionArticleDet
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player';
-import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { sendUserEventTracking } from 'src/services'
@@ -35,6 +35,7 @@ export const OpinionArticleDetail = ({
   const style = useThemeAwareObject(customStyle);
   
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const routes = useNavigationState(state => state.routes)
   const isFocused = useIsFocused();
 
   const currentNId = route.params.nid;
@@ -75,9 +76,11 @@ export const OpinionArticleDetail = ({
   const relatedOpinionRef = useRef(true);
   const pageLoadingRef = useRef(false);
 
-
-
- 
+  const detailRoutes = useMemo(() => routes.filter((routes) =>
+    routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+    routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+    routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+  const noOfDetailRoutes = detailRoutes.length
 
   const togglePlayback = async (nid: string, mediaData: any) => {
     let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
@@ -316,11 +319,9 @@ export const OpinionArticleDetail = ({
     navigation.goBack()
   }
 
-  const renderBackIcon = () => (
-    <View style={style.backContainer}>
-      <BackIcon onPressBack={onPressBack} />
-    </View>
-  )
+  const onPressHome = () => {
+    navigation.popToTop()
+  }
 
   const renderItem = () => {
     const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
@@ -336,6 +337,8 @@ export const OpinionArticleDetail = ({
             togglePlayback={togglePlayback}
             selectedTrack={selectedTrack}
             hideBackArrow={hideBackArrow}
+            visibleHome={noOfDetailRoutes > 1}
+            onPressHome={onPressHome}
           />
         )}
         {isNonEmptyArray(relatedOpinionInfo) && (
@@ -372,7 +375,7 @@ export const OpinionArticleDetail = ({
               onPressFontSizeChange={onPressFontSizeChange}
             />
           </View>
-          {(Number.parseInt(JSON.stringify(scrollY)) > 50) && renderBackIcon()}
+          {(Number.parseInt(JSON.stringify(scrollY)) > 50) && <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack}/>}
         </View>}
     </ScreenContainer>
   );
@@ -387,14 +390,6 @@ const customStyle = (theme: CustomThemeType) => {
     },
     containerBase: {
       flex: 1,
-    },
-    backContainer: {
-      position: 'absolute',
-      top: 0,
-      width: '100%',
-      height: isIOS ? normalize(90) : normalize(45),
-      backgroundColor: theme.secondaryWhite,
-      justifyContent: 'center',
     },
     shadowEffect: {
       shadowColor: Styles.color.onyx,

@@ -20,6 +20,11 @@ import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArti
 import { AxiosError } from 'axios';
 import { useAppPlayer } from 'src/hooks'
 
+enum LabelsType  {
+    title = 'title',
+    authorName = 'authorName'
+}
+
 export interface AuthorItemProps {
     author: string,
     authorId: string,
@@ -33,6 +38,7 @@ export interface AuthorItemProps {
     togglePlayback?: (nid: string, mediaData: any)=> void,
     selectedTrack?: string,
     selectedType?: string,
+    renderLabelsOrder?: any,
 }
 
 const AuthorItem = ({
@@ -47,7 +53,8 @@ const AuthorItem = ({
     jwPlayerID = null,
     togglePlayback,
     selectedTrack,
-    selectedType
+    selectedType,
+    renderLabelsOrder = [LabelsType.authorName,LabelsType.title]
 }: AuthorItemProps) => {
     const { themeData } = useTheme()
     const [t] = useTranslation();
@@ -141,13 +148,41 @@ const AuthorItem = ({
         }
     }
 
+    const renderLabels = () => {
+      return renderLabelsOrder.map((item: LabelsType) => {
+        switch (item) {
+          case LabelsType.authorName:
+            return (
+                <Label
+                  children={author}
+                  labelType={LabelTypeProp.p4}
+                  style={style.authorTitle}
+                  testID={'AutherItemLabel1'}
+                  color={themeData.authorTitle}
+                  numberOfLines={1}
+                  onPress={() => onPressWriter(authorId)}
+                  suppressHighlighting={true}
+                />
+            );
+          case LabelsType.title:
+            return (
+                <Label
+                  children={body}
+                  labelType={LabelTypeProp.h3}
+                  numberOfLines={2}
+                  style={style.body}
+                />
+            );
+          default:
+            return null;
+        }
+      });
+    };
+
     return (
         <TouchableOpacity testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
             <View style={{ flex: 1 }}>
-                <Label children={author} labelType={LabelTypeProp.p4} style={style.authorTitle} testID={'AutherItemLabel1'}
-                    color={themeData.authorTitle} numberOfLines={1} onPress={() => onPressWriter(authorId)} suppressHighlighting={true} />
-                <Label children={body} labelType={LabelTypeProp.h3}
-                    numberOfLines={2} style={style.body} />
+                {renderLabels()}
                 {mediaVisibility && <View style={style.mediaFooter}>
                     <TouchableOpacity testID='AutherItemTO2' onPress={onPressPlay} style={style.mediaFooter}>
                         <ButtonImage

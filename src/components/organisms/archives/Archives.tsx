@@ -225,7 +225,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 0.32 * screenHeight
     },
     container: {
         flex: 1,
