@@ -35,7 +35,6 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
   }, [])
 
   const stopTrackPlayer = async () => {
-    await TrackPlayer.stop();
     await TrackPlayer.reset();
     setShowMiniPlayer(false);
     setPlayerTrack(null);
