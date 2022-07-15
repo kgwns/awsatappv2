@@ -23,7 +23,7 @@ class AppPlayer {
                   ],
             });
 
-            await TrackPlayer.setupPlayer();
+            await TrackPlayer.setupPlayer({waitForBuffer: true});
         } catch (e) {
             console.log(e);
             // to-do handle error
