@@ -124,7 +124,10 @@ export enum ImagesName {
   authorDefault = 'authorDefault',
   authorDefaultGrey = 'authorDefaultGrey',
   myNewsIcon = 'myNewsIcon',
-  myNewsActiveIcon = 'myNewsActiveIcon'
+  myNewsActiveIcon = 'myNewsActiveIcon',
+  profileNameIcon = 'profileNameIcon',
+  emailGrayIcon = 'emailGrayIcon',
+  chatBubbleIcon = 'chatBubbleIcon',
 }
 
 export const images = {
