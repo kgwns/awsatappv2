@@ -4,7 +4,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors} from 'src/shared/styles/colors';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import {Edge} from 'react-native-safe-area-context';
-import {horizontalEdge, isNotEmpty} from 'src/shared/utils';
+import {horizontalEdge, isAndroid, isNotEmpty} from 'src/shared/utils';
 import {ScreenContainer} from 'src/components/screens';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import VideoPlayerFullScreen from './VideoPlayerFullScreen';
@@ -45,6 +45,10 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
 
   const goBackToScreen = () => {
     if (goBack) {
+      if(fullScreen){
+        Orientation.lockToPortrait();
+        setFullScreen(false);
+      }
       setIsPaused(true);
       goBack();
     }
@@ -68,14 +72,14 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   }, []);
 
   useEffect(() => {
-    SystemNavigationBar.navigationHide();
+    isAndroid && SystemNavigationBar.navigationHide();
     StatusBar.setHidden(true);
     Orientation.addDeviceOrientationListener(changeOrientation);
     return () => {
       Orientation.removeDeviceOrientationListener(changeOrientation);
       Orientation.lockToPortrait();
       StatusBar.setHidden(false);
-      SystemNavigationBar.navigationShow();
+      isAndroid && SystemNavigationBar.navigationShow();
     };
   }, []);
 

@@ -137,9 +137,9 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                         resizeMode={'cover'}
                     />
                 </View>
-                <View style={style.progrsBarSection}>
+                <View style={[style.progrsBarSection, style.sliderContainer]}>
                     <Slider
-                        style={[{ width: '100%', height: 30 }, isIOS && { direction: 'ltr'  }]}
+                        style={[style.sliderStyle, isIOS && { direction: 'ltr'  }]}
                         minimumValue={0}
                         maximumValue={progress.duration}
                         minimumTrackTintColor="#2C8A82"
@@ -335,6 +335,14 @@ const customStyle = (theme: CustomThemeType) => {
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center'
+        },
+        sliderStyle: {
+            width: isIOS ? '200%' : '100%',
+            height: 15,
+            alignSelf: 'center'
+        },
+        sliderContainer: {
+            transform: [{ scaleX: isIOS ? 0.5:1 }, { scaleY: isIOS ? 0.5:1 }]
         }
     })
 }
