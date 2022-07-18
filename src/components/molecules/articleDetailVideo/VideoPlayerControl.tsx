@@ -238,7 +238,7 @@ const VideoPlayerControl = ({
       source={images.bottomShadowImg}
       style={[styles.column]}
       imageStyle={[styles.vignette]}>
-      <View style={isMiniPlayer ? styles.miniProgrsBarSection : styles.progrsBarSection}>
+      <View style={[isMiniPlayer ? styles.miniProgrsBarSection : styles.progrsBarSection, styles.sliderContainer]}>
         <NativeViewGestureHandler
           disallowInterruption={true}
           enabled
@@ -425,8 +425,9 @@ const customStyle = (theme: CustomThemeType) =>
       paddingBottom: 0,
     },
     sliderStyle: {
-      width: '100%',
-      height: 10,
+      width: isIOS ? '200%' : '100%',
+      height: 15,
+      alignSelf: 'center'
     },
     directionStyle: {
       direction: 'ltr',
@@ -437,4 +438,7 @@ const customStyle = (theme: CustomThemeType) =>
       alignItems: 'flex-end',
       justifyContent: 'space-between',
     },
+    sliderContainer: {
+      transform: [{ scaleX: isIOS ? 0.5:1 }, { scaleY: isIOS ? 0.5:1 }]
+    }
   });
