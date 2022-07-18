@@ -3,9 +3,10 @@ import {
   getIsLoading,
   getAllSiteCategoriesData,
   getAllSiteCategoriesError,
-  getTopicsData
+  getTopicsData,
+  getSelectedTopicsDataList
 } from '../selectors';
-import {AllSiteCategoriesItemType, ResponseMessage} from '../types';
+import {AllSiteCategoriesItemType, ResponseMessage, SelectedTopicsDataType} from '../types';
 
 describe('AllSiteCategories Selector', () => {
   const storeData = storeInfo[0];
@@ -29,5 +30,11 @@ describe('AllSiteCategories Selector', () => {
     const allTopicsData: ResponseMessage =
     getTopicsData(storeData);
     expect(allTopicsData).toEqual({});
+  });
+
+  test('Get getSelectedTopicsDataList data', () => {
+    const allWriterData: SelectedTopicsDataType =
+    getSelectedTopicsDataList(storeData);
+    expect(allWriterData).toEqual({});
   });
 });

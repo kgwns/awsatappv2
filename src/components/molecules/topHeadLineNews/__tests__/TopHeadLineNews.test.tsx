@@ -3,6 +3,8 @@ import React from 'react'
 import  {TopHeadLineNews} from '../TopHeadLineNews'
 import {useNavigation} from '@react-navigation/native';
 import { FlatList } from 'react-native';
+import { MainSectionBlockType } from 'src/redux/latestNews/types';
+import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -17,13 +19,38 @@ describe('<TopHeadLineNews />', () => {
     navigate: mockFunction,
   }
 
-  const sampleData: any = [
+  const sampleData: MainSectionBlockType[] = [
     {
       body: 'example',
       title: 'example',
-      nid: 'example',
+      nid: '1',
       image: 'example',
-      news_categories : [],
+      news_categories : {
+        id: '1',
+        title: 'abc',
+        url: 'acs',
+        bundle: 'abc',
+        name: 'example',
+      },
+      author: 'example',
+      created: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: '2',
+      image: 'example',
+      news_categories : {
+        id: '1',
+        title: 'abc',
+        url: 'acs',
+        bundle: 'abc',
+        name: 'example',
+      },
       author: 'example',
       created: 'example',
       isBookmarked: true,
@@ -53,4 +80,11 @@ describe('<TopHeadLineNews />', () => {
     fireEvent(element, 'renderItem', {item: sampleData[0], index: 0});
     expect(mockFunction).toBeTruthy()
   });
+
+  test('Should call FixedTouchable onPress', () => {
+    const element = instance.container.findAllByType(FixedTouchable)[0];
+    fireEvent(element, 'onPress', {nid:'1'});
+    expect(mockFunction).toBeTruthy()
+  });
+  
 })

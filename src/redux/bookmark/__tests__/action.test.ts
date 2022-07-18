@@ -1,5 +1,5 @@
-import { removeBookmarked, removeBookmarkedFailed, removeBookMarkedSuccess, sendBookMarkId, sendBookMarkIdFailed, sendBookMarkIdSuccess,getBookMarkedSuccess, getBookmarkedFailed, getBookmarkedDetailInfo, getBookMarkedSuccessDetailInfo, getBookmarkedFailedDetailInfo } from "../action"
-import { GET_BOOK_MARKED_DETAIL_INFO, GET_BOOK_MARKED_FAILED, GET_BOOK_MARKED_FAILED_DETAIL_INFO, GET_BOOK_MARKED_SUCCESS, GET_BOOK_MARKED_SUCCESS_DETAIL_INFO, REMOVE_BOOK_MARKED, REMOVE_BOOK_MARKED_FAILED, REMOVE_BOOK_MARKED_SUCCESS, SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS } from "../actionType"
+import { removeBookmarked, removeBookmarkedFailed, removeBookMarkedSuccess, sendBookMarkId, sendBookMarkIdFailed, sendBookMarkIdSuccess,getBookMarkedSuccess, getBookmarkedFailed, getBookmarkedDetailInfo, getBookMarkedSuccessDetailInfo, getBookmarkedFailedDetailInfo, updateFilteredBookMarkedInfo } from "../action"
+import { GET_BOOK_MARKED_DETAIL_INFO, GET_BOOK_MARKED_FAILED, GET_BOOK_MARKED_FAILED_DETAIL_INFO, GET_BOOK_MARKED_SUCCESS, GET_BOOK_MARKED_SUCCESS_DETAIL_INFO, REMOVE_BOOK_MARKED, REMOVE_BOOK_MARKED_FAILED, REMOVE_BOOK_MARKED_SUCCESS, SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS, UPDATED_FILTERED_DATA_SUCCESS } from "../actionType"
 
 describe('<BookmarkAction', () => {
     const nid: string = '123'
@@ -54,7 +54,7 @@ describe('<BookmarkAction', () => {
     })
 
     it('Check get bookmark detail info', () => {
-        const result = getBookmarkedDetailInfo({ nid: '123' })
+        const result = getBookmarkedDetailInfo({ nid: '123', page: 2 })
         expect(result.type).toEqual(GET_BOOK_MARKED_DETAIL_INFO)
         expect(result.payload.nid).toEqual('123')
     })
@@ -69,5 +69,10 @@ describe('<BookmarkAction', () => {
         const result = getBookmarkedFailedDetailInfo({ getBookmarkDetailError: '' })
         expect(result.type).toEqual(GET_BOOK_MARKED_FAILED_DETAIL_INFO)
         expect(result.payload.getBookmarkDetailError).toEqual('')
+    })
+
+    it('Check updateFilteredBookMarkedInfo', () => {
+        const result = updateFilteredBookMarkedInfo({ filteredData: [] })
+        expect(result.type).toEqual(UPDATED_FILTERED_DATA_SUCCESS)
     })
 })

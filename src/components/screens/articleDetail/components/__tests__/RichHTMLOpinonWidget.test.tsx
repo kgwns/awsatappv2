@@ -12,11 +12,11 @@ describe('<RichHTMLOpinonWidget>', () => {
         const component = 
             <Provider store={storeSampleData}>
                 <RichHTMLOpinonWidget data={{
-                    name: '',
-                    title: '',
-                    image: '',
-                    nid: '',
-                    writerId: ''
+                    name: '123',
+                    title: 'qwe',
+                    image: 'qw',
+                    nid: '1',
+                    writerId: '2'
                 }}/>
             </Provider> 
         instance = render(component)

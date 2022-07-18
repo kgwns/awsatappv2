@@ -26,12 +26,52 @@ describe('<DraggableVideoPlayer />', () => {
   let instance: RenderAPI;
   const url= "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842";
 
+  const sampleData: any = {current :
+    [
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+  ]}
+
   const mockFunction = jest.fn();
   const setOrientation = mockFunction;
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => ['PORTRAIT', setOrientation]);
-    const component = <DraggableVideoPlayer paused={false}/>
+    const component = <DraggableVideoPlayer paused={false} url={url} videoRefs={sampleData} />
     instance = render(component)
   })
 

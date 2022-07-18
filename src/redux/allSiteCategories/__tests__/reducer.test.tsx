@@ -1,5 +1,5 @@
 import { allSiteCategoriesActions } from '../action';
-import { EMPTY_SELECTED_TOPICS_INFO, FETCH_ALL_SITE_CATEGORIES, GET_SELECTED_TOPICS, GET_SELECTED_TOPICS_ERROR, GET_SELECTED_TOPICS_SUCCESS, SEND_SELECTED_TOPIC, SEND_SELECTED_TOPIC_ERROR, SEND_SELECTED_TOPIC_SUCCESS } from '../actionTypes';
+import { DESELECT_ALL_TOPICS_INFO, EMPTY_SELECTED_TOPICS_INFO, EMPTY_SEND_TOPICS_INFO, FETCH_ALL_SITE_CATEGORIES, GET_SELECTED_TOPICS, GET_SELECTED_TOPICS_ERROR, GET_SELECTED_TOPICS_SUCCESS, SEND_SELECTED_TOPIC, SEND_SELECTED_TOPIC_ERROR, SEND_SELECTED_TOPIC_SUCCESS } from '../actionTypes';
 import allSiteCategories from '../reducer';
 import { AllSiteCategoriesState } from '../types';
 
@@ -85,7 +85,7 @@ describe('allSiteCategories reducer', () => {
   test('Check loading state when get selected topics success request API', () => {
     const nextState = allSiteCategories(initialState, {
       type: GET_SELECTED_TOPICS_SUCCESS,
-      payload: { selectedTopicsData: [] }
+      payload: { selectedTopicsData: {} }
     });
     expect(nextState.isLoading).toBe(false);
   });
@@ -104,4 +104,20 @@ describe('allSiteCategories reducer', () => {
     });
     expect(nextState.isLoading).toBe(false);
   });
+
+  test('Check loading state when empty selected topics failure request API', () => {
+    const nextState = allSiteCategories(initialState, {
+      type: EMPTY_SEND_TOPICS_INFO,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when empty selected topics failure request API', () => {
+    const nextState = allSiteCategories(initialState, {
+      type: DESELECT_ALL_TOPICS_INFO,
+      payload: []
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
 });

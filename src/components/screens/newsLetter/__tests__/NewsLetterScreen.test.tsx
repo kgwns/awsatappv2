@@ -47,7 +47,7 @@ describe('<NewsLettersScreen>', () => {
     });
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLetterScreen route={{ params: { nid: 123 } }}/>
+        <NewsLetterScreen route={{ params: { nid: 123, canGoBack: true } }}/>
       </Provider>
     );
     instance = render(component);
@@ -60,6 +60,12 @@ describe('<NewsLettersScreen>', () => {
 
   it('Should render NewsLettersScreen component', () => {
     expect(instance).toBeDefined();
+  });
+
+  it('Should render NewsLettersScreen component', () => {
+    expect(render(<Provider store={storeSampleData}>
+      <NewsLetterScreen route={{ params: { canGoBack: false } }}/>
+    </Provider>)).toBeDefined();
   });
   
 });

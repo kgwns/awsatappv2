@@ -2,7 +2,14 @@ import {storeInfo} from 'src/constants/SampleData';
 import {
   getIsLoading,
   getNewsLettersError,
-  getSelectedNewsLettersDataList} from '../selectors';
+  getSelectedNewsLettersDataList,
+  getSentNewsLettersInfoData,
+  getIsMyNewsLoading,
+  getMyNewsLettersDataList,
+  getMyNewsLettersError,
+  getSelectedNewsLettersDataFromOnBoard,
+} from '../selectors';
+import { ResponseMessage, SelectedNewsLettersDataType } from '../types';
 
 describe('News Letters Selector', () => {
   const storeData = storeInfo[0];
@@ -25,4 +32,30 @@ describe('News Letters Selector', () => {
     const data = getNewsLettersError(storeData);
     expect(data).toEqual('');
   });
+
+  test('getSentNewsLettersInfoData state', () => {
+    const sendNewsLettersInfo: ResponseMessage = getSentNewsLettersInfoData(storeData);
+    expect(sendNewsLettersInfo).toEqual({});
+  });
+
+  test('getIsMyNewsLoading state', () => {
+    const isMyNewsLoading: boolean = getIsMyNewsLoading(storeData);
+    expect(isMyNewsLoading).toEqual(false);
+  });
+
+  test('getMyNewsLettersDataList state', () => {
+    const myNewsLetters: SelectedNewsLettersDataType = getMyNewsLettersDataList(storeData);
+    expect(myNewsLetters).toEqual({});
+  });
+
+  test('getMyNewsLettersError state', () => {
+    const myNewsError: string = getMyNewsLettersError(storeData);
+    expect(myNewsError).toEqual('');
+  });
+
+  test('getSelectedNewsLettersDataFromOnBoard state', () => {
+    const selectedDataFromNewsLetterOnboard: string[] = getSelectedNewsLettersDataFromOnBoard(storeData);
+    expect(selectedDataFromNewsLetterOnboard).toEqual([]);
+  });
+
 });

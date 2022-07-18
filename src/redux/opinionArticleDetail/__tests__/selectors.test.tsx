@@ -5,7 +5,8 @@ import {
   getOpinionArticleError,
   getIsLoadingRelatedOpinion,
   getRelatedOpinionData,
-  getRelatedOpinionError
+  getRelatedOpinionError,
+  getNarratedOpinionData
 } from '../selectors';
 import { OpinionArticleDetailItemType, OpinionsListItemType } from '../types';
 
@@ -42,4 +43,11 @@ describe('OpinionArticleDetail Selector', () => {
     const error = getRelatedOpinionError(storeData);
     expect(error).toEqual('');
   });
+
+  test('Get getNarratedOpinionData state', () => {
+    const mediaData: any =
+    getNarratedOpinionData(storeData);
+    expect(mediaData).toEqual({});
+  });
+
 });

@@ -1,43 +1,49 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import { ButtonImage } from 'src/components/atoms';
-import { FROM_TWO_HOURS } from 'src/constants/SharedConstants';
+import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 import { ArticleDetailFooter } from '../ArticleDetailFooter';
 
 describe('<ArticleDetailFooter>', () => {
   let instance: RenderAPI;
 
-  const articleDetailSampleData = {
-    title: 'mocktitle',
-    body: 'mockbody',
-    nid: '2982096',
-    image: 'https://picsum.photos/200/300',
-    view_node: 'mockViewNode',
-    news_categories: {
-      id: '11',
-      title: 'العالم العربي',
-      url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/11',
-      bundle: 'news_categories',
-      name: 'العالم العربي',
-    },
-    tag_topics: {
-      id: '1791',
-      title: 'النزاع الفلسطيني-الاسرائيلي',
-      url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/1791',
-      bundle: 'tags_topics',
-      name: 'النزاع الفلسطيني-الاسرائيلي',
-    },
-    author: 'mockAuthor',
-    created: FROM_TWO_HOURS
-  };
-
   const mockFunction = jest.fn()
+
+  const data: ArticleDetailDataType = {
+    title: 'title',
+    body: 'body',
+    nid: 'nid',
+    image: 'image',
+    view_node: 'view_node',
+    news_categories: {
+        title: 'news_categories_title',
+        id: 'news_categories_id',
+        url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
+        bundle: 'news_categories_bundle',
+        name: 'news_categories_name'
+    },
+    author: 'author',
+    tag_topics: {
+        id: '1',
+        title: 'asd',
+        url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
+        bundle: 'asd',
+        name: 'qsd'
+    },
+    isBookmarked: false,
+    caption: 'asd',
+    subtitle: 'asdf',
+    jwplayerId: '1',
+    created: 'asxdc'
+}
 
   beforeEach(() => {
     const component = (
       <ArticleDetailFooter
-        articleDetailData={articleDetailSampleData}
-        isBookmarked={false} onPressSave={mockFunction}  onPressFontChange={mockFunction}
+        articleDetailData={data}
+        isBookmarked={false} 
+        onPressSave={mockFunction}  
+        onPressFontChange={mockFunction}
       />
     );
     instance = render(component);

@@ -253,4 +253,12 @@ describe('<Article Detail Saga >', () => {
             genObject.throw(errorResponse)
         })
     })
+
+    describe('Test emptyData', () => {
+        it('check emptyData success', () => {
+          const genObject = emptyData();
+          genObject.next();
+          genObject.next();
+        });
+      });
 })

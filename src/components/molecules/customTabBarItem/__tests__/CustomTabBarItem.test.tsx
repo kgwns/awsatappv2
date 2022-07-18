@@ -2,6 +2,7 @@ import React from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { CustomTabBarItem } from '../CustomTabBarItem'
 import { moleculesTestID } from 'src/constants'
+import { TouchableOpacity } from 'react-native'
 
 describe('<CustomTabBarItem>', () => {
     let instance: RenderAPI
@@ -16,7 +17,7 @@ describe('<CustomTabBarItem>', () => {
     })
 
     beforeEach(() => {
-        const component = <CustomTabBarItem {...tabItem} index={0} onPress={mockOnPress} />
+        const component = <CustomTabBarItem tabName='مواضيعي' index={0} onPress={mockOnPress} isSelected={false} />
         instance = render(component)
     })
 
@@ -28,6 +29,20 @@ describe('<CustomTabBarItem>', () => {
     test('Should render component', () => {
         expect(instance).toBeDefined()
     })
+
+    test('Should render component', () => {
+        expect(render(<CustomTabBarItem tabName='كتابي' index={0} onPress={mockOnPress} isSelected={false} />)).toBeDefined()
+    })
+
+    test('Should render component', () => {
+        expect(render(<CustomTabBarItem tabName='ميديا' index={0} onPress={mockOnPress} isSelected={false} />)).toBeDefined()
+    })
+
+    it('When MenuButton Press', () => {
+        const listButton = instance.container.findAllByType(TouchableOpacity)[0];
+        fireEvent(listButton, 'onPress');
+        expect(mockOnPress).toHaveBeenCalled;
+    });
 
     describe('onPress action in item', () => {
         beforeEach(() => {

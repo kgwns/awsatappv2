@@ -165,6 +165,16 @@ jest.mock('redux-persist', () => {
   };
 });
 
+jest.mock('redux-saga', () => {
+  const real = jest.requireActual('redux-saga');
+  return {
+    ...real,
+    createSagaMiddleware: jest
+      .fn()
+      .mockImplementation(() => jest.fn()),
+  };
+});
+
 jest.mock('@react-native-firebase/messaging', () => {
   return jest.fn().mockReturnValue({
     getToken: jest.fn().mockResolvedValue(''),
