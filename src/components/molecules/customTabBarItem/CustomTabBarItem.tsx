@@ -19,8 +19,8 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
 }) => {
   const [t] = useTranslation();
   const theme = useTheme();
-  const color = isSelected ? theme.themeData.primaryBlack : Styles.color.doveGray
-  const barColor = { backgroundColor: isSelected ? Styles.color.greenishBlue : Styles.color.doveGray }
+  const color = isSelected ? Styles.color.greenishBlue : Styles.color.doveGray
+  const barColor = { backgroundColor: color }
 
   const renderStyle = (tabName: String) => {
     switch (tabName) {
