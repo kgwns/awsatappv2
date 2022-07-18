@@ -24,7 +24,7 @@ describe('<ImageArticle>', () => {
 
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-        const component = <ArticleItem nid={''} author={''} created={''} isBookmarked={false} index={0} {...data} />
+        const component = <ArticleItem nid={'2'} author={'بالقنال'} created={'بالقنال'} isBookmarked={false} index={0} {...data} />
         instance = render(component)
     })
 

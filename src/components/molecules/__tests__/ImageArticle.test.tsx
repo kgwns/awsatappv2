@@ -1,6 +1,7 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 import { BannerImageWithOverlay } from 'src/components/atoms'
+import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { ArticleFooter, ImageArticle } from '..'
 
 describe('<ImageArticle>', () => {
@@ -14,7 +15,7 @@ describe('<ImageArticle>', () => {
     }
 
     beforeEach(() => {
-        const component = <ImageArticle  author={''} created={''} isBookmarked={false} onPressBookmark={mockFunction} {...data} />
+        const component = <ImageArticle nid='2' author={'الأمن'} created={'الأمن'} isBookmarked={false} onPressBookmark={mockFunction} {...data} />
         instance = render(component)
     })
 
@@ -35,6 +36,12 @@ describe('<ImageArticle>', () => {
 
     test('Should call button image onPress', () => {
         const element = instance.container.findByType(ArticleFooter)
+        fireEvent(element, 'onPress');
+        expect(mockFunction).toBeTruthy();
+    })
+
+    test('Should call button image onPress', () => {
+        const element = instance.container.findAllByType(FixedTouchable)[0]
         fireEvent(element, 'onPress');
         expect(mockFunction).toBeTruthy();
     })

@@ -1,5 +1,5 @@
 import { UserProfileDetailActions } from '../action';
-import { FETCH_PROFILE_USER_DETAILS, FETCH_PROFILE_USER_DETAILS_SUCCESS, FETCH_PROFILE_USER_DETAILS_ERROR, SEND_USER_DETAILS, SEND_USER_DETAILS_SUCCESS, SEND_USER_DETAILS_ERROR, UPDATE_PROFILE_USER_IMAGE, UPDATE_USER_IMAGE_FAILED, UPDATE_USER_IMAGE_SUCCESS } from '../actionTypes';
+import { FETCH_PROFILE_USER_DETAILS, FETCH_PROFILE_USER_DETAILS_SUCCESS, FETCH_PROFILE_USER_DETAILS_ERROR, SEND_USER_DETAILS, SEND_USER_DETAILS_SUCCESS, SEND_USER_DETAILS_ERROR, UPDATE_PROFILE_USER_IMAGE, UPDATE_USER_IMAGE_FAILED, UPDATE_USER_IMAGE_SUCCESS, EMPTY_USER_PROFILE_DATA } from '../actionTypes';
 import userDetails from '../reducer';
 import { ProfileUserDetailsState } from '../types';
 
@@ -120,6 +120,13 @@ describe('profile user details reducer', () => {
         const nextState = userDetails(initialState, {
             type: UPDATE_USER_IMAGE_FAILED,
             payload: { error: 'sample error' },
+        });
+        expect(nextState.isLoading).toBe(false);
+    });
+
+    test('Check loading state when EMPTY_USER_PROFILE_DATA request API', () => {
+        const nextState = userDetails(initialState, {
+            type: EMPTY_USER_PROFILE_DATA,
         });
         expect(nextState.isLoading).toBe(false);
     });

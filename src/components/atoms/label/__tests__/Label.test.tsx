@@ -45,6 +45,7 @@ describe('<Label />', () => {
     ${'label10'}         | ${Styles.color.black}
     ${'underlinedTitle'} | ${Styles.color.black}
     ${'content'}         | ${Styles.color.black}
+    ${'title4'}         | ${Styles.color.black}
     ${undefined}         | ${Styles.color.black}
   `(
     'when label type and color is $labelType',

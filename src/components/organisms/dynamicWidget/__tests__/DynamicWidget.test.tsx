@@ -12,8 +12,8 @@ jest.mock('react', () => ({
 describe('<Dynamic Widget>', () => {
     let instance: RenderAPI
 
-    const mockFunction = jest.fn()
-    const setSelectedTrack = jest.fn()
+    const mockFunction = jest.fn();
+    const setSelectedTrack = jest.fn();
     const sampleArticleData: any = {
         image: 'image',
         nid: 'nid',
@@ -25,7 +25,7 @@ describe('<Dynamic Widget>', () => {
     describe('Check with empty data', () => {
         beforeEach(() => {
             (useState as jest.Mock).mockImplementation(() => [null, setSelectedTrack]);
-            const component = <DynamicWidget data={[]} onPressBookmark={mockFunction}/>
+            const component = <DynamicWidget data={[]} onPressBookmark={mockFunction} onEndReached={mockFunction} isLoading={false}/>
             instance = render(component)
         })
     
@@ -41,7 +41,8 @@ describe('<Dynamic Widget>', () => {
 
     describe('Check with article data', () => {
         beforeEach(() => {
-            const component = <DynamicWidget data={[sampleArticleData]} onPressBookmark={mockFunction}/>
+            (useState as jest.Mock).mockImplementation(() => ['2', setSelectedTrack]);
+            const component = <DynamicWidget data={[sampleArticleData]} onPressBookmark={mockFunction} onEndReached={mockFunction} isLoading={false}/>
             instance = render(component)
         })
     

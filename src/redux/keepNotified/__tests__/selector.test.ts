@@ -1,6 +1,6 @@
 import { storeInfo } from "src/constants/SampleData"
-import { getIsLoading, getSelectedNotificationSuccessInfo, sendSelectedNotificationErrorInfo, sendSelectedNotificationSuccessInfo } from "../selectors"
-import { GetSelectedNotificationSuccessPayload, SendSelectedNotificationSuccessPayload } from "../types"
+import { getAllNotificationSuccessInfo, getIsMyNotificationLoading, getAllNotificationError, getIsLoading, getSelectedNotificationSuccessInfo, sendSelectedNotificationErrorInfo, sendSelectedNotificationSuccessInfo } from "../selectors"
+import { GetListOfNotificationSuccessPayload, GetSelectedNotificationSuccessPayload, SendSelectedNotificationSuccessPayload } from "../types"
 
 describe('KeepNotification Selector', () => {
     const storeData = storeInfo[0]
@@ -23,4 +23,19 @@ describe('KeepNotification Selector', () => {
          const data: GetSelectedNotificationSuccessPayload = getSelectedNotificationSuccessInfo(storeData)
          expect(data).toEqual({})
     })
+
+    test('getAllNotificationSuccessInfo', () => {
+        const allNotificationList: GetListOfNotificationSuccessPayload = getAllNotificationSuccessInfo(storeData)
+        expect(allNotificationList).toEqual({})
+    })
+
+    test('getAllNotificationError', () => {
+        const allNotificationListError: string = getAllNotificationError(storeData)
+        expect(allNotificationListError).toEqual('')
+    })
+
+    test('getIsMyNotificationLoading', () => {
+        const isMyNotificationLoading: boolean = getIsMyNotificationLoading(storeData)
+        expect(isMyNotificationLoading).toEqual(false)
+     })
 })

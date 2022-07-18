@@ -3,8 +3,9 @@ import {
     FETCH_SEARCH_SUCCESS,
     FETCH_SEARCH_ERROR,
     FETCH_SEARCH_REQUEST,
+    CLEAR_SEARCH_HISTORY,
 } from '../actionTypes';
-import { fetchSearchFailed, fetchSearchSuccess, fetchSearchRequest } from '../action';
+import { fetchSearchFailed, fetchSearchSuccess, fetchSearchRequest, clearSearchHistory } from '../action';
 import { FetchSearchRequestPayloadType } from '../types';
 
 describe('<SearchAction', () => {
@@ -29,6 +30,11 @@ describe('<SearchAction', () => {
         const result = fetchSearchFailed({ error: errorMessage })
         expect(result.type).toEqual(FETCH_SEARCH_ERROR)
         expect(result.payload.error).toEqual(errorMessage)
+    })
+
+    it('clearSearchHistory', () => {
+        const result = clearSearchHistory()
+        expect(result.type).toEqual(CLEAR_SEARCH_HISTORY)
     })
 
 })

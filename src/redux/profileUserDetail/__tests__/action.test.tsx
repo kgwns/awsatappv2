@@ -1,14 +1,16 @@
 import {
+    EMPTY_USER_PROFILE_DATA,
     FETCH_PROFILE_USER_DETAILS,
     FETCH_PROFILE_USER_DETAILS_ERROR,
     FETCH_PROFILE_USER_DETAILS_SUCCESS,
     SEND_USER_DETAILS,
     SEND_USER_DETAILS_ERROR,
     SEND_USER_DETAILS_SUCCESS,
+    UPDATE_PROFILE_USER_IMAGE,
     UPDATE_USER_IMAGE_FAILED,
     UPDATE_USER_IMAGE_SUCCESS
 } from 'src/redux/profileUserDetail/actionTypes';
-import { sendUserData, sendUserDataSuccess, sendUserDataFailed, fetchUserProfileDetail, fetchUserProfileDetailFailed, fetchUserProfileDetailsSuccess, updateUserImageFailed, updateUserImageSuccess } from 'src/redux/profileUserDetail/action';
+import { sendUserData, sendUserDataSuccess, sendUserDataFailed, fetchUserProfileDetail, fetchUserProfileDetailFailed, fetchUserProfileDetailsSuccess, updateUserImageFailed, updateUserImageSuccess, updateUserImage, emptyUserProfileData } from 'src/redux/profileUserDetail/action';
 import { SendUserData } from 'src/redux/profileUserDetail/types';
 
 describe('send user data Action', () => {
@@ -75,6 +77,16 @@ describe('send user data Action', () => {
             error: ''
         })
         expect(request.type).toEqual(UPDATE_USER_IMAGE_FAILED)
+    })
+
+    test('updateUserImage', () => {
+        const request = updateUserImage({ image: '' })
+        expect(request.type).toEqual(UPDATE_PROFILE_USER_IMAGE)
+    })
+
+    test('emptyUserProfileData', () => {
+        const request = emptyUserProfileData()
+        expect(request.type).toEqual(EMPTY_USER_PROFILE_DATA)
     })
 })
 

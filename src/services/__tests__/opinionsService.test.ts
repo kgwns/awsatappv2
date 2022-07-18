@@ -1,6 +1,6 @@
 import axios, {AxiosError} from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { fetchOpinionsApi, fetchWriterOpinionsApi } from 'src/services/opinionsService';
+import { fetchHomeOpinionsListApi, fetchOpinionsApi, fetchOpinionsListApi, fetchWriterOpinionsApi } from 'src/services/opinionsService';
 import { OpinionsBodyGet, WriterOpinionsBodyGet } from 'src/redux/opinions/types';
 
 describe('Test Opinions Services', () => {
@@ -38,6 +38,7 @@ describe('Test Opinions Services', () => {
       expect(errorResponse.response?.status).toEqual(500);
     });
   });
+
   it('test when response code is 200', () => {
     mock.onGet().reply(200, {
       result: true,
@@ -58,4 +59,53 @@ describe('Test Opinions Services', () => {
       expect(errorResponse.response?.status).toEqual(500);
     });
   });
+
+  it('test when response code is 200', () => {
+    mock.onGet().reply(200, {
+      result: true,
+    });
+
+    return fetchOpinionsListApi({
+      nid: '12345',
+      page: 1,
+    }).then(response => {
+      expect(response).toBeInstanceOf(Object);
+    });
+  });
+
+  it('test when response code is 500', () => {
+    mock.onGet().reply(500, {
+      error: 'Something Went Wrong',
+    });
+
+    return fetchOpinionsListApi({
+      nid: '12345',
+      page: 1,
+    }).catch((error: unknown) => {
+      const errorResponse = error as AxiosError;
+      expect(errorResponse.response?.status).toEqual(500);
+    });
+  });
+
+  it('test when response code is 200', () => {
+    mock.onGet().reply(200, {
+      result: true,
+    });
+
+    return fetchHomeOpinionsListApi().then(response => {
+      expect(response).toBeInstanceOf(Object);
+    });
+  });
+
+  it('test when response code is 500', () => {
+    mock.onGet().reply(500, {
+      error: 'Something Went Wrong',
+    });
+
+    return fetchHomeOpinionsListApi().catch((error: unknown) => {
+      const errorResponse = error as AxiosError;
+      expect(errorResponse.response?.status).toEqual(500);
+    });
+  });
+
 });

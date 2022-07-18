@@ -93,3 +93,18 @@ describe('Test requestForgotPassword', () => {
         genObject.throw(errorResponse);
     });
 });
+
+describe('Test emptyForgotPassword ', () => {
+
+    it('check emptyForgotPasswordResponseInfo success', () => {
+      const genObject = emptyForgotPasswordResponseInfo();
+      genObject.next();
+      genObject.next();
+    });
+
+    it('check emptyLoginDataInfo success', () => {
+        const genObject = emptyLoginDataInfo();
+        genObject.next();
+        genObject.next();
+      });
+});

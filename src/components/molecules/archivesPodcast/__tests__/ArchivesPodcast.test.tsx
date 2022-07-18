@@ -1,4 +1,4 @@
-import { render, RenderAPI } from '@testing-library/react-native';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import { ArchivesPodcast } from 'src/components/molecules';
 
@@ -18,4 +18,10 @@ describe('<ArchivesPodcast>', () => {
     it('should render component', () => {
         expect(instance).toBeDefined()
     })
+
+    it('When ArchivesPodcastTO1 is pressed', () => {
+        const testItemId = instance.getByTestId('ArchivesPodcastTO1');
+        fireEvent(testItemId, 'onPress');
+        expect(console.log).toBeTruthy();
+    });
 })
