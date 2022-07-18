@@ -66,7 +66,7 @@ const rootReducer = combineReducers({
   documentaryVideo: documentaryVideoReducer,
   appPlayer: appPlayerReducer,
   notificationSaveToken: notificationSaveTokenReducer,
-  contactUsInfo,
+  contactUsInfo: contactUsInfo,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
