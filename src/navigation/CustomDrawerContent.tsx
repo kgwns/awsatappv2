@@ -260,8 +260,8 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           <ButtonList
             title={t('drawer.callUs')}
             onPress={() => onPressNavigation(
-              ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('about_the_news_paper'), id: ABOUT_US }
+              ScreensConstants.CONTACT_US_SCREEN, {}
+
             )}
             titleStyle={styles.nonBoldTitle}
           />

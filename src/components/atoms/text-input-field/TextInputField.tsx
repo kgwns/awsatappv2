@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { StyleProp, ViewStyle, TextStyle, StyleSheet, View, TextInput, KeyboardTypeOptions, I18nManager, TouchableOpacity } from 'react-native';
+import { StyleProp, ViewStyle, TextStyle, StyleSheet, View, TextInput, KeyboardTypeOptions, I18nManager, TouchableOpacity, TextInputProps } from 'react-native';
 import { normalize } from 'src/shared/utils/dimensions';
 import { Styles } from 'src/shared/styles';
 import EyeIcon from 'src/assets/images/icons/eye_icon.svg';
@@ -79,6 +79,9 @@ interface TextInputfieldProps {
   isMandatory?: boolean;
   errorStyle?: StyleProp<ViewStyle>;
   maxLength?: number;
+  leftIconStyle?: StyleProp<ViewStyle>;
+  multiline?: boolean;
+  textInputStyle?: StyleProp<TextInputProps>;
 }
 export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   placeholder,
@@ -100,6 +103,9 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   isMandatory = false,
   maxLength = 30,
   errorStyle,
+  leftIconStyle,
+  multiline = false,
+  textInputStyle,
   ...props
 }) => {
   const { themeData } = useTheme();
@@ -123,7 +129,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
     <View>
       <View style={styles.containerStyle}>
         <View style={[styles.container, style]}>
-          <View style={[styles.iconContainerStyle]}>
+          <View style={[styles.iconContainerStyle, leftIconStyle]}>
             {isPassword && <LockIcon width={11} height={14.15} fill={themeData.textColor} />}
             {leftIcon && leftIcon()}
           </View>
@@ -135,7 +141,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
               placeholder={placeholder}
               placeholderTextColor={themeData.textColor}
               value={value.toString()}
-              style={styles.textInputStyle}
+              style={StyleSheet.flatten([styles.textInputStyle, textInputStyle])}
               underlineColorAndroid="transparent"
               onFocus={handleFocus}
               onBlur={handleBlur}
@@ -147,6 +153,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
               editable={editable}
               maxLength={maxLength}
               contextMenuHidden={isPassword}
+              multiline={multiline}
               {...props}
             />
           </View>
