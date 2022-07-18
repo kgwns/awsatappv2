@@ -137,9 +137,9 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                         resizeMode={'cover'}
                     />
                 </View>
-                <View style={style.progrsBarSection}>
+                <View style={[style.progrsBarSection, {transform: [{ scaleX: isIOS ? 0.5:1 }, { scaleY: isIOS ? 0.5:1 }]}]}>
                     <Slider
-                        style={[{ width: '100%', height: 30 }, isIOS && { direction: 'ltr'  }]}
+                        style={[{ width: isIOS ? '200%' : '100%', height: 15, alignSelf: 'center', }, isIOS && { direction: 'ltr'  }]}
                         minimumValue={0}
                         maximumValue={progress.duration}
                         minimumTrackTintColor="#2C8A82"
