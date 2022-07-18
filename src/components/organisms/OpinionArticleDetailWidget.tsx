@@ -136,7 +136,7 @@ export const OpinionArticleDetailWidget = ({
         {isNotEmpty(data.jwplayer) && isObjectNonEmpty(mediaData) && <View style={style.listenToArticleCard}>
           <ListenToArticleCard data={mediaData} togglePlayback={togglePlayback} selectedTrack={selectedTrack} nid={nid} authorImage={data.writer[0]?.opinion_writer_photo} title={ isNotEmpty(data.title) ? data.title : '' } />
         </View>}
-        <Label style={style.title}>{data.title}</Label>
+        <Label style={style.title} children={decodeHTMLTags(data.title)} />
         <ArticleFooter
           {...articleDetailFooterData}
           leftTitle={timeFormat.time}

@@ -251,7 +251,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: normalize(8),
       lineHeight: 26,
       color: theme.secondaryDavyGrey,
-      fontFamily: fonts.IBMPlexSansArabic_Regular,
+      fontFamily: fonts.Effra_Arbc_Regular,
     },
     footerContainer: {
       flexDirection: 'row',
