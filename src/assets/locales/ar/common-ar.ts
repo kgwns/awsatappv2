@@ -352,5 +352,11 @@ export const arabic = {
   myNewsWriters: {
     noContent: 'لم يتم حفظ أي شيء حتى الآن',
     allTxt: 'الكل'
+  },
+  contactUs: {
+    name: 'الإسم',
+    email: 'إيميل',
+    yourLetter: 'رسالتك',
+    send: 'ارسل',
   }
 }

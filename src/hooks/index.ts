@@ -24,4 +24,5 @@ export { useWriterDetail } from 'src/hooks/useWriterDetail';
 export { useDocumentaryVideo } from 'src/hooks/useDocumentaryVideo';
 export { useAppPlayer } from 'src/hooks/useAppPlayer';
 export { useNotificationSaveToken } from 'src/hooks/useNotificationSaveToken';
+export { useContactUs } from 'src/hooks/useContactUs'
 

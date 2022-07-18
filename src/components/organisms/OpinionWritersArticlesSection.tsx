@@ -104,7 +104,7 @@ const OpinionWritersArticlesSection = ({
           writerTitle={ isNonEmptyArray(item.field_opinion_writer_node_export)
             ?item.field_opinion_writer_node_export[0].name
             :item.field_opinion_writer_node_export.name}
-          headLine={item.title}
+          headLine={decodeHTMLTags(item.title)}
           subHeadLine={ (Platform.OS==='android')
           ?decodeHTMLTags(item.body.slice(0,slice))
           :decodeHTMLTags(item.body)}
