@@ -9,8 +9,6 @@ import BookMarkWhiteBdrSVG from 'src/assets/images/icons/bookmark_white_bdr.svg'
 import BookMarkWhiteFillSVG from 'src/assets/images/icons/bookmark_white_fill.svg'
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
-import { useAppCommon } from 'src/hooks'
-import { isDarkTheme } from '../utils'
 import ApplePodcastIcon from 'src/assets/images/icons/apple_podcast.svg'
 import ApplePodcastDarkIcon from 'src/assets/images/icons/apple_podcast_dark.svg'
 import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.svg'
@@ -135,6 +133,12 @@ import HomeIconDark from 'src/assets/images/icons/homeIconDark.svg';
 
 import PopupImage from 'src/assets/images/popupImage.svg'
 import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg';
+
+//Contact Us
+import EmailGrayIcon from 'src/assets/images/email_gray_icon.svg'
+import ChatBubbleIcon from 'src/assets/images/chat_bubble_icon.svg'
+import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
+
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
@@ -321,9 +325,15 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.myNewsIcon:
             return <MyNewsIcon {...props} />
         case ImagesName.myNewsActiveIcon:
-                return <MyNewsActiveIcon {...props} />
+            return <MyNewsActiveIcon {...props} />
         case ImagesName.homeIcon:
             return isDark ? <HomeIconDark {...props} /> : <HomeIcon {...props} />
+        case ImagesName.profileNameIcon:
+            return <UserTextFieldIcon {...props} />
+        case ImagesName.emailGrayIcon:
+            return <EmailGrayIcon {...props} />
+        case ImagesName.chatBubbleIcon:
+            return <ChatBubbleIcon {...props} />
         default: return null
     }
 }

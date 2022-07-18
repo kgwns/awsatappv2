@@ -36,6 +36,7 @@ import {
   PDFArchive,
   PDFEditorView,
   MyNewsScreen,
+  ContactUs,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -82,6 +83,7 @@ export const Routes = {
   PDFArchive,
   PDFEditorView,
   MyNewsScreen,
+  ContactUs,
 };
 
 /**

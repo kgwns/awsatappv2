@@ -38,6 +38,7 @@ const DYNAMIC_GAME_SCREEN = 'DynamicGameScreen' as ScreenName
 const DOWNLOAD_NEWS = 'DOWNLOAD_NEWS' as ScreenName
 const PDFArchive = 'PDFArchive' as ScreenName
 const PDF_EDITOR_VIEW = 'PDFEditorView' as ScreenName
+const CONTACT_US_SCREEN = 'ContactUsScreen' as ScreenName
 
 
 const HEADER_LOGO = 'headerLogo';
@@ -86,4 +87,5 @@ export const ScreensConstants = {
   DOWNLOAD_NEWS,
   PDFArchive,
   PDF_EDITOR_VIEW,
+  CONTACT_US_SCREEN,
 };

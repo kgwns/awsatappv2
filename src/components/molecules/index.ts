@@ -58,3 +58,4 @@ export { CustomTabBarItem } from 'src/components/molecules/customTabBarItem/Cust
 export { MyTopicsHorizontalSlider } from 'src/components/molecules/MyTopicsHorizontalSlider';
 export { AuthorsHorizontalSlider } from 'src/components/molecules/AuthorsHorizontalSlider';
 export { DetailHeader } from 'src/components/molecules/detailHeader/DetailHeader';
+export { StaticPageHeader, StaticPageHeaderType } from 'src/components/molecules/staticPageHeader/StaticPageHeader'
