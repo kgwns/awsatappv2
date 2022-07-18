@@ -130,6 +130,8 @@ import PlayBackwardIcon from 'src/assets/images/icons/playBackward.svg';
 import HeadPhoneIcon from 'src/assets/images/icons/headPhoneIcon.svg';
 import PrintVersionActiveIcon from 'src/assets/images/icons/print_version_green.svg';
 import PrintVersionGrayIcon from 'src/assets/images/icons/print_version_gray.svg';
+import HomeIcon from 'src/assets/images/icons/homeIcon.svg';
+import HomeIconDark from 'src/assets/images/icons/homeIconDark.svg';
 
 import PopupImage from 'src/assets/images/popupImage.svg'
 import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg';
@@ -320,6 +322,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <MyNewsIcon {...props} />
         case ImagesName.myNewsActiveIcon:
                 return <MyNewsActiveIcon {...props} />
+        case ImagesName.homeIcon:
+            return isDark ? <HomeIconDark {...props} /> : <HomeIcon {...props} />
         default: return null
     }
 }

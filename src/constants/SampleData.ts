@@ -109,6 +109,12 @@ export const storeInfo = [
       error: '',
       isLoading: false,
     },
+    notificationSaveToken: {
+      SaveTokenInfo: { id: 2, message: '' },
+      SaveTokenAfterRegistraionInfo: { message: '' },
+      error: '',
+      isLoading: false,
+    },
     sectionArticles: {
       sectionArticlesData: {
         rows: [],
@@ -1212,10 +1218,10 @@ export const myNewsTopTabData = [
     tabName: 'كتابي',
   },
   
-  {
-    isSelected: false, 
-    keyName: 'media', 
-    tabName: 'ميديا',
-  },
+  // {
+  //   isSelected: false, 
+  //   keyName: 'media', 
+  //   tabName: 'ميديا',
+  // },
 
 ]

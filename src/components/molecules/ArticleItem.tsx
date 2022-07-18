@@ -14,6 +14,7 @@ export interface ArticleItemProps extends articleProps {
     articleItemStyle?: ViewStyle,
     showDivider?: boolean,
     showFooterTitle?: boolean,
+    containerStyle?: ViewStyle
 }
 
 const ArticleItem: FunctionComponent<ArticleItemProps> = ({
@@ -24,6 +25,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     showDivider,
     showFooterTitle,
     hideImage,
+    containerStyle,
     ...props
 }) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
@@ -39,7 +41,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
                 style={StyleSheet.flatten([style.container, articleItemStyle])}>
                 {!hideImage && isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
-                <View style={style.contentContainer}>
+                <View style={StyleSheet.flatten([style.contentContainer, containerStyle])}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
                         onPressBookmark={onPressBookmark} titleStyle={props.titleStyle} bodyStyle={props.bodyStyle}
                     />

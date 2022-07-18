@@ -29,6 +29,8 @@ export enum TranslateKey {
     CONST_MORE,
     CONST_READ_ARTICLE,
     RICH_OPINION_TITLE,
+    TAB_ALL_TITLE,
+    NO_CONTENT_TITLE
 }
 
 export const TranslateConstants = ({
@@ -91,6 +93,10 @@ export const TranslateConstants = ({
             return t('richHTMLContent.readArticle')
         case TranslateKey.RICH_OPINION_TITLE:
             return t('richHTMLContent.opinionTitle')
+        case TranslateKey.TAB_ALL_TITLE:
+            return t('myNewsWriters.allTxt')
+        case TranslateKey.NO_CONTENT_TITLE:
+            return t('myNewsWriters.noContent')
         default: return ''
     }
 }

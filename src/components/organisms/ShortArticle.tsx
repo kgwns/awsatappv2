@@ -111,8 +111,8 @@ const ShortArticle = ({ data, headerLeft, onPress,
         style={StyleSheet.flatten([style.cardContainer, cardStyle, containerStyle])}>
         <View style={{ flexDirection: 'row' }}>
           <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
-            <View style={[hideImage && style.titleViewHideImage]}>
-              <TextWithFlag {...item} numberOfLines={2} labelType={labelType} />
+            <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
+              <TextWithFlag {...item} numberOfLines={0} labelType={labelType} />
             </View>
             
             {isNotEmpty(item.body) && showBody &&
@@ -214,6 +214,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   titleViewHideImage: {
     marginBottom: 30,
-  }
+  },
+  titleViewWithImage: {
+    paddingBottom: 20,
+  },
 })
 

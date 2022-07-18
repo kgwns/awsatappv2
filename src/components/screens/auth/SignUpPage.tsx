@@ -25,7 +25,7 @@ import {
   loginPasswordValidation,
   reTypePasswordValidation,
 } from 'src/shared/validators';
-import {useRegister, useSearch, useUserProfileData} from 'src/hooks';
+import {useLogin, useNotificationSaveToken, useRegister, useSearch, useUserProfileData} from 'src/hooks';
 import {RegisterBodyType} from 'src/redux/register/types';
 import DeviceInfo from 'react-native-device-info';
 import {fetchLoginSuccess} from 'src/redux/login/action';
@@ -38,6 +38,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
+import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
 
 export interface SignUpPageProps {
   route: any;
@@ -62,6 +63,10 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
     registerError,
     emptyUserInfo,
   } = useRegister();
+
+  const { loginData } = useLogin();
+  const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
+  
   const initialRender = useRef(true);
 
   const dispatch = useDispatch();
@@ -103,6 +108,16 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
       setIsAlertVisible(true);
     }
   }, [registerError]);
+
+  useEffect(() => {
+    if((loginData?.user?.id) && saveTokenData?.id){
+      const payload: SaveTokenAfterRegistraionBodyType = {
+        id: (saveTokenData?.id).toString(),
+        uid: (loginData?.user?.id),
+      };
+      saveTokenAfterRegistrationRequest(payload)
+    }
+  }, [loginData]);
 
   useEffect(() => {
     const message = registerUserInfo?.message;

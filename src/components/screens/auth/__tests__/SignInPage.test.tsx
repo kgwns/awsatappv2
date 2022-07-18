@@ -12,6 +12,40 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
+jest.mock("src/hooks/useNotificationSaveToken", () => ({
+  useNotificationSaveToken: () => {
+    return {
+      isSaveTokenLoading: false,
+      saveTokenData: {},
+      storeServerEnvironmentInfo: () => [],
+      saveTokenError: '',
+      saveTokenRequest: () => [],
+      saveTokenAfterRegistrationRequest: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      isLoading: false,
+      loginData: {},
+      loginError: 'example',
+      fetchLoginRequest: () => [],
+      isLoggedIn: false,
+      token: 'string',
+      user: {},
+      fetchLogoutRequest: () => [],
+      loginSkipped: () => [],
+      isSkipped: false,
+      forgotPassswordResponse: {},
+      forgotPassworRequest: () => [],
+      emptyforgotPassworResponseInfo: () => [],
+      emptyLoginDataInfo: () => [],
+    }
+  },
+}));
+
 describe('<SignInPage>', () => {
   let instance: RenderAPI;
   const navigation = {

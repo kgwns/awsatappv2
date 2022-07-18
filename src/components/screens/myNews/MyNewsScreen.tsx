@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ScreenContainer } from '..'
-import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, normalizeBy320, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils';
 import { Label } from 'src/components/atoms';
 import { Dimensions, View, StyleSheet, StatusBar } from 'react-native';
 import { Styles } from 'src/shared/styles';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { TabBar, TabView } from 'react-native-tab-view';
-import { TabWithBarItem } from 'src/components/molecules';
+import { CustomTabBarItem, SignupAlertCard } from 'src/components/molecules';
 import { fonts } from 'src/shared/styles/fonts';
-import { myNewsTopTabData } from 'src/constants/SampleData'
+import { MyNewsTopics } from 'src/components/organisms/myTopics/MyNewsTopics';
+import { myNewsTopTabData } from 'src/constants/SampleData';
+import { MyNewsWriters } from 'src/components/organisms';
+import { useLogin } from 'src/hooks';
+import { t } from 'i18next';
+import { ScreensConstants } from 'src/constants';
+import { useNavigation } from '@react-navigation/native';
 
 export enum MyNewsTabType {
   media = 'media',
@@ -19,11 +25,18 @@ export enum MyNewsTabType {
 
 export const MyNewsScreen = () => {
   const styles = useThemeAwareObject(customStyle);
+  const {isLoggedIn} = useLogin();
+  const navigation = useNavigation();
   const [routes, setNewRoutes] = useState<any>([]);
   const [index, setIndex] = React.useState(0);
+  const showPopUp = useRef(!isLoggedIn)
 
   useEffect(() => {
-    let newRoutesArray = myNewsTopTabData.map((item, index) => {
+    configData()
+  }, [])
+
+  const configData = () => {
+    const newRoutesArray = myNewsTopTabData.map((item, index) => {
       return {
         key: `${index}${item.keyName}`,
         title: item.tabName,
@@ -31,7 +44,18 @@ export const MyNewsScreen = () => {
       };
     })
     setNewRoutes(newRoutesArray)
-  }, [])
+  }
+
+  const onPressSignup = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{name: ScreensConstants.AuthNavigator}],
+    });
+  };
+
+  const onCloseSignUpAlert = () => {
+    showPopUp.current = false;
+  };
 
   const renderScene = ({ route }: any) => {
     if (Math.abs(index - routes.indexOf(route)) > 2) {
@@ -47,15 +71,11 @@ export const MyNewsScreen = () => {
         )
       case MyNewsTabType.writers:
         return (
-          <View style={styles.childStyle}>
-            <Label children={'Work in Progress - Writers'} />
-          </View>
+          <MyNewsWriters />
         )
       case MyNewsTabType.topics:
         return (
-          <View style={styles.childStyle}>
-            <Label children={'Work in Progress - Topics'} />
-          </View>
+          <MyNewsTopics />
         )
       default:
         return null
@@ -75,6 +95,11 @@ export const MyNewsScreen = () => {
     );
   };
 
+  const isPortrait = () => {
+    const dim = Dimensions.get('screen');
+    return dim.height >= dim.width;
+  };
+
   const _renderTabBar = (props: any) => {
     return (
       <TabBar
@@ -90,30 +115,47 @@ export const MyNewsScreen = () => {
         renderTabBarItem={(item) => {
           const number = item.key.match(/\d+/g) || '0';
           const tabIndex = isNonEmptyArray(number) ? parseInt(number[0]) : 0
-        
-          return <TabWithBarItem index={tabIndex}
-            key={tabIndex}
-            onPress={setIndex}
-            tabName={item.route.title || ''}
-            isSelected={tabIndex == item.navigationState.index}
-            selectionColor={true}
-            labelFont={fonts.Effra_Arbc_Regular}
-          />
+
+          return <View>
+            <CustomTabBarItem index={tabIndex}
+              key={tabIndex}
+              onPress={setIndex}
+              tabName={item.route.title || ''}
+              isSelected={tabIndex == item.navigationState.index}
+              labelFont={fonts.Effra_Arbc_Regular}
+            />
+            <View style={styles.tabBarBottomView} />
+          </View>
         }}
       />
     );
   };
 
   return (
-    <ScreenContainer edge={horizontalEdge}>
-      <View style={styles.scene} testID={'tabContent'}>
-        {routes.length > 0 && tabsView()}
-      </View>
+    <ScreenContainer
+      edge={horizontalEdge}
+      isSignUpAlertVisible={showPopUp.current}
+      onCloseSignUpAlert={onCloseSignUpAlert}>
+      {isLoggedIn ? (
+        <View style={(isPortrait() && isIOS) ? styles.orientationStyle : styles.scene} testID={'tabContent'}>
+          {routes.length > 0 && tabsView()}
+        </View>
+      ) : (
+        <SignupAlertCard
+          title={t('signUpPH.title')}
+          message={t('signUpPH.message')}
+          buttonText={t('signUpPH.signUp')}
+          onPress={onPressSignup}
+        />
+      )}
     </ScreenContainer>
-  )
+  );
 }
 
 const initialLayout = { width: Dimensions.get('window').width };
+const { width: orientationWidth, height: orientationHeight } = Dimensions.get('window');
+const orientationStyleWidth = Math.min(orientationHeight, orientationWidth);
+
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     marginTop: isIOS ? StatusBar.currentHeight : 0,
@@ -140,8 +182,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   tabBarStyle: {
     marginHorizontal: 10,
-    backgroundColor: 'orange',
-    width: screenWidth * 0.33,
   },
   childStyle: {
     width: '100%',
@@ -149,7 +189,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  tabBarBottomView: {
+    width: '100%',
+    height: 1.2,
+    backgroundColor: theme.dividerColor,
+    position: 'absolute',
+    bottom: 0
+  },
+  orientationStyle: {
+    flex: 1,
+    width: orientationStyleWidth
+  }
 });
-
-
-

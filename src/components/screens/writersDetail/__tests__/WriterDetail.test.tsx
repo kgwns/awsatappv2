@@ -8,6 +8,13 @@ jest.mock('react', () => ({
     useState: jest.fn(),
   }));
 
+jest.mock('@react-navigation/native', () => ({
+    ...jest.requireActual('@react-navigation/native'),
+    useNavigation: jest.fn(),
+    useNavigationState: () => ([]),
+    useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+}));
+
 describe('< Writer Detail >', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();

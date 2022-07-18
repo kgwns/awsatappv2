@@ -38,7 +38,7 @@ export const SectionArticlesParentScreen = () => {
       case TabType.games:
         return <GameScreen />
       default:
-        return <SectionStoryScreen sectionId={sectionId} />;
+        return <SectionStoryScreen sectionId={sectionId} childInfo={[]} />;
     }
   }
 
