@@ -1,11 +1,15 @@
 import React from 'react';
-import {render, RenderAPI} from '@testing-library/react-native';
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../constants/SampleData';
 import {MostReadList} from '..';
+import { ArticleItem } from 'src/components/molecules';
+import { FlatList } from 'react-native';
 
 describe('<MostReadList>', () => {
   let instance: RenderAPI;
+  const mockFn = jest.fn();
+
   const sampleData: any = [
     {
       nid: 'nid',
@@ -27,7 +31,7 @@ describe('<MostReadList>', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <MostReadList data={sampleData} />
+        <MostReadList data={sampleData} onScroll={mockFn} isLoading={true} enableTag={true} flag={true}/>
       </Provider>
     );
     instance = render(component);
@@ -40,5 +44,23 @@ describe('<MostReadList>', () => {
 
   test('Should render component', () => {
     expect(instance).toBeDefined();
+  });
+
+  test('Should call ArticleItem onPress', () => {
+    const element = instance.container.findByType(ArticleItem)
+    fireEvent(element, 'onPressBookmark', {index:2});
+    expect(mockFn).toBeTruthy()
+  })
+
+  test('Should call FixedTouchable onPress', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'onEndReached');
+    expect(mockFn).toBeTruthy()
+  });
+
+  test('Should call FixedTouchable onPress', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'onScrollBeginDrag');
+    expect(mockFn).toBeTruthy()
   });
 });

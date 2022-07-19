@@ -269,7 +269,7 @@ const VideoPlayerFullScreen = ({
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback
-        testID="VideoPlayerControlId"
+        testID="VideoPlayerFullScreenId"
         style={{flex: 1}}
         onPress={onScreenTouch}>
         <View style={{flex: 1}}>

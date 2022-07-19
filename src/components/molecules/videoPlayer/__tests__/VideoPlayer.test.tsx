@@ -39,7 +39,7 @@ describe('<VideoPlayer>', () => {
     (useState as jest.Mock).mockImplementation(() => [false, setFullScreen]);
     (useState as jest.Mock).mockImplementation(() => [[], setEdge]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      const component = <VideoPlayerComponent url={url}  />
+      const component = <VideoPlayerComponent url={url} goBack={mockFunction} testID={'ID'} />
       instance = render(component)
       jest.useFakeTimers();
     })
@@ -80,6 +80,12 @@ describe('<VideoPlayer>', () => {
     test('Should call onExitFullscreen', () => {
       const element = instance.container.findByType(VideoPlayerFullScreen)
       fireEvent(element, 'onExitFullscreen');
+      expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call onClose', () => {
+      const element = instance.container.findByType(VideoPlayerFullScreen)
+      fireEvent(element, 'onClose');
       expect(mockFunction).toBeTruthy()
     });
 
