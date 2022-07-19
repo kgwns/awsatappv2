@@ -133,6 +133,14 @@ export const RenderDescriptionElement = ({ paragraphInfo, fontSize }: { paragrap
                 descriptionText[i].style["color"] = "${themeData.primaryBlack}";
             } 
         }
+
+        var imageElement = document.getElementsByTagName("img");
+        if(imageElement && imageElement.length > 0) {
+            for(i=0; i < imageElement.length; i++) {
+              imageElement[i].style["max-width"] = "100%"; 
+              imageElement[i].style["height"] = "auto"; 
+            } 
+        }
     }, ` + 0 + `)
     `
 
@@ -197,6 +205,14 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
                 descriptionText[i].style["direction"] = "rtl"
                 descriptionText[i].style["text-align"] = "justify";  
                 descriptionText[i].style["color"] = "${themeData.primaryBlack}";
+            } 
+        }
+
+        var imageElement = document.getElementsByTagName("img");
+        if(imageElement && imageElement.length > 0) {
+            for(i=0; i < imageElement.length; i++) {
+              imageElement[i].style["max-width"] = "100%"; 
+              imageElement[i].style["height"] = "auto"; 
             } 
         }
     }, ` + 0 + `)
