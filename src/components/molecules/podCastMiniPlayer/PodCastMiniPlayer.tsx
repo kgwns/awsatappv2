@@ -33,6 +33,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
 }) => {
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
+    const isPlaying = playbackState === State.Playing;
     const isLoading = (playbackState === State.None || playbackState === State.Connecting ) && (playbackState !== State.Paused && playbackState !== State.Playing)
     const { selectedTrack } = useAppPlayer()
     
@@ -162,7 +163,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                         {_playForwardIcon}
                     </TouchableOpacity>
                     <TouchableOpacity testID={'playPause'} onPress={() => onPlayPausePress(playbackState)}>
-                        { playbackState === State.Playing ? _pauseIcon : _playIcon }
+                        { isPlaying ? _pauseIcon : _playIcon }
                     </TouchableOpacity>
                     <TouchableOpacity testID={'playBackwardIcon'} onPress={() => { seekForwardBackward('forward') }}>
                         {_playBackwardIcon}
@@ -185,7 +186,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     </View>
                     <View style={style.titleContainer}>
                         <TextTicker
-                            disabled={playbackState === State.Playing ? false : true}
+                            disabled={isPlaying ? false : true}
                             animationType={'scroll'}
                             shouldAnimateTreshold={0}
                             duration={8000}
@@ -195,7 +196,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     </View>
                     <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
                         <View style={[style.buttonContainer, isPortrait() ? style.buttonContainerPortrait : style.buttonContainerLandscape]}>
-                            {isLoading ? <ActivityIndicator /> : playbackState === State.Playing ? <Pause /> : <Play /> }
+                            {isLoading ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play /> }
                         </View>
                     </TouchableOpacity>
                 </TouchableOpacity>
