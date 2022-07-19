@@ -147,6 +147,18 @@ export const ArticleDetailScreen = ({
     }
   }, [articleFontSize])
 
+  useEffect(() => {
+    if (!isFocused) {
+      videoRefs?.current[0]?.setNativeProps({
+        paused: true,
+      });
+      videoRefs?.current[1]?.setNativeProps({
+        paused: true,
+      });
+    } else {
+      setPlayerVisible(false);
+    }
+  }, [isFocused]);
 
   const validateBookmark = (nid: string): boolean => {
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
