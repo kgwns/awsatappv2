@@ -241,7 +241,7 @@ const customStyle = (theme: CustomThemeType) => {
     headLine: {
       fontSize: 18,
       textAlign: 'left',
-      lineHeight: 24,
+      lineHeight: 30,
       color: theme.primaryBlack,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },

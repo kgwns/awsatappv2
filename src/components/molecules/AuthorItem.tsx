@@ -149,11 +149,12 @@ const AuthorItem = ({
     }
 
     const renderLabels = () => {
-      return renderLabelsOrder.map((item: LabelsType) => {
+      return renderLabelsOrder.map((item: LabelsType, index: number) => {
         switch (item) {
           case LabelsType.authorName:
             return (
-                <Label
+                <Label 
+                  key={index}
                   children={author}
                   labelType={LabelTypeProp.p4}
                   style={style.authorTitle}
@@ -167,6 +168,7 @@ const AuthorItem = ({
           case LabelsType.title:
             return (
                 <Label
+                  key={index}
                   children={body}
                   labelType={LabelTypeProp.h3}
                   numberOfLines={2}
