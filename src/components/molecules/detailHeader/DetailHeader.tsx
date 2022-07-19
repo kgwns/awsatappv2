@@ -38,7 +38,7 @@ const customStyle = (theme: CustomThemeType) => (
         homeIconContainer: {
             position: 'absolute',
             right: isIOS ? 15 : 20,
-            top: isIOS ? normalize(50) : 25
+            top: isIOS ? normalize(50) : normalize(18)
         }
     })
 )

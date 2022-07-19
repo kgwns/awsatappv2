@@ -101,7 +101,7 @@ export const WriterBannerImage = ({
       {
         getSvgImages({
           name: isFollowed ? ImagesName.tickIcon : ImagesName.plusGreen,
-          size: normalize(10),
+          size: isFollowed ? 16 : 10
         })
       }
       <Label style={[style.followLabel, { color: isFollowed ? Styles.color.white : Styles.color.greenishBlue, }]}>
@@ -267,7 +267,7 @@ const customStyle = (theme: CustomThemeType) => {
     followLabel: {
       fontSize: 13,
       lineHeight: 27,
-      marginStart: normalize(5),
+      marginStart: 2,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     prevIconStyle: {
