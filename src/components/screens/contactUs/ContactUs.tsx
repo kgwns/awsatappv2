@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity, ScrollView, Keyboard } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { AlertPayloadType, ScreenContainer } from '../ScreenContainer/ScreenContainer'
-import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, normalize, screenWidth } from 'src/shared/utils'
+import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, normalize, screenWidth, testProps } from 'src/shared/utils'
 import { StaticPageHeader } from 'src/components/molecules'
 import { TranslateConstants, TranslateKey } from 'src/constants'
 import { Label, TextInputField } from 'src/components/atoms'
@@ -138,7 +138,7 @@ export const ContactUs = () => {
     const sendButton = () => {
         return (
             <View style={style.sendMainContainer}>
-                <TouchableOpacity disabled={disableSend} onPress={onPressSend}
+                <TouchableOpacity {...testProps('sendButton')} disabled={disableSend} onPress={onPressSend}
                     style={[style.sendButton, { opacity: disableSend ? 0.7 : 1 }]}
                 >
                     <Label children={CONST_SEND} style={style.sendButtonLabel} />

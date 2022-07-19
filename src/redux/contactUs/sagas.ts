@@ -20,7 +20,7 @@ const formatData = (response: any): ContactUsInfoSuccessPayload => {
 
 export function* sendContactUsInfo(action: SendContactUsInfoType) {
   try {
-    const payload: { rows: any[], pager: object } = yield call(
+    const payload: { message: any } = yield call(
       sendContactUsService,
       action.payload
     );
