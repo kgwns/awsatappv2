@@ -3,7 +3,7 @@ import {
   GET_BOOK_MARKED, GET_BOOK_MARKED_DETAIL_INFO, GET_BOOK_MARKED_FAILED, GET_BOOK_MARKED_FAILED_DETAIL_INFO, GET_BOOK_MARKED_SUCCESS,
   GET_BOOK_MARKED_SUCCESS_DETAIL_INFO,
   REMOVE_BOOK_MARKED, REMOVE_BOOK_MARKED_FAILED, REMOVE_BOOK_MARKED_SUCCESS,
-  SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS, UPDATED_FILTERED_DATA_SUCCESS
+  SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS, UPDATED_FILTERED_DATA_SUCCESS, UPDATE_ADD_REMOVE_BOOK_MARK
 } from "./actionType"
 
 
@@ -207,6 +207,11 @@ export interface RemoveBookMarkDetailFailedType {
   payload: RemoveBookMarkDetailFailedPayload
 }
 
+export interface UpdateAddRemoveBookMarkDetailType {
+  type: typeof UPDATE_ADD_REMOVE_BOOK_MARK,
+  payload: GetBookmarkDetailSuccessPayload
+}
+
 
 export type BookmarkAction =
   SendBookMarkDetailType
@@ -222,3 +227,4 @@ export type BookmarkAction =
   | GetBookmarkDetailSuccessType
   | GetBookMarkDetailFailedType
   | UpdatedFilterBookmarkType
+  | UpdateAddRemoveBookMarkDetailType

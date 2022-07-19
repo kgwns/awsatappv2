@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { BookmarkDetailDataType, BookmarkIdSuccessDataFieldType, RemoveBookmarkDetailDataBody, SendBookMarkBodyGet, SendBookMarkSuccessInfoType } from 'src/redux/bookmark/types';
 import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookmarkError, getBookmarkLoading, getBookMarkSuccessInfo, getFilteredBookmarkDetailInfo, getIsLoading } from 'src/redux/bookmark/selectors';
-import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMarkedSuccessDetailInfo, removeBookmarked, sendBookMarkId, updateFilteredBookMarkedInfo } from 'src/redux/bookmark/action';
+import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMarkedSuccessDetailInfo, removeBookmarked, sendBookMarkId, updateBookMarkedDetailInfo, updateFilteredBookMarkedInfo } from 'src/redux/bookmark/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 import { isArray, isNonEmptyArray, joinArray, recordLogEvent } from 'src/shared/utils';
 import { getProfileUserDetails } from 'src/redux/profileUserDetail/selectors';
@@ -89,7 +89,7 @@ export const useBookmark = (): UseBookMarkReturn => {
 
   const updateBookDetailInfo = (bookmarkDetail: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[], filteredBookmarkDetail: any[]) => {
     dispatch(getBookMarkedSuccess({ bookmarkedInfo: bookmarkIDDetail }))
-    dispatch(getBookMarkedSuccessDetailInfo({ bookmarkedDetailInfo: bookmarkDetail, page: 0 }))
+    dispatch(updateBookMarkedDetailInfo({ bookmarkedDetailInfo: bookmarkDetail, page: 0 }))
     dispatch(updateFilteredBookMarkedInfo({ filteredData: filteredBookmarkDetail }))
   }
 
