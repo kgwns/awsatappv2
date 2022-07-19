@@ -2,7 +2,7 @@ import { View,StyleSheet } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FilterComponent, FilterDataType, PopulateWidgetType } from 'src/components/molecules'
-import { isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
+import { isArray, isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
 import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
@@ -51,6 +51,7 @@ export const Archives = () => {
         getBookmarkDetailData, getSpecificBundleFavoriteDetail,
         bookmarkDetail, bookmarkLoading,
         isAllBookmarkFetched, filterBookmarkDetailInfo,
+        bookmarkIdInfo,
     } = useBookmark()
 
     //State
@@ -65,13 +66,14 @@ export const Archives = () => {
     }, [])
 
     useEffect(() => {
-        if (isFocused) {
-            getBookmarkedId()
+        const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length == bookmarkDetail.length
+        if (isFocused && !isAllDataFetched) {
+           getBookmarkedId()
             if (tabSelectedIndex != 0) {
                 getSpecificBundleFavoriteDetail(widgetNameByIndex(tabSelectedIndex), 0)
             }
+            setInitialLoading(isFocused)
         }
-        setInitialLoading(isFocused)
     }, [isFocused])
 
     useEffect(() => {
