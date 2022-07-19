@@ -5,7 +5,6 @@ import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { useNotificationSaveToken } from 'src/hooks';
 import { SaveTokenBodyType } from 'src/redux/notificationSaveToken/types';
-import { isIOS } from 'src/shared/utils'
 
 export const GetFCMToken = () => {
 
@@ -28,20 +27,8 @@ export const GetFCMToken = () => {
     };
 
     useEffect(() => {
-        if (isIOS) {
-            registerForRemoteMessages();
-        }
         getToken();
     }, []);
-    
-    const registerForRemoteMessages = () => {
-        messaging()
-        .registerDeviceForRemoteMessages()
-        .then(() => {
-            getToken();
-        })
-        .catch((e) => {console.log(e)});
-    };
 
   return <></>;
 };

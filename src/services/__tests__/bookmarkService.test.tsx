@@ -13,7 +13,8 @@ describe('Test BookMark Services', () => {
         nid: '12345'
     }
     const bodyGetBookmarkDetail: GetBookmarkDetailBodyGet = {
-        nid: '12345'
+        nid: '12345',
+        page: 1
     }
 
     beforeEach(() => {

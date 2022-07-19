@@ -42,7 +42,7 @@ describe('<Dynamic Widget>', () => {
     describe('Check with article data', () => {
         beforeEach(() => {
             (useState as jest.Mock).mockImplementation(() => ['2', setSelectedTrack]);
-            const component = <DynamicWidget data={[sampleArticleData]} onPressBookmark={mockFunction} onEndReached={mockFunction} isLoading={false}/>
+            const component = <DynamicWidget data={[sampleArticleData]} onPressBookmark={mockFunction} onEndReached={mockFunction} isLoading={true}/>
             instance = render(component)
         })
     
@@ -63,7 +63,7 @@ describe('<Dynamic Widget>', () => {
 
         test('Should call button image onPress', () => {
             const element = instance.container.findByType(PopulateWidget)
-            fireEvent(element, 'togglePlayback');
+            fireEvent(element, 'togglePlayback',{nid: '2', mediaData: [{playlist: ['abc', ['abc']], title: 'abc'}]});
             expect(mockFunction).toBeTruthy();
         })
     })

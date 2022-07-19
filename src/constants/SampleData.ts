@@ -277,6 +277,15 @@ export const storeInfo = [
       selectedTrack: null,
       isPlaying: false,
       showControl: false
+    },
+    contactUsInfo: {
+      isLoading: false,
+      sendContactInfoSuccess: 
+      {  
+        code: 1,
+        message: ''
+      },
+      sendContactInfoError: ''
     }
   },
 ];
