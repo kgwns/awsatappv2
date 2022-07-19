@@ -17,7 +17,7 @@ describe('All Bookmark Selector', () => {
 
     test('Get Response SuccessInfo data', () => {
         const bookMarkSuccessInfo: ContactUsInfoSuccessPayload = getSendSuccessInfo(storeData);
-        expect(bookMarkSuccessInfo).toEqual({});
+        expect(bookMarkSuccessInfo).toEqual({ code: 1, message: '' });
     });
 
     test('Get Response Error data', () => {
