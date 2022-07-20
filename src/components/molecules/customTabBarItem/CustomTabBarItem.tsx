@@ -63,13 +63,13 @@ const customStyle = StyleSheet.create({
   barLine: {
     width: '100%',
     height: isTab ? normalizeBy320(1) : normalizeBy320(2),
-    marginTop: normalize(12),
     zIndex: 9999
   },
   labelStyle: {
     fontSize: 14,
     lineHeight: 20,
-    fontFamily: fonts.Effra_Arbc_Regular
+    fontFamily: fonts.Effra_Arbc_Regular,
+    marginBottom: normalize(12),
   },
   newStyle: {
     width: 0.5 * screenWidth,

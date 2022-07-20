@@ -78,6 +78,7 @@ export const storeInfo = [
       pager: {},
       articleSectionData: [],
       articleSectionLoaded: false,
+      refreshBookmarkDetail: true,
     },
     search: {
       searchData: [],
@@ -370,41 +371,6 @@ export const authorHeaderData: WidgetHeaderProps = {
     clickable: true,
   },
 };
-
-export const authorWidgetData: AuthorItemProps[] = [
-  {
-    author: 'عادل درويش',
-    body: 'الصحافة بين الخصوصية والصالح العام',
-    duration: '3:22',
-    image: 'https://picsum.photos/200/300',
-    authorId: '123',
-    mediaVisibility: false,
-  },
-  {
-    author: 'عادل درويش',
-    body: 'الصحافة بين الخصوصية والصالح العام',
-    duration: '3:22',
-    image: 'https://picsum.photos/200/300',
-    authorId: '123',
-    mediaVisibility: false,
-  },
-  {
-    author: 'عادل درويش',
-    body: 'الصحافة بين الخصوصية والصالح العام',
-    duration: '3:22',
-    image: 'https://picsum.photos/200/300',
-    authorId: '123',
-    mediaVisibility: false,
-  },
-  {
-    author: 'عادل درويش',
-    body: 'الصحافة بين الخصوصية والصالح العام',
-    duration: '3:22',
-    image: 'https://picsum.photos/200/300',
-    authorId: '123',
-    mediaVisibility: false,
-  },
-];
 
 export const articleFooterSample: articleFooterProps = {
   leftTitle: 'وتمجيد',
@@ -1039,15 +1005,16 @@ export const storyWidgetData: StoryListProps[] = [
 ];
 
 const videoTabInfo: VideoItemProps = {
-  title:
-      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/400',
-    videoLabel: 'أمريكا',
-    time: '05:22',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    date: '7 ديسمبر ',
-    views: '1374',
-    shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
+  title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+  imageUrl: 'https://picsum.photos/400',
+  videoLabel: 'أمريكا',
+  time: '05:22',
+  des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+  date: '7 ديسمبر ',
+  views: '1374',
+  shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
+  isBookmarked: false,
+  onPressBookmark: () => { }
 }
 
 export const videoTabData: VideoItemProps[] = Array(5).fill(videoTabInfo)
@@ -1199,21 +1166,6 @@ export const videoArchiveData: VideoItemProps[] = [
     onPressBookmark: () => {},
   },
 ];
-
-export const topHeadLineNewsData = [
-  {
-    title: 'بعد روسيا… ماكرون في أوكرانيا لمحاولة نزع فتيل الأزمة',
-    nid: '123'
-  },
-  {
-    title: 'بايدن وشولتز يبحثان توحيد المواقف الغربية ضد روسيا',
-    nid: '123'
-  },
-  {
-    title: 'رهانات داخلية وخارجية لوساطة ماكرون مع بوتين',
-    nid: '123'
-  }
-]
 
 export const myNewsTopTabData = [
   {
