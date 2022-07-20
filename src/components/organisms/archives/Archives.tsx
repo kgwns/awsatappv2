@@ -201,8 +201,8 @@ export const Archives = () => {
     }
 
     return (
-        <View style={{ flex: 1 }}>
-            <View style={{ paddingStart: isTab ? normalize(0.02 * screenWidth) : 0.04 * screenWidth }}>
+        <View style={styles.contentContainer}>
+            <View style={styles.filterContainer}>
                 <FilterComponent data={filterItem} onPress={onPressFilterItem} />
             </View>
             {!initialLoading ?
@@ -234,4 +234,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: 0.80 * screenHeight
     },
+    filterContainer : {
+        paddingStart: isTab ? normalize(0.02 * screenWidth) : 0.04 * screenWidth,
+        marginTop: 10,
+        marginBottom: 18 
+    },
+    contentContainer: {
+        flex: 1
+    }
 })
