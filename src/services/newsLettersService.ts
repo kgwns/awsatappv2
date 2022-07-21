@@ -15,7 +15,6 @@ export const sendSelectedNewsLettersApi = async (body: SendSelectedNewsLettersBo
         
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };
@@ -28,7 +27,6 @@ export const getSelectedNewsLettersApi = async () => {
             );
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };
@@ -41,7 +39,6 @@ export const getMyNewsLettersApi = async () => {
             );
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };

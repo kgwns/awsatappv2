@@ -18,7 +18,7 @@ describe('<TextInputField>', () => {
       (useState as jest.Mock).mockImplementation(() => [false, setIsFocused]);
       (useState as jest.Mock).mockImplementation(() => [true, setIsPasswordVisible]);
       const component = (
-        <TextInputField onChangeText={mockFunction} value={'testLabel'} isPassword />
+        <TextInputField onChangeText={mockFunction} value={'testLabel'} onSubmitEditing={mockFunction} isPassword />
       );
       instance = render(component);
     });
@@ -58,6 +58,11 @@ describe('<TextInputField>', () => {
     it('Should Press PlayIcon', () => {
       const element = instance.container.findAllByType(TextInput)[0];
       fireEvent(element, 'onChangeText');
+      expect(mockFunction).toHaveBeenCalled;
+    });
+    it('Should onSubmitEditing', () => {
+      const element = instance.container.findAllByType(TextInput)[0];
+      fireEvent(element, 'onSubmitEditing', 'string');
       expect(mockFunction).toHaveBeenCalled;
     });
   });

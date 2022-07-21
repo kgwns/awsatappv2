@@ -1,17 +1,24 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState} from 'react';
 import {StoryListView} from '../StoryListView';
-import {TouchableWithoutFeedback} from 'react-native';
-import { SearchBar } from 'src/components/molecules'
+import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { recordLogEvent } from 'src/shared/utils';
+import { StoryContainer } from 'react-native-stories-view';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+}));
+
 describe('<StoryListView>', () => {
   let instance: RenderAPI;
-  const mockString = jest.fn();
+
   const setSelectedImageIndex = jest.fn();
   const setSelectedItemIndex = jest.fn();
   const mockData = [{
@@ -28,8 +35,15 @@ describe('<StoryListView>', () => {
     ],
   }]
 
+  const navigation = {
+    reset: jest.fn(),
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+  }
+
   describe('when StoryListView only', () => {
     beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => [0, setSelectedItemIndex]);
       (useState as jest.Mock).mockImplementation(() => [0, setSelectedImageIndex]);
       instance = render(<StoryListView  data={mockData} selectedIndex={0} />);
@@ -43,6 +57,31 @@ describe('<StoryListView>', () => {
     it('Should render StoryListView', () => {
       expect(instance).toBeDefined();
     });
+
+    it('When Press onPress', () => {
+      const testID = instance.container.findAllByType(TouchableOpacity)[0];
+      fireEvent(testID, 'onPress')
+      expect(navigation.goBack).toHaveBeenCalled;
+    });
+
+    it('When Press onPress', () => {
+      const testID = instance.container.findAllByType(TouchableOpacity)[0];
+      fireEvent(testID, 'onPress')
+      expect(recordLogEvent('Pressed_On_Read_Story')).toBeTruthy;
+    });
+
+    it('When Press onComplete', () => {
+      const testID = instance.container.findAllByType(StoryContainer)[0];
+      fireEvent(testID, 'onComplete')
+      expect(navigation.goBack()).toBeTruthy;
+    });
+
+    it('When Press onChange', () => {
+      const testID = instance.container.findAllByType(StoryContainer)[0];
+      fireEvent(testID, 'onChange', {changeIndex: 0})
+      expect(jest.fn()).toBeTruthy;
+    });
+
   });
 
 });

@@ -11,7 +11,6 @@ export const notificationSaveTokenReuqest = async (body: SaveTokenBodyType) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -24,7 +23,6 @@ export const notificationSaveTokenAfterRegistraionReuqest = async (body: SaveTok
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };

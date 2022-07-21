@@ -11,7 +11,6 @@ export const fetchEmailCheckApi = async (body: FetchEmailCheckPayloadType) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };

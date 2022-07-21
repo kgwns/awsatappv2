@@ -3,8 +3,9 @@ import React from 'react';
 import {AuthPage} from '../AuthPage';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
-import { SocialButtonSection } from '../../../organisms/';
+import { AuthScreenInputSection, SocialButtonSection } from '../../../organisms/';
 import {useNavigation} from '@react-navigation/native';
+import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -18,6 +19,8 @@ describe('<AuthPage>', () => {
     reset: jest.fn(),
     navigate: jest.fn(),
   }
+  const onResult = jest.fn();
+
   describe('when AuthPage only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
@@ -70,6 +73,21 @@ describe('<AuthPage>', () => {
       const testID = instance.container.findByType(SocialButtonSection);
       fireEvent(testID, 'onButtonPress','EMAIL');
       expect(testID).toBeTruthy();
+    });
+    test('Should call ScreenContainer alertOnPress', () => {
+      const element = instance.container.findAllByType(ScreenContainer)[0];
+      fireEvent(element, 'alertOnPress');
+      expect(element).toBeTruthy()
+    });
+    test('Should call AuthScreenInputSection onPressSignup', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'onPressSignup');
+      expect(element).toBeTruthy()
+    });
+    test('Should call AuthScreenInputSection showAlertNoInternet', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'showAlertNoInternet');
+      expect(element).toBeTruthy()
     });
   });
 });

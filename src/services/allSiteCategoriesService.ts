@@ -15,10 +15,8 @@ export const fetchAllSiteCategoriesApi = async (body: AllSiteCategoriesBodyGet) 
             await getApiRequest(
                 `${BASE_URL}${ALL_SITE_CATEGORIES_ENDPOINT}?items_per_page=${body.items_per_page}`,
             );
-        // console.log(`AllSiteCategories url: ${BASE_URL}${ALL_SITE_CATEGORIES_ENDPOINT}?items_per_page=${body.items_per_page} response: ${JSON.stringify(response)}`);
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };
@@ -31,7 +29,6 @@ export const sendSelectedTopicsApi = async (body: SendSelectedTopicBody) => {
             );
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };
@@ -44,7 +41,6 @@ export const getSelectedTopicsApi = async () => {
             );
         return response;
     } catch (error) {
-        console.log(`error ${UMS_BASE_URL}${GET_SELECTED_TOPICS_ENDPOINT} : ${error}`);
         throw error;
     }
 };

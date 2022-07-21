@@ -4,7 +4,6 @@ import { TabWithBarItem, TabBarDataProps } from '..'
 import { isIOS, normalize, screenWidth } from 'src/shared/utils'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
-import { fonts } from 'src/shared/styles/fonts'
 
 export interface TabBarWidgetProps {
   tabItem: TabBarDataProps[],
@@ -22,7 +21,7 @@ export const TabBarComponent = ({ tabItem, onPressTabItem, style }: TabBarWidget
 
   return (
     <View style={styles.container}>
-      <ScrollView ref={scrollRef} horizontal={true} bounces={false} style={style}
+      <ScrollView ref={scrollRef} testID={'TabBarComponentID01'} horizontal={true} bounces={false} style={style}
         contentContainerStyle={styles.contentStyle}
         showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'}
         onContentSizeChange={() => scrollToEnd()}

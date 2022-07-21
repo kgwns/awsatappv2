@@ -11,7 +11,6 @@ export const fetchLoginApi = async (body: FetchLoginPayloadType) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -23,7 +22,6 @@ export const fetchLogoutApi = async () => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -36,7 +34,6 @@ export const forgotPasswordApi = async (body: ForgotPasswordRequestPayloadType) 
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };

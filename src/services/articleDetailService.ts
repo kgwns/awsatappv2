@@ -11,7 +11,6 @@ export const requestArticleDetail = async (body: ArticleDetailBodyGet) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -25,7 +24,6 @@ export const requestRelatedArticle = async (body: RelatedArticleBodyGet) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -37,7 +35,6 @@ export const requestArticleSection = async (body: ArticleSectionBodyGet) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
