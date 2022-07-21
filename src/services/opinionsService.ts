@@ -33,7 +33,7 @@ export const fetchWriterOpinionsApi = async (body: WriterOpinionsBodyGet) => {
 
 export const fetchOpinionsListApi = async (body: OpinionsListBodyGet) => {
   try {
-    const relativeUrl = isNotEmpty(body.nid) ? `${OPINION_LIST_END_POINT}${body.nid}?page=${body.page}` : OPINION_LIST_ALL_END_POINT
+    const relativeUrl = isNotEmpty(body.nid) ? `${OPINION_LIST_END_POINT}${body.nid}?page=${body.page}` : `${OPINION_LIST_ALL_END_POINT}?page=${body.page}`
     const response: FetchOpinionsSuccessPayloadType = await getCacheApiRequest(
       `${BASE_URL}${relativeUrl}`,
     );
