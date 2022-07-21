@@ -19,10 +19,8 @@ export const fetchAllWritersApi = async (body: AllWritersBodyGet) => {
             await getApiRequest(
                 `${BASE_URL}${ALL_WRITERS_ENDPOINT}?items_per_page=${body.items_per_page}`,
             );
-        // console.log(`AllWriters url: ${BASE_URL}${ALL_WRITERS_ENDPOINT}?items_per_page=${body.items_per_page} response: ${JSON.stringify(response)}`);
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };
@@ -38,7 +36,6 @@ export const sendSelectedWritersApi = async (body: SendSelectedAuthorBody) => {
             );
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };
@@ -51,7 +48,6 @@ export const getSelectedAuthorsApi = async () => {
             );
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };
@@ -66,7 +62,6 @@ export const removeWritersApi = async (body: RemoveAuthorBody) => {
             );
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };
@@ -79,7 +74,6 @@ export const fetchAllSelectedWritersDataApi = async (body: AllSelectedWritersDet
             );
         return response;
     } catch (error) {
-        console.log(`error api: ${error}`);
         throw error;
     }
 };

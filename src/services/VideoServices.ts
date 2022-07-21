@@ -9,7 +9,6 @@ export const fetchVideoDetailInfo = async (payload: RequestVideoUrlPayload) => {
         );
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };

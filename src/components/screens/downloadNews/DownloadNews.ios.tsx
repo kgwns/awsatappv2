@@ -6,7 +6,7 @@ import { ScreensConstants } from 'src/constants';
 import { ScreenContainer } from 'src/components/screens/ScreenContainer/ScreenContainer';
 import { horizontalEdge } from 'src/shared/utils/utilities';
 
-const NativeView: any = requireNativeComponent('RNTodayTabView');
+export const NativeView: any = requireNativeComponent('RNTodayTabView');
 
 export const DownloadNewsIOS = () => {
     const navigation = useNavigation<StackNavigationProp<any>>()

@@ -1,6 +1,7 @@
-import {render, RenderAPI} from '@testing-library/react-native';
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import DraggableVideoPlayer  from '../DraggableVideoPlayer';
+import VideoPlayerControl from '../VideoPlayerControl';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -83,5 +84,11 @@ describe('<DraggableVideoPlayer />', () => {
   it('should render component', () => {
     expect(instance).toBeDefined()
   })
+  
+  it('Should call VideoPlayerControlId', () => {
+    const element = instance.container.findAllByType(VideoPlayerControl)[0];
+    fireEvent(element, 'onPress');
+    expect(element).toBeTruthy();
+  });
 })
 

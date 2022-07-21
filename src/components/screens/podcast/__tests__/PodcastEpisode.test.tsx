@@ -5,7 +5,14 @@ import { Provider } from 'react-redux'
 import { storeSampleData, PodcastEpisodeData, PodcastListData } from 'src/constants/SampleData';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {PodcastProgramHeader} from 'src/components/molecules';
-import {PodcastEpisodeContent} from 'src/components/organisms';
+import {PodcastEpisodeContent, PodcastEpisodeInfo} from 'src/components/organisms';
+import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
+import { useNavigation } from '@react-navigation/native';
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+}));
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -40,7 +47,7 @@ const podcastData = {
 }
 
 jest.mock("src/hooks/usePodcast", () => ({
-  usePodcast: (...args: any) => {
+  usePodcast: () => {
     return {
       isLoading: true,
       podcastListData: [
@@ -76,8 +83,15 @@ describe('<PodcastEpisode >', () => {
   const setIsSaved = jest.fn()
   const mockFunction = jest.fn()
 
-  describe('when PodcastEpisode  only', () => {
+  const navigation = {
+    reset: jest.fn(),
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+  }
+
+  describe('when PodcastEpisode only', () => {
     beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       // (useState as jest.Mock).mockImplementation(() => ['', mockFunction]);
       (useState as jest.Mock).mockImplementation(() => [false, mockFunction]);
       (useState as jest.Mock).mockImplementation(() => [[podcastData], mockFunction]);
@@ -110,9 +124,24 @@ describe('<PodcastEpisode >', () => {
       fireEvent(testID, 'onPressShare');
       expect(mockFunction).toBeTruthy();
     });
+    it('when onGoBack is pressed from PodcastHeader', () => {
+      const testID = instance.container.findByType(PodcastProgramHeader);
+      fireEvent(testID, 'onGoBack');
+      expect(navigation.goBack).toBeTruthy();
+    });
     it('when onItemActionPress is pressed from PodcastEpisodeContent', () => {
       const testID = instance.container.findByType(PodcastEpisodeContent);
       fireEvent(testID, 'onItemActionPress', {nid: '29'});
+      expect(mockFunction).toBeTruthy();
+    });
+    test('Should call FlatList onPress', () => {
+      const element = instance.container.findAllByType(ScreenContainer)[0];
+      fireEvent(element, 'onCloseSignUpAlert');
+      expect(mockFunction).toBeTruthy()
+    });
+    it('when onListenPress is pressed from PodcastEpisodeInfo', () => {
+      const testID = instance.container.findByType(PodcastEpisodeInfo);
+      fireEvent(testID, 'onListenPress', {duration: '29'});
       expect(mockFunction).toBeTruthy();
     });
   });

@@ -1,11 +1,20 @@
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native'
-import React from 'react'
-import  {PodCastMiniPlayer} from '../PodCastMiniPlayer'
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
+import React, {useState}  from 'react';
+import { TouchableOpacity } from 'react-native';
+import  {PodCastMiniPlayer} from '../PodCastMiniPlayer';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
 
 describe('<PodCastMiniPlayer />', () => {
   let instance: RenderAPI
   const mockFunction = jest.fn();
+  const showControl = jest.fn();
+
   beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [true, showControl]);
     const component = <PodCastMiniPlayer/>
     instance = render(component)
   })
@@ -30,6 +39,24 @@ describe('<PodCastMiniPlayer />', () => {
   });
   it('When Press playPause', () => {
     const testID = instance.getByTestId('playingState');
+    fireEvent(testID, 'onPress')
+    expect(mockFunction).toHaveBeenCalled;
+  });
+
+  it('When Press onPress', () => {
+    const testID = instance.container.findAllByType(TouchableOpacity)[0];
+    fireEvent(testID, 'onPress', {type: 'backward'})
+    expect(mockFunction).toHaveBeenCalled;
+  });
+
+  it('When Press onPress', () => {
+    const testID = instance.container.findAllByType(TouchableOpacity)[1];
+    fireEvent(testID, 'onPress')
+    expect(mockFunction).toHaveBeenCalled;
+  });
+
+  it('When Press onPress', () => {
+    const testID = instance.container.findAllByType(TouchableOpacity)[2];
     fireEvent(testID, 'onPress')
     expect(mockFunction).toHaveBeenCalled;
   });

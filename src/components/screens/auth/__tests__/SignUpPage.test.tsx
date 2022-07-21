@@ -4,6 +4,7 @@ import {SignUpPage} from '../SignUpPage';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
 import {useNavigation} from '@react-navigation/native';
+import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -45,6 +46,11 @@ describe('<SignUpPage>', () => {
       const testID = instance.getByTestId('signUp_signUp');
       fireEvent(testID, 'onPress')
       expect(mockDispatch).toHaveBeenCalledTimes(0);
+    });
+    test('Should call ScreenContainer alertOnPress', () => {
+      const element = instance.container.findAllByType(ScreenContainer)[0];
+      fireEvent(element, 'alertOnPress');
+      expect(element).toBeTruthy()
     });
   });
 });

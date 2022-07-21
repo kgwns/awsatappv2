@@ -18,7 +18,6 @@ export const fetchUserProfileApi = async () => {
             );
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };
@@ -32,7 +31,6 @@ export const sendUserProfileApi = async (body: SendUserData) => {
             );
         return response;
     } catch (error) {
-        console.log(`error1: ${error}`);
         throw error;
     }
 }

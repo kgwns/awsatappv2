@@ -1,14 +1,22 @@
-import React from 'react'
-import { render, RenderAPI } from '@testing-library/react-native'
+import React, {useRef} from 'react'
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { TabBarComponent } from '../TabBarComponent'
 import { sectionTabItem } from 'src/constants/SampleData'
+
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useState: jest.fn(),
+    useRef: jest.fn(),
+}));
 
 describe('<TabBarComponent>', () => {
     let instance: RenderAPI
 
     const mockOnPress = jest.fn()
+    const scrollRef = mockOnPress;
 
     beforeEach(() => {
+        (useRef as jest.Mock).mockImplementation(() => [null, scrollRef]);
         const component = <TabBarComponent tabItem={sectionTabItem} onPressTabItem={mockOnPress} />
         instance = render(component)
     })
@@ -21,4 +29,11 @@ describe('<TabBarComponent>', () => {
     test('Should render component', () => {
         expect(instance).toBeDefined()
     })
+
+    it('When Press onContentSizeChange', () => {
+        const testID = instance.getByTestId('TabBarComponentID01');
+        fireEvent(testID, 'onContentSizeChange')
+        expect(mockOnPress).toBeTruthy();
+    });
 })
+

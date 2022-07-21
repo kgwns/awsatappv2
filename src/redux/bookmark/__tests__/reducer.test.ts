@@ -1,4 +1,4 @@
-import { GET_BOOK_MARKED, GET_BOOK_MARKED_DETAIL_INFO, GET_BOOK_MARKED_FAILED, GET_BOOK_MARKED_FAILED_DETAIL_INFO, GET_BOOK_MARKED_SUCCESS, GET_BOOK_MARKED_SUCCESS_DETAIL_INFO, REMOVE_BOOK_MARKED, REMOVE_BOOK_MARKED_FAILED, REMOVE_BOOK_MARKED_SUCCESS, SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS, UPDATED_FILTERED_DATA_SUCCESS } from '../actionType';
+import { GET_BOOK_MARKED, GET_BOOK_MARKED_DETAIL_INFO, GET_BOOK_MARKED_FAILED, GET_BOOK_MARKED_FAILED_DETAIL_INFO, GET_BOOK_MARKED_SUCCESS, GET_BOOK_MARKED_SUCCESS_DETAIL_INFO, REMOVE_BOOK_MARKED, REMOVE_BOOK_MARKED_FAILED, REMOVE_BOOK_MARKED_SUCCESS, SEND_BOOK_MARK_ID, SEND_BOOK_MARK_ID_FAILED, SEND_BOOK_MARK_ID_SUCCESS, UPDATED_FILTERED_DATA_SUCCESS, UPDATE_ADD_REMOVE_BOOK_MARK } from '../actionType';
 import bookmark from '../reducer';
 import { BookMarkState } from '../types';
 
@@ -119,6 +119,14 @@ describe('bookmark reducer', () => {
         const nextState = bookmark(initialState, {
             type: UPDATED_FILTERED_DATA_SUCCESS,
             payload: { filteredData: [] }
+        });
+        expect(nextState.isLoading).toBe(true);
+    });
+
+    test('Check loading state when UPDATE_ADD_REMOVE_BOOK_MARK', () => {
+        const nextState = bookmark(initialState, {
+            type: UPDATE_ADD_REMOVE_BOOK_MARK,
+            payload: { bookmarkedDetailInfo: [] }
         });
         expect(nextState.isLoading).toBe(true);
     });

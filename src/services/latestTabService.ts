@@ -8,7 +8,7 @@ import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
   SPOTLIGHT_COMBO,
   ARTICLE_SECTION_GET
 } from './apiEndPoints';
-import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet, SpotlightArticleSectionSuccessPayloadType } from 'src/redux/latestNews/types';
+import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { payloadType } from 'src/redux/latestNews/types';
 
 export const requestLatestArticle = async (body: LatestArticleBodyGet) => {
@@ -18,7 +18,6 @@ export const requestLatestArticle = async (body: LatestArticleBodyGet) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -31,7 +30,6 @@ export const requestSectionCombo = async(body: RequestSectionComboBodyGet) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 }
@@ -43,7 +41,6 @@ export const writerOpinionApi = async (body: LatestArticleBodyGet) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -55,7 +52,6 @@ export const podcastHomeApi = async () => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -67,7 +63,6 @@ export const mainCoverageBlockApi = async () => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -79,7 +74,6 @@ export const mainFeaturedArticleApi = async () => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -91,7 +85,6 @@ export const mainHorizontalArticleApi = async () => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -103,7 +96,6 @@ export const editorsChoiceApi = async () => {
     );
     return response;
   } catch (error) {
-    console.log(` requestEditorsChoice error: ${error}`);
     throw error;
   }
 }
@@ -115,7 +107,6 @@ export const spotlightApi = async () => {
     );
     return response;
   } catch (error) {
-    console.log(` requestSpotlight error: ${error}`);
     throw error;
   }
 }
@@ -127,7 +118,6 @@ export const requestSpotlightArticleSection = async (body: SpotlightArticleSecti
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };

@@ -11,7 +11,6 @@ export const fetchTopMenuApi = async () => {
     //console.log( `MostReadService url: ${BASE_URL}${MOST_READ_ENDPOINT} response: ${JSON.stringify(response)}`, );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
