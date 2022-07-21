@@ -144,7 +144,7 @@ export const ArticleDetailBody = ({
                     // console.log(event.nativeEvent.data);
                 }}
                 onLoadEnd={updateWebViewStyle}
-                onLoadProgress={() => index == 0 && updateWebViewStyle()}
+                onLoadProgress={updateWebViewStyle}
                 injectedJavaScript={script()}
                 injectedJavaScriptBeforeContentLoaded={script()}
                 onShouldStartLoadWithRequest={(event) => onShouldStartLoadWithRequest(event)}
