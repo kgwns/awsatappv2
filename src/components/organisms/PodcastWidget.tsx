@@ -146,7 +146,6 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
           <View style={style.podcastItemContainer}>
             <View style={style.podcastContentContainer}>
               <Label
-                numberOfLines={1}
                 color={themeData.primary}
                 style={style.title}
                 children={podcastData?.title}

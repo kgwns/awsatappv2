@@ -16,7 +16,6 @@ export const fetchDocumentaryVideo = async (payload: RequestDocumentaryVideoPayl
           );
         return response;
     } catch (error) {
-        console.log(`error: ${error}`);
         throw error;
     }
 };

@@ -173,7 +173,7 @@ const VideoPlayerFullScreen = ({
       source={images.bottomShadowImg}
       style={isFullScreen ? styles.fullScreenColoumn : styles.column}
       imageStyle={styles.vignette}>
-      <View style={styles.progrsBarSection}>
+      <View style={[styles.progrsBarSection, styles.sliderContainer]}>
         <NativeViewGestureHandler
           disallowInterruption={true}
           enabled
@@ -269,7 +269,7 @@ const VideoPlayerFullScreen = ({
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback
-        testID="VideoPlayerControlId"
+        testID="VideoPlayerFullScreenId"
         style={{flex: 1}}
         onPress={onScreenTouch}>
         <View style={{flex: 1}}>
@@ -373,8 +373,9 @@ const customStyle = (theme: CustomThemeType) =>
       paddingVertical: 10,
     },
     sliderStyle: {
-      width: '100%',
-      height: 10,
+      width: isIOS ? '200%' : '100%',
+      height: 15,
+      alignSelf: 'center'
     },
     directionStyle: {
       direction: 'ltr',
@@ -386,4 +387,7 @@ const customStyle = (theme: CustomThemeType) =>
       justifyContent: 'space-between',
       paddingTop: 0,
     },
+    sliderContainer: {
+      transform: [{ scaleX: isIOS ? 0.5:1 }, { scaleY: isIOS ? 0.5:1 }]
+  }
   });

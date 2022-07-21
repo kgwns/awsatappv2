@@ -1,9 +1,10 @@
 import React from 'react'
-import { render, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { OpinionScreen } from '../OpinionScreen'
+import { FlatList } from 'react-native';
 
 jest.mock("src/hooks/useOpinionWriter", () => ({
-    useOpinionWriter: (...args: any) => {
+    useOpinionWriter: () => {
         return {
             isLoading: true,
             opinionWriterData: [],
@@ -17,7 +18,7 @@ jest.mock("src/hooks/useOpinionWriter", () => ({
 }));
 
 jest.mock("src/hooks/useOpinions", () => ({
-    useOpinions: (...args: any) => {
+    useOpinions: () => {
         return {
             isLoading: true,
             opinionsData: [],
@@ -43,9 +44,10 @@ jest.mock("src/hooks/useOpinions", () => ({
 
 describe('<OpinionScreen>', () => {
     let instance: RenderAPI
+    const mockFunction = jest.fn();
 
     beforeEach(() => {
-        const component = <OpinionScreen/>
+        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
         instance = render(component)
     })
 
@@ -57,4 +59,11 @@ describe('<OpinionScreen>', () => {
     it('Should render OpinionScreen', () => {
         expect(instance).toBeDefined()
     })
+
+    test('Should call FlatList onPress', () => {
+        const element = instance.container.findByType(FlatList)
+        fireEvent(element, 'onScrollBeginDrag');
+        expect(global.refFlatList).toBeTruthy()
+    });
+
 })

@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleProp, StyleSheet, TextStyle, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Label, LabelTypeProp } from '..'
 import { ImagesName } from 'src/shared/styles'
@@ -11,6 +11,7 @@ interface ButtonIconWithLabelProps {
     icon: ImagesName,
     iconColor: string,
     title: string,
+    titleStyle?: StyleProp<TextStyle>;
     onPress: () => void
 }
 
@@ -18,6 +19,7 @@ export const ButtonIconWithLabel = ({
     icon,
     iconColor,
     title,
+    titleStyle,
     onPress
 }: ButtonIconWithLabelProps) => {
     const style = useThemeAwareObject(customStyle)
@@ -31,7 +33,7 @@ export const ButtonIconWithLabel = ({
                     fill: iconColor,
                 })
             }
-            <Label style={style.title} children={title} labelType={LabelTypeProp.h3} />
+            <Label style={StyleSheet.flatten([style.title, titleStyle])} children={title} />
         </TouchableOpacity>
     )
 }
@@ -46,8 +48,8 @@ const customStyle = () => (
             justifyContent: 'center'
         },
         title: {
-            fontSize: 13,
-            lineHeight: 16,
+            fontSize: 14,
+            lineHeight: 17,
             marginLeft: 5,
             fontFamily: fonts.AwsatDigitalBetav10_Bold,
             paddingTop: isIOS ? 5 : 0

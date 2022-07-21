@@ -58,7 +58,7 @@ const tabWitBarItemStyle = StyleSheet.create({
   },
   labelStyle: {
     fontSize: 14,
-    lineHeight:20,
+    lineHeight:25,
     fontFamily: fonts.Effra_Arbc_Regular
   }
 })

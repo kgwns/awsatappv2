@@ -1,8 +1,13 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { ArticleDetailScreen } from '../ArticleDetailScreen';
 import { isIOS, normalize } from 'src/shared/utils/dimensions';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
 
 jest.mock("src/hooks/useArticleDetail", () => ({
   useArticleDetail: () => {
@@ -71,13 +76,26 @@ jest.mock("src/hooks/useLogin", () => ({
   },
 }));
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useNavigationState: () => ([]),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+}));
+
 describe('<ArticleDetailScreen>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
 
-  const sampleData = { params: { nid: '123' } };
+  const sampleData = { params: { nid: '123', isRelatedArticle: true } };
 
-  beforeEach(() => {
+  const isFullScreen = jest.fn()
+  const isEdgeUpdated = jest.fn()
+
+  describe('when ArticleDetailScreen only', () => {
+    beforeEach(() => {
+      (useState as jest.Mock).mockImplementation(() => [true, isFullScreen]);
+      (useState as jest.Mock).mockImplementation(() => [true, isEdgeUpdated]);
     const component = <ArticleDetailScreen route={sampleData}/>;
     instance = render(component);
   });
@@ -89,6 +107,10 @@ describe('<ArticleDetailScreen>', () => {
 
   it('should render ArticleDetailScreen component', () => {
     expect(instance).toBeDefined();
+  });
+
+  it('should render ArticleDetailScreen component', () => {
+    expect(render(<ArticleDetailScreen route={{ params: { nid: '123', isRelatedArticle: false } }}/>)).toBeDefined();
   });
 
   test('Should call FlatList onPress', () => {
@@ -114,8 +136,9 @@ describe('<ArticleDetailScreen>', () => {
       isIOS
       let normalizeValue = (normalize(70, 'bottom'))
       expect(normalizeValue).toEqual(140)
+    })
   })
-  })
+  });
 
 });
 

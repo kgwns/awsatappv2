@@ -1,5 +1,5 @@
-import { requestArticleDetail, requestArticleDetailFailed, requestArticleDetailSuccess, requestRelatedArticle, requestRelatedArticleFailed, requestRelatedArticleSuccess } from "../action"
-import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS } from "../actionType"
+import { emptyData, requestArticleDetail, requestArticleDetailFailed, requestArticleDetailSuccess, requestArticleSection, requestRelatedArticle, requestRelatedArticleFailed, requestRelatedArticleSuccess } from "../action"
+import { EMPTY_DATA, REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_ARTICLE_SECTION, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS } from "../actionType"
 
 describe('<ArticleDetailAction', () => {
     const nid: number = 123
@@ -40,5 +40,18 @@ describe('<ArticleDetailAction', () => {
         const result = requestArticleDetailFailed({error: errorMessage})
         expect(result.type).toEqual(REQUEST_ARTICLE_DETAIL_FAILED)
         expect(result.payload.error).toEqual(errorMessage)
+    })
+
+    it('Check request emptyData', () => {
+        const result = emptyData()
+        expect(result.type).toEqual(EMPTY_DATA)
+    })
+
+    it('Check request requestArticleSection', () => {
+        const result = requestArticleSection({ id: 2,
+            page: 1,
+            items_per_page: 2,
+            current_nid: 1,})
+        expect(result.type).toEqual(REQUEST_ARTICLE_SECTION)
     })
 })

@@ -79,7 +79,9 @@ export const colors = {
   balckOpacity20: '#0000001A',  
   mandyPink : '#FFB596',
   carouselPink: '#FAE5DA',
-  dimGray: '#666666'
+  dimGray: '#666666',
+  grayishGreen: '#647e7c',
+  lightGreen: '#C7D8D6',
 };
 
 export interface CustomThemeType {
@@ -123,6 +125,7 @@ export interface CustomThemeType {
   popupBackground: string,
   playerBackground: string;
   bottomSheetBackground: string,
+  borderColor: string
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -169,6 +172,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   popupBackground: colors.blackOpacity50,
   playerBackground: colors.balckOpacity20,
   bottomSheetBackground: colors.mandyPink,
+  borderColor: colors.lightGreen
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -212,5 +216,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   popupBackground: colors.blueCharcoalOpacity80,
   playerBackground: colors.balckOpacity20,
   bottomSheetBackground: colors.mandyPink,
+  borderColor: colors.lightGreen
 }
 

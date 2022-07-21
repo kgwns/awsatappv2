@@ -3,13 +3,48 @@ import React from 'react';
 import {SignInPage} from '../SignInPage';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
-import { SocialButtonSection } from '../../../organisms/';
+import { AuthScreenInputSection, SocialButtonSection } from '../../../organisms/';
 import {useNavigation} from '@react-navigation/native';
+import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+}));
+
+jest.mock("src/hooks/useNotificationSaveToken", () => ({
+  useNotificationSaveToken: () => {
+    return {
+      isSaveTokenLoading: false,
+      saveTokenData: {},
+      storeServerEnvironmentInfo: () => [],
+      saveTokenError: '',
+      saveTokenRequest: () => [],
+      saveTokenAfterRegistrationRequest: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      isLoading: false,
+      loginData: {},
+      loginError: 'example',
+      fetchLoginRequest: () => [],
+      isLoggedIn: false,
+      token: 'string',
+      user: {},
+      fetchLogoutRequest: () => [],
+      loginSkipped: () => [],
+      isSkipped: false,
+      forgotPassswordResponse: {},
+      forgotPassworRequest: () => [],
+      emptyforgotPassworResponseInfo: () => [],
+      emptyLoginDataInfo: () => [],
+    }
+  },
 }));
 
 describe('<SignInPage>', () => {
@@ -61,6 +96,21 @@ describe('<SignInPage>', () => {
       const testID = instance.container.findByType(SocialButtonSection);
       fireEvent(testID, 'onButtonPress','FACEBOOK');
       expect(testID).toBeTruthy();
+    });
+    test('Should call ScreenContainer alertOnPress', () => {
+      const element = instance.container.findAllByType(ScreenContainer)[0];
+      fireEvent(element, 'alertOnPress');
+      expect(element).toBeTruthy()
+    });
+    test('Should call AuthScreenInputSection goToPasswordScreen', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'goToPasswordScreen', {email: 'abc@gmail.com'});
+      expect(element).toBeTruthy()
+    });
+    test('Should call AuthScreenInputSection onPressSignup', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'onPressSignup');
+      expect(element).toBeTruthy()
     });
   });
 });

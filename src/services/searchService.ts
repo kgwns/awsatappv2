@@ -18,7 +18,6 @@ export const fetchSearchApi = async (
     console.log( `SearchService url: ${BASE_URL}${SEARCH_ENDPOINT} response: ${JSON.stringify(response)}`);
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };

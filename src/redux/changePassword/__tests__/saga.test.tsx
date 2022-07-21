@@ -70,5 +70,13 @@ describe('<Change Password Saga>', () => {
       genObject.throw(errorResponse);
     });
   });
+
+  describe('Test emptyPasswordResponse', () => {
+    it('check emptyPasswordResponse success', () => {
+      const genObject = emptyPasswordResponse();
+      genObject.next();
+      genObject.next();
+    });
+  });
 });
 

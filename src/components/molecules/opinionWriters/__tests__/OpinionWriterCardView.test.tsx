@@ -1,13 +1,18 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, { useState } from 'react';
-import { useAppPlayer } from 'src/hooks';
 import {OpinionWriterCardView} from 'src/components/molecules';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { TouchableOpacity } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+}));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
 }));
 
 jest.mock('src/hooks/useAppPlayer', () => ({useAppPlayer: jest.fn()}));
@@ -30,6 +35,10 @@ jest.mock("src/hooks/useAppPlayer", () => ({
 describe('<OpinionWritersCardView>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
+  const navigation = {
+    goBack: mockFunction,
+    navigate: mockFunction,
+  }
 
   const setMediaData = mockFunction;
   const setTimeDuration = mockFunction;
@@ -46,6 +55,7 @@ describe('<OpinionWritersCardView>', () => {
   const duration = '3:22';
 
   beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [{}, setMediaData]);
     (useState as jest.Mock).mockImplementation(() => [null, setTimeDuration]);
     (useState as jest.Mock).mockImplementation(() => [false, setDisableNext]);
@@ -58,7 +68,13 @@ describe('<OpinionWritersCardView>', () => {
         headLine={headLine}
         subHeadLine={subHeadLine}
         audioLabel={audioLabel}
-        duration={duration} nid={''} isBookmarked={false} mediaVisibility={false} onPressBookmark={mockFunction} authorId={''}      />
+        duration={duration} 
+        nid={'1'} 
+        isBookmarked={false} 
+        mediaVisibility={true} 
+        onPressBookmark={mockFunction} 
+        authorId={'2'}     
+      />
     );
     instance = render(component);
   });
@@ -80,8 +96,8 @@ describe('<OpinionWritersCardView>', () => {
 
   it('Should Press PlayIcon', () => {
     const element = instance.container.findAllByType(TouchableOpacity)[0];
-    fireEvent.press(element);
-    expect(mockFunction).toHaveBeenCalled;
+    fireEvent.press(element, 'onPress');
+    expect(navigation.navigate).toHaveBeenCalled;
   });
   
   it('Should Press OpinionWritersCard', () => {

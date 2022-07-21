@@ -7,10 +7,8 @@ export const fetchNarratedOpinionArticleApi = async (body: NarratedOpinionBodyGe
     const response: any = await getApiRequest(
       `${GET_JW_MEDIA_PLAYER_URL}${body.jwPlayerID}`
     );
-    // console.log( `opinion jw audio url: ${GET_JW_MEDIA_PLAYER_URL}${mediaId} response: ${JSON.stringify(response)}`);
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };

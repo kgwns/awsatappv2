@@ -1,5 +1,5 @@
 import {storeInfo} from 'src/constants/SampleData';
-import {getIsLoading, getSearchData, getSearchError} from '../selectors';
+import {getIsLoading, getSearchData, getSearchError, getSearchHistory} from '../selectors';
 import {SearchItemType} from '../types';
 
 describe('Search Selector', () => {
@@ -18,4 +18,10 @@ describe('Search Selector', () => {
     const error = getSearchError(storeData);
     expect(error).toEqual('');
   });
+
+  test('getSearchHistory', () => {
+    const searchHistory: string[] = getSearchHistory(storeData);
+    expect(searchHistory).toEqual([]);
+  });
+
 });

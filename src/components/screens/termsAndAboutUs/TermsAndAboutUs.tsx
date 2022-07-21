@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import { ButtonIconWithLabel, HtmlRenderer, Label } from 'src/components/atoms'
-import { horizontalAndBottomEdge, isIOS, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils'
-import { ImagesName, Styles } from 'src/shared/styles'
+import { HtmlRenderer } from 'src/components/atoms'
+import { horizontalAndBottomEdge, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils'
+import { Styles } from 'src/shared/styles'
 import { ScreenContainer } from '..'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { t } from 'i18next'
 import { useTermsAndAboutUs } from 'src/hooks'
 import { MixedStyleRecord } from 'react-native-render-html'
-import { useNavigation } from '@react-navigation/native'
-import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints'
-import { getSvgImages } from 'src/shared/styles/svgImages'
 import { fonts } from 'src/shared/styles/fonts'
+import { StaticPageHeader } from 'src/components/molecules'
 
 type TermsAndAboutUsProps = {
   route: any
@@ -25,8 +22,6 @@ export const TermsAndAboutUs = ({
   const { title, id } = route.params
   const { themeData } = useTheme()
   const style = useThemeAwareObject(customStyle)
-
-  const navigation = useNavigation()
 
   const htmlTagStyle: MixedStyleRecord = {
     p: {
@@ -50,51 +45,15 @@ export const TermsAndAboutUs = ({
     fetchStaticDetail({ id })
   }, [])
 
-  const onPressBack = () => {
-    navigation.goBack()
-  }
-
-  const renderHeaderElement = () => {
-    if (id == TERMS_AND_CONDITION) {
-      return  (
-        <View style={style.headerItems}>
-        <Label children={title} style={style.title} />
-        {getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height })}
-      </View>
-      )
-     
-    }
-
-    return (
-      <View style={style.headerItems}>
-        <Label children={title} style={style.title} />
-        {getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height })}
-      </View>
-    )
-  }
-
   const getIgnoredTags = () => {
-    if (id == TERMS_AND_CONDITION) {
       return ['h2']
-    }
-    return []
   }
 
   return (
     <ScreenContainer edge={horizontalAndBottomEdge} isLoading={isLoading}
       statusbarColor={themeData.secondaryGreen}>
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-        <View style={style.headerContainer}>
-          <View style={style.return}>
-            <ButtonIconWithLabel
-              icon={ImagesName.returnIcon}
-              iconColor={themeData.primaryBlack}
-              title={t('return')}
-              onPress={onPressBack}
-            />
-          </View>
-          {renderHeaderElement()}
-        </View>
+        <StaticPageHeader title={title} />
         {
           isNonEmptyArray(data) &&
           <View style={style.htmlContainer}>
@@ -115,31 +74,12 @@ const customStyle = (theme: CustomThemeType) => (
       alignItems: 'center',
       justifyContent: 'flex-end',
     },
-    headerItems: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginBottom: normalize(60)
-    },
-    return: {
-      flexDirection: 'row',
-      position: 'absolute',
-      left: 0.04 * screenWidth,
-      alignContent: 'center',
-      top: isIOS ? normalize(50) : normalize(25),
-      flexWrap: 'wrap',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
     title: {
       fontSize: normalize(20),
       color: Styles.color.greenishBlue,
       textAlign: 'left',
       paddingVertical: normalize(15),
       fontFamily: fonts.IBMPlexSansArabic_Regular,
-    },
-    logo: {
-      height: normalize(40),
-      width: 0.6 * screenWidth,
     },
     htmlContainer: {
       paddingHorizontal: 0.04 * screenWidth,

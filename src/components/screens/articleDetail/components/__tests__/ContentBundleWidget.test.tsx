@@ -3,19 +3,30 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { ContentBundleWidget} from 'src/components/screens/articleDetail/components/ContentBundleWidget';
 import { storeSampleData } from 'src/constants/SampleData';
+import {useNavigation} from '@react-navigation/native';
 
+jest.mock('@react-navigation/native', () => ({
+    ...jest.requireActual('@react-navigation/native'),
+    useNavigation: jest.fn(),
+}));
 
 describe('<ContentBundleWidget>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
+    const navigation = {
+        push: mockFunction,
+        navigate: mockFunction,
+    }
+
     beforeEach(() => {
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         const component = 
             <Provider store={storeSampleData}>
                 <ContentBundleWidget title={''} data={{
-                    title: '',
-                    body: '',
-                    nid: '',
-                    image: ''
+                    title: 'asd',
+                    body: 'as',
+                    nid: '2',
+                    image: 'qwesd'
                 }} />
             </Provider> 
         instance = render(component)
@@ -30,9 +41,15 @@ describe('<ContentBundleWidget>', () => {
         expect(instance).toBeDefined()
     })
 
+    it('Should render component', () => {
+        expect(render(<Provider store={storeSampleData}>
+            <ContentBundleWidget/>
+        </Provider>)).toBeDefined()
+    })
+
     it('When ListenToArticleCardTO1 is pressed', () => {
         const testItemId = instance.getByTestId('ContentBundleWidgetTO1');
-        fireEvent(testItemId, 'onPress', {nid:'0'});
-        expect(mockFunction).toBeTruthy();
+        fireEvent(testItemId, 'onPress', {nid: '2', hasHTMLContent: true});
+        expect(navigation.push).toBeTruthy();
     });
 })

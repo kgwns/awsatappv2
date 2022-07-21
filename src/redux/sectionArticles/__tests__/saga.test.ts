@@ -44,3 +44,11 @@ describe('Test fetchSectionArticles', () => {
     genObject.throw(errorResponse);
   });
 });
+
+describe('Test emptySectionArticlesData', () => {
+  it('check emptySectionArticlesData success', () => {
+    const genObject = emptySectionArticlesData();
+    genObject.next();
+    genObject.next();
+  });
+});

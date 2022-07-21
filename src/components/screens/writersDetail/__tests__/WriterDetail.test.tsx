@@ -1,12 +1,20 @@
-import { render, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import React, { useState } from 'react'
 import { Provider } from 'react-redux'
 import { storeSampleData } from 'src/constants/SampleData'
+import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { WritersDetailScreen } from '../WritersDetailScreen'
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
   }));
+
+jest.mock('@react-navigation/native', () => ({
+    ...jest.requireActual('@react-navigation/native'),
+    useNavigation: jest.fn(),
+    useNavigationState: () => ([]),
+    useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+}));
 
 describe('< Writer Detail >', () => {
     let instance: RenderAPI
@@ -36,4 +44,10 @@ describe('< Writer Detail >', () => {
     test('Should render component', () => {
         expect(instance).toBeDefined()
     })
+
+    test('Should call ScreenContainer onCloseSignUpAlert', () => {
+        const element = instance.container.findByType(ScreenContainer)
+        fireEvent(element, 'onCloseSignUpAlert');
+        expect(mockFunction).toBeTruthy()
+    });
 })

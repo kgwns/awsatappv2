@@ -1,4 +1,4 @@
-import { getRegisterUserInfo, getIsLoading, getRegisterError } from "../selectors";
+import { getRegisterUserInfo, getIsLoading, getRegisterError, getSocialLoginInProgress } from "../selectors";
 import { RegisterSuccessPayloadType } from "../types";
 import { storeInfo } from "src/constants/SampleData";
 
@@ -17,5 +17,10 @@ describe('Register Selector', () => {
     test('Get error state', () => {
         const error: string = getRegisterError(registerData)
         expect(error).toEqual('')
+    })
+
+    test('getSocialLoginInProgress', () => {
+        const socialLoginInProgress: boolean = getSocialLoginInProgress(registerData)
+        expect(socialLoginInProgress).toEqual(false)
     })
 })

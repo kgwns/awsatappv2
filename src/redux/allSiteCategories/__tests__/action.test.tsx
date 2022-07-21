@@ -5,10 +5,13 @@ import {
    FETCH_ALL_SITE_CATEGORIES_ERROR,
    SEND_SELECTED_TOPIC,
    SEND_SELECTED_TOPIC_ERROR,
-   SEND_SELECTED_TOPIC_SUCCESS
+   SEND_SELECTED_TOPIC_SUCCESS,
+   EMPTY_SELECTED_TOPICS_INFO,
+   DESELECT_ALL_TOPICS_INFO,
+   EMPTY_SEND_TOPICS_INFO
 } from 'src/redux/allSiteCategories/actionTypes';
 import { fetchAllSiteCategories, fetchAllSiteCategoriesSuccess, fetchAllSiteCategoriesFailed,
-    sendSelectedTopic, sendSelectedTopicSuccess, sendSelectedTopicFailed } from 'src/redux/allSiteCategories/action';
+    sendSelectedTopic, sendSelectedTopicSuccess, sendSelectedTopicFailed, emptySelectedTopicsInfo, emptySendTopicsInfo } from 'src/redux/allSiteCategories/action';
 
 
 describe('AllWriters Action', () => {
@@ -55,5 +58,15 @@ describe('AllWriters Action', () => {
             error: ''
         })
         expect(request.type).toEqual(SEND_SELECTED_TOPIC_ERROR)
+    })
+
+    test('Check request emptySelectedTopicsInfo', () => {
+        const request = emptySelectedTopicsInfo()
+        expect(request.type).toEqual(EMPTY_SELECTED_TOPICS_INFO)
+    })
+
+    test('Check request emptySendTopicsInfo', () => {
+        const request = emptySendTopicsInfo()
+        expect(request.type).toEqual(EMPTY_SEND_TOPICS_INFO)
     })
 })

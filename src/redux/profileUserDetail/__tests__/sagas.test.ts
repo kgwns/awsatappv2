@@ -1,12 +1,13 @@
 import { testSaga } from 'redux-saga-test-plan';
-import { FETCH_PROFILE_USER_DETAILS, SEND_USER_DETAILS, UPDATE_PROFILE_USER_IMAGE } from '../actionTypes';
-import { fetchUserProfileDetail, postUserData, UpdateUserImage } from '../sagas';
+import { FETCH_PROFILE_USER_DETAILS, SEND_USER_DETAILS, UPDATE_PROFILE_USER_IMAGE, EMPTY_USER_PROFILE_DATA } from '../actionTypes';
+import userProfileSaga, { fetchUserProfileDetail, postUserData, UpdateUserImage, emptyUserProfileDataInfo } from '../sagas';
 import { sendUserDataSuccess, fetchUserProfileDetailsSuccess } from '../action';
 import { sendUserProfileApi, fetchUserProfileApi } from 'src/services/profileUserService';
 import {
     SendUserData,
     SendUserDataSuccessPayloadType
 } from '../types';
+import { takeLatest } from 'redux-saga/effects';
 
 const requestObject: SendUserData = {
     first_name: 'string',
@@ -54,7 +55,17 @@ describe('Test userProfile error', () => {
     });
 });
 
-describe('Test update image error', () => {
+describe('Test update image', () => {
+    it('check update image failed', () => {
+        const genObject = UpdateUserImage({
+            type: UPDATE_PROFILE_USER_IMAGE,
+            payload: {
+                image: ' '
+            },
+        });
+        genObject.next({ user: null, message: {} });
+        genObject.next({ user: null, message: {} });
+    });
     it('check update image failed', () => {
         const genObject = UpdateUserImage({
             type: UPDATE_PROFILE_USER_IMAGE,
@@ -89,6 +100,29 @@ describe('Test userProfile  error', () => {
     });
 });
 
+describe('Test userProfileSaga  saga', () => {
+    it('fire on userProfileSaga', () => {
+      testSaga(userProfileSaga)
+        .next()
+        .all([takeLatest(FETCH_PROFILE_USER_DETAILS, fetchUserProfileDetail)])
+        .next()
+        .all([takeLatest(SEND_USER_DETAILS, postUserData)])
+        .next()
+        .all([takeLatest(UPDATE_PROFILE_USER_IMAGE, UpdateUserImage)])
+        .next()
+        .all([takeLatest(EMPTY_USER_PROFILE_DATA, emptyUserProfileDataInfo)])
+        .finish()
+        .isDone();
+    });
+});
+
+describe('Test emptyUserProfileDataInfo', () => {
+    it('check emptyUserProfileDataInfo success', () => {
+      const genObject = emptyUserProfileDataInfo();
+      genObject.next();
+      genObject.next();
+    });
+});
 
 
 

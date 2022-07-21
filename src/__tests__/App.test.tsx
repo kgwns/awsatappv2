@@ -2,6 +2,7 @@ import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { storeSampleData } from 'src/constants/SampleData';
+import { GetFCMToken } from 'src/firebase/notification/notification';
 import App from '../../App';
 
 describe('<App>', () => {
@@ -11,6 +12,7 @@ describe('<App>', () => {
     beforeEach(() => {
       const component = (
         <Provider store={storeSampleData}>
+          <GetFCMToken/>
           <App />
         </Provider>
       );

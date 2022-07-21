@@ -212,6 +212,14 @@ dependencies {
     implementation project(':react-native-orientation-locker')
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+
+
+    implementation "com.google.firebase:firebase-core"
+    implementation "com.google.firebase:firebase-messaging"
+    implementation "com.google.firebase:firebase-analytics"
+    
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

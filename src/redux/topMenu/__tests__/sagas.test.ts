@@ -12,13 +12,15 @@ import {
 import { AxiosError } from 'axios';
 
 const mockString = 'mockString';
+const mockUUID = '1';
+const mockParentId = '1';
 
-const reposnseObject = {
+const responseObject = {
   rows: [
     {
       title: mockString,
-      uuid_export: mockString,
-      parent_export: null,
+      uuid_export: mockUUID,
+      parent_export: mockParentId,
       link__options: mockString,
       title_export: mockString,
       sectionid: 1,
@@ -27,8 +29,15 @@ const reposnseObject = {
   ],
 };
 
-const sucessResponseObject: FetchTopMenuSuccessPayloadType = {
-    topMenuData: [{sectionId: 1,tabName: mockString,keyName: mockString,isSelected: true}],
+const successResponseObject: FetchTopMenuSuccessPayloadType = {
+  topMenuData: [{
+    sectionId: 1,
+    tabName: mockString,
+    keyName: mockString,
+    isSelected: false,
+    parentId: mockParentId,
+    uuid: mockUUID,
+  }],
 };
 
 describe('test Saga  topMenusaga', () => {
@@ -44,8 +53,8 @@ describe('test Saga  topMenusaga', () => {
     testSaga(fetchTopMenu)
       .next()
       .call(fetchTopMenuApi)
-      .next(reposnseObject)
-      .put(fetchTopMenuSuccess(sucessResponseObject))
+      .next(responseObject)
+      .put(fetchTopMenuSuccess(successResponseObject))
       .finish()
       .isDone();
   });

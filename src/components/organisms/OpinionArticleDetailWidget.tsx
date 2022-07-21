@@ -34,7 +34,9 @@ export interface OpinionArticleDetailWidgetProp {
   writerData : WriterDetailDataType;
   togglePlayback?: (nid: string, mediaData: any)=> void,
   selectedTrack?: string,
-  hideBackArrow?: boolean
+  hideBackArrow?: boolean,
+  visibleHome?: boolean,
+  onPressHome:()=>void;
 }
 
 export const OpinionArticleDetailWidget = ({
@@ -42,6 +44,8 @@ export const OpinionArticleDetailWidget = ({
   isRelatedArticle = false,writerData, togglePlayback, 
   selectedTrack,
   hideBackArrow = false,
+  visibleHome = false,
+  onPressHome,
 }: OpinionArticleDetailWidgetProp) => {
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
@@ -124,13 +128,15 @@ export const OpinionArticleDetailWidget = ({
         onPressFollow={onPressFollow}
         onPressWriter={onPressWriter}
         hideBackArrow={hideBackArrow}
+        visibleHome={visibleHome}
+        onPressHome={onPressHome}
       />
       <View style={style.contentContainer}>
         {/* <AuthorCard title={data.writer[0].name} /> */}
         {isNotEmpty(data.jwplayer) && isObjectNonEmpty(mediaData) && <View style={style.listenToArticleCard}>
           <ListenToArticleCard data={mediaData} togglePlayback={togglePlayback} selectedTrack={selectedTrack} nid={nid} authorImage={data.writer[0]?.opinion_writer_photo} title={ isNotEmpty(data.title) ? data.title : '' } />
         </View>}
-        <Label style={style.title}>{data.title}</Label>
+        <Label style={style.title} children={decodeHTMLTags(data.title)} />
         <ArticleFooter
           {...articleDetailFooterData}
           leftTitle={timeFormat.time}

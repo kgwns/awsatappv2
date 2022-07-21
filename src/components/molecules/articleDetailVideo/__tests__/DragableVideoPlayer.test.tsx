@@ -1,6 +1,7 @@
-import {render, RenderAPI} from '@testing-library/react-native';
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import DraggableVideoPlayer  from '../DraggableVideoPlayer';
+import VideoPlayerControl from '../VideoPlayerControl';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -26,12 +27,52 @@ describe('<DraggableVideoPlayer />', () => {
   let instance: RenderAPI;
   const url= "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842";
 
+  const sampleData: any = {current :
+    [
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+  ]}
+
   const mockFunction = jest.fn();
   const setOrientation = mockFunction;
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => ['PORTRAIT', setOrientation]);
-    const component = <DraggableVideoPlayer paused={false}/>
+    const component = <DraggableVideoPlayer paused={false} url={url} videoRefs={sampleData} />
     instance = render(component)
   })
 
@@ -43,5 +84,11 @@ describe('<DraggableVideoPlayer />', () => {
   it('should render component', () => {
     expect(instance).toBeDefined()
   })
+  
+  it('Should call VideoPlayerControlId', () => {
+    const element = instance.container.findAllByType(VideoPlayerControl)[0];
+    fireEvent(element, 'onPress');
+    expect(element).toBeTruthy();
+  });
 })
 

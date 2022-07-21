@@ -1,7 +1,7 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
 import {FETCH_OPINIONS, FETCH_WRITER_OPINIONS} from '../actionTypes';
-import opinionsSaga, {fetchOpinionsList, fetchWriterOpinions} from '../sagas';
+import opinionsSaga, {fetchOpinionsList, fetchWriterOpinions, fetchOpinions} from '../sagas';
 import {fetchOpinionsSuccess} from '../action';
 import { fetchOpinionsListApi } from 'src/services/opinionsService';
 
@@ -94,6 +94,32 @@ describe('Test opinions', () => {
       payload: {
         tid: '12',
         page: mockPage
+      },
+    });
+    genObject.next();
+    genObject.throw(errorResponse);
+  });
+});
+
+describe('Test fetchOpinions', () => {
+  it('check fetchOpinions success', () => {
+    const genObject = fetchOpinions({
+      type: FETCH_OPINIONS,
+      payload: {
+        page: 2,
+        nid: '2',
+      },
+    });
+    genObject.next();
+    genObject.next();
+  });
+
+   it('check fetchOpinions failed', () => {
+    const genObject = fetchOpinions({
+      type: FETCH_OPINIONS,
+      payload: {
+        page: 2,
+        nid: '2',
       },
     });
     genObject.next();

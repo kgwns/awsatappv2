@@ -1,8 +1,9 @@
 import { testSaga } from 'redux-saga-test-plan';
 import { FETCH_PODCAST_EPISODE, FETCH_PODCAST_LIST } from '../actionTypes';
-import { fetchPodcastList, fetchPodcastEpisode } from '../sagas';
+import podcastSaga, { fetchPodcastList, fetchPodcastEpisode } from '../sagas';
 import { fetchPodcastEpisodeSuccess, fetchPodcastListSuccess } from '../action';
 import { fetchPodcastEpisodeApi, fetchPodcastListApi } from 'src/services/podcastService';
+import { takeLatest } from 'redux-saga/effects';
 
 import {
     FetchPodcastEpisodeSuccessPayloadtype,
@@ -67,7 +68,9 @@ describe('Test podcastList  error', () => {
     it('check fetchPodcastList failed', () => {
         const genObject = fetchPodcastList({
             type: FETCH_PODCAST_LIST,
-            payload: { tid: mockItems },
+            payload: { tid: 2 },
+            rows: [],
+            pager: {}
         });
         genObject.next();
         genObject.throw(errorResponse);
@@ -78,9 +81,23 @@ describe('Test podcastEpisode  error', () => {
     it('check fetchPodcastEpisode failed', () => {
         const genObject = fetchPodcastEpisode({
             type: FETCH_PODCAST_EPISODE,
-            payload: { nid: mockItems },
+            payload: { nid: 2 },
+            rows: [],
+            pager: {}
         });
         genObject.next();
         genObject.throw(errorResponse);
     });
 });
+
+describe('Test podcastSaga  saga', () => {
+    it('fire on podcastSaga', () => {
+      testSaga(podcastSaga)
+        .next()
+        .all([takeLatest(FETCH_PODCAST_LIST, fetchPodcastList)])
+        .next()
+        .all([takeLatest(FETCH_PODCAST_EPISODE, fetchPodcastEpisode)])
+        .finish()
+        .isDone();
+    });
+  });

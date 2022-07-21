@@ -94,7 +94,7 @@ const ImageArticle = ({
           {isNotEmpty(title) &&
             <View style={imageArticleStyle.titleContainer}>
               <Label labelType={LabelTypeProp.title1}
-                children={title}
+                children={decodeHTMLTags(title)}
                 style={titleStyle}
               />
             </View>

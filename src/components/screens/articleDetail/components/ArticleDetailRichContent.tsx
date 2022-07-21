@@ -133,6 +133,14 @@ export const RenderDescriptionElement = ({ paragraphInfo, fontSize }: { paragrap
                 descriptionText[i].style["color"] = "${themeData.primaryBlack}";
             } 
         }
+
+        var imageElement = document.getElementsByTagName("img");
+        if(imageElement && imageElement.length > 0) {
+            for(i=0; i < imageElement.length; i++) {
+              imageElement[i].style["max-width"] = "100%"; 
+              imageElement[i].style["height"] = "auto"; 
+            } 
+        }
     }, ` + 0 + `)
     `
 
@@ -175,7 +183,7 @@ export const RenderReadAlsoElement = ({ paragraphInfo }: { paragraphInfo: Articl
 }
 
 export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo: ArticleNumberDataType, fontSize: number }) => {
-    if (!paragraphInfo || !paragraphInfo.description) {
+    if (!paragraphInfo) {
         return null
     }
 
@@ -199,6 +207,14 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
                 descriptionText[i].style["color"] = "${themeData.primaryBlack}";
             } 
         }
+
+        var imageElement = document.getElementsByTagName("img");
+        if(imageElement && imageElement.length > 0) {
+            for(i=0; i < imageElement.length; i++) {
+              imageElement[i].style["max-width"] = "100%"; 
+              imageElement[i].style["height"] = "auto"; 
+            } 
+        }
     }, ` + 0 + `)
     `
 
@@ -214,7 +230,7 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
             <View style={style.numberBodyMainContainer}>
                 <View style={style.numberBodyContainer}>
                     {isNotEmpty(paragraphInfo.title) && <Label children={paragraphInfo.title} style={style.numberTitle} />}
-                    {RenderWebView(richContentTagStyle({ body: paragraphInfo.description }) || '', injectedStyle, webviewRef)}
+                    {isNotEmpty(paragraphInfo.description) && RenderWebView(richContentTagStyle({ body: paragraphInfo.description }) || '', injectedStyle, webviewRef)}
                 </View>
             </View>
         </View>
@@ -385,8 +401,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingVertical: 30,
     },
     numberTitle: {
-        fontSize: 72,
-        lineHeight: 85,
+        fontSize: 32,
+        lineHeight: 45,
         textAlign: 'left',
         color: Styles.color.greenishBlue,
         fontWeight: 'bold',

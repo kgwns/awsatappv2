@@ -9,8 +9,13 @@ import {
     GET_SELECTED_AUTHOR,
     GET_SELECTED_AUTHOR_ERROR,
     GET_SELECTED_AUTHOR_SUCCESS,
+    EMPTY_SELECTED_AUTHORS_INFO,
+    REMOVE_AUTHOR,
+    FETCH_ALL_SELECTED_WRITERS_DETAILS,
+    DESELECT_ALL_WRITERS,
+    SELECTED_DATA_FROM_ONBOARD,
 } from 'src/redux/allWriters/actionTypes';
-import { fetchAllWritersFailed, fetchAllWritersSuccess, fetchAllWriters, sendSelectedAuthor, sendSelectedAuthorSuccess, sendSelectedAuthorFailed, getSelectedAuthors, getSelectedAuthorsSuccess, getSelectedAuthorsFailed } from 'src/redux/allWriters/action';
+import { fetchAllWritersFailed, fetchAllWritersSuccess, fetchAllWriters, sendSelectedAuthor, sendSelectedAuthorSuccess, sendSelectedAuthorFailed, getSelectedAuthors, getSelectedAuthorsSuccess, getSelectedAuthorsFailed, emptySelectedAuthorsInfo, removeAuthor, fetchAllSelectedWritersDetails, deselectAllWriters, setSelectedDataFromOnboard } from 'src/redux/allWriters/action';
 
 describe('AllWriters Action', () => {
     const payload: AllWritersBodyGet = {
@@ -40,7 +45,7 @@ describe('AllWriters Action', () => {
     })
 
     test('Check request send writers data type', () => {
-        const request = sendSelectedAuthor({ tid: '123' })
+        const request = sendSelectedAuthor({ tid: '123', isList: false })
         expect(request.type).toEqual(SEND_SELECTED_AUTHOR)
     })
 
@@ -75,5 +80,37 @@ describe('AllWriters Action', () => {
             error: ''
         })
         expect(request.type).toEqual(GET_SELECTED_AUTHOR_ERROR)
+    })
+
+    test('Check request emptySelectedAuthorsInfo', () => {
+        const request = emptySelectedAuthorsInfo()
+        expect(request.type).toEqual(EMPTY_SELECTED_AUTHORS_INFO)
+    })
+
+    test('Check request removeAuthor', () => {
+        const request = removeAuthor({
+            tid: '2'
+        })
+        expect(request.type).toEqual(REMOVE_AUTHOR)
+    })
+
+    test('Check request fetchAllSelectedWritersDetails', () => {
+        const request = fetchAllSelectedWritersDetails({
+            tid: '2',
+            items_per_page: 2
+        })
+        expect(request.type).toEqual(FETCH_ALL_SELECTED_WRITERS_DETAILS)
+    })
+
+    test('Check request deselectAllWriters', () => {
+        const request = deselectAllWriters()
+        expect(request.type).toEqual(DESELECT_ALL_WRITERS)
+    })
+
+    test('Check request setSelectedDataFromOnboard', () => {
+        const request = setSelectedDataFromOnboard({
+            data: []
+        })
+        expect(request.type).toEqual(SELECTED_DATA_FROM_ONBOARD)
     })
 })

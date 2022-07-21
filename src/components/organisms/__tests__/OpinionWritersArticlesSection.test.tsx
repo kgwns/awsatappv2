@@ -16,7 +16,7 @@ describe('<OpinionWritersArticlesSection>', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <OpinionWritersArticlesSection data={opinionWritersArticlesData} onScroll={mockFn} isLoading={false} onUpdateOpinionArticlesBookmark={mockFn}/>
+        <OpinionWritersArticlesSection data={opinionWritersArticlesData} onScroll={mockFn} isLoading={true} onUpdateOpinionArticlesBookmark={mockFn}/>
       </Provider>
     );
     instance = render(component);
@@ -36,4 +36,5 @@ describe('<OpinionWritersArticlesSection>', () => {
     fireEvent(element, 'onEndReached');
     expect(mockFn).toBeTruthy()
   });
+
 });

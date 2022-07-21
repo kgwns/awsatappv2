@@ -1,5 +1,5 @@
 import { loginAction } from '../action';
-import { EMPTY_FORGOT_PASSWORD_RESPONSE, FETCH_LOGIN, FETCH_LOGIN_ERROR, FETCH_LOGIN_SUCCESS, FETCH_USER_LOGOUT, FETCH_USER_LOGOUT_SUCCESS, FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_SKIPPED, ONBOARDING_SUCCESS } from '../actionTypes';
+import { EMPTY_FORGOT_PASSWORD_RESPONSE, EMPTY_LOGIN_DATA, FETCH_LOGIN, FETCH_LOGIN_ERROR, FETCH_LOGIN_SUCCESS, FETCH_USER_LOGOUT, FETCH_USER_LOGOUT_SUCCESS, FORGOT_PASSWORD_FAILED, FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS, LOGIN_SKIPPED, ONBOARDING_SUCCESS } from '../actionTypes';
 import loginReducer from '../reducer';
 import { LoginState } from '../types';
 
@@ -124,6 +124,13 @@ describe('login reducer', () => {
     test('Check loading state when FORGOT_PASSWORD_FAILED request API', () => {
         const nextState = loginReducer(initialState, {
             type: EMPTY_FORGOT_PASSWORD_RESPONSE,
+        });
+        expect(nextState.isLoading).toBe(false);
+    });
+
+    test('Check loading state when EMPTY_LOGIN_DATA request API', () => {
+        const nextState = loginReducer(initialState, {
+            type: EMPTY_LOGIN_DATA,
         });
         expect(nextState.isLoading).toBe(false);
     });

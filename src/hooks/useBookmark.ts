@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { BookmarkDetailDataType, BookmarkIdSuccessDataFieldType, RemoveBookmarkDetailDataBody, SendBookMarkBodyGet, SendBookMarkSuccessInfoType } from 'src/redux/bookmark/types';
-import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookmarkError, getBookmarkLoading, getBookMarkSuccessInfo, getFilteredBookmarkDetailInfo, getIsLoading } from 'src/redux/bookmark/selectors';
-import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, getBookMarkedSuccessDetailInfo, removeBookmarked, sendBookMarkId, updateFilteredBookMarkedInfo } from 'src/redux/bookmark/action';
+import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookmarkError, getBookmarkLoading, getBookMarkSuccessInfo, getFilteredBookmarkDetailInfo, getIsLoading, getRefreshBookmarkDetail } from 'src/redux/bookmark/selectors';
+import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, removeBookmarked, sendBookMarkId, updateBookMarkedDetailInfo, updateFilteredBookMarkedInfo } from 'src/redux/bookmark/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 import { isArray, isNonEmptyArray, joinArray, recordLogEvent } from 'src/shared/utils';
 import { getProfileUserDetails } from 'src/redux/profileUserDetail/selectors';
@@ -33,6 +33,7 @@ export interface UseBookMarkReturn {
   getBookmarkDetailData(): void
   removeBookmark(): void
   getSpecificBundleFavoriteDetail: (bundle: PopulateWidgetType, startIndex?: number) => void;
+  canRefreshBookmarkDetail: boolean;
 }
 
 export const useBookmark = (): UseBookMarkReturn => {
@@ -45,12 +46,14 @@ export const useBookmark = (): UseBookMarkReturn => {
   const userProfileData = useSelector(getProfileUserDetails);
   const bookmarkLoading = useSelector(getBookmarkLoading)
   const filterBookmarkDetailInfo = useSelector(getFilteredBookmarkDetailInfo)
+  const canRefreshBookmarkDetail = useSelector(getRefreshBookmarkDetail)
 
   const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {
     AdjustAnalyticsManager.trackEvent(AdjustEventID.BOOK_MARK_ARTICLE)
     recordLogEvent('Add_Bookmark_to_Article', { userId: userProfileData.user?.id, articleId: payload.nid });
     const lastBookmarkInfo = [...bookmarkIdInfo]
-    const updatedBookmarkIdDetail = lastBookmarkInfo.concat({ nid: payload.nid })
+    const newNidInfo = [{ nid: payload.nid }]
+    const updatedBookmarkIdDetail = newNidInfo.concat(lastBookmarkInfo)
     dispatch(getBookMarkedSuccess({ bookmarkedInfo: updatedBookmarkIdDetail }))
     dispatch(sendBookMarkId(payload));
   };
@@ -89,13 +92,13 @@ export const useBookmark = (): UseBookMarkReturn => {
 
   const updateBookDetailInfo = (bookmarkDetail: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[], filteredBookmarkDetail: any[]) => {
     dispatch(getBookMarkedSuccess({ bookmarkedInfo: bookmarkIDDetail }))
-    dispatch(getBookMarkedSuccessDetailInfo({ bookmarkedDetailInfo: bookmarkDetail, page: 0 }))
+    dispatch(updateBookMarkedDetailInfo({ bookmarkedDetailInfo: bookmarkDetail, page: 0 }))
     dispatch(updateFilteredBookMarkedInfo({ filteredData: filteredBookmarkDetail }))
   }
 
   const removeBookmark = () => {
     dispatch(getBookMarkedSuccess({ bookmarkedInfo: [] }))
-    dispatch(getBookMarkedSuccessDetailInfo({ bookmarkedDetailInfo: [], page: 0 }))
+    dispatch(updateBookMarkedDetailInfo({ bookmarkedDetailInfo: [], page: 0 }))
   }
 
   const getSpecificBundleFavoriteDetail = (payload: PopulateWidgetType, startIndex?: number) => {
@@ -134,5 +137,6 @@ export const useBookmark = (): UseBookMarkReturn => {
     isAllBookmarkFetched,
     getSpecificBundleFavoriteDetail,
     filterBookmarkDetailInfo,
+    canRefreshBookmarkDetail,
   };
 };

@@ -1,6 +1,6 @@
-import { storeAppTheme } from "../action"
-import { STORE_APP_THEME } from "../actionType"
-import { Theme } from "../types"
+import { resetArticleFontSize, storeAppFirstSession, storeAppTheme, storeArticleFontSize, storeServerEnvironment } from "../action"
+import { IS_APP_FIRST_SESSION, RESET_ARTICLE_FONT_SIZE, STORE_APP_THEME, STORE_FONT_SIZE, STORE_SERVER_ENVIRONMENT } from "../actionType"
+import { ArticleFontSize, ServerEnvironment, Theme } from "../types"
 
 describe('<App Common Action>', () => {
     test('Check storeAppTheme return', () => {
@@ -12,4 +12,36 @@ describe('<App Common Action>', () => {
             payload: { theme: Theme.DARK }
         })
     })
+
+    test('Check storeAppFirstSession return', () => {
+        const nextState = storeAppFirstSession()
+        expect(nextState).toStrictEqual({
+            type: IS_APP_FIRST_SESSION,
+            payload: { isAppFirstSession: false }
+        })
+    })
+
+    test('Check storeServerEnvironment return', () => {
+        const nextState = storeServerEnvironment(ServerEnvironment.PRODUCTION)
+        expect(nextState).toStrictEqual({
+            type: STORE_SERVER_ENVIRONMENT,
+            payload: { serverEnvironment: ServerEnvironment.PRODUCTION }
+        })
+    })
+
+    test('Check storeArticleFontSize return', () => {
+        const nextState = storeArticleFontSize(ArticleFontSize.medium)
+        expect(nextState).toStrictEqual({
+            type: STORE_FONT_SIZE,
+            payload: { fontSize: ArticleFontSize.medium }
+        })
+    })
+
+    test('Check resetArticleFontSize return', () => {
+        const nextState = resetArticleFontSize()
+        expect(nextState).toStrictEqual({
+            type: RESET_ARTICLE_FONT_SIZE,
+        })
+    })
+
 })

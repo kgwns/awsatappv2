@@ -241,19 +241,27 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             )}
             titleStyle={styles.nonBoldTitle}
           />
-          <ButtonList
+          {/* <ButtonList
             title={t('drawer.aboutTheEast')}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: t('drawer.aboutTheEast'), id: AWSATT_HISTORY_INFO_ID }
             )}
             titleStyle={styles.nonBoldTitle}
+          /> */}
+          <ButtonList
+            title={t('drawer.aboutTheEast')}
+            onPress={() => onPressNavigation(
+              ScreensConstants.TERMS_AND_ABOUT_US,
+              { title: t('about_the_news_paper'), id: ABOUT_US }
+            )}
+            titleStyle={styles.nonBoldTitle}
           />
           <ButtonList
             title={t('drawer.callUs')}
             onPress={() => onPressNavigation(
-              ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('about_the_news_paper'), id: ABOUT_US }
+              ScreensConstants.CONTACT_US_SCREEN, {}
+
             )}
             titleStyle={styles.nonBoldTitle}
           />

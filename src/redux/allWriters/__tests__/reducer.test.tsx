@@ -1,5 +1,5 @@
 import {allWritersActions} from '../action';
-import {FETCH_ALL_SELECTED_WRITERS_DETAILS, FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR, FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS, FETCH_ALL_WRITERS, FETCH_ALL_WRITERS_ERROR, FETCH_ALL_WRITERS_SUCCESS, GET_SELECTED_AUTHOR, GET_SELECTED_AUTHOR_ERROR, GET_SELECTED_AUTHOR_SUCCESS, REMOVE_AUTHOR, REMOVE_AUTHOR_ERROR, REMOVE_AUTHOR_SUCCESS, SEND_SELECTED_AUTHOR, SEND_SELECTED_AUTHOR_ERROR, SEND_SELECTED_AUTHOR_SUCCESS} from '../actionTypes';
+import {DESELECT_ALL_WRITERS, EMPTY_SELECTED_AUTHORS_INFO, EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD, EMPTY_SEND_AUTHOR_INFO, FETCH_ALL_SELECTED_WRITERS_DETAILS, FETCH_ALL_SELECTED_WRITERS_DETAILS_ERROR, FETCH_ALL_SELECTED_WRITERS_DETAILS_SUCCESSS, FETCH_ALL_WRITERS, FETCH_ALL_WRITERS_ERROR, FETCH_ALL_WRITERS_SUCCESS, GET_SELECTED_AUTHOR, GET_SELECTED_AUTHOR_ERROR, GET_SELECTED_AUTHOR_SUCCESS, REMOVE_AUTHOR, REMOVE_AUTHOR_ERROR, REMOVE_AUTHOR_SUCCESS, SELECTED_DATA_FROM_ONBOARD, SEND_SELECTED_AUTHOR, SEND_SELECTED_AUTHOR_ERROR, SEND_SELECTED_AUTHOR_SUCCESS} from '../actionTypes';
 import allWriters from '../reducer';
 import {AllWritersState} from '../types';
 
@@ -170,4 +170,41 @@ describe('allWriters reducer', () => {
     });
     expect(nextState.isLoading).toBe(false);
   });
+
+  test('Check loading state when selected author EMPTY_SEND_AUTHOR_INFO request API', () => {
+    const nextState = allWriters(initialState, {
+      type: EMPTY_SEND_AUTHOR_INFO,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author SELECTED_DATA_FROM_ONBOARD request API', () => {
+    const nextState = allWriters(initialState, {
+      type: SELECTED_DATA_FROM_ONBOARD,
+      payload: {data:[]},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author DESELECT_ALL_WRITERS request API', () => {
+    const nextState = allWriters(initialState, {
+      type: DESELECT_ALL_WRITERS,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD request API', () => {
+    const nextState = allWriters(initialState, {
+      type: EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when selected author EMPTY_SELECTED_AUTHORS_INFO request API', () => {
+    const nextState = allWriters(initialState, {
+      type: EMPTY_SELECTED_AUTHORS_INFO,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
 });

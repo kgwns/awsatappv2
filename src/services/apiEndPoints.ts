@@ -62,10 +62,12 @@ export const GET_SELECTED_TOPICS_ENDPOINT = 'api/ums/v1/getFavoriteTopics';
 
 export const INFO = 'api/v2/info/'
 
+// Side Menu
 export const ADVERTISE_INFO_ID = 49
 export const AWSATT_HISTORY_INFO_ID = 153
 export const ABOUT_US = 56
 export const TERMS_AND_CONDITION = 57
+export const CONTACT_US_END_POINT = 'api/ums/v1/sendContactUsMail'
 
 // Register
 export const REGISTER_ENDPOINT = 'api/ums/v1/register';
@@ -133,3 +135,6 @@ export const DOCUMENTARY_VIDEO_ENDPOINT = 'api/v2/docvideolist';
 
 //Content for you
 export const CONTENT_FOR_YOU_ARTICLE_ENDPOINT = 'api/v2/user/articlesection' 
+
+//Notification FCM token
+export const SAVE_FCM_TOKEN_ENDPOINT = 'api/ums/v1/saveToken' 

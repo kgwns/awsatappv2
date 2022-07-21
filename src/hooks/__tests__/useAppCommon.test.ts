@@ -1,51 +1,28 @@
-import {renderHook, RenderHookResult} from '@testing-library/react-hooks';
-import {useDispatch, useSelector} from 'react-redux';
-import {useAppCommon,UseAppCommonReturn} from '../useAppCommon';
+import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
+import {useDispatch} from 'react-redux';
+import { RESET_ARTICLE_FONT_SIZE, STORE_FONT_SIZE } from 'src/redux/appCommon/actionType';
+import { ServerEnvironment } from 'src/redux/appCommon/types';
+import {
+  useAppCommon,
+  UseAppCommonReturn,
+} from '../useAppCommon';
 
 jest.mock('react-redux', () => ({
-  useSelector: jest.fn(),
   useDispatch: jest.fn(),
+  useSelector: jest.fn(),
 }));
 
 describe('#useAppCommon', () => {
-  let result: RenderHookResult<undefined,UseAppCommonReturn>;
-  const mockDispatch = jest.fn();
+  let result: RenderHookResult<undefined, UseAppCommonReturn>;
 
-  // test data
-  const theme = 'light';
-  const isFirstSessionMock = true;
-  const serverEnvironmentMock = {};
-  const articleFontSizeMock = 10;
-  
-  // selectors mock
-  const themeMock = jest
-    .fn()
-    .mockReturnValueOnce(theme);
-  const selectisFirstSessionMock = jest
-    .fn()
-    .mockReturnValueOnce(isFirstSessionMock);
-  const selectserverEnvironmentMock = jest
-    .fn()
-    .mockReturnValueOnce(serverEnvironmentMock);
-  const selectarticleFontSizeMock = jest
-    .fn()
-    .mockReturnValueOnce(articleFontSizeMock);
-
+  const dispatchMock = jest.fn();
 
   beforeAll(() => {
-    (useSelector as jest.Mock).mockImplementationOnce(themeMock);
-    (useDispatch as jest.Mock).mockImplementationOnce(mockDispatch);
-    (useSelector as jest.Mock).mockImplementationOnce(
-      selectisFirstSessionMock,
-    );
-    (useSelector as jest.Mock).mockImplementationOnce(
-      selectserverEnvironmentMock,
-    );
-    (useSelector as jest.Mock).mockImplementationOnce(
-      selectarticleFontSizeMock,
-    );
+    (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
 
-    result = renderHook<undefined,UseAppCommonReturn>(() => useAppCommon());
+    result = renderHook<undefined, UseAppCommonReturn>(() =>
+      useAppCommon(),
+    );
   });
 
   afterAll(() => {
@@ -60,43 +37,95 @@ describe('#useAppCommon', () => {
           current: {theme},
         },
       } = result;
-      expect(theme).toBe('light');
+      expect(theme).toBe(undefined);
     });
   });
 
-  describe('#isFirstSession', () => {
-    it('isFirstSession', () => {
+  describe('#select isFirstSession', () => {
+    it('should return isFirstSession', () => {
       const {
         result: {
           current: {isFirstSession},
         },
       } = result;
-      expect(isFirstSession).toBe(isFirstSessionMock);
+      expect(isFirstSession).toBe(undefined);
     });
   });
 
-  describe('#serverEnvironment', () => {
-    it('serverEnvironment', () => {
+  describe('#select serverEnvironment', () => {
+    it('should return serverEnvironment', () => {
       const {
         result: {
           current: {serverEnvironment},
         },
       } = result;
-      expect(serverEnvironment).toBe(serverEnvironmentMock);
+      expect(serverEnvironment).toBe(undefined);
     });
   });
 
-  describe('#articleFontSize', () => {
-    it('should articleFontSize', () => {
+  describe('#select articleFontSize', () => {
+    it('should return articleFontSize', () => {
       const {
         result: {
           current: {articleFontSize},
         },
       } = result;
+      expect(articleFontSize).toBe(undefined);
+    });
+  });
 
-      expect(articleFontSize).toBe(
-        articleFontSizeMock,
-      );
+  describe('#storeServerEnvironmentInfo', () => {
+    it('should call dispatch with get token request action', () => {
+      const {
+        result: {
+          current: {storeServerEnvironmentInfo},
+        },
+      } = result;
+
+      act(() => {
+        storeServerEnvironmentInfo(ServerEnvironment.DEBUG);
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#resetFontSizeInfo', () => {
+    it('should call dispatch with get token request action', () => {
+      const {
+        result: {
+          current: {resetFontSizeInfo},
+        },
+      } = result;
+
+      act(() => {
+        resetFontSizeInfo();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+      expect(dispatchMock).toHaveBeenCalledWith({
+        type: RESET_ARTICLE_FONT_SIZE,
+      });
+    });
+  });
+
+  describe('#storeArticleFontSizeInfo', () => {
+    it('should call dispatch with get token request action', () => {
+      const {
+        result: {
+          current: {storeArticleFontSizeInfo},
+        },
+      } = result;
+
+      act(() => {
+        storeArticleFontSizeInfo();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+      expect(dispatchMock).toHaveBeenCalledWith({
+        type: STORE_FONT_SIZE,
+        payload: { fontSize: 16 }
+      });
     });
   });
 

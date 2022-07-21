@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants';
 import { useArticleDetail } from 'src/hooks/useArticleDetail';
 
-type ReadAlsoDataType = {
+export type ReadAlsoDataType = {
     title: string;
     nid: string;
 }

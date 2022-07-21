@@ -1,12 +1,12 @@
 import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
 import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
-import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl } from 'src/components/molecules'
+import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
-import { horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
+import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
@@ -15,14 +15,13 @@ import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useAppCommon, useBookmark, useLogin } from 'src/hooks'
 import { ScreensConstants } from 'src/constants'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { sendUserEventTracking } from 'src/services'
 import { TrackingEventType } from 'src/services/eventTrackService'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ArticleFontSize } from 'src/redux/appCommon/types'
-import { BackIcon } from 'src/components/atoms'
 import { RequestVideoUrlSuccessResponse } from 'src/redux/videoList/types'
 import { fetchVideoDetailInfo } from 'src/services/VideoServices'
 import { RenderRichHTMLContent } from './components/ArticleDetailRichContent'
@@ -46,6 +45,7 @@ export const ArticleDetailScreen = ({
   route
 }: ArticleDetailScreenProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const routes = useNavigationState(state => state.routes)
   const style = useThemeAwareObject(customStyle);
   const isFocused = useIsFocused();
 
@@ -77,6 +77,12 @@ export const ArticleDetailScreen = ({
   const [isDefaultDimension, setDefaultDimension] = useState(Dimensions.get('window').width)
   const [isDimensionChanged, setIsDimensionChanged] = useState(false)
   const dimensions = useWindowDimensions()
+  
+  const detailRoutes = useMemo(() => routes.filter((routes) => 
+    routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN || 
+    routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN || 
+    routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+  const noOfDetailRoutes = detailRoutes.length
 
   var webviewRef: any[] =[React.createRef()];
 
@@ -141,6 +147,18 @@ export const ArticleDetailScreen = ({
     }
   }, [articleFontSize])
 
+  useEffect(() => {
+    if (!isFocused) {
+      videoRefs?.current[0]?.setNativeProps({
+        paused: true,
+      });
+      videoRefs?.current[1]?.setNativeProps({
+        paused: true,
+      });
+    } else {
+      setPlayerVisible(false);
+    }
+  }, [isFocused]);
 
   const validateBookmark = (nid: string): boolean => {
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
@@ -369,9 +387,13 @@ export const ArticleDetailScreen = ({
     }
   };
 
-  const renderBackIcon = () => (
+  const onHomePress = () => {
+    navigation.pop(noOfDetailRoutes)
+  }
+
+  const renderHeader = () => (
     <View style={style.backContainer}>
-      <BackIcon onPressBack={onPressBack} containerStyle={style.backIconContainerStyle}/>
+      <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onHomePress} onBackPress={onPressBack} />
     </View>
   )
 
@@ -444,7 +466,7 @@ export const ArticleDetailScreen = ({
     <ScreenContainer edge={edge} isLoading={isLoading} 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
       {!isLoading && isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
-        { !isFullScreen &&  renderBackIcon()}
+        { !isFullScreen &&  renderHeader()}
         <FlatList
           onViewableItemsChanged={onViewableItemRef.current}
           viewabilityConfig={viewConfigRef.current}
@@ -506,7 +528,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   backContainer: {
     width: '100%',
-    height: isIOS ? normalize(80) : normalize(45),
+    height: isIOS ? isNotchDevice ? normalize(95) : normalize(90) : normalize(60),
     backgroundColor: theme.secondaryWhite,
     justifyContent: 'center',
   },
@@ -526,10 +548,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     aspectRatio: 1.62,
     backgroundColor: colors.black,
   },
-  backIconContainerStyle: {
-    marginLeft: isTab ? 15 : 0
-  },
   fullScreenContainer: {
     backgroundColor: Styles.color.black
-  }
+  },
 })

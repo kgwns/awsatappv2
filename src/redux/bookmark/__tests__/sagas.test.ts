@@ -1,7 +1,9 @@
 
-import {getBookmarked, getDetailedBookmarkInfo, removeBookmarked, sendBookMarkId} from '../sagas';
-import { GET_BOOK_MARKED_DETAIL_INFO, REMOVE_BOOK_MARKED, SEND_BOOK_MARK_ID } from '../actionType';
+import bookmarkSaga, {getBookmarked, getDetailedBookmarkInfo, removeBookmarked, sendBookMarkId} from '../sagas';
+import { GET_BOOK_MARKED, GET_BOOK_MARKED_DETAIL_INFO, REMOVE_BOOK_MARKED, SEND_BOOK_MARK_ID } from '../actionType';
 import { GetBookMarkIdSuccessMessageType, RemoveBookmarkDetailSuccessPayload, SendBookMarkSuccessInfoType } from '../types';
+import {takeLatest, takeEvery} from 'redux-saga/effects';
+import {testSaga} from 'redux-saga-test-plan';
 
 const errorResponse = {
   response: {data: 'Error', status: 500, statusText: 'Error'},
@@ -18,6 +20,21 @@ const sampleResponse2: GetBookMarkIdSuccessMessageType = {
 const sampleResponse3: RemoveBookmarkDetailSuccessPayload = {
   removeBookmarkInfo: {}
 };
+
+describe('Test bookmarkSaga  saga', () => {
+  it('fire on bookmarkSaga', () => {
+    testSaga(bookmarkSaga)
+      .next()
+      .all([
+        takeEvery(SEND_BOOK_MARK_ID, sendBookMarkId),
+        takeLatest(GET_BOOK_MARKED, getBookmarked),
+        takeEvery(REMOVE_BOOK_MARKED, removeBookmarked),
+        takeEvery(GET_BOOK_MARKED_DETAIL_INFO, getDetailedBookmarkInfo)
+      ])
+      .finish()
+      .isDone();
+  });
+});
 
 describe('Test bookmark  error', () => {
 
@@ -69,10 +86,19 @@ describe('Test bookmark  error', () => {
     genObject.throw(errorResponse);
   });
 
+  it('check getDetailedBookmarkInfo success', () => {
+    const genObject = getDetailedBookmarkInfo({
+      type: GET_BOOK_MARKED_DETAIL_INFO,
+      payload: {nid: '123', page: 2},
+    });
+    genObject.next([{nid: '2'}]);
+    genObject.next([{nid: '2'}]);
+  });
+
   it('check getDetailedBookmarkInfo failed', () => {
     const genObject = getDetailedBookmarkInfo({
       type: GET_BOOK_MARKED_DETAIL_INFO,
-      payload: {nid: '123'},
+      payload: {nid: '123', page: 2},
     });
     genObject.next();
     genObject.throw(errorResponse);

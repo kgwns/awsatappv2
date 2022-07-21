@@ -14,14 +14,8 @@ export const fetchOpinionsApi = async (body: OpinionsBodyGet) => {
     const response: FetchOpinionsSuccessPayloadType = await getCacheApiRequest(
       `${BASE_URL}${OPINIONS_ENDPOINT}?page=${body.page}`,
     );
-    // console.log(
-    //   `Opinions url: ${BASE_URL}${OPINIONS_ENDPOINT}?page=${body.page} response: ${JSON.stringify(
-    //     response,
-    //   )}`,
-    // );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -33,7 +27,6 @@ export const fetchWriterOpinionsApi = async (body: WriterOpinionsBodyGet) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -46,7 +39,6 @@ export const fetchOpinionsListApi = async (body: OpinionsListBodyGet) => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -58,7 +50,6 @@ export const fetchHomeOpinionsListApi = async () => {
     );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };

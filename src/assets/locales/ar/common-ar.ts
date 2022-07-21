@@ -14,8 +14,9 @@ export const arabic = {
     aboutTheEast: 'عن الشرق',
     callUs: 'اتصل بنا',
     myPersonalAccount: 'حسابي الشخصي',
-    termsOfUse: 'شروط الإنتفاع',
+    termsOfUse: 'شروط الانتفاع',
     pdfArchive: 'الأرشيف',
+    informationAboutUs: 'معلومات عنا',
   },
   onBoard: {
     common: {
@@ -198,9 +199,9 @@ export const arabic = {
     maxLengthPassword: 'Password should contain maximum 20 characters',
     minLengthPassword: 'كلمة المرور يجب أن تحتوي على ٥ أحرف على الأقل',
   },
-  about_the_news_paper: 'عن الصحيفة',
+  about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',
-  terms_and_condition: 'الأحكام والشروط',
+  terms_and_condition: 'القواعد و الشروط',
   return: 'الرجوع',
   searchScreen: {
     placeholder: 'ابحث في الشرق الأوسط …',
@@ -342,5 +343,20 @@ export const arabic = {
     facts: 'حقائق',
     readArticle: 'اقرأ المقالة',
     opinionTitle: 'الرأي',
+  },
+  myNewsTab: {
+    topics: 'مواضيعي',
+    writers: 'كتابي',
+    media: 'ميديا',
+  },
+  myNewsWriters: {
+    noContent: 'لم يتم حفظ أي شيء حتى الآن',
+    allTxt: 'الكل'
+  },
+  contactUs: {
+    name: 'الإسم',
+    email: 'إيميل',
+    yourLetter: 'رسالتك',
+    send: 'ارسل',
   }
 }

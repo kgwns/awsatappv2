@@ -106,13 +106,13 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   )
 
   const renderTitle = (title: string) => (
-    <TextWithFlag
-      title={title}
-      titleColor={theme.themeData.primaryBlack}
-      numberOfLines={2}
-      labelType={LabelTypeProp.h2}
-      style={style.title}
-    />
+    <View style={style.titleContainer}>
+      <Label
+        style={style.title}
+        color={theme.themeData.primaryBlack}
+        children={decodeHTMLTags(title)}
+      />
+    </View>
   )
 
   const renderDescription = (body: string) => (
@@ -143,7 +143,9 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
                   <View style={style.titleContainer}>
                     {renderTitle(item.title)}
                   </View>
-                  {renderArticleImage(item)}
+                  <View>
+                    {renderArticleImage(item)}
+                  </View>
                 </View>
                 {renderArticleFooterMobile(item, index)}
               </>
@@ -223,7 +225,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    paddingRight: normalize(15),
+    marginRight: normalize(10),
     top: normalize(10),
   },
   tabSplitter: {
@@ -236,8 +238,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingRight: normalize(30),
   },
   title: {
+    textAlign: 'left',
     fontFamily: fonts.AwsatDigitalBetav10_Bold,
     fontSize: normalize(18),
     lineHeight: normalize(29),
+    marginBottom: 10,
   }
 });

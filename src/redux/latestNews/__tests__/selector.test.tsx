@@ -1,6 +1,16 @@
 import { storeInfo } from "src/constants/SampleData"
-import { getError, getHeroData, getHeroListData, getIsLoading, getOpinionData, getSectionComboFourData, getSectionComboOneData, getSectionComboThreeData, getSectionComboTwoData, getTickerData, getTopListData } from "../selectors"
-import { LatestArticleDataType } from "../types"
+import { getError, getHeroData, getHeroListData, getIsLoading, getOpinionData, 
+        getSectionComboFiveData, getSectionComboFourData, 
+        getSectionComboOneData, getSectionComboSevenData, 
+        getSectionComboSixData, getSectionComboThreeData, 
+        getSectionComboTwoData, getTickerData, getTopListData,
+        getPodcastHomeData, getEditorsChoiceData, getSpotlightData,
+        getSpotlightArticleSectionData, getCoverageData, getFeaturedArticle,
+        getHorizontalData, getCoverageDataLoading, getFeaturedArticleLoading,
+        getHorizontalDataLoading, getOpinionDataLoading, getPodcastHomeDataLoading, 
+        getSectionComboThreeLoading, getSectionComboTwoLoading, getSectionComboOneLoading, getEditorChoiceDataLoading
+    } from "../selectors"
+import { EditorsChoiceDataType, LatestArticleDataType, LatestPodcastDataType, MainSectionBlockType, SpotlightDataType } from "../types"
 
 describe('LatestNewsTab Selector', () => {
     const storeData = storeInfo[0]
@@ -58,5 +68,100 @@ describe('LatestNewsTab Selector', () => {
     test('Get error state', () => {
         const error = getError(storeData)
         expect(error).toEqual('')
+    })
+
+    test('Get getSectionComboFiveData state', () => {
+        const comboFive: LatestArticleDataType[] = getSectionComboFiveData(storeData)
+        expect(comboFive).toEqual([])
+    })
+
+    test('Get getSectionComboSixData state', () => {
+        const comboSix: LatestArticleDataType[] = getSectionComboSixData(storeData)
+        expect(comboSix).toEqual([])
+    })
+
+    test('Get getSectionComboSevenData state', () => {
+        const comboSeven: LatestArticleDataType[] = getSectionComboSevenData(storeData)
+        expect(comboSeven).toEqual([])
+    })
+
+    test('Get getPodcastHomeData state', () => {
+        const podcastHome: LatestPodcastDataType[] = getPodcastHomeData(storeData)
+        expect(podcastHome).toEqual([])
+    })
+
+    test('Get getEditorsChoiceData state', () => {
+        const editorsChoice: EditorsChoiceDataType[] = getEditorsChoiceData(storeData)
+        expect(editorsChoice).toEqual([])
+    })
+
+    test('Get getSpotlightData state', () => {
+        const spotlight: SpotlightDataType[] = getSpotlightData(storeData)
+        expect(spotlight).toEqual([])
+    })
+
+    test('Get getSpotlightArticleSectionData state', () => {
+        const spotlight: LatestArticleDataType[] = getSpotlightArticleSectionData(storeData)
+        expect(spotlight).toEqual([])
+    })
+
+    test('Get getCoverageData state', () => {
+        const spotlight: MainSectionBlockType[] = getCoverageData(storeData)
+        expect(spotlight).toEqual([])
+    })
+
+    test('Get getFeaturedArticle state', () => {
+        const spotlight: MainSectionBlockType[] = getFeaturedArticle(storeData)
+        expect(spotlight).toEqual([])
+    })
+
+    test('Get getHorizontalData state', () => {
+        const spotlight: MainSectionBlockType[] = getHorizontalData(storeData)
+        expect(spotlight).toEqual([])
+    })
+
+    test('Get getCoverageDataLoading state', () => {
+        const spotlight: boolean = getCoverageDataLoading(storeData)
+        expect(spotlight).toEqual(false)
+    })
+
+    test('Get getFeaturedArticleLoading state', () => {
+        const spotlight: boolean = getFeaturedArticleLoading(storeData)
+        expect(spotlight).toEqual(false)
+    })
+
+    test('Get getHorizontalDataLoading state', () => {
+        const spotlight: boolean = getHorizontalDataLoading(storeData)
+        expect(spotlight).toEqual(false)
+    })
+
+    test('Get getOpinionDataLoading state', () => {
+        const spotlight: boolean = getOpinionDataLoading(storeData)
+        expect(spotlight).toEqual(false)
+    })
+
+    test('Get getPodcastHomeDataLoading state', () => {
+        const spotlight: boolean = getPodcastHomeDataLoading(storeData)
+        expect(spotlight).toEqual(false)
+    })
+
+    test('Get getEditorChoiceDataLoading state', () => {
+        const spotlight: boolean = getEditorChoiceDataLoading(storeData)
+        expect(spotlight).toEqual(false)
+    })
+
+    test('Get getSectionComboOneLoading state', () => {
+        const spotlight: boolean = getSectionComboOneLoading(storeData)
+        expect(spotlight).toEqual(false)
+    })
+
+    test('Get getSectionComboTwoLoading state', () => {
+        const spotlight: boolean = getSectionComboTwoLoading(storeData)
+        expect(spotlight).toEqual(false)
+    })
+
+    test('Get getSectionComboThreeLoading state', () => {
+        const spotlight: boolean = getSectionComboThreeLoading(storeData)
+        expect(spotlight).toEqual(false)
     })
 })

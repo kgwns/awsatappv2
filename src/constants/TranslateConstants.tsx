@@ -29,6 +29,15 @@ export enum TranslateKey {
     CONST_MORE,
     CONST_READ_ARTICLE,
     RICH_OPINION_TITLE,
+    TAB_ALL_TITLE,
+    NO_CONTENT_TITLE,
+    DRAWER_CALL_US,
+    CONTACT_US_NAME,
+    CONTACT_US_EMAIL,
+    CONTACT_US_LETTER,
+    CONTACT_US_SEND,
+    TEXT_ALERT,
+    COMMON_OK,
 }
 
 export const TranslateConstants = ({
@@ -38,7 +47,7 @@ export const TranslateConstants = ({
 
     switch (key) {
         case TranslateKey.RETURN:
-            return t('onBoard.common.return')
+            return t('return')
         case TranslateKey.NOT_SUBSCRIBED:
             return t('signUpAlert.notSubscribed')
         case TranslateKey.DESCRIPTION:
@@ -91,6 +100,24 @@ export const TranslateConstants = ({
             return t('richHTMLContent.readArticle')
         case TranslateKey.RICH_OPINION_TITLE:
             return t('richHTMLContent.opinionTitle')
+        case TranslateKey.TAB_ALL_TITLE:
+            return t('myNewsWriters.allTxt')
+        case TranslateKey.NO_CONTENT_TITLE:
+            return t('myNewsWriters.noContent')
+        case TranslateKey.DRAWER_CALL_US:
+            return t('drawer.callUs')
+        case TranslateKey.CONTACT_US_NAME:
+            return t('contactUs.name')
+        case TranslateKey.CONTACT_US_EMAIL:
+            return t('contactUs.email')
+        case TranslateKey.CONTACT_US_LETTER:
+            return t('contactUs.yourLetter')
+        case TranslateKey.CONTACT_US_SEND:
+            return t('contactUs.send')
+        case TranslateKey.TEXT_ALERT:
+            return t('profileSetting.alert');
+        case TranslateKey.COMMON_OK:
+            return  t('common.ok');
         default: return ''
     }
 }

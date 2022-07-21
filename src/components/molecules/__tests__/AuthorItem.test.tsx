@@ -48,14 +48,14 @@ describe('<Author Item>', () => {
         useAppPlayerMock.mockReturnValue({
             showMiniPlayer: false,
             isPlaying: false,
-            selectedTrack: {},
+            selectedTrack: {id: 1},
             showControls: false,
             setControlState: setControlStateMock,
             setShowMiniPlayer: setShowMiniPlayerMock,
             setPlay: setPlayMock,
             setPlayerTrack: setPlayerTrackMock,
         });
-        const component = <AuthorItem  authorId={''} {...data} mediaVisibility={true}/>
+        const component = <AuthorItem nid='2' jwPlayerID='2' index={0} togglePlayback={mockFunction} authorId={'2'} selectedType={'yes'} selectedTrack={'abc'} {...data} mediaVisibility={true}/>
         instance = render(component)
     })
 
@@ -70,31 +70,31 @@ describe('<Author Item>', () => {
 
     test('Should call button image onPress', () => {
         const element = instance.container.findByType(ButtonImage)
-        fireEvent(element, 'onPress', {nid:'0'});
+        fireEvent(element, 'onPress', {nid:'1'});
         expect(mockFunction).toBeTruthy();
     })
 
     it('When AutherItemTO1 is pressed', () => {
         const testItemId = instance.getByTestId('AutherItemTO1');
-        fireEvent(testItemId, 'onPress', {nid:'0'});
+        fireEvent(testItemId, 'onPress', {nid:'1'});
         expect(navigation.navigate).toBeTruthy();
     });
 
     it('When AutherItemTO2 is pressed', () => {
         const testItemId = instance.getByTestId('AutherItemTO2');
-        fireEvent(testItemId, 'onPress', {nid:'0'});
+        fireEvent(testItemId, 'onPress');
         expect(mockFunction).toBeTruthy();
     });
 
     it('When AutherItemTO3 is pressed', () => {
         const testItemId = instance.getByTestId('AutherItemTO3');
-        fireEvent(testItemId, 'onPress');
+        fireEvent(testItemId, 'onPress', {tid:'1'});
         expect(navigation.navigate).toBeTruthy();
     });
 
     it('When AutherItemLabel1 is pressed', () => {
         const testItemId = instance.getByTestId('AutherItemLabel1');
-        fireEvent(testItemId, 'onPress', {nid:'0'});
+        fireEvent(testItemId, 'onPress', {tid:'1'});
         expect(navigation.navigate).toBeTruthy();
     });
 })

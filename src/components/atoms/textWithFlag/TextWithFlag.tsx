@@ -28,7 +28,7 @@ export const TextWithFlag = ({
     titleContainerStyle,
 }: TextWithFlagProps) => {
     return (
-        <Text style={[textWithFlagStyle.container, titleContainerStyle && titleContainerStyle]} numberOfLines={numberOfLines} >
+        <Text style={[textWithFlagStyle.container, titleContainerStyle]} numberOfLines={numberOfLines} >
             {flag && <Label style={[style, { color: flagColor }]} children={`${flag}`} labelType={labelType} />}
             {flag && <Label style={[textWithFlagStyle.dividerStyle, {color: barColor }]} children={`  |  `} labelType={labelType} />}
             <Label children={isNotEmpty(title) ? decodeHTMLTags(decode(title)) : ''}

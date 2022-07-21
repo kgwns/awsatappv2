@@ -1,5 +1,5 @@
 import {opinionsActions} from '../action';
-import {EMPTY_OPINION_DATA, EMPTY_WRITER_OPINION_DATA, FETCH_OPINIONS, FETCH_WRITER_OPINIONS, FETCH_WRITER_OPINIONS_SUCCESS} from '../actionTypes';
+import {EMPTY_OPINION_DATA, EMPTY_WRITER_OPINION_DATA, FETCH_OPINIONS, FETCH_WRITER_OPINIONS, FETCH_WRITER_OPINIONS_SUCCESS, STORE_HOME_OPINION_NID} from '../actionTypes';
 import opinionsReducer from '../reducer';
 import {OpinionsListState} from '../types';
 
@@ -13,7 +13,8 @@ describe('opinions reducer', () => {
       isLoading: false,
       writerOpinionLoading: true,
       writerOpinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
-      writerOpinionError: ''
+      writerOpinionError: '',
+      homeOpinionNid: '',
     };
   });
 
@@ -47,7 +48,7 @@ describe('opinions reducer', () => {
   test('Check loading state when opinionsReducer request API', () => {
     const nextState = opinionsReducer(initialState, {
       type: FETCH_OPINIONS,
-      payload: {page: 1},
+      payload: {page: 1, nid: '2'},
     });
     expect(nextState.isLoading).toBe(true);
   });
@@ -82,4 +83,13 @@ describe('opinions reducer', () => {
     });
     expect(nextState.isLoading).toBe(false);
   });
+
+  test('Check loading state when STORE_HOME_OPINION_NID request API', () => {
+    const nextState = opinionsReducer(initialState, {
+      type: STORE_HOME_OPINION_NID,
+      payload: {nid: '2'}
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
 });
