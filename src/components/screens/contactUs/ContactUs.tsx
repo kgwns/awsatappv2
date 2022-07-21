@@ -14,6 +14,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useContactUs } from 'src/hooks'
 import { emailValidation } from 'src/shared/validators'
 import { useNavigation } from '@react-navigation/native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export type ContactUsModal = {
     name: string;
@@ -206,14 +207,16 @@ export const ContactUs = () => {
             alertPayload={alertPayload}
         >
             <StaticPageHeader title={CONST_CALL_US} />
-            <ScrollView
-                showsHorizontalScrollIndicator={false}
-                bounces={false}>
+            <KeyboardAwareScrollView
+                bounces={false}
+                extraHeight={230}
+                showsVerticalScrollIndicator={false}
+                scrollEnabled>
                 <View style={style.mainContainer}>
                     {renderAboutScreen()}
                     {renderFormFields()}
                 </View>
-            </ScrollView>
+            </KeyboardAwareScrollView>
         </ScreenContainer>
     )
 }
