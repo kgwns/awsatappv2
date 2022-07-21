@@ -12,7 +12,7 @@ import { ImagesName } from 'src/shared/styles/images';
 interface BottomSheetViewProp {
     onPressSignUp: () => void;
     title: string,
-    subTitle: string,
+    subTitle?: string,
     description: string,
     signUpLabel: string,
     logInLabel: string
@@ -31,9 +31,6 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
                 {title}
             </Label>
             <View style={style.divider} />
-            <Label style={style.subTitle}>
-                {subTitle}
-            </Label>
             <Label style={style.description}>
                 {description}
             </Label>
@@ -87,8 +84,8 @@ const customStyle = (theme: CustomThemeType) => {
         },
         description: {
             fontFamily: fonts.Effra_Arbc_Regular,
-            fontSize: normalize(19),
-            lineHeight: normalize(32),
+            fontSize: 19,
+            lineHeight: 32,
             color: colors.black,
             alignSelf: 'center',
             textAlign: 'center',
@@ -126,7 +123,7 @@ const customStyle = (theme: CustomThemeType) => {
             alignSelf:'center',
             width: normalize(250),
             height: normalize(243),
-            marginTop: normalize(20)
+            marginTop: normalize(35)
         },
         popupImage: {
             width: '100%',

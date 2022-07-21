@@ -25,10 +25,15 @@ import {
   TranslateConstants,
   TranslateKey,
 } from 'src/constants/TranslateConstants';
+import { useIsFocused } from '@react-navigation/native';
 
 const keyExtractor = (_: any, index: number) => index.toString();
 
 export const MyNewsWriters = () => {
+  const isFocused = useIsFocused();
+
+  const noContentTitle = TranslateConstants({ key: TranslateKey.NO_CONTENT_TITLE });
+  
   const styles = useThemeAwareObject(customStyle);
   const {
     allWritersData,
@@ -36,19 +41,20 @@ export const MyNewsWriters = () => {
     fetchAllWritersRequest,
     getSelectedAuthorsData,
   } = useAllWriters();
+
   const {
     isLoading: opinionLoading,
     favouriteOpinionsData,
     fetchFavouriteOpinionsRequest,
   } = useContentForYou();
-  const noContentTitle = TranslateConstants({
-    key: TranslateKey.NO_CONTENT_TITLE,
-  });
+
+
   const [pageCount, setPageCount] = useState(0);
   const [selectedAuthors, setSelectedAuthors] = useState<any>(null);
   const [opinionData, setOpinionData] = useState<any>([]);
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
   const [showEmpty, setShowEmpty] = useState<boolean>(false);
+
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
@@ -73,9 +79,11 @@ export const MyNewsWriters = () => {
   }, [selectedAuthorsData, allWritersData]);
 
   useEffect(() => {
-    fetchAllWritersRequest(allWritersPayload);
-    getSelectedAuthorsData();
-  }, []);
+    if (isFocused) {
+      fetchAllWritersRequest(allWritersPayload);
+      getSelectedAuthorsData();
+    }
+  }, [isFocused]);
 
   useEffect(() => {
     setInitialData();

@@ -20,9 +20,11 @@ const initialData: BookMarkState = {
   getBookmarkDetailError: '',
   bookmarkDetailLoading: false,
   filteredBookmarkDetailInfo: [],
+  refreshBookmarkDetail: true,
 };
 
 export default (state = initialData, action: BookmarkAction) => {
+  
   const updateBookmarkDetailInfo = ({ bookmarkedDetailInfo, page, bundle }: GetBookmarkDetailSuccessPayload) => {
     const isPageZero = isNonNegativeNumber(page) && page === 0
     if (isNotEmpty(bundle)) {
@@ -52,7 +54,8 @@ export default (state = initialData, action: BookmarkAction) => {
     case SEND_BOOK_MARK_ID:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        refreshBookmarkDetail: true,
       }
     case SEND_BOOK_MARK_ID_SUCCESS:
       return {
@@ -97,6 +100,7 @@ export default (state = initialData, action: BookmarkAction) => {
         ...state,
         isLoading: false,
         bookmarkDetailLoading: false,
+        refreshBookmarkDetail: false,
         ...updateBookmarkDetailInfo(action.payload)
       }
     case UPDATE_ADD_REMOVE_BOOK_MARK: {

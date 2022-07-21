@@ -52,6 +52,7 @@ jest.mock('src/hooks/useAllWriters', () => ({
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
 describe('<MyNewsWriters>', () => {
@@ -62,12 +63,14 @@ describe('<MyNewsWriters>', () => {
   const setOpinionData = mockFunction;
   const setSelectedIndex = mockFunction;
   const setShowEmpty = mockFunction;
+
   const mockData = [
     {
       field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
       name: 'الحكومة',
     },
   ];
+
   const navigation = {
     goBack: mockFunction,
     navigate: mockFunction,

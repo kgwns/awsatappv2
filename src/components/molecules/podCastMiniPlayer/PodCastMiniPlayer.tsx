@@ -33,6 +33,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
 }) => {
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
+    const isPlaying = playbackState === State.Playing;
     const isLoading = (playbackState === State.None || playbackState === State.Connecting ) && (playbackState !== State.Paused && playbackState !== State.Playing)
     const { selectedTrack } = useAppPlayer()
     
@@ -162,7 +163,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                         {_playForwardIcon}
                     </TouchableOpacity>
                     <TouchableOpacity testID={'playPause'} onPress={() => onPlayPausePress(playbackState)}>
-                        { playbackState === State.Playing ? _pauseIcon : _playIcon }
+                        { isPlaying ? _pauseIcon : _playIcon }
                     </TouchableOpacity>
                     <TouchableOpacity testID={'playBackwardIcon'} onPress={() => { seekForwardBackward('forward') }}>
                         {_playBackwardIcon}
@@ -174,38 +175,40 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     )
     
     return (
-        <View style={StyleSheet.flatten([style.container, playerPosition, (!isPortrait() && !isTab) ? style.containerLandscape : null]) }>
-            <View style={style.miniPlayer}>
-                <TouchableOpacity testID={'Miniplayer'} onPress={() => { setShowControl(true);} } style={style.rowStyleContainer}>
-                    <View style={style.imageContainer}>
-                        <Image fallback url={selectedTrack.artwork}
-                            style={style.image}
-                            resizeMode={ImageResize.COVER}
-                        />
-                    </View>
-                    <View style={style.titleContainer}>
-                        <TextTicker
-                            disabled={playbackState === State.Playing ? false : true}
-                            animationType={'scroll'}
-                            shouldAnimateTreshold={0}
-                            duration={8000}
-                            children={selectedTrack.title}
-                            style={style.title}
-                        />
-                    </View>
-                    <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
-                        <View style={[style.buttonContainer, isPortrait() ? style.buttonContainerPortrait : style.buttonContainerLandscape]}>
-                            {isLoading ? <ActivityIndicator /> : playbackState === State.Playing ? <Pause /> : <Play /> }
+        <View style={{width: '100%'}} >
+            <View style={StyleSheet.flatten([style.container, playerPosition, (!isPortrait() && !isTab) ? style.containerLandscape : null]) }>
+                <View style={style.miniPlayer}>
+                    <TouchableOpacity testID={'Miniplayer'} onPress={() => { setShowControl(true);} } style={style.rowStyleContainer}>
+                        <View style={style.imageContainer}>
+                            <Image fallback url={selectedTrack.artwork}
+                                style={style.image}
+                                resizeMode={ImageResize.COVER}
+                            />
+                        </View>
+                        <View style={style.titleContainer}>
+                            <TextTicker
+                                disabled={isPlaying ? false : true}
+                                animationType={'scroll'}
+                                shouldAnimateTreshold={0}
+                                duration={8000}
+                                children={selectedTrack.title}
+                                style={style.title}
+                            />
+                        </View>
+                        <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
+                            <View style={[style.buttonContainer, isPortrait() ? style.buttonContainerPortrait : style.buttonContainerLandscape]}>
+                                {isLoading ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play /> }
+                            </View>
+                        </TouchableOpacity>
+                    </TouchableOpacity>
+                    <TouchableOpacity testID={'closeIcon'} onPress={onClose} style={style.closeContainer}>
+                        <View style={style.closeIcon}>
+                            {getSvgImages({ name: ImagesName.playerCloseIcon, width: normalize(12), height: normalize(12) })}
                         </View>
                     </TouchableOpacity>
-                </TouchableOpacity>
-                <TouchableOpacity testID={'closeIcon'} onPress={onClose} style={style.closeContainer}>
-                    <View style={style.closeIcon}>
-                        {getSvgImages({ name: ImagesName.playerCloseIcon, width: normalize(12), height: normalize(12) })}
-                    </View>
-                </TouchableOpacity>
+                </View>
+                {showControl && renderRBSheet()}
             </View>
-            {showControl && renderRBSheet()}
         </View>
     )
 }

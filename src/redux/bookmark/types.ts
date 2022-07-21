@@ -18,6 +18,7 @@ export type BookMarkState = {
   getBookmarkDetailError: string
   bookmarkDetailLoading: boolean;
   filteredBookmarkDetailInfo: any[];
+  refreshBookmarkDetail: boolean; //It will let us when new bookmark added need to refresh the archives screen
 }
 
 export interface SendBookMarkBodyGet {
