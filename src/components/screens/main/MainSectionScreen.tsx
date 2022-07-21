@@ -7,7 +7,7 @@ import {
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/SampleData';
-import { horizontalEdge, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer } from 'src/hooks';
@@ -432,7 +432,8 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
       flag: item.news_categories && item.news_categories.title || '',
-      isBookmarked: validateBookmark(item.nid)
+      isBookmarked: validateBookmark(item.nid),
+      style: mainSectionStyle.labelStyle
     }
   ))
 
@@ -977,6 +978,11 @@ const customStyle = (theme: CustomThemeType) => {
     },
     spotlightSectionContainer: {
       marginHorizontal: 20
+    },
+    labelStyle: {
+      lineHeight: isIOS ? 30 : 33,
+      fontSize: 17,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold
     }
   })
 }
