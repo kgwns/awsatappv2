@@ -17,7 +17,6 @@ export const fetchNewsViewApi = async (body: NewsViewBodyGet) => {
     // );
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };

@@ -1,8 +1,13 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { ArticleDetailScreen } from '../ArticleDetailScreen';
 import { isIOS, normalize } from 'src/shared/utils/dimensions';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
 
 jest.mock("src/hooks/useArticleDetail", () => ({
   useArticleDetail: () => {
@@ -84,7 +89,13 @@ describe('<ArticleDetailScreen>', () => {
 
   const sampleData = { params: { nid: '123', isRelatedArticle: true } };
 
-  beforeEach(() => {
+  const isFullScreen = jest.fn()
+  const isEdgeUpdated = jest.fn()
+
+  describe('when ArticleDetailScreen only', () => {
+    beforeEach(() => {
+      (useState as jest.Mock).mockImplementation(() => [true, isFullScreen]);
+      (useState as jest.Mock).mockImplementation(() => [true, isEdgeUpdated]);
     const component = <ArticleDetailScreen route={sampleData}/>;
     instance = render(component);
   });
@@ -125,8 +136,9 @@ describe('<ArticleDetailScreen>', () => {
       isIOS
       let normalizeValue = (normalize(70, 'bottom'))
       expect(normalizeValue).toEqual(140)
+    })
   })
-  })
+  });
 
 });
 

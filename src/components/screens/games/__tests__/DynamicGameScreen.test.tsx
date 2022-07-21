@@ -3,9 +3,10 @@ import React from 'react'
 import  {DynamicGameScreen} from 'src/components/screens/games/DynamicGameScreen'
 
 describe('<DynamicGameScreen />', () => {
-  let instance: RenderAPI
+  let instance: RenderAPI;
+
   beforeEach(() => {
-    const component = <DynamicGameScreen route={{params: {gameData : '', showIntro: false}}}/>
+    const component = <DynamicGameScreen route={{params: {gameData : {url : 'abc.com'}, showIntro: false}}}/>
     instance = render(component)
   })
 
@@ -17,4 +18,5 @@ describe('<DynamicGameScreen />', () => {
   it('should render component', () => {
     expect(instance).toBeDefined()
   })
+
 })

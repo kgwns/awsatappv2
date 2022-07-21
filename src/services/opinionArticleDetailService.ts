@@ -18,7 +18,6 @@ export const requestOpinionArticleDetailAPI = async (
     // console.log(`opinionArticleresponse: ${BASE_URL}${OPINION_ARTICLE_DETAIL}${body.nid}`,response);
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };
@@ -33,7 +32,6 @@ export const fetchRelatedOpinionAPI = async (
     // console.log(`requestRelatedOpinionResponse: ${BASE_URL}${OPINION_ARTICLE_DETAIL}?page=${body.page}`,response);
     return response;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };

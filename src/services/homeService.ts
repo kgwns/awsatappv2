@@ -18,7 +18,6 @@ export const requestHomeApi = async (body: HomeBodyType) => {
     const responseData: HomeSuccessPayloadType = { homeData: response };
     return responseData;
   } catch (error) {
-    console.log(`error: ${error}`);
     throw error;
   }
 };

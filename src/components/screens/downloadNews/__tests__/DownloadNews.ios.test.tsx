@@ -1,10 +1,29 @@
-import {render, RenderAPI} from '@testing-library/react-native'
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native'
 import React from 'react'
-import  {DownloadNewsIOS} from 'src/components/screens/downloadNews/DownloadNews.ios'
+import  {DownloadNewsIOS, NativeView} from 'src/components/screens/downloadNews/DownloadNews.ios'
+import {useNavigation} from '@react-navigation/native';
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+}));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+  useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
+}));
 
 describe('<DownloadNews />', () => {
-  let instance: RenderAPI
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const navigation = {
+    navigate: mockFunction,
+  }
+
   beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     const component = <DownloadNewsIOS/>
     instance = render(component)
   })
@@ -17,4 +36,11 @@ describe('<DownloadNews />', () => {
   it('should render component', () => {
     expect(instance).toBeDefined()
   })
+
+  test('Should call NativeView onClickArchive', () => {
+    const element = instance.container.findByType(NativeView)
+    fireEvent(element, 'onClickArchive');
+    expect(navigation.navigate).toBeTruthy();
+  });
+
 })
