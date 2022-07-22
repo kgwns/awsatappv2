@@ -125,7 +125,8 @@ export interface CustomThemeType {
   popupBackground: string,
   playerBackground: string;
   bottomSheetBackground: string,
-  borderColor: string
+  borderColor: string,
+  backIconColor: string
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -172,7 +173,8 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   popupBackground: colors.blackOpacity50,
   playerBackground: colors.balckOpacity20,
   bottomSheetBackground: colors.mandyPink,
-  borderColor: colors.lightGreen
+  borderColor: colors.lightGreen,
+  backIconColor: colors.black
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -216,6 +218,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   popupBackground: colors.blueCharcoalOpacity80,
   playerBackground: colors.balckOpacity20,
   bottomSheetBackground: colors.mandyPink,
-  borderColor: colors.lightGreen
+  borderColor: colors.lightGreen,
+  backIconColor: colors.white
 }
 
