@@ -17,7 +17,6 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
-import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import {SocialLoginButton, TextInputField} from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
@@ -190,7 +189,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
                   navigation.goBack();
                 }}>
                 <View style={styles.headerContainer}>
-                  <BackIcon fill={themeData.textColor} style={{marginBottom: isIOS ? 5 : 0}}/>
+                  <BackIcon fill={themeData.backIconColor} style={{marginBottom: isIOS ? 5 : 0}}/>
                   <Label
                     children={t('signUp.return')}
                     style={styles.headerLabelStyle}
@@ -297,7 +296,7 @@ const createStyles = (theme: CustomThemeType) =>
     headerLabelStyle: {
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
       fontSize: normalize(12),
-      color: theme.textColor,
+      color: theme.backIconColor,
       lineHeight: normalize(16),
       marginLeft: normalize(5),
     },

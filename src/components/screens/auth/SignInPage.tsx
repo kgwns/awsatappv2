@@ -332,7 +332,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
                 accessibilityLabel="signin_back"
                 onPress={() => navigateToSection('')}>
                 <View style={styles.headerContainer}>
-                  <BackIcon fill={themeData.textColor} style={{marginBottom: isIOS ? 5 : 0}} />
+                  <BackIcon fill={themeData.backIconColor} style={{marginBottom: isIOS ? 5 : 0}} />
                   <Label
                     children={t('signIn.return')}
                     style={styles.headerLabelStyle}
@@ -403,7 +403,7 @@ const createStyles = (theme: CustomThemeType) =>
     headerLabelStyle: {
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
       fontSize: normalize(12),
-      color: theme.textColor,
+      color: theme.backIconColor,
       lineHeight: normalize(16),
       marginLeft: normalize(5),
     },

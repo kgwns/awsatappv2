@@ -80,7 +80,7 @@ export const AuthorsHorizontalSlider = ({
     </View>
 );
 
-  const renderTopicsList = () => {
+  const renderAuthorsList = () => {
     return authorsList.map((item: AuthorsItemType, index: number) => {
       const imageUrl = getImageUrl(item.field_opinion_writer_photo_export);
       const isLast = index === authorsList.length-1;
@@ -141,7 +141,7 @@ export const AuthorsHorizontalSlider = ({
         keyboardShouldPersistTaps={'always'}
         onContentSizeChange={() => scrollToEnd()}>
         {showAll && renderShowAll()}
-        {renderTopicsList()}
+        {renderAuthorsList()}
       </ScrollView>
     </View>
   );
@@ -182,7 +182,8 @@ const customStyle = (theme: CustomThemeType) =>
       height: 33,
     },
     containerbackgroundStyle: {
-      backgroundColor: colors.black,
+      backgroundColor: theme.filterBackgroundColor,
+      borderColor: theme.filterBorderColor,
     },
     spaceEndStyle: {
       marginEnd: (isTab ? 0.02 : 0.04) * screenWidth,

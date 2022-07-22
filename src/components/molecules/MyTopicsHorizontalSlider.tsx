@@ -67,7 +67,7 @@ export const MyTopicsHorizontalSlider = ({
         </View>
     );
 
-    const renderAuthorsList = () => {
+    const renderTopicsList = () => {
         return topicsList.map((item: AllSiteCategoriesItemType, index: number) => {
             const name = item.name
             return (
@@ -95,7 +95,7 @@ export const MyTopicsHorizontalSlider = ({
                 keyboardShouldPersistTaps={'always'}
                 onContentSizeChange={() => scrollToEnd()}>
                 {showAll && renderShowAll()}
-                {renderAuthorsList()}
+                {renderTopicsList()}
             </ScrollView>
         </View>
     );
