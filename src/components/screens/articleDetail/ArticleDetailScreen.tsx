@@ -393,7 +393,7 @@ export const ArticleDetailScreen = ({
 
   const renderHeader = () => (
     <View style={style.backContainer}>
-      <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onHomePress} onBackPress={onPressBack} />
+      <DetailHeader visibleHome={noOfDetailRoutes > 1 && route.params.isRelatedArticle} onHomePress={onHomePress} onBackPress={onPressBack} />
     </View>
   )
 
