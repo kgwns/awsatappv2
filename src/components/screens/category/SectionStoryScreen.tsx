@@ -357,6 +357,7 @@ export const SectionStoryScreen = React.memo(({
     setHeroListDataInfo([])
     setTopListDataInfo([])
     setBottomListDataInfo([])
+    setVideoListData([])
   }
 
   const renderFilterComponent = () => {

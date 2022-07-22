@@ -5,7 +5,7 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { ButtonImage, HomeButton, Image, Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isAndroid, isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -279,6 +279,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     homeIconContainer: {
       position:'absolute',
+      top: isAndroid ? 5 : 0,
       right: 5,
     },
     headerContainer: {

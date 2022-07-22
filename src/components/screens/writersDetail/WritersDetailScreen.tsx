@@ -211,6 +211,7 @@ export const WritersDetailScreen = ({
                     isFollowed={isFollowed}
                     onPressFollow={() => onPressFollow(writerDetailInfo[0].tid)}
                     hideBackArrow={hideBackArrow}
+                    visibleHome={noOfDetailRoutes > 1}
                     onPressHome={onPressHome}
                 />}
                 <OpinionWritersArticlesSection

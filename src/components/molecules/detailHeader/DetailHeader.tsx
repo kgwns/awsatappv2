@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { BackIcon, HomeButton } from 'src/components/atoms'
-import { isIOS, isNotchDevice, normalize } from 'src/shared/utils'
+import { isIOS, isNotchDevice, isTab, normalize } from 'src/shared/utils'
 import { CustomThemeType } from 'src/shared/styles/colors'
 
 interface DetailHeaderProps {
@@ -31,14 +31,14 @@ const customStyle = (theme: CustomThemeType) => (
             position: 'absolute',
             top: 0,
             width: '100%',
-            height: isIOS ? isNotchDevice ? normalize(95) : normalize(90) : normalize(60),
+            height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(90) : normalize(72),
             backgroundColor: theme.secondaryWhite,
             justifyContent: 'center',
         },
         homeIconContainer: {
             position: 'absolute',
             right: isIOS ? 15 : 20,
-            top: isIOS ? normalize(50) : normalize(18)
+            top: isTab ? normalize(48) : isIOS ? normalize(50) : normalize(18)
         }
     })
 )
