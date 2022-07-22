@@ -1,6 +1,7 @@
 import { RenderAPI,render, fireEvent } from '@testing-library/react-native'
 import React from 'react'
 import { TouchableWithoutFeedback } from 'react-native';
+import TextTicker from 'react-native-text-ticker';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import HeadlinesSection from '../HeadlinesSection';
 
@@ -43,8 +44,9 @@ const videoTabInfo: LatestArticleDataType[] = [
 describe('<Favorite Video Component >', () => {
     let instance: RenderAPI;
     const mockFunction= jest.fn();
+
     beforeEach(() => {
-       const component = <HeadlinesSection tickerData={videoTabInfo} headlineTitle={'المهاجرين'} headlineDescription={'أمريكا'} />
+       const component = <HeadlinesSection tickerData={videoTabInfo} headlineTitle={'المهاجرين'} headlineTitleColor={'red'} headlineDescription={'أمريكا'} />
        instance= render(component)
     })
 
@@ -55,6 +57,12 @@ describe('<Favorite Video Component >', () => {
     it('when SearchResults only When onPress', () => {
       const testID = instance.container.findAllByType(TouchableWithoutFeedback)[0];
       fireEvent(testID, 'onPress');
+      expect(mockFunction).toBeTruthy();
+    });
+
+    test('Should call TextTicker onMarqueeComplete', () => {
+      const element = instance.container.findAllByType(TextTicker)[0];
+      fireEvent(element, 'onMarqueeComplete');
       expect(mockFunction).toBeTruthy();
     });
 })

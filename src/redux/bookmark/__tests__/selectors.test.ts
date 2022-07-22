@@ -9,6 +9,7 @@ import {
     getRemoveBookmarkSuccessInfo,
     getBookmarkLoading,
     getFilteredBookmarkDetailInfo,
+    getRefreshBookmarkDetail,
 } from '../selectors';
 import { BookmarkDetailDataType, BookmarkIdSuccessDataFieldType, RemoveBookMarkSuccessInfoType, SendBookMarkSuccessInfoType } from '../types';
 
@@ -57,5 +58,10 @@ describe('All Bookmark Selector', () => {
     test('Get getFilteredBookmarkDetailInfo data', () => {
         const filteredBookmarkDetailInfo: BookmarkDetailDataType[] = getFilteredBookmarkDetailInfo(storeData);
         expect(filteredBookmarkDetailInfo).toEqual([]);
+    });
+
+    test('Get getRefreshBookmarkDetail data', () => {
+        const filteredBookmarkDetailInfo: boolean = getRefreshBookmarkDetail(storeData);
+        expect(filteredBookmarkDetailInfo).toEqual(undefined);
     });
 });

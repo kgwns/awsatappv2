@@ -1,6 +1,9 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState, useRef}  from 'react';
 import VideoPlayerControl from '../VideoPlayerControl';
+import Video from 'react-native-video';
+import Slider from '@react-native-community/slider';
+
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
@@ -87,7 +90,14 @@ describe('<VideoPlayerControl>', () => {
     (useState as jest.Mock).mockImplementation(() => [true, setInitialPlay]);
     (useState as jest.Mock).mockImplementation(() => ['contain', setScreenType]);
 
-    const component = <VideoPlayerControl url={url} paused={true} videoRefs={sampleData}/>;
+    const component = 
+    <VideoPlayerControl 
+      url={url} isMiniPlayer={true} paused={true} 
+      playerVisible={false} isFullScreenPlayer={false} 
+      isFullScreen={true} videoRefs={sampleData}
+      setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction}
+      onChangeFullScreen={mockFunction}
+    />;
     instance = render(component);
   });
 
@@ -103,6 +113,44 @@ describe('<VideoPlayerControl>', () => {
   it('Should call VideoPlayerControlId', () => {
     const element = instance.getByTestId('VideoPlayerControlId');
     fireEvent(element, 'onPress');
+    expect(element).toBeTruthy();
+  });
+
+  it('Should call renderCloseButtonID', () => {
+    const element = instance.getByTestId('renderCloseButtonID');
+    fireEvent(element, 'onPress');
+    expect(element).toBeTruthy();
+  });
+
+  it('Should call Video onEnd', () => {
+    const element = instance.container.findAllByType(Video)[0];
+    fireEvent(element, 'onEnd');
+    expect(element).toBeTruthy();
+  });
+
+
+  it('Should call Video onLoad', () => {
+    const element = instance.container.findAllByType(Video)[0];
+    fireEvent(element, 'onLoad', {data: {duration: 30}});
+    expect(element).toBeTruthy();
+  });
+
+
+  it('Should call Video onLoadStart', () => {
+    const element = instance.container.findAllByType(Video)[0];
+    fireEvent(element, 'onLoadStart');
+    expect(element).toBeTruthy();
+  });
+
+  it('Should call Video onSeek', () => {
+    const element = instance.container.findAllByType(Video)[0];
+    fireEvent(element, 'onSeek');
+    expect(element).toBeTruthy();
+  });
+
+  it('Should call Slider onSlidingComplete', () => {
+    const element = instance.container.findAllByType(Slider)[0];
+    fireEvent(element, 'onSlidingComplete', 'seek');
     expect(element).toBeTruthy();
   });
 

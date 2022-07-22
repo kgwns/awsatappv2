@@ -1,7 +1,7 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
-import { FlatList } from 'react-native';
-import { BannerArticleSection, PodcastWidget, ShortArticle } from 'src/components/organisms';
+import { FlatList, RefreshControl } from 'react-native';
+import { ArticleSection, BannerArticleSection, CarouselSlider } from 'src/components/organisms';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { MainSectionScreen } from '../MainSectionScreen';
 
@@ -264,6 +264,24 @@ describe('<MainSectionScreen>', () => {
   it('when BannerArticleSection only When onUpdateBookmark', () => {
     const testID = instance.container.findAllByType(BannerArticleSection)[0];
     fireEvent(testID, 'onUpdateBookmark');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when ArticleSection only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(ArticleSection)[0];
+    fireEvent(testID, 'onUpdateBookmark', {nid: '2', isBookmarked: true});
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when CarouselSlider only When onUpdateHeroBookmark', () => {
+    const testID = instance.container.findAllByType(CarouselSlider)[0];
+    fireEvent(testID, 'onUpdateHeroBookmark', {index: 2});
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when RefreshControl only When onRefresh', () => {
+    const testID = instance.container.findAllByType(RefreshControl)[0];
+    fireEvent(testID, 'onRefresh', {index: 2});
     expect(mockFunction).toBeTruthy();
   });
 

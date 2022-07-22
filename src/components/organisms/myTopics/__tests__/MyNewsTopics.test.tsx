@@ -11,7 +11,7 @@ jest.mock('react', () => ({
 }));
 
 jest.mock('src/hooks/useContentForYou', () => ({
-  useContentForYou: (...args: any) => {
+  useContentForYou: () => {
     return {
       isLoading: false,
       favouriteOpinionsData: [],
@@ -33,7 +33,7 @@ jest.mock('src/hooks/useContentForYou', () => ({
 }));
 
 jest.mock('src/hooks/useAllWriters', () => ({
-  useAllWriters: (...args: any) => {
+  useAllWriters: () => {
     return {
       isLoading: false,
       selectedAuthorsData: [],
@@ -98,4 +98,11 @@ describe('<MyNewsWriters>', () => {
     fireEvent(element, 'onEndReached');
     expect(setPageCount).toBeCalled();
   });
+
+  test('Should call MyTopicsHorizontalSlider onPress', () => {
+    const element = instance.container.findAllByType(MyTopicsHorizontalSlider)[0];
+    fireEvent(element, 'onPress',{item: {tid: '1'}, index: 0});
+    expect(setPageCount).toBeCalled();
+  });
+
 });

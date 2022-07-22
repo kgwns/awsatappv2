@@ -232,6 +232,7 @@ export const ManageMyNewsScreen = () => {
           {
             data.map((item: any, index: number) =>
             <FollowFavoriteAuthor
+            testId='ManageMyNewsScreenID01'
             authorName={item.name}
             authorImage={item.field_opinion_writer_photo_export}
             isSelected={true}

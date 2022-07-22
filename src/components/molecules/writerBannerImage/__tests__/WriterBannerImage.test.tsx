@@ -8,18 +8,22 @@ describe('<WriterBannerImage />', () => {
   const mockFunction = jest.fn();
   const authorName = 'authorName';
   const authorDescription = 'authorDescription';
+  const data = {
+    authorImage: 'abc.com',
+    authorName: authorName,
+    authorDescription: authorDescription,
+    facebook_url: 'abc.com',
+    twitter_url: 'abc.com',
+    instagram_url: 'abc.com'
+  }
   beforeEach(() => {
-    const component = <WriterBannerImage data={{
-        authorImage: '',
-        authorName: authorName,
-        authorDescription: authorDescription,
-        facebook_url: '',
-        twitter_url: '',
-        instagram_url: ''
-    }} 
-    onPressReturn={mockFunction} 
-    isFollowed={false} 
-    onPressFollow={mockFunction}
+    const component = <WriterBannerImage 
+      data={data}
+      onPressReturn={mockFunction}
+      isFollowed={false}
+      onPressFollow={mockFunction} 
+      onPressHome={mockFunction}   
+      hideBackArrow={true} 
     />
     instance = render(component)
   })
@@ -32,11 +36,6 @@ describe('<WriterBannerImage />', () => {
   it('should render component', () => {
     expect(instance).toBeDefined()
   }); 
-  it('When Press closeIcon', () => {
-    const testID = instance.container.findByType(TouchableOpacity);
-    fireEvent(testID, 'onPress')
-    expect(mockFunction).toHaveBeenCalled;
-  });
   it('when playVideo is pressed', () => {
     const testID = instance.getByTestId('touchableImage');
     fireEvent(testID, 'onPress');

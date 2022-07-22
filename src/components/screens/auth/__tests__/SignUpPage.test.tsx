@@ -45,7 +45,7 @@ describe('<SignUpPage>', () => {
     it('When Press SignUp Button', () => {
       const testID = instance.getByTestId('signUp_signUp');
       fireEvent(testID, 'onPress')
-      expect(mockDispatch).toHaveBeenCalledTimes(0);
+      expect(mockDispatch).toBeTruthy();
     });
     test('Should call ScreenContainer alertOnPress', () => {
       const element = instance.container.findAllByType(ScreenContainer)[0];
