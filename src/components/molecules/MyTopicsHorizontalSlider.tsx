@@ -131,10 +131,10 @@ const customStyle = (theme: CustomThemeType) =>
             fontFamily: fonts.AwsatDigitalBetav10_Regular,
         },
         showAllContainer: {
-            paddingRight: normalize(10),
+            paddingRight: normalize(5),
             paddingLeft: normalize(10)
         },
         itemStyle: {
-            paddingRight: normalize(10)
+            paddingRight: normalize(5)
         }
     });

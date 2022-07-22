@@ -2,11 +2,12 @@ import {
   ScrollView,
   StyleProp,
   StyleSheet,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import React, {useRef} from 'react';
-import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
+import {isIOS, isTab, normalize, normalizeBy320, screenWidth} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {Label, Image} from 'src/components/atoms';
@@ -14,7 +15,7 @@ import {fonts} from 'src/shared/styles/fonts';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {getImageUrl} from 'src/shared/utils/utilities';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
-import {ImagesName} from 'src/shared/styles';
+import {ImagesName, Styles} from 'src/shared/styles';
 import {
   TranslateConstants,
   TranslateKey,
@@ -60,25 +61,26 @@ export const AuthorsHorizontalSlider = ({
   };
 
   const renderShowAll = () => (
-    <TouchableWithoutFeedback onPress={onAllPress}>
-      <View
+    <View style={styles.showAllContainer}>
+      <TouchableOpacity onPress={onAllPress}
         style={[
-          styles.allContainerStyle,
-          styles.borderStyle,
-          selectedIndex == -1 && styles.containerbackgroundStyle,
+          styles.filterItem,
+          selectedIndex == -1 && styles.filterActive,
         ]}>
         <Label
           children={allTitle}
-          style={[styles.labelStyle, styles.labelSpace]}
+          style={styles.label}
           color={
-            selectedIndex == -1 ? colors.white : themeData.secondarySpanishGray
+            selectedIndex == -1
+              ? colors.white
+              : Styles.color.grayishGreen
           }
         />
-      </View>
-    </TouchableWithoutFeedback>
-  );
+      </TouchableOpacity>
+    </View>
+);
 
-  const renderAuthorsList = () => {
+  const renderTopicsList = () => {
     return authorsList.map((item: AuthorsItemType, index: number) => {
       const imageUrl = getImageUrl(item.field_opinion_writer_photo_export);
       const isLast = index === authorsList.length-1;
@@ -139,7 +141,7 @@ export const AuthorsHorizontalSlider = ({
         keyboardShouldPersistTaps={'always'}
         onContentSizeChange={() => scrollToEnd()}>
         {showAll && renderShowAll()}
-        {renderAuthorsList()}
+        {renderTopicsList()}
       </ScrollView>
     </View>
   );
@@ -168,16 +170,13 @@ const customStyle = (theme: CustomThemeType) =>
       lineHeight: 27,
       paddingHorizontal: 7,
     },
-    labelSpace: {
-      paddingHorizontal: 15,
-    },
     borderStyle: {
       borderWidth: 1,
       borderColor: theme.borderColor,
       borderRadius: 20,
     },
     allContainerStyle: {
-      marginLeft: (isTab ? 0.02 : 0.04) * screenWidth,
+      marginHorizontal: 10,
       flexDirection: 'row',
       alignItems: 'center',
       height: 33,
@@ -187,5 +186,27 @@ const customStyle = (theme: CustomThemeType) =>
     },
     spaceEndStyle: {
       marginEnd: (isTab ? 0.02 : 0.04) * screenWidth,
-    }
+    },
+    filterItem: {
+      marginRight: normalizeBy320(5),
+      borderWidth: 1,
+      borderColor: Styles.color.cyanGray,
+      paddingLeft: normalize(15),
+      paddingRight: normalize(15),
+      paddingTop: normalize(7),
+      paddingBottom: isIOS ? normalize(4) : normalize(7),
+      borderRadius: normalize(20)
+    },
+    filterActive: {
+      backgroundColor: theme.filterBackgroundColor,
+      borderColor: theme.filterBorderColor,
+    },
+    label: {
+      fontSize: 12,
+      lineHeight: 16,
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    },
+    showAllContainer: {
+      paddingLeft: normalize(10)
+    },
   });

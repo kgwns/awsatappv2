@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import { StyleSheet, TouchableOpacity, ScrollView, View } from 'react-native'
 import React from 'react'
 import { Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -31,13 +31,14 @@ export const FilterComponent = ({
         >
             {
                 data.map((item: FilterDataType, index: number) =>
-                    <TouchableOpacity testID={moleculesTestID.filterBtn} key={index} activeOpacity={0.8} onPress={() => onPress(index)}
-                        style={[style.filterItem, item.isSelected && style.filterActive]}
-                    >
-                        <Label children={item.name} style={style.label}
-                            color={item.isSelected ? Styles.color.white : themeData.secondarySpanishGray}
-                        />
-                    </TouchableOpacity>
+                    <View style={{ paddingRight: 5 }}>
+                        <TouchableOpacity testID={moleculesTestID.filterBtn} key={index} activeOpacity={0.8} onPress={() => onPress(index)}
+                            style={[style.filterItem, item.isSelected && style.filterActive]}>
+                            <Label children={item.name} style={style.label}
+                                color={item.isSelected ? Styles.color.white : themeData.secondarySpanishGray}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 )
             }
         </ScrollView>
@@ -65,8 +66,8 @@ const customStyle = (theme: CustomThemeType) => (
             borderColor: theme.filterBorderColor,
         },
         label: {
-            fontSize: normalize(13),
-            lineHeight: normalize(20),
+            fontSize: 12,
+            lineHeight: 16,
             fontFamily: fonts.AwsatDigitalBetav10_Regular,
         }
     })
