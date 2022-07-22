@@ -955,7 +955,7 @@ const customStyle = (theme: CustomThemeType) => {
     articleTitleStyle: {
       fontSize: 33,
       color: theme.primary,
-      lineHeight: 46,
+      lineHeight: 50,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     topNewsContainer: {

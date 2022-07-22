@@ -173,7 +173,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
       color: colors.spanishGray,
       fontSize: normalize(12),
-      lineHeight: normalize(16),
+      lineHeight: normalize(20),
     },
     onBoardPrevIcon: {
       width: normalize(12),
