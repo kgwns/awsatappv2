@@ -332,6 +332,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
 const customStyle = (theme: CustomThemeType) =>
   StyleSheet.create({
       container:{
+        flex: 1,
         marginTop:normalize(25),
         paddingLeft: normalize(5)
       },
