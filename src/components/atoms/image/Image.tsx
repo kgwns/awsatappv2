@@ -37,7 +37,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   url,
   fallback=false,
   fallbackContent=<PlaceholderImage name={'placeholderImg'}/>,
-  fallbackName,
+  fallbackName = 'placeholderImg',
   ...props
 }) => {
   const { theme } = useAppCommon()
