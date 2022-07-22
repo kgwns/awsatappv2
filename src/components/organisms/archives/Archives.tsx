@@ -62,10 +62,6 @@ export const Archives = () => {
     const [initialLoading, setInitialLoading] = useState(true)
 
     useEffect(() => {
-        getBookmarkedId()
-    }, [])
-
-    useEffect(() => {
         const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length == bookmarkDetail.length
         if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
            getBookmarkedId()
