@@ -189,7 +189,7 @@ export const ContactUs = () => {
                         height: 16,
                     })}
                     leftIconStyle={style.messageIcon}
-                    maxLength={10000}
+                    maxLength={500} //Text limit as per AMAR-878
                     multiline={true}
                     textInputStyle={style.messageTextInput}
                 />
