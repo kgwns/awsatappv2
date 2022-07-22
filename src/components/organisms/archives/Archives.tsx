@@ -103,7 +103,7 @@ export const Archives = () => {
     }, [filterBookmarkDetailInfo])
 
     const updatedBundleFilterBookmarkDetail = () => {
-        if (isNonEmptyArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0) {
+        if (!bookmarkLoading && isArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0) {
             setFilteredData(filterBookmarkDetailInfo)
             setInitialLoading(false)
         }
@@ -181,7 +181,10 @@ export const Archives = () => {
                 getBookmarkDetailData()
             } else if (tabSelectedIndex !== 0) {
                 const bundleName = widgetNameByIndex(tabSelectedIndex)
-                getSpecificBundleFavoriteDetail(bundleName)
+                const bundleBookmarkList = bookmarkIdInfo.filter((item) => item.bundle === bundleName)
+                if (filterBookmarkDetailInfo.length < bundleBookmarkList.length) {
+                    getSpecificBundleFavoriteDetail(bundleName)
+                }
             }
         }
     }

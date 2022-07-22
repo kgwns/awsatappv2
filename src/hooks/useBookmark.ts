@@ -109,6 +109,8 @@ export const useBookmark = (): UseBookMarkReturn => {
     const nid = getCurrentBatchNid(bundleBookmarkList, startingIndex)
     if (isNotEmpty(nid)) {
       dispatch(getBookmarkedDetailInfo({ nid, page, bundle: payload }))
+    } else {
+      dispatch(updateFilteredBookMarkedInfo({ filteredData: [] }))
     }
   }
 
