@@ -106,7 +106,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     logo: {
       width: normalize(150),
-      height: normalize(30),
+      height: normalize(37),
     },
     tickContainer: {
       width: normalize(150),

@@ -342,7 +342,7 @@ const createStyles = (theme: CustomThemeType) =>
       width: '100%',
     },
     logo: {
-      height: 25,
+      height: 32,
       width: 135,
       alignItems: 'center',
     },

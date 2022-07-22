@@ -70,7 +70,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
     },
     logo: {
-      height: 25,
+      height: 32,
       width: 135,
       alignItems: 'center',
     },

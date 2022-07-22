@@ -16,7 +16,6 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
-import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {
   useBookmark,
@@ -419,6 +418,6 @@ const createStyles = (theme: CustomThemeType) =>
     },
     logo: {
       width: normalize(150),
-      height: normalize(30),
+      height: normalize(37),
     },
   });

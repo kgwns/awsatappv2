@@ -17,7 +17,6 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
-import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useEmailCheck, useRegister} from 'src/hooks';
@@ -305,7 +304,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     logo: {
       width: normalize(150),
-      height: normalize(30),
+      height: normalize(37),
     },
     spaceStyle: {
       marginHorizontal: normalize(10),

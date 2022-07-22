@@ -274,7 +274,7 @@ const customStyle = (theme: CustomThemeType) => (
       marginHorizontal: normalize(20),
     },
     logo: {
-      height: 23,
+      height: 32,
       width: 130,
       alignItems: 'center',
     },
