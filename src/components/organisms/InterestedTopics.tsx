@@ -1,7 +1,7 @@
 import { View, StyleSheet, ScrollView, FlatList, Platform } from 'react-native';
 import React from 'react';
 import { BorderLabel } from 'src/components/atoms/BorderLabel/BorderLabel';
-import { isTab, normalize, screenWidth } from 'src/shared/utils';
+import { isAndroid, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { flatListUniqueKey } from 'src/constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -76,7 +76,7 @@ const InterestedTopics = (props:any) => {
           horizontal
           keyExtractor={(_, index) => index.toString()}
           listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
-          data={item}
+          data={ isAndroid ? item.reverse() : item}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => renderItem(item, index)}
         />
