@@ -51,7 +51,7 @@ describe('<OpinionWritersCardView>', () => {
   const writerTitle = 'إياد أبو شقرا';
   const headLine = 'هل بدأ العد العكسي لنهاية حكم جونسون في بريطانيا؟';
   const subHeadLine = 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور';
-  const audioLabel = 'استمع الي المقالة ';
+  const audioLabel = 'إستمع إلى المقالة ';
   const duration = '3:22';
 
   beforeEach(() => {

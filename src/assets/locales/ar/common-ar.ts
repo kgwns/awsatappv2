@@ -47,7 +47,7 @@ export const arabic = {
   },
   opinion: {
     opinionWriters: 'كتاب الرأي',
-    listenToActicleText: 'استمع الي المقالة',
+    listenToActicleText: 'إستمع إلى المقالة',
     opinionArticles: 'مقالات الرأي'
   },
   latestNewsTab: {
@@ -154,7 +154,7 @@ export const arabic = {
   },
   favorite: {
     tabItem: {
-      content_for_you: 'محتوي لك',
+      content_for_you: 'محتوى لك',
       archives: 'المحفوظات',
     },
     podcast_for_you: 'بودكاست لك',
@@ -250,7 +250,7 @@ export const arabic = {
   },
   opinionArticleDetail: {
     return: 'الرجوع',
-    listenToArticle: 'استمع الي المقالة',
+    listenToArticle: 'إستمع إلى المقالة',
     relatedOpinionTitle: 'المزيد من مقالات الرآي',
   },
   profile: {
@@ -336,7 +336,7 @@ export const arabic = {
     main: 'الرئيسية'
   },
   podcastHome: {
-    listen_to_podcast: 'استمع الي البودكاست ',
+    listen_to_podcast: 'إستمع إلى البودكاست ',
     allEpisodes: 'كل الحلقات'
   },
   richHTMLContent: {
