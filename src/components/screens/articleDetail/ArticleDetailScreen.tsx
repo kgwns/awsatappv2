@@ -237,7 +237,7 @@ export const ArticleDetailScreen = ({
      setIsEdgePortrait(true)
    }
     const edge = getScreenEdge(deviceOrientation)
-    setEdge(edge)
+    isNonEmptyArray(edge) && setEdge(edge);
   }
 
 
@@ -246,6 +246,7 @@ export const ArticleDetailScreen = ({
       case 'LANDSCAPE-LEFT': return isFullScreen ? horizontalEdge : ['right']
       case 'LANDSCAPE-RIGHT': return isFullScreen ? horizontalEdge : ['left']
       case 'PORTRAIT': return horizontalEdge
+      case 'FACE-UP': return []
       default: return horizontalEdge
     }
   }
