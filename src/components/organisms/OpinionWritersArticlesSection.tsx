@@ -36,8 +36,10 @@ const OpinionWritersArticlesSection = ({
 }: OpinionWritersArticlesSectionProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
-  const audioLabel = 'استمع الي المقالة ';
-  const slice = screenWidth*0.80;
+
+  const audioLabel = TranslateConstants({ key: TranslateKey.LISTEN_TO_ARTICLE });
+
+  const slice = screenWidth * 0.80;
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const playbackState = usePlaybackState();
 

@@ -38,6 +38,7 @@ export enum TranslateKey {
     CONTACT_US_SEND,
     TEXT_ALERT,
     COMMON_OK,
+    LISTEN_TO_ARTICLE,
 }
 
 export const TranslateConstants = ({
@@ -118,6 +119,8 @@ export const TranslateConstants = ({
             return t('profileSetting.alert');
         case TranslateKey.COMMON_OK:
             return  t('common.ok');
+        case TranslateKey.LISTEN_TO_ARTICLE:
+            return t('opinionArticleDetail.listenToArticle')
         default: return ''
     }
 }

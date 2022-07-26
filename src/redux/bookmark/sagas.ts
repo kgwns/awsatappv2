@@ -72,7 +72,7 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
           authorId: item.field_opinion_writer_node_export[0].id,
           headLine: item.title,
           subHeadLine: decodeHTMLTags(item.body_export),
-          audioLabel: 'استمع الي المقالة ',
+          audioLabel: 'إستمع إلى المقالة ',
           duration: '',
           nid: item.nid,
           isBookmarked: true,
