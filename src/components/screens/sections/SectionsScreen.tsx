@@ -246,7 +246,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   orientationStyle:{
     flex: 1,
-    width: '100%'
   },
   sceneContainer: {
     flex: 1,
