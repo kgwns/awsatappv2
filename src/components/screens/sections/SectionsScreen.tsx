@@ -162,6 +162,7 @@ export const SectionsScreen = () => {
         style={styles.tabBar}
         tabStyle={styles.tabBarStyle}
         labelStyle={styles.label}
+        contentContainerStyle={styles.contentContainer}
         pressColor={'transparent'}
         renderIndicator={() => null}
         bounces={false}
@@ -195,6 +196,7 @@ export const SectionsScreen = () => {
         renderTabBar={_renderTabBar}
         initialLayout={initialLayout}
         style={styles.container}
+        sceneContainerStyle={styles.sceneContainer}
       />
     );
   };
@@ -244,6 +246,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   orientationStyle:{
     flex: 1,
-    width: orientationStyleWidth
+  },
+  sceneContainer: {
+    flex: 1
+  },
+  contentContainer: {
+    flex: 1
   }
 });
