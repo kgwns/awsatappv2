@@ -7,7 +7,7 @@ import {
   PodcastProgram,
   SectionStoryScreen,
 } from '..';
-import {horizontalEdge, isIOS, isNonEmptyArray, isStringIncludes, normalize, screenHeight, screenWidth} from 'src/shared/utils';
+import {horizontalEdge, isIOS, isNonEmptyArray, isStringIncludes, normalize, screenWidth} from 'src/shared/utils';
 import {
   View,
   Dimensions,
@@ -162,7 +162,7 @@ export const SectionsScreen = () => {
         style={styles.tabBar}
         tabStyle={styles.tabBarStyle}
         labelStyle={styles.label}
-        contentContainerStyle={styles.scene}
+        contentContainerStyle={styles.sceneContainer}
         pressColor={'transparent'}
         renderIndicator={() => null}
         bounces={false}
@@ -196,7 +196,7 @@ export const SectionsScreen = () => {
         renderTabBar={_renderTabBar}
         initialLayout={initialLayout}
         style={styles.container}
-        sceneContainerStyle={styles.scene}
+        sceneContainerStyle={styles.sceneContainer}
       />
     );
   };
@@ -245,6 +245,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingHorizontal: 0
   },
   orientationStyle:{
-    flex: 1
+    flex: 1,
+    width: '100%'
+  },
+  sceneContainer: {
+    flex: 1,
+    width: screenWidth
   }
 });
