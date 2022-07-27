@@ -65,7 +65,7 @@ export default class SignInFacebook extends SocialLogin {
           this.callBack(undefined, false, 'facebook', 'ErrorOccured');
       } else {
           console.log('** FB Response result::', result)
-          let resultData = {
+          const resultData = {
             user:{
               name: result?.name,
               email: result?.email,

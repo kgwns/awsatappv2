@@ -11,8 +11,8 @@ import AppStackContainer from './AppStackContainer'
 const SplashNavigation = () => {
     const dispatch = useDispatch()
     const theme = useColorScheme()
-    let isDarkMode = isDarkTheme(theme)
-    let subscription = useRef<NativeEventSubscription>(null).current
+    const isDarkMode = isDarkTheme(theme)
+    const subscription = useRef<NativeEventSubscription>(null).current
 
     const { getBookmarkedId } = useBookmark()
     const { isLoggedIn } = useLogin()

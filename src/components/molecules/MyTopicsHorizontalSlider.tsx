@@ -37,7 +37,9 @@ export const MyTopicsHorizontalSlider = ({
     const styles = useThemeAwareObject(customStyle);
     const scrollRef = useRef<ScrollView>(null);
     const scrollToEnd = () => {
-        if (isIOS) return;
+        if (isIOS) {
+            return;
+        }
         scrollRef.current?.scrollToEnd();
     };
     const onItemPress = (item: any, index: number) => {
@@ -138,3 +140,4 @@ const customStyle = (theme: CustomThemeType) =>
             paddingRight: normalize(5)
         }
     });
+    

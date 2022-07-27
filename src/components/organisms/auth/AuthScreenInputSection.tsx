@@ -84,7 +84,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
         }
       default:
         return
-    };
+    }
   };
 
   return (

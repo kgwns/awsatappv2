@@ -11,7 +11,7 @@ import {
   DURATION,
 } from 'src/constants/SharedConstants';
 import {ImageResize} from 'src/shared/styles/text-styles';
-import { decodeHTMLTags, getImageUrl, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getImageUrl, isObjectNonEmpty, convertSecondsToHMS } from 'src/shared/utils/utilities';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import { useNavigation } from '@react-navigation/native';
@@ -19,7 +19,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { fonts } from 'src/shared/styles/fonts';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
-import { convertSecondsToHMS } from 'src/shared/utils/utilities'
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
 import { AxiosError } from 'axios';
 import { useAppPlayer } from 'src/hooks';
@@ -64,9 +63,9 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
         const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
         if(isObjectNonEmpty(opinionData)){
           setMediaData(opinionData);
-          let playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
+          const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
             if(playList){
-            let time = playList.duration? convertSecondsToHMS(playList.duration) : null;
+            const time = playList.duration? convertSecondsToHMS(playList.duration) : null;
             setTimeDuration(time)
             } 
         }
@@ -98,13 +97,13 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
 
 const onPressPlay = () => {
   if (item.nid && isObjectNonEmpty(mediaData)) {
-    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
     if (!isObjectNonEmpty(playList)) {
       return
     }
 
-    let trackPlayerData = {
+    const trackPlayerData = {
       id: item.nid + 'opinion',
       url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
       title: isNotEmpty(item.title) ? item.title : '',

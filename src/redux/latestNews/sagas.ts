@@ -110,7 +110,7 @@ const formatMainSectionBlockData = (response: any) => {
 
 const parseCoverageDataSuccess = (response: any) => {
   const formattedData = formatMainSectionBlockData(response)
-  let responseData: RequestCoverageBlockSuccessPayloadType = {
+  const responseData: RequestCoverageBlockSuccessPayloadType = {
     coverageInfo: []
   }
    
@@ -125,7 +125,7 @@ const parseCoverageDataSuccess = (response: any) => {
 
 const parseFeaturedArticleSuccess = (response: any) => {
   const formattedData = formatMainSectionBlockData(response)
-  let responseData: RequestFeaturedBlockSuccessPayloadType = {
+  const responseData: RequestFeaturedBlockSuccessPayloadType = {
     featureArticle: [],
   }
    
@@ -140,7 +140,7 @@ const parseFeaturedArticleSuccess = (response: any) => {
 
 const parseHorizontalArticleSuccess = (response: any) => {
   const formattedData = formatMainSectionBlockData(response)
-  let responseData: RequestHorizontalBlockSuccessPayloadType = {
+  const responseData: RequestHorizontalBlockSuccessPayloadType = {
     horizontalArticle: []
   }
    
@@ -267,7 +267,7 @@ const formatSpotlight = (response: any): SpotlightDataType[] => {
 
 const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPayload => {
   const formattedData = formatLatestArticle(response)
-  let responseData: HeroListTopListSuccessPayload = {
+  const responseData: HeroListTopListSuccessPayload = {
     heroList: [],
     topList: []
   }
@@ -279,7 +279,7 @@ const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPaylo
 
 const parseTickerHeroDataSuccess = (response: any): TickerHeroSuccessPayload => {
   const formattedData = formatLatestArticle(response)
-  let responseData: TickerHeroSuccessPayload = {
+  const responseData: TickerHeroSuccessPayload = {
     ticker: [],
     hero: []
   }
@@ -290,7 +290,7 @@ const parseTickerHeroDataSuccess = (response: any): TickerHeroSuccessPayload => 
 
 const parseSectionComboOne = (response: payloadType) => {
   const formattedData = formatLatestArticle(response)
-  let responseData: RequestSectionComboOneSuccessPayload = {
+  const responseData: RequestSectionComboOneSuccessPayload = {
     sectionComboOne: []
   }
   responseData.sectionComboOne = formattedData.splice(0, 4)
@@ -299,7 +299,7 @@ const parseSectionComboOne = (response: payloadType) => {
 
 const parseSectionComboTwo = (response: payloadType) => {
   const formattedData = formatLatestArticle(response)
-  let responseData: RequestSectionComboTwoSuccessPayload = {
+  const responseData: RequestSectionComboTwoSuccessPayload = {
     sectionComboTwo: []
   }
 
@@ -315,7 +315,7 @@ const parseSectionComboTwo = (response: payloadType) => {
 
 const parseSectionComboThree = (response: payloadType) => {
   const formattedData = formatLatestArticle(response)
-  let responseData: RequestSectionComboThreeSuccessPayload = {
+  const responseData: RequestSectionComboThreeSuccessPayload = {
     sectionComboThree: []
   }
 
@@ -331,7 +331,7 @@ const parseSectionComboThree = (response: payloadType) => {
 
 const parseSectionComboFour = (response: payloadType) => {
   const formattedData = formatLatestArticle(response)
-  let responseData: RequestSectionComboFourSuccessPayload = {
+  const responseData: RequestSectionComboFourSuccessPayload = {
     sectionComboFour: []
   }
 
@@ -347,7 +347,7 @@ const parseSectionComboFour = (response: payloadType) => {
 
 const parseSectionComboFive= (response: payloadType) => {
   const formattedData = formatLatestArticle(response)
-  let responseData: RequestSectionComboFiveSuccessPayload = {
+  const responseData: RequestSectionComboFiveSuccessPayload = {
     sectionComboFive: []
   }
   responseData.sectionComboFive = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
@@ -356,7 +356,7 @@ const parseSectionComboFive= (response: payloadType) => {
 
 const parseSectionComboSix= (response: payloadType) => {
   const formattedData = formatLatestArticle(response)
-  let responseData: RequestSectionComboSixSuccessPayload = {
+  const responseData: RequestSectionComboSixSuccessPayload = {
     sectionComboSix: []
   }
   responseData.sectionComboSix = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
@@ -365,7 +365,7 @@ const parseSectionComboSix= (response: payloadType) => {
 
 const parseSectionComboSeven= (response: payloadType) => {
   const formattedData = formatLatestArticle(response)
-  let responseData: RequestSectionComboSevenSuccessPayload = {
+  const responseData: RequestSectionComboSevenSuccessPayload = {
     sectionComboSeven: []
   }
   responseData.sectionComboSeven = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
@@ -374,7 +374,7 @@ const parseSectionComboSeven= (response: payloadType) => {
 
 const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {
   const formattedData = formatOpinion(response)
-  let responseData: OpinionSuccessPayload = {
+  const responseData: OpinionSuccessPayload = {
     opinionList: []
   }
   responseData.opinionList = formattedData.splice(0, 16)
@@ -383,7 +383,7 @@ const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {
 
 const parsePodcastHomeSuccess = (response: any): PodcastHomeSuccessPayload => {
   const formattedData = formatPodcastHome(response)
-  let responseData: PodcastHomeSuccessPayload = {
+  const responseData: PodcastHomeSuccessPayload = {
     podcastHome: []
   }
   responseData.podcastHome = formattedData;
@@ -392,7 +392,7 @@ const parsePodcastHomeSuccess = (response: any): PodcastHomeSuccessPayload => {
 
 const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload => {
   const formattedData = formatEditorsChoice(response)
-  let responseData: EditorsChoiceSuccessPayload = {
+  const responseData: EditorsChoiceSuccessPayload = {
     editorsChoice: []
   }
 
@@ -405,7 +405,7 @@ const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload =
 }
 const parseSpotlightSuccess = (response: any): SpotlightSuccessPayload => {
   const formattedData = formatSpotlight(response)
-  let responseData: SpotlightSuccessPayload = {
+  const responseData: SpotlightSuccessPayload = {
     spotlight: []
   }
   responseData.spotlight = formattedData;
@@ -413,7 +413,7 @@ const parseSpotlightSuccess = (response: any): SpotlightSuccessPayload => {
 }
 
 const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSectionSuccessPayload => {
-  let responseData: SpotlightArticleSectionSuccessPayload = {
+  const responseData: SpotlightArticleSectionSuccessPayload = {
     spotlightArticleSectionData: [],
     pager: {}
   }

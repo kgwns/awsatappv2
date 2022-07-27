@@ -282,7 +282,9 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   }
 
   const renderFooterComponent = () =>{
-    if(isLoggedIn) return null;
+    if(isLoggedIn) {
+        return null;
+    }
     return (
         <View style={style.footerStyle}>
             <Divider style={style.divider} />

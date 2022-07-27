@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useState, useEffect, useRef} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
   View,
@@ -19,19 +19,16 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useEmailCheck, useRegister} from 'src/hooks';
+import {useEmailCheck, useRegister, useLogin} from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
 import {TERMS_AND_CONDITION} from 'src/services/apiEndPoints';
-import {useLogin} from 'src/hooks';
 import {AlertPayloadType} from 'src/components/screens/ScreenContainer/ScreenContainer';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
-import { useIsFocused } from '@react-navigation/native';
 import { Connection, LoginFactory } from 'src/shared/utils/loginFactory';
-import { SocialProviders } from './SignInPage';
-import { onSuccessSocialLogin } from './SignInPage';
+import { SocialProviders, onSuccessSocialLogin } from './SignInPage';
 
 export enum NavigateTypes {
   google = 'GOOGLE',

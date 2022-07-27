@@ -83,7 +83,7 @@ export const OpinionArticleDetail = ({
   const noOfDetailRoutes = detailRoutes.length
 
   const togglePlayback = async (nid: string, mediaData: any) => {
-    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
     if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
       return
@@ -94,7 +94,7 @@ export const OpinionArticleDetail = ({
     const title = mediaData.title ? mediaData.title : '';
 
 
-    let setupPlayer = async () => {
+    const setupPlayer = async () => {
       await TrackPlayer.setupPlayer();
       await TrackPlayer.updateOptions({ stopWithApp: true });
       await TrackPlayer.add({

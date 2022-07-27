@@ -3,9 +3,8 @@ import {View, FlatList, ListRenderItem, StyleSheet} from 'react-native';
 import { VideosVerticalList } from 'src/components/molecules/';
 import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
-import { colors } from 'src/shared/styles/colors';
 import {getImageUrl, convertSecondsToHMS} from 'src/shared/utils/utilities';
 
 export interface VideosListProps {

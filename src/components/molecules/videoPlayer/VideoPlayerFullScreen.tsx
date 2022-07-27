@@ -22,6 +22,7 @@ import {LoadingState} from 'src/components/atoms';
 import {images, ImagesName} from 'src/shared/styles/images';
 import {NativeViewGestureHandler} from 'react-native-gesture-handler';
 import {getSvgImages} from 'src/shared/styles/svgImages';
+import { SPACE_BETWEEN } from 'src/shared/styles/item-alignment';
 
 export interface VideoPlayerFullScreenProp {
   url: string;
@@ -214,7 +215,7 @@ const VideoPlayerFullScreen = ({
   );
 
   const renderFullScreen = () => {
-    let source = isFullScreen ? images.shirnkIcon : images.expandIcon;
+    const source = isFullScreen ? images.shirnkIcon : images.expandIcon;
 
     return (
       <TouchableHighlight
@@ -251,7 +252,7 @@ const VideoPlayerFullScreen = ({
   );
 
   const renderPlaypause = () => {
-    let source = paused === true ? images.playIconWhite : images.pauseIconWhite;
+    const source = paused === true ? images.playIconWhite : images.pauseIconWhite;
 
     return (
       <TouchableHighlight
@@ -312,7 +313,7 @@ const customStyle = (theme: CustomThemeType) =>
       flexDirection: 'row',
       alignSelf: 'stretch',
       alignItems: 'flex-end',
-      justifyContent: 'space-between',
+      justifyContent: SPACE_BETWEEN,
       paddingBottom: 15,
     },
     timerText: {
@@ -364,7 +365,7 @@ const customStyle = (theme: CustomThemeType) =>
       flexDirection: 'row',
       alignSelf: 'stretch',
       alignItems: 'flex-end',
-      justifyContent: 'space-between',
+      justifyContent: SPACE_BETWEEN,
     },
     progrsBarSection: {
       width: '100%',
@@ -384,7 +385,7 @@ const customStyle = (theme: CustomThemeType) =>
       flexDirection: 'row',
       alignSelf: 'stretch',
       alignItems: 'flex-end',
-      justifyContent: 'space-between',
+      justifyContent: SPACE_BETWEEN,
       paddingTop: 0,
     },
     sliderContainer: {

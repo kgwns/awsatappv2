@@ -4,8 +4,7 @@ import { Label, Image, ButtonOutline, LabelTypeProp} from 'src/components/atoms/
 import { PodcastVerticalListProps } from 'src/components/molecules/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
-import { colors } from 'src/shared/styles/colors';
+import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import ApplePodcastDarkIcon from 'src/assets/images/icons/apple_podcast_dark.svg';
 import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.svg';
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
@@ -39,9 +38,9 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
   const getPodcastDuration = async () => {
     if(isNotEmpty(fieldData.field_spreaker_episode_export)){
       try {
-        let response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: fieldData.field_spreaker_episode_export })
+        const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: fieldData.field_spreaker_episode_export })
         if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
-          let episode = response.response.episode
+          const episode = response.response.episode
           setDuration(Math.floor(episode.duration / 1000))
         }
       }catch(error){

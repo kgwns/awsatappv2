@@ -71,7 +71,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   }, [sideMenuData])
 
   const formateChildMenuData = (menuData: any[], parentId: null | string = null) => {
-    let allMenuData = []
+    const allMenuData = []
     let filterMenuData = []
     if (parentId == null) {
       filterMenuData = menuData.reduce((data, item) => {
@@ -89,7 +89,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     for (let i = 0; i < filterMenuData.length; i++) {
       const item = filterMenuData[i]
       const newParentId = item.uuid_export ?? null
-      let customData: any = {
+      const customData: any = {
         ...item,
       }
 

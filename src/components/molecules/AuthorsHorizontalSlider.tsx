@@ -48,7 +48,9 @@ export const AuthorsHorizontalSlider = ({
   const allTitle = TranslateConstants({key: TranslateKey.TAB_ALL_TITLE});
 
   const scrollToEnd = () => {
-    if (isIOS) return;
+    if (isIOS) {
+      return;
+    }
     scrollRef.current?.scrollToEnd();
   };
 
@@ -211,3 +213,4 @@ const customStyle = (theme: CustomThemeType) =>
       paddingLeft: normalize(10)
     },
   });
+  

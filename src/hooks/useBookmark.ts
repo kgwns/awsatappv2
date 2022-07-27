@@ -102,7 +102,7 @@ export const useBookmark = (): UseBookMarkReturn => {
   }
 
   const getSpecificBundleFavoriteDetail = (payload: PopulateWidgetType, startIndex?: number) => {
-    let bookmarkId = [...bookmarkIdInfo]
+    const bookmarkId = [...bookmarkIdInfo]
     const bundleBookmarkList = bookmarkId.filter((item) => item.bundle === payload)
     const startingIndex = startIndex ?? filterBookmarkDetailInfo.length
     const page = startIndex ?? Math.round(filterBookmarkDetailInfo.length / 25)

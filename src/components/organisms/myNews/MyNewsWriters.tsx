@@ -60,7 +60,7 @@ export const MyNewsWriters = () => {
   };
 
   const authorsList = useMemo(() => {
-    let writersList = [];
+    const writersList = [];
     if (
       isNonEmptyArray(allWritersData) &&
       isNonEmptyArray(selectedAuthorsData.data)
@@ -130,7 +130,7 @@ export const MyNewsWriters = () => {
   };
 
   const fetchOpinionData = (authorsData: any, page: number) => {
-    let opinionBody: FavouriteOpinionsBodyGet = {
+    const opinionBody: FavouriteOpinionsBodyGet = {
       page: page,
       items_per_page: isTab ? 12 : 10,
       authorsList: authorsData,
@@ -139,7 +139,9 @@ export const MyNewsWriters = () => {
   };
 
   const onPress = (item: any, index: number) => {
-    if (index == selectedIndex) return;
+    if (index == selectedIndex) {
+      return;
+    }
     const payloadAuthorsList = index == -1 ? getAuthorsList() : [item.tid];
     if (payloadAuthorsList != selectedAuthors) {
       setPageCount(0);

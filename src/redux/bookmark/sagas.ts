@@ -40,7 +40,7 @@ const getOpinionImage = (item: any) => {
 }
 
 const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet): any => {
-  let responseData: GetBookmarkDetailSuccessPayload = {
+  const responseData: GetBookmarkDetailSuccessPayload = {
     bookmarkedDetailInfo: [],
     page: payload.page,
     bundle: payload.bundle,

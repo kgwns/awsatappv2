@@ -25,7 +25,9 @@ export const TitleWithUnderLine = ({
         }
     }
 
-    if(!isNotEmpty(title)) return null
+    if(!isNotEmpty(title)) { 
+        return null
+    }
 
     return (
         <View style={StyleSheet.flatten([style.container, titleContainerStyle])}>

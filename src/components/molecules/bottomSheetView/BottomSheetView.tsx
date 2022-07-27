@@ -1,8 +1,7 @@
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
-import { isTab, screenWidth } from 'src/shared/utils';
+import { isTab, screenWidth, normalize } from 'src/shared/utils';
 import { Image, Label } from 'src/components/atoms';
-import { normalize } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { fonts } from 'src/shared/styles/fonts';

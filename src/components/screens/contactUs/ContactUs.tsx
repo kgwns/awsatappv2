@@ -15,6 +15,7 @@ import { useContactUs } from 'src/hooks'
 import { emailValidation } from 'src/shared/validators'
 import { useNavigation } from '@react-navigation/native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { FLEX_START } from 'src/shared/styles/item-alignment'
 
 export type ContactUsModal = {
     name: string;
@@ -248,11 +249,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     messageText: {
         height: normalize(180),
-        justifyContent: 'flex-start',
+        justifyContent: FLEX_START,
         paddingTop: isIOS ? 5 : 8,
     },
     sendMainContainer: {
-        justifyContent: 'flex-start',
+        justifyContent: FLEX_START,
         flexDirection: 'row',
     },
     sendButton: {
@@ -270,7 +271,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingVertical: 10,
     },
     messageIcon: {
-        justifyContent: 'flex-start',
+        justifyContent: FLEX_START,
         paddingTop: 15
     },
     messageTextInput: {

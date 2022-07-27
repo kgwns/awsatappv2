@@ -153,7 +153,9 @@ export const Archives = () => {
     }
 
     const getFilteredData = (index: number) => {
-        if (!isNonEmptyArray(bookmarkDetail)) return null
+        if (!isNonEmptyArray(bookmarkDetail)) {
+            return null
+        }
         const data = [...bookmarkDetail]
         
         switch (index) {
@@ -192,7 +194,9 @@ export const Archives = () => {
     )
 
     const emptyFavoriteData = () => {
-        if (isNonEmptyArray(filteredData)) return null
+        if (isNonEmptyArray(filteredData)) {
+            return null
+        }
         return <View
             style={styles.noFavoriteMessage}>
             <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />

@@ -100,7 +100,7 @@ export const VideoContent = ({
             />
         </View>
     );
-};;
+};
 
 export default VideoContent;
 

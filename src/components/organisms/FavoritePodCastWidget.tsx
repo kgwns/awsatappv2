@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
-import { Divider, Image } from 'src/components/atoms'
-import { Label, LabelTypeProp } from 'src/components/atoms'
+import { Divider, Image, Label, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { DetailPodCastFooter } from 'src/components/molecules'
@@ -43,7 +42,7 @@ const ArticlePodCastWidget = ({
     const [t] = useTranslation()
     const style = useThemeAwareObject(customStyle)
     const { themeData } = useTheme()
-    let [duration, setDurartion] = useState(0)
+    const [duration, setDurartion] = useState(0)
 
     useEffect(() => {
         getPodcastDuration()
@@ -52,9 +51,9 @@ const ArticlePodCastWidget = ({
     const getPodcastDuration = async () => {
             if(isNotEmpty(spreakerEpisode)){
               try {
-                let response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: spreakerEpisode })
+                const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: spreakerEpisode })
                 if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
-                  let episode = response.response.episode
+                  const episode = response.response.episode
                   setDurartion( Math.floor(episode.duration / 1000) )
                 }
               }catch(error){

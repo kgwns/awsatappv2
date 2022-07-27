@@ -37,7 +37,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const isLoading = (playbackState === State.None || playbackState === State.Connecting ) && (playbackState !== State.Paused && playbackState !== State.Playing)
     const { selectedTrack } = useAppPlayer()
     
-    let refRBSheet = useRef<RBSheet>();
+    const refRBSheet = useRef<RBSheet>();
     const _playForwardIcon = getSvgImages({ name: ImagesName.playForwardIcon, width: normalize(25), height: normalize(25) })
     const _playBackwardIcon = getSvgImages({ name: ImagesName.playBackwardIcon, width: normalize(25), height: normalize(25) })
     const _playIcon = getSvgImages({ name: ImagesName.playIconSVG, width: normalize(18), height: normalize(18) })
@@ -98,9 +98,9 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     };
 
     const seekForwardBackward = async(type: any) => {
-        let seekValue = 10
-        let position = progress.position
-        let duration = progress.duration
+        const seekValue = 10
+        const position = progress.position
+        const duration = progress.duration
         let seekPosition = position
         
         if(type == 'forward'){

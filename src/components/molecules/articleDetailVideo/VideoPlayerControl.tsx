@@ -68,8 +68,9 @@ const VideoPlayerControl = ({
   };
 
   const onPaused = () => {
-    if (!isMiniPlayer && !paused)
+    if (!isMiniPlayer && !paused) {
       setMiniPlayerVisible && setMiniPlayerVisible(false);
+    }
     setPaused(!paused);
   };
 
@@ -84,7 +85,9 @@ const VideoPlayerControl = ({
     setIsLoading(false);
     !isIOS && videoPlayer.current?.seek(0.1);
     onScreenTouch();
-    if (initialLoadRef.current) videoPlayer.current?.seek(time);
+    if (initialLoadRef.current) {
+      videoPlayer.current?.seek(time);
+    }
   };
 
   const onLoadStart = (data: any) => setIsLoading(true);
@@ -117,9 +120,12 @@ const VideoPlayerControl = ({
   }, [isFullScreen]);
 
   useEffect(() => {
-    if (!paused && initialPlay && showMiniPlayer) stopTrackPlayer();
-    if (!paused && !isMiniPlayer && !isFullScreenPlayer)
+    if (!paused && initialPlay && showMiniPlayer) {
+      stopTrackPlayer();
+    }
+    if (!paused && !isMiniPlayer && !isFullScreenPlayer) {
       setMiniPlayerVisible && setMiniPlayerVisible(true);
+    }
   }, [paused]);
 
   useEffect(() => {
@@ -130,7 +136,9 @@ const VideoPlayerControl = ({
     if (playerVisible && !isMiniPlayer) {
       setShowControls(false);
     }
-    if (playerVisible && initialLoadRef.current) initialLoadRef.current = false;
+    if (playerVisible && initialLoadRef.current) {
+      initialLoadRef.current = false;
+    }
   }, [playerVisible]);
 
   useEffect(() => {
@@ -281,7 +289,7 @@ const VideoPlayerControl = ({
   );
 
   const renderFullScreen = () => {
-    let source = isFullScreenPlayer ? images.shirnkIcon : images.expandIcon;
+    const source = isFullScreenPlayer ? images.shirnkIcon : images.expandIcon;
 
     return (
       <TouchableHighlight
@@ -314,7 +322,7 @@ const VideoPlayerControl = ({
   );
 
   const renderPlaypause = () => {
-    let source = paused === true ? images.playIconWhite : images.pauseIconWhite;
+    const source = paused === true ? images.playIconWhite : images.pauseIconWhite;
 
     return (
       <TouchableHighlight

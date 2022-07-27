@@ -1,14 +1,13 @@
 import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
-import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { ArticleDetailWidget } from 'src/components/organisms';
+import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
@@ -171,7 +170,7 @@ export const ArticleDetailScreen = ({
 
       if(articleDetailData.length > webviewRef.length) {
         const newReferenceCount = articleDetailData.length - webviewRef.length
-        let reference = React.createRef()
+        const reference = React.createRef()
         const newReference = Array(newReferenceCount).fill(reference)
         webviewRef = webviewRef.concat(newReference)
       }
@@ -365,7 +364,7 @@ export const ArticleDetailScreen = ({
   }, [articleDetailState]);
 
   const getVideoUrlInfo = async () => {
-    let jwplayerId = articleDetailState[0].jwplayerId
+    const jwplayerId = articleDetailState[0].jwplayerId
     if (isNotEmpty(jwplayerId)) {
       try {
         const response: RequestVideoUrlSuccessResponse =

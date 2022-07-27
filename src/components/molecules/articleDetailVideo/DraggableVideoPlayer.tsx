@@ -83,7 +83,7 @@ const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
     }),
   ).current;
 
-  let boundX = () => {
+  const boundX = () => {
     if (orientation == 'PORTRAIT') {
       return animate.x.interpolate({
         inputRange: [-0.25 * screenWidth, 0],
@@ -114,7 +114,7 @@ const DraggableVideoPlayer = ({url, ...props}: DraggableVideoPlayerProps) => {
       }
     }
   };
-  let boundY = () => {
+  const boundY = () => {
     if (orientation == 'PORTRAIT') {
       if (isIOS) {
         return animate.y.interpolate({

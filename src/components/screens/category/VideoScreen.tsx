@@ -131,6 +131,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
     <View>
       <FlatList
           data={videoDocumentaryInfo}
+          testID='documentary_Video_Item_FlatList1'
           listKey={'videoDocumentary'+ new Date().getTime().toString()}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderDocumentaryVideoItem}
@@ -139,6 +140,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
       <FlatList
           data={videoDataInfo}
           numColumns={isTab? 2 : 1}
+          testID='video_Item_FlatList1'
           listKey={'videoList'+ new Date().getTime().toString()}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderVideoItem}
@@ -192,6 +194,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
       <View style={styles.container}>
         <FlatList
            ref={ref}
+           testID='main_FlatList1'
            onScrollBeginDrag={() => global.refFlatList = ref}
           data={[{}]}
           keyExtractor={(_, index) => index.toString()}

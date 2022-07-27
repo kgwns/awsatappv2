@@ -107,7 +107,9 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
         navigation.navigate(ScreensConstants.SectionArticlesScreen, { sectionId: sectionId, title: props.title });
     }
 
-    if (!isNonEmptyArray(data)) return null
+    if (!isNonEmptyArray(data)) {
+        return null
+    }
 
     return (
         <View style={[style.container, props.containerStyle]}>

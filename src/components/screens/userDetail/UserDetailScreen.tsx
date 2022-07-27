@@ -356,7 +356,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       <View style={styles.userContainerStyle}>
         <View style={styles.userContainer}>
           <View style={styles.dpContainer}>
-            <TouchableOpacity onPress={() => 
+            <TouchableOpacity testID='render_Option_Modal' onPress={() => 
               isIOS? renderOptionModalIOS() :  setModalVisible(true)}>
               <View style={styles.dpEditContainer}>
                 <EditIcon />
@@ -408,6 +408,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             />
             <DatePicker
               locale="ar_AE"
+              testID='date_Picker'
               minimumDate={new Date(DEFAULT_MINIMUM_DATE)}
               maximumDate={new Date(maxDate)}
               cancelText={t('profile.userDetail.cancelText')}
@@ -430,7 +431,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               theme={isDarkMode ? 'dark' : 'light'}
               textColor={isIOS ? themeData.textInputColor : colors.black}
             />
-            <TouchableOpacity onPress={() => setOpen(true)}>
+            <TouchableOpacity testID='set_Open' onPress={() => setOpen(true)}>
               <View style={styles.dropDownContainer}>
                 <View>
                   <Label
@@ -600,7 +601,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.cancelContainer}>
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
+            <TouchableOpacity testID={'modal_Visible'} onPress={() => setModalVisible(false)}>
               <View style={styles.cancelStyle}>
                 <Label
                   style={styles.cancelTextStyle}

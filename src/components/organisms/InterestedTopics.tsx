@@ -11,12 +11,12 @@ const InterestedTopics = (props:any) => {
   const data = props.allSiteCategoriesData 
   const style = useThemeAwareObject(customInterestStyle)
   let totalLengthOfElements = 0
-  let arrayOfLengths = []
-  let splicedArray = []
+  const arrayOfLengths = []
+  const splicedArray = []
   let individualSpliceArray: any[] = []
   let lengthOfElementsInRow = 0
   let previousIndex = 0
-  let dataLength = data ? data.length : []
+  const dataLength = data ? data.length : []
   for (let i = 0; i < dataLength; i++) {
     totalLengthOfElements = totalLengthOfElements + data[i].name.length + 10
     arrayOfLengths.push(data[i].name.length + 10)
@@ -107,7 +107,7 @@ const InterestedTopics = (props:any) => {
     </ScrollView>
 
   );
-};;
+};
 
 export default InterestedTopics;
 const customInterestStyle = (theme: CustomThemeType) =>

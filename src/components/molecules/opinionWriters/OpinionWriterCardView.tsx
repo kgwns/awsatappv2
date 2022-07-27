@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty, isIOS} from 'src/shared/utils';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import { TouchableOpacity } from 'react-native';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -75,9 +74,9 @@ const OpinionWritersCardView = ({
         const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
         if(isObjectNonEmpty(opinionData)){
           setMediaData(opinionData);
-          let playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
+          const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
           if(playList){
-            let time = playList.duration? convertSecondsToHMS(playList.duration) : null;
+            const time = playList.duration? convertSecondsToHMS(playList.duration) : null;
             setTimeDuration(time)
           } 
         }
@@ -116,13 +115,13 @@ const OpinionWritersCardView = ({
 const onPressPlay = () => {
       
   if (nid && isObjectNonEmpty(mediaData)) {
-    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
     if (!isObjectNonEmpty(playList)) {
       return
     }
 
-    let trackPlayerData = {
+    const trackPlayerData = {
       id: nid + 'opinion',
       url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
       title: isNotEmpty(headLine) ? headLine : '',

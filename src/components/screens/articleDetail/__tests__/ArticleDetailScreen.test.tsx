@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { ArticleDetailScreen } from '../ArticleDetailScreen';
 import { isIOS, normalize } from 'src/shared/utils/dimensions';
+import { VideoPlayerControl } from 'src/components/molecules';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -113,15 +114,21 @@ describe('<ArticleDetailScreen>', () => {
     expect(render(<ArticleDetailScreen route={{ params: { nid: '123', isRelatedArticle: false } }}/>)).toBeDefined();
   });
 
-  test('Should call FlatList onPress', () => {
+  test('Should call ScreenContainer onCloseSignUpAlert', () => {
     const element = instance.container.findByType(ScreenContainer)
     fireEvent(element, 'onCloseSignUpAlert');
     expect(mockFunction).toBeTruthy()
   });
 
-  test('Should call FlatList onPress', () => {
+  test('Should call ScreenContainer isSignUpAlertVisible', () => {
     const element = instance.container.findByType(ScreenContainer)
     fireEvent(element, 'isSignUpAlertVisible');
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call VideoPlayerControl setPlayerDetails', () => {
+    const element = instance.container.findByType(VideoPlayerControl)
+    fireEvent(element, 'setPlayerDetails', '23/10/2022', true);
     expect(mockFunction).toBeTruthy()
   });
 

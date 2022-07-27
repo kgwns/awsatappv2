@@ -75,7 +75,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   }, [sendSelectedNotificationInfo.message]);
 
   const setInitialData = () => {
-    let data = formatNotificationData()
+    const data = formatNotificationData()
     setNotificationData(data)
     updateNextButtonActive()
   }
@@ -84,7 +84,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
     const data = []
     if (allNotificationList.code && allNotificationList.code === 200 && isNonEmptyArray(allNotificationList.data)) {
       for (let i = 0; i < allNotificationList.data.length; i++) {
-        let item = allNotificationList.data[i]
+        const item = allNotificationList.data[i]
         data.push({
           id: item.id,
           name: item.name,
@@ -99,7 +99,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
     if (isNonEmptyArray(selectedNotificationInfo.data) && isNonEmptyArray(allNotificationList.data)) {
       const data = []
       for (let i = 0; i < allNotificationList.data.length; i++) {
-        let item = allNotificationList.data[i]
+        const item = allNotificationList.data[i]
         data.push({
           name: item.name,
           id: item.id,
@@ -108,7 +108,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
       }
       setNotificationData(data)
     } else {
-      let newsLettersData = formatNotificationData()
+      const newsLettersData = formatNotificationData()
       setNotificationData(newsLettersData)
     }
     setDisableNext(true)
@@ -146,7 +146,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
       }
     }
     if (canGoBack) {
-      let selectedList = getSelectedData();
+      const selectedList = getSelectedData();
       console.log('getselecteddata', getSelectedData())
       sendSelectedInfoRequest({ nid: joinArray(selectedList) })
     } else {

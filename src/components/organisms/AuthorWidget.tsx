@@ -90,7 +90,9 @@ const AuthorWidget = ({
         // },
     };
     const numberOfColumn = isTab ? 2 : 1
-    if(!isNonEmptyArray(data)) return null
+    if(!isNonEmptyArray(data)) {
+        return null
+    }
     return (
         <View style={StyleSheet.flatten([style.container,containerStyle])}>
             { showHeader && <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>

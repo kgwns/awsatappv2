@@ -251,6 +251,12 @@ describe('<MainSectionScreen>', () => {
     expect(mockFunction).toBeTruthy()
   });
 
+  test('Should call FlatList keyExtractor', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'keyExtractor', '', 2);
+    expect(mockFunction).toBeTruthy()
+  });
+
   test('Should call FlatList onPress', () => {
     expect(instance.container.findAllByType(FlatList).length).toBe(3)
   });

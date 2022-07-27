@@ -83,7 +83,7 @@ export const MyNewsTopics = () => {
     }, [articleData]);
 
     const topicsList = useMemo(() => {
-        let topicsList = [];
+        const topicsList = [];
         if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
             const authorsIdList = selectedTopicsData.data.map((item: any) => item.tid.toString());
             for (let i = 0; i < allSiteCategoriesData.length; i++) {
@@ -96,7 +96,7 @@ export const MyNewsTopics = () => {
     }, [selectedTopicsData, allSiteCategoriesData]);
 
     const fetchArticleData = (topicsList: any, pageCount: any) => {
-        let articleBody: FavouriteArticlesBodyGet = {
+        const articleBody: FavouriteArticlesBodyGet = {
             page: pageCount,
             items_per_page: 10,
             topicsList: topicsList
@@ -128,7 +128,9 @@ export const MyNewsTopics = () => {
     };
 
     const onPress = (item: any, index: number) => {
-        if(index == selectedIndex) return;
+        if(index == selectedIndex) {
+            return;
+        }
         const payloadTopicsList = index == -1 ? getTopicsList() : [item.tid];
         if (payloadTopicsList != selectedTopics) {
             setPageCount(0);

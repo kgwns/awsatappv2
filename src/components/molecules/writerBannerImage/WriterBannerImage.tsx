@@ -74,7 +74,9 @@ export const WriterBannerImage = ({
   }, []);
 
   const ReturnButton = () => {
-    if(hideBackArrow) return null
+    if(hideBackArrow) {
+      return null
+    }
     return (
       <View>
         <TouchableOpacity

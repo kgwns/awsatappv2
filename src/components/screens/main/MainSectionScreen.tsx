@@ -219,7 +219,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
     }
     const newData = [...opinionList]
-    let data = listPartition(newData, 4)
+    const data = listPartition(newData, 4)
     setOpinionListData(data)
   }, [opinionList])
 
@@ -521,7 +521,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
 
   const onListenPodcast = (podcastData: any) => {
     if(isObjectNonEmpty(podcastData)){
-      let trackPlayerData = {
+      const trackPlayerData = {
         id: podcastData.nid,
         url: getPodcastUrl(podcastData.field_spreaker_episode_export),
         title: podcastData.title,
@@ -529,7 +529,9 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         artist: podcastData.title,
         artwork: podcastData?.field_podcast_sect_export?.image
       }
-      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) setPlayerTrack(trackPlayerData);
+      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) {
+        setPlayerTrack(trackPlayerData);
+      }
       !showMiniPlayer && setShowMiniPlayer(true);
     }
 

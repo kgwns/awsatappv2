@@ -112,7 +112,7 @@ export const SectionsScreen = () => {
     for (let i = 0; i < filterMenuData.length; i++) {
       const item: TopMenuItemType = filterMenuData[i]
       const newParentId = item.uuid ?? null
-      let customData: any = {
+      const customData: any = {
         ...item,
       }
 
@@ -124,7 +124,7 @@ export const SectionsScreen = () => {
   }
 
   const onUpdateChildSection = (data: TopMenuItemType[], index: number) => {
-    let routeData = [...routes]
+    const routeData = [...routes]
     const selectedRoute = routeData[index]
     if(selectedRoute && selectedRoute.child) {
       selectedRoute.child = data
@@ -133,8 +133,8 @@ export const SectionsScreen = () => {
   }
 
   const onPressTabItem = (index: number) => {
-    let routeData = [...routes]
-    let selectedRoute = routeData[index]
+    const routeData = [...routes]
+    const selectedRoute = routeData[index]
     let selectedRouteChild: TopMenuItemType[] = [];
     if(selectedRoute && selectedRoute.child) {
       selectedRouteChild = selectedRoute.child.map((item: TopMenuItemType) => ({
