@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, Dimensions } from 'react-native'
+import { StyleSheet, ScrollView, Dimensions, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { isIOS, isTab, screenHeight, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
@@ -148,7 +148,7 @@ export const ArticleDetailBody = React.memo(({
     }
 
     return (
-        <ScrollView scrollEnabled={true} style={style.scrollViewStyle}>
+        <View style={style.scrollViewStyle}>
             <AutoHeightWebView
                 style={style.webView}
                 source={{ html: articleHtml({ body: body }), baseUrl: '' }}
@@ -170,7 +170,7 @@ export const ArticleDetailBody = React.memo(({
                 allowsFullscreenVideo={true}
                 scrollEnabled={false}
             />
-        </ScrollView>
+        </View>
     )
 })
 
