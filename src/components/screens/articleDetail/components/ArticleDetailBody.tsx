@@ -16,7 +16,7 @@ type ArticleDetailBodyProps = {
     orientation: string;
 }
 
-export const ArticleDetailBody = ({
+export const ArticleDetailBody = React.memo(({
     body,
     index,
     articleFontSize,
@@ -172,7 +172,7 @@ export const ArticleDetailBody = ({
             />
         </ScrollView>
     )
-}
+})
 
 const customStyle = () => StyleSheet.create({
     scrollViewStyle: {
