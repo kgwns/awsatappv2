@@ -145,7 +145,7 @@ export const Archives = () => {
     }
 
     const removeBookmarkItem = (removeItem: any) => {
-        const data = tabSelectedIndex === 0 ? [...bookmarkDetail] : [...filterBookmarkDetailInfo]
+        const data = (tabSelectedIndex === 0 || isAllBookmarkFetched) ? [...bookmarkDetail] : [...filterBookmarkDetailInfo]
         const removeIndex = data.findIndex((item) => item.nid == removeItem.nid)
         if (removeIndex >= 0) {
             removeBookmarkedInfo({ nid: removeItem.nid })
