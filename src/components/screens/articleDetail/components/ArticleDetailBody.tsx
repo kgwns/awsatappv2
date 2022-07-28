@@ -147,31 +147,45 @@ export const ArticleDetailBody = React.memo(({
         webviewRef && webviewRef[index] && webviewRef[index].injectJavaScript(script())
     }
 
-    return (
-        <View style={style.scrollViewStyle}>
-            <AutoHeightWebView
-                style={style.webView}
-                source={{ html: articleHtml({ body: body }), baseUrl: '' }}
-                ref={(r) => (webviewRef[index] = r)}
-                domStorageEnabled={true}
-                bounces={false}
-                originWhitelist={["*"]}
-                nestedScrollEnabled={false}
-                scalesPageToFit={false}
-                onMessage={(event) => {
-                    // console.log(event.nativeEvent.data);
-                }}
-                onLoadEnd={updateWebViewStyle}
-                onLoadProgress={updateWebViewStyle}
-                injectedJavaScript={script()}
-                injectedJavaScriptBeforeContentLoaded={script()}
-                onShouldStartLoadWithRequest={(event) => onShouldStartLoadWithRequest(event)}
-                androidLayerType="hardware"
-                allowsFullscreenVideo={true}
-                scrollEnabled={false}
-            />
-        </View>
+    const renderWebView = () => (
+        <AutoHeightWebView
+            style={style.webView}
+            source={{ html: articleHtml({ body: body }), baseUrl: '' }}
+            ref={(r) => (webviewRef[index] = r)}
+            domStorageEnabled={true}
+            bounces={false}
+            originWhitelist={["*"]}
+            nestedScrollEnabled={false}
+            scalesPageToFit={false}
+            onMessage={(event) => {
+                // console.log(event.nativeEvent.data);
+            }}
+            onLoadEnd={updateWebViewStyle}
+            onLoadProgress={updateWebViewStyle}
+            injectedJavaScript={script()}
+            injectedJavaScriptBeforeContentLoaded={script()}
+            onShouldStartLoadWithRequest={(event) => onShouldStartLoadWithRequest(event)}
+            androidLayerType="hardware"
+            allowsFullscreenVideo={true}
+            scrollEnabled={false}
+        />
     )
+
+    if (isIOS) {
+        return (
+            <View style={style.scrollViewStyle}>
+                {renderWebView()}
+            </View>
+        )
+    } else {
+        //Android needs to use scroll view otherwise when press back, App will crash
+        return (
+            <ScrollView scrollEnabled={true} style={style.scrollViewStyle}> 
+                {renderWebView()}
+            </ScrollView>
+        )
+    }
+   
 })
 
 const customStyle = () => StyleSheet.create({
