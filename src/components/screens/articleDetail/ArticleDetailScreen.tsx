@@ -401,6 +401,7 @@ export const ArticleDetailScreen = ({
     <ArticleDetailBody body={articleDetailState[index].body}
       index={index} articleFontSize={articleFontSize}
       webviewRef={webviewRef}
+      orientation={currentOrientation}
     />
   )
 
