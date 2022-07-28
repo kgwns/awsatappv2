@@ -60,7 +60,6 @@ export const ArticleDetailScreen = ({
   const [articleDetailState, setArticleDetail] = useState<ArticleDetailDataType[]>([])
   const [relatedArticleState, setRelatedArticle] = useState<RelatedArticleDataType[]>([])
   const [currentOrientation, setOrientation] = useState('')
-  const [scrollY, setScrollY] = useState(new Animated.Value(0))
   const [playerUrl, setPlayerUrl] = useState<string>();
   const [playerVisible, setPlayerVisible] = useState<boolean>(false);
   const [showVideoMiniPlayer, setShowVideoMiniPlayer] = useState<boolean>(false);
@@ -324,7 +323,6 @@ export const ArticleDetailScreen = ({
   }
 
   const onScroll = (event: any) => {
-    setScrollY(event.nativeEvent.contentOffset.y)
     Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer ? setPlayerVisible(true) : setPlayerVisible(false);
   }
 
@@ -401,6 +399,7 @@ export const ArticleDetailScreen = ({
     <ArticleDetailBody body={articleDetailState[index].body}
       index={index} articleFontSize={articleFontSize}
       webviewRef={webviewRef}
+      orientation={currentOrientation}
     />
   )
 

@@ -1,6 +1,6 @@
-import { StyleSheet, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView, Dimensions } from 'react-native'
 import React, { useEffect } from 'react'
-import { isIOS, isTab, screenWidth } from 'src/shared/utils'
+import { isIOS, isTab, screenHeight, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'
@@ -13,13 +13,15 @@ type ArticleDetailBodyProps = {
     index: number;
     articleFontSize: number;
     webviewRef: any;
+    orientation: string;
 }
 
-export const ArticleDetailBody = ({
+export const ArticleDetailBody = React.memo(({
     body,
     index,
     articleFontSize,
     webviewRef,
+    orientation,
 }: ArticleDetailBodyProps) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
@@ -32,6 +34,33 @@ export const ArticleDetailBody = ({
         }
     }, [articleFontSize])
 
+    useEffect(() => {
+        if (webviewRef) {
+            webviewRef.forEach((_: any, index: number) => {
+                webviewRef[index].injectJavaScript(iFrameInjectCss());
+            })
+        }
+    }, [orientation])
+
+    const isPortrait = () => {
+        const dim = Dimensions.get('screen');
+        return dim.height >= dim.width;
+    };
+
+    const iFrameInjectCss = () => {
+        const size = isPortrait() ? screenWidth : screenHeight
+
+        return `
+        //   This css to apply all the iFrame tag element
+        var iFrameElement = document.getElementsByTagName("iframe");
+        if(iFrameElement && iFrameElement.length > 0) {
+          for(i=0; i < iFrameElement.length; i++) {
+            iFrameElement[i].style["width"] = "${0.92 * size}px";
+            iFrameElement[i].style["aspect-ratio"] = "2/4"; 
+          } 
+        }
+        `
+    }
 
     const script = () => {
         const newFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
@@ -71,18 +100,7 @@ export const ArticleDetailBody = ({
             } 
           }
     
-          //   This css to apply all the iFrame tag element
-          var iFrameElement = document.getElementsByTagName("iframe");
-          if(iFrameElement && iFrameElement.length > 0) {
-            for(i=0; i < iFrameElement.length; i++) {
-              if("${isTab}") {
-                iFrameElement[i].style["width"] = "${0.92 * screenWidth}px"; 
-              } else {
-                iFrameElement[i].style["width"] = "100%";
-              }
-              iFrameElement[i].style["aspect-ratio"] = "2/3"; 
-            } 
-          }
+          ${iFrameInjectCss()}
            
           true;  // note: this is required, or you'll sometimes get silent failures
           `;
@@ -154,7 +172,7 @@ export const ArticleDetailBody = ({
             />
         </ScrollView>
     )
-}
+})
 
 const customStyle = () => StyleSheet.create({
     scrollViewStyle: {

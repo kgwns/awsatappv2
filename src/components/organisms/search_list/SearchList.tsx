@@ -242,9 +242,10 @@ StyleSheet.create({
     flexDirection:'row'
   },
   tabTitleContainer: {
-    width: '83%',
+    width: '80%',
     flexDirection: 'row',
-    flexShrink: 1 
+    flexShrink: 1,
+    paddingRight: 20,
   },
   titleContainer: {
     width: '70%',
@@ -268,7 +269,7 @@ StyleSheet.create({
   },
   tabImageWrapper: {
     width: '15%',
-    marginLeft: '2%',
+    marginLeft: '5%',
     alignItems: 'flex-end'
   },
   imageWrapper: {
