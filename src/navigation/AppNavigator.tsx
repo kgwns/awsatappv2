@@ -86,7 +86,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.ARTICLE_DETAIL_SCREEN}
         component={Routes.ArticleDetailScreen}
-        options={hideHeader}
+        options={{...hideHeader, animationEnabled: false}}
       />
       <Stack.Screen
         name={ScreensConstants.PodcastProgram}
