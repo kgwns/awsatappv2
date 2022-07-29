@@ -131,7 +131,7 @@ const VideoPlayerControl = ({
   useEffect(() => {
     if ((playerVisible && !isMiniPlayer) || (!playerVisible && isMiniPlayer)) {
       setPaused(true);
-      setPlayerDetails && setPlayerDetails(currentTime, paused);
+      setPlayerDetails && setPlayerDetails(isIOS ? Math.ceil(currentTime) : Math.ceil((currentTime + Number.EPSILON) * 10) / 10, paused);
     }
     if (playerVisible && !isMiniPlayer) {
       setShowControls(false);
