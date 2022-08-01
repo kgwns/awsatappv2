@@ -31,7 +31,7 @@ export const FilterComponent = ({
         >
             {
                 data.map((item: FilterDataType, index: number) =>
-                    <View style={{ paddingRight: 5 }}>
+                    <View style={{ paddingRight: 5 }} key={index}>
                         <TouchableOpacity testID={moleculesTestID.filterBtn} key={index} activeOpacity={0.8} onPress={() => onPress(index)}
                             style={[style.filterItem, item.isSelected && style.filterActive]}>
                             <Label children={item.name} style={style.label}
