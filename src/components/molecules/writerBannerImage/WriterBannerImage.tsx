@@ -34,6 +34,8 @@ export interface WriterBannerImageProps {
   hideBackArrow?: boolean;
   visibleHome?: boolean
   onPressHome: () => void,
+  isFocused?: boolean,
+  isWriter?: boolean
 }
 
 export const WriterBannerImage = ({
@@ -45,7 +47,9 @@ export const WriterBannerImage = ({
   onPressWriter,
   hideBackArrow = false,
   visibleHome = false,
-  onPressHome
+  onPressHome,
+  isFocused,
+  isWriter = false
 }: WriterBannerImageProps) => {
   const [t] = useTranslation()
 
@@ -59,6 +63,10 @@ export const WriterBannerImage = ({
     const dim = Dimensions.get('screen');
     return dim.height >= dim.width;
   };
+
+  useEffect(() => {
+    setOrientation(isPortrait() ? 'PORTRAIT' : 'LANDSCAPE')
+  }, [isFocused])
 
   // State to hold the connection status
   const [currentOrientation, setOrientation] = useState<'PORTRAIT' | 'LANDSCAPE'>(
@@ -140,7 +148,7 @@ export const WriterBannerImage = ({
         <ReturnButton />
       </View>
       <View style={style.contentContainer}>
-        <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : currentOrientation == 'PORTRAIT' ? 0.3 : 0.15 }}>
+        <View style={{ flex: isTab ? isWriter ? 0.15 : currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : isWriter ? 0.3 : currentOrientation == 'PORTRAIT' ? 0.3 : 0.15 }}>
           <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
             <View style={style.imageContainer}>
               <Image url={getImageUrl(data.authorImage)}
@@ -157,7 +165,7 @@ export const WriterBannerImage = ({
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.85 : 0.90 : currentOrientation == 'PORTRAIT' ? 0.7 : 0.85, paddingStart: normalize(10) }}>
+        <View style={{ flex: isTab ? isWriter ? 0.85 : currentOrientation == 'PORTRAIT' ? 0.85 : 0.90 : isWriter ? 0.7 :currentOrientation == 'PORTRAIT' ? 0.7 : 0.85, paddingStart: normalize(10) }}>
           <View style={style.authorSubscribeView}>
               <View style={style.authorNameView}>
                 <TouchableWithoutFeedback testID={'touchableLabel'} onPress={onPressWriter}>
