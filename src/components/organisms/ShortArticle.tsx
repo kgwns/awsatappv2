@@ -106,9 +106,9 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const showDivider = (numColumns == 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
     const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageLandscape : style.image
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageContainerLandscape : style.imageContainer
-    return <FixedTouchable style={{flex:1}} onPress={() => onPress(item.nid)}>
+    return <FixedTouchable style={isTab && {flex:1}} onPress={() => onPress(item.nid)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
-        style={StyleSheet.flatten([style.cardContainer, cardStyle, containerStyle])}>
+        style={StyleSheet.flatten([!hideImage && style.cardContainer, cardStyle, containerStyle])}>
         <View style={{ flexDirection: 'row' }}>
           <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
             <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
@@ -139,8 +139,9 @@ const ShortArticle = ({ data, headerLeft, onPress,
                 isBookmarked={item.isBookmarked}
               />
             </View>}
-        {showDivider && <Divider style={style.divider}/>}
+            {showDivider &&  !hideImage && <Divider style={style.divider}/>}
       </View>
+      {showDivider && hideImage && <Divider style={style.divider}/>}
     </FixedTouchable>
   };
 
