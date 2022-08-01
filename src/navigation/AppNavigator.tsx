@@ -162,7 +162,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.VideoPlayerScreen}
         component={Routes.VideoPlayerScreen}
-        options={hideHeader}
+        options={{...hideHeader, animationEnabled: false}}
       />
       <Stack.Screen
         name={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN}
