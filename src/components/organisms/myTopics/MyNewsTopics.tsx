@@ -7,7 +7,7 @@ import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
 import { AllSiteCategoriesBodyGet } from 'src/redux/allSiteCategories/types'
 import { ArticlesListItemType, FavouriteArticlesBodyGet } from 'src/redux/contentForYou/types'
-import { dateTimeAgo, horizontalEdge, isObjectNonEmpty, TimeIcon } from 'src/shared/utils/utilities'
+import { dateTimeAgo, getImageUrl, horizontalEdge, isObjectNonEmpty, TimeIcon } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -55,7 +55,7 @@ export const MyNewsTopics = () => {
             fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
             getSelectedTopicsData()
         }
-    }, [isFocused]);
+    }, []);
 
     useEffect(() => {
         if (articleData != favouriteArticlesData) {
@@ -150,7 +150,7 @@ export const MyNewsTopics = () => {
                 <ArticleItem
                     index={index}
                     nid={item.nid}
-                    image={item.field_new_photo || ''}
+                    image={getImageUrl(item.field_new_photo) || 'placeholderImg'}
                     imageStyle={isTab ? styles.tabImageStyle : styles.imageStyle}
                     tagName={tagName}
                     title={item.title}
