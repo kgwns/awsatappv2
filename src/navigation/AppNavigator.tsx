@@ -133,7 +133,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN}
         component={Routes.OpinionArticleDetail}
-        options={hideHeader}
+        options={{...hideHeader, animationEnabled: false}}
       />
       <Stack.Screen
         name={ScreensConstants.USER_DETAIL_SCREEN}

@@ -155,6 +155,10 @@ export const OpinionArticleDetail = ({
   }, []);
 
   useEffect(() => {
+    isFocused && Orientation.unlockAllOrientations();
+  }, [isFocused])
+
+  useEffect(() => {
     if (isNonEmptyArray(writerDetailData) && isFocused) {
       setWriterDetailInfo(writerDetailData)
     }
@@ -268,8 +272,9 @@ export const OpinionArticleDetail = ({
     onUpdateFollow(id, newFollowed)
   }
 
-  const onPressWriter = (tid: string) => {
-    navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, {tid})
+  const onPressWriter = () => {
+    const tid = isNonEmptyArray(writerDetailInfo) && writerDetailInfo[0].tid
+    tid && navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, {tid})
   }
 
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
@@ -332,7 +337,7 @@ export const OpinionArticleDetail = ({
           <OpinionArticleDetailWidget
             data={opinionArticle[0]} fontSize={fontSize}
             isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
-            onPressWriter={() => onPressWriter(writerDetailInfo[0].tid)}
+            onPressWriter={onPressWriter}
             isRelatedArticle={route.params.isRelatedArticle} writerData={writerDetailInfo[0]}
             togglePlayback={togglePlayback}
             selectedTrack={selectedTrack}
