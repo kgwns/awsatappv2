@@ -48,19 +48,21 @@ export const MyNewsWriters = () => {
     fetchFavouriteOpinionsRequest,
   } = useContentForYou();
 
-
   const [pageCount, setPageCount] = useState(0);
   const [selectedAuthors, setSelectedAuthors] = useState<any>(null);
   const [opinionData, setOpinionData] = useState<any>([]);
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
   const [showEmpty, setShowEmpty] = useState<boolean>(false);
-
+  const [authorsCount, setAuthorsCount] = useState(0)
+  const [isAuthorTidData, setIsAuthorTidData] = useState<any>([])
+  
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
 
   const authorsList = useMemo(() => {
     const writersList = [];
+    const tidList = []
     if (
       isNonEmptyArray(allWritersData) &&
       isNonEmptyArray(selectedAuthorsData.data)
@@ -71,10 +73,13 @@ export const MyNewsWriters = () => {
       for (let i = 0; i < allWritersData.length; i++) {
         if (authorsIdList.includes(allWritersData[i].tid)) {
           writersList.push(allWritersData[i]);
+          tidList.push(allWritersData[i].tid)
         }
       }
     }
-
+    if (isAuthorTidData != tidList) {
+      setIsAuthorTidData(tidList)
+    }
     return writersList;
   }, [selectedAuthorsData, allWritersData]);
 
@@ -86,8 +91,11 @@ export const MyNewsWriters = () => {
   }, [isFocused]);
 
   useEffect(() => {
-    setInitialData();
-  }, [selectedAuthorsData]);
+    if (selectedIndex == -1 || authorsCount != selectedAuthorsData.data.length) {
+      setInitialData();
+      isNonEmptyArray(selectedAuthorsData.data) && setAuthorsCount(selectedAuthorsData.data.length)
+    }
+  }, [isAuthorTidData]);
 
   useEffect(() => {
     if (pageCount != 0) {

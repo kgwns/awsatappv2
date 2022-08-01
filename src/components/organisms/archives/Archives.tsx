@@ -74,7 +74,7 @@ export const Archives = () => {
 
     useEffect(() => {
         if (isNonEmptyArray(bookmarkDetail) ||
-            !isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData)) {
+            !isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData) || isAllBookmarkFetched) {
             updateBookmarkDetailInfo(tabSelectedIndex)
         }
     }, [bookmarkDetail])
