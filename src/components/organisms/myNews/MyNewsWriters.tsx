@@ -48,7 +48,6 @@ export const MyNewsWriters = () => {
     fetchFavouriteOpinionsRequest,
   } = useContentForYou();
 
-
   const [pageCount, setPageCount] = useState(0);
   const [selectedAuthors, setSelectedAuthors] = useState<any>(null);
   const [opinionData, setOpinionData] = useState<any>([]);
@@ -56,6 +55,7 @@ export const MyNewsWriters = () => {
   const [showEmpty, setShowEmpty] = useState<boolean>(false);
   const [authorsCount, setAuthorsCount] = useState(0)
   const [isAuthorTidData, setIsAuthorTidData] = useState<any>([])
+  
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
