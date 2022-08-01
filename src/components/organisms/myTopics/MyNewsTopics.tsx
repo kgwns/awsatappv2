@@ -55,7 +55,7 @@ export const MyNewsTopics = () => {
             fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
             getSelectedTopicsData()
         }
-    }, [isFocused]);
+    }, []);
 
     useEffect(() => {
         if (articleData != favouriteArticlesData) {
@@ -150,7 +150,7 @@ export const MyNewsTopics = () => {
                 <ArticleItem
                     index={index}
                     nid={item.nid}
-                    image={item.field_new_photo || ''}
+                    image={item.field_new_photo || 'placeholderImg'}
                     imageStyle={isTab ? styles.tabImageStyle : styles.imageStyle}
                     tagName={tagName}
                     title={item.title}
