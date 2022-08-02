@@ -694,6 +694,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         <KeyboardAwareScrollView
         bounces={false}
         extraHeight={230}
+        showsVerticalScrollIndicator={false}
         scrollEnabled>
         {tabContent()}
         </KeyboardAwareScrollView>

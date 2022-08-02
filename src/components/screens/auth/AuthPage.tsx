@@ -187,6 +187,7 @@ export const AuthPage: FunctionComponent = () => {
         bounces={false}
         extraScrollHeight={30}
         enableOnAndroid={true}
+        showsVerticalScrollIndicator={false}
         scrollEnabled>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.container}>

@@ -178,6 +178,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
       <KeyboardAwareScrollView
         bounces={false}
         enableOnAndroid={true}
+        showsVerticalScrollIndicator={false}
         scrollEnabled>
         <View>
           <View style={styles.container}>

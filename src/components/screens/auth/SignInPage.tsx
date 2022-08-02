@@ -322,6 +322,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
       <KeyboardAwareScrollView
         bounces={false}
         enableOnAndroid={true}
+        showsVerticalScrollIndicator={false}
         scrollEnabled>
        <View>
           <View style={styles.container}>
