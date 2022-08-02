@@ -68,8 +68,8 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
         const opinionData = {
           type: item.type,
           imageUrl: getOpinionImage(item),
-          writerTitle: item.field_opinion_writer_node_export[0].name,
-          authorId: item.field_opinion_writer_node_export[0].id,
+          writerTitle: isNonEmptyArray(item.field_opinion_writer_node_export) ? item.field_opinion_writer_node_export[0].name : '',
+          authorId: isNonEmptyArray(item.field_opinion_writer_node_export) ? item.field_opinion_writer_node_export[0].id : '',
           headLine: item.title,
           subHeadLine: decodeHTMLTags(item.body_export),
           audioLabel: 'إستمع إلى المقالة ',
