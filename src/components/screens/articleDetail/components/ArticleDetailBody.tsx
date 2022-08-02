@@ -173,7 +173,7 @@ export const ArticleDetailBody = React.memo(({
 
     if (isIOS) {
         return (
-            <View style={style.scrollViewStyle}>
+            <View style={style.iosContainerViewStyle}>
                 {renderWebView()}
             </View>
         )
@@ -192,6 +192,10 @@ const customStyle = () => StyleSheet.create({
     scrollViewStyle: {
         marginHorizontal: 0.04 * screenWidth,
         overflow: 'hidden',
+        marginTop: 20,
+    },
+    iosContainerViewStyle: {
+        marginHorizontal: 0.04 * screenWidth,
         marginTop: 20,
     },
     webView: {
