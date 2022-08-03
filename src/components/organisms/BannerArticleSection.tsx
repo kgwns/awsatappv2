@@ -87,7 +87,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     const listHeaderSection = () => (
-            <View style={{ flex: 1 }}>
+            <View style={isTab && style.listHeaderstyle}>
                 {bannerData.map((item: articleProps, index: number) => {
                     if (index == 0) return <ImageArticle key={index} {...item}
                         onPressBookmark={() => onUpdateBookmark(item)}
@@ -187,4 +187,7 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight:26,
         textAlign: 'left' 
     },
+    listHeaderstyle: { 
+        flex: 1 
+    }
 })
