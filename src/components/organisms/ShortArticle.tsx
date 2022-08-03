@@ -108,7 +108,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageContainerLandscape : style.imageContainer
     return <FixedTouchable style={isTab && {flex:1}} onPress={() => onPress(item.nid)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
-        style={StyleSheet.flatten([!hideImage && style.cardContainer, cardStyle, containerStyle])}>
+        style={StyleSheet.flatten([!hideImage && isTab ? style.cardContainer : style.cardContainerStyle, cardStyle, containerStyle])}>
         <View style={{ flexDirection: 'row' }}>
           <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
             <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
@@ -218,6 +218,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   titleViewWithImage: {
     paddingBottom: 20,
+  },
+  cardContainerStyle: {
+    paddingBottom: normalize(20),
   },
 })
 
