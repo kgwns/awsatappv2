@@ -58,7 +58,8 @@ export const Image: FunctionComponent<ImageProps> = ({
 
   let isValidImageUrl = true
   const imageUrlPathArray: any = isNotEmpty(url) && url?.split('/')
-  if(!isNonEmptyArray(imageUrlPathArray) || imageUrlPathArray.length < 3 || !isNotEmpty(imageUrlPathArray[3])) {
+  if (!imageUrlPathArray || !isNonEmptyArray(imageUrlPathArray)
+    || imageUrlPathArray.length < 3 || !isNotEmpty(imageUrlPathArray[3])) {
     isValidImageUrl = false
   }
 
