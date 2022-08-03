@@ -27,4 +27,13 @@ const normalizeBy320 = (size: sizeProp, based = 'width') => {
   return size / 320 * (based === 'height' ? scaleHeight : screenWidth)
 }
 
-export { screenWidth, screenHeight, isIOS, isAndroid, isNotchDevice, normalize, normalizeBy320 };
+const isPortrait = () => {
+  const dim = Dimensions.get('window');
+  return dim.height >= dim.width;
+};
+
+const deviceScreenWidth = width;
+
+const deviceScreenHeight = height;
+  
+export { screenWidth, screenHeight, isIOS, isAndroid, isNotchDevice, normalize, normalizeBy320, deviceScreenWidth, deviceScreenHeight, isPortrait  };

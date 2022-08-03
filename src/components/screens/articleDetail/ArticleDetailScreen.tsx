@@ -462,7 +462,7 @@ export const ArticleDetailScreen = ({
   })
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading} 
+    <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
       {!isLoading && isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
         { !isFullScreen &&  renderHeader()}

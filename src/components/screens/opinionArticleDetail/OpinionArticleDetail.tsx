@@ -360,7 +360,7 @@ export const OpinionArticleDetail = ({
   };
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading}
+    <ScreenContainer edge={edge} isLoading={isLoading} isLandscape
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{ bottom : isIOS ? normalize(70) : normalize(60) }}>
         {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>
