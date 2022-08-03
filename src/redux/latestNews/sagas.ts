@@ -350,7 +350,7 @@ const parseSectionComboFive= (response: payloadType) => {
   const responseData: RequestSectionComboFiveSuccessPayload = {
     sectionComboFive: []
   }
-  responseData.sectionComboFive = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
+  responseData.sectionComboFive = formattedData.splice(0, 4)
   return responseData
 }
 
@@ -359,7 +359,7 @@ const parseSectionComboSix= (response: payloadType) => {
   const responseData: RequestSectionComboSixSuccessPayload = {
     sectionComboSix: []
   }
-  responseData.sectionComboSix = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
+  responseData.sectionComboSix = formattedData.splice(0, 4)
   return responseData
 }
 
@@ -368,7 +368,7 @@ const parseSectionComboSeven= (response: payloadType) => {
   const responseData: RequestSectionComboSevenSuccessPayload = {
     sectionComboSeven: []
   }
-  responseData.sectionComboSeven = isTab ? formattedData.splice(0, 6) : formattedData.splice(0, 4)
+  responseData.sectionComboSeven = formattedData.splice(0, 4)
   return responseData
 }
 
