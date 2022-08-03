@@ -70,7 +70,7 @@ export const getArticleImage = (fieldImage: any, newPhoto: any) : string => {
     image = newPhoto
   }
 
-  return isNotEmpty(image) ? getImageUrl(image) : ''
+  return getImageUrl(image)
 }
 
 export const decodeHTMLTags = (description: string) : string => {
