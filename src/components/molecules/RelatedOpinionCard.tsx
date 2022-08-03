@@ -7,12 +7,8 @@ import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ButtonImage, Image, Label} from '../atoms';
 import {useTranslation} from 'react-i18next';
-import {
-  DURATION,
-} from 'src/constants/SharedConstants';
 import {ImageResize} from 'src/shared/styles/text-styles';
-import { decodeHTMLTags, getImageUrl, isObjectNonEmpty, convertSecondsToHMS } from 'src/shared/utils/utilities';
-import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { getImageUrl, isObjectNonEmpty, convertSecondsToHMS } from 'src/shared/utils/utilities';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -27,22 +23,12 @@ import { useAppPlayer } from 'src/hooks';
 export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayback, selectedTrack, jwPlayerID}:any) => {
   const style = useThemeAwareObject(customStyle);
   const [t] = useTranslation();
-  const { themeData } = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>()
   const playbackState = usePlaybackState();
   const[mediaData, setMediaData] = useState<any>({});
   const[timeDuration, setTimeDuration] = useState<any>(null);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
-
-  const renderHtmlContent = (item: any) => {
-    const description = decodeHTMLTags(item.body).length > 200 ? decodeHTMLTags(item.body).slice(0,200) : decodeHTMLTags(item.body)
-    return(
-      <View >
-        <Text children={description} numberOfLines={1} style={style.body}/>
-      </View>
-    )
-  }
 
   const renderTitle = (item: any) => {
     return (
@@ -77,7 +63,8 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
       }
   }
 
-  const onPressWriter = (tid: string) => {
+  const onPressWriter = (item: any) => {
+    const tid = isNonEmptyArray(item.field_opinion_writer_node_export) && item.field_opinion_writer_node_export[0].tid
     if (isNotEmpty(tid)) {
       navigation.push(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
     }
@@ -129,6 +116,14 @@ const onPressPlay = () => {
   //   }
   // }
 
+  const imageUrl = isNonEmptyArray(item.field_opinion_writer_node_export)
+    ? getImageUrl(
+      item.field_opinion_writer_node_export[0].opinion_writer_photo,
+    )
+    : isObjectNonEmpty(item.field_opinion_writer_node_export) ? getImageUrl(
+      item.field_opinion_writer_node_export.opinion_writer_photo,
+  ) : ''
+
   return (
     <TouchableOpacity
       testID='RelatedOpinionCardTO1'
@@ -140,7 +135,7 @@ const onPressPlay = () => {
           style={style.topLabel}
           numberOfLines={1}
           testID='RelatedOpinionCardLabel1'
-          onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}
+          onPress={() => onPressWriter(item)}
           suppressHighlighting={true}
         />
         {renderTitle(item)}
@@ -162,16 +157,9 @@ const onPressPlay = () => {
         </View>}
       </View>
       <View>
-        <TouchableOpacity testID='RelatedOpinionCardTO3' onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}>
+        <TouchableOpacity testID='RelatedOpinionCardTO3' onPress={() => onPressWriter(item)}>
           <Image
-            url={
-              isNonEmptyArray(item.field_opinion_writer_node_export)
-                ? getImageUrl(
-                  item.field_opinion_writer_node_export[0].opinion_writer_photo,
-                )
-                : getImageUrl(
-                  item.field_opinion_writer_node_export.opinion_writer_photo,
-                )}
+            url={imageUrl}
             size={normalize(80)}
             resizeMode={ImageResize.COVER}
             type={'round'}
