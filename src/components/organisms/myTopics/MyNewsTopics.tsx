@@ -77,14 +77,9 @@ export const MyNewsTopics = () => {
     }, [pageCount]);
 
     useEffect(() => {
-        !isNonEmptyArray(selectedTopics) && pageCount == 0
+        (!isNonEmptyArray(selectedTopics) && pageCount == 0) || (!isArticalLoading && !isNonEmptyArray(articleData))
             ? setShowEmpty(true)
             : setShowEmpty(false);
-        if (isNonEmptyArray(selectedTopics)) {
-            !isArticalLoading && !isNonEmptyArray(articleData)
-                ? setShowEmpty(true)
-                : setShowEmpty(false);
-        }
     }, [articleData]);
 
     const topicsList = useMemo(() => {
