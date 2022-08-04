@@ -80,6 +80,11 @@ export const MyNewsTopics = () => {
         !isNonEmptyArray(selectedTopics) && pageCount == 0
             ? setShowEmpty(true)
             : setShowEmpty(false);
+        if (isNonEmptyArray(selectedTopics)) {
+            !isArticalLoading && !isNonEmptyArray(articleData)
+                ? setShowEmpty(true)
+                : setShowEmpty(false);
+        }
     }, [articleData]);
 
     const topicsList = useMemo(() => {
@@ -128,6 +133,7 @@ export const MyNewsTopics = () => {
     };
 
     const onPress = (item: any, index: number) => {
+        setShowEmpty(false)
         if(index == selectedIndex) {
             return;
         }
