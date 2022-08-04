@@ -375,7 +375,7 @@ const customStyle = (theme: CustomThemeType) =>
     },
     sliderStyle: {
       width: isIOS ? '200%' : '100%',
-      height: 15,
+      height: 30,
       alignSelf: 'center'
     },
     directionStyle: {

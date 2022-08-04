@@ -254,7 +254,7 @@ const VideoPlayerControl = ({
           <Slider
             style={[styles.sliderStyle, isIOS && styles.directionStyle]}
             minimumValue={0}
-            maximumValue={duration}
+            maximumValue={Math.floor(duration)}
             minimumTrackTintColor="#FFF"
             maximumTrackTintColor="#666"
             thumbTintColor="#FFF"
@@ -434,7 +434,7 @@ const customStyle = (theme: CustomThemeType) =>
     },
     sliderStyle: {
       width: isIOS ? '200%' : '100%',
-      height: 15,
+      height: 30,
       alignSelf: 'center'
     },
     directionStyle: {
