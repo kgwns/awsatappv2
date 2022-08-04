@@ -65,6 +65,7 @@ export const AuthorsHorizontalSlider = ({
   const renderShowAll = () => (
     <View style={styles.showAllContainer}>
       <TouchableOpacity onPress={onAllPress}
+        testID='onAllPress'
         style={[
           styles.filterItem,
           selectedIndex == -1 && styles.filterActive,

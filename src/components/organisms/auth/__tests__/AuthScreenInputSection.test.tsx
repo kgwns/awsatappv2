@@ -35,7 +35,7 @@ describe('<AuthScreenInputSection>', () => {
       expect(mockFunction).toHaveBeenCalled;
     });
     it('When TextInputField change', () => {
-      const testId = instance.container.findAllByType(TextInputField)[0];
+      const testId = instance.container.findAllByType(TextInputField)[1];
       fireEvent(testId, 'onChangeText',{text: 'mockString',type: 'password'});
       expect(mockFunction).toBeTruthy();
     });
@@ -46,6 +46,11 @@ describe('<AuthScreenInputSection>', () => {
     });
     it('When Password Press', () => {
       const testId = instance.getByTestId('testid');
+      fireEvent(testId, 'onPress');
+      expect(mockFunction).toHaveBeenCalled;
+    });
+    it('When signin_forget_password Press', () => {
+      const testId = instance.getByTestId('signin_forget_password');
       fireEvent(testId, 'onPress');
       expect(mockFunction).toHaveBeenCalled;
     });

@@ -8,6 +8,7 @@ import {PodcastProgramHeader} from 'src/components/molecules';
 import {PodcastEpisodeContent, PodcastEpisodeInfo} from 'src/components/organisms';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { useNavigation } from '@react-navigation/native';
+import { PodcastEpisodeItemType, PodcastListItemType } from 'src/redux/podcast/types';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -19,61 +20,176 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
-const podcastData = {
-  type: "podcast",
-  view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
-  field_new_sub_title_export: null,
-  title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",
-  field_duration_export: null,
-  field_episode_export: null,
-  field_google_podcast_export: null,
-  field_podcast_image_export: null,
-  field_podcast_sect_export: {
-    id: "94842",
-    title: "صباح الخير",
-    url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842",
-    bundle: "podcast_section",
-    description: "<p class=\"text-align-right\">Breifing</p>\n",
-    img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
-    img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
-    name: "صباح الخير"
+const podCastData: PodcastListItemType[] = [
+  {
+    nid: '29',
+    type: 'podcasr',
+    view_node: 'example',
+    field_new_sub_title_export: "abc",
+    title: 'example',
+    field_announcer_name_export: "abc",
+    field_apple_podcast_export: {
+      url: "string",
+      text: "string"
+    },
+    body_export: "abc",
+    field_duration_export: "abc",
+    field_episode_export: "abc",
+    field_google_podcast_export: {
+      url: "string",
+      text: "string"
+    },
+    field_podcast_image_export: "abc",
+    field_podcast_sect_export: {
+      id: 'example',
+      title: 'example',
+      url: 'example',
+      bundle: 'example',
+      description: 'example',
+      img_podcast_desktop: 'example',
+      img_podcast_mobile: 'example',
+      name: 'example',
+      image: 'example'
+    },
+    field_spotify_export: {
+      url: "string",
+      text: "string"
+    },
+    field_spreaker_episode_export: "abc",
+    field_spreaker_show_export: "abc",
+    isBookmarked: false,
+    field_total_duration_export: 'example'
   },
-  field_spotify_export: null,
-  field_spreaker_episode_export: null,
-  field_spreaker_show_export: null,
-  field_announcer_name_export: null,
-  field_apple_podcast_export: null,
-  body_export: null
-}
+  {
+    nid: '30',
+    type: 'podcasr',
+    view_node: 'example',
+    field_new_sub_title_export: "abc",
+    title: 'example',
+    field_announcer_name_export: "abc",
+    field_apple_podcast_export: {
+      url: "string",
+      text: "string"
+    },
+    body_export: "abc",
+    field_duration_export: "abc",
+    field_episode_export: "abc",
+    field_google_podcast_export: {
+      url: "string",
+      text: "string"
+    },
+    field_podcast_image_export: "abc",
+    field_podcast_sect_export: {
+      id: 'example',
+      title: 'example',
+      url: 'example',
+      bundle: 'example',
+      description: 'example',
+      img_podcast_desktop: 'example',
+      img_podcast_mobile: 'example',
+      name: 'example',
+      image: 'example'
+    },
+    field_spotify_export: {
+      url: "string",
+      text: "string"
+    },
+    field_spreaker_episode_export: "abc",
+    field_spreaker_show_export: "abc",
+    isBookmarked: false,
+    field_total_duration_export: 'example'
+  },
+];
+
+const podcastEpisodeData: PodcastEpisodeItemType[] =[
+  {
+    field_duration_export_1: "2",
+    nid: "abc",
+    type: "abc",
+    view_node: "abc",
+    field_new_sub_title_export: "abc",
+    title: "abc",
+    field_announcer_name_export: "abc",
+    field_apple_podcast_export: {
+      url: "string",
+      text: "string"
+    },
+    body_export: "abc",
+    field_duration_export: "abc",
+    field_episode_export: "abc",
+    field_google_podcast_export: {
+      url: "string",
+      text: "string"
+    },
+    field_podcast_image_export: "abc",
+    field_podcast_sect_export: {
+      id: "abc",
+      title: "abc",
+      url: "abc",
+      bundle: "abc",
+      description: "abc",
+      img_podcast_desktop: "abc",
+      img_podcast_mobile: "abc",
+      name: "abc",
+      image: "abc"
+    },
+    field_spotify_export: {
+      url: "string",
+      text: "string"
+    },
+    field_spreaker_episode_export: "abc",
+    field_spreaker_show_export: "abc",
+    isBookmarked: false,
+    field_total_duration_export: "abc"
+  },
+]
 
 jest.mock("src/hooks/usePodcast", () => ({
   usePodcast: () => {
     return {
       isLoading: true,
-      podcastListData: [
-        {
-          nid: "111",
-          ...podcastData
-        },
-        {
-          nid: "29",
-          ...podcastData
-        }
-      ],
-      podcastEpisodeData: [
-        {
-          nid: "29",
-          ...podcastData
-        }
-      ],
-      podcastListError: '',
-      podcastEpisodeError:'',
-      fetchPodcastListRequest: () => {
-        return []
-      },
+      podcastEpisodeData: podcastEpisodeData,
       fetchPodcastEpisodeRequest: () => {
         return []
       }
+    }
+  },
+}));
+
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      isLoggedIn: false,
+    }
+  },
+}));
+
+jest.mock("src/hooks/useBookmark", () => ({
+  useBookmark: () => {
+    return {
+      bookmarkIdInfo: [
+          {
+              nid: '1',
+              bundle: 'string'
+          },
+          {
+              nid: '2',
+              bundle: 'string'
+          }
+      ],
+      sendBookmarkInfo: () => [],
+      removeBookmarkedInfo: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useAppPlayer", () => ({
+  useAppPlayer: () => {
+    return {
+      showMiniPlayer: false,
+      selectedTrack: {id: 1},
+      setShowMiniPlayer: () => [],
+      setPlayerTrack: () => [],
     }
   },
 }));
@@ -82,6 +198,8 @@ describe('<PodcastEpisode >', () => {
   let instance: RenderAPI;
   const setIsSaved = jest.fn()
   const mockFunction = jest.fn()
+  const podcastEpisodeDetailInfo = mockFunction
+  const podcastEpisodeListInfo = mockFunction
 
   const navigation = {
     reset: jest.fn(),
@@ -92,10 +210,10 @@ describe('<PodcastEpisode >', () => {
   describe('when PodcastEpisode only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      // (useState as jest.Mock).mockImplementation(() => ['', mockFunction]);
+      // (useState as jest.Mock).mockImplementation(() => ["abc", mockFunction]);
       (useState as jest.Mock).mockImplementation(() => [false, mockFunction]);
-      (useState as jest.Mock).mockImplementation(() => [[podcastData], mockFunction]);
-      (useState as jest.Mock).mockImplementation(() => [[podcastData], mockFunction]);
+      (useState as jest.Mock).mockImplementation(() => [[podCastData], podcastEpisodeDetailInfo]);
+      (useState as jest.Mock).mockImplementation(() => [[podCastData], podcastEpisodeListInfo]);
 
       const component = (
         <Provider store={storeSampleData}>
@@ -132,6 +250,11 @@ describe('<PodcastEpisode >', () => {
     it('when onItemActionPress is pressed from PodcastEpisodeContent', () => {
       const testID = instance.container.findByType(PodcastEpisodeContent);
       fireEvent(testID, 'onItemActionPress', {nid: '29'});
+      expect(mockFunction).toBeTruthy();
+    });
+    it('when onPressBookmark is pressed from PodcastEpisodeContent', () => {
+      const testID = instance.container.findByType(PodcastEpisodeContent);
+      fireEvent(testID, 'onPressBookmark', '2');
       expect(mockFunction).toBeTruthy();
     });
     test('Should call FlatList onPress', () => {

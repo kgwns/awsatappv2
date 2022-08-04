@@ -1,5 +1,5 @@
 import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
-import React from 'react';
+import React  from 'react';
 import {AuthPage} from '../AuthPage';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
@@ -13,14 +13,25 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
+jest.mock("src/hooks/useEmailCheck", () => ({
+  useEmailCheck: () => {
+      return {
+        emptyEmailCheckInfo:()=>{},
+        fetchEmailCheckRequest:()=>{},
+        isLoading: false, 
+        emailCheckData: {}, 
+        emailCheckError: '',
+      }
+  },
+}));
+
 describe('<AuthPage>', () => {
   let instance: RenderAPI;
   const navigation = {
     reset: jest.fn(),
     navigate: jest.fn(),
   }
-  const onResult = jest.fn();
-
+  
   describe('when AuthPage only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
@@ -38,6 +49,11 @@ describe('<AuthPage>', () => {
     });
     it('Should render AuthPage', () => {
       expect(instance).toBeDefined();
+    });
+    test('Should render ThemeManager', () => {
+      jest.spyOn(React, 'useEffect').mockImplementation();
+      jest.spyOn(navigation, 'navigate');
+      expect(navigation.navigate).toBeTruthy();
     });
     it('When Press Skip Button', () => {
       const testID = instance.getByTestId('signin_skip');

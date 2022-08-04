@@ -219,6 +219,7 @@ const VideoPlayerFullScreen = ({
 
     return (
       <TouchableHighlight
+        testID='toggleFullscreenID01'
         underlayColor={colors.transparent}
         activeOpacity={0.3}
         onPress={toggleFullscreen}

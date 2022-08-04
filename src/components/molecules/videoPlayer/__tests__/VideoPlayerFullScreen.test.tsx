@@ -22,18 +22,18 @@ describe('<VideoPlayer>', () => {
     const url = 'https://content.jwplatform.com/videos/nzSJqVya-9mPGCDe7.mp4';
     const setCurrentTime = mockFunction;
     const setDuration = mockFunction;
-    const setIsLoading = mockFunction;
+    const isLoading = mockFunction;
     const setPaused = mockFunction;
-    const setTapActionTimeout = mockFunction;
+    const tapActionTimeout = mockFunction;
     const setShowControls = mockFunction;
     const setScreenType = mockFunction;
 
     beforeEach(() => {
       (useState as jest.Mock).mockImplementation(() => [0, setCurrentTime]);
       (useState as jest.Mock).mockImplementation(() => [0, setDuration]);
-      (useState as jest.Mock).mockImplementation(() => [true, setIsLoading]);
+      (useState as jest.Mock).mockImplementation(() => [false, isLoading]);
       (useState as jest.Mock).mockImplementation(() => [true, setPaused]);
-      (useState as jest.Mock).mockImplementation(() => [null, setTapActionTimeout]);
+      (useState as jest.Mock).mockImplementation(() => ['20', tapActionTimeout]);
       (useState as jest.Mock).mockImplementation(() => [false, setShowControls]);
       (useState as jest.Mock).mockImplementation(() => ['contain', setScreenType]);
       const component = <VideoPlayerFullScreen url={url} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
@@ -52,6 +52,24 @@ describe('<VideoPlayer>', () => {
 
     it('Should call VideoPlayerFullScreenId', () => {
       const element = instance.getByTestId('VideoPlayerFullScreenId');
+      fireEvent(element, 'onPress');
+      expect(element).toBeTruthy();
+    });
+
+    it('Should call renderCloseButtonID', () => {
+      const element = instance.getByTestId('renderCloseButtonID');
+      fireEvent(element, 'onPress');
+      expect(element).toBeTruthy();
+    });
+
+    it('Should call renderPlaypauseID', () => {
+      const element = instance.getByTestId('renderPlaypauseID');
+      fireEvent(element, 'onPress');
+      expect(element).toBeTruthy();
+    });
+
+    it('Should call toggleFullscreenID01', () => {
+      const element = instance.getByTestId('toggleFullscreenID01');
       fireEvent(element, 'onPress');
       expect(element).toBeTruthy();
     });
@@ -91,5 +109,9 @@ describe('<VideoPlayer>', () => {
       fireEvent(element, 'onSeek');
       expect(element).toBeTruthy();
     });
+
+    test('waits 1 second before ending the game', () => {
+      expect(setTimeout).toBeTruthy();
+    }); 
     
 })

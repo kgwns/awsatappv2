@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import {render, RenderAPI} from '@testing-library/react-native';
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../../constants/SampleData';
 import {NewsLetterScreen} from '../NewsLetterScreen';
 import { useNewsLetters } from 'src/hooks';
+import { NewsLetterItemType } from 'src/redux/newsLetter/types';
+import { NewsLettersWidget } from 'src/components/organisms';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -12,28 +14,49 @@ jest.mock('react', () => ({
 
 jest.mock('src/hooks/useNewsLetters', () => ({useNewsLetters: jest.fn()}));
 
+const sampleData: NewsLetterItemType[] =[
+  {
+    title: 'abc',
+    subTitle: 'def',
+    image: 'abc',
+    tid: '12',
+    isSelected: false
+  },
+  {
+    title: 'abc',
+    subTitle: 'def',
+    image: 'abc',
+    tid: '13',
+    isSelected: true
+  },
+]
+
 describe('<NewsLettersScreen>', () => {
   let instance: RenderAPI;
 
-  const useNewsLettersMock = jest.fn();
-  const setDisableNext = jest.fn()
-  const setCanGoBack = jest.fn()
-  const setNewsLettersDataInfo = jest.fn()
-  const sendSelectedNewsLettersInfoMock = jest.fn();
-  const getSelectedNewsLettersDataMock = jest.fn();
-  const getMyNewsLettersDataMock = jest.fn();
-  const emptySelectedNewsLettersInfoDataMock = jest.fn();
-  const emptySelectedNewsletterDataOnboardMock = jest.fn();
-  const sendSelectedFromNewsletterOnboardMock = jest.fn();
+  const mockFunction = jest.fn();
+  const useNewsLettersMock = mockFunction
+  const disableNext = jest.fn()
+  const canGoBack = jest.fn()
+  const newsLettersDataInfo = jest.fn()
+  const sendSelectedNewsLettersInfoMock = mockFunction
+  const getSelectedNewsLettersDataMock = mockFunction
+  const getMyNewsLettersDataMock = mockFunction
+  const emptySelectedNewsLettersInfoDataMock = mockFunction
+  const emptySelectedNewsletterDataOnboardMock = mockFunction
+  const sendSelectedFromNewsletterOnboardMock = mockFunction
 
   beforeEach(() => {
-    (useState as jest.Mock).mockImplementation(() => [false, setDisableNext]);
-    (useState as jest.Mock).mockImplementation(() => [false, setCanGoBack]);
-    (useState as jest.Mock).mockImplementation(() => [[], setNewsLettersDataInfo]);
+    (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
+    (useState as jest.Mock).mockImplementation(() => [true, canGoBack]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData, newsLettersDataInfo]);
     (useNewsLetters as jest.Mock).mockImplementation(useNewsLettersMock);
     useNewsLettersMock.mockReturnValue({
       isLoading: false,
-      sentNewsLettersInfoData: {},
+      sentNewsLettersInfoData: {
+        code: 2,
+        message: "string"
+      },
       selectedNewsLettersData: {},
       isMyNewsLoading: false,
       myNewsLetters: {},
@@ -62,10 +85,66 @@ describe('<NewsLettersScreen>', () => {
     expect(instance).toBeDefined();
   });
 
+  test('Should call NewsLettersWidget changeSelectedStatus', () => {
+    const element = instance.container.findByType(NewsLettersWidget)
+    fireEvent(element, 'changeSelectedStatus', {item: sampleData[0], selected: true});
+    expect(mockFunction).toBeTruthy()
+  });
+  
+});
+
+describe('<NewsLettersScreen>', () => {
+  let instance: RenderAPI;
+
+  const mockFunction = jest.fn();
+  const useNewsLettersMock = mockFunction
+  const disableNext = jest.fn()
+  const canGoBack = jest.fn()
+  const newsLettersDataInfo = jest.fn()
+  const sendSelectedNewsLettersInfoMock = mockFunction
+  const getSelectedNewsLettersDataMock = mockFunction
+  const getMyNewsLettersDataMock = mockFunction
+  const emptySelectedNewsLettersInfoDataMock = mockFunction
+  const emptySelectedNewsletterDataOnboardMock = mockFunction
+  const sendSelectedFromNewsletterOnboardMock = mockFunction
+
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
+    (useState as jest.Mock).mockImplementation(() => [false, canGoBack]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData, newsLettersDataInfo]);
+    (useNewsLetters as jest.Mock).mockImplementation(useNewsLettersMock);
+    useNewsLettersMock.mockReturnValue({
+      isLoading: false,
+      sentNewsLettersInfoData: {
+        code: 2,
+        message: "string"
+      },
+      selectedNewsLettersData: {},
+      isMyNewsLoading: false,
+      myNewsLetters: {},
+      selectedNewsLetterDataOnboard: {},
+      sendSelectedNewsLettersInfo: sendSelectedNewsLettersInfoMock,
+      getSelectedNewsLettersData: getSelectedNewsLettersDataMock,
+      getMyNewsLettersData: getMyNewsLettersDataMock,
+      emptySelectedNewsLettersInfoData: emptySelectedNewsLettersInfoDataMock,
+      sendSelectedFromNewsletterOnboard: sendSelectedFromNewsletterOnboardMock,
+      emptySelectedNewsletterDataOnboard: emptySelectedNewsletterDataOnboardMock,
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <NewsLetterScreen route={{ params: { nid: 123, canGoBack: false } }}/>
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
   it('Should render NewsLettersScreen component', () => {
-    expect(render(<Provider store={storeSampleData}>
-      <NewsLetterScreen route={{ params: { canGoBack: false } }}/>
-    </Provider>)).toBeDefined();
+    expect(instance).toBeDefined();
   });
   
 });

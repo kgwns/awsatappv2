@@ -12,7 +12,7 @@ describe('<ArticleDetailBody>', () => {
     beforeEach(() => {
         const component = 
             <Provider store={storeSampleData}>
-                <ArticleDetailBody body={'abcd'} index={0} articleFontSize={16} webviewRef={0}/>
+                <ArticleDetailBody body={'abcd'} index={0} articleFontSize={16} webviewRef={0} orientation={'12'}/>
             </Provider> 
         instance = render(component)
     })

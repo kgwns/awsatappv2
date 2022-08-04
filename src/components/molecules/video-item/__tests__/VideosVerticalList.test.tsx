@@ -1,4 +1,4 @@
-import {render, RenderAPI} from '@testing-library/react-native';
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import { VideosVerticalList } from '../VideosVerticalList';
 
@@ -11,11 +11,12 @@ const mockData= {
 
 describe('<VideosVerticalList>', () => {
   let instance: RenderAPI;
+  const mockFunction = jest.fn();
 
   describe('when VideosVerticalList only', () => {
     beforeEach(() => {
       const component = (
-          <VideosVerticalList imageUrl={mockData.imageUrl} title={mockData.title} time={mockData.time} />
+          <VideosVerticalList itemOnPress={mockFunction} imageUrl={mockData.imageUrl} title={mockData.title} time={mockData.time} />
       );
       instance = render(component);
     });
@@ -26,6 +27,11 @@ describe('<VideosVerticalList>', () => {
     });
     it('Should render VideosVerticalList', () => {
       expect(instance).toBeDefined();
+    });
+    it('when Label is onTextLayout', () => {
+      const testID = instance.getByTestId('onTextLayout');
+      fireEvent(testID, 'onTextLayout', {nativeEvent: {lines: [{width: '2'},{width: '3'}]}});
+      expect(mockFunction).toHaveBeenCalled;
     });
   });
 });

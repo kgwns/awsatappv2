@@ -27,6 +27,82 @@ jest.mock("src/hooks/useUserProfileData", () => ({
     },
 }));
 
+jest.mock("src/hooks/useAllWriters", () => ({
+    useAllWriters: () => {
+      return {
+        isLoading: false,
+        allWritersData: [
+            {
+                name:'example',
+                description__value_export: {},
+                field_opinion_writer_path_export: {},
+                view_taxonomy_term:'example',
+                tid:'1',
+                vid_export: {},
+                field_description_export: {},
+                field_opinion_writer_path_export_1: {},
+                field_opinion_writer_photo_export:'example',
+                isSelected: true,
+            },
+            {
+                name:'example',
+                description__value_export: {},
+                field_opinion_writer_path_export: {},
+                view_taxonomy_term:'example',
+                tid:'2',
+                vid_export: {},
+                field_description_export: {},
+                field_opinion_writer_path_export_1: {},
+                field_opinion_writer_photo_export:'example',
+                isSelected: true,
+            },
+        ],
+        error: '',
+        sendAuthorInfo: {},
+        fetchAllWritersRequest: () => [],
+        sendSelectedWriterInfo: () => [],
+        updateAllWritersData: () => [],
+        getSelectedAuthorsData: () => [],
+        allSelectedWritersDetailList: [
+            {
+                name:'example',
+                description__value_export: {},
+                field_opinion_writer_path_export: {},
+                view_taxonomy_term:'example',
+                tid:'1',
+                vid_export: {},
+                field_description_export: {},
+                field_opinion_writer_path_export_1: {},
+                field_opinion_writer_photo_export:'example',
+                isSelected: true,
+            },
+            {
+                name:'example',
+                description__value_export: {},
+                field_opinion_writer_path_export: {},
+                view_taxonomy_term:'example',
+                tid:'2',
+                vid_export: {},
+                field_description_export: {},
+                field_opinion_writer_path_export_1: {},
+                field_opinion_writer_photo_export:'example',
+                isSelected: true,
+            },
+        ],
+        emptySendAuthorInfoData: () => [],
+        sentAuthorInfoData: { 
+          code: 2,
+          message: 'string'
+        },
+        selectedAuthorsData: {
+            code: 2,
+            message: 'string',
+            data: {},
+        },
+      }
+    },
+  }));
+
 describe('<ManageMyFavoriteAuthorScreen>', () => {
     let instance: RenderAPI;
     const setAuthorsData = jest.fn();

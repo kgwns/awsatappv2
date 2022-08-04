@@ -1,13 +1,30 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import { FlatList, RefreshControl } from 'react-native';
-import { ArticleSection, BannerArticleSection, CarouselSlider } from 'src/components/organisms';
+import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget, VideoContent } from 'src/components/organisms';
+import { LatestPodcastDataType } from 'src/redux/latestNews/types';
+import { VideoItemType } from 'src/redux/videoList/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { MainSectionScreen } from '../MainSectionScreen';
+import {useNavigation} from '@react-navigation/native';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+}));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
+}));
+
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      isLoggedIn: false,
+    }
+  },
 }));
 
 jest.mock("src/hooks/useAppPlayer", () => ({
@@ -25,11 +42,24 @@ jest.mock("src/hooks/useAppPlayer", () => ({
   },
 }));
 
+const videoData: VideoItemType[] = [
+  {
+    nid: '12',
+    title: 'abc',
+    isBookmarked: false
+  },
+  {
+    nid: '13',
+    title: 'abc',
+    isBookmarked: false
+  }
+]
+
 jest.mock("src/hooks/useVideoList", () => ({
   useVideoList: () => {
     return {
       isLoading: false,
-      videoData: [],
+      videoData: videoData,
       videoError: 'error',
       fetchVideoRequest: () => {
         return []
@@ -53,6 +83,38 @@ jest.mock("src/hooks/useUserProfileData", () => ({
   },
 }));
 
+const podCastData: LatestPodcastDataType[] = [
+  {
+    field_total_duration_export: null,
+    nid: '2',
+    type: 'example',
+    view_node: 'example',
+    field_new_sub_title_export: null,
+    title: 'example',
+    field_announcer_name_export: null,
+    field_apple_podcast_export: null,
+    body_export: null,
+    field_duration_export: null,
+    field_episode_export: null,
+    field_google_podcast_export: null,
+    field_podcast_image_export: null,
+    field_podcast_sect_export: {
+      id: '1',
+      title: 'example',
+      url: 'example',
+      bundle: 'example',
+      description: 'example',
+      img_podcast_desktop: 'example',
+      img_podcast_mobile: 'example',
+      name: 'example',
+      image: 'example'
+    },
+    field_spotify_export: null,
+    field_spreaker_episode_export: null,
+    field_spreaker_show_export: null,
+    isBookmarked: false
+  },
+]
 jest.mock("src/hooks/useLatestNewsTab", () => ({
   useLatestNewsTab: () => {
     return {
@@ -85,7 +147,7 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
             sectionComboFive: [],
             sectionComboSix: [],
             sectionComboSeven: [],
-            podcastHome:[],
+            podcastHome: podCastData,
             coverage: [],
             featuredArticle: [],
             horizontalArticle: [],
@@ -210,9 +272,16 @@ describe('<MainSectionScreen>', () => {
   const setSelectedTrack = mockFunction;
   const setSelectedType = mockFunction;
   const setEditorsChoiceInfo = mockFunction;
+  const opinionListData = mockFunction;
+
+  const navigation = {
+    navigate: mockFunction,
+  }
 
   beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [false, setRefreshing]);
+    (useState as jest.Mock).mockImplementation(() => [videoData, opinionListData]);
     (useState as jest.Mock).mockImplementation(() => [[], setCoverageInfo]);
     (useState as jest.Mock).mockImplementation(() => [[], setSectionComboOneInfo]);
     (useState as jest.Mock).mockImplementation(() => [[], setSectionComboTwoInfo]);
@@ -253,12 +322,12 @@ describe('<MainSectionScreen>', () => {
 
   test('Should call FlatList keyExtractor', () => {
     const element = instance.container.findByType(FlatList)
-    fireEvent(element, 'keyExtractor', '', 2);
+    fireEvent(element, 'keyExtractor', 'example', 2);
     expect(mockFunction).toBeTruthy()
   });
 
   test('Should call FlatList onPress', () => {
-    expect(instance.container.findAllByType(FlatList).length).toBe(3)
+    expect(instance.container.findAllByType(FlatList).length).toBe(4)
   });
 
   it('when BannerArticleSection only When onPress', () => {
@@ -289,6 +358,25 @@ describe('<MainSectionScreen>', () => {
     const testID = instance.container.findAllByType(RefreshControl)[0];
     fireEvent(testID, 'onRefresh', {index: 2});
     expect(mockFunction).toBeTruthy();
+  });
+
+  it('when PodcastWidget only When onPress', () => {
+    const testID = instance.container.findAllByType(PodcastWidget)[0];
+    fireEvent(testID, 'onPress', podCastData[0]);
+    expect(mockFunction).toBeTruthy();
+  });
+
+
+  it('when VideoContent only When onPress', () => {
+    const testID = instance.container.findAllByType(VideoContent)[0];
+    fireEvent(testID, 'onPress', videoData[0]);
+    expect(navigation.navigate).toBeTruthy();
+  });
+
+  test('Should call FlatList onPress', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'onScrollBeginDrag');
+    expect(global.refFlatList).toBeTruthy()
   });
 
 });

@@ -6,6 +6,21 @@ import { UserDetailScreen } from '../UserDetailScreen'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { Modal } from 'react-native'
 
+jest.mock("src/hooks/useUserProfileData", () => ({
+    useUserProfileData: () => {
+      return {
+        isLoading: false,
+        userProfileData: {},
+        userProfileError: 'string',
+        sentUserProfileData: {},
+        fetchProfileDataRequest: () => [],
+        sendUserProfileInfo: () => [],
+        updateUserImageRequest: () => [],
+        emptyUserProfileInfoData: () => [],
+      }
+    },
+}));
+
 describe('<UserDetailScreen>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();

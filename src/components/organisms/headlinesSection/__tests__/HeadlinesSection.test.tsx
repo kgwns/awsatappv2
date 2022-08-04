@@ -65,4 +65,16 @@ describe('<Favorite Video Component >', () => {
       fireEvent(element, 'onMarqueeComplete');
       expect(mockFunction).toBeTruthy();
     });
+
+    it('When View HeadlinesSectionView01 onLayout', () => {
+      const testItemId = instance.getByTestId('HeadlinesSectionView01');
+      fireEvent(testItemId, 'onLayout', { nativeEvent: {layout: { width: 20}} });
+      expect(mockFunction).toBeTruthy();
+    });
+
+    it('When Label HeadlinesSectionLabel01 onLayout', () => {
+      const testItemId = instance.getByTestId('HeadlinesSectionLabel01');
+      fireEvent(testItemId, 'onLayout', { nativeEvent: {layout: { width: 20}} });
+      expect(mockFunction).toBeTruthy();
+    });
 })

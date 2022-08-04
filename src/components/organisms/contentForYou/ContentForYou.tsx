@@ -18,7 +18,7 @@ import { NewsCategoriesType } from 'src/redux/latestNews/types';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
-interface AllContentData {
+export interface AllContentData {
     opinionsData: any,
     articleSectionData: any,
     shortArticleData: any,

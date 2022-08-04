@@ -15,7 +15,7 @@ import { ScreenContainer } from 'src/components/screens'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants'
 
-const keyExtractor = (_: any, index: number) => index.toString();
+export const keyExtractor = (_: any, index: number) => index.toString();
 
 export const MyNewsTopics = () => {
     const isFocused = useIsFocused()

@@ -1,12 +1,15 @@
-import {render, RenderAPI} from '@testing-library/react-native';
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import TabNavigator from '../TabNavigator';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../constants/SampleData';
+import { TouchableOpacity } from 'react-native';
 
 describe('<TabNavigator>', () => {
   let instance: RenderAPI;
+  const mockFn = jest.fn();
+
   describe('when TabNavigator only', () => {
     beforeEach(() => {
       const component = (
@@ -25,6 +28,11 @@ describe('<TabNavigator>', () => {
     });
     it('Should render TabNavigator', () => {
       expect(instance).toBeDefined();
+    });
+    test('Should call TouchableOpacity onPress', () => {
+      const element = instance.container.findAllByType(TouchableOpacity)[0];
+      fireEvent(element, 'onPress');
+      expect(mockFn).toBeTruthy();
     });
   });
 });

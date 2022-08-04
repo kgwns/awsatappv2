@@ -23,7 +23,9 @@ describe('<DownloadNews />', () => {
   }
   const data = {
     nativeEvent: {
-      SelectedPDF: 'abc.pdf'
+      SelectedPDF: {
+        title: 'abc.pdf'
+      }
     }
   }
 

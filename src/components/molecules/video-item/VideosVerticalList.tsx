@@ -40,7 +40,7 @@ export const VideosVerticalList = ({
             </Label>}
           </View>
           <View style={style.titleContainer}>
-            <Label style={style.title} onTextLayout={onTextLayout}>
+            <Label testID='onTextLayout' style={style.title} onTextLayout={onTextLayout}>
               {decode(title)}
             </Label>
           </View>

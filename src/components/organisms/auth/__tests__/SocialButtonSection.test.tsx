@@ -4,6 +4,22 @@ import { SocialLoginButton } from 'src/components/atoms';
 import { appleSignin } from 'src/shared/utils/appleSignin';
 import {SocialButtonSection} from '../SocialButtonSection';
 
+jest.mock("src/hooks/useNotificationSaveToken", () => ({
+  useNotificationSaveToken: () => {
+    return {
+      isSaveTokenLoading: false,
+      saveTokenData: {
+        id: 2,
+        message: "string",
+      },
+      storeServerEnvironmentInfo: () => [],
+      saveTokenError: '',
+      saveTokenRequest: () => [],
+      saveTokenAfterRegistrationRequest: () => [],
+    }
+  },
+}));
+
 describe('<SocialButtonSection>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn()

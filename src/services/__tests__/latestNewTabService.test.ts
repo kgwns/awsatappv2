@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { ArticleDetailBodyGet, RelatedArticleBodyGet } from 'src/redux/articleDetail/types';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { requestArticleDetail, requestRelatedArticle } from '../articleDetailService';
-import { writerOpinionApi, requestLatestArticle, requestSectionCombo, mainCoverageBlockApi, podcastHomeApi, mainHorizontalArticleApi, editorsChoiceApi, spotlightApi, requestSpotlightArticleSection  } from '../latestTabService';
+import { writerOpinionApi, requestLatestArticle, requestSectionCombo, mainCoverageBlockApi, podcastHomeApi, mainHorizontalArticleApi, editorsChoiceApi, spotlightApi, requestSpotlightArticleSection, mainFeaturedArticleApi  } from '../latestTabService';
 
 describe('Test LatestNews Tab Services', () => {
     const mock = new MockAdapter(axios);
@@ -185,6 +185,28 @@ describe('Test LatestNews Tab Services', () => {
             });
 
             return mainCoverageBlockApi().catch((error: unknown) => {
+                const errorResponse = error as AxiosError;
+                expect(errorResponse.response?.status).toEqual(500);
+            });
+        });
+    })
+
+    describe('Check mainFeaturedArticleApi method', () => {
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return mainFeaturedArticleApi().then((response: any) => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+        it('test when response code is 500', () => {
+            mock.onGet().reply(500, {
+                error: 'Something Went Wrong',
+            });
+
+            return mainFeaturedArticleApi().catch((error: unknown) => {
                 const errorResponse = error as AxiosError;
                 expect(errorResponse.response?.status).toEqual(500);
             });

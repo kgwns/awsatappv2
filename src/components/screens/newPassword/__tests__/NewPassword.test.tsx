@@ -50,8 +50,8 @@ describe('<NewPassword>', () => {
   it('When MenuButton Press', () => {
     const listButton = instance.container.findAllByType(TouchableOpacity)[1];
     fireEvent(listButton, 'onPress', {type: 'TERMSANDCONDITIONS'});
-    expect(mockFunction).toHaveBeenCalled;
-    expect(navigation.navigate).toHaveBeenCalled;
+    expect(mockFunction).toBeTruthy();
+    expect(navigation.navigate).toBeTruthy();
   });
   
   it('When SocialLoginButton Press', () => {
