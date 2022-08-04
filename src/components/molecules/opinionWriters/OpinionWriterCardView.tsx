@@ -162,7 +162,7 @@ const onPressPlay = () => {
             fallbackName={ImagesName.authorDefault}
           />
         </TouchableOpacity>
-        <Label suppressHighlighting={true} style={style.writerLabel} onPress={() => onPressWriter(authorId)}>{writerTitle}</Label>
+        <Label testID='onPressWriter01' suppressHighlighting={true} style={style.writerLabel} onPress={() => onPressWriter(authorId)}>{writerTitle}</Label>
       </View>}
       <View style={style.headLineContainer}>
         <Label style={style.headLine}>

@@ -46,9 +46,9 @@ export const FavoriteScreen = () => {
     setTabSelectedIndex(index);
   };
 
-  const renderTabBarComponent = () => (
-    <TabBarComponent tabItem={tabItem} onPressTabItem={onPressTabItem} />
-  );
+  // const renderTabBarComponent = () => (
+  //   <TabBarComponent tabItem={tabItem} onPressTabItem={onPressTabItem} />
+  // );
 
   const renderArchives = () => (
     <View style={{ flex: 1 }}>

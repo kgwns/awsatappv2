@@ -53,7 +53,7 @@ describe('<SectionStoryScreen>', () => {
     const setIsBottomListLoading = mockFunction;
     const setCurrentSectionId = mockFunction;
     const setChildSection = mockFunction;
-    const setInitialLoading = mockFunction;
+    const initialLoading = mockFunction;
 
     const navigation = {
         reset: jest.fn(),
@@ -67,7 +67,7 @@ describe('<SectionStoryScreen>', () => {
         (useState as jest.Mock).mockImplementation(() => [[], setTopListDataInfo]);
         (useState as jest.Mock).mockImplementation(() => [[], setVideoListData]);
         (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
-        (useState as jest.Mock).mockImplementation(() => [false, setInitialLoading]);
+        (useState as jest.Mock).mockImplementation(() => [false, initialLoading]);
         (useState as jest.Mock).mockImplementation(() => [false, setIsBottomListLoading]);
         (useState as jest.Mock).mockImplementation(() => ['12', setCurrentSectionId]);
         (useState as jest.Mock).mockImplementation(() => [[], setChildSection]);
@@ -110,6 +110,12 @@ describe('<SectionStoryScreen>', () => {
         const element = instance.container.findByType(FlatList)
         fireEvent(element, 'keyExtractor', '', 2);
         expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call FlatList onPress', () => {
+        const element = instance.container.findByType(FlatList)
+        fireEvent(element, 'onScrollBeginDrag');
+        expect(global.refFlatList).toBeTruthy()
     });
 
 })

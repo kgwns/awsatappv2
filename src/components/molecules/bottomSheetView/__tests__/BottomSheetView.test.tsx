@@ -36,4 +36,10 @@ describe('BottomSheetView', () => {
     expect(getSvgImages).toBeTruthy();
   });
 
+  it('Should call Image fallbackContent', () => {
+    const element = instance.container.findAllByType(Image)[0];
+    fireEvent(element, 'fallbackContent');
+    expect(getSvgImages).toBeDefined();
+  });
+
 })

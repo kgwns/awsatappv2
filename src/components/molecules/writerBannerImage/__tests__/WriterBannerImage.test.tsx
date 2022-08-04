@@ -1,7 +1,17 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native'
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+import { Linking, TouchableOpacity } from 'react-native'
+import { ButtonImage } from 'src/components/atoms'
+import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
 import  {WriterBannerImage} from '../WriterBannerImage'
+
+jest.mock("react-native/Libraries/Linking/Linking", () => ({
+	openURL: jest.fn(() => Promise.resolve("mockResolve")),
+}))
+
+jest.mock('react-native/Libraries/Linking/Linking', () => ({
+  openURL: jest.fn(() => Promise.reject('some error reason'))
+}));
 
 describe('<WriterBannerImage />', () => {
   let instance: RenderAPI
@@ -24,6 +34,7 @@ describe('<WriterBannerImage />', () => {
       onPressFollow={mockFunction} 
       onPressHome={mockFunction}   
       hideBackArrow={true} 
+      visibleHome={true}
     />
     instance = render(component)
   })
@@ -46,4 +57,27 @@ describe('<WriterBannerImage />', () => {
     fireEvent(testID, 'onPress');
     expect(mockFunction).toHaveBeenCalled;
   });
+  test('Should call button image onPress', () => {
+    const element = instance.container.findAllByType(ButtonImage)[0];
+    fireEvent(element, 'onPress', SocialMediaType.instagram, data.instagram_url);
+    expect(mockFunction).toBeTruthy();
+    expect(Linking.openURL(data.instagram_url)).toBeTruthy();
+  })
+  test('Should call button image onPress', () => {
+    const element = instance.container.findAllByType(ButtonImage)[1];
+    fireEvent(element, 'onPress', SocialMediaType.facebook, data.facebook_url);
+    expect(mockFunction).toBeTruthy();
+    expect(Linking.openURL(data.facebook_url)).toBeTruthy();
+  })
+  test('Should call button image onPress', () => {
+    const element = instance.container.findAllByType(ButtonImage)[2];
+    fireEvent(element, 'onPress', SocialMediaType.twitter, data.twitter_url);
+    expect(mockFunction).toBeTruthy();
+    expect(Linking.openURL(data.twitter_url)).toBeTruthy();
+  })
+  test('Should call TouchableOpacity onPress', () => {
+    const element = instance.container.findAllByType(TouchableOpacity)[0];
+    fireEvent(element, 'onPress');
+    expect(mockFunction).toBeTruthy();
+  })
 })

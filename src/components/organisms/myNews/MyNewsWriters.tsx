@@ -27,7 +27,7 @@ import {
 } from 'src/constants/TranslateConstants';
 import { useIsFocused } from '@react-navigation/native';
 
-const keyExtractor = (_: any, index: number) => index.toString();
+export const keyExtractor = (_: any, index: number) => index.toString();
 
 export const MyNewsWriters = () => {
   const isFocused = useIsFocused();

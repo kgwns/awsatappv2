@@ -6,7 +6,8 @@ import { storeSampleData } from 'src/constants/SampleData';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PodcastProgramHeader } from 'src/components/molecules';
 import {useNavigation} from '@react-navigation/native';
-import { VideoInfo } from 'src/components/organisms';
+import { VideoInfo, VideosList } from 'src/components/organisms';
+import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -54,7 +55,7 @@ describe('<VideoDetailScreen >', () => {
   let instance: RenderAPI;
   const setIsSaved = jest.fn()
   const mockFunction = jest.fn()
-  const setSelectedVideo = jest.fn()
+  const selectedVideo = jest.fn()
   const setVideolistData = jest.fn()
   const setIsBookmarked = jest.fn()
   const setShowPopUp = jest.fn()
@@ -68,7 +69,7 @@ describe('<VideoDetailScreen >', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => [false, setIsSaved]);
-      (useState as jest.Mock).mockImplementation(() => [data.route.params.data, setSelectedVideo]);
+      (useState as jest.Mock).mockImplementation(() => [data.route.params.data, selectedVideo]);
       (useState as jest.Mock).mockImplementation(() => [[], setVideolistData]);
       (useState as jest.Mock).mockImplementation(() => [false, setIsBookmarked]);
       (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
@@ -109,6 +110,16 @@ describe('<VideoDetailScreen >', () => {
       const testID = instance.container.findByType(VideoInfo);
       fireEvent(testID, 'onPress', {item: { nid: '2', title: 'abc', isBookmarked: true, mediaId: '2' }});
       expect(navigation.navigate).toBeTruthy();
+    });
+    test('Should call ScreenContainer onCloseSignUpAlert', () => {
+      const element = instance.container.findByType(ScreenContainer)
+      fireEvent(element, 'onCloseSignUpAlert');
+      expect(mockFunction).toBeTruthy()
+    });
+    test('Should call VideosList onItemActionPress', () => {
+      const element = instance.container.findByType(VideosList)
+      fireEvent(element, 'onItemActionPress', {item: { nid: '2', title: 'abc', isBookmarked: true, mediaId: '2' }});
+      expect(navigation.navigate).toBeTruthy()
     });
   });
 });

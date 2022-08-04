@@ -3,6 +3,8 @@ import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../../constants/SampleData';
 import {SelectTopicsScreen} from '../SelectTopicsScreen';
+import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
+import { InterestedTopics } from 'src/components/organisms';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -10,11 +12,14 @@ jest.mock('react', () => ({
 }));
 
 jest.mock("src/hooks/useAllSiteCategories", () => ({
-  useAllSiteCategories: (...args: any) => {
+  useAllSiteCategories: () => {
       return {
         isLoading: false,
         allSiteCategoriesData: [],
-        sentTopicsData: [],
+        sentTopicsData: {
+          code: '200',
+          message: "example"
+        },
         sendSelectedTopicInfo: () => { return [] },
         fetchAllSiteCategoriesRequest: () => { return [] },
         updateAllSiteCategoriesData: () => { return [] }
@@ -22,17 +27,26 @@ jest.mock("src/hooks/useAllSiteCategories", () => ({
   },
 }));
 
-
+const sampleData: AllSiteCategoriesItemType[] = [
+  {
+    name: 'abc',
+    view_taxonomy_term: 'abc',
+    tid: '12',
+    field_opinion_writer_photo_export: 'abc',
+    parent_target_id_export: []
+  }
+]
 describe('<SelectTopicsScreen>', () => {
   let instance: RenderAPI;
 
-  const setDisableNext = jest.fn()
-  const setCategoriesInfo = jest.fn();
-  const setUpdatedTopics = jest.fn();
+  const mockFunction = jest.fn();
+  const setDisableNext = mockFunction;
+  const categoriesInfo = mockFunction;
+  const setUpdatedTopics = mockFunction;
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [false, setDisableNext]);
-    (useState as jest.Mock).mockImplementation(() => [[], setCategoriesInfo]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData, categoriesInfo]);
     (useState as jest.Mock).mockImplementation(() => [[], setUpdatedTopics]);
 
     const component = (
@@ -51,4 +65,5 @@ describe('<SelectTopicsScreen>', () => {
   test('Should render SelectTopicScreen', () => {
     expect(instance).toBeDefined();
   });
+
 });

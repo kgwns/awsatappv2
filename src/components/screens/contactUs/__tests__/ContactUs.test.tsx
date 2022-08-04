@@ -11,7 +11,10 @@ jest.mock("src/hooks/useContactUs", () => ({
     useContactUs: () => {
       return {
         isLoading: true,
-        sendSuccessInfo: {},
+        sendSuccessInfo: {
+            code: 12,
+            message: 'example'
+        },
         sendErrorInfo: 'error',
         sendContactUsInfo: () => {},
         emptyContactUsInfo: () => {},

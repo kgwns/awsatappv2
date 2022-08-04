@@ -30,7 +30,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
 import { LoginManager } from "react-native-fbsdk-next";
 
-type SettingDataType = {
+export type SettingDataType = {
   iconName: ImagesName,
   title: string,
   screenName: string,
