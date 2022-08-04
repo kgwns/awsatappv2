@@ -18,6 +18,7 @@ import { onBoardingSuccess } from 'src/redux/login/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 import { useAllWriters, useNewsLetters } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
+import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
 
 export const SuccessScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -65,16 +66,16 @@ export const SuccessScreen: FunctionComponent = () => {
           ref={ref => setAnimationRef(ref)}
         />
         <View style={styles.messageContainer}>
-          <Label style={styles.titleStyle} labelType="h1" children={t('onboardSuccess.successMessage')} />
+          <Label style={styles.titleStyle} labelType="h1" children={TranslateConstants({key: TranslateKey.ONBOARD_SUCCESS_MESSAGE})} />
           <Label
             labelType="content"
             style={styles.mailAcknowledgement}
-            children={t('onboardSuccess.mailAcknowledgement')}
+            children={TranslateConstants({key: TranslateKey.ONBOARD_SUCCESS_MAIL_ACKNOWLEDGEMENT})}
           />
         </View>
         <View style={styles.buttonContainer}>
           <ButtonOnboard
-            title={t('onboardSuccess.goToHome')}
+            title={TranslateConstants({key: TranslateKey.ONBOARD_SUCCESS_GO_TO_HOME})}
             onPress={() => {
               recordLogEvent('Completed_Onboarding');
               dispatch(onBoardingSuccess());
@@ -87,7 +88,7 @@ export const SuccessScreen: FunctionComponent = () => {
         </View>
         <View style={styles.buttonMargin}>
           <ButtonOnboard
-            title={t('onboardSuccess.goToMyNews')}
+            title={TranslateConstants({key: TranslateKey.ONBOARD_SUCCESS_GO_TO_MY_NEWS})}
             onPress={() => {
               recordLogEvent('Completed_Onboarding');
               dispatch(onBoardingSuccess());
