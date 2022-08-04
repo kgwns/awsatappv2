@@ -126,7 +126,8 @@ export interface CustomThemeType {
   playerBackground: string;
   bottomSheetBackground: string,
   borderColor: string,
-  backIconColor: string
+  backIconColor: string,
+  goToLabelTitle: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -174,7 +175,8 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   playerBackground: colors.balckOpacity20,
   bottomSheetBackground: colors.mandyPink,
   borderColor: colors.lightGreen,
-  backIconColor: colors.black
+  backIconColor: colors.black,
+  goToLabelTitle: colors.darkGreenish,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -219,6 +221,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   playerBackground: colors.balckOpacity20,
   bottomSheetBackground: colors.mandyPink,
   borderColor: colors.lightGreen,
-  backIconColor: colors.white
+  backIconColor: colors.white,
+  goToLabelTitle: colors.white,
 }
 
