@@ -77,7 +77,7 @@ export const MyNewsTopics = () => {
     }, [pageCount]);
 
     useEffect(() => {
-        !isNonEmptyArray(selectedTopics) && pageCount == 0
+        (!isNonEmptyArray(selectedTopics) && pageCount == 0) || (!isArticalLoading && !isNonEmptyArray(articleData))
             ? setShowEmpty(true)
             : setShowEmpty(false);
     }, [articleData]);
@@ -128,6 +128,7 @@ export const MyNewsTopics = () => {
     };
 
     const onPress = (item: any, index: number) => {
+        setShowEmpty(false)
         if(index == selectedIndex) {
             return;
         }
