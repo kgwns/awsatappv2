@@ -85,6 +85,21 @@ export const SuccessScreen: FunctionComponent = () => {
             }}
           />
         </View>
+        <View style={styles.buttonMargin}>
+          <ButtonOnboard
+            title={t('onboardSuccess.goToMyNews')}
+            onPress={() => {
+              recordLogEvent('Completed_Onboarding');
+              dispatch(onBoardingSuccess());
+              navigation.reset({
+                index: 0,
+                routes: [{name: ScreensConstants.AppNavigator, params: {isGoToMyNews: true}}],
+              });
+            }}
+            titleStyle={styles.buttonTitleStyle}
+            buttonStyle={styles.buttonStyle}
+          />
+        </View>
       </View>
     </ScreenContainer>
   );
@@ -129,5 +144,14 @@ const createStyles = (theme: CustomThemeType) =>
     },
     titleStyle: {
       fontSize: normalize(22),
+    },
+    buttonStyle: {
+      backgroundColor: theme.secondaryGreen
+    },
+    buttonTitleStyle: {
+      color: theme.goToLabelTitle
+    },
+    buttonMargin: {
+      marginTop: 15
     }
   });

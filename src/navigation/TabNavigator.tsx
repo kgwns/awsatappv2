@@ -13,14 +13,19 @@ import { colors, CustomThemeType } from '../shared/styles/colors';
 import { ImagesName } from 'src/shared/styles/images';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { isIOS, isTab, normalize, recordCurrentScreen } from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, isTab, normalize, recordCurrentScreen } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import { useNavigationState } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
 const TabNavigator = () => {
+    
+    const route: any= useNavigationState((state) => state.routes)
+    const isGoToMyNews = isNonEmptyArray(route) && route[0].params && route[0].params.isGoToMyNews
+
     return (
-        <Tab.Navigator screenOptions={{ headerShown: false }} tabBar={props => <CustomTabBar {...props} />}>
+        <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName={isGoToMyNews == true ? TabConstants.MY_NEWS :  TabConstants.LATEST_NEWS} tabBar={props => <CustomTabBar {...props} />}>
             <Tab.Screen name={TabConstants.LATEST_NEWS} component={Routes.SectionsScreen} />
             {/* <Tab.Screen name={TabConstants.SECTIONS} component={Routes.SectionsScreen} /> */}
             <Tab.Screen name={TabConstants.MY_NEWS} component={Routes.MyNewsScreen} />
