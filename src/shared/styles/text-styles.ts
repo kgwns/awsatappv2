@@ -175,8 +175,8 @@ export const textStyles = (theme: CustomThemeType) => {
     h1: {
       fontFamily: fonts.IBMPlexSansArabic_Bold,
       fontStyle: FontStyle.NORMAL,
-      fontSize: normalize(21),
-      lineHeight: normalize(33),
+      fontSize: 21,
+      lineHeight: 45,
       textAlign: TextAlign.LEFT,
       color: theme.primaryBlack,
     },

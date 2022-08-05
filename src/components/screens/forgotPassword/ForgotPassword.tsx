@@ -246,10 +246,10 @@ const createStyles = (theme: CustomThemeType) =>
     },
     buttonLabelStyle: {
       paddingHorizontal: normalize(30),
-      fontSize: normalize(16),
+      fontSize: 16,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: colors.white,
-      lineHeight: normalize(20),
+      lineHeight: 26,
       textAlign: 'center',
     },
     buttonBackgroundStyle: {

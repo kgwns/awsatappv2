@@ -7,6 +7,7 @@ import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
+import { TranslateConstants, TranslateKey } from 'src/constants'
 
 export const Archives = () => {
     const [t] = useTranslation()
@@ -187,6 +188,10 @@ export const Archives = () => {
         }
     }
 
+    const noContentTitle = TranslateConstants({
+        key: TranslateKey.NO_CONTENT_TITLE,
+    });
+
     const loadingView = () => (
         <View style={styles.container}>
             <LoadingState />
@@ -199,7 +204,7 @@ export const Archives = () => {
         }
         return <View
             style={styles.noFavoriteMessage}>
-            <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
+            <Label children={noContentTitle} labelType={LabelTypeProp.h1} />
         </View>
     }
 
