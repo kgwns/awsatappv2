@@ -9,6 +9,7 @@ import { DEFAULT_LIGHT_THEME } from 'src/shared/styles/colors';
 import Orientation from 'react-native-orientation-locker'
 import AppPlayer from 'src/shared/utils/appPlayer';
 import { GetFCMToken } from 'src/firebase/notification/notification';
+import TrackPlayer from 'react-native-track-player';
 
 const App = () => {
   useEffect(() => {
@@ -16,7 +17,10 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    AppPlayer.initializePlayer()
+    AppPlayer.initializePlayer();
+    return(() => {
+      TrackPlayer.destroy();
+    });
   }, [])
 
   return (
