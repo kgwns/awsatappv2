@@ -139,9 +139,9 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
 
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
           <View style={{alignItems: 'flex-start'}}>
-          {searchHistory?.length > 0 && searchHistory.map(item => {
+          {searchHistory?.length > 0 && searchHistory.map((item, index) => {
             return(
-              <View>
+              <View key={index}>
               <ButtonList
                 title={item}
                 titleStyle={styles.historyItemText}
