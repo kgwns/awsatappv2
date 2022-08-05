@@ -195,11 +195,13 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                                 style={style.title}
                             />
                         </View>
-                        <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
-                            <View style={[style.buttonContainer, isPortrait() ? style.buttonContainerPortrait : style.buttonContainerLandscape]}>
-                                {isLoading ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play /> }
-                            </View>
-                        </TouchableOpacity>
+                        <View style={style.buttonBackground}>
+                            <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
+                                <View style={style.buttonContainer}>
+                                    {isLoading ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play /> }
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity testID={'closeIcon'} onPress={onClose} style={style.closeContainer}>
                         <View style={style.closeIcon}>
@@ -252,7 +254,7 @@ const customStyle = (theme: CustomThemeType) => {
         titleContainer: {
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
-            width: '70%',
+            width: '75%',
             marginLeft: normalize(10)
         },
         title: {
@@ -261,6 +263,11 @@ const customStyle = (theme: CustomThemeType) => {
             lineHeight: isTab ? 19 : 16,
             marginTop: normalize(10),
             color: theme.primaryBlack
+        },
+        buttonBackground: {
+            width: '10%',
+            alignItems: 'flex-end',
+            paddingRight: 15
         },
         buttonContainer: {
             alignItems: 'center',
