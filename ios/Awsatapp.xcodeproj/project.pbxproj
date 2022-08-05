@@ -1029,7 +1029,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Saudi Research & Publishing Company (5LV5P9XYQ8)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 114;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
@@ -1047,7 +1046,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp;
 				PRODUCT_NAME = Awsatapp;
-				PROVISIONING_PROFILE_SPECIFIER = "AAA iPhone Ad hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "AAA iPhone Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "Awsatapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
