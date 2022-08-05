@@ -879,7 +879,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         ref={ref}
         onScrollBeginDrag={() => global.refFlatList = ref}
         style={mainSectionStyle.flatList}
-        contentContainerStyle={mainSectionStyle.flatListContentContainer}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -971,9 +970,6 @@ const customStyle = (theme: CustomThemeType) => {
     flatList: {
       flex: 1,
       height: '100%',
-    },
-    flatListContentContainer: {
-      paddingBottom: normalize(50),
     },
     editorChoiceContainer: {
       marginBottom: normalize(25),

@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
 import { View, StyleSheet, TouchableOpacity, AppState } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
-import { CustomAlert, isTab, normalize, screenWidth } from '../../../shared/utils';
+import { CustomAlert, isIOS, isTab, normalize, screenWidth } from '../../../shared/utils';
 import { Label } from '../../atoms';
 import { ScreensConstants } from 'src/constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -83,17 +83,20 @@ export const ForgotPassword: FunctionComponent = () => {
   return (
     <ScreenContainer>
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.returnStyle}
-          testID="signin_skip"
-          accessibilityLabel="signin_skip"
-          onPress={onPressBack}>
-          <BackIcon style={styles.prevIconStyle} fill={colors.spanishGray} />
-          <Label
-            children={t('onBoard.common.return')}
-            style={styles.prevTitleStyle}
-          />
-        </TouchableOpacity >
+        <View style={styles.headerStyle}>
+          <TouchableOpacity
+            testID="signin_skip"
+            accessibilityLabel="signin_skip"
+            onPress={onPressBack}>
+            <View style={styles.returnStyle}>
+              <BackIcon fill={themeData.backIconColor} style={{ marginBottom: isIOS ? 5 : 0 }} />
+              <Label
+                children={t('onBoard.common.return')}
+                style={styles.prevTitleStyle}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
         <View style={styles.logoContainer}>
           {HeaderLogo()}
         </View>
@@ -162,8 +165,8 @@ const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingVertical: normalize(20),
-      marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      paddingVertical: isTab ? normalize(2) : normalize(10),
+      marginHorizontal: normalize(20),
       justifyContent: 'space-between',
       backgroundColor: theme.backgroundColor,
     },
@@ -220,15 +223,10 @@ const createStyles = (theme: CustomThemeType) =>
       fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     returnStyle: {
-      flexDirection: 'row',
-      position: 'absolute',
-      alignContent: 'center',
-      flexWrap: 'wrap',
-      color: colors.white,
-      flex: 0.05,
+      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      top: normalize(10)
+      flexDirection: 'row',
     },
     prevIconStyle: {
       width: normalize(12),
@@ -239,10 +237,11 @@ const createStyles = (theme: CustomThemeType) =>
       paddingHorizontal: normalize(10)
     },
     prevTitleStyle: {
-      fontSize: normalize(13),
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontSize: normalize(12),
+      color: theme.backIconColor,
       lineHeight: normalize(16),
-      color: colors.spanishGray,
-      paddingRight: normalize(5)
+      marginLeft: normalize(5),
     },
     buttonLabelStyle: {
       paddingHorizontal: normalize(30),
@@ -274,5 +273,10 @@ const createStyles = (theme: CustomThemeType) =>
     },
     rightsStyle: {
       fontSize: normalize(12),
-    }
+    },
+    headerStyle: {
+      flex: 0.05,
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+    },
   })

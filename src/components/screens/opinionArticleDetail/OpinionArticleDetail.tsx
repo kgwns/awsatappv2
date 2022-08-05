@@ -156,6 +156,7 @@ export const OpinionArticleDetail = ({
 
   useEffect(() => {
     isFocused && Orientation.unlockAllOrientations();
+    setScrollY(new Animated.Value(0))
   }, [isFocused])
 
   useEffect(() => {
