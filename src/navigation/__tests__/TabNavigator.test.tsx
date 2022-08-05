@@ -6,6 +6,12 @@ import {Provider} from 'react-redux';
 import {storeSampleData} from '../../constants/SampleData';
 import { TouchableOpacity } from 'react-native';
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useNavigationState: () => ([]),
+}));
+
 describe('<TabNavigator>', () => {
   let instance: RenderAPI;
   const mockFn = jest.fn();

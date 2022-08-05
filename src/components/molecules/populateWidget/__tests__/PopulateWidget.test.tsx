@@ -9,6 +9,7 @@ import { ArticlePodCastWidget } from 'src/components/organisms';
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useNavigationState: () => ([]),
 }));
 
 describe('<PopulateWidget/>', () => {

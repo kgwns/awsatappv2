@@ -5,6 +5,12 @@ import AppNavigator from 'src/navigation/AppNavigator';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../constants/SampleData';
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useNavigationState: () => ([]),
+}));
+
 describe('<AppNavigator>', () => {
   let instance: RenderAPI;
 
