@@ -5,7 +5,7 @@ import { View, StyleSheet, TouchableOpacity, AppState } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
 import { CustomAlert, isIOS, isTab, normalize, screenWidth } from '../../../shared/utils';
 import { Label } from '../../atoms';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -32,7 +32,8 @@ export const ForgotPassword: FunctionComponent = () => {
   const [animationRef,setAnimationRef] = useState<LottieView>()
   const {emptyforgotPassworResponseInfo} = useLogin();
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
-
+  const CONST_RETURN = TranslateConstants({ key: TranslateKey.RETURN })
+  
   useEffect(() => {
     const subscription = AppState.addEventListener("change", nextAppState => {
       if (appState.current.match(/inactive|background/) && nextAppState === "active") {
@@ -83,15 +84,15 @@ export const ForgotPassword: FunctionComponent = () => {
   return (
     <ScreenContainer>
       <View style={styles.container}>
-        <View style={styles.headerStyle}>
+        <View style={styles.backContainer}>
           <TouchableOpacity
             testID="signin_skip"
             accessibilityLabel="signin_skip"
             onPress={onPressBack}>
             <View style={styles.returnStyle}>
-              <BackIcon fill={themeData.backIconColor} style={{ marginBottom: isIOS ? 5 : 0 }} />
+              <BackIcon fill={themeData.backIconColor} style={styles.backIconStyle} />
               <Label
-                children={t('onBoard.common.return')}
+                children={CONST_RETURN}
                 style={styles.prevTitleStyle}
               />
             </View>
@@ -274,9 +275,12 @@ const createStyles = (theme: CustomThemeType) =>
     rightsStyle: {
       fontSize: normalize(12),
     },
-    headerStyle: {
+    backContainer: {
       flex: 0.05,
       justifyContent: 'center',
       alignItems: 'flex-start',
     },
+    backIconStyle: {
+      marginBottom: isIOS ? 5 : 0
+    }
   })
