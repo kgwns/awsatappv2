@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -7,7 +7,7 @@ import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotE
 import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ScreensConstants } from 'src/constants';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
@@ -54,14 +54,19 @@ const OpinionWritersCardView = ({
   selectedTrack,
   authorId
 }: OpinionWritersCardViewProps) => {
-  const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const routes = useNavigationState(state => state.routes)
   const playbackState = usePlaybackState();
+  const style = useThemeAwareObject(customStyle);
+
   const[mediaData, setMediaData] = useState<any>({});
   const[timeDuration, setTimeDuration] = useState<any>(null);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
 
+  const detailRoutes = useMemo(() =>
+    routes.filter((routes) => routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+  const noOfWriterRoutes = detailRoutes.length
 
   useEffect(() => {
     if(jwPlayerID){
@@ -90,7 +95,9 @@ const OpinionWritersCardView = ({
 
   const onPress = () => {
     if (nid) {
-      navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid })
+      const screenName = ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN
+      const params = { nid: nid }
+      noOfWriterRoutes > 0 ? navigation.push(screenName, params) : navigation.navigate(screenName, params)
     }
   }
 
