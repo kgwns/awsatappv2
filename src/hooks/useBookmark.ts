@@ -99,6 +99,7 @@ export const useBookmark = (): UseBookMarkReturn => {
   const removeBookmark = () => {
     dispatch(getBookMarkedSuccess({ bookmarkedInfo: [] }))
     dispatch(updateBookMarkedDetailInfo({ bookmarkedDetailInfo: [], page: 0 }))
+    dispatch(updateFilteredBookMarkedInfo({ filteredData: [] }))
   }
 
   const getSpecificBundleFavoriteDetail = (payload: PopulateWidgetType, startIndex?: number) => {
