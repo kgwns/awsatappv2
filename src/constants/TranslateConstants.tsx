@@ -38,6 +38,11 @@ export enum TranslateKey {
     CONTACT_US_SEND,
     TEXT_ALERT,
     COMMON_OK,
+    LISTEN_TO_ARTICLE,
+    ONBOARD_SUCCESS_MESSAGE,
+    ONBOARD_SUCCESS_MAIL_ACKNOWLEDGEMENT,
+    ONBOARD_SUCCESS_GO_TO_HOME,
+    ONBOARD_SUCCESS_GO_TO_MY_NEWS,
 }
 
 export const TranslateConstants = ({
@@ -118,6 +123,16 @@ export const TranslateConstants = ({
             return t('profileSetting.alert');
         case TranslateKey.COMMON_OK:
             return  t('common.ok');
+        case TranslateKey.LISTEN_TO_ARTICLE:
+            return t('opinionArticleDetail.listenToArticle')
+        case TranslateKey.ONBOARD_SUCCESS_MESSAGE:
+            return t('onboardSuccess.successMessage')
+        case TranslateKey.ONBOARD_SUCCESS_MAIL_ACKNOWLEDGEMENT:
+            return t('onboardSuccess.mailAcknowledgement')
+        case TranslateKey.ONBOARD_SUCCESS_GO_TO_HOME:
+            return t('onboardSuccess.goToHome')
+        case TranslateKey.ONBOARD_SUCCESS_GO_TO_MY_NEWS:
+            return t('onboardSuccess.goToMyNews')
         default: return ''
     }
 }

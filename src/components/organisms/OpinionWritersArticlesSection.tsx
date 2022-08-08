@@ -36,15 +36,17 @@ const OpinionWritersArticlesSection = ({
 }: OpinionWritersArticlesSectionProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
-  const audioLabel = 'استمع الي المقالة ';
-  const slice = screenWidth*0.80;
+
+  const audioLabel = TranslateConstants({ key: TranslateKey.LISTEN_TO_ARTICLE });
+
+  const slice = screenWidth * 0.80;
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const playbackState = usePlaybackState();
 
   const CONST_OPINION_ARTICLE_TITLE = TranslateConstants({key: TranslateKey.OPINION_ARTICLE_TITLE})
 
   const togglePlayback = async (nid: string, mediaData: any) => {
-    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
     if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
       return
@@ -54,7 +56,7 @@ const OpinionWritersArticlesSection = ({
     const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
     const title = mediaData.title ? mediaData.title : '';
 
-    let setupPlayer = async () => {
+    const setupPlayer = async () => {
       await TrackPlayer.setupPlayer();
       await TrackPlayer.updateOptions({ stopWithApp: true });
       await TrackPlayer.add({

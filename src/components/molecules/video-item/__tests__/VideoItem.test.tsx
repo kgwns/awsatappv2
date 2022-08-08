@@ -1,6 +1,7 @@
 import React from 'react'
-import { render, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { VideoItem } from '../VideoItem'
+import { ButtonOutline } from 'src/components/atoms'
 
 
 describe('<VideoItem>', () => {
@@ -9,8 +10,7 @@ describe('<VideoItem>', () => {
     const mockOnPress = jest.fn()
 
     beforeEach(() => {
-        const component = <VideoItem title='title' des='des' imageUrl='url' videoLabel='vl' 
-        time='00' month='m' date='7' views='55'  />
+        const component = <VideoItem imageUrl={'avc.com'} title={'abc'} des={'example'} onPress={mockOnPress} isDocumentary={true} isBookmarked={false} onPressBookmark={mockOnPress} />
         instance = render(component)
     })
 
@@ -22,4 +22,11 @@ describe('<VideoItem>', () => {
     it('Should render VideoItem', () => {
         expect(instance).toBeDefined()
     })
+
+    test('Should call ButtonOutline onPress', () => {
+        const element = instance.container.findAllByType(ButtonOutline)[0];
+        fireEvent(element, 'onPress');
+        expect(mockOnPress).toBeTruthy();
+    })
+    
 })

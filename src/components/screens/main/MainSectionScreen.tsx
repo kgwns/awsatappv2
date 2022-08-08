@@ -7,7 +7,7 @@ import {
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/SampleData';
-import { horizontalEdge, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer } from 'src/hooks';
@@ -219,7 +219,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
     }
     const newData = [...opinionList]
-    let data = listPartition(newData, 4)
+    const data = listPartition(newData, 4)
     setOpinionListData(data)
   }, [opinionList])
 
@@ -432,7 +432,8 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
       flag: item.news_categories && item.news_categories.title || '',
-      isBookmarked: validateBookmark(item.nid)
+      isBookmarked: validateBookmark(item.nid),
+      style: mainSectionStyle.labelStyle
     }
   ))
 
@@ -520,7 +521,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
 
   const onListenPodcast = (podcastData: any) => {
     if(isObjectNonEmpty(podcastData)){
-      let trackPlayerData = {
+      const trackPlayerData = {
         id: podcastData.nid,
         url: getPodcastUrl(podcastData.field_spreaker_episode_export),
         title: podcastData.title,
@@ -528,7 +529,9 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         artist: podcastData.title,
         artwork: podcastData?.field_podcast_sect_export?.image
       }
-      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) setPlayerTrack(trackPlayerData);
+      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) {
+        setPlayerTrack(trackPlayerData);
+      }
       !showMiniPlayer && setShowMiniPlayer(true);
     }
 
@@ -876,7 +879,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         ref={ref}
         onScrollBeginDrag={() => global.refFlatList = ref}
         style={mainSectionStyle.flatList}
-        contentContainerStyle={mainSectionStyle.flatListContentContainer}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -954,7 +956,7 @@ const customStyle = (theme: CustomThemeType) => {
     articleTitleStyle: {
       fontSize: 33,
       color: theme.primary,
-      lineHeight: 46,
+      lineHeight: 50,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
     },
     topNewsContainer: {
@@ -969,14 +971,16 @@ const customStyle = (theme: CustomThemeType) => {
       flex: 1,
       height: '100%',
     },
-    flatListContentContainer: {
-      paddingBottom: normalize(50),
-    },
     editorChoiceContainer: {
       marginBottom: normalize(25),
     },
     spotlightSectionContainer: {
       marginHorizontal: 20
+    },
+    labelStyle: {
+      lineHeight: isIOS ? 30 : 33,
+      fontSize: 17,
+      fontFamily: fonts.AwsatDigitalBetav10_Bold
     }
   })
 }

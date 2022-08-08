@@ -22,7 +22,7 @@ export const ArticleDetailFooter = ({
     onPressSave: () => void,
     onPressFontChange: () => void
 }) => {
-    let articleSaveIcon = isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark
+    const articleSaveIcon = isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark
 
     // const onPressThemeChange = () => {
     //     const isDark = isDarkTheme(theme)

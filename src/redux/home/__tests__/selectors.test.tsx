@@ -1,7 +1,8 @@
 import {storeInfo} from 'src/constants/SampleData';
 import {
   getIsLoading,
-  getHomeError
+  getHomeError,
+  getHomeData
 } from '../selectors';
 
 describe('All home data', () => {
@@ -14,6 +15,11 @@ describe('All home data', () => {
 
   test('Get getHomeError state', () => {
     const error = getHomeError(storeData);
+    expect(error).toEqual('');
+  });
+
+  test('Get getHomeData state', () => {
+    const error = getHomeData(storeData);
     expect(error).toEqual('');
   });
 

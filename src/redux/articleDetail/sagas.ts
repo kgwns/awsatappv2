@@ -123,7 +123,7 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
 
 
 const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload => {
-  let responseData: ArticleDetailSuccessPayload = {
+  const responseData: ArticleDetailSuccessPayload = {
     articleDetailData: [],
     pager: {}
   }
@@ -182,7 +182,7 @@ const getArticleImageAndType = (fieldImage: any, detailPhotoList: any, detailPho
 
 
 const parseArticleSectionSuccess = (response: any, current_nid: number): ArticleSectionSuccessPayload => {
-  let responseData: ArticleSectionSuccessPayload = {
+  const responseData: ArticleSectionSuccessPayload = {
     articleSectionData: [],
     pager: {}
   }
@@ -219,7 +219,7 @@ const parseArticleSectionSuccess = (response: any, current_nid: number): Article
 
 const parseRelatedArticleSuccess = (response: any): RelatedArticleSuccessPayload => {
   const formattedData = formatRelatedArticleData(response)
-  let responseData: RelatedArticleSuccessPayload = {
+  const responseData: RelatedArticleSuccessPayload = {
     relatedArticleData: []
   }
   responseData.relatedArticleData = formattedData
@@ -276,7 +276,7 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
       const tid = isObjectNonEmpty(response.articleDetailData[0].tag_topics) ? response.articleDetailData[0].tag_topics.id : ''
       const nid = isObjectNonEmpty(response.articleDetailData[0].news_categories) ? response.articleDetailData[0].news_categories.id : ''
 
-      let payload: RelatedArticleBodyGet = {}
+      const payload: RelatedArticleBodyGet = {}
       if (isNotEmpty(tid)) {
         payload.tid = parseInt(tid)
       }
@@ -285,7 +285,9 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
         payload.nid = parseInt(nid)
       }
 
-      if (!isObjectNonEmpty(payload)) return
+      if (!isObjectNonEmpty(payload)) {
+        return
+      }
 
       yield call(
         fetchRelatedArticle, {

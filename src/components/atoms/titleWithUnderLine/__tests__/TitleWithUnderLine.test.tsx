@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { render, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { TitleWithUnderLine } from '../TitleWithUnderLine';
 import { useNavigation } from '@react-navigation/native';
 
@@ -28,7 +28,7 @@ describe('<VideoPlayer>', () => {
     beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [lineWidth, setLineWidth]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      const component = <TitleWithUnderLine title={''}/>
+      const component = <TitleWithUnderLine title={'example'}/>
       instance = render(component)
       jest.useFakeTimers();
     })
@@ -41,4 +41,38 @@ describe('<VideoPlayer>', () => {
     it('Should render VideoPlayer', () => {
         expect(instance).toBeDefined()
     })
+
+    it('When Label onTextLayout', () => {
+      const testItemId = instance.getByTestId('TitleWithUnderLine01');
+      fireEvent(testItemId, 'onTextLayout', { nativeEvent: {lines: [{ width: 20},{ width: 30}]} });
+      expect(mockFunction).toBeTruthy();
+  });
+})
+
+describe('<VideoPlayer>', () => {
+  let instance: RenderAPI
+  const mockFunction = jest.fn();
+  const lineWidth = 50;
+  const setLineWidth = mockFunction;
+
+  const navigation = {
+      navigate: mockFunction,
+    }
+
+  beforeEach(() => {
+  (useState as jest.Mock).mockImplementation(() => [lineWidth, setLineWidth]);
+  (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    const component = <TitleWithUnderLine title={''}/>
+    instance = render(component)
+    jest.useFakeTimers();
+  })
+
+  afterEach(() => {
+      jest.clearAllMocks()
+      instance.unmount()
+  })
+
+  it('Should render VideoPlayer', () => {
+      expect(instance).toBeDefined()
+  })
 })

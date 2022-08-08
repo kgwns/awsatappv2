@@ -9,7 +9,10 @@ describe('<VideoInfo>', () => {
   describe('when VideoInfo only', () => {
     beforeEach(() => {
       const component = (
-          <VideoInfo data={videoTabData[0]} />
+        <VideoInfo 
+          data={videoTabData[0]} 
+          onPress={mockFunction}
+        />
       );
       instance = render(component);
     });

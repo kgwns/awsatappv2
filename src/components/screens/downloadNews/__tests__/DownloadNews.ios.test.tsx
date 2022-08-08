@@ -21,6 +21,13 @@ describe('<DownloadNews />', () => {
   const navigation = {
     navigate: mockFunction,
   }
+  const data = {
+    nativeEvent: {
+      SelectedPDF: {
+        title: 'abc.pdf'
+      }
+    }
+  }
 
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
@@ -37,9 +44,9 @@ describe('<DownloadNews />', () => {
     expect(instance).toBeDefined()
   })
 
-  test('Should call NativeView onClickArchive', () => {
+  test('Should call NativeView onArchiveButtonClick', () => {
     const element = instance.container.findByType(NativeView)
-    fireEvent(element, 'onClickArchive');
+    fireEvent(element, 'onArchiveButtonClick');
     expect(navigation.navigate).toBeTruthy();
   });
 

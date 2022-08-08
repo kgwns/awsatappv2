@@ -6,8 +6,8 @@ import { fonts } from 'src/shared/styles/fonts';
 
 export const customBorderLabelStyles = (theme: CustomThemeType) => {
   const containerHeight = isIOS ? normalize(36) : normalize(40);
-  const fontSize = isIOS ? normalize(14) : normalize(17);
-  const lineHeight = isIOS ? normalize(24) : normalize(28);
+  const fontSizeValue = isIOS ? normalize(14) : normalize(17);
+  const lineHeightValue = isIOS ? normalize(24) : normalize(28);
   const BorderLabelStyle = StyleSheet.create({
     tagContainer: {
       height: containerHeight,
@@ -21,8 +21,8 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
     },
     labelStyle: {
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
-      fontSize: fontSize,
-      lineHeight: lineHeight,
+      fontSize: fontSizeValue,
+      lineHeight: lineHeightValue,
       paddingHorizontal: normalize(20),
       paddingBottom: normalize(5),
       color: theme.primaryBlack
@@ -39,8 +39,8 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
     },
     selectedLabelStyle: {
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
-      fontSize: fontSize,
-      lineHeight: lineHeight,
+      fontSize: fontSizeValue,
+      lineHeight: lineHeightValue,
       paddingHorizontal: normalize(20),
       paddingBottom: normalize(5),
       color: Styles.color.white

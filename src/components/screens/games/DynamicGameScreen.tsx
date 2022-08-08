@@ -22,7 +22,7 @@ export const DynamicGameScreen = ({
 }: DynamicGameScreenProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
-    let webviewRef = useRef<WebView>().current
+    const webviewRef = useRef<WebView>().current
 
     const style = useThemeAwareObject(customStyle)
 

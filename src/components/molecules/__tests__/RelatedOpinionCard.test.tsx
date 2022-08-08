@@ -57,14 +57,14 @@ describe('<RelatedOpinionCard>', () => {
     field_jwplayer_id_opinion_export: null,
     type: "opinion"
   }
-  
+
   const mockFn = jest.fn();
   const navigation = {
     push: mockFn,
     navigate: mockFn,
   }
 
-    const setMediaData = jest.fn();
+    const mediaData = jest.fn();
     const setTimeDuration = jest.fn()
 
     const useAppPlayerMock = jest.fn();
@@ -74,14 +74,26 @@ describe('<RelatedOpinionCard>', () => {
     const setPlayerTrackMock = jest.fn();
 
   beforeEach(() => {
-    (useState as jest.Mock).mockImplementation(() => [{}, setMediaData]);
+    (useState as jest.Mock).mockImplementation(() => [{
+      playlist: [
+        {
+          name: 'abc',
+          id: '12'
+        },
+        {
+          name: 'abc',
+          id: '13'
+        },
+      ],
+      title: 'abc'
+    }, mediaData]);
     (useState as jest.Mock).mockImplementation(() => [null, setTimeDuration]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
     useAppPlayerMock.mockReturnValue({
       showMiniPlayer: false,
       isPlaying: false,
-      selectedTrack: {},
+      selectedTrack: {id: 1},
       showControls: false,
       setControlState: setControlStateMock,
       setShowMiniPlayer: setShowMiniPlayerMock,
@@ -105,6 +117,12 @@ describe('<RelatedOpinionCard>', () => {
     const testItemId = instance.getByTestId('RelatedOpinionCardTO1');
     fireEvent(testItemId, 'onPress');
     expect(mockFn).toHaveBeenCalled();
+  });
+
+  it('When RelatedOpinionCardTO2 is pressed', () => {
+    const testItemId = instance.getByTestId('RelatedOpinionCardTO2');
+    fireEvent(testItemId, 'onPress', {tid:'1'});
+    expect(navigation.push).toBeTruthy();
   });
 
   it('When RelatedOpinionCardTO3 is pressed', () => {

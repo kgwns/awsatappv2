@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Modal, View, TouchableOpacity, StyleSheet } from "react-native";
 import { Label } from 'src/components/atoms'
-import { normalize } from 'src/shared/utils'
+import { normalize, isDarkTheme } from 'src/shared/utils'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import CloseIcon from 'src/assets/images/icons/close.svg'
-import { isDarkTheme } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
 import { fonts } from "src/shared/styles/fonts";
 
@@ -33,9 +32,12 @@ export const AlertModal = ({
         <Modal visible={modalVisible} transparent={true} >
             <View style={styles.container}>
                 <View style={styles.innerContainer}>
-                    <TouchableOpacity testID="AlertModalTO1" style={styles.iconStyle} onPress={() => {
-                        onClose(!modalVisible)
-                        setModalVisibility(!modalVisible)}}>
+                    <TouchableOpacity testID="AlertModalTO1" style={styles.iconStyle} onPress={() => 
+                        {
+                            onClose(!modalVisible)
+                            setModalVisibility(!modalVisible)
+                        }
+                    }>
                         <CloseIcon fill={isDarkMode? colors.white : colors.darkSlateGray} />
                     </TouchableOpacity>
                     <Label
@@ -116,4 +118,3 @@ const customStyle = (theme: CustomThemeType) =>
             paddingBottom: normalize(20)
         }
     })
-

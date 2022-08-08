@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { storeSampleData } from '../../../../constants/SampleData';
@@ -13,11 +13,18 @@ jest.mock("src/hooks/useLogin", () => ({
   },
 }));
 
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useRef: jest.fn(),
+}));
+
 describe('<SuccessScreen>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
+  const appState = mockFunction;
 
   beforeEach(() => {
+    (useRef as jest.Mock).mockImplementation(() => [null, appState]);
     const component = (
       <Provider store={storeSampleData}>
         <ForgotPassword />

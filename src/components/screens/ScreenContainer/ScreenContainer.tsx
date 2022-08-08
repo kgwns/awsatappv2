@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleProp,
   ViewStyle,
+  Dimensions,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
 import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenWidth} from '../../../shared/utils';
@@ -53,6 +54,7 @@ export interface ScreenContainerProps {
   headerLeft?: any;
   playerPosition?: StyleProp<ViewStyle>;
   showPlayer?: boolean;
+  isLandscape?: boolean;
 }
 
 export const ScreenContainer = ({
@@ -73,6 +75,7 @@ export const ScreenContainer = ({
   headerLeft,
   playerPosition,
   showPlayer = true,
+  isLandscape = false
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -141,9 +144,10 @@ export const ScreenContainer = ({
   };
 
   const statusBarBackgroundColor = statusbarColor || themeData.backgroundColor;
+  const { width, height } = Dimensions.get('window')
   return (
       <SafeAreaView
-        style={style.container}
+        style={[style.container, !isLandscape && {width: width, height: height}]} // Intensively added inline style to update screen size when rotate
         edges={edge ? edge : ['left', 'right', 'top']}>
         {showHeader && header(headerTitle)}
         <StatusBar
@@ -185,7 +189,7 @@ export const ScreenContainer = ({
           />
         )}
 
-        { showPlayer && showMiniPlayer && <PodCastMiniPlayer onClose={onClose} toggleControl={() => { setShowPlayerControls(!showPlayerControls)}} playerPosition={playerPosition} />}
+        { showPlayer && showMiniPlayer && !isLoading && <PodCastMiniPlayer onClose={onClose} toggleControl={() => { setShowPlayerControls(!showPlayerControls)}} playerPosition={playerPosition} />}
       </SafeAreaView>
   );
 };

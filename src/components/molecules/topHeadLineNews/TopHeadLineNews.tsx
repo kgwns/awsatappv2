@@ -24,7 +24,9 @@ export const TopHeadLineNews = ({
     const style = useThemeAwareObject(customStyle)
 
     const onPress = (nid: string) => {
-        if (isNotEmpty(nid)) navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+        if (isNotEmpty(nid)) {
+            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+        }
     }
 
     const renderItem: ListRenderItem<MainSectionBlockType> = ({ item }) => {

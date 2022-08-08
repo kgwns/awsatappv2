@@ -27,7 +27,9 @@ export const SectionArticlesParentScreen = () => {
   },[])
 
   const renderDynamicScreen = () => {
-    if (!isNotEmpty(keyName)) return null;
+    if (!isNotEmpty(keyName)) {
+      return null;
+    }
     switch (keyName) {
       case TabType.opinion:
         return <OpinionScreen />;

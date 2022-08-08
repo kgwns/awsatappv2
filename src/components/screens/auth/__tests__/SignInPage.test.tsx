@@ -1,6 +1,6 @@
 import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
 import React from 'react';
-import {SignInPage} from '../SignInPage';
+import {onSuccessSocialLogin, SignInPage, SocialProviders} from '../SignInPage';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
 import { AuthScreenInputSection, SocialButtonSection } from '../../../organisms/';
@@ -111,6 +111,9 @@ describe('<SignInPage>', () => {
       const element = instance.container.findAllByType(AuthScreenInputSection)[0];
       fireEvent(element, 'onPressSignup');
       expect(element).toBeTruthy()
+    });
+    test('Should call onSuccessSocialLogin', () => {
+      expect(onSuccessSocialLogin({user: {photo: 'abc.com', profile_url: 'abc.com', id: '2', familyName: 'abc', givenName: 'bcd', email: 'abc@gmail.com'}}, SocialProviders.facebook)).toBeTruthy()
     });
   });
 });

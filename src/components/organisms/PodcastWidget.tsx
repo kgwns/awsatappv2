@@ -39,13 +39,13 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
 
   const getPodcastDuration = async () => {
     if(isNonEmptyArray(data)){
-      let podcastData = [...data]
+      const podcastData = [...data]
       for( let i = 0; i <= data.length-1; i++){
         if(isNotEmpty(data[i].field_spreaker_episode_export)){
           try {
-            let response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: data[i].field_spreaker_episode_export })
+            const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: data[i].field_spreaker_episode_export })
             if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
-              let episode = response.response.episode
+              const episode = response.response.episode
               data[i].duration = Math.floor(episode.duration / 1000) ;
             }
           }catch(error){
@@ -137,7 +137,9 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   )*/
 
   const renderPodcastItem = (podcastData: any, index: number) => {
-    if(!isObjectNonEmpty(podcastData)) return null;
+    if(!isObjectNonEmpty(podcastData)) {
+      return null;
+    }
     const bodyInfo = isNotEmpty(podcastData?.body_export) ? podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? podcastData.field_podcast_sect_export.description : ''
     const description = decodeHTMLTags(bodyInfo)
     return (

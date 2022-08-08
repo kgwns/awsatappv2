@@ -81,6 +81,32 @@ describe('<RenderQuoteElement>', () => {
     })
 })
 
+describe('<RenderQuoteElement>', () => {
+    let instance: RenderAPI;
+    beforeEach(() => {
+        const component = 
+            <Provider store={storeSampleData}>
+                <RenderQuoteElement paragraphInfo={{
+                    id: '2',
+                    type: 'asd',
+                    bundle: 'qawse',
+                    description: '',
+                    title: ''
+                }} />
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+})
+
 describe('<RenderContentElement>', () => {
     let instance: RenderAPI;
     beforeEach(() => {
@@ -117,6 +143,37 @@ describe('<RenderContentElement>', () => {
     })
 })
 
+describe('<RenderContentElement>', () => {
+    let instance: RenderAPI;
+    beforeEach(() => {
+        const component = 
+            <Provider store={storeSampleData}>
+                <RenderContentElement paragraphInfo={{
+                    id: '2',
+                    type: 'as',
+                    bundle: 'qwde',
+                    content: 'qwe',
+                    title: 'qsdw',
+                    contentData: {}
+                }}/>
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+
+    it('useTheme to be Defined', () => {
+        expect(useTheme).toBeDefined()
+    })
+})
+
 describe('<RenderDescriptionElement>', () => {
     let instance: RenderAPI;
     beforeEach(() => {
@@ -127,6 +184,35 @@ describe('<RenderDescriptionElement>', () => {
                     type: 'qsw',
                     bundle: 'qsdw',
                     description: 'sqdwf'
+                }} fontSize={16}/>
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+
+    it('useTheme to be Defined', () => {
+        expect(useTheme).toBeDefined()
+    })
+})
+
+describe('<RenderDescriptionElement>', () => {
+    let instance: RenderAPI;
+    beforeEach(() => {
+        const component = 
+            <Provider store={storeSampleData}>
+                <RenderDescriptionElement paragraphInfo={{
+                    id: '2',
+                    type: 'qsw',
+                    bundle: 'qsdw',
+                    description: ''
                 }} fontSize={16}/>
             </Provider> 
         instance = render(component)
@@ -178,6 +264,32 @@ describe('<RenderOpinionElement>', () => {
     })
 })
 
+describe('<RenderOpinionElement>', () => {
+    let instance: RenderAPI;
+    beforeEach(() => {
+        const component = 
+            <Provider store={storeSampleData}>
+                <RenderOpinionElement paragraphInfo={{
+                    id: '2',
+                    type: 'as',
+                    bundle: 'ASD',
+                    opinion: 'ASDF',
+                    opinionData: {}
+                }} />
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+})
+
 describe('<RenderReadAlsoElement>', () => {
     let instance: RenderAPI;
     beforeEach(() => {
@@ -205,6 +317,33 @@ describe('<RenderReadAlsoElement>', () => {
     })
 })
 
+describe('<RenderReadAlsoElement>', () => {
+    let instance: RenderAPI;
+    beforeEach(() => {
+        const component = 
+            <Provider store={storeSampleData}>
+                <RenderReadAlsoElement paragraphInfo={{
+                    id: '2',
+                    type: 'qw',
+                    bundle: 'qawse',
+                    related_content: ['qws'],
+                    title: 'qawse',
+                    readAlsoData: []
+                }}/>
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+})
+
 describe('<RenderNumberElement>', () => {
     let instance: RenderAPI;
     beforeEach(() => {
@@ -216,6 +355,26 @@ describe('<RenderNumberElement>', () => {
                     description: 'vbnm',
                     title: 'bnm'
                 }} fontSize={16}/>
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+})
+
+describe('<RenderNumberElement>', () => {
+    let instance: RenderAPI;
+    beforeEach(() => {
+        const component = 
+            <Provider store={storeSampleData}>
+                <RenderNumberElement/>
             </Provider> 
         instance = render(component)
     })

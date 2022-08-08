@@ -3,8 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import { Label, Image } from 'src/components/atoms/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
-import { colors } from 'src/shared/styles/colors';
+import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {PodcastListItemType} from 'src/redux/podcast/types'

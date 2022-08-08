@@ -47,14 +47,14 @@ export const TWITTER_APP_URL = 'twitter://user?screen_name=aawsat_News';
 
 //PodcastHome - Latest news
 export const PODCAST_TITLE = 'استمع لبودكاست آخر أخبار اليوم';
-export const PODCAST_LISTEN_TEXT = 'استمع الي البودكاست ';
+export const PODCAST_LISTEN_TEXT = 'إستمع إلى البودكاست ';
 export const ALL_EPISODES = 'كل الحلقات';
 export const HOME_PODCAST_TITLE = 'اليوم'
 
 //Not Registered Pop Up
 export const NOT_SUBSCRIBED = 'أنت غير مشترك';
 export const SAVE_ARTICLE_TO_YOUR_FAVOURITES = 'لحفظ المقالة لمفضلاتك';
-export const CREATE_ACCOUNT_DESCRIPTION = 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك\n و تتمتع بخاصية حفظ المقالات و تتمتع بأخبار لا '
+export const CREATE_ACCOUNT_DESCRIPTION = 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك\n  و تتمتع بخاصية حفظ المقالات و تتمتع بأخبار لا محدوده\n'
 export const SIGN_UP = 'قم بالتسجيل'
 export const LOG_IN = 'ادخل لحسابك'
 
@@ -64,4 +64,4 @@ export const ANDROID_WEBVIEW_URL = 'about:blank';
 
 //ContactUs
 export const CONST_DO_YOU_HAVE_QUESTION = 'هل لديك سؤال؟راسلنا'
-export const CONST_CONTACT_US_DESCRIPTION = 'سنتواصل معك و نجيب علي سؤالك خلال يومين'
+export const CONST_CONTACT_US_DESCRIPTION = 'سنتواصل معك و نجيب على سؤالك خلال يومين'

@@ -59,9 +59,9 @@ export const PodcastVerticalList = ({
   const getPodcastDuration = async () => {
     if(isNotEmpty(spreakerId)){
       try {
-        let response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: spreakerId })
+        const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: spreakerId })
         if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
-          let episode = response.response.episode
+          const episode = response.response.episode
           setDuration(Math.floor(episode.duration / 1000))
         }
       }catch(error){
@@ -76,7 +76,7 @@ export const PodcastVerticalList = ({
         <View style={[style.headerStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
           <View style={[style.headerLeftStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
             <Image fallback resizeMode='cover' url={imageUrl} style={style.imageStyle} />
-            <Label style={style.title} onTextLayout={onTextLayout}>
+            <Label testID='PodcastVerticalList01' style={style.title} onTextLayout={onTextLayout}>
               {title}
             </Label>
           </View>

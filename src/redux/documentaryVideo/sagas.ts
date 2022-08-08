@@ -49,7 +49,7 @@ export const formatDocumentaryVideo = (response: any): VideoItemType[] => {
 const parseDocumentaryVideo = (
   response: any,
 ): FetchDocumentaryVideoSuccessPayloadType => {
-  let responseData: FetchDocumentaryVideoSuccessPayloadType = {
+  const responseData: FetchDocumentaryVideoSuccessPayloadType = {
     videoDocumentaryData: [],
   };
   responseData.videoDocumentaryData = formatDocumentaryVideo(response);

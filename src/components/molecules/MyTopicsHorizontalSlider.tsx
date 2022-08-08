@@ -37,7 +37,9 @@ export const MyTopicsHorizontalSlider = ({
     const styles = useThemeAwareObject(customStyle);
     const scrollRef = useRef<ScrollView>(null);
     const scrollToEnd = () => {
-        if (isIOS) return;
+        if (isIOS) {
+            return;
+        }
         scrollRef.current?.scrollToEnd();
     };
     const onItemPress = (item: any, index: number) => {
@@ -67,7 +69,7 @@ export const MyTopicsHorizontalSlider = ({
         </View>
     );
 
-    const renderAuthorsList = () => {
+    const renderTopicsList = () => {
         return topicsList.map((item: AllSiteCategoriesItemType, index: number) => {
             const name = item.name
             return (
@@ -95,7 +97,7 @@ export const MyTopicsHorizontalSlider = ({
                 keyboardShouldPersistTaps={'always'}
                 onContentSizeChange={() => scrollToEnd()}>
                 {showAll && renderShowAll()}
-                {renderAuthorsList()}
+                {renderTopicsList()}
             </ScrollView>
         </View>
     );
@@ -131,10 +133,11 @@ const customStyle = (theme: CustomThemeType) =>
             fontFamily: fonts.AwsatDigitalBetav10_Regular,
         },
         showAllContainer: {
-            paddingRight: normalize(10),
+            paddingRight: normalize(5),
             paddingLeft: normalize(10)
         },
         itemStyle: {
-            paddingRight: normalize(10)
+            paddingRight: normalize(5)
         }
     });
+    

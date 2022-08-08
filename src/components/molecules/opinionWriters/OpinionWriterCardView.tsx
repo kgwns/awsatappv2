@@ -1,14 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useEffect, useMemo, useState} from 'react';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty, isIOS} from 'src/shared/utils';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import { TouchableOpacity } from 'react-native';
 import { ScreensConstants } from 'src/constants';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
@@ -55,14 +54,19 @@ const OpinionWritersCardView = ({
   selectedTrack,
   authorId
 }: OpinionWritersCardViewProps) => {
-  const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation<StackNavigationProp<any>>()
+  const routes = useNavigationState(state => state.routes)
   const playbackState = usePlaybackState();
+  const style = useThemeAwareObject(customStyle);
+
   const[mediaData, setMediaData] = useState<any>({});
   const[timeDuration, setTimeDuration] = useState<any>(null);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
 
+  const detailRoutes = useMemo(() =>
+    routes.filter((routes) => routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+  const noOfWriterRoutes = detailRoutes.length
 
   useEffect(() => {
     if(jwPlayerID){
@@ -75,9 +79,9 @@ const OpinionWritersCardView = ({
         const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
         if(isObjectNonEmpty(opinionData)){
           setMediaData(opinionData);
-          let playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
+          const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
           if(playList){
-            let time = playList.duration? convertSecondsToHMS(playList.duration) : null;
+            const time = playList.duration? convertSecondsToHMS(playList.duration) : null;
             setTimeDuration(time)
           } 
         }
@@ -91,7 +95,9 @@ const OpinionWritersCardView = ({
 
   const onPress = () => {
     if (nid) {
-      navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid })
+      const screenName = ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN
+      const params = { nid: nid }
+      noOfWriterRoutes > 0 ? navigation.push(screenName, params) : navigation.navigate(screenName, params)
     }
   }
 
@@ -116,13 +122,13 @@ const OpinionWritersCardView = ({
 const onPressPlay = () => {
       
   if (nid && isObjectNonEmpty(mediaData)) {
-    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
     if (!isObjectNonEmpty(playList)) {
       return
     }
 
-    let trackPlayerData = {
+    const trackPlayerData = {
       id: nid + 'opinion',
       url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
       title: isNotEmpty(headLine) ? headLine : '',
@@ -163,7 +169,7 @@ const onPressPlay = () => {
             fallbackName={ImagesName.authorDefault}
           />
         </TouchableOpacity>
-        <Label suppressHighlighting={true} style={style.writerLabel} onPress={() => onPressWriter(authorId)}>{writerTitle}</Label>
+        <Label testID='onPressWriter01' suppressHighlighting={true} style={style.writerLabel} onPress={() => onPressWriter(authorId)}>{writerTitle}</Label>
       </View>}
       <View style={style.headLineContainer}>
         <Label style={style.headLine}>

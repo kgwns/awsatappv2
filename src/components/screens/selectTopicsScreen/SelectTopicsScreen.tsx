@@ -143,7 +143,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       flex: 0.25,
     },
     widgetContainer: {
-      flex: 0.77,
+      flex: 0.80,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',

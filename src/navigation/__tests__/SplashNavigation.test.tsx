@@ -9,7 +9,7 @@ jest.mock('react-redux', () => ({
 }));
 
 jest.mock("src/hooks/useBookmark", () => ({
-  useBookmark: (...args: any) => {
+  useBookmark: () => {
       return {
         isLoading: true,
         bookMarkSuccessInfo: {},
@@ -20,15 +20,50 @@ jest.mock("src/hooks/useBookmark", () => ({
 }));
 
 jest.mock("src/hooks/useLogin", () => ({
-  useLogin: (...args: any) => {
+  useLogin: () => {
       return {
-        emptyforgotPassworResponseInfo:()=>{}
+        isLoggedIn: true,
+        loginData: {
+          message: {
+            newUser: 'newUser'
+          },
+          token: {
+            token_type: 'type',
+            access_token: 'abcd123'
+          }
+        },
       }
   },
 }));
 
+jest.mock("src/hooks/useUserProfileData", () => ({
+  useUserProfileData: () => {
+    return {
+      isLoading: false,
+      userProfileData: {},
+      fetchProfileDataRequest: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useTopMenu", () => ({
+  useTopMenu: () => {
+    return {
+      fetchTopMenuRequest: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useSideMenu", () => ({
+  useSideMenu: () => {
+    return {
+      fetchSideMenuRequest: () => [],
+    }
+  },
+}));
+
 jest.mock("src/hooks/useRegister", () => ({
-  useRegister: (...args: any) => {
+  useRegister: () => {
       return {
         socialLoginEnded:()=>{},
         emptyUserInfo:()=>{}
@@ -36,8 +71,17 @@ jest.mock("src/hooks/useRegister", () => ({
   },
 }));
 
+jest.mock("src/hooks/useAppCommon", () => ({
+  useAppCommon: () => {
+    return {
+      theme: {},
+      isFirstSession: true,
+    }
+  },
+}));
+
 jest.mock("src/hooks/useEmailCheck", () => ({
-  useEmailCheck: (...args: any) => {
+  useEmailCheck: () => {
       return {
         emptyEmailCheckInfo:()=>{}
       }

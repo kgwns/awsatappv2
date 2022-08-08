@@ -357,10 +357,13 @@ export const SectionStoryScreen = React.memo(({
     setHeroListDataInfo([])
     setTopListDataInfo([])
     setBottomListDataInfo([])
+    setVideoListData([])
   }
 
   const renderFilterComponent = () => {
-    if(!isNonEmptyArray(childFilterData)) return null
+    if(!isNonEmptyArray(childFilterData)) {
+      return null
+    }
 
     return (
       <View style={style.filterContainer}>
@@ -398,7 +401,9 @@ export const SectionStoryScreen = React.memo(({
   const renderArticleStory = () => {
     const articleData = isNonEmptyArray(heroListDataInfo) && heroListDataInfo.length > 1 ? heroListDataInfo[1] : {} as NewsViewListItemType
 
-    if (!isObjectNonEmpty(articleData)) return null
+    if (!isObjectNonEmpty(articleData)) {
+      return null
+    }
     const timeFormat = dateTimeAgo(articleData.created_export)
     return (
       <View style={style.sectionStoryContainer}>

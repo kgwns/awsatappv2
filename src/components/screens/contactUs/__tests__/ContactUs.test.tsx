@@ -5,24 +5,41 @@ import { storeSampleData } from '../../../../constants/SampleData'
 import { ContactUs } from '../ContactUs'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { TextInputField } from 'src/components/atoms'
+import { useNavigation } from '@react-navigation/native'
 
 jest.mock("src/hooks/useContactUs", () => ({
     useContactUs: () => {
       return {
         isLoading: true,
-        sendSuccessInfo: {},
+        sendSuccessInfo: {
+            code: 12,
+            message: 'example'
+        },
         sendErrorInfo: 'error',
         sendContactUsInfo: () => {},
         emptyContactUsInfo: () => {},
       }
     },
-  }));
+}));
+
+jest.mock('@react-navigation/native', () => ({
+    ...jest.requireActual('@react-navigation/native'),
+    useNavigation: jest.fn(),
+}));
+  
+
 
 describe('<ContactUs>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
+    const navigation = {
+        reset: jest.fn(),
+        navigate: jest.fn(),
+        goBack: jest.fn(),
+    }
     
     beforeEach(() => {
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         const component =
             <Provider store={storeSampleData}>
                 <ContactUs/>
@@ -42,7 +59,7 @@ describe('<ContactUs>', () => {
     test('Should call ScreenContainer alertOnPress', () => {
         const element = instance.container.findByType(ScreenContainer)
         fireEvent(element, 'alertOnPress');
-        expect(mockFunction).toBeTruthy()
+        expect(navigation.goBack).toBeTruthy()
     })
 
     test('Should call ScreenContainer setIsAlertVisible', () => {

@@ -21,7 +21,7 @@ export const OpinionArticleDetailFooter = ({
   onPressSave: () => void
   onPressFontSizeChange: () => void
 }) => {
-  let articleSaveIcon = isBookmarked
+  const articleSaveIcon = isBookmarked
     ? ImagesName.bookMarkActiveSVG
     : ImagesName.bookmarkGray;
 

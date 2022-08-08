@@ -76,7 +76,7 @@ export const useAllWriters = (): UseAllWritersReturn => {
   const removeAuthorRequest = (payload: RemoveAuthorBody) => {
     if (isNonEmptyArray(selectedAuthorsData.data)) {
       const tid = payload.tid
-      let selectedAuthorInfo = selectedAuthorsData
+      const selectedAuthorInfo = selectedAuthorsData
       const followingAuthorData = [...selectedAuthorInfo.data]
       const updatedFollowAuthorInfo = followingAuthorData.filter((item) => item.tid != tid)
       selectedAuthorInfo.data = updatedFollowAuthorInfo

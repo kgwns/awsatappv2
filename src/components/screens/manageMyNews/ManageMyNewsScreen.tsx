@@ -18,6 +18,7 @@ import { decode } from 'html-entities';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
 import { fonts } from 'src/shared/styles/fonts';
+import { FLEX_START } from 'src/shared/styles/item-alignment';
 
 
 
@@ -232,6 +233,7 @@ export const ManageMyNewsScreen = () => {
           {
             data.map((item: any, index: number) =>
             <FollowFavoriteAuthor
+            testId='ManageMyNewsScreenID01'
             authorName={item.name}
             authorImage={item.field_opinion_writer_photo_export}
             isSelected={true}
@@ -252,8 +254,8 @@ export const ManageMyNewsScreen = () => {
 
   const MyFavoriteTopics = (props: any) => {
     const data = props.data;
-    let numberOfTopics = data.length as number
-    let numberOfRows = isTab? numberOfTopics > 7 ? 3 : 1 : numberOfTopics > 3 ? 3 : 1
+    const numberOfTopics = data.length as number
+    const numberOfRows = isTab? numberOfTopics > 7 ? 3 : 1 : numberOfTopics > 3 ? 3 : 1
     return (
       <View>
         <Label style={style.titleLabel}>
@@ -322,14 +324,14 @@ const customStyle = (theme: CustomThemeType) => {
     },
     favBooksView: {
       paddingTop: 0.05 * screenWidth,
-      alignItems: 'flex-start'
+      alignItems: FLEX_START
     },
     favTopicsScrollView: {
       paddingVertical: 0.04 * screenWidth,
     },
     favTopicsView: {
       width: '100%',
-      alignItems: 'flex-start',
+      alignItems: FLEX_START,
     },
     titleLabel: {
       fontSize: normalize(18),
@@ -354,7 +356,7 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.secondaryGreen,
       alignItems: 'center',
       justifyContent: 'center',
-      alignSelf: 'flex-start',
+      alignSelf: FLEX_START,
       borderRadius: normalize(50 / 2),
       paddingHorizontal: 0.06 * screenWidth,
     },

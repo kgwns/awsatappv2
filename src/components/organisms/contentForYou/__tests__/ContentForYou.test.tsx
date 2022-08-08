@@ -9,7 +9,7 @@ jest.mock('react', () => ({
 }));
 
 jest.mock("src/hooks/useContentForYou", () => ({
-    useContentForYou: (...args: any) => {
+    useContentForYou: () => {
       return {
         isLoading: false,
         favouriteOpinionsData: [],

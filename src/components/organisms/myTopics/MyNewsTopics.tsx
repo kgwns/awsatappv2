@@ -7,7 +7,7 @@ import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
 import { AllSiteCategoriesBodyGet } from 'src/redux/allSiteCategories/types'
 import { ArticlesListItemType, FavouriteArticlesBodyGet } from 'src/redux/contentForYou/types'
-import { dateTimeAgo, horizontalEdge, isObjectNonEmpty, TimeIcon } from 'src/shared/utils/utilities'
+import { dateTimeAgo, getImageUrl, horizontalEdge, isObjectNonEmpty, TimeIcon } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -15,7 +15,7 @@ import { ScreenContainer } from 'src/components/screens'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants'
 
-const keyExtractor = (_: any, index: number) => index.toString();
+export const keyExtractor = (_: any, index: number) => index.toString();
 
 export const MyNewsTopics = () => {
     const isFocused = useIsFocused()
@@ -55,7 +55,7 @@ export const MyNewsTopics = () => {
             fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
             getSelectedTopicsData()
         }
-    }, [isFocused]);
+    }, []);
 
     useEffect(() => {
         if (articleData != favouriteArticlesData) {
@@ -77,13 +77,13 @@ export const MyNewsTopics = () => {
     }, [pageCount]);
 
     useEffect(() => {
-        !isNonEmptyArray(selectedTopics) && pageCount == 0
+        (!isNonEmptyArray(selectedTopics) && pageCount == 0) || (!isArticalLoading && !isNonEmptyArray(articleData))
             ? setShowEmpty(true)
             : setShowEmpty(false);
     }, [articleData]);
 
     const topicsList = useMemo(() => {
-        let topicsList = [];
+        const topicsList = [];
         if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
             const authorsIdList = selectedTopicsData.data.map((item: any) => item.tid.toString());
             for (let i = 0; i < allSiteCategoriesData.length; i++) {
@@ -96,7 +96,7 @@ export const MyNewsTopics = () => {
     }, [selectedTopicsData, allSiteCategoriesData]);
 
     const fetchArticleData = (topicsList: any, pageCount: any) => {
-        let articleBody: FavouriteArticlesBodyGet = {
+        const articleBody: FavouriteArticlesBodyGet = {
             page: pageCount,
             items_per_page: 10,
             topicsList: topicsList
@@ -128,7 +128,10 @@ export const MyNewsTopics = () => {
     };
 
     const onPress = (item: any, index: number) => {
-        if(index == selectedIndex) return;
+        setShowEmpty(false)
+        if(index == selectedIndex) {
+            return;
+        }
         const payloadTopicsList = index == -1 ? getTopicsList() : [item.tid];
         if (payloadTopicsList != selectedTopics) {
             setPageCount(0);
@@ -148,7 +151,7 @@ export const MyNewsTopics = () => {
                 <ArticleItem
                     index={index}
                     nid={item.nid}
-                    image={item.field_new_photo || ''}
+                    image={getImageUrl(item.field_new_photo) || 'placeholderImg'}
                     imageStyle={isTab ? styles.tabImageStyle : styles.imageStyle}
                     tagName={tagName}
                     title={item.title}

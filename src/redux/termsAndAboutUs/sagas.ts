@@ -24,7 +24,7 @@ const formatData = (response: any): StaticDetailDataType[] => {
 
 
 const parseRelatedArticleSuccess = (response: any): StaticDetailSuccessPayload => {
-  let responseData: StaticDetailSuccessPayload = {
+  const responseData: StaticDetailSuccessPayload = {
     data: []
   }
   responseData.data = formatData(response)

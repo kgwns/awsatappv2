@@ -3,14 +3,13 @@ import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
 import { View, StyleSheet, TouchableOpacity, AppState } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
-import { CustomAlert, isTab, normalize, screenWidth } from '../../../shared/utils';
+import { CustomAlert, isIOS, isTab, normalize, screenWidth } from '../../../shared/utils';
 import { Label } from '../../atoms';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useTranslation } from 'react-i18next';
-import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import { StackNavigationProp } from '@react-navigation/stack';
 import MailAnimation from '../../../assets/lottie-animation/mail.json';
 import LottieView from 'lottie-react-native';
@@ -33,7 +32,8 @@ export const ForgotPassword: FunctionComponent = () => {
   const [animationRef,setAnimationRef] = useState<LottieView>()
   const {emptyforgotPassworResponseInfo} = useLogin();
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
-
+  const CONST_RETURN = TranslateConstants({ key: TranslateKey.RETURN })
+  
   useEffect(() => {
     const subscription = AppState.addEventListener("change", nextAppState => {
       if (appState.current.match(/inactive|background/) && nextAppState === "active") {
@@ -84,17 +84,20 @@ export const ForgotPassword: FunctionComponent = () => {
   return (
     <ScreenContainer>
       <View style={styles.container}>
-        <TouchableOpacity
-          style={styles.returnStyle}
-          testID="signin_skip"
-          accessibilityLabel="signin_skip"
-          onPress={onPressBack}>
-          <BackIcon style={styles.prevIconStyle} fill={colors.spanishGray} />
-          <Label
-            children={t('onBoard.common.return')}
-            style={styles.prevTitleStyle}
-          />
-        </TouchableOpacity >
+        <View style={styles.backContainer}>
+          <TouchableOpacity
+            testID="signin_skip"
+            accessibilityLabel="signin_skip"
+            onPress={onPressBack}>
+            <View style={styles.returnStyle}>
+              <BackIcon fill={themeData.backIconColor} style={styles.backIconStyle} />
+              <Label
+                children={CONST_RETURN}
+                style={styles.prevTitleStyle}
+              />
+            </View>
+          </TouchableOpacity>
+        </View>
         <View style={styles.logoContainer}>
           {HeaderLogo()}
         </View>
@@ -163,8 +166,8 @@ const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingVertical: normalize(20),
-      marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      paddingVertical: isTab ? normalize(2) : normalize(10),
+      marginHorizontal: normalize(20),
       justifyContent: 'space-between',
       backgroundColor: theme.backgroundColor,
     },
@@ -194,7 +197,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     logo: {
       width: normalize(150),
-      height: normalize(30),
+      height: normalize(37),
     },
     spaceStyle: {
       marginHorizontal: normalize(10),
@@ -221,15 +224,10 @@ const createStyles = (theme: CustomThemeType) =>
       fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
     returnStyle: {
-      flexDirection: 'row',
-      position: 'absolute',
-      alignContent: 'center',
-      flexWrap: 'wrap',
-      color: colors.white,
-      flex: 0.05,
+      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      top: normalize(10)
+      flexDirection: 'row',
     },
     prevIconStyle: {
       width: normalize(12),
@@ -240,17 +238,18 @@ const createStyles = (theme: CustomThemeType) =>
       paddingHorizontal: normalize(10)
     },
     prevTitleStyle: {
-      fontSize: normalize(13),
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontSize: normalize(12),
+      color: theme.backIconColor,
       lineHeight: normalize(16),
-      color: colors.spanishGray,
-      paddingRight: normalize(5)
+      marginLeft: normalize(5),
     },
     buttonLabelStyle: {
       paddingHorizontal: normalize(30),
-      fontSize: normalize(16),
+      fontSize: 16,
       fontFamily: fonts.AwsatDigitalBetav10_Bold,
       color: colors.white,
-      lineHeight: normalize(20),
+      lineHeight: 26,
       textAlign: 'center',
     },
     buttonBackgroundStyle: {
@@ -275,5 +274,13 @@ const createStyles = (theme: CustomThemeType) =>
     },
     rightsStyle: {
       fontSize: normalize(12),
+    },
+    backContainer: {
+      flex: 0.05,
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+    },
+    backIconStyle: {
+      marginBottom: isIOS ? 5 : 0
     }
   })

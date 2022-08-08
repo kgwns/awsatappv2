@@ -100,5 +100,11 @@ describe('<VideoPlayer>', () => {
       fireEvent(element, 'navigator');
       expect(navigation).toBeTruthy()
     });
+
+    test('Should call onChangeFullScreen', () => {
+      const element = instance.container.findByType(VideoPlayerFullScreen)
+      fireEvent(element, 'onChangeFullScreen');
+      expect(element).toBeTruthy()
+    });
     
 })

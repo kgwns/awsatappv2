@@ -66,10 +66,12 @@ export const PopUp = ({
     }, []);
 
     useEffect(() => {
-        if (currentOrientation === 'PORTRAIT')
+        if (currentOrientation === 'PORTRAIT') {
             setheight(0.85 * screenHeight)
-        else
+        }
+        else {
             setheight(0.7 * screenWidth)
+        }
     }, [currentOrientation]);
 
     const onPressSuccessButton = () => {

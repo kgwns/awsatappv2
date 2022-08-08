@@ -11,6 +11,27 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
 }));
 
+jest.mock("src/hooks/useRegister", () => ({
+  useRegister: () => {
+      return {
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
+          message: {
+            message: 'abc'
+          },
+        },
+        isRegisterLoading: true,
+        registerError: 'Network Error'
+      }
+  },
+}));
+
 describe('<SignUpPage>', () => {
   let instance: RenderAPI;
   const mockDispatch = jest.fn();
@@ -45,7 +66,7 @@ describe('<SignUpPage>', () => {
     it('When Press SignUp Button', () => {
       const testID = instance.getByTestId('signUp_signUp');
       fireEvent(testID, 'onPress')
-      expect(mockDispatch).toHaveBeenCalledTimes(0);
+      expect(mockDispatch).toBeTruthy();
     });
     test('Should call ScreenContainer alertOnPress', () => {
       const element = instance.container.findAllByType(ScreenContainer)[0];

@@ -30,7 +30,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
 import { LoginManager } from "react-native-fbsdk-next";
 
-type SettingDataType = {
+export type SettingDataType = {
   iconName: ImagesName,
   title: string,
   screenName: string,
@@ -282,7 +282,9 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   }
 
   const renderFooterComponent = () =>{
-    if(isLoggedIn) return null;
+    if(isLoggedIn) {
+        return null;
+    }
     return (
         <View style={style.footerStyle}>
             <Divider style={style.divider} />
@@ -332,6 +334,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
 const customStyle = (theme: CustomThemeType) =>
   StyleSheet.create({
       container:{
+        flex: 1,
         marginTop:normalize(25),
         paddingLeft: normalize(5)
       },
