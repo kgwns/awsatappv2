@@ -189,7 +189,7 @@ export const ScreenContainer = ({
           />
         )}
 
-        { showPlayer && showMiniPlayer && <PodCastMiniPlayer onClose={onClose} toggleControl={() => { setShowPlayerControls(!showPlayerControls)}} playerPosition={playerPosition} />}
+        { showPlayer && showMiniPlayer && !isLoading && <PodCastMiniPlayer onClose={onClose} toggleControl={() => { setShowPlayerControls(!showPlayerControls)}} playerPosition={playerPosition} />}
       </SafeAreaView>
   );
 };

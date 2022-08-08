@@ -1,10 +1,10 @@
 import { StyleSheet, ScrollView, Dimensions, View } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { isIOS, isTab, screenHeight, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'
-import AutoHeightWebView from 'react-native-autoheight-webview'
+import AutoHeightWebView, { SizeUpdate } from 'react-native-autoheight-webview'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { ANDROID_WEBVIEW_URL, IOS_WEBVIEW_URL } from 'src/constants/SharedConstants'
 
@@ -25,6 +25,22 @@ export const ArticleDetailBody = React.memo(({
 }: ArticleDetailBodyProps) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
+   
+    const myTimeOutReference = useRef<any>(null)
+
+    const [dynamicHeight, setDynamicHeight] = useState<number>(0)
+    const [webViewHeight, setWebViewHeight] = useState<number>(0)
+
+    useEffect(() => {
+        updateHeightValue()
+    }, [dynamicHeight])
+
+    const updateHeightValue = () => {
+        clearTimeout(myTimeOutReference.current)
+        myTimeOutReference.current = setTimeout(() => {
+            setWebViewHeight(dynamicHeight)
+        }, 500);
+    }
 
     useEffect(() => {
         if (webviewRef) {
@@ -37,7 +53,10 @@ export const ArticleDetailBody = React.memo(({
     useEffect(() => {
         if (webviewRef) {
             webviewRef.forEach((_: any, index: number) => {
-                webviewRef[index].injectJavaScript(iFrameInjectCss());
+                webviewRef[index].injectJavaScript(
+                    `${iFrameInjectCss()}
+                    true;  // note: this is required, or you'll sometimes get silent failures
+                `);
             })
         }
     }, [orientation])
@@ -147,9 +166,17 @@ export const ArticleDetailBody = React.memo(({
         webviewRef && webviewRef[index] && webviewRef[index].injectJavaScript(script())
     }
 
+    const onSizeUpdated = (size: SizeUpdate) => {
+        if (!isIOS) {
+            return
+        }
+        setDynamicHeight(size.height + 5)
+    }
+
     const renderWebView = () => (
         <AutoHeightWebView
-            style={style.webView}
+            key={index}
+            style={[style.webView, isIOS && { height: webViewHeight }]}
             source={{ html: articleHtml({ body: body }), baseUrl: '' }}
             ref={(r) => (webviewRef[index] = r)}
             domStorageEnabled={true}
@@ -168,6 +195,7 @@ export const ArticleDetailBody = React.memo(({
             androidLayerType="hardware"
             allowsFullscreenVideo={true}
             scrollEnabled={false}
+            onSizeUpdated={onSizeUpdated}
         />
     )
 
