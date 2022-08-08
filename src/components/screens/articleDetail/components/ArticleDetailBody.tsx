@@ -185,7 +185,7 @@ export const ArticleDetailBody = React.memo(({
             nestedScrollEnabled={false}
             scalesPageToFit={false}
             onMessage={(event) => {
-                console.log(event.nativeEvent.data);
+                // console.log(event.nativeEvent.data);
             }}
             onLoadEnd={updateWebViewStyle}
             onLoadProgress={updateWebViewStyle}
