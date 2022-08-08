@@ -91,11 +91,10 @@ export const MyNewsWriters = () => {
   }, [isFocused]);
 
   useEffect(() => {
-    let indexValue = -1
     if (JSON.stringify(isAuthorTidData) != JSON.stringify(isAuthorTid)) {
       setIsAuthorTid(isAuthorTidData)
       if (isAuthorTidData.includes(selectedTid)) {
-        indexValue = isAuthorTidData.indexOf(selectedTid)
+        const indexValue = isAuthorTidData.indexOf(selectedTid)
         const authorSelected = selectedAuthorsData.data.filter((item: any) => { return item.tid.toString() == selectedTid && item });
         onPress(authorSelected[0], indexValue)
       }
