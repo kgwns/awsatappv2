@@ -53,9 +53,9 @@ export const MyNewsWriters = () => {
   const [opinionData, setOpinionData] = useState<any>([]);
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
   const [showEmpty, setShowEmpty] = useState<boolean>(false);
-  const [authorsCount, setAuthorsCount] = useState(0)
   const [isAuthorTidData, setIsAuthorTidData] = useState<any>([])
-  
+  const [isAuthorTid, setIsAuthorTid] = useState<any>([])
+  const [selectedTid, setSelectedTid] = useState('')
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
@@ -91,9 +91,17 @@ export const MyNewsWriters = () => {
   }, [isFocused]);
 
   useEffect(() => {
-    if (selectedIndex == -1 || authorsCount != selectedAuthorsData.data.length) {
-      setInitialData();
-      isNonEmptyArray(selectedAuthorsData.data) && setAuthorsCount(selectedAuthorsData.data.length)
+    let indexValue = -1
+    if (JSON.stringify(isAuthorTidData) != JSON.stringify(isAuthorTid)) {
+      setIsAuthorTid(isAuthorTidData)
+      if (isAuthorTidData.includes(selectedTid)) {
+        indexValue = isAuthorTidData.indexOf(selectedTid)
+        const authorSelected = selectedAuthorsData.data.filter((item: any) => { return item.tid.toString() == selectedTid && item });
+        onPress(authorSelected[0], indexValue)
+      }
+      else {
+        setInitialData()
+      }
     }
   }, [isAuthorTidData]);
 
@@ -150,6 +158,7 @@ export const MyNewsWriters = () => {
     if (index == selectedIndex) {
       return;
     }
+    setSelectedTid(index == -1 ? -1 : item.tid)
     const payloadAuthorsList = index == -1 ? getAuthorsList() : [item.tid];
     if (payloadAuthorsList != selectedAuthors) {
       setPageCount(0);

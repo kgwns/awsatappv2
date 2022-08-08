@@ -89,7 +89,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.ARTICLE_DETAIL_SCREEN}
         component={Routes.ArticleDetailScreen}
-        options={{...hideHeader, animationEnabled: false}}
+        options={{ ...hideHeader, animationEnabled: isAndroid }}
       />
       <Stack.Screen
         name={ScreensConstants.PodcastProgram}
@@ -136,7 +136,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN}
         component={Routes.OpinionArticleDetail}
-        options={{...hideHeader, animationEnabled: false}}
+        options={{ ...hideHeader, animationEnabled: isAndroid }}
       />
       <Stack.Screen
         name={ScreensConstants.USER_DETAIL_SCREEN}
