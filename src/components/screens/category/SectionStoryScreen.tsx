@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, ViewStyle} from 'react-native';
-import {ShortArticle, NewsFeed, VideoContent} from '../../organisms';
+import { ShortArticle, NewsFeed } from '../../organisms';
 import {isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle, FilterComponent, FilterDataType} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
@@ -23,12 +23,12 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import { Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';
 import { useBookmark, useLogin } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
-import { VideoItemType } from 'src/redux/videoList/types';
 import { fetchNewsViewApi } from 'src/services/newsViewService';
 import { AxiosError } from 'axios';
 import { formatTopListToLatestArticleType } from 'src/redux/newsView/sagas';
-import { fetchVideoListApi } from 'src/services/videoListService';
-import { formatVideoData } from 'src/redux/videoList/sagas';
+// import { fetchVideoListApi } from 'src/services/videoListService';
+// import { formatVideoData } from 'src/redux/videoList/sagas';
+// import { VideoItemType } from 'src/redux/videoList/types';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { decode } from 'html-entities';
 import { fonts } from 'src/shared/styles/fonts';
@@ -99,7 +99,7 @@ export const SectionStoryScreen = React.memo(({
   const [heroListDataInfo,setHeroListDataInfo] = useState<NewsViewListItemType[]>([])
   const [bottomListDataInfo,setBottomListDataInfo] = useState<NewsViewListItemType[]>([])
   const [topListDataInfo,setTopListDataInfo] = useState<any[]>([])
-  const [videoListData,setVideoListData] = useState<VideoItemType[]>([])
+  // const [videoListData,setVideoListData] = useState<VideoItemType[]>([])
   const [showupUp,setShowPopUp] = useState(false)
   const [isBottomListLoading, setIsBottomListLoading] = useState<boolean>(false)
 
@@ -134,7 +134,7 @@ export const SectionStoryScreen = React.memo(({
 
     getHeroListData();
     getTopListData();
-    getVideoListData();
+    // getVideoListData();
   }
 
   const getHeroListData = async() => {
@@ -182,7 +182,7 @@ export const SectionStoryScreen = React.memo(({
     }
   }
 
-  const getVideoListData = async() => {
+  /* const getVideoListData = async() => {
     try {
       const videoListInfo = await fetchVideoListApi()
       const videoList = formatVideoData(videoListInfo)
@@ -194,7 +194,7 @@ export const SectionStoryScreen = React.memo(({
         console.log("🚀 getVideoListData ~ errorMessage", errorMessage)
       }
     }
-  }
+  } */
 
   const childFilterData: FilterDataType[] = React.useMemo(() => childSection.map((item) => {
     return {
@@ -335,10 +335,10 @@ export const SectionStoryScreen = React.memo(({
     setBottomListDataInfo(updatedData)
   }
 
-  const onVideoItemPress = (item: VideoItemType) => {
-    navigation.navigate(ScreensConstants.VideoPlayerScreen,
-      { mediaID: item.mediaId, nid: item.nid })
-  }
+  // const onVideoItemPress = (item: VideoItemType) => {
+  //   navigation.navigate(ScreensConstants.VideoPlayerScreen,
+  //     { mediaID: item.mediaId, nid: item.nid })
+  // }
 
   const onClickChildSection = (clickItemIndex: number) => {
     const spreadChildSection = [...childSection]
@@ -357,7 +357,7 @@ export const SectionStoryScreen = React.memo(({
     setHeroListDataInfo([])
     setTopListDataInfo([])
     setBottomListDataInfo([])
-    setVideoListData([])
+    // setVideoListData([])
   }
 
   const renderFilterComponent = () => {
@@ -465,9 +465,9 @@ export const SectionStoryScreen = React.memo(({
           {renderTopArticle()}
         </>
       }
-      <View style={style.videoContainer}>
+      {/* <View style={style.videoContainer}>
         <VideoContent data={videoListData} onPress={onVideoItemPress} />
-      </View>
+      </View> */}
       <View style={style.newsFeedContainer}>
         <NewsFeed
           data={bottomListDataInfo}
