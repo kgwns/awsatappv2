@@ -69,6 +69,7 @@ export const WritersDetailScreen = ({
     const noOfDetailRoutes = detailRoutes.length
 
     useEffect(() => {
+        setScrollY(new Animated.Value(0))
         if(isFocused){
             getWriterDetailData({ tid: route.params.tid })
             getSelectedAuthorsData()
