@@ -17,29 +17,32 @@ jest.mock('react', () => ({
     useState: jest.fn(),
 }));
 
-jest.mock("src/hooks/useNewsView", () => ({
-    useNewsView: () => {
-        return {
-            isLoading: true,
-            heroListData: [],
-            topListData: [],
-            bottomListData: [],
-            fetchHeroListRequest: () => {
-                return []
-            },
-            fetchTopListRequest: () => {
-                return []
-            },
-            fetchBottomListRequest: () => {
-                return []
-            },
-            emptyAllListData: () => {
-                return []
-            },
-        }
+jest.mock("src/hooks/useBookmark", () => ({
+    useBookmark: () => {
+      return {
+        bookmarkIdInfo: [
+          {
+              nid: '1',
+              bundle: 'string'
+          },
+          {
+              nid: '2',
+              bundle: 'string'
+          }
+        ],
+        sendBookmarkInfo: () => [],
+        removeBookmarkedInfo: () => [],
+      }
     },
 }));
 
+jest.mock("src/hooks/useLogin", () => ({
+    useLogin: () => {
+      return {
+        isLoggedIn: false,
+      }
+    },
+}));
 
 describe('<SectionStoryScreen>', () => {
     let instance: RenderAPI

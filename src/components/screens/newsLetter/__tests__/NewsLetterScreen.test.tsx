@@ -57,9 +57,17 @@ describe('<NewsLettersScreen>', () => {
         code: 2,
         message: "string"
       },
-      selectedNewsLettersData: {},
+      selectedNewsLettersData: {
+        code: 2,
+        message: "string",
+        data: {},
+      },
       isMyNewsLoading: false,
-      myNewsLetters: {},
+      myNewsLetters: {
+        code: 2,
+        message: "string",
+        data: {},
+      },
       selectedNewsLetterDataOnboard: {},
       sendSelectedNewsLettersInfo: sendSelectedNewsLettersInfoMock,
       getSelectedNewsLettersData: getSelectedNewsLettersDataMock,

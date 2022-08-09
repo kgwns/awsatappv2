@@ -44,4 +44,20 @@ describe('#usePodcast', () => {
     });
   });
 
+  describe('#fetchPodcastListRequest', () => {
+    it('should call dispatch with fetchPodcastListRequest', () => {
+      const {
+        result: {
+          current: {fetchPodcastListRequest},
+        },
+      } = result;
+
+      act(() => {
+        fetchPodcastListRequest({tid: 2});
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
 });

@@ -8,6 +8,14 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
+jest.mock("src/hooks/useAppPlayer", () => ({
+  useAppPlayer: () => {
+    return {
+      selectedTrack: {id: 1},
+    }
+  },
+}));
+
 describe('<PodCastMiniPlayer />', () => {
   let instance: RenderAPI
   const mockFunction = jest.fn();

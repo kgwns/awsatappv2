@@ -86,6 +86,25 @@ const opinionsData = [
     },
 ];
 
+jest.mock("src/hooks/useBookmark", () => ({
+    useBookmark: () => {
+      return {
+        bookmarkIdInfo: [
+            {
+                nid: '1',
+                bundle: 'string'
+            },
+            {
+                nid: '2',
+                bundle: 'string'
+            }
+        ],
+        sendBookmarkInfo: () => [],
+        removeBookmarkedInfo: () => [],
+      }
+    },
+}));
+
 jest.mock("src/hooks/useOpinions", () => ({
     useOpinions: () => {
         return {
