@@ -170,7 +170,7 @@ export const ArticleDetailBody = React.memo(({
         if (!isIOS && isTab) {
             return
         }
-        setDynamicHeight(size.height + 5)
+        setDynamicHeight(size.height + 2)
     }
 
     const renderWebView = () => (
