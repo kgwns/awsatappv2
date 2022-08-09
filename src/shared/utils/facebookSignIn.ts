@@ -34,8 +34,8 @@ export default class SignInFacebook extends SocialLogin {
   }
 
   initialLogin(): void {
-    AccessToken.getCurrentAccessToken().then((data: any) => {
-        if(data !== null && !data.isExpired()){
+    AccessToken.getCurrentAccessToken().then((data: AccessToken | null) => {
+        if(data !== null){
             const {accessToken} = data
             const {userID} = data
             this.fbUserId = userID
