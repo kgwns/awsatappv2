@@ -167,7 +167,7 @@ export const ArticleDetailBody = React.memo(({
     }
 
     const onSizeUpdated = (size: SizeUpdate) => {
-        if (!isIOS) {
+        if (!isIOS && isTab) {
             return
         }
         setDynamicHeight(size.height + 5)
@@ -176,7 +176,7 @@ export const ArticleDetailBody = React.memo(({
     const renderWebView = () => (
         <AutoHeightWebView
             key={index}
-            style={[style.webView, isIOS && { height: webViewHeight }]}
+            style={[style.webView, isIOS && !isTab && { height: webViewHeight }]}
             source={{ html: articleHtml({ body: body }), baseUrl: '' }}
             ref={(r) => (webviewRef[index] = r)}
             domStorageEnabled={true}
