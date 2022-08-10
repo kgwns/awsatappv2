@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
-import { isTab, screenWidth, normalize } from 'src/shared/utils';
+import { isTab, screenWidth, normalize, isIOS } from 'src/shared/utils';
 import { Image, Label } from 'src/components/atoms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
@@ -20,7 +20,7 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
     const style = useThemeAwareObject(customStyle);
     const isPortrait = () => {
         const dim = Dimensions.get('screen');
-        return dim.height >= dim.width;
+        return isTab ? true : dim.height >= dim.width;
     };
 
     const HeaderLogo = () => getSvgImages({ name: ImagesName.logoBlack, width: style.logo.width, height: style.logo.height });
@@ -111,12 +111,12 @@ const customStyle = (theme: CustomThemeType) => {
             alignSelf: 'center',
             textAlign: 'center',
             paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-            marginTop: normalize(10)
+            marginTop: isTab ? normalize(45) : normalize(35)
         },
         descriptionLandscape: {
             fontFamily: fonts.Effra_Arbc_Regular,
             fontSize: 15,
-            lineHeight: 22,
+            lineHeight: isIOS ? 22 : 26,
             color: colors.black,
             alignSelf: 'center',
             textAlign: 'center',
@@ -133,7 +133,7 @@ const customStyle = (theme: CustomThemeType) => {
             borderRadius: normalize(50),
             alignSelf: 'center',
             justifyContent: 'center',
-            marginTop: normalize(35),
+            marginTop: isTab ? normalize(5) : normalize(10),
             marginHorizontal: normalize(10)
         },
         buttonViewLandscape: {
