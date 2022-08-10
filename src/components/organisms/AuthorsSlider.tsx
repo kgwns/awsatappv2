@@ -38,7 +38,7 @@ const AuthorSlider = ({
 }) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
-  const CONST_OPINION_COMBO_TITLE = TranslateConstants({key: TranslateKey.OPINION_COMBO_TITLE})
+  const CONST_OPINION_COMBO_TITLE = TranslateConstants({key: TranslateKey.OPINION_SLIDER_TITLE})
 
   const { themeData } = useTheme()
   const style = useThemeAwareObject(customStyle);
@@ -211,7 +211,7 @@ const AuthorSlider = ({
 const customStyle = (theme: CustomThemeType) => {
   const AuthorSliderStyle = StyleSheet.create({
     container: {
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.secondaryWhite,
       alignContent: 'center',
       flex: 1
     },

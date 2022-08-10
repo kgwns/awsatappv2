@@ -60,6 +60,7 @@ export const arabic = {
     },
     sectionWriters: {
       headerLeft: 'الرأي',
+      sliderLeftHeader: 'آراء وكتّاب '
     },
     sectionComboThree: {
       headerLeft: 'العالم',

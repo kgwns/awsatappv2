@@ -562,12 +562,13 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         <TopHeadLineNews data={headlineNews} />
       </View>
       <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       <EditorsPickSection data={horizontalArticle} showHighlightTitle={false}/>
       {isNonEmptyArray(podcastHome) &&
         <View>
           <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
         </View>}
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
+      
       <BannerArticleSection data={editorsChoiceInfo}
         title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         onPress={onPressArticle}
@@ -658,7 +659,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboFiveBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboFiveInfo) && <Divider style={{ height: normalize(50) }} />}
+      {isNonEmptyArray(sectionComboFiveInfo) && <Divider style={{ height: normalize(20) }} />}
       {isNonEmptyArray(sectionComboFiveInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboSixInfo}
@@ -668,7 +669,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboSixBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: normalize(50) }} />}
+      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: normalize(20) }} />}
       {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboSevenInfo}

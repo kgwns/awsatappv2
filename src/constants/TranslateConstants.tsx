@@ -43,6 +43,7 @@ export enum TranslateKey {
     ONBOARD_SUCCESS_MAIL_ACKNOWLEDGEMENT,
     ONBOARD_SUCCESS_GO_TO_HOME,
     ONBOARD_SUCCESS_GO_TO_MY_NEWS,
+    OPINION_SLIDER_TITLE,
 }
 
 export const TranslateConstants = ({
@@ -133,6 +134,8 @@ export const TranslateConstants = ({
             return t('onboardSuccess.goToHome')
         case TranslateKey.ONBOARD_SUCCESS_GO_TO_MY_NEWS:
             return t('onboardSuccess.goToMyNews')
+        case TranslateKey.OPINION_SLIDER_TITLE:
+            return t('latestNewsTab.sectionWriters.sliderLeftHeader')
         default: return ''
     }
 }
