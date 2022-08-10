@@ -116,12 +116,12 @@ const customStyle = (theme: CustomThemeType) => {
         descriptionLandscape: {
             fontFamily: fonts.Effra_Arbc_Regular,
             fontSize: 15,
-            lineHeight: isIOS ? 22 : 26,
+            lineHeight: 22,
             color: colors.black,
             alignSelf: 'center',
             textAlign: 'center',
             paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-            marginTop: normalize(5)
+            marginTop: isIOS ? 5 : 20
         },
         buttonContainer: {
             flexDirection: 'row',
