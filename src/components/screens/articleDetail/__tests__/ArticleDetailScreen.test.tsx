@@ -3,96 +3,11 @@ import React, { useState } from 'react';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { ArticleDetailScreen } from '../ArticleDetailScreen';
 import { isIOS, normalize } from 'src/shared/utils/dimensions';
-import { ArticleDetailFooter, DetailHeader, VideoPlayerControl } from 'src/components/molecules';
+import { VideoPlayerControl } from 'src/components/molecules';
 import { FlatList } from 'react-native';
 import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/articleDetail/types';
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
 import {useNavigation} from '@react-navigation/native';
-import Orientation from 'react-native-orientation-locker';
-
-jest.mock('@react-navigation/native', () => ({
-  ...jest.requireActual('@react-navigation/native'),
-  useNavigation: jest.fn(),
-}));
-
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useState: jest.fn(),
-}));
-
-jest.mock("src/hooks/useArticleDetail", () => ({
-  useArticleDetail: () => {
-    return {
-      isLoading: false,
-      articleDetailData: [],
-      articleError: 'example',
-      relatedArticleData: [],
-      fetchArticleDetail: () => [],
-      fetchRelatedArticle: () => [],
-      emptyAllData: () => [],
-      isArticleSectionLoaded: false
-    }
-  },
-}));
-
-jest.mock("src/hooks/useAppCommon", () => ({
-  useAppCommon: () => {
-    return {
-      theme: {},
-      isFirstSession: false,
-      serverEnvironment: {},
-      storeServerEnvironmentInfo: () => [],
-      articleFontSize: 2,
-      storeArticleFontSizeInfo: () => [],
-      resetFontSizeInfo: () => [],
-    }
-  },
-}));
-
-jest.mock("src/hooks/useBookmark", () => ({
-  useBookmark: () => {
-    return {
-      isLoading: false,
-      bookMarkSuccessInfo: {},
-      bookmarkDetail: [],
-      error: 'example',
-      bookmarkIdInfo: {},
-      sendBookmarkInfo: () => [],
-      getBookmarkedId: () => [],
-      removeBookmarkedInfo: () => [],
-      getBookmarkDetailData: () => [],
-      removeBookmark: () => [],
-    }
-  },
-}));
-
-jest.mock("src/hooks/useLogin", () => ({
-  useLogin: () => {
-    return {
-      isLoading: false,
-      loginData: {},
-      loginError: 'example',
-      fetchLoginRequest: () => [],
-      isLoggedIn: true,
-      token: 'example',
-      user: {},
-      fetchLogoutRequest: () => [],
-      loginSkipped: () => [],
-      isSkipped: false,
-      forgotPassswordResponse: {},
-      forgotPassworRequest: () => [],
-      emptyforgotPassworResponseInfo: () => [],
-      emptyLoginDataInfo: () => [],
-    }
-  },
-}));
-
-jest.mock('@react-navigation/native', () => ({
-  ...jest.requireActual('@react-navigation/native'),
-  useNavigation: jest.fn(),
-  useNavigationState: () => ([]),
-  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
-}));
 
 const sampleData1: ArticleDetailDataType[] =[
   {
@@ -151,9 +66,6 @@ const sampleData1: ArticleDetailDataType[] =[
   },
 ];
 
-const mockFunction = jest.fn();
-
-const sampleData = { params: { nid: '123', isRelatedArticle: true } };
 const sampleData3: RelatedArticleDataType[] = [
   {
     isBookmarked: false,
@@ -190,6 +102,103 @@ const sampleData3: RelatedArticleDataType[] = [
     created: '23/10/2021'
   },
 ];
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+}));
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
+
+jest.mock("src/hooks/useArticleDetail", () => ({
+  useArticleDetail: () => {
+    return {
+      isLoading: false,
+      articleDetailData: [],
+      articleError: 'example',
+      relatedArticleData: sampleData3,
+      fetchArticleDetail: () => [],
+      fetchRelatedArticle: () => [],
+      emptyAllData: () => [],
+      isArticleSectionLoaded: true
+    }
+  },
+}));
+
+jest.mock("src/hooks/useAppCommon", () => ({
+  useAppCommon: () => {
+    return {
+      theme: {},
+      isFirstSession: false,
+      serverEnvironment: {},
+      storeServerEnvironmentInfo: () => [],
+      articleFontSize: 2,
+      storeArticleFontSizeInfo: () => [],
+      resetFontSizeInfo: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useBookmark", () => ({
+  useBookmark: () => {
+    return {
+      isLoading: false,
+      bookMarkSuccessInfo: {},
+      bookmarkDetail: [],
+      error: 'example',
+      bookmarkIdInfo: [
+        {
+            nid: '1',
+            bundle: 'string'
+        },
+        {
+            nid: '2',
+            bundle: 'string'
+        }
+    ],
+      sendBookmarkInfo: () => [],
+      getBookmarkedId: () => [],
+      removeBookmarkedInfo: () => [],
+      getBookmarkDetailData: () => [],
+      removeBookmark: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      isLoading: false,
+      loginData: {},
+      loginError: 'example',
+      fetchLoginRequest: () => [],
+      isLoggedIn: true,
+      token: 'example',
+      user: {},
+      fetchLogoutRequest: () => [],
+      loginSkipped: () => [],
+      isSkipped: false,
+      forgotPassswordResponse: {},
+      forgotPassworRequest: () => [],
+      emptyforgotPassworResponseInfo: () => [],
+      emptyLoginDataInfo: () => [],
+    }
+  },
+}));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useNavigationState: () => ([]),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+}));
+
+const mockFunction = jest.fn();
+
+const sampleData = { params: { nid: '123', isRelatedArticle: true } };
 
 const isFullScreen = jest.fn()
 const isEdgeUpdated = jest.fn()

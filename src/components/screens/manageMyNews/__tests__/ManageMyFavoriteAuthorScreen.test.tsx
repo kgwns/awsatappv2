@@ -97,7 +97,14 @@ jest.mock("src/hooks/useAllWriters", () => ({
         selectedAuthorsData: {
             code: 2,
             message: 'string',
-            data: {},
+            data: [
+                {
+                    tid: '12',
+                },
+                {
+                    tid: '13',
+                }
+            ],
         },
       }
     },

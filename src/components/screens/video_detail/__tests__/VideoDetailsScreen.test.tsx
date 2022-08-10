@@ -32,6 +32,33 @@ jest.mock("src/hooks/useVideoList", () => ({
   },
 }));
 
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      isLoggedIn: true,
+    }
+  },
+}));
+
+jest.mock("src/hooks/useBookmark", () => ({
+  useBookmark: () => {
+    return {
+      bookmarkIdInfo: [
+        {
+            nid: '1',
+            bundle: 'string'
+        },
+        {
+            nid: '2',
+            bundle: 'string'
+        }
+    ],
+      sendBookmarkInfo: () => [],
+      removeBookmarkedInfo: () => [],
+    }
+  },
+}));
+
 const data: VideoDetailScreenProps = {
   route: { 
     params: {

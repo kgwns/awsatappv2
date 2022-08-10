@@ -7,6 +7,7 @@ import { WriterDetailDataType } from 'src/redux/writersDetail/types'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { WritersDetailScreen } from '../WritersDetailScreen'
 import { OpinionWritersArticlesSection } from 'src/components/organisms'
+import { OpinionsListItemType } from 'src/redux/opinionArticleDetail/types'
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -26,30 +27,78 @@ jest.mock("src/hooks/useWriterDetail", () => ({
             isLoading: false,
             getWriterDetailData:()=>jest.fn(),
             emptyWriterDetailData:()=> jest.fn(),
-            writerDetailData: [
-                {
-                    name: 'example',
-                    field_description: 'example',
-                    field_opinion_writer_photo_export: 'example',
-                    tid: 'example',
-                    isFollowed: true,
-                    field_instagram_url_export: {},
-                    field_opinion_twitter_export: {},
-                    field_opinion_facebook_export: {},
-                },
-            ],
+            writerDetailData: sampleData,
         }
     },
 }));
+
+const writerData: OpinionsListItemType[] = [
+    {
+        title: 'example',
+        created_export: 'example',
+        field_opinion_writer_node_export: [
+            {
+                id: '12',
+                title: 'example',
+                url: 'example',
+                bundle: 'example',
+                opinion_writer_photo: 'example',
+                langcode: 'example',
+                name: 'example',
+            }
+        ],
+        nid: '12',
+        field_opinion_sport_blog_export: [
+            {
+                id: '12',
+                title: 'example',
+                bundle: 'example',
+                name: 'example',
+            }
+        ],
+        field_new_issueno_export: 'example',
+        published_at_export: 'example',
+        body: 'example',
+        type: 'example'
+    },
+    {
+        title: 'example',
+        created_export: 'example',
+        field_opinion_writer_node_export: [
+            {
+                id: '13',
+                title: 'example',
+                url: 'example',
+                bundle: 'example',
+                opinion_writer_photo: 'example',
+                langcode: 'example',
+                name: 'example',
+            }
+        ],
+        nid: '13',
+        field_opinion_sport_blog_export: [
+            {
+                id: '13',
+                title: 'example',
+                bundle: 'example',
+                name: 'example',
+            }
+        ],
+        field_new_issueno_export: 'example',
+        published_at_export: 'example',
+        body: 'example',
+        type: 'example'
+    },
+]
 
 jest.mock("src/hooks/useOpinions", () => ({
     useOpinions: () => {
         return {
             isLoading: true,
-            opinionsError: '',
-            writerOpinionsData: [],
+            opinionsError: 'error',
+            writerOpinionsData: writerData,
             isWriterOpinionLoading: false,
-            writerOpinionsError: '',
+            writerOpinionsError: 'error',
             fetchWriterOpinionsRequest: () => {
                 return []
             },

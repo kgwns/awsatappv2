@@ -13,11 +13,38 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
+jest.mock("src/hooks/useBookmark", () => ({
+  useBookmark: () => {
+    return {
+      getBookmarkedId: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useUserProfileData", () => ({
+  useUserProfileData: () => {
+    return {
+      fetchProfileDataRequest: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useSearch", () => ({
+  useSearch: () => {
+    return {
+      emptySearchHistory: () => [],
+    }
+  },
+}));
+
 jest.mock("src/hooks/useNotificationSaveToken", () => ({
   useNotificationSaveToken: () => {
     return {
       isSaveTokenLoading: false,
-      saveTokenData: {},
+      saveTokenData: {
+        id: 2,
+        message: "string",
+      },
       storeServerEnvironmentInfo: () => [],
       saveTokenError: '',
       saveTokenRequest: () => [],
@@ -26,11 +53,42 @@ jest.mock("src/hooks/useNotificationSaveToken", () => ({
   },
 }));
 
+jest.mock("src/hooks/useRegister", () => ({
+  useRegister: () => {
+      return {
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        socialLoginStarted:()=> jest.fn(),
+        socialLoginInProgress: true,
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
+          message: {
+            message: 'abc'
+          },
+        },
+        isRegisterLoading: true,
+        registerError: 'Network Error'
+      }
+  },
+}));
+
 jest.mock("src/hooks/useLogin", () => ({
   useLogin: () => {
     return {
       isLoading: false,
-      loginData: {},
+      loginData: {
+        message: {
+          newUser: 'newUser'
+        },
+        token: {
+          token_type: 'type',
+          access_token: 'abcd123'
+        }
+      },
       loginError: 'example',
       fetchLoginRequest: () => [],
       isLoggedIn: false,
@@ -114,6 +172,10 @@ describe('<SignInPage>', () => {
     });
     test('Should call onSuccessSocialLogin', () => {
       expect(onSuccessSocialLogin({user: {photo: 'abc.com', profile_url: 'abc.com', id: '2', familyName: 'abc', givenName: 'bcd', email: 'abc@gmail.com'}}, SocialProviders.facebook)).toBeTruthy()
+    });
+
+    test('Should call onSuccessSocialLogin', () => {
+      expect(onSuccessSocialLogin({user: {photo: 'abc.com', profile_url: 'abc.com', id: '2', familyName: 'abc', givenName: 'bcd', email: 'abc@gmail.com'}}, SocialProviders.google)).toBeTruthy()
     });
   });
 });

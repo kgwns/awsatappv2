@@ -12,7 +12,16 @@ jest.mock("src/hooks/useUserProfileData", () => ({
         isLoading: false,
         userProfileData: {},
         userProfileError: 'string',
-        sentUserProfileData: {},
+        sentUserProfileData: {
+            user: {
+              id: '12',
+              email: "abc@gmail.com",
+            },
+            message: {
+              code: 200,
+              message: 'string',
+            }
+          },
         fetchProfileDataRequest: () => [],
         sendUserProfileInfo: () => [],
         updateUserImageRequest: () => [],

@@ -1,9 +1,8 @@
 import React from 'react';
-import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
+import { render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { storeSampleData } from '../../../../constants/SampleData';
 import { SuccessScreen } from '../SuccessScreen';
-import { ButtonOnboard } from 'src/components/atoms';
 import {useNavigation} from '@react-navigation/native';
 
 jest.mock('@react-navigation/native', () => ({
@@ -13,7 +12,6 @@ jest.mock('@react-navigation/native', () => ({
 
 describe('<SuccessScreen>', () => {
   let instance: RenderAPI;
-  const mockFn = jest.fn();
 
   const navigation = {
     reset: jest.fn(),

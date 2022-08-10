@@ -2,7 +2,7 @@ import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget, VideoContent } from 'src/components/organisms';
-import { LatestPodcastDataType } from 'src/redux/latestNews/types';
+import { LatestArticleDataType, LatestPodcastDataType } from 'src/redux/latestNews/types';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { MainSectionScreen } from '../MainSectionScreen';
@@ -46,19 +46,19 @@ const videoData: VideoItemType[] = [
   {
     nid: '12',
     title: 'abc',
-    isBookmarked: false
+    isBookmarked: true
   },
   {
     nid: '13',
     title: 'abc',
-    isBookmarked: false
+    isBookmarked: true
   }
 ]
 
 jest.mock("src/hooks/useVideoList", () => ({
   useVideoList: () => {
     return {
-      isLoading: false,
+      isLoading: true,
       videoData: videoData,
       videoError: 'error',
       fetchVideoRequest: () => {
@@ -71,7 +71,6 @@ jest.mock("src/hooks/useVideoList", () => ({
 jest.mock("src/hooks/useUserProfileData", () => ({
   useUserProfileData: () => {
     return {
-      isLoading: false,
       userProfileData: {},
       userProfileError: 'string',
       sentUserProfileData: {},
@@ -112,17 +111,71 @@ const podCastData: LatestPodcastDataType[] = [
     field_spotify_export: null,
     field_spreaker_episode_export: null,
     field_spreaker_show_export: null,
-    isBookmarked: false
+    isBookmarked: true
   },
 ]
+
+const latestArticleData: LatestArticleDataType[] = [
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    image: 'https://picsum.photos/300/200',
+    nid: '2',
+    author: 'أمريكا',
+    created: 'أمريكا',
+    body: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    isBookmarked: true,
+    news_categories: {
+      id: 'example',
+      title: 'example',
+      url: 'example',
+      bundle: 'example',
+      name: 'example',
+    }
+  },
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    image: 'https://picsum.photos/300/200',
+    nid: '2',
+    author: 'أمريكا',
+    created: 'أمريكا',
+    body: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    isBookmarked: true,
+    news_categories: {
+      id: 'example',
+      title: 'example',
+      url: 'example',
+      bundle: 'example',
+      name: 'example',
+    },
+  },
+  {
+    title:
+      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    image: 'https://picsum.photos/300/200',
+    nid: '2',
+    author: 'أمريكا',
+    created: 'أمريكا',
+    body: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    isBookmarked: true,
+    news_categories: {
+      id: 'example',
+      title: 'example',
+      url: 'example',
+      bundle: 'example',
+      name: 'example',
+    },
+  },
+];
+
 jest.mock("src/hooks/useLatestNewsTab", () => ({
   useLatestNewsTab: () => {
     return {
-            isLoading: false,
-            ticker: [],
-            hero: [],
-            heroList: [],
-            topList: [],
+            ticker: latestArticleData,
+            hero: latestArticleData,
+            heroList: latestArticleData,
+            topList: latestArticleData,
             opinionList: [
               {
                 title: 'string',
@@ -140,29 +193,29 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
               },
             ],
             fetchOpinionTopList: () => [],
-            sectionComboOne: [],
-            sectionComboTwo: [],
-            sectionComboThree: [],
-            sectionComboFour: [],
-            sectionComboFive: [],
-            sectionComboSix: [],
-            sectionComboSeven: [],
+            sectionComboOne: latestArticleData,
+            sectionComboTwo: latestArticleData,
+            sectionComboThree: latestArticleData,
+            sectionComboFour: latestArticleData,
+            sectionComboFive: latestArticleData,
+            sectionComboSix: latestArticleData,
+            sectionComboSeven: latestArticleData,
             podcastHome: podCastData,
             coverage: [],
             featuredArticle: [],
             horizontalArticle: [],
             editorsChoice: [],
             spotlight: [],
-            spotlightArticleSection: [],
-            coverageInfoLoaded: false,
-            featuredArticleLoaded: false,
-            horizontalArticleLoaded: false,
-            opinionLoaded: false,
-            podcastHomeLoaded: false,
-            editorChoiceLoaded: false,
-            sectionComboOneLoaded: false,
-            sectionComboTwoLoaded: false,
-            sectionComboThreeLoaded: false,
+            spotlightArticleSection: latestArticleData,
+            coverageInfoLoaded: true,
+            featuredArticleLoaded: true,
+            horizontalArticleLoaded: true,
+            opinionLoaded: true,
+            podcastHomeLoaded: true,
+            editorChoiceLoaded: true,
+            sectionComboOneLoaded: true,
+            sectionComboTwoLoaded: true,
+            sectionComboThreeLoaded: true,
 
             fetchTickerAndHeroArticle: () => {
                 return []
@@ -219,7 +272,6 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
 jest.mock("src/hooks/useBookmark", () => ({
   useBookmark: () => {
     return {
-      isLoading: false,
       bookMarkSuccessInfo: {},
       bookmarkDetail: [],
       error: 'string',
@@ -236,7 +288,6 @@ jest.mock("src/hooks/useBookmark", () => ({
 jest.mock("src/hooks/useLogin", () => ({
   useLogin: () => {
     return {
-      isLoading: false,
       loginData: {},
       loginError: 'example',
       fetchLoginRequest: () => [],
@@ -283,19 +334,19 @@ describe('<MainSectionScreen>', () => {
     (useState as jest.Mock).mockImplementation(() => [false, setRefreshing]);
     (useState as jest.Mock).mockImplementation(() => [videoData, opinionListData]);
     (useState as jest.Mock).mockImplementation(() => [[], setCoverageInfo]);
-    (useState as jest.Mock).mockImplementation(() => [[], setSectionComboOneInfo]);
-    (useState as jest.Mock).mockImplementation(() => [[], setSectionComboTwoInfo]);
-    (useState as jest.Mock).mockImplementation(() => [[], setSectionComboThreeInfo]);
-    (useState as jest.Mock).mockImplementation(() => [[], setSectionComboFourInfo]);
-    (useState as jest.Mock).mockImplementation(() => [[], setSectionComboFiveInfo]);
-    (useState as jest.Mock).mockImplementation(() => [[], setSectionComboSixInfo]);
-    (useState as jest.Mock).mockImplementation(() => [[], setSectionComboSevenInfo]);
-    (useState as jest.Mock).mockImplementation(() => [[], setOpinionListData]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboOneInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboTwoInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboThreeInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboFourInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboFiveInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboSixInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboSevenInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setOpinionListData]);
     (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
     (useState as jest.Mock).mockImplementation(() => [null, setSelectedTrack]);
     (useState as jest.Mock).mockImplementation(() => [null, setSelectedType]);
     (useState as jest.Mock).mockImplementation(() => [[], setEditorsChoiceInfo]);
-    const component = <MainSectionScreen tabIndex={0} currentIndex={0} />;
+    const component = <MainSectionScreen tabIndex={1} currentIndex={1} />;
     instance = render(component);
   });
 
@@ -342,6 +393,90 @@ describe('<MainSectionScreen>', () => {
     expect(mockFunction).toBeTruthy();
   });
 
+  it('when BannerArticleSection only When onPress', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[1];
+    fireEvent(testID, 'onPress');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[1];
+    fireEvent(testID, 'onUpdateBookmark');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onPress', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[2];
+    fireEvent(testID, 'onPress');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[2];
+    fireEvent(testID, 'onUpdateBookmark');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onPress', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[3];
+    fireEvent(testID, 'onPress');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[3];
+    fireEvent(testID, 'onUpdateBookmark');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onPress', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[4];
+    fireEvent(testID, 'onPress');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[4];
+    fireEvent(testID, 'onUpdateBookmark');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onPress', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[5];
+    fireEvent(testID, 'onPress');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[5];
+    fireEvent(testID, 'onUpdateBookmark');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onPress', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[6];
+    fireEvent(testID, 'onPress');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[6];
+    fireEvent(testID, 'onUpdateBookmark');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onPress', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[7];
+    fireEvent(testID, 'onPress');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when BannerArticleSection only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(BannerArticleSection)[7];
+    fireEvent(testID, 'onUpdateBookmark');
+    expect(mockFunction).toBeTruthy();
+  });
+
   it('when ArticleSection only When onUpdateBookmark', () => {
     const testID = instance.container.findAllByType(ArticleSection)[0];
     fireEvent(testID, 'onUpdateBookmark', {nid: '2', isBookmarked: true});
@@ -357,7 +492,7 @@ describe('<MainSectionScreen>', () => {
   it('when RefreshControl only When onRefresh', () => {
     const testID = instance.container.findAllByType(RefreshControl)[0];
     fireEvent(testID, 'onRefresh', {index: 2});
-    expect(mockFunction).toBeTruthy();
+    expect(setRefreshing).toBeTruthy();
   });
 
   it('when PodcastWidget only When onPress', () => {

@@ -40,7 +40,7 @@ describe('<ArticleDetailBody>', () => {
 
     it('When AutoHeightWebView is pressed onShouldStartLoadWithRequest', () => {
         const testItemId = instance.container.findAllByType(AutoHeightWebView)[0];
-        fireEvent(testItemId, 'onShouldStartLoadWithRequest', {url: 'abc'});
+        fireEvent(testItemId, 'onShouldStartLoadWithRequest', {url: 'file:///abc'});
         expect(mockFunction).toBeTruthy();
     });
 

@@ -47,7 +47,7 @@ describe('<Screen Container>', () => {
         (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
         const component = 
             <Provider store={storeSampleData}>
-                <ScreenContainer children={screenComponent} isLoading={true} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction}/>
+                <ScreenContainer children={screenComponent} isLoading={false} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction}/>
             </Provider> 
         instance = render(component)
     })

@@ -4,10 +4,6 @@ import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData'
 import { SectionArticlesParentScreen } from '../SectionArticlesParentScreen'
 import { useRoute } from '@react-navigation/native'
-import { OpinionScreen } from '../../category/OpinionScreen'
-import { PodcastProgram } from '../../podcast/PodcastProgram'
-import { VideoScreen } from '../../category/VideoScreen'
-import { GameScreen } from '../../games/GameScreen'
 
 jest.mock('@react-navigation/native', () => ({
     useRoute: jest.fn(),
@@ -22,7 +18,7 @@ jest.mock('@react-navigation/native', () => ({
 describe('<SectionArticlesParentScreen> with keyName', () => {
     let instance: RenderAPI
 
-    const params = {"params":{"keyName":"SectionArticlesParentScreen-91cFeh9o2Kg1fsaaeteVu", "sectionId":102811, "title":"رياضة عالمية"}};
+    const params = {"params":{"keyName":"podcast", "sectionId":102811, "title":"رياضة عالمية"}};
 
     beforeEach(() => {
         (useRoute as jest.Mock).mockReturnValue(params);
@@ -41,28 +37,84 @@ describe('<SectionArticlesParentScreen> with keyName', () => {
     it('Should render component', () => {
         expect(instance).toBeDefined()
     })
+})
 
-    it("TabType.opinion", () => {
-        expect(OpinionScreen).toBeTruthy();
-    });
+describe('<SectionArticlesParentScreen> with keyName', () => {
+    let instance: RenderAPI
 
-    it("TabType.podcast", () => {
-        expect(PodcastProgram).toBeTruthy();
-    });
+    const params = {"params":{"keyName":"games", "sectionId":102811, "title":"رياضة عالمية"}};
 
-    it("TabType.video", () => {
-        expect(VideoScreen).toBeTruthy();
-    });
+    beforeEach(() => {
+        (useRoute as jest.Mock).mockReturnValue(params);
+        const component = 
+            <Provider store={storeSampleData}>
+                <SectionArticlesParentScreen />
+            </Provider> 
+        instance = render(component)
+    })
 
-    it("TabType.games", () => {
-        expect(GameScreen).toBeTruthy();
-    });
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+})
+
+describe('<SectionArticlesParentScreen> with keyName', () => {
+    let instance: RenderAPI
+
+    const params = {"params":{"keyName":"video", "sectionId":102811, "title":"رياضة عالمية"}};
+
+    beforeEach(() => {
+        (useRoute as jest.Mock).mockReturnValue(params);
+        const component = 
+            <Provider store={storeSampleData}>
+                <SectionArticlesParentScreen />
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
 })
 
 describe('<SectionArticlesParentScreen> keyName empty', () => {
     let instance: RenderAPI
 
-    const params = {"params":{"keyName":"", "sectionId":102811, "title":"رياضة عالمية"}};
+    const params = {"params":{"keyName":"abc", "sectionId":102811, "title":"رياضة عالمية"}};
+    
+    beforeEach(() => {
+        (useRoute as jest.Mock).mockReturnValue(params);
+        const component = 
+            <Provider store={storeSampleData}>
+                <SectionArticlesParentScreen />
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+})
+
+describe('<SectionArticlesParentScreen> keyName empty', () => {
+    let instance: RenderAPI
+
+    const params = {"params":{ "sectionId":102811, "title":"رياضة عالمية"}};
     
     beforeEach(() => {
         (useRoute as jest.Mock).mockReturnValue(params);

@@ -32,6 +32,54 @@ jest.mock("src/hooks/useRegister", () => ({
   },
 }));
 
+jest.mock("src/hooks/useUserProfileData", () => ({
+  useUserProfileData: () => {
+    return {
+      fetchProfileDataRequest: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useSearch", () => ({
+  useSearch: () => {
+    return {
+      emptySearchHistory: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useNotificationSaveToken", () => ({
+  useNotificationSaveToken: () => {
+    return {
+      isSaveTokenLoading: false,
+      saveTokenData: {
+        id: 2,
+        message: "string",
+      },
+      storeServerEnvironmentInfo: () => [],
+      saveTokenError: '',
+      saveTokenRequest: () => [],
+      saveTokenAfterRegistrationRequest: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      loginData: {
+        message: {
+          newUser: 'newUser'
+        },
+        token: {
+          token_type: 'type',
+          access_token: 'abcd123'
+        }
+      },
+    }
+  },
+}));
+
 describe('<SignUpPage>', () => {
   let instance: RenderAPI;
   const mockDispatch = jest.fn();

@@ -4,13 +4,41 @@ import { Provider } from 'react-redux'
 import { storeSampleData } from 'src/constants/SampleData'
 import { LatestNewsScreen } from '../LatestNewsScreen'
 import { BannerArticleSection, CarouselSlider, SectionComboOne, ShortArticle } from 'src/components/organisms'
-import { LatestArticleDataType } from 'src/redux/latestNews/types'
+import { LatestArticleDataType, LatestPodcastDataType } from 'src/redux/latestNews/types'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
 }));
+
+
+jest.mock("src/hooks/useBookmark", () => ({
+    useBookmark: () => {
+      return {
+        bookmarkIdInfo: [
+            {
+                nid: '1',
+                bundle: 'string'
+            },
+            {
+                nid: '2',
+                bundle: 'string'
+            }
+        ],
+        sendBookmarkInfo: () => [],
+        removeBookmarkedInfo: () => [],
+      }
+    },
+}));
+
+jest.mock("src/hooks/useUserProfileData", () => ({
+    useUserProfileData: () => {
+      return {
+        fetchProfileDataRequest: () => [],
+      }
+    },
+  }));
 
 const mockFunction = jest.fn();
 
@@ -50,6 +78,39 @@ const heroData: LatestArticleDataType[] = [
     },
 ];
 
+const podCastData: LatestPodcastDataType[] = [
+    {
+      field_total_duration_export: null,
+      nid: '2',
+      type: 'example',
+      view_node: 'example',
+      field_new_sub_title_export: null,
+      title: 'example',
+      field_announcer_name_export: null,
+      field_apple_podcast_export: null,
+      body_export: null,
+      field_duration_export: null,
+      field_episode_export: null,
+      field_google_podcast_export: null,
+      field_podcast_image_export: null,
+      field_podcast_sect_export: {
+        id: '1',
+        title: 'example',
+        url: 'example',
+        bundle: 'example',
+        description: 'example',
+        img_podcast_desktop: 'example',
+        img_podcast_mobile: 'example',
+        name: 'example',
+        image: 'example'
+      },
+      field_spotify_export: null,
+      field_spreaker_episode_export: null,
+      field_spreaker_show_export: null,
+      isBookmarked: true
+    },
+]
+
 jest.mock("src/hooks/useLatestNewsTab", () => ({
     useLatestNewsTab: () => {
         return {
@@ -61,7 +122,7 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
             sectionComboTwo: heroData,
             sectionComboThree: heroData,
             sectionComboFour: heroData,
-            podcastHome: [],
+            podcastHome: podCastData,
             fetchTickerAndHeroArticle: () => {
                 return []
             },
