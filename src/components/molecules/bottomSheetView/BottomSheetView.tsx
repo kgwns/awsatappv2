@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
 import { isTab, screenWidth, normalize } from 'src/shared/utils';
 import { Image, Label } from 'src/components/atoms';
@@ -18,30 +18,36 @@ interface BottomSheetViewProp {
 }
 export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, signUpLabel, logInLabel }: BottomSheetViewProp) => {
     const style = useThemeAwareObject(customStyle);
+    const isPortrait = () => {
+        const dim = Dimensions.get('screen');
+        return dim.height >= dim.width;
+    };
+
     const HeaderLogo = () => getSvgImages({ name: ImagesName.logoBlack, width: style.logo.width, height: style.logo.height });
-    const AlertImage = () => getSvgImages({ name: ImagesName.popupImage, width: style.popupImage.width, height: style.popupImage.height})
+    const HeaderLogoLandscape = () => getSvgImages({ name: ImagesName.logoBlack, width: style.logoLandscape.width, height: style.logoLandscape.height });
+    const AlertImage = () => getSvgImages({ name: ImagesName.popupImage, width: style.popupImage.width, height: style.popupImage.height })
 
     return (
         <View>
-            <View style={style.logoContainer}>
-                <HeaderLogo />
+            <View style={isPortrait() ? style.logoContainer : style.logoContainerLandscape}>
+                {isPortrait() ? <HeaderLogo /> : <HeaderLogoLandscape />}
             </View>
-            <Label style={style.title}>
+            <Label style={isPortrait() ? style.title : style.titleLandscape}>
                 {title}
             </Label>
-            <View style={style.divider} />
-            <Label style={style.description}>
+            <View style={isPortrait() ? style.divider : style.dividerLandscape} />
+            <Label style={isPortrait() ? style.description : style.descriptionLandscape}>
                 {description}
             </Label>
             <View style={style.buttonContainer}>
-                <TouchableOpacity style={StyleSheet.flatten([style.buttonView, { backgroundColor: colors.black }])} onPress={onPressSignUp} >
-                    <Label style={StyleSheet.flatten([style.buttonLabel, { color: colors.white }])}>{signUpLabel}</Label>
+                <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.black }])} onPress={onPressSignUp} >
+                    <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.white }])}>{signUpLabel}</Label>
                 </TouchableOpacity>
-                <TouchableOpacity style={StyleSheet.flatten([style.buttonView, { backgroundColor: colors.carouselPink }])} onPress={onPressSignUp} >
-                    <Label style={StyleSheet.flatten([style.buttonLabel, { color: colors.black }])}>{logInLabel}</Label>
+                <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.carouselPink }])} onPress={onPressSignUp} >
+                    <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.black }])}>{logInLabel}</Label>
                 </TouchableOpacity>
             </View>
-            <View style={style.popupImageContainer}>
+            <View style={isPortrait() ? style.popupImageContainer : style.popupImageContainerLandscape}>
                 <Image fallback name={ImagesName.popupImage} style={style.popupImage} fallbackContent={<AlertImage />} fallbackName={ImagesName.popupImage} />
             </View>
         </View>
@@ -65,12 +71,28 @@ const customStyle = (theme: CustomThemeType) => {
             textAlign: 'center',
             marginTop: normalize(25)
         },
+        titleLandscape: {
+            fontFamily: fonts.AwsatDigitalBetav10_Black,
+            fontSize: normalize(20),
+            lineHeight: normalize(33),
+            color: colors.black,
+            alignSelf: 'center',
+            textAlign: 'center',
+            marginTop: normalize(10)
+        },
         divider: {
             backgroundColor: colors.white,
             height: 2,
             width: normalize(52),
             alignSelf: 'center',
             marginTop: normalize(10)
+        },
+        dividerLandscape: {
+            backgroundColor: colors.white,
+            height: 2,
+            width: normalize(52),
+            alignSelf: 'center',
+            marginTop: normalize(5)
         },
         subTitle: {
             fontFamily: fonts.AwsatDigitalBetav10_Bold,
@@ -91,9 +113,19 @@ const customStyle = (theme: CustomThemeType) => {
             paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
             marginTop: normalize(10)
         },
+        descriptionLandscape: {
+            fontFamily: fonts.Effra_Arbc_Regular,
+            fontSize: 15,
+            lineHeight: 22,
+            color: colors.black,
+            alignSelf: 'center',
+            textAlign: 'center',
+            paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+            marginTop: normalize(5)
+        },
         buttonContainer: {
             flexDirection: 'row',
-            justifyContent:'center'
+            justifyContent: 'center'
         },
         buttonView: {
             width: normalize(141),
@@ -104,25 +136,52 @@ const customStyle = (theme: CustomThemeType) => {
             marginTop: normalize(35),
             marginHorizontal: normalize(10)
         },
+        buttonViewLandscape: {
+            width: normalize(72),
+            height: normalize(23),
+            borderRadius: normalize(50),
+            alignSelf: 'center',
+            justifyContent: 'center',
+            marginHorizontal: normalize(10)
+        },
         buttonLabel: {
             fontFamily: fonts.AwsatDigitalBetav10_Bold,
             fontSize: normalize(16),
             lineHeight: normalize(25),
             textAlign: 'center'
         },
+        buttonLabelLandscape: {
+            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontSize: normalize(10),
+            lineHeight: normalize(16),
+            textAlign: 'center'
+        },
         logoContainer: {
             alignSelf: 'center',
-            marginTop:normalize(50)
+            marginTop: normalize(50)
+        },
+        logoContainerLandscape: {
+            alignSelf: 'center',
+            marginTop: normalize(20)
         },
         logo: {
             width: normalize(200),
             height: normalize(35),
         },
+        logoLandscape: {
+            width: normalize(150),
+            height: normalize(25),
+        },
         popupImageContainer: {
-            alignSelf:'center',
+            alignSelf: 'center',
             width: normalize(250),
             height: normalize(243),
             marginTop: normalize(35)
+        },
+        popupImageContainerLandscape: {
+            alignSelf: 'center',
+            width: normalize(100),
+            height: normalize(143),
         },
         popupImage: {
             width: '100%',
