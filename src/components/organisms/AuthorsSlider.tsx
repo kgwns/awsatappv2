@@ -211,7 +211,7 @@ const AuthorSlider = ({
 const customStyle = (theme: CustomThemeType) => {
   const AuthorSliderStyle = StyleSheet.create({
     container: {
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.secondaryWhite,
       alignContent: 'center',
       flex: 1
     },
