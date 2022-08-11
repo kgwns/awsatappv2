@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, SafeAreaView, TouchableOpacity, Image, Linking} from 'react-native';
+import {View, StyleSheet, SafeAreaView, TouchableOpacity, Image, Linking, Text, Platform} from 'react-native';
 import {ImagesName} from '../shared/styles/images';
 import {ButtonImage, Label, LabelTypeProp} from '../components/atoms';
 import {ButtonList, Divider} from 'src/components/atoms';
@@ -16,7 +16,7 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ScreensConstants} from 'src/constants';
-import {useLogin, useSideMenu} from 'src/hooks';
+import {useLogin, useSideMenu, useWeatherDetails} from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ABOUT_US, ADVERTISE_INFO_ID, AWSATT_HISTORY_INFO_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
@@ -36,6 +36,12 @@ import {
 import { recordLogEvent } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
+import { checkPermission } from 'src/shared/utils/LocationPermission';
+import Geolocation from 'react-native-geolocation-service';
+import CelsiusIcon from 'src/assets/images/icons/weather/Celsius.svg'
+import CloudsIcon from 'src/assets/images/icons/weather/clouds.svg'
+import RainIcon from 'src/assets/images/icons/weather/Rain.svg'
+import SunIcon from 'src/assets/images/icons/weather/sun.svg'
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -59,9 +65,35 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
   const [sideMenuDataInfo, setSideMenuDataInfo] = useState<any>([])
   
+  const { fetchWeatherDetailsInfo, fetchWeatherDetailsSuccessInfo } = useWeatherDetails();
+  const [latitude, setLatitude] = React.useState<number>();
+  const [longitude, setLongitude] = React.useState<number>();
+
   useEffect(() => {
     fetchSideMenuRequest();
+    if(checkPermission()){
+      Geolocation.getCurrentPosition(
+        (position) => {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+        },
+        (error) => {
+          console.log(error.code, error.message);
+        },
+        { enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
+      );
+    }
   }, []);
+
+  useEffect(()=> {
+    if(latitude && longitude){
+     const body = {
+       lat: latitude,
+       lon: longitude
+     }
+     fetchWeatherDetailsInfo(body)
+    }
+   }, [latitude, longitude])
 
   useEffect(() => {
     if (isNonEmptyArray(sideMenuData)) {
@@ -69,6 +101,18 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       setSideMenuDataInfo(data);
     }
   }, [sideMenuData])
+
+  const getWeathericon = () => {
+    if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('rain')){
+      return <RainIcon width={16} height={16} style={styles.weatherIcon}/>
+    }else if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clouds')){
+      return  <CloudsIcon width={16} height={16} style={styles.weatherIcon}/>
+    }else if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('sun')){
+      return  <SunIcon width={16} height={16} style={styles.weatherIcon}/>
+    }else{
+      return  <SunIcon width={16} height={16} style={styles.weatherIcon}/>
+    }
+  };
 
   const formateChildMenuData = (menuData: any[], parentId: null | string = null) => {
     const allMenuData = []
@@ -216,6 +260,45 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       <ScrollView bounces={false}
         showsVerticalScrollIndicator={false}
       >
+        {fetchWeatherDetailsSuccessInfo &&
+          <View style={styles.menuContainer}>
+          <Divider style={styles.divider}/>
+          <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.WEATHER_DETAIL_SCREEN)}  style={styles.weather}>
+            <Text style={styles.weatherTitle}>
+              {'الرياض :'}
+            </Text>
+            {fetchWeatherDetailsSuccessInfo?.list[0].temp.day &&
+            (Platform.OS == 'android' ?
+              (
+                <Text style={styles.weatherTemp}>
+                  {'  '}
+                  <CelsiusIcon/>
+                  {Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day)}
+                  {'  '}
+                </Text>
+              )
+              :
+              ( 
+                <Text style={styles.weatherTemp}>
+                    {'  '}
+                    {Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day)}
+                    <CelsiusIcon/>
+                    {'  '}
+                </Text>
+              )
+            ) 
+            }
+              {getWeathericon()}
+            {fetchWeatherDetailsSuccessInfo?.list[0].weather[0].description &&
+              <Text style={styles.weatherType}>
+                {'  '}
+                {fetchWeatherDetailsSuccessInfo?.list[0].weather[0].description}
+              </Text>
+            }
+          </TouchableOpacity>
+        </View>
+      }
+      
         <View style={styles.menuContainer}>
           {sideMenuDataInfo.length > 0 &&
             sideMenuDataInfo.map((item:any, index:number) => {
@@ -348,6 +431,32 @@ const createStyles = (theme: CustomThemeType) =>
     },
     logoContainer: {
       alignItems: 'center',
+    },
+    weather: {
+      marginTop: normalize(20),
+      alignSelf: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row'
+    },
+    weatherType: {
+      fontFamily: fonts.Effra_Regular,
+      fontSize: Platform.OS == 'android' ? normalize(16) : normalize(12.5),
+      color: colors.lightGrey,
+      marginTop: Platform.OS == 'android' ? normalize(0) : normalize(5)
+    },
+    weatherTemp: {
+      fontFamily: fonts.Effra_Regular,
+      fontSize: Platform.OS == 'android' ? normalize(18) : normalize(16),
+      color: colors.greenishBlue,
+      marginTop: Platform.OS == 'android' ? normalize(0) :  normalize(5)
+    },
+    weatherIcon: {
+      marginTop: normalize(5)
+    },
+    weatherTitle: {
+      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontSize: Platform.OS == 'android' ? normalize(16) : normalize(14),
+      color: colors.black,
     },
     nonBoldTitle: {
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
