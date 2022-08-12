@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {View, StyleSheet, ViewStyle} from 'react-native';
 import { ShortArticle, NewsFeed } from '../../organisms';
 import {isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
@@ -23,7 +23,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import { Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';
 import { useBookmark, useLogin } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
-import { fetchNewsViewApi } from 'src/services/newsViewService';
+import { fetchNewsViewApi, fetchSubArticleSectionApi } from 'src/services/newsViewService';
 import { AxiosError } from 'axios';
 import { formatTopListToLatestArticleType } from 'src/redux/newsView/sagas';
 // import { fetchVideoListApi } from 'src/services/videoListService';
@@ -103,6 +103,10 @@ export const SectionStoryScreen = React.memo(({
   const [showupUp,setShowPopUp] = useState(false)
   const [isBottomListLoading, setIsBottomListLoading] = useState<boolean>(false)
 
+  const isParentSection = useMemo(() => {
+    return sectionId === currentSectionId
+  }, [sectionId, currentSectionId])
+
   useEffect(() => {
     // makeInitialDataEmpty();
     getSectionDetail()
@@ -139,7 +143,8 @@ export const SectionStoryScreen = React.memo(({
 
   const getHeroListData = async() => {
     try {
-      const heroDataInfo = await fetchNewsViewApi(heroListPayload)
+      const heroDataInfo = await isParentSection ? fetchNewsViewApi(heroListPayload)
+        : await fetchSubArticleSectionApi(heroListPayload)
       const heroData = heroDataInfo.rows ?? []
       setHeroData(heroData)
     } catch (error) {
@@ -153,7 +158,8 @@ export const SectionStoryScreen = React.memo(({
 
   const getTopListData = async() => {
     try {
-      const topListInfo = await fetchNewsViewApi(topListPayload)
+      const topListInfo = isParentSection ? await fetchNewsViewApi(topListPayload)
+      : await fetchSubArticleSectionApi(topListPayload) 
       const topListRows = formatTopListToLatestArticleType(topListInfo)
       setTopData(topListRows)
     } catch (error) {
@@ -168,7 +174,8 @@ export const SectionStoryScreen = React.memo(({
   const getBottomListData = async() => {
     setIsBottomListLoading(true)
     try {
-      const bottomListInfo = await fetchNewsViewApi(bottomListPayload)
+      const bottomListInfo = isParentSection ? await fetchNewsViewApi(bottomListPayload)
+        : await fetchSubArticleSectionApi(bottomListPayload) 
       const bottomListRows = bottomListInfo.rows ?? []
       const updatedBottomData = isNonEmptyArray(bottomListDataInfo) ? bottomListDataInfo.concat(bottomListRows) :  bottomListRows
       setBottomData(updatedBottomData)
