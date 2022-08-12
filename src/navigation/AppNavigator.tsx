@@ -219,6 +219,11 @@ const AppNavigator = () => {
         options={hideHeader}
       />
       <Stack.Screen
+        name={ScreensConstants.JOURNALIST_DETAIL_SCREEN}
+        component={Routes.JournalistDetail}
+        options={hideHeader}
+      />
+      <Stack.Screen
         name={ScreensConstants.SectionArticlesParentScreen}
         component={Routes.SectionArticlesParentScreen}
         options={hideHeader}

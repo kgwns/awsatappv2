@@ -246,13 +246,13 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     imageStyle: {
         width: '100%',
-        height: normalize(260),
-        aspectRatio: 1.5,
+        height: 'auto',
+        aspectRatio: 1.62,
     },
     tabImageStyle: {
         width: 0.5 * screenWidth,
         height: 'auto',
-        aspectRatio: 1.5,
+        aspectRatio: 1.62,
     },
     listContainer: {
         flex: 1,

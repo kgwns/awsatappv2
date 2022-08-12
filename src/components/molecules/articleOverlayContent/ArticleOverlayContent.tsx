@@ -63,7 +63,8 @@ export const ArticleOverlayContent = ({
                 />
             }
             <ArticleFooter {...articleDetailFooterData} isDetail={true}
-                rightTitle={decodeHTMLTags(decode(author))} leftTitle={timeFormat.time}
+                // rightTitle={decodeHTMLTags(decode(author))} 
+                leftTitle={timeFormat.time}
                 leftIcon={() => TimeIcon(timeFormat.icon)}
             />
         </View>

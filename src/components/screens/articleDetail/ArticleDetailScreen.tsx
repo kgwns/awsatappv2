@@ -1,9 +1,9 @@
-import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
+import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, StatusBar, useWindowDimensions, TouchableOpacity } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
-import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader } from 'src/components/molecules'
-import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
+import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
+import { Divider, HeaderElementProps, Label, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
@@ -27,6 +27,7 @@ import { RenderRichHTMLContent } from './components/ArticleDetailRichContent'
 import SystemNavigationBar from 'react-native-system-navigation-bar'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { ArticleDetailBody } from './components/ArticleDetailBody'
+import { journalistNames } from 'src/constants/SampleData'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -428,6 +429,7 @@ export const ArticleDetailScreen = ({
             onChangeFullScreen={onChangeFullScreen}
             isFullScreen={isFullScreen}
           />
+          <Journalist data={journalistNames}/>
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
           <Divider style={style.divider} />

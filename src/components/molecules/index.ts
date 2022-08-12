@@ -59,3 +59,4 @@ export { MyTopicsHorizontalSlider } from 'src/components/molecules/MyTopicsHoriz
 export { AuthorsHorizontalSlider } from 'src/components/molecules/AuthorsHorizontalSlider';
 export { DetailHeader } from 'src/components/molecules/detailHeader/DetailHeader';
 export { StaticPageHeader, StaticPageHeaderType } from 'src/components/molecules/staticPageHeader/StaticPageHeader'
+export { Journalist } from 'src/components/molecules/journalists/Journalists'

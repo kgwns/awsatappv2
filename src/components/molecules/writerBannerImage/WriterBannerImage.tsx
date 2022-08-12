@@ -35,7 +35,8 @@ export interface WriterBannerImageProps {
   visibleHome?: boolean
   onPressHome: () => void,
   isFocused?: boolean,
-  isWriter?: boolean
+  isWriter?: boolean,
+  showIsFollowed?: boolean,
 }
 
 export const WriterBannerImage = ({
@@ -49,7 +50,8 @@ export const WriterBannerImage = ({
   visibleHome = false,
   onPressHome,
   isFocused,
-  isWriter = false
+  isWriter = false,
+  showIsFollowed = true
 }: WriterBannerImageProps) => {
   const [t] = useTranslation()
 
@@ -174,9 +176,9 @@ export const WriterBannerImage = ({
               </View>
             
 
-            <View style={style.subscribeView}>
+            {showIsFollowed && <View style={style.subscribeView}>
               <SubscribeButton isFollowed={isFollowed} />
-            </View>
+            </View>}
           </View>
           <Label style={style.authorDescription}>{decode(decodeHTMLTags(data.authorDescription))}</Label>
           <View style={{ flexDirection: 'row' }}>
