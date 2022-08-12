@@ -2,6 +2,9 @@ import {
   GET_WEATHER_DETAILS_REQUEST,
   GET_WEATHER_DETAILS_SUCCESS,
   GET_WEATHER_DETAILS_FAILED,
+  GET_WEATHER_DETAILS_VISIBILITY_REQUEST,
+  GET_WEATHER_DETAILS_VISIBILITY_SUCCESS,
+  GET_WEATHER_DETAILS_VISIBILITY_FAILED,
 } from './actionType';
 
 export interface WeatherDetailBodyType {
@@ -16,10 +19,15 @@ export interface WeatherDetailSuccessPayloadType {
   list: list[];
 }
 
+export interface WeatherDetailVisibilitySuccessPayloadType {
+  visibility: number,
+}
+
 export interface city {
   id: number,
   name: string,
   country: string,
+  timezone: number,
 }
 
 export interface weather {
@@ -58,13 +66,9 @@ export interface list {
     rain: number
 }
 
-export interface WeatherDetailAfterRegistraionSuccessPayloadType {
-    message: string;
-    action?: string;
-}
-
 export interface WeatherDetailState {
   WeatherDetailInfo: WeatherDetailSuccessPayloadType | null;
+  WeatherDetailVisibilityInfo: WeatherDetailVisibilitySuccessPayloadType | null;
   error: string;
   isLoading: boolean;
 }
@@ -73,6 +77,7 @@ export type WeatherDetailType = {
   type: typeof GET_WEATHER_DETAILS_REQUEST;
   payload: WeatherDetailBodyType;
 };
+
 export type WeatherDetailSuccessType = {
   type: typeof GET_WEATHER_DETAILS_SUCCESS;
   payload: WeatherDetailSuccessPayloadType;
@@ -87,7 +92,25 @@ export type WeatherDetailFailedType = {
   payload: WeatherDetailFailedPayloadType;
 };
 
+export type WeatherDetailVisibilityType = {
+  type: typeof GET_WEATHER_DETAILS_VISIBILITY_REQUEST;
+  payload: WeatherDetailBodyType;
+};
+
+export type WeatherDetailVisibilitySuccessType = {
+  type: typeof GET_WEATHER_DETAILS_VISIBILITY_SUCCESS;
+  payload: WeatherDetailVisibilitySuccessPayloadType;
+};
+
+export type WeatherDetailVisibilityFailedType = {
+  type: typeof GET_WEATHER_DETAILS_VISIBILITY_FAILED;
+  payload: WeatherDetailFailedPayloadType;
+};
+
 export type WeatherDetailAction =
   | WeatherDetailType
   | WeatherDetailSuccessType
-  | WeatherDetailFailedType;
+  | WeatherDetailFailedType
+  | WeatherDetailVisibilityType
+  | WeatherDetailVisibilitySuccessType
+  | WeatherDetailVisibilityFailedType;

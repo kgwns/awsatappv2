@@ -65,7 +65,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
   const [sideMenuDataInfo, setSideMenuDataInfo] = useState<any>([])
   
-  const { fetchWeatherDetailsInfo, fetchWeatherDetailsSuccessInfo } = useWeatherDetails();
+  const { fetchWeatherDetailsInfo, fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilityInfo } = useWeatherDetails();
   const [latitude, setLatitude] = React.useState<number>();
   const [longitude, setLongitude] = React.useState<number>();
 
@@ -92,6 +92,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
        lon: longitude
      }
      fetchWeatherDetailsInfo(body)
+     fetchWeatherDetailsVisibilityInfo(body)
     }
    }, [latitude, longitude])
 
@@ -265,28 +266,15 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           <Divider style={styles.divider}/>
           <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.WEATHER_DETAIL_SCREEN)}  style={styles.weather}>
             <Text style={styles.weatherTitle}>
-              {'الرياض :'}
+            {t('weatherDetail.sidebarTitle')}
             </Text>
             {fetchWeatherDetailsSuccessInfo?.list[0].temp.day &&
-            (Platform.OS == 'android' ?
-              (
-                <Text style={styles.weatherTemp}>
-                  {'  '}
-                  <CelsiusIcon/>
-                  {Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day)}
-                  {'  '}
-                </Text>
-              )
-              :
-              ( 
                 <Text style={styles.weatherTemp}>
                     {'  '}
                     {Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day)}
                     <CelsiusIcon/>
                     {'  '}
                 </Text>
-              )
-            ) 
             }
               {getWeathericon()}
             {fetchWeatherDetailsSuccessInfo?.list[0].weather[0].description &&

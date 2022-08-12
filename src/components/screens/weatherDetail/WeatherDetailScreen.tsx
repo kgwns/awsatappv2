@@ -14,7 +14,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {images} from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
-import { Divider, Label, Image } from 'src/components/atoms';
+import { Divider, Label } from 'src/components/atoms';
 import { ScrollView } from 'react-native-gesture-handler';
 import WeatherThermometerIcon from 'src/assets/images/icons/weather/weather_thermometer.svg';
 import WeatherRainIcon from 'src/assets/images/icons/weather/weather_rain.svg';
@@ -27,7 +27,7 @@ import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon
 import { calculateDateNumber, calculateMonth, calculateYear } from 'src/shared/utils/utilities';
 import { arabic } from 'src/assets/locales/ar/common-ar';
 import moment from 'moment';
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 import { useWeatherDetails } from 'src/hooks';
 import SunImageIcom from 'src/assets/images/icons/weather/Images/Sun.svg'
 import CloudImageIcom from 'src/assets/images/icons/weather/Images/Clouds.svg'
@@ -46,7 +46,7 @@ interface weatherDate {
 export const WeatherDetailScreen: FunctionComponent = () => { 
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
-  const { fetchWeatherDetailsSuccessInfo } = useWeatherDetails();
+  const { fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilitySuccessInfo } = useWeatherDetails();
   
   var currentDate = new Date();
   currentDate.setDate(currentDate.getDate());
@@ -60,6 +60,21 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   const [weatherDataDetails, setWeatherDataDetails] = React.useState(data);
   const [weatherListDetails, setweatherListDetails] = React.useState(fetchWeatherDetailsSuccessInfo?.list[0]);
+
+  let weatherSunrise = fetchWeatherDetailsSuccessInfo?.list[0].sunrise ? fetchWeatherDetailsSuccessInfo?.list[0].sunrise : 0;
+  let weatherSunset = fetchWeatherDetailsSuccessInfo?.list[0].sunset ? fetchWeatherDetailsSuccessInfo?.list[0].sunset : 0;
+
+  var moments = require('moment-timezone');
+  var offsetTimezone = fetchWeatherDetailsSuccessInfo?.city.timezone ? (fetchWeatherDetailsSuccessInfo?.city.timezone).toString() : 0;
+  const timeWeatherSunriseData = new Date(weatherSunrise * 1000);
+  var countrySpecificTimeSunrise = moments(timeWeatherSunriseData).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
+  const timeWeatherSunSetData = new Date(weatherSunset * 1000);
+  var countrySpecificTimeSunSet = moments(timeWeatherSunSetData).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
+
+  var convertedcountrySpecificTimeSunSet = moments(countrySpecificTimeSunSet).format('HH:mm:ss')
+  var convertedcountrySpecificTimeSunrise = moments(countrySpecificTimeSunrise).format('HH:mm:ss')
+
+  var [weatherDataVisibility, setWeatherDataVisibility] = React.useState(fetchWeatherDetailsVisibilitySuccessInfo?.visibility? fetchWeatherDetailsVisibilitySuccessInfo.visibility : '');
 
   const weatherDetail = () => (
    <View style={styles.weatherDetail}>
@@ -82,7 +97,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     }else{
       return images.clearSkyImg
     }
-  };
+  };  
 
   const getImageIcon = () => {
     if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('rain')){
@@ -115,23 +130,26 @@ export const WeatherDetailScreen: FunctionComponent = () => {
           </Label>
         </View>
       </View>
-      <View style={styles.weatherImageView1}>
-        <Label style={styles.imageLabel5}>
-          <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20}/>
-          {'  '}
-          بعد الظهر
-        </Label>
-        <Text style={styles.imageLabel6}>{fetchWeatherDetailsSuccessInfo?.list[0].sunrise}</Text>
-      </View>
-      {/* {t('opinion.listenToActicleText')}  */}
-      <View style={styles.weatherImageView1}>
-        <Label style={styles.imageLabel5}>
-          <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20}/>
-          {'  '}
-          المساء
-        </Label>
-        <Text style={styles.imageLabel6}>{fetchWeatherDetailsSuccessInfo?.list[0].sunset}</Text>
-      </View>
+      { (fetchWeatherDetailsSuccessInfo?.list[0].sunrise && fetchWeatherDetailsSuccessInfo?.city.timezone) &&
+        <View style={styles.weatherImageView1}>
+          <Label style={styles.imageLabel5}>
+            <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20}/>
+            {'  '}
+            {t('weatherDetail.sunrise')}
+          </Label>
+          <Text style={styles.imageLabel6}>{convertedcountrySpecificTimeSunrise}</Text>
+        </View>
+      }   
+      {(fetchWeatherDetailsSuccessInfo?.list[0].sunset && fetchWeatherDetailsSuccessInfo?.city.timezone ) &&
+        <View style={styles.weatherImageView1}>
+          <Label style={styles.imageLabel5}>
+            <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20}/>
+            {'  '}
+            {t('weatherDetail.sunset')}
+          </Label>
+          <Text style={styles.imageLabel6}>{convertedcountrySpecificTimeSunSet}</Text>
+        </View>
+      }
      </ImageBackground>
   );
 
@@ -143,6 +161,11 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     weatherDataDetails[index].selected = true;
     setWeatherDataDetails(weatherUpdates);
     setweatherListDetails(fetchWeatherDetailsSuccessInfo?.list[index])
+    if(index == 0){
+      setWeatherDataVisibility(fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? fetchWeatherDetailsVisibilitySuccessInfo?.visibility : '')
+    }else{
+      setWeatherDataVisibility('')
+    }
   };
 
   const renderItem = (item: weatherDate, index: number) => {
@@ -172,7 +195,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
         <Label style={styles.labelsList}>
           <WeatherThermometerIcon width={23} height={23}/>
           {'    '}
-          الحرارة العظمى/الصغرى
+          {t('weatherDetail.max')}
         </Label>
         {(weatherListDetails?.temp.max && weatherListDetails?.temp.min) &&
           <Label style={styles.labelsList}>{weatherListDetails?.temp.max}°/{weatherListDetails?.temp.min}°</Label>
@@ -183,7 +206,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
         <Label style={styles.labelsList}>
           <WeatherRainIcon width={23} height={23}/>
           {'    '}
-          الرطوبة 
+          {t('weatherDetail.humidity')} 
         </Label>
         {weatherListDetails?.humidity &&
           <Label style={styles.labelsList}>{weatherListDetails?.humidity}%</Label>
@@ -194,34 +217,34 @@ export const WeatherDetailScreen: FunctionComponent = () => {
         <Label style={styles.labelsList}>
           <WeatherIcon3 width={23} height={23}/>
           {'    '}
-          سرعة الرياح
-        </Label>
-        <Label style={styles.labelsList}>{weatherListDetails?.speed} كم/ساعة</Label>
+          {t('weatherDetail.speed')} 
+         </Label>
+        <Label style={styles.labelsList}>{weatherListDetails?.speed} {t('weatherDetail.kmh')}</Label>
       </View>
       <Divider style={styles.divider}/>
       <View style={styles.weatherDescriptionView}>
         <Label style={styles.labelsList}>
         <WeatherIcon4 width={23} height={23}/>
           {'    '}
-          الرؤية
+          {t('weatherDetail.visibility')} 
         </Label>
-        <Label style={styles.labelsList}> كم</Label>
+        <Label style={styles.labelsList}>{weatherDataVisibility}  {t('weatherDetail.km')}</Label>
       </View> 
       <Divider style={styles.divider}/>
       <View style={styles.weatherDescriptionView}>
         <Label style={styles.labelsList}>
         <WeatherIcon5 width={23} height={23}/>
           {'    '}
-          الضغط
+          {t('weatherDetail.pressure')} 
         </Label>
-        <Label style={styles.labelsList}>{weatherListDetails?.pressure} مللي بار</Label>
+        <Label style={styles.labelsList}>{weatherListDetails?.pressure} {t('weatherDetail.mbar')}</Label>
       </View> 
       <Divider style={styles.divider}/>
       <View style={styles.weatherDescriptionView}>
         <Label style={styles.labelsList}>
         <WeatherIcon6 width={23} height={23}/>
           {'    '}
-          حالة البحر
+          {t('weatherDetail.seacondition')} 
         </Label>
         <Label style={styles.labelsList}></Label>
       </View> 

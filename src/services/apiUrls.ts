@@ -37,3 +37,4 @@ export const CROSS_WORD_GAME_BASE_ID_URL = 'https://cdn-eu1.amuselabs.com/pmm/cr
 
 //Weather
 export const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/forecast/daily'
+export const WEATHER_URL_VISIBILITY = 'https://api.openweathermap.org/data/2.5/weather'

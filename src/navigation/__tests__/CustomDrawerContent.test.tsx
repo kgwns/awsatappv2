@@ -55,8 +55,12 @@ jest.mock("src/hooks/useWeatherDetails", () => ({
                 }
             ]
         },
+        fetchWeatherDetailsVisibilitySuccessInfo: {
+            visibility: 1000,
+        },
         fetchWeatherDetailsErrorInfo: '',
         fetchWeatherDetailsInfo: () => [],
+        fetchWeatherDetailsVisibilityInfo: () => [],
       }
     },
 }));

@@ -120,17 +120,21 @@ export const storeInfo = [
     },
     weatherDetails: {
       isLoading: false,
-      fetchWeatherDetailsSuccess: {
+      WeatherDetailInfo: {
         city: {
           id: 0,
           name: '',
           country: '',
+          timezone: 0
         },
         cod: '',
         cnt: 0,
         list: [],
       },
-      fetchWeatherDetailsError: '',
+      WeatherDetailVisibilityInfo: {
+        visibility: 0
+      },
+      error: '',
     },
     sectionArticles: {
       sectionArticlesData: {
