@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React, { FunctionComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -10,9 +10,9 @@ import {
 import {
   normalize,
 } from '../../../shared/utils';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {images} from 'src/shared/styles/images';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { images } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
 import { Divider, Label } from 'src/components/atoms';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -43,28 +43,31 @@ interface weatherDate {
   selected: boolean,
 }
 
-export const WeatherDetailScreen: FunctionComponent = () => { 
+export const WeatherDetailScreen: FunctionComponent = () => {
+  const { fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilitySuccessInfo } = useWeatherDetails();
+
+  var moments = require('moment-timezone');
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
-  const { fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilitySuccessInfo } = useWeatherDetails();
-  
   var currentDate = new Date();
-  currentDate.setDate(currentDate.getDate());
   var data: weatherDate[] = [];
-  currentDate.setDate(currentDate.getDate());
-  data.push({date: (calculateDateNumber(currentDate).toString()), month:  calculateMonth(currentDate), day: arabic.day[moment(currentDate).get('day')], year: calculateYear(currentDate), selected: true});
-  for(let i=1; i<7; i++){
-    currentDate.setDate(currentDate.getDate()+1);
-    data.push({date: (calculateDateNumber(currentDate)).toString(), month:  calculateMonth(currentDate), day: arabic.day[moment(currentDate).get('day')], year: calculateYear(currentDate) ,selected: false});
-  }
 
   const [weatherDataDetails, setWeatherDataDetails] = React.useState(data);
   const [weatherListDetails, setweatherListDetails] = React.useState(fetchWeatherDetailsSuccessInfo?.list[0]);
+  var [weatherDataVisibility, setWeatherDataVisibility] = React.useState(fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? fetchWeatherDetailsVisibilitySuccessInfo.visibility : '');
+
+  currentDate.setDate(currentDate.getDate());
+  currentDate.setDate(currentDate.getDate());
+
+  data.push({ date: (calculateDateNumber(currentDate).toString()), month: calculateMonth(currentDate), day: arabic.day[moment(currentDate).get('day')], year: calculateYear(currentDate), selected: true });
+  for (let i = 1; i < 7; i++) {
+    currentDate.setDate(currentDate.getDate() + 1);
+    data.push({ date: (calculateDateNumber(currentDate)).toString(), month: calculateMonth(currentDate), day: arabic.day[moment(currentDate).get('day')], year: calculateYear(currentDate), selected: false });
+  }
 
   let weatherSunrise = fetchWeatherDetailsSuccessInfo?.list[0].sunrise ? fetchWeatherDetailsSuccessInfo?.list[0].sunrise : 0;
   let weatherSunset = fetchWeatherDetailsSuccessInfo?.list[0].sunset ? fetchWeatherDetailsSuccessInfo?.list[0].sunset : 0;
 
-  var moments = require('moment-timezone');
   var offsetTimezone = fetchWeatherDetailsSuccessInfo?.city.timezone ? (fetchWeatherDetailsSuccessInfo?.city.timezone).toString() : 0;
   const timeWeatherSunriseData = new Date(weatherSunrise * 1000);
   var countrySpecificTimeSunrise = moments(timeWeatherSunriseData).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
@@ -74,44 +77,43 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   var convertedcountrySpecificTimeSunSet = moments(countrySpecificTimeSunSet).format('HH:mm:ss')
   var convertedcountrySpecificTimeSunrise = moments(countrySpecificTimeSunrise).format('HH:mm:ss')
 
-  var [weatherDataVisibility, setWeatherDataVisibility] = React.useState(fetchWeatherDetailsVisibilitySuccessInfo?.visibility? fetchWeatherDetailsVisibilitySuccessInfo.visibility : '');
 
   const weatherDetail = () => (
-   <View style={styles.weatherDetail}>
-        <Label style={styles.labels}>{fetchWeatherDetailsSuccessInfo?.city.name}</Label>
-        {weatherImage()}
-  </View>
+    <View style={styles.weatherDetail}>
+      <Label style={styles.labels}>{fetchWeatherDetailsSuccessInfo?.city.name}</Label>
+      {weatherImage()}
+    </View>
   );
 
   const getBackgroundImage = () => {
-    if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('rain')){
+    if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('rain')) {
       return images.rainyImg
-    }else if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clouds')){
+    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clouds')) {
       return images.cloudyImg
-    }else if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clear')){
+    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clear')) {
       return images.clearSkyImg
-    }else if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('sun')){
+    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('sun')) {
       return images.sunnyImg
-    }else if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('sand')){
+    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('sand')) {
       return images.sandImg
-    }else{
+    } else {
       return images.clearSkyImg
     }
-  };  
+  };
 
   const getImageIcon = () => {
-    if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('rain')){
-      return <RainImageIcom height={160} width={160}/>
-    }else if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clouds')){
-      return <CloudImageIcom height={160} width={160}/>
-    }else if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clear')){
-      return <SunCloudsImageIcon height={160} width={160}/>
-    }else if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('sun')){
-      return <SunImageIcom height={160} width={160}/>
-    }else if(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('fog')){
-      return <FogImageIcom height={160} width={160}/>
-    }else{
-      return <SunCloudsImageIcon height={160} width={160}/>
+    if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('rain')) {
+      return <RainImageIcom height={160} width={160} />
+    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clouds')) {
+      return <CloudImageIcom height={160} width={160} />
+    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clear')) {
+      return <SunCloudsImageIcon height={160} width={160} />
+    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('sun')) {
+      return <SunImageIcom height={160} width={160} />
+    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('fog')) {
+      return <FogImageIcom height={160} width={160} />
+    } else {
+      return <SunCloudsImageIcon height={160} width={160} />
     }
   };
 
@@ -119,41 +121,41 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     <ImageBackground source={getBackgroundImage()} style={styles.weatherImage}>
       <View style={styles.weatherImageView1}>
         <Text style={styles.imageLabel1}>{fetchWeatherDetailsSuccessInfo?.city.name}</Text>
-        <Text style={styles.imageLabel2}>{data[0].date} {data[0].month} {data[0].year}</Text> 
+        <Text style={styles.imageLabel2}>{data[0].date} {data[0].month} {data[0].year}</Text>
       </View>
       <View style={styles.weatherImageView2}>
         <Text style={styles.imageLabel3}>{fetchWeatherDetailsSuccessInfo?.list[0].temp.day}</Text>
-        <View style={{flexDirection: 'column'}}>
-          { getImageIcon()}
+        <View style={{ flexDirection: 'column' }}>
+          {getImageIcon()}
           <Label style={styles.imageLabel4}>
             {fetchWeatherDetailsSuccessInfo?.list[0].weather[0].description}
           </Label>
         </View>
       </View>
-      { (fetchWeatherDetailsSuccessInfo?.list[0].sunrise && fetchWeatherDetailsSuccessInfo?.city.timezone) &&
+      {(fetchWeatherDetailsSuccessInfo?.list[0].sunrise && fetchWeatherDetailsSuccessInfo?.city.timezone) &&
         <View style={styles.weatherImageView1}>
           <Label style={styles.imageLabel5}>
-            <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20}/>
+            <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
             {'  '}
             {t('weatherDetail.sunrise')}
           </Label>
           <Text style={styles.imageLabel6}>{convertedcountrySpecificTimeSunrise}</Text>
         </View>
-      }   
-      {(fetchWeatherDetailsSuccessInfo?.list[0].sunset && fetchWeatherDetailsSuccessInfo?.city.timezone ) &&
+      }
+      {(fetchWeatherDetailsSuccessInfo?.list[0].sunset && fetchWeatherDetailsSuccessInfo?.city.timezone) &&
         <View style={styles.weatherImageView1}>
           <Label style={styles.imageLabel5}>
-            <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20}/>
+            <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
             {'  '}
             {t('weatherDetail.sunset')}
           </Label>
           <Text style={styles.imageLabel6}>{convertedcountrySpecificTimeSunSet}</Text>
         </View>
       }
-     </ImageBackground>
+    </ImageBackground>
   );
 
-  const updateOnPress = async (index: number)  => {
+  const updateOnPress = (index: number) => {
     const weatherUpdates = weatherDataDetails.map((item) => {
       item.selected = false;
       return item;
@@ -161,31 +163,31 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     weatherDataDetails[index].selected = true;
     setWeatherDataDetails(weatherUpdates);
     setweatherListDetails(fetchWeatherDetailsSuccessInfo?.list[index])
-    if(index == 0){
+    if (index == 0) {
       setWeatherDataVisibility(fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? fetchWeatherDetailsVisibilitySuccessInfo?.visibility : '')
-    }else{
+    } else {
       setWeatherDataVisibility('')
     }
   };
 
   const renderItem = (item: weatherDate, index: number) => {
     return (
-        <TouchableOpacity style={item.selected ? styles.dayContainerSelected : styles.dayContainerNotSelected} onPress={() => updateOnPress(index)}>
-            <View>
-                <View>
-                  <Label style={item.selected ? styles.dayContainerSelectedLabel1 : styles.dayContainerNotSelectedLabel1} >
-                    {item.month}
-                  </Label>
-                </View>
-                <View>
-                  <Label style={styles.dayContainerLabel2}>
-                    {item.date}
-                    {' '}
-                    {item.day}
-                  </Label>
-                </View>
-            </View>
-        </TouchableOpacity>
+      <TouchableOpacity style={item.selected ? styles.dayContainerSelected : styles.dayContainerNotSelected} onPress={() => updateOnPress(index)}>
+        <View>
+          <View>
+            <Label style={item.selected ? styles.dayContainerSelectedLabel1 : styles.dayContainerNotSelectedLabel1} >
+              {item.month}
+            </Label>
+          </View>
+          <View>
+            <Label style={styles.dayContainerLabel2}>
+              {item.date}
+              {' '}
+              {item.day}
+            </Label>
+          </View>
+        </View>
+      </TouchableOpacity>
     )
   }
 
@@ -193,7 +195,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     <View style={styles.weatherDescriptionContainer}>
       <View style={styles.weatherDescriptionView}>
         <Label style={styles.labelsList}>
-          <WeatherThermometerIcon width={23} height={23}/>
+          <WeatherThermometerIcon width={23} height={23} />
           {'    '}
           {t('weatherDetail.max')}
         </Label>
@@ -201,74 +203,74 @@ export const WeatherDetailScreen: FunctionComponent = () => {
           <Label style={styles.labelsList}>{weatherListDetails?.temp.max}°/{weatherListDetails?.temp.min}°</Label>
         }
       </View>
-      <Divider style={styles.divider}/>
+      <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <Label style={styles.labelsList}>
-          <WeatherRainIcon width={23} height={23}/>
+          <WeatherRainIcon width={23} height={23} />
           {'    '}
-          {t('weatherDetail.humidity')} 
+          {t('weatherDetail.humidity')}
         </Label>
         {weatherListDetails?.humidity &&
           <Label style={styles.labelsList}>{weatherListDetails?.humidity}%</Label>
         }
       </View>
-      <Divider style={styles.divider}/>
+      <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <Label style={styles.labelsList}>
-          <WeatherIcon3 width={23} height={23}/>
+          <WeatherIcon3 width={23} height={23} />
           {'    '}
-          {t('weatherDetail.speed')} 
-         </Label>
+          {t('weatherDetail.speed')}
+        </Label>
         <Label style={styles.labelsList}>{weatherListDetails?.speed} {t('weatherDetail.kmh')}</Label>
       </View>
-      <Divider style={styles.divider}/>
+      <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <Label style={styles.labelsList}>
-        <WeatherIcon4 width={23} height={23}/>
+          <WeatherIcon4 width={23} height={23} />
           {'    '}
-          {t('weatherDetail.visibility')} 
+          {t('weatherDetail.visibility')}
         </Label>
         <Label style={styles.labelsList}>{weatherDataVisibility}  {t('weatherDetail.km')}</Label>
-      </View> 
-      <Divider style={styles.divider}/>
+      </View>
+      <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <Label style={styles.labelsList}>
-        <WeatherIcon5 width={23} height={23}/>
+          <WeatherIcon5 width={23} height={23} />
           {'    '}
-          {t('weatherDetail.pressure')} 
+          {t('weatherDetail.pressure')}
         </Label>
         <Label style={styles.labelsList}>{weatherListDetails?.pressure} {t('weatherDetail.mbar')}</Label>
-      </View> 
-      <Divider style={styles.divider}/>
+      </View>
+      <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <Label style={styles.labelsList}>
-        <WeatherIcon6 width={23} height={23}/>
+          <WeatherIcon6 width={23} height={23} />
           {'    '}
-          {t('weatherDetail.seacondition')} 
+          {t('weatherDetail.seacondition')}
         </Label>
         <Label style={styles.labelsList}></Label>
-      </View> 
-   </View>
+      </View>
+    </View>
   );
 
   return (
-        <View style={styles.container}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {weatherDetail()}
-            <View  style={styles.weatherDate}>
-              <FlatList
-                testID={'newsHorizontalListId'}
-                horizontal
-                data={weatherDataDetails}
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={(_, index) => index.toString()}
-                renderItem={({ item, index }) => renderItem(item, index)}
-                bounces={false}
-              />
-            </View>
-            {weatherDescription()}
-          </ScrollView>
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {weatherDetail()}
+        <View style={styles.weatherDate}>
+          <FlatList
+            testID={'newsHorizontalListId'}
+            horizontal
+            data={weatherDataDetails}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={({ item, index }) => renderItem(item, index)}
+            bounces={false}
+          />
         </View>
+        {weatherDescription()}
+      </ScrollView>
+    </View>
   );
 };
 
@@ -290,8 +292,8 @@ const createStyles = (theme: CustomThemeType) =>
       paddingRight: normalize(10)
     },
     weatherDescriptionView: {
-      flexDirection: 'row', 
-      flex: 1, 
+      flexDirection: 'row',
+      flex: 1,
       justifyContent: 'space-between'
     },
     labels: {
@@ -344,7 +346,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontFamily: fonts.Effra_Regular,
       fontSize: normalize(18),
       color: colors.white,
-      textAlign:'center',
+      textAlign: 'center',
     },
     imageLabel5: {
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
@@ -393,8 +395,8 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: normalize(6)
     },
     weatherImageView2: {
-      paddingHorizontal: normalize(10), 
-      flexDirection: 'row', 
+      paddingHorizontal: normalize(10),
+      flexDirection: 'row',
       justifyContent: 'space-between'
     },
     weatherDescriptionContainer: {
@@ -413,4 +415,4 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.black,
       lineHeight: normalize(32),
     },
-});
+  });

@@ -1,4 +1,4 @@
-import {AppState, Selector} from '../rootReducer';
+import { AppState, Selector } from '../rootReducer';
 import { WeatherDetailSuccessPayloadType, WeatherDetailVisibilitySuccessPayloadType } from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>

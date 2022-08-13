@@ -4,57 +4,60 @@ import AppStackContainer from 'src/navigation/AppStackContainer';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../constants/SampleData';
 
+const mockString = 'example';
+const mockNumber = 1234;
+
 jest.mock("src/hooks/useWeatherDetails", () => ({
   useWeatherDetails: () => {
     return {
       isLoading: false,
       fetchWeatherDetailsSuccessInfo: {
           city: {
-              id: 12,
-              name: "string",
-              country: "string",
+              id: mockNumber,
+              name: mockString,
+              country: mockString,
           },
-          cod: "string",
+          cod: mockString,
           cnt: 7,
           list: [
               {
-                  dt: 1660199400,
-                  sunrise: 1660178215,
-                  sunset: 1660223580,
+                  dt: mockNumber,
+                  sunrise: mockNumber,
+                  sunset: mockNumber,
                   temp: {
-                      day: 24,
-                      min: 18.44,
-                      max: 26.51,
-                      night: 20.55,
-                      eve: 24.95,
-                      morn: 18.66
+                      day: mockNumber,
+                      min: mockNumber,
+                      max: mockNumber,
+                      night: mockNumber,
+                      eve: mockNumber,
+                      morn: mockNumber
                   },
                   feels_like: {
-                      day: 24.1,
-                      night: 20.8,
-                      eve: 25.2,
-                      morn: 18.96
+                      day: mockNumber,
+                      night: mockNumber,
+                      eve: mockNumber,
+                      morn: mockNumber
                   },
-                  pressure: 1010,
-                  humidity: 63,
+                  pressure: mockNumber,
+                  humidity: mockNumber,
                   weather: [
                       {
-                          id: 803,
-                          main: "Clouds",
-                          description: "غيوم متناثرة",
-                          icon: "04d"
+                          id: mockNumber,
+                          main: mockString,
+                          description: mockString,
+                          icon: mockString
                       }
                   ],
-                  speed: 10.04,
-                  deg: 269,
-                  gust: 15.21,
-                  clouds: 52,
-                  pop: 0
+                  speed: mockNumber,
+                  deg: mockNumber,
+                  gust: mockNumber,
+                  clouds: mockNumber,
+                  pop: mockNumber
               }
           ]
       },
       fetchWeatherDetailsVisibilitySuccessInfo: {
-        visibility: 1000,
+        visibility: mockNumber,
       },
       fetchWeatherDetailsErrorInfo: '',
       fetchWeatherDetailsInfo: () => [],

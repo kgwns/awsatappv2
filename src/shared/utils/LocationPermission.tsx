@@ -19,7 +19,6 @@ const requestPermission = () => {
       requestMultiple(LOCATION_PERMISSIONS).then(result => {
         const location = result[LOCATION_PERMISSIONS[0]];
         if (location === RESULTS.GRANTED) {
-          console.log("Permission granted")
           return true
         }
       });
@@ -35,12 +34,8 @@ export const checkPermission = () =>
       if (location === RESULTS.DENIED) {
         requestPermission();
       } else if (location === RESULTS.GRANTED) {
-        console.log("Permission granted")
-        console.log(location);
         return true
       } else {
-        console.log(location);
-        console.log("Permission not granted")
         return false
       }
 });
