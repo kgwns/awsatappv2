@@ -1,6 +1,6 @@
 import {storeInfo} from 'src/constants/SampleData';
-import {getIsLoading, getWeatherDetailInfo, getWeatherDetailError} from '../selectors';
-import {WeatherDetailSuccessPayloadType} from '../types';
+import {getIsLoading, getWeatherDetailInfo, getWeatherDetailError, getWeatherDetailVisibilityInfo} from '../selectors';
+import {WeatherDetailSuccessPayloadType, WeatherDetailVisibilitySuccessPayloadType} from '../types';
 
 describe('Most Read Selector', () => {
   const storeData = storeInfo[0];
@@ -12,6 +12,11 @@ describe('Most Read Selector', () => {
   test('Get Opinion state', () => {
     const opinionData: WeatherDetailSuccessPayloadType | null = getWeatherDetailInfo(storeData);
     expect(opinionData).toEqual({"city": {"country": "", "id": 0, "name": "", "timezone": 0}, "cnt": 0, "cod": "", "list": []});
+  });
+
+  test('Get Opinion state', () => {
+    const opinionData: WeatherDetailVisibilitySuccessPayloadType | null = getWeatherDetailVisibilityInfo(storeData);
+    expect(opinionData).toEqual({"visibility": 0});
   });
 
   test('Get error state', () => {

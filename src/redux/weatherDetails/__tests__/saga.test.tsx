@@ -2,9 +2,9 @@ import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
 import {GET_WEATHER_DETAILS_REQUEST,GET_WEATHER_DETAILS_VISIBILITY_REQUEST} from '../actionType';
 import WeatherDetailSaga, {getWeatherDetail,getWeatherDetailVisibility} from '../sagas';
-import {WeatherDetailSuccess} from '../action';
-import { fetchWeatherDetailsService } from 'src/services/weatherDetailsService';
-import { WeatherDetailSuccessPayloadType, WeatherDetailType} from '../types';
+import {WeatherDetailSuccess, WeatherDetailVisibilitySuccess} from '../action';
+import { fetchWeatherDetailsService, fetchWeatherDetailVisibilityService } from 'src/services/weatherDetailsService';
+import { WeatherDetailSuccessPayloadType, WeatherDetailType, WeatherDetailVisibilitySuccessPayloadType, WeatherDetailVisibilityType} from '../types';
 
 const errorResponse = {
   response: {data: 'Error', status: 500, statusText: 'Error'},
@@ -22,8 +22,19 @@ const sucessResponseObject: WeatherDetailSuccessPayloadType = {
   list: [],
 };
 
+const sucessVisibilityResponseObject: WeatherDetailVisibilitySuccessPayloadType = {
+ visibility: 100
+};
+
 const weatherType: WeatherDetailType = {
   type: GET_WEATHER_DETAILS_REQUEST,
+  payload: {
+    lat: 12.00, lon:17.00
+  }
+};
+
+const weatherVisibilityType: WeatherDetailVisibilityType = {
+  type: GET_WEATHER_DETAILS_VISIBILITY_REQUEST,
   payload: {
     lat: 12.00, lon:17.00
   }
@@ -57,6 +68,26 @@ describe('Test most read success', () => {
 describe('Test fetchWeatherDetailsService  error', () => {
   it('check fetchWeatherDetailsService failed', () => {
     const genObject = getWeatherDetail(weatherType);
+    genObject.next();
+    genObject.throw(errorResponse);
+  });
+});
+
+describe('Test fetchWeatherDetailVisibilityService success', () => {
+  it('fire on GET_WEATHER_DETAILS_VISIBILITY_REQUEST', () => {
+    testSaga(getWeatherDetailVisibility, weatherVisibilityType)
+      .next()
+      .call(fetchWeatherDetailVisibilityService, weatherVisibilityType.payload)
+      .next(sucessVisibilityResponseObject)
+      .put(WeatherDetailVisibilitySuccess(sucessVisibilityResponseObject))
+      .finish()
+      .isDone();
+  });
+});
+
+describe('Test fetchWeatherDetailVisibilityService  error', () => {
+  it('check fetchWeatherDetailVisibilityService failed', () => {
+    const genObject = getWeatherDetailVisibility(weatherVisibilityType);
     genObject.next();
     genObject.throw(errorResponse);
   });

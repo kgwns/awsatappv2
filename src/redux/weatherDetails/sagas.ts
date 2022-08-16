@@ -5,6 +5,7 @@ import {
   WeatherDetailSuccessPayloadType,
   WeatherDetailType,
   WeatherDetailVisibilitySuccessPayloadType,
+  WeatherDetailVisibilityType,
 } from './types';
 import { AxiosError } from 'axios';
 import { fetchWeatherDetailsService, fetchWeatherDetailVisibilityService } from 'src/services/weatherDetailsService';
@@ -28,7 +29,7 @@ export function* getWeatherDetail(action: WeatherDetailType) {
   }
 }
 
-export function* getWeatherDetailVisibility(action: WeatherDetailType) {
+export function* getWeatherDetailVisibility(action: WeatherDetailVisibilityType) {
   try {
     const response: WeatherDetailVisibilitySuccessPayloadType = yield call(
       fetchWeatherDetailVisibilityService,
