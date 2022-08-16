@@ -24,7 +24,7 @@ import WeatherIcon5 from 'src/assets/images/icons/weather/weather_Icon5.svg'
 import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon6.svg'
 import WeatherDayIcon from 'src/assets/images/icons/weather/weather_Day_Icon.svg'
 import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon.svg'
-import { calculateDateNumber, calculateMonth, calculateYear, isStringIncludes } from 'src/shared/utils/utilities';
+import { calculateDateNumber, calculateMonth, calculateYear, isNonEmptyArray, isObjectNonEmpty, isStringIncludes } from 'src/shared/utils/utilities';
 import { arabic } from 'src/assets/locales/ar/common-ar';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
@@ -85,16 +85,25 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     </View>
   );
 
+  const getMainData = (fetchWeatherDetailsSuccessInfo: any): string => {
+    let mainData = ''
+    if (isObjectNonEmpty(fetchWeatherDetailsSuccessInfo) && isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list[0].weather)) {
+      mainData = fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase();
+    }
+    return mainData
+  }
+
   const getBackgroundImage = () => {
-    if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(),'rain')) {
+    const mainData = getMainData(fetchWeatherDetailsSuccessInfo)
+    if (isStringIncludes(mainData, 'rain')) {
       return images.rainyImg
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'clouds')) {
+    } else if (isStringIncludes(mainData, 'clouds')) {
       return images.cloudyImg
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'clear')) {
+    } else if (isStringIncludes(mainData, 'clear')) {
       return images.clearSkyImg
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'sun')) {
+    } else if (isStringIncludes(mainData, 'sun')) {
       return images.sunnyImg
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'sand')) {
+    } else if (isStringIncludes(mainData, 'sand')) {
       return images.sandImg
     } else {
       return images.clearSkyImg
@@ -102,15 +111,16 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   };
 
   const getImageIcon = () => {
-    if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'rain')) {
+    const mainData = getMainData(fetchWeatherDetailsSuccessInfo)
+    if (isStringIncludes(mainData, 'rain')) {
       return <RainImageIcom height={160} width={160} />
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'clouds')) {
+    } else if (isStringIncludes(mainData, 'clouds')) {
       return <CloudImageIcom height={160} width={160} />
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'clear')) {
+    } else if (isStringIncludes(mainData, 'clear')) {
       return <SunCloudsImageIcon height={160} width={160} />
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'sun')) {
+    } else if (isStringIncludes(mainData, 'sun')) {
       return <SunImageIcom height={160} width={160} />
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'fog')) {
+    } else if (isStringIncludes(mainData, 'fog')) {
       return <FogImageIcom height={160} width={160} />
     } else {
       return <SunCloudsImageIcon height={160} width={160} />
@@ -163,8 +173,8 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     weatherDataDetails[index].selected = true;
     setWeatherDataDetails(weatherUpdates);
     setweatherListDetails(fetchWeatherDetailsSuccessInfo?.list[index])
-    if (index == 0) {
-      setWeatherDataVisibility(fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? fetchWeatherDetailsVisibilitySuccessInfo?.visibility : '')
+    if (index == 0 && fetchWeatherDetailsVisibilitySuccessInfo?.visibility) {
+      setWeatherDataVisibility(fetchWeatherDetailsVisibilitySuccessInfo?.visibility)
     } else {
       setWeatherDataVisibility('')
     }
@@ -173,17 +183,17 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   const renderItem = (item: weatherDate, index: number) => {
     return (
       <TouchableWithoutFeedback onPress={() => updateOnPress(index)}>
-        <View style={item.selected ? styles.dayContainerSelected : styles.dayContainerNotSelected}>
+        <View style={[styles.dayContainerNotSelected , item.selected && styles.dayContainerSelected]}>
           <View>
-            <Label numberOfLines={1} style={item.selected ? styles.dayContainerSelectedLabel1 : styles.dayContainerNotSelectedLabel1} >
-              {item.month}
-            </Label>
+            <Label numberOfLines={1}
+              style={item.selected ? styles.dayContainerSelectedLabel1 : styles.dayContainerNotSelectedLabel1}
+              children={item.day} />
           </View>
           <View>
             <Label numberOfLines={1} style={styles.dayContainerLabel2}>
               {item.date}
               {' '}
-              {item.day}
+              {item.month}
             </Label>
           </View>
         </View>
@@ -297,6 +307,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     weatherDate: {
       margin: normalize(15),
+      marginBottom: normalize(40)
     },
     weatherImage: {
       marginVertical: normalize(20),
@@ -320,14 +331,14 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'left',
       fontSize: normalize(15),
       color: colors.white,
-      lineHeight: normalize(36),
+      lineHeight: normalize(28),
     },
     dayContainerNotSelectedLabel1: {
       fontFamily: fonts.AwsatDigital_Regular,
       textAlign: 'left',
       fontSize: normalize(15),
       color: colors.greenishBlue,
-      lineHeight: normalize(36),
+      lineHeight: normalize(28),
     },
     dayContainerLabel2: {
       fontFamily: fonts.Effra_Regular,
@@ -375,7 +386,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingLeft: normalize(20)
     },
     dayContainerNotSelected: {
-      justifyContent: 'space-around',
+      justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: colors.white,
       height: normalize(50),
@@ -387,16 +398,8 @@ const createStyles = (theme: CustomThemeType) =>
       borderWidth: normalize(1),
     },
     dayContainerSelected: {
-      justifyContent: 'space-around',
-      alignItems: 'center',
       backgroundColor: colors.greenishBlue,
-      height: normalize(50),
-      // width: normalize(63),
-      padding: normalize(10),
-      marginHorizontal: normalize(5),
-      borderRadius: normalize(5),
       borderColor: colors.borderGreen,
-      borderWidth: normalize(1),
     },
     weatherImageView1: {
       padding: normalize(10)
