@@ -475,6 +475,7 @@ export const SectionStoryScreen = React.memo(({
       {/* <View style={style.videoContainer}>
         <VideoContent data={videoListData} onPress={onVideoItemPress} />
       </View> */}
+      {!isTab && <Divider style={style.divider} />}
       <View style={style.newsFeedContainer}>
         <NewsFeed
           data={bottomListDataInfo}
