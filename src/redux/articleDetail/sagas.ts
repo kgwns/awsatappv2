@@ -222,7 +222,7 @@ const parseRelatedArticleSuccess = (response: any): RelatedArticleSuccessPayload
   const responseData: RelatedArticleSuccessPayload = {
     relatedArticleData: []
   }
-  responseData.relatedArticleData = formattedData
+  responseData.relatedArticleData = formattedData.splice(0, 20)
   return responseData
 }
 
