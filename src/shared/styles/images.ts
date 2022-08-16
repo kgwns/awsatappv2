@@ -26,6 +26,16 @@ import shirnkIcon from 'src/assets/images/shrink.png'
 import authorDefault from 'src/assets/images/author_default.png'
 import authorDefaultGrey from 'src/assets/images/author_defaultGrey.png'
 
+// Weather Images
+import clearSkyImg from 'src/assets/images/weather/clearSky.png'
+import cloudyImg from 'src/assets/images/weather/Cloudy.png'
+import rainyImg from 'src/assets/images/weather/Rainy.png'
+import sandImg from 'src/assets/images/weather/Sand.png'
+import sunnyImg from 'src/assets/images/weather/Sunny.png'
+
+// Cloud Images
+import sunClouds from 'src/assets/images/clouds/sun_clouds.png'
+
 export enum ImagesName {
   newsIcon = 'newsIcon',
   newsActiveIcon = 'newsActiveIcon',
@@ -51,10 +61,31 @@ export enum ImagesName {
   greenPlayIcon = 'greenPlayIcon',
   notification = 'notification',
   notificationSelected = 'notificationSelected',
+  sunClouds = 'sunClouds',
   arrowPrev = 'arrowPrev',
   arrowNext = 'arrowNext',
   authorItem = 'authorItem',
   authorItemActive = 'authorItemActive',
+  weatherThermometerIcon = 'weatherThermometerIcon',
+  weatherRainIcon = 'weatherRainIcon',
+  WeatherIcon3 = 'WeatherIcon3',
+  celsiusIcon = 'celsiusIcon',
+  WeatherIcon4 = 'WeatherIcon4',
+  WeatherIcon5 = 'WeatherIcon5',
+  WeatherIcon6 = 'WeatherIcon6',
+  cloudsIcon = 'cloudsIcon',
+  sunImageIcom = 'sunImageIcom',
+  cloudImageIcom = 'cloudImageIcom',
+  fogImageIcom = 'fogImageIcom',
+  rainImageIcom = 'rainImageIcom',
+  sunCloudsImageIcon = 'sunCloudsImageIcon',
+  thunderIcon = 'thunderIcon',
+  cloudyWindyIcon = 'cloudyWindyIcon',
+  rainIcon = 'rainIcon',
+  snowIcon = 'snowIcon',
+  sunIcon = 'sunIcon',
+  weatherDayIcon = 'weatherDayIcon',
+  weatherNightIcon = 'weatherNightIcon',
   googleIcon = 'googleIcon',
   appleIcon = 'appleIcon',
   facebookIcon = 'facebookIcon',
@@ -147,6 +178,12 @@ export const images = {
   pdfIcon,
   popupImage,
   bottomShadowImg,
+  sunClouds,
+  clearSkyImg,
+  cloudyImg,
+  rainyImg,
+  sunnyImg,
+  sandImg,
   playIconWhite,
   pauseIconWhite,
   topShadowImg,

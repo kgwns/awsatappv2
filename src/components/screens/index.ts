@@ -29,6 +29,7 @@ export { OpinionArticleDetail } from 'src/components/screens/opinionArticleDetai
 export { NewPassword } from 'src/components/screens/newPassword/NewPassword'
 export { ManageMyNewsScreen } from 'src/components/screens/manageMyNews/ManageMyNewsScreen';
 export { UserDetailScreen } from 'src/components/screens/userDetail/UserDetailScreen';
+export { WeatherDetailScreen } from 'src/components/screens/weatherDetail/WeatherDetailScreen';
 export { VideoPlayerScreen } from 'src/components/screens/video_player/VideoPlayerScreen';
 export { ManageMyFavoriteAuthorScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteAuthorScreen';
 export { ManageMyFavoriteTopicsScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteTopicsScreen';

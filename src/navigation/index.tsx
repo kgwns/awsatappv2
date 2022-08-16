@@ -27,6 +27,7 @@ import {
   ManageMyFavoriteAuthorScreen,
   ManageMyFavoriteTopicsScreen,
   UserDetailScreen,
+  WeatherDetailScreen,
   VideoPlayerScreen,
   WritersDetailScreen,
   SectionArticlesParentScreen,
@@ -75,6 +76,7 @@ export const Routes = {
   ManageMyFavoriteAuthorScreen,
   ManageMyFavoriteTopicsScreen,
   UserDetailScreen,
+  WeatherDetailScreen,
   VideoPlayerScreen,
   WritersDetailScreen,
   SectionArticlesParentScreen,
@@ -117,6 +119,7 @@ export type ScreenList = {
   ManageMyFavoriteAuthorScreen: undefined;
   ManageMyFavoriteTopicsScreen: undefined;
   UserDetailScreen: undefined;
+  WeatherDetailScreen: undefined;
   WritersDetailScreen: undefined;
   SectionArticlesParentScreen: undefined;
   MyNewsScreen: undefined;

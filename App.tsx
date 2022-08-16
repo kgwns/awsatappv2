@@ -10,10 +10,16 @@ import Orientation from 'react-native-orientation-locker'
 import AppPlayer from 'src/shared/utils/appPlayer';
 import { GetFCMToken } from 'src/firebase/notification/notification';
 import TrackPlayer from 'react-native-track-player';
+import { checkPermission } from 'src/shared/utils/LocationPermission';
 
 const App = () => {
+  
   useEffect(() => {
     Orientation.lockToPortrait()
+  }, [])
+
+  useEffect(() => {
+    checkPermission()
   }, [])
 
   useEffect(() => {

@@ -30,6 +30,7 @@ const MANAGE_MY_NEWS_SCREEN = 'MANAGE_MY_NEWS_SCREEN' as ScreenName;
 const MANAGE_MY_FAVORITE_AUTHOR_SCREEN = 'MANAGE_MY_FAVORITE_AUTHOR_SCREEN' as ScreenName;
 const MANAGE_MY_FAVORITE_TOPICS_SCREEN = 'MANAGE_MY_FAVORITE_TOPICS_SCREEN' as ScreenName;
 const USER_DETAIL_SCREEN = 'UserDetailScreen' as ScreenName;
+const WEATHER_DETAIL_SCREEN = 'WeatherDetailScreen' as ScreenName;
 const VideoPlayerScreen = 'VideoPlayerScreen' as ScreenName;
 const WRITERS_DETAIL_SCREEN = 'WriterDetailScreen' as ScreenName
 const SectionArticlesParentScreen = 'SectionArticlesParentScreen' as ScreenName
@@ -80,6 +81,7 @@ export const ScreensConstants = {
   MANAGE_MY_FAVORITE_AUTHOR_SCREEN,
   MANAGE_MY_FAVORITE_TOPICS_SCREEN,
   USER_DETAIL_SCREEN,
+  WEATHER_DETAIL_SCREEN,
   VideoPlayerScreen,
   WRITERS_DETAIL_SCREEN,
   SectionArticlesParentScreen,

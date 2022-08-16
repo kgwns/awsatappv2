@@ -118,6 +118,24 @@ export const storeInfo = [
       error: '',
       isLoading: false,
     },
+    weatherDetails: {
+      isLoading: false,
+      WeatherDetailInfo: {
+        city: {
+          id: 0,
+          name: '',
+          country: '',
+          timezone: 0
+        },
+        cod: '',
+        cnt: 0,
+        list: [],
+      },
+      WeatherDetailVisibilityInfo: {
+        visibility: 0
+      },
+      error: '',
+    },
     sectionArticles: {
       sectionArticlesData: {
         rows: [],
@@ -476,6 +494,51 @@ export const sectionTabItem: TabBarDataProps[] = [
   {
     tabName: 'فيديو',
     isSelected: false,
+  },
+];
+
+export const weatherData = [
+  {
+    date: '1',
+    month: 'الأحد',
+    day: 'يونيو',
+    selected: true,
+  },
+  {
+    date: '2',
+    month: 'العالم',
+    day: 'يونيو',
+    selected: false,
+  },
+  {
+    date: '3',
+    month: 'العالم',
+    day: 'يونيو',
+    selected: false,
+  },
+  {
+    date: '4',
+    month: 'العالم',
+    day: 'يونيو',
+    selected: false,
+  },
+  {
+    date: '5',
+    month: 'العالم',
+    day: 'يونيو',
+    selected: false,
+  },
+  {
+    date: '6',
+    month: 'العالم',
+    day: 'يونيو',
+    selected: false,
+  },
+  {
+    date: '7',
+    month: 'العالم',
+    day: 'يونيو',
+    selected: false,
   },
 ];
 

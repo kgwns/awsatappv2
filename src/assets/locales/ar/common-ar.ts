@@ -1,4 +1,18 @@
 export const arabic = {
+  weatherDetail: {
+    sunrise: 'بعد الظهر',
+    sunset: 'المساء',
+    sidebarTitle: 'الرياض :',
+    max: 'الحرارة العظمى/الصغرى',
+    humidity: 'الرطوبة',
+    speed: 'سرعة الرياح',
+    kmh: 'كم/ساعة',
+    visibility: 'الرؤية',
+    pressure: 'الضغط',
+    seacondition: 'حالة البحر',
+    km: 'كم',
+    mbar: 'مللي بار',
+  },
   drawer: {
     latestNews: 'آخر الأخبار',
     first: 'أولى',
@@ -361,5 +375,5 @@ export const arabic = {
     email: 'إيميل',
     yourLetter: 'رسالتك',
     send: 'ارسل',
-  }
+  },
 }

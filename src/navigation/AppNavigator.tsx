@@ -150,6 +150,18 @@ const AppNavigator = () => {
           headerShadowVisible: false
         }}
       />
+      <Stack.Screen
+        name={ScreensConstants.WEATHER_DETAIL_SCREEN}
+        component={Routes.WeatherDetailScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(''),
+          headerTitleStyle: style.headerTitle,
+          headerTitleAlign: 'center',
+          headerShadowVisible: false
+        }}
+      />
        <Stack.Screen
         name={ScreensConstants.MANAGE_MY_NEWS_SCREEN}
         component={Routes.ManageMyNewsScreen}

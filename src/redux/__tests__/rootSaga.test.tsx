@@ -31,6 +31,8 @@ import writerDetailSaga from 'src/redux/writersDetail/sagas';
 import documentaryVideoSaga from 'src/redux/documentaryVideo/sagas';
 import SaveTokenSaga from 'src/redux/notificationSaveToken/sagas';
 import ContactUsSaga from 'src/redux/contactUs/sagas'
+import WeatherDetailSaga from 'src/redux/weatherDetails/sagas'
+import albumListSaga from 'src/redux/photoGallery/sagas';
 
 describe('Test rootSaga  saga', () => {
   it('fire on rootSaga', () => {
@@ -67,6 +69,8 @@ describe('Test rootSaga  saga', () => {
         fork(documentaryVideoSaga), 
         fork(SaveTokenSaga),
         fork(ContactUsSaga),
+        fork(WeatherDetailSaga),
+        fork(albumListSaga),
       ])
       .finish()
       .isDone();

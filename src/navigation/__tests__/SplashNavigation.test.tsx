@@ -8,6 +8,68 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));
 
+const mockString = 'example';
+const mockNumber = 1234;
+
+jest.mock("src/hooks/useWeatherDetails", () => ({
+  useWeatherDetails: () => {
+    return {
+      isLoading: false,
+      fetchWeatherDetailsSuccessInfo: {
+          city: {
+              id: mockNumber,
+              name: mockString,
+              country: mockString,
+          },
+          cod: mockString,
+          cnt: 7,
+          list: [
+              {
+                  dt: mockNumber,
+                  sunrise: mockNumber,
+                  sunset: mockNumber,
+                  temp: {
+                      day: mockNumber,
+                      min: mockNumber,
+                      max: mockNumber,
+                      night: mockNumber,
+                      eve: mockNumber,
+                      morn: mockNumber
+                  },
+                  feels_like: {
+                      day: mockNumber,
+                      night: mockNumber,
+                      eve: mockNumber,
+                      morn: mockNumber
+                  },
+                  pressure: mockNumber,
+                  humidity: mockNumber,
+                  weather: [
+                      {
+                          id: mockNumber,
+                          main: mockString,
+                          description: mockString,
+                          icon: mockString
+                      }
+                  ],
+                  speed: mockNumber,
+                  deg: mockNumber,
+                  gust: mockNumber,
+                  clouds: mockNumber,
+                  pop: mockNumber
+              }
+          ]
+      },
+      fetchWeatherDetailsVisibilitySuccessInfo: {
+        visibility: mockNumber,
+      },
+      fetchWeatherDetailsErrorInfo: '',
+      fetchWeatherDetailsInfo: () => [],
+      fetchWeatherDetailsVisibilityInfo: () => [],
+    }
+  },
+}));
+
 jest.mock("src/hooks/useBookmark", () => ({
   useBookmark: () => {
       return {
