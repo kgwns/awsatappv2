@@ -143,7 +143,7 @@ export const SectionStoryScreen = React.memo(({
 
   const getHeroListData = async() => {
     try {
-      const heroDataInfo = await isParentSection ? fetchNewsViewApi(heroListPayload)
+      const heroDataInfo = isParentSection ? await fetchNewsViewApi(heroListPayload)
         : await fetchSubArticleSectionApi(heroListPayload)
       const heroData = heroDataInfo.rows ?? []
       setHeroData(heroData)
