@@ -104,13 +104,18 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   }, [sideMenuData])
 
   const getWeathericon = () => {
-    if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'rain')) {
-      return <RainIcon width={16} height={16} style={styles.weatherIcon} />
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'clouds')) {
-      return <CloudsIcon width={16} height={16} style={styles.weatherIcon} />
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'sun')) {
-      return <SunIcon width={16} height={16} style={styles.weatherIcon} />
-    } else {
+    if(isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list[0].weather)) {
+      const mainData = fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase();
+      if (isStringIncludes(mainData, 'rain')) {
+        return <RainIcon width={16} height={16} style={styles.weatherIcon} />
+      } else if (isStringIncludes(mainData, 'clouds')) {
+        return <CloudsIcon width={16} height={16} style={styles.weatherIcon} />
+      } else if (isStringIncludes(mainData, 'sun')) {
+        return <SunIcon width={16} height={16} style={styles.weatherIcon} />
+      } else {
+        return <SunIcon width={16} height={16} style={styles.weatherIcon} />
+      }
+    }else{
       return <SunIcon width={16} height={16} style={styles.weatherIcon} />
     }
   };
