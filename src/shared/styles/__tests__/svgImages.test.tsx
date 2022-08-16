@@ -80,5 +80,25 @@ describe('SvgImages', () => {
         expect(getSvgImages({ name: ImagesName.tickIcon })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.returnSvg })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.default  })).toBe(null);
+        expect(getSvgImages({ name: ImagesName.weatherThermometerIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.weatherRainIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.WeatherIcon3 })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.cloudsIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.cloudyWindyIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.rainIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.snowIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.sunIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.thunderIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.WeatherIcon4 })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.celsiusIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.sunImageIcom })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.cloudImageIcom })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.fogImageIcom })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.rainImageIcom })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.sunCloudsImageIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.WeatherIcon5 })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.WeatherIcon6 })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.weatherDayIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.weatherNightIcon })).toBeDefined();
     });
 })

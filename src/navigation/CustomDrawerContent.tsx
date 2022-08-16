@@ -116,19 +116,20 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   };
 
   const getWeatherDetail = () => {
-    return <View style={styles.menuContainer}>
+    return <View style={styles.menuWeatherContainer}>
       <Divider style={styles.divider} />
       <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.WEATHER_DETAIL_SCREEN)} style={styles.weather}>
         <Text style={styles.weatherTitle}>
           {t('weatherDetail.sidebarTitle')}
         </Text>
         {fetchWeatherDetailsSuccessInfo?.list[0].temp.day &&
-          <Text style={styles.weatherTemp}>
-            {'  '}
-            {Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day)}
-            <CelsiusIcon />
-            {'  '}
-          </Text>
+          <View style={styles.weatherTempContainer}>
+            <CelsiusIcon style={styles.weatherCelciusIcon} height={isAndroid? 15 : 17} width={isAndroid? 15 : 17}/>
+            <Text style={styles.weatherTemp}>
+              {'  '}
+              {Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day)}
+            </Text>
+           </View>
         }
         {getWeathericon()}
         {fetchWeatherDetailsSuccessInfo?.list[0].weather[0].description &&
@@ -408,6 +409,10 @@ const createStyles = (theme: CustomThemeType) =>
       marginHorizontal: normalize(35),
       marginTop: normalize(20),
     },
+    menuWeatherContainer: {
+      marginHorizontal: normalize(35),
+      marginTop: normalize(10),
+    },
     drawerItemStyle: {
       left: 0,
       width: '100%',
@@ -421,30 +426,40 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     weather: {
-      marginTop: normalize(20),
+      marginTop: normalize(16),
       alignSelf: 'center',
       justifyContent: 'center',
       flexDirection: 'row'
+    },
+    weatherTempContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    weatherCelciusIcon: {
+      marginTop:normalize(9),
     },
     weatherType: {
       fontFamily: fonts.Effra_Regular,
       fontSize: isAndroid ? normalize(16) : normalize(12.5),
       color: colors.lightGrey,
-      marginTop: isAndroid ? normalize(0) : normalize(5)
+      marginTop: isAndroid ? normalize(2) : normalize(6)
     },
     weatherTemp: {
-      fontFamily: fonts.Effra_Regular,
-      fontSize: isAndroid ? normalize(18) : normalize(16),
+      fontFamily: fonts.Effra_Arbc_Medium,
+      fontSize: isAndroid ? normalize(18) : normalize(17),
       color: colors.greenishBlue,
-      marginTop: isAndroid ? normalize(0) : normalize(5)
+      marginTop: isAndroid ? normalize(2) : normalize(5),
     },
     weatherIcon: {
-      marginTop: normalize(5)
+      marginTop: normalize(7),
+      marginLeft: isAndroid ? normalize(10) : normalize(0),
     },
     weatherTitle: {
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
       fontSize: isAndroid ? normalize(16) : normalize(14),
       color: colors.black,
+      marginRight: normalize(5),
+      marginTop: isAndroid ? normalize(2) : normalize(2)
     },
     nonBoldTitle: {
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
