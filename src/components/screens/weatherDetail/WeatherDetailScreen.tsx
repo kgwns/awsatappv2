@@ -24,7 +24,7 @@ import WeatherIcon5 from 'src/assets/images/icons/weather/weather_Icon5.svg'
 import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon6.svg'
 import WeatherDayIcon from 'src/assets/images/icons/weather/weather_Day_Icon.svg'
 import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon.svg'
-import { calculateDateNumber, calculateMonth, calculateYear } from 'src/shared/utils/utilities';
+import { calculateDateNumber, calculateMonth, calculateYear, isStringIncludes } from 'src/shared/utils/utilities';
 import { arabic } from 'src/assets/locales/ar/common-ar';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
@@ -86,15 +86,15 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   );
 
   const getBackgroundImage = () => {
-    if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('rain')) {
+    if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(),'rain')) {
       return images.rainyImg
-    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clouds')) {
+    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'clouds')) {
       return images.cloudyImg
-    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clear')) {
+    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'clear')) {
       return images.clearSkyImg
-    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('sun')) {
+    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'sun')) {
       return images.sunnyImg
-    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('sand')) {
+    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'sand')) {
       return images.sandImg
     } else {
       return images.clearSkyImg
@@ -102,15 +102,15 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   };
 
   const getImageIcon = () => {
-    if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('rain')) {
+    if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'rain')) {
       return <RainImageIcom height={160} width={160} />
-    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clouds')) {
+    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'clouds')) {
       return <CloudImageIcom height={160} width={160} />
-    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('clear')) {
+    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'clear')) {
       return <SunCloudsImageIcon height={160} width={160} />
-    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('sun')) {
+    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'sun')) {
       return <SunImageIcom height={160} width={160} />
-    } else if (fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase().includes('fog')) {
+    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'fog')) {
       return <FogImageIcom height={160} width={160} />
     } else {
       return <SunCloudsImageIcon height={160} width={160} />

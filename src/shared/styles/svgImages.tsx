@@ -140,6 +140,30 @@ import EmailGrayIcon from 'src/assets/images/email_gray_icon.svg'
 import ChatBubbleIcon from 'src/assets/images/chat_bubble_icon.svg'
 import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
 
+//Weather
+import WeatherThermometerIcon from 'src/assets/images/icons/weather/weather_thermometer.svg'
+import WeatherRainIcon from 'src/assets/images/icons/weather/weather_rain.svg'
+import WeatherIcon3 from 'src/assets/images/icons/weather/weather_Icon3.svg'
+import WeatherIcon4 from 'src/assets/images/icons/weather/weather_Icon4.svg'
+import WeatherIcon5 from 'src/assets/images/icons/weather/weather_Icon5.svg'
+import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon5.svg'
+import WeatherDayIcon from 'src/assets/images/icons/weather/weather_Day_Icon.svg'
+import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon.svg'
+import CloudsIcon from 'src/assets/images/icons/weather/clouds.svg'
+import CloudyWindyIcon from 'src/assets/images/icons/weather/cloudyWindy.svg'
+import RainIcon from 'src/assets/images/icons/weather/Rain.svg'
+import SnowIcon from 'src/assets/images/icons/weather/snow.svg'
+import SunIcon from 'src/assets/images/icons/weather/sun.svg'
+import ThunderIcon from 'src/assets/images/icons/weather/thunder.svg'
+import CelsiusIcon from 'src/assets/images/icons/weather/Celsius.svg'
+import SunImageIcom from 'src/assets/images/icons/weather/Images/Sun.svg'
+import CloudImageIcom from 'src/assets/images/icons/weather/Images/Clouds.svg'
+import FogImageIcom from 'src/assets/images/icons/weather/Images/Fog.svg'
+import RainImageIcom from 'src/assets/images/icons/weather/Images/Rain.svg'
+import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds.svg'
+
+//Photo Gallery
+import PhotoIcon from 'src/assets/images/icons/photo.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
