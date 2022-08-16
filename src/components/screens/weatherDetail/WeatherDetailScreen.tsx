@@ -183,7 +183,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   const renderItem = (item: weatherDate, index: number) => {
     return (
       <TouchableWithoutFeedback onPress={() => updateOnPress(index)}>
-        <View style={item.selected ? styles.dayContainerSelected : styles.dayContainerNotSelected}>
+        <View style={[styles.dayContainerNotSelected , item.selected && styles.dayContainerSelected]}>
           <View>
             <Label numberOfLines={1}
               style={item.selected ? styles.dayContainerSelectedLabel1 : styles.dayContainerNotSelectedLabel1}
@@ -307,6 +307,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     weatherDate: {
       margin: normalize(15),
+      marginBottom: normalize(40)
     },
     weatherImage: {
       marginVertical: normalize(20),
@@ -330,14 +331,14 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'left',
       fontSize: normalize(15),
       color: colors.white,
-      lineHeight: normalize(36),
+      lineHeight: normalize(28),
     },
     dayContainerNotSelectedLabel1: {
       fontFamily: fonts.AwsatDigital_Regular,
       textAlign: 'left',
       fontSize: normalize(15),
       color: colors.greenishBlue,
-      lineHeight: normalize(36),
+      lineHeight: normalize(28),
     },
     dayContainerLabel2: {
       fontFamily: fonts.Effra_Regular,
@@ -385,7 +386,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingLeft: normalize(20)
     },
     dayContainerNotSelected: {
-      justifyContent: 'space-around',
+      justifyContent: 'space-between',
       alignItems: 'center',
       backgroundColor: colors.white,
       height: normalize(50),
@@ -397,16 +398,8 @@ const createStyles = (theme: CustomThemeType) =>
       borderWidth: normalize(1),
     },
     dayContainerSelected: {
-      justifyContent: 'space-around',
-      alignItems: 'center',
       backgroundColor: colors.greenishBlue,
-      height: normalize(50),
-      // width: normalize(63),
-      padding: normalize(10),
-      marginHorizontal: normalize(5),
-      borderRadius: normalize(5),
       borderColor: colors.borderGreen,
-      borderWidth: normalize(1),
     },
     weatherImageView1: {
       padding: normalize(10)
