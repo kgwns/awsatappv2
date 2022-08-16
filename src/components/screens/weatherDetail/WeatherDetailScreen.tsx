@@ -24,7 +24,7 @@ import WeatherIcon5 from 'src/assets/images/icons/weather/weather_Icon5.svg'
 import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon6.svg'
 import WeatherDayIcon from 'src/assets/images/icons/weather/weather_Day_Icon.svg'
 import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon.svg'
-import { calculateDateNumber, calculateMonth, calculateYear, isNonEmptyArray, isStringIncludes } from 'src/shared/utils/utilities';
+import { calculateDateNumber, calculateMonth, calculateYear, isNonEmptyArray, isObjectNonEmpty, isStringIncludes } from 'src/shared/utils/utilities';
 import { arabic } from 'src/assets/locales/ar/common-ar';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
@@ -85,44 +85,44 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     </View>
   );
 
+  const getMainData = (fetchWeatherDetailsSuccessInfo: any): string => {
+    let mainData = ''
+    if (isObjectNonEmpty(fetchWeatherDetailsSuccessInfo) && isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list[0].weather)) {
+      mainData = fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase();
+    }
+    return mainData
+  }
+
   const getBackgroundImage = () => {
-    if(isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list[0].weather)) {
-      const mainData = fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase();
-      if (isStringIncludes(mainData,'rain')) {
-        return images.rainyImg
-      } else if (isStringIncludes(mainData, 'clouds')) {
-        return images.cloudyImg
-      } else if (isStringIncludes(mainData, 'clear')) {
-        return images.clearSkyImg
-      } else if (isStringIncludes(mainData, 'sun')) {
-        return images.sunnyImg
-      } else if (isStringIncludes(mainData, 'sand')) {
-        return images.sandImg
-      } else {
-        return images.clearSkyImg
-      }
-    }else{
+    const mainData = getMainData(fetchWeatherDetailsSuccessInfo)
+    if (isStringIncludes(mainData, 'rain')) {
+      return images.rainyImg
+    } else if (isStringIncludes(mainData, 'clouds')) {
+      return images.cloudyImg
+    } else if (isStringIncludes(mainData, 'clear')) {
+      return images.clearSkyImg
+    } else if (isStringIncludes(mainData, 'sun')) {
+      return images.sunnyImg
+    } else if (isStringIncludes(mainData, 'sand')) {
+      return images.sandImg
+    } else {
       return images.clearSkyImg
     }
   };
 
   const getImageIcon = () => {
-    if(isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list[0].weather)) {
-      const mainData = fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase();
-      if (isStringIncludes(mainData, 'rain')) {
-        return <RainImageIcom height={160} width={160} />
-      } else if (isStringIncludes(mainData, 'clouds')) {
-        return <CloudImageIcom height={160} width={160} />
-      } else if (isStringIncludes(mainData, 'clear')) {
-        return <SunCloudsImageIcon height={160} width={160} />
-      } else if (isStringIncludes(mainData, 'sun')) {
-        return <SunImageIcom height={160} width={160} />
-      } else if (isStringIncludes(mainData, 'fog')) {
-        return <FogImageIcom height={160} width={160} />
-      } else {
-        return <SunCloudsImageIcon height={160} width={160} />
-      }
-    }else{
+    const mainData = getMainData(fetchWeatherDetailsSuccessInfo)
+    if (isStringIncludes(mainData, 'rain')) {
+      return <RainImageIcom height={160} width={160} />
+    } else if (isStringIncludes(mainData, 'clouds')) {
+      return <CloudImageIcom height={160} width={160} />
+    } else if (isStringIncludes(mainData, 'clear')) {
+      return <SunCloudsImageIcon height={160} width={160} />
+    } else if (isStringIncludes(mainData, 'sun')) {
+      return <SunImageIcom height={160} width={160} />
+    } else if (isStringIncludes(mainData, 'fog')) {
+      return <FogImageIcom height={160} width={160} />
+    } else {
       return <SunCloudsImageIcon height={160} width={160} />
     }
   };
@@ -185,15 +185,15 @@ export const WeatherDetailScreen: FunctionComponent = () => {
       <TouchableWithoutFeedback onPress={() => updateOnPress(index)}>
         <View style={item.selected ? styles.dayContainerSelected : styles.dayContainerNotSelected}>
           <View>
-            <Label numberOfLines={1} style={item.selected ? styles.dayContainerSelectedLabel1 : styles.dayContainerNotSelectedLabel1} >
-              {item.month}
-            </Label>
+            <Label numberOfLines={1}
+              style={item.selected ? styles.dayContainerSelectedLabel1 : styles.dayContainerNotSelectedLabel1}
+              children={item.day} />
           </View>
           <View>
             <Label numberOfLines={1} style={styles.dayContainerLabel2}>
               {item.date}
               {' '}
-              {item.day}
+              {item.month}
             </Label>
           </View>
         </View>
