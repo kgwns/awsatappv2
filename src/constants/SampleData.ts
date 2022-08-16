@@ -307,6 +307,20 @@ export const storeInfo = [
         message: ''
       },
       sendContactInfoError: ''
+    },
+    albumList: {
+      albumData: {
+        rows: [],
+        pager: {current_page: 0, items_per_page: '', total_pages: 0},
+      },
+      error: '',
+      isLoading: false,
+      albumDetailData: {
+        rows: [],
+        pager: {current_page: 0, items_per_page: '', total_pages: 0},
+      },
+      albumDetailError: '',
+      albumDetailLoading: false,
     }
   },
 ];

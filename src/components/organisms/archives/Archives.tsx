@@ -33,6 +33,10 @@ export const Archives = () => {
         {
             name: t('favorite.filters.podcast'),
             isSelected: false
+        },
+        {
+            name: t('favorite.filters.album'),
+            isSelected: false
         }
     ]
 
@@ -42,6 +46,7 @@ export const Archives = () => {
             case 2: return PopulateWidgetType.VIDEO
             case 3: return PopulateWidgetType.OPINION
             case 4: return PopulateWidgetType.PODCAST
+            case 5: return PopulateWidgetType.ALBUM
             default: return PopulateWidgetType.ARTICLE
         }
     }
@@ -170,6 +175,8 @@ export const Archives = () => {
                 return data.filter((item: any) => item.type == PopulateWidgetType.OPINION)
             case 4:
                 return data.filter((item: any) => item.type == PopulateWidgetType.PODCAST)
+            case 5:
+                return data.filter((item: any) => item.type == PopulateWidgetType.ALBUM)
             default: return null
         }
     }

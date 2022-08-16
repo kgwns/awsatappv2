@@ -65,3 +65,6 @@ export const ANDROID_WEBVIEW_URL = 'about:blank';
 //ContactUs
 export const CONST_DO_YOU_HAVE_QUESTION = 'هل لديك سؤال؟راسلنا'
 export const CONST_CONTACT_US_DESCRIPTION = 'سنتواصل معك و نجيب على سؤالك خلال يومين'
+
+//Photo Gallery
+export const PHOTO_GALLERY = 'ألبومات الصور'

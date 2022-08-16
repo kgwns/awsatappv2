@@ -159,6 +159,7 @@ export enum ImagesName {
   profileNameIcon = 'profileNameIcon',
   emailGrayIcon = 'emailGrayIcon',
   chatBubbleIcon = 'chatBubbleIcon',
+  photoIcon = 'photoIcon'
 }
 
 export const images = {

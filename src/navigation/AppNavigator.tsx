@@ -271,6 +271,11 @@ const AppNavigator = () => {
         component={Routes.ContactUs}
         options={hideHeader}
       />
+      <Stack.Screen
+        name={ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN}
+        component={Routes.PhotoGalleryDetailScreen}
+        options={{ ...hideHeader, animationEnabled: isAndroid }}
+      />
     </Stack.Navigator>
   );
 };
