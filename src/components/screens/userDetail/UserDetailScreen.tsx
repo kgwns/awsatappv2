@@ -774,7 +774,7 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: normalize(17),
       marginBottom: '2%',
       textAlign: 'left',
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     birthdayTitle: {
       fontSize: normalize(13),
@@ -782,7 +782,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: '2%',
       marginTop: '2%',
       textAlign: 'left',
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     dropDownContainer: {
       flexDirection: 'row',
@@ -816,7 +816,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginTop: '10%',
       marginBottom: '2%',
       textAlign: 'left',
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     nameInputStyle: {
       width: '94%',
@@ -843,7 +843,7 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.white,
       fontSize: normalize(16),
       lineHeight: isTab ? 36 :26,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     overlayStyle: {
       flex: 1,
@@ -869,7 +869,7 @@ const createStyles = (theme: CustomThemeType) =>
     cancelTextStyle: {
       textAlign: 'center',
       color: colors.white,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       fontSize: normalize(16),
       lineHeight: 20,
     },
@@ -881,7 +881,7 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'center',
       fontSize: normalize(16),
       lineHeight: 20,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.secondaryDarkSlate,
     },
     optionModalContainer: {

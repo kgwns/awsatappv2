@@ -212,7 +212,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: normalize(20),
       color: theme.primary,
       lineHeight: normalize(30),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     instructionTextStyle: {
       fontSize: normalize(15),
@@ -238,7 +238,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingHorizontal: normalize(10)
     },
     prevTitleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       fontSize: normalize(12),
       color: theme.backIconColor,
       lineHeight: normalize(16),
@@ -247,7 +247,7 @@ const createStyles = (theme: CustomThemeType) =>
     buttonLabelStyle: {
       paddingHorizontal: normalize(30),
       fontSize: 16,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: colors.white,
       lineHeight: 26,
       textAlign: 'center',

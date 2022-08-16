@@ -230,7 +230,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontSize: 18,
         lineHeight: 42,
         textAlign: 'left',
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
     },
     description: {
         fontSize: 15,
@@ -265,7 +265,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     sendButtonLabel: {
         fontSize: 16,
         lineHeight: 25,
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         textAlign: 'left',
         color: Styles.color.white,
         paddingVertical: 10,

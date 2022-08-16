@@ -205,7 +205,7 @@ const customStyle = (theme: CustomThemeType) => {
     titleStyle: {
       textAlign: 'center',
       fontSize: normalize(20),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primary,
       lineHeight: normalize(30),
     },
@@ -243,7 +243,7 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'center',
       width: '100%',
       fontSize: normalize(16),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       lineHeight: normalize(20),
     },
   });

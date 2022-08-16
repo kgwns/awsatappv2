@@ -90,7 +90,7 @@ const SectionVideoFooterStyle = StyleSheet.create({
   },
   leftStyle: {
     paddingRight: normalize(4),
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
     paddingLeft: 4,
     alignItems: 'center',
     justifyContent: 'center'

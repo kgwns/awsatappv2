@@ -81,7 +81,7 @@ const articleFooterStyle = StyleSheet.create({
     leftTitleStyle: {
         fontSize: 13,
         lineHeight: 24,
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         paddingRight: normalize(10),
         paddingLeft: normalize(5)
     },

@@ -77,7 +77,7 @@ const customStyle = (theme: CustomThemeType) => (
             color: theme.primaryBlack,
             fontSize: normalize(24),
             lineHeight: normalize(40),
-            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontFamily: fonts.AwsatDigital_Bold,
         }
     })
 )

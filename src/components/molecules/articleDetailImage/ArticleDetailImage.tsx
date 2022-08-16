@@ -59,7 +59,7 @@ const ArticleDetailImage = ({
                     color={Styles.color.lightGray}
                     style={{
                         paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-                        fontFamily: fonts.Almaria_Regular,
+                        fontFamily: fonts.AwsatDigital_Regular,
                         fontSize: 12,
                         lineHeight: 20,
                     }}
@@ -134,7 +134,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     tagNameStyle: {
         paddingHorizontal: normalize(10),
         fontSize:  isTab ? 16 : 12, 
-        fontFamily: fonts.Almaria_Regular,
+        fontFamily: fonts.AwsatDigital_Regular,
         lineHeight: isTab ? 25 : 18
     },
 })

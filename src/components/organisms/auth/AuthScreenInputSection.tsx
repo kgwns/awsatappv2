@@ -183,7 +183,7 @@ StyleSheet.create({
     marginBottom: normalize(25),
   },
   textStyleBlack: {
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
     fontSize: normalize(18),
     color: theme.primaryBlack,
     lineHeight: normalize(22),

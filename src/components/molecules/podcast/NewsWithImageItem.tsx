@@ -115,7 +115,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: normalize(8),
       color: theme.primaryBlack,
       textAlign: 'left',
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     description: {
       textAlign: 'left',

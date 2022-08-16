@@ -143,7 +143,7 @@ const customStyle = (theme: CustomThemeType) => {
     title: {
       fontSize: 14,
       lineHeight: 18,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),
       textAlign: 'left',
@@ -153,14 +153,14 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: 28,
       color: colors.spanishGray,
       marginLeft: normalize(5),
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     footerRightTextStyle: {
       fontSize: 12,
       lineHeight: 20,
       color: colors.greenishBlue,
       marginRight: normalize(5),
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     description: {
       fontSize: 13,

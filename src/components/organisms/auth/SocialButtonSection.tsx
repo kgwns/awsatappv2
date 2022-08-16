@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     alignItems:'flex-start',
   },
   socialLoginButtonLabel: {
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
     fontSize: 14,
     lineHeight: isIOS ? 25 : 20,
   },

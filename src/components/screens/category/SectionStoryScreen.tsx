@@ -595,7 +595,7 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign:'center',
       fontSize: 24,
       lineHeight: 42,
-      fontFamily: fonts.AwsatDigitalBetav10_Black,
+      fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{
         textAlign:'left',

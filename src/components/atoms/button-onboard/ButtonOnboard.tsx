@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.greenishBlue
     },
     titleStyle: {
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         fontSize: 13,
         textAlign: 'center',
         color: colors.white,

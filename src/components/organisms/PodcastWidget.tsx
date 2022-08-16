@@ -63,7 +63,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       title: 'بودكاست',
       color: themeData.primaryDarkSlateGray,
       labelType: LabelTypeProp.title3,
-      textStyle: { fontFamily: fonts.AwsatDigitalBetav10_Black }
+      textStyle: { fontFamily: fonts.AwsatDigital_Black }
     },
     headerRight: {
       title: 'المزيد',
@@ -208,7 +208,7 @@ const createStyles = (theme: CustomThemeType) => {
       textAlign: 'left',
       fontSize: 16,
       lineHeight: 24,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     body: {
       textAlign: 'left',
@@ -230,7 +230,7 @@ const createStyles = (theme: CustomThemeType) => {
     listenToPodcastTitle: {
       fontSize: 13,
       lineHeight: 19,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     duration: {
       fontSize: 12,

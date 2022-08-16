@@ -57,7 +57,7 @@ const customStyle = (theme: CustomThemeType) =>
       fontSize: normalize(24),
       color: theme.primary,
       lineHeight: normalize(42),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       justifyContent: 'center',
       textAlign: 'center',
       paddingBottom: normalize(20),
@@ -82,7 +82,7 @@ const customStyle = (theme: CustomThemeType) =>
     buttonLabelStyle: {
       paddingHorizontal: normalize(10),
       fontSize: normalize(16),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: colors.white,
       lineHeight: normalize(26),
       textAlign: 'center',

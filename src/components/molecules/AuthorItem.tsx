@@ -234,7 +234,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     articleLabelSyle: {
         paddingHorizontal: normalize(10),
         color: theme.primary,
-        fontFamily: fonts.AwsatDigitalBetav10_Regular,
+        fontFamily: fonts.AwsatDigital_Regular,
         lineHeight: isIOS ? 36 : 25,
     },
     mediaFooter: {

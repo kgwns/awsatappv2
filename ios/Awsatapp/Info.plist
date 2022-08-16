@@ -46,7 +46,7 @@
 	<key>FacebookDisplayName</key>
 	<string>الشرق الاوسط</string>
 	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<string/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>message</string>
@@ -61,7 +61,7 @@
 		<string>fastmail</string>
 		<string>protonmail</string>
 		<string>fbapi</string>
-  		<string>fb-messenger-share-api</string>
+		<string>fb-messenger-share-api</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -81,7 +81,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your camera (For upload your photo)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery (For Upload your photo / adding image)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -128,6 +128,9 @@
 		<string>subjectivity-medium.otf</string>
 		<string>Beirut.ttf</string>
 		<string>Effra-Medium.ttf</string>
+		<string>AwsatDigital-Black.otf</string>
+		<string>AwsatDigital-Bold.otf</string>
+		<string>AwsatDigital-Regular.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

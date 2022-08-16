@@ -136,7 +136,7 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
         height: normalize(187),
     },
     titleStyle:{
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         fontSize: 16,
         lineHeight: 26,
         textAlign: 'left', 

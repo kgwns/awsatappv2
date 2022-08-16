@@ -350,7 +350,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     nonBoldTitle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     divider: {
       height: 1,
@@ -360,10 +360,10 @@ const createStyles = (theme: CustomThemeType) =>
       marginLeft: 20
     },
     childTitleStyle:{
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     parentTitleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     itemContainer: {
       flexDirection: 'row',

@@ -210,7 +210,7 @@ const createStyles = (theme: CustomThemeType) => {
       color: theme.primaryDarkSlateGray,
       fontSize: isTab ? 16 : 12,
       lineHeight: 50,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     returnStyle: {
       flexDirection: 'row-reverse',
