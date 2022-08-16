@@ -411,7 +411,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     menuWeatherContainer: {
       marginHorizontal: normalize(35),
-      marginTop: normalize(10),
+      marginTop: normalize(3),
     },
     drawerItemStyle: {
       left: 0,
@@ -426,7 +426,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     weather: {
-      marginTop: normalize(16),
+      marginTop: normalize(9),
       alignSelf: 'center',
       justifyContent: 'center',
       flexDirection: 'row'
@@ -455,7 +455,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginLeft: isAndroid ? normalize(10) : normalize(0),
     },
     weatherTitle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       fontSize: isAndroid ? normalize(16) : normalize(14),
       color: colors.black,
       marginRight: normalize(5),
@@ -472,7 +472,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginLeft: 20
     },
     childTitleStyle:{
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     parentTitleStyle: {
       fontFamily: fonts.AwsatDigital_Bold,

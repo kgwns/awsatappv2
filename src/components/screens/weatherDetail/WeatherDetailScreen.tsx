@@ -2,10 +2,10 @@ import React, { FunctionComponent } from 'react';
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   ImageBackground,
   FlatList,
   Text,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {
   normalize,
@@ -172,83 +172,95 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   const renderItem = (item: weatherDate, index: number) => {
     return (
-      <TouchableOpacity style={item.selected ? styles.dayContainerSelected : styles.dayContainerNotSelected} onPress={() => updateOnPress(index)}>
-        <View>
+      <TouchableWithoutFeedback onPress={() => updateOnPress(index)}>
+        <View style={item.selected ? styles.dayContainerSelected : styles.dayContainerNotSelected}>
           <View>
-            <Label style={item.selected ? styles.dayContainerSelectedLabel1 : styles.dayContainerNotSelectedLabel1} >
+            <Label numberOfLines={1} style={item.selected ? styles.dayContainerSelectedLabel1 : styles.dayContainerNotSelectedLabel1} >
               {item.month}
             </Label>
           </View>
           <View>
-            <Label style={styles.dayContainerLabel2}>
+            <Label numberOfLines={1} style={styles.dayContainerLabel2}>
               {item.date}
               {' '}
               {item.day}
             </Label>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableWithoutFeedback>
     )
   }
 
   const weatherDescription = () => (
     <View style={styles.weatherDescriptionContainer}>
       <View style={styles.weatherDescriptionView}>
-        <Label style={styles.labelsList}>
-          <WeatherThermometerIcon width={23} height={23} />
-          {'    '}
-          {t('weatherDetail.max')}
-        </Label>
+        <View style={styles.labelsListContainer}>
+          <WeatherThermometerIcon width={24} height={24} style={styles.labelsListIcom}/>
+          <Label style={styles.labelsList1}>
+            {'    '}
+            {t('weatherDetail.max')}
+          </Label>
+        </View>
         {(weatherListDetails?.temp.max && weatherListDetails?.temp.min) &&
-          <Label style={styles.labelsList}>{weatherListDetails?.temp.max}°/{weatherListDetails?.temp.min}°</Label>
+          <Label style={styles.labelsList2}>{weatherListDetails?.temp.max}°/{weatherListDetails?.temp.min}°</Label>
         }
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
-        <Label style={styles.labelsList}>
-          <WeatherRainIcon width={23} height={23} />
-          {'    '}
-          {t('weatherDetail.humidity')}
-        </Label>
+        <View style={styles.labelsListContainer}>
+          <WeatherRainIcon width={24} height={24} style={styles.labelsListIcom}/>
+          <Label style={styles.labelsList1}>
+            {'    '}
+            {t('weatherDetail.humidity')}
+          </Label>
+        </View>
         {weatherListDetails?.humidity &&
-          <Label style={styles.labelsList}>{weatherListDetails?.humidity}%</Label>
+          <Label style={styles.labelsList2}>{weatherListDetails?.humidity}%</Label>
         }
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
-        <Label style={styles.labelsList}>
-          <WeatherIcon3 width={23} height={23} />
-          {'    '}
-          {t('weatherDetail.speed')}
-        </Label>
-        <Label style={styles.labelsList}>{weatherListDetails?.speed} {t('weatherDetail.kmh')}</Label>
+        <View style={styles.labelsListContainer}>
+          <WeatherIcon3 width={24} height={24} style={styles.labelsListIcom}/>
+          <Label style={styles.labelsList1}>
+            {'    '}
+            {t('weatherDetail.speed')}
+          </Label>
+        </View>
+        <Label style={styles.labelsList2}>{weatherListDetails?.speed} {t('weatherDetail.kmh')}</Label>
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
-        <Label style={styles.labelsList}>
-          <WeatherIcon4 width={23} height={23} />
-          {'    '}
-          {t('weatherDetail.visibility')}
-        </Label>
-        <Label style={styles.labelsList}>{weatherDataVisibility}  {t('weatherDetail.km')}</Label>
+        <View style={styles.labelsListContainer}>
+          <WeatherIcon4 width={24} height={24} style={styles.labelsListIcom}/>
+          <Label style={styles.labelsList1}>
+            {'    '}
+            {t('weatherDetail.visibility')}
+          </Label>
+        </View>
+        <Label style={styles.labelsList2}>{weatherDataVisibility}  {t('weatherDetail.km')}</Label>
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
-        <Label style={styles.labelsList}>
-          <WeatherIcon5 width={23} height={23} />
-          {'    '}
-          {t('weatherDetail.pressure')}
-        </Label>
-        <Label style={styles.labelsList}>{weatherListDetails?.pressure} {t('weatherDetail.mbar')}</Label>
+        <View style={styles.labelsListContainer}>
+          <WeatherIcon5 width={24} height={24} style={styles.labelsListIcom}/>
+          <Label style={styles.labelsList1}>
+            {'    '}
+            {t('weatherDetail.pressure')}
+          </Label>
+        </View>
+        <Label style={styles.labelsList2}>{weatherListDetails?.pressure} {t('weatherDetail.mbar')}</Label>
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
-        <Label style={styles.labelsList}>
-          <WeatherIcon6 width={23} height={23} />
-          {'    '}
-          {t('weatherDetail.seacondition')}
-        </Label>
-        <Label style={styles.labelsList}></Label>
+        <View style={styles.labelsListContainer}>
+          <WeatherIcon6 width={24} height={24} style={styles.labelsListIcom}/>
+          <Label style={styles.labelsList1}>
+            {'    '}
+            {t('weatherDetail.seacondition')}
+          </Label>
+        </View>
+        <Label style={styles.labelsList2}></Label>
       </View>
     </View>
   );
@@ -297,21 +309,21 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'space-between'
     },
     labels: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       textAlign: 'left',
       fontSize: normalize(17),
       color: colors.black,
       lineHeight: normalize(27),
     },
     dayContainerSelectedLabel1: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       textAlign: 'left',
       fontSize: normalize(15),
       color: colors.white,
       lineHeight: normalize(36),
     },
     dayContainerNotSelectedLabel1: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       textAlign: 'left',
       fontSize: normalize(15),
       color: colors.greenishBlue,
@@ -326,7 +338,7 @@ const createStyles = (theme: CustomThemeType) =>
     imageLabel1: {
       fontSize: normalize(38),
       color: colors.white,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'left',
     },
     imageLabel2: {
@@ -349,7 +361,7 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'center',
     },
     imageLabel5: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       alignSelf: 'flex-start',
       fontSize: normalize(15),
       color: colors.white,
@@ -363,12 +375,11 @@ const createStyles = (theme: CustomThemeType) =>
       paddingLeft: normalize(20)
     },
     dayContainerNotSelected: {
-      flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
       backgroundColor: colors.white,
       height: normalize(50),
-      width: normalize(63),
+      // width: normalize(63),
       padding: normalize(10),
       marginHorizontal: normalize(5),
       borderRadius: normalize(5),
@@ -376,12 +387,11 @@ const createStyles = (theme: CustomThemeType) =>
       borderWidth: normalize(1),
     },
     dayContainerSelected: {
-      flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
       backgroundColor: colors.greenishBlue,
       height: normalize(50),
-      width: normalize(63),
+      // width: normalize(63),
       padding: normalize(10),
       marginHorizontal: normalize(5),
       borderRadius: normalize(5),
@@ -409,10 +419,22 @@ const createStyles = (theme: CustomThemeType) =>
       backgroundColor: theme.dividerColor,
       marginBottom: normalize(15)
     },
-    labelsList: {
+    labelsListContainer: {
+      flexDirection:'row'
+    },
+    labelsList1: {
       fontFamily: fonts.Effra_Regular,
       fontSize: normalize(18),
       color: colors.black,
       lineHeight: normalize(32),
+    },
+    labelsList2: {
+      fontFamily: fonts.Effra_Regular,
+      fontSize: normalize(18),
+      color: colors.black,
+      lineHeight: normalize(32),
+    },
+    labelsListIcom: {
+      marginTop: normalize(5)
     },
   });
