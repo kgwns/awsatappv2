@@ -139,6 +139,9 @@ import EmailGrayIcon from 'src/assets/images/email_gray_icon.svg'
 import ChatBubbleIcon from 'src/assets/images/chat_bubble_icon.svg'
 import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
 
+//Photo Gallery
+import PhotoIcon from 'src/assets/images/icons/photo.svg';
+
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
@@ -334,6 +337,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <EmailGrayIcon {...props} />
         case ImagesName.chatBubbleIcon:
             return <ChatBubbleIcon {...props} />
+        case ImagesName.photoIcon:
+            return <PhotoIcon {...props} />
         default: return null
     }
 }

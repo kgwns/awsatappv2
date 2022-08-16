@@ -102,6 +102,16 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
           spreakerEpisode: item?.field_spreaker_episode_export
         }
         return prevValue.concat(podcastData)
+      } else if (item.type == PopulateWidgetType.ALBUM) {
+        const albumData = {
+          ...item,
+          imageUrl: item.field_album_img_export,
+          title: item?.title,
+          nid: item?.nid,
+          created: item.created_export,
+          isBookmarked: true,
+        }
+        return prevValue.concat(albumData)
       }
       return prevValue
     }, [])
