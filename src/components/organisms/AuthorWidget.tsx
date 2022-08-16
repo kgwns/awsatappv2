@@ -75,7 +75,7 @@ const AuthorWidget = ({
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
             elementContainerStyle: style.headerLeftContainer,
-            textStyle: { fontSize:16, lineHeight:32, fontFamily: fonts.AwsatDigitalBetav10_Bold}
+            textStyle: { fontSize:16, lineHeight:32, fontFamily: fonts.AwsatDigital_Bold}
         },
         // headerRight: {
         //     title: t('latestNewsTab.sectionComboOne.headerRight'),

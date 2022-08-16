@@ -102,7 +102,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontFamily: fonts.Effra_Arbc_Medium,
     },
     title: {
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         marginTop: normalize(17),
         fontSize: normalize(27),
         lineHeight: normalize(42),

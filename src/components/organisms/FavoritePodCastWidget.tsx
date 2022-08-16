@@ -106,7 +106,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     title: {
         fontSize: 16,
         lineHeight: 36,
-        fontFamily: fonts.AwsatDigitalBetav10_Bold
+        fontFamily: fonts.AwsatDigital_Bold
     },
     body: {
         fontSize: 14,

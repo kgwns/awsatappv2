@@ -462,7 +462,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginTop: isAndroid ? normalize(2) : normalize(2)
     },
     nonBoldTitle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     divider: {
       height: 1,
@@ -471,11 +471,11 @@ const createStyles = (theme: CustomThemeType) =>
     childItemStyle: {
       marginLeft: 20
     },
-    childTitleStyle: {
+    childTitleStyle:{
       fontFamily: fonts.AwsatDigitalBetav10_Regular,
     },
     parentTitleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     itemContainer: {
       flexDirection: 'row',

@@ -237,7 +237,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flex: 1,
     },
     titleStyle: {
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         fontSize: 20,
         lineHeight: 28,
         textAlign: 'left',

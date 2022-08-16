@@ -81,7 +81,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight: 24,
         textAlign: isTab ? 'center' : 'left',
         color: theme.primaryBlack,
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
     },
     circleContainer: {
         width: isTab ? 'auto' :'5%'

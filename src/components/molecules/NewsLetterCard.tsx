@@ -114,7 +114,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: 2,
     },
     title: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       fontSize: normalize(16),
       lineHeight: isIOS ? normalize(28): normalize(32),
       color: theme.primaryDarkSlateGray,

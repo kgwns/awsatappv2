@@ -163,7 +163,7 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'left',
       marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       marginBottom: normalize(8),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
   });
   return OpinionWritersArticlesSectionStyle;

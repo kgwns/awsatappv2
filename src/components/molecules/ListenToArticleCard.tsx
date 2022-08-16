@@ -106,7 +106,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: 16,
       lineHeight: 34,
       color: theme.primary,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     duration: {
       alignSelf: 'center',

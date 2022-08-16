@@ -958,7 +958,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: 33,
       color: theme.primary,
       lineHeight: 50,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     topNewsContainer: {
       marginHorizontal: 0.04 * screenWidth,
@@ -981,7 +981,7 @@ const customStyle = (theme: CustomThemeType) => {
     labelStyle: {
       lineHeight: isIOS ? 30 : 33,
       fontSize: 17,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold
+      fontFamily: fonts.AwsatDigital_Bold
     }
   })
 }

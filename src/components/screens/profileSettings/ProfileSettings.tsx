@@ -361,7 +361,7 @@ const customStyle = (theme: CustomThemeType) =>
       label: {
           marginLeft: normalize(20),
           color: theme.secondaryMediumGrey,
-          fontFamily: fonts.AwsatDigitalBetav10_Regular,
+          fontFamily: fonts.AwsatDigital_Regular,
           lineHeight: normalize(30)
       },
       divider: {
@@ -390,7 +390,7 @@ const customStyle = (theme: CustomThemeType) =>
       },
       subscribeStyle: {
           fontSize: normalize(24),
-          fontFamily: fonts.AwsatDigitalBetav10_Bold,
+          fontFamily: fonts.AwsatDigital_Bold,
           lineHeight: normalize(42),
           color: Styles.color.greenishBlue,
           marginTop: screenWidth * 0.1
@@ -414,6 +414,6 @@ const customStyle = (theme: CustomThemeType) =>
           color: Styles.color.white,
           fontSize: normalize(16),
           lineHeight: normalize(25),
-          fontFamily: fonts.AwsatDigitalBetav10_Bold,
+          fontFamily: fonts.AwsatDigital_Bold,
       },
   });

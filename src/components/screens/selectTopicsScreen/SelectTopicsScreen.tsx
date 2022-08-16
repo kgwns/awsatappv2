@@ -151,7 +151,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       paddingTop: normalize(10),
     },
     titleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'center',
       fontSize: normalize(20),
       color: theme.primary,
@@ -187,7 +187,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       left: normalize(20)
     },
     nextButtonText: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primary,
       textAlign: 'center',
       width: '100%',

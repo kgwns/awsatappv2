@@ -63,7 +63,7 @@ const customStyle = (theme: CustomThemeType) => {
             overflow: 'hidden'
         },
         title: {
-            fontFamily: fonts.AwsatDigitalBetav10_Black,
+            fontFamily: fonts.AwsatDigital_Black,
             fontSize: normalize(30),
             lineHeight: normalize(53),
             color: colors.black,
@@ -72,7 +72,7 @@ const customStyle = (theme: CustomThemeType) => {
             marginTop: normalize(25)
         },
         titleLandscape: {
-            fontFamily: fonts.AwsatDigitalBetav10_Black,
+            fontFamily: fonts.AwsatDigital_Black,
             fontSize: normalize(20),
             lineHeight: normalize(33),
             color: colors.black,
@@ -95,7 +95,7 @@ const customStyle = (theme: CustomThemeType) => {
             marginTop: normalize(5)
         },
         subTitle: {
-            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontFamily: fonts.AwsatDigital_Bold,
             fontSize: normalize(20),
             lineHeight: normalize(32),
             color: colors.black,
@@ -145,13 +145,13 @@ const customStyle = (theme: CustomThemeType) => {
             marginHorizontal: normalize(10)
         },
         buttonLabel: {
-            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontFamily: fonts.AwsatDigital_Bold,
             fontSize: normalize(16),
             lineHeight: normalize(25),
             textAlign: 'center'
         },
         buttonLabelLandscape: {
-            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontFamily: fonts.AwsatDigital_Bold,
             fontSize: normalize(10),
             lineHeight: normalize(16),
             textAlign: 'center'

@@ -308,7 +308,7 @@ const customStyle = (theme: CustomThemeType) => {
             height: normalize(55)
         },
         titleStyle: {
-            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontFamily: fonts.AwsatDigital_Bold,
             fontSize: normalize(16),
             lineHeight: normalize(25),
             color: theme.primaryBlack,

@@ -401,7 +401,7 @@ const createStyles = (theme: CustomThemeType) =>
       flexDirection: 'row',
     },
     headerLabelStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       fontSize: normalize(12),
       color: theme.backIconColor,
       lineHeight: normalize(16),

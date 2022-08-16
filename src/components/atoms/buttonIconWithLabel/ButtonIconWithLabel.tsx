@@ -51,7 +51,7 @@ const customStyle = () => (
             fontSize: 14,
             lineHeight: 17,
             marginLeft: 5,
-            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontFamily: fonts.AwsatDigital_Bold,
             paddingTop: isIOS ? 5 : 0
         },
     })

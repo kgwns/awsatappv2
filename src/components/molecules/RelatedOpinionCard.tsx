@@ -212,7 +212,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(12),
       lineHeight: normalize(36),
       color: theme.primary,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     durationLabel: {
       paddingHorizontal: normalize(10),
@@ -226,7 +226,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: 14,
       lineHeight: 24,
       color: theme.primaryBlack,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       paddingVertical: normalize(10),
       paddingRight: normalize(5),
     }

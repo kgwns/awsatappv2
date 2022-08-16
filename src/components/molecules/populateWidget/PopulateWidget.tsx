@@ -136,7 +136,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     videoContainer: {
     },
     titleStyle:{
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         fontSize: 16,
         lineHeight: 26,
         textAlign: 'left', 
