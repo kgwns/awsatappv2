@@ -254,16 +254,21 @@ export const ArticleDetailScreen = ({
   }
 
   const stopVideoPlayer = () => {
-    videoRefs?.current[0]?.setNativeProps({
-      paused: true
-    })
-    videoRefs?.current[1]?.setNativeProps({
-      paused: true
-    })
-    videoRefs?.current[2]?.setNativeProps({
-      paused: true
-    })
-    setPlayerVisible(false);
+    try {
+      if (videoRefs) {
+        videoRefs?.current[0]?.setNativeProps({
+          paused: true
+        })
+        videoRefs?.current[1]?.setNativeProps({
+          paused: true
+        })
+        videoRefs?.current[2]?.setNativeProps({
+          paused: true
+        })
+        setPlayerVisible(false);
+      }
+    } catch (e) {
+    }
   }
 
   const onPressArticle = (nid: string) => {
@@ -347,21 +352,25 @@ export const ArticleDetailScreen = ({
   }, [isFullScreen]);
 
   const onPressBack = () => {
-    stopVideoPlayer()
-    if (!route.params.isRelatedArticle) {
-      Orientation.unlockAllOrientations()
-      Orientation.lockToPortrait()
-    }
-   (isTab && isIOS) ? setTimeout(() => {
-      navigation.goBack()
-    },50) : navigation.goBack()
+    requestAnimationFrame(() => {
+      stopVideoPlayer()
+      if (!route.params.isRelatedArticle) {
+        Orientation.unlockAllOrientations()
+        Orientation.lockToPortrait()
+      }
+      (isTab && isIOS) ? setTimeout(() => {
+        navigation.goBack()
+      }, 50) : navigation.goBack()
+    });
   }
 
   useEffect(() => {
-    getVideoUrlInfo();
+      getVideoUrlInfo();
   }, [articleDetailState]);
 
   const getVideoUrlInfo = async () => {
+    if(!isNonEmptyArray(articleDetailState)) return
+
     const jwplayerId = articleDetailState[0].jwplayerId
     if (isNotEmpty(jwplayerId)) {
       try {
