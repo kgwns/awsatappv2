@@ -22,6 +22,7 @@ import {Styles} from 'src/shared/styles';
 import {PopulateWidgetType} from 'src/components/molecules/populateWidget/PopulateWidget';
 import {PhotoGalleryDetailWidget} from 'src/components/organisms';
 import {LoadingState} from 'src/components/atoms';
+import {AlbumDetailType} from 'src/redux/photoGallery/types';
 
 export interface PhotoGalleryDetailScreenProps {
   route: any;
@@ -42,20 +43,26 @@ export const PhotoGalleryDetailScreen = ({
   const {articleFontSize, storeArticleFontSizeInfo} = useAppCommon();
 
   const [fontSize, setFontSize] = useState<ArticleFontSize>(articleFontSize);
+  const [albumData, setAlbumData] = useState<AlbumDetailType[]>([]);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [showupUp, setShowPopUp] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge);
 
   const currentNId = route.params.nid;
 
-  // For Now Disabled Landscape mode
-  // useEffect(() => {
-  //   if (isFocused) {
-  //     Orientation.unlockAllOrientations();
-  //     Orientation.getDeviceOrientation(updateScreenEdge);
-  //     Orientation.addDeviceOrientationListener(updateScreenEdge);
-  //   }
-  // }, [isFocused]);
+  useEffect(() => {
+    if (isFocused) {
+      Orientation.unlockAllOrientations();
+      Orientation.getDeviceOrientation(updateScreenEdge);
+      Orientation.addDeviceOrientationListener(updateScreenEdge);
+    }
+
+    return () => {
+      Orientation.lockToPortrait();
+      Orientation.removeDeviceOrientationListener(updateScreenEdge);
+      Orientation.removeAllListeners();
+    };
+  }, []);
 
   useEffect(() => {
     fetchAlbumDetailData({nid: parseInt(currentNId)});
@@ -65,23 +72,27 @@ export const PhotoGalleryDetailScreen = ({
   }, []);
 
   useEffect(() => {
+    setAlbumData(albumDetailData);
+  }, [albumDetailData]);
+
+  useEffect(() => {
     if (fontSize != articleFontSize) {
       setFontSize(articleFontSize);
     }
   }, [articleFontSize]);
 
   useEffect(() => {
-    if (isNonEmptyArray(albumDetailData)) {
+    if (isNonEmptyArray(albumData)) {
       if (route.params && route.params.nid && isFocused) {
-        const isBookmarked = validateBookmark(albumDetailData[0].nid);
+        const isBookmarked = validateBookmark(albumData[0].nid);
         setIsBookmarked(isBookmarked);
       }
     }
-  }, [albumDetailData]);
+  }, [albumData]);
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const edge = getScreenEdge(deviceOrientation);
-    setEdge(edge);
+    isNonEmptyArray(edge) && setEdge(edge);
   };
 
   const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
@@ -92,6 +103,8 @@ export const PhotoGalleryDetailScreen = ({
         return ['left'];
       case 'PORTRAIT':
         return horizontalEdge;
+      case 'FACE-UP':
+        return [];
       default:
         return horizontalEdge;
     }
@@ -110,7 +123,7 @@ export const PhotoGalleryDetailScreen = ({
     }
 
     const newBookmarked = !isBookmarked;
-    const data = [...albumDetailData];
+    const data = [...albumData];
     data[0].isBookmarked = !data[0].isBookmarked;
     setIsBookmarked(newBookmarked);
     onUpdateBookMark(nid, newBookmarked);
@@ -135,7 +148,12 @@ export const PhotoGalleryDetailScreen = ({
   };
 
   const onPressBack = () => {
-    navigation.goBack();
+    Orientation.lockToPortrait();
+    isTab && isIOS
+      ? setTimeout(() => {
+          navigation.goBack();
+        }, 50)
+      : navigation.goBack();
   };
 
   const renderHeader = () => (
@@ -152,7 +170,7 @@ export const PhotoGalleryDetailScreen = ({
     return (
       <View style={[styles.container]}>
         <PhotoGalleryDetailWidget
-          data={albumDetailData[0]}
+          data={albumData[0]}
           fontSize={fontSize}
           onPressBack={onPressBack}
         />
@@ -164,7 +182,7 @@ export const PhotoGalleryDetailScreen = ({
     <ScreenContainer
       edge={edge}
       isLandscape
-      isSignUpAlertVisible={showupUp}
+      isSignUpAlertVisible={showPopUp}
       onCloseSignUpAlert={onCloseSignUpAlert}
       playerPosition={{
         bottom: isIOS ? normalize(70) : normalize(60),
@@ -174,7 +192,7 @@ export const PhotoGalleryDetailScreen = ({
           <LoadingState />
         </View>
       ) : (
-        isNonEmptyArray(albumDetailData) && (
+        isNonEmptyArray(albumData) && (
           <View style={styles.containerBase}>
             {renderHeader()}
             <FlatList
@@ -187,9 +205,9 @@ export const PhotoGalleryDetailScreen = ({
             />
             <View style={styles.shadowEffect}>
               <PhotoGalleryDetailFooter
-                albumData={albumDetailData[0]}
+                albumData={albumData[0]}
                 isBookmarked={isBookmarked}
-                onPressSave={() => onPressSave(albumDetailData[0].nid)}
+                onPressSave={() => onPressSave(albumData[0].nid)}
                 onPressFontChange={onPressFontChange}
               />
             </View>

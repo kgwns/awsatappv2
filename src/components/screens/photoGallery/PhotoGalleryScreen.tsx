@@ -1,11 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ScreenContainer} from '..';
-import {
-  horizontalEdge,
-  isNonEmptyArray,
-  isTab,
-  screenWidth,
-} from 'src/shared/utils';
+import {isNonEmptyArray, isTab, screenWidth} from 'src/shared/utils';
 import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 import {useBookmark, useLogin} from 'src/hooks';
 import {useNavigation} from '@react-navigation/native';
@@ -182,36 +176,34 @@ export const PhotoGalleryScreen = React.memo(
     };
 
     return (
-      <ScreenContainer edge={horizontalEdge} isLoading={false}>
-        <View style={styles.container}>
-          {isNonEmptyArray(albumDataInfo) && (
-            <FlatList
-              ref={ref}
-              testID="photo_gallery_list"
-              onScrollBeginDrag={() => (global.refFlatList = ref)}
-              data={albumDataInfo}
-              keyExtractor={(_, index) => index.toString()}
-              renderItem={renderItem}
-              showsVerticalScrollIndicator={false}
-              ListHeaderComponent={renderHeader}
-              onEndReached={loadMoreData}
-              onEndReachedThreshold={0.5}
-              ListFooterComponent={renderFooterComponent}
-            />
-          )}
-          {isLoading && !isNonEmptyArray(albumDataInfo) && (
-            <View style={styles.centeredStyle}>
-              <LoadingState />
-            </View>
-          )}
-          <PopUp
-            type={PopUpType.rbSheet}
-            onPressButton={onPressSignUp}
-            showPopUp={showupUp}
-            onClosePopUp={onClosePopUp}
+      <View style={styles.container}>
+        {isNonEmptyArray(albumDataInfo) && (
+          <FlatList
+            ref={ref}
+            testID="photo_gallery_list"
+            onScrollBeginDrag={() => (global.refFlatList = ref)}
+            data={albumDataInfo}
+            keyExtractor={(_, index) => index.toString()}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={renderHeader}
+            onEndReached={loadMoreData}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={renderFooterComponent}
           />
-        </View>
-      </ScreenContainer>
+        )}
+        {isLoading && !isNonEmptyArray(albumDataInfo) && (
+          <View style={styles.centeredStyle}>
+            <LoadingState />
+          </View>
+        )}
+        <PopUp
+          type={PopUpType.rbSheet}
+          onPressButton={onPressSignUp}
+          showPopUp={showupUp}
+          onClosePopUp={onClosePopUp}
+        />
+      </View>
     );
   },
 );

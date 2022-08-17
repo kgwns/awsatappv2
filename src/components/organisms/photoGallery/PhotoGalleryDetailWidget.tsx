@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, StyleSheet, View} from 'react-native';
+import {StyleSheet, View, useWindowDimensions} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
 import {HtmlRenderer, Label, Image} from 'src/components/atoms';
@@ -18,7 +18,6 @@ import {
 import {ArticleFontSize} from 'src/redux/appCommon/types';
 import {fonts} from 'src/shared/styles/fonts';
 import {ArticleFooter} from 'src/components/molecules';
-import {useTranslation} from 'react-i18next';
 import {ImageResize} from 'src/shared/styles/text-styles';
 
 export interface PhotoGalleryDetailWidgetProps {
@@ -32,7 +31,6 @@ export const PhotoGalleryDetailWidget = ({
   data,
   fontSize,
 }: PhotoGalleryDetailWidgetProps) => {
-  const [t] = useTranslation();
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
 
@@ -74,25 +72,26 @@ export const PhotoGalleryDetailWidget = ({
     </View>
   );
 
+  const { width } = useWindowDimensions();
+
   const renderImageList = () => {
     if (isNonEmptyArray(data.field_photo_album_export)) {
       return data.field_photo_album_export.map(
         (image: string, index: number) => {
           const imageUrl = image ? getImageUrl(image) : undefined;
           return (
-            <View key={index}>
-              <View>
-                <Image
-                  url={imageUrl}
-                  resizeMode={ImageResize.COVER}
-                  style={{
-                    width: Dimensions.get('window').width,
-                    height: 'auto',
-                    aspectRatio: 3 / 2,
-                  }}
-                  fallback={true}
-                />
-              </View>
+            <View key={index} style={style.container}>
+              <Image
+                url={imageUrl}
+                resizeMode={ImageResize.COVER}
+                style={{
+                  width: width,
+                  height: 'auto',
+                  aspectRatio: 3 / 2,
+                  flex: 1,
+                }}
+                fallback={true}
+              />
               <View style={style.textContainer}>
                 {isNonEmptyArray(data.field_album_source_export) &&
                   isNotEmpty(data.field_album_source_export[index]) &&
@@ -106,7 +105,7 @@ export const PhotoGalleryDetailWidget = ({
   };
 
   return (
-    <View>
+    <View style={style.container}>
       <View style={style.contentContainer}>
         <Label style={style.title} children={decodeHTMLTags(data.title)} />
         <ArticleFooter {...footerData} leftTitle={timeFormat.time} />
@@ -119,7 +118,11 @@ export const PhotoGalleryDetailWidget = ({
 
 const customStyle = (theme: CustomThemeType) => {
   const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
     contentContainer: {
+      flex: 1,
       paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
     },
     image: {
