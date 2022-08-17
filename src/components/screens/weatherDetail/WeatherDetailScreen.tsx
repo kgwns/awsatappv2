@@ -134,7 +134,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
         <Text style={styles.imageLabel2}>{data[0].date} {data[0].month} {data[0].year}</Text>
       </View>
       <View style={styles.weatherImageView2}>
-        <Text style={styles.imageLabel3}>{fetchWeatherDetailsSuccessInfo?.list[0].temp.day}</Text>
+        <Text style={styles.imageLabel3}>{Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day as number) + '°'}</Text>
         <View style={{ flexDirection: 'column' }}>
           {getImageIcon()}
           <Label style={styles.imageLabel4}>
@@ -143,23 +143,21 @@ export const WeatherDetailScreen: FunctionComponent = () => {
         </View>
       </View>
       {(fetchWeatherDetailsSuccessInfo?.list[0].sunrise && fetchWeatherDetailsSuccessInfo?.city.timezone) &&
-        <View style={styles.weatherImageView1}>
-          <Label style={styles.imageLabel5}>
-            <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
-            {'  '}
-            {t('weatherDetail.sunrise')}
-          </Label>
-          <Text style={styles.imageLabel6}>{convertedcountrySpecificTimeSunrise}</Text>
+        <View style={styles.timeZoneStyle}>
+          <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
+          <View style={styles.timeZoneLabelStyle}>
+            <Label style={styles.sunStateLabelStyle} children={t('weatherDetail.sunrise')} />
+            <Label style={styles.imageLabel6} children={convertedcountrySpecificTimeSunrise} />
+          </View>
         </View>
       }
       {(fetchWeatherDetailsSuccessInfo?.list[0].sunset && fetchWeatherDetailsSuccessInfo?.city.timezone) &&
-        <View style={styles.weatherImageView1}>
-          <Label style={styles.imageLabel5}>
-            <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
-            {'  '}
-            {t('weatherDetail.sunset')}
-          </Label>
-          <Text style={styles.imageLabel6}>{convertedcountrySpecificTimeSunSet}</Text>
+        <View style={styles.timeZoneStyle}>
+          <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
+          <View style={styles.timeZoneLabelStyle}>
+            <Label style={styles.sunStateLabelStyle} children={t('weatherDetail.sunset')} />
+            <Label style={styles.imageLabel6} children={convertedcountrySpecificTimeSunSet} />
+          </View>
         </View>
       }
     </ImageBackground>
@@ -186,7 +184,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
         <View style={[styles.dayContainerNotSelected , item.selected && styles.dayContainerSelected]}>
           <View>
             <Label numberOfLines={1}
-              style={item.selected ? styles.dayContainerSelectedLabel1 : styles.dayContainerNotSelectedLabel1}
+              style={[styles.dayContainerLabel1, item.selected && { color: colors.white }]}
               children={item.day} />
           </View>
           <View>
@@ -310,7 +308,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: normalize(40)
     },
     weatherImage: {
-      marginVertical: normalize(20),
+      marginTop: normalize(20),
       paddingHorizontal: normalize(15),
       paddingRight: normalize(10)
     },
@@ -326,14 +324,7 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.black,
       lineHeight: normalize(27),
     },
-    dayContainerSelectedLabel1: {
-      fontFamily: fonts.AwsatDigital_Regular,
-      textAlign: 'left',
-      fontSize: normalize(15),
-      color: colors.white,
-      lineHeight: normalize(28),
-    },
-    dayContainerNotSelectedLabel1: {
+    dayContainerLabel1: {
       fontFamily: fonts.AwsatDigital_Regular,
       textAlign: 'left',
       fontSize: normalize(15),
@@ -344,6 +335,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontFamily: fonts.Effra_Regular,
       textAlign: 'left',
       fontSize: normalize(11),
+      lineHeight: normalize(18),
       color: colors.titleGrey,
     },
     imageLabel1: {
@@ -360,9 +352,9 @@ const createStyles = (theme: CustomThemeType) =>
     },
     imageLabel3: {
       fontFamily: fonts.Effra_Regular,
-      fontSize: normalize(40),
+      fontSize: normalize(70),
       color: colors.white,
-      lineHeight: normalize(42),
+      lineHeight: normalize(72),
       alignSelf: 'center',
     },
     imageLabel4: {
@@ -382,14 +374,13 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: normalize(8),
       color: colors.white,
       fontFamily: fonts.Effra_Regular,
-      textAlign: 'left',
-      paddingLeft: normalize(20)
+      alignSelf: 'flex-start'
     },
     dayContainerNotSelected: {
-      justifyContent: 'space-between',
+      justifyContent: 'space-around',
       alignItems: 'center',
       backgroundColor: colors.white,
-      height: normalize(50),
+      // height: normalize(50),
       // width: normalize(63),
       padding: normalize(10),
       marginHorizontal: normalize(5),
@@ -405,7 +396,7 @@ const createStyles = (theme: CustomThemeType) =>
       padding: normalize(10)
     },
     weatherSunIcon: {
-      marginBottom: normalize(6)
+      marginRight: normalize(6)
     },
     weatherImageView2: {
       paddingHorizontal: normalize(10),
@@ -415,7 +406,7 @@ const createStyles = (theme: CustomThemeType) =>
     weatherDescriptionContainer: {
       marginHorizontal: normalize(20),
       marginTop: normalize(5),
-      marginBottom: normalize(20),
+      marginBottom: normalize(50),
     },
     divider: {
       height: 1,
@@ -439,5 +430,22 @@ const createStyles = (theme: CustomThemeType) =>
     },
     labelsListIcom: {
       marginTop: normalize(5)
+    },
+    timeZoneLabelStyle: {
+      flexDirection: 'column'
+    },
+    sunStateLabelStyle: {
+      fontFamily: fonts.AwsatDigital_Regular,
+      fontSize: normalize(15),
+      color: colors.white,
+      lineHeight: normalize(33),
+      justifyContent: 'center',
+      alignSelf: 'flex-start'
+    },
+    timeZoneStyle: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: normalize(10),
+      paddingBottom: normalize(10),
     },
   });

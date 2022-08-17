@@ -124,7 +124,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         </Text>
         {fetchWeatherDetailsSuccessInfo?.list[0].temp.day &&
           <View style={styles.weatherTempContainer}>
-            <CelsiusIcon style={styles.weatherCelciusIcon} height={isAndroid? 15 : 17} width={isAndroid? 15 : 17}/>
+            <CelsiusIcon style={styles.weatherCelciusIcon} height={isAndroid? 16 : 17} width={isAndroid? 16 : 17}/>
             <Text style={styles.weatherTemp}>
               {'  '}
               {Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day)}
@@ -448,7 +448,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontFamily: fonts.Effra_Arbc_Medium,
       fontSize: isAndroid ? normalize(18) : normalize(17),
       color: colors.greenishBlue,
-      marginTop: isAndroid ? normalize(2) : normalize(5),
+      marginTop: isAndroid ? normalize(0) : normalize(3),
     },
     weatherIcon: {
       marginTop: normalize(7),
