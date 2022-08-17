@@ -91,10 +91,10 @@ describe('SvgImages', () => {
         expect(getSvgImages({ name: ImagesName.thunderIcon })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.WeatherIcon4 })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.celsiusIcon })).toBeDefined();
-        expect(getSvgImages({ name: ImagesName.sunImageIcom })).toBeDefined();
-        expect(getSvgImages({ name: ImagesName.cloudImageIcom })).toBeDefined();
-        expect(getSvgImages({ name: ImagesName.fogImageIcom })).toBeDefined();
-        expect(getSvgImages({ name: ImagesName.rainImageIcom })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.sunImageIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.cloudImageIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.fogImageIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.rainImageIcon })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.sunCloudsImageIcon })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.WeatherIcon5 })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.WeatherIcon6 })).toBeDefined();

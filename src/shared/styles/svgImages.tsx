@@ -156,10 +156,10 @@ import SnowIcon from 'src/assets/images/icons/weather/snow.svg'
 import SunIcon from 'src/assets/images/icons/weather/sun.svg'
 import ThunderIcon from 'src/assets/images/icons/weather/thunder.svg'
 import CelsiusIcon from 'src/assets/images/icons/weather/Celsius.svg'
-import SunImageIcom from 'src/assets/images/icons/weather/Images/Sun.svg'
-import CloudImageIcom from 'src/assets/images/icons/weather/Images/Clouds.svg'
-import FogImageIcom from 'src/assets/images/icons/weather/Images/Fog.svg'
-import RainImageIcom from 'src/assets/images/icons/weather/Images/Rain.svg'
+import SunImageIcon from 'src/assets/images/icons/weather/Images/Sun.svg'
+import CloudImageIcon from 'src/assets/images/icons/weather/Images/Clouds.svg'
+import FogImageIcon from 'src/assets/images/icons/weather/Images/Fog.svg'
+import RainImageIcon from 'src/assets/images/icons/weather/Images/Rain.svg'
 import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds.svg'
 
 //Photo Gallery
@@ -235,14 +235,14 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <WeatherIcon4 {...props} />
         case ImagesName.celsiusIcon:
             return <CelsiusIcon {...props} />
-        case ImagesName.sunImageIcom:
-            return <SunImageIcom {...props} />
-        case ImagesName.cloudImageIcom:
-            return <CloudImageIcom {...props} />
-        case ImagesName.fogImageIcom:
-            return <FogImageIcom {...props} />
-        case ImagesName.rainImageIcom:
-            return <RainImageIcom {...props} />
+        case ImagesName.sunImageIcon:
+            return <SunImageIcon {...props} />
+        case ImagesName.cloudImageIcon:
+            return <CloudImageIcon {...props} />
+        case ImagesName.fogImageIcon:
+            return <FogImageIcon {...props} />
+        case ImagesName.rainImageIcon:
+            return <RainImageIcon {...props} />
         case ImagesName.sunCloudsImageIcon:
             return <SunCloudsImageIcon {...props} />
         case ImagesName.WeatherIcon5:

@@ -42,6 +42,7 @@ import CelsiusIcon from 'src/assets/images/icons/weather/Celsius.svg'
 import CloudsIcon from 'src/assets/images/icons/weather/clouds.svg'
 import RainIcon from 'src/assets/images/icons/weather/Rain.svg'
 import SunIcon from 'src/assets/images/icons/weather/sun.svg'
+import { weatherType } from 'src/components/screens/weatherDetail/WeatherDetailScreen';
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -103,15 +104,26 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     }
   }, [sideMenuData])
 
-  const getWeathericon = () => {
-    if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'rain')) {
-      return <RainIcon width={16} height={16} style={styles.weatherIcon} />
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'clouds')) {
-      return <CloudsIcon width={16} height={16} style={styles.weatherIcon} />
-    } else if (isStringIncludes(fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase(), 'sun')) {
-      return <SunIcon width={16} height={16} style={styles.weatherIcon} />
+  const getMainData = (fetchWeatherDetailsSuccessInfo: any): string => {
+    let mainData = ''
+    if (isObjectNonEmpty(fetchWeatherDetailsSuccessInfo) && isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list[0].weather)) {
+      mainData = fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase();
+    }
+    return mainData
+  }
+
+  const getWeatherIcon = () => {
+    const mainData = getMainData(fetchWeatherDetailsSuccessInfo);
+    let width = 16;
+    let height = 16;
+    if (isStringIncludes(mainData, weatherType.rain)) {
+      return <RainIcon width={width} height={height} style={styles.weatherIcon} />
+    } else if (isStringIncludes(mainData, weatherType.clouds)) {
+      return <CloudsIcon width={width} height={height} style={styles.weatherIcon} />
+    } else if (isStringIncludes(mainData, weatherType.sun)) {
+      return <SunIcon width={width} height={height} style={styles.weatherIcon} />
     } else {
-      return <SunIcon width={16} height={16} style={styles.weatherIcon} />
+      return <SunIcon width={width} height={height} style={styles.weatherIcon} />
     }
   };
 
@@ -124,14 +136,14 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         </Text>
         {fetchWeatherDetailsSuccessInfo?.list[0].temp.day &&
           <View style={styles.weatherTempContainer}>
-            <CelsiusIcon style={styles.weatherCelciusIcon} height={isAndroid? 16 : 17} width={isAndroid? 16 : 17}/>
+            <CelsiusIcon style={styles.weatherCelsiusIcon} height={isAndroid? 15 : 17} width={isAndroid? 15 : 17}/>
             <Text style={styles.weatherTemp}>
               {'  '}
               {Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day)}
             </Text>
            </View>
         }
-        {getWeathericon()}
+        {getWeatherIcon()}
         {fetchWeatherDetailsSuccessInfo?.list[0].weather[0].description &&
           <Text style={styles.weatherType}>
             {'  '}
@@ -435,7 +447,7 @@ const createStyles = (theme: CustomThemeType) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
-    weatherCelciusIcon: {
+    weatherCelsiusIcon: {
       marginTop:normalize(9),
     },
     weatherType: {

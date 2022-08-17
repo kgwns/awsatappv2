@@ -333,3 +333,34 @@ export const getDeviceName = async () => {
   const deviceName = await DeviceInfo.getDeviceName();
   return deviceName
 };
+
+export const getConvertedTimeSunRise = (sunrise?: number, timezone?: number) => {
+  var moments = require('moment-timezone');
+  if(sunrise && timezone){
+    let weatherSunrise = sunrise;
+  
+    var offsetTimezone = (timezone).toString();
+    const timeWeatherSunriseData = new Date(weatherSunrise * 1000);
+    var countrySpecificTimeSunrise = moments(new Date(timeWeatherSunriseData)).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
+    var convertedCountrySpecificTimeSunrise = moments(new Date(countrySpecificTimeSunrise)).format('HH:mm:ss')
+    return convertedCountrySpecificTimeSunrise
+  }else{
+    return ''
+  }
+};
+
+export const getConvertedTimeSunSet = (sunset?: number, timezone?: number) => {
+  var moments = require('moment-timezone');
+  if(sunset && timezone){
+    let weatherSunset = sunset;
+  
+    var offsetTimezone = (timezone).toString();
+    const timeWeatherSunSetData = new Date(weatherSunset * 1000);
+    var countrySpecificTimeSunSet = moments(new Date(timeWeatherSunSetData)).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
+  
+    var convertedCountrySpecificTimeSunSet = moments(new Date(countrySpecificTimeSunSet)).format('HH:mm:ss')
+    return convertedCountrySpecificTimeSunSet
+  }else{
+    return ''
+  }
+};

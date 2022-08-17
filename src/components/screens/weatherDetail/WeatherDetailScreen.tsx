@@ -24,15 +24,15 @@ import WeatherIcon5 from 'src/assets/images/icons/weather/weather_Icon5.svg'
 import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon6.svg'
 import WeatherDayIcon from 'src/assets/images/icons/weather/weather_Day_Icon.svg'
 import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon.svg'
-import { calculateDateNumber, calculateMonth, calculateYear, isNonEmptyArray, isObjectNonEmpty, isStringIncludes } from 'src/shared/utils/utilities';
+import { calculateDateNumber, calculateMonth, calculateYear, getConvertedTimeSunRise, getConvertedTimeSunSet, isNonEmptyArray, isObjectNonEmpty, isStringIncludes } from 'src/shared/utils/utilities';
 import { arabic } from 'src/assets/locales/ar/common-ar';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useWeatherDetails } from 'src/hooks';
-import SunImageIcom from 'src/assets/images/icons/weather/Images/Sun.svg'
-import CloudImageIcom from 'src/assets/images/icons/weather/Images/Clouds.svg'
-import FogImageIcom from 'src/assets/images/icons/weather/Images/Fog.svg'
-import RainImageIcom from 'src/assets/images/icons/weather/Images/Rain.svg'
+import SunImageIcon from 'src/assets/images/icons/weather/Images/Sun.svg'
+import CloudImageIcon from 'src/assets/images/icons/weather/Images/Clouds.svg'
+import FogImageIcon from 'src/assets/images/icons/weather/Images/Fog.svg'
+import RainImageIcon from 'src/assets/images/icons/weather/Images/Rain.svg'
 import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds.svg'
 
 interface weatherDate {
@@ -43,19 +43,28 @@ interface weatherDate {
   selected: boolean,
 }
 
+export enum weatherType {
+  rain = 'rain',
+  clouds = 'clouds',
+  clear = 'clear',
+  sun = 'sun',
+  sand = 'sand',
+  fog = 'fog',
+}
+
 export const WeatherDetailScreen: FunctionComponent = () => {
   const { fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilitySuccessInfo } = useWeatherDetails();
 
-  var moments = require('moment-timezone');
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   var currentDate = new Date();
   var data: weatherDate[] = [];
 
   const [weatherDataDetails, setWeatherDataDetails] = React.useState(data);
-  const [weatherListDetails, setweatherListDetails] = React.useState(fetchWeatherDetailsSuccessInfo?.list[0]);
+  const [weatherListDetails, setWeatherListDetails] = React.useState<any>(fetchWeatherDetailsSuccessInfo?.list[0] ? fetchWeatherDetailsSuccessInfo?.list[0] : []);
   var [weatherDataVisibility, setWeatherDataVisibility] = React.useState(fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? fetchWeatherDetailsVisibilitySuccessInfo.visibility : '');
 
+  
   currentDate.setDate(currentDate.getDate());
   currentDate.setDate(currentDate.getDate());
 
@@ -64,19 +73,6 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     currentDate.setDate(currentDate.getDate() + 1);
     data.push({ date: (calculateDateNumber(currentDate)).toString(), month: calculateMonth(currentDate), day: arabic.day[moment(currentDate).get('day')], year: calculateYear(currentDate), selected: false });
   }
-
-  let weatherSunrise = fetchWeatherDetailsSuccessInfo?.list[0].sunrise ? fetchWeatherDetailsSuccessInfo?.list[0].sunrise : 0;
-  let weatherSunset = fetchWeatherDetailsSuccessInfo?.list[0].sunset ? fetchWeatherDetailsSuccessInfo?.list[0].sunset : 0;
-
-  var offsetTimezone = fetchWeatherDetailsSuccessInfo?.city.timezone ? (fetchWeatherDetailsSuccessInfo?.city.timezone).toString() : 0;
-  const timeWeatherSunriseData = new Date(weatherSunrise * 1000);
-  var countrySpecificTimeSunrise = moments(timeWeatherSunriseData).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
-  const timeWeatherSunSetData = new Date(weatherSunset * 1000);
-  var countrySpecificTimeSunSet = moments(timeWeatherSunSetData).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
-
-  var convertedcountrySpecificTimeSunSet = moments(countrySpecificTimeSunSet).format('HH:mm:ss')
-  var convertedcountrySpecificTimeSunrise = moments(countrySpecificTimeSunrise).format('HH:mm:ss')
-
 
   const weatherDetail = () => (
     <View style={styles.weatherDetail}>
@@ -92,18 +88,18 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     }
     return mainData
   }
-
+  
   const getBackgroundImage = () => {
     const mainData = getMainData(fetchWeatherDetailsSuccessInfo)
-    if (isStringIncludes(mainData, 'rain')) {
+    if (isStringIncludes(mainData, weatherType.rain)) {
       return images.rainyImg
-    } else if (isStringIncludes(mainData, 'clouds')) {
+    } else if (isStringIncludes(mainData, weatherType.clouds)) {
       return images.cloudyImg
-    } else if (isStringIncludes(mainData, 'clear')) {
+    } else if (isStringIncludes(mainData, weatherType.clear)) {
       return images.clearSkyImg
-    } else if (isStringIncludes(mainData, 'sun')) {
+    } else if (isStringIncludes(mainData, weatherType.sun)) {
       return images.sunnyImg
-    } else if (isStringIncludes(mainData, 'sand')) {
+    } else if (isStringIncludes(mainData, weatherType.sand)) {
       return images.sandImg
     } else {
       return images.clearSkyImg
@@ -111,19 +107,21 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   };
 
   const getImageIcon = () => {
-    const mainData = getMainData(fetchWeatherDetailsSuccessInfo)
-    if (isStringIncludes(mainData, 'rain')) {
-      return <RainImageIcom height={160} width={160} />
-    } else if (isStringIncludes(mainData, 'clouds')) {
-      return <CloudImageIcom height={160} width={160} />
-    } else if (isStringIncludes(mainData, 'clear')) {
-      return <SunCloudsImageIcon height={160} width={160} />
-    } else if (isStringIncludes(mainData, 'sun')) {
-      return <SunImageIcom height={160} width={160} />
-    } else if (isStringIncludes(mainData, 'fog')) {
-      return <FogImageIcom height={160} width={160} />
+    const mainData = getMainData(fetchWeatherDetailsSuccessInfo);
+    let width = 160;
+    let height = 160;
+    if (isStringIncludes(mainData, weatherType.rain)) {
+      return <RainImageIcon height={height} width={width} />
+    } else if (isStringIncludes(mainData, weatherType.clouds)) {
+      return <CloudImageIcon height={height} width={width} />
+    } else if (isStringIncludes(mainData, weatherType.clear)) {
+      return <SunCloudsImageIcon height={height} width={width} />
+    } else if (isStringIncludes(mainData, weatherType.sun)) {
+      return <SunImageIcon height={height} width={width} />
+    } else if (isStringIncludes(mainData, weatherType.fog)) {
+      return <FogImageIcon height={height} width={width} />
     } else {
-      return <SunCloudsImageIcon height={160} width={160} />
+      return <SunCloudsImageIcon height={height} width={width} />
     }
   };
 
@@ -143,21 +141,23 @@ export const WeatherDetailScreen: FunctionComponent = () => {
         </View>
       </View>
       {(fetchWeatherDetailsSuccessInfo?.list[0].sunrise && fetchWeatherDetailsSuccessInfo?.city.timezone) &&
-        <View style={styles.timeZoneStyle}>
-          <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
-          <View style={styles.timeZoneLabelStyle}>
-            <Label style={styles.sunStateLabelStyle} children={t('weatherDetail.sunrise')} />
-            <Label style={styles.imageLabel6} children={convertedcountrySpecificTimeSunrise} />
-          </View>
+        <View style={styles.weatherImageView1}>
+          <Label style={styles.imageLabel5}>
+            <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
+            {'  '}
+            {t('weatherDetail.sunrise')}
+          </Label>
+          <Text style={styles.imageLabel6}>{getConvertedTimeSunRise(fetchWeatherDetailsSuccessInfo?.list[0].sunrise,fetchWeatherDetailsSuccessInfo?.city.timezone)}</Text>
         </View>
       }
       {(fetchWeatherDetailsSuccessInfo?.list[0].sunset && fetchWeatherDetailsSuccessInfo?.city.timezone) &&
-        <View style={styles.timeZoneStyle}>
-          <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
-          <View style={styles.timeZoneLabelStyle}>
-            <Label style={styles.sunStateLabelStyle} children={t('weatherDetail.sunset')} />
-            <Label style={styles.imageLabel6} children={convertedcountrySpecificTimeSunSet} />
-          </View>
+        <View style={styles.weatherImageView1}>
+          <Label style={styles.imageLabel5}>
+            <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
+            {'  '}
+            {t('weatherDetail.sunset')}
+          </Label>
+          <Text style={styles.imageLabel6}>{getConvertedTimeSunSet(fetchWeatherDetailsSuccessInfo?.list[0].sunset,fetchWeatherDetailsSuccessInfo?.city.timezone)}</Text>
         </View>
       }
     </ImageBackground>
@@ -170,7 +170,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     });
     weatherDataDetails[index].selected = true;
     setWeatherDataDetails(weatherUpdates);
-    setweatherListDetails(fetchWeatherDetailsSuccessInfo?.list[index])
+    setWeatherListDetails(fetchWeatherDetailsSuccessInfo?.list[index])
     if (index == 0 && fetchWeatherDetailsVisibilitySuccessInfo?.visibility) {
       setWeatherDataVisibility(fetchWeatherDetailsVisibilitySuccessInfo?.visibility)
     } else {
@@ -203,7 +203,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     <View style={styles.weatherDescriptionContainer}>
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
-          <WeatherThermometerIcon width={24} height={24} style={styles.labelsListIcom}/>
+          <WeatherThermometerIcon width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
             {t('weatherDetail.max')}
@@ -216,7 +216,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
-          <WeatherRainIcon width={24} height={24} style={styles.labelsListIcom}/>
+          <WeatherRainIcon width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
             {t('weatherDetail.humidity')}
@@ -229,7 +229,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
-          <WeatherIcon3 width={24} height={24} style={styles.labelsListIcom}/>
+          <WeatherIcon3 width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
             {t('weatherDetail.speed')}
@@ -240,7 +240,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
-          <WeatherIcon4 width={24} height={24} style={styles.labelsListIcom}/>
+          <WeatherIcon4 width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
             {t('weatherDetail.visibility')}
@@ -251,7 +251,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
-          <WeatherIcon5 width={24} height={24} style={styles.labelsListIcom}/>
+          <WeatherIcon5 width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
             {t('weatherDetail.pressure')}
@@ -262,10 +262,10 @@ export const WeatherDetailScreen: FunctionComponent = () => {
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
-          <WeatherIcon6 width={24} height={24} style={styles.labelsListIcom}/>
+          <WeatherIcon6 width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
-            {t('weatherDetail.seacondition')}
+            {t('weatherDetail.seaCondition')}
           </Label>
         </View>
         <Label style={styles.labelsList2}></Label>
@@ -428,7 +428,7 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.black,
       lineHeight: normalize(32),
     },
-    labelsListIcom: {
+    labelsListIcon: {
       marginTop: normalize(5)
     },
     timeZoneLabelStyle: {

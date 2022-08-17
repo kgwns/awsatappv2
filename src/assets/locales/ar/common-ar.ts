@@ -9,7 +9,7 @@ export const arabic = {
     kmh: 'كم/ساعة',
     visibility: 'الرؤية',
     pressure: 'الضغط',
-    seacondition: 'حالة البحر',
+    seaCondition: 'حالة البحر',
     km: 'كم',
     mbar: 'مللي بار',
   },
