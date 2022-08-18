@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import {
   View,
   StyleSheet,
@@ -24,16 +24,16 @@ import WeatherIcon5 from 'src/assets/images/icons/weather/weather_Icon5.svg'
 import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon6.svg'
 import WeatherDayIcon from 'src/assets/images/icons/weather/weather_Day_Icon.svg'
 import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon.svg'
-import { calculateDateNumber, calculateMonth, calculateYear, getConvertedTimeSunRise, getConvertedTimeSunSet, isNonEmptyArray, isObjectNonEmpty, isStringIncludes } from 'src/shared/utils/utilities';
+import { calculateDateNumber, calculateMonth, calculateYear, getConvertedTime, isNonEmptyArray, isObjectNonEmpty, isStringIncludes } from 'src/shared/utils/utilities';
 import { arabic } from 'src/assets/locales/ar/common-ar';
 import moment from 'moment';
-import { useTranslation } from 'react-i18next';
 import { useWeatherDetails } from 'src/hooks';
 import SunImageIcon from 'src/assets/images/icons/weather/Images/Sun.svg'
 import CloudImageIcon from 'src/assets/images/icons/weather/Images/Clouds.svg'
 import FogImageIcon from 'src/assets/images/icons/weather/Images/Fog.svg'
 import RainImageIcon from 'src/assets/images/icons/weather/Images/Rain.svg'
 import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds.svg'
+import { TranslateConstants, TranslateKey } from 'src/constants';
 
 interface weatherDate {
   date: string,
@@ -53,10 +53,21 @@ export enum weatherType {
 }
 
 export const WeatherDetailScreen: FunctionComponent = () => {
-  const { fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilitySuccessInfo } = useWeatherDetails();
+  const CONST_SUNRISE = TranslateConstants({key: TranslateKey.WEATHER_DETAILS_SUNRISE})
+  const CONST_SUNSET = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SUNSET })
+  const CONST_HUMIDITY = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_HUMIDITY })
+  const CONST_SPEED = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SPEED })
+  const CONST_KMH = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_KMH })
+  const CONST_VISIBILITY = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_VISIBILITY })
+  const CONST_PRESSURE = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_PRESSURE })
+  const CONST_SEA_CONDITION = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SEA_CONDITION })
+  const CONST_KM = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_KM })
+  const CONST_MBAR = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_MBAR })
+  const CONST_MAX = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_MAX })
 
-  const [t] = useTranslation();
+  const { fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilitySuccessInfo } = useWeatherDetails();
   const styles = useThemeAwareObject(createStyles);
+
   var currentDate = new Date();
   var data: weatherDate[] = [];
 
@@ -81,16 +92,23 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     </View>
   );
 
-  const getMainData = (fetchWeatherDetailsSuccessInfo: any): string => {
+  const weatherListData: any[] = useMemo(() => {
+    if (isObjectNonEmpty(fetchWeatherDetailsSuccessInfo) && isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list)) {
+      return fetchWeatherDetailsSuccessInfo?.list ?? []
+    }
+    return []
+  }, [fetchWeatherDetailsSuccessInfo])
+
+  const getMainData = (): string => {
     let mainData = ''
-    if (isObjectNonEmpty(fetchWeatherDetailsSuccessInfo) && isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list[0].weather)) {
-      mainData = fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase();
+    if (isObjectNonEmpty(weatherListData) && isNonEmptyArray(weatherListData[0].weather)) {
+      mainData = weatherListData[0].weather[0].main.toLowerCase();
     }
     return mainData
   }
   
   const getBackgroundImage = () => {
-    const mainData = getMainData(fetchWeatherDetailsSuccessInfo)
+    const mainData = getMainData()
     if (isStringIncludes(mainData, weatherType.rain)) {
       return images.rainyImg
     } else if (isStringIncludes(mainData, weatherType.clouds)) {
@@ -107,7 +125,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   };
 
   const getImageIcon = () => {
-    const mainData = getMainData(fetchWeatherDetailsSuccessInfo);
+    const mainData = getMainData();
     let width = 160;
     let height = 160;
     if (isStringIncludes(mainData, weatherType.rain)) {
@@ -125,6 +143,34 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     }
   };
 
+  const renderSunRiseAndSunSet = () => {
+    const timeZone = isObjectNonEmpty(fetchWeatherDetailsSuccessInfo?.city) ? fetchWeatherDetailsSuccessInfo?.city.timezone : undefined
+    return (
+      <>
+        {(isNonEmptyArray(weatherListData) && weatherListData[0].sunrise && timeZone) &&
+          <View style={styles.weatherImageView1}>
+            <Label style={styles.imageLabel5}>
+              <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
+              {'  '}
+              {CONST_SUNRISE}
+            </Label>
+            <Text style={styles.imageLabel6}>{getConvertedTime(weatherListData[0].sunrise, timeZone)}</Text>
+          </View>
+        }
+        {(weatherListData[0].sunset && timeZone) &&
+          <View style={styles.weatherImageView1}>
+            <Label style={styles.imageLabel5}>
+              <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
+              {'  '}
+              {CONST_SUNSET}
+            </Label>
+            <Text style={styles.imageLabel6}>{getConvertedTime(weatherListData[0].sunset, timeZone)}</Text>
+          </View>
+        }
+      </>
+    )
+  }
+
   const weatherImage = () => (
     <ImageBackground source={getBackgroundImage()} style={styles.weatherImage}>
       <View style={styles.weatherImageView1}>
@@ -140,31 +186,12 @@ export const WeatherDetailScreen: FunctionComponent = () => {
           </Label>
         </View>
       </View>
-      {(fetchWeatherDetailsSuccessInfo?.list[0].sunrise && fetchWeatherDetailsSuccessInfo?.city.timezone) &&
-        <View style={styles.weatherImageView1}>
-          <Label style={styles.imageLabel5}>
-            <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
-            {'  '}
-            {t('weatherDetail.sunrise')}
-          </Label>
-          <Text style={styles.imageLabel6}>{getConvertedTimeSunRise(fetchWeatherDetailsSuccessInfo?.list[0].sunrise,fetchWeatherDetailsSuccessInfo?.city.timezone)}</Text>
-        </View>
-      }
-      {(fetchWeatherDetailsSuccessInfo?.list[0].sunset && fetchWeatherDetailsSuccessInfo?.city.timezone) &&
-        <View style={styles.weatherImageView1}>
-          <Label style={styles.imageLabel5}>
-            <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
-            {'  '}
-            {t('weatherDetail.sunset')}
-          </Label>
-          <Text style={styles.imageLabel6}>{getConvertedTimeSunSet(fetchWeatherDetailsSuccessInfo?.list[0].sunset,fetchWeatherDetailsSuccessInfo?.city.timezone)}</Text>
-        </View>
-      }
+      {isNonEmptyArray(weatherListData) && renderSunRiseAndSunSet()}
     </ImageBackground>
   );
 
   const updateOnPress = (index: number) => {
-    const weatherUpdates = weatherDataDetails.map((item) => {
+    const weatherUpdates = weatherDataDetails.map((item: weatherDate) => {
       item.selected = false;
       return item;
     });
@@ -206,7 +233,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
           <WeatherThermometerIcon width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
-            {t('weatherDetail.max')}
+            {CONST_MAX}
           </Label>
         </View>
         {(weatherListDetails?.temp.max && weatherListDetails?.temp.min) &&
@@ -219,7 +246,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
           <WeatherRainIcon width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
-            {t('weatherDetail.humidity')}
+            {CONST_HUMIDITY}
           </Label>
         </View>
         {weatherListDetails?.humidity &&
@@ -232,10 +259,10 @@ export const WeatherDetailScreen: FunctionComponent = () => {
           <WeatherIcon3 width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
-            {t('weatherDetail.speed')}
+            {CONST_SPEED}
           </Label>
         </View>
-        <Label style={styles.labelsList2}>{weatherListDetails?.speed} {t('weatherDetail.kmh')}</Label>
+        <Label style={styles.labelsList2}>{weatherListDetails?.speed} {CONST_KMH}</Label>
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
@@ -243,10 +270,10 @@ export const WeatherDetailScreen: FunctionComponent = () => {
           <WeatherIcon4 width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
-            {t('weatherDetail.visibility')}
+            {CONST_VISIBILITY}
           </Label>
         </View>
-        <Label style={styles.labelsList2}>{weatherDataVisibility}  {t('weatherDetail.km')}</Label>
+        <Label style={styles.labelsList2}>{weatherDataVisibility}  {CONST_KM}</Label>
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
@@ -254,10 +281,10 @@ export const WeatherDetailScreen: FunctionComponent = () => {
           <WeatherIcon5 width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
-            {t('weatherDetail.pressure')}
+            {CONST_PRESSURE}
           </Label>
         </View>
-        <Label style={styles.labelsList2}>{weatherListDetails?.pressure} {t('weatherDetail.mbar')}</Label>
+        <Label style={styles.labelsList2}>{weatherListDetails?.pressure} {CONST_MBAR}</Label>
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
@@ -265,7 +292,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
           <WeatherIcon6 width={24} height={24} style={styles.labelsListIcon}/>
           <Label style={styles.labelsList1}>
             {'    '}
-            {t('weatherDetail.seaCondition')}
+            {CONST_SEA_CONDITION}
           </Label>
         </View>
         <Label style={styles.labelsList2}></Label>

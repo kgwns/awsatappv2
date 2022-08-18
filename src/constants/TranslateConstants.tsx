@@ -55,7 +55,7 @@ export enum TranslateKey {
     WEATHER_DETAILS_VISIBILITY,
     WEATHER_DETAILS_PRESSURE,
     WEATHER_DETAILS_SPEED,
-    WEATHER_DETAILS_SEACONDITION
+    WEATHER_DETAILS_SEA_CONDITION
 }
 
 export const TranslateConstants = ({
@@ -164,7 +164,7 @@ export const TranslateConstants = ({
             return t('weatherDetail.visibility')
         case TranslateKey.WEATHER_DETAILS_PRESSURE:
             return t('weatherDetail.pressure')
-        case TranslateKey.WEATHER_DETAILS_SEACONDITION:
+        case TranslateKey.WEATHER_DETAILS_SEA_CONDITION:
             return t('weatherDetail.seaCondition')
         case TranslateKey.WEATHER_DETAILS_KM:
             return t('weatherDetail.km')
