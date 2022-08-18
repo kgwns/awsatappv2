@@ -95,7 +95,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     authorLabel: {
         lineHeight: 18,
-        // fontFamily: fonts.AwsatDigitalBetav10_Regular,
+        // fontFamily: fonts.AwsatDigital_Regular,
         fontSize: 14,
         color: theme.primary
     },

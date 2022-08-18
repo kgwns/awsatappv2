@@ -120,7 +120,7 @@ StyleSheet.create({
   },
   textStyle: {
     fontSize: 16,
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
     lineHeight: 26,
     color: colors.white,
     paddingBottom: normalize(10),
@@ -140,7 +140,7 @@ StyleSheet.create({
     color: colors.spanishGray,
     textAlign: 'center',
     paddingBottom: normalize(15),
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
   },
   descriptionTextStyle: {
     fontSize: 14,
@@ -184,18 +184,18 @@ StyleSheet.create({
     lineHeight: 16,
     color: colors.white,
     marginLeft: normalize(5),
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
   },
   footerRightTextStyle: {
     fontSize: 12,
     lineHeight: 16,
     color: colors.white,
     marginRight: normalize(5),
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
   },
   buttonLabel: {
     color: colors.black,
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
     fontSize: 14,
     lineHeight: 26
   },

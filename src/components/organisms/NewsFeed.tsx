@@ -239,7 +239,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   title: {
     textAlign: 'left',
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
     fontSize: normalize(18),
     lineHeight: normalize(29),
     marginBottom: 10,

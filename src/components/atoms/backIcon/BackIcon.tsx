@@ -51,7 +51,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontSize: 14,
         lineHeight: 30,
         color: theme.primaryBlack,
-        fontFamily: fonts.AwsatDigitalBetav10_Regular,
+        fontFamily: fonts.AwsatDigital_Regular,
     },
     returnStyle: {
         flexDirection: 'row',

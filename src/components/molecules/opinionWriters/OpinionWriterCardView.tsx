@@ -249,7 +249,7 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'left',
       lineHeight: 30,
       color: theme.primaryBlack,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     subHeadLine: {
       fontSize: 16,
@@ -282,7 +282,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: 24,
       color: theme.primary,
       marginLeft: normalize(10),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     duration: {
       fontSize: 12,

@@ -210,7 +210,7 @@ const customStyle = (theme: CustomThemeType) => (
       flex: 0.13,
     },
     titleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'center',
       fontSize: normalize(20),
       color: theme.primary,
@@ -247,7 +247,7 @@ const customStyle = (theme: CustomThemeType) => (
       left: normalize(20)
     },
     nextButtonText: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: 'white',
       textAlign: 'center',
       width: '100%',

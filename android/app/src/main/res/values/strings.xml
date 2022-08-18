@@ -192,4 +192,5 @@
     <string name="back_text">الرجوع</string>
     <string name="download_news_issue_title">الصحيفة الورقية</string>
     <string name="edition">العدد</string>
+    <string name="low_storage_error_message">مساحة تخزين غير كافية! تفريغ ذاكرة على الأقل 200 ميجابايت</string>
 </resources>

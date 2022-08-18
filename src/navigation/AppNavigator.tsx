@@ -89,7 +89,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.ARTICLE_DETAIL_SCREEN}
         component={Routes.ArticleDetailScreen}
-        options={{ ...hideHeader, animationEnabled: isAndroid }}
+        options={hideHeader}
       />
       <Stack.Screen
         name={ScreensConstants.PodcastProgram}
@@ -136,7 +136,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN}
         component={Routes.OpinionArticleDetail}
-        options={{ ...hideHeader, animationEnabled: isAndroid }}
+        options={hideHeader}
       />
       <Stack.Screen
         name={ScreensConstants.USER_DETAIL_SCREEN}
@@ -301,7 +301,7 @@ const customStyle = (theme: CustomThemeType) => (
       color: theme.primaryDarkSlateGray,
       fontSize: isTab ? 16 : 12,
       lineHeight: 30,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     onBoardPrevIcon: {
       width: isTab ? 14 : 12,

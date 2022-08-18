@@ -255,7 +255,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: normalize(5),
     },
     titleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'center',
       fontSize: normalize(20),
       color: theme.primary,
@@ -290,7 +290,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     nextButtonIconContainer: { position: 'absolute', left: normalize(20) },
     nextButtonText: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primary,
       textAlign: 'center',
       width: '100%',

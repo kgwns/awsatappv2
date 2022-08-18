@@ -201,13 +201,13 @@ StyleSheet.create({
     textAlign: 'left',
     fontSize: 18,
     lineHeight: 26,
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
   },
   searchText: {
     color: theme.primaryBlack,
     fontSize: 18,
     lineHeight: 26,
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
   },
   containerStyle: {
     flex : 1
@@ -226,7 +226,7 @@ StyleSheet.create({
   },
   historyItemText: {
     fontWeight: 'normal',
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
   },
   clearButtonStyle: {
    marginTop: normalize(20),

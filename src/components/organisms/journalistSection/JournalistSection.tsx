@@ -158,13 +158,13 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
       textAlign: 'left',
       marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       marginBottom: normalize(8),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     itemContainer: {
         flex: 1,
     },
     titleStyle: {
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         fontSize: 20,
         lineHeight: 28,
         textAlign: 'left',

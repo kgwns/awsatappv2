@@ -250,7 +250,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: 22,
       lineHeight: 36,
       color: theme.primaryBlack,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'left',
     },
     authorDescription:{
@@ -266,7 +266,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(14),
       lineHeight: normalize(32),
       color: theme.primaryBlack,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     followContainer: {
       width: 75,
@@ -280,7 +280,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: 13,
       lineHeight: 27,
       marginStart: 2,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     prevIconStyle: {
       width: normalize(12),

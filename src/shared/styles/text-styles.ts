@@ -29,7 +29,7 @@ enum TextAlign {
 export const textStyles = (theme: CustomThemeType) => {
   const style = StyleSheet.create<Record<string, TextStyle>>({
     h2: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(16),
       lineHeight: normalize(26),
@@ -38,7 +38,7 @@ export const textStyles = (theme: CustomThemeType) => {
       color: theme.primaryBlack
     },
     h3: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: 17,
       lineHeight: 25,
@@ -198,7 +198,7 @@ export const textStyles = (theme: CustomThemeType) => {
       lineHeight: 18,
       fontWeight: FontWeight.REGULAR,
       color: colors.greyLight,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     underlinedTitle: {
       fontStyle: FontStyle.NORMAL,
@@ -211,14 +211,14 @@ export const textStyles = (theme: CustomThemeType) => {
       color: colors.blue,
     },
     title1: {
-      fontFamily: fonts.AwsatDigitalBetav10_Black,
+      fontFamily: fonts.AwsatDigital_Black,
       fontSize: 24,
       lineHeight: 36,
       textAlign: TextAlign.LEFT,
       color: theme.primaryBlack,
     },
     title3: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(20),
       lineHeight: normalize(32),
@@ -226,7 +226,7 @@ export const textStyles = (theme: CustomThemeType) => {
       color: theme.primaryBlack,
     },
     title4: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: normalize(17),
       lineHeight: normalize(28),

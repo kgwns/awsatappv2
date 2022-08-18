@@ -201,7 +201,7 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
     lineHeight:14
   },
   titleStyle: {
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
     fontSize: 16,
     lineHeight: 28,
     textAlign: 'left',

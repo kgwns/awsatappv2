@@ -92,7 +92,7 @@ StyleSheet.create({
   textStyle: {
     fontSize: 16,
     lineHeight: 24,
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
     color: colors.greenishBlue,
   },
   dividerStyle: {

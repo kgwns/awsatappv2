@@ -48,7 +48,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
       lineHeight: normalize(22),
       textAlign: 'center',
       paddingBottom: normalize(15),
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
   };
   return (
@@ -173,11 +173,11 @@ StyleSheet.create({
     lineHeight: 26,
     color: colors.greenishBlue,
     marginHorizontal: normalize(5),
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
   },
   buttonLabel: {
     color: colors.black,
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
     fontSize: 14,
     lineHeight: 26
   },

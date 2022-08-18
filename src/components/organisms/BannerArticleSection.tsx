@@ -66,7 +66,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             title: props.title,
             color: themeData.primary,
             labelType: LabelTypeProp.title3,
-            textStyle: { fontFamily: fonts.AwsatDigitalBetav10_Bold }
+            textStyle: { fontFamily: fonts.AwsatDigital_Bold }
         },
         headerRight: props.hideMore ? {} : {
             title: t('latestNewsTab.sectionComboOne.headerRight'),
@@ -166,15 +166,15 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     titleStyle: { 
         fontSize: 20, 
         lineHeight: 32, 
-        fontFamily: fonts.AwsatDigitalBetav10_Black,
+        fontFamily: fonts.AwsatDigital_Black,
     },
     listArticleTitle: {
         fontSize: normalize(17), 
         lineHeight: normalize(28), 
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
     },
     articleTitleStyle:{
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         fontSize: 17,
         lineHeight: 28,
         textAlign: 'left', 

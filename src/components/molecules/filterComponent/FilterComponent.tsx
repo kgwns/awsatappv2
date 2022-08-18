@@ -68,7 +68,7 @@ const customStyle = (theme: CustomThemeType) => (
         label: {
             fontSize: 12,
             lineHeight: 16,
-            fontFamily: fonts.AwsatDigitalBetav10_Regular,
+            fontFamily: fonts.AwsatDigital_Regular,
         }
     })
 )

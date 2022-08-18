@@ -168,7 +168,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginEnd: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     onBoardPrevTitle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       color: theme.backIconColor,
       fontSize: normalize(12),
       lineHeight: normalize(20),
@@ -180,7 +180,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginEnd: 5,
     },
     onBoardSkip: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       alignItems: 'center',
       color: theme.primary,
       fontSize: normalize(12),
