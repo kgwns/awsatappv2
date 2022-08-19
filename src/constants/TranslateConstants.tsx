@@ -55,7 +55,8 @@ export enum TranslateKey {
     WEATHER_DETAILS_VISIBILITY,
     WEATHER_DETAILS_PRESSURE,
     WEATHER_DETAILS_SPEED,
-    WEATHER_DETAILS_SEA_CONDITION
+    WEATHER_DETAILS_SEA_CONDITION,
+    WEATHER_DETAILS_ENABLE_LOCATION,
 }
 
 export const TranslateConstants = ({
@@ -170,6 +171,8 @@ export const TranslateConstants = ({
             return t('weatherDetail.km')
         case TranslateKey.WEATHER_DETAILS_MBAR:
             return t('weatherDetail.mbar')
+        case TranslateKey.WEATHER_DETAILS_ENABLE_LOCATION:
+            return t('weatherDetail.enableLocation')
         default: return ''
     }
 }

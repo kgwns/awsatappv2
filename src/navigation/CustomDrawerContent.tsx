@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, SafeAreaView, TouchableOpacity, Image, Linking, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image, Linking, Text } from 'react-native';
 import { ImagesName } from '../shared/styles/images';
-import { ButtonImage, Label, LabelTypeProp } from '../components/atoms';
+import { ButtonImage, ButtonOutline, Label, LabelTypeProp } from '../components/atoms';
 import { ButtonList, Divider } from 'src/components/atoms';
 import { useTranslation } from 'react-i18next';
-import { isIOS, normalize, isDarkTheme, isTab, isAndroid } from 'src/shared/utils';
+import { isIOS, normalize, isTab, isAndroid } from 'src/shared/utils';
 // import CloseIcon from 'src/assets/images/icons/close.svg';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
 import InstagramIcon from 'src/assets/images/icons/instagram.svg';
@@ -12,13 +12,12 @@ import TwitterIcon from 'src/assets/images/icons/twitter.svg';
 import LinkedinIcon from 'src/assets/images/icons/linkedin.svg';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreensConstants } from 'src/constants';
 import { useLogin, useSideMenu, useWeatherDetails } from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ABOUT_US, ADVERTISE_INFO_ID, AWSATT_HISTORY_INFO_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
+import { ABOUT_US, ADVERTISE_INFO_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
@@ -43,6 +42,7 @@ import CloudsIcon from 'src/assets/images/icons/weather/clouds.svg'
 import RainIcon from 'src/assets/images/icons/weather/Rain.svg'
 import SunIcon from 'src/assets/images/icons/weather/sun.svg'
 import { weatherType } from 'src/components/screens/weatherDetail/WeatherDetailScreen';
+import { openSettings } from 'react-native-permissions';
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -57,34 +57,23 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const [t] = useTranslation();
   const navigation = useNavigation<StackNavigationProp<any>>();
 
-  const { themeData } = useTheme();
   const styles = useThemeAwareObject(createStyles);
 
-  const { isLoading, sideMenuData, fetchSideMenuRequest } = useSideMenu();
-  const { isLoggedIn } = useLogin();
+  const { sideMenuData, fetchSideMenuRequest } = useSideMenu();
   const { userProfileData } = useUserProfileData()
-
+  const { fetchWeatherDetailsInfo, fetchWeatherDetailsSuccessInfo,
+    fetchWeatherDetailsVisibilityInfo } = useWeatherDetails();
+  
   const [sideMenuDataInfo, setSideMenuDataInfo] = useState<any>([])
-
-  const { fetchWeatherDetailsInfo, fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilityInfo } = useWeatherDetails();
   const [latitude, setLatitude] = React.useState<number>();
   const [longitude, setLongitude] = React.useState<number>();
+  const [locationEnabled, setLocationEnabled] = React.useState<boolean>(false);
 
   useEffect(() => {
     fetchSideMenuRequest();
-    if (checkPermission()) {
-      Geolocation.getCurrentPosition(
-        (position) => {
-          setLatitude(position.coords.latitude);
-          setLongitude(position.coords.longitude);
-        },
-        (error) => {
-          console.log(error.code, error.message);
-        },
-        { enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
-      );
-    }
+    getLocationDetails();
   }, []);
+  
 
   useEffect(() => {
     if (latitude && longitude) {
@@ -151,6 +140,55 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           </Text>
         }
       </TouchableOpacity>
+    </View>
+  };
+
+  const getLocationDetails = () => {
+    if (checkPermission()) {
+      Geolocation.getCurrentPosition(
+        (position) => {
+          setLocationEnabled(true);
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+        },
+        (error) => {
+          console.log(error.code, error.message);
+        },
+        { enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
+      );
+    } else {
+      setLocationEnabled(false)
+    }
+  };
+
+  const getLocationPermission = () => {
+    if (isIOS) {
+      openSettings().then(() => {
+        checkAndGetLocation()
+      });
+    } else {
+      checkAndGetLocation()
+    }
+  };
+
+  const checkAndGetLocation = () => {
+    checkPermission();
+    setTimeout(() => {
+      getLocationDetails();
+    }, 1000)
+  }
+
+  const getLocationAccess = () => {
+    return <View style={styles.menuWeatherContainer}>
+      <Divider style={styles.divider}/>
+      <Label children={'--'} style={styles.emptyWeather}/>
+      <ButtonOutline 
+        title={t('weatherDetail.enableLocation')}
+        style={styles.enableLocationButton}
+        labelStyle={styles.EnableLocationButtonLabel}
+        titleType={LabelTypeProp.h1}
+        onPress={getLocationPermission}
+      />
     </View>
   };
 
@@ -296,8 +334,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       <ScrollView bounces={false}
         showsVerticalScrollIndicator={false}
       >
-        {isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list) &&
-          getWeatherDetail()
+        {locationEnabled ?
+            isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list) && getWeatherDetail()
+          :
+            getLocationAccess()
         }
 
         <View style={styles.menuContainer}>
@@ -441,7 +481,18 @@ const createStyles = (theme: CustomThemeType) =>
       marginTop: normalize(9),
       alignSelf: 'center',
       justifyContent: 'center',
-      flexDirection: 'row'
+      flexDirection: 'row',
+      height: 35,
+    },
+    enableLocationButton: {
+      marginTop: normalize(9),
+      alignSelf: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
+      height: 35,
+      backgroundColor: colors.greenishBlue,
+      borderColor: colors.transparent,
+      width: 220,
     },
     weatherTempContainer: {
       flexDirection: 'row',
@@ -466,10 +517,16 @@ const createStyles = (theme: CustomThemeType) =>
       marginTop: normalize(7),
       marginLeft: isAndroid ? normalize(10) : normalize(0),
     },
+    EnableLocationButtonLabel: {
+      color: colors.white,
+      fontSize: normalize(12),
+      lineHeight: normalize(20),
+      fontFamily: fonts.AwsatDigital_Bold,
+    },
     weatherTitle: {
       fontFamily: fonts.AwsatDigital_Regular,
       fontSize: isAndroid ? normalize(16) : normalize(14),
-      color: colors.black,
+      color: theme.primaryBlack,
       marginRight: normalize(5),
       marginTop: isAndroid ? normalize(2) : normalize(2)
     },
@@ -506,5 +563,11 @@ const createStyles = (theme: CustomThemeType) =>
     close: {
       width: 15,
       height: 15
+    },
+    emptyWeather: {
+      alignSelf: 'center',
+      fontSize: 20,
+      color: theme.primaryBlack,
+      marginTop: 20,
     }
   });

@@ -348,7 +348,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontFamily: fonts.AwsatDigital_Regular,
       textAlign: 'left',
       fontSize: normalize(17),
-      color: colors.black,
+      color: theme.primaryBlack,
       lineHeight: normalize(27),
     },
     dayContainerLabel1: {
@@ -387,6 +387,7 @@ const createStyles = (theme: CustomThemeType) =>
     imageLabel4: {
       fontFamily: fonts.Effra_Regular,
       fontSize: normalize(18),
+      lineHeight: normalize(27),
       color: colors.white,
       textAlign: 'center',
     },
@@ -446,13 +447,13 @@ const createStyles = (theme: CustomThemeType) =>
     labelsList1: {
       fontFamily: fonts.Effra_Regular,
       fontSize: normalize(18),
-      color: colors.black,
+      color: theme.primaryBlack,
       lineHeight: normalize(32),
     },
     labelsList2: {
       fontFamily: fonts.Effra_Regular,
       fontSize: normalize(18),
-      color: colors.black,
+      color: theme.primaryBlack,
       lineHeight: normalize(32),
     },
     labelsListIcon: {

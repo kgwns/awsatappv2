@@ -1,6 +1,7 @@
 import React from 'react'
-import {render, RenderAPI } from '@testing-library/react-native'
+import {fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { WeatherDetailScreen } from '../WeatherDetailScreen'
+import { TouchableWithoutFeedback } from 'react-native';
 
 jest.mock("src/hooks/useWeatherDetails", () => ({
     useWeatherDetails: () => {
@@ -63,6 +64,7 @@ jest.mock("src/hooks/useWeatherDetails", () => ({
 
 describe('<WeatherDetailScreen>', () => {
     let instance: RenderAPI
+    const mockFunction = jest.fn();
 
     beforeEach(() => {
         const component = <WeatherDetailScreen />
@@ -77,4 +79,11 @@ describe('<WeatherDetailScreen>', () => {
     test('Should render component', () => {
         expect(instance).toBeDefined()
     })  
+
+    test('Should call ALL onPress', () => {
+        const element = instance.container.findAllByType(TouchableWithoutFeedback)[0];
+        fireEvent(element, 'onPress', 0);
+        expect(mockFunction).toBeTruthy();
+    });
+    
 })

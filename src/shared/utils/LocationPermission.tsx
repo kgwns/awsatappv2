@@ -14,7 +14,7 @@ export const LOCATION_PERMISSIONS = Platform.select({
 });
 
 
-const requestPermission = () => {
+export const requestPermission = () => {
     if (LOCATION_PERMISSIONS) {
       requestMultiple(LOCATION_PERMISSIONS).then(result => {
         const location = result[LOCATION_PERMISSIONS[0]];
