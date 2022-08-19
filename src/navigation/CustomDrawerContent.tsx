@@ -43,6 +43,7 @@ import RainIcon from 'src/assets/images/icons/weather/Rain.svg'
 import SunIcon from 'src/assets/images/icons/weather/sun.svg'
 import { weatherType } from 'src/components/screens/weatherDetail/WeatherDetailScreen';
 import { openSettings } from 'react-native-permissions';
+import DeviceInfo from 'react-native-device-info';
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -65,15 +66,24 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     fetchWeatherDetailsVisibilityInfo } = useWeatherDetails();
   
   const [sideMenuDataInfo, setSideMenuDataInfo] = useState<any>([])
-  const [latitude, setLatitude] = React.useState<number>();
-  const [longitude, setLongitude] = React.useState<number>();
-  const [locationEnabled, setLocationEnabled] = React.useState<boolean>(false);
+  const [latitude, setLatitude] = useState<number>();
+  const [longitude, setLongitude] = useState<number>();
+  const [locationEnabled, setLocationEnabled] = useState<boolean>(false);
+  const [deviceLocationEnabled, setDeviceLocationEnabled] = useState<boolean>(false);
 
   useEffect(() => {
     fetchSideMenuRequest();
-    getLocationDetails();
   }, []);
-  
+
+  useEffect(() => {
+    DeviceInfo.isLocationEnabled().then((enabled) => {
+      setDeviceLocationEnabled(enabled)
+    });
+  }, [DeviceInfo.isLocationEnabled()])
+
+  useEffect(() => {
+    getLocationDetails();
+  }, [deviceLocationEnabled])
 
   useEffect(() => {
     if (latitude && longitude) {
@@ -125,7 +135,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         </Text>
         {fetchWeatherDetailsSuccessInfo?.list[0].temp.day &&
           <View style={styles.weatherTempContainer}>
-            <CelsiusIcon style={styles.weatherCelsiusIcon} height={isAndroid? 15 : 17} width={isAndroid? 15 : 17}/>
+            <CelsiusIcon style={styles.weatherCelsiusIcon} height={isAndroid? 16 : 17} width={isAndroid? 16 : 17}/>
             <Text style={styles.weatherTemp}>
               {'  '}
               {Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day)}
@@ -144,7 +154,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   };
 
   const getLocationDetails = () => {
-    if (checkPermission()) {
+    if (checkPermission() && !latitude && !longitude) {
       Geolocation.getCurrentPosition(
         (position) => {
           setLocationEnabled(true);
@@ -157,7 +167,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         { enableHighAccuracy: true, timeout: 25000, maximumAge: 3600000 }
       );
     } else {
-      setLocationEnabled(false)
+      !latitude && !longitude && setLocationEnabled(false)
     }
   };
 
@@ -499,7 +509,7 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'space-between',
     },
     weatherCelsiusIcon: {
-      marginTop:normalize(9),
+      marginTop: isAndroid ? normalize(9) : normalize(8),
     },
     weatherType: {
       fontFamily: fonts.Effra_Regular,
@@ -569,5 +579,6 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: 20,
       color: theme.primaryBlack,
       marginTop: 20,
+      lineHeight: 22
     }
   });

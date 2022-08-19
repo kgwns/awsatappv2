@@ -173,6 +173,8 @@ export const TranslateConstants = ({
             return t('weatherDetail.mbar')
         case TranslateKey.WEATHER_DETAILS_ENABLE_LOCATION:
             return t('weatherDetail.enableLocation')
+        case TranslateKey.OPINION_SLIDER_TITLE:
+            return t('latestNewsTab.sectionWriters.sliderLeftHeader')
         default: return ''
     }
 }

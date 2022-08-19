@@ -154,23 +154,21 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     return (
       <>
         {(todayWeatherData.sunrise && timeZone) &&
-          <View style={styles.weatherImageView1}>
-            <Label style={styles.imageLabel5}>
-              <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
-              {'  '}
-              {CONST_SUNRISE}
-            </Label>
-            <Text style={styles.imageLabel6}>{getConvertedTime(todayWeatherData.sunrise, timeZone!)}</Text>
+          <View style={styles.timeZoneStyle}>
+            <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
+            <View style={styles.timeZoneLabelStyle}>
+              <Label style={styles.sunStateLabelStyle} children={CONST_SUNRISE} />
+              <Label style={styles.imageLabel6} children={getConvertedTime(todayWeatherData.sunrise, timeZone!)} />
+            </View>
           </View>
         }
         {(todayWeatherData.sunset && timeZone) &&
-          <View style={styles.weatherImageView1}>
-            <Label style={styles.imageLabel5}>
-              <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
-              {'  '}
-              {CONST_SUNSET}
-            </Label>
-            <Text style={styles.imageLabel6}>{getConvertedTime(todayWeatherData.sunset, timeZone)}</Text>
+          <View style={styles.timeZoneStyle}>
+            <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
+            <View style={styles.timeZoneLabelStyle}>
+              <Label style={styles.sunStateLabelStyle} children={CONST_SUNSET} />
+              <Label style={styles.imageLabel6} children={getConvertedTime(todayWeatherData.sunset, timeZone)} />
+            </View>
           </View>
         }
       </>
@@ -376,12 +374,14 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.white,
       fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'left',
+      lineHeight: normalize(48),
     },
     imageLabel2: {
       fontSize: normalize(10),
       color: colors.white,
       fontFamily: fonts.Effra_Regular,
       textAlign: 'left',
+      lineHeight: normalize(32),
     },
     imageLabel3: {
       fontFamily: fonts.Effra_Regular,
