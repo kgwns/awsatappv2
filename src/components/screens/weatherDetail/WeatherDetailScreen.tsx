@@ -101,7 +101,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   const getMainData = (): string => {
     let mainData = ''
-    if (isObjectNonEmpty(weatherListData) && isNonEmptyArray(weatherListData[0].weather)) {
+    if (isNonEmptyArray(weatherListData) && isNonEmptyArray(weatherListData[0].weather)) {
       mainData = weatherListData[0].weather[0].main.toLowerCase();
     }
     return mainData
@@ -144,27 +144,33 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   };
 
   const renderSunRiseAndSunSet = () => {
-    const timeZone = isObjectNonEmpty(fetchWeatherDetailsSuccessInfo?.city) ? fetchWeatherDetailsSuccessInfo?.city.timezone : undefined
+    const timeZone = isObjectNonEmpty(fetchWeatherDetailsSuccessInfo?.city) ? fetchWeatherDetailsSuccessInfo?.city?.timezone : undefined
+
+    if(!isNonEmptyArray(weatherListData) || !timeZone) {
+      return null
+    } 
+
+    const todayWeatherData = weatherListData[0]
     return (
       <>
-        {(isNonEmptyArray(weatherListData) && weatherListData[0].sunrise && timeZone) &&
+        {(todayWeatherData.sunrise && timeZone) &&
           <View style={styles.weatherImageView1}>
             <Label style={styles.imageLabel5}>
               <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
               {'  '}
               {CONST_SUNRISE}
             </Label>
-            <Text style={styles.imageLabel6}>{getConvertedTime(weatherListData[0].sunrise, timeZone)}</Text>
+            <Text style={styles.imageLabel6}>{getConvertedTime(todayWeatherData.sunrise, timeZone!)}</Text>
           </View>
         }
-        {(weatherListData[0].sunset && timeZone) &&
+        {(todayWeatherData.sunset && timeZone) &&
           <View style={styles.weatherImageView1}>
             <Label style={styles.imageLabel5}>
               <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
               {'  '}
               {CONST_SUNSET}
             </Label>
-            <Text style={styles.imageLabel6}>{getConvertedTime(weatherListData[0].sunset, timeZone)}</Text>
+            <Text style={styles.imageLabel6}>{getConvertedTime(todayWeatherData.sunset, timeZone)}</Text>
           </View>
         }
       </>

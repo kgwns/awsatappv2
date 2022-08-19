@@ -335,13 +335,12 @@ export const getDeviceName = async () => {
 };
 
 export const getConvertedTime = (time?: number, timezone?: number) => {
-  var moments = require('moment-timezone');
-  moments.locale('en_us')
+  moment.locale('en')
   if (time && timezone) {
     const offsetTimezone = (timezone).toString();
     const timeWeatherSunriseData = new Date(time * 1000);
-    const countrySpecificTimeSunrise = moments(new Date(timeWeatherSunriseData)).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
-    const convertedCountrySpecificTime = moments(new Date(countrySpecificTimeSunrise)).format('HH:mm:ss')
+    const countrySpecificTimeSunrise = moment(new Date(timeWeatherSunriseData)).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
+    const convertedCountrySpecificTime = moment(new Date(countrySpecificTimeSunrise)).format('HH:mm:ss')
     return convertedCountrySpecificTime
   } else {
     return ''
