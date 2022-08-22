@@ -6,7 +6,6 @@ import { Routes } from './index';
 import DrawerNavigator from './DrawerNavigator';
 import { ImagesName } from 'src/shared/styles';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {Label} from 'src/components/atoms';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
@@ -25,7 +24,6 @@ const hideHeader = {
 }
 
 const AppNavigator = () => {
-  const { themeData } = useTheme();
   const navigation = useNavigation();
   const routes = useNavigationState((state) => state.routes)
   const params = isNonEmptyArray(routes) && routes[0].params ? routes[0].params : {}
@@ -35,19 +33,7 @@ const AppNavigator = () => {
   const [t] = useTranslation();
   const previousIconStyle = style.onBoardPrevIcon;
 
-  const Search = () => (
-    <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.SearchScreen)}>
-      {getSvgImages({ name: ImagesName.searchIcon, width: style.search.width, height: style.search.height, style: style.search })}
-    </TouchableOpacity>
-  )
-
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
-
-  const Menu = () => (
-    <TouchableOpacity onPress={() => navigation.goBack()}>
-      {getSvgImages({ name: ImagesName.menuIcon, width: style.menu.width, height: style.menu.height, style: style.menu })}
-    </TouchableOpacity>
-  )
 
   const HeaderTitle = (title: string) => <Label style={style.headerTitle}>{title}</Label>;
 
@@ -156,7 +142,7 @@ const AppNavigator = () => {
         options={{
           headerStyle: style.container,
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle(''),
+          headerTitle: () => HeaderLogo(),
           headerTitleStyle: style.headerTitle,
           headerTitleAlign: 'center',
           headerShadowVisible: false
