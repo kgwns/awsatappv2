@@ -78,7 +78,6 @@ export const ManageMyNewsScreen = () => {
     getSelectedAuthorsData,
     selectedAuthorsData,
     fetchAllWritersRequest,
-    isLoading,
     emptySelectedAuthorsInfoData,
     requestAllSelectedWritersDetailsData,
     allSelectedWritersDetailList,
@@ -101,7 +100,6 @@ export const ManageMyNewsScreen = () => {
 
   useEffect(() => {
     if (isFocused) {
-      setSelectedWriters([])
       fetchAllWritersRequest(allWritersPayload)
       fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
       getSelectedAuthorsData()
@@ -119,7 +117,6 @@ export const ManageMyNewsScreen = () => {
   useEffect(() => {
     
     if(isObjectNonEmpty(selectedAuthorsData)){
-      setSelectedWriters([])
       fetchAllWritersRequest(allWritersPayload)
       getSelectedAuthorsData()
     }
@@ -136,7 +133,6 @@ export const ManageMyNewsScreen = () => {
   useEffect(() => {
     if (isObjectNonEmpty(selectedAuthorsData)) { 
       fetchSelectedDataFromAllWriters(); }
-    else { setSelectedWriters([]) }
   }, [selectedAuthorsData]);
 
   useEffect(() => {
@@ -150,7 +146,6 @@ export const ManageMyNewsScreen = () => {
   }, [allSelectedWritersDetailList]);
 
   const fetchSelectedDataFromAllWriters = () => {
-    setSelectedWriters([])
     if (isNonEmptyArray(selectedAuthorsData.data)) {
       const selectedAuthorsString = getSelectedData().join('+')
       requestAllSelectedWritersDetailsData({tid:selectedAuthorsString,items_per_page:100})
@@ -200,8 +195,9 @@ export const ManageMyNewsScreen = () => {
     </View>
   );
 
-  const ContinueLabel = ({ label, goToScreen }: { label: any, goToScreen: any }) => (
+  const ContinueLabel = ({ label, goToScreen, writer }: { label: any, goToScreen: any , writer: boolean}) => (
     <TouchableWithoutFeedback style={style.continueLabelView} onPress={() => {
+      writer && setSelectedWriters([])
       emptySendAuthorInfoData()
       emptySendTopicsInfoData()
       navigation.navigate(goToScreen)
@@ -246,7 +242,7 @@ export const ManageMyNewsScreen = () => {
           }
         </ScrollView>}
         <View style={style.booksContinue}>
-          <ContinueLabel label={t('manageMyNews.continueReadingMoreBooks')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} />
+          <ContinueLabel label={t('manageMyNews.continueReadingMoreBooks')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} writer={true} />
         </View>
       </View>
     );
@@ -281,15 +277,14 @@ export const ManageMyNewsScreen = () => {
           </ScrollView>
         </View>
         <View style={style.topicsContinue}>
-          <ContinueLabel label={t('manageMyNews.followMoreTopics')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} />
+          <ContinueLabel label={t('manageMyNews.followMoreTopics')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} writer={false} />
         </View>
       </View>
     );
   }
 
-  const loadingState = isLoading || selectedAuthorLoadingState
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={loadingState}
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={selectedAuthorLoadingState}
     isAlertVisible={isAlertVisible}
           alertPayload={alertPayload} alertOnPress={alertOnPress}
           setIsAlertVisible={setIsAlertVisible}
