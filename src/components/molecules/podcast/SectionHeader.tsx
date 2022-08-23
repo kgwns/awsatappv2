@@ -45,7 +45,7 @@ const customStyle = (theme: CustomThemeType) => {
     header: {
       fontSize: normalize(16),
       lineHeight: normalize(42),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'left',
       color: theme.primary,
       marginStart: normalize(10),
@@ -58,7 +58,7 @@ const customStyle = (theme: CustomThemeType) => {
     moreLabel: {
       fontSize: normalize(14),
       lineHeight: normalize(36),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.secondaryDavyGrey,
       marginEnd: normalize(5),
     },

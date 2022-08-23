@@ -3,8 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import { Label, Image } from 'src/components/atoms/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
-import { colors } from 'src/shared/styles/colors';
+import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {PodcastListItemType} from 'src/redux/podcast/types'
@@ -77,13 +76,13 @@ StyleSheet.create({
     color: theme.primaryBlack,
     textAlign:'center',
     lineHeight: 20,
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
   },
   announcerTextStyle: {
     fontSize: 13,
     lineHeight: 20,
     color: colors.greenishBlue,
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
   },
   descriptionTextStyle: {
     fontSize: 13,

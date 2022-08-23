@@ -40,7 +40,7 @@ const getOpinionImage = (item: any) => {
 }
 
 const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet): any => {
-  let responseData: GetBookmarkDetailSuccessPayload = {
+  const responseData: GetBookmarkDetailSuccessPayload = {
     bookmarkedDetailInfo: [],
     page: payload.page,
     bundle: payload.bundle,
@@ -68,11 +68,11 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
         const opinionData = {
           type: item.type,
           imageUrl: getOpinionImage(item),
-          writerTitle: item.field_opinion_writer_node_export[0].name,
-          authorId: item.field_opinion_writer_node_export[0].id,
+          writerTitle: isNonEmptyArray(item.field_opinion_writer_node_export) ? item.field_opinion_writer_node_export[0].name : '',
+          authorId: isNonEmptyArray(item.field_opinion_writer_node_export) ? item.field_opinion_writer_node_export[0].id : '',
           headLine: item.title,
           subHeadLine: decodeHTMLTags(item.body_export),
-          audioLabel: 'استمع الي المقالة ',
+          audioLabel: 'إستمع إلى المقالة ',
           duration: '',
           nid: item.nid,
           isBookmarked: true,

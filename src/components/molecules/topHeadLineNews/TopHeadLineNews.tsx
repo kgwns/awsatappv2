@@ -24,7 +24,9 @@ export const TopHeadLineNews = ({
     const style = useThemeAwareObject(customStyle)
 
     const onPress = (nid: string) => {
-        if (isNotEmpty(nid)) navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+        if (isNotEmpty(nid)) {
+            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+        }
     }
 
     const renderItem: ListRenderItem<MainSectionBlockType> = ({ item }) => {
@@ -79,7 +81,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight: 24,
         textAlign: isTab ? 'center' : 'left',
         color: theme.primaryBlack,
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
     },
     circleContainer: {
         width: isTab ? 'auto' :'5%'

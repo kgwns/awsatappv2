@@ -14,7 +14,7 @@ export const ImageWithIconStyle = StyleSheet.create({
         paddingHorizontal: normalize(7),
         fontSize: normalize(12),
         color: Styles.color.white,
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
     },
     bottomTagContainer: {
         position: 'absolute',

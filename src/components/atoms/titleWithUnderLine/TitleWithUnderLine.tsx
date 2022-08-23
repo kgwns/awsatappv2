@@ -25,12 +25,14 @@ export const TitleWithUnderLine = ({
         }
     }
 
-    if(!isNotEmpty(title)) return null
+    if(!isNotEmpty(title)) { 
+        return null
+    }
 
     return (
         <View style={StyleSheet.flatten([style.container, titleContainerStyle])}>
             <View>
-                <Label children={title} labelType={LabelTypeProp.h1} style={style.title} onTextLayout={onTextLayout} />
+                <Label children={title} testID='TitleWithUnderLine01' labelType={LabelTypeProp.h1} style={style.title} onTextLayout={onTextLayout} />
                 <View style={{ backgroundColor: Styles.color.greenishBlue, width: lineWidth, maxWidth: 0.96 * screenWidth, height: 1 }} />
             </View>
         </View>

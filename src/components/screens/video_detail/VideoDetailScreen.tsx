@@ -69,7 +69,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   };
 
   const formatVideoListData = () => {
-    let selectedVideoId = route.params.data.nid
+    const selectedVideoId = route.params.data.nid
     const selectedVideoIndex = videoData.findIndex((item: any) => item.nid === selectedVideoId);
     const videoInfo = videoData ? videoData[selectedVideoIndex] : selectedVideo
     const otherVideosList = videoData.filter((item: any) => item.nid != selectedVideoId);
@@ -109,7 +109,9 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }
 
   const onPressShare = async () => {
-    if(!selectedVideo || !isNotEmpty(videoUrl)) return;
+    if(!selectedVideo || !isNotEmpty(videoUrl)) {
+      return;
+    }
     const { title } = selectedVideo
     await Share.open({
         title,

@@ -154,14 +154,14 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     recordLogEvent('Login');
     switch (type) {
       case NavigateTypes.google:
-        let googleSignIn = LoginFactory.getInstance(Connection.Google,onResult);
+        const googleSignIn = LoginFactory.getInstance(Connection.Google,onResult);
         googleSignIn?.login();
         onPressButton(type);
       case NavigateTypes.apple:
         onPressButton(type);
         return;
       case NavigateTypes.facebook:
-        let facebookSignIn = LoginFactory.getInstance(Connection.Facebook,onResult);
+        const facebookSignIn = LoginFactory.getInstance(Connection.Facebook,onResult);
         facebookSignIn?.login();
         onPressButton(type);
     }
@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     alignItems:'flex-start',
   },
   socialLoginButtonLabel: {
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
     fontSize: 14,
     lineHeight: isIOS ? 25 : 20,
   },

@@ -33,7 +33,9 @@ export const RenderRichHTMLContent = ({
         <View style={{ padding: 0.04 * screenWidth }}>
             {
                 htmlContent?.map((item) => {
-                    if (!item || !item.type) return null
+                    if (!item || !item.type) {
+                        return null
+                    }
 
                     switch (item.type) {
                         case RichHTMLType.QUOTE:

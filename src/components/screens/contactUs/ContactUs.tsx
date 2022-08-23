@@ -14,6 +14,8 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useContactUs } from 'src/hooks'
 import { emailValidation } from 'src/shared/validators'
 import { useNavigation } from '@react-navigation/native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { FLEX_START } from 'src/shared/styles/item-alignment'
 
 export type ContactUsModal = {
     name: string;
@@ -188,7 +190,7 @@ export const ContactUs = () => {
                         height: 16,
                     })}
                     leftIconStyle={style.messageIcon}
-                    maxLength={10000}
+                    maxLength={500} //Text limit as per AMAR-878
                     multiline={true}
                     textInputStyle={style.messageTextInput}
                 />
@@ -206,14 +208,16 @@ export const ContactUs = () => {
             alertPayload={alertPayload}
         >
             <StaticPageHeader title={CONST_CALL_US} />
-            <ScrollView
-                showsHorizontalScrollIndicator={false}
-                bounces={false}>
+            <KeyboardAwareScrollView
+                bounces={false}
+                extraHeight={230}
+                showsVerticalScrollIndicator={false}
+                scrollEnabled>
                 <View style={style.mainContainer}>
                     {renderAboutScreen()}
                     {renderFormFields()}
                 </View>
-            </ScrollView>
+            </KeyboardAwareScrollView>
         </ScreenContainer>
     )
 }
@@ -226,7 +230,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontSize: 18,
         lineHeight: 42,
         textAlign: 'left',
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
     },
     description: {
         fontSize: 15,
@@ -245,11 +249,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     messageText: {
         height: normalize(180),
-        justifyContent: 'flex-start',
+        justifyContent: FLEX_START,
         paddingTop: isIOS ? 5 : 8,
     },
     sendMainContainer: {
-        justifyContent: 'flex-start',
+        justifyContent: FLEX_START,
         flexDirection: 'row',
     },
     sendButton: {
@@ -261,13 +265,13 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     sendButtonLabel: {
         fontSize: 16,
         lineHeight: 25,
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         textAlign: 'left',
         color: Styles.color.white,
         paddingVertical: 10,
     },
     messageIcon: {
-        justifyContent: 'flex-start',
+        justifyContent: FLEX_START,
         paddingTop: 15
     },
     messageTextInput: {

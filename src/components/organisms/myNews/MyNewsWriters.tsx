@@ -27,7 +27,7 @@ import {
 } from 'src/constants/TranslateConstants';
 import { useIsFocused } from '@react-navigation/native';
 
-const keyExtractor = (_: any, index: number) => index.toString();
+export const keyExtractor = (_: any, index: number) => index.toString();
 
 export const MyNewsWriters = () => {
   const isFocused = useIsFocused();
@@ -48,19 +48,21 @@ export const MyNewsWriters = () => {
     fetchFavouriteOpinionsRequest,
   } = useContentForYou();
 
-
   const [pageCount, setPageCount] = useState(0);
   const [selectedAuthors, setSelectedAuthors] = useState<any>(null);
   const [opinionData, setOpinionData] = useState<any>([]);
   const [selectedIndex, setSelectedIndex] = useState<any>(-1);
   const [showEmpty, setShowEmpty] = useState<boolean>(false);
-
+  const [isAuthorTidData, setIsAuthorTidData] = useState<any>([])
+  const [isAuthorTid, setIsAuthorTid] = useState<any>([])
+  const [selectedTid, setSelectedTid] = useState('')
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
 
   const authorsList = useMemo(() => {
-    let writersList = [];
+    const writersList = [];
+    const tidList = []
     if (
       isNonEmptyArray(allWritersData) &&
       isNonEmptyArray(selectedAuthorsData.data)
@@ -71,10 +73,13 @@ export const MyNewsWriters = () => {
       for (let i = 0; i < allWritersData.length; i++) {
         if (authorsIdList.includes(allWritersData[i].tid)) {
           writersList.push(allWritersData[i]);
+          tidList.push(allWritersData[i].tid)
         }
       }
     }
-
+    if (isAuthorTidData != tidList) {
+      setIsAuthorTidData(tidList)
+    }
     return writersList;
   }, [selectedAuthorsData, allWritersData]);
 
@@ -86,8 +91,18 @@ export const MyNewsWriters = () => {
   }, [isFocused]);
 
   useEffect(() => {
-    setInitialData();
-  }, [selectedAuthorsData]);
+    if (JSON.stringify(isAuthorTidData) != JSON.stringify(isAuthorTid)) {
+      setIsAuthorTid(isAuthorTidData)
+      if (isAuthorTidData.includes(selectedTid)) {
+        const indexValue = isAuthorTidData.indexOf(selectedTid)
+        const authorSelected = selectedAuthorsData.data.filter((item: any) => { return item.tid.toString() == selectedTid && item });
+        onPress(authorSelected[0], indexValue)
+      }
+      else {
+        setInitialData()
+      }
+    }
+  }, [isAuthorTidData]);
 
   useEffect(() => {
     if (pageCount != 0) {
@@ -130,7 +145,7 @@ export const MyNewsWriters = () => {
   };
 
   const fetchOpinionData = (authorsData: any, page: number) => {
-    let opinionBody: FavouriteOpinionsBodyGet = {
+    const opinionBody: FavouriteOpinionsBodyGet = {
       page: page,
       items_per_page: isTab ? 12 : 10,
       authorsList: authorsData,
@@ -139,7 +154,10 @@ export const MyNewsWriters = () => {
   };
 
   const onPress = (item: any, index: number) => {
-    if (index == selectedIndex) return;
+    if (index == selectedIndex) {
+      return;
+    }
+    setSelectedTid(index == -1 ? -1 : item.tid)
     const payloadAuthorsList = index == -1 ? getAuthorsList() : [item.tid];
     if (payloadAuthorsList != selectedAuthors) {
       setPageCount(0);

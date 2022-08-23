@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { storeSampleData } from '../../../../constants/SampleData';
 import { ForgotPassword } from '../ForgotPassword';
-import { TouchableOpacity } from 'react-native';
+import { AppState, TouchableOpacity } from 'react-native';
 
 jest.mock("src/hooks/useLogin", () => ({
   useLogin: () => {
@@ -13,11 +13,18 @@ jest.mock("src/hooks/useLogin", () => ({
   },
 }));
 
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useRef: jest.fn(),
+}));
+
 describe('<SuccessScreen>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
+  const appState = mockFunction;
 
   beforeEach(() => {
+    (useRef as jest.Mock).mockImplementation(() => [AppState.currentState, appState]);
     const component = (
       <Provider store={storeSampleData}>
         <ForgotPassword />

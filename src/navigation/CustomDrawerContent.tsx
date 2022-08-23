@@ -71,7 +71,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   }, [sideMenuData])
 
   const formateChildMenuData = (menuData: any[], parentId: null | string = null) => {
-    let allMenuData = []
+    const allMenuData = []
     let filterMenuData = []
     if (parentId == null) {
       filterMenuData = menuData.reduce((data, item) => {
@@ -89,7 +89,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     for (let i = 0; i < filterMenuData.length; i++) {
       const item = filterMenuData[i]
       const newParentId = item.uuid_export ?? null
-      let customData: any = {
+      const customData: any = {
         ...item,
       }
 
@@ -342,7 +342,7 @@ const createStyles = (theme: CustomThemeType) =>
       width: '100%',
     },
     logo: {
-      height: 25,
+      height: 32,
       width: 135,
       alignItems: 'center',
     },
@@ -350,7 +350,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     nonBoldTitle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     divider: {
       height: 1,
@@ -360,10 +360,10 @@ const createStyles = (theme: CustomThemeType) =>
       marginLeft: 20
     },
     childTitleStyle:{
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     parentTitleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     itemContainer: {
       flexDirection: 'row',

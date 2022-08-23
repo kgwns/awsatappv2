@@ -40,7 +40,7 @@ export const VideosVerticalList = ({
             </Label>}
           </View>
           <View style={style.titleContainer}>
-            <Label style={style.title} onTextLayout={onTextLayout}>
+            <Label testID='onTextLayout' style={style.title} onTextLayout={onTextLayout}>
               {decode(title)}
             </Label>
           </View>
@@ -77,7 +77,7 @@ const customStyle = (theme: CustomThemeType) => {
     title: {
       fontSize: 14,
       lineHeight: 24,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),
       textAlign: 'left',
@@ -91,7 +91,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: normalize(5),
       fontSize: normalize(10),
       color: colors.white,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       lineHeight: 20
     },
     headerTitleStyle: {

@@ -14,8 +14,7 @@ import {
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
 import {isTab, normalize, screenWidth} from 'src/shared/utils';
-import {timeAgo} from 'src/shared/utils/utilities';
-import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon} from 'src/shared/utils/utilities';
+import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, timeAgo} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
@@ -174,7 +173,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     day: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       lineHeight: normalize(26),
     },
     footerRight: {
@@ -223,7 +222,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingHorizontal: normalize(8),
       paddingVertical: 3,
       color: colors.white,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       fontSize: 12,
       lineHeight: 16
     },
@@ -271,7 +270,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     buttonLabel: {
       color: colors.white,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       lineHeight: normalize(26)
     },
     titleStyle: {
@@ -285,7 +284,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: normalize(14)
     },
     titleLabelStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       fontSize: 16,
       lineHeight: 28,
       textAlign: 'left',

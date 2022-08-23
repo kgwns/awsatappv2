@@ -44,13 +44,13 @@ export const ListenToArticleCard = (data: any) => {
 const onPressPlay = () => {
   console.log('onPressPlay');
   if (data.nid && isObjectNonEmpty(mediaData)) {
-    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
     if (!isObjectNonEmpty(playList)) {
       return
     }
 
-    let trackPlayerData = {
+    const trackPlayerData = {
       id: data.nid + 'opinion',
       url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
       title: data.title,
@@ -106,7 +106,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: 16,
       lineHeight: 34,
       color: theme.primary,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     duration: {
       alignSelf: 'center',

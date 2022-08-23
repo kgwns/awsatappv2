@@ -19,7 +19,7 @@ export const HtmlRenderer = ({ source, tagsStyles, ignoredDomTags }: HtmlRendere
         ...defaultSystemFonts,
         fonts.IBMPlexSansArabic_Regular, 
         fonts.Effra_Arbc_Regular,
-        fonts.AwsatDigitalBetav10_Regular,
+        fonts.AwsatDigital_Regular,
     ] //Need to add what are the fonts we are gonna use
 
     return (

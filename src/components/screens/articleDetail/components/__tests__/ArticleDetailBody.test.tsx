@@ -12,7 +12,7 @@ describe('<ArticleDetailBody>', () => {
     beforeEach(() => {
         const component = 
             <Provider store={storeSampleData}>
-                <ArticleDetailBody body={'abcd'} index={0} articleFontSize={16} webviewRef={0}/>
+                <ArticleDetailBody body={'abcd'} index={0} articleFontSize={16} webviewRef={0} orientation={'12'}/>
             </Provider> 
         instance = render(component)
     })
@@ -40,7 +40,7 @@ describe('<ArticleDetailBody>', () => {
 
     it('When AutoHeightWebView is pressed onShouldStartLoadWithRequest', () => {
         const testItemId = instance.container.findAllByType(AutoHeightWebView)[0];
-        fireEvent(testItemId, 'onShouldStartLoadWithRequest', {url: 'abc'});
+        fireEvent(testItemId, 'onShouldStartLoadWithRequest', {url: 'file:///abc'});
         expect(mockFunction).toBeTruthy();
     });
 

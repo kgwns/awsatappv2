@@ -39,13 +39,13 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
 
   const getPodcastDuration = async () => {
     if(isNonEmptyArray(data)){
-      let podcastData = [...data]
+      const podcastData = [...data]
       for( let i = 0; i <= data.length-1; i++){
         if(isNotEmpty(data[i].field_spreaker_episode_export)){
           try {
-            let response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: data[i].field_spreaker_episode_export })
+            const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: data[i].field_spreaker_episode_export })
             if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
-              let episode = response.response.episode
+              const episode = response.response.episode
               data[i].duration = Math.floor(episode.duration / 1000) ;
             }
           }catch(error){
@@ -63,7 +63,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       title: 'بودكاست',
       color: themeData.primaryDarkSlateGray,
       labelType: LabelTypeProp.title3,
-      textStyle: { fontFamily: fonts.AwsatDigitalBetav10_Black }
+      textStyle: { fontFamily: fonts.AwsatDigital_Black }
     },
     headerRight: {
       title: 'المزيد',
@@ -137,7 +137,9 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   )*/
 
   const renderPodcastItem = (podcastData: any, index: number) => {
-    if(!isObjectNonEmpty(podcastData)) return null;
+    if(!isObjectNonEmpty(podcastData)) {
+      return null;
+    }
     const bodyInfo = isNotEmpty(podcastData?.body_export) ? podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? podcastData.field_podcast_sect_export.description : ''
     const description = decodeHTMLTags(bodyInfo)
     return (
@@ -206,7 +208,7 @@ const createStyles = (theme: CustomThemeType) => {
       textAlign: 'left',
       fontSize: 16,
       lineHeight: 24,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     body: {
       textAlign: 'left',
@@ -228,7 +230,7 @@ const createStyles = (theme: CustomThemeType) => {
     listenToPodcastTitle: {
       fontSize: 13,
       lineHeight: 19,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     duration: {
       fontSize: 12,

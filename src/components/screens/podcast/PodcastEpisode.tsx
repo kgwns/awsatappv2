@@ -72,7 +72,9 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   }, [podcastListData, bookmarkIdInfo])
 
   const updatePodcastListData = () => {
-    if (!isNonEmptyArray(podcastListData)) return
+    if (!isNonEmptyArray(podcastListData)) {
+      return
+    }
     const podcastListDataInfo = podcastListData.map((item: any) => {
       return {
         ...item,
@@ -89,7 +91,9 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   }, [podcastEpisodeData, bookmarkIdInfo])
 
   const updatePodcastEpisodeData = () => {
-    if (!isNonEmptyArray(podcastEpisodeData)) return
+    if (!isNonEmptyArray(podcastEpisodeData)) {
+      return
+    }
     const podcastEpisodeDetail = podcastEpisodeData.map((item: any) => {
       return {
         ...item,
@@ -176,7 +180,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
 
   const onListenPress = async (duration: any) => {
     if(isObjectNonEmpty(podcastEpisodeInfo)){
-      let trackPlayerData = {
+      const trackPlayerData = {
         id: podcastEpisodeInfo.nid,
         url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
         title: podcastEpisodeInfo.title,
@@ -185,31 +189,33 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
       }
       recordLogEvent('Played_Podcast', {podcastid: podcastEpisodeInfo.nid });
-      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) setPlayerTrack(trackPlayerData);
+      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) {
+        setPlayerTrack(trackPlayerData);
+      }
       !showMiniPlayer && setShowMiniPlayer(true);
     }
   }
 
-  const togglePlayback = async () => {
-    if (playbackState === State.Playing) {
-      await TrackPlayer.pause();
-    }
-    else if (playbackState === State.Paused) {
-      await TrackPlayer.play();
-    }
-    else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({ stopWithApp: true });
-      await TrackPlayer.add({
-        id: podcastEpisodeInfo.nid,
-        url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
-        title: podcastEpisodeInfo.title,
-        artist: podcastEpisodeInfo.title,
-      });
-      TrackPlayer.setRepeatMode(RepeatMode.Off);
-      await TrackPlayer.play();
-    }
-  };
+  // const togglePlayback = async () => {
+  //   if (playbackState === State.Playing) {
+  //     await TrackPlayer.pause();
+  //   }
+  //   else if (playbackState === State.Paused) {
+  //     await TrackPlayer.play();
+  //   }
+  //   else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
+  //     await TrackPlayer.setupPlayer();
+  //     await TrackPlayer.updateOptions({ stopWithApp: true });
+  //     await TrackPlayer.add({
+  //       id: podcastEpisodeInfo.nid,
+  //       url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
+  //       title: podcastEpisodeInfo.title,
+  //       artist: podcastEpisodeInfo.title,
+  //     });
+  //     TrackPlayer.setRepeatMode(RepeatMode.Off);
+  //     await TrackPlayer.play();
+  //   }
+  // };
 
  
 

@@ -1,7 +1,7 @@
 import { View, FlatList, StyleSheet } from 'react-native'
 import React, {useState, useEffect, useRef} from 'react'
 import { AuthorWidget, ShortArticle, ArticleSection } from 'src/components/organisms';
-import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label } from 'src/components/atoms';
+import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label, Divider } from 'src/components/atoms';
 import { shortArticleWithTagProperties } from 'src/constants/SampleData';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -9,18 +9,16 @@ import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
 import { getArticleImage, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
-import {flatListUniqueKey} from 'src/constants';
+import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensConstants } from 'src/constants';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { NewsCategoriesType } from 'src/redux/latestNews/types';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
-import { Divider } from 'src/components/atoms';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
-interface AllContentData {
+export interface AllContentData {
     opinionsData: any,
     articleSectionData: any,
     shortArticleData: any,
@@ -71,7 +69,7 @@ export const ContentForYou = () => {
     const playbackState = usePlaybackState();
 
     const togglePlayback = async (nid: string, mediaData: any) => {
-        let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+        const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
         if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
         return
@@ -81,7 +79,7 @@ export const ContentForYou = () => {
         const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
         const title = mediaData.title ? mediaData.title : '';
 
-        let setupPlayer = async () => {
+        const setupPlayer = async () => {
         await TrackPlayer.setupPlayer();
         await TrackPlayer.updateOptions({ stopWithApp: true });
         await TrackPlayer.add({
@@ -185,7 +183,7 @@ export const ContentForYou = () => {
             setInitialLoading(false)
         }else if(!isNonEmptyArray(selectedTopicsData.data)){
             setSelectedTopics([])
-            let updatedPageData = [...pageAllData];
+            const updatedPageData = [...pageAllData];
             updatedPageData.forEach((i:any)=>{
                 i.articleSectionData = {data: [], loaded: true}
                 i.shortArticleData = {data: [], loaded: true}
@@ -193,7 +191,7 @@ export const ContentForYou = () => {
             setPageAllData(updatedPageData)
         }else if(!isNonEmptyArray(selectedAuthorsData.data)){
             setSelectedAuthors([])
-            let updatedPageData = [...pageAllData];
+            const updatedPageData = [...pageAllData];
             updatedPageData.forEach((i:any)=>{
                 i.opinionsData = {data: [], loaded: true}
             })
@@ -234,10 +232,10 @@ export const ContentForYou = () => {
     }, [isAllLoading]);
     
     const checkBookmarkUpdate = () => {
-        let bookmarkData = [...pageAllData]
+        const bookmarkData = [...pageAllData]
         for (let i = 0; i < bookmarkData.length; i++) {
-            let bookmarkArticlesData = updateBookmark(bookmarkData[i].articleSectionData.data);
-            let bookmarkShortArticles = updateBookmark(bookmarkData[i].shortArticleData.data);
+            const bookmarkArticlesData = updateBookmark(bookmarkData[i].articleSectionData.data);
+            const bookmarkShortArticles = updateBookmark(bookmarkData[i].shortArticleData.data);
             bookmarkData[i].articleSectionData.data = bookmarkArticlesData
             bookmarkData[i].shortArticleData.data = bookmarkShortArticles
         }
@@ -245,7 +243,7 @@ export const ContentForYou = () => {
     }
 
     const formatOpinionsData = () => {
-        let updatedPageData = [...pageAllData];
+        const updatedPageData = [...pageAllData];
         if(updatedPageData[page]!=undefined){
             updatedPageData[page].opinionsData  = {data:favouriteOpinionsData, loaded: true} ;
             setPageAllData(updatedPageData);
@@ -263,12 +261,12 @@ export const ContentForYou = () => {
     }
 
     const formatArticleSectionData = () => {
-        let formatArticleSectionData = []
-        let formatShortArticleData = []
+        const formatArticleSectionData = []
+        const formatShortArticleData = []
         for(let i = 0; i < favouriteArticlesData.length; i++){
             const item = favouriteArticlesData[i]
             const newsCategory = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0] : {} as NewsCategoriesType
-            let formattedData = {
+            const formattedData = {
                 ...shortArticleWithTagProperties,
                 labelType: LabelTypeProp.h2,
                 body: item.body,
@@ -291,7 +289,7 @@ export const ContentForYou = () => {
                 formatShortArticleData.push(formattedData)
             }
         }
-        let pageDataUpdate = [...pageAllData];
+        const pageDataUpdate = [...pageAllData];
         if(pageDataUpdate[page]!=undefined){
             pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionData, loaded: true} ;
             pageDataUpdate[page].shortArticleData  = {data:formatShortArticleData, loaded:true} ;
@@ -325,7 +323,7 @@ export const ContentForYou = () => {
     };
 
     const fetchOpinionData =(authorsList:any, pageCount: number) => {
-        let opinionBody : FavouriteOpinionsBodyGet = {
+        const opinionBody : FavouriteOpinionsBodyGet = {
             page: pageCount,
             items_per_page: isTab ? 4 : 3,
             authorsList: authorsList
@@ -334,7 +332,7 @@ export const ContentForYou = () => {
     }
 
     const fetchArticleData =(topicsList:any, pageCount: any) => {
-        let opinionBody : FavouriteArticlesBodyGet = {
+        const opinionBody : FavouriteArticlesBodyGet = {
             page: pageCount,
             items_per_page: 10,
             topicsList: topicsList
@@ -344,11 +342,15 @@ export const ContentForYou = () => {
 
     const loadMoreData = () => {
         if(!isAllLoading && !isArticalLoading && !opinionLoading){
-            let pageCount = page+1
+            const pageCount = page+1
             setPage(pageCount)
             setPageAllData(pageData => [...pageData, initialPageData]);
-            if(isNonEmptyArray(selectedAuthors)) fetchOpinionData(selectedAuthors,pageCount);
-            if(isNonEmptyArray(selectedTopics)) fetchArticleData(selectedTopics,pageCount);
+            if(isNonEmptyArray(selectedAuthors)) {
+                fetchOpinionData(selectedAuthors,pageCount);
+            }
+            if(isNonEmptyArray(selectedTopics)) {
+                fetchArticleData(selectedTopics,pageCount);
+            }
             setIsAllLoading(true)
         }
     }

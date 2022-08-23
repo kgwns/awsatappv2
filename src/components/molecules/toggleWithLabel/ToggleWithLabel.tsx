@@ -44,7 +44,7 @@ const customStyle = (theme: CustomThemeType) => (
             fontSize: normalize(12),
             lineHeight: normalize(18),
             textAlign: 'left',
-            fontFamily: fonts.AwsatDigitalBetav10_Regular,
+            fontFamily: fonts.AwsatDigital_Regular,
         }
     })
 )

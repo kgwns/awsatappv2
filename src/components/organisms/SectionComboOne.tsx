@@ -81,7 +81,9 @@ const SectionComboOne = ({
     );
   };
 
-  if (!isNonEmptyArray(sectionComboOneData)) return null;
+  if (!isNonEmptyArray(sectionComboOneData)) {
+    return null;
+  }
 
   const onPressMore = () => {
     navigation.navigate(ScreensConstants.SectionArticlesScreen, { sectionId: sectionId, title: widgetHeaderData.headerLeft?.title });

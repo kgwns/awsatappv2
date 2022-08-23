@@ -11,7 +11,7 @@ import { useAppCommon } from 'src/hooks';
 import { Theme } from 'src/redux/appCommon/types';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 
-const PDFArchiveView: any = requireNativeComponent('RNPDFArchiveView')
+export const PDFArchiveView: any = requireNativeComponent('RNPDFArchiveView')
 
 enum ArchiveLayoutType {
   grid = 'grid',

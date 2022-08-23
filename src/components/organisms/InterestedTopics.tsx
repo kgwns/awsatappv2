@@ -1,7 +1,7 @@
 import { View, StyleSheet, ScrollView, FlatList, Platform } from 'react-native';
 import React from 'react';
 import { BorderLabel } from 'src/components/atoms/BorderLabel/BorderLabel';
-import { isTab, normalize, screenWidth } from 'src/shared/utils';
+import { isAndroid, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { flatListUniqueKey } from 'src/constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -11,12 +11,12 @@ const InterestedTopics = (props:any) => {
   const data = props.allSiteCategoriesData 
   const style = useThemeAwareObject(customInterestStyle)
   let totalLengthOfElements = 0
-  let arrayOfLengths = []
-  let splicedArray = []
+  const arrayOfLengths = []
+  const splicedArray = []
   let individualSpliceArray: any[] = []
   let lengthOfElementsInRow = 0
   let previousIndex = 0
-  let dataLength = data ? data.length : []
+  const dataLength = data ? data.length : []
   for (let i = 0; i < dataLength; i++) {
     totalLengthOfElements = totalLengthOfElements + data[i].name.length + 10
     arrayOfLengths.push(data[i].name.length + 10)
@@ -76,7 +76,7 @@ const InterestedTopics = (props:any) => {
           horizontal
           keyExtractor={(_, index) => index.toString()}
           listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
-          data={item}
+          data={ isAndroid ? item.reverse() : item}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => renderItem(item, index)}
         />
@@ -107,7 +107,7 @@ const InterestedTopics = (props:any) => {
     </ScrollView>
 
   );
-};;
+};
 
 export default InterestedTopics;
 const customInterestStyle = (theme: CustomThemeType) =>

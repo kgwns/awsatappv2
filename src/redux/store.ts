@@ -22,10 +22,16 @@ const sagaMiddleware = createSagaMiddleware();
 
 // const persistedReducer = persistReducer<any, any>(persistConfig, rootReducer);
 
+//MiddleWare
+let middleware = applyMiddleware(sagaMiddleware)
+if (__DEV__) {
+  middleware = applyMiddleware(sagaMiddleware, logger)
+}
+
 // Mount it on the Store
 const store = createStore(
   persistedReducer,
-  applyMiddleware(sagaMiddleware, logger),
+  middleware,
 );
 
 // Run the saga

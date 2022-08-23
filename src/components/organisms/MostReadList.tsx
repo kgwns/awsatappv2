@@ -1,18 +1,16 @@
 import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import React, { useEffect, useState } from 'react';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey, ScreensConstants} from 'src/constants';
 import {ArticleItem, ArticleWithOutImageProps} from 'src/components/molecules';
 import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabel';
-import {isTab, screenWidth} from 'src/shared/utils';
+import {isTab, screenWidth, normalize} from 'src/shared/utils';
 import {Label, LabelTypeProp} from 'src/components/atoms';
 import {MOST_READ} from 'src/constants/SharedConstants';
 import { Styles } from 'src/shared/styles';
-import {normalize} from 'src/shared/utils';
 import {dateTimeAgo, getArticleImage, isNonEmptyArray, TimeIcon} from 'src/shared/utils/utilities';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLogin } from 'src/hooks';
-import { ScreensConstants } from 'src/constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import PopUp, { PopUpType } from './popUp/PopUp';
 import { fonts } from 'src/shared/styles/fonts';
@@ -203,7 +201,7 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
     lineHeight:14
   },
   titleStyle: {
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
     fontSize: 16,
     lineHeight: 28,
     textAlign: 'left',

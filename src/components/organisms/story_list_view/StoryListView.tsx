@@ -70,10 +70,12 @@ export const StoryListView: FunctionComponent<StoryListDataProps> = ({
   return (
     <View style={styles.containerStyle}>
       {data.map((item:StoryListProps,index:number)=>{
-        let imagesList = item.data.map((list:StoryListItemProps)=>{
+        const imagesList = item.data.map((list:StoryListItemProps)=>{
           return list.imageUrl
         })
-        if(selectedItemIndex!=index) return null;
+        if(selectedItemIndex!=index) {
+          return null;
+        }
         return (
           <View key={`story_${index}`}>
             <StoryContainer

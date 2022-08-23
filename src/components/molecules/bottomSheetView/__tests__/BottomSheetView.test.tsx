@@ -1,7 +1,8 @@
-import { render, RenderAPI } from '@testing-library/react-native';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import BottomSheetView from '../BottomSheetView';
-
+import { Image } from 'src/components/atoms';
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 describe('BottomSheetView', () => {
 
@@ -11,7 +12,7 @@ describe('BottomSheetView', () => {
 
   beforeEach(() => {
     const component = (
-      <BottomSheetView onPressSignUp={mockFunction} title={mockString} subTitle={mockString} description={mockString} buttonLabel={mockString} />
+      <BottomSheetView onPressSignUp={mockFunction} title={mockString} subTitle={mockString} description={mockString} signUpLabel={'example'} logInLabel={''} />
     );
     instance = render(component);
   });
@@ -23,6 +24,22 @@ describe('BottomSheetView', () => {
 
   it('should render BottomSheetView component', () => {
     expect(instance).toBeDefined();
+  });
+
+  it('Should call Image fallbackContent', () => {
+    const element = instance.container.findAllByType(Image)[0];
+    fireEvent(element, 'fallbackContent');
+    expect(element).toBeTruthy();
+  });
+
+  it('Should getSvgImages', () => {
+    expect(getSvgImages).toBeTruthy();
+  });
+
+  it('Should call Image fallbackContent', () => {
+    const element = instance.container.findAllByType(Image)[0];
+    fireEvent(element, 'fallbackContent');
+    expect(getSvgImages).toBeDefined();
   });
 
 })

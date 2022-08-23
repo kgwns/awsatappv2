@@ -47,6 +47,7 @@ export const SECTION_ARTICLES = 'api/v2/articlesection'
 //page start from 0
 //offset is about from which position need to get the data
 export const NEWS_VIEW_ENDPOINT = 'api/v2/articlesection';
+export const ARTICLE_SUB_SECTION_ENDPOINT = 'api/v2/articlesubsection';
 
 //all writers list
 export const ALL_WRITERS_ENDPOINT = 'api/v2/applist/authors';

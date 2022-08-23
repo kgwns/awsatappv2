@@ -5,7 +5,7 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { ButtonImage, HomeButton, Image, Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isAndroid, isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -34,6 +34,8 @@ export interface WriterBannerImageProps {
   hideBackArrow?: boolean;
   visibleHome?: boolean
   onPressHome: () => void,
+  isFocused?: boolean,
+  isWriter?: boolean
 }
 
 export const WriterBannerImage = ({
@@ -45,7 +47,9 @@ export const WriterBannerImage = ({
   onPressWriter,
   hideBackArrow = false,
   visibleHome = false,
-  onPressHome
+  onPressHome,
+  isFocused,
+  isWriter = false
 }: WriterBannerImageProps) => {
   const [t] = useTranslation()
 
@@ -59,6 +63,10 @@ export const WriterBannerImage = ({
     const dim = Dimensions.get('screen');
     return dim.height >= dim.width;
   };
+
+  useEffect(() => {
+    setOrientation(isPortrait() ? 'PORTRAIT' : 'LANDSCAPE')
+  }, [isFocused])
 
   // State to hold the connection status
   const [currentOrientation, setOrientation] = useState<'PORTRAIT' | 'LANDSCAPE'>(
@@ -74,7 +82,9 @@ export const WriterBannerImage = ({
   }, []);
 
   const ReturnButton = () => {
-    if(hideBackArrow) return null
+    if(hideBackArrow) {
+      return null
+    }
     return (
       <View>
         <TouchableOpacity
@@ -138,7 +148,7 @@ export const WriterBannerImage = ({
         <ReturnButton />
       </View>
       <View style={style.contentContainer}>
-        <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : currentOrientation == 'PORTRAIT' ? 0.3 : 0.15 }}>
+        <View style={{ flex: isTab ? isWriter ? 0.15 : currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : isWriter ? 0.33 : currentOrientation == 'PORTRAIT' ? 0.33 : 0.15 }}>
           <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
             <View style={style.imageContainer}>
               <Image url={getImageUrl(data.authorImage)}
@@ -155,7 +165,7 @@ export const WriterBannerImage = ({
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <View style={{ flex: isTab ? currentOrientation == 'PORTRAIT' ? 0.85 : 0.90 : currentOrientation == 'PORTRAIT' ? 0.7 : 0.85, paddingStart: normalize(10) }}>
+        <View style={{ flex: isTab ? isWriter ? 0.85 : currentOrientation == 'PORTRAIT' ? 0.85 : 0.90 : isWriter ? 0.67 :currentOrientation == 'PORTRAIT' ? 0.67 : 0.85, paddingStart: normalize(10) }}>
           <View style={style.authorSubscribeView}>
               <View style={style.authorNameView}>
                 <TouchableWithoutFeedback testID={'touchableLabel'} onPress={onPressWriter}>
@@ -238,7 +248,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: 22,
       lineHeight: 36,
       color: theme.primaryBlack,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'left',
     },
     authorDescription:{
@@ -254,7 +264,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(14),
       lineHeight: normalize(32),
       color: theme.primaryBlack,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     followContainer: {
       width: 75,
@@ -268,7 +278,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: 13,
       lineHeight: 27,
       marginStart: 2,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     prevIconStyle: {
       width: normalize(12),
@@ -279,6 +289,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     homeIconContainer: {
       position:'absolute',
+      top: isAndroid ? 5 : 0,
       right: 5,
     },
     headerContainer: {

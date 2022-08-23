@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useState, useEffect, useRef} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
   View,
@@ -17,22 +17,18 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
-import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useEmailCheck, useRegister} from 'src/hooks';
+import {useEmailCheck, useRegister, useLogin} from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
 import {TERMS_AND_CONDITION} from 'src/services/apiEndPoints';
-import {useLogin} from 'src/hooks';
 import {AlertPayloadType} from 'src/components/screens/ScreenContainer/ScreenContainer';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
-import { useIsFocused } from '@react-navigation/native';
 import { Connection, LoginFactory } from 'src/shared/utils/loginFactory';
-import { SocialProviders } from './SignInPage';
-import { onSuccessSocialLogin } from './SignInPage';
+import { SocialProviders, onSuccessSocialLogin } from './SignInPage';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -191,6 +187,7 @@ export const AuthPage: FunctionComponent = () => {
         bounces={false}
         extraScrollHeight={30}
         enableOnAndroid={true}
+        showsVerticalScrollIndicator={false}
         scrollEnabled>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <View style={styles.container}>
@@ -281,7 +278,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'flex-end',
     },
     headerLabelStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       fontSize: normalize(12),
       color: theme.primary,
       lineHeight: normalize(16),
@@ -305,7 +302,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     logo: {
       width: normalize(150),
-      height: normalize(30),
+      height: normalize(37),
     },
     spaceStyle: {
       marginHorizontal: normalize(10),

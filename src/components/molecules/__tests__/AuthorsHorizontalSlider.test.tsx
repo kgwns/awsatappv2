@@ -1,24 +1,47 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React from 'react';
+import React, { useRef } from 'react';
 import {AuthorsHorizontalSlider} from '..';
 import {ScrollView, TouchableWithoutFeedback} from 'react-native';
+import { AuthorsItemType } from '../AuthorsHorizontalSlider';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useRef: jest.fn(),
+}))
+
+const sampleData: any = {
+  current : {
+    scrollToEnd:() => []
+  }
+}
 
 describe('<AuthorsHorizontalSlider>', () => {
   let instance: RenderAPI;
-  const mockData = [
+  const mockData: AuthorsItemType[] = [
     {
-      field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
       name: 'الحكومة',
+      field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
+      tid: 'الحكومة'
     },
   ];
+  const mockStyle= {
+      width: '100%',
+      height: 1.2,
+      position: 'absolute',
+      bottom: 0,
+  }
   const mockFn = jest.fn();
+  const scrollRef = mockFn;
 
   beforeEach(() => {
+    (useRef as jest.Mock).mockImplementation(() => [sampleData, scrollRef]);
     const component = (
       <AuthorsHorizontalSlider
         selectedIndex={-1}
         authorsList={mockData}
         onPress={mockFn}
+        style={mockStyle}
+        showAll={true}
       />
     );
     instance = render(component);
@@ -52,4 +75,10 @@ describe('<AuthorsHorizontalSlider>', () => {
     fireEvent(element, 'onContentSizeChange');
     expect(mockFn).toBeTruthy();
   });
+
+  test('Should call TouchableOpacity onPress', () => {
+    const element = instance.getByTestId('onAllPress');
+    fireEvent(element, 'onPress');
+    expect(sampleData.current.scrollToEnd()).toBeTruthy();
+  })
 });

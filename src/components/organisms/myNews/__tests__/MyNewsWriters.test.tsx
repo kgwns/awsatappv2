@@ -4,6 +4,7 @@ import {MyNewsWriters} from 'src/components/organisms';
 import {AuthorsHorizontalSlider} from 'src/components/molecules';
 import {useNavigation} from '@react-navigation/native';
 import {FlatList} from 'react-native';
+import { keyExtractor } from '../MyNewsWriters';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -12,7 +13,7 @@ jest.mock('react', () => ({
 }));
 
 jest.mock('src/hooks/useContentForYou', () => ({
-  useContentForYou: (...args: any) => {
+  useContentForYou: () => {
     return {
       isLoading: false,
       favouriteOpinionsData: [],
@@ -34,10 +35,16 @@ jest.mock('src/hooks/useContentForYou', () => ({
 }));
 
 jest.mock('src/hooks/useAllWriters', () => ({
-  useAllWriters: (...args: any) => {
+  useAllWriters: () => {
     return {
       isLoading: false,
-      selectedAuthorsData: [],
+      selectedAuthorsData: {
+        code: 2,
+        message: 'string',
+        data: {
+          tid: '12'
+        },
+      },
       error: 'error',
       getSelectedAuthorsData: () => {
         return [];
@@ -54,6 +61,54 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
+
+
+const sampleData = [
+  {
+    nid: '1',
+    title: 'example',
+    body: 'abc',
+    field_image: 'abc',
+    jwplayer: 'abc',
+    field_jwplayer_id_opinion_export: [
+      {
+        id: 'example',
+        title: 'example',
+        url: 'example',
+        bundle: 'example',
+        name: 'example',
+      },
+      {
+        id: 'example',
+        title: 'example',
+        url: 'example',
+        bundle: 'example',
+        name: 'example',
+      }
+    ],
+    field_opinion_writer_node_export: [
+      {
+        id: 'example',
+        opinion_writer_photo: 'example',
+        url: 'example',
+        bundle: 'example',
+        name: 'example',
+      },
+      {
+        id: 'example',
+        title: 'example',
+        url: 'example',
+        bundle: 'example',
+        name: 'example',
+      }
+    ],
+    field_publication_date_export: '2021-05-20T20:05:45+0000',
+    created_export: '2021-05-20T20:05:45+0000',
+    author_resource: 'author',
+    type: 'type',
+    field_new_photo: 'abc'
+  },
+];
 
 describe('<MyNewsWriters>', () => {
   let instance: RenderAPI;
@@ -100,6 +155,10 @@ describe('<MyNewsWriters>', () => {
     expect(instance).toBeDefined();
   });
 
+  it('should render component', () => {
+    expect(keyExtractor('', 2)).toBeTruthy()
+  });
+  
   test('Should call AuthorsHorizontalSlider onPress', () => {
     const element = instance.container.findByType(
       AuthorsHorizontalSlider as any,
@@ -112,5 +171,17 @@ describe('<MyNewsWriters>', () => {
     const element = instance.container.findByType(FlatList as any);
     fireEvent(element, 'onEndReached');
     expect(setPageCount).toBeCalled();
+  });
+
+  test('Should call FlatList renderItem', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'renderItem', {item: sampleData[0], index: 0});
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call FlatList ListFooterComponent', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'ListFooterComponent', {item: [{}], index: 0});
+    expect(mockFunction).toBeTruthy()
   });
 });

@@ -13,7 +13,7 @@ export const fetchAllSiteCategoriesApi = async (body: AllSiteCategoriesBodyGet) 
     try {
         const response: FetchAllSiteCategoriesListSuccessPayloadType =
             await getApiRequest(
-                `${BASE_URL}${ALL_SITE_CATEGORIES_ENDPOINT}?items_per_page=${body.items_per_page}`,
+                `${BASE_URL}${ALL_SITE_CATEGORIES_ENDPOINT}`, // removed items_per_page due to different data response
             );
         return response;
     } catch (error) {

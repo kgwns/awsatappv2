@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { isNonEmptyArray, isNotEmpty, normalize } from 'src/shared/utils';
 import TextTicker from 'react-native-text-ticker';
 import { Label, LabelTypeProp } from 'src/components/atoms';
@@ -8,7 +8,6 @@ import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { TouchableWithoutFeedback } from 'react-native';
 
 interface TextTickerProps {
     duration?: number,
@@ -101,9 +100,9 @@ const HeadlinesSection = ({
         return (
             <TouchableWithoutFeedback onPress={onPress}>
                 <View style={HeadlinesSectionStyle.contentContainer}>
-                    <Label color={titleColor} children={headerNews} labelType={LabelTypeProp.h5} onLayout={e => { setTitleWidth(e.nativeEvent.layout.width) }} />
+                    <Label testID='HeadlinesSectionLabel01' color={titleColor} children={headerNews} labelType={LabelTypeProp.h5} onLayout={e => { setTitleWidth(e.nativeEvent.layout.width) }} />
                     {isNotEmpty(headerNews) && <View style={[HeadlinesSectionStyle.separator, { backgroundColor: separatorColor }]} />}
-                    <View onLayout={e => { setTextWidth(e.nativeEvent.layout.width) }}>
+                    <View testID='HeadlinesSectionView01' onLayout={e => { setTextWidth(e.nativeEvent.layout.width) }}>
                         <TextTicker
                             style={[HeadlinesSectionStyle.headlineDescription, { color: bodyColor }]}
                             duration={duration ? duration : TextTickerDefaultProps.duration}

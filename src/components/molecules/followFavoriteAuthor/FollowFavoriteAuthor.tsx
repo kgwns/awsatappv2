@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Platform, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {Image} from 'src/components/atoms';
-import {Label} from 'src/components/atoms';
+import {Image, Label} from 'src/components/atoms';
 import {isIOS, isTab, normalize, screenHeight, screenWidth} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {ImagesName, Styles} from 'src/shared/styles';
@@ -154,7 +153,7 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
     },
     titleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'center',
       fontSize: normalize(14),
       lineHeight: normalize(22),

@@ -2,6 +2,7 @@ import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import DraggableVideoPlayer  from '../DraggableVideoPlayer';
 import VideoPlayerControl from '../VideoPlayerControl';
+import { PanResponder } from 'react-native';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -90,5 +91,10 @@ describe('<DraggableVideoPlayer />', () => {
     fireEvent(element, 'onPress');
     expect(element).toBeTruthy();
   });
+
+  it('Should call PanResponder', () => {
+    expect(PanResponder.create).toBeTruthy();
+  });
+
 })
 

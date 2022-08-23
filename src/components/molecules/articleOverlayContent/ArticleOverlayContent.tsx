@@ -72,7 +72,7 @@ export const ArticleOverlayContent = ({
 
 const customStyle = (theme:CustomThemeType) => StyleSheet.create({
     title: {
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         fontSize: 30,
         lineHeight: 42,
         textAlign: 'left',
@@ -81,7 +81,7 @@ const customStyle = (theme:CustomThemeType) => StyleSheet.create({
         paddingTop: normalize(15),
     },
     subtitle: {
-        fontFamily: fonts.AwsatDigitalBetav10_Regular,
+        fontFamily: fonts.AwsatDigital_Regular,
         fontSize: 21,
         lineHeight: 33,
         textAlign: 'left',
