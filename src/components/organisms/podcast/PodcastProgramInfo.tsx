@@ -24,7 +24,9 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <Image fallback url={data?.field_podcast_sect_export?.image} style={styles.imageStyle} />
+            <View style={styles.imageContainerStyle}>
+              <Image fallback url={data?.field_podcast_sect_export?.image} style={styles.imageStyle} />
+            </View>
             <View style={styles.containerSpace} />
             <Label style={styles.textStyle} children={data.title} />
             {data.field_podcast_sect_export?.name&&
@@ -67,9 +69,14 @@ StyleSheet.create({
   centerContainer: {
     alignItems: 'center',
   },
+  imageContainerStyle: {
+    width: normalize(204),
+    height: normalize(162),
+    alignItems: 'center',
+  },
   imageStyle: {
-    width: normalize(200),
-    height: normalize(150),
+    width: '100%',
+    height: '100%',
   },
   textStyle: {
     fontSize: 14,
