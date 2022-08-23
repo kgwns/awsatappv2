@@ -17,6 +17,7 @@ export const arabic = {
     termsOfUse: 'شروط الانتفاع',
     pdfArchive: 'الأرشيف',
     informationAboutUs: 'معلومات عنا',
+    aboutTheMiddleEast: ' عن "الشرق الأوسط"'
   },
   onBoard: {
     common: {
