@@ -1,7 +1,7 @@
 export const arabic = {
   weatherDetail: {
-    sunrise: 'بعد الظهر',
-    sunset: 'المساء',
+    sunrise: 'شروق الشمس',
+    sunset: 'غروب الشمس',
     sidebarTitle: 'الرياض :',
     max: 'الحرارة العظمى/الصغرى',
     humidity: 'الرطوبة',

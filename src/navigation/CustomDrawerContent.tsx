@@ -131,7 +131,8 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       <Divider style={styles.divider} />
       <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.WEATHER_DETAIL_SCREEN)} style={styles.weather}>
         <Text style={styles.weatherTitle}>
-          {t('weatherDetail.sidebarTitle')}
+        {fetchWeatherDetailsSuccessInfo?.city.name}
+        {' :'}
         </Text>
         {fetchWeatherDetailsSuccessInfo?.list[0].temp.day &&
           <View style={styles.weatherTempContainer}>

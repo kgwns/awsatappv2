@@ -13,6 +13,8 @@ import { ImagesName } from "../styles";
 import { isIOS } from "./dimensions";
 import { decode } from "html-entities";
 import DeviceInfo from 'react-native-device-info';
+import countries from "i18n-iso-countries";
+import arabicLang from "i18n-iso-countries/langs/ar.json";
 
 export enum DateIcon {
   CLOCK,
@@ -346,3 +348,9 @@ export const getConvertedTime = (time?: number, timezone?: number) => {
     return ''
   }
 };
+
+export const getCountryNameFromCode = ( countryCode: string) : string => {
+  countries.registerLocale(arabicLang);
+  let countryName = countries.getName(countryCode, "ar");
+  return countryName
+}
