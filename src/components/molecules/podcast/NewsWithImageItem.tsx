@@ -38,6 +38,7 @@ export const NewsWithImageItem = ({
       {imageUrl &&
         <Image url={imageUrl} style={isTab ? style.tabImage : style.image}
           resizeMode={ImageResize.COVER} fallback
+          defaultImageStyle={style.image}
         />
       }
       { showHighlightTitle && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
