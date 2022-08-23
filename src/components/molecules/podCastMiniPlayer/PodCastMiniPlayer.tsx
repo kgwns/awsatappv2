@@ -34,8 +34,8 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
     const isPlaying = playbackState === State.Playing;
-    const isLoading = (playbackState === State.None || playbackState === State.Connecting ) && (playbackState !== State.Paused && playbackState !== State.Playing)
     const { selectedTrack } = useAppPlayer()
+    const isLoadedRef = useRef(false)
     
     const refRBSheet = useRef<RBSheet>();
     const _playForwardIcon = getSvgImages({ name: ImagesName.playForwardIcon, width: normalize(25), height: normalize(25) })
@@ -49,6 +49,15 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     useEffect(()=> {
         showControl && refRBSheet.current?.open();
     },[showControl])
+
+    useEffect(() => {
+        if (isIOS && playbackState == State.Playing) {
+            isLoadedRef.current = true
+        }
+        if (isAndroid && playbackState == 8) {
+            isLoadedRef.current = true
+        }
+    }, [playbackState])
 
     // check playback error
     useTrackPlayerEvents(events, (event) => {
@@ -198,7 +207,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                         <View style={style.buttonBackground}>
                             <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
                                 <View style={style.buttonContainer}>
-                                    {isLoading ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play /> }
+                                    {!isLoadedRef.current ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play />}
                                 </View>
                             </TouchableOpacity>
                         </View>
