@@ -103,6 +103,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   const _sectionComboSixTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SIX})
   const _sectionComboSevenTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SEVEN})
   const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
+  const EDITORS_PICK_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITORS_PICK_HEADER_TITLE})
 
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
 
@@ -563,7 +564,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       </View>
       <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />
       {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
-      <EditorsPickSection data={horizontalArticle} showHighlightTitle={false}/>
+      <EditorsPickSection headerRight={EDITORS_PICK_HEADER_TITLE} data={horizontalArticle} showHighlightTitle={false}/>
       {isNonEmptyArray(podcastHome) &&
         <View>
           <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
@@ -713,7 +714,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
       }
       {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
-      <EditorsPickSection data={horizontalArticle} showHighlightTitle={false}/>
+      <EditorsPickSection headerRight={EDITORS_PICK_HEADER_TITLE} data={horizontalArticle} showHighlightTitle={false}/>
       <View style={mainSectionStyle.tabSplitter}>
         <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}

@@ -83,6 +83,9 @@ export const arabic = {
     },
     editorsChoice: {
       headerLeft: 'اختيارات المحرر'
+    },
+    editorsPick: {
+      headerRight: 'مواضيع قد تهمك'
     }
   },
   sectionVideo: {

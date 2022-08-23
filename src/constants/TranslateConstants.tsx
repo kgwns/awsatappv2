@@ -47,6 +47,7 @@ export enum TranslateKey {
     ADVERTISE_WITH_US,
     ABOUT_THE_MIDDLE_EAST,
     TERMS_OF_USE,
+    EDITORS_PICK_HEADER_TITLE,
 }
 
 export const TranslateConstants = ({
@@ -145,6 +146,8 @@ export const TranslateConstants = ({
             return t('drawer.aboutTheMiddleEast')
         case TranslateKey.TERMS_OF_USE:
             return t('drawer.termsOfUse')
+        case TranslateKey.EDITORS_PICK_HEADER_TITLE:
+            return t('latestNewsTab.editorsPick.headerRight')
         default: return ''
     }
 }
