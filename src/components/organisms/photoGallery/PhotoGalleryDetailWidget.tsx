@@ -41,7 +41,7 @@ export const PhotoGalleryDetailWidget = ({
       direction: 'rtl',
       fontSize: fontSize,
       lineHeight: 1.8 * fontSize,
-      fontFamily: fonts.Effra_Arbc_Regular,
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
       writingDirection: 'rtl',
     },
   };
@@ -66,9 +66,14 @@ export const PhotoGalleryDetailWidget = ({
     </View>
   );
 
+  const labelStyle ={ 
+    fontSize: fontSize,
+    lineHeight: 1.8 * fontSize
+  }
+
   const renderTextHtml = (content: any) => (
     <View>
-      <HtmlRenderer source={content} tagsStyles={htmlTagStyle} />
+      <Label style={[style.bodyStyle, labelStyle]} children={decodeHTMLTags(content)} />
     </View>
   );
 
@@ -80,22 +85,23 @@ export const PhotoGalleryDetailWidget = ({
         (image: string, index: number) => {
           const imageUrl = image ? getImageUrl(image) : undefined;
           return (
-            <View key={index} style={style.container}>
-              <Image
-                url={imageUrl}
-                resizeMode={ImageResize.COVER}
-                style={{
-                  width: width,
-                  height: 'auto',
-                  aspectRatio: 3 / 2,
-                  flex: 1,
-                }}
-                fallback={true}
-              />
+            <View key={index}>
+              <View>
+                <Image
+                  url={imageUrl}
+                  resizeMode={ImageResize.COVER}
+                  style={{
+                    width: width,
+                    height: 'auto',
+                    aspectRatio: 3 / 2,
+                  }}
+                  fallback={true}
+                />
+              </View>
               <View style={style.textContainer}>
-                {isNonEmptyArray(data.field_album_source_export) &&
-                  isNotEmpty(data.field_album_source_export[index]) &&
-                  renderTextHtml(data.field_album_source_export[index])}
+                {isNonEmptyArray(data.field_photo_album_export_1) &&
+                  isNotEmpty(data.field_photo_album_export_1[index]) &&
+                  renderTextHtml(data.field_photo_album_export_1[index])}
               </View>
             </View>
           );
@@ -157,9 +163,16 @@ const customStyle = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigital_Regular,
     },
     textContainer: {
-      paddingTop: 20,
+      paddingVertical: 15,
       paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
     },
+    bodyStyle: {
+      color: colors.white,
+      textAlign: 'justify',
+      direction: 'rtl',
+      fontFamily: fonts.IBMPlexSansArabic_Regular,
+      writingDirection: 'rtl',
+    }
   });
   return styles;
 };
