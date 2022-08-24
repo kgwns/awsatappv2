@@ -50,6 +50,7 @@ export const ArticleDetailBody = React.memo(({
         }
     }, [articleFontSize])
 
+    /*
     useEffect(() => {
         if (webviewRef) {
             webviewRef.forEach((_: any, index: number) => {
@@ -65,16 +66,17 @@ export const ArticleDetailBody = React.memo(({
         const dim = Dimensions.get('screen');
         return dim.height >= dim.width;
     };
+    */
 
     const iFrameInjectCss = () => {
-        const size = isPortrait() ? screenWidth : screenHeight
+        // const size = isPortrait() ? screenWidth : screenHeight
 
         return `
         //   This css to apply all the iFrame tag element
         var iFrameElement = document.getElementsByTagName("iframe");
         if(iFrameElement && iFrameElement.length > 0) {
           for(i=0; i < iFrameElement.length; i++) {
-            iFrameElement[i].style["width"] = "${0.92 * size}px";
+            iFrameElement[i].style["width"] = "${window.innerWidth}";
             iFrameElement[i].style["aspect-ratio"] = "2/4"; 
           } 
         }
