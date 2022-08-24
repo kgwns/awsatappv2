@@ -41,7 +41,7 @@ export const PhotoGalleryDetailWidget = ({
       direction: 'rtl',
       fontSize: fontSize,
       lineHeight: 1.8 * fontSize,
-      fontFamily: fonts.IBMPlexSansArabic_Regular,
+      fontFamily: fonts.Effra_Arbc_Regular,
       writingDirection: 'rtl',
     },
   };
@@ -52,7 +52,7 @@ export const PhotoGalleryDetailWidget = ({
     leftTitleColor: Styles.color.spanishGray,
     leftIcon: () => TimeIcon(timeFormat.icon),
     leftTitleStyle: {
-      fontFamily: fonts.IBMPlexSansArabic_Regular,
+      fontFamily: fonts.Effra_Arbc_Regular,
       fontSize: 12,
       lineHeight: isIOS ? 20 : 25,
     },
