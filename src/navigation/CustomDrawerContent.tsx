@@ -60,6 +60,7 @@ interface CustomDrawerContentProps { }
 
 const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
+  const [t] = useTranslation();
 
   const styles = useThemeAwareObject(createStyles);
 
