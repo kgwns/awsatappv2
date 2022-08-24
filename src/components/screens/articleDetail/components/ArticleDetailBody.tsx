@@ -45,7 +45,7 @@ export const ArticleDetailBody = React.memo(({
     useEffect(() => {
         if (webviewRef) {
             webviewRef.forEach((_: any, index: number) => {
-                webviewRef[index].injectJavaScript(script());
+                webviewRef[index] && webviewRef[index].current && webviewRef[index].injectJavaScript(script());
             })
         }
     }, [articleFontSize])
