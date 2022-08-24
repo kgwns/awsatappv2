@@ -32,6 +32,7 @@ export const arabic = {
     termsOfUse: 'شروط الانتفاع',
     pdfArchive: 'الأرشيف',
     informationAboutUs: 'معلومات عنا',
+    aboutTheMiddleEast: ' عن "الشرق الأوسط"'
   },
   onBoard: {
     common: {
@@ -97,6 +98,9 @@ export const arabic = {
     },
     editorsChoice: {
       headerLeft: 'اختيارات المحرر'
+    },
+    editorsPick: {
+      headerRight: 'مواضيع قد تهمك'
     }
   },
   sectionVideo: {

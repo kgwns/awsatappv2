@@ -44,6 +44,10 @@ export enum TranslateKey {
     ONBOARD_SUCCESS_GO_TO_HOME,
     ONBOARD_SUCCESS_GO_TO_MY_NEWS,
     OPINION_SLIDER_TITLE,
+    ADVERTISE_WITH_US,
+    ABOUT_THE_MIDDLE_EAST,
+    TERMS_OF_USE,
+    EDITORS_PICK_HEADER_TITLE,
     WEATHER_DETAILS_SUNRISE,
     WEATHER_DETAILS_SUNSET,
     WEATHER_DETAILS_SIDEBAR,
@@ -175,6 +179,14 @@ export const TranslateConstants = ({
             return t('weatherDetail.enableLocation')
         case TranslateKey.OPINION_SLIDER_TITLE:
             return t('latestNewsTab.sectionWriters.sliderLeftHeader')
+        case TranslateKey.ADVERTISE_WITH_US:
+            return t('drawer.advertiseWithUs')
+        case TranslateKey.ABOUT_THE_MIDDLE_EAST:
+            return t('drawer.aboutTheMiddleEast')
+        case TranslateKey.TERMS_OF_USE:
+            return t('drawer.termsOfUse')
+        case TranslateKey.EDITORS_PICK_HEADER_TITLE:
+            return t('latestNewsTab.editorsPick.headerRight')
         default: return ''
     }
 }

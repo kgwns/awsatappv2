@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
-import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenWidth} from '../../../shared/utils';
+import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
 import {useAppCommon} from '../../../hooks/useAppCommon';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -144,10 +144,9 @@ export const ScreenContainer = ({
   };
 
   const statusBarBackgroundColor = statusbarColor || themeData.backgroundColor;
-  const { width, height } = Dimensions.get('window')
   return (
       <SafeAreaView
-        style={[style.container, !isLandscape && {width: width, height: height}]} // Intensively added inline style to update screen size when rotate
+        style={[style.container, !isLandscape && {width: screenWidth, height: screenHeight}]} // Intensively added inline style to update screen size when rotate
         edges={edge ? edge : ['left', 'right', 'top']}>
         {showHeader && header(headerTitle)}
         <StatusBar

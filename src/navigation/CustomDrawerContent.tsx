@@ -35,6 +35,10 @@ import {
 import { recordLogEvent } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
+import {
+  TranslateConstants,
+  TranslateKey,
+} from 'src/constants/TranslateConstants';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
 import Geolocation from 'react-native-geolocation-service';
 import CelsiusIcon from 'src/assets/images/icons/weather/Celsius.svg'
@@ -55,7 +59,6 @@ export enum SocialMediaType {
 interface CustomDrawerContentProps { }
 
 const CustomDrawerContent = (props: CustomDrawerContentProps) => {
-  const [t] = useTranslation();
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const styles = useThemeAwareObject(createStyles);
@@ -66,6 +69,11 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     fetchWeatherDetailsVisibilityInfo } = useWeatherDetails();
   
   const [sideMenuDataInfo, setSideMenuDataInfo] = useState<any>([])
+
+  const ADVERTISE_WITH_US = TranslateConstants({key: TranslateKey.ADVERTISE_WITH_US});
+  const ABOUT_THE_MIDDLE_EAST = TranslateConstants({key: TranslateKey.ABOUT_THE_MIDDLE_EAST});
+  const TERMS_OF_USE = TranslateConstants({key: TranslateKey.TERMS_OF_USE});
+  const CALL_US = TranslateConstants({key: TranslateKey.DRAWER_CALL_US});
   const [latitude, setLatitude] = useState<number>();
   const [longitude, setLongitude] = useState<number>();
   const [locationEnabled, setLocationEnabled] = useState<boolean>(false);
@@ -369,10 +377,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             })}
           <Divider style={styles.divider} />
           <ButtonList
-            title={t('drawer.advertiseWithUs')}
+            title={ADVERTISE_WITH_US}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('drawer.advertiseWithUs'), id: ADVERTISE_INFO_ID }
+              { title: ADVERTISE_WITH_US, id: ADVERTISE_INFO_ID }
             )}
             titleStyle={styles.nonBoldTitle}
           />
@@ -385,15 +393,15 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             titleStyle={styles.nonBoldTitle}
           /> */}
           <ButtonList
-            title={t('drawer.aboutTheEast')}
+            title={ABOUT_THE_MIDDLE_EAST}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('about_the_news_paper'), id: ABOUT_US }
+              { title: ABOUT_THE_MIDDLE_EAST, id: ABOUT_US }
             )}
             titleStyle={styles.nonBoldTitle}
           />
           <ButtonList
-            title={t('drawer.callUs')}
+            title={CALL_US}
             onPress={() => onPressNavigation(
               ScreensConstants.CONTACT_US_SCREEN, {}
 
@@ -401,10 +409,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             titleStyle={styles.nonBoldTitle}
           />
           <ButtonList
-            title={t('drawer.termsOfUse')}
+            title={TERMS_OF_USE}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('drawer.termsOfUse'), id: TERMS_AND_CONDITION }
+              { title: TERMS_OF_USE, id: TERMS_AND_CONDITION }
             )}
             titleStyle={styles.nonBoldTitle}
           />

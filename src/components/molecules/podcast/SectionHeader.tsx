@@ -40,15 +40,14 @@ const customStyle = (theme: CustomThemeType) => {
       width: '100%',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginVertical: normalize(15),
+      marginBottom: 10,
     },
     header: {
-      fontSize: normalize(16),
-      lineHeight: normalize(42),
+      fontSize: 20,
+      lineHeight: 42,
       fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'left',
       color: theme.primary,
-      marginStart: normalize(10),
     },
     moreContainer: {
       flexDirection: 'row',

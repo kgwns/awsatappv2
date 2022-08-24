@@ -25,6 +25,7 @@ export interface ImageProps extends Omit<ImageStyle, 'source'> {
   fallbackContent?: any
   fallbackName?: ImageName;
   resizeMode?: ResizeMode;
+  defaultImageStyle?: ImageStyle;
 }
 
 
@@ -39,6 +40,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   fallback = false,
   fallbackContent = <PlaceholderImage name={'placeholderImg'} />,
   fallbackName = 'placeholderImg',
+  defaultImageStyle,
   ...props
 }) => {
   const { theme } = useAppCommon()
@@ -76,7 +78,7 @@ export const Image: FunctionComponent<ImageProps> = ({
     <>
       {!isLoadEnd && fallback && fallbackName == ImagesName.placeholderImg && <DefaultImage
         source={images.placeholderImg}
-        style={[imageStyle, borderStyle,styles.defaultImage]}
+        style={[imageStyle, borderStyle,styles.defaultImage, defaultImageStyle]}
       />}
       <FastImage
         style={StyleSheet.flatten([imageStyle, borderStyle, style])}
