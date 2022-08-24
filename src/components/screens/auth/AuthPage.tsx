@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {normalize, } from '../../../shared/utils';
+import {isObjectNonEmpty, normalize, } from '../../../shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from '../../../components/organisms/';
 import {ScreensConstants} from 'src/constants';
@@ -19,7 +19,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
 import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useEmailCheck, useRegister, useLogin} from 'src/hooks';
+import { useEmailCheck, useRegister, useLogin, useBookmark } from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
 import {TERMS_AND_CONDITION} from 'src/services/apiEndPoints';
 import {AlertPayloadType} from 'src/components/screens/ScreenContainer/ScreenContainer';
@@ -59,7 +59,8 @@ export const AuthPage: FunctionComponent = () => {
   const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
   const isFocused = useIsFocused()
   const fbLoginRef = useRef(true);
-
+  const { getBookmarkedId } = useBookmark();
+  
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
 
   const { fetchEmailCheckRequest,
@@ -108,6 +109,9 @@ export const AuthPage: FunctionComponent = () => {
 
   useEffect(() => {
     socialLoginEnded();
+    if (isObjectNonEmpty(registerUserInfo) && isObjectNonEmpty(registerUserInfo?.message) && registerUserInfo?.message.code === 200) {
+      getBookmarkedId();
+    }
   }, [registerUserInfo]);
 
   useEffect(() => {
