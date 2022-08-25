@@ -7,19 +7,14 @@ import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ButtonImage, Image, Label} from '../atoms';
 import {useTranslation} from 'react-i18next';
-import {
-  DURATION,
-} from 'src/constants/SharedConstants';
 import {ImageResize} from 'src/shared/styles/text-styles';
-import { decodeHTMLTags, getImageUrl, isObjectNonEmpty } from 'src/shared/utils/utilities';
-import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { getImageUrl, isObjectNonEmpty, convertSecondsToHMS } from 'src/shared/utils/utilities';
 import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
 import { fonts } from 'src/shared/styles/fonts';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
-import { convertSecondsToHMS } from 'src/shared/utils/utilities'
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
 import { AxiosError } from 'axios';
 import { useAppPlayer } from 'src/hooks';
@@ -28,22 +23,12 @@ import { useAppPlayer } from 'src/hooks';
 export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayback, selectedTrack, jwPlayerID}:any) => {
   const style = useThemeAwareObject(customStyle);
   const [t] = useTranslation();
-  const { themeData } = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>()
   const playbackState = usePlaybackState();
   const[mediaData, setMediaData] = useState<any>({});
   const[timeDuration, setTimeDuration] = useState<any>(null);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
-
-  const renderHtmlContent = (item: any) => {
-    const description = decodeHTMLTags(item.body).length > 200 ? decodeHTMLTags(item.body).slice(0,200) : decodeHTMLTags(item.body)
-    return(
-      <View >
-        <Text children={description} numberOfLines={1} style={style.body}/>
-      </View>
-    )
-  }
 
   const renderTitle = (item: any) => {
     return (
@@ -64,9 +49,9 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
         const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
         if(isObjectNonEmpty(opinionData)){
           setMediaData(opinionData);
-          let playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
+          const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
             if(playList){
-            let time = playList.duration? convertSecondsToHMS(playList.duration) : null;
+            const time = playList.duration? convertSecondsToHMS(playList.duration) : null;
             setTimeDuration(time)
             } 
         }
@@ -78,7 +63,8 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
       }
   }
 
-  const onPressWriter = (tid: string) => {
+  const onPressWriter = (item: any) => {
+    const tid = isNonEmptyArray(item.field_opinion_writer_node_export) && item.field_opinion_writer_node_export[0].id
     if (isNotEmpty(tid)) {
       navigation.push(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
     }
@@ -98,13 +84,13 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
 
 const onPressPlay = () => {
   if (item.nid && isObjectNonEmpty(mediaData)) {
-    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
     if (!isObjectNonEmpty(playList)) {
       return
     }
 
-    let trackPlayerData = {
+    const trackPlayerData = {
       id: item.nid + 'opinion',
       url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
       title: isNotEmpty(item.title) ? item.title : '',
@@ -130,6 +116,14 @@ const onPressPlay = () => {
   //   }
   // }
 
+  const imageUrl = isNonEmptyArray(item.field_opinion_writer_node_export)
+    ? getImageUrl(
+      item.field_opinion_writer_node_export[0].opinion_writer_photo,
+    )
+    : isObjectNonEmpty(item.field_opinion_writer_node_export) ? getImageUrl(
+      item.field_opinion_writer_node_export.opinion_writer_photo,
+  ) : ''
+
   return (
     <TouchableOpacity
       testID='RelatedOpinionCardTO1'
@@ -141,7 +135,7 @@ const onPressPlay = () => {
           style={style.topLabel}
           numberOfLines={1}
           testID='RelatedOpinionCardLabel1'
-          onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}
+          onPress={() => onPressWriter(item)}
           suppressHighlighting={true}
         />
         {renderTitle(item)}
@@ -163,16 +157,9 @@ const onPressPlay = () => {
         </View>}
       </View>
       <View>
-        <TouchableOpacity testID='RelatedOpinionCardTO3' onPress={() => onPressWriter(item.field_opinion_writer_node_export[0].id)}>
+        <TouchableOpacity testID='RelatedOpinionCardTO3' onPress={() => onPressWriter(item)}>
           <Image
-            url={
-              isNonEmptyArray(item.field_opinion_writer_node_export)
-                ? getImageUrl(
-                  item.field_opinion_writer_node_export[0].opinion_writer_photo,
-                )
-                : getImageUrl(
-                  item.field_opinion_writer_node_export.opinion_writer_photo,
-                )}
+            url={imageUrl}
             size={normalize(80)}
             resizeMode={ImageResize.COVER}
             type={'round'}
@@ -225,7 +212,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(12),
       lineHeight: normalize(36),
       color: theme.primary,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     durationLabel: {
       paddingHorizontal: normalize(10),
@@ -239,7 +226,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: 14,
       lineHeight: 24,
       color: theme.primaryBlack,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       paddingVertical: normalize(10),
       paddingRight: normalize(5),
     }

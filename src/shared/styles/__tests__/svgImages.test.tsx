@@ -20,6 +20,14 @@ describe('SvgImages', () => {
         expect(getSvgImages({ name: ImagesName.applePodcast })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.googlePodcast })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.spotifyPodcast })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.returnWhiteIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.arrowLeftFacedBlack })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.printVersionActiveIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.gridToggleIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.popupImage })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.myNewsActiveIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.menuCloseIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.clockWhite })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.closeSVG })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.playIconSVG })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.appleIcon })).toBeDefined();

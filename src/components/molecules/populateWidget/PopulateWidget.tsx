@@ -2,7 +2,7 @@ import React from 'react'
 import { ArticleItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
-import { isObjectNonEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty } from 'src/shared/utils'
 import { ArticleItemProps } from '../ArticleItem'
 import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
@@ -10,7 +10,6 @@ import { ArticlePodCastWidget } from 'src/components/organisms'
 import { useNavigation } from '@react-navigation/native'
 import { ScreensConstants } from 'src/constants'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { isNotEmpty } from 'src/shared/utils'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { StyleSheet, View } from 'react-native'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -137,7 +136,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     videoContainer: {
     },
     titleStyle:{
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         fontSize: 16,
         lineHeight: 26,
         textAlign: 'left', 

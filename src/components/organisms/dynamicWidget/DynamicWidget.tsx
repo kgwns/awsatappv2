@@ -24,7 +24,7 @@ export const DynamicWidget = ({
     const playbackState = usePlaybackState();
 
     const togglePlayback = async (nid: string, mediaData: any) => {
-        let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+        const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
         if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
         return
@@ -34,7 +34,7 @@ export const DynamicWidget = ({
         const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
         const title = mediaData.title ? mediaData.title : '';
 
-        let setupPlayer = async () => {
+        const setupPlayer = async () => {
         await TrackPlayer.setupPlayer();
         await TrackPlayer.updateOptions({ stopWithApp: true });
         await TrackPlayer.add({
@@ -65,7 +65,9 @@ export const DynamicWidget = ({
     }
 
     const listFooterComponent = () => {
-        if (!isLoading) return null
+        if (!isLoading) {
+            return null
+        }
         return (
             <View style={{ margin: normalize(28) }}>
                 <ActivityIndicator size={'small'} color={themeData.primary} />
@@ -82,7 +84,9 @@ export const DynamicWidget = ({
         )
     }
     
-    if(!isNonEmptyArray(data)) return null
+    if(!isNonEmptyArray(data)) {
+        return null
+    }
 
     return(
         <FlatList 

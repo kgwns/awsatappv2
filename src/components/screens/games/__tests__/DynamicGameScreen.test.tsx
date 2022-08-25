@@ -6,7 +6,7 @@ describe('<DynamicGameScreen />', () => {
   let instance: RenderAPI;
 
   beforeEach(() => {
-    const component = <DynamicGameScreen route={{params: {gameData : {url : 'abc.com'}, showIntro: false}}}/>
+    const component = <DynamicGameScreen route={{params: {gameData : {url : 'abc.com'}, showIntro: true}}}/>
     instance = render(component)
   })
 

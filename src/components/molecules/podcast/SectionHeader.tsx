@@ -40,15 +40,14 @@ const customStyle = (theme: CustomThemeType) => {
       width: '100%',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginVertical: normalize(15),
+      marginBottom: 10,
     },
     header: {
-      fontSize: normalize(16),
-      lineHeight: normalize(42),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontSize: 20,
+      lineHeight: 42,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'left',
       color: theme.primary,
-      marginStart: normalize(10),
     },
     moreContainer: {
       flexDirection: 'row',
@@ -58,7 +57,7 @@ const customStyle = (theme: CustomThemeType) => {
     moreLabel: {
       fontSize: normalize(14),
       lineHeight: normalize(36),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.secondaryDavyGrey,
       marginEnd: normalize(5),
     },

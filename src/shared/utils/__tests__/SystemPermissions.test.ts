@@ -1,11 +1,17 @@
+import { PermissionsAndroid } from "react-native";
 import { SystemPermissions } from "../SystemPermissions";
 
 jest.mock('react-native//Libraries/PermissionsAndroid/PermissionsAndroid', () => {
+  const PermissionsAndroid = jest.requireActual(
+    'react-native//Libraries/PermissionsAndroid/PermissionsAndroid',
+  );
+  console.log(PermissionsAndroid);
   return {
-   ...jest.requireActual('react- native//Libraries/PermissionsAndroid/PermissionsAndroid'),
-   request: jest.fn(() => new Promise(resolve => resolve('granted')))
- }
-})
+    ...PermissionsAndroid,
+    check: jest.fn(() => new Promise(resolve => resolve(true))),
+    request: jest.fn(() => new Promise(resolve => resolve(true))),
+  };
+});
 
 describe('<Utilities>', () => {
     beforeEach(() => {
@@ -23,6 +29,14 @@ describe('<Utilities>', () => {
 
     it('Check SystemPermissions', () => {
         expect(SystemPermissions.requestCameraPermission).toBeTruthy()
+    })
+
+    it('Check SystemPermissions', () => {
+        expect(PermissionsAndroid.check).toBeTruthy()
+    })
+
+    it('Check SystemPermissions', () => {
+        expect(PermissionsAndroid.request).toBeTruthy()
     })
 
 })

@@ -7,6 +7,7 @@ import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
+import { TranslateConstants, TranslateKey } from 'src/constants'
 
 export const Archives = () => {
     const [t] = useTranslation()
@@ -62,10 +63,6 @@ export const Archives = () => {
     const [initialLoading, setInitialLoading] = useState(true)
 
     useEffect(() => {
-        getBookmarkedId()
-    }, [])
-
-    useEffect(() => {
         const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length == bookmarkDetail.length
         if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
            getBookmarkedId()
@@ -78,7 +75,7 @@ export const Archives = () => {
 
     useEffect(() => {
         if (isNonEmptyArray(bookmarkDetail) ||
-            !isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData)) {
+            !isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData) || isAllBookmarkFetched) {
             updateBookmarkDetailInfo(tabSelectedIndex)
         }
     }, [bookmarkDetail])
@@ -103,7 +100,7 @@ export const Archives = () => {
     }, [filterBookmarkDetailInfo])
 
     const updatedBundleFilterBookmarkDetail = () => {
-        if (isNonEmptyArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0) {
+        if (!bookmarkLoading && isArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0) {
             setFilteredData(filterBookmarkDetailInfo)
             setInitialLoading(false)
         }
@@ -149,7 +146,7 @@ export const Archives = () => {
     }
 
     const removeBookmarkItem = (removeItem: any) => {
-        const data = tabSelectedIndex === 0 ? [...bookmarkDetail] : [...filterBookmarkDetailInfo]
+        const data = (tabSelectedIndex === 0 || isAllBookmarkFetched) ? [...bookmarkDetail] : [...filterBookmarkDetailInfo]
         const removeIndex = data.findIndex((item) => item.nid == removeItem.nid)
         if (removeIndex >= 0) {
             removeBookmarkedInfo({ nid: removeItem.nid })
@@ -157,7 +154,9 @@ export const Archives = () => {
     }
 
     const getFilteredData = (index: number) => {
-        if (!isNonEmptyArray(bookmarkDetail)) return null
+        if (!isNonEmptyArray(bookmarkDetail)) {
+            return null
+        }
         const data = [...bookmarkDetail]
         
         switch (index) {
@@ -181,10 +180,17 @@ export const Archives = () => {
                 getBookmarkDetailData()
             } else if (tabSelectedIndex !== 0) {
                 const bundleName = widgetNameByIndex(tabSelectedIndex)
-                getSpecificBundleFavoriteDetail(bundleName)
+                const bundleBookmarkList = bookmarkIdInfo.filter((item) => item.bundle === bundleName)
+                if (filterBookmarkDetailInfo.length < bundleBookmarkList.length) {
+                    getSpecificBundleFavoriteDetail(bundleName)
+                }
             }
         }
     }
+
+    const noContentTitle = TranslateConstants({
+        key: TranslateKey.NO_CONTENT_TITLE,
+    });
 
     const loadingView = () => (
         <View style={styles.container}>
@@ -193,10 +199,12 @@ export const Archives = () => {
     )
 
     const emptyFavoriteData = () => {
-        if (isNonEmptyArray(filteredData)) return null
+        if (isNonEmptyArray(filteredData)) {
+            return null
+        }
         return <View
             style={styles.noFavoriteMessage}>
-            <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
+            <Label children={noContentTitle} labelType={LabelTypeProp.h1} />
         </View>
     }
 

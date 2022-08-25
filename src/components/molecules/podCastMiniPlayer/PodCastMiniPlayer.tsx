@@ -34,10 +34,10 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
     const isPlaying = playbackState === State.Playing;
-    const isLoading = (playbackState === State.None || playbackState === State.Connecting ) && (playbackState !== State.Paused && playbackState !== State.Playing)
     const { selectedTrack } = useAppPlayer()
+    const isLoadedRef = useRef(false)
     
-    let refRBSheet = useRef<RBSheet>();
+    const refRBSheet = useRef<RBSheet>();
     const _playForwardIcon = getSvgImages({ name: ImagesName.playForwardIcon, width: normalize(25), height: normalize(25) })
     const _playBackwardIcon = getSvgImages({ name: ImagesName.playBackwardIcon, width: normalize(25), height: normalize(25) })
     const _playIcon = getSvgImages({ name: ImagesName.playIconSVG, width: normalize(18), height: normalize(18) })
@@ -49,6 +49,15 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     useEffect(()=> {
         showControl && refRBSheet.current?.open();
     },[showControl])
+
+    useEffect(() => {
+        if (isIOS && playbackState == State.Playing) {
+            isLoadedRef.current = true
+        }
+        if (isAndroid && playbackState == 8) {
+            isLoadedRef.current = true
+        }
+    }, [playbackState])
 
     // check playback error
     useTrackPlayerEvents(events, (event) => {
@@ -98,9 +107,9 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     };
 
     const seekForwardBackward = async(type: any) => {
-        let seekValue = 10
-        let position = progress.position
-        let duration = progress.duration
+        const seekValue = 10
+        const position = progress.position
+        const duration = progress.duration
         let seekPosition = position
         
         if(type == 'forward'){
@@ -195,11 +204,13 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                                 style={style.title}
                             />
                         </View>
-                        <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
-                            <View style={[style.buttonContainer, isPortrait() ? style.buttonContainerPortrait : style.buttonContainerLandscape]}>
-                                {isLoading ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play /> }
-                            </View>
-                        </TouchableOpacity>
+                        <View style={style.buttonBackground}>
+                            <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
+                                <View style={style.buttonContainer}>
+                                    {!isLoadedRef.current ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play />}
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </TouchableOpacity>
                     <TouchableOpacity testID={'closeIcon'} onPress={onClose} style={style.closeContainer}>
                         <View style={style.closeIcon}>
@@ -252,7 +263,7 @@ const customStyle = (theme: CustomThemeType) => {
         titleContainer: {
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
-            width: '70%',
+            width: '75%',
             marginLeft: normalize(10)
         },
         title: {
@@ -261,6 +272,11 @@ const customStyle = (theme: CustomThemeType) => {
             lineHeight: isTab ? 19 : 16,
             marginTop: normalize(10),
             color: theme.primaryBlack
+        },
+        buttonBackground: {
+            width: '10%',
+            alignItems: 'flex-end',
+            paddingRight: 15
         },
         buttonContainer: {
             alignItems: 'center',
@@ -301,7 +317,7 @@ const customStyle = (theme: CustomThemeType) => {
             height: normalize(55)
         },
         titleStyle: {
-            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontFamily: fonts.AwsatDigital_Bold,
             fontSize: normalize(16),
             lineHeight: normalize(25),
             color: theme.primaryBlack,

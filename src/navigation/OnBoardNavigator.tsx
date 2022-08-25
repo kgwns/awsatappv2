@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/stack';
 import {Routes, ScreenList} from './index';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {isTab, normalize, screenWidth} from 'src/shared/utils';
+import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
 import {StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Label} from 'src/components/atoms';
@@ -17,6 +17,8 @@ import {ScreensConstants} from 'src/constants';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';
+import {useTheme} from 'src/shared/styles/ThemeProvider';
+import BackIcon from 'src/assets/images/icons/back_icon.svg';
 
 const Stack = createStackNavigator<ScreenList>();
 
@@ -29,6 +31,7 @@ const defaultScreenOptions: StackNavigationOptions = {
 const OnBoardNavigator = () => {
   const navigation = useNavigation();
   const [t] = useTranslation();
+  const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
   const previousIconStyle = style.onBoardPrevIcon;
 
@@ -78,12 +81,7 @@ const OnBoardNavigator = () => {
       style={style.onBoardReturn}
       onPress={() => navigation.goBack()}>
       <Label style={style.onBoardPrevTitle}>{t('onBoard.common.return')}</Label>
-      {getSvgImages({
-        name: ImagesName.arrowPrev,
-        width: previousIconStyle.width,
-        height: previousIconStyle.height,
-        style: previousIconStyle,
-      })}
+      <BackIcon fill={themeData.backIconColor} style={previousIconStyle} />
     </TouchableOpacity>
   );
 
@@ -170,18 +168,19 @@ const customStyle = (theme: CustomThemeType) => {
       marginEnd: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     onBoardPrevTitle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
-      color: colors.spanishGray,
+      fontFamily: fonts.AwsatDigital_Regular,
+      color: theme.backIconColor,
       fontSize: normalize(12),
-      lineHeight: normalize(16),
+      lineHeight: normalize(20),
+      marginBottom: isIOS ? 0 : 4,
     },
     onBoardPrevIcon: {
       width: normalize(12),
       height: normalize(8.8),
-      marginEnd: normalize(5),
+      marginEnd: 5,
     },
     onBoardSkip: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       alignItems: 'center',
       color: theme.primary,
       fontSize: normalize(12),

@@ -13,6 +13,7 @@ jest.mock('react', () => ({
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useNavigationState: () => ([]),
 }));
 
 jest.mock('src/hooks/useAppPlayer', () => ({useAppPlayer: jest.fn()}));
@@ -20,7 +21,7 @@ jest.mock('src/hooks/useAppPlayer', () => ({useAppPlayer: jest.fn()}));
 jest.mock("src/hooks/useAppPlayer", () => ({
   useAppPlayer: () => {
     return {
-      showMiniPlayer: false,
+      showMiniPlayer: true,
       isPlaying: false,
       selectedTrack: {},
       showControls: false,
@@ -40,23 +41,24 @@ describe('<OpinionWritersCardView>', () => {
     navigate: mockFunction,
   }
 
-  const setMediaData = mockFunction;
+  const mediaData = mockFunction;
   const setTimeDuration = mockFunction;
   const setDisableNext = mockFunction;
   const setCanGoBack = mockFunction;
   const setNewsLettersDataInfo = mockFunction;
 
+  const data = [{playlist: ['abc', ['abc']], title: 'abc'}]
   //Test Data
   const imageUrl = 'https://picsum.photos/200';
   const writerTitle = 'إياد أبو شقرا';
   const headLine = 'هل بدأ العد العكسي لنهاية حكم جونسون في بريطانيا؟';
   const subHeadLine = 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور';
-  const audioLabel = 'استمع الي المقالة ';
+  const audioLabel = 'إستمع إلى المقالة ';
   const duration = '3:22';
 
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-    (useState as jest.Mock).mockImplementation(() => [{}, setMediaData]);
+    (useState as jest.Mock).mockImplementation(() => [data, mediaData]);
     (useState as jest.Mock).mockImplementation(() => [null, setTimeDuration]);
     (useState as jest.Mock).mockImplementation(() => [false, setDisableNext]);
     (useState as jest.Mock).mockImplementation(() => [false, setCanGoBack]);
@@ -70,6 +72,8 @@ describe('<OpinionWritersCardView>', () => {
         audioLabel={audioLabel}
         duration={duration} 
         nid={'1'} 
+        jwPlayerID= {'12'}
+        hideImageView={false}
         isBookmarked={false} 
         mediaVisibility={true} 
         onPressBookmark={mockFunction} 
@@ -96,7 +100,13 @@ describe('<OpinionWritersCardView>', () => {
 
   it('Should Press PlayIcon', () => {
     const element = instance.container.findAllByType(TouchableOpacity)[0];
-    fireEvent.press(element, 'onPress');
+    fireEvent.press(element, 'onPress', '2');
+    expect(navigation.navigate).toHaveBeenCalled;
+  });
+
+  it('Should Press PlayIcon', () => {
+    const element = instance.container.findAllByType(TouchableOpacity)[1];
+    fireEvent.press(element, 'onPress', '2');
     expect(navigation.navigate).toHaveBeenCalled;
   });
   
@@ -105,4 +115,17 @@ describe('<OpinionWritersCardView>', () => {
     fireEvent(testID, 'onPress');
     expect(mockFunction).toHaveBeenCalled;
   }); 
+
+  it('Should Press onPressWriter01', () => {
+    const element = instance.getByTestId('onPressWriter01');
+    fireEvent(element, 'onPress', '2');
+    expect(mockFunction).toHaveBeenCalled;
+  });
+
+  it('Should Press playIconTestId', () => {
+    const element = instance.getByTestId('playIconTestId');
+    fireEvent(element, 'onPress', '2');
+    expect(mockFunction).toHaveBeenCalled;
+  });
+  
 });

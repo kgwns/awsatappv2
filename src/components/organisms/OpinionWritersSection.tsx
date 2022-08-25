@@ -5,7 +5,6 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {flatListUniqueKey} from 'src/constants';
 import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {Divider, Image, Label} from '../atoms';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
@@ -14,7 +13,7 @@ import {useTranslation} from 'react-i18next';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import { ImagesName, Styles } from 'src/shared/styles';
 import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
-import { getImageUrl, isNotEmpty } from 'src/shared/utils/utilities';
+import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
 
@@ -25,12 +24,13 @@ interface OpinionWritersWidgetProps {
 
 const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps) => {
   const style = useThemeAwareObject(customStyle);
-  const theme = useTheme();
+
   const [t] = useTranslation();
+
   const renderItem = (item: OpinionWriterItemType, index: number) => {
     return (
       <TouchableWithoutFeedback
-        onPress={() => onPressWriter(item.tid)}
+        onPress={() => isObjectNonEmpty(item) && item.tid && onPressWriter(item.tid)}
         style={[style.writerContainer, { paddingEnd: (data.length - 1 === index) ? normalize(isTab ? 0.02 * screenWidth : 0.04 * screenWidth) : 0 }, { paddingStart: index === 0 ? normalize(isTab ? 0.02 * screenWidth : 0.04 * screenWidth) : 0 }]}
         key={flatListUniqueKey.OPINION_WRITER_SECTION + index}>
         <View style={style.itemContainer}>
@@ -95,7 +95,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       marginTop: normalize(16),
       marginBottom: normalize(8),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     writerContainer: {
       marginRight: normalize(20),

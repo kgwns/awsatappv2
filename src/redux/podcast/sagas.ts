@@ -66,7 +66,7 @@ const formatData = (response: any): FetchPodcastEpisodeType[] => {
 
 
 const parsePodcastList = (response: any): FetchPodcastListSuccessPayloadtype => {
-  let responseData: FetchPodcastListSuccessPayloadtype = {
+  const responseData: FetchPodcastListSuccessPayloadtype = {
     podcastListData: []
   }
   responseData.podcastListData = formatData(response)
@@ -74,7 +74,7 @@ const parsePodcastList = (response: any): FetchPodcastListSuccessPayloadtype => 
 }
 
 const parsePodcastEpisode = (response: any): FetchPodcastEpisodeSuccessPayloadtype => {
-  let responseData: FetchPodcastEpisodeSuccessPayloadtype = {
+  const responseData: FetchPodcastEpisodeSuccessPayloadtype = {
     podcastEpisodeData: []
   }
   responseData.podcastEpisodeData = formatData(response)

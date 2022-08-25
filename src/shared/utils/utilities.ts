@@ -291,7 +291,9 @@ export const getUpdatedObject = (obj:any, key: string, val: any, newVal: any) =>
   var newValue = newVal;
     var objects: any = [];
     for (var i in obj) {
-        if (!obj.hasOwnProperty(i)) continue;
+        if (!obj.hasOwnProperty(i)) {
+          continue;
+        }
         if (typeof obj[i] == 'object') {
             objects = objects.concat(getUpdatedObject(obj[i], key, val, newValue));
         } else if (i == key && obj[key] == val) {

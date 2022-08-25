@@ -4,6 +4,7 @@ import { SearchScreen } from '../SearchScreen';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
 import {useNavigation} from '@react-navigation/native';
+import { SearchItemType } from 'src/redux/search/types';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -12,6 +13,44 @@ jest.mock('react', () => ({
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+}));
+
+const mockData: SearchItemType[] = [{
+  nid: '1',
+  title: 'qsd',
+  field_image: 'asd',
+  view_node: 'asd',
+  field_publication_date_export: 'asd',
+  created_export: 'sd',
+  field_news_categories_export: [],
+  type: 'asd',
+  body: 'asd',
+  field_new_photo: 'asd'
+},
+{
+  nid: '2',
+  title: 'qsd',
+  field_image: 'asd',
+  view_node: 'asd',
+  field_publication_date_export: 'asd',
+  created_export: 'sd',
+  field_news_categories_export: [],
+  type: 'asd',
+  body: 'asd',
+  field_new_photo: 'asd'
+},
+]
+
+jest.mock("src/hooks/useSearch", () => ({
+  useSearch: () => {
+    return {
+      fetchSearchRequest: () => {},
+      isLoading: false,
+      searchData: mockData, 
+      setSearchHistory: () => {}, 
+      searchHistory: ['abc', 'def', 'abc']
+    }
+  },
 }));
 
 describe('<SearchScreen>', () => {
@@ -48,12 +87,17 @@ describe('<SearchScreen>', () => {
     });
     it('when onTextChange is called from SearchList', () => {
       const searchListId = instance.getByTestId('search-input');
-      fireEvent(searchListId, 'onTextChange', '');
+      fireEvent(searchListId, 'onTextChange', 'search');
       expect(setSearchText).toHaveBeenCalled();
     });
     it('when onItemActionPress is called from SearchList', () => {
       const searchListId = instance.getByTestId('search-input');
-      fireEvent(searchListId, 'onItemActionPress', {nid:0});
+      fireEvent(searchListId, 'onItemActionPress', {item: mockData[0]});
+      expect(navigation.navigate).toBeTruthy();
+    });
+    it('when onPressHistory is called from SearchList', () => {
+      const searchListId = instance.getByTestId('search-input');
+      fireEvent(searchListId, 'onPressHistory', 'search');
       expect(navigation.navigate).toBeTruthy();
     });
   });

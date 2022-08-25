@@ -1,9 +1,9 @@
-import { requireNativeComponent } from 'react-native'
 import React from 'react'
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 import { horizontalAndTop } from 'src/shared/utils';
+import { getRequiredNativeComponent } from 'src/shared/utils/NativeComponent';
 
-const RNPDFViewer = requireNativeComponent('RNPDFViewer');
+const RNPDFViewer = getRequiredNativeComponent('RNPDFViewer');
 
 type PDFEditorViewProps = {
     route: any

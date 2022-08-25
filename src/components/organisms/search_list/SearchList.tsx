@@ -139,9 +139,9 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
 
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
           <View style={{alignItems: 'flex-start'}}>
-          {searchHistory?.length > 0 && searchHistory.map(item => {
+          {searchHistory?.length > 0 && searchHistory.map((item, index) => {
             return(
-              <View>
+              <View key={index}>
               <ButtonList
                 title={item}
                 titleStyle={styles.historyItemText}
@@ -201,13 +201,13 @@ StyleSheet.create({
     textAlign: 'left',
     fontSize: 18,
     lineHeight: 26,
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
   },
   searchText: {
     color: theme.primaryBlack,
     fontSize: 18,
     lineHeight: 26,
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
   },
   containerStyle: {
     flex : 1
@@ -226,7 +226,7 @@ StyleSheet.create({
   },
   historyItemText: {
     fontWeight: 'normal',
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
   },
   clearButtonStyle: {
    marginTop: normalize(20),
@@ -242,9 +242,10 @@ StyleSheet.create({
     flexDirection:'row'
   },
   tabTitleContainer: {
-    width: '83%',
+    width: '80%',
     flexDirection: 'row',
-    flexShrink: 1 
+    flexShrink: 1,
+    paddingRight: 20,
   },
   titleContainer: {
     width: '70%',
@@ -268,7 +269,7 @@ StyleSheet.create({
   },
   tabImageWrapper: {
     width: '15%',
-    marginLeft: '2%',
+    marginLeft: '5%',
     alignItems: 'flex-end'
   },
   imageWrapper: {

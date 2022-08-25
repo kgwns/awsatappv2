@@ -22,9 +22,9 @@ describe('<Screen Container>', () => {
     const mockFunction = jest.fn();
     const useAppPlayerMock = jest.fn();
     const setControlStateMock = jest.fn();
-    const setShowMiniPlayerMock = jest.fn();
+    const setShowMiniPlayer = jest.fn();
     const setPlayMock = jest.fn();
-    const setPlayerTrackMock = jest.fn();
+    const setPlayerTrack = jest.fn();
 
     const navigation = {
         reset: jest.fn(),
@@ -40,14 +40,14 @@ describe('<Screen Container>', () => {
             selectedTrack: {id: 1},
             showControls: false,
             setControlState: setControlStateMock,
-            setShowMiniPlayer: setShowMiniPlayerMock,
+            setShowMiniPlayer: setShowMiniPlayer,
             setPlay: setPlayMock,
-            setPlayerTrack: setPlayerTrackMock,
+            setPlayerTrack: setPlayerTrack,
         });
         (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
         const component = 
             <Provider store={storeSampleData}>
-                <ScreenContainer children={screenComponent} isLoading={true} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction}/>
+                <ScreenContainer children={screenComponent} isLoading={false} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction}/>
             </Provider> 
         instance = render(component)
     })
@@ -77,12 +77,26 @@ describe('<Screen Container>', () => {
         const testID = instance.container.findAllByType(PopUp)[0];
         fireEvent(testID, 'onClosePopUp');
         expect(mockFunction).toBeTruthy();
+        expect(navigation.reset).toBeTruthy();
+    });
+
+    it('when AlertModal only When onPressButton', () => {
+        const testID = instance.container.findAllByType(PopUp)[0];
+        fireEvent(testID, 'onPressButton');
+        expect(mockFunction).toBeTruthy();
     });
 
     it('when AlertModal only When toggleControl', () => {
         const testID = instance.container.findAllByType(PodCastMiniPlayer)[0];
         fireEvent(testID, 'toggleControl');
         expect(mockFunction).toBeTruthy();
+    });
+
+    it('when AlertModal only When onClose', () => {
+        const testID = instance.container.findAllByType(PodCastMiniPlayer)[0];
+        fireEvent(testID, 'onClose');
+        expect(setShowMiniPlayer).toBeTruthy();
+        expect(setPlayerTrack).toBeTruthy();
     });
 
     it('when onPress password icon', () => {

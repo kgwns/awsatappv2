@@ -24,7 +24,7 @@ const defaultScreenOptions: StackNavigationOptions = {
 const AppStackContainer = () => {
 
   const {isLoggedIn, loginData, isSkipped} = useLogin();
-  const { selectedTrack, showMiniPlayer } = useAppPlayer()
+  const { selectedTrack, showMiniPlayer, setShowMiniPlayer, setPlayerTrack } = useAppPlayer()
   const [previousTrack, setPreviousTrack] = useState<any>(null)
 
   const routeNameRef = React.useRef();
@@ -36,6 +36,13 @@ const AppStackContainer = () => {
         resetAndPlay();
     }
   }, [showMiniPlayer]);
+
+  useEffect(() => {
+    return(() => {
+      setShowMiniPlayer(false);
+      setPlayerTrack(null);
+    })
+  }, []);
 
   useEffect(() => {
     if(showMiniPlayer && selectedTrack != previousTrack){

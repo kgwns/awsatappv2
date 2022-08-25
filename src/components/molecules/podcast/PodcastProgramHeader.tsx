@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import {Image, Label, ButtonImage, LabelTypeProp} from 'src/components/atoms';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import {CustomThemeType, colors} from 'src/shared/styles/colors';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import ShareIcon from 'src/assets/images/icons/share_dark.svg';
 import {ImagesName} from 'src/shared/styles/images';
@@ -10,7 +10,6 @@ import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import { colors } from 'src/shared/styles/colors';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import { fonts } from 'src/shared/styles/fonts';
 
@@ -124,7 +123,7 @@ StyleSheet.create({
   labelStyle: {
     marginLeft: normalize(10),
     color: colors.white,
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
     lineHeight: normalize(26)
   },
   buttonStyle: {

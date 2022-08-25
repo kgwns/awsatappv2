@@ -38,10 +38,10 @@ const carouselSliderStyle = StyleSheet.create({
         textAlign:'center',
         fontSize: 24,
         lineHeight: 36,
-        fontFamily: fonts.AwsatDigitalBetav10_Black,
+        fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{
-        textAlign:'justify',
+        textAlign: 'left',
         writingDirection: 'rtl',
         fontSize: 16,
         lineHeight: 26,

@@ -4,9 +4,8 @@ import { Label } from 'src/components/atoms/';
 import { PodcastVerticalList, PodcastVerticalListProps } from 'src/components/molecules/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import {useTranslation} from 'react-i18next';
-import { colors } from 'src/shared/styles/colors';
 import { fonts } from 'src/shared/styles/fonts';
  
 export interface PodcastEpisodeListProps {
@@ -103,7 +102,7 @@ StyleSheet.create({
   textStyle: {
     fontSize: 14,
     lineHeight: 18,
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
     color: colors.greenishBlue,
   },
   dividerStyle: {

@@ -77,7 +77,7 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'left',
       fontSize: normalize(20),
       lineHeight: normalize(42),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primary,
       paddingBottom: 0.02 * screenWidth,
     },

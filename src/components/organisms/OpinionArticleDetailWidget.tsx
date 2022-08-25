@@ -160,11 +160,11 @@ const customStyle = (theme: CustomThemeType) => {
     },
     title: {
       fontSize: 30,
-      lineHeight: 42,
+      lineHeight: 45,
       color: theme.primaryBlack,
       textAlign: 'left',
       marginVertical: normalize(0.01 * screenWidth),
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     listenToArticleCard: {
       marginTop: normalize(0.02 * screenWidth),

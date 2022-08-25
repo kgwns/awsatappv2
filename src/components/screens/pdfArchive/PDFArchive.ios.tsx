@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { requireNativeComponent, TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import { horizontalAndTop, screenWidth } from 'src/shared/utils';
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { useNavigation } from '@react-navigation/native';
@@ -8,10 +8,10 @@ import { ScreensConstants } from 'src/constants';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { useAppCommon } from 'src/hooks';
-import { Theme } from 'src/redux/appCommon/types';
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import { getRequiredNativeComponent } from 'src/shared/utils/NativeComponent';
 
-const PDFArchiveView: any = requireNativeComponent('RNPDFArchiveView')
+export const PDFArchiveView: any = getRequiredNativeComponent('RNPDFArchiveView')
 
 enum ArchiveLayoutType {
   grid = 'grid',

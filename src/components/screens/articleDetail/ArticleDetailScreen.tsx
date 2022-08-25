@@ -1,14 +1,13 @@
 import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
-import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { ArticleDetailWidget } from 'src/components/organisms';
+import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
@@ -61,7 +60,6 @@ export const ArticleDetailScreen = ({
   const [articleDetailState, setArticleDetail] = useState<ArticleDetailDataType[]>([])
   const [relatedArticleState, setRelatedArticle] = useState<RelatedArticleDataType[]>([])
   const [currentOrientation, setOrientation] = useState('')
-  const [scrollY, setScrollY] = useState(new Animated.Value(0))
   const [playerUrl, setPlayerUrl] = useState<string>();
   const [playerVisible, setPlayerVisible] = useState<boolean>(false);
   const [showVideoMiniPlayer, setShowVideoMiniPlayer] = useState<boolean>(false);
@@ -171,7 +169,7 @@ export const ArticleDetailScreen = ({
 
       if(articleDetailData.length > webviewRef.length) {
         const newReferenceCount = articleDetailData.length - webviewRef.length
-        let reference = React.createRef()
+        const reference = React.createRef()
         const newReference = Array(newReferenceCount).fill(reference)
         webviewRef = webviewRef.concat(newReference)
       }
@@ -237,7 +235,7 @@ export const ArticleDetailScreen = ({
      setIsEdgePortrait(true)
    }
     const edge = getScreenEdge(deviceOrientation)
-    setEdge(edge)
+    isNonEmptyArray(edge) && setEdge(edge);
   }
 
 
@@ -246,6 +244,7 @@ export const ArticleDetailScreen = ({
       case 'LANDSCAPE-LEFT': return isFullScreen ? horizontalEdge : ['right']
       case 'LANDSCAPE-RIGHT': return isFullScreen ? horizontalEdge : ['left']
       case 'PORTRAIT': return horizontalEdge
+      case 'FACE-UP': return []
       default: return horizontalEdge
     }
   }
@@ -255,16 +254,21 @@ export const ArticleDetailScreen = ({
   }
 
   const stopVideoPlayer = () => {
-    videoRefs?.current[0]?.setNativeProps({
-      paused: true
-    })
-    videoRefs?.current[1]?.setNativeProps({
-      paused: true
-    })
-    videoRefs?.current[2]?.setNativeProps({
-      paused: true
-    })
-    setPlayerVisible(false);
+    try {
+      if (videoRefs) {
+        videoRefs?.current[0]?.setNativeProps({
+          paused: true
+        })
+        videoRefs?.current[1]?.setNativeProps({
+          paused: true
+        })
+        videoRefs?.current[2]?.setNativeProps({
+          paused: true
+        })
+        setPlayerVisible(false);
+      }
+    } catch (e) {
+    }
   }
 
   const onPressArticle = (nid: string) => {
@@ -324,7 +328,6 @@ export const ArticleDetailScreen = ({
   }
 
   const onScroll = (event: any) => {
-    setScrollY(event.nativeEvent.contentOffset.y)
     Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer ? setPlayerVisible(true) : setPlayerVisible(false);
   }
 
@@ -349,22 +352,26 @@ export const ArticleDetailScreen = ({
   }, [isFullScreen]);
 
   const onPressBack = () => {
-    stopVideoPlayer()
-    if (!route.params.isRelatedArticle) {
-      Orientation.unlockAllOrientations()
-      Orientation.lockToPortrait()
-    }
-   (isTab && isIOS) ? setTimeout(() => {
-      navigation.goBack()
-    },50) : navigation.goBack()
+    requestAnimationFrame(() => {
+      stopVideoPlayer()
+      if (!route.params.isRelatedArticle) {
+        Orientation.unlockAllOrientations()
+        Orientation.lockToPortrait()
+      }
+      (isTab && isIOS) ? setTimeout(() => {
+        navigation.goBack()
+      }, 50) : navigation.goBack()
+    });
   }
 
   useEffect(() => {
-    getVideoUrlInfo();
+      getVideoUrlInfo();
   }, [articleDetailState]);
 
   const getVideoUrlInfo = async () => {
-    let jwplayerId = articleDetailState[0].jwplayerId
+    if(!isNonEmptyArray(articleDetailState)) return
+
+    const jwplayerId = articleDetailState[0].jwplayerId
     if (isNotEmpty(jwplayerId)) {
       try {
         const response: RequestVideoUrlSuccessResponse =
@@ -393,7 +400,7 @@ export const ArticleDetailScreen = ({
 
   const renderHeader = () => (
     <View style={style.backContainer}>
-      <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onHomePress} onBackPress={onPressBack} />
+      <DetailHeader visibleHome={noOfDetailRoutes > 1 && route.params.isRelatedArticle} onHomePress={onHomePress} onBackPress={onPressBack} />
     </View>
   )
 
@@ -401,6 +408,7 @@ export const ArticleDetailScreen = ({
     <ArticleDetailBody body={articleDetailState[index].body}
       index={index} articleFontSize={articleFontSize}
       webviewRef={webviewRef}
+      orientation={currentOrientation}
     />
   )
 
@@ -463,7 +471,7 @@ export const ArticleDetailScreen = ({
   })
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading} 
+    <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
       {!isLoading && isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
         { !isFullScreen &&  renderHeader()}
@@ -479,6 +487,8 @@ export const ArticleDetailScreen = ({
           removeClippedSubviews={false}
           onScroll={onScroll}
           scrollEnabled={scrollEnabled}
+          initialNumToRender={1}
+          maxToRenderPerBatch={1}
         />
         {isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl && !isFullScreen && 
           <DraggableVideoPlayer videoRefs={videoRefs} setMiniPlayerVisible={closeMiniPlayer} url={playerUrl}
@@ -528,7 +538,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   backContainer: {
     width: '100%',
-    height: isIOS ? isNotchDevice ? normalize(95) : normalize(90) : normalize(60),
+    height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
     backgroundColor: theme.secondaryWhite,
     justifyContent: 'center',
   },

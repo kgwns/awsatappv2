@@ -17,6 +17,9 @@
 		5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CC5870F22DF4018A97C651F /* Almarai-Bold.ttf */; };
 		52B5C8CA19974215925660F6 /* Almarai-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5754958B03F4F8697391B05 /* Almarai-Light.ttf */; };
 		5357BE729B3C4A038D324F02 /* IBMPlexSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCAF97FCEBA04671A1F23140 /* IBMPlexSansArabic-Bold.ttf */; };
+		5E3EF9D028A62A4B00A7092F /* AwsatDigital-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3EF9CD28A62A4A00A7092F /* AwsatDigital-Bold.otf */; };
+		5E3EF9D128A62A4B00A7092F /* AwsatDigital-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3EF9CE28A62A4B00A7092F /* AwsatDigital-Regular.otf */; };
+		5E3EF9D228A62A4B00A7092F /* AwsatDigital-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3EF9CF28A62A4B00A7092F /* AwsatDigital-Black.otf */; };
 		5E92D08527D24F7700592089 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E92D08427D24F7700592089 /* GoogleService-Info.plist */; };
 		726652B4F4065671C8A71E8D /* libPods-Awsatapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F2F1644163037A2C5978CF /* libPods-Awsatapp.a */; };
 		7476FD19439D42338A420F44 /* Effra-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C512A59BE94247A5B2850233 /* Effra-Medium.ttf */; };
@@ -137,10 +140,15 @@
 		5132FB864E194DCCB0C1B2E2 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		5437AF089D81496AB07BB20A /* Effra-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra-Regular.ttf"; path = "../src/assets/fonts/Effra-Regular.ttf"; sourceTree = "<group>"; };
 		5D3FCA19E5074AAC9164401F /* IBMPlexSansArabic-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Regular.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Regular.ttf"; sourceTree = "<group>"; };
+		5E3EF9CD28A62A4A00A7092F /* AwsatDigital-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AwsatDigital-Bold.otf"; path = "../src/assets/fonts/AwsatDigital-Bold.otf"; sourceTree = "<group>"; };
+		5E3EF9CE28A62A4B00A7092F /* AwsatDigital-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AwsatDigital-Regular.otf"; path = "../src/assets/fonts/AwsatDigital-Regular.otf"; sourceTree = "<group>"; };
+		5E3EF9CF28A62A4B00A7092F /* AwsatDigital-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AwsatDigital-Black.otf"; path = "../src/assets/fonts/AwsatDigital-Black.otf"; sourceTree = "<group>"; };
 		5E92D08427D24F7700592089 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Awsatapp/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5F35CA0AC7E842CC989B0C26 /* AwsatDigitalv2b-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Regular.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Regular.ttf"; sourceTree = "<group>"; };
 		7CC5870F22DF4018A97C651F /* Almarai-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Almarai-Bold.ttf"; path = "../src/assets/fonts/Almarai-Bold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Awsatapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8B308EE34314473BA9FCBF56 /* AwsatDigital-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigital-Black.otf"; path = "../src/assets/fonts/AwsatDigital-Black.otf"; sourceTree = "<group>"; };
+		8D462C8FA8AC49E886A70A96 /* AwsatDigital-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigital-Bold.otf"; path = "../src/assets/fonts/AwsatDigital-Bold.otf"; sourceTree = "<group>"; };
 		A3FDE2C970357A496A5A5514 /* Pods-Awsatapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.debug.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.debug.xcconfig"; sourceTree = "<group>"; };
 		AA4A435E3C93425CA0D7EB9C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		AF14A1072836CF8B00E6311D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -196,6 +204,7 @@
 		AF14A1842836D3C200E6311D /* AwsatBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBlack.otf; sourceTree = "<group>"; };
 		AF14A18E2836D95700E6311D /* Awsatapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Awsatapp-Bridging-Header.h"; sourceTree = "<group>"; };
 		C201F5BCD31F4C9A97A70B04 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		C3208C9DFD5048A0AE9C4BE3 /* AwsatDigital-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigital-Regular.otf"; path = "../src/assets/fonts/AwsatDigital-Regular.otf"; sourceTree = "<group>"; };
 		C512A59BE94247A5B2850233 /* Effra-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra-Medium.ttf"; path = "../src/assets/fonts/Effra-Medium.ttf"; sourceTree = "<group>"; };
 		C71F0B6A5BAD4BC1BE74D43A /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		D65511C7F87248D4B2F00011 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -319,6 +328,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5E3EF9CF28A62A4B00A7092F /* AwsatDigital-Black.otf */,
+				5E3EF9CD28A62A4A00A7092F /* AwsatDigital-Bold.otf */,
+				5E3EF9CE28A62A4B00A7092F /* AwsatDigital-Regular.otf */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				AF14A18E2836D95700E6311D /* Awsatapp-Bridging-Header.h */,
@@ -527,6 +539,9 @@
 				AF14A1072836CF8B00E6311D /* Images.xcassets */,
 				D7CB52E528364E3F003B6457 /* Localizable.strings */,
 				AF14A17E2836D3C200E6311D /* Fonts */,
+				8B308EE34314473BA9FCBF56 /* AwsatDigital-Black.otf */,
+				8D462C8FA8AC49E886A70A96 /* AwsatDigital-Bold.otf */,
+				C3208C9DFD5048A0AE9C4BE3 /* AwsatDigital-Regular.otf */,
 			);
 			name = Resources;
 			path = Awsatapp/Resources;
@@ -685,6 +700,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E3EF9D028A62A4B00A7092F /* AwsatDigital-Bold.otf in Resources */,
+				5E3EF9D128A62A4B00A7092F /* AwsatDigital-Regular.otf in Resources */,
+				5E3EF9D228A62A4B00A7092F /* AwsatDigital-Black.otf in Resources */,
 				AF14A18B2836D71B00E6311D /* AwsatBold.otf in Resources */,
 				5E92D08527D24F7700592089 /* GoogleService-Info.plist in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
@@ -736,7 +754,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "set -e\nexport BUNDLE_COMMAND=\"ram-bundle\"\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		0A8AA18AACED3C5082C8A67C /* [CP-User] [RNFB] Crashlytics Configuration */ = {
 			isa = PBXShellScriptBuildPhase;

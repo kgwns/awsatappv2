@@ -1,10 +1,10 @@
-import { StyleSheet, ScrollView } from 'react-native'
-import React, { useEffect } from 'react'
-import { isIOS, isTab, screenWidth } from 'src/shared/utils'
+import { StyleSheet, ScrollView, Dimensions, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { isIOS, isTab, screenHeight, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'
-import AutoHeightWebView from 'react-native-autoheight-webview'
+import AutoHeightWebView, { SizeUpdate } from 'react-native-autoheight-webview'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { ANDROID_WEBVIEW_URL, IOS_WEBVIEW_URL } from 'src/constants/SharedConstants'
 
@@ -13,25 +13,75 @@ type ArticleDetailBodyProps = {
     index: number;
     articleFontSize: number;
     webviewRef: any;
+    orientation: string;
 }
 
-export const ArticleDetailBody = ({
+export const ArticleDetailBody = React.memo(({
     body,
     index,
     articleFontSize,
     webviewRef,
+    orientation,
 }: ArticleDetailBodyProps) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
+   
+    const myTimeOutReference = useRef<any>(null)
+
+    const [dynamicHeight, setDynamicHeight] = useState<number>(0)
+    const [webViewHeight, setWebViewHeight] = useState<number>(0)
+
+    useEffect(() => {
+        updateHeightValue()
+    }, [dynamicHeight])
+
+    const updateHeightValue = () => {
+        clearTimeout(myTimeOutReference.current)
+        myTimeOutReference.current = setTimeout(() => {
+            setWebViewHeight(dynamicHeight)
+        }, 500);
+    }
 
     useEffect(() => {
         if (webviewRef) {
             webviewRef.forEach((_: any, index: number) => {
-                webviewRef[index].injectJavaScript(script());
+                webviewRef[index] && webviewRef[index].current && webviewRef[index].injectJavaScript(script());
             })
         }
     }, [articleFontSize])
 
+    /*
+    useEffect(() => {
+        if (webviewRef) {
+            webviewRef.forEach((_: any, index: number) => {
+                webviewRef[index].injectJavaScript(
+                    `${iFrameInjectCss()}
+                    true;  // note: this is required, or you'll sometimes get silent failures
+                `);
+            })
+        }
+    }, [orientation])
+
+    const isPortrait = () => {
+        const dim = Dimensions.get('screen');
+        return dim.height >= dim.width;
+    };
+    */
+
+    const iFrameInjectCss = () => {
+        // const size = isPortrait() ? screenWidth : screenHeight
+
+        return `
+        //   This css to apply all the iFrame tag element
+        var iFrameElement = document.getElementsByTagName("iframe");
+        if(iFrameElement && iFrameElement.length > 0) {
+          for(i=0; i < iFrameElement.length; i++) {
+            iFrameElement[i].style["width"] = "${window.innerWidth}";
+            iFrameElement[i].style["aspect-ratio"] = "2/4"; 
+          } 
+        }
+        `
+    }
 
     const script = () => {
         const newFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
@@ -71,18 +121,7 @@ export const ArticleDetailBody = ({
             } 
           }
     
-          //   This css to apply all the iFrame tag element
-          var iFrameElement = document.getElementsByTagName("iframe");
-          if(iFrameElement && iFrameElement.length > 0) {
-            for(i=0; i < iFrameElement.length; i++) {
-              if("${isTab}") {
-                iFrameElement[i].style["width"] = "${0.92 * screenWidth}px"; 
-              } else {
-                iFrameElement[i].style["width"] = "100%";
-              }
-              iFrameElement[i].style["aspect-ratio"] = "2/3"; 
-            } 
-          }
+          ${iFrameInjectCss()}
            
           true;  // note: this is required, or you'll sometimes get silent failures
           `;
@@ -129,37 +168,64 @@ export const ArticleDetailBody = ({
         webviewRef && webviewRef[index] && webviewRef[index].injectJavaScript(script())
     }
 
-    return (
-        <ScrollView scrollEnabled={true} style={style.scrollViewStyle}>
-            <AutoHeightWebView
-                style={style.webView}
-                source={{ html: articleHtml({ body: body }), baseUrl: '' }}
-                ref={(r) => (webviewRef[index] = r)}
-                domStorageEnabled={true}
-                bounces={false}
-                originWhitelist={["*"]}
-                nestedScrollEnabled={false}
-                scalesPageToFit={false}
-                onMessage={(event) => {
-                    // console.log(event.nativeEvent.data);
-                }}
-                onLoadEnd={updateWebViewStyle}
-                onLoadProgress={() => index == 0 && updateWebViewStyle()}
-                injectedJavaScript={script()}
-                injectedJavaScriptBeforeContentLoaded={script()}
-                onShouldStartLoadWithRequest={(event) => onShouldStartLoadWithRequest(event)}
-                androidLayerType="hardware"
-                allowsFullscreenVideo={true}
-                scrollEnabled={false}
-            />
-        </ScrollView>
+    const onSizeUpdated = (size: SizeUpdate) => {
+        if (!isIOS && isTab) {
+            return
+        }
+        setDynamicHeight(size.height + 2)
+    }
+
+    const renderWebView = () => (
+        <AutoHeightWebView
+            key={index}
+            style={[style.webView, isIOS && !isTab && { height: webViewHeight }]}
+            source={{ html: articleHtml({ body: body }), baseUrl: '' }}
+            ref={(r) => (webviewRef[index] = r)}
+            domStorageEnabled={true}
+            bounces={false}
+            originWhitelist={["*"]}
+            nestedScrollEnabled={false}
+            scalesPageToFit={false}
+            onMessage={(event) => {
+                // console.log(event.nativeEvent.data);
+            }}
+            onLoadEnd={updateWebViewStyle}
+            onLoadProgress={updateWebViewStyle}
+            injectedJavaScript={script()}
+            injectedJavaScriptBeforeContentLoaded={script()}
+            onShouldStartLoadWithRequest={(event) => onShouldStartLoadWithRequest(event)}
+            androidLayerType="hardware"
+            allowsFullscreenVideo={true}
+            scrollEnabled={false}
+            onSizeUpdated={onSizeUpdated}
+        />
     )
-}
+
+    if (isIOS) {
+        return (
+            <View style={style.iosContainerViewStyle}>
+                {renderWebView()}
+            </View>
+        )
+    } else {
+        //Android needs to use scroll view otherwise when press back, App will crash
+        return (
+            <ScrollView scrollEnabled={true} style={style.scrollViewStyle}> 
+                {renderWebView()}
+            </ScrollView>
+        )
+    }
+   
+})
 
 const customStyle = () => StyleSheet.create({
     scrollViewStyle: {
         marginHorizontal: 0.04 * screenWidth,
         overflow: 'hidden',
+        marginTop: 20,
+    },
+    iosContainerViewStyle: {
+        marginHorizontal: 0.04 * screenWidth,
         marginTop: 20,
     },
     webView: {

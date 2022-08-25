@@ -2,6 +2,7 @@ import {newsViewActions} from '../action';
 import {
   EMPTY_ALL_LIST,
   REQUEST_BOTTOM_LIST_DATA,
+  REQUEST_BOTTOM_LIST_SUCCESS,
   REQUEST_HERO_LIST_DATA,
   REQUEST_TOP_LIST_DATA,
 } from '../actionTypes';
@@ -116,6 +117,17 @@ describe('opinionWriter reducer', () => {
   test('Check loading state when get selected news letters EMPTY_ALL_LIST', () => {
     const nextState = newsViewReducer(initialState, {
       type: EMPTY_ALL_LIST,
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check loading state when get selected news letters REQUEST_BOTTOM_LIST_SUCCESS', () => {
+    const nextState = newsViewReducer(initialState, {
+      type: REQUEST_BOTTOM_LIST_SUCCESS,
+      payload: {bottomListData: {
+        rows: [],
+        pager: { current_page: 0, items_per_page: '' }
+      }}
     });
     expect(nextState.isLoading).toBe(false);
   });

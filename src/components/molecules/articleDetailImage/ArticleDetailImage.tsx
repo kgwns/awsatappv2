@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
 import { Styles } from 'src/shared/styles'
-import { BannerImageWithOverlay, Label, LabelTypeProp } from 'src/components/atoms'
+import { BannerImageWithOverlay, Label, LabelTypeProp, BannerImageWithOverlayProps } from 'src/components/atoms'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { BannerImageWithOverlayProps } from 'src/components/atoms'
 import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -50,7 +49,9 @@ const ArticleDetailImage = ({
     }
 
     const renderCaption = () => {
-        if (!isNotEmpty(caption)) return null
+        if (!isNotEmpty(caption)) {
+            return null
+        }
 
         return (
             <View style={imageArticleStyle.captionView}>
@@ -58,7 +59,7 @@ const ArticleDetailImage = ({
                     color={Styles.color.lightGray}
                     style={{
                         paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-                        fontFamily: fonts.Almaria_Regular,
+                        fontFamily: fonts.AwsatDigital_Regular,
                         fontSize: 12,
                         lineHeight: 20,
                     }}
@@ -133,7 +134,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     tagNameStyle: {
         paddingHorizontal: normalize(10),
         fontSize:  isTab ? 16 : 12, 
-        fontFamily: fonts.Almaria_Regular,
+        fontFamily: fonts.AwsatDigital_Regular,
         lineHeight: isTab ? 25 : 18
     },
 })

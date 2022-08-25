@@ -5,7 +5,7 @@ import { horizontalAndTop, isNonEmptyArray, normalize } from 'src/shared/utils';
 import {useSectionArticles} from 'src/hooks';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {SectionArticlesBodyGet} from 'src/redux/sectionArticles/types';
-import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms';
+import { Label, LabelTypeProp } from 'src/components/atoms';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -43,9 +43,9 @@ export const SectionArticlesScreen = () => {
   };
 
   return (
-    <ScreenContainer edge={horizontalAndTop} showHeader={true} headerTitle={params?.title}>
+    <ScreenContainer edge={horizontalAndTop} showHeader={true} headerTitle={params?.title} isLoading={isLoading}>
       {
-      (isLoading && sectionArticlesData && !isNonEmptyArray(sectionArticlesData.rows)) ? <LoadingState/> :
+      (isLoading && sectionArticlesData && !isNonEmptyArray(sectionArticlesData.rows)) ? <View/> :
           isNonEmptyArray(sectionArticlesData.rows)?
           <>
             <MostReadList

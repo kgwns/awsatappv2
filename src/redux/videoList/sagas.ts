@@ -34,7 +34,7 @@ export const formatVideoData = (response: any): VideoItemType[] => {
 
 
 const parseVideosList = (response: any): FetchVideoSuccessPayloadType => {
-  let responseData: FetchVideoSuccessPayloadType = {
+  const responseData: FetchVideoSuccessPayloadType = {
     videoData: []
   }
   responseData.videoData = formatVideoData(response)

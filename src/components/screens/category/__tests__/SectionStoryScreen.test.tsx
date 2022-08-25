@@ -3,8 +3,9 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { SectionStoryScreen } from '../SectionStoryScreen'
 import { Provider } from 'react-redux'
 import { storeSampleData } from 'src/constants/SampleData'
-import { NewsFeed, PopUp } from 'src/components/organisms'
+import { PopUp } from 'src/components/organisms'
 import {useNavigation} from '@react-navigation/native';
+import { FlatList } from 'react-native'
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -16,29 +17,32 @@ jest.mock('react', () => ({
     useState: jest.fn(),
 }));
 
-jest.mock("src/hooks/useNewsView", () => ({
-    useNewsView: () => {
-        return {
-            isLoading: true,
-            heroListData: [],
-            topListData: [],
-            bottomListData: [],
-            fetchHeroListRequest: () => {
-                return []
-            },
-            fetchTopListRequest: () => {
-                return []
-            },
-            fetchBottomListRequest: () => {
-                return []
-            },
-            emptyAllListData: () => {
-                return []
-            },
-        }
+jest.mock("src/hooks/useBookmark", () => ({
+    useBookmark: () => {
+      return {
+        bookmarkIdInfo: [
+          {
+              nid: '1',
+              bundle: 'string'
+          },
+          {
+              nid: '2',
+              bundle: 'string'
+          }
+        ],
+        sendBookmarkInfo: () => [],
+        removeBookmarkedInfo: () => [],
+      }
     },
 }));
 
+jest.mock("src/hooks/useLogin", () => ({
+    useLogin: () => {
+      return {
+        isLoggedIn: false,
+      }
+    },
+}));
 
 describe('<SectionStoryScreen>', () => {
     let instance: RenderAPI
@@ -52,6 +56,7 @@ describe('<SectionStoryScreen>', () => {
     const setIsBottomListLoading = mockFunction;
     const setCurrentSectionId = mockFunction;
     const setChildSection = mockFunction;
+    const initialLoading = mockFunction;
 
     const navigation = {
         reset: jest.fn(),
@@ -65,12 +70,13 @@ describe('<SectionStoryScreen>', () => {
         (useState as jest.Mock).mockImplementation(() => [[], setTopListDataInfo]);
         (useState as jest.Mock).mockImplementation(() => [[], setVideoListData]);
         (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
+        (useState as jest.Mock).mockImplementation(() => [false, initialLoading]);
         (useState as jest.Mock).mockImplementation(() => [false, setIsBottomListLoading]);
-        (useState as jest.Mock).mockImplementation(() => ['1', setCurrentSectionId]);
+        (useState as jest.Mock).mockImplementation(() => ['12', setCurrentSectionId]);
         (useState as jest.Mock).mockImplementation(() => [[], setChildSection]);
         
         const component = <Provider store={storeSampleData}>
-            <SectionStoryScreen sectionId={''} childInfo={[]} onUpdateChildSection={mockFunction} />
+            <SectionStoryScreen sectionId={'1'} childInfo={[]} onUpdateChildSection={mockFunction} />
         </Provider>
         instance = render(component)
     })
@@ -95,6 +101,24 @@ describe('<SectionStoryScreen>', () => {
         const element = instance.container.findByType(PopUp)
         fireEvent(element, 'onClosePopUp');
         expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call FlatList onPress', () => {
+        const element = instance.container.findByType(FlatList)
+        fireEvent(element, 'renderItem', {item: [{}], index: 0});
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call FlatList keyExtractor', () => {
+        const element = instance.container.findByType(FlatList)
+        fireEvent(element, 'keyExtractor', '', 2);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call FlatList onPress', () => {
+        const element = instance.container.findByType(FlatList)
+        fireEvent(element, 'onScrollBeginDrag');
+        expect(global.refFlatList).toBeTruthy()
     });
 
 })

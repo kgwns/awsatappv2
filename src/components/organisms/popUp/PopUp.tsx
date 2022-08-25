@@ -66,10 +66,12 @@ export const PopUp = ({
     }, []);
 
     useEffect(() => {
-        if (currentOrientation === 'PORTRAIT')
+        if (currentOrientation === 'PORTRAIT') {
             setheight(0.85 * screenHeight)
-        else
-            setheight(0.7 * screenWidth)
+        }
+        else {
+            setheight(0.85 * screenWidth)
+        }
     }, [currentOrientation]);
 
     const onPressSuccessButton = () => {
@@ -98,7 +100,7 @@ export const PopUp = ({
             closeOnDragAboveSheet={true}
             onClose={onClosePopUp}
             customStyles={{
-                container: StyleSheet.flatten([style.rbSheetContainer]),
+                container: StyleSheet.flatten([style.rbSheetContainer, {height: height}]),
                 wrapper: style.popupBackground,
                 draggableIcon: style.rbDraggableIcon
             }}

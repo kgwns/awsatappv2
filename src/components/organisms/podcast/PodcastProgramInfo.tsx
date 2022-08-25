@@ -3,8 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import { Label, Image } from 'src/components/atoms/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
-import { colors } from 'src/shared/styles/colors';
+import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {PodcastListItemType} from 'src/redux/podcast/types'
@@ -25,7 +24,9 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <Image fallback url={data?.field_podcast_sect_export?.image} style={styles.imageStyle} />
+            <View style={styles.imageContainerStyle}>
+              <Image fallback url={data?.field_podcast_sect_export?.image} style={styles.imageStyle} />
+            </View>
             <View style={styles.containerSpace} />
             <Label style={styles.textStyle} children={data.title} />
             {data.field_podcast_sect_export?.name&&
@@ -68,22 +69,27 @@ StyleSheet.create({
   centerContainer: {
     alignItems: 'center',
   },
+  imageContainerStyle: {
+    width: normalize(204),
+    height: normalize(162),
+    alignItems: 'center',
+  },
   imageStyle: {
-    width: normalize(200),
-    height: normalize(150),
+    width: '100%',
+    height: '100%',
   },
   textStyle: {
     fontSize: 14,
     color: theme.primaryBlack,
     textAlign:'center',
     lineHeight: 20,
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
   },
   announcerTextStyle: {
     fontSize: 13,
     lineHeight: 20,
     color: colors.greenishBlue,
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
   },
   descriptionTextStyle: {
     fontSize: 13,

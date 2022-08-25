@@ -29,7 +29,9 @@ export const EditorsPickSection = ({
   const style = useThemeAwareObject(customStyle)
 
   const onPress = (nid: string) => {
-    if (isNotEmpty(nid)) navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+    if (isNotEmpty(nid)) {
+      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+    }
   }
   const renderItem = (item: MainSectionBlockType, index: number) => {
     const highlightTitle=  item.news_categories?.title || ''
@@ -50,7 +52,7 @@ export const EditorsPickSection = ({
   const renderHeader = () => {
     return (
       <>
-        {headerLeft && headerRight && <View style={style.header}>
+        {(headerLeft || headerRight) && <View style={style.header}>
           <SectionHeader headerLeft={headerLeft} headerRight={headerRight} />
         </View>
         }
@@ -58,7 +60,9 @@ export const EditorsPickSection = ({
     )
   }
 
-  if (!isNonEmptyArray(data)) return null
+  if (!isNonEmptyArray(data)) {
+    return null
+  }
 
   return (
     <View style={style.container}>
@@ -100,7 +104,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingHorizontal: 0.04 * screenWidth
   },
   container: {
-    paddingTop: normalize(25),
+    paddingTop: 10,
     backgroundColor: theme.mainBackground,
   },
   dividerContainer: {

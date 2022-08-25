@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, SafeAreaView, TouchableOpacity, Image, Linking} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Image, Linking} from 'react-native';
 import {ImagesName} from '../shared/styles/images';
-import {ButtonImage, Label, LabelTypeProp} from '../components/atoms';
+import {ButtonImage} from '../components/atoms';
 import {ButtonList, Divider} from 'src/components/atoms';
-import {useTranslation} from 'react-i18next';
 import {isIOS, normalize, isDarkTheme, isTab} from 'src/shared/utils';
 // import CloseIcon from 'src/assets/images/icons/close.svg';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
@@ -36,6 +35,10 @@ import {
 import { recordLogEvent } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
+import {
+  TranslateConstants,
+  TranslateKey,
+} from 'src/constants/TranslateConstants';
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -47,7 +50,6 @@ export enum SocialMediaType {
 interface CustomDrawerContentProps {}
 
 const CustomDrawerContent = (props: CustomDrawerContentProps) => {
-  const [t] = useTranslation();
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const {themeData} = useTheme();
@@ -58,6 +60,11 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const {userProfileData} = useUserProfileData()
 
   const [sideMenuDataInfo, setSideMenuDataInfo] = useState<any>([])
+
+  const ADVERTISE_WITH_US = TranslateConstants({key: TranslateKey.ADVERTISE_WITH_US});
+  const ABOUT_THE_MIDDLE_EAST = TranslateConstants({key: TranslateKey.ABOUT_THE_MIDDLE_EAST});
+  const TERMS_OF_USE = TranslateConstants({key: TranslateKey.TERMS_OF_USE});
+  const CALL_US = TranslateConstants({key: TranslateKey.DRAWER_CALL_US});
   
   useEffect(() => {
     fetchSideMenuRequest();
@@ -71,7 +78,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   }, [sideMenuData])
 
   const formateChildMenuData = (menuData: any[], parentId: null | string = null) => {
-    let allMenuData = []
+    const allMenuData = []
     let filterMenuData = []
     if (parentId == null) {
       filterMenuData = menuData.reduce((data, item) => {
@@ -89,7 +96,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     for (let i = 0; i < filterMenuData.length; i++) {
       const item = filterMenuData[i]
       const newParentId = item.uuid_export ?? null
-      let customData: any = {
+      const customData: any = {
         ...item,
       }
 
@@ -234,10 +241,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             })}
           <Divider style={styles.divider}/>
           <ButtonList
-            title={t('drawer.advertiseWithUs')}
+            title={ADVERTISE_WITH_US}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('drawer.advertiseWithUs'), id: ADVERTISE_INFO_ID }
+              { title: ADVERTISE_WITH_US, id: ADVERTISE_INFO_ID }
             )}
             titleStyle={styles.nonBoldTitle}
           />
@@ -250,15 +257,15 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             titleStyle={styles.nonBoldTitle}
           /> */}
           <ButtonList
-            title={t('drawer.aboutTheEast')}
+            title={ABOUT_THE_MIDDLE_EAST}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('about_the_news_paper'), id: ABOUT_US }
+              { title: ABOUT_THE_MIDDLE_EAST, id: ABOUT_US }
             )}
             titleStyle={styles.nonBoldTitle}
           />
           <ButtonList
-            title={t('drawer.callUs')}
+            title={CALL_US}
             onPress={() => onPressNavigation(
               ScreensConstants.CONTACT_US_SCREEN, {}
 
@@ -266,10 +273,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
             titleStyle={styles.nonBoldTitle}
           />
           <ButtonList
-            title={t('drawer.termsOfUse')}
+            title={TERMS_OF_USE}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
-              { title: t('drawer.termsOfUse'), id: TERMS_AND_CONDITION }
+              { title: TERMS_OF_USE, id: TERMS_AND_CONDITION }
             )}
             titleStyle={styles.nonBoldTitle}
           />
@@ -342,7 +349,7 @@ const createStyles = (theme: CustomThemeType) =>
       width: '100%',
     },
     logo: {
-      height: 25,
+      height: 32,
       width: 135,
       alignItems: 'center',
     },
@@ -350,7 +357,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     nonBoldTitle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     divider: {
       height: 1,
@@ -360,10 +367,10 @@ const createStyles = (theme: CustomThemeType) =>
       marginLeft: 20
     },
     childTitleStyle:{
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     parentTitleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     itemContainer: {
       flexDirection: 'row',

@@ -3,8 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import { Label, Image, ButtonOutline, LabelTypeProp, HtmlRenderer} from 'src/components/atoms/';
 import { normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
-import { colors } from 'src/shared/styles/colors';
+import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import {useTranslation} from 'react-i18next';
 import ViewIcon from 'src/assets/images/icons/view.svg';
@@ -49,7 +48,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
       lineHeight: normalize(22),
       textAlign: 'center',
       paddingBottom: normalize(15),
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
   };
   return (
@@ -174,11 +173,11 @@ StyleSheet.create({
     lineHeight: 26,
     color: colors.greenishBlue,
     marginHorizontal: normalize(5),
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
   },
   buttonLabel: {
     color: colors.black,
-    fontFamily: fonts.AwsatDigitalBetav10_Regular,
+    fontFamily: fonts.AwsatDigital_Regular,
     fontSize: 14,
     lineHeight: 26
   },

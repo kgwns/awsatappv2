@@ -1,5 +1,5 @@
 import {appleAuth} from '@invertase/react-native-apple-authentication';
-let user: any = null;
+const user: any = null;
 
 export const appleSignin = async () => {
   console.log('Beginning Apple Authentication');

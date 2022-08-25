@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { useNavigation, DrawerActions } from '@react-navigation/native';
+import { useNavigation, DrawerActions, useNavigationState } from '@react-navigation/native';
 import TabNavigator from './TabNavigator';
 import { ImagesName } from '../shared/styles/images';
 import { colors } from '../shared/styles/colors';
@@ -11,10 +11,12 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import {ScreensConstants} from '../constants/ScreenConstants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { isTab, screenWidth } from 'src/shared/utils';
+import { isNonEmptyArray, isTab, screenWidth } from 'src/shared/utils';
 
 const DrawerNavigator = () => {
   const navigation = useNavigation();
+  const routes = useNavigationState((state) => state.routes)
+  const params = isNonEmptyArray(routes) && routes[0].params ? routes[0].params : {}
   const style = useThemeAwareObject(customStyle)
   const {themeData} = useTheme();
 
@@ -51,7 +53,7 @@ const DrawerNavigator = () => {
           backgroundColor: themeData.backgroundColor
         }
       }}>
-      <Drawer.Screen name={'drawerRoot'} component={TabNavigator} />
+      <Drawer.Screen name={'drawerRoot'} component={TabNavigator} initialParams={params}/>
     </Drawer.Navigator>
   );
 };
@@ -70,7 +72,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
     },
     logo: {
-      height: 25,
+      height: 32,
       width: 135,
       alignItems: 'center',
     },

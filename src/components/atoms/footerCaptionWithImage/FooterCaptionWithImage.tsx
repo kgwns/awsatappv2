@@ -40,6 +40,6 @@ const captionImageStyle = StyleSheet.create({
     },
     textLabel: {
         paddingVertical: normalize(1),
-        fontFamily: fonts.AwsatDigitalBetav10_Regular,
+        fontFamily: fonts.AwsatDigital_Regular,
     }
 })

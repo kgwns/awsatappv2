@@ -55,7 +55,9 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
   },[])
 
   const updatePodcastListData = () => {
-    if (!isNonEmptyArray(podcastListData)) return
+    if (!isNonEmptyArray(podcastListData)) {
+      return
+    }
     const podcastListDataInfo = podcastListData.map((item) => {
       return {
         ...item,

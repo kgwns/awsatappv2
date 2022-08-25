@@ -22,7 +22,7 @@ export const DynamicGameScreen = ({
 }: DynamicGameScreenProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
-    let webviewRef = useRef<WebView>().current
+    const webviewRef = useRef<WebView>().current
 
     const style = useThemeAwareObject(customStyle)
 
@@ -56,6 +56,7 @@ export const DynamicGameScreen = ({
                 {showIntro && <GameIntroCard {...gameData} hideButtonTitle={true} />}
                 <WebView style={style.webview}
                     ref={() => webviewRef}
+                    testID='DynamicGameScreenID01'
                     startInLoadingState={true}
                     originWhitelist={['*']}
                     bounces={false}

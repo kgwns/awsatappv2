@@ -8,10 +8,10 @@ import { ImagesName } from 'src/shared/styles';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {Label} from 'src/components/atoms';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {isAndroid, isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
+import {isAndroid, isIOS, isNonEmptyArray, isTab, normalize, screenWidth} from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { HeaderConstants } from '../constants/HeaderConstants'; 
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
@@ -27,7 +27,9 @@ const hideHeader = {
 const AppNavigator = () => {
   const { themeData } = useTheme();
   const navigation = useNavigation();
-  const style = useThemeAwareObject(customStyle)
+  const routes = useNavigationState((state) => state.routes)
+  const params = isNonEmptyArray(routes) && routes[0].params ? routes[0].params : {}
+  const style = useThemeAwareObject(customStyle);
 
 
   const [t] = useTranslation();
@@ -77,6 +79,7 @@ const AppNavigator = () => {
         name={ScreensConstants.HOME_SCREEN}
         component={DrawerNavigator}
         options={hideHeader}
+        initialParams={params}
       />
       <Stack.Screen
         name={ScreensConstants.SearchScreen}
@@ -162,7 +165,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.VideoPlayerScreen}
         component={Routes.VideoPlayerScreen}
-        options={hideHeader}
+        options={{...hideHeader, animationEnabled: false}}
       />
       <Stack.Screen
         name={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN}
@@ -274,7 +277,7 @@ const customStyle = (theme: CustomThemeType) => (
       marginHorizontal: normalize(20),
     },
     logo: {
-      height: 23,
+      height: 32,
       width: 130,
       alignItems: 'center',
     },
@@ -293,7 +296,7 @@ const customStyle = (theme: CustomThemeType) => (
       color: theme.primaryDarkSlateGray,
       fontSize: isTab ? 16 : 12,
       lineHeight: 30,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     onBoardPrevIcon: {
       width: isTab ? 14 : 12,

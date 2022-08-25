@@ -38,17 +38,17 @@ export const FavoriteScreen = () => {
 
 
 
-  const onPressTabItem = (index: number) => {
-    const tabData = tabItem
-    tabData[tabSelectedIndex].isSelected = false;
-    tabData[index].isSelected = true;
-    setTabItem(tabData)
-    setTabSelectedIndex(index);
-  };
+  // const onPressTabItem = (index: number) => {
+  //   const tabData = tabItem
+  //   tabData[tabSelectedIndex].isSelected = false;
+  //   tabData[index].isSelected = true;
+  //   setTabItem(tabData)
+  //   setTabSelectedIndex(index);
+  // };
 
-  const renderTabBarComponent = () => (
-    <TabBarComponent tabItem={tabItem} onPressTabItem={onPressTabItem} />
-  );
+  // const renderTabBarComponent = () => (
+  //   <TabBarComponent tabItem={tabItem} onPressTabItem={onPressTabItem} />
+  // );
 
   const renderArchives = () => (
     <View style={{ flex: 1 }}>

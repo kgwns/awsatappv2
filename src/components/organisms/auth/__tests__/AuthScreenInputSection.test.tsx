@@ -15,8 +15,9 @@ describe('<AuthScreenInputSection>', () => {
         setChangePassword={mockFunction}
         onPressSignup={mockFunction}
         goToPasswordScreen={mockFunction}
-        isPassword
+        isPassword={true}
         passwordTestID={'testid'}
+        showAlertNoInternet={mockFunction}
       />;
       instance = render(component);
     });
@@ -30,13 +31,13 @@ describe('<AuthScreenInputSection>', () => {
     });
     it('When TextInputField change', () => {
       const testId = instance.container.findAllByType(TextInputField)[0];
-      fireEvent(testId, 'onChangeText',['mockString','email']);
+      fireEvent(testId, 'onChangeText',{text: 'mockString',type: 'email'});
       expect(mockFunction).toHaveBeenCalled;
     });
     it('When TextInputField change', () => {
-      const testId = instance.container.findAllByType(TextInputField)[0];
-      fireEvent(testId, 'onChangeText',['mockString','email']);
-      expect(mockFunction).toHaveBeenCalled;
+      const testId = instance.container.findAllByType(TextInputField)[1];
+      fireEvent(testId, 'onChangeText',{text: 'mockString',type: 'password'});
+      expect(mockFunction).toBeTruthy();
     });
     it('When SocialLoginButton Press', () => {
       const testId = instance.container.findAllByType(SocialLoginButton)[0];
@@ -45,6 +46,11 @@ describe('<AuthScreenInputSection>', () => {
     });
     it('When Password Press', () => {
       const testId = instance.getByTestId('testid');
+      fireEvent(testId, 'onPress');
+      expect(mockFunction).toHaveBeenCalled;
+    });
+    it('When signin_forget_password Press', () => {
+      const testId = instance.getByTestId('signin_forget_password');
       fireEvent(testId, 'onPress');
       expect(mockFunction).toHaveBeenCalled;
     });
