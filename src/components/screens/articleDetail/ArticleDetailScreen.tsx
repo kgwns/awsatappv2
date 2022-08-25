@@ -487,8 +487,6 @@ export const ArticleDetailScreen = ({
           removeClippedSubviews={false}
           onScroll={onScroll}
           scrollEnabled={scrollEnabled}
-          initialNumToRender={1}
-          maxToRenderPerBatch={1}
         />
         {isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl && !isFullScreen && 
           <DraggableVideoPlayer videoRefs={videoRefs} setMiniPlayerVisible={closeMiniPlayer} url={playerUrl}
