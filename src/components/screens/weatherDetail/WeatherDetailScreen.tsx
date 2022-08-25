@@ -98,9 +98,9 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   const weatherDetail = () => (
     <View style={styles.weatherDetail}>
       <Label style={styles.labels}>
-        {getCountryName()}
-        {','}
         {fetchWeatherDetailsSuccessInfo?.city.name}
+        {' ,'}
+        {getCountryName()}
       </Label>
       {weatherImage()}
     </View>

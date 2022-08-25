@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {StyleSheet, View, useWindowDimensions} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
-import {HtmlRenderer, Label, Image} from 'src/components/atoms';
+import { Label, Image } from 'src/components/atoms';
 import {Styles} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {MixedStyleRecord} from 'react-native-render-html';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {
   decodeHTMLTags,
@@ -19,6 +18,8 @@ import {ArticleFontSize} from 'src/redux/appCommon/types';
 import {fonts} from 'src/shared/styles/fonts';
 import {ArticleFooter} from 'src/components/molecules';
 import {ImageResize} from 'src/shared/styles/text-styles';
+import AutoHeightWebView from 'react-native-autoheight-webview'
+import { articleHtml } from 'src/components/screens/articleDetail/components/ArticleDetailRichContent';
 
 export interface PhotoGalleryDetailWidgetProps {
   data: any;
@@ -33,18 +34,13 @@ export const PhotoGalleryDetailWidget = ({
 }: PhotoGalleryDetailWidgetProps) => {
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
+  var webviewRef: any[] = [React.createRef()];
 
-  const htmlTagStyle: MixedStyleRecord = {
-    p: {
-      color: colors.white,
-      textAlign: 'justify',
-      direction: 'rtl',
-      fontSize: fontSize,
-      lineHeight: 1.8 * fontSize,
-      fontFamily: fonts.Effra_Arbc_Regular,
-      writingDirection: 'rtl',
-    },
-  };
+  useEffect(() => {
+    if (webviewRef) {
+      webviewRef[0] && webviewRef[0].injectJavaScript(script());
+    }
+  }, [fontSize])
 
   const timeFormat = dateTimeAgo(data.created);
 
@@ -60,9 +56,44 @@ export const PhotoGalleryDetailWidget = ({
     style: {marginVertical: normalize(0.01 * screenWidth)},
   };
 
+  const script = () => {
+    return `
+      var pTagElement = document.getElementsByTagName("p");
+      //   This css to apply all the p tag element
+      if(pTagElement && pTagElement.length > 0) {
+        for(i=0; i < pTagElement.length; i++) {
+          pTagElement[i].style.fontSize = "${fontSize}px"
+          pTagElement[i].style.lineHeight = "${1.8 * fontSize}px"
+          pTagElement[i].style.color = "${colors.white}"
+          pTagElement[i].style.textAlign = "justify"
+          pTagElement[i].style.direction = "rtl"
+          pTagElement[i].style.writingDirection = "rtl"
+        }
+      }`;
+  };
+
+  const updateWebViewStyle = () => {
+    webviewRef && webviewRef[0] && webviewRef[0].injectJavaScript(script())
+  }
+
   const articleHtmlContent = () => (
-    <View>
-      <HtmlRenderer source={data.body_export} tagsStyles={htmlTagStyle} />
+    <View style={style.htmlBodyStyle}>
+      <AutoHeightWebView
+        style={style.webView}
+        source={{ html: articleHtml({ body: data.body_export }), baseUrl: '' }}
+        domStorageEnabled={true}
+        bounces={false}
+        originWhitelist={["*"]}
+        nestedScrollEnabled={false}
+        scalesPageToFit={false}
+        ref={(r) => (webviewRef[0] = r)}
+        onLoadEnd={updateWebViewStyle}
+        onLoadProgress={updateWebViewStyle}
+        injectedJavaScript={script()}
+        injectedJavaScriptBeforeContentLoaded={script()}
+        androidLayerType="hardware"
+        scrollEnabled={false}
+      />
     </View>
   );
 
@@ -172,6 +203,15 @@ const customStyle = (theme: CustomThemeType) => {
       direction: 'rtl',
       fontFamily: fonts.IBMPlexSansArabic_Regular,
       writingDirection: 'rtl',
+    },
+    webView: {
+      width: '100%',
+      backgroundColor: 'transparent',
+      opacity: 0.99,
+      flex: 1,
+    },
+    htmlBodyStyle: {
+      paddingVertical: normalize(15)
     }
   });
   return styles;
