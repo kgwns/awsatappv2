@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {render, RenderAPI} from '@testing-library/react-native';
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import {storeSampleData} from 'src/constants/SampleData';
 import {FollowFavoriteAuthorScreen} from '../FollowFavoriteAuthorScreen';
@@ -68,7 +68,7 @@ jest.mock("src/hooks/useAllWriters", () => ({
       emptySendAuthorInfoData: () => [], 
       sendSelectedFromOnboard: () => [],
       sentAuthorInfoData: { 
-        code: 2,
+        code: 200,
         message: 'string'
       }
     }
