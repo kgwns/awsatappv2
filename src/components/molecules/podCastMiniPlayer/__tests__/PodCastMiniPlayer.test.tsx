@@ -11,7 +11,11 @@ jest.mock('react', () => ({
 jest.mock("src/hooks/useAppPlayer", () => ({
   useAppPlayer: () => {
     return {
-      selectedTrack: {id: 1},
+      selectedTrack: {
+        id: 1,
+        artwork: 'abc.com',
+        title: 'example'
+      },
     }
   },
 }));

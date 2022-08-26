@@ -15,6 +15,55 @@ jest.mock('@react-navigation/native', () => ({
       }),
   }));
 
+  jest.mock("src/hooks/useAppCommon", () => ({
+    useAppCommon: () => {
+      return {
+        sectionArticlesData: {
+          rows: [
+            {
+              nid: '2',
+              tagName: 'example',
+              image: 'abc',
+              tagStyle: {marginLeft: 20},
+              tagLabelType: "p3",
+              field_image: 'abc',
+              field_new_photo: 'abc',
+              flagColor: '#2C8A82',
+              barColor: '#2C8A82',
+              field_news_categories_export: [
+                {
+                  id: 'example',
+                  title: 'example',
+                  url: 'example',
+                  bundle: 'example',
+                  name: 'example',
+                },
+                {
+                  id: 'example',
+                  title: 'example',
+                  url: 'example',
+                  bundle: 'example',
+                  name: 'example',
+                }
+              ],
+              field_publication_date_export: '2021-05-20T20:05:45+0000',
+              created_export: '2021-05-20T20:05:45+0000',
+              author_resource: 'author',
+              type: 'type',
+            }
+          ],
+          pager: {
+            current_page: 1, 
+            items_per_page: '10'
+          },
+        },
+        isLoading: true,
+        emptySectionArticleData: {} = [],
+        fetchSectionArticlesRequest: {} = [],
+      }
+    },
+}));
+
 describe('<SectionArticlesScreen />', () => {
   let instance: RenderAPI
   const params = {"key":"SectionArticlesScreen-91cFeh9o2Kg1fsaaeteVu","name":"SectionArticlesScreen","params":{"sectionId":102811,"title":"رياضة عالمية"}}

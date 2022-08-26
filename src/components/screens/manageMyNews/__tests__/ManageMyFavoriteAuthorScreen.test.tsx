@@ -15,14 +15,16 @@ jest.mock('react', () => ({
 jest.mock("src/hooks/useUserProfileData", () => ({
     useUserProfileData: () => {
       return {
-        isLoading: false,
-        userProfileData: {},
-        userProfileError: 'string',
-        sentUserProfileData: {},
-        fetchProfileDataRequest: () => [],
-        sendUserProfileInfo: () => [],
-        updateUserImageRequest: () => [],
-        emptyUserProfileInfoData: () => [],
+        userProfileData: {
+            user: {
+              id: '12',
+              email: "abc@gmail.com",
+            },
+            message: {
+              code: 200,
+              message: 'string',
+            }
+        },
       }
     },
 }));
