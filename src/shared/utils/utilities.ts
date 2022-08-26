@@ -83,6 +83,10 @@ export const isNonEmptyArray = (data: any): boolean => {
   return data && Array.isArray(data) && data.length > 0;
 };
 
+export const isInvalidOrEmptyArray = (data: any): boolean => {
+  return !data || !Array.isArray(data) || data.length == 0;
+};
+
 export const isObjectNonEmpty = (data: any): boolean => {
   return data && Object.keys(data).length > 0 ? true : false;
 };
