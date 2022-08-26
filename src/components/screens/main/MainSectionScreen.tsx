@@ -465,7 +465,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
 
   const loadMiddleWidgetAPI = () => {
     fetchOpinionTopList(opinionListPayload)
-    fetchVideoRequest();
+    isTab && fetchVideoRequest();
     fetchPodcastHome();
     fetchEditorsChoice();
   }
@@ -579,9 +579,10 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         hideMore={true}
         containerStyle={mainSectionStyle.editorChoiceContainer}
       />
+      {/* Removed by- AMAR-928
       {isNonEmptyArray(videoData) && (
         <VideoContent data={videoData} onPress={onVideoItemPress} />
-      )}
+      )} */}
       <BannerArticleSection
         data={sectionComboOneInfo}
         title={_sectionComboOneTitle}

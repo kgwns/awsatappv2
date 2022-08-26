@@ -8,6 +8,8 @@ import {
 } from 'src/redux/articleDetail/selectors';
 import { ArticleDetailBodyGet, ArticleDetailDataType, RelatedArticleBodyGet, RelatedArticleDataType } from 'src/redux/articleDetail/types';
 import { requestArticleDetail, requestRelatedArticle, emptyData } from 'src/redux/articleDetail/action';
+import { sendUserEventTracking, TrackingEventType } from 'src/services/eventTrackService';
+import { isInvalidOrEmptyArray } from 'src/shared/utils';
 
 export interface UseArticleDetailReturn {
   isLoading: boolean;
@@ -18,6 +20,7 @@ export interface UseArticleDetailReturn {
   fetchRelatedArticle(payload: RelatedArticleBodyGet): void;
   emptyAllData(): void;
   isArticleSectionLoaded: boolean
+  sendEventToServer: (articleDetail: ArticleDetailDataType[]) => void;
 }
 
 export const useArticleDetail = (): UseArticleDetailReturn => {
@@ -38,6 +41,30 @@ export const useArticleDetail = (): UseArticleDetailReturn => {
     dispatch(emptyData());
   };
 
+  const sendEventToServer = (articleDetailInfo: ArticleDetailDataType[]) => {
+    if (isInvalidOrEmptyArray(articleDetailInfo)) return
+
+    const getArticleID = () => {
+      return articleDetailInfo.reduce((prevValue: string[], item: ArticleDetailDataType) => {
+        return prevValue.concat(item.nid)
+      }, [])
+    }
+
+    const listOfNID = getArticleID()
+    const allEvents = listOfNID.map((item) => {
+      return {
+        contentId: item,
+        eventType: TrackingEventType.VIEW
+      }
+    })
+
+    sendUserEventTracking(
+      {
+        events: allEvents
+      }
+    )
+  }
+
   return {
     isLoading,
     articleDetailData,
@@ -46,6 +73,7 @@ export const useArticleDetail = (): UseArticleDetailReturn => {
     isArticleSectionLoaded,
     fetchArticleDetail,
     fetchRelatedArticle,
-    emptyAllData
+    emptyAllData,
+    sendEventToServer,
   };
 };
