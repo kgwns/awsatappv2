@@ -1,0 +1,37 @@
+diff --git a/node_modules/@react-navigation/stack/src/views/Stack/Card.tsx b/node_modules/@react-navigation/stack/src/views/Stack/Card.tsx
+index 4ce3b31..b63b519 100755
+--- a/node_modules/@react-navigation/stack/src/views/Stack/Card.tsx
++++ b/node_modules/@react-navigation/stack/src/views/Stack/Card.tsx
+@@ -136,7 +136,14 @@ export default class Card extends React.Component<Props> {
+       // When route was closed due to a gesture, the animation would've happened already
+       // It's still important to trigger the animation so that `onClose` is called
+       // If `onClose` is not called, cleanup step won't be performed for gestures
+-      this.animate({ closing });
++      // this.animate({ closing });
++      if (closing) {
++        setTimeout(() => {
++        this.animate({ closing });
++        });
++        } else {
++        this.animate({ closing });
++        }
+     }
+   }
+ 
+diff --git a/node_modules/@react-navigation/stack/src/views/Stack/CardStack.tsx b/node_modules/@react-navigation/stack/src/views/Stack/CardStack.tsx
+index c0e23e1..184ae76 100755
+--- a/node_modules/@react-navigation/stack/src/views/Stack/CardStack.tsx
++++ b/node_modules/@react-navigation/stack/src/views/Stack/CardStack.tsx
+@@ -584,10 +584,11 @@ export default class CardStack extends React.Component<Props, State> {
+               isScreenActive = STATE_INACTIVE;
+             } else {
+               const sceneForActivity = scenes[self.length - 1];
++              const closingRoutes = closingRouteKeys.length;
+               const outputValue =
+                 index === self.length - 1
+                   ? STATE_ON_TOP // the screen is on top after the transition
+-                  : index >= self.length - activeScreensLimit
++                  : index >= self.length - activeScreensLimit - closingRoutes
+                   ? STATE_TRANSITIONING_OR_BELOW_TOP // the screen should stay active after the transition, it is not on top but is in activeLimit
+                   : STATE_INACTIVE; // the screen should be active only during the transition, it is at the edge of activeLimit
+               isScreenActive = sceneForActivity

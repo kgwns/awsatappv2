@@ -15,7 +15,7 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { HeaderConstants } from '../constants/HeaderConstants'; 
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { fonts } from 'src/shared/styles/fonts'
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +28,7 @@ const AppNavigator = () => {
   const routes = useNavigationState((state) => state.routes)
   const params = isNonEmptyArray(routes) && routes[0].params ? routes[0].params : {}
   const style = useThemeAwareObject(customStyle);
+  const transition = isIOS && TransitionPresets.SlideFromRightIOS
 
 
   const [t] = useTranslation();
@@ -75,7 +76,9 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.ARTICLE_DETAIL_SCREEN}
         component={Routes.ArticleDetailScreen}
-        options={hideHeader}
+        options={{...transition,
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name={ScreensConstants.PodcastProgram}
