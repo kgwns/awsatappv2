@@ -41,7 +41,7 @@ export const textStyles = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigital_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: 17,
-      lineHeight: 25,
+      lineHeight: 30,
       textAlign: TextAlign.LEFT,
       color: theme.primaryBlack,
     },

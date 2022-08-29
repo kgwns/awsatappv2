@@ -277,7 +277,7 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.darkRed,
       fontSize: 40,
       lineHeight: 55,
-      fontFamily: fonts.AwsatDigital_Bold,
+      fontFamily: fonts.AwsatDigital_Black,
       textAlign: 'center'
     },
     documentaryTitle: {
