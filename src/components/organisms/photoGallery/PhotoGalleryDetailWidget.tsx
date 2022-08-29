@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {StyleSheet, View, useWindowDimensions} from 'react-native';
+import {StyleSheet, View, useWindowDimensions, ScrollView} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
 import { Label, Image } from 'src/components/atoms';
@@ -76,26 +76,41 @@ export const PhotoGalleryDetailWidget = ({
     webviewRef && webviewRef[0] && webviewRef[0].injectJavaScript(script())
   }
 
-  const articleHtmlContent = () => (
-    <View style={style.htmlBodyStyle}>
-      <AutoHeightWebView
-        style={style.webView}
-        source={{ html: articleHtml({ body: data.body_export }), baseUrl: '' }}
-        domStorageEnabled={true}
-        bounces={false}
-        originWhitelist={["*"]}
-        nestedScrollEnabled={false}
-        scalesPageToFit={false}
-        ref={(r) => (webviewRef[0] = r)}
-        onLoadEnd={updateWebViewStyle}
-        onLoadProgress={updateWebViewStyle}
-        injectedJavaScript={script()}
-        injectedJavaScriptBeforeContentLoaded={script()}
-        androidLayerType="hardware"
-        scrollEnabled={false}
-      />
-    </View>
-  );
+  const renderWebView = () => (
+    <AutoHeightWebView
+      style={style.webView}
+      source={{ html: articleHtml({ body: data.body_export }), baseUrl: '' }}
+      domStorageEnabled={true}
+      bounces={false}
+      originWhitelist={["*"]}
+      nestedScrollEnabled={false}
+      scalesPageToFit={false}
+      ref={(r) => (webviewRef[0] = r)}
+      onLoadEnd={updateWebViewStyle}
+      onLoadProgress={updateWebViewStyle}
+      injectedJavaScript={script()}
+      injectedJavaScriptBeforeContentLoaded={script()}
+      androidLayerType="hardware"
+      scrollEnabled={false}
+    />
+  )
+
+  const articleHtmlContent = () => {
+    if (isIOS) {
+      return (
+        <View style={style.htmlBodyStyle}>
+          {renderWebView()}
+        </View>
+      )
+    } else {
+      //Android needs to use scroll view otherwise when press back, App will crash
+      return (
+        <ScrollView scrollEnabled={true} style={style.htmlBodyStyle}>
+          {renderWebView()}
+        </ScrollView>
+      )
+    }
+  };
 
   const labelStyle ={ 
     fontSize: fontSize,
