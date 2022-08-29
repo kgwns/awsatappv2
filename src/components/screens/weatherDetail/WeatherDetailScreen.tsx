@@ -398,11 +398,12 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: normalize(32),
     },
     imageLabel3: {
-      fontFamily: fonts.Effra_Regular,
-      fontSize: normalize(70),
+      fontFamily: fonts.AwsatDigital_Regular,
+      fontSize: 70,
       color: colors.white,
-      lineHeight: normalize(72),
+      lineHeight: 75,
       alignSelf: 'center',
+      paddingTop: 10
     },
     imageLabel4: {
       fontFamily: fonts.Effra_Regular,
