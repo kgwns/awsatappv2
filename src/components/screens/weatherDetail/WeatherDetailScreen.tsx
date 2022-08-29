@@ -401,7 +401,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontFamily: fonts.AwsatDigital_Regular,
       fontSize: 70,
       color: colors.white,
-      lineHeight: 75,
+      lineHeight: 85,
       alignSelf: 'center',
       paddingTop: 10
     },
