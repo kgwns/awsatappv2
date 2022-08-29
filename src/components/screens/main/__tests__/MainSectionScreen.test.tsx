@@ -378,7 +378,7 @@ describe('<MainSectionScreen>', () => {
   });
 
   test('Should call FlatList onPress', () => {
-    expect(instance.container.findAllByType(FlatList).length).toBe(4)
+    expect(instance.container.findAllByType(FlatList).length).toBe(3)
   });
 
   it('when BannerArticleSection only When onPress', () => {
@@ -502,11 +502,12 @@ describe('<MainSectionScreen>', () => {
   });
 
 
-  it('when VideoContent only When onPress', () => {
-    const testID = instance.container.findAllByType(VideoContent)[0];
-    fireEvent(testID, 'onPress', videoData[0]);
-    expect(navigation.navigate).toBeTruthy();
-  });
+  // Video Widget reemoved from UI
+  // it('when VideoContent only When onPress', () => {
+  //   const testID = instance.container.findAllByType(VideoContent)[0];
+  //   fireEvent(testID, 'onPress', videoData[0]);
+  //   expect(navigation.navigate).toBeTruthy();
+  // });
 
   test('Should call FlatList onPress', () => {
     const element = instance.container.findByType(FlatList)

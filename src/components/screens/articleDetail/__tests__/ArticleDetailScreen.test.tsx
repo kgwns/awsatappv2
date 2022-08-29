@@ -123,7 +123,8 @@ jest.mock("src/hooks/useArticleDetail", () => ({
       fetchArticleDetail: () => [],
       fetchRelatedArticle: () => [],
       emptyAllData: () => [],
-      isArticleSectionLoaded: true
+      isArticleSectionLoaded: true,
+      sendEventToServer: () => [],
     }
   },
 }));

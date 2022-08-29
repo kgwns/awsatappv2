@@ -548,7 +548,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: isAndroid ? normalize(16) : normalize(14),
       color: theme.primaryBlack,
       marginRight: normalize(5),
-      marginTop: isAndroid ? normalize(2) : normalize(2)
+      marginTop: normalize(2),
     },
     nonBoldTitle: {
       fontFamily: fonts.AwsatDigital_Regular,

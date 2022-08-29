@@ -271,7 +271,7 @@ export const ArticleDetailScreen = ({
   }, [richHTML])
 
   useEffect(() => {
-    if (isNonEmptyArray(articleDetailState) && articleDetailState[bookmarkIndex].nid) {
+    if (isNonEmptyArray(articleDetailState) && articleDetailState[bookmarkIndex] && articleDetailState[bookmarkIndex].nid) {
       const isBookmarked = validateBookmark(articleDetailState[bookmarkIndex].nid)
       setIsBookmarked(isBookmarked)
     }
