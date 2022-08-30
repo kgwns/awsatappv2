@@ -189,7 +189,7 @@ export const Archives = () => {
                 const bundleName = widgetNameByIndex(tabSelectedIndex)
                 const bundleBookmarkList = bookmarkIdInfo.filter((item) => item.bundle === bundleName)
                 if (filterBookmarkDetailInfo.length < bundleBookmarkList.length) {
-                    getSpecificBundleFavoriteDetail(bundleName)
+                    getSpecificBundleFavoriteDetail(bundleName, 0)
                 }
             }
         }
