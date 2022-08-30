@@ -10,11 +10,14 @@ jest.mock('react', () => ({
 
 describe('<TextInputField>', () => {
   let instance: RenderAPI;
-  const setIsFocused = jest.fn()
+  const isFocused = jest.fn()
   const setIsPasswordVisible = jest.fn()
   const mockFunction = jest.fn();
+  const setIsFocused = jest.fn();
+
   describe('when TextInputField only', () => {
     beforeEach(() => {
+      (useState as jest.Mock).mockImplementation(() => [false, isFocused]);
       (useState as jest.Mock).mockImplementation(() => [false, setIsFocused]);
       (useState as jest.Mock).mockImplementation(() => [true, setIsPasswordVisible]);
       const component = (
@@ -42,13 +45,8 @@ describe('<TextInputField>', () => {
     });
     it('when onBlur when textInput', () => {
       const testId = instance.container.findByType(TextInput);
-      fireEvent(testId, 'onBlur');
+      fireEvent(testId, 'onBlur', '');
       expect(setIsFocused).toBeTruthy();
-    });
-    it('Should Press PlayIcon', () => {
-      const element = instance.container.findAllByType(TextInput)[0];
-      fireEvent(element, 'onFocus');
-      expect(mockFunction).toHaveBeenCalled;
     });
     it('Should Press PlayIcon', () => {
       const element = instance.container.findAllByType(TextInput)[0];
@@ -64,6 +62,44 @@ describe('<TextInputField>', () => {
       const element = instance.container.findAllByType(TextInput)[0];
       fireEvent(element, 'onSubmitEditing', 'string');
       expect(mockFunction).toHaveBeenCalled;
+    });
+  });
+});
+
+describe('<TextInputField>', () => {
+  let instance: RenderAPI;
+  const isFocused = jest.fn()
+  const setIsPasswordVisible = jest.fn()
+  const mockFunction = jest.fn();
+  const setIsFocused = jest.fn();
+
+  describe('when TextInputField only', () => {
+    beforeEach(() => {
+      (useState as jest.Mock).mockImplementation(() => [true, isFocused]);
+      (useState as jest.Mock).mockImplementation(() => [false, setIsFocused]);
+      (useState as jest.Mock).mockImplementation(() => [true, setIsPasswordVisible]);
+      const component = (
+        <TextInputField onChangeText={mockFunction} value={''} onSubmitEditing={mockFunction} isPassword />
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render TextInputField', () => {
+      expect(instance).toBeDefined();
+    });
+    it('when onFocus when textInput', () => {
+      const testId = instance.container.findByType(TextInput);
+      fireEvent(testId, 'onFocus');
+      expect(setIsFocused).toBeTruthy();
+    });
+    it('when onBlur when textInput', () => {
+      const testId = instance.container.findByType(TextInput);
+      fireEvent(testId, 'onBlur', '');
+      expect(setIsFocused).toBeTruthy();
     });
   });
 });

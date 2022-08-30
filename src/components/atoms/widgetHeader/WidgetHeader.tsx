@@ -31,7 +31,7 @@ export const WidgetHeader = ({
     return (
         <View style={StyleSheet.flatten([styles.container,widgetHeaderStyle])}>
             {headerLeft && <WidgetHeaderElement {...headerLeft}
-                textStyle={[{ fontFamily: fonts.AwsatDigitalBetav10_Bold }, headerLeft.textStyle]}
+                textStyle={[{ fontFamily: fonts.AwsatDigital_Bold }, headerLeft.textStyle]}
             />}
             {headerRight && <WidgetHeaderElement {...headerRight} onPress={onPress}
                 textStyle={[{ fontFamily: fonts.Effra_Regular }, headerRight.textStyle]}

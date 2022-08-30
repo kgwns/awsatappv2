@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {View, StyleSheet, ViewStyle} from 'react-native';
-import {ShortArticle, NewsFeed, VideoContent} from '../../organisms';
+import { ShortArticle, NewsFeed } from '../../organisms';
 import {isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle, FilterComponent, FilterDataType} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
@@ -23,12 +23,12 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import { Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';
 import { useBookmark, useLogin } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
-import { VideoItemType } from 'src/redux/videoList/types';
-import { fetchNewsViewApi } from 'src/services/newsViewService';
+import { fetchNewsViewApi, fetchSubArticleSectionApi } from 'src/services/newsViewService';
 import { AxiosError } from 'axios';
 import { formatTopListToLatestArticleType } from 'src/redux/newsView/sagas';
-import { fetchVideoListApi } from 'src/services/videoListService';
-import { formatVideoData } from 'src/redux/videoList/sagas';
+// import { fetchVideoListApi } from 'src/services/videoListService';
+// import { formatVideoData } from 'src/redux/videoList/sagas';
+// import { VideoItemType } from 'src/redux/videoList/types';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { decode } from 'html-entities';
 import { fonts } from 'src/shared/styles/fonts';
@@ -99,9 +99,13 @@ export const SectionStoryScreen = React.memo(({
   const [heroListDataInfo,setHeroListDataInfo] = useState<NewsViewListItemType[]>([])
   const [bottomListDataInfo,setBottomListDataInfo] = useState<NewsViewListItemType[]>([])
   const [topListDataInfo,setTopListDataInfo] = useState<any[]>([])
-  const [videoListData,setVideoListData] = useState<VideoItemType[]>([])
+  // const [videoListData,setVideoListData] = useState<VideoItemType[]>([])
   const [showupUp,setShowPopUp] = useState(false)
   const [isBottomListLoading, setIsBottomListLoading] = useState<boolean>(false)
+
+  const isParentSection = useMemo(() => {
+    return sectionId === currentSectionId
+  }, [sectionId, currentSectionId])
 
   useEffect(() => {
     // makeInitialDataEmpty();
@@ -134,12 +138,13 @@ export const SectionStoryScreen = React.memo(({
 
     getHeroListData();
     getTopListData();
-    getVideoListData();
+    // getVideoListData();
   }
 
   const getHeroListData = async() => {
     try {
-      const heroDataInfo = await fetchNewsViewApi(heroListPayload)
+      const heroDataInfo = isParentSection ? await fetchNewsViewApi(heroListPayload)
+        : await fetchSubArticleSectionApi(heroListPayload)
       const heroData = heroDataInfo.rows ?? []
       setHeroData(heroData)
     } catch (error) {
@@ -153,7 +158,8 @@ export const SectionStoryScreen = React.memo(({
 
   const getTopListData = async() => {
     try {
-      const topListInfo = await fetchNewsViewApi(topListPayload)
+      const topListInfo = isParentSection ? await fetchNewsViewApi(topListPayload)
+      : await fetchSubArticleSectionApi(topListPayload) 
       const topListRows = formatTopListToLatestArticleType(topListInfo)
       setTopData(topListRows)
     } catch (error) {
@@ -168,7 +174,8 @@ export const SectionStoryScreen = React.memo(({
   const getBottomListData = async() => {
     setIsBottomListLoading(true)
     try {
-      const bottomListInfo = await fetchNewsViewApi(bottomListPayload)
+      const bottomListInfo = isParentSection ? await fetchNewsViewApi(bottomListPayload)
+        : await fetchSubArticleSectionApi(bottomListPayload) 
       const bottomListRows = bottomListInfo.rows ?? []
       const updatedBottomData = isNonEmptyArray(bottomListDataInfo) ? bottomListDataInfo.concat(bottomListRows) :  bottomListRows
       setBottomData(updatedBottomData)
@@ -182,7 +189,7 @@ export const SectionStoryScreen = React.memo(({
     }
   }
 
-  const getVideoListData = async() => {
+  /* const getVideoListData = async() => {
     try {
       const videoListInfo = await fetchVideoListApi()
       const videoList = formatVideoData(videoListInfo)
@@ -194,7 +201,7 @@ export const SectionStoryScreen = React.memo(({
         console.log("🚀 getVideoListData ~ errorMessage", errorMessage)
       }
     }
-  }
+  } */
 
   const childFilterData: FilterDataType[] = React.useMemo(() => childSection.map((item) => {
     return {
@@ -335,10 +342,10 @@ export const SectionStoryScreen = React.memo(({
     setBottomListDataInfo(updatedData)
   }
 
-  const onVideoItemPress = (item: VideoItemType) => {
-    navigation.navigate(ScreensConstants.VideoPlayerScreen,
-      { mediaID: item.mediaId, nid: item.nid })
-  }
+  // const onVideoItemPress = (item: VideoItemType) => {
+  //   navigation.navigate(ScreensConstants.VideoPlayerScreen,
+  //     { mediaID: item.mediaId, nid: item.nid })
+  // }
 
   const onClickChildSection = (clickItemIndex: number) => {
     const spreadChildSection = [...childSection]
@@ -357,10 +364,13 @@ export const SectionStoryScreen = React.memo(({
     setHeroListDataInfo([])
     setTopListDataInfo([])
     setBottomListDataInfo([])
+    // setVideoListData([])
   }
 
   const renderFilterComponent = () => {
-    if(!isNonEmptyArray(childFilterData)) return null
+    if(!isNonEmptyArray(childFilterData)) {
+      return null
+    }
 
     return (
       <View style={style.filterContainer}>
@@ -398,7 +408,9 @@ export const SectionStoryScreen = React.memo(({
   const renderArticleStory = () => {
     const articleData = isNonEmptyArray(heroListDataInfo) && heroListDataInfo.length > 1 ? heroListDataInfo[1] : {} as NewsViewListItemType
 
-    if (!isObjectNonEmpty(articleData)) return null
+    if (!isObjectNonEmpty(articleData)) {
+      return null
+    }
     const timeFormat = dateTimeAgo(articleData.created_export)
     return (
       <View style={style.sectionStoryContainer}>
@@ -460,9 +472,10 @@ export const SectionStoryScreen = React.memo(({
           {renderTopArticle()}
         </>
       }
-      <View style={style.videoContainer}>
+      {/* <View style={style.videoContainer}>
         <VideoContent data={videoListData} onPress={onVideoItemPress} />
-      </View>
+      </View> */}
+      {!isTab && <Divider style={style.divider} />}
       <View style={style.newsFeedContainer}>
         <NewsFeed
           data={bottomListDataInfo}
@@ -583,10 +596,10 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign:'center',
       fontSize: 24,
       lineHeight: 42,
-      fontFamily: fonts.AwsatDigitalBetav10_Black,
+      fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{
-        textAlign:'justify',
+        textAlign:'left',
         writingDirection: 'rtl',
         fontSize: 16,
         lineHeight: 26,

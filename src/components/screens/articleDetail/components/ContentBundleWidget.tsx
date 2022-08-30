@@ -100,7 +100,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         aspectRatio: 1.82,
     },
     articleTitle: {
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         fontSize: 16,
         lineHeight: 26,
         textAlign: 'left',

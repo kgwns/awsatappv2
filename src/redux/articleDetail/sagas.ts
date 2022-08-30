@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
-import { ArticleDetailSuccessPayload, ArticleSectionSuccessPayload, FetchRichOpinionsBundleSuccessPayloadType, FetchRichOpinionsBundleType, GetRichArticleReadAlsoBody, RelatedArticleBodyGet, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestArticleSectionType, RequestRelatedArticleType, RequestRichArticleContentBundleType, RichHTMLOpinionDataType, RichHTMLType } from './types';
+import { ArticleContentType, ArticleDetailDataType, ArticleDetailSuccessPayload, ArticleOpinionType, ArticleReadAlsoType, ArticleSectionSuccessPayload, FetchRichOpinionsBundleSuccessPayloadType, FetchRichOpinionsBundleType, GetRichArticleReadAlsoBody, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestArticleSectionType, RequestRelatedArticleType, RequestRichArticleContentBundleType, RichHTMLOpinionDataType, RichHTMLType } from './types';
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService';
 import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_RICH_ARTICLE_READ_ALSO, REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION } from './actionType';
 import { requestArticleDetailFailed, requestArticleDetailSuccess, requestArticleSectionFailed, requestArticleSectionSuccess, requestRelatedArticleSuccess, requestRichArticleReadAlsoSuccessType, requestRichArticleReadAlsoFailedType, requestRichArticleContentBundleFailedType, requestRichArticleContentBundleSuccessType, fetchRichOpinionsBundleSuccess, fetchRichOpinionsBundleFailed } from './action';
@@ -10,7 +10,51 @@ import { decode } from 'html-entities';
 import { getBookMarkDetailInfoService } from 'src/services/bookmarkService';
 import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService';
 
-const parseRichArticleReadAlso = (response: any) => {
+export const updatedReadAlsoContent = (articleInfo: ArticleDetailDataType, readAlsoInfo: any) => {
+  let richHTML: HTMLElementParseStore[] = []
+  if (isNonEmptyArray(readAlsoInfo)) {
+    richHTML = articleInfo.richHTML ?? []
+    const readAlsoIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.READ_ALSO)
+    if (readAlsoIndex > -1) {
+      const filteredReadAlso = richHTML[readAlsoIndex] as ArticleReadAlsoType
+      filteredReadAlso.data.readAlsoData = readAlsoInfo
+      richHTML[readAlsoIndex] = filteredReadAlso
+    }
+  }
+
+  return richHTML
+}
+
+export const updatedContentBundleContent = (articleInfo: ArticleDetailDataType, contentInfo: any) => {
+  let richHTML: HTMLElementParseStore[] = []
+  if (isNonEmptyArray(contentInfo.contentBundleData)) {
+    richHTML = articleInfo.richHTML ?? []
+    const contentIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.CONTENT)
+    if (contentIndex > -1) {
+      const filteredContent = richHTML[contentIndex] as ArticleContentType
+      filteredContent.data.contentData = contentInfo.contentBundleData[0]
+      richHTML[contentIndex] = filteredContent
+    }
+  }
+
+  return richHTML
+}
+
+export const updatedOpinionBundle = (articleInfo: ArticleDetailDataType, opinionInfo: RichHTMLOpinionDataType[]): any[] => {
+  let richHTML: HTMLElementParseStore[] = []
+  if (isNonEmptyArray(opinionInfo)) {
+    richHTML = articleInfo.richHTML ?? []
+    const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION && item.data.opinion == opinionInfo[0].nid)
+    if (opinionIndex > -1) {
+      const filteredOpinion = richHTML[opinionIndex] as ArticleOpinionType
+      filteredOpinion.data.opinionData = opinionInfo[0]
+    }
+  }
+
+  return richHTML
+}
+
+export const parseRichArticleReadAlso = (response: any) => {
   let readAlsoData = []
 
   if (isNonEmptyArray(response)) {
@@ -45,7 +89,7 @@ const parseRichArticleContentBundleSuccess = (response: any) => {
   return richArticleContentBundleData
 }
 
-const parseOpinionBundleSuccess = (response: any) => {
+export const parseOpinionBundleSuccess = (response: any) => {
   let richOpinionData: RichHTMLOpinionDataType[] = []
 
   if (response && isNonEmptyArray(response.rows)) {
@@ -122,8 +166,8 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
 
 
 
-const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload => {
-  let responseData: ArticleDetailSuccessPayload = {
+export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload => {
+  const responseData: ArticleDetailSuccessPayload = {
     articleDetailData: [],
     pager: {}
   }
@@ -181,8 +225,8 @@ const getArticleImageAndType = (fieldImage: any, detailPhotoList: any, detailPho
 }
 
 
-const parseArticleSectionSuccess = (response: any, current_nid: number): ArticleSectionSuccessPayload => {
-  let responseData: ArticleSectionSuccessPayload = {
+export const parseArticleSectionSuccess = (response: any, current_nid: number): ArticleSectionSuccessPayload => {
+  const responseData: ArticleSectionSuccessPayload = {
     articleSectionData: [],
     pager: {}
   }
@@ -217,12 +261,12 @@ const parseArticleSectionSuccess = (response: any, current_nid: number): Article
   return responseData
 }
 
-const parseRelatedArticleSuccess = (response: any): RelatedArticleSuccessPayload => {
+export const parseRelatedArticleSuccess = (response: any): RelatedArticleSuccessPayload => {
   const formattedData = formatRelatedArticleData(response)
-  let responseData: RelatedArticleSuccessPayload = {
+  const responseData: RelatedArticleSuccessPayload = {
     relatedArticleData: []
   }
-  responseData.relatedArticleData = formattedData
+  responseData.relatedArticleData = formattedData.splice(0, 20)
   return responseData
 }
 
@@ -276,7 +320,7 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
       const tid = isObjectNonEmpty(response.articleDetailData[0].tag_topics) ? response.articleDetailData[0].tag_topics.id : ''
       const nid = isObjectNonEmpty(response.articleDetailData[0].news_categories) ? response.articleDetailData[0].news_categories.id : ''
 
-      let payload: RelatedArticleBodyGet = {}
+      const payload: RelatedArticleBodyGet = {}
       if (isNotEmpty(tid)) {
         payload.tid = parseInt(tid)
       }
@@ -285,7 +329,9 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
         payload.nid = parseInt(nid)
       }
 
-      if (!isObjectNonEmpty(payload)) return
+      if (!isObjectNonEmpty(payload)) {
+        return
+      }
 
       yield call(
         fetchRelatedArticle, {

@@ -4,8 +4,9 @@ import {
     FETCH_SEARCH_ERROR,
     FETCH_SEARCH_REQUEST,
     CLEAR_SEARCH_HISTORY,
+    UPDATE_SEARCH_HISTORY,
 } from '../actionTypes';
-import { fetchSearchFailed, fetchSearchSuccess, fetchSearchRequest, clearSearchHistory } from '../action';
+import { fetchSearchFailed, fetchSearchSuccess, fetchSearchRequest, clearSearchHistory, updateSearchHistory } from '../action';
 import { FetchSearchRequestPayloadType } from '../types';
 
 describe('<SearchAction', () => {
@@ -18,6 +19,11 @@ describe('<SearchAction', () => {
         const result = fetchSearchRequest(payload)
         expect(result.type).toEqual(FETCH_SEARCH_REQUEST)
         expect(result.payload.searchText).toEqual('test')
+    })
+
+    it('updateSearchHistory Request', () => {
+        const result = updateSearchHistory(['abc', 'bcd'])
+        expect(result.type).toEqual(UPDATE_SEARCH_HISTORY)
     })
 
     it('Fetch Search Request success', () => {

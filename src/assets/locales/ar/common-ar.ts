@@ -17,6 +17,7 @@ export const arabic = {
     termsOfUse: 'شروط الانتفاع',
     pdfArchive: 'الأرشيف',
     informationAboutUs: 'معلومات عنا',
+    aboutTheMiddleEast: ' عن "الشرق الأوسط"'
   },
   onBoard: {
     common: {
@@ -47,7 +48,7 @@ export const arabic = {
   },
   opinion: {
     opinionWriters: 'كتاب الرأي',
-    listenToActicleText: 'استمع الي المقالة',
+    listenToActicleText: 'إستمع إلى المقالة',
     opinionArticles: 'مقالات الرأي'
   },
   latestNewsTab: {
@@ -60,6 +61,7 @@ export const arabic = {
     },
     sectionWriters: {
       headerLeft: 'الرأي',
+      sliderLeftHeader: 'آراء وكتّاب '
     },
     sectionComboThree: {
       headerLeft: 'العالم',
@@ -81,6 +83,9 @@ export const arabic = {
     },
     editorsChoice: {
       headerLeft: 'اختيارات المحرر'
+    },
+    editorsPick: {
+      headerRight: 'مواضيع قد تهمك'
     }
   },
   sectionVideo: {
@@ -154,7 +159,7 @@ export const arabic = {
   },
   favorite: {
     tabItem: {
-      content_for_you: 'محتوي لك',
+      content_for_you: 'محتوى لك',
       archives: 'المحفوظات',
     },
     podcast_for_you: 'بودكاست لك',
@@ -226,7 +231,8 @@ export const arabic = {
   onboardSuccess: {
     successMessage: 'تم تكوين صفحة أخبارك بنجاح',
     mailAcknowledgement: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى\n الإيميل الخاص بك.',
-    goToHome: 'انتقل الي الصفحة الرئيسية'
+    goToHome: 'انتقل الي الصفحة الرئيسية',
+    goToMyNews: 'انتقل الي صفحة أخباري'
   },
   profileSetting: {
     manageMyNotification: 'إدارة إخطاراتي',
@@ -250,7 +256,7 @@ export const arabic = {
   },
   opinionArticleDetail: {
     return: 'الرجوع',
-    listenToArticle: 'استمع الي المقالة',
+    listenToArticle: 'إستمع إلى المقالة',
     relatedOpinionTitle: 'المزيد من مقالات الرآي',
   },
   profile: {
@@ -336,7 +342,7 @@ export const arabic = {
     main: 'الرئيسية'
   },
   podcastHome: {
-    listen_to_podcast: 'استمع الي البودكاست ',
+    listen_to_podcast: 'إستمع إلى البودكاست ',
     allEpisodes: 'كل الحلقات'
   },
   richHTMLContent: {

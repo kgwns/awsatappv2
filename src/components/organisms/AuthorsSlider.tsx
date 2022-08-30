@@ -38,7 +38,7 @@ const AuthorSlider = ({
 }) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
-  const CONST_OPINION_COMBO_TITLE = TranslateConstants({key: TranslateKey.OPINION_COMBO_TITLE})
+  const CONST_OPINION_COMBO_TITLE = TranslateConstants({key: TranslateKey.OPINION_SLIDER_TITLE})
 
   const { themeData } = useTheme()
   const style = useThemeAwareObject(customStyle);
@@ -49,7 +49,7 @@ const AuthorSlider = ({
   const playbackState = usePlaybackState();
 
   const togglePlayback = async (nid: string, mediaData: any) => {
-    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
     if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
       return
@@ -59,7 +59,7 @@ const AuthorSlider = ({
     const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
     const title = mediaData.title ? mediaData.title : '';
 
-    let setupPlayer = async () => {
+    const setupPlayer = async () => {
       await TrackPlayer.setupPlayer();
       await TrackPlayer.updateOptions({ stopWithApp: true });
       await TrackPlayer.add({
@@ -93,7 +93,9 @@ const AuthorSlider = ({
       }
     }
     setSelectedTrack(nid)
-    if(getSelectedTrack) getSelectedTrack(nid, 'OPINION');
+    if(getSelectedTrack) {
+      getSelectedTrack(nid, 'OPINION');
+    }
   }
 
   const renderItem = (item: any, index: number) => {
@@ -146,7 +148,9 @@ const AuthorSlider = ({
 
   const scrollToStart = () => {
     console.log('scrollToStart');
-    if (isIOS) return
+    if (isIOS) {
+      return
+    }
     scrollRef.current?.scrollToEnd();
   }
 
@@ -207,7 +211,7 @@ const AuthorSlider = ({
 const customStyle = (theme: CustomThemeType) => {
   const AuthorSliderStyle = StyleSheet.create({
     container: {
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.secondaryWhite,
       alignContent: 'center',
       flex: 1
     },

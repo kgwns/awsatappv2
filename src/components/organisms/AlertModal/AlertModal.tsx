@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Modal, View, TouchableOpacity, StyleSheet } from "react-native";
 import { Label } from 'src/components/atoms'
-import { normalize } from 'src/shared/utils'
+import { normalize, isDarkTheme } from 'src/shared/utils'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import CloseIcon from 'src/assets/images/icons/close.svg'
-import { isDarkTheme } from 'src/shared/utils';
 import { useAppCommon } from 'src/hooks';
 import { fonts } from "src/shared/styles/fonts";
 
@@ -33,9 +32,12 @@ export const AlertModal = ({
         <Modal visible={modalVisible} transparent={true} >
             <View style={styles.container}>
                 <View style={styles.innerContainer}>
-                    <TouchableOpacity testID="AlertModalTO1" style={styles.iconStyle} onPress={() => {
-                        onClose(!modalVisible)
-                        setModalVisibility(!modalVisible)}}>
+                    <TouchableOpacity testID="AlertModalTO1" style={styles.iconStyle} onPress={() => 
+                        {
+                            onClose(!modalVisible)
+                            setModalVisibility(!modalVisible)
+                        }
+                    }>
                         <CloseIcon fill={isDarkMode? colors.white : colors.darkSlateGray} />
                     </TouchableOpacity>
                     <Label
@@ -79,7 +81,7 @@ const customStyle = (theme: CustomThemeType) =>
             fontSize: normalize(24),
             color: theme.primary,
             lineHeight: normalize(42),
-            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontFamily: fonts.AwsatDigital_Bold,
             justifyContent: 'center',
             textAlign: 'center',
             paddingBottom: normalize(20)
@@ -104,7 +106,7 @@ const customStyle = (theme: CustomThemeType) =>
         buttonLabelStyle: {
             paddingHorizontal: normalize(10),
             fontSize: normalize(16),
-            fontFamily: fonts.AwsatDigitalBetav10_Bold,
+            fontFamily: fonts.AwsatDigital_Bold,
             color: colors.white,
             lineHeight: normalize(26),
             textAlign: 'center',
@@ -116,4 +118,3 @@ const customStyle = (theme: CustomThemeType) =>
             paddingBottom: normalize(20)
         }
     })
-

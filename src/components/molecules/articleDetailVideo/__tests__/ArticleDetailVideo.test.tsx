@@ -5,7 +5,7 @@ import  ArticleDetailVideo from '../ArticleDetailVideo'
 describe('<ArticleDetailVideo />', () => {
   let instance: RenderAPI
   beforeEach(() => {
-    const component = <ArticleDetailVideo paused={false}/>
+    const component = <ArticleDetailVideo paused={false} mediaId={'2'} currentTime={'10:00:56'} playerVisible={true} isFullScreen={true}/>
     instance = render(component)
   })
 

@@ -112,6 +112,6 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: I18nManager.isRTL?'right':'left',
       paddingVertical: 0,
       marginTop: 0,
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
   });

@@ -15,7 +15,9 @@ export const TabBarComponent = ({ tabItem, onPressTabItem, style }: TabBarWidget
   const styles = useThemeAwareObject(customStyle)
   const scrollRef = useRef<ScrollView>(null)
   const scrollToEnd = () => {
-    if (isIOS) return;
+    if (isIOS) {
+      return;
+    }
     scrollRef.current?.scrollToEnd()
   }
 

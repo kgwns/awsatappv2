@@ -35,7 +35,9 @@ export const storeInfo = [
     },
     home: {
       isLoading: false,
-      homeData: null,
+      homeData: {
+        homeData: ''
+      },
       error: '',
     },
     latestNewsTab: {

@@ -1,12 +1,12 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { requireNativeComponent } from 'react-native'
 import { ScreensConstants } from 'src/constants';
 import { ScreenContainer } from 'src/components/screens/ScreenContainer/ScreenContainer';
 import { horizontalEdge } from 'src/shared/utils/utilities';
+import { getRequiredNativeComponent } from 'src/shared/utils/NativeComponent';
 
-export const NativeView: any = requireNativeComponent('RNTodayTabView');
+export const NativeView: any = getRequiredNativeComponent('RNTodayTabView');
 
 export const DownloadNewsIOS = () => {
     const navigation = useNavigation<StackNavigationProp<any>>()

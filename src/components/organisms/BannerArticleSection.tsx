@@ -66,7 +66,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             title: props.title,
             color: themeData.primary,
             labelType: LabelTypeProp.title3,
-            textStyle: { fontFamily: fonts.AwsatDigitalBetav10_Bold }
+            textStyle: { fontFamily: fonts.AwsatDigital_Bold }
         },
         headerRight: props.hideMore ? {} : {
             title: t('latestNewsTab.sectionComboOne.headerRight'),
@@ -87,7 +87,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     const listHeaderSection = () => (
-            <View style={{ flex: 1 }}>
+            <View style={isTab && style.listHeaderstyle}>
                 {bannerData.map((item: articleProps, index: number) => {
                     if (index == 0) return <ImageArticle key={index} {...item}
                         onPressBookmark={() => onUpdateBookmark(item)}
@@ -107,7 +107,9 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
         navigation.navigate(ScreensConstants.SectionArticlesScreen, { sectionId: sectionId, title: props.title });
     }
 
-    if (!isNonEmptyArray(data)) return null
+    if (!isNonEmptyArray(data)) {
+        return null
+    }
 
     return (
         <View style={[style.container, props.containerStyle]}>
@@ -164,15 +166,15 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     titleStyle: { 
         fontSize: 20, 
         lineHeight: 32, 
-        fontFamily: fonts.AwsatDigitalBetav10_Black,
+        fontFamily: fonts.AwsatDigital_Black,
     },
     listArticleTitle: {
         fontSize: normalize(17), 
         lineHeight: normalize(28), 
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
     },
     articleTitleStyle:{
-        fontFamily: fonts.AwsatDigitalBetav10_Bold,
+        fontFamily: fonts.AwsatDigital_Bold,
         fontSize: 17,
         lineHeight: 28,
         textAlign: 'left', 
@@ -185,4 +187,7 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight:26,
         textAlign: 'left' 
     },
+    listHeaderstyle: { 
+        flex: 1 
+    }
 })

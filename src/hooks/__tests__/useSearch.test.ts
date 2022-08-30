@@ -64,4 +64,20 @@ describe('#useSearch', () => {
     });
   });
 
+  describe('#setSearchHistory', () => {
+    it('should call dispatch with setSearchHistory', () => {
+      const {
+        result: {
+          current: {setSearchHistory},
+        },
+      } = result;
+
+      act(() => {
+        setSearchHistory(['abc', 'bcd']);
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
 });

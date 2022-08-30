@@ -80,7 +80,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     const data = []
     if (selectedNewsLettersData.code && selectedNewsLettersData.code === 200 && isNonEmptyArray(selectedNewsLettersData.data)) {
       for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        let item = selectedNewsLettersData.data[i]
+        const item = selectedNewsLettersData.data[i]
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -112,7 +112,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     const data = []
     if(selectedNewsLettersData.code && selectedNewsLettersData.code===200 && isNonEmptyArray(selectedNewsLettersData.data)){
       for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        let item = selectedNewsLettersData.data[i]
+        const item = selectedNewsLettersData.data[i]
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -127,7 +127,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   }
 
   const setInitialData = () => {
-    let data = formatNewsLettersData()
+    const data = formatNewsLettersData()
     setNewsLettersDataInfo(data)
     updateNextButton()
   }
@@ -145,7 +145,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     if (isNonEmptyArray(myNewsLetters.data) && isNonEmptyArray(selectedNewsLettersData.data)) {
       const data = []
       for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        let item = selectedNewsLettersData.data[i]
+        const item = selectedNewsLettersData.data[i]
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -157,7 +157,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
       }
       setNewsLettersDataInfo(data)
     }else{
-      let newsLettersData = formatNewsLettersData()
+      const newsLettersData = formatNewsLettersData()
       setNewsLettersDataInfo(newsLettersData)
     }
   }
@@ -169,7 +169,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
       }
     }
     if(canGoBack){
-      let selectedList = getSelectedData();
+      const selectedList = getSelectedData();
       sendSelectedNewsLettersInfo({ tid: joinArray(selectedList) })
     }else{
       updateNextButton()
@@ -255,7 +255,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: normalize(5),
     },
     titleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'center',
       fontSize: normalize(20),
       color: theme.primary,
@@ -290,7 +290,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     nextButtonIconContainer: { position: 'absolute', left: normalize(20) },
     nextButtonText: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primary,
       textAlign: 'center',
       width: '100%',

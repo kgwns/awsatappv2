@@ -5,10 +5,12 @@ import {moleculesTestID} from 'src/constants';
 
 describe('<SectionArticleItem/>', () => {
   let instance: RenderAPI;
-  // Test Data
+  const mockFunction = jest.fn();
+  const mockString = 'mock';
+
   describe('when SectionVideoFooter only', () => {
     beforeEach(() => {
-      const component = <SectionArticleItem leftTitle={'test'} />;
+      const component = <SectionArticleItem leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
       instance = render(component);
     });
 

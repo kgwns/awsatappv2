@@ -93,7 +93,8 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
       barStyle={'light-content'}
       statusbarColor={colors.black}
       edge={edge}
-      showPlayer={false}>
+      showPlayer={false}
+      isLandscape >
       <View style={styles.videoStyles}>
         <VideoPlayerFullScreen
           url={videoUrl}

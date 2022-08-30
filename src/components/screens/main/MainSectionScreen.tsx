@@ -7,7 +7,7 @@ import {
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/SampleData';
-import { horizontalEdge, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer } from 'src/hooks';
@@ -103,6 +103,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   const _sectionComboSixTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SIX})
   const _sectionComboSevenTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SEVEN})
   const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
+  const EDITORS_PICK_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITORS_PICK_HEADER_TITLE})
 
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
 
@@ -219,7 +220,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
     }
     const newData = [...opinionList]
-    let data = listPartition(newData, 4)
+    const data = listPartition(newData, 4)
     setOpinionListData(data)
   }, [opinionList])
 
@@ -432,7 +433,8 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       ...shortArticleWithTagProperties,
       titleColor: themeData.primaryBlack,
       flag: item.news_categories && item.news_categories.title || '',
-      isBookmarked: validateBookmark(item.nid)
+      isBookmarked: validateBookmark(item.nid),
+      style: mainSectionStyle.labelStyle
     }
   ))
 
@@ -463,7 +465,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
 
   const loadMiddleWidgetAPI = () => {
     fetchOpinionTopList(opinionListPayload)
-    fetchVideoRequest();
+    isTab && fetchVideoRequest();
     fetchPodcastHome();
     fetchEditorsChoice();
   }
@@ -520,7 +522,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
 
   const onListenPodcast = (podcastData: any) => {
     if(isObjectNonEmpty(podcastData)){
-      let trackPlayerData = {
+      const trackPlayerData = {
         id: podcastData.nid,
         url: getPodcastUrl(podcastData.field_spreaker_episode_export),
         title: podcastData.title,
@@ -528,7 +530,9 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         artist: podcastData.title,
         artwork: podcastData?.field_podcast_sect_export?.image
       }
-      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) setPlayerTrack(trackPlayerData);
+      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) {
+        setPlayerTrack(trackPlayerData);
+      }
       !showMiniPlayer && setShowMiniPlayer(true);
     }
 
@@ -559,12 +563,13 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         <TopHeadLineNews data={headlineNews} />
       </View>
       <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />
-      <EditorsPickSection data={horizontalArticle} showHighlightTitle={false}/>
+      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
+      <EditorsPickSection headerRight={EDITORS_PICK_HEADER_TITLE} data={horizontalArticle} showHighlightTitle={false}/>
       {isNonEmptyArray(podcastHome) &&
         <View>
           <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
         </View>}
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
+      
       <BannerArticleSection data={editorsChoiceInfo}
         title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         onPress={onPressArticle}
@@ -574,9 +579,10 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         hideMore={true}
         containerStyle={mainSectionStyle.editorChoiceContainer}
       />
+      {/* Removed by- AMAR-928
       {isNonEmptyArray(videoData) && (
         <VideoContent data={videoData} onPress={onVideoItemPress} />
-      )}
+      )} */}
       <BannerArticleSection
         data={sectionComboOneInfo}
         title={_sectionComboOneTitle}
@@ -655,7 +661,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboFiveBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboFiveInfo) && <Divider style={{ height: normalize(50) }} />}
+      {isNonEmptyArray(sectionComboFiveInfo) && <Divider style={{ height: normalize(20) }} />}
       {isNonEmptyArray(sectionComboFiveInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboSixInfo}
@@ -665,7 +671,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboSixBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: normalize(50) }} />}
+      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: normalize(20) }} />}
       {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboSevenInfo}
@@ -709,7 +715,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
       }
       {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
-      <EditorsPickSection data={horizontalArticle} showHighlightTitle={false}/>
+      <EditorsPickSection headerRight={EDITORS_PICK_HEADER_TITLE} data={horizontalArticle} showHighlightTitle={false}/>
       <View style={mainSectionStyle.tabSplitter}>
         <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
@@ -876,7 +882,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         ref={ref}
         onScrollBeginDrag={() => global.refFlatList = ref}
         style={mainSectionStyle.flatList}
-        contentContainerStyle={mainSectionStyle.flatListContentContainer}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -954,8 +959,8 @@ const customStyle = (theme: CustomThemeType) => {
     articleTitleStyle: {
       fontSize: 33,
       color: theme.primary,
-      lineHeight: 46,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      lineHeight: 50,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     topNewsContainer: {
       marginHorizontal: 0.04 * screenWidth,
@@ -969,14 +974,16 @@ const customStyle = (theme: CustomThemeType) => {
       flex: 1,
       height: '100%',
     },
-    flatListContentContainer: {
-      paddingBottom: normalize(50),
-    },
     editorChoiceContainer: {
       marginBottom: normalize(25),
     },
     spotlightSectionContainer: {
       marginHorizontal: 20
+    },
+    labelStyle: {
+      lineHeight: isIOS ? 30 : 33,
+      fontSize: 17,
+      fontFamily: fonts.AwsatDigital_Bold
     }
   })
 }

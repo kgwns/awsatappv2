@@ -28,7 +28,7 @@ describe('<VideoPlayerScreen>', () => {
         mediaID: '12'
       },
     }
-    const setPlayerUrl = jest.fn()
+    const playerUrl = jest.fn()
     const mockFunction = jest.fn();
     const navigation = {
       goBack: mockFunction,
@@ -43,7 +43,7 @@ describe('<VideoPlayerScreen>', () => {
 
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      (useState as jest.Mock).mockImplementation(() => [route.params.videoUrl, setPlayerUrl]);
+      (useState as jest.Mock).mockImplementation(() => [route.params.videoUrl, playerUrl]);
       (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
       useAppPlayerMock.mockReturnValue({
         showMiniPlayer: false,

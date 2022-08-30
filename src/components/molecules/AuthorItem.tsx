@@ -77,9 +77,9 @@ const AuthorItem = ({
           const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
           if(isObjectNonEmpty(opinionData)){
             setMediaData(opinionData);
-            let playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
+            const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
               if(playList){
-              let time = playList.duration? convertSecondsToHMS(playList.duration) : null;
+              const time = playList.duration? convertSecondsToHMS(playList.duration) : null;
               setTimeDuration(time)
               } 
           }
@@ -113,13 +113,13 @@ const AuthorItem = ({
     const onPressPlay = () => {
       console.log('onPressPlay');
       if (nid && isObjectNonEmpty(mediaData)) {
-        let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+        const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
     
         if (!isObjectNonEmpty(playList)) {
           return
         }
     
-        let trackPlayerData = {
+        const trackPlayerData = {
           id: nid + 'opinion',
           url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
           title: isNotEmpty(body) ? body : '',
@@ -234,7 +234,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     articleLabelSyle: {
         paddingHorizontal: normalize(10),
         color: theme.primary,
-        fontFamily: fonts.AwsatDigitalBetav10_Regular,
+        fontFamily: fonts.AwsatDigital_Regular,
         lineHeight: isIOS ? 36 : 25,
     },
     mediaFooter: {

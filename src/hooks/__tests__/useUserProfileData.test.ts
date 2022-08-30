@@ -1,6 +1,6 @@
 import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
 import {useDispatch} from 'react-redux';
-import { EMPTY_USER_PROFILE_DATA } from 'src/redux/profileUserDetail/actionTypes';
+import { EMPTY_USER_PROFILE_DATA, FETCH_PROFILE_USER_DETAILS } from 'src/redux/profileUserDetail/actionTypes';
 import {
   useUserProfileData,
   useUserProfileDetail,
@@ -76,6 +76,25 @@ describe('#useUserProfileData', () => {
       expect(dispatchMock).toHaveBeenCalled();
       expect(dispatchMock).toHaveBeenCalledWith({
         type: EMPTY_USER_PROFILE_DATA,
+      });
+    });
+  });
+
+  describe('#fetchProfileDataRequest', () => {
+    it('should call dispatch with fetchProfileDataRequest', () => {
+      const {
+        result: {
+          current: {fetchProfileDataRequest},
+        },
+      } = result;
+
+      act(() => {
+        fetchProfileDataRequest();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+      expect(dispatchMock).toHaveBeenCalledWith({
+        type: FETCH_PROFILE_USER_DETAILS,
       });
     });
   });

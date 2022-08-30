@@ -34,7 +34,7 @@ export default class SignInFacebook extends SocialLogin {
   }
 
   initialLogin(): void {
-    AccessToken.getCurrentAccessToken().then((data: any) => {
+    AccessToken.getCurrentAccessToken().then((data: AccessToken | null) => {
         if(data !== null){
             const {accessToken} = data
             const {userID} = data
@@ -65,7 +65,7 @@ export default class SignInFacebook extends SocialLogin {
           this.callBack(undefined, false, 'facebook', 'ErrorOccured');
       } else {
           console.log('** FB Response result::', result)
-          let resultData = {
+          const resultData = {
             user:{
               name: result?.name,
               email: result?.email,

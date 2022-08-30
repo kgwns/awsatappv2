@@ -6,14 +6,13 @@ import {
 } from 'react-native';
 import React from 'react';
 import {ButtonImage, ImageWithLabel, Label, LabelTypeProp} from 'src/components/atoms';
-import {CaptionWithImage} from '../../atoms';
 import {isNotEmpty, isTab, normalize} from 'src/shared/utils';
 import {moleculesTestID, ScreensConstants} from '../../../constants';
 import {Styles} from '../../../shared/styles';
 import {ImagesName} from '../../../shared/styles/images';
 import {BookMarkColorType} from '../articleFooter/ArticleFooter';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {Divider} from 'src/components/atoms';
+import {Divider, CaptionWithImage} from 'src/components/atoms';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';

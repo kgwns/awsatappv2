@@ -356,7 +356,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       <View style={styles.userContainerStyle}>
         <View style={styles.userContainer}>
           <View style={styles.dpContainer}>
-            <TouchableOpacity onPress={() => 
+            <TouchableOpacity testID='render_Option_Modal' onPress={() => 
               isIOS? renderOptionModalIOS() :  setModalVisible(true)}>
               <View style={styles.dpEditContainer}>
                 <EditIcon />
@@ -408,6 +408,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             />
             <DatePicker
               locale="ar_AE"
+              testID='date_Picker'
               minimumDate={new Date(DEFAULT_MINIMUM_DATE)}
               maximumDate={new Date(maxDate)}
               cancelText={t('profile.userDetail.cancelText')}
@@ -430,7 +431,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               theme={isDarkMode ? 'dark' : 'light'}
               textColor={isIOS ? themeData.textInputColor : colors.black}
             />
-            <TouchableOpacity onPress={() => setOpen(true)}>
+            <TouchableOpacity testID='set_Open' onPress={() => setOpen(true)}>
               <View style={styles.dropDownContainer}>
                 <View>
                   <Label
@@ -600,7 +601,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.cancelContainer}>
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
+            <TouchableOpacity testID={'modal_Visible'} onPress={() => setModalVisible(false)}>
               <View style={styles.cancelStyle}>
                 <Label
                   style={styles.cancelTextStyle}
@@ -693,6 +694,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         <KeyboardAwareScrollView
         bounces={false}
         extraHeight={230}
+        showsVerticalScrollIndicator={false}
         scrollEnabled>
         {tabContent()}
         </KeyboardAwareScrollView>
@@ -772,7 +774,7 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: normalize(17),
       marginBottom: '2%',
       textAlign: 'left',
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     birthdayTitle: {
       fontSize: normalize(13),
@@ -780,7 +782,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: '2%',
       marginTop: '2%',
       textAlign: 'left',
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     dropDownContainer: {
       flexDirection: 'row',
@@ -814,7 +816,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginTop: '10%',
       marginBottom: '2%',
       textAlign: 'left',
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     nameInputStyle: {
       width: '94%',
@@ -841,7 +843,7 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.white,
       fontSize: normalize(16),
       lineHeight: isTab ? 36 :26,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     overlayStyle: {
       flex: 1,
@@ -867,7 +869,7 @@ const createStyles = (theme: CustomThemeType) =>
     cancelTextStyle: {
       textAlign: 'center',
       color: colors.white,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       fontSize: normalize(16),
       lineHeight: 20,
     },
@@ -879,7 +881,7 @@ const createStyles = (theme: CustomThemeType) =>
       textAlign: 'center',
       fontSize: normalize(16),
       lineHeight: 20,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.secondaryDarkSlate,
     },
     optionModalContainer: {

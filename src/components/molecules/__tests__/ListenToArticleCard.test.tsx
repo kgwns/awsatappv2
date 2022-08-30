@@ -41,9 +41,9 @@ describe('<ListenToArticleCard>', () => {
   beforeEach(() => {
     (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
     useAppPlayerMock.mockReturnValue({
-      showMiniPlayer: false,
+      showMiniPlayer: true,
       isPlaying: false,
-      selectedTrack: {},
+      selectedTrack: {id: '2'},
       showControls: false,
       setControlState: setControlStateMock,
       setShowMiniPlayer: setShowMiniPlayerMock,

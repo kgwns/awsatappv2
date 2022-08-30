@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, RenderAPI } from "@testing-library/react-native"
+import { fireEvent, render, RenderAPI } from "@testing-library/react-native"
 import { FilterComponent, FilterDataType } from "../FilterComponent"
+import { TouchableOpacity } from 'react-native';
 
 describe('< Filter Component >', () => {
     let instance: RenderAPI
@@ -25,4 +26,10 @@ describe('< Filter Component >', () => {
     it('should render the component', () => {
         expect(instance).toBeDefined()
     })
+
+    it('When MenuButton Press', () => {
+        const listButton = instance.container.findAllByType(TouchableOpacity)[0];
+        fireEvent(listButton, 'onPress', 2);
+        expect(mockFunction).toHaveBeenCalled;
+    });
 })

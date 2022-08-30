@@ -99,16 +99,19 @@ export const useBookmark = (): UseBookMarkReturn => {
   const removeBookmark = () => {
     dispatch(getBookMarkedSuccess({ bookmarkedInfo: [] }))
     dispatch(updateBookMarkedDetailInfo({ bookmarkedDetailInfo: [], page: 0 }))
+    dispatch(updateFilteredBookMarkedInfo({ filteredData: [] }))
   }
 
   const getSpecificBundleFavoriteDetail = (payload: PopulateWidgetType, startIndex?: number) => {
-    let bookmarkId = [...bookmarkIdInfo]
+    const bookmarkId = [...bookmarkIdInfo]
     const bundleBookmarkList = bookmarkId.filter((item) => item.bundle === payload)
     const startingIndex = startIndex ?? filterBookmarkDetailInfo.length
     const page = startIndex ?? Math.round(filterBookmarkDetailInfo.length / 25)
     const nid = getCurrentBatchNid(bundleBookmarkList, startingIndex)
     if (isNotEmpty(nid)) {
       dispatch(getBookmarkedDetailInfo({ nid, page, bundle: payload }))
+    } else {
+      dispatch(updateFilteredBookMarkedInfo({ filteredData: [] }))
     }
   }
 

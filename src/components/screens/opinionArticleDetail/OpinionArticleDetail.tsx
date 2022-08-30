@@ -83,7 +83,7 @@ export const OpinionArticleDetail = ({
   const noOfDetailRoutes = detailRoutes.length
 
   const togglePlayback = async (nid: string, mediaData: any) => {
-    let playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
     if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
       return
@@ -94,7 +94,7 @@ export const OpinionArticleDetail = ({
     const title = mediaData.title ? mediaData.title : '';
 
 
-    let setupPlayer = async () => {
+    const setupPlayer = async () => {
       await TrackPlayer.setupPlayer();
       await TrackPlayer.updateOptions({ stopWithApp: true });
       await TrackPlayer.add({
@@ -153,6 +153,11 @@ export const OpinionArticleDetail = ({
       }
     };
   }, []);
+
+  useEffect(() => {
+    isFocused && Orientation.unlockAllOrientations();
+    setScrollY(new Animated.Value(0))
+  }, [isFocused])
 
   useEffect(() => {
     if (isNonEmptyArray(writerDetailData) && isFocused) {
@@ -268,8 +273,9 @@ export const OpinionArticleDetail = ({
     onUpdateFollow(id, newFollowed)
   }
 
-  const onPressWriter = (tid: string) => {
-    navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, {tid})
+  const onPressWriter = () => {
+    const tid = isNonEmptyArray(writerDetailInfo) && writerDetailInfo[0].tid
+    tid && navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, {tid})
   }
 
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
@@ -332,7 +338,7 @@ export const OpinionArticleDetail = ({
           <OpinionArticleDetailWidget
             data={opinionArticle[0]} fontSize={fontSize}
             isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
-            onPressWriter={() => onPressWriter(writerDetailInfo[0].tid)}
+            onPressWriter={onPressWriter}
             isRelatedArticle={route.params.isRelatedArticle} writerData={writerDetailInfo[0]}
             togglePlayback={togglePlayback}
             selectedTrack={selectedTrack}
@@ -355,7 +361,7 @@ export const OpinionArticleDetail = ({
   };
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading}
+    <ScreenContainer edge={edge} isLoading={isLoading} isLandscape
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{ bottom : isIOS ? normalize(70) : normalize(60) }}>
         {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>

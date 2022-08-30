@@ -7,7 +7,7 @@ import { fetchTopMenuApi } from 'src/services/topMenuService';
 import { isNonEmptyArray } from 'src/shared/utils';
 
 const returnResponse = (response: any): FetchTopMenuSuccessPayloadType => {
-  let responseData: FetchTopMenuSuccessPayloadType = {
+  const responseData: FetchTopMenuSuccessPayloadType = {
     topMenuData: []
   }
   if (response) {

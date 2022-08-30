@@ -1,24 +1,20 @@
-import { View, FlatList, StyleSheet, Animated, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
+import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
-import { ShortArticle } from 'src/components/organisms'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
-import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
+import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { ArticleDetailWidget } from 'src/components/organisms';
-import { useArticleDetail } from 'src/hooks/useArticleDetail'
-import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/articleDetail/types'
+import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
+import { ArticleDetailDataType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useAppCommon, useBookmark, useLogin } from 'src/hooks'
 import { ScreensConstants } from 'src/constants'
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { sendUserEventTracking } from 'src/services'
-import { TrackingEventType } from 'src/services/eventTrackService'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ArticleFontSize } from 'src/redux/appCommon/types'
@@ -28,6 +24,12 @@ import { RenderRichHTMLContent } from './components/ArticleDetailRichContent'
 import SystemNavigationBar from 'react-native-system-navigation-bar'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { ArticleDetailBody } from './components/ArticleDetailBody'
+import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService'
+import { parseArticleDetailSuccess, parseArticleSectionSuccess, parseOpinionBundleSuccess, parseRelatedArticleSuccess, parseRichArticleReadAlso, updatedContentBundleContent, updatedOpinionBundle, updatedReadAlsoContent } from 'src/redux/articleDetail/sagas'
+import { getBookMarkDetailInfoService } from 'src/services/bookmarkService'
+import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService'
+import { Axios, AxiosError } from 'axios'
+import { useArticleDetail } from 'src/hooks/useArticleDetail'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -48,11 +50,13 @@ export const ArticleDetailScreen = ({
   const routes = useNavigationState(state => state.routes)
   const style = useThemeAwareObject(customStyle);
   const isFocused = useIsFocused();
+  const dimensions = useWindowDimensions()
 
   const { themeData } = useTheme()
   const { isLoggedIn } = useLogin()
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
   const { articleFontSize, storeArticleFontSizeInfo } = useAppCommon()
+  const { sendEventToServer } = useArticleDetail()
 
   const [edge, setEdge] = useState<Edge[]>(horizontalEdge)
   const [isBookmarked, setIsBookmarked] = useState(false)
@@ -61,14 +65,12 @@ export const ArticleDetailScreen = ({
   const [articleDetailState, setArticleDetail] = useState<ArticleDetailDataType[]>([])
   const [relatedArticleState, setRelatedArticle] = useState<RelatedArticleDataType[]>([])
   const [currentOrientation, setOrientation] = useState('')
-  const [scrollY, setScrollY] = useState(new Animated.Value(0))
   const [playerUrl, setPlayerUrl] = useState<string>();
   const [playerVisible, setPlayerVisible] = useState<boolean>(false);
   const [showVideoMiniPlayer, setShowVideoMiniPlayer] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [paused, setPaused] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true);
-  const videoRefs = useRef<any[]>([]);
   const [bookmarkIndex, setBookmarkIndex] = useState<number>(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isEdgeUpdated, setIsEdgeUpdated] = useState(false)
@@ -76,7 +78,9 @@ export const ArticleDetailScreen = ({
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
   const [isDefaultDimension, setDefaultDimension] = useState(Dimensions.get('window').width)
   const [isDimensionChanged, setIsDimensionChanged] = useState(false)
-  const dimensions = useWindowDimensions()
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isArticleSectionLoaded, setIsArticleSectionLoaded] = useState(false)
+  const [richHTML, setRichHTML] = useState<HTMLElementParseStore[]>([])
   
   const detailRoutes = useMemo(() => routes.filter((routes) => 
     routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN || 
@@ -84,40 +88,134 @@ export const ArticleDetailScreen = ({
     routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfDetailRoutes = detailRoutes.length
 
-  var webviewRef: any[] =[React.createRef()];
+  const videoRefs = useRef<any[]>([]);
 
   const currentNId = route.params.nid;
 
-  const {
-    isLoading,
-    articleDetailData,
-    relatedArticleData,
-    isArticleSectionLoaded,
-    fetchArticleDetail,
-    emptyAllData,
-  } = useArticleDetail();
-  
+  useEffect(() => {
+    getArticleDetail()
+  }, [])
 
-  const sendEventToServer = () => {
-    const listOfNID = getArticleID()
-    const allEvents = listOfNID.map((item) => {
-      return {
-        contentId: item,
-        eventType: TrackingEventType.VIEW
-      }
-    })
-
-    sendUserEventTracking(
-      {
-        events: allEvents
-      }
-    )
+  const getArticleDetail = async () => {
+    recordLogEvent('Article_Details_Screen', { articleId: currentNId });
+    try {
+      const response = await requestArticleDetail({ nid: parseInt(currentNId) })
+      const result = parseArticleDetailSuccess(response)
+      setArticleDetail(result.articleDetailData)
+    } catch (error) {
+      handleAxiosError(error)
+    }
   }
 
-  const getArticleID = () => {
-    return articleDetailData.reduce((prevValue: string[], item: ArticleDetailDataType) => {
-      return prevValue.concat(item.nid)
-    }, [])
+  useEffect(() => {
+    if (isNonEmptyArray(articleDetailState) && articleDetailState.length == 1 && isLoading) {
+      const firstArticleData = articleDetailState[0];
+      setIsLoading(false)
+      getVideoUrlInfo(firstArticleData);
+      getRelatedArticle(firstArticleData);
+      getArticleSection(firstArticleData);
+      getRichContentDetail(firstArticleData);
+    }
+  }, [articleDetailState])
+
+  const getRelatedArticle = async (articleData: ArticleDetailDataType) => {
+    if (isObjectNonEmpty(articleData)) {
+      const tid = isObjectNonEmpty(articleData.tag_topics) ? articleData.tag_topics.id : ''
+      const nid = isObjectNonEmpty(articleData.news_categories) ? articleData.news_categories.id : ''
+
+      const payload: RelatedArticleBodyGet = {}
+      if (isNotEmpty(tid)) {
+        payload.tid = parseInt(tid)
+      }
+
+      if (isNotEmpty(nid)) {
+        payload.nid = parseInt(nid)
+      }
+
+      if (!isObjectNonEmpty(payload)) {
+        return
+      }
+
+      try {
+        const result = await requestRelatedArticle(payload)
+        const response = parseRelatedArticleSuccess(result)
+        updatedRelatedArticle(response.relatedArticleData)
+      } catch (error) {
+        handleAxiosError(error)
+      }
+    }
+  }
+
+  const getArticleSection = async (articleData: ArticleDetailDataType) => {
+    let allArticleDetail = [...articleDetailState]
+    if (isObjectNonEmpty(articleData)
+      && isObjectNonEmpty(articleData.news_categories)
+      && isNotEmpty(articleData.news_categories.id)) {
+      const sectionParams = { id: parseInt(articleData.news_categories.id), page: 0, items_per_page: 10, current_nid: parseInt(currentNId) }
+      try {
+        const result = await requestArticleSection(sectionParams)
+        const response = parseArticleSectionSuccess(result, parseInt(currentNId))
+        setArticleDetail(allArticleDetail.concat(response.articleSectionData))
+      } catch (error) {
+        handleAxiosError(error)
+      }
+    }
+
+    setIsArticleSectionLoaded(true)
+  }
+
+  const getRichContentDetail = async (articleData: ArticleDetailDataType) => {
+    if (isNonEmptyArray(articleData.richHTML)) {
+      //Read Also Bundle
+      const readAlsoElement: any = articleData.richHTML?.filter((item) => item.type == RichHTMLType.READ_ALSO)
+      if (isNonEmptyArray(readAlsoElement) && isNonEmptyArray(readAlsoElement[0].data.related_content)) {
+        const nidList = joinArray(readAlsoElement[0].data.related_content, '+')
+        try {
+          const readAlsoResponse = await getBookMarkDetailInfoService({ nid: nidList, page: 0 })
+          const readAlsoResult = parseRichArticleReadAlso(readAlsoResponse)
+          const richHtmlInfo = updatedReadAlsoContent(articleData, readAlsoResult)
+          setRichHTML(richHtmlInfo)
+        } catch (error) {
+          handleAxiosError(error)
+        }
+      }
+
+      // Content Also Bundle
+      const contentElement: any = articleData.richHTML?.filter((item) => item.type == RichHTMLType.CONTENT)
+      if (isNonEmptyArray(contentElement) && contentElement[0].data.content) {
+        try {
+          const contentResponse = await requestArticleDetail({ nid: contentElement[0].data.content })
+          const contentResult = parseArticleDetailSuccess(contentResponse)
+          const richHtmlInfo = updatedContentBundleContent(articleData, contentResult)
+          setRichHTML(richHtmlInfo)
+        } catch (error) {
+          handleAxiosError(error)
+        }
+      }
+
+      //Opinion Bundle
+      const opinionElement: any = articleData.richHTML?.filter((item) => item.type == RichHTMLType.OPINION)
+      if (isNonEmptyArray(opinionElement)) {
+        opinionElement.forEach(async (_: any, index: number) => {
+          try {
+            const opinionResponse = await requestOpinionArticleDetailAPI({ nid: parseInt(opinionElement[index].data.opinion) })
+            const opinionResult = parseOpinionBundleSuccess(opinionResponse)
+            const richHtmlInfo = updatedOpinionBundle(articleData, opinionResult)
+            setRichHTML(richHtmlInfo)
+          } catch (error) {
+            handleAxiosError(error)
+          }
+        });
+      }
+    }
+  }
+
+  const handleAxiosError = (error: any) => {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      console.log("🚀 handleAxiosError ~ errorMessage", errorMessage)
+    }
   }
   
   useEffect(() => {
@@ -137,7 +235,7 @@ export const ArticleDetailScreen = ({
 
   useEffect(() => {
     if (isFocused && isArticleSectionLoaded) {
-      sendEventToServer()
+      sendEventToServer(articleDetailState)
     }
   }, [isArticleSectionLoaded])
 
@@ -165,24 +263,30 @@ export const ArticleDetailScreen = ({
   }
 
   useEffect(() => {
-    if (isNonEmptyArray(articleDetailData) && route.params && route.params.nid && isFocused && articleDetailData[bookmarkIndex].nid) {
-      const isBookmarked = validateBookmark(articleDetailData[bookmarkIndex].nid)
-      setIsBookmarked(isBookmarked)
-
-      if(articleDetailData.length > webviewRef.length) {
-        const newReferenceCount = articleDetailData.length - webviewRef.length
-        let reference = React.createRef()
-        const newReference = Array(newReferenceCount).fill(reference)
-        webviewRef = webviewRef.concat(newReference)
-      }
-
-      setArticleDetail(articleDetailData)
+    if (isNonEmptyArray(richHTML)) {
+      const articleInfo = [...articleDetailState]
+      articleInfo[0].richHTML = richHTML
+      setArticleDetail(articleInfo)
     }
-  }, [articleDetailData, bookmarkIndex])
+  }, [richHTML])
 
   useEffect(() => {
-    if (isNonEmptyArray(relatedArticleData) && route.params && route.params.nid && isFocused) {
-      const relatedArticleListData = relatedArticleData.filter((data) => { return data.nid != currentNId})
+    if (isNonEmptyArray(articleDetailState) && articleDetailState[bookmarkIndex].nid) {
+      const isBookmarked = validateBookmark(articleDetailState[bookmarkIndex].nid)
+      setIsBookmarked(isBookmarked)
+    }
+  }, [articleDetailState, bookmarkIndex, bookmarkIdInfo])
+
+  useEffect(() => {
+    if (isFocused && isNonEmptyArray(relatedArticleState)) {
+      const relatedData = [...relatedArticleState]
+      updatedRelatedArticle(relatedData)
+    }
+  }, [isFocused])
+
+  const updatedRelatedArticle = (relatedData: RelatedArticleDataType[]) => {
+    if (isNonEmptyArray(relatedData)) {
+      const relatedArticleListData = relatedData.filter((data) => { return data.nid != currentNId})
       const relatedArticleInfo = relatedArticleListData.map((item: RelatedArticleDataType) => {
         return {
           ...item,
@@ -195,7 +299,7 @@ export const ArticleDetailScreen = ({
       })
       setRelatedArticle(relatedArticleInfo)
     }
-  }, [relatedArticleData,isFocused])
+  }
 
   useLayoutEffect(() => {
     if(isDefaultDimension != dimensions.width && !isDimensionChanged){
@@ -205,30 +309,6 @@ export const ArticleDetailScreen = ({
     }
   },[dimensions,isEdgeUpdated,isEdgePortrait])
 
-  useLayoutEffect(() => {
-    emptyAllData();
-    if (isFocused) {
-      recordLogEvent('Article_Details_Screen', { articleId: currentNId });
-      if (isDimensionChanged) {
-        getArticleDetail(currentNId)
-      } else if (isEdgePortrait && isIOS) {
-        getArticleDetail(currentNId)
-      } else if (route.params.isRelatedArticle) {
-        getArticleDetail(currentNId)
-      }
-    }
-    const makeEmptyArticleData = () => {
-      const { hasHTMLContent } = route.params
-      if(!hasHTMLContent) {
-        emptyAllData()
-      }
-    }
-
-    return () => {
-      makeEmptyArticleData()
-    }
-  }, [isFocused, isEdgePortrait, isDimensionChanged])
-
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     setOrientation(deviceOrientation);
     if(!isEdgeUpdated && (deviceOrientation == 'LANDSCAPE-RIGHT' || deviceOrientation == 'LANDSCAPE-LEFT') && !isEdgePortrait){
@@ -237,7 +317,7 @@ export const ArticleDetailScreen = ({
      setIsEdgePortrait(true)
    }
     const edge = getScreenEdge(deviceOrientation)
-    setEdge(edge)
+    isNonEmptyArray(edge) && setEdge(edge);
   }
 
 
@@ -246,33 +326,34 @@ export const ArticleDetailScreen = ({
       case 'LANDSCAPE-LEFT': return isFullScreen ? horizontalEdge : ['right']
       case 'LANDSCAPE-RIGHT': return isFullScreen ? horizontalEdge : ['left']
       case 'PORTRAIT': return horizontalEdge
+      case 'FACE-UP': return []
       default: return horizontalEdge
     }
   }
 
-  const getArticleDetail = (id: string) => {
-    fetchArticleDetail({ nid: parseInt(id) })
-  }
-
   const stopVideoPlayer = () => {
-    videoRefs?.current[0]?.setNativeProps({
-      paused: true
-    })
-    videoRefs?.current[1]?.setNativeProps({
-      paused: true
-    })
-    videoRefs?.current[2]?.setNativeProps({
-      paused: true
-    })
-    setPlayerVisible(false);
+    try {
+      if (videoRefs) {
+        videoRefs?.current[0]?.setNativeProps({
+          paused: true
+        })
+        videoRefs?.current[1]?.setNativeProps({
+          paused: true
+        })
+        videoRefs?.current[2]?.setNativeProps({
+          paused: true
+        })
+        setPlayerVisible(false);
+      }
+    } catch (e) {
+    }
   }
 
   const onPressArticle = (nid: string) => {
     if (nid && nid!=currentNId) {
       stopVideoPlayer();
-      const hasHTMLContent = isNonEmptyArray(articleDetailData) && isNonEmptyArray(articleDetailData[0].richHTML)
+      const hasHTMLContent = isNonEmptyArray(articleDetailState) && isNonEmptyArray(articleDetailState[0].richHTML)
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
-      emptyAllData();
       navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true, hasHTMLContent })
     }
   }
@@ -324,7 +405,6 @@ export const ArticleDetailScreen = ({
   }
 
   const onScroll = (event: any) => {
-    setScrollY(event.nativeEvent.contentOffset.y)
     Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer ? setPlayerVisible(true) : setPlayerVisible(false);
   }
 
@@ -349,22 +429,20 @@ export const ArticleDetailScreen = ({
   }, [isFullScreen]);
 
   const onPressBack = () => {
-    stopVideoPlayer()
-    if (!route.params.isRelatedArticle) {
-      Orientation.unlockAllOrientations()
-      Orientation.lockToPortrait()
-    }
-   (isTab && isIOS) ? setTimeout(() => {
-      navigation.goBack()
-    },50) : navigation.goBack()
+    requestAnimationFrame(() => {
+      stopVideoPlayer()
+      if (!route.params.isRelatedArticle) {
+        Orientation.unlockAllOrientations()
+        Orientation.lockToPortrait()
+      }
+      (isTab && isIOS) ? setTimeout(() => {
+        navigation.goBack()
+      }, 50) : navigation.goBack()
+    });
   }
 
-  useEffect(() => {
-    getVideoUrlInfo();
-  }, [articleDetailState]);
-
-  const getVideoUrlInfo = async () => {
-    let jwplayerId = articleDetailState[0].jwplayerId
+  const getVideoUrlInfo = async (articleData: ArticleDetailDataType) => {
+    const jwplayerId = articleData.jwplayerId
     if (isNotEmpty(jwplayerId)) {
       try {
         const response: RequestVideoUrlSuccessResponse =
@@ -393,14 +471,14 @@ export const ArticleDetailScreen = ({
 
   const renderHeader = () => (
     <View style={style.backContainer}>
-      <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onHomePress} onBackPress={onPressBack} />
+      <DetailHeader visibleHome={noOfDetailRoutes > 1 && route.params.isRelatedArticle} onHomePress={onHomePress} onBackPress={onPressBack} />
     </View>
   )
 
   const articleHtmlContent = (index: number) => (
     <ArticleDetailBody body={articleDetailState[index].body}
       index={index} articleFontSize={articleFontSize}
-      webviewRef={webviewRef}
+      orientation={currentOrientation}
     />
   )
 
@@ -463,9 +541,9 @@ export const ArticleDetailScreen = ({
   })
 
   return (
-    <ScreenContainer edge={edge} isLoading={isLoading} 
+    <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
-      {!isLoading && isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
+      {isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
         { !isFullScreen &&  renderHeader()}
         <FlatList
           onViewableItemsChanged={onViewableItemRef.current}
@@ -479,6 +557,8 @@ export const ArticleDetailScreen = ({
           removeClippedSubviews={false}
           onScroll={onScroll}
           scrollEnabled={scrollEnabled}
+          initialNumToRender={1}
+          maxToRenderPerBatch={1}
         />
         {isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl && !isFullScreen && 
           <DraggableVideoPlayer videoRefs={videoRefs} setMiniPlayerVisible={closeMiniPlayer} url={playerUrl}
@@ -528,7 +608,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   backContainer: {
     width: '100%',
-    height: isIOS ? isNotchDevice ? normalize(95) : normalize(90) : normalize(60),
+    height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
     backgroundColor: theme.secondaryWhite,
     justifyContent: 'center',
   },

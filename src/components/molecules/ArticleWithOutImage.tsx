@@ -62,7 +62,8 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
             {showDivider && <Divider style={style.divider}/>}
         </View>
     </FixedTouchable>
-    )}
+    )
+}
 
 export default ArticleWithOutImage
 

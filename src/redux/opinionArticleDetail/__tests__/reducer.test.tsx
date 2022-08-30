@@ -1,5 +1,5 @@
 import {opinionArticleDetailAction} from '../action';
-import {EMPTY_OPINION_ARTICLE_DETAIL, EMPTY_RELATED_OPINION_DATA, REQUEST_NARRATED_OPINION_ARTICLE, REQUEST_NARRATED_OPINION_ARTICLE_FAILED, REQUEST_NARRATED_OPINION_ARTICLE_SUCCESS, REQUEST_OPINION_ARTICLE_DETAIL,REQUEST_RELATED_OPINION, REQUEST_RELATED_OPINION_FAILED} from '../actionTypes';
+import {EMPTY_OPINION_ARTICLE_DETAIL, EMPTY_RELATED_OPINION_DATA, REQUEST_NARRATED_OPINION_ARTICLE, REQUEST_NARRATED_OPINION_ARTICLE_FAILED, REQUEST_NARRATED_OPINION_ARTICLE_SUCCESS, REQUEST_OPINION_ARTICLE_DETAIL,REQUEST_RELATED_OPINION, REQUEST_RELATED_OPINION_FAILED, REQUEST_RELATED_OPINION_SUCCESS} from '../actionTypes';
 import opinionArticleDetail from '../reducer';
 import {OpinionArticleDetailState} from '../types';
 
@@ -117,6 +117,14 @@ describe('opinions reducer', () => {
   test('Check loading state when EMPTY_OPINION_ARTICLE_DETAIL request API', () => {
     const nextState = opinionArticleDetail(initialState, {
       type: EMPTY_OPINION_ARTICLE_DETAIL,
+    });
+    expect(nextState.isLoading).toBe(true);
+  });
+
+  test('Check loading state when REQUEST_RELATED_OPINION_SUCCESS request API', () => {
+    const nextState = opinionArticleDetail(initialState, {
+      type: REQUEST_RELATED_OPINION_SUCCESS,
+      payload: { relatedOpinionListData: {rows: [], pager: {current_page: 0, items_per_page: ''}} }
     });
     expect(nextState.isLoading).toBe(true);
   });

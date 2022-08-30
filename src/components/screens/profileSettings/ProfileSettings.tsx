@@ -30,7 +30,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
 import { LoginManager } from "react-native-fbsdk-next";
 
-type SettingDataType = {
+export type SettingDataType = {
   iconName: ImagesName,
   title: string,
   screenName: string,
@@ -282,7 +282,9 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   }
 
   const renderFooterComponent = () =>{
-    if(isLoggedIn) return null;
+    if(isLoggedIn) {
+        return null;
+    }
     return (
         <View style={style.footerStyle}>
             <Divider style={style.divider} />
@@ -332,6 +334,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
 const customStyle = (theme: CustomThemeType) =>
   StyleSheet.create({
       container:{
+        flex: 1,
         marginTop:normalize(25),
         paddingLeft: normalize(5)
       },
@@ -358,7 +361,7 @@ const customStyle = (theme: CustomThemeType) =>
       label: {
           marginLeft: normalize(20),
           color: theme.secondaryMediumGrey,
-          fontFamily: fonts.AwsatDigitalBetav10_Regular,
+          fontFamily: fonts.AwsatDigital_Regular,
           lineHeight: normalize(30)
       },
       divider: {
@@ -387,7 +390,7 @@ const customStyle = (theme: CustomThemeType) =>
       },
       subscribeStyle: {
           fontSize: normalize(24),
-          fontFamily: fonts.AwsatDigitalBetav10_Bold,
+          fontFamily: fonts.AwsatDigital_Bold,
           lineHeight: normalize(42),
           color: Styles.color.greenishBlue,
           marginTop: screenWidth * 0.1
@@ -411,6 +414,6 @@ const customStyle = (theme: CustomThemeType) =>
           color: Styles.color.white,
           fontSize: normalize(16),
           lineHeight: normalize(25),
-          fontFamily: fonts.AwsatDigitalBetav10_Bold,
+          fontFamily: fonts.AwsatDigital_Bold,
       },
   });

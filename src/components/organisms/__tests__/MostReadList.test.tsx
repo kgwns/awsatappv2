@@ -6,6 +6,33 @@ import {MostReadList} from '..';
 import { ArticleItem } from 'src/components/molecules';
 import { FlatList } from 'react-native';
 
+jest.mock("src/hooks/useBookmark", () => ({
+  useBookmark: () => {
+    return {
+      bookmarkIdInfo: [
+          {
+              nid: '1',
+              bundle: 'string'
+          },
+          {
+              nid: '2',
+              bundle: 'string'
+          }
+      ],
+      sendBookmarkInfo: () => [],
+      removeBookmarkedInfo: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      isLoggedIn: true,
+    }
+  },
+}));
+
 describe('<MostReadList>', () => {
   let instance: RenderAPI;
   const mockFn = jest.fn();

@@ -38,6 +38,16 @@ export enum TranslateKey {
     CONTACT_US_SEND,
     TEXT_ALERT,
     COMMON_OK,
+    LISTEN_TO_ARTICLE,
+    ONBOARD_SUCCESS_MESSAGE,
+    ONBOARD_SUCCESS_MAIL_ACKNOWLEDGEMENT,
+    ONBOARD_SUCCESS_GO_TO_HOME,
+    ONBOARD_SUCCESS_GO_TO_MY_NEWS,
+    OPINION_SLIDER_TITLE,
+    ADVERTISE_WITH_US,
+    ABOUT_THE_MIDDLE_EAST,
+    TERMS_OF_USE,
+    EDITORS_PICK_HEADER_TITLE,
 }
 
 export const TranslateConstants = ({
@@ -118,6 +128,26 @@ export const TranslateConstants = ({
             return t('profileSetting.alert');
         case TranslateKey.COMMON_OK:
             return  t('common.ok');
+        case TranslateKey.LISTEN_TO_ARTICLE:
+            return t('opinionArticleDetail.listenToArticle')
+        case TranslateKey.ONBOARD_SUCCESS_MESSAGE:
+            return t('onboardSuccess.successMessage')
+        case TranslateKey.ONBOARD_SUCCESS_MAIL_ACKNOWLEDGEMENT:
+            return t('onboardSuccess.mailAcknowledgement')
+        case TranslateKey.ONBOARD_SUCCESS_GO_TO_HOME:
+            return t('onboardSuccess.goToHome')
+        case TranslateKey.ONBOARD_SUCCESS_GO_TO_MY_NEWS:
+            return t('onboardSuccess.goToMyNews')
+        case TranslateKey.OPINION_SLIDER_TITLE:
+            return t('latestNewsTab.sectionWriters.sliderLeftHeader')
+        case TranslateKey.ADVERTISE_WITH_US:
+            return t('drawer.advertiseWithUs')
+        case TranslateKey.ABOUT_THE_MIDDLE_EAST:
+            return t('drawer.aboutTheMiddleEast')
+        case TranslateKey.TERMS_OF_USE:
+            return t('drawer.termsOfUse')
+        case TranslateKey.EDITORS_PICK_HEADER_TITLE:
+            return t('latestNewsTab.editorsPick.headerRight')
         default: return ''
     }
 }

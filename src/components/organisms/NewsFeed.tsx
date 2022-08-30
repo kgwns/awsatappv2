@@ -106,7 +106,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   )
 
   const renderTitle = (title: string) => (
-    <View style={style.titleContainer}>
+    <View style={isTab ? style.titleContainer : style.titleStyle}>
       <Label
         style={style.title}
         color={theme.themeData.primaryBlack}
@@ -239,9 +239,13 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   title: {
     textAlign: 'left',
-    fontFamily: fonts.AwsatDigitalBetav10_Bold,
+    fontFamily: fonts.AwsatDigital_Bold,
     fontSize: normalize(18),
     lineHeight: normalize(29),
     marginBottom: 10,
-  }
+  },
+  titleStyle: {
+    marginRight: normalize(10),
+    top: normalize(10),
+  },
 });

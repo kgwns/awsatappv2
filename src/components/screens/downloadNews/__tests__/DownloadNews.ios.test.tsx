@@ -37,9 +37,15 @@ describe('<DownloadNews />', () => {
     expect(instance).toBeDefined()
   })
 
-  test('Should call NativeView onClickArchive', () => {
+  test('Should call NativeView onArchiveButtonClick', () => {
     const element = instance.container.findByType(NativeView)
-    fireEvent(element, 'onClickArchive');
+    fireEvent(element, 'onArchiveButtonClick');
+    expect(navigation.navigate).toBeTruthy();
+  });
+
+  test('Should call NativeView onItemClick', () => {
+    const element = instance.container.findByType(NativeView)
+    fireEvent(element, 'onItemClick', { nativeEvent: {SelectedPDF: 'abc.pdf'} });
     expect(navigation.navigate).toBeTruthy();
   });
 

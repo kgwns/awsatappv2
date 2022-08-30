@@ -468,4 +468,12 @@ describe('LatestNewsTab Reducer', () => {
         })
         expect(nextState.isLoading).toBe(false)
     })
+
+    test('REQUEST_SPOTLIGHT_COMBO_FAILED', () => {
+        const nextState = latestNewsReducer(initialState, {
+            type: REQUEST_SPOTLIGHT_COMBO_FAILED,
+            payload: { error: '' }
+        })
+        expect(nextState.isLoading).toBe(false)
+    })
 })

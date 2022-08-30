@@ -42,13 +42,16 @@
             android:name=".reactPackage.Activity.PdfActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
             android:theme="@style/PDFTheme"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"/>
         <activity
             android:name=".reactPackage.Activity.PdfArchiveActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
             android:theme="@style/PDFTheme"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"/>
       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+      <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
         <receiver android:name="com.adjust.sdk.AdjustReferrerReceiver"
             android:exported="true" >
             <intent-filter>

@@ -19,7 +19,15 @@ describe('<PodcastVerticalList>', () => {
 
     beforeEach(() => {
       const component = (
-          <PodcastVerticalList imageUrl={mockData.imageUrl} title={mockData.title} nid={''} isBookmarked={false} onPressBookmark={mockFunction} />
+          <PodcastVerticalList 
+            imageUrl={mockData.imageUrl} 
+            title={mockData.title} 
+            nid={'2'} 
+            isBookmarked={false} 
+            spreakerId={'2'}
+            onPressBookmark={mockFunction} 
+            itemOnPress={mockFunction}
+          />
       );
       instance = render(component);
     });
@@ -39,5 +47,10 @@ describe('<PodcastVerticalList>', () => {
       expect(mockFunction).toBeTruthy();
     })
 
+    it('When Label PodcastVerticalList01', () => {
+      const testItemId = instance.getByTestId('PodcastVerticalList01');
+      fireEvent(testItemId, 'onTextLayout', { nativeEvent: {lines: [{ width: 20},{ width: 30}]} });
+      expect(mockFunction).toBeTruthy();
+    });
   });
 });

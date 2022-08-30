@@ -143,7 +143,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       flex: 0.25,
     },
     widgetContainer: {
-      flex: 0.77,
+      flex: 0.80,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
@@ -151,7 +151,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       paddingTop: normalize(10),
     },
     titleStyle: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'center',
       fontSize: normalize(20),
       color: theme.primary,
@@ -187,7 +187,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       left: normalize(20)
     },
     nextButtonText: {
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primary,
       textAlign: 'center',
       width: '100%',

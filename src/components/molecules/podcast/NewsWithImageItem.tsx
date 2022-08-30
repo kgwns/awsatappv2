@@ -38,6 +38,7 @@ export const NewsWithImageItem = ({
       {imageUrl &&
         <Image url={imageUrl} style={isTab ? style.tabImage : style.image}
           resizeMode={ImageResize.COVER} fallback
+          defaultImageStyle={style.image}
         />
       }
       { showHighlightTitle && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
@@ -115,7 +116,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: normalize(8),
       color: theme.primaryBlack,
       textAlign: 'left',
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     description: {
       textAlign: 'left',

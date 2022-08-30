@@ -44,4 +44,52 @@ describe('#useKeepNotified', () => {
     });
   });
 
+  describe('#getSelectedInfoRequest', () => {
+    it('should call dispatch with getSelectedInfoRequest', () => {
+      const {
+        result: {
+          current: {getSelectedInfoRequest},
+        },
+      } = result;
+
+      act(() => {
+        getSelectedInfoRequest();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#removeSelectedNotificationInfo', () => {
+    it('should call dispatch with removeSelectedNotificationInfo', () => {
+      const {
+        result: {
+          current: {removeSelectedNotificationInfo},
+        },
+      } = result;
+
+      act(() => {
+        removeSelectedNotificationInfo();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#getAllNotificationList', () => {
+    it('should call dispatch with getAllNotificationList', () => {
+      const {
+        result: {
+          current: {getAllNotificationList},
+        },
+      } = result;
+
+      act(() => {
+        getAllNotificationList();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
 });

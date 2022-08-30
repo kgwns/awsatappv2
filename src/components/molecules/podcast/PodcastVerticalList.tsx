@@ -59,9 +59,9 @@ export const PodcastVerticalList = ({
   const getPodcastDuration = async () => {
     if(isNotEmpty(spreakerId)){
       try {
-        let response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: spreakerId })
+        const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: spreakerId })
         if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
-          let episode = response.response.episode
+          const episode = response.response.episode
           setDuration(Math.floor(episode.duration / 1000))
         }
       }catch(error){
@@ -75,8 +75,10 @@ export const PodcastVerticalList = ({
       <View style={style.cardContainer}>
         <View style={[style.headerStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
           <View style={[style.headerLeftStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
-            <Image fallback resizeMode='cover' url={imageUrl} style={style.imageStyle} />
-            <Label style={style.title} onTextLayout={onTextLayout}>
+            <View style={style.imageContainerStyle}> 
+              <Image fallback resizeMode='cover' url={imageUrl} style={style.imageStyle} />
+            </View>
+            <Label testID='PodcastVerticalList01' style={style.title} onTextLayout={onTextLayout}>
               {title}
             </Label>
           </View>
@@ -136,14 +138,19 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
       alignItems: 'flex-end',
     },
-    imageStyle: {
+    imageContainerStyle: {
       width: normalize(36),
-      height: normalize(36)
+      height: normalize(36),
+      alignItems: 'center',
+    },
+    imageStyle: {
+      width: '100%',
+      height: '100%'
     },
     title: {
       fontSize: 14,
       lineHeight: 18,
-      fontFamily: fonts.AwsatDigitalBetav10_Bold,
+      fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),
       textAlign: 'left',
@@ -153,14 +160,14 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: 28,
       color: colors.spanishGray,
       marginLeft: normalize(5),
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     footerRightTextStyle: {
       fontSize: 12,
       lineHeight: 20,
       color: colors.greenishBlue,
       marginRight: normalize(5),
-      fontFamily: fonts.AwsatDigitalBetav10_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     description: {
       fontSize: 13,
@@ -180,5 +187,3 @@ const customStyle = (theme: CustomThemeType) => {
 };
 
 export default PodcastVerticalList;
-
-

@@ -17,6 +17,7 @@ import { OpinionsListItemType } from 'src/redux/opinions/types';
 import { decodeHTMLTags, horizontalEdge } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { ScreensConstants } from 'src/constants'
+import Orientation from 'react-native-orientation-locker';
 
 export interface WritersDetailScreenProps {
     route: any;
@@ -68,9 +69,11 @@ export const WritersDetailScreen = ({
     const noOfDetailRoutes = detailRoutes.length
 
     useEffect(() => {
+        setScrollY(new Animated.Value(0))
         if(isFocused){
             getWriterDetailData({ tid: route.params.tid })
             getSelectedAuthorsData()
+            Orientation.lockToPortrait()
 
             return () => {
                 emptyWriterDetailData()
@@ -198,7 +201,7 @@ export const WritersDetailScreen = ({
 
         return (
             <View style={style.container}>
-                {isNonEmptyArray(writerDetailInfo) && <WriterBannerImage data={{
+                {isNonEmptyArray(writerDetailInfo) && <WriterBannerImage  isWriter isFocused data={{
                     authorImage: writerDetailInfo[0].field_opinion_writer_photo_export,
                     authorName: writerDetailInfo[0].name,
                     authorDescription: decodeHTMLTags(writerDetailInfo[0].field_description),
@@ -211,6 +214,7 @@ export const WritersDetailScreen = ({
                     isFollowed={isFollowed}
                     onPressFollow={() => onPressFollow(writerDetailInfo[0].tid)}
                     hideBackArrow={hideBackArrow}
+                    visibleHome={noOfDetailRoutes > 1}
                     onPressHome={onPressHome}
                 />}
                 <OpinionWritersArticlesSection
