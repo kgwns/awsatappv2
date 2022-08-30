@@ -130,10 +130,12 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
     tabImageStyle: {
         width: 0.5 * screenWidth,
         height: 'auto',
-        aspectRatio: 1.82,
+        aspectRatio: 1.34,
     },
     mobileImageStyle: {
-        height: normalize(187),
+        width: '100%',
+        height: 'auto',
+        aspectRatio: 1.34,
     },
     titleStyle:{
         fontFamily: fonts.AwsatDigital_Bold,

@@ -76,7 +76,7 @@ const customStyle = (theme: CustomThemeType) =>
       flex: 1,
       width: '100%',
       height: 'auto',
-      aspectRatio: 1.62,
+      aspectRatio: 1.34,
       backgroundColor: colors.black,
     },
   });

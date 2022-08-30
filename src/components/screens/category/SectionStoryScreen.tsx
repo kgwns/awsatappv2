@@ -579,7 +579,7 @@ const customStyle = (theme: CustomThemeType) => {
     imageArticleContainerStyle: {
       width: '100%',
       height: 'auto',
-      aspectRatio: 1.62,
+      aspectRatio: 1.34,
       paddingHorizontal: isTab ? 0.04 * screenWidth : 0,
     },
     imageArticleContentStyle: {

@@ -65,8 +65,9 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
 
 const imageWithLabelStyle = StyleSheet.create({
     articleImage: {
-        width: screenWidth,
-        height: 0.52 * screenWidth
+        width: '100%',
+        height: 'auto',
+        aspectRatio: 1.34,
     },
     tagContainer: {
         position: 'absolute',

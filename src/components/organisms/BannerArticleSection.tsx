@@ -149,7 +149,7 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     tabletImageStyle: {
         width: 0.47 * screenWidth,
         height: 'auto',
-        aspectRatio: 1.67,
+        aspectRatio: 1.34,
     },
     divider: {
         height: 1,
