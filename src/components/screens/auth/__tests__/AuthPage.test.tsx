@@ -25,6 +25,46 @@ jest.mock("src/hooks/useEmailCheck", () => ({
   },
 }));
 
+jest.mock("src/hooks/useRegister", () => ({
+  useRegister: () => {
+      return {
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        socialLoginStarted:()=> jest.fn(),
+        socialLoginInProgress: true,
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
+          message: {
+            message: 'abc'
+          },
+        },
+        isRegisterLoading: true,
+        registerError: 'Network Error'
+      }
+  },
+}));
+
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+      return {
+        emptyforgotPassworResponseInfo:()=>{},
+        loginSkipped:()=>{}
+      }
+  },
+}));
+
+jest.mock("src/hooks/useBookmark", () => ({
+  useBookmark: () => {
+    return {
+      getBookmarkedId: () => [],
+    }
+  },
+}));
+
 describe('<AuthPage>', () => {
   let instance: RenderAPI;
   const navigation = {

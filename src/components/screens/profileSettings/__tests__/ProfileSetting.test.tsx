@@ -19,6 +19,28 @@ jest.mock('react-native-fbsdk-next', () => ({
     LoginManager: jest.fn(),
 }));
 
+jest.mock("src/hooks/useUserProfileData", () => ({
+    useUserProfileData: () => {
+      return {
+        userProfileData: {
+            user: {
+              id: '12',
+              email: "abc@gmail.com",
+              provider: 'facebook',
+              display_name: 'example',
+              first_name: 'example',
+              last_name: 'example',
+            },
+            message: {
+              code: 200,
+              message: 'string',
+            }
+        },
+        emptyUserProfileInfoData: () => [],
+      }
+    },
+}));
+
 jest.mock("src/hooks/useNotificationSaveToken", () => ({
     useNotificationSaveToken: () => {
       return {

@@ -10,6 +10,14 @@ jest.mock('@react-navigation/native', () => ({
     useNavigation: jest.fn(),
 }));
 
+jest.mock("src/hooks/useArticleDetail", () => ({
+    useArticleDetail: () => {
+      return {
+        emptyAllData: () => [],
+      }
+    },
+}));
+
 describe('<ContentBundleWidget>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
@@ -43,7 +51,12 @@ describe('<ContentBundleWidget>', () => {
 
     it('Should render component', () => {
         expect(render(<Provider store={storeSampleData}>
-            <ContentBundleWidget/>
+            <ContentBundleWidget title={'abc'} data={{
+                title: 'abc',
+                body: 'abc',
+                nid: '12',
+                image: 'abc.png'
+            }}/>
         </Provider>)).toBeDefined()
     })
 

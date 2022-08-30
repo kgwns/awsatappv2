@@ -1,10 +1,11 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState, useMemo } from 'react';
 import { MyNewsTopics } from 'src/components/organisms';
-import { ArticleItem, MyTopicsHorizontalSlider } from 'src/components/molecules';
+import { MyTopicsHorizontalSlider } from 'src/components/molecules';
 import { FlatList } from 'react-native';
 import { keyExtractor } from '../MyNewsTopics';
 import { ArticlesListItemType } from 'src/redux/contentForYou/types';
+import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -15,38 +16,69 @@ jest.mock('react', () => ({
 jest.mock('src/hooks/useContentForYou', () => ({
   useContentForYou: () => {
     return {
-      isLoading: false,
-      favouriteOpinionsData: [],
-      error: 'error',
-      fetchFavouriteOpinionsRequest: () => {
-        return [];
-      },
-      isArticleLoading: false,
-      favouriteArticlesData: [],
-      articleError: 'error',
+      isArticalLoading: false,
+      favouriteArticlesData: sampleData,
       fetchFavouriteArticlesRequest: () => {
         return [];
-      },
-      emptyAllData: () => {
-        return;
       },
     };
   },
 }));
 
-jest.mock('src/hooks/useAllWriters', () => ({
-  useAllWriters: () => {
+const sampleAllSiteCategoriesItemTypeData: AllSiteCategoriesItemType[] = [
+  {
+      name: 'example',
+      description__value_export: {},
+      field_opinion_writer_path_export: {},
+      view_taxonomy_term: 'example',
+      tid: '1',
+      vid_export: {},
+      field_description_export: {},
+      field_opinion_writer_path_export_1: {},
+      field_opinion_writer_photo_export: 'example',
+      parent_target_id_export: {},
+      isSelected: true,
+  },
+  {
+      name: 'example',
+      description__value_export: {},
+      field_opinion_writer_path_export: {},
+      view_taxonomy_term: 'example',
+      tid: '2',
+      vid_export: {},
+      field_description_export: {},
+      field_opinion_writer_path_export_1: {},
+      field_opinion_writer_photo_export: 'example',
+      parent_target_id_export: {},
+      isSelected: true,
+  },
+]
+
+jest.mock("src/hooks/useAllSiteCategories", () => ({
+  useAllSiteCategories: () => {
     return {
       isLoading: false,
-      selectedAuthorsData: [],
+      selectedTopicsData: {
+        code: 200,
+        message: "string",
+        data: [
+          {
+            tid:'1'
+          },
+          {
+            tid:'2'
+          },
+        ]
+      },
+      allSiteCategoriesData: sampleAllSiteCategoriesItemTypeData,
       error: 'error',
-      getSelectedAuthorsData: () => {
-        return [];
+      getSelectedTopicsData: () => {
+        return []
       },
-      fetchAllWritersRequest: () => {
-        return [];
+      fetchAllSiteCategoriesRequest: () => {
+        return []
       },
-    };
+    }
   },
 }));
 

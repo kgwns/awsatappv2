@@ -3,6 +3,17 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { PDFArchiveIOS, PDFArchiveView } from '../PDFArchive.ios';
 import { TouchableOpacity } from 'react-native';
 
+jest.mock("src/hooks/useAppCommon", () => ({
+    useAppCommon: () => {
+      return {
+        theme: {
+          LIGHT: 'light',
+          DARK: 'dark'
+        },
+      }
+    },
+}));
+
 describe('<PDFArchive>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();

@@ -30,6 +30,14 @@ describe('<FavoriteScreen>', () => {
         },
     }));
 
+    jest.mock("src/hooks/useLogin", () => ({
+        useLogin: () => {
+          return {
+            isLoggedIn: false,
+          }
+        },
+    }));
+
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         const component =

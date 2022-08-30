@@ -15,7 +15,13 @@ const videoTabInfo: LatestArticleDataType[] = [
       created: 'أمريكا',
       body: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
       isBookmarked: true,
-      news_categories: {},
+      news_categories: {
+        id: 'example',
+        title: 'example',
+        url: 'example',
+        bundle: 'example',
+        name: 'example',
+      },
     },
     {
       title:
@@ -26,7 +32,13 @@ const videoTabInfo: LatestArticleDataType[] = [
       created: 'أمريكا',
       body: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
       isBookmarked: true,
-      news_categories: {},
+      news_categories: {
+        id: 'example',
+        title: 'example',
+        url: 'example',
+        bundle: 'example',
+        name: 'example',
+      },
     },
     {
       title:
@@ -37,7 +49,13 @@ const videoTabInfo: LatestArticleDataType[] = [
       created: 'أمريكا',
       body: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
       isBookmarked: true,
-      news_categories: {},
+      news_categories: {
+        id: 'example',
+        title: 'example',
+        url: 'example',
+        bundle: 'example',
+        name: 'example',
+      },
     },
 ];
 

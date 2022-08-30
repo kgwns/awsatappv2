@@ -113,7 +113,18 @@ jest.mock('src/hooks/useAllWriters', () => ({
     useAllWriters: () => {
       return {
         isLoading: false,
-        selectedAuthorsData: {},
+        selectedAuthorsData: {
+            code: 200,
+            message: "string",
+            data: [
+              {
+                tid:'1'
+              },
+              {
+                tid:'2'
+              },
+            ]
+        },
         error: 'error',
         getSelectedAuthorsData: () => {
           return [];
