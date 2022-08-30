@@ -7,6 +7,7 @@ import { ArticleDetailScreen } from '../ArticleDetailScreen';
 import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/articleDetail/types'
 import { isIOS, normalize } from 'src/shared/utils/dimensions'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
+import { horizontalEdge } from 'src/shared/utils'
 
 const sampleData = { params: { nid: '123', isRelatedArticle: true } };
 
@@ -33,7 +34,7 @@ jest.mock("src/hooks/useArticleDetail", () => ({
 jest.mock("src/hooks/useAppCommon", () => ({
   useAppCommon: () => {
     return {
-      articleFontSize: 2,
+      articleFontSize: 20,
       storeArticleFontSizeInfo: () => [],
     }
   },
@@ -88,44 +89,17 @@ const sampleData1: ArticleDetailDataType[] =[
       name: 'example'
     },
     author: 'example',
-    isBookmarked: false,
+    isBookmarked: true,
     caption: 'example',
     subtitle: 'example',
     jwplayerId: '12',
-    created: 'example'
-  },
-  {
-    title: 'example',
-    body: 'example',
-    nid: '13',
-    image: 'example',
-    view_node: 'example',
-    news_categories: {
-      id: '1',
-      title: 'example',
-      url: 'example',
-      bundle: 'example',
-      name: 'example'
-    },
-    tag_topics: {
-      id: '13',
-      title: 'example',
-      url: 'example',
-      bundle: 'example',
-      name: 'example'
-    },
-    author: 'example',
-    isBookmarked: false,
-    caption: 'example',
-    subtitle: 'example',
-    jwplayerId: '13',
     created: 'example'
   },
 ];
 
 const sampleData3: RelatedArticleDataType[] = [
   {
-    isBookmarked: false,
+    isBookmarked: true,
     title: 'abc',
     body: 'body',
     nid: '12',
@@ -142,7 +116,7 @@ const sampleData3: RelatedArticleDataType[] = [
     created: '23/10/2021'
   },
   {
-    isBookmarked: false,
+    isBookmarked: true,
     title: 'abc',
     body: 'body',
     nid: '122',
@@ -168,6 +142,17 @@ describe('<ArticleDetailScreen>', () => {
       navigate: mockFunction,
       pop: mockFunction,
     }
+    const edge = mockFunction
+    const isBookmarked = mockFunction
+    const fontSize = mockFunction
+    const showupUp = mockFunction
+    const currentOrientation = mockFunction
+    const playerUrl = mockFunction
+    const playerVisible = mockFunction
+    const showVideoMiniPlayer = mockFunction
+    const currentTime = mockFunction
+    const paused = mockFunction
+    const scrollEnabled = mockFunction
     const articleDetailState = mockFunction
     const relatedArticleState = mockFunction
     const isArticleSectionLoaded = mockFunction
@@ -182,6 +167,17 @@ describe('<ArticleDetailScreen>', () => {
 
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [horizontalEdge, edge]);
+        (useState as jest.Mock).mockImplementation(() => [12, fontSize]);
+        (useState as jest.Mock).mockImplementation(() => [true, isBookmarked]);
+        (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
+        (useState as jest.Mock).mockImplementation(() => ['landscape', currentOrientation]);
+        (useState as jest.Mock).mockImplementation(() => ['abc.com', playerUrl]);
+        (useState as jest.Mock).mockImplementation(() => [true, playerVisible]);
+        (useState as jest.Mock).mockImplementation(() => [true, showVideoMiniPlayer]);
+        (useState as jest.Mock).mockImplementation(() => ['10:00:56', currentTime]);
+        (useState as jest.Mock).mockImplementation(() => [true, paused]);
+        (useState as jest.Mock).mockImplementation(() => [true, scrollEnabled]);
         (useState as jest.Mock).mockImplementation(() => [sampleData1, articleDetailState]);
         (useState as jest.Mock).mockImplementation(() => [sampleData3, relatedArticleState]);
         (useState as jest.Mock).mockImplementation(() => [true, isArticleSectionLoaded]);
