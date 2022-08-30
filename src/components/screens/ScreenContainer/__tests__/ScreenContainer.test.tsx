@@ -14,6 +14,17 @@ jest.mock('@react-navigation/native', () => ({
     useNavigation: jest.fn(),
 }));
 
+jest.mock("src/hooks/useAppCommon", () => ({
+    useAppCommon: () => {
+      return {
+        theme: {
+          LIGHT: 'light',
+          DARK: 'dark'
+        },
+      }
+    },
+}));
+
 jest.mock('src/hooks/useAppPlayer', () => ({useAppPlayer: jest.fn()}));
 
 describe('<Screen Container>', () => {

@@ -47,11 +47,21 @@ describe('<ContactUs>', () => {
         navigate: jest.fn(),
         goBack: jest.fn(),
     }
-    const setAlertPayload = mockFunction;
+    const alertPayload = mockFunction;
+    const name = mockFunction;
+    const email = mockFunction;
+    const message = mockFunction;
+    const disableSend = mockFunction;
+    const isAlertVisible = mockFunction;
 
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-        (useState as jest.Mock).mockImplementation(() => [false, setAlertPayload]);
+        (useState as jest.Mock).mockImplementation(() => [false, alertPayload]);
+        (useState as jest.Mock).mockImplementation(() => ['mockName', name]);
+        (useState as jest.Mock).mockImplementation(() => ['mockEmail@gmail.com', email]);
+        (useState as jest.Mock).mockImplementation(() => ['mockMessage', message]);
+        (useState as jest.Mock).mockImplementation(() => [false, disableSend]);
+        (useState as jest.Mock).mockImplementation(() => [false, isAlertVisible]);
         const component =
             <Provider store={storeSampleData}>
                 <ContactUs/>
@@ -82,21 +92,33 @@ describe('<ContactUs>', () => {
     
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[0];
-        fireEvent(testId, 'onChangeText',['mockString','email']);
+        fireEvent(testId, 'onChangeText',['mockString', 0]);
         expect(mockFunction).toHaveBeenCalled;
     });
 
 
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[1];
-        fireEvent(testId, 'onChangeText',['mockString','email']);
+        fireEvent(testId, 'onChangeText',['mockString', 1]);
         expect(mockFunction).toHaveBeenCalled;
     });
 
 
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[2];
-        fireEvent(testId, 'onChangeText',['mockString','email']);
+        fireEvent(testId, 'onChangeText',['mockString', 2]);
+        expect(mockFunction).toHaveBeenCalled;
+    });
+
+    it('When TextInputField change', () => {
+        const testId = instance.container.findAllByType(TextInputField)[2];
+        fireEvent(testId, 'onChangeText',['mockString', 3]);
+        expect(mockFunction).toHaveBeenCalled;
+    });
+
+    it('When TouchableOpacity onPress', () => {
+        const testId = instance.getByTestId('ContactUsTestId01');
+        fireEvent(testId, 'onPress');
         expect(mockFunction).toHaveBeenCalled;
     });
 })

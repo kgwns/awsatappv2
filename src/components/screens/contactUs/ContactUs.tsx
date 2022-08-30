@@ -140,7 +140,11 @@ export const ContactUs = () => {
     const sendButton = () => {
         return (
             <View style={style.sendMainContainer}>
-                <TouchableOpacity {...testProps('sendButton')} disabled={disableSend} onPress={onPressSend}
+                <TouchableOpacity 
+                    {...testProps('sendButton')} 
+                    disabled={disableSend} 
+                    onPress={onPressSend}
+                    testID='ContactUsTestId01'
                     style={[style.sendButton, { opacity: disableSend ? 0.7 : 1 }]}
                 >
                     <Label children={CONST_SEND} style={style.sendButtonLabel} />

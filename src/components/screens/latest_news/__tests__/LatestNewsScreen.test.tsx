@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { storeSampleData } from 'src/constants/SampleData'
 import { LatestNewsScreen } from '../LatestNewsScreen'
 import { BannerArticleSection, CarouselSlider, SectionComboOne, ShortArticle } from 'src/components/organisms'
-import { LatestArticleDataType, LatestPodcastDataType } from 'src/redux/latestNews/types'
+import { LatestArticleDataType, LatestOpinionDataType, LatestPodcastDataType } from 'src/redux/latestNews/types'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 
 jest.mock('react', () => ({
@@ -41,6 +41,41 @@ jest.mock("src/hooks/useUserProfileData", () => ({
   }));
 
 const mockFunction = jest.fn();
+
+const opinionListData: LatestOpinionDataType[] = [
+    {
+        title: 'example',
+        body: 'example',
+        nid: '12',
+        field_opinion_writer_node_export: [
+            {
+                id: '11',
+                title: 'example',
+                langcode: 'example',
+                url: 'example',
+                bundle: 'example',
+                name: 'example',
+                opinion_writer_photo: 'example',
+            }
+        ]
+    },
+    {
+        title: 'example',
+        body: 'example',
+        nid: '13',
+        field_opinion_writer_node_export: [
+            {
+                id: '12',
+                title: 'example',
+                langcode: 'example',
+                url: 'example',
+                bundle: 'example',
+                name: 'example',
+                opinion_writer_photo: 'example',
+            }
+        ]
+    },
+]
 
 const heroData: LatestArticleDataType[] = [
     {
@@ -115,9 +150,11 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
     useLatestNewsTab: () => {
         return {
             isLoading: true,
+            ticker: heroData,
             hero: heroData,
             heroList: heroData,
             topList: heroData,
+            opinionList: opinionListData,
             sectionComboOne: heroData,
             sectionComboTwo: heroData,
             sectionComboThree: heroData,
@@ -163,9 +200,17 @@ describe('<LatestNewsScreen>', () => {
     let instance: RenderAPI
 
     const heroInfo = jest.fn();
+    const sectionComboThreeInfo = jest.fn();
+    const sectionComboOneInfo = jest.fn();
+    const sectionComboTwoInfo = jest.fn();
+    const sectionComboFourInfo = jest.fn();
 
     beforeEach(() => {
         (useState as jest.Mock).mockImplementation(() => [heroData, heroInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboThreeInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboOneInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboTwoInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboFourInfo]);
         const component =
             <Provider store={storeSampleData}>
                 <LatestNewsScreen />

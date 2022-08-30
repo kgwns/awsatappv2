@@ -12,6 +12,14 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
+jest.mock("src/hooks/useSearch", () => ({
+  useSearch: () => {
+    return {
+      emptySearchHistory: () => [],
+    }
+  },
+}));
+
 describe('<SearchList>', () => {
   let instance: RenderAPI;
 

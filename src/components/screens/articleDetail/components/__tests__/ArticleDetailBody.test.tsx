@@ -1,18 +1,70 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { ArticleDetailBody} from 'src/components/screens/articleDetail/components/ArticleDetailBody';
 import { storeSampleData } from 'src/constants/SampleData';
 import AutoHeightWebView from 'react-native-autoheight-webview';
 
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useState: jest.fn(),
+    useRef: jest.fn(),
+}));
+
+const sampleData: any = {current :
+    [
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+    {
+      body: 'example',
+      title: 'example',
+      nid: 'example',
+      isBookmarked: true,
+      type: 'example',
+      blockName: 'example',
+      position: 'example',
+    },
+]}
+
 describe('<ArticleDetailBody>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
-    
+    const myTimeOutReference = mockFunction;
+    const dynamicHeight = mockFunction;
+    const webViewHeight = mockFunction;
+
     beforeEach(() => {
+        (useRef as jest.Mock).mockImplementation(() => [sampleData, myTimeOutReference]);
+        (useState as jest.Mock).mockImplementation(() => [20, dynamicHeight]);
+        (useState as jest.Mock).mockImplementation(() => [30, webViewHeight]);
         const component = 
             <Provider store={storeSampleData}>
-                <ArticleDetailBody body={'abcd'} index={0} articleFontSize={16} webviewRef={0} orientation={'12'}/>
+                <ArticleDetailBody body={'example'} index={1} articleFontSize={16} orientation={'landscape'}/>
             </Provider> 
         instance = render(component)
     })
