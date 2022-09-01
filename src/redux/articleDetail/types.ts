@@ -51,9 +51,9 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   subtitle: string,
   jwplayerId: string,
   richHTML?: HTMLElementParseStore[],
-  jor_id:string[],
-  jor_name:[],
-  jor_city:[] 
+  journalistId: string[],
+  journalistName: string[],
+  journalistCity: string[]
 }
 
 export interface RelatedArticleDataType extends GeneralArticleFields { 

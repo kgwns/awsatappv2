@@ -1,7 +1,7 @@
 import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
-import { journalistNames, shortArticleWithTagProperties } from 'src/constants/SampleData'
+import { shortArticleWithTagProperties } from 'src/constants/SampleData'
 import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
@@ -507,7 +507,7 @@ export const ArticleDetailScreen = ({
             onChangeFullScreen={onChangeFullScreen}
             isFullScreen={isFullScreen}
           />
-          <Journalist data={journalistNames}/>
+          {isNonEmptyArray(item.journalistId) && <Journalist journalistCity={item.journalistCity} journalistId={item.journalistId} journalistName={item.journalistName}/>}
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
           <Divider style={style.divider} />
