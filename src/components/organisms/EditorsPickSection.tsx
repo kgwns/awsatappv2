@@ -52,7 +52,7 @@ export const EditorsPickSection = ({
   const renderHeader = () => {
     return (
       <>
-        {headerLeft && headerRight && <View style={style.header}>
+        {(headerLeft || headerRight) && <View style={style.header}>
           <SectionHeader headerLeft={headerLeft} headerRight={headerRight} />
         </View>
         }
@@ -104,7 +104,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingHorizontal: 0.04 * screenWidth
   },
   container: {
-    paddingTop: normalize(25),
+    paddingTop: 10,
     backgroundColor: theme.mainBackground,
   },
   dividerContainer: {

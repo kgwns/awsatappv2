@@ -1,4 +1,19 @@
 export const arabic = {
+  weatherDetail: {
+    sunrise: 'شروق الشمس',
+    sunset: 'غروب الشمس',
+    sidebarTitle: 'الرياض :',
+    max: 'الحرارة العظمى/الصغرى',
+    humidity: 'الرطوبة',
+    speed: 'سرعة الرياح',
+    kmh: 'كم/ساعة',
+    visibility: 'الرؤية',
+    pressure: 'الضغط',
+    seaCondition: 'حالة البحر',
+    km: 'كم',
+    mbar: 'مللي بار',
+    enableLocation: 'تمكين الموقع'
+  },
   drawer: {
     latestNews: 'آخر الأخبار',
     first: 'أولى',
@@ -17,6 +32,7 @@ export const arabic = {
     termsOfUse: 'شروط الانتفاع',
     pdfArchive: 'الأرشيف',
     informationAboutUs: 'معلومات عنا',
+    aboutTheMiddleEast: ' عن "الشرق الأوسط"'
   },
   onBoard: {
     common: {
@@ -82,6 +98,9 @@ export const arabic = {
     },
     editorsChoice: {
       headerLeft: 'اختيارات المحرر'
+    },
+    editorsPick: {
+      headerRight: 'مواضيع قد تهمك'
     }
   },
   sectionVideo: {
@@ -165,6 +184,7 @@ export const arabic = {
       video: 'فيديو',
       opinion: 'الرأي',
       podcast: 'بودكاست',
+      album: 'صور',
     },
     articles_from_your_favorite_writers: 'مقالات من كتابك المفضلين',
     articles_that_interest_you: 'مقالات تهمك',
@@ -360,5 +380,5 @@ export const arabic = {
     email: 'إيميل',
     yourLetter: 'رسالتك',
     send: 'ارسل',
-  }
+  },
 }

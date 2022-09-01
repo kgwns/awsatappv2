@@ -3,6 +3,14 @@ import React from 'react';
 import {ShortArticle} from 'src/components/organisms';
 import { shortArticleData } from 'src/constants/SampleData';
 
+jest.mock("src/hooks/useLogin", () => ({
+  useLogin: () => {
+    return {
+      isLoggedIn: true,
+    }
+  },
+}));
+
 describe('<ShortArticle>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();

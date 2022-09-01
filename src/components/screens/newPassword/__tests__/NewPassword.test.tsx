@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { storeSampleData } from 'src/constants/SampleData';
@@ -12,6 +12,11 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
 }));
 
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
+
 describe('<NewPassword>', () => {
   let instance: RenderAPI;
   const mockFunction= jest.fn();
@@ -22,8 +27,17 @@ describe('<NewPassword>', () => {
     goBack: jest.fn(),
   }
 
+  const password = mockFunction;
+  const passwordError = mockFunction;
+  const confirmPassword = mockFunction;
+  const confirmPasswordError = mockFunction;
+
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useState as jest.Mock).mockImplementation(() => ['example', password]);
+    (useState as jest.Mock).mockImplementation(() => ['example', passwordError]);
+    (useState as jest.Mock).mockImplementation(() => ['example', confirmPassword]);
+    (useState as jest.Mock).mockImplementation(() => ['example', confirmPasswordError]);
     const component = (
       <Provider store={storeSampleData}>
         <NewPassword />
@@ -48,10 +62,15 @@ describe('<NewPassword>', () => {
   });
 
   it('When MenuButton Press', () => {
-    const listButton = instance.container.findAllByType(TouchableOpacity)[1];
-    fireEvent(listButton, 'onPress', {type: 'TERMSANDCONDITIONS'});
-    expect(mockFunction).toBeTruthy();
+    const listButton = instance.getByTestId('terms_and_conditions');
+    fireEvent(listButton, 'onPress', 'TERMSANDCONDITIONS');
     expect(navigation.navigate).toBeTruthy();
+  });
+
+  it('When MenuButton Press', () => {
+    const listButton = instance.getByTestId('terms_and_conditions');
+    fireEvent(listButton, 'onPress', 'abc');
+    expect(navigation.reset).toBeTruthy();
   });
   
   it('When SocialLoginButton Press', () => {

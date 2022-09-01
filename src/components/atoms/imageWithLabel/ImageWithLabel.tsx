@@ -3,11 +3,12 @@ import React from 'react'
 import { Image } from '../image/Image'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ImageName, Label, LabelTypeProp } from '..'
-import { Styles } from 'src/shared/styles'
+import { ImagesName, Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles'
 import { LabelType } from '../label/Label'
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
+import { getSvgImages } from 'src/shared/styles/svgImages'
 
 export interface ImageLabelProps {
     name?: ImageName,
@@ -17,14 +18,25 @@ export interface ImageLabelProps {
     tagStyle?: object,
     tagLabelType?: LabelType,
     imageStyle?: ImageStyle,
-    onPressImage?: () => void
+    onPressImage?: () => void,
+    isAlbum?: boolean,
 }
 
 export const ImageWithLabel = ({ name, url, tagName,tagStyle,
     tagLabelType = LabelTypeProp.caption3,
     imageStyle,
-    onPressImage
+    onPressImage,
+    isAlbum = false
 }: ImageLabelProps) => {
+
+    const renderPhotoIcon = () => {
+        return getSvgImages({
+            name: ImagesName.photoIcon,
+            width: 27,
+            height: 22,
+          });
+    }
+
     return (
         <FixedTouchable onPress={onPressImage}>
             <View style={{alignItems: 'center'}}>
@@ -40,6 +52,11 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
                         />
                     </View>
                 }
+                {isAlbum && 
+                    <View style={imageWithLabelStyle.albumContainer}>
+                        {renderPhotoIcon()}
+                    </View>
+                }
             </View>
         </FixedTouchable>
     )
@@ -48,8 +65,9 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
 
 const imageWithLabelStyle = StyleSheet.create({
     articleImage: {
-        width: screenWidth,
-        height: 0.52 * screenWidth
+        width: '100%',
+        height: 'auto',
+        aspectRatio: 1.34,
     },
     tagContainer: {
         position: 'absolute',
@@ -62,5 +80,10 @@ const imageWithLabelStyle = StyleSheet.create({
         paddingHorizontal: normalize(7),
         color: Styles.color.white,
         fontFamily: fonts.Effra_Arbc_Regular,
+    },
+    albumContainer: {
+        position: 'absolute',
+        right: 15,
+        top: 15,
     }
 })

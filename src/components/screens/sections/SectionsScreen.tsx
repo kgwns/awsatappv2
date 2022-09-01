@@ -6,6 +6,7 @@ import {
   VideoScreen,
   PodcastProgram,
   SectionStoryScreen,
+  PhotoGalleryScreen,
 } from '..';
 import {horizontalEdge, isIOS, isNonEmptyArray, isStringIncludes, normalize} from 'src/shared/utils';
 import {
@@ -31,6 +32,7 @@ export enum TabType {
   section = 'section',
   games = 'games',
   main = 'section-main-tab',
+  photos = 'photos',
 }
 
 export const SectionsScreen = () => {
@@ -57,6 +59,8 @@ export const SectionsScreen = () => {
         return <VideoScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>;
       case TabType.games:
         return <GameScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
+      case TabType.photos:
+        return <PhotoGalleryScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
       case TabType.main:
         return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} currentIndex={index} tabIndex={parseInt(tabIndex[0])} />
       default:

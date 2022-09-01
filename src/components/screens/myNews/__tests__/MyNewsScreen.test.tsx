@@ -101,7 +101,7 @@ describe('<MyNewsScreen>', () => {
     jest.mock("src/hooks/useLogin", () => ({
         useLogin: () => {
           return {
-            isLoggedIn: false,
+            isLoggedIn: true,
           }
         },
     }));

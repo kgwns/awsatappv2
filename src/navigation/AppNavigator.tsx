@@ -6,7 +6,6 @@ import { Routes } from './index';
 import DrawerNavigator from './DrawerNavigator';
 import { ImagesName } from 'src/shared/styles';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {Label} from 'src/components/atoms';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
 import {useTranslation} from 'react-i18next';
@@ -16,7 +15,7 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { HeaderConstants } from '../constants/HeaderConstants'; 
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { fonts } from 'src/shared/styles/fonts'
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
@@ -25,29 +24,17 @@ const hideHeader = {
 }
 
 const AppNavigator = () => {
-  const { themeData } = useTheme();
   const navigation = useNavigation();
   const routes = useNavigationState((state) => state.routes)
   const params = isNonEmptyArray(routes) && routes[0].params ? routes[0].params : {}
   const style = useThemeAwareObject(customStyle);
+  const transition = isIOS && TransitionPresets.SlideFromRightIOS
 
 
   const [t] = useTranslation();
   const previousIconStyle = style.onBoardPrevIcon;
 
-  const Search = () => (
-    <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.SearchScreen)}>
-      {getSvgImages({ name: ImagesName.searchIcon, width: style.search.width, height: style.search.height, style: style.search })}
-    </TouchableOpacity>
-  )
-
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
-
-  const Menu = () => (
-    <TouchableOpacity onPress={() => navigation.goBack()}>
-      {getSvgImages({ name: ImagesName.menuIcon, width: style.menu.width, height: style.menu.height, style: style.menu })}
-    </TouchableOpacity>
-  )
 
   const HeaderTitle = (title: string) => <Label style={style.headerTitle}>{title}</Label>;
 
@@ -89,7 +76,9 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.ARTICLE_DETAIL_SCREEN}
         component={Routes.ArticleDetailScreen}
-        options={hideHeader}
+        options={{...transition,
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name={ScreensConstants.PodcastProgram}
@@ -145,6 +134,18 @@ const AppNavigator = () => {
           headerStyle: style.container,
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(HeaderConstants.USER_DETAIL_HEADER_TITLE),
+          headerTitleStyle: style.headerTitle,
+          headerTitleAlign: 'center',
+          headerShadowVisible: false
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.WEATHER_DETAIL_SCREEN}
+        component={Routes.WeatherDetailScreen}
+        options={{
+          headerStyle: style.container,
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderLogo(),
           headerTitleStyle: style.headerTitle,
           headerTitleAlign: 'center',
           headerShadowVisible: false
@@ -263,6 +264,11 @@ const AppNavigator = () => {
         name={ScreensConstants.CONTACT_US_SCREEN}
         component={Routes.ContactUs}
         options={hideHeader}
+      />
+      <Stack.Screen
+        name={ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN}
+        component={Routes.PhotoGalleryDetailScreen}
+        options={{ ...hideHeader, animationEnabled: isAndroid }}
       />
     </Stack.Navigator>
   );

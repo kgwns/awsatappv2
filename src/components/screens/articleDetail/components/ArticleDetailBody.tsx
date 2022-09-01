@@ -1,6 +1,6 @@
-import { StyleSheet, ScrollView, Dimensions, View } from 'react-native'
+import { StyleSheet, ScrollView, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { isIOS, isTab, screenHeight, screenWidth } from 'src/shared/utils'
+import { isIOS, isTab, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'
@@ -12,7 +12,6 @@ type ArticleDetailBodyProps = {
     body: string;
     index: number;
     articleFontSize: number;
-    webviewRef: any;
     orientation: string;
 }
 
@@ -20,7 +19,6 @@ export const ArticleDetailBody = React.memo(({
     body,
     index,
     articleFontSize,
-    webviewRef,
     orientation,
 }: ArticleDetailBodyProps) => {
     const { themeData } = useTheme()
@@ -30,6 +28,8 @@ export const ArticleDetailBody = React.memo(({
 
     const [dynamicHeight, setDynamicHeight] = useState<number>(0)
     const [webViewHeight, setWebViewHeight] = useState<number>(0)
+
+    var webviewRef: any =React.createRef();
 
     useEffect(() => {
         updateHeightValue()
@@ -43,13 +43,10 @@ export const ArticleDetailBody = React.memo(({
     }
 
     useEffect(() => {
-        if (webviewRef) {
-            webviewRef.forEach((_: any, index: number) => {
-                webviewRef[index].injectJavaScript(script());
-            })
-        }
+        webviewRef && webviewRef.injectJavaScript(script());
     }, [articleFontSize])
 
+    /*
     useEffect(() => {
         if (webviewRef) {
             webviewRef.forEach((_: any, index: number) => {
@@ -65,16 +62,17 @@ export const ArticleDetailBody = React.memo(({
         const dim = Dimensions.get('screen');
         return dim.height >= dim.width;
     };
+    */
 
     const iFrameInjectCss = () => {
-        const size = isPortrait() ? screenWidth : screenHeight
+        // const size = isPortrait() ? screenWidth : screenHeight
 
         return `
         //   This css to apply all the iFrame tag element
         var iFrameElement = document.getElementsByTagName("iframe");
         if(iFrameElement && iFrameElement.length > 0) {
           for(i=0; i < iFrameElement.length; i++) {
-            iFrameElement[i].style["width"] = "${0.92 * size}px";
+            iFrameElement[i].style["width"] = "${window.innerWidth}";
             iFrameElement[i].style["aspect-ratio"] = "2/4"; 
           } 
         }
@@ -163,7 +161,7 @@ export const ArticleDetailBody = React.memo(({
     }
 
     const updateWebViewStyle = () => {
-        webviewRef && webviewRef[index] && webviewRef[index].injectJavaScript(script())
+        webviewRef && webviewRef.injectJavaScript(script())
     }
 
     const onSizeUpdated = (size: SizeUpdate) => {
@@ -178,7 +176,7 @@ export const ArticleDetailBody = React.memo(({
             key={index}
             style={[style.webView, isIOS && !isTab && { height: webViewHeight }]}
             source={{ html: articleHtml({ body: body }), baseUrl: '' }}
-            ref={(r) => (webviewRef[index] = r)}
+            ref={(r) => (webviewRef = r)}
             domStorageEnabled={true}
             bounces={false}
             originWhitelist={["*"]}

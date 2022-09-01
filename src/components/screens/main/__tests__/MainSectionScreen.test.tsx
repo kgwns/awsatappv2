@@ -1,8 +1,8 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import { FlatList, RefreshControl } from 'react-native';
-import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget, VideoContent } from 'src/components/organisms';
-import { LatestArticleDataType, LatestPodcastDataType } from 'src/redux/latestNews/types';
+import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget } from 'src/components/organisms';
+import { EditorsChoiceDataType, LatestArticleDataType, LatestPodcastDataType, MainSectionBlockType } from 'src/redux/latestNews/types';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { MainSectionScreen } from '../MainSectionScreen';
@@ -22,7 +22,7 @@ jest.mock('@react-navigation/native', () => ({
 jest.mock("src/hooks/useLogin", () => ({
   useLogin: () => {
     return {
-      isLoggedIn: false,
+      isLoggedIn: true,
     }
   },
 }));
@@ -32,7 +32,9 @@ jest.mock("src/hooks/useAppPlayer", () => ({
     return {
       showMiniPlayer: false,
       isPlaying: false,
-      selectedTrack: {},
+      selectedTrack: {
+        id: 1
+      },
       showControls: false,
       setControlState: () => [],
       setShowMiniPlayer: () => [],
@@ -108,9 +110,110 @@ const podCastData: LatestPodcastDataType[] = [
       name: 'example',
       image: 'example'
     },
-    field_spotify_export: null,
-    field_spreaker_episode_export: null,
-    field_spreaker_show_export: null,
+    field_spotify_export: {
+      url: "string",
+      text: "string"
+    },
+    field_spreaker_episode_export: 'url',
+    field_spreaker_show_export: "abc",
+    isBookmarked: true
+  },
+]
+
+const MainSectionBlockTypeData: MainSectionBlockType[] = [
+  {
+    body: 'example',
+    title: 'example',
+    nid: '1',
+    image: 'example',
+    news_categories : {
+      id: '1',
+      title: 'abc',
+      url: 'acs',
+      bundle: 'abc',
+      name: 'example',
+    },
+    author: 'example',
+    created: 'example',
+    isBookmarked: true,
+    type: 'example',
+    blockName: 'example',
+    position: 'example',
+  },
+  {
+    body: 'example',
+    title: 'example',
+    nid: '2',
+    image: 'example',
+    news_categories : {
+      id: '1',
+      title: 'abc',
+      url: 'acs',
+      bundle: 'abc',
+      name: 'example',
+    },
+    author: 'example',
+    created: 'example',
+    isBookmarked: true,
+    type: 'example',
+    blockName: 'example',
+    position: 'example',
+  },
+]
+
+const EditorsChoiceDataTypeData: EditorsChoiceDataType[] = [
+  {
+    field_news_categories: {
+      id: '1',
+      title: 'example',
+      url: 'example',
+      bundle: 'example',
+      name: 'example',
+    },
+    created: 'example',
+    publication_date: 'example',
+    type: 'example',
+    blockname: 'example',
+    entityqueue_relationship_position: 'example',
+    title: 'example',
+    body: 'example',
+    nid: '11',
+    image: 'example',
+    news_categories: {
+      id: '1',
+      title: 'example',
+      url: 'example',
+      bundle: 'example',
+      name: 'example',
+    },
+    author: 'example',
+    isBookmarked: true
+  },
+  {
+    field_news_categories: {
+      id: '2',
+      title: 'example',
+      url: 'example',
+      bundle: 'example',
+      name: 'example',
+    },
+    created: 'example',
+    publication_date: 'example',
+    type: 'example',
+    blockname: 'example',
+    entityqueue_relationship_position: 'example',
+    title: 'example',
+    body: 'example',
+    nid: '12',
+    image: 'example',
+    news_categories: {
+      id: '2',
+      title: 'example',
+      url: 'example',
+      bundle: 'example',
+      name: 'example',
+    },
+    author: 'example',
     isBookmarked: true
   },
 ]
@@ -201,11 +304,32 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
             sectionComboSix: latestArticleData,
             sectionComboSeven: latestArticleData,
             podcastHome: podCastData,
-            coverage: [],
-            featuredArticle: [],
-            horizontalArticle: [],
-            editorsChoice: [],
-            spotlight: [],
+            coverage: MainSectionBlockTypeData,
+            featuredArticle: MainSectionBlockTypeData,
+            horizontalArticle: MainSectionBlockTypeData,
+            editorsChoice: EditorsChoiceDataTypeData,
+            spotlight: [
+              {
+                title: 'example',
+                field_tag_spotlight_export: {
+                  id: '11',
+                  title: 'example',
+                  bundle: 'example',
+                  name: 'example',
+                },
+                field_image: 'example',
+              },
+              {
+                title: 'example',
+                field_tag_spotlight_export: {
+                  id: '12',
+                  title: 'example',
+                  bundle: 'example',
+                  name: 'example',
+                },
+                field_image: 'example',
+              },
+            ],
             spotlightArticleSection: latestArticleData,
             coverageInfoLoaded: true,
             featuredArticleLoaded: true,
@@ -275,7 +399,16 @@ jest.mock("src/hooks/useBookmark", () => ({
       bookMarkSuccessInfo: {},
       bookmarkDetail: [],
       error: 'string',
-      bookmarkIdInfo: {},
+      bookmarkIdInfo: [
+        {
+            nid: '1',
+            bundle: 'string'
+        },
+        {
+            nid: '2',
+            bundle: 'string'
+        }
+      ],
       sendBookmarkInfo: () => [],
       getBookmarkedId: () => [],
       removeBookmarkedInfo: () => [],
@@ -333,7 +466,7 @@ describe('<MainSectionScreen>', () => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [false, setRefreshing]);
     (useState as jest.Mock).mockImplementation(() => [videoData, opinionListData]);
-    (useState as jest.Mock).mockImplementation(() => [[], setCoverageInfo]);
+    (useState as jest.Mock).mockImplementation(() => [MainSectionBlockTypeData, setCoverageInfo]);
     (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboOneInfo]);
     (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboTwoInfo]);
     (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboThreeInfo]);
@@ -343,9 +476,9 @@ describe('<MainSectionScreen>', () => {
     (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboSevenInfo]);
     (useState as jest.Mock).mockImplementation(() => [latestArticleData, setOpinionListData]);
     (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
-    (useState as jest.Mock).mockImplementation(() => [null, setSelectedTrack]);
-    (useState as jest.Mock).mockImplementation(() => [null, setSelectedType]);
-    (useState as jest.Mock).mockImplementation(() => [[], setEditorsChoiceInfo]);
+    (useState as jest.Mock).mockImplementation(() => ['12', setSelectedTrack]);
+    (useState as jest.Mock).mockImplementation(() => ['abc', setSelectedType]);
+    (useState as jest.Mock).mockImplementation(() => [EditorsChoiceDataTypeData, setEditorsChoiceInfo]);
     const component = <MainSectionScreen tabIndex={1} currentIndex={1} />;
     instance = render(component);
   });
@@ -378,7 +511,7 @@ describe('<MainSectionScreen>', () => {
   });
 
   test('Should call FlatList onPress', () => {
-    expect(instance.container.findAllByType(FlatList).length).toBe(4)
+    expect(instance.container.findAllByType(FlatList).length).toBe(16)
   });
 
   it('when BannerArticleSection only When onPress', () => {
@@ -502,11 +635,12 @@ describe('<MainSectionScreen>', () => {
   });
 
 
-  it('when VideoContent only When onPress', () => {
-    const testID = instance.container.findAllByType(VideoContent)[0];
-    fireEvent(testID, 'onPress', videoData[0]);
-    expect(navigation.navigate).toBeTruthy();
-  });
+  // Video Widget reemoved from UI
+  // it('when VideoContent only When onPress', () => {
+  //   const testID = instance.container.findAllByType(VideoContent)[0];
+  //   fireEvent(testID, 'onPress', videoData[0]);
+  //   expect(navigation.navigate).toBeTruthy();
+  // });
 
   test('Should call FlatList onPress', () => {
     const element = instance.container.findByType(FlatList)

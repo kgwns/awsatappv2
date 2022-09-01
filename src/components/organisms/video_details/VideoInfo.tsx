@@ -192,9 +192,9 @@ StyleSheet.create({
   },
   titleStyle: {
     color: colors.darkRed,
-    fontSize: 45,
+    fontSize: 40,
     lineHeight: 55,
-    fontFamily: fonts.Beirut,
+    fontFamily: fonts.AwsatDigital_Bold,
     width: 0.8 * screenWidth,
     textAlign: 'center',
   },

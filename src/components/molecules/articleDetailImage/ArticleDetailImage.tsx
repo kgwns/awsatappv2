@@ -110,7 +110,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flex: 1,
         width: '100%',
         height: 'auto',
-        aspectRatio: 1.62,
+        aspectRatio: 1.34,
+       
     },
     tabSlideContent: {
         width: '100%',

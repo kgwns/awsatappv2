@@ -42,6 +42,7 @@ export const BannerImageWithOverlay = ({
 const bannerImageWithOverlayStyle = StyleSheet.create({
     image: {
         width: '100%',
-        height: '100%'
+        height: 'auto',
+        aspectRatio: 1.34,
     },
 })

@@ -14,6 +14,14 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
 }));
 
+jest.mock("src/hooks/useAppPlayer", () => ({
+  useAppPlayer: () => {
+    return {
+      showMiniPlayer: true,
+    }
+  },
+}));
+
 const podCastData: PodcastListItemType[] = [
   {
     nid: '29',

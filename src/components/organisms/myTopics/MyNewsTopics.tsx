@@ -247,12 +247,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     imageStyle: {
         width: '100%',
         height: 'auto',
-        aspectRatio: 1.62,
+        aspectRatio: 1.34,
     },
     tabImageStyle: {
         width: 0.5 * screenWidth,
         height: 'auto',
-        aspectRatio: 1.62,
+        aspectRatio: 1.34,
     },
     listContainer: {
         flex: 1,

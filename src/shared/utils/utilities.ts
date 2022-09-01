@@ -13,6 +13,8 @@ import { ImagesName } from "../styles";
 import { isIOS } from "./dimensions";
 import { decode } from "html-entities";
 import DeviceInfo from 'react-native-device-info';
+import countries from "i18n-iso-countries";
+import arabicLang from "i18n-iso-countries/langs/ar.json";
 
 export enum DateIcon {
   CLOCK,
@@ -81,6 +83,10 @@ export const decodeHTMLTags = (description: string) : string => {
 
 export const isNonEmptyArray = (data: any): boolean => {
   return data && Array.isArray(data) && data.length > 0;
+};
+
+export const isInvalidOrEmptyArray = (data: any): boolean => {
+  return !data || !Array.isArray(data) || data.length == 0;
 };
 
 export const isObjectNonEmpty = (data: any): boolean => {
@@ -333,3 +339,22 @@ export const getDeviceName = async () => {
   const deviceName = await DeviceInfo.getDeviceName();
   return deviceName
 };
+
+export const getConvertedTime = (time?: number, timezone?: number) => {
+  moment.locale('en')
+  if (time && timezone) {
+    const offsetTimezone = (timezone).toString();
+    const timeWeatherSunriseData = new Date(time * 1000);
+    const countrySpecificTimeSunrise = moment(new Date(timeWeatherSunriseData)).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
+    const convertedCountrySpecificTime = moment(new Date(countrySpecificTimeSunrise)).format('HH:mm:ss')
+    return convertedCountrySpecificTime
+  } else {
+    return ''
+  }
+};
+
+export const getCountryNameFromCode = ( countryCode: string) : string => {
+  countries.registerLocale(arabicLang);
+  let countryName = countries.getName(countryCode, "ar");
+  return countryName
+}

@@ -127,7 +127,8 @@ const imageArticleStyle = StyleSheet.create({
   sliderItemContainer: {
     width: screenWidth,
     height: 'auto',
-    aspectRatio: 1.62,
+    aspectRatio: 1.34,
+   
   },
   slideContent: {
     width: '100%',

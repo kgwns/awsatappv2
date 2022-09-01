@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArticleItem, VideoItem } from '..'
+import { ArticleItem, PhotoGalleryItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
 import { isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty } from 'src/shared/utils'
@@ -21,7 +21,8 @@ export enum PopulateWidgetType {
     ARTICLE = 'article',
     VIDEO = 'multimedia',
     OPINION = 'opinion',
-    PODCAST = 'podcast'
+    PODCAST = 'podcast',
+    ALBUM = 'album',
 }
 
 interface ArticleNodeType {
@@ -58,6 +59,13 @@ export const PopulateWidget = ({
     const navigation = useNavigation<StackNavigationProp<any>>()
     const style = useThemeAwareObject(customStyle)
     const timeFormat = dateTimeAgo(props.created)
+    
+    const onPressAlbum = (nid: string) => {
+        nid &&
+          navigation.navigate(ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN, {
+            nid: nid,
+          });
+      };
 
     switch (type) {
         case PopulateWidgetType.ARTICLE:
@@ -120,6 +128,23 @@ export const PopulateWidget = ({
                     />
                 </View>
             )
+        case PopulateWidgetType.ALBUM:           
+            return (
+              <View style={style.widgetContainer}>
+                <PhotoGalleryItem
+                  {...props}
+                  index={props.key}
+                  title={props.title}
+                  nid={props.nid}
+                  created={props.created}
+                  imageUrl={props.imageUrl}
+                  onPress={onPressAlbum}
+                  onUpdateBookmark={onPressBookmark}
+                  isBookmarked={true}
+                  showDivider
+                />
+              </View>
+            );
         default: return null
     }
 

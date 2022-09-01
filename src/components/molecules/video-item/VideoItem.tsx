@@ -87,7 +87,7 @@ export const VideoItem = ({
           <View style={[styles.videoContainer,{ marginTop: 0}]}>
             <Image fallback resizeMode={'cover'} url={imageLink} style={styles.imageBig} />
             <View style={styles.titleContainer} >
-              <Label style={styles.titleStyle} numberOfLines={1} >{decode(title)}</Label>
+              <Label style={styles.titleStyle} numberOfLines={2}>{decode(title)}</Label>
             </View>
             <View style={styles.buttonContainer}>
               <ButtonOutline title={t('videoDetail.employement')}
@@ -275,9 +275,10 @@ const createStyles = (theme: CustomThemeType) =>
     },
     titleStyle: {
       color: colors.darkRed,
-      fontSize: 45,
+      fontSize: 40,
       lineHeight: 55,
-      fontFamily: fonts.Beirut,
+      fontFamily: fonts.AwsatDigital_Black,
+      textAlign: 'center'
     },
     documentaryTitle: {
       color: colors.white,

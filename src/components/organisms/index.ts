@@ -42,4 +42,5 @@ export { DynamicWidget } from 'src/components/organisms/dynamicWidget/DynamicWid
 export { PopUp } from 'src/components/organisms/popUp/PopUp'
 export { MyNewsTopics } from 'src/components/organisms/myTopics/MyNewsTopics'
 export { MyNewsWriters } from 'src/components/organisms/myNews/MyNewsWriters'
+export { PhotoGalleryDetailWidget } from 'src/components/organisms/photoGallery/PhotoGalleryDetailWidget'
 export { JournalistSection } from 'src/components/organisms/journalistSection/JournalistSection'
