@@ -11,7 +11,7 @@ import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
 import { ArticleDetailDataType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
-import { useAppCommon, useBookmark, useLogin } from 'src/hooks'
+import { useAppCommon, useAppPlayer, useBookmark, useLogin } from 'src/hooks'
 import { ScreensConstants } from 'src/constants'
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -81,6 +81,7 @@ export const ArticleDetailScreen = ({
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isArticleSectionLoaded, setIsArticleSectionLoaded] = useState(false)
   const [richHTML, setRichHTML] = useState<HTMLElementParseStore[]>([])
+  const { showMiniPlayer } = useAppPlayer()
   
   const detailRoutes = useMemo(() => routes.filter((routes) => 
     routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN || 
@@ -557,6 +558,7 @@ export const ArticleDetailScreen = ({
           removeClippedSubviews={false}
           onScroll={onScroll}
           scrollEnabled={scrollEnabled}
+          contentContainerStyle={showMiniPlayer && style.contentContainer}
           initialNumToRender={1}
           maxToRenderPerBatch={1}
         />
@@ -631,4 +633,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   fullScreenContainer: {
     backgroundColor: Styles.color.black
   },
+  contentContainer: {
+    paddingBottom: normalize(80)
+  }
 })

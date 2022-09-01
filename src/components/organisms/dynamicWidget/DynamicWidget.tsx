@@ -1,9 +1,10 @@
-import { ActivityIndicator, FlatList, ListRenderItem, View } from 'react-native'
+import { ActivityIndicator, FlatList, ListRenderItem, View, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { PopulateWidget } from 'src/components/molecules'
 import { isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils'
 import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
+import { useAppPlayer } from 'src/hooks'
 
 export interface DynamicWidgetProps {
     data: any[],
@@ -22,6 +23,7 @@ export const DynamicWidget = ({
 
     const [selectedTrack, setSelectedTrack] = useState<any>(null);
     const playbackState = usePlaybackState();
+    const { showMiniPlayer } = useAppPlayer()
 
     const togglePlayback = async (nid: string, mediaData: any) => {
         const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
@@ -98,6 +100,13 @@ export const DynamicWidget = ({
            onEndReachedThreshold={0.5}
            onEndReached={onEndReached}
            ListFooterComponent={listFooterComponent}
+            contentContainerStyle={showMiniPlayer && styles.contentContainer}
         />
     )
 }
+
+const styles = StyleSheet.create({
+    contentContainer: {
+        paddingBottom: normalize(80)
+    }
+})

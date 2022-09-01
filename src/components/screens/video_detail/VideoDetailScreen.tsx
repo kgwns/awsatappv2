@@ -9,7 +9,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { normalize, horizontalAndBottomEdge, isNonEmptyArray, isObjectNonEmpty, isNotEmpty } from 'src/shared/utils';
 import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import { useBookmark, useLogin, useVideoList } from 'src/hooks';
+import { useAppPlayer, useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { RequestVideoUrlSuccessResponse, VideoItemType } from 'src/redux/videoList/types';
 import {useNavigation} from '@react-navigation/native';
 import {ScreensConstants} from 'src/constants/ScreenConstants';
@@ -36,6 +36,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
   const [videoUrl,setVideoUrl] = useState('')
+  const { showMiniPlayer } = useAppPlayer()
   
   const { isLoggedIn } = useLogin()
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
@@ -167,6 +168,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={showMiniPlayer && styles.contentContainer}
       />
     </ScreenContainer>
   )
@@ -182,4 +184,7 @@ StyleSheet.create({
   headerStyle: {
     backgroundColor: colors.black,
   },
+  contentContainer: {
+    paddingBottom: normalize(80)
+  }
 })
