@@ -1,5 +1,5 @@
-import { sendSelectedNewsLetters, sendSelectedNewsLettersSuccess, sendSelectedNewsLettersFailed, getSelectedNewsLettersFailed, getSelectedNewsLettersSuccess, getSelectedNewsletters, getMyNewsletters, emptySelectedNewsLettersInfo, setSelectedDataFromNewsLetterOnboard } from 'src/redux/newsLetter/action';
-import { EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_MY_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS_ERROR, GET_SELECTED_NEWS_LETTERS_SUCCESS, SELECTED_DATA_FROM_NEWSLETTER_ONBOARD, SEND_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS_ERROR, SEND_SELECTED_NEWS_LETTERS_SUCCESS } from '../actionTypes';
+import { sendSelectedNewsLetters, sendSelectedNewsLettersSuccess, sendSelectedNewsLettersFailed, getSelectedNewsLettersFailed, getSelectedNewsLettersSuccess, getSelectedNewsletters, getMyNewsletters, emptySelectedNewsLettersInfo, setSelectedDataFromNewsLetterOnboard, emptySelectedNewsletterDataFromOnboard } from 'src/redux/newsLetter/action';
+import { EMPTY_SELECTED_NEWSLETTER_DATA_FROM_ONBOARD, EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_MY_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS_ERROR, GET_SELECTED_NEWS_LETTERS_SUCCESS, SELECTED_DATA_FROM_NEWSLETTER_ONBOARD, SEND_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS_ERROR, SEND_SELECTED_NEWS_LETTERS_SUCCESS } from '../actionTypes';
 
 describe('News Letter Action', () => {
 
@@ -54,6 +54,11 @@ describe('News Letter Action', () => {
     test('setSelectedDataFromNewsLetterOnboard', () => {
         const request = setSelectedDataFromNewsLetterOnboard({data: []})
         expect(request.type).toEqual(SELECTED_DATA_FROM_NEWSLETTER_ONBOARD)
+    })
+
+    test('emptySelectedNewsletterDataFromOnboard', () => {
+        const request = emptySelectedNewsletterDataFromOnboard()
+        expect(request.type).toEqual(EMPTY_SELECTED_NEWSLETTER_DATA_FROM_ONBOARD)
     })
 
 })

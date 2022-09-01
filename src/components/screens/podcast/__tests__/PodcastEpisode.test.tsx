@@ -9,6 +9,7 @@ import {PodcastEpisodeContent, PodcastEpisodeInfo} from 'src/components/organism
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { useNavigation } from '@react-navigation/native';
 import { PodcastEpisodeItemType, PodcastListItemType } from 'src/redux/podcast/types';
+import { useLogin } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -19,6 +20,8 @@ jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
+
+jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
 
 const podCastData: PodcastListItemType[] = [
   {
@@ -156,14 +159,6 @@ jest.mock("src/hooks/usePodcast", () => ({
   },
 }));
 
-jest.mock("src/hooks/useLogin", () => ({
-  useLogin: () => {
-    return {
-      isLoggedIn: false,
-    }
-  },
-}));
-
 jest.mock("src/hooks/useBookmark", () => ({
   useBookmark: () => {
     return {
@@ -196,10 +191,13 @@ jest.mock("src/hooks/useAppPlayer", () => ({
 
 describe('<PodcastEpisode >', () => {
   let instance: RenderAPI;
-  const setIsSaved = jest.fn()
-  const mockFunction = jest.fn()
-  const podcastEpisodeDetailInfo = mockFunction
-  const podcastEpisodeListInfo = mockFunction
+  const mockFunction = jest.fn();
+
+  const setIsSaved = mockFunction;
+  const podcastEpisodeDetailInfo = mockFunction;
+  const podcastEpisodeListInfo = mockFunction;
+  const nid = mockFunction;
+  const showupUp = mockFunction;
 
   const navigation = {
     reset: jest.fn(),
@@ -208,13 +206,18 @@ describe('<PodcastEpisode >', () => {
   }
 
   describe('when PodcastEpisode only', () => {
-    beforeEach(() => {
-      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      // (useState as jest.Mock).mockImplementation(() => ["abc", mockFunction]);
-      (useState as jest.Mock).mockImplementation(() => [false, mockFunction]);
-      (useState as jest.Mock).mockImplementation(() => [[podCastData], podcastEpisodeDetailInfo]);
-      (useState as jest.Mock).mockImplementation(() => [[podCastData], podcastEpisodeListInfo]);
+    const useLoginMock = mockFunction;
 
+    beforeEach(() => {
+      (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useState as jest.Mock).mockImplementation(() => ["29", nid]);
+      (useState as jest.Mock).mockImplementation(() => [true, showupUp]);
+      (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeDetailInfo]);
+      (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeListInfo]);
+      useLoginMock.mockReturnValue({
+        isLoggedIn: false,
+      });
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
@@ -266,6 +269,54 @@ describe('<PodcastEpisode >', () => {
       const testID = instance.container.findByType(PodcastEpisodeInfo);
       fireEvent(testID, 'onListenPress', {duration: '29'});
       expect(mockFunction).toBeTruthy();
+    });
+  });
+});
+
+describe('<PodcastEpisode >', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+
+  const podcastEpisodeDetailInfo = mockFunction;
+  const podcastEpisodeListInfo = mockFunction;
+  const nid = mockFunction;
+  const showupUp = mockFunction;
+
+  const navigation = {
+    reset: jest.fn(),
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+  }
+
+  describe('when PodcastEpisode only', () => {
+    const useLoginMock = mockFunction;
+
+    beforeEach(() => {
+      (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useState as jest.Mock).mockImplementation(() => ["29", nid]);
+      (useState as jest.Mock).mockImplementation(() => [true, showupUp]);
+      (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeDetailInfo]);
+      (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeListInfo]);
+      useLoginMock.mockReturnValue({
+        isLoggedIn: true,
+      });
+      const component = (
+        <Provider store={storeSampleData}>
+          <SafeAreaProvider>
+            <PodcastEpisode  route={{ params: { data: PodcastEpisodeData, podcastListData: PodcastListData } }}/>
+          </SafeAreaProvider>
+        </Provider>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render PodcastEpisode ', () => {
+      expect(instance).toBeDefined();
     });
   });
 });

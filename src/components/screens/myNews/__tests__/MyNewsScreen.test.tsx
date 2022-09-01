@@ -6,6 +6,15 @@ import { MyNewsScreen } from '../MyNewsScreen'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { SignupAlertCard } from 'src/components/molecules'
 import { ArticlesListItemType } from 'src/redux/contentForYou/types'
+import { useLogin } from 'src/hooks'
+import { useNavigation } from '@react-navigation/native'
+
+jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+}));
 
 const sampleData: ArticlesListItemType[] = [
     {
@@ -96,18 +105,21 @@ jest.mock("src/hooks/useContentForYou", () => ({
 describe('<MyNewsScreen>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
-    const setPageCount = mockFunction;
 
-    jest.mock("src/hooks/useLogin", () => ({
-        useLogin: () => {
-          return {
-            isLoggedIn: true,
-          }
-        },
-    }));
+    const index = mockFunction;
+    const useLoginMock = mockFunction;
 
+    const navigation = {
+      reset: mockFunction,
+    }
+  
     beforeEach(() => {
-        (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
+        (useState as jest.Mock).mockImplementation(() => [0, index]);
+        useLoginMock.mockReturnValue({
+          isLoggedIn: false,
+        });
         const component =
             <Provider store={storeSampleData}>
                 <MyNewsScreen />
@@ -133,25 +145,35 @@ describe('<MyNewsScreen>', () => {
     test('Should call SignupAlertCard onCloseSignUpAlert', () => {
         const element = instance.container.findByType(SignupAlertCard)
         fireEvent(element, 'onCloseSignUpAlert');
-        expect(mockFunction).toBeTruthy()
+        expect(navigation.reset).toBeTruthy()
+    });
+
+
+    test('Should call SignupAlertCard onPress', () => {
+      const element = instance.container.findByType(SignupAlertCard)
+      fireEvent(element, 'onPress');
+      expect(mockFunction).toBeTruthy()
     });
 })
 
 describe('<MyNewsScreen>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
-    const setPageCount = mockFunction;
 
-    jest.mock("src/hooks/useLogin", () => ({
-        useLogin: () => {
-          return {
-            isLoggedIn: true,
-          }
-        },
-    }));
+    const index = mockFunction;
+    const useLoginMock = mockFunction;
     
+    const navigation = {
+      reset: mockFunction,
+    }
+
     beforeEach(() => {
-        (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useState as jest.Mock).mockImplementation(() => [0, index]);
+      useLoginMock.mockReturnValue({
+        isLoggedIn: true,
+      });
         const component =
             <Provider store={storeSampleData}>
                 <MyNewsScreen />
@@ -167,5 +189,4 @@ describe('<MyNewsScreen>', () => {
     test('Should render component', () => {
         expect(instance).toBeDefined()
     })
-
 })

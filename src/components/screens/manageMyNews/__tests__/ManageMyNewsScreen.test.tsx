@@ -126,6 +126,7 @@ const sampleData: AllWritersItemType[] = [
         fetchAllWritersRequest: () => [],
         sendSelectedWriterInfo: () => [],
         updateAllWritersData: () => [],
+        emptySelectedAuthorsInfoData: () => [],
         getSelectedAuthorsData: () => [],
         allSelectedWritersDetailList: [
             {

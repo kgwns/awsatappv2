@@ -67,6 +67,14 @@ jest.mock("src/hooks/useLogin", () => ({
   },
 }));
 
+jest.mock("src/hooks/useAppPlayer", () => ({
+  useAppPlayer: () => {
+    return {
+      showMiniPlayer: true,
+    }
+  },
+}));
+
 const sampleData1: ArticleDetailDataType[] =[
   {
     title: 'example',
