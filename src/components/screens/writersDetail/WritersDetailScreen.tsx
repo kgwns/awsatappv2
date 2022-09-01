@@ -5,19 +5,19 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils';
 import { ScreenContainer } from '..';
 import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
-import TrackPlayer from 'react-native-track-player';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useWriterDetail } from 'src/hooks';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
-import { WriterBannerImage, DetailHeader } from 'src/components/molecules';
-import { useOpinions } from 'src/hooks/useOpinions';
+import { WriterBannerImage, DetailHeader } from 'src/components/molecules'
 import { OpinionWritersArticlesSection } from 'src/components/organisms';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
 import { decodeHTMLTags, horizontalEdge } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { ScreensConstants } from 'src/constants'
 import Orientation from 'react-native-orientation-locker';
+import { fetchWriterOpinionsApi } from 'src/services/opinionsService';
+import { AxiosError } from 'axios';
 
 export interface WritersDetailScreenProps {
     route: any;
@@ -36,11 +36,6 @@ export const WritersDetailScreen = ({
         getWriterDetailData, emptyWriterDetailData
     } = useWriterDetail();
 
-    const {
-        writerOpinionsData, isWriterOpinionLoading,
-        fetchWriterOpinionsRequest, emptyWriterOpinionData
-    } = useOpinions()
-
     const { 
         bookmarkIdInfo, 
         sendBookmarkInfo, removeBookmarkedInfo 
@@ -58,9 +53,11 @@ export const WritersDetailScreen = ({
     const [writerDetailInfo, setWriterDetailInfo] = useState<WriterDetailDataType[]>([])
     const [showupUp, setShowPopUp] = useState(false)
     const [page, setPage] = useState(0);
-    const [opinionsDataInfo, setOpinionsDataInfo] = useState(writerOpinionsData)
+    const [opinionsDataInfo, setOpinionsDataInfo] = useState<OpinionsListItemType[]>([])
     const [isFollowed, setIsFollowed] = useState(false)
     const [scrollY, setScrollY] = useState(new Animated.Value(0))
+    const [isWriterOpinionLoading, setIsWriterOpinionLoading] = useState(true)
+    const [allOpinionLoaded, setAllOpinionLoaded] = useState<boolean>(false)
 
     const detailRoutes = useMemo(() => routes.filter((routes) =>
         routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
@@ -77,14 +74,13 @@ export const WritersDetailScreen = ({
 
             return () => {
                 emptyWriterDetailData()
-                emptyWriterOpinionData()
             }
         }
     }, [isFocused])
 
     useEffect(() => {
-        updateOpinionsData()
-    }, [writerOpinionsData, bookmarkIdInfo])
+        onChangeBookmarkInfo()
+    }, [bookmarkIdInfo])
 
     useEffect(() => {
         if (isNonEmptyArray(writerDetailData) && isObjectNonEmpty(selectedAuthorsData) ) {
@@ -97,7 +93,12 @@ export const WritersDetailScreen = ({
         return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
     }
 
-    const updateOpinionsData = () => {
+    const onChangeBookmarkInfo = () => {
+        const writerOpinionsData = [...opinionsDataInfo]
+        updateOpinionsData(writerOpinionsData)
+    }
+
+    const updateOpinionsData = (writerOpinionsData: any) => {
         if (isNonEmptyArray(writerOpinionsData)) {
             const opinions = updateBookmark(writerOpinionsData)
             setOpinionsDataInfo(opinions)
@@ -109,10 +110,32 @@ export const WritersDetailScreen = ({
     }, [writerDetailData])
 
     useEffect(() => {
-        fetchWriterOpinionsRequest({ tid: route.params.tid, page: page });
+        fetchOpinionData()
     }, [page]);
 
-  
+    const fetchOpinionData = async () => {
+        setIsWriterOpinionLoading(true)
+        try {
+            const response = await fetchWriterOpinionsApi({ tid: route.params.tid, page: page });
+            if (response && response.rows && isNonEmptyArray(response.rows)) {
+                const data = opinionsDataInfo.concat(response.rows)
+                updateOpinionsData(data)
+            } else {
+                setAllOpinionLoaded(true)
+            }
+            setIsWriterOpinionLoading(false)
+        } catch (error) {
+            handleAxiosError(error)
+        }
+    }
+
+    const handleAxiosError = (error: any) => {
+        const errorResponse: AxiosError = error as AxiosError;
+        if (errorResponse.response) {
+            const errorMessage: { message: string } = errorResponse.response.data;
+            console.log("🚀 handleAxiosError ~ errorMessage", errorMessage)
+        }
+    }
 
     const updateBookmark = (data: OpinionsListItemType[]) => {
         return data.map((item: OpinionsListItemType) => (
@@ -127,7 +150,7 @@ export const WritersDetailScreen = ({
         return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
     }
 
-    const updatedChangeBookmark = (data: OpinionsListItemType[], index: number) => {
+    const updatedChangeBookmark = (data: OpinionsListItemType[], index: number): OpinionsListItemType[] => {
         const updatedData = [...data]
         const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
         updatedData[index].isBookmarked = bookmarkStatus
@@ -161,7 +184,7 @@ export const WritersDetailScreen = ({
     }
 
     const gotoNextPage = () => {
-        if (!isWriterOpinionLoading) {
+        if (!isWriterOpinionLoading && !allOpinionLoaded) {
             setPage(page + 1);
         }
     };
