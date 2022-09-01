@@ -9,7 +9,7 @@ import {
   RelatedOpinionArticlesWidget,
 } from 'src/components/organisms';
 import {ScreenContainer} from '..';
-import {useAllWriters, useAppCommon, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
+import {useAllWriters, useAppCommon, useAppPlayer, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player';
@@ -51,6 +51,7 @@ export const OpinionArticleDetail = ({
       getWriterDetailData, emptyWriterDetailData
   } = useWriterDetail();
 
+  const { showMiniPlayer } = useAppPlayer()
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
 
@@ -372,6 +373,7 @@ export const OpinionArticleDetail = ({
           showsVerticalScrollIndicator={false}
           bounces={false}
           onScroll={onScroll}
+          contentContainerStyle={showMiniPlayer && style.contentContainer}
           />
           <View style={style.shadowEffect}>
             <OpinionArticleDetailFooter
@@ -403,6 +405,9 @@ const customStyle = (theme: CustomThemeType) => {
       shadowOpacity: .5,
       shadowRadius: 4,
       elevation: 15,
+    },
+    contentContainer: {
+      paddingBottom: normalize(80)
     }
   });
   return OpinionArticleDetailStyle;

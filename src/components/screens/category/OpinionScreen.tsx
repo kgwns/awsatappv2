@@ -11,7 +11,7 @@ import {useOpinionWriter} from 'src/hooks/useOpinionWriter';
 import {useOpinions} from 'src/hooks/useOpinions';
 import {WritersBodyGet} from 'src/redux/writers/types';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
-import { useBookmark, useLatestNewsTab, useLogin } from 'src/hooks';
+import { useAppPlayer, useBookmark, useLatestNewsTab, useLogin } from 'src/hooks';
 import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { ScreensConstants } from 'src/constants';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -75,7 +75,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
     bookmarkIdInfo
   } = useBookmark()
   const { isLoggedIn } = useLogin()
-
+  const { showMiniPlayer } = useAppPlayer()
 
   const [opinionsDataInfo, setOpinionsDataInfo] = useState(opinionsData)
   const [showupUp,setShowPopUp] = useState(false)
@@ -175,6 +175,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={showMiniPlayer && style.contentContainer}
       />
        <PopUp type={PopUpType.rbSheet}
         onPressButton={onPressSignUp}
@@ -193,6 +194,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     articleSection: {
       marginTop: normalize(10)
+    },
+    contentContainer: {
+      paddingBottom: normalize(80)
     }
   });
   return OpinionScreenStyle;
