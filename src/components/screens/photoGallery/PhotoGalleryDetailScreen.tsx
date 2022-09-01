@@ -12,7 +12,7 @@ import {
 } from 'src/shared/utils';
 import {DetailHeader, PhotoGalleryDetailFooter} from 'src/components/molecules';
 import {ScreenContainer} from '..';
-import {useAppCommon, useBookmark, useLogin, usePhotoGallery} from 'src/hooks';
+import { useAppCommon, useAppPlayer, useBookmark, useLogin, usePhotoGallery } from 'src/hooks';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -41,6 +41,7 @@ export const PhotoGalleryDetailScreen = ({
     usePhotoGallery();
   const {isLoggedIn} = useLogin();
   const {articleFontSize, storeArticleFontSizeInfo} = useAppCommon();
+  const { showMiniPlayer } = useAppPlayer()
 
   const [fontSize, setFontSize] = useState<ArticleFontSize>(articleFontSize);
   const [albumData, setAlbumData] = useState<AlbumDetailType[]>([]);
@@ -202,6 +203,7 @@ export const PhotoGalleryDetailScreen = ({
               style={styles.backgroundStyle}
               showsVerticalScrollIndicator={false}
               bounces={false}
+              contentContainerStyle={showMiniPlayer && styles.contentContainer}
             />
             <View style={styles.shadowEffect}>
               <PhotoGalleryDetailFooter
@@ -254,6 +256,9 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.secondaryWhite,
       justifyContent: 'center',
     },
+    contentContainer: {
+      paddingBottom: normalize(80)
+    }
   });
   return styles;
 };
