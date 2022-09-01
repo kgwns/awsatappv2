@@ -56,13 +56,13 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     headerLabel: {
         lineHeight: 18,
-        fontFamily: fonts.Effra_Regular,
+        // fontFamily: fonts.Effra_Regular,
         fontSize: 14,
         color: theme.primaryBlack
     },
     authorLabel: {
         lineHeight: 18,
-        fontFamily: fonts.AwsatDigital_Regular,
+        // fontFamily: fonts.AwsatDigital_Regular,
         fontSize: 14,
         color: theme.primary
     },
