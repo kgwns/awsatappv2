@@ -1,18 +1,12 @@
-import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { FunctionComponent, useState } from 'react';
 import { Label } from 'src/components/atoms';
-import { isTab, normalize } from 'src/shared/utils';
-import { decodeHTMLTags, isNonEmptyArray, isNotEmpty } from 'src/shared/utils/utilities';
+import {  normalize } from 'src/shared/utils';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { fonts } from 'src/shared/styles/fonts';
-import FixedTouchable from 'src/shared/utils/FixedTouchable';
-import { decode } from 'html-entities';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { color } from 'react-native-reanimated';
-import { useSSR } from 'react-i18next';
 
 export interface JournalistProps {
     data: []
@@ -23,18 +17,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
 }) => {
     const style = useThemeAwareObject(customStyle)
     const navigation = useNavigation<StackNavigationProp<any>>()
-    const [isJournalistData, setIsJournalistData] = useState([])
-    let splicedArray: any[] = []
-    const dataArray = data
-    const count = data.length
-    // if (count > 2) {
-    //     for (let i = 0; i < 2; i++) {
-    //         splicedArray.push(dataArray.splice(0, 2))
-    //     }
-    // }
-    // else if (isNonEmptyArray(data)) {
-    //     splicedArray.push(data)
-    // }
+
     const onPressJournalist = () => {
         navigation.push(ScreensConstants.JOURNALIST_DETAIL_SCREEN, { tid: '92602', isRelatedArticle: true })
     }
@@ -62,7 +45,6 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
                                         </View>
                                     </>}
                                 </>
-                            {/* } */}
                         </View>
                     );
                 })}

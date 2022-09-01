@@ -1360,15 +1360,4 @@ export const journalistNames = [
     location: 'القاهرة',
     author: 'خالد محمود',
     tid: '92602',
-  },],
-  [{
-    location: 'بروكسل',
-    author: ' «الشرق الأوسط»',
-    tid: '92602',
-  },
-  {
-    location: 'أنقرة',
-    author: 'سعيد عبد الرازق',
-    tid: '92602',
-  },]
-]
+  }]]

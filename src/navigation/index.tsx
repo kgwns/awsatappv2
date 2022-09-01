@@ -189,6 +189,6 @@ export const RoutesName = {
   PDFArchive,
   PDFEditorView,
   myNewsScreen,
-  photoGalleryDetailScreen
+  photoGalleryDetailScreen,
   journalistDetail
 };
