@@ -143,3 +143,6 @@ export const SAVE_FCM_TOKEN_ENDPOINT = 'api/ums/v1/saveToken'
 //Photo Gallery
 export const PHOTO_GALLERY_LIST_ENDPOINT = 'api/v2/albumslist';
 export const PHOTO_GALLERY_DETAIL_ENDPOINT = 'api/v2/albumnode/';
+
+//Journalist
+export const JOURNALIST_ARTICLE_ENDPOINT = 'api/v2/journalistsarticles/'

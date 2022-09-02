@@ -22,7 +22,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     const navigation = useNavigation<StackNavigationProp<any>>()
 
     const onPressJournalist = (id: string) => {
-        navigation.push(ScreensConstants.JOURNALIST_DETAIL_SCREEN, { tid: '92602', isRelatedArticle: true })
+        navigation.push(ScreensConstants.JOURNALIST_DETAIL_SCREEN, { tid: id, isRelatedArticle: true })
     }
 
     return (

@@ -507,7 +507,11 @@ export const ArticleDetailScreen = ({
             onChangeFullScreen={onChangeFullScreen}
             isFullScreen={isFullScreen}
           />
-          {isNonEmptyArray(item.journalistId) && <Journalist journalistCity={item.journalistCity} journalistId={item.journalistId} journalistName={item.journalistName}/>}
+          {isNonEmptyArray(item.journalistId) && <Journalist
+            journalistCity={item.journalistCity}
+            journalistId={item.journalistId}
+            journalistName={item.journalistName} />
+          }
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
           <Divider style={style.divider} />
