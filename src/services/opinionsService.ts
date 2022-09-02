@@ -8,6 +8,7 @@ import {
   WriterOpinionsBodyGet,
 } from 'src/redux/opinions/types';
 import { isNotEmpty } from 'src/shared/utils';
+import { payloadType } from 'src/redux/writers/types';
 
 export const fetchOpinionsApi = async (body: OpinionsBodyGet) => {
   try {
@@ -22,7 +23,7 @@ export const fetchOpinionsApi = async (body: OpinionsBodyGet) => {
 
 export const fetchWriterOpinionsApi = async (body: WriterOpinionsBodyGet) => {
   try {
-    const response: FetchOpinionsSuccessPayloadType = await getCacheApiRequest(
+    const response: payloadType = await getCacheApiRequest(
       `${BASE_URL}${OPINION_BY_WRITER_END_POINT}${body.tid}?items_per_page=10&page=${body.page}`,
     );
     return response;

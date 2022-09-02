@@ -1,6 +1,6 @@
 import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
 import {useDispatch} from 'react-redux';
-import { EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_MY_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS } from 'src/redux/newsLetter/actionTypes';
+import { EMPTY_SELECTED_NEWSLETTER_DATA_FROM_ONBOARD, EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_MY_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS } from 'src/redux/newsLetter/actionTypes';
 import {
   useNewsLetters,
   UseNewsLettersReturn,
@@ -115,6 +115,25 @@ describe('#useNewsLetters', () => {
       });
 
       expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#emptySelectedNewsletterDataOnboard', () => {
+    it('should call dispatch with emptySelectedNewsletterDataOnboard', () => {
+      const {
+        result: {
+          current: {emptySelectedNewsletterDataOnboard},
+        },
+      } = result;
+
+      act(() => {
+        emptySelectedNewsletterDataOnboard();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+      expect(dispatchMock).toHaveBeenCalledWith({
+        type: EMPTY_SELECTED_NEWSLETTER_DATA_FROM_ONBOARD,
+      });
     });
   });
 

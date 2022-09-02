@@ -7,6 +7,7 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { MainSectionScreen } from '../MainSectionScreen';
 import {useNavigation} from '@react-navigation/native';
+import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -442,21 +443,21 @@ describe('<MainSectionScreen>', () => {
   let instance: RenderAPI;
 
   const mockFunction = jest.fn();
-  const setRefreshing = mockFunction;
-  const setCoverageInfo = mockFunction;
-  const setSectionComboOneInfo = mockFunction;
-  const setSectionComboTwoInfo = mockFunction;
-  const setSectionComboThreeInfo = mockFunction;
-  const setSectionComboFourInfo = mockFunction;
-  const setSectionComboFiveInfo = mockFunction;
-  const setSectionComboSixInfo = mockFunction;
-  const setSectionComboSevenInfo = mockFunction;
-  const setOpinionListData = mockFunction;
-  const setShowPopUp = mockFunction;
-  const setSelectedTrack = mockFunction;
-  const setSelectedType = mockFunction;
-  const setEditorsChoiceInfo = mockFunction;
+
+  const refreshing = mockFunction;
+  const coverageInfo = mockFunction;
+  const sectionComboOneInfo = mockFunction;
+  const sectionComboTwoInfo = mockFunction;
+  const sectionComboThreeInfo = mockFunction;
+  const sectionComboFourInfo = mockFunction;
+  const sectionComboFiveInfo = mockFunction;
+  const sectionComboSixInfo = mockFunction;
+  const sectionComboSevenInfo = mockFunction;
   const opinionListData = mockFunction;
+  const showupUp = mockFunction;
+  const selectedTrack = mockFunction;
+  const selectedType = mockFunction;
+  const editorsChoiceInfo = mockFunction;
 
   const navigation = {
     navigate: mockFunction,
@@ -464,21 +465,21 @@ describe('<MainSectionScreen>', () => {
 
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-    (useState as jest.Mock).mockImplementation(() => [false, setRefreshing]);
+    (useState as jest.Mock).mockImplementation(() => [true, refreshing]);
     (useState as jest.Mock).mockImplementation(() => [videoData, opinionListData]);
-    (useState as jest.Mock).mockImplementation(() => [MainSectionBlockTypeData, setCoverageInfo]);
-    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboOneInfo]);
-    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboTwoInfo]);
-    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboThreeInfo]);
-    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboFourInfo]);
-    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboFiveInfo]);
-    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboSixInfo]);
-    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setSectionComboSevenInfo]);
-    (useState as jest.Mock).mockImplementation(() => [latestArticleData, setOpinionListData]);
-    (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
-    (useState as jest.Mock).mockImplementation(() => ['12', setSelectedTrack]);
-    (useState as jest.Mock).mockImplementation(() => ['abc', setSelectedType]);
-    (useState as jest.Mock).mockImplementation(() => [EditorsChoiceDataTypeData, setEditorsChoiceInfo]);
+    (useState as jest.Mock).mockImplementation(() => [MainSectionBlockTypeData, coverageInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, sectionComboOneInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, sectionComboTwoInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, sectionComboThreeInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, sectionComboFourInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, sectionComboFiveInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, sectionComboSixInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, sectionComboSevenInfo]);
+    (useState as jest.Mock).mockImplementation(() => [latestArticleData, opinionListData]);
+    (useState as jest.Mock).mockImplementation(() => [true, showupUp]);
+    (useState as jest.Mock).mockImplementation(() => ['12', selectedTrack]);
+    (useState as jest.Mock).mockImplementation(() => ['abc', selectedType]);
+    (useState as jest.Mock).mockImplementation(() => [EditorsChoiceDataTypeData, editorsChoiceInfo]);
     const component = <MainSectionScreen tabIndex={1} currentIndex={1} />;
     instance = render(component);
   });
@@ -625,7 +626,7 @@ describe('<MainSectionScreen>', () => {
   it('when RefreshControl only When onRefresh', () => {
     const testID = instance.container.findAllByType(RefreshControl)[0];
     fireEvent(testID, 'onRefresh', {index: 2});
-    expect(setRefreshing).toBeTruthy();
+    expect(refreshing).toBeTruthy();
   });
 
   it('when PodcastWidget only When onPress', () => {
@@ -648,5 +649,22 @@ describe('<MainSectionScreen>', () => {
     expect(global.refFlatList).toBeTruthy()
   });
 
+  it('when AuthorSlider only When onClose', () => {
+    const testID = instance.container.findAllByType(AuthorSlider)[0];
+    fireEvent(testID, 'onClose');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when AuthorSlider only When getSelectedTrack', () => {
+    const testID = instance.container.findAllByType(AuthorSlider)[0];
+    fireEvent(testID, 'getSelectedTrack', '12', 'PODCAST');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when AuthorSlider only When getSelectedTrack', () => {
+    const testID = instance.container.findAllByType(AuthorSlider)[0];
+    fireEvent(testID, 'getSelectedTrack', '1', 'OPINION');
+    expect(mockFunction).toBeTruthy();
+  });
 });
 

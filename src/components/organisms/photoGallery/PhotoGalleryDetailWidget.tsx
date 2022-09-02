@@ -125,34 +125,40 @@ export const PhotoGalleryDetailWidget = ({
 
   const { width } = useWindowDimensions();
 
+  const renderImagesWithText = (image: string, caption: string) => {
+    const imageUrl = image ? getImageUrl(image) : undefined;
+    return (
+      <View key={image}>
+        <View>
+          <Image
+            url={imageUrl}
+            resizeMode={ImageResize.COVER}
+            style={{
+              width: width,
+              height: 'auto',
+              aspectRatio: 3 / 2,
+            }}
+            fallback={true}
+          />
+        </View>
+        <View style={style.textContainer}>
+          {renderTextHtml(caption)}
+        </View>
+      </View>
+    )
+  }
+
   const renderImageList = () => {
     if (isNonEmptyArray(data.field_photo_album_export)) {
       return data.field_photo_album_export.map(
         (image: string, index: number) => {
-          const imageUrl = image ? getImageUrl(image) : undefined;
-          return (
-            <View key={index}>
-              <View>
-                <Image
-                  url={imageUrl}
-                  resizeMode={ImageResize.COVER}
-                  style={{
-                    width: width,
-                    height: 'auto',
-                    aspectRatio: 3 / 2,
-                  }}
-                  fallback={true}
-                />
-              </View>
-              <View style={style.textContainer}>
-                {isNonEmptyArray(data.field_photo_album_export_1) &&
-                  isNotEmpty(data.field_photo_album_export_1[index]) &&
-                  renderTextHtml(data.field_photo_album_export_1[index])}
-              </View>
-            </View>
-          );
+          const caption = isNonEmptyArray(data.field_photo_album_export_1) && data.field_photo_album_export_1.length > index + 1 ? data.field_photo_album_export_1[index] : ' '
+          return renderImagesWithText(image, caption)
         },
       );
+    }
+    else {
+      return renderImagesWithText(data.field_album_img_export, data.field_album_img)
     }
   };
 

@@ -8,7 +8,7 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants';
 import {useTranslation} from 'react-i18next';
-import { useBookmark, useLogin, useVideoList, useDocumentaryVideo } from 'src/hooks';
+import { useBookmark, useLogin, useVideoList, useDocumentaryVideo, useAppPlayer } from 'src/hooks';
 import {VideoItemType} from 'src/redux/videoList/types';
 import { ScreenContainer } from '..';
 import { RequestDocumentaryVideoPayload } from 'src/redux/documentaryVideo/types';
@@ -27,6 +27,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
   const [showupUp,setShowPopUp] = useState(false)
   const navigation = useNavigation<StackNavigationProp<any>>()
   const [isShowPlayer, setIsShowPlayer] = useState(false)
+  const { showMiniPlayer } = useAppPlayer()
 
   const ref = React.useRef(null);
   useEffect(() => {
@@ -200,6 +201,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
+          contentContainerStyle={showMiniPlayer && styles.contentContainer}
         />
       </View>
     </ScreenContainer>
@@ -210,4 +212,7 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: normalize(10)
   },
+  contentContainer: {
+    paddingBottom: normalize(80)
+  }
 });

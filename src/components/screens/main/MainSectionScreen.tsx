@@ -886,6 +886,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={showMiniPlayer && mainSectionStyle.contentContainer}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
@@ -984,6 +985,9 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: isIOS ? 30 : 33,
       fontSize: 17,
       fontFamily: fonts.AwsatDigital_Bold
+    },
+    contentContainer: {
+      paddingBottom: normalize(80)
     }
   })
 }

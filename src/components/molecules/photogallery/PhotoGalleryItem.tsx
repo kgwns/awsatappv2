@@ -138,6 +138,6 @@ const styles = (theme: CustomThemeType) =>
     imageStyle: {
       width: '100%',
       height: 'auto',
-      aspectRatio: 3 / 2,
+      aspectRatio: 1.34,
     },
   });

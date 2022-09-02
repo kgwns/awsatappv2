@@ -10,7 +10,24 @@ jest.mock("src/hooks/useUserProfileData", () => ({
     useUserProfileData: () => {
       return {
         isLoading: false,
-        userProfileData: {},
+        userProfileData:  {
+            user: {
+              id: '12',
+              email: "abc@gmail.com",
+              provider: 'facebook',
+              display_name: 'example',
+              first_name: 'example',
+              last_name: 'example',
+              occupation: 'business',
+              image: 'abc',
+              profile_url: 'abc.com',
+              birthday: '01/01/1111',
+            },
+            message: {
+              code: 200,
+              message: 'string',
+            }
+        },
         userProfileError: 'string',
         sentUserProfileData: {
             user: {
@@ -29,6 +46,17 @@ jest.mock("src/hooks/useUserProfileData", () => ({
       }
     },
 }));
+
+jest.mock("src/hooks/useAppCommon", () => ({
+    useAppCommon: () => {
+      return {
+        theme: {
+          LIGHT: 'light',
+          DARK: 'dark'
+        },
+      }
+    },
+  }));
 
 describe('<UserDetailScreen>', () => {
     let instance: RenderAPI
