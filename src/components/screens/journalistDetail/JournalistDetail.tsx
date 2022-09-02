@@ -98,7 +98,7 @@ export const JournalistDetail = ({
 
     useEffect(() => {
         updateArticleState()
-    }, [journalistArticleInfo])
+    }, [journalistArticleInfo, bookmarkIdInfo])
 
     const updateArticleState = () => {
         if (isNonEmptyArray(journalistArticleInfo)) {
@@ -117,7 +117,7 @@ export const JournalistDetail = ({
     }
 
     const validateBookmark = (nid: string): boolean => {
-        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
+        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid.toString() === nid) : false
     }
 
     const updatedChangeBookmark = (data: JournalistArticleData[], index: number) => {
