@@ -21,10 +21,10 @@ export const parseJournalistArticle = (response: any): JournalistInfoSuccessPayl
 
   if (response && isNonEmptyArray(response)) {
     responseData.journalistData = response.map(
-      ({ title, nid_export, field_image_export,
+      ({ title, nid, field_image_export,
         field_news_categories_export, created_export, field_new_photo_export }: any) => ({
           title: isNotEmpty(title) ? decode(title) : '',
-          nid: nid_export,
+          nid: nid,
           image: getArticleImage(field_image_export, field_new_photo_export),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           created: created_export,
