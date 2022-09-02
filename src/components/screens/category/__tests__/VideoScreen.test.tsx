@@ -5,24 +5,18 @@ import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import {useNavigation} from '@react-navigation/native';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { VideoItem } from 'src/components/molecules';
+import { useLogin } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'),
     useNavigation: jest.fn(),
 }));
 
+jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
-}));
-
-jest.mock("src/hooks/useLogin", () => ({
-    useLogin: () => {
-      return {
-        isLoggedIn: true,
-      }
-    },
 }));
 
 jest.mock("src/hooks/useBookmark", () => ({
@@ -108,11 +102,16 @@ describe('<VideoScreen>', () => {
     }
     const setVideoDataInfo = mockFunction;
     const videoDocumentaryInfo = mockFunction;
+    const useLoginMock = mockFunction;
 
     beforeEach(() => {
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useState as jest.Mock).mockImplementation(() => [videoData, setVideoDataInfo]);
         (useState as jest.Mock).mockImplementation(() => [videoData, videoDocumentaryInfo]);
+        useLoginMock.mockReturnValue({
+            isLoggedIn: true,
+        });
         const component = <VideoScreen tabIndex={0} currentIndex={0}/>
         instance = render(component)
     })
@@ -219,6 +218,124 @@ describe('<VideoScreen>', () => {
     test('Should call VideoItem onPressBookmark', () => {
         const element = instance.container.findAllByType(VideoItem)[3]
         fireEvent(element, 'onPressBookmark', videoData, 0);
+        expect(mockFunction).toBeTruthy()
+    });
+    
+})
+
+describe('<VideoScreen>', () => {
+    let instance: RenderAPI
+
+    const mockFunction = jest.fn()
+
+    const navigation = {
+        navigate: mockFunction,
+    }
+    const setVideoDataInfo = mockFunction;
+    const videoDocumentaryInfo = mockFunction;
+    const useLoginMock = mockFunction;
+
+    beforeEach(() => {
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [videoData, setVideoDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [videoData, videoDocumentaryInfo]);
+        useLoginMock.mockReturnValue({
+            isLoggedIn: false,
+        });
+        const component = <VideoScreen tabIndex={0} currentIndex={0}/>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render VideoScreen', () => {
+        expect(instance).toBeDefined()
+    })
+
+    test('Should call VideoItem onPressBookmark', () => {
+        const element = instance.container.findAllByType(VideoItem)[0]
+        fireEvent(element, 'onPressBookmark', videoData, 0);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call VideoItem onPressBookmark', () => {
+        const element = instance.container.findAllByType(VideoItem)[1]
+        fireEvent(element, 'onPressBookmark', videoData, 0);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call VideoItem onPressBookmark', () => {
+        const element = instance.container.findAllByType(VideoItem)[2]
+        fireEvent(element, 'onPressBookmark', videoData, 0);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call VideoItem onPressBookmark', () => {
+        const element = instance.container.findAllByType(VideoItem)[3]
+        fireEvent(element, 'onPressBookmark', videoData, 0);
+        expect(mockFunction).toBeTruthy()
+    });
+    
+})
+
+describe('<VideoScreen>', () => {
+    let instance: RenderAPI
+
+    const mockFunction = jest.fn()
+
+    const navigation = {
+        navigate: mockFunction,
+    }
+    const setVideoDataInfo = mockFunction;
+    const videoDocumentaryInfo = mockFunction;
+    const useLoginMock = mockFunction;
+
+    beforeEach(() => {
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [videoData, setVideoDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [videoData, videoDocumentaryInfo]);
+        useLoginMock.mockReturnValue({
+            isLoggedIn: false,
+        });
+        const component = <VideoScreen tabIndex={0} currentIndex={0}/>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render VideoScreen', () => {
+        expect(instance).toBeDefined()
+    })
+
+    test('Should call VideoItem onPressBookmark', () => {
+        const element = instance.container.findAllByType(VideoItem)[0]
+        fireEvent(element, 'onPressBookmark', videoData[0].field_multimedia_section_export, 0);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call VideoItem onPressBookmark', () => {
+        const element = instance.container.findAllByType(VideoItem)[1]
+        fireEvent(element, 'onPressBookmark', videoData[0].field_multimedia_section_export, 0);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call VideoItem onPressBookmark', () => {
+        const element = instance.container.findAllByType(VideoItem)[2]
+        fireEvent(element, 'onPressBookmark', videoData[0].field_multimedia_section_export, 0);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call VideoItem onPressBookmark', () => {
+        const element = instance.container.findAllByType(VideoItem)[3]
+        fireEvent(element, 'onPressBookmark', videoData[0].field_multimedia_section_export, 0);
         expect(mockFunction).toBeTruthy()
     });
     

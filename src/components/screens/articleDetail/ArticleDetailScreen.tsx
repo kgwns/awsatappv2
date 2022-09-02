@@ -547,6 +547,7 @@ export const ArticleDetailScreen = ({
       {isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
         { !isFullScreen &&  renderHeader()}
         <FlatList
+          testID='ArticleDetailScreenFlatlist01'
           onViewableItemsChanged={onViewableItemRef.current}
           viewabilityConfig={viewConfigRef.current}
           style={{ flex: 1, height: '100%' }}

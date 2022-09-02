@@ -6,6 +6,7 @@ import { storeSampleData } from '../../../../constants/SampleData';
 import { AuthScreenInputSection, SocialButtonSection } from '../../../organisms/';
 import {useNavigation} from '@react-navigation/native';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
+import { useEmailCheck, useRegister } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -13,40 +14,8 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
-jest.mock("src/hooks/useEmailCheck", () => ({
-  useEmailCheck: () => {
-      return {
-        emptyEmailCheckInfo:()=>{},
-        fetchEmailCheckRequest:()=>{},
-        isLoading: false, 
-        emailCheckData: {}, 
-        emailCheckError: '',
-      }
-  },
-}));
-
-jest.mock("src/hooks/useRegister", () => ({
-  useRegister: () => {
-      return {
-        socialLoginEnded:()=>jest.fn(),
-        emptyUserInfo:()=>jest.fn(),
-        createUserRequest:()=> jest.fn(),
-        socialLoginStarted:()=> jest.fn(),
-        socialLoginInProgress: true,
-        registerUserInfo: {
-          user: {
-            email: "abc@gmail.com",
-            id: '2',
-          },
-          message: {
-            message: 'abc'
-          },
-        },
-        isRegisterLoading: true,
-        registerError: 'Network Error'
-      }
-  },
-}));
+jest.mock('src/hooks/useEmailCheck', () => ({useEmailCheck: jest.fn()}));
+jest.mock('src/hooks/useRegister', () => ({useRegister: jest.fn()}));
 
 jest.mock("src/hooks/useLogin", () => ({
   useLogin: () => {
@@ -71,10 +40,38 @@ describe('<AuthPage>', () => {
     reset: jest.fn(),
     navigate: jest.fn(),
   }
-  
+  const useEmailCheckMock = jest.fn();
+  const useRegisterMock = jest.fn();
+
   describe('when AuthPage only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useEmailCheck as jest.Mock).mockImplementation(useEmailCheckMock);
+      useEmailCheckMock.mockReturnValue({
+        emptyEmailCheckInfo:()=>{},
+        fetchEmailCheckRequest:()=>{},
+        isLoading: false, 
+        emailCheckData: {}, 
+        emailCheckError: '',
+      });
+      (useRegister as jest.Mock).mockImplementation(useRegisterMock);
+      useRegisterMock.mockReturnValue({
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        socialLoginStarted:()=> jest.fn(),
+        socialLoginInProgress: true,
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
+          message: {
+            message: 'abc'
+          },
+        },
+        isRegisterLoading: true,
+      });
       const component = (
         <Provider store={storeSampleData}>
           <AuthPage  />
@@ -143,6 +140,129 @@ describe('<AuthPage>', () => {
     test('Should call AuthScreenInputSection showAlertNoInternet', () => {
       const element = instance.container.findAllByType(AuthScreenInputSection)[0];
       fireEvent(element, 'showAlertNoInternet');
+      expect(element).toBeTruthy()
+    });
+    test('Should call AuthScreenInputSection navigateToSection', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'navigateToSection', "GOOGLE");
+      expect(element).toBeTruthy()
+    });
+    test('Should call AuthScreenInputSection navigateToSection', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'navigateToSection', "SIGNINPAGE");
+      expect(element).toBeTruthy()
+    });
+  });
+});
+
+describe('<AuthPage>', () => {
+  let instance: RenderAPI;
+  const navigation = {
+    reset: jest.fn(),
+    navigate: jest.fn(),
+  }
+  const useEmailCheckMock = jest.fn();
+  const useRegisterMock = jest.fn();
+  
+  describe('when AuthPage only', () => {
+    beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useEmailCheck as jest.Mock).mockImplementation(useEmailCheckMock);
+      useEmailCheckMock.mockReturnValue({
+        emptyEmailCheckInfo:()=>{},
+        fetchEmailCheckRequest:()=>{},
+        isLoading: false, 
+        emailCheckData: {}, 
+        emailCheckError: 'Network Error',
+      });
+      (useRegister as jest.Mock).mockImplementation(useRegisterMock);
+      useRegisterMock.mockReturnValue({
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        socialLoginStarted:()=> jest.fn(),
+        socialLoginInProgress: true,
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
+          message: {
+            message: {
+              code: 200
+            }
+          },
+        },
+        isRegisterLoading: true,
+      });
+      const component = (
+        <Provider store={storeSampleData}>
+          <AuthPage  />
+        </Provider>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render AuthPage', () => {
+      expect(instance).toBeDefined();
+    });
+    test('Should render ThemeManager', () => {
+      jest.spyOn(React, 'useEffect').mockImplementation();
+      jest.spyOn(navigation, 'navigate');
+      expect(navigation.navigate).toBeTruthy();
+    });
+    it('When Press SignIn Button', () => {
+      const testID = instance.getByTestId('signin_signIn');
+      fireEvent(testID, 'onPress','SIGNINPAGE');
+      expect(navigation.navigate).toBeTruthy();
+    });
+    it('When Press Apple Button', () => {
+      const testID = instance.container.findByType(SocialButtonSection);
+      fireEvent(testID, 'onButtonPress','APPLE');
+      expect(testID).toBeTruthy();
+    });
+    it('When Press Google Button', () => {
+      const testID = instance.container.findByType(SocialButtonSection);
+      fireEvent(testID, 'onButtonPress','GOOGLE');
+      expect(testID).toBeTruthy();
+    });
+    it('When Press Facebook Button', () => {
+      const testID = instance.container.findByType(SocialButtonSection);
+      fireEvent(testID, 'onButtonPress','FACEBOOK');
+      expect(testID).toBeTruthy();
+    });
+    it('When Press Email Button', () => {
+      const testID = instance.container.findByType(SocialButtonSection);
+      fireEvent(testID, 'onButtonPress','EMAIL');
+      expect(testID).toBeTruthy();
+    });
+    test('Should call ScreenContainer alertOnPress', () => {
+      const element = instance.container.findAllByType(ScreenContainer)[0];
+      fireEvent(element, 'alertOnPress');
+      expect(element).toBeTruthy()
+    });
+    test('Should call AuthScreenInputSection onPressSignup', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'onPressSignup');
+      expect(element).toBeTruthy()
+    });
+    test('Should call AuthScreenInputSection showAlertNoInternet', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'showAlertNoInternet');
+      expect(element).toBeTruthy()
+    });
+    test('Should call AuthScreenInputSection navigateToSection', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'navigateToSection', "GOOGLE");
+      expect(element).toBeTruthy()
+    });
+    test('Should call AuthScreenInputSection navigateToSection', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'navigateToSection', "SIGNINPAGE");
       expect(element).toBeTruthy()
     });
   });

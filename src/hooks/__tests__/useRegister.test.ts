@@ -44,4 +44,20 @@ describe('#useRegister', () => {
     });
   });
 
+  describe('#socialLoginStarted', () => {
+    it('should call dispatch with socialLoginStarted', () => {
+      const {
+        result: {
+          current: {socialLoginStarted},
+        },
+      } = result;
+
+      act(() => {
+        socialLoginStarted();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
 });

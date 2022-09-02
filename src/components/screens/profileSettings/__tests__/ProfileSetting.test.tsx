@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { storeSampleData } from 'src/constants/SampleData';
@@ -62,22 +62,91 @@ jest.mock("src/hooks/useLogin", () => ({
     },
 }));
 
+jest.mock("src/hooks/useAppCommon", () => ({
+  useAppCommon: () => {
+    return {
+      theme: {
+        LIGHT: 'light',
+        DARK: 'dark'
+      },
+      isFirstSession: false,
+      serverEnvironment: {
+        DEBUG: 'Debug',
+        PRODUCTION: 'Production',
+      },
+      storeServerEnvironmentInfo: () => [],
+      resetFontSizeInfo: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useBookmark", () => ({
+  useBookmark: () => {
+    return {
+      removeBookmark: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useKeepNotified", () => ({
+  useKeepNotified: () => {
+    return {
+      removeKeepNotificationInfo: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useAllSiteCategories", () => ({
+  useAllSiteCategories: () => {
+    return {
+      emptySelectedTopicsInfoData: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useAllWriters", () => ({
+  useAllWriters: () => {
+    return {
+      emptySelectedAuthorsInfoData: () => [],
+    }
+  },
+}));
+
+jest.mock("src/hooks/useSearch", () => ({
+  useSearch: () => {
+    return {
+      emptySearchHistory: () => [],
+    }
+  },
+}));
+
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
+
 const SettingData: SettingDataType ={
     iconName: ImagesName.arrowLeftBlack,
-    title: 'arrowLeftBlack',
+    title: 'profileSetting.exit',
     screenName: 'arrowLeftBlack'
 }
 
 describe('<ProfileSettings>', () => {
     let instance: RenderAPI;
-    const navigation = {
-        reset: jest.fn(),
-        navigate: jest.fn(),
-    }
     const mockFunction = jest.fn();
 
+    const navigation = {
+        reset: mockFunction,
+        navigate: mockFunction,
+    }
+    const isDarkMode = mockFunction;
+    const isAlertVisible = mockFunction;
+    
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [true, isDarkMode]);
+        (useState as jest.Mock).mockImplementation(() => [true, isAlertVisible]);
         const component = (
             <Provider store={storeSampleData}>
                 <ProfileSettings />
