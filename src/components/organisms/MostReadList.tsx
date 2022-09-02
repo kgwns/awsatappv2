@@ -10,7 +10,7 @@ import { Styles } from 'src/shared/styles';
 import {dateTimeAgo, getArticleImage, isNonEmptyArray, TimeIcon} from 'src/shared/utils/utilities';
 import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import { useBookmark, useLogin } from 'src/hooks';
+import { useAppPlayer, useBookmark, useLogin } from 'src/hooks';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import PopUp, { PopUpType } from './popUp/PopUp';
 import { fonts } from 'src/shared/styles/fonts';
@@ -51,7 +51,7 @@ const MostReadList = ({
   const [articleData,setArticleData] = useState(data)
   const [showupUp,setShowPopUp] = useState(false)
   const style = useThemeAwareObject(mostReadListStyle)
-
+  const { showMiniPlayer } = useAppPlayer()
   const ref = React.useRef(null);
 
   useFocusEffect(
@@ -177,6 +177,7 @@ const MostReadList = ({
         renderItem={({item, index}) => renderItem(item, index)}
         onEndReached={onScroll ? onScroll : () => {}}
         onEndReachedThreshold={0.3}
+        contentContainerStyle={showMiniPlayer && style.contentContainer}
       />
       <PopUp type={PopUpType.rbSheet}
         onPressButton={onPressSignUp}
@@ -217,5 +218,8 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   titleContainerStyle: {
     marginTop: 10
+  },
+  contentContainer: {
+    paddingBottom: normalize(80)
   }
 });

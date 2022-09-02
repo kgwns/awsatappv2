@@ -1,36 +1,23 @@
 import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import {SignUpPage} from '../SignUpPage';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
 import {useNavigation} from '@react-navigation/native';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
+import { useRegister } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
 }));
 
-jest.mock("src/hooks/useRegister", () => ({
-  useRegister: () => {
-      return {
-        socialLoginEnded:()=>jest.fn(),
-        emptyUserInfo:()=>jest.fn(),
-        createUserRequest:()=> jest.fn(),
-        registerUserInfo: {
-          user: {
-            email: "abc@gmail.com",
-            id: '2',
-          },
-          message: {
-            message: 'abc'
-          },
-        },
-        isRegisterLoading: true,
-        registerError: 'Network Error'
-      }
-  },
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
 }));
+
+jest.mock('src/hooks/useRegister', () => ({useRegister: jest.fn()}));
 
 jest.mock("src/hooks/useUserProfileData", () => ({
   useUserProfileData: () => {
@@ -74,6 +61,9 @@ jest.mock("src/hooks/useLogin", () => ({
         token: {
           token_type: 'type',
           access_token: 'abcd123'
+        },
+        user: {
+          id: '2'
         }
       },
     }
@@ -88,9 +78,30 @@ describe('<SignUpPage>', () => {
     navigate: jest.fn(),
     goBack: jest.fn(),
   }
+  const password = jest.fn();
+  const useRegisterMock = jest.fn();
   describe('when SignUpPage only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValue(navigation);
+      (useRegister as jest.Mock).mockImplementation(useRegisterMock);
+      (useState as jest.Mock).mockImplementation(() => ['Password@1', password]);
+      useRegisterMock.mockReturnValue({
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
+          message: {
+            message: 'abc',
+            code: 200
+          },
+        },
+        isRegisterLoading: true,
+        registerError: 'Network Error'
+      });
       const component = (
         <Provider store={storeSampleData}>
           <SignUpPage route={{ params: { email: 'testEmail@gmail.com' } }}  />
@@ -123,3 +134,54 @@ describe('<SignUpPage>', () => {
     });
   });
 });
+
+describe('<SignUpPage>', () => {
+  let instance: RenderAPI;
+  const mockDispatch = jest.fn();
+  const navigation = {
+    reset: jest.fn(),
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+  }
+  const password = jest.fn();
+  const useRegisterMock = jest.fn();
+  describe('when SignUpPage only', () => {
+    beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValue(navigation);
+      (useRegister as jest.Mock).mockImplementation(useRegisterMock);
+      (useState as jest.Mock).mockImplementation(() => ['', password]);
+      useRegisterMock.mockReturnValue({
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
+          message: {
+            message: 'abc',
+            code: 0
+          },
+        },
+        isRegisterLoading: true,
+        registerError: 'Network Error'
+      });
+      const component = (
+        <Provider store={storeSampleData}>
+          <SignUpPage route={{ params: { email: 'testEmail@gmail.com' } }}  />
+        </Provider>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render SignUpPage', () => {
+      expect(instance).toBeDefined();
+    });
+  });
+});
+

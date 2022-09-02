@@ -133,10 +133,10 @@ jest.mock("src/hooks/useOpinions", () => ({
 describe('<OpinionScreen>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
-    const setOpinionsDataInfo= mockFunction;
     const opinionsDataInfo= mockFunction;
-    const setPage = mockFunction;
-    const setShowPopUp = mockFunction;
+    const isShowPlayer= mockFunction;
+    const page = mockFunction;
+    const showupUp = mockFunction;
 
     const navigation = {
         navigate: mockFunction,
@@ -145,10 +145,10 @@ describe('<OpinionScreen>', () => {
 
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-        (useState as jest.Mock).mockImplementation(() => [opinionsData, setOpinionsDataInfo]);
         (useState as jest.Mock).mockImplementation(() => [opinionsData, opinionsDataInfo]);
-        (useState as jest.Mock).mockImplementation(() => [0, setPage]);
-        (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
+        (useState as jest.Mock).mockImplementation(() => [false, isShowPlayer]);
+        (useState as jest.Mock).mockImplementation(() => [0, page]);
+        (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
         const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
         instance = render(component)
     })
@@ -177,7 +177,6 @@ describe('<OpinionScreen>', () => {
     test('Should call PopUp onPressButton', () => {
         const element = instance.container.findAllByType(PopUp)[0]
         fireEvent(element, 'onPressButton');
-        expect(setShowPopUp).toBeTruthy();
         expect(navigation.reset).toBeTruthy();
     });
 
@@ -185,7 +184,7 @@ describe('<OpinionScreen>', () => {
     test('Should call PopUp onClosePopUp', () => {
         const element = instance.container.findAllByType(PopUp)[0]
         fireEvent(element, 'onClosePopUp');
-        expect(setShowPopUp).toBeTruthy();
+        expect(mockFunction).toBeTruthy();
     });
 
 })

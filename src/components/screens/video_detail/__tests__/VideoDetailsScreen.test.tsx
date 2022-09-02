@@ -8,6 +8,7 @@ import { PodcastProgramHeader } from 'src/components/molecules';
 import {useNavigation} from '@react-navigation/native';
 import { VideoInfo, VideosList } from 'src/components/organisms';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
+import { VideoItemType } from 'src/redux/videoList/types';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -18,6 +19,24 @@ jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
+
+const sampleData: VideoItemType[] = [
+  {
+    nid: '1',
+    title: '123',
+    isBookmarked: true
+  },
+  {
+    nid: '2',
+    title: '124',
+    isBookmarked: true
+  },
+  {
+    nid: '3',
+    title: '124',
+    isBookmarked: true
+  },
+];
 
 jest.mock("src/hooks/useVideoList", () => ({
   useVideoList: () => {
@@ -80,27 +99,27 @@ const data: VideoDetailScreenProps = {
 
 describe('<VideoDetailScreen >', () => {
   let instance: RenderAPI;
-  const setIsSaved = jest.fn()
-  const mockFunction = jest.fn()
-  const selectedVideo = jest.fn()
-  const setVideolistData = jest.fn()
-  const setIsBookmarked = jest.fn()
-  const setShowPopUp = jest.fn()
-  const setVideoUrl = jest.fn()
+  const mockFunction = jest.fn();
+
+  const videolistData = mockFunction
+  const selectedVideo = mockFunction
+  const isBookmarked = mockFunction
+  const showupUp = mockFunction
+  const videoUrl = mockFunction
+  
   const navigation = {
-    navigate: jest.fn(),
-    goBack: jest.fn(),
+    navigate: mockFunction,
+    goBack: mockFunction,
   }
 
   describe('when VideoDetailScreen  only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      (useState as jest.Mock).mockImplementation(() => [false, setIsSaved]);
+      (useState as jest.Mock).mockImplementation(() => [sampleData, videolistData]);
       (useState as jest.Mock).mockImplementation(() => [data.route.params.data, selectedVideo]);
-      (useState as jest.Mock).mockImplementation(() => [[], setVideolistData]);
-      (useState as jest.Mock).mockImplementation(() => [false, setIsBookmarked]);
-      (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
-      (useState as jest.Mock).mockImplementation(() => ['', setVideoUrl]);
+      (useState as jest.Mock).mockImplementation(() => [false, isBookmarked]);
+      (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
+      (useState as jest.Mock).mockImplementation(() => ['abc.com', videoUrl]);
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
@@ -135,7 +154,7 @@ describe('<VideoDetailScreen >', () => {
     });
     it('when onPress is pressed from VideoInfo', () => {
       const testID = instance.container.findByType(VideoInfo);
-      fireEvent(testID, 'onPress', {item: { nid: '2', title: 'abc', isBookmarked: true, mediaId: '2' }});
+      fireEvent(testID, 'onPress', {item: sampleData[0]});
       expect(navigation.navigate).toBeTruthy();
     });
     test('Should call ScreenContainer onCloseSignUpAlert', () => {

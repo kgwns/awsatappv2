@@ -1,6 +1,6 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
-import videoListSaga, {fetchVideoList} from '../sagas';
+import videoListSaga, {fetchVideoList, formatVideoData} from '../sagas';
 import {
   fetchVideoListFailed,
   fetchVideoListSuccess,
@@ -14,20 +14,31 @@ import {
 } from '../types';
 
 const mockString = 'mockString';
+const mockValue = '12';
 
 const requestAction: FetchVideoType = {
   type: FETCH_VIDEO,
 };
 
-const reposnseObject = [
-    {
-    nid: mockString,
-    title: mockString,
+const reposnseObject = {
+      nid: mockValue,
+      title: mockString,
+      created_export: mockString,
+      field_image_upload_export: mockString,
+      field_mp4_link_export: mockString,
+      field_multimedia_section_export: mockString,
+      field_thumbnil_multimedia_export: mockString,
+      description: mockString,
+      body_export: mockString,
+      isBookmarked: false,
+      field_jwplayerinfo_export: mockString,
+      mediaId: mockValue,
     }
-  ]
 
 const sucessResponseObject: FetchVideoSuccessPayloadType = {
-  videoData: reposnseObject
+  videoData: [
+    reposnseObject
+  ]
 }
 
 describe('test videoListSaga  saga', () => {
@@ -63,5 +74,24 @@ describe('test fetchVideoList  error', () => {
       .put(fetchVideoListFailed({error: error.message}))
       .finish()
       .isDone();
+  });
+
+  describe('Test formatVideoData success', () => {
+    it('fire on formatVideoData', () => {
+      expect(formatVideoData({rows: {
+        nid: mockValue,
+        title: mockString,
+        created_export: mockString,
+        field_image_upload_export: mockString,
+        field_mp4_link_export: mockString,
+        field_multimedia_section_export: mockString,
+        field_thumbnil_multimedia_export: mockString,
+        description: mockString,
+        body_export: mockString,
+        isBookmarked: false,
+        field_jwplayerinfo_export: mockString,
+        mediaId: mockValue,
+      }})).toStrictEqual([])
+    });
   });
 });

@@ -8,6 +8,8 @@ import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { WritersDetailScreen } from '../WritersDetailScreen'
 import { OpinionWritersArticlesSection } from 'src/components/organisms'
 import { OpinionsListItemType } from 'src/redux/opinionArticleDetail/types'
+import { WriterBannerImage } from 'src/components/molecules'
+import {useNavigation} from '@react-navigation/native';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -94,7 +96,6 @@ const writerData: OpinionsListItemType[] = [
 jest.mock("src/hooks/useOpinions", () => ({
     useOpinions: () => {
         return {
-            isLoading: true,
             opinionsError: 'error',
             writerOpinionsData: writerData,
             isWriterOpinionLoading: false,
@@ -145,7 +146,7 @@ const sampleData: WriterDetailDataType[] = [
         field_description: 'example',
         field_opinion_writer_photo_export: 'example',
         tid: '1',
-        isFollowed: true,
+        isFollowed: false,
         field_instagram_url_export: 'url',
         field_opinion_twitter_export: 'twitter',
         field_opinion_facebook_export:'facebook',
@@ -155,7 +156,7 @@ const sampleData: WriterDetailDataType[] = [
         field_description: 'example',
         field_opinion_writer_photo_export: 'example',
         tid: '2',
-        isFollowed: true,
+        isFollowed: false,
         field_instagram_url_export: 'url',
         field_opinion_twitter_export: 'twitter',
         field_opinion_facebook_export:'facebook',
@@ -163,20 +164,29 @@ const sampleData: WriterDetailDataType[] = [
 ];
 
 describe('< Writer Detail >', () => {
-    let instance: RenderAPI
+    let instance: RenderAPI;
     const mockFunction = jest.fn();
-    const setWriterDetailInfo = mockFunction;
+    const navigation = {
+        navigate: mockFunction,
+        goBack: mockFunction,
+        popToTop: mockFunction,
+    }
+
     const writerDetailInfo = mockFunction;
-    const setShowPopUp = mockFunction;
-    const setPage = mockFunction;
-    const setOpinionsDataInfo = mockFunction;
+    const showupUp = mockFunction;
+    const page = mockFunction;
+    const scrollY = mockFunction;
+    const isFollowed = mockFunction;
+    const opinionsDataInfo = mockFunction;
 
     beforeEach(() => {
-    (useState as jest.Mock).mockImplementation(() => [sampleData, setWriterDetailInfo]);
-    (useState as jest.Mock).mockImplementation(() => [sampleData, writerDetailInfo]);
-    (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
-    (useState as jest.Mock).mockImplementation(() => [0, setPage]);
-    (useState as jest.Mock).mockImplementation(() => [[], setOpinionsDataInfo]);
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [sampleData, writerDetailInfo]);
+        (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
+        (useState as jest.Mock).mockImplementation(() => [0, page]);
+        (useState as jest.Mock).mockImplementation(() => [0, scrollY]);
+        (useState as jest.Mock).mockImplementation(() => [false, isFollowed]);
+        (useState as jest.Mock).mockImplementation(() => [writerData, opinionsDataInfo]);
         const component =
             <Provider store={storeSampleData}>
                 <WritersDetailScreen route={{params: {tid: '12345'}}}/>
@@ -220,6 +230,24 @@ describe('< Writer Detail >', () => {
     test('Should call OpinionWritersArticlesSection onScroll', () => {
         const element = instance.container.findByType(OpinionWritersArticlesSection)
         fireEvent(element, 'onScroll');
-        expect(setShowPopUp).toBeTruthy()
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call WriterBannerImage onPressFollow', () => {
+        const element = instance.container.findByType(WriterBannerImage)
+        fireEvent(element, 'onPressFollow', sampleData[0].tid);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call WriterBannerImage onPressReturn', () => {
+        const element = instance.container.findByType(WriterBannerImage)
+        fireEvent(element, 'onPressReturn');
+        expect(navigation.goBack).toBeTruthy()
+    });
+
+    test('Should call WriterBannerImage onPressHome', () => {
+        const element = instance.container.findByType(WriterBannerImage)
+        fireEvent(element, 'onPressHome');
+        expect(navigation.popToTop).toBeTruthy()
     });
 })

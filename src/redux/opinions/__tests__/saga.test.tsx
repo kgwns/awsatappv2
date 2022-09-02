@@ -16,12 +16,12 @@ const mockString = 'mockString';
 
 const requestObject: OpinionsListBodyGet = {
   page: mockPage,
-  nid: '',
+  nid: '1',
 };
 
 const requestAction: FetchOpinionsType = {
   type: FETCH_OPINIONS,
-  payload: {...requestObject, nid: ''},
+  payload: requestObject,
 };
 
 const responseObject = {

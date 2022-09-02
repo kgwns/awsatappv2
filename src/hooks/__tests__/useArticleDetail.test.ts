@@ -1,6 +1,7 @@
 import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
 import {useDispatch} from 'react-redux';
 import { EMPTY_DATA } from 'src/redux/articleDetail/actionType';
+import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 import {
   useArticleDetail,
   UseArticleDetailReturn,
@@ -132,6 +133,51 @@ describe('#useArticleDetail', () => {
       expect(dispatchMock).toHaveBeenCalledWith({
         type: EMPTY_DATA,
       });
+    });
+  });
+
+  const data: ArticleDetailDataType[] = [
+    {
+      title: 'title',
+      body: 'body',
+      nid: 'nid',
+      image: 'image',
+      view_node: 'view_node',
+      news_categories: {
+          title: 'news_categories_title',
+          id: 'news_categories_id',
+          url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
+          bundle: 'news_categories_bundle',
+          name: 'news_categories_name'
+      },
+      author: 'author',
+      tag_topics: {
+          id: '1',
+          title: 'asd',
+          url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
+          bundle: 'asd',
+          name: 'qsd'
+      },
+      isBookmarked: false,
+      caption: 'asd',
+      subtitle: 'asdf',
+      jwplayerId: '1',
+      created: 'asxdc'
+    },
+  ]
+  describe('#sendEventToServer', () => {
+    it('should call dispatch with sendEventToServer', () => {
+      const {
+        result: {
+          current: {sendEventToServer},
+        },
+      } = result;
+
+      act(() => {
+        sendEventToServer(data);
+      });
+
+      expect(dispatchMock).toBeTruthy();
     });
   });
 

@@ -377,6 +377,72 @@ describe('<LatestNewsSaga >', () => {
             genObject.throw(errorResponse)
         })
 
+        it('check fetchSectionComboFive success', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_FIVE,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.next(sampleResponse)
+        })
+
+        it('check fetchSectionComboFive failed', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_FIVE,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+
+        it('check fetchSectionComboFive success', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_SIX,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.next(sampleResponse)
+        })
+
+        it('check fetchSectionComboFive failed', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_SIX,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+
+        it('check fetchSectionComboFive success', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_SEVEN,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.next(sampleResponse)
+        })
+
+        it('check fetchSectionComboFive failed', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_SEVEN,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+
         describe('fetchPodcastHomeData', () => {
             it('check fetchPodcastHomeData success', () => {
                 const genObject = fetchPodcastHomeData()

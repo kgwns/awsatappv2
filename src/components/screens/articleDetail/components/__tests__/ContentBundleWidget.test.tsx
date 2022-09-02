@@ -60,6 +60,12 @@ describe('<ContentBundleWidget>', () => {
         </Provider>)).toBeDefined()
     })
 
+    it('Should render component', () => {
+        expect(render(<Provider store={storeSampleData}>
+            <ContentBundleWidget title={'abc'}/>
+        </Provider>)).toBeDefined()
+    })
+
     it('When ListenToArticleCardTO1 is pressed', () => {
         const testItemId = instance.getByTestId('ContentBundleWidgetTO1');
         fireEvent(testItemId, 'onPress', {nid: '2', hasHTMLContent: true});
