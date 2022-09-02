@@ -179,7 +179,7 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
         ({ title, body_export, nid_export, field_image_export, view_node,
           field_news_categories_export, author_resource, field_tags_topics_export,created_export, field_new_sub_title_export,
           field_new_photo_export, field_new_photo_titles, field_jwplayer_id_export,
-          field_paragraph_export
+          field_paragraph_export, jor_city, jor_id, jor_name
          }: any) => ({
             body: body_export,
             title: isNotEmpty(title) ? decode(title) : '',
@@ -193,7 +193,10 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
             created: created_export,
             subtitle: isNotEmpty(field_new_sub_title_export) ? decode(field_new_sub_title_export) : '',
             jwplayerId: field_jwplayer_id_export,
-            richHTML: parseRichHTML(field_paragraph_export)
+            richHTML: parseRichHTML(field_paragraph_export),
+            journalistId: jor_id,
+            journalistCity: jor_city,
+            journalistName: jor_name
           })
       );
     }

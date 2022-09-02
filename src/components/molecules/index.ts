@@ -62,3 +62,4 @@ export { StaticPageHeader, StaticPageHeaderType } from 'src/components/molecules
 export { PhotoGalleryItem } from 'src/components/molecules/photogallery/PhotoGalleryItem';
 export { PhotoGalleryDetailFooter } from 'src/components/molecules/photogallery/PhotoGalleryDetailFooter';
 
+export { Journalist } from 'src/components/molecules/journalists/Journalists'

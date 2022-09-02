@@ -1265,3 +1265,99 @@ export const myNewsTopTabData = [
   // },
 
 ]
+
+export const journalistData = [
+  {
+    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    field_new_photo: 'https://static.srpcdigital.com/styles/1037xauto/public/2022-08/52858.jpg?itok=btM-vIUF',
+    field_news_categories_export: [{
+      title: 'أمريكا',
+    }],
+    isBookmarked: true,
+    nid: '3650826',
+    created_export: '2022-08-05T13:15:45+0100'
+  },
+  {
+    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    field_new_photo: 'https://static.srpcdigital.com/styles/1037xauto/public/2022-08/52858.jpg?itok=btM-vIUF',
+    field_news_categories_export: [{
+      title: 'أمريكا',
+    }],
+    isBookmarked: true,
+    nid: '3650826',
+    created_export: '2022-08-05T13:15:45+0100'
+  },
+  {
+    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    field_new_photo: 'https://static.srpcdigital.com/styles/1037xauto/public/2022-08/52858.jpg?itok=btM-vIUF',
+    field_news_categories_export: [{
+      title: 'أمريكا',
+    }],
+    isBookmarked: true,
+    nid: '3650826',
+    created_export: '2022-08-05T13:15:45+0100'
+  },
+  {
+    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    field_new_photo: 'https://static.srpcdigital.com/styles/1037xauto/public/2022-08/52858.jpg?itok=btM-vIUF',
+    field_news_categories_export: [{
+      title: 'أمريكا',
+    }],
+    isBookmarked: true,
+    nid: '3650826',
+    created_export: '2022-08-05T13:15:45+0100'
+  },
+  {
+    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    field_new_photo: 'https://static.srpcdigital.com/styles/1037xauto/public/2022-08/52858.jpg?itok=btM-vIUF',
+    field_news_categories_export: [{
+      title: 'أمريكا',
+    }],
+    isBookmarked: true,
+    nid: '3650826',
+    created_export: '2022-08-05T13:15:45+0100'
+  },
+  {
+    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    field_new_photo: 'https://static.srpcdigital.com/styles/1037xauto/public/2022-08/52858.jpg?itok=btM-vIUF',
+    field_news_categories_export: [{
+      title: 'أمريكا',
+    }],
+    isBookmarked: true,
+    nid: '3650826',
+    created_export: '2022-08-05T13:15:45+0100'
+  },
+  {
+    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    field_new_photo: 'https://static.srpcdigital.com/styles/1037xauto/public/2022-08/52858.jpg?itok=btM-vIUF',
+    field_news_categories_export: [{
+      title: 'أمريكا',
+    }],
+    isBookmarked: true,
+    nid: '3650826',
+    created_export: '2022-08-05T13:15:45+0100'
+  },
+  {
+    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    field_new_photo: 'https://static.srpcdigital.com/styles/1037xauto/public/2022-08/52858.jpg?itok=btM-vIUF',
+    field_news_categories_export: [{
+      title: 'أمريكا',
+    }],
+    isBookmarked: true,
+    nid: '3650826',
+    created_export: '2022-08-05T13:15:45+0100'
+  },
+  
+];
+
+export const journalistNames = [
+  [{
+    location: 'الرياض',
+    author: 'بندر مسلم',
+    tid: '92602',
+  },
+  {
+    location: 'القاهرة',
+    author: 'خالد محمود',
+    tid: '92602',
+  }]]

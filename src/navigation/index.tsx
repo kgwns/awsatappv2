@@ -39,6 +39,7 @@ import {
   MyNewsScreen,
   ContactUs,
   PhotoGalleryDetailScreen,
+  JournalistDetail
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -88,6 +89,7 @@ export const Routes = {
   MyNewsScreen,
   ContactUs,
   PhotoGalleryDetailScreen,
+  JournalistDetail,
 };
 
 /**
@@ -124,6 +126,7 @@ export type ScreenList = {
   SectionArticlesParentScreen: undefined;
   MyNewsScreen: undefined;
   PhotoGalleryDetailScreen: undefined;
+  JournalistDetail: undefined;
 };
 
 export type ScreenName = keyof undefined;
@@ -154,6 +157,7 @@ const writersDetailScreen = 'writersDetailScreen' as ScreenName
 const sectionArticlesParentScreen = 'sectionArticlesParentScreen' as ScreenName;
 const myNewsScreen = 'myNewsScreen' as ScreenName
 const photoGalleryDetailScreen = 'photoGalleryDetailScreen' as ScreenName
+const journalistDetail = 'journalistDetail' as ScreenName;
 
 
 export const RoutesName = {
@@ -185,5 +189,6 @@ export const RoutesName = {
   PDFArchive,
   PDFEditorView,
   myNewsScreen,
-  photoGalleryDetailScreen
+  photoGalleryDetailScreen,
+  journalistDetail
 };

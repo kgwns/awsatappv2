@@ -1,0 +1,15 @@
+import { getCacheApiRequest } from 'src/services/api';
+import { JournalistDetailBodyGet } from 'src/redux/journalist/types';
+import { GET_JOURNALIST_DETAIL_END_POINT } from './apiEndPoints';
+import { BASE_URL } from './apiUrls';
+
+export const fetchJournalistDetailInfo = async (payload: JournalistDetailBodyGet) => {
+    try {
+        const response = await getCacheApiRequest(
+            `${BASE_URL}${GET_JOURNALIST_DETAIL_END_POINT}${payload.tid}`,
+        );
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};

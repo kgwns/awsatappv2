@@ -41,6 +41,7 @@ const PDFArchive = 'PDFArchive' as ScreenName
 const PDF_EDITOR_VIEW = 'PDFEditorView' as ScreenName
 const CONTACT_US_SCREEN = 'ContactUsScreen' as ScreenName
 const PHOTO_GALLERY_DETAIL_SCREEN = 'PhotoGalleryDetailScreen' as ScreenName
+const JOURNALIST_DETAIL_SCREEN = 'JournalistDetail' as ScreenName
 
 
 const HEADER_LOGO = 'headerLogo';
@@ -92,4 +93,5 @@ export const ScreensConstants = {
   PDF_EDITOR_VIEW,
   CONTACT_US_SCREEN,
   PHOTO_GALLERY_DETAIL_SCREEN,
+  JOURNALIST_DETAIL_SCREEN,
 };

@@ -2,7 +2,7 @@ import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWind
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
-import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader } from 'src/components/molecules'
+import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
@@ -508,6 +508,11 @@ export const ArticleDetailScreen = ({
             onChangeFullScreen={onChangeFullScreen}
             isFullScreen={isFullScreen}
           />
+          {isNonEmptyArray(item.journalistId) && <Journalist
+            journalistCity={item.journalistCity}
+            journalistId={item.journalistId}
+            journalistName={item.journalistName} />
+          }
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
           <Divider style={style.divider} />
