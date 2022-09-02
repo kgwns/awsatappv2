@@ -35,7 +35,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
                             <TouchableOpacity onPress={() => onPressJournalist(item)}>
                                 <Label children={journalistName[index]} style={style.authorLabel} />
                             </TouchableOpacity>
-                            {index % 2 == 0 && <Label children={'|'} style={{ paddingHorizontal: normalize(15), color: colors.silverChalice }} />}
+                            {index % 2 == 0 && <Label children={'|'} style={style.separatorStyle} />}
                         </View>}
                     </View>
                 );
@@ -55,14 +55,14 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingHorizontal: normalize(15)
     },
     headerLabel: {
-        lineHeight: 18,
-        // fontFamily: fonts.Effra_Regular,
+        lineHeight: 20,
+        fontFamily: fonts.Effra_Regular,
         fontSize: 14,
-        color: theme.primaryBlack
+        color: theme.secondaryDarkSlate
     },
     authorLabel: {
-        lineHeight: 18,
-        // fontFamily: fonts.AwsatDigital_Regular,
+        lineHeight: 24,
+        fontFamily: fonts.AwsatDigital_Regular,
         fontSize: 14,
         color: theme.primary
     },
@@ -71,6 +71,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     columnViewStyle: {
         flexDirection: 'column'
+    },
+    separatorStyle: {
+        fontsize: 20,
+        lineHeight:22,
+        paddingHorizontal: normalize(15),
+        color: colors.silverChalice
     }
 });
 
