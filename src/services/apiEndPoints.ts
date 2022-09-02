@@ -146,3 +146,4 @@ export const PHOTO_GALLERY_DETAIL_ENDPOINT = 'api/v2/albumnode/';
 
 //Journalist
 export const JOURNALIST_ARTICLE_ENDPOINT = 'api/v2/journalistsarticles/'
+export const GET_JOURNALIST_DETAIL_END_POINT = 'api/v2/jordetails/'

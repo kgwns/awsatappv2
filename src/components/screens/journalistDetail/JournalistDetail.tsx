@@ -4,18 +4,17 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils';
 import { ScreenContainer } from '..';
-import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
+import { useAllWriters, useBookmark, useLogin, useWriterDetail } from 'src/hooks';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useWriterDetail, useJournalist } from 'src/hooks';
-import { WriterDetailDataType } from 'src/redux/writersDetail/types';
+import { useJournalist } from 'src/hooks';
 import { WriterBannerImage, DetailHeader } from 'src/components/molecules';
 import { JournalistSection } from 'src/components/organisms';
-import { decodeHTMLTags, horizontalEdge, isNotEmpty } from 'src/shared/utils/utilities';
+import { horizontalEdge, isNotEmpty } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { ScreensConstants } from 'src/constants'
 import Orientation from 'react-native-orientation-locker';
-import { JournalistArticleData } from 'src/redux/journalist/types';
+import { JournalistArticleData, JournalistDetailDataType } from 'src/redux/journalist/types';
 
 export interface JournalistDetailScreenProps {
     route: any;
@@ -30,10 +29,6 @@ export const JournalistDetail = ({
 
     const style = useThemeAwareObject(customStyle);
 
-    const { isLoading, writerDetailData,
-        getWriterDetailData, emptyWriterDetailData
-    } = useWriterDetail();
-
     const {
         bookmarkIdInfo,
         sendBookmarkInfo, removeBookmarkedInfo
@@ -41,19 +36,22 @@ export const JournalistDetail = ({
 
     const { isLoggedIn } = useLogin()
 
+    const { emptyWriterDetailData
+    } = useWriterDetail();
+
     const { selectedAuthorsData, getSelectedAuthorsData,
         sendSelectedWriterInfo, removeAuthorRequest
     } = useAllWriters();
 
-    const { isArticleLoading, journalistArticleInfo,
-        getJournalistArticleInfo, emptyJournalistArticleInfo } = useJournalist();
+    const { journalistArticleInfo, getJournalistArticleInfo, journalistDetailData, getJournalistDetailInfo,
+        isDetailLoading, isArticleLoading, emptyJournalistArticleInfo } = useJournalist();
 
-    const [writerDetailInfo, setWriterDetailInfo] = useState<WriterDetailDataType[]>([])
     const [showupUp, setShowPopUp] = useState(false)
     const [page, setPage] = useState(0);
     const [isFollowed, setIsFollowed] = useState(false)
     const [scrollY, setScrollY] = useState(new Animated.Value(0))
     const [articleState, setArticleState] = useState<JournalistArticleData[]>([])
+    const [journalistDetail, setJournalistDetail] = useState<JournalistDetailDataType[]>([])
 
     const detailRoutes = useMemo(() => routes.filter((routes) =>
         routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
@@ -62,12 +60,12 @@ export const JournalistDetail = ({
     const noOfDetailRoutes = detailRoutes.length
 
     useEffect(() => {
-      emptyJournalistArticleInfo()
+        emptyJournalistArticleInfo()
     }, [])
 
     useEffect(() => {
         if (isFocused) {
-            getWriterDetailData({ tid: route.params.tid })
+            getJournalistDetailInfo({ tid: route.params.tid })
             getSelectedAuthorsData()
             Orientation.lockToPortrait()
 
@@ -78,23 +76,28 @@ export const JournalistDetail = ({
     }, [isFocused])
 
     useEffect(() => {
-        if (isNonEmptyArray(writerDetailData) && isObjectNonEmpty(selectedAuthorsData)) {
-            const isFollowed = validateFollow(writerDetailData[0].tid)
+        if (isNonEmptyArray(journalistDetailData) && isObjectNonEmpty(selectedAuthorsData)) {
+            const isFollowed = validateFollow(route.params.tid)
             setIsFollowed(isFollowed)
         }
-    }, [writerDetailData, selectedAuthorsData])
+    }, [journalistDetailData, selectedAuthorsData])
+
+
+    useEffect(() => {
+        setJournalistDetail(journalistDetailData)
+    }, [journalistDetailData])
 
     const validateFollow = (id: string): boolean => {
         return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
     }
 
     useEffect(() => {
-        setWriterDetailInfo(writerDetailData)
-    }, [writerDetailData])
-
-    useEffect(() => {
         getJournalistArticleInfo({ nid: route.params.tid, page: page });
     }, [page]);
+
+    useEffect(() => {
+        updateArticleState()
+    }, [journalistArticleInfo])
 
     useEffect(() => {
         updateArticleState()
@@ -166,7 +169,7 @@ export const JournalistDetail = ({
         }
 
         const newFollowed = !isFollowed
-        const data = [...writerDetailInfo]
+        const data = [...journalistDetail]
         data[0].isFollowed = !data[0].isFollowed
         setIsFollowed(newFollowed)
         onUpdateFollow(id, newFollowed)
@@ -196,22 +199,16 @@ export const JournalistDetail = ({
 
     const renderItem = () => {
         const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
+        const journalistData = isNonEmptyArray(journalistDetail) ? journalistDetail[0] : {} as JournalistDetailDataType
 
         return (
             <View style={style.container}>
-                {isNonEmptyArray(writerDetailInfo) && <WriterBannerImage isWriter isFocused data={{
-                    authorImage: writerDetailInfo[0].field_opinion_writer_photo_export,
-                    authorName: writerDetailInfo[0].name,
-                    authorDescription: decodeHTMLTags(writerDetailInfo[0].field_description),
-                    facebook_url: writerDetailInfo[0].field_opinion_facebook_export,
-                    twitter_url: writerDetailInfo[0].field_opinion_twitter_export,
-                    instagram_url: writerDetailInfo[0].field_instagram_url_export,
-                }}
+                {isObjectNonEmpty(journalistData) && <WriterBannerImage isWriter isFocused data={journalistData}
                     orientation={'PORTRAIT'}
                     onPressReturn={onPressBack}
                     showIsFollowed={false}
                     isFollowed={isFollowed}
-                    onPressFollow={() => onPressFollow(writerDetailInfo[0].tid)}
+                    onPressFollow={() => onPressFollow(route.params.tid)}
                     hideBackArrow={hideBackArrow}
                     visibleHome={noOfDetailRoutes > 1}
                     onPressHome={onPressHome}
@@ -228,10 +225,10 @@ export const JournalistDetail = ({
     };
 
     return (
-        <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
+        <ScreenContainer edge={horizontalEdge} isLoading={isDetailLoading}
             isSignUpAlertVisible={showupUp}
             onCloseSignUpAlert={onCloseSignUpAlert}>
-            {!isLoading && <>
+            {!isDetailLoading && <>
                 <FlatList
                     style={style.flatList}
                     data={[{}]}
