@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getIsLoading, getJournalistArticleSuccessInfo, getJournalistArticleError } from 'src/redux/journalist/selectors'
-import { getJournalistInfoDetail } from "src/redux/journalist/action";
+import { emptyJournalistArticle, getJournalistInfoDetail } from "src/redux/journalist/action";
 import { GetJournalistInfoPayload, JournalistArticleData } from "src/redux/journalist/types";
 
 export type UseJournalistReturn = {
@@ -8,6 +8,7 @@ export type UseJournalistReturn = {
     journalistArticleInfo: JournalistArticleData[];
     journalistArticleErrorInfo: string;
     getJournalistArticleInfo: (payload: GetJournalistInfoPayload) => void;
+    emptyJournalistArticleInfo: () => void;
 }
 
 export const useJournalist = (): UseJournalistReturn => {
@@ -21,10 +22,15 @@ export const useJournalist = (): UseJournalistReturn => {
         dispatch(getJournalistInfoDetail(payload))
     }
 
+    const emptyJournalistArticleInfo = () => {
+        dispatch(emptyJournalistArticle())
+    }
+
     return {
         isArticleLoading,
         journalistArticleInfo,
         journalistArticleErrorInfo,
         getJournalistArticleInfo,
+        emptyJournalistArticleInfo,
     }
 }

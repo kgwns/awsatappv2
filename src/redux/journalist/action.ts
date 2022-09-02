@@ -2,6 +2,7 @@ import {
   GET_JOURNALIST_ARTICLE_INFO,
   GET_JOURNALIST_ARTICLE_SUCCESS,
   GET_JOURNALIST_ARTICLE_FAILED,
+  EMPTY_JOURNALIST_ARTICLE,
 } from "./actionType"
 import {
   GetJournalistInfoPayload,
@@ -10,6 +11,7 @@ import {
   GetJournalistInfoSuccessType,
   JournalistInfoFailedPayload,
   GetJournalistInfoFailedType,
+  EmptyJournalistArticleType,
 } from "./types"
 
 export const getJournalistInfoDetail = (
@@ -39,9 +41,17 @@ export const getJournalistInfoDetailFailed = (
   };
 };
 
+export const emptyJournalistArticle = ()
+: EmptyJournalistArticleType => {
+  return {
+    type: EMPTY_JOURNALIST_ARTICLE,
+  }
+}
+
 
 export const journalistActions = {
   getJournalistInfoDetail,
   getJournalistInfoDetailSuccess,
   getJournalistInfoDetailFailed,
+  emptyJournalistArticle,
 };

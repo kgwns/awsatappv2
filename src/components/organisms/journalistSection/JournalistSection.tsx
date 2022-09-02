@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -15,18 +15,29 @@ import { JournalistArticleData } from 'src/redux/journalist/types';
 
 interface OpinionWritersArticlesSectionProps {
   data: any;
+  isLoading: boolean;
   onScroll: () => void;
   onUpdateArticlesBookmark: (index: number) => void
 }
 
 export const JournalistSection = ({
   data,
+  isLoading,
   onScroll,
   onUpdateArticlesBookmark,
 }: OpinionWritersArticlesSectionProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const numberOfColumn = isTab ? 2 : 1;
+
+  const renderFooter = () => {
+    if(!isLoading) return null
+    return (
+      <View style={{ margin: normalize(20) }}>
+        <ActivityIndicator size={'small'} color={theme.themeData.primary} />
+      </View>
+    )
+  }
 
   const renderItem = (item: JournalistArticleData, index: number) => {
     const timeFormat = dateTimeAgo(item.created)
@@ -59,6 +70,7 @@ export const JournalistSection = ({
       </View>
     );
   };
+
   return (
     <View style={style.container}>
       <FlatList
@@ -66,9 +78,10 @@ export const JournalistSection = ({
         showsHorizontalScrollIndicator={false}
         data={data}
         renderItem={({ item, index }) => renderItem(item, index)}
-        onEndReached={() => onScroll()}
+        onEndReached={onScroll}
         onEndReachedThreshold={0.5}
         numColumns={numberOfColumn}
+        ListFooterComponent={renderFooter}
       />
     </View>
   );

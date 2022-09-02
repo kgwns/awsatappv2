@@ -6,7 +6,7 @@ import { GetJournalistInfoPayload } from 'src/redux/journalist/types';
 export const getJournalistArticleService = async (body: GetJournalistInfoPayload) => {
     try {
         const response: { message: any } = await getCacheApiRequest(
-            `${BASE_URL}${JOURNALIST_ARTICLE_ENDPOINT}${body.nid}`,
+            `${BASE_URL}${JOURNALIST_ARTICLE_ENDPOINT}${body.nid}?items_per_page=10&page=${body.page}`,
         );
         return response;
     } catch (error) {

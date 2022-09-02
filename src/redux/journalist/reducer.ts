@@ -2,6 +2,7 @@ import {
   GET_JOURNALIST_ARTICLE_INFO,
   GET_JOURNALIST_ARTICLE_SUCCESS,
   GET_JOURNALIST_ARTICLE_FAILED,
+  EMPTY_JOURNALIST_ARTICLE,
 } from './actionType';
 import {
   JournalistInfoAction,
@@ -26,7 +27,6 @@ export default (state = initialData, action: JournalistInfoAction) => {
       return {
         ...state,
         isLoading: true,
-        journalistArticle: [],
         journalistArticleError: '',
       }
     case GET_JOURNALIST_ARTICLE_SUCCESS:
@@ -40,6 +40,12 @@ export default (state = initialData, action: JournalistInfoAction) => {
         ...state,
         isLoading: false,
         journalistArticleError: action.payload.error
+      }
+    case EMPTY_JOURNALIST_ARTICLE:
+      return {
+        ...state,
+        journalistArticle: [],
+        journalistArticleError: '',
       }
     default:
       return { ...state }

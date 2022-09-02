@@ -10,7 +10,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useWriterDetail, useJournalist } from 'src/hooks';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
 import { WriterBannerImage, DetailHeader } from 'src/components/molecules';
-import { useOpinions } from 'src/hooks/useOpinions';
 import { JournalistSection } from 'src/components/organisms';
 import { decodeHTMLTags, horizontalEdge, isNotEmpty } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
@@ -36,11 +35,6 @@ export const JournalistDetail = ({
     } = useWriterDetail();
 
     const {
-        isWriterOpinionLoading,
-        fetchWriterOpinionsRequest, emptyWriterOpinionData
-    } = useOpinions()
-
-    const {
         bookmarkIdInfo,
         sendBookmarkInfo, removeBookmarkedInfo
     } = useBookmark()
@@ -51,7 +45,8 @@ export const JournalistDetail = ({
         sendSelectedWriterInfo, removeAuthorRequest
     } = useAllWriters();
 
-    const { journalistArticleInfo, getJournalistArticleInfo } = useJournalist();
+    const { isArticleLoading, journalistArticleInfo,
+        getJournalistArticleInfo, emptyJournalistArticleInfo } = useJournalist();
 
     const [writerDetailInfo, setWriterDetailInfo] = useState<WriterDetailDataType[]>([])
     const [showupUp, setShowPopUp] = useState(false)
@@ -67,6 +62,10 @@ export const JournalistDetail = ({
     const noOfDetailRoutes = detailRoutes.length
 
     useEffect(() => {
+      emptyJournalistArticleInfo()
+    }, [])
+
+    useEffect(() => {
         if (isFocused) {
             getWriterDetailData({ tid: route.params.tid })
             getSelectedAuthorsData()
@@ -74,14 +73,9 @@ export const JournalistDetail = ({
 
             return () => {
                 emptyWriterDetailData()
-                emptyWriterOpinionData()
             }
         }
     }, [isFocused])
-
-    useEffect(() => {
-        getJournalistArticleInfo({ nid: route.params.tid })
-    }, [])
 
     useEffect(() => {
         if (isNonEmptyArray(writerDetailData) && isObjectNonEmpty(selectedAuthorsData)) {
@@ -99,7 +93,7 @@ export const JournalistDetail = ({
     }, [writerDetailData])
 
     useEffect(() => {
-        fetchWriterOpinionsRequest({ tid: route.params.tid, page: page });
+        getJournalistArticleInfo({ nid: route.params.tid, page: page });
     }, [page]);
 
     useEffect(() => {
@@ -160,7 +154,7 @@ export const JournalistDetail = ({
     }
 
     const gotoNextPage = () => {
-        if (!isWriterOpinionLoading) {
+        if (!isArticleLoading && articleState.length % 10 == 0) {
             setPage(page + 1);
         }
     };
@@ -225,6 +219,7 @@ export const JournalistDetail = ({
                 />}
                 <JournalistSection
                     data={articleState}
+                    isLoading={isArticleLoading}
                     onScroll={gotoNextPage}
                     onUpdateArticlesBookmark={onUpdateArticlesBookmark}
                 />

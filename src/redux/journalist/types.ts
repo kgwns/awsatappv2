@@ -2,6 +2,7 @@ import {
   GET_JOURNALIST_ARTICLE_INFO,
   GET_JOURNALIST_ARTICLE_SUCCESS,
   GET_JOURNALIST_ARTICLE_FAILED,
+  EMPTY_JOURNALIST_ARTICLE,
 } from "./actionType"
 
 export type JournalistArticleState = {
@@ -29,6 +30,7 @@ export interface JournalistArticleData {
 
 export interface GetJournalistInfoPayload {
   nid: string;
+  page: number;
 }
 
 export interface GetJournalistInfoType {
@@ -54,7 +56,12 @@ export interface GetJournalistInfoFailedType {
   payload: JournalistInfoFailedPayload
 }
 
+export interface EmptyJournalistArticleType {
+  type: typeof EMPTY_JOURNALIST_ARTICLE
+}
+
 export type JournalistInfoAction =
   GetJournalistInfoType
   | GetJournalistInfoSuccessType
   | GetJournalistInfoFailedType
+  | EmptyJournalistArticleType
