@@ -23,6 +23,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
+import { useAppPlayer } from 'src/hooks';
 
 export interface NewsFeedProps {
   title: string;
@@ -47,6 +48,8 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   const theme = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>();
   const style = useThemeAwareObject(customStyle)
+  const { showMiniPlayer } = useAppPlayer()
+  
   const onPress = (nid: string) => {
     if (nid) {
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
@@ -173,12 +176,11 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
         onEndReached={onScroll}
         onEndReachedThreshold={0.5}
       />
-      <View
+      {showMiniPlayer && <View
         style={{
-          height: normalize(100),
+          height: normalize(60),
           paddingHorizontal: normalize(20),
-          top: normalize(20),
-        }}></View>
+        }}></View>}
     </View>
   );
 };
