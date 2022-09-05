@@ -13,8 +13,8 @@ import { fonts } from 'src/shared/styles/fonts';
 import { ArticleItem } from 'src/components/molecules';
 import { JournalistArticleData } from 'src/redux/journalist/types';
 
-interface OpinionWritersArticlesSectionProps {
-  data: any;
+interface JournalistArticlesSectionProps {
+  data: JournalistArticleData[];
   isLoading: boolean;
   onScroll: () => void;
   onUpdateArticlesBookmark: (index: number) => void
@@ -25,7 +25,7 @@ export const JournalistSection = ({
   isLoading,
   onScroll,
   onUpdateArticlesBookmark,
-}: OpinionWritersArticlesSectionProps) => {
+}: JournalistArticlesSectionProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const numberOfColumn = isTab ? 2 : 1;
@@ -67,6 +67,7 @@ export const JournalistSection = ({
           articleItemStyle={articleItemStyle}
           isJournalist={true}
         />
+        {isLoading && data.length - 1 == index && renderFooter()}
       </View>
     );
   };
@@ -81,7 +82,6 @@ export const JournalistSection = ({
         onEndReached={onScroll}
         onEndReachedThreshold={0.5}
         numColumns={numberOfColumn}
-        ListFooterComponent={renderFooter}
       />
     </View>
   );
