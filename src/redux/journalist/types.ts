@@ -93,6 +93,7 @@ export type JournalistDetailDataType = {
   isFollowed?: boolean;
   instagram_url: string;
   twitter_url: string;
+  youtube_url: string;
   field_clickable?: string;
 }
 

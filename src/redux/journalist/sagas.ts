@@ -45,13 +45,14 @@ const parseJournalistDetailSuccess = (response: any): FetchJournalistDetailSucce
   if (response && isNonEmptyArray(response.rows)) {
     responseData.journalistDetail = response.rows.map(
       ({ name, field_jor_image,
-        description__value, field_opinion_facebook_export, field_instagram_url_export, field_opinion_twitter_export, field_clickable }: any) => ({
+        description__value, field_opinion_facebook, field_instagram_url, field_opinion_twitter, field_opinion_youtube, field_clickable }: any) => ({
           authorName: isNotEmpty(name) ? name : '',
           authorImage: getImageUrl(field_jor_image),
           authorDescription: isNotEmpty(description__value) ? decodeHTMLTags(description__value) : '',
-          facebook_url: isNotEmpty(field_opinion_facebook_export) ? field_opinion_facebook_export : null,
-          instagram_url: isNotEmpty(field_instagram_url_export) ? field_instagram_url_export : null,
-          twitter_url: isNotEmpty(field_opinion_twitter_export) ? field_opinion_twitter_export : null,
+          facebook_url: isNotEmpty(field_opinion_facebook) ? field_opinion_facebook : null,
+          instagram_url: isNotEmpty(field_instagram_url) ? field_instagram_url : null,
+          twitter_url: isNotEmpty(field_opinion_twitter) ? field_opinion_twitter : null,
+          youtube_url: isNotEmpty(field_opinion_youtube) ? field_opinion_youtube : null,
           field_clickable: field_clickable
         })
     );
