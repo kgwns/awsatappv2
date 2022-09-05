@@ -215,7 +215,9 @@ export const SectionStoryScreen = React.memo(({
   }, [currentSectionId,page]);
 
   const gotoNextPage = () => {
-    setPage(page + 1);
+    if (!isBottomListLoading) {
+      setPage(page + 1);
+    }
   };
 
   const onPressArticle = (nid: string) => {
