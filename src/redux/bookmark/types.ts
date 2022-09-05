@@ -23,7 +23,7 @@ export type BookMarkState = {
 
 export interface SendBookMarkBodyGet {
   nid: string
-  bundle?: string
+  bundle: string
 }
 
 export interface SendBookMarkDetailType {
@@ -71,7 +71,7 @@ export interface GetBookmarkIdType {
 
 export interface BookmarkIdSuccessDataFieldType {
   nid: string,
-  bundle?: string
+  bundle: string
 }
 
 export interface GetBookMarkIdSuccessMessageType {
