@@ -9,6 +9,16 @@ import {
   EMPTY_JOURNALIST_DETAIL,
 } from "./actionType"
 
+interface PagerType {
+  current_page: number;
+  items_per_page: string;
+}
+
+export type payloadType = {
+  rows: any[];
+  pager: PagerType
+};
+
 export type JournalistArticleState = {
   isLoading: boolean,
   journalistArticle: JournalistArticleData[]

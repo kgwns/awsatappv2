@@ -59,13 +59,15 @@ export const JournalistDetail = ({
         routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
     const noOfDetailRoutes = detailRoutes.length
 
+    const jId = route.params.tid
+
     useEffect(() => {
         emptyJournalistArticleInfo()
     }, [])
 
     useEffect(() => {
         if (isFocused) {
-            getJournalistDetailInfo({ tid: route.params.tid })
+            getJournalistDetailInfo({ tid: jId })
             getSelectedAuthorsData()
             Orientation.lockToPortrait()
 
@@ -77,7 +79,7 @@ export const JournalistDetail = ({
 
     useEffect(() => {
         if (isNonEmptyArray(journalistDetailData) && isObjectNonEmpty(selectedAuthorsData)) {
-            const isFollowed = validateFollow(route.params.tid)
+            const isFollowed = validateFollow(jId)
             setIsFollowed(isFollowed)
         }
     }, [journalistDetailData, selectedAuthorsData])
@@ -92,12 +94,8 @@ export const JournalistDetail = ({
     }
 
     useEffect(() => {
-        getJournalistArticleInfo({ nid: route.params.tid, page: page });
+        getJournalistArticleInfo({ nid: jId, page: page });
     }, [page]);
-
-    useEffect(() => {
-        updateArticleState()
-    }, [journalistArticleInfo])
 
     useEffect(() => {
         updateArticleState()
@@ -208,11 +206,11 @@ export const JournalistDetail = ({
                     onPressReturn={onPressBack}
                     showIsFollowed={false}
                     isFollowed={isFollowed}
-                    onPressFollow={() => onPressFollow(route.params.tid)}
+                    onPressFollow={() => onPressFollow(jId)}
                     hideBackArrow={hideBackArrow}
                     visibleHome={noOfDetailRoutes > 1}
                     onPressHome={onPressHome}
-                    onPressWriter={() => onPressWriter(route.params.tid)}
+                    onPressWriter={() => onPressWriter(jId)}
                 />}
                 <JournalistSection
                     data={articleState}

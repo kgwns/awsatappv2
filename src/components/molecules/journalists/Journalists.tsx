@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { FunctionComponent, useState } from 'react';
 import { Label } from 'src/components/atoms';
-import { isNonEmptyArray, normalize } from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreensConstants } from 'src/constants';
@@ -35,7 +35,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
                             <TouchableOpacity onPress={() => onPressJournalist(item)}>
                                 <Label children={journalistName[index]} style={style.authorLabel} />
                             </TouchableOpacity>
-                            {index % 2 == 0 && <Label children={'|'} style={style.separatorStyle} />}
+                            {index % 2 == 0 && index != 0 && <Label children={'|'} style={style.separatorStyle} />}
                         </View>}
                     </View>
                 );
@@ -55,10 +55,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingHorizontal: normalize(15)
     },
     headerLabel: {
-        lineHeight: 20,
+        lineHeight: isIOS ? 20 : 26,
         fontFamily: fonts.Effra_Regular,
         fontSize: 14,
-        color: theme.secondaryDarkSlate
+        color: theme.secondaryDarkSlate,
+        marginHorizontal: 5
     },
     authorLabel: {
         lineHeight: 24,
@@ -73,9 +74,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flexDirection: 'column'
     },
     separatorStyle: {
-        fontsize: 20,
-        lineHeight:22,
-        paddingHorizontal: normalize(15),
+        fontSize: 16,
+        lineHeight: isIOS ? 19 : 22,
+        paddingHorizontal: normalize(10),
         color: colors.silverChalice
     }
 });

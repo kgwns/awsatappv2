@@ -13,14 +13,16 @@ import { getJournalistArticleService } from 'src/services/journalistService';
 import { fetchJournalistDetailInfo } from 'src/services/journalistDetailService';
 import { decode } from 'html-entities';
 import { getImageUrl } from 'src/shared/utils/utilities';
+import { payloadType } from '../journalist/types';
 
 export const parseJournalistArticle = (response: any): JournalistInfoSuccessPayload => {
   const responseData: JournalistInfoSuccessPayload = {
     journalistData: []
   }
 
-  if (response && isNonEmptyArray(response)) {
-    responseData.journalistData = response.map(
+  if (response && isNonEmptyArray(response.rows)) {
+    const data = response.rows
+    responseData.journalistData = data.map(
       ({ title, nid, field_image_export,
         field_news_categories_export, created_export, field_new_photo_export }: any) => ({
           title: isNotEmpty(title) ? decode(title) : '',
@@ -60,7 +62,7 @@ const parseJournalistDetailSuccess = (response: any): FetchJournalistDetailSucce
 
 export function* getJournalistArticleInfo(action: GetJournalistInfoType) {
   try {
-    const payload: { message: any } = yield call(
+    const payload: payloadType = yield call(
       getJournalistArticleService,
       action.payload
     );
