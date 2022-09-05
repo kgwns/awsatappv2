@@ -65,9 +65,10 @@ export const Archives = () => {
     useEffect(() => {
         const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length == bookmarkDetail.length
         if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
-           getBookmarkedId()
             if (tabSelectedIndex != 0) {
                 getSpecificBundleFavoriteDetail(widgetNameByIndex(tabSelectedIndex), 0)
+            } else {
+                getBookmarkedId()
             }
             setInitialLoading(isFocused)
         }
