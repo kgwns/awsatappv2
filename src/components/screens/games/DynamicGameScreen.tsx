@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer'
-import WebView, { WebViewNavigation } from 'react-native-webview'
-import { horizontalAndBottomEdge, normalize, screenHeight } from 'src/shared/utils'
+import { WebViewNavigation } from 'react-native-webview'
+import { horizontalAndBottomEdge, normalize } from 'src/shared/utils'
 import { GameIntroCard } from 'src/components/molecules'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -10,6 +10,8 @@ import { CROSS_WORD_GAME_BASE_ID_URL, SUDOKU_GAME_BASE_ID_URL } from 'src/servic
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ScreensConstants } from 'src/constants'
+import AutoHeightWebView from 'react-native-autoheight-webview'
+import { LoadingState } from 'src/components/atoms'
 
 
 export interface DynamicGameScreenProps {
@@ -22,7 +24,7 @@ export const DynamicGameScreen = ({
 }: DynamicGameScreenProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
-    const webviewRef = useRef<WebView>().current
+    const webviewRef = useRef<AutoHeightWebView>().current
 
     const style = useThemeAwareObject(customStyle)
 
@@ -47,6 +49,8 @@ export const DynamicGameScreen = ({
         setCurrentUrl(url || '')
     }
 
+    const renderLoading = () => <LoadingState />
+
     return (
         <ScreenContainer edge={horizontalAndBottomEdge}>
             <ScrollView style={style.scrollContainer}
@@ -54,7 +58,7 @@ export const DynamicGameScreen = ({
                 bounces={false}
             >
                 {showIntro && <GameIntroCard {...gameData} hideButtonTitle={true} />}
-                <WebView style={style.webview}
+                <AutoHeightWebView style={style.webview}
                     ref={() => webviewRef}
                     testID='DynamicGameScreenID01'
                     startInLoadingState={true}
@@ -64,6 +68,7 @@ export const DynamicGameScreen = ({
                     source={{ uri: gameData.url }}
                     nestedScrollEnabled={false}
                     setSupportMultipleWindows={false}
+                    renderLoading={renderLoading}
                     onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
                     onNavigationStateChange={onNavigationStateChange}
                 />
@@ -79,6 +84,5 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     webview: {
         width: '100%',
-        height: 0.85 * screenHeight,
     }
 })
