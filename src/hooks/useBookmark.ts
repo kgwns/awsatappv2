@@ -52,7 +52,7 @@ export const useBookmark = (): UseBookMarkReturn => {
     AdjustAnalyticsManager.trackEvent(AdjustEventID.BOOK_MARK_ARTICLE)
     recordLogEvent('Add_Bookmark_to_Article', { userId: userProfileData.user?.id, articleId: payload.nid });
     const lastBookmarkInfo = [...bookmarkIdInfo]
-    const newNidInfo = [{ nid: payload.nid }]
+    const newNidInfo: BookmarkIdSuccessDataFieldType[] = [{ nid: payload.nid, bundle: payload.bundle }]
     const updatedBookmarkIdDetail = newNidInfo.concat(lastBookmarkInfo)
     dispatch(getBookMarkedSuccess({ bookmarkedInfo: updatedBookmarkIdDetail }))
     dispatch(sendBookMarkId(payload));

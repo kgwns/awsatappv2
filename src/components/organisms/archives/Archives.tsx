@@ -70,9 +70,10 @@ export const Archives = () => {
     useEffect(() => {
         const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length == bookmarkDetail.length
         if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
-           getBookmarkedId()
             if (tabSelectedIndex != 0) {
                 getSpecificBundleFavoriteDetail(widgetNameByIndex(tabSelectedIndex), 0)
+            } else {
+                getBookmarkedId()
             }
             setInitialLoading(isFocused)
         }
@@ -105,7 +106,7 @@ export const Archives = () => {
     }, [filterBookmarkDetailInfo])
 
     const updatedBundleFilterBookmarkDetail = () => {
-        if (!bookmarkLoading && isArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0) {
+        if (!bookmarkLoading && isArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0 && !isAllBookmarkFetched) {
             setFilteredData(filterBookmarkDetailInfo)
             setInitialLoading(false)
         }
@@ -189,7 +190,7 @@ export const Archives = () => {
                 const bundleName = widgetNameByIndex(tabSelectedIndex)
                 const bundleBookmarkList = bookmarkIdInfo.filter((item) => item.bundle === bundleName)
                 if (filterBookmarkDetailInfo.length < bundleBookmarkList.length) {
-                    getSpecificBundleFavoriteDetail(bundleName, 0)
+                    getSpecificBundleFavoriteDetail(bundleName)
                 }
             }
         }
