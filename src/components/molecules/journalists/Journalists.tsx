@@ -73,7 +73,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flexDirection: 'column'
     },
     separatorStyle: {
-        fontsize: 20,
+        fontSize: 20,
         lineHeight:22,
         paddingHorizontal: normalize(15),
         color: colors.silverChalice

@@ -34,7 +34,6 @@ export default (state = initialData, action: JournalistInfoAction) => {
       return {
         ...state,
         isLoading: true,
-        journalistArticle: [],
         journalistArticleError: '',
       }
     case GET_JOURNALIST_ARTICLE_SUCCESS:
