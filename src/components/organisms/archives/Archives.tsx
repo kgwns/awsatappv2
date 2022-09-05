@@ -100,7 +100,7 @@ export const Archives = () => {
     }, [filterBookmarkDetailInfo])
 
     const updatedBundleFilterBookmarkDetail = () => {
-        if (!bookmarkLoading && isArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0) {
+        if (!bookmarkLoading && isArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0 && !isAllBookmarkFetched) {
             setFilteredData(filterBookmarkDetailInfo)
             setInitialLoading(false)
         }
