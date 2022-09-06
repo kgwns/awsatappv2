@@ -92,4 +92,21 @@ describe('#useKeepNotified', () => {
     });
   });
 
+
+  describe('#removeKeepNotificationInfo', () => {
+    it('should call dispatch with removeKeepNotificationInfo', () => {
+      const {
+        result: {
+          current: {removeKeepNotificationInfo},
+        },
+      } = result;
+
+      act(() => {
+        removeKeepNotificationInfo();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
 });

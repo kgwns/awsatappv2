@@ -10,7 +10,7 @@ describe('<ArticleFooter>', () => {
     const mockFunction =jest.fn();
     
     beforeEach(() => {
-        const component = <ArticleFooter {...articleFooterSample} bookMarkColorType={BookMarkColorType.WHITE}/>
+        const component = <ArticleFooter {...articleFooterSample} isBookmarked={true} bookMarkColorType={BookMarkColorType.WHITE}/>
         instance = render(component)
     })
 
@@ -21,6 +21,10 @@ describe('<ArticleFooter>', () => {
 
     it('should render component', () => {
         expect(instance).toBeDefined()
+    })
+
+    it('should render component', () => {
+        expect(render( <ArticleFooter {...articleFooterSample} isBookmarked={false} bookMarkColorType={BookMarkColorType.WHITE}/>)).toBeDefined()
     })
 
     it('Check onPress method', () => {

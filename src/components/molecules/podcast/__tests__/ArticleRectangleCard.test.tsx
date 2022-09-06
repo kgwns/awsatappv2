@@ -34,6 +34,30 @@ describe('<NewsWithImageItem/>', () => {
     expect(instance).toBeDefined();
   });
 
+  it('should render ArticleRectangleCard component', () => {
+    expect(render(<ArticleRectangleCard
+      trendingNumber={trendingNumber}
+      imageUrl={imageUrl}
+      title={title}
+      footerLeft={footerLeft}
+      footerRight={footerRight}
+      footerLeftHighlight= {false}
+      footerRightHighlight= {false}
+    />)).toBeDefined();
+  });
+
+  it('should render ArticleRectangleCard component', () => {
+    expect(render(<ArticleRectangleCard
+      trendingNumber={trendingNumber}
+      imageUrl={imageUrl}
+      title={title}
+      footerLeft={footerLeft}
+      footerRight={footerRight}
+      footerLeftHighlight= {true}
+      footerRightHighlight= {true}
+    />)).toBeDefined();
+  });
+
   it('Should Press bookMark', () => {
     const element = instance.getByTestId('bookMarkTestId');
     fireEvent.press(element);

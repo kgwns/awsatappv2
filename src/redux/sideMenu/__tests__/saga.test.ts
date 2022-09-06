@@ -2,14 +2,12 @@ import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
 import sideMenuSaga, {fetchSideMenu} from '../sagas';
 import {
-  fetchSideMenuFailed,
   fetchSideMenuSuccess,
 } from '../action';
 import {FETCH_SIDE_MENU} from '../actionTypes';
 import {fetchSideMenuApi} from 'src/services/sideMenuService';
 import {
   FetchSideMenuSuccessPayloadType,
-  FetchSideMenuFailedPayloadtype,
 } from '../types';
 
 const mockString = 'mockString';
@@ -28,13 +26,13 @@ const reposnseObject = {
   ],
 };
 
+const errorResponse = {
+  response: {data: 'Error', status: 500, statusText: 'Error'},
+};
+
 const sucessResponseObject: FetchSideMenuSuccessPayloadType = {
     sideMenuData: reposnseObject,
 };
-const error = new Error('error');
-const faildResponseObject: FetchSideMenuFailedPayloadtype = {
-    error: error.message
-}
 
 describe('test Saga  saga', () => {
   it('fire on searchSaga', () => {
@@ -53,6 +51,12 @@ describe('test Saga  saga', () => {
       .put(fetchSideMenuSuccess(sucessResponseObject))
       .finish()
       .isDone();
+  });
+
+  it('check fetchSideMenu failed', () => {
+    const genObject = fetchSideMenu();
+    genObject.next();
+    genObject.throw(errorResponse);
   });
 
   it('test fetchSideMenu  error', () => {

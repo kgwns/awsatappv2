@@ -344,7 +344,9 @@ export const ArticleDetailScreen = ({
         videoRefs?.current[2]?.setNativeProps({
           paused: true
         })
-        setPlayerVisible(false);
+        setCurrentTime(0);
+        setPaused(true);
+        setShowVideoMiniPlayer(false);
       }
     } catch (e) {
     }

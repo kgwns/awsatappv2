@@ -8,6 +8,14 @@ const errorResponse = {
   response: {data: 'Error', status: 500, statusText: 'Error'},
 };
 
+const errorResponse1 = {
+  request: { data: 'Error', status: 500, statusText: 'Error' },
+  message: 'Error'
+};
+
+const errorResponse2 = {
+  message: 'Error'
+};
 
 describe('<Article Detail Saga >', () => {
   beforeEach(() => {
@@ -46,6 +54,26 @@ describe('<Article Detail Saga >', () => {
       });
       genObject.next();
       genObject.throw(errorResponse);
+    });
+
+
+    it('check fetchEmailCheck failed', () => {
+      const genObject = fetchEmailCheck({
+        type: FETCH_EMAIL_CHECK,
+        payload: {email: mockString},
+      });
+      genObject.next();
+      genObject.throw(errorResponse1);
+    });
+
+
+    it('check fetchEmailCheck failed', () => {
+      const genObject = fetchEmailCheck({
+        type: FETCH_EMAIL_CHECK,
+        payload: {email: mockString},
+      });
+      genObject.next();
+      genObject.throw(errorResponse2);
     });
     
   });

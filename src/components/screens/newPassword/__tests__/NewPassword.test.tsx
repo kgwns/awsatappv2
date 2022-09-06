@@ -34,10 +34,10 @@ describe('<NewPassword>', () => {
 
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-    (useState as jest.Mock).mockImplementation(() => ['example', password]);
-    (useState as jest.Mock).mockImplementation(() => ['example', passwordError]);
-    (useState as jest.Mock).mockImplementation(() => ['example', confirmPassword]);
-    (useState as jest.Mock).mockImplementation(() => ['example', confirmPasswordError]);
+    (useState as jest.Mock).mockImplementation(() => ['Password@1', password]);
+    (useState as jest.Mock).mockImplementation(() => ['Invalid Password', passwordError]);
+    (useState as jest.Mock).mockImplementation(() => ['Password@1', confirmPassword]);
+    (useState as jest.Mock).mockImplementation(() => ['Invalid Password', confirmPasswordError]);
     const component = (
       <Provider store={storeSampleData}>
         <NewPassword />
@@ -69,7 +69,13 @@ describe('<NewPassword>', () => {
 
   it('When MenuButton Press', () => {
     const listButton = instance.getByTestId('terms_and_conditions');
-    fireEvent(listButton, 'onPress', 'abc');
+    fireEvent(listButton, 'onPress', 'GOOGLE');
+    expect(navigation.reset).toBeTruthy();
+  });
+
+  it('When MenuButton Press', () => {
+    const listButton = instance.getByTestId('terms_and_conditions');
+    fireEvent(listButton, 'onPress');
     expect(navigation.reset).toBeTruthy();
   });
   

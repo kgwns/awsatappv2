@@ -1,5 +1,5 @@
-import { getSelectedNotification, getSelectedNotificationFailed, getSelectedNotificationSuccess, sendSelectedNotification, sendSelectedNotificationFailed, sendSelectedNotificationSuccess } from "../action"
-import { GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION_SUCCESS, SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_FAILED, SEND_SELECTED_NOTIFICATION_SUCCESS } from "../actionType"
+import { getSelectedNotification, getSelectedNotificationFailed, getSelectedNotificationSuccess, removeNotificationInfo, sendSelectedNotification, sendSelectedNotificationFailed, sendSelectedNotificationSuccess } from "../action"
+import { GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION_SUCCESS, REMOVE_NOTIFICATION_INFO, SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_FAILED, SEND_SELECTED_NOTIFICATION_SUCCESS } from "../actionType"
 
 describe('<KeepNotification Action', () => {
     const nid: string = '123'
@@ -39,6 +39,11 @@ describe('<KeepNotification Action', () => {
         expect(result.type).toEqual(GET_SELECTED_NOTIFICATION)
     })
 
+    it('Check request removeNotificationInfo', () => {
+        const result = removeNotificationInfo()
+        expect(result.type).toEqual(REMOVE_NOTIFICATION_INFO)
+    })
+
     it('Check request selected notification success', () => {
         const result = getSelectedNotificationSuccess(getNotificationResponse)
         expect(result.type).toEqual(GET_SELECTED_NOTIFICATION_SUCCESS)
@@ -50,4 +55,5 @@ describe('<KeepNotification Action', () => {
         expect(result.type).toEqual(GET_SELECTED_NOTIFICATION_FAILED)
         expect(result.payload.error).toEqual(errorMessage)
     })
+    
 })

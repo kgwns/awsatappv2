@@ -1,12 +1,31 @@
-import {render, RenderAPI} from '@testing-library/react-native'
-import React from 'react'
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native'
+import React, { useState } from 'react'
 import  {DynamicGameScreen} from 'src/components/screens/games/DynamicGameScreen'
+import { useNavigation } from '@react-navigation/native';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+}));
 
 describe('<DynamicGameScreen />', () => {
   let instance: RenderAPI;
-
+  const mockFunction = jest.fn();
+  const currentUrl = mockFunction;
+  const navigation = {
+    push: jest.fn(),
+    navigate: jest.fn(),
+  }
   beforeEach(() => {
-    const component = <DynamicGameScreen route={{params: {gameData : {url : 'abc.com'}, showIntro: true}}}/>
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useState as jest.Mock).mockImplementation(() => ['https://www.google.com/doodles', currentUrl]);
+    const component = <DynamicGameScreen route={{params: {gameData : {url : 'https://cdn-eu1.amuselabs.com/pmm/crossword?id='}, showIntro: true}}}/>
     instance = render(component)
   })
 
@@ -18,5 +37,11 @@ describe('<DynamicGameScreen />', () => {
   it('should render component', () => {
     expect(instance).toBeDefined()
   })
+
+  test('Should call GameIntroCard onNavigationStateChange', () => {
+    const element = instance.getByTestId('DynamicGameScreenID01');
+    fireEvent(element, 'onNavigationStateChange', {nativeEvent: {url: 'https://cdn-eu1.amuselabs.com/pmm/crossword?id='}});
+    expect(mockFunction).toBeTruthy()
+  });
 
 })

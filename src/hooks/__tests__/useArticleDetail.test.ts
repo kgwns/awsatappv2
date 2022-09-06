@@ -181,4 +181,20 @@ describe('#useArticleDetail', () => {
     });
   });
 
+  describe('#sendEventToServer', () => {
+    it('should call dispatch with sendEventToServer', () => {
+      const {
+        result: {
+          current: {sendEventToServer},
+        },
+      } = result;
+
+      act(() => {
+        sendEventToServer([]);
+      });
+
+      expect(dispatchMock).toBeTruthy();
+    });
+  });
+
 });
