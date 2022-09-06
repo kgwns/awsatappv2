@@ -19,6 +19,19 @@ jest.mock('react', () => ({
     useState: jest.fn(),
 }));
 
+
+jest.mock("src/hooks/useAppPlayer", () => ({
+    useAppPlayer: () => {
+      return {
+        showMiniPlayer: true,
+        selectedTrack: {
+            id: 1,
+            artwork: 'abc.com'
+        },
+      }
+    },
+}));
+
 jest.mock("src/hooks/useBookmark", () => ({
     useBookmark: () => {
       return {

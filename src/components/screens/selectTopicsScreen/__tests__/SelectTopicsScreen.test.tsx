@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import {render, RenderAPI} from '@testing-library/react-native';
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../../constants/SampleData';
 import {SelectTopicsScreen} from '../SelectTopicsScreen';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
+import { InterestedTopics } from 'src/components/organisms';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -60,7 +61,7 @@ jest.mock("src/hooks/useAllSiteCategories", () => ({
           },
       ],
         sentTopicsData: {
-          code: '200',
+          code: 400,
           message: "example"
         },
         sendSelectedTopicInfo: () => { return [] },
@@ -84,14 +85,14 @@ describe('<SelectTopicsScreen>', () => {
   let instance: RenderAPI;
 
   const mockFunction = jest.fn();
-  const setDisableNext = mockFunction;
+  const disableNext = mockFunction;
   const categoriesInfo = mockFunction;
-  const setUpdatedTopics = mockFunction;
+  const updatedTopics = mockFunction;
 
   beforeEach(() => {
-    (useState as jest.Mock).mockImplementation(() => [false, setDisableNext]);
+    (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
     (useState as jest.Mock).mockImplementation(() => [sampleData, categoriesInfo]);
-    (useState as jest.Mock).mockImplementation(() => [[], setUpdatedTopics]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData, updatedTopics]);
 
     const component = (
       <Provider store={storeSampleData}>
@@ -108,6 +109,12 @@ describe('<SelectTopicsScreen>', () => {
 
   test('Should render SelectTopicScreen', () => {
     expect(instance).toBeDefined();
+  });
+
+  test('Should call InterestedTopics onTopicsChanged', () => {
+    const element = instance.container.findByType(InterestedTopics)
+    fireEvent(element, 'onTopicsChanged', {item: sampleData[0], selected: true});
+    expect(mockFunction).toBeTruthy()
   });
 
 });

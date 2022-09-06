@@ -25,7 +25,6 @@ jest.mock("src/hooks/useContactUs", () => ({
             code: 200,
             message: 'example'
         },
-        sendErrorInfo: 'error',
         sendContactUsInfo: () => {},
         emptyContactUsInfo: () => {},
       }
@@ -92,14 +91,14 @@ describe('<ContactUs>', () => {
     
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[0];
-        fireEvent(testId, 'onChangeText',['mockString', 0]);
+        fireEvent(testId, 'onChangeText',['mockName', 0]);
         expect(mockFunction).toHaveBeenCalled;
     });
 
 
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[1];
-        fireEvent(testId, 'onChangeText',['mockString', 1]);
+        fireEvent(testId, 'onChangeText',['mockEmail@gmail.com', 1]);
         expect(mockFunction).toHaveBeenCalled;
     });
 
@@ -112,7 +111,7 @@ describe('<ContactUs>', () => {
 
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[2];
-        fireEvent(testId, 'onChangeText',['mockString', 3]);
+        fireEvent(testId, 'onChangeText');
         expect(mockFunction).toHaveBeenCalled;
     });
 
@@ -121,4 +120,44 @@ describe('<ContactUs>', () => {
         fireEvent(testId, 'onPress');
         expect(mockFunction).toHaveBeenCalled;
     });
+})
+
+describe('<ContactUs>', () => {
+    let instance: RenderAPI
+    const mockFunction = jest.fn();
+    const navigation = {
+        reset: jest.fn(),
+        navigate: jest.fn(),
+        goBack: jest.fn(),
+    }
+    const alertPayload = mockFunction;
+    const name = mockFunction;
+    const email = mockFunction;
+    const message = mockFunction;
+    const disableSend = mockFunction;
+    const isAlertVisible = mockFunction;
+
+    beforeEach(() => {
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [false, alertPayload]);
+        (useState as jest.Mock).mockImplementation(() => ['', name]);
+        (useState as jest.Mock).mockImplementation(() => ['', email]);
+        (useState as jest.Mock).mockImplementation(() => ['', message]);
+        (useState as jest.Mock).mockImplementation(() => [false, disableSend]);
+        (useState as jest.Mock).mockImplementation(() => [false, isAlertVisible]);
+        const component =
+            <Provider store={storeSampleData}>
+                <ContactUs/>
+            </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    test('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
 })

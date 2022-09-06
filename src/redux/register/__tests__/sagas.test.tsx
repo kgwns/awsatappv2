@@ -9,6 +9,15 @@ const errorResponse = {
   response: {data: 'Error', status: 500, statusText: 'Error'},
 };
 
+const errorResponse1 = {
+    request: { data: 'Error', status: 500, statusText: 'Error' },
+    message: 'Error'
+};
+
+const errorResponse2 = {
+    message: 'Error'
+};;
+
 describe('test registerSaga  saga', () => {
   it('fire on registerSaga', () => {
     testSaga(registerSaga)
@@ -48,6 +57,34 @@ describe('Test createUser', () => {
     });
     genObject.next();
     genObject.throw(errorResponse);
+  });
+  
+  it('check createUser failed', () => {
+    const genObject = createUser({
+      type: REGISTER_USER,
+      payload: {
+        device_name: mockString,
+        email: mockString,
+        name: '',
+        password: ''
+      },
+    });
+    genObject.next();
+    genObject.throw(errorResponse1);
+  });
+
+  it('check createUser failed', () => {
+    const genObject = createUser({
+      type: REGISTER_USER,
+      payload: {
+        device_name: mockString,
+        email: mockString,
+        name: '',
+        password: ''
+      },
+    });
+    genObject.next();
+    genObject.throw(errorResponse2);
   });
 });
 

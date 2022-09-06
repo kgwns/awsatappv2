@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { ImagesName } from 'src/shared/styles';
 import { ToggleWithLabel } from 'src/components/molecules';
+import { useLogin } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -53,14 +54,7 @@ jest.mock("src/hooks/useNotificationSaveToken", () => ({
     },
 }));
 
-jest.mock("src/hooks/useLogin", () => ({
-    useLogin: () => {
-      return {
-        isLoggedIn: true,
-        fetchLogoutRequest: () => {}
-      }
-    },
-}));
+jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
 
 jest.mock("src/hooks/useAppCommon", () => ({
   useAppCommon: () => {
@@ -142,11 +136,17 @@ describe('<ProfileSettings>', () => {
     }
     const isDarkMode = mockFunction;
     const isAlertVisible = mockFunction;
-    
+    const useLoginMock = mockFunction;
+
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [true, isDarkMode]);
         (useState as jest.Mock).mockImplementation(() => [true, isAlertVisible]);
+        useLoginMock.mockReturnValue({
+          isLoggedIn: true,
+          fetchLogoutRequest: () => {}
+        });
         const component = (
             <Provider store={storeSampleData}>
                 <ProfileSettings />
@@ -193,4 +193,67 @@ describe('<ProfileSettings>', () => {
         expect(navigation.reset).toBeTruthy();
     })
     
+});
+
+describe('<ProfileSettings>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+
+  const navigation = {
+      reset: mockFunction,
+      navigate: mockFunction,
+  }
+  const isDarkMode = mockFunction;
+  const isAlertVisible = mockFunction;
+  const useLoginMock = mockFunction;
+
+  beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useState as jest.Mock).mockImplementation(() => [true, isDarkMode]);
+      (useState as jest.Mock).mockImplementation(() => [true, isAlertVisible]);
+      useLoginMock.mockReturnValue({
+        isLoggedIn: false,
+        fetchLogoutRequest: () => {}
+      });
+      const component = (
+          <Provider store={storeSampleData}>
+              <ProfileSettings />
+          </Provider>
+      );
+      instance = render(component);
+  });
+
+  afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+  });
+
+  test('Should render ProfileSettings', () => {
+      expect(instance).toBeDefined();
+  });
+  test('Should call ScreenContainer alertOnPress', () => {
+      const element = instance.container.findAllByType(ScreenContainer)[0];
+      fireEvent(element, 'alertOnPress');
+      expect(navigation.reset).toBeTruthy()
+  });
+
+  test('Should call FlatList ListFooterComponent', () => {
+      const element = instance.container.findByType(FlatList)
+      fireEvent(element, 'ListFooterComponent');
+      expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call TouchableOpacity onPress', () => {
+      const element = instance.container.findAllByType(TouchableOpacity)[0];
+      fireEvent(element, 'onPress', {item: SettingData});
+      expect(navigation.reset).toBeTruthy();
+  })
+
+  test('Should call ToggleWithLabel onPress', () => {
+      const element = instance.container.findAllByType(ToggleWithLabel)[0];
+      fireEvent(element, 'onPress', {isOn: true});
+      expect(navigation.reset).toBeTruthy();
+  })
+  
 });

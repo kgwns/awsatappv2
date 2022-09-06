@@ -8,6 +8,7 @@ import { ArticleDetailDataType, RelatedArticleDataType } from 'src/redux/article
 import { isIOS, normalize } from 'src/shared/utils/dimensions'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { horizontalEdge } from 'src/shared/utils'
+import { useLogin } from 'src/hooks';
 
 const sampleData = { params: { nid: '123', isRelatedArticle: true } };
 
@@ -59,18 +60,16 @@ jest.mock("src/hooks/useBookmark", () => ({
   },
 }));
 
-jest.mock("src/hooks/useLogin", () => ({
-  useLogin: () => {
-    return {
-      isLoggedIn: true,
-    }
-  },
-}));
+jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
 
 jest.mock("src/hooks/useAppPlayer", () => ({
   useAppPlayer: () => {
     return {
       showMiniPlayer: true,
+      selectedTrack: {
+        id: 1,
+        artwork: 'abc.com'
+      },
     }
   },
 }));
@@ -172,9 +171,11 @@ describe('<ArticleDetailScreen>', () => {
     const isEdgeUpdated = mockFunction
     const bookmarkIndex = mockFunction
     const isEdgePortrait = mockFunction
+    const useLoginMock = mockFunction
 
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [horizontalEdge, edge]);
         (useState as jest.Mock).mockImplementation(() => [12, fontSize]);
         (useState as jest.Mock).mockImplementation(() => [true, isBookmarked]);
@@ -197,6 +198,9 @@ describe('<ArticleDetailScreen>', () => {
         (useState as jest.Mock).mockImplementation(() => [true, isEdgeUpdated]);
         (useState as jest.Mock).mockImplementation(() => [true, bookmarkIndex]);
         (useState as jest.Mock).mockImplementation(() => [true, isEdgePortrait]);
+        useLoginMock.mockReturnValue({
+          isLoggedIn: false,
+        });
         const component =
             <Provider store={storeSampleData}>
                 <ArticleDetailScreen route={sampleData}/>
@@ -240,5 +244,111 @@ describe('<ArticleDetailScreen>', () => {
       fireEvent(element, 'isSignUpAlertVisible');
       expect(mockFunction).toBeTruthy()
     });
+
+})
+
+describe('<ArticleDetailScreen>', () => {
+  let instance: RenderAPI
+  const mockFunction = jest.fn();
+  const navigation = {
+    push: mockFunction,
+    navigate: mockFunction,
+    pop: mockFunction,
+  }
+  const edge = mockFunction
+  const isBookmarked = mockFunction
+  const fontSize = mockFunction
+  const showupUp = mockFunction
+  const currentOrientation = mockFunction
+  const playerUrl = mockFunction
+  const playerVisible = mockFunction
+  const showVideoMiniPlayer = mockFunction
+  const currentTime = mockFunction
+  const paused = mockFunction
+  const scrollEnabled = mockFunction
+  const articleDetailState = mockFunction
+  const relatedArticleState = mockFunction
+  const isArticleSectionLoaded = mockFunction
+  const setShowVideoMiniPlayer = mockFunction
+  const isFullScreen = mockFunction
+  const isFocused = mockFunction
+  const isDefaultDimension = mockFunction
+  const isDimensionChanged = mockFunction
+  const isEdgeUpdated = mockFunction
+  const bookmarkIndex = mockFunction
+  const isEdgePortrait = mockFunction
+  const useLoginMock = mockFunction
+
+  beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useState as jest.Mock).mockImplementation(() => [horizontalEdge, edge]);
+      (useState as jest.Mock).mockImplementation(() => [12, fontSize]);
+      (useState as jest.Mock).mockImplementation(() => [true, isBookmarked]);
+      (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
+      (useState as jest.Mock).mockImplementation(() => ['landscape', currentOrientation]);
+      (useState as jest.Mock).mockImplementation(() => ['abc.com', playerUrl]);
+      (useState as jest.Mock).mockImplementation(() => [true, playerVisible]);
+      (useState as jest.Mock).mockImplementation(() => [true, showVideoMiniPlayer]);
+      (useState as jest.Mock).mockImplementation(() => ['10:00:56', currentTime]);
+      (useState as jest.Mock).mockImplementation(() => [true, paused]);
+      (useState as jest.Mock).mockImplementation(() => [true, scrollEnabled]);
+      (useState as jest.Mock).mockImplementation(() => [sampleData1, articleDetailState]);
+      (useState as jest.Mock).mockImplementation(() => [sampleData3, relatedArticleState]);
+      (useState as jest.Mock).mockImplementation(() => [true, isArticleSectionLoaded]);
+      (useState as jest.Mock).mockImplementation(() => [false, isFullScreen]);
+      (useState as jest.Mock).mockImplementation(() => [true, isFocused]);
+      (useState as jest.Mock).mockImplementation(() => [true, setShowVideoMiniPlayer]);
+      (useState as jest.Mock).mockImplementation(() => [true, isDefaultDimension]);
+      (useState as jest.Mock).mockImplementation(() => [true, isDimensionChanged]);
+      (useState as jest.Mock).mockImplementation(() => [true, isEdgeUpdated]);
+      (useState as jest.Mock).mockImplementation(() => [true, bookmarkIndex]);
+      (useState as jest.Mock).mockImplementation(() => [true, isEdgePortrait]);
+      useLoginMock.mockReturnValue({
+        isLoggedIn: true,
+      });
+      const component =
+          <Provider store={storeSampleData}>
+              <ArticleDetailScreen route={sampleData}/>
+          </Provider>
+      instance = render(component)
+  })
+
+  afterEach(() => {
+      jest.clearAllMocks()
+      instance.unmount()
+  })
+
+  test('Should render component', () => {
+      expect(instance).toBeDefined()
+  })
+
+  it("normalize should return the pixel perfect value", () => {
+      !isIOS
+      let normalizeValue = (normalize(60, 'bottom'))
+      expect(normalizeValue).toEqual(120)
+  })
+
+  it("normalize should return the pixel perfect value", () => {
+    isIOS
+    let normalizeValue = (normalize(70, 'bottom'))
+    expect(normalizeValue).toEqual(140)
+  })
+
+  it('should render ArticleDetailScreen component', () => {
+    expect(render(<ArticleDetailScreen route={{ params: { nid: '123', isRelatedArticle: false } }}/>)).toBeDefined();
+  });
+
+  test('Should call ScreenContainer onCloseSignUpAlert', () => {
+    const element = instance.container.findByType(ScreenContainer)
+    fireEvent(element, 'onCloseSignUpAlert');
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call ScreenContainer isSignUpAlertVisible', () => {
+    const element = instance.container.findByType(ScreenContainer)
+    fireEvent(element, 'isSignUpAlertVisible');
+    expect(mockFunction).toBeTruthy()
+  });
 
 })

@@ -8,6 +8,15 @@ const errorResponse = {
     response: { data: 'Error', status: 500, statusText: 'Error' },
 };
 
+const errorResponse1 = {
+    request: { data: 'Error', status: 500, statusText: 'Error' },
+    message: 'Error'
+};
+
+const errorResponse2 = {
+    message: 'Error'
+};
+
 describe('Check loginSaga sage method', () => {
     const genObject = loginSaga();
 
@@ -54,6 +63,32 @@ describe('Test fetch login', () => {
         });
         genObject.next();
         genObject.throw(errorResponse);
+    });
+
+    it('check fetchlogin failed', () => {
+        const genObject = fetchLogin({
+            type: FETCH_LOGIN,
+            payload: {
+                email: mockString,
+                password: mockString,
+                device_name: mockString
+            },
+        });
+        genObject.next();
+        genObject.throw(errorResponse1);
+    });
+
+    it('check fetchlogin failed', () => {
+        const genObject = fetchLogin({
+            type: FETCH_LOGIN,
+            payload: {
+                email: mockString,
+                password: mockString,
+                device_name: mockString
+            },
+        });
+        genObject.next();
+        genObject.throw(errorResponse2);
     });
 });
 

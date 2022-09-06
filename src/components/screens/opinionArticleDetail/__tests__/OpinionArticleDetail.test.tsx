@@ -5,15 +5,30 @@ import {storeSampleData} from '../../../../constants/SampleData';
 import {OpinionArticleDetail} from '../OpinionArticleDetail';
 import { OpinionArticleDetailItemType, OpinionsListItemType } from 'src/redux/opinionArticleDetail/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
-import { FlatList } from 'react-native';
+import { Animated, FlatList } from 'react-native';
 import { OpinionArticleDetailFooter } from 'src/components/molecules';
 import { OpinionArticleDetailWidget, RelatedOpinionArticlesWidget } from 'src/components/organisms';
 import {useNavigation} from '@react-navigation/native';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
+import { horizontalEdge } from 'src/shared/utils';
+import { useLogin } from 'src/hooks';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+}));
+
+
+jest.mock("src/hooks/useAppPlayer", () => ({
+  useAppPlayer: () => {
+    return {
+      showMiniPlayer: true,
+      selectedTrack: {
+        id: 1,
+        artwork: 'abc.com'
+      },
+    }
+  },
 }));
 
 const opinionArticleDetailData: OpinionArticleDetailItemType[] = [
@@ -143,7 +158,6 @@ jest.mock("src/hooks/useOpinionArticleDetail", () => ({
 jest.mock("src/hooks/useAllWriters", () => ({
   useAllWriters: () => {
     return {
-      isLoading: false,
       selectedAuthorsData: {
         code: 200,
         message: "string",
@@ -181,13 +195,7 @@ jest.mock("src/hooks/useAppCommon", () => ({
   },
 }));
 
-jest.mock("src/hooks/useLogin", () => ({
-  useLogin: () => {
-    return {
-      isLoggedIn: true,
-    }
-  },
-}));
+jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
 
 jest.mock("src/hooks/useBookmark", () => ({
   useBookmark: () => {
@@ -234,7 +242,6 @@ const sampleData: WriterDetailDataType[] = [
 jest.mock("src/hooks/useWriterDetail", () => ({
   useWriterDetail: () => {
       return {
-          isLoading: false,
           getWriterDetailData:()=>jest.fn(),
           emptyWriterDetailData:()=> jest.fn(),
           writerDetailData: sampleData,
@@ -296,6 +303,7 @@ describe('<OpinionArticleDetail>', () => {
   const mockFunction = jest.fn();
   const opinionArticle = mockFunction;
   const relatedOpinionInfo = mockFunction;
+  const useLoginMock = mockFunction;
 
   const navigation = {
     popToTop: mockFunction,
@@ -304,11 +312,15 @@ describe('<OpinionArticleDetail>', () => {
 
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useLogin as jest.Mock).mockImplementation(useLoginMock);
     (useState as jest.Mock).mockImplementation(() => [opinionData, opinionArticle]);
     (useState as jest.Mock).mockImplementation(() => [opinionData, relatedOpinionInfo]);
+    useLoginMock.mockReturnValue({
+      isLoggedIn: true,
+    });
     const component = (
       <Provider store={storeSampleData}>
-        <OpinionArticleDetail route={{ params: { nid: 123 } } }/>
+        <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } } }/>
       </Provider>
     );
     instance = render(component);
@@ -327,14 +339,6 @@ describe('<OpinionArticleDetail>', () => {
     expect(render(
       <Provider store={storeSampleData}>
         <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } } }/>
-      </Provider>
-    )).toBeDefined();
-  });
-
-  test('Should render OpinionArticleDetail component', () => {
-    expect(render(
-      <Provider store={storeSampleData}>
-        <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } } }/>
       </Provider>
     )).toBeDefined();
   });
@@ -418,3 +422,200 @@ describe('<OpinionArticleDetail>', () => {
   });
   
 });
+
+describe('<OpinionArticleDetail>', () => {
+  let instance: RenderAPI;
+
+  const mockFunction = jest.fn();
+  const opinionArticle = mockFunction;
+  const relatedOpinionInfo = mockFunction;
+  const useLoginMock = mockFunction;
+
+  const navigation = {
+    popToTop: mockFunction,
+    push: mockFunction,
+  }
+
+  beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useLogin as jest.Mock).mockImplementation(useLoginMock);
+    (useState as jest.Mock).mockImplementation(() => [opinionData, opinionArticle]);
+    (useState as jest.Mock).mockImplementation(() => [opinionData, relatedOpinionInfo]);
+    useLoginMock.mockReturnValue({
+      isLoggedIn: false,
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } } }/>
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render OpinionArticleDetail component', () => {
+    expect(instance).toBeDefined();
+  });
+
+  test('Should render OpinionArticleDetail component', () => {
+    expect(render(
+      <Provider store={storeSampleData}>
+        <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } } }/>
+      </Provider>
+    )).toBeDefined();
+  });
+
+  test('Should call ScreenContainer onCloseSignUpAlert', () => {
+    const element = instance.container.findByType(ScreenContainer)
+    fireEvent(element, 'onCloseSignUpAlert');
+    expect(mockFunction).toBeTruthy()
+  }); 
+
+  test('Should call FlatList keyExtractor', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'keyExtractor', '', 2);
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call FlatList renderItem', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'renderItem', {item: [{}], index: 0});
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call OpinionArticleDetailFooter onPressSave', () => {
+    const element = instance.container.findByType(OpinionArticleDetailFooter)
+    fireEvent(element, 'onPressSave', opinionData[0].nid_export);
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call OpinionArticleDetailFooter onPressFontSizeChange', () => {
+    const element = instance.container.findByType(OpinionArticleDetailFooter)
+    fireEvent(element, 'onPressFontSizeChange');
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call FlatList onScroll', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'onScroll', {nativeEvent: {contentOffset: {y: 120}}});
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call OpinionArticleDetailWidget onPressFollow', () => {
+    const element = instance.container.findByType(OpinionArticleDetailWidget)
+    fireEvent(element, 'onPressFollow', opinionData[0].writer[0].id);
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call OpinionArticleDetailWidget onPressFollow', () => {
+    const element = instance.container.findByType(OpinionArticleDetailWidget)
+    fireEvent(element, 'onPressFollow');
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call OpinionArticleDetailWidget onPressHome', () => {
+    const element = instance.container.findByType(OpinionArticleDetailWidget)
+    fireEvent(element, 'onPressHome');
+    expect(navigation.popToTop).toBeTruthy()
+  });
+
+  test('Should call OpinionArticleDetailWidget togglePlayback', () => {
+    const element = instance.container.findByType(OpinionArticleDetailWidget)
+    fireEvent(element, 'togglePlayback', '2', mediaData);
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call RelatedOpinionArticlesWidget onScroll', () => {
+    const element = instance.container.findByType(RelatedOpinionArticlesWidget)
+    fireEvent(element, 'onScroll');
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call RelatedOpinionArticlesWidget onPress', () => {
+    const element = instance.container.findByType(RelatedOpinionArticlesWidget)
+    fireEvent(element, 'onPress', '2');
+    expect(navigation.push).toBeTruthy()
+  });
+
+  test('Should call OpinionArticleDetailWidget togglePlayback', () => {
+    const element = instance.container.findByType(RelatedOpinionArticlesWidget)
+    fireEvent(element, 'togglePlayback', '2', mediaData);
+    expect(mockFunction).toBeTruthy()
+  });
+  
+});
+
+describe('<OpinionArticleDetail>', () => {
+  let instance: RenderAPI;
+
+  const mockFunction = jest.fn();
+  const opinionArticle = mockFunction;
+  const relatedOpinionInfo = mockFunction;
+  const page = mockFunction;
+  const writerDetailInfo = mockFunction;
+  const isFollowed = mockFunction;
+  const edge = mockFunction;
+  const scrollY = mockFunction;
+  const selectedTrack = mockFunction;
+  const showupUp = mockFunction;
+  const isBookmarked = mockFunction;
+  const useLoginMock = mockFunction;
+
+  const navigation = {
+    popToTop: mockFunction,
+    push: mockFunction,
+  }
+
+  beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useLogin as jest.Mock).mockImplementation(useLoginMock);
+    (useState as jest.Mock).mockImplementation(() => [opinionData, opinionArticle]);
+    (useState as jest.Mock).mockImplementation(() => [relatedOpinionListData, relatedOpinionInfo]);
+    (useState as jest.Mock).mockImplementation(() => [0, page]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData, writerDetailInfo]);
+    (useState as jest.Mock).mockImplementation(() => [false, isFollowed]);
+    (useState as jest.Mock).mockImplementation(() => [horizontalEdge, edge]);
+    (useState as jest.Mock).mockImplementation(() => [new Animated.Value(60), scrollY]);
+    (useState as jest.Mock).mockImplementation(() => ['123', selectedTrack]);
+    (useState as jest.Mock).mockImplementation(() => [true, showupUp]);
+    (useState as jest.Mock).mockImplementation(() => [true, isBookmarked]);
+    useLoginMock.mockReturnValue({
+      isLoggedIn: false,
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <OpinionArticleDetail route={{ params: { nid: 123,  isRelatedArticle: false } } }/>
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render OpinionArticleDetail component', () => {
+    expect(instance).toBeDefined();
+  });
+
+  test('Should render OpinionArticleDetail component', () => {
+    expect(render(
+      <Provider store={storeSampleData}>
+        <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } } }/>
+      </Provider>
+    )).toBeDefined();
+  });
+
+  test('Should call ScreenContainer onCloseSignUpAlert', () => {
+    const element = instance.container.findByType(ScreenContainer)
+    fireEvent(element, 'onCloseSignUpAlert');
+    expect(mockFunction).toBeTruthy()
+  }); 
+  
+});
+

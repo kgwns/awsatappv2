@@ -11,6 +11,18 @@ jest.mock('@react-navigation/native', () => ({
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
+jest.mock("src/hooks/useAppPlayer", () => ({
+    useAppPlayer: () => {
+      return {
+        showMiniPlayer: true,
+        selectedTrack: {
+            id: 1,
+            artwork: 'abc.com'
+        },
+      }
+    },
+  }));
+
 jest.mock("src/hooks/useOpinionWriter", () => ({
     useOpinionWriter: () => {
         return {
