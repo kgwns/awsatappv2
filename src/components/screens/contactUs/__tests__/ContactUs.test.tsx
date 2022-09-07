@@ -161,3 +161,37 @@ describe('<ContactUs>', () => {
         expect(instance).toBeDefined()
     })
 })
+
+describe('<ContactUs>', () => {
+    let instance: RenderAPI
+    const mockFunction = jest.fn();
+    const navigation = {
+        reset: jest.fn(),
+        navigate: jest.fn(),
+        goBack: jest.fn(),
+    }
+    const alertPayload = mockFunction;
+    const disableSend = mockFunction;
+    const isAlertVisible = mockFunction;
+
+    beforeEach(() => {
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [true, alertPayload]);
+        (useState as jest.Mock).mockImplementation(() => [true, disableSend]);
+        (useState as jest.Mock).mockImplementation(() => [true, isAlertVisible]);
+        const component =
+            <Provider store={storeSampleData}>
+                <ContactUs/>
+            </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    test('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+})

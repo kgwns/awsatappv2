@@ -73,6 +73,19 @@ describe('Test Opinions Services', () => {
     });
   });
 
+  it('test when response code is 200', () => {
+    mock.onGet().reply(200, {
+      result: true,
+    });
+
+    return fetchOpinionsListApi({
+      nid: '',
+      page: 1,
+    }).then(response => {
+      expect(response).toBeInstanceOf(Object);
+    });
+  });
+
   it('test when response code is 500', () => {
     mock.onGet().reply(500, {
       error: 'Something Went Wrong',

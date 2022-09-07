@@ -4,8 +4,8 @@ import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData'
 import { MostReadScreen } from '../MostReadScreen'
 
-jest.mock("src/hooks/useAllSiteCategories", () => ({
-    useAllSiteCategories: () => {
+jest.mock("src/hooks/useMostRead", () => ({
+    useMostRead: () => {
         return {
             isLoading: false,
             mostReadData: [

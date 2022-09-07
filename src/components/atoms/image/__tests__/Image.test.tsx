@@ -11,7 +11,7 @@ describe('<Image>', () => {
 
   beforeEach(() => {
     const component = (
-      <Image name={'homeIcon'} type="round" size={IMAGE_SIZE} />
+      <Image name={'bookmarkActive'} type="round" size={IMAGE_SIZE} />
     );
     instance = render(component);
   });
@@ -20,8 +20,8 @@ describe('<Image>', () => {
     expect(instance).toBeDefined();
   });
 
-  it('should Image name is homeIcon', () => {
-    expect(instance.container.props.name).toBe('homeIcon');
+  it('should Image name is bookmarkActive', () => {
+    expect(instance.container.props.name).toBe('bookmarkActive');
   });
 
   it('should type is round', () => {
@@ -34,7 +34,7 @@ describe('<Image>', () => {
 
   describe('when Image render without type and size', () => {
     beforeEach(() => {
-      const component = <Image name={'homeIcon'} />;
+      const component = <Image name={'bookmarkActive'} />;
       instance = render(component);
     });
 

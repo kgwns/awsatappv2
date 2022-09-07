@@ -11,6 +11,25 @@ jest.mock('@react-navigation/native', () => ({
     useNavigation: jest.fn(),
 }));
 
+jest.mock("src/hooks/useTermsAndAboutUs", () => ({
+    useTermsAndAboutUs: () => {
+      return {
+        isLoading: true,
+        data: [
+            {
+                title: 'Example',
+                body: 'Example',
+            },
+            {
+                title: 'Example',
+                body: 'Example',
+            }
+        ],
+        fetchStaticDetail: () => [],
+      }
+    },
+}));
+
 describe('<TermsAndAboutUs>', () => {
     let instance: RenderAPI
     const mockFunction= jest.fn();

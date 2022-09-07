@@ -38,6 +38,10 @@ describe('<DynamicGameScreen />', () => {
     expect(instance).toBeDefined()
   })
 
+  it('should render component', () => {
+    expect(render(<DynamicGameScreen route={{params: {gameData: {}, showIntro: false}}}/>)).toBeDefined()
+  })
+
   test('Should call GameIntroCard onNavigationStateChange', () => {
     const element = instance.getByTestId('DynamicGameScreenID01');
     fireEvent(element, 'onNavigationStateChange', {nativeEvent: {url: 'https://cdn-eu1.amuselabs.com/pmm/crossword?id='}});

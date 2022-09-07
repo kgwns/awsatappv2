@@ -120,12 +120,6 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
-const SettingData: SettingDataType ={
-    iconName: ImagesName.arrowLeftBlack,
-    title: 'profileSetting.exit',
-    screenName: 'arrowLeftBlack'
-}
-
 describe('<ProfileSettings>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
@@ -137,6 +131,12 @@ describe('<ProfileSettings>', () => {
     const isDarkMode = mockFunction;
     const isAlertVisible = mockFunction;
     const useLoginMock = mockFunction;
+
+    const SettingData: SettingDataType ={
+      iconName: ImagesName.arrowLeftBlack,
+      title: 'profileSetting.changeEnvironment',
+      screenName: 'arrowLeftBlack'
+    }
 
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
@@ -186,12 +186,6 @@ describe('<ProfileSettings>', () => {
         fireEvent(element, 'onPress', {isOn: true});
         expect(navigation.reset).toBeTruthy();
     })
-
-    test('Should call ToggleWithLabel onPress', () => {
-        const element = instance.container.findAllByType(ToggleWithLabel)[1];
-        fireEvent(element, 'onPress');
-        expect(navigation.reset).toBeTruthy();
-    })
     
 });
 
@@ -206,6 +200,12 @@ describe('<ProfileSettings>', () => {
   const isDarkMode = mockFunction;
   const isAlertVisible = mockFunction;
   const useLoginMock = mockFunction;
+
+  const SettingData: SettingDataType ={
+    iconName: ImagesName.arrowLeftBlack,
+    title: 'profileSetting.appAppearance',
+    screenName: 'arrowLeftBlack'
+  }
 
   beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);

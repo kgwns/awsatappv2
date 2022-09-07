@@ -29,6 +29,18 @@ describe('<CheckBox />', () => {
     expect(instance).toBeDefined();
   });
 
+  it('should render component', () => {
+    expect(render( <CheckBox
+      selected={true}
+      icon={icon}
+      selectedIcon={selectedIcon}
+      label="checkbox"
+      onChange={isSelected => {
+        console.log('beforeEach isSelected', isSelected);
+      }}
+    />)).toBeDefined();
+  });
+
   it('should label name is checkbox', () => {
     expect(instance.container.props.label).toBe('checkbox');
   });
@@ -60,5 +72,28 @@ describe('<CheckBox />', () => {
     );
     fireEvent.press(getByTestId('checkBoxBtn'));
     expect(onPressMock).toBeCalledTimes(1);
+  });
+});
+
+describe('<CheckBox />', () => {
+  let instance: RenderAPI;
+  beforeEach(() => {
+    const component = (
+      <CheckBox
+        label="checkbox"
+        onChange={isSelected => {
+          console.log('beforeEach isSelected', isSelected);
+        }}
+      />
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    instance.unmount();
+  });
+
+  it('should render component', () => {
+    expect(instance).toBeDefined();
   });
 });

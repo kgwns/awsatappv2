@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { TitleWithUnderLine } from '../TitleWithUnderLine';
 import { useNavigation } from '@react-navigation/native';
+import { colors } from 'src/shared/styles/colors';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -28,7 +29,7 @@ describe('<VideoPlayer>', () => {
     beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [lineWidth, setLineWidth]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      const component = <TitleWithUnderLine title={'example'}/>
+      const component = <TitleWithUnderLine title={'example'} titleContainerStyle={{backgroundColor: colors.aliceBlue}}/>
       instance = render(component)
       jest.useFakeTimers();
     })
