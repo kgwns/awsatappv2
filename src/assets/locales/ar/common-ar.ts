@@ -12,7 +12,8 @@ export const arabic = {
     seaCondition: 'حالة البحر',
     km: 'كم',
     mbar: 'مللي بار',
-    enableLocation: 'تمكين الموقع'
+    enableLocation: 'تمكين الموقع',
+    noInformation: 'المعلومات غير متوفره حاليا',
   },
   drawer: {
     latestNews: 'آخر الأخبار',

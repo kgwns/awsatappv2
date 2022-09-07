@@ -64,6 +64,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   const CONST_KM = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_KM })
   const CONST_MBAR = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_MBAR })
   const CONST_MAX = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_MAX })
+  const NO_INFORMATION_TEXT = TranslateConstants({ key: TranslateKey.WEATHER_NO_INFORMATION_TEXT })
 
   const { fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilitySuccessInfo } = useWeatherDetails();
   const styles = useThemeAwareObject(createStyles);
@@ -254,8 +255,10 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_MAX}
           </Label>
         </View>
-        {(weatherListDetails?.temp.max && weatherListDetails?.temp.min) &&
+        {(weatherListDetails?.temp.max && weatherListDetails?.temp.min) ?
           <Label style={styles.labelsList2}>{weatherListDetails?.temp.max}°/{weatherListDetails?.temp.min}°</Label>
+          :
+          <Label style={styles.labelsList2} children={NO_INFORMATION_TEXT} />
         }
       </View>
       <Divider style={styles.divider} />
@@ -267,8 +270,10 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_HUMIDITY}
           </Label>
         </View>
-        {weatherListDetails?.humidity &&
+        {weatherListDetails?.humidity ?
           <Label style={styles.labelsList2}>{weatherListDetails?.humidity}%</Label>
+          :
+          <Label style={styles.labelsList2} children={NO_INFORMATION_TEXT} />
         }
       </View>
       <Divider style={styles.divider} />
@@ -280,7 +285,11 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_SPEED}
           </Label>
         </View>
-        <Label style={styles.labelsList2}>{weatherListDetails?.speed} {CONST_KMH}</Label>
+        {weatherListDetails?.speed ?
+          <Label style={styles.labelsList2}>{weatherListDetails?.speed} {CONST_KMH}</Label>
+          :
+          <Label style={styles.labelsList2} children={NO_INFORMATION_TEXT} />
+        }
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
@@ -291,7 +300,11 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_VISIBILITY}
           </Label>
         </View>
-        <Label style={styles.labelsList2}>{weatherDataVisibility}  {CONST_KM}</Label>
+        {weatherDataVisibility ?
+          <Label style={styles.labelsList2}>{weatherDataVisibility}  {CONST_KM}</Label>
+          :
+          <Label style={styles.labelsList2} children={NO_INFORMATION_TEXT} />
+        }
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
@@ -302,7 +315,11 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_PRESSURE}
           </Label>
         </View>
-        <Label style={styles.labelsList2}>{weatherListDetails?.pressure} {CONST_MBAR}</Label>
+        {weatherListDetails?.pressure ?
+          <Label style={styles.labelsList2}>{weatherListDetails?.pressure} {CONST_MBAR}</Label>
+          :
+          <Label style={styles.labelsList2} children={NO_INFORMATION_TEXT} />
+        }
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
@@ -313,7 +330,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_SEA_CONDITION}
           </Label>
         </View>
-        <Label style={styles.labelsList2}></Label>
+        <Label style={styles.labelsList2} children={NO_INFORMATION_TEXT} />
       </View>
     </View>
   );
