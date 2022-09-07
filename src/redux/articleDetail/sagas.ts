@@ -240,7 +240,8 @@ export const parseArticleSectionSuccess = (response: any, current_nid: number): 
           responseData.articleSectionData = rows.map(
             ({ title, body, nid, field_image, view_node,
               field_news_categories_export, author_resource, field_tags_topics_export, created_export,
-              field_new_photo_export, field_new_photo_titles }: any) => ({
+              field_new_photo_export, field_new_photo_titles,
+              jor_city, jor_id, jor_name }: any) => ({
                 body: body,
                 title: isNotEmpty(title) ? decode(title) : '',
                 nid: nid,
@@ -250,7 +251,10 @@ export const parseArticleSectionSuccess = (response: any, current_nid: number): 
                 news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
                 tag_topics: isNonEmptyArray(field_tags_topics_export) ? field_tags_topics_export[0] : field_tags_topics_export,
                 author: author_resource,
-                created: created_export
+                created: created_export,
+                journalistId: jor_id,
+                journalistCity: jor_city,
+                journalistName: jor_name
               })
           );
        responseData.articleSectionData=responseData.articleSectionData.filter((item)=> parseInt(item.nid) !== current_nid)
