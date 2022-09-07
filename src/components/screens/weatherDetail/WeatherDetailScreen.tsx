@@ -64,16 +64,17 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   const CONST_KM = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_KM })
   const CONST_MBAR = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_MBAR })
   const CONST_MAX = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_MAX })
+  const NO_INFORMATION_TEXT = TranslateConstants({ key: TranslateKey.WEATHER_NO_INFORMATION_TEXT })
 
   const { fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilitySuccessInfo } = useWeatherDetails();
   const styles = useThemeAwareObject(createStyles);
 
-  var currentDate = new Date();
-  var data: weatherDate[] = [];
+  const currentDate = new Date();
+  const data: weatherDate[] = [];
 
   const [weatherDataDetails, setWeatherDataDetails] = React.useState(data);
   const [weatherListDetails, setWeatherListDetails] = React.useState<any>(fetchWeatherDetailsSuccessInfo?.list[0] ? fetchWeatherDetailsSuccessInfo?.list[0] : []);
-  var [weatherDataVisibility, setWeatherDataVisibility] = React.useState(fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? fetchWeatherDetailsVisibilitySuccessInfo.visibility : '');
+  const [weatherDataVisibility, setWeatherDataVisibility] = React.useState(fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? fetchWeatherDetailsVisibilitySuccessInfo.visibility : '');
 
 
   currentDate.setDate(currentDate.getDate());
@@ -97,7 +98,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   const weatherDetail = () => (
     <View style={styles.weatherDetail}>
-      <Label style={styles.labels}>
+      <Label style={styles.locationLabel}>
         {fetchWeatherDetailsSuccessInfo?.city.name}
         {' ,'}
         {getCountryName()}
@@ -172,7 +173,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
             <View style={styles.timeZoneLabelStyle}>
               <Label style={styles.sunStateLabelStyle} children={CONST_SUNRISE} />
-              <Label style={styles.imageLabel6} children={getConvertedTime(todayWeatherData.sunrise, timeZone!)} />
+              <Label style={styles.sunStateDurationStyle} children={getConvertedTime(todayWeatherData.sunrise, timeZone!)} />
             </View>
           </View>
         }
@@ -181,7 +182,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             <WeatherNightIcon style={styles.weatherSunIcon} width={25} height={20} />
             <View style={styles.timeZoneLabelStyle}>
               <Label style={styles.sunStateLabelStyle} children={CONST_SUNSET} />
-              <Label style={styles.imageLabel6} children={getConvertedTime(todayWeatherData.sunset, timeZone)} />
+              <Label style={styles.sunStateDurationStyle} children={getConvertedTime(todayWeatherData.sunset, timeZone)} />
             </View>
           </View>
         }
@@ -191,15 +192,15 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   const weatherImage = () => (
     <ImageBackground source={getBackgroundImage()} style={styles.weatherImage}>
-      <View style={styles.weatherImageView1}>
-        <Text style={styles.imageLabel1}>{fetchWeatherDetailsSuccessInfo?.city.name}</Text>
-        <Text style={styles.imageLabel2}>{data[0].date} {data[0].month} {data[0].year}</Text>
+      <View style={styles.weatherLocationView}>
+        <Text style={styles.cityLabelStyle}>{fetchWeatherDetailsSuccessInfo?.city.name}</Text>
+        <Text style={styles.dateLabelStyle}>{data[0].date} {data[0].month} {data[0].year}</Text>
       </View>
-      <View style={styles.weatherImageView2}>
-        <Text style={styles.imageLabel3}>{Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day as number) + '°'}</Text>
+      <View style={styles.temperatureViewStyle}>
+        <Text style={styles.temperatureLabelStyle}>{Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day as number) + '°'}</Text>
         <View style={{ flexDirection: 'column' }}>
           {getImageIcon()}
-          <Label style={styles.imageLabel4}>
+          <Label style={styles.weatherLabelStyle}>
             {fetchWeatherDetailsSuccessInfo?.list[0].weather[0].description}
           </Label>
         </View>
@@ -229,11 +230,11 @@ export const WeatherDetailScreen: FunctionComponent = () => {
         <View style={[styles.dayContainerNotSelected, item.selected && styles.dayContainerSelected]}>
           <View>
             <Label numberOfLines={1}
-              style={[styles.dayContainerLabel1, item.selected && { color: colors.white }]}
+              style={[styles.dayContainerLabel, item.selected && { color: colors.white }]}
               children={item.day} />
           </View>
           <View>
-            <Label numberOfLines={1} style={styles.dayContainerLabel2}>
+            <Label numberOfLines={1} style={styles.dateContainerLabel}>
               {item.date}
               {' '}
               {item.month}
@@ -249,71 +250,67 @@ export const WeatherDetailScreen: FunctionComponent = () => {
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
           <WeatherThermometerIcon width={24} height={24} style={styles.labelsListIcon} />
-          <Label style={styles.labelsList1}>
+          <Label style={styles.fieldTextStyle}>
             {'    '}
             {CONST_MAX}
           </Label>
         </View>
-        {(weatherListDetails?.temp.max && weatherListDetails?.temp.min) &&
-          <Label style={styles.labelsList2}>{weatherListDetails?.temp.max}°/{weatherListDetails?.temp.min}°</Label>
-        }
+        <Label style={styles.fieldDataStyle} children={(weatherListDetails?.temp.max && weatherListDetails?.temp.min) ? (weatherListDetails?.temp.max + '°/' + weatherListDetails?.temp.min + '°') : NO_INFORMATION_TEXT} />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
           <WeatherRainIcon width={24} height={24} style={styles.labelsListIcon} />
-          <Label style={styles.labelsList1}>
+          <Label style={styles.fieldTextStyle}>
             {'    '}
             {CONST_HUMIDITY}
           </Label>
         </View>
-        {weatherListDetails?.humidity &&
-          <Label style={styles.labelsList2}>{weatherListDetails?.humidity}%</Label>
-        }
+        <Label style={styles.fieldDataStyle} children={weatherListDetails?.humidity ? weatherListDetails?.humidity + '%' : NO_INFORMATION_TEXT} />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
           <WeatherIcon3 width={24} height={24} style={styles.labelsListIcon} />
-          <Label style={styles.labelsList1}>
+          <Label style={styles.fieldTextStyle}>
             {'    '}
             {CONST_SPEED}
           </Label>
         </View>
-        <Label style={styles.labelsList2}>{weatherListDetails?.speed} {CONST_KMH}</Label>
+        <Label style={styles.fieldDataStyle} children={weatherListDetails?.speed ? weatherListDetails?.speed + ' ' + CONST_KMH : NO_INFORMATION_TEXT} />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
           <WeatherIcon4 width={24} height={24} style={styles.labelsListIcon} />
-          <Label style={styles.labelsList1}>
+          <Label style={styles.fieldTextStyle}>
             {'    '}
             {CONST_VISIBILITY}
           </Label>
         </View>
-        <Label style={styles.labelsList2}>{weatherDataVisibility}  {CONST_KM}</Label>
+        <Label style={styles.fieldDataStyle} children={weatherDataVisibility ? weatherDataVisibility + ' ' + CONST_KM : NO_INFORMATION_TEXT} />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
           <WeatherIcon5 width={24} height={24} style={styles.labelsListIcon} />
-          <Label style={styles.labelsList1}>
+          <Label style={styles.fieldTextStyle}>
             {'    '}
             {CONST_PRESSURE}
           </Label>
         </View>
-        <Label style={styles.labelsList2}>{weatherListDetails?.pressure} {CONST_MBAR}</Label>
+        <Label style={styles.fieldDataStyle} children={weatherListDetails?.pressure ? weatherListDetails?.pressure + ' ' + CONST_MBAR : NO_INFORMATION_TEXT} />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
         <View style={styles.labelsListContainer}>
           <WeatherIcon6 width={24} height={24} style={styles.labelsListIcon} />
-          <Label style={styles.labelsList1}>
+          <Label style={styles.fieldTextStyle}>
             {'    '}
             {CONST_SEA_CONDITION}
           </Label>
         </View>
-        <Label style={styles.labelsList2}></Label>
+        <Label style={styles.fieldDataStyle} children={NO_INFORMATION_TEXT} />
       </View>
     </View>
   );
@@ -322,7 +319,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {weatherDetail()}
-        <View style={styles.weatherDate}>
+        <View style={styles.horizontalDateView}>
           <FlatList
             testID={'newsHorizontalListId'}
             horizontal
@@ -348,7 +345,7 @@ const createStyles = (theme: CustomThemeType) =>
     weatherDetail: {
       margin: normalize(20),
     },
-    weatherDate: {
+    horizontalDateView: {
       margin: normalize(15),
       marginBottom: normalize(40)
     },
@@ -362,42 +359,42 @@ const createStyles = (theme: CustomThemeType) =>
       flex: 1,
       justifyContent: 'space-between'
     },
-    labels: {
+    locationLabel: {
       fontFamily: fonts.AwsatDigital_Regular,
       textAlign: 'left',
-      fontSize: normalize(17),
+      fontSize: 17,
       color: theme.primaryBlack,
-      lineHeight: normalize(27),
+      lineHeight: 27,
     },
-    dayContainerLabel1: {
+    dayContainerLabel: {
       fontFamily: fonts.AwsatDigital_Regular,
       textAlign: 'left',
-      fontSize: normalize(15),
+      fontSize: 15,
       color: colors.greenishBlue,
-      lineHeight: normalize(28),
+      lineHeight: 28,
     },
-    dayContainerLabel2: {
+    dateContainerLabel: {
       fontFamily: fonts.Effra_Regular,
       textAlign: 'left',
-      fontSize: normalize(11),
-      lineHeight: normalize(18),
+      fontSize: 11,
+      lineHeight: 18,
       color: colors.titleGrey,
     },
-    imageLabel1: {
-      fontSize: normalize(38),
+    cityLabelStyle: {
+      fontSize: 38,
       color: colors.white,
       fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'left',
-      lineHeight: normalize(48),
+      lineHeight: 55,
     },
-    imageLabel2: {
-      fontSize: normalize(10),
+    dateLabelStyle: {
+      fontSize: 10,
       color: colors.white,
       fontFamily: fonts.Effra_Regular,
       textAlign: 'left',
-      lineHeight: normalize(32),
+      lineHeight: 32,
     },
-    imageLabel3: {
+    temperatureLabelStyle: {
       fontFamily: fonts.AwsatDigital_Regular,
       fontSize: 70,
       color: colors.white,
@@ -405,22 +402,15 @@ const createStyles = (theme: CustomThemeType) =>
       alignSelf: 'center',
       paddingTop: 10
     },
-    imageLabel4: {
+    weatherLabelStyle: {
       fontFamily: fonts.Effra_Regular,
-      fontSize: normalize(18),
-      lineHeight: normalize(27),
+      fontSize: 18,
+      lineHeight: 27,
       color: colors.white,
       textAlign: 'center',
     },
-    imageLabel5: {
-      fontFamily: fonts.AwsatDigital_Regular,
-      alignSelf: 'flex-start',
-      fontSize: normalize(15),
-      color: colors.white,
-      lineHeight: normalize(36),
-    },
-    imageLabel6: {
-      fontSize: normalize(8),
+    sunStateDurationStyle: {
+      fontSize: 8,
       color: colors.white,
       fontFamily: fonts.Effra_Regular,
       alignSelf: 'flex-start'
@@ -429,8 +419,6 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'space-around',
       alignItems: 'center',
       backgroundColor: colors.white,
-      // height: normalize(50),
-      // width: normalize(63),
       padding: normalize(10),
       marginHorizontal: normalize(5),
       borderRadius: normalize(5),
@@ -441,13 +429,13 @@ const createStyles = (theme: CustomThemeType) =>
       backgroundColor: colors.greenishBlue,
       borderColor: colors.borderGreen,
     },
-    weatherImageView1: {
+    weatherLocationView: {
       padding: normalize(10)
     },
     weatherSunIcon: {
       marginRight: normalize(6)
     },
-    weatherImageView2: {
+    temperatureViewStyle: {
       paddingHorizontal: normalize(10),
       flexDirection: 'row',
       justifyContent: 'space-between'
@@ -465,17 +453,17 @@ const createStyles = (theme: CustomThemeType) =>
     labelsListContainer: {
       flexDirection: 'row'
     },
-    labelsList1: {
+    fieldTextStyle: {
       fontFamily: fonts.Effra_Regular,
-      fontSize: normalize(18),
+      fontSize: 18,
       color: theme.primaryBlack,
-      lineHeight: normalize(32),
+      lineHeight: 32,
     },
-    labelsList2: {
+    fieldDataStyle: {
       fontFamily: fonts.Effra_Regular,
-      fontSize: normalize(18),
+      fontSize: 18,
       color: theme.primaryBlack,
-      lineHeight: normalize(32),
+      lineHeight: 32,
     },
     labelsListIcon: {
       marginTop: normalize(5)
@@ -485,9 +473,9 @@ const createStyles = (theme: CustomThemeType) =>
     },
     sunStateLabelStyle: {
       fontFamily: fonts.AwsatDigital_Regular,
-      fontSize: normalize(15),
+      fontSize: 15,
       color: colors.white,
-      lineHeight: normalize(33),
+      lineHeight: 33,
       justifyContent: 'center',
       alignSelf: 'flex-start'
     },
