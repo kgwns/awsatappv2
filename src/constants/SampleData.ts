@@ -321,7 +321,15 @@ export const storeInfo = [
       },
       albumDetailError: '',
       albumDetailLoading: false,
-    }
+    },
+    journalist: {
+      isLoading: false,
+      journalistArticle: [],
+      journalistArticleError: '',
+      journalistDetail: [],
+      error: '',
+      isDetailLoading: false,
+    },
   },
 ];
 
