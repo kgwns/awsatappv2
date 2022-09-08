@@ -1,5 +1,4 @@
 import React, {FunctionComponent, useEffect, useState, useCallback} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
   View,
@@ -30,22 +29,21 @@ import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon
 import {
   getFullDate,
   isObjectNonEmpty,
-  getFormatedDate as getFormattedDate,
+  getFormattedDate,
   getProfileImageUrl,
   CustomAlert,
   isNotEmpty,
   horizontalEdge,
+  isValidDate,
 } from 'src/shared/utils/utilities';
 import DatePicker from 'react-native-date-picker';
 import {TabBarComponent, TabBarDataProps} from 'src/components/molecules';
-import {KeyboardAwareView} from 'keyboard-aware-view';
 import {
   loginPasswordValidation,
   oldPasswordValidation,
   reTypePasswordValidation,
 } from 'src/shared/validators';
 import {useUserProfileData} from 'src/hooks/useUserProfileData';
-import {StackNavigationProp} from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-crop-picker';
 import {UpdateUserImageBodyType} from 'src/redux/profileUserDetail/types';
 import {isDarkTheme} from 'src/shared/utils';
@@ -67,12 +65,22 @@ import { AvoidSoftInput } from "react-native-avoid-softinput";
 import { fonts } from 'src/shared/styles/fonts'
 
 export const UserDetailScreen: FunctionComponent = () => {
-  const navigation = useNavigation<StackNavigationProp<any>>();
+  const [t] = useTranslation();
+
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
   const {themeData} = useTheme();
-  const [t] = useTranslation();
+
   const CONST_NAME_PLACE_HOLDER = t('profile.userDetail.nameTitle');
+  const passwordChangedSuccessfully = t('profile.userDetail.passwordChangedSuccessfully');
+  const tryAgain = t('profile.userDetail.tryAgain');
+  const oldPasswordDoesNotMatch = t('profile.userDetail.oldPasswordDoesNotMatch');
+  const OPEN_CAMERA_OPTION = t('profile.userDetail.openCameraOption');
+  const OPEN_GALLERY_OPTION = t('profile.userDetail.chooseFromGallery');
+  const CANCEL = t('profile.userDetail.cancelText');
+  const ok = t('common.ok');
+  const success = t('profile.userDetail.success');
+
 
   const {
     isLoading,
@@ -82,11 +90,16 @@ export const UserDetailScreen: FunctionComponent = () => {
     sendUserProfileInfo,
     updateUserImageRequest,
   } = useUserProfileData();
+
+  const currentDate = new Date();
+  const {changePasswordInfo, emptyPasswordResponseInfo, changePasswordData} =
+    useNewPassword();
+
   const styles = useThemeAwareObject(createStyles);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [occupation, setOccupation] = useState('');
-  const [date, setDate] = useState(userProfileData.user?.birthday ? new Date(userProfileData.user?.birthday) :  new Date(DEFAULT_MINIMUM_DATE));
+  const [date, setDate] = useState(new Date(DEFAULT_MINIMUM_DATE));
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
     t('profile.userDetail.selectBirthdayText'),
@@ -102,30 +115,15 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [profileImage, setProfileImage] = useState(Object);
   const [userProfileImage, setUserProfileImage] = useState('');
   const [birthday, setBirthday] = useState('');
-  const currentDate = new Date();
-  const {changePasswordInfo, emptyPasswordResponseInfo, changePasswordData} =
-    useNewPassword();
-  const {loginData} = useLogin();
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const [alertPayload, setAlertPayload] = useState<AlertPayloadType>();
-  const ok = t('common.ok');
-  const success = t('profile.userDetail.success');
+ 
   const [isDisableDate, setDisableDate] = useState(false)
   const [isDisableName, setDisableName] = useState(false)
   const [isDisableOccupation, setDisableOccupation] = useState(false)
-  const passwordChangedSuccessfully = t(
-    'profile.userDetail.passwordChangedSuccessfully',
-  );
-  const tryAgain = t('profile.userDetail.tryAgain');
-  const oldPasswordDoesNotMatch = t(
-    'profile.userDetail.oldPasswordDoesNotMatch',
-  );
-  const maxDate = currentDate.setFullYear(currentDate.getFullYear() - 15);
-
-  const OPEN_CAMERA_OPTION = t('profile.userDetail.openCameraOption');
-  const OPEN_GALLERY_OPTION = t('profile.userDetail.chooseFromGallery');
-  const CANCEL = t('profile.userDetail.cancelText');
   const [showupUp,setShowPopUp] = useState(false)
+
+  const maxDate = currentDate.setFullYear(currentDate.getFullYear() - 15);
 
   const onFocusEffect = useCallback(() => {
     AvoidSoftInput.setAdjustResize();
@@ -165,9 +163,13 @@ export const UserDetailScreen: FunctionComponent = () => {
           getProfileImageUrl(userProfileData.user?.image as string),
         );
     }
-    {
-      userProfileData.user?.birthday &&
-        setBirthday(getFullDate(userProfileData.user?.birthday));
+    if (userProfileData.user?.birthday) {
+      const birthdayDate = userProfileData.user?.birthday
+      setBirthday(getFullDate(birthdayDate));
+      if (isValidDate(birthdayDate)) {
+        const parsedDate = new Date(birthdayDate)
+        setDate(parsedDate)
+      }
     }
     {
       userProfileData.user?.display_name && userProfileData.user?.display_name !== ' ' ?  setUserName(userProfileData.user?.display_name as string) : userProfileData.user?.name &&

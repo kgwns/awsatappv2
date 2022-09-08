@@ -2,7 +2,7 @@ import { Theme } from "../../../redux/appCommon/types"
 import { calculateDate, calculateMonth, calculateTimeSince, CustomAlert, isDarkTheme, isNonEmptyArray, isObjectNonEmpty } from ".."
 import { arabic } from "src/assets/locales/ar/common-ar"
 import { Alert } from "react-native"
-import { getFormatedDate, getFullDate, getPodcastDate, getPodcastUrl, getProfileImageUrl, getSecondsToHms, isNotEmpty, isValidHttpUrl, joinArray } from "../utilities"
+import { getFormattedDate, getFullDate, getPodcastDate, getPodcastUrl, getProfileImageUrl, getSecondsToHms, isNotEmpty, isValidHttpUrl, joinArray } from "../utilities"
 
 describe('<Utilities>', () => {
 
@@ -160,11 +160,11 @@ describe('<Utilities>', () => {
         })
     })
 
-    describe('<<< getFormatedDate >>>', () => {
-        it('Check getFormatedDate', () => {
+    describe('<<< getFormattedDate >>>', () => {
+        it('Check getFormattedDate', () => {
             const data: any = '2013-05-28T16:16:54+0000'
-            const result = getFormatedDate(data)
-            expect(result).toBe('2013.5.28')
+            const result = getFormattedDate(data)
+            expect(result).toBe('2013-05-28')
         })
     })
 
