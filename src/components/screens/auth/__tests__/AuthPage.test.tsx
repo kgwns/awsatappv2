@@ -1,5 +1,5 @@
 import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
-import React  from 'react';
+import React, { useState }  from 'react';
 import {AuthPage} from '../AuthPage';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
@@ -12,6 +12,11 @@ jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+}));
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
 }));
 
 jest.mock('src/hooks/useEmailCheck', () => ({useEmailCheck: jest.fn()}));
@@ -42,9 +47,11 @@ describe('<AuthPage>', () => {
   }
   const useEmailCheckMock = jest.fn();
   const useRegisterMock = jest.fn();
-
+  const email = jest.fn()
+  
   describe('when AuthPage only', () => {
     beforeEach(() => {
+      (useState as jest.Mock).mockImplementation(() => ["example@gmail.com", email]);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useEmailCheck as jest.Mock).mockImplementation(useEmailCheckMock);
       useEmailCheckMock.mockReturnValue({
@@ -67,6 +74,7 @@ describe('<AuthPage>', () => {
             id: '2',
           },
           message: {
+            code: 400,
             message: 'abc'
           },
         },
@@ -163,10 +171,11 @@ describe('<AuthPage>', () => {
   }
   const useEmailCheckMock = jest.fn();
   const useRegisterMock = jest.fn();
+  const email = jest.fn()
   
   describe('when AuthPage only', () => {
     beforeEach(() => {
-      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useState as jest.Mock).mockImplementation(() => ['', email]);
       (useEmailCheck as jest.Mock).mockImplementation(useEmailCheckMock);
       useEmailCheckMock.mockReturnValue({
         emptyEmailCheckInfo:()=>{},

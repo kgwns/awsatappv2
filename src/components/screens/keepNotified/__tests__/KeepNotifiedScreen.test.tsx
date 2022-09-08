@@ -191,3 +191,123 @@ describe('<KeepNotifiedScreen>', () => {
   });
 
 });
+
+describe('<KeepNotifiedScreen>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+
+  const disableNext = mockFunction;
+  const canGoBack = mockFunction;
+  const notificationDate = mockFunction;
+  const useKeepNotifiedMock = mockFunction;
+
+  beforeEach(() => {
+    (useKeepNotified as jest.Mock).mockImplementation(useKeepNotifiedMock);
+    (useState as jest.Mock).mockImplementation(() => [true, disableNext]);
+    (useState as jest.Mock).mockImplementation(() => [true, canGoBack]);
+    (useState as jest.Mock).mockImplementation(() => [[], notificationDate]);
+    useKeepNotifiedMock.mockReturnValue({
+      sendSelectedInfoRequest:()=>{},
+      getSelectedInfoRequest:()=>{},
+      removeSelectedNotificationInfo:()=>{},
+      removeKeepNotificationInfo:()=>{},
+      getAllNotificationList:()=>{},
+      isLoading: false,
+      selectedNotificationInfo: {
+        code: 200,
+        message: 'string',
+        data: []
+      },
+      sendSelectedNotificationInfo: {},
+      allNotificationList: {
+        code: 400,
+        message: 'string',
+        data: []
+      },
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <KeepNotifiedScreen route={{params: {canGoBack: true}}} />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render KeepNotifiedScreen', () => {
+    expect(instance).toBeDefined();
+  });
+
+  it('When KeepNotifiedWidget onPress', () => {
+    const testId = instance.container.findAllByType(KeepNotifiedWidget)[0];
+    fireEvent(testId, 'onPress', data[0]);
+    expect(mockFunction).toHaveBeenCalled;
+  });
+
+});
+
+describe('<KeepNotifiedScreen>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+
+  const disableNext = mockFunction;
+  const canGoBack = mockFunction;
+  const notificationDate = mockFunction;
+  const useKeepNotifiedMock = mockFunction;
+
+  beforeEach(() => {
+    (useKeepNotified as jest.Mock).mockImplementation(useKeepNotifiedMock);
+    (useState as jest.Mock).mockImplementation(() => [true, disableNext]);
+    (useState as jest.Mock).mockImplementation(() => [true, canGoBack]);
+    (useState as jest.Mock).mockImplementation(() => [[], notificationDate]);
+    useKeepNotifiedMock.mockReturnValue({
+      sendSelectedInfoRequest:()=>{},
+      getSelectedInfoRequest:()=>{},
+      removeSelectedNotificationInfo:()=>{},
+      removeKeepNotificationInfo:()=>{},
+      getAllNotificationList:()=>{},
+      isLoading: false,
+      selectedNotificationInfo: {
+        code: 200,
+        message: 'string',
+        data: []
+      },
+      sendSelectedNotificationInfo: {
+        message: {
+          code: 400,
+        }
+      },
+      allNotificationList: {
+        code: 400,
+        message: 'string',
+        data: []
+      },
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <KeepNotifiedScreen route={{params: {canGoBack: true}}} />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render KeepNotifiedScreen', () => {
+    expect(instance).toBeDefined();
+  });
+
+  it('When KeepNotifiedWidget onPress', () => {
+    const testId = instance.container.findAllByType(KeepNotifiedWidget)[0];
+    fireEvent(testId, 'onPress', data[0]);
+    expect(mockFunction).toHaveBeenCalled;
+  });
+
+});

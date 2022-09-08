@@ -56,12 +56,27 @@ jest.mock("src/hooks/useAppCommon", () => ({
         },
       }
     },
-  }));
+}));
+
+jest.mock("src/hooks/useNewPassword", () => ({
+  useNewPassword: () => {
+    return {
+      changePasswordData: {
+        message: {
+          code: 400,
+          message: 'Success'
+        }
+      },
+      emptyPasswordResponseInfo: () => [],
+      changePasswordInfo: () => [],
+    }
+  },
+}));
 
 describe('<UserDetailScreen>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
-    
+
     beforeEach(() => {
         const component =
             <Provider store={storeSampleData}>

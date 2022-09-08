@@ -6,7 +6,7 @@ import { storeSampleData } from '../../../../constants/SampleData';
 import { AuthScreenInputSection, SocialButtonSection } from '../../../organisms/';
 import {useNavigation} from '@react-navigation/native';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
-import { useLogin } from 'src/hooks';
+import { useLogin, useRegister } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -15,6 +15,7 @@ jest.mock('@react-navigation/native', () => ({
 }));
 
 jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
+jest.mock('src/hooks/useRegister', () => ({useRegister: jest.fn()}));
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -61,30 +62,6 @@ jest.mock("src/hooks/useNotificationSaveToken", () => ({
   },
 }));
 
-jest.mock("src/hooks/useRegister", () => ({
-  useRegister: () => {
-      return {
-        socialLoginEnded:()=>jest.fn(),
-        emptyUserInfo:()=>jest.fn(),
-        createUserRequest:()=> jest.fn(),
-        socialLoginStarted:()=> jest.fn(),
-        socialLoginInProgress: true,
-        registerUserInfo: {
-          user: {
-            email: "abc@gmail.com",
-            id: '2',
-          },
-          message: {
-            message: 'abc',
-            code: 0
-          },
-        },
-        isRegisterLoading: true,
-        registerError: 'Network Error'
-      }
-  },
-}));
-
 describe('<SignInPage>', () => {
   let instance: RenderAPI;
   const navigation = {
@@ -96,16 +73,19 @@ describe('<SignInPage>', () => {
     const password = jest.fn();
     const deviceName = jest.fn();
     const useLoginMock = jest.fn();
+    const useRegisterMock = jest.fn();
+
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => ['Password@1', password]);
       (useState as jest.Mock).mockImplementation(() => ['SamsungA3', deviceName]);
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useRegister as jest.Mock).mockImplementation(useRegisterMock);
       useLoginMock.mockReturnValue({
         isLoading: false,
         loginData: {
           message: {
-            newUser: 'newUser',
+            newUser: 1,
             code: 0
           },
           token: {
@@ -132,6 +112,25 @@ describe('<SignInPage>', () => {
         forgotPassworRequest: () => [],
         emptyforgotPassworResponseInfo: () => [],
         emptyLoginDataInfo: () => [],
+      });
+      useRegisterMock.mockReturnValue({
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        socialLoginStarted:()=> jest.fn(),
+        socialLoginInProgress: true,
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
+          message: {
+            message: 'abc',
+            code: 0
+          },
+        },
+        isRegisterLoading: true,
+        registerError: 'Network Error'
       });
       const component = (
         <Provider store={storeSampleData}>
@@ -208,15 +207,18 @@ describe('<SignInPage>', () => {
   describe('when SignInPage only', () => {
     const password = jest.fn();
     const useLoginMock = jest.fn();
+    const useRegisterMock = jest.fn();
+
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => ['', password]);
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useRegister as jest.Mock).mockImplementation(useRegisterMock);
       useLoginMock.mockReturnValue({
         isLoading: false,
         loginData: {
           message: {
-            newUser: 'newUser',
+            newUser: 1,
             code: 200
           },
           token: {
@@ -225,6 +227,114 @@ describe('<SignInPage>', () => {
           }
         },
         loginError: 'Network Error',
+        fetchLoginRequest: () => [],
+        isLoggedIn: false,
+        token: 'string',
+        user: {},
+        fetchLogoutRequest: () => [],
+        loginSkipped: () => [],
+        isSkipped: false,
+        forgotPassswordResponse: {
+          message: {
+            code: 0
+          }
+        },
+        forgotPassworRequest: () => [],
+        emptyforgotPassworResponseInfo: () => [],
+        emptyLoginDataInfo: () => [],
+      });
+      useRegisterMock.mockReturnValue({
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        socialLoginStarted:()=> jest.fn(),
+        socialLoginInProgress: true,
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
+          message: {
+            message: 'abc',
+            code: 400
+          },
+        },
+        isRegisterLoading: true,
+        registerError: 'Network Error'
+      });
+      const component = (
+        <Provider store={storeSampleData}>
+          <SignInPage route={{ params: { email: 'testEmail@gmail.com' } }}  />
+        </Provider>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render SignInPage', () => {
+      expect(instance).toBeDefined();
+    });
+    test('Should call AuthScreenInputSection onPressSignup', () => {
+      const element = instance.container.findAllByType(AuthScreenInputSection)[0];
+      fireEvent(element, 'onPressSignup');
+      expect(element).toBeTruthy()
+    });
+  });
+});
+
+describe('<SignInPage>', () => {
+  let instance: RenderAPI;
+  const navigation = {
+    reset: jest.fn(),
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+  }
+  describe('when SignInPage only', () => {
+    const password = jest.fn();
+    const useLoginMock = jest.fn();
+    const useRegisterMock = jest.fn();
+
+    beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useState as jest.Mock).mockImplementation(() => ['', password]);
+      (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useRegister as jest.Mock).mockImplementation(useRegisterMock);
+      useRegisterMock.mockReturnValue({
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        socialLoginStarted:()=> jest.fn(),
+        socialLoginInProgress: true,
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
+          message: {
+            message: 'abc',
+            code: 500
+          },
+        },
+        isRegisterLoading: true,
+        registerError: 'Network Error'
+      });
+      useLoginMock.mockReturnValue({
+        isLoading: false,
+        loginData: {
+          message: {
+            newUser: 1,
+            code: 500,
+            message: 'Error'
+          },
+          token: {
+            token_type: 'type',
+            access_token: 'abcd123'
+          }
+        },
+        loginError: 'Error',
         fetchLoginRequest: () => [],
         isLoggedIn: false,
         token: 'string',
@@ -269,24 +379,27 @@ describe('<SignInPage>', () => {
   describe('when SignInPage only', () => {
     const password = jest.fn();
     const useLoginMock = jest.fn();
+    const useRegisterMock = jest.fn();
+
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => ['', password]);
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useRegister as jest.Mock).mockImplementation(useRegisterMock);
+      useRegisterMock.mockReturnValue({
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        socialLoginStarted:()=> jest.fn(),
+        socialLoginInProgress: true,
+        registerUserInfo: {},
+        isRegisterLoading: true,
+        registerError: 'Error'
+      });
       useLoginMock.mockReturnValue({
         isLoading: false,
-        loginData: {
-          message: {
-            newUser: 'newUser',
-            code: 500,
-            message: 'Error'
-          },
-          token: {
-            token_type: 'type',
-            access_token: 'abcd123'
-          }
-        },
-        loginError: 'Network Error',
+        loginData: {},
+        loginError: 'Error',
         fetchLoginRequest: () => [],
         isLoggedIn: false,
         token: 'string',
@@ -294,11 +407,86 @@ describe('<SignInPage>', () => {
         fetchLogoutRequest: () => [],
         loginSkipped: () => [],
         isSkipped: false,
-        forgotPassswordResponse: {
+        forgotPassswordResponse: {},
+        forgotPassworRequest: () => [],
+        emptyforgotPassworResponseInfo: () => [],
+        emptyLoginDataInfo: () => [],
+      });
+      const component = (
+        <Provider store={storeSampleData}>
+          <SignInPage route={{ params: { email: 'testEmail@gmail.com' } }}  />
+        </Provider>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render SignInPage', () => {
+      expect(instance).toBeDefined();
+    });
+  });
+});
+
+describe('<SignInPage>', () => {
+  let instance: RenderAPI;
+  const navigation = {
+    reset: jest.fn(),
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+  }
+  describe('when SignInPage only', () => {
+    const password = jest.fn();
+    const useLoginMock = jest.fn();
+    const useRegisterMock = jest.fn();
+    
+    beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useState as jest.Mock).mockImplementation(() => ['', password]);
+      (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useRegister as jest.Mock).mockImplementation(useRegisterMock);
+      useRegisterMock.mockReturnValue({
+        socialLoginEnded:()=>jest.fn(),
+        emptyUserInfo:()=>jest.fn(),
+        createUserRequest:()=> jest.fn(),
+        socialLoginStarted:()=> jest.fn(),
+        socialLoginInProgress: true,
+        registerUserInfo: {
+          user: {
+            email: "abc@gmail.com",
+            id: '2',
+          },
           message: {
+            message: 'abc',
             code: 0
+          },
+        },
+        isRegisterLoading: true,
+        registerError: 'Network Error'
+      });
+      useLoginMock.mockReturnValue({
+        isLoading: false,
+        loginData: {
+          message: {
+            newUser: 0,
+            code: 200
+          },
+          token: {
+            token_type: 'type',
+            access_token: 'abcd123'
           }
         },
+        loginError: 'Error',
+        fetchLoginRequest: () => [],
+        isLoggedIn: false,
+        token: 'string',
+        user: {},
+        fetchLogoutRequest: () => [],
+        loginSkipped: () => [],
+        isSkipped: false,
+        forgotPassswordResponse: {},
         forgotPassworRequest: () => [],
         emptyforgotPassworResponseInfo: () => [],
         emptyLoginDataInfo: () => [],

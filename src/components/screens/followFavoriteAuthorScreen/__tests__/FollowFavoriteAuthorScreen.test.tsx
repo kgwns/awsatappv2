@@ -189,3 +189,145 @@ describe('<FollowFavoriteAuthorScreen>', () => {
   });
 
 });
+
+describe('<FollowFavoriteAuthorScreen>', () => {
+  let instance: RenderAPI;
+
+  const mockFunction = jest.fn()
+
+  const disableNext = mockFunction;
+  const writersData = mockFunction;
+  const setUpdatedWriters = mockFunction;
+  const useAllWritersMock = mockFunction
+
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
+    (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
+    (useState as jest.Mock).mockImplementation(() => [sampleData, writersData]);
+    (useState as jest.Mock).mockImplementation(() => [[], setUpdatedWriters]);
+    useAllWritersMock.mockReturnValue({
+      isLoading: false,
+      allWritersData: [
+        {
+            name: 'example',
+            description__value_export: {},
+            field_opinion_writer_path_export: {},
+            view_taxonomy_term: 'example',
+            tid: '1',
+            vid_export: {},
+            field_description_export: {},
+            field_opinion_writer_path_export_1: {},
+            field_opinion_writer_photo_export: 'example',
+            isSelected: true,
+        },
+        {
+            name: 'example',
+            description__value_export: {},
+            field_opinion_writer_path_export: {},
+            view_taxonomy_term: 'example',
+            tid: '2',
+            vid_export: {},
+            field_description_export: {},
+            field_opinion_writer_path_export_1: {},
+            field_opinion_writer_photo_export: 'example',
+            isSelected: true,
+        },
+      ],
+      error: '',
+      fetchAllWritersRequest: () => [],
+      sendSelectedWriterInfo: () => [],
+      updateAllWritersData: () => [],
+      emptySendAuthorInfoData: () => [], 
+      sendSelectedFromOnboard: () => [],
+      sentAuthorInfoData: {}
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <FollowFavoriteAuthorScreen />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render FollowFavoriteAuthorScreen', () => {
+    expect(instance).toBeDefined();
+  });
+
+});
+
+describe('<FollowFavoriteAuthorScreen>', () => {
+  let instance: RenderAPI;
+
+  const mockFunction = jest.fn()
+
+  const disableNext = mockFunction;
+  const writersData = mockFunction;
+  const setUpdatedWriters = mockFunction;
+  const useAllWritersMock = mockFunction
+
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [true, disableNext]);
+    (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
+    (useState as jest.Mock).mockImplementation(() => [[], writersData]);
+    (useState as jest.Mock).mockImplementation(() => [[], setUpdatedWriters]);
+    useAllWritersMock.mockReturnValue({
+      isLoading: false,
+      allWritersData: [
+        {
+            name: 'example',
+            description__value_export: {},
+            field_opinion_writer_path_export: {},
+            view_taxonomy_term: 'example',
+            tid: '1',
+            vid_export: {},
+            field_description_export: {},
+            field_opinion_writer_path_export_1: {},
+            field_opinion_writer_photo_export: 'example',
+            isSelected: true,
+        },
+        {
+            name: 'example',
+            description__value_export: {},
+            field_opinion_writer_path_export: {},
+            view_taxonomy_term: 'example',
+            tid: '2',
+            vid_export: {},
+            field_description_export: {},
+            field_opinion_writer_path_export_1: {},
+            field_opinion_writer_photo_export: 'example',
+            isSelected: true,
+        },
+      ],
+      error: '',
+      fetchAllWritersRequest: () => [],
+      sendSelectedWriterInfo: () => [],
+      updateAllWritersData: () => [],
+      emptySendAuthorInfoData: () => [], 
+      sendSelectedFromOnboard: () => [],
+      sentAuthorInfoData: { 
+        code: 400,
+      }
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <FollowFavoriteAuthorScreen />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render FollowFavoriteAuthorScreen', () => {
+    expect(instance).toBeDefined();
+  });
+
+});

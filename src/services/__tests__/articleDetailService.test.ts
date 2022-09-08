@@ -97,6 +97,9 @@ describe('Test Article Detail Services', () => {
         const requestObject: RelatedArticleBodyGet = {
             tid: 11
         };
+        const requestObject1: RelatedArticleBodyGet = {
+            nid: 11
+        };
 
         it('test when response code is 200', () => {
             mock.onGet().reply(200, {
@@ -104,6 +107,15 @@ describe('Test Article Detail Services', () => {
             });
 
             return requestRelatedArticle(requestObject).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return requestRelatedArticle(requestObject1).then(response => {
                 expect(response).toBeInstanceOf(Object);
             });
         });

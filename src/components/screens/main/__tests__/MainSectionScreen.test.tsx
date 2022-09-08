@@ -1,7 +1,7 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import { FlatList, RefreshControl } from 'react-native';
-import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget } from 'src/components/organisms';
+import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget, ShortArticle } from 'src/components/organisms';
 import { EditorsChoiceDataType, LatestArticleDataType, LatestPodcastDataType, MainSectionBlockType } from 'src/redux/latestNews/types';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
@@ -462,7 +462,7 @@ describe('<MainSectionScreen>', () => {
       setPlay: () => [],
       setPlayerTrack: () => [],
     });
-    const component = <MainSectionScreen tabIndex={1} currentIndex={1} />;
+    const component = <MainSectionScreen tabIndex={0} currentIndex={0} />;
     instance = render(component);
   });
 
@@ -595,7 +595,7 @@ describe('<MainSectionScreen>', () => {
 
   it('when ArticleSection only When onUpdateBookmark', () => {
     const testID = instance.container.findAllByType(ArticleSection)[0];
-    fireEvent(testID, 'onUpdateBookmark', {nid: '2', isBookmarked: true});
+    fireEvent(testID, 'onUpdateBookmark', '2', true);
     expect(mockFunction).toBeTruthy();
   });
 
@@ -832,7 +832,7 @@ describe('<MainSectionScreen>', () => {
 
   it('when BannerArticleSection only When onPress', () => {
     const testID = instance.container.findAllByType(BannerArticleSection)[7];
-    fireEvent(testID, 'onPress');
+    fireEvent(testID, 'onPress', '2');
     expect(mockFunction).toBeTruthy();
   });
 
@@ -844,7 +844,7 @@ describe('<MainSectionScreen>', () => {
 
   it('when ArticleSection only When onUpdateBookmark', () => {
     const testID = instance.container.findAllByType(ArticleSection)[0];
-    fireEvent(testID, 'onUpdateBookmark', {nid: '2', isBookmarked: true});
+    fireEvent(testID, 'onUpdateBookmark', '2', true);
     expect(mockFunction).toBeTruthy();
   });
 
@@ -866,10 +866,104 @@ describe('<MainSectionScreen>', () => {
     expect(mockFunction).toBeTruthy();
   });
 
+  it('when PodcastWidget only When onPress', () => {
+    const testID = instance.container.findAllByType(PodcastWidget)[0];
+    fireEvent(testID, 'onPress', {});
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when ShortArticle only When onPress', () => {
+    const testID = instance.container.findAllByType(ShortArticle)[0];
+    fireEvent(testID, 'onPress', '2');
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when ShortArticle only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(ShortArticle)[0];
+    fireEvent(testID, 'onUpdateBookmark', '2', true);
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when ShortArticle only When showSignUpPopUp', () => {
+    const testID = instance.container.findAllByType(ShortArticle)[0];
+    fireEvent(testID, 'showSignUpPopUp');
+    expect(mockFunction).toBeTruthy();
+  });
+
   test('Should call FlatList onPress', () => {
     const element = instance.container.findByType(FlatList)
     fireEvent(element, 'onScrollBeginDrag');
     expect(global.refFlatList).toBeTruthy()
   });
+});
+
+
+describe('<MainSectionScreen>', () => {
+  let instance: RenderAPI;
+
+  const mockFunction = jest.fn();
+
+  const refreshing = mockFunction;
+  const coverageInfo = mockFunction;
+  const sectionComboOneInfo = mockFunction;
+  const sectionComboTwoInfo = mockFunction;
+  const sectionComboThreeInfo = mockFunction;
+  const sectionComboFourInfo = mockFunction;
+  const sectionComboFiveInfo = mockFunction;
+  const sectionComboSixInfo = mockFunction;
+  const sectionComboSevenInfo = mockFunction;
+  const opinionListData = mockFunction;
+  const showupUp = mockFunction;
+  const selectedTrack = mockFunction;
+  const selectedType = mockFunction;
+  const editorsChoiceInfo = mockFunction;
+  const useLoginMock = mockFunction;
+  const useAppPlayerMock = mockFunction;
+
+  const navigation = {
+    navigate: mockFunction,
+  }
+
+  beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useLogin as jest.Mock).mockImplementation(useLoginMock);
+    (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
+    (useState as jest.Mock).mockImplementation(() => [false, refreshing]);
+    (useState as jest.Mock).mockImplementation(() => [[], opinionListData]);
+    (useState as jest.Mock).mockImplementation(() => [[], coverageInfo]);
+    (useState as jest.Mock).mockImplementation(() => [[], sectionComboOneInfo]);
+    (useState as jest.Mock).mockImplementation(() => [[], sectionComboTwoInfo]);
+    (useState as jest.Mock).mockImplementation(() => [[], sectionComboThreeInfo]);
+    (useState as jest.Mock).mockImplementation(() => [[], sectionComboFourInfo]);
+    (useState as jest.Mock).mockImplementation(() => [[], sectionComboFiveInfo]);
+    (useState as jest.Mock).mockImplementation(() => [[], sectionComboSixInfo]);
+    (useState as jest.Mock).mockImplementation(() => [[], sectionComboSevenInfo]);
+    (useState as jest.Mock).mockImplementation(() => [[], opinionListData]);
+    (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
+    (useState as jest.Mock).mockImplementation(() => ['12', selectedTrack]);
+    (useState as jest.Mock).mockImplementation(() => ['abc', selectedType]);
+    (useState as jest.Mock).mockImplementation(() => [[], editorsChoiceInfo]);
+    useLoginMock.mockReturnValue({
+      isLoggedIn: true,
+    });
+    const component = <MainSectionScreen tabIndex={1} currentIndex={2} />;
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  it('should render MainSectionScreen component', () => {
+    expect(instance).toBeDefined();
+  });
+
+  it('when ArticleSection only When onUpdateBookmark', () => {
+    const testID = instance.container.findAllByType(ArticleSection)[0];
+    fireEvent(testID, 'onUpdateBookmark', '2', true);
+    expect(mockFunction).toBeTruthy();
+  });
+
 });
 

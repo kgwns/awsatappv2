@@ -70,3 +70,14 @@ describe('Test opinionWriter  error', () => {
     genObject.throw(errorResponse);
   });
 });
+
+describe('Test opinionWriter  error', () => {
+  it('check fetchOpinionWriter failed', () => {
+    const genObject = fetchOpinionWriter({
+      type: FETCH_OPINION_WRITER,
+      payload: {items_per_page: mockPage},
+    });
+    genObject.next();
+    genObject.throw({});
+  });
+});

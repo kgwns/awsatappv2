@@ -20,7 +20,7 @@ describe('<GameScreen />', () => {
   }
 
   beforeEach(() => {
-    const component = <GameScreen/>
+    const component = <GameScreen tabIndex={0} currentIndex={0}/>
     instance = render(component)
   })
 
@@ -31,6 +31,10 @@ describe('<GameScreen />', () => {
 
   it('should render component', () => {
     expect(instance).toBeDefined()
+  })
+
+  it('should render component', () => {
+    expect(render( <GameScreen tabIndex={0} currentIndex={3}/>)).toBeDefined()
   })
 
   test('Should call GameIntroCard onPress', () => {

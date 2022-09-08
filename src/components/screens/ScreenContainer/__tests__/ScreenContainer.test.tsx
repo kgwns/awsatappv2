@@ -1,13 +1,13 @@
 import React from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
-import { ScreenContainer } from '../ScreenContainer'
+import { AlertPayloadType, ScreenContainer } from '../ScreenContainer'
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData'
 import { AlertModal, PopUp } from 'src/components/organisms'
 import { useAppPlayer } from 'src/hooks';
 import { PodCastMiniPlayer } from 'src/components/molecules'
 import { TouchableOpacity } from 'react-native'
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'),
@@ -16,16 +16,22 @@ jest.mock('@react-navigation/native', () => ({
 
 jest.mock("src/hooks/useAppCommon", () => ({
     useAppCommon: () => {
-      return {
-        theme: {
-          LIGHT: 'light',
-          DARK: 'dark'
-        },
-      }
+        return {
+            theme: {
+                LIGHT: 'light',
+                DARK: 'dark'
+            },
+        }
     },
 }));
 
-jest.mock('src/hooks/useAppPlayer', () => ({useAppPlayer: jest.fn()}));
+jest.mock('src/hooks/useAppPlayer', () => ({ useAppPlayer: jest.fn() }));
+
+const payloadAlert: AlertPayloadType = {
+    title: 'Example',
+    message: 'Example',
+    buttonTitle: 'Example',
+}
 
 describe('<Screen Container>', () => {
     let instance: RenderAPI;
@@ -48,7 +54,7 @@ describe('<Screen Container>', () => {
         useAppPlayerMock.mockReturnValue({
             showMiniPlayer: true,
             isPlaying: false,
-            selectedTrack: {id: 1},
+            selectedTrack: { id: 1 },
             showControls: false,
             setControlState: setControlStateMock,
             setShowMiniPlayer: setShowMiniPlayer,
@@ -56,10 +62,10 @@ describe('<Screen Container>', () => {
             setPlayerTrack: setPlayerTrack,
         });
         (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
-        const component = 
+        const component =
             <Provider store={storeSampleData}>
-                <ScreenContainer children={screenComponent} isLoading={false} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction}/>
-            </Provider> 
+                <ScreenContainer children={screenComponent} edge={['right', 'top']} headerTitle={'Example'} isLoading={false} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction} barStyle={'default'} />
+            </Provider>
         instance = render(component)
     })
 
@@ -68,8 +74,17 @@ describe('<Screen Container>', () => {
         instance.unmount()
     })
 
+
     test('Should render component', () => {
         expect(instance).toBeDefined()
+    })
+
+    test('Should render component', () => {
+        expect(render(<ScreenContainer children={screenComponent} isAlertVisible={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction} />)).toBeDefined()
+    })
+
+    test('Should render component', () => {
+        expect(render(<ScreenContainer children={screenComponent} edge={['right', 'top']} alertPayload={payloadAlert} headerTitle={'Example'} isLoading={true} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction} barStyle={'default'} />)).toBeDefined()
     })
 
     it('when AlertModal only When onPressSuccess', () => {

@@ -74,21 +74,21 @@ describe('<SignUpPage>', () => {
   let instance: RenderAPI;
   const mockDispatch = jest.fn();
   const navigation = {
-    reset: jest.fn(),
-    navigate: jest.fn(),
-    goBack: jest.fn(),
+    reset: mockDispatch,
+    navigate: mockDispatch,
+    goBack: mockDispatch,
   }
-  const password = jest.fn();
-  const useRegisterMock = jest.fn();
+  const password = mockDispatch;
+  const useRegisterMock = mockDispatch;
   describe('when SignUpPage only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValue(navigation);
       (useRegister as jest.Mock).mockImplementation(useRegisterMock);
       (useState as jest.Mock).mockImplementation(() => ['Password@1', password]);
       useRegisterMock.mockReturnValue({
-        socialLoginEnded:()=>jest.fn(),
-        emptyUserInfo:()=>jest.fn(),
-        createUserRequest:()=> jest.fn(),
+        socialLoginEnded:()=>mockDispatch,
+        emptyUserInfo:()=>mockDispatch,
+        createUserRequest:()=> mockDispatch,
         registerUserInfo: {
           user: {
             email: "abc@gmail.com",
@@ -96,7 +96,8 @@ describe('<SignUpPage>', () => {
           },
           message: {
             message: 'abc',
-            code: 200
+            code: 200,
+            newUser: 0,
           },
         },
         isRegisterLoading: true,
@@ -139,27 +140,28 @@ describe('<SignUpPage>', () => {
   let instance: RenderAPI;
   const mockDispatch = jest.fn();
   const navigation = {
-    reset: jest.fn(),
-    navigate: jest.fn(),
-    goBack: jest.fn(),
+    reset: mockDispatch,
+    navigate: mockDispatch,
+    goBack: mockDispatch,
   }
-  const password = jest.fn();
-  const useRegisterMock = jest.fn();
+  const password = mockDispatch;
+  const useRegisterMock = mockDispatch;
   describe('when SignUpPage only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValue(navigation);
       (useRegister as jest.Mock).mockImplementation(useRegisterMock);
       (useState as jest.Mock).mockImplementation(() => ['', password]);
       useRegisterMock.mockReturnValue({
-        socialLoginEnded:()=>jest.fn(),
-        emptyUserInfo:()=>jest.fn(),
-        createUserRequest:()=> jest.fn(),
+        socialLoginEnded:()=>mockDispatch,
+        emptyUserInfo:()=>mockDispatch,
+        createUserRequest:()=> mockDispatch,
         registerUserInfo: {
           user: {
             email: "abc@gmail.com",
             id: '2',
           },
           message: {
+            newUser: 0,
             message: 'abc',
             code: 0
           },
@@ -181,6 +183,57 @@ describe('<SignUpPage>', () => {
     });
     it('Should render SignUpPage', () => {
       expect(instance).toBeDefined();
+    });
+    it('When Press SignUp Button', () => {
+      const testID = instance.getByTestId('signUp_signUp');
+      fireEvent(testID, 'onPress')
+      expect(mockDispatch).toBeTruthy();
+    });
+  });
+});
+
+describe('<SignUpPage>', () => {
+  let instance: RenderAPI;
+  const mockDispatch = jest.fn();
+  const navigation = {
+    reset: mockDispatch,
+    navigate: mockDispatch,
+    goBack: mockDispatch,
+  }
+  const password = mockDispatch;
+  const useRegisterMock = mockDispatch;
+  describe('when SignUpPage only', () => {
+    beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValue(navigation);
+      (useRegister as jest.Mock).mockImplementation(useRegisterMock);
+      (useState as jest.Mock).mockImplementation(() => ['', password]);
+      useRegisterMock.mockReturnValue({
+        socialLoginEnded:()=>mockDispatch,
+        emptyUserInfo:()=>mockDispatch,
+        createUserRequest:()=> mockDispatch,
+        registerUserInfo: {},
+        isRegisterLoading: true,
+        registerError: 'Error'
+      });
+      const component = (
+        <Provider store={storeSampleData}>
+          <SignUpPage route={{ params: { email: 'testEmail@gmail.com' } }}  />
+        </Provider>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render SignUpPage', () => {
+      expect(instance).toBeDefined();
+    });
+    it('When Press SignUp Button', () => {
+      const testID = instance.getByTestId('signUp_signUp');
+      fireEvent(testID, 'onPress')
+      expect(mockDispatch).toBeTruthy();
     });
   });
 });

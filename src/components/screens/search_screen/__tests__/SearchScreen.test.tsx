@@ -48,7 +48,7 @@ jest.mock("src/hooks/useSearch", () => ({
       isLoading: false,
       searchData: mockData, 
       setSearchHistory: () => {}, 
-      searchHistory: ['abc', 'def', 'abc']
+      searchHistory: ['abc', 'def', 'abc','abc', 'def', 'abc','abc', 'def', 'abc','abc', 'def', 'abc','abc', 'def', 'abc','abc', 'def', 'abc']
     }
   },
 }));

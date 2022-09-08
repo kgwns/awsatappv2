@@ -77,3 +77,27 @@ describe('<InputTextArea />', () => {
     fireEvent(getByTestId('inputTextAreaTestID'), 'submitEditing');
   });
 });
+
+describe('should pass isPassword as true and value', () => {
+  const mockFunction = jest.fn();
+  let instance: RenderAPI;
+  beforeEach(() => {
+    const component = (
+      <InputTextArea
+        label="firstname"
+        onSubmitEditing={mockFunction}
+        error={'Error'}
+        onChangeText={mockFunction}
+      />
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    instance.unmount();
+  });
+
+  it('should render component', () => {
+    expect(instance).toBeDefined();
+  });
+})

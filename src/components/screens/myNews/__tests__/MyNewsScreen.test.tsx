@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData'
-import { MyNewsScreen } from '../MyNewsScreen'
+import { MyNewsScreen, MyNewsTabType } from '../MyNewsScreen'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { SignupAlertCard } from 'src/components/molecules'
 import { ArticlesListItemType } from 'src/redux/contentForYou/types'
@@ -102,13 +102,26 @@ jest.mock("src/hooks/useContentForYou", () => ({
     useState: jest.fn(),
   }));
 
+  const data = [
+    {
+      keyName: MyNewsTabType.media,
+    },
+    {
+      keyName: MyNewsTabType.writers,
+    },
+    {
+      keyName: MyNewsTabType.topics,
+    },
+  ];
+
 describe('<MyNewsScreen>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
 
     const index = mockFunction;
+    const routes = mockFunction;
     const useLoginMock = mockFunction;
-
+   
     const navigation = {
       reset: mockFunction,
     }
@@ -117,6 +130,7 @@ describe('<MyNewsScreen>', () => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [0, index]);
+        (useState as jest.Mock).mockImplementation(() => [data, routes]);
         useLoginMock.mockReturnValue({
           isLoggedIn: false,
         });

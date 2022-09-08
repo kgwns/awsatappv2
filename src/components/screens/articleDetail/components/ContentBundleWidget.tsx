@@ -32,7 +32,6 @@ export const ContentBundleWidget = ({
     const { emptyAllData } = useArticleDetail()
 
     const onPress = () => {
-        console.log('ContentBundleWidget');
         if (data.nid) {
             emptyAllData()
             navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: data.nid, hasHTMLContent: true });

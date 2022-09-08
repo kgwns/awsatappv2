@@ -4,6 +4,7 @@ import { OpinionScreen } from '../OpinionScreen'
 import { FlatList } from 'react-native';
 import { OpinionWritersSection, PopUp } from 'src/components/organisms';
 import {useNavigation} from '@react-navigation/native';
+import { useBookmark } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -98,25 +99,6 @@ const opinionsData = [
     },
 ];
 
-jest.mock("src/hooks/useBookmark", () => ({
-    useBookmark: () => {
-      return {
-        bookmarkIdInfo: [
-            {
-                nid: '1',
-                bundle: 'string'
-            },
-            {
-                nid: '2',
-                bundle: 'string'
-            }
-        ],
-        sendBookmarkInfo: () => [],
-        removeBookmarkedInfo: () => [],
-      }
-    },
-}));
-
 jest.mock("src/hooks/useOpinions", () => ({
     useOpinions: () => {
         return {
@@ -142,6 +124,8 @@ jest.mock("src/hooks/useOpinions", () => ({
     },
 }));
 
+jest.mock('src/hooks/useBookmark', () => ({useBookmark: jest.fn()}));
+
 describe('<OpinionScreen>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
@@ -155,12 +139,96 @@ describe('<OpinionScreen>', () => {
         reset: mockFunction,
     }
 
+    const useBookmarkMock = jest.fn();
+
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useState as jest.Mock).mockImplementation(() => [opinionsData, opinionsDataInfo]);
         (useState as jest.Mock).mockImplementation(() => [false, isShowPlayer]);
         (useState as jest.Mock).mockImplementation(() => [0, page]);
         (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
+        (useBookmark as jest.Mock).mockImplementation(useBookmarkMock);
+        useBookmarkMock.mockReturnValue({
+            bookmarkIdInfo: [
+                {
+                    nid: '1',
+                    bundle: 'string'
+                },
+                {
+                    nid: '2',
+                    bundle: 'string'
+                }
+            ],
+            sendBookmarkInfo: () => [],
+            removeBookmarkedInfo: () => [],
+        });
+        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render OpinionScreen', () => {
+        expect(instance).toBeDefined()
+    })
+
+    test('Should call FlatList onPress', () => {
+        const element = instance.container.findByType(FlatList)
+        fireEvent(element, 'onScrollBeginDrag');
+        expect(global.refFlatList).toBeTruthy()
+    });
+
+    test('Should call OpinionWritersSection onPressWriter', () => {
+        const element = instance.container.findAllByType(OpinionWritersSection)[0]
+        fireEvent(element, 'onPressWriter');
+        expect(navigation.navigate).toBeTruthy()
+    });
+
+    test('Should call PopUp onPressButton', () => {
+        const element = instance.container.findAllByType(PopUp)[0]
+        fireEvent(element, 'onPressButton');
+        expect(navigation.reset).toBeTruthy();
+    });
+
+
+    test('Should call PopUp onClosePopUp', () => {
+        const element = instance.container.findAllByType(PopUp)[0]
+        fireEvent(element, 'onClosePopUp');
+        expect(mockFunction).toBeTruthy();
+    });
+
+})
+
+describe('<OpinionScreen>', () => {
+    let instance: RenderAPI
+    const mockFunction = jest.fn();
+    const opinionsDataInfo= mockFunction;
+    const isShowPlayer= mockFunction;
+    const page = mockFunction;
+    const showupUp = mockFunction;
+
+    const navigation = {
+        navigate: mockFunction,
+        reset: mockFunction,
+    }
+
+    const useBookmarkMock = jest.fn();
+
+    beforeEach(() => {
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [opinionsData, opinionsDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [false, isShowPlayer]);
+        (useState as jest.Mock).mockImplementation(() => [0, page]);
+        (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
+        (useBookmark as jest.Mock).mockImplementation(useBookmarkMock);
+        useBookmarkMock.mockReturnValue({
+            bookmarkIdInfo: [],
+            sendBookmarkInfo: () => [],
+            removeBookmarkedInfo: () => [],
+        });
         const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
         instance = render(component)
     })

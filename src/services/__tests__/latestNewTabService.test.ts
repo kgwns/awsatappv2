@@ -94,8 +94,13 @@ describe('Test LatestNews Tab Services', () => {
     })
 
     describe('Check requestLatestArticle method', () => {
+        const requestObject1: RequestSectionComboBodyGet = {
+            id: 11,
+            items_per_page: 10
+        };
+
         const requestObject: RequestSectionComboBodyGet = {
-            id: 11
+            id: 11,
         };
 
         it('test when response code is 200', () => {
@@ -107,6 +112,17 @@ describe('Test LatestNews Tab Services', () => {
                 expect(response).toBeInstanceOf(Object);
             });
         });
+
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return requestSectionCombo(requestObject1).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+
         it('test when response code is 500', () => {
             mock.onGet().reply(500, {
                 error: 'Something Went Wrong',
