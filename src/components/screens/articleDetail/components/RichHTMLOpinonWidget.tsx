@@ -30,14 +30,12 @@ export const RichHTMLOpinonWidget = ({
     const { themeData } = useTheme()
 
     const onPressWriter = () => {
-        console.log('onPressWriter');
         if (data.writerId) {
             navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid: data.writerId })
         }
     }
 
     const onPressOpinion = () => {
-        console.log('onPressOpinion');
         if (data.nid) {
             navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: data.nid })
         }

@@ -315,7 +315,7 @@ describe('<VideoScreen>', () => {
         useLoginMock.mockReturnValue({
             isLoggedIn: false,
         });
-        const component = <VideoScreen tabIndex={0} currentIndex={0}/>
+        const component = <VideoScreen tabIndex={0} currentIndex={1}/>
         instance = render(component)
     })
 

@@ -27,6 +27,20 @@ const data: ReadAlsoDataType[] =
     },
 ]
 
+
+const data1 = 
+[
+    { 
+        title: 'example1',
+    },
+    { 
+        title: 'example2',
+    },
+    { 
+        title: 'example3',
+    },
+]
+
 describe('<ReadAlsoArticle>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
@@ -55,7 +69,41 @@ describe('<ReadAlsoArticle>', () => {
 
     it('When MenuButton Press', () => {
         const listButton = instance.container.findAllByType(TouchableOpacity)[0];
-        fireEvent(listButton, 'onPress');
+        fireEvent(listButton, 'onPress', data[0]);
+        expect(navigation.push).toHaveBeenCalled;
+    });
+    
+})
+
+describe('<ReadAlsoArticle>', () => {
+    let instance: RenderAPI;
+    const mockFunction = jest.fn();
+    const navigation = {
+        push: mockFunction,
+        navigate: mockFunction,
+    }
+
+    beforeEach(() => {
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        const component = 
+            <Provider store={storeSampleData}>
+                <ReadAlsoArticle title={'example'} data={data1}/>
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+
+    it('When MenuButton Press', () => {
+        const listButton = instance.container.findAllByType(TouchableOpacity)[0];
+        fireEvent(listButton, 'onPress', data1[0]);
         expect(navigation.push).toHaveBeenCalled;
     });
     

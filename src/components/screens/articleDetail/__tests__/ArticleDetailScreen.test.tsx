@@ -172,6 +172,7 @@ describe('<ArticleDetailScreen>', () => {
     const bookmarkIndex = mockFunction
     const isEdgePortrait = mockFunction
     const useLoginMock = mockFunction
+    const isLoading = mockFunction
 
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
@@ -198,6 +199,7 @@ describe('<ArticleDetailScreen>', () => {
         (useState as jest.Mock).mockImplementation(() => [true, isEdgeUpdated]);
         (useState as jest.Mock).mockImplementation(() => [true, bookmarkIndex]);
         (useState as jest.Mock).mockImplementation(() => [true, isEdgePortrait]);
+        (useState as jest.Mock).mockImplementation(() => [true, isLoading]);
         useLoginMock.mockReturnValue({
           isLoggedIn: false,
         });
@@ -278,10 +280,12 @@ describe('<ArticleDetailScreen>', () => {
   const bookmarkIndex = mockFunction
   const isEdgePortrait = mockFunction
   const useLoginMock = mockFunction
+  const isLoading = mockFunction
 
   beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useState as jest.Mock).mockImplementation(() => [true, isLoading]);
       (useState as jest.Mock).mockImplementation(() => [horizontalEdge, edge]);
       (useState as jest.Mock).mockImplementation(() => [12, fontSize]);
       (useState as jest.Mock).mockImplementation(() => [true, isBookmarked]);
@@ -295,7 +299,7 @@ describe('<ArticleDetailScreen>', () => {
       (useState as jest.Mock).mockImplementation(() => [true, scrollEnabled]);
       (useState as jest.Mock).mockImplementation(() => [sampleData1, articleDetailState]);
       (useState as jest.Mock).mockImplementation(() => [sampleData3, relatedArticleState]);
-      (useState as jest.Mock).mockImplementation(() => [true, isArticleSectionLoaded]);
+      (useState as jest.Mock).mockImplementation(() => [false, isArticleSectionLoaded]);
       (useState as jest.Mock).mockImplementation(() => [false, isFullScreen]);
       (useState as jest.Mock).mockImplementation(() => [true, isFocused]);
       (useState as jest.Mock).mockImplementation(() => [true, setShowVideoMiniPlayer]);

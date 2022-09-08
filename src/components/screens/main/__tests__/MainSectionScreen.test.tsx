@@ -617,6 +617,12 @@ describe('<MainSectionScreen>', () => {
     expect(mockFunction).toBeTruthy();
   });
 
+  it('when PodcastWidget only When onPress', () => {
+    const testID = instance.container.findAllByType(PodcastWidget)[0];
+    fireEvent(testID, 'onPress', {});
+    expect(mockFunction).toBeTruthy();
+  });
+
   test('Should call FlatList onPress', () => {
     const element = instance.container.findByType(FlatList)
     fireEvent(element, 'onScrollBeginDrag');
@@ -855,6 +861,12 @@ describe('<MainSectionScreen>', () => {
   it('when PodcastWidget only When onPress', () => {
     const testID = instance.container.findAllByType(PodcastWidget)[0];
     fireEvent(testID, 'onPress', podCastData[0]);
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when PodcastWidget only When onPress', () => {
+    const testID = instance.container.findAllByType(PodcastWidget)[0];
+    fireEvent(testID, 'onPress', {});
     expect(mockFunction).toBeTruthy();
   });
 
