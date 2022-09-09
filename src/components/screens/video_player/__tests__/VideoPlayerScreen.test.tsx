@@ -36,9 +36,7 @@ describe('<VideoPlayerScreen>', () => {
     }
 
     const useAppPlayerMock = jest.fn();
-    const setControlStateMock = jest.fn();
     const setShowMiniPlayerMock = jest.fn();
-    const setPlayMock = jest.fn();
     const setPlayerTrackMock = jest.fn();
 
     beforeEach(() => {
@@ -46,13 +44,7 @@ describe('<VideoPlayerScreen>', () => {
       (useState as jest.Mock).mockImplementation(() => [route.params.videoUrl, playerUrl]);
       (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
       useAppPlayerMock.mockReturnValue({
-        showMiniPlayer: false,
-        isPlaying: false,
-        selectedTrack: {},
-        showControls: false,
-        setControlState: setControlStateMock,
         setShowMiniPlayer: setShowMiniPlayerMock,
-        setPlay: setPlayMock,
         setPlayerTrack: setPlayerTrackMock,
       });
       const component = <VideoPlayerScreen route={route} />
@@ -80,4 +72,53 @@ describe('<VideoPlayerScreen>', () => {
       fireEvent(testID, 'goBack')
       expect(navigation.goBack).toHaveBeenCalled();
     });
+})
+
+describe('<VideoPlayerScreen>', () => {
+  let instance: RenderAPI
+  const route = {
+    params:{
+      videoUrl: null,
+      nid: null,
+      mediaID: null,
+    },
+  }
+  const playerUrl = jest.fn()
+  const mockFunction = jest.fn();
+  const navigation = {
+    goBack: mockFunction,
+    navigate: mockFunction,
+  }
+
+  const useAppPlayerMock = jest.fn();
+  const setShowMiniPlayerMock = jest.fn();
+  const setPlayerTrackMock = jest.fn();
+
+  beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useState as jest.Mock).mockImplementation(() => [route.params.videoUrl, playerUrl]);
+    (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
+    useAppPlayerMock.mockReturnValue({
+      setShowMiniPlayer: setShowMiniPlayerMock,
+      setPlayerTrack: setPlayerTrackMock,
+    });
+    const component = <VideoPlayerScreen route={route} />
+    instance = render(component)
+  })
+
+  afterEach(() => {
+      jest.clearAllMocks()
+      instance.unmount()
+  })
+
+  it('Should render VideoPlayerScreen', () => {
+      expect(instance).toBeDefined()
+  })
+
+  it('Should call setShowMiniPlayer', () => {
+    const prop = {
+      setShowMiniPlayer: jest.fn()      
+    }
+    expect(prop.setShowMiniPlayer).toHaveBeenCalled;
+  })
 })

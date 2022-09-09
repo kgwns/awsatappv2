@@ -265,8 +265,13 @@ export const getFullDate = (time: any) => {
   return calculateDate(time) + ' ' + calculateMonth(time) + ' ' + moment(time).get('year');
 }
 
-export const getFormatedDate = (time: any)=> {
-  return  moment(time).get('year') + '.' + (moment(time).get('month')+1)+ '.' + calculateDate(time);
+export const getFormattedDate = (time: any) => {
+  const year = calculateYear(time)
+  const monthValue = moment(time).get('month') + 1
+  const month = monthValue < 10 ? '0' + monthValue : monthValue
+  const dateValue = calculateDate(time);
+  const date = dateValue < 10 ? '0' + dateValue : dateValue
+  return year + '-' + month + '-' + date
 }
 
 export const getProfileImageUrl = (imageURL: string) => {
@@ -357,4 +362,8 @@ export const getCountryNameFromCode = ( countryCode: string) : string => {
   countries.registerLocale(arabicLang);
   let countryName = countries.getName(countryCode, "ar");
   return countryName
+}
+
+export const isValidDate = (dateObject: any): boolean => {
+  return dateObject && new Date(dateObject).toString() !== 'Invalid Date';
 }

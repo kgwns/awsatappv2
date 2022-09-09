@@ -21,7 +21,7 @@ jest.mock("src/hooks/useUserProfileData", () => ({
               occupation: 'business',
               image: 'abc',
               profile_url: 'abc.com',
-              birthday: '01/01/1111',
+              birthday: '',
             },
             message: {
               code: 200,
