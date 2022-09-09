@@ -190,12 +190,6 @@ export const JournalistDetail = ({
         navigation.popToTop()
     }
 
-    const onPressWriter = (tid: string) => {
-        if (isNotEmpty(tid)) {
-            navigation.navigate(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
-        }
-    }
-
     const renderItem = () => {
         const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
         const journalistData = isNonEmptyArray(journalistDetail) ? journalistDetail[0] : {} as JournalistDetailDataType
@@ -211,7 +205,6 @@ export const JournalistDetail = ({
                     hideBackArrow={hideBackArrow}
                     visibleHome={noOfDetailRoutes > 1}
                     onPressHome={onPressHome}
-                    onPressWriter={() => onPressWriter(jId)}
                 />}
                 <JournalistSection
                     data={articleState}
