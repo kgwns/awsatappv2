@@ -66,6 +66,7 @@ export const JournalistDetail = ({
     }, [])
 
     useEffect(() => {
+        setScrollY(new Animated.Value(0))
         if (isFocused) {
             getJournalistDetailInfo({ tid: jId })
             getSelectedAuthorsData()
