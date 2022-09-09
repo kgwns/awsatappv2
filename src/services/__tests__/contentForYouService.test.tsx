@@ -49,6 +49,15 @@ describe('Test ContentForYou Services', () => {
             result: true,
         });
 
+        return fetchFavouriteOpinionsApi({page: 0, items_per_page: 5}).then(response => {
+            expect(response).toBeInstanceOf(Object);
+        });
+    });
+    it('test when opinion response code is 200', () => {
+        mock.onGet().reply(200, {
+            result: true,
+        });
+
         return fetchFavouriteOpinionsApi(requestObject2).then(response => {
             expect(response).toBeInstanceOf(Object);
         });
@@ -64,6 +73,15 @@ describe('Test ContentForYou Services', () => {
         });
     });
     it('test when article response code is 200', () => {
+        mock.onGet().reply(200, {
+            result: true,
+        });
+  
+        return fetchFavouriteArticleApi({page: 0, items_per_page: 5}).then(response => {
+            expect(response).toBeInstanceOf(Object);
+        });
+      });
+    it('test when article response code is 200', () => {
       mock.onGet().reply(200, {
           result: true,
       });
@@ -71,15 +89,15 @@ describe('Test ContentForYou Services', () => {
       return fetchFavouriteArticleApi(requestObject1).then(response => {
           expect(response).toBeInstanceOf(Object);
       });
-  });
-  it('test when article response code is 500', () => {
-      mock.onGet().reply(500, {
-          error: 'Something Went Wrong',
-      });
+    });
+    it('test when article response code is 500', () => {
+        mock.onGet().reply(500, {
+            error: 'Something Went Wrong',
+        });
 
-      return fetchFavouriteArticleApi(requestObject1).catch((error: unknown) => {
-          const errorResponse = error as AxiosError;
-          expect(errorResponse.response?.status).toEqual(500);
-      });
-  });
+        return fetchFavouriteArticleApi(requestObject1).catch((error: unknown) => {
+            const errorResponse = error as AxiosError;
+            expect(errorResponse.response?.status).toEqual(500);
+        });
+    });
 });

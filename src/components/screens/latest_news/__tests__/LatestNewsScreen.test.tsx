@@ -3,33 +3,14 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { storeSampleData } from 'src/constants/SampleData'
 import { LatestNewsScreen } from '../LatestNewsScreen'
-import { BannerArticleSection, CarouselSlider, SectionComboOne, ShortArticle } from 'src/components/organisms'
+import { ArticleSection, BannerArticleSection, CarouselSlider, SectionComboOne, ShortArticle } from 'src/components/organisms'
 import { LatestArticleDataType, LatestOpinionDataType, LatestPodcastDataType } from 'src/redux/latestNews/types'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
+import { useBookmark, useLatestNewsTab, useLogin } from 'src/hooks'
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
-}));
-
-
-jest.mock("src/hooks/useBookmark", () => ({
-    useBookmark: () => {
-      return {
-        bookmarkIdInfo: [
-            {
-                nid: '1',
-                bundle: 'string'
-            },
-            {
-                nid: '2',
-                bundle: 'string'
-            }
-        ],
-        sendBookmarkInfo: () => [],
-        removeBookmarkedInfo: () => [],
-      }
-    },
 }));
 
 jest.mock("src/hooks/useUserProfileData", () => ({
@@ -146,9 +127,32 @@ const podCastData: LatestPodcastDataType[] = [
     },
 ]
 
-jest.mock("src/hooks/useLatestNewsTab", () => ({
-    useLatestNewsTab: () => {
-        return {
+jest.mock('src/hooks/useLatestNewsTab', () => ({useLatestNewsTab: jest.fn()}));
+jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
+jest.mock('src/hooks/useBookmark', () => ({useBookmark: jest.fn()}));
+
+describe('<LatestNewsScreen>', () => {
+    let instance: RenderAPI
+
+    const heroInfo = jest.fn();
+    const sectionComboThreeInfo = jest.fn();
+    const sectionComboOneInfo = jest.fn();
+    const sectionComboTwoInfo = jest.fn();
+    const sectionComboFourInfo = jest.fn();
+    const useLatestNewsTabMock = jest.fn();
+    const useLoginMock = jest.fn();
+    const useBookmarkMock = jest.fn();
+
+    beforeEach(() => {
+        (useState as jest.Mock).mockImplementation(() => [heroData, heroInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboThreeInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboOneInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboTwoInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboFourInfo]);
+        (useLatestNewsTab as jest.Mock).mockImplementation(useLatestNewsTabMock);
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
+        (useBookmark as jest.Mock).mockImplementation(useBookmarkMock);
+        useLatestNewsTabMock.mockReturnValue({
             isLoading: true,
             ticker: heroData,
             hero: heroData,
@@ -184,33 +188,24 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
             fetchPodcastHome: () => {
                 return []
             },
-        }
-    },
-}));
-
-jest.mock("src/hooks/useLogin", () => ({
-    useLogin: () => {
-      return {
-        isLoggedIn: false,
-      }
-    },
-}));
-
-describe('<LatestNewsScreen>', () => {
-    let instance: RenderAPI
-
-    const heroInfo = jest.fn();
-    const sectionComboThreeInfo = jest.fn();
-    const sectionComboOneInfo = jest.fn();
-    const sectionComboTwoInfo = jest.fn();
-    const sectionComboFourInfo = jest.fn();
-
-    beforeEach(() => {
-        (useState as jest.Mock).mockImplementation(() => [heroData, heroInfo]);
-        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboThreeInfo]);
-        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboOneInfo]);
-        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboTwoInfo]);
-        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboFourInfo]);
+        });
+        useLoginMock.mockReturnValue({
+            isLoggedIn: false,
+        });
+        useBookmarkMock.mockReturnValue({
+            bookmarkIdInfo: [
+                {
+                    nid: '1',
+                    bundle: 'string'
+                },
+                {
+                    nid: '2',
+                    bundle: 'string'
+                }
+            ],
+            sendBookmarkInfo: () => [],
+            removeBookmarkedInfo: () => [],
+        });
         const component =
             <Provider store={storeSampleData}>
                 <LatestNewsScreen />
@@ -242,6 +237,262 @@ describe('<LatestNewsScreen>', () => {
     test('Should call ShortArticle onPress', () => {
         const element = instance.container.findAllByType(ShortArticle)[1]
         fireEvent(element, 'onPress', '2');
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call ArticleSection onUpdateBookmark', () => {
+        const element = instance.container.findAllByType(ArticleSection)[0]
+        fireEvent(element, 'onUpdateBookmark', '2', true);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call BannerArticleSection onUpdateBookmark', () => {
+        const element = instance.container.findAllByType(BannerArticleSection)[0]
+        fireEvent(element, 'onUpdateBookmark', heroData);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call BannerArticleSection onUpdateBookmark', () => {
+        const element = instance.container.findAllByType(BannerArticleSection)[1]
+        fireEvent(element, 'onUpdateBookmark', heroData);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call BannerArticleSection onUpdateBookmark', () => {
+        const element = instance.container.findAllByType(BannerArticleSection)[2]
+        fireEvent(element, 'onUpdateBookmark', heroData);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call SectionComboOne showSignUpPopUp', () => {
+        const element = instance.container.findAllByType(SectionComboOne)[0]
+        fireEvent(element, 'showSignUpPopUp');
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call SectionComboOne onUpdateBookmark', () => {
+        const element = instance.container.findAllByType(SectionComboOne)[0]
+        fireEvent(element, 'onUpdateBookmark', '2');
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call SectionComboOne onPress', () => {
+        const element = instance.container.findAllByType(SectionComboOne)[0]
+        fireEvent(element, 'onPress', '2');
+        expect(mockFunction).toBeTruthy()
+    });
+})
+
+describe('<LatestNewsScreen>', () => {
+    let instance: RenderAPI
+
+    const heroInfo = jest.fn();
+    const sectionComboThreeInfo = jest.fn();
+    const sectionComboOneInfo = jest.fn();
+    const sectionComboTwoInfo = jest.fn();
+    const sectionComboFourInfo = jest.fn();
+    const useLatestNewsTabMock = jest.fn();
+    const useLoginMock = jest.fn();
+    const useBookmarkMock = jest.fn();
+
+    beforeEach(() => {
+        (useState as jest.Mock).mockImplementation(() => [heroData, heroInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboThreeInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboOneInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboTwoInfo]);
+        (useState as jest.Mock).mockImplementation(() => [heroData, sectionComboFourInfo]);
+        (useLatestNewsTab as jest.Mock).mockImplementation(useLatestNewsTabMock);
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
+        (useBookmark as jest.Mock).mockImplementation(useBookmarkMock);
+        useLatestNewsTabMock.mockReturnValue({
+            isLoading: true,
+            ticker: heroData,
+            hero: heroData,
+            heroList: heroData,
+            topList: heroData,
+            opinionList: opinionListData,
+            sectionComboOne: heroData,
+            sectionComboTwo: heroData,
+            sectionComboThree: heroData,
+            sectionComboFour: heroData,
+            podcastHome: podCastData,
+            fetchTickerAndHeroArticle: () => {
+                return []
+            },
+            fetchHeroListTopList: () => {
+                return []
+            },
+            fetchOpinionTopList: () => {
+                return []
+            },
+            fetchSectionComboOne: () => {
+                return []
+            },
+            fetchSectionComboTwo: () => {
+                return []
+            },
+            fetchSectionComboThree: () => {
+                return []
+            },
+            fetchSectionComboFour: () => {
+                return []
+            },
+            fetchPodcastHome: () => {
+                return []
+            },
+        });
+        useLoginMock.mockReturnValue({
+            isLoggedIn: true,
+        });
+        useBookmarkMock.mockReturnValue({
+            bookmarkIdInfo: [],
+            sendBookmarkInfo: () => [],
+            removeBookmarkedInfo: () => [],
+        });
+        const component =
+            <Provider store={storeSampleData}>
+                <LatestNewsScreen />
+            </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+
+    test('Should call CarouselSlider onUpdateHeroBookmark', () => {
+        const element = instance.container.findAllByType(CarouselSlider)[0];
+        fireEvent(element, 'onUpdateHeroBookmark', 2);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call ScreenContainer onCloseSignUpAlert', () => {
+        const element = instance.container.findByType(ScreenContainer)
+        fireEvent(element, 'onCloseSignUpAlert');
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call ShortArticle onPress', () => {
+        const element = instance.container.findAllByType(ShortArticle)[1]
+        fireEvent(element, 'onPress', '2');
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call SectionComboOne showSignUpPopUp', () => {
+        const element = instance.container.findAllByType(SectionComboOne)[0]
+        fireEvent(element, 'showSignUpPopUp');
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call SectionComboOne onUpdateBookmark', () => {
+        const element = instance.container.findAllByType(SectionComboOne)[0]
+        fireEvent(element, 'onUpdateBookmark', '2');
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call SectionComboOne onPress', () => {
+        const element = instance.container.findAllByType(SectionComboOne)[0]
+        fireEvent(element, 'onPress', '2');
+        expect(mockFunction).toBeTruthy()
+    });
+})
+
+describe('<LatestNewsScreen>', () => {
+    let instance: RenderAPI
+
+    const heroInfo = jest.fn();
+    const sectionComboThreeInfo = jest.fn();
+    const sectionComboOneInfo = jest.fn();
+    const sectionComboTwoInfo = jest.fn();
+    const sectionComboFourInfo = jest.fn();
+    const useLatestNewsTabMock = jest.fn();
+    const useLoginMock = jest.fn();
+    const useBookmarkMock = jest.fn();
+
+    beforeEach(() => {
+        (useState as jest.Mock).mockImplementation(() => [[], heroInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], sectionComboThreeInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], sectionComboOneInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], sectionComboTwoInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], sectionComboFourInfo]);
+        (useLatestNewsTab as jest.Mock).mockImplementation(useLatestNewsTabMock);
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
+        (useBookmark as jest.Mock).mockImplementation(useBookmarkMock);
+        useLatestNewsTabMock.mockReturnValue({
+            isLoading: true,
+            ticker: [],
+            hero: [],
+            heroList: [],
+            topList: [],
+            opinionList: [],
+            sectionComboOne: [],
+            sectionComboTwo: [],
+            sectionComboThree: [],
+            sectionComboFour: [],
+            podcastHome: [],
+            fetchTickerAndHeroArticle: () => {
+                return []
+            },
+            fetchHeroListTopList: () => {
+                return []
+            },
+            fetchOpinionTopList: () => {
+                return []
+            },
+            fetchSectionComboOne: () => {
+                return []
+            },
+            fetchSectionComboTwo: () => {
+                return []
+            },
+            fetchSectionComboThree: () => {
+                return []
+            },
+            fetchSectionComboFour: () => {
+                return []
+            },
+            fetchPodcastHome: () => {
+                return []
+            },
+        });
+        useLoginMock.mockReturnValue({
+            isLoggedIn: false,
+        });
+        useBookmarkMock.mockReturnValue({
+            bookmarkIdInfo: [],
+            sendBookmarkInfo: () => [],
+            removeBookmarkedInfo: () => [],
+        });
+        const component =
+            <Provider store={storeSampleData}>
+                <LatestNewsScreen />
+            </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+
+    test('Should call CarouselSlider onUpdateHeroBookmark', () => {
+        const element = instance.container.findAllByType(CarouselSlider)[0];
+        fireEvent(element, 'onUpdateHeroBookmark', 2);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call ScreenContainer onCloseSignUpAlert', () => {
+        const element = instance.container.findByType(ScreenContainer)
+        fireEvent(element, 'onCloseSignUpAlert');
         expect(mockFunction).toBeTruthy()
     });
 
