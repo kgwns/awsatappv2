@@ -224,6 +224,28 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next(sampleResponse)
             })
 
+            it('check fetchTickerAndHeroWidgetData success', () => {
+                const genObject = fetchTickerAndHeroWidgetData({
+                    type: REQUEST_TICKER_HERO_DATA,
+                    payload: {
+                        items_per_page: 10, page: 0, offset: 0
+                    }
+                })
+                genObject.next({})
+                genObject.next({})
+            })
+
+            it('check fetchTickerAndHeroWidgetData success', () => {
+                const genObject = fetchTickerAndHeroWidgetData({
+                    type: REQUEST_TICKER_HERO_DATA,
+                    payload: {
+                        items_per_page: 10, page: 0, offset: 0
+                    }
+                })
+                genObject.next({rows: []})
+                genObject.next({rows: []})
+            })
+
             it('check fetchTickerAndHeroWidgetData failed', () => {
                 const genObject = fetchTickerAndHeroWidgetData({
                     type: REQUEST_TICKER_HERO_DATA,
@@ -233,6 +255,17 @@ describe('<LatestNewsSaga >', () => {
                 })
                 genObject.next()
                 genObject.throw(errorResponse)
+            })
+
+            it('check fetchTickerAndHeroWidgetData failed', () => {
+                const genObject = fetchTickerAndHeroWidgetData({
+                    type: REQUEST_TICKER_HERO_DATA,
+                    payload: {
+                        items_per_page: 10, page: 0, offset: 0
+                    }
+                })
+                genObject.next()
+                genObject.throw({})
             })
         })
 
@@ -248,6 +281,17 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next(sampleResponse)
             })
 
+            it('check fetchHeroListTopListWidgetData success', () => {
+                const genObject = fetchHeroListTopListWidgetData({
+                    type: REQUEST_HERO_AND_TOP_LIST_DATA,
+                    payload: {
+                        items_per_page: 10, page: 0, offset: 0
+                    }
+                })
+                genObject.next({})
+                genObject.next({})
+            })
+
             it('check fetchHeroListTopListWidgetData failed', () => {
                 const genObject = fetchHeroListTopListWidgetData({
                     type: REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -257,6 +301,17 @@ describe('<LatestNewsSaga >', () => {
                 })
                 genObject.next()
                 genObject.throw(errorResponse)
+            })
+
+            it('check fetchHeroListTopListWidgetData failed', () => {
+                const genObject = fetchHeroListTopListWidgetData({
+                    type: REQUEST_HERO_AND_TOP_LIST_DATA,
+                    payload: {
+                        items_per_page: 10, page: 0, offset: 0
+                    }
+                })
+                genObject.next()
+                genObject.throw({})
             })
         })
 
@@ -274,6 +329,28 @@ describe('<LatestNewsSaga >', () => {
             genObject.next(sampleResponse)
         })
 
+        it('check fetchOpinionWidgetData success', () => {
+            const genObject = fetchOpinionWidgetData({
+                type: REQUEST_OPINION_LIST_DATA,
+                payload: {
+                    items_per_page: 10, page: 0, offset: 0
+                }
+            })
+            genObject.next({})
+            genObject.next({})
+        })
+
+        it('check fetchOpinionWidgetData success', () => {
+            const genObject = fetchOpinionWidgetData({
+                type: REQUEST_OPINION_LIST_DATA,
+                payload: {
+                    items_per_page: 10, page: 0, offset: 0
+                }
+            })
+            genObject.next({rows: []})
+            genObject.next({rows: []})
+        })
+
         it('check fetchOpinionWidgetData failed', () => {
             const genObject = fetchOpinionWidgetData({
                 type: REQUEST_OPINION_LIST_DATA,
@@ -283,6 +360,17 @@ describe('<LatestNewsSaga >', () => {
             })
             genObject.next()
             genObject.throw(errorResponse)
+        })
+
+        it('check fetchOpinionWidgetData failed', () => {
+            const genObject = fetchOpinionWidgetData({
+                type: REQUEST_OPINION_LIST_DATA,
+                payload: {
+                    items_per_page: 10, page: 0, offset: 0
+                }
+            })
+            genObject.next()
+            genObject.throw({})
         })
     })
 
@@ -443,17 +531,52 @@ describe('<LatestNewsSaga >', () => {
             genObject.throw(errorResponse)
         })
 
+        it('check fetchSectionComboFive failed', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_SEVEN,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.throw({})
+        })
+
+        it('check fetchSectionComboFive failed', () => {
+            const genObject = fetchSectionCombo({})
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+
         describe('fetchPodcastHomeData', () => {
             it('check fetchPodcastHomeData success', () => {
                 const genObject = fetchPodcastHomeData()
                 genObject.next(sampleResponse)
                 genObject.next(sampleResponse)
             })
+
+            it('check fetchPodcastHomeData success', () => {
+                const genObject = fetchPodcastHomeData()
+                genObject.next({})
+                genObject.next({})
+            })
+
+            it('check fetchPodcastHomeData success', () => {
+                const genObject = fetchPodcastHomeData()
+                genObject.next({rows: []})
+                genObject.next({rows: []})
+            })
     
             it('check fetchPodcastHomeData failed', () => {
                 const genObject = fetchPodcastHomeData()
                 genObject.next()
                 genObject.throw(errorResponse)
+            })
+
+            it('check fetchPodcastHomeData failed', () => {
+                const genObject = fetchPodcastHomeData()
+                genObject.next()
+                genObject.throw({})
             })
         })
 
@@ -463,11 +586,23 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next(sampleResponse)
                 genObject.next(sampleResponse)
             })
+
+            it('check fetchCoverageBlockData success', () => {
+                const genObject = fetchCoverageBlockData()
+                genObject.next({})
+                genObject.next({})
+            })
     
-            it('check fetchPodcastHomeData failed', () => {
+            it('check fetchCoverageBlockData failed', () => {
                 const genObject = fetchCoverageBlockData()
                 genObject.next()
                 genObject.throw(errorResponse)
+            })
+
+            it('check fetchCoverageBlockData failed', () => {
+                const genObject = fetchCoverageBlockData()
+                genObject.next()
+                genObject.throw({})
             })
         })
 
@@ -477,11 +612,23 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next(sampleResponse)
                 genObject.next(sampleResponse)
             })
+
+            it('check fetchEditorsChoiceData success', () => {
+                const genObject = fetchEditorsChoiceData()
+                genObject.next({})
+                genObject.next({})
+            })
     
             it('check fetchEditorsChoiceData failed', () => {
                 const genObject = fetchEditorsChoiceData()
                 genObject.next()
                 genObject.throw(errorResponse)
+            })
+
+            it('check fetchEditorsChoiceData failed', () => {
+                const genObject = fetchEditorsChoiceData()
+                genObject.next()
+                genObject.throw({})
             })
         })
 
@@ -491,11 +638,23 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next(sampleResponse)
                 genObject.next(sampleResponse)
             })
+
+            it('check fetchFeaturedArticleBlockData success', () => {
+                const genObject = fetchFeaturedArticleBlockData()
+                genObject.next({})
+                genObject.next({})
+            })
     
             it('check fetchFeaturedArticleBlockData failed', () => {
                 const genObject = fetchFeaturedArticleBlockData()
                 genObject.next()
                 genObject.throw(errorResponse)
+            })
+
+            it('check fetchFeaturedArticleBlockData failed', () => {
+                const genObject = fetchFeaturedArticleBlockData()
+                genObject.next()
+                genObject.throw({})
             })
         })
 
@@ -511,6 +670,12 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next()
                 genObject.throw(errorResponse)
             })
+
+            it('check fetchHorizontalBlockData failed', () => {
+                const genObject = fetchHorizontalBlockData()
+                genObject.next()
+                genObject.throw({})
+            })
         })
 
         describe('fetchSpotlightData', () => {
@@ -519,11 +684,29 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next(sampleResponse)
                 genObject.next(sampleResponse)
             })
+
+            it('check fetchSpotlightData success', () => {
+                const genObject = fetchSpotlightData()
+                genObject.next({})
+                genObject.next({})
+            })
+
+            it('check fetchSpotlightData success', () => {
+                const genObject = fetchSpotlightData()
+                genObject.next({rows: []})
+                genObject.next({rows: []})
+            })
     
             it('check fetchSpotlightData failed', () => {
                 const genObject = fetchSpotlightData()
                 genObject.next()
                 genObject.throw(errorResponse)
+            })
+
+            it('check fetchSpotlightData failed', () => {
+                const genObject = fetchSpotlightData()
+                genObject.next()
+                genObject.throw({})
             })
         })
 
@@ -538,7 +721,29 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next(sampleResponse)
                 genObject.next(sampleResponse)
             })
+
+            it('check fetchSpotlightArticleSection success', () => {
+                const genObject = fetchSpotlightArticleSection({
+                    type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+                    payload: {
+                        items_per_page: 10, page: 0, id: 0
+                    }
+                })
+                genObject.next({})
+                genObject.next({})
+            })
     
+            it('check fetchSpotlightArticleSection success', () => {
+                const genObject = fetchSpotlightArticleSection({
+                    type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+                    payload: {
+                        items_per_page: 10, page: 0, id: 0
+                    }
+                })
+                genObject.next({rows: []})
+                genObject.next({rows: []})
+            })
+
             it('check fetchSpotlightArticleSection failed', () => {
                 const genObject = fetchSpotlightArticleSection({
                     type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
@@ -548,6 +753,17 @@ describe('<LatestNewsSaga >', () => {
                 })
                 genObject.next()
                 genObject.throw(errorResponse)
+            })
+
+            it('check fetchSpotlightArticleSection failed', () => {
+                const genObject = fetchSpotlightArticleSection({
+                    type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+                    payload: {
+                        items_per_page: 10, page: 0, id: 0
+                    }
+                })
+                genObject.next()
+                genObject.throw({})
             })
         })
     })

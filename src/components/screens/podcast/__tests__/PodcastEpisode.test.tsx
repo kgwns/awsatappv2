@@ -168,7 +168,7 @@ jest.mock("src/hooks/useBookmark", () => ({
               bundle: 'string'
           },
           {
-              nid: '2',
+              nid: '29',
               bundle: 'string'
           }
       ],
@@ -181,7 +181,7 @@ jest.mock("src/hooks/useBookmark", () => ({
 jest.mock("src/hooks/useAppPlayer", () => ({
   useAppPlayer: () => {
     return {
-      showMiniPlayer: false,
+      showMiniPlayer: true,
       selectedTrack: {id: 1},
       setShowMiniPlayer: () => [],
       setPlayerTrack: () => [],
@@ -277,6 +277,90 @@ describe('<PodcastEpisode >', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
 
+  const setIsSaved = mockFunction;
+  const podcastEpisodeDetailInfo = mockFunction;
+  const podcastEpisodeListInfo = mockFunction;
+  const nid = mockFunction;
+  const showupUp = mockFunction;
+
+  const navigation = {
+    reset: jest.fn(),
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+  }
+
+  describe('when PodcastEpisode only', () => {
+    const useLoginMock = mockFunction;
+
+    beforeEach(() => {
+      (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useState as jest.Mock).mockImplementation(() => ["29", nid]);
+      (useState as jest.Mock).mockImplementation(() => [true, showupUp]);
+      (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeDetailInfo]);
+      (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeListInfo]);
+      useLoginMock.mockReturnValue({
+        isLoggedIn: false,
+      });
+      const component = (
+        <Provider store={storeSampleData}>
+          <SafeAreaProvider>
+            <PodcastEpisode  route={{ params: { data: PodcastEpisodeData, podcastListData: [] } }}/>
+          </SafeAreaProvider>
+        </Provider>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render PodcastEpisode ', () => {
+      expect(instance).toBeDefined();
+    });
+    it('when onPressSave is pressed from PodcastHeader', () => {
+      const testID = instance.container.findByType(PodcastProgramHeader);
+      fireEvent(testID, 'onPressSave');
+      expect(setIsSaved).toBeTruthy();
+    });
+    it('when onPressShare is pressed from PodcastHeader', () => {
+      const testID = instance.container.findByType(PodcastProgramHeader);
+      fireEvent(testID, 'onPressShare');
+      expect(mockFunction).toBeTruthy();
+    });
+    it('when onGoBack is pressed from PodcastHeader', () => {
+      const testID = instance.container.findByType(PodcastProgramHeader);
+      fireEvent(testID, 'onGoBack');
+      expect(navigation.goBack).toBeTruthy();
+    });
+    it('when onItemActionPress is pressed from PodcastEpisodeContent', () => {
+      const testID = instance.container.findByType(PodcastEpisodeContent);
+      fireEvent(testID, 'onItemActionPress', {nid: '29'});
+      expect(mockFunction).toBeTruthy();
+    });
+    it('when onPressBookmark is pressed from PodcastEpisodeContent', () => {
+      const testID = instance.container.findByType(PodcastEpisodeContent);
+      fireEvent(testID, 'onPressBookmark', '2');
+      expect(mockFunction).toBeTruthy();
+    });
+    test('Should call FlatList onPress', () => {
+      const element = instance.container.findAllByType(ScreenContainer)[0];
+      fireEvent(element, 'onCloseSignUpAlert');
+      expect(mockFunction).toBeTruthy()
+    });
+    it('when onListenPress is pressed from PodcastEpisodeInfo', () => {
+      const testID = instance.container.findByType(PodcastEpisodeInfo);
+      fireEvent(testID, 'onListenPress', {duration: '29'});
+      expect(mockFunction).toBeTruthy();
+    });
+  });
+});
+
+describe('<PodcastEpisode >', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+
   const podcastEpisodeDetailInfo = mockFunction;
   const podcastEpisodeListInfo = mockFunction;
   const nid = mockFunction;
@@ -317,6 +401,36 @@ describe('<PodcastEpisode >', () => {
     });
     it('Should render PodcastEpisode ', () => {
       expect(instance).toBeDefined();
+    });
+    it('when onPressShare is pressed from PodcastHeader', () => {
+      const testID = instance.container.findByType(PodcastProgramHeader);
+      fireEvent(testID, 'onPressShare');
+      expect(mockFunction).toBeTruthy();
+    });
+    it('when onGoBack is pressed from PodcastHeader', () => {
+      const testID = instance.container.findByType(PodcastProgramHeader);
+      fireEvent(testID, 'onGoBack');
+      expect(navigation.goBack).toBeTruthy();
+    });
+    it('when onItemActionPress is pressed from PodcastEpisodeContent', () => {
+      const testID = instance.container.findByType(PodcastEpisodeContent);
+      fireEvent(testID, 'onItemActionPress', {nid: '29'});
+      expect(mockFunction).toBeTruthy();
+    });
+    it('when onPressBookmark is pressed from PodcastEpisodeContent', () => {
+      const testID = instance.container.findByType(PodcastEpisodeContent);
+      fireEvent(testID, 'onPressBookmark', '2');
+      expect(mockFunction).toBeTruthy();
+    });
+    test('Should call FlatList onPress', () => {
+      const element = instance.container.findAllByType(ScreenContainer)[0];
+      fireEvent(element, 'onCloseSignUpAlert');
+      expect(mockFunction).toBeTruthy()
+    });
+    it('when onListenPress is pressed from PodcastEpisodeInfo', () => {
+      const testID = instance.container.findByType(PodcastEpisodeInfo);
+      fireEvent(testID, 'onListenPress', {duration: '29'});
+      expect(mockFunction).toBeTruthy();
     });
   });
 });

@@ -134,7 +134,7 @@ describe('<ProfileSettings>', () => {
 
     const SettingData: SettingDataType ={
       iconName: ImagesName.arrowLeftBlack,
-      title: 'profileSetting.changeEnvironment',
+      title: 'تغيير البيئة',
       screenName: 'arrowLeftBlack'
     }
 
@@ -177,14 +177,20 @@ describe('<ProfileSettings>', () => {
 
     test('Should call TouchableOpacity onPress', () => {
         const element = instance.container.findAllByType(TouchableOpacity)[0];
-        fireEvent(element, 'onPress', {item: SettingData});
+        fireEvent(element, 'onPress', SettingData);
         expect(navigation.reset).toBeTruthy();
     })
 
     test('Should call ToggleWithLabel onPress', () => {
         const element = instance.container.findAllByType(ToggleWithLabel)[0];
-        fireEvent(element, 'onPress', {isOn: true});
+        fireEvent(element, 'onPress', true);
         expect(navigation.reset).toBeTruthy();
+    })
+
+    test('Should call ToggleWithLabel onPress', () => {
+      const element = instance.container.findAllByType(ToggleWithLabel)[0];
+      fireEvent(element, 'onPress', false);
+      expect(navigation.reset).toBeTruthy();
     })
     
 });
@@ -245,15 +251,21 @@ describe('<ProfileSettings>', () => {
   });
 
   test('Should call TouchableOpacity onPress', () => {
-      const element = instance.container.findAllByType(TouchableOpacity)[0];
-      fireEvent(element, 'onPress', {item: SettingData});
-      expect(navigation.reset).toBeTruthy();
+    const element = instance.container.findAllByType(TouchableOpacity)[0];
+    fireEvent(element, 'onPress', SettingData);
+    expect(navigation.reset).toBeTruthy();
   })
 
   test('Should call ToggleWithLabel onPress', () => {
       const element = instance.container.findAllByType(ToggleWithLabel)[0];
-      fireEvent(element, 'onPress', {isOn: true});
+      fireEvent(element, 'onPress', true);
       expect(navigation.reset).toBeTruthy();
+  })
+
+  test('Should call ToggleWithLabel onPress', () => {
+    const element = instance.container.findAllByType(ToggleWithLabel)[0];
+    fireEvent(element, 'onPress', false);
+    expect(navigation.reset).toBeTruthy();
   })
   
 });
