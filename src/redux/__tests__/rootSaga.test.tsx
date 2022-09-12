@@ -33,6 +33,7 @@ import SaveTokenSaga from 'src/redux/notificationSaveToken/sagas';
 import ContactUsSaga from 'src/redux/contactUs/sagas'
 import WeatherDetailSaga from 'src/redux/weatherDetails/sagas'
 import albumListSaga from 'src/redux/photoGallery/sagas';
+import journalistSaga from 'src/redux/journalist/sagas';
 
 describe('Test rootSaga  saga', () => {
   it('fire on rootSaga', () => {
@@ -71,6 +72,7 @@ describe('Test rootSaga  saga', () => {
         fork(ContactUsSaga),
         fork(WeatherDetailSaga),
         fork(albumListSaga),
+        fork(journalistSaga),
       ])
       .finish()
       .isDone();
