@@ -80,7 +80,6 @@ jest.mock('@react-navigation/native', () => ({
     useNavigationState: () => routeProps,
 }))
 
-// jest.mock('src/hooks/useJournalist', () => ({ useJournalist: jest.fn() }));
 jest.mock('src/hooks/useAllWriters', () => ({ useAllWriters: jest.fn() }))
 
 jest.mock("src/hooks/useBookmark", () => ({
@@ -161,7 +160,7 @@ describe('< Journalist Detail Screen', () => {
     }
 
     beforeEach(() => {
-        // (useJournalist as jest.Mock).mockImplementation(useJournalistMock);
+        
         (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
 
@@ -172,10 +171,6 @@ describe('< Journalist Detail Screen', () => {
         (useState as jest.Mock).mockImplementation(() => [articleState, setArticleState]);
         (useState as jest.Mock).mockImplementation(() => [journalistDetail, setJournalistDetail]);
 
-
-        // useJournalistMock.mockReturnValue({
-        //     ...defaultJournalistData
-        // })
         useAllWritersMock.mockReturnValue({
             selectedAuthorsData: sampleSelectedAuthorData,
             removeAuthorRequest: () => {},
