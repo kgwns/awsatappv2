@@ -8,6 +8,7 @@ import { PodcastListItemType } from 'src/redux/podcast/types';
 import { FlatList } from 'react-native';
 import { PodcastEpisodeList } from 'src/components/organisms';
 import {useNavigation} from '@react-navigation/native';
+import { useLogin } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -59,7 +60,7 @@ const podCastData: PodcastListItemType[] = [
     },
     field_spreaker_episode_export: "abc",
     field_spreaker_show_export: "abc",
-    isBookmarked: false,
+    isBookmarked: true,
     field_total_duration_export: 'example'
   },
   {
@@ -139,13 +140,7 @@ jest.mock("src/hooks/useBookmark", () => ({
   },
 }));
 
-jest.mock("src/hooks/useLogin", () => ({
-  useLogin: () => {
-    return {
-      isLoggedIn: false,
-    }
-  },
-}));
+jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -163,13 +158,19 @@ describe('<PodcastProgram>', () => {
   }
 
   describe('when PodcastProgram only', () => {
+    const useLoginMock = mockFunction;
+
     beforeEach(() => {
+      (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => [podCastData, setPodcastEpisodeListInfo]);
       (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeListInfo]);
+      useLoginMock.mockReturnValue({
+        isLoggedIn: false,
+      });
       const component = (
         <Provider store={storeSampleData}>
-          <PodcastProgram />
+          <PodcastProgram tabIndex={0} currentIndex={0}/>
         </Provider>
       );
       instance = render(component);
@@ -210,7 +211,89 @@ describe('<PodcastProgram>', () => {
 
     test('Should call PodcastEpisodeList onItemActionPress', () => {
       const element = instance.container.findByType(PodcastEpisodeList)
-      fireEvent(element, 'onItemActionPress', {item: podCastData[0]});
+      fireEvent(element, 'onItemActionPress', podCastData[0]);
+      expect(navigation.navigate).toBeTruthy()
+    });
+
+    test('Should call PodcastEpisodeList onItemActionPress', () => {
+      const element = instance.container.findByType(PodcastEpisodeList)
+      fireEvent(element, 'onItemActionPress', {});
+      expect(navigation.navigate).toBeTruthy()
+    });
+
+    test('Should call PodcastEpisodeList onUpdateBookmark', () => {
+      const element = instance.container.findByType(PodcastEpisodeList)
+      fireEvent(element, 'onUpdateBookmark', 0);
+      expect(mockFunction).toBeTruthy()
+    });
+  });
+});
+
+describe('<PodcastProgram>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const setPodcastEpisodeListInfo = mockFunction;
+  const podcastEpisodeListInfo = mockFunction;
+
+  const navigation = {
+    navigate: mockFunction,
+  }
+
+  describe('when PodcastProgram only', () => {
+    const useLoginMock = mockFunction;
+
+    beforeEach(() => {
+      (useLogin as jest.Mock).mockImplementation(useLoginMock);
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useState as jest.Mock).mockImplementation(() => [podCastData, setPodcastEpisodeListInfo]);
+      (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeListInfo]);
+      useLoginMock.mockReturnValue({
+        isLoggedIn: true,
+      });
+      const component = (
+        <Provider store={storeSampleData}>
+          <PodcastProgram tabIndex={0} currentIndex={2}/>
+        </Provider>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    
+    it('Should render PodcastProgram', () => {
+      expect(instance).toBeDefined();
+    });
+
+    test('Should call FlatList onPress', () => {
+      const element = instance.container.findAllByType(ScreenContainer)[0];
+      fireEvent(element, 'onCloseSignUpAlert');
+      expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call FlatList keyExtractor', () => {
+      const element = instance.container.findByType(FlatList)
+      fireEvent(element, 'keyExtractor', '', 2);
+      expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call FlatList onPress', () => {
+      const element = instance.container.findByType(FlatList)
+      fireEvent(element, 'onScrollBeginDrag');
+      expect(global.refFlatList).toBeTruthy()
+    });
+
+    test('Should call FlatList renderItem', () => {
+      const element = instance.container.findByType(FlatList)
+      fireEvent(element, 'renderItem', {item: [{}], index: 0});
+      expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call PodcastEpisodeList onItemActionPress', () => {
+      const element = instance.container.findByType(PodcastEpisodeList)
+      fireEvent(element, 'onItemActionPress', podCastData[0]);
       expect(navigation.navigate).toBeTruthy()
     });
 

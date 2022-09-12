@@ -17,22 +17,62 @@ const mockString = 'mockString';
 describe('<SectionsScreen>', () => {
     let instance: RenderAPI
 
-    const setTabSelectedIndex = jest.fn();
-    const setNewRoutes = jest.fn();
-    const setIndex = jest.fn()
+    const index = jest.fn();
+    const routes = jest.fn();
+    const hidePlayerVisibility = jest.fn()
 
     const useTopMenuMock = jest.fn();
     const fetchTopMenuRequestMock = jest.fn();
 
     beforeEach(() => {
-        (useState as jest.Mock).mockImplementation(() => [0, setTabSelectedIndex]);
-        (useState as jest.Mock).mockImplementation(() => [[], setNewRoutes]);
-        (useState as jest.Mock).mockImplementation(() => [0, setIndex]);
+        (useState as jest.Mock).mockImplementation(() => [0, index]);
+        (useState as jest.Mock).mockImplementation(() => [[{child: {tabName: 'example', isSelected: true}}], routes]);
+        (useState as jest.Mock).mockImplementation(() => [false, hidePlayerVisibility]);
         (useTopMenu as jest.Mock).mockImplementation(useTopMenuMock);
 
         useTopMenuMock.mockReturnValue({
             isLoading: false,
             topMenuData: [{ tabName: mockString, keyName: 'home', isSelected: true, sectionId: 1 }],
+            topMenuError: 'error',
+            fetchTopMenuRequest: fetchTopMenuRequestMock,
+        });
+
+        const component =
+            <Provider store={storeSampleData}>
+                <SectionsScreen />
+            </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    test('Should render component', () => {
+        expect(instance).toBeDefined()
+    })  
+})
+
+describe('<SectionsScreen>', () => {
+    let instance: RenderAPI
+
+    const index = jest.fn();
+    const routes = jest.fn();
+    const hidePlayerVisibility = jest.fn()
+
+    const useTopMenuMock = jest.fn();
+    const fetchTopMenuRequestMock = jest.fn();
+
+    beforeEach(() => {
+        (useState as jest.Mock).mockImplementation(() => [1, index]);
+        (useState as jest.Mock).mockImplementation(() => [[{child: {tabName: 'example', isSelected: true}}], routes]);
+        (useState as jest.Mock).mockImplementation(() => [true, hidePlayerVisibility]);
+        (useTopMenu as jest.Mock).mockImplementation(useTopMenuMock);
+
+        useTopMenuMock.mockReturnValue({
+            isLoading: true,
+            topMenuData: [],
             topMenuError: 'error',
             fetchTopMenuRequest: fetchTopMenuRequestMock,
         });

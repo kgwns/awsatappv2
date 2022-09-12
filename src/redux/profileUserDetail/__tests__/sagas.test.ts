@@ -53,6 +53,19 @@ describe('Test userProfile error', () => {
         genObject.next();
         genObject.throw(errorResponse);
     });
+    it('check post user profile failed', () => {
+        const genObject = postUserData({
+            type: SEND_USER_DETAILS,
+            payload: {
+                first_name: 'string',
+                birthday: 'string',
+                occupation: 'string',
+                email: 'string'
+            },
+        });
+        genObject.next();
+        genObject.throw({});
+    });
 });
 
 describe('Test update image', () => {
@@ -97,6 +110,16 @@ describe('Test userProfile  error', () => {
         });
         genObject.next();
         genObject.throw(errorResponse);
+    });
+});
+
+describe('Test userProfile  error', () => {
+    it('check fetchUserProfileDetail failed', () => {
+        const genObject = fetchUserProfileDetail({
+            type: FETCH_PROFILE_USER_DETAILS
+        });
+        genObject.next();
+        genObject.throw({});
     });
 });
 

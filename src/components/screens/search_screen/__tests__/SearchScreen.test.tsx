@@ -41,6 +41,19 @@ const mockData: SearchItemType[] = [{
 },
 ]
 
+const mockData2: SearchItemType[] = [{
+  title: 'qsd',
+  field_image: 'asd',
+  view_node: 'asd',
+  field_publication_date_export: 'asd',
+  created_export: 'sd',
+  field_news_categories_export: [],
+  type: 'asd',
+  body: 'asd',
+  field_new_photo: 'asd'
+},
+]
+
 jest.mock("src/hooks/useSearch", () => ({
   useSearch: () => {
     return {
@@ -63,7 +76,7 @@ describe('<SearchScreen>', () => {
   }
   describe('when SearchScreen only', () => {
     beforeEach(() => {
-      (useState as jest.Mock).mockImplementation(() => ['', setSearchText]);
+      (useState as jest.Mock).mockImplementation(() => ['example', setSearchText]);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       const component = (
         <Provider store={storeSampleData}>
@@ -90,9 +103,19 @@ describe('<SearchScreen>', () => {
       fireEvent(searchListId, 'onTextChange', 'search');
       expect(setSearchText).toHaveBeenCalled();
     });
+    it('when onTextChange is called from SearchList', () => {
+      const searchListId = instance.getByTestId('search-input');
+      fireEvent(searchListId, 'onTextChange', '');
+      expect(setSearchText).toHaveBeenCalled();
+    });
     it('when onItemActionPress is called from SearchList', () => {
       const searchListId = instance.getByTestId('search-input');
-      fireEvent(searchListId, 'onItemActionPress', {item: mockData[0]});
+      fireEvent(searchListId, 'onItemActionPress', mockData[0]);
+      expect(navigation.navigate).toBeTruthy();
+    });
+    it('when onItemActionPress is called from SearchList', () => {
+      const searchListId = instance.getByTestId('search-input');
+      fireEvent(searchListId, 'onItemActionPress', mockData2[0]);
       expect(navigation.navigate).toBeTruthy();
     });
     it('when onPressHistory is called from SearchList', () => {
