@@ -307,6 +307,83 @@ describe('< Writer Detail >', () => {
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
+        (useState as jest.Mock).mockImplementation(() => [[], writerDetailInfo]);
+        (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
+        (useState as jest.Mock).mockImplementation(() => [0, page]);
+        (useState as jest.Mock).mockImplementation(() => [0, scrollY]);
+        (useState as jest.Mock).mockImplementation(() => [false, isFollowed]);
+        (useState as jest.Mock).mockImplementation(() => [[], opinionsDataInfo]);
+        useLoginMock.mockReturnValue({
+            isLoggedIn: true,
+        });
+        const component =
+            <Provider store={storeSampleData}>
+                <WritersDetailScreen route={{params: {tid: '12345'}}}/>
+            </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    test('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+
+    test('Should call ScreenContainer onCloseSignUpAlert', () => {
+        const element = instance.container.findByType(ScreenContainer)
+        fireEvent(element, 'onCloseSignUpAlert');
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call FlatList keyExtractor', () => {
+        const element = instance.container.findByType(FlatList)
+        fireEvent(element, 'keyExtractor', '', 2);
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call FlatList renderItem', () => {
+        const element = instance.container.findByType(FlatList)
+        fireEvent(element, 'renderItem', {item: [{}], index: 0});
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call FlatList onScroll', () => {
+        const element = instance.container.findByType(FlatList)
+        fireEvent(element, 'onScroll',  {nativeEvent: {contentOffset: {y: 120}}});
+        expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call OpinionWritersArticlesSection onScroll', () => {
+        const element = instance.container.findByType(OpinionWritersArticlesSection)
+        fireEvent(element, 'onScroll');
+        expect(mockFunction).toBeTruthy()
+    });
+})
+
+describe('< Writer Detail >', () => {
+    let instance: RenderAPI;
+    const mockFunction = jest.fn();
+    const navigation = {
+        navigate: mockFunction,
+        goBack: mockFunction,
+        popToTop: mockFunction,
+    }
+
+    const writerDetailInfo = mockFunction;
+    const showupUp = mockFunction;
+    const page = mockFunction;
+    const scrollY = mockFunction;
+    const isFollowed = mockFunction;
+    const opinionsDataInfo = mockFunction;
+    
+    const useLoginMock = mockFunction;
+
+    beforeEach(() => {
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [sampleData, writerDetailInfo]);
         (useState as jest.Mock).mockImplementation(() => [true, showupUp]);
         (useState as jest.Mock).mockImplementation(() => [0, page]);

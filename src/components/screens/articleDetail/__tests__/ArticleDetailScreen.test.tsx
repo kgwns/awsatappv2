@@ -197,7 +197,7 @@ describe('<ArticleDetailScreen>', () => {
         (useState as jest.Mock).mockImplementation(() => [true, isDefaultDimension]);
         (useState as jest.Mock).mockImplementation(() => [true, isDimensionChanged]);
         (useState as jest.Mock).mockImplementation(() => [true, isEdgeUpdated]);
-        (useState as jest.Mock).mockImplementation(() => [true, bookmarkIndex]);
+        (useState as jest.Mock).mockImplementation(() => [0, bookmarkIndex]);
         (useState as jest.Mock).mockImplementation(() => [true, isEdgePortrait]);
         (useState as jest.Mock).mockImplementation(() => [true, isLoading]);
         useLoginMock.mockReturnValue({
@@ -306,7 +306,7 @@ describe('<ArticleDetailScreen>', () => {
       (useState as jest.Mock).mockImplementation(() => [true, isDefaultDimension]);
       (useState as jest.Mock).mockImplementation(() => [true, isDimensionChanged]);
       (useState as jest.Mock).mockImplementation(() => [true, isEdgeUpdated]);
-      (useState as jest.Mock).mockImplementation(() => [true, bookmarkIndex]);
+      (useState as jest.Mock).mockImplementation(() => [0, bookmarkIndex]);
       (useState as jest.Mock).mockImplementation(() => [true, isEdgePortrait]);
       useLoginMock.mockReturnValue({
         isLoggedIn: true,

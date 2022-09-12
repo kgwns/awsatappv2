@@ -5,6 +5,7 @@ import {storeSampleData} from '../../../../constants/SampleData';
 import {SelectTopicsScreen} from '../SelectTopicsScreen';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { InterestedTopics } from 'src/components/organisms';
+import { useAllSiteCategories } from 'src/hooks';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -27,50 +28,7 @@ jest.mock("src/hooks/useUserProfileData", () => ({
     }
   },
 }));
-
-jest.mock("src/hooks/useAllSiteCategories", () => ({
-  useAllSiteCategories: () => {
-      return {
-        isLoading: false,
-        allSiteCategoriesData: [
-          {
-              name: 'example',
-              description__value_export: {},
-              field_opinion_writer_path_export: {},
-              view_taxonomy_term: 'example',
-              tid: '1',
-              vid_export: {},
-              field_description_export: {},
-              field_opinion_writer_path_export_1: {},
-              field_opinion_writer_photo_export: 'example',
-              parent_target_id_export: {},
-              isSelected: true,
-          },
-          {
-              name: 'example',
-              description__value_export: {},
-              field_opinion_writer_path_export: {},
-              view_taxonomy_term: 'example',
-              tid: '2',
-              vid_export: {},
-              field_description_export: {},
-              field_opinion_writer_path_export_1: {},
-              field_opinion_writer_photo_export: 'example',
-              parent_target_id_export: {},
-              isSelected: true,
-          },
-      ],
-        sentTopicsData: {
-          code: 400,
-          message: "example"
-        },
-        sendSelectedTopicInfo: () => { return [] },
-        fetchAllSiteCategoriesRequest: () => { return [] },
-        updateAllSiteCategoriesData: () => { return [] },
-        emptySendTopicsInfoData: () => {return [] }
-      }
-  },
-}));
+jest.mock('src/hooks/useAllSiteCategories', () => ({useAllSiteCategories: jest.fn()}));
 
 const sampleData: AllSiteCategoriesItemType[] = [
   {
@@ -78,7 +36,18 @@ const sampleData: AllSiteCategoriesItemType[] = [
     view_taxonomy_term: 'abc',
     tid: '12',
     field_opinion_writer_photo_export: 'abc',
-    parent_target_id_export: []
+    parent_target_id_export: [],
+    isSelected: true
+  }
+]
+
+const sampleData1: AllSiteCategoriesItemType[] = [
+  {
+    name: 'abc',
+    view_taxonomy_term: 'abc',
+    tid: '12',
+    field_opinion_writer_photo_export: 'abc',
+    parent_target_id_export: [],
   }
 ]
 describe('<SelectTopicsScreen>', () => {
@@ -88,12 +57,53 @@ describe('<SelectTopicsScreen>', () => {
   const disableNext = mockFunction;
   const categoriesInfo = mockFunction;
   const updatedTopics = mockFunction;
+  const useAllSiteCategoriesMock = jest.fn();
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
     (useState as jest.Mock).mockImplementation(() => [sampleData, categoriesInfo]);
     (useState as jest.Mock).mockImplementation(() => [sampleData, updatedTopics]);
-
+    (useAllSiteCategories as jest.Mock).mockImplementation(useAllSiteCategoriesMock);
+    useAllSiteCategoriesMock.mockReturnValue({
+      isLoading: false,
+      allSiteCategoriesData: [
+        {
+            name: 'example',
+            description__value_export: {},
+            field_opinion_writer_path_export: {},
+            view_taxonomy_term: 'example',
+            tid: '12',
+            vid_export: {},
+            field_description_export: {},
+            field_opinion_writer_path_export_1: {},
+            field_opinion_writer_photo_export: 'example',
+            parent_target_id_export: {},
+            isSelected: true,
+        },
+        {
+            name: 'example',
+            description__value_export: {},
+            field_opinion_writer_path_export: {},
+            view_taxonomy_term: 'example',
+            tid: '13',
+            vid_export: {},
+            field_description_export: {},
+            field_opinion_writer_path_export_1: {},
+            field_opinion_writer_photo_export: 'example',
+            parent_target_id_export: {},
+            isSelected: true,
+        },
+      ],
+      sentTopicsData: {
+        code: 400,
+        message: "example"
+      },
+      sendSelectedTopicInfo: () => { return [] },
+      fetchAllSiteCategoriesRequest: () => { return [] },
+      updateAllSiteCategoriesData: () => { return [] },
+      emptySendTopicsInfoData: () => {return [] },
+      getSelectedTopicsData: () => {return [] },
+    });
     const component = (
       <Provider store={storeSampleData}>
         <SelectTopicsScreen />
@@ -115,6 +125,100 @@ describe('<SelectTopicsScreen>', () => {
     const element = instance.container.findByType(InterestedTopics)
     fireEvent(element, 'onTopicsChanged', {item: sampleData[0], selected: true});
     expect(mockFunction).toBeTruthy()
+  });
+
+});
+
+describe('<SelectTopicsScreen>', () => {
+  let instance: RenderAPI;
+
+  const mockFunction = jest.fn();
+  const disableNext = mockFunction;
+  const categoriesInfo = mockFunction;
+  const updatedTopics = mockFunction;
+  const useAllSiteCategoriesMock = jest.fn();
+
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData1, categoriesInfo]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData1, updatedTopics]);
+    (useAllSiteCategories as jest.Mock).mockImplementation(useAllSiteCategoriesMock);
+    useAllSiteCategoriesMock.mockReturnValue({
+      isLoading: false,
+      allSiteCategoriesData: [],
+      sentTopicsData: {
+        code: 400,
+      },
+      sendSelectedTopicInfo: () => { return [] },
+      fetchAllSiteCategoriesRequest: () => { return [] },
+      updateAllSiteCategoriesData: () => { return [] },
+      emptySendTopicsInfoData: () => {return [] },
+      getSelectedTopicsData: () => {return [] },
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <SelectTopicsScreen />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render SelectTopicScreen', () => {
+    expect(instance).toBeDefined();
+  });
+
+  test('Should call InterestedTopics onTopicsChanged', () => {
+    const element = instance.container.findByType(InterestedTopics)
+    fireEvent(element, 'onTopicsChanged', {item: sampleData1[0], selected: true});
+    expect(mockFunction).toBeTruthy()
+  });
+
+});
+
+describe('<SelectTopicsScreen>', () => {
+  let instance: RenderAPI;
+
+  const mockFunction = jest.fn();
+  const disableNext = mockFunction;
+  const categoriesInfo = mockFunction;
+  const updatedTopics = mockFunction;
+  const useAllSiteCategoriesMock = jest.fn();
+
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [true, disableNext]);
+    (useState as jest.Mock).mockImplementation(() => [[], categoriesInfo]);
+    (useState as jest.Mock).mockImplementation(() => [[], updatedTopics]);
+    (useAllSiteCategories as jest.Mock).mockImplementation(useAllSiteCategoriesMock);
+    useAllSiteCategoriesMock.mockReturnValue({
+      isLoading: false,
+      allSiteCategoriesData: [],
+      sentTopicsData: {},
+      sendSelectedTopicInfo: () => { return [] },
+      fetchAllSiteCategoriesRequest: () => { return [] },
+      updateAllSiteCategoriesData: () => { return [] },
+      emptySendTopicsInfoData: () => {return [] },
+      getSelectedTopicsData: () => {return [] },
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <SelectTopicsScreen />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render SelectTopicScreen', () => {
+    expect(instance).toBeDefined();
   });
 
 });

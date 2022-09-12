@@ -49,8 +49,34 @@ describe('<Terms and About Us Saga >', () => {
                 type: REQUEST_STATIC_DETAIL,
                 payload: {id }
             })
+            genObject.next({})
+            genObject.next({})
+        })
+        it('check TermsAndAboutUs success', () => {
+            const genObject = fetchStaticDetail({
+                type: REQUEST_STATIC_DETAIL,
+                payload: {id }
+            })
+            genObject.next({rows: []})
+            genObject.next({rows: []})
+        })
+
+        it('check TermsAndAboutUs success', () => {
+            const genObject = fetchStaticDetail({
+                type: REQUEST_STATIC_DETAIL,
+                payload: {id }
+            })
             genObject.next(sampleResponse)
             genObject.next(sampleResponse)
+        })
+
+        it('check TermsAndAboutUs success', () => {
+            const genObject = fetchStaticDetail({
+                type: REQUEST_STATIC_DETAIL,
+                payload: {id }
+            })
+            genObject.next({})
+            genObject.next({})
         })
 
         it('check TermsAndAboutUs failed', () => {
@@ -60,6 +86,14 @@ describe('<Terms and About Us Saga >', () => {
             })
             genObject.next(sampleResponse)
             genObject.throw(errorResponse)
+        })
+        it('check TermsAndAboutUs failed', () => {
+            const genObject = fetchStaticDetail({
+                type: REQUEST_STATIC_DETAIL,
+                payload: {id }
+            })
+            genObject.next(sampleResponse)
+            genObject.throw({})
         })
     })
 })

@@ -70,4 +70,14 @@ describe('test Saga  topMenusaga', () => {
       .finish()
       .isDone();
   });
+
+  it('test fetchSideMenu  error', () => {
+    const errorResponse = {}
+    testSaga(fetchTopMenu)
+      .next()
+      .call(fetchTopMenuApi)
+      .throw(errorResponse as AxiosError)
+      .finish()
+      .isDone();
+  });
 });

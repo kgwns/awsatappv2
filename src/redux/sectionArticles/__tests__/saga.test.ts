@@ -43,6 +43,18 @@ describe('Test fetchSectionArticles', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+
+  it('check fetchSectionArticles failed', () => {
+    const genObject = fetchSectionArticles({
+      type: FETCH_SECTION_ARTICLES,
+      payload: {
+        sectionId: '12',
+        page: 1,
+      },
+    });
+    genObject.next();
+    genObject.throw({});
+  });
 });
 
 describe('Test emptySectionArticlesData', () => {

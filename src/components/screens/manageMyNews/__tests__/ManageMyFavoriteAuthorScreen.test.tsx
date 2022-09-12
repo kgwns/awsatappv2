@@ -6,6 +6,7 @@ import { ManageMyFavoriteAuthorScreen } from '../ManageMyFavoriteAuthorScreen';
 import { AllWritersItemType } from 'src/redux/allWriters/types';
 import { FollowFavoriteAuthorWidget } from 'src/components/organisms';
 import { NextButton } from 'src/components/atoms';
+import { useAllWriters } from 'src/hooks';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -29,92 +30,11 @@ jest.mock("src/hooks/useUserProfileData", () => ({
     },
 }));
 
-jest.mock("src/hooks/useAllWriters", () => ({
-    useAllWriters: () => {
-      return {
-        isLoading: false,
-        allWritersData: [
-            {
-                name:'example',
-                description__value_export: {},
-                field_opinion_writer_path_export: {},
-                view_taxonomy_term:'example',
-                tid:'1',
-                vid_export: {},
-                field_description_export: {},
-                field_opinion_writer_path_export_1: {},
-                field_opinion_writer_photo_export:'example',
-                isSelected: true,
-            },
-            {
-                name:'example',
-                description__value_export: {},
-                field_opinion_writer_path_export: {},
-                view_taxonomy_term:'example',
-                tid:'2',
-                vid_export: {},
-                field_description_export: {},
-                field_opinion_writer_path_export_1: {},
-                field_opinion_writer_photo_export:'example',
-                isSelected: true,
-            },
-        ],
-        error: '',
-        sendAuthorInfo: {},
-        fetchAllWritersRequest: () => [],
-        sendSelectedWriterInfo: () => [],
-        updateAllWritersData: () => [],
-        getSelectedAuthorsData: () => [],
-        allSelectedWritersDetailList: [
-            {
-                name:'example',
-                description__value_export: {},
-                field_opinion_writer_path_export: {},
-                view_taxonomy_term:'example',
-                tid:'1',
-                vid_export: {},
-                field_description_export: {},
-                field_opinion_writer_path_export_1: {},
-                field_opinion_writer_photo_export:'example',
-                isSelected: true,
-            },
-            {
-                name:'example',
-                description__value_export: {},
-                field_opinion_writer_path_export: {},
-                view_taxonomy_term:'example',
-                tid:'2',
-                vid_export: {},
-                field_description_export: {},
-                field_opinion_writer_path_export_1: {},
-                field_opinion_writer_photo_export:'example',
-                isSelected: true,
-            },
-        ],
-        emptySendAuthorInfoData: () => [],
-        sentAuthorInfoData: { 
-          code: 2,
-          message: 'string'
-        },
-        selectedAuthorsData: {
-            code: 2,
-            message: 'string',
-            data: [
-                {
-                    tid: '12',
-                },
-                {
-                    tid: '13',
-                }
-            ],
-        },
-      }
-    },
-  }));
+jest.mock('src/hooks/useAllWriters', () => ({useAllWriters: jest.fn()}));
 
 describe('<ManageMyFavoriteAuthorScreen>', () => {
     let instance: RenderAPI;
-    const setAuthorsData = jest.fn();
+    const authorsData = jest.fn();
     const mockFunction = jest.fn();
     const sampleData: AllWritersItemType[] = [
         {
@@ -122,7 +42,7 @@ describe('<ManageMyFavoriteAuthorScreen>', () => {
             description__value_export: {},
             field_opinion_writer_path_export: {},
             view_taxonomy_term: 'example',
-            tid: '1',
+            tid: '12',
             vid_export: {},
             field_description_export: {},
             field_opinion_writer_path_export_1: {},
@@ -134,7 +54,7 @@ describe('<ManageMyFavoriteAuthorScreen>', () => {
             description__value_export: {},
             field_opinion_writer_path_export: {},
             view_taxonomy_term: 'example',
-            tid: '2',
+            tid: '13',
             vid_export: {},
             field_description_export: {},
             field_opinion_writer_path_export_1: {},
@@ -142,9 +62,88 @@ describe('<ManageMyFavoriteAuthorScreen>', () => {
             isSelected: true,
         },
     ]
-
+    const useAllWritersMock = jest.fn();
     beforeEach(() => {
-        (useState as jest.Mock).mockImplementation(() => [sampleData, setAuthorsData]);
+        (useState as jest.Mock).mockImplementation(() => [sampleData, authorsData]);
+        (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
+        useAllWritersMock.mockReturnValue({
+            isLoading: false,
+            allWritersData: [
+                {
+                    name:'example',
+                    description__value_export: {},
+                    field_opinion_writer_path_export: {},
+                    view_taxonomy_term:'example',
+                    tid:'12',
+                    vid_export: {},
+                    field_description_export: {},
+                    field_opinion_writer_path_export_1: {},
+                    field_opinion_writer_photo_export:'example',
+                    isSelected: true,
+                },
+                {
+                    name:'example',
+                    description__value_export: {},
+                    field_opinion_writer_path_export: {},
+                    view_taxonomy_term:'example',
+                    tid:'13',
+                    vid_export: {},
+                    field_description_export: {},
+                    field_opinion_writer_path_export_1: {},
+                    field_opinion_writer_photo_export:'example',
+                    isSelected: true,
+                },
+            ],
+            error: '',
+            sendAuthorInfo: {},
+            fetchAllWritersRequest: () => [],
+            sendSelectedWriterInfo: () => [],
+            updateAllWritersData: () => [],
+            getSelectedAuthorsData: () => [],
+            allSelectedWritersDetailList: [
+                {
+                    name:'example',
+                    description__value_export: {},
+                    field_opinion_writer_path_export: {},
+                    view_taxonomy_term:'example',
+                    tid:'12',
+                    vid_export: {},
+                    field_description_export: {},
+                    field_opinion_writer_path_export_1: {},
+                    field_opinion_writer_photo_export:'example',
+                    isSelected: true,
+                },
+                {
+                    name:'example',
+                    description__value_export: {},
+                    field_opinion_writer_path_export: {},
+                    view_taxonomy_term:'example',
+                    tid:'13',
+                    vid_export: {},
+                    field_description_export: {},
+                    field_opinion_writer_path_export_1: {},
+                    field_opinion_writer_photo_export:'example',
+                    isSelected: true,
+                },
+            ],
+            emptySendAuthorInfoData: () => [],
+            sentAuthorInfoData: { 
+            code: 2,
+            message: 'string'
+            },
+            selectedAuthorsData: {
+                code: 2,
+                message: 'string',
+                data: [
+                    {
+                        tid: '12',
+                    },
+                    {
+                        tid: '13',
+                    }
+                ],
+            },
+        });
         const component = (
             <Provider store={storeSampleData}>
                 <ManageMyFavoriteAuthorScreen />
@@ -170,7 +169,235 @@ describe('<ManageMyFavoriteAuthorScreen>', () => {
 
     test('Should call FollowFavoriteAuthorWidget changeSelectedStatus', () => {
         const element = instance.container.findByType(FollowFavoriteAuthorWidget)
-        fireEvent(element, 'changeSelectedStatus', {item: {tid: '2'}}, true);
+        fireEvent(element, 'changeSelectedStatus', {item: {tid: '12'}}, true);
+        expect(mockFunction).toBeTruthy()
+    })
+
+});
+
+describe('<ManageMyFavoriteAuthorScreen>', () => {
+    let instance: RenderAPI;
+    const authorsData = jest.fn();
+    const mockFunction = jest.fn();
+    const sampleData: AllWritersItemType[] = [
+        {
+            name: 'example',
+            description__value_export: {},
+            field_opinion_writer_path_export: {},
+            view_taxonomy_term: 'example',
+            tid: '12',
+            vid_export: {},
+            field_description_export: {},
+            field_opinion_writer_path_export_1: {},
+            field_opinion_writer_photo_export: 'example',
+            isSelected: true,
+        },
+        {
+            name: 'example',
+            description__value_export: {},
+            field_opinion_writer_path_export: {},
+            view_taxonomy_term: 'example',
+            tid: '13',
+            vid_export: {},
+            field_description_export: {},
+            field_opinion_writer_path_export_1: {},
+            field_opinion_writer_photo_export: 'example',
+            isSelected: true,
+        },
+    ]
+    const useAllWritersMock = jest.fn();
+    beforeEach(() => {
+        (useState as jest.Mock).mockImplementation(() => [sampleData, authorsData]);
+        (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
+        useAllWritersMock.mockReturnValue({
+            isLoading: false,
+            allWritersData: [
+                {
+                    name:'example',
+                    description__value_export: {},
+                    field_opinion_writer_path_export: {},
+                    view_taxonomy_term:'example',
+                    tid:'12',
+                    vid_export: {},
+                    field_description_export: {},
+                    field_opinion_writer_path_export_1: {},
+                    field_opinion_writer_photo_export:'example',
+                    isSelected: true,
+                },
+                {
+                    name:'example',
+                    description__value_export: {},
+                    field_opinion_writer_path_export: {},
+                    view_taxonomy_term:'example',
+                    tid:'13',
+                    vid_export: {},
+                    field_description_export: {},
+                    field_opinion_writer_path_export_1: {},
+                    field_opinion_writer_photo_export:'example',
+                    isSelected: true,
+                },
+            ],
+            error: '',
+            sendAuthorInfo: {},
+            fetchAllWritersRequest: () => [],
+            sendSelectedWriterInfo: () => [],
+            updateAllWritersData: () => [],
+            getSelectedAuthorsData: () => [],
+            allSelectedWritersDetailList: [
+                {
+                    name:'example',
+                    description__value_export: {},
+                    field_opinion_writer_path_export: {},
+                    view_taxonomy_term:'example',
+                    tid:'32',
+                    vid_export: {},
+                    field_description_export: {},
+                    field_opinion_writer_path_export_1: {},
+                    field_opinion_writer_photo_export:'example',
+                    isSelected: true,
+                },
+                {
+                    name:'example',
+                    description__value_export: {},
+                    field_opinion_writer_path_export: {},
+                    view_taxonomy_term:'example',
+                    tid:'33',
+                    vid_export: {},
+                    field_description_export: {},
+                    field_opinion_writer_path_export_1: {},
+                    field_opinion_writer_photo_export:'example',
+                    isSelected: true,
+                },
+            ],
+            emptySendAuthorInfoData: () => [],
+            sentAuthorInfoData: { 
+            code: 2,
+            message: 'string'
+            },
+            selectedAuthorsData: {
+                code: 2,
+                message: 'string',
+                data: [
+                    {
+                        tid: '12',
+                    },
+                    {
+                        tid: '13',
+                    }
+                ],
+            },
+        });
+        const component = (
+            <Provider store={storeSampleData}>
+                <ManageMyFavoriteAuthorScreen />
+            </Provider>
+        );
+        instance = render(component);
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
+        instance.unmount();
+    });
+
+    it('Should render ManageMyFavoriteAuthorScreen component', () => {
+        expect(instance).toBeDefined();
+    });
+
+    test('Should call NextButton onPress', () => {
+        const element = instance.container.findByType(NextButton)
+        fireEvent(element, 'onPress');
+        expect(mockFunction).toBeTruthy()
+    })
+
+    test('Should call FollowFavoriteAuthorWidget changeSelectedStatus', () => {
+        const element = instance.container.findByType(FollowFavoriteAuthorWidget)
+        fireEvent(element, 'changeSelectedStatus', {item: {tid: '12'}}, true);
+        expect(mockFunction).toBeTruthy()
+    })
+});
+
+describe('<ManageMyFavoriteAuthorScreen>', () => {
+    let instance: RenderAPI;
+    const authorsData = jest.fn();
+    const mockFunction = jest.fn();
+    const sampleData: AllWritersItemType[] = [
+        {
+            name: 'example',
+            description__value_export: {},
+            field_opinion_writer_path_export: {},
+            view_taxonomy_term: 'example',
+            tid: '12',
+            vid_export: {},
+            field_description_export: {},
+            field_opinion_writer_path_export_1: {},
+            field_opinion_writer_photo_export: 'example',
+            isSelected: true,
+        },
+        {
+            name: 'example',
+            description__value_export: {},
+            field_opinion_writer_path_export: {},
+            view_taxonomy_term: 'example',
+            tid: '13',
+            vid_export: {},
+            field_description_export: {},
+            field_opinion_writer_path_export_1: {},
+            field_opinion_writer_photo_export: 'example',
+            isSelected: true,
+        },
+    ]
+    const useAllWritersMock = jest.fn();
+    beforeEach(() => {
+        (useState as jest.Mock).mockImplementation(() => [sampleData, authorsData]);
+        (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
+        useAllWritersMock.mockReturnValue({
+            isLoading: false,
+            allWritersData: [],
+            error: '',
+            sendAuthorInfo: {},
+            fetchAllWritersRequest: () => [],
+            sendSelectedWriterInfo: () => [],
+            updateAllWritersData: () => [],
+            getSelectedAuthorsData: () => [],
+            allSelectedWritersDetailList: [],
+            emptySendAuthorInfoData: () => [],
+            sentAuthorInfoData: { 
+            code: 2,
+            message: 'string'
+            },
+            selectedAuthorsData: {
+                code: 2,
+                message: 'string',
+                data: [],
+            },
+        });
+        const component = (
+            <Provider store={storeSampleData}>
+                <ManageMyFavoriteAuthorScreen />
+            </Provider>
+        );
+        instance = render(component);
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
+        instance.unmount();
+    });
+
+    it('Should render ManageMyFavoriteAuthorScreen component', () => {
+        expect(instance).toBeDefined();
+    });
+
+    test('Should call NextButton onPress', () => {
+        const element = instance.container.findByType(NextButton)
+        fireEvent(element, 'onPress');
+        expect(mockFunction).toBeTruthy()
+    })
+
+    test('Should call FollowFavoriteAuthorWidget changeSelectedStatus', () => {
+        const element = instance.container.findByType(FollowFavoriteAuthorWidget)
+        fireEvent(element, 'changeSelectedStatus', {item: {tid: '12'}}, true);
         expect(mockFunction).toBeTruthy()
     })
 });

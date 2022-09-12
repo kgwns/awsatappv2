@@ -64,6 +64,30 @@ describe('Test fetchVideoList success', () => {
   });
 });
 
+describe('Test fetchVideoList success', () => {
+  it('fire on FETCH_VIDEO', () => {
+    testSaga(fetchVideoList)
+      .next()
+      .call(fetchVideoListApi)
+      .next({})
+      .put(fetchVideoListSuccess({videoData:[]}))
+      .finish()
+      .isDone();
+  });
+});
+
+describe('Test fetchVideoList success', () => {
+  it('fire on FETCH_VIDEO', () => {
+    testSaga(fetchVideoList)
+      .next()
+      .call(fetchVideoListApi)
+      .next({rows: []})
+      .put(fetchVideoListSuccess({videoData:[]}))
+      .finish()
+      .isDone();
+  });
+});
+
 describe('test fetchVideoList  error', () => {
   const error = new Error('error');
   it('fire on FETCH_VIDEO', () => {
