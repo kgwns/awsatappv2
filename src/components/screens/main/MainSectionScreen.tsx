@@ -70,7 +70,7 @@ const sectionComboFivePayload: RequestSectionComboBodyGet = {
 }
 
 const sectionComboSixPayload: RequestSectionComboBodyGet = {
-  id: 66,
+  id: [22, 25, 20],
   items_per_page: 10,
   page: 0
 }
