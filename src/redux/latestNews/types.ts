@@ -229,7 +229,7 @@ export interface OpinionFailedType {
 }
 
 export interface RequestSectionComboBodyGet {
-  id: number,
+  id: number[] | number,
   items_per_page?: number,
   page?: number
 }
