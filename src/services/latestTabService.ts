@@ -10,6 +10,17 @@ import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
 } from './apiEndPoints';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { payloadType } from 'src/redux/latestNews/types';
+import { isArray, joinArray } from 'src/shared/utils';
+
+const getSectionComboUrl = (body: RequestSectionComboBodyGet) => {
+  let url = `${BASE_URL}${SECTION_COMBO}`
+  if (isArray(body.id)) {
+    url += '/' + joinArray(body.id, '+');
+  } else {
+    url += `/${body.id}`;
+  }
+  return url
+}
 
 export const requestLatestArticle = async (body: LatestArticleBodyGet) => {
   try {
@@ -26,7 +37,7 @@ export const requestSectionCombo = async(body: RequestSectionComboBodyGet) => {
   const query = body.items_per_page ? `/?item per page=${body.items_per_page}&page=${body.page}` : '/'
   try {
     const response: payloadType = await getApiRequest(
-      `${BASE_URL}${SECTION_COMBO}/${body.id}${query}`
+      `${getSectionComboUrl(body)}${query}`
     );
     return response;
   } catch (error) {
