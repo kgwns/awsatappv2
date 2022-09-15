@@ -73,6 +73,15 @@ describe('Test OpinionArticleDetail  error', () => {
     genObject.throw(errorResponse);
   });
 
+  it('check fetchOpinionArticleDetail failed', () => {
+    const genObject = fetchOpinionArticleDetail({
+      type: REQUEST_OPINION_ARTICLE_DETAIL,
+      payload: { nid: mocknid },
+    });
+    genObject.next();
+    genObject.throw({});
+  });
+
   describe('Test OpinionArticleDetail', () => {
     it('check fetchRelatedOpinion success', () => {
       const genObject = fetchRelatedOpinion({
@@ -90,6 +99,15 @@ describe('Test OpinionArticleDetail  error', () => {
       });
       genObject.next();
       genObject.throw(errorResponse);
+    });
+
+    it('check fetchRelatedOpinion failed', () => {
+      const genObject = fetchRelatedOpinion({
+        type: REQUEST_RELATED_OPINION,
+        payload: { page: 0 },
+      });
+      genObject.next();
+      genObject.throw({});
     });
   })
 
@@ -125,6 +143,15 @@ describe('Test OpinionArticleDetail  error', () => {
       });
       genObject.next();
       genObject.throw(errorResponse);
+    });
+
+    it('check fetchNarratedOpinion failed', () => {
+      const genObject = fetchNarratedOpinion({
+        type: REQUEST_NARRATED_OPINION_ARTICLE,
+        payload: { jwPlayerID: '12' },
+      });
+      genObject.next();
+      genObject.throw({});
     });
   })
 

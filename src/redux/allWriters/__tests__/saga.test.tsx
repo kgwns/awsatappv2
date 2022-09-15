@@ -86,6 +86,15 @@ describe('Test allWriter', () => {
     genObject.throw(errorResponse);
   });
 
+  it('check fetchAllWriters failed', () => {
+    const genObject = fetchAllWriters({
+      type: FETCH_ALL_WRITERS,
+      payload: {items_per_page: mockItems},
+    });
+    genObject.next();
+    genObject.throw({});
+  });
+
   it('check postSelectedWriters failed', () => {
     const genObject = postSelectedWriters({
       type: SEND_SELECTED_AUTHOR,
@@ -106,6 +115,16 @@ describe('Test allWriter', () => {
     genObject.throw(errorResponse);
   });
 
+  it('check postSelectedWriters failed', () => {
+    const genObject = postSelectedWriters({
+      type: SEND_SELECTED_AUTHOR,
+      payload: {tid: '123',
+      isList: true},
+    });
+    genObject.next();
+    genObject.throw({});
+  });
+
   it('check getSelectedtAuthors failed', () => {
     const genObject = getSelectedtAuthors({
       type: GET_SELECTED_AUTHOR,
@@ -120,6 +139,14 @@ describe('Test allWriter', () => {
     });
     genObject.next();
     genObject.throw(errorResponse);
+  });
+
+  it('check getSelectedtAuthors failed', () => {
+    const genObject = getSelectedtAuthors({
+      type: GET_SELECTED_AUTHOR,
+    });
+    genObject.next();
+    genObject.throw({});
   });
   
   describe('Test removeSelectedWriters', () => {
@@ -139,6 +166,15 @@ describe('Test allWriter', () => {
       });
       genObject.next();
       genObject.throw(errorResponse);
+    });
+
+    it('check removeSelectedWriters failed', () => {
+      const genObject = removeSelectedWriters({
+        type: REMOVE_AUTHOR,
+        payload: requestRemoveObject,
+      });
+      genObject.next();
+      genObject.throw({});
     });
   });
 
@@ -166,6 +202,18 @@ describe('Test allWriter', () => {
       });
       genObject.next();
       genObject.throw(errorResponse);
+    });
+
+    it('check fetchAllSelectedWritersDetailsData failed', () => {
+      const genObject = fetchAllSelectedWritersDetailsData({
+        type: FETCH_ALL_SELECTED_WRITERS_DETAILS,
+        payload: {
+          tid: '2',
+          items_per_page: 2,
+        },
+      });
+      genObject.next();
+      genObject.throw({});
     });
 
   });

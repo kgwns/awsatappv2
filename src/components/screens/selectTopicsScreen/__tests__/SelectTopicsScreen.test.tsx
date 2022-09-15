@@ -123,7 +123,7 @@ describe('<SelectTopicsScreen>', () => {
 
   test('Should call InterestedTopics onTopicsChanged', () => {
     const element = instance.container.findByType(InterestedTopics)
-    fireEvent(element, 'onTopicsChanged', {item: sampleData[0], selected: true});
+    fireEvent(element, 'onTopicsChanged', sampleData[0], true);
     expect(mockFunction).toBeTruthy()
   });
 

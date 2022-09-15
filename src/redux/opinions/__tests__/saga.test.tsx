@@ -73,6 +73,14 @@ describe('Test opinions  error', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+  it('check fetchOpinions failed', () => {
+    const genObject = fetchOpinionsList({
+      type: FETCH_OPINIONS,
+      payload: {page: mockPage, nid: ''},
+    });
+    genObject.next();
+    genObject.throw({});
+  });
 });
 
 describe('Test opinions', () => {
@@ -99,6 +107,17 @@ describe('Test opinions', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+  it('check fetchWriterOpinions failed', () => {
+    const genObject = fetchWriterOpinions({
+      type: FETCH_WRITER_OPINIONS,
+      payload: {
+        tid: '12',
+        page: mockPage
+      },
+    });
+    genObject.next();
+    genObject.throw({});
+  });
 });
 
 describe('Test fetchOpinions', () => {
@@ -124,5 +143,17 @@ describe('Test fetchOpinions', () => {
     });
     genObject.next();
     genObject.throw(errorResponse);
+  });
+
+  it('check fetchOpinions failed', () => {
+    const genObject = fetchOpinions({
+      type: FETCH_OPINIONS,
+      payload: {
+        page: 2,
+        nid: '2',
+      },
+    });
+    genObject.next();
+    genObject.throw({});
   });
 });

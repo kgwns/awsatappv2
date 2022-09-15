@@ -43,11 +43,27 @@ describe('Test newsletters  error', () => {
     });
 
     it('check getSelectedNewsLetters failed', () => {
+        const genObject = getSelectedNewsLetters({
+            type: GET_SELECTED_NEWS_LETTERS
+        });
+        genObject.next();
+        genObject.throw({});
+    });
+
+    it('check getSelectedNewsLetters failed', () => {
         const genObject = getMyNewsLetters({
             type: GET_MY_NEWS_LETTERS
         });
         genObject.next();
         genObject.throw(errorResponse);
+    });
+
+    it('check getSelectedNewsLetters failed', () => {
+        const genObject = getMyNewsLetters({
+            type: GET_MY_NEWS_LETTERS
+        });
+        genObject.next();
+        genObject.throw({});
     });
 });
 

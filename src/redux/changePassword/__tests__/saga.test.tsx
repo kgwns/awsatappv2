@@ -69,6 +69,15 @@ describe('<Change Password Saga>', () => {
       genObject.next();
       genObject.throw(errorResponse);
     });
+    it('check post new password failed', () => {
+      const genObject = postNewPassword({
+        type: CHANGE_PASSWORD,
+        payload: {password: mockPassword,
+          old_password: mockPassword},
+      });
+      genObject.next();
+      genObject.throw({});
+    });
   });
 
   describe('Test emptyPasswordResponse', () => {

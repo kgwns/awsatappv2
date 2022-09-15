@@ -74,6 +74,44 @@ describe('Test fetchVideoList success', () => {
       .finish()
       .isDone();
   });
+
+  it('check SaveToken success', () => {
+    const genObject = fetchVideoList();
+    genObject.next();
+    genObject.next();
+  });
+
+  it('check SaveToken success', () => {
+    const genObject = fetchVideoList();
+    genObject.next({rows: [
+      {
+        title: 'mockString',
+        nid: 'mockString',
+      },
+    ],});
+    genObject.next({rows: [
+      {
+        title: 'mockString',
+        nid: 'mockString',
+      },
+    ],});
+  });
+
+  it('check SaveToken success', () => {
+    const genObject = fetchVideoList();
+    genObject.next({rows: [
+      {
+        title: '',
+        nid: 'mockString',
+      },
+    ],});
+    genObject.next({rows: [
+      {
+        title: '',
+        nid: 'mockString',
+      },
+    ],});
+  });
 });
 
 describe('Test fetchVideoList success', () => {

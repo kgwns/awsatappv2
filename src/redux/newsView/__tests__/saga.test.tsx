@@ -138,6 +138,75 @@ describe('Test TopList success', () => {
       .finish()
       .isDone();
   });
+  it('fire on REQUEST_TOP_LIST_DATA', () => {
+    testSaga(fetchTopList, requestTopistAction)
+      .next()
+      .call(fetchNewsViewApi, requestObject)
+      .next({})
+      .put(fetchTopListSuccess(sucessTopListResponseObject))
+      .finish()
+      .isDone();
+  });
+  it('check SaveToken success', () => {
+    const genObject = fetchTopList({
+      type: REQUEST_TOP_LIST_DATA,
+      payload: requestObject,
+    });
+    genObject.next();
+    genObject.next();
+  });
+  it('check SaveToken success', () => {
+    const genObject = fetchTopList({
+      type: REQUEST_TOP_LIST_DATA,
+      payload: requestObject,
+    });
+    genObject.next({rows: [
+      {
+        title: 'mockString',
+        nid: 'mockString',
+        field_news_categories_export: [{
+          id: 'id',
+          title: 'title',
+          url: 'url',
+          bundle: 'bundle',
+          name: 'name',
+        }],
+      },
+    ],});
+    genObject.next({rows: [
+      {
+        title: 'mockString',
+        nid: 'mockString',
+        field_news_categories_export: [{
+          id: 'id',
+          title: 'title',
+          url: 'url',
+          bundle: 'bundle',
+          name: 'name',
+        }],
+      },
+    ],});
+  });
+  it('check SaveToken success', () => {
+    const genObject = fetchTopList({
+      type: REQUEST_TOP_LIST_DATA,
+      payload: requestObject,
+    });
+    genObject.next({rows: [
+      {
+        title: 'mockString',
+        nid: 'mockString',
+        field_news_categories_export: [],
+      },
+    ],});
+    genObject.next({rows: [
+      {
+        title: 'mockString',
+        nid: 'mockString',
+        field_news_categories_export: [],
+      },
+    ],});
+  });
 });
 describe('Test BottomList success', () => {
   it('fire on REQUEST_Bottom_LIST_DATA', () => {
@@ -160,6 +229,14 @@ describe('Test TopList  error', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+  it('check fetchTopList failed', () => {
+    const genObject = fetchTopList({
+      type: REQUEST_TOP_LIST_DATA,
+      payload: requestObject,
+    });
+    genObject.next();
+    genObject.throw({});
+  });
 });
 
 describe('Test BottomList  error', () => {
@@ -171,6 +248,15 @@ describe('Test BottomList  error', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+
+  it('check fetchBottomList failed', () => {
+    const genObject = fetchBottomList({
+      type: REQUEST_BOTTOM_LIST_DATA,
+      payload: requestObject,
+    });
+    genObject.next();
+    genObject.throw({});
+  });
 });
 
 describe('Test HeroList  error', () => {
@@ -181,6 +267,14 @@ describe('Test HeroList  error', () => {
     });
     genObject.next();
     genObject.throw(errorResponse);
+  });
+  it('check fetchHeroList failed', () => {
+    const genObject = fetchHeroList({
+      type: REQUEST_HERO_LIST_DATA,
+      payload: requestObject,
+    });
+    genObject.next();
+    genObject.throw({});
   });
 });
 

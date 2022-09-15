@@ -104,6 +104,12 @@ describe('Test fetch logout', () => {
         genObject.next();
         genObject.throw(errorResponse);
     });
+
+    it('check fetchlogout error', () => {
+        const genObject = fetchLogout();
+        genObject.next();
+        genObject.throw({});
+    });
 });
 
 describe('Test requestForgotPassword', () => {
@@ -126,6 +132,17 @@ describe('Test requestForgotPassword', () => {
         });
         genObject.next();
         genObject.throw(errorResponse);
+    });
+
+    it('check requestForgotPassword error', () => {
+        const genObject = requestForgotPassword({
+            type:FORGOT_PASSWORD_REQUEST,
+            payload:{
+                email:'email@email.com'
+            }
+        });
+        genObject.next();
+        genObject.throw({});
     });
 });
 

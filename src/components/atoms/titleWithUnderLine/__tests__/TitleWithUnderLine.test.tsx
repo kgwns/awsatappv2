@@ -47,7 +47,13 @@ describe('<VideoPlayer>', () => {
       const testItemId = instance.getByTestId('TitleWithUnderLine01');
       fireEvent(testItemId, 'onTextLayout', { nativeEvent: {lines: [{ width: 20},{ width: 30}]} });
       expect(mockFunction).toBeTruthy();
-  });
+    });
+
+    it('When Label onTextLayout', () => {
+      const testItemId = instance.getByTestId('TitleWithUnderLine01');
+      fireEvent(testItemId, 'onTextLayout', { nativeEvent: {} });
+      expect(mockFunction).toBeTruthy();
+    });
 })
 
 describe('<VideoPlayer>', () => {
