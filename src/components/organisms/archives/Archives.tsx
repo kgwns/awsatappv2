@@ -129,10 +129,12 @@ export const Archives = () => {
 
     const updateFilterComponent = (index: number) => {
         const filterItemData = [...filterItem]
-        filterItemData[tabSelectedIndex].isSelected = false;
-        filterItemData[index].isSelected = true;
-        setFilterItem(filterItemData)
-        setTabSelectedIndex(index);
+        if (isNonEmptyArray(filterItemData) && typeof tabSelectedIndex == 'boolean') {
+            filterItemData[tabSelectedIndex].isSelected = false;
+            filterItemData[index].isSelected = true;
+            setFilterItem(filterItemData)
+            setTabSelectedIndex(index);
+        }
     }
 
     const onPressFilterItem = (index: number) => {

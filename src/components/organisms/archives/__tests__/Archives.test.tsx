@@ -1,6 +1,6 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState } from 'react';
-import { Archives } from 'src/components/organisms'
+import { Archives, DynamicWidget } from 'src/components/organisms'
 import { FilterComponent, FilterDataType } from 'src/components/molecules';
 import { storeSampleData } from 'src/constants/SampleData';
 import { Provider } from 'react-redux';
@@ -17,32 +17,32 @@ jest.mock('react', () => ({
 
 jest.mock("src/hooks/useBookmark", () => ({
     useBookmark: () => {
-      return {
-        isLoading: false,
-        bookmarkLoading: false,
-        isAllBookmarkFetched: true,
-        canRefreshBookmarkDetail: true,
-        filterBookmarkDetailInfo: [],
-        bookMarkSuccessInfo: {},
-        bookmarkDetail: [],
-        error: 'example',
-        bookmarkIdInfo: [
-            {
-                nid: '1',
-                bundle: 'string'
-            },
-            {
-                nid: '2',
-                bundle: 'string'
-            }
-        ],
-        sendBookmarkInfo: () => [],
-        getBookmarkedId: () => [],
-        getSpecificBundleFavoriteDetail: () => [],
-        removeBookmarkedInfo: () => [],
-        getBookmarkDetailData: () => [],
-        removeBookmark: () => [],
-      }
+        return {
+            isLoading: false,
+            bookmarkLoading: false,
+            isAllBookmarkFetched: true,
+            canRefreshBookmarkDetail: true,
+            filterBookmarkDetailInfo: [],
+            bookMarkSuccessInfo: {},
+            bookmarkDetail: [],
+            error: 'example',
+            bookmarkIdInfo: [
+                {
+                    nid: '1',
+                    bundle: 'string'
+                },
+                {
+                    nid: '2',
+                    bundle: 'string'
+                }
+            ],
+            sendBookmarkInfo: () => [],
+            getBookmarkedId: () => [],
+            getSpecificBundleFavoriteDetail: () => [],
+            removeBookmarkedInfo: () => [],
+            getBookmarkDetailData: () => [],
+            removeBookmark: () => [],
+        }
     },
 }));
 
@@ -82,9 +82,9 @@ describe('<Archives>', () => {
         (useState as jest.Mock).mockImplementation(() => [filterData, filterItemData]);
         (useState as jest.Mock).mockImplementation(() => [filterData, filterItem]);
         const component =
-        <Provider store={storeSampleData}>
-            <Archives />
-        </Provider>
+            <Provider store={storeSampleData}>
+                <Archives />
+            </Provider>
         instance = render(component)
     })
 
@@ -97,9 +97,9 @@ describe('<Archives>', () => {
         expect(instance).toBeDefined()
     })
 
-    // it('Test Change filter item', () => {
-    //     const element = instance.container.findByType(FilterComponent)
-    //     fireEvent(element,'onPress',0)
-    //     expect(element).toBeTruthy()
-    // })
+    it('Test Change filter item', () => {
+        const element = instance.container.findByType(FilterComponent)
+        fireEvent(element, 'onPress', 0)
+        expect(element).toBeTruthy()
+    })
 })
