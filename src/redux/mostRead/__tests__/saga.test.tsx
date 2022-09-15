@@ -53,4 +53,9 @@ describe('Test most read  error', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+  it('check fetchMostRead failed', () => {
+    const genObject = fetchMostRead();
+    genObject.next();
+    genObject.throw({});
+  });
 });

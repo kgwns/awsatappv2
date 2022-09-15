@@ -42,10 +42,25 @@ describe('<Article Detail Saga >', () => {
       genObject.throw(errorResponse);
     });
 
+    it('check sendSelectedNotificationRequest failed', () => {
+      const genObject = sendSelectedNotificationRequest({
+        type: SEND_SELECTED_NOTIFICATION,
+        payload: {nid: mockString},
+      });
+      genObject.next();
+      genObject.throw({});
+    });
+
     it('check getSelectedNotificationRequest failed', () => {
       const genObject = getSelectedNotificationRequest();
       genObject.next();
       genObject.throw(errorResponse);
+    });
+
+    it('check getSelectedNotificationRequest failed', () => {
+      const genObject = getSelectedNotificationRequest();
+      genObject.next();
+      genObject.throw({});
     });
   });
 
@@ -78,5 +93,11 @@ describe('<Article Detail Saga >', () => {
         genObject.next()
         genObject.throw(errorResponse)
     })
+
+    it('check getListOfNotificationOption failed', () => {
+      const genObject = getListOfNotificationOption()
+      genObject.next()
+      genObject.throw({})
+  })
   })
 });

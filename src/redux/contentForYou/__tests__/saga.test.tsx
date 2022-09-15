@@ -85,6 +85,14 @@ describe('Test opinions  error', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+  it('check fetchOpinions failed', () => {
+    const genObject = fetchFavouriteOpinions({
+      type: FETCH_FAVOURITE_OPINIONS,
+      payload: {page: mockPage},
+    });
+    genObject.next();
+    genObject.throw({});
+  });
 });
 
 describe('Test Articles success', () => {
@@ -107,6 +115,14 @@ describe('Test Articles  error', () => {
     });
     genObject.next();
     genObject.throw(errorResponse);
+  });
+  it('check fetchArticles failed', () => {
+    const genObject = fetchFavouriteArticles({
+      type: FETCH_FAVOURITE_ARTICLES,
+      payload: {page: mockPage},
+    });
+    genObject.next();
+    genObject.throw({});
   });
 });
 

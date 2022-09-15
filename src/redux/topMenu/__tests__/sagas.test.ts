@@ -59,6 +59,22 @@ describe('test Saga  topMenusaga', () => {
       .isDone();
   });
 
+  it('check SaveToken success', () => {
+    const genObject = fetchTopMenu();
+    genObject.next();
+    genObject.next();
+  });
+
+  it('fire on FETCH_TOP_MENU_REQUEST', () => {
+    testSaga(fetchTopMenu)
+      .next()
+      .call(fetchTopMenuApi)
+      .next({})
+      .put(fetchTopMenuSuccess({topMenuData: []}))
+      .finish()
+      .isDone();
+  });
+
   it('test fetchSideMenu  error', () => {
     const errorResponse = {
       response: { data: 'Error', status: 500, statusText: 'Error' }

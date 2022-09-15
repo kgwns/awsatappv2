@@ -2,6 +2,7 @@ import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import FastImage from 'react-native-fast-image';
 import {Image} from 'src/components/atoms/image/Image';
+import { ImagesName } from 'src/shared/styles';
 
 describe('<Image>', () => {
   let instance: RenderAPI;
@@ -11,7 +12,7 @@ describe('<Image>', () => {
 
   beforeEach(() => {
     const component = (
-      <Image name={'bookmarkActive'} type="round" size={IMAGE_SIZE} />
+      <Image name={'bookmarkActive'} type="round" size={IMAGE_SIZE} fallback={true} fallbackName={ImagesName.placeholderImg} />
     );
     instance = render(component);
   });
@@ -60,10 +61,53 @@ describe('<Image>', () => {
       instance = render(component);
     });
 
-    test('Should call FlatList onPress', () => {
+    test('Should call FastImage onError', () => {
       const element = instance.container.findByType(FastImage)
       fireEvent(element, 'onError');
       expect(mockFunction).toBeTruthy()
     });
+
+    test('Should call FastImage onLoadEnd', () => {
+      const element = instance.container.findByType(FastImage)
+      fireEvent(element, 'onLoadEnd');
+      expect(mockFunction).toBeTruthy()
+    });
   });
+});
+
+describe('<Image>', () => {
+  let instance: RenderAPI;
+  const IMAGE_SIZE = 40;
+  const mockFunction = jest.fn();
+
+  beforeEach(() => {
+    const component = (
+        <Image type="round" size={IMAGE_SIZE} url=''/>
+      );
+      instance = render(component);
+    });
+
+    it('should render component', () => {
+      expect(instance).toBeDefined();
+    });
+
+    it('should type is round', () => {
+      expect(instance.container.props.type).toBe('round');
+    });
+
+    it('should size is 40', () => {
+      expect(instance.container.props.size).toBe(IMAGE_SIZE);
+    });
+
+    test('Should call FastImage onError', () => {
+      const element = instance.container.findByType(FastImage)
+      fireEvent(element, 'onError');
+      expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call FastImage onLoadEnd', () => {
+      const element = instance.container.findByType(FastImage)
+      fireEvent(element, 'onLoadEnd');
+      expect(mockFunction).toBeTruthy()
+    });
 });

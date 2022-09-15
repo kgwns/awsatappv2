@@ -75,8 +75,8 @@ describe('<Terms and About Us Saga >', () => {
                 type: REQUEST_STATIC_DETAIL,
                 payload: {id }
             })
-            genObject.next({})
-            genObject.next({})
+            genObject.next()
+            genObject.next()
         })
 
         it('check TermsAndAboutUs failed', () => {

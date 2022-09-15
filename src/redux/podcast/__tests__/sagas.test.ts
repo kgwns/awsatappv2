@@ -39,6 +39,93 @@ const errorResponse = {
     response: { data: 'Error', status: 500, statusText: 'Error' },
 };
 
+const sampleResponse = {
+    rows: [
+        {
+            nid: '29',
+            type: 'podcasr',
+            view_node: 'example',
+            field_new_sub_title_export: "abc",
+            title: 'example',
+            field_announcer_name_export: "abc",
+            field_apple_podcast_export: {
+              url: "string",
+              text: "string"
+            },
+            body_export: "abc",
+            field_duration_export: "abc",
+            field_episode_export: "abc",
+            field_google_podcast_export: {
+              url: "string",
+              text: "string"
+            },
+            field_podcast_image_export: "abc",
+            field_podcast_sect_export: {
+              id: 'example',
+              title: 'example',
+              url: 'example',
+              bundle: 'example',
+              description: 'example',
+              img_podcast_desktop: 'example',
+              img_podcast_mobile: 'example',
+              name: 'example',
+              image: 'example'
+            },
+            field_spotify_export: {
+              url: "string",
+              text: "string"
+            },
+            field_spreaker_episode_export: "abc",
+            field_spreaker_show_export: "abc",
+            isBookmarked: false,
+            field_total_duration_export: 'example'
+          },
+    ]
+}
+
+const sampleResponse1 = {
+    rows: [
+        {
+            nid: '29',
+            type: 'podcasr',
+            view_node: 'example',
+            field_new_sub_title_export: "",
+            title: '',
+            field_announcer_name_export: "abc",
+            field_apple_podcast_export: {
+              url: "string",
+              text: "string"
+            },
+            body_export: "abc",
+            field_duration_export: "abc",
+            field_episode_export: "abc",
+            field_google_podcast_export: {
+              url: "string",
+              text: "string"
+            },
+            field_podcast_image_export: "abc",
+            field_podcast_sect_export: {
+              id: 'example',
+              title: 'example',
+              url: 'example',
+              bundle: 'example',
+              description: 'example',
+              img_podcast_desktop: 'example',
+              img_podcast_mobile: 'example',
+              name: 'example',
+              image: 'example'
+            },
+            field_spotify_export: {
+              url: "string",
+              text: "string"
+            },
+            field_spreaker_episode_export: "abc",
+            field_spreaker_show_export: "abc",
+            isBookmarked: false,
+            field_total_duration_export: 'example'
+          },
+    ]
+}
 
 describe('Test podcastlist success', () => {
     it('fire on FETCH_PODCAST_LIST', () => {
@@ -64,7 +151,37 @@ describe('Test podcastepisode success', () => {
     });
 });
 
-describe('Test podcastList  error', () => {
+describe('Test podcastList', () => {
+    it('check fetchPodcastList failed', () => {
+        const genObject = fetchPodcastList({
+            type: FETCH_PODCAST_LIST,
+            payload: { tid: 2 },
+            rows: [],
+            pager: {}
+        });
+        genObject.next();
+        genObject.next();
+    });
+    it('check fetchPodcastList failed', () => {
+        const genObject = fetchPodcastList({
+            type: FETCH_PODCAST_LIST,
+            payload: { tid: 2 },
+            rows: [],
+            pager: {}
+        });
+        genObject.next(sampleResponse);
+        genObject.next(sampleResponse);
+    });
+    it('check fetchPodcastList failed', () => {
+        const genObject = fetchPodcastList({
+            type: FETCH_PODCAST_LIST,
+            payload: { tid: 2 },
+            rows: [],
+            pager: {}
+        });
+        genObject.next(sampleResponse1);
+        genObject.next(sampleResponse1);
+    });
     it('check fetchPodcastList failed', () => {
         const genObject = fetchPodcastList({
             type: FETCH_PODCAST_LIST,
