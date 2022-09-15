@@ -3,15 +3,16 @@ import React from 'react';
 import { ArticleDetailImage } from 'src/components/molecules';
 import { BannerImageWithOverlay } from 'src/components/atoms';
 
+let instance: RenderAPI
+const mockString = 'mockString'
+const mockFunction = jest.fn();
+
 describe('<ArticleDetailImage>', () => {
-    let instance: RenderAPI
-    const mockString = 'mockString'
-    const mockFunction = jest.fn();
 
     beforeEach(() => {
         const component = <ArticleDetailImage
             title={mockString} author={mockString}
-            isFirstItem created={''} isRelatedArticle={false} paused={false}        />
+            isFirstItem created={''} isRelatedArticle={false} paused={false} />
         instance = render(component)
     })
 
@@ -29,5 +30,25 @@ describe('<ArticleDetailImage>', () => {
         fireEvent(listButton, 'onImageLoadEnd');
         expect(mockFunction).toHaveBeenCalled;
     });
+
+})
+
+describe('<ArticleDetailImage with jwPlayerId>', () => {
+
+    beforeEach(() => {
+        const component = <ArticleDetailImage
+            title={mockString} author={mockString} jwplayerId={mockString}
+            isFirstItem created={''} isRelatedArticle={false} paused={false} />
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('should render component', () => {
+        expect(instance).toBeDefined()
+    })
 
 })

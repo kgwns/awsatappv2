@@ -4,45 +4,45 @@ import { ButtonImage } from 'src/components/atoms';
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 import { ArticleDetailFooter } from '../ArticleDetailFooter';
 
-describe('<ArticleDetailFooter>', () => {
-  let instance: RenderAPI;
+let instance: RenderAPI;
 
-  const mockFunction = jest.fn()
+const mockFunction = jest.fn()
 
-  const data: ArticleDetailDataType = {
-    title: 'title',
-    body: 'body',
-    nid: 'nid',
-    image: 'image',
-    view_node: 'view_node',
-    news_categories: {
-        title: 'news_categories_title',
-        id: 'news_categories_id',
-        url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
-        bundle: 'news_categories_bundle',
-        name: 'news_categories_name'
-    },
-    author: 'author',
-    tag_topics: {
-        id: '1',
-        title: 'asd',
-        url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
-        bundle: 'asd',
-        name: 'qsd'
-    },
-    isBookmarked: false,
-    caption: 'asd',
-    subtitle: 'asdf',
-    jwplayerId: '1',
-    created: 'asxdc'
+const data: ArticleDetailDataType = {
+  title: 'title',
+  body: 'body',
+  nid: 'nid',
+  image: 'image',
+  view_node: 'view_node',
+  news_categories: {
+    title: 'news_categories_title',
+    id: 'news_categories_id',
+    url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
+    bundle: 'news_categories_bundle',
+    name: 'news_categories_name'
+  },
+  author: 'author',
+  tag_topics: {
+    id: '1',
+    title: 'asd',
+    url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
+    bundle: 'asd',
+    name: 'qsd'
+  },
+  isBookmarked: false,
+  caption: 'asd',
+  subtitle: 'asdf',
+  jwplayerId: '1',
+  created: 'asxdc'
 }
 
+describe('<ArticleDetailFooter with isBookmarked false>', () => {
   beforeEach(() => {
     const component = (
       <ArticleDetailFooter
         articleDetailData={data}
-        isBookmarked={false} 
-        onPressSave={mockFunction}  
+        isBookmarked={false}
+        onPressSave={mockFunction}
         onPressFontChange={mockFunction}
       />
     );
@@ -76,3 +76,28 @@ describe('<ArticleDetailFooter>', () => {
     expect(element).toBeTruthy();
   });
 });
+
+describe('<ArticleDetailFooter with isBookmarked true>', () => {
+
+  beforeEach(() => {
+    const component = (
+      <ArticleDetailFooter
+        articleDetailData={data}
+        isBookmarked={true}
+        onPressSave={mockFunction}
+        onPressFontChange={mockFunction}
+      />
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  it('should render component', () => {
+    expect(instance).toBeDefined();
+  });
+});
+
