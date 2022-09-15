@@ -55,12 +55,14 @@ describe('<ManageMyNews Component>', () => {
     const selectedWriters = mockFunction;
     const selectedInterested = mockFunction;
     const filteredSelectedAuthor = mockFunction;
+    const popupType = mockFunction;
     const filteredSelectedTopic = mockFunction;
     const useAllSiteCategoriesMock = jest.fn();
     const useAllWritersMock = jest.fn();
     
     beforeEach(() => {
         (useState as jest.Mock).mockImplementation(() => [sampleData, selectedWriters]);
+        (useState as jest.Mock).mockImplementation(() => ['Remove_Author', popupType]);
         (useState as jest.Mock).mockImplementation(() => [sampleAllSiteCategoriesItemTypeData, selectedInterested]);
         (useState as jest.Mock).mockImplementation(() => [sampleData, filteredSelectedAuthor]);
         (useState as jest.Mock).mockImplementation(() => [['abc', 'xyz'], filteredSelectedTopic]);
@@ -192,7 +194,7 @@ describe('<ManageMyNews Component>', () => {
 
     test('Should call ScreenContainer alertOnPress', () => {
         const element = instance.container.findByType(ScreenContainer)
-        fireEvent(element, 'alertOnPress');
+        fireEvent(element, 'alertOnPress', popupType);
         expect(mockFunction).toBeTruthy()
     });
 
@@ -414,6 +416,12 @@ describe('<ManageMyNews Component>', () => {
                 code: 2,
                 message: 'string',
                 data: [
+                    {
+                        id: '12',
+                    },
+                    {
+                        id: '13',
+                    },
                     {
                         id: '12',
                     },

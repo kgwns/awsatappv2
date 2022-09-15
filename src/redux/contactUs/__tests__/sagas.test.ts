@@ -50,6 +50,16 @@ describe('Test contact us response  error', () => {
     genObject.next({ message: successResponse })
   })
 
+
+  it('check sendContactUsInfo success', () => {
+    const genObject = sendContactUsInfo({
+      type: SEND_CONTACT_US_INFO,
+      payload: payload,
+    })
+    genObject.next({})
+    genObject.next({})
+  })
+
   it('check sendBookMarkId failed', () => {
     const genObject = sendContactUsInfo({
       type: SEND_CONTACT_US_INFO,
@@ -57,5 +67,14 @@ describe('Test contact us response  error', () => {
     });
     genObject.next({ message: successResponse });
     genObject.throw(errorResponse);
+  });
+
+  it('check sendBookMarkId failed', () => {
+    const genObject = sendContactUsInfo({
+      type: SEND_CONTACT_US_INFO,
+      payload: payload,
+    });
+    genObject.next({ message: successResponse });
+    genObject.throw({});
   });
 });

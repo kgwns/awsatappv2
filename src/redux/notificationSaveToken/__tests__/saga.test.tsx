@@ -46,6 +46,19 @@ describe('Test SaveToken', () => {
     genObject.next()
     genObject.throw(errorResponse)
   })
+
+  it('check SaveToken failed', () => {
+    const genObject = saveFCMtoken({
+        type: SAVE_TOKEN_REQUEST,
+        payload: {
+          fcm_token: 'string',
+          platform: 'string',
+          device_name: 'string'
+      }
+    })
+    genObject.next()
+    genObject.throw({})
+  })
 });
 
 describe('Test save token After Registration', () => {
@@ -71,6 +84,18 @@ describe('Test save token After Registration', () => {
     })
     genObject.next()
     genObject.throw(errorResponse)
+  })
+
+  it('check saveFCMtokenAfterRegistration failed', () => {
+    const genObject = saveFCMtokenAfterRegistration({
+        type: SAVE_TOKEN_AFTER_REGISTRATION_REQUEST,
+        payload: {
+          id: 'string',
+          uid: 2,
+        }
+    })
+    genObject.next()
+    genObject.throw({})
   })
 });
 

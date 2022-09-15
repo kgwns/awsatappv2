@@ -37,17 +37,25 @@ const sampleData: VideoItemType[] = [
   {
     nid: '1',
     title: '123',
-    isBookmarked: true
+    isBookmarked: true,
+    mediaId: '11'
   },
   {
     nid: '2',
     title: '124',
-    isBookmarked: true
+    isBookmarked: true,
+    mediaId: '12'
   },
   {
     nid: '3',
     title: '124',
-    isBookmarked: true
+    isBookmarked: true,
+    mediaId: '13'
+  },
+  {
+    nid: '1',
+    title: '123',
+    isBookmarked: true,
   },
 ];
 
@@ -94,17 +102,7 @@ jest.mock("src/hooks/useBookmark", () => ({
 const data: VideoDetailScreenProps = {
   route: { 
     params: {
-      data: 
-      [
-        {
-          nid: '1',
-          title: 'abc'
-        },
-        {
-          nid: '2',
-          title: 'abc'
-        }
-      ],
+      data: sampleData,
       isDocumentary: true,
     }
   }
@@ -129,7 +127,7 @@ describe('<VideoDetailScreen >', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => [sampleData, videolistData]);
-      (useState as jest.Mock).mockImplementation(() => [data.route.params.data, selectedVideo]);
+      (useState as jest.Mock).mockImplementation(() => [sampleData, selectedVideo]);
       (useState as jest.Mock).mockImplementation(() => [false, isBookmarked]);
       (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
       (useState as jest.Mock).mockImplementation(() => ['abc.com', videoUrl]);
@@ -167,7 +165,7 @@ describe('<VideoDetailScreen >', () => {
     });
     it('when onPress is pressed from VideoInfo', () => {
       const testID = instance.container.findByType(VideoInfo);
-      fireEvent(testID, 'onPress', {item: sampleData[0]});
+      fireEvent(testID, 'onPress', sampleData[0]);
       expect(navigation.navigate).toBeTruthy();
     });
     test('Should call ScreenContainer onCloseSignUpAlert', () => {
@@ -177,7 +175,13 @@ describe('<VideoDetailScreen >', () => {
     });
     test('Should call VideosList onItemActionPress', () => {
       const element = instance.container.findByType(VideosList)
-      fireEvent(element, 'onItemActionPress', {item: { nid: '2', title: 'abc', isBookmarked: true, mediaId: '2' }});
+      fireEvent(element, 'onItemActionPress', sampleData[0]);
+      expect(navigation.navigate).toBeTruthy()
+    });
+
+    test('Should call VideosList onItemActionPress', () => {
+      const element = instance.container.findByType(VideosList)
+      fireEvent(element, 'onItemActionPress', sampleData[3]);
       expect(navigation.navigate).toBeTruthy()
     });
   });

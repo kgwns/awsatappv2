@@ -56,6 +56,32 @@ describe('Test documentaryVideo success', () => {
       .finish()
       .isDone();
   });
+  it('check SaveToken success', () => {
+    const genObject = fetchVideoDocumentary({
+      type: FETCH_DOCUMENTARY_VIDEO,
+      payload: requestObject,
+    });
+    genObject.next();
+    genObject.next();
+  });
+  it('check SaveToken success', () => {
+    const genObject = fetchVideoDocumentary({
+      type: FETCH_DOCUMENTARY_VIDEO,
+      payload: requestObject,
+    });
+    genObject.next({rows: [
+      {
+        title: 'mockString',
+        nid: 'mockString',
+      },
+    ],});
+    genObject.next({rows: [
+      {
+        title: 'mockString',
+        nid: 'mockString',
+      },
+    ],});
+  });
 });
 
 describe('Test documentaryVideo  error', () => {

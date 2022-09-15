@@ -55,5 +55,16 @@ describe('<HomeSaga >', () => {
             genObject.next()
             genObject.throw(errorResponse)
         })
+
+        it('check fetchHome failed', () => {
+            const genObject = fetchHome({
+                type: REQUEST_HOME,
+                payload: {
+                    page: 1
+                }
+            })
+            genObject.next()
+            genObject.throw({})
+        })
     })
 })

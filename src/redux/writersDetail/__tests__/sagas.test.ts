@@ -50,6 +50,40 @@ describe('Test WriterDetails success', () => {
             .finish()
             .isDone();
     });
+    it('check SaveToken success', () => {
+        const genObject = fetchWriterDetails({
+            type: FETCH_WRITER_DETAIL,
+            payload: {
+                tid: '12'
+            }
+        });
+        genObject.next();
+        genObject.next();
+    });
+    
+    it('check SaveToken success', () => {
+        const genObject = fetchWriterDetails(
+            {
+                type: FETCH_WRITER_DETAIL,
+                payload: 
+                {
+                    tid: '12'
+                }
+            }
+        );
+        genObject.next({rows: [
+          {
+            title: 'mockString',
+            nid: 'mockString',
+          },
+        ],});
+        genObject.next({rows: [
+          {
+            title: 'mockString',
+            nid: 'mockString',
+          },
+        ],});
+    });
 });
 
 describe('Test WriterDetails  error', () => {
@@ -60,5 +94,14 @@ describe('Test WriterDetails  error', () => {
         });
         genObject.next();
         genObject.throw(errorResponse);
+    });
+
+    it('check fetchWriterDetails failed', () => {
+        const genObject = fetchWriterDetails({
+            type: FETCH_WRITER_DETAIL,
+            payload: { tid: '12345' },
+        });
+        genObject.next();
+        genObject.throw({});
     });
 });
