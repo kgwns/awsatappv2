@@ -5,22 +5,44 @@ import { ArticleOverlayContent } from '../ArticleOverlayContent';
 
 describe('<ArticleOverlayContent>', () => {
     let instance: RenderAPI;
-    
-    beforeEach(() => {
-        const component = <ArticleOverlayContent author={'abc'} created={'bcd'}/>
-        instance = render(component)
-    })
 
-    afterEach(() => {
-        jest.clearAllMocks()
-        instance.unmount()
-    })
+    describe('<ArticleOverlayContent without subTitle>', () => {
 
-    it('should render component', () => {
-        expect(instance).toBeDefined()
-    })
+        beforeEach(() => {
+            const component = <ArticleOverlayContent author={'abc'} created={'bcd'} />
+            instance = render(component)
+        })
 
-    it('should call getSvgImages', () => {
-        expect(getSvgImages).toBeTruthy();
-    })
+        afterEach(() => {
+            jest.clearAllMocks()
+            instance.unmount()
+        })
+
+        it('should render component', () => {
+            expect(instance).toBeDefined()
+        })
+
+        it('should call getSvgImages', () => {
+            expect(getSvgImages).toBeTruthy();
+        })
+    });
+    describe('<ArticleOverlayContent with subTitle>', () => {
+        beforeEach(() => {
+            const component = <ArticleOverlayContent author={'abc'} created={'bcd'} subtitle={'abc'} />
+            instance = render(component)
+        })
+
+        afterEach(() => {
+            jest.clearAllMocks()
+            instance.unmount()
+        })
+
+        it('should render component', () => {
+            expect(instance).toBeDefined()
+        })
+
+        it('should call getSvgImages', () => {
+            expect(getSvgImages).toBeTruthy();
+        })
+    });
 })

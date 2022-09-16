@@ -1,6 +1,6 @@
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React, {useState}  from 'react';
-import DraggableVideoPlayer  from '../DraggableVideoPlayer';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
+import React, { useState } from 'react';
+import DraggableVideoPlayer from '../DraggableVideoPlayer';
 import VideoPlayerControl from '../VideoPlayerControl';
 import { PanResponder } from 'react-native';
 
@@ -26,47 +26,49 @@ jest.mock("src/hooks/useAppPlayer", () => ({
 
 describe('<DraggableVideoPlayer />', () => {
   let instance: RenderAPI;
-  const url= "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842";
+  const url = "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842";
 
-  const sampleData: any = {current :
-    [
-    {
-      body: 'example',
-      title: 'example',
-      nid: 'example',
-      isBookmarked: true,
-      type: 'example',
-      blockName: 'example',
-      position: 'example',
-    },
-    {
-      body: 'example',
-      title: 'example',
-      nid: 'example',
-      isBookmarked: true,
-      type: 'example',
-      blockName: 'example',
-      position: 'example',
-    },
-    {
-      body: 'example',
-      title: 'example',
-      nid: 'example',
-      isBookmarked: true,
-      type: 'example',
-      blockName: 'example',
-      position: 'example',
-    },
-    {
-      body: 'example',
-      title: 'example',
-      nid: 'example',
-      isBookmarked: true,
-      type: 'example',
-      blockName: 'example',
-      position: 'example',
-    },
-  ]}
+  const sampleData: any = {
+    current:
+      [
+        {
+          body: 'example',
+          title: 'example',
+          nid: 'example',
+          isBookmarked: true,
+          type: 'example',
+          blockName: 'example',
+          position: 'example',
+        },
+        {
+          body: 'example',
+          title: 'example',
+          nid: 'example',
+          isBookmarked: true,
+          type: 'example',
+          blockName: 'example',
+          position: 'example',
+        },
+        {
+          body: 'example',
+          title: 'example',
+          nid: 'example',
+          isBookmarked: true,
+          type: 'example',
+          blockName: 'example',
+          position: 'example',
+        },
+        {
+          body: 'example',
+          title: 'example',
+          nid: 'example',
+          isBookmarked: true,
+          type: 'example',
+          blockName: 'example',
+          position: 'example',
+        },
+      ]
+  }
 
   const mockFunction = jest.fn();
   const setOrientation = mockFunction;
@@ -85,7 +87,7 @@ describe('<DraggableVideoPlayer />', () => {
   it('should render component', () => {
     expect(instance).toBeDefined()
   })
-  
+
   it('Should call VideoPlayerControlId', () => {
     const element = instance.container.findAllByType(VideoPlayerControl)[0];
     fireEvent(element, 'onPress');
@@ -95,6 +97,27 @@ describe('<DraggableVideoPlayer />', () => {
   it('Should call PanResponder', () => {
     expect(PanResponder.create).toBeTruthy();
   });
+
+  it('should call setOrientation', () => {
+    expect(setOrientation).toHaveBeenCalled()
+  })
+
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => ['PORTRAIT', setOrientation]);
+    (useState as jest.Mock).mockImplementation(() => [false, mockFunction]);
+    (useState as jest.Mock).mockImplementation(() => [false, mockFunction]);
+    const component = <DraggableVideoPlayer paused={false} url={url} videoRefs={sampleData} playerVisible />
+    instance = render(component)
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+    instance.unmount()
+  })
+
+  it('should render component with playerVisible props', () => {
+    expect(instance).toBeDefined()
+  })
 
 })
 
