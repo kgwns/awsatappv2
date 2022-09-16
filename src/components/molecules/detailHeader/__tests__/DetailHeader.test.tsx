@@ -22,4 +22,12 @@ describe('<DetailHeader />', () => {
   it('Should render DetailHeader', () => {
     expect(instance).toBeDefined();
   });
+
+  it('Should render DetailHeader with visibleHome false', () => {
+    expect(render(<DetailHeader
+      onBackPress={mockFunction}
+      onHomePress={mockFunction}
+    />)).toBeDefined
+  });
+
 })
