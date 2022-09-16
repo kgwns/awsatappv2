@@ -58,7 +58,67 @@ describe('<MostReadList>', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <MostReadList data={sampleData} onScroll={mockFn} isLoading={true} enableTag={true} flag={true}/>
+        <MostReadList data={sampleData} onScroll={mockFn} isLoading={true} enableTag={true} flag={false}/>
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render component', () => {
+    expect(instance).toBeDefined();
+  });
+
+  test('Should call ArticleItem onPress', () => {
+    const element = instance.container.findByType(ArticleItem)
+    fireEvent(element, 'onPressBookmark', {index:2});
+    expect(mockFn).toBeTruthy()
+  })
+
+  test('Should call FixedTouchable onPress', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'onEndReached');
+    expect(mockFn).toBeTruthy()
+  });
+
+  test('Should call FixedTouchable onPress', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'onScrollBeginDrag');
+    expect(mockFn).toBeTruthy()
+  });
+});
+
+
+describe('<MostReadList>', () => {
+  let instance: RenderAPI;
+  const mockFn = jest.fn();
+
+  const sampleData: any = [
+    {
+      nid: 'nid',
+      title: 'title',
+      body: 'body',
+      field_image: 'field_image',
+      view_node: 'view_node',
+      field_news_categories_export: [{
+        id: 'id',
+        title: '',
+        url: 'url',
+        bundle: 'bundle',
+        name: 'name',
+      }],
+      field_publication_date_export: 'field_publication_date_export',
+    },
+  ];
+
+  beforeEach(() => {
+    const component = (
+      <Provider store={storeSampleData}>
+        <MostReadList data={sampleData}/>
       </Provider>
     );
     instance = render(component);
