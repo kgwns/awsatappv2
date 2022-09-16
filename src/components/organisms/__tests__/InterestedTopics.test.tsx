@@ -33,3 +33,23 @@ describe('<InterestedTopics>', () => {
   
 });
 
+describe('<InterestedTopics>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+
+  beforeEach(() => {
+    const component = <InterestedTopics onTopicsChanged={mockFunction} isTab={false}/>;
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  it('should render InterestedTopics component', () => {
+    expect(instance).toBeDefined();
+  });
+  
+});
+

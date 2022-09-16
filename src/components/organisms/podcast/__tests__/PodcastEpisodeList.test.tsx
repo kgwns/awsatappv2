@@ -45,3 +45,44 @@ describe('<PodcastEpisodeList>', () => {
     });
   });
 });
+
+describe('<PodcastEpisodeList>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+
+  describe('when PodcastEpisodeList only', () => {
+    beforeEach(() => {
+      const component = (
+          <PodcastEpisodeList data={PodcastEpisodeData} onUpdateBookmark={mockFunction} />
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    
+    it('Should render PodcastEpisodeList', () => {
+      expect(instance).toBeDefined();
+    });
+
+    it('when PodcastVerticalList only When itemOnPress', () => {
+      const testID = instance.container.findAllByType(PodcastVerticalList)[0];
+      fireEvent(testID, 'itemOnPress');
+      expect(mockFunction).toBeTruthy();
+    });
+
+    it('when PodcastVerticalList only When onPressBookmark', () => {
+      const testID = instance.container.findAllByType(PodcastVerticalList)[0];
+      fireEvent(testID, 'onPressBookmark');
+      expect(mockFunction).toBeTruthy();
+    });
+
+    it('when PodcastVerticalList only When onPressBookmark', () => {
+      const testID = instance.container.findAllByType(FlatList)[0];
+      fireEvent(testID, 'ItemSeparatorComponent');
+      expect(mockFunction).toBeTruthy();
+    });
+  });
+});
