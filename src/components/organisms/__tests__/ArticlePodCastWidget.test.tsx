@@ -3,10 +3,21 @@ import React from 'react';
 import { ArticlePodCastWidget } from 'src/components/organisms'
 
 describe('<ArticlePodCastWidget>', () => {
-    let instance: RenderAPI
+    let instance: RenderAPI;
+
+    const mockFunction = jest.fn();
+    const imageUrl = 'https://picsum.photos/200';
+    const title = 'إياد أبو شقرا';
+    const body = 'هل بدأ العد العكسي لنهاية حكم جونسون في بريطانيا؟';
+    const header = 'حتى الآن كانت معركة الرئاسة الفرنسية من دون مفاجآت تذكر: الرئيس الجالس هو الأقوى. مرشحة اليمين ماري لوبن، تشكل خطراً لكنه غير قاتل، وعلى يمينها إريك زمور';
+    const rightTitle = 'إستمع إلى المقالة ';
+    const duration = '3:22';
 
     beforeEach(() => {
-        const component = <ArticlePodCastWidget/>
+        const component = <ArticlePodCastWidget imageUrl={imageUrl} title={title} body={body} podcastHeader={header} 
+                                allEpisodes={header} tagName={header} timeDuration={duration} rightTitle={rightTitle} 
+                                isBookmarked={false} onPressBookmark={mockFunction} onPress={mockFunction} spreakerEpisode={imageUrl}
+                            />
         instance = render(component)
     })
 
@@ -17,5 +28,10 @@ describe('<ArticlePodCastWidget>', () => {
 
     it('should render component', () => {
         expect(instance).toBeDefined()
+    })
+
+    it('should render component', () => {
+        expect(render( <ArticlePodCastWidget imageUrl={''} title={''} body={''} podcastHeader={''} 
+        allEpisodes={''} tagName={''} timeDuration={''} rightTitle={''} isBookmarked={false} spreakerEpisode={''}/>)).toBeDefined()
     })
 })
