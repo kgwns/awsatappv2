@@ -242,9 +242,13 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     return allMenuData
   }
 
-  const onPressDropDownIcon = (index: number) => {
+  const onPressDropDownIcon = (parentIndex: number, childIndex: number, isChild: boolean) => {
     const menuData = [...sideMenuDataInfo]
-    menuData[index].showDropDown = !menuData[index].showDropDown ?? true
+    if (isChild) {
+      menuData[parentIndex].child[childIndex].showDropDown = !menuData[parentIndex].child[childIndex].showDropDown ?? true
+    } else {
+      menuData[parentIndex].showDropDown = !menuData[parentIndex].showDropDown ?? true
+    }
     setSideMenuDataInfo(menuData)
   }
 
@@ -289,7 +293,9 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     </View>
   );
 
-  const buttonListItem = (isChild: boolean, item: any, index: number, icon?: ImagesName | null) => {
+  const buttonListItem = ({
+     isChild, item, index, icon, isSubChild = false, parentIndex,
+  }: { isChild: boolean, item: any, index: number, icon?: ImagesName | null, isSubChild: boolean, parentIndex: number }) => {
     const hipSlopValue = normalize(12)
     return (
       <ButtonList
@@ -301,16 +307,16 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         onPress={() => {
           onPressNavigationDynamicMenu(isChild, item)
         }}
-        onPressIcon={() => onPressDropDownIcon(index)}
-        containerStyle={isChild && styles.childItemStyle}
-        titleStyle={isChild ? styles.childTitleStyle : styles.parentTitleStyle}
+        onPressIcon={() => onPressDropDownIcon(parentIndex, index, isChild)}
+        containerStyle={isSubChild ? styles.subChildItemStyle : isChild && styles.childItemStyle}
+        titleStyle={isSubChild ? styles.subChildTitleStyle : isChild ? styles.childTitleStyle : styles.parentTitleStyle}
       />
     )
   }
 
   const onPressNavigationDynamicMenu = (isChild: boolean, menuInfo: any) => {
     const screenName = isChild ? ScreensConstants.SectionArticlesScreen : ScreensConstants.SectionArticlesParentScreen
-    const defaultParams = { sectionId: menuInfo.field_sectionid_export, title: menuInfo.title }
+    const defaultParams = { sectionId: menuInfo.field_sections, title: menuInfo.title }
     const params = isChild ? defaultParams : { ...defaultParams, keyName: menuInfo.field_app_key_name_export }
     onPressNavigation(screenName, params)
   }
@@ -346,6 +352,22 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     }
   }
 
+  const renderChildMenuData = (item: any, index: number, parentIndex: number) => {
+    const icon = isNonEmptyArray(item.child) ? ImagesName.downArrowIcon : null
+
+    return (
+      <View>
+        {buttonListItem({ isChild: true, item: item, index: index, icon, isSubChild: false, parentIndex })}
+        {isNonEmptyArray(item.child) && item.showDropDown && <View>
+          {item.child.map((subChildItem: any, subChildIndex: number) => {
+            return buttonListItem({ isChild: false, item: subChildItem, index: subChildIndex, icon: null, isSubChild: true, parentIndex })
+          })}
+        </View>
+        }
+      </View>
+    )
+  }
+
   const socialIconSize = isTab ? 33 : 23;
 
   return (
@@ -366,10 +388,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               const icon = isNonEmptyArray(item.child) ? ImagesName.downArrowIcon : null
               return (
                 <View key={index}>
-                  {buttonListItem(false, item, index, icon)}
+                  {buttonListItem({isChild: false, item, index, icon, isSubChild: false, parentIndex: index})}
                   {isNonEmptyArray(item.child) && item.showDropDown && <View>
                     {item.child.map((childItem: any, childIndex: number) => {
-                      return buttonListItem(true, childItem, childIndex)
+                      return renderChildMenuData(childItem, childIndex, index)
                     })}
                   </View>
                   }
@@ -558,9 +580,15 @@ const createStyles = (theme: CustomThemeType) =>
       backgroundColor: theme.dividerColor
     },
     childItemStyle: {
-      marginLeft: 20
+      marginLeft: 20,
+    },
+    subChildItemStyle: {
+      marginLeft: 40
     },
     childTitleStyle:{
+      fontFamily: fonts.AwsatDigital_Regular,
+    },
+    subChildTitleStyle: {
       fontFamily: fonts.AwsatDigital_Regular,
     },
     parentTitleStyle: {

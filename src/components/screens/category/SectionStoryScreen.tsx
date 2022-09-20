@@ -203,10 +203,24 @@ export const SectionStoryScreen = React.memo(({
     }
   } */
 
+  const formatFilterChildData = (childItem: TopMenuItemType[] | undefined): FilterDataType[] => {
+    let childInfo: FilterDataType[] = [];
+    if (isNonEmptyArray(childItem)) {
+      childInfo = childItem!.map((item) => {
+        return {
+          name: item.tabName,
+          isSelected: item.isSelected,
+        }
+      })
+    }
+    return childInfo
+  }
+
   const childFilterData: FilterDataType[] = React.useMemo(() => childSection.map((item) => {
     return {
       name: item.tabName,
       isSelected: item.isSelected,
+      child: formatFilterChildData(item.child)
     }
   }), [childSection]) 
 
@@ -362,6 +376,27 @@ export const SectionStoryScreen = React.memo(({
     onUpdateChildSection && onUpdateChildSection(updatedChildSection)
   }
 
+  const onPressSubChild = (childIndex: number, subChildIndex: number) => {
+    const spreadChildSection = [...childSection]
+    const currentChild = spreadChildSection[childIndex];
+
+    let updatedChildSection = [...spreadChildSection];
+    let updatedSubChildSection: TopMenuItemType[] = [];
+
+    if(isNonEmptyArray(currentChild.child)) {
+      updatedSubChildSection = currentChild.child!.map((item,index) => {
+        return {
+          ...item,
+          isSelected: subChildIndex != index ? false : item.isSelected && item.isSelected == true ? false : true
+        }
+      })
+    }
+    updatedChildSection[childIndex].child = updatedSubChildSection;
+
+    clearData()
+    onUpdateChildSection && onUpdateChildSection(updatedChildSection)
+  }
+
   const clearData = () => {
     setHeroListDataInfo([])
     setTopListDataInfo([])
@@ -376,7 +411,7 @@ export const SectionStoryScreen = React.memo(({
 
     return (
       <View style={style.filterContainer}>
-        <FilterComponent data={childFilterData} onPress={onClickChildSection} />
+        <FilterComponent data={childFilterData} onPress={onClickChildSection} onPressSubChild={onPressSubChild}/>
       </View>
     ) 
   }

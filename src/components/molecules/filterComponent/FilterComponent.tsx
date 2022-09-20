@@ -3,7 +3,7 @@ import React from 'react'
 import { Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { isIOS, normalize, normalizeBy320 } from 'src/shared/utils'
+import { isIOS, isNonEmptyArray, normalize, normalizeBy320 } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { moleculesTestID } from 'src/constants'
@@ -12,18 +12,33 @@ import { fonts } from 'src/shared/styles/fonts'
 export type FilterDataType = {
     name: string,
     isSelected: boolean
+    child?: FilterDataType[]
 }
 
 type FilterComponentType = {
     data: FilterDataType[],
     onPress: (index: number) => void
+    onPressSubChild: (childIndex: number, subChildIndex: number) => void;
 }
 
 export const FilterComponent = ({
-    data,onPress
+    data, onPress, onPressSubChild
 }: FilterComponentType) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle)
+
+    const renderSubChild = (childIndex: number, childItem: FilterDataType[]) => {
+        return (
+            <>
+                {childItem.map((item, index) => {
+                    return <Label key={index} children={item.name} onPress={() => {
+                        onPressSubChild(childIndex, index)
+                    }}/>
+                })}
+            </>
+        )
+    }
+
     return (
         <ScrollView style={style.container} horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -38,6 +53,7 @@ export const FilterComponent = ({
                                 color={item.isSelected ? Styles.color.white : themeData.secondarySpanishGray}
                             />
                         </TouchableOpacity>
+                        {item.isSelected && isNonEmptyArray(item.child) && renderSubChild(index, item.child!)}
                     </View>
                 )
             }
