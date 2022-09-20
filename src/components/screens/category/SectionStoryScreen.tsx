@@ -125,6 +125,13 @@ export const SectionStoryScreen = React.memo(({
     let activeSectionId = sectionId
     if(selectedIndex > -1) {
       activeSectionId = childInfo[selectedIndex].sectionId
+      const selectedItem = childInfo[selectedIndex]
+      if (isNonEmptyArray(selectedItem.child)) {
+        const selectedSubIndex = selectedItem.child!.findIndex((item) => item.isSelected === true)
+        if (selectedSubIndex > -1) {
+          activeSectionId = selectedItem.child && selectedItem.child[selectedSubIndex]?.sectionId
+        }
+      }
     }
     setCurrentSectionId(activeSectionId)
     setChildSection(childInfo)
