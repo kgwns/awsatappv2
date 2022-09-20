@@ -129,7 +129,7 @@ export const Archives = () => {
 
     const updateFilterComponent = (index: number) => {
         const filterItemData = [...filterItem]
-        if (isNonEmptyArray(filterItemData) && typeof tabSelectedIndex == 'boolean') {
+        if (isNonEmptyArray(filterItemData) && typeof tabSelectedIndex == 'number') {
             filterItemData[tabSelectedIndex].isSelected = false;
             filterItemData[index].isSelected = true;
             setFilterItem(filterItemData)
