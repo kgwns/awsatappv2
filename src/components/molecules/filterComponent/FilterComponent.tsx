@@ -31,9 +31,15 @@ export const FilterComponent = ({
         return (
             <>
                 {childItem.map((item, index) => {
-                    return <Label key={index} children={item.name} onPress={() => {
-                        onPressSubChild(childIndex, index)
-                    }}/>
+                    return (
+                        <View style={style.childLabelContainer} key={index}>
+                            <TouchableOpacity onPress={() => onPressSubChild(childIndex, index)}>
+                                <Label children={item.name} style={style.childLabel}
+                                    color={item.isSelected ? Styles.color.greenishBlue : themeData.secondarySpanishGray}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    )
                 })}
             </>
         )
@@ -45,16 +51,19 @@ export const FilterComponent = ({
             bounces={false}
         >
             {
-                data.map((item: FilterDataType, index: number) =>
-                    <View style={{ paddingRight: 5 }} key={index}>
-                        <TouchableOpacity testID={moleculesTestID.filterBtn} key={index} activeOpacity={0.8} onPress={() => onPress(index)}
-                            style={[style.filterItem, item.isSelected && style.filterActive]}>
-                            <Label children={item.name} style={style.label}
-                                color={item.isSelected ? Styles.color.white : themeData.secondarySpanishGray}
-                            />
-                        </TouchableOpacity>
+                data.map((item: FilterDataType, index: number) => (
+                    <>
+                        <View style={style.labelContainer} key={index}>
+                            <TouchableOpacity testID={moleculesTestID.filterBtn} key={index} activeOpacity={0.8} onPress={() => onPress(index)}
+                                style={[style.filterItem, item.isSelected && style.filterActive]}>
+                                <Label children={item.name} style={style.label}
+                                    color={item.isSelected ? Styles.color.white : themeData.secondarySpanishGray}
+                                />
+                            </TouchableOpacity>
+                        </View>
                         {item.isSelected && isNonEmptyArray(item.child) && renderSubChild(index, item.child!)}
-                    </View>
+                    </>
+                )
                 )
             }
         </ScrollView>
@@ -81,10 +90,23 @@ const customStyle = (theme: CustomThemeType) => (
             backgroundColor: theme.filterBackgroundColor,
             borderColor: theme.filterBorderColor,
         },
+        labelContainer: {
+            paddingRight: 5,
+        },
         label: {
             fontSize: 12,
             lineHeight: 16,
             fontFamily: fonts.AwsatDigital_Regular,
+        },
+        childLabelContainer: {
+            paddingRight: 15,
+            justifyContent: 'center'
+        },
+        childLabel: {
+            fontSize: 12,
+            lineHeight: 16,
+            fontFamily: fonts.Effra_Arbc_Regular,
         }
+
     })
 )
