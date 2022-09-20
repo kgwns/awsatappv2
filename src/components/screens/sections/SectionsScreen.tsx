@@ -65,7 +65,7 @@ export const SectionsScreen = () => {
         return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} currentIndex={index} tabIndex={parseInt(tabIndex[0])} />
       default:
         return (
-          <SectionStoryScreen sectionId={route.sectionId}
+          <SectionStoryScreen sectionId={route.field_sections}
             currentIndex={index}
             tabIndex={parseInt(tabIndex[0])}
             childInfo={route.child}
