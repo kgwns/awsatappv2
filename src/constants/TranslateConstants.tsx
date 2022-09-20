@@ -62,6 +62,7 @@ export enum TranslateKey {
     WEATHER_DETAILS_SEA_CONDITION,
     WEATHER_DETAILS_ENABLE_LOCATION,
     WEATHER_NO_INFORMATION_TEXT,
+    CONTENT_BUNDLE_WIDGET_TITLE,
 }
 
 export const TranslateConstants = ({
@@ -190,6 +191,8 @@ export const TranslateConstants = ({
             return t('latestNewsTab.editorsPick.headerRight')
         case TranslateKey.WEATHER_NO_INFORMATION_TEXT: 
             return t('weatherDetail.noInformation')
+        case TranslateKey.CONTENT_BUNDLE_WIDGET_TITLE:
+            return t('articleDetail.contentBundleWidgetTitle')
         default: return ''
     }
 }

@@ -25,14 +25,14 @@ export const updatedReadAlsoContent = (articleInfo: ArticleDetailDataType, readA
   return richHTML
 }
 
-export const updatedContentBundleContent = (articleInfo: ArticleDetailDataType, contentInfo: any) => {
+export const updatedContentBundleContent = (articleInfo: ArticleDetailDataType, contentBundleData: any) => {
   let richHTML: HTMLElementParseStore[] = []
-  if (isNonEmptyArray(contentInfo.contentBundleData)) {
+  if (isNonEmptyArray(contentBundleData)) {
     richHTML = articleInfo.richHTML ?? []
     const contentIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.CONTENT)
     if (contentIndex > -1) {
       const filteredContent = richHTML[contentIndex] as ArticleContentType
-      filteredContent.data.contentData = contentInfo.contentBundleData[0]
+      filteredContent.data.contentData = contentBundleData[0]
       richHTML[contentIndex] = filteredContent
     }
   }
@@ -70,7 +70,7 @@ export const parseRichArticleReadAlso = (response: any) => {
   return readAlsoData
 }
 
-const parseRichArticleContentBundleSuccess = (response: any) => {
+export const parseRichArticleContentBundleSuccess = (response: any) => {
   let richArticleContentBundleData = []
 
   if (response && isNonEmptyArray(response.rows)) {

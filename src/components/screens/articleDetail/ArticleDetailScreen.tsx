@@ -25,10 +25,10 @@ import SystemNavigationBar from 'react-native-system-navigation-bar'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { ArticleDetailBody } from './components/ArticleDetailBody'
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService'
-import { parseArticleDetailSuccess, parseArticleSectionSuccess, parseOpinionBundleSuccess, parseRelatedArticleSuccess, parseRichArticleReadAlso, updatedContentBundleContent, updatedOpinionBundle, updatedReadAlsoContent } from 'src/redux/articleDetail/sagas'
+import { parseArticleDetailSuccess, parseArticleSectionSuccess, parseOpinionBundleSuccess, parseRelatedArticleSuccess, parseRichArticleContentBundleSuccess, parseRichArticleReadAlso, updatedContentBundleContent, updatedOpinionBundle, updatedReadAlsoContent } from 'src/redux/articleDetail/sagas'
 import { getBookMarkDetailInfoService } from 'src/services/bookmarkService'
 import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService'
-import { Axios, AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 
 export interface ArticleDetailScreenProps {
@@ -186,7 +186,7 @@ export const ArticleDetailScreen = ({
       if (isNonEmptyArray(contentElement) && contentElement[0].data.content) {
         try {
           const contentResponse = await requestArticleDetail({ nid: contentElement[0].data.content })
-          const contentResult = parseArticleDetailSuccess(contentResponse)
+          const contentResult = parseRichArticleContentBundleSuccess(contentResponse)
           const richHtmlInfo = updatedContentBundleContent(articleData, contentResult)
           setRichHTML(richHtmlInfo)
         } catch (error) {
@@ -645,3 +645,4 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingBottom: normalize(80)
   }
 })
+

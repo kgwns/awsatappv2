@@ -73,7 +73,7 @@ export const ContentBundleWidget = ({
                     <Label children={data.title} style={style.articleTitle} />
                     <Label children={decode(decodeHTMLTags(data.body))}
                         style={style.articleDescription}
-                        numberOfLines={3}
+                        numberOfLines={10}
                     />
                     {buttonWithArrow()}
                 </TouchableOpacity>
@@ -110,7 +110,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontFamily: fonts.Effra_Arbc_Regular,
         fontSize: 16,
         lineHeight: 26,
-        textAlign: 'left',
+        textAlign: 'justify',
+        direction: 'rtl',
+        writingDirection: 'rtl',
         color: Styles.color.davyGrey,
     },
     arrowButtonContainer: {

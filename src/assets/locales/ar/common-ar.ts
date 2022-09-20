@@ -382,4 +382,7 @@ export const arabic = {
     yourLetter: 'رسالتك',
     send: 'ارسل',
   },
+  articleDetail: {
+    contentBundleWidgetTitle: 'اقرأ أيضاً'
+  }
 }
