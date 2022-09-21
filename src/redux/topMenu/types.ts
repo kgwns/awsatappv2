@@ -19,6 +19,7 @@ export interface TopMenuItemType {
   keyName?: string;
   isSelected: boolean;
   child?: TopMenuItemType[];
+  field_sections?: string;
 }
 
 export interface FetchTopMenuSuccessPayloadType {

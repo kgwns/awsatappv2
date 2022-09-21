@@ -90,6 +90,7 @@ export const SectionsScreen = () => {
             sectionId: item.sectionId,
             keyName: item.keyName,
             child: item.child,
+            field_sections: item.field_sections
           };
         })
         setNewRoutes(newRoutesArray)
