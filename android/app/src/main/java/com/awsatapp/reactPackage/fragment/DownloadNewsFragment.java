@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -336,42 +337,50 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.download_btn:
                 Button button = (Button) v;
-                if (mPdf.getStatus() == 0 ) {
-                    FileDownloader.setup(mContext);
-                    downloadPdf(button, mPdf);
-                    mPdf.setStatus(1);
-                    button.setText(getString(R.string.downloading));
-                } else if (mPdf.getStatus() == 1 ) {
-                    if (mPdf.getmDownloadTask() != null) {
-                        mPdf.getmDownloadTask().pause();
-                        mPdf.setmDownloadTask(null);
-                        mPdf.setStatus(0);
-                        button.setText(getString(R.string.download));
-                        pdfDownloadService.removeCurrentTask();
-                    }
+                if( null != mPdf) {
+                    if (mPdf.getStatus() == 0 ) {
+                        FileDownloader.setup(mContext);
+                        downloadPdf(button, mPdf);
+                        mPdf.setStatus(1);
+                        button.setText(getString(R.string.downloading));
+                    } else if (mPdf.getStatus() == 1 ) {
+                        if (mPdf.getmDownloadTask() != null) {
+                            mPdf.getmDownloadTask().pause();
+                            mPdf.setmDownloadTask(null);
+                            mPdf.setStatus(0);
+                            button.setText(getString(R.string.download));
+                            pdfDownloadService.removeCurrentTask();
+                        }
 
-                } else if (mPdf.getStatus() == 2) {
-                    final String path = mContext.getFilesDir().getPath() + "/" + mPdf.getIssueNumber() + ".pdf";
-                    String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
-                    String timeStamp = !String.valueOf(mPdf.getCreated()).isEmpty() ? Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()):"";
-                    String edition = getString(R.string.edition);
-                    String issueNumber = !String.valueOf(mPdf.getIssueNumber()).isEmpty()?mPdf.getIssueNumber():"";
-                    String title = "";
-                    if(!timeStamp.isEmpty()){
-                        if(!issueNumber.isEmpty()){
-                            title = timeStamp + " " + edition +" "+ issueNumber;
+                    } else if (mPdf.getStatus() == 2) {
+                        final String path = mContext.getFilesDir().getPath() + "/" + mPdf.getIssueNumber() + ".pdf";
+                        String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
+                        String timeStamp = !String.valueOf(mPdf.getCreated()).isEmpty() ? Utils.getFullDateFromTimestamp(new Locale(lang), mPdf.getCreated()):"";
+                        String edition = getString(R.string.edition);
+                        String issueNumber = !String.valueOf(mPdf.getIssueNumber()).isEmpty()?mPdf.getIssueNumber():"";
+                        String title = "";
+                        if(!timeStamp.isEmpty()){
+                            if(!issueNumber.isEmpty()){
+                                title = timeStamp + " " + edition +" "+ issueNumber;
+                            }else{
+                                title = timeStamp + " " + edition;
+                            }
                         }else{
-                            title = timeStamp + " " + edition;
+                            if(!issueNumber.isEmpty()){
+                                title = edition + " " + issueNumber;
+                            }else {
+                                title = "";
+                            }
                         }
-                    }else{
-                        if(!issueNumber.isEmpty()){
-                            title = edition + " " + issueNumber;
-                        }else {
-                            title = "";
-                        }
-                    }
 
-                    startActivity(PdfActivity.newInstance(mContext, path, title));
+                        startActivity(PdfActivity.newInstance(mContext, path, title));
+                    }
+                } else {
+                    CharSequence text = "يرجى الانتظار حتى يتم تحميل المحتوى";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(mContext, text, duration);
+                    toast.show();
                 }
 
             break;
