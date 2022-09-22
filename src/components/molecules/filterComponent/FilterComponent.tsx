@@ -54,7 +54,7 @@ export const FilterComponent = ({
                 data.map((item: FilterDataType, index: number) => (
                     <>
                         <View style={style.labelContainer} key={index}>
-                            <TouchableOpacity testID={moleculesTestID.filterBtn} key={index} activeOpacity={0.8} onPress={() => onPress(index)}
+                            <TouchableOpacity testID={moleculesTestID.filterBtn} activeOpacity={0.8} onPress={() => onPress(index)}
                                 style={[style.filterItem, item.isSelected && style.filterActive]}>
                                 <Label children={item.name} style={style.label}
                                     color={item.isSelected ? Styles.color.white : themeData.secondarySpanishGray}
