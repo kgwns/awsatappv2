@@ -751,6 +751,7 @@ const createStyles = (theme: CustomThemeType) =>
       borderRadius: normalize(76) / 2,
     },
     emailContainer: {
+      flex: 0.8,
       marginLeft: '5%',
       justifyContent: 'center',
     },
