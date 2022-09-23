@@ -5,21 +5,22 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  Image,
 } from 'react-native';
 import React, {useRef} from 'react';
-import {isIOS, isTab, normalize, normalizeBy320, screenWidth} from 'src/shared/utils';
+import {isIOS, isTab, normalize, normalizeBy320, screenWidth, isDarkTheme} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label, Image} from 'src/components/atoms';
+import {Label} from 'src/components/atoms';
 import {fonts} from 'src/shared/styles/fonts';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {getImageUrl} from 'src/shared/utils/utilities';
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {
   TranslateConstants,
   TranslateKey,
 } from 'src/constants/TranslateConstants';
+import { useAppCommon } from 'src/hooks/useAppCommon';
 
 export interface AuthorsItemType {
   name: string;
@@ -43,9 +44,12 @@ export const AuthorsHorizontalSlider = ({
   selectedIndex,
 }: AuthorsHorizontalSliderProps) => {
   const {themeData} = useTheme();
+  const { theme } = useAppCommon()
+  const isDarkMode = isDarkTheme(theme)
   const styles = useThemeAwareObject(customStyle);
   const scrollRef = useRef<ScrollView>(null);
   const allTitle = TranslateConstants({key: TranslateKey.TAB_ALL_TITLE});
+  const authorPlaceHolder = isDarkMode ? Styles.darkImage[ImagesName.authorDefaultGrey] : Styles.image[ImagesName.authorDefault]
 
   const scrollToEnd = () => {
     if (isIOS) {
@@ -103,19 +107,10 @@ export const AuthorsHorizontalSlider = ({
                 : {borderColor: colors.transparent},
             ]}>
             <Image
-              url={imageUrl}
-              size={33}
+              source={{uri: imageUrl}}
+              defaultSource={authorPlaceHolder}
+              style={styles.authorImageStyle}
               resizeMode={'cover'}
-              type={'round'}
-              fallback={true}
-              fallbackContent={
-                <AuthorDefault
-                  style={{backgroundColor: colors.cyanGreen}}
-                  width={33}
-                  height={33}
-                />
-              }
-              fallbackName={ImagesName.authorDefault}
             />
             <Label
               children={item.name}
@@ -213,5 +208,10 @@ const customStyle = (theme: CustomThemeType) =>
     showAllContainer: {
       paddingLeft: normalize(10)
     },
+    authorImageStyle: {
+      height:33,
+      width:33,
+      borderRadius: 33/2
+    }
   });
   
