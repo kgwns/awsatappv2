@@ -1048,7 +1048,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 154;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
@@ -1057,6 +1057,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 5.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1082,7 +1083,7 @@
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 154;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1090,6 +1091,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 5.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
