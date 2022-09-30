@@ -111,7 +111,8 @@ const customStyle = (theme: CustomThemeType) => {
             alignSelf: 'center',
             textAlign: 'center',
             paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-            marginTop: isTab ? normalize(45) : normalize(35)
+            marginTop: isTab ? normalize(45) : normalize(25),
+            marginBottom: isTab ? normalize(40) : normalize(20)
         },
         descriptionLandscape: {
             fontFamily: fonts.Effra_Arbc_Regular,

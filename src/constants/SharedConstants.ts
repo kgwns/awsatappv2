@@ -54,7 +54,7 @@ export const HOME_PODCAST_TITLE = 'اليوم'
 //Not Registered Pop Up
 export const NOT_SUBSCRIBED = 'أنت غير مشترك';
 export const SAVE_ARTICLE_TO_YOUR_FAVOURITES = 'لحفظ المقالة لمفضلاتك';
-export const CREATE_ACCOUNT_DESCRIPTION = 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك\n  و تتمتع بخاصية حفظ المقالات و تتمتع بأخبار لا محدوده\n'
+export const CREATE_ACCOUNT_DESCRIPTION = 'انشئ حساباً مجانياً لتتمكن من متابعة كتابك\n المفضلين والمواضيع التي تهمك وتتمتع بخاصية \n حفظ المقالات'
 export const SIGN_UP = 'قم بالتسجيل'
 export const LOG_IN = 'ادخل لحسابك'
 
