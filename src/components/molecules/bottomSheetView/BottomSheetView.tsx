@@ -106,12 +106,13 @@ const customStyle = (theme: CustomThemeType) => {
         description: {
             fontFamily: fonts.Effra_Arbc_Regular,
             fontSize: 19,
-            lineHeight: 32,
+            lineHeight: isIOS ? 32 : 38,
             color: colors.black,
             alignSelf: 'center',
             textAlign: 'center',
             paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-            marginTop: isTab ? normalize(45) : normalize(35)
+            marginTop: isTab ? normalize(45) : normalize(25),
+            marginBottom: isTab ? normalize(40) : normalize(20)
         },
         descriptionLandscape: {
             fontFamily: fonts.Effra_Arbc_Regular,

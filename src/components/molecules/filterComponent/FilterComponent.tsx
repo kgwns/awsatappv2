@@ -88,7 +88,7 @@ const customStyle = (theme: CustomThemeType) => (
         },
         filterActive: {
             backgroundColor: theme.filterBackgroundColor,
-            borderColor: theme.filterBorderColor,
+            borderColor: theme.filterBackgroundColor,
         },
         labelContainer: {
             paddingRight: 5,

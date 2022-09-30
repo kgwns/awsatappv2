@@ -137,20 +137,31 @@ export const SectionsScreen = () => {
     setNewRoutes(routeData)
   }
 
-  const onPressTabItem = (index: number) => {
+  const onPressTabItem = (selectedIndex: number) => {
     const routeData = [...routes]
-    const selectedRoute = routeData[index]
+    const selectedRoute = routeData[selectedIndex]
     let selectedRouteChild: TopMenuItemType[] = [];
+
     if(selectedRoute && selectedRoute.child) {
       selectedRouteChild = selectedRoute.child.map((item: TopMenuItemType) => ({
         ...item,
         isSelected: false
       }))
+
+      const previousData = routeData[index];
+      let oldChildSection = [...previousData.child]
+      const lastSelectedIndex = oldChildSection.findIndex((item) => item.isSelected == true);
+      if (lastSelectedIndex > -1 && isNonEmptyArray(oldChildSection[lastSelectedIndex].child)) {
+        let updatedLatestChild = oldChildSection[lastSelectedIndex]
+        const updatedLatestSubChild = updatedLatestChild.child?.map((childItem: TopMenuItemType) => ({ ...childItem, isSelected: false }));
+        updatedLatestChild.child = updatedLatestSubChild
+        oldChildSection[lastSelectedIndex] = updatedLatestChild;
+      }
     }
     selectedRoute.child = selectedRouteChild
-    routeData[index] = selectedRoute
+    routeData[selectedIndex] = selectedRoute
     setNewRoutes(routeData)
-    setIndex(index)
+    setIndex(selectedIndex)
   }
 
 

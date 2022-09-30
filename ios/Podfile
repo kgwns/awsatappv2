@@ -21,6 +21,11 @@ target 'Awsatapp' do
   pod 'DateToolsSwift', :git => 'https://github.com/MatthewYork/DateTools', :commit => '76ba8ba'
   
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
+
+  pod 'Firebase', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
   
   use_react_native!(
     :path => config[:reactNativePath],
