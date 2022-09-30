@@ -371,11 +371,19 @@ export const SectionStoryScreen = React.memo(({
   // }
 
   const onClickChildSection = (clickItemIndex: number) => {
-    const spreadChildSection = [...childSection]
-    const updatedChildSection = spreadChildSection.map((item,index) => {
+    let oldChildSection = [...childSection]
+    const lastSelectedIndex = oldChildSection.findIndex((item) => item.isSelected == true);
+    if (lastSelectedIndex > -1 && isNonEmptyArray(oldChildSection[lastSelectedIndex].child)) {
+      let updatedLatestChild = oldChildSection[lastSelectedIndex]
+      const updatedLatestSubChild = updatedLatestChild.child?.map((childItem) => ({ ...childItem, isSelected: false }));
+      updatedLatestChild.child = updatedLatestSubChild
+      oldChildSection[lastSelectedIndex] = updatedLatestChild;
+    }
+    
+    const updatedChildSection = oldChildSection.map((item,index) => {
       return {
         ...item,
-        isSelected: clickItemIndex != index ? false : !spreadChildSection[index].isSelected
+        isSelected: clickItemIndex != index ? false : !oldChildSection[index].isSelected
       }
     })
 
