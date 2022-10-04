@@ -6,7 +6,8 @@ import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
   HORIZONTAL_ARTICLE_END_POINT,
   EDITORS_CHOICE,
   SPOTLIGHT_COMBO,
-  ARTICLE_SECTION_GET
+  ARTICLE_SECTION_GET,
+  INFO_GRAPHIC_BLOCK,
 } from './apiEndPoints';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { payloadType } from 'src/redux/latestNews/types';
@@ -126,6 +127,17 @@ export const requestSpotlightArticleSection = async (body: SpotlightArticleSecti
   try {
     const response: payloadType = await getCacheApiRequest(
       `${BASE_URL}${ARTICLE_SECTION_GET}${body.id}?page=${body.page}&items_per_page=${body.items_per_page}`,
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const infoGraphicBlockApi = async () => {
+  try {
+    const response: any = await getCacheApiRequest(
+      `${BASE_URL}${INFO_GRAPHIC_BLOCK}`,
     );
     return response;
   } catch (error) {

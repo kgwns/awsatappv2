@@ -11,9 +11,11 @@ import {
   REQUEST_SECTION_COMBO_FIVE, REQUEST_SECTION_COMBO_FIVE_SUCCESS, REQUEST_SECTION_COMBO_FIVE_FAILED,
   REQUEST_SECTION_COMBO_SIX, REQUEST_SECTION_COMBO_SIX_SUCCESS, REQUEST_SECTION_COMBO_SIX_FAILED,
   REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED,
+  REQUEST_SECTION_COMBO_EIGHT, REQUEST_SECTION_COMBO_EIGHT_SUCCESS, REQUEST_SECTION_COMBO_EIGHT_FAILED,
   REQUEST_EDITORS_CHOICE_DATA, REQUEST_EDITORS_CHOICE_DATA_SUCCESS, REQUEST_EDITORS_CHOICE_DATA_FAILED,
   REQUEST_SPOTLIGHT_COMBO, REQUEST_SPOTLIGHT_COMBO_SUCCESS, REQUEST_SPOTLIGHT_COMBO_FAILED,
   REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS, REQUEST_COVERAGE_BLOCK_FAILED, REQUEST_FEATURED_ARTICLE_BLOCK_FAILED, REQUEST_HORIZONTAL_ARTICLE_FAILED, REQUEST_COVERAGE_BLOCK, REQUEST_FEATURED_ARTICLE_BLOCK, REQUEST_HORIZONTAL_ARTICLE_BLOCK,
+  REQUEST_INFO_GRAPHIC_BLOCK, REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS, REQUEST_INFO_GRAPHIC_BLOCK_FAILED,
 } from './actionType';
 import { LatestNewsTabState, LatestTabAction } from './types';
 
@@ -32,6 +34,7 @@ const initialData: LatestNewsTabState = {
   sectionComboFive: [],
   sectionComboSix: [],
   sectionComboSeven: [],
+  sectionComboEight:[],
   podcastHome: [],
   coverageInfo: [],
   featuredArticle: [],
@@ -39,6 +42,7 @@ const initialData: LatestNewsTabState = {
   editorsChoice: [],
   spotlight: [],
   spotlightArticleSection: [],
+  infoGraphicBlockInfo: [],
   coverageInfoLoaded: false,
   featuredArticleLoaded: false,
   horizontalArticleLoaded: false,
@@ -48,6 +52,7 @@ const initialData: LatestNewsTabState = {
   sectionComboOneLoaded: false,
   sectionComboTwoLoaded: false,
   sectionComboThreeLoaded: false,
+  infoGraphicBlockInfoLoaded: false,
 };
 
 export default (state = initialData, action: LatestTabAction) => {
@@ -228,6 +233,22 @@ export default (state = initialData, action: LatestTabAction) => {
         isLoading: false,
         error: action.payload.error
       }
+    case REQUEST_SECTION_COMBO_EIGHT:
+      return {
+        ...state,
+      }
+    case REQUEST_SECTION_COMBO_EIGHT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        sectionComboEight: action.payload.sectionComboEight
+      }
+    case REQUEST_SECTION_COMBO_EIGHT_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
     case REQUEST_PODCAST_HOME_DATA:
       return {
         ...state,
@@ -348,6 +369,23 @@ export default (state = initialData, action: LatestTabAction) => {
         ...state,
         isLoading: false,
         error: action.payload.error
+      }
+    case REQUEST_INFO_GRAPHIC_BLOCK:
+      return {
+        ...state,
+        infoGraphicBlockInfoLoaded: false,
+      }
+    case REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS:
+      return {
+        ...state,
+        infoGraphicBlockInfo: action.payload.infoGraphicBlockInfo,
+        infoGraphicBlockInfoLoaded: true,
+        isLoading: false,
+      }
+    case REQUEST_INFO_GRAPHIC_BLOCK_FAILED:
+      return {
+        ...state,
+        infoGraphicBlockInfoLoaded: true,
       }
     default:
       return { ...state }

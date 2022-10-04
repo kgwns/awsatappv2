@@ -61,5 +61,6 @@ export { DetailHeader } from 'src/components/molecules/detailHeader/DetailHeader
 export { StaticPageHeader, StaticPageHeaderType } from 'src/components/molecules/staticPageHeader/StaticPageHeader';
 export { PhotoGalleryItem } from 'src/components/molecules/photogallery/PhotoGalleryItem';
 export { PhotoGalleryDetailFooter } from 'src/components/molecules/photogallery/PhotoGalleryDetailFooter';
+export { GridViewItem } from 'src/components/molecules/GridViewItem';
 
 export { Journalist } from 'src/components/molecules/journalists/Journalists'

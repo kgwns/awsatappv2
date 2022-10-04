@@ -92,6 +92,9 @@ export const arabic = {
       headerLeft: 'منوعات',
     },
     sectionComboSeven: {
+      headerLeft: 'يوميات الشرق',
+    },
+    sectionComboEight: {
       headerLeft: 'الرياضة',
     },
     articlSection: {

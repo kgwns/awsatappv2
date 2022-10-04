@@ -21,9 +21,13 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
   REQUEST_SECTION_COMBO_FIVE, REQUEST_SECTION_COMBO_FIVE_SUCCESS, REQUEST_SECTION_COMBO_FIVE_FAILED,
   REQUEST_SECTION_COMBO_SIX, REQUEST_SECTION_COMBO_SIX_SUCCESS, REQUEST_SECTION_COMBO_SIX_FAILED,
   REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED,
+  REQUEST_SECTION_COMBO_EIGHT, REQUEST_SECTION_COMBO_EIGHT_SUCCESS, REQUEST_SECTION_COMBO_EIGHT_FAILED,
   REQUEST_EDITORS_CHOICE_DATA, REQUEST_EDITORS_CHOICE_DATA_SUCCESS, REQUEST_EDITORS_CHOICE_DATA_FAILED, 
   REQUEST_SPOTLIGHT_COMBO, REQUEST_SPOTLIGHT_COMBO_SUCCESS, REQUEST_SPOTLIGHT_COMBO_FAILED,
   REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_FAILED,
+  REQUEST_INFO_GRAPHIC_BLOCK,
+  REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS,
+  REQUEST_INFO_GRAPHIC_BLOCK_FAILED,
 } from "./actionType"
 import { HeroListTopListFailedPayload, HeroListTopListFailedType, 
   HeroListTopListSuccessPayload, HeroListTopListSuccessType, 
@@ -63,6 +67,7 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   RequestSectionComboFive, RequestSectionComboFiveFailedPayload, RequestSectionComboFiveFailedType, RequestSectionComboFiveSuccessPayload, RequestSectionComboFiveSuccessType,
   RequestSectionComboSix, RequestSectionComboSixFailedPayload, RequestSectionComboSixFailedType, RequestSectionComboSixSuccessPayload, RequestSectionComboSixSuccessType,
   RequestSectionComboSeven, RequestSectionComboSevenFailedPayload, RequestSectionComboSevenFailedType, RequestSectionComboSevenSuccessPayload, RequestSectionComboSevenSuccessType,
+  RequestSectionComboEight, RequestSectionComboEightFailedPayload, RequestSectionComboEightFailedType, RequestSectionComboEightSuccessPayload, RequestSectionComboEightSuccessType,
   RequestEditorsChoiceType,
   EditorsChoiceSuccessPayload,
   EditorsChoiceSuccessType,
@@ -70,6 +75,7 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   EditorsChoiceFailedType,
   RequestSpotlightType, SpotlightSuccessPayload, SpotlightSuccessType, SpotlightFailedPayload, SpotlightFailedType,
   RequestSpotlightArticleSectionType, SpotlightArticleSectionBodyGet, SpotlightArticleSectionSuccessPayload, SpotlightArticleSectionSuccessType, SpotlightArticleSectionFailedPayload, SpotlightArticleSectionFailedType,
+  RequestInfoGraphicBlockSuccessPayloadType, RequestInfoGraphicBlockSuccessType, RequestInfoGraphicBlockFailedPayload, RequestInfoGraphicBlockFailedType,
 } from "./types"
 
 export const requestTickerAndHero = (
@@ -396,6 +402,21 @@ export const requestSpotlightArticleSectionFailed = (
   };
 };
 
+export const requestInfoGraphicBlock = () => {
+  return {
+    type: REQUEST_INFO_GRAPHIC_BLOCK
+  }
+}
+
+export const requestInfoGraphicBlockSuccess = (
+  payload: RequestInfoGraphicBlockSuccessPayloadType
+): RequestInfoGraphicBlockSuccessType => {
+  return {
+    type: REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS,
+    payload
+  }
+}
+
 export const requestCoverBlockFailed = (
   payload: RequestCoverageBlockFailedPayload
 ): RequestCoverageBlockFailedType => {
@@ -500,6 +521,24 @@ export const requestSectionComboSevenSuccess = (
   }
 }
 
+export const requestSectionComboEight = (
+  payload: RequestSectionComboBodyGet
+): RequestSectionComboEight => {
+  return {
+    type: REQUEST_SECTION_COMBO_EIGHT,
+    payload
+  }
+}
+
+export const requestSectionComboEightSuccess = (
+  payload: RequestSectionComboEightSuccessPayload
+): RequestSectionComboEightSuccessType => {
+  return {
+    type: REQUEST_SECTION_COMBO_EIGHT_SUCCESS,
+    payload
+  }
+}
+
 export const requestHorizontalArticleBlockFailed = (
   payload: RequestHorizontalBlockFailedPayload
 ): RequestHorizontalBlockFailedType => {
@@ -518,11 +557,29 @@ export const requestSectionComboSevenFailed = (
   }
 }
 
+export const requestSectionComboEightFailed = (
+  payload: RequestSectionComboEightFailedPayload
+): RequestSectionComboEightFailedType => {
+  return {
+    type: REQUEST_SECTION_COMBO_EIGHT_FAILED,
+    payload
+  }
+}
+
 export const requestEditorsChoiceFailed = (
   payload: EditorsChoiceFailedPayload
 ): EditorsChoiceFailedType => {
   return {
     type: REQUEST_EDITORS_CHOICE_DATA_FAILED,
+    payload
+  }
+}
+
+export const requestInfoGraphicBlockFailed = (
+  payload: RequestInfoGraphicBlockFailedPayload
+): RequestInfoGraphicBlockFailedType => {
+  return {
+    type: REQUEST_INFO_GRAPHIC_BLOCK_FAILED,
     payload
   }
 }
@@ -570,6 +627,9 @@ export const latestTabActions = {
   requestSectionComboSeven,
   requestSectionComboSevenSuccess,
   requestSectionComboSevenFailed,
+  requestSectionComboEight,
+  requestSectionComboEightSuccess,
+  requestSectionComboEightFailed,
   requestEditorsChoiceData,
   requestEditorsChoiceSuccess,
   requestEditorsChoiceFailed,
@@ -579,4 +639,7 @@ export const latestTabActions = {
   requestSpotlightArticleSection,
   requestSpotlightArticleSectionSuccess,
   requestSpotlightArticleSectionFailed,
+  requestInfoGraphicBlock,
+  requestInfoGraphicBlockSuccess,
+  requestInfoGraphicBlockFailed,
 };

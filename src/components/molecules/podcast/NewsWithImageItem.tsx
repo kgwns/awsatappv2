@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { isTab, normalize } from 'src/shared/utils';
 import { Label, Image, LabelTypeProp } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -18,6 +18,7 @@ export interface NewsWithImageItemProps {
   footerLeftHighlight?: boolean;
   footerLeftLabel?: string;
   showHighlightTitle?: boolean;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
 export const NewsWithImageItem = ({
@@ -30,11 +31,12 @@ export const NewsWithImageItem = ({
   footerLeftHighlight = false,
   footerLeftLabel,
   showHighlightTitle = true,
+  containerStyle
 }: NewsWithImageItemProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   return (
-    <View style={style.container}>
+    <View style={StyleSheet.flatten([style.container, containerStyle])}>
       {imageUrl &&
         <Image url={imageUrl} style={isTab ? style.tabImage : style.image}
           resizeMode={ImageResize.COVER} fallback

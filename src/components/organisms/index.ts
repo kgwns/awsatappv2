@@ -44,3 +44,6 @@ export { MyNewsTopics } from 'src/components/organisms/myTopics/MyNewsTopics'
 export { MyNewsWriters } from 'src/components/organisms/myNews/MyNewsWriters'
 export { PhotoGalleryDetailWidget } from 'src/components/organisms/photoGallery/PhotoGalleryDetailWidget'
 export { JournalistSection } from 'src/components/organisms/journalistSection/JournalistSection'
+export { default as InfoGraphicMapWidget } from './InfoGraphicMapWidget';
+export { default as ArticleGridView } from './ArticleGridView';
+export { default as ArticleImageView } from './ArticleImageView';

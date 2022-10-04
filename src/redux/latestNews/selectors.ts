@@ -1,5 +1,5 @@
 import { AppState, Selector } from 'src/redux/rootReducer';
-import { EditorsChoiceDataType, LatestArticleDataType, LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, RequestSpotlightArticleSectionType, SpotlightDataType } from './types';
+import { EditorsChoiceDataType, InfoGraphicBlockType, LatestArticleDataType, LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, RequestSpotlightArticleSectionType, SpotlightDataType } from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
   state.latestNewsTab.isLoading;
@@ -39,6 +39,9 @@ export const getSectionComboSixData: Selector<LatestArticleDataType[]> = (state:
 
 export const getSectionComboSevenData: Selector<LatestArticleDataType[]> = (state: AppState) =>
   state.latestNewsTab.sectionComboSeven;
+
+export const getSectionComboEightData: Selector<LatestArticleDataType[]> = (state: AppState) =>
+  state.latestNewsTab.sectionComboEight;
 
 export const getPodcastHomeData: Selector<LatestPodcastDataType[]> = (state: AppState) =>
   state.latestNewsTab.podcastHome;
@@ -90,3 +93,9 @@ export const getSectionComboTwoLoading: Selector<boolean> = (state: AppState) =>
 
 export const getSectionComboThreeLoading: Selector<boolean> = (state: AppState) =>
   state.latestNewsTab.sectionComboThreeLoaded;
+
+export const getInfoGraphicBlockData: Selector<InfoGraphicBlockType[]> = (state: AppState) =>
+state.latestNewsTab.infoGraphicBlockInfo;
+
+export const getInfoGraphicBlockDataLoading: Selector<boolean> = (state: AppState) =>
+state.latestNewsTab.infoGraphicBlockInfoLoaded;

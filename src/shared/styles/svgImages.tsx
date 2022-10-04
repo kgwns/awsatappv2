@@ -165,6 +165,8 @@ import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds
 //Photo Gallery
 import PhotoIcon from 'src/assets/images/icons/photo.svg';
 
+import FlagIcon from 'src/assets/images/icons/flag.svg';
+
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
 
@@ -401,6 +403,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <ChatBubbleIcon {...props} />
         case ImagesName.photoIcon:
             return <PhotoIcon {...props} />
+        case ImagesName.flagIcon:
+            return <FlagIcon {...props} />
         default: return null
     }
 }

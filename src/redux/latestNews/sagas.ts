@@ -9,6 +9,7 @@ import {
   RequestSectionComboFiveSuccessPayload,
   RequestSectionComboSixSuccessPayload,
   RequestSectionComboSevenSuccessPayload,
+  RequestSectionComboEightSuccessPayload,
   RequestSectionComboType,
   RequestTickerAndHeroType, TickerHeroSuccessPayload,
   OpinionSuccessPayload, RequestOpinionListType, LatestOpinionDataType,
@@ -18,6 +19,8 @@ import {
   RequestFeaturedBlockSuccessPayloadType, RequestHorizontalBlockSuccessPayloadType,
   EditorsChoiceDataType, EditorsChoiceSuccessPayload,
   SpotlightDataType, SpotlightSuccessPayload, RequestSpotlightArticleSectionType, SpotlightArticleSectionSuccessPayload,
+  RequestInfoGraphicBlockSuccessPayloadType,
+  InfoGraphicBlockType
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -28,6 +31,7 @@ import {
   REQUEST_SECTION_COMBO_FIVE,
   REQUEST_SECTION_COMBO_SIX,
   REQUEST_SECTION_COMBO_SEVEN,
+  REQUEST_SECTION_COMBO_EIGHT,
   REQUEST_TICKER_HERO_DATA,
   REQUEST_OPINION_LIST_DATA,
   REQUEST_PODCAST_HOME_DATA,
@@ -37,6 +41,7 @@ import {
   REQUEST_EDITORS_CHOICE_DATA,
   REQUEST_SPOTLIGHT_COMBO,
   REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+  REQUEST_INFO_GRAPHIC_BLOCK,
 } from './actionType';
 import {
   requestHeroListTopListFailed, requestHeroListTopListSuccess,
@@ -47,6 +52,7 @@ import {
   requestSectionComboFiveFailed, requestSectionComboFiveSuccess,
   requestSectionComboSixFailed, requestSectionComboSixSuccess,
   requestSectionComboSevenFailed, requestSectionComboSevenSuccess,
+  requestSectionComboEightFailed, requestSectionComboEightSuccess,
   requestTickerAndHeroFailed, requestTickerAndHeroSuccess,
   requestOpinionSuccess,
   requestPodcastHomeSuccess, requestPodcastHomeFailed,
@@ -55,6 +61,7 @@ import {
   requestHorizontalArticleBlockSuccess, requestHorizontalArticleBlockFailed,
   requestEditorsChoiceSuccess, requestEditorsChoiceFailed,
   requestSpotlightSuccess, requestSpotlightFailed, requestSpotlightArticleSectionSuccess, requestSpotlightArticleSectionFailed,
+  requestInfoGraphicBlockSuccess, requestInfoGraphicBlockFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
 import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
@@ -69,6 +76,7 @@ import {
   editorsChoiceApi,
   spotlightApi,
   requestSpotlightArticleSection,
+  infoGraphicBlockApi,
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
@@ -123,6 +131,16 @@ const parseCoverageDataSuccess = (response: any) => {
   return responseData
 }
 
+const parseInfoGraphicBlockDataSuccess = (response: any) => {
+  const formattedData = formatInfoGraphicBlockData(response)
+  const responseData: RequestInfoGraphicBlockSuccessPayloadType = {
+    infoGraphicBlockInfo: []
+  }
+  responseData.infoGraphicBlockInfo = formattedData
+
+  return responseData
+}
+
 const parseFeaturedArticleSuccess = (response: any) => {
   const formattedData = formatMainSectionBlockData(response)
   const responseData: RequestFeaturedBlockSuccessPayloadType = {
@@ -131,7 +149,7 @@ const parseFeaturedArticleSuccess = (response: any) => {
    
   const allFeaturedArticleData = formattedData.filter((item) => item.blockName == MainSectionBlockName.FEATURED_ARTICLE)
   const sortedFeaturedArticleData = allFeaturedArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
-  const featuredArticleDataInfo = sortedFeaturedArticleData.splice(0, 5)
+  const featuredArticleDataInfo = sortedFeaturedArticleData.splice(0, 15)
 
   responseData.featureArticle = featuredArticleDataInfo
 
@@ -265,6 +283,19 @@ const formatSpotlight = (response: any): SpotlightDataType[] => {
   return formattedSpotlightData;
 }
 
+const formatInfoGraphicBlockData = (response: any): InfoGraphicBlockType[] => {
+  let formattedInfoGraphicBlockData: InfoGraphicBlockType[] = []
+  if (response && isNonEmptyArray(response)) {
+    formattedInfoGraphicBlockData = response.map(
+      ({ info, body }: any) => ({
+        info,
+        body,
+      })
+    );
+  }
+  return formattedInfoGraphicBlockData;
+}
+
 const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPayload => {
   const formattedData = formatLatestArticle(response)
   const responseData: HeroListTopListSuccessPayload = {
@@ -369,6 +400,15 @@ const parseSectionComboSeven= (response: payloadType) => {
     sectionComboSeven: []
   }
   responseData.sectionComboSeven = formattedData.splice(0, 4)
+  return responseData
+}
+
+const parseSectionComboEight = (response: payloadType) => {
+  const formattedData = formatLatestArticle(response)
+  const responseData: RequestSectionComboEightSuccessPayload = {
+    sectionComboEight: []
+  }
+  responseData.sectionComboEight = formattedData.splice(0, 4)
   return responseData
 }
 
@@ -520,6 +560,9 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
     } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
       const response = parseSectionComboSeven(payload)
       yield put(requestSectionComboSevenSuccess(response));
+    } else if (action.type == REQUEST_SECTION_COMBO_EIGHT) {
+      const response = parseSectionComboEight(payload)
+      yield put(requestSectionComboEightSuccess(response));
     }
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
@@ -539,6 +582,8 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
         yield put(requestSectionComboSixFailed({ error: errorMessage.message }));
       } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
         yield put(requestSectionComboSevenFailed({ error: errorMessage.message }));
+      } else if (action.type == REQUEST_SECTION_COMBO_EIGHT) {
+        yield put(requestSectionComboEightFailed({ error: errorMessage.message }));
       }
     }
   }
@@ -668,6 +713,22 @@ export function* fetchSpotlightArticleSection(action: RequestSpotlightArticleSec
   }
 }
 
+export function* fetchInfoGraphicBlockData() {
+  try {
+    const payload: payloadType = yield call(
+      infoGraphicBlockApi,
+    );
+    const response = parseInfoGraphicBlockDataSuccess(payload)
+    yield put(requestInfoGraphicBlockSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestInfoGraphicBlockFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
 function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)]);
   yield all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)]);
@@ -683,9 +744,11 @@ function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_SECTION_COMBO_FIVE, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_SIX, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_SEVEN, fetchSectionCombo)]);
+  yield all([takeLatest(REQUEST_SECTION_COMBO_EIGHT, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_EDITORS_CHOICE_DATA, fetchEditorsChoiceData)]);
   yield all([takeLatest(REQUEST_SPOTLIGHT_COMBO,fetchSpotlightData)]);
   yield all ([takeLatest(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,fetchSpotlightArticleSection)]);
+  yield all([takeLatest(REQUEST_INFO_GRAPHIC_BLOCK, fetchInfoGraphicBlockData)]);
 }
 
 export default articleDetailSaga;

@@ -24,5 +24,7 @@ export enum flatListUniqueKey {
   TAB_ARTICLE_SECTION_TWO = 'TAB_ARTICLE_SECTION_TWO',
   VIDEO_CONTENT = 'VideoContent',
   TAB_PODCAST_HOME = 'TAB_PODCAST_HOME',
-  PHOTO_GALLERY_LIST = 'PhotoGalleryList'
+  PHOTO_GALLERY_LIST = 'PhotoGalleryList',
+  ARTICLE_GRID_VIEW = 'ArticleGridView',
+  ARTICLE_IMAGE_VIEW = 'ArticleImageView',
 }
