@@ -80,22 +80,22 @@ export const arabic = {
       sliderLeftHeader: 'آراء وكتّاب '
     },
     sectionComboThree: {
-      headerLeft: 'العالم',
+      headerLeft: 'شؤون إقليمية',
     },
     sectionComboFour: {
-      headerLeft: 'الاقتصاد',
+      headerLeft: 'العالم',
     },
     sectionComboFive: {
-      headerLeft: 'ثقافة وفنون',
+      headerLeft: 'الاقتصاد',
     },
     sectionComboSix: {
-      headerLeft: 'منوعات',
+      headerLeft: 'ثقافة وفنون',
     },
     sectionComboSeven: {
-      headerLeft: 'يوميات الشرق',
+      headerLeft: 'الرياضة',
     },
     sectionComboEight: {
-      headerLeft: 'الرياضة',
+      headerLeft: 'يوميات الشرق',
     },
     articlSection: {
       articleTitle: 'عِينٌ على'
