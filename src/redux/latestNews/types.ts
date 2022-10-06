@@ -243,7 +243,7 @@ export interface OpinionFailedType {
 }
 
 export interface RequestSectionComboBodyGet {
-  id: number[] | number,
+  id: number[] | number | string,
   items_per_page?: number,
   page?: number
 }

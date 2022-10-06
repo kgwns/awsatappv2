@@ -23,6 +23,7 @@ export const HORIZONTAL_ARTICLE_END_POINT = 'api/v2/home/topview/tghtyt_khast'
 export const EDITORS_CHOICE = 'api/v2/home/editorschoice';
 export const SPOTLIGHT_COMBO = 'api/v2/home/spotlight';
 export const INFO_GRAPHIC_BLOCK = 'api/block/v1/top';
+export const SECTION_COMBO_SIX = '/api/v2/home/thakafa';
 
 //opinion tab in category section
 //writer list

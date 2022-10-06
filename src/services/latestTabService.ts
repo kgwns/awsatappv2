@@ -15,10 +15,14 @@ import { isArray, joinArray } from 'src/shared/utils';
 
 const getSectionComboUrl = (body: RequestSectionComboBodyGet) => {
   let url = `${BASE_URL}${SECTION_COMBO}`
-  if (isArray(body.id)) {
-    url += '/' + joinArray(body.id, '+');
+  if (typeof(body.id) == 'string') {
+    url = `${BASE_URL}${body.id}`
   } else {
-    url += `/${body.id}`;
+    if (isArray(body.id)) {
+      url += '/' + joinArray(body.id, '+');
+    } else {
+      url += `/${body.id}`;
+    }
   }
   return url
 }

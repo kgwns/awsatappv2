@@ -256,7 +256,6 @@ const createStyles = (theme: CustomThemeType) => {
     podcastContainer: {
       padding: 20,
       backgroundColor: theme.secondaryGreen,
-      marginBottom: 25
     },
     podcastItemContainer: {
       flexDirection: 'row'
