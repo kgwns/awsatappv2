@@ -6,6 +6,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ImagesName } from 'src/shared/styles'
 import { Label } from '../atoms'
 import AutoHeightWebView from 'react-native-autoheight-webview'
+import { colors } from 'src/shared/styles/colors'
 
 type InfoGraphicMapWidgetProps = {
     title: string
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     },
     widgetContainer: {
         width: '100%',
-        backgroundColor: '#E9F2EF'
+        backgroundColor: colors.aliceDimBlue
     },
     headerContainer: {
         flexDirection: 'row',
@@ -81,7 +82,8 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontFamily: fonts.AwsatDigitalV2_Black,
         fontSize: 16,
-        lineHeight: 28
+        lineHeight: 28,
+        color: colors.black
     },
     scrollViewStyle: {
         overflow: 'hidden',

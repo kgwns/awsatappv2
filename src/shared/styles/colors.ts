@@ -86,6 +86,7 @@ export const colors = {
   dimGray: '#666666',
   grayishGreen: '#647e7c',
   lightGreen: '#C7D8D6',
+  aliceDimBlue: '#E9F2EF',
 };
 
 export interface CustomThemeType {
