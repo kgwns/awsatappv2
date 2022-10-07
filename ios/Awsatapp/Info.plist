@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Awsatapp</string>
+	<string>الشرق الأوسط </string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -81,17 +81,17 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use your camera (For upload your photo)</string>
+	<string>يحتاج التطبيق استخدام الكاميرا</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) requires user’s location for weather.</string>
+	<string>يحتاج التطبيق موقع المستخدم لعرض خدمة الطقس</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>$(PRODUCT_NAME) requires user’s location for weather.</string>
+	<string>يحتاج التطبيق موقع المستخدم لعرض خدمة الطقس</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) requires user’s location for weather.</string>
+	<string>يحتاج التطبيق موقع المستخدم لعرض خدمة الطقس</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery (For Upload your photo / adding image)</string>
+	<string>يود التطبيق حفظ صور في معرض الصور بهاتفك</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like access to your photo gallery (For Upload your photo)</string>
+	<string>يود التطبيق الوصول إلى معرض الصور بهاتفك</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AwsatBlack.otf</string>
