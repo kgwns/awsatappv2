@@ -22,6 +22,7 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.airbnb.android.react.lottie.LottiePackage;
+import com.swmansion.rnscreens.RNScreensPackage;
 
 public class MainApplication extends Application implements ReactApplication, ComponentCallbacks2 {
   public static FileDownloadSerialQueue fileDownloadSerialQueue;
@@ -44,6 +45,7 @@ public class MainApplication extends Application implements ReactApplication, Co
           List<ReactPackage> packages = new PackageList(this).getPackages();
           packages.add(new LottiePackage());
           packages.add(new PDFPackage());
+          packages.add(new com.swmansion.rnscreens.RNScreensPackage());
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;
