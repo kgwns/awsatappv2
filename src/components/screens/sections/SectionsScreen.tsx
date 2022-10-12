@@ -239,7 +239,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     flex: 1,
   },
   tabBar: {
-    backgroundColor: theme.mainBackground,
+    backgroundColor: theme.tabBarBackground,
     paddingTop: 10
   },
   indicator: {

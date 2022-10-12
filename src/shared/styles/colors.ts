@@ -133,6 +133,7 @@ export interface CustomThemeType {
   borderColor: string,
   backIconColor: string,
   goToLabelTitle: string,
+  tabBarBackground: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -149,7 +150,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   secondaryDavyGrey: colors.davyGrey,
   secondaryDarkSlate: colors.darkSlateGray,
   secondarySpanishGray: colors.black,
-  backgroundColor: colors.aquaHaze,
+  backgroundColor: colors.aliceDimBlue,
   whiteSurface: colors.white,
   danger: colors.jasper,
   textColor: colors.greyDark50,
@@ -175,13 +176,14 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   primaryWhite: colors.white,
   writerBackground: colors.pattensBlue51,
   captionBackground: colors.whiteSmoke,
-  mainBackground: colors.darkerAquaHaze,
+  mainBackground: colors.aliceDimBlue,
   popupBackground: colors.blackOpacity50,
   playerBackground: colors.balckOpacity20,
   bottomSheetBackground: colors.mandyPink,
   borderColor: colors.lightGreen,
   backIconColor: colors.black,
   goToLabelTitle: colors.darkGreenish,
+  tabBarBackground: colors.white,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -228,5 +230,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   borderColor: colors.lightGreen,
   backIconColor: colors.white,
   goToLabelTitle: colors.white,
+  tabBarBackground: colors.codGray,
 }
 
