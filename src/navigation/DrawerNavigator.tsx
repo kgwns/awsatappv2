@@ -63,7 +63,7 @@ export default DrawerNavigator;
 const customStyle = (theme: CustomThemeType) => {
   const headerStyles = StyleSheet.create({
     container: {
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.tabBarBackground,
       shadowColor: colors.transparent,
     },
     search: {
