@@ -52,9 +52,9 @@ export const ALL_EPISODES = 'كل الحلقات';
 export const HOME_PODCAST_TITLE = 'اليوم'
 
 //Not Registered Pop Up
-export const NOT_SUBSCRIBED = 'أنت غير مشترك';
+export const NOT_SUBSCRIBED = 'لم تشترك بعد';
 export const SAVE_ARTICLE_TO_YOUR_FAVOURITES = 'لحفظ المقالة لمفضلاتك';
-export const CREATE_ACCOUNT_DESCRIPTION = 'انشئ حساباً مجانياً لتتمكن من متابعة كتابك\n المفضلين والمواضيع التي تهمك وتتمتع بخاصية \n حفظ المقالات'
+export const CREATE_ACCOUNT_DESCRIPTION = 'إنشئ حساب خاص بك لتحصل على أخبار\n مخصصة لك ولتتمتع بخاصية حفظ المقالات \n وبأخبار متنوعة'
 export const SIGN_UP = 'قم بالتسجيل'
 export const LOG_IN = 'ادخل لحسابك'
 

@@ -13,7 +13,6 @@ import placeholderImg from 'src/assets/images/icons/placeholder_image.png'
 import crossWord from 'src/assets/images/cross_word_image.png'
 import sudoku from 'src/assets/images/sudoku_image.png'
 import pdfIcon from 'src/assets/images/pdf_icon.png'
-import popupImage from 'src/assets/images/popupImage.png'
 
 // Video Controls Icon
 import bottomShadowImg from 'src/assets/images/bottom-vignette.png'
@@ -161,6 +160,7 @@ export enum ImagesName {
   chatBubbleIcon = 'chatBubbleIcon',
   photoIcon = 'photoIcon',
   flagIcon = 'flagIcon',
+  popupLogo = 'popupLogo',
 }
 
 export const images = {
@@ -177,7 +177,6 @@ export const images = {
   crossWord,
   sudoku,
   pdfIcon,
-  popupImage,
   bottomShadowImg,
   sunClouds,
   clearSkyImg,

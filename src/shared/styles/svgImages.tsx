@@ -25,6 +25,7 @@ import MenuIconDark from 'src/assets/images/headerIcons/menuIconDark.svg'
 import HeaderLogo from 'src/assets/images/headerIcons/HeaderLogoFinal.svg'
 import HeaderLogoDark from 'src/assets/images/headerIcons/HeaderLogoFinalDark.svg'
 import LogoBlack from 'src/assets/images/logoBlack.svg'
+import PopupLogo from 'src/assets/images/popupLogo.svg'
 
 //Tab Icons
 import NewsIcon from 'src/assets/images/tabIcons/newsIcon.svg'
@@ -405,6 +406,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <PhotoIcon {...props} />
         case ImagesName.flagIcon:
             return <FlagIcon {...props} />
+        case ImagesName.popupLogo:
+            return <PopupLogo {...props} />
         default: return null
     }
 }
