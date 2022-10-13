@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
 import { isTab, screenWidth, normalize, isIOS } from 'src/shared/utils';
-import { Image, Label } from 'src/components/atoms';
+import { Label } from 'src/components/atoms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { fonts } from 'src/shared/styles/fonts';
@@ -23,8 +23,8 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
         return isTab ? true : dim.height >= dim.width;
     };
 
-    const HeaderLogo = () => getSvgImages({ name: ImagesName.logoBlack, width: style.logo.width, height: style.logo.height });
-    const HeaderLogoLandscape = () => getSvgImages({ name: ImagesName.logoBlack, width: style.logoLandscape.width, height: style.logoLandscape.height });
+    const HeaderLogo = () => getSvgImages({ name: ImagesName.popupLogo, width: style.logo.width, height: style.logo.height });
+    const HeaderLogoLandscape = () => getSvgImages({ name: ImagesName.popupLogo, width: style.logoLandscape.width, height: style.logoLandscape.height });
     const AlertImage = () => getSvgImages({ name: ImagesName.popupImage, width: style.popupImage.width, height: style.popupImage.height })
 
     return (
@@ -43,12 +43,12 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
                 <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.black }])} onPress={onPressSignUp} >
                     <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.white }])}>{signUpLabel}</Label>
                 </TouchableOpacity>
-                <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.carouselPink }])} onPress={onPressSignUp} >
+                <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.alabaster }])} onPress={onPressSignUp} >
                     <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.black }])}>{logInLabel}</Label>
                 </TouchableOpacity>
             </View>
             <View style={isPortrait() ? style.popupImageContainer : style.popupImageContainerLandscape}>
-                <Image fallback name={ImagesName.popupImage} style={style.popupImage} fallbackContent={<AlertImage />} fallbackName={ImagesName.popupImage} />
+                <AlertImage/>
             </View>
         </View>
     )
@@ -66,7 +66,7 @@ const customStyle = (theme: CustomThemeType) => {
             fontFamily: fonts.AwsatDigital_Black,
             fontSize: normalize(30),
             lineHeight: normalize(53),
-            color: colors.black,
+            color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
             marginTop: normalize(25)
@@ -75,7 +75,7 @@ const customStyle = (theme: CustomThemeType) => {
             fontFamily: fonts.AwsatDigital_Black,
             fontSize: normalize(20),
             lineHeight: normalize(33),
-            color: colors.black,
+            color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
             marginTop: normalize(10)
@@ -107,7 +107,7 @@ const customStyle = (theme: CustomThemeType) => {
             fontFamily: fonts.Effra_Arbc_Regular,
             fontSize: 19,
             lineHeight: isIOS ? 32 : 38,
-            color: colors.black,
+            color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
             paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
@@ -117,12 +117,13 @@ const customStyle = (theme: CustomThemeType) => {
         descriptionLandscape: {
             fontFamily: fonts.Effra_Arbc_Regular,
             fontSize: 15,
-            lineHeight: 22,
-            color: colors.black,
+            lineHeight: isIOS ? 20 : 29,
+            color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
             paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-            marginTop: isIOS ? 5 : 20
+            marginTop: isIOS ? 5 : 20,
+            marginBottom: isIOS ? 5 : 10
         },
         buttonContainer: {
             flexDirection: 'row',

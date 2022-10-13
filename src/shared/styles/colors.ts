@@ -87,6 +87,8 @@ export const colors = {
   grayishGreen: '#647e7c',
   lightGreen: '#C7D8D6',
   aliceDimBlue: '#E9F2EF',
+  fortunate: '#006057',
+  alabaster: '#EFECE2',
 };
 
 export interface CustomThemeType {
@@ -179,7 +181,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   mainBackground: colors.aliceDimBlue,
   popupBackground: colors.blackOpacity50,
   playerBackground: colors.balckOpacity20,
-  bottomSheetBackground: colors.mandyPink,
+  bottomSheetBackground: colors.fortunate,
   borderColor: colors.lightGreen,
   backIconColor: colors.black,
   goToLabelTitle: colors.darkGreenish,
@@ -226,7 +228,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   mainBackground:colors.codGray,
   popupBackground: colors.blueCharcoalOpacity80,
   playerBackground: colors.balckOpacity20,
-  bottomSheetBackground: colors.mandyPink,
+  bottomSheetBackground: colors.fortunate,
   borderColor: colors.lightGreen,
   backIconColor: colors.white,
   goToLabelTitle: colors.white,
