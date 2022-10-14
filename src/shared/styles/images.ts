@@ -170,7 +170,9 @@ export enum ImagesName {
   crosswordImage = 'crosswordImage',
   sudokuImage = 'sudokuImage',
   crosswordImageDark = 'crosswordImageDark',
-  sudokuImageDark = 'sudokuImageDark',  
+  sudokuImageDark = 'sudokuImageDark',
+  subscribeIconWhite = 'subscribeIconWhite',
+  subscribeIconGreen = 'subscribeIconGreen',
 }
 
 export const images = {

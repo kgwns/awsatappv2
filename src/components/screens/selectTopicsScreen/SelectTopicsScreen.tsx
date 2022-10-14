@@ -159,7 +159,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       marginHorizontal: 10,
     },
     descStyle: {
-      fontFamily: fonts.IBMPlexSansArabic_Regular,
+      fontFamily: fonts.Effra_Arbc_Regular,
       textAlign: 'center',
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,

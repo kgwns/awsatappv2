@@ -137,7 +137,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontFamily: fonts.IBMPlexSansArabic_Regular,
       fontSize: normalize(13),
       marginTop: '5%',
-      lineHeight: 19,
+      lineHeight: 22,
       textAlign: 'center',
     },
     buttonContainer: {

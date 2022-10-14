@@ -44,22 +44,22 @@ export const arabic = {
       done: 'حفظ'
     },
     followFavoriteAuthor: {
-      title: 'تابع كتابك المفضلين',
-      description: 'اختر كتاب الرأي المفضلين لتصلك مقالاتهم في صفحة «أخباري»',
+      title: 'تابع كُتابك المفضلين',
+      description: 'اختر كُتابك المفضلين لتحصل على تجربة مميزة',
     },
     keepNotified: {
       title: 'ما الذي تريد أن تبقى على اطلاع عليه؟',
-      description: 'اختر مواضيعك لمنحك أفضل تجربة',
+      description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
     selectTopics: {
-      title: 'اختر مواضيعك المفضلة لتصلك أولاً بأول في صفحة «أخباري» ',
-      description: 'ما هي اهتماماتك؟',
+      title: 'حدد اهتماماتك',
+      description: 'أختر مواضيعك المفضلة',
     },
     newsLetter: {
-      title: 'نشراتي البريدية',
-      description:  'احصل على آخر التحديثات يتم تسليمها مباشرة إلى الإيميل الخاص بك.',
-      subscribed: 'أنت مشترك في النشرة',
-      notSubscribed: 'أنت غير مشترك بالنشرة',
+      title: 'نشراتك الإخبارية',
+      description:  'احصل على آخر التحديثات عن طريق البريد الإلكتروني الخاص بك',
+      subscribed: 'مشترك',
+      notSubscribed: 'اشترك',
     },
   },
   opinion: {
@@ -194,19 +194,19 @@ export const arabic = {
     articles_that_interest_you: 'مقالات تهمك',
   },
   signIn: {
-    signUp: 'ادخل لحسابك أو اشترك',
+    signUp: 'إنشئ حساب خاص بك',
     skip: 'تخطى',
-    signUpReceive: 'سجل للحصول على تجربة فريدة',
+    signUpReceive: 'قم بالتسجيل لتكون مطلع على آخر الأخبار',
     email: 'البريد الإلكتروني',
     signIn: 'تسجيل الدخول',
     or: 'أو',
     loginFacebook: 'الدخول بحساب فيسبوك',
     loginGoogle: 'الدخول بحساب غوغل',
     loginApple: 'الدخول بحساب أبل',
-    termsAndConditions: 'الشروط والاحكام',
-    agreeTo: 'تسجيل الدخول يعنى موافقتك على',
-    rights: '',
-    loginAccount: 'الدخول لحسابك',
+    termsAndConditions: 'القواعد و الشروط',
+    agreeTo: 'عن طريق تسجيل الدخول تكون قد وافقت علي',
+    rights: 'لاستخدام التطبيق و باقي حقوق الملكيه و الموافقه للبراجراف',
+    loginAccount: 'تسجيل الدخول',
     password: 'كلمة المرور',
     forgotPassword: 'نسيت كلمة المرور',
     return: 'الرجوع',
@@ -249,8 +249,8 @@ export const arabic = {
     skipOption: 'تخطي ، سأؤكد لاحقًا'
   },
   onboardSuccess: {
-    successMessage: 'تم تكوين صفحة أخبارك بنجاح',
-    mailAcknowledgement: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى\n الإيميل الخاص بك.',
+    successMessage: 'تم تفعيل صفحة أخبارك بنجاح',
+    mailAcknowledgement: 'احصل على\n آخر التحديثات عن طريق البريد الإلكتروني الخاص بك​',
     goToHome: 'انتقل الي الصفحة الرئيسية',
     goToMyNews: 'انتقل الي صفحة أخباري'
   },

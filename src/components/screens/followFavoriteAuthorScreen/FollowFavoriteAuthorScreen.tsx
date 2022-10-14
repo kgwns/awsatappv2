@@ -153,7 +153,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(30),
     },
     descStyle: {
-      fontFamily: fonts.IBMPlexSansArabic_Regular,
+      fontFamily: fonts.Effra_Arbc_Regular,
       textAlign: 'center',
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,

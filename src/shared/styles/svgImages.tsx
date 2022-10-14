@@ -167,6 +167,8 @@ import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds
 import PhotoIcon from 'src/assets/images/icons/photo.svg';
 
 import FlagIcon from 'src/assets/images/icons/flag.svg';
+import SubscribeIconWhite from 'src/assets/images/subscribeIconWhite.svg';
+import SubscribeIconGreen from 'src/assets/images/subscribeIconGreen.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
@@ -408,6 +410,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <FlagIcon {...props} />
         case ImagesName.popupLogo:
             return <PopupLogo {...props} />
+        case ImagesName.subscribeIconWhite:
+            return <SubscribeIconWhite {...props} />
+        case ImagesName.subscribeIconGreen:
+            return <SubscribeIconGreen {...props} />
         default: return null
     }
 }

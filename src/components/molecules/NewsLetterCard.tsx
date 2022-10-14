@@ -29,6 +29,9 @@ export const NewsLetterCard = ({
   const theme = useTheme();
   const [selected, setSelected] = useState(isSelected);
   const [t] = useTranslation();
+  const buttonLogoName = selected ? ImagesName.subscribeIconGreen : ImagesName.subscribeIconWhite;
+  const buttonTextColor = selected ? colors.greenishBlue : colors.white;
+  const buttonText = selected ? t('onBoard.newsLetter.subscribed') : t('onBoard.newsLetter.notSubscribed');
 
   const changeStatus = () => {
     onPress(!selected);
@@ -53,36 +56,18 @@ export const NewsLetterCard = ({
       onPress={changeStatus}>
       <View style={style.imageContainer}>
         <Image
-        url={image}
-        style={style.image}
+          url={image}
+          style={style.image}
         />
       </View>
       <View style={style.contentContainer}>
         <Label style={style.title}>{title}</Label>
         <Label style={style.subTitle}>{subTitle}</Label>
-        <View style={style.footerContent}>
-          <View style={style.circleShape}>
-            <View>
-              {selected
-                ? getSvgImages({
-                    name: ImagesName.mailSelected,
-                    size: normalize(12),
-                    fill: theme.themeData.primary,
-                  })
-                : getSvgImages({
-                    name: ImagesName.mail,
-                    size: normalize(12),
-                  })}
-            </View>
-          </View>
-          <View style={style.labelContainer} >
-            <Label
-              style={selected ? style.statusSelectedLabel : style.statusLabel} numberOfLines={1}>
-              {selected
-              ? t('onBoard.newsLetter.subscribed')
-              : t('onBoard.newsLetter.notSubscribed')}
-            </Label>
-          </View>
+      </View>
+      <View style={style.buttonView}>
+        <View style={style.buttonContainer}>
+          {getSvgImages({ name: buttonLogoName, width: 17, height: 14, style: style.buttonLogo })}
+          <Label color={buttonTextColor} style={style.buttonLabel} children={buttonText} />
         </View>
       </View>
     </TouchableOpacity>
@@ -101,17 +86,18 @@ const customStyle = (theme: CustomThemeType) => {
     imageContainer: {
       height: '100%',
       justifyContent: 'center',
-      marginHorizontal: normalize(15),
+      marginLeft: normalize(10),
+      marginRight: normalize(5),
     },
     image: {
-      width: normalize(107),
+      width: normalize(65),
       height: normalize(85),
     },
     contentContainer: {
       flex: 1,
       height: normalize(85),
       alignItems: 'flex-start',
-      marginTop: 2,
+      justifyContent: 'center',
     },
     title: {
       fontFamily: fonts.AwsatDigital_Bold,
@@ -158,7 +144,28 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
       alignItems: 'flex-start',
       marginRight: normalize(3),
-    }
+    },
+    buttonView: {
+      height: 38, width:'32%',
+      backgroundColor: colors.black,
+      marginRight: normalize(15),
+      borderRadius: 28
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      paddingHorizontal: 15,
+      paddingVertical: isIOS ? 7 : 5,
+      marginVertical: 7,
+    },
+    buttonLogo: {
+      marginRight: 10
+    },
+    buttonLabel: {
+      fontSize:14,
+      lineHeight:16,
+      fontFamily: fonts.AwsatDigitalV2_Bold,
+    },
   });
   return NewsLetterCardStyle;
 };

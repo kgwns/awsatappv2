@@ -254,6 +254,7 @@ export const AuthPage: FunctionComponent = () => {
           children={t('signIn.rights')}
           labelType="p5"
           color={themeData.textColor}
+          style={styles.rightsStyle}
         />
       </View>
     </ScreenContainer>
@@ -309,6 +310,9 @@ const createStyles = (theme: CustomThemeType) =>
       height: normalize(37),
     },
     spaceStyle: {
-      marginHorizontal: normalize(10),
+      marginHorizontal: normalize(5),
     },
+    rightsStyle: {
+      marginTop: 5
+    }
   });
