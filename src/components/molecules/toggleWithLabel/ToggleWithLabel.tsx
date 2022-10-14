@@ -25,8 +25,8 @@ export const ToggleWithLabel = ({
         <View>
             <ToggleSwitch
                 isOn={isActive}
-                onColor={Styles.color.aquaTwistGreen}
-                offColor={Styles.color.aquaTwistGreen}
+                onColor={Styles.color.cyanGreen}
+                offColor={Styles.color.cyanGreen}
                 label={title}
                 labelStyle={style.toggleLabel}
                 size="large"

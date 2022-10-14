@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer'
-import { horizontalAndBottomEdge, normalize } from 'src/shared/utils'
+import { horizontalAndBottomEdge, isDarkTheme, normalize } from 'src/shared/utils'
 import { GameIntroCard, GameIntroCardProps } from 'src/components/molecules'
 import { CustomThemeType } from '~/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -11,6 +11,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { ScreensConstants } from 'src/constants'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { CROSS_WORD_URL, SUDOKU_URL } from 'src/services/apiUrls'
+import { useAppCommon } from 'src/hooks'
 
 export enum GameType {
     CROSS_WORD,
@@ -20,6 +21,8 @@ export enum GameType {
 export const GameScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
+    const { theme } = useAppCommon()
+    const isDarkMode = isDarkTheme(theme)
     const style = useThemeAwareObject(customStyle)
 
     const ref = React.useRef(null);
@@ -32,8 +35,8 @@ export const GameScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numbe
 
     const crossWordInfo: GameIntroCardProps = {
         type: GameType.CROSS_WORD,
-        imageBackgroundColor: Styles.color.limeGreen,
-        image: ImagesName.crossWord,
+        imageBackgroundColor: style.imageBackgroundColor.backgroundColor,
+        image: isDarkMode ? ImagesName.crosswordImageDark : ImagesName.crosswordImage,
         title: TranslateConstants({ key: TranslateKey.CROSSWORD }),
         description: TranslateConstants({ key: TranslateKey.CROSS_WORD_DESCRIPTION }),
         buttonTitle: TranslateConstants({ key: TranslateKey.SOLVING_CROSS_PUZZLES }),
@@ -42,8 +45,8 @@ export const GameScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numbe
 
     const sudokuInfo: GameIntroCardProps = {
         type: GameType.SUDOKU,
-        imageBackgroundColor: Styles.color.burningOrange,
-        image: ImagesName.sudoku,
+        imageBackgroundColor: style.imageBackgroundColor.backgroundColor,
+        image: isDarkMode ? ImagesName.sudokuImageDark : ImagesName.sudokuImage,
         title: TranslateConstants({ key: TranslateKey.SUDOKU }),
         description: TranslateConstants({ key: TranslateKey.SUDOKU_DESCRIPTION }),
         buttonTitle: TranslateConstants({ key: TranslateKey.SOLVING_SUDOKU }),
@@ -69,5 +72,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     scrollContainer: {
         flex: 1,
         marginHorizontal: normalize(16),
+    },
+    imageBackgroundColor: {
+        backgroundColor: theme.gamesImageBackground
     }
 })

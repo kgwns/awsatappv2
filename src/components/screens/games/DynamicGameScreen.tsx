@@ -10,6 +10,7 @@ import { CROSS_WORD_GAME_BASE_ID_URL, SUDOKU_GAME_BASE_ID_URL } from 'src/servic
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ScreensConstants } from 'src/constants'
+import { ImagesName } from 'src/shared/styles'
 
 
 export interface DynamicGameScreenProps {
@@ -27,6 +28,13 @@ export const DynamicGameScreen = ({
     const style = useThemeAwareObject(customStyle)
 
     const { gameData, showIntro } = route.params
+
+    if (gameData.image == ImagesName.crosswordImageDark || gameData.image == ImagesName.crosswordImage) {
+        gameData.image = ImagesName.crossWord
+    } 
+    if (gameData.image == ImagesName.sudokuImageDark || gameData.image == ImagesName.sudokuImage) {
+        gameData.image = ImagesName.sudoku
+    }
 
     const [currentUrl, setCurrentUrl] = useState(gameData.url || '')
 
@@ -53,7 +61,7 @@ export const DynamicGameScreen = ({
                 showsVerticalScrollIndicator={false}
                 bounces={false}
             >
-                {showIntro && <GameIntroCard {...gameData} hideButtonTitle={true} />}
+                {showIntro && <GameIntroCard {...gameData} hideButtonTitle={true} isDynamic/>}
                 <WebView style={style.webview}
                     ref={() => webviewRef}
                     testID='DynamicGameScreenID01'

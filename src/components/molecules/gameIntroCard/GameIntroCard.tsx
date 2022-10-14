@@ -18,7 +18,8 @@ export interface GameIntroCardProps {
     buttonTitle: string;
     hideButtonTitle?: boolean,
     url: string;
-    onPress?: () => void
+    onPress?: () => void;
+    isDynamic: boolean;
 }
 
 
@@ -30,11 +31,12 @@ export const GameIntroCard = ({
     description,
     buttonTitle,
     hideButtonTitle = false,
+    isDynamic = false,
     onPress
 }: GameIntroCardProps) => {
     const style = useThemeAwareObject(customStyle)
-    const imageContainerStyle = type == GameType.CROSS_WORD ? style.imageContainer : style.sudokuImageContainer;
-    const imageStyle = type == GameType.CROSS_WORD ? style.image : style.sudokuImage;
+    const imageContainerStyle = !isDynamic ? style.imageContainer : style.dynamicImageContainer;
+    const imageStyle = !isDynamic ? style.image : style.dynamicImage;
 
     const buttonWithArrow = () => {
         return (
@@ -74,18 +76,18 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     imageContainer: {
         width: '100%',
         height: normalize(202),
-    },
-    sudokuImageContainer: {
-        width: '100%',
-        height: normalize(202),
         alignItems: 'center',
         justifyContent: 'center',
     },
-    image:{
+    dynamicImageContainer: {
         width: '100%',
-        height: '100%'
+        height: normalize(202),
     },
-    sudokuImage: {
+    image:{
+        width: 129,
+        height: 129
+    },
+    dynamicImage: {
         width: '100%',
         height: '100%'
     },

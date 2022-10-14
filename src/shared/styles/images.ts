@@ -35,6 +35,12 @@ import sunnyImg from 'src/assets/images/weather/Sunny.png'
 // Cloud Images
 import sunClouds from 'src/assets/images/clouds/sun_clouds.png'
 
+// Game Images
+import crosswordImage from 'src/assets/images/cross_word.png'
+import sudokuImage from 'src/assets/images/sudoku_.png'
+import crosswordImageDark from 'src/assets/images/cross_word_dark.png'
+import sudokuImageDark from 'src/assets/images/sudoku_dark.png'
+
 export enum ImagesName {
   newsIcon = 'newsIcon',
   newsActiveIcon = 'newsActiveIcon',
@@ -161,6 +167,10 @@ export enum ImagesName {
   photoIcon = 'photoIcon',
   flagIcon = 'flagIcon',
   popupLogo = 'popupLogo',
+  crosswordImage = 'crosswordImage',
+  sudokuImage = 'sudokuImage',
+  crosswordImageDark = 'crosswordImageDark',
+  sudokuImageDark = 'sudokuImageDark',  
 }
 
 export const images = {
@@ -191,6 +201,10 @@ export const images = {
   authorDefaultGrey,
   expandIcon,
   shirnkIcon,
+  crosswordImage,
+  sudokuImage,
+  crosswordImageDark,
+  sudokuImageDark,  
 };
 
 export const darkImages = {
