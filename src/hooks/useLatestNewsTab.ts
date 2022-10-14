@@ -16,6 +16,7 @@ import {
     getSpotlightData,
     getSpotlightArticleSectionData,
     getInfoGraphicBlockData,
+    getArchivedArticleSectionData,
     getCoverageDataLoading,
     getFeaturedArticleLoading,
     getHorizontalDataLoading,
@@ -27,7 +28,7 @@ import {
     getSectionComboThreeLoading,
     getInfoGraphicBlockDataLoading,
 } from 'src/redux/latestNews/selectors';
-import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet, EditorsChoiceDataType, SpotlightDataType, SpotlightArticleSectionBodyGet, InfoGraphicBlockType } from 'src/redux/latestNews/types';
+import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet, EditorsChoiceDataType, SpotlightDataType, SpotlightArticleSectionBodyGet, InfoGraphicBlockType, ArchivedArticleDataType } from 'src/redux/latestNews/types';
 import { requestHeroListTopList, requestSectionComboFour, 
     requestSectionComboOne, requestSectionComboThree, 
     requestSectionComboTwo, requestTickerAndHero, requestOpinionList,
@@ -36,7 +37,8 @@ import { requestHeroListTopList, requestSectionComboFour,
     requestFeatureArticleBlock,
     requestPodcastHomeData, requestSectionComboFive, requestSectionComboSix, requestSectionComboSeven,
     requestSectionComboEight, 
-    requestEditorsChoiceData, requestSpotlightData, requestSpotlightArticleSection, requestInfoGraphicBlock, 
+    requestEditorsChoiceData, requestSpotlightData, requestSpotlightArticleSection, requestInfoGraphicBlock,
+    requestArchivedArticleSection,
 } from 'src/redux/latestNews/action';
 
 export interface UseLatestNewsReturn {
@@ -63,6 +65,7 @@ export interface UseLatestNewsReturn {
     spotlight: SpotlightDataType[];
     spotlightArticleSection: LatestArticleDataType[];
     infoGraphicBlock: InfoGraphicBlockType[];
+    archivedArticleSection: ArchivedArticleDataType[];
     coverageInfoLoaded: boolean;
     featuredArticleLoaded: boolean;
     horizontalArticleLoaded: boolean;
@@ -91,6 +94,7 @@ export interface UseLatestNewsReturn {
     fetchSpotlight():void;
     fetchSpotlightArticleSection(payload: SpotlightArticleSectionBodyGet): void;
     fetchInfoGraphicBlockData(): void;
+    fetchArchivedArticleSection(): void;
 }
 
 export const useLatestNewsTab = (): UseLatestNewsReturn => {
@@ -117,6 +121,7 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const spotlight = useSelector(getSpotlightData)
     const spotlightArticleSection = useSelector(getSpotlightArticleSectionData)
     const infoGraphicBlock = useSelector(getInfoGraphicBlockData)
+    const archivedArticleSection = useSelector(getArchivedArticleSectionData)
     const coverageInfoLoaded = useSelector(getCoverageDataLoading)
     const featuredArticleLoaded = useSelector(getFeaturedArticleLoading)
     const horizontalArticleLoaded = useSelector(getHorizontalDataLoading)
@@ -198,6 +203,10 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         dispatch(requestInfoGraphicBlock());
     }
 
+    const fetchArchivedArticleSection = () => {
+        dispatch(requestArchivedArticleSection());
+    }
+
     return {
         isLoading,
         ticker,
@@ -240,6 +249,8 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         fetchSpotlightArticleSection,
         infoGraphicBlock,
         fetchInfoGraphicBlockData,
+        archivedArticleSection,
+        fetchArchivedArticleSection,
         coverageInfoLoaded,
         featuredArticleLoaded,
         horizontalArticleLoaded,

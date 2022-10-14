@@ -77,6 +77,7 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   RequestSpotlightType, SpotlightSuccessPayload, SpotlightSuccessType, SpotlightFailedPayload, SpotlightFailedType,
   RequestSpotlightArticleSectionType, SpotlightArticleSectionBodyGet, SpotlightArticleSectionSuccessPayload, SpotlightArticleSectionSuccessType, SpotlightArticleSectionFailedPayload, SpotlightArticleSectionFailedType,
   RequestInfoGraphicBlockSuccessPayloadType, RequestInfoGraphicBlockSuccessType, RequestInfoGraphicBlockFailedPayload, RequestInfoGraphicBlockFailedType,
+  RequestArchivedArticleSectionSuccessPayloadType, RequestArchivedArticleSectionSuccessType, RequestArchivedArticleSectionFailedPayload, RequestArchivedArticleSectionFailedType,
 } from "./types"
 
 export const requestTickerAndHero = (
@@ -418,6 +419,21 @@ export const requestInfoGraphicBlockSuccess = (
   }
 }
 
+export const requestArchivedArticleSection = () => {
+  return {
+    type: REQUEST_ARCHIVED_ARTICLE_DATA
+  }
+}
+
+export const requestArchivedArticleSectionSuccess = (
+  payload: RequestArchivedArticleSectionSuccessPayloadType
+): RequestArchivedArticleSectionSuccessType => {
+  return {
+    type: REQUEST_ARCHIVED_ARTICLE_DATA_SUCCESS,
+    payload
+  }
+}
+
 export const requestCoverBlockFailed = (
   payload: RequestCoverageBlockFailedPayload
 ): RequestCoverageBlockFailedType => {
@@ -585,6 +601,15 @@ export const requestInfoGraphicBlockFailed = (
   }
 }
 
+export const requestArchivedArticleSectionFailed = (
+  payload: RequestArchivedArticleSectionFailedPayload
+): RequestArchivedArticleSectionFailedType => {
+  return {
+    type: REQUEST_ARCHIVED_ARTICLE_DATA_FAILED,
+    payload
+  }
+}
+
 export const latestTabActions = {
   requestTickerAndHero,
   requestTickerAndHeroSuccess,
@@ -643,4 +668,7 @@ export const latestTabActions = {
   requestInfoGraphicBlock,
   requestInfoGraphicBlockSuccess,
   requestInfoGraphicBlockFailed,
+  requestArchivedArticleSection,
+  requestArchivedArticleSectionSuccess,
+  requestArchivedArticleSectionFailed,
 };

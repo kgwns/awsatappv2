@@ -56,6 +56,9 @@ import {
   REQUEST_INFO_GRAPHIC_BLOCK,
   REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS,
   REQUEST_INFO_GRAPHIC_BLOCK_FAILED,
+  REQUEST_ARCHIVED_ARTICLE_DATA,
+  REQUEST_ARCHIVED_ARTICLE_DATA_SUCCESS,
+  REQUEST_ARCHIVED_ARTICLE_DATA_FAILED,
 } from "./actionType"
 import { PodcastListItemType } from '../podcast/types'
 export type payloadType = { rows: any[], pager: object }
@@ -125,6 +128,18 @@ export interface InfoGraphicBlockType {
   body: string 
 }
 
+export interface ArchivedArticleDataType {
+  title: string,
+  type: string,
+  nid: string,
+  body: string,
+  image: string,
+  created: string,
+  author: string,
+  publication_date: string,
+  news_categories: NewsCategoriesType,
+}
+
 export interface LatestArticleBodyGet {
   items_per_page: number,
   page: number,
@@ -164,6 +179,7 @@ export type LatestNewsTabState = {
   spotlight: SpotlightDataType[],
   spotlightArticleSection: LatestArticleDataType[],
   infoGraphicBlockInfo: InfoGraphicBlockType[]
+  archivedArticleSection: ArchivedArticleDataType[]
   coverageInfoLoaded: boolean,
   featuredArticleLoaded: boolean,
   horizontalArticleLoaded: boolean,
@@ -623,6 +639,28 @@ export type RequestInfoGraphicBlockFailedType = {
   payload: RequestInfoGraphicBlockFailedPayload
 }
 
+export type RequestArchivedArticleSectionType = {
+  type: typeof REQUEST_ARCHIVED_ARTICLE_DATA
+}
+
+export type RequestArchivedArticleSectionSuccessPayloadType = {
+  archivedArticleSection: ArchivedArticleDataType[]
+}
+
+export type RequestArchivedArticleSectionSuccessType = {
+  type: typeof REQUEST_ARCHIVED_ARTICLE_DATA_SUCCESS;
+  payload: RequestArchivedArticleSectionSuccessPayloadType
+}
+
+export type RequestArchivedArticleSectionFailedPayload = {
+  error: string
+}
+
+export type RequestArchivedArticleSectionFailedType = {
+  type: typeof REQUEST_ARCHIVED_ARTICLE_DATA_FAILED;
+  payload: RequestArchivedArticleSectionFailedPayload
+}
+
 export type RequestSectionComboType =
   RequestSectionComboOne
   | RequestSectionComboTwo
@@ -690,5 +728,8 @@ export type LatestTabAction =
   | RequestSpotlightArticleSectionType
   | RequestInfoGraphicBlockType
   | RequestInfoGraphicBlockSuccessType
-  | RequestInfoGraphicBlockFailedType;
+  | RequestInfoGraphicBlockFailedType
+  | RequestArchivedArticleSectionType
+  | RequestArchivedArticleSectionSuccessType
+  | RequestArchivedArticleSectionFailedType;
 
