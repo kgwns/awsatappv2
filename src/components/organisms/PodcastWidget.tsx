@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { ButtonImage, Image, Label } from '../atoms';
+import { ButtonImage, ButtonOutline, Image, Label, LabelTypeProp, WidgetHeader } from '../atoms';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
-import { ImagesName } from 'src/shared/styles';
-import { isTab, normalize } from 'src/shared/utils';
+import { ImagesName, Styles } from 'src/shared/styles';
+import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
@@ -13,20 +13,23 @@ import { flatListUniqueKey } from 'src/constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { useTranslation } from 'react-i18next'
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
+import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 
 export interface PodcastWidgetProps {
   onPress: (podcastData: any) => void;
   data: any;
+  onMorePress: () => void;
 }
 
 type podCastType = {
-  podcastData: any, 
+  podcastData: any,
   index: number
 }
 
 const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   data,
   onPress,
+  onMorePress,
 }) => {
   const [t] = useTranslation();
   const { themeData } = useTheme();
@@ -38,17 +41,17 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   }, [])
 
   const getPodcastDuration = async () => {
-    if(isNonEmptyArray(data)){
+    if (isNonEmptyArray(data)) {
       const podcastData = [...data]
-      for( let i = 0; i <= data.length-1; i++){
-        if(isNotEmpty(data[i].field_spreaker_episode_export)){
+      for (let i = 0; i <= data.length - 1; i++) {
+        if (isNotEmpty(data[i].field_spreaker_episode_export)) {
           try {
             const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: data[i].field_spreaker_episode_export })
             if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
               const episode = response.response.episode
-              data[i].duration = Math.floor(episode.duration / 1000) ;
+              data[i].duration = Math.floor(episode.duration / 1000);
             }
-          }catch(error){
+          } catch (error) {
             data[i].duration = null
           }
         }
@@ -56,12 +59,12 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       setEpisodeData(podcastData)
     }
   }
-  /* const navigation = useNavigation<StackNavigationProp<any>>();
+  /* const navigation = useNavigation<StackNavigationProp<any>>(); */
 
   const widgetHeaderData: WidgetHeaderProps = {
     headerLeft: {
       title: 'بودكاست',
-      color: themeData.primaryDarkSlateGray,
+      color: themeData.primaryBlack,
       labelType: LabelTypeProp.title3,
       textStyle: { fontFamily: fonts.AwsatDigital_Black }
     },
@@ -81,12 +84,12 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     },
   };
 
-  const navigateToPodcast = () => {
+  /*const navigateToPodcast = () => {
     const params = { sectionId: null, title: "بودكاست", keyName: "podcast" }
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   } */
 
-  const ListenToPodcast = ({podcastData, index } : podCastType) => (
+  const ListenToPodcast = ({ podcastData, index }: podCastType) => (
     <View style={style.listenContainer}>
       <ButtonImage
         icon={() => {
@@ -136,8 +139,53 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     </View>
   )*/
 
+  const renderMobile = (podcastData: any, index: number) => {
+    if (!isObjectNonEmpty(podcastData)) {
+      return null;
+    }
+    const bodyInfo = isNotEmpty(podcastData?.body_export) ? podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? podcastData.field_podcast_sect_export.description : ''
+    const description = decodeHTMLTags(bodyInfo)
+    return (
+      <>
+        <View style={style.widgetHeaderContainer}>
+          <WidgetHeader {...widgetHeaderData} onPress={onMorePress} />
+        </View>
+        <View style={style.podcastMobileContainer}>
+          <View style={style.podcastAlbumContainer}>
+            <Image
+              fallback
+              resizeMode="cover"
+              url={podcastData?.field_podcast_sect_export?.image}
+              style={style.image}
+            />
+          </View>
+          <View style={style.podcastTextContainer}>
+            <Label
+              color={colors.white}
+              style={style.mobileTitle}
+              children={podcastData?.title}
+            />
+            <Label
+              color={colors.white}
+              style={style.mobileBody}
+              children={description}
+              numberOfLines={2}
+            />
+          </View>
+          <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
+            style={style.buttonStyle}
+            labelStyle={style.buttonLabel}
+            titleType={LabelTypeProp.h1}
+            onPress={() => onPress(podcastData)}
+            rightIcon={() => <View style={style.rightIconStyle}><PlayIcon fill={colors.white} /></View>}
+          />
+        </View>
+      </>
+    )
+  }
+
   const renderPodcastItem = (podcastData: any, index: number) => {
-    if(!isObjectNonEmpty(podcastData)) {
+    if (!isObjectNonEmpty(podcastData)) {
       return null;
     }
     const bodyInfo = isNotEmpty(podcastData?.body_export) ? podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? podcastData.field_podcast_sect_export.description : ''
@@ -192,13 +240,13 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
         style={style.flatList}
         listKey={flatListUniqueKey.TAB_PODCAST_HOME}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={({item, index}) => renderPodcastItem(item, index)}
+        renderItem={({ item, index }) => renderPodcastItem(item, index)}
       />
     </View>
   )
 
   const podcastMobileData = isNonEmptyArray(episodeData) ? data[0] : {};
-  return  isTab ?  renderTablet() : renderPodcastItem(podcastMobileData, 0);
+  return isTab ? renderTablet() : renderMobile(podcastMobileData, 0)
 
 };
 
@@ -210,10 +258,22 @@ const createStyles = (theme: CustomThemeType) => {
       lineHeight: 24,
       fontFamily: fonts.AwsatDigital_Bold,
     },
+    mobileTitle: {
+      textAlign: 'center',
+      fontSize: 27,
+      lineHeight: 36,
+      fontFamily: fonts.AwsatDigital_Bold,
+    },
     body: {
       textAlign: 'left',
       fontSize: 13,
       lineHeight: 24,
+      fontFamily: fonts.Effra_Regular,
+    },
+    mobileBody: {
+      textAlign: 'center',
+      fontSize: 14,
+      lineHeight: isIOS ? 20 : 24,
       fontFamily: fonts.Effra_Regular,
     },
     image: {
@@ -294,6 +354,39 @@ const createStyles = (theme: CustomThemeType) => {
     },
     flatList: {
       width: '50%'
+    },
+    buttonStyle: {
+      backgroundColor: colors.black,
+      borderWidth: 0,
+      width: '48%',
+      marginTop: normalize(30),
+    },
+    buttonLabel: {
+      color: colors.white,
+      fontFamily: fonts.AwsatDigital_Regular,
+      fontSize: 14,
+      lineHeight: 26
+    },
+    rightIconStyle: {
+      paddingRight: normalize(15),
+    },
+    widgetHeaderContainer: {
+      paddingHorizontal: 0.04 * screenWidth,
+      paddingBottom: normalize(10),
+      paddingTop: normalize(15)
+    },
+    podcastMobileContainer: {
+      backgroundColor: colors.limeGreen,
+      alignItems: 'center',
+      paddingBottom: 40
+    },
+    podcastAlbumContainer: {
+      width: 166,
+      height: 158,
+      marginVertical: 30
+    },
+    podcastTextContainer: {
+      paddingHorizontal: 0.06 * screenWidth
     },
   });
   return podcastWidgetStyle;

@@ -580,6 +580,11 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     setSelectedType('PODCAST');
   }
 
+  const goToPodcast = () => {
+    const params = { sectionId: "", title: "بودكاست", keyName: "podcast" }
+    navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
+  }
+
   const onClose = async () => {
     await TrackPlayer.reset();
   }
@@ -615,7 +620,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       {isNonEmptyArray(podcastHome) &&
         <View>
-          <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
+          <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast}/>
         </View>}
       
       {/* <BannerArticleSection data={editorsChoiceInfo} // Commented in the update of AMAR-1018 
@@ -782,7 +787,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} />
       {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
       {isNonEmptyArray(podcastHome) &&
-        <PodcastWidget data={podcastHome} onPress={onListenPodcast} />
+        <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast} />
       }
       <View style={mainSectionStyle.tabSplitter}>
         {/* <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
