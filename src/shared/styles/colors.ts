@@ -152,7 +152,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   secondaryDavyGrey: colors.davyGrey,
   secondaryDarkSlate: colors.darkSlateGray,
   secondarySpanishGray: colors.black,
-  backgroundColor: colors.aliceDimBlue,
+  backgroundColor: colors.aquaHaze,
   whiteSurface: colors.white,
   danger: colors.jasper,
   textColor: colors.greyDark50,
