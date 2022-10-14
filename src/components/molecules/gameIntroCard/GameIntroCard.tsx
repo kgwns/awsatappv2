@@ -58,7 +58,7 @@ export const GameIntroCard = ({
                     <Image name={image} style={imageStyle} />
                 </View>
                 <Label children={title} labelType={LabelTypeProp.h1} style={style.title} />
-                <Label children={description} labelType={LabelTypeProp.p3} style={style.description} color={Styles.color.davyGrey}/>
+                <Label children={description} labelType={LabelTypeProp.p3} style={style.description} />
                 {!hideButtonTitle && buttonWithArrow()}
             </View>
         </TouchableWithoutFeedback>
@@ -86,8 +86,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         height: '100%'
     },
     sudokuImage: {
-        width: normalize(171),
-        height: normalize(141),
+        width: '100%',
+        height: '100%'
     },
     arrowButtonContainer: {
         flexDirection: 'row',
@@ -113,5 +113,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingBottom: normalize(20),
         paddingTop: normalize(8),
         fontFamily: fonts.Effra_Regular,
+        color: theme.secondaryDavyGrey
     }
 })

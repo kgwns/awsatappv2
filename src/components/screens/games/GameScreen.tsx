@@ -32,7 +32,7 @@ export const GameScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numbe
 
     const crossWordInfo: GameIntroCardProps = {
         type: GameType.CROSS_WORD,
-        imageBackgroundColor: Styles.color.flamingo,
+        imageBackgroundColor: Styles.color.limeGreen,
         image: ImagesName.crossWord,
         title: TranslateConstants({ key: TranslateKey.CROSSWORD }),
         description: TranslateConstants({ key: TranslateKey.CROSS_WORD_DESCRIPTION }),
@@ -42,7 +42,7 @@ export const GameScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numbe
 
     const sudokuInfo: GameIntroCardProps = {
         type: GameType.SUDOKU,
-        imageBackgroundColor: Styles.color.deepPeach,
+        imageBackgroundColor: Styles.color.burningOrange,
         image: ImagesName.sudoku,
         title: TranslateConstants({ key: TranslateKey.SUDOKU }),
         description: TranslateConstants({ key: TranslateKey.SUDOKU_DESCRIPTION }),

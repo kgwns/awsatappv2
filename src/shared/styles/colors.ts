@@ -89,6 +89,9 @@ export const colors = {
   aliceDimBlue: '#E9F2EF',
   fortunate: '#006057',
   alabaster: '#EFECE2',
+  limeGreen: '#36B18C',
+  burningOrange: '#F0652E',
+  aquaTwistGreen: '#f1fbfa',
 };
 
 export interface CustomThemeType {
@@ -136,6 +139,7 @@ export interface CustomThemeType {
   backIconColor: string,
   goToLabelTitle: string,
   tabBarBackground: string,
+  secondaryBackgroundColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -186,6 +190,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   backIconColor: colors.black,
   goToLabelTitle: colors.darkGreenish,
   tabBarBackground: colors.white,
+  secondaryBackgroundColor: colors.aquaHaze
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -233,5 +238,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   backIconColor: colors.white,
   goToLabelTitle: colors.white,
   tabBarBackground: colors.codGray,
+  secondaryBackgroundColor: colors.codGray,
 }
 
