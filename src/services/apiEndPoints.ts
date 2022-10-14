@@ -24,6 +24,7 @@ export const EDITORS_CHOICE = 'api/v2/home/editorschoice';
 export const SPOTLIGHT_COMBO = 'api/v2/home/spotlight';
 export const INFO_GRAPHIC_BLOCK = 'api/block/v1/top';
 export const SECTION_COMBO_SIX = '/api/v2/home/thakafa';
+export const ARCHIVED_ARTICLE_ENDPOINT = 'api/v2/archivedarticle'
 
 //opinion tab in category section
 //writer list
