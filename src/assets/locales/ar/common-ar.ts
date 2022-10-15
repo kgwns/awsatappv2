@@ -105,6 +105,9 @@ export const arabic = {
     },
     editorsPick: {
       headerRight: 'مواضيع قد تهمك'
+    },
+    archivedArticle: {
+      headerTitle: 'من الأرشيف'
     }
   },
   sectionVideo: {

@@ -13,6 +13,8 @@ import placeholderImg from 'src/assets/images/icons/placeholder_image.png'
 import crossWord from 'src/assets/images/crossword.png'
 import sudoku from 'src/assets/images/sudoku.png'
 import pdfIcon from 'src/assets/images/pdf_icon.png'
+import archiveIconLight from 'src/assets/images/icons/archiveIconLight.png'
+import archiveIconDark from 'src/assets/images/icons/archiveIconDark.png'
 
 // Video Controls Icon
 import bottomShadowImg from 'src/assets/images/bottom-vignette.png'
@@ -173,6 +175,8 @@ export enum ImagesName {
   sudokuImageDark = 'sudokuImageDark',
   subscribeIconWhite = 'subscribeIconWhite',
   subscribeIconGreen = 'subscribeIconGreen',
+  archiveIconLight = 'archiveIconLight',
+  archiveIconDark = 'archiveIconDark',
 }
 
 export const images = {
@@ -206,7 +210,9 @@ export const images = {
   crosswordImage,
   sudokuImage,
   crosswordImageDark,
-  sudokuImageDark,  
+  sudokuImageDark,
+  archiveIconLight,
+  archiveIconDark,
 };
 
 export const darkImages = {

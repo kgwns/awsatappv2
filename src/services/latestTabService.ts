@@ -8,6 +8,7 @@ import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
   SPOTLIGHT_COMBO,
   ARTICLE_SECTION_GET,
   INFO_GRAPHIC_BLOCK,
+  ARCHIVED_ARTICLE_ENDPOINT,
 } from './apiEndPoints';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { payloadType } from 'src/redux/latestNews/types';
@@ -142,6 +143,17 @@ export const infoGraphicBlockApi = async () => {
   try {
     const response: any = await getCacheApiRequest(
       `${BASE_URL}${INFO_GRAPHIC_BLOCK}`,
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const archivedArticleApi = async () => {
+  try {
+    const response: any = await getCacheApiRequest(
+      `${BASE_URL}${ARCHIVED_ARTICLE_ENDPOINT}`,
     );
     return response;
   } catch (error) {

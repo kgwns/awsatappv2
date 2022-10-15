@@ -3,7 +3,8 @@ import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator } from 'r
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
-  EditorsPickSection, articleProps, VideoContent, PodcastWidget, ArticleGridView, ArticleImageView
+  EditorsPickSection, articleProps, VideoContent, PodcastWidget, ArticleGridView, ArticleImageView,
+  ArchiveArticleSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/SampleData';
@@ -113,6 +114,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   const _sectionComboEightTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_EIGHT})
   const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
   const EDITORS_PICK_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITORS_PICK_HEADER_TITLE})
+  const _archivedArticleTitle = TranslateConstants({key: TranslateKey.ARCHIVED_ARTICLE_SECTION_TITLE})
 
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
 
@@ -121,7 +123,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     // topList,  // enable when toplist is required
     opinionList,podcastHome,
     sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour, sectionComboFive, sectionComboSix, sectionComboSeven, sectionComboEight,
-    coverage, featuredArticle, horizontalArticle, editorsChoice, spotlight, spotlightArticleSection, infoGraphicBlock,
+    coverage, featuredArticle, horizontalArticle, editorsChoice, spotlight, spotlightArticleSection, infoGraphicBlock, archivedArticleSection,
     coverageInfoLoaded, featuredArticleLoaded, horizontalArticleLoaded,
     opinionLoaded, podcastHomeLoaded, editorChoiceLoaded,
     sectionComboOneLoaded, sectionComboTwoLoaded, sectionComboThreeLoaded,
@@ -133,7 +135,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     fetchSectionComboEight,
     fetchPodcastHome,
     fetchCoverageBlockData, fetchFeaturedArticleData, fetchHorizontalArticleData,
-    fetchEditorsChoice, fetchSpotlight, fetchInfoGraphicBlockData,
+    fetchEditorsChoice, fetchSpotlight, fetchInfoGraphicBlockData, fetchArchivedArticleSection,
   } = useLatestNewsTab()
   const { videoData, fetchVideoRequest } = useVideoList();
 
@@ -507,6 +509,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     isTab && fetchVideoRequest();
     fetchPodcastHome();
     fetchEditorsChoice();
+    fetchArchivedArticleSection();
   }
 
   const loadBottomWidgetAPI = () => {
@@ -744,6 +747,14 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboEightBookmark}
         isDivider
       />
+      {isNonEmptyArray(sectionComboEightInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboEightInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
+      {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection 
+        data={archivedArticleSection}
+        title={_archivedArticleTitle}
+        onPress={onPressArticle}
+        isDivider
+        />}
       {showBottomSpinner()}
     </View>
   )
@@ -932,6 +943,12 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
           />
         </View>
       </View>
+      {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection
+        data={archivedArticleSection}
+        title={_archivedArticleTitle}
+        onPress={onPressArticle}
+        isDivider
+      />}
       {showBottomSpinner()}
     </View>
   )

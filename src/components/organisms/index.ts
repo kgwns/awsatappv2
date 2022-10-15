@@ -47,3 +47,4 @@ export { JournalistSection } from 'src/components/organisms/journalistSection/Jo
 export { default as InfoGraphicMapWidget } from './InfoGraphicMapWidget';
 export { default as ArticleGridView } from './ArticleGridView';
 export { default as ArticleImageView } from './ArticleImageView';
+export {default as ArchiveArticleSection} from './ArchiveArticleSection';

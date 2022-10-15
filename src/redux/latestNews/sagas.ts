@@ -20,7 +20,9 @@ import {
   EditorsChoiceDataType, EditorsChoiceSuccessPayload,
   SpotlightDataType, SpotlightSuccessPayload, RequestSpotlightArticleSectionType, SpotlightArticleSectionSuccessPayload,
   RequestInfoGraphicBlockSuccessPayloadType,
-  InfoGraphicBlockType
+  InfoGraphicBlockType,
+  RequestArchivedArticleSectionSuccessPayloadType,
+  ArchivedArticleDataType
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -42,6 +44,7 @@ import {
   REQUEST_SPOTLIGHT_COMBO,
   REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
   REQUEST_INFO_GRAPHIC_BLOCK,
+  REQUEST_ARCHIVED_ARTICLE_DATA,
 } from './actionType';
 import {
   requestHeroListTopListFailed, requestHeroListTopListSuccess,
@@ -61,7 +64,7 @@ import {
   requestHorizontalArticleBlockSuccess, requestHorizontalArticleBlockFailed,
   requestEditorsChoiceSuccess, requestEditorsChoiceFailed,
   requestSpotlightSuccess, requestSpotlightFailed, requestSpotlightArticleSectionSuccess, requestSpotlightArticleSectionFailed,
-  requestInfoGraphicBlockSuccess, requestInfoGraphicBlockFailed,
+  requestInfoGraphicBlockSuccess, requestInfoGraphicBlockFailed, requestArchivedArticleSectionSuccess, requestArchivedArticleSectionFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
 import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
@@ -77,6 +80,7 @@ import {
   spotlightApi,
   requestSpotlightArticleSection,
   infoGraphicBlockApi,
+  archivedArticleApi,
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
@@ -137,6 +141,16 @@ const parseInfoGraphicBlockDataSuccess = (response: any) => {
     infoGraphicBlockInfo: []
   }
   responseData.infoGraphicBlockInfo = formattedData
+
+  return responseData
+}
+
+const parseArchivedArticleSectionDataSuccess = (response: any) => {
+  const formattedData = formatArchivedArticleSectionData(response)
+  const responseData: RequestArchivedArticleSectionSuccessPayloadType = {
+    archivedArticleSection: []
+  }
+  responseData.archivedArticleSection = formattedData
 
   return responseData
 }
@@ -294,6 +308,26 @@ const formatInfoGraphicBlockData = (response: any): InfoGraphicBlockType[] => {
     );
   }
   return formattedInfoGraphicBlockData;
+}
+
+const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataType[] => {
+  let formattedArchivedArticleSectionData: ArchivedArticleDataType[] = []
+  if (response && isNonEmptyArray(response)) {
+    formattedArchivedArticleSectionData = response.map(
+      ({ title, type, nid, body_export, field_image_export, field_new_photo, created_export, field_new_resource_export, field_publication_date_export, field_news_categories_export}: any) => ({
+        title,
+        type,
+        nid,
+        body: body_export,
+        image: getArticleImage(field_image_export, field_new_photo),
+        created: created_export,
+        author: field_new_resource_export,
+        publication_date: field_publication_date_export,
+        news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
+      })
+    );
+  }
+  return formattedArchivedArticleSectionData;
 }
 
 const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPayload => {
@@ -729,6 +763,22 @@ export function* fetchInfoGraphicBlockData() {
   }
 }
 
+export function* fetchArchivedArticleSectionData() {
+  try {
+    const payload: payloadType = yield call(
+      archivedArticleApi,
+    );
+    const response = parseArchivedArticleSectionDataSuccess(payload)
+    yield put(requestArchivedArticleSectionSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestArchivedArticleSectionFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
 function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)]);
   yield all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)]);
@@ -749,6 +799,7 @@ function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_SPOTLIGHT_COMBO,fetchSpotlightData)]);
   yield all ([takeLatest(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,fetchSpotlightArticleSection)]);
   yield all([takeLatest(REQUEST_INFO_GRAPHIC_BLOCK, fetchInfoGraphicBlockData)]);
+  yield all([takeLatest(REQUEST_ARCHIVED_ARTICLE_DATA, fetchArchivedArticleSectionData)]);
 }
 
 export default articleDetailSaga;
