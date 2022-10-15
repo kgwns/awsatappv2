@@ -747,6 +747,8 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboEightBookmark}
         isDivider
       />
+      {isNonEmptyArray(sectionComboEightInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboEightInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection 
         data={archivedArticleSection}
         title={_archivedArticleTitle}
