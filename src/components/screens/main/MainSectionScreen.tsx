@@ -509,7 +509,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     isTab && fetchVideoRequest();
     fetchPodcastHome();
     fetchEditorsChoice();
-    fetchArchivedArticleSection();
   }
 
   const loadBottomWidgetAPI = () => {
@@ -517,6 +516,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     fetchSectionComboTwo(sectionComboTwoPayload)
     fetchSectionComboThree(sectionComboThreePayload)
     fetchSectionComboFour(sectionComboFourPayload)
+    fetchArchivedArticleSection();
     fetchSectionComboFive(sectionComboFivePayload)
     fetchSectionComboSix(sectionComboSixPayload)
     fetchSectionComboSeven(sectionComboSevenPayload)
@@ -674,6 +674,13 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboFourBookmark}
       />
       {isNonEmptyArray(sectionComboFourInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboFourInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
+      {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection 
+        data={archivedArticleSection}
+        title={_archivedArticleTitle}
+        onPress={onPressArticle}
+        isDivider
+        />}
       {/* Enable below code when top list required */}
       {/* {isNonEmptyArray(topListData) && (
         <View style={mainSectionStyle.articleContainer}>
@@ -692,6 +699,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
           />
         </View>
       )} */}
+      {isNonEmptyArray(archivedArticleSection) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboFiveInfo}
         title={_sectionComboFiveTitle}
@@ -749,12 +757,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       />
       {isNonEmptyArray(sectionComboEightInfo) && <Divider style={{ height: normalize(20) }} />}
       {isNonEmptyArray(sectionComboEightInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
-      {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection 
-        data={archivedArticleSection}
-        title={_archivedArticleTitle}
-        onPress={onPressArticle}
-        isDivider
-        />}
       {showBottomSpinner()}
     </View>
   )
@@ -848,6 +850,12 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
           />
         </View>
       </View>
+      {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection
+        data={archivedArticleSection}
+        title={_archivedArticleTitle}
+        onPress={onPressArticle}
+        isDivider
+      />}
       <View style={mainSectionStyle.tabSplitter}>
         <View style={mainSectionStyle.tabWidgetContainer}>
           <BannerArticleSection
@@ -943,12 +951,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
           />
         </View>
       </View>
-      {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection
-        data={archivedArticleSection}
-        title={_archivedArticleTitle}
-        onPress={onPressArticle}
-        isDivider
-      />}
       {showBottomSpinner()}
     </View>
   )
