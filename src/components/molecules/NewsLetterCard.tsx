@@ -32,6 +32,7 @@ export const NewsLetterCard = ({
   const buttonLogoName = selected ? ImagesName.subscribeIconGreen : ImagesName.subscribeIconWhite;
   const buttonTextColor = selected ? colors.greenishBlue : colors.white;
   const buttonText = selected ? t('onBoard.newsLetter.subscribed') : t('onBoard.newsLetter.notSubscribed');
+  const buttonBackground = selected ? colors.white : colors.black;
 
   const changeStatus = () => {
     onPress(!selected);
@@ -64,7 +65,7 @@ export const NewsLetterCard = ({
         <Label style={style.title}>{title}</Label>
         <Label style={style.subTitle}>{subTitle}</Label>
       </View>
-      <View style={style.buttonView}>
+      <View style={[style.buttonView, {backgroundColor: buttonBackground}]}>
         <View style={style.buttonContainer}>
           {getSvgImages({ name: buttonLogoName, width: 17, height: 14, style: style.buttonLogo })}
           <Label color={buttonTextColor} style={style.buttonLabel} children={buttonText} />
@@ -147,7 +148,6 @@ const customStyle = (theme: CustomThemeType) => {
     },
     buttonView: {
       height: 38, width:'32%',
-      backgroundColor: colors.black,
       marginRight: normalize(15),
       borderRadius: 28
     },

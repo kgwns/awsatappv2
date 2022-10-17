@@ -70,7 +70,7 @@ const ArchiveArticle = ({
 
   return (
     <FixedTouchable onPress={onPress}>
-      <View>
+      <View style={!showDivider && {marginBottom:10}}>
         <View style={StyleSheet.flatten([ArchiveArticleStyle.sliderItemContainer, containerStyle])}>
           <ArchiveImage image={image} />
         </View>

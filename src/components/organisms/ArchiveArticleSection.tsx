@@ -46,7 +46,7 @@ const ArchiveArticleSection = (props: ArchiveArticleSectionProps) => {
                 containerStyle={isTab ? style.tabletImageStyle : {}}
                 titleStyle={style.titleStyle}
                 leftTitleColor={Styles.color.silverChalice}
-                showDivider={true}
+                showDivider={false}
             />
         </View>
     )

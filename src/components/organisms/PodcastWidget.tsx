@@ -169,7 +169,6 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
               color={colors.white}
               style={style.mobileBody}
               children={description}
-              numberOfLines={2}
             />
           </View>
           <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
