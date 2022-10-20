@@ -72,7 +72,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const formatVideoListData = () => {
     const selectedVideoId = route.params.data.nid
     const selectedVideoIndex = videoData.findIndex((item: any) => item.nid === selectedVideoId);
-    const videoInfo = videoData ? videoData[selectedVideoIndex] : selectedVideo
+    const videoInfo = videoData && selectedVideoIndex != -1 ? videoData[selectedVideoIndex] : selectedVideo
     const otherVideosList = videoData.filter((item: any) => item.nid != selectedVideoId);
     if (isNonEmptyArray(videoData)) {
       const isBookmarked = validateBookmark(videoInfo.nid)
@@ -127,8 +127,8 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }
 
   const goToPlayer = (item:VideoItemType) =>{
-    if(item.mediaId){
-      navigation.navigate(ScreensConstants.VideoPlayerScreen,{mediaID: item.mediaId, nid: item.nid})
+    if(item.mediaId || item.field_video_media_id_export){
+      navigation.navigate(ScreensConstants.VideoPlayerScreen,{mediaID: item.mediaId ? item.mediaId : item.field_video_media_id_export , nid: item.nid} as never)
     }
   }
 
