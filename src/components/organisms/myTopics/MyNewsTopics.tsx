@@ -128,7 +128,6 @@ export const MyNewsTopics = () => {
     };
 
     const onPress = (item: any, index: number) => {
-        setShowEmpty(false)
         if(index == selectedIndex) {
             return;
         }
@@ -208,7 +207,7 @@ export const MyNewsTopics = () => {
             numColumns={numberOfColumn}
         />
     );
-
+console.log('showEmpty',showEmpty)
     return (
         <ScreenContainer edge={horizontalEdge}>
             <View style={styles.container}>
