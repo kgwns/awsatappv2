@@ -147,6 +147,9 @@ export const ManageMyNewsScreen = () => {
   }, [allSelectedWritersDetailList]);
 
   const fetchSelectedDataFromAllWriters = () => {
+    if (selectedAuthorsData.data && selectedAuthorsData.data.length === 0) {
+      setSelectedWriters([])
+    }
     if (isNonEmptyArray(selectedAuthorsData.data)) {
       const selectedAuthorsString = getSelectedData().join('+')
       requestAllSelectedWritersDetailsData({tid:selectedAuthorsString,items_per_page:100})
@@ -221,6 +224,7 @@ export const ManageMyNewsScreen = () => {
 
   const MyFavoriteBooks = (props: any) => {
     const data = props.data;
+    console.log('DATA:::::',data)
     return (
       <View style={style.favBooksView}>
         <Label style={style.titleLabel}>
