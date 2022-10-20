@@ -13,6 +13,7 @@ export interface VideoItemType {
   field_mp4_link_export?: string;
   field_multimedia_section_export?: any;
   field_thumbnil_multimedia_export?: string;
+  field_video_media_id_export?: string;
   description?: string|null;
   body_export?: string|null;
   isBookmarked:boolean;
