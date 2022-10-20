@@ -8,13 +8,15 @@
 import WatchKit
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
-
+    private var dataManager: DataManager?
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        initialiseDataManager()
     }
-
+  
     func applicationDidBecomeActive() {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+      dataManager?.validateCacheAndUpdateIfRequired()
     }
 
     func applicationWillResignActive() {
@@ -51,5 +53,25 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
             }
         }
     }
+}
 
+extension ExtensionDelegate {
+  private func initialiseDataManager() {
+    dataManager = DataManager()
+    dataManager?.onStoriesReceived = { [weak self] newData in
+      guard !newData.isEmpty else {
+        return
+      }
+      
+      let controllerNames: [String] = Array(repeating: "StoriesInterfaceController", count: newData.count)
+      self?.refreshRootPageControllers(with: controllerNames, contexts: newData)
+    }
+    dataManager?.initialiseStories()
+  }
+
+  private func refreshRootPageControllers(with names: [String], contexts: [Any]) {
+    DispatchQueue.main.async {
+      WKInterfaceController.reloadRootPageControllers(withNames: names, contexts: contexts, orientation: .horizontal, pageIndex: 0)
+    }
+  }
 }

@@ -15,7 +15,7 @@
 #import <React/RCTLinkingManager.h>
 #import <UserNotifications/UserNotifications.h>
 #import <RNCPushNotificationIOS.h>
-
+#import "Awsatapp-Swift.h"
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -43,9 +43,12 @@ static void InitializeFlipper(UIApplication *application) {
 {
   [FBSDKApplicationDelegate.sharedInstance initializeSDK];
   [FIRApp configure];
-#ifdef FB_SONARKIT_ENABLED
-  InitializeFlipper(application);
-#endif
+  
+  [self setUpWatchConnectivity];
+  
+  #ifdef FB_SONARKIT_ENABLED
+    InitializeFlipper(application);
+  #endif
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge

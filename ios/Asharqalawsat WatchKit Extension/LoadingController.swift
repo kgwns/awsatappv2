@@ -8,8 +8,7 @@
 import WatchKit
 import Foundation
 
-
-class InterfaceController: WKInterfaceController {
+class LoadingController: WKInterfaceController {
 
     override func awake(withContext context: Any?) {
         // Configure interface objects here.
