@@ -147,6 +147,9 @@ export const ManageMyNewsScreen = () => {
   }, [allSelectedWritersDetailList]);
 
   const fetchSelectedDataFromAllWriters = () => {
+    if (selectedAuthorsData.data && selectedAuthorsData.data.length === 0) {
+      setSelectedWriters([])
+    }
     if (isNonEmptyArray(selectedAuthorsData.data)) {
       const selectedAuthorsString = getSelectedData().join('+')
       requestAllSelectedWritersDetailsData({tid:selectedAuthorsString,items_per_page:100})
