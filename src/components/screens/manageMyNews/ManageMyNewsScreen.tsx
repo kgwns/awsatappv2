@@ -224,7 +224,6 @@ export const ManageMyNewsScreen = () => {
 
   const MyFavoriteBooks = (props: any) => {
     const data = props.data;
-    console.log('DATA:::::',data)
     return (
       <View style={style.favBooksView}>
         <Label style={style.titleLabel}>
