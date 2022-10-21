@@ -4,7 +4,13 @@
     <dependencies>
         <deployment identifier="watchOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="21040"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AwsatDigitalBetav10-Black.ttf">
+            <string>AwsatDigitalBetav10-Black</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Loading Controller-->
         <scene sceneID="aou-V4-d1y">
@@ -13,11 +19,12 @@
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="XsR-Sn-Rv3">
                             <items>
-                                <imageView alignment="left" image="aaa_logo_watch" id="Xnd-mN-M8f"/>
+                                <imageView alignment="center" image="aaa_logo_watch" id="Xnd-mN-M8f"/>
                             </items>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="10"/>
                         </group>
                     </items>
+                    <color key="backgroundColor" red="0.96862745098039216" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                 </controller>
             </objects>
             <point key="canvasLocation" x="-16" y="-5"/>
@@ -27,15 +34,16 @@
             <objects>
                 <controller identifier="StoriesInterfaceController" id="zTY-dZ-PPv" customClass="StoriesInterfaceController" customModule="Asharqalawsat" customModuleProvider="target">
                     <items>
-                        <group width="1" height="1" heightAdjustment="1" alignment="left" layout="vertical" radius="0.0" spacing="10" id="BZ1-34-oDA">
-                            <items>
-                                <label alignment="left" numberOfLines="0" id="o33-zv-Yug">
-                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                </label>
-                                <imageView alignment="left" contentMode="scaleAspectFill" id="A6g-xz-c1p"/>
-                            </items>
-                        </group>
+                        <separator alignment="center" id="auI-mP-77z">
+                            <color key="color" red="0.17254901960784313" green="0.54117647058823526" blue="0.50980392156862742" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </separator>
+                        <label alignment="left" text="Hello World" numberOfLines="0" id="o33-zv-Yug">
+                            <color key="textColor" name="primaryBlack"/>
+                            <fontDescription key="font" name="AwsatDigitalBetav10-Black" family="Awsat Digital Beta v10" pointSize="20"/>
+                        </label>
+                        <imageView alignment="left" id="A6g-xz-c1p"/>
                     </items>
+                    <color key="backgroundColor" red="0.96862745098039216" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <connections>
                         <outlet property="story_image" destination="A6g-xz-c1p" id="ElW-r9-PSy"/>
                         <outlet property="story_title" destination="o33-zv-Yug" id="sYQ-u1-XGq"/>
@@ -46,6 +54,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="aaa_logo_watch" width="262.5" height="36"/>
+        <image name="aaa_logo_watch" width="184" height="32.5"/>
+        <namedColor name="primaryBlack">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
