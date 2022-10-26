@@ -164,6 +164,10 @@ const ShortArticle = ({ data, headerLeft, onPress,
 };
 
 export default ShortArticle;
+
+const imageContainerWidth = 112;
+const footerWidth = (isTab ? (screenWidth * 0.435 - 40) : screenWidth) - (2 * ((isTab ? 0 : 0.04) * screenWidth) + imageContainerWidth);
+
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     paddingHorizontal: (isTab ? 0 : 0.04) * screenWidth,
@@ -193,7 +197,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     width: '100%'
   },
   footerStyle: {
-    flex: 0.70,
+    width: footerWidth,
     paddingRight: normalize(12)
   },
   cardContainer: {
@@ -201,13 +205,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     flex: 1,
   },
   imageContainer: {
-    flex: 0.30, 
-    width: normalize(98),
+    width: imageContainerWidth,
     height: isTab ? normalize(80) : normalize(65),
   },
   imageContainerLandscape: {
-    flex: 0.30, 
-    paddingRight: normalize(5),
+    width: imageContainerWidth,
   },
   hideImage: {
     flex: 1,

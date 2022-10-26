@@ -286,6 +286,12 @@ export const getPodcastDate = (time:any) => {
   return isNotEmpty(time) ? calculateMonth(time) + ', ' + calculateDate(time) + ' ' + calculateMonth(time) : " "
 }
 
+export const getDay = (time:any) => {
+  if(!isNotEmpty(time)) return '';
+  const day =  calculateDay(time)
+  return arabic.day[day]+ ' '
+}
+
 export const  getSecondsToHms = (time:any): string => {
   time = Number(time);
   var h = Math.floor(time / 3600);

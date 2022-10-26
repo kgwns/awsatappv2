@@ -93,17 +93,17 @@ export const NewsWithImageItem = ({
 const customStyle = (theme: CustomThemeType) => {
   const NewsWithImageItemStyle = StyleSheet.create({
     container: {
-      width: isTab ? normalize(262) : normalize(162),
+      width: isTab ? 262 : 162,
       alignItems: 'flex-start',
       marginStart: normalize(15),
     },
     image: {
-      width: normalize(162),
+      width: 162,
       height: 'auto',
       aspectRatio: 4/3,
     },
     tabImage: {
-      width: normalize(262),
+      width: 262,
       height: 'auto',
       aspectRatio: 4/3,
     },

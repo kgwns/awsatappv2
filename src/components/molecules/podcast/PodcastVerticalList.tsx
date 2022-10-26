@@ -8,7 +8,7 @@ import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {decodeHTMLTags, getPodcastDate, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty} from 'src/shared/utils/utilities';
+import {decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay} from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
@@ -82,9 +82,10 @@ export const PodcastVerticalList = ({
               {title}
             </Label>
           </View>
+          {/* Removed Play Icon as per AMAR-1052
           <View style={style.headerRightStyle}>
             <PlayIcon />
-          </View>
+          </View> */}
         </View>
         {!hideDescription&&<Label style={style.description} numberOfLines={2}>
           {isNotEmpty(description) ? decodeHTMLTags(description) : ''}
@@ -92,7 +93,7 @@ export const PodcastVerticalList = ({
         <View style={[style.headerStyle,hideDescription&&style.spaceStyle]}>
           <View style={style.headerLeftStyle}>
             <Label style={style.footerRightTextStyle} numberOfLines={1}>
-              {getPodcastDate(footerRight)}
+              {getDay(footerRight)}
             </Label>
             {footerRight && spreakerId &&<Label style={{fontSize:12}} color={colors.spanishGray}>|</Label>}
             {spreakerId && <Label style={style.footerLeftTextStyle} numberOfLines={1}>

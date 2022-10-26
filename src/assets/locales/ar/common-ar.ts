@@ -273,8 +273,8 @@ export const arabic = {
     debug: 'التصحيح',
     production: 'إنتاج',
     changeEnvironment: 'تغيير البيئة',
-    notSubscribed: 'أنت غير مشترك',
-    loginFeature: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و\n تتمتع بخاصية حفظ المقالات',
+    notSubscribed: 'لم تشترك بعد​',
+    loginFeature: 'انشئ حساباً خاصاً بك لتحصل على أخبار\n مخصصة لك ولتتمتع بخاصية حفظ المقالات وتتلقى\n نشراتنا البريدية المتنوعة​',
     signUp: 'قم بالتسجيل',
   },
   opinionArticleDetail: {

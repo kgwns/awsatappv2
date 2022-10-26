@@ -10,7 +10,7 @@ import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.s
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import {useTranslation} from 'react-i18next';
-import { decodeHTMLTags, getPodcastDate, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getPodcastDate, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
@@ -75,7 +75,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
             />
             <View style={styles.containerSpace} />
             <View style={styles.headerLeftStyle}>
-              <Label style={styles.footerRightTextStyle} numberOfLines={1} children={getPodcastDate(fieldData.created_export)} />
+              <Label style={styles.footerRightTextStyle} numberOfLines={1} children={getDay(fieldData.created_export)} />
               { fieldData.created_export && duration ? <Label color={colors.spanishGray} children={"|"}/> : <View/>}
               <Label style={styles.footerLeftTextStyle} numberOfLines={1} children={ convertSecondsToHMS(duration)} />
             </View>
