@@ -171,12 +171,13 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: '100%',
+    height: 'auto',
+    aspectRatio: 4/3
   },
   imageLandscape: {
     width: '100%',
     height: 'auto',
-    aspectRatio: 16/9
+    aspectRatio: 4/3
   },
   divider: {
     height: 1,

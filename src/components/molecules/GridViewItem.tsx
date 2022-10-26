@@ -73,7 +73,8 @@ const customStyle = (theme: CustomThemeType) => {
         },
         imageContainerStyle: {
             width: '100%',
-            height: 100
+            height: 'auto',
+            aspectRatio: 4/3
         },
         borderStyle: {
             borderRightWidth: 1,
@@ -84,7 +85,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         tabImageStyle: {
             width: '100%',
-            aspectRatio: 3/2,
+            aspectRatio: 4/3,
             height: 'auto'
         }
     });

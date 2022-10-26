@@ -99,11 +99,13 @@ const customStyle = (theme: CustomThemeType) => {
     },
     image: {
       width: normalize(162),
-      height: normalize(114)
+      height: 'auto',
+      aspectRatio: 4/3,
     },
     tabImage: {
       width: normalize(262),
-      height: normalize(185),
+      height: 'auto',
+      aspectRatio: 4/3,
     },
     highlightedTitle: {
       fontSize: 12,
