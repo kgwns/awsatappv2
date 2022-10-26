@@ -1017,7 +1017,7 @@ const customStyle = (theme: CustomThemeType) => {
       overflow: 'hidden',
     },
     tabWidgetContainer: {
-      flex: 0.47,
+      width: screenWidth * 0.435,
       overflow: 'hidden',
     },
     dividerTop: {

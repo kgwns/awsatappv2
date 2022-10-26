@@ -213,13 +213,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     backgroundColor: theme.dividerColor
   },
   imageContainer: {
-    width: 93,
-    height: 73,
+    width: 112,
+    height: 'auto',
+    aspectRatio: 4/3,
     marginTop:20
   },
   tabImageContainer: {
     width: 153,
-    height: 125
+    height: 'auto',
+    aspectRatio: 4/3,
   },
   image: {
     width: "100%",

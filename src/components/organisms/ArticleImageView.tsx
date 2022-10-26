@@ -101,7 +101,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     imageContainer: {
         width: 144,
-        height: 100,
+        height: 'auto',
+        aspectRatio: 4/3,
     },
     imageStyle: {
         width: '100%',

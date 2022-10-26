@@ -45,7 +45,7 @@ export const arabic = {
     },
     followFavoriteAuthor: {
       title: 'تابع كُتابك المفضلين',
-      description: 'اختر كُتابك المفضلين لتحصل على تجربة مميزة',
+      description: 'اختر كُتابك المفضلين لتحصل على مقالاتهم أولاً بأول​',
     },
     keepNotified: {
       title: 'ما الذي تريد أن تبقى على اطلاع عليه؟',
@@ -53,11 +53,11 @@ export const arabic = {
     },
     selectTopics: {
       title: 'حدد اهتماماتك',
-      description: 'أختر مواضيعك المفضلة',
+      description: 'اختر مواضيعك المفضلة لتحصل عليها في صفحة أخباري ​'
     },
     newsLetter: {
       title: 'نشراتك الإخبارية',
-      description:  'احصل على آخر التحديثات عن طريق البريد الإلكتروني الخاص بك',
+      description:  'احصل على آخر التحديثات عبر البريد الإلكتروني الخاص بك​',
       subscribed: 'مشترك',
       notSubscribed: 'اشترك',
     },
@@ -197,25 +197,26 @@ export const arabic = {
     articles_that_interest_you: 'مقالات تهمك',
   },
   signIn: {
-    signUp: 'إنشئ حساب خاص بك',
-    skip: 'تخطى',
-    signUpReceive: 'قم بالتسجيل لتكون مطلع على آخر الأخبار',
-    email: 'البريد الإلكتروني',
-    signIn: 'تسجيل الدخول',
+    signUp: 'انشئ حساباً خاصاً بك​',
+    skip: 'تخطي',
+    signUpReceive: 'سجل وابق مطلعاً على آخر الأخبار ​',
+    email: 'الإيميل',
+    signIn: 'تسجيل الدخول ',
     or: 'أو',
-    loginFacebook: 'الدخول بحساب فيسبوك',
-    loginGoogle: 'الدخول بحساب غوغل',
-    loginApple: 'الدخول بحساب أبل',
+    loginFacebook: 'الدخول بحساب الفيسبوك',
+    loginGoogle: 'الدخول بحساب جوجل',
+    loginApple: 'الدخول بحساب ابل',
     termsAndConditions: 'القواعد و الشروط',
     agreeTo: 'عن طريق تسجيل الدخول تكون قد وافقت علي',
     rights: 'لاستخدام التطبيق و باقي حقوق الملكيه و الموافقه للبراجراف',
-    loginAccount: 'تسجيل الدخول',
-    password: 'كلمة المرور',
+    loginAccount: 'تسجيل الدخول​',
+    password: 'كلمه المرور',
     forgotPassword: 'نسيت كلمة المرور',
     return: 'الرجوع',
     success:'نجاح',
     credentialsAreIncorrect:'أوراق الاعتماد غير صحيحة',
     verifyMailAndPasswordAndTryAgain:'تحقق من معرف البريد الخاص بك وكلمة المرور وحاول مرة أخرى.',
+    signInInfo: 'سجل الدخول لتحظ بآخر الأخبار​'
   },
   validation: {
     emailEmpty: 'عنوان البريد الإلكتروني مطلوب',
@@ -239,9 +240,9 @@ export const arabic = {
   signUp: {
     createAccount: 'إنشاء حساب',
     accountDescription: 'هذا الإيميل غير مسجل لدينا، قم بإنشاء حسابك',
-    email: 'البريد الإلكتروني',
-    password: 'كلمة المرور',
-    confirmPassword: 'تأكيد كلمة المرور',
+    email: 'الإيميل',
+    password: 'كلمه المرور',
+    confirmPassword: 'تأكيد تكلمه المرور',
     signUp: 'تسجيل الدخول',
     return: 'الرجوع',
   },
@@ -253,7 +254,7 @@ export const arabic = {
   },
   onboardSuccess: {
     successMessage: 'تم تفعيل صفحة أخبارك بنجاح',
-    mailAcknowledgement: 'احصل على\n آخر التحديثات عن طريق البريد الإلكتروني الخاص بك​',
+    mailAcknowledgement: 'استمتع بمحتوانا المميز على منصاتك المفضلة​',
     goToHome: 'انتقل الي الصفحة الرئيسية',
     goToMyNews: 'انتقل الي صفحة أخباري'
   },
@@ -273,8 +274,8 @@ export const arabic = {
     debug: 'التصحيح',
     production: 'إنتاج',
     changeEnvironment: 'تغيير البيئة',
-    notSubscribed: 'أنت غير مشترك',
-    loginFeature: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و\n تتمتع بخاصية حفظ المقالات',
+    notSubscribed: 'لم تشترك بعد​',
+    loginFeature: 'انشئ حساباً خاصاً بك لتحصل على أخبار\n مخصصة لك ولتتمتع بخاصية حفظ المقالات وتتلقى\n نشراتنا البريدية المتنوعة​',
     signUp: 'قم بالتسجيل',
   },
   opinionArticleDetail: {
