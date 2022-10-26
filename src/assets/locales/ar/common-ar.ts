@@ -64,7 +64,7 @@ export const arabic = {
   },
   opinion: {
     opinionWriters: 'كتاب الرأي',
-    listenToActicleText: 'إستمع إلى المقالة',
+    listenToArticleText: 'استمع إلى المقالة',
     opinionArticles: 'مقالات الرأي'
   },
   latestNewsTab: {
@@ -77,7 +77,7 @@ export const arabic = {
     },
     sectionWriters: {
       headerLeft: 'الرأي',
-      sliderLeftHeader: 'آراء وكتّاب '
+      sliderLeftHeader: 'الرأي'
     },
     sectionComboThree: {
       headerLeft: 'شؤون إقليمية',
@@ -141,9 +141,9 @@ export const arabic = {
     one_minute: '1 دقيقة',
     one_hour: '1 ساعة',
     from: 'من',
-    fromHour: "من ساعة",
-    fromTwoHours: "من ساعتين",
-    fromThreeHours:  "من ثلاث ساعات",
+    sinceHour: "منذ ساعة",
+    sinceTwoHours: "منذ ساعتين",
+    sinceThreeHours:  "منذ ثلاث ساعات",
     minute: "دقيقة",
   },
   months: [
@@ -279,7 +279,7 @@ export const arabic = {
   },
   opinionArticleDetail: {
     return: 'الرجوع',
-    listenToArticle: 'إستمع إلى المقالة',
+    listenToArticle: 'استمع إلى المقالة',
     relatedOpinionTitle: 'المزيد من مقالات الرآي',
   },
   profile: {

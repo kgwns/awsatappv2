@@ -9,7 +9,7 @@ import returnIcon from 'src/assets/images/icons/return_arrow/returnArrow.png';
 import earlyEditionImg from 'src/assets/images/earlyEditionImg.png'
 import moneyAndBusinessImg from 'src/assets/images/moneyAndBusinessImg.png'
 import technologyImg from 'src/assets/images/technologyImg.png'
-import placeholderImg from 'src/assets/images/icons/placeholder_image.png'
+import placeholderImg from 'src/assets/images/icons/placeholderImage.png'
 import crossWord from 'src/assets/images/crossword.png'
 import sudoku from 'src/assets/images/sudoku.png'
 import pdfIcon from 'src/assets/images/pdf_icon.png'
@@ -58,6 +58,7 @@ export enum ImagesName {
   bookmarkBlack = ' bookmarkBlack',
   clock = 'clock',
   clockWhite = 'clockWhite',
+  clockBlack = 'clockBlack',
   headerLogo = 'headerLogo',
   logoBlack = 'logoBlack',
   searchIcon = 'searchIcon',
@@ -158,6 +159,7 @@ export enum ImagesName {
   printVersionGrayIcon = 'printVersionGrayIcon',
   popupImage = 'popupImage',
   calendarIcon = 'calendarIcon',
+  calendarIconLight = 'calendarIconLight',
   videoCloseIcon = 'videoCloseIcon',
   authorDefault = 'authorDefault',
   authorDefaultGrey = 'authorDefaultGrey',

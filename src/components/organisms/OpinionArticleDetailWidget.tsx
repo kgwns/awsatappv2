@@ -105,10 +105,10 @@ export const OpinionArticleDetailWidget = ({
   const timeFormat = dateTimeAgo(data.created_export)
 
   const articleDetailFooterData: articleFooterProps = {
-    leftTitleColor: Styles.color.spanishGray,
+    leftTitleColor: style.footerTitleColor.color,
     leftIcon: () => TimeIcon(timeFormat.icon),
     leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: isIOS ? 20 : 25 },
-    rightTitleColor: Styles.color.spanishGray,
+    rightTitleColor: style.footerTitleColor.color,
     hideBookmark: true,
     style: {marginVertical: normalize(0.01 * screenWidth)},
   };
@@ -180,7 +180,10 @@ const customStyle = (theme: CustomThemeType) => {
     divider: {
       height: 1,
       backgroundColor: theme.dividerColor
-  },
+    },
+    footerTitleColor: {
+      color: theme.footerTextColor
+    },
   });
   return OpinionArticleDetailWidgetStyle;
 };

@@ -358,7 +358,7 @@ const parseSectionComboOne = (response: payloadType) => {
   const responseData: RequestSectionComboOneSuccessPayload = {
     sectionComboOne: []
   }
-  responseData.sectionComboOne = formattedData.splice(0, 4)
+  responseData.sectionComboOne = formattedData.splice(0, 6)
   return responseData
 }
 
@@ -374,7 +374,8 @@ const parseSectionComboTwo = (response: payloadType) => {
       body: ''
     }
   })
-  responseData.sectionComboTwo = data.splice(0, 4)
+  console.log('sectionComboTwo response data', responseData)
+  responseData.sectionComboTwo = data.splice(0, 6)
   return responseData
 }
 
@@ -390,7 +391,7 @@ const parseSectionComboThree = (response: payloadType) => {
       body: ''
     }
   })
-  responseData.sectionComboThree = data.splice(0, 4)
+  responseData.sectionComboThree = data.splice(0, 6)
   return responseData
 }
 
@@ -406,7 +407,7 @@ const parseSectionComboFour = (response: payloadType) => {
       body: ''
     }
   })
-  responseData.sectionComboFour = data.splice(0, 4)
+  responseData.sectionComboFour = data.splice(0, 6)
   return responseData
 }
 
@@ -415,7 +416,7 @@ const parseSectionComboFive= (response: payloadType) => {
   const responseData: RequestSectionComboFiveSuccessPayload = {
     sectionComboFive: []
   }
-  responseData.sectionComboFive = formattedData.splice(0, 4)
+  responseData.sectionComboFive = formattedData.splice(0, 6)
   return responseData
 }
 
@@ -424,7 +425,7 @@ const parseSectionComboSix= (response: payloadType) => {
   const responseData: RequestSectionComboSixSuccessPayload = {
     sectionComboSix: []
   }
-  responseData.sectionComboSix = formattedData.splice(0, 4)
+  responseData.sectionComboSix = formattedData.splice(0, 6)
   return responseData
 }
 
@@ -433,7 +434,7 @@ const parseSectionComboSeven= (response: payloadType) => {
   const responseData: RequestSectionComboSevenSuccessPayload = {
     sectionComboSeven: []
   }
-  responseData.sectionComboSeven = formattedData.splice(0, 4)
+  responseData.sectionComboSeven = formattedData.splice(0, 6)
   return responseData
 }
 
@@ -442,7 +443,7 @@ const parseSectionComboEight = (response: payloadType) => {
   const responseData: RequestSectionComboEightSuccessPayload = {
     sectionComboEight: []
   }
-  responseData.sectionComboEight = formattedData.splice(0, 4)
+  responseData.sectionComboEight = formattedData.splice(0, 6)
   return responseData
 }
 
@@ -472,7 +473,7 @@ const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload =
 
   const allEditorsChoiceInfo = formattedData.filter((item) => item.blockname == MainSectionBlockName.EDITORS_CHOICE)
   const sortedEditorsChoiceInfo = allEditorsChoiceInfo.sort((a, b) => parseInt(a.entityqueue_relationship_position) - parseInt(b.entityqueue_relationship_position))
-  const editorsChoiceInfo = sortedEditorsChoiceInfo.splice(0, 4)
+  const editorsChoiceInfo = sortedEditorsChoiceInfo.splice(0, 6)
 
   responseData.editorsChoice = editorsChoiceInfo;
   return responseData;

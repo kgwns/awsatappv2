@@ -133,7 +133,7 @@ export const VideoItem = ({
           {toWatchTitle && (<Label labelType="caption5">{toWatchTitle}</Label>)}
           {showSeparator && (<View style={styles.dividerV} />)}
           {monthDate  && TimeIcon(timeFormat.icon)}
-          <Label style={styles.day} color={colors.silverChalice}>
+          <Label style={styles.day} color={styles.footerTitleColor.color}>
             {monthDate}
           </Label>
         </View>
@@ -294,5 +294,8 @@ const createStyles = (theme: CustomThemeType) =>
     },
     containerStyle: {
       width: isTab? '50%' : '100%'
-    }
+    },
+    footerTitleColor: {
+      color: theme.footerTextColor
+    },
   });

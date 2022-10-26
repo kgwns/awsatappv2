@@ -12,6 +12,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
+import { DARK_THEME_ID } from '../../shared/styles/colors'
 
 const archiveFooterSample: articleFooterProps = {
   leftTitleColor: Styles.color.white,
@@ -61,6 +62,7 @@ const ArchiveArticle = ({
   const navigation = useNavigation<StackNavigationProp<any>>()
   const { themeData } = useTheme();
   const timeFormat = dateTimeAgo(created)
+  const isDark = themeData?.id === DARK_THEME_ID
 
   const onPress = () => {
     if (nid) {
@@ -87,7 +89,7 @@ const ArchiveArticle = ({
             <ArticleFooter {...archiveFooterSample}
               rightTitle={timeFormat.time}
               leftTitleColor={leftTitleColor || Styles.color.greenishBlue}
-              rightTitleColor={Styles.color.silverChalice}
+              rightTitleColor={isDark ? Styles.color.silverChalice : Styles.color.black}
               rightContainerStyle={rightContainerStyle}
               rightIcon={() => TimeIcon(timeFormat.icon)}
               hideBookmark={true}

@@ -13,6 +13,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
+import { DARK_THEME_ID } from '../../shared/styles/colors'
 
 const carouselFooterSample: articleFooterProps = {
   leftTitleColor: Styles.color.white,
@@ -71,6 +72,7 @@ const ImageArticle = ({
 
   const [isImageLoaded, setImageLoaded] = useState(false)
   const { themeData } = useTheme();
+  const isDark = themeData?.id === DARK_THEME_ID
 
   const onImageLoadEnd = (isSuccess: boolean) => {
     setImageLoaded(isSuccess)
@@ -108,7 +110,7 @@ const ImageArticle = ({
               isBookmarked={isBookmarked}
               onPress={onPressBookmark}
               leftTitleColor={leftTitleColor || Styles.color.greenishBlue}
-              rightTitleColor={Styles.color.silverChalice}
+              rightTitleColor={isDark ? Styles.color.silverChalice : Styles.color.black}
               bookMarkColorType={BookMarkColorType.BLACK}
               rightContainerStyle={rightContainerStyle}
               rightIcon={() => TimeIcon(timeFormat.icon)}

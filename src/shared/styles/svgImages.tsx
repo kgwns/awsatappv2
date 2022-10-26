@@ -61,6 +61,7 @@ import AppleIcon from 'src/assets/images/socialButton/appleIconBlack.svg'
 
 import ClockIcon from 'src/assets/images/icons/clockIcon.svg'
 import ClockIconWhite from 'src/assets/images/icons/clockIcon_white.svg'
+import ClockIconBlack from 'src/assets/images/icons/clockIconBlack.svg'
 import ArrowLeftFaced from 'src/assets/images/icons/arrowLeftFaced.svg'
 
 import Mail from 'src/assets/images/icons/mail.svg'
@@ -135,6 +136,8 @@ import HomeIconDark from 'src/assets/images/icons/homeIconDark.svg';
 
 import PopupImage from 'src/assets/images/popupImage.svg'
 import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg';
+import CalendarIconLight from 'src/assets/images/icons/calendarIconLight.svg';
+
 
 //Contact Us
 import EmailGrayIcon from 'src/assets/images/email_gray_icon.svg'
@@ -261,7 +264,7 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.mailIcon:
             return <MailIcon {...props} />
         case ImagesName.clock:
-            return <ClockIcon {...props} />
+            return isDark ?  <ClockIcon {...props} /> : <ClockIconBlack {...props} />
         case ImagesName.clockWhite:
             return <ClockIconWhite {...props} />
         case ImagesName.arrowLeftFaced:
@@ -389,7 +392,7 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.popupImage:
             return <PopupImage {...props} />    
         case ImagesName.calendarIcon:
-            return <CalendarIcon {...props} />
+            return isDark ? <CalendarIcon {...props} /> : <CalendarIconLight {...props} />
         case ImagesName.videoCloseIcon:
             return <MenuCloseIconDark {...props} />
         case ImagesName.myNewsIcon:
