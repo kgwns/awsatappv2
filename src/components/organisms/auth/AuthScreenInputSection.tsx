@@ -97,7 +97,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
               style={styles.loginStyle}
             />
             <Label
-              children={t('signIn.signUpReceive')}
+              children={isPassword?t('signIn.signInInfo'):t('signIn.signUpReceive')}
               style={styles.textStyle}
             />
             <TextInputField placeholder={t('signIn.email')}
@@ -186,7 +186,7 @@ StyleSheet.create({
     fontFamily: fonts.AwsatDigital_Bold,
     fontSize: normalize(18),
     color: theme.primaryBlack,
-    lineHeight: normalize(22),
+    lineHeight: normalize(42),
   },
   buttonStyle: {
     backgroundColor: theme.primary,
