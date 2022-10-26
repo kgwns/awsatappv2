@@ -57,7 +57,7 @@ export const JournalistSection = ({
             rightIcon: () => TimeIcon(timeFormat.icon),
             rightTitle: timeFormat.time,
             hideBookmark: false,
-            rightTitleColor: theme.themeData.signinRightsColor,
+            rightTitleColor: theme.themeData.footerTextColor,
           }}
           author={''} created={''}
           isBookmarked={item.isBookmarked}

@@ -40,7 +40,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const [t] = useTranslation()
     const { themeData } = useTheme()
     const bannerData = [...data].splice(0, 1)
-    const verticalArticleData = [...data].splice(1, 4)
+    const verticalArticleData = [...data].splice(1, 5)
     const style = useThemeAwareObject(createStyles);
 
     const articleNewsItem = (item: articleProps, index: number) => {
@@ -48,6 +48,8 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
 
         sectionComboArticleFooter.leftTitle = timeFormat.time
         sectionComboArticleFooter.leftIcon = () => TimeIcon(timeFormat.icon) 
+        sectionComboArticleFooter.leftTitleColor = style.footerTitleColor.color
+        sectionComboArticleFooter.rightTitleColor = style.footerTitleColor.color
 
         return <ArticleWithOutImage key={index} {...item}
             showDivider={index < verticalArticleData.length - 1}
@@ -189,5 +191,8 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     listHeaderstyle: { 
         flex: 1 
-    }
+    },
+    footerTitleColor: {
+        color: theme.footerTextColor
+    },
 })

@@ -99,8 +99,10 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const timeFormat = dateTimeAgo(item.created)
 
     shortArticleFooter.rightTitle = timeFormat.time
+    shortArticleFooter.rightTitleColor = style.footerTitleColor.color
     shortArticleFooter.rightIcon = () => TimeIcon(timeFormat.icon)
     shortArticleFooter.leftTitle = item.author
+    shortArticleFooter.leftTitleColor = style.footerTitleColor.color
 
     const cardStyle = (numColumns > 1 && index % 2 == 0) ? {marginRight: normalize(20)} : {}
     const showDivider = (numColumns == 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
@@ -221,6 +223,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   cardContainerStyle: {
     paddingBottom: normalize(20),
+  },
+  footerTitleColor: {
+    color: theme.footerTextColor
   },
 })
 

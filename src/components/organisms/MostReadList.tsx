@@ -118,7 +118,7 @@ const MostReadList = ({
       rightTitle: timeFormat.time,
       rightTitleStyle: {fontFamily: fonts.Effra_Arbc_Regular, lineHeight: 40, fontSize: 12},
       rightIcon: () => TimeIcon(timeFormat.icon),
-      rightTitleColor: Styles.color.silverChalice,
+      rightTitleColor: style.footerTitleColor,
       leftTitleStyle: style.leftFooterStyle,
     };
 
@@ -221,5 +221,8 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: normalize(80)
+  },
+  footerTitleColor: {
+    color: theme.footerTextColor
   }
 });

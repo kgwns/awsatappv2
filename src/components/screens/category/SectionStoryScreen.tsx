@@ -479,7 +479,7 @@ export const SectionStoryScreen = React.memo(({
           rightTitle={timeFormat.time}
           leftTitleColor={themeData.primary}
           rightIcon={() => TimeIcon(timeFormat.icon)}
-          rightTitleColor={colors.silverChalice}
+          rightTitleColor={themeData.footerTextColor}
         />
       </View>
     )

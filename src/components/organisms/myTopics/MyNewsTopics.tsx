@@ -159,7 +159,7 @@ export const MyNewsTopics = () => {
                         rightIcon: () => TimeIcon(timeFormat.icon),
                         rightTitle: timeFormat.time,
                         hideBookmark: true,
-                        rightTitleColor: themeData.signinRightsColor
+                        rightTitleColor: themeData.footerTextColor
                     }}
                     author={''} created={''} isBookmarked={false}
                     showDivider={false}
