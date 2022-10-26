@@ -41,8 +41,8 @@ export const PodcastForYou = ({
                     children={item.title}
                     numberOfLines={3} />
                 <ArticleFooter
-                    leftTitle={item.author} leftTitleColor={Styles.color.silverChalice}
-                    rightTitle={item.created} rightTitleColor={Styles.color.silverChalice}
+                    leftTitle={item.author} leftTitleColor={style.footerTitleColor.color}
+                    rightTitle={item.created} rightTitleColor={style.footerTitleColor.color}
                     hideBookmark={true}
                 />
             </View>
@@ -79,6 +79,9 @@ const customStyle = (theme: CustomThemeType) => (
         image: {
             width: normalize(162),
             height: normalize(97)
+        },
+        footerTitleColor: {
+            color: theme.footerTextColor
         }
     })
 )

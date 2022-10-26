@@ -75,11 +75,11 @@ export const VideoContent = ({
                     </Label>
                     
                     <SectionVideoFooter
-                        leftTitleColor={Styles.color.smokeyGrey}
+                        leftTitleColor={style.footerTitleColor.color}
                         rightIcon={() => TimeIcon(timeFormat.icon)}
                         rightDate={date}
-                        rightDateColor={Styles.color.smokeyGrey}
-                        rightTitleColor={Styles.color.smokeyGrey}
+                        rightDateColor={style.footerTitleColor.color}
+                        rightTitleColor={style.footerTitleColor.color}
                         leftViewsColor={theme.themeData.primary}
                     />
                 </View>
@@ -157,6 +157,9 @@ const customStyle = (theme: CustomThemeType) => {
             marginVertical: 3,
             fontSize: normalize(10),
             color: Styles.color.white,
+        },
+        footerTitleColor: {
+            color: theme.footerTextColor
         },
     })
     return videoContentStyle

@@ -167,6 +167,7 @@ const AuthorItem = ({
             );
           case LabelsType.title:
             return (
+              <TouchableOpacity onPress={onPress}>
                 <Label
                   key={index}
                   children={body}
@@ -174,6 +175,7 @@ const AuthorItem = ({
                   numberOfLines={2}
                   style={style.body}
                 />
+              </TouchableOpacity>
             );
           default:
             return null;
@@ -182,7 +184,7 @@ const AuthorItem = ({
     };
 
     return (
-        <TouchableOpacity testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
+        <View testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }]} >
             <View style={{ flex: 1 }}>
                 {renderLabels()}
                 {mediaVisibility && <View style={style.mediaFooter}>
@@ -193,7 +195,7 @@ const AuthorItem = ({
                             getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                         }
                         onPress={onPressPlay} />
-                        <Label children={t('opinion.listenToActicleText')} style={style.articleLabelSyle}
+                        <Label children={t('opinion.listenToArticleText')} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
                     </TouchableOpacity>
                     { timeDuration && <Label children={timeDuration} style={style.durationLabel} /> }
@@ -211,7 +213,7 @@ const AuthorItem = ({
                     />
                 </TouchableOpacity>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
@@ -228,14 +230,18 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingRight: normalize(5)
     },
     durationLabel: {
-        paddingHorizontal: normalize(10),
-        color: Styles.color.spanishGray
+      fontSize: 12,
+      lineHeight: 36,
+      color: theme.secondaryDavyGrey,
+      fontFamily: fonts.Effra_Arbc_Medium,
+      marginBottom: isIOS ? 3: 0
     },
     articleLabelSyle: {
         paddingHorizontal: normalize(10),
         color: theme.primary,
         fontFamily: fonts.AwsatDigital_Regular,
-        lineHeight: isIOS ? 36 : 25,
+        fontSize: 13,
+        lineHeight: 36,
     },
     mediaFooter: {
         flexDirection: 'row',

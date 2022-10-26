@@ -286,10 +286,11 @@ const customStyle = (theme: CustomThemeType) => {
     },
     duration: {
       fontSize: 12,
-      lineHeight: isIOS ? 18 :36,
+      lineHeight: 36,
       color: theme.secondaryDavyGrey,
       marginLeft: normalize(10),
       fontFamily: fonts.Effra_Arbc_Medium,
+      marginBottom: isIOS ? 3 : 0
     },
     divider: {
       height: 1,

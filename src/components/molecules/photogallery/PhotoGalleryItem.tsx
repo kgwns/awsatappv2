@@ -54,7 +54,7 @@ export const PhotoGalleryItem: FunctionComponent<PhotoGalleryItemProps> = ({
       fontSize: 12,
     },
     rightIcon: () => TimeIcon(timeFormat.icon),
-    rightTitleColor: Styles.color.silverChalice,
+    rightTitleColor: style.footerTitleColor.color,
   };
 
   const onPressBookmark = () => {
@@ -140,4 +140,7 @@ const styles = (theme: CustomThemeType) =>
       height: 'auto',
       aspectRatio: 1.34,
     },
+    footerTitleColor: {
+      color: theme.footerTextColor
+    }
   });

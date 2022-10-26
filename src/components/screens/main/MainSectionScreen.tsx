@@ -708,8 +708,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboFiveBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboFiveInfo) && <Divider style={{ height: normalize(20) }} />}
-      {isNonEmptyArray(sectionComboFiveInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       {isNonEmptyArray(spotlight) && isNonEmptyArray(spotlightArticleSection) && (
         <View style={mainSectionStyle.articleContainer}>
           <View style={mainSectionStyle.articleTitleContainer}>

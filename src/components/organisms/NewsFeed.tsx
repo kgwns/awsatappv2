@@ -66,8 +66,8 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
           leftTitleColor={theme.themeData.primary}
           rightIcon={() => TimeIcon(timeFormat.icon)}
           rightDate={timeFormat.time}
-          rightDateColor={Styles.color.smokeyGrey}
-          rightTitleColor={Styles.color.smokeyGrey}
+          rightDateColor={style.footerTitleColor.color}
+          rightTitleColor={style.footerTitleColor.color}
           addBookMark={true}
           isBookmarked={item.isBookmarked}
           onPressBookmark={() => { onUpdateNewsFeedBookmark(index) }}
@@ -83,11 +83,11 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
       <View style={{marginTop: 10}}>
         <SectionVideoFooter  
           // rightTitle={isAndroid ?  ',' + calculateYear(item.created_export) : calculateYear(item.created_export) + ','} for older reference
-          leftTitleColor={colors.spanishGray}
+          leftTitleColor={style.footerTitleColor.color}
           rightIcon={() => TimeIcon(timeFormat.icon)}
           rightDate={timeFormat.time}
-          rightDateColor={colors.spanishGray}
-          rightTitleColor={colors.spanishGray}
+          rightDateColor={style.footerTitleColor.color}
+          rightTitleColor={style.footerTitleColor.color}
           addBookMark={true}
           isBookmarked={item.isBookmarked}
           onPressBookmark={() => { onUpdateNewsFeedBookmark(index) }}
@@ -251,5 +251,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   titleStyle: {
     marginRight: normalize(10),
     top: normalize(10),
+  },
+  footerTitleColor: {
+    color: theme.footerTextColor
   },
 });

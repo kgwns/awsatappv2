@@ -78,7 +78,9 @@ const ArticleSection = ({
         const timeFormat = dateTimeAgo(item.created)
 
         articleFooterDataSet.rightTitle = item.author
+        articleFooterDataSet.rightTitleColor = style.footerTitleColor.color
         articleFooterDataSet.leftTitle = timeFormat.time
+        articleFooterDataSet.leftTitleColor = style.footerTitleColor.color
         articleFooterDataSet.leftIcon = () => TimeIcon(timeFormat.icon) 
 
         const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns == 1 && articleData.length == index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
@@ -151,4 +153,8 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight:26,
         textAlign: 'left' 
     },
+    footerTitleColor: {
+        color: theme.footerTextColor
+    }
+
 })
