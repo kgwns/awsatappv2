@@ -15,6 +15,8 @@ import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.s
 import GooglePodcastIcon from 'src/assets/images/icons/google_podcast.svg'
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg'
 import SpotifyIcon from 'src/assets/images/icons/spotify_icon.svg'
+import AnghamiPodcastDarkIcon from 'src/assets/images/icons/anghamiPodcastDarkIcon.svg'
+import AnghamiPodcastIcon from 'src/assets/images/icons/anghamiPodcastIcon.svg'
 import ReturnArrowBlack from 'src/assets/images/icons/returnArrowBlack.svg'
 
 //Header Icons
@@ -211,6 +213,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <GooglePodcastDarkIcon {...props} /> : <GooglePodcastIcon {...props} />
         case ImagesName.spotifyPodcast:
             return isDark ? <SpotifyDarkIcon {...props} /> : <SpotifyIcon {...props} />
+        case ImagesName.anghamiPodcast:
+            return isDark ? <AnghamiPodcastDarkIcon {...props} /> : <AnghamiPodcastIcon  {...props} />
         case ImagesName.closeSVG:
             return <CloseIcon {...props} />
         case ImagesName.playIconSVG:

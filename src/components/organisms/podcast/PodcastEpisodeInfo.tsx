@@ -8,6 +8,7 @@ import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import ApplePodcastDarkIcon from 'src/assets/images/icons/apple_podcast_dark.svg';
 import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.svg';
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
+import AnghamiPodcastDarkIcon from 'src/assets/images/icons/anghamiPodcastDarkIcon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import {useTranslation} from 'react-i18next';
 import { decodeHTMLTags, getPodcastDate, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
@@ -86,17 +87,39 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
             }
           </View>
 
-          <View style={styles.rowContainerStyle}>
-            <View style={styles.rowStyle}>
-              <ApplePodcastDarkIcon width={normalize(100)} height={normalize(50)} />
+          {isTab && <>
+            <View style={styles.rowContainerStyle}>
+              <View style={styles.rowStyle}>
+                <ApplePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
+              </View>
+              <View style={styles.rowStyle}>
+                <GooglePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
+              </View>
+              <View style={styles.rowStyle}>
+                <SpotifyDarkIcon width={normalize(70)} height={normalize(50)} />
+              </View>
+              <View style={styles.rowStyle}>
+                <AnghamiPodcastDarkIcon width={normalize(80)} height={normalize(50)} />
+              </View>
             </View>
-            <View style={styles.rowStyle}>
-              <SpotifyDarkIcon width={normalize(50)} height={normalize(50)} />
+          </>}
+
+          {!isTab && <>
+            <View style={styles.topRowContainerStyle}>
+              <View style={styles.rowStyle}>
+                <ApplePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
+                <View style={{ width: '10%' }} />
+                <GooglePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
+              </View>
             </View>
-            <View style={styles.rowStyle}>
-              <GooglePodcastDarkIcon width={normalize(100)} height={normalize(50)} />
+            <View style={styles.BottomRowContainerStyle}>
+              <View style={styles.rowStyle}>
+                <SpotifyDarkIcon width={normalize(70)} height={normalize(50)} />
+                <View style={{ width: '14%' }} />
+                <AnghamiPodcastDarkIcon width={normalize(80)} height={normalize(50)} />
+              </View>
             </View>
-          </View>
+          </>}
         </View>
       </View>
     </View>
@@ -164,6 +187,18 @@ StyleSheet.create({
   rowContainerStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  topRowContainerStyle: {
+    height: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  BottomRowContainerStyle: {
+    height: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginLeft:22,
+    marginBottom:20,
   },
   buttonStyle: {
     backgroundColor:colors.white,

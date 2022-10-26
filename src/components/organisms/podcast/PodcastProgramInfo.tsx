@@ -41,17 +41,39 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
             }
           </View>
 
-          <View style={styles.rowContainerStyle}>
-            <View style={styles.rowStyle}>
-              {getSvgImages({ name: ImagesName.applePodcast, width: normalize(100), height: normalize(50), })}
+          {isTab && <>
+            <View style={styles.rowContainerStyle}>
+              <View style={styles.rowStyle}>
+                {getSvgImages({ name: ImagesName.applePodcast, width: normalize(110), height: normalize(50), })}
+              </View>
+              <View style={styles.rowStyle}>
+                {getSvgImages({ name: ImagesName.googlePodcast, width: normalize(110), height: normalize(50), })}
+              </View>
+              <View style={styles.rowStyle}>
+                {getSvgImages({ name: ImagesName.spotifyPodcast, width: normalize(70), height: normalize(50), })}
+              </View>
+              <View style={styles.rowStyle}>
+                {getSvgImages({ name: ImagesName.anghamiPodcast, width: normalize(80), height: normalize(50), })}
+              </View>
             </View>
-            <View style={styles.rowStyle}>
-              {getSvgImages({ name: ImagesName.spotifyPodcast, width: normalize(50), height: normalize(50), })}
+          </>}
+
+          {!isTab && <>
+            <View style={styles.topRowContainerStyle}>
+              <View style={styles.rowStyle}>
+                {getSvgImages({ name: ImagesName.applePodcast, width: normalize(110), height: normalize(50), })}
+                <View style={{ width: '10%' }} />
+                {getSvgImages({ name: ImagesName.googlePodcast, width: normalize(110), height: normalize(50), })}
+              </View>
             </View>
-            <View style={styles.rowStyle}>
-              {getSvgImages({ name: ImagesName.googlePodcast, width: normalize(100), height: normalize(50), })}
+            <View style={styles.BottomRowContainerStyle}>
+              <View style={styles.rowStyle}>
+                {getSvgImages({ name: ImagesName.spotifyPodcast, width: normalize(70), height: normalize(50), })}
+                <View style={{ width: '14%' }} />
+                {getSvgImages({ name: ImagesName.anghamiPodcast, width: normalize(80), height: normalize(50), })}
+              </View>
             </View>
-          </View>
+          </>}
           <View style={styles.containerSpace} />
         </View>
       </View>
@@ -113,5 +135,17 @@ StyleSheet.create({
   rowContainerStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  }
+  },
+  topRowContainerStyle: {
+    height: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  BottomRowContainerStyle: {
+    height: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginLeft:22,
+    marginBottom:20,
+  },
 });
