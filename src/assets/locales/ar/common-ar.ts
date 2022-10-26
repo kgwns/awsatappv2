@@ -45,7 +45,7 @@ export const arabic = {
     },
     followFavoriteAuthor: {
       title: 'تابع كُتابك المفضلين',
-      description: 'اختر كُتابك المفضلين لتحصل على تجربة مميزة',
+      description: 'اختر كُتابك المفضلين لتحصل على مقالاتهم أولاً بأول​',
     },
     keepNotified: {
       title: 'ما الذي تريد أن تبقى على اطلاع عليه؟',
@@ -53,11 +53,11 @@ export const arabic = {
     },
     selectTopics: {
       title: 'حدد اهتماماتك',
-      description: 'أختر مواضيعك المفضلة',
+      description: 'اختر مواضيعك المفضلة لتحصل عليها في صفحة أخباري ​'
     },
     newsLetter: {
       title: 'نشراتك الإخبارية',
-      description:  'احصل على آخر التحديثات عن طريق البريد الإلكتروني الخاص بك',
+      description:  'احصل على آخر التحديثات عبر البريد الإلكتروني الخاص بك​',
       subscribed: 'مشترك',
       notSubscribed: 'اشترك',
     },
@@ -254,7 +254,7 @@ export const arabic = {
   },
   onboardSuccess: {
     successMessage: 'تم تفعيل صفحة أخبارك بنجاح',
-    mailAcknowledgement: 'احصل على\n آخر التحديثات عن طريق البريد الإلكتروني الخاص بك​',
+    mailAcknowledgement: 'استمتع بمحتوانا المميز على منصاتك المفضلة​',
     goToHome: 'انتقل الي الصفحة الرئيسية',
     goToMyNews: 'انتقل الي صفحة أخباري'
   },
