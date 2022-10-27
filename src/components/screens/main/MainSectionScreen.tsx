@@ -722,6 +722,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
             onUpdateBookmark={updateBookmarkInfo}
             showSignUpPopUp={makeSignUpAlert}
             isFooterOutside={true}
+            containerStyle={mainSectionStyle.shortArticleContainer}
           />
         </View>
       )}
@@ -1092,6 +1093,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     contentContainer: {
       paddingBottom: normalize(80)
+    },
+    shortArticleContainer: {
+      paddingBottom: 8
     }
   })
 }
