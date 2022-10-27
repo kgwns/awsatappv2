@@ -976,7 +976,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
 
   const showSpinner = isLoading || !coverageInfoLoaded || !featuredArticleLoaded || !horizontalArticleLoaded
   return (
-    <ScreenContainer edge={horizontalEdge} isLoading={showSpinner}
+    <ScreenContainer edge={horizontalEdge} isLoading={refreshing ? false : showSpinner}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <FlatList
