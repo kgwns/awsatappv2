@@ -289,7 +289,7 @@ export const getPodcastDate = (time:any) => {
 export const getDay = (time:any) => {
   if(!isNotEmpty(time)) return '';
   const day =  calculateDay(time)
-  return arabic.day[day]+ ' '
+  return moment(time).get('year') + ' ' + calculateMonth(time) + ' ' + calculateDate(time) + ', '+ arabic.day[day]
 }
 
 export const  getSecondsToHms = (time:any): string => {
