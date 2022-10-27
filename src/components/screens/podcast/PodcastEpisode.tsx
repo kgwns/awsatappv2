@@ -26,7 +26,19 @@ export const podcastEpisodeInitialData = {
   title: '',
   field_new_sub_title_export: '',
   field_podcast_sect_export: {
-    img_podcast_mobile: ''
+    img_podcast_mobile: '',
+    anghami: {
+      url: '',
+    },
+    apple_podcasts: {
+      url: '',
+    },
+    google_podcast: {
+      url: '',
+    },
+    spotify: {
+      url: '',
+    },
   },
   field_announcer_name_export: '',
   field_total_duration_export: 0,

@@ -68,3 +68,11 @@ export const CONST_CONTACT_US_DESCRIPTION = 'سنتواصل معك و نجيب �
 
 //Photo Gallery
 export const PHOTO_GALLERY = 'معرض الصور'
+
+//Podcast Services
+export const podcastServices = {
+  anghami: 'anghami',
+  apple: 'apple_podcasts',
+  google: 'google_podcast',
+  spotify: 'spotify'
+}

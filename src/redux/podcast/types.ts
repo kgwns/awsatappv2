@@ -16,15 +16,31 @@ export interface PodcastEpisodeBodyGet {
 }
 
 type FieldPodcastSectionExport = {
-  id: string,
-  title: string,
-  url: string,
-  bundle: string,
-  description: string,
-  img_podcast_desktop: string,
-  img_podcast_mobile: string,
-  name: string,
-  image: string,
+    id: string,
+    title: string,
+    url: string,
+    bundle: string,
+    description: string,
+    anghami: {
+      url: string,
+      text: string
+    },
+    apple_podcasts: {
+      url: string,
+      text: string
+    },
+    google_podcast: {
+      url: string,
+      text: string
+    },
+    image: string,
+    img_podcast_desktop: string,
+    img_podcast_mobile: string,
+    spotify: {
+      url: string,
+      text: string
+    },
+    name: string
 }
 
 export interface PodcastListItemType {
@@ -59,7 +75,7 @@ export interface PodcastListItemType {
 
 export interface PodcastEpisodeItemType extends PodcastListItemType{
   field_duration_export_1: string | null,
-}
+}  
 
 export type payloadType = {
   rows: PodcastListItemType[];
