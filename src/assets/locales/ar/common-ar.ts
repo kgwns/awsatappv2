@@ -255,8 +255,8 @@ export const arabic = {
   onboardSuccess: {
     successMessage: 'تم تفعيل صفحة أخبارك بنجاح',
     mailAcknowledgement: 'استمتع بمحتوانا المميز على منصاتك المفضلة​',
-    goToHome: 'انتقل الي الصفحة الرئيسية',
-    goToMyNews: 'انتقل الي صفحة أخباري'
+    goToHome: 'انتقل إلى الصفحة الرئيسية',
+    goToMyNews: 'انتقل إلى صفحة أخباري'
   },
   profileSetting: {
     manageMyNotification: 'إدارة إخطاراتي',
