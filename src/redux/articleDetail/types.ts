@@ -6,6 +6,21 @@ import {
 export interface ArticleDetailBodyGet {
   nid: number
 }
+
+export interface JournalistDetailBodyGet {
+  jor_id: string;
+}
+
+export type JournalistDetailSuccessPayload = {
+  rows: [JournalistDetailType];
+  pager: PagerType;
+};
+
+export type JournalistDetailType = {
+  name: string;
+  not_clickable: string;
+};
+
 export interface ArticleSectionBodyGet {
   id: number,
   page: number,
