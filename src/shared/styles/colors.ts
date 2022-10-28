@@ -144,6 +144,13 @@ export interface CustomThemeType {
   gamesImageBackground: string,
   footerTextColor: string,
   summaryColor: string,
+  opinionBackground: string,
+  videoBackground: string,
+  galleryBackground: string,
+  gameBackground:string,
+  myNewsBackground: string,
+  podcastProgramBackground: string,
+  weatherBackground: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -198,6 +205,13 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   gamesImageBackground: colors.white,
   footerTextColor: colors.black,
   summaryColor: colors.doveGray,
+  opinionBackground: colors.aliceDimBlue,
+  videoBackground: colors.aliceDimBlue,
+  galleryBackground: colors.aliceDimBlue,
+  gameBackground: colors.aliceDimBlue,
+  myNewsBackground: colors.darkerAquaHaze,
+  podcastProgramBackground: colors.darkerAquaHaze,
+  weatherBackground: colors.darkerAquaHaze,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -249,5 +263,12 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   gamesImageBackground: colors.whiteOpacity15,
   footerTextColor: colors.silverChalice,
   summaryColor: colors.white,
+  opinionBackground: colors.codGray,
+  videoBackground: colors.codGray,
+  galleryBackground: colors.codGray,
+  gameBackground: colors.codGray,
+  myNewsBackground: colors.codGray,
+  podcastProgramBackground: colors.codGray,
+  weatherBackground: colors.codGray
 }
 

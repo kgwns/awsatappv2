@@ -253,7 +253,7 @@ export const MyNewsWriters = () => {
   );
 
   return (
-    <ScreenContainer edge={horizontalEdge}>
+    <ScreenContainer edge={horizontalEdge} backgroundColor={styles.screenBackgroundColor.backgroundColor}>
       <View style={styles.container}>
         <AuthorsHorizontalSlider
           authorsList={authorsList}
@@ -307,4 +307,7 @@ const customStyle = (theme: CustomThemeType) =>
       flex: 1,
       marginStart: (isTab ? 0.02 : 0.04) * screenWidth,
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.myNewsBackground,
+    }
   });
