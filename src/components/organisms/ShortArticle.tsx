@@ -167,7 +167,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
 
 export default ShortArticle;
 
-const imageContainerWidth = 112;
+const imageContainerWidth = 144;
 const footerWidth = (isTab ? (screenWidth * 0.435 - 40) : screenWidth) - (2 * ((isTab ? 0 : 0.04) * screenWidth) + imageContainerWidth);
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({

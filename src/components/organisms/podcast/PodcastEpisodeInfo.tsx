@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import {View, StyleSheet, Linking} from 'react-native';
+import {View, StyleSheet, Linking } from 'react-native';
 import { Label, Image, ButtonOutline, LabelTypeProp} from 'src/components/atoms/';
 import { PodcastVerticalListProps } from 'src/components/molecules/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -10,6 +10,7 @@ import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.s
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
 import AnghamiPodcastDarkIcon from 'src/assets/images/icons/anghamiPodcastDarkIcon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
+import PauseIcon from 'src/assets/images/icons/pauseIconBlack.svg';
 import {useTranslation} from 'react-i18next';
 import { decodeHTMLTags, getPodcastDate, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
@@ -17,6 +18,8 @@ import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { podcastServices } from 'src/constants/SharedConstants';
+import { usePlaybackState, State } from 'react-native-track-player';
+import { useAppPlayer } from 'src/hooks';
 
 export interface PodcastEpisodeInfoProps {
   data: PodcastVerticalListProps;
@@ -29,6 +32,8 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
+  const playbackState = usePlaybackState();
+  const { selectedTrack } = useAppPlayer();
   const fieldData = data ? data : podcastEpisodeInitialData
   const podcastSectionData =  fieldData.field_podcast_sect_export
   const barVisibility = fieldData.created_export && fieldData.field_total_duration_export
@@ -36,6 +41,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
   const [duration, setDuration] = useState<any>(null)
 
   useEffect(() => {
+    setDuration(null);
     getPodcastDuration()
   }, [fieldData])
 
@@ -72,6 +78,15 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
     }
   }
 
+  const playPauseIcon = () => (
+    <View style={styles.rightIconStyle}>
+      {selectedTrack && selectedTrack.id == fieldData.nid && playbackState === State.Playing ?
+        <PauseIcon fill={colors.black} width={13} height={13} />:
+        <PlayIcon fill={colors.black}/>
+      }
+    </View>
+  )
+
   return (
     <View>
       <View style={styles.containerStyle}>
@@ -94,7 +109,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
              labelStyle={styles.buttonLabel}
              titleType={LabelTypeProp.h1}
              onPress={()=>onListenPress(duration)}
-             rightIcon={() => <View style={styles.rightIconStyle}><PlayIcon fill={colors.black}/></View>}
+             rightIcon={() => playPauseIcon()}
             />
             <View style={styles.containerSpace} />
             <View style={styles.headerLeftStyle}>

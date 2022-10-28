@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, FlatList, StyleSheet, BackHandler } from 'react-native';
 import { ScreenContainer } from '..';
 import { PodCastMiniPlayer, PodcastProgramHeader } from 'src/components/molecules';
@@ -13,9 +13,10 @@ import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
 import { useNavigation } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
-import { getPodcastUrl, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getPodcastUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Styles } from 'src/shared/styles';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
+import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 
 export interface PodcastEpisodeProps {
   route: any
@@ -52,6 +53,8 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const navigation = useNavigation();
   const styles = useThemeAwareObject(createStyles);
   const insets = useSafeAreaInsets();
+  const flatListRef = useRef<FlatList>(null);
+  const initialRef = useRef(0);
   const [nid, setEpisode] = useState(route.params.data.nid)
   const podcastListData = route.params.podcastListData
   const { isLoading, podcastEpisodeData, fetchPodcastEpisodeRequest } = usePodcast()
@@ -65,6 +68,9 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
 
   useEffect(() => {
     fetchPodcastEpisodeRequest(payload)
+    return (() => {
+      initialRef.current = 0;
+    })
   }, [])
 
   const {
@@ -186,8 +192,33 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     fetchPodcastEpisodeRequest(payload);
   }, [nid]);
 
+  useEffect(() => {
+    if(initialRef.current < 2){
+      initialRef.current = initialRef.current + 1;
+    }else{
+      getPodcastDuration(podcastEpisodeInfo);
+      flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+    }
+  }, [podcastEpisodeInfo]);
+
   const onEpisodeListItemPress = (item: any) => {
-    setEpisode(item.nid)
+    setEpisode(item.nid);
+  }
+
+  const getPodcastDuration = async (item: any) => {
+    if(isNotEmpty(item.field_spreaker_episode_export)){
+      try {
+        const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: item.field_spreaker_episode_export })
+        if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
+          const episode = response.response.episode;
+          const duration = Math.floor(episode.duration / 1000);
+          onListenPress(duration);
+        }
+      }catch(error){
+        console.log(error)
+        onListenPress(0);
+      }
+    }
   }
 
   const onListenPress = async (duration: any) => {
@@ -205,6 +236,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         setPlayerTrack(trackPlayerData);
       }
       !showMiniPlayer && setShowMiniPlayer(true);
+      showMiniPlayer && playbackState == State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }
   }
 
@@ -264,6 +296,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
       isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={{ height: insets.top, backgroundColor: colors.black }} />
       <FlatList
+        ref={flatListRef}
         style={[styles.episodeList, showMiniPlayer && styles.enhanceMarginForPlayer ]}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
