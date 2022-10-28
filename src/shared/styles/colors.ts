@@ -143,6 +143,7 @@ export interface CustomThemeType {
   secondaryBackgroundColor: string,
   gamesImageBackground: string,
   footerTextColor: string,
+  summaryColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -196,6 +197,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   secondaryBackgroundColor: colors.aquaHaze,
   gamesImageBackground: colors.white,
   footerTextColor: colors.black,
+  summaryColor: colors.doveGray,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -246,5 +248,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   secondaryBackgroundColor: colors.codGray,
   gamesImageBackground: colors.whiteOpacity15,
   footerTextColor: colors.silverChalice,
+  summaryColor: colors.white,
 }
 

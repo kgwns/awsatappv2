@@ -1,9 +1,11 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
 import { MainSectionBlockType } from 'src/redux/latestNews/types'
 import { fonts } from 'src/shared/styles/fonts'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { CustomThemeType } from 'src/shared/styles/colors'
 
 type CarouselSliderProps = {
     coverageInfo: MainSectionBlockType[],
@@ -13,6 +15,7 @@ type CarouselSliderProps = {
 const CarouselSlider = ({
     coverageInfo, onUpdateHeroBookmark
 }: CarouselSliderProps) => {
+    const carouselSliderStyle = useThemeAwareObject(customStyle);
 
     return (
         <View style={!isTab && carouselSliderStyle.view}>
@@ -30,7 +33,7 @@ const CarouselSlider = ({
 
 export default CarouselSlider
 
-const carouselSliderStyle = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     view: {
         marginBottom: normalize(20),
     },
@@ -46,5 +49,6 @@ const carouselSliderStyle = StyleSheet.create({
         fontSize: 16,
         lineHeight: 26,
         fontFamily: fonts.IBMPlexSansArabic_Regular,
+        color: theme.summaryColor,
     }
 })

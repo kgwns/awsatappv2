@@ -151,7 +151,8 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontFamily: fonts.Effra_Arbc_Regular,
         fontSize:16,
         lineHeight:26,
-        textAlign: 'left' 
+        textAlign: 'left' ,
+        color: theme.summaryColor,
     },
     footerTitleColor: {
         color: theme.footerTextColor

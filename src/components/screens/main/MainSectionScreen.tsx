@@ -446,7 +446,8 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       ...item,
       ...heroSectionProperties,
       titleColor: themeData.primaryBlack,
-      tagName: item.news_categories && item.news_categories.title || '',
+      // tagName: item.news_categories && item.news_categories.title || '',
+      tagName: '', //AMAR-1085
       isBookmarked: validateBookmark(item.nid),
       hideImage: false,
       showDivider: false,

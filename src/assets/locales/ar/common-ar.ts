@@ -56,7 +56,7 @@ export const arabic = {
       description: 'اختر مواضيعك المفضلة لتحصل عليها في صفحة أخباري ​'
     },
     newsLetter: {
-      title: 'نشراتك الإخبارية',
+      title: 'نشراتك البريدية',
       description:  'احصل على آخر التحديثات عبر البريد الإلكتروني الخاص بك​',
       subscribed: 'مشترك',
       notSubscribed: 'اشترك',
