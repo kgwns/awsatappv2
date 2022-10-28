@@ -58,7 +58,7 @@ export const GameScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numbe
         navigation.navigate(ScreensConstants.DYNAMIC_GAME_SCREEN, props)
     }
     return (
-        <ScreenContainer edge={horizontalAndBottomEdge}>
+        <ScreenContainer edge={horizontalAndBottomEdge} showPlayer={false}>
             <ScrollView ref={ref} onScrollBeginDrag={() => global.refFlatList = ref} style={style.scrollContainer}
                 showsVerticalScrollIndicator={false}>
                 <GameIntroCard {...crossWordInfo} onPress={() => navigateToDetailGame(crossWordInfo)} />
