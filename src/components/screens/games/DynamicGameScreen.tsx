@@ -5,12 +5,11 @@ import WebView, { WebViewNavigation } from 'react-native-webview'
 import { horizontalAndBottomEdge, normalize, screenHeight } from 'src/shared/utils'
 import { GameIntroCard } from 'src/components/molecules'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { CustomThemeType } from 'src/shared/styles/colors'
+import { CustomThemeType, DARK_THEME_ID } from 'src/shared/styles/colors'
 import { CROSS_WORD_GAME_BASE_ID_URL, SUDOKU_GAME_BASE_ID_URL } from 'src/services/apiUrls'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { ScreensConstants } from 'src/constants'
-import { ImagesName } from 'src/shared/styles'
 
 
 export interface DynamicGameScreenProps {
@@ -26,15 +25,7 @@ export const DynamicGameScreen = ({
     const webviewRef = useRef<WebView>().current
 
     const style = useThemeAwareObject(customStyle)
-
     const { gameData, showIntro } = route.params
-
-    if (gameData.image == ImagesName.crosswordImageDark || gameData.image == ImagesName.crosswordImage) {
-        gameData.image = ImagesName.crossWord
-    } 
-    if (gameData.image == ImagesName.sudokuImageDark || gameData.image == ImagesName.sudokuImage) {
-        gameData.image = ImagesName.sudoku
-    }
 
     const [currentUrl, setCurrentUrl] = useState(gameData.url || '')
 

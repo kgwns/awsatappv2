@@ -78,10 +78,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         height: normalize(202),
         alignItems: 'center',
         justifyContent: 'center',
+        paddingVertical: normalize(30)
     },
     dynamicImageContainer: {
         width: '100%',
         height: normalize(202),
+        paddingVertical: normalize(30)
     },
     image:{
         width: 129,
