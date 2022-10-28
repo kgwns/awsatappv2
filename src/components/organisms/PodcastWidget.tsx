@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { ButtonImage, ButtonOutline, Image, Label, LabelTypeProp, WidgetHeader } from '../atoms';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { ImagesName, Styles } from 'src/shared/styles';
@@ -7,8 +7,7 @@ import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { decodeHTMLTags, convertSecondsToHMS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, getPodcastUrl } from 'src/shared/utils/utilities';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { decodeHTMLTags, convertSecondsToHMS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { flatListUniqueKey } from 'src/constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { useTranslation } from 'react-i18next'
@@ -90,7 +89,8 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   } */
 
   const ListenToPodcast = ({ podcastData, index }: podCastType) => (
-    <View style={style.listenContainer}>
+    <TouchableOpacity style={style.listenContainer}
+      activeOpacity={0.8} onPress={() => onPress(podcastData)}>
       <ButtonImage
         icon={() => {
           return getSvgImages({
@@ -112,7 +112,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
         style={style.duration}
         numberOfLines={1}
       />
-    </View>
+    </TouchableOpacity>
   )
 
   /* const AllEpisodesCard = () => (
@@ -191,7 +191,6 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     const description = decodeHTMLTags(bodyInfo)
     return (
       <View style={style.podcastContainer}>
-        <TouchableOpacity onPress={() => onPress(podcastData)}>
           <View style={style.podcastItemContainer}>
             <View style={style.podcastContentContainer}>
               <Label
@@ -225,7 +224,6 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
               {/* <AllEpisodesCard/> enable when list of episodes available */}
             </View>
           </View>
-        </TouchableOpacity>
       </View>
     )
   }
