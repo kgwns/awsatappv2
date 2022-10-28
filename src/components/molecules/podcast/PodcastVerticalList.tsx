@@ -49,8 +49,9 @@ export const PodcastVerticalList = ({
   const [isTitleLineCount, setIsTitleLineCount] = useState(1)
 
   useEffect(() => {
+    setDuration(null);
     getPodcastDuration()
-  }, [])
+  }, [spreakerId])
 
   const onTextLayout = useCallback((e) => {
     setIsTitleLineCount(e.nativeEvent.lines ? e.nativeEvent.lines.length : 1)
