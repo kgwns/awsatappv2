@@ -75,7 +75,7 @@ export const getArticleImage = (fieldImage: any, newPhoto: any) : string => {
   return getImageUrl(image)
 }
 
-export const decodeHTMLTags = (description: string) : string => {
+export const decodeHTMLTags = (description: string | any) : string => {
   const regex = /(<([^>]+)>)/gi; // to find the html tags in the description ex: <p>, <br>, etc.,
   const dataInfo = isNotEmpty(description) ? description.replace(regex, '').trim() : '';
   return isNotEmpty(dataInfo) ? decode(dataInfo.trim()) : ''
