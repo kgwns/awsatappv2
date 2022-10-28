@@ -38,7 +38,7 @@ export const arabic = {
   onBoard: {
     common: {
       nextBtn: 'التالي',
-      skip: 'تخطى',
+      skip: 'التخطي',
       return: 'الرجوع',
       completed: 'تم',
       done: 'حفظ'
@@ -198,7 +198,7 @@ export const arabic = {
   },
   signIn: {
     signUp: 'انشئ حساباً خاصاً بك​',
-    skip: 'تخطي',
+    skip: 'التخطي',
     signUpReceive: 'سجل وابق مطلعاً على آخر الأخبار ​',
     email: 'الإيميل',
     signIn: 'تسجيل الدخول ',
