@@ -40,7 +40,8 @@ const InfoGraphicMapWidget = ({
     return (
         <View style={styles.widgetContainer}>
             <View style={styles.headerContainer}>
-                <Flag />
+                {/* Commented as per the ticket AMAR-1075 
+                <Flag /> */}
                 <Label
                     children={title}
                     style={styles.titleStyle}
@@ -81,8 +82,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
         textAlign: 'left',
         fontFamily: fonts.AwsatDigitalV2_Black,
-        fontSize: 16,
-        lineHeight: 28,
+        fontSize: 24,
+        lineHeight: 36,
         color: colors.black
     },
     scrollViewStyle: {
