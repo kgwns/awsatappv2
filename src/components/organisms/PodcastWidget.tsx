@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, TouchableOpacity, Image as RNImage } from 'react-native';
 import { ButtonImage, ButtonOutline, Image, Label, LabelTypeProp, WidgetHeader } from '../atoms';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { ImagesName, Styles } from 'src/shared/styles';
@@ -13,6 +13,9 @@ import { fonts } from 'src/shared/styles/fonts';
 import { useTranslation } from 'react-i18next'
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
+import { useAppPlayer } from 'src/hooks';
+import { usePlaybackState, State } from 'react-native-track-player';
+import { images } from 'src/shared/styles/images';
 
 export interface PodcastWidgetProps {
   onPress: (podcastData: any) => void;
@@ -31,6 +34,8 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   onMorePress,
 }) => {
   const [t] = useTranslation();
+  const { selectedTrack } = useAppPlayer()
+  const playbackState = usePlaybackState();
   const { themeData } = useTheme();
   const style = useThemeAwareObject(createStyles);
   const [episodeData, setEpisodeData] = useState<any>([])
@@ -139,6 +144,15 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     </View>
   )*/
 
+  const playPauseIcon = (podcastData: any) => (
+    <View style={style.rightIconStyle}>
+      {selectedTrack && selectedTrack.id == podcastData.nid && playbackState === State.Playing ?
+        <RNImage source={images.pauseIconWhite} /> :
+        <PlayIcon fill={colors.white} />
+      }
+    </View>
+  )
+
   const renderMobile = (podcastData: any, index: number) => {
     if (!isObjectNonEmpty(podcastData)) {
       return null;
@@ -176,7 +190,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
             labelStyle={style.buttonLabel}
             titleType={LabelTypeProp.h1}
             onPress={() => onPress(podcastData)}
-            rightIcon={() => <View style={style.rightIconStyle}><PlayIcon fill={colors.white} /></View>}
+            rightIcon={() => playPauseIcon(podcastData)}
           />
         </View>
       </>

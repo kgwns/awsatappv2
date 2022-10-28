@@ -18,7 +18,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { Styles } from 'src/shared/styles';
-import TrackPlayer, { usePlaybackState, } from 'react-native-track-player';
+import TrackPlayer, { usePlaybackState, State} from 'react-native-track-player';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { TopHeadLineNews } from 'src/components/molecules';
@@ -117,6 +117,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   const _archivedArticleTitle = TranslateConstants({key: TranslateKey.ARCHIVED_ARTICLE_SECTION_TITLE})
 
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
+  const playbackState = usePlaybackState();
 
   const {
     isLoading,
@@ -578,6 +579,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         setPlayerTrack(trackPlayerData);
       }
       !showMiniPlayer && setShowMiniPlayer(true);
+      showMiniPlayer && playbackState == State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }
 
     setSelectedTrack(podcastData.nid);
