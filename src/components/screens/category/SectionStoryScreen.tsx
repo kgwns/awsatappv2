@@ -656,6 +656,7 @@ const customStyle = (theme: CustomThemeType) => {
         fontSize: 16,
         lineHeight: 26,
         fontFamily: fonts.IBMPlexSansArabic_Regular,
+        color: theme.summaryColor,
     },
     filterContainer: {
       paddingHorizontal: 0.02 * screenWidth,

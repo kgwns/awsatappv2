@@ -40,7 +40,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const [t] = useTranslation()
     const { themeData } = useTheme()
     const bannerData = [...data].splice(0, 1)
-    const verticalArticleData = [...data].splice(1, 5)
+    const verticalArticleData = isTab ? [...data].splice(1, 4) : [...data].splice(1, 5)
     const style = useThemeAwareObject(createStyles);
 
     const articleNewsItem = (item: articleProps, index: number) => {

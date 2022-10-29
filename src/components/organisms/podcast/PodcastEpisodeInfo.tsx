@@ -4,7 +4,7 @@ import { Label, Image, ButtonOutline, LabelTypeProp} from 'src/components/atoms/
 import { PodcastVerticalListProps } from 'src/components/molecules/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { CustomThemeType, colors } from 'src/shared/styles/colors';
+import { colors } from 'src/shared/styles/colors';
 import ApplePodcastDarkIcon from 'src/assets/images/icons/apple_podcast_dark.svg';
 import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.svg';
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
@@ -12,7 +12,7 @@ import AnghamiPodcastDarkIcon from 'src/assets/images/icons/anghamiPodcastDarkIc
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import PauseIcon from 'src/assets/images/icons/pauseIconBlack.svg';
 import {useTranslation} from 'react-i18next';
-import { decodeHTMLTags, getPodcastDate, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
@@ -20,6 +20,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { podcastServices } from 'src/constants/SharedConstants';
 import { usePlaybackState, State } from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
+import { ImageResize } from 'src/shared/styles/text-styles';
 
 export interface PodcastEpisodeInfoProps {
   data: PodcastVerticalListProps;
@@ -34,9 +35,9 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
   const [t] = useTranslation();
   const playbackState = usePlaybackState();
   const { selectedTrack } = useAppPlayer();
+
   const fieldData = data ? data : podcastEpisodeInitialData
   const podcastSectionData =  fieldData.field_podcast_sect_export
-  const barVisibility = fieldData.created_export && fieldData.field_total_duration_export
   const hasNewSubTitle = !!fieldData.field_new_sub_title_export
   const [duration, setDuration] = useState<any>(null)
 
@@ -93,7 +94,12 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
         <View>
           <View style={styles.centerContainer}>
             <Label style={styles.titleTextStyle} children={fieldData.title} />
-            <Image fallback url={fieldData?.field_podcast_sect_export?.image} style={styles.imageStyle} />
+            <View style={styles.imageStyle}>
+              <Image fallback url={fieldData?.field_podcast_sect_export?.image}
+                style={{ width: '100%', height: '100%' }}
+                resizeMode={ImageResize.COVER}
+              />
+            </View>
             {hasNewSubTitle &&
               <View style={[styles.containerSpace, {paddingTop: normalize(15)}]} >
                 <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
@@ -179,7 +185,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
   );
 };
 
-const createStyles = (theme: CustomThemeType) =>
+const createStyles = () =>
 StyleSheet.create({
   containerStyle: {
     flex : 1,
@@ -193,6 +199,7 @@ StyleSheet.create({
   imageStyle: {
     width: normalize(150),
     height: normalize(100),
+    overflow: 'hidden',
   },
   textStyle: {
     fontSize: 16,
