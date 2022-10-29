@@ -14,11 +14,13 @@ interface ArticleDetailWidgetProps {
     setPlayerDetails?: ( time:any, paused: any) => void;
     setMiniPlayerVisible?: (visible: boolean) => void; 
     onChangeFullScreen?: (isFullScreen: boolean) => void;
+    setReset?: (show: boolean) => void;
     videoRefs?: any;
+    showReplay?: boolean;
 }
 
 const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
-    articleData, isRelatedArticle = false, isFirstItem, ...props
+    articleData, isRelatedArticle = false, isFirstItem, showReplay = false, ...props
 }) => {
     return (
         <View>
@@ -30,6 +32,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
                 isFirstItem={isFirstItem}
                 subtitle={articleData.subtitle}
                 jwplayerId={articleData.jwplayerId}
+                showReplay={showReplay}
                 {...props}
             />
         </View>
