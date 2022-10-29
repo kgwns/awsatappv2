@@ -17,6 +17,10 @@
 		5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CC5870F22DF4018A97C651F /* Almarai-Bold.ttf */; };
 		52B5C8CA19974215925660F6 /* Almarai-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5754958B03F4F8697391B05 /* Almarai-Light.ttf */; };
 		5357BE729B3C4A038D324F02 /* IBMPlexSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCAF97FCEBA04671A1F23140 /* IBMPlexSansArabic-Bold.ttf */; };
+		5E0693FE290C034D0081D016 /* splashscreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5E0693FD290C034D0081D016 /* splashscreen.mp4 */; };
+		5E069400290C11E90081D016 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E0693FF290C11E90081D016 /* AVFoundation.framework */; };
+		5E069402290C11F70081D016 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E069401290C11F70081D016 /* AVKit.framework */; };
+		5E069404290C11FD0081D016 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E069403290C11FD0081D016 /* UIKit.framework */; };
 		5E3EF9D028A62A4B00A7092F /* AwsatDigital-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3EF9CD28A62A4A00A7092F /* AwsatDigital-Bold.otf */; };
 		5E3EF9D128A62A4B00A7092F /* AwsatDigital-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3EF9CE28A62A4B00A7092F /* AwsatDigital-Regular.otf */; };
 		5E3EF9D228A62A4B00A7092F /* AwsatDigital-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3EF9CF28A62A4B00A7092F /* AwsatDigital-Black.otf */; };
@@ -140,6 +144,10 @@
 		5132FB864E194DCCB0C1B2E2 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		5437AF089D81496AB07BB20A /* Effra-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra-Regular.ttf"; path = "../src/assets/fonts/Effra-Regular.ttf"; sourceTree = "<group>"; };
 		5D3FCA19E5074AAC9164401F /* IBMPlexSansArabic-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Regular.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Regular.ttf"; sourceTree = "<group>"; };
+		5E0693FD290C034D0081D016 /* splashscreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = splashscreen.mp4; sourceTree = "<group>"; };
+		5E0693FF290C11E90081D016 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		5E069401290C11F70081D016 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		5E069403290C11FD0081D016 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5E3EF9CD28A62A4A00A7092F /* AwsatDigital-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AwsatDigital-Bold.otf"; path = "../src/assets/fonts/AwsatDigital-Bold.otf"; sourceTree = "<group>"; };
 		5E3EF9CE28A62A4B00A7092F /* AwsatDigital-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AwsatDigital-Regular.otf"; path = "../src/assets/fonts/AwsatDigital-Regular.otf"; sourceTree = "<group>"; };
 		5E3EF9CF28A62A4B00A7092F /* AwsatDigital-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AwsatDigital-Black.otf"; path = "../src/assets/fonts/AwsatDigital-Black.otf"; sourceTree = "<group>"; };
@@ -252,6 +260,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E069404290C11FD0081D016 /* UIKit.framework in Frameworks */,
+				5E069402290C11F70081D016 /* AVKit.framework in Frameworks */,
+				5E069400290C11E90081D016 /* AVFoundation.framework in Frameworks */,
 				D7F15A65282BED4A004368A7 /* libSwiftyJSON.a in Frameworks */,
 				D7D85B5427D9CA080028999D /* AppTrackingTransparency.framework in Frameworks */,
 				D7D85B5227D9C9FD0028999D /* StoreKit.framework in Frameworks */,
@@ -309,6 +320,9 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5E069403290C11FD0081D016 /* UIKit.framework */,
+				5E069401290C11F70081D016 /* AVKit.framework */,
+				5E0693FF290C11E90081D016 /* AVFoundation.framework */,
 				D7F15A64282BED4A004368A7 /* libSwiftyJSON.a */,
 				D7F15A62282BEB82004368A7 /* libSVProgressHUD.a */,
 				D7F15A60282BEA15004368A7 /* libSwiftyJSON.a */,
@@ -333,6 +347,7 @@
 				5E3EF9CE28A62A4B00A7092F /* AwsatDigital-Regular.otf */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				5E0693FD290C034D0081D016 /* splashscreen.mp4 */,
 				AF14A18E2836D95700E6311D /* Awsatapp-Bridging-Header.h */,
 				13B07FAE1A68108700A75B9A /* Awsatapp */,
 				00E356EF1AD99517003FC87E /* AwsatappTests */,
@@ -710,6 +725,7 @@
 				8B3BA46F3B5548999CD39890 /* AwsatDigitalBetav10-Bold.ttf in Resources */,
 				E3A1C6A163A44E35BA56387D /* AwsatDigitalBetav10-Regular.ttf in Resources */,
 				C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */,
+				5E0693FE290C034D0081D016 /* splashscreen.mp4 in Resources */,
 				5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */,
 				AF14A1662836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.xib in Resources */,
 				FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */,

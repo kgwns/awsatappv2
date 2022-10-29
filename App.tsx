@@ -11,6 +11,7 @@ import AppPlayer from 'src/shared/utils/appPlayer';
 import { GetFCMToken } from 'src/firebase/notification/notification';
 import TrackPlayer from 'react-native-track-player';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
+import AppStackContainer from 'src/navigation/AppStackContainer';
 
 const App = () => {
   

@@ -1,6 +1,9 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBridge.h>
+#import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVKit.h>
+#import <UIKit/UIKit.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
@@ -59,12 +62,40 @@ static void InitializeFlipper(UIApplication *application) {
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
-  [self.window makeKeyAndVisible];
+  
+  // grab a local URL to our video
+   NSURL *videoURL = [[NSBundle mainBundle]URLForResource:@"splashscreen" withExtension:@"mp4"];
+
+   // create an AVPlayer
+   AVPlayer *player = [AVPlayer playerWithURL:videoURL];
+   player.volume = 0;
+  
   [[RCTI18nUtil sharedInstance] allowRTL:YES];
   [[RCTI18nUtil sharedInstance] forceRTL:YES];
-  [RNSplashScreen show];
+   
+   // create a player view controller
+   AVPlayerViewController *splashController = [[AVPlayerViewController alloc]init];
+   splashController.player = player;
+   splashController.showsPlaybackControls = false;
+   splashController.view.frame = self.window.frame;
+   splashController.view = rootView;
+   splashController.videoGravity = AVLayerVideoGravityResizeAspectFill;
+   splashController.modalPresentationStyle = UIModalPresentationFullScreen;
+   self.window.rootViewController = splashController;
+   [player play];
+   [self.window makeKeyAndVisible];
+
+   // Adding Observer for your video file,
+   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+   [notificationCenter addObserver:self selector:@selector(videoDidFinish:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+  
+  rootViewController.view = rootView;
+  
+  //Set initial route to rootViewController
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+      self.window.rootViewController = rootViewController;
+      [self.window makeKeyAndVisible];
+  });
   
   // Play Audio in Silent Mode
   AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -79,6 +110,11 @@ static void InitializeFlipper(UIApplication *application) {
     center.delegate = self;
 
   return YES;
+}
+
+- (void)videoDidFinish:(id)notification {
+   //Remove Observer
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 // Required for the register event.
