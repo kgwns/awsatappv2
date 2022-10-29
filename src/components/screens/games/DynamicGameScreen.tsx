@@ -47,7 +47,7 @@ export const DynamicGameScreen = ({
     }
 
     return (
-        <ScreenContainer edge={horizontalAndBottomEdge}>
+        <ScreenContainer edge={horizontalAndBottomEdge} backgroundColor={style.screenBackgroundColor.backgroundColor}>
             <ScrollView style={style.scrollContainer}
                 showsVerticalScrollIndicator={false}
                 bounces={false}
@@ -79,5 +79,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     webview: {
         width: '100%',
         height: 0.85 * screenHeight,
+    },
+    screenBackgroundColor: {
+        backgroundColor: theme.gameBackground,
     }
 })
