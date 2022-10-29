@@ -202,7 +202,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   descriptionStyle: {
     fontSize: normalize(14),
-    color: Styles.color.smokeyGrey,
+    color: theme.newsFeed,
     textAlign: 'left',
     paddingBottom: normalize(20),
     paddingTop: normalize(5),

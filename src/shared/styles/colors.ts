@@ -151,6 +151,7 @@ export interface CustomThemeType {
   myNewsBackground: string,
   podcastProgramBackground: string,
   weatherBackground: string,
+  newsFeed: string;
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -212,6 +213,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   myNewsBackground: colors.darkerAquaHaze,
   podcastProgramBackground: colors.darkerAquaHaze,
   weatherBackground: colors.darkerAquaHaze,
+  newsFeed: colors.smokeyGrey,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -269,6 +271,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   gameBackground: colors.codGray,
   myNewsBackground: colors.codGray,
   podcastProgramBackground: colors.codGray,
-  weatherBackground: colors.codGray
+  weatherBackground: colors.codGray,
+  newsFeed: colors.white,
 }
 
