@@ -11,7 +11,7 @@ import { colors } from 'src/shared/styles/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { getPodcastUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Styles } from 'src/shared/styles';
@@ -53,6 +53,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const navigation = useNavigation();
   const styles = useThemeAwareObject(createStyles);
   const insets = useSafeAreaInsets();
+  const isFocused = useIsFocused();
   const flatListRef = useRef<FlatList>(null);
   const initialRef = useRef(0);
   const [nid, setEpisode] = useState(route.params.data.nid)
@@ -68,10 +69,13 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
 
   useEffect(() => {
     fetchPodcastEpisodeRequest(payload)
-    return (() => {
-      initialRef.current = 0;
-    })
   }, [])
+
+  useEffect(() => {
+    if (!isFocused) {
+      initialRef.current = 0;
+    }
+  }, [isFocused])
 
   const {
     sendBookmarkInfo,
@@ -193,7 +197,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   }, [nid]);
 
   useEffect(() => {
-    if(initialRef.current < 2){
+    if(initialRef.current < 3){
       initialRef.current = initialRef.current + 1;
     }else{
       getPodcastDuration(podcastEpisodeInfo);
