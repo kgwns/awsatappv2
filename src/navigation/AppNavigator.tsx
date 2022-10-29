@@ -233,7 +233,7 @@ const AppNavigator = () => {
         name={ScreensConstants.GAME_SCREEN}
         component={Routes.GameScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: [style.container, style.gameScreenBackground ],
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(TranslateConstants({key: TranslateKey.GAMES})),
           headerTitleAlign: 'center'
@@ -243,7 +243,7 @@ const AppNavigator = () => {
         name={ScreensConstants.DYNAMIC_GAME_SCREEN}
         component={Routes.DynamicGameScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: [style.container, style.gameScreenBackground],
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(TranslateConstants({key: TranslateKey.GAMES})),
           headerTitleAlign: 'center',
@@ -320,6 +320,9 @@ const customStyle = (theme: CustomThemeType) => (
       lineHeight: 50,
       color:theme.primaryDarkSlateGray,
       fontFamily: fonts.IBMPlexSansArabic_Bold,
+    },
+    gameScreenBackground: {
+      backgroundColor: theme.gameBackground
     }
   })
 )

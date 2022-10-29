@@ -209,7 +209,7 @@ export const MyNewsTopics = () => {
     );
 console.log('showEmpty',showEmpty)
     return (
-        <ScreenContainer edge={horizontalEdge}>
+        <ScreenContainer edge={horizontalEdge} backgroundColor={styles.screenBackgroundColor.backgroundColor}>
             <View style={styles.container}>
                 <MyTopicsHorizontalSlider
                     topicsList={topicsList}
@@ -291,4 +291,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     mobileArticleItem: {
         paddingBottom: normalize(20),
     },
+    screenBackgroundColor: {
+        backgroundColor: theme.myNewsBackground,
+    }
 })

@@ -164,7 +164,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     flex: 1,
   },
   tabBar: {
-    backgroundColor: theme.backgroundColor,
+    backgroundColor: theme.myNewsBackground,
     paddingTop: 10,
     width: screenWidth,
   },

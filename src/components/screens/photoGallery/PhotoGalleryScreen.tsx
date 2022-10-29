@@ -19,11 +19,14 @@ import {
 import {fetchAlbumListApi} from 'src/services/photoGalleryService';
 import {AxiosError} from 'axios';
 import {PopulateWidgetType} from 'src/components/molecules';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { CustomThemeType } from 'src/shared/styles/colors';
 
 export const PhotoGalleryScreen = React.memo(
   ({tabIndex, currentIndex}: {tabIndex?: number; currentIndex?: number}) => {
     const ref = React.useRef(null);
     const navigation = useNavigation<StackNavigationProp<any>>();
+    const styles = useThemeAwareObject(customStyle);
 
     const {sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo} =
       useBookmark();
@@ -208,30 +211,34 @@ export const PhotoGalleryScreen = React.memo(
   },
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  headerStyle: {
-    paddingLeft: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
-    paddingVertical: 5,
-  },
-  labelStyle: {
-    fontFamily: fonts.AwsatDigital_Bold,
-    fontSize: 20,
-    lineHeight: 40,
-    textAlign: 'left',
-    paddingVertical: 8,
-  },
-  centeredStyle: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  loaderStyle: {
-    width: '100%',
-    height: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const customStyle = (theme: CustomThemeType) => {
+  const galleryScreenStyle = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.galleryBackground,
+    },
+    headerStyle: {
+      paddingLeft: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
+      paddingVertical: 5,
+    },
+    labelStyle: {
+      fontFamily: fonts.AwsatDigital_Bold,
+      fontSize: 20,
+      lineHeight: 40,
+      textAlign: 'left',
+      paddingVertical: 8,
+    },
+    centeredStyle: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    loaderStyle: {
+      width: '100%',
+      height: 80,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
+  });
+  return galleryScreenStyle;
+}

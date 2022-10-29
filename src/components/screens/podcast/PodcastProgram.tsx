@@ -128,7 +128,8 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
   
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
-      isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}>
+      isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}
+      backgroundColor={styles.screenBackgroundColor.backgroundColor}>
       {isNonEmptyArray(podcastListData) &&
         <FlatList
           ref={ref}
@@ -152,5 +153,8 @@ const createStyles = (theme: CustomThemeType) =>
     },
     enhanceMarginForPlayer: {
       marginBottom: isIOS ? 100 : 80
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.podcastProgramBackground,
     } 
   });
