@@ -70,9 +70,11 @@ const VideoPlayerControl = ({
 
   useEffect(() => {
     if (showReplay) {
-      setShowControls(false)
-      videoPlayer.current?.seek(0);
-      setPaused(true)
+      setShowControls(false);
+      setTimeout(()=>{
+        videoPlayer.current?.seek(0);
+        setPaused(true)
+      },100)
     } else {
       setShowControls(true)
     }
