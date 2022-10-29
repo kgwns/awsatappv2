@@ -15,9 +15,11 @@ export interface ArticleVideoProps {
   setMiniPlayerVisible?: (visible: boolean) => void;
   isFullScreen?: boolean,
   onChangeFullScreen?: (isFullScreen: boolean) => void;
+  setReset?: (show: boolean) => void;
   videoRefs?: any;
+  showReplay?: boolean;
 }
-const ArticleDetailVideo = ({mediaId, ...props}: ArticleVideoProps) => {
+const ArticleDetailVideo = ({mediaId, showReplay = false, ...props}: ArticleVideoProps) => {
   const styles = useThemeAwareObject(customStyle);
 
   const [playerUrl, setPlayerUrl] = useState<string>();
@@ -62,6 +64,8 @@ const ArticleDetailVideo = ({mediaId, ...props}: ArticleVideoProps) => {
           videoRefs = {props?.videoRefs}
           onChangeFullScreen={props?.onChangeFullScreen}
           isFullScreen={props?.isFullScreen}
+          showReplay={showReplay}
+          setReset={props?.setReset}
         />
       )}
     </View>

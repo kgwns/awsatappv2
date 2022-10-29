@@ -177,7 +177,8 @@ export enum ImagesName {
   subscribeIconGreen = 'subscribeIconGreen',
   archiveIconLight = 'archiveIconLight',
   archiveIconDark = 'archiveIconDark',
-  anghamiPodcast = 'anghamiPodcast'
+  anghamiPodcast = 'anghamiPodcast',
+  resetIcon = 'resetIcon'
 }
 
 export const images = {

@@ -69,6 +69,7 @@ export const ArticleDetailScreen = ({
   const [playerVisible, setPlayerVisible] = useState<boolean>(false);
   const [showVideoMiniPlayer, setShowVideoMiniPlayer] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [showReplay, setShowReplay] = useState(false);
   const [paused, setPaused] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [bookmarkIndex, setBookmarkIndex] = useState<number>(0);
@@ -408,7 +409,7 @@ export const ArticleDetailScreen = ({
   }
 
   const onScroll = (event: any) => {
-    Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer ? setPlayerVisible(true) : setPlayerVisible(false);
+    Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer && !showReplay ? setPlayerVisible(true) : setPlayerVisible(false);
   }
 
   useEffect(() => {
@@ -509,6 +510,8 @@ export const ArticleDetailScreen = ({
             videoRefs={videoRefs}
             onChangeFullScreen={onChangeFullScreen}
             isFullScreen={isFullScreen}
+            showReplay={showReplay}
+            setReset={(show: boolean) => setShowReplay(show)}
           />
           {isNonEmptyArray(item.journalistId) && <Journalist
             journalistCity={item.journalistCity}
@@ -575,6 +578,7 @@ export const ArticleDetailScreen = ({
             setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}
             currentTime={currentTime} setPlayerDetails={setPlayerDetails}
             paused={playerVisible ? paused : true} playerVisible={playerVisible}
+            setReset={(show: boolean) => setShowReplay(show)}
           />
         }
         { !isFullScreen && <View style={style.bottom} />}
@@ -597,6 +601,8 @@ export const ArticleDetailScreen = ({
           onChangeFullScreen={onChangeFullScreen}
           isFullScreenPlayer
           isFullScreen={isFullScreen}
+          showReplay={showReplay}
+          setReset={(show: boolean) => setShowReplay(show)}
         />
       </View>}
     </ScreenContainer>
