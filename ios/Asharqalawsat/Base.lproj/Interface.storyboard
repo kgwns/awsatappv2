@@ -37,7 +37,7 @@
                         <separator alignment="center" id="auI-mP-77z">
                             <color key="color" red="0.17254901960784313" green="0.54117647058823526" blue="0.50980392156862742" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </separator>
-                        <label alignment="left" text="Hello World" numberOfLines="0" id="o33-zv-Yug">
+                        <label alignment="right" semanticContentAttribute="forceRightToLeft" textAlignment="right" numberOfLines="0" id="o33-zv-Yug">
                             <color key="textColor" name="primaryBlack"/>
                             <fontDescription key="font" name="AwsatDigitalBetav10-Black" family="Awsat Digital Beta v10" pointSize="20"/>
                         </label>
