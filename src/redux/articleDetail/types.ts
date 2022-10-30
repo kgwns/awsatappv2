@@ -68,7 +68,8 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   richHTML?: HTMLElementParseStore[],
   journalistId: string[],
   journalistName: string[],
-  journalistCity: string[]
+  journalistCity: string[],
+  shortUrl: string,
 }
 
 export interface RelatedArticleDataType extends GeneralArticleFields { 

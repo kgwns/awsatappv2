@@ -38,7 +38,8 @@ export interface AlbumDetailType {
   field_photo_album_export: string[] | null;
   field_album_source_export: string[] | null;
   isBookmarked: boolean;
-  field_photo_album_export_1: string[] | null
+  field_photo_album_export_1: string[] | null;
+  field_shorturl: string;
 }
 
 export type payloadType = {rows: AlbumListItemType[]; pager: Pager};

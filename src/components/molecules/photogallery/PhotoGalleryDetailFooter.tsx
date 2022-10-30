@@ -9,6 +9,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import Share from 'react-native-share';
 import {AlbumDetailType} from 'src/redux/photoGallery/types';
+import { getShareUrl } from 'src/shared/utils/utilities';
 
 export const PhotoGalleryDetailFooter = ({
   albumData,
@@ -26,10 +27,10 @@ export const PhotoGalleryDetailFooter = ({
     : ImagesName.bookmark;
 
   const onPressShare = async () => {
-    const {title, view_node} = albumData;
+    const {title, view_node, field_shorturl} = albumData;
     await Share.open({
       title,
-      url: view_node,
+      url: getShareUrl(field_shorturl,view_node),
       failOnCancel: true,
       subject: title,
     })

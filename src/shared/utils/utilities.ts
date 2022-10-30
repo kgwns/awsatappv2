@@ -373,3 +373,7 @@ export const getCountryNameFromCode = ( countryCode: string) : string => {
 export const isValidDate = (dateObject: any): boolean => {
   return dateObject && new Date(dateObject).toString() !== 'Invalid Date';
 }
+
+export const getShareUrl = (shortUrl: string, viewNodeUrl:string): string => {
+  return  isNotEmpty(shortUrl) ? shortUrl : viewNodeUrl;
+}

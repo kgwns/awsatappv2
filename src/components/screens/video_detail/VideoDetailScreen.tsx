@@ -18,6 +18,7 @@ import { Styles } from 'src/shared/styles';
 import { fetchVideoDetailInfo } from 'src/services/VideoServices';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { getVideoDetail } from 'src/services/videoDetailService';
+import { getShareUrl } from 'src/shared/utils/utilities';
  
 export interface VideoDetailScreenProps {
   route: any
@@ -128,10 +129,10 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
       return;
     }
     const videoDetailData = detailData[0];
-    const { title } = videoDetailData
+    const { title, field_shorturl_export, view_node } = videoDetailData
     await Share.open({
         title,
-        url: videoDetailData.field_shorturl_export ? videoDetailData.field_shorturl_export : videoDetailData.view_node,
+        url: getShareUrl(field_shorturl_export!, view_node!),
         failOnCancel: true,
         subject: title
     }).then(response => {

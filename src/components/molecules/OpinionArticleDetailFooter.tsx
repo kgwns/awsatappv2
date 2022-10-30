@@ -9,6 +9,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import Share from 'react-native-share';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
+import { getShareUrl } from 'src/shared/utils/utilities';
 
 export const OpinionArticleDetailFooter = ({
   opinionArticleDetailData,
@@ -27,10 +28,10 @@ export const OpinionArticleDetailFooter = ({
 
 
   const onPressShare = async () => {
-    const {title, view_node} = opinionArticleDetailData;
+    const {title, view_node, field_shorturl} = opinionArticleDetailData;
     await Share.open({
       title,
-      url: view_node,
+      url: getShareUrl(field_shorturl,view_node),
       failOnCancel: true,
       subject: title,
     })
