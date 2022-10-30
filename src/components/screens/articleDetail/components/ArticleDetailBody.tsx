@@ -107,6 +107,16 @@ export const ArticleDetailBody = React.memo(({
               divTagElement[i].style.writingDirection = "rtl"
             }
           }
+
+          //   This css to apply all the image tag element
+          var figureElement = document.getElementsByTagName("figure");
+          if(figureElement && figureElement.length > 0) {
+            for(i=0; i < figureElement.length; i++) {
+              figureElement[i].style["max-width"] = "${window.innerWidth}"; 
+              figureElement[i].style["margin-right"] = "1px"; 
+              figureElement[i].style["margin-left"] = "1px"; 
+            } 
+          }
     
           //   This css to apply all the image tag element
           var imageElement = document.getElementsByTagName("img");
@@ -114,6 +124,15 @@ export const ArticleDetailBody = React.memo(({
             for(i=0; i < imageElement.length; i++) {
               imageElement[i].style["max-width"] = "100%"; 
               imageElement[i].style["height"] = "auto"; 
+            } 
+          }
+
+          //   This css to apply all the figcaption tag element
+          var captionElement = document.getElementsByTagName("figcaption");
+          if(captionElement && captionElement.length > 0) {
+            for(i=0; i < captionElement.length; i++) {
+              captionElement[i].style["color"] = "${themeData.articleCaption}"; 
+              captionElement[i].style["background-color"] = "${themeData.whiteSurface}"; 
             } 
           }
     
