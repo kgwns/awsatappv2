@@ -214,8 +214,8 @@ export const arabic = {
     forgotPassword: 'نسيت كلمة المرور',
     return: 'الرجوع',
     success:'نجاح',
-    credentialsAreIncorrect:'أوراق الاعتماد غير صحيحة',
-    verifyMailAndPasswordAndTryAgain:'تحقق من معرف البريد الخاص بك وكلمة المرور وحاول مرة أخرى.',
+    credentialsAreIncorrect:'معلومات الدخول غير صحيحة',
+    verifyMailAndPasswordAndTryAgain:'تحقق من البريد الإلكتروني وكلمة المرور وحاول مجدداً',
     signInInfo: 'سجل الدخول لتحظ بآخر الأخبار​'
   },
   validation: {
