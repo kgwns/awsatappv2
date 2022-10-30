@@ -95,7 +95,7 @@ export const FollowFavoriteAuthorScreen = () => {
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
         <View
           style={[
@@ -135,7 +135,7 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
       shadowColor: colors.transparent,
       alignContent: 'center',
       alignSelf: 'center',
@@ -189,6 +189,9 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(16),
       lineHeight: normalize(30),
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.onBoardBackground
+    }
   });
   return FollowFavoriteAuthorScreenStyle;
 };

@@ -114,7 +114,7 @@ const AppNavigator = () => {
         name={ScreensConstants.PROFILE_SETTING}
         component={Routes.ProfileSettings}
         options={{
-          headerStyle: style.container,
+          headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
           headerTitle: ()=>HeaderTitle(t('profileSetting.arithmetic')),
           headerTitleAlign: 'center',
@@ -131,7 +131,7 @@ const AppNavigator = () => {
         name={ScreensConstants.USER_DETAIL_SCREEN}
         component={Routes.UserDetailScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(HeaderConstants.USER_DETAIL_HEADER_TITLE),
           headerTitleStyle: style.headerTitle,
@@ -143,7 +143,7 @@ const AppNavigator = () => {
         name={ScreensConstants.WEATHER_DETAIL_SCREEN}
         component={Routes.WeatherDetailScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: [style.container, style.weatherScreenBackground],
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderLogo(),
           headerTitleStyle: style.headerTitle,
@@ -155,7 +155,7 @@ const AppNavigator = () => {
         name={ScreensConstants.MANAGE_MY_NEWS_SCREEN}
         component={Routes.ManageMyNewsScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
@@ -172,7 +172,7 @@ const AppNavigator = () => {
         name={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN}
         component={Routes.ManageMyFavoriteAuthorScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: [style.container, style.onboardBackground],
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
@@ -184,7 +184,7 @@ const AppNavigator = () => {
         name={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN}
         component={Routes.ManageMyFavoriteTopicsScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: [style.container, style.onboardBackground],
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('manageMyNews.header')),
           headerTitleAlign: 'center',
@@ -196,7 +196,7 @@ const AppNavigator = () => {
         name={ScreensConstants.NEWS_LETTER_SCREEN}
         component={Routes.NewsLetterScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('profileSetting.myNewsLetter')),
           headerTitleAlign: 'center',
@@ -207,7 +207,7 @@ const AppNavigator = () => {
         name={ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN}
         component={Routes.KeepNotifiedScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
           headerTitle: () => HeaderTitle(t('profileSetting.manageMyNotification')),
           headerTitleAlign: 'center',
@@ -323,6 +323,15 @@ const customStyle = (theme: CustomThemeType) => (
     },
     gameScreenBackground: {
       backgroundColor: theme.gameBackground
+    },
+    weatherScreenBackground: {
+      backgroundColor: theme.tabBarBackground
+    },
+    profileBackground: {
+      backgroundColor: theme.profileBackground
+    },
+    onboardBackground: {
+      backgroundColor: theme.profileBackground
     }
   })
 )

@@ -308,6 +308,6 @@ const customStyle = (theme: CustomThemeType) =>
       marginStart: (isTab ? 0.02 : 0.04) * screenWidth,
     },
     screenBackgroundColor: {
-      backgroundColor: theme.myNewsBackground,
+      backgroundColor: theme.backgroundColor,
     }
   });

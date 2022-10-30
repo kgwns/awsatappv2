@@ -215,7 +215,7 @@ const customStyle = (theme: CustomThemeType) => {
   const galleryScreenStyle = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.galleryBackground,
+      backgroundColor: theme.backgroundColor,
     },
     headerStyle: {
       paddingLeft: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,

@@ -206,7 +206,8 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}
+      backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
         <View style={[style.textContainer, { justifyContent:  'center' }]}>
           {!canGoBack && <Label style={style.titleStyle}>
@@ -243,7 +244,7 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.profileBackground,
       shadowColor: colors.transparent,
       alignContent: 'center',
       alignSelf: 'center',
@@ -297,6 +298,9 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(16),
       lineHeight: normalize(30),
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.profileBackground
+    }
   });
   return NewsLetterScreenStyle;
 };

@@ -77,6 +77,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: theme.gamesImageBackground
     },
     screenBackgroundColor: {
-        backgroundColor: theme.gameBackground,
+        backgroundColor: theme.backgroundColor,
     }
 })

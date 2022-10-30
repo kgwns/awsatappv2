@@ -682,7 +682,8 @@ export const UserDetailScreen: FunctionComponent = () => {
         isAlertVisible={isAlertVisible}
         setIsAlertVisible={setIsAlertVisible}
         alertOnPress={onAlertOkPressed}
-        alertPayload={alertPayload}>
+        alertPayload={alertPayload}
+        backgroundColor={styles.screenBackgroundColor.backgroundColor}>
           {showupUp && <AlertModal
           title={DEFAULT_ALERT_TITLE}
           message={CONST_PLEASE_ENTER_THE_NAME}
@@ -898,5 +899,8 @@ const createStyles = (theme: CustomThemeType) =>
     nameInputContainer: {
       paddingStart: '10%', 
       paddingEnd: 0.05 * screenWidth
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.profileBackground
     }
   });

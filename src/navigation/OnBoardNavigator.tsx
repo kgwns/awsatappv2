@@ -144,7 +144,7 @@ const OnBoardNavigator = () => {
 const customStyle = (theme: CustomThemeType) => {
   const headerStyles = StyleSheet.create({
     container: {
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
       shadowColor: colors.transparent,
     },
     search: {

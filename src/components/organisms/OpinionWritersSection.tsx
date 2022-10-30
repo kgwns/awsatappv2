@@ -85,7 +85,7 @@ const customStyle = (theme: CustomThemeType) => {
   const OpinionWritersSectionStyle = StyleSheet.create({
     container: {
       width: '100%',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.mainBackground,
     },
     headerStyle: {
       fontSize: 20,

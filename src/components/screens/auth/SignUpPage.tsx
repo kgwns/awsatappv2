@@ -174,7 +174,8 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
       isAlertVisible={isAlertVisible}
       setIsAlertVisible={setIsAlertVisible}
       alertPayload={alertPayload}
-      alertOnPress={() => setIsAlertVisible(false)}>
+      alertOnPress={() => setIsAlertVisible(false)}
+      backgroundColor={styles.screenBackgroundColor.backgroundColor}>
       <KeyboardAwareScrollView
         bounces={false}
         enableOnAndroid={true}
@@ -274,7 +275,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingVertical: normalize(20),
       marginHorizontal: normalize(20),
       justifyContent: 'space-between',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
     },
     logoContainer: {
       alignItems: 'center',
@@ -361,4 +362,7 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: normalize(16),
       marginBottom: normalize(15),
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.onBoardBackground
+    }
   });

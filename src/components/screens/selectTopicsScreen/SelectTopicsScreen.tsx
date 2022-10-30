@@ -95,7 +95,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
     emptySendTopicsInfoData();
   }
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
         <View
           style={[
@@ -133,7 +133,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
       shadowColor: colors.transparent,
       justifyContent: 'center',
       alignItems: 'center',
@@ -194,5 +194,8 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       fontSize: normalize(16),
       lineHeight: normalize(40),
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.onBoardBackground
+    }
 });
 

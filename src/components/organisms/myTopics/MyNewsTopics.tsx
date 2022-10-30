@@ -292,6 +292,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingBottom: normalize(20),
     },
     screenBackgroundColor: {
-        backgroundColor: theme.myNewsBackground,
+        backgroundColor: theme.backgroundColor,
     }
 })

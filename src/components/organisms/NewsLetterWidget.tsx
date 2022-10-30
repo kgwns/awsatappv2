@@ -43,7 +43,7 @@ export const NewsLettersWidget = (props:any) => {
 const customStyle = (theme: CustomThemeType) => {
   const NewsLettersWidgetStyle = StyleSheet.create({
     container: {
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.profileBackground,
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     cardContainer: { paddingVertical: normalizeBy320(10) },

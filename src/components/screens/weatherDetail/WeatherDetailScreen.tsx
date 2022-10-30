@@ -340,7 +340,7 @@ const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: theme.weatherBackground,
+      backgroundColor: theme.backgroundColor,
     },
     weatherDetail: {
       margin: normalize(20),

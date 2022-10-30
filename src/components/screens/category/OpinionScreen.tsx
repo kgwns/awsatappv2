@@ -200,7 +200,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingBottom: normalize(80)
     },
     screenBackgroundColor: {
-      backgroundColor: theme.opinionBackground,
+      backgroundColor: theme.backgroundColor,
     }
   });
   return OpinionScreenStyle;

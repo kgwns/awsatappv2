@@ -292,7 +292,7 @@ export const ManageMyNewsScreen = () => {
     isAlertVisible={isAlertVisible}
           alertPayload={alertPayload} alertOnPress={alertOnPress}
           setIsAlertVisible={setIsAlertVisible}
-          
+          backgroundColor={style.screenBackgroundColor.backgroundColor}
           >
       <View style={style.container}>
         <View style={style.favBooks}>
@@ -374,7 +374,10 @@ const customStyle = (theme: CustomThemeType) => {
       height: 1,
       backgroundColor: theme.dividerColor,
       marginStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
-  },
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.profileBackground
+    }
   });
   return ManageMyNewsScreenStyle;
 };

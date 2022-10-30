@@ -50,7 +50,7 @@ export const SuccessScreen: FunctionComponent = () => {
   }, [])
 
   return (
-    <ScreenContainer>
+    <ScreenContainer backgroundColor={styles.screenBackgroundColor.backgroundColor}>
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           {getSvgImages({
@@ -113,7 +113,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingVertical: normalize(20),
       marginHorizontal: normalize(20),
       // justifyContent: 'space-evenly',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
     },
     logoContainer: {
       alignItems: 'center',
@@ -154,5 +154,8 @@ const createStyles = (theme: CustomThemeType) =>
     },
     buttonMargin: {
       marginTop: 15
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.onBoardBackground
     }
   });

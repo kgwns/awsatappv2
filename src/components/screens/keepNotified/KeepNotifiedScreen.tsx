@@ -170,7 +170,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
       {!canGoBack && <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' },]}>
           <Label style={style.titleStyle} children={t('onBoard.keepNotified.title')} />
@@ -199,7 +199,7 @@ const customStyle = (theme: CustomThemeType) => (
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.profileBackground,
       shadowColor: colors.transparent,
       alignContent: 'center',
       alignSelf: 'center',
@@ -254,5 +254,8 @@ const customStyle = (theme: CustomThemeType) => (
       fontSize: normalize(16),
       lineHeight: normalize(30),
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.profileBackground
+    }
   })
 )

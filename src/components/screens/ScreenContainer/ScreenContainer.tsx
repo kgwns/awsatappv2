@@ -145,7 +145,7 @@ export const ScreenContainer = ({
     );
   };
 
-  const statusBarBackgroundColor = statusbarColor || themeData.backgroundColor;
+  const statusBarBackgroundColor = statusbarColor ||  isNotEmpty(backgroundColor) ? backgroundColor : themeData.backgroundColor;
   return (
       <SafeAreaView
         style={[style.container, !isLandscape && {width: screenWidth, height: screenHeight}, isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor} ]} // Intensively added inline style to update screen size when rotate
@@ -160,7 +160,7 @@ export const ScreenContainer = ({
         {children}
         {isLoading && <LoadingState />}
         {isOverlayLoading && (
-          <View style={style.loadingOverlay}>
+          <View style={[style.loadingOverlay,isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor}]}>
             <LoadingState />
           </View>
         )}

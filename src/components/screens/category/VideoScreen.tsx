@@ -221,7 +221,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingBottom: normalize(80)
     },
     screenBackgroundColor: {
-      backgroundColor: theme.videoBackground,
+      backgroundColor: theme.backgroundColor,
     }
   });
   return videoScreenStyle;

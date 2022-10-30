@@ -71,7 +71,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         paddingBottom: normalize(18),
         paddingTop: normalize(12),
-        backgroundColor: theme.gameBackground
+        backgroundColor: theme.backgroundColor
     },
     imageContainer: {
         width: '100%',

@@ -312,7 +312,8 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   return (
       <ScreenContainer edge={horizontalEdge} isAlertVisible={isAlertVisible}
           alertPayload={signOutAlertPayload} alertOnPress={logout}
-          setIsAlertVisible={setIsAlertVisible}>
+          setIsAlertVisible={setIsAlertVisible}
+          backgroundColor={style.screenBackgroundColor.backgroundColor}>
         <View style={style.container}>
           {welcomeView()}
           <View style={style.titleDivider} />
@@ -416,4 +417,7 @@ const customStyle = (theme: CustomThemeType) =>
           lineHeight: normalize(25),
           fontFamily: fonts.AwsatDigital_Bold,
       },
+      screenBackgroundColor: {
+        backgroundColor: theme.profileBackground
+      }
   });

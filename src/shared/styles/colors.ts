@@ -92,7 +92,8 @@ export const colors = {
   limeGreen: '#36B18C',
   burningOrange: '#F0652E',
   aquaTwistGreen: '#f1fbfa',
-  whiteOpacity15: '#FFFFFF26'
+  whiteOpacity15: '#FFFFFF26',
+  chineWhite80: '#E0E0E080',
 };
 
 export interface CustomThemeType {
@@ -151,7 +152,10 @@ export interface CustomThemeType {
   myNewsBackground: string,
   podcastProgramBackground: string,
   weatherBackground: string,
-  newsFeed: string;
+  termsBackground: string,
+  profileBackground: string,
+  onBoardBackground: string,
+  newsFeed: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -168,7 +172,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   secondaryDavyGrey: colors.davyGrey,
   secondaryDarkSlate: colors.darkSlateGray,
   secondarySpanishGray: colors.black,
-  backgroundColor: colors.aquaHaze,
+  backgroundColor: colors.aliceDimBlue,
   whiteSurface: colors.white,
   danger: colors.jasper,
   textColor: colors.greyDark50,
@@ -192,7 +196,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   authorTitle: colors.greenishBlue,
   signInSeparator: colors.greyLight1,
   primaryWhite: colors.white,
-  writerBackground: colors.pattensBlue51,
+  writerBackground: colors.chineWhite80,
   captionBackground: colors.whiteSmoke,
   mainBackground: colors.aliceDimBlue,
   popupBackground: colors.blackOpacity50,
@@ -213,6 +217,9 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   myNewsBackground: colors.darkerAquaHaze,
   podcastProgramBackground: colors.darkerAquaHaze,
   weatherBackground: colors.darkerAquaHaze,
+  termsBackground: colors.aquaHaze,
+  profileBackground: colors.aquaHaze,
+  onBoardBackground: colors.aquaHaze,
   newsFeed: colors.smokeyGrey,
 }
 
@@ -272,6 +279,9 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   myNewsBackground: colors.codGray,
   podcastProgramBackground: colors.codGray,
   weatherBackground: colors.codGray,
+  termsBackground: colors.codGray,
+  profileBackground: colors.codGray,
+  onBoardBackground: colors.codGray,
   newsFeed: colors.white,
 }
 

@@ -114,7 +114,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} showPlayer={false}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} showPlayer={false} backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
         <View
           style={[
@@ -152,7 +152,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
       shadowColor: colors.transparent,
       justifyContent: 'center',
       alignItems: 'center',
@@ -213,5 +213,8 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       fontFamily: fonts.AwsatDigital_Bold,
       lineHeight: normalize(26),
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.onBoardBackground
+    }
 });
 

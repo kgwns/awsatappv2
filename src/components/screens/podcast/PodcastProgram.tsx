@@ -155,6 +155,6 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: isIOS ? 100 : 80
     },
     screenBackgroundColor: {
-      backgroundColor: theme.podcastProgramBackground,
+      backgroundColor: theme.backgroundColor,
     } 
   });

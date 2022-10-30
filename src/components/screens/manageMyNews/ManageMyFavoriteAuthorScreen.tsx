@@ -153,7 +153,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} showPlayer={false}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} showPlayer={false} backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
         <View
           style={[
@@ -193,7 +193,7 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
       shadowColor: colors.transparent,
       alignContent: 'center',
       alignSelf: 'center',
@@ -246,6 +246,9 @@ const customStyle = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigital_Bold,
       lineHeight: normalize(20),
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.onBoardBackground
+    }
   });
   return FollowFavoriteAuthorScreenStyle;
 };

@@ -55,7 +55,7 @@ const customStyle = (theme: CustomThemeType) => {
   const KeepNotifiedWidgetStyle = StyleSheet.create({
     container: {
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.profileBackground,
     },
     divider: {
       height: 1,

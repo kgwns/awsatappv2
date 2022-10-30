@@ -371,7 +371,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const socialIconSize = isTab ? 33 : 23;
 
   return (
-    <ScreenContainer showPlayer={false}>
+    <ScreenContainer showPlayer={false} backgroundColor={styles.screenBackgroundColor.backgroundColor}>
       {header()}
       <ScrollView bounces={false}
         showsVerticalScrollIndicator={false}
@@ -618,5 +618,8 @@ const createStyles = (theme: CustomThemeType) =>
       color: theme.primaryBlack,
       marginTop: 20,
       lineHeight: 22
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.profileBackground
     }
   });

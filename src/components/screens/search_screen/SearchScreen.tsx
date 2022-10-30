@@ -48,7 +48,7 @@ export const SearchScreen = () => {
   
 
   return (
-    <ScreenContainer>
+    <ScreenContainer backgroundColor={styles.screenBackgroundColor.backgroundColor}>
         <View style={styles.container}>
           <View style={styles.headerContainer}>
             <TouchableOpacity
@@ -83,12 +83,15 @@ StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: normalize(25),
-    backgroundColor: theme.backgroundColor,
+    backgroundColor: theme.profileBackground,
   },
   headerContainer: {
     alignItems: 'flex-end',
     height: 55,
     justifyContent: 'center',
+  },
+  screenBackgroundColor: {
+    backgroundColor: theme.profileBackground
   }
 })
 

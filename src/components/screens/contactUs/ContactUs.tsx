@@ -210,6 +210,7 @@ export const ContactUs = () => {
             setIsAlertVisible={setIsAlertVisible}
             alertOnPress={onPressAlert}
             alertPayload={alertPayload}
+            backgroundColor={style.screenBackgroundColor.backgroundColor}
         >
             <StaticPageHeader title={CONST_CALL_US} />
             <KeyboardAwareScrollView
@@ -281,5 +282,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     messageTextInput: {
         height: '92%',
         textAlignVertical: 'top',
+    },
+    screenBackgroundColor: {
+        backgroundColor: theme.termsBackground
     }
 })

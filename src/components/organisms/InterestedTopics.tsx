@@ -114,7 +114,7 @@ const customInterestStyle = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       width: '100%',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
       alignSelf: 'center',
     },
     containerStyle: {
@@ -123,7 +123,7 @@ const customInterestStyle = (theme: CustomThemeType) =>
     },
     tabContainer: {
       alignItems: 'flex-start',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
       alignSelf: 'center',
       flexDirection:'row',
       flex: 1, 

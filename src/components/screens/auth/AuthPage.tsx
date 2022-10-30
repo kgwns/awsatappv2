@@ -186,7 +186,8 @@ export const AuthPage: FunctionComponent = () => {
       isAlertVisible={isAlertVisible}
       alertPayload={alertPayload}
       alertOnPress={() => setIsAlertVisible(false)}
-      setIsAlertVisible={setIsAlertVisible}>
+      setIsAlertVisible={setIsAlertVisible}
+      backgroundColor={styles.screenBackgroundColor.backgroundColor}>
       <KeyboardAwareScrollView
         bounces={false}
         extraScrollHeight={30}
@@ -268,7 +269,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingVertical: normalize(20),
       marginHorizontal: normalize(20),
       justifyContent: 'space-between',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
     },
     logoContainer: {
       alignItems: 'center',
@@ -314,5 +315,8 @@ const createStyles = (theme: CustomThemeType) =>
     },
     rightsStyle: {
       marginTop: 5
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.onBoardBackground
     }
   });
