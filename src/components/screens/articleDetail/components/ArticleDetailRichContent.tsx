@@ -315,6 +315,17 @@ export const articleHtml = ({ body }: { body: string }) => `
             direction: rtl;
             writing-direction: rtl;
           }
+          figcaption {
+            max-width: 100%;
+            height: auto;
+            padding: 8px;
+            font-family: Effra-Regular;
+            text-align: justify;
+            direction: rtl;
+            writing-direction: rtl;
+            font-size: 15px;
+            line-height: 22px;
+          }
       </style>
       <meta
           name="viewport"

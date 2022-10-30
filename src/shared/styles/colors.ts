@@ -94,6 +94,7 @@ export const colors = {
   aquaTwistGreen: '#f1fbfa',
   whiteOpacity15: '#FFFFFF26',
   chineWhite80: '#E0E0E080',
+  charcoalGray: '#343434',
 };
 
 export interface CustomThemeType {
@@ -156,6 +157,7 @@ export interface CustomThemeType {
   profileBackground: string,
   onBoardBackground: string,
   newsFeed: string,
+  articleCaption: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -221,6 +223,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   profileBackground: colors.aquaHaze,
   onBoardBackground: colors.aquaHaze,
   newsFeed: colors.smokeyGrey,
+  articleCaption: colors.charcoalGray,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -283,5 +286,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   profileBackground: colors.codGray,
   onBoardBackground: colors.codGray,
   newsFeed: colors.white,
+  articleCaption: colors.white,
 }
 
