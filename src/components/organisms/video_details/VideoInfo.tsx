@@ -58,16 +58,16 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            <View style={isDocumentary ? styles.imageVideoStyle : styles.imageStyle}>
+            <View style={isDocumentary ?  styles.imageStyle : styles.imageVideoStyle}>
               <Image fallback={true} url={imageLink}
                 style={{ width: '100%', height: '100%' }}
                 resizeMode={ImageResize.COVER}
                 defaultImageStyle={{ width: '100%', height: '100%' }}
               />
             </View>
-              <View style={styles.titleContainer} >
+            {isDocumentary && <View style={styles.titleContainer} >
                 <Label style={styles.titleStyle} numberOfLines={2} >{decode(data.title)}</Label>
-            </View>
+            </View>}
             <View style={styles.containerSpace} />
             <ButtonOutline title={t('videoDetail.employement')}
              style={styles.buttonStyle}

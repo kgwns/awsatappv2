@@ -19,6 +19,8 @@ export interface VideoItemType {
   isBookmarked:boolean;
   field_jwplayerinfo_export?: string;
   mediaId?: string;
+  field_shorturl_export?: string;
+  view_node?: string;
 }
 
 export interface FetchVideoSuccessPayloadType {

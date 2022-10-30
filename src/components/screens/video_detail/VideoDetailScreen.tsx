@@ -17,6 +17,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { Styles } from 'src/shared/styles';
 import { fetchVideoDetailInfo } from 'src/services/VideoServices';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
+import { getVideoDetail } from 'src/services/videoDetailService';
  
 export interface VideoDetailScreenProps {
   route: any
@@ -25,7 +26,6 @@ export interface VideoDetailScreenProps {
 export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
 
   const {isLoading,videoData,fetchVideoRequest} = useVideoList();
-  useEffect(() => { fetchVideoRequest(); }, []);
   const styles = useThemeAwareObject(createStyles);
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -33,7 +33,9 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const [selectedVideo, setSelectedVideo] = useState(route.params.data)
   const isDocumentary = route.params.isDocumentary
   const [videolistData, setVideolistData] = useState<VideoItemType[]>([])
+  const [detailData, setDetailData] = useState<VideoItemType[]>([])
   const [isBookmarked, setIsBookmarked] = useState(false)
+  const [isDetailLoading, setIsDetailLoading] = useState(true)
   const [showupUp,setShowPopUp] = useState(false)
   const [videoUrl,setVideoUrl] = useState('')
   const { showMiniPlayer } = useAppPlayer()
@@ -42,9 +44,21 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
 
   useEffect(() => {
+    fetchDetailData();
+    fetchVideoRequest();
+  }, []);
+
+  useEffect(() => {
     formatVideoListData()
     getVideoUrlInfo()
   }, [videoData,bookmarkIdInfo])
+
+  const fetchDetailData = async () => {
+    const requestBody = { nid: selectedVideo.nid };
+    const detailList = await getVideoDetail(requestBody);
+    isNonEmptyArray(detailList) && setDetailData(detailList);
+    setIsDetailLoading(false);
+}
 
   const getVideoUrlInfo = async () => {
     if (isObjectNonEmpty(selectedVideo) && isNotEmpty(selectedVideo.mediaId)) {
@@ -110,13 +124,14 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }
 
   const onPressShare = async () => {
-    if(!selectedVideo || !isNotEmpty(videoUrl)) {
+    if(!isNonEmptyArray(detailData) && !isObjectNonEmpty(detailData[0]) && (!isNotEmpty(detailData[0].field_shorturl_export) && !isNotEmpty(detailData[0].view_node))) {
       return;
     }
-    const { title } = selectedVideo
+    const videoDetailData = detailData[0];
+    const { title } = videoDetailData
     await Share.open({
         title,
-        url: videoUrl,
+        url: videoDetailData.field_shorturl_export ? videoDetailData.field_shorturl_export : videoDetailData.view_node,
         failOnCancel: true,
         subject: title
     }).then(response => {
@@ -157,7 +172,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
     </View>
   )
   return (
-    <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading}
+    <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading || isDetailLoading}
       isSignUpAlertVisible={showupUp}
       statusbarColor={Styles.color.black}
       onCloseSignUpAlert={onCloseSignUpAlert}>

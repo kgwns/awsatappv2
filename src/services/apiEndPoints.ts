@@ -81,6 +81,7 @@ export const CHECK_EMAIL  = 'api/ums/v1/loginCheckEmail'
 
 //VideoList
 export const VIDEO_LIST_ENDPOINT = 'api/v2/videolist'
+export const VIDEO_DETAIL_ENDPOINT = 'api/v2/videonode/'
 
 //Top Menu
 export const TOP_MENU_ENDPOINT = 'api/v2/topmenu'

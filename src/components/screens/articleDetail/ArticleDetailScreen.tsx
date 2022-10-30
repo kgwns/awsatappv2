@@ -255,8 +255,6 @@ export const ArticleDetailScreen = ({
       videoRefs?.current[1]?.setNativeProps({
         paused: true,
       });
-    } else {
-      setPlayerVisible(false);
     }
   }, [isFocused]);
 
@@ -333,7 +331,7 @@ export const ArticleDetailScreen = ({
     }
   }
 
-  const stopVideoPlayer = () => {
+  const stopVideoPlayer = (showReplay: boolean = false) => {
     try {
       if (videoRefs) {
         videoRefs?.current[0]?.setNativeProps({
@@ -345,9 +343,7 @@ export const ArticleDetailScreen = ({
         videoRefs?.current[2]?.setNativeProps({
           paused: true
         })
-        setCurrentTime(0);
-        setPaused(true);
-        setShowVideoMiniPlayer(false);
+        setShowReplay(showReplay);
       }
     } catch (e) {
     }
@@ -355,7 +351,7 @@ export const ArticleDetailScreen = ({
 
   const onPressArticle = (nid: string) => {
     if (nid && nid!=currentNId) {
-      stopVideoPlayer();
+      stopVideoPlayer(true);
       const hasHTMLContent = isNonEmptyArray(articleDetailState) && isNonEmptyArray(articleDetailState[0].richHTML)
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
       navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true, hasHTMLContent })
@@ -407,10 +403,11 @@ export const ArticleDetailScreen = ({
     }
     setIsFullScreen(isFullscreen)
   }
-
-  const onScroll = (event: any) => {
-    Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer && !showReplay ? setPlayerVisible(true) : setPlayerVisible(false);
-  }
+  
+  // As per ticket AMAR-1044 we dont show the PIP
+  // const onScroll = (event: any) => {
+  //   Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer && !showReplay ? setPlayerVisible(true) : setPlayerVisible(false);
+  // }
 
   useEffect(() => {
     const backAction = () => {
@@ -503,7 +500,7 @@ export const ArticleDetailScreen = ({
             isRelatedArticle={route.params.isRelatedArticle} 
             isFirstItem={index === 0 }
             currentTime={currentTime} 
-            paused={playerVisible || isFullScreen ? true : paused}
+            paused={isFullScreen ? true : paused}
             playerVisible={playerVisible}
             setPlayerDetails={setPlayerDetails}
             setMiniPlayerVisible={(visible: boolean) => setShowVideoMiniPlayer(visible)}
@@ -567,12 +564,13 @@ export const ArticleDetailScreen = ({
           showsVerticalScrollIndicator={false}
           bounces={false}
           removeClippedSubviews={false}
-          onScroll={onScroll}
+          // onScroll={onScroll} As per ticket AMAR-1044 we dont show the PIP
           scrollEnabled={scrollEnabled}
           contentContainerStyle={showMiniPlayer && style.contentContainer}
           initialNumToRender={1}
           maxToRenderPerBatch={1}
         />
+        {/* As per ticket AMAR-1044 we dont show the PIP
         {isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl && !isFullScreen && 
           <DraggableVideoPlayer videoRefs={videoRefs} setMiniPlayerVisible={closeMiniPlayer} url={playerUrl}
             setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}
@@ -580,7 +578,7 @@ export const ArticleDetailScreen = ({
             paused={playerVisible ? paused : true} playerVisible={playerVisible}
             setReset={(show: boolean) => setShowReplay(show)}
           />
-        }
+        } */}
         { !isFullScreen && <View style={style.bottom} />}
         {!isFullScreen && <View style={[style.footer, style.shadowEffect]}>
           <ArticleDetailFooter articleDetailData={articleDetailState[bookmarkIndex]}
