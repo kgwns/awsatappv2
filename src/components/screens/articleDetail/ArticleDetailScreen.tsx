@@ -331,7 +331,7 @@ export const ArticleDetailScreen = ({
     }
   }
 
-  const stopVideoPlayer = () => {
+  const stopVideoPlayer = (showReplay: boolean = false) => {
     try {
       if (videoRefs) {
         videoRefs?.current[0]?.setNativeProps({
@@ -343,7 +343,7 @@ export const ArticleDetailScreen = ({
         videoRefs?.current[2]?.setNativeProps({
           paused: true
         })
-        setShowReplay(true);
+        setShowReplay(showReplay);
       }
     } catch (e) {
     }
@@ -351,7 +351,7 @@ export const ArticleDetailScreen = ({
 
   const onPressArticle = (nid: string) => {
     if (nid && nid!=currentNId) {
-      stopVideoPlayer();
+      stopVideoPlayer(true);
       const hasHTMLContent = isNonEmptyArray(articleDetailState) && isNonEmptyArray(articleDetailState[0].richHTML)
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
       navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true, hasHTMLContent })
