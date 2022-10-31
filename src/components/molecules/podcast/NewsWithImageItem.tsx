@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { isTab, normalize } from 'src/shared/utils';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Label, Image, LabelTypeProp } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -95,17 +95,17 @@ export const NewsWithImageItem = ({
 const customStyle = (theme: CustomThemeType) => {
   const NewsWithImageItemStyle = StyleSheet.create({
     container: {
-      width: isTab ? 262 : 162,
+      width: ((isTab ? 0.5  : 0.92) * screenWidth - 15),
       alignItems: 'flex-start',
       marginStart: normalize(15),
     },
     image: {
-      width: 162,
+      width: (0.92 * screenWidth - 15),
       height: 'auto',
       aspectRatio: 4/3,
     },
     tabImage: {
-      width: 262,
+      width: (0.5 * screenWidth - 15),
       height: 'auto',
       aspectRatio: 4/3,
     },
