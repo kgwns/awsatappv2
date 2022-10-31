@@ -198,7 +198,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   authorTitle: colors.greenishBlue,
   signInSeparator: colors.greyLight1,
   primaryWhite: colors.white,
-  writerBackground: colors.chineWhite80,
+  writerBackground: colors.white,
   captionBackground: colors.whiteSmoke,
   mainBackground: colors.aliceDimBlue,
   popupBackground: colors.blackOpacity50,

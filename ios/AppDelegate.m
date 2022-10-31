@@ -64,7 +64,19 @@ static void InitializeFlipper(UIApplication *application) {
   UIViewController *rootViewController = [UIViewController new];
   
   // grab a local URL to our video
-   NSURL *videoURL = [[NSBundle mainBundle]URLForResource:@"splashscreen" withExtension:@"mp4"];
+  NSURL *videoURL = [[NSBundle mainBundle]URLForResource:@"splashscreen" withExtension:@"mp4"];
+  if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+          videoURL = [[NSBundle mainBundle]URLForResource:@"ipadhorizontal" withExtension:@"mp4"];
+    }
+    else {
+          videoURL = [[NSBundle mainBundle]URLForResource:@"ipadvertical" withExtension:@"mp4"];
+    }
+  }
+  else {
+    videoURL = [[NSBundle mainBundle]URLForResource:@"splashscreen" withExtension:@"mp4"];
+  }
+
 
    // create an AVPlayer
    AVPlayer *player = [AVPlayer playerWithURL:videoURL];
