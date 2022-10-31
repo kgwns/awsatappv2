@@ -11,9 +11,9 @@ export enum ServerEnvironment {
 }
 
 export enum ArticleFontSize {
-  normal = 16,
-  medium = 18,
-  high = 20
+  normal = 17,
+  medium = 19,
+  high = 21,
 }
 
 export type AppCommonState = {

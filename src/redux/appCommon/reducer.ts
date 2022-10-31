@@ -6,7 +6,7 @@ const initialAuthState: AppCommonState = {
   theme: Theme.LIGHT,
   isAppFirstSession: true,
   serverEnvironment: ServerEnvironment.PRODUCTION,
-  articleFontSize: 16
+  articleFontSize: ArticleFontSize.normal,
 };
 
 export default (state = initialAuthState, action: AppCommonAction) => {
