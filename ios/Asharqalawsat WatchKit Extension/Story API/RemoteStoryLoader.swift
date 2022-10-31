@@ -49,6 +49,6 @@ public final class RemoteStoryLoader: StoryLoader {
 
 extension Array where Element == RemoteStoryItem {
   func toModels() -> [Story] {
-    return map { Story(id: $0.id, title: $0.title, photo: $0.photo) }
+    return map { Story(id: $0.id, title: $0.title, photo: $0.photo, position: $0.position) }
   }
 }

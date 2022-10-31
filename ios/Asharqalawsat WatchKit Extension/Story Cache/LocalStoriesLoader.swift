@@ -81,12 +81,12 @@ extension LocalStoriesLoader {
 
 private extension Array where Element == Story {
   func toLocal() -> [LocalStoryItem] {
-    return map { LocalStoryItem(id: $0.id, title: $0.title, photo: $0.photo) }
+    return map { LocalStoryItem(id: $0.id, title: $0.title, photo: $0.photo, position: $0.position) }
   }
 }
 
 private extension Array where Element == LocalStoryItem {
   func toModels() -> [Story] {
-    return map { Story(id: $0.id, title: $0.title, photo: $0.photo) }
+    return map { Story(id: $0.id, title: $0.title, photo: $0.photo, position: $0.position) }
   }
 }

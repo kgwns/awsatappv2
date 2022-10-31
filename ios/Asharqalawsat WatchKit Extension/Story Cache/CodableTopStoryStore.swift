@@ -33,15 +33,17 @@ extension CodableTopStoryStore: TopStoryStore {
     let id: String
     let title: String
     let photo: String
+    let position: String
     
     init(_ article: LocalStoryItem) {
       id = article.id
       title = article.title
       photo = article.photo
+      position = article.position
     }
     
     var local: LocalStoryItem {
-      return LocalStoryItem(id: id, title: title, photo: photo)
+      return LocalStoryItem(id: id, title: title, photo: photo, position: position)
     }
   }
 

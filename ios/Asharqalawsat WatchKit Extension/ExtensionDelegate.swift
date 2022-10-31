@@ -58,13 +58,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 extension ExtensionDelegate {
   private func initialiseDataManager() {
     dataManager = DataManager()
-    dataManager?.onStoriesReceived = { [weak self] newData in
-      guard !newData.isEmpty else {
+    dataManager?.onStoriesReceived = { [weak self] newStories in
+      guard !newStories.isEmpty else {
         return
       }
       
-      let controllerNames: [String] = Array(repeating: "StoriesInterfaceController", count: newData.count)
-      self?.refreshRootPageControllers(with: controllerNames, contexts: newData)
+      let controllerNames: [String] = Array(repeating: "StoriesInterfaceController", count: newStories.count)
+      let sortedStories = newStories.sorted { $0.position < $1.position }
+      self?.refreshRootPageControllers(with: controllerNames, contexts: sortedStories)
     }
     dataManager?.initialiseStories()
   }

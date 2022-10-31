@@ -11,4 +11,5 @@ public struct Story: Decodable {
   let id: String
   let title: String
   let photo: String
+  let position: String
 }
