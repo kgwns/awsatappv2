@@ -38,10 +38,12 @@ export const NewsWithImageItem = ({
   return (
     <View style={StyleSheet.flatten([style.container, containerStyle])}>
       {imageUrl &&
-        <Image url={imageUrl} style={isTab ? style.tabImage : style.image}
-          resizeMode={ImageResize.COVER} fallback
-          defaultImageStyle={style.image}
-        />
+        <View style={isTab ? style.tabImage : style.image}>
+          <Image url={imageUrl}
+            resizeMode={ImageResize.COVER} fallback
+            style={{ width: '100%', height: '100%' }}
+          />
+        </View>
       }
       { showHighlightTitle && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
       {title &&
