@@ -258,7 +258,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: 22,
       textAlign: 'left',
       marginBottom:normalize(15),
-      color: theme.secondaryMediumGrey,
+      color: theme.primaryBlack,
       fontFamily: fonts.Effra_Arbc_Regular,
     },
     returnLabel: {

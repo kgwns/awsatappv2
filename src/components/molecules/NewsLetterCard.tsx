@@ -6,7 +6,6 @@ import {Image, Label} from 'src/components/atoms';
 import {isIOS, normalize, screenWidth} from 'src/shared/utils';
 import {ImagesName} from 'src/shared/styles/images';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useTranslation} from 'react-i18next';
 import { fonts } from 'src/shared/styles/fonts';
 export interface NewsLetterCardProps {
@@ -26,13 +25,13 @@ export const NewsLetterCard = ({
   onPress,
 }: NewsLetterCardProps) => {
   const style = useThemeAwareObject(customStyle);
-  const theme = useTheme();
   const [selected, setSelected] = useState(isSelected);
   const [t] = useTranslation();
-  const buttonLogoName = selected ? ImagesName.subscribeIconGreen : ImagesName.subscribeIconWhite;
-  const buttonTextColor = selected ? colors.greenishBlue : colors.white;
+  const buttonLogoName = selected ? ImagesName.tickIcon : ImagesName.subscribeIconWhite;
+  const buttonTextColor = selected ? colors.white : colors.white;
   const buttonText = selected ? t('onBoard.newsLetter.subscribed') : t('onBoard.newsLetter.notSubscribed');
-  const buttonBackground = selected ? colors.white : colors.black;
+  const buttonBackground = selected ? colors.greenishBlue : colors.black;
+  const buttonLogoStyle = selected ? {width: 20, height:17, marginRight: 5, marginBottom: 5} : {width: 14, height:11, marginRight: 10}
 
   const changeStatus = () => {
     onPress(!selected);
@@ -44,17 +43,9 @@ export const NewsLetterCard = ({
   },[isSelected])
 
   return (
-    <TouchableOpacity
+    <View
       testID={'CardTestId'}
-      style={[
-        style.container,
-        {
-          backgroundColor: selected
-            ? theme.themeData.newsletterHighlighter
-            : theme.themeData.lightRed,
-        },
-      ]}
-      onPress={changeStatus}>
+      style={style.container}>
       <View style={style.imageContainer}>
         <Image
           url={image}
@@ -65,13 +56,15 @@ export const NewsLetterCard = ({
         <Label style={style.title}>{title}</Label>
         <Label style={style.subTitle}>{subTitle}</Label>
       </View>
-      <View style={[style.buttonView, {backgroundColor: buttonBackground}]}>
+      <TouchableOpacity style={[style.buttonView, {backgroundColor: buttonBackground}]} onPress={changeStatus}>
         <View style={style.buttonContainer}>
-          {getSvgImages({ name: buttonLogoName, width: 17, height: 14, style: style.buttonLogo })}
+          <View style={style.logoContainer}>
+          {getSvgImages({ name: buttonLogoName, width: buttonLogoStyle.width, height: buttonLogoStyle.height, style: buttonLogoStyle })}  
+          </View>
           <Label color={buttonTextColor} style={style.buttonLabel} children={buttonText} />
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 const customStyle = (theme: CustomThemeType) => {
@@ -83,6 +76,7 @@ const customStyle = (theme: CustomThemeType) => {
       flexDirection: 'row',
       alignContent: 'center',
       alignItems: 'center',
+      backgroundColor: theme.newsletterHighlighter
     },
     imageContainer: {
       height: '100%',
@@ -166,6 +160,9 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight:16,
       fontFamily: fonts.AwsatDigitalV2_Bold,
     },
+    logoContainer: {
+      justifyContent: 'center'
+    }
   });
   return NewsLetterCardStyle;
 };
