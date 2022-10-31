@@ -96,6 +96,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   listStyle: {
     paddingHorizontal: 0.04 * screenWidth,
+    paddingBottom: 10,
   },
   contentContainer: {
     paddingRight: 0.04 * screenWidth,
