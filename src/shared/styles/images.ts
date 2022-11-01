@@ -24,7 +24,6 @@ import expandIcon from 'src/assets/images/expand.png'
 import shirnkIcon from 'src/assets/images/shrink.png'
 
 import authorDefault from 'src/assets/images/author_default.png'
-import authorDefaultGrey from 'src/assets/images/author_defaultGrey.png'
 
 // Weather Images
 import clearSkyImg from 'src/assets/images/weather/clearSky.png'
@@ -160,7 +159,6 @@ export enum ImagesName {
   calendarIconLight = 'calendarIconLight',
   videoCloseIcon = 'videoCloseIcon',
   authorDefault = 'authorDefault',
-  authorDefaultGrey = 'authorDefaultGrey',
   myNewsIcon = 'myNewsIcon',
   myNewsActiveIcon = 'myNewsActiveIcon',
   profileNameIcon = 'profileNameIcon',
@@ -205,7 +203,6 @@ export const images = {
   pauseIconWhite,
   topShadowImg,
   authorDefault,
-  authorDefaultGrey,
   expandIcon,
   shirnkIcon,
   crosswordImage,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View, StyleSheet,TouchableOpacity } from 'react-native'
 import { ButtonImage, Image, Label, LabelTypeProp } from '../atoms'
 import { isNonEmptyArray, isObjectNonEmpty, normalize, isNotEmpty, isIOS } from '../../shared/utils'
-import { ImagesName, Styles } from '../../shared/styles'
+import { ImagesName } from '../../shared/styles'
 import { isTab } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { getSvgImages } from 'src/shared/styles/svgImages'
@@ -12,7 +12,6 @@ import { ScreensConstants } from 'src/constants';
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTranslation } from 'react-i18next'
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
@@ -204,10 +203,6 @@ const AuthorItem = ({
                 <TouchableOpacity testID='AutherItemTO3' onPress={() => onPressWriter(authorId)}>
                     <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'}
                         fallback={true}
-                        fallbackContent={<AuthorDefault
-                        style={{backgroundColor:Styles.color.cyanGreen}}
-                        width={normalize(80)} 
-                        height={normalize(80)}/>}
                         fallbackName={ImagesName.authorDefault}
                     />
                 </TouchableOpacity>
