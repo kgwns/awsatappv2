@@ -11,8 +11,7 @@ import {
 import {OpinionWriterItemType} from 'src/redux/writers/types';
 import {useTranslation} from 'react-i18next';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
-import { ImagesName, Styles } from 'src/shared/styles';
-import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
+import { ImagesName } from 'src/shared/styles';
 import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
@@ -42,11 +41,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
                 type="round"
                 resizeMode="cover"
                 fallback={true}
-                fallbackContent={<AuthorDefaultGrey
-                style={{ backgroundColor:Styles.color.silverChalice }}
-                width={normalize(54)} 
-                height={normalize(54)}/>}
-                fallbackName={ImagesName.authorDefaultGrey}
+                fallbackName={ImagesName.authorDefault}
               />
             </Grayscale>
           </View>

@@ -5,13 +5,12 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
-  Image,
 } from 'react-native';
 import React, {useRef} from 'react';
 import {isIOS, isTab, normalize, normalizeBy320, screenWidth, isDarkTheme} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label} from 'src/components/atoms';
+import {Image, Label} from 'src/components/atoms';
 import {fonts} from 'src/shared/styles/fonts';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {getImageUrl} from 'src/shared/utils/utilities';
@@ -20,7 +19,6 @@ import {
   TranslateConstants,
   TranslateKey,
 } from 'src/constants/TranslateConstants';
-import { useAppCommon } from 'src/hooks/useAppCommon';
 
 export interface AuthorsItemType {
   name: string;
@@ -44,12 +42,11 @@ export const AuthorsHorizontalSlider = ({
   selectedIndex,
 }: AuthorsHorizontalSliderProps) => {
   const {themeData} = useTheme();
-  const { theme } = useAppCommon()
-  const isDarkMode = isDarkTheme(theme)
+
   const styles = useThemeAwareObject(customStyle);
+  
   const scrollRef = useRef<ScrollView>(null);
   const allTitle = TranslateConstants({key: TranslateKey.TAB_ALL_TITLE});
-  const authorPlaceHolder = isDarkMode ? Styles.darkImage[ImagesName.authorDefaultGrey] : Styles.image[ImagesName.authorDefault]
 
   const scrollToEnd = () => {
     if (isIOS) {
@@ -107,8 +104,8 @@ export const AuthorsHorizontalSlider = ({
                 : {borderColor: colors.transparent},
             ]}>
             <Image
-              source={{uri: imageUrl}}
-              defaultSource={authorPlaceHolder}
+              url={imageUrl}
+              fallbackName={ImagesName.authorDefault}
               style={styles.authorImageStyle}
               resizeMode={'cover'}
             />

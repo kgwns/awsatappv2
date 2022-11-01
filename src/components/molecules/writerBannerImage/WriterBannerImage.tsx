@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { ImageResize } from 'src/shared/styles/text-styles'
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import DeviceInfo from 'react-native-device-info';
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
 import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TWITTER_APP_URL } from 'src/constants/SharedConstants'
@@ -158,10 +157,6 @@ export const WriterBannerImage = ({
                 size={normalize(100)}
                 resizeMode={ImageResize.COVER}
                 fallback={true}
-                fallbackContent={<AuthorDefault
-                  style={{ backgroundColor: Styles.color.lightCyanBlue }}
-                  width={normalize(100)}
-                  height={normalize(100)} />}
                 fallbackName={ImagesName.authorDefault}
               />
             </View>

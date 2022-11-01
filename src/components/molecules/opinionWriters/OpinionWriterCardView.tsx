@@ -9,7 +9,6 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
@@ -162,10 +161,6 @@ const onPressPlay = () => {
             type="round"
             resizeMode="cover"
             fallback={true}
-            fallbackContent={<AuthorDefault
-              style={{ backgroundColor: Styles.color.cyanGreen }}
-              width={normalize(43)}
-              height={normalize(43)} />}
             fallbackName={ImagesName.authorDefault}
           />
         </TouchableOpacity>
