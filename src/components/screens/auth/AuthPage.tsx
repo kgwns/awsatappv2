@@ -251,12 +251,12 @@ export const AuthPage: FunctionComponent = () => {
             />
           </TouchableOpacity>
         </View>
-        <Label
+        {/* <Label
           children={t('signIn.rights')}
           labelType="p5"
           color={themeData.textColor}
           style={styles.rightsStyle}
-        />
+        /> */}
       </View>
     </ScreenContainer>
   );

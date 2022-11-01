@@ -118,7 +118,7 @@ const MostReadList = ({
       rightTitle: timeFormat.time,
       rightTitleStyle: {fontFamily: fonts.Effra_Arbc_Regular, lineHeight: 40, fontSize: 12},
       rightIcon: () => TimeIcon(timeFormat.icon),
-      rightTitleColor: style.footerTitleColor,
+      rightTitleColor: style.footerTitleColor.color,
       leftTitleStyle: style.leftFooterStyle,
     };
 

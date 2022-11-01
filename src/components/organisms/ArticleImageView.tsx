@@ -38,7 +38,7 @@ export const ArticleImageView = ({
                 <View style={style.rowContainer}>
                     <View style={style.labelContainer}>
                         {showHighlightTitle && <Label style={style.highlightedTitle} children={highlightTitle} labelType={LabelTypeProp.h5} />}
-                        <Label children={item.title} numberOfLines={2} style={style.labelStyle} />
+                        <Label children={item.title} numberOfLines={3} style={style.labelStyle} />
                     </View>
                     {showImage && <View style={style.imageContainer}>
                         <Image url={item.image} style={style.imageStyle} resizeMode={ImageResize.COVER} fallback />

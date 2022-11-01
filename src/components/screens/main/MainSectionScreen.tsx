@@ -451,7 +451,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       isBookmarked: validateBookmark(item.nid),
       hideImage: false,
       showDivider: false,
-      bodyLineCount: index <= 2 ? 2 : 3,
+      bodyLineCount: 3,
       author: '',
     }
   ))
