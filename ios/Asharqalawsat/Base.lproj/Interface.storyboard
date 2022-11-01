@@ -43,7 +43,7 @@
                         </label>
                         <imageView alignment="left" id="A6g-xz-c1p"/>
                     </items>
-                    <color key="backgroundColor" red="0.96862745098039216" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="backgroundColor" red="0.9137254901960784" green="0.94901960784313721" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <connections>
                         <outlet property="story_image" destination="A6g-xz-c1p" id="ElW-r9-PSy"/>
                         <outlet property="story_title" destination="o33-zv-Yug" id="sYQ-u1-XGq"/>
