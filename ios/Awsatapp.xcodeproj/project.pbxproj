@@ -85,6 +85,32 @@
 		AF14A1852836D3C200E6311D /* AwsatLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF14A17F2836D3C200E6311D /* AwsatLight.otf */; };
 		AF14A18A2836D3C200E6311D /* AwsatBlack.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1842836D3C200E6311D /* AwsatBlack.otf */; };
 		AF14A18B2836D71B00E6311D /* AwsatBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1822836D3C200E6311D /* AwsatBold.otf */; };
+		AF2081E828FEB8F6001C1640 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081E728FEB8F6001C1640 /* DataManager.swift */; };
+		AF2081EA28FEBE93001C1640 /* TopStoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081E928FEBE93001C1640 /* TopStoryStore.swift */; };
+		AF2081EC28FEBFD1001C1640 /* StoryCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081EB28FEBFD1001C1640 /* StoryCachePolicy.swift */; };
+		AF2081EE28FEC9BE001C1640 /* CodableTopStoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081ED28FEC9BE001C1640 /* CodableTopStoryStore.swift */; };
+		AF2081F028FF10C6001C1640 /* LocalStoriesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081EF28FF10C6001C1640 /* LocalStoriesLoader.swift */; };
+		AF2081F328FF16DF001C1640 /* LocalStoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081F228FF16DF001C1640 /* LocalStoryItem.swift */; };
+		AF2081F628FF29B1001C1640 /* RemoteStoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081F528FF29B1001C1640 /* RemoteStoryItem.swift */; };
+		AF2081F828FF2A32001C1640 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081F728FF2A32001C1640 /* URLSessionHTTPClient.swift */; };
+		AF2081FA28FF2A6C001C1640 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081F928FF2A6C001C1640 /* HTTPClient.swift */; };
+		AF2081FC28FF2B23001C1640 /* StoryItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081FB28FF2B23001C1640 /* StoryItemMapper.swift */; };
+		AF2081FE28FF2E48001C1640 /* RemoteStoryLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081FD28FF2E48001C1640 /* RemoteStoryLoader.swift */; };
+		AF20820028FF2EC7001C1640 /* StoryLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2081FF28FF2EC7001C1640 /* StoryLoader.swift */; };
+		AF20820228FF2EEE001C1640 /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF20820128FF2EEE001C1640 /* Story.swift */; };
+		AF23617E28F019BF00E3A5C6 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF23617C28F019BF00E3A5C6 /* Interface.storyboard */; };
+		AF23618028F019C100E3A5C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF23617F28F019C100E3A5C6 /* Assets.xcassets */; };
+		AF23618628F019C100E3A5C6 /* Asharqalawsat WatchKit Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AF23618528F019C100E3A5C6 /* Asharqalawsat WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AF23618B28F019C100E3A5C6 /* LoadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF23618A28F019C100E3A5C6 /* LoadingController.swift */; };
+		AF23618D28F019C100E3A5C6 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF23618C28F019C100E3A5C6 /* ExtensionDelegate.swift */; };
+		AF23619128F019C200E3A5C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF23619028F019C200E3A5C6 /* Assets.xcassets */; };
+		AF23619C28F019C300E3A5C6 /* AsharqalawsatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF23619B28F019C300E3A5C6 /* AsharqalawsatTests.swift */; };
+		AF2361A628F019C300E3A5C6 /* AsharqalawsatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2361A528F019C300E3A5C6 /* AsharqalawsatUITests.swift */; };
+		AF2361A828F019C300E3A5C6 /* AsharqalawsatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2361A728F019C300E3A5C6 /* AsharqalawsatUITestsLaunchTests.swift */; };
+		AF2361AB28F019C300E3A5C6 /* Asharqalawsat.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = AF23617A28F019BF00E3A5C6 /* Asharqalawsat.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AF694E6428F6831B00DAECDF /* AppDelegate+WatchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF694E6328F6831B00DAECDF /* AppDelegate+WatchDelegate.swift */; };
+		AF694E6928F6ADB800DAECDF /* RNTopNewsContentBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = AF694E6828F6ADB800DAECDF /* RNTopNewsContentBridge.m */; };
+		AF694E6B28FD1A3E00DAECDF /* StoriesInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF694E6A28FD1A3E00DAECDF /* StoriesInterfaceController.swift */; };
 		B1CB1AAEFF814EBBBA090FC2 /* AwsatDigitalv2b-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CC96FCB89FE43DCAD20BD5B /* AwsatDigitalv2b-Bold.ttf */; };
 		C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5437AF089D81496AB07BB20A /* Effra-Regular.ttf */; };
 		D7CB52E628364E3F003B6457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E528364E3F003B6457 /* Localizable.strings */; };
@@ -112,7 +138,60 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = Awsatapp;
 		};
+		AF23618728F019C100E3A5C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF23618428F019C100E3A5C6;
+			remoteInfo = "Asharqalawsat WatchKit Extension";
+		};
+		AF23619828F019C300E3A5C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF23618428F019C100E3A5C6;
+			remoteInfo = "Asharqalawsat WatchKit Extension";
+		};
+		AF2361A228F019C300E3A5C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF23617928F019BF00E3A5C6;
+			remoteInfo = Asharqalawsat;
+		};
+		AF2361A928F019C300E3A5C6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AF23617928F019BF00E3A5C6;
+			remoteInfo = Asharqalawsat;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AF2361AC28F019C300E3A5C6 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				AF2361AB28F019C300E3A5C6 /* Asharqalawsat.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF2361AF28F019C300E3A5C6 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AF23618628F019C100E3A5C6 /* Asharqalawsat WatchKit Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* AwsatappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AwsatappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,6 +294,36 @@
 		AF14A1832836D3C200E6311D /* Effra-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Effra-Regular.ttf"; sourceTree = "<group>"; };
 		AF14A1842836D3C200E6311D /* AwsatBlack.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AwsatBlack.otf; sourceTree = "<group>"; };
 		AF14A18E2836D95700E6311D /* Awsatapp-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Awsatapp-Bridging-Header.h"; sourceTree = "<group>"; };
+		AF2081E728FEB8F6001C1640 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		AF2081E928FEBE93001C1640 /* TopStoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopStoryStore.swift; sourceTree = "<group>"; };
+		AF2081EB28FEBFD1001C1640 /* StoryCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCachePolicy.swift; sourceTree = "<group>"; };
+		AF2081ED28FEC9BE001C1640 /* CodableTopStoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableTopStoryStore.swift; sourceTree = "<group>"; };
+		AF2081EF28FF10C6001C1640 /* LocalStoriesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStoriesLoader.swift; sourceTree = "<group>"; };
+		AF2081F228FF16DF001C1640 /* LocalStoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStoryItem.swift; sourceTree = "<group>"; };
+		AF2081F528FF29B1001C1640 /* RemoteStoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStoryItem.swift; sourceTree = "<group>"; };
+		AF2081F728FF2A32001C1640 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
+		AF2081F928FF2A6C001C1640 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		AF2081FB28FF2B23001C1640 /* StoryItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryItemMapper.swift; sourceTree = "<group>"; };
+		AF2081FD28FF2E48001C1640 /* RemoteStoryLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStoryLoader.swift; sourceTree = "<group>"; };
+		AF2081FF28FF2EC7001C1640 /* StoryLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryLoader.swift; sourceTree = "<group>"; };
+		AF20820128FF2EEE001C1640 /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
+		AF23617A28F019BF00E3A5C6 /* Asharqalawsat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Asharqalawsat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF23617D28F019BF00E3A5C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		AF23617F28F019C100E3A5C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AF23618528F019C100E3A5C6 /* Asharqalawsat WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Asharqalawsat WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF23618A28F019C100E3A5C6 /* LoadingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingController.swift; sourceTree = "<group>"; };
+		AF23618C28F019C100E3A5C6 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		AF23619028F019C200E3A5C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AF23619228F019C200E3A5C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF23619728F019C200E3A5C6 /* AsharqalawsatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsharqalawsatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF23619B28F019C300E3A5C6 /* AsharqalawsatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsharqalawsatTests.swift; sourceTree = "<group>"; };
+		AF2361A128F019C300E3A5C6 /* AsharqalawsatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsharqalawsatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF2361A528F019C300E3A5C6 /* AsharqalawsatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsharqalawsatUITests.swift; sourceTree = "<group>"; };
+		AF2361A728F019C300E3A5C6 /* AsharqalawsatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsharqalawsatUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		AF694E6328F6831B00DAECDF /* AppDelegate+WatchDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+WatchDelegate.swift"; sourceTree = "<group>"; };
+		AF694E6728F6ADB800DAECDF /* RNTopNewsContentBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNTopNewsContentBridge.h; sourceTree = "<group>"; };
+		AF694E6828F6ADB800DAECDF /* RNTopNewsContentBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNTopNewsContentBridge.m; sourceTree = "<group>"; };
+		AF694E6A28FD1A3E00DAECDF /* StoriesInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesInterfaceController.swift; sourceTree = "<group>"; };
 		C201F5BCD31F4C9A97A70B04 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		C3208C9DFD5048A0AE9C4BE3 /* AwsatDigital-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigital-Regular.otf"; path = "../src/assets/fonts/AwsatDigital-Regular.otf"; sourceTree = "<group>"; };
 		C512A59BE94247A5B2850233 /* Effra-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra-Medium.ttf"; path = "../src/assets/fonts/Effra-Medium.ttf"; sourceTree = "<group>"; };
@@ -275,6 +384,34 @@
 				D7D85B4C27D9C9D90028999D /* AdServices.framework in Frameworks */,
 				D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */,
 				726652B4F4065671C8A71E8D /* libPods-Awsatapp.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F18BC4E6B8A5AC71DCD0CF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF23618228F019C100E3A5C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF23619428F019C200E3A5C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF23619E28F019C300E3A5C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +483,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				AF694E6728F6ADB800DAECDF /* RNTopNewsContentBridge.h */,
+				AF694E6828F6ADB800DAECDF /* RNTopNewsContentBridge.m */,
 				5E3EF9CF28A62A4B00A7092F /* AwsatDigital-Black.otf */,
 				5E3EF9CD28A62A4A00A7092F /* AwsatDigital-Bold.otf */,
 				5E3EF9CE28A62A4B00A7092F /* AwsatDigital-Regular.otf */,
@@ -354,9 +493,14 @@
 				87FD6B98290FB40C00611F46 /* ipadvertical.mp4 */,
 				87FD6B9A290FBB9F00611F46 /* ipadhorizontal.mp4 */,
 				5E0693FD290C034D0081D016 /* splashscreen.mp4 */,
+				AF694E6328F6831B00DAECDF /* AppDelegate+WatchDelegate.swift */,
 				AF14A18E2836D95700E6311D /* Awsatapp-Bridging-Header.h */,
 				13B07FAE1A68108700A75B9A /* Awsatapp */,
 				00E356EF1AD99517003FC87E /* AwsatappTests */,
+				AF23617B28F019BF00E3A5C6 /* Asharqalawsat */,
+				AF23618928F019C100E3A5C6 /* Asharqalawsat WatchKit Extension */,
+				AF23619A28F019C300E3A5C6 /* AsharqalawsatTests */,
+				AF2361A428F019C300E3A5C6 /* AsharqalawsatUITests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				8D698A178F9B4EB96887F05E /* Pods */,
@@ -372,6 +516,10 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* Awsatapp.app */,
 				00E356EE1AD99517003FC87E /* AwsatappTests.xctest */,
+				AF23617A28F019BF00E3A5C6 /* Asharqalawsat.app */,
+				AF23618528F019C100E3A5C6 /* Asharqalawsat WatchKit Extension.appex */,
+				AF23619728F019C200E3A5C6 /* AsharqalawsatTests.xctest */,
+				AF2361A128F019C300E3A5C6 /* AsharqalawsatUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -580,6 +728,73 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		AF2081F128FF1696001C1640 /* Story Cache */ = {
+			isa = PBXGroup;
+			children = (
+				AF2081ED28FEC9BE001C1640 /* CodableTopStoryStore.swift */,
+				AF2081EF28FF10C6001C1640 /* LocalStoriesLoader.swift */,
+				AF2081F228FF16DF001C1640 /* LocalStoryItem.swift */,
+				AF2081EB28FEBFD1001C1640 /* StoryCachePolicy.swift */,
+				AF2081E928FEBE93001C1640 /* TopStoryStore.swift */,
+			);
+			path = "Story Cache";
+			sourceTree = "<group>";
+		};
+		AF2081F428FF2871001C1640 /* Story API */ = {
+			isa = PBXGroup;
+			children = (
+				AF2081F528FF29B1001C1640 /* RemoteStoryItem.swift */,
+				AF2081F728FF2A32001C1640 /* URLSessionHTTPClient.swift */,
+				AF2081F928FF2A6C001C1640 /* HTTPClient.swift */,
+				AF2081FB28FF2B23001C1640 /* StoryItemMapper.swift */,
+				AF2081FD28FF2E48001C1640 /* RemoteStoryLoader.swift */,
+			);
+			path = "Story API";
+			sourceTree = "<group>";
+		};
+		AF23617B28F019BF00E3A5C6 /* Asharqalawsat */ = {
+			isa = PBXGroup;
+			children = (
+				AF23617C28F019BF00E3A5C6 /* Interface.storyboard */,
+				AF23617F28F019C100E3A5C6 /* Assets.xcassets */,
+			);
+			path = Asharqalawsat;
+			sourceTree = "<group>";
+		};
+		AF23618928F019C100E3A5C6 /* Asharqalawsat WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				AF23618A28F019C100E3A5C6 /* LoadingController.swift */,
+				AF23618C28F019C100E3A5C6 /* ExtensionDelegate.swift */,
+				AF694E6A28FD1A3E00DAECDF /* StoriesInterfaceController.swift */,
+				AF2081E728FEB8F6001C1640 /* DataManager.swift */,
+				AF2081FF28FF2EC7001C1640 /* StoryLoader.swift */,
+				AF20820128FF2EEE001C1640 /* Story.swift */,
+				AF23619028F019C200E3A5C6 /* Assets.xcassets */,
+				AF23619228F019C200E3A5C6 /* Info.plist */,
+				AF2081F428FF2871001C1640 /* Story API */,
+				AF2081F128FF1696001C1640 /* Story Cache */,
+			);
+			path = "Asharqalawsat WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		AF23619A28F019C300E3A5C6 /* AsharqalawsatTests */ = {
+			isa = PBXGroup;
+			children = (
+				AF23619B28F019C300E3A5C6 /* AsharqalawsatTests.swift */,
+			);
+			path = AsharqalawsatTests;
+			sourceTree = "<group>";
+		};
+		AF2361A428F019C300E3A5C6 /* AsharqalawsatUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AF2361A528F019C300E3A5C6 /* AsharqalawsatUITests.swift */,
+				AF2361A728F019C300E3A5C6 /* AsharqalawsatUITestsLaunchTests.swift */,
+			);
+			path = AsharqalawsatUITests;
+			sourceTree = "<group>";
+		};
 		D8EA38B5AEA443098005BABB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -663,15 +878,88 @@
 				5F546F24D5E37563250CCAE7 /* [CP-User] [RNFB] Core Configuration */,
 				0A8AA18AACED3C5082C8A67C /* [CP-User] [RNFB] Crashlytics Configuration */,
 				18A09C68998F07C24A06A79A /* [CP] Copy Pods Resources */,
+				AF2361AC28F019C300E3A5C6 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AF2361AA28F019C300E3A5C6 /* PBXTargetDependency */,
 			);
 			name = Awsatapp;
 			productName = Awsatapp;
 			productReference = 13B07F961A680F5B00A75B9A /* Awsatapp.app */;
 			productType = "com.apple.product-type.application";
+		};
+		AF23617928F019BF00E3A5C6 /* Asharqalawsat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF2361B728F019C300E3A5C6 /* Build configuration list for PBXNativeTarget "Asharqalawsat" */;
+			buildPhases = (
+				AF23617828F019BF00E3A5C6 /* Resources */,
+				AF2361AF28F019C300E3A5C6 /* Embed Foundation Extensions */,
+				6F18BC4E6B8A5AC71DCD0CF9 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AF23618828F019C100E3A5C6 /* PBXTargetDependency */,
+			);
+			name = Asharqalawsat;
+			productName = Asharqalawsat;
+			productReference = AF23617A28F019BF00E3A5C6 /* Asharqalawsat.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		AF23618428F019C100E3A5C6 /* Asharqalawsat WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF2361B628F019C300E3A5C6 /* Build configuration list for PBXNativeTarget "Asharqalawsat WatchKit Extension" */;
+			buildPhases = (
+				AF23618128F019C100E3A5C6 /* Sources */,
+				AF23618228F019C100E3A5C6 /* Frameworks */,
+				AF23618328F019C100E3A5C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Asharqalawsat WatchKit Extension";
+			productName = "Asharqalawsat WatchKit Extension";
+			productReference = AF23618528F019C100E3A5C6 /* Asharqalawsat WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+		AF23619628F019C200E3A5C6 /* AsharqalawsatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF2361B828F019C300E3A5C6 /* Build configuration list for PBXNativeTarget "AsharqalawsatTests" */;
+			buildPhases = (
+				AF23619328F019C200E3A5C6 /* Sources */,
+				AF23619428F019C200E3A5C6 /* Frameworks */,
+				AF23619528F019C200E3A5C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AF23619928F019C300E3A5C6 /* PBXTargetDependency */,
+			);
+			name = AsharqalawsatTests;
+			productName = AsharqalawsatTests;
+			productReference = AF23619728F019C200E3A5C6 /* AsharqalawsatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AF2361A028F019C300E3A5C6 /* AsharqalawsatUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AF2361B928F019C300E3A5C6 /* Build configuration list for PBXNativeTarget "AsharqalawsatUITests" */;
+			buildPhases = (
+				AF23619D28F019C300E3A5C6 /* Sources */,
+				AF23619E28F019C300E3A5C6 /* Frameworks */,
+				AF23619F28F019C300E3A5C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AF2361A328F019C300E3A5C6 /* PBXTargetDependency */,
+			);
+			name = AsharqalawsatUITests;
+			productName = AsharqalawsatUITests;
+			productReference = AF2361A128F019C300E3A5C6 /* AsharqalawsatUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -679,7 +967,8 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1210;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -687,6 +976,20 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1320;
+					};
+					AF23617928F019BF00E3A5C6 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					AF23618428F019C100E3A5C6 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					AF23619628F019C200E3A5C6 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = AF23618428F019C100E3A5C6;
+					};
+					AF2361A028F019C300E3A5C6 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = AF23617928F019BF00E3A5C6;
 					};
 				};
 			};
@@ -705,6 +1008,10 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* Awsatapp */,
 				00E356ED1AD99517003FC87E /* AwsatappTests */,
+				AF23617928F019BF00E3A5C6 /* Asharqalawsat */,
+				AF23618428F019C100E3A5C6 /* Asharqalawsat WatchKit Extension */,
+				AF23619628F019C200E3A5C6 /* AsharqalawsatTests */,
+				AF2361A028F019C300E3A5C6 /* AsharqalawsatUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -760,6 +1067,37 @@
 				AF14A1852836D3C200E6311D /* AwsatLight.otf in Resources */,
 				1BCC838D77E04AD686D4BE54 /* Beirut.ttf in Resources */,
 				7476FD19439D42338A420F44 /* Effra-Medium.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF23617828F019BF00E3A5C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF23618028F019C100E3A5C6 /* Assets.xcassets in Resources */,
+				AF23617E28F019BF00E3A5C6 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF23618328F019C100E3A5C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF23619128F019C200E3A5C6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF23619528F019C200E3A5C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF23619F28F019C300E3A5C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,6 +1292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF14A1612836D0C700E6311D /* PDFArchiveViewManager.m in Sources */,
+				AF694E6428F6831B00DAECDF /* AppDelegate+WatchDelegate.swift in Sources */,
 				AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */,
 				AF14A14E2836D0C700E6311D /* CollectionViewCellType.swift in Sources */,
 				AF14A16B2836D0C700E6311D /* Strings.swift in Sources */,
@@ -973,6 +1312,7 @@
 				AF14A1572836D0C700E6311D /* NotificationCenterManager.swift in Sources */,
 				AF14A15D2836D0C700E6311D /* PDFViewer.swift in Sources */,
 				D7F15A5F282BE9A7004368A7 /* LoadingView.swift in Sources */,
+				AF694E6928F6ADB800DAECDF /* RNTopNewsContentBridge.m in Sources */,
 				AF14A1642836D0C700E6311D /* PDFEditionCollectionViewCell.swift in Sources */,
 				AF14A14D2836D0C700E6311D /* CollectionViewCellDescriper.swift in Sources */,
 				AF14A16A2836D0C700E6311D /* PDFEditionLargeCollectionViewCell.swift in Sources */,
@@ -995,8 +1335,47 @@
 				AF14A1502836D0C700E6311D /* GenericCollectionViewController.swift in Sources */,
 				AF14A1512836D0C700E6311D /* TableViewCellDescriper.swift in Sources */,
 				D7FDC0AF2837E1BC003F33E9 /* ThemeManager.swift in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				D7FDC0B12837E1DC003F33E9 /* ThemeManagerBridge.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF23618128F019C100E3A5C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF694E6B28FD1A3E00DAECDF /* StoriesInterfaceController.swift in Sources */,
+				AF23618D28F019C100E3A5C6 /* ExtensionDelegate.swift in Sources */,
+				AF2081FA28FF2A6C001C1640 /* HTTPClient.swift in Sources */,
+				AF23618B28F019C100E3A5C6 /* LoadingController.swift in Sources */,
+				AF2081EC28FEBFD1001C1640 /* StoryCachePolicy.swift in Sources */,
+				AF2081F628FF29B1001C1640 /* RemoteStoryItem.swift in Sources */,
+				AF2081F028FF10C6001C1640 /* LocalStoriesLoader.swift in Sources */,
+				AF20820228FF2EEE001C1640 /* Story.swift in Sources */,
+				AF2081F828FF2A32001C1640 /* URLSessionHTTPClient.swift in Sources */,
+				AF2081F328FF16DF001C1640 /* LocalStoryItem.swift in Sources */,
+				AF2081EA28FEBE93001C1640 /* TopStoryStore.swift in Sources */,
+				AF2081FC28FF2B23001C1640 /* StoryItemMapper.swift in Sources */,
+				AF2081EE28FEC9BE001C1640 /* CodableTopStoryStore.swift in Sources */,
+				AF2081FE28FF2E48001C1640 /* RemoteStoryLoader.swift in Sources */,
+				AF20820028FF2EC7001C1640 /* StoryLoader.swift in Sources */,
+				AF2081E828FEB8F6001C1640 /* DataManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF23619328F019C200E3A5C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF23619C28F019C300E3A5C6 /* AsharqalawsatTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF23619D28F019C300E3A5C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF2361A828F019C300E3A5C6 /* AsharqalawsatUITestsLaunchTests.swift in Sources */,
+				AF2361A628F019C300E3A5C6 /* AsharqalawsatUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1008,7 +1387,38 @@
 			target = 13B07F861A680F5B00A75B9A /* Awsatapp */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
+		AF23618828F019C100E3A5C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF23618428F019C100E3A5C6 /* Asharqalawsat WatchKit Extension */;
+			targetProxy = AF23618728F019C100E3A5C6 /* PBXContainerItemProxy */;
+		};
+		AF23619928F019C300E3A5C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF23618428F019C100E3A5C6 /* Asharqalawsat WatchKit Extension */;
+			targetProxy = AF23619828F019C300E3A5C6 /* PBXContainerItemProxy */;
+		};
+		AF2361A328F019C300E3A5C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF23617928F019BF00E3A5C6 /* Asharqalawsat */;
+			targetProxy = AF2361A228F019C300E3A5C6 /* PBXContainerItemProxy */;
+		};
+		AF2361AA28F019C300E3A5C6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF23617928F019BF00E3A5C6 /* Asharqalawsat */;
+			targetProxy = AF2361A928F019C300E3A5C6 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AF23617C28F019BF00E3A5C6 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AF23617D28F019BF00E3A5C6 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
@@ -1022,7 +1432,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = AwsatappTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1047,7 +1457,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = AwsatappTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1072,7 +1482,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
@@ -1081,7 +1491,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 5.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1107,15 +1517,16 @@
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 5.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1124,6 +1535,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp;
 				PRODUCT_NAME = Awsatapp;
 				PROVISIONING_PROFILE_SPECIFIER = "AAA iPhone Ad hoc";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "AAA iPhone Production";
 				SWIFT_OBJC_BRIDGING_HEADER = "Awsatapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1180,7 +1592,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -1239,7 +1651,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -1252,7 +1664,305 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AF2361AD28F019C300E3A5C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = Asharqalawsat_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = Asharqalawsat;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.srmg.ashaeqalawsat.iphoneapp;
+				MARKETING_VERSION = 5.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "AAA WatchKit App Development Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "AAA WatchKit App Development Profile";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		AF2361AE28F019C300E3A5C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Distribution: Saudi Research & Publishing Company (5LV5P9XYQ8)";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = Asharqalawsat_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = Asharqalawsat;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.srmg.ashaeqalawsat.iphoneapp;
+				MARKETING_VERSION = 5.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Asharqalawsat Watch App Distribution";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
+		AF2361B028F019C300E3A5C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Asharqalawsat WatchKit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Asharqalawsat WatchKit Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_WKExtensionDelegateClassName = Asharqalawsat_WatchKit_Extension.ExtensionDelegate;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 5.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "AAA WatchKit Extension AppDevelopment Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "AAA WatchKit Extension AppDevelopment Profile";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		AF2361B128F019C300E3A5C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "Apple Distribution: Saudi Research & Publishing Company (5LV5P9XYQ8)";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Asharqalawsat WatchKit Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Asharqalawsat WatchKit Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_WKExtensionDelegateClassName = Asharqalawsat_WatchKit_Extension.ExtensionDelegate;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 5.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "Asharqalawsat Watch Extension Distribution";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
+		AF2361B228F019C300E3A5C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.AsharqalawsatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Asharqalawsat WatchKit Extension.appex/Asharqalawsat WatchKit Extension";
+				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+			};
+			name = Debug;
+		};
+		AF2361B328F019C300E3A5C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.AsharqalawsatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Asharqalawsat WatchKit Extension.appex/Asharqalawsat WatchKit Extension";
+				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+			};
+			name = Release;
+		};
+		AF2361B428F019C300E3A5C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.AsharqalawsatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = Asharqalawsat;
+				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+			};
+			name = Debug;
+		};
+		AF2361B528F019C300E3A5C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.AsharqalawsatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = Asharqalawsat;
+				WATCHOS_DEPLOYMENT_TARGET = 8.3;
 			};
 			name = Release;
 		};
@@ -1282,6 +1992,42 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF2361B628F019C300E3A5C6 /* Build configuration list for PBXNativeTarget "Asharqalawsat WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF2361B028F019C300E3A5C6 /* Debug */,
+				AF2361B128F019C300E3A5C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF2361B728F019C300E3A5C6 /* Build configuration list for PBXNativeTarget "Asharqalawsat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF2361AD28F019C300E3A5C6 /* Debug */,
+				AF2361AE28F019C300E3A5C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF2361B828F019C300E3A5C6 /* Build configuration list for PBXNativeTarget "AsharqalawsatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF2361B228F019C300E3A5C6 /* Debug */,
+				AF2361B328F019C300E3A5C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AF2361B928F019C300E3A5C6 /* Build configuration list for PBXNativeTarget "AsharqalawsatUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AF2361B428F019C300E3A5C6 /* Debug */,
+				AF2361B528F019C300E3A5C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AF23617928F019BF00E3A5C6"
+               BuildableName = "Asharqalawsat.app"
+               BlueprintName = "Asharqalawsat"
+               ReferencedContainer = "container:Awsatapp.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "Awsatapp.app"
                BlueprintName = "Awsatapp"
@@ -32,9 +46,19 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "AwsatappTests.xctest"
-               BlueprintName = "AwsatappTests"
+               BlueprintIdentifier = "AF23619628F019C200E3A5C6"
+               BuildableName = "AsharqalawsatTests.xctest"
+               BlueprintName = "AsharqalawsatTests"
+               ReferencedContainer = "container:Awsatapp.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AF2361A028F019C300E3A5C6"
+               BuildableName = "AsharqalawsatUITests.xctest"
+               BlueprintName = "AsharqalawsatUITests"
                ReferencedContainer = "container:Awsatapp.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -54,9 +78,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Awsatapp.app"
-            BlueprintName = "Awsatapp"
+            BlueprintIdentifier = "AF23617928F019BF00E3A5C6"
+            BuildableName = "Asharqalawsat.app"
+            BlueprintName = "Asharqalawsat"
             ReferencedContainer = "container:Awsatapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,9 +95,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "Awsatapp.app"
-            BlueprintName = "Awsatapp"
+            BlueprintIdentifier = "AF23617928F019BF00E3A5C6"
+            BuildableName = "Asharqalawsat.app"
+            BlueprintName = "Asharqalawsat"
             ReferencedContainer = "container:Awsatapp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
