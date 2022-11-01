@@ -74,11 +74,11 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   }
 
   const nonRegisteredData: SettingDataType[] = [
-    {
-        iconName: ImagesName.notificationGrey,
-        title: CONST_MANAGE_NOTIFICATION,
-        screenName: ''
-    }, 
+    // {
+    //     iconName: ImagesName.notificationGrey,
+    //     title: CONST_MANAGE_NOTIFICATION,
+    //     screenName: ''
+    // }, 
     {
         iconName: ImagesName.themeChange,
         title: CONST_APP_APPEARANCE,
@@ -87,11 +87,11 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   ]
 
   const data: SettingDataType[] = [
-      {
-          iconName: ImagesName.notificationGrey,
-          title: CONST_MANAGE_NOTIFICATION,
-          screenName: ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN
-      },
+    //   {
+    //       iconName: ImagesName.notificationGrey,
+    //       title: CONST_MANAGE_NOTIFICATION,
+    //       screenName: ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN
+    //   },
       {
           iconName: ImagesName.manageNews,
           title: CONST_MANAGE_NEWS,
