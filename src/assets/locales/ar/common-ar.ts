@@ -30,7 +30,7 @@ export const arabic = {
     aboutTheEast: 'عن الشرق',
     callUs: 'اتصل بنا',
     myPersonalAccount: 'حسابي الشخصي',
-    termsOfUse: 'شروط الانتفاع',
+    termsOfUse: 'الشروط والأحكام',
     pdfArchive: 'الأرشيف',
     informationAboutUs: 'معلومات عنا',
     aboutTheMiddleEast: ' عن "الشرق الأوسط"'
@@ -162,7 +162,7 @@ export const arabic = {
   ],
   day: [
     'الأحد',
-    'الإثنين',
+    'الاثنين',
     'الثلاثاء',
     'الأربعاء',
     'الخميس',
@@ -203,8 +203,8 @@ export const arabic = {
     email: 'الإيميل',
     signIn: 'تسجيل الدخول ',
     or: 'أو',
-    loginFacebook: 'الدخول بحساب الفيسبوك',
-    loginGoogle: 'الدخول بحساب جوجل',
+    loginFacebook: 'الدخول بحساب فيسبوك',
+    loginGoogle: 'الدخول بحساب غوغل',
     loginApple: 'الدخول بحساب ابل',
     termsAndConditions: 'الشروط والأحكام',
     agreeTo: 'تسجيل الدخول يعني الموافقة على',

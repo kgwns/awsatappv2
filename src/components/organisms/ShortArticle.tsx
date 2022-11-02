@@ -45,6 +45,7 @@ export interface ArticleSectionProps {
   isFooterOutside?: boolean
   listStyle?: StyleProp<ViewStyle>
   hideImage?: boolean;
+  showLeftTitle?: boolean;
   containerStyle?: StyleProp<ViewStyle>
 }
 
@@ -69,6 +70,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
   isFooterOutside = false,
   listStyle,
   hideImage = false,
+  showLeftTitle = true,
   containerStyle,
 }: ArticleSectionProps) => {
   const { isLoggedIn } = useLogin()
@@ -101,7 +103,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     shortArticleFooter.rightTitle = timeFormat.time
     shortArticleFooter.rightTitleColor = style.footerTitleColor.color
     shortArticleFooter.rightIcon = () => TimeIcon(timeFormat.icon)
-    shortArticleFooter.leftTitle = item.author
+    shortArticleFooter.leftTitle = showLeftTitle ? item.author : ''
     shortArticleFooter.leftTitleColor = style.footerTitleColor.color
 
     const cardStyle = (numColumns > 1 && index % 2 == 0) ? {marginRight: normalize(20)} : {}
