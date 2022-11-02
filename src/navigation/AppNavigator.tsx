@@ -96,6 +96,11 @@ const AppNavigator = () => {
         options={hideHeader}
       />
       <Stack.Screen
+        name={ScreensConstants.PODCAST_EPISODE_MODAL}
+        component={Routes.PodcastEpisodeModal}
+        options={hideHeader}
+      />
+      <Stack.Screen
         name={ScreensConstants.SectionArticlesScreen}
         component={Routes.SectionArticlesScreen}
         options={hideHeader}

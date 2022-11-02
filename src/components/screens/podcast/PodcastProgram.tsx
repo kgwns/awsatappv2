@@ -112,7 +112,7 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
   const styles = useThemeAwareObject(createStyles);
   const onPressItem = (item: any) => {
     if (item.nid) {
-      navigation.navigate(ScreensConstants.PodcastEpisode, { data: item, podcastListData: podcastEpisodeListInfo })
+      navigation.navigate(ScreensConstants.PODCAST_EPISODE_MODAL, { data: item, podcastListData: podcastEpisodeListInfo })
     }
   }
   const renderPodcast = () => (

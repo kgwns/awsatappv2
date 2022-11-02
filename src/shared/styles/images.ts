@@ -58,6 +58,7 @@ export enum ImagesName {
   clockWhite = 'clockWhite',
   clockBlack = 'clockBlack',
   headerLogo = 'headerLogo',
+  headerLogoDark = 'headerLogoDark',
   logoBlack = 'logoBlack',
   searchIcon = 'searchIcon',
   menuIcon = 'menuIcon',
