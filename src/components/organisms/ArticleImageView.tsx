@@ -5,12 +5,13 @@ import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isNonEmptyArray, isNotEmpty, screenWidth } from 'src/shared/utils';
-import { Divider, Label, Image, LabelTypeProp } from '../atoms';
+import { Divider, Label, Image, LabelTypeProp, LiveBlogTag } from '../atoms';
 import { MainSectionBlockType } from '~/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { fonts } from 'src/shared/styles/fonts';
+import { displayTypes } from 'src/constants/SharedConstants';
 
 interface ArticleImageViewProps {
     data: MainSectionBlockType[];
@@ -33,12 +34,14 @@ export const ArticleImageView = ({
     }
     const renderItem = (item: MainSectionBlockType, index: number) => {
         const highlightTitle = item.news_categories?.title || ''
+        const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
         return (
             <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_IMAGE_VIEW + index} onPress={() => onPress(item.nid)}>
                 <View style={style.rowContainer}>
                     <View style={style.labelContainer}>
                         {showHighlightTitle && <Label style={style.highlightedTitle} children={highlightTitle} labelType={LabelTypeProp.h5} />}
-                        <Label children={item.title} numberOfLines={3} style={style.labelStyle} />
+                        {isLive && <LiveBlogTag />}
+                        <Label children={item.title} numberOfLines={3} style={[style.labelStyle, isLive && {marginTop:10}]} />
                     </View>
                     {showImage && <View style={style.imageContainer}>
                         <Image url={item.image} style={style.imageStyle} resizeMode={ImageResize.COVER} fallback />

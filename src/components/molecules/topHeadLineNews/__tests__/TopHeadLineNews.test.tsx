@@ -38,6 +38,7 @@ describe('<TopHeadLineNews />', () => {
       type: 'example',
       blockName: 'example',
       position: 'example',
+      displayType: 'article'
     },
     {
       body: 'example',
@@ -57,6 +58,7 @@ describe('<TopHeadLineNews />', () => {
       type: 'example',
       blockName: 'example',
       position: 'example',
+      displayType: 'article'
     },
   ]
 

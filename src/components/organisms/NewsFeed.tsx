@@ -3,7 +3,7 @@ import React from 'react';
 import {Image} from '../atoms/image/Image';
 import { isTab, normalize, screenWidth} from '../../shared/utils';
 import { Styles} from '../../shared/styles';
-import {TextWithFlag, Divider, Label, LabelTypeProp} from '../atoms';
+import {TextWithFlag, Divider, Label, LabelTypeProp, LiveBlogTag} from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
 import {flatListUniqueKey, ScreensConstants} from '../../constants';
 import {SectionVideoFooter} from '../molecules';
@@ -24,6 +24,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { useAppPlayer } from 'src/hooks';
+import { displayTypes } from 'src/constants/SharedConstants';
 
 export interface NewsFeedProps {
   title: string;
@@ -127,6 +128,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   )
 
   const renderItem = (item: NewsViewListItemType, index: number) => {
+    const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
     return (
       <View key={flatListUniqueKey.NEWS_FEED + index}>
         <FixedTouchable activeOpacity={0.8} onPress={() => onPress(item.nid)}>
@@ -134,6 +136,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
             isTab ?
               <View style={style.tabSplitter}>
                 <View style={style.tabLeftContainer}>
+                  {isLive && <LiveBlogTag enableTopMargin />}
                   {renderTitle(item.title)}
                   {renderDescription(item.body)}
                   {renderArticleFooter(item, index)}
@@ -144,6 +147,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
               <>
                 <View style={{ flexDirection: 'row' }}>
                   <View style={style.titleContainer}>
+                    {isLive && <LiveBlogTag enableTopMargin />}
                     {renderTitle(item.title)}
                   </View>
                   <View>

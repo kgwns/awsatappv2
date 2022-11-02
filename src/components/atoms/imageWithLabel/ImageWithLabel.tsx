@@ -2,7 +2,7 @@ import { View, StyleSheet, ImageStyle } from 'react-native'
 import React from 'react'
 import { Image } from '../image/Image'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { ImageName, Label, LabelTypeProp } from '..'
+import { ImageName, Label, LabelTypeProp, LiveBlogTag } from '..'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles'
 import { LabelType } from '../label/Label'
@@ -20,13 +20,15 @@ export interface ImageLabelProps {
     imageStyle?: ImageStyle,
     onPressImage?: () => void,
     isAlbum?: boolean,
+    isLive?: boolean,
 }
 
 export const ImageWithLabel = ({ name, url, tagName,tagStyle,
     tagLabelType = LabelTypeProp.caption3,
     imageStyle,
     onPressImage,
-    isAlbum = false
+    isAlbum = false,
+    isLive = false,
 }: ImageLabelProps) => {
 
     const renderPhotoIcon = () => {
@@ -44,13 +46,16 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
                     style={[imageWithLabelStyle.articleImage, imageStyle]}
                     resizeMode={ImageResize.COVER}
                 />
-                {isNotEmpty(tagName) &&
+                {isNotEmpty(tagName) && !isLive &&
                     <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
                         <Label children={tagName}
                             style={imageWithLabelStyle.tagText}
                             labelType={tagLabelType}
                         />
                     </View>
+                }
+                {isLive &&
+                    <LiveBlogTag />
                 }
                 {isAlbum && 
                     <View style={imageWithLabelStyle.albumContainer}>

@@ -95,6 +95,7 @@ export const colors = {
   whiteOpacity15: '#FFFFFF26',
   chineWhite80: '#E0E0E080',
   charcoalGray: '#343434',
+  darkWineRed: '#BD3C2F',
 };
 
 export interface CustomThemeType {
