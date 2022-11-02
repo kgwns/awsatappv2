@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
 import { Styles } from 'src/shared/styles'
-import { BannerImageWithOverlay, Label, LabelTypeProp, BannerImageWithOverlayProps } from 'src/components/atoms'
+import { BannerImageWithOverlay, Label, LabelTypeProp, BannerImageWithOverlayProps, LiveBlogTag } from 'src/components/atoms'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -77,7 +77,7 @@ const ArticleDetailImage = ({
     }
 
     const renderTagName = () => {
-        if (!isNotEmpty(category)) return null
+        if (!isNotEmpty(category) || isLive) return null
 
         return (
             <View style={imageArticleStyle.tagNameViewStyle}>

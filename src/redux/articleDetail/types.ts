@@ -71,6 +71,7 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   journalistCity: string[],
   shortUrl: string,
   scribbleLiveId: string,
+  displayType?: string,
 }
 
 export interface RelatedArticleDataType extends GeneralArticleFields { 
