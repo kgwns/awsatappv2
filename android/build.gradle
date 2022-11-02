@@ -47,7 +47,6 @@ allprojects {
 
         google()
         maven { url 'https://www.jitpack.io' }
-        gradlePluginPortal()
-//        jcenter()
+        jcenter()
     }
 }
