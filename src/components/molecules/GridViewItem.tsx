@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
-import { Label, Image, LabelTypeProp } from 'src/components/atoms';
+import { Label, Image, LabelTypeProp, LiveBlogTag } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ImageResize } from 'src/shared/styles/text-styles';
@@ -12,7 +12,8 @@ export interface GridViewItemProps {
     highlightedTitle?: string;
     title?: string;
     showHighlightTitle?: boolean;
-    index: number
+    index: number;
+    isLive?: boolean;
 }
 
 export const GridViewItem = ({
@@ -20,7 +21,8 @@ export const GridViewItem = ({
     highlightedTitle,
     title,
     showHighlightTitle = true,
-    index
+    index,
+    isLive = false,
 }: GridViewItemProps) => {
     const style = useThemeAwareObject(customStyle);
     const isOdd = (index + 1) % 2 === 0;
@@ -35,7 +37,8 @@ export const GridViewItem = ({
                     />
                 </View>
             }
-            {showHighlightTitle && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
+            {showHighlightTitle && !isLive && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
+            {isLive && <LiveBlogTag enableTopMargin/>}
             {title &&
                 <Label style={style.title} children={title} numberOfLines={3} />
             }

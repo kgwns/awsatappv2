@@ -29,3 +29,4 @@ export { BackIcon } from 'src/components/atoms/backIcon/BackIcon'
 export { TitleWithUnderLine } from 'src/components/atoms/titleWithUnderLine/TitleWithUnderLine'
 export { HomeButton } from 'src/components/atoms/homeButton/HomeButton';
 export { ArchiveImage, ArchiveImageProps } from 'src/components/atoms/archiveImage/ArchiveImage';
+export { LiveBlogTag } from '../atoms/liveBlogTag/LiveBlogTag';

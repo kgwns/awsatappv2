@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
 import { Styles } from 'src/shared/styles'
-import { BannerImageWithOverlay, Label, LabelTypeProp, BannerImageWithOverlayProps } from 'src/components/atoms'
+import { BannerImageWithOverlay, Label, LabelTypeProp, BannerImageWithOverlayProps, LiveBlogTag } from 'src/components/atoms'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -9,6 +9,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import ArticleDetailVideo from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo'
 import { decode } from 'html-entities'
+import { displayTypes } from 'src/constants/SharedConstants'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -31,6 +32,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     setReset?: (show: boolean) => void;
     videoRefs?: any;
     showReplay?: boolean;
+    displayType?: string; 
 }
 const ArticleDetailImage = ({
     image,
@@ -40,12 +42,15 @@ const ArticleDetailImage = ({
     category,
     jwplayerId,
     showReplay = false,
+    displayType,
     ...props
 }: ImageArticleProps) => {
 
     const imageArticleStyle = useThemeAwareObject(customStyle)
 
     const [imageLoaded, setImageLoaded] = useState<boolean>(false)
+
+    const isLive = isNotEmpty(displayType) && displayType == displayTypes.liveCoverage;
 
     const onImageLoaded = () => {
         setImageLoaded(true)
@@ -72,7 +77,7 @@ const ArticleDetailImage = ({
     }
 
     const renderTagName = () => {
-        if (!isNotEmpty(category)) return null
+        if (!isNotEmpty(category) || isLive) return null
 
         return (
             <View style={imageArticleStyle.tagNameViewStyle}>
@@ -92,6 +97,7 @@ const ArticleDetailImage = ({
                     <BannerImageWithOverlay image={image}
                         onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
                         showOverlay={false}
+                        isLive={isLive}
                     />
                 }
                 {!isNotEmpty(jwplayerId) && renderTagName()}

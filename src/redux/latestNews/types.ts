@@ -79,7 +79,8 @@ export interface LatestArticleDataType {
   news_categories: NewsCategoriesType,
   author: string,
   created: string,
-  isBookmarked: boolean
+  isBookmarked: boolean,
+  displayType?: string 
 }
 
 export interface EditorsChoiceDataType extends LatestArticleDataType {
@@ -471,7 +472,8 @@ export type MainSectionBlockType = {
   isBookmarked: boolean,
   type: string;
   blockName: string;
-  position: string
+  position: string;
+  displayType: string;
 }
 
 export type RequestCoverageBlockType = {

@@ -117,13 +117,13 @@ export const FollowFavoriteAuthorScreen = () => {
           }
         </View>
         <View style={style.nextButtonView}>
-          {!disableNext && <NextButton
+          <NextButton
             disabled={disableNext}
             testID="nextButtonTestId"
             title={t('onBoard.common.nextBtn')}
             onPress={onPressNext}
             style={style}
-          />}
+          />
         </View>
       </View>
     </ScreenContainer>

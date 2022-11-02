@@ -30,6 +30,7 @@ import { getBookMarkDetailInfoService } from 'src/services/bookmarkService'
 import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService'
 import { AxiosError } from 'axios'
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
+import ArticleLiveBlog from './components/ArticleLiveBlog'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -517,6 +518,7 @@ export const ArticleDetailScreen = ({
           }
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
+          { isNotEmpty(item.scribbleLiveId) && <ArticleLiveBlog scribbleId={item.scribbleLiveId}/>}
           <Divider style={style.divider} />
         </>
         }

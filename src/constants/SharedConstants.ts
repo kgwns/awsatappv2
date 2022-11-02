@@ -76,3 +76,10 @@ export const podcastServices = {
   google: 'google_podcast',
   spotify: 'spotify'
 }
+
+//displayTypes
+export const displayTypes = {
+  article: 'article',
+  liveCoverage: 'livecoverage',
+  video: 'video',
+}

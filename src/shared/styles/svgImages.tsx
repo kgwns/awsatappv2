@@ -181,6 +181,8 @@ import ResetIcon from 'src/assets/images/icons/replayIcon.svg';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
 
+import LiveIcon from 'src/assets/images/icons/liveIcon.svg';
+
 export interface GetSVGProps {
     name: ImagesName,
     size?: number,
@@ -428,6 +430,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <SubscribeIconGreen {...props} />
         case ImagesName.resetIcon:
             return <ResetIcon {...props} />
+        case ImagesName.liveIcon:
+            return <LiveIcon {...props} />
         default: return null
     }
 }

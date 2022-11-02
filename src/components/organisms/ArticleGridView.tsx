@@ -10,6 +10,7 @@ import { Divider } from '../atoms';
 import { MainSectionBlockType } from '~/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { displayTypes } from 'src/constants/SharedConstants';
 
 interface ArticleGridViewProps {
     data: MainSectionBlockType[];
@@ -30,6 +31,7 @@ export const ArticleGridView = ({
     }
     const renderItem = (item: MainSectionBlockType, index: number) => {
         const highlightTitle = item.news_categories?.title || ''
+        const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
         return (
             <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_GRID_VIEW + index}
                 onPress={() => onPress(item.nid)}>
@@ -39,6 +41,7 @@ export const ArticleGridView = ({
                     highlightedTitle={highlightTitle}
                     showHighlightTitle={showHighlightTitle}
                     index={index}
+                    isLive={isLive}
                 />
             </TouchableOpacity>
         );

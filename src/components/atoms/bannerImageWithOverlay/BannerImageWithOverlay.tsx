@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { ImageResize } from '../../../shared/styles/text-styles'
-import { Image, Overlay } from '..'
+import { Image, LiveBlogTag, Overlay } from '..'
 
 export interface BannerImageWithOverlayProps {
     image?: string
     onImageLoadEnd?(isSuccess: boolean): void
     isImageLoaded?: boolean
     showOverlay?: boolean;
+    isLive?: boolean; 
 }
 
 export const BannerImageWithOverlay = ({
@@ -15,6 +16,7 @@ export const BannerImageWithOverlay = ({
     onImageLoadEnd,
     isImageLoaded,
     showOverlay,
+    isLive = false,
 }: BannerImageWithOverlayProps) => {
     const [isError, setIsError] = useState(false) 
 
@@ -34,6 +36,9 @@ export const BannerImageWithOverlay = ({
                 onLoadEnd={onLoadEnd}
                 onError={onError}
             />
+            {isLive && <View style={bannerImageWithOverlayStyle.liveTagContainer}>
+                <LiveBlogTag />
+            </View>}
             {showOverlay && isImageLoaded && <Overlay />}
         </View>
     )
@@ -45,4 +50,10 @@ const bannerImageWithOverlayStyle = StyleSheet.create({
         height: 'auto',
         aspectRatio: 1.34,
     },
+    liveTagContainer: {
+        flex: 1,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+    }
 })

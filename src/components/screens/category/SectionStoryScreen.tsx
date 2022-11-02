@@ -451,6 +451,7 @@ export const SectionStoryScreen = React.memo(({
             textStyles={style.textStyle}
             contentStyle={style.imageArticleContentStyle}
             titleStyle={style.titleStyle}
+            displayType={bannerData.displayType}
           />
         )}
       </>

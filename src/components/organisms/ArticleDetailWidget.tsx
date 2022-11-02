@@ -17,10 +17,11 @@ interface ArticleDetailWidgetProps {
     setReset?: (show: boolean) => void;
     videoRefs?: any;
     showReplay?: boolean;
+    displayType?: string;
 }
 
 const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
-    articleData, isRelatedArticle = false, isFirstItem, showReplay = false, ...props
+    articleData, isRelatedArticle = false, isFirstItem, showReplay = false, displayType, ...props
 }) => {
     return (
         <View>
@@ -33,6 +34,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
                 subtitle={articleData.subtitle}
                 jwplayerId={articleData.jwplayerId}
                 showReplay={showReplay}
+                displayType={articleData.displayType}
                 {...props}
             />
         </View>

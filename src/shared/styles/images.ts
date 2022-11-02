@@ -177,7 +177,8 @@ export enum ImagesName {
   archiveIconLight = 'archiveIconLight',
   archiveIconDark = 'archiveIconDark',
   anghamiPodcast = 'anghamiPodcast',
-  resetIcon = 'resetIcon'
+  resetIcon = 'resetIcon',
+  liveIcon = 'liveIcon',
 }
 
 export const images = {

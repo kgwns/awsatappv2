@@ -14,6 +14,7 @@ import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilitie
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { DARK_THEME_ID } from '../../shared/styles/colors'
+import { displayTypes } from 'src/constants/SharedConstants'
 
 const carouselFooterSample: articleFooterProps = {
   leftTitleColor: Styles.color.white,
@@ -47,7 +48,8 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
   showBody?: boolean,
   leftTitleColor?: string;
   showDivider?: boolean,
-  contentStyle?: StyleProp<TextStyle>
+  contentStyle?: StyleProp<TextStyle>;
+  displayType?: string,
 }
 
 const ImageArticle = ({
@@ -66,13 +68,16 @@ const ImageArticle = ({
   showBody= true,
   leftTitleColor,
   showDivider= false,
-  contentStyle
+  contentStyle,
+  displayType,
 }: ImageArticleProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [isImageLoaded, setImageLoaded] = useState(false)
   const { themeData } = useTheme();
   const isDark = themeData?.id === DARK_THEME_ID
+  const isLive = isNotEmpty(displayType) && displayType == displayTypes.liveCoverage;
+
 
   const onImageLoadEnd = (isSuccess: boolean) => {
     setImageLoaded(isSuccess)
@@ -89,7 +94,7 @@ const ImageArticle = ({
     <FixedTouchable onPress={onPress}>
       <View>
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
-          <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoadEnd} isImageLoaded={isImageLoaded} />
+          <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoadEnd} isLive={isLive} isImageLoaded={isImageLoaded} />
         </View>
         <View style={isTab ? [imageArticleStyle.tabArticleContent, contentStyle ] : imageArticleStyle.articleContent}>
           {isNotEmpty(title) &&
