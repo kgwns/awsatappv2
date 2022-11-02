@@ -144,10 +144,11 @@ export const WriterBannerImage = ({
 
   return (
     <View style={style.container}>
+      {/* For Navigation Reference
       <View style={style.headerContainer}>
         {visibleHome && <HomeButton containerStyle={style.homeIconContainer} onPress={onPressHome} />}
         <ReturnButton />
-      </View>
+      </View> */}
       <View style={style.contentContainer}>
         <View style={{ flex: isTab ? isWriter ? 0.15 : currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : isWriter ? 0.33 : currentOrientation == 'PORTRAIT' ? 0.33 : 0.15 }}>
           <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
@@ -215,12 +216,11 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.writerBackground,
       width: '100%',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
-      paddingTop: isTab ? normalize(40) : DeviceInfo.hasNotch() ? normalize(40) : normalize(20), 
       paddingBottom:normalize(20),
     },
     contentContainer:{
       flexDirection:'row',
-      paddingTop: normalize(30),
+      paddingTop: normalize(5),
     },
     imageContainer:{
       overflow: 'hidden',
