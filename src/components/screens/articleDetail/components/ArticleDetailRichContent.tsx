@@ -366,7 +366,6 @@ export const richContentTagStyle = ({ body }: { body: string }) => `
   </html>
   `;
 
-
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     quoteContainer: {
         backgroundColor: theme.secondaryGreen,

@@ -17,7 +17,29 @@ const InfoGraphicMapWidget = ({
     title = '', htmlContent
 }: InfoGraphicMapWidgetProps) => {
 
-    const htmlSource = { html: isNotEmpty(htmlContent) ? htmlContent : '<div></div>' }
+    const infoGraphicHTML = ({ body }: { body: string }) => `
+        <html>
+        <head>
+            <style>
+                p {
+                    text-align: justify;
+                    direction: rtl;
+                    writing-direction: rtl;
+                }
+            </style>
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1"
+            />
+        </head>
+        <body style="padding:0px">
+            <div style="padding:20px;">
+                ${body}
+            <div>
+        </body>
+        </html>`;
+
+    const htmlSource = { html: isNotEmpty(htmlContent) ? infoGraphicHTML({body: htmlContent}) : '<div></div>' }
     const Flag = () =>
         <View style={styles.flagContainer}>
             {getSvgImages({
