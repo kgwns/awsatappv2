@@ -101,7 +101,7 @@ const formatMainSectionBlockData = (response: any) => {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories,field_new_resource,created_export,
-        type, blockname, entityqueue_relationship_position, field_new_photo }: any) => ({
+        type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export }: any) => ({
           body,
           title,
           nid,
@@ -112,7 +112,8 @@ const formatMainSectionBlockData = (response: any) => {
           isBookmarked: false,
           type,
           blockName: blockname,
-          position: entityqueue_relationship_position
+          position: entityqueue_relationship_position,
+          displayType: field_display_export
         })
       );
     }
@@ -192,7 +193,7 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export, field_new_photo }: any) => ({
+        ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export, field_new_photo, field_display_export }: any) => ({
           body,
           title: isNotEmpty(title) ? decode(title) : '',
           nid,
@@ -200,7 +201,8 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: '', //Need to hide author name in UI
           created: created_export,
-          isBookmarked: false
+          isBookmarked: false,
+          displayType: field_display_export
         })
       );
     }
@@ -258,7 +260,7 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
       const rows = response.rows
       formattedEditorsChoiceData = rows.map(
         ({ title, body, nid, field_image, field_news_categories_export, author_resource, created_export, field_news_categories, field_publication_date, field_new_resource, type, blockname, entityqueue_relationship_position,
-          field_new_photo
+          field_new_photo, field_display_export
         }: any) => ({
           body,
           title,
@@ -273,6 +275,7 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
           type: type,
           blockname: blockname,
           entityqueue_relationship_position: entityqueue_relationship_position,
+          displayType: field_display_export,
         })
       );
     }
@@ -314,7 +317,7 @@ const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataTyp
   let formattedArchivedArticleSectionData: ArchivedArticleDataType[] = []
   if (response && isNonEmptyArray(response)) {
     formattedArchivedArticleSectionData = response.map(
-      ({ title, type, nid, body_export, field_image_export, field_new_photo, created_export, field_new_resource_export, field_publication_date_export, field_news_categories_export}: any) => ({
+      ({ title, type, nid, body_export, field_image_export, field_new_photo, created_export, field_new_resource_export, field_publication_date_export, field_news_categories_export, field_display_export}: any) => ({
         title,
         type,
         nid,
@@ -324,6 +327,7 @@ const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataTyp
         author: field_new_resource_export,
         publication_date: field_publication_date_export,
         news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
+        displayType:field_display_export,
       })
     );
   }
@@ -497,7 +501,7 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
       const rows = response.rows
       responseData.spotlightArticleSectionData = rows.map(
         ({ nid, title, body, field_image, view_node,
-          field_news_categories_export, created_export, author_resource, field_new_photo }: any) => ({
+          field_news_categories_export, created_export, author_resource, field_new_photo, field_display_export }: any) => ({
             nid: nid,
             title: isNotEmpty(title) ? decode(title) : '',
             body: body,
@@ -506,6 +510,7 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
             news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             created: created_export,
             author: author_resource,
+            displayType: field_display_export,
           })
       );
       responseData.spotlightArticleSectionData = responseData.spotlightArticleSectionData.splice(0, 4)
