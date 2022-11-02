@@ -10,16 +10,17 @@ import { colors } from 'src/shared/styles/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
-import { getPodcastUrl, horizontalAndBottomEdge, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getPodcastUrl, horizontalEdge, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Styles } from 'src/shared/styles';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 import { PodcastEpisodeModalInfo } from 'src/components/organisms/podcast/PodcastEpisodeModalInfo';
 
-export interface PodcastEpisodeProps {
-    route: any
+export interface PodcastEpisodeModalProps {
+    route: any;
+    onPressBack: () => void;
 }
 
 export const podcastEpisodeInitialData: PodcastListItemType = {
@@ -69,9 +70,7 @@ export const podcastEpisodeInitialData: PodcastListItemType = {
     field_total_duration_export: ''
 }
 
-export const PodcastEpisodeModal = ({ route }: PodcastEpisodeProps) => {
-
-    const navigation = useNavigation();
+export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalProps) => {
     const styles = useThemeAwareObject(createStyles);
     const insets = useSafeAreaInsets();
     const isFocused = useIsFocused();
@@ -244,7 +243,7 @@ export const PodcastEpisodeModal = ({ route }: PodcastEpisodeProps) => {
     }
 
     const onGoBack = () => {
-        navigation.goBack()
+        onPressBack();
     }
 
     const renderItem = () => (
@@ -264,7 +263,7 @@ export const PodcastEpisodeModal = ({ route }: PodcastEpisodeProps) => {
     )
 
     return (
-        <ScreenContainer edge={horizontalAndBottomEdge} barStyle={'light-content'} isLoading={isLoading}
+        <ScreenContainer edge={horizontalEdge} barStyle={'light-content'} isLoading={isLoading}
             statusbarColor={Styles.color.codGray}
             isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
             <View style={{ height: insets.top, backgroundColor: colors.black }} />
