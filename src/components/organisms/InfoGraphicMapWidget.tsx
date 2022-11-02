@@ -7,6 +7,7 @@ import { ImagesName } from 'src/shared/styles'
 import { Label } from '../atoms'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import { colors } from 'src/shared/styles/colors'
+import { infoGraphicHTML } from '../screens/articleDetail/components/ArticleDetailRichContent'
 
 type InfoGraphicMapWidgetProps = {
     title: string
@@ -17,7 +18,7 @@ const InfoGraphicMapWidget = ({
     title = '', htmlContent
 }: InfoGraphicMapWidgetProps) => {
 
-    const htmlSource = { html: isNotEmpty(htmlContent) ? htmlContent : '<div></div>' }
+    const htmlSource = { html: isNotEmpty(htmlContent) ? infoGraphicHTML({body: htmlContent}) : '<div></div>' }
     const Flag = () =>
         <View style={styles.flagContainer}>
             {getSvgImages({
