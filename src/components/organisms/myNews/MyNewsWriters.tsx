@@ -36,10 +36,11 @@ export const MyNewsWriters = () => {
   
   const styles = useThemeAwareObject(customStyle);
   const {
-    allWritersData,
+    isLoading,
     selectedAuthorsData,
-    fetchAllWritersRequest,
+    allSelectedWritersDetailList,
     getSelectedAuthorsData,
+    requestAllSelectedWritersDetailsData,
   } = useAllWriters();
 
   const {
@@ -56,39 +57,34 @@ export const MyNewsWriters = () => {
   const [isAuthorTidData, setIsAuthorTidData] = useState<any>([])
   const [isAuthorTid, setIsAuthorTid] = useState<any>([])
   const [selectedTid, setSelectedTid] = useState('')
-  const allWritersPayload: AllWritersBodyGet = {
-    items_per_page: 50,
-  };
 
   const authorsList = useMemo(() => {
     const writersList = [];
     const tidList = []
     if (
-      isNonEmptyArray(allWritersData) &&
-      isNonEmptyArray(selectedAuthorsData.data)
+      isNonEmptyArray(selectedAuthorsData.data) &&
+      isNonEmptyArray(allSelectedWritersDetailList)
     ) {
-      const authorsIdList = selectedAuthorsData.data.map((item: any) => {
-        return item.tid.toString();
-      });
-      for (let i = 0; i < allWritersData.length; i++) {
-        if (authorsIdList.includes(allWritersData[i].tid)) {
-          writersList.push(allWritersData[i]);
-          tidList.push(allWritersData[i].tid)
-        }
+      for (let i = 0; i < allSelectedWritersDetailList.length; i++) {
+        writersList.push(allSelectedWritersDetailList[i]);
+        tidList.push(allSelectedWritersDetailList[i].tid)
       }
     }
     if (isAuthorTidData != tidList) {
       setIsAuthorTidData(tidList)
     }
     return writersList;
-  }, [selectedAuthorsData, allWritersData]);
+  }, [allSelectedWritersDetailList]);
 
   useEffect(() => {
     if (isFocused) {
-      fetchAllWritersRequest(allWritersPayload);
       getSelectedAuthorsData();
     }
   }, [isFocused]);
+
+  useEffect(() => {
+    fetchSelectedDataFromAllWriters();
+  }, [selectedAuthorsData]);
 
   useEffect(() => {
     if (JSON.stringify(isAuthorTidData) != JSON.stringify(isAuthorTid)) {
@@ -125,6 +121,22 @@ export const MyNewsWriters = () => {
     }
   }, [favouriteOpinionsData]);
 
+  const fetchSelectedDataFromAllWriters = () => {
+    if (isNonEmptyArray(selectedAuthorsData.data)) {
+      const selectedAuthorsString = getSelectedData().join('+')
+      requestAllSelectedWritersDetailsData({ tid: selectedAuthorsString, items_per_page: 100 })
+    }
+  };
+
+  const getSelectedData = () => {
+    return selectedAuthorsData.data.reduce((prevValue: string[], item: any) => {
+      if (item.tid) {
+        return prevValue.concat(item.tid)
+      }
+      return prevValue
+    }, [])
+  }
+
   const getAuthorsList = () => {
     let authorsIdList = [];
     if (isNonEmptyArray(selectedAuthorsData.data)) {
@@ -134,7 +146,7 @@ export const MyNewsWriters = () => {
     }
     return authorsIdList;
   };
-
+  
   const setInitialData = () => {
     const authorsIdList = getAuthorsList();
     setPageCount(0);
@@ -260,7 +272,7 @@ export const MyNewsWriters = () => {
           onPress={onPress}
           selectedIndex={selectedIndex}
         />
-        {opinionLoading && pageCount == 0 ? (
+        {(opinionLoading || isLoading )&& pageCount == 0 ? (
           <View style={styles.centeredStyle}>
             <LoadingState />
           </View>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { StyleSheet, View, FlatList, Animated } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, isNotchDevice, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
 import { ScreenContainer } from '..';
 import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
@@ -218,6 +218,11 @@ export const WritersDetailScreen = ({
         navigation.popToTop()
     }
 
+    const renderHeader = () => (
+        <View style={style.backContainer}>
+            <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />
+        </View>
+    )
 
     const renderItem = () => {
         const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
@@ -255,6 +260,7 @@ export const WritersDetailScreen = ({
         <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
             isSignUpAlertVisible={showupUp}
             onCloseSignUpAlert={onCloseSignUpAlert}>
+            {renderHeader()}
             {!isLoading && <>
                 <FlatList
                     style={style.flatList}
@@ -265,7 +271,8 @@ export const WritersDetailScreen = ({
                     bounces={false}
                     onScroll={onScroll}
                 />
-                {(Number.parseInt(JSON.stringify(scrollY)) > 50) && <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />}
+                {/* For Navigation Reference
+                {(Number.parseInt(JSON.stringify(scrollY)) > 50) && <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />} */}
             </>
             }
         </ScreenContainer>
@@ -284,4 +291,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     footer: {
         width: '100%',
     },
+    backContainer: {
+        width: '100%',
+        height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
+        backgroundColor: theme.secondaryWhite,
+        justifyContent: 'center',
+    }
 });

@@ -152,7 +152,7 @@ export const PhotoGalleryDetailWidget = ({
     if (isNonEmptyArray(data.field_photo_album_export)) {
       return data.field_photo_album_export.map(
         (image: string, index: number) => {
-          const caption = isNonEmptyArray(data.field_photo_album_export_1) && data.field_photo_album_export_1.length > index + 1 ? data.field_photo_album_export_1[index] : ' '
+          const caption = isNonEmptyArray(data.captions) && isNotEmpty(data.captions[index]) ? data.captions[index] : ' '
           return renderImagesWithText(image, caption)
         },
       );

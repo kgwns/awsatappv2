@@ -726,6 +726,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
             showSignUpPopUp={makeSignUpAlert}
             isFooterOutside={true}
             containerStyle={mainSectionStyle.shortArticleContainer}
+            showLeftTitle={false}
           />
         </View>
       )}
@@ -915,6 +916,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
                   onUpdateBookmark={updateBookmarkInfo}
                   showSignUpPopUp={makeSignUpAlert}
                   isFooterOutside={true}
+                  showLeftTitle={false}
                 />
               </View>
             </View>
