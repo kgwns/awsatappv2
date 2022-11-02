@@ -46,3 +46,4 @@ export { ContactUs } from 'src/components/screens/contactUs/ContactUs'
 export { PhotoGalleryScreen } from 'src/components/screens/photoGallery/PhotoGalleryScreen'
 export { PhotoGalleryDetailScreen } from 'src/components/screens/photoGallery/PhotoGalleryDetailScreen'
 export { JournalistDetail } from 'src/components/screens/journalistDetail/JournalistDetail'
+export { PodcastEpisodeModal } from 'src/components/screens/podcast/PodcastEpisodeModal';

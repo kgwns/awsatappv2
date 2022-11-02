@@ -42,6 +42,7 @@ const PDF_EDITOR_VIEW = 'PDFEditorView' as ScreenName
 const CONTACT_US_SCREEN = 'ContactUsScreen' as ScreenName
 const PHOTO_GALLERY_DETAIL_SCREEN = 'PhotoGalleryDetailScreen' as ScreenName
 const JOURNALIST_DETAIL_SCREEN = 'JournalistDetail' as ScreenName
+const PODCAST_EPISODE_MODAL = 'PodcastEpisodeModal' as ScreenName;
 
 
 const HEADER_LOGO = 'headerLogo';
@@ -94,4 +95,5 @@ export const ScreensConstants = {
   CONTACT_US_SCREEN,
   PHOTO_GALLERY_DETAIL_SCREEN,
   JOURNALIST_DETAIL_SCREEN,
+  PODCAST_EPISODE_MODAL,
 };

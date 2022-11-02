@@ -282,6 +282,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <SearchIconDark {...props} /> : <SearchIcon {...props} />
         case ImagesName.headerLogo:
             return isDark ? <HeaderLogoDark {...props} /> : <HeaderLogo {...props} />
+        case ImagesName.headerLogoDark:
+            return <HeaderLogoDark {...props} />
         case ImagesName.menuIcon:
             return isDark ? <MenuIconDark {...props} /> : <MenuIcon {...props} />
         case ImagesName.newsIcon:
