@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList, LayoutChangeEvent } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import React, { useState } from 'react';
 import { Label, LabelTypeProp, ImageWithIcon } from '../atoms';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -59,7 +59,7 @@ export const VideoContent = ({
         const date = timeFormat.time
         const time = item.field_jwplayerinfo_export ? convertSecondsToHMS(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
-        const itemStyle = isTab ? { paddingHorizontal: 0.02 * screenWidth, height: normalize(260) } :
+        const itemStyle = isTab ? { paddingHorizontal: 0.02 * screenWidth, marginBottom: normalize(30) } :
             index === data.length - 1 && { marginRight: 0.04 * screenWidth }
 
         const moreStyle = isTwoLine ? { height: normalize(isTitleLineCount * 35) } : {}
@@ -68,8 +68,9 @@ export const VideoContent = ({
                 <View style={[style.videoCardContainer, itemStyle]}>
                     <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
                     <Label
+                        numberOfLines={isTab ? 3 : 2}
                         onTextLayout={onTextLayout}
-                        style={[style.textStyle, moreStyle]}
+                        style={[style.textStyle, !isTab && moreStyle]}
                         labelType={LabelTypeProp.h3}>
                         {decode(item.title)}
                     </Label>
