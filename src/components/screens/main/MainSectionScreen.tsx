@@ -1072,6 +1072,7 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.primary,
       lineHeight: 50,
       fontFamily: fonts.AwsatDigital_Bold,
+      textAlign: 'center',
     },
     topNewsContainer: {
       marginHorizontal: 0.04 * screenWidth,
