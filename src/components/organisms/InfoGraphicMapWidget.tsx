@@ -56,6 +56,8 @@ const InfoGraphicMapWidget = ({
             nestedScrollEnabled={false}
             originWhitelist={['*']}
             source={htmlSource}
+            scalesPageToFit={false}
+            viewportContent={'width=device-width, user-scalable=no'}
         />
     )
 
