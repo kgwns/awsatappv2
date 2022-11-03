@@ -25,7 +25,7 @@ extension AppDelegate: WCSessionDelegate {
   }
   
   private func sendToAppleWatch(_ topStories: [String: Any]) {
-    if watchSession.isPaired {
+    if (watchSession != nil && watchSession.isPaired)  {
       if watchSession.isWatchAppInstalled {
         do {
           try watchSession.updateApplicationContext(topStories)

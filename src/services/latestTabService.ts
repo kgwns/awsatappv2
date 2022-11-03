@@ -12,7 +12,7 @@ import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
 } from './apiEndPoints';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { payloadType } from 'src/redux/latestNews/types';
-import { isArray, joinArray } from 'src/shared/utils';
+import { isArray, isIOS, joinArray } from 'src/shared/utils';
 import { NativeModules } from 'react-native';
 
 const getSectionComboUrl = (body: RequestSectionComboBodyGet) => {
@@ -79,8 +79,12 @@ export const mainCoverageBlockApi = async () => {
     const response: payloadType = await getApiRequest(
       `${BASE_URL}${COVERAGE_ARTICLE_END_POINT}`,
     );
-    //Need to sync topStories response with Native modules so that it can be used in Apple Watch.
-    NativeModules.RNTopNewsContentBridge.syncTopStories(response)
+
+    if (isIOS) {
+      //Need to sync topStories response with Native modules so that it can be used in Apple Watch.
+      NativeModules.RNTopNewsContentBridge.syncTopStories(response)
+    }
+
     return response;
   } catch (error) {
     throw error;
