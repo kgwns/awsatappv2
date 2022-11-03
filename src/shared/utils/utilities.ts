@@ -228,7 +228,7 @@ export const calculateTimeSince = (time: any) => {
 };
 
 export const calculateDay = (time: any) => {
-  return moment(time).get('day');
+  return moment(time).utcOffset(time).get('day');
 };
 
 export const calculateHour = (time: any) => {
@@ -250,15 +250,15 @@ export const calculateMothNumber = (time: any) => {
 };
 
 export const calculateDate = (time: any) => {
-  return moment(time).get('date');
+  return moment(time).utcOffset(time).get('date');
 };
 
 export const calculateMonth = (time: any) => {
-  return arabic.months[moment(time).get('month')];;
+  return arabic.months[moment(time).utcOffset(time).get('month')];;
 };
 
 export const calculateYear = (time: any) => {
-  return  moment(time).get('year');
+  return  moment(time).utcOffset(time).get('year');
 };
 
 export const getFullDate = (time: any) => {
