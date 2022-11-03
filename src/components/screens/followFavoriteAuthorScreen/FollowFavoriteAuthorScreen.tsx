@@ -162,7 +162,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginBottom: isIOS ? 20 : 10,
     },
     contentStyle: {
-      flex: 0.77,
+      flex: 0.85,
       justifyContent: 'center',
     },
     nextButtonView: {

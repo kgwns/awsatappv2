@@ -7,6 +7,7 @@ import { ImagesName } from 'src/shared/styles'
 import { Label } from '../atoms'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import { colors } from 'src/shared/styles/colors'
+import { generateAssetFontCss } from '../screens/articleDetail/components/ArticleDetailRichContent'
 
 type InfoGraphicMapWidgetProps = {
     title: string
@@ -21,7 +22,12 @@ const InfoGraphicMapWidget = ({
         <html>
         <head>
             <style>
+            ${generateAssetFontCss({
+                fontFileName: 'Effra-Regular',
+                extension: 'ttf',
+            })}
                 p {
+                    font-family: Effra-Regular;
                     text-align: justify;
                     direction: rtl;
                     writing-direction: rtl;
@@ -39,7 +45,7 @@ const InfoGraphicMapWidget = ({
         </body>
         </html>`;
 
-    const htmlSource = { html: isNotEmpty(htmlContent) ? infoGraphicHTML({body: htmlContent}) : '<div></div>' }
+    const htmlSource = { html: isNotEmpty(htmlContent) ? infoGraphicHTML({body: htmlContent}) : '<div></div>' , baseUrl:''}
     const Flag = () =>
         <View style={styles.flagContainer}>
             {getSvgImages({
