@@ -50,6 +50,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
         renderItem={({item}) => renderItem(item)}
         style={{ marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) }}
         bounces={false}
+        scrollEnabled={false}
       />
     </ScrollView>
   );
