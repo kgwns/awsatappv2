@@ -40,6 +40,7 @@ export const ArticleLiveBlog = React.memo(({
             onNavigationStateChange={(event) => { onNavigationStateChange(event) }}
             scalesPageToFit={false}
             setBuiltInZoomControls={false}
+            viewportContent={'width=device-width, user-scalable=no'}
         />
     )
 

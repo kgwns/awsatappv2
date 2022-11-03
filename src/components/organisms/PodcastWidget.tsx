@@ -369,14 +369,15 @@ const createStyles = (theme: CustomThemeType) => {
     buttonStyle: {
       backgroundColor: colors.black,
       borderWidth: 0,
-      width: '48%',
+      width: 175,
       marginTop: normalize(30),
     },
     buttonLabel: {
       color: colors.white,
       fontFamily: fonts.AwsatDigital_Regular,
       fontSize: 14,
-      lineHeight: 26
+      lineHeight: 26,
+      marginLeft: 3
     },
     rightIconStyle: {
       paddingRight: normalize(15),
