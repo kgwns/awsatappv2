@@ -29,6 +29,7 @@ export interface NewsViewListItemType {
   field_news_categories_export: FieldNewsCategoriesExport;
   field_publication_date_export: Date;
   created_export: Date;
+  changed: Date;
   author_resource: string;
   isBookmarked: boolean;
   field_new_photo: string;
