@@ -39,15 +39,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     titleStyle:{
         textAlign:'center',
-        fontSize: 24,
-        lineHeight: 36,
+        fontSize: isTab ? 33 : 24,
+        lineHeight: isTab ? 50 : 36,
         fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{
         textAlign: 'left',
         writingDirection: 'rtl',
-        fontSize: 16,
-        lineHeight: 26,
+        fontSize: normalize(16),
+        lineHeight: normalize(26),
         fontFamily: fonts.IBMPlexSansArabic_Regular,
         color: theme.summaryColor,
     }

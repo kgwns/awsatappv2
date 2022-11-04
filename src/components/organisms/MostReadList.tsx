@@ -203,8 +203,8 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   titleStyle: {
     fontFamily: fonts.AwsatDigital_Bold,
-    fontSize: 16,
-    lineHeight: 28,
+    fontSize: isTab ? 20 : 16,
+    lineHeight: isTab ? 30 : 28,
     textAlign: 'left',
     paddingVertical: normalize(8),
     color: theme.primaryBlack

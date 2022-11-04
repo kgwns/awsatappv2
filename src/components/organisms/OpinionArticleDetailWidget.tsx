@@ -159,8 +159,8 @@ const customStyle = (theme: CustomThemeType) => {
       height: '100%',
     },
     title: {
-      fontSize: 30,
-      lineHeight: 45,
+      fontSize: isTab ? 33 : 30,
+      lineHeight: isTab ? 46 : 45,
       color: theme.primaryBlack,
       textAlign: 'left',
       marginVertical: normalize(0.01 * screenWidth),

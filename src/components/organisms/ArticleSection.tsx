@@ -141,16 +141,16 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     titleStyle:{
         fontFamily: fonts.AwsatDigital_Bold,
-        fontSize: 16,
-        lineHeight: 26,
+        fontSize: isTab ? 20 : 16,
+        lineHeight: isTab ? 32 : 26,
         textAlign: 'left', 
         paddingVertical: normalize(8),
         color: theme.primaryBlack
     },
     bodyStyle:{
         fontFamily: fonts.Effra_Arbc_Regular,
-        fontSize:16,
-        lineHeight:26,
+        fontSize: normalize(16),
+        lineHeight: normalize(26),
         textAlign: 'left' ,
         color: theme.summaryColor,
     },

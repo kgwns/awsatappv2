@@ -532,6 +532,7 @@ export const ArticleDetailScreen = ({
             addStyle={style.relatedArticle}
             orientation={currentOrientation}
             isFooterOutside={true}
+            leftContainerStyle={isTab && style.leftContainerStyle}
           />}
       </View>
   )}
@@ -649,6 +650,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: normalize(80)
+  },
+  leftContainerStyle: {
+    width: (screenWidth * 0.5 - 40) -  144,
   }
 })
 

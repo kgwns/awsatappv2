@@ -248,8 +248,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   title: {
     textAlign: 'left',
     fontFamily: fonts.AwsatDigital_Bold,
-    fontSize: normalize(18),
-    lineHeight: normalize(29),
+    fontSize: isTab ? normalize(20) : normalize(18),
+    lineHeight: isTab ? normalize(32) : normalize(29),
     marginBottom: 10,
   },
   titleStyle: {

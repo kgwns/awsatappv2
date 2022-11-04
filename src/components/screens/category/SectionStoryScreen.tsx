@@ -502,6 +502,7 @@ export const SectionStoryScreen = React.memo(({
             showSignUpPopUp={makeSignUpAlert}
             hideImage={!isTab}
             containerStyle={style.shortContainer}
+            leftContainerStyle={isTab && style.leftContainerStyle}
           />
           </View>
         )}
@@ -647,15 +648,15 @@ const customStyle = (theme: CustomThemeType) => {
     },
     titleStyle:{
       textAlign:'center',
-      fontSize: 24,
-      lineHeight: 42,
+      fontSize: isTab ? 33 : 24,
+      lineHeight: isTab ? 46 :42,
       fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{
         textAlign:'left',
         writingDirection: 'rtl',
-        fontSize: 16,
-        lineHeight: 26,
+        fontSize: isTab ? 18 : 16,
+        lineHeight: isTab ? 33 : 28,
         fontFamily: fonts.IBMPlexSansArabic_Regular,
         color: theme.summaryColor,
     },
@@ -663,6 +664,9 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: 0.02 * screenWidth,
       paddingVertical: 10,
       backgroundColor: theme.backgroundColor,
+    },
+    leftContainerStyle: {
+      width: (screenWidth * 0.5 - 40) -  144,
     }
   });
   return sectionStoryStyle;

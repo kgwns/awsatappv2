@@ -177,8 +177,8 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     articleTitleStyle:{
         fontFamily: fonts.AwsatDigital_Bold,
-        fontSize: 17,
-        lineHeight: 28,
+        fontSize: isTab ? 20 : 17,
+        lineHeight: isTab ? 32 : 28,
         textAlign: 'left', 
         paddingVertical: normalize(8),
         color: theme.primaryBlack

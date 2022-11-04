@@ -1,6 +1,6 @@
 import {StyleSheet, TextStyle} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {normalize} from 'src/shared/utils/dimensions';
+import {isTab, normalize} from 'src/shared/utils/dimensions';
 import { fonts } from './fonts';
 
 export enum ImageResize {
@@ -31,8 +31,8 @@ export const textStyles = (theme: CustomThemeType) => {
     h2: {
       fontFamily: fonts.AwsatDigital_Bold,
       fontStyle: FontStyle.NORMAL,
-      fontSize: normalize(16),
-      lineHeight: normalize(26),
+      fontSize: isTab ? normalize(20) : normalize(16),
+      lineHeight: isTab ? normalize(32) :normalize(26),
       textAlign: TextAlign.LEFT,
       paddingVertical: normalize(8),
       color: theme.primaryBlack
@@ -40,8 +40,8 @@ export const textStyles = (theme: CustomThemeType) => {
     h3: {
       fontFamily: fonts.AwsatDigital_Bold,
       fontStyle: FontStyle.NORMAL,
-      fontSize: 17,
-      lineHeight: 30,
+      fontSize: isTab ? 20 : 17,
+      lineHeight: isTab ? 42 : 30,
       textAlign: TextAlign.LEFT,
       color: theme.primaryBlack,
     },
@@ -144,7 +144,7 @@ export const textStyles = (theme: CustomThemeType) => {
     p3: {
       fontFamily: fonts.Effra_Arbc_Regular,
       fontStyle: FontStyle.NORMAL,
-      fontSize: normalize(15),
+      fontSize: isTab ? normalize(16) : normalize(15),
       lineHeight: normalize(26),
       textAlign: TextAlign.LEFT,
       color: colors.greyDark,

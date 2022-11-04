@@ -103,7 +103,7 @@ const customStyle = (theme: CustomThemeType) => {
     labelStyle: {
       textAlign: 'center',
       marginTop: normalize(10),
-      fontSize: 10,
+      fontSize: isTab ? 12 : 10,
       color: theme.secondaryDavyGrey,
       lineHeight: 14,
       fontFamily: fonts.IBMPlexSansArabic_Medium,

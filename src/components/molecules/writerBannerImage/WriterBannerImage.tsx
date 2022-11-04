@@ -249,8 +249,8 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'left',
     },
     authorDescription:{
-      fontSize: 13,
-      lineHeight: 22,
+      fontSize: isTab ? 14 : 13,
+      lineHeight: isTab ? 24 : 22,
       textAlign: 'left',
       marginBottom:normalize(15),
       color: theme.primaryBlack,

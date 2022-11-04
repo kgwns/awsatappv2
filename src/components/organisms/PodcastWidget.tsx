@@ -277,7 +277,7 @@ const createStyles = (theme: CustomThemeType) => {
     },
     body: {
       textAlign: 'left',
-      fontSize: 13,
+      fontSize: isTab ? 14 : 13,
       lineHeight: 24,
       fontFamily: fonts.Effra_Regular,
     },
@@ -299,7 +299,7 @@ const createStyles = (theme: CustomThemeType) => {
       alignContent: 'center',
     },
     listenToPodcastTitle: {
-      fontSize: 13,
+      fontSize: isTab ? 14 : 13,
       lineHeight: 19,
       fontFamily: fonts.AwsatDigital_Bold,
     },
