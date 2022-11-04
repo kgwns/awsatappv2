@@ -148,6 +148,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 253
         versionName "1.0"
+        multidexEnabled = true
     }
     splits {
         abi {
@@ -230,6 +231,7 @@ dependencies {
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.core:core:1.6.0'
+    implementation 'com.android.support:multidex:1.0.3'
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }
