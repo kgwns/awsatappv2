@@ -49,6 +49,9 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     const onPressJournalist = (id: string) => {
         navigation.push(ScreensConstants.JOURNALIST_DETAIL_SCREEN, { tid: id, isRelatedArticle: true })
     }
+
+    const journalistLength =  isNonEmptyArray(journalistId) ? journalistId.length : 0
+
     return (
         <View style={style.containerStyle}>
             {isNonEmptyArray(journalistId) && isNonEmptyArray(journalistName) && isNonEmptyArray(journalistCity) && journalistId.map((item: any, index: number) => {
@@ -59,7 +62,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
                             <TouchableOpacity onPress={() => onPressJournalist(item)} disabled={activeJournalist[index]}>
                                 <Label children={journalistName[index]} style={style.authorLabel} />
                             </TouchableOpacity>
-                            {index % 2 == 0 && index != 0 && <Label children={'|'} style={style.separatorStyle} />}
+                            {index % 2 == 0 && index != 1 && index != journalistLength - 1 && <Label children={'|'} style={style.separatorStyle} />}
                         </View>}
                     </View>
                 );

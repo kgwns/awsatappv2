@@ -442,7 +442,7 @@ export const SectionStoryScreen = React.memo(({
             body={bannerData.body}
             author={''} //No need to author name
             nid={bannerData.nid}
-            created={bannerData.created_export.toString()}
+            created={bannerData.changed.toString()}
             isBookmarked={bannerData.isBookmarked}
             onPressBookmark={() => updatedHeroBookmark(0)}
             hasTabletLayout={isTab ? true : false}

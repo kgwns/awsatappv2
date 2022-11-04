@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Awsatapp</string>
+    <string name="app_name">الشرق الأوسط</string>
     <string name="facebook_app_id">374745497486996</string>
     <string name="facebook_client_token">4b3ba28a80ce525af81a58bff91b23ed</string>
     <string name="ga_trackingId" translatable="false">UA-58560684-1</string>

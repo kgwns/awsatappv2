@@ -58,7 +58,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   };
 
   const renderArticleFooter = (item: NewsViewListItemType, index: number) => {
-    const timeFormat = dateTimeAgo(item.created_export)
+    const timeFormat = dateTimeAgo(item.changed)
 
     return (
       <View>
