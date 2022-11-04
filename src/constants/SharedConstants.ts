@@ -82,4 +82,6 @@ export const displayTypes = {
   article: 'article',
   liveCoverage: 'livecoverage',
   video: 'video',
+  analysis: 'analysis',
+  special: 'special'
 }

@@ -40,7 +40,7 @@ export const ArticleImageView = ({
                 <View style={style.rowContainer}>
                     <View style={style.labelContainer}>
                         {showHighlightTitle && <Label style={style.highlightedTitle} children={highlightTitle} labelType={LabelTypeProp.h5} />}
-                        {isLive && <LiveBlogTag />}
+                        {isLive && <LiveBlogTag enableBottomMargin/>}
                         <Label children={item.title} numberOfLines={3} style={[style.labelStyle, isLive && {marginTop:10}]} />
                     </View>
                     {showImage && <View style={style.imageContainer}>
