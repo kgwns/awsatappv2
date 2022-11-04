@@ -159,7 +159,7 @@ export function* getBookmarked() {
       getBookMarkInfo
     );
     const info = parseBookmarkId(payload.data);
-    yield put(getBookMarkedSuccess({ bookmarkedInfo:info }));
+    yield put(getBookMarkedSuccess({ bookmarkedInfo: info }));
     if (payload && isNonEmptyArray(payload.data)) {
       const data = [...payload.data]
       const firstPageId = spliceArray(data, 0, 25)
