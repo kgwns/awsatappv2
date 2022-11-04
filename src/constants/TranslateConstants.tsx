@@ -66,6 +66,8 @@ export enum TranslateKey {
     CONTENT_BUNDLE_WIDGET_TITLE,
     ARCHIVED_ARTICLE_SECTION_TITLE,
     LIVE_TAG_TITLE,
+    ANALYSIS_TAG_TITLE,
+    SPECIAL_TAG_TITLE,
 }
 
 export const TranslateConstants = ({
@@ -201,7 +203,11 @@ export const TranslateConstants = ({
         case TranslateKey.ARCHIVED_ARTICLE_SECTION_TITLE:
             return t('latestNewsTab.archivedArticle.headerTitle')
         case TranslateKey.LIVE_TAG_TITLE:
-            return t('liveTag.title')
+            return t('displayTag.liveTagTitle')
+        case TranslateKey.LIVE_TAG_TITLE:
+            return t('displayTag.specialTagTitle')
+        case TranslateKey.LIVE_TAG_TITLE:
+            return t('displayTag.analysisTagTitle')
         default: return ''
     }
 }

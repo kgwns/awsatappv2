@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, ViewStyle } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { View, StyleSheet, ViewStyle, AppState } from 'react-native'
 import { Styles } from 'src/shared/styles'
 import { BannerImageWithOverlay, Label, LabelTypeProp, BannerImageWithOverlayProps, LiveBlogTag } from 'src/components/atoms'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
-import { CustomThemeType } from 'src/shared/styles/colors'
+import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import ArticleDetailVideo from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo'
 import { decode } from 'html-entities'
 import { displayTypes } from 'src/constants/SharedConstants'
+import LiveArticleDetailHeader from '../liveArticleDetailHeader/LiveArticleDetailHeader'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -77,7 +78,7 @@ const ArticleDetailImage = ({
     }
 
     const renderTagName = () => {
-        if (!isNotEmpty(category)) return null
+        if (!isNotEmpty(category) || isLive) return null
 
         return (
             <View style={imageArticleStyle.tagNameViewStyle}>
@@ -90,8 +91,9 @@ const ArticleDetailImage = ({
 
     return (
         <View>
-            
+
             <View>
+                {isLive && <LiveArticleDetailHeader />}
                 <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
                 { isNotEmpty(jwplayerId) && isFirstItem ? <ArticleDetailVideo mediaId={jwplayerId} showReplay={showReplay} {...props}  /> : 
                     <BannerImageWithOverlay image={image}

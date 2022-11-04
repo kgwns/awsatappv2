@@ -43,7 +43,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const verticalArticleData = isTab ? [...data].splice(1, 4) : [...data].splice(1, 5)
     const style = useThemeAwareObject(createStyles);
 
-    const articleNewsItem = (item: articleProps, index: number) => {
+    const articleNewsItem = (item: LatestArticleDataType, index: number) => {
         const timeFormat = dateTimeAgo(item.created)
 
         sectionComboArticleFooter.leftTitle = timeFormat.time

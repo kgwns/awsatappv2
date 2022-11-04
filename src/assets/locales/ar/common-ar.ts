@@ -393,7 +393,9 @@ export const arabic = {
   articleDetail: {
     contentBundleWidgetTitle: 'اقرأ أيضاً'
   },
-  liveTag: {
-    title: 'تغطية حية'
+  displayTag: {
+    liveTagTitle: 'تغطية حية',
+    specialTagTitle: 'خاص',
+    analysisTagTitle: 'تحليل إخباري',
   }
 }
