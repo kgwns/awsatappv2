@@ -5,6 +5,7 @@ import {
   BookmarkIdSuccessDataFieldType, GetBookmarkDetailBodyGet, GetBookmarkDetailInfoType,
   GetBookmarkDetailSuccessPayload,
   GetBookMarkIdSuccessMessageType, RemoveBookmarkDetailSuccessPayload, RemoveBookMarkDetailType,
+  SendBookMarkBodyGet,
   SendBookMarkDetailType, SendBookMarkSuccessInfoType
 } from './types';
 import { getBookMarkDetailInfoService, getBookMarkInfo, removeBookMarkInfo, sendBookMarkInfo } from 'src/services/bookmarkService';
@@ -121,6 +122,13 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
   return responseData
 }
 
+const parseBookmarkId = (bookmarkData: SendBookMarkBodyGet[]): SendBookMarkBodyGet[] => {
+  return bookmarkData.reduce((prevValue: SendBookMarkBodyGet[], item: SendBookMarkBodyGet) => {
+    const isDuplicateId = prevValue.some((prevItem) => prevItem.nid == item.nid)
+    return isDuplicateId ? prevValue : prevValue.concat(item);
+  }, []);
+};
+
 export function* sendBookMarkId(action: SendBookMarkDetailType) {
   sendUserEventTracking({
     events: [{
@@ -150,7 +158,8 @@ export function* getBookmarked() {
     const payload: GetBookMarkIdSuccessMessageType = yield call(
       getBookMarkInfo
     );
-    yield put(getBookMarkedSuccess({ bookmarkedInfo: payload.data }));
+    const info = parseBookmarkId(payload.data);
+    yield put(getBookMarkedSuccess({ bookmarkedInfo: info }));
     if (payload && isNonEmptyArray(payload.data)) {
       const data = [...payload.data]
       const firstPageId = spliceArray(data, 0, 25)
