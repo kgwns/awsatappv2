@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {StyleSheet, View } from 'react-native';
-import {normalize} from 'src/shared/utils';
+import {isTab, normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image} from 'src/components/atoms';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
@@ -150,8 +150,8 @@ const customStyle = (theme: CustomThemeType) => {
       height: '100%'
     },
     title: {
-      fontSize: 14,
-      lineHeight: 18,
+      fontSize: isTab ? 20 : 14,
+      lineHeight: isTab ? 32 : 18,
       fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),

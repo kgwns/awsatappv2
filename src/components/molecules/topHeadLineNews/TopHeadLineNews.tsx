@@ -77,8 +77,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         marginRight: isTab ? 10 : 0,
     },
     title: {
-        fontSize: 15,
-        lineHeight: 24,
+        fontSize: isTab ? 18 : 15,
+        lineHeight: isTab ? 26 : 24,
         textAlign: isTab ? 'center' : 'left',
         color: theme.primaryBlack,
         fontFamily: fonts.AwsatDigital_Bold,

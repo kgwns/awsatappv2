@@ -4,7 +4,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { isNonEmptyArray, isNotEmpty, screenWidth } from 'src/shared/utils';
+import { isNonEmptyArray, isNotEmpty, isTab, screenWidth } from 'src/shared/utils';
 import { Divider, Label, Image, LabelTypeProp, LiveBlogTag } from '../atoms';
 import { MainSectionBlockType } from '~/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
@@ -116,8 +116,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         marginEnd: 5
     },
     labelStyle: {
-        fontSize: 16,
-        lineHeight: 25,
+        fontSize: isTab ? 20 : 16,
+        lineHeight: isTab ? 32 : 25,
         color: theme.primaryBlack,
         textAlign: 'left',
         fontFamily: fonts.AwsatDigital_Bold,
@@ -126,8 +126,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingHorizontal: 0.04 * screenWidth,
     },
     highlightedTitle: {
-        fontSize: 12,
-        lineHeight: 18,
+        fontSize: isTab ? 14 :12,
+        lineHeight: isTab ? 20 :18,
         color: theme.primary,
         fontFamily: fonts.Effra_Arbc_Regular,
         marginBottom: 10

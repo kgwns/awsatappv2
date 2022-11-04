@@ -60,15 +60,15 @@ const customStyle = (theme: CustomThemeType) => {
             height: '100%'
         },
         highlightedTitle: {
-            fontSize: 12,
-            lineHeight: 18,
+            fontSize: isTab ? 14 : 12,
+            lineHeight: isTab ? 20 : 18,
             marginTop: normalize(10),
             color: theme.primary,
             fontFamily: fonts.Effra_Arbc_Regular,
         },
         title: {
-            fontSize: 14,
-            lineHeight: 22,
+            fontSize: isTab ? 20 : 14,
+            lineHeight: isTab ? 32 : 22,
             marginTop: normalize(8),
             color: theme.primaryBlack,
             textAlign: 'left',

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import {StyleSheet, View, TouchableWithoutFeedback} from 'react-native';
-import {normalize} from 'src/shared/utils';
+import {isTab, normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Label, Image} from 'src/components/atoms';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
@@ -75,8 +75,8 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
     },
     title: {
-      fontSize: 14,
-      lineHeight: 24,
+      fontSize: isTab ? 20 : 14,
+      lineHeight: isTab ? 32 : 24,
       fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),

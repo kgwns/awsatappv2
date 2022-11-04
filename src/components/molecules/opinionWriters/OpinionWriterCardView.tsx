@@ -240,7 +240,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: normalize(10),
     },
     headLine: {
-      fontSize: 18,
+      fontSize: isTab ? 20 : 18,
       textAlign: 'left',
       lineHeight: 30,
       color: theme.primaryBlack,

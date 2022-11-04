@@ -218,8 +218,8 @@ const customStyle = (theme: CustomThemeType) => {
     },
     contentTitle: {
       textAlign: 'left',
-      fontSize: 14,
-      lineHeight: 24,
+      fontSize: isTab ? 20 : 14,
+      lineHeight: isTab ? 32 : 24,
       color: theme.primaryBlack,
       fontFamily: fonts.AwsatDigital_Bold,
       paddingVertical: normalize(10),

@@ -224,7 +224,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingRight: normalize(5)
     },
     durationLabel: {
-      fontSize: 12,
+      fontSize: isTab ? 13 : 12,
       lineHeight: 36,
       color: theme.secondaryDavyGrey,
       fontFamily: fonts.Effra_Arbc_Medium,

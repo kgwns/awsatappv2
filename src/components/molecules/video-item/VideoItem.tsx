@@ -286,8 +286,8 @@ const createStyles = (theme: CustomThemeType) =>
     },
     titleLabelStyle: {
       fontFamily: fonts.AwsatDigital_Bold,
-      fontSize: 16,
-      lineHeight: 28,
+      fontSize: isTab ? 20 : 16,
+      lineHeight: isTab ? 32 : 28,
       textAlign: 'left',
       paddingVertical: normalize(8),
       color: theme.primaryBlack
