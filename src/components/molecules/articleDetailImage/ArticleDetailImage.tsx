@@ -77,7 +77,7 @@ const ArticleDetailImage = ({
     }
 
     const renderTagName = () => {
-        if (!isNotEmpty(category) || isLive) return null
+        if (!isNotEmpty(category)) return null
 
         return (
             <View style={imageArticleStyle.tagNameViewStyle}>
@@ -97,7 +97,6 @@ const ArticleDetailImage = ({
                     <BannerImageWithOverlay image={image}
                         onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
                         showOverlay={false}
-                        isLive={isLive}
                     />
                 }
                 {!isNotEmpty(jwplayerId) && renderTagName()}
