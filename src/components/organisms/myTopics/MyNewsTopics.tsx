@@ -142,7 +142,7 @@ export const MyNewsTopics = () => {
     };
 
     const renderItem = (item: ArticlesListItemType, index: number) => {
-        const timeFormat = dateTimeAgo(item.created_export)
+        const timeFormat = dateTimeAgo(item.changed)
         const articleItemStyle = isTab ? numberOfColumn > 1 && articleData.length > 1 ? (index % 2 === 0) ? styles.evenStyle : styles.oddStyle : {} : styles.mobileArticleItem
         const tagName = isObjectNonEmpty(item.field_news_categories_export) ? item.field_news_categories_export[0].title : ''
         return (
