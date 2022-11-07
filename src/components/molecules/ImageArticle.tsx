@@ -70,6 +70,7 @@ const ImageArticle = ({
   showDivider= false,
   contentStyle,
   displayType,
+  isAlbum,
 }: ImageArticleProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
@@ -85,7 +86,8 @@ const ImageArticle = ({
 
   const onPress = () => {
     if (nid) {
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+      const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN
+      navigation.navigate(screenName, { nid: nid })
     }
   }
 
@@ -94,7 +96,12 @@ const ImageArticle = ({
     <FixedTouchable onPress={onPress}>
       <View>
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
-          <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoadEnd} isLive={isLive} isImageLoaded={isImageLoaded} />
+          <BannerImageWithOverlay image={image}
+            onImageLoadEnd={onImageLoadEnd}
+            isLive={isLive}
+            isImageLoaded={isImageLoaded}
+            isAlbum={isAlbum}
+          />
         </View>
         <View style={isTab ? [imageArticleStyle.tabArticleContent, contentStyle ] : imageArticleStyle.articleContent}>
           {isNotEmpty(title) &&
@@ -132,7 +139,7 @@ export default ImageArticle;
 
 const imageArticleStyle = StyleSheet.create({
   sliderItemContainer: {
-    width: screenWidth,
+    width: '100%',
     height: 'auto',
     aspectRatio: 1.34,
    

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { isNonEmptyArray, isTab, normalize } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, isTypeAlbum, normalize } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
 import { MainSectionBlockType } from 'src/redux/latestNews/types'
 import { fonts } from 'src/shared/styles/fonts'
@@ -25,6 +25,7 @@ const CarouselSlider = ({
                     // rightContainerStyle={{ flex: 0 }} //enable to center align
                     titleStyle={carouselSliderStyle.titleStyle}
                     textStyles={carouselSliderStyle.textStyle}
+                    isAlbum={isTypeAlbum(coverageInfo[0].type)}
                 />
             }
         </View>

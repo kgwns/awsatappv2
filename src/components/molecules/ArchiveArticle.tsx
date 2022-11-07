@@ -56,7 +56,8 @@ const ArchiveArticle = ({
   titleStyle,
   leftTitleColor,
   showDivider = false,
-  contentStyle
+  contentStyle,
+  isAlbum,
 }: ArchiveArticleProps) => {
 
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -66,7 +67,8 @@ const ArchiveArticle = ({
 
   const onPress = () => {
     if (nid) {
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+      const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
+      navigation.navigate(screenName, { nid: nid })
     }
   }
 
@@ -74,7 +76,7 @@ const ArchiveArticle = ({
     <FixedTouchable onPress={onPress}>
       <View style={!showDivider && {marginBottom:10}}>
         <View style={StyleSheet.flatten([ArchiveArticleStyle.sliderItemContainer, containerStyle])}>
-          <ArchiveImage image={image} />
+          <ArchiveImage image={image} isAlbum={isAlbum} />
         </View>
         <View style={isTab ? [ArchiveArticleStyle.tabArticleContent, contentStyle] : ArchiveArticleStyle.articleContent}>
           {isNotEmpty(title) &&

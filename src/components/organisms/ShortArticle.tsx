@@ -8,16 +8,17 @@ import {
 import React, { useEffect, useState } from 'react';
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
-import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label } from '../atoms'
+import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label, RenderPhotoIcon } from '../atoms'
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants';
-import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, TimeIcon } from 'src/shared/utils/utilities';
+import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities';
 import { useLogin } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
+import { HomePageArticleType } from 'src/redux/latestNews/types';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -26,12 +27,13 @@ export interface ShortArticleProps extends TextWithFlagProps {
   created: string,
   isBookmarked: boolean;
   body: string
+  type: HomePageArticleType;
 }
 
 export interface ArticleSectionProps {
   data: ShortArticleProps[];
   headerLeft?: HeaderElementProps;
-  onPress: (nid: string) => void;
+  onPress: (nid: string, isAlbum?: boolean) => void;
   labelType?: LabelTypeProp;
   onUpdateBookmark: (nid: string, bookmarkStatus: boolean) => void,
   showSignUpPopUp: () => void,
@@ -110,7 +112,9 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const showDivider = (numColumns == 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
     const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageLandscape : style.image
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageContainerLandscape : style.imageContainer
-    return <FixedTouchable style={isTab && {flex:1}} onPress={() => onPress(item.nid)}>
+    const isAlbum = isTypeAlbum(item.type);
+
+    return <FixedTouchable style={isTab && {flex:1}} onPress={() => onPress(item.nid, isAlbum)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([!hideImage && isTab ? style.cardContainer : style.cardContainerStyle, cardStyle, containerStyle])}>
         <View style={{ flexDirection: 'row' }}>
@@ -135,6 +139,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
           </View>
         {!hideImage &&  <View style={[imageContainerStyle, imageStyleProp]}>
             <Image fallback url={getImageUrl(item.image)} style={imageStyle} resizeMode={ImageResize.COVER} />
+            {isAlbum && <RenderPhotoIcon />}
           </View>}
         </View>
         {isFooterOutside && <View style={style.outsideFooterContainer}>

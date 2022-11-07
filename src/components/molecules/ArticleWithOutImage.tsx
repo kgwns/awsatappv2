@@ -1,6 +1,6 @@
 import { View, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
-import { Divider, Label, LabelTypeProp, TextWithFlag } from '../atoms';
+import { Divider, Label, TextWithFlag } from '../atoms';
 import { normalize } from 'src/shared/utils';
 import { Styles } from '../../shared/styles';
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules';
@@ -8,7 +8,6 @@ import { TextWithFlagProps } from 'src/components/atoms';
 import { decodeHTMLTags, isNotEmpty } from 'src/shared/utils/utilities';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { decode } from 'html-entities';
 

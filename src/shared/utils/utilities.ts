@@ -15,6 +15,7 @@ import { decode } from "html-entities";
 import DeviceInfo from 'react-native-device-info';
 import countries from "i18n-iso-countries";
 import arabicLang from "i18n-iso-countries/langs/ar.json";
+import { HomePageArticleType } from "src/redux/latestNews/types";
 
 export enum DateIcon {
   CLOCK,
@@ -376,4 +377,8 @@ export const isValidDate = (dateObject: any): boolean => {
 
 export const getShareUrl = (shortUrl: string, viewNodeUrl:string): string => {
   return  isNotEmpty(shortUrl) ? shortUrl : viewNodeUrl;
+}
+
+export const isTypeAlbum = (type: HomePageArticleType): boolean => {
+  return isNotEmpty(type) && type === HomePageArticleType.ALBUM;
 }

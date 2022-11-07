@@ -2,7 +2,7 @@ import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget, ShortArticle } from 'src/components/organisms';
-import { EditorsChoiceDataType, LatestArticleDataType, LatestPodcastDataType, MainSectionBlockType } from 'src/redux/latestNews/types';
+import { EditorsChoiceDataType, HomePageArticleType, LatestArticleDataType, LatestPodcastDataType, MainSectionBlockType } from 'src/redux/latestNews/types';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { MainSectionScreen } from '../MainSectionScreen';
@@ -116,9 +116,10 @@ const MainSectionBlockTypeData: MainSectionBlockType[] = [
     author: 'example',
     created: 'example',
     isBookmarked: true,
-    type: 'example',
+    type: HomePageArticleType.ARTICLE,
     blockName: 'example',
     position: 'example',
+    displayType: 'example',
   },
   {
     body: 'example',
@@ -135,9 +136,10 @@ const MainSectionBlockTypeData: MainSectionBlockType[] = [
     author: 'example',
     created: 'example',
     isBookmarked: true,
-    type: 'example',
+    type: HomePageArticleType.ARTICLE,
     blockName: 'example',
     position: 'example',
+    displayType: 'example',
   },
 ]
 

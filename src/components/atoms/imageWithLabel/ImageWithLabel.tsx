@@ -1,7 +1,7 @@
 import { View, StyleSheet, ImageStyle } from 'react-native'
 import React from 'react'
 import { Image } from '../image/Image'
-import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isNotEmpty, normalize } from 'src/shared/utils'
 import { ImageName, Label, LabelTypeProp, LiveBlogTag } from '..'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles'
@@ -19,7 +19,7 @@ export interface ImageLabelProps {
     tagLabelType?: LabelType,
     imageStyle?: ImageStyle,
     onPressImage?: () => void,
-    isAlbum?: boolean,
+    isAlbum: boolean,
     isLive?: boolean,
 }
 

@@ -32,12 +32,13 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
 }) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
     const onPress = () => {
-        console.log('onPress');
         if (props.nid) {
-            isJournalist ? 
-            navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: props.nid, isRelatedArticle: true })
-            :
-            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: props.nid })
+            if (isJournalist) {
+                navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: props.nid, isRelatedArticle: true });
+            } else {
+                const screenName = props.isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
+                navigation.navigate(screenName, { nid: props.nid });
+            }
         }
     }
 

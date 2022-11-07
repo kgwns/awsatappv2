@@ -1,15 +1,16 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ImageResize } from '../../../shared/styles/text-styles';
-import { Image } from '..';
+import { Image, RenderPhotoIcon } from '..';
 import { Grayscale } from 'react-native-color-matrix-image-filters';
 import { screenWidth } from 'src/shared/utils';
 
 export interface ArchiveImageProps {
     image?: string
+    isAlbum: boolean;
 }
 
-export const ArchiveImage = ({ image }: ArchiveImageProps) => {
+export const ArchiveImage = ({ image, isAlbum }: ArchiveImageProps) => {
 
     return (
         <View style={archiveImageStyle.imageContainer}>
@@ -18,17 +19,18 @@ export const ArchiveImage = ({ image }: ArchiveImageProps) => {
                     resizeMode={ImageResize.COVER}
                 />
             </Grayscale>
+            {isAlbum && <RenderPhotoIcon />}
         </View>
     )
 }
 
 const archiveImageStyle = StyleSheet.create({
     imageContainer: {
-        width: screenWidth,
+        width: 0.93 * screenWidth,
         marginHorizontal: '3.5%',
     },
     image: {
-        width: '93%',
+        width: '100%',
         height: 'auto',
         aspectRatio: 1.34,
     },

@@ -4,9 +4,9 @@ import { FlatList } from 'react-native-gesture-handler';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { isNonEmptyArray, isNotEmpty, isTab, screenWidth } from 'src/shared/utils';
-import { Divider, Label, Image, LabelTypeProp, LiveBlogTag } from '../atoms';
-import { MainSectionBlockType } from '~/redux/latestNews/types';
+import { isNonEmptyArray, isNotEmpty, isTab, isTypeAlbum, screenWidth } from 'src/shared/utils';
+import { Divider, Label, Image, LabelTypeProp, LiveBlogTag, RenderPhotoIcon } from '../atoms';
+import { MainSectionBlockType } from 'src/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ImageResize } from 'src/shared/styles/text-styles';
@@ -27,24 +27,31 @@ export const ArticleImageView = ({
     const navigation = useNavigation<StackNavigationProp<any>>()
     const style = useThemeAwareObject(customStyle)
 
-    const onPress = (nid: string) => {
+    const onPress = (nid: string, isAlbum: boolean) => {
         if (isNotEmpty(nid)) {
-            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+            const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
+            navigation.navigate(screenName, { nid: nid });
         }
     }
+    
     const renderItem = (item: MainSectionBlockType, index: number) => {
         const highlightTitle = item.news_categories?.title || ''
         const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
+        const isAlbum = isTypeAlbum(item.type);
+
         return (
-            <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_IMAGE_VIEW + index} onPress={() => onPress(item.nid)}>
+            <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_IMAGE_VIEW + index} onPress={() => onPress(item.nid, isAlbum)}>
                 <View style={style.rowContainer}>
                     <View style={style.labelContainer}>
                         {showHighlightTitle && <Label style={style.highlightedTitle} children={highlightTitle} labelType={LabelTypeProp.h5} />}
                         {isLive && <LiveBlogTag enableBottomMargin/>}
                         <Label children={item.title} numberOfLines={3} style={[style.labelStyle, isLive && {marginTop:10}]} />
                     </View>
-                    {showImage && <View style={style.imageContainer}>
-                        <Image url={item.image} style={style.imageStyle} resizeMode={ImageResize.COVER} fallback />
+                    {showImage && <View>
+                        <View style={style.imageContainer}>
+                            <Image url={item.image} style={style.imageStyle} resizeMode={ImageResize.COVER} fallback />
+                        </View>
+                        {isAlbum && <RenderPhotoIcon />}
                     </View>}
                 </View>
             </TouchableOpacity>

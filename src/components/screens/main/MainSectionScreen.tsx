@@ -25,7 +25,7 @@ import { TopHeadLineNews } from 'src/components/molecules';
 import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { Label } from 'src/components/atoms';
-import { getPodcastUrl, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getPodcastUrl, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
 import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
@@ -453,6 +453,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       showDivider: false,
       bodyLineCount: 3,
       author: '',
+      isAlbum: isTypeAlbum(item.type),
     }
   ))
 
@@ -539,8 +540,9 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   }, [opinionLoaded, podcastHomeLoaded, editorChoiceLoaded])
 
 
-  const onPressArticle = (nid: string) => {
-    nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+  const onPressArticle = (nid: string, isAlbum: boolean = false) => {
+    const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
+    nid && navigation.navigate(screenName, { nid: nid })
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {

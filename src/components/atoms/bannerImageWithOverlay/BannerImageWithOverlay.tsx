@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { ImageResize } from '../../../shared/styles/text-styles'
 import { Image, LiveBlogTag, Overlay } from '..'
+import { getSvgImages } from 'src/shared/styles/svgImages'
+import { ImagesName } from 'src/shared/styles'
 
 export interface BannerImageWithOverlayProps {
     image?: string
@@ -9,7 +11,18 @@ export interface BannerImageWithOverlayProps {
     isImageLoaded?: boolean
     showOverlay?: boolean;
     isLive?: boolean; 
+    isAlbum: boolean;
 }
+
+export const RenderPhotoIcon = () => (
+    <View style={{ position: 'absolute', top: 15, right: 15 }}>
+        {getSvgImages({
+            name: ImagesName.photoIcon,
+            width: 27,
+            height: 22,
+        })}
+    </View>
+);
 
 export const BannerImageWithOverlay = ({
     image,
@@ -17,6 +30,7 @@ export const BannerImageWithOverlay = ({
     isImageLoaded,
     showOverlay,
     isLive = false,
+    isAlbum = false,
 }: BannerImageWithOverlayProps) => {
     const [isError, setIsError] = useState(false) 
 
@@ -36,6 +50,7 @@ export const BannerImageWithOverlay = ({
                 onLoadEnd={onLoadEnd}
                 onError={onError}
             />
+            {isAlbum && <RenderPhotoIcon />}
             {isLive && <View style={bannerImageWithOverlayStyle.liveTagContainer}>
                 <LiveBlogTag />
             </View>}
