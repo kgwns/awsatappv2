@@ -795,8 +795,8 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
           />
         </View> */}
       </View>
-      {isNonEmptyArray(gridViewSectionData) && <ArticleGridView data={gridViewSectionData} />}
-      {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView data={topViewSectionDataTwo} />}
+      {isNonEmptyArray(gridViewSectionData) && <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />}
+      {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
       {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
         title={infoGraphicBlock[0].info}
