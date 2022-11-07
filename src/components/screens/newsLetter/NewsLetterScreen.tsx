@@ -220,7 +220,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
         <View style={!canGoBack ? style.contentStyle : style.profileSettingContentStyle }>
           {isNonEmptyArray(newsLettersDataInfo) &&
             <View>
-              <NewsLettersWidget data={newsLettersDataInfo} changeSelectedStatus={changeSelectedStatus} />
+              <NewsLettersWidget data={newsLettersDataInfo} changeSelectedStatus={changeSelectedStatus} canGoBack={canGoBack} />
             </View>
           }
         </View>
