@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../constants/SampleData';
 import {EditorsPickSection} from 'src/components/organisms/EditorsPickSection';
 import { FlatList, TouchableOpacity } from 'react-native';
-import { MainSectionBlockType } from 'src/redux/latestNews/types';
+import { HomePageArticleType, MainSectionBlockType } from 'src/redux/latestNews/types';
 
 describe('<EditorsPickSection>', () => {
   let instance: RenderAPI;
@@ -25,9 +25,10 @@ describe('<EditorsPickSection>', () => {
       author: 'example',
       created: 'example',
       isBookmarked: true,
-      type: 'example',
+      type: HomePageArticleType.ARTICLE,
       blockName: 'example',
       position: 'example',
+      displayType: 'example',
     },
     {
       body: 'example',
@@ -44,9 +45,10 @@ describe('<EditorsPickSection>', () => {
       author: 'example',
       created: 'example',
       isBookmarked: true,
-      type: 'example',
+      type: HomePageArticleType.ARTICLE,
       blockName: 'example',
       position: 'example',
+      displayType: 'example',
     },
   ]
   beforeEach(() => {
@@ -99,9 +101,10 @@ describe('<EditorsPickSection>', () => {
       author: 'example',
       created: 'example',
       isBookmarked: true,
-      type: 'example',
+      type: HomePageArticleType.ARTICLE,
       blockName: 'example',
       position: 'example',
+      displayType: 'example',
     },
     {
       body: 'example',
@@ -117,9 +120,10 @@ describe('<EditorsPickSection>', () => {
       author: 'example',
       created: 'example',
       isBookmarked: true,
-      type: 'example',
+      type: HomePageArticleType.ARTICLE,
       blockName: 'example',
       position: 'example',
+      displayType: 'example',
     },
   ]
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
-import { Label, Image, LabelTypeProp, LiveBlogTag } from 'src/components/atoms';
+import { Label, Image, LabelTypeProp, LiveBlogTag, RenderPhotoIcon } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ImageResize } from 'src/shared/styles/text-styles';
@@ -14,6 +14,7 @@ export interface GridViewItemProps {
     showHighlightTitle?: boolean;
     index: number;
     isLive?: boolean;
+    isAlbum: boolean;
 }
 
 export const GridViewItem = ({
@@ -23,6 +24,7 @@ export const GridViewItem = ({
     showHighlightTitle = true,
     index,
     isLive = false,
+    isAlbum = false,
 }: GridViewItemProps) => {
     const style = useThemeAwareObject(customStyle);
     const isOdd = (index + 1) % 2 === 0;
@@ -35,6 +37,7 @@ export const GridViewItem = ({
                         resizeMode={ImageResize.COVER} fallback
                         defaultImageStyle={style.image}
                     />
+                    {isAlbum && <RenderPhotoIcon />}
                 </View>
             }
             {showHighlightTitle && !isLive && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}

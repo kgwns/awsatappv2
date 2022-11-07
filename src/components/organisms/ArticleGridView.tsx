@@ -5,7 +5,7 @@ import { flatListUniqueKey, ScreensConstants } from 'src/constants';
 import { GridViewItem } from '../molecules';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { isNonEmptyArray, isNotEmpty, screenWidth } from 'src/shared/utils';
+import { isNonEmptyArray, isNotEmpty, isTypeAlbum, screenWidth } from 'src/shared/utils';
 import { Divider } from '../atoms';
 import { MainSectionBlockType } from '~/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
@@ -24,17 +24,21 @@ export const ArticleGridView = ({
     const navigation = useNavigation<StackNavigationProp<any>>()
     const style = useThemeAwareObject(customStyle)
 
-    const onPress = (nid: string) => {
+    const onPress = (nid: string, isAlbum: boolean) => {
         if (isNotEmpty(nid)) {
-            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+            const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
+            navigation.navigate(screenName, { nid: nid });
         }
     }
+
     const renderItem = (item: MainSectionBlockType, index: number) => {
         const highlightTitle = item.news_categories?.title || ''
         const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
+        const isAlbum = isTypeAlbum(item.type);
+
         return (
             <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_GRID_VIEW + index}
-                onPress={() => onPress(item.nid)}>
+                onPress={() => onPress(item.nid, isAlbum)}>
                 <GridViewItem
                     imageUrl={item.image}
                     title={item.title}
@@ -42,6 +46,7 @@ export const ArticleGridView = ({
                     showHighlightTitle={showHighlightTitle}
                     index={index}
                     isLive={isLive}
+                    isAlbum={isTypeAlbum(item.type)}
                 />
             </TouchableOpacity>
         );

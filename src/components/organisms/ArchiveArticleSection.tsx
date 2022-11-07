@@ -4,12 +4,11 @@ import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils
 import { ArchiveArticle, articleFooterProps } from 'src/components/molecules'
 import { ArchivedArticleDataType } from 'src/redux/latestNews/types'
 import { ImagesName, Styles } from 'src/shared/styles'
-import { useTranslation } from 'react-i18next';
 import { Label, Image } from '../atoms';
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
-import { dateTimeAgo, isDarkTheme, TimeIcon } from 'src/shared/utils/utilities'
+import { dateTimeAgo, isDarkTheme, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities'
 import { useAppCommon } from 'src/hooks'
 
 export const archiveArticleFooter: articleFooterProps = {
@@ -29,10 +28,11 @@ interface ArchiveArticleSectionProps {
 }
 
 const ArchiveArticleSection = (props: ArchiveArticleSectionProps) => {
-    const { data, onPress } = props
-    const [t] = useTranslation()
+    const { data, onPress } = props;
+
     const { theme } = useAppCommon()
     const isDarkMode = isDarkTheme(theme)
+
     const archiveData = isNonEmptyArray(data) ? data[0] : {} as ArchivedArticleDataType
     const style = useThemeAwareObject(createStyles);
     const timeFormat = dateTimeAgo(archiveData.created)
@@ -47,6 +47,7 @@ const ArchiveArticleSection = (props: ArchiveArticleSectionProps) => {
                 titleStyle={style.titleStyle}
                 leftTitleColor={Styles.color.silverChalice}
                 showDivider={false}
+                isAlbum={isTypeAlbum(archiveData.type)}
             />
         </View>
     )

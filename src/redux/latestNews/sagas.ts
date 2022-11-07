@@ -22,7 +22,7 @@ import {
   RequestInfoGraphicBlockSuccessPayloadType,
   InfoGraphicBlockType,
   RequestArchivedArticleSectionSuccessPayloadType,
-  ArchivedArticleDataType
+  ArchivedArticleDataType,
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -193,7 +193,9 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export, field_new_photo, field_display_export, changed }: any) => ({
+        ({ title, body, nid, field_image, field_news_categories_export,
+          field_new_photo, field_display_export, changed,
+          type }: any) => ({
           body,
           title: isNotEmpty(title) ? decode(title) : '',
           nid,
@@ -202,7 +204,8 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
           author: '', //Need to hide author name in UI
           created: changed,
           isBookmarked: false,
-          displayType: field_display_export
+          displayType: field_display_export,
+          type,
         })
       );
     }
@@ -259,8 +262,8 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedEditorsChoiceData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export, author_resource, created_export, field_news_categories, field_publication_date, field_new_resource, type, blockname, entityqueue_relationship_position,
-          field_new_photo, field_display_export, changed
+        ({ title, body, nid, field_image, field_news_categories_export, field_news_categories, field_publication_date,type, blockname, entityqueue_relationship_position,
+          field_new_photo, field_display_export, changed,
         }: any) => ({
           body,
           title,
@@ -317,7 +320,7 @@ const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataTyp
   let formattedArchivedArticleSectionData: ArchivedArticleDataType[] = []
   if (response && isNonEmptyArray(response)) {
     formattedArchivedArticleSectionData = response.map(
-      ({ title, type, nid, body_export, field_image_export, field_new_photo, created_export, field_new_resource_export, field_publication_date_export, field_news_categories_export, field_display_export, changed}: any) => ({
+      ({ title, type, nid, body_export, field_image_export, field_new_photo, field_new_resource_export, field_publication_date_export, field_news_categories_export, field_display_export, changed}: any) => ({
         title,
         type,
         nid,
@@ -501,7 +504,7 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
       const rows = response.rows
       responseData.spotlightArticleSectionData = rows.map(
         ({ nid, title, body, field_image, view_node,
-          field_news_categories_export, created_export, author_resource, field_new_photo, field_display_export, changed }: any) => ({
+          field_news_categories_export, author_resource, field_new_photo, field_display_export, changed }: any) => ({
             nid: nid,
             title: isNotEmpty(title) ? decode(title) : '',
             body: body,

@@ -6,9 +6,9 @@ import { SectionHeader } from '../molecules/podcast/SectionHeader';
 import { NewsWithImageItem } from '../molecules';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { isNonEmptyArray, isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils';
+import { isNonEmptyArray, isNotEmpty, isTab, isTypeAlbum, screenWidth } from 'src/shared/utils';
 import { Divider } from '../atoms';
-import { MainSectionBlockType } from '~/redux/latestNews/types';
+import { MainSectionBlockType } from 'src/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -28,22 +28,26 @@ export const EditorsPickSection = ({
   const navigation = useNavigation<StackNavigationProp<any>>()
   const style = useThemeAwareObject(customStyle)
 
-  const onPress = (nid: string) => {
+  const onPress = (nid: string, isAlbum: boolean) => {
     if (isNotEmpty(nid)) {
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+      const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
+      navigation.navigate(screenName, { nid: nid })
     }
   }
   const renderItem = (item: MainSectionBlockType, index: number) => {
-    const highlightTitle=  item.news_categories?.title || ''
+    const highlightTitle=  item.news_categories?.title || '';
+    const isAlbum = isTypeAlbum(item.type);
+    
     return (
       <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.EDITORS_PICK_WIDGET + index}
-        onPress={() => onPress(item.nid)}
+        onPress={() => onPress(item.nid, isAlbum)}
         style={index == 0 && isTab && { paddingStart: 0.02 * screenWidth }}>
         <NewsWithImageItem
           imageUrl={item.image}
           title={item.title}
           highlightedTitle={highlightTitle}
           showHighlightTitle={showHighlightTitle}
+          isAlbum={isAlbum}
         />
       </TouchableOpacity>
     );

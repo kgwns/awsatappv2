@@ -81,13 +81,13 @@ export interface LatestArticleDataType {
   created: string,
   isBookmarked: boolean,
   displayType?: string 
+  type: HomePageArticleType;
 }
 
 export interface EditorsChoiceDataType extends LatestArticleDataType {
   field_news_categories: NewsCategoriesType,
   created: string,
   publication_date: string,
-  type: string,
   blockname: string,
   entityqueue_relationship_position: string,
 }
@@ -131,7 +131,7 @@ export interface InfoGraphicBlockType {
 
 export interface ArchivedArticleDataType {
   title: string,
-  type: string,
+  type: HomePageArticleType,
   nid: string,
   body: string,
   image: string,
@@ -461,6 +461,11 @@ export enum MainSectionBlockName {
   EDITORS_CHOICE = 'akhtyarat_almhrr',
 }
 
+export enum HomePageArticleType {
+  ARTICLE = 'article',
+  ALBUM = 'album',
+};
+
 export type MainSectionBlockType = {
   body: string;
   title: string;
@@ -470,7 +475,7 @@ export type MainSectionBlockType = {
   author: string;
   created: string;
   isBookmarked: boolean,
-  type: string;
+  type: HomePageArticleType;
   blockName: string;
   position: string;
   displayType: string;

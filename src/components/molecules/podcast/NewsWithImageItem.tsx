@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
-import { Label, Image, LabelTypeProp } from 'src/components/atoms';
+import { Label, Image, LabelTypeProp, RenderPhotoIcon } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -19,6 +19,7 @@ export interface NewsWithImageItemProps {
   footerLeftLabel?: string;
   showHighlightTitle?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
+  isAlbum: boolean;
 }
 
 export const NewsWithImageItem = ({
@@ -31,7 +32,8 @@ export const NewsWithImageItem = ({
   footerLeftHighlight = false,
   footerLeftLabel,
   showHighlightTitle = true,
-  containerStyle
+  containerStyle,
+  isAlbum,
 }: NewsWithImageItemProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -43,6 +45,7 @@ export const NewsWithImageItem = ({
             resizeMode={ImageResize.COVER} fallback
             style={{ width: '100%', height: '100%' }}
           />
+          {isAlbum && <RenderPhotoIcon />}
         </View>
       }
       { showHighlightTitle && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
