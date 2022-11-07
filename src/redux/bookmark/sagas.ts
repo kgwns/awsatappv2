@@ -61,7 +61,7 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
           news_categories: isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0] : item.field_news_categories_export,
           tag_topics: isNonEmptyArray(item.field_tags_topics_export) ? item.field_tags_topics_export[0] : item.field_tags_topics_export,
           author: item.field_new_resource_export,
-          created: item.created_export,
+          created: item.changed,
           isBookmarked: true,
           displayType: item.field_display_export,
         }
