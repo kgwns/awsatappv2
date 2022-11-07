@@ -148,6 +148,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 253
         versionName "1.0"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -209,6 +210,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.android.gms:play-services-analytics:18.0.1'
     implementation 'com.android.installreferrer:installreferrer:2.2'
     implementation("androidx.recyclerview:recyclerview:1.2.1")
