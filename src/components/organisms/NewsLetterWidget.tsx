@@ -36,6 +36,7 @@ export const NewsLettersWidget = (props:any) => {
         data={data}
         renderItem={({item}) => renderItem(item)}
         bounces={false}
+        ListFooterComponent={<View style={{height: props.canGoBack ? 0 : 90}}/>}
       />
     </View>
   );
