@@ -110,7 +110,7 @@ const MostReadList = ({
   }
 
   const renderItem = (item: any, index: number) => {
-    const timeFormat = dateTimeAgo(item.created_export)
+    const timeFormat = dateTimeAgo(item.changed)
 
     const footerData = {
       leftTitle: item.author_resource,
