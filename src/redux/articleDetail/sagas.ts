@@ -149,14 +149,14 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_new_photo, field_news_categories_export, author_resource,created_export }: any) => ({
+        ({ title, body, nid, field_image, field_new_photo, field_news_categories_export, author_resource,created_export, changed }: any) => ({
           body,
           title: isNotEmpty(title) ? decode(title) : '',
           nid,
           image: parseImageData(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: isNotEmpty(author_resource) ? decode(author_resource) : '',
-          created: created_export
+          created: changed
         })
       );
     }
