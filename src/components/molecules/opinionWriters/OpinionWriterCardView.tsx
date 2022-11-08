@@ -60,6 +60,8 @@ const OpinionWritersCardView = ({
 
   const[mediaData, setMediaData] = useState<any>({});
   const[timeDuration, setTimeDuration] = useState<any>(null);
+  const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+  const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
 
@@ -72,6 +74,15 @@ const OpinionWritersCardView = ({
       getNarratedOpinion()
     }
   }, [])
+
+  useEffect(() => {
+    if (trackData && trackData.id == (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+      setIsBuffering(true);
+    } else {
+      setIsBuffering(false);
+    }
+    setPrevPlayBackState(playbackState);
+  }, [playbackState])
 
   const getNarratedOpinion = async() => {
       try {
@@ -180,7 +191,7 @@ const onPressPlay = () => {
             <TouchableOpacity onPress={onPressPlay} style={style.listenArticleContainer}>
               <ButtonImage
                 icon={() =>
-                  trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                  trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing || isBuffering   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                   getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                 }
                 style={style.playIcon}
