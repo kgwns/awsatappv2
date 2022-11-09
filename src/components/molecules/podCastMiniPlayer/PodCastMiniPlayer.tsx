@@ -35,6 +35,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const playbackState = usePlaybackState();
     const isPlaying = playbackState === State.Playing
     const isLoading = playbackState !== State.Playing && playbackState !== State.Paused
+    const isBuffering = playbackState === State.Buffering
     const { selectedTrack } = useAppPlayer()
     
     const refRBSheet = useRef<RBSheet>();
@@ -49,7 +50,6 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     useEffect(()=> {
         showControl && refRBSheet.current?.open();
     },[showControl])
-
 
     // check playback error
     useTrackPlayerEvents(events, (event) => {
@@ -165,7 +165,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                         {_playForwardIcon}
                     </TouchableOpacity>
                     <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID={'playPause'} onPress={() => onPlayPausePress(playbackState)}>
-                        { isPlaying ? _pauseIcon : _playIcon }
+                        { isPlaying || isBuffering ? _pauseIcon : _playIcon }
                     </TouchableOpacity>
                     <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID={'playBackwardIcon'} onPress={() => { seekForwardBackward('forward') }}>
                         {_playBackwardIcon}
