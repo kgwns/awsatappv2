@@ -21,7 +21,7 @@ import { podcastServices } from 'src/constants/SharedConstants';
 import { usePlaybackState, State } from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
 import { ImageResize } from 'src/shared/styles/text-styles';
-
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface PodcastEpisodeModalInfoProps {
     data: PodcastVerticalListProps;
@@ -32,6 +32,8 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     data,
     onListenPress
 }) => {
+    const insets = useSafeAreaInsets();
+
     const styles = useThemeAwareObject(createStyles);
     const [t] = useTranslation();
 
@@ -144,7 +146,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     )
 
     const bottomView = () => (
-        <View style={styles.bottomContainer}>
+        <View style={[styles.bottomContainer, { bottom: insets.bottom }]}>
             <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
                 style={styles.buttonStyle}
                 labelStyle={styles.buttonLabel}
@@ -275,7 +277,6 @@ const createStyles = () => StyleSheet.create({
     bottomContainer: {
         alignItems: 'center',
         position: 'absolute',
-        bottom: 50,
     },
     verticalLine: {
         height: 10,

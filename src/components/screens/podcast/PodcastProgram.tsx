@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, Modal, StyleSheet, View } from 'react-native';
 import { PodcastEpisodeModal, ScreenContainer } from '..';
 import { PodcastProgramInfo } from 'src/components/organisms';
-import { horizontalEdge, isIOS, isNonEmptyArray, isTab, screenHeight, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, screenHeight, screenWidth } from 'src/shared/utils';
 import { useBookmark, usePodcast, useAppPlayer } from 'src/hooks';
 import { PodcastListBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
 import { PodcastEpisodeList } from 'src/components/organisms';
@@ -10,8 +10,11 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useLogin } from 'src/hooks';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export const PodcastProgram = React.memo(({ tabIndex, currentIndex }: { tabIndex?: number; currentIndex?: number; }) => {
+  const insets = useSafeAreaInsets();
+
   const styles = useThemeAwareObject(createStyles);
 
   const [isShowPlayer, setIsShowPlayer] = useState(false)
@@ -117,7 +120,7 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex }: { tabIndex
 
   const episodeModal = () => (
     <Modal visible={true} animationType={'slide'}>
-      <View style={{ height: ((isIOS && !isTab) ? 0.95 : 1) * screenHeight }}>
+      <View style={{ height: screenHeight - insets.top }}>
         <PodcastEpisodeModal
           route={{ params: { data: selectedItem.current, podcastListData: podcastEpisodeListInfo } }}
           onPressBack={() => setShowModal(false)}
