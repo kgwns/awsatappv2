@@ -62,6 +62,8 @@ const AuthorItem = ({
     const playbackState = usePlaybackState();
     const[mediaData, setMediaData] = useState<any>({});
     const[timeDuration, setTimeDuration] = useState<any>(null);
+    const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+    const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
     const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
   
@@ -70,6 +72,15 @@ const AuthorItem = ({
           getNarratedOpinion()
         }
     }, [])
+
+    useEffect(() => {
+      if (trackData && trackData.id == (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+        setIsBuffering(true);
+      } else {
+        setIsBuffering(false);
+      }
+      setPrevPlayBackState(playbackState);
+    }, [playbackState])
 
     const getNarratedOpinion = async() => {
         try {
@@ -189,7 +200,7 @@ const AuthorItem = ({
                     <TouchableOpacity testID='AutherItemTO2' onPress={onPressPlay} style={style.mediaFooter}>
                         <ButtonImage
                         icon={() =>
-                            trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                            trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing || isBuffering ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                             getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                         }
                         onPress={onPressPlay} />

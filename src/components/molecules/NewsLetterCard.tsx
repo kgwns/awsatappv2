@@ -28,7 +28,6 @@ export const NewsLetterCard = ({
   const [selected, setSelected] = useState(isSelected);
   const [t] = useTranslation();
   const buttonLogoName = selected ? ImagesName.tickIcon : ImagesName.subscribeIconWhite;
-  const buttonTextColor = selected ? colors.white : colors.white;
   const buttonText = selected ? t('onBoard.newsLetter.subscribed') : t('onBoard.newsLetter.notSubscribed');
   const buttonBackground = selected ? colors.greenishBlue : colors.black;
   const buttonLogoStyle = selected ? {width: 20, height:17, marginRight: 5, marginBottom: 5} : {width: 14, height:11, marginRight: 10}
@@ -61,7 +60,7 @@ export const NewsLetterCard = ({
           <View style={style.logoContainer}>
           {getSvgImages({ name: buttonLogoName, width: buttonLogoStyle.width, height: buttonLogoStyle.height, style: buttonLogoStyle })}  
           </View>
-          <Label color={buttonTextColor} style={style.buttonLabel} children={buttonText} />
+          <Label color={colors.white} style={style.buttonLabel} children={buttonText} />
         </View>
       </TouchableOpacity>
     </View>

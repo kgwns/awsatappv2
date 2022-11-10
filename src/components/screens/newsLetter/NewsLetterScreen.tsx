@@ -287,7 +287,7 @@ const customStyle = (theme: CustomThemeType) => {
       opacity: 0.65,
       backgroundColor: colors.aquaHaze,
       width: screenWidth,
-      height: isTab ? 120 :90,
+      height: isTab ? 120 :80,
       justifyContent: 'flex-end',
       paddingBottom: normalize(0.03 * screenHeight),
     },

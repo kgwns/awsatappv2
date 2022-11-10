@@ -39,10 +39,21 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   const { themeData } = useTheme();
   const style = useThemeAwareObject(createStyles);
   const [episodeData, setEpisodeData] = useState<any>([])
+  const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+  const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   useEffect(() => {
     getPodcastDuration()
   }, [])
+
+  useEffect(() => {
+    if (prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+      setIsBuffering(true);
+    } else {
+      setIsBuffering(false);
+    }
+    setPrevPlayBackState(playbackState);
+  }, [playbackState])
 
   const getPodcastDuration = async () => {
     if (isNonEmptyArray(data)) {
@@ -146,7 +157,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
 
   const playPauseIcon = (podcastData: any) => (
     <View style={style.rightIconStyle}>
-      {selectedTrack && selectedTrack.id == podcastData.nid && playbackState === State.Playing ?
+      {selectedTrack && selectedTrack.id == podcastData.nid && playbackState === State.Playing || isBuffering ?
         <RNImage source={images.pauseIconWhite} /> :
         <PlayIcon fill={colors.white} />
       }

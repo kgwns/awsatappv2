@@ -21,7 +21,7 @@ import { podcastServices } from 'src/constants/SharedConstants';
 import { usePlaybackState, State } from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
 import { ImageResize } from 'src/shared/styles/text-styles';
-
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface PodcastEpisodeModalInfoProps {
     data: PodcastVerticalListProps;
@@ -32,6 +32,8 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     data,
     onListenPress
 }) => {
+    const insets = useSafeAreaInsets();
+
     const styles = useThemeAwareObject(createStyles);
     const [t] = useTranslation();
 
@@ -42,11 +44,22 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     const podcastSectionData = fieldData.field_podcast_sect_export
     const hasNewSubTitle = !!fieldData.field_new_sub_title_export
     const [duration, setDuration] = useState<any>(null)
+    const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+    const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
     useEffect(() => {
         setDuration(null);
         getPodcastDuration()
     }, [fieldData])
+
+    useEffect(() => {
+        if (prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+            setIsBuffering(true);
+        } else {
+            setIsBuffering(false);
+        }
+        setPrevPlayBackState(playbackState);
+    }, [playbackState])
 
     const getPodcastDuration = async () => {
         if (isNotEmpty(fieldData.field_spreaker_episode_export)) {
@@ -103,7 +116,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
 
     const playPauseIcon = () => (
         <View style={styles.rightIconStyle}>
-            {selectedTrack && selectedTrack.id == fieldData.nid && playbackState === State.Playing ?
+            {selectedTrack && selectedTrack.id == fieldData.nid && playbackState === State.Playing || isBuffering ?
                 <PauseIcon fill={colors.black} width={13} height={13} /> :
                 <PlayIcon fill={colors.black} />
             }
@@ -133,7 +146,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     )
 
     const bottomView = () => (
-        <View style={styles.bottomContainer}>
+        <View style={[styles.bottomContainer, { bottom: insets.bottom }]}>
             <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
                 style={styles.buttonStyle}
                 labelStyle={styles.buttonLabel}
@@ -264,7 +277,6 @@ const createStyles = () => StyleSheet.create({
     bottomContainer: {
         alignItems: 'center',
         position: 'absolute',
-        bottom: 50,
     },
     verticalLine: {
         height: 10,
