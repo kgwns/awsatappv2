@@ -62,7 +62,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
                             <TouchableOpacity onPress={() => onPressJournalist(item)} disabled={activeJournalist[index]}>
                                 <Label children={journalistName[index]} style={style.authorLabel} />
                             </TouchableOpacity>
-                            {index % 2 == 0 && index != 1 && index != journalistLength - 1 && <Label children={'|'} style={style.separatorStyle} />}
+                            {index != journalistLength - 1 && <Label children={'|'} style={style.separatorStyle} />}
                         </View>}
                     </View>
                 );
