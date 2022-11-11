@@ -33,7 +33,8 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     setReset?: (show: boolean) => void;
     videoRefs?: any;
     showReplay?: boolean;
-    displayType?: string; 
+    displayType?: string;
+    liveTimeAgo?: string; 
 }
 const ArticleDetailImage = ({
     image,
@@ -44,6 +45,7 @@ const ArticleDetailImage = ({
     jwplayerId,
     showReplay = false,
     displayType,
+    liveTimeAgo,
     ...props
 }: ImageArticleProps) => {
 
@@ -93,7 +95,7 @@ const ArticleDetailImage = ({
         <View>
 
             <View>
-                {isLive && <LiveArticleDetailHeader />}
+                {isLive && <LiveArticleDetailHeader timeAgo={liveTimeAgo}/>}
                 <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
                 { isNotEmpty(jwplayerId) && isFirstItem ? <ArticleDetailVideo mediaId={jwplayerId} showReplay={showReplay} {...props}  /> : 
                     <BannerImageWithOverlay image={image}
