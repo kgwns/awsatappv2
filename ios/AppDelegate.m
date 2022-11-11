@@ -92,6 +92,7 @@ static void InitializeFlipper(UIApplication *application) {
    AVPlayerViewController *splashController = [[AVPlayerViewController alloc]init];
    splashController.player = player;
    splashController.showsPlaybackControls = false;
+   splashController.allowsPictureInPicturePlayback = false;
    splashController.view.frame = self.window.frame;
    splashController.view = rootView;
    splashController.videoGravity = AVLayerVideoGravityResizeAspectFill;
