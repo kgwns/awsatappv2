@@ -1,7 +1,12 @@
-import React, { FunctionComponent } from 'react'
+import axios from 'axios';
+import moment from 'moment';
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { ArticleDetailImage } from 'src/components/molecules'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types'
+import { SCRIBBLE_LIVE_EVENT_URL, SCRIBBLE_LIVE_JSON_PARAM, SCRIBBLE_LIVE_TOKEN_PARAM, SCRIBBLE_TOKEN } from 'src/services/apiUrls';
+import { isNotEmpty, isObjectNonEmpty } from 'src/shared/utils';
+import { displayTypes } from 'src/constants/SharedConstants';
 
 interface ArticleDetailWidgetProps {
     articleData: ArticleDetailDataType,
@@ -23,6 +28,27 @@ interface ArticleDetailWidgetProps {
 const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
     articleData, isRelatedArticle = false, isFirstItem, showReplay = false, displayType, ...props
 }) => {
+
+    const [scribbleLiveData, setScribbleLiveData] = useState<any>({})
+    moment.locale('ar')
+    const timeAgo = isObjectNonEmpty(scribbleLiveData) ? `محدث  ${moment(scribbleLiveData.LastModified).fromNow()}` : '';
+
+    useEffect(() => {
+        isObjectNonEmpty(articleData) && isNotEmpty(articleData.scribbleLiveId) && fetchScribbleLive(articleData.scribbleLiveId)
+    }, [articleData])
+
+
+    const fetchScribbleLive = async (id: string) => {
+        try {
+            const response = await axios.get(
+                `${SCRIBBLE_LIVE_EVENT_URL}${id}${SCRIBBLE_LIVE_TOKEN_PARAM}${SCRIBBLE_TOKEN}${SCRIBBLE_LIVE_JSON_PARAM}`,
+            );
+            setScribbleLiveData(response.data)
+        } catch (error) {
+            throw error;
+        }
+    };
+
     return (
         <View>
             <ArticleDetailImage image={articleData.image} title={articleData.title}
@@ -35,6 +61,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
                 jwplayerId={articleData.jwplayerId}
                 showReplay={showReplay}
                 displayType={articleData.displayType}
+                liveTimeAgo = {timeAgo}
                 {...props}
             />
         </View>
