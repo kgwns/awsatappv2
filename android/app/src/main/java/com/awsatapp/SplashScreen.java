@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
     VideoView videoView;
+    PrefManager pref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,13 +26,20 @@ public class SplashScreen extends AppCompatActivity {
             }
         });
 
-        videoView.start();
+        pref = new PrefManager(this);
+        if (pref.isSplashIn() == false) {
+            //Splash Screen Load
+            videoView.start();
+            pref.setSplashIn(true);
+        } else {
+            startActivity(new Intent(SplashScreen.this, MainActivity.class));
+        }
     }
 
     private void startNextActivity() {
         if (isFinishing())
             return;
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(SplashScreen.this, MainActivity.class));
         finish();
     }
 }
