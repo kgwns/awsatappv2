@@ -11,8 +11,11 @@ import AppPlayer from 'src/shared/utils/appPlayer';
 import { GetFCMToken } from 'src/firebase/notification/notification';
 import TrackPlayer from 'react-native-track-player';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
+import { isIOS } from 'src/shared/utils';
 
 const App = () => {
+
+  const permissionDelay = isIOS ? 1500 : 5500;
   
   useEffect(() => {
     Orientation.lockToPortrait()
@@ -21,7 +24,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       checkPermission()
-    }, 1500)
+    }, permissionDelay)
   }, [])
 
   useEffect(() => {
