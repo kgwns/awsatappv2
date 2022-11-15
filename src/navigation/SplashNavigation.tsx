@@ -63,12 +63,13 @@ const SplashNavigation = () => {
         SplashScreen.hide()
     }, [])
 
-    // return <AppStackContainer />
     return (
         Platform.OS === 'android' ?
         (loading ?
-        <Video source={require('../assets/video/splashscreen.mp4')}
+        <Video 
+            source={require('../assets/video/splashscreen.mp4')}
             resizeMode={'cover'}
+            controls={false}
             style={{width: "100%", height: '100%'}} />
        : <AppStackContainer />)
        : <AppStackContainer />
