@@ -41,3 +41,8 @@ export const WEATHER_URL_VISIBILITY = 'https://api.openweathermap.org/data/2.5/w
 
 //LiveNews
 export const LIVE_BLOG_URL = 'https://aawsat.srpcdigital.com/livenews/';
+export const SCRIBBLE_LIVE_EVENT_URL = 'https://client.scribblelive.com/api/rest/event/'
+export const SCRIBBLE_LIVE_TOKEN_PARAM = '/?Token='
+export const SCRIBBLE_LIVE_JSON_PARAM = '&format=Json'
+//Scribble auth_token
+export const SCRIBBLE_TOKEN = '0ROZff5O' // Shared by the SRMG team. Need to replace if required. 
