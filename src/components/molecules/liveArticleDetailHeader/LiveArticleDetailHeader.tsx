@@ -69,8 +69,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     liveLogoRowContainer: {
         flexDirection: 'row',
-        width: '52%',
-        justifyContent: 'center',
+        width: '50%',
+        justifyContent: 'flex-end',
         alignSelf: 'flex-start'
     },
     liveLogo: {
@@ -87,6 +87,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontSize: 22,
         lineHeight: 45,
         marginLeft: 5,
+        marginRight: 25,
         fontWeight: '900'
     },
     separator: {

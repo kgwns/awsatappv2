@@ -394,7 +394,7 @@ export const arabic = {
     contentBundleWidgetTitle: 'اقرأ أيضاً'
   },
   displayTag: {
-    liveTagTitle: 'تغطية حية',
+    liveTagTitle: 'مباشر',
     specialTagTitle: 'خاص',
     analysisTagTitle: 'تحليل إخباري',
   }
