@@ -160,10 +160,12 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
         const data = [...podcastEpisodeDetailInfo]
         const index = data.findIndex((item) => item.nid == nid)
         const item = data[index]
-        const newBookmarked = !item.isBookmarked
-        data[index].isBookmarked = newBookmarked
-        setPodcastEpisodeDetailInfo(data)
-        updateBookmarkInfo(item.nid, newBookmarked)
+        if (isObjectNonEmpty(item)) {
+            const newBookmarked = !item.isBookmarked
+            data[index].isBookmarked = newBookmarked
+            setPodcastEpisodeDetailInfo(data)
+            updateBookmarkInfo(item.nid, newBookmarked)
+        }
     }
 
     const onPressEpisodeBookmark = () => {
@@ -198,30 +200,6 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
         fetchPodcastEpisodeRequest(payload);
     }, [nid]);
 
-    useEffect(() => {
-        if (initialRef.current < 3) {
-            initialRef.current = initialRef.current + 1;
-        } else {
-            getPodcastDuration(podcastEpisodeInfo);
-            flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
-        }
-    }, [podcastEpisodeInfo]);
-
-    const getPodcastDuration = async (item: any) => {
-        if (isNotEmpty(item.field_spreaker_episode_export)) {
-            try {
-                const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: item.field_spreaker_episode_export })
-                if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
-                    const episode = response.response.episode;
-                    const duration = Math.floor(episode.duration / 1000);
-                    onListenPress(duration);
-                }
-            } catch (error) {
-                console.log(error)
-                onListenPress(0);
-            }
-        }
-    }
 
     const onListenPress = async (duration: any) => {
         if (isObjectNonEmpty(podcastEpisodeInfo)) {
