@@ -31,7 +31,7 @@ const FollowFavoriteAuthor = ({
   onPress,
   testId,
   clickable = true,
-  imageSize = 99,
+  imageSize = 0.099 * screenHeight,
   containerStyle,
 }: FollowFavoriteAuthorProps) => {
   const [fallback, setFallBack] = useState(false)
