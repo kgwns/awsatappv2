@@ -79,7 +79,6 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const playbackState = usePlaybackState();
 
     const nid = route.params.data.nid
-    const podcastListData = route.params.podcastListData
 
     const {
         isLoading, podcastEpisodeData,
@@ -119,16 +118,6 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
 
     const validateBookmark = (nid: string): boolean => {
         return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-    }
-
-    useEffect(() => {
-        updatePodcastListData()
-    }, [podcastListData, bookmarkIdInfo])
-
-    const updatePodcastListData = () => {
-        if (!isNonEmptyArray(podcastListData)) {
-            return
-        }
     }
 
     useEffect(() => {

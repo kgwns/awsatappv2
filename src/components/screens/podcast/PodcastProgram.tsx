@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, Modal, StyleSheet, View } from 'react-native';
 import { PodcastEpisodeModal, ScreenContainer } from '..';
 import { PodcastProgramInfo } from 'src/components/organisms';
-import { horizontalEdge, isIOS, isNonEmptyArray, screenHeight, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, screenHeight } from 'src/shared/utils';
 import { useBookmark, usePodcast, useAppPlayer } from 'src/hooks';
 import { PodcastListBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
 import { PodcastEpisodeList } from 'src/components/organisms';

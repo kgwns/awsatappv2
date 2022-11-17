@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import { ArticleDetailBodyGet, ArticleSectionBodyGet, RelatedArticleBodyGet } from '~/redux/articleDetail/types';
+import { ArticleDetailBodyGet, ArticleSectionBodyGet, RelatedArticleBodyGet } from 'src/redux/articleDetail/types';
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from '../articleDetailService';
 import { requestLatestArticle, requestSectionCombo } from '../latestTabService';
 
