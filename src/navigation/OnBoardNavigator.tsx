@@ -153,7 +153,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginHorizontal: 20,
     },
     logo: {
-      height: 25,
+      height: 32,
       width: 135,
       alignItems: 'center',
     },

@@ -167,12 +167,12 @@ const customStyle = (theme: CustomThemeType) => {
             marginTop: normalize(20)
         },
         logo: {
-            width: normalize(200),
-            height: normalize(35),
+            width: normalize(250),
+            height: normalize(45),
         },
         logoLandscape: {
-            width: normalize(150),
-            height: normalize(25),
+            width: normalize(200),
+            height: normalize(35),
         },
         popupImageContainer: {
             alignSelf: 'center',

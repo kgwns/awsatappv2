@@ -40,7 +40,7 @@ public class MainActivity extends ReactActivity{
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    // SplashScreen.show(this);
+    SplashScreen.show(this);
     registerReceiver(broadcastReceiver, new IntentFilter("custom-action-local-broadcast"));
     super.onCreate(null);
 
