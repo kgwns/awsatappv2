@@ -67,7 +67,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
                 const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: fieldData.field_spreaker_episode_export })
                 if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
                     const episode = response.response.episode
-                    setDuration(Math.floor(episode.duration / 1000))
+                    setDuration(Math.ceil(episode.duration / 1000))
                 }
             } catch (error) {
                 console.log(error)
