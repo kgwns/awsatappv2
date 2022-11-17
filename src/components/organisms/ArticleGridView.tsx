@@ -7,7 +7,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isNonEmptyArray, isNotEmpty, isTypeAlbum, screenWidth } from 'src/shared/utils';
 import { Divider } from '../atoms';
-import { MainSectionBlockType } from '~/redux/latestNews/types';
+import { MainSectionBlockType } from 'src/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { displayTypes } from 'src/constants/SharedConstants';

@@ -18,7 +18,7 @@ export type FilterDataType = {
 type FilterComponentType = {
     data: FilterDataType[],
     onPress: (index: number) => void
-    onPressSubChild: (childIndex: number, subChildIndex: number) => void;
+    onPressSubChild?: (childIndex: number, subChildIndex: number) => void;
 }
 
 export const FilterComponent = ({
@@ -33,7 +33,7 @@ export const FilterComponent = ({
                 {childItem.map((item, index) => {
                     return (
                         <View style={style.childLabelContainer} key={index}>
-                            <TouchableOpacity onPress={() => onPressSubChild(childIndex, index)}>
+                            <TouchableOpacity onPress={() => onPressSubChild && onPressSubChild(childIndex, index)}>
                                 <Label children={item.name} style={style.childLabel}
                                     color={item.isSelected ? Styles.color.greenishBlue : themeData.secondarySpanishGray}
                                 />
