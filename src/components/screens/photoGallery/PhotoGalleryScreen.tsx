@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {isNonEmptyArray, isTab, screenWidth} from 'src/shared/utils';
-import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
+import {View, StyleSheet, FlatList, ListRenderItem, Animated} from 'react-native';
 import {useBookmark, useLogin} from 'src/hooks';
 import {useNavigation} from '@react-navigation/native';
 import {ScreensConstants} from 'src/constants';
@@ -22,8 +22,10 @@ import {PopulateWidgetType} from 'src/components/molecules';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
 export const PhotoGalleryScreen = React.memo(
-  ({tabIndex, currentIndex}: {tabIndex?: number; currentIndex?: number}) => {
+  ({tabIndex, currentIndex, scrollY}: {tabIndex?: number; currentIndex?: number, scrollY?: any}) => {
     const ref = React.useRef(null);
     const navigation = useNavigation<StackNavigationProp<any>>();
     const styles = useThemeAwareObject(customStyle);
@@ -181,10 +183,15 @@ export const PhotoGalleryScreen = React.memo(
     return (
       <View style={styles.container}>
         {isNonEmptyArray(albumDataInfo) && (
-          <FlatList
+          <AnimatedFlatList
             ref={ref}
             testID="photo_gallery_list"
             onScrollBeginDrag={() => (global.refFlatList = ref)}
+            onScroll={Animated.event(
+              [{nativeEvent: { contentOffset: {y: scrollY}}}],
+              {useNativeDriver: false}
+            )}
+            scrollEventThrottle={16}
             data={albumDataInfo}
             keyExtractor={(_, index) => index.toString()}
             renderItem={renderItem}

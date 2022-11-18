@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator } from 'react-native';
+import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator, Animated } from 'react-native';
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
@@ -90,7 +90,9 @@ const sectionComboEightPayload: RequestSectionComboBodyGet = {
   page: 0
 }
 
-export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, currentIndex}:{hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number;}) => {
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
+export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, currentIndex, scrollY }:{hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number; scrollY: any; }) => {
   const { themeData } = useTheme()
   const mainSectionStyle = useThemeAwareObject(customStyle)
 
@@ -986,9 +988,14 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     <ScreenContainer edge={horizontalEdge} isLoading={refreshing ? false : showSpinner}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
-      <FlatList
+      <AnimatedFlatList
         ref={ref}
         onScrollBeginDrag={() => global.refFlatList = ref}
+        onScroll={Animated.event(
+          [{nativeEvent: { contentOffset: {y: scrollY}}}],
+          {useNativeDriver: false}
+        )}
+        scrollEventThrottle={1}
         style={mainSectionStyle.flatList}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}

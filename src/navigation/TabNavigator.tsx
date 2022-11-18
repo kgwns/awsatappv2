@@ -7,26 +7,53 @@ import {
 import analytics from '@react-native-firebase/analytics';
 import { useTranslation } from 'react-i18next';
 import { TabConstants } from '../constants/TabConstants';
-import { Label, Image } from '../components/atoms';
+import { Label } from '../components/atoms';
 import { Routes, ScreenName } from '../navigation/';
 import { colors, CustomThemeType } from '../shared/styles/colors';
 import { ImagesName } from 'src/shared/styles/images';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { isIOS, isNonEmptyArray, isTab, normalize, recordCurrentScreen } from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, isTab, normalize, recordCurrentScreen, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { useNavigationState } from '@react-navigation/native';
+import { useNavigation, useNavigationState, DrawerActions } from '@react-navigation/native';
+import { ScreensConstants } from 'src/constants';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
 const TabNavigator = () => {
-    
+    const navigation = useNavigation();
     const route: any= useNavigationState((state) => state.routes)
     const isGoToMyNews = isNonEmptyArray(route) && route[0].params && route[0].params.isGoToMyNews
+    const style = useThemeAwareObject(customStyle);
+
+    const Search = () => (
+        <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.SearchScreen)}>
+            {getSvgImages({ name: ImagesName.searchIcon, width: style.search.width, height: style.search.height, style: style.search })}
+        </TouchableOpacity>
+    )
+
+    const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
+
+    const Menu = () => (
+        <TouchableOpacity onPress={
+            () => {
+                navigation.dispatch(DrawerActions.toggleDrawer());
+            }
+        }>
+            {getSvgImages({ name: ImagesName.menuIcon, width: style.menu.width, height: style.menu.height, style: style.menu })}
+        </TouchableOpacity>
+    )
 
     return (
-        <Tab.Navigator screenOptions={{ headerShown: false }} initialRouteName={isGoToMyNews == true ? TabConstants.MY_NEWS :  TabConstants.LATEST_NEWS} tabBar={props => <CustomTabBar {...props} />}>
-            <Tab.Screen name={TabConstants.LATEST_NEWS} component={Routes.SectionsScreen} />
+        <Tab.Navigator screenOptions={{ 
+            headerShown: true, 
+            headerStyle: style.container,
+            headerLeft: Menu,
+            headerTitle: HeaderLogo,
+            headerTitleAlign: 'center',
+            headerRight: Search,
+            }} initialRouteName={isGoToMyNews == true ? TabConstants.MY_NEWS :  TabConstants.LATEST_NEWS} tabBar={props => <CustomTabBar {...props} />}>
+            <Tab.Screen name={TabConstants.LATEST_NEWS} component={Routes.SectionsScreen} options={{ headerShown: false }} />
             {/* <Tab.Screen name={TabConstants.SECTIONS} component={Routes.SectionsScreen} /> */}
             <Tab.Screen name={TabConstants.MY_NEWS} component={Routes.MyNewsScreen} />
             <Tab.Screen name={TabConstants.MOST_READ} component={Routes.MostReadScreen} />
@@ -182,7 +209,26 @@ const customStyle = (theme: CustomThemeType) => {
         myNewsIconStyle: {
             width: normalize(26),
             height: normalize(22)
-        }
+        },
+        container: {
+            backgroundColor: theme.tabBarBackground,
+            shadowColor: colors.transparent,
+        },
+        search: {
+            height: 19,
+            width: 18,
+            marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
+        },
+        logo: {
+            height: 32,
+            width: 135,
+            alignItems: 'center',
+        },
+        menu: {
+            height: 16,
+            width: 19,
+            marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
+        },
     })
     return TabNavigatorStyle;
 }
