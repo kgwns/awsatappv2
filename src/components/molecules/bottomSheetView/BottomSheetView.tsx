@@ -177,13 +177,13 @@ const customStyle = (theme: CustomThemeType) => {
         popupImageContainer: {
             alignSelf: 'center',
             width: normalize(250),
-            height: normalize(243),
+            height: isIOS ? normalize(243) : normalize(223),
             marginTop: normalize(35)
         },
         popupImageContainerLandscape: {
             alignSelf: 'center',
             width: normalize(100),
-            height: normalize(143),
+            height: isIOS ? normalize(113) : normalize(93),
         },
         popupImage: {
             width: '100%',
