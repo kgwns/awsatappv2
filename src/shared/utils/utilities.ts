@@ -263,7 +263,7 @@ export const calculateYear = (time: any) => {
 };
 
 export const getFullDate = (time: any) => {
-  return calculateDate(time) + ' ' + calculateMonth(time) + ' ' + moment(time).get('year');
+  return calculateNonUtcDate(time) + ' ' + calculateNonUtcMonth(time) + ' ' + moment(time).get('year');
 }
 
 export const calculateNonUtcDateNumber = (time: any) => {
@@ -284,10 +284,10 @@ export const calculateNonUtcYear = (time: any) => {
 };
 
 export const getFormattedDate = (time: any) => {
-  const year = calculateYear(time)
+  const year = calculateNonUtcYear(time)
   const monthValue = moment(time).get('month') + 1
   const month = monthValue < 10 ? '0' + monthValue : monthValue
-  const dateValue = calculateDate(time);
+  const dateValue = calculateNonUtcDate(time);
   const date = dateValue < 10 ? '0' + dateValue : dateValue
   return year + '-' + month + '-' + date
 }
