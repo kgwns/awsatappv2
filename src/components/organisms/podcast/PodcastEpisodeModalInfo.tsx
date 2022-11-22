@@ -95,7 +95,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     }
 
     const renderPodcastView = () => (
-        <View style={{ alignItems: 'center', paddingTop: normalize(40) }}>
+        <View style={{ alignItems: 'center', paddingTop: normalize(20) }}>
             <Label children={t('podcastEpisode.listenTo')} style={styles.listToText} />
             <View style={styles.podcastContainer}>
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}>
@@ -146,7 +146,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     )
 
     const bottomView = () => (
-        <View style={[styles.bottomContainer, { bottom: insets.bottom }]}>
+        <View style={[styles.bottomContainer, { bottom: insets.bottom + normalize(20) }]}>
             <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
                 style={styles.buttonStyle}
                 labelStyle={styles.buttonLabel}
@@ -258,7 +258,6 @@ const createStyles = () => StyleSheet.create({
         fontSize: 12,
         lineHeight: 16,
         color: colors.white,
-        marginLeft: normalize(5),
         fontFamily: fonts.AwsatDigital_Regular,
     },
     buttonLabel: {
@@ -280,5 +279,6 @@ const createStyles = () => StyleSheet.create({
     },
     verticalLine: {
         height: 10,
+        marginHorizontal: 8,
     }
 });
