@@ -2,8 +2,8 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { moleculesTestID } from '../../../../constants'
-import { articleFooterSample } from '../../../../constants/SampleData'
+import { moleculesTestID } from '../../../../constants/Constants'
+import { articleFooterSample } from '../../../../constants/Constants'
 import ArticleFooter, { BookMarkColorType } from '../ArticleFooter'
 
 describe('<ArticleFooter>', () => {

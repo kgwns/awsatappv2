@@ -2,14 +2,13 @@ import { View, FlatList, StyleSheet } from 'react-native'
 import React, {useState, useEffect, useRef} from 'react'
 import { AuthorWidget, ShortArticle, ArticleSection } from 'src/components/organisms';
 import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label, Divider } from 'src/components/atoms';
-import { shortArticleWithTagProperties } from 'src/constants/SampleData';
-import { useTranslation } from 'react-i18next';
+import { shortArticleWithTagProperties, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
 import { getArticleImage, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
+import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -26,7 +25,8 @@ export interface AllContentData {
 
 export const ContentForYou = () => {
     const { themeData } = useTheme()
-    const [t] = useTranslation()
+    const FAVORITE_ARTICLES_THAT_INTEREST_YOU = TranslateConstants({key:TranslateKey.FAVORITE_ARTICLES_THAT_INTEREST_YOU})
+    const FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS = TranslateConstants({key:TranslateKey.FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS})
     const {selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
     const {selectedAuthorsData, getSelectedAuthorsData} = useAllWriters();
     const {
@@ -52,7 +52,7 @@ export const ContentForYou = () => {
 
     const widgetHeaderData: WidgetHeaderProps = {
         headerLeft: {
-            title: t('favorite.articles_that_interest_you'),
+            title: FAVORITE_ARTICLES_THAT_INTEREST_YOU,
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
             elementContainerStyle: {paddingHorizontal: 0},
@@ -380,7 +380,7 @@ export const ContentForYou = () => {
         <View key={flatListUniqueKey.CONTENT_FOR_YOU + index} style={styles.spaceStyle}>
             {/* <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} /> */}
             {isNonEmptyArray(item.opinionsData.data) && <AuthorWidget
-                widgetHeader={t('favorite.articles_from_your_favorite_writers')}
+                widgetHeader={FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS}
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU + 'authorWidget' + index}
                 data={item.opinionsData.data}
                 containerStyle={[{ paddingTop: 0 }, !isNonEmptyArray(selectedTopics) && {paddingVertical: 0}]}

@@ -12,7 +12,7 @@ import { WriterBannerImage, DetailHeader } from 'src/components/molecules';
 import { JournalistSection } from 'src/components/organisms';
 import { horizontalEdge, isNotEmpty } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
-import { ScreensConstants } from 'src/constants'
+import { ScreensConstants } from 'src/constants/Constants'
 import Orientation from 'react-native-orientation-locker';
 import { JournalistArticleData, JournalistDetailDataType } from 'src/redux/journalist/types';
 

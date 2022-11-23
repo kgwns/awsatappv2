@@ -9,7 +9,7 @@ import { decode } from 'html-entities';
 import { fonts } from 'src/shared/styles/fonts';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useArticleDetail } from 'src/hooks/useArticleDetail';
 
 export type ReadAlsoDataType = {

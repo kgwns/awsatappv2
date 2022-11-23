@@ -1,19 +1,17 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { Keyboard, StyleSheet, TouchableOpacity } from 'react-native';
-import { ScreensConstants } from '../constants/ScreenConstants';
+import { ScreensConstants } from '../constants/Constants';
 import { Routes } from './index';
 import DrawerNavigator from './DrawerNavigator';
 import { ImagesName } from 'src/shared/styles';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label} from 'src/components/atoms';
-import {useNavigation, useNavigationState} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {isAndroid, isIOS, isNonEmptyArray, isTab, normalize, screenWidth} from 'src/shared/utils';
-import {getSvgImages} from 'src/shared/styles/svgImages';
-import { HeaderConstants } from '../constants/HeaderConstants'; 
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { Label } from 'src/components/atoms';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { isAndroid, isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
+import { getSvgImages } from 'src/shared/styles/svgImages';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 
@@ -23,6 +21,8 @@ const hideHeader = {
   headerShown: false,
 }
 
+// const USER_DETAIL_HEADER_TITLE = TranslateConstants({key:TranslateKey.USER_DETAIL_HEADER_TITLE})
+
 const AppNavigator = () => {
   const navigation = useNavigation();
   const routes = useNavigationState((state) => state.routes)
@@ -31,7 +31,12 @@ const AppNavigator = () => {
   const transition = isIOS && TransitionPresets.SlideFromRightIOS
 
 
-  const [t] = useTranslation();
+  const PROFILE_SETTING_ARITHMETIC = TranslateConstants({key:TranslateKey.PROFILE_SETTING_ARITHMETIC})
+  const PROFILE_USER_DETAIL_TITLE = TranslateConstants({key:TranslateKey.PROFILE_USER_DETAIL_TITLE})
+  const MANAGE_MY_NEWS_HEADER = TranslateConstants({key:TranslateKey.MANAGE_MY_NEWS_HEADER})
+  const ON_BOARD_COMMON_RETURN = TranslateConstants({key:TranslateKey.ON_BOARD_COMMON_RETURN})
+  const PROFILE_SETTING_MY_NEWS_LETTER = TranslateConstants({key:TranslateKey.PROFILE_SETTING_MY_NEWS_LETTER})
+  const PROFILE_SETTING_MANAGE_MY_NOTIFICATION = TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NOTIFICATION})
   const previousIconStyle = style.onBoardPrevIcon;
 
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
@@ -44,8 +49,8 @@ const AppNavigator = () => {
       onPress={() => {
         Keyboard.dismiss()
         navigation.goBack()
-         }}>
-      <Label style={style.onBoardPrevTitle}>{t('onBoard.common.return')}</Label>
+      }}>
+      <Label style={style.onBoardPrevTitle}>{ON_BOARD_COMMON_RETURN}</Label>
       {getSvgImages({
         name: ImagesName.returnGreenish,
         width: previousIconStyle.width,
@@ -76,7 +81,8 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.ARTICLE_DETAIL_SCREEN}
         component={Routes.ArticleDetailScreen}
-        options={{...transition,
+        options={{
+          ...transition,
           headerShown: false,
         }}
       />
@@ -121,12 +127,12 @@ const AppNavigator = () => {
         options={{
           headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: ()=>HeaderTitle(t('profileSetting.arithmetic')),
+          headerTitle: () => HeaderTitle(PROFILE_SETTING_ARITHMETIC),
           headerTitleAlign: 'center',
           headerShadowVisible: false,
           gestureEnabled: false
         }}
-        />
+      />
       <Stack.Screen
         name={ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN}
         component={Routes.OpinionArticleDetail}
@@ -138,7 +144,7 @@ const AppNavigator = () => {
         options={{
           headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle(HeaderConstants.USER_DETAIL_HEADER_TITLE),
+          headerTitle: () => HeaderTitle(PROFILE_USER_DETAIL_TITLE),
           headerTitleStyle: style.headerTitle,
           headerTitleAlign: 'center',
           headerShadowVisible: false
@@ -156,13 +162,13 @@ const AppNavigator = () => {
           headerShadowVisible: false
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name={ScreensConstants.MANAGE_MY_NEWS_SCREEN}
         component={Routes.ManageMyNewsScreen}
         options={{
           headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle(t('manageMyNews.header')),
+          headerTitle: () => HeaderTitle(MANAGE_MY_NEWS_HEADER),
           headerTitleAlign: 'center',
           gestureEnabled: false,
           headerShadowVisible: false
@@ -171,7 +177,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name={ScreensConstants.VideoPlayerScreen}
         component={Routes.VideoPlayerScreen}
-        options={{...hideHeader, animationEnabled: false}}
+        options={{ ...hideHeader, animationEnabled: false }}
       />
       <Stack.Screen
         name={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN}
@@ -179,19 +185,19 @@ const AppNavigator = () => {
         options={{
           headerStyle: [style.container, style.onboardBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle(t('manageMyNews.header')),
+          headerTitle: () => HeaderTitle(MANAGE_MY_NEWS_HEADER),
           headerTitleAlign: 'center',
           gestureEnabled: false,
           headerShadowVisible: false,
         }}
       />
-         <Stack.Screen
+      <Stack.Screen
         name={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN}
         component={Routes.ManageMyFavoriteTopicsScreen}
         options={{
           headerStyle: [style.container, style.onboardBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle(t('manageMyNews.header')),
+          headerTitle: () => HeaderTitle(MANAGE_MY_NEWS_HEADER),
           headerTitleAlign: 'center',
           gestureEnabled: false,
           headerShadowVisible: false,
@@ -203,7 +209,7 @@ const AppNavigator = () => {
         options={{
           headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle(t('profileSetting.myNewsLetter')),
+          headerTitle: () => HeaderTitle(PROFILE_SETTING_MY_NEWS_LETTER),
           headerTitleAlign: 'center',
           headerShadowVisible: false
         }}
@@ -214,12 +220,12 @@ const AppNavigator = () => {
         options={{
           headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle(t('profileSetting.manageMyNotification')),
+          headerTitle: () => HeaderTitle(PROFILE_SETTING_MANAGE_MY_NOTIFICATION),
           headerTitleAlign: 'center',
           headerShadowVisible: false
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name={ScreensConstants.WRITERS_DETAIL_SCREEN}
         component={Routes.WritersDetailScreen}
         options={hideHeader}
@@ -238,19 +244,19 @@ const AppNavigator = () => {
         name={ScreensConstants.GAME_SCREEN}
         component={Routes.GameScreen}
         options={{
-          headerStyle: [style.container, style.gameScreenBackground ],
+          headerStyle: [style.container, style.gameScreenBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle(TranslateConstants({key: TranslateKey.GAMES})),
+          headerTitle: () => HeaderTitle(TranslateConstants({ key: TranslateKey.GAMES })),
           headerTitleAlign: 'center'
         }}
       />
-        <Stack.Screen
+      <Stack.Screen
         name={ScreensConstants.DYNAMIC_GAME_SCREEN}
         component={Routes.DynamicGameScreen}
         options={{
           headerStyle: [style.container, style.gameScreenBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle(TranslateConstants({key: TranslateKey.GAMES})),
+          headerTitle: () => HeaderTitle(TranslateConstants({ key: TranslateKey.GAMES })),
           headerTitleAlign: 'center',
           headerShadowVisible: false
         }}
@@ -320,10 +326,10 @@ const customStyle = (theme: CustomThemeType) => (
       marginEnd: 5,
       marginTop: isAndroid ? 2 : 0
     },
-    headerTitle:{
+    headerTitle: {
       fontSize: 24,
       lineHeight: 50,
-      color:theme.primaryDarkSlateGray,
+      color: theme.primaryDarkSlateGray,
       fontFamily: fonts.IBMPlexSansArabic_Bold,
     },
     gameScreenBackground: {

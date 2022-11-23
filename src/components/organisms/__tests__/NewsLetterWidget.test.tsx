@@ -1,7 +1,7 @@
 import React from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../../constants/SampleData';
+import {storeSampleData} from '../../../constants/Constants';
 import {NewsLettersWidget} from '..';
 import { FlatList } from 'react-native';
 import { NewsLetterCard, NewsLetterCardProps } from 'src/components/molecules/NewsLetterCard';

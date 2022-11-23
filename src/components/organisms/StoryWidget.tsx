@@ -1,6 +1,6 @@
 import { View, StyleSheet, FlatList } from 'react-native';
 import React, {FunctionComponent} from 'react';
-import { flatListUniqueKey } from '../../constants';
+import { flatListUniqueKey } from '../../constants/Constants';
 import { StoryCircle, StoryTitle, StoryHeader } from '../molecules';
 import { normalize, recordLogEvent } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'

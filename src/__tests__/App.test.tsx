@@ -1,7 +1,7 @@
 import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { GetFCMToken } from 'src/firebase/notification/notification';
 import App from '../../App';
 

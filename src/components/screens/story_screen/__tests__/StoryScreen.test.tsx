@@ -2,7 +2,7 @@ import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import { StoryScreen } from '../StoryScreen';
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import {useNavigation} from '@react-navigation/native';
 
 jest.mock('@react-navigation/native', () => ({

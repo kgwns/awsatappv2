@@ -1,7 +1,7 @@
 import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import {ShortArticle} from 'src/components/organisms';
-import { shortArticleData } from 'src/constants/SampleData';
+import { shortArticleData } from 'src/constants/Constants';
 
 jest.mock("src/hooks/useLogin", () => ({
   useLogin: () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey} from 'src/constants/Constants';
 import {Divider} from '../atoms';
 import {ArticleRectangleCardProps} from '../molecules/podcast/ArticleRectangleCard';
 import {SectionHeader} from '../molecules/podcast/SectionHeader';

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { ArticleDetailBody} from 'src/components/screens/articleDetail/components/ArticleDetailBody';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import AutoHeightWebView from 'react-native-autoheight-webview';
 
 jest.mock('react', () => ({

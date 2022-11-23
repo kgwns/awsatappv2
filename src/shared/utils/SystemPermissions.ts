@@ -1,5 +1,5 @@
 import { PermissionsAndroid } from 'react-native'
-import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS } from 'src/constants/SharedConstants';
+import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS } from 'src/constants/Constants';
 
 
 export const SystemPermissions = {

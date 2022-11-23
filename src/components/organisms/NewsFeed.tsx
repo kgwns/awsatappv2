@@ -5,7 +5,7 @@ import { isTab, normalize, screenWidth} from '../../shared/utils';
 import { Styles} from '../../shared/styles';
 import {TextWithFlag, Divider, Label, LabelTypeProp, LiveBlogTag} from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
-import {flatListUniqueKey, ScreensConstants} from '../../constants';
+import {flatListUniqueKey, ScreensConstants} from '../../constants/Constants';
 import {SectionVideoFooter} from '../molecules';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {NewsViewListItemType} from 'src/redux/newsView/types';
@@ -24,7 +24,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { useAppPlayer } from 'src/hooks';
-import { displayTypes } from 'src/constants/SharedConstants';
+import { displayTypes } from 'src/constants/Constants';
 
 export interface NewsFeedProps {
   title: string;

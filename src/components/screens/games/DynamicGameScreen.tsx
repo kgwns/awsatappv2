@@ -9,7 +9,7 @@ import { CustomThemeType, DARK_THEME_ID } from 'src/shared/styles/colors'
 import { CROSS_WORD_GAME_BASE_ID_URL, SUDOKU_GAME_BASE_ID_URL } from 'src/services/apiUrls'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { ScreensConstants } from 'src/constants'
+import { ScreensConstants } from 'src/constants/Constants'
 
 
 export interface DynamicGameScreenProps {

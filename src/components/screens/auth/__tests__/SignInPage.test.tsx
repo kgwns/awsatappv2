@@ -2,7 +2,7 @@ import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
 import React, { useState } from 'react';
 import {onSuccessSocialLogin, SignInPage, SocialProviders} from '../SignInPage';
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import { AuthScreenInputSection, SocialButtonSection } from '../../../organisms/';
 import {useNavigation} from '@react-navigation/native';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';

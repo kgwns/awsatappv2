@@ -5,19 +5,21 @@ import { Label, LoadingState, NextButton } from 'src/components/atoms';
 import { CustomAlert, horizontalEdge, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenHeight, screenWidth } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useAllWriters, useUserProfileData } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useIsFocused } from '@react-navigation/native';
 import { fonts } from 'src/shared/styles/fonts';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
   const isFocused = useIsFocused()
-  const [t] = useTranslation();
+  const ONBOARD_FOLLOW_FAVORITE_AUTHOR_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_FOLLOW_FAVORITE_AUTHOR_TITLE})
+  const ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION})
+  const ONBOARD_COMMON_NEXT_BUTTON = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_NEXT_BUTTON})
+
   const style = useThemeAwareObject(customStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
 
@@ -103,10 +105,10 @@ export const FollowFavoriteAuthorScreen = () => {
             { justifyContent: isTab ? 'center' : 'flex-end' },
           ]}>
           <Label style={style.titleStyle}>
-            {t('onBoard.followFavoriteAuthor.title')}
+            {ONBOARD_FOLLOW_FAVORITE_AUTHOR_TITLE}
           </Label>
           <Label style={style.descStyle}>
-            {t('onBoard.followFavoriteAuthor.description')}
+            {ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION}
           </Label>
         </View>
         <View style={style.contentStyle}>
@@ -120,7 +122,7 @@ export const FollowFavoriteAuthorScreen = () => {
           <NextButton
             disabled={disableNext}
             testID="nextButtonTestId"
-            title={t('onBoard.common.nextBtn')}
+            title={ONBOARD_COMMON_NEXT_BUTTON}
             onPress={onPressNext}
             style={style}
           />

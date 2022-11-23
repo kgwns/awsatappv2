@@ -3,7 +3,7 @@ import React from 'react'
 import { Label, LabelTypeProp } from '..'
 import { normalize } from '../../../shared/utils'
 import { HeaderElementProps } from './WidgetHeader'
-import { atomTestID } from '../../../constants'
+import { atomTestID } from '../../../constants/Constants'
 
 
 export const WidgetHeaderElement = ({

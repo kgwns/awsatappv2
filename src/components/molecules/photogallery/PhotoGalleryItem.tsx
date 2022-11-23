@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native';
 import React, {FunctionComponent} from 'react';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey} from 'src/constants/Constants';
 import {ImageWithLabel} from 'src/components/atoms';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import {dateTimeAgo, isTab, screenWidth} from 'src/shared/utils';

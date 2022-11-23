@@ -10,11 +10,11 @@ import { TabBar, TabView } from 'react-native-tab-view';
 import { CustomTabBarItem, SignupAlertCard } from 'src/components/molecules';
 import { fonts } from 'src/shared/styles/fonts';
 import { MyNewsTopics } from 'src/components/organisms/myTopics/MyNewsTopics';
-import { myNewsTopTabData } from 'src/constants/SampleData';
+import { myNewsTopTabData } from 'src/constants/Constants';
 import { MyNewsWriters } from 'src/components/organisms';
 import { useLogin } from 'src/hooks';
 import { t } from 'i18next';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 
 export enum MyNewsTabType {

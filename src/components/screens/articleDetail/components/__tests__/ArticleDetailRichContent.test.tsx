@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { RenderQuoteElement, RenderContentElement, RenderDescriptionElement, RenderOpinionElement, RenderReadAlsoElement, RenderNumberElement, generateAssetFontCss, RenderRichHTMLContent } from 'src/components/screens/articleDetail/components/ArticleDetailRichContent';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailDataType, RichHTMLType } from 'src/redux/articleDetail/types';
 

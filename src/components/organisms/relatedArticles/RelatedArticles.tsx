@@ -1,7 +1,7 @@
 import { View, FlatList, StyleSheet } from 'react-native';
 import React from 'react';
 import { normalize, screenWidth } from 'src/shared/utils'
-import { flatListUniqueKey } from 'src/constants'
+import { flatListUniqueKey } from 'src/constants/Constants'
 import { ArticleItem } from 'src/components/molecules'
 import { articleProps } from '..';
 import { ImagesName, Styles } from 'src/shared/styles';

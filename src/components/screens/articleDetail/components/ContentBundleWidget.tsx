@@ -10,7 +10,7 @@ import { ImageResize } from 'src/shared/styles/text-styles';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName, Styles } from 'src/shared/styles';
-import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useArticleDetail } from 'src/hooks/useArticleDetail';

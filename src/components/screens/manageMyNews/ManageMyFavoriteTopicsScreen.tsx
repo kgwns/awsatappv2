@@ -3,7 +3,6 @@ import { View, StyleSheet, Alert } from 'react-native';
 import { colors } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
 import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight } from 'src/shared/utils';
-import { useTranslation } from 'react-i18next';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -11,15 +10,18 @@ import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
 export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
-  const [t] = useTranslation();
   const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest,selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [topicsData,setTopicsData] = useState<AllSiteCategoriesItemType[]>([])
   const {userProfileData} = useUserProfileData();
-  const OK = t('common.ok');
+  const OK = TranslateConstants({key:TranslateKey.COMMON_OK});
+  const ONBOARD_COMMON_DONE = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_DONE})
+  const ONBOARD_SELECT_TOPICS_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_SELECT_TOPICS_TITLE})
+  const ONBOARD_SELECT_TOPICS_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_SELECT_TOPICS_DESCRIPTION})
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -122,10 +124,10 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
             {justifyContent: isTab ? 'center' : 'flex-end'},
           ]}>
           <Label style={style.titleStyle}>
-            {t('onBoard.selectTopics.title')}
+            {ONBOARD_SELECT_TOPICS_TITLE}
           </Label>
           <Label style={style.descStyle}>
-            {t('onBoard.selectTopics.description')}
+            {ONBOARD_SELECT_TOPICS_DESCRIPTION}
           </Label>
         </View>
         <View style={style.widgetContainer}>
@@ -136,7 +138,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
         <View style={style.nextButtonView}>
           <NextButton
             testID="nextButtonTestId"
-            title={t('onBoard.common.done')}
+            title={ONBOARD_COMMON_DONE}
             onPress={onPressNext}
             style={style}
             icon={false}

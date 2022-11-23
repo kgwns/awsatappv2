@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
-import {storeSampleData} from 'src/constants/SampleData';
+import {storeSampleData} from 'src/constants/Constants';
 import {FollowFavoriteAuthorScreen} from '../FollowFavoriteAuthorScreen';
 import { AllWritersItemType } from 'src/redux/allWriters/types';
 import { useAllWriters } from 'src/hooks';

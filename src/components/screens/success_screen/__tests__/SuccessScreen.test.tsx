@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import { SuccessScreen } from '../SuccessScreen';
 import {useNavigation} from '@react-navigation/native';
 import LottieView from 'lottie-react-native';

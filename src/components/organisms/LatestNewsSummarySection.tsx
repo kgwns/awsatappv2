@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey} from 'src/constants/Constants';
 import {NewsWithImageItem} from '../molecules';
 import {SectionHeader} from '../molecules/podcast/SectionHeader';
 import {NewsWithImageItemProps} from '../molecules/podcast/NewsWithImageItem';

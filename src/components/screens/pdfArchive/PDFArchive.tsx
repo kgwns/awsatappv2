@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { useTranslation } from 'react-i18next';
 import {View } from 'react-native';
 import {horizontalAndTop} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
 import { UIManager, findNodeHandle, PixelRatio, Dimensions } from 'react-native';
 import { PDFViewManager } from './PDFArchiveViewManager';
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
 const createFragment = (viewId:number|null) =>{
   UIManager.dispatchViewManagerCommand(
@@ -16,7 +16,7 @@ const createFragment = (viewId:number|null) =>{
 const WINDOW_HEIGHT = Dimensions.get('window').height; // device height
 const WINDOW_WIDTH = Dimensions.get('window').width; // device height
 export const PDFArchive = () => {
-  const [t] = useTranslation()
+  const DRAWER_PDF_ARCHIVE = TranslateConstants({key:TranslateKey.DRAWER_PDF_ARCHIVE})
   const ref = React.useRef(null);
 
   React.useEffect(() => {
@@ -28,7 +28,7 @@ export const PDFArchive = () => {
     <ScreenContainer
       edge={horizontalAndTop}
       showHeader={true}
-      headerTitle={t('drawer.pdfArchive')}>
+      headerTitle={DRAWER_PDF_ARCHIVE}>
       <View>
         <PDFViewManager
           style={{

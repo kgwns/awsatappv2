@@ -1,41 +1,45 @@
 import { View,StyleSheet } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { FilterComponent, FilterDataType, PopulateWidgetType } from 'src/components/molecules'
 import { isArray, isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
 import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
-import { TranslateConstants, TranslateKey } from 'src/constants'
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 
 export const Archives = () => {
-    const [t] = useTranslation()
     const isFocused = useIsFocused()
+    const FAVORITE_FILTERS_EVERYONE = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_EVERYONE})
+    const FAVORITE_FILTERS_ARTICLES = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_ARTICLES})
+    const FAVORITE_FILTERS_VIDEO = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_VIDEO})
+    const FAVORITE_FILTERS_OPINION = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_OPINION})
+    const FAVORITE_FILTERS_PODCAST = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_PODCAST})
+    const FAVORITE_FILTERS_ALBUM = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_ALBUM})
 
     const filterData: FilterDataType[] = [
         {
-            name: t('favorite.filters.everyone'),
+            name: FAVORITE_FILTERS_EVERYONE,
             isSelected: true
         },
         {
-            name: t('favorite.filters.articles'),
+            name: FAVORITE_FILTERS_ARTICLES,
             isSelected: false
         },
         {
-            name: t('favorite.filters.video'),
+            name: FAVORITE_FILTERS_VIDEO,
             isSelected: false
         },
         {
-            name: t('favorite.filters.opinion'),
+            name: FAVORITE_FILTERS_OPINION,
             isSelected: false
         },
         {
-            name: t('favorite.filters.podcast'),
+            name: FAVORITE_FILTERS_PODCAST,
             isSelected: false
         },
         {
-            name: t('favorite.filters.album'),
+            name: FAVORITE_FILTERS_ALBUM,
             isSelected: false
         }
     ]

@@ -7,12 +7,11 @@ import { SectionVideoFooter } from '../molecules';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useTranslation } from 'react-i18next';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { flatListUniqueKey } from 'src/constants';
+import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 
 export interface videoProps {
@@ -33,7 +32,7 @@ export const VideoContent = ({
     onPress?: (item: VideoItemType) => void,
     isTabDesign?: boolean
 }) => {
-    const [t] = useTranslation();
+    const CATEGORY_PAGE_VIDEO_CONTENT = TranslateConstants({key:TranslateKey.CATEGORY_PAGE_VIDEO_CONTENT})
     const theme = useTheme();
     const style = useThemeAwareObject(customStyle);
     const [isTitleLineCount, setIsTitleLineCount] = useState(1)
@@ -89,7 +88,7 @@ export const VideoContent = ({
     }
     return (
         <View style={style.container}>
-            <Label style={style.titleTextStyle} labelType={LabelTypeProp.title3} children={t('categoryPage.videoContent')} numberOfLines={2} />
+            <Label style={style.titleTextStyle} labelType={LabelTypeProp.title3} children={CATEGORY_PAGE_VIDEO_CONTENT} numberOfLines={2} />
             <FlatList
                 horizontal={!isTabDesign}
                 keyExtractor={(_, index) => index.toString()}

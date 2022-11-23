@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import { JournalistDetail } from '../JournalistDetail';
 import { useJournalist, UseJournalistReturn } from 'src/hooks/useJournalist';
 import { JournalistArticleData, JournalistDetailDataType } from 'src/redux/journalist/types';

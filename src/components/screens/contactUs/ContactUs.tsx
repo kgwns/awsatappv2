@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { AlertPayloadType, ScreenContainer } from '../ScreenContainer/ScreenContainer'
 import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, normalize, screenWidth, testProps } from 'src/shared/utils'
 import { StaticPageHeader } from 'src/components/molecules'
-import { TranslateConstants, TranslateKey } from 'src/constants'
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { Label, TextInputField } from 'src/components/atoms'
-import { CONST_CONTACT_US_DESCRIPTION, CONST_DO_YOU_HAVE_QUESTION } from 'src/constants/SharedConstants'
+// import { CONST_CONTACT_US_DESCRIPTION, CONST_DO_YOU_HAVE_QUESTION } from 'src/constants/Constants'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
@@ -39,6 +39,8 @@ export const ContactUs = () => {
     const CONST_SEND = TranslateConstants({ key: TranslateKey.CONTACT_US_SEND })
     const CONST_ALERT = TranslateConstants({ key: TranslateKey.TEXT_ALERT })
     const CONST_OK = TranslateConstants({ key: TranslateKey.COMMON_OK })
+    const CONST_DO_YOU_HAVE_QUESTION = TranslateConstants({key:TranslateKey.CONTACT_US_DO_YOU_HAVE_QUESTIONS});
+    const CONST_CONTACT_US_DESCRIPTION = TranslateConstants({key:TranslateKey.CONTACT_US_DESCRIPTION});
 
     //Hooks
     const style = useThemeAwareObject(customStyle)

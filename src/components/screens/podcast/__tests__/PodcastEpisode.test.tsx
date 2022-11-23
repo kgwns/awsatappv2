@@ -2,7 +2,7 @@ import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
 import React, {useState} from 'react';
 import { PodcastEpisode  } from '../PodcastEpisode';
 import { Provider } from 'react-redux'
-import { storeSampleData, PodcastEpisodeData, PodcastListData } from 'src/constants/SampleData';
+import { storeSampleData, PodcastEpisodeData, PodcastListData } from 'src/constants/Constants';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {PodcastProgramHeader} from 'src/components/molecules';
 import {PodcastEpisodeContent, PodcastEpisodeInfo} from 'src/components/organisms';

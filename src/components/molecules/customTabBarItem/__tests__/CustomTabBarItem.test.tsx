@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { CustomTabBarItem } from '../CustomTabBarItem'
-import { moleculesTestID } from 'src/constants'
+import { moleculesTestID } from 'src/constants/Constants'
 import { TouchableOpacity } from 'react-native'
 
 describe('<CustomTabBarItem>', () => {

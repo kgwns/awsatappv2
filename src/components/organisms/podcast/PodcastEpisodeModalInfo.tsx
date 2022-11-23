@@ -11,13 +11,12 @@ import SpotifyIcon from 'src/assets/images/icons/spotify_episode_icon.svg';
 import AnghamiPodcastIcon from 'src/assets/images/icons/anghami_icon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import PauseIcon from 'src/assets/images/icons/pauseIconBlack.svg';
-import { useTranslation } from 'react-i18next';
 import { decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { podcastServices } from 'src/constants/SharedConstants';
+import { podcastServices, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { usePlaybackState, State } from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
 import { ImageResize } from 'src/shared/styles/text-styles';
@@ -35,7 +34,8 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     const insets = useSafeAreaInsets();
 
     const styles = useThemeAwareObject(createStyles);
-    const [t] = useTranslation();
+    const PODCAST_EPISODE_LISTEN_TO = TranslateConstants({key:TranslateKey.PODCAST_EPISODE_LISTEN_TO})
+    const PODCAST_EPISODE_LISTEN_TO_EPISODE = TranslateConstants({key:TranslateKey.PODCAST_EPISODE_LISTEN_TO_EPISODE})
 
     const playbackState = usePlaybackState();
     const { selectedTrack } = useAppPlayer();
@@ -95,8 +95,8 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     }
 
     const renderPodcastView = () => (
-        <View style={{ alignItems: 'center', paddingTop: normalize(20) }}>
-            <Label children={t('podcastEpisode.listenTo')} style={styles.listToText} />
+        <View style={{ alignItems: 'center', paddingTop: normalize(40) }}>
+            <Label children={PODCAST_EPISODE_LISTEN_TO} style={styles.listToText} />
             <View style={styles.podcastContainer}>
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}>
                     <SpotifyIcon width={25} height={25} />
@@ -146,8 +146,8 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     )
 
     const bottomView = () => (
-        <View style={[styles.bottomContainer, { bottom: insets.bottom + normalize(20) }]}>
-            <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
+        <View style={[styles.bottomContainer, { bottom: insets.bottom }]}>
+            <ButtonOutline title={PODCAST_EPISODE_LISTEN_TO_EPISODE}
                 style={styles.buttonStyle}
                 labelStyle={styles.buttonLabel}
                 titleType={LabelTypeProp.h1}
@@ -258,6 +258,7 @@ const createStyles = () => StyleSheet.create({
         fontSize: 12,
         lineHeight: 16,
         color: colors.white,
+        marginLeft: normalize(5),
         fontFamily: fonts.AwsatDigital_Regular,
     },
     buttonLabel: {
@@ -279,6 +280,5 @@ const createStyles = () => StyleSheet.create({
     },
     verticalLine: {
         height: 10,
-        marginHorizontal: 8,
     }
 });

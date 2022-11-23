@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { ProfileSettings, SettingDataType } from '../ProfileSettings';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import {useNavigation} from '@react-navigation/native';

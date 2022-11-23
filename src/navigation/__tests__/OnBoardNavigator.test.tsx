@@ -3,7 +3,7 @@ import React from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import OnBoardNavigator from 'src/navigation/OnBoardNavigator';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../constants/SampleData';
+import {storeSampleData} from '../../constants/Constants';
 import { TouchableOpacity } from 'react-native';
 
 jest.mock('@react-navigation/native', () => ({

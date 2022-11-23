@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList, StyleSheet, View, ListRenderItem} from 'react-native';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey} from 'src/constants/Constants';
 import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';

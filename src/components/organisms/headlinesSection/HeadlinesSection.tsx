@@ -4,7 +4,7 @@ import { isNonEmptyArray, isNotEmpty, normalize } from 'src/shared/utils';
 import TextTicker from 'react-native-text-ticker';
 import { Label, LabelTypeProp } from 'src/components/atoms';
 import { LatestArticleDataType, NewsCategoriesType } from 'src/redux/latestNews/types';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useTheme } from 'src/shared/styles/ThemeProvider';

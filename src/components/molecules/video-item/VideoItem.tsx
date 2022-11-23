@@ -22,7 +22,7 @@ import PlayIconSmall from 'src/assets/images/icons/Play_black.svg';
 import { MixedStyleRecord } from 'react-native-render-html';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
-import { useTranslation } from 'react-i18next';
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
 export interface VideoItemProps {
   imageUrl: string;
@@ -61,10 +61,8 @@ export const VideoItem = ({
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
-  const [t] = useTranslation();
-
+  const VIDEO_DETAIL_EMPLOYMENT = TranslateConstants({key:TranslateKey.VIDEO_DETAIL_EMPLOYMENT})
   const timeFormat = dateTimeAgo(date)
-
   const showSeparator = (views || toWatchTitle) && (date)
   const imageLink = imageUrl ? getImageUrl(imageUrl) : undefined;
   const monthDate = timeFormat.time
@@ -90,7 +88,7 @@ export const VideoItem = ({
               <Label style={styles.titleStyle} numberOfLines={2}>{decode(title)}</Label>
             </View>
             <View style={styles.buttonContainer}>
-              <ButtonOutline title={t('videoDetail.employement')}
+              <ButtonOutline title={VIDEO_DETAIL_EMPLOYMENT}
               style={styles.buttonStyle}
               labelStyle={styles.buttonLabel}
               titleType={LabelTypeProp.h1}

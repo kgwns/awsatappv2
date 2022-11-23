@@ -14,7 +14,7 @@ import { OpinionWritersArticlesSection } from 'src/components/organisms';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
 import { decodeHTMLTags, horizontalEdge } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
-import { ScreensConstants } from 'src/constants'
+import { ScreensConstants } from 'src/constants/Constants'
 import Orientation from 'react-native-orientation-locker';
 import { fetchWriterOpinionsApi } from 'src/services/opinionsService';
 import { AxiosError } from 'axios';
@@ -226,7 +226,6 @@ export const WritersDetailScreen = ({
 
     const renderItem = () => {
         const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
-
         return (
             <View style={style.container}>
                 {isNonEmptyArray(writerDetailInfo) && <WriterBannerImage  isWriter isFocused data={{

@@ -1,4 +1,4 @@
-import {storeInfo} from 'src/constants/SampleData';
+import {storeInfo} from 'src/constants/Constants';
 import {getIsLoading, getWeatherDetailInfo, getWeatherDetailError, getWeatherDetailVisibilityInfo} from '../selectors';
 import {WeatherDetailSuccessPayloadType, WeatherDetailVisibilitySuccessPayloadType} from '../types';
 

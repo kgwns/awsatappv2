@@ -6,7 +6,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'
 import AutoHeightWebView, { SizeUpdate } from 'react-native-autoheight-webview'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
-import { ANDROID_WEBVIEW_URL, IOS_WEBVIEW_URL } from 'src/constants/SharedConstants'
+import { ANDROID_WEBVIEW_URL, IOS_WEBVIEW_URL } from 'src/constants/Constants'
 
 type ArticleDetailBodyProps = {
     body: string;
@@ -159,7 +159,6 @@ export const ArticleDetailBody = React.memo(({
             console.log('InAppBrowser ERROR', error.message)
         }
     }
-
     const onShouldStartLoadWithRequest = (event: any) => {
         const HTML_URL = isIOS ? IOS_WEBVIEW_URL : ANDROID_WEBVIEW_URL; // "file:///" : "about:blank"
         const URL = event.url

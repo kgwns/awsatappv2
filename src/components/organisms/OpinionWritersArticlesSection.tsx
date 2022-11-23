@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {ActivityIndicator, FlatList, Platform, StyleSheet, View} from 'react-native';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey} from 'src/constants/Constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import OpinionWritersCardView from 'src/components/molecules/opinionWriters/OpinionWriterCardView';
@@ -17,7 +17,7 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { fonts } from 'src/shared/styles/fonts';
 import { Label } from '../atoms';
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 interface OpinionWritersArticlesSectionProps {
   data: OpinionsListItemType[];
@@ -85,7 +85,6 @@ const OpinionWritersArticlesSection = ({
     }
     setSelectedTrack(nid) 
   }
-
 
   const renderItem = (item: any, index: number) => {
     return (

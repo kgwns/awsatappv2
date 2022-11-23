@@ -2,7 +2,7 @@ import { render, RenderAPI, fireEvent } from '@testing-library/react-native';
 import React, { useState } from 'react';
 import { VideoDetailScreen, VideoDetailScreenProps } from '../VideoDetailScreen';
 import { Provider } from 'react-redux'
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PodcastProgramHeader } from 'src/components/molecules';
 import {useNavigation} from '@react-navigation/native';

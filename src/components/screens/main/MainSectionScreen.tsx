@@ -7,16 +7,15 @@ import {
   ArchiveArticleSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/SampleData';
+import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/Constants';
 import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer } from 'src/hooks';
 import { EditorsChoiceDataType, LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
+import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 import { Styles } from 'src/shared/styles';
 import TrackPlayer, { usePlaybackState, State} from 'react-native-track-player';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -26,7 +25,7 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { Label } from 'src/components/atoms';
 import { getPodcastUrl, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
@@ -94,7 +93,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   const { themeData } = useTheme()
   const mainSectionStyle = useThemeAwareObject(customStyle)
 
-  const [t] = useTranslation()
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const ref = React.useRef(null);
@@ -139,7 +137,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     fetchEditorsChoice, fetchSpotlight, fetchInfoGraphicBlockData, fetchArchivedArticleSection,
   } = useLatestNewsTab()
   const { videoData, fetchVideoRequest } = useVideoList();
-
+  
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
@@ -179,7 +177,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
 
     }, [])
   );
-
 
   
   const updateBookmark = (data: any[]): any => {
@@ -227,7 +224,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     setCoverageInfo(updatedData)
   }
 
-
   useEffect(() => {
     if (isNonEmptyArray(sectionComboOne)) {
       updateSectionComboOneData()
@@ -242,7 +238,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     const data = listPartition(newData, 4)
     setOpinionListData(data)
   }, [opinionList])
-
   useEffect(() => {
     if (isNonEmptyArray(sectionComboFive)) {
       updateSectionComboFiveData()
@@ -566,7 +561,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     setShowPopUp(true)
   }
 
-
   const onListenPodcast = (podcastData: any) => {
     if(isObjectNonEmpty(podcastData)){
       const trackPlayerData = {
@@ -630,7 +624,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         <View>
           <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast}/>
         </View>}
-      
       {/* <BannerArticleSection data={editorsChoiceInfo} // Commented in the update of AMAR-1018 
         title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         onPress={onPressArticle}

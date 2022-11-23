@@ -1,7 +1,7 @@
 import React, {useRef} from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { TabBarComponent } from '../TabBarComponent'
-import { sectionTabItem } from 'src/constants/SampleData'
+import { sectionTabItem } from 'src/constants/Constants'
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),

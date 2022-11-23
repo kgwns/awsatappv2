@@ -1,7 +1,7 @@
 import React, {useState}  from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import { ManageMyFavoriteAuthorScreen } from '../ManageMyFavoriteAuthorScreen';
 import { AllWritersItemType } from 'src/redux/allWriters/types';
 import { FollowFavoriteAuthorWidget } from 'src/components/organisms';

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { SectionStoryScreen } from '../SectionStoryScreen'
 import { Provider } from 'react-redux'
-import { storeSampleData } from 'src/constants/SampleData'
+import { storeSampleData } from 'src/constants/Constants'
 import { PopUp } from 'src/components/organisms'
 import {useNavigation} from '@react-navigation/native';
 import { FlatList } from 'react-native'

@@ -5,8 +5,8 @@ import { PodcastVerticalList, PodcastVerticalListProps } from 'src/components/mo
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType,colors} from 'src/shared/styles/colors';
-import {useTranslation} from 'react-i18next';
 import { fonts } from 'src/shared/styles/fonts';
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
  
 export interface PodcastEpisodeListProps {
   onItemActionPress?: (item: any) => void;
@@ -24,7 +24,7 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
   onUpdateBookmark
 }) => {
   const styles = useThemeAwareObject(createStyles);
-  const [t] = useTranslation();
+  const PODCAST_PROGRAM_EPISODES = TranslateConstants({key:TranslateKey.PODCAST_PROGRAM_EPISODES})
 
   const handleOnItemPressAction = (item: any) => {
     if (onItemActionPress) {
@@ -56,7 +56,7 @@ export const PodcastEpisodeList: FunctionComponent<PodcastEpisodeListProps> = ({
     <View style={{ marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) }}>
       <View style={styles.rowStyle} >
         <View style={styles.headerLeftStyle}>
-          <Label style={styles.textStyle} children={t('podcastProgram.episodes')} />
+          <Label style={styles.textStyle} children={PODCAST_PROGRAM_EPISODES} />
         </View>
         <View style={styles.headerRightStyle}>
           {/* <ArrowUpDown /> will enable this icon once mini player implementation started  */} 

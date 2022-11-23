@@ -12,11 +12,10 @@ import {
 import {colors} from '../../../shared/styles/colors';
 import {isIOS, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
-import {ScreensConstants} from 'src/constants';
+import {ScreensConstants} from 'src/constants/Constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import {useTranslation} from 'react-i18next';
 import {SocialLoginButton, TextInputField} from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
@@ -38,7 +37,7 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
-
+import { TranslateConstants,TranslateKey } from 'src/constants/Constants';
 export interface SignUpPageProps {
   route: any;
 }
@@ -46,7 +45,6 @@ export interface SignUpPageProps {
 export const SignUpPage = ({route}: SignUpPageProps) => {
   const navigation = useNavigation();
   const {themeData} = useTheme();
-  const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState(route.params.email);
   const [password, setPassword] = useState('');
@@ -74,21 +72,32 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const { emptySearchHistory } = useSearch();
 
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
+  const CONST_OK = TranslateConstants({key:TranslateKey.COMMON_OK});
+  const CONST_ALERT = TranslateConstants({key:TranslateKey.COMMON_ALERT});
+  const COMMON_NO_INTERNET_CONNECTION = TranslateConstants({key:TranslateKey.COMMON_NO_INTERNET_CONNECTION})
+  const COMMON_SOMETHING_WENT_WRONG = TranslateConstants({key:TranslateKey.COMMON_SOMETHING_WENT_WRONG})
+  const SIGNUP_RETURN = TranslateConstants({key:TranslateKey.SIGNUP_RETURN})
+  const SIGNUP = TranslateConstants({key:TranslateKey.SIGNUP})
+  const SIGNUP_CREATE_ACCOUNT = TranslateConstants({key:TranslateKey.SIGNUP_CREATE_ACCOUNT})
+  const SIGNUP_ACCOUNT_DESCRIPTION = TranslateConstants({key:TranslateKey.SIGNUP_ACCOUNT_DESCRIPTION})
+  const SIGNUP_EMAIL = TranslateConstants({key:TranslateKey.SIGNUP_EMAIL})
+  const SIGNUP_PASSWORD = TranslateConstants({key:TranslateKey.SIGNUP_PASSWORD})
+  const SIGNUP_CONFIRM_PASSWORD = TranslateConstants({key:TranslateKey.SIGNUP_CONFIRM_PASSWORD})
 
   const noInternetConnection: AlertPayloadType = {
-    title: t('common.alert'),
-    message: t('common.noInternetConnection'),
-    buttonTitle: t('common.ok'),
+    title: CONST_ALERT,
+    message: COMMON_NO_INTERNET_CONNECTION,
+    buttonTitle: CONST_OK,
   };
   const somthingWentWrong: AlertPayloadType = {
-    title: t('common.alert'),
-    message: t('common.somthingWentWrong'),
-    buttonTitle: t('common.ok'),
+    title: CONST_ALERT,
+    message: COMMON_SOMETHING_WENT_WRONG,
+    buttonTitle: CONST_OK,
   };
 
   const [alertPayload, setAlertPayload] =
     useState<AlertPayloadType>(noInternetConnection);
-  const OK = t('common.ok');
+  const OK = CONST_OK;
 
   useEffect(() => {
     getDeviceName();
@@ -193,7 +202,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
                 <View style={styles.headerContainer}>
                   <BackIcon fill={themeData.backIconColor} style={{marginBottom: isIOS ? 5 : 0}}/>
                   <Label
-                    children={t('signUp.return')}
+                    children={SIGNUP_RETURN}
                     style={styles.headerLabelStyle}
                   />
                 </View>
@@ -207,17 +216,17 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
             <View style={styles.containerStyle}>
               <View style={styles.topContainerStyle}>
                 <Label
-                  children={t('signUp.createAccount')}
+                  children={SIGNUP_CREATE_ACCOUNT}
                   labelType="h2"
                   style={styles.accountStyle}
                   color={colors.greenishBlue}
                 />
                 <Label
-                  children={t('signUp.accountDescription')}
+                  children={SIGNUP_ACCOUNT_DESCRIPTION}
                   style={styles.textStyle}
                 />
                 <TextInputField
-                  placeholder={t('signUp.email')}
+                  placeholder={SIGNUP_EMAIL}
                   testID={'signUp_email'}
                   onChangeText={setEmail}
                   editable={false}
@@ -227,7 +236,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
                   isMandatory
                 />
                 <TextInputField
-                  placeholder={t('signUp.password')}
+                  placeholder={SIGNUP_PASSWORD}
                   testID={'signUp_password'}
                   rightIconTestID={'signUp_password_icon'}
                   onChangeText={setPassword}
@@ -239,7 +248,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
                   maxLength={20}
                 />
                 <TextInputField
-                  placeholder={t('signUp.confirmPassword')}
+                  placeholder={SIGNUP_CONFIRM_PASSWORD}
                   testID={'signUp_confirm_password'}
                   rightIconTestID={'signUp_confirm_password_icon'}
                   onChangeText={setConfirmPassword}
@@ -253,7 +262,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
                 <SocialLoginButton
                   testID="signUp_signUp"
                   onPress={onPressSignIn}
-                  label={t('signUp.signUp')}
+                  label={SIGNUP}
                   style={styles.buttonStyle}
                   labelStyle={styles.labelStyle}
                 />

@@ -1,4 +1,4 @@
-import { storeInfo } from "src/constants/SampleData"
+import { storeInfo } from "src/constants/Constants"
 import { getArticleData, getArticleError, getIsLoading, getRelatedArticleData, getArticleSectionLoaded } from "../selectors"
 import { ArticleDetailDataType, RelatedArticleDataType } from "../types"
 

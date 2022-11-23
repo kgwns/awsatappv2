@@ -3,13 +3,13 @@ import { View, StyleProp, ViewStyle, StyleSheet, TouchableOpacity, Text } from '
 import { Label, SocialLoginButton, TextInputField } from '../../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {useTranslation} from 'react-i18next';
 import {isIOS, isTab, normalize} from 'src/shared/utils';
 import { SocialButtonSection } from '..';
 import {colors} from '../../../shared/styles/colors';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { fonts } from 'src/shared/styles/fonts';
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
 interface AuthScreenInputSectionProps {
   onPressSignup?: () => void;
@@ -53,7 +53,16 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
   isSignInScreen= false,
 }) => {
 
-  const [t] = useTranslation();
+  const SIGNIN_LOGIN_ACCOUNT = TranslateConstants({key:TranslateKey.SIGNIN_LOGIN_ACCOUNT})
+  const SIGNIN_SIGNUP = TranslateConstants({key:TranslateKey.SIGNIN_SIGNUP})
+  const SIGNIN_INFO = TranslateConstants({key:TranslateKey.SIGNIN_INFO})
+  const SIGNIN_SIGNUP_RECEIVE = TranslateConstants({key:TranslateKey.SIGNIN_SIGNUP_RECEIVE})
+  const SIGNIN_EMAIL = TranslateConstants({key:TranslateKey.SIGNIN_EMAIL})
+  const SIGNIN_PASSWORD = TranslateConstants({key:TranslateKey.SIGNIN_PASSWORD})
+  const SIGNIN_FORGOT_PASSWORD = TranslateConstants({key:TranslateKey.SIGNIN_FORGOT_PASSWORD})
+  const SIGNIN = TranslateConstants({key:TranslateKey.SIGNIN})
+  const SIGNIN_OR = TranslateConstants({key:TranslateKey.SIGNIN_OR})
+
   const {themeData} = useTheme();
   const styles = useThemeAwareObject(createStyles);
 
@@ -91,16 +100,16 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
         <View style={[styles.container, style]} >
           <View style={[styles.topContainerStyle,isPassword&&{flex:0.6}]}>
             <Label
-              children={isPassword?t('signIn.loginAccount'):t('signIn.signUp')}
+              children={isPassword?SIGNIN_LOGIN_ACCOUNT:SIGNIN_SIGNUP}
               labelType="h2"
               color={colors.greenishBlue}
               style={styles.loginStyle}
             />
             <Label
-              children={isPassword?t('signIn.signInInfo'):t('signIn.signUpReceive')}
+              children={isPassword?SIGNIN_INFO:SIGNIN_SIGNUP_RECEIVE}
               style={styles.textStyle}
             />
-            <TextInputField placeholder={t('signIn.email')}
+            <TextInputField placeholder={SIGNIN_EMAIL}
               testID={emailTestID}
               onChangeText={(text)=>onChangeText(text,'email')}
               editable={editableEmail}
@@ -112,7 +121,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
               isMandatory
             />
             {isPassword&&
-              <TextInputField placeholder={t('signIn.password')}
+              <TextInputField placeholder={SIGNIN_PASSWORD}
               testID={passwordTestID}
               rightIconTestID={rightIconTestID}
               onChangeText={(text)=>onChangeText(text,'password')}
@@ -131,7 +140,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
                 style={{marginBottom:10}}
                 onPress={goToPassword}>
                   <Label
-                      children={t('signIn.forgotPassword')}
+                      children={SIGNIN_FORGOT_PASSWORD}
                       style={styles.passwordLabel}
                     />
                     <View style={styles.passwordLabelUnderline}/>
@@ -139,7 +148,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
             }
             <SocialLoginButton testID="signin_signIn"
               onPress={onPress}
-              label={t('signIn.signIn')}
+              label={SIGNIN}
               style={styles.buttonStyle}
               labelStyle={styles.signInLabelStyle}
             />
@@ -147,7 +156,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
           <View style={styles.dividerContainber}>
             <View style={[styles.divider,styles.leftDivider]} />
             <Label
-              children={t('signIn.or')}
+              children={SIGNIN_OR}
               style={styles.textStyleBlack}
             /> 
             <View style={styles.divider} />

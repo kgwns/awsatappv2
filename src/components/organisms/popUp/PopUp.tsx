@@ -6,8 +6,7 @@ import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { AlertModal } from '../AlertModal/AlertModal';
-import { SIGN_UP, NOT_SUBSCRIBED, SAVE_ARTICLE_TO_YOUR_FAVOURITES, CREATE_ACCOUNT_DESCRIPTION, LOG_IN } from 'src/constants/SharedConstants'
-
+import { TranslateConstants,TranslateKey } from 'src/constants/Constants'
 
 export enum PopUpType {
     alertModal = 'alertModal',
@@ -27,18 +26,18 @@ export interface PopUpProp {
     logInLabel?: string,
 }
 
-
 export const PopUp = ({
     type,
     onPressButton,
     showPopUp,
     onClosePopUp,
-    title = NOT_SUBSCRIBED,
-    subTitle = SAVE_ARTICLE_TO_YOUR_FAVOURITES,
-    description = CREATE_ACCOUNT_DESCRIPTION,
-    buttonLabel = SIGN_UP,
-    signUpLabel = SIGN_UP,
-    logInLabel = LOG_IN
+    title = TranslateConstants({key:TranslateKey.NOT_SUBSCRIBED_POP_UP}),
+    subTitle = TranslateConstants({key:TranslateKey.SAVE_ARTICLE_TO_YOUR_FAVOURITES}),
+    description =TranslateConstants({key:TranslateKey.CREATE_ACCOUNT_DESCRIPTION}),
+    buttonLabel =  TranslateConstants({key:TranslateKey.SIGN_UP_POP_UP}),
+    signUpLabel = TranslateConstants({key:TranslateKey.SIGN_UP_POP_UP}),
+    logInLabel = TranslateConstants({key:TranslateKey.LOG_IN_POP_UP})
+
 }: PopUpProp) => {
     let refRBSheet: RBSheet = useRef();
     const style = useThemeAwareObject(customStyle);
@@ -47,7 +46,7 @@ export const PopUp = ({
     useEffect(() => {
         if (type === PopUpType.rbSheet) { (showPopUp) ? refRBSheet.open() : refRBSheet.close() }
     }, [showPopUp])
-
+    
     const isPortrait = () => {
         const dim = Dimensions.get('screen');
         return dim.height >= dim.width;
@@ -140,8 +139,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         rbSheetContainer: {
             alignItems: "center",
-            borderTopLeftRadius: normalize(20),
-            borderTopRightRadius: normalize(20),
+            borderRadius: normalize(20),
             backgroundColor: theme.bottomSheetBackground
         },
         rbDraggableIcon: {

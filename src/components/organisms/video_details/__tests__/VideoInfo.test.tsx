@@ -1,7 +1,7 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import { VideoInfo } from '../VideoInfo';
-import {videoTabData} from 'src/constants/SampleData';
+import {videoTabData} from 'src/constants/Constants';
 
 describe('<VideoInfo>', () => {
   let instance: RenderAPI;

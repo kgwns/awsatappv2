@@ -8,14 +8,13 @@ import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { getImageUrl, isNonEmptyArray, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Divider, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { t } from 'i18next';
 import { ImagesName } from 'src/shared/styles';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 const AuthorSlider = ({
     data,
@@ -39,6 +38,8 @@ const AuthorSlider = ({
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const CONST_OPINION_COMBO_TITLE = TranslateConstants({key: TranslateKey.OPINION_SLIDER_TITLE})
+  const SECTION_COMBO_ONE_HEADER_RIGHT = TranslateConstants({key: TranslateKey.SECTION_COMBO_ONE_HEADER_RIGHT})
+
 
   const { themeData } = useTheme()
   const style = useThemeAwareObject(customStyle);
@@ -163,7 +164,7 @@ const AuthorSlider = ({
         elementContainerStyle: style.headerLeftContainer
     },
     headerRight: {
-        title: t('latestNewsTab.sectionComboOne.headerRight'),
+        title: SECTION_COMBO_ONE_HEADER_RIGHT,
       icon: () => {
         return getSvgImages({
           name: ImagesName.arrowLeftFaced,
@@ -209,7 +210,6 @@ const AuthorSlider = ({
       </View>
     )
   }
-
   return (
     <View style={StyleSheet.flatten([style.container,containerStyle])}>
         <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>

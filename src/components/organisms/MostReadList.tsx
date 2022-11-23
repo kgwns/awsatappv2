@@ -1,14 +1,12 @@
 import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import React, { useEffect, useState } from 'react';
-import {flatListUniqueKey, ScreensConstants} from 'src/constants';
+import {flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {ArticleItem, ArticleWithOutImageProps} from 'src/components/molecules';
 import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabel';
 import {isTab, screenWidth, normalize} from 'src/shared/utils';
 import {Label, LabelTypeProp} from 'src/components/atoms';
-import {MOST_READ} from 'src/constants/SharedConstants';
 import { Styles } from 'src/shared/styles';
 import {dateTimeAgo, getArticleImage, isNonEmptyArray, TimeIcon} from 'src/shared/utils/utilities';
-import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { useAppPlayer, useBookmark, useLogin } from 'src/hooks';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -40,7 +38,7 @@ const MostReadList = ({
   enableTag = false,
   flag = true,
 }: ArticleSectionProps) => {
-  const [t] = useTranslation();
+  const MOST_READ_TITLE = TranslateConstants({key:TranslateKey.MOST_READ_TITLE})
   const navigation = useNavigation();
 
   const theme = useTheme();
@@ -155,14 +153,13 @@ const MostReadList = ({
   const listHeader = () => (
     <View style={{paddingLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth), paddingVertical: normalize(5)}}>
       <Label
-        children={MOST_READ}
+        children={MOST_READ_TITLE}
         labelType={LabelTypeProp.h2}
         color={Styles.color.greenishBlue}
       />
     </View>
   );
 
-  
 
   return (
     <View style={style.container}>

@@ -5,7 +5,7 @@ import { ImagesName } from 'src/shared/styles'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { Label } from '../label/Label'
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { fonts } from 'src/shared/styles/fonts'
 

@@ -4,7 +4,7 @@ import { Label } from '..'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { fonts } from 'src/shared/styles/fonts'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import LottieView from 'lottie-react-native';
 import LiveAnimation from '../../../assets/lottie-animation/live-icon.json';
 

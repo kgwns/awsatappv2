@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { isIOS, normalize } from '../../../shared/utils/dimensions'
-import { moleculesTestID } from '../../../constants'
+import { moleculesTestID } from '../../../constants/Constants'
 import { ImageName, Label } from '../../atoms'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ImagesName } from 'src/shared/styles'

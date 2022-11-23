@@ -2,14 +2,13 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { ShortArticle } from 'src/components/organisms/index';
-import { shortArticleWithTagProperties } from 'src/constants/SampleData';
+import { shortArticleWithTagProperties, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { Image, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
-import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ImageResize } from 'src/shared/styles/text-styles';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { getSvgImages } from 'src/shared/styles/svgImages';
@@ -29,8 +28,7 @@ const SectionComboOne = ({
 }) => {
   const { themeData } = useTheme();
 
-  const [t] = useTranslation();
-
+  const SECTION_COMBO_ONE_HEADER_RIGHT = TranslateConstants({key:TranslateKey.SECTION_COMBO_ONE_HEADER_RIGHT})
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const sectionComboOneData = data.map((item: LatestArticleDataType) => {
@@ -48,7 +46,7 @@ const SectionComboOne = ({
       labelType: LabelTypeProp.h2,
     },
     headerRight: {
-      title: t('latestNewsTab.sectionComboOne.headerRight'),
+      title: SECTION_COMBO_ONE_HEADER_RIGHT,
       icon: () => {
         return getSvgImages({
           name: ImagesName.arrowLeftFaced,

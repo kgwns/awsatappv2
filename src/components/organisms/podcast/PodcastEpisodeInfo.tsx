@@ -11,13 +11,12 @@ import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
 import AnghamiPodcastDarkIcon from 'src/assets/images/icons/anghamiPodcastDarkIcon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import PauseIcon from 'src/assets/images/icons/pauseIconBlack.svg';
-import {useTranslation} from 'react-i18next';
 import { decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { podcastServices } from 'src/constants/SharedConstants';
+import { podcastServices, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { usePlaybackState, State } from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
 import { ImageResize } from 'src/shared/styles/text-styles';
@@ -32,7 +31,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
   onListenPress
 }) => {
   const styles = useThemeAwareObject(createStyles);
-  const [t] = useTranslation();
+  const PODCAST_EPISODE_LISTEN_TO_EPISODE = TranslateConstants({key:TranslateKey.PODCAST_EPISODE_LISTEN_TO_EPISODE})
   const playbackState = usePlaybackState();
   const { selectedTrack } = useAppPlayer();
 
@@ -59,7 +58,6 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
       }
     }
   }
-
   const onPodcastServicePress = (podcastService: string) => {
     switch (podcastService) {
       case podcastServices.anghami:
@@ -110,7 +108,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
                 <Label style={styles.announcerTextStyle} children={fieldData.field_announcer_name_export} />
               </View>
             }   
-            <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
+            <ButtonOutline title={PODCAST_EPISODE_LISTEN_TO_EPISODE}
              style={styles.buttonStyle}
              labelStyle={styles.buttonLabel}
              titleType={LabelTypeProp.h1}

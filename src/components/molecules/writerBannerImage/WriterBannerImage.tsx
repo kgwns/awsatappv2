@@ -6,13 +6,12 @@ import { ButtonImage, HomeButton, Image, Label } from 'src/components/atoms'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { isAndroid, isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { ImageResize } from 'src/shared/styles/text-styles'
 import DeviceInfo from 'react-native-device-info';
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
-import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TWITTER_APP_URL } from 'src/constants/SharedConstants'
+import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TranslateConstants, TranslateKey, TWITTER_APP_URL } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'
 import { decode } from 'html-entities'
 
@@ -52,12 +51,11 @@ export const WriterBannerImage = ({
   isWriter = false,
   showIsFollowed = true
 }: WriterBannerImageProps) => {
-  const [t] = useTranslation()
-
   const style = useThemeAwareObject(customStyle)
-
-  const FOLLOW = 'تابع';
-  const FOLLOWER = 'متابع';
+  
+  const OPINION_ARTICLE_RETURN = TranslateConstants({key:TranslateKey.OPINION_ARTICLE_RETURN})
+  const FOLLOW = TranslateConstants({key:TranslateKey.FOLLOW})
+  const FOLLOWER = TranslateConstants({key:TranslateKey.FOLLOWER})
 
 
   const isPortrait = () => {
@@ -98,7 +96,7 @@ export const WriterBannerImage = ({
             style: style.prevIconStyle
           })}
           <Label style={style.returnLabel}>
-            {t('opinionArticleDetail.return')}
+            {OPINION_ARTICLE_RETURN}
           </Label>
         </TouchableOpacity>
       </View>

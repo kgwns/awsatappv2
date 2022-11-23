@@ -5,7 +5,7 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import { Routes, ScreenList } from './index'
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 
 const Stack = createStackNavigator<ScreenList>();
 const defaultScreenOptions: StackNavigationOptions = {

@@ -5,12 +5,11 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, isNotchDevice, normalize, screenHeight, screenWidth, joinArray, isIOS} from 'src/shared/utils';
 import { BorderLabel, Divider, Label } from 'src/components/atoms';
 import { ScreenContainer } from '..';
-import { useTranslation } from 'react-i18next';
 import { FollowFavoriteAuthor } from 'src/components/molecules';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
+import { flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useAllSiteCategories, useAllWriters } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType, } from 'src/redux/allSiteCategories/types';
@@ -25,26 +24,33 @@ import { FLEX_START } from 'src/shared/styles/item-alignment';
 export const ManageMyNewsScreen = () => {
   const navigation = useNavigation();
   const style = useThemeAwareObject(customStyle);
-  const [t] = useTranslation();
   const isFocused = useIsFocused();
   const [selectedWriters,setSelectedWriters]=useState<AllWritersItemType[]>([])
   const [selectedInterested,setSelectedInterested]=useState<AllSiteCategoriesItemType[]>([])
 
   const [filteredSelectedAuthor, setFilteredSelectedAuthor] = useState([]);
   const [filteredSelectedTopic, setFilteredSelectedTopic] = useState<string[]>([]);
+  const MANAGE_MY_NEWS_ALERT = TranslateConstants({key:TranslateKey.MANAGE_MY_NEWS_ALERT})
+  const MANAGE_MY_NEWS_REMOVE_AUTHOR = TranslateConstants({key:TranslateKey.MANAGE_MY_NEWS_REMOVE_AUTHOR})
+  const MANAGE_MY_NEWS_REMOVE = TranslateConstants({key:TranslateKey.MANAGE_MY_NEWS_REMOVE})
+  const MANAGE_MY_NEWS_REMOVE_TOPIC = TranslateConstants({key:TranslateKey.MANAGE_MY_NEWS_REMOVE_TOPIC})
+  const MANAGE_MY_NEWS_MY_FAVORITE_BOOKS = TranslateConstants({key:TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_BOOKS})
+  const MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS = TranslateConstants({key:TranslateKey.MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS})
+  const MANAGE_MY_NEWS_MY_FAVORITE_TOPICS = TranslateConstants({key:TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_TOPICS})
+  const MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS = TranslateConstants({key:TranslateKey.MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS})
 
   
 
   const removeFavAuthorAlertPayload : AlertPayloadType = {
-    title : t('manageMyNews.alert'),
-    message: t('manageMyNews.removeAuthor'),
-    buttonTitle: t('manageMyNews.remove')
+    title : MANAGE_MY_NEWS_ALERT,
+    message: MANAGE_MY_NEWS_REMOVE_AUTHOR,
+    buttonTitle: MANAGE_MY_NEWS_REMOVE
   }
 
   const removeTopicAlertPayload : AlertPayloadType = {
-    title : t('manageMyNews.alert'),
-    message: t('manageMyNews.removeTopic'),
-    buttonTitle: t('manageMyNews.remove')
+    title : MANAGE_MY_NEWS_ALERT,
+    message: MANAGE_MY_NEWS_REMOVE_TOPIC,
+    buttonTitle: MANAGE_MY_NEWS_REMOVE
   }
 
   const Remove_Author = 'Remove_Author';
@@ -227,7 +233,7 @@ export const ManageMyNewsScreen = () => {
     return (
       <View style={style.favBooksView}>
         <Label style={style.titleLabel}>
-          {t('manageMyNews.myFavoriteBooks')}
+          {MANAGE_MY_NEWS_MY_FAVORITE_BOOKS}
         </Label>
         {selectedWriters && <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'} >
           {
@@ -246,7 +252,7 @@ export const ManageMyNewsScreen = () => {
           }
         </ScrollView>}
         <View style={style.booksContinue}>
-          <ContinueLabel label={t('manageMyNews.continueReadingMoreBooks')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} writer={true} />
+          <ContinueLabel label={MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} writer={true} />
         </View>
       </View>
     );
@@ -259,7 +265,7 @@ export const ManageMyNewsScreen = () => {
     return (
       <View>
         <Label style={style.titleLabel}>
-          {t('manageMyNews.myFavoriteTopics')}
+          {MANAGE_MY_NEWS_MY_FAVORITE_TOPICS}
         </Label>
         <View style={style.favTopicsView}>
           <ScrollView
@@ -281,7 +287,7 @@ export const ManageMyNewsScreen = () => {
           </ScrollView>
         </View>
         <View style={style.topicsContinue}>
-          <ContinueLabel label={t('manageMyNews.followMoreTopics')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} writer={false} />
+          <ContinueLabel label={MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} writer={false} />
         </View>
       </View>
     );

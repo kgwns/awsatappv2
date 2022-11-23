@@ -1,8 +1,8 @@
 import React from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
-import { authorHeaderData } from '../../../../constants/SampleData'
+import { authorHeaderData } from '../../../../constants/Constants'
 import { WidgetHeaderElement } from '../WidgetHeaderElement'
-import { atomTestID } from '../../../../constants'
+import { atomTestID } from '../../../../constants/Constants'
 
 describe('<WidgetHeader Element>', () => {
     let instance: RenderAPI

@@ -3,23 +3,25 @@ import { View, FlatList } from 'react-native';
 import { horizontalEdge } from 'src/shared/utils';
 import { TabBarComponent, TabBarDataProps, SignupAlertCard } from 'src/components/molecules';
 import { ScreenContainer } from '..';
-import { useTranslation } from 'react-i18next';
 import { Archives } from 'src/components/organisms';
 import {useLogin} from 'src/hooks';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 
 export const FavoriteScreen = () => {
-  const [t] = useTranslation()
 
   const navigation = useNavigation();
 
   const {isLoggedIn} = useLogin();
+  const FAVORITE_TAB_ITEM_ARCHIEVES = TranslateConstants({key:TranslateKey.FAVORITE_TAB_ITEM_ARCHIEVES})
+  const SIGN_UP_PH_SIGNUP = TranslateConstants({key:TranslateKey.SIGN_UP_PH_SIGNUP})
+  const SIGN_UP_PH_MESSAGE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_MESSAGE})
+  const SIGN_UP_PH_TITLE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_TITLE})
 
   const tabItemData: TabBarDataProps[] = [
     {
-      tabName: t('favorite.tabItem.archives'),
+      tabName: FAVORITE_TAB_ITEM_ARCHIEVES,
       isSelected: true,
     }
   ]
@@ -80,8 +82,8 @@ export const FavoriteScreen = () => {
     >
       {isLoggedIn  ?
        renderItem() :
-     <SignupAlertCard title={t('signUpPH.title')} message={t('signUpPH.message')}
-     buttonText={t('signUpPH.signUp')} onPress={onPressSignup}/> }
+     <SignupAlertCard title={SIGN_UP_PH_TITLE} message={SIGN_UP_PH_MESSAGE}
+     buttonText={SIGN_UP_PH_SIGNUP} onPress={onPressSignup}/> }
      
     </ScreenContainer>
   );

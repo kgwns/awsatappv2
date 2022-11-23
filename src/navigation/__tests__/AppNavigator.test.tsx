@@ -3,7 +3,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import AppNavigator from 'src/navigation/AppNavigator';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../constants/SampleData';
+import {storeSampleData} from '../../constants/Constants';
 
 const mockString = 'example';
 const mockNumber = 1234;

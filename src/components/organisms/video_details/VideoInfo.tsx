@@ -5,7 +5,6 @@ import { normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
-import {useTranslation} from 'react-i18next';
 import ViewIcon from 'src/assets/images/icons/view.svg';
 import CalendarIcon from 'src/assets/images/icons/date.svg';
 import { DateIcon, dateTimeAgo, getImageUrl } from 'src/shared/utils/utilities';
@@ -15,6 +14,7 @@ import { MixedStyleRecord } from 'react-native-render-html';
 import { fonts } from 'src/shared/styles/fonts';
 import ClockIconWhite from 'src/assets/images/icons/clockIcon_white.svg'
 import { ImageResize } from 'src/shared/styles/text-styles';
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
 export interface VideoInfoProps {
   onPress?: (item:VideoItemProps)=>void;
@@ -28,7 +28,8 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
   isDocumentary= false,
 }) => {
   const styles = useThemeAwareObject(createStyles);
-  const [t] = useTranslation();
+  const VIDEO_DETAIL_EMPLOYMENT = TranslateConstants({key:TranslateKey.VIDEO_DETAIL_EMPLOYMENT})
+  const VIDEO_DETAIL_WATCH = TranslateConstants({key:TranslateKey.VIDEO_DETAIL_WATCH})
 
   const timeFormat = dateTimeAgo(data.created_export)
   
@@ -69,7 +70,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
                 <Label style={styles.titleStyle} numberOfLines={2} >{decode(data.title)}</Label>
             </View>}
             <View style={styles.containerSpace} />
-            <ButtonOutline title={t('videoDetail.employement')}
+            <ButtonOutline title={VIDEO_DETAIL_EMPLOYMENT}
              style={styles.buttonStyle}
              testID='VideoInfoBOL1'
              labelStyle={styles.buttonLabel}
@@ -94,7 +95,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
               </Label>
               }
               {data.views&&<Label style={styles.textStyleWithoutMargin} numberOfLines={1}>
-                {t('videoDetail.watch')}
+                {VIDEO_DETAIL_WATCH}
               </Label>}
               {data.views&&<Label color={colors.white} style={{marginRight: normalize(10)}}>|</Label>}
               {timeFormat.icon == DateIcon.CALENDAR ? <CalendarIcon fill={colors.white} /> : <ClockIconWhite />}

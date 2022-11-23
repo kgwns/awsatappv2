@@ -38,7 +38,7 @@ export enum TabType {
 export const SectionsScreen = () => {
   const {isLoading, topMenuData, fetchTopMenuRequest} = useTopMenu();
   const styles = useThemeAwareObject(customStyle);
-
+  
   const [index, setIndex] = React.useState(0);
   const [routes, setNewRoutes] = useState<any>([]);
   const [hidePlayerVisibility, setHidePlayerVisibility] = useState<any>(false);

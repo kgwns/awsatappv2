@@ -18,7 +18,7 @@ import {ImagesName, Styles} from 'src/shared/styles';
 import {
   TranslateConstants,
   TranslateKey,
-} from 'src/constants/TranslateConstants';
+} from 'src/constants/Constants';
 
 export interface AuthorsItemType {
   name: string;
@@ -62,7 +62,6 @@ export const AuthorsHorizontalSlider = ({
   const onAllPress = () => {
     onPress && onPress(null, -1);
   };
-
   const renderShowAll = () => (
     <View style={styles.showAllContainer}>
       <TouchableOpacity onPress={onAllPress}

@@ -2,14 +2,13 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {isTab, normalize, screenWidth} from 'src/shared/utils';
 import {Divider, Image, Label} from '../atoms';
 import {
   TouchableWithoutFeedback,
 } from 'react-native-gesture-handler';
 import {OpinionWriterItemType} from 'src/redux/writers/types';
-import {useTranslation} from 'react-i18next';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import { ImagesName } from 'src/shared/styles';
 import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
@@ -24,7 +23,7 @@ interface OpinionWritersWidgetProps {
 const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps) => {
   const style = useThemeAwareObject(customStyle);
 
-  const [t] = useTranslation();
+  const OPINION_WRITERS = TranslateConstants({key:TranslateKey.OPINION_WRITERS})
 
   const renderItem = (item: OpinionWriterItemType, index: number) => {
     return (
@@ -54,7 +53,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
   };
   return (
     <View style={style.container}>
-      <Label style={style.headerStyle}>{t('opinion.opinionWriters')}</Label>
+      <Label style={style.headerStyle}>{OPINION_WRITERS}</Label>
       {/* seted initialNumToRender = data.length to fix auto scrolling issue - this is open bug, added link below */}
       {/* https://github.com/facebook/react-native/issues/26436 */}
       <FlatList

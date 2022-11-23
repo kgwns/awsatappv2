@@ -7,7 +7,7 @@ import {
 import React from 'react';
 import {ButtonImage, ImageWithLabel, Label, LabelTypeProp} from 'src/components/atoms';
 import {isNotEmpty, isTab, normalize} from 'src/shared/utils';
-import {moleculesTestID, ScreensConstants} from '../../../constants';
+import {moleculesTestID, ScreensConstants} from '../../../constants/Constants';
 import {Styles} from '../../../shared/styles';
 import {ImagesName} from '../../../shared/styles/images';
 import {BookMarkColorType} from '../articleFooter/ArticleFooter';

@@ -6,7 +6,7 @@ import { normalize } from 'src/shared/utils'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import LottieView from 'lottie-react-native';
 import LiveAnimation from '../../../assets/lottie-animation/live-icon.json';
 

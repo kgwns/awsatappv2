@@ -3,11 +3,10 @@ import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
 
 import {VideoItem, VideoItemProps} from 'src/components/molecules';
 import {horizontalEdge, isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
-// import {videoTabData} from 'src/constants/SampleData';
+// import {videoTabData} from 'src/constants/Constants';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import {  ScreensConstants } from 'src/constants';
-import {useTranslation} from 'react-i18next';
+import {  ScreensConstants } from 'src/constants/Constants';
 import { useBookmark, useLogin, useVideoList, useDocumentaryVideo, useAppPlayer } from 'src/hooks';
 import {VideoItemType} from 'src/redux/videoList/types';
 import { ScreenContainer } from '..';
@@ -126,7 +125,6 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
   const onPressItem = (item:VideoItemType, isDocumentary:boolean)=>{
     navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isDocumentary})
   }
-  const [t] = useTranslation();
 
   const [videoDataInfo, setVideoDataInfo] = useState(videoData)
   const [videoDocumentaryInfo, setVideoDocumentaryInfo] = useState(videoDocumentaryData)

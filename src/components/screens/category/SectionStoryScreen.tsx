@@ -17,7 +17,7 @@ import {
   TimeIcon,
   getArticleImage,
 } from 'src/shared/utils/utilities';
-import {ScreensConstants} from 'src/constants';
+import {ScreensConstants} from 'src/constants/Constants';
 import { useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import { Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';

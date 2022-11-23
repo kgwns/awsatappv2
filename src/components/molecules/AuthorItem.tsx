@@ -8,10 +8,9 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { useTranslation } from 'react-i18next'
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
@@ -56,7 +55,6 @@ const AuthorItem = ({
     renderLabelsOrder = [LabelsType.authorName,LabelsType.title]
 }: AuthorItemProps) => {
     const { themeData } = useTheme()
-    const [t] = useTranslation();
     const style = useThemeAwareObject(customStyle);
     const navigation = useNavigation<StackNavigationProp<any>>()
     const playbackState = usePlaybackState();
@@ -66,7 +64,7 @@ const AuthorItem = ({
     const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
     const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
-  
+    const CONST_OPINION_LISTEN_TO_ARTICLE_LIST = TranslateConstants({key:TranslateKey.OPINION_LISTEN_TO_ARTICLE_LIST})
     useEffect(() => {
         if(jwPlayerID){
           getNarratedOpinion()
@@ -191,7 +189,6 @@ const AuthorItem = ({
         }
       });
     };
-
     return (
         <View testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }]} >
             <View style={{ flex: 1 }}>
@@ -204,7 +201,7 @@ const AuthorItem = ({
                             getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                         }
                         onPress={onPressPlay} />
-                        <Label children={t('opinion.listenToArticleText')} style={style.articleLabelSyle}
+                        <Label children={CONST_OPINION_LISTEN_TO_ARTICLE_LIST} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
                     </TouchableOpacity>
                     { timeDuration && <Label children={timeDuration} style={style.durationLabel} /> }

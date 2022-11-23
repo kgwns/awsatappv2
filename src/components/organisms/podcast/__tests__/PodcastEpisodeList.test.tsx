@@ -1,7 +1,7 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import { PodcastEpisodeList } from '../PodcastEpisodeList';
-import {PodcastEpisodeData} from 'src/constants/SampleData'
+import {PodcastEpisodeData} from 'src/constants/Constants'
 import { PodcastVerticalList } from 'src/components/molecules';
 import { FlatList } from 'react-native';
 

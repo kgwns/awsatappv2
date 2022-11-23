@@ -7,10 +7,10 @@ import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import ShareIcon from 'src/assets/images/icons/share_dark.svg';
 import {ImagesName} from 'src/shared/styles/images';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
-import {useTranslation} from 'react-i18next';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import { fonts } from 'src/shared/styles/fonts';
+import { TranslateConstants,TranslateKey } from '../../../constants/Constants';
 
 export interface PodcastProgramHeaderProps {
   headerBackIconTestId?: string;
@@ -35,7 +35,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
   showLogo=false,
   isCloseIcon=false,
 }) => {
-  const [t] = useTranslation();
+  const CONST_PODCAST_PROGRAM_RETURN = TranslateConstants({key:TranslateKey.PODCAST_PROGRAM_RETURN})
   const styles = useThemeAwareObject(createStyles);
 
   const renderLeftComponent = () => {
@@ -46,7 +46,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
             <CloseIcon height={13} width={13} fill={colors.white} /> :
             <View style={styles.itemContainer}>
               <BackIcon fill={colors.white} width={normalize(13)} height={normalize(11)} />
-              <Label style={styles.labelStyle} children={t('podcastProgram.return')} labelType={LabelTypeProp.h4} />
+              <Label style={styles.labelStyle} children={CONST_PODCAST_PROGRAM_RETURN} labelType={LabelTypeProp.h4} />
             </View>
           }
         </View>
@@ -69,7 +69,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
           onPress={onPressSave}
         />
         <TouchableOpacity style={styles.buttonStyle} testID={headerShareIconTestId} accessibilityLabel={headerShareIconTestId} onPress={onPressShare}>
-          <ShareIcon fill={colors.white} width={15} height={15}/>
+          <ShareIcon fill={colors.white} width={normalize(15)} height={normalize(15)}/>
         </TouchableOpacity>
       </View>
     );
