@@ -292,7 +292,7 @@ export const ManageMyNewsScreen = () => {
     isAlertVisible={isAlertVisible}
           alertPayload={alertPayload} alertOnPress={alertOnPress}
           setIsAlertVisible={setIsAlertVisible}
-          backgroundColor={style.screenBackgroundColor.backgroundColor}
+          backgroundColor={style.screenBackgroundColor?.backgroundColor}
           >
       <View style={style.container}>
         <View style={style.favBooks}>
