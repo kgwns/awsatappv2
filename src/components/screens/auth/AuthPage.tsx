@@ -304,7 +304,7 @@ const createStyles = (theme: CustomThemeType) =>
       flex: 1,
       alignItems: 'center',
       position: 'absolute',
-      bottom: normalize(40),
+      bottom: normalize(20),
       width: '100%',
       justifyContent: 'center',
     },

@@ -74,11 +74,8 @@ export const Archives = () => {
     useEffect(() => {
         const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length == bookmarkDetail.length
         if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
-            if (tabSelectedIndex != 0) {
-                getSpecificBundleFavoriteDetail(widgetNameByIndex(tabSelectedIndex), 0)
-            } else {
-                getBookmarkedId()
-            }
+            updateFilterComponent(0) //We switch to all tab when bookmark add newly
+            getBookmarkedId()
             setInitialLoading(isFocused)
         }
     }, [isFocused])

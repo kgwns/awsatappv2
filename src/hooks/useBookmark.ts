@@ -65,8 +65,8 @@ export const useBookmark = (): UseBookMarkReturn => {
   const getBookmarkDetailData = () => {
     const bookmarkId = [...bookmarkIdInfo]
     const bookmarkDetailInfo = [...bookmarkDetail]
-    const nid = getCurrentBatchNid(bookmarkId, bookmarkDetailInfo.length)
     const page = Math.round(bookmarkDetailInfo.length / 25)
+    const nid = getCurrentBatchNid(bookmarkId, page === 0 ? 0 : bookmarkDetailInfo.length)
     dispatch(getBookmarkedDetailInfo({ nid, page }))
   }
 
