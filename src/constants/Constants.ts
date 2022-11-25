@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { WidgetHeaderProps } from 'src/components/atoms/widgetHeader/WidgetHeader';
 import { LabelTypeProp, TextWithFlagProps } from 'src/components/atoms';
 import { ImagesName, Styles } from 'src/shared/styles';
@@ -27,7 +26,8 @@ import { NewsFeedProps } from 'src/components/organisms/NewsFeed';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { isIOS } from "src/shared/utils";
 import { ImageName } from "src/components/atoms";
-
+import { useSelector } from 'react-redux';
+import { getArabicData } from '../redux/arabicWords/selectors';
 
 enum TranslateKey {
     RETURN,
@@ -254,447 +254,446 @@ enum TranslateKey {
 const TranslateConstants = ({
     key
 }: { key: TranslateKey }) => {
-    const [t] = useTranslation()
-
+    const arabic = useSelector(getArabicData);
     switch (key) {
         case TranslateKey.RETURN:
-            return t('return')
+            return arabic.return;
         case TranslateKey.NOT_SUBSCRIBED:
-            return t('signUpAlert.notSubscribed')
+            return arabic?.signUpAlert?.notSubscribed;
         case TranslateKey.DESCRIPTION:
-            return t('signUpAlert.description')
+            return arabic?.signUpAlert?.description
         case TranslateKey.SIGN_UP:
-            return t('signUpAlert.signUp')
+            return arabic?.signUpAlert?.signUp;
         case TranslateKey.CROSSWORD:
-            return t('games.crossword')
+            return arabic?.games?.crossword;
         case TranslateKey.SUDOKU:
-            return t('games.sudoku')
+            return arabic?.games?.sudoku;
         case TranslateKey.SOLVING_CROSS_PUZZLES:
-            return t('games.solvingCrossPuzzles')
+            return arabic?.games?.solvingCrossPuzzles;
         case TranslateKey.SOLVING_SUDOKU:
-            return t('games.solvingSudoku')
+            return arabic?.games?.solvingSudoku;
         case TranslateKey.CROSS_WORD_DESCRIPTION:
-            return t('games.crosswordDescription')
+            return arabic?.games?.crosswordDescription;
         case TranslateKey.SUDOKU_DESCRIPTION:
-            return t('games.sudokuDescription')
+            return arabic?.games?.sudokuDescription;
         case TranslateKey.GAMES:
-            return t('games.games')
+            return arabic?.games?.games;
         case TranslateKey.SECTION_MAIN:
-            return t('sectionTab.main')
+            return arabic?.sectionTab?.main;
         case TranslateKey.SECTION_COMBO_ONE:
-            return t('latestNewsTab.sectionComboOne.headerLeft')
+            return arabic?.latestNewsTab?.sectionComboOne?.headerLeft;
         case TranslateKey.SECTION_COMBO_TWO:
-            return t('latestNewsTab.sectionComboTwo.headerLeft')
+            return arabic?.latestNewsTab?.sectionComboTwo?.headerLeft;
         case TranslateKey.SECTION_COMBO_THREE:
-            return t('latestNewsTab.sectionComboThree.headerLeft')
+            return arabic?.latestNewsTab?.sectionComboThree?.headerLeft;
         case TranslateKey.SECTION_COMBO_FOUR:
-            return t('latestNewsTab.sectionComboFour.headerLeft')
+            return arabic?.latestNewsTab?.sectionComboFour?.headerLeft;
         case TranslateKey.SECTION_COMBO_FIVE:
-            return t('latestNewsTab.sectionComboFive.headerLeft')
+            return arabic?.latestNewsTab?.sectionComboFive?.headerLeft;
         case TranslateKey.SECTION_COMBO_SIX:
-            return t('latestNewsTab.sectionComboSix.headerLeft')
+            return arabic?.latestNewsTab?.sectionComboSix?.headerLeft;
         case TranslateKey.SECTION_COMBO_SEVEN:
-            return t('latestNewsTab.sectionComboSeven.headerLeft')
+            return arabic?.latestNewsTab?.sectionComboSeven?.headerLeft;
         case TranslateKey.SECTION_COMBO_EIGHT:
-            return t('latestNewsTab.sectionComboEight.headerLeft')
+            return arabic?.latestNewsTab?.sectionComboEight?.headerLeft;
         case TranslateKey.EDITOR_CHOICE_HEADER_TITLE:
-            return t('latestNewsTab.editorsChoice.headerLeft')
+            return arabic?.latestNewsTab?.editorsChoice?.headerLeft;
         case TranslateKey.DRAWER_PDF_ARCHIVE:
-            return t('drawer.pdfArchive')
+            return arabic?.drawer?.pdfArchive;
         case TranslateKey.OPINION_COMBO_TITLE:
-            return t('latestNewsTab.sectionWriters.headerLeft')
+            return arabic?.latestNewsTab?.sectionWriters?.headerLeft;
         case TranslateKey.OPINION_ARTICLE_TITLE:
-            return t('opinion.opinionArticles')
+            return arabic?.opinion?.opinionArticles;
         case TranslateKey.RICH_HTML_FACTS:
-            return t('richHTMLContent.facts')
+            return arabic?.richHTMLContent?.facts;
         case TranslateKey.CONST_MORE:
-            return t('common.more')
+            return arabic?.common?.more;
         case TranslateKey.CONST_READ_ARTICLE:
-            return t('richHTMLContent.readArticle')
+            return arabic?.richHTMLContent?.readArticle;
         case TranslateKey.RICH_OPINION_TITLE:
-            return t('richHTMLContent.opinionTitle')
+            return arabic?.richHTMLContent?.opinionTitle;
         case TranslateKey.TAB_ALL_TITLE:
-            return t('myNewsWriters.allTxt')
+            return arabic?.myNewsWriters?.allTxt;
         case TranslateKey.NO_CONTENT_TITLE:
-            return t('myNewsWriters.noContent')
+            return arabic?.myNewsWriters?.noContent;
         case TranslateKey.DRAWER_CALL_US:
-            return t('drawer.callUs')
+            return arabic?.drawer?.callUs;
         case TranslateKey.CONTACT_US_NAME:
-            return t('contactUs.name')
+            return arabic?.contactUs?.name;
         case TranslateKey.CONTACT_US_EMAIL:
-            return t('contactUs.email')
+            return arabic?.contactUs?.email;
         case TranslateKey.CONTACT_US_LETTER:
-            return t('contactUs.yourLetter')
+            return arabic?.contactUs?.yourLetter;
         case TranslateKey.CONTACT_US_SEND:
-            return t('contactUs.send')
+            return arabic?.contactUs?.send;
         case TranslateKey.TEXT_ALERT:
-            return t('profileSetting.alert');
+            return arabic?.profileSetting?.alert;
         case TranslateKey.COMMON_OK:
-            return t('common.ok');
+            return arabic?.common?.ok;
         case TranslateKey.LISTEN_TO_ARTICLE:
-            return t('opinionArticleDetail.listenToArticle')
+            return arabic?.opinionArticleDetail?.listenToArticle;
         case TranslateKey.ONBOARD_SUCCESS_MESSAGE:
-            return t('onboardSuccess.successMessage')
+            return arabic?.onboardSuccess?.successMessage;
         case TranslateKey.ONBOARD_SUCCESS_MAIL_ACKNOWLEDGEMENT:
-            return t('onboardSuccess.mailAcknowledgement')
+            return arabic?.onboardSuccess?.mailAcknowledgement;
         case TranslateKey.ONBOARD_SUCCESS_GO_TO_HOME:
-            return t('onboardSuccess.goToHome')
+            return arabic?.onboardSuccess?.goToHome;
         case TranslateKey.ONBOARD_SUCCESS_GO_TO_MY_NEWS:
-            return t('onboardSuccess.goToMyNews')
+            return arabic?.onboardSuccess?.goToMyNews;
         case TranslateKey.WEATHER_DETAILS_SUNRISE:
-            return t('weatherDetail.sunrise')
+            return arabic?.weatherDetail?.sunrise;
         case TranslateKey.WEATHER_DETAILS_SUNSET:
-            return t('weatherDetail.sunset')
+            return arabic?.weatherDetail?.sunset;
         case TranslateKey.WEATHER_DETAILS_SIDEBAR:
-            return t('weatherDetail.sidebarTitle')
+            return arabic?.weatherDetail?.sidebarTitle;
         case TranslateKey.WEATHER_DETAILS_MAX:
-            return t('weatherDetail.max')
+            return arabic?.weatherDetail?.max;
         case TranslateKey.WEATHER_DETAILS_HUMIDITY:
-            return t('weatherDetail.humidity')
+            return arabic?.weatherDetail?.humidity;
         case TranslateKey.WEATHER_DETAILS_SPEED:
-            return t('weatherDetail.speed')
+            return arabic?.weatherDetail?.speed;
         case TranslateKey.WEATHER_DETAILS_KMH:
-            return t('weatherDetail.kmh')
+            return arabic?.weatherDetail?.kmh;
         case TranslateKey.WEATHER_DETAILS_VISIBILITY:
-            return t('weatherDetail.visibility')
+            return arabic?.weatherDetail?.visibility;
         case TranslateKey.WEATHER_DETAILS_PRESSURE:
-            return t('weatherDetail.pressure')
+            return arabic?.weatherDetail?.pressure;
         case TranslateKey.WEATHER_DETAILS_SEA_CONDITION:
-            return t('weatherDetail.seaCondition')
+            return arabic?.weatherDetail?.seaCondition;
         case TranslateKey.WEATHER_DETAILS_KM:
-            return t('weatherDetail.km')
+            return arabic?.weatherDetail?.km;
         case TranslateKey.WEATHER_DETAILS_MBAR:
-            return t('weatherDetail.mbar')
+            return arabic?.weatherDetail?.mbar;
         case TranslateKey.WEATHER_DETAILS_ENABLE_LOCATION:
-            return t('weatherDetail.enableLocation')
+            return arabic?.weatherDetail?.enableLocation;
         case TranslateKey.OPINION_SLIDER_TITLE:
-            return t('latestNewsTab.sectionWriters.sliderLeftHeader')
+            return arabic?.latestNewsTab?.sectionWriters?.sliderLeftHeader;
         case TranslateKey.ADVERTISE_WITH_US:
-            return t('drawer.advertiseWithUs')
+            return arabic?.drawer?.advertiseWithUs;
         case TranslateKey.ABOUT_THE_MIDDLE_EAST:
-            return t('drawer.aboutTheMiddleEast')
+            return arabic?.drawer?.aboutTheMiddleEast;
         case TranslateKey.TERMS_OF_USE:
-            return t('drawer.termsOfUse')
+            return arabic?.drawer?.termsOfUse;
         case TranslateKey.EDITORS_PICK_HEADER_TITLE:
-            return t('latestNewsTab.editorsPick.headerRight')
+            return arabic?.latestNewsTab?.editorsPick?.headerRight;
         case TranslateKey.WEATHER_NO_INFORMATION_TEXT:
-            return t('weatherDetail.noInformation')
+            return arabic?.weatherDetail?.noInformation;
         case TranslateKey.CONTENT_BUNDLE_WIDGET_TITLE:
-            return t('articleDetail.contentBundleWidgetTitle')
+            return arabic?.articleDetail?.contentBundleWidgetTitle;
         case TranslateKey.ARCHIVED_ARTICLE_SECTION_TITLE:
-            return t('latestNewsTab.archivedArticle.headerTitle')
+            return arabic?.latestNewsTab?.archivedArticle?.headerTitle;
         case TranslateKey.LIVE_TAG_TITLE:
-            return t('displayTag.liveTagTitle')
+            return arabic?.displayTag?.liveTagTitle;
         case TranslateKey.LIVE_TAG_TITLE:
-            return t('displayTag.specialTagTitle')
+            return arabic?.displayTag?.specialTagTitle;
         case TranslateKey.LIVE_TAG_TITLE:
-            return t('displayTag.analysisTagTitle')
+            return arabic?.displayTag?.analysisTagTitle;
         case TranslateKey.CREATE_ACCOUNT_DESCRIPTION:
-            return t('notRegisteredPopUp.createAccountDescription')
+            return arabic?.notRegisteredPopUp?.createAccountDescription;
         case TranslateKey.NOT_SUBSCRIBED_POP_UP:
-            return t('notRegisteredPopUp.notSubscribed')
+            return arabic?.notRegisteredPopUp?.notSubscribed;
         case TranslateKey.SAVE_ARTICLE_TO_YOUR_FAVOURITES:
-            return t('notRegisteredPopUp.saveArticleToYourFavourite')
+            return arabic?.notRegisteredPopUp?.saveArticleToYourFavourite;
         case TranslateKey.SIGN_UP_POP_UP:
-            return t('notRegisteredPopUp.signUp')
+            return arabic?.notRegisteredPopUp?.signUp;
         case TranslateKey.LOG_IN_POP_UP:
-            return t('notRegisteredPopUp.logIn')
+            return arabic?.notRegisteredPopUp?.logIn;
         case TranslateKey.OK_TEXT:
-            return t('profile.userDetail.okText')
+            return arabic?.profile?.userDetail?.okText;
         case TranslateKey.REQUIRE_ACCESS:
-            return t('profile.userDetail.requireAccess')
+            return arabic?.profile?.userDetail?.requireAccess;
         case TranslateKey.REQUEST_CAMERA_ACCESS_MESSAGE:
-            return t('profile.userDetail.requestCameraAccessMessage')
+            return arabic?.profile?.userDetail?.requestCameraAccessMessage;
         case TranslateKey.NAME_PLACE_HOLDER:
-            return t('profile.userDetail.nameTitle')
+            return arabic?.profile?.userDetail?.nameTitle;
         case TranslateKey.PLEASE_ENTER_THE_NAME:
-            return t('profile.userDetail.pleaseEnterTheName')
+            return arabic?.profile?.userDetail?.pleaseEnterTheName;
         case TranslateKey.TRY_AGAIN:
-            return t('profile.userDetail.tryAgain')
+            return arabic?.profile?.userDetail?.tryAgain;
         case TranslateKey.PASSWORD_CHANGED_SUCCESSFULLY:
-            return t('profile.userDetail.passwordChangedSuccessfully')
+            return arabic?.profile?.userDetail?.passwordChangedSuccessfully;
         case TranslateKey.OLD_PASSWORD_DOES_NOT_MATCH:
-            return t('profile.userDetail.oldPasswordDoesNotMatch')
+            return arabic?.profile?.userDetail?.oldPasswordDoesNotMatch;
         case TranslateKey.OPEN_CAMERA_OPTION:
-            return t('profile.userDetail.openCameraOption')
+            return arabic?.profile?.userDetail?.openCameraOption;
         case TranslateKey.OPEN_GALLERY_OPTION:
-            return t('profile.userDetail.chooseFromGallery')
+            return arabic?.profile?.userDetail?.chooseFromGallery;
         case TranslateKey.CANCEL:
-            return t('profile.userDetail.cancelText')
+            return arabic?.profile?.userDetail?.cancelText;
         case TranslateKey.SUCCESS:
-            return t('profile.userDetail.success')
+            return arabic?.profile?.userDetail?.success;
         case TranslateKey.OPINION_LISTEN_TO_ARTICLE_LIST:
-            return t('opinion.listenToArticleText')
+            return arabic?.opinion?.listenToArticleText;
         case TranslateKey.FAVORITE_FILTERS_EVERYONE:
-            return t('favorite.filters.everyone')
+            return arabic?.favorite?.filters?.everyone;
         case TranslateKey.ONBOARD_NEWSLETTER_SUBSCRIBED:
-            return t('onBoard.newsLetter.subscribed')
+            return arabic?.onBoard?.newsLetter?.subscribed;
         case TranslateKey.ONBOARD_NEWSLETTER_NOT_SUBSCRIBED:
-            return t('onBoard.newsLetter.notSubscribed')
+            return arabic?.onBoard?.newsLetter?.notSubscribed;
         case TranslateKey.MY_NEWS_TAB_WRITERS:
-            return t('myNewsTab.writers')
+            return arabic?.myNewsTab?.writers;
         case TranslateKey.MY_NEWS_TAB_TOPICS:
-            return t('myNewsTab.topics')
+            return arabic?.myNewsTab?.topics;
         case TranslateKey.MY_NEWS_TAB_MEDIA:
-            return t('myNewsTab.media')
+            return arabic?.myNewsTab?.media;
         case TranslateKey.PODCAST_PROGRAM_RETURN:
-            return t('podcastProgram.return')
+            return arabic?.podcastProgram?.return;
         case TranslateKey.SEARCH_PLACEHOLDER:
-            return t('searchScreen.placeholder')
+            return arabic?.searchScreen?.placeholder;
         case TranslateKey.VIDEO_DETAIL_EMPLOYMENT:
-            return t('videoDetail.employement')
+            return arabic?.videoDetail?.employement;
         case TranslateKey.OPINION_ARTICLE_RETURN:
-            return t('opinionArticleDetail.return')
+            return arabic?.opinionArticleDetail?.return;
         case TranslateKey.SECTION_COMBO_ONE_HEADER_RIGHT:
-            return t('latestNewsTab.sectionComboOne.headerRight')
+            return arabic?.latestNewsTab?.sectionComboOne?.headerRight;
         case TranslateKey.PODCAST_HOME_LISTEN_TO_PODCAST:
-            return t('podcastHome.listen_to_podcast')
+            return arabic?.podcastHome?.listen_to_podcast;
         case TranslateKey.MOST_READ_TITLE:
-            return t('mostRead.mostReadTitle')
+            return arabic?.mostRead?.mostReadTitle;
         case TranslateKey.OPINION_WRITERS:
-            return t('opinion.opinionWriters')
+            return arabic?.opinion?.opinionWriters;
         case TranslateKey.PODCAST_EPISODE_LISTEN_TO_EPISODE:
-            return t('podcastEpisode.listenToEpisode')
+            return arabic?.podcastEpisode?.listenToEpisode;
         case TranslateKey.OPINION_ARTICLE_DETAIL_RELATED_OPINION_TITLE:
-            return t('opinionArticleDetail.relatedOpinionTitle')
+            return arabic?.opinionArticleDetail?.relatedOpinionTitle;
         case TranslateKey.CATEGORY_PAGE_VIDEO_CONTENT:
-            return t('categoryPage.videoContent')
+            return arabic?.categoryPage?.videoContent;
         case TranslateKey.FAVORITE_FILTERS_ARTICLES:
-            return t('favorite.filters.articles')
+            return arabic?.favorite?.filters?.articles;
         case TranslateKey.FAVORITE_FILTERS_VIDEO:
-            return t('favorite.filters.video')
+            return arabic?.favorite?.filters?.video;
         case TranslateKey.FAVORITE_FILTERS_OPINION:
-            return t('favorite.filters.opinion')
+            return arabic?.favorite?.filters?.opinion;
         case TranslateKey.FAVORITE_FILTERS_PODCAST:
-            return t('favorite.filters.podcast')
+            return arabic?.favorite?.filters?.podcast;
         case TranslateKey.FAVORITE_FILTERS_ALBUM:
-            return t('favorite.filters.album')
+            return arabic?.favorite?.filters?.album;
         case TranslateKey.SIGNIN_LOGIN_ACCOUNT:
-            return t('signIn.loginAccount')
+            return arabic?.signIn?.loginAccount;
         case TranslateKey.SIGNIN_SIGNUP:
-            return t('signIn.signUp')
+            return arabic?.signIn?.signUp;
         case TranslateKey.SIGNIN_INFO:
-            return t('signIn.signInInfo')
+            return arabic?.signIn?.signInInfo;
         case TranslateKey.SIGNIN_SIGNUP_RECEIVE:
-            return t('signIn.signUpReceive')
+            return arabic?.signIn?.signUpReceive;
         case TranslateKey.SIGNIN_EMAIL:
-            return t('signIn.email')
+            return arabic?.signIn?.email;
         case TranslateKey.SIGNIN_PASSWORD:
-            return t('signIn.password')
+            return arabic?.signIn?.password
         case TranslateKey.SIGNIN_FORGOT_PASSWORD:
-            return t('signIn.forgotPassword')
+            return arabic?.signIn?.forgotPassword
         case TranslateKey.SIGNIN:
-            return t('signIn.signIn')
+            return arabic?.signIn?.signIn
         case TranslateKey.SIGNIN_OR:
-            return t('signIn.or')
+            return arabic?.signIn?.or
         case TranslateKey.SIGNIN_LOGIN_FACEBOOK:
-            return t('signIn.loginFacebook')
+            return arabic?.signIn?.loginFacebook
         case TranslateKey.SIGNIN_LOGIN_GOOGLE:
-            return t('signIn.loginGoogle')
+            return arabic?.signIn?.loginGoogle
         case TranslateKey.SIGNIN_LOGIN_APPLE:
-            return t('signIn.loginApple')
+            return arabic?.signIn?.loginApple;
         case TranslateKey.FAVORITE_ARTICLES_THAT_INTEREST_YOU:
-            return t('favorite.articles_that_interest_you')
+            return arabic?.favorite?.articles_that_interest_you;
         case TranslateKey.FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS:
-            return t('favorite.articles_from_your_favorite_writers')
+            return arabic?.favorite?.articles_from_your_favorite_writers;
         case TranslateKey.PODCAST_EPISODE_MORE_EPISODES:
-            return t('podcastEpisode.moreEpisodes')
+            return arabic?.podcastEpisode?.moreEpisodes;
         case TranslateKey.PODCAST_PROGRAM_EPISODES:
-            return t('podcastProgram.episodes')
+            return arabic?.podcastProgram?.episodes;
         case TranslateKey.PODCAST_EPISODE_LISTEN_TO:
-            return t('podcastEpisode.listenTo')
+            return arabic?.podcastEpisode?.listenTo;
         case TranslateKey.SEARCH_NOT_FOUND:
-            return t('searchScreen.notFound')
+            return arabic?.searchScreen?.notFound;
         case TranslateKey.CLEAR_SEARCH_HISTORY:
-            return t('searchScreen.clearSearchHistory')
+            return arabic?.searchScreen.clearSearchHistory;
         case TranslateKey.VIDEO_DETAIL_WATCH:
-            return t('videoDetail.watch')
+            return arabic?.videoDetail.watch;
         case TranslateKey.COMMON_ALERT:
-            return t('common.alert')
+            return arabic?.common.alert;
         case TranslateKey.COMMON_NO_INTERNET_CONNECTION:
-            return t('common.noInternetConnection')
+            return arabic?.common.noInternetConnection;
         case TranslateKey.COMMON_SOMETHING_WENT_WRONG:
-            return t('common.somthingWentWrong')
+            return arabic?.common?.somthingWentWrong;
         case TranslateKey.TERMS_AND_CONDITION:
-            return t('terms_and_condition')
+            return arabic?.terms_and_condition;
         case TranslateKey.SIGNIN_SKIP:
-            return t('signIn.skip')
+            return arabic?.signIn?.skip;
         case TranslateKey.SIGNIN_AGREE_TO:
-            return t('signIn.agreeTo')
+            return arabic?.signIn?.agreeTo;
         case TranslateKey.SIGNIN_TERMS_AND_CONDITION:
-            return t('signIn.termsAndConditions')
+            return arabic?.signIn?.termsAndConditions;
         case TranslateKey.VERIFY_MAIL_AND_PASSWORD_AND_TRY_AGAIN:
-            return t('signIn.verifyMailAndPasswordAndTryAgain')
+            return arabic?.signIn?.verifyMailAndPasswordAndTryAgain;
         case TranslateKey.CREDENTIALS_ARE_INCORRECT:
-            return t('signIn.credentialsAreIncorrect')
+            return arabic?.signIn?.credentialsAreIncorrect;
         case TranslateKey.SIGNIN_RETURN:
-            return t('signIn.return')
+            return arabic?.signIn?.return;
         case TranslateKey.SIGNUP_RETURN:
-            return t('signUp.return')
+            return arabic?.signUp?.return;
         case TranslateKey.SIGNUP:
-            return t('signUp.signUp')
+            return arabic?.signUp?.signUp;
         case TranslateKey.SIGNUP_CREATE_ACCOUNT:
-            return t('signUp.createAccount')
+            return arabic?.signUp?.createAccount;
         case TranslateKey.SIGNUP_ACCOUNT_DESCRIPTION:
-            return t('signUp.accountDescription')
+            return arabic?.signUp?.accountDescription;
         case TranslateKey.SIGNUP_EMAIL:
-            return t('signUp.email')
+            return arabic?.signUp?.email;
         case TranslateKey.SIGNUP_PASSWORD:
-            return t('signUp.password')
+            return arabic?.signUp?.password;
         case TranslateKey.SIGNUP_CONFIRM_PASSWORD:
-            return t('signUp.confirmPassword')
+            return arabic?.signUp?.confirmPassword;
         case TranslateKey.CONTACT_US_DO_YOU_HAVE_QUESTIONS:
-            return t('contactUs.doYouHaveQuestions')
+            return arabic?.contactUs?.doYouHaveQuestions;
         case TranslateKey.CONTACT_US_DESCRIPTION:
-            return t('contactUs.description')
+            return arabic?.contactUs?.description;
         case TranslateKey.FAVORITE_TAB_ITEM_ARCHIEVES:
-            return t('favorite.tabItem.archives')
+            return arabic?.favorite?.tabItem?.archives;
         case TranslateKey.SIGN_UP_PH_SIGNUP:
-            return t('signUpPH.signUp')
+            return arabic?.signUpPH?.signUp;
         case TranslateKey.SIGN_UP_PH_MESSAGE:
-            return t('signUpPH.message')
+            return arabic?.signUpPH?.message;
         case TranslateKey.SIGN_UP_PH_TITLE:
-            return t('signUpPH.title')
+            return arabic?.signUpPH?.title;
         case TranslateKey.ONBOARD_FOLLOW_FAVORITE_AUTHOR_TITLE:
-            return t('onBoard.followFavoriteAuthor.title')
+            return arabic?.onBoard?.followFavoriteAuthor?.title;
         case TranslateKey.ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION:
-            return t('onBoard.followFavoriteAuthor.description')
+            return arabic?.onBoard?.followFavoriteAuthor?.description;
         case TranslateKey.ONBOARD_COMMON_NEXT_BUTTON:
-            return t('onBoard.common.nextBtn')
+            return arabic?.onBoard?.common?.nextBtn;
         case TranslateKey.FORGOT_PASSWORD_CHECK_YOUR_MAIL:
-            return t('ForgotPassword.checkYourMail')
+            return arabic?.ForgotPassword?.checkYourMail;
         case TranslateKey.FORGOT_PASSWORD_INSTRUCTION:
-            return t('ForgotPassword.instruction')
+            return arabic?.ForgotPassword?.instruction;
         case TranslateKey.FORGOT_PASSWORD_OPEN_MAIL_APP:
-            return t('ForgotPassword.openMailApp')
+            return arabic?.ForgotPassword?.openMailApp;
         case TranslateKey.FORGOT_PASSWORD_SKIP_OPTION:
-            return t('ForgotPassword.skipOption')
+            return arabic?.ForgotPassword?.skipOption;
         case TranslateKey.SIGNIN_RIGHTS:
-            return t('signIn.rights')
+            return arabic?.signIn?.rights;
         case TranslateKey.ONBOARD_KEEP_NOTIFIED_TITLE:
-            return t('onBoard.keepNotified.title')
+            return arabic?.onBoard?.keepNotified?.title;
         case TranslateKey.ONBOARD_KEEP_NOTIFIED_DESCRIPTION:
-            return t('onBoard.keepNotified.description')
+            return arabic?.onBoard?.keepNotified?.description;
         case TranslateKey.ONBOARD_COMMON_COMPLETED:
-            return t('onBoard.common.completed')
+            return arabic?.onBoard?.common?.completed;
         case TranslateKey.ONBOARD_COMMON_DONE:
-            return t('onBoard.common.done')
+            return arabic?.onBoard?.common?.done;
         case TranslateKey.ONBOARD_SELECT_TOPICS_TITLE:
-            return t('onBoard.selectTopics.title')
+            return arabic?.onBoard?.selectTopics?.title;
         case TranslateKey.ONBOARD_SELECT_TOPICS_DESCRIPTION:
-            return t('onBoard.selectTopics.description')
+            return arabic?.onBoard?.selectTopics?.description;
         case TranslateKey.MANAGE_MY_NEWS_ALERT:
-            return t('manageMyNews.alert')
+            return arabic?.manageMyNews?.alert;
         case TranslateKey.MANAGE_MY_NEWS_REMOVE_AUTHOR:
-            return t('manageMyNews.removeAuthor')
+            return arabic?.manageMyNews?.removeAuthor;
         case TranslateKey.MANAGE_MY_NEWS_REMOVE:
-            return t('manageMyNews.remove')
+            return arabic?.manageMyNews?.remove;
         case TranslateKey.MANAGE_MY_NEWS_REMOVE_TOPIC:
-            return t('manageMyNews.removeTopic')
+            return arabic?.manageMyNews?.removeTopic;
         case TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_BOOKS:
-            return t('manageMyNews.myFavoriteBooks')
+            return arabic?.manageMyNews?.myFavoriteBooks;
         case TranslateKey.MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS:
-            return t('manageMyNews.continueReadingMoreBooks')
+            return arabic?.manageMyNews?.continueReadingMoreBooks;
         case TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_TOPICS:
-            return t('manageMyNews.myFavoriteTopics')
+            return arabic?.manageMyNews?.myFavoriteTopics;
         case TranslateKey.MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS:
-            return t('manageMyNews.followMoreTopics')
+            return arabic?.manageMyNews?.followMoreTopics;
         case TranslateKey.NEW_PASSWORD_CREATE_NEW_PASSWORD:
-            return t('profile.newPassword.createNewPassword')
+            return arabic?.profile?.newPassword?.createNewPassword;
         case TranslateKey.NEW_PASSWORD_DESCRIPTION:
-            return t('profile.newPassword.passwordDescription')
+            return arabic?.profile?.newPassword?.passwordDescription;
         case TranslateKey.NEW_PASSWORD_WARNING:
-            return t('profile.newPassword.passwordWarning')
+            return arabic?.profile?.newPassword?.passwordWarning;
         case TranslateKey.NEW_PASSWORD_MATCH_WARNING:
-            return t('profile.newPassword.passwordMatchWarning')
+            return arabic?.profile?.newPassword?.passwordMatchWarning;
         case TranslateKey.NEW_PASSWORD_SET_NEW_PASSWORD:
-            return t('profile.newPassword.setNewPassword')
+            return arabic?.profile?.newPassword?.setNewPassword;
         case TranslateKey.PHOTO_GALLERY_TITLE:
-            return t('photoGallery.title')
+            return arabic?.photoGallery?.title;
         case TranslateKey.PROFILE_SETTING_MANAGE_MY_NOTIFICATION:
-            return t('profileSetting.manageMyNotification')
+            return arabic?.profileSetting?.manageMyNotification;
         case TranslateKey.PROFILE_SETTING_MANAGE_MY_NEWS:
-            return t('profileSetting.manageMyNews')
+            return arabic?.profileSetting?.manageMyNews;
         case TranslateKey.PROFILE_SETTING_MY_NEWS_LETTER:
-            return t('profileSetting.myNewsLetter')
+            return arabic?.profileSetting?.myNewsLetter;
         case TranslateKey.PROFILE_SETTING_MY_ACCOUNT_DETAILS:
-            return t('profileSetting.myAccountDetails')
+            return arabic?.profileSetting?.myAccountDetails;
         case TranslateKey.PROFILE_SETTING_APP_APPEARANCE:
-            return t('profileSetting.appAppearance')
+            return arabic?.profileSetting?.appAppearance;
         case TranslateKey.PROFILE_SETTING_EXIT:
-            return t('profileSetting.exit')
+            return arabic?.profileSetting?.exit;
         case TranslateKey.PROFILE_SETTING_DARK_MODE:
-            return t('profileSetting.darkMode')
+            return arabic?.profileSetting?.darkMode;
         case TranslateKey.PROFILE_SETTING_LIGHT_MODE:
-            return t('profileSetting.lightMode')
+            return arabic?.profileSetting?.lightMode;
         case TranslateKey.PROFILE_SETTING_WELCOME:
-            return t('profileSetting.welcome')
+            return arabic?.profileSetting?.welcome;
         case TranslateKey.PROFILE_SETTING_CHANGE_ENVIRONMENT:
-            return t('profileSetting.changeEnvironment')
+            return arabic?.profileSetting?.changeEnvironment;
         case TranslateKey.PROFILE_SETTING_NOT_SUBSCRIBED:
-            return t('profileSetting.notSubscribed')
+            return arabic?.profileSetting?.notSubscribed;
         case TranslateKey.PROFILE_SETTING_LOGIN_FEATURE:
-            return t('profileSetting.loginFeature')
+            return arabic?.profileSetting?.loginFeature;
         case TranslateKey.PROFILE_SETTING_SIGN_UP:
-            return t('profileSetting.signUp')
+            return arabic?.profileSetting?.signUp;
         case TranslateKey.PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE:
-            return t('profileSetting.logoutAlertMessage')
+            return arabic?.profileSetting?.logoutAlertMessage;
         case TranslateKey.PROFILE_SETTING_ALERT:
-            return t('profileSetting.alert')
+            return arabic?.profileSetting?.alert;
         case TranslateKey.PROFILE_SETTING_DEBUG:
-            return t('profileSetting.debug')
+            return arabic?.profileSetting?.debug;
         case TranslateKey.PROFILE_SETTING_PRODUCTION:
-            return t('profileSetting.production')
+            return arabic?.profileSetting?.production;
         case TranslateKey.ON_BOARD_COMMON_SKIP:
-            return t('onBoard.common.skip')
+            return arabic?.onBoard?.common?.skip;
         case TranslateKey.ON_BOARD_COMMON_RETURN:
-            return t('onBoard.common.return')
+            return arabic?.onBoard?.common?.return;
         case TranslateKey.PROFILE_SETTING_ARITHMETIC:
-            return t('profileSetting.arithmetic')
+            return arabic?.profileSetting?.arithmetic;
         case TranslateKey.PROFILE_USER_DETAIL_TITLE:
-            return t('profile.userDetail.userDetailTitle')
+            return arabic?.profile?.userDetail?.userDetailTitle;
         case TranslateKey.MANAGE_MY_NEWS_HEADER:
-            return t('manageMyNews.header')
+            return arabic?.manageMyNews?.header;
         case TranslateKey.USER_DETAIL_SELECT_BIRTHDAY_TEXT:
-            return t('profile.userDetail.selectBirthdayText')
+            return arabic?.profile?.userDetail?.selectBirthdayText;
         case TranslateKey.USER_DETAIL_YOUR_DETAILS:
-            return t('profile.userDetail.yourDetails')
+            return arabic?.profile?.userDetail?.yourDetails;
         case TranslateKey.USER_DETAIL_PASSWORD_TITLE:
-            return t('profile.userDetail.passwordTitle')
+            return arabic?.profile.userDetail?.passwordTitle;
         case TranslateKey.USER_DETAIL_USER_NAME_TITLE:
-            return t('profile.userDetail.userNameTitle')
+            return arabic?.profile?.userDetail?.userNameTitle;
         case TranslateKey.USER_DETAIL_BIRTHDAY_TITLE:
-            return t('profile.userDetail.birthdayTitle')
+            return arabic?.profile?.userDetail?.birthdayTitle;
         case TranslateKey.CONFIRM:
-            return t('profile.userDetail.confirmText')
+            return arabic?.profile?.userDetail?.confirmText;
         case TranslateKey.USER_DETAIL_SELECT_THE_DATE:
-            return t('profile.userDetail.selectTheDate')
+            return arabic?.profile?.userDetail?.selectTheDate;
         case TranslateKey.USER_DETAIL_OCCUPATION_TITLE:
-            return t('profile.userDetail.occupationTitle')
+            return arabic?.profile?.userDetail?.occupationTitle;
         case TranslateKey.USER_DETAIL_OCCUPATION_PLACEHOLDER:
-            return t('profile.userDetail.occupationPlaceholder')
+            return arabic?.profile?.userDetail?.occupationPlaceholder;
         case TranslateKey.USER_DETAIL_UPDATE_BUTTON_TEXT:
-            return t('profile.userDetail.updateButtonText')
+            return arabic?.profile?.userDetail?.updateButtonText;
         case TranslateKey.USER_DETAIL_OLD_PASSWORD:
-            return t('profile.userDetail.oldPassword')
+            return arabic?.profile?.userDetail?.oldPassword;
         case TranslateKey.USER_DETAIL_NEW_PASSWORD:
-            return t('profile.userDetail.newPassword')
+            return arabic?.profile?.userDetail?.newPassword;
         case TranslateKey.USER_DETAIL_CONFIRM_NEW_PASSWORD:
-            return t('profile.userDetail.confirmNewPassword')
+            return arabic?.profile?.userDetail?.confirmNewPassword;
         case TranslateKey.USER_DETAIL_MOVE_AND_SCALE:
-            return t('profile.userDetail.moveAndScale')
+            return arabic?.profile?.userDetail?.moveAndScale;
         case TranslateKey.ONBOARD_NEWSLETTER_TITLE:
-            return t('onBoard.newsLetter.title')
+            return arabic?.onBoard?.newsLetter?.title;
         case TranslateKey.ONBOARD_NEWSLETTER_DESCRIPTION:
-            return t('onBoard.newsLetter.description')
+            return arabic?.onBoard?.newsLetter?.description;
         case TranslateKey.FOLLOW:
-            return t('opinionArticleDetail.follow')
+            return arabic?.opinionArticleDetail?.follow;
         case TranslateKey.FOLLOWER:
-            return t('opinionArticleDetail.follower')
+            return arabic?.opinionArticleDetail?.follower;
         case TranslateKey.PODCAST_WIDGET_HEADER_LEFT:
-            return t('podcastWidget.headerLeft')
+            return arabic?.podcastWidget?.headerLeft;
         case TranslateKey.PODCAST_WIDGET_HEADER_RIGHT:
-            return t('podcastWidget.headerRight')
+            return arabic?.podcastWidget?.headerRight;
         default: return ''
     }
 }
@@ -2106,11 +2105,11 @@ const ScreensConstants = {
     PODCAST_EPISODE_MODAL,
 };
 
-const DEFAULT_ALERT_TITLE = ''; 
-const DEFAULT_ALERT_MESSAGE = 'Need to implement';     
+const DEFAULT_ALERT_TITLE = '';
+const DEFAULT_ALERT_MESSAGE = 'Need to implement';
 const VALID_URL_REGEX = "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
 const PROFILE = 'Profile'
-const DURATION = ''  
+const DURATION = ''
 const CONST_OK = 'نعم'
 
 //Permission
@@ -2155,7 +2154,7 @@ const displayTypes = {
     special: 'special'
 }
 
-const LATEST_NEWS = 'آخر الأخبار';  
+const LATEST_NEWS = 'آخر الأخبار';
 const SECTIONS = 'أقسام';
 const MOST_READ = 'الأكثر قراءة';
 const FAVORITE = 'المحفوظات';

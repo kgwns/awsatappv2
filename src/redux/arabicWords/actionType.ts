@@ -1,0 +1,1 @@
+export const FETCH_ARABIC_DATA = 'FETCH_ARABIC_DATA'
