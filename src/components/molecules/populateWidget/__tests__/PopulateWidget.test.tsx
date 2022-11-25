@@ -10,6 +10,15 @@ jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
   useNavigationState: () => ([]),
+  useIsFocused: () => (true)
+}));
+
+jest.mock('react-native-safe-area-context', () => ({
+  ...jest.requireActual('react-native-safe-area-context'),
+  useSafeAreaInsets: () => ({
+    top: 10,
+    bottom: 10
+  })
 }));
 
 describe('<PopulateWidget/>', () => {
