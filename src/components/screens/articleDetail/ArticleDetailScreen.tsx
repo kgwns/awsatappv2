@@ -1,7 +1,7 @@
 import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties } from 'src/constants/Constants'
+import { shortArticleWithTagProperties, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
@@ -36,13 +36,6 @@ export interface ArticleDetailScreenProps {
   route: any
 }
 
-const relatedShortArticleHeaderLeft: HeaderElementProps = {
-  title: 'مقالات ذات صلة',
-  labelType: LabelTypeProp.h2,
-  color: Styles.color.greenishBlue,
-  elementContainerStyle: { paddingVertical: normalize(15) },
-  textStyle: {fontSize:20, lineHeight:30}
-}
 
 export const ArticleDetailScreen = ({
   route
@@ -52,6 +45,15 @@ export const ArticleDetailScreen = ({
   const style = useThemeAwareObject(customStyle);
   const isFocused = useIsFocused();
   const dimensions = useWindowDimensions()
+  const SHORT_ARTICLE_TITLE = TranslateConstants({key:TranslateKey.SHORT_ARTICLE_TITLE})
+
+  const relatedShortArticleHeaderLeft: HeaderElementProps = {
+    title: SHORT_ARTICLE_TITLE,
+    labelType: LabelTypeProp.h2,
+    color: Styles.color.greenishBlue,
+    elementContainerStyle: { paddingVertical: normalize(15) },
+    textStyle: {fontSize:20, lineHeight:30}
+  }
 
   const { themeData } = useTheme()
   const { isLoggedIn } = useLogin()

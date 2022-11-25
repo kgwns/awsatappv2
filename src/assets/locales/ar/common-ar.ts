@@ -435,5 +435,27 @@ export const arabic = {
     title: 'استمع لملخص آخر أخبار اليوم',
     body: 'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين.',
     allEpisodes: 'استمع الي البودكاست ',
+  },
+  mostPlayedSection:{
+    sectionHeader:{
+      headerLeft:'المزيد',
+      headerRight:'اكثر الحلقات التي تم تشغيلها'
+    }
+  },
+  storyWidget:{
+    headerTitle:'مذا يحدث الآن'
+  },
+  articleDetailScreen:{
+    shortArticle:{
+      title: 'مقالات ذات صلة'
+    }
+  },
+  relatedArticles:{
+      headerLeft: 'مقالات ذات صلة',  
+      title: `واشنطن تعيد فتح ملف خاطفي الرهائن الأميركيين في بيروت`,
+      rightTitle: '3 د قرادة ',
+      leftTitle: 'من ساعاتان',
+      flag: 'العالم',
   }
+
 }

@@ -251,7 +251,16 @@ enum TranslateKey {
     PODCAST_WIDGET_HEADER_RIGHT,
     ARCHIVES_PODCAST_TITLE,
     ARCHIVES_PODCAST_ALL_EPISODES,
-    ARCHIVES_PODCAST_BODY
+    ARCHIVES_PODCAST_BODY,
+    SECTION_HEADER_LEFT,
+    SECTION_HEAER_RIGHT,
+    STORY_WIDGET_HEADER_TITLE,
+    SHORT_ARTICLE_TITLE,
+    RELATED_ARTICLE_HEADER_LEFT,
+    RELATED_ARTICLE_TITLE,
+    RELATED_ARTICLE_RIGHT_TITLE,
+    RELATED_ARTICLE_LEFT_TITLE,
+    RELATED_ARTICLE_FLAG
 }
 
 const TranslateConstants = ({
@@ -703,6 +712,24 @@ const TranslateConstants = ({
             return arabic?.archivesPodcast?.body;
         case TranslateKey.ARCHIVES_PODCAST_ALL_EPISODES:
             return arabic?.archivesPodcast?.allEpisodes;
+        case TranslateKey.SECTION_HEADER_LEFT:
+            return arabic?.mostPlayedSection?.sectionHeader?.headerLeft;
+        case TranslateKey.SECTION_HEAER_RIGHT:
+            return arabic?.mostPlayedSection?.sectionHeader?.headerRight;
+        case TranslateKey.STORY_WIDGET_HEADER_TITLE:
+            return arabic?.storyWidget?.headerTitle;
+        case TranslateKey.SHORT_ARTICLE_TITLE:
+            return arabic?.articleDetailScreen?.shortArticle?.title;
+        case TranslateKey.RELATED_ARTICLE_HEADER_LEFT:
+            return arabic?.relatedArticles?.headerLeft;
+        case TranslateKey.RELATED_ARTICLE_TITLE:
+            return arabic?.relatedArticles?.title;
+        case TranslateKey.RELATED_ARTICLE_RIGHT_TITLE:
+            return arabic?.relatedArticles?.rightTitle;
+        case TranslateKey.RELATED_ARTICLE_LEFT_TITLE:
+            return arabic?.relatedArticles?.leftTitle;
+        case TranslateKey.RELATED_ARTICLE_FLAG:
+            return arabic?.relatedArticles?.flag;
         default: return ''
     }
 }

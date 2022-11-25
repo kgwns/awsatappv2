@@ -1,6 +1,6 @@
 import { View, StyleSheet, FlatList } from 'react-native';
 import React, {FunctionComponent} from 'react';
-import { flatListUniqueKey } from '../../constants/Constants';
+import { flatListUniqueKey, TranslateConstants, TranslateKey } from '../../constants/Constants';
 import { StoryCircle, StoryTitle, StoryHeader } from '../molecules';
 import { normalize, recordLogEvent } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -19,7 +19,7 @@ const StoryWidget: FunctionComponent<StoryWidgetProps> = ({
   testID,
 }) =>{
   const style = useThemeAwareObject(storyWidgetStyle)
-
+  const STORY_WIDGET_HEADER_TITLE = TranslateConstants({key:TranslateKey.STORY_WIDGET_HEADER_TITLE});
   const handleOnItemPressAction = (item: StoryListProps,index:number) => {
     if (onPress) {
       onPress(item,index);
@@ -46,7 +46,7 @@ const StoryWidget: FunctionComponent<StoryWidgetProps> = ({
 
   return (
     <View style={style.container}>
-      <StoryHeader headerTitle={'مذا يحدث الآن'} />
+      <StoryHeader headerTitle= {STORY_WIDGET_HEADER_TITLE} />
       <FlatList
         horizontal
         keyExtractor={(_, index) => index.toString()}
