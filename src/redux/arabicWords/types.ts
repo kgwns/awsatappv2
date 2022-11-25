@@ -1,7 +1,7 @@
 import { FETCH_ARABIC_DATA } from "./actionType";
 
 export interface fetchArabicWordsPayloadType {
-    arabic:Object;
+    arabic:any;
 };
 
 export type FetchArabicWordsType = {

@@ -248,7 +248,10 @@ enum TranslateKey {
     FOLLOW,
     FOLLOWER,
     PODCAST_WIDGET_HEADER_LEFT,
-    PODCAST_WIDGET_HEADER_RIGHT
+    PODCAST_WIDGET_HEADER_RIGHT,
+    ARCHIVES_PODCAST_TITLE,
+    ARCHIVES_PODCAST_ALL_EPISODES,
+    ARCHIVES_PODCAST_BODY
 }
 
 const TranslateConstants = ({
@@ -694,6 +697,12 @@ const TranslateConstants = ({
             return arabic?.podcastWidget?.headerLeft;
         case TranslateKey.PODCAST_WIDGET_HEADER_RIGHT:
             return arabic?.podcastWidget?.headerRight;
+        case TranslateKey.ARCHIVES_PODCAST_TITLE:
+            return arabic?.archivesPodcast?.title;
+        case TranslateKey.ARCHIVES_PODCAST_BODY:
+            return arabic?.archivesPodcast?.body;
+        case TranslateKey.ARCHIVES_PODCAST_ALL_EPISODES:
+            return arabic?.archivesPodcast?.allEpisodes;
         default: return ''
     }
 }
