@@ -14,6 +14,7 @@ import { useLogin } from 'src/hooks';
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: jest.fn(),
 }));
 
 jest.mock('react', () => ({
