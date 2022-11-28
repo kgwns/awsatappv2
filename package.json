@@ -23,7 +23,7 @@
     "@react-native-firebase/crashlytics": "15.6.0",
     "@react-native-firebase/messaging": "15.6.0",
     "@react-native-firebase/perf": "15.6.0",
-    "@react-native-firebase/remote-config": "^16.4.6",
+    "@react-native-firebase/remote-config": "15.6.0",
     "@react-native-google-signin/google-signin": "^7.1.0",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/drawer": "^6.4.1",
