@@ -523,13 +523,13 @@ const TranslateConstants = ({
         case TranslateKey.SEARCH_NOT_FOUND:
             return arabic?.searchScreen?.notFound;
         case TranslateKey.CLEAR_SEARCH_HISTORY:
-            return arabic?.searchScreen.clearSearchHistory;
+            return arabic?.searchScreen?.clearSearchHistory;
         case TranslateKey.VIDEO_DETAIL_WATCH:
-            return arabic?.videoDetail.watch;
+            return arabic?.videoDetail?.watch;
         case TranslateKey.COMMON_ALERT:
-            return arabic?.common.alert;
+            return arabic?.common?.alert;
         case TranslateKey.COMMON_NO_INTERNET_CONNECTION:
-            return arabic?.common.noInternetConnection;
+            return arabic?.common?.noInternetConnection;
         case TranslateKey.COMMON_SOMETHING_WENT_WRONG:
             return arabic?.common?.somthingWentWrong;
         case TranslateKey.TERMS_AND_CONDITION:
