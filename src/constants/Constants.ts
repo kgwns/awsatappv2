@@ -260,7 +260,8 @@ enum TranslateKey {
     RELATED_ARTICLE_TITLE,
     RELATED_ARTICLE_RIGHT_TITLE,
     RELATED_ARTICLE_LEFT_TITLE,
-    RELATED_ARTICLE_FLAG
+    RELATED_ARTICLE_FLAG,
+    ARTICLE_DETAIL_WIDGET_UPDATED
 }
 
 const TranslateConstants = ({
@@ -730,6 +731,8 @@ const TranslateConstants = ({
             return arabic?.relatedArticles?.leftTitle;
         case TranslateKey.RELATED_ARTICLE_FLAG:
             return arabic?.relatedArticles?.flag;
+        case TranslateKey.ARTICLE_DETAIL_WIDGET_UPDATED:
+            return arabic?.articleDetailScreen?.articleDetailWidget?.updated;
         default: return ''
     }
 }

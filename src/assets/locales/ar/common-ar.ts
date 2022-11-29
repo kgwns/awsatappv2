@@ -448,6 +448,9 @@ export const arabic = {
   articleDetailScreen:{
     shortArticle:{
       title: 'مقالات ذات صلة'
+    },
+    articleDetailWidget:{
+      updated:'محدث '
     }
   },
   relatedArticles:{
