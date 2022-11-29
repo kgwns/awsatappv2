@@ -261,7 +261,12 @@ enum TranslateKey {
     RELATED_ARTICLE_RIGHT_TITLE,
     RELATED_ARTICLE_LEFT_TITLE,
     RELATED_ARTICLE_FLAG,
-    ARTICLE_DETAIL_WIDGET_UPDATED
+    ARTICLE_DETAIL_WIDGET_UPDATED,
+    LATEST_NEWS_SUMMARY_HEADER_LEFT,
+    LATEST_NEWS_SUMMARY_HEADER_RIGHT,
+    CONTENT_FOR_YOU_EMPTY_DATA_LABEL,
+    PODCAST_OPINION_ARTICLE_HEADER_LEFT,
+    PODCAST_OPINION_ARTICLE_HEADER_RIGHT
 }
 
 const TranslateConstants = ({
@@ -733,6 +738,16 @@ const TranslateConstants = ({
             return arabic?.relatedArticles?.flag;
         case TranslateKey.ARTICLE_DETAIL_WIDGET_UPDATED:
             return arabic?.articleDetailScreen?.articleDetailWidget?.updated;
+        case TranslateKey.LATEST_NEWS_SUMMARY_HEADER_LEFT:
+            return arabic?.podcastScreen?.latestNewsSummarySection?.sectionHeader?.headerLeft;
+        case TranslateKey.LATEST_NEWS_SUMMARY_HEADER_RIGHT:
+            return arabic?.podcastScreen?.latestNewsSummarySection?.sectionHeader?.headerRight;
+        case TranslateKey.CONTENT_FOR_YOU_EMPTY_DATA_LABEL:
+            return arabic?.contentForYou?.emptyDataLabel;
+        case TranslateKey.PODCAST_OPINION_ARTICLE_HEADER_LEFT:
+            return arabic?.podcastOpinionArticle?.sectionHeader?.headerLeft;
+        case TranslateKey.PODCAST_OPINION_ARTICLE_HEADER_RIGHT:
+            return arabic?.podcastOpinionArticle?.sectionHeader?.headerRight;
         default: return ''
     }
 }

@@ -10,10 +10,10 @@ import { TabBar, TabView } from 'react-native-tab-view';
 import { CustomTabBarItem, SignupAlertCard } from 'src/components/molecules';
 import { fonts } from 'src/shared/styles/fonts';
 import { MyNewsTopics } from 'src/components/organisms/myTopics/MyNewsTopics';
-import { myNewsTopTabData } from 'src/constants/Constants';
+import { myNewsTopTabData, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { MyNewsWriters } from 'src/components/organisms';
 import { useLogin } from 'src/hooks';
-import { t } from 'i18next';
+
 import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 
@@ -30,6 +30,9 @@ export const MyNewsScreen = () => {
   const [routes, setNewRoutes] = useState<any>([]);
   const [index, setIndex] = React.useState(0);
   const showPopUp = useRef(!isLoggedIn)
+  const SIGN_UP_PH_TITLE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_TITLE})
+  const SIGN_UP_PH_MESSAGE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_MESSAGE})
+  const SIGN_UP_PH_SIGNUP = TranslateConstants({key:TranslateKey.SIGN_UP_PH_SIGNUP})
 
   useEffect(() => {
     configData()
@@ -142,9 +145,9 @@ export const MyNewsScreen = () => {
         </View>
       ) : (
         <SignupAlertCard
-          title={t('signUpPH.title')}
-          message={t('signUpPH.message')}
-          buttonText={t('signUpPH.signUp')}
+          title={SIGN_UP_PH_TITLE}
+          message={SIGN_UP_PH_MESSAGE}
+          buttonText={SIGN_UP_PH_SIGNUP}
           onPress={onPressSignup}
         />
       )}

@@ -459,6 +459,22 @@ export const arabic = {
       rightTitle: '3 د قرادة ',
       leftTitle: 'من ساعاتان',
       flag: 'العالم',
+  },
+  podcastScreen:{
+    latestNewsSummarySection:{
+      sectionHeader:{
+        headerLeft: "المزيد",
+        headerRight:"ملخص آخر الأخبار"
+      }
+    }
+  },
+  podcastOpinionArticle:{
+    sectionHeader:{
+      headerLeft:'المزيد',
+      headerRight:'مقالات الرأي'
+    }
+  },
+  contentForYou:{
+    emptyDataLabel: 'لم يتم حفظ أي شيء حتى الآن'
   }
-
 }

@@ -27,6 +27,7 @@ export const ContentForYou = () => {
     const { themeData } = useTheme()
     const FAVORITE_ARTICLES_THAT_INTEREST_YOU = TranslateConstants({key:TranslateKey.FAVORITE_ARTICLES_THAT_INTEREST_YOU})
     const FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS = TranslateConstants({key:TranslateKey.FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS})
+    const EMPTY_DATA_LABEL = TranslateConstants({key:TranslateKey.CONTENT_FOR_YOU_EMPTY_DATA_LABEL})
     const {selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
     const {selectedAuthorsData, getSelectedAuthorsData} = useAllWriters();
     const {
@@ -447,7 +448,7 @@ export const ContentForYou = () => {
 
     const showEmptyData = () => {
         return <View style={styles.container}>
-            <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
+            <Label children={EMPTY_DATA_LABEL} labelType={LabelTypeProp.h1} />
         </View>
     }
 
