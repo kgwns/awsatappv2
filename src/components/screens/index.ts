@@ -29,6 +29,7 @@ export { OpinionArticleDetail } from 'src/components/screens/opinionArticleDetai
 export { NewPassword } from 'src/components/screens/newPassword/NewPassword'
 export { ManageMyNewsScreen } from 'src/components/screens/manageMyNews/ManageMyNewsScreen';
 export { UserDetailScreen } from 'src/components/screens/userDetail/UserDetailScreen';
+export { WeatherDetailScreen } from 'src/components/screens/weatherDetail/WeatherDetailScreen';
 export { VideoPlayerScreen } from 'src/components/screens/video_player/VideoPlayerScreen';
 export { ManageMyFavoriteAuthorScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteAuthorScreen';
 export { ManageMyFavoriteTopicsScreen } from 'src/components/screens/manageMyNews/ManageMyFavoriteTopicsScreen';
@@ -42,3 +43,7 @@ export { PDFArchive } from 'src/components/screens/pdfArchive/index'
 export { PDFEditorView } from 'src/components/screens/pdfEditorViewer/PDFEditorView'
 export { MyNewsScreen } from 'src/components/screens/myNews/MyNewsScreen'
 export { ContactUs } from 'src/components/screens/contactUs/ContactUs'
+export { PhotoGalleryScreen } from 'src/components/screens/photoGallery/PhotoGalleryScreen'
+export { PhotoGalleryDetailScreen } from 'src/components/screens/photoGallery/PhotoGalleryDetailScreen'
+export { JournalistDetail } from 'src/components/screens/journalistDetail/JournalistDetail'
+export { PodcastEpisodeModal } from 'src/components/screens/podcast/PodcastEpisodeModal';

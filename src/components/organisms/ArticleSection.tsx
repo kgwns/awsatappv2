@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList, StyleProp, ViewStyle, TextStyle } from 'react-native'
+import { View, StyleSheet, FlatList, StyleProp, ViewStyle } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from '../../shared/utils'
 import { flatListUniqueKey } from '../../constants'
@@ -6,19 +6,19 @@ import { articleFooterProps, ArticleItem } from '../molecules'
 import { ArticleWithOutImageProps } from '../molecules/ArticleWithOutImage'
 import { ImageLabelProps } from '../atoms/imageWithLabel/ImageWithLabel'
 import { ImagesName, Styles } from 'src/shared/styles'
-import { useTranslation } from 'react-i18next'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { fonts } from 'src/shared/styles/fonts'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities'
 
-export interface articleProps extends ImageLabelProps,ArticleWithOutImageProps {
+export interface articleProps extends ImageLabelProps, ArticleWithOutImageProps {
    image?: string,
    nid: string,
    author: string,
    created: string,
    hideImage?: boolean;
+   isAlbum: boolean,
 }
 
 export interface ArticleSectionProps {
@@ -52,9 +52,8 @@ const ArticleSection = ({
     showFooterTitle,
     isFromFavorites = false,
     numColumns = 1,
-    addStyle
+    addStyle,
 }: ArticleSectionProps) => {
-    const [t] = useTranslation();
     const [articleData,setArticleData] = useState(data)
     const style = useThemeAwareObject(articleSectionStyle)
 
@@ -78,7 +77,9 @@ const ArticleSection = ({
         const timeFormat = dateTimeAgo(item.created)
 
         articleFooterDataSet.rightTitle = item.author
+        articleFooterDataSet.rightTitleColor = style.footerTitleColor.color
         articleFooterDataSet.leftTitle = timeFormat.time
+        articleFooterDataSet.leftTitleColor = style.footerTitleColor.color
         articleFooterDataSet.leftIcon = () => TimeIcon(timeFormat.icon) 
 
         const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns == 1 && articleData.length == index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
@@ -92,6 +93,7 @@ const ArticleSection = ({
             articleItemStyle={articleItemStyle}
             titleStyle={style.titleStyle}
             bodyStyle={style.bodyStyle}
+            isAlbum={item.isAlbum}
         />
     }
     return (
@@ -130,23 +132,30 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
     tabImageStyle: {
         width: 0.5 * screenWidth,
         height: 'auto',
-        aspectRatio: 1.82,
+        aspectRatio: 1.34,
     },
     mobileImageStyle: {
-        height: normalize(187),
+        width: '100%',
+        height: 'auto',
+        aspectRatio: 1.34,
     },
     titleStyle:{
         fontFamily: fonts.AwsatDigital_Bold,
-        fontSize: 16,
-        lineHeight: 26,
+        fontSize: isTab ? 20 : 16,
+        lineHeight: isTab ? 32 : 26,
         textAlign: 'left', 
         paddingVertical: normalize(8),
         color: theme.primaryBlack
     },
     bodyStyle:{
         fontFamily: fonts.Effra_Arbc_Regular,
-        fontSize:16,
-        lineHeight:26,
-        textAlign: 'left' 
+        fontSize: normalize(16),
+        lineHeight: normalize(26),
+        textAlign: 'left' ,
+        color: theme.summaryColor,
     },
+    footerTitleColor: {
+        color: theme.footerTextColor
+    }
+
 })

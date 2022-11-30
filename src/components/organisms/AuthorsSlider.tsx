@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import {FlatList, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {AuthorItem} from 'src/components/molecules';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -46,6 +46,7 @@ const AuthorSlider = ({
   const scrollRef = useRef<ScrollView>(null);
 
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
+  const [activeIndex, setActiveIndex] = useState<any>(isIOS ? 0 : data.length - 1);
   const playbackState = usePlaybackState();
 
   const togglePlayback = async (nid: string, mediaData: any) => {
@@ -180,6 +181,35 @@ const AuthorSlider = ({
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   }
 
+  const onMomentumScrollEnd = ( event: any) => {
+    if (!event) return
+
+    const xOffset = event.nativeEvent.contentOffset.x + 10;
+    const currentIndex = Math.floor(xOffset / screenWidth);
+    currentIndex !== activeIndex && setActiveIndex(currentIndex);
+  }
+
+  const renderIndicator = () => {
+    const renderItem = (index: number) => {
+      return (
+        <View key={`indicator-${index}`} style={[style.indicatorStyle, activeIndex == index && style.activeIndicatorStyle]} >
+        </View>
+      )
+    }
+
+    return (
+      <View style={{ flexDirection: 'row' }}>
+        {isIOS ? data.map((_: any, index: number) => {
+          return renderItem(index);
+        }) :
+          data.map((_: any, index: number) => {
+            return renderItem(index);
+          }).reverse()
+        }
+      </View>
+    )
+  }
+
   return (
     <View style={StyleSheet.flatten([style.container,containerStyle])}>
         <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>
@@ -188,9 +218,12 @@ const AuthorSlider = ({
         <ScrollView
         ref={scrollRef}
         horizontal
+        pagingEnabled
+        scrollEventThrottle={32}
         showsHorizontalScrollIndicator={false}
         onContentSizeChange={()=> scrollToStart()}
         bounces={false}
+        onMomentumScrollEnd={onMomentumScrollEnd}
         style={style.container}>
             <FlatList
             listKey={'AuthorSlider' + new Date().getTime().toString()}
@@ -204,6 +237,9 @@ const AuthorSlider = ({
             bounces={false}
         />
     </ScrollView>
+      {isNonEmptyArray(data) && <View style={style.indicatorContainer}>
+        {renderIndicator()}
+      </View>}
     </View>
   );
 };
@@ -228,13 +264,10 @@ const customStyle = (theme: CustomThemeType) => {
         flex: 1,
         paddingTop: normalize(20),
         backgroundColor: theme.secondaryWhite,
-        paddingBottom:normalize(20),
-        paddingEnd: (isTab ? 0.02 : 0.04) * screenWidth
     },
     itemListContainer: {
-        width: screenWidth * (isTab ? 0.43 : 0.84),
-        marginStart: 0.04 * screenWidth,
-        marginEnd: isTab ? 0 : 0.04 * screenWidth,
+        width: screenWidth *  1,
+        paddingHorizontal:  0.04 * screenWidth,
     },
     itemStyle: {
         flex: 1,
@@ -245,6 +278,23 @@ const customStyle = (theme: CustomThemeType) => {
         height: 1,
         backgroundColor: theme.dividerColor
     },
+    indicatorContainer: {
+      height: 30,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginVertical:normalize(10),
+    },
+    indicatorStyle: {
+      height: 8, 
+      width: 8, 
+      borderRadius: 4, 
+      backgroundColor: colors.altoGray, 
+      margin: 4,
+    },
+    activeIndicatorStyle: {
+      backgroundColor: colors.greenishBlue,
+    }
   });
   return AuthorSliderStyle;
 };

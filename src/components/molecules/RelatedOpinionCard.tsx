@@ -3,13 +3,12 @@ import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {isNonEmptyArray, isTab, normalize, isNotEmpty} from 'src/shared/utils';
-import {ImagesName, Styles} from 'src/shared/styles';
+import { ImagesName } from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ButtonImage, Image, Label} from '../atoms';
 import {useTranslation} from 'react-i18next';
 import {ImageResize} from 'src/shared/styles/text-styles';
 import { getImageUrl, isObjectNonEmpty, convertSecondsToHMS } from 'src/shared/utils/utilities';
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants';
@@ -27,8 +26,19 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
   const playbackState = usePlaybackState();
   const[mediaData, setMediaData] = useState<any>({});
   const[timeDuration, setTimeDuration] = useState<any>(null);
+  const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+  const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
+
+  useEffect(() => {
+    if (trackData && trackData.id == (item.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+      setIsBuffering(true);
+    } else {
+      setIsBuffering(false);
+    }
+    setPrevPlayBackState(playbackState);
+  }, [playbackState])
 
   const renderTitle = (item: any) => {
     return (
@@ -143,7 +153,7 @@ const onPressPlay = () => {
           <TouchableOpacity testID='RelatedOpinionCardTO2' onPress={onPressPlay} style={style.footer}>
             <ButtonImage
               icon={() =>
-                trackData && trackData.id == (item.nid+'opinion') && playbackState === State.Playing    ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                trackData && trackData.id == (item.nid+'opinion') && playbackState === State.Playing || isBuffering ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                 getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
               }
               onPress={onPressPlay}
@@ -164,10 +174,6 @@ const onPressPlay = () => {
             resizeMode={ImageResize.COVER}
             type={'round'}
             fallback={true}
-            fallbackContent={<AuthorDefault
-              style={{ backgroundColor: Styles.color.cyanGreen }}
-              width={normalize(80)}
-              height={normalize(80)} />}
             fallbackName={ImagesName.authorDefault}
           />
         </TouchableOpacity>
@@ -223,8 +229,8 @@ const customStyle = (theme: CustomThemeType) => {
     },
     contentTitle: {
       textAlign: 'left',
-      fontSize: 14,
-      lineHeight: 24,
+      fontSize: isTab ? 20 : 14,
+      lineHeight: isTab ? 32 : 24,
       color: theme.primaryBlack,
       fontFamily: fonts.AwsatDigital_Bold,
       paddingVertical: normalize(10),

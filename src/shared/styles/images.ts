@@ -9,11 +9,11 @@ import returnIcon from 'src/assets/images/icons/return_arrow/returnArrow.png';
 import earlyEditionImg from 'src/assets/images/earlyEditionImg.png'
 import moneyAndBusinessImg from 'src/assets/images/moneyAndBusinessImg.png'
 import technologyImg from 'src/assets/images/technologyImg.png'
-import placeholderImg from 'src/assets/images/icons/placeholder_image.png'
-import crossWord from 'src/assets/images/cross_word_image.png'
-import sudoku from 'src/assets/images/sudoku_image.png'
+import placeholderImg from 'src/assets/images/icons/placeholderImage.png'
+import sudoku from 'src/assets/images/sudoku.png'
 import pdfIcon from 'src/assets/images/pdf_icon.png'
-import popupImage from 'src/assets/images/popupImage.png'
+import archiveIconLight from 'src/assets/images/icons/archiveIconLight.png'
+import archiveIconDark from 'src/assets/images/icons/archiveIconDark.png'
 
 // Video Controls Icon
 import bottomShadowImg from 'src/assets/images/bottom-vignette.png'
@@ -24,7 +24,22 @@ import expandIcon from 'src/assets/images/expand.png'
 import shirnkIcon from 'src/assets/images/shrink.png'
 
 import authorDefault from 'src/assets/images/author_default.png'
-import authorDefaultGrey from 'src/assets/images/author_defaultGrey.png'
+
+// Weather Images
+import clearSkyImg from 'src/assets/images/weather/clearSky.png'
+import cloudyImg from 'src/assets/images/weather/Cloudy.png'
+import rainyImg from 'src/assets/images/weather/Rainy.png'
+import sandImg from 'src/assets/images/weather/Sand.png'
+import sunnyImg from 'src/assets/images/weather/Sunny.png'
+
+// Cloud Images
+import sunClouds from 'src/assets/images/clouds/sun_clouds.png'
+
+// Game Images
+import crosswordImage from 'src/assets/images/cross_word.png'
+import sudokuImage from 'src/assets/images/sudoku_.png'
+import crosswordImageDark from 'src/assets/images/cross_word_dark.png'
+import sudokuImageDark from 'src/assets/images/sudoku_dark.png'
 
 export enum ImagesName {
   newsIcon = 'newsIcon',
@@ -41,7 +56,9 @@ export enum ImagesName {
   bookmarkBlack = ' bookmarkBlack',
   clock = 'clock',
   clockWhite = 'clockWhite',
+  clockBlack = 'clockBlack',
   headerLogo = 'headerLogo',
+  headerLogoDark = 'headerLogoDark',
   logoBlack = 'logoBlack',
   searchIcon = 'searchIcon',
   menuIcon = 'menuIcon',
@@ -51,10 +68,31 @@ export enum ImagesName {
   greenPlayIcon = 'greenPlayIcon',
   notification = 'notification',
   notificationSelected = 'notificationSelected',
+  sunClouds = 'sunClouds',
   arrowPrev = 'arrowPrev',
   arrowNext = 'arrowNext',
   authorItem = 'authorItem',
   authorItemActive = 'authorItemActive',
+  weatherThermometerIcon = 'weatherThermometerIcon',
+  weatherRainIcon = 'weatherRainIcon',
+  WeatherIcon3 = 'WeatherIcon3',
+  celsiusIcon = 'celsiusIcon',
+  WeatherIcon4 = 'WeatherIcon4',
+  WeatherIcon5 = 'WeatherIcon5',
+  WeatherIcon6 = 'WeatherIcon6',
+  cloudsIcon = 'cloudsIcon',
+  sunImageIcon = 'sunImageIcon',
+  cloudImageIcon = 'cloudImageIcon',
+  fogImageIcon = 'fogImageIcon',
+  rainImageIcon = 'rainImageIcon',
+  sunCloudsImageIcon = 'sunCloudsImageIcon',
+  thunderIcon = 'thunderIcon',
+  cloudyWindyIcon = 'cloudyWindyIcon',
+  rainIcon = 'rainIcon',
+  snowIcon = 'snowIcon',
+  sunIcon = 'sunIcon',
+  weatherDayIcon = 'weatherDayIcon',
+  weatherNightIcon = 'weatherNightIcon',
   googleIcon = 'googleIcon',
   appleIcon = 'appleIcon',
   facebookIcon = 'facebookIcon',
@@ -98,7 +136,6 @@ export enum ImagesName {
   plusGreen = 'plusGreen',
   tickIcon = 'tickIcon',
   default = 'default',
-  crossWord = 'crossWord',
   sudoku = 'sudoku',
   greenArrowLeft = 'greenArrowLeft',
   returnWhiteIcon = 'returnWhiteIcon',
@@ -120,14 +157,28 @@ export enum ImagesName {
   printVersionGrayIcon = 'printVersionGrayIcon',
   popupImage = 'popupImage',
   calendarIcon = 'calendarIcon',
+  calendarIconLight = 'calendarIconLight',
   videoCloseIcon = 'videoCloseIcon',
   authorDefault = 'authorDefault',
-  authorDefaultGrey = 'authorDefaultGrey',
   myNewsIcon = 'myNewsIcon',
   myNewsActiveIcon = 'myNewsActiveIcon',
   profileNameIcon = 'profileNameIcon',
   emailGrayIcon = 'emailGrayIcon',
   chatBubbleIcon = 'chatBubbleIcon',
+  photoIcon = 'photoIcon',
+  flagIcon = 'flagIcon',
+  popupLogo = 'popupLogo',
+  crosswordImage = 'crosswordImage',
+  sudokuImage = 'sudokuImage',
+  crosswordImageDark = 'crosswordImageDark',
+  sudokuImageDark = 'sudokuImageDark',
+  subscribeIconWhite = 'subscribeIconWhite',
+  subscribeIconGreen = 'subscribeIconGreen',
+  archiveIconLight = 'archiveIconLight',
+  archiveIconDark = 'archiveIconDark',
+  anghamiPodcast = 'anghamiPodcast',
+  resetIcon = 'resetIcon',
+  liveIcon = 'liveIcon',
 }
 
 export const images = {
@@ -141,18 +192,27 @@ export const images = {
   moneyAndBusinessImg,
   technologyImg,
   placeholderImg,
-  crossWord,
   sudoku,
   pdfIcon,
-  popupImage,
   bottomShadowImg,
+  sunClouds,
+  clearSkyImg,
+  cloudyImg,
+  rainyImg,
+  sunnyImg,
+  sandImg,
   playIconWhite,
   pauseIconWhite,
   topShadowImg,
   authorDefault,
-  authorDefaultGrey,
   expandIcon,
   shirnkIcon,
+  crosswordImage,
+  sudokuImage,
+  crosswordImageDark,
+  sudokuImageDark,
+  archiveIconLight,
+  archiveIconDark,
 };
 
 export const darkImages = {

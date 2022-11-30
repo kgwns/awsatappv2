@@ -13,7 +13,7 @@ import { useAppPlayer } from 'src/hooks/useAppPlayer'
 import RBSheet from 'react-native-raw-bottom-sheet'
 import { fonts } from 'src/shared/styles/fonts'
 import Slider from '@react-native-community/slider'
-import { convertSecondsToHMS } from 'src/shared/utils/utilities'
+import { convertSecondsToHMS, DEFAULT_HIT_SLOP } from 'src/shared/utils/utilities'
 
 export interface PodcastMiniPlayerProps {
     onClose?: () => void;
@@ -33,9 +33,10 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
 }) => {
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
-    const isPlaying = playbackState === State.Playing;
+    const isPlaying = playbackState === State.Playing
+    const isLoading = playbackState !== State.Playing && playbackState !== State.Paused
+    const isBuffering = playbackState === State.Buffering
     const { selectedTrack } = useAppPlayer()
-    const isLoadedRef = useRef(false)
     
     const refRBSheet = useRef<RBSheet>();
     const _playForwardIcon = getSvgImages({ name: ImagesName.playForwardIcon, width: normalize(25), height: normalize(25) })
@@ -49,15 +50,6 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     useEffect(()=> {
         showControl && refRBSheet.current?.open();
     },[showControl])
-
-    useEffect(() => {
-        if (isIOS && playbackState == State.Playing) {
-            isLoadedRef.current = true
-        }
-        if (isAndroid && playbackState == 8) {
-            isLoadedRef.current = true
-        }
-    }, [playbackState])
 
     // check playback error
     useTrackPlayerEvents(events, (event) => {
@@ -127,11 +119,12 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     const renderRBSheet = () => (
         <RBSheet
         ref={(ref: RBSheet) => refRBSheet.current = ref}
-            animationType={'fade'}
+            animationType={'none'}
             closeOnDragDown={true}
             closeOnPressMask={true}
             closeOnDragAboveSheet={true}
             onClose={onCloseControl}
+            height={isIOS ? normalize(220) : normalize(200)}
             customStyles={{
                 container: StyleSheet.flatten([style.rbSheetContainer]),
                 wrapper: style.popupBackground,
@@ -168,13 +161,13 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     <Label children={convertSecondsToHMS(progress.duration || 0)} style={style.durationText}/>
                 </View>
                 <View style={style.controls} >
-                    <TouchableOpacity testID={'playForwardIcon'} onPress={() => { seekForwardBackward('backward') }}>
+                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID={'playForwardIcon'} onPress={() => { seekForwardBackward('backward') }}>
                         {_playForwardIcon}
                     </TouchableOpacity>
-                    <TouchableOpacity testID={'playPause'} onPress={() => onPlayPausePress(playbackState)}>
-                        { isPlaying ? _pauseIcon : _playIcon }
+                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID={'playPause'} onPress={() => onPlayPausePress(playbackState)}>
+                        { isPlaying || isBuffering ? _pauseIcon : _playIcon }
                     </TouchableOpacity>
-                    <TouchableOpacity testID={'playBackwardIcon'} onPress={() => { seekForwardBackward('forward') }}>
+                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID={'playBackwardIcon'} onPress={() => { seekForwardBackward('forward') }}>
                         {_playBackwardIcon}
                     </TouchableOpacity>
                 </View>
@@ -207,7 +200,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                         <View style={style.buttonBackground}>
                             <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
                                 <View style={style.buttonContainer}>
-                                    {!isLoadedRef.current ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play />}
+                                    {isLoading ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play />}
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -302,7 +295,7 @@ const customStyle = (theme: CustomThemeType) => {
             borderTopLeftRadius: normalize(20),
             borderTopRightRadius: normalize(20),
             backgroundColor: theme.secondaryWhite,
-            height: normalize(220),
+            height: isIOS ? normalize(220) : normalize(200),
         },
         rbDraggableIcon: {
             width: normalize(33),

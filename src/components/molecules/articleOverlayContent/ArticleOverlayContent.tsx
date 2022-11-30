@@ -4,7 +4,7 @@ import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from 'src/components/molecules'
 import { Label, LabelTypeProp } from 'src/components/atoms'
 import { articleFooterProps } from 'src/components/molecules/articleFooter/ArticleFooter'
-import { isNotEmpty, normalize } from 'src/shared/utils'
+import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { fonts } from 'src/shared/styles/fonts'
@@ -43,7 +43,7 @@ export const ArticleOverlayContent = ({
     const { themeData } = useTheme()
     const imageArticleStyle = useThemeAwareObject(customStyle)
     const textColor =  themeData.primaryBlack
-    const footerTextColor = themeData.secondaryMediumGrey
+    const footerTextColor = themeData.footerTextColor
     articleDetailFooterData.leftTitleColor = footerTextColor
     articleDetailFooterData.rightTitleColor = footerTextColor
     const timeFormat = dateTimeAgo(created)
@@ -63,7 +63,8 @@ export const ArticleOverlayContent = ({
                 />
             }
             <ArticleFooter {...articleDetailFooterData} isDetail={true}
-                rightTitle={decodeHTMLTags(decode(author))} leftTitle={timeFormat.time}
+                // rightTitle={decodeHTMLTags(decode(author))} 
+                leftTitle={timeFormat.time}
                 leftIcon={() => TimeIcon(timeFormat.icon)}
             />
         </View>
@@ -73,8 +74,8 @@ export const ArticleOverlayContent = ({
 const customStyle = (theme:CustomThemeType) => StyleSheet.create({
     title: {
         fontFamily: fonts.AwsatDigital_Bold,
-        fontSize: 30,
-        lineHeight: 42,
+        fontSize: isTab ? 33 : 30,
+        lineHeight: isTab ? 46 : 42,
         textAlign: 'left',
         color: theme.primaryBlack,
         paddingBottom: normalize(5),

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {StyleSheet, View } from 'react-native';
-import {normalize} from 'src/shared/utils';
+import {isTab, normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image} from 'src/components/atoms';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
@@ -8,7 +8,7 @@ import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {decodeHTMLTags, getPodcastDate, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty} from 'src/shared/utils/utilities';
+import {decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay} from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
@@ -49,8 +49,9 @@ export const PodcastVerticalList = ({
   const [isTitleLineCount, setIsTitleLineCount] = useState(1)
 
   useEffect(() => {
+    setDuration(null);
     getPodcastDuration()
-  }, [])
+  }, [spreakerId])
 
   const onTextLayout = useCallback((e) => {
     setIsTitleLineCount(e.nativeEvent.lines ? e.nativeEvent.lines.length : 1)
@@ -62,7 +63,7 @@ export const PodcastVerticalList = ({
         const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: spreakerId })
         if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
           const episode = response.response.episode
-          setDuration(Math.floor(episode.duration / 1000))
+          setDuration(Math.ceil(episode.duration / 1000))
         }
       }catch(error){
         console.log(error)
@@ -82,9 +83,10 @@ export const PodcastVerticalList = ({
               {title}
             </Label>
           </View>
+          {/* Removed Play Icon as per AMAR-1052
           <View style={style.headerRightStyle}>
             <PlayIcon />
-          </View>
+          </View> */}
         </View>
         {!hideDescription&&<Label style={style.description} numberOfLines={2}>
           {isNotEmpty(description) ? decodeHTMLTags(description) : ''}
@@ -92,7 +94,7 @@ export const PodcastVerticalList = ({
         <View style={[style.headerStyle,hideDescription&&style.spaceStyle]}>
           <View style={style.headerLeftStyle}>
             <Label style={style.footerRightTextStyle} numberOfLines={1}>
-              {getPodcastDate(footerRight)}
+              {getDay(footerRight)}
             </Label>
             {footerRight && spreakerId &&<Label style={{fontSize:12}} color={colors.spanishGray}>|</Label>}
             {spreakerId && <Label style={style.footerLeftTextStyle} numberOfLines={1}>
@@ -148,8 +150,8 @@ const customStyle = (theme: CustomThemeType) => {
       height: '100%'
     },
     title: {
-      fontSize: 14,
-      lineHeight: 18,
+      fontSize: isTab ? 20 : 14,
+      lineHeight: isTab ? 32 : 18,
       fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primaryBlack,
       marginLeft: normalize(10),

@@ -11,9 +11,12 @@ import {
     getSectionComboFiveData,
     getSectionComboSixData,
     getSectionComboSevenData,
+    getSectionComboEightData,
     getEditorsChoiceData,
     getSpotlightData,
     getSpotlightArticleSectionData,
+    getInfoGraphicBlockData,
+    getArchivedArticleSectionData,
     getCoverageDataLoading,
     getFeaturedArticleLoading,
     getHorizontalDataLoading,
@@ -23,16 +26,19 @@ import {
     getSectionComboOneLoading,
     getSectionComboTwoLoading,
     getSectionComboThreeLoading,
+    getInfoGraphicBlockDataLoading,
 } from 'src/redux/latestNews/selectors';
-import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet, EditorsChoiceDataType, SpotlightDataType, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
+import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet, EditorsChoiceDataType, SpotlightDataType, SpotlightArticleSectionBodyGet, InfoGraphicBlockType, ArchivedArticleDataType } from 'src/redux/latestNews/types';
 import { requestHeroListTopList, requestSectionComboFour, 
     requestSectionComboOne, requestSectionComboThree, 
     requestSectionComboTwo, requestTickerAndHero, requestOpinionList,
     requestCoverageBlock,
     requestHorizontalArticleBlock,
     requestFeatureArticleBlock,
-    requestPodcastHomeData, requestSectionComboFive, requestSectionComboSix, requestSectionComboSeven, 
-    requestEditorsChoiceData, requestSpotlightData, requestSpotlightArticleSection, 
+    requestPodcastHomeData, requestSectionComboFive, requestSectionComboSix, requestSectionComboSeven,
+    requestSectionComboEight, 
+    requestEditorsChoiceData, requestSpotlightData, requestSpotlightArticleSection, requestInfoGraphicBlock,
+    requestArchivedArticleSection,
 } from 'src/redux/latestNews/action';
 
 export interface UseLatestNewsReturn {
@@ -50,6 +56,7 @@ export interface UseLatestNewsReturn {
     sectionComboFive: LatestArticleDataType[];
     sectionComboSix: LatestArticleDataType[];
     sectionComboSeven: LatestArticleDataType[];
+    sectionComboEight: LatestArticleDataType[];
     podcastHome: LatestPodcastDataType[];
     coverage: MainSectionBlockType[];
     featuredArticle: MainSectionBlockType[];
@@ -57,6 +64,8 @@ export interface UseLatestNewsReturn {
     editorsChoice: EditorsChoiceDataType[];
     spotlight: SpotlightDataType[];
     spotlightArticleSection: LatestArticleDataType[];
+    infoGraphicBlock: InfoGraphicBlockType[];
+    archivedArticleSection: ArchivedArticleDataType[];
     coverageInfoLoaded: boolean;
     featuredArticleLoaded: boolean;
     horizontalArticleLoaded: boolean;
@@ -66,6 +75,7 @@ export interface UseLatestNewsReturn {
     sectionComboOneLoaded: boolean;
     sectionComboTwoLoaded: boolean;
     sectionComboThreeLoaded: boolean;
+    infoGraphicBlockInfoLoaded: boolean;
     fetchTickerAndHeroArticle(payload: LatestArticleBodyGet): void;
     fetchHeroListTopList(payload: LatestArticleBodyGet): void
     fetchSectionComboOne(payload: RequestSectionComboBodyGet): void
@@ -75,6 +85,7 @@ export interface UseLatestNewsReturn {
     fetchSectionComboFive(payload: RequestSectionComboBodyGet): void
     fetchSectionComboSix(payload: RequestSectionComboBodyGet): void
     fetchSectionComboSeven(payload: RequestSectionComboBodyGet): void
+    fetchSectionComboEight(payload: RequestSectionComboBodyGet): void
     fetchPodcastHome(): void
     fetchCoverageBlockData(): void
     fetchFeaturedArticleData(): void;
@@ -82,6 +93,8 @@ export interface UseLatestNewsReturn {
     fetchEditorsChoice(): void;
     fetchSpotlight():void;
     fetchSpotlightArticleSection(payload: SpotlightArticleSectionBodyGet): void;
+    fetchInfoGraphicBlockData(): void;
+    fetchArchivedArticleSection(): void;
 }
 
 export const useLatestNewsTab = (): UseLatestNewsReturn => {
@@ -99,6 +112,7 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const sectionComboFive = useSelector(getSectionComboFiveData)
     const sectionComboSix = useSelector(getSectionComboSixData)
     const sectionComboSeven = useSelector(getSectionComboSevenData)
+    const sectionComboEight = useSelector(getSectionComboEightData)
     const podcastHome = useSelector(getPodcastHomeData)
     const coverage = useSelector(getCoverageData)
     const featuredArticle = useSelector(getFeaturedArticle)
@@ -106,6 +120,8 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const editorsChoice = useSelector(getEditorsChoiceData)
     const spotlight = useSelector(getSpotlightData)
     const spotlightArticleSection = useSelector(getSpotlightArticleSectionData)
+    const infoGraphicBlock = useSelector(getInfoGraphicBlockData)
+    const archivedArticleSection = useSelector(getArchivedArticleSectionData)
     const coverageInfoLoaded = useSelector(getCoverageDataLoading)
     const featuredArticleLoaded = useSelector(getFeaturedArticleLoading)
     const horizontalArticleLoaded = useSelector(getHorizontalDataLoading)
@@ -115,6 +131,7 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const sectionComboOneLoaded = useSelector(getSectionComboOneLoading)
     const sectionComboTwoLoaded = useSelector(getSectionComboTwoLoading)
     const sectionComboThreeLoaded = useSelector(getSectionComboThreeLoading)
+    const infoGraphicBlockInfoLoaded = useSelector(getInfoGraphicBlockDataLoading)
 
     
     const fetchTickerAndHeroArticle = (payload: LatestArticleBodyGet) => {
@@ -151,6 +168,10 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         dispatch(requestSectionComboSeven(payload));
     };
 
+    const fetchSectionComboEight = (payload: RequestSectionComboBodyGet) => {
+        dispatch(requestSectionComboEight(payload));
+    };
+
     const fetchPodcastHome = () => {
         dispatch(requestPodcastHomeData());
     };
@@ -178,6 +199,14 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         dispatch(requestSpotlightArticleSection(payload));
     };
 
+    const fetchInfoGraphicBlockData = () => {
+        dispatch(requestInfoGraphicBlock());
+    }
+
+    const fetchArchivedArticleSection = () => {
+        dispatch(requestArchivedArticleSection());
+    }
+
     return {
         isLoading,
         ticker,
@@ -198,6 +227,7 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         sectionComboFive,
         sectionComboSix,
         sectionComboSeven,
+        sectionComboEight,
         fetchSectionComboOne,
         fetchSectionComboTwo,
         fetchSectionComboThree,
@@ -205,6 +235,7 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         fetchSectionComboFive,
         fetchSectionComboSix,
         fetchSectionComboSeven,
+        fetchSectionComboEight,
         podcastHome,
         fetchPodcastHome,
         fetchCoverageBlockData,
@@ -216,6 +247,10 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         fetchSpotlight,
         spotlightArticleSection,
         fetchSpotlightArticleSection,
+        infoGraphicBlock,
+        fetchInfoGraphicBlockData,
+        archivedArticleSection,
+        fetchArchivedArticleSection,
         coverageInfoLoaded,
         featuredArticleLoaded,
         horizontalArticleLoaded,
@@ -225,5 +260,6 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         sectionComboOneLoaded,
         sectionComboTwoLoaded,
         sectionComboThreeLoaded,
+        infoGraphicBlockInfoLoaded,
     };
 };

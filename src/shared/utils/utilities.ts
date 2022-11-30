@@ -13,6 +13,9 @@ import { ImagesName } from "../styles";
 import { isIOS } from "./dimensions";
 import { decode } from "html-entities";
 import DeviceInfo from 'react-native-device-info';
+import countries from "i18n-iso-countries";
+import arabicLang from "i18n-iso-countries/langs/ar.json";
+import { HomePageArticleType } from "src/redux/latestNews/types";
 
 export enum DateIcon {
   CLOCK,
@@ -73,7 +76,7 @@ export const getArticleImage = (fieldImage: any, newPhoto: any) : string => {
   return getImageUrl(image)
 }
 
-export const decodeHTMLTags = (description: string) : string => {
+export const decodeHTMLTags = (description: string | any) : string => {
   const regex = /(<([^>]+)>)/gi; // to find the html tags in the description ex: <p>, <br>, etc.,
   const dataInfo = isNotEmpty(description) ? description.replace(regex, '').trim() : '';
   return isNotEmpty(dataInfo) ? decode(dataInfo.trim()) : ''
@@ -118,6 +121,10 @@ export const isStringIncludes = (data: any, searchText: string): boolean => {
   return isNotEmpty(data) && data.includes(searchText) ? true : false
 }
 
+export const getString = (value: any): string => {
+  return isNotEmpty(value) ? decodeHTMLTags(value) : ' '
+};
+
 export const timeAgo = (time: any) => {
   var date = new Date(time);
   var today = new Date();
@@ -157,11 +164,11 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
     if (isLessThanHour) {
       return { icon: DateIcon.CLOCK, time: `${arabic.timeSince.since} ${JSON.stringify(minutes)} ${arabic.timeSince.minute}` }
     } else if (isLessThanTwoHours) {
-      return { icon: DateIcon.CLOCK, time: arabic.timeSince.fromHour }
+      return { icon: DateIcon.CLOCK, time: arabic.timeSince.sinceHour }
     } else if (isLessThanThreeHours) {
-      return { icon: DateIcon.CLOCK, time: arabic.timeSince.fromTwoHours }
+      return { icon: DateIcon.CLOCK, time: arabic.timeSince.sinceTwoHours }
     } if (isLessThanFourHours) {
-      return { icon: DateIcon.CLOCK, time: arabic.timeSince.fromThreeHours }
+      return { icon: DateIcon.CLOCK, time: arabic.timeSince.sinceThreeHours }
     }
   }
 
@@ -226,7 +233,7 @@ export const calculateTimeSince = (time: any) => {
 };
 
 export const calculateDay = (time: any) => {
-  return moment(time).get('day');
+  return moment(time).utcOffset(time).get('day');
 };
 
 export const calculateHour = (time: any) => {
@@ -248,26 +255,43 @@ export const calculateMothNumber = (time: any) => {
 };
 
 export const calculateDate = (time: any) => {
-  return moment(time).get('date');
+  return moment(time).utcOffset(time).get('date');
 };
 
 export const calculateMonth = (time: any) => {
-  return arabic.months[moment(time).get('month')];;
+  return arabic.months[moment(time).utcOffset(time).get('month')];;
 };
 
 export const calculateYear = (time: any) => {
-  return  moment(time).get('year');
+  return  moment(time).utcOffset(time).get('year');
 };
 
 export const getFullDate = (time: any) => {
-  return calculateDate(time) + ' ' + calculateMonth(time) + ' ' + moment(time).get('year');
+  return calculateNonUtcDate(time) + ' ' + calculateNonUtcMonth(time) + ' ' + moment(time).get('year');
 }
 
+export const calculateNonUtcDateNumber = (time: any) => {
+  const date = calculateNonUtcDate(time)
+  return date < 10 ? '0' + date : date;
+};
+
+export const calculateNonUtcDate = (time: any) => {
+  return moment(time).get('date');
+};
+
+export const calculateNonUtcMonth = (time: any) => {
+  return arabic.months[moment(time).get('month')];;
+};
+
+export const calculateNonUtcYear = (time: any) => {
+  return  moment(time).get('year');
+};
+
 export const getFormattedDate = (time: any) => {
-  const year = calculateYear(time)
+  const year = calculateNonUtcYear(time)
   const monthValue = moment(time).get('month') + 1
   const month = monthValue < 10 ? '0' + monthValue : monthValue
-  const dateValue = calculateDate(time);
+  const dateValue = calculateNonUtcDate(time);
   const date = dateValue < 10 ? '0' + dateValue : dateValue
   return year + '-' + month + '-' + date
 }
@@ -282,6 +306,12 @@ export const getPodcastUrl = (episode_id: string) => {
 
 export const getPodcastDate = (time:any) => {
   return isNotEmpty(time) ? calculateMonth(time) + ', ' + calculateDate(time) + ' ' + calculateMonth(time) : " "
+}
+
+export const getDay = (time:any) => {
+  if(!isNotEmpty(time)) return '';
+  const day =  calculateDay(time)
+  return arabic.day[day] + ', '+ calculateDate(time)  + ' ' + calculateMonth(time) + ' ' + moment(time).get('year')
 }
 
 export const  getSecondsToHms = (time:any): string => {
@@ -364,4 +394,12 @@ export const getCountryNameFromCode = ( countryCode: string) : string => {
 
 export const isValidDate = (dateObject: any): boolean => {
   return dateObject && new Date(dateObject).toString() !== 'Invalid Date';
+}
+
+export const getShareUrl = (shortUrl: string, viewNodeUrl:string): string => {
+  return  isNotEmpty(shortUrl) ? shortUrl : viewNodeUrl;
+}
+
+export const isTypeAlbum = (type: HomePageArticleType): boolean => {
+  return isNotEmpty(type) && type === HomePageArticleType.ALBUM;
 }

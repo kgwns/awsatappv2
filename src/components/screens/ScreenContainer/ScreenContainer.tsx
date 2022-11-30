@@ -55,6 +55,7 @@ export interface ScreenContainerProps {
   playerPosition?: StyleProp<ViewStyle>;
   showPlayer?: boolean;
   isLandscape?: boolean;
+  backgroundColor?: string;
 }
 
 export const ScreenContainer = ({
@@ -75,7 +76,8 @@ export const ScreenContainer = ({
   headerLeft,
   playerPosition,
   showPlayer = true,
-  isLandscape = false
+  isLandscape = false,
+  backgroundColor = '',
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -143,10 +145,10 @@ export const ScreenContainer = ({
     );
   };
 
-  const statusBarBackgroundColor = statusbarColor || themeData.backgroundColor;
+  const statusBarBackgroundColor = statusbarColor ||  isNotEmpty(backgroundColor) ? backgroundColor : themeData.backgroundColor;
   return (
       <SafeAreaView
-        style={[style.container, !isLandscape && {width: screenWidth, height: screenHeight}]} // Intensively added inline style to update screen size when rotate
+        style={[style.container, !isLandscape && {width: screenWidth, height: screenHeight}, isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor} ]} // Intensively added inline style to update screen size when rotate
         edges={edge ? edge : ['left', 'right', 'top']}>
         {showHeader && header(headerTitle)}
         <StatusBar
@@ -158,7 +160,7 @@ export const ScreenContainer = ({
         {children}
         {isLoading && <LoadingState />}
         {isOverlayLoading && (
-          <View style={style.loadingOverlay}>
+          <View style={[style.loadingOverlay,isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor}]}>
             <LoadingState />
           </View>
         )}

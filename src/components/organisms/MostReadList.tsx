@@ -110,7 +110,7 @@ const MostReadList = ({
   }
 
   const renderItem = (item: any, index: number) => {
-    const timeFormat = dateTimeAgo(item.created_export)
+    const timeFormat = dateTimeAgo(item.changed)
 
     const footerData = {
       leftTitle: item.author_resource,
@@ -118,7 +118,7 @@ const MostReadList = ({
       rightTitle: timeFormat.time,
       rightTitleStyle: {fontFamily: fonts.Effra_Arbc_Regular, lineHeight: 40, fontSize: 12},
       rightIcon: () => TimeIcon(timeFormat.icon),
-      rightTitleColor: Styles.color.silverChalice,
+      rightTitleColor: style.footerTitleColor.color,
       leftTitleStyle: style.leftFooterStyle,
     };
 
@@ -203,8 +203,8 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   titleStyle: {
     fontFamily: fonts.AwsatDigital_Bold,
-    fontSize: 16,
-    lineHeight: 28,
+    fontSize: isTab ? 20 : 16,
+    lineHeight: isTab ? 30 : 28,
     textAlign: 'left',
     paddingVertical: normalize(8),
     color: theme.primaryBlack
@@ -221,5 +221,8 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: normalize(80)
+  },
+  footerTitleColor: {
+    color: theme.footerTextColor
   }
 });

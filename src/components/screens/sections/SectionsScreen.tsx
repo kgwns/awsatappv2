@@ -6,6 +6,7 @@ import {
   VideoScreen,
   PodcastProgram,
   SectionStoryScreen,
+  PhotoGalleryScreen,
 } from '..';
 import {horizontalEdge, isIOS, isNonEmptyArray, isStringIncludes, normalize} from 'src/shared/utils';
 import {
@@ -31,6 +32,7 @@ export enum TabType {
   section = 'section',
   games = 'games',
   main = 'section-main-tab',
+  photos = 'photos',
 }
 
 export const SectionsScreen = () => {
@@ -57,11 +59,13 @@ export const SectionsScreen = () => {
         return <VideoScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>;
       case TabType.games:
         return <GameScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
+      case TabType.photos:
+        return <PhotoGalleryScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
       case TabType.main:
         return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} currentIndex={index} tabIndex={parseInt(tabIndex[0])} />
       default:
         return (
-          <SectionStoryScreen sectionId={route.sectionId}
+          <SectionStoryScreen sectionId={route.field_sections}
             currentIndex={index}
             tabIndex={parseInt(tabIndex[0])}
             childInfo={route.child}
@@ -86,6 +90,7 @@ export const SectionsScreen = () => {
             sectionId: item.sectionId,
             keyName: item.keyName,
             child: item.child,
+            field_sections: item.field_sections
           };
         })
         setNewRoutes(newRoutesArray)
@@ -132,20 +137,31 @@ export const SectionsScreen = () => {
     setNewRoutes(routeData)
   }
 
-  const onPressTabItem = (index: number) => {
+  const onPressTabItem = (selectedIndex: number) => {
     const routeData = [...routes]
-    const selectedRoute = routeData[index]
+    const selectedRoute = routeData[selectedIndex]
     let selectedRouteChild: TopMenuItemType[] = [];
+
     if(selectedRoute && selectedRoute.child) {
       selectedRouteChild = selectedRoute.child.map((item: TopMenuItemType) => ({
         ...item,
         isSelected: false
       }))
+
+      const previousData = routeData[index];
+      let oldChildSection = [...previousData.child]
+      const lastSelectedIndex = oldChildSection.findIndex((item) => item.isSelected == true);
+      if (lastSelectedIndex > -1 && isNonEmptyArray(oldChildSection[lastSelectedIndex].child)) {
+        let updatedLatestChild = oldChildSection[lastSelectedIndex]
+        const updatedLatestSubChild = updatedLatestChild.child?.map((childItem: TopMenuItemType) => ({ ...childItem, isSelected: false }));
+        updatedLatestChild.child = updatedLatestSubChild
+        oldChildSection[lastSelectedIndex] = updatedLatestChild;
+      }
     }
     selectedRoute.child = selectedRouteChild
-    routeData[index] = selectedRoute
+    routeData[selectedIndex] = selectedRoute
     setNewRoutes(routeData)
-    setIndex(index)
+    setIndex(selectedIndex)
   }
 
 
@@ -223,7 +239,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     flex: 1,
   },
   tabBar: {
-    backgroundColor: theme.mainBackground,
+    backgroundColor: theme.tabBarBackground,
     paddingTop: 10
   },
   indicator: {

@@ -6,7 +6,6 @@ import {Image, Label} from 'src/components/atoms';
 import {isIOS, normalize, screenWidth} from 'src/shared/utils';
 import {ImagesName} from 'src/shared/styles/images';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useTranslation} from 'react-i18next';
 import { fonts } from 'src/shared/styles/fonts';
 export interface NewsLetterCardProps {
@@ -26,9 +25,12 @@ export const NewsLetterCard = ({
   onPress,
 }: NewsLetterCardProps) => {
   const style = useThemeAwareObject(customStyle);
-  const theme = useTheme();
   const [selected, setSelected] = useState(isSelected);
   const [t] = useTranslation();
+  const buttonLogoName = selected ? ImagesName.tickIcon : ImagesName.subscribeIconWhite;
+  const buttonText = selected ? t('onBoard.newsLetter.subscribed') : t('onBoard.newsLetter.notSubscribed');
+  const buttonBackground = selected ? colors.greenishBlue : colors.black;
+  const buttonLogoStyle = selected ? {width: 20, height:17, marginRight: 5, marginBottom: 5} : {width: 14, height:11, marginRight: 10}
 
   const changeStatus = () => {
     onPress(!selected);
@@ -40,52 +42,28 @@ export const NewsLetterCard = ({
   },[isSelected])
 
   return (
-    <TouchableOpacity
+    <View
       testID={'CardTestId'}
-      style={[
-        style.container,
-        {
-          backgroundColor: selected
-            ? theme.themeData.newsletterHighlighter
-            : theme.themeData.lightRed,
-        },
-      ]}
-      onPress={changeStatus}>
+      style={style.container}>
       <View style={style.imageContainer}>
         <Image
-        url={image}
-        style={style.image}
+          url={image}
+          style={style.image}
         />
       </View>
       <View style={style.contentContainer}>
         <Label style={style.title}>{title}</Label>
         <Label style={style.subTitle}>{subTitle}</Label>
-        <View style={style.footerContent}>
-          <View style={style.circleShape}>
-            <View>
-              {selected
-                ? getSvgImages({
-                    name: ImagesName.mailSelected,
-                    size: normalize(12),
-                    fill: theme.themeData.primary,
-                  })
-                : getSvgImages({
-                    name: ImagesName.mail,
-                    size: normalize(12),
-                  })}
-            </View>
-          </View>
-          <View style={style.labelContainer} >
-            <Label
-              style={selected ? style.statusSelectedLabel : style.statusLabel} numberOfLines={1}>
-              {selected
-              ? t('onBoard.newsLetter.subscribed')
-              : t('onBoard.newsLetter.notSubscribed')}
-            </Label>
-          </View>
-        </View>
       </View>
-    </TouchableOpacity>
+      <TouchableOpacity style={[style.buttonView, {backgroundColor: buttonBackground}]} onPress={changeStatus}>
+        <View style={style.buttonContainer}>
+          <View style={style.logoContainer}>
+          {getSvgImages({ name: buttonLogoName, width: buttonLogoStyle.width, height: buttonLogoStyle.height, style: buttonLogoStyle })}  
+          </View>
+          <Label color={colors.white} style={style.buttonLabel} children={buttonText} />
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 };
 const customStyle = (theme: CustomThemeType) => {
@@ -97,21 +75,23 @@ const customStyle = (theme: CustomThemeType) => {
       flexDirection: 'row',
       alignContent: 'center',
       alignItems: 'center',
+      backgroundColor: theme.newsletterHighlighter
     },
     imageContainer: {
       height: '100%',
       justifyContent: 'center',
-      marginHorizontal: normalize(15),
+      marginLeft: normalize(10),
+      marginRight: normalize(5),
     },
     image: {
-      width: normalize(107),
+      width: normalize(65),
       height: normalize(85),
     },
     contentContainer: {
       flex: 1,
       height: normalize(85),
       alignItems: 'flex-start',
-      marginTop: 2,
+      justifyContent: 'center',
     },
     title: {
       fontFamily: fonts.AwsatDigital_Bold,
@@ -158,6 +138,29 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
       alignItems: 'flex-start',
       marginRight: normalize(3),
+    },
+    buttonView: {
+      height: 38, width:'32%',
+      marginRight: normalize(15),
+      borderRadius: 28
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      paddingHorizontal: 15,
+      paddingVertical: isIOS ? 7 : 5,
+      marginVertical: 7,
+    },
+    buttonLogo: {
+      marginRight: 10
+    },
+    buttonLabel: {
+      fontSize:14,
+      lineHeight:16,
+      fontFamily: fonts.AwsatDigitalV2_Bold,
+    },
+    logoContainer: {
+      justifyContent: 'center'
     }
   });
   return NewsLetterCardStyle;

@@ -53,7 +53,7 @@ const customStyle = (theme: CustomThemeType) => {
       flexDirection: 'row-reverse',
       justifyContent: 'space-between',
       alignItems: 'center',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.profileBackground,
       paddingTop: normalize(10),
     },
     textStyle: {

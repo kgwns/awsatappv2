@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View, StyleSheet,TouchableOpacity } from 'react-native'
 import { ButtonImage, Image, Label, LabelTypeProp } from '../atoms'
 import { isNonEmptyArray, isObjectNonEmpty, normalize, isNotEmpty, isIOS } from '../../shared/utils'
-import { ImagesName, Styles } from '../../shared/styles'
+import { ImagesName } from '../../shared/styles'
 import { isTab } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { getSvgImages } from 'src/shared/styles/svgImages'
@@ -12,7 +12,6 @@ import { ScreensConstants } from 'src/constants';
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTranslation } from 'react-i18next'
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
@@ -63,6 +62,8 @@ const AuthorItem = ({
     const playbackState = usePlaybackState();
     const[mediaData, setMediaData] = useState<any>({});
     const[timeDuration, setTimeDuration] = useState<any>(null);
+    const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+    const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
     const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
   
@@ -71,6 +72,15 @@ const AuthorItem = ({
           getNarratedOpinion()
         }
     }, [])
+
+    useEffect(() => {
+      if (trackData && trackData.id == (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+        setIsBuffering(true);
+      } else {
+        setIsBuffering(false);
+      }
+      setPrevPlayBackState(playbackState);
+    }, [playbackState])
 
     const getNarratedOpinion = async() => {
         try {
@@ -167,13 +177,14 @@ const AuthorItem = ({
             );
           case LabelsType.title:
             return (
+              <TouchableOpacity key={index} onPress={onPress}>
                 <Label
-                  key={index}
                   children={body}
                   labelType={LabelTypeProp.h3}
                   numberOfLines={2}
                   style={style.body}
                 />
+              </TouchableOpacity>
             );
           default:
             return null;
@@ -182,18 +193,18 @@ const AuthorItem = ({
     };
 
     return (
-        <TouchableOpacity testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }]} onPress={onPress}>
+        <View testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }]} >
             <View style={{ flex: 1 }}>
                 {renderLabels()}
                 {mediaVisibility && <View style={style.mediaFooter}>
                     <TouchableOpacity testID='AutherItemTO2' onPress={onPressPlay} style={style.mediaFooter}>
                         <ButtonImage
                         icon={() =>
-                            trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                            trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing || isBuffering ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                             getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                         }
                         onPress={onPressPlay} />
-                        <Label children={t('opinion.listenToActicleText')} style={style.articleLabelSyle}
+                        <Label children={t('opinion.listenToArticleText')} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
                     </TouchableOpacity>
                     { timeDuration && <Label children={timeDuration} style={style.durationLabel} /> }
@@ -203,15 +214,11 @@ const AuthorItem = ({
                 <TouchableOpacity testID='AutherItemTO3' onPress={() => onPressWriter(authorId)}>
                     <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'}
                         fallback={true}
-                        fallbackContent={<AuthorDefault
-                        style={{backgroundColor:Styles.color.cyanGreen}}
-                        width={normalize(80)} 
-                        height={normalize(80)}/>}
                         fallbackName={ImagesName.authorDefault}
                     />
                 </TouchableOpacity>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 
@@ -228,14 +235,18 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingRight: normalize(5)
     },
     durationLabel: {
-        paddingHorizontal: normalize(10),
-        color: Styles.color.spanishGray
+      fontSize: isTab ? 13 : 12,
+      lineHeight: 36,
+      color: theme.secondaryDavyGrey,
+      fontFamily: fonts.Effra_Arbc_Medium,
+      marginBottom: isIOS ? 3: 0
     },
     articleLabelSyle: {
         paddingHorizontal: normalize(10),
         color: theme.primary,
         fontFamily: fonts.AwsatDigital_Regular,
-        lineHeight: isIOS ? 36 : 25,
+        fontSize: 13,
+        lineHeight: 36,
     },
     mediaFooter: {
         flexDirection: 'row',

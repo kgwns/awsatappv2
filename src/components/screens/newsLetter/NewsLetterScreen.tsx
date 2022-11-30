@@ -201,12 +201,13 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     if (route.params && canGoBack) {
       navigation.goBack()
     } else {
-      navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN)
+      navigation.navigate(ScreensConstants.SUCCESS_SCREEN) // will replace keep notified screen once notification part was done. 
     }
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}
+      backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
         <View style={[style.textContainer, { justifyContent:  'center' }]}>
           {!canGoBack && <Label style={style.titleStyle}>
@@ -216,24 +217,28 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
             {t('onBoard.newsLetter.description')}
           </Label>
         </View>
-        <View style={style.contentStyle}>
+        <View style={!canGoBack ? style.contentStyle : style.profileSettingContentStyle }>
           {isNonEmptyArray(newsLettersDataInfo) &&
             <View>
-              <NewsLettersWidget data={newsLettersDataInfo} changeSelectedStatus={changeSelectedStatus} />
+              <NewsLettersWidget data={newsLettersDataInfo} changeSelectedStatus={changeSelectedStatus} canGoBack={canGoBack} />
             </View>
           }
         </View>
+      </View>
+      {!canGoBack && <>
+        <View style={style.transparentView} />
         <View style={style.nextButtonView}>
-          {!disableNext && <NextButton
+          <NextButton
             disabled={disableNext}
             testID="nextButtonTestId"
             title={t('onBoard.common.nextBtn')}
             onPress={onPressNext}
             style={style}
             icon={!canGoBack}
-          />}
+          />
         </View>
-      </View>
+      </>
+      }
     </ScreenContainer>
   );
 };
@@ -243,12 +248,11 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.profileBackground,
       shadowColor: colors.transparent,
       alignContent: 'center',
       alignSelf: 'center',
       justifyContent: 'center',
-      paddingBottom: normalize(10)
     },
     textContainer: {
       flex: 0.15,
@@ -262,23 +266,39 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(30),
     },
     descStyle: {
-      fontFamily: fonts.IBMPlexSansArabic_Regular,
+      fontFamily: fonts.Effra_Arbc_Regular,
       textAlign: 'center',
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,
       lineHeight: normalize(22),
     },
     contentStyle: {
-      flex: 0.75,
+      flex: 1,
       justifyContent: 'flex-start',
-      paddingVertical: normalize(15),
+      paddingTop: normalize(15),
+    },
+    profileSettingContentStyle: {
+      flex: 1,
+      justifyContent: 'flex-start',
+    },
+    transparentView: {
+      position: 'absolute',
+      bottom: 0,
+      opacity: 0.65,
+      backgroundColor: colors.aquaHaze,
+      width: screenWidth,
+      height: isTab ? 120 :80,
+      justifyContent: 'flex-end',
+      paddingBottom: normalize(0.03 * screenHeight),
     },
     nextButtonView: {
-      flex: 0.1,
+      position: 'absolute',
+      bottom: 0,
+      width: screenWidth,
+      backgroundColor: colors.transparent,
+      zIndex: 4,
       justifyContent: 'flex-end',
-      width: isTab ? screenWidth - (2 * 0.02 * screenWidth) : screenWidth - (2 * 0.04 * screenWidth),
-      alignSelf: 'center',
-      marginBottom: normalize(0.02 * screenHeight),
+      paddingBottom: normalize(0.03 * screenHeight),
     },
     nextButtonContainer: {
       height: normalize(51),
@@ -293,10 +313,13 @@ const customStyle = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigital_Bold,
       color: theme.primary,
       textAlign: 'center',
-      width: '100%',
+      width: isTab ? screenWidth - (2 * 0.02 * screenWidth) : screenWidth - (2 * 0.04 * screenWidth),
       fontSize: normalize(16),
       lineHeight: normalize(30),
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.profileBackground
+    }
   });
   return NewsLetterScreenStyle;
 };

@@ -91,6 +91,7 @@ export type ArticlesListItemType = {
   field_news_categories_export: FieldArticlesNewsExport[],
   field_publication_date_export: string,
   created_export: string,
+  changed: string,
   author_resource: string,
   type: string
   field_new_photo: string;

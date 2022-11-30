@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {ButtonImage, Label} from 'src/components/atoms';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -19,6 +19,8 @@ export const ListenToArticleCard = (data: any) => {
   const mediaData = data.data && isObjectNonEmpty(data.data) ? data.data : {}
   const playList = isObjectNonEmpty(mediaData) && isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
   const duration = isObjectNonEmpty(playList) ? playList.duration : 0;
+  const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+  const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
 
@@ -28,6 +30,15 @@ export const ListenToArticleCard = (data: any) => {
   //     data.togglePlayback(data.nid, data.data)
   //   }
   // }
+
+  useEffect(() => {
+    if (trackData && trackData.id == (data.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+      setIsBuffering(true);
+    } else {
+      setIsBuffering(false);
+    }
+    setPrevPlayBackState(playbackState);
+  }, [playbackState])
 
   const onPlayPausePress = async (playbackState: any) => {
     const state = await TrackPlayer.getState()
@@ -76,7 +87,7 @@ const onPressPlay = () => {
         <ButtonImage
           hitSlop={{}}
           icon={() =>
-            trackData && trackData.id == (data.nid+'opinion') && playbackState === State.Playing   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+            trackData && trackData.id == (data.nid+'opinion') && playbackState === State.Playing || isBuffering ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
               getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
           }
           testId='ListenToArticleCardBI1'

@@ -34,6 +34,8 @@ export {
   isStringIncludes,
   isInvalidOrEmptyArray,
   isValidDate,
+  isTypeAlbum,
+  getString,
 } from 'src/shared/utils/utilities'
 export { SystemPermissions } from 'src/shared/utils/SystemPermissions'
 export {recordCurrentScreen, recordLogEvent} from './analytics';

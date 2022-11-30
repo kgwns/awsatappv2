@@ -14,7 +14,8 @@ export interface ArticleItemProps extends articleProps {
     articleItemStyle?: ViewStyle,
     showDivider?: boolean,
     showFooterTitle?: boolean,
-    containerStyle?: ViewStyle
+    containerStyle?: ViewStyle,
+    isJournalist?: boolean
 }
 
 const ArticleItem: FunctionComponent<ArticleItemProps> = ({
@@ -26,13 +27,18 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     showFooterTitle,
     hideImage,
     containerStyle,
+    isJournalist = false,
     ...props
 }) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
     const onPress = () => {
-        console.log('onPress');
         if (props.nid) {
-            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: props.nid })
+            if (isJournalist) {
+                navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: props.nid, isRelatedArticle: true });
+            } else {
+                const screenName = props.isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
+                navigation.navigate(screenName, { nid: props.nid });
+            }
         }
     }
 

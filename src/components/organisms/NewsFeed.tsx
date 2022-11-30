@@ -3,7 +3,7 @@ import React from 'react';
 import {Image} from '../atoms/image/Image';
 import { isTab, normalize, screenWidth} from '../../shared/utils';
 import { Styles} from '../../shared/styles';
-import {TextWithFlag, Divider, Label, LabelTypeProp} from '../atoms';
+import {TextWithFlag, Divider, Label, LabelTypeProp, LiveBlogTag} from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
 import {flatListUniqueKey, ScreensConstants} from '../../constants';
 import {SectionVideoFooter} from '../molecules';
@@ -24,6 +24,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { useAppPlayer } from 'src/hooks';
+import { displayTypes } from 'src/constants/SharedConstants';
 
 export interface NewsFeedProps {
   title: string;
@@ -57,7 +58,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   };
 
   const renderArticleFooter = (item: NewsViewListItemType, index: number) => {
-    const timeFormat = dateTimeAgo(item.created_export)
+    const timeFormat = dateTimeAgo(item.changed)
 
     return (
       <View>
@@ -66,8 +67,8 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
           leftTitleColor={theme.themeData.primary}
           rightIcon={() => TimeIcon(timeFormat.icon)}
           rightDate={timeFormat.time}
-          rightDateColor={Styles.color.smokeyGrey}
-          rightTitleColor={Styles.color.smokeyGrey}
+          rightDateColor={style.footerTitleColor.color}
+          rightTitleColor={style.footerTitleColor.color}
           addBookMark={true}
           isBookmarked={item.isBookmarked}
           onPressBookmark={() => { onUpdateNewsFeedBookmark(index) }}
@@ -77,17 +78,17 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   }
 
   const renderArticleFooterMobile = (item: NewsViewListItemType, index: number) => {
-    const timeFormat = dateTimeAgo(item.created_export)
+    const timeFormat = dateTimeAgo(item.changed)
 
     return (
       <View style={{marginTop: 10}}>
         <SectionVideoFooter  
           // rightTitle={isAndroid ?  ',' + calculateYear(item.created_export) : calculateYear(item.created_export) + ','} for older reference
-          leftTitleColor={colors.spanishGray}
+          leftTitleColor={style.footerTitleColor.color}
           rightIcon={() => TimeIcon(timeFormat.icon)}
           rightDate={timeFormat.time}
-          rightDateColor={colors.spanishGray}
-          rightTitleColor={colors.spanishGray}
+          rightDateColor={style.footerTitleColor.color}
+          rightTitleColor={style.footerTitleColor.color}
           addBookMark={true}
           isBookmarked={item.isBookmarked}
           onPressBookmark={() => { onUpdateNewsFeedBookmark(index) }}
@@ -127,6 +128,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   )
 
   const renderItem = (item: NewsViewListItemType, index: number) => {
+    const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
     return (
       <View key={flatListUniqueKey.NEWS_FEED + index}>
         <FixedTouchable activeOpacity={0.8} onPress={() => onPress(item.nid)}>
@@ -134,6 +136,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
             isTab ?
               <View style={style.tabSplitter}>
                 <View style={style.tabLeftContainer}>
+                  {isLive && <LiveBlogTag enableTopMargin />}
                   {renderTitle(item.title)}
                   {renderDescription(item.body)}
                   {renderArticleFooter(item, index)}
@@ -144,6 +147,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
               <>
                 <View style={{ flexDirection: 'row' }}>
                   <View style={style.titleContainer}>
+                    {isLive && <LiveBlogTag enableTopMargin />}
                     {renderTitle(item.title)}
                   </View>
                   <View>
@@ -202,7 +206,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   descriptionStyle: {
     fontSize: normalize(14),
-    color: Styles.color.smokeyGrey,
+    color: theme.newsFeed,
     textAlign: 'left',
     paddingBottom: normalize(20),
     paddingTop: normalize(5),
@@ -213,13 +217,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     backgroundColor: theme.dividerColor
   },
   imageContainer: {
-    width: 93,
-    height: 73,
+    width: 144,
+    height: 'auto',
+    aspectRatio: 4/3,
     marginTop:20
   },
   tabImageContainer: {
     width: 153,
-    height: 125
+    height: 'auto',
+    aspectRatio: 4/3,
   },
   image: {
     width: "100%",
@@ -242,12 +248,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   title: {
     textAlign: 'left',
     fontFamily: fonts.AwsatDigital_Bold,
-    fontSize: normalize(18),
-    lineHeight: normalize(29),
+    fontSize: isTab ? normalize(20) : normalize(18),
+    lineHeight: isTab ? normalize(32) : normalize(29),
     marginBottom: 10,
   },
   titleStyle: {
     marginRight: normalize(10),
     top: normalize(10),
+  },
+  footerTitleColor: {
+    color: theme.footerTextColor
   },
 });

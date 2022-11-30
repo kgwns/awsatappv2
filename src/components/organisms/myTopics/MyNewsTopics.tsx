@@ -128,7 +128,6 @@ export const MyNewsTopics = () => {
     };
 
     const onPress = (item: any, index: number) => {
-        setShowEmpty(false)
         if(index == selectedIndex) {
             return;
         }
@@ -143,7 +142,7 @@ export const MyNewsTopics = () => {
     };
 
     const renderItem = (item: ArticlesListItemType, index: number) => {
-        const timeFormat = dateTimeAgo(item.created_export)
+        const timeFormat = dateTimeAgo(item.changed)
         const articleItemStyle = isTab ? numberOfColumn > 1 && articleData.length > 1 ? (index % 2 === 0) ? styles.evenStyle : styles.oddStyle : {} : styles.mobileArticleItem
         const tagName = isObjectNonEmpty(item.field_news_categories_export) ? item.field_news_categories_export[0].title : ''
         return (
@@ -160,7 +159,7 @@ export const MyNewsTopics = () => {
                         rightIcon: () => TimeIcon(timeFormat.icon),
                         rightTitle: timeFormat.time,
                         hideBookmark: true,
-                        rightTitleColor: themeData.signinRightsColor
+                        rightTitleColor: themeData.footerTextColor
                     }}
                     author={''} created={''} isBookmarked={false}
                     showDivider={false}
@@ -208,9 +207,9 @@ export const MyNewsTopics = () => {
             numColumns={numberOfColumn}
         />
     );
-
+console.log('showEmpty',showEmpty)
     return (
-        <ScreenContainer edge={horizontalEdge}>
+        <ScreenContainer edge={horizontalEdge} backgroundColor={styles.screenBackgroundColor.backgroundColor}>
             <View style={styles.container}>
                 <MyTopicsHorizontalSlider
                     topicsList={topicsList}
@@ -247,12 +246,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     imageStyle: {
         width: '100%',
         height: 'auto',
-        aspectRatio: 1.62,
+        aspectRatio: 1.34,
     },
     tabImageStyle: {
         width: 0.5 * screenWidth,
         height: 'auto',
-        aspectRatio: 1.62,
+        aspectRatio: 1.34,
     },
     listContainer: {
         flex: 1,
@@ -292,4 +291,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     mobileArticleItem: {
         paddingBottom: normalize(20),
     },
+    screenBackgroundColor: {
+        backgroundColor: theme.backgroundColor,
+    }
 })

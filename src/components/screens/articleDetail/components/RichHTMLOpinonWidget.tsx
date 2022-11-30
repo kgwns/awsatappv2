@@ -4,7 +4,6 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TitleWithUnderLine, Image, Label, LabelTypeProp } from 'src/components/atoms'
 import { RichHTMLOpinionDataType } from 'src/redux/articleDetail/types'
 import { ImagesName, Styles } from 'src/shared/styles'
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import { normalize, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { fonts } from 'src/shared/styles/fonts'
@@ -72,12 +71,6 @@ export const RichHTMLOpinonWidget = ({
                                 resizeMode={'cover'}
                                 type={'round'}
                                 fallback={true}
-                                fallbackContent={
-                                    <AuthorDefault
-                                        style={{ backgroundColor: Styles.color.cyanGreen }}
-                                        width={normalize(80)}
-                                        height={normalize(80)} />
-                                }
                                 fallbackName={ImagesName.authorDefault}
                             />
                         </TouchableOpacity>

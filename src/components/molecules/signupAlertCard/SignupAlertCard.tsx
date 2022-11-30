@@ -5,27 +5,37 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import { normalize} from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts';
+import { CREATE_ACCOUNT_DESCRIPTION, NOT_SUBSCRIBED } from 'src/constants/SharedConstants';
 
 interface SignupAlertCardProps {
     title: string;
+    subTitle?: string;
+    description?: string;
     message: string;
     buttonText: string;
     onPress?:() => void;
 
 }
 
-export const SignupAlertCard = ({title, message, buttonText, onPress}: SignupAlertCardProps) => {
+export const SignupAlertCard = ({
+  title,
+  subTitle = NOT_SUBSCRIBED,
+  description = CREATE_ACCOUNT_DESCRIPTION,
+  message, 
+  buttonText, 
+  onPress
+}: SignupAlertCardProps) => {
 
     const styles = useThemeAwareObject(customStyle)
 
     return (
     <View style={styles.container}>
       <View>
-        <Label children={title} style={styles.titleTextStyle} />
+        <Label children={subTitle} style={styles.titleTextStyle} />
         <Label
-          children={message}
+          children={description}
           style={styles.instructionTextStyle}
-          numberOfLines={2}
+          numberOfLines={4}
         />
         <TouchableOpacity onPress={onPress}>
           <View style={styles.buttonBackgroundStyle}>

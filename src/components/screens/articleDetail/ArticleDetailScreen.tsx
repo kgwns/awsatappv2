@@ -2,7 +2,7 @@ import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWind
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties } from 'src/constants/SampleData'
-import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader } from 'src/components/molecules'
+import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
@@ -25,11 +25,12 @@ import SystemNavigationBar from 'react-native-system-navigation-bar'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { ArticleDetailBody } from './components/ArticleDetailBody'
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService'
-import { parseArticleDetailSuccess, parseArticleSectionSuccess, parseOpinionBundleSuccess, parseRelatedArticleSuccess, parseRichArticleReadAlso, updatedContentBundleContent, updatedOpinionBundle, updatedReadAlsoContent } from 'src/redux/articleDetail/sagas'
+import { parseArticleDetailSuccess, parseArticleSectionSuccess, parseOpinionBundleSuccess, parseRelatedArticleSuccess, parseRichArticleContentBundleSuccess, parseRichArticleReadAlso, updatedContentBundleContent, updatedOpinionBundle, updatedReadAlsoContent } from 'src/redux/articleDetail/sagas'
 import { getBookMarkDetailInfoService } from 'src/services/bookmarkService'
 import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService'
-import { Axios, AxiosError } from 'axios'
+import { AxiosError } from 'axios'
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
+import ArticleLiveBlog from './components/ArticleLiveBlog'
 
 export interface ArticleDetailScreenProps {
   route: any
@@ -69,6 +70,7 @@ export const ArticleDetailScreen = ({
   const [playerVisible, setPlayerVisible] = useState<boolean>(false);
   const [showVideoMiniPlayer, setShowVideoMiniPlayer] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [showReplay, setShowReplay] = useState(false);
   const [paused, setPaused] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [bookmarkIndex, setBookmarkIndex] = useState<number>(0);
@@ -186,7 +188,7 @@ export const ArticleDetailScreen = ({
       if (isNonEmptyArray(contentElement) && contentElement[0].data.content) {
         try {
           const contentResponse = await requestArticleDetail({ nid: contentElement[0].data.content })
-          const contentResult = parseArticleDetailSuccess(contentResponse)
+          const contentResult = parseRichArticleContentBundleSuccess(contentResponse)
           const richHtmlInfo = updatedContentBundleContent(articleData, contentResult)
           setRichHTML(richHtmlInfo)
         } catch (error) {
@@ -254,8 +256,6 @@ export const ArticleDetailScreen = ({
       videoRefs?.current[1]?.setNativeProps({
         paused: true,
       });
-    } else {
-      setPlayerVisible(false);
     }
   }, [isFocused]);
 
@@ -272,7 +272,7 @@ export const ArticleDetailScreen = ({
   }, [richHTML])
 
   useEffect(() => {
-    if (isNonEmptyArray(articleDetailState) && articleDetailState[bookmarkIndex].nid) {
+    if (isNonEmptyArray(articleDetailState) && articleDetailState[bookmarkIndex] && articleDetailState[bookmarkIndex].nid) {
       const isBookmarked = validateBookmark(articleDetailState[bookmarkIndex].nid)
       setIsBookmarked(isBookmarked)
     }
@@ -332,7 +332,7 @@ export const ArticleDetailScreen = ({
     }
   }
 
-  const stopVideoPlayer = () => {
+  const stopVideoPlayer = (showReplay: boolean = false) => {
     try {
       if (videoRefs) {
         videoRefs?.current[0]?.setNativeProps({
@@ -344,9 +344,7 @@ export const ArticleDetailScreen = ({
         videoRefs?.current[2]?.setNativeProps({
           paused: true
         })
-        setCurrentTime(0);
-        setPaused(true);
-        setShowVideoMiniPlayer(false);
+        setShowReplay(showReplay);
       }
     } catch (e) {
     }
@@ -354,7 +352,7 @@ export const ArticleDetailScreen = ({
 
   const onPressArticle = (nid: string) => {
     if (nid && nid!=currentNId) {
-      stopVideoPlayer();
+      stopVideoPlayer(true);
       const hasHTMLContent = isNonEmptyArray(articleDetailState) && isNonEmptyArray(articleDetailState[0].richHTML)
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
       navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true, hasHTMLContent })
@@ -406,10 +404,11 @@ export const ArticleDetailScreen = ({
     }
     setIsFullScreen(isFullscreen)
   }
-
-  const onScroll = (event: any) => {
-    Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer ? setPlayerVisible(true) : setPlayerVisible(false);
-  }
+  
+  // As per ticket AMAR-1044 we dont show the PIP
+  // const onScroll = (event: any) => {
+  //   Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer && !showReplay ? setPlayerVisible(true) : setPlayerVisible(false);
+  // }
 
   useEffect(() => {
     const backAction = () => {
@@ -502,16 +501,24 @@ export const ArticleDetailScreen = ({
             isRelatedArticle={route.params.isRelatedArticle} 
             isFirstItem={index === 0 }
             currentTime={currentTime} 
-            paused={playerVisible || isFullScreen ? true : paused}
+            paused={isFullScreen ? true : paused}
             playerVisible={playerVisible}
             setPlayerDetails={setPlayerDetails}
             setMiniPlayerVisible={(visible: boolean) => setShowVideoMiniPlayer(visible)}
             videoRefs={videoRefs}
             onChangeFullScreen={onChangeFullScreen}
             isFullScreen={isFullScreen}
+            showReplay={showReplay}
+            setReset={(show: boolean) => setShowReplay(show)}
           />
+          {isNonEmptyArray(item.journalistId) && <Journalist
+            journalistCity={item.journalistCity}
+            journalistId={item.journalistId}
+            journalistName={item.journalistName} />
+          }
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
+          { isNotEmpty(item.scribbleLiveId) && <ArticleLiveBlog scribbleId={item.scribbleLiveId}/>}
           <Divider style={style.divider} />
         </>
         }
@@ -525,6 +532,7 @@ export const ArticleDetailScreen = ({
             addStyle={style.relatedArticle}
             orientation={currentOrientation}
             isFooterOutside={true}
+            leftContainerStyle={isTab && style.leftContainerStyle}
           />}
       </View>
   )}
@@ -559,19 +567,21 @@ export const ArticleDetailScreen = ({
           showsVerticalScrollIndicator={false}
           bounces={false}
           removeClippedSubviews={false}
-          onScroll={onScroll}
+          // onScroll={onScroll} As per ticket AMAR-1044 we dont show the PIP
           scrollEnabled={scrollEnabled}
           contentContainerStyle={showMiniPlayer && style.contentContainer}
           initialNumToRender={1}
           maxToRenderPerBatch={1}
         />
+        {/* As per ticket AMAR-1044 we dont show the PIP
         {isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl && !isFullScreen && 
           <DraggableVideoPlayer videoRefs={videoRefs} setMiniPlayerVisible={closeMiniPlayer} url={playerUrl}
             setScroll={(scrollEnabled: boolean) => setScrollEnabled(scrollEnabled)}
             currentTime={currentTime} setPlayerDetails={setPlayerDetails}
             paused={playerVisible ? paused : true} playerVisible={playerVisible}
+            setReset={(show: boolean) => setShowReplay(show)}
           />
-        }
+        } */}
         { !isFullScreen && <View style={style.bottom} />}
         {!isFullScreen && <View style={[style.footer, style.shadowEffect]}>
           <ArticleDetailFooter articleDetailData={articleDetailState[bookmarkIndex]}
@@ -592,6 +602,8 @@ export const ArticleDetailScreen = ({
           onChangeFullScreen={onChangeFullScreen}
           isFullScreenPlayer
           isFullScreen={isFullScreen}
+          showReplay={showReplay}
+          setReset={(show: boolean) => setShowReplay(show)}
         />
       </View>}
     </ScreenContainer>
@@ -638,5 +650,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: normalize(80)
+  },
+  leftContainerStyle: {
+    width: (screenWidth * 0.5 - 40) -  144,
   }
 })
+

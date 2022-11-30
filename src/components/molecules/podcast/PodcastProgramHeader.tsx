@@ -8,7 +8,6 @@ import ShareIcon from 'src/assets/images/icons/share_dark.svg';
 import {ImagesName} from 'src/shared/styles/images';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useTranslation} from 'react-i18next';
-import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import { fonts } from 'src/shared/styles/fonts';
@@ -38,7 +37,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
 }) => {
   const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
-  const { themeData } = useTheme()
+
   const renderLeftComponent = () => {
     return (
       <TouchableOpacity testID={headerBackIconTestId} accessibilityLabel={headerBackIconTestId} onPress={onGoBack}>
@@ -70,7 +69,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
           onPress={onPressSave}
         />
         <TouchableOpacity style={styles.buttonStyle} testID={headerShareIconTestId} accessibilityLabel={headerShareIconTestId} onPress={onPressShare}>
-          <ShareIcon fill={colors.white} width={normalize(15)} height={normalize(15)}/>
+          <ShareIcon fill={colors.white} width={15} height={15}/>
         </TouchableOpacity>
       </View>
     );
@@ -79,7 +78,11 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
     <View style={[styles.containerStyle,]}>
       {renderLeftComponent()}
       <View style={styles.titleContainerWrapper}>
-        {showLogo&&<Image style={styles.logo} name={ImagesName.headerLogo} />}
+        {showLogo && getSvgImages({
+          name: ImagesName.headerLogoDark,
+          width: styles.logo.width,
+          height: styles.logo.height,
+        })}
       </View>
       {renderRightComponent()}
     </View>

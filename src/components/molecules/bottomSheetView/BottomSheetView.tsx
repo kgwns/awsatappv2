@@ -1,7 +1,7 @@
 import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
-import { isTab, screenWidth, normalize, isIOS } from 'src/shared/utils';
-import { Image, Label } from 'src/components/atoms';
+import { isTab, screenWidth, normalize, isIOS, screenHeight } from 'src/shared/utils';
+import { Label } from 'src/components/atoms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { fonts } from 'src/shared/styles/fonts';
@@ -23,8 +23,8 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
         return isTab ? true : dim.height >= dim.width;
     };
 
-    const HeaderLogo = () => getSvgImages({ name: ImagesName.logoBlack, width: style.logo.width, height: style.logo.height });
-    const HeaderLogoLandscape = () => getSvgImages({ name: ImagesName.logoBlack, width: style.logoLandscape.width, height: style.logoLandscape.height });
+    const HeaderLogo = () => getSvgImages({ name: ImagesName.popupLogo, width: style.logo.width, height: style.logo.height });
+    const HeaderLogoLandscape = () => getSvgImages({ name: ImagesName.popupLogo, width: style.logoLandscape.width, height: style.logoLandscape.height });
     const AlertImage = () => getSvgImages({ name: ImagesName.popupImage, width: style.popupImage.width, height: style.popupImage.height })
 
     return (
@@ -43,12 +43,14 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
                 <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.black }])} onPress={onPressSignUp} >
                     <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.white }])}>{signUpLabel}</Label>
                 </TouchableOpacity>
-                <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.carouselPink }])} onPress={onPressSignUp} >
+                <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.alabaster }])} onPress={onPressSignUp} >
                     <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.black }])}>{logInLabel}</Label>
                 </TouchableOpacity>
             </View>
-            <View style={isPortrait() ? style.popupImageContainer : style.popupImageContainerLandscape}>
-                <Image fallback name={ImagesName.popupImage} style={style.popupImage} fallbackContent={<AlertImage />} fallbackName={ImagesName.popupImage} />
+            <View style={style.popupImageWrapper}>
+                <View style={isPortrait() ? style.popupImageContainer : style.popupImageContainerLandscape}>
+                    <AlertImage />
+                </View>
             </View>
         </View>
     )
@@ -64,18 +66,18 @@ const customStyle = (theme: CustomThemeType) => {
         },
         title: {
             fontFamily: fonts.AwsatDigital_Black,
-            fontSize: normalize(30),
-            lineHeight: normalize(53),
-            color: colors.black,
+            fontSize: 30,
+            lineHeight: 53,
+            color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
-            marginTop: normalize(25)
+            marginTop: 20
         },
         titleLandscape: {
             fontFamily: fonts.AwsatDigital_Black,
-            fontSize: normalize(20),
-            lineHeight: normalize(33),
-            color: colors.black,
+            fontSize: 20,
+            lineHeight: 33,
+            color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
             marginTop: normalize(10)
@@ -105,23 +107,25 @@ const customStyle = (theme: CustomThemeType) => {
         },
         description: {
             fontFamily: fonts.Effra_Arbc_Regular,
-            fontSize: 19,
-            lineHeight: 32,
-            color: colors.black,
+            fontSize: 16,
+            lineHeight: isIOS ? 29 : 35,
+            color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
             paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-            marginTop: isTab ? normalize(45) : normalize(35)
+            marginTop: isTab ? normalize(45) : normalize(25),
+            marginBottom: isTab ? normalize(40) : normalize(20)
         },
         descriptionLandscape: {
             fontFamily: fonts.Effra_Arbc_Regular,
             fontSize: 15,
-            lineHeight: 22,
-            color: colors.black,
+            lineHeight: isIOS ? 20 : 29,
+            color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
             paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-            marginTop: isIOS ? 5 : 20
+            marginTop: isIOS ? 5 : 20,
+            marginBottom: isIOS ? 5 : 10
         },
         buttonContainer: {
             flexDirection: 'row',
@@ -165,23 +169,26 @@ const customStyle = (theme: CustomThemeType) => {
             marginTop: normalize(20)
         },
         logo: {
+            width: normalize(250),
+            height: 0.055 * screenHeight
+        },
+        logoLandscape: {
             width: normalize(200),
             height: normalize(35),
         },
-        logoLandscape: {
-            width: normalize(150),
-            height: normalize(25),
+        popupImageWrapper: {
+            flex: 0.95
         },
         popupImageContainer: {
             alignSelf: 'center',
             width: normalize(250),
-            height: normalize(243),
+            height: '78%',
             marginTop: normalize(35)
         },
         popupImageContainerLandscape: {
             alignSelf: 'center',
             width: normalize(100),
-            height: normalize(143),
+            height: isIOS ? normalize(113) : normalize(93),
         },
         popupImage: {
             width: '100%',

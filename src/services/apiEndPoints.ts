@@ -22,6 +22,9 @@ export const FEATURED_ARTICLE_ENDPOINT = 'api/v2/home/topview/almqalat_alryysyt_
 export const HORIZONTAL_ARTICLE_END_POINT = 'api/v2/home/topview/tghtyt_khast'
 export const EDITORS_CHOICE = 'api/v2/home/editorschoice';
 export const SPOTLIGHT_COMBO = 'api/v2/home/spotlight';
+export const INFO_GRAPHIC_BLOCK = 'api/block/v1/top';
+export const SECTION_COMBO_SIX = '/api/v2/home/thakafa';
+export const ARCHIVED_ARTICLE_ENDPOINT = 'api/v2/archivedarticle'
 
 //opinion tab in category section
 //writer list
@@ -78,6 +81,7 @@ export const CHECK_EMAIL  = 'api/ums/v1/loginCheckEmail'
 
 //VideoList
 export const VIDEO_LIST_ENDPOINT = 'api/v2/videolist'
+export const VIDEO_DETAIL_ENDPOINT = 'api/v2/videonode/'
 
 //Top Menu
 export const TOP_MENU_ENDPOINT = 'api/v2/topmenu'
@@ -139,3 +143,11 @@ export const CONTENT_FOR_YOU_ARTICLE_ENDPOINT = 'api/v2/user/articlesection'
 
 //Notification FCM token
 export const SAVE_FCM_TOKEN_ENDPOINT = 'api/ums/v1/saveToken' 
+
+//Photo Gallery
+export const PHOTO_GALLERY_LIST_ENDPOINT = 'api/v2/albumslist';
+export const PHOTO_GALLERY_DETAIL_ENDPOINT = 'api/v2/albumnode/';
+
+//Journalist
+export const JOURNALIST_ARTICLE_ENDPOINT = 'api/v2/journalistsarticles/'
+export const GET_JOURNALIST_DETAIL_END_POINT = 'api/v2/jordetails/'

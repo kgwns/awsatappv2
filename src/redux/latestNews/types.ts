@@ -41,6 +41,9 @@ import {
   REQUEST_SECTION_COMBO_SEVEN,
   REQUEST_SECTION_COMBO_SEVEN_SUCCESS,
   REQUEST_SECTION_COMBO_SEVEN_FAILED,
+  REQUEST_SECTION_COMBO_EIGHT,
+  REQUEST_SECTION_COMBO_EIGHT_SUCCESS,
+  REQUEST_SECTION_COMBO_EIGHT_FAILED,
   REQUEST_EDITORS_CHOICE_DATA,
   REQUEST_EDITORS_CHOICE_DATA_SUCCESS,
   REQUEST_EDITORS_CHOICE_DATA_FAILED,
@@ -50,6 +53,12 @@ import {
   REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
   REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_SUCCESS,
   REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA_FAILED,
+  REQUEST_INFO_GRAPHIC_BLOCK,
+  REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS,
+  REQUEST_INFO_GRAPHIC_BLOCK_FAILED,
+  REQUEST_ARCHIVED_ARTICLE_DATA,
+  REQUEST_ARCHIVED_ARTICLE_DATA_SUCCESS,
+  REQUEST_ARCHIVED_ARTICLE_DATA_FAILED,
 } from "./actionType"
 import { PodcastListItemType } from '../podcast/types'
 export type payloadType = { rows: any[], pager: object }
@@ -70,14 +79,15 @@ export interface LatestArticleDataType {
   news_categories: NewsCategoriesType,
   author: string,
   created: string,
-  isBookmarked: boolean
+  isBookmarked: boolean,
+  displayType?: string 
+  type: HomePageArticleType;
 }
 
 export interface EditorsChoiceDataType extends LatestArticleDataType {
   field_news_categories: NewsCategoriesType,
   created: string,
   publication_date: string,
-  type: string,
   blockname: string,
   entityqueue_relationship_position: string,
 }
@@ -114,6 +124,23 @@ export interface LatestOpinionDataType {
   field_opinion_writer_node_export: OpinionWriterType[] | OpinionWriterType;
 }
 
+export interface InfoGraphicBlockType {
+  info: string,
+  body: string 
+}
+
+export interface ArchivedArticleDataType {
+  title: string,
+  type: HomePageArticleType,
+  nid: string,
+  body: string,
+  image: string,
+  created: string,
+  author: string,
+  publication_date: string,
+  news_categories: NewsCategoriesType,
+}
+
 export interface LatestArticleBodyGet {
   items_per_page: number,
   page: number,
@@ -144,6 +171,7 @@ export type LatestNewsTabState = {
   sectionComboFive: LatestArticleDataType[],
   sectionComboSix: LatestArticleDataType[],
   sectionComboSeven: LatestArticleDataType[],
+  sectionComboEight: LatestArticleDataType[],
   podcastHome: LatestPodcastDataType[],
   coverageInfo: MainSectionBlockType[],
   featuredArticle: MainSectionBlockType[];
@@ -151,6 +179,8 @@ export type LatestNewsTabState = {
   editorsChoice: EditorsChoiceDataType[],
   spotlight: SpotlightDataType[],
   spotlightArticleSection: LatestArticleDataType[],
+  infoGraphicBlockInfo: InfoGraphicBlockType[]
+  archivedArticleSection: ArchivedArticleDataType[]
   coverageInfoLoaded: boolean,
   featuredArticleLoaded: boolean,
   horizontalArticleLoaded: boolean,
@@ -160,6 +190,7 @@ export type LatestNewsTabState = {
   sectionComboOneLoaded: boolean,
   sectionComboTwoLoaded: boolean,
   sectionComboThreeLoaded: boolean,
+  infoGraphicBlockInfoLoaded: boolean,
 }
 
 export type TickerHeroSuccessPayload = {
@@ -229,7 +260,7 @@ export interface OpinionFailedType {
 }
 
 export interface RequestSectionComboBodyGet {
-  id: number[] | number,
+  id: number[] | number | string,
   items_per_page?: number,
   page?: number
 }
@@ -404,12 +435,36 @@ export interface RequestSectionComboSevenFailedType {
   payload: RequestSectionComboSevenFailedPayload
 }
 
+export interface RequestSectionComboEight {
+  type: typeof REQUEST_SECTION_COMBO_EIGHT,
+  payload: RequestSectionComboBodyGet
+}
+export interface RequestSectionComboEightSuccessPayload {
+  sectionComboEight: LatestArticleDataType[]
+}
+export interface RequestSectionComboEightSuccessType {
+  type: typeof REQUEST_SECTION_COMBO_EIGHT_SUCCESS,
+  payload: RequestSectionComboEightSuccessPayload
+}
+export interface RequestSectionComboEightFailedPayload {
+  error: string
+}
+export interface RequestSectionComboEightFailedType {
+  type: typeof REQUEST_SECTION_COMBO_EIGHT_FAILED,
+  payload: RequestSectionComboEightFailedPayload
+}
+
 export enum MainSectionBlockName {
   COVERAGE = 'coverage',
   FEATURED_ARTICLE = 'almqalat_alryysyt_',
   HORIZONTAL_ARTICLE = 'tghtyt_khast',
   EDITORS_CHOICE = 'akhtyarat_almhrr',
 }
+
+export enum HomePageArticleType {
+  ARTICLE = 'article',
+  ALBUM = 'album',
+};
 
 export type MainSectionBlockType = {
   body: string;
@@ -420,9 +475,10 @@ export type MainSectionBlockType = {
   author: string;
   created: string;
   isBookmarked: boolean,
-  type: string;
+  type: HomePageArticleType;
   blockName: string;
-  position: string
+  position: string;
+  displayType: string;
 }
 
 export type RequestCoverageBlockType = {
@@ -568,6 +624,50 @@ export interface SpotlightArticleSectionFailedPayload {
   error: string
 }
 
+export type RequestInfoGraphicBlockType = {
+  type: typeof REQUEST_INFO_GRAPHIC_BLOCK
+}
+
+export type RequestInfoGraphicBlockSuccessPayloadType = {
+  infoGraphicBlockInfo: InfoGraphicBlockType[]
+}
+
+export type RequestInfoGraphicBlockSuccessType = {
+  type: typeof REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS;
+  payload: RequestInfoGraphicBlockSuccessPayloadType
+}
+
+export type RequestInfoGraphicBlockFailedPayload = {
+  error: string
+}
+
+export type RequestInfoGraphicBlockFailedType = {
+  type: typeof REQUEST_INFO_GRAPHIC_BLOCK_FAILED;
+  payload: RequestInfoGraphicBlockFailedPayload
+}
+
+export type RequestArchivedArticleSectionType = {
+  type: typeof REQUEST_ARCHIVED_ARTICLE_DATA
+}
+
+export type RequestArchivedArticleSectionSuccessPayloadType = {
+  archivedArticleSection: ArchivedArticleDataType[]
+}
+
+export type RequestArchivedArticleSectionSuccessType = {
+  type: typeof REQUEST_ARCHIVED_ARTICLE_DATA_SUCCESS;
+  payload: RequestArchivedArticleSectionSuccessPayloadType
+}
+
+export type RequestArchivedArticleSectionFailedPayload = {
+  error: string
+}
+
+export type RequestArchivedArticleSectionFailedType = {
+  type: typeof REQUEST_ARCHIVED_ARTICLE_DATA_FAILED;
+  payload: RequestArchivedArticleSectionFailedPayload
+}
+
 export type RequestSectionComboType =
   RequestSectionComboOne
   | RequestSectionComboTwo
@@ -576,6 +676,7 @@ export type RequestSectionComboType =
   | RequestSectionComboFive
   | RequestSectionComboSix
   | RequestSectionComboSeven
+  | RequestSectionComboEight
 
 export type LatestTabAction =
   RequestTickerAndHeroType
@@ -620,6 +721,9 @@ export type LatestTabAction =
   | RequestSectionComboSeven
   | RequestSectionComboSevenSuccessType
   | RequestSectionComboSevenFailedType
+  | RequestSectionComboEight
+  | RequestSectionComboEightSuccessType
+  | RequestSectionComboEightFailedType
   | EditorsChoiceSuccessType
   | EditorsChoiceFailedType
   | RequestEditorsChoiceType
@@ -628,5 +732,11 @@ export type LatestTabAction =
   | RequestSpotlightType
   | SpotlightArticleSectionSuccessType
   | SpotlightArticleSectionFailedType
-  | RequestSpotlightArticleSectionType;
+  | RequestSpotlightArticleSectionType
+  | RequestInfoGraphicBlockType
+  | RequestInfoGraphicBlockSuccessType
+  | RequestInfoGraphicBlockFailedType
+  | RequestArchivedArticleSectionType
+  | RequestArchivedArticleSectionSuccessType
+  | RequestArchivedArticleSectionFailedType;
 

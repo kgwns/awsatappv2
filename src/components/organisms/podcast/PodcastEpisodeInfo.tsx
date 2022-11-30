@@ -1,19 +1,26 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Linking } from 'react-native';
 import { Label, Image, ButtonOutline, LabelTypeProp} from 'src/components/atoms/';
 import { PodcastVerticalListProps } from 'src/components/molecules/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { CustomThemeType, colors } from 'src/shared/styles/colors';
+import { colors } from 'src/shared/styles/colors';
 import ApplePodcastDarkIcon from 'src/assets/images/icons/apple_podcast_dark.svg';
 import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.svg';
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
+import AnghamiPodcastDarkIcon from 'src/assets/images/icons/anghamiPodcastDarkIcon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
+import PauseIcon from 'src/assets/images/icons/pauseIconBlack.svg';
 import {useTranslation} from 'react-i18next';
-import { decodeHTMLTags, getPodcastDate, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { podcastServices } from 'src/constants/SharedConstants';
+import { usePlaybackState, State } from 'react-native-track-player';
+import { useAppPlayer } from 'src/hooks';
+import { ImageResize } from 'src/shared/styles/text-styles';
 
 export interface PodcastEpisodeInfoProps {
   data: PodcastVerticalListProps;
@@ -26,12 +33,16 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const [t] = useTranslation();
+  const playbackState = usePlaybackState();
+  const { selectedTrack } = useAppPlayer();
+
   const fieldData = data ? data : podcastEpisodeInitialData
-  const barVisibility = fieldData.created_export && fieldData.field_total_duration_export
+  const podcastSectionData =  fieldData.field_podcast_sect_export
   const hasNewSubTitle = !!fieldData.field_new_sub_title_export
   const [duration, setDuration] = useState<any>(null)
 
   useEffect(() => {
+    setDuration(null);
     getPodcastDuration()
   }, [fieldData])
 
@@ -48,14 +59,47 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
       }
     }
   }
-  
+
+  const onPodcastServicePress = (podcastService: string) => {
+    switch (podcastService) {
+      case podcastServices.anghami:
+        Linking.openURL(podcastSectionData.anghami.url);
+        return;
+      case podcastServices.apple:
+        Linking.openURL(podcastSectionData.apple_podcasts.url)
+        return;
+      case podcastServices.google:
+        Linking.openURL(podcastSectionData.google_podcast.url);
+        return;
+      case podcastServices.spotify:
+        Linking.openURL(podcastSectionData.spotify.url)
+        return;
+      default:
+        return;
+    }
+  }
+
+  const playPauseIcon = () => (
+    <View style={styles.rightIconStyle}>
+      {selectedTrack && selectedTrack.id == fieldData.nid && playbackState === State.Playing ?
+        <PauseIcon fill={colors.black} width={13} height={13} />:
+        <PlayIcon fill={colors.black}/>
+      }
+    </View>
+  )
+
   return (
     <View>
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
             <Label style={styles.titleTextStyle} children={fieldData.title} />
-            <Image fallback url={fieldData?.field_podcast_sect_export?.image} style={styles.imageStyle} />
+            <View style={styles.imageStyle}>
+              <Image fallback url={fieldData?.field_podcast_sect_export?.image}
+                style={{ width: '100%', height: '100%' }}
+                resizeMode={ImageResize.COVER}
+              />
+            </View>
             {hasNewSubTitle &&
               <View style={[styles.containerSpace, {paddingTop: normalize(15)}]} >
                 <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
@@ -71,11 +115,11 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
              labelStyle={styles.buttonLabel}
              titleType={LabelTypeProp.h1}
              onPress={()=>onListenPress(duration)}
-             rightIcon={() => <View style={styles.rightIconStyle}><PlayIcon fill={colors.black}/></View>}
+             rightIcon={() => playPauseIcon()}
             />
             <View style={styles.containerSpace} />
             <View style={styles.headerLeftStyle}>
-              <Label style={styles.footerRightTextStyle} numberOfLines={1} children={getPodcastDate(fieldData.created_export)} />
+              <Label style={styles.footerRightTextStyle} numberOfLines={1} children={getDay(fieldData.created_export)} />
               { fieldData.created_export && duration ? <Label color={colors.spanishGray} children={"|"}/> : <View/>}
               <Label style={styles.footerLeftTextStyle} numberOfLines={1} children={ convertSecondsToHMS(duration)} />
             </View>
@@ -86,24 +130,62 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
             }
           </View>
 
-          <View style={styles.rowContainerStyle}>
-            <View style={styles.rowStyle}>
-              <ApplePodcastDarkIcon width={normalize(100)} height={normalize(50)} />
+          {isTab && <>
+            <View style={styles.rowContainerStyle}>
+              <View style={styles.rowStyle}>
+              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)}>
+                <ApplePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.rowStyle}>
+              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)}>
+                <GooglePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.rowStyle}>
+              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}>
+                <SpotifyDarkIcon width={normalize(70)} height={normalize(50)} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.rowStyle}>
+              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)}>
+                <AnghamiPodcastDarkIcon width={normalize(80)} height={normalize(50)} />
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.rowStyle}>
-              <SpotifyDarkIcon width={normalize(50)} height={normalize(50)} />
+          </>}
+
+          {!isTab && <>
+            <View style={styles.topRowContainerStyle}>
+              <View style={styles.rowStyle}>
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)}>
+                  <ApplePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
+                </TouchableOpacity>
+                <View style={{ width: '10%' }} />
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)}>
+                  <GooglePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={styles.rowStyle}>
-              <GooglePodcastDarkIcon width={normalize(100)} height={normalize(50)} />
+            <View style={styles.BottomRowContainerStyle}>
+              <View style={styles.rowStyle}>
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}>
+                  <SpotifyDarkIcon width={normalize(70)} height={normalize(50)} />
+                </TouchableOpacity>
+                <View style={{ width: '14%' }} />
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)}>
+                  <AnghamiPodcastDarkIcon width={normalize(80)} height={normalize(50)} />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          </>}
         </View>
       </View>
     </View>
   );
 };
 
-const createStyles = (theme: CustomThemeType) =>
+const createStyles = () =>
 StyleSheet.create({
   containerStyle: {
     flex : 1,
@@ -117,6 +199,7 @@ StyleSheet.create({
   imageStyle: {
     width: normalize(150),
     height: normalize(100),
+    overflow: 'hidden',
   },
   textStyle: {
     fontSize: 16,
@@ -164,6 +247,18 @@ StyleSheet.create({
   rowContainerStyle: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  topRowContainerStyle: {
+    height: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  BottomRowContainerStyle: {
+    height: 40,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginLeft:22,
+    marginBottom:20,
   },
   buttonStyle: {
     backgroundColor:colors.white,

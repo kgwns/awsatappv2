@@ -52,9 +52,9 @@ export const ALL_EPISODES = 'كل الحلقات';
 export const HOME_PODCAST_TITLE = 'اليوم'
 
 //Not Registered Pop Up
-export const NOT_SUBSCRIBED = 'أنت غير مشترك';
+export const NOT_SUBSCRIBED = 'لم تشترك بعد';
 export const SAVE_ARTICLE_TO_YOUR_FAVOURITES = 'لحفظ المقالة لمفضلاتك';
-export const CREATE_ACCOUNT_DESCRIPTION = 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك\n  و تتمتع بخاصية حفظ المقالات و تتمتع بأخبار لا محدوده\n'
+export const CREATE_ACCOUNT_DESCRIPTION = 'انشئ حساباً خاصاً بك لتحصل على أخبار\n مخصصة لك ولتتمتع بخاصية حفظ المقالات وتتلقى\n نشراتنا البريدية المتنوعة​'
 export const SIGN_UP = 'قم بالتسجيل'
 export const LOG_IN = 'ادخل لحسابك'
 
@@ -65,3 +65,23 @@ export const ANDROID_WEBVIEW_URL = 'about:blank';
 //ContactUs
 export const CONST_DO_YOU_HAVE_QUESTION = 'هل لديك سؤال؟راسلنا'
 export const CONST_CONTACT_US_DESCRIPTION = 'سنتواصل معك و نجيب على سؤالك خلال يومين'
+
+//Photo Gallery
+export const PHOTO_GALLERY = 'معرض الصور'
+
+//Podcast Services
+export const podcastServices = {
+  anghami: 'anghami',
+  apple: 'apple_podcasts',
+  google: 'google_podcast',
+  spotify: 'spotify'
+}
+
+//displayTypes
+export const displayTypes = {
+  article: 'article',
+  liveCoverage: 'livecoverage',
+  video: 'video',
+  analysis: 'analysis',
+  special: 'special'
+}

@@ -27,6 +27,7 @@ import {
   ManageMyFavoriteAuthorScreen,
   ManageMyFavoriteTopicsScreen,
   UserDetailScreen,
+  WeatherDetailScreen,
   VideoPlayerScreen,
   WritersDetailScreen,
   SectionArticlesParentScreen,
@@ -37,6 +38,9 @@ import {
   PDFEditorView,
   MyNewsScreen,
   ContactUs,
+  PhotoGalleryDetailScreen,
+  JournalistDetail,
+  PodcastEpisodeModal,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -74,6 +78,7 @@ export const Routes = {
   ManageMyFavoriteAuthorScreen,
   ManageMyFavoriteTopicsScreen,
   UserDetailScreen,
+  WeatherDetailScreen,
   VideoPlayerScreen,
   WritersDetailScreen,
   SectionArticlesParentScreen,
@@ -84,6 +89,9 @@ export const Routes = {
   PDFEditorView,
   MyNewsScreen,
   ContactUs,
+  PhotoGalleryDetailScreen,
+  JournalistDetail,
+  PodcastEpisodeModal,
 };
 
 /**
@@ -115,9 +123,12 @@ export type ScreenList = {
   ManageMyFavoriteAuthorScreen: undefined;
   ManageMyFavoriteTopicsScreen: undefined;
   UserDetailScreen: undefined;
+  WeatherDetailScreen: undefined;
   WritersDetailScreen: undefined;
   SectionArticlesParentScreen: undefined;
   MyNewsScreen: undefined;
+  PhotoGalleryDetailScreen: undefined;
+  JournalistDetail: undefined;
 };
 
 export type ScreenName = keyof undefined;
@@ -147,6 +158,9 @@ const userDetailScreen = 'userDetailScreen' as ScreenName;
 const writersDetailScreen = 'writersDetailScreen' as ScreenName
 const sectionArticlesParentScreen = 'sectionArticlesParentScreen' as ScreenName;
 const myNewsScreen = 'myNewsScreen' as ScreenName
+const photoGalleryDetailScreen = 'photoGalleryDetailScreen' as ScreenName
+const journalistDetail = 'journalistDetail' as ScreenName;
+const PodcastEpisodeModalScreen = 'PodcastEpisodeModalScreen' as ScreenName;
 
 
 export const RoutesName = {
@@ -178,4 +192,7 @@ export const RoutesName = {
   PDFArchive,
   PDFEditorView,
   myNewsScreen,
+  photoGalleryDetailScreen,
+  journalistDetail,
+  PodcastEpisodeModalScreen,
 };

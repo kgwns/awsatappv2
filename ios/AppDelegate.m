@@ -1,6 +1,9 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBridge.h>
+//#import <AVFoundation/AVFoundation.h>
+//#import <AVKit/AVKit.h>
+//#import <UIKit/UIKit.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
@@ -9,8 +12,10 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <Firebase.h>
 #import <AVFoundation/AVFoundation.h>
-#import <React/RCTLinkingManager.h>  
-
+#import <React/RCTLinkingManager.h>
+#import <UserNotifications/UserNotifications.h>
+#import <RNCPushNotificationIOS.h>
+#import "Awsatapp-Swift.h"
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -38,9 +43,12 @@ static void InitializeFlipper(UIApplication *application) {
 {
   [FBSDKApplicationDelegate.sharedInstance initializeSDK];
   [FIRApp configure];
-#ifdef FB_SONARKIT_ENABLED
-  InitializeFlipper(application);
-#endif
+  
+  [self setUpWatchConnectivity];
+  
+  #ifdef FB_SONARKIT_ENABLED
+    InitializeFlipper(application);
+  #endif
 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
@@ -57,12 +65,58 @@ static void InitializeFlipper(UIApplication *application) {
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
+  
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  
+//  // grab a local URL to our video
+//  NSURL *videoURL = [[NSBundle mainBundle]URLForResource:@"splashscreen" withExtension:@"mp4"];
+//  if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+//    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+//          videoURL = [[NSBundle mainBundle]URLForResource:@"ipadhorizontal" withExtension:@"mp4"];
+//    }
+//    else {
+//          videoURL = [[NSBundle mainBundle]URLForResource:@"ipadvertical" withExtension:@"mp4"];
+//    }
+//  }
+//  else {
+//    videoURL = [[NSBundle mainBundle]URLForResource:@"splashscreen" withExtension:@"mp4"];
+//  }
+//
+//
+//   // create an AVPlayer
+//   AVPlayer *player = [AVPlayer playerWithURL:videoURL];
+//   player.volume = 0;
+  
   [[RCTI18nUtil sharedInstance] allowRTL:YES];
   [[RCTI18nUtil sharedInstance] forceRTL:YES];
   [RNSplashScreen show];
+   
+//   // create a player view controller
+//   AVPlayerViewController *splashController = [[AVPlayerViewController alloc]init];
+//   splashController.player = player;
+//   splashController.showsPlaybackControls = false;
+//   splashController.allowsPictureInPicturePlayback = false;
+//   splashController.view.frame = self.window.frame;
+//   splashController.view = rootView;
+//   splashController.videoGravity = AVLayerVideoGravityResizeAspectFill;
+//   splashController.modalPresentationStyle = UIModalPresentationFullScreen;
+//   self.window.rootViewController = splashController;
+//   [player play];
+//   [self.window makeKeyAndVisible];
+//
+//   // Adding Observer for your video file,
+//   NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+//   [notificationCenter addObserver:self selector:@selector(videoDidFinish:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+//
+//  rootViewController.view = rootView;
+//
+//  //Set initial route to rootViewController
+//  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//      self.window.rootViewController = rootViewController;
+//      [self.window makeKeyAndVisible];
+//  });
   
   // Play Audio in Silent Mode
   AVAudioSession *audioSession = [AVAudioSession sharedInstance];
@@ -73,7 +127,45 @@ static void InitializeFlipper(UIApplication *application) {
   [[FBSDKApplicationDelegate sharedInstance] application:application
                         didFinishLaunchingWithOptions:launchOptions];
 
+  UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+
   return YES;
+}
+
+//- (void)videoDidFinish:(id)notification {
+//   //Remove Observer
+//  [[NSNotificationCenter defaultCenter] removeObserver:self];
+//}
+
+// Required for the register event.
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+ [RNCPushNotificationIOS didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+// Required for the notification event. You must call the completion handler after handling the remote notification.
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+  [RNCPushNotificationIOS didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+// Required for the registrationError event.
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+ [RNCPushNotificationIOS didFailToRegisterForRemoteNotificationsWithError:error];
+}
+// Required for localNotification event
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(void (^)(void))completionHandler
+{
+  [RNCPushNotificationIOS didReceiveNotificationResponse:response];
+}
+
+//Called when a notification is delivered to a foreground app.
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
+{
+  completionHandler(UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionBadge);
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

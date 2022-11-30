@@ -21,6 +21,7 @@ export enum TranslateKey {
     SECTION_COMBO_FIVE,
     SECTION_COMBO_SIX,
     SECTION_COMBO_SEVEN,
+    SECTION_COMBO_EIGHT,
     EDITOR_CHOICE_HEADER_TITLE,
     DRAWER_PDF_ARCHIVE,
     OPINION_COMBO_TITLE,
@@ -48,6 +49,25 @@ export enum TranslateKey {
     ABOUT_THE_MIDDLE_EAST,
     TERMS_OF_USE,
     EDITORS_PICK_HEADER_TITLE,
+    WEATHER_DETAILS_SUNRISE,
+    WEATHER_DETAILS_SUNSET,
+    WEATHER_DETAILS_SIDEBAR,
+    WEATHER_DETAILS_MAX,
+    WEATHER_DETAILS_MBAR,
+    WEATHER_DETAILS_KM,
+    WEATHER_DETAILS_KMH,
+    WEATHER_DETAILS_HUMIDITY,
+    WEATHER_DETAILS_VISIBILITY,
+    WEATHER_DETAILS_PRESSURE,
+    WEATHER_DETAILS_SPEED,
+    WEATHER_DETAILS_SEA_CONDITION,
+    WEATHER_DETAILS_ENABLE_LOCATION,
+    WEATHER_NO_INFORMATION_TEXT,
+    CONTENT_BUNDLE_WIDGET_TITLE,
+    ARCHIVED_ARTICLE_SECTION_TITLE,
+    LIVE_TAG_TITLE,
+    ANALYSIS_TAG_TITLE,
+    SPECIAL_TAG_TITLE,
 }
 
 export const TranslateConstants = ({
@@ -94,6 +114,8 @@ export const TranslateConstants = ({
             return t('latestNewsTab.sectionComboSix.headerLeft')
         case TranslateKey.SECTION_COMBO_SEVEN:
             return t('latestNewsTab.sectionComboSeven.headerLeft')
+        case TranslateKey.SECTION_COMBO_EIGHT:
+            return t('latestNewsTab.sectionComboEight.headerLeft')
         case TranslateKey.EDITOR_CHOICE_HEADER_TITLE:
             return t('latestNewsTab.editorsChoice.headerLeft')
         case TranslateKey.DRAWER_PDF_ARCHIVE:
@@ -138,6 +160,32 @@ export const TranslateConstants = ({
             return t('onboardSuccess.goToHome')
         case TranslateKey.ONBOARD_SUCCESS_GO_TO_MY_NEWS:
             return t('onboardSuccess.goToMyNews')
+        case TranslateKey.WEATHER_DETAILS_SUNRISE:
+            return t('weatherDetail.sunrise')
+        case TranslateKey.WEATHER_DETAILS_SUNSET:
+            return t('weatherDetail.sunset')
+        case TranslateKey.WEATHER_DETAILS_SIDEBAR:
+            return t('weatherDetail.sidebarTitle')
+        case TranslateKey.WEATHER_DETAILS_MAX:
+            return t('weatherDetail.max')
+        case TranslateKey.WEATHER_DETAILS_HUMIDITY:
+            return t('weatherDetail.humidity')
+        case TranslateKey.WEATHER_DETAILS_SPEED:
+            return t('weatherDetail.speed')
+        case TranslateKey.WEATHER_DETAILS_KMH:
+            return t('weatherDetail.kmh')
+        case TranslateKey.WEATHER_DETAILS_VISIBILITY:
+            return t('weatherDetail.visibility')
+        case TranslateKey.WEATHER_DETAILS_PRESSURE:
+            return t('weatherDetail.pressure')
+        case TranslateKey.WEATHER_DETAILS_SEA_CONDITION:
+            return t('weatherDetail.seaCondition')
+        case TranslateKey.WEATHER_DETAILS_KM:
+            return t('weatherDetail.km')
+        case TranslateKey.WEATHER_DETAILS_MBAR:
+            return t('weatherDetail.mbar')
+        case TranslateKey.WEATHER_DETAILS_ENABLE_LOCATION:
+            return t('weatherDetail.enableLocation')
         case TranslateKey.OPINION_SLIDER_TITLE:
             return t('latestNewsTab.sectionWriters.sliderLeftHeader')
         case TranslateKey.ADVERTISE_WITH_US:
@@ -148,6 +196,18 @@ export const TranslateConstants = ({
             return t('drawer.termsOfUse')
         case TranslateKey.EDITORS_PICK_HEADER_TITLE:
             return t('latestNewsTab.editorsPick.headerRight')
+        case TranslateKey.WEATHER_NO_INFORMATION_TEXT: 
+            return t('weatherDetail.noInformation')
+        case TranslateKey.CONTENT_BUNDLE_WIDGET_TITLE:
+            return t('articleDetail.contentBundleWidgetTitle')
+        case TranslateKey.ARCHIVED_ARTICLE_SECTION_TITLE:
+            return t('latestNewsTab.archivedArticle.headerTitle')
+        case TranslateKey.LIVE_TAG_TITLE:
+            return t('displayTag.liveTagTitle')
+        case TranslateKey.LIVE_TAG_TITLE:
+            return t('displayTag.specialTagTitle')
+        case TranslateKey.LIVE_TAG_TITLE:
+            return t('displayTag.analysisTagTitle')
         default: return ''
     }
 }

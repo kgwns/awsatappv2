@@ -682,7 +682,8 @@ export const UserDetailScreen: FunctionComponent = () => {
         isAlertVisible={isAlertVisible}
         setIsAlertVisible={setIsAlertVisible}
         alertOnPress={onAlertOkPressed}
-        alertPayload={alertPayload}>
+        alertPayload={alertPayload}
+        backgroundColor={styles.screenBackgroundColor.backgroundColor}>
           {showupUp && <AlertModal
           title={DEFAULT_ALERT_TITLE}
           message={CONST_PLEASE_ENTER_THE_NAME}
@@ -751,6 +752,7 @@ const createStyles = (theme: CustomThemeType) =>
       borderRadius: normalize(76) / 2,
     },
     emailContainer: {
+      flex: 0.8,
       marginLeft: '5%',
       justifyContent: 'center',
     },
@@ -897,5 +899,8 @@ const createStyles = (theme: CustomThemeType) =>
     nameInputContainer: {
       paddingStart: '10%', 
       paddingEnd: 0.05 * screenWidth
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.profileBackground
     }
   });

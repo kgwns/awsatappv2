@@ -13,6 +13,8 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
+import { DARK_THEME_ID } from '../../shared/styles/colors'
+import { displayTypes } from 'src/constants/SharedConstants'
 
 const carouselFooterSample: articleFooterProps = {
   leftTitleColor: Styles.color.white,
@@ -46,7 +48,8 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
   showBody?: boolean,
   leftTitleColor?: string;
   showDivider?: boolean,
-  contentStyle?: StyleProp<TextStyle>
+  contentStyle?: StyleProp<TextStyle>;
+  displayType?: string,
 }
 
 const ImageArticle = ({
@@ -65,12 +68,17 @@ const ImageArticle = ({
   showBody= true,
   leftTitleColor,
   showDivider= false,
-  contentStyle
+  contentStyle,
+  displayType,
+  isAlbum,
 }: ImageArticleProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [isImageLoaded, setImageLoaded] = useState(false)
   const { themeData } = useTheme();
+  const isDark = themeData?.id === DARK_THEME_ID
+  const isLive = isNotEmpty(displayType) && displayType == displayTypes.liveCoverage;
+
 
   const onImageLoadEnd = (isSuccess: boolean) => {
     setImageLoaded(isSuccess)
@@ -78,7 +86,8 @@ const ImageArticle = ({
 
   const onPress = () => {
     if (nid) {
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+      const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN
+      navigation.navigate(screenName, { nid: nid })
     }
   }
 
@@ -87,7 +96,12 @@ const ImageArticle = ({
     <FixedTouchable onPress={onPress}>
       <View>
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
-          <BannerImageWithOverlay image={image} onImageLoadEnd={onImageLoadEnd} isImageLoaded={isImageLoaded} />
+          <BannerImageWithOverlay image={image}
+            onImageLoadEnd={onImageLoadEnd}
+            isLive={isLive}
+            isImageLoaded={isImageLoaded}
+            isAlbum={isAlbum}
+          />
         </View>
         <View style={isTab ? [imageArticleStyle.tabArticleContent, contentStyle ] : imageArticleStyle.articleContent}>
           {isNotEmpty(title) &&
@@ -100,7 +114,7 @@ const ImageArticle = ({
           }
           {isNotEmpty(body) && showBody &&
             <Label children={decodeHTMLTags(body)}
-            color={Styles.color.davyGrey} numberOfLines={3} style={textStyles}/>
+            numberOfLines={3} ellipsizeMode={'clip'} style={[{color: Styles.color.davyGrey}, textStyles]}/>
           }
           <View style={imageArticleStyle.tabFooterContainer}>
             <ArticleFooter {...carouselFooterSample}
@@ -108,7 +122,7 @@ const ImageArticle = ({
               isBookmarked={isBookmarked}
               onPress={onPressBookmark}
               leftTitleColor={leftTitleColor || Styles.color.greenishBlue}
-              rightTitleColor={Styles.color.silverChalice}
+              rightTitleColor={isDark ? Styles.color.silverChalice : Styles.color.black}
               bookMarkColorType={BookMarkColorType.BLACK}
               rightContainerStyle={rightContainerStyle}
               rightIcon={() => TimeIcon(timeFormat.icon)}
@@ -125,9 +139,10 @@ export default ImageArticle;
 
 const imageArticleStyle = StyleSheet.create({
   sliderItemContainer: {
-    width: screenWidth,
+    width: '100%',
     height: 'auto',
-    aspectRatio: 1.62,
+    aspectRatio: 1.34,
+   
   },
   slideContent: {
     width: '100%',

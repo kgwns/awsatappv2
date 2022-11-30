@@ -10,6 +10,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import Share from 'react-native-share'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
+import { getShareUrl } from 'src/shared/utils/utilities';
 
 export const ArticleDetailFooter = ({
     articleDetailData,
@@ -31,11 +32,11 @@ export const ArticleDetailFooter = ({
     // }
 
     const onPressShare = async () => {
-        const { title, view_node, nid } = articleDetailData
+        const { title, view_node, shortUrl, nid } = articleDetailData
         recordLogEvent('Share_Article', {articleId: nid});
         await Share.open({
             title,
-            url: view_node,
+            url: getShareUrl(shortUrl,view_node),
             failOnCancel: true,
             subject: title
         }).then(response => {

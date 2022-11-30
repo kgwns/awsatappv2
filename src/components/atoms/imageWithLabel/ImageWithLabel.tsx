@@ -1,13 +1,14 @@
 import { View, StyleSheet, ImageStyle } from 'react-native'
 import React from 'react'
 import { Image } from '../image/Image'
-import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { ImageName, Label, LabelTypeProp } from '..'
-import { Styles } from 'src/shared/styles'
+import { isNotEmpty, normalize } from 'src/shared/utils'
+import { ImageName, Label, LabelTypeProp, LiveBlogTag } from '..'
+import { ImagesName, Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles'
 import { LabelType } from '../label/Label'
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
+import { getSvgImages } from 'src/shared/styles/svgImages'
 
 export interface ImageLabelProps {
     name?: ImageName,
@@ -17,14 +18,27 @@ export interface ImageLabelProps {
     tagStyle?: object,
     tagLabelType?: LabelType,
     imageStyle?: ImageStyle,
-    onPressImage?: () => void
+    onPressImage?: () => void,
+    isAlbum: boolean,
+    isLive?: boolean,
 }
 
 export const ImageWithLabel = ({ name, url, tagName,tagStyle,
     tagLabelType = LabelTypeProp.caption3,
     imageStyle,
-    onPressImage
+    onPressImage,
+    isAlbum = false,
+    isLive = false,
 }: ImageLabelProps) => {
+
+    const renderPhotoIcon = () => {
+        return getSvgImages({
+            name: ImagesName.photoIcon,
+            width: 27,
+            height: 22,
+          });
+    }
+
     return (
         <FixedTouchable onPress={onPressImage}>
             <View style={{alignItems: 'center'}}>
@@ -32,12 +46,20 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
                     style={[imageWithLabelStyle.articleImage, imageStyle]}
                     resizeMode={ImageResize.COVER}
                 />
-                {isNotEmpty(tagName) &&
+                {isNotEmpty(tagName) && !isLive &&
                     <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
                         <Label children={tagName}
                             style={imageWithLabelStyle.tagText}
                             labelType={tagLabelType}
                         />
+                    </View>
+                }
+                {isLive &&
+                    <LiveBlogTag />
+                }
+                {isAlbum && 
+                    <View style={imageWithLabelStyle.albumContainer}>
+                        {renderPhotoIcon()}
                     </View>
                 }
             </View>
@@ -48,8 +70,9 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
 
 const imageWithLabelStyle = StyleSheet.create({
     articleImage: {
-        width: screenWidth,
-        height: 0.52 * screenWidth
+        width: '100%',
+        height: 'auto',
+        aspectRatio: 1.34,
     },
     tagContainer: {
         position: 'absolute',
@@ -62,5 +85,10 @@ const imageWithLabelStyle = StyleSheet.create({
         paddingHorizontal: normalize(7),
         color: Styles.color.white,
         fontFamily: fonts.Effra_Arbc_Regular,
+    },
+    albumContainer: {
+        position: 'absolute',
+        right: 15,
+        top: 15,
     }
 })

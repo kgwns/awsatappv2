@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { ImageResize } from 'src/shared/styles/text-styles'
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import DeviceInfo from 'react-native-device-info';
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
 import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TWITTER_APP_URL } from 'src/constants/SharedConstants'
@@ -35,7 +34,8 @@ export interface WriterBannerImageProps {
   visibleHome?: boolean
   onPressHome: () => void,
   isFocused?: boolean,
-  isWriter?: boolean
+  isWriter?: boolean,
+  showIsFollowed?: boolean,
 }
 
 export const WriterBannerImage = ({
@@ -49,7 +49,8 @@ export const WriterBannerImage = ({
   visibleHome = false,
   onPressHome,
   isFocused,
-  isWriter = false
+  isWriter = false,
+  showIsFollowed = true
 }: WriterBannerImageProps) => {
   const [t] = useTranslation()
 
@@ -143,10 +144,11 @@ export const WriterBannerImage = ({
 
   return (
     <View style={style.container}>
+      {/* For Navigation Reference
       <View style={style.headerContainer}>
         {visibleHome && <HomeButton containerStyle={style.homeIconContainer} onPress={onPressHome} />}
         <ReturnButton />
-      </View>
+      </View> */}
       <View style={style.contentContainer}>
         <View style={{ flex: isTab ? isWriter ? 0.15 : currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : isWriter ? 0.33 : currentOrientation == 'PORTRAIT' ? 0.33 : 0.15 }}>
           <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
@@ -156,10 +158,6 @@ export const WriterBannerImage = ({
                 size={normalize(100)}
                 resizeMode={ImageResize.COVER}
                 fallback={true}
-                fallbackContent={<AuthorDefault
-                  style={{ backgroundColor: Styles.color.lightCyanBlue }}
-                  width={normalize(100)}
-                  height={normalize(100)} />}
                 fallbackName={ImagesName.authorDefault}
               />
             </View>
@@ -174,9 +172,9 @@ export const WriterBannerImage = ({
               </View>
             
 
-            <View style={style.subscribeView}>
+            {showIsFollowed && <View style={style.subscribeView}>
               <SubscribeButton isFollowed={isFollowed} />
-            </View>
+            </View>}
           </View>
           <Label style={style.authorDescription}>{decode(decodeHTMLTags(data.authorDescription))}</Label>
           <View style={{ flexDirection: 'row' }}>
@@ -218,12 +216,11 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.writerBackground,
       width: '100%',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
-      paddingTop: isTab ? normalize(40) : DeviceInfo.hasNotch() ? normalize(40) : normalize(20), 
       paddingBottom:normalize(20),
     },
     contentContainer:{
       flexDirection:'row',
-      paddingTop: normalize(30),
+      paddingTop: normalize(5),
     },
     imageContainer:{
       overflow: 'hidden',
@@ -252,11 +249,11 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'left',
     },
     authorDescription:{
-      fontSize: 13,
-      lineHeight: 22,
+      fontSize: isTab ? 14 : 13,
+      lineHeight: isTab ? 24 : 22,
       textAlign: 'left',
       marginBottom:normalize(15),
-      color: theme.secondaryMediumGrey,
+      color: theme.primaryBlack,
       fontFamily: fonts.Effra_Arbc_Regular,
     },
     returnLabel: {

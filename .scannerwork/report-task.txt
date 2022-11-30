@@ -1,0 +1,6 @@
+projectKey=Al-Awast
+serverUrl=http://quality.tringbytes.com
+serverVersion=8.9.3.48735
+dashboardUrl=http://quality.tringbytes.com/dashboard?id=Al-Awast
+ceTaskId=AYLoQU-Gm1AUt4cvdvSB
+ceTaskUrl=http://quality.tringbytes.com/api/ce/task?id=AYLoQU-Gm1AUt4cvdvSB

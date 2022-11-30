@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { isTab, normalize } from 'src/shared/utils';
-import { Label, Image, LabelTypeProp } from 'src/components/atoms';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
+import { Label, Image, LabelTypeProp, RenderPhotoIcon } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -18,6 +18,8 @@ export interface NewsWithImageItemProps {
   footerLeftHighlight?: boolean;
   footerLeftLabel?: string;
   showHighlightTitle?: boolean;
+  containerStyle?: StyleProp<ViewStyle>;
+  isAlbum: boolean;
 }
 
 export const NewsWithImageItem = ({
@@ -30,16 +32,21 @@ export const NewsWithImageItem = ({
   footerLeftHighlight = false,
   footerLeftLabel,
   showHighlightTitle = true,
+  containerStyle,
+  isAlbum,
 }: NewsWithImageItemProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   return (
-    <View style={style.container}>
+    <View style={StyleSheet.flatten([style.container, containerStyle])}>
       {imageUrl &&
-        <Image url={imageUrl} style={isTab ? style.tabImage : style.image}
-          resizeMode={ImageResize.COVER} fallback
-          defaultImageStyle={style.image}
-        />
+        <View style={isTab ? style.tabImage : style.image}>
+          <Image url={imageUrl}
+            resizeMode={ImageResize.COVER} fallback
+            style={{ width: '100%', height: '100%' }}
+          />
+          {isAlbum && <RenderPhotoIcon />}
+        </View>
       }
       { showHighlightTitle && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
       {title &&
@@ -91,28 +98,30 @@ export const NewsWithImageItem = ({
 const customStyle = (theme: CustomThemeType) => {
   const NewsWithImageItemStyle = StyleSheet.create({
     container: {
-      width: isTab ? normalize(262) : normalize(162),
+      width: ((isTab ? 0.5  : 0.92) * screenWidth - 15),
       alignItems: 'flex-start',
       marginStart: normalize(15),
     },
     image: {
-      width: normalize(162),
-      height: normalize(114)
+      width: (0.92 * screenWidth - 15),
+      height: 'auto',
+      aspectRatio: 4/3,
     },
     tabImage: {
-      width: normalize(262),
-      height: normalize(185),
+      width: (0.5 * screenWidth - 15),
+      height: 'auto',
+      aspectRatio: 4/3,
     },
     highlightedTitle: {
-      fontSize: 12,
-      lineHeight: 18,
+      fontSize: isTab ? 14 : 12,
+      lineHeight: isTab ? 20 : 18,
       marginTop: normalize(10),
       color: theme.primary,
       fontFamily: fonts.Effra_Arbc_Regular,
     },
     title: {
-      fontSize: 14,
-      lineHeight: 22,
+      fontSize: isTab ? 20 : 14,
+      lineHeight: isTab ? 32 : 22,
       marginTop: normalize(8),
       color: theme.primaryBlack,
       textAlign: 'left',

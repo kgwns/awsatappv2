@@ -1,4 +1,20 @@
 export const arabic = {
+  weatherDetail: {
+    sunrise: 'شروق الشمس',
+    sunset: 'غروب الشمس',
+    sidebarTitle: 'الرياض :',
+    max: 'الحرارة العظمى/الصغرى',
+    humidity: 'الرطوبة',
+    speed: 'سرعة الرياح',
+    kmh: 'كم/ساعة',
+    visibility: 'الرؤية',
+    pressure: 'الضغط',
+    seaCondition: 'حالة البحر',
+    km: 'كم',
+    mbar: 'مللي بار',
+    enableLocation: 'تمكين الموقع',
+    noInformation: 'المعلومات غير متوفره حاليا',
+  },
   drawer: {
     latestNews: 'آخر الأخبار',
     first: 'أولى',
@@ -14,7 +30,7 @@ export const arabic = {
     aboutTheEast: 'عن الشرق',
     callUs: 'اتصل بنا',
     myPersonalAccount: 'حسابي الشخصي',
-    termsOfUse: 'شروط الانتفاع',
+    termsOfUse: 'الشروط والأحكام',
     pdfArchive: 'الأرشيف',
     informationAboutUs: 'معلومات عنا',
     aboutTheMiddleEast: ' عن "الشرق الأوسط"'
@@ -22,33 +38,33 @@ export const arabic = {
   onBoard: {
     common: {
       nextBtn: 'التالي',
-      skip: 'تخطى',
+      skip: 'التخطي',
       return: 'الرجوع',
       completed: 'تم',
       done: 'حفظ'
     },
     followFavoriteAuthor: {
-      title: 'تابع كتابك المفضلين',
-      description: 'اختر كتاب الرأي المفضلين لتصلك مقالاتهم في صفحة «أخباري»',
+      title: 'تابع كُتابك المفضلين',
+      description: 'اختر كُتابك المفضلين لتحصل على مقالاتهم أولاً بأول​',
     },
     keepNotified: {
       title: 'ما الذي تريد أن تبقى على اطلاع عليه؟',
-      description: 'اختر مواضيعك لمنحك أفضل تجربة',
+      description: 'اختر مواضيعك لمنحك أفضل تجربة في خلاصتك',
     },
     selectTopics: {
-      title: 'اختر مواضيعك المفضلة لتصلك أولاً بأول في صفحة «أخباري» ',
-      description: 'ما هي اهتماماتك؟',
+      title: 'حدد اهتماماتك',
+      description: 'اختر مواضيعك المفضلة لتحصل عليها في صفحة أخباري ​'
     },
     newsLetter: {
-      title: 'نشراتي البريدية',
-      description:  'احصل على آخر التحديثات يتم تسليمها مباشرة إلى الإيميل الخاص بك.',
-      subscribed: 'أنت مشترك في النشرة',
-      notSubscribed: 'أنت غير مشترك بالنشرة',
+      title: 'نشراتك البريدية',
+      description:  'احصل على آخر التحديثات عبر البريد الإلكتروني الخاص بك​',
+      subscribed: 'مشترك',
+      notSubscribed: 'اشترك',
     },
   },
   opinion: {
     opinionWriters: 'كتاب الرأي',
-    listenToActicleText: 'إستمع إلى المقالة',
+    listenToArticleText: 'استمع إلى المقالة',
     opinionArticles: 'مقالات الرأي'
   },
   latestNewsTab: {
@@ -61,22 +77,25 @@ export const arabic = {
     },
     sectionWriters: {
       headerLeft: 'الرأي',
-      sliderLeftHeader: 'آراء وكتّاب '
+      sliderLeftHeader: 'الرأي'
     },
     sectionComboThree: {
-      headerLeft: 'العالم',
+      headerLeft: 'شؤون إقليمية',
     },
     sectionComboFour: {
-      headerLeft: 'الاقتصاد',
+      headerLeft: 'العالم',
     },
     sectionComboFive: {
-      headerLeft: 'ثقافة وفنون',
+      headerLeft: 'الاقتصاد',
     },
     sectionComboSix: {
-      headerLeft: 'منوعات',
+      headerLeft: 'ثقافة وفنون',
     },
     sectionComboSeven: {
       headerLeft: 'الرياضة',
+    },
+    sectionComboEight: {
+      headerLeft: 'يوميات الشرق',
     },
     articlSection: {
       articleTitle: 'عِينٌ على'
@@ -86,6 +105,9 @@ export const arabic = {
     },
     editorsPick: {
       headerRight: 'مواضيع قد تهمك'
+    },
+    archivedArticle: {
+      headerTitle: 'من الأرشيف'
     }
   },
   sectionVideo: {
@@ -119,9 +141,9 @@ export const arabic = {
     one_minute: '1 دقيقة',
     one_hour: '1 ساعة',
     from: 'من',
-    fromHour: "من ساعة",
-    fromTwoHours: "من ساعتين",
-    fromThreeHours:  "من ثلاث ساعات",
+    sinceHour: "منذ ساعة",
+    sinceTwoHours: "منذ ساعتين",
+    sinceThreeHours:  "منذ ثلاث ساعات",
     minute: "دقيقة",
   },
   months: [
@@ -140,7 +162,7 @@ export const arabic = {
   ],
   day: [
     'الأحد',
-    'الإثنين',
+    'الاثنين',
     'الثلاثاء',
     'الأربعاء',
     'الخميس',
@@ -150,6 +172,7 @@ export const arabic = {
   podcastEpisode: {
     moreEpisodes: 'المزيد من حلقات البودكاست',
     listenToEpisode: 'استمع إلى الحلقة',
+    listenTo: 'استمع على',
   },
   videoDetail: {
     watch: 'مشاهده',
@@ -169,30 +192,32 @@ export const arabic = {
       video: 'فيديو',
       opinion: 'الرأي',
       podcast: 'بودكاست',
+      album: 'صور',
     },
     articles_from_your_favorite_writers: 'مقالات من كتابك المفضلين',
     articles_that_interest_you: 'مقالات تهمك',
   },
   signIn: {
-    signUp: 'ادخل لحسابك أو اشترك',
-    skip: 'تخطى',
-    signUpReceive: 'سجل للحصول على تجربة فريدة',
-    email: 'البريد الإلكتروني',
-    signIn: 'تسجيل الدخول',
+    signUp: 'انشئ حساباً خاصاً بك​',
+    skip: 'التخطي',
+    signUpReceive: 'سجل وابق مطلعاً على آخر الأخبار ​',
+    email: 'الإيميل',
+    signIn: 'تسجيل الدخول ',
     or: 'أو',
     loginFacebook: 'الدخول بحساب فيسبوك',
     loginGoogle: 'الدخول بحساب غوغل',
-    loginApple: 'الدخول بحساب أبل',
-    termsAndConditions: 'الشروط والاحكام',
-    agreeTo: 'تسجيل الدخول يعنى موافقتك على',
-    rights: '',
-    loginAccount: 'الدخول لحسابك',
-    password: 'كلمة المرور',
+    loginApple: 'الدخول بحساب ابل',
+    termsAndConditions: 'الشروط والأحكام',
+    agreeTo: 'تسجيل الدخول يعني الموافقة على',
+    rights: 'لاستخدام التطبيق و باقي حقوق الملكيه و الموافقه للبراجراف',
+    loginAccount: 'تسجيل الدخول​',
+    password: 'كلمه المرور',
     forgotPassword: 'نسيت كلمة المرور',
     return: 'الرجوع',
     success:'نجاح',
-    credentialsAreIncorrect:'أوراق الاعتماد غير صحيحة',
-    verifyMailAndPasswordAndTryAgain:'تحقق من معرف البريد الخاص بك وكلمة المرور وحاول مرة أخرى.',
+    credentialsAreIncorrect:'معلومات الدخول غير صحيحة',
+    verifyMailAndPasswordAndTryAgain:'تحقق من البريد الإلكتروني وكلمة المرور وحاول مجدداً',
+    signInInfo: 'سجل الدخول لتحظ بآخر الأخبار​'
   },
   validation: {
     emailEmpty: 'عنوان البريد الإلكتروني مطلوب',
@@ -206,7 +231,7 @@ export const arabic = {
   },
   about_the_news_paper: 'عن الجريدة',
   terms_of_use: 'شروط الانتفاع',
-  terms_and_condition: 'القواعد و الشروط',
+  terms_and_condition: 'الشروط والأحكام',
   return: 'الرجوع',
   searchScreen: {
     placeholder: 'ابحث في الشرق الأوسط …',
@@ -216,9 +241,9 @@ export const arabic = {
   signUp: {
     createAccount: 'إنشاء حساب',
     accountDescription: 'هذا الإيميل غير مسجل لدينا، قم بإنشاء حسابك',
-    email: 'البريد الإلكتروني',
-    password: 'كلمة المرور',
-    confirmPassword: 'تأكيد كلمة المرور',
+    email: 'الإيميل',
+    password: 'كلمه المرور',
+    confirmPassword: 'تأكيد تكلمه المرور',
     signUp: 'تسجيل الدخول',
     return: 'الرجوع',
   },
@@ -229,10 +254,10 @@ export const arabic = {
     skipOption: 'تخطي ، سأؤكد لاحقًا'
   },
   onboardSuccess: {
-    successMessage: 'تم تكوين صفحة أخبارك بنجاح',
-    mailAcknowledgement: 'احصل على آخر التحديثات يتم تسليمها مباشرة إلى\n الإيميل الخاص بك.',
-    goToHome: 'انتقل الي الصفحة الرئيسية',
-    goToMyNews: 'انتقل الي صفحة أخباري'
+    successMessage: 'تم تفعيل صفحة أخبارك بنجاح',
+    mailAcknowledgement: 'استمتع بمحتوانا المميز على منصاتك المفضلة​',
+    goToHome: 'انتقل إلى الصفحة الرئيسية',
+    goToMyNews: 'انتقل إلى صفحة أخباري'
   },
   profileSetting: {
     manageMyNotification: 'إدارة إخطاراتي',
@@ -250,13 +275,13 @@ export const arabic = {
     debug: 'التصحيح',
     production: 'إنتاج',
     changeEnvironment: 'تغيير البيئة',
-    notSubscribed: 'أنت غير مشترك',
-    loginFeature: 'إنشئ حساب لك لتحصل علي أخبار مخصصه لك و\n تتمتع بخاصية حفظ المقالات',
+    notSubscribed: 'لم تشترك بعد​',
+    loginFeature: 'انشئ حساباً خاصاً بك لتحصل على أخبار\n مخصصة لك ولتتمتع بخاصية حفظ المقالات وتتلقى\n نشراتنا البريدية المتنوعة​',
     signUp: 'قم بالتسجيل',
   },
   opinionArticleDetail: {
     return: 'الرجوع',
-    listenToArticle: 'إستمع إلى المقالة',
+    listenToArticle: 'استمع إلى المقالة',
     relatedOpinionTitle: 'المزيد من مقالات الرآي',
   },
   profile: {
@@ -364,5 +389,13 @@ export const arabic = {
     email: 'إيميل',
     yourLetter: 'رسالتك',
     send: 'ارسل',
+  },
+  articleDetail: {
+    contentBundleWidgetTitle: 'اقرأ أيضاً'
+  },
+  displayTag: {
+    liveTagTitle: 'مباشر',
+    specialTagTitle: 'خاص',
+    analysisTagTitle: 'تحليل إخباري',
   }
 }

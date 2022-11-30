@@ -9,7 +9,6 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ScreensConstants } from 'src/constants';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
@@ -61,6 +60,8 @@ const OpinionWritersCardView = ({
 
   const[mediaData, setMediaData] = useState<any>({});
   const[timeDuration, setTimeDuration] = useState<any>(null);
+  const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+  const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
 
@@ -73,6 +74,15 @@ const OpinionWritersCardView = ({
       getNarratedOpinion()
     }
   }, [])
+
+  useEffect(() => {
+    if (trackData && trackData.id == (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+      setIsBuffering(true);
+    } else {
+      setIsBuffering(false);
+    }
+    setPrevPlayBackState(playbackState);
+  }, [playbackState])
 
   const getNarratedOpinion = async() => {
       try {
@@ -162,10 +172,6 @@ const onPressPlay = () => {
             type="round"
             resizeMode="cover"
             fallback={true}
-            fallbackContent={<AuthorDefault
-              style={{ backgroundColor: Styles.color.cyanGreen }}
-              width={normalize(43)}
-              height={normalize(43)} />}
             fallbackName={ImagesName.authorDefault}
           />
         </TouchableOpacity>
@@ -185,7 +191,7 @@ const onPressPlay = () => {
             <TouchableOpacity onPress={onPressPlay} style={style.listenArticleContainer}>
               <ButtonImage
                 icon={() =>
-                  trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                  trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing || isBuffering   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                   getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                 }
                 style={style.playIcon}
@@ -245,7 +251,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: normalize(10),
     },
     headLine: {
-      fontSize: 18,
+      fontSize: isTab ? 20 : 18,
       textAlign: 'left',
       lineHeight: 30,
       color: theme.primaryBlack,
@@ -286,10 +292,11 @@ const customStyle = (theme: CustomThemeType) => {
     },
     duration: {
       fontSize: 12,
-      lineHeight: isIOS ? 18 :36,
+      lineHeight: 36,
       color: theme.secondaryDavyGrey,
       marginLeft: normalize(10),
       fontFamily: fonts.Effra_Arbc_Medium,
+      marginBottom: isIOS ? 3 : 0
     },
     divider: {
       height: 1,

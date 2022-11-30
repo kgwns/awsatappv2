@@ -20,9 +20,18 @@ index 3d1964a..c70874a 100644
          }
        });
 diff --git a/node_modules/react-native-tab-view/src/TabBar.tsx b/node_modules/react-native-tab-view/src/TabBar.tsx
-index f1137f4..95518e3 100644
+index f1137f4..e646791 100644
 --- a/node_modules/react-native-tab-view/src/TabBar.tsx
 +++ b/node_modules/react-native-tab-view/src/TabBar.tsx
+@@ -229,7 +229,7 @@ export default class TabBar<T extends Route> extends React.Component<
+       0
+     );
+ 
+-    const scrollAmount = centerDistance - layout.width / 2;
++    const scrollAmount = Platform.OS === 'ios' ?  centerDistance - layout.width : centerDistance - layout.width / 2;
+ 
+     return this.normalizeScrollValue(props, state, scrollAmount);
+   };
 @@ -359,15 +359,8 @@ export default class TabBar<T extends Route> extends React.Component<
              showsHorizontalScrollIndicator={false}
              automaticallyAdjustContentInsets={false}

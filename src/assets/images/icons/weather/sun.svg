@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30.908" height="30.909" viewBox="0 0 30.908 30.909">
+  <g id="sun" transform="translate(0.75 0.75)">
+    <ellipse id="Ellipse_180" data-name="Ellipse 180" cx="8.823" cy="8.822" rx="8.823" ry="8.822" transform="translate(5.882 5.882)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_112" data-name="Line 112" y1="1.961" transform="translate(14.704 0)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_113" data-name="Line 113" y1="1.387" x2="1.387" transform="translate(23.715 4.307)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_114" data-name="Line 114" x2="1.961" transform="translate(27.448 14.704)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_115" data-name="Line 115" x2="1.387" y2="1.387" transform="translate(23.715 23.715)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_116" data-name="Line 116" y2="1.961" transform="translate(14.704 27.448)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_117" data-name="Line 117" x1="1.387" y2="1.387" transform="translate(4.307 23.715)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_118" data-name="Line 118" x1="1.961" transform="translate(0 14.704)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_119" data-name="Line 119" x1="1.387" y1="1.387" transform="translate(4.307 4.307)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>

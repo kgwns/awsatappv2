@@ -10,7 +10,7 @@ import {
   AppState,
 } from 'react-native';
 import {isIOS} from 'src/shared/utils';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import Video from 'react-native-video';
 import {convertSecondsToHMS, DEFAULT_HIT_SLOP} from 'src/shared/utils/utilities';
@@ -33,7 +33,9 @@ export interface VideoPlayerControlProp {
   setPlayerDetails?: (time: any, paused: any) => void;
   setMiniPlayerVisible?: (visible: boolean) => void;
   onChangeFullScreen?: (isFullScreen: boolean) => void;
+  setReset?: (show: boolean) => void;
   videoRefs?: any;
+  showReplay?: boolean;
 }
 const VideoPlayerControl = ({
   url,
@@ -47,6 +49,8 @@ const VideoPlayerControl = ({
   setMiniPlayerVisible,
   onChangeFullScreen,
   videoRefs,
+  showReplay = false,
+  setReset
 }: VideoPlayerControlProp) => {
   const styles = useThemeAwareObject(customStyle);
 
@@ -59,9 +63,23 @@ const VideoPlayerControl = ({
   const [showControls, setShowControls] = useState(false);
   const [initialPlay, setInitialPlay] = useState(true);
   const [screenType, setScreenType] = useState('contain');
+  const [showReplayBtn, setShowReplayBtn] = useState(false);
   const initialLoadRef = useRef(true);
 
   const {setShowMiniPlayer, setPlayerTrack, showMiniPlayer} = useAppPlayer();
+
+  useEffect(() => {
+    if (showReplay) {
+      setShowControls(false);
+      setTimeout(()=>{
+        videoPlayer.current?.seek(0);
+        setPaused(true)
+      },100)
+    } else {
+      setShowControls(true)
+    }
+    !isMiniPlayer && setShowReplayBtn(showReplay);
+  }, [showReplay]);
 
   const onSeek = (seek: any) => {
     videoPlayer.current?.seek(seek);
@@ -99,6 +117,8 @@ const VideoPlayerControl = ({
     } else {
       setPaused(true);
     }
+    isMiniPlayer && closePlayer();
+    setReset && setReset(true);
   };
 
   const toggleFullscreen = () => {
@@ -156,6 +176,13 @@ const VideoPlayerControl = ({
       subscription.remove();
     };
   }, []);
+
+  const onPressReplay = () => {
+    setShowReplayBtn(false);
+    videoPlayer.current?.seek(0);
+    setPaused(false);
+    setReset && setReset(false);
+  }
 
   const onScreenTouch = () => {
     if (playerVisible && !isMiniPlayer) {
@@ -345,7 +372,7 @@ const VideoPlayerControl = ({
 
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback testID='VideoPlayerControlId' style={{flex: 1}} onPress={onScreenTouch}>
+      <TouchableWithoutFeedback testID='VideoPlayerControlId' style={{flex: 1}} onPress={() => showReplayBtn ? onPressReplay() : onScreenTouch()}>
         <View style={{flex: 1}}>
           {renderVideo()}
           <View style={styles.videoControls}>
@@ -357,6 +384,11 @@ const VideoPlayerControl = ({
               </>
             )}
           </View>
+          {showReplayBtn &&
+            <View style={styles.replayButton}>
+              {getSvgImages({ name: ImagesName.resetIcon, fill: colors.white, width: 80, height: 80 })}
+            </View>
+          }
         </View>
       </TouchableWithoutFeedback>
     </View>
@@ -448,5 +480,15 @@ const customStyle = (theme: CustomThemeType) =>
     },
     sliderContainer: {
       transform: [{ scaleX: isIOS ? 0.5:1 }, { scaleY: isIOS ? 0.5:1 }]
-    }
+    },
+    replayButton: {
+      backgroundColor: 'transparent',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   });

@@ -133,7 +133,7 @@ export const VideoItem = ({
           {toWatchTitle && (<Label labelType="caption5">{toWatchTitle}</Label>)}
           {showSeparator && (<View style={styles.dividerV} />)}
           {monthDate  && TimeIcon(timeFormat.icon)}
-          <Label style={styles.day} color={colors.silverChalice}>
+          <Label style={styles.day} color={styles.footerTitleColor.color}>
             {monthDate}
           </Label>
         </View>
@@ -286,13 +286,16 @@ const createStyles = (theme: CustomThemeType) =>
     },
     titleLabelStyle: {
       fontFamily: fonts.AwsatDigital_Bold,
-      fontSize: 16,
-      lineHeight: 28,
+      fontSize: isTab ? 20 : 16,
+      lineHeight: isTab ? 32 : 28,
       textAlign: 'left',
       paddingVertical: normalize(8),
       color: theme.primaryBlack
     },
     containerStyle: {
       width: isTab? '50%' : '100%'
-    }
+    },
+    footerTitleColor: {
+      color: theme.footerTextColor
+    },
   });

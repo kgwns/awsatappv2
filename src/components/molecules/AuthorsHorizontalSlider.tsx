@@ -7,14 +7,13 @@ import {
   View,
 } from 'react-native';
 import React, {useRef} from 'react';
-import {isIOS, isTab, normalize, normalizeBy320, screenWidth} from 'src/shared/utils';
+import {isIOS, isTab, normalize, normalizeBy320, screenWidth, isDarkTheme} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {Label, Image} from 'src/components/atoms';
+import {Image, Label} from 'src/components/atoms';
 import {fonts} from 'src/shared/styles/fonts';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {getImageUrl} from 'src/shared/utils/utilities';
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {
   TranslateConstants,
@@ -43,7 +42,9 @@ export const AuthorsHorizontalSlider = ({
   selectedIndex,
 }: AuthorsHorizontalSliderProps) => {
   const {themeData} = useTheme();
+
   const styles = useThemeAwareObject(customStyle);
+  
   const scrollRef = useRef<ScrollView>(null);
   const allTitle = TranslateConstants({key: TranslateKey.TAB_ALL_TITLE});
 
@@ -104,18 +105,9 @@ export const AuthorsHorizontalSlider = ({
             ]}>
             <Image
               url={imageUrl}
-              size={33}
-              resizeMode={'cover'}
-              type={'round'}
-              fallback={true}
-              fallbackContent={
-                <AuthorDefault
-                  style={{backgroundColor: colors.cyanGreen}}
-                  width={33}
-                  height={33}
-                />
-              }
               fallbackName={ImagesName.authorDefault}
+              style={styles.authorImageStyle}
+              resizeMode={'cover'}
             />
             <Label
               children={item.name}
@@ -213,5 +205,10 @@ const customStyle = (theme: CustomThemeType) =>
     showAllContainer: {
       paddingLeft: normalize(10)
     },
+    authorImageStyle: {
+      height:33,
+      width:33,
+      borderRadius: 33/2
+    }
   });
   

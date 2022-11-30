@@ -4,13 +4,11 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Image, Label} from 'src/components/atoms';
 import {isIOS, isTab, normalize, screenHeight, screenWidth} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {ImagesName, Styles} from 'src/shared/styles';
+import { ImagesName } from 'src/shared/styles';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import AuthorDefault from 'src/assets/images/icons/authorDefault.svg';
-import AuthorDefaultGrey from 'src/assets/images/icons/authorDefaultGrey.svg';
 import { fonts } from 'src/shared/styles/fonts';
 
 export interface FollowFavoriteAuthorProps {
@@ -33,7 +31,7 @@ const FollowFavoriteAuthor = ({
   onPress,
   testId,
   clickable = true,
-  imageSize = 99,
+  imageSize = 0.092 * screenHeight,
   containerStyle,
 }: FollowFavoriteAuthorProps) => {
   const [fallback, setFallBack] = useState(false)
@@ -71,12 +69,7 @@ const FollowFavoriteAuthor = ({
               size={isTab ? normalize(tabSize) : normalize(size)}
               resizeMode="cover"
               fallback={fallback}
-              fallbackContent={
-                <AuthorDefaultGrey
-                style={{ backgroundColor: Styles.color.silverChalice }}
-                width={isTab ? normalize(tabSize) : normalize(size)}
-                height={isTab ? normalize(tabSize) : normalize(size)}/>}
-              fallbackName={ImagesName.authorDefaultGrey}
+              fallbackName={ImagesName.authorDefault}
             />
           </Grayscale>
         ) : (
@@ -86,10 +79,6 @@ const FollowFavoriteAuthor = ({
             size={isTab ? normalize(tabSize) : normalize(size)}
             resizeMode="cover"
               fallback={fallback}
-              fallbackContent={<AuthorDefault
-                style={{ backgroundColor: Styles.color.cyanGreen }}
-                width={isTab ? normalize(tabSize) : normalize(size)}
-                height={isTab ? normalize(tabSize) : normalize(size)} />}
               fallbackName={ImagesName.authorDefault}
             />
         )}
@@ -150,7 +139,7 @@ const customStyle = (theme: CustomThemeType) => {
       ?normalize(0.020 * screenHeight)
       :normalize(0.026 * screenHeight),
       justifyContent: 'center',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
     },
     titleStyle: {
       fontFamily: fonts.AwsatDigital_Bold,

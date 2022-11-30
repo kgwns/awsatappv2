@@ -21,6 +21,7 @@ const returnResponse = (response: any): FetchTopMenuSuccessPayloadType => {
           isSelected: false,
           parentId: item.parent_export,
           uuid: item.uuid_export,
+          field_sections: item.field_sections
         };
         results.push(topMenuItem);
       }

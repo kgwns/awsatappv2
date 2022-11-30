@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30.932" height="30.909" viewBox="0 0 30.932 30.909">
+  <g id="Rain" transform="translate(0.75 0.75)">
+    <line id="Line_106" data-name="Line 106" y1="3.921" transform="translate(9.803 0)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_107" data-name="Line 107" x1="3.921" transform="translate(0 9.803)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_108" data-name="Line 108" y1="2.772" x2="2.772" transform="translate(13.962 2.872)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_109" data-name="Line 109" x1="2.772" y1="2.772" transform="translate(2.872 2.872)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_14930" data-name="Path 14930" d="M4.725,12.9a5.882,5.882,0,1,1,10-6.19" transform="translate(0.177 0.153)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_14931" data-name="Path 14931" d="M9.375,22.525a.49.49,0,0,1,.49.49" transform="translate(1.898 5.903)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_14932" data-name="Path 14932" d="M9,23.015a.49.49,0,0,1,.49-.49" transform="translate(1.783 5.903)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_14933" data-name="Path 14933" d="M9.49,23.39A.49.49,0,0,1,9,22.9" transform="translate(1.783 6.018)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_14934" data-name="Path 14934" d="M9.865,22.9a.49.49,0,0,1-.49.49" transform="translate(1.898 6.018)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_14935" data-name="Path 14935" d="M13.875,22.525a.49.49,0,0,1,.49.49" transform="translate(3.28 5.903)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_14936" data-name="Path 14936" d="M13.5,23.015a.49.49,0,0,1,.49-.49" transform="translate(3.165 5.903)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_14937" data-name="Path 14937" d="M13.99,23.39a.49.49,0,0,1-.49-.49" transform="translate(3.165 6.018)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_14938" data-name="Path 14938" d="M14.365,22.9a.49.49,0,0,1-.49.49" transform="translate(3.28 6.018)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" fill-rule="evenodd"/>
+    <path id="Path_14939" data-name="Path 14939" d="M24.626,21.411A7.842,7.842,0,1,0,13.01,13.152,4.895,4.895,0,1,0,10.9,22.461" transform="translate(0.862 1.066)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_14940" data-name="Path 14940" d="M11.25,13.119a7.838,7.838,0,0,0,.062.981,7.833,7.833,0,0,1-.062-.981,7.644,7.644,0,0,1,.148-1.466" transform="translate(2.474 2.565)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_110" data-name="Line 110" x1="5.045" y2="5.045" transform="translate(11.62 23.527)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_111" data-name="Line 111" x1="5.045" y2="5.045" transform="translate(17.501 23.527)" fill="none" stroke="#959292" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>

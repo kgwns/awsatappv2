@@ -50,6 +50,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
         renderItem={({item}) => renderItem(item)}
         style={{ marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) }}
         bounces={false}
+        scrollEnabled={false}
       />
     </ScrollView>
   );
@@ -58,7 +59,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
 const customStyle = (theme: CustomThemeType) => {
   const FollowFavoriteAuthorWidgetStyle = StyleSheet.create({
     container: {
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
       alignContent: 'center',
     },
   });

@@ -22,7 +22,6 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class MainActivity extends ReactActivity{
-
   private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
     // we will receive data updates in onRecieve method.
     @Override

@@ -1,9 +1,11 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, isTypeAlbum, normalize } from 'src/shared/utils'
 import { ImageArticle } from '../molecules'
 import { MainSectionBlockType } from 'src/redux/latestNews/types'
 import { fonts } from 'src/shared/styles/fonts'
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { CustomThemeType } from 'src/shared/styles/colors'
 
 type CarouselSliderProps = {
     coverageInfo: MainSectionBlockType[],
@@ -13,6 +15,7 @@ type CarouselSliderProps = {
 const CarouselSlider = ({
     coverageInfo, onUpdateHeroBookmark
 }: CarouselSliderProps) => {
+    const carouselSliderStyle = useThemeAwareObject(customStyle);
 
     return (
         <View style={!isTab && carouselSliderStyle.view}>
@@ -22,6 +25,7 @@ const CarouselSlider = ({
                     // rightContainerStyle={{ flex: 0 }} //enable to center align
                     titleStyle={carouselSliderStyle.titleStyle}
                     textStyles={carouselSliderStyle.textStyle}
+                    isAlbum={isTypeAlbum(coverageInfo[0].type)}
                 />
             }
         </View>
@@ -30,21 +34,22 @@ const CarouselSlider = ({
 
 export default CarouselSlider
 
-const carouselSliderStyle = StyleSheet.create({
+const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     view: {
         marginBottom: normalize(20),
     },
     titleStyle:{
         textAlign:'center',
-        fontSize: 24,
-        lineHeight: 36,
+        fontSize: isTab ? 33 : 24,
+        lineHeight: isTab ? 50 : 36,
         fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{
         textAlign: 'left',
         writingDirection: 'rtl',
-        fontSize: 16,
-        lineHeight: 26,
+        fontSize: normalize(16),
+        lineHeight: normalize(26),
         fontFamily: fonts.IBMPlexSansArabic_Regular,
+        color: theme.summaryColor,
     }
 })

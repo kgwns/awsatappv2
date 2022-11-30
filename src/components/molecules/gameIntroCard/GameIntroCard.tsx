@@ -18,7 +18,8 @@ export interface GameIntroCardProps {
     buttonTitle: string;
     hideButtonTitle?: boolean,
     url: string;
-    onPress?: () => void
+    onPress?: () => void;
+    isDynamic: boolean;
 }
 
 
@@ -30,11 +31,12 @@ export const GameIntroCard = ({
     description,
     buttonTitle,
     hideButtonTitle = false,
+    isDynamic = false,
     onPress
 }: GameIntroCardProps) => {
     const style = useThemeAwareObject(customStyle)
-    const imageContainerStyle = type == GameType.CROSS_WORD ? style.imageContainer : style.sudokuImageContainer;
-    const imageStyle = type == GameType.CROSS_WORD ? style.image : style.sudokuImage;
+    const imageContainerStyle = !isDynamic ? style.imageContainer : style.dynamicImageContainer;
+    const imageStyle = !isDynamic ? style.image : style.dynamicImage;
 
     const buttonWithArrow = () => {
         return (
@@ -58,7 +60,7 @@ export const GameIntroCard = ({
                     <Image name={image} style={imageStyle} />
                 </View>
                 <Label children={title} labelType={LabelTypeProp.h1} style={style.title} />
-                <Label children={description} labelType={LabelTypeProp.p3} style={style.description} color={Styles.color.davyGrey}/>
+                <Label children={description} labelType={LabelTypeProp.p3} style={style.description} />
                 {!hideButtonTitle && buttonWithArrow()}
             </View>
         </TouchableWithoutFeedback>
@@ -74,20 +76,22 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     imageContainer: {
         width: '100%',
         height: normalize(202),
-    },
-    sudokuImageContainer: {
-        width: '100%',
-        height: normalize(202),
         alignItems: 'center',
         justifyContent: 'center',
+        paddingVertical: normalize(30)
+    },
+    dynamicImageContainer: {
+        width: '100%',
+        height: normalize(202),
+        paddingVertical: normalize(30)
     },
     image:{
+        width: 129,
+        height: 129
+    },
+    dynamicImage: {
         width: '100%',
         height: '100%'
-    },
-    sudokuImage: {
-        width: normalize(171),
-        height: normalize(141),
     },
     arrowButtonContainer: {
         flexDirection: 'row',
@@ -113,5 +117,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingBottom: normalize(20),
         paddingTop: normalize(8),
         fontFamily: fonts.Effra_Regular,
+        color: theme.secondaryDavyGrey
     }
 })

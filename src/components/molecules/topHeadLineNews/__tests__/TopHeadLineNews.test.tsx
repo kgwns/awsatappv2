@@ -3,7 +3,7 @@ import React from 'react'
 import  {TopHeadLineNews} from '../TopHeadLineNews'
 import {useNavigation} from '@react-navigation/native';
 import { FlatList } from 'react-native';
-import { MainSectionBlockType } from 'src/redux/latestNews/types';
+import { HomePageArticleType, MainSectionBlockType } from 'src/redux/latestNews/types';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
 jest.mock('@react-navigation/native', () => ({
@@ -35,9 +35,10 @@ describe('<TopHeadLineNews />', () => {
       author: 'example',
       created: 'example',
       isBookmarked: true,
-      type: 'example',
+      type: HomePageArticleType.ARTICLE,
       blockName: 'example',
       position: 'example',
+      displayType: 'article'
     },
     {
       body: 'example',
@@ -54,9 +55,10 @@ describe('<TopHeadLineNews />', () => {
       author: 'example',
       created: 'example',
       isBookmarked: true,
-      type: 'example',
+      type: HomePageArticleType.ARTICLE,
       blockName: 'example',
       position: 'example',
+      displayType: 'article'
     },
   ]
 

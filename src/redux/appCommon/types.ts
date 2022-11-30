@@ -1,3 +1,4 @@
+import { isAndroid } from "src/shared/utils"
 import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE, RESET_ARTICLE_FONT_SIZE } from "./actionType"
 
 export enum Theme {
@@ -11,9 +12,9 @@ export enum ServerEnvironment {
 }
 
 export enum ArticleFontSize {
-  normal = 16,
-  medium = 18,
-  high = 20
+  normal = isAndroid ? 20 : 18,
+  medium = isAndroid ? 22 : 20,
+  high = isAndroid ? 24 : 22,
 }
 
 export type AppCommonState = {

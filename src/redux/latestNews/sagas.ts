@@ -9,6 +9,7 @@ import {
   RequestSectionComboFiveSuccessPayload,
   RequestSectionComboSixSuccessPayload,
   RequestSectionComboSevenSuccessPayload,
+  RequestSectionComboEightSuccessPayload,
   RequestSectionComboType,
   RequestTickerAndHeroType, TickerHeroSuccessPayload,
   OpinionSuccessPayload, RequestOpinionListType, LatestOpinionDataType,
@@ -18,6 +19,10 @@ import {
   RequestFeaturedBlockSuccessPayloadType, RequestHorizontalBlockSuccessPayloadType,
   EditorsChoiceDataType, EditorsChoiceSuccessPayload,
   SpotlightDataType, SpotlightSuccessPayload, RequestSpotlightArticleSectionType, SpotlightArticleSectionSuccessPayload,
+  RequestInfoGraphicBlockSuccessPayloadType,
+  InfoGraphicBlockType,
+  RequestArchivedArticleSectionSuccessPayloadType,
+  ArchivedArticleDataType,
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -28,6 +33,7 @@ import {
   REQUEST_SECTION_COMBO_FIVE,
   REQUEST_SECTION_COMBO_SIX,
   REQUEST_SECTION_COMBO_SEVEN,
+  REQUEST_SECTION_COMBO_EIGHT,
   REQUEST_TICKER_HERO_DATA,
   REQUEST_OPINION_LIST_DATA,
   REQUEST_PODCAST_HOME_DATA,
@@ -37,6 +43,8 @@ import {
   REQUEST_EDITORS_CHOICE_DATA,
   REQUEST_SPOTLIGHT_COMBO,
   REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
+  REQUEST_INFO_GRAPHIC_BLOCK,
+  REQUEST_ARCHIVED_ARTICLE_DATA,
 } from './actionType';
 import {
   requestHeroListTopListFailed, requestHeroListTopListSuccess,
@@ -47,6 +55,7 @@ import {
   requestSectionComboFiveFailed, requestSectionComboFiveSuccess,
   requestSectionComboSixFailed, requestSectionComboSixSuccess,
   requestSectionComboSevenFailed, requestSectionComboSevenSuccess,
+  requestSectionComboEightFailed, requestSectionComboEightSuccess,
   requestTickerAndHeroFailed, requestTickerAndHeroSuccess,
   requestOpinionSuccess,
   requestPodcastHomeSuccess, requestPodcastHomeFailed,
@@ -55,6 +64,7 @@ import {
   requestHorizontalArticleBlockSuccess, requestHorizontalArticleBlockFailed,
   requestEditorsChoiceSuccess, requestEditorsChoiceFailed,
   requestSpotlightSuccess, requestSpotlightFailed, requestSpotlightArticleSectionSuccess, requestSpotlightArticleSectionFailed,
+  requestInfoGraphicBlockSuccess, requestInfoGraphicBlockFailed, requestArchivedArticleSectionSuccess, requestArchivedArticleSectionFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
 import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
@@ -69,6 +79,8 @@ import {
   editorsChoiceApi,
   spotlightApi,
   requestSpotlightArticleSection,
+  infoGraphicBlockApi,
+  archivedArticleApi,
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
@@ -89,18 +101,19 @@ const formatMainSectionBlockData = (response: any) => {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories,field_new_resource,created_export,
-        type, blockname, entityqueue_relationship_position, field_new_photo }: any) => ({
+        type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export, changed }: any) => ({
           body,
           title,
           nid,
           image: getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories) ? field_news_categories[0] : field_news_categories,
           author: field_new_resource,
-          created: created_export,
+          created: changed,
           isBookmarked: false,
           type,
           blockName: blockname,
-          position: entityqueue_relationship_position
+          position: entityqueue_relationship_position,
+          displayType: field_display_export
         })
       );
     }
@@ -123,6 +136,26 @@ const parseCoverageDataSuccess = (response: any) => {
   return responseData
 }
 
+const parseInfoGraphicBlockDataSuccess = (response: any) => {
+  const formattedData = formatInfoGraphicBlockData(response)
+  const responseData: RequestInfoGraphicBlockSuccessPayloadType = {
+    infoGraphicBlockInfo: []
+  }
+  responseData.infoGraphicBlockInfo = formattedData
+
+  return responseData
+}
+
+const parseArchivedArticleSectionDataSuccess = (response: any) => {
+  const formattedData = formatArchivedArticleSectionData(response)
+  const responseData: RequestArchivedArticleSectionSuccessPayloadType = {
+    archivedArticleSection: []
+  }
+  responseData.archivedArticleSection = formattedData
+
+  return responseData
+}
+
 const parseFeaturedArticleSuccess = (response: any) => {
   const formattedData = formatMainSectionBlockData(response)
   const responseData: RequestFeaturedBlockSuccessPayloadType = {
@@ -131,7 +164,7 @@ const parseFeaturedArticleSuccess = (response: any) => {
    
   const allFeaturedArticleData = formattedData.filter((item) => item.blockName == MainSectionBlockName.FEATURED_ARTICLE)
   const sortedFeaturedArticleData = allFeaturedArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
-  const featuredArticleDataInfo = sortedFeaturedArticleData.splice(0, 5)
+  const featuredArticleDataInfo = sortedFeaturedArticleData.splice(0, 15)
 
   responseData.featureArticle = featuredArticleDataInfo
 
@@ -160,15 +193,19 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export, field_new_photo }: any) => ({
+        ({ title, body, nid, field_image, field_news_categories_export,
+          field_new_photo, field_display_export, changed,
+          type }: any) => ({
           body,
           title: isNotEmpty(title) ? decode(title) : '',
           nid,
           image: getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: '', //Need to hide author name in UI
-          created: created_export,
-          isBookmarked: false
+          created: changed,
+          isBookmarked: false,
+          displayType: field_display_export,
+          type,
         })
       );
     }
@@ -225,8 +262,8 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedEditorsChoiceData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories_export, author_resource, created_export, field_news_categories, field_publication_date, field_new_resource, type, blockname, entityqueue_relationship_position,
-          field_new_photo
+        ({ title, body, nid, field_image, field_news_categories_export, field_news_categories, field_publication_date,type, blockname, entityqueue_relationship_position,
+          field_new_photo, field_display_export, changed,
         }: any) => ({
           body,
           title,
@@ -234,13 +271,14 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
           image: getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: '', //Need to hide author name in UI
-          created: created_export,
+          created: changed,
           isBookmarked: false,
           field_news_categories: field_news_categories,
           publication_date: field_publication_date,
           type: type,
           blockname: blockname,
           entityqueue_relationship_position: entityqueue_relationship_position,
+          displayType: field_display_export,
         })
       );
     }
@@ -263,6 +301,40 @@ const formatSpotlight = (response: any): SpotlightDataType[] => {
     }
   }
   return formattedSpotlightData;
+}
+
+const formatInfoGraphicBlockData = (response: any): InfoGraphicBlockType[] => {
+  let formattedInfoGraphicBlockData: InfoGraphicBlockType[] = []
+  if (response && isNonEmptyArray(response)) {
+    formattedInfoGraphicBlockData = response.map(
+      ({ info, body }: any) => ({
+        info,
+        body,
+      })
+    );
+  }
+  return formattedInfoGraphicBlockData;
+}
+
+const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataType[] => {
+  let formattedArchivedArticleSectionData: ArchivedArticleDataType[] = []
+  if (response && isNonEmptyArray(response)) {
+    formattedArchivedArticleSectionData = response.map(
+      ({ title, type, nid, body_export, field_image_export, field_new_photo, field_new_resource_export, field_publication_date_export, field_news_categories_export, field_display_export, changed}: any) => ({
+        title,
+        type,
+        nid,
+        body: body_export,
+        image: getArticleImage(field_image_export, field_new_photo),
+        created: changed,
+        author: field_new_resource_export,
+        publication_date: field_publication_date_export,
+        news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
+        displayType:field_display_export,
+      })
+    );
+  }
+  return formattedArchivedArticleSectionData;
 }
 
 const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPayload => {
@@ -293,7 +365,7 @@ const parseSectionComboOne = (response: payloadType) => {
   const responseData: RequestSectionComboOneSuccessPayload = {
     sectionComboOne: []
   }
-  responseData.sectionComboOne = formattedData.splice(0, 4)
+  responseData.sectionComboOne = formattedData.splice(0, 6)
   return responseData
 }
 
@@ -309,7 +381,8 @@ const parseSectionComboTwo = (response: payloadType) => {
       body: ''
     }
   })
-  responseData.sectionComboTwo = data.splice(0, 4)
+  console.log('sectionComboTwo response data', responseData)
+  responseData.sectionComboTwo = data.splice(0, 6)
   return responseData
 }
 
@@ -325,7 +398,7 @@ const parseSectionComboThree = (response: payloadType) => {
       body: ''
     }
   })
-  responseData.sectionComboThree = data.splice(0, 4)
+  responseData.sectionComboThree = data.splice(0, 6)
   return responseData
 }
 
@@ -341,7 +414,7 @@ const parseSectionComboFour = (response: payloadType) => {
       body: ''
     }
   })
-  responseData.sectionComboFour = data.splice(0, 4)
+  responseData.sectionComboFour = data.splice(0, 6)
   return responseData
 }
 
@@ -350,7 +423,7 @@ const parseSectionComboFive= (response: payloadType) => {
   const responseData: RequestSectionComboFiveSuccessPayload = {
     sectionComboFive: []
   }
-  responseData.sectionComboFive = formattedData.splice(0, 4)
+  responseData.sectionComboFive = formattedData.splice(0, 6)
   return responseData
 }
 
@@ -359,7 +432,7 @@ const parseSectionComboSix= (response: payloadType) => {
   const responseData: RequestSectionComboSixSuccessPayload = {
     sectionComboSix: []
   }
-  responseData.sectionComboSix = formattedData.splice(0, 4)
+  responseData.sectionComboSix = formattedData.splice(0, 6)
   return responseData
 }
 
@@ -368,7 +441,16 @@ const parseSectionComboSeven= (response: payloadType) => {
   const responseData: RequestSectionComboSevenSuccessPayload = {
     sectionComboSeven: []
   }
-  responseData.sectionComboSeven = formattedData.splice(0, 4)
+  responseData.sectionComboSeven = formattedData.splice(0, 6)
+  return responseData
+}
+
+const parseSectionComboEight = (response: payloadType) => {
+  const formattedData = formatLatestArticle(response)
+  const responseData: RequestSectionComboEightSuccessPayload = {
+    sectionComboEight: []
+  }
+  responseData.sectionComboEight = formattedData.splice(0, 6)
   return responseData
 }
 
@@ -398,7 +480,7 @@ const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload =
 
   const allEditorsChoiceInfo = formattedData.filter((item) => item.blockname == MainSectionBlockName.EDITORS_CHOICE)
   const sortedEditorsChoiceInfo = allEditorsChoiceInfo.sort((a, b) => parseInt(a.entityqueue_relationship_position) - parseInt(b.entityqueue_relationship_position))
-  const editorsChoiceInfo = sortedEditorsChoiceInfo.splice(0, 4)
+  const editorsChoiceInfo = sortedEditorsChoiceInfo.splice(0, 6)
 
   responseData.editorsChoice = editorsChoiceInfo;
   return responseData;
@@ -422,15 +504,16 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
       const rows = response.rows
       responseData.spotlightArticleSectionData = rows.map(
         ({ nid, title, body, field_image, view_node,
-          field_news_categories_export, created_export, author_resource, field_new_photo }: any) => ({
+          field_news_categories_export, author_resource, field_new_photo, field_display_export, changed }: any) => ({
             nid: nid,
             title: isNotEmpty(title) ? decode(title) : '',
             body: body,
             image: getArticleImage(field_image, field_new_photo),
             view_node: view_node,
             news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
-            created: created_export,
+            created: changed,
             author: author_resource,
+            displayType: field_display_export,
           })
       );
       responseData.spotlightArticleSectionData = responseData.spotlightArticleSectionData.splice(0, 4)
@@ -520,6 +603,9 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
     } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
       const response = parseSectionComboSeven(payload)
       yield put(requestSectionComboSevenSuccess(response));
+    } else if (action.type == REQUEST_SECTION_COMBO_EIGHT) {
+      const response = parseSectionComboEight(payload)
+      yield put(requestSectionComboEightSuccess(response));
     }
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
@@ -539,6 +625,8 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
         yield put(requestSectionComboSixFailed({ error: errorMessage.message }));
       } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
         yield put(requestSectionComboSevenFailed({ error: errorMessage.message }));
+      } else if (action.type == REQUEST_SECTION_COMBO_EIGHT) {
+        yield put(requestSectionComboEightFailed({ error: errorMessage.message }));
       }
     }
   }
@@ -668,6 +756,38 @@ export function* fetchSpotlightArticleSection(action: RequestSpotlightArticleSec
   }
 }
 
+export function* fetchInfoGraphicBlockData() {
+  try {
+    const payload: payloadType = yield call(
+      infoGraphicBlockApi,
+    );
+    const response = parseInfoGraphicBlockDataSuccess(payload)
+    yield put(requestInfoGraphicBlockSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestInfoGraphicBlockFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
+export function* fetchArchivedArticleSectionData() {
+  try {
+    const payload: payloadType = yield call(
+      archivedArticleApi,
+    );
+    const response = parseArchivedArticleSectionDataSuccess(payload)
+    yield put(requestArchivedArticleSectionSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestArchivedArticleSectionFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
 function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)]);
   yield all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)]);
@@ -683,9 +803,12 @@ function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_SECTION_COMBO_FIVE, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_SIX, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_SECTION_COMBO_SEVEN, fetchSectionCombo)]);
+  yield all([takeLatest(REQUEST_SECTION_COMBO_EIGHT, fetchSectionCombo)]);
   yield all([takeLatest(REQUEST_EDITORS_CHOICE_DATA, fetchEditorsChoiceData)]);
   yield all([takeLatest(REQUEST_SPOTLIGHT_COMBO,fetchSpotlightData)]);
   yield all ([takeLatest(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,fetchSpotlightArticleSection)]);
+  yield all([takeLatest(REQUEST_INFO_GRAPHIC_BLOCK, fetchInfoGraphicBlockData)]);
+  yield all([takeLatest(REQUEST_ARCHIVED_ARTICLE_DATA, fetchArchivedArticleSectionData)]);
 }
 
 export default articleDetailSaga;

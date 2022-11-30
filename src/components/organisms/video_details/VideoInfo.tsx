@@ -14,6 +14,7 @@ import { decode } from 'html-entities';
 import { MixedStyleRecord } from 'react-native-render-html';
 import { fonts } from 'src/shared/styles/fonts';
 import ClockIconWhite from 'src/assets/images/icons/clockIcon_white.svg'
+import { ImageResize } from 'src/shared/styles/text-styles';
 
 export interface VideoInfoProps {
   onPress?: (item:VideoItemProps)=>void;
@@ -51,17 +52,21 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
       fontFamily: fonts.AwsatDigital_Regular,
     },
   };
+  
   return (
     <View>
       <View style={styles.containerStyle}>
         <View>
           <View style={styles.centerContainer}>
-            {!isDocumentary && <Image fallback url={imageLink} style={styles.imageVideoStyle} resizeMode='cover' /> }
-            {isDocumentary && <View style={styles.imageStyle} >
-              <Image fallback url={imageLink} style={styles.imageStyle} resizeMode='cover' />
-              <View style={styles.titleContainer} >
+            <View style={isDocumentary ?  styles.imageStyle : styles.imageVideoStyle}>
+              <Image fallback={true} url={imageLink}
+                style={{ width: '100%', height: '100%' }}
+                resizeMode={ImageResize.COVER}
+                defaultImageStyle={{ width: '100%', height: '100%' }}
+              />
+            </View>
+            {isDocumentary && <View style={styles.titleContainer} >
                 <Label style={styles.titleStyle} numberOfLines={2} >{decode(data.title)}</Label>
-              </View>
             </View>}
             <View style={styles.containerSpace} />
             <ButtonOutline title={t('videoDetail.employement')}
@@ -118,10 +123,12 @@ StyleSheet.create({
   imageStyle: {
     width: normalize(180),
     height: normalize(240),
+    overflow: 'hidden',
   },
   imageVideoStyle: {
     width: normalize(349),
     height: normalize(187),
+    overflow: 'hidden',
   },
   shortDescriptionStyle: {
     color: colors.spanishGray,

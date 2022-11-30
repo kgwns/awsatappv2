@@ -33,6 +33,10 @@ export const Archives = () => {
         {
             name: t('favorite.filters.podcast'),
             isSelected: false
+        },
+        {
+            name: t('favorite.filters.album'),
+            isSelected: false
         }
     ]
 
@@ -42,6 +46,7 @@ export const Archives = () => {
             case 2: return PopulateWidgetType.VIDEO
             case 3: return PopulateWidgetType.OPINION
             case 4: return PopulateWidgetType.PODCAST
+            case 5: return PopulateWidgetType.ALBUM
             default: return PopulateWidgetType.ARTICLE
         }
     }
@@ -65,11 +70,8 @@ export const Archives = () => {
     useEffect(() => {
         const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length == bookmarkDetail.length
         if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
-            if (tabSelectedIndex != 0) {
-                getSpecificBundleFavoriteDetail(widgetNameByIndex(tabSelectedIndex), 0)
-            } else {
-                getBookmarkedId()
-            }
+            updateFilterComponent(0) //We switch to all tab when bookmark add newly
+            getBookmarkedId()
             setInitialLoading(isFocused)
         }
     }, [isFocused])
@@ -124,10 +126,12 @@ export const Archives = () => {
 
     const updateFilterComponent = (index: number) => {
         const filterItemData = [...filterItem]
-        filterItemData[tabSelectedIndex].isSelected = false;
-        filterItemData[index].isSelected = true;
-        setFilterItem(filterItemData)
-        setTabSelectedIndex(index);
+        if (isNonEmptyArray(filterItemData) && typeof tabSelectedIndex == 'number') {
+            filterItemData[tabSelectedIndex].isSelected = false;
+            filterItemData[index].isSelected = true;
+            setFilterItem(filterItemData)
+            setTabSelectedIndex(index);
+        }
     }
 
     const onPressFilterItem = (index: number) => {
@@ -171,6 +175,8 @@ export const Archives = () => {
                 return data.filter((item: any) => item.type == PopulateWidgetType.OPINION)
             case 4:
                 return data.filter((item: any) => item.type == PopulateWidgetType.PODCAST)
+            case 5:
+                return data.filter((item: any) => item.type == PopulateWidgetType.ALBUM)
             default: return null
         }
     }

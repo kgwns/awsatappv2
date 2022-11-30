@@ -4,7 +4,7 @@ import { Label, SocialLoginButton, TextInputField } from '../../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTranslation} from 'react-i18next';
-import {isTab, normalize} from 'src/shared/utils';
+import {isIOS, isTab, normalize} from 'src/shared/utils';
 import { SocialButtonSection } from '..';
 import {colors} from '../../../shared/styles/colors';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
@@ -97,7 +97,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
               style={styles.loginStyle}
             />
             <Label
-              children={t('signIn.signUpReceive')}
+              children={isPassword?t('signIn.signInInfo'):t('signIn.signUpReceive')}
               style={styles.textStyle}
             />
             <TextInputField placeholder={t('signIn.email')}
@@ -128,7 +128,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
             <TouchableOpacity
                 testID="signin_forget_password"
                 accessibilityLabel="signin_forget_password"
-                style={{marginVertical:0}}
+                style={{marginBottom:10}}
                 onPress={goToPassword}>
                   <Label
                       children={t('signIn.forgotPassword')}
@@ -186,7 +186,7 @@ StyleSheet.create({
     fontFamily: fonts.AwsatDigital_Bold,
     fontSize: normalize(18),
     color: theme.primaryBlack,
-    lineHeight: normalize(22),
+    lineHeight: normalize(42),
   },
   buttonStyle: {
     backgroundColor: theme.primary,
@@ -234,13 +234,13 @@ StyleSheet.create({
     color: theme.primaryLightGray,
   },
   passwordLabel: {
-    fontFamily: fonts.IBMPlexSansArabic_Regular,
+    fontFamily: fonts.Effra_Arbc_Regular,
     fontSize: normalize(14),
     color: theme.primary,
-    lineHeight: normalize(22),
+    lineHeight: normalize(25),
   },
   passwordLabelUnderline: {
-    height: 1, 
+    height: isIOS ? 1 : 2, 
     backgroundColor: theme.primary, 
     opacity: .3,
     marginBottom: normalize(10),

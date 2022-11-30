@@ -6,18 +6,25 @@ import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
   HORIZONTAL_ARTICLE_END_POINT,
   EDITORS_CHOICE,
   SPOTLIGHT_COMBO,
-  ARTICLE_SECTION_GET
+  ARTICLE_SECTION_GET,
+  INFO_GRAPHIC_BLOCK,
+  ARCHIVED_ARTICLE_ENDPOINT,
 } from './apiEndPoints';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { payloadType } from 'src/redux/latestNews/types';
-import { isArray, joinArray } from 'src/shared/utils';
+import { isArray, isIOS, joinArray } from 'src/shared/utils';
+import { NativeModules } from 'react-native';
 
 const getSectionComboUrl = (body: RequestSectionComboBodyGet) => {
   let url = `${BASE_URL}${SECTION_COMBO}`
-  if (isArray(body.id)) {
-    url += '/' + joinArray(body.id, '+');
+  if (typeof(body.id) == 'string') {
+    url = `${BASE_URL}${body.id}`
   } else {
-    url += `/${body.id}`;
+    if (isArray(body.id)) {
+      url += '/' + joinArray(body.id, '+');
+    } else {
+      url += `/${body.id}`;
+    }
   }
   return url
 }
@@ -72,6 +79,12 @@ export const mainCoverageBlockApi = async () => {
     const response: payloadType = await getApiRequest(
       `${BASE_URL}${COVERAGE_ARTICLE_END_POINT}`,
     );
+
+    if (isIOS) {
+      //Need to sync topStories response with Native modules so that it can be used in Apple Watch.
+      NativeModules.RNTopNewsContentBridge.syncTopStories(response)
+    }
+
     return response;
   } catch (error) {
     throw error;
@@ -126,6 +139,28 @@ export const requestSpotlightArticleSection = async (body: SpotlightArticleSecti
   try {
     const response: payloadType = await getCacheApiRequest(
       `${BASE_URL}${ARTICLE_SECTION_GET}${body.id}?page=${body.page}&items_per_page=${body.items_per_page}`,
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const infoGraphicBlockApi = async () => {
+  try {
+    const response: any = await getCacheApiRequest(
+      `${BASE_URL}${INFO_GRAPHIC_BLOCK}`,
+    );
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const archivedArticleApi = async () => {
+  try {
+    const response: any = await getCacheApiRequest(
+      `${BASE_URL}${ARCHIVED_ARTICLE_ENDPOINT}`,
     );
     return response;
   } catch (error) {

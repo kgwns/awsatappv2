@@ -15,6 +15,8 @@ import GooglePodcastDarkIcon from 'src/assets/images/icons/google_podcast_dark.s
 import GooglePodcastIcon from 'src/assets/images/icons/google_podcast.svg'
 import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg'
 import SpotifyIcon from 'src/assets/images/icons/spotify_icon.svg'
+import AnghamiPodcastDarkIcon from 'src/assets/images/icons/anghamiPodcastDarkIcon.svg'
+import AnghamiPodcastIcon from 'src/assets/images/icons/anghamiPodcastIcon.svg'
 import ReturnArrowBlack from 'src/assets/images/icons/returnArrowBlack.svg'
 
 //Header Icons
@@ -22,9 +24,10 @@ import SearchIcon from 'src/assets/images/headerIcons/searchIcon.svg'
 import SearchIconDark from 'src/assets/images/headerIcons/searchIconDark.svg'
 import MenuIcon from 'src/assets/images/headerIcons/menuIcon.svg'
 import MenuIconDark from 'src/assets/images/headerIcons/menuIconDark.svg'
-import HeaderLogo from 'src/assets/images/headerIcons/HeaderLogoFinal.svg'
-import HeaderLogoDark from 'src/assets/images/headerIcons/HeaderLogoFinalDark.svg'
+import HeaderLogo from 'src/assets/images/headerIcons/newHeaderLogo.svg'
+import HeaderLogoDark from 'src/assets/images/headerIcons/newHeaderLogoDark.svg'
 import LogoBlack from 'src/assets/images/logoBlack.svg'
+import PopupLogo from 'src/assets/images/headerIcons/newHeaderLogoDark.svg'
 
 //Tab Icons
 import NewsIcon from 'src/assets/images/tabIcons/newsIcon.svg'
@@ -51,6 +54,7 @@ import NotificationActiveIcon from 'src/assets/images/notifications/notification
 import NotificationIcon from 'src/assets/images/notifications/notificationIcon.svg'
 import NotificationActiveIconDark from 'src/assets/images/notifications/notificationActiveIconDark.svg'
 import NotificationIconDark from 'src/assets/images/notifications/notificationIconDark.svg'
+
 //Social login
 import MailIcon from 'src/assets/images/socialButton/mailIcon.svg'
 import GoogleIcon from 'src/assets/images/socialButton/googleIcon.svg'
@@ -59,6 +63,7 @@ import AppleIcon from 'src/assets/images/socialButton/appleIconBlack.svg'
 
 import ClockIcon from 'src/assets/images/icons/clockIcon.svg'
 import ClockIconWhite from 'src/assets/images/icons/clockIcon_white.svg'
+import ClockIconBlack from 'src/assets/images/icons/clockIconBlack.svg'
 import ArrowLeftFaced from 'src/assets/images/icons/arrowLeftFaced.svg'
 
 import Mail from 'src/assets/images/icons/mail.svg'
@@ -133,15 +138,50 @@ import HomeIconDark from 'src/assets/images/icons/homeIconDark.svg';
 
 import PopupImage from 'src/assets/images/popupImage.svg'
 import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg';
+import CalendarIconLight from 'src/assets/images/icons/calendarIconLight.svg';
+
 
 //Contact Us
 import EmailGrayIcon from 'src/assets/images/email_gray_icon.svg'
 import ChatBubbleIcon from 'src/assets/images/chat_bubble_icon.svg'
 import UserTextFieldIcon from 'src/assets/images/icons/profile/userTextFieldIcon.svg';
 
+//Weather
+import WeatherThermometerIcon from 'src/assets/images/icons/weather/weather_thermometer.svg'
+import WeatherRainIcon from 'src/assets/images/icons/weather/weather_rain.svg'
+import WeatherIcon3 from 'src/assets/images/icons/weather/weather_Icon3.svg'
+import WeatherIcon4 from 'src/assets/images/icons/weather/weather_Icon4.svg'
+import WeatherIcon5 from 'src/assets/images/icons/weather/weather_Icon5.svg'
+import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon5.svg'
+import WeatherDayIcon from 'src/assets/images/icons/weather/weather_Day_Icon.svg'
+import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon.svg'
+import CloudsIcon from 'src/assets/images/icons/weather/clouds.svg'
+import CloudyWindyIcon from 'src/assets/images/icons/weather/cloudyWindy.svg'
+import RainIcon from 'src/assets/images/icons/weather/Rain.svg'
+import SnowIcon from 'src/assets/images/icons/weather/snow.svg'
+import SunIcon from 'src/assets/images/icons/weather/sun.svg'
+import ThunderIcon from 'src/assets/images/icons/weather/thunder.svg'
+import CelsiusIcon from 'src/assets/images/icons/weather/Celsius.svg'
+import SunImageIcon from 'src/assets/images/icons/weather/Images/Sun.svg'
+import CloudImageIcon from 'src/assets/images/icons/weather/Images/Clouds.svg'
+import FogImageIcon from 'src/assets/images/icons/weather/Images/Fog.svg'
+import RainImageIcon from 'src/assets/images/icons/weather/Images/Rain.svg'
+import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds.svg'
+
+//Photo Gallery
+import PhotoIcon from 'src/assets/images/icons/photo.svg';
+
+import FlagIcon from 'src/assets/images/icons/flag.svg';
+import SubscribeIconWhite from 'src/assets/images/subscribeIconWhite.svg';
+import SubscribeIconGreen from 'src/assets/images/subscribeIconGreen.svg';
+
+//Video Player
+import ResetIcon from 'src/assets/images/icons/replayIcon.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { DARK_THEME_ID } from './colors'
+
+import LiveIcon from 'src/assets/images/icons/liveIcon.svg';
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -178,6 +218,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <GooglePodcastDarkIcon {...props} /> : <GooglePodcastIcon {...props} />
         case ImagesName.spotifyPodcast:
             return isDark ? <SpotifyDarkIcon {...props} /> : <SpotifyIcon {...props} />
+        case ImagesName.anghamiPodcast:
+            return isDark ? <AnghamiPodcastDarkIcon {...props} /> : <AnghamiPodcastIcon  {...props} />
         case ImagesName.closeSVG:
             return <CloseIcon {...props} />
         case ImagesName.playIconSVG:
@@ -188,10 +230,50 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <FacebookIcon {...props} />
         case ImagesName.googleIcon:
             return <GoogleIcon {...props} />
+        case ImagesName.weatherThermometerIcon:
+            return <WeatherThermometerIcon {...props} />
+        case ImagesName.weatherRainIcon:
+            return <WeatherRainIcon {...props} />
+        case ImagesName.WeatherIcon3:
+            return <WeatherIcon3 {...props} />
+        case ImagesName.cloudsIcon:
+                return <CloudsIcon {...props} />
+        case ImagesName.cloudyWindyIcon:
+            return <CloudyWindyIcon {...props} />
+        case ImagesName.rainIcon:
+            return <RainIcon {...props} />
+        case ImagesName.snowIcon:
+            return <SnowIcon {...props} />
+        case ImagesName.sunIcon:
+            return <SunIcon {...props} />
+        case ImagesName.thunderIcon:
+            return <ThunderIcon {...props} />
+        case ImagesName.WeatherIcon4:
+            return <WeatherIcon4 {...props} />
+        case ImagesName.celsiusIcon:
+            return <CelsiusIcon {...props} />
+        case ImagesName.sunImageIcon:
+            return <SunImageIcon {...props} />
+        case ImagesName.cloudImageIcon:
+            return <CloudImageIcon {...props} />
+        case ImagesName.fogImageIcon:
+            return <FogImageIcon {...props} />
+        case ImagesName.rainImageIcon:
+            return <RainImageIcon {...props} />
+        case ImagesName.sunCloudsImageIcon:
+            return <SunCloudsImageIcon {...props} />
+        case ImagesName.WeatherIcon5:
+            return <WeatherIcon5 {...props} />
+        case ImagesName.WeatherIcon6:
+            return <WeatherIcon6 {...props} />
+        case ImagesName.weatherDayIcon:
+            return <WeatherDayIcon {...props} />
+        case ImagesName.weatherNightIcon:
+            return <WeatherNightIcon {...props} />
         case ImagesName.mailIcon:
             return <MailIcon {...props} />
         case ImagesName.clock:
-            return <ClockIcon {...props} />
+            return isDark ?  <ClockIcon {...props} /> : <ClockIconBlack {...props} />
         case ImagesName.clockWhite:
             return <ClockIconWhite {...props} />
         case ImagesName.arrowLeftFaced:
@@ -202,6 +284,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <SearchIconDark {...props} /> : <SearchIcon {...props} />
         case ImagesName.headerLogo:
             return isDark ? <HeaderLogoDark {...props} /> : <HeaderLogo {...props} />
+        case ImagesName.headerLogoDark:
+            return <HeaderLogoDark {...props} />
         case ImagesName.menuIcon:
             return isDark ? <MenuIconDark {...props} /> : <MenuIcon {...props} />
         case ImagesName.newsIcon:
@@ -319,7 +403,7 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.popupImage:
             return <PopupImage {...props} />    
         case ImagesName.calendarIcon:
-            return <CalendarIcon {...props} />
+            return isDark ? <CalendarIcon {...props} /> : <CalendarIconLight {...props} />
         case ImagesName.videoCloseIcon:
             return <MenuCloseIconDark {...props} />
         case ImagesName.myNewsIcon:
@@ -334,6 +418,20 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <EmailGrayIcon {...props} />
         case ImagesName.chatBubbleIcon:
             return <ChatBubbleIcon {...props} />
+        case ImagesName.photoIcon:
+            return <PhotoIcon {...props} />
+        case ImagesName.flagIcon:
+            return <FlagIcon {...props} />
+        case ImagesName.popupLogo:
+            return <PopupLogo {...props} />
+        case ImagesName.subscribeIconWhite:
+            return <SubscribeIconWhite {...props} />
+        case ImagesName.subscribeIconGreen:
+            return <SubscribeIconGreen {...props} />
+        case ImagesName.resetIcon:
+            return <ResetIcon {...props} />
+        case ImagesName.liveIcon:
+            return <LiveIcon {...props} />
         default: return null
     }
 }

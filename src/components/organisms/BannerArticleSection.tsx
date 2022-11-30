@@ -2,7 +2,6 @@ import React from 'react'
 import { FlatList, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
-import { articleProps } from './ArticleSection'
 import { flatListUniqueKey, ScreensConstants } from 'src/constants'
 import { LatestArticleDataType } from 'src/redux/latestNews/types'
 import { ImagesName, Styles } from 'src/shared/styles'
@@ -15,7 +14,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
-import { dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities'
+import { dateTimeAgo, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities'
 
 export const sectionComboArticleFooter: articleFooterProps = {
     leftTitleColor: Styles.color.silverChalice,
@@ -40,14 +39,16 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const [t] = useTranslation()
     const { themeData } = useTheme()
     const bannerData = [...data].splice(0, 1)
-    const verticalArticleData = [...data].splice(1, 4)
+    const verticalArticleData = isTab ? [...data].splice(1, 4) : [...data].splice(1, 5)
     const style = useThemeAwareObject(createStyles);
 
-    const articleNewsItem = (item: articleProps, index: number) => {
+    const articleNewsItem = (item: LatestArticleDataType, index: number) => {
         const timeFormat = dateTimeAgo(item.created)
 
         sectionComboArticleFooter.leftTitle = timeFormat.time
         sectionComboArticleFooter.leftIcon = () => TimeIcon(timeFormat.icon) 
+        sectionComboArticleFooter.leftTitleColor = style.footerTitleColor.color
+        sectionComboArticleFooter.rightTitleColor = style.footerTitleColor.color
 
         return <ArticleWithOutImage key={index} {...item}
             showDivider={index < verticalArticleData.length - 1}
@@ -88,7 +89,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
 
     const listHeaderSection = () => (
             <View style={isTab && style.listHeaderstyle}>
-                {bannerData.map((item: articleProps, index: number) => {
+                {bannerData.map((item: LatestArticleDataType, index: number) => {
                     if (index == 0) return <ImageArticle key={index} {...item}
                         onPressBookmark={() => onUpdateBookmark(item)}
                         containerStyle={isTab ? style.tabletImageStyle : {}}
@@ -96,6 +97,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
                         showBody={false}
                         leftTitleColor={Styles.color.silverChalice}
                         showDivider={true}
+                        isAlbum={isTypeAlbum(item.type)}
                         />
                     return null
                 })}
@@ -147,9 +149,9 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         paddingBottom:normalize(10)
     },
     tabletImageStyle: {
-        width: 0.47 * screenWidth,
+        width: '100%',
         height: 'auto',
-        aspectRatio: 1.67,
+        aspectRatio: 1.34,
     },
     divider: {
         height: 1,
@@ -175,8 +177,8 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     articleTitleStyle:{
         fontFamily: fonts.AwsatDigital_Bold,
-        fontSize: 17,
-        lineHeight: 28,
+        fontSize: isTab ? 20 : 17,
+        lineHeight: isTab ? 32 : 28,
         textAlign: 'left', 
         paddingVertical: normalize(8),
         color: theme.primaryBlack
@@ -189,5 +191,8 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     listHeaderstyle: { 
         flex: 1 
-    }
+    },
+    footerTitleColor: {
+        color: theme.footerTextColor
+    },
 })

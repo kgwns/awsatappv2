@@ -186,7 +186,8 @@ export const AuthPage: FunctionComponent = () => {
       isAlertVisible={isAlertVisible}
       alertPayload={alertPayload}
       alertOnPress={() => setIsAlertVisible(false)}
-      setIsAlertVisible={setIsAlertVisible}>
+      setIsAlertVisible={setIsAlertVisible}
+      backgroundColor={styles.screenBackgroundColor.backgroundColor}>
       <KeyboardAwareScrollView
         bounces={false}
         extraScrollHeight={30}
@@ -250,11 +251,12 @@ export const AuthPage: FunctionComponent = () => {
             />
           </TouchableOpacity>
         </View>
-        <Label
+        {/* <Label
           children={t('signIn.rights')}
           labelType="p5"
           color={themeData.textColor}
-        />
+          style={styles.rightsStyle}
+        /> */}
       </View>
     </ScreenContainer>
   );
@@ -267,7 +269,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingVertical: normalize(20),
       marginHorizontal: normalize(20),
       justifyContent: 'space-between',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
     },
     logoContainer: {
       alignItems: 'center',
@@ -296,7 +298,7 @@ const createStyles = (theme: CustomThemeType) =>
       flex: 1,
       alignItems: 'center',
       position: 'absolute',
-      bottom: normalize(40),
+      bottom: normalize(20),
       width: '100%',
       justifyContent: 'center',
     },
@@ -309,6 +311,12 @@ const createStyles = (theme: CustomThemeType) =>
       height: normalize(37),
     },
     spaceStyle: {
-      marginHorizontal: normalize(10),
+      marginHorizontal: normalize(5),
     },
+    rightsStyle: {
+      marginTop: 5
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.onBoardBackground
+    }
   });

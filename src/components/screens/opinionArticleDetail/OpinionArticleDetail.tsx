@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef, useMemo} from 'react';
 import { StyleSheet, View, FlatList, BackHandler, Animated } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, normalize } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
 import {OpinionArticleDetailFooter, DetailHeader} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
@@ -330,6 +330,12 @@ export const OpinionArticleDetail = ({
     navigation.popToTop()
   }
 
+  const renderHeader = () => (
+    <View style={style.backContainer}>
+      <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />
+    </View>
+  )
+
   const renderItem = () => {
     const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
 
@@ -365,6 +371,7 @@ export const OpinionArticleDetail = ({
     <ScreenContainer edge={edge} isLoading={isLoading} isLandscape
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{ bottom : isIOS ? normalize(70) : normalize(60) }}>
+        {renderHeader()}
         {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>
           <FlatList
           data={[{}]}
@@ -383,7 +390,8 @@ export const OpinionArticleDetail = ({
               onPressFontSizeChange={onPressFontSizeChange}
             />
           </View>
-          {(Number.parseInt(JSON.stringify(scrollY)) > 50) && <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack}/>}
+          {/* For Navigation Reference
+          {(Number.parseInt(JSON.stringify(scrollY)) > 50) && <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack}/>} */}
         </View>}
     </ScreenContainer>
   );
@@ -408,6 +416,12 @@ const customStyle = (theme: CustomThemeType) => {
     },
     contentContainer: {
       paddingBottom: normalize(80)
+    },
+    backContainer: {
+      width: '100%',
+      height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
+      backgroundColor: theme.secondaryWhite,
+      justifyContent: 'center',
     }
   });
   return OpinionArticleDetailStyle;

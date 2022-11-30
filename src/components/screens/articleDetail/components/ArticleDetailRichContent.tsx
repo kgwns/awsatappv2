@@ -32,24 +32,24 @@ export const RenderRichHTMLContent = ({
     return (
         <View style={{ padding: 0.04 * screenWidth }}>
             {
-                htmlContent?.map((item) => {
+                htmlContent?.map((item, index) => {
                     if (!item || !item.type) {
                         return null
                     }
 
                     switch (item.type) {
                         case RichHTMLType.QUOTE:
-                            return <RenderQuoteElement paragraphInfo={item.data} />
+                            return <RenderQuoteElement paragraphInfo={item.data} key={index}/>
                         case RichHTMLType.CONTENT:
-                            return <RenderContentElement paragraphInfo={item.data} />
+                            return <RenderContentElement paragraphInfo={item.data} key={index}/>
                         case RichHTMLType.DESCRIPTION:
-                            return <RenderDescriptionElement paragraphInfo={item.data} fontSize={updatedFontSize} />
+                            return <RenderDescriptionElement paragraphInfo={item.data} fontSize={updatedFontSize} key={index}/>
                         case RichHTMLType.OPINION:
-                            return <RenderOpinionElement paragraphInfo={item.data} />
+                            return <RenderOpinionElement paragraphInfo={item.data} key={index}/>
                         case RichHTMLType.READ_ALSO:
-                            return <RenderReadAlsoElement paragraphInfo={item.data} />
+                            return <RenderReadAlsoElement paragraphInfo={item.data} key={index}/>
                         case RichHTMLType.NUMBERS:
-                            return <RenderNumberElement paragraphInfo={item.data} fontSize={updatedFontSize} />
+                            return <RenderNumberElement paragraphInfo={item.data} fontSize={updatedFontSize} key={index}/>
                         default: return null
                     }
                 })
@@ -100,13 +100,16 @@ export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQu
 }
 
 export const RenderContentElement = ({ paragraphInfo }: { paragraphInfo: ArticleContentDataType }) => {
+    
+    const CONTENT_BUNDLE_TITLE = TranslateConstants({key: TranslateKey.CONTENT_BUNDLE_WIDGET_TITLE})
+    
     if (!paragraphInfo || !isObjectNonEmpty(paragraphInfo.contentData)) {
         return null
     }
 
     return (
         <View style={{ paddingBottom: 20 }}>
-            <ContentBundleWidget title={paragraphInfo.title} data={paragraphInfo.contentData} />
+            <ContentBundleWidget title={CONTENT_BUNDLE_TITLE} data={paragraphInfo.contentData} />
         </View>
     )
 }
@@ -312,6 +315,17 @@ export const articleHtml = ({ body }: { body: string }) => `
             direction: rtl;
             writing-direction: rtl;
           }
+          figcaption {
+            max-width: 100%;
+            height: auto;
+            padding: 8px;
+            font-family: Effra-Regular;
+            text-align: justify;
+            direction: rtl;
+            writing-direction: rtl;
+            font-size: 15px;
+            line-height: 22px;
+          }
       </style>
       <meta
           name="viewport"
@@ -321,6 +335,7 @@ export const articleHtml = ({ body }: { body: string }) => `
   <body style="padding:0px">
       ${body}
       <script async=\"\" src=\"https://platform.instagram.com/en_US/embeds.js\"></script>
+      <script async=\"\" src=\"https://if-cdn.com/embed.js"></script>
   </body>
   </html>
   `;
@@ -350,7 +365,6 @@ export const richContentTagStyle = ({ body }: { body: string }) => `
   </body>
   </html>
   `;
-
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     quoteContainer: {

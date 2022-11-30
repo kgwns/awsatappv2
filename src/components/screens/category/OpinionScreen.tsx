@@ -166,7 +166,8 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   
 
   return (
-    <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)} showPlayer={isShowPlayer}>
+    <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)} showPlayer={isShowPlayer}
+      backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
       <FlatList
         ref={ref}
@@ -197,6 +198,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     contentContainer: {
       paddingBottom: normalize(80)
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.backgroundColor,
     }
   });
   return OpinionScreenStyle;

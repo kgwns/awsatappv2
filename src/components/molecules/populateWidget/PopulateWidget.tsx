@@ -1,8 +1,8 @@
-import React from 'react'
-import { ArticleItem, VideoItem } from '..'
+import React, { useState } from 'react'
+import { ArticleItem, PhotoGalleryItem, VideoItem } from '..'
 import OpinionWritersCardView, { OpinionWritersCardViewProps } from '../opinionWriters/OpinionWriterCardView'
 import { articleFooterDataSet } from 'src/components/organisms/ArticleSection'
-import { isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty } from 'src/shared/utils'
+import { isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty, screenHeight } from 'src/shared/utils'
 import { ArticleItemProps } from '../ArticleItem'
 import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
@@ -11,17 +11,20 @@ import { useNavigation } from '@react-navigation/native'
 import { ScreensConstants } from 'src/constants'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { CustomThemeType } from 'src/shared/styles/colors'
-import { StyleSheet, View } from 'react-native'
+import { Modal, StyleSheet, View } from 'react-native'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { dateTimeAgo, getSecondsToHms, TimeIcon } from 'src/shared/utils/utilities'
 import { Styles } from 'src/shared/styles'
 import { fonts } from 'src/shared/styles/fonts'
+import { PodcastEpisodeModal } from 'src/components/screens'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
     VIDEO = 'multimedia',
     OPINION = 'opinion',
-    PODCAST = 'podcast'
+    PODCAST = 'podcast',
+    ALBUM = 'album',
 }
 
 interface ArticleNodeType {
@@ -56,8 +59,30 @@ export const PopulateWidget = ({
     ...props
 }: PopulateWidgetProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
+    const insets = useSafeAreaInsets();
+
     const style = useThemeAwareObject(customStyle)
     const timeFormat = dateTimeAgo(props.created)
+
+    const [showModal, setShowModal] = useState(false);
+    
+    const onPressAlbum = (nid: string) => {
+        nid &&
+          navigation.navigate(ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN, {
+            nid: nid,
+          });
+      };
+
+    const episodeModal = () => (
+        <Modal visible={true} animationType={'slide'}>
+            <View style={{ height: screenHeight - insets.top }}>
+                <PodcastEpisodeModal
+                    route={{ params: { data: { ...props } } }}
+                    onPressBack={() => setShowModal(false)}
+                />
+            </View>
+        </Modal>
+    )
 
     switch (type) {
         case PopulateWidgetType.ARTICLE:
@@ -111,15 +136,31 @@ export const PopulateWidget = ({
         case PopulateWidgetType.PODCAST:
             return (
                 <View style={style.podcastContainer}>
+                    {showModal && episodeModal()}
                     <ArticlePodCastWidget
                         {...props}
                         onPressBookmark={onPressBookmark}
-                        onPress={() => {
-                            navigation.navigate(ScreensConstants.PodcastEpisode, { data: { ...props }, podcastListData: [] })
-                        }}
+                        onPress={() => setShowModal(true)}
                     />
                 </View>
             )
+        case PopulateWidgetType.ALBUM:           
+            return (
+              <View style={style.widgetContainer}>
+                <PhotoGalleryItem
+                  {...props}
+                  index={props.key}
+                  title={props.title}
+                  nid={props.nid}
+                  created={props.created}
+                  imageUrl={props.imageUrl}
+                  onPress={onPressAlbum}
+                  onUpdateBookmark={onPressBookmark}
+                  isBookmarked={true}
+                  showDivider
+                />
+              </View>
+            );
         default: return null
     }
 

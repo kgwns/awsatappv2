@@ -65,8 +65,8 @@ export const useBookmark = (): UseBookMarkReturn => {
   const getBookmarkDetailData = () => {
     const bookmarkId = [...bookmarkIdInfo]
     const bookmarkDetailInfo = [...bookmarkDetail]
-    const nid = getCurrentBatchNid(bookmarkId, bookmarkDetailInfo.length)
     const page = Math.round(bookmarkDetailInfo.length / 25)
+    const nid = getCurrentBatchNid(bookmarkId, page === 0 ? 0 : bookmarkDetailInfo.length)
     dispatch(getBookmarkedDetailInfo({ nid, page }))
   }
 
@@ -106,7 +106,7 @@ export const useBookmark = (): UseBookMarkReturn => {
     const bookmarkId = [...bookmarkIdInfo]
     const bundleBookmarkList = bookmarkId.filter((item) => item.bundle === payload)
     const startingIndex = startIndex ?? filterBookmarkDetailInfo.length
-    const page = startIndex ?? Math.round(filterBookmarkDetailInfo.length / 25)
+    const page = startIndex ?? Math.ceil(filterBookmarkDetailInfo.length / 25)
     const nid = getCurrentBatchNid(bundleBookmarkList, startingIndex)
     if (isNotEmpty(nid)) {
       dispatch(getBookmarkedDetailInfo({ nid, page, bundle: payload }))

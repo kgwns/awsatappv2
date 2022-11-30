@@ -51,6 +51,7 @@ export interface OpinionArticleDetailItemType {
   isBookmarked: boolean;
   isFollowed: boolean;
   field_jwplayer_id_opinion_export?: any;
+  field_shorturl: string;
 }
 export interface OpinionsListItemType {
   title: string;

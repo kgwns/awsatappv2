@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, ViewStyle } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { View, StyleSheet, ViewStyle, AppState } from 'react-native'
 import { Styles } from 'src/shared/styles'
-import { BannerImageWithOverlay, Label, LabelTypeProp, BannerImageWithOverlayProps } from 'src/components/atoms'
+import { BannerImageWithOverlay, Label, LabelTypeProp, BannerImageWithOverlayProps, LiveBlogTag } from 'src/components/atoms'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
-import { CustomThemeType } from 'src/shared/styles/colors'
+import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import ArticleDetailVideo from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo'
 import { decode } from 'html-entities'
+import { displayTypes } from 'src/constants/SharedConstants'
+import LiveArticleDetailHeader from '../liveArticleDetailHeader/LiveArticleDetailHeader'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -28,7 +30,11 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     setPlayerDetails?: ( time:any, paused: any) => void;
     setMiniPlayerVisible?: (visible: boolean) => void;
     onChangeFullScreen?: (isFullScreen: boolean) => void;
+    setReset?: (show: boolean) => void;
     videoRefs?: any;
+    showReplay?: boolean;
+    displayType?: string;
+    liveTimeAgo?: string; 
 }
 const ArticleDetailImage = ({
     image,
@@ -37,12 +43,17 @@ const ArticleDetailImage = ({
     isFirstItem,
     category,
     jwplayerId,
+    showReplay = false,
+    displayType,
+    liveTimeAgo,
     ...props
 }: ImageArticleProps) => {
 
     const imageArticleStyle = useThemeAwareObject(customStyle)
 
     const [imageLoaded, setImageLoaded] = useState<boolean>(false)
+
+    const isLive = isNotEmpty(displayType) && displayType == displayTypes.liveCoverage;
 
     const onImageLoaded = () => {
         setImageLoaded(true)
@@ -69,7 +80,7 @@ const ArticleDetailImage = ({
     }
 
     const renderTagName = () => {
-        if (!isNotEmpty(category)) return null
+        if (!isNotEmpty(category) || isLive) return null
 
         return (
             <View style={imageArticleStyle.tagNameViewStyle}>
@@ -82,10 +93,11 @@ const ArticleDetailImage = ({
 
     return (
         <View>
-            
+
             <View>
+                {isLive && <LiveArticleDetailHeader timeAgo={liveTimeAgo}/>}
                 <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
-                { isNotEmpty(jwplayerId) && isFirstItem ? <ArticleDetailVideo mediaId={jwplayerId} {...props}  /> : 
+                { isNotEmpty(jwplayerId) && isFirstItem ? <ArticleDetailVideo mediaId={jwplayerId} showReplay={showReplay} {...props}  /> : 
                     <BannerImageWithOverlay image={image}
                         onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
                         showOverlay={false}
@@ -110,7 +122,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flex: 1,
         width: '100%',
         height: 'auto',
-        aspectRatio: 1.62,
+        aspectRatio: 1.34,
+       
     },
     tabSlideContent: {
         width: '100%',

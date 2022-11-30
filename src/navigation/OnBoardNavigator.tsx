@@ -118,7 +118,7 @@ const OnBoardNavigator = () => {
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
           headerRight: () =>
-            onBoardSkip(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN),
+            onBoardSkip(ScreensConstants.SUCCESS_SCREEN), // will replace keep notified screen once notification part was done. 
         }}
       />
       <Stack.Screen
@@ -144,7 +144,7 @@ const OnBoardNavigator = () => {
 const customStyle = (theme: CustomThemeType) => {
   const headerStyles = StyleSheet.create({
     container: {
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
       shadowColor: colors.transparent,
     },
     search: {
@@ -153,7 +153,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginHorizontal: 20,
     },
     logo: {
-      height: 25,
+      height: 32,
       width: 135,
       alignItems: 'center',
     },

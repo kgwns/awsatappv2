@@ -12,7 +12,7 @@ export { TextWithFlag, TextWithFlagProps } from 'src/components/atoms/textWithFl
 export { WidgetHeader, HeaderElementProps, WidgetHeaderProps } from 'src/components/atoms/widgetHeader/WidgetHeader'
 export { Divider } from 'src/components/atoms/divider/Divider'
 export { WidgetHeaderElement } from 'src/components/atoms/widgetHeader/WidgetHeaderElement'
-export { BannerImageWithOverlay, BannerImageWithOverlayProps } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
+export { BannerImageWithOverlay, BannerImageWithOverlayProps, RenderPhotoIcon } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 export { SocialLoginButton } from 'src/components/atoms/social-login-button/SocialLoginButton'
 export { ButtonList } from './button-list/ButtonList';
 export { ButtonOutline } from './button-outline/ButtonOutline';
@@ -28,3 +28,5 @@ export { PlaceholderImage } from 'src/components/atoms/placeholderImage/PlaceHol
 export { BackIcon } from 'src/components/atoms/backIcon/BackIcon'
 export { TitleWithUnderLine } from 'src/components/atoms/titleWithUnderLine/TitleWithUnderLine'
 export { HomeButton } from 'src/components/atoms/homeButton/HomeButton';
+export { ArchiveImage, ArchiveImageProps } from 'src/components/atoms/archiveImage/ArchiveImage';
+export { LiveBlogTag } from '../atoms/liveBlogTag/LiveBlogTag';

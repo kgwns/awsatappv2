@@ -7,7 +7,7 @@ import { isIOS, isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { ScreensConstants } from 'src/constants'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { MainSectionBlockType } from '~/redux/latestNews/types'
+import { MainSectionBlockType } from 'src/redux/latestNews/types'
 import { fonts } from 'src/shared/styles/fonts'
 import { decode } from 'html-entities'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
@@ -77,8 +77,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         marginRight: isTab ? 10 : 0,
     },
     title: {
-        fontSize: 15,
-        lineHeight: 24,
+        fontSize: isTab ? 18 : 15,
+        lineHeight: isTab ? 26 : 24,
         textAlign: isTab ? 'center' : 'left',
         color: theme.primaryBlack,
         fontFamily: fonts.AwsatDigital_Bold,

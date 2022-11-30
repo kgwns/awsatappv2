@@ -9,15 +9,21 @@ jest.mock('react', () => ({
     useState: jest.fn(),
 }));
 
+const sourceData = {
+    file: 'www.file.com'
+}
+
 const mediaData = {
     playlist: [
       {
         name: 'abc',
-        id: '12'
+        id: '12',
+        sources: [sourceData],
       },
       {
         name: 'abc',
-        id: '13'
+        id: '13',
+        sources: [sourceData],
       },
     ],
     title: 'abc'
@@ -125,6 +131,18 @@ describe('<Dynamic Widget>', () => {
             expect(mockFunction).toBeTruthy();
         })
 
+        test('Should call button image onPress with different NID', () => {
+            const element = instance.container.findByType(PopulateWidget)
+            fireEvent(element, 'togglePlayback', '1', mediaData);
+            expect(mockFunction).toBeTruthy();
+        })
+
+        test('Should call button image onPress with empty Data', () => {
+            const element = instance.container.findByType(PopulateWidget)
+            fireEvent(element, 'togglePlayback', '2', {});
+            expect(mockFunction).toBeTruthy();
+        })
+
         test('Should call FlatList ListFooterComponent', () => {
             const element = instance.container.findByType(FlatList)
             fireEvent(element, 'ListFooterComponent');
@@ -143,6 +161,26 @@ describe('<Dynamic Widget>', () => {
             expect(mockFunction).toBeTruthy()
         });
 
+    })
+
+    describe('Test With Guest user Mode', () => {
+        beforeEach(() => {
+            (useState as jest.Mock).mockImplementation(() => ['2', setSelectedTrack]);
+            const component = <DynamicWidget 
+            data={[sampleArticleData]} onPressBookmark={mockFunction} 
+            onEndReached={mockFunction} 
+            isLoading={false}/>
+            instance = render(component)
+        })
+    
+        afterEach(() => {
+            jest.clearAllMocks()
+            instance.unmount()
+        })
+        
+        it('should render component', () => {
+            expect(instance).toBeDefined()
+        })
     })
 
     

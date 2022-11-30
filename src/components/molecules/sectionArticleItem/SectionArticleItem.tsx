@@ -81,7 +81,7 @@ const SectionArticleItem = ({
           <Label
             labelType={LabelTypeProp.p3}
             children={body}
-            color={themeData.secondaryDavyGrey}
+            color={themeData.summaryColor}
             numberOfLines={3}
           />
         </View>

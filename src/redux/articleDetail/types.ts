@@ -6,6 +6,21 @@ import {
 export interface ArticleDetailBodyGet {
   nid: number
 }
+
+export interface JournalistDetailBodyGet {
+  jor_id: string;
+}
+
+export type JournalistDetailSuccessPayload = {
+  rows: [JournalistDetailType];
+  pager: PagerType;
+};
+
+export type JournalistDetailType = {
+  name: string;
+  not_clickable: string;
+};
+
 export interface ArticleSectionBodyGet {
   id: number,
   page: number,
@@ -51,6 +66,12 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   subtitle: string,
   jwplayerId: string,
   richHTML?: HTMLElementParseStore[],
+  journalistId: string[],
+  journalistName: string[],
+  journalistCity: string[],
+  shortUrl: string,
+  scribbleLiveId: string,
+  displayType?: string,
 }
 
 export interface RelatedArticleDataType extends GeneralArticleFields { 

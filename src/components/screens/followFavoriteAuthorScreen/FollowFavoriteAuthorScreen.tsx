@@ -95,7 +95,7 @@ export const FollowFavoriteAuthorScreen = () => {
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
         <View
           style={[
@@ -117,13 +117,13 @@ export const FollowFavoriteAuthorScreen = () => {
           }
         </View>
         <View style={style.nextButtonView}>
-          {!disableNext && <NextButton
+          <NextButton
             disabled={disableNext}
             testID="nextButtonTestId"
             title={t('onBoard.common.nextBtn')}
             onPress={onPressNext}
             style={style}
-          />}
+          />
         </View>
       </View>
     </ScreenContainer>
@@ -135,7 +135,7 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       flex: 1,
       width: '100%',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.onBoardBackground,
       shadowColor: colors.transparent,
       alignContent: 'center',
       alignSelf: 'center',
@@ -153,7 +153,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(30),
     },
     descStyle: {
-      fontFamily: fonts.IBMPlexSansArabic_Regular,
+      fontFamily: fonts.Effra_Arbc_Regular,
       textAlign: 'center',
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,
@@ -162,7 +162,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginBottom: isIOS ? 20 : 10,
     },
     contentStyle: {
-      flex: 0.77,
+      flex: 0.85,
       justifyContent: 'center',
     },
     nextButtonView: {
@@ -189,6 +189,9 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(16),
       lineHeight: normalize(30),
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.onBoardBackground
+    }
   });
   return FollowFavoriteAuthorScreenStyle;
 };

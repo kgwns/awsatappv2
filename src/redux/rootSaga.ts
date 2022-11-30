@@ -29,6 +29,9 @@ import writerDetailSaga from './writersDetail/sagas';
 import documentaryVideoSaga from './documentaryVideo/sagas';
 import SaveTokenSaga from './notificationSaveToken/sagas';
 import ContactUsSaga from './contactUs/sagas'
+import WeatherDetailSaga from './weatherDetails/sagas'
+import albumListSaga from './photoGallery/sagas';
+import journalistSaga from './journalist/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -62,5 +65,8 @@ export function* rootSaga() {
     fork(documentaryVideoSaga),
     fork(SaveTokenSaga),
     fork(ContactUsSaga),
+    fork(WeatherDetailSaga),
+    fork(albumListSaga),
+    fork(journalistSaga),
   ]);
 }

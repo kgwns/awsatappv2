@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
-import { ScreenContainer } from '..';
+import React, { useEffect, useRef, useState } from 'react';
+import { FlatList, Modal, StyleSheet, View } from 'react-native';
+import { PodcastEpisodeModal, ScreenContainer } from '..';
 import { PodcastProgramInfo } from 'src/components/organisms';
-import { horizontalEdge, isIOS, isNonEmptyArray } from 'src/shared/utils';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { horizontalEdge, isIOS, isNonEmptyArray, screenHeight } from 'src/shared/utils';
 import { useBookmark, usePodcast, useAppPlayer } from 'src/hooks';
 import { PodcastListBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
 import { PodcastEpisodeList } from 'src/components/organisms';
@@ -13,11 +10,18 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useLogin } from 'src/hooks';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
-  const navigation = useNavigation<StackNavigationProp<any>>()
+export const PodcastProgram = React.memo(({ tabIndex, currentIndex }: { tabIndex?: number; currentIndex?: number; }) => {
+  const insets = useSafeAreaInsets();
+
+  const styles = useThemeAwareObject(createStyles);
+
   const [isShowPlayer, setIsShowPlayer] = useState(false)
-  
+  const [showModal, setShowModal] = useState(false);
+
+  const selectedItem = useRef<any>();
+
   const {
     isLoading,
     podcastListData,
@@ -40,7 +44,7 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
 
   const ref = React.useRef(null);
   useEffect(() => {
-    if(tabIndex === currentIndex){
+    if (tabIndex === currentIndex) {
       global.refFlatList = ref;
     }
   }, [currentIndex])
@@ -51,8 +55,8 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
   }, [podcastListData, bookmarkIdInfo])
 
   useEffect(() => {
-    setIsShowPlayer(true)  
-  },[])
+    setIsShowPlayer(true)
+  }, [])
 
   const updatePodcastListData = () => {
     if (!isNonEmptyArray(podcastListData)) {
@@ -109,12 +113,22 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
     fetchPodcastListRequest(payload)
   }, [])
 
-  const styles = useThemeAwareObject(createStyles);
   const onPressItem = (item: any) => {
-    if (item.nid) {
-      navigation.navigate(ScreensConstants.PodcastEpisode, { data: item, podcastListData: podcastEpisodeListInfo })
-    }
+    selectedItem.current = item;
+    setShowModal(true);
   }
+
+  const episodeModal = () => (
+    <Modal visible={true} animationType={'slide'}>
+      <View style={{ height: screenHeight - insets.top }}>
+        <PodcastEpisodeModal
+          route={{ params: { data: selectedItem.current, podcastListData: podcastEpisodeListInfo } }}
+          onPressBack={() => setShowModal(false)}
+        />
+      </View>
+    </Modal>
+  )
+
   const renderPodcast = () => (
     <>
       <PodcastProgramInfo data={podcastListData[0]} />
@@ -125,10 +139,12 @@ export const PodcastProgram = React.memo(({tabIndex, currentIndex}: {tabIndex?:n
       />
     </>
   )
-  
+
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
-      isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}>
+      isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}
+      backgroundColor={styles.screenBackgroundColor.backgroundColor}>
+      {showModal && episodeModal()}
       {isNonEmptyArray(podcastListData) &&
         <FlatList
           ref={ref}
@@ -152,5 +168,8 @@ const createStyles = (theme: CustomThemeType) =>
     },
     enhanceMarginForPlayer: {
       marginBottom: isIOS ? 100 : 80
-    } 
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.backgroundColor,
+    }
   });

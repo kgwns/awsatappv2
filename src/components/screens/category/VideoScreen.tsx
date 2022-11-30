@@ -13,6 +13,8 @@ import {VideoItemType} from 'src/redux/videoList/types';
 import { ScreenContainer } from '..';
 import { RequestDocumentaryVideoPayload } from 'src/redux/documentaryVideo/types';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { CustomThemeType } from 'src/shared/styles/colors';
 
 
 const documentaryVideoPayload: RequestDocumentaryVideoPayload = {
@@ -22,6 +24,7 @@ const documentaryVideoPayload: RequestDocumentaryVideoPayload = {
 
 export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
 
+  const styles = useThemeAwareObject(customStyle);
   const {isLoading,videoData,fetchVideoRequest} = useVideoList();
   const {isVideoLoading, videoDocumentaryData, fetchDocumentaryVideoRequest} = useDocumentaryVideo();
   const [showupUp,setShowPopUp] = useState(false)
@@ -191,7 +194,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading || isVideoLoading}
       isSignUpAlertVisible={showupUp}
-      onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}>
+      onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}
+      backgroundColor={styles.screenBackgroundColor.backgroundColor} >
       <View style={styles.container}>
         <FlatList
            ref={ref}
@@ -208,11 +212,17 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
   );
 });
 
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: normalize(10)
-  },
-  contentContainer: {
-    paddingBottom: normalize(80)
-  }
-});
+const customStyle = (theme: CustomThemeType) => {
+  const videoScreenStyle = StyleSheet.create({
+    container: {
+      marginBottom: normalize(10)
+    },
+    contentContainer: {
+      paddingBottom: normalize(80)
+    },
+    screenBackgroundColor: {
+      backgroundColor: theme.backgroundColor,
+    }
+  });
+  return videoScreenStyle;
+}

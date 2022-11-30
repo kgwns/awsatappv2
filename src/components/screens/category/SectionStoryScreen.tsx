@@ -125,6 +125,13 @@ export const SectionStoryScreen = React.memo(({
     let activeSectionId = sectionId
     if(selectedIndex > -1) {
       activeSectionId = childInfo[selectedIndex].sectionId
+      const selectedItem = childInfo[selectedIndex]
+      if (isNonEmptyArray(selectedItem.child)) {
+        const selectedSubIndex = selectedItem.child!.findIndex((item) => item.isSelected === true)
+        if (selectedSubIndex > -1) {
+          activeSectionId = selectedItem.child && selectedItem.child[selectedSubIndex]?.sectionId
+        }
+      }
     }
     setCurrentSectionId(activeSectionId)
     setChildSection(childInfo)
@@ -203,10 +210,24 @@ export const SectionStoryScreen = React.memo(({
     }
   } */
 
+  const formatFilterChildData = (childItem: TopMenuItemType[] | undefined): FilterDataType[] => {
+    let childInfo: FilterDataType[] = [];
+    if (isNonEmptyArray(childItem)) {
+      childInfo = childItem!.map((item) => {
+        return {
+          name: item.tabName,
+          isSelected: item.isSelected,
+        }
+      })
+    }
+    return childInfo
+  }
+
   const childFilterData: FilterDataType[] = React.useMemo(() => childSection.map((item) => {
     return {
       name: item.tabName,
       isSelected: item.isSelected,
+      child: formatFilterChildData(item.child)
     }
   }), [childSection]) 
 
@@ -350,13 +371,42 @@ export const SectionStoryScreen = React.memo(({
   // }
 
   const onClickChildSection = (clickItemIndex: number) => {
-    const spreadChildSection = [...childSection]
-    const updatedChildSection = spreadChildSection.map((item,index) => {
+    let oldChildSection = [...childSection]
+    const lastSelectedIndex = oldChildSection.findIndex((item) => item.isSelected == true);
+    if (lastSelectedIndex > -1 && isNonEmptyArray(oldChildSection[lastSelectedIndex].child)) {
+      let updatedLatestChild = oldChildSection[lastSelectedIndex]
+      const updatedLatestSubChild = updatedLatestChild.child?.map((childItem) => ({ ...childItem, isSelected: false }));
+      updatedLatestChild.child = updatedLatestSubChild
+      oldChildSection[lastSelectedIndex] = updatedLatestChild;
+    }
+    
+    const updatedChildSection = oldChildSection.map((item,index) => {
       return {
         ...item,
-        isSelected: clickItemIndex != index ? false : !spreadChildSection[index].isSelected
+        isSelected: clickItemIndex != index ? false : !oldChildSection[index].isSelected
       }
     })
+
+    clearData()
+    onUpdateChildSection && onUpdateChildSection(updatedChildSection)
+  }
+
+  const onPressSubChild = (childIndex: number, subChildIndex: number) => {
+    const spreadChildSection = [...childSection]
+    const currentChild = spreadChildSection[childIndex];
+
+    let updatedChildSection = [...spreadChildSection];
+    let updatedSubChildSection: TopMenuItemType[] = [];
+
+    if(isNonEmptyArray(currentChild.child)) {
+      updatedSubChildSection = currentChild.child!.map((item,index) => {
+        return {
+          ...item,
+          isSelected: subChildIndex != index ? false : item.isSelected && item.isSelected == true ? false : true
+        }
+      })
+    }
+    updatedChildSection[childIndex].child = updatedSubChildSection;
 
     clearData()
     onUpdateChildSection && onUpdateChildSection(updatedChildSection)
@@ -376,7 +426,7 @@ export const SectionStoryScreen = React.memo(({
 
     return (
       <View style={style.filterContainer}>
-        <FilterComponent data={childFilterData} onPress={onClickChildSection} />
+        <FilterComponent data={childFilterData} onPress={onClickChildSection} onPressSubChild={onPressSubChild}/>
       </View>
     ) 
   }
@@ -392,7 +442,7 @@ export const SectionStoryScreen = React.memo(({
             body={bannerData.body}
             author={''} //No need to author name
             nid={bannerData.nid}
-            created={bannerData.created_export.toString()}
+            created={bannerData.changed.toString()}
             isBookmarked={bannerData.isBookmarked}
             onPressBookmark={() => updatedHeroBookmark(0)}
             hasTabletLayout={isTab ? true : false}
@@ -401,6 +451,7 @@ export const SectionStoryScreen = React.memo(({
             textStyles={style.textStyle}
             contentStyle={style.imageArticleContentStyle}
             titleStyle={style.titleStyle}
+            displayType={bannerData.displayType}
           />
         )}
       </>
@@ -429,7 +480,7 @@ export const SectionStoryScreen = React.memo(({
           rightTitle={timeFormat.time}
           leftTitleColor={themeData.primary}
           rightIcon={() => TimeIcon(timeFormat.icon)}
-          rightTitleColor={colors.silverChalice}
+          rightTitleColor={themeData.footerTextColor}
         />
       </View>
     )
@@ -451,6 +502,7 @@ export const SectionStoryScreen = React.memo(({
             showSignUpPopUp={makeSignUpAlert}
             hideImage={!isTab}
             containerStyle={style.shortContainer}
+            leftContainerStyle={isTab && style.leftContainerStyle}
           />
           </View>
         )}
@@ -581,7 +633,7 @@ const customStyle = (theme: CustomThemeType) => {
     imageArticleContainerStyle: {
       width: '100%',
       height: 'auto',
-      aspectRatio: 1.62,
+      aspectRatio: 1.34,
       paddingHorizontal: isTab ? 0.04 * screenWidth : 0,
     },
     imageArticleContentStyle: {
@@ -596,21 +648,25 @@ const customStyle = (theme: CustomThemeType) => {
     },
     titleStyle:{
       textAlign:'center',
-      fontSize: 24,
-      lineHeight: 42,
+      fontSize: isTab ? 33 : 24,
+      lineHeight: isTab ? 46 :42,
       fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{
         textAlign:'left',
         writingDirection: 'rtl',
-        fontSize: 16,
-        lineHeight: 26,
+        fontSize: isTab ? 18 : 16,
+        lineHeight: isTab ? 33 : 28,
         fontFamily: fonts.IBMPlexSansArabic_Regular,
+        color: theme.summaryColor,
     },
     filterContainer: {
       paddingHorizontal: 0.02 * screenWidth,
       paddingVertical: 10,
       backgroundColor: theme.backgroundColor,
+    },
+    leftContainerStyle: {
+      width: (screenWidth * 0.5 - 40) -  144,
     }
   });
   return sectionStoryStyle;

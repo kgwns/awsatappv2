@@ -2,7 +2,7 @@ import { FlatList, ListRenderItem, StyleSheet, View } from 'react-native'
 import React from 'react'
 import { Image, Label, LabelTypeProp } from 'src/components/atoms'
 import { useTranslation } from 'react-i18next'
-import { CustomThemeType } from '~/shared/styles/colors'
+import { CustomThemeType } from 'src/shared/styles/colors'
 import { normalize, screenWidth } from 'src/shared/utils'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ImageResize } from 'src/shared/styles/text-styles'
@@ -41,8 +41,8 @@ export const PodcastForYou = ({
                     children={item.title}
                     numberOfLines={3} />
                 <ArticleFooter
-                    leftTitle={item.author} leftTitleColor={Styles.color.silverChalice}
-                    rightTitle={item.created} rightTitleColor={Styles.color.silverChalice}
+                    leftTitle={item.author} leftTitleColor={style.footerTitleColor.color}
+                    rightTitle={item.created} rightTitleColor={style.footerTitleColor.color}
                     hideBookmark={true}
                 />
             </View>
@@ -79,6 +79,9 @@ const customStyle = (theme: CustomThemeType) => (
         image: {
             width: normalize(162),
             height: normalize(97)
+        },
+        footerTitleColor: {
+            color: theme.footerTextColor
         }
     })
 )

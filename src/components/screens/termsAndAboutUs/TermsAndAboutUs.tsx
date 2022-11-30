@@ -51,7 +51,8 @@ export const TermsAndAboutUs = ({
 
   return (
     <ScreenContainer edge={horizontalAndBottomEdge} isLoading={isLoading}
-      statusbarColor={themeData.secondaryGreen}>
+      statusbarColor={themeData.secondaryGreen}
+      backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
         <StaticPageHeader title={title} />
         {
@@ -85,5 +86,8 @@ const customStyle = (theme: CustomThemeType) => (
       paddingHorizontal: 0.04 * screenWidth,
       paddingVertical: normalize(10)
     },
+    screenBackgroundColor: {
+      backgroundColor: theme.termsBackground
+    }
   })
 )

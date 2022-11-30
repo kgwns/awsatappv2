@@ -17,7 +17,7 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
       justifyContent: 'center',
       borderWidth: 1,
       borderColor: Styles.color.cyanGray,
-      backgroundColor: theme.backgroundColor
+      backgroundColor: theme.onBoardBackground
     },
     labelStyle: {
       fontFamily: fonts.AwsatDigital_Regular,

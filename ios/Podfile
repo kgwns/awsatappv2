@@ -7,7 +7,8 @@ $RNFirebaseAnalyticsWithoutAdIdSupport = true # toggle this to true for the no-a
 
 target 'Awsatapp' do
   config = use_native_modules!
-  
+
+  permissions_path = '../node_modules/react-native-permissions/ios'
   # Pods For PDF Download Feature
   pod 'SwiftyUserDefaults',         '~> 3.0'
   pod 'SwiftyJSON',                 '~> 4.0'
@@ -19,7 +20,14 @@ target 'Awsatapp' do
   pod 'CryptoSwift', :git => 'https://github.com/krzyzanowskim/CryptoSwift', :commit => '8742801'
   pod 'DateToolsSwift', :git => 'https://github.com/MatthewYork/DateTools', :commit => '76ba8ba'
   
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
 
+  pod 'Firebase', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'RNScreens', :path => '../node_modules/react-native-screens'
+  
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
@@ -38,7 +46,16 @@ target 'Awsatapp' do
   use_flipper!()
 
   post_install do |installer|
-    react_native_post_install(installer)
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    installer.pods_project.targets.each do |target|
+      if target.respond_to?(:product_type) and target.product_type == "com.apple.product-type.bundle"
+        target.build_configurations.each do |config|
+            config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+        end
+      end
+    end
   end
+#  post_install do |installer|
+#    react_native_post_install(installer)
+#    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+#  end
 end
