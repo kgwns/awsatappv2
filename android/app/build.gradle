@@ -146,8 +146,8 @@ android {
         applicationId "com.knowledgeview.tablet.aaa"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 258
-        versionName "5.0.4"
+        versionCode 261
+        versionName "5.0.6"
         bundle{
             language{
                 enableSplit false

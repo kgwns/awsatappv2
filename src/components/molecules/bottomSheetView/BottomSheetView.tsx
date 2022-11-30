@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
-import { isTab, screenWidth, normalize, isIOS } from 'src/shared/utils';
+import { isTab, screenWidth, normalize, isIOS, screenHeight } from 'src/shared/utils';
 import { Label } from 'src/components/atoms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
@@ -47,8 +47,10 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
                     <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.black }])}>{logInLabel}</Label>
                 </TouchableOpacity>
             </View>
-            <View style={isPortrait() ? style.popupImageContainer : style.popupImageContainerLandscape}>
-                <AlertImage/>
+            <View style={style.popupImageWrapper}>
+                <View style={isPortrait() ? style.popupImageContainer : style.popupImageContainerLandscape}>
+                    <AlertImage />
+                </View>
             </View>
         </View>
     )
@@ -64,17 +66,17 @@ const customStyle = (theme: CustomThemeType) => {
         },
         title: {
             fontFamily: fonts.AwsatDigital_Black,
-            fontSize: normalize(30),
-            lineHeight: normalize(53),
+            fontSize: 30,
+            lineHeight: 53,
             color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
-            marginTop: normalize(25)
+            marginTop: 20
         },
         titleLandscape: {
             fontFamily: fonts.AwsatDigital_Black,
-            fontSize: normalize(20),
-            lineHeight: normalize(33),
+            fontSize: 20,
+            lineHeight: 33,
             color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
@@ -105,8 +107,8 @@ const customStyle = (theme: CustomThemeType) => {
         },
         description: {
             fontFamily: fonts.Effra_Arbc_Regular,
-            fontSize: 19,
-            lineHeight: isIOS ? 32 : 38,
+            fontSize: 16,
+            lineHeight: isIOS ? 29 : 35,
             color: colors.carouselPink,
             alignSelf: 'center',
             textAlign: 'center',
@@ -168,16 +170,19 @@ const customStyle = (theme: CustomThemeType) => {
         },
         logo: {
             width: normalize(250),
-            height: normalize(45),
+            height: 0.055 * screenHeight
         },
         logoLandscape: {
             width: normalize(200),
             height: normalize(35),
         },
+        popupImageWrapper: {
+            flex: 0.95
+        },
         popupImageContainer: {
             alignSelf: 'center',
             width: normalize(250),
-            height: isIOS ? normalize(243) : normalize(223),
+            height: '78%',
             marginTop: normalize(35)
         },
         popupImageContainerLandscape: {
