@@ -8,22 +8,25 @@ import {
   SectionStoryScreen,
   PhotoGalleryScreen,
 } from '..';
-import {horizontalEdge, isIOS, isNonEmptyArray, isStringIncludes, normalize} from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, isStringIncludes, normalize } from 'src/shared/utils';
 import {
   View,
   Dimensions,
   StyleSheet,
   StatusBar,
+  Animated,
 } from 'react-native';
 import {useTopMenu} from 'src/hooks';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import { CustomThemeType } from 'src/shared/styles/colors';
 import { Styles } from 'src/shared/styles';
 import { GameScreen } from '../games/GameScreen';
 import { TabWithBarItem } from 'src/components/molecules';
 import { MainSectionScreen } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
 import { TopMenuItemType } from 'src/redux/topMenu/types';
+import { AnimatedHeader } from 'src/components/atoms';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 export enum TabType {
   opinion = 'opinion',
@@ -38,9 +41,11 @@ export enum TabType {
 export const SectionsScreen = () => {
   const {isLoading, topMenuData, fetchTopMenuRequest} = useTopMenu();
   const styles = useThemeAwareObject(customStyle);
-  
+  const theme = useTheme();
+
   const [index, setIndex] = React.useState(0);
   const [routes, setNewRoutes] = useState<any>([]);
+  const [scrollY, setScrollY] = useState<any>([]);
   const [hidePlayerVisibility, setHidePlayerVisibility] = useState<any>(false);
 
   const renderScene = ({ route }: any) => {
@@ -52,17 +57,17 @@ export const SectionsScreen = () => {
     
     switch (route.keyName) {
       case TabType.opinion:
-        return <OpinionScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}  />;
+        return <OpinionScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />;
       case TabType.podcast:
-        return <PodcastProgram currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>;
+        return <PodcastProgram currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />;
       case TabType.video:
-        return <VideoScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>;
+        return <VideoScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />;
       case TabType.games:
-        return <GameScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
+        return <GameScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />
       case TabType.photos:
-        return <PhotoGalleryScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])}/>
+        return <PhotoGalleryScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />
       case TabType.main:
-        return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} currentIndex={index} tabIndex={parseInt(tabIndex[0])} />
+        return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />
       default:
         return (
           <SectionStoryScreen sectionId={route.field_sections}
@@ -70,6 +75,7 @@ export const SectionsScreen = () => {
             tabIndex={parseInt(tabIndex[0])}
             childInfo={route.child}
             onUpdateChildSection={(data) => onUpdateChildSection(data, index)}
+            scrollY={scrollY[index]}
           />
         );
     }
@@ -93,7 +99,9 @@ export const SectionsScreen = () => {
             field_sections: item.field_sections
           };
         })
-        setNewRoutes(newRoutesArray)
+        const scrollY = newRoutesArray.map(()=>  new Animated.Value(0) );
+        setScrollY(scrollY);
+        setNewRoutes(newRoutesArray);
       }
     }
   }
@@ -216,8 +224,24 @@ export const SectionsScreen = () => {
       />
     );
   };
+
+  const renderHeader = () => {
+    return(
+      scrollY.map((_: any, i: number) => {
+        if(index == i){
+          return(
+            <AnimatedHeader key={i} scrollY={scrollY[index]} />
+          )
+        }else{
+          return null
+        }
+      })
+    )
+  }
+ 
   return (
-    <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
+    <ScreenContainer isLoading={isLoading} backgroundColor={theme.themeData.tabBarBackground}>
+      {renderHeader()}
       {!isLoading && (
         <View style={(isPortrait() && isIOS)? styles.orientationStyle : styles.scene} testID={'tabContent'}>
          {routes.length > 0 && tabsView()}
@@ -268,5 +292,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   contentContainer: {
     flex: 1
-  }
+  },
+  headerContainer: {
+    backgroundColor: theme.tabBarBackground,
+  },
 });

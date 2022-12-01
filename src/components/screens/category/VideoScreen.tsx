@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
+import {View, StyleSheet, FlatList, ListRenderItem, Animated} from 'react-native';
 
 import {VideoItem, VideoItemProps} from 'src/components/molecules';
 import {horizontalEdge, isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
@@ -15,13 +15,14 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const documentaryVideoPayload: RequestDocumentaryVideoPayload = {
   items_per_page: 1,
   page: 1,
 }
 
-export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
+export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY: any}) => {
 
   const styles = useThemeAwareObject(customStyle);
   const {isLoading,videoData,fetchVideoRequest} = useVideoList();
@@ -195,10 +196,15 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
       onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}
       backgroundColor={styles.screenBackgroundColor.backgroundColor} >
       <View style={styles.container}>
-        <FlatList
+        <AnimatedFlatList
            ref={ref}
            testID='main_FlatList1'
            onScrollBeginDrag={() => global.refFlatList = ref}
+           onScroll={Animated.event(
+            [{nativeEvent: { contentOffset: {y: scrollY}}}],
+            {useNativeDriver: false}
+          )}
+          scrollEventThrottle={16}
           data={[{}]}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderItem}

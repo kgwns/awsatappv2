@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {View, StyleSheet, ViewStyle} from 'react-native';
+import {View, StyleSheet, ViewStyle, Animated} from 'react-native';
 import { ShortArticle, NewsFeed } from '../../organisms';
 import {isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle, FilterComponent, FilterDataType} from 'src/components/molecules';
@@ -36,12 +36,15 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 import { TopMenuItemType } from 'src/redux/topMenu/types';
 import { StyleProp } from 'react-native';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
 export type SectionStoryScreenProps = {
   sectionId: any;
   tabIndex?: number;
   currentIndex?: number;
   childInfo: TopMenuItemType[];
   onUpdateChildSection?: (data: TopMenuItemType[]) => void;
+  scrollY: any;
 }
 
 export const SectionStoryScreen = React.memo(({
@@ -50,6 +53,7 @@ export const SectionStoryScreen = React.memo(({
   currentIndex,
   childInfo,
   onUpdateChildSection,
+  scrollY
 }: SectionStoryScreenProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   
@@ -559,9 +563,14 @@ export const SectionStoryScreen = React.memo(({
   return (
     <View style={style.contentContainer}>
       {(initialLoading && sectionId === currentSectionId)  ? loadingView() :
-       <FlatList
+       <AnimatedFlatList
        ref={ref}
        onScrollBeginDrag={() => global.refFlatList = ref}
+       onScroll={Animated.event(
+        [{nativeEvent: { contentOffset: {y: scrollY}}}],
+        {useNativeDriver: false}
+      )}
+      scrollEventThrottle={16}
       data={[{}]}
       keyExtractor={(_, index) => index.toString()}
       renderItem={renderItem}

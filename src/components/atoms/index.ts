@@ -30,3 +30,4 @@ export { TitleWithUnderLine } from 'src/components/atoms/titleWithUnderLine/Titl
 export { HomeButton } from 'src/components/atoms/homeButton/HomeButton';
 export { ArchiveImage, ArchiveImageProps } from 'src/components/atoms/archiveImage/ArchiveImage';
 export { LiveBlogTag } from '../atoms/liveBlogTag/LiveBlogTag';
+export { AnimatedHeader } from '../atoms/animatedHeader/AnimatedHeader';

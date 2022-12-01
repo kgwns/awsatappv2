@@ -43,6 +43,7 @@ const DrawerNavigator = () => {
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
+        headerShown: false,
         headerStyle: style.container,
         headerLeft: Menu,
         headerTitle: HeaderLogo,

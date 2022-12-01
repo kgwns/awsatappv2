@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from 'react-native'
+import { Animated, ScrollView, StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer'
 import { horizontalAndBottomEdge, isDarkTheme, normalize } from 'src/shared/utils'
@@ -13,12 +13,14 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { CROSS_WORD_URL, SUDOKU_URL } from 'src/services/apiUrls'
 import { useAppCommon } from 'src/hooks'
 
+const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
+
 export enum GameType {
     CROSS_WORD,
     SUDOKU
 }
 
-export const GameScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
+export const GameScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY: any}) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
     const { theme } = useAppCommon()
@@ -59,11 +61,18 @@ export const GameScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numbe
     }
     return (
         <ScreenContainer edge={horizontalAndBottomEdge} showPlayer={false} backgroundColor={style.screenBackgroundColor.backgroundColor}>
-            <ScrollView ref={ref} onScrollBeginDrag={() => global.refFlatList = ref} style={style.scrollContainer}
+            <AnimatedScrollView ref={ref} 
+                onScrollBeginDrag={() => global.refFlatList = ref}  
+                style={style.scrollContainer}
+                onScroll={Animated.event(
+                    [{nativeEvent: { contentOffset: {y: scrollY}}}],
+                    {useNativeDriver: false}
+                )}
+                scrollEventThrottle={16}
                 showsVerticalScrollIndicator={false}>
                 <GameIntroCard {...crossWordInfo} onPress={() => navigateToDetailGame(crossWordInfo)} />
                 <GameIntroCard {...sudokuInfo} onPress={() => navigateToDetailGame(sudokuInfo)} />
-            </ScrollView>
+            </AnimatedScrollView>
         </ScreenContainer>
     )
 })
