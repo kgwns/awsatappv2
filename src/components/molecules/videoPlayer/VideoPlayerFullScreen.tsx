@@ -272,16 +272,16 @@ const VideoPlayerFullScreen = ({
     <View style={styles.container}>
       <TouchableWithoutFeedback
         testID="VideoPlayerFullScreenId"
-        style={{flex: 1}}
+        style={styles.videoContainer}
         onPress={onScreenTouch}>
-        <View style={{flex: 1}}>
+        <View style={styles.videoContainer}>
           {renderVideo()}
           <View style={styles.videoControls}>
             {isLoading && <LoadingState />}
             {showControls && (
               <>
-                <View style={{flex: 1}}>{renderTopControls()}</View>
-                <View style={{flex: 1}}>{renderBottomControls()}</View>
+                <View style={styles.videoContainer}>{renderTopControls()}</View>
+                <View style={styles.videoContainer}>{renderBottomControls()}</View>
               </>
             )}
           </View>
@@ -391,5 +391,8 @@ const customStyle = (theme: CustomThemeType) =>
     },
     sliderContainer: {
       transform: [{ scaleX: isIOS ? 0.5:1 }, { scaleY: isIOS ? 0.5:1 }]
-  }
+    },
+    videoContainer: {
+     flex: 1
+    }
   });

@@ -68,12 +68,7 @@ const ArticleDetailImage = ({
             <View style={imageArticleStyle.captionView}>
                 <Label children={decode(caption)} labelType={LabelTypeProp.p5}
                     color={Styles.color.lightGray}
-                    style={{
-                        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-                        fontFamily: fonts.AwsatDigital_Regular,
-                        fontSize: 12,
-                        lineHeight: 20,
-                    }}
+                    style={imageArticleStyle.labelStyle}
                 />
             </View>
         )
@@ -149,4 +144,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontFamily: fonts.AwsatDigital_Regular,
         lineHeight: isTab ? 25 : 18
     },
+    labelStyle: {
+        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+        fontFamily: fonts.AwsatDigital_Regular,
+        fontSize: 12,
+        lineHeight: 20,
+    }
 })

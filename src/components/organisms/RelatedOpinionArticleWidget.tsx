@@ -34,7 +34,7 @@ export const RelatedOpinionArticlesWidget = ({ data, onScroll, isLoading, onPres
       />
       {data.length - 1 != index && <Divider style={style.itemDivider} />}
       {isLoading && data.length - 1 == index && (
-        <View style={{ margin: normalize(28) }}>
+        <View style={style.loaderStyle}>
           <ActivityIndicator size={'small'} color={theme.themeData.primary} />
         </View>
       )}
@@ -90,6 +90,9 @@ const customStyle = (theme: CustomThemeType) => {
       height: 1,
       backgroundColor: theme.dividerColor
     },
+    loaderStyle: {
+       margin: normalize(28) 
+    }
   });
   return RelatedOpinionArticlesWidgetStyle;
 };

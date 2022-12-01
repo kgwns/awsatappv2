@@ -81,7 +81,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
     const timeFormat = dateTimeAgo(item.changed)
 
     return (
-      <View style={{marginTop: 10}}>
+      <View style={style.videoFooterContainer}>
         <SectionVideoFooter  
           // rightTitle={isAndroid ?  ',' + calculateYear(item.created_export) : calculateYear(item.created_export) + ','} for older reference
           leftTitleColor={style.footerTitleColor.color}
@@ -145,7 +145,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
               </View>
               :
               <>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={style.blogContainer}>
                   <View style={style.titleContainer}>
                     {isLive && <LiveBlogTag enableTopMargin />}
                     {renderTitle(item.title)}
@@ -160,7 +160,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
         </FixedTouchable>
         <Divider style={style.divider}/>
         {isLoading && data.length - 1 == index && (
-          <View style={{margin: normalize(28)}}>
+          <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>
         )}
@@ -181,10 +181,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
         onEndReachedThreshold={0.5}
       />
       {showMiniPlayer && <View
-        style={{
-          height: normalize(60),
-          paddingHorizontal: normalize(20),
-        }}></View>}
+        style={style.miniPlayerContainer}></View>}
     </View>
   );
 };
@@ -259,4 +256,17 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   footerTitleColor: {
     color: theme.footerTextColor
   },
+  videoFooterContainer: {
+    marginTop: 10
+  },
+  blogContainer: {
+    flexDirection: 'row' 
+  },
+  loaderStyle: {
+    margin: normalize(28)
+  },
+  miniPlayerContainer: {
+    height: normalize(60),
+    paddingHorizontal: normalize(20),
+  }
 });

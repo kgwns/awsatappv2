@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet} from 'react-native';
 import { horizontalEdge } from 'src/shared/utils';
 import { TabBarComponent, TabBarDataProps, SignupAlertCard } from 'src/components/molecules';
 import { ScreenContainer } from '..';
 import { Archives } from 'src/components/organisms';
 import {useLogin} from 'src/hooks';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
@@ -30,6 +31,8 @@ export const FavoriteScreen = () => {
   const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
   const showupUp = useRef(!isLoggedIn)
 
+  const style = useThemeAwareObject(customStyle);
+
   const ref = React.useRef(null);
 
   useFocusEffect(
@@ -53,13 +56,13 @@ export const FavoriteScreen = () => {
   // );
 
   const renderArchives = () => (
-    <View style={{ flex: 1 }}>
+    <View style={style.container}>
       <Archives />
     </View>
   )
 
   const renderItem = () => (
-    <View style={{ flex: 1 }}>
+    <View style={style.container}>
       {renderArchives()}
     </View>
   )
@@ -88,3 +91,8 @@ export const FavoriteScreen = () => {
     </ScreenContainer>
   );
 };
+const customStyle = () => StyleSheet.create({
+  container: {
+      flex: 1
+  }
+})

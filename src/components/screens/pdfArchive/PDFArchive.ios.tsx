@@ -59,7 +59,7 @@ export const PDFArchiveIOS = () => {
   return (
     <ScreenContainer edge={horizontalAndTop} showHeader={true} headerTitle={headerTitle}
       headerLeft={headerLeftElement}>
-      <PDFArchiveView style={{ flex: 1 }}
+      <PDFArchiveView style={style.container}
         onItemClick={(data: any) => onClickOpenPDF(data.nativeEvent.SelectedPDF)}
         selectedLayoutTypeInfo={layoutSelectedType.toString()}
       />
@@ -70,5 +70,8 @@ export const PDFArchiveIOS = () => {
 const style = StyleSheet.create({
   iconContainer: {
     position: 'absolute', right: 0.04 * screenWidth
+  },
+  container: {
+    flex: 1 
   }
 })

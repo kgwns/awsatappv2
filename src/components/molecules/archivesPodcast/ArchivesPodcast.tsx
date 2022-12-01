@@ -27,8 +27,8 @@ export const ArchivesPodcast = () => {
 
     const footer = () => (
         <View style={style.footerContainer}>
-            <View style={{ flexDirection: 'row' }}>
-                <TouchableOpacity testID='ArchivesPodcastTO1' style={{ flexDirection: 'row' }}
+            <View style={style.containerStyle}>
+                <TouchableOpacity testID='ArchivesPodcastTO1' style={style.containerStyle}
                     activeOpacity={0.8} onPress={() => { console.log('play podcasts') }}>
                     <ButtonImage icon={() => {
                         return getSvgImages({
@@ -57,8 +57,8 @@ export const ArchivesPodcast = () => {
 
     return (
         <View style={style.container}>
-            <View style={{ flexDirection: 'row', flex: 1 }}>
-                <View style={{ paddingRight: normalize(20) }}>
+            <View style={style.labelContainer}>
+                <View style={style.labelStyle}>
                     <Label labelType={LabelTypeProp.h1}
                         children={archivesPodCastData.title}
                         color={themeData.primary}
@@ -113,6 +113,16 @@ const customStyle = (theme: CustomThemeType) => (
         },
         rightTitleStyle: {
             paddingHorizontal: normalize(10),
+        },
+        containerStyle: {
+            flexDirection: 'row'
+        },
+        labelContainer: { 
+            flexDirection: 'row', 
+            flex: 1 
+        },
+        labelStyle: {
+            paddingRight: normalize(20)
         }
     })
 )

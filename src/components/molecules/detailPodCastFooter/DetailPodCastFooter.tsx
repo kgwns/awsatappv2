@@ -48,8 +48,8 @@ const DetailPodCastFooter = ({
 
     return (
         <View style={{ ...articleFooterStyle.container }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems:'center' }} testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPress}>
+            <View style={articleFooterStyle.imageContainer}>
+                <TouchableOpacity style={articleFooterStyle.imageContainer} testID={moleculesTestID.storySaveBtn} activeOpacity={0.8} onPress={onPress}>
                     {
                         getSvgImages({
                             name: ImagesName.headPhoneIcon,
@@ -90,5 +90,9 @@ const articleFooterStyle = StyleSheet.create({
         lineHeight: 24,
         fontFamily: fonts.Effra_Arbc_Medium,
         paddingTop: isIOS ? 0 : 5
+    },
+    imageContainer: {
+         flexDirection: 'row', 
+         alignItems:'center' 
     }
 })

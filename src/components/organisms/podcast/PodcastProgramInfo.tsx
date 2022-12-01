@@ -97,7 +97,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)}>
                   {getSvgImages({ name: ImagesName.applePodcast, width: normalize(110), height: normalize(50), })}
                 </TouchableOpacity>
-                <View style={{ width: '10%' }} />
+                <View style={styles.topRowImage} />
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)}>
                   {getSvgImages({ name: ImagesName.googlePodcast, width: normalize(110), height: normalize(50), })}
                 </TouchableOpacity>
@@ -108,7 +108,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}>
                   {getSvgImages({ name: ImagesName.spotifyPodcast, width: normalize(70), height: normalize(50), })}
                 </TouchableOpacity>
-                <View style={{ width: '14%' }} />
+                <View style={styles.bottomRowImage} />
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)}>
                   {getSvgImages({ name: ImagesName.anghamiPodcast, width: normalize(80), height: normalize(50), })}
                 </TouchableOpacity>
@@ -189,4 +189,10 @@ StyleSheet.create({
     marginLeft:22,
     marginBottom:20,
   },
+  topRowImage: {
+     width: '10%' 
+  },
+  bottomRowImage: {
+     width: '14%'
+  }
 });

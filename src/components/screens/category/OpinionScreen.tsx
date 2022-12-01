@@ -146,7 +146,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
   }
 
   const renderItem = () => (
-    <View style={{ width: '100%' }}>
+    <View style={style.itemContainer}>
       {isNonEmptyArray(opinionWriterData) &&
         <OpinionWritersSection data={opinionWriterData}
           onPressWriter={onPressWriter}
@@ -206,6 +206,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     screenBackgroundColor: {
       backgroundColor: theme.backgroundColor,
+    },
+    itemContainer: {
+      width: '100%' 
     }
   });
   return OpinionScreenStyle;

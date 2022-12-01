@@ -95,7 +95,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     }
 
     const renderPodcastView = () => (
-        <View style={{ alignItems: 'center', paddingTop: normalize(40) }}>
+        <View style={styles.mainContainer}>
             <Label children={PODCAST_EPISODE_LISTEN_TO} style={styles.listToText} />
             <View style={styles.podcastContainer}>
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}>
@@ -128,12 +128,12 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
             <Label style={styles.titleTextStyle} children={fieldData.title} />
             <View style={isTab ? styles.imageTab : styles.imageStyle}>
                 <Image fallback url={fieldData?.field_podcast_sect_export?.image}
-                    style={{ width: '100%', height: '100%' }}
+                    style={styles.image}
                     resizeMode={ImageResize.COVER}
                 />
             </View>
             {hasNewSubTitle &&
-                <View style={[styles.containerSpace, { paddingTop: normalize(15) }]} >
+                <View style={styles.containerSpace} >
                     <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
                 </View>
             }
@@ -233,7 +233,8 @@ const createStyles = () => StyleSheet.create({
         paddingBottom: normalize(10),
     },
     containerSpace: {
-        paddingVertical: normalize(8)
+        paddingVertical: normalize(8),
+        paddingTop: normalize(15)
     },
     podcastContainer: {
         flexDirection: 'row',
@@ -280,5 +281,14 @@ const createStyles = () => StyleSheet.create({
     },
     verticalLine: {
         height: 10,
+        marginHorizontal: 8,
+    },
+    image: {
+        width: '100%',
+        height: '100%' 
+    },
+    mainContainer: {
+        alignItems: 'center', 
+        paddingTop: normalize(20) 
     }
 });

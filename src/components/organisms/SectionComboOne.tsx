@@ -63,7 +63,7 @@ const SectionComboOne = ({
   const renderMainArticleImage = () => {
     return (
       <TouchableOpacity
-        style={{ alignItems: 'center' }}
+        style={sectionComboOneStyle.container}
         activeOpacity={0.9}
         onPress={() => onPress(sectionComboOneData[0].nid)}>
         <Image
@@ -146,4 +146,7 @@ const sectionComboOneStyle = StyleSheet.create({
     width: 0.46 * screenWidth,
     height: '90%',
   },
+  container: {
+    alignItems: 'center' 
+  }
 });

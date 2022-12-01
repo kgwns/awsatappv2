@@ -96,7 +96,7 @@ export const PodcastVerticalList = ({
             <Label style={style.footerRightTextStyle} numberOfLines={1}>
               {getDay(footerRight)}
             </Label>
-            {footerRight && spreakerId &&<Label style={{fontSize:12}} color={colors.spanishGray}>|</Label>}
+            {footerRight && spreakerId &&<Label style={style.footerRightLabelStyle} color={colors.spanishGray}>|</Label>}
             {spreakerId && <Label style={style.footerLeftTextStyle} numberOfLines={1}>
               {convertSecondsToHMS(duration)}
             </Label>}
@@ -183,6 +183,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     headerTitleStyle: {
       alignItems: 'flex-start'
+    },
+    footerRightLabelStyle: {
+      fontSize:12
     }
   });
   return PodcastCardStyle;

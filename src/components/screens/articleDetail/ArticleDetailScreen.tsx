@@ -551,6 +551,7 @@ export const ArticleDetailScreen = ({
   const onViewableItemRef = useRef((viewableItems: any) => {
     setBookmarkIndex(viewableItems.changed[0].index)
   })
+  
 
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
@@ -561,7 +562,7 @@ export const ArticleDetailScreen = ({
           testID='ArticleDetailScreenFlatlist01'
           onViewableItemsChanged={onViewableItemRef.current}
           viewabilityConfig={viewConfigRef.current}
-          style={{ flex: 1, height: '100%' }}
+          style={style.containerStyle}
           data={articleDetailState}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderItem}
@@ -654,6 +655,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   leftContainerStyle: {
     width: (screenWidth * 0.5 - 40) -  144,
+  },
+  containerStyle: {
+    flex: 1,
+    height: '100%'
   }
 })
 

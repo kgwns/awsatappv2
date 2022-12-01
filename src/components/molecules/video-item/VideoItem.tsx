@@ -82,7 +82,7 @@ export const VideoItem = ({
       <FixedTouchable testID={testID} accessibilityLabel={testID} onPress={onPress}>
         <View>
         {isDocumentary ? (
-          <View style={[styles.videoContainer,{ marginTop: 0}]}>
+          <View style={[styles.videoContainer,styles.videoContainerStyle]}>
             <Image fallback resizeMode={'cover'} url={imageLink} style={styles.imageBig} />
             <View style={styles.titleContainer} >
               <Label style={styles.titleStyle} numberOfLines={2}>{decode(title)}</Label>
@@ -296,4 +296,7 @@ const createStyles = (theme: CustomThemeType) =>
     footerTitleColor: {
       color: theme.footerTextColor
     },
+    videoContainerStyle: {
+      marginTop: 0
+    }
   });

@@ -94,12 +94,12 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
             <Label style={styles.titleTextStyle} children={fieldData.title} />
             <View style={styles.imageStyle}>
               <Image fallback url={fieldData?.field_podcast_sect_export?.image}
-                style={{ width: '100%', height: '100%' }}
+                style={styles.image}
                 resizeMode={ImageResize.COVER}
               />
             </View>
             {hasNewSubTitle &&
-              <View style={[styles.containerSpace, {paddingTop: normalize(15)}]} >
+              <View style={styles.containerSpace} >
                 <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
               </View>
             }
@@ -159,7 +159,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)}>
                   <ApplePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
                 </TouchableOpacity>
-                <View style={{ width: '10%' }} />
+                <View style={styles.tabStyle} />
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)}>
                   <GooglePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
                 </TouchableOpacity>
@@ -170,7 +170,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}>
                   <SpotifyDarkIcon width={normalize(70)} height={normalize(50)} />
                 </TouchableOpacity>
-                <View style={{ width: '14%' }} />
+                <View style={styles.tabContainer} />
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)}>
                   <AnghamiPodcastDarkIcon width={normalize(80)} height={normalize(50)} />
                 </TouchableOpacity>
@@ -236,7 +236,8 @@ StyleSheet.create({
     paddingBottom: normalize(10),
   },
   containerSpace: {
-    paddingVertical: normalize(8)
+    paddingVertical: normalize(8),
+    paddingTop: normalize(15)
   },
   rowStyle: {
     flexDirection: 'row',
@@ -292,4 +293,14 @@ StyleSheet.create({
     fontSize: 14,
     lineHeight: 26
   },
+  image: { 
+    width: '100%', 
+    height: '100%' 
+  },
+  tabStyle: {
+     width: '10%' 
+  },
+  tabContainer: {
+     width: '14%' 
+  }
 });

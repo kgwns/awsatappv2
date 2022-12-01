@@ -32,7 +32,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
         style={[style.writerContainer, { paddingEnd: (data.length - 1 === index) ? normalize(isTab ? 0.02 * screenWidth : 0.04 * screenWidth) : 0 }, { paddingStart: index === 0 ? normalize(isTab ? 0.02 * screenWidth : 0.04 * screenWidth) : 0 }]}
         key={flatListUniqueKey.OPINION_WRITER_SECTION + index}>
         <View style={style.itemContainer}>
-          <View style={[{overflow: 'hidden'}]}>
+          <View style={style.imageContainer}>
             <Grayscale>
               <Image
                 url={getImageUrl(item.field_opinion_writer_photo_export)}
@@ -68,7 +68,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
         data={data}
         renderItem={({item, index}) => renderItem(item, index)}
       />
-      <View style={{paddingHorizontal: 0.04 * screenWidth}}>
+      <View style={style.dividerContainer}>
         <Divider style={style.divider}/>
       </View>
     </View>
@@ -111,6 +111,12 @@ const customStyle = (theme: CustomThemeType) => {
       height: 1,
       backgroundColor: theme.dividerColor
     },
+    dividerContainer: {
+      paddingHorizontal: 0.04 * screenWidth
+    },
+    imageContainer: {
+      overflow: 'hidden'
+    }
   });
   return OpinionWritersSectionStyle;
 };

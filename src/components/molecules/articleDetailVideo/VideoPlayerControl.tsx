@@ -372,15 +372,15 @@ const VideoPlayerControl = ({
 
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback testID='VideoPlayerControlId' style={{flex: 1}} onPress={() => showReplayBtn ? onPressReplay() : onScreenTouch()}>
-        <View style={{flex: 1}}>
+      <TouchableWithoutFeedback testID='VideoPlayerControlId' style={styles.containerStyle} onPress={() => showReplayBtn ? onPressReplay() : onScreenTouch()}>
+        <View style={styles.containerStyle}>
           {renderVideo()}
           <View style={styles.videoControls}>
             {isLoading && <LoadingState />}
             {showControls && (
               <>
-                <View style={{flex: 1}}>{renderTopControls()}</View>
-                <View style={{flex: 1}}>{renderBottomControls()}</View>
+                <View style={styles.containerStyle}>{renderTopControls()}</View>
+                <View style={styles.containerStyle}>{renderBottomControls()}</View>
               </>
             )}
           </View>
@@ -491,4 +491,7 @@ const customStyle = (theme: CustomThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
     },
+    containerStyle: {
+      flex: 1
+    }
   });

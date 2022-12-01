@@ -48,7 +48,7 @@ export const LiveBlogTag = ({ isImageTag = false, enableTopMargin = false, isTex
                 < LottieView
                     source={LiveAnimation}
                     autoPlay
-                    style={{ width: 17, height: 13, marginRight: 3 }}
+                    style={liveBlogTagStyle.lottieViewStyle}
                     ref={ref => setAnimationRef(ref)}
                 />
                 <Label children={TranslateConstants({ key: TranslateKey.LIVE_TAG_TITLE })}
@@ -90,5 +90,10 @@ const liveBlogTagStyle = StyleSheet.create({
     },
     bottomMargin: {
         marginBottom: 10
+    },
+    lottieViewStyle: {
+        width: 17,
+        height: 13, 
+        marginRight: 3
     }
 })

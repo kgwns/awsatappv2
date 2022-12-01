@@ -197,7 +197,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
       </View>
       <View style={styles.temperatureViewStyle}>
         <Text style={styles.temperatureLabelStyle}>{Math.round(fetchWeatherDetailsSuccessInfo?.list[0].temp.day as number) + '°'}</Text>
-        <View style={{ flexDirection: 'column' }}>
+        <View style={styles.temperatureIconStyle}>
           {getImageIcon()}
           <Label style={styles.weatherLabelStyle}>
             {fetchWeatherDetailsSuccessInfo?.list[0].weather[0].description}
@@ -485,4 +485,7 @@ const createStyles = (theme: CustomThemeType) =>
       paddingHorizontal: normalize(10),
       paddingBottom: normalize(10),
     },
+    temperatureIconStyle: {
+      flexDirection: 'column' 
+    }
   });

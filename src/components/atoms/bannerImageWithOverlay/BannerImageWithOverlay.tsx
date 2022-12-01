@@ -15,7 +15,7 @@ export interface BannerImageWithOverlayProps {
 }
 
 export const RenderPhotoIcon = () => (
-    <View style={{ position: 'absolute', top: 15, right: 15 }}>
+    <View style={bannerImageWithOverlayStyle.photoIconContainer}>
         {getSvgImages({
             name: ImagesName.photoIcon,
             width: 27,
@@ -70,5 +70,10 @@ const bannerImageWithOverlayStyle = StyleSheet.create({
         position: 'absolute',
         left: 0,
         top: 0,
+    },
+    photoIconContainer: {
+        position: 'absolute', 
+        top: 15, 
+        right: 15
     }
 })

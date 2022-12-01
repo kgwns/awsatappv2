@@ -204,10 +204,7 @@ export const AuthPage: FunctionComponent = () => {
           <View style={styles.container}>
             <View style={styles.headerStyle}>
               <TouchableOpacity
-                style={{
-                  borderBottomWidth: 1,
-                  borderBottomColor: colors.greenishBlue,
-                }}
+                style={styles.headerContainerStyle}
                 testID="signin_skip"
                 accessibilityLabel="signin_skip"
                 onPress={() => navigateToSection('')}>
@@ -324,5 +321,9 @@ const createStyles = (theme: CustomThemeType) =>
     },
     screenBackgroundColor: {
       backgroundColor: theme.onBoardBackground
+    },
+    headerContainerStyle: {
+      borderBottomWidth: 1,
+      borderBottomColor: colors.greenishBlue,
     }
   });

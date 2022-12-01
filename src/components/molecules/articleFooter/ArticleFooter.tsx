@@ -97,7 +97,7 @@ const ArticleFooter = ({
           color={isDetail ? themeData.primaryBlack : rightTitleColor}
           numberOfLine={2}
           labelStyle={StyleSheet.flatten([rightTitleStyle, isDetail && articleFooterStyle.authorTopMargin])}
-          labelContainerStyle={{ maxWidth: '100%' }}
+          labelContainerStyle={articleFooterStyle.labelContainerStyle}
         />
         }
       </View>
@@ -153,5 +153,9 @@ const articleFooterStyle = StyleSheet.create({
   articleDetailUi: {
     flexDirection:'column',
     alignItems: 'flex-start'
+  },
+  labelContainerStyle: {
+    maxWidth: '100%' 
   }
+  
 })

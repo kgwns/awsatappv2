@@ -139,10 +139,10 @@ const MostReadList = ({
           onPressBookmark={() => checkAndUpdateBookmark(index)}
           titleStyle={style.titleStyle}
           titleContainerStyle={style.titleContainerStyle}
-          articleItemStyle={{paddingBottom: 0}}
+          articleItemStyle={style.articleItemStyle}
         />
         {isLoading && (data.length - 1 == index) && (
-          <View style={{margin: normalize(28)}}>
+          <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>
         )}
@@ -221,5 +221,11 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   footerTitleColor: {
     color: theme.footerTextColor
+  },
+  articleItemStyle: {
+    paddingBottom: 0
+  },
+  loaderStyle: {
+    margin: normalize(28)
   }
 });

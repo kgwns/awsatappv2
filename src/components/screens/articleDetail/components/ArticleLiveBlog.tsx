@@ -27,7 +27,7 @@ export const ArticleLiveBlog = React.memo(({
     const renderLiveBlogView = () => (
         <AutoHeightWebView
             key={scribbleId}
-            style={{ width: '100%' }}
+            style={style.webViewContainer}
             source={{ uri: liveBlogUrl }}
             ref={(r) => (webviewRef = r)}
             bounces={false}
@@ -77,6 +77,9 @@ const customStyle = () => StyleSheet.create({
         opacity: 0.99,
         flex: 1,
     },
+    webViewContainer: {
+        width: '100%' 
+    }
 })
 
 export default ArticleLiveBlog;

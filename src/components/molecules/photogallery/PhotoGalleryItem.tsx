@@ -77,7 +77,7 @@ export const PhotoGalleryItem: FunctionComponent<PhotoGalleryItemProps> = ({
   };
 
   return (
-    <FixedTouchable onPress={onItemPress} style={{flex: 1}}>
+    <FixedTouchable onPress={onItemPress} style={style.mainContainer}>
       <View
         key={flatListUniqueKey.PHOTO_GALLERY_LIST + index}
         style={style.container}>
@@ -142,5 +142,8 @@ const styles = (theme: CustomThemeType) =>
     },
     footerTitleColor: {
       color: theme.footerTextColor
+    },
+    mainContainer: {
+      flex: 1
     }
   });

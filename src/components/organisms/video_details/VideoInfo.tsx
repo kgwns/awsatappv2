@@ -61,9 +61,9 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
           <View style={styles.centerContainer}>
             <View style={isDocumentary ?  styles.imageStyle : styles.imageVideoStyle}>
               <Image fallback={true} url={imageLink}
-                style={{ width: '100%', height: '100%' }}
+                style={styles.image}
                 resizeMode={ImageResize.COVER}
-                defaultImageStyle={{ width: '100%', height: '100%' }}
+                defaultImageStyle={styles.image}
               />
             </View>
             {isDocumentary && <View style={styles.titleContainer} >
@@ -97,7 +97,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
               {data.views&&<Label style={styles.textStyleWithoutMargin} numberOfLines={1}>
                 {VIDEO_DETAIL_WATCH}
               </Label>}
-              {data.views&&<Label color={colors.white} style={{marginRight: normalize(10)}}>|</Label>}
+              {data.views&&<Label color={colors.white} style={styles.textStyle}>|</Label>}
               {timeFormat.icon == DateIcon.CALENDAR ? <CalendarIcon fill={colors.white} /> : <ClockIconWhite />}
               <Label style={[styles.footerRightTextStyle,{color: colors.white}]} numberOfLines={1}>
                 {monthDate}
@@ -206,4 +206,11 @@ StyleSheet.create({
     width: 0.8 * screenWidth,
     textAlign: 'center',
   },
+  image: {
+    width: '100%', 
+    height: '100%'
+  },
+  textStyle: {
+    marginRight: normalize(10)
+  }
 });

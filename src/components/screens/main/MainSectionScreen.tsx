@@ -646,7 +646,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboOneBookmark}
       />
-      {isNonEmptyArray(sectionComboOneInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboOneInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboOneInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboTwoInfo}
@@ -655,7 +655,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboTwoBookmark}
       />
-      {isNonEmptyArray(sectionComboTwoInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboTwoInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboTwoInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboThreeInfo}
@@ -664,7 +664,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboThreeBookmark}
       />
-      {isNonEmptyArray(sectionComboThreeInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboThreeInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboThreeInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboFourInfo}
@@ -673,7 +673,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboFourBookmark}
       />
-      {isNonEmptyArray(sectionComboFourInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboFourInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboFourInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection 
         data={archivedArticleSection}
@@ -735,7 +735,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboSixBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboSevenInfo}
@@ -745,7 +745,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboSevenBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboSevenInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboSevenInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboSevenInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboEightInfo}
@@ -755,7 +755,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboEightBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboEightInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboEightInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboEightInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       {showBottomSpinner()}
     </View>
@@ -846,7 +846,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
             sectionId={'97120'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboThreeBookmark}
-            containerStyle={{ paddingTop: 0 }}
+            containerStyle={mainSectionStyle.containerStyle}
           />
         </View>
       </View>
@@ -970,7 +970,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     }
 
     return (
-      <View style={{ margin: normalize(28) }}>
+      <View style={mainSectionStyle.loaderSyle}>
         <ActivityIndicator size={'large'} color={themeData.primary} />
       </View>
     )
@@ -1104,6 +1104,15 @@ const customStyle = (theme: CustomThemeType) => {
     },
     shortArticleContainer: {
       paddingBottom: 8
+    },
+    dividerStyle: {
+      height: normalize(20)
+    },
+    containerStyle: {
+      paddingTop: 0 
+    },
+    loaderSyle: {
+      margin: normalize(28) 
     }
   })
 }

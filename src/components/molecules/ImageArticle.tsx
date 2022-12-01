@@ -113,7 +113,7 @@ const ImageArticle = ({
           }
           {isNotEmpty(body) && showBody &&
             <Label children={decodeHTMLTags(body)}
-            numberOfLines={3} ellipsizeMode={'clip'} style={[{color: Styles.color.davyGrey}, textStyles]}/>
+            numberOfLines={3} ellipsizeMode={'clip'} style={[imageArticleStyle.labelStyle, textStyles]}/>
           }
           <View style={imageArticleStyle.tabFooterContainer}>
             <ArticleFooter {...carouselFooterSample}
@@ -183,5 +183,8 @@ const imageArticleStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: normalize(15),
+  },
+  labelStyle: {
+    color: Styles.color.davyGrey
   }
 });

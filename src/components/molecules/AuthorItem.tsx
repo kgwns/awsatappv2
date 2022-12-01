@@ -191,7 +191,7 @@ const AuthorItem = ({
     };
     return (
         <View testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }]} >
-            <View style={{ flex: 1 }}>
+            <View style={style.contentContainer}>
                 {renderLabels()}
                 {mediaVisibility && <View style={style.mediaFooter}>
                     <TouchableOpacity testID='AutherItemTO2' onPress={onPressPlay} style={style.mediaFooter}>
@@ -253,5 +253,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontSize: 14,
         lineHeight:22,
         fontFamily: fonts.IBMPlexSansArabic_Regular
+    },
+    contentContainer: {
+      flex: 1
     }
 })

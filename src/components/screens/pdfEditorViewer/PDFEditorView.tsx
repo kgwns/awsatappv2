@@ -2,6 +2,7 @@ import React from 'react'
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 import { horizontalAndTop } from 'src/shared/utils';
 import { getRequiredNativeComponent } from 'src/shared/utils/NativeComponent';
+import { StyleSheet } from 'react-native';
 
 const RNPDFViewer = getRequiredNativeComponent('RNPDFViewer');
 
@@ -14,7 +15,12 @@ export const PDFEditorView = ({route}: PDFEditorViewProps) => {
 
     return (
         <ScreenContainer edge={horizontalAndTop} showHeader={true} headerTitle={selectedPDF.title}>
-            <RNPDFViewer style={{ flex: 1 }} selectedPDF={selectedPDF} />
+            <RNPDFViewer style={style.container} selectedPDF={selectedPDF} />
         </ScreenContainer>
     )
 }
+const style = StyleSheet.create({
+    container: {
+     flex: 1 
+    }
+})

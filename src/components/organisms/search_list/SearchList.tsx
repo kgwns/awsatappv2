@@ -139,7 +139,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
     return(
 
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-          <View style={{alignItems: 'flex-start'}}>
+          <View style={styles.searchHistoryContainer}>
           {searchHistory?.length > 0 && searchHistory.map((item, index) => {
             return(
               <View key={index}>
@@ -170,7 +170,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   }
 
   return (
-    <View style={{flex:1}}>
+    <View style={styles.searchBarContainer}>
       <SearchBar
         testID={testID}
         searchText={searchText}
@@ -292,5 +292,11 @@ StyleSheet.create({
   },
   dateContainer: {
     marginTop: 5
+  }, 
+  searchBarContainer: {
+    flex: 1
+  },
+  searchHistoryContainer: {
+    alignItems: 'flex-start'
   }
 });

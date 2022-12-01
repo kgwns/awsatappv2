@@ -116,7 +116,7 @@ const AuthorSlider = ({
 
   const renderAuthorList = (item: any, index: number) => {
     return (
-        <View style={{}}>
+        <View>
             <AuthorItem body={item.title}  
             mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)} 
             jwPlayerID={isNotEmpty(item.field_jwplayer_id_opinion_export) ? item.field_jwplayer_id_opinion_export : null}
@@ -199,7 +199,7 @@ const AuthorSlider = ({
     }
 
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={style.containerStyle}>
         {isIOS ? data.map((_: any, index: number) => {
           return renderItem(index);
         }) :
@@ -294,6 +294,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     activeIndicatorStyle: {
       backgroundColor: colors.greenishBlue,
+    },
+    containerStyle: {
+      flexDirection: 'row' 
     }
   });
   return AuthorSliderStyle;

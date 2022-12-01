@@ -420,7 +420,7 @@ export const LatestNewsScreen = () => {
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboThreeBookmark}
       />
-      <Divider style={{ height: normalize(20) }} />
+      <Divider style={latestNewsScreenStyle.dividerStyle} />
       <BannerArticleSection
         data={sectionComboFourInfo}
         title={SECTION_COMBO_TWO}
@@ -429,7 +429,7 @@ export const LatestNewsScreen = () => {
         onUpdateBookmark={updatedSectionComboFourBookmark}
         isDivider
       />
-      <Divider style={{ height: normalize(50) }} />
+      <Divider style={latestNewsScreenStyle.divider} />
     </View>
   )
 
@@ -438,7 +438,7 @@ export const LatestNewsScreen = () => {
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <FlatList
-        style={{ flex: 1, height: '100%' }}
+        style={latestNewsScreenStyle.container}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -505,6 +505,14 @@ const customStyle = (theme: CustomThemeType) => {
       height: 1,
       backgroundColor: theme.dividerColor,
     },
-
+    dividerStyle: {
+      height: normalize(20) 
+    },
+    divider: {
+      height: normalize(50) 
+    },
+    container: {
+      flex: 1, height: '100%' 
+    }
   })
 }

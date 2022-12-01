@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View } from 'react-native';
+import {View,StyleSheet} from 'react-native';
 import {horizontalAndTop} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
 import { UIManager, findNodeHandle, PixelRatio, Dimensions } from 'react-native';
@@ -31,13 +31,16 @@ export const PDFArchive = () => {
       headerTitle={DRAWER_PDF_ARCHIVE}>
       <View>
         <PDFViewManager
-          style={{
-            height: PixelRatio.getPixelSizeForLayoutSize(WINDOW_HEIGHT),
-            width: PixelRatio.getPixelSizeForLayoutSize(WINDOW_WIDTH)
-          }}
+          style={style.pdfViewManagerStyle}
           ref={ref}
         />
       </View>
     </ScreenContainer>
   );
 };
+const style = StyleSheet.create({
+  pdfViewManagerStyle: {
+    height: PixelRatio.getPixelSizeForLayoutSize(WINDOW_HEIGHT),
+    width: PixelRatio.getPixelSizeForLayoutSize(WINDOW_WIDTH)
+  }
+})

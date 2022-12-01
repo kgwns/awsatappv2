@@ -177,7 +177,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     )
     
     return (
-        <View style={{width: '100%'}} >
+        <View style={style.mainContainer} >
             <View style={StyleSheet.flatten([style.container, playerPosition, (!isPortrait() && !isTab) ? style.containerLandscape : null]) }>
                 <View style={style.miniPlayer}>
                     <TouchableOpacity testID={'Miniplayer'} onPress={() => { setShowControl(true);} } style={style.rowStyleContainer}>
@@ -355,6 +355,9 @@ const customStyle = (theme: CustomThemeType) => {
         },
         sliderContainer: {
             transform: [{ scaleX: isIOS ? 0.5:1 }, { scaleY: isIOS ? 0.5:1 }]
+        },
+        mainContainer: {
+            width: '100%'
         }
     })
 }

@@ -211,7 +211,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}
       backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
-        <View style={[style.textContainer, { justifyContent:  'center' }]}>
+        <View style={style.textContainer}>
           {!canGoBack && <Label style={style.titleStyle}>
             {ONBOARD_NEWSLETTER_TITLE}
           </Label>}
@@ -259,6 +259,7 @@ const customStyle = (theme: CustomThemeType) => {
     textContainer: {
       flex: 0.15,
       paddingHorizontal: normalize(5),
+      justifyContent:  'center'
     },
     titleStyle: {
       fontFamily: fonts.AwsatDigital_Bold,

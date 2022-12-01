@@ -121,7 +121,7 @@ const OpinionWritersArticlesSection = ({
           hideImageView={hideImageView}
         />
         {isLoading && data.length - 1 == index && (
-          <View style={{margin: normalize(28)}}>
+          <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>
         )}
@@ -164,6 +164,9 @@ const customStyle = (theme: CustomThemeType) => {
       marginBottom: normalize(8),
       fontFamily: fonts.AwsatDigital_Bold,
     },
+    loaderStyle: {
+      margin: normalize(28)
+    }
   });
   return OpinionWritersArticlesSectionStyle;
 };

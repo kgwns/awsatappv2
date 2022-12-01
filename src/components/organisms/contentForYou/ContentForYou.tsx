@@ -384,7 +384,7 @@ export const ContentForYou = () => {
                 widgetHeader={FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS}
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU + 'authorWidget' + index}
                 data={item.opinionsData.data}
-                containerStyle={[{ paddingTop: 0 }, !isNonEmptyArray(selectedTopics) && {paddingVertical: 0}]}
+                containerStyle={[styles.itemContainer, !isNonEmptyArray(selectedTopics) && {paddingVertical: 0}]}
                 widgetHeaderContainerStyle={styles.authorWidgetContainer}
                 widgetHeaderStyle={styles.authorWidgetHeader}
                 togglePlayback={togglePlayback}
@@ -524,4 +524,7 @@ const customStyles = (theme: CustomThemeType) => StyleSheet.create({
         height: 1,
         backgroundColor: theme.dividerColor
     },
+    itemContainer:{
+         paddingTop: 0 
+    }
 })

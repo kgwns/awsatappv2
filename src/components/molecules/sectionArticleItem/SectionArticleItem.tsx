@@ -93,7 +93,7 @@ const SectionArticleItem = ({
             : style.hideFooterContainer
         }>
         {!hideFooter && (
-          <View style={{ flexDirection: 'row' }}>
+          <View style={style.footerContainer}>
             {(leftIcon || isNotEmpty(leftTitle)) &&
               <CaptionWithImage
                 title={leftTitle}
@@ -171,5 +171,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   rightTitle: {
     alignSelf: 'center',
+  },
+  footerContainer: {
+     flexDirection: 'row' 
   }
 });

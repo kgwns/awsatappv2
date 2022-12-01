@@ -58,9 +58,7 @@ const FollowFavoriteAuthor = ({
       testID={testId}
       style={[style.container,containerStyle]}>
       <View
-        style={{
-          alignItems: 'center',
-        }}>
+       style={style.contentStyle}>
         {!isSelected ? (
           <Grayscale>
             <Image
@@ -155,6 +153,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     tickIconContainer: {
       bottom: isTab ? normalize(5) : normalize(6)
+    },
+    contentStyle: {
+      alignItems: 'center'
     }
   });
   return FollowFavoriteAuthorStyle;

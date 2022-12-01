@@ -33,7 +33,7 @@ export const JournalistSection = ({
   const renderFooter = () => {
     if(!isLoading) return null
     return (
-      <View style={{ margin: normalize(20) }}>
+      <View style={style.loaderContainer}>
         <ActivityIndicator size={'small'} color={theme.themeData.primary} />
       </View>
     )
@@ -63,7 +63,7 @@ export const JournalistSection = ({
           isBookmarked={item.isBookmarked}
           onPressBookmark={() => onUpdateArticlesBookmark(index)}
           showDivider={false}
-          containerStyle={{ paddingTop: normalize(20) }}
+          containerStyle={style.containerStyle}
           articleItemStyle={articleItemStyle}
           isJournalist={true}
         />
@@ -138,5 +138,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   mobileArticleItem: {
     paddingBottom: normalize(20),
   },
+  loaderContainer: {
+     margin: normalize(20) 
+  },
+  containerStyle: {
+     paddingTop: normalize(20) 
+  }
 });
 

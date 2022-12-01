@@ -137,7 +137,7 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
             <TouchableOpacity
                 testID="signin_forget_password"
                 accessibilityLabel="signin_forget_password"
-                style={{marginBottom:10}}
+                style={styles.passwordContainer}
                 onPress={goToPassword}>
                   <Label
                       children={SIGNIN_FORGOT_PASSWORD}
@@ -253,6 +253,9 @@ StyleSheet.create({
     backgroundColor: theme.primary, 
     opacity: .3,
     marginBottom: normalize(10),
+  },
+  passwordContainer: {
+    marginBottom:10
   }
 })
 

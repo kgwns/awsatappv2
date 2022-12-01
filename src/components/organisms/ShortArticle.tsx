@@ -117,7 +117,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     return <FixedTouchable style={isTab && {flex:1}} onPress={() => onPress(item.nid, isAlbum)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([!hideImage && isTab ? style.cardContainer : style.cardContainerStyle, cardStyle, containerStyle])}>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={style.containerStyle}>
           <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
             <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
               <TextWithFlag {...item} numberOfLines={0} labelType={labelType} />
@@ -131,7 +131,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
               />
             }
             {!isFooterOutside && <View style={[style.footerContainer]}>
-              <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
+              <ArticleFooter {...shortArticleFooter} style={style.articleFooterStyle}
                 onPress={() => checkAndUpdateBookmark(index)}
                 isBookmarked={item.isBookmarked}
               />
@@ -143,7 +143,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
           </View>}
         </View>
         {isFooterOutside && <View style={style.outsideFooterContainer}>
-              <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
+              <ArticleFooter {...shortArticleFooter} style={style.articleFooterStyle}
                 onPress={() => checkAndUpdateBookmark(index)}
                 isBookmarked={item.isBookmarked}
               />
@@ -236,5 +236,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   footerTitleColor: {
     color: theme.footerTextColor
   },
+  containerStyle: {
+    flexDirection: 'row' 
+  },
+  articleFooterStyle: {
+    flex: 1 
+  }
 })
 

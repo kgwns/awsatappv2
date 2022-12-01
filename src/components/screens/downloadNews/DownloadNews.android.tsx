@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {horizontalAndTop} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View , StyleSheet} from 'react-native';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { UIManager, findNodeHandle, PixelRatio, Dimensions } from 'react-native';
 import { DownloadNewsViewManager } from './DownloadNewsViewManager';
 import { useAppCommon } from 'src/hooks';
@@ -17,6 +18,7 @@ const createFragment = (viewId:number|null) =>{
   );
 }
 
+
 const WINDOW_HEIGHT = Dimensions.get('window').height; // device height
 const WINDOW_WIDTH = Dimensions.get('window').width; // device height
 
@@ -25,6 +27,8 @@ export const DownloadNews = (props: DownloadNewsProps) => {
   const theme = useAppCommon()
   const ref = React.useRef(null);
   const [userTheme,setUserTheme] = React.useState<String>(theme.theme)
+
+  const style = useThemeAwareObject(customStyle);
   
   React.useEffect(() => {
     const viewId = findNodeHandle(ref.current);
@@ -42,13 +46,17 @@ export const DownloadNews = (props: DownloadNewsProps) => {
       showHeader={false}
       headerTitle={DRAWER_PDF_ARCHIVE}>
       <DownloadNewsViewManager
-        style={{
-          height: PixelRatio.getPixelSizeForLayoutSize(WINDOW_HEIGHT),
-          width: PixelRatio.getPixelSizeForLayoutSize(WINDOW_WIDTH)
-        }}
+        style={style.downloadNewsManagerStyle}
         userTheme={userTheme}
         ref={ref}
       />
     </ScreenContainer>
   );
 };
+
+const customStyle = () => StyleSheet.create({
+  downloadNewsManagerStyle: {
+      height: PixelRatio.getPixelSizeForLayoutSize(WINDOW_HEIGHT),
+      width: PixelRatio.getPixelSizeForLayoutSize(WINDOW_WIDTH)
+  }
+})

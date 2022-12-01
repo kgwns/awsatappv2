@@ -87,7 +87,7 @@ export const WriterBannerImage = ({
     return (
       <View>
         <TouchableOpacity
-          style={{ flexDirection: 'row', alignItems: 'center' }}
+          style={style.image}
           onPress={onPressReturn}>
           {getSvgImages({
             name: ImagesName.returnSvg,
@@ -143,7 +143,7 @@ export const WriterBannerImage = ({
   return (
     <View style={style.container}>
       {/* For Navigation Reference
-      <View style={style.headerContainer}>
+      <View style={style.rowContainer}>
         {visibleHome && <HomeButton containerStyle={style.homeIconContainer} onPress={onPressHome} />}
         <ReturnButton />
       </View> */}
@@ -175,14 +175,14 @@ export const WriterBannerImage = ({
             </View>}
           </View>
           <Label style={style.authorDescription}>{decode(decodeHTMLTags(data.authorDescription))}</Label>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={style.rowContainer}>
             {isNotEmpty(data.instagram_url) && <ButtonImage
               icon={() => getSvgImages({
                 name: ImagesName.instagramGray,
                 size: normalize(13),
               })}
               onPress={() => openSocialMedia(SocialMediaType.instagram, data.instagram_url)}
-              style={{ marginEnd: normalize(30) }}
+              style={style.buttonImageStyle}
             />}
             {isNotEmpty(data.twitter_url) && <ButtonImage
               icon={() => getSvgImages({
@@ -287,8 +287,15 @@ const customStyle = (theme: CustomThemeType) => {
       top: isAndroid ? 5 : 0,
       right: 5,
     },
-    headerContainer: {
+    rowContainer: {
       flexDirection: 'row' 
+    },
+    buttonImageStyle: {
+      marginEnd: normalize(30) 
+    },
+    image: {
+       flexDirection: 'row', 
+       alignItems: 'center' 
     }
   })
 } 

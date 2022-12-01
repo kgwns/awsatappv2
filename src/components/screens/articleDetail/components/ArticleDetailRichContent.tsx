@@ -28,9 +28,10 @@ export const RenderRichHTMLContent = ({
         return null
     }
 
+    const style = useThemeAwareObject(customStyle)
     const updatedFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
     return (
-        <View style={{ padding: 0.04 * screenWidth }}>
+        <View style={style.itemContainer}>
             {
                 htmlContent?.map((item, index) => {
                     if (!item || !item.type) {
@@ -87,7 +88,7 @@ export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQu
         <View style={style.quoteContainer}>
             <Label style={style.upperArrow} children={`${'"'}`} />
             {isNotEmpty(paragraphInfo.description) &&
-                <View style={{ paddingHorizontal: 40 }}>
+                <View style={style.descriptionStyle}>
                     {RenderWebView(richContentTagStyle({ body: paragraphInfo.description }) || '', injectedStyle)}
                 </View>
             }
@@ -102,13 +103,14 @@ export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQu
 export const RenderContentElement = ({ paragraphInfo }: { paragraphInfo: ArticleContentDataType }) => {
     
     const CONTENT_BUNDLE_TITLE = TranslateConstants({key: TranslateKey.CONTENT_BUNDLE_WIDGET_TITLE})
+    const style = useThemeAwareObject(customStyle)
     
     if (!paragraphInfo || !isObjectNonEmpty(paragraphInfo.contentData)) {
         return null
     }
 
     return (
-        <View style={{ paddingBottom: 20 }}>
+        <View style={style.contentContainer}>
             <ContentBundleWidget title={CONTENT_BUNDLE_TITLE} data={paragraphInfo.contentData} />
         </View>
     )
@@ -248,7 +250,7 @@ export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewR
     const updateWebViewRef = (ref: any) => webViewRef ? webViewRef.current = ref : ref;
 
     return (
-        <ScrollView scrollEnabled={false} style={{ overflow: 'hidden' }}>
+        <ScrollView scrollEnabled={false} style={style.webViewContainer}>
             <AutoHeightWebView
                 style={style.webview}
                 ref={(ref) => { updateWebViewRef(ref) }}
@@ -429,5 +431,17 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: 'transparent',
         opacity: 0.99,
         flex: 1,
+    },
+    itemContainer: {
+        padding: 0.04 * screenWidth 
+    },
+    descriptionStyle: {
+        paddingHorizontal: 40 
+    },
+    contentContainer: {
+        paddingBottom: 20 
+    },
+    webViewContainer: {
+        overflow: 'hidden' 
     }
 })

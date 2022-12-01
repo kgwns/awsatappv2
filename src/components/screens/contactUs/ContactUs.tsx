@@ -157,7 +157,7 @@ export const ContactUs = () => {
 
     const renderFormFields = () => {
         return (
-            <View style={{ width: '100%' }}>
+            <View style={style.formContainer}>
                 <TextInputField
                     placeholder={CONST_NAME}
                     onChangeText={(text: string) => onChangeText(text, FormField.NAME)}
@@ -287,5 +287,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     screenBackgroundColor: {
         backgroundColor: theme.termsBackground
+    },
+    formContainer: {
+        width: '100%'
     }
 })

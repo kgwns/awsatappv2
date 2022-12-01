@@ -41,7 +41,7 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
 
     return (
         <FixedTouchable onPress={onPressImage}>
-            <View style={{alignItems: 'center'}}>
+            <View style={imageWithLabelStyle.containerStyle}>
                 <Image fallback name={name} url={url}
                     style={[imageWithLabelStyle.articleImage, imageStyle]}
                     resizeMode={ImageResize.COVER}
@@ -90,5 +90,8 @@ const imageWithLabelStyle = StyleSheet.create({
         position: 'absolute',
         right: 15,
         top: 15,
+    },
+    containerStyle: {
+        alignItems: 'center'
     }
 })

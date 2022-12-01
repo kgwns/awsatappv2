@@ -71,7 +71,7 @@ export const DynamicWidget = ({
             return null
         }
         return (
-            <View style={{ margin: normalize(28) }}>
+            <View style={styles.loaderContainer}>
                 <ActivityIndicator size={'small'} color={themeData.primary} />
             </View>
         )
@@ -92,7 +92,7 @@ export const DynamicWidget = ({
 
     return(
         <FlatList 
-           style={{flex: 1}}
+           style={styles.container}
            data={data}
            keyExtractor={(_,index) => index.toString()}
            renderItem={renderItem}
@@ -108,5 +108,11 @@ export const DynamicWidget = ({
 const styles = StyleSheet.create({
     contentContainer: {
         paddingBottom: normalize(80)
+    },
+    loaderContainer: {
+        margin: normalize(28) 
+    },
+    container: {
+        flex: 1
     }
 })

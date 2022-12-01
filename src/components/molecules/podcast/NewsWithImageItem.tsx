@@ -43,7 +43,7 @@ export const NewsWithImageItem = ({
         <View style={isTab ? style.tabImage : style.image}>
           <Image url={imageUrl}
             resizeMode={ImageResize.COVER} fallback
-            style={{ width: '100%', height: '100%' }}
+            style={style.imageStyle}
           />
           {isAlbum && <RenderPhotoIcon />}
         </View>
@@ -62,11 +62,7 @@ export const NewsWithImageItem = ({
         />
       )}
       <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          marginTop: normalize(10),
-        }}>
+        style={style.footerContainer}>
         {footerRightLabel && (
           <Label
             style={style.footerRightLabel}
@@ -140,6 +136,15 @@ const customStyle = (theme: CustomThemeType) => {
     footerLeftLabel: {
       marginStart: normalize(5),
     },
+    footerContainer: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      marginTop: normalize(10),
+    },
+    imageStyle: {
+       width: '100%', 
+       height: '100%' 
+    }
   });
   return NewsWithImageItemStyle;
 };

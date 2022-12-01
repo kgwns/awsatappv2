@@ -179,7 +179,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={{height:insets.top,backgroundColor: colors.black}} />
       <FlatList
-        style={{ flex: 1, height: '100%' }}
+        style={styles.contentContainerStyle}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -202,5 +202,8 @@ StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: normalize(80)
+  },
+  contentContainerStyle: {
+    flex: 1, height: '100%' 
   }
 })

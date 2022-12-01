@@ -163,7 +163,7 @@ export const MyNewsTopics = () => {
                     }}
                     author={''} created={''} isBookmarked={false}
                     showDivider={false}
-                    containerStyle={{ paddingTop: normalize(20) }}
+                    containerStyle={styles.containerStyle}
                     articleItemStyle={articleItemStyle}
                 />
             </View>
@@ -292,5 +292,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     screenBackgroundColor: {
         backgroundColor: theme.backgroundColor,
+    },
+    containerStyle:{ 
+        paddingTop: normalize(20) 
     }
 })

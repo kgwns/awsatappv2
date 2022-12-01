@@ -53,7 +53,7 @@ export const PodcastForYou = ({
         <View style={style.container}>
             <Label children={t(title)} labelType={LabelTypeProp.h2} color={Styles.color.greenishBlue} />
             <FlatList
-                style={{ flex: 1 }}
+                style={style.containerStyle}
                 keyExtractor={(_, index) => index.toString()}
                 data={data}
                 horizontal={true}
@@ -82,6 +82,9 @@ const customStyle = (theme: CustomThemeType) => (
         },
         footerTitleColor: {
             color: theme.footerTextColor
+        },
+        containerStyle: {
+            flex: 1 
         }
     })
 )

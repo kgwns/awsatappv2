@@ -44,7 +44,7 @@ const SectionVideoFooter = ({
   const bookmarkIcon = isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG
   return (
     <View style={{ ...SectionVideoFooterStyle.container, ...style }}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={SectionVideoFooterStyle.titleContainer}>
         {(leftTitle || leftViews) && <View style={SectionVideoFooterStyle.leftViewStyle}><FooterCaptionWithImage title={leftTitle} icon={leftIcon}
           color={leftTitleColor}
           subTitle={leftViews}
@@ -103,5 +103,8 @@ const SectionVideoFooterStyle = StyleSheet.create({
   rightTitleStyle: {
     fontFamily: fonts.IBMPlexSansArabic_Regular,
     fontSize: normalize(11)
+  },
+  titleContainer: {
+    flexDirection: 'row'
   }
 })
