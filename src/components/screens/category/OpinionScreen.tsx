@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Animated, StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {
   OpinionWritersArticlesSection,
@@ -20,8 +20,9 @@ import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
+export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY: any;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const [page, setPage] = useState(0);
@@ -169,9 +170,14 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
     <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)} showPlayer={isShowPlayer}
       backgroundColor={style.screenBackgroundColor.backgroundColor}>
       <View style={style.container}>
-      <FlatList
+      <AnimatedFlatList
         ref={ref}
         onScrollBeginDrag={() => global.refFlatList = ref}
+        onScroll={Animated.event(
+          [{nativeEvent: { contentOffset: {y: scrollY}}}],
+          {useNativeDriver: false}
+        )}
+        scrollEventThrottle={16}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
