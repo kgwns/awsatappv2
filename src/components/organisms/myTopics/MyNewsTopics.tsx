@@ -13,7 +13,7 @@ import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ScreenContainer } from 'src/components/screens'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants'
+import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 
 export const keyExtractor = (_: any, index: number) => index.toString();
 
@@ -207,7 +207,6 @@ export const MyNewsTopics = () => {
             numColumns={numberOfColumn}
         />
     );
-console.log('showEmpty',showEmpty)
     return (
         <ScreenContainer edge={horizontalEdge} backgroundColor={styles.screenBackgroundColor.backgroundColor}>
             <View style={styles.container}>

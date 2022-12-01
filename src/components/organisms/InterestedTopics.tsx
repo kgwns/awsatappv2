@@ -2,7 +2,7 @@ import { View, StyleSheet, ScrollView, FlatList, Platform } from 'react-native';
 import React from 'react';
 import { BorderLabel } from 'src/components/atoms/BorderLabel/BorderLabel';
 import { isAndroid, isTab, normalize, screenWidth } from 'src/shared/utils';
-import { flatListUniqueKey } from 'src/constants';
+import { flatListUniqueKey } from 'src/constants/Constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { decode } from 'html-entities';

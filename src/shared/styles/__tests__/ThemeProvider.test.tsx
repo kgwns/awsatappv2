@@ -2,7 +2,7 @@ import { render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'src/shared/styles/ThemeProvider';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { DEFAULT_LIGHT_THEME } from '../colors';
 import { NativeModules } from 'react-native';
 

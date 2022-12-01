@@ -1,7 +1,7 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { ScreenContainer } from 'src/components/screens/ScreenContainer/ScreenContainer';
 import { horizontalEdge } from 'src/shared/utils/utilities';
 import { getRequiredNativeComponent } from 'src/shared/utils/NativeComponent';

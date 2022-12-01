@@ -8,7 +8,7 @@ import {
 } from '@react-navigation/stack';
 import analytics from '@react-native-firebase/analytics';
 import {ScreenList, Routes} from 'src/navigation';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useAppPlayer, useLogin } from 'src/hooks';
 import { isNotEmpty, isObjectNonEmpty, recordCurrentScreen } from 'src/shared/utils';
 import TrackPlayer from 'react-native-track-player';
@@ -59,7 +59,7 @@ const AppStackContainer = () => {
           await TrackPlayer.play();
       }
   };
-
+  
   return (
     <NavigationContainer
     ref={navigationRef}

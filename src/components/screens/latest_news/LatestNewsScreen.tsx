@@ -5,16 +5,15 @@ import {
   ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne, StoryListProps, AlertModal
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties, storyWidgetData } from 'src/constants/SampleData';
+import { shortArticleWithTagProperties, storyWidgetData, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { horizontalEdge, isNonEmptyArray, isTab, normalize, isIOS } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 import { Styles } from 'src/shared/styles';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { getPodcastUrl } from 'src/shared/utils/utilities';
@@ -64,7 +63,9 @@ const sectionComboFourPayload: RequestSectionComboBodyGet = {
 
 export const LatestNewsScreen = () => {
   const { themeData } = useTheme()
-  const [t] = useTranslation()
+  const SECTION_COMBO_TWO = TranslateConstants({key:TranslateKey.SECTION_COMBO_TWO})
+  const SECTION_COMBO_THREE = TranslateConstants({key:TranslateKey.SECTION_COMBO_THREE})
+
   const navigation = useNavigation<StackNavigationProp<any>>()
   const latestNewsScreenStyle = useThemeAwareObject(customStyle)
 
@@ -403,7 +404,7 @@ export const LatestNewsScreen = () => {
         showSignUpPopUp={makeSignUpAlert}
       />
       <BannerArticleSection data={sectionComboTwoInfo}
-        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+        title={SECTION_COMBO_TWO}
         sectionId={'871'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboTwoBookmark}
@@ -414,7 +415,7 @@ export const LatestNewsScreen = () => {
       <AuthorWidget data={opinionList} />
       <BannerArticleSection
         data={sectionComboThreeInfo}
-        title={t('latestNewsTab.sectionComboThree.headerLeft')}
+        title={SECTION_COMBO_THREE}
         sectionId={'11'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboThreeBookmark}
@@ -422,7 +423,7 @@ export const LatestNewsScreen = () => {
       <Divider style={{ height: normalize(20) }} />
       <BannerArticleSection
         data={sectionComboFourInfo}
-        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+        title={SECTION_COMBO_TWO}
         sectionId={'10'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboFourBookmark}

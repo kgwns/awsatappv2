@@ -1,4 +1,4 @@
-import {storeInfo} from 'src/constants/SampleData';
+import {storeInfo} from 'src/constants/Constants';
 import {getIsLoading, getOpinionsData, getOpinionsError, getWriterOpinionIsLoading, getWriterOpinionsData, getWriterOpinionsError, getHomeOpinionNidData} from '../selectors';
 import {OpinionsListItemType} from '../types';
 

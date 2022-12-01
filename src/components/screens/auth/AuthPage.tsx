@@ -12,11 +12,10 @@ import {colors} from '../../../shared/styles/colors';
 import {isObjectNonEmpty, normalize, } from '../../../shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from '../../../components/organisms/';
-import {ScreensConstants} from 'src/constants';
+import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import {useTranslation} from 'react-i18next';
 import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
 import { useEmailCheck, useRegister, useLogin, useBookmark } from 'src/hooks';
@@ -42,7 +41,14 @@ export enum NavigateTypes {
 export const AuthPage: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const {themeData} = useTheme();
-  const [t] = useTranslation();
+  const COMMON_ALERT = TranslateConstants({key:TranslateKey.COMMON_ALERT})
+  const COMMON_NO_INTERNET_CONNECTION = TranslateConstants({key:TranslateKey.COMMON_NO_INTERNET_CONNECTION})
+  const COMMON_OK = TranslateConstants({key:TranslateKey.COMMON_OK})
+  const COMMON_SOMETHING_WENT_WRONG = TranslateConstants({key:TranslateKey.COMMON_SOMETHING_WENT_WRONG})
+  const CONST_TERMS_AND_CONDITION = TranslateConstants({key:TranslateKey.TERMS_AND_CONDITION})
+  const SIGNIN_SKIP = TranslateConstants({key:TranslateKey.SIGNIN_SKIP})
+  const SIGNIN_AGREE_TO = TranslateConstants({key:TranslateKey.SIGNIN_AGREE_TO})
+  const SIGNIN_TERMS_AND_CONDITION = TranslateConstants({key:TranslateKey.SIGNIN_TERMS_AND_CONDITION})
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -69,14 +75,14 @@ export const AuthPage: FunctionComponent = () => {
   } = useEmailCheck();
 
   const noInternetConnection: AlertPayloadType = {
-    title: t('common.alert'),
-    message: t('common.noInternetConnection'),
-    buttonTitle: t('common.ok'),
+    title: COMMON_ALERT,
+    message: COMMON_NO_INTERNET_CONNECTION,
+    buttonTitle: COMMON_OK,
   };
   const somthingWentWrong: AlertPayloadType = {
-    title: t('common.alert'),
-    message: t('common.somthingWentWrong'),
-    buttonTitle: t('common.ok'),
+    title: COMMON_ALERT,
+    message: COMMON_SOMETHING_WENT_WRONG,
+    buttonTitle: COMMON_OK,
   };
 
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
@@ -152,7 +158,7 @@ export const AuthPage: FunctionComponent = () => {
         return;
       case NavigateTypes.termsAndConditions:
         navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US, {
-          title: t('terms_and_condition'),
+          title:CONST_TERMS_AND_CONDITION,
           id: TERMS_AND_CONDITION,
         });
         return;
@@ -206,7 +212,7 @@ export const AuthPage: FunctionComponent = () => {
                 accessibilityLabel="signin_skip"
                 onPress={() => navigateToSection('')}>
                 <Label
-                  children={t('signIn.skip')}
+                  children={SIGNIN_SKIP}
                   style={styles.headerLabelStyle}
                 />
               </TouchableOpacity>
@@ -235,7 +241,7 @@ export const AuthPage: FunctionComponent = () => {
       <View style={styles.footerStyle}>
         <View style={styles.footerLabelContainer}>
           <Label
-            children={t('signIn.agreeTo')}
+            children={SIGNIN_AGREE_TO}
             labelType="p5"
             color={themeData.textColor}
           />
@@ -244,7 +250,7 @@ export const AuthPage: FunctionComponent = () => {
             accessibilityLabel="terms_and_conditions"
             onPress={() => navigateToSection('TERMSANDCONDITIONS')}>
             <Label
-              children={t('signIn.termsAndConditions')}
+              children={SIGNIN_TERMS_AND_CONDITION}
               labelType="p5"
               color={colors.greenishBlue}
               style={styles.spaceStyle}

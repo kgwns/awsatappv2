@@ -1,4 +1,4 @@
-import {storeInfo} from 'src/constants/SampleData';
+import {storeInfo} from 'src/constants/Constants';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import {
   getIsLoading,

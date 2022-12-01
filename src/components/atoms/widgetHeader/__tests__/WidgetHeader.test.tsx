@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, RenderAPI } from '@testing-library/react-native'
 import { WidgetHeader } from '../WidgetHeader'
-import { authorHeaderData } from '../../../../constants/SampleData'
+import { authorHeaderData } from '../../../../constants/Constants'
 
 describe('<WidgetHeader>', () => {
     let instance: RenderAPI

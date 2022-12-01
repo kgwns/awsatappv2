@@ -5,8 +5,7 @@ import {
     BottomTabBarProps,
 } from '@react-navigation/bottom-tabs';
 import analytics from '@react-native-firebase/analytics';
-import { useTranslation } from 'react-i18next';
-import { TabConstants } from '../constants/TabConstants';
+import { TabConstants } from '../constants/Constants';
 import { Label } from '../components/atoms';
 import { Routes, ScreenName } from '../navigation/';
 import { colors, CustomThemeType } from '../shared/styles/colors';
@@ -67,7 +66,6 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
     state,
     navigation,
 }) => {
-    const [t] = useTranslation();
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
     return (

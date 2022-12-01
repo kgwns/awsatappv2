@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react'
 import { Label } from 'src/components/atoms'
 import { isAndroid, isIOS, isTab, normalize, normalizeBy320, screenWidth, testProps } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
-import { moleculesTestID } from 'src/constants'
+import { moleculesTestID } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 

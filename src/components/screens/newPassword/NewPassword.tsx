@@ -8,12 +8,11 @@ import { Label } from '../../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
-import { useTranslation } from 'react-i18next';
 import HeaderIcon from 'src/assets/images/icons/header_icon.svg';
 import { SocialLoginButton, TextInputField } from '../../atoms';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import { NavigateTypes } from '../auth/AuthPage';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import {loginPasswordValidation, reTypePasswordValidation} from 'src/shared/validators';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
@@ -21,7 +20,19 @@ import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 export const NewPassword = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
     const { themeData } = useTheme();
-    const [t] = useTranslation();
+    const NEW_PASSWORD_CREATE_NEW_PASSWORD = TranslateConstants({key:TranslateKey.NEW_PASSWORD_CREATE_NEW_PASSWORD})
+    const NEW_PASSWORD_DESCRIPTION = TranslateConstants({key:TranslateKey.NEW_PASSWORD_DESCRIPTION})
+    const NEW_PASSWORD_WARNING = TranslateConstants({key:TranslateKey.NEW_PASSWORD_WARNING})
+    const NEW_PASSWORD_MATCH_WARNING = TranslateConstants({key:TranslateKey.NEW_PASSWORD_MATCH_WARNING})
+    const NEW_PASSWORD_SET_NEW_PASSWORD = TranslateConstants({key:TranslateKey.NEW_PASSWORD_SET_NEW_PASSWORD})
+    const SIGNUP_RETURN = TranslateConstants({key:TranslateKey.SIGNUP_RETURN})
+    const SIGNUP_PASSWORD = TranslateConstants({key:TranslateKey.SIGNUP_PASSWORD})
+    const SIGNUP_CONFIRM_PASSWORD = TranslateConstants({key:TranslateKey.SIGNUP_CONFIRM_PASSWORD})
+    const SIGNIN_AGREE_TO = TranslateConstants({key:TranslateKey.SIGNIN_AGREE_TO})
+    const CONST_TERMS_AND_CONDITION = TranslateConstants({key:TranslateKey.TERMS_AND_CONDITION})
+    const SIGNIN_RIGHTS = TranslateConstants({key:TranslateKey.SIGNIN_RIGHTS})
+
+
     const styles = useThemeAwareObject(createStyles);
     const [password, setPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
@@ -32,7 +43,7 @@ export const NewPassword = () => {
         switch (type) {
           case NavigateTypes.termsAndConditions:
             navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US, {
-                title: t('terms_and_condition'),
+                title: CONST_TERMS_AND_CONDITION,
                 id: TERMS_AND_CONDITION,
               });
             return;
@@ -60,7 +71,7 @@ export const NewPassword = () => {
                         <View style={styles.headerContainer}>
                             <BackIcon fill={themeData.textColor} />
                             <Label
-                                children={t('signUp.return')}
+                                children={SIGNUP_RETURN}
                                 style={styles.headerLabelStyle}
                             />
                         </View>
@@ -72,19 +83,19 @@ export const NewPassword = () => {
                 <View style={styles.containerStyle}>
                     <View style={styles.topContainerStyle}>
                         <Label
-                            children={t('profile.newPassword.createNewPassword')}
+                            children={NEW_PASSWORD_CREATE_NEW_PASSWORD}
                             labelType="h2"
                             color={colors.greenishBlue}
                         />
                         <Label
-                            children={t('profile.newPassword.passwordDescription')}
+                            children={NEW_PASSWORD_DESCRIPTION}
                             style={styles.textStyle}
                             numberOfLines={2}
                         />
                         <View style={styles.passwordViewStyle}>
                             <View style={styles.passwordContainer}>
                                 <View style={styles.textInputContainer}>
-                                    <TextInputField placeholder={t('signUp.password')}
+                                    <TextInputField placeholder={SIGNUP_PASSWORD}
                                         testID={'signUp_password'}
                                         rightIconTestID={'signUp_password_icon'}
                                         onChangeText={setPassword}
@@ -100,7 +111,7 @@ export const NewPassword = () => {
                             </View>
                             {!passwordError && <View style={styles.warningContainer}>
                                 <Label
-                                    children={t('profile.newPassword.passwordWarning')}
+                                    children={NEW_PASSWORD_WARNING}
                                     style={styles.warningStyle}
                                 />
                             </View>}
@@ -108,7 +119,7 @@ export const NewPassword = () => {
                         <View style={styles.confirmPasswordContainer}>
                             <View style={styles.passwordContainer}>
                                 <View style={styles.textInputContainer}>
-                                    <TextInputField placeholder={t('signUp.confirmPassword')}
+                                    <TextInputField placeholder={SIGNUP_CONFIRM_PASSWORD}
                                         testID={'signUp_confirm_password'}
                                         rightIconTestID={'signUp_confirm_password_icon'}
                                         onChangeText={setConfirmPassword}
@@ -123,14 +134,14 @@ export const NewPassword = () => {
                             </View>
                             { !confirmPasswordError && <View style={styles.warningContainer}>
                                 <Label
-                                    children={t('profile.newPassword.passwordMatchWarning')}
+                                    children={NEW_PASSWORD_MATCH_WARNING}
                                     style={styles.warningStyle}
                                 />
                             </View>}
                         </View>
                         <SocialLoginButton testID="signUp_signUp"
                             onPress={onPressSignIn}
-                            label={t('profile.newPassword.setNewPassword')}
+                            label={NEW_PASSWORD_SET_NEW_PASSWORD}
                             style={styles.buttonStyle}
                             labelStyle={styles.labelStyle}
                         />
@@ -139,7 +150,7 @@ export const NewPassword = () => {
                 <View style={styles.footerStyle}>
                     <View style={styles.footerLabelContainer}>
                         <Label
-                            children={t('signIn.agreeTo')}
+                            children={SIGNIN_AGREE_TO}
                             labelType="p5"
                             color={themeData.textColor}
                         />
@@ -148,7 +159,7 @@ export const NewPassword = () => {
                             accessibilityLabel="terms_and_conditions"
                             onPress={() => navigateToSection('TERMSANDCONDITIONS')}>
                             <Label
-                                children={t('terms_and_condition')}
+                                children={CONST_TERMS_AND_CONDITION}
                                 labelType="p5"
                                 color={colors.greenishBlue}
                                 style={styles.spaceStyle}
@@ -156,7 +167,7 @@ export const NewPassword = () => {
                         </TouchableOpacity>
                     </View>
                     <Label
-                        children={t('signIn.rights')}
+                        children={SIGNIN_RIGHTS}
                         labelType="p5"
                         color={themeData.textColor}
                     />

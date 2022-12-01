@@ -15,7 +15,7 @@ import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyG
 import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player';
 import { useFocusEffect, useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { sendUserEventTracking } from 'src/services'
 import { TrackingEventType } from 'src/services/eventTrackService'
 import { ArticleFontSize } from 'src/redux/appCommon/types';
@@ -335,7 +335,6 @@ export const OpinionArticleDetail = ({
       <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />
     </View>
   )
-
   const renderItem = () => {
     const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
 

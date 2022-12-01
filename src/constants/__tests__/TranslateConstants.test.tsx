@@ -1,7 +1,7 @@
 import {
   TranslateConstants,
   TranslateKey,
-} from "../TranslateConstants";
+} from "../Constants";
 
 jest.mock('react', () => {
     const ActualReact = jest.requireActual('react')

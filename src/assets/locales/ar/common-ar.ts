@@ -57,7 +57,7 @@ export const arabic = {
     },
     newsLetter: {
       title: 'نشراتك البريدية',
-      description:  'احصل على آخر التحديثات عبر البريد الإلكتروني الخاص بك​',
+      description: 'احصل على آخر التحديثات عبر البريد الإلكتروني الخاص بك​',
       subscribed: 'مشترك',
       notSubscribed: 'اشترك',
     },
@@ -143,7 +143,7 @@ export const arabic = {
     from: 'من',
     sinceHour: "منذ ساعة",
     sinceTwoHours: "منذ ساعتين",
-    sinceThreeHours:  "منذ ثلاث ساعات",
+    sinceThreeHours: "منذ ثلاث ساعات",
     minute: "دقيقة",
   },
   months: [
@@ -214,9 +214,9 @@ export const arabic = {
     password: 'كلمه المرور',
     forgotPassword: 'نسيت كلمة المرور',
     return: 'الرجوع',
-    success:'نجاح',
-    credentialsAreIncorrect:'معلومات الدخول غير صحيحة',
-    verifyMailAndPasswordAndTryAgain:'تحقق من البريد الإلكتروني وكلمة المرور وحاول مجدداً',
+    success: 'نجاح',
+    credentialsAreIncorrect: 'معلومات الدخول غير صحيحة',
+    verifyMailAndPasswordAndTryAgain: 'تحقق من البريد الإلكتروني وكلمة المرور وحاول مجدداً',
     signInInfo: 'سجل الدخول لتحظ بآخر الأخبار​'
   },
   validation: {
@@ -225,7 +225,7 @@ export const arabic = {
     passwordEmpty: 'كلمة المرور مطلوبة',
     passwordNotMatch: 'كلمة المرور غير متطابقة',
     passwordStrength: 'Password is too short',
-    passwordRequirement:'Password must contain (1)uppercase,(1)lowercase,(1)numeric and (1)special character',
+    passwordRequirement: 'Password must contain (1)uppercase,(1)lowercase,(1)numeric and (1)special character',
     maxLengthPassword: 'Password should contain maximum 20 characters',
     minLengthPassword: 'كلمة المرور يجب أن تحتوي على ٥ أحرف على الأقل',
   },
@@ -271,7 +271,7 @@ export const arabic = {
     welcome: 'أهلاً، ',
     logoutAlertMessage: 'هل أنت متأكد أنك تريد تسجيل الخروج؟',
     alert: 'تأكيد الخروج',
-    arithmetic:'حسابي',
+    arithmetic: 'حسابي',
     debug: 'التصحيح',
     production: 'إنتاج',
     changeEnvironment: 'تغيير البيئة',
@@ -283,6 +283,8 @@ export const arabic = {
     return: 'الرجوع',
     listenToArticle: 'استمع إلى المقالة',
     relatedOpinionTitle: 'المزيد من مقالات الرآي',
+    follow: 'تابع',
+    follower: 'متابع',
   },
   profile: {
     userDetail: {
@@ -311,10 +313,14 @@ export const arabic = {
       moveAndScale: 'تحرك و مقياس',
       openCameraOption: 'افتح الكاميرا',
       chooseFromGallery: 'اختر من جهازك',
-      success:'نجاح',
+      success: 'نجاح',
       passwordChangedSuccessfully: 'تم تغيير كلمة المرور بنجاح',
       oldPasswordDoesNotMatch: 'كلمة المرور القديمة لا تتطابق مع سجلاتنا.',
-      tryAgain:'حاول مرة اخرى',
+      tryAgain: 'حاول مرة اخرى',
+      requireAccess: 'تتطلب الوصول',
+      requestCameraAccessMessage: 'يرجى تقديم إذن للوصول إلى كاميرا الجهاز',
+      pleaseEnterTheName: 'الرجاء إدخال الاسم',
+      okText: 'نعم',
     },
     newPassword: {
       createNewPassword: 'أنشئ كلمة مرور جديدة',
@@ -340,7 +346,7 @@ export const arabic = {
     subscribe: 'مشترك',
     notSubscribed: 'أنت غير مشترك',
     description: 'سجل للحصول على تجربة فريدة',
-    signUp: 'ادخل لحسابك أو اشترك'
+    signUp: 'ادخل لحسابك أو اشترك',
   },
   signUpPH: {
     title: 'أنت غير مشترك',
@@ -389,6 +395,8 @@ export const arabic = {
     email: 'إيميل',
     yourLetter: 'رسالتك',
     send: 'ارسل',
+    doYouHaveQuestions: 'هل لديك سؤال؟راسلنا',
+    description: 'سنتواصل معك و نجيب على سؤالك خلال يومين'
   },
   articleDetail: {
     contentBundleWidgetTitle: 'اقرأ أيضاً'
@@ -397,5 +405,76 @@ export const arabic = {
     liveTagTitle: 'مباشر',
     specialTagTitle: 'خاص',
     analysisTagTitle: 'تحليل إخباري',
+  },
+  mostRead: {
+    mostReadTitle: 'الأكثر قراءة',
+  },
+  notRegisteredPopUp: {
+    notSubscribed: 'لم تشترك بعد',
+    createAccountDescription: 'انشئ حساباً خاصاً بك لتحصل على أخبار\n مخصصة لك ولتتمتع بخاصية حفظ المقالات وتتلقى\n نشراتنا البريدية المتنوعة​',
+    saveArticleToYourFavourite: 'لحفظ المقالة لمفضلاتك',
+    signUp: 'قم بالتسجيل',
+    logIn: 'ادخل لحسابك'
+  },
+  photoGallery: {
+    title: 'معرض الصور'
+  },
+  tabNavigatorNames: {
+    latestNews: 'آخر الأخبار',
+    sections: 'أقسام',
+    mostRead: 'الأكثر قراءة',
+    favourite: 'المحفوظات',
+    downloadNews: 'الجريدة',
+    myNews: 'أخباري'
+  },
+  podcastWidget:{
+    headerLeft: 'بودكاست',
+    headerRight: 'المزيد'
+  },
+  archivesPodcast:{
+    title: 'استمع لملخص آخر أخبار اليوم',
+    body: 'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين.',
+    allEpisodes: 'استمع الي البودكاست ',
+  },
+  mostPlayedSection:{
+    sectionHeader:{
+      headerLeft:'المزيد',
+      headerRight:'اكثر الحلقات التي تم تشغيلها'
+    }
+  },
+  storyWidget:{
+    headerTitle:'مذا يحدث الآن'
+  },
+  articleDetailScreen:{
+    shortArticle:{
+      title: 'مقالات ذات صلة'
+    },
+    articleDetailWidget:{
+      updated:'محدث '
+    }
+  },
+  relatedArticles:{
+      headerLeft: 'مقالات ذات صلة',  
+      title: `واشنطن تعيد فتح ملف خاطفي الرهائن الأميركيين في بيروت`,
+      rightTitle: '3 د قرادة ',
+      leftTitle: 'من ساعاتان',
+      flag: 'العالم',
+  },
+  podcastScreen:{
+    latestNewsSummarySection:{
+      sectionHeader:{
+        headerLeft: "المزيد",
+        headerRight:"ملخص آخر الأخبار"
+      }
+    }
+  },
+  podcastOpinionArticle:{
+    sectionHeader:{
+      headerLeft:'المزيد',
+      headerRight:'مقالات الرأي'
+    }
+  },
+  contentForYou:{
+    emptyDataLabel: 'لم يتم حفظ أي شيء حتى الآن'
   }
 }

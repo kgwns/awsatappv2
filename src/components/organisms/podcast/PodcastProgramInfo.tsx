@@ -10,7 +10,7 @@ import {PodcastListItemType} from 'src/redux/podcast/types'
 import { fonts } from 'src/shared/styles/fonts';
 import { decodeHTMLTags, isNotEmpty } from 'src/shared/utils/utilities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { podcastServices } from 'src/constants/SharedConstants';
+import { podcastServices } from 'src/constants/Constants';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 
 interface PodcastProgramProps {

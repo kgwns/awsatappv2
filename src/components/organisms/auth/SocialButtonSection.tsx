@@ -5,7 +5,6 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
 import DeviceInfo from 'react-native-device-info';
 
-import {useTranslation} from 'react-i18next';
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
@@ -18,7 +17,7 @@ import { useDispatch } from 'react-redux';
 import { fetchLoginSuccess } from 'src/redux/login/action';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { appleSignin } from 'src/shared/utils/appleSignin';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
@@ -33,7 +32,6 @@ interface SocialButtonSectionProps {
 
 export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =({ onButtonPress, style, showAlertNoInternet, socialButtonBoldStyle }) => {
 
-  const [t] = useTranslation();
   const {themeData} = useTheme();
   const [deviceName, setDeviceName] = useState('');
   const {createUserRequest, registerUserInfo} = useRegister();
@@ -42,7 +40,10 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   const { loginData } = useLogin();
   const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
   
-  const OK = t('common.ok');
+  const OK = TranslateConstants({key:TranslateKey.COMMON_OK});
+  const SIGNIN_LOGIN_FACEBOOK = TranslateConstants({key:TranslateKey.SIGNIN_LOGIN_FACEBOOK})
+  const SIGNIN_LOGIN_GOOGLE = TranslateConstants({key:TranslateKey.SIGNIN_LOGIN_GOOGLE})
+  const SIGNIN_LOGIN_APPLE = TranslateConstants({key:TranslateKey.SIGNIN_LOGIN_APPLE})
 
   const { emptySearchHistory } = useSearch();
 
@@ -171,7 +172,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
         <View {...style}>
           <SocialLoginButton testID="signin_facebook"
             onPress={() => {buttonPressAction('FACEBOOK')}}
-            label={t('signIn.loginFacebook')}
+            label={SIGNIN_LOGIN_FACEBOOK}
             labelStyle={socialButtonLabelStyle}
             style={styles.labelContainer}
             labelContainer={styles.textContainer}
@@ -179,7 +180,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
           />
           <SocialLoginButton testID="signin_google"
             onPress={() => {buttonPressAction('GOOGLE')}}
-            label={t('signIn.loginGoogle')}
+            label={SIGNIN_LOGIN_GOOGLE}
             labelStyle={socialButtonLabelStyle}
             style={styles.labelContainer}
             labelContainer={styles.textContainer}
@@ -194,7 +195,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
             }}
             labelStyle={socialButtonLabelStyle}
             style={styles.labelContainer}
-            label={t('signIn.loginApple')}
+            label={SIGNIN_LOGIN_APPLE}
             labelContainer={styles.textContainer}
             icon={() => <View style={styles.container}><AppleIcon fill={themeData.primaryBlack} /></View>}
           /> }

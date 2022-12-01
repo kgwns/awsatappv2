@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity, StyleProp, TextStyle, ViewStyle } from 'react-native'
 import { normalize } from 'src/shared/utils/dimensions'
-import { moleculesTestID } from 'src/constants'
+import { moleculesTestID } from 'src/constants/Constants'
 import { Styles } from 'src/shared/styles'
 import { ImagesName } from 'src/shared/styles/images'
 import { CaptionWithImage } from 'src/components/atoms'

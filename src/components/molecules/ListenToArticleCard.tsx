@@ -6,15 +6,14 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {isIOS, normalize} from 'src/shared/utils';
-import { useTranslation } from 'react-i18next';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { convertSecondsToHMS, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { useAppPlayer } from 'src/hooks';
+import { TranslateConstants, TranslateKey } from '../../constants/Constants'
 
 export const ListenToArticleCard = (data: any) => {
   const style = useThemeAwareObject(customStyle);
-  const [t] = useTranslation();
   const playbackState = usePlaybackState();
   const mediaData = data.data && isObjectNonEmpty(data.data) ? data.data : {}
   const playList = isObjectNonEmpty(mediaData) && isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
@@ -23,6 +22,7 @@ export const ListenToArticleCard = (data: any) => {
   const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
+  const CONST_LISTEN_TO_ARTICLE = TranslateConstants({key:TranslateKey.LISTEN_TO_ARTICLE});
 
   // Older Opinion Implementation for reference
   // const onPressPlay = () => {
@@ -94,7 +94,7 @@ const onPressPlay = () => {
           onPress={onPressPlay}
           style={style.icon}
         />
-        <Label style={style.title}> {t('opinionArticleDetail.listenToArticle')}</Label>
+        <Label style={style.title}> {CONST_LISTEN_TO_ARTICLE}</Label>
       </TouchableOpacity>
       <Label style={style.duration}>{convertSecondsToHMS(duration)}</Label>
     </View>

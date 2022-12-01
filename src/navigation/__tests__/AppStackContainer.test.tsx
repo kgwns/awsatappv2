@@ -2,7 +2,7 @@ import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import AppStackContainer from 'src/navigation/AppStackContainer';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../constants/SampleData';
+import {storeSampleData} from '../../constants/Constants';
 
 const mockString = 'example';
 const mockNumber = 1234;

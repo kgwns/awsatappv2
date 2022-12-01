@@ -5,7 +5,7 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import { normalize} from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts';
-import { CREATE_ACCOUNT_DESCRIPTION, NOT_SUBSCRIBED } from 'src/constants/SharedConstants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 interface SignupAlertCardProps {
     title: string;
@@ -19,15 +19,14 @@ interface SignupAlertCardProps {
 
 export const SignupAlertCard = ({
   title,
-  subTitle = NOT_SUBSCRIBED,
-  description = CREATE_ACCOUNT_DESCRIPTION,
+  subTitle = TranslateConstants({key:TranslateKey.NOT_SUBSCRIBED_POP_UP}),
+  description = TranslateConstants({key:TranslateKey.CREATE_ACCOUNT_DESCRIPTION}),
   message, 
   buttonText, 
   onPress
 }: SignupAlertCardProps) => {
 
     const styles = useThemeAwareObject(customStyle)
-
     return (
     <View style={styles.container}>
       <View>

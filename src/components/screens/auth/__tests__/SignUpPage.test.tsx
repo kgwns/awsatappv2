@@ -2,7 +2,7 @@ import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
 import React, { useState } from 'react';
 import {SignUpPage} from '../SignUpPage';
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import {useNavigation} from '@react-navigation/native';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { useRegister } from 'src/hooks';

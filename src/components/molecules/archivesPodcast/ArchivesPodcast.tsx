@@ -8,20 +8,22 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { ImagesName, Styles } from 'src/shared/styles'
 import { getSvgImages } from 'src/shared/styles/svgImages'
-
-
-const archivesPodCastData =
-{
-    image: 'https://picsum.photos/200/300',
-    title: 'استمع لملخص آخر أخبار اليوم',
-    body: 'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين.',
-    allEpisodes: 'استمع الي البودكاست ',
-    timeDuration: '3:22'
-}
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
 export const ArchivesPodcast = () => {
     const style = useThemeAwareObject(customStyle)
     const { themeData } = useTheme()
+    const ARCHIVES_PODCAST_TITLE = TranslateConstants({ key: TranslateKey.ARCHIVES_PODCAST_TITLE })
+    const ARCHIVES_PODCAST_BODY = TranslateConstants({ key: TranslateKey.ARCHIVES_PODCAST_BODY })
+    const ARCHIVES_PODCAST_ALL_EPISODES = TranslateConstants({ key: TranslateKey.ARCHIVES_PODCAST_ALL_EPISODES })
+
+    const archivesPodCastData ={
+        image: 'https://picsum.photos/200/300',
+        title: ARCHIVES_PODCAST_TITLE,
+        body: ARCHIVES_PODCAST_BODY,
+        allEpisodes: ARCHIVES_PODCAST_ALL_EPISODES,
+        timeDuration: '3:22'
+    }
 
     const footer = () => (
         <View style={style.footerContainer}>

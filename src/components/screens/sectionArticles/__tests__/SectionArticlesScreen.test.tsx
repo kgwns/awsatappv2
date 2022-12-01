@@ -3,7 +3,7 @@ import React from 'react'
 import  {SectionArticlesScreen} from 'src/components/screens/sectionArticles/SectionArticlesScreen'
 import { useRoute } from '@react-navigation/native'
 import { Provider } from 'react-redux';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 
 jest.mock('@react-navigation/native', () => ({
     useRoute: jest.fn(),

@@ -8,7 +8,7 @@ import { colors } from '../shared/styles/colors';
 import CustomDrawerContent from './CustomDrawerContent';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
-import {ScreensConstants} from '../constants/ScreenConstants';
+import {ScreensConstants} from '../constants/Constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { isNonEmptyArray, isTab, screenWidth } from 'src/shared/utils';

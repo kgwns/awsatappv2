@@ -6,12 +6,12 @@ import { isIOS, isTab, normalize, recordLogEvent } from 'src/shared/utils';
 import { SearchItemType } from 'src/redux/search/types';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import { useTranslation } from 'react-i18next';
 import { useSearch } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
 import { decodeHTMLTags, isNonEmptyArray, dateTimeAgo, TimeIcon, getArticleImage } from 'src/shared/utils/utilities';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { decode } from 'html-entities';
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
 export interface SearchResultsProps {
   id: string;
@@ -43,7 +43,8 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
 }) => {
   const [searchText, setSearchText] = useState('');
   const styles = useThemeAwareObject(createStyles);
-  const [t] = useTranslation();
+  const SEARCH_NOT_FOUND = TranslateConstants({key:TranslateKey.SEARCH_NOT_FOUND})
+  const CLEAR_SEARCH_HISTORY = TranslateConstants({key:TranslateKey.CLEAR_SEARCH_HISTORY})
   const { emptySearchHistory } = useSearch();
 
   const handleOnItemPressAction = (item: SearchItemType) => {
@@ -101,7 +102,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
     return (
       <View style={styles.emptyListShowStyle}>
         <Label labelType='h1' style={styles.emptyText} numberOfLines={2}>
-          {t('searchScreen.notFound')}
+          {SEARCH_NOT_FOUND}
         </Label>
       </View>
     );
@@ -156,7 +157,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
           <SocialLoginButton
             testID="clear_search_history"
             onPress={() => emptySearchHistory()}
-            label={t('searchScreen.clearSearchHistory')}
+            label={CLEAR_SEARCH_HISTORY}
             style={styles.clearButtonStyle}   
             labelStyle={styles.clearButtonLabel}
           />

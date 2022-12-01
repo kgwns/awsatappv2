@@ -8,8 +8,8 @@ import SearchIcon from 'src/assets/images/icons/search.svg';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import { useTranslation } from 'react-i18next';
 import { fonts } from 'src/shared/styles/fonts';
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
 export interface SearchBarProps {
   searchText: string;
@@ -27,11 +27,11 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
-  const [t] = useTranslation();
+  const SEARCH_PLACEHOLDER = TranslateConstants({key:TranslateKey.SEARCH_PLACEHOLDER})
   return (
     <View style={styles.container}>
       <Input
-        placeholder={t('searchScreen.placeholder')}
+        placeholder={SEARCH_PLACEHOLDER}
         testID={testID}
         accessibilityLabel={testID}
         returnKeyType={'done'}

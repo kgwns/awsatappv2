@@ -4,7 +4,7 @@ import { Label } from 'src/components/atoms';
 import { isIOS, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { fonts } from 'src/shared/styles/fonts';
@@ -22,7 +22,6 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     const style = useThemeAwareObject(customStyle)
     const navigation = useNavigation<StackNavigationProp<any>>()
     const [activeJournalist, setActiveJournalist] = useState<boolean[]>([]);
-
 
     useEffect(() => {
         getActiveJournalist(journalistId);

@@ -12,7 +12,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { RequestVideoUrlSuccessResponse, VideoItemType } from 'src/redux/videoList/types';
 import {useNavigation} from '@react-navigation/native';
-import {ScreensConstants} from 'src/constants/ScreenConstants';
+import {ScreensConstants} from 'src/constants/Constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Styles } from 'src/shared/styles';
 import { fetchVideoDetailInfo } from 'src/services/VideoServices';

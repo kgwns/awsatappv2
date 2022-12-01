@@ -1,6 +1,6 @@
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants'
+import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants'
 import { ImageWithLabel } from '../atoms'
 import { articleProps } from '../organisms'
 import { ArticleWithOutImage } from '../molecules'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
-import { storeSampleData } from 'src/constants/SampleData'
+import { storeSampleData } from 'src/constants/Constants'
 import { FavoriteScreen } from '../FavoriteScreen'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { SignupAlertCard } from 'src/components/molecules'

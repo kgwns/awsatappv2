@@ -2,7 +2,7 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState } from 'react';
 import { Archives, DynamicWidget } from 'src/components/organisms'
 import { FilterComponent, FilterDataType } from 'src/components/molecules';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { Provider } from 'react-redux';
 
 jest.mock('@react-navigation/native', () => ({

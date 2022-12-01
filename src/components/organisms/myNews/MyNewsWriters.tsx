@@ -24,7 +24,7 @@ import {getImageUrl} from 'src/shared/utils/utilities';
 import {
   TranslateConstants,
   TranslateKey,
-} from 'src/constants/TranslateConstants';
+} from 'src/constants/Constants';
 import { useIsFocused } from '@react-navigation/native';
 
 export const keyExtractor = (_: any, index: number) => index.toString();

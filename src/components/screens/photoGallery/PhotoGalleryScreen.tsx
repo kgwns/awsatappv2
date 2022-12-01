@@ -3,13 +3,13 @@ import {isNonEmptyArray, isTab, screenWidth} from 'src/shared/utils';
 import {View, StyleSheet, FlatList, ListRenderItem, Animated} from 'react-native';
 import {useBookmark, useLogin} from 'src/hooks';
 import {useNavigation} from '@react-navigation/native';
-import {ScreensConstants} from 'src/constants';
+import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {PopUp} from 'src/components/organisms';
 import {PopUpType} from 'src/components/organisms/popUp/PopUp';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {PhotoGalleryItem} from 'src/components/molecules';
 import {Label, LabelTypeProp, LoadingState} from 'src/components/atoms';
-import {PHOTO_GALLERY} from 'src/constants/SharedConstants';
+// import {PHOTO_GALLERY} from 'src/constants/Constants';
 import {Styles} from 'src/shared/styles';
 import {fonts} from 'src/shared/styles/fonts';
 import {
@@ -39,6 +39,8 @@ export const PhotoGalleryScreen = React.memo(
     const [page, setPage] = useState(0);
     const [albumData, setAlbumData] = useState<AlbumListItemType[]>([]);
     const [albumDataInfo, setAlbumDataInfo] = useState<AlbumListItemType[]>([]);
+
+    const CONST_PHOTO_GALLERY = TranslateConstants({key:TranslateKey.PHOTO_GALLERY_TITLE})
 
     useEffect(() => {
       fetchPhotoList(page);
@@ -146,7 +148,7 @@ export const PhotoGalleryScreen = React.memo(
     const renderHeader = () => (
       <View style={styles.headerStyle}>
         <Label
-          children={PHOTO_GALLERY}
+          children={CONST_PHOTO_GALLERY}
           labelType={LabelTypeProp.h2}
           color={Styles.color.greenishBlue}
         />

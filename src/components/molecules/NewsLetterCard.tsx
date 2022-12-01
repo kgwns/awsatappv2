@@ -6,8 +6,8 @@ import {Image, Label} from 'src/components/atoms';
 import {isIOS, normalize, screenWidth} from 'src/shared/utils';
 import {ImagesName} from 'src/shared/styles/images';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import {useTranslation} from 'react-i18next';
 import { fonts } from 'src/shared/styles/fonts';
+import { TranslateConstants, TranslateKey } from '../../constants/Constants';
 export interface NewsLetterCardProps {
   title: string;
   subTitle: string;
@@ -26,9 +26,10 @@ export const NewsLetterCard = ({
 }: NewsLetterCardProps) => {
   const style = useThemeAwareObject(customStyle);
   const [selected, setSelected] = useState(isSelected);
-  const [t] = useTranslation();
+  const CONST_ONBOARD_NEWSLETTER_SUBSCRIBED = TranslateConstants({key:TranslateKey.ONBOARD_NEWSLETTER_SUBSCRIBED})
+  const CONST_ONBOARD_NEWSLETTER_NOT_SUBSCRIBED = TranslateConstants({key:TranslateKey.ONBOARD_NEWSLETTER_NOT_SUBSCRIBED})
   const buttonLogoName = selected ? ImagesName.tickIcon : ImagesName.subscribeIconWhite;
-  const buttonText = selected ? t('onBoard.newsLetter.subscribed') : t('onBoard.newsLetter.notSubscribed');
+  const buttonText = selected ? CONST_ONBOARD_NEWSLETTER_SUBSCRIBED : CONST_ONBOARD_NEWSLETTER_NOT_SUBSCRIBED;
   const buttonBackground = selected ? colors.greenishBlue : colors.black;
   const buttonLogoStyle = selected ? {width: 20, height:17, marginRight: 5, marginBottom: 5} : {width: 14, height:11, marginRight: 10}
 

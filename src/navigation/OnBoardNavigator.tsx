@@ -12,8 +12,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Label} from 'src/components/atoms';
 import {ImagesName} from 'src/shared/styles';
 import {useNavigation} from '@react-navigation/native';
-import {useTranslation} from 'react-i18next';
-import {ScreensConstants} from 'src/constants';
+import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';
@@ -30,7 +29,9 @@ const defaultScreenOptions: StackNavigationOptions = {
 
 const OnBoardNavigator = () => {
   const navigation = useNavigation();
-  const [t] = useTranslation();
+  const ON_BOARD_COMMON_SKIP = TranslateConstants({key:TranslateKey.ON_BOARD_COMMON_SKIP})
+  const ON_BOARD_COMMON_RETURN = TranslateConstants({key:TranslateKey.ON_BOARD_COMMON_RETURN})
+
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
   const previousIconStyle = style.onBoardPrevIcon;
@@ -73,14 +74,14 @@ const OnBoardNavigator = () => {
             });
         }
       }}>
-      <Label style={style.onBoardSkip}>{t('onBoard.common.skip')}</Label>
+      <Label style={style.onBoardSkip}>{ON_BOARD_COMMON_SKIP}</Label>
     </TouchableOpacity>
   );
   const onBoardReturn = () => (
     <TouchableOpacity
       style={style.onBoardReturn}
       onPress={() => navigation.goBack()}>
-      <Label style={style.onBoardPrevTitle}>{t('onBoard.common.return')}</Label>
+      <Label style={style.onBoardPrevTitle}>{ON_BOARD_COMMON_RETURN}</Label>
       <BackIcon fill={themeData.backIconColor} style={previousIconStyle} />
     </TouchableOpacity>
   );

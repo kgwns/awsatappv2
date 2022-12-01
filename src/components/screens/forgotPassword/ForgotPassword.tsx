@@ -5,11 +5,10 @@ import { View, StyleSheet, TouchableOpacity, AppState } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
 import { CustomAlert, isIOS, isTab, normalize, screenWidth } from '../../../shared/utils';
 import { Label } from '../../atoms';
-import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
-import { useTranslation } from 'react-i18next';
 import { StackNavigationProp } from '@react-navigation/stack';
 import MailAnimation from '../../../assets/lottie-animation/mail.json';
 import LottieView from 'lottie-react-native';
@@ -26,13 +25,21 @@ import { fonts } from 'src/shared/styles/fonts';
 export const ForgotPassword: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
   const { themeData } = useTheme();
-  const [t] = useTranslation();
+  const CONST_TERMS_AND_CONDITION = TranslateConstants({key:TranslateKey.TERMS_AND_CONDITION})
+  const FORGOT_PASSWORD_CHECK_YOUR_MAIL = TranslateConstants({key:TranslateKey.FORGOT_PASSWORD_CHECK_YOUR_MAIL})
+  const FORGOT_PASSWORD_INSTRUCTION = TranslateConstants({key:TranslateKey.FORGOT_PASSWORD_INSTRUCTION})
+  const FORGOT_PASSWORD_OPEN_MAIL_APP = TranslateConstants({key:TranslateKey.FORGOT_PASSWORD_OPEN_MAIL_APP})
+  const FORGOT_PASSWORD_SKIP_OPTION = TranslateConstants({key:TranslateKey.FORGOT_PASSWORD_SKIP_OPTION})
+  const SIGNIN_AGREE_TO = TranslateConstants({key:TranslateKey.SIGNIN_AGREE_TO})
+  const SIGNIN_RIGHTS = TranslateConstants({key:TranslateKey.SIGNIN_RIGHTS})
+  const CONST_RETURN = TranslateConstants({ key: TranslateKey.RETURN })
+
+
   const styles = useThemeAwareObject(createStyles);
   const appState = useRef(AppState.currentState);
   const [animationRef,setAnimationRef] = useState<LottieView>()
   const {emptyforgotPassworResponseInfo} = useLogin();
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
-  const CONST_RETURN = TranslateConstants({ key: TranslateKey.RETURN })
   
   useEffect(() => {
     const subscription = AppState.addEventListener("change", nextAppState => {
@@ -57,7 +64,7 @@ export const ForgotPassword: FunctionComponent = () => {
     switch (type) {
       case NavigateTypes.termsAndConditions:
         navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US,
-          { title: t('terms_and_condition'), id: TERMS_AND_CONDITION });
+          { title: CONST_TERMS_AND_CONDITION, id: TERMS_AND_CONDITION });
         return;
       default:
         navigation.reset({
@@ -107,23 +114,23 @@ export const ForgotPassword: FunctionComponent = () => {
             ref={ref=>setAnimationRef(ref)}
             />
             <Label
-              children={t('ForgotPassword.checkYourMail')}
+              children={FORGOT_PASSWORD_CHECK_YOUR_MAIL}
               style={styles.checkMailTextStyle}
             />
             <Label
-              children={t('ForgotPassword.instruction')}
+              children={FORGOT_PASSWORD_INSTRUCTION}
               style={styles.instructionTextStyle}
               numberOfLines={2}
             />
             <TouchableOpacity style={styles.buttonBackgroundStyle} onPress={onPressGoToMail}>
                 <Label style={styles.buttonLabelStyle}
-                  children={t('ForgotPassword.openMailApp')} />
+                  children={FORGOT_PASSWORD_OPEN_MAIL_APP} />
             </TouchableOpacity>
 
             <View style={styles.skipViewStyle}>
               <TouchableOpacity onPress={onPressSkip}>
                 <Label
-                  children={t('ForgotPassword.skipOption')}
+                  children={FORGOT_PASSWORD_SKIP_OPTION}
                   style={styles.skipTextStyle}
                 />
               </TouchableOpacity>
@@ -134,7 +141,7 @@ export const ForgotPassword: FunctionComponent = () => {
         <View style={styles.footerStyle}>
           <View style={styles.footerLabelContainer}>
             <Label
-              children={t('signIn.agreeTo')}
+              children={SIGNIN_AGREE_TO}
               labelType="p5"
               color={themeData.textColor}
             />
@@ -143,7 +150,7 @@ export const ForgotPassword: FunctionComponent = () => {
               accessibilityLabel="terms_and_conditions"
               onPress={() => navigateToSection('TERMSANDCONDITIONS')}>
               <Label
-                children={t('terms_and_condition')}
+                children={CONST_TERMS_AND_CONDITION}
                 labelType="p5"
                 color={colors.greenishBlue}
                 style={styles.spaceStyle}
@@ -151,7 +158,7 @@ export const ForgotPassword: FunctionComponent = () => {
             </TouchableOpacity>
           </View>
           <Label
-            children={t('signIn.rights')}
+            children={SIGNIN_RIGHTS}
             labelType="p5"
             color={themeData.signinRightsColor}
             style={styles.rightsStyle}

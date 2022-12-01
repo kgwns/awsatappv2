@@ -9,7 +9,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import ArticleDetailVideo from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo'
 import { decode } from 'html-entities'
-import { displayTypes } from 'src/constants/SharedConstants'
+import { displayTypes } from 'src/constants/Constants'
 import LiveArticleDetailHeader from '../liveArticleDetailHeader/LiveArticleDetailHeader'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
@@ -90,7 +90,6 @@ const ArticleDetailImage = ({
             </View>
         )
     }
-
     return (
         <View>
 

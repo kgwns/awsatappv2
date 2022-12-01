@@ -2,10 +2,9 @@ import React from 'react'
 import { FlatList, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
-import { flatListUniqueKey, ScreensConstants } from 'src/constants'
+import { flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { LatestArticleDataType } from 'src/redux/latestNews/types'
 import { ImagesName, Styles } from 'src/shared/styles'
-import { useTranslation } from 'react-i18next';
 import { LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useNavigation } from '@react-navigation/native'
@@ -36,12 +35,11 @@ interface BannerArticleSectionProps {
 
 const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const { data, sectionId, onPress, onUpdateBookmark } = props
-    const [t] = useTranslation()
     const { themeData } = useTheme()
     const bannerData = [...data].splice(0, 1)
     const verticalArticleData = isTab ? [...data].splice(1, 4) : [...data].splice(1, 5)
     const style = useThemeAwareObject(createStyles);
-
+    const SECTION_COMBO_ONE_HEADER_RIGHT = TranslateConstants({key:TranslateKey.SECTION_COMBO_ONE_HEADER_RIGHT})
     const articleNewsItem = (item: LatestArticleDataType, index: number) => {
         const timeFormat = dateTimeAgo(item.created)
 
@@ -70,7 +68,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             textStyle: { fontFamily: fonts.AwsatDigital_Bold }
         },
         headerRight: props.hideMore ? {} : {
-            title: t('latestNewsTab.sectionComboOne.headerRight'),
+            title: SECTION_COMBO_ONE_HEADER_RIGHT,
             icon: () => {
                 return getSvgImages({
                     name: ImagesName.arrowLeftFaced,

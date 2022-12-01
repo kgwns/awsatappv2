@@ -270,7 +270,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const onGoBack = () => {
     navigation.goBack()
   }
-
+  
   const renderItem = () => (
     <View >
       <View style={styles.headerStyle}>

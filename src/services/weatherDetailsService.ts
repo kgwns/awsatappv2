@@ -1,7 +1,7 @@
 import { WEATHER_URL, WEATHER_URL_VISIBILITY } from 'src/services/apiUrls';
 import { getApiRequestWithoutAuth } from 'src/services/api';
 import { WeatherDetailBodyType, WeatherDetailSuccessPayloadType, WeatherDetailVisibilitySuccessPayloadType } from 'src/redux/weatherDetails/types';
-import { APPID, CNT, LANG, UNITS } from 'src/constants/weatherConstants';
+import { APPID, CNT, LANG, UNITS } from 'src/constants/Constants';
 
 export const fetchWeatherDetailsService = async (body: WeatherDetailBodyType) => {
   try {

@@ -3,7 +3,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import TabNavigator from '../TabNavigator';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../constants/SampleData';
+import {storeSampleData} from '../../constants/Constants';
 import { TouchableOpacity } from 'react-native';
 
 jest.mock('@react-navigation/native', () => ({

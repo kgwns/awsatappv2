@@ -13,7 +13,7 @@ import {WritersBodyGet} from 'src/redux/writers/types';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
 import { useAppPlayer, useBookmark, useLatestNewsTab, useLogin } from 'src/hooks';
 import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
@@ -80,7 +80,6 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
 
   const [opinionsDataInfo, setOpinionsDataInfo] = useState(opinionsData)
   const [showupUp,setShowPopUp] = useState(false)
-
   useEffect(() => {
     updateOpinionsData()
   }, [opinionsData,bookmarkIdInfo,isFocused])

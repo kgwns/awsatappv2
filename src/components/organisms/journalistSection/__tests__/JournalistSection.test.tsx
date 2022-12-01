@@ -1,7 +1,7 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 import { JournalistSection } from 'src/components/organisms/journalistSection/JournalistSection'
-import { journalistData } from 'src/constants/SampleData'
+import { journalistData } from 'src/constants/Constants'
 
 describe('<Journalist Section />', () => {
 

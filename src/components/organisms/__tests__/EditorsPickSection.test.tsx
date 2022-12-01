@@ -1,7 +1,7 @@
 import React from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../../constants/SampleData';
+import {storeSampleData} from '../../../constants/Constants';
 import {EditorsPickSection} from 'src/components/organisms/EditorsPickSection';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { HomePageArticleType, MainSectionBlockType } from 'src/redux/latestNews/types';

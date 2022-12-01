@@ -1,10 +1,10 @@
 import React from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import CustomDrawerContent, { SocialMediaType }  from '../CustomDrawerContent';
 import {ButtonImage, ButtonList} from 'src/components/atoms';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 
 const mockString = 'example';
 const mockNumber = 1234;

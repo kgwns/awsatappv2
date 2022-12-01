@@ -2,7 +2,7 @@ import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, { useState } from 'react';
 import { PodcastProgram } from '../PodcastProgram';
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { PodcastListItemType } from 'src/redux/podcast/types';
 import { FlatList } from 'react-native';

@@ -14,8 +14,8 @@ import { Label } from 'src/components/atoms';
 import { fonts } from 'src/shared/styles/fonts';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { Styles } from 'src/shared/styles';
-import { useTranslation } from 'react-i18next';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
+import { TranslateConstants, TranslateKey } from '../../constants/Constants';
 
 export interface myTopicsHorizontalSliderProps {
     topicsList: AllSiteCategoriesItemType[];
@@ -32,7 +32,7 @@ export const MyTopicsHorizontalSlider = ({
     showAll = true,
     selectedIndex,
 }: myTopicsHorizontalSliderProps) => {
-    const [t] = useTranslation()
+    const CONST_FAVORITE_FILTERS_EVERYONE = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_EVERYONE})
     const { themeData } = useTheme();
     const styles = useThemeAwareObject(customStyle);
     const scrollRef = useRef<ScrollView>(null);
@@ -48,7 +48,7 @@ export const MyTopicsHorizontalSlider = ({
     const onAllPress = () => {
         onPress && onPress(null, -1);
     };
-
+    
     const renderShowAll = () => (
         <View style={styles.showAllContainer}>
             <TouchableOpacity onPress={onAllPress}
@@ -57,7 +57,7 @@ export const MyTopicsHorizontalSlider = ({
                     selectedIndex == -1 && styles.filterActive,
                 ]}>
                 <Label
-                    children={t('favorite.filters.everyone')}
+                    children={CONST_FAVORITE_FILTERS_EVERYONE}
                     style={styles.label}
                     color={
                         selectedIndex == -1

@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey} from 'src/constants/Constants';
 import {NewsLetterCard} from '../molecules';
 import {isTab, normalize, normalizeBy320, screenWidth} from 'src/shared/utils';
 import { NewsLetterCardProps } from '../molecules/NewsLetterCard';

@@ -1,7 +1,7 @@
 import { View, StyleSheet, FlatList, StyleProp, ViewStyle } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from '../../shared/utils'
-import { flatListUniqueKey } from '../../constants'
+import { flatListUniqueKey } from '../../constants/Constants'
 import { articleFooterProps, ArticleItem } from '../molecules'
 import { ArticleWithOutImageProps } from '../molecules/ArticleWithOutImage'
 import { ImageLabelProps } from '../atoms/imageWithLabel/ImageWithLabel'

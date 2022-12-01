@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {
   PodcastOpinionArticleSectionData,
   storeSampleData,
-} from '../../../constants/SampleData';
+} from '../../../constants/Constants';
 import {PodcastOpinionArticleSection} from '../PodcastOpinionArticleSection';
 
 describe('<PodcastOpinionArticleSection>', () => {

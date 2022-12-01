@@ -3,7 +3,6 @@ import { View, StyleSheet, TouchableOpacity, Image, Linking, Text } from 'react-
 import { ImagesName } from '../shared/styles/images';
 import { ButtonImage, ButtonOutline, Label, LabelTypeProp } from '../components/atoms';
 import { ButtonList, Divider } from 'src/components/atoms';
-import { useTranslation } from 'react-i18next';
 import { isIOS, normalize, isTab, isAndroid } from 'src/shared/utils';
 // import CloseIcon from 'src/assets/images/icons/close.svg';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
@@ -14,7 +13,7 @@ import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useLogin, useSideMenu, useWeatherDetails } from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ABOUT_US, ADVERTISE_INFO_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
@@ -31,14 +30,14 @@ import {
   INSTAGRAM_URL,
   LINKEDIN_URL,
   TWITTER_URL,
-} from 'src/constants/SharedConstants';
+} from 'src/constants/Constants';
 import { recordLogEvent } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
 import {
   TranslateConstants,
   TranslateKey,
-} from 'src/constants/TranslateConstants';
+} from 'src/constants/Constants';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
 import Geolocation from 'react-native-geolocation-service';
 import CelsiusIcon from 'src/assets/images/icons/weather/Celsius.svg'
@@ -60,7 +59,7 @@ interface CustomDrawerContentProps { }
 
 const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
-  const [t] = useTranslation();
+  const WEATHER_DETAILS_ENABLE_LOCATION = TranslateConstants({key:TranslateKey.WEATHER_DETAILS_ENABLE_LOCATION})
 
   const styles = useThemeAwareObject(createStyles);
 
@@ -203,7 +202,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       <Divider style={styles.divider}/>
       <Label children={'--'} style={styles.emptyWeather}/>
       <ButtonOutline 
-        title={t('weatherDetail.enableLocation')}
+        title={WEATHER_DETAILS_ENABLE_LOCATION}
         style={styles.enableLocationButton}
         labelStyle={styles.EnableLocationButtonLabel}
         titleType={LabelTypeProp.h1}

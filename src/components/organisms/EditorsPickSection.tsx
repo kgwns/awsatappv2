@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
+import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { SectionHeader } from '../molecules/podcast/SectionHeader';
 import { NewsWithImageItem } from '../molecules';
 import { CustomThemeType } from 'src/shared/styles/colors';

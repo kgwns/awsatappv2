@@ -33,7 +33,7 @@ import CloudImageIcon from 'src/assets/images/icons/weather/Images/Clouds.svg'
 import FogImageIcon from 'src/assets/images/icons/weather/Images/Fog.svg'
 import RainImageIcon from 'src/assets/images/icons/weather/Images/Rain.svg'
 import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds.svg'
-import { TranslateConstants, TranslateKey } from 'src/constants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 interface weatherDate {
   date: string,

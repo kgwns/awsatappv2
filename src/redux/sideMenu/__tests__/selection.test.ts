@@ -1,4 +1,4 @@
-import { storeInfo } from "src/constants/SampleData"
+import { storeInfo } from "src/constants/Constants"
 import { getIsLoading, getSideMenuData, getSideMenuError} from "../selectors"
 import { SideMenuItemType } from "../types"
 

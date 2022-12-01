@@ -6,12 +6,11 @@ import {isNonEmptyArray, isTab, normalize, isNotEmpty} from 'src/shared/utils';
 import { ImagesName } from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ButtonImage, Image, Label} from '../atoms';
-import {useTranslation} from 'react-i18next';
 import {ImageResize} from 'src/shared/styles/text-styles';
 import { getImageUrl, isObjectNonEmpty, convertSecondsToHMS } from 'src/shared/utils/utilities';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
@@ -21,7 +20,6 @@ import { useAppPlayer } from 'src/hooks';
 
 export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayback, selectedTrack, jwPlayerID}:any) => {
   const style = useThemeAwareObject(customStyle);
-  const [t] = useTranslation();
   const navigation = useNavigation<StackNavigationProp<any>>()
   const playbackState = usePlaybackState();
   const[mediaData, setMediaData] = useState<any>({});
@@ -30,6 +28,8 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
   const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
+
+  const CONST_LISTEN_TO_ARTICLE = TranslateConstants({key:TranslateKey.LISTEN_TO_ARTICLE});
 
   useEffect(() => {
     if (trackData && trackData.id == (item.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
@@ -159,7 +159,7 @@ const onPressPlay = () => {
               onPress={onPressPlay}
             />
             <Label
-              children={t('opinionArticleDetail.listenToArticle')}
+              children={CONST_LISTEN_TO_ARTICLE}
               style={style.audioLabel}
             />
           </TouchableOpacity>

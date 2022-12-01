@@ -1,9 +1,9 @@
 import React from 'react';
 import {render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../../constants/SampleData';
+import {storeSampleData} from '../../../constants/Constants';
 import {LatestNewsSummarySection} from 'src/components/organisms/LatestNewsSummarySection';
-import {LatestNewsSummarySectionData} from 'src/constants/SampleData';
+import {LatestNewsSummarySectionData} from 'src/constants/Constants';
 
 describe('<LatestNewsSummarySection>', () => {
   let instance: RenderAPI;

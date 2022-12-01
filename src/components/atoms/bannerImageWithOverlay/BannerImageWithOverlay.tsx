@@ -42,7 +42,7 @@ export const BannerImageWithOverlay = ({
     const onError = () => {
         setIsError(true)
     }
-
+    
     return (
         <View>
             <Image fallback url={image} style={bannerImageWithOverlayStyle.image}

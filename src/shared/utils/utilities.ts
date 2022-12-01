@@ -1,6 +1,6 @@
 import { Alert, ColorSchemeName, Insets } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
-import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX, PODCAST_URL_SUFFIX, CONST_OK } from "src/constants/SharedConstants"
+import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX, PODCAST_URL_SUFFIX, CONST_OK } from "src/constants/Constants"
 import { Edge } from "react-native-safe-area-context";
 import { BASE_URL, PODCAST_SPREAKER_URL } from "src/services/apiUrls";
 import { arabic } from "src/assets/locales/ar/common-ar";
@@ -120,10 +120,6 @@ export const isArray = (data: any) => data && Array.isArray(data) ? true : false
 export const isStringIncludes = (data: any, searchText: string): boolean => {
   return isNotEmpty(data) && data.includes(searchText) ? true : false
 }
-
-export const getString = (value: any): string => {
-  return isNotEmpty(value) ? decodeHTMLTags(value) : ' '
-};
 
 export const timeAgo = (time: any) => {
   var date = new Date(time);
@@ -267,7 +263,7 @@ export const calculateYear = (time: any) => {
 };
 
 export const getFullDate = (time: any) => {
-  return calculateNonUtcDate(time) + ' ' + calculateNonUtcMonth(time) + ' ' + moment(time).get('year');
+  return calculateDate(time) + ' ' + calculateMonth(time) + ' ' + moment(time).get('year');
 }
 
 export const calculateNonUtcDateNumber = (time: any) => {
@@ -288,10 +284,10 @@ export const calculateNonUtcYear = (time: any) => {
 };
 
 export const getFormattedDate = (time: any) => {
-  const year = calculateNonUtcYear(time)
+  const year = calculateYear(time)
   const monthValue = moment(time).get('month') + 1
   const month = monthValue < 10 ? '0' + monthValue : monthValue
-  const dateValue = calculateNonUtcDate(time);
+  const dateValue = calculateDate(time);
   const date = dateValue < 10 ? '0' + dateValue : dateValue
   return year + '-' + month + '-' + date
 }

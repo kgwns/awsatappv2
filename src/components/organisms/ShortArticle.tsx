@@ -11,7 +11,7 @@ import { Styles } from 'src/shared/styles'
 import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label, RenderPhotoIcon } from '../atoms'
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
 import { ImageResize } from 'src/shared/styles/text-styles';
-import { flatListUniqueKey } from 'src/constants';
+import { flatListUniqueKey } from 'src/constants/Constants';
 import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities';
 import { useLogin } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -153,7 +153,6 @@ const ShortArticle = ({ data, headerLeft, onPress,
       {showDivider && hideImage && <Divider style={style.divider}/>}
     </FixedTouchable>
   };
-
   return (
     <View style={[style.container, addStyle]}>
       <WidgetHeader headerLeft={headerLeft} widgetHeaderStyle={{}} />

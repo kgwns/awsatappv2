@@ -17,17 +17,16 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Label, LoadingState} from 'src/components/atoms';
 import {useNavigation} from '@react-navigation/native';
 import {ImagesName} from 'src/shared/styles';
-import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {AlertModal, PopUp} from 'src/components/organisms';
-import {ScreensConstants} from 'src/constants';
+import {ScreensConstants} from 'src/constants/Constants';
 import { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import TrackPlayer from 'react-native-track-player';
 import { PodCastMiniPlayer } from 'src/components/molecules';
 import  { useAppPlayer } from 'src/hooks/useAppPlayer';
 import { fonts } from 'src/shared/styles/fonts';
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 
 
 export interface AlertPayloadType {
@@ -85,8 +84,6 @@ export const ScreenContainer = ({
   const navigation = useNavigation();
 
   const {themeData} = useTheme();
-
-  const [t] = useTranslation();
 
   const onPressBack = () => {
     navigation.goBack();

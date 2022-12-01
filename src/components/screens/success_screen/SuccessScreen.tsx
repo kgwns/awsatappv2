@@ -5,24 +5,22 @@ import {View, StyleSheet, AppState} from 'react-native';
 import {normalize, recordLogEvent} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import {useTranslation} from 'react-i18next';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles/images';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ButtonOnboard, Label} from 'src/components/atoms';
 import LottieView from 'lottie-react-native';
 import TickAnimation from '../../../assets/lottie-animation/tick.json';
-import {ScreensConstants} from 'src/constants';
+import {ScreensConstants} from 'src/constants/Constants';
 import { useDispatch } from 'react-redux';
 import { onBoardingSuccess } from 'src/redux/login/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 import { useAllWriters, useNewsLetters } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 
 export const SuccessScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
-  const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   const dispatch = useDispatch();
   const appState = useRef(AppState.currentState);

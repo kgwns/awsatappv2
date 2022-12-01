@@ -1,7 +1,7 @@
 import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import { PodcastProgramInfo } from '../PodcastProgramInfo';
-import {PodcastProgramInfoData} from 'src/constants/SampleData'
+import {PodcastProgramInfoData} from 'src/constants/Constants'
 import {PodcastListItemType} from 'src/redux/podcast/types'
 
 describe('<PodcastProgramInfo>', () => {
