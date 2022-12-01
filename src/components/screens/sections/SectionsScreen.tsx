@@ -43,7 +43,6 @@ export const SectionsScreen = () => {
   const styles = useThemeAwareObject(customStyle);
   const theme = useTheme();
 
-  // const scrollYRef = useRef(new Animated.Value(0)).current;
   const [index, setIndex] = React.useState(0);
   const [routes, setNewRoutes] = useState<any>([]);
   const [scrollY, setScrollY] = useState<any>([]);
