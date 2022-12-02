@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { NativeModules } from 'react-native';
 import { ArticleDetailBodyGet, RelatedArticleBodyGet } from 'src/redux/articleDetail/types';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { requestArticleDetail, requestRelatedArticle } from '../articleDetailService';
@@ -8,6 +9,7 @@ import { writerOpinionApi, requestLatestArticle, requestSectionCombo, mainCovera
 describe('Test LatestNews Tab Services', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
+        NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() } 
         jest.useFakeTimers('legacy');
     })
     afterEach(() => {

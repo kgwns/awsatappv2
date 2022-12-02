@@ -106,6 +106,10 @@ const podCastData: PodcastListItemType[] = [
       url: 'example',
       bundle: 'example',
       description: 'example',
+      image: '',
+      img_podcast_desktop: '',
+      img_podcast_mobile: '',
+      name: '',
       "anghami": {
           "url": "string",
           "text": "string"
@@ -137,7 +141,7 @@ jest.mock("src/hooks/usePodcast", () => ({
   usePodcast: () => {
     return {
       isLoading: true,
-      podcastListData: podCastData,
+      podcastListData: [],
       podcastEpisodeData: [],
       podcastListError: 'example',
       podcastEpisodeError:'example',

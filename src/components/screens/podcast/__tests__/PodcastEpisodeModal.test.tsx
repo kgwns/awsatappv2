@@ -135,7 +135,23 @@ const podcastEpisodeData: PodcastEpisodeItemType[] =[
       img_podcast_desktop: "abc",
       img_podcast_mobile: "abc",
       name: "abc",
-      image: "abc"
+      image: "abc",
+      "anghami": {
+        "url": "string",
+        "text": "string"
+      },
+      "apple_podcasts": {
+        "url": "string",
+        "text": "https://apple.com"
+      },
+      "google_podcast": {
+        "url": "string",
+        "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spotify_export: {
       url: "string",
@@ -213,7 +229,7 @@ describe('<PodcastEpisodeModal >', () => {
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
-            <PodcastEpisode  route={{ params: { data: PodcastEpisodeData, podcastListData: PodcastListData } }}/>
+            <PodcastEpisode  route={{ params: { data: {nid: 1}, podcastListData: PodcastListData } }}/>
           </SafeAreaProvider>
         </Provider>
       );
@@ -230,7 +246,7 @@ describe('<PodcastEpisodeModal >', () => {
     it('when onPressSave is pressed from PodcastHeader', () => {
       const testID = instance.container.findByType(PodcastProgramHeader);
       fireEvent(testID, 'onPressSave');
-      expect(setIsSaved).toBeTruthy();
+      expect(mockFunction).toBeTruthy();
     });
     it('when onPressShare is pressed from PodcastHeader', () => {
       const testID = instance.container.findByType(PodcastProgramHeader);

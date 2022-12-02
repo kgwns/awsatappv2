@@ -21,12 +21,24 @@ jest.mock('react-native-safe-area-context', () => ({
   })
 }));
 
+jest.mock("src/hooks/usePodcast", () => ({
+  usePodcast: () => {
+    return {
+      isLoading: true,
+      podcastEpisodeData: [],
+      fetchPodcastEpisodeRequest: () => {
+        return []
+      }
+    }
+  },
+}));
+
 describe('<PopulateWidget/>', () => {
   let instance: RenderAPI;
 
   const sampleArticleData: any = {
     image: 'image',
-    nid: 'nid',
+    nid: 1,
     author: 'author',
     created: 'created'
   }
@@ -92,7 +104,7 @@ describe('<PopulateWidget/>', () => {
   describe('when podcast data only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      const component = <PopulateWidget type={PopulateWidgetType.PODCAST} props={sampleArticleData}
+      const component = <PopulateWidget type={PopulateWidgetType.PODCAST} {...sampleArticleData}
         onPressBookmark={mockOnPressBookmark} />;
       instance = render(component);
     });
