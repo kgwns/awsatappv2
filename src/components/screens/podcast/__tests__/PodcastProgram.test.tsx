@@ -67,6 +67,10 @@ const podCastData: PodcastListItemType[] = [
           "url": "string",
           "text": "string"
       },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spreaker_episode_export: "abc",
     field_spreaker_show_export: "abc",
@@ -113,6 +117,10 @@ const podCastData: PodcastListItemType[] = [
       "google_podcast": {
           "url": "string",
           "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
       },
     },
     field_spotify_export: {
