@@ -100,7 +100,6 @@ const FollowFavoriteAuthor = ({
               style.titleStyle,
               {
                 width: isTab ? normalize(tabSize) : normalize(size),
-                marginTop: 0,
               },
             ]}
             numberOfLines={2}>
