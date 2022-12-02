@@ -22,8 +22,9 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY: any;}) => {
-  const navigation = useNavigation<StackNavigationProp<any>>()
+export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY?: any;}) => {
+  const navigation = useNavigation<StackNavigationProp<any>>();
+  const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
 
   const [page, setPage] = useState(0);
   const [isShowPlayer, setIsShowPlayer] = useState(false)
@@ -173,7 +174,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
         ref={ref}
         onScrollBeginDrag={() => global.refFlatList = ref}
         onScroll={Animated.event(
-          [{nativeEvent: { contentOffset: {y: scrollY}}}],
+          [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
           {useNativeDriver: false}
         )}
         scrollEventThrottle={16}

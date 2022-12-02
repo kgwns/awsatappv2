@@ -20,12 +20,13 @@ export enum GameType {
     SUDOKU
 }
 
-export const GameScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY: any}) => {
+export const GameScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY?: any}) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
 
     const { theme } = useAppCommon()
     const isDarkMode = isDarkTheme(theme)
     const style = useThemeAwareObject(customStyle)
+    const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
 
     const ref = React.useRef(null);
     useEffect(() => {
@@ -65,7 +66,7 @@ export const GameScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabInd
                 onScrollBeginDrag={() => global.refFlatList = ref}  
                 style={style.scrollContainer}
                 onScroll={Animated.event(
-                    [{nativeEvent: { contentOffset: {y: scrollY}}}],
+                    [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
                     {useNativeDriver: false}
                 )}
                 scrollEventThrottle={16}

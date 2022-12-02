@@ -28,6 +28,7 @@ export const PhotoGalleryScreen = React.memo(
   ({tabIndex, currentIndex, scrollY}: {tabIndex?: number; currentIndex?: number, scrollY?: any}) => {
     const ref = React.useRef(null);
     const navigation = useNavigation<StackNavigationProp<any>>();
+    const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
     const styles = useThemeAwareObject(customStyle);
 
     const {sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo} =
@@ -190,7 +191,7 @@ export const PhotoGalleryScreen = React.memo(
             testID="photo_gallery_list"
             onScrollBeginDrag={() => (global.refFlatList = ref)}
             onScroll={Animated.event(
-              [{nativeEvent: { contentOffset: {y: scrollY}}}],
+              [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
               {useNativeDriver: false}
             )}
             scrollEventThrottle={16}
