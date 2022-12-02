@@ -1,5 +1,5 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { PodcastProgram } from '../PodcastProgram';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/SampleData';
@@ -13,7 +13,13 @@ import { useLogin } from 'src/hooks';
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: jest.fn()
 }));
+
+jest.mock('react-native-safe-area-context', () => ({
+  ...jest.requireActual('react-native-safe-area-context'),
+  useSafeAreaInsets: () => ({top: 10}),
+}))
 
 jest.mock("src/hooks/useAppPlayer", () => ({
   useAppPlayer: () => {
@@ -49,14 +55,18 @@ const podCastData: PodcastListItemType[] = [
       url: 'example',
       bundle: 'example',
       description: 'example',
-      img_podcast_desktop: 'example',
-      img_podcast_mobile: 'example',
-      name: 'example',
-      image: 'example'
-    },
-    field_spotify_export: {
-      url: "string",
-      text: "string"
+      "anghami": {
+          "url": "string",
+          "text": "string"
+      },
+      "apple_podcasts": {
+          "url": "string",
+          "text": "https://apple.com"
+      },
+      "google_podcast": {
+          "url": "string",
+          "text": "string"
+      },
     },
     field_spreaker_episode_export: "abc",
     field_spreaker_show_export: "abc",
@@ -74,6 +84,10 @@ const podCastData: PodcastListItemType[] = [
       url: "string",
       text: "string"
     },
+    apple_podcasts: {
+      url: "string",
+      text: "string"
+    },
     body_export: "abc",
     field_duration_export: "abc",
     field_episode_export: "abc",
@@ -88,10 +102,18 @@ const podCastData: PodcastListItemType[] = [
       url: 'example',
       bundle: 'example',
       description: 'example',
-      img_podcast_desktop: 'example',
-      img_podcast_mobile: 'example',
-      name: 'example',
-      image: 'example'
+      "anghami": {
+          "url": "string",
+          "text": "string"
+      },
+      "apple_podcasts": {
+          "url": "string",
+          "text": "https://apple.com"
+      },
+      "google_podcast": {
+          "url": "string",
+          "text": "string"
+      },
     },
     field_spotify_export: {
       url: "string",
@@ -145,6 +167,7 @@ jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+  useRef: jest.fn(),
 }));
 
 describe('<PodcastProgram>', () => {
@@ -159,12 +182,13 @@ describe('<PodcastProgram>', () => {
 
   describe('when PodcastProgram only', () => {
     const useLoginMock = mockFunction;
+    const selectedItem = {current: podCastData[0]}
 
     beforeEach(() => {
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      (useState as jest.Mock).mockImplementation(() => [podCastData, setPodcastEpisodeListInfo]);
       (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeListInfo]);
+      (useRef as jest.Mock).mockReturnValueOnce(selectedItem);
       useLoginMock.mockReturnValue({
         isLoggedIn: false,
       });
