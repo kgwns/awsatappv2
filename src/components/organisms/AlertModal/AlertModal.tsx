@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, View, TouchableOpacity, StyleSheet } from "react-native";
 import { Label } from 'src/components/atoms'
 import { normalize, isDarkTheme } from 'src/shared/utils'
@@ -26,39 +26,51 @@ export const AlertModal = ({
     const [modalVisible, setModalVisibility] = useState(isVisible)
     const styles = useThemeAwareObject(customStyle)
     const { theme } = useAppCommon()
-  const isDarkMode = isDarkTheme(theme)
+    const isDarkMode = isDarkTheme(theme)
 
-    return (
-        <Modal visible={modalVisible} transparent={true} >
-            <View style={styles.container}>
-                <View style={styles.innerContainer}>
-                    <TouchableOpacity testID="AlertModalTO1" style={styles.iconStyle} onPress={() => 
-                        {
-                            onClose(!modalVisible)
-                            setModalVisibility(!modalVisible)
-                        }
-                    }>
-                        <CloseIcon fill={isDarkMode? colors.white : colors.darkSlateGray} />
-                    </TouchableOpacity>
-                    <Label
-                        children={title}
-                        style={styles.titleTextStyle}
-                    />
-                    <Label
-                        children={message}
-                        style={styles.instructionTextStyle}
-                        numberOfLines={3}
-                    />
-                    <TouchableOpacity testID="AlertModalTO2" onPress={onPressSuccess}>
-                        <View style={styles.buttonBackgroundStyle}>
-                            <Label style={styles.buttonLabelStyle}
-                                children={buttonText} />
+    useEffect(() => {
+        setModalVisibility(isVisible)
+    }, [isVisible])
+
+
+    if (!modalVisible) {
+        return null
+    } else {
+        return (
+            <>
+                <Modal visible={modalVisible} transparent={true} >
+                    <View style={styles.container}>
+                        <View style={styles.innerContainer}>
+                            <TouchableOpacity testID="AlertModalTO1" style={styles.iconStyle} onPress={() => {
+                                onClose(!modalVisible)
+                                setModalVisibility(!modalVisible)
+                            }
+                            }>
+                                <CloseIcon fill={isDarkMode ? colors.white : colors.darkSlateGray} />
+                            </TouchableOpacity>
+                            <Label
+                                children={title}
+                                style={styles.titleTextStyle}
+                            />
+                            <Label
+                                children={message}
+                                style={styles.instructionTextStyle}
+                                numberOfLines={3}
+                            />
+                            <TouchableOpacity testID="AlertModalTO2" onPress={onPressSuccess}>
+                                <View style={styles.buttonBackgroundStyle}>
+                                    <Label style={styles.buttonLabelStyle}
+                                        children={buttonText} />
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </Modal>
-    );
+                    </View>
+                </Modal>
+            </>
+        )
+
+    }
+
 };
 const customStyle = (theme: CustomThemeType) =>
     StyleSheet.create({
@@ -67,7 +79,7 @@ const customStyle = (theme: CustomThemeType) =>
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: theme.alertBackground,
+            backgroundColor: theme.alertBackground
         },
         innerContainer: {
             justifyContent: 'center',

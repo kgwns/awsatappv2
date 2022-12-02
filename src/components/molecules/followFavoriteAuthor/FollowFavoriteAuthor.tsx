@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Platform, StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import React, {useEffect, useRef, useState} from 'react';
+import {Platform, StyleProp, StyleSheet, View, ViewStyle,TouchableWithoutFeedback} from 'react-native';
 import {Image, Label} from 'src/components/atoms';
 import {isIOS, isTab, normalize, screenHeight, screenWidth} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
@@ -18,7 +17,6 @@ export interface FollowFavoriteAuthorProps {
   isSelected?: boolean;
   testId?: string;
   onPress: (isSelected: boolean) => void;
-  clickable?: boolean;
   imageSize?: number;
   containerStyle?: StyleProp<ViewStyle>;
 }
@@ -30,23 +28,26 @@ const FollowFavoriteAuthor = ({
   isSelected,
   onPress,
   testId,
-  clickable = true,
-  imageSize = 0.092 * screenHeight,
+  imageSize = 0.099 * screenHeight,
   containerStyle,
 }: FollowFavoriteAuthorProps) => {
+  const timerRef = useRef<any>(null);
   const [fallback, setFallBack] = useState(false)
 
   useEffect(() => {
-    setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       setFallBack(true)
     },2000)
+    return(() => {
+      if(timerRef.current){
+        clearTimeout(timerRef.current)
+      }
+    })
   }, [])
 
 
   const changeStatus = () => {
-    if(clickable) {
-      onPress((isSelected === false || isSelected === true)  ? !isSelected : true)
-    }
+    onPress((isSelected === false || isSelected === true)  ? !isSelected : true)
   };
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -56,11 +57,9 @@ const FollowFavoriteAuthor = ({
     <TouchableWithoutFeedback
       onPress={changeStatus}
       testID={testId}
-      style={[style.container,containerStyle]}>
+     >
       <View
-        style={{
-          alignItems: 'center',
-        }}>
+        style={[style.container,containerStyle]}>
         {!isSelected ? (
           <Grayscale>
             <Image
@@ -83,8 +82,7 @@ const FollowFavoriteAuthor = ({
             />
         )}
         <View style={style.tickIconContainer}>
-          {clickable &&
-            getSvgImages({
+          {getSvgImages({
               name: isSelected
                 ? ImagesName.authorItemActive
                 : ImagesName.authorItem,
@@ -102,7 +100,7 @@ const FollowFavoriteAuthor = ({
               style.titleStyle,
               {
                 width: isTab ? normalize(tabSize) : normalize(size),
-                marginTop: clickable ? 0 : (0.02 * screenWidth),
+                marginTop: 0,
               },
             ]}
             numberOfLines={2}>
@@ -138,8 +136,8 @@ const customStyle = (theme: CustomThemeType) => {
       marginEnd: (Platform.OS==='ios')
       ?normalize(0.020 * screenHeight)
       :normalize(0.026 * screenHeight),
-      justifyContent: 'center',
-      backgroundColor: theme.onBoardBackground,
+      alignItems: 'center',
+      backgroundColor: theme.onBoardBackground, 
     },
     titleStyle: {
       fontFamily: fonts.AwsatDigital_Bold,
@@ -155,7 +153,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     tickIconContainer: {
       bottom: isTab ? normalize(5) : normalize(6)
-    }
+    },
   });
   return FollowFavoriteAuthorStyle;
 };

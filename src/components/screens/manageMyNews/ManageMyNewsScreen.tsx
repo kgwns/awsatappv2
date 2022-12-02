@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { FlatList, ScrollView, StyleSheet, View,TouchableWithoutFeedback } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, isNotchDevice, normalize, screenHeight, screenWidth, joinArray, isIOS} from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, isNotchDevice, normalize, screenHeight, screenWidth, joinArray, isIOS } from 'src/shared/utils';
 import { BorderLabel, Divider, Label } from 'src/components/atoms';
 import { ScreenContainer } from '..';
-import { useTranslation } from 'react-i18next';
 import { FollowFavoriteAuthor } from 'src/components/molecules';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants';
@@ -19,62 +17,139 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
 import { fonts } from 'src/shared/styles/fonts';
 import { FLEX_START } from 'src/shared/styles/item-alignment';
+import { useTranslation } from 'react-i18next';
 
+const ContinueLabel = ({ label, goToScreen, writer, onPressContinue }: { label: any, goToScreen: any, writer: boolean, onPressContinue: (writer: boolean, goToScreen: any) => void; }) => {
+  const style = useThemeAwareObject(customStyle);
+  return (
+    <TouchableWithoutFeedback  onPress={() => onPressContinue(writer, goToScreen)}>
+     <View style = {style.continueLabelView}>
+     {getSvgImages({
+        name: ImagesName.plusSvg,
+        size: normalize(9),
+      })}
+      <Label style={style.continueLabel}>{label}</Label>
+     </View>
+    </TouchableWithoutFeedback>
+  )
+};
 
+const MyFavoriteBooks = (props: any) => {
+  const style = useThemeAwareObject(customStyle);
+  const [t] = useTranslation();
+  const data = props.data;
+  const scrollRef = useRef<any>(null);
+
+  const scrollToStart = () => {
+    if (isIOS) {
+      scrollRef.current?.scrollTo(0);
+    }else{
+      scrollRef.current?.scrollToEnd();
+    }
+  }
+
+  return (
+    <View style={style.favBooksView}>
+      <Label style={style.titleLabel}>
+        {t('manageMyNews.myFavoriteBooks')}
+      </Label>
+      {isNonEmptyArray(data) &&  <ScrollView horizontal={true} bounces={false} ref={scrollRef} showsHorizontalScrollIndicator={false} onContentSizeChange={scrollToStart} keyboardShouldPersistTaps={'always'} >
+        {
+          data.map((item: any, index: number) =>
+            <FollowFavoriteAuthor
+              testId='ManageMyNewsScreenID01'
+              authorName={item.name}
+              authorImage={item.field_opinion_writer_photo_export}
+              isSelected={true}
+              onPress={() => props.favAuthorOnPress && props.favAuthorOnPress(item)}
+              key={'manageAuthor' + index}
+              imageSize={85}
+              containerStyle={index === 0 ? { paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) } : {}}
+            />)
+        }
+      </ScrollView>}
+      <View style={style.booksContinue}>
+        <ContinueLabel label={t('manageMyNews.continueReadingMoreBooks')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} writer={true} onPressContinue={props.onPressContinue} />
+      </View>
+    </View>
+  );
+}
+
+const MyFavoriteTopics = (props: any) => {
+  const style = useThemeAwareObject(customStyle);
+  const [t] = useTranslation();
+  const data = props.data;
+  const numberOfTopics = data.length as number
+  const numberOfRows = isTab ? numberOfTopics > 7 ? 3 : 1 : numberOfTopics > 3 ? 3 : 1;
+  const scrollRef = useRef<any>(null);
+
+  const scrollToStart = () => {
+    if (isIOS) {
+      scrollRef.current?.scrollTo(0);
+    }else{
+      scrollRef.current?.scrollToEnd();
+    }
+  }
+
+  const renderItemTopics = (item: any, index: number) => (
+    <View style={style.renderItemTopics} key={index}>
+      <BorderLabel label={decode(item.name)} onPress={() => props.onPressTopicItem && props.onPressTopicItem(item)} isSelected={true} clickable={true} />
+    </View>
+  );
+
+  const renderTopics = () => {
+    let rows = data ? Math.ceil(data.length / numberOfRows) : 3
+    return (
+      <>
+        <Label style={style.titleLabel}>
+          {t('manageMyNews.myFavoriteTopics')}
+        </Label>
+        {isNonEmptyArray(data) && <View style={style.favTopicsView}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            bounces={false}
+            ref={scrollRef} 
+            onContentSizeChange={scrollToStart}
+            style={style.favTopicsScrollView}>
+            <FlatList
+              listKey={`${flatListUniqueKey.INTERESTED_TOPICS}-${rows}`}
+              keyExtractor={(_, index) => index.toString()}
+              numColumns={rows}
+              key={`${flatListUniqueKey.INTERESTED_TOPICS}-${rows}`}
+              data={data}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              bounces={false}
+              renderItem={({ item, index }) => renderItemTopics(item, index)}
+              style={{ marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth), }}
+            />
+          </ScrollView>
+        </View>}
+        <View style={style.topicsContinue}>
+          <ContinueLabel label={t('manageMyNews.followMoreTopics')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} writer={false} onPressContinue={props.onPressContinue} />
+        </View>
+      </>
+    )
+  }
+
+  return (
+    <View>
+      {renderTopics()}
+    </View>
+  );
+}
 
 export const ManageMyNewsScreen = () => {
+
   const navigation = useNavigation();
   const style = useThemeAwareObject(customStyle);
   const [t] = useTranslation();
   const isFocused = useIsFocused();
-  const [selectedWriters,setSelectedWriters]=useState<AllWritersItemType[]>([])
-  const [selectedInterested,setSelectedInterested]=useState<AllSiteCategoriesItemType[]>([])
-
-  const [filteredSelectedAuthor, setFilteredSelectedAuthor] = useState([]);
-  const [filteredSelectedTopic, setFilteredSelectedTopic] = useState<string[]>([]);
-
-  
-
-  const removeFavAuthorAlertPayload : AlertPayloadType = {
-    title : t('manageMyNews.alert'),
-    message: t('manageMyNews.removeAuthor'),
-    buttonTitle: t('manageMyNews.remove')
-  }
-
-  const removeTopicAlertPayload : AlertPayloadType = {
-    title : t('manageMyNews.alert'),
-    message: t('manageMyNews.removeTopic'),
-    buttonTitle: t('manageMyNews.remove')
-  }
-
-  const Remove_Author = 'Remove_Author';
-  const Remove_Topic = 'Remove_Topic';
-
-  const [alertPayload, setAlertPayload] = useState(removeFavAuthorAlertPayload);
-  const [isAlertVisible, setIsAlertVisible] = useState(false);
-  const [popupType, setPopupType] = useState(Remove_Author);
-
-  const alertOnPress = () => {
-    if(popupType === Remove_Author){
-       sendSelectedWriterInfo({ tid: joinArray(filteredSelectedAuthor), isList: true })
-       setIsAlertVisible(false);
-       setFilteredSelectedAuthor([]);
-    }else if( popupType === Remove_Topic) {
-      sendSelectedTopicInfo({ tid: joinArray(filteredSelectedTopic) })
-      setIsAlertVisible(false);
-    }
-  }
-
-  const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
-    items_per_page: 50,
-  };
-
-  const allWritersPayload: AllWritersBodyGet = {
-    items_per_page: 50,
-  };
 
   const {
     allWritersData,
+    isLoading: authorLoading,
     getSelectedAuthorsData,
     selectedAuthorsData,
     fetchAllWritersRequest,
@@ -88,6 +163,7 @@ export const ManageMyNewsScreen = () => {
   } = useAllWriters();
 
   const {
+    isLoading,
     fetchAllSiteCategoriesRequest,
     allSiteCategoriesData,
     getSelectedTopicsData,
@@ -97,6 +173,38 @@ export const ManageMyNewsScreen = () => {
     sentTopicsData,
     emptySendTopicsInfoData
   } = useAllSiteCategories()
+
+  const [selectedWriters, setSelectedWriters] = useState<AllWritersItemType[]>([])
+  const [selectedInterested, setSelectedInterested] = useState<AllSiteCategoriesItemType[]>([])
+  const [filteredSelectedAuthor, setFilteredSelectedAuthor] = useState([]);
+  const [filteredSelectedTopic, setFilteredSelectedTopic] = useState<string[]>([]);
+
+  const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
+    items_per_page: 50,
+  };
+
+  const allWritersPayload: AllWritersBodyGet = {
+    items_per_page: 50,
+  };
+
+  const removeFavAuthorAlertPayload: AlertPayloadType = {
+    title: t('manageMyNews.alert'),
+    message: t('manageMyNews.removeAuthor'),
+    buttonTitle: t('manageMyNews.remove')
+  }
+
+  const removeTopicAlertPayload: AlertPayloadType = {
+    title: t('manageMyNews.alert'),
+    message: t('manageMyNews.removeTopic'),
+    buttonTitle: t('manageMyNews.remove')
+  }
+
+  const Remove_Author = 'Remove_Author';
+  const Remove_Topic = 'Remove_Topic';
+
+  const [alertPayload, setAlertPayload] = useState(removeFavAuthorAlertPayload);
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
+  const [popupType, setPopupType] = useState(Remove_Author);
 
   useEffect(() => {
     if (isFocused) {
@@ -116,15 +224,14 @@ export const ManageMyNewsScreen = () => {
   }, [])
 
   useEffect(() => {
-    
-    if(isObjectNonEmpty(selectedAuthorsData)){
+    if (isObjectNonEmpty(selectedAuthorsData)) {
       fetchAllWritersRequest(allWritersPayload)
       getSelectedAuthorsData()
     }
   }, [sentAuthorInfoData])
 
-   useEffect(() => {
-    if(isObjectNonEmpty(sentTopicsData)){
+  useEffect(() => {
+    if (isObjectNonEmpty(sentTopicsData)) {
       fetchAllSiteCategoriesRequest(allSiteCategoriesPayload)
       getSelectedTopicsData()
     }
@@ -132,8 +239,9 @@ export const ManageMyNewsScreen = () => {
 
 
   useEffect(() => {
-    if (isObjectNonEmpty(selectedAuthorsData)) { 
-      fetchSelectedDataFromAllWriters(); }
+    if (isObjectNonEmpty(selectedAuthorsData)) {
+      fetchSelectedDataFromAllWriters();
+    }
   }, [selectedAuthorsData]);
 
   useEffect(() => {
@@ -142,9 +250,30 @@ export const ManageMyNewsScreen = () => {
 
   useEffect(() => {
     if (isFocused && allSelectedWritersDetailList) {
-      setSelectedWriters(allSelectedWritersDetailList)
+      let allSelectedWriters = allSelectedWritersDetailList
+      let selectedWritersWithCorrectOrder = selectedAuthorsData.data;
+      let tidArray: string[] = []
+      selectedWritersWithCorrectOrder?.forEach((arr: any) => {
+        tidArray.push(arr.tid);
+      });
+      const arrayAfterSort = tidArray.map((i) => allSelectedWriters.find((j) => j.tid == i)) as any;
+      setSelectedWriters(arrayAfterSort)
     }
   }, [allSelectedWritersDetailList]);
+
+  const alertOnPress = () => {
+    if (popupType === Remove_Author) {
+      const authorsData = selectedWriters.filter((i) => filteredSelectedAuthor.find((j) => Number(j) == Number(i.tid)));
+      setSelectedWriters(authorsData)
+      sendSelectedWriterInfo({ tid: joinArray(filteredSelectedAuthor), isList: true })
+      setFilteredSelectedAuthor([]);
+    } else if (popupType === Remove_Topic) {
+      sendSelectedTopicInfo({ tid: joinArray(filteredSelectedTopic) })
+      const topicsData = selectedInterested.filter((i) => filteredSelectedTopic.find((j) => Number(j) == Number(i.tid)));
+      setSelectedInterested(topicsData)
+    }
+    setIsAlertVisible(false);
+  }
 
   const fetchSelectedDataFromAllWriters = () => {
     if (selectedAuthorsData.data && selectedAuthorsData.data.length === 0) {
@@ -152,12 +281,12 @@ export const ManageMyNewsScreen = () => {
     }
     if (isNonEmptyArray(selectedAuthorsData.data)) {
       const selectedAuthorsString = getSelectedData().join('+')
-      requestAllSelectedWritersDetailsData({tid:selectedAuthorsString,items_per_page:100})
+      requestAllSelectedWritersDetailsData({ tid: selectedAuthorsString, items_per_page: 100 })
     }
   };
 
   const getSelectedData = () => {
-    return selectedAuthorsData.data.reduce((prevValue: string[], item:any ) => {
+    return selectedAuthorsData.data.reduce((prevValue: string[], item: any) => {
       if (item.tid) {
         return prevValue.concat(item.tid)
       }
@@ -185,122 +314,44 @@ export const ManageMyNewsScreen = () => {
   const onPressTopicItem = (item: any) => {
     setAlertPayload(removeTopicAlertPayload)
     setPopupType(Remove_Topic);
+    setFilteredSelectedTopic(getSelectedTopicIds().filter(e => Number(e) !== Number(item.tid)))
     setIsAlertVisible(true);
-    setFilteredSelectedTopic(getSelectedTopicIds.filter(e => e !== item.tid))
   }
 
-  const getSelectedTopicIds = selectedInterested.reduce((prevValue: string[], item: AllSiteCategoriesItemType) => {
-    return prevValue.concat(item.tid)
-  }, [])
-
-  const renderItemTopics = (item: any) => (
-    <View style={style.renderItemTopics}>
-      <BorderLabel label={decode(item.name)} onPress={() => onPressTopicItem(item)} isSelected={true} clickable={true} />
-    </View>
-  );
-
-  const ContinueLabel = ({ label, goToScreen, writer }: { label: any, goToScreen: any , writer: boolean}) => (
-    <TouchableWithoutFeedback style={style.continueLabelView} onPress={() => {
-      writer && setSelectedWriters([])
-      emptySendAuthorInfoData()
-      emptySendTopicsInfoData()
-      navigation.navigate(goToScreen)
-    }
-    }>
-      {getSvgImages({
-        name: ImagesName.plusSvg,
-        size: normalize(9),
-      })}
-      <Label style={style.continueLabel}>{label}</Label>
-    </TouchableWithoutFeedback>
-  );
+  const getSelectedTopicIds = () => {
+    return selectedInterested.reduce((prevValue: string[], item: AllSiteCategoriesItemType) => {
+      return prevValue.concat(item.tid)
+    }, [])
+  }
 
   const favAuthorOnPress = (item: any) => {
-    setAlertPayload(removeFavAuthorAlertPayload)
-    setIsAlertVisible(true);
     setPopupType(Remove_Author);
-    setFilteredSelectedAuthor(getSelectedData().filter(e => e !== Number(item.tid)))
+    setAlertPayload(removeFavAuthorAlertPayload)
+    setFilteredSelectedAuthor(getSelectedData().filter((e: any) => Number(e) !== Number(item.tid)))
+    setIsAlertVisible(true);
   }
 
-  const MyFavoriteBooks = (props: any) => {
-    const data = props.data;
-    return (
-      <View style={style.favBooksView}>
-        <Label style={style.titleLabel}>
-          {t('manageMyNews.myFavoriteBooks')}
-        </Label>
-        {selectedWriters && <ScrollView horizontal={true} bounces={false} showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps={'always'} >
-          {
-            data.map((item: any, index: number) =>
-            <FollowFavoriteAuthor
-            testId='ManageMyNewsScreenID01'
-            authorName={item.name}
-            authorImage={item.field_opinion_writer_photo_export}
-            isSelected={true}
-            onPress={() => favAuthorOnPress(item)}
-            clickable={true}
-            key={'manageAuthor' + index}
-            imageSize={85}
-            containerStyle={index === 0 ? { paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) } : {}}
-          />)
-          }
-        </ScrollView>}
-        <View style={style.booksContinue}>
-          <ContinueLabel label={t('manageMyNews.continueReadingMoreBooks')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} writer={true} />
-        </View>
-      </View>
-    );
-  }
-
-  const MyFavoriteTopics = (props: any) => {
-    const data = props.data;
-    const numberOfTopics = data.length as number
-    const numberOfRows = isTab? numberOfTopics > 7 ? 3 : 1 : numberOfTopics > 3 ? 3 : 1
-    return (
-      <View>
-        <Label style={style.titleLabel}>
-          {t('manageMyNews.myFavoriteTopics')}
-        </Label>
-        <View style={style.favTopicsView}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            bounces={false}
-            style={style.favTopicsScrollView}>
-            <FlatList
-              listKey={flatListUniqueKey.INTERESTED_TOPICS}
-              keyExtractor={(_, index) => index.toString()}
-              numColumns={data ? Math.ceil(data.length / numberOfRows) : 3}
-              data={data}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              bounces={false}
-              renderItem={({ item }) => renderItemTopics(item)}
-              style={{marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),}}
-            />
-          </ScrollView>
-        </View>
-        <View style={style.topicsContinue}>
-          <ContinueLabel label={t('manageMyNews.followMoreTopics')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} writer={false} />
-        </View>
-      </View>
-    );
+  const onPressContinue = (writer: boolean, goToScreen: any) => {
+    writer && setSelectedWriters([])
+    emptySendAuthorInfoData()
+    emptySendTopicsInfoData()
+    navigation.navigate(goToScreen as never)
   }
 
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={selectedAuthorLoadingState}
-    isAlertVisible={isAlertVisible}
-          alertPayload={alertPayload} alertOnPress={alertOnPress}
-          setIsAlertVisible={setIsAlertVisible}
-          backgroundColor={style.screenBackgroundColor.backgroundColor}
-          >
+      isAlertVisible={isAlertVisible}
+      alertPayload={alertPayload} alertOnPress={alertOnPress}
+      setIsAlertVisible={(isVisible: boolean) => setIsAlertVisible(isVisible)}
+      backgroundColor={style.screenBackgroundColor.backgroundColor}
+    >
       <View style={style.container}>
         <View style={style.favBooks}>
-            <MyFavoriteBooks data={selectedWriters} />
+          <MyFavoriteBooks data={selectedWriters} favAuthorOnPress={favAuthorOnPress} onPressContinue={onPressContinue} />
         </View>
-        <Divider style={style.divider}/>
+        <Divider style={style.divider} />
         <View style={style.favTopics}>
-            <MyFavoriteTopics data={selectedInterested} />
+          <MyFavoriteTopics data={selectedInterested} onPressTopicItem={onPressTopicItem} onPressContinue={onPressContinue} />
         </View>
       </View>
     </ScreenContainer>
@@ -345,6 +396,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     topicsContinue: {
+      paddingVertical: 0.05 * screenWidth,
       paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     booksDivider: {
@@ -381,4 +433,3 @@ const customStyle = (theme: CustomThemeType) => {
   });
   return ManageMyNewsScreenStyle;
 };
-
