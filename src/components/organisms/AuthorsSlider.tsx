@@ -50,55 +50,6 @@ const AuthorSlider = ({
   const [activeIndex, setActiveIndex] = useState<any>(isIOS ? 0 : data.length - 1);
   const playbackState = usePlaybackState();
 
-  const togglePlayback = async (nid: string, mediaData: any) => {
-    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
-
-    if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
-      return
-    }
-
-    const id = nid
-    const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
-    const title = mediaData.title ? mediaData.title : '';
-
-    const setupPlayer = async () => {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({ stopWithApp: true });
-      await TrackPlayer.add({
-        id: id,
-        url: media,
-        title: title,
-        artist: title,
-      });
-      await TrackPlayer.setRepeatMode(RepeatMode.Off);
-      await TrackPlayer.play();
-    }
-
-    if(selectedType == 'PODCAST' && onClose){
-      onClose();
-      await TrackPlayer.reset();
-      setupPlayer();
-    }else{
-      if(selectedTrack == nid){
-        if (playbackState === State.Playing) {
-          await TrackPlayer.pause();
-        }
-        else if (playbackState === State.Paused) {
-          await TrackPlayer.play();
-        }
-        else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
-          setupPlayer()
-        }
-      }else{
-          await TrackPlayer.reset();
-          setupPlayer()
-      }
-    }
-    setSelectedTrack(nid)
-    if(getSelectedTrack) {
-      getSelectedTrack(nid, 'OPINION');
-    }
-  }
 
   const renderItem = (item: any, index: number) => {
     return (
@@ -120,7 +71,6 @@ const AuthorSlider = ({
             <AuthorItem body={item.title}  
             mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)} 
             jwPlayerID={isNotEmpty(item.field_jwplayer_id_opinion_export) ? item.field_jwplayer_id_opinion_export : null}
-            togglePlayback={togglePlayback}
             selectedTrack={selectedTrack}
             selectedType={selectedType}
             author={

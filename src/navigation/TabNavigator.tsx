@@ -15,7 +15,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { isIOS, isNonEmptyArray, isTab, normalize, recordCurrentScreen, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { useNavigation, useNavigationState, DrawerActions } from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
