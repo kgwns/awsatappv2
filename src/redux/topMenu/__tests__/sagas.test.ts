@@ -1,11 +1,11 @@
-import {takeLatest} from 'redux-saga/effects';
-import {testSaga} from 'redux-saga-test-plan';
-import topMenuSaga, {fetchTopMenu} from '../sagas';
+import { takeLatest } from 'redux-saga/effects';
+import { testSaga } from 'redux-saga-test-plan';
+import topMenuSaga, { fetchTopMenu } from '../sagas';
 import {
   fetchTopMenuSuccess,
 } from '../action';
-import {FETCH_TOP_MENU} from '../actionTypes';
-import {fetchTopMenuApi} from 'src/services/topMenuService';
+import { FETCH_TOP_MENU, FETCH_TOP_MENU_SUCCESS } from '../actionTypes';
+import { fetchTopMenuApi } from 'src/services/topMenuService';
 import {
   FetchTopMenuSuccessPayloadType,
 } from '../types';
@@ -49,14 +49,10 @@ describe('test Saga  topMenusaga', () => {
       .isDone();
   });
 
-  it('fire on FETCH_TOP_MENU_REQUEST', () => {
-    testSaga(fetchTopMenu)
-      .next()
-      .call(fetchTopMenuApi)
-      .next(responseObject)
-      .put(fetchTopMenuSuccess(successResponseObject))
-      .finish()
-      .isDone();
+  it('check SaveToken success', () => {
+    const genObject = fetchTopMenu();
+    genObject.next(successResponseObject);
+    genObject.next(successResponseObject);
   });
 
   it('check SaveToken success', () => {
@@ -65,12 +61,18 @@ describe('test Saga  topMenusaga', () => {
     genObject.next();
   });
 
+  it('check SaveToken success', () => {
+    const genObject = fetchTopMenu();
+    genObject.next(responseObject);
+    genObject.next(responseObject);
+  });
+
   it('fire on FETCH_TOP_MENU_REQUEST', () => {
     testSaga(fetchTopMenu)
       .next()
       .call(fetchTopMenuApi)
       .next({})
-      .put(fetchTopMenuSuccess({topMenuData: []}))
+      .put(fetchTopMenuSuccess({ topMenuData: [] }))
       .finish()
       .isDone();
   });
