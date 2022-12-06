@@ -1,7 +1,7 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { fetchMostReadApi } from 'src/services/mostReadService';
-
+import * as serviceApi from 'src/services/api';
 describe('Test Most Read Services', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
@@ -20,14 +20,12 @@ describe('Test Most Read Services', () => {
             expect(response).toBeInstanceOf(Object);
         });
     });
-    it('test when response code is 500', () => {
-        mock.onGet().reply(500, {
-            error: 'Something Went Wrong',
-        });
+    it('test fetchMostReadApi throws error', () => {
+        const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+        getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-        return fetchMostReadApi().catch((error: unknown) => {
-            const errorResponse = error as AxiosError;
-            expect(errorResponse.response?.status).toEqual(500);
+        return fetchMostReadApi().catch((error) => {
+            expect(error.message).toEqual('Not able to fetch api')
         });
     });
 });

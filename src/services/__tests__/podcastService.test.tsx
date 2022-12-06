@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { PodcastEpisodeBodyGet, PodcastListBodyGet } from 'src/redux/podcast/types';
 import { fetchPodcastEpisodeApi, fetchPodcastListApi, fetchSingleEpisodeSpreakerApi } from '../podcastService';
-
+import * as serviceApi from 'src/services/api';
 describe('Test Podcast Services', () => {
     const mock = new MockAdapter(axios);
 
@@ -36,14 +36,12 @@ describe('Test Podcast Services', () => {
         });
     });
 
-    it('test when fetchPodcastListApi response code is 500', () => {
-        mock.onGet().reply(500, {
-            error: 'Something Went Wrong',
-        });
+    it('test when fetchPodcastListApi throws error', () => {
+        const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+        getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-        return fetchPodcastListApi(body).catch((error: unknown) => {
-            const errorResponse = error as AxiosError;
-            expect(errorResponse.response?.status).toEqual(500);
+        return fetchPodcastListApi(body).catch((error) => {
+            expect(error.message).toEqual('Not able to fetch api');
         });
     });
 
@@ -57,16 +55,26 @@ describe('Test Podcast Services', () => {
         });
     });
 
-    it('test when fetchPodcastEpisodeApi response code is 500', () => {
-        mock.onGet().reply(500, {
-            error: 'Something Went Wrong',
-        });
+    it('test when fetchPodcastEpisodeApi throws error', () => {
+        const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+        getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-        return fetchPodcastEpisodeApi(bodyPodcastEpisode).catch((error: unknown) => {
-            const errorResponse = error as AxiosError;
-            expect(errorResponse.response?.status).toEqual(500);
+        return fetchPodcastEpisodeApi(bodyPodcastEpisode).catch((error) => {
+            expect(error.message).toEqual('Not able to fetch api');
         });
     });
+
+    it('test when fetchSingleEpisodeSpreakerApi response code is 200',() => {
+        mock.onGet().reply(200, {
+            result: true,
+        });
+        // const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+        // getCacheApiRequest.mockImplementationOnce(() => ({result:true}));
+
+        return fetchSingleEpisodeSpreakerApi(bodySingleEpisodeSpreakerApi).then(response => {
+            expect(response).toBeInstanceOf(Object);
+        });
+    })
 
     it('test when fetchSingleEpisodeSpreakerApi response code is 404', () => {
         mock.onGet().reply(404, {
