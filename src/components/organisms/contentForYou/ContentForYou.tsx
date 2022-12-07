@@ -69,48 +69,6 @@ export const ContentForYou = () => {
     const [selectedTrack, setSelectedTrack] = useState<any>(null);
     const playbackState = usePlaybackState();
 
-    const togglePlayback = async (nid: string, mediaData: any) => {
-        const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
-
-        if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
-        return
-        }
-
-        const id = nid
-        const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
-        const title = mediaData.title ? mediaData.title : '';
-
-        const setupPlayer = async () => {
-        await TrackPlayer.setupPlayer();
-        await TrackPlayer.updateOptions({ stopWithApp: true });
-        await TrackPlayer.add({
-            id: id,
-            url: media,
-            title: title,
-            artist: title,
-        });
-        await TrackPlayer.setRepeatMode(RepeatMode.Off);
-        await TrackPlayer.play();
-        }
-
-        if(selectedTrack == nid){
-        if (playbackState === State.Playing) {
-            await TrackPlayer.pause();
-        }
-        else if (playbackState === State.Paused) {
-            await TrackPlayer.play();
-        }
-        else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
-            setupPlayer()
-        }
-        }else{
-            await TrackPlayer.reset();
-            setupPlayer()
-        }
-        setSelectedTrack(nid) 
-    }
-  
-
 
     useEffect(() => {
         getSelectedTopicsData();
@@ -387,7 +345,6 @@ export const ContentForYou = () => {
                 containerStyle={[styles.itemContainer, !isNonEmptyArray(selectedTopics) && {paddingVertical: 0}]}
                 widgetHeaderContainerStyle={styles.authorWidgetContainer}
                 widgetHeaderStyle={styles.authorWidgetHeader}
-                togglePlayback={togglePlayback}
                 selectedTrack={selectedTrack}
                 lastIndexDivider={ !isNonEmptyArray(selectedTopics)}
                 showHeader={!isNonEmptyArray(selectedTopics) && index != 0 ? false : true}

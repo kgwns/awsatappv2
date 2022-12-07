@@ -14,8 +14,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: { tabIndex?: number; currentIndex?: number; scrollY: any }) => {
+export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: { tabIndex?: number; currentIndex?: number; scrollY?: any }) => {
   const insets = useSafeAreaInsets();
+  const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
 
   const styles = useThemeAwareObject(createStyles);
 
@@ -152,7 +153,7 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: {
           ref={ref}
           onScrollBeginDrag={() => global.refFlatList = ref}
           onScroll={Animated.event(
-            [{nativeEvent: { contentOffset: {y: scrollY}}}],
+            [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
             {useNativeDriver: false}
           )}
           scrollEventThrottle={16}

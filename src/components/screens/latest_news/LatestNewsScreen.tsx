@@ -335,27 +335,6 @@ export const LatestNewsScreen = () => {
     await TrackPlayer.play();
   }
 
-  const togglePlayback = async () => {
-    if (playbackState === State.Playing) {
-      await TrackPlayer.pause();
-    }
-    else if (playbackState === State.Paused) {
-      await TrackPlayer.play();
-    }
-    else if ( playbackState === State.Paused || playbackState == State.None || playbackState == State.Stopped) {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({ stopWithApp: true });
-      await TrackPlayer.add({
-        id: podcastData.nid,
-        url: getPodcastUrl(podcastData.field_spreaker_episode_export),
-        title: podcastData.title,
-        artist: podcastData.title,
-      });
-      TrackPlayer.setRepeatMode(RepeatMode.Off);
-      await TrackPlayer.play();
-    }
-  };
-
   const onClose = async () => {
     await TrackPlayer.stop()
     setPlayerVisibility(false)
@@ -453,7 +432,7 @@ export const LatestNewsScreen = () => {
         }
       />
       {isPlayerVisible && <View style={latestNewsScreenStyle.miniPlayerContainer}>
-        <PodCastMiniPlayer data={podcastData} onClose={onClose} onPlaybackPress={togglePlayback} />
+        <PodCastMiniPlayer data={podcastData} onClose={onClose}  />
       </View>}
     </ScreenContainer>
   )

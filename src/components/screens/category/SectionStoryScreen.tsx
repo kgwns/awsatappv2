@@ -44,7 +44,7 @@ export type SectionStoryScreenProps = {
   currentIndex?: number;
   childInfo: TopMenuItemType[];
   onUpdateChildSection?: (data: TopMenuItemType[]) => void;
-  scrollY: any;
+  scrollY?: any;
 }
 
 export const SectionStoryScreen = React.memo(({
@@ -56,6 +56,7 @@ export const SectionStoryScreen = React.memo(({
   scrollY
 }: SectionStoryScreenProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
+  const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
   
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
@@ -567,7 +568,7 @@ export const SectionStoryScreen = React.memo(({
        ref={ref}
        onScrollBeginDrag={() => global.refFlatList = ref}
        onScroll={Animated.event(
-        [{nativeEvent: { contentOffset: {y: scrollY}}}],
+        [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
         {useNativeDriver: false}
       )}
       scrollEventThrottle={16}

@@ -22,9 +22,10 @@ const documentaryVideoPayload: RequestDocumentaryVideoPayload = {
   page: 1,
 }
 
-export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY: any}) => {
+export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY?: any}) => {
 
   const styles = useThemeAwareObject(customStyle);
+  const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
   const {isLoading,videoData,fetchVideoRequest} = useVideoList();
   const {isVideoLoading, videoDocumentaryData, fetchDocumentaryVideoRequest} = useDocumentaryVideo();
   const [showupUp,setShowPopUp] = useState(false)
@@ -201,7 +202,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
            testID='main_FlatList1'
            onScrollBeginDrag={() => global.refFlatList = ref}
            onScroll={Animated.event(
-            [{nativeEvent: { contentOffset: {y: scrollY}}}],
+            [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
             {useNativeDriver: false}
           )}
           scrollEventThrottle={16}

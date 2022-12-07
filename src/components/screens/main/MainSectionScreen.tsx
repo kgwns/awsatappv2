@@ -91,9 +91,10 @@ const sectionComboEightPayload: RequestSectionComboBodyGet = {
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, currentIndex, scrollY }:{hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number; scrollY: any; }) => {
+export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, currentIndex, scrollY }:{hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number; scrollY?: any; }) => {
   const { themeData } = useTheme()
-  const mainSectionStyle = useThemeAwareObject(customStyle)
+  const mainSectionStyle = useThemeAwareObject(customStyle);
+  const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
 
   const navigation = useNavigation<StackNavigationProp<any>>()
 
@@ -985,7 +986,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         ref={ref}
         onScrollBeginDrag={() => global.refFlatList = ref}
         onScroll={Animated.event(
-          [{nativeEvent: { contentOffset: {y: scrollY}}}],
+          [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
           {useNativeDriver: false}
         )}
         scrollEventThrottle={1}

@@ -242,30 +242,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
       !showMiniPlayer && setShowMiniPlayer(true);
       showMiniPlayer && playbackState == State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }
-  }
-
-  // const togglePlayback = async () => {
-  //   if (playbackState === State.Playing) {
-  //     await TrackPlayer.pause();
-  //   }
-  //   else if (playbackState === State.Paused) {
-  //     await TrackPlayer.play();
-  //   }
-  //   else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
-  //     await TrackPlayer.setupPlayer();
-  //     await TrackPlayer.updateOptions({ stopWithApp: true });
-  //     await TrackPlayer.add({
-  //       id: podcastEpisodeInfo.nid,
-  //       url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
-  //       title: podcastEpisodeInfo.title,
-  //       artist: podcastEpisodeInfo.title,
-  //     });
-  //     TrackPlayer.setRepeatMode(RepeatMode.Off);
-  //     await TrackPlayer.play();
-  //   }
-  // };
-
- 
+  } 
 
   const onGoBack = () => {
     navigation.goBack()

@@ -8,7 +8,7 @@ import { isDarkTheme, screenWidth } from 'src/shared/utils';
 import HeaderDarkLogoSvg from 'src/assets/images/headerIcons/headerDarkLogoStretch.svg';
 import HeaderLogoSvg from 'src/assets/images/headerIcons/headerLogoStretch.svg';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useAppCommon } from 'src/hooks';
 
 export interface HeaderProps {
