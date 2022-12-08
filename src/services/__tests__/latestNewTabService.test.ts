@@ -5,7 +5,8 @@ import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSecti
 import { requestArticleDetail, requestRelatedArticle } from '../articleDetailService';
 import { writerOpinionApi, requestLatestArticle, requestSectionCombo, mainCoverageBlockApi, podcastHomeApi, mainHorizontalArticleApi, editorsChoiceApi, spotlightApi, requestSpotlightArticleSection, mainFeaturedArticleApi, infoGraphicBlockApi, archivedArticleApi } from '../latestTabService';
 import * as serviceApi from 'src/services/api';
-import * as latestTabService from '../latestTabService';
+import { NativeModules } from 'react-native';
+
 describe('Test LatestNews Tab Services', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
@@ -108,8 +109,34 @@ describe('Test LatestNews Tab Services', () => {
             mock.onGet().reply(200, {
                 result: true,
             });
-
+            NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() }
             return requestSectionCombo(requestObject).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+
+        it('test getSectionComboUrl while sending id as string', () => {
+            const idInString = {
+                id:'11'
+            }
+            mock.onGet().reply(200, {
+                result: true,
+            });
+            NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() }
+            return requestSectionCombo(idInString).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+
+        it('test getSectionComboUrl while sending id as array', () => {
+            const idInArray = {
+                id:[11]
+            }
+            mock.onGet().reply(200, {
+                result: true,
+            });
+            NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() }
+            return requestSectionCombo(idInArray).then(response => {
                 expect(response).toBeInstanceOf(Object);
             });
         });
@@ -134,8 +161,7 @@ describe('Test LatestNews Tab Services', () => {
                 expect(errorResponse.response?.status).toEqual(500);
             });
         });
-
-    })
+    });
 
     describe('Check requestLatestArticle method', () => {
         const requestObject: LatestArticleBodyGet = {
@@ -189,10 +215,9 @@ describe('Test LatestNews Tab Services', () => {
 
     describe('Check mainCoverageBlockApi method', () => {
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
-                result: true,
-            });
-
+            const getApiRequest = jest.spyOn(serviceApi,'getApiRequest');
+            getApiRequest.mockResolvedValueOnce({result:true});
+            
             return mainCoverageBlockApi().then((response: any) => {
                 expect(response).toBeInstanceOf(Object);
             });

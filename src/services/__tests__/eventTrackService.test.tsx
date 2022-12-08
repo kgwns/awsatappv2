@@ -1,7 +1,7 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError } from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { sendUserEventTracking, TrackEventBody, TrackingEventType } from "../eventTrackService";
-import { store } from '../../redux/store'
+import { store } from "src/redux/store";
 describe('Check event track service', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
@@ -9,8 +9,8 @@ describe('Check event track service', () => {
     });
     afterEach(() => {
         mock.reset();
+        jest.clearAllMocks();
     });
-
     const body: TrackEventBody = {
         personId: '',
         events: [
@@ -21,34 +21,22 @@ describe('Check event track service', () => {
         ]
     }
 
-    it('test eventTrackService when response code is 200', () => {
-        store.getState().userDetails = {
-            userProfileData: {
-                user: {
-                    id: '1431'
-                }
-            }
-        }
-        mock.onPost().reply(200,{
-            result: true,
-        });
+    it('test eventTrackService when response code is 200',async () => {
 
-        return sendUserEventTracking(body).then((response) => {
-            expect(response).toBeInstanceOf(Object);
-        })
+        jest.spyOn(store,'getState').mockReturnValueOnce({userDetails:{userProfileData:{user:{id:'1423'}}}})
+        jest.spyOn(axios,'post').mockReturnValueOnce(Promise.resolve({result:true}))
+
+        await sendUserEventTracking(body);
+        expect(axios.post).toHaveBeenCalled();
+       
     });
-
     it('test eventTrackService when response code is 500', () => {
-        store.getState().userDetails = {
-            userProfileData: {
-                user: {
-                    id: '1431'
-                }
-            }
-        }
+
         mock.onPost().reply(500, ({
             error: 'Something Went Wrong',
-        }))
+        }));
+
+        jest.spyOn(store,'getState').mockReturnValueOnce({userDetails:{userProfileData:{user:{id:'1423'}}}});
 
         return sendUserEventTracking(body).catch((error: unknown) => {
             const errorResponse = error as AxiosError;

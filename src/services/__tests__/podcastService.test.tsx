@@ -68,8 +68,8 @@ describe('Test Podcast Services', () => {
         mock.onGet().reply(200, {
             result: true,
         });
-        // const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
-        // getCacheApiRequest.mockImplementationOnce(() => ({result:true}));
+        const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+        getCacheApiRequest.mockReturnValueOnce(Promise.resolve({result:true}))
 
         return fetchSingleEpisodeSpreakerApi(bodySingleEpisodeSpreakerApi).then(response => {
             expect(response).toBeInstanceOf(Object);
