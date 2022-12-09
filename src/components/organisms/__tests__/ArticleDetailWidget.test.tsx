@@ -6,7 +6,6 @@ import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 describe('<ArticleDetailWidget>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
-
     beforeEach(() => {
         const data: ArticleDetailDataType = {
             title: 'title',
@@ -33,7 +32,8 @@ describe('<ArticleDetailWidget>', () => {
             caption: 'asd',
             subtitle: 'asdf',
             jwplayerId: '1',
-            created: 'asxdc'
+            created: 'asxdc',
+            scribbleLiveId:'24324'
         }
 
         const component = 

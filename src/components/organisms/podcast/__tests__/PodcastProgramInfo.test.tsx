@@ -1,8 +1,9 @@
-import {render, RenderAPI} from '@testing-library/react-native';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import { PodcastProgramInfo } from '../PodcastProgramInfo';
-import {PodcastProgramInfoData} from 'src/constants/SampleData'
-import {PodcastListItemType} from 'src/redux/podcast/types'
+import { PodcastListItemType } from 'src/redux/podcast/types'
+import { Linking } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 
 describe('<PodcastProgramInfo>', () => {
   let instance: RenderAPI;
@@ -25,7 +26,24 @@ describe('<PodcastProgramInfo>', () => {
       description: "<p class=\"text-align-right\">Breifing</p>\n",
       img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
       img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
-      name: "صباح الخير"
+      name: "صباح الخير",
+      image: 'https://picsum.photos/200/300',
+      apple_podcasts: {
+        url: 'https://appletest.com',
+        text: 'apple'
+      },
+      google_podcast: {
+        url: 'https://googletest.com',
+        text: 'google'
+      },
+      spotify: {
+        url: 'https://spotifytest.com',
+        text: 'spotify'
+      },
+      anghami: {
+        url: 'https://anghamitest.com',
+        text: 'anghami'
+      }
     },
     field_spotify_export: null,
     field_spreaker_episode_export: null,
@@ -35,10 +53,10 @@ describe('<PodcastProgramInfo>', () => {
     body_export: null
   }
 
-  describe('when PodcastProgramInfo only', () => {
+  describe('Test podcast Program info', () => {
     beforeEach(() => {
       const component = (
-          <PodcastProgramInfo data={samplePodcastData} />
+        <PodcastProgramInfo data={samplePodcastData} />
       );
       instance = render(component);
     });
@@ -50,5 +68,55 @@ describe('<PodcastProgramInfo>', () => {
     it('Should render PodcastProgramInfo', () => {
       expect(instance).toBeDefined();
     });
+    it('test when clicks on apple podcasts url', () => {
+      const testId = instance.getByTestId('applePodcastsUrl');
+      fireEvent(testId, 'onPress');
+      expect(Linking.openURL).toHaveBeenCalled()
+    });
+    it('test when clicks on Google podcasts url', () => {
+      const testId = instance.getByTestId('googlePodcastUrl');
+      fireEvent(testId, 'onPress');
+      expect(Linking.openURL).toHaveBeenCalled()
+    });
+    it('test when clicks on spotify podcasts url', () => {
+      const testId = instance.getByTestId('spotifyPodcastUrl');
+      fireEvent(testId, 'onPress');
+      expect(Linking.openURL).toHaveBeenCalled()
+    });
+    it('test when clicks on anghami podcasts url', () => {
+      const testId = instance.getByTestId('anghamiPodcastUrl');
+      fireEvent(testId, 'onPress');
+      expect(Linking.openURL).toHaveBeenCalled()
+    });
+
+    it('test when clicks on apple podcasts url in tab', () => {
+      jest.doMock('src/shared/utils/dimensions',()=>{
+        return {
+          isTab:true
+        }
+      })
+      const testId = instance.getByTestId('tabApplePodcastsUrl');
+      fireEvent(testId, 'onPress');
+      expect(Linking.openURL).toHaveBeenCalled()
+    });
+    it('test when clicks on Google podcasts url in tab', () => {
+      // jest.spyOn(DeviceInfo,'isTablet').mockReturnValue(true)
+      const testId = instance.getByTestId('tabGooglePodcastUrl');
+      fireEvent(testId, 'onPress');
+      expect(Linking.openURL).toHaveBeenCalled()
+    });
+    it('test when clicks on spotify podcasts url in tab', () => {
+      jest.spyOn(DeviceInfo, 'isTablet').mockReturnValueOnce(true)
+      const testId = instance.getByTestId('tabSpotifyPodcastUrl');
+      fireEvent(testId, 'onPress');
+      expect(Linking.openURL).toHaveBeenCalled()
+    });
+    it('test when clicks on anghami podcasts url in tab', () => {
+      jest.spyOn(DeviceInfo, 'isTablet').mockReturnValueOnce(true)
+      const testId = instance.getByTestId('tabAnghamiPodcastUrl');
+      fireEvent(testId, 'onPress');
+      expect(Linking.openURL).toHaveBeenCalled()
+    });
+
   });
 });

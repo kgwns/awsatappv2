@@ -151,13 +151,14 @@ describe('<Favorite Video Component >', () => {
     });
 })
 
-describe('<Favorite Video Component >', () => {
+describe('<HeadlinesSection >', () => {
   let instance: RenderAPI;
   const mockFunction= jest.fn();
 
   beforeEach(() => {
      const component = <HeadlinesSection tickerData={videoTabInfo1} loop={false} headlineTitle={'المهاجرين'} headlineDescription={'أمريكا'} />
      instance= render(component)
+     jest.useFakeTimers()
   })
 
   it('Should render the component', () => {

@@ -98,16 +98,16 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
         <View style={{ alignItems: 'center', paddingTop: normalize(20) }}>
             <Label children={t('podcastEpisode.listenTo')} style={styles.listToText} />
             <View style={styles.podcastContainer}>
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}>
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)} testID = "spotifyUrl">
                     <SpotifyIcon width={25} height={25} />
                 </TouchableOpacity>
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)}>
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)} testID = "anghamiUrl">
                     <AnghamiPodcastIcon width={24} height={24} />
                 </TouchableOpacity>
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)}>
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)} testID = "appleUrl">
                     <ApplePodcastIcon width={23} height={23} />
                 </TouchableOpacity>
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)}>
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)} testID = "googleUrl">
                     <GooglePodcastIcon width={23} height={23} />
                 </TouchableOpacity>
             </View>
