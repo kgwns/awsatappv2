@@ -4,7 +4,16 @@ import { Provider } from 'react-redux';
 import { storeSampleData } from 'src/constants/SampleData';
 import { GetFCMToken } from 'src/firebase/notification/notification';
 import App from '../../App';
-
+jest.mock('@react-native-firebase/app', () => {
+  return {
+    messaging: jest.fn(() => {
+      return {
+        onMessage: jest.fn(),
+        getToken: jest.fn(() => Promise.resolve('myMockToken'))
+      };
+    }),
+  };
+});
 describe('<App>', () => {
   let instance: RenderAPI;
 
