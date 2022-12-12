@@ -1,4 +1,4 @@
-import ArticleGridView from '../ArticleGridView';
+import ArticleImageView from "../ArticleImageView";
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from "react";
 import { FlatList } from "react-native";
@@ -11,17 +11,17 @@ const data = [{
     author: 'author',
     created: 'string',
     isBookmarked: false,
-    type: 'Album',
+    type: 'HomePageArticleType',
     blockName: 'string',
     position: 'string',
     displayType: 'string',
 }]
-describe('Check ArticleGridView should render component', () => {
+describe('Check ArticleImageView', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
     beforeEach(() => {
         const component = (
-            <ArticleGridView data={data} showHighlightTitle={true} showImage={true} />
+            <ArticleImageView data={data} showHighlightTitle={true} showImage={true} />
         )
         instance = render(component)
     });
@@ -42,19 +42,18 @@ describe('Check ArticleGridView should render component', () => {
         fireEvent(testID, 'ItemSeparatorComponent');
         expect(mockFunction).toBeTruthy();
     });
-    it('should onPress grid view',() => {
-        const testId = instance.getByTestId('gridViewClick');
+    it('should onPress image view',() => {
+        const testId = instance.getByTestId('articleImageView');
         fireEvent(testId,'onPress');
         expect(mockFunction).toBeTruthy();
     })
 })
 
-describe('Check ArticleGridView should return null when passing empty data', () => {
+describe('Check ArticleImageView returns null when passing empty data', () => {
     let instance: RenderAPI
-    const mockFunction = jest.fn();
     beforeEach(() => {
         const component = (
-            <ArticleGridView data={{}} showHighlightTitle={true} showImage={true} />
+            <ArticleImageView data={{}} showHighlightTitle={true} showImage={true} />
         )
         instance = render(component)
     });
