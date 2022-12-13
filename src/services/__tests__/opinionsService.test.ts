@@ -2,7 +2,7 @@ import axios, {AxiosError} from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { fetchHomeOpinionsListApi, fetchOpinionsApi, fetchOpinionsListApi, fetchWriterOpinionsApi } from 'src/services/opinionsService';
 import { OpinionsBodyGet, WriterOpinionsBodyGet } from 'src/redux/opinions/types';
-
+import * as serviceApi from 'src/services/api';
 describe('Test Opinions Services', () => {
   const mock = new MockAdapter(axios);
   const body: OpinionsBodyGet = {
@@ -28,14 +28,12 @@ describe('Test Opinions Services', () => {
       expect(response).toBeInstanceOf(Object);
     });
   });
-  it('test when response code is 500', () => {
-    mock.onGet().reply(500, {
-      error: 'Something Went Wrong',
-    });
+  it('test fetchOpinionsApi throws error', () => {
+    const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+    getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-    return fetchOpinionsApi(body).catch((error: unknown) => {
-      const errorResponse = error as AxiosError;
-      expect(errorResponse.response?.status).toEqual(500);
+    return fetchOpinionsApi(body).catch((error) => {
+      expect(error.message).toEqual('Not able to fetch api');
     });
   });
 
@@ -49,14 +47,12 @@ describe('Test Opinions Services', () => {
     });
   });
 
-  it('test when response code is 500', () => {
-    mock.onGet().reply(500, {
-      error: 'Something Went Wrong',
-    });
+  it('test fetchWriterOpinionsApi throws error', () => {
+    const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+    getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-    return fetchWriterOpinionsApi(payload).catch((error: unknown) => {
-      const errorResponse = error as AxiosError;
-      expect(errorResponse.response?.status).toEqual(500);
+    return fetchWriterOpinionsApi(payload).catch((error) => {
+      expect(error.message).toEqual('Not able to fetch api');
     });
   });
 
@@ -86,17 +82,16 @@ describe('Test Opinions Services', () => {
     });
   });
 
-  it('test when response code is 500', () => {
-    mock.onGet().reply(500, {
-      error: 'Something Went Wrong',
-    });
+  it('test fetchOpinionsListApi throws error', () => {
+    const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+    getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
     return fetchOpinionsListApi({
       nid: '12345',
       page: 1,
-    }).catch((error: unknown) => {
-      const errorResponse = error as AxiosError;
-      expect(errorResponse.response?.status).toEqual(500);
+    }).catch((error) => {
+      expect(error.message).toEqual('Not able to fetch api');
+
     });
   });
 
@@ -110,14 +105,12 @@ describe('Test Opinions Services', () => {
     });
   });
 
-  it('test when response code is 500', () => {
-    mock.onGet().reply(500, {
-      error: 'Something Went Wrong',
-    });
+  it('test fetchHomeOpinionsListApi throws error', () => {
+    const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+    getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-    return fetchHomeOpinionsListApi().catch((error: unknown) => {
-      const errorResponse = error as AxiosError;
-      expect(errorResponse.response?.status).toEqual(500);
+    return fetchHomeOpinionsListApi().catch((error) => {
+      expect(error.message).toEqual('Not able to fetch api');
     });
   });
 
