@@ -184,6 +184,13 @@ jest.mock('@react-native-firebase/messaging', () => {
   });
 });
 
+jest.mock('@react-native-firebase/app', () => {
+  const actualNav = jest.requireActual('@react-native-firebase/app');
+  return {
+    ...actualNav, 
+    messaging: ({ onMessage: jest.fn()})} 
+});
+
 jest.mock('react-native-permissions', () =>
   require('react-native-permissions/mock'),
 );

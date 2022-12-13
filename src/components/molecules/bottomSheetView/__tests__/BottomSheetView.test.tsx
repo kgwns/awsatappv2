@@ -26,20 +26,8 @@ describe('BottomSheetView', () => {
     expect(instance).toBeDefined();
   });
 
-  it('Should call Image fallbackContent', () => {
-    const element = instance.container.findAllByType(Image)[0];
-    fireEvent(element, 'fallbackContent');
-    expect(element).toBeTruthy();
-  });
-
   it('Should getSvgImages', () => {
     expect(getSvgImages).toBeTruthy();
-  });
-
-  it('Should call Image fallbackContent', () => {
-    const element = instance.container.findAllByType(Image)[0];
-    fireEvent(element, 'fallbackContent');
-    expect(getSvgImages).toBeDefined();
   });
 
 })

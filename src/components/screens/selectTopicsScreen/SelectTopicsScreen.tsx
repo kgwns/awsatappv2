@@ -95,7 +95,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
     emptySendTopicsInfoData();
   }
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} backgroundColor={style.screenBackgroundColor.backgroundColor}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
         <View
           style={[
