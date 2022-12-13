@@ -8,10 +8,13 @@ import {
    SEND_SELECTED_TOPIC_SUCCESS,
    EMPTY_SELECTED_TOPICS_INFO,
    DESELECT_ALL_TOPICS_INFO,
-   EMPTY_SEND_TOPICS_INFO
+   EMPTY_SEND_TOPICS_INFO,
+   GET_SELECTED_TOPICS,
+   GET_SELECTED_TOPICS_SUCCESS,
+   GET_SELECTED_TOPICS_ERROR
 } from 'src/redux/allSiteCategories/actionTypes';
 import { fetchAllSiteCategories, fetchAllSiteCategoriesSuccess, fetchAllSiteCategoriesFailed,
-    sendSelectedTopic, sendSelectedTopicSuccess, sendSelectedTopicFailed, emptySelectedTopicsInfo, emptySendTopicsInfo } from 'src/redux/allSiteCategories/action';
+    sendSelectedTopic, sendSelectedTopicSuccess, sendSelectedTopicFailed, emptySelectedTopicsInfo, emptySendTopicsInfo, getSelectedTopics, deselectAllTopicsInfo, getSelectedTopicsSuccess, getSelectedTopicsFailed } from 'src/redux/allSiteCategories/action';
 
 
 describe('AllWriters Action', () => {
@@ -68,5 +71,25 @@ describe('AllWriters Action', () => {
     test('Check request emptySendTopicsInfo', () => {
         const request = emptySendTopicsInfo()
         expect(request.type).toEqual(EMPTY_SEND_TOPICS_INFO)
+    })
+
+    test('Check request getSelectedTopics', () => {
+        const request = getSelectedTopics()
+        expect(request.type).toEqual(GET_SELECTED_TOPICS)
+    })
+
+    test('Check request deselectAllTopicsInfo', () => {
+        const request = deselectAllTopicsInfo({})
+        expect(request.type).toEqual(DESELECT_ALL_TOPICS_INFO)
+    })
+
+    test('Check request getSelectedTopicsSuccess', () => {
+        const request = getSelectedTopicsSuccess({selectedTopicsData:''})
+        expect(request.type).toEqual(GET_SELECTED_TOPICS_SUCCESS)
+    })
+
+    test('Check request getSelectedTopicsFailed', () => {
+        const request = getSelectedTopicsFailed({error:''})
+        expect(request.type).toEqual(GET_SELECTED_TOPICS_ERROR)
     })
 })

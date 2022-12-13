@@ -23,6 +23,7 @@ describe('bookmark reducer', () => {
         getBookmarkDetailError: '',
         bookmarkDetailLoading: false,
         filteredBookmarkDetailInfo: [],
+        refreshBookmarkDetail:true,
         };
     });
 

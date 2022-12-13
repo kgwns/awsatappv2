@@ -1,3 +1,5 @@
+import { testSaga } from 'redux-saga-test-plan';
+import { all, takeLatest } from "redux-saga/effects";
 import { FETCH_JOURNALIST_DETAIL, GET_JOURNALIST_ARTICLE_INFO } from '../actionType';
 import journalistSaga, { getJournalistArticleInfo, fetchJournalistDetails } from "../sagas";
 
@@ -60,4 +62,17 @@ describe('<JournalistSaga >', () => {
             genObject.throw(errorResponse)
         })
     })
+
+    describe('Test journalistSaga  saga', () => {
+        it('fire on journalistSaga', () => {
+          testSaga(journalistSaga)
+            .next()
+            .all([takeLatest(GET_JOURNALIST_ARTICLE_INFO, getJournalistArticleInfo)])
+            .next()
+            .all([takeLatest(FETCH_JOURNALIST_DETAIL, fetchJournalistDetails)])
+            .finish()
+            .isDone();
+        })
+    })
+
 })
