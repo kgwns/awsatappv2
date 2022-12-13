@@ -8,14 +8,26 @@ const PodcastEpisodeData: any = [
     nid: '12',
     title: 'example',
     field_new_sub_title_export: 'title',
-    field_podcast_sect_export: {
-      img_podcast_mobile: '123'
-    },
     field_announcer_name_export: 'abc',
     field_total_duration_export: 10,
     field_spreaker_episode_export:'example',
     body_export: 'body',
     created_export: '2021-05-20T20:05:45+0000',
+    field_podcast_sect_export: {
+      img_podcast_mobile: '',
+      anghami: {
+        url: '',
+      },
+      apple_podcasts: {
+        url: '',
+      },
+      google_podcast: {
+        url: '',
+      },
+      spotify: {
+        url: '',
+      },
+    },
   },
 ];
 
@@ -26,7 +38,7 @@ describe('<PodcastEpisodeInfo>', () => {
   describe('when PodcastEpisodeInfo only', () => {
     beforeEach(() => {
       const component = (
-          <PodcastEpisodeInfo data={PodcastEpisodeData} onListenPress={mockFunction} />
+          <PodcastEpisodeInfo data={PodcastEpisodeData[0]} onListenPress={mockFunction} />
       );
       instance = render(component);
     });

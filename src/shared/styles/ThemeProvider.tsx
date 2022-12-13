@@ -37,7 +37,7 @@ export const ThemeProvider = React.memo<Props>((props) => {
     if (isAndroid) {
       ReactTheme.getReactTheme(theme)
     } else {
-      ThemeManager.setTheme(theme)
+      ThemeManager?.setTheme(theme)
     }
   }, [theme])
 
