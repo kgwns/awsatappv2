@@ -93,7 +93,7 @@ describe('<Archives>', () => {
         instance.unmount()
     })
 
-    xit('should render component', () => {
+    it('should render component', () => {
         expect(instance).toBeDefined()
     })
 

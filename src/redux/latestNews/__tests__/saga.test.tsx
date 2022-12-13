@@ -18,9 +18,9 @@ import {
     REQUEST_EDITORS_CHOICE_DATA,
     REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
     REQUEST_SPOTLIGHT_COMBO,
+    REQUEST_SECTION_COMBO_EIGHT,
     REQUEST_INFO_GRAPHIC_BLOCK,
     REQUEST_ARCHIVED_ARTICLE_DATA,
-    REQUEST_SECTION_COMBO_EIGHT,  
 } from "../actionType";
 import articleDetailSaga, {
     fetchTickerAndHeroWidgetData,
@@ -171,49 +171,49 @@ describe('<LatestNewsSaga >', () => {
 
     describe('Test articleDetailSaga  saga', () => {
         it('fire on articleDetailSaga', () => {
-          testSaga(articleDetailSaga)
-            .next()
-            .all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)])
-            .next()
-            .all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)])
-            .next()
-            .all([takeLatest(REQUEST_OPINION_LIST_DATA, fetchOpinionWidgetData)])
-            .next()
-            .all([takeLatest(REQUEST_SECTION_COMBO_ONE, fetchSectionCombo)])
-            .next()
-            .all([takeLatest(REQUEST_SECTION_COMBO_TWO, fetchSectionCombo)])
-            .next()
-            .all([takeLatest(REQUEST_SECTION_COMBO_THREE, fetchSectionCombo)])
-            .next()
-            .all([takeLatest(REQUEST_SECTION_COMBO_FOUR, fetchSectionCombo)])
-            .next()
-            .all([takeLatest(REQUEST_PODCAST_HOME_DATA, fetchPodcastHomeData)])
-            .next()
-            .all([takeLatest(REQUEST_COVERAGE_BLOCK, fetchCoverageBlockData)])
-            .next()
-            .all([takeLatest(REQUEST_FEATURED_ARTICLE_BLOCK, fetchFeaturedArticleBlockData)])
-            .next()
-            .all([takeLatest(REQUEST_HORIZONTAL_ARTICLE_BLOCK, fetchHorizontalBlockData)])
-            .next()
-            .all([takeLatest(REQUEST_SECTION_COMBO_FIVE, fetchSectionCombo)])
-            .next()
-            .all([takeLatest(REQUEST_SECTION_COMBO_SIX, fetchSectionCombo)])
-            .next()
-            .all([takeLatest(REQUEST_SECTION_COMBO_SEVEN, fetchSectionCombo)])
-            .next()
-           .all([takeLatest(REQUEST_SECTION_COMBO_EIGHT, fetchSectionCombo)])
-            .next()
-            .all([takeLatest(REQUEST_EDITORS_CHOICE_DATA, fetchEditorsChoiceData)])
-            .next()
-            .all([takeLatest(REQUEST_SPOTLIGHT_COMBO,fetchSpotlightData)])
-            .next()
-            .all([takeLatest(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,fetchSpotlightArticleSection)])
-            .next()
-            .all([takeLatest(REQUEST_INFO_GRAPHIC_BLOCK,fetchInfoGraphicBlockData)])
-            .next()
-            .all([takeLatest(REQUEST_ARCHIVED_ARTICLE_DATA,fetchArchivedArticleSectionData)])
-            .finish()
-            .isDone();
+            testSaga(articleDetailSaga)
+                .next()
+                .all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)])
+                .next()
+                .all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)])
+                .next()
+                .all([takeLatest(REQUEST_OPINION_LIST_DATA, fetchOpinionWidgetData)])
+                .next()
+                .all([takeLatest(REQUEST_SECTION_COMBO_ONE, fetchSectionCombo)])
+                .next()
+                .all([takeLatest(REQUEST_SECTION_COMBO_TWO, fetchSectionCombo)])
+                .next()
+                .all([takeLatest(REQUEST_SECTION_COMBO_THREE, fetchSectionCombo)])
+                .next()
+                .all([takeLatest(REQUEST_SECTION_COMBO_FOUR, fetchSectionCombo)])
+                .next()
+                .all([takeLatest(REQUEST_PODCAST_HOME_DATA, fetchPodcastHomeData)])
+                .next()
+                .all([takeLatest(REQUEST_COVERAGE_BLOCK, fetchCoverageBlockData)])
+                .next()
+                .all([takeLatest(REQUEST_FEATURED_ARTICLE_BLOCK, fetchFeaturedArticleBlockData)])
+                .next()
+                .all([takeLatest(REQUEST_HORIZONTAL_ARTICLE_BLOCK, fetchHorizontalBlockData)])
+                .next()
+                .all([takeLatest(REQUEST_SECTION_COMBO_FIVE, fetchSectionCombo)])
+                .next()
+                .all([takeLatest(REQUEST_SECTION_COMBO_SIX, fetchSectionCombo)])
+                .next()
+                .all([takeLatest(REQUEST_SECTION_COMBO_SEVEN, fetchSectionCombo)])
+                .next()
+                .all([takeLatest(REQUEST_SECTION_COMBO_EIGHT, fetchSectionCombo)])
+                .next()
+                .all([takeLatest(REQUEST_EDITORS_CHOICE_DATA, fetchEditorsChoiceData)])
+                .next()
+                .all([takeLatest(REQUEST_SPOTLIGHT_COMBO, fetchSpotlightData)])
+                .next()
+                .all([takeLatest(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA, fetchSpotlightArticleSection)])
+                .next()
+                .all([takeLatest(REQUEST_INFO_GRAPHIC_BLOCK, fetchInfoGraphicBlockData)])
+                .next()
+                .all([takeLatest(REQUEST_ARCHIVED_ARTICLE_DATA, fetchArchivedArticleSectionData)])
+                .finish()
+                .isDone();
         });
     });
 
@@ -318,8 +318,8 @@ describe('<LatestNewsSaga >', () => {
                         items_per_page: 10, page: 0, offset: 0
                     }
                 })
-                genObject.next({rows: []})
-                genObject.next({rows: []})
+                genObject.next({ rows: [] })
+                genObject.next({ rows: [] })
             })
 
             it('check fetchTickerAndHeroWidgetData failed', () => {
@@ -445,8 +445,8 @@ describe('<LatestNewsSaga >', () => {
                     items_per_page: 10, page: 0, offset: 0
                 }
             })
-            genObject.next({rows: []})
-            genObject.next({rows: []})
+            genObject.next({ rows: [] })
+            genObject.next({ rows: [] })
         })
 
         it('check fetchOpinionWidgetData failed', () => {
@@ -689,10 +689,10 @@ describe('<LatestNewsSaga >', () => {
 
             it('check fetchPodcastHomeData success', () => {
                 const genObject = fetchPodcastHomeData()
-                genObject.next({rows: []})
-                genObject.next({rows: []})
+                genObject.next({ rows: [] })
+                genObject.next({ rows: [] })
             })
-    
+
             it('check fetchPodcastHomeData failed', () => {
                 const genObject = fetchPodcastHomeData()
                 genObject.next()
@@ -719,10 +719,10 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next(sampleResponse1)
             })
 
-             it('check fetchCoverageBlockData success', () => {
+            it('check fetchCoverageBlockData success', () => {
                 const genObject = fetchCoverageBlockData()
-                genObject.next({rows: []})
-                genObject.next({rows: []})
+                genObject.next({ rows: [] })
+                genObject.next({ rows: [] })
             })
 
             it('check fetchCoverageBlockData success', () => {
@@ -730,7 +730,7 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next()
                 genObject.next()
             })
-    
+
             it('check fetchCoverageBlockData failed', () => {
                 const genObject = fetchCoverageBlockData()
                 genObject.next()
@@ -759,8 +759,8 @@ describe('<LatestNewsSaga >', () => {
 
             it('check fetchEditorsChoiceData success', () => {
                 const genObject = fetchEditorsChoiceData()
-                genObject.next({rows: []})
-                genObject.next({rows: []})
+                genObject.next({ rows: [] })
+                genObject.next({ rows: [] })
             })
 
             it('check fetchEditorsChoiceData success', () => {
@@ -768,7 +768,7 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next()
                 genObject.next()
             })
-    
+
             it('check fetchEditorsChoiceData failed', () => {
                 const genObject = fetchEditorsChoiceData()
                 genObject.next()
@@ -794,7 +794,7 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next()
                 genObject.next()
             })
-    
+
             it('check fetchFeaturedArticleBlockData failed', () => {
                 const genObject = fetchFeaturedArticleBlockData()
                 genObject.next()
@@ -814,7 +814,7 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next(sampleResponse)
                 genObject.next(sampleResponse)
             })
-    
+
             it('check fetchHorizontalBlockData failed', () => {
                 const genObject = fetchHorizontalBlockData()
                 genObject.next()
@@ -843,10 +843,10 @@ describe('<LatestNewsSaga >', () => {
 
             it('check fetchSpotlightData success', () => {
                 const genObject = fetchSpotlightData()
-                genObject.next({rows: []})
-                genObject.next({rows: []})
+                genObject.next({ rows: [] })
+                genObject.next({ rows: [] })
             })
-    
+
             it('check fetchSpotlightData failed', () => {
                 const genObject = fetchSpotlightData()
                 genObject.next()
@@ -958,7 +958,7 @@ describe('<LatestNewsSaga >', () => {
                 genObject.next()
                 genObject.next()
             })
-    
+
             it('check fetchSpotlightArticleSection success', () => {
                 const genObject = fetchSpotlightArticleSection({
                     type: REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
@@ -966,8 +966,8 @@ describe('<LatestNewsSaga >', () => {
                         items_per_page: 10, page: 0, id: 0
                     }
                 })
-                genObject.next({rows: []})
-                genObject.next({rows: []})
+                genObject.next({ rows: [] })
+                genObject.next({ rows: [] })
             })
 
             it('check fetchSpotlightArticleSection failed', () => {

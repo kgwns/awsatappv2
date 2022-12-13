@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { SendSelectedNewsLettersBody } from 'src/redux/newsLetter/types';
+import { store } from 'src/redux/store';
 import { getSelectedNewsLettersApi, sendSelectedNewsLettersApi,getMyNewsLettersApi } from '../newsLettersService';
 
 describe('Test News Letters Services', () => {
@@ -22,6 +23,8 @@ describe('Test News Letters Services', () => {
         mock.onPost().reply(200, {
             result: true,
         });
+
+        jest.spyOn(store,'getState').mockReturnValueOnce({login:{loginData:{token:{token_type:'type',access_token:'access'}}}})
 
         return sendSelectedNewsLettersApi(body).then(response => {
             expect(response).toBeInstanceOf(Object);

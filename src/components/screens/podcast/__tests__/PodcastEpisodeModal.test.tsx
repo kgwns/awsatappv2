@@ -7,7 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {PodcastProgramHeader} from 'src/components/molecules';
 import {PodcastEpisodeContent, PodcastEpisodeInfo} from 'src/components/organisms';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { PodcastEpisodeItemType, PodcastListItemType } from 'src/redux/podcast/types';
 import { useLogin } from 'src/hooks';
 
@@ -135,7 +135,23 @@ const podcastEpisodeData: PodcastEpisodeItemType[] =[
       img_podcast_desktop: "abc",
       img_podcast_mobile: "abc",
       name: "abc",
-      image: "abc"
+      image: "abc",
+      "anghami": {
+        "url": "string",
+        "text": "string"
+      },
+      "apple_podcasts": {
+        "url": "string",
+        "text": "https://apple.com"
+      },
+      "google_podcast": {
+        "url": "string",
+        "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spotify_export: {
       url: "string",
@@ -190,15 +206,9 @@ jest.mock("src/hooks/useAppPlayer", () => ({
   },
 }));
 
-describe('<PodcastEpisode >', () => {
+describe('<PodcastEpisodeModal >', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
-
-  const setIsSaved = mockFunction;
-  const podcastEpisodeDetailInfo = mockFunction;
-  const podcastEpisodeListInfo = mockFunction;
-  const nid = mockFunction;
-  const showupUp = mockFunction;
 
   const navigation = {
     reset: jest.fn(),
@@ -212,17 +222,14 @@ describe('<PodcastEpisode >', () => {
     beforeEach(() => {
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      (useState as jest.Mock).mockImplementation(() => ["29", nid]);
-      (useState as jest.Mock).mockImplementation(() => [true, showupUp]);
-      (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeDetailInfo]);
-      (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeListInfo]);
+      (useState as jest.Mock).mockImplementation(() => [podCastData, mockFunction]);
       useLoginMock.mockReturnValue({
         isLoggedIn: false,
       });
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
-            <PodcastEpisode  route={{ params: { data: PodcastEpisodeData, podcastListData: PodcastListData } }}/>
+            <PodcastEpisode  route={{ params: { data: {nid: 1}, podcastListData: PodcastListData } }}/>
           </SafeAreaProvider>
         </Provider>
       );
@@ -239,7 +246,7 @@ describe('<PodcastEpisode >', () => {
     it('when onPressSave is pressed from PodcastHeader', () => {
       const testID = instance.container.findByType(PodcastProgramHeader);
       fireEvent(testID, 'onPressSave');
-      expect(setIsSaved).toBeTruthy();
+      expect(mockFunction).toBeTruthy();
     });
     it('when onPressShare is pressed from PodcastHeader', () => {
       const testID = instance.container.findByType(PodcastProgramHeader);
