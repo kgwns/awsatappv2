@@ -1536,7 +1536,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp;
 				PRODUCT_NAME = Awsatapp;
-				PROVISIONING_PROFILE_SPECIFIER = "AAA iPhone Ad hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "Asharqalawsat AdHoc Provisioning Profile";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Asharqalawsat AdHoc Provisioning Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "Awsatapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1743,7 +1743,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Asharqalawsat Watch App Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = "Asharqalawsat Watch App AdHoc Provisioning Profile";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "Asharqalawsat Watch App AdHoc Provisioning Profile";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1833,7 +1833,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE_SPECIFIER = "Asharqalawsat Watch Extension Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = "Asharqalawsat Watch Extension AdHoc Profile";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "Asharqalawsat Watch Extension AdHoc Profile";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
