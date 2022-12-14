@@ -13,9 +13,8 @@ jest.mock('src/shared/utils/dimensions', () => ({
 describe('<PodcastProgramInfo>', () => {
   let instance: RenderAPI;
 
-  const samplePodcastData: PodcastListItemType = {
+  const samplePodcastData: PodcastVerticalListProps = {
     nid: "29",
-    type: "podcast",
     view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
     field_new_sub_title_export: null,
     title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",

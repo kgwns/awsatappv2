@@ -10,6 +10,27 @@ jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
   useNavigationState: () => ([]),
+  useIsFocused: () => (true)
+}));
+
+jest.mock('react-native-safe-area-context', () => ({
+  ...jest.requireActual('react-native-safe-area-context'),
+  useSafeAreaInsets: () => ({
+    top: 10,
+    bottom: 10
+  })
+}));
+
+jest.mock("src/hooks/usePodcast", () => ({
+  usePodcast: () => {
+    return {
+      isLoading: true,
+      podcastEpisodeData: [],
+      fetchPodcastEpisodeRequest: () => {
+        return []
+      }
+    }
+  },
 }));
 
 describe('<PopulateWidget/>', () => {
@@ -17,7 +38,7 @@ describe('<PopulateWidget/>', () => {
 
   const sampleArticleData: any = {
     image: 'image',
-    nid: 'nid',
+    nid: 1,
     author: 'author',
     created: 'created'
   }
@@ -83,7 +104,7 @@ describe('<PopulateWidget/>', () => {
   describe('when podcast data only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      const component = <PopulateWidget type={PopulateWidgetType.PODCAST} props={sampleArticleData}
+      const component = <PopulateWidget type={PopulateWidgetType.PODCAST} {...sampleArticleData}
         onPressBookmark={mockOnPressBookmark} />;
       instance = render(component);
     });

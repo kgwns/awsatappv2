@@ -8,6 +8,7 @@ import { useAppPlayer } from 'src/hooks';
 import { PodCastMiniPlayer } from 'src/components/molecules'
 import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import { colors } from 'src/shared/styles/colors'
 
 jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'),
@@ -64,7 +65,7 @@ describe('<Screen Container>', () => {
         (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
         const component =
             <Provider store={storeSampleData}>
-                <ScreenContainer children={screenComponent} edge={['right', 'top']} headerTitle={'Example'} isLoading={false} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction} barStyle={'default'} />
+                <ScreenContainer children={screenComponent} edge={['right', 'top']} headerTitle={'Example'} isLoading={false} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction} barStyle={'default'} backgroundColor={colors.aquaHaze}/>
             </Provider>
         instance = render(component)
     })

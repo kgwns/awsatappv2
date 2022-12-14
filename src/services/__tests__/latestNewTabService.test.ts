@@ -1,13 +1,16 @@
 import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { NativeModules } from 'react-native';
 import { ArticleDetailBodyGet, RelatedArticleBodyGet } from 'src/redux/articleDetail/types';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { requestArticleDetail, requestRelatedArticle } from '../articleDetailService';
-import { writerOpinionApi, requestLatestArticle, requestSectionCombo, mainCoverageBlockApi, podcastHomeApi, mainHorizontalArticleApi, editorsChoiceApi, spotlightApi, requestSpotlightArticleSection, mainFeaturedArticleApi  } from '../latestTabService';
+import { writerOpinionApi, requestLatestArticle, requestSectionCombo, mainCoverageBlockApi, podcastHomeApi, mainHorizontalArticleApi, editorsChoiceApi, spotlightApi, requestSpotlightArticleSection, mainFeaturedArticleApi, infoGraphicBlockApi, archivedArticleApi } from '../latestTabService';
+import * as serviceApi from 'src/services/api';
 
 describe('Test LatestNews Tab Services', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
+        NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() } 
         jest.useFakeTimers('legacy');
     })
     afterEach(() => {
@@ -67,9 +70,9 @@ describe('Test LatestNews Tab Services', () => {
 
     describe('Check writerOpinionApi method', () => {
         const requestObject: LatestArticleBodyGet = {
-            page:0,
-            items_per_page:10,
-            offset:2
+            page: 0,
+            items_per_page: 10,
+            offset: 2
         };
 
         it('test when response code is 200', () => {
@@ -107,8 +110,34 @@ describe('Test LatestNews Tab Services', () => {
             mock.onGet().reply(200, {
                 result: true,
             });
-
+            NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() }
             return requestSectionCombo(requestObject).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+
+        it('test getSectionComboUrl while sending id as string', () => {
+            const idInString = {
+                id:'11'
+            }
+            mock.onGet().reply(200, {
+                result: true,
+            });
+            NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() }
+            return requestSectionCombo(idInString).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+
+        it('test getSectionComboUrl while sending id as array', () => {
+            const idInArray = {
+                id:[11]
+            }
+            mock.onGet().reply(200, {
+                result: true,
+            });
+            NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() }
+            return requestSectionCombo(idInArray).then(response => {
                 expect(response).toBeInstanceOf(Object);
             });
         });
@@ -133,7 +162,7 @@ describe('Test LatestNews Tab Services', () => {
                 expect(errorResponse.response?.status).toEqual(500);
             });
         });
-    })
+    });
 
     describe('Check requestLatestArticle method', () => {
         const requestObject: LatestArticleBodyGet = {
@@ -187,10 +216,9 @@ describe('Test LatestNews Tab Services', () => {
 
     describe('Check mainCoverageBlockApi method', () => {
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
-                result: true,
-            });
-
+            const getApiRequest = jest.spyOn(serviceApi,'getApiRequest');
+            getApiRequest.mockResolvedValueOnce({result:true});
+            
             return mainCoverageBlockApi().then((response: any) => {
                 expect(response).toBeInstanceOf(Object);
             });
@@ -311,15 +339,55 @@ describe('Test LatestNews Tab Services', () => {
                 expect(response).toBeInstanceOf(Object);
             });
         }, 10000);
-        it('test when response code is 500', () => {
-            mock.onGet().reply(500, {
-                error: 'Something Went Wrong',
-            });
+        it('test requestSpotlightArticleSection throws error', () => {
+            const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+            getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-            return requestSpotlightArticleSection(requestObject).catch((error: unknown) => {
-                const errorResponse = error as AxiosError;
-                expect(errorResponse.response?.status).toEqual(500);
+            return requestSpotlightArticleSection(requestObject).catch((error) => {
+                expect(error.message).toEqual('Not able to fetch api')
             });
         });
-    })
+    });
+
+    describe('Check infoGraphicBlockApi method', () => {
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return infoGraphicBlockApi().then(response => {
+                expect(response).toBeInstanceOf(Object);
+            })
+        });
+
+        it('test infoGraphicBlockApi throws error', () => {
+            const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+            getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
+
+            return infoGraphicBlockApi().catch((error) => {
+                expect(error.message).toEqual('Not able to fetch api')
+            });
+        });
+    });
+
+    describe('Check archivedArticleApi method', () => {
+        it('test when response code is 200', () => {
+            mock.onGet().reply(200, {
+                result: true,
+            });
+
+            return archivedArticleApi().then(response => {
+                expect(response).toBeInstanceOf(Object);
+            })
+        });
+
+        it('test archivedArticleApi throws error', () => {
+            const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+            getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
+
+            return archivedArticleApi().catch((error) => {
+                expect(error.message).toEqual('Not able to fetch api')
+            });
+        });
+    });
 });

@@ -64,6 +64,16 @@ jest.mock("src/hooks/useUserProfileData", () => ({
   },
 }));
 
+jest.mock("react-native-track-player", () => ({
+  play:jest.fn(),
+  Event:['PlaybackState','PlaybackError','PlaybackQueueEnded'],
+  usePlaybackState:jest.fn(),
+  useProgress:jest.fn().mockReturnValue({duration:43}),
+  useTrackPlayerEvents:jest.fn(),
+  pause:jest.fn(),
+  State:['Playing','Buffering']
+}))
+
 const podCastData: LatestPodcastDataType[] = [
   {
     field_total_duration_export: null,
@@ -286,9 +296,9 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
             sectionComboSix: latestArticleData,
             sectionComboSeven: latestArticleData,
             podcastHome: podCastData,
-            coverage: MainSectionBlockTypeData,
-            featuredArticle: MainSectionBlockTypeData,
-            horizontalArticle: MainSectionBlockTypeData,
+            coverage: [],
+            featuredArticle: [],
+            horizontalArticle: [],
             editorsChoice: EditorsChoiceDataTypeData,
             spotlight: [
               {
@@ -353,6 +363,9 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
             fetchSectionComboSeven: () => {
                 return []
             },
+            fetchSectionComboEight: () => {
+                return []
+            },
             fetchCoverageBlockData: () => {
                 return []
             },
@@ -360,6 +373,9 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
                 return []
             },
             fetchHorizontalArticleData: () => {
+                return []
+            },
+            fetchInfoGraphicBlockData: () => {
                 return []
             },
             fetchEditorsChoice: () => {
@@ -371,6 +387,9 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
             fetchSpotlightArticleSection: () => {
                 return []
             },
+            fetchArchivedArticleSection: () => {
+                return []
+            }
     }
   },
 }));
@@ -496,7 +515,7 @@ describe('<MainSectionScreen>', () => {
   });
 
   test('Should call FlatList onPress', () => {
-    expect(instance.container.findAllByType(FlatList).length).toBe(16)
+    expect(instance.container.findAllByType(FlatList).length).toBe(15)
   });
 
   it('when BannerArticleSection only When onPress', () => {
@@ -592,12 +611,6 @@ describe('<MainSectionScreen>', () => {
   it('when BannerArticleSection only When onUpdateBookmark', () => {
     const testID = instance.container.findAllByType(BannerArticleSection)[7];
     fireEvent(testID, 'onUpdateBookmark');
-    expect(mockFunction).toBeTruthy();
-  });
-
-  it('when ArticleSection only When onUpdateBookmark', () => {
-    const testID = instance.container.findAllByType(ArticleSection)[0];
-    fireEvent(testID, 'onUpdateBookmark', '2', true);
     expect(mockFunction).toBeTruthy();
   });
 
@@ -844,12 +857,6 @@ describe('<MainSectionScreen>', () => {
     expect(mockFunction).toBeTruthy();
   });
 
-  it('when ArticleSection only When onUpdateBookmark', () => {
-    const testID = instance.container.findAllByType(ArticleSection)[0];
-    fireEvent(testID, 'onUpdateBookmark', '2', true);
-    expect(mockFunction).toBeTruthy();
-  });
-
   it('when CarouselSlider only When onUpdateHeroBookmark', () => {
     const testID = instance.container.findAllByType(CarouselSlider)[0];
     fireEvent(testID, 'onUpdateHeroBookmark', {index: 2});
@@ -959,12 +966,6 @@ describe('<MainSectionScreen>', () => {
 
   it('should render MainSectionScreen component', () => {
     expect(instance).toBeDefined();
-  });
-
-  it('when ArticleSection only When onUpdateBookmark', () => {
-    const testID = instance.container.findAllByType(ArticleSection)[0];
-    fireEvent(testID, 'onUpdateBookmark', '2', true);
-    expect(mockFunction).toBeTruthy();
   });
 
 });
