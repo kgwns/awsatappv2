@@ -5,7 +5,11 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { SectionVideoFooter } from 'src/components/molecules';
 import { FlatList } from 'react-native';
 import { NewsViewListItemType } from 'src/redux/newsView/types';
-
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
 describe('<NewsFeed>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
@@ -42,7 +46,13 @@ describe('<NewsFeed>', () => {
     instance.unmount();
   });
 
+  it('should render NewsFeed component in Tab device', () => {
+    DeviceTypeUtilsMock.isTab = true
+    expect(instance).toBeDefined();
+  });
+
   it('should render NewsFeed component', () => {
+    DeviceTypeUtilsMock.isTab = false
     expect(instance).toBeDefined();
   });
 

@@ -5,7 +5,11 @@ import { ArticleWithOutImage, ImageArticle } from 'src/components/molecules';
 import { WidgetHeader } from 'src/components/atoms';
 import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native';
-
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
@@ -64,6 +68,11 @@ describe('<BannerArticleSection>', () => {
   });
 
   it('should render BannerArticleSection component', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    expect(instance).toBeDefined();
+  });
+  it('should render BannerArticleSection component', () => {
+    DeviceTypeUtilsMock.isTab = false;
     expect(instance).toBeDefined();
   });
 

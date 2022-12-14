@@ -5,6 +5,11 @@ import { PodcastListItemType } from 'src/redux/podcast/types'
 import { Linking } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+    ...jest.requireActual('src/shared/utils/dimensions'),
+    isTab: false,
+}));
 describe('<PodcastProgramInfo>', () => {
   let instance: RenderAPI;
 
@@ -50,7 +55,7 @@ describe('<PodcastProgramInfo>', () => {
     field_spreaker_show_export: null,
     field_announcer_name_export: null,
     field_apple_podcast_export: null,
-    body_export: null
+    body_export: 'body'
   }
 
   describe('Test podcast Program info', () => {
@@ -88,19 +93,27 @@ describe('<PodcastProgramInfo>', () => {
       fireEvent(testId, 'onPress');
       expect(Linking.openURL).toHaveBeenCalled()
     });
+  });
 
+  describe('checking in tablet', () => {
+    beforeEach(() => {
+      DeviceTypeUtilsMock.isTab = true
+      const component = (
+        <PodcastProgramInfo data={samplePodcastData} />
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
     it('test when clicks on apple podcasts url in tab', () => {
-      jest.doMock('src/shared/utils/dimensions',()=>{
-        return {
-          isTab:true
-        }
-      })
       const testId = instance.getByTestId('tabApplePodcastsUrl');
       fireEvent(testId, 'onPress');
       expect(Linking.openURL).toHaveBeenCalled()
     });
     it('test when clicks on Google podcasts url in tab', () => {
-      // jest.spyOn(DeviceInfo,'isTablet').mockReturnValue(true)
       const testId = instance.getByTestId('tabGooglePodcastUrl');
       fireEvent(testId, 'onPress');
       expect(Linking.openURL).toHaveBeenCalled()
@@ -117,6 +130,5 @@ describe('<PodcastProgramInfo>', () => {
       fireEvent(testId, 'onPress');
       expect(Linking.openURL).toHaveBeenCalled()
     });
-
-  });
+  })
 });

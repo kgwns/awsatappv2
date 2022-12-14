@@ -13,11 +13,18 @@ const props = {
         publication_date: '9/12/2022',
         news_categories: 'NewsCategoriesType',
     },
+    title:'title',
     onPress:()=>{}
 }
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
 describe("Check ArchiveArticleSection returns null",() => {
     let instance:RenderAPI
     beforeEach(()=>{
+        DeviceTypeUtilsMock.isTab = true
         const component = (
             <ArchiveArticleSection props = {props} />
         )
@@ -53,12 +60,14 @@ const propsData = {
             news_categories: 'NewsCategoriesType1',
         },
     ],
+    title:'title',
     onPress:()=>{}
 
 }
 describe("Check ArchiveArticleSection returns ",() => {
     let instance:RenderAPI
     beforeEach(()=>{
+        DeviceTypeUtilsMock.isTab = false
         const component = (
             <ArchiveArticleSection props = {propsData} />
         )

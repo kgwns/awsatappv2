@@ -1,8 +1,9 @@
 import { render, RenderAPI } from '@testing-library/react-native';
+import axios from 'axios';
 import React from 'react';
 import { ArticleDetailWidget } from 'src/components/organisms'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
-
+  
 describe('<ArticleDetailWidget>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
@@ -34,8 +35,7 @@ describe('<ArticleDetailWidget>', () => {
             jwplayerId: '1',
             created: 'asxdc',
             scribbleLiveId:'24324'
-        }
-
+        };
         const component = 
         <ArticleDetailWidget 
             articleData={data} 
@@ -58,6 +58,11 @@ describe('<ArticleDetailWidget>', () => {
     })
 
     it('should render component', () => {
+        expect(instance).toBeDefined()
+    })
+    
+    it('test fetchScribbleLive returns error',() => {
+        jest.spyOn(axios,'get').mockImplementation(() => {throw new Error('not able to fetch axios')})
         expect(instance).toBeDefined()
     })
 })

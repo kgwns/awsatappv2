@@ -1,17 +1,35 @@
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React, {useState, useMemo} from 'react';
-import {MyNewsWriters} from 'src/components/organisms';
-import {AuthorsHorizontalSlider} from 'src/components/molecules';
-import {useNavigation} from '@react-navigation/native';
-import {FlatList} from 'react-native';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
+import React, { useState, useMemo } from 'react';
+import { MyNewsWriters } from 'src/components/organisms';
+import { AuthorsHorizontalSlider } from 'src/components/molecules';
+import { useNavigation } from '@react-navigation/native';
+import { FlatList } from 'react-native';
 import { keyExtractor } from '../MyNewsWriters';
 import { OpinionsListItemType } from 'src/redux/opinionArticleDetail/types';
+import { useAllWriters } from 'src/hooks';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
   useMemo: jest.fn(),
 }));
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: true,
+  isIOS: false
+}));
+
+jest.mock('src/shared/styles/useThemeAware', () => {
+  return {
+    useThemeAwareObject: jest.fn(() => ({
+      screenBackgroundColor: {
+        backgroundColor: 'red'
+      }
+    }))
+  }
+})
 
 const sampleOpinionsListItemTypeData: OpinionsListItemType[] = [
   {
@@ -116,51 +134,7 @@ jest.mock('src/hooks/useContentForYou', () => ({
 }));
 
 jest.mock('src/hooks/useAllWriters', () => ({
-  useAllWriters: () => {
-    return {
-      isLoading: false,
-      selectedAuthorsData: {
-        code: 2,
-        message: 'string',
-        data: {
-          tid: '12'
-        },
-      },
-      allWritersData: [
-        {
-            name: 'example',
-            description__value_export: {},
-            field_opinion_writer_path_export: {},
-            view_taxonomy_term: 'example',
-            tid: '1',
-            vid_export: {},
-            field_description_export: {},
-            field_opinion_writer_path_export_1: {},
-            field_opinion_writer_photo_export: 'example',
-            isSelected: true,
-        },
-        {
-            name: 'example',
-            description__value_export: {},
-            field_opinion_writer_path_export: {},
-            view_taxonomy_term: 'example',
-            tid: '2',
-            vid_export: {},
-            field_description_export: {},
-            field_opinion_writer_path_export_1: {},
-            field_opinion_writer_photo_export: 'example',
-            isSelected: true,
-        },
-      ],
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return [];
-      },
-      fetchAllWritersRequest: () => {
-        return [];
-      },
-    };
-  },
+  useAllWriters: jest.fn()
 }));
 
 jest.mock('@react-navigation/native', () => ({
@@ -225,7 +199,7 @@ describe('<MyNewsWriters>', () => {
   const setOpinionData = mockFunction;
   const setSelectedIndex = mockFunction;
   const setShowEmpty = mockFunction;
-
+  const useAllWritersMock = mockFunction;
   const mockData = [
     {
       field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
@@ -239,6 +213,7 @@ describe('<MyNewsWriters>', () => {
   };
 
   beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = true;
     (useState as jest.Mock).mockImplementation(() => [
       null,
       setSelectedAuthors,
@@ -246,9 +221,53 @@ describe('<MyNewsWriters>', () => {
     (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
     (useState as jest.Mock).mockImplementation(() => [[], setOpinionData]);
     (useState as jest.Mock).mockImplementation(() => [-1, setSelectedIndex]);
-    (useState as jest.Mock).mockImplementation(() => [false, setShowEmpty]);
+    (useState as jest.Mock).mockImplementation(() => [true, setShowEmpty]);
     (useMemo as jest.Mock).mockReturnValue(mockData);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
+    useAllWritersMock.mockReturnValue({
+      isLoading: true,
+      selectedAuthorsData: {
+        code: 2,
+        message: 'string',
+        data: {
+          tid: '12'
+        },
+      },
+      allWritersData: [
+        {
+          name: 'example',
+          description__value_export: {},
+          field_opinion_writer_path_export: {},
+          view_taxonomy_term: 'example',
+          tid: '1',
+          vid_export: {},
+          field_description_export: {},
+          field_opinion_writer_path_export_1: {},
+          field_opinion_writer_photo_export: 'example',
+          isSelected: true,
+        },
+        {
+          name: 'example',
+          description__value_export: {},
+          field_opinion_writer_path_export: {},
+          view_taxonomy_term: 'example',
+          tid: '2',
+          vid_export: {},
+          field_description_export: {},
+          field_opinion_writer_path_export_1: {},
+          field_opinion_writer_photo_export: 'example',
+          isSelected: true,
+        },
+      ],
+      error: 'error',
+      getSelectedAuthorsData: () => {
+        return [];
+      },
+      fetchAllWritersRequest: () => {
+        return [];
+      },
+  })
     const component = <MyNewsWriters />;
     instance = render(component);
   });
@@ -265,30 +284,144 @@ describe('<MyNewsWriters>', () => {
   it('should render component', () => {
     expect(keyExtractor('', 2)).toBeTruthy()
   });
-  
+
   test('Should call AuthorsHorizontalSlider onPress', () => {
     const element = instance.container.findByType(
       AuthorsHorizontalSlider as any,
     );
-    fireEvent(element, 'onPress', [mockData, 0]);
+    fireEvent(element, 'onPress', {item:mockData,index:0});
     expect(setPageCount).toBeCalled();
   });
+});
 
-  test('Should call LoadMore Data', () => {
-    const element = instance.container.findByType(FlatList as any);
+describe('<MyNewsWriters>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const setSelectedAuthors = mockFunction;
+  const setPageCount = mockFunction;
+  const setOpinionData = mockFunction;
+  const setSelectedIndex = mockFunction;
+  const setShowEmpty = mockFunction;
+  const useAllWritersMock = mockFunction;
+  const mockData = [
+    {
+      field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
+      name: 'الحكومة',
+    },
+  ];
+
+  const navigation = {
+    goBack: mockFunction,
+    navigate: mockFunction,
+  };
+
+  beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = false;
+    (useState as jest.Mock).mockImplementation(() => [
+      null,
+      setSelectedAuthors,
+    ]);
+    (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData, setOpinionData]);
+    (useState as jest.Mock).mockImplementation(() => [-1, setSelectedIndex]);
+    (useState as jest.Mock).mockImplementation(() => [false, setShowEmpty]);
+    (useMemo as jest.Mock).mockReturnValue(mockData);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
+    useAllWritersMock.mockReturnValue({
+      isLoading: false,
+      selectedAuthorsData: {
+        code: 2,
+        message: 'string',
+        data: {
+          tid: '12'
+        },
+      },
+      allWritersData: [
+        {
+          name: 'example',
+          description__value_export: {},
+          field_opinion_writer_path_export: {},
+          view_taxonomy_term: 'example',
+          tid: '1',
+          vid_export: {},
+          field_description_export: {},
+          field_opinion_writer_path_export_1: {},
+          field_opinion_writer_photo_export: 'example',
+          isSelected: true,
+        },
+        {
+          name: 'example',
+          description__value_export: {},
+          field_opinion_writer_path_export: {},
+          view_taxonomy_term: 'example',
+          tid: '2',
+          vid_export: {},
+          field_description_export: {},
+          field_opinion_writer_path_export_1: {},
+          field_opinion_writer_photo_export: 'example',
+          isSelected: true,
+        },
+      ],
+      error: 'error',
+      getSelectedAuthorsData: () => {
+        return [];
+      },
+      fetchAllWritersRequest: () => {
+        return [];
+      },
+  })
+    const component = <MyNewsWriters />;
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  it('should render component', () => {
+    expect(instance).toBeDefined();
+  });
+
+  it('should render flatlist with opinion export data', () => {
+    const renderData = {
+      title: 'title1',
+      field_opinion_writer_node_export: [{
+        opinion_writer_photo: 'https://picsum.photos/200/300'
+      }],
+      field_jwplayer_id_opinion_export: '2348',
+      jwplayer: 'jwplayer',
+    }
+    const element = instance.container.findByType(FlatList);
+    fireEvent(element, 'renderItem', { item: renderData, index: 0 })
+    expect(mockFunction).toHaveBeenCalled()
+  })
+
+  it('should render flatlist without opinion export data', () => {
+    const renderData = {
+      title: 'title1',
+      field_opinion_writer_node_export: {
+        opinion_writer_photo: 'https://picsum.photos/200/300'
+      },
+      field_jwplayer_id_opinion_export: null,
+      jwplayer: 'jwplayer',
+    }
+    const element = instance.container.findByType(FlatList);
+    fireEvent(element, 'renderItem', { item: renderData, index: 0 })
+    expect(mockFunction).toHaveBeenCalled()
+  })
+
+  it('should render ListFooterComponent in flatlist', () => {
+    const element = instance.container.findByType(FlatList);
+    fireEvent(element, 'ListFooterComponent');
+    expect(mockFunction).toHaveBeenCalled()
+  })
+
+  it('should render onEndReached in Flatlist', () => {
+    const element = instance.container.findByType(FlatList);
     fireEvent(element, 'onEndReached');
-    expect(setPageCount).toBeCalled();
+    expect(mockFunction).toHaveBeenCalled()
   });
 
-  test('Should call FlatList renderItem', () => {
-    const element = instance.container.findByType(FlatList)
-    fireEvent(element, 'renderItem', {item: sampleData[0], index: 0});
-    expect(mockFunction).toBeTruthy()
-  });
-
-  test('Should call FlatList ListFooterComponent', () => {
-    const element = instance.container.findByType(FlatList)
-    fireEvent(element, 'ListFooterComponent', {item: [{}], index: 0});
-    expect(mockFunction).toBeTruthy()
-  });
 });

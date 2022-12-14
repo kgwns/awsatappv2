@@ -118,11 +118,12 @@ describe('<Favorite Video Component >', () => {
     const mockFunction= jest.fn();
 
     beforeEach(() => {
-       const component = <HeadlinesSection tickerData={videoTabInfo} duration={300} barColor={'red'} headlineDescriptionColor={'red'} repeatSpacer={20} marqueeDelay={10} loop={true} headlineTitle={'المهاجرين'} headlineTitleColor={'red'} headlineDescription={'أمريكا'} />
-       instance= render(component)
+      const component = <HeadlinesSection tickerData={videoTabInfo} duration={300} barColor={'red'} headlineDescriptionColor={'red'} repeatSpacer={20} marqueeDelay={10} loop={true} headlineTitle={'المهاجرين'} headlineTitleColor={'red'} headlineDescription={'أمريكا'} />
+      instance= render(component)
     })
-
+    
     it('Should render the component', () => {
+        jest.useFakeTimers();
         expect(instance).toBeDefined()
     })
 

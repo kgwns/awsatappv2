@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Linking } from "react-native";
 import * as PodcastService from 'src/services/podcastService';
 import {fetchSingleEpisodeSpreakerApi} from 'src/services/podcastService';
+import { ButtonOutline } from "src/components/atoms";
 jest.mock("react-native-safe-area-context", () => {
     const insets = { bottom: 0 }
     return {
@@ -18,16 +19,12 @@ jest.mock("react", () => {
     }
 })
 
-// jest.mock("react-native-track-player",()=>{
-//     return {
-//         ...jest.requireActual('react-native-track-player'),
-//         usePlayBackState:jest.fn(),
-//         State:{
-//             Buffering:'Buffering'
-//         }
-//     }
-// })
-// jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+    ...jest.requireActual('src/shared/utils/dimensions'),
+    isTab: false,
+}));
+  
 const data = {
     nid: '3023',
     isBookmarked: false,
@@ -48,7 +45,8 @@ const data = {
         },
     },
     created_export: 'createdExport',
-    field_spreaker_episode_export: 'string'
+    field_spreaker_episode_export: 'string',
+    field_new_sub_title_export:'field_new_sub_title_export',
 }
 
 const setDuration = jest.fn()
@@ -132,11 +130,50 @@ describe('test getPodcastDuration', () => {
         const response = fetchSingleEpisodeSpreakerApi({episodeId:data.field_spreaker_episode_export})
         expect(response).toBeInstanceOf(Object) 
     })
+})
 
-    it('test fetchSingleEpisodeSpreakerApi throws error',() => {
-        jest.spyOn(PodcastService, 'fetchSingleEpisodeSpreakerApi').mockImplementationOnce(()=>{throw new Error('throws error')});
-        return fetchSingleEpisodeSpreakerApi({episodeId:data.field_spreaker_episode_export}).catch(error=>{
-            expect(error.message).toEqual('throws error')
-        })
+const dataWithAnnouncerName = {
+    nid: '3023',
+    isBookmarked: false,
+    onPressBookmark: () => { },
+    field_podcast_sect_export: {
+        img_podcast_mobile: 'img',
+        anghami: {
+            url: 'anghami@test.com',
+        },
+        apple_podcasts: {
+            url: 'apple@test.com',
+        },
+        google_podcast: {
+            url: 'google@test.com',
+        },
+        spotify: {
+            url: 'spotify@test.com',
+        },
+    },
+    created_export: 'createdExport',
+    field_spreaker_episode_export: 'string',
+    field_announcer_name_export:'field_announcer_name_export',
+    body_export:'body_export'
+}
+
+
+describe("rendering bottomOutline",() => {
+    let instance:RenderAPI;
+    const mockFunction = jest.fn();
+    beforeEach(()=>{
+        DeviceTypeUtilsMock.isTab = true
+        const component = (
+            <PodcastEpisodeModalInfo data={dataWithAnnouncerName} onListenPress={mockFunction}/>
+        )
+        instance = render(component);
+    })
+    it('should render a component',() => {
+        expect(instance).toBeDefined();
+    })
+    it("should render onPress in BottomOutline",() => {
+        const element = instance.container.findByType(ButtonOutline);
+        fireEvent(element,'onPress');
+        expect(mockFunction).toHaveBeenCalled()
     })
 })

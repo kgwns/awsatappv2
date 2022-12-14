@@ -21,6 +21,19 @@ jest.mock("src/hooks/useNotificationSaveToken", () => ({
   },
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false,
+}));
+
+jest.mock('@invertase/react-native-apple-authentication',()=> ({
+  appleAuth:{
+    isSupported:true
+  }
+}))
+
+
 jest.mock("src/hooks/useRegister", () => {
   return {
     useRegister: jest.fn()
@@ -76,6 +89,7 @@ describe('<SocialButtonSection>', () => {
         socialLoginEnded: () => { },
         emptyUserInfo: () => { }
       });
+      DeviceTypeUtilsMock.isIOS = true
       const component = <SocialButtonSection showAlertNoInternet={mockFunction} socialButtonBoldStyle={true} onButtonPress={mockFunction} />;
       instance = render(component);
     });
@@ -101,6 +115,13 @@ describe('<SocialButtonSection>', () => {
       const testID = instance.container.findAllByType(SocialLoginButton)[0];
       fireEvent(testID, 'onPress');
       expect(appleSignin()).toBeTruthy();
+    })
+
+    it('when press apple login', () => {
+      const testID = instance.getByTestId('signin_apple')
+      fireEvent(testID, 'onPress');
+      const response = appleSignin()
+      expect(response).toBeInstanceOf(Object)
     })
   });
 

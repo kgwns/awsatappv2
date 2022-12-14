@@ -6,6 +6,7 @@ import { FlatList } from 'react-native';
 import { keyExtractor } from '../MyNewsTopics';
 import { ArticlesListItemType } from 'src/redux/contentForYou/types';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
+import { useContentForYou } from 'src/hooks';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -13,44 +14,52 @@ jest.mock('react', () => ({
   useMemo: jest.fn(),
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
+
+jest.mock('src/shared/styles/useThemeAware', () => {
+  return {
+    useThemeAwareObject: jest.fn(() => ({
+      screenBackgroundColor: {
+        backgroundColor: 'red'
+      }
+    })),
+  }
+})
+
 jest.mock('src/hooks/useContentForYou', () => ({
-  useContentForYou: () => {
-    return {
-      isArticalLoading: false,
-      favouriteArticlesData: sampleData,
-      fetchFavouriteArticlesRequest: () => {
-        return [];
-      },
-    };
-  },
+  useContentForYou: jest.fn()
 }));
 
 const sampleAllSiteCategoriesItemTypeData: AllSiteCategoriesItemType[] = [
   {
-      name: 'example',
-      description__value_export: {},
-      field_opinion_writer_path_export: {},
-      view_taxonomy_term: 'example',
-      tid: '1',
-      vid_export: {},
-      field_description_export: {},
-      field_opinion_writer_path_export_1: {},
-      field_opinion_writer_photo_export: 'example',
-      parent_target_id_export: {},
-      isSelected: true,
+    name: 'example',
+    description__value_export: {},
+    field_opinion_writer_path_export: {},
+    view_taxonomy_term: 'example',
+    tid: '1',
+    vid_export: {},
+    field_description_export: {},
+    field_opinion_writer_path_export_1: {},
+    field_opinion_writer_photo_export: 'example',
+    parent_target_id_export: {},
+    isSelected: true,
   },
   {
-      name: 'example',
-      description__value_export: {},
-      field_opinion_writer_path_export: {},
-      view_taxonomy_term: 'example',
-      tid: '2',
-      vid_export: {},
-      field_description_export: {},
-      field_opinion_writer_path_export_1: {},
-      field_opinion_writer_photo_export: 'example',
-      parent_target_id_export: {},
-      isSelected: true,
+    name: 'example',
+    description__value_export: {},
+    field_opinion_writer_path_export: {},
+    view_taxonomy_term: 'example',
+    tid: '2',
+    vid_export: {},
+    field_description_export: {},
+    field_opinion_writer_path_export_1: {},
+    field_opinion_writer_photo_export: 'example',
+    parent_target_id_export: {},
+    isSelected: true,
   },
 ]
 
@@ -63,10 +72,10 @@ jest.mock("src/hooks/useAllSiteCategories", () => ({
         message: "string",
         data: [
           {
-            tid:'1'
+            tid: '1'
           },
           {
-            tid:'2'
+            tid: '2'
           },
         ]
       },
@@ -149,6 +158,7 @@ describe('<MyNewsWriters>', () => {
   const setArticleData = mockFunction;
   const setSelectedIndex = mockFunction;
   const setShowEmpty = mockFunction;
+  const useContentForYouMock = mockFunction;
   const mockData = [
     {
       name: 'الحكومة',
@@ -165,6 +175,15 @@ describe('<MyNewsWriters>', () => {
     (useState as jest.Mock).mockImplementation(() => [-1, setSelectedIndex]);
     (useState as jest.Mock).mockImplementation(() => [false, setShowEmpty]);
     (useMemo as jest.Mock).mockReturnValue(mockData);
+    (useContentForYou as jest.Mock).mockImplementation(useContentForYouMock)
+    useContentForYouMock.mockReturnValueOnce({
+      isArticalLoading: false,
+      favouriteArticlesData: sampleData,
+      fetchFavouriteArticlesRequest: () => {
+        return [];
+      },
+    })
+    DeviceTypeUtilsMock.isTab = true
     const component = <MyNewsTopics />;
     instance = render(component);
   });
@@ -177,7 +196,7 @@ describe('<MyNewsWriters>', () => {
   it('should render component', () => {
     expect(instance).toBeDefined();
   });
-  
+
   it('should render component', () => {
     expect(keyExtractor('', 2)).toBeTruthy()
   });
@@ -190,13 +209,20 @@ describe('<MyNewsWriters>', () => {
 
   test('Should call FlatList onPress', () => {
     const element = instance.container.findByType(FlatList)
-    fireEvent(element, 'renderItem', {item: sampleData[0], index: 0});
-    expect(mockFunction).toBeTruthy()
+    fireEvent(element, 'renderItem', { item: sampleData[0], index: 2 });
+    expect(mockFunction).toHaveBeenCalled()
+  });
+
+  test('Should call FlatList onPress with isTab as false', () => {
+    DeviceTypeUtilsMock.isTab = false
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'renderItem', { item: sampleData[0], index: 0});
+    expect(mockFunction).toHaveBeenCalled()
   });
 
   test('Should call MyTopicsHorizontalSlider onPress', () => {
     const element = instance.container.findAllByType(MyTopicsHorizontalSlider)[0];
-    fireEvent(element, 'onPress',{item: {item: mockData[0], index: -1}});
+    fireEvent(element, 'onPress', { item: { item: mockData[0], index: -1 } });
     expect(setPageCount).toBeCalled();
   });
 
@@ -210,11 +236,26 @@ describe('<MyNewsWriters>', () => {
   const setArticleData = mockFunction;
   const setSelectedIndex = mockFunction;
   const setShowEmpty = mockFunction;
+  const useContentForYouMock = mockFunction;
   const mockData = [
     {
       name: 'الحكومة',
     },
   ];
+  const articleData = {
+    nid: '3434',
+    title: 'title',
+    body: 'body',
+    field_image: 'string',
+    view_node: 'string',
+    field_news_categories_export: [],
+    field_publication_date_export: 'string',
+    created_export: 'string',
+    changed: 'string',
+    author_resource: 'string',
+    type: 'string',
+    field_new_photo: 'string'
+  }
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [
@@ -222,10 +263,19 @@ describe('<MyNewsWriters>', () => {
       setSelectedTopics,
     ]);
     (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
-    (useState as jest.Mock).mockImplementation(() => [[], setArticleData]);
+    (useState as jest.Mock).mockImplementation(() => [articleData, setArticleData]);
     (useState as jest.Mock).mockImplementation(() => [-1, setSelectedIndex]);
     (useState as jest.Mock).mockImplementation(() => [true, setShowEmpty]);
     (useMemo as jest.Mock).mockReturnValue(mockData);
+    (useContentForYou as jest.Mock).mockImplementation(useContentForYouMock)
+    useContentForYouMock.mockReturnValueOnce({
+      isArticalLoading: true,
+      favouriteArticlesData: sampleData,
+      fetchFavouriteArticlesRequest: () => {
+        return [];
+      },
+    })
+    DeviceTypeUtilsMock.isTab = false
     const component = <MyNewsTopics />;
     instance = render(component);
   });

@@ -9,6 +9,10 @@ jest.mock('react', () => ({
     useState: jest.fn(),
 }));
 
+jest.mock('react-native-safe-area-context',() => ({
+    useSafeAreaInsets:jest.fn()
+}))
+
 const sourceData = {
     file: 'www.file.com'
 }

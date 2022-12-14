@@ -23,7 +23,7 @@ describe('<NewsLettersWidget>', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLettersWidget changeSelectedStatus={mockFunction} title='example' subTitle='example' description='example' isSelected={true} onPress={mockFunction} image={'example.png'}/>
+        <NewsLettersWidget changeSelectedStatus={mockFunction} title='example' subTitle='example' description='example' isSelected={true} onPress={mockFunction} image={'example.png'} />
       </Provider>
     );
     instance = render(component);
@@ -49,5 +49,6 @@ describe('<NewsLettersWidget>', () => {
     fireEvent(element, 'keyExtractor', '', 2);
     expect(mockFunction).toBeTruthy()
   });
+
 });
 
