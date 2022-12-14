@@ -187,7 +187,7 @@ export const AuthPage: FunctionComponent = () => {
       alertPayload={alertPayload}
       alertOnPress={() => setIsAlertVisible(false)}
       setIsAlertVisible={setIsAlertVisible}
-      backgroundColor={styles.screenBackgroundColor.backgroundColor}>
+      backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
       <KeyboardAwareScrollView
         bounces={false}
         extraScrollHeight={30}

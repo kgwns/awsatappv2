@@ -2,9 +2,10 @@ import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { ArticleDetailBodyGet, ArticleSectionBodyGet, RelatedArticleBodyGet } from 'src/redux/articleDetail/types';
-import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from '../articleDetailService';
+import { requestArticleDetail, requestArticleSection, requestJournalistDetail, requestRelatedArticle } from '../articleDetailService';
 import { requestLatestArticle, requestSectionCombo } from '../latestTabService';
-
+import { JournalistDetailBodyGet } from '../../redux/articleDetail/types';
+import * as serviceApi from 'src/services/api';
 describe('Test Article Detail Services', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
@@ -81,14 +82,12 @@ describe('Test Article Detail Services', () => {
                 expect(response).toBeInstanceOf(Object);
             });
         });
-        it('test when response code is 500', () => {
-            mock.onGet().reply(500, {
-                error: 'Something Went Wrong',
-            });
+        it('test requestArticleDetail throws error', () => {
+            const getCacheApiRequest = jest.spyOn(serviceApi,'getCacheApiRequest');
+            getCacheApiRequest.mockImplementationOnce(()=>{throw new Error('Not able to fetch api')});
 
-            return requestArticleDetail(requestObject).catch((error: unknown) => {
-                const errorResponse = error as AxiosError;
-                expect(errorResponse.response?.status).toEqual(500);
+            return requestArticleDetail(requestObject).catch((error) => {
+                expect(error.message).toEqual('Not able to fetch api')
             });
         });
     })
@@ -119,14 +118,12 @@ describe('Test Article Detail Services', () => {
                 expect(response).toBeInstanceOf(Object);
             });
         });
-        it('test when response code is 500', () => {
-            mock.onGet().reply(500, {
-                error: 'Something Went Wrong',
-            });
+        it('test requestRelatedArticle throws error', () => {
+            const getCacheApiRequest = jest.spyOn(serviceApi,'getCacheApiRequest');
+            getCacheApiRequest.mockImplementationOnce(()=>{throw new Error('Not able to fetch api')});
 
-            return requestRelatedArticle(requestObject).catch((error: unknown) => {
-                const errorResponse = error as AxiosError;
-                expect(errorResponse.response?.status).toEqual(500);
+            return requestRelatedArticle(requestObject).catch((error) => {
+                expect(error.message).toEqual('Not able to fetch api')
             });
         });
     })
@@ -148,15 +145,35 @@ describe('Test Article Detail Services', () => {
                 expect(response).toBeInstanceOf(Object);
             });
         }, 10000);
-        it('test when response code is 500', () => {
-            mock.onGet().reply(500, {
-                error: 'Something Went Wrong',
-            });
+        it('test requestArticleSection throws error', () => {
+            const getCacheApiRequest = jest.spyOn(serviceApi,'getCacheApiRequest');
+            getCacheApiRequest.mockImplementationOnce(()=>{throw new Error('Not able to fetch api')});
 
-            return requestArticleSection(requestObject).catch((error: unknown) => {
-                const errorResponse = error as AxiosError;
-                expect(errorResponse.response?.status).toEqual(500);
+            return requestArticleSection(requestObject).catch((error) => {
+                expect(error.message).toEqual('Not able to fetch api')
             });
         });
-    })
+    });
+    describe('Check requestJournalistDetail method',()=>{
+        const requestObject: JournalistDetailBodyGet = {
+            jor_id: 'string',
+        }
+        it('test requestJournalistDetail when response is 200',()=>{
+            mock.onGet().reply(200,{
+                result: true,
+            });
+
+            return requestJournalistDetail(requestObject).then(response => {
+                expect(response).toBeInstanceOf(Object);
+            });
+        });
+        it('test requestJournalistDetail throws error',()=>{
+            const getCacheApiRequest = jest.spyOn(serviceApi,'getCacheApiRequest');
+            getCacheApiRequest.mockImplementationOnce(()=>{throw new Error('Not able to fetch api')});
+
+            return requestJournalistDetail(requestObject).catch((error)=>{
+                expect(error.message).toEqual('Not able to fetch api')
+            });
+        });
+    });
 });

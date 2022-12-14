@@ -1,8 +1,8 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { SectionArticlesBodyGet } from 'src/redux/sectionArticles/types';
 import { fetchSectionArticlesApi } from '../sectionArticlesService';
-
+import * as serviceApi from 'src/services/api';
 describe('Test Section Articles Services', () => {
     const mock = new MockAdapter(axios);
 
@@ -28,14 +28,12 @@ describe('Test Section Articles Services', () => {
         });
     });
 
-    it('test when response code is 500', () => {
-        mock.onGet().reply(500, {
-            error: 'Something Went Wrong',
-        });
+    it('test when fetchSectionArticlesApi throws error', () => {
+        const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+        getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-        return fetchSectionArticlesApi(body).catch((error: unknown) => {
-            const errorResponse = error as AxiosError;
-            expect(errorResponse.response?.status).toEqual(500);
+        return fetchSectionArticlesApi(body).catch((error) => {
+            expect(error.message).toEqual('Not able to fetch api');
         });
     });
 });
