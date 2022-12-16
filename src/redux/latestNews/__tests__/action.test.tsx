@@ -8,7 +8,7 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
     REQUEST_SECTION_COMBO_THREE_SUCCESS, REQUEST_SECTION_COMBO_THREE, 
     REQUEST_SECTION_COMBO_TWO_FAILED, REQUEST_SECTION_COMBO_TWO_SUCCESS, 
     REQUEST_SECTION_COMBO_TWO, REQUEST_SECTION_COMBO_FOUR_SUCCESS,
-    REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA, REQUEST_OPINION_DATA_LIST_FAILED, REQUEST_PODCAST_HOME_DATA, REQUEST_COVERAGE_BLOCK, REQUEST_SECTION_COMBO_FIVE_SUCCESS, REQUEST_SECTION_COMBO_FIVE, REQUEST_EDITORS_CHOICE_DATA, REQUEST_SPOTLIGHT_COMBO, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA, REQUEST_SECTION_COMBO_FIVE_FAILED, REQUEST_FEATURED_ARTICLE_BLOCK, REQUEST_SECTION_COMBO_SIX, REQUEST_SECTION_COMBO_SIX_SUCCESS, REQUEST_SECTION_COMBO_SIX_FAILED, REQUEST_HORIZONTAL_ARTICLE_BLOCK, REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED 
+    REQUEST_OPINION_DATA_SUCCESS, REQUEST_OPINION_LIST_DATA, REQUEST_OPINION_DATA_LIST_FAILED, REQUEST_PODCAST_HOME_DATA, REQUEST_COVERAGE_BLOCK, REQUEST_SECTION_COMBO_FIVE_SUCCESS, REQUEST_SECTION_COMBO_FIVE, REQUEST_EDITORS_CHOICE_DATA, REQUEST_SPOTLIGHT_COMBO, REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA, REQUEST_SECTION_COMBO_FIVE_FAILED, REQUEST_FEATURED_ARTICLE_BLOCK, REQUEST_SECTION_COMBO_SIX, REQUEST_SECTION_COMBO_SIX_SUCCESS, REQUEST_SECTION_COMBO_SIX_FAILED, REQUEST_HORIZONTAL_ARTICLE_BLOCK, REQUEST_SECTION_COMBO_SEVEN, REQUEST_SECTION_COMBO_SEVEN_SUCCESS, REQUEST_SECTION_COMBO_SEVEN_FAILED, REQUEST_INFO_GRAPHIC_BLOCK, REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS, REQUEST_ARCHIVED_ARTICLE_DATA, REQUEST_ARCHIVED_ARTICLE_DATA_SUCCESS, REQUEST_SECTION_COMBO_EIGHT_SUCCESS, REQUEST_SECTION_COMBO_EIGHT, REQUEST_SECTION_COMBO_EIGHT_FAILED, REQUEST_ARCHIVED_ARTICLE_DATA_FAILED, REQUEST_INFO_GRAPHIC_BLOCK_FAILED 
   } from "../actionType"
   import {
     requestHeroListTopListFailed, requestHeroListTopListSuccess, requestHeroListTopList,
@@ -17,7 +17,7 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
     requestSectionComboThreeFailed, requestSectionComboThreeSuccess, requestSectionComboThree,
     requestSectionComboTwoFailed, requestSectionComboTwoSuccess, requestSectionComboTwo,
     requestTickerAndHeroFailed, requestTickerAndHeroSuccess, requestTickerAndHero,
-    requestOpinionSuccess, requestOpinionList, requestOpinionFailed, requestPodcastHomeData, requestCoverageBlock, requestSectionComboFive, requestSectionComboFiveSuccess, requestEditorsChoiceData, requestSpotlightData, requestSpotlightArticleSection, requestSectionComboFiveFailed, requestFeatureArticleBlock, requestSectionComboSix, requestSectionComboSixSuccess, requestSectionComboSixFailed, requestHorizontalArticleBlock, requestSectionComboSeven, requestSectionComboSevenSuccess, requestSectionComboSevenFailed
+    requestOpinionSuccess, requestOpinionList, requestOpinionFailed, requestPodcastHomeData, requestCoverageBlock, requestSectionComboFive, requestSectionComboFiveSuccess, requestEditorsChoiceData, requestSpotlightData, requestSpotlightArticleSection, requestSectionComboFiveFailed, requestFeatureArticleBlock, requestSectionComboSix, requestSectionComboSixSuccess, requestSectionComboSixFailed, requestHorizontalArticleBlock, requestSectionComboSeven, requestSectionComboSevenSuccess, requestSectionComboSevenFailed, requestInfoGraphicBlock, requestInfoGraphicBlockSuccess, requestArchivedArticleSection, requestArchivedArticleSectionSuccess, requestSectionComboEight, requestSectionComboEightSuccess, requestSectionComboEightFailed, requestArchivedArticleSectionFailed, requestInfoGraphicBlockFailed
   } from '../action';
 
 describe('LatestNewsTab Action', () => {
@@ -223,5 +223,50 @@ describe('LatestNewsTab Action', () => {
     test('requestSectionComboSevenFailed', () => {
         const request = requestSectionComboSevenFailed({error: ''})
         expect(request.type).toEqual(REQUEST_SECTION_COMBO_SEVEN_FAILED)
+    })
+
+    test('requestInfoGraphicBlock', () => {
+        const request = requestInfoGraphicBlock()
+        expect(request.type).toEqual(REQUEST_INFO_GRAPHIC_BLOCK)
+    })
+
+    test('requestInfoGraphicBlockSuccess', () => {
+        const request = requestInfoGraphicBlockSuccess({infoGraphicBlockInfo:[]})
+        expect(request.type).toEqual(REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS)
+    })
+
+    test('requestInfoGraphicBlockFailed', () => {
+        const request = requestInfoGraphicBlockFailed({error:''})
+        expect(request.type).toEqual(REQUEST_INFO_GRAPHIC_BLOCK_FAILED)
+    })
+
+    test('requestArchivedArticleSection', () => {
+        const request = requestArchivedArticleSection()
+        expect(request.type).toEqual(REQUEST_ARCHIVED_ARTICLE_DATA)
+    })
+
+    test('requestArchivedArticleSectionSuccess', () => {
+        const request = requestArchivedArticleSectionSuccess({archivedArticleSection:[]})
+        expect(request.type).toEqual(REQUEST_ARCHIVED_ARTICLE_DATA_SUCCESS)
+    })
+
+    test('requestSectionComboEight', () => {
+        const request = requestSectionComboEight(payload2)
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_EIGHT)
+    })
+
+    test('requestSectionComboEightSuccess', () => {
+        const request = requestSectionComboEightSuccess({sectionComboEight:[]})
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_EIGHT_SUCCESS)
+    })
+
+    test('requestSectionComboEightFailed', () => {
+        const request = requestSectionComboEightFailed({error: ''})
+        expect(request.type).toEqual(REQUEST_SECTION_COMBO_EIGHT_FAILED)
+    })
+
+    test('requestArchivedArticleSectionFailed', () => {
+        const request = requestArchivedArticleSectionFailed({error: ''})
+        expect(request.type).toEqual(REQUEST_ARCHIVED_ARTICLE_DATA_FAILED)
     })
 })

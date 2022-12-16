@@ -9,6 +9,12 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
+
 describe('<ArticleSection>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
@@ -21,7 +27,7 @@ describe('<ArticleSection>', () => {
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [sampleData, articleData]);
-    const component = <ArticleSection data={sampleData} listKey={'listKey'} showDivider={true}/>;
+    const component = <ArticleSection data={sampleData} listKey={'listKey'} showDivider={true} onUpdateBookmark = {mockFunction} />;
     instance = render(component);
   });
 
@@ -30,7 +36,13 @@ describe('<ArticleSection>', () => {
     instance.unmount();
   });
 
+  it('should render ArticleSection component in Tab', () => {
+    DeviceTypeUtilsMock.isTab = true
+    expect(instance).toBeDefined();
+  });
+
   it('should render ArticleSection component', () => {
+    DeviceTypeUtilsMock.isTab = false
     expect(instance).toBeDefined();
   });
 

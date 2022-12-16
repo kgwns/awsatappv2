@@ -99,7 +99,7 @@ describe('<VideoPlayerControl>', () => {
           url={url} isMiniPlayer={true} paused={true}
           playerVisible={false} isFullScreenPlayer={false}
           isFullScreen={true} videoRefs={sampleData}
-          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction}
+          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
           onChangeFullScreen={mockFunction}
         />;
       instance = render(component);
@@ -178,7 +178,7 @@ describe('<VideoPlayerControl>', () => {
         <VideoPlayerControl
           url={url} isMiniPlayer={false} paused={false}
           playerVisible={false} isFullScreenPlayer={true}
-          isFullScreen={true} videoRefs={sampleData}
+          isFullScreen={true} videoRefs={sampleData} showReplay={true}
           setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction}
           onChangeFullScreen={mockFunction}
         />;
@@ -212,7 +212,7 @@ describe('<VideoPlayerControl>', () => {
         <VideoPlayerControl
           url={url} paused={false}
           playerVisible={false} videoRefs={sampleData}
-          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction}
+          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
           onChangeFullScreen={mockFunction}
         />;
       instance = render(component);

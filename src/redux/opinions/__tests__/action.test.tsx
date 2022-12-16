@@ -1,11 +1,13 @@
 import {
     EMPTY_OPINION_DATA,
+    EMPTY_WRITER_OPINION_DATA,
     FETCH_OPINIONS,
     FETCH_OPINIONS_ERROR,
     FETCH_OPINIONS_SUCCESS,
+    FETCH_WRITER_OPINIONS,
     STORE_HOME_OPINION_NID,
   } from '../actionTypes';
-  import {fetchOpinionsFailed, fetchOpinionsSuccess, fetchOpinions, emptyOpinionsAction, storeHomeOpinionNid} from '../action';
+  import {fetchOpinionsFailed, fetchOpinionsSuccess, fetchOpinions, emptyOpinionsAction, storeHomeOpinionNid, fetchWriterOpinions, emptyWriterOpinionAction} from '../action';
 describe('<OpinionsAction', () => {
 
     const errorMessage = 'This is sample error'
@@ -39,4 +41,14 @@ describe('<OpinionsAction', () => {
         expect(result.type).toEqual(STORE_HOME_OPINION_NID)
     })
 
+    it('fetc writer Opinions', () => {
+        const result = fetchWriterOpinions({ tid: '',
+            page: 2})
+        expect(result.type).toEqual(FETCH_WRITER_OPINIONS)
+    })
+
+    it('empty Writer Opinion', () => {
+        const result = emptyWriterOpinionAction()
+        expect(result.type).toEqual(EMPTY_WRITER_OPINION_DATA)
+    })
 })
