@@ -26,5 +26,5 @@ describe('<PodcastOpinionArticleSection>', () => {
 
   test('Should render PodcastOpinionArticleSection component', () => {
     expect(instance).toBeDefined();
-  });
+  });   
 });

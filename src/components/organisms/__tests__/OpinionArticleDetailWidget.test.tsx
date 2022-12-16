@@ -11,6 +11,13 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+  isIOS: false,
+}));
+
 describe('<OpinionArticleDetailWidget>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
@@ -69,27 +76,36 @@ describe('<OpinionArticleDetailWidget>', () => {
       title: 'abc'
     }, mediaData]);
     const component = <OpinionArticleDetailWidget data={data} writerData={sampleWriterInfo} 
-                          fontSize={ArticleFontSize.normal} isFollowed={false} onPressFollow={mockFunction} 
-                          onPressWriter={mockFunction} isRelatedArticle={true} onPressHome={mockFunction}
-                      />;
+    fontSize={ArticleFontSize.normal} isFollowed={false} onPressFollow={mockFunction} 
+    onPressWriter={mockFunction} isRelatedArticle={true} onPressHome={mockFunction}
+    />;
     instance = render(component);
   });
-
+  
   afterEach(() => {
     jest.clearAllMocks();
     instance.unmount();
   });
-
+  
   it('should render OpinionArticleDetailWidget component', () => {
+    DeviceTypeUtilsMock.isTab = false
+    DeviceTypeUtilsMock.isIOS = false
     expect(instance).toBeDefined();
   });
-
+  it('should render OpinionArticleDetailWidget component in tab and ios', () => {
+    DeviceTypeUtilsMock.isTab = true
+    DeviceTypeUtilsMock.isIOS = true
+    expect(instance).toBeDefined();
+  });
+  
   test('Should call WriterBannerImage onPressReturn', () => {
     const element = instance.container.findByType(WriterBannerImage);
     fireEvent(element, 'onPressReturn');
     expect(mockFunction).toBeTruthy();
   })
+
 });
+
 
 describe('<OpinionArticleDetailWidget>', () => {
   let instance: RenderAPI;
