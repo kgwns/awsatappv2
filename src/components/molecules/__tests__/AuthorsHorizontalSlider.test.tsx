@@ -4,16 +4,18 @@ import {AuthorsHorizontalSlider} from '..';
 import {ScrollView, TouchableWithoutFeedback} from 'react-native';
 import { AuthorsItemType } from '../AuthorsHorizontalSlider';
 
-jest.mock('react', () => ({
-  ...jest.requireActual('react'),
-  useRef: jest.fn(),
-}))
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false
+}));
 
-const sampleData: any = {
-  current : {
-    scrollToEnd:() => []
-  }
-}
+
+// const sampleData: any = {
+//   current : {
+//     scrollToEnd:() => []
+//   }
+// }
 
 describe('<AuthorsHorizontalSlider>', () => {
   let instance: RenderAPI;
@@ -31,10 +33,10 @@ describe('<AuthorsHorizontalSlider>', () => {
       bottom: 0,
   }
   const mockFn = jest.fn();
-  const scrollRef = mockFn;
+  
 
   beforeEach(() => {
-    (useRef as jest.Mock).mockImplementation(() => [sampleData, scrollRef]);
+    // (useRef as jest.Mock).mockImplementation(() => [sampleData, scrollRef]);
     const component = (
       <AuthorsHorizontalSlider
         selectedIndex={-1}
@@ -78,7 +80,7 @@ describe('<AuthorsHorizontalSlider>', () => {
   test('Should call TouchableOpacity onPress', () => {
     const element = instance.getByTestId('onAllPress');
     fireEvent(element, 'onPress');
-    expect(sampleData.current.scrollToEnd()).toBeTruthy();
+    // expect(sampleData.current.scrollToEnd()).toBeTruthy();
   })
 });
 
@@ -99,10 +101,10 @@ describe('<AuthorsHorizontalSlider>', () => {
       bottom: 0,
   }
   const mockFn = jest.fn();
-  const scrollRef = mockFn;
-
+  
   beforeEach(() => {
-    (useRef as jest.Mock).mockImplementation(() => [sampleData, scrollRef]);
+    // (useRef as jest.Mock).mockImplementation(() => [sampleData, scrollRef]);
+    DeviceTypeUtilsMock.isIOS = true
     const component = (
       <AuthorsHorizontalSlider
         selectedIndex={0}
@@ -146,6 +148,6 @@ describe('<AuthorsHorizontalSlider>', () => {
   test('Should call TouchableOpacity onPress', () => {
     const element = instance.getByTestId('onAllPress');
     fireEvent(element, 'onPress');
-    expect(sampleData.current.scrollToEnd()).toBeTruthy();
+    // expect(sampleData.current.scrollToEnd()).toBeTruthy();
   })
 });

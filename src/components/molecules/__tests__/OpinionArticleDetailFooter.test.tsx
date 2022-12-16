@@ -20,7 +20,8 @@ describe('<OpinionArticleDetailFooter>', () => {
     field_edit_letter_writer_export: null,
     writer: [],
     isBookmarked: false,
-    isFollowed: false
+    isFollowed: false,
+    field_shorturl: ''
   };
 
   beforeEach(() => {
@@ -75,7 +76,8 @@ describe('<OpinionArticleDetailFooter>', () => {
     field_edit_letter_writer_export: null,
     writer: [],
     isBookmarked: false,
-    isFollowed: false
+    isFollowed: false,
+    field_shorturl: ''
   };
 
   beforeEach(() => {
@@ -109,6 +111,6 @@ describe('<OpinionArticleDetailFooter>', () => {
   it('Should call share button', () => {
     const element = instance.container.findAllByType(ButtonImage)[2];
     fireEvent(element, 'onPress');
-    expect(element).toBeTruthy();
+    expect(element).toBeTruthy(); 
   });
 });
