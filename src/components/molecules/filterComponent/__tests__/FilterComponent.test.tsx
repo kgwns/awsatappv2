@@ -9,17 +9,29 @@ describe('< Filter Component >', () => {
     const data: FilterDataType[] = [
         {
             name: 'filter_one',
-            isSelected: true
+            isSelected: true,
+            child: [
+                {
+                    name: 'abc',
+                    isSelected: true
+                }
+            ]
         },
         {
             name: 'filter_two',
-            isSelected: false
+            isSelected: false,
+            child: [
+                {
+                    name: 'abc',
+                    isSelected: false
+                }
+            ]
         }
     ]
     const mockFunction = jest.fn()
 
     beforeEach(() => {
-        const component = <FilterComponent data={data} onPress={mockFunction} />
+        const component = <FilterComponent data={data} onPress={mockFunction} onPressSubChild={mockFunction}/>
         instance = render(component)
     })
 
@@ -32,4 +44,10 @@ describe('< Filter Component >', () => {
         fireEvent(listButton, 'onPress', 2);
         expect(mockFunction).toHaveBeenCalled;
     });
+
+    it('should press childitem', () =>{
+        const testItemId = instance.getByTestId('renderSubChild');
+        fireEvent(testItemId, 'onPress');
+        expect(mockFunction).toHaveBeenCalled();
+    })
 })

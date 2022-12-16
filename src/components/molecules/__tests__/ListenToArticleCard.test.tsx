@@ -1,5 +1,6 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {ListenToArticleCard} from '..';
+import * as Track from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
 import React, { useState } from 'react';
 import { ButtonImage } from '../../atoms'
@@ -10,6 +11,16 @@ jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
+
+// jest.mock('react-native-track-player', () => ({
+//   play: jest.fn(),
+//   pause: jest.fn(),
+//   getState: jest.fn(),
+
+//   usePlaybackState: jest.fn()
+// }))
+
+
 
 describe('<ListenToArticleCard>', () => {
   let instance: RenderAPI;
@@ -74,9 +85,11 @@ describe('<ListenToArticleCard>', () => {
   });
 
   it('When ListenToArticleCardTO1 is pressed', () => {
+    const onPressPlaySpy = jest.spyOn(Track, 'onPressPlay')
+
     const testItemId = instance.getByTestId('ListenToArticleCardTO1');
     fireEvent(testItemId, 'onPress', {nid:'0'});
-    expect(mockFunction).toBeTruthy();
+    expect(onPressPlaySpy).toHaveBeenCalled();
   });
 
   it('When ListenToArticleCardBI1 is pressed', () => {

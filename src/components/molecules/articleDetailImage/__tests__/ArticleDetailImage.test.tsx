@@ -12,7 +12,7 @@ describe('<ArticleDetailImage>', () => {
     beforeEach(() => {
         const component = <ArticleDetailImage
             title={mockString} author={mockString}
-            isFirstItem created={''} isRelatedArticle={false} paused={false} />
+            isFirstItem created={''} isRelatedArticle={false} paused={false} isAlbum={false} />
         instance = render(component)
     })
 
@@ -33,11 +33,11 @@ describe('<ArticleDetailImage>', () => {
 
 })
 
-describe('<ArticleDetailImage with jwPlayerId>', () => {
+describe('<ArticleDetailImage without jwPlayerId>', () => {
 
     beforeEach(() => {
         const component = <ArticleDetailImage
-            title={mockString} author={mockString} jwplayerId={mockString}
+            title={mockString} author={mockString}  category={mockString} caption={mockString}
             isFirstItem created={''} isRelatedArticle={false} paused={false} />
         instance = render(component)
     })

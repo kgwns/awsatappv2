@@ -4,13 +4,23 @@ import { PopulateWidget, PopulateWidgetType } from 'src/components/molecules/pop
 import { moleculesTestID } from 'src/constants';
 import { VideoItem } from '../../video-item/VideoItem';
 import {useNavigation} from '@react-navigation/native';
-import { ArticlePodCastWidget } from 'src/components/organisms';
+import { PhotoGalleryItem } from '../../photogallery/PhotoGalleryItem';
+import ArticlePodCastWidget from 'src/components/organisms/FavoritePodCastWidget';
+
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
   useNavigationState: () => ([]),
 }));
+
+jest.mock("react-native-safe-area-context", () => {
+  const insets = { top: 0 }
+  return {
+      useSafeAreaInsets: jest.fn().mockImplementation(() => insets)
+  }
+})
 
 describe('<PopulateWidget/>', () => {
   let instance: RenderAPI;
@@ -38,7 +48,7 @@ describe('<PopulateWidget/>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    it('Should render SectionVideoFooter', () => {
+    it('Should render widget', () => {
       expect(instance).toBeDefined();
     });
 
@@ -59,7 +69,7 @@ describe('<PopulateWidget/>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    it('Should render SectionVideoFooter', () => {
+    it('Should render widget', () => {
       expect(instance).toBeDefined();
     });
   });
@@ -98,8 +108,7 @@ describe('<PopulateWidget/>', () => {
     it('Should call ArticlePodCastWidget onPress', () => {
       const element = instance.container.findAllByType(ArticlePodCastWidget)[0];
       fireEvent(element, 'onPress');
-      expect(navigation.navigate).toBeTruthy();
-    });
+    });   
   });
 
   describe('when video data only', () => {
@@ -119,6 +128,28 @@ describe('<PopulateWidget/>', () => {
     });
     it('Should call VideoItem onPress', () => {
       const element = instance.container.findAllByType(VideoItem)[0];
+      fireEvent(element, 'onPress');
+      expect(navigation.navigate).toBeTruthy();
+    });
+  });
+
+  describe('when Album data only', () => {
+    beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      const component = <PopulateWidget type={PopulateWidgetType.ALBUM} props={sampleArticleData}
+        onPressBookmark={mockOnPressBookmark} />;
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render widget', () => {
+      expect(instance).toBeDefined();
+    });
+    it('Should call Album onPress', () => {
+      const element = instance.container.findAllByType(PhotoGalleryItem)[0];
       fireEvent(element, 'onPress');
       expect(navigation.navigate).toBeTruthy();
     });
