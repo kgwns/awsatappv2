@@ -133,22 +133,22 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
           {isTab && <>
             <View style={styles.rowContainerStyle}>
               <View style={styles.rowStyle}>
-              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)}>
+              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)} testID = "appleUrlTab">
                 <ApplePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
                 </TouchableOpacity>
               </View>
               <View style={styles.rowStyle}>
-              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)}>
+              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)} testID = "googleUrlTab">
                 <GooglePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
                 </TouchableOpacity>
               </View>
               <View style={styles.rowStyle}>
-              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}>
+              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}  testID = "spotifyUrlTab">
                 <SpotifyDarkIcon width={normalize(70)} height={normalize(50)} />
                 </TouchableOpacity>
               </View>
               <View style={styles.rowStyle}>
-              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)}>
+              <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)} testID = "anghamiUrlTab">
                 <AnghamiPodcastDarkIcon width={normalize(80)} height={normalize(50)} />
                 </TouchableOpacity>
               </View>
@@ -158,22 +158,22 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
           {!isTab && <>
             <View style={styles.topRowContainerStyle}>
               <View style={styles.rowStyle}>
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)}>
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)} testID = "appleUrl">
                   <ApplePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
                 </TouchableOpacity>
                 <View style={{ width: '10%' }} />
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)}>
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)} testID = "googleUrl">
                   <GooglePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
                 </TouchableOpacity>
               </View>
             </View>
             <View style={styles.BottomRowContainerStyle}>
               <View style={styles.rowStyle}>
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)}>
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)} testID = "spotifyUrl">
                   <SpotifyDarkIcon width={normalize(70)} height={normalize(50)} />
                 </TouchableOpacity>
                 <View style={{ width: '14%' }} />
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)}>
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)} testID = "anghamiUrl">
                   <AnghamiPodcastDarkIcon width={normalize(80)} height={normalize(50)} />
                 </TouchableOpacity>
               </View>

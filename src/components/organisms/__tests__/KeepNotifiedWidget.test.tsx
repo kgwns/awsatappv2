@@ -1,10 +1,13 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
-import FixedTouchable from 'src/shared/utils/FixedTouchable';
-import { KeepNotifiedCard, SectionVideoFooter } from 'src/components/molecules';
+import { KeepNotifiedCard } from 'src/components/molecules';
 import { FlatList } from 'react-native';
 import KeepNotifiedWidget from '../KeepNotifiedWidget';
-
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
 describe('<KeepNotifiedWidget>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
@@ -14,6 +17,7 @@ describe('<KeepNotifiedWidget>', () => {
   ];
 
   beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = true;
     const component = <KeepNotifiedWidget data={sampleData} onPress={mockFunction}/>;
     instance = render(component);
   });
@@ -52,6 +56,7 @@ describe('<KeepNotifiedWidget>', () => {
   const mockFunction = jest.fn();
 
   beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = false
     const component = <KeepNotifiedWidget data={[]} onPress={mockFunction}/>;
     instance = render(component);
   });

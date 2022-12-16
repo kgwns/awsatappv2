@@ -64,7 +64,7 @@ export const VideoContent = ({
 
         const moreStyle = isTwoLine ? { height: normalize(isTitleLineCount * 35) } : {}
         return (
-            <TouchableOpacity onPress={()=>onItemPress(item)}>
+            <TouchableOpacity onPress={()=>onItemPress(item)} testID = "videoContentPressId">
                 <View style={[style.videoCardContainer, itemStyle]}>
                     <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
                     <Label

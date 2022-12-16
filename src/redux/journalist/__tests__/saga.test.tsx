@@ -62,17 +62,4 @@ describe('<JournalistSaga >', () => {
             genObject.throw(errorResponse)
         })
     })
-
-    describe('Test journalistSaga  saga', () => {
-        it('fire on journalistSaga', () => {
-          testSaga(journalistSaga)
-            .next()
-            .all([takeLatest(GET_JOURNALIST_ARTICLE_INFO, getJournalistArticleInfo)])
-            .next()
-            .all([takeLatest(FETCH_JOURNALIST_DETAIL, fetchJournalistDetails)])
-            .finish()
-            .isDone();
-        })
-    })
-
 })

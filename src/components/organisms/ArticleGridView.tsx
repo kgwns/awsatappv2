@@ -38,7 +38,7 @@ export const ArticleGridView = ({
 
         return (
             <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_GRID_VIEW + index}
-                onPress={() => onPress(item.nid, isAlbum)}>
+                onPress={() => onPress(item.nid, isAlbum)} testID = "gridViewClick">
                 <GridViewItem
                     imageUrl={item.image}
                     title={item.title}

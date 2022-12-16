@@ -1,7 +1,11 @@
 import { render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import { ArticlePodCastWidget } from 'src/components/organisms'
-
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
 describe('<ArticlePodCastWidget>', () => {
     let instance: RenderAPI;
 
@@ -27,10 +31,12 @@ describe('<ArticlePodCastWidget>', () => {
     })
 
     it('should render component', () => {
+        DeviceTypeUtilsMock.isTab = true
         expect(instance).toBeDefined()
     })
 
     it('should render component', () => {
+        DeviceTypeUtilsMock.isTab = false
         expect(render( <ArticlePodCastWidget imageUrl={''} title={''} body={''} podcastHeader={''} 
         allEpisodes={''} tagName={''} timeDuration={''} rightTitle={''} isBookmarked={false} spreakerEpisode={''}/>)).toBeDefined()
     })

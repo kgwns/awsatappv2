@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native';
 import { keyExtractor } from '../MyNewsWriters';
 import { OpinionsListItemType } from 'src/redux/opinionArticleDetail/types';
-import { useAllWriters,useContentForYou } from 'src/hooks';
+import { useAllWriters } from 'src/hooks';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -25,7 +25,7 @@ jest.mock('src/shared/styles/useThemeAware', () => {
   return {
     useThemeAwareObject: jest.fn(() => ({
       screenBackgroundColor: {
-        backgroundColor: 'white'
+        backgroundColor: 'red'
       }
     }))
   }
@@ -137,10 +137,6 @@ jest.mock('src/hooks/useAllWriters', () => ({
   useAllWriters: jest.fn()
 }));
 
-// jest.mock('src/hooks/useContentForYou', () => ({
-//   useContentForYou: jest.fn()
-// }));
-
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
@@ -204,7 +200,6 @@ describe('<MyNewsWriters>', () => {
   const setSelectedIndex = mockFunction;
   const setShowEmpty = mockFunction;
   const useAllWritersMock = mockFunction;
-  // const useContentForYouMock = mockFunction;
   const mockData = [
     {
       field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
@@ -230,69 +225,38 @@ describe('<MyNewsWriters>', () => {
     (useMemo as jest.Mock).mockReturnValue(mockData);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
-    // (useContentForYou as jest.Mock).mockImplementation(useContentForYouMock);
-
-    // useContentForYouMock.mockReturnValue({
-    //   isLoading: true,
-    //   favouriteOpinionsData:{
-    //     title: 'mockTitle',
-    //     created_export: '',
-    //     field_opinion_writer_node_export: [{
-    //       id: '2',
-    //       title: 'mockTitle',
-    //       url: '',
-    //       bundle: '',
-    //       opinion_writer_photo: '',
-    //       langcode: '',
-    //       name: 'mockName',
-    //     }],
-    //     nid: '2',
-    //     field_opinion_sport_blog_export: [{
-    //       id: '',
-    //       title: '',
-    //       bundle: '',
-    //       name: '',
-    //     }],
-    //     field_new_issueno_export: '',
-    //     published_at_export: '',
-    //     body: 'mockBody',
-    //     field_edit_letter_writer_export: '',
-    //     isBookmarked: true,
-    //   }
-    // })
-
     useAllWritersMock.mockReturnValue({
       isLoading: true,
       selectedAuthorsData: {
         code: 2,
-        message: '',
+        message: 'string',
         data: {
-          tid: '2'
+          tid: '12'
         },
       },
       allWritersData: [
         {
-          name: '',
+          name: 'example',
           description__value_export: {},
           field_opinion_writer_path_export: {},
-          view_taxonomy_term: '',
+          view_taxonomy_term: 'example',
           tid: '1',
           vid_export: {},
           field_description_export: {},
           field_opinion_writer_path_export_1: {},
-          field_opinion_writer_photo_export: '',
+          field_opinion_writer_photo_export: 'example',
           isSelected: true,
         },
         {
-          name: '',
+          name: 'example',
           description__value_export: {},
           field_opinion_writer_path_export: {},
-          view_taxonomy_term: '',
+          view_taxonomy_term: 'example',
           tid: '2',
           vid_export: {},
           field_description_export: {},
           field_opinion_writer_path_export_1: {},
-          field_opinion_writer_photo_export: 'mock',
+          field_opinion_writer_photo_export: 'example',
           isSelected: true,
         },
       ],
@@ -328,15 +292,6 @@ describe('<MyNewsWriters>', () => {
     fireEvent(element, 'onPress', {item:mockData,index:0});
     expect(setPageCount).toBeCalled();
   });
-
-  test('Should call AuthorsHorizontalSlider onPress', () => {
-    const element = instance.container.findByType(
-      AuthorsHorizontalSlider as any,
-    );
-    fireEvent(element, 'authorsList',{item:mockData,index:0});
-    expect(setPageCount).toBeCalled();
-  });
-
 });
 
 describe('<MyNewsWriters>', () => {
@@ -348,11 +303,10 @@ describe('<MyNewsWriters>', () => {
   const setSelectedIndex = mockFunction;
   const setShowEmpty = mockFunction;
   const useAllWritersMock = mockFunction;
-  // const useContentForYouMock = mockFunction;
   const mockData = [
     {
-      field_opinion_writer_photo_export: '',
-      name: '',
+      field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
+      name: 'الحكومة',
     },
   ];
 
@@ -374,69 +328,38 @@ describe('<MyNewsWriters>', () => {
     (useMemo as jest.Mock).mockReturnValue(mockData);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
-    // (useContentForYou as jest.Mock).mockImplementation(useContentForYouMock);
-
-    // useContentForYouMock.mockReturnValue({
-    //   isLoading: true,
-    //   favouriteOpinionsData:{
-    //     title: 'mockTitle',
-    //     created_export: '',
-    //     field_opinion_writer_node_export: [{
-    //       id: '2',
-    //       title: 'mockTitle',
-    //       url: '',
-    //       bundle: '',
-    //       opinion_writer_photo: '',
-    //       langcode: '',
-    //       name: 'mockName',
-    //     }],
-    //     nid: '2',
-    //     field_opinion_sport_blog_export: [{
-    //       id: '',
-    //       title: '',
-    //       bundle: '',
-    //       name: '',
-    //     }],
-    //     field_new_issueno_export: '',
-    //     published_at_export: '',
-    //     body: 'mockBody',
-    //     field_edit_letter_writer_export: '',
-    //     isBookmarked: true,
-    //   },
-    //   fetchFavouriteOpinionsRequest: jest.fn(),
-    // })
     useAllWritersMock.mockReturnValue({
       isLoading: false,
       selectedAuthorsData: {
         code: 2,
-        message: '',
+        message: 'string',
         data: {
-          tid: ''
+          tid: '12'
         },
       },
       allWritersData: [
         {
-          name: 'mockName',
+          name: 'example',
           description__value_export: {},
           field_opinion_writer_path_export: {},
-          view_taxonomy_term: 'mock',
-          tid: '3',
+          view_taxonomy_term: 'example',
+          tid: '1',
           vid_export: {},
           field_description_export: {},
           field_opinion_writer_path_export_1: {},
-          field_opinion_writer_photo_export: 'mock',
+          field_opinion_writer_photo_export: 'example',
           isSelected: true,
         },
         {
-          name: 'mockName',
+          name: 'example',
           description__value_export: {},
           field_opinion_writer_path_export: {},
-          view_taxonomy_term: 'mock',
-          tid: '7',
+          view_taxonomy_term: 'example',
+          tid: '2',
           vid_export: {},
           field_description_export: {},
           field_opinion_writer_path_export_1: {},
-          field_opinion_writer_photo_export: 'mock',
+          field_opinion_writer_photo_export: 'example',
           isSelected: true,
         },
       ],
@@ -465,7 +388,7 @@ describe('<MyNewsWriters>', () => {
     const renderData = {
       title: 'title1',
       field_opinion_writer_node_export: [{
-        opinion_writer_photo: ''
+        opinion_writer_photo: 'https://picsum.photos/200/300'
       }],
       field_jwplayer_id_opinion_export: '2348',
       jwplayer: 'jwplayer',
@@ -479,7 +402,7 @@ describe('<MyNewsWriters>', () => {
     const renderData = {
       title: 'title1',
       field_opinion_writer_node_export: {
-        opinion_writer_photo: ''
+        opinion_writer_photo: 'https://picsum.photos/200/300'
       },
       field_jwplayer_id_opinion_export: null,
       jwplayer: 'jwplayer',
@@ -494,6 +417,7 @@ describe('<MyNewsWriters>', () => {
     fireEvent(element, 'ListFooterComponent');
     expect(mockFunction).toHaveBeenCalled()
   })
+
   it('should render onEndReached in Flatlist', () => {
     const element = instance.container.findByType(FlatList);
     fireEvent(element, 'onEndReached');

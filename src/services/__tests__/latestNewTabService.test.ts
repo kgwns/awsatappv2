@@ -6,7 +6,6 @@ import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSecti
 import { requestArticleDetail, requestRelatedArticle } from '../articleDetailService';
 import { writerOpinionApi, requestLatestArticle, requestSectionCombo, mainCoverageBlockApi, podcastHomeApi, mainHorizontalArticleApi, editorsChoiceApi, spotlightApi, requestSpotlightArticleSection, mainFeaturedArticleApi, infoGraphicBlockApi, archivedArticleApi } from '../latestTabService';
 import * as serviceApi from 'src/services/api';
-import { NativeModules } from 'react-native';
 
 describe('Test LatestNews Tab Services', () => {
     const mock = new MockAdapter(axios);
