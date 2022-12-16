@@ -750,19 +750,19 @@ describe('<Article Detail Saga >', () => {
         });
 
         it('Test updatedContentBundleContent', () => {
-            expect(updatedContentBundleContent(dataExample2, {contentBundleData: [dataExample2]})).toBeTruthy();
+            expect(updatedContentBundleContent(dataExample2,  [dataExample2])).toBeTruthy();
         });
 
         it('Test updatedContentBundleContent', () => {
-            expect(updatedContentBundleContent(data, {contentBundleData: [data]})).toBeTruthy();
+            expect(updatedContentBundleContent(data, [data])).toBeTruthy();
         });
 
         it('Test updatedContentBundleContent', () => {
-            expect(updatedContentBundleContent(data2, {contentBundleData: [data]})).toBeTruthy();
+            expect(updatedContentBundleContent(data2, [data])).toBeTruthy();
         });
 
         it('Test updatedContentBundleContent', () => {
-            expect(updatedContentBundleContent(dataExample2, {contentBundleData: []})).toBeTruthy();
+            expect(updatedContentBundleContent(dataExample2, [])).toBeTruthy();
         });
 
         it('Test updatedOpinionBundle', () => {

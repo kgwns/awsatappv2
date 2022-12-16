@@ -1,3 +1,5 @@
+import { testSaga } from 'redux-saga-test-plan';
+import { all, takeLatest } from "redux-saga/effects";
 import { FETCH_JOURNALIST_DETAIL, GET_JOURNALIST_ARTICLE_INFO } from '../actionType';
 import journalistSaga, { getJournalistArticleInfo, fetchJournalistDetails } from "../sagas";
 

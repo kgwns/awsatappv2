@@ -585,7 +585,7 @@ describe('<LatestNewsSaga >', () => {
             genObject.throw(errorResponse)
         })
 
-        it('check fetchSectionComboFive success', () => {
+        it('check fetchSectionComboSix success', () => {
             const genObject = fetchSectionCombo({
                 type: REQUEST_SECTION_COMBO_SIX,
                 payload: {
@@ -596,7 +596,7 @@ describe('<LatestNewsSaga >', () => {
             genObject.next(sampleResponse)
         })
 
-        it('check fetchSectionComboFive failed', () => {
+        it('check fetchSectionComboSix failed', () => {
             const genObject = fetchSectionCombo({
                 type: REQUEST_SECTION_COMBO_SIX,
                 payload: {
@@ -607,7 +607,7 @@ describe('<LatestNewsSaga >', () => {
             genObject.throw(errorResponse)
         })
 
-        it('check fetchSectionComboFive success', () => {
+        it('check fetchSectionComboSeven success', () => {
             const genObject = fetchSectionCombo({
                 type: REQUEST_SECTION_COMBO_SEVEN,
                 payload: {
@@ -618,7 +618,7 @@ describe('<LatestNewsSaga >', () => {
             genObject.next(sampleResponse)
         })
 
-        it('check fetchSectionComboFive failed', () => {
+        it('check fetchSectionComboSeven failed', () => {
             const genObject = fetchSectionCombo({
                 type: REQUEST_SECTION_COMBO_SEVEN,
                 payload: {
@@ -629,7 +629,7 @@ describe('<LatestNewsSaga >', () => {
             genObject.throw(errorResponse)
         })
 
-        it('check fetchSectionComboFive failed', () => {
+        it('check fetchSectionComboSeven failed', () => {
             const genObject = fetchSectionCombo({
                 type: REQUEST_SECTION_COMBO_SEVEN,
                 payload: {
@@ -640,7 +640,29 @@ describe('<LatestNewsSaga >', () => {
             genObject.throw({})
         })
 
-        it('check fetchSectionComboFive failed', () => {
+        it('check fetchSectionComboEight success', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_EIGHT,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.next(sampleResponse)
+        })
+
+        it('check fetchSectionComboEight failed', () => {
+            const genObject = fetchSectionCombo({
+                type: REQUEST_SECTION_COMBO_EIGHT,
+                payload: {
+                    id: 736, items_per_page: 10, page: 0
+                }
+            })
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+
+        it('check fetchSectionCombo failed', () => {
             const genObject = fetchSectionCombo({})
             genObject.next()
             genObject.throw(errorResponse)
@@ -838,6 +860,71 @@ describe('<LatestNewsSaga >', () => {
             })
         })
 
+        describe('fetchArchivedArticleSection', () => {
+            it('check fetchArchivedArticleSection success', () => {
+                const genObject = fetchArchivedArticleSectionData()
+                genObject.next(sampleResponse)
+                genObject.next(sampleResponse)
+        })
+
+        it('check fetchArchivedArticleSectionData success', () => {
+            const genObject = fetchArchivedArticleSectionData()
+            genObject.next()
+            genObject.next()
+        })
+
+        it('check fetchArchivedArticleSectionData success', () => {
+            const genObject = fetchArchivedArticleSectionData()
+            genObject.next({rows: []})
+            genObject.next({rows: []})
+        })
+
+        it('check fetchArchivedArticleSectionData failed', () => {
+            const genObject = fetchArchivedArticleSectionData()
+            genObject.next()
+            genObject.throw(errorResponse)
+        })
+
+        it('check fetchArchivedArticleSectionData failed', () => {
+            const genObject = fetchArchivedArticleSectionData()
+            genObject.next()
+            genObject.throw({})
+        })
+
+    })
+
+    describe('fetchInfoGraphicBlockData', () => {
+        it('check fetchInfoGraphicBlockData success', () => {
+            const genObject = fetchInfoGraphicBlockData()
+            genObject.next(sampleResponse)
+            genObject.next(sampleResponse)
+    })
+
+    it('check fetchInfoGraphicBlockData success', () => {
+        const genObject = fetchInfoGraphicBlockData()
+        genObject.next()
+        genObject.next()
+    })
+
+    it('check fetchInfoGraphicBlockData success', () => {
+        const genObject = fetchInfoGraphicBlockData()
+        genObject.next({rows: []})
+        genObject.next({rows: []})
+    })
+
+    it('check fetchInfoGraphicBlockData failed', () => {
+        const genObject = fetchInfoGraphicBlockData()
+        genObject.next()
+        genObject.throw(errorResponse)
+    })
+
+    it('check fetchInfoGraphicBlockData failed', () => {
+        const genObject = fetchInfoGraphicBlockData()
+        genObject.next()
+        genObject.throw({})
+    })
+
+})
         describe('fetchSpotlightArticleSection', () => {
             it('check fetchSpotlightArticleSection success', () => {
                 const genObject = fetchSpotlightArticleSection({
@@ -905,5 +992,6 @@ describe('<LatestNewsSaga >', () => {
                 genObject.throw({})
             })
         })
+        
     })
 })

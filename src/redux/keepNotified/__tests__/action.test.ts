@@ -1,5 +1,5 @@
-import { getSelectedNotification, getSelectedNotificationFailed, getSelectedNotificationSuccess, removeNotificationInfo, sendSelectedNotification, sendSelectedNotificationFailed, sendSelectedNotificationSuccess } from "../action"
-import { GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION_SUCCESS, REMOVE_NOTIFICATION_INFO, SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_FAILED, SEND_SELECTED_NOTIFICATION_SUCCESS } from "../actionType"
+import { getListOfNotification, getListOfNotificationFailed, getListOfNotificationSuccess, getSelectedNotification, getSelectedNotificationFailed, getSelectedNotificationSuccess, removeNotificationInfo, removeSelectedNotification, sendSelectedNotification, sendSelectedNotificationFailed, sendSelectedNotificationSuccess } from "../action"
+import { GET_LIST_OF_NOTIFICATION, GET_LIST_OF_NOTIFICATION_FAILED, GET_LIST_OF_NOTIFICATION_SUCCESS, GET_SELECTED_NOTIFICATION, GET_SELECTED_NOTIFICATION_FAILED, GET_SELECTED_NOTIFICATION_SUCCESS, REMOVE_NOTIFICATION_INFO, REMOVE_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION, SEND_SELECTED_NOTIFICATION_FAILED, SEND_SELECTED_NOTIFICATION_SUCCESS } from "../actionType"
 
 describe('<KeepNotification Action', () => {
     const nid: string = '123'
@@ -42,6 +42,26 @@ describe('<KeepNotification Action', () => {
     it('Check request removeNotificationInfo', () => {
         const result = removeNotificationInfo()
         expect(result.type).toEqual(REMOVE_NOTIFICATION_INFO)
+    })
+
+    it('Check request removeSelectedNotification', () => {
+        const result = removeSelectedNotification()
+        expect(result.type).toEqual(REMOVE_SELECTED_NOTIFICATION)
+    })
+
+    it('Check request getListOfNotification', () => {
+        const result = getListOfNotification()
+        expect(result.type).toEqual(GET_LIST_OF_NOTIFICATION)
+    })
+
+    it('Check request getListOfNotificationSuccess', () => {
+        const result = getListOfNotificationSuccess(getNotificationResponse)
+        expect(result.type).toEqual(GET_LIST_OF_NOTIFICATION_SUCCESS)
+    })
+
+    it('Check  getListOfNotificationFailed', () => {
+        const result = getListOfNotificationFailed({error: errorMessage})
+        expect(result.type).toEqual(GET_LIST_OF_NOTIFICATION_FAILED)
     })
 
     it('Check request selected notification success', () => {
