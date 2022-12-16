@@ -40,7 +40,7 @@ export const ArticleImageView = ({
         const isAlbum = isTypeAlbum(item.type);
 
         return (
-            <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_IMAGE_VIEW + index} onPress={() => onPress(item.nid, isAlbum)}>
+            <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_IMAGE_VIEW + index} onPress={() => onPress(item.nid, isAlbum)} testID = "articleImageView">
                 <View style={style.rowContainer}>
                     <View style={style.labelContainer}>
                         {showHighlightTitle && <Label style={style.highlightedTitle} children={highlightTitle} labelType={LabelTypeProp.h5} />}

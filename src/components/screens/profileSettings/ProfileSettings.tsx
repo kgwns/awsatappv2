@@ -313,7 +313,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
       <ScreenContainer edge={horizontalEdge} isAlertVisible={isAlertVisible}
           alertPayload={signOutAlertPayload} alertOnPress={logout}
           setIsAlertVisible={setIsAlertVisible}
-          backgroundColor={style.screenBackgroundColor.backgroundColor}>
+          backgroundColor={style.screenBackgroundColor?.backgroundColor}>
         <View style={style.container}>
           {welcomeView()}
           <View style={style.titleDivider} />

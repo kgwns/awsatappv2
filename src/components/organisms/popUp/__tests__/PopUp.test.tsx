@@ -1,6 +1,5 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState } from 'react';
-import { BottomSheetView } from 'src/components/molecules';
 import { AlertModal } from '../../AlertModal/AlertModal';
 import { PopUp, PopUpType } from '../PopUp';
 
@@ -8,6 +7,13 @@ jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
 }));
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+    ...jest.requireActual('src/shared/utils/dimensions'),
+    isTab: false,
+}));
+  
 
 describe('PopUp', () => {
 
@@ -36,6 +42,7 @@ describe('PopUp', () => {
     });
 
     it('should render PopUp component', () => {
+        DeviceTypeUtilsMock.isTab = true
         expect(instance).toBeDefined();
     });
 

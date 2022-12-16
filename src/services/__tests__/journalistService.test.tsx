@@ -1,7 +1,7 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { getJournalistArticleService } from '../journalistService';
-
+import * as serviceApi from 'src/services/api';
 describe('Test Side Menu Services', () => {
     const mock = new MockAdapter(axios);
     const journalistPayload = { nid: '1', page: 1 };
@@ -23,14 +23,12 @@ describe('Test Side Menu Services', () => {
         });
     });
 
-    it('test when response code is 500', () => {
-        mock.onGet().reply(500, {
-            error: 'Something Went Wrong',
-        });
+    it('test getJournalistArticleService throws error', () => {
+        const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+        getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-        return getJournalistArticleService(journalistPayload).catch((error: unknown) => {
-            const errorResponse = error as AxiosError;
-            expect(errorResponse.response?.status).toEqual(500);
+        return getJournalistArticleService(journalistPayload).catch((error) => {
+            expect(error.message).toEqual('Not able to fetch api')
         });
     });
 });

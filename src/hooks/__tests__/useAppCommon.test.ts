@@ -124,7 +124,7 @@ describe('#useAppCommon', () => {
       expect(dispatchMock).toHaveBeenCalled();
       expect(dispatchMock).toHaveBeenCalledWith({
         type: STORE_FONT_SIZE,
-        payload: { fontSize: 16 }
+        payload: { fontSize: 18 }
       });
     });
   });

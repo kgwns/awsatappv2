@@ -210,7 +210,7 @@ export const ContactUs = () => {
             setIsAlertVisible={setIsAlertVisible}
             alertOnPress={onPressAlert}
             alertPayload={alertPayload}
-            backgroundColor={style.screenBackgroundColor.backgroundColor}
+            backgroundColor={style.screenBackgroundColor?.backgroundColor}
         >
             <StaticPageHeader title={CONST_CALL_US} />
             <KeyboardAwareScrollView

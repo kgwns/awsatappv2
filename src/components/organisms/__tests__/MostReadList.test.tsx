@@ -1,23 +1,25 @@
 import React from 'react';
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import {Provider} from 'react-redux';
-import {storeSampleData} from '../../../constants/SampleData';
-import {MostReadList} from '..';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
+import { Provider } from 'react-redux';
+import { storeSampleData } from '../../../constants/SampleData';
+import { MostReadList, PopUp } from '..';
 import { ArticleItem } from 'src/components/molecules';
 import { FlatList } from 'react-native';
+import { useLogin } from 'src/hooks';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 jest.mock("src/hooks/useBookmark", () => ({
   useBookmark: () => {
     return {
       bookmarkIdInfo: [
-          {
-              nid: '1',
-              bundle: 'string'
-          },
-          {
-              nid: '2',
-              bundle: 'string'
-          }
+        {
+          nid: '1',
+          bundle: 'string'
+        },
+        {
+          nid: '2',
+          bundle: 'string'
+        }
       ],
       sendBookmarkInfo: () => [],
       removeBookmarkedInfo: () => [],
@@ -26,17 +28,24 @@ jest.mock("src/hooks/useBookmark", () => ({
 }));
 
 jest.mock("src/hooks/useLogin", () => ({
-  useLogin: () => {
-    return {
-      isLoggedIn: true,
-    }
-  },
+  useLogin: jest.fn()
 }));
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: true,
+}));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+}));
+
 
 describe('<MostReadList>', () => {
   let instance: RenderAPI;
   const mockFn = jest.fn();
-
+  const useLoginMock = jest.fn();
   const sampleData: any = [
     {
       nid: 'nid',
@@ -52,30 +61,51 @@ describe('<MostReadList>', () => {
         name: 'name',
       }],
       field_publication_date_export: 'field_publication_date_export',
+      rows: [
+        {
+          result: true
+        },
+        {
+          result: false
+        },
+      ]
     },
   ];
-
+  const navigation = {
+    reset: jest.fn()
+  }
   beforeEach(() => {
+    (useLogin as jest.Mock).mockImplementation(useLoginMock);
+    useLoginMock.mockReturnValue({ isLoggedIn: true });
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     const component = (
-      <Provider store={storeSampleData}>
-        <MostReadList data={sampleData} onScroll={mockFn} isLoading={true} enableTag={true} flag={false}/>
-      </Provider>
+      <NavigationContainer independent={true}>
+        <Provider store={storeSampleData}>
+          <MostReadList data={sampleData} onScroll={mockFn} isLoading={true} enableTag={true} flag={false} />
+        </Provider>
+      </NavigationContainer>
     );
     instance = render(component);
   });
-
+  
   afterEach(() => {
     jest.clearAllMocks();
     instance.unmount();
   });
-
+  
   test('Should render component', () => {
+    DeviceTypeUtilsMock.isTab = false;
     expect(instance).toBeDefined();
   });
 
+  test('Should render component in tab', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    expect(instance).toBeDefined();
+  });
+  
   test('Should call ArticleItem onPress', () => {
     const element = instance.container.findByType(ArticleItem)
-    fireEvent(element, 'onPressBookmark', {index:2});
+    fireEvent(element, 'onPressBookmark', { index: 2 });
     expect(mockFn).toBeTruthy()
   })
 
@@ -96,7 +126,7 @@ describe('<MostReadList>', () => {
 describe('<MostReadList>', () => {
   let instance: RenderAPI;
   const mockFn = jest.fn();
-
+  const useLoginMock = jest.fn();
   const sampleData: any = [
     {
       nid: 'nid',
@@ -112,14 +142,30 @@ describe('<MostReadList>', () => {
         name: 'name',
       }],
       field_publication_date_export: 'field_publication_date_export',
+      rows: [
+        {
+          result: true
+        },
+        {
+          result: false
+        },
+      ]
     },
   ];
-
+  const navigation = {
+    reset: jest.fn()
+  }
   beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = true;
+    (useLogin as jest.Mock).mockImplementation(useLoginMock);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    useLoginMock.mockReturnValue({ isLoggedIn: false })
     const component = (
-      <Provider store={storeSampleData}>
-        <MostReadList data={sampleData}/>
-      </Provider>
+      <NavigationContainer independent={true}>
+        <Provider store={storeSampleData}>
+          <MostReadList data={sampleData} />
+        </Provider>
+      </NavigationContainer>
     );
     instance = render(component);
   });
@@ -135,7 +181,7 @@ describe('<MostReadList>', () => {
 
   test('Should call ArticleItem onPress', () => {
     const element = instance.container.findByType(ArticleItem)
-    fireEvent(element, 'onPressBookmark', {index:2});
+    fireEvent(element, 'onPressBookmark', { index: 2 });
     expect(mockFn).toBeTruthy()
   })
 
@@ -148,6 +194,12 @@ describe('<MostReadList>', () => {
   test('Should call FixedTouchable onPress', () => {
     const element = instance.container.findByType(FlatList)
     fireEvent(element, 'onScrollBeginDrag');
+    expect(mockFn).toBeTruthy()
+  });
+
+  test('Should call Popup onPress', () => {
+    const element = instance.container.findByType(PopUp)
+    fireEvent(element, 'onPressButton');
     expect(mockFn).toBeTruthy()
   });
 });

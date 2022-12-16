@@ -1,8 +1,8 @@
-import axios, {AxiosError} from 'axios';
+import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import {requestStaticDetail} from 'src/services/termsAndAboutUsService';
 import {StaticDetailBodyGet} from 'src/redux/termsAndAboutUs/types';
-
+import * as serviceApi from 'src/services/api';
 describe('Test Opinions Services', () => {
   const mock = new MockAdapter(axios);
   const body: StaticDetailBodyGet = {
@@ -24,14 +24,12 @@ describe('Test Opinions Services', () => {
       expect(response).toBeInstanceOf(Object);
     });
   });
-  it('test when response code is 500', () => {
-    mock.onGet().reply(500, {
-      error: 'Something Went Wrong',
-    });
+  it('test requestStaticDetail throws error', () => {
+    const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
+    getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-    return requestStaticDetail(body).catch((error: unknown) => {
-      const errorResponse = error as AxiosError;
-      expect(errorResponse.response?.status).toEqual(500);
+    return requestStaticDetail(body).catch((error) => {
+      expect(error.message).toEqual('Not able to fetch api');
     });
   });
 });

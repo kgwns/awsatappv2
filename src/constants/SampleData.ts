@@ -163,8 +163,8 @@ export const storeInfo = [
       error: '',
       isLoading: false,
       sendAuthorInfo: {},
-      selectedAuthorsData:{},
-      allSelectedWritersDetailsList:[],
+      selectedAuthorsData: {},
+      allSelectedWritersDetailsList: [],
       selectedAuthorLoading: false,
       selectedDataFromOnboard: [],
     },
@@ -180,7 +180,7 @@ export const storeInfo = [
       data: [],
       error: ''
     },
-    register:{
+    register: {
       userInfo: null,
       error: '',
       isLoading: false,
@@ -191,16 +191,16 @@ export const storeInfo = [
       error: '',
       isLoading: false,
     },
-    opinionArticleDetail:{
+    opinionArticleDetail: {
       isLoading: true,
       error: '',
       opinionArticleDetailData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
-      isLoadingRelatedOpinion:true,
+      isLoadingRelatedOpinion: true,
       relatedOpinionError: '',
-      relatedOpinionListData: {rows: [], pager: {current_page: 0, items_per_page: ''}},
-      mediaData:{}
+      relatedOpinionListData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+      mediaData: {}
     },
-    bookmark:{
+    bookmark: {
       isLoading: true,
       error: '',
       sendBookMarkSuccessInfo: {},
@@ -212,7 +212,7 @@ export const storeInfo = [
       bookmarkDetailLoading: false,
       filteredBookmarkDetailInfo: [],
     },
-    newsLetters:{
+    newsLetters: {
       error: '',
       isLoading: false,
       sendNewsLettersInfo: {},
@@ -232,7 +232,7 @@ export const storeInfo = [
       allNotificationListError: '',
       isMyNotificationLoading: false,
     },
-    podcast:{
+    podcast: {
       podcastListData: [],
       podcastEpisodeData: [],
       error: '',
@@ -259,7 +259,7 @@ export const storeInfo = [
       sendUserInfo: {},
       userDetail: null
     },
-    podcastReducer:{
+    podcastReducer: {
       podcastListData: [],
       podcastEpisodeData: [],
       error: '',
@@ -270,7 +270,7 @@ export const storeInfo = [
       error: '',
       isLoading: false,
       isSkipped: false,
-      forgotPasswordResponse:{}
+      forgotPasswordResponse: {}
     },
     emailCheck: {
       emailCheckData: null,
@@ -301,8 +301,8 @@ export const storeInfo = [
     },
     contactUsInfo: {
       isLoading: false,
-      sendContactInfoSuccess: 
-      {  
+      sendContactInfoSuccess:
+      {
         code: 1,
         message: ''
       },
@@ -311,13 +311,13 @@ export const storeInfo = [
     albumList: {
       albumData: {
         rows: [],
-        pager: {current_page: 0, items_per_page: '', total_pages: 0},
+        pager: { current_page: 0, items_per_page: '', total_pages: 0 },
       },
       error: '',
       isLoading: false,
       albumDetailData: {
         rows: [],
-        pager: {current_page: 0, items_per_page: '', total_pages: 0},
+        pager: { current_page: 0, items_per_page: '', total_pages: 0 },
       },
       albumDetailError: '',
       albumDetailLoading: false,
@@ -351,20 +351,22 @@ export const shortArticleData: ShortArticleProps[] = [
   {
     image: 'https://picsum.photos/200/300',
     created: `لكن لا بد أن كل هذه الأفكار`,
-    body:  `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
+    body: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
     nid: '2982411',
     author: 'يتحمل',
     isBookmarked: true,
-    title: 'الأفكار'
+    title: 'الأفكار',
+    body: 'body'
   },
   {
     image: 'https://picsum.photos/200/300',
     created: `لكن لا بد أن كل هذه الأفكار`,
-    body:  `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
+    body: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
     nid: '2982411',
     author: 'يتحمل',
     isBookmarked: true,
-    title: 'الأفكار'
+    title: 'الأفكار',
+    body: 'body'
   },
 ];
 
@@ -403,11 +405,13 @@ export const authorHeaderData: WidgetHeaderProps = {
   },
   headerRight: {
     title: 'المزيد',
-    icon: () => {return getSvgImages({
-      name: ImagesName.clock,
-      size: normalize(12),
-      style: { marginRight: normalize(7) }
-  })},
+    icon: () => {
+      return getSvgImages({
+        name: ImagesName.clock,
+        size: normalize(12),
+        style: { marginRight: normalize(7) }
+      })
+    },
     color: Styles.color.smokeyGrey,
     labelType: LabelTypeProp.h3,
     clickable: true,
@@ -418,11 +422,13 @@ export const articleFooterSample: articleFooterProps = {
   leftTitle: 'وتمجيد',
   leftTitleColor: Styles.color.greenishBlue,
   rightTitle: 'يتحمل',
-  rightIcon: () => {return getSvgImages({
-    name: ImagesName.clock,
-    size: normalize(12),
-    style: { marginRight: normalize(7) }
-})},
+  rightIcon: () => {
+    return getSvgImages({
+      name: ImagesName.clock,
+      size: normalize(12),
+      style: { marginRight: normalize(7) }
+    })
+  },
   rightTitleColor: Styles.color.silverChalice,
 };
 
@@ -613,7 +619,6 @@ export const opinionWritersData: any = [
     parent_target_id_export: [],
   },
   {
-    name: 'إياد أبو شقرا',
     description__value_export: null,
     field_opinion_writer_path_export: null,
     view_taxonomy_term:
@@ -1047,13 +1052,13 @@ export const storyWidgetItemData: StoryListItemProps[] = [
 
 
 const storyWidgetDataInfo = {
-    id: '1',
-    imageUrl: 'https://picsum.photos/500',
-    title: 'رحلة إلى المريخ',
-    description:
-      'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-    buttonTitle: 'امرأ المقالة',
-    thumbNail: 'https://picsum.photos/100',
+  id: '1',
+  imageUrl: 'https://picsum.photos/500',
+  title: 'رحلة إلى المريخ',
+  description:
+    'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
+  buttonTitle: 'امرأ المقالة',
+  thumbNail: 'https://picsum.photos/100',
 }
 
 export const storyWidgetData: StoryListProps[] = [
@@ -1228,7 +1233,7 @@ export const videoArchiveData: VideoItemProps[] = [
     videoLabel: 'أمريكا',
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
     isBookmarked: true,
-    onPressBookmark: () => {},
+    onPressBookmark: () => { },
   },
   {
     title:
@@ -1241,7 +1246,7 @@ export const videoArchiveData: VideoItemProps[] = [
     views: '1374',
     toWatchTitle: 'ديسمبر',
     isBookmarked: true,
-    onPressBookmark: () => {},
+    onPressBookmark: () => { },
   },
   {
     title:
@@ -1250,22 +1255,22 @@ export const videoArchiveData: VideoItemProps[] = [
     videoLabel: 'أمريكا',
     des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
     isBookmarked: true,
-    onPressBookmark: () => {},
+    onPressBookmark: () => { },
   },
 ];
 
 export const myNewsTopTabData = [
   {
-    isSelected: true, 
+    isSelected: true,
     keyName: 'topics',
     tabName: 'مواضيعي',
   },
   {
-    isSelected: false, 
-    keyName: 'writers', 
+    isSelected: false,
+    keyName: 'writers',
     tabName: 'كتابي',
   },
-  
+
   // {
   //   isSelected: false, 
   //   keyName: 'media', 

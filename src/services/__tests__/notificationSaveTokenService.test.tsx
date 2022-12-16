@@ -26,6 +26,16 @@ describe('Test notificationSaveTokenReuqest Services', () => {
         mock.reset();
     });
 
+    it('test when response code is 200',() => {
+        mock.onPost().reply(200,{
+            result: true,
+        });
+
+        return notificationSaveTokenReuqest(bodyPayload1).then(response => {
+            expect(response).toBeInstanceOf(Object);
+        });
+    });
+
     it('test when response code is 404', () => {
         mock.onGet().reply(404, {
             error: 'Something Went Wrong',
@@ -34,6 +44,16 @@ describe('Test notificationSaveTokenReuqest Services', () => {
         return notificationSaveTokenReuqest(bodyPayload1).catch((error: unknown) => {
             const errorResponse = error as AxiosError;
             expect(errorResponse.response?.status).toEqual(404);
+        });
+    });
+    
+    it('test when response code is 200',() => {
+        mock.onPost().reply(200,{
+            result: true,
+        });
+
+        return notificationSaveTokenAfterRegistraionReuqest(bodyPayload2).then(response => {
+            expect(response).toBeInstanceOf(Object);
         });
     });
 
@@ -47,5 +67,6 @@ describe('Test notificationSaveTokenReuqest Services', () => {
             expect(errorResponse.response?.status).toEqual(404);
         });
     });
+
 
 });

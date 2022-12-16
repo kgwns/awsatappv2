@@ -50,7 +50,7 @@ export const SuccessScreen: FunctionComponent = () => {
   }, [])
 
   return (
-    <ScreenContainer backgroundColor={styles.screenBackgroundColor.backgroundColor}>
+    <ScreenContainer backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           {getSvgImages({
