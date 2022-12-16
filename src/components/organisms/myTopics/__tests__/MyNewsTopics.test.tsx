@@ -164,6 +164,21 @@ describe('<MyNewsWriters>', () => {
       name: 'الحكومة',
     },
   ];
+  const articleData = {
+    nid: '3434',
+    title: 'title',
+    body: 'body',
+    field_image: 'string',
+    view_node: 'string',
+    field_news_categories_export: [],
+    field_publication_date_export: 'string',
+    created_export: 'string',
+    changed: 'string',
+    author_resource: 'string',
+    type: 'string',
+    field_new_photo: 'string'
+  }
+
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [
@@ -171,7 +186,7 @@ describe('<MyNewsWriters>', () => {
       setSelectedTopics,
     ]);
     (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
-    (useState as jest.Mock).mockImplementation(() => [[], setArticleData]);
+    (useState as jest.Mock).mockImplementation(() => [articleData, setArticleData]);
     (useState as jest.Mock).mockImplementation(() => [-1, setSelectedIndex]);
     (useState as jest.Mock).mockImplementation(() => [false, setShowEmpty]);
     (useMemo as jest.Mock).mockReturnValue(mockData);

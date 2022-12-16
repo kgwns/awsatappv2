@@ -1,24 +1,19 @@
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React, { useRef } from 'react';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
+import React from 'react';
 import { FlatList, ScrollView } from 'react-native';
-import {FollowFavoriteAuthorWidget} from 'src/components/organisms';
+import { FollowFavoriteAuthorWidget } from 'src/components/organisms';
 import { FollowFavoriteAuthor } from 'src/components/molecules';
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
   isIOS: false,
-  isTab:false
+  isTab: false
 }));
 
-jest.mock('react',() => ({
-  ...jest.requireActual('react'),
-  useRef: jest.fn()
-}))
 describe('<FollowFavoriteAuthorWidget>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
-  const useRefMock = jest.fn();
   const sampleData: any = [
     {
       name: 'name',
@@ -27,13 +22,11 @@ describe('<FollowFavoriteAuthorWidget>', () => {
       isSelected: true,
     },
   ];
-  
+
   beforeEach(() => {
-    (useRef as jest.Mock).mockImplementation(useRefMock);
-    useRefMock.mockReturnValue({current:{scrollToEnd:mockFunction}});
     DeviceTypeUtilsMock.isTab = true
     DeviceTypeUtilsMock.isIOS = true
-    const component = <FollowFavoriteAuthorWidget writersData={sampleData} changeSelectedStatus={mockFunction}/>;
+    const component = <FollowFavoriteAuthorWidget writersData={sampleData} changeSelectedStatus={mockFunction} />;
     instance = render(component);
   });
 
@@ -45,17 +38,16 @@ describe('<FollowFavoriteAuthorWidget>', () => {
   it('should render FollowFavoriteAuthorWidget component', () => {
     expect(instance).toBeDefined();
   });
-  
+
   test('Should call ScrollView onPress', () => {
     const element = instance.container.findByType(ScrollView)
     fireEvent(element, 'onContentSizeChange');
     expect(mockFunction).toBeTruthy()
   });
-  
+
   test('Should call FlatList onPress', () => {
-    // jest.spyOn(React,'useRef').mockReturnValue({current:{scrollToEnd:()=>{}}})
     const element = instance.container.findByType(FlatList)
-    fireEvent(element, 'renderItem', {item: sampleData[0]});
+    fireEvent(element, 'renderItem', { item: sampleData[0] });
     expect(mockFunction).toBeTruthy()
   });
 
@@ -86,7 +78,9 @@ describe('<FollowFavoriteAuthorWidget>', () => {
   ];
 
   beforeEach(() => {
-    DeviceTypeUtilsMock.isTab = false
+    DeviceTypeUtilsMock.isTab = false;
+    DeviceTypeUtilsMock.isIOS = false;
+    
     const component = <FollowFavoriteAuthorWidget />;
     instance = render(component);
   });
@@ -108,7 +102,7 @@ describe('<FollowFavoriteAuthorWidget>', () => {
 
   test('Should call FlatList onPress', () => {
     const element = instance.container.findByType(FlatList)
-    fireEvent(element, 'renderItem', {item: sampleData[0]});
+    fireEvent(element, 'renderItem', { item: sampleData[0] });
     expect(mockFunction).toBeTruthy()
   });
 

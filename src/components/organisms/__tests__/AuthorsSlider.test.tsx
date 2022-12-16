@@ -1,12 +1,23 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { Divider, WidgetHeader } from 'src/components/atoms';
-import { FlatList, Platform, ScrollView } from 'react-native';
-
+import { FlatList, ScrollView } from 'react-native';
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false,
+  isTab: false
+}));
+jest.mock('react',() => ({
+  ...jest.requireActual('react'),
+  useState:jest.fn()
+}))
 describe('<AuthorSlider>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
+  const setActiveIndex = jest.fn();
+  const setSelectedTrack = jest.fn();
 
   const mockItem = {
     title: "دبلوماسية العزلة والعداوات",
@@ -53,6 +64,10 @@ describe('<AuthorSlider>', () => {
   ];
 
   beforeEach(() => {
+    DeviceTypeUtilsMock.isIOS = true
+    DeviceTypeUtilsMock.isTab = false;
+    (useState as jest.Mock).mockImplementation(() => [1,setActiveIndex]);
+    (useState as jest.Mock).mockImplementation(() => ['',setSelectedTrack]);
     const component = <AuthorSlider data={sampleData} widgetHeader={'widgetHeader'} getSelectedTrack = {mockFunction}/>;
     instance = render(component);
   });
@@ -111,7 +126,8 @@ describe('<AuthorSlider>', () => {
   describe('<AuthorSlider>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
-
+    const setActiveIndex = jest.fn();
+    const setSelectedTrack = jest.fn();
     const mockItem = {
       title: "دبلوماسية العزلة والعداوات",
       created_export: "2021-05-19T20:48:17+0000",
@@ -138,6 +154,10 @@ describe('<AuthorSlider>', () => {
     ];
 
     beforeEach(() => {
+      (useState as jest.Mock).mockImplementation(() => [1,setActiveIndex]);
+      (useState as jest.Mock).mockImplementation(() => ['',setSelectedTrack]);
+      DeviceTypeUtilsMock.isIOS = false;
+      DeviceTypeUtilsMock.isTab = true;
       const component = <AuthorSlider data={sampleData} widgetHeader={'widgetHeader'}/>;
       instance = render(component);
     });
@@ -162,6 +182,19 @@ describe('<AuthorSlider>', () => {
       fireEvent(element, 'onContentSizeChange');
       expect(mockFunction).toBeTruthy()
     });
+
+    test('Should call onMomentumScrollEnd returns null', () => {
+      const element = instance.container.findByType(ScrollView)
+      fireEvent(element, 'onMomentumScrollEnd');
+      expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call onMomentumScrollEnd', () => {
+      const element = instance.container.findByType(ScrollView)
+      fireEvent(element, 'onMomentumScrollEnd',{nativeEvent:{contentOffset:{x:10}}});
+      expect(mockFunction).toBeTruthy()
+    });
+
 
     test('Should call FlatList onPress', () => {
       const element = instance.container.findAllByType(FlatList)[0]

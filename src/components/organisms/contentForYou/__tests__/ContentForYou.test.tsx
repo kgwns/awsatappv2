@@ -1,15 +1,14 @@
-// import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
-// import React, { useState } from 'react';
-// import { ContentForYou } from 'src/components/organisms';
-// import { useNavigation } from '@react-navigation/native';
+import { render, RenderAPI } from '@testing-library/react-native';
+import React, { useState } from 'react';
+import { ContentForYou } from 'src/components/organisms';
+import { useNavigation } from '@react-navigation/native';
 // import { OpinionsListItemType } from 'src/redux/opinionArticleDetail/types';
 // import { ArticlesListItemType } from 'src/redux/contentForYou/types';
-// import { FlatList } from 'react-native';
 
-// jest.mock('react', () => ({
-//   ...jest.requireActual('react'),
-//   useState: jest.fn(),
-// }));
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn(),
+}));
 
 // const sampleOpinionsListItemTypeData: OpinionsListItemType[] = [
 //   {
@@ -240,12 +239,12 @@
 //   },
 // }));
 
-// jest.mock('@react-navigation/native', () => ({
-//   ...jest.requireActual('@react-navigation/native'),
-//   useNavigation: jest.fn(),
-//   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
-//   useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
-// }));
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+  useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
+}));
 
 // const mockString = 'mockString';
 // const mockData = [
@@ -278,38 +277,38 @@
 //   }
 // ]
 
-// describe('<Content for you>', () => {
-//   let instance: RenderAPI
-//   const mockFunction = jest.fn()
+describe('<Content for you>', () => {
+  let instance: RenderAPI
+  const mockFunction = jest.fn()
 //   const setSelectedAuthors = mockFunction
 //   const setSelectedTopics = mockFunction
 //   const setPage = mockFunction
 //   const setPageAllData = mockFunction
 //   const setIsAllLoading = mockFunction
 //   const setInitialLoading = mockFunction
-//   const navigation = {
-//     goBack: mockFunction,
-//     navigate: mockFunction,
-//   }
+  const navigation = {
+    goBack: mockFunction,
+    navigate: mockFunction,
+  }
 
-//   beforeEach(() => {
-//     (useState as jest.Mock).mockImplementation(() => [false, setInitialLoading]);
-//     (useState as jest.Mock).mockImplementation(() => [[], setSelectedAuthors]);
-//     (useState as jest.Mock).mockImplementation(() => [[], setSelectedTopics]);
-//     (useState as jest.Mock).mockImplementation(() => [false, setIsAllLoading]);
-//     (useState as jest.Mock).mockImplementation(() => [0, setPage]);
-//     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-//     const component = <ContentForYou />
-//     instance = render(component)
-//   })
+  beforeEach(() => {
+    // (useState as jest.Mock).mockImplementation(() => [false, setInitialLoading]);
+    // (useState as jest.Mock).mockImplementation(() => [[], setSelectedAuthors]);
+    // (useState as jest.Mock).mockImplementation(() => [[], setSelectedTopics]);
+    // (useState as jest.Mock).mockImplementation(() => [false, setIsAllLoading]);
+    // (useState as jest.Mock).mockImplementation(() => [0, setPage]);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    const component = <ContentForYou />
+    instance = render(component)
+  })
 
-//   afterEach(() => {
-//     jest.clearAllMocks()
-//     instance.unmount()
-//   })
+  afterEach(() => {
+    jest.clearAllMocks()
+    instance.unmount()
+  })
 
-//   it('should render component', () => {
-//     expect(instance).toBeDefined()
-//   })
+  xit('should render component', () => {
+    expect(instance).toBeDefined()
+  })
 
-// });
+});

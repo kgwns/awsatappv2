@@ -5,6 +5,7 @@ import { appleSignin } from 'src/shared/utils/appleSignin';
 import { SocialButtonSection } from '../SocialButtonSection';
 import { useNavigation } from '@react-navigation/native';
 import { useRegister } from 'src/hooks/useRegister';
+
 jest.mock("src/hooks/useNotificationSaveToken", () => ({
   useNotificationSaveToken: () => {
     return {
@@ -32,7 +33,6 @@ jest.mock('@invertase/react-native-apple-authentication',()=> ({
     isSupported:true
   }
 }))
-
 
 jest.mock("src/hooks/useRegister", () => {
   return {
@@ -99,6 +99,7 @@ describe('<SocialButtonSection>', () => {
       instance.unmount();
     });
     it('Should render SocialButtonSection', () => {
+      DeviceTypeUtilsMock.isIOS = false
       expect(instance).toBeDefined();
     });
     it('when onPress facebook Social Buttons', () => {

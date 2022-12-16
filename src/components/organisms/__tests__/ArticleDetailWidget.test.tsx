@@ -1,13 +1,24 @@
 import { render, RenderAPI } from '@testing-library/react-native';
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import { ArticleDetailWidget } from 'src/components/organisms'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
-  
+jest.mock('react',() => ({
+    ...jest.requireActual('react'),
+    useState:jest.fn()
+}))
+
+jest.mock('axios',() => ({
+    ...jest.requireActual('axios'),
+    get:jest.fn()
+}))
 describe('<ArticleDetailWidget>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
+    const setScribbleLiveData = jest.fn();
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
+        (useState as jest.Mock).mockImplementation(() => [{data:'data'},setScribbleLiveData])
         const data: ArticleDetailDataType = {
             title: 'title',
             body: 'body',
@@ -60,9 +71,15 @@ describe('<ArticleDetailWidget>', () => {
     it('should render component', () => {
         expect(instance).toBeDefined()
     })
+
+    it('test fetchScribbleLive returns response',() => {
+        const res = jest.spyOn(axios,'get').mockReturnValue({data:{result:true}} as any);
+        expect(instance).toBeDefined()
+        res.mockClear();
+    })
     
-    it('test fetchScribbleLive returns error',() => {
-        jest.spyOn(axios,'get').mockImplementation(() => {throw new Error('not able to fetch axios')})
+    it('test fetchScribbleLive throws error',() => {
+        jest.spyOn(axios,'get').mockRejectedValue({error:'something went wrong'})
         expect(instance).toBeDefined()
     })
 })
@@ -71,8 +88,10 @@ describe('<ArticleDetailWidget>', () => {
 describe('<ArticleDetailWidget>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
+    const setScribbleLiveData = jest.fn();
 
     beforeEach(() => {
+        (useState as jest.Mock).mockImplementation(() => [{},setScribbleLiveData])
         const data: ArticleDetailDataType = {
             title: 'title',
             body: 'body',

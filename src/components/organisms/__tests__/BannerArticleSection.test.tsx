@@ -58,7 +58,7 @@ describe('<BannerArticleSection>', () => {
 
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-    const component = <BannerArticleSection data={sampleData} title={'example'} onPress={mockFunction} onUpdateBookmark={mockFunction} />;
+    const component = <BannerArticleSection data={sampleData} title={'example'} onPress={mockFunction} onUpdateBookmark={mockFunction} hideMore = {true} />;
     instance = render(component);
   });
 
@@ -109,6 +109,31 @@ describe('<BannerArticleSection>', () => {
 
 describe('<BannerArticleSection>', () => {
   let instance: RenderAPI;
+  const mockFunction = jest.fn();
+
+  const navigation = {
+    navigate: mockFunction,
+  }
+
+  beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    const component = <BannerArticleSection data={[]} title={''} hideMore = {false} />;
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  it('should render BannerArticleSection component', () => {
+    expect(instance).toBeDefined();
+  });
+});
+
+
+describe('<BannerArticleSection> sending hideMore props as false', () => {
+  let instance: RenderAPI;
 
   const sampleData: any = [
     {
@@ -144,14 +169,13 @@ describe('<BannerArticleSection>', () => {
   ];
 
   const mockFunction = jest.fn();
-
   const navigation = {
     navigate: mockFunction,
   }
 
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-    const component = <BannerArticleSection data={[]} title={''}/>;
+    const component = <BannerArticleSection data={sampleData} title={'example'} onPress={mockFunction} onUpdateBookmark={mockFunction} hideMore = {false} />;
     instance = render(component);
   });
 
@@ -161,6 +185,11 @@ describe('<BannerArticleSection>', () => {
   });
 
   it('should render BannerArticleSection component', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    expect(instance).toBeDefined();
+  });
+  it('should render BannerArticleSection component', () => {
+    DeviceTypeUtilsMock.isTab = false;
     expect(instance).toBeDefined();
   });
 });

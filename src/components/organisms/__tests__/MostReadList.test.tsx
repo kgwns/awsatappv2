@@ -6,6 +6,7 @@ import { MostReadList, PopUp } from '..';
 import { ArticleItem } from 'src/components/molecules';
 import { FlatList } from 'react-native';
 import { useLogin } from 'src/hooks';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 
 jest.mock("src/hooks/useBookmark", () => ({
   useBookmark: () => {
@@ -32,8 +33,14 @@ jest.mock("src/hooks/useLogin", () => ({
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
-  isTab: false,
+  isTab: true,
 }));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+}));
+
 
 describe('<MostReadList>', () => {
   let instance: RenderAPI;
@@ -64,28 +71,38 @@ describe('<MostReadList>', () => {
       ]
     },
   ];
-
+  const navigation = {
+    reset: jest.fn()
+  }
   beforeEach(() => {
-    DeviceTypeUtilsMock.isTab = true;
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
-    useLoginMock.mockReturnValue({ isLoggedIn: true })
+    useLoginMock.mockReturnValue({ isLoggedIn: true });
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     const component = (
-      <Provider store={storeSampleData}>
-        <MostReadList data={sampleData} onScroll={mockFn} isLoading={true} enableTag={true} flag={false} />
-      </Provider>
+      <NavigationContainer independent={true}>
+        <Provider store={storeSampleData}>
+          <MostReadList data={sampleData} onScroll={mockFn} isLoading={true} enableTag={true} flag={false} />
+        </Provider>
+      </NavigationContainer>
     );
     instance = render(component);
   });
-
+  
   afterEach(() => {
     jest.clearAllMocks();
     instance.unmount();
   });
-
+  
   test('Should render component', () => {
+    DeviceTypeUtilsMock.isTab = false;
     expect(instance).toBeDefined();
   });
 
+  test('Should render component in tab', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    expect(instance).toBeDefined();
+  });
+  
   test('Should call ArticleItem onPress', () => {
     const element = instance.container.findByType(ArticleItem)
     fireEvent(element, 'onPressBookmark', { index: 2 });
@@ -135,15 +152,20 @@ describe('<MostReadList>', () => {
       ]
     },
   ];
-
+  const navigation = {
+    reset: jest.fn()
+  }
   beforeEach(() => {
-    DeviceTypeUtilsMock.isTab = false;
+    DeviceTypeUtilsMock.isTab = true;
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     useLoginMock.mockReturnValue({ isLoggedIn: false })
     const component = (
-      <Provider store={storeSampleData}>
-        <MostReadList data={sampleData} />
-      </Provider>
+      <NavigationContainer independent={true}>
+        <Provider store={storeSampleData}>
+          <MostReadList data={sampleData} />
+        </Provider>
+      </NavigationContainer>
     );
     instance = render(component);
   });
@@ -172,6 +194,12 @@ describe('<MostReadList>', () => {
   test('Should call FixedTouchable onPress', () => {
     const element = instance.container.findByType(FlatList)
     fireEvent(element, 'onScrollBeginDrag');
+    expect(mockFn).toBeTruthy()
+  });
+
+  test('Should call Popup onPress', () => {
+    const element = instance.container.findByType(PopUp)
+    fireEvent(element, 'onPressButton');
     expect(mockFn).toBeTruthy()
   });
 });

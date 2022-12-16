@@ -47,6 +47,7 @@ const data = {
     created_export: 'createdExport',
     field_spreaker_episode_export: 'string',
     field_new_sub_title_export:'field_new_sub_title_export',
+    duration:'duration'
 }
 
 const setDuration = jest.fn()
@@ -128,7 +129,8 @@ describe('test getPodcastDuration', () => {
             }   
         } as any);
         const response = fetchSingleEpisodeSpreakerApi({episodeId:data.field_spreaker_episode_export})
-        expect(response).toBeInstanceOf(Object) 
+        expect(response).toBeInstanceOf(Object);
+        
     })
 })
 

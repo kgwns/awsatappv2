@@ -32,7 +32,8 @@ describe('<NewsFeed>', () => {
       created_export: new Date(1995, 11, 25, 9, 30, 0),
       author_resource: 'example',
       isBookmarked: false,
-      field_new_photo: 'example'
+      field_new_photo: 'example',
+      displayType:'displayType'
     },
   ];
 
@@ -73,6 +74,13 @@ describe('<NewsFeed>', () => {
     fireEvent(element, 'onEndReached');
     expect(mockFunction).toBeTruthy()
   });
+
+  test('Should call renderArticleFooter onPress', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    const element = instance.container.findByType(SectionVideoFooter)
+    fireEvent(element, 'onPressBookmark');
+    expect(mockFunction).toHaveBeenCalled()
+  });
   
 });
 
@@ -103,7 +111,7 @@ describe('<NewsFeed>', () => {
   ];
 
   beforeEach(() => {
-    const component = <NewsFeed data={sampleData} onScroll={mockFunction} isLoading={false} onUpdateNewsFeedBookmark={mockFunction} />;
+    const component = <NewsFeed data={sampleData} onScroll={mockFunction} isLoading={true} onUpdateNewsFeedBookmark={mockFunction} />;
     instance = render(component);
   });
 

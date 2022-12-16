@@ -1,13 +1,14 @@
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState } from 'react';
-import {PodcastWidget} from 'src/components/organisms';
+import { PodcastWidget } from 'src/components/organisms';
 import { ButtonImage, ButtonOutline } from 'src/components/atoms';
 import * as serviceApi from 'src/services/podcastService';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
-jest.mock('react',() => ({
+jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn()
 }))
+
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
@@ -15,7 +16,7 @@ jest.mock('src/shared/utils/dimensions', () => ({
   isIOS: false
 }));
 
-const sampleData= [{
+const sampleData = [{
   type: "podcast",
   view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
   field_new_sub_title_export: null,
@@ -49,8 +50,8 @@ describe('<PodcastWidget>', () => {
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = true;
     DeviceTypeUtilsMock.isIOS = false;
-    (useState as jest.Mock).mockImplementation(() => [sampleData,setEpisodeData]);
-    const component = <PodcastWidget onPress={mockFunction} data={sampleData}/>;
+    (useState as jest.Mock).mockImplementation(() => [sampleData, setEpisodeData]);
+    const component = <PodcastWidget onPress={mockFunction} data={sampleData} />;
     instance = render(component);
   });
 
@@ -63,23 +64,23 @@ describe('<PodcastWidget>', () => {
     expect(instance).toBeDefined();
   });
 
-  it("test ListenToPodcast onPress method",() => {
+  it("test ListenToPodcast onPress method", () => {
     const testId = instance.getByTestId('podcastId');
-    fireEvent(testId,'onPress')
+    fireEvent(testId, 'onPress')
     expect(mockFunction).toHaveBeenCalled()
   })
 
-  it("test ButtonImage onPress method",() => {
+  it("test ButtonImage onPress method", () => {
     const element = instance.container.findByType(ButtonImage);
-    fireEvent(element,'onPress')
+    fireEvent(element, 'onPress')
     expect(mockFunction).toHaveBeenCalled()
   })
-
-  it("test fetchSingleEpisodeSpreakerApi then block",() => {
-    jest.spyOn(serviceApi,'fetchSingleEpisodeSpreakerApi').mockReturnValue({response:{episode:'episode'}} as any)
-    const response = fetchSingleEpisodeSpreakerApi({episodeId: sampleData[0].field_spreaker_episode_export});
+  it("test fetchSingleEpisodeSpreakerApi then block", () => {
+    jest.spyOn(serviceApi, 'fetchSingleEpisodeSpreakerApi').mockReturnValue(Promise.resolve({ response: { episode: { data: "data" } } }))
+    const response = fetchSingleEpisodeSpreakerApi({ episodeId: sampleData[0].field_spreaker_episode_export });
     expect(response).toBeInstanceOf(Object)
-  }); 
+  });
+
 });
 
 
@@ -92,8 +93,8 @@ describe('<PodcastWidget>', () => {
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = false;
     DeviceTypeUtilsMock.isIOS = true;
-    (useState as jest.Mock).mockImplementation(() => [sampleData,setEpisodeData])
-    const component = <PodcastWidget onPress={mockFunction} data={sampleData}/>;
+    (useState as jest.Mock).mockImplementation(() => [sampleData, setEpisodeData])
+    const component = <PodcastWidget onPress={mockFunction} data={sampleData} />;
     instance = render(component);
   });
 
@@ -106,12 +107,12 @@ describe('<PodcastWidget>', () => {
     expect(instance).toBeDefined();
   });
 
-  it("test ButtonOutline onPress method",() => {
+  it("test ButtonOutline onPress method", () => {
     const element = instance.container.findByType(ButtonOutline);
-    fireEvent(element,'onPress')
+    fireEvent(element, 'onPress')
     expect(mockFunction).toHaveBeenCalled()
   })
-  
+
 });
 
 describe('<PodcastWidget>', () => {
@@ -122,8 +123,8 @@ describe('<PodcastWidget>', () => {
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = false;
     DeviceTypeUtilsMock.isIOS = true;
-    (useState as jest.Mock).mockImplementation(() => [{},setEpisodeData])
-    const component = <PodcastWidget onPress={mockFunction} data={sampleData}/>;
+    (useState as jest.Mock).mockImplementation(() => [{}, setEpisodeData])
+    const component = <PodcastWidget onPress={mockFunction} data={sampleData} />;
     instance = render(component);
   });
 
@@ -145,8 +146,8 @@ describe('<PodcastWidget>', () => {
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = true;
     DeviceTypeUtilsMock.isIOS = false;
-    (useState as jest.Mock).mockImplementation(() => [[{}],setEpisodeData])
-    const component = <PodcastWidget onPress={mockFunction} data={sampleData}/>;
+    (useState as jest.Mock).mockImplementation(() => [[{}], setEpisodeData])
+    const component = <PodcastWidget onPress={mockFunction} data={sampleData} />;
     instance = render(component);
   });
 
