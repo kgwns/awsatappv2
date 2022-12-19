@@ -13,7 +13,6 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
   useNavigationState: () => ([]),
-  useIsFocused: () => (true)
 }));
 
 jest.mock('react-native-safe-area-context', () => ({
@@ -126,10 +125,6 @@ describe('<PopulateWidget/>', () => {
     it('Should render widget', () => {
       expect(instance).toBeDefined();
     });
-    it('Should call ArticlePodCastWidget onPress', () => {
-      const element = instance.container.findAllByType(ArticlePodCastWidget)[0];
-      fireEvent(element, 'onPress');
-    });   
   });
 
   describe('when video data only', () => {

@@ -43,7 +43,6 @@ export const NewsLetterCard = ({
 
   return (
     <View
-      testID={'CardTestId'}
       style={style.container}>
       <View style={style.imageContainer}>
         <Image
@@ -55,7 +54,7 @@ export const NewsLetterCard = ({
         <Label style={style.title}>{title}</Label>
         <Label style={style.subTitle}>{subTitle}</Label>
       </View>
-      <TouchableOpacity style={[style.buttonView, {backgroundColor: buttonBackground}]} onPress={changeStatus}>
+      <TouchableOpacity testID={'CardTestId'} style={[style.buttonView, {backgroundColor: buttonBackground}]} onPress={changeStatus}>
         <View style={style.buttonContainer}>
           <View style={style.logoContainer}>
           {getSvgImages({ name: buttonLogoName, width: buttonLogoStyle.width, height: buttonLogoStyle.height, style: buttonLogoStyle })}  
