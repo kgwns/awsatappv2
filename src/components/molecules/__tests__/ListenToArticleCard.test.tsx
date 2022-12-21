@@ -11,6 +11,16 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
+// jest.mock('react-native-track-player', () => ({
+//   play: jest.fn(),
+//   pause: jest.fn(),
+//   getState: jest.fn(),
+
+//   usePlaybackState: jest.fn()
+// }))
+
+
+
 describe('<ListenToArticleCard>', () => {
   let instance: RenderAPI;
 

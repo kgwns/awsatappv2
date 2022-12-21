@@ -146,7 +146,7 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: {
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}
       isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}
-      backgroundColor={styles.screenBackgroundColor.backgroundColor}>
+      backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
       {showModal && episodeModal()}
       {isNonEmptyArray(podcastListData) &&
         <AnimatedFlatList

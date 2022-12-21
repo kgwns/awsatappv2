@@ -32,7 +32,7 @@ export const FilterComponent = ({
                 {childItem.map((item, index) => {
                     return (
                         <View style={style.childLabelContainer} key={index}>
-                            <TouchableOpacity onPress={() => onPressSubChild && onPressSubChild(childIndex, index)}>
+                            <TouchableOpacity testID='renderSubChild' onPress={() => onPressSubChild && onPressSubChild(childIndex, index)}>
                                 <Label children={item.name} style={style.childLabel}
                                     color={item.isSelected ? Styles.color.greenishBlue : themeData.secondarySpanishGray}
                                 />

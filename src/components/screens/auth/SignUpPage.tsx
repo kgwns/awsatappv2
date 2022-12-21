@@ -184,7 +184,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
       setIsAlertVisible={setIsAlertVisible}
       alertPayload={alertPayload}
       alertOnPress={() => setIsAlertVisible(false)}
-      backgroundColor={styles.screenBackgroundColor.backgroundColor}>
+      backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
       <KeyboardAwareScrollView
         bounces={false}
         enableOnAndroid={true}

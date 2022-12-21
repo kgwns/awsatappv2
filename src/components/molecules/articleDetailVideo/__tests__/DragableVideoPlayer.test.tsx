@@ -9,6 +9,13 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: true,
+  isTab: true
+}));
+
 jest.mock("src/hooks/useAppPlayer", () => ({
   useAppPlayer: () => {
     return {
@@ -85,6 +92,7 @@ describe('<DraggableVideoPlayer />', () => {
   })
 
   it('should render component', () => {
+    DeviceTypeUtilsMock.isIOS = false;
     expect(instance).toBeDefined()
   })
 
@@ -102,8 +110,58 @@ describe('<DraggableVideoPlayer />', () => {
     expect(setOrientation).toHaveBeenCalled()
   })
 
+})
+
+describe('<>',() =>{
+  let instance: RenderAPI;
+  const url = "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842";
+
+  const sampleData: any = {
+    current:
+      [
+        {
+          body: 'example',
+          title: 'example',
+          nid: 'example',
+          isBookmarked: true,
+          type: 'example',
+          blockName: 'example',
+          position: 'example',
+        },
+        {
+          body: 'example',
+          title: 'example',
+          nid: 'example',
+          isBookmarked: true,
+          type: 'example',
+          blockName: 'example',
+          position: 'example',
+        },
+        {
+          body: 'example',
+          title: 'example',
+          nid: 'example',
+          isBookmarked: true,
+          type: 'example',
+          blockName: 'example',
+          position: 'example',
+        },
+        {
+          body: 'example',
+          title: 'example',
+          nid: 'example',
+          isBookmarked: true,
+          type: 'example',
+          blockName: 'example',
+          position: 'example',
+        },
+      ]
+  }
+
+  const mockFunction = jest.fn();
+  const setOrientation = mockFunction;
   beforeEach(() => {
-    (useState as jest.Mock).mockImplementation(() => ['PORTRAIT', setOrientation]);
+    (useState as jest.Mock).mockImplementation(() => ['LANDSCAPE', setOrientation]);
     (useState as jest.Mock).mockImplementation(() => [false, mockFunction]);
     (useState as jest.Mock).mockImplementation(() => [false, mockFunction]);
     const component = <DraggableVideoPlayer paused={false} url={url} videoRefs={sampleData} playerVisible />
@@ -116,8 +174,27 @@ describe('<DraggableVideoPlayer />', () => {
   })
 
   it('should render component with playerVisible props', () => {
+    DeviceTypeUtilsMock.isIOS = true
+    DeviceTypeUtilsMock.isTab = true
     expect(instance).toBeDefined()
   })
 
+  it('should render component with playerVisible props', () => {
+    DeviceTypeUtilsMock.isIOS = true
+    DeviceTypeUtilsMock.isTab = false
+    expect(instance).toBeDefined()
+  })
+
+  it('should render component with playerVisible props', () => {
+    DeviceTypeUtilsMock.isIOS = false
+    DeviceTypeUtilsMock.isTab = false
+    expect(instance).toBeDefined()
+  })
+
+  it('should render component with playerVisible props', () => {
+    DeviceTypeUtilsMock.isIOS = false
+    DeviceTypeUtilsMock.isTab = true
+    expect(instance).toBeDefined()
+  })
 })
 

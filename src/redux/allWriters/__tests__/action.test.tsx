@@ -14,8 +14,10 @@ import {
     FETCH_ALL_SELECTED_WRITERS_DETAILS,
     DESELECT_ALL_WRITERS,
     SELECTED_DATA_FROM_ONBOARD,
+    EMPTY_SEND_AUTHOR_INFO,
+    EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD,
 } from 'src/redux/allWriters/actionTypes';
-import { fetchAllWritersFailed, fetchAllWritersSuccess, fetchAllWriters, sendSelectedAuthor, sendSelectedAuthorSuccess, sendSelectedAuthorFailed, getSelectedAuthors, getSelectedAuthorsSuccess, getSelectedAuthorsFailed, emptySelectedAuthorsInfo, removeAuthor, fetchAllSelectedWritersDetails, deselectAllWriters, setSelectedDataFromOnboard } from 'src/redux/allWriters/action';
+import { fetchAllWritersFailed, fetchAllWritersSuccess, fetchAllWriters, sendSelectedAuthor, sendSelectedAuthorSuccess, sendSelectedAuthorFailed, getSelectedAuthors, getSelectedAuthorsSuccess, getSelectedAuthorsFailed, emptySelectedAuthorsInfo, removeAuthor, fetchAllSelectedWritersDetails, deselectAllWriters, setSelectedDataFromOnboard, emptySendAuthorInfo, emptySelectedWritersDataFromOnboard } from 'src/redux/allWriters/action';
 
 describe('AllWriters Action', () => {
     const payload: AllWritersBodyGet = {
@@ -105,6 +107,16 @@ describe('AllWriters Action', () => {
     test('Check request deselectAllWriters', () => {
         const request = deselectAllWriters()
         expect(request.type).toEqual(DESELECT_ALL_WRITERS)
+    })
+
+    test('Check request emptySendAuthorInfo', () => {
+        const request = emptySendAuthorInfo()
+        expect(request.type).toEqual(EMPTY_SEND_AUTHOR_INFO)
+    })
+
+    test('Check request emptySelectedWritersDataFromOnboard', () => {
+        const request = emptySelectedWritersDataFromOnboard()
+        expect(request.type).toEqual(EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD)
     })
 
     test('Check request setSelectedDataFromOnboard', () => {

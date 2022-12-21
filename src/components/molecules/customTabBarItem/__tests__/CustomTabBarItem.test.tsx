@@ -31,11 +31,15 @@ describe('<CustomTabBarItem>', () => {
     })
 
     test('Should render component', () => {
-        expect(render(<CustomTabBarItem tabName='كتابي' index={0} onPress={mockOnPress} isSelected={false} />)).toBeDefined()
+        expect(render(<CustomTabBarItem tabName='كتابي' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined()
     })
 
     test('Should render component', () => {
-        expect(render(<CustomTabBarItem tabName='ميديا' index={0} onPress={mockOnPress} isSelected={false} />)).toBeDefined()
+        expect(render(<CustomTabBarItem tabName='ميديا' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined()
+    })
+
+    test('Should render component', () => {
+        expect(render(<CustomTabBarItem tabName='مواضيعي' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined()
     })
 
     it('When MenuButton Press', () => {
@@ -46,7 +50,7 @@ describe('<CustomTabBarItem>', () => {
 
     describe('onPress action in item', () => {
         beforeEach(() => {
-            const component = <CustomTabBarItem {...tabItem} index={0} onPress={mockOnPress} />
+            const component = <CustomTabBarItem {...tabItem} tabName='ميديا' index={0} onPress={mockOnPress} />
             instance = render(component)
         })
 

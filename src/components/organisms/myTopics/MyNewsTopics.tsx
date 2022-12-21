@@ -208,7 +208,7 @@ export const MyNewsTopics = () => {
         />
     );
     return (
-        <ScreenContainer edge={horizontalEdge} backgroundColor={styles.screenBackgroundColor.backgroundColor}>
+        <ScreenContainer edge={horizontalEdge} backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
             <View style={styles.container}>
                 <MyTopicsHorizontalSlider
                     topicsList={topicsList}

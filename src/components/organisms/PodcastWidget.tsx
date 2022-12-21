@@ -108,7 +108,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
 
   const ListenToPodcast = ({ podcastData, index }: podCastType) => (
     <TouchableOpacity style={style.listenContainer}
-      activeOpacity={0.8} onPress={() => onPress(podcastData)}>
+      activeOpacity={0.8} onPress={() => onPress(podcastData)} testID = {"podcastId"}>
       <ButtonImage
         icon={() => {
           return getSvgImages({

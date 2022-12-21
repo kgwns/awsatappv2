@@ -7,13 +7,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {PodcastProgramHeader} from 'src/components/molecules';
 import {PodcastEpisodeContent, PodcastEpisodeInfo} from 'src/components/organisms';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { PodcastEpisodeItemType, PodcastListItemType } from 'src/redux/podcast/types';
 import { useLogin } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: jest.fn(),
 }));
 
 jest.mock('react', () => ({

@@ -370,7 +370,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const socialIconSize = isTab ? 33 : 23;
 
   return (
-    <ScreenContainer showPlayer={false} backgroundColor={styles.screenBackgroundColor.backgroundColor}>
+    <ScreenContainer showPlayer={false} backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
       {header()}
       <ScrollView bounces={false}
         showsVerticalScrollIndicator={false}

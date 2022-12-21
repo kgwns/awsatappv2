@@ -47,7 +47,7 @@ export const DynamicGameScreen = ({
     }
 
     return (
-        <ScreenContainer edge={horizontalAndBottomEdge} backgroundColor={style.screenBackgroundColor.backgroundColor}>
+        <ScreenContainer edge={horizontalAndBottomEdge} backgroundColor={style.screenBackgroundColor?.backgroundColor}>
             <ScrollView style={style.scrollContainer}
                 showsVerticalScrollIndicator={false}
                 bounces={false}

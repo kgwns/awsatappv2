@@ -117,6 +117,8 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     }
 
     const renderRBSheet = () => (
+       
+        
         <RBSheet
         ref={(ref: RBSheet) => refRBSheet.current = ref}
             animationType={'none'}
@@ -144,6 +146,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     <Slider
                         style={[style.sliderStyle, isIOS && { direction: 'ltr'  }]}
                         minimumValue={0}
+                        testID='Slider'
                         maximumValue={progress.duration}
                         minimumTrackTintColor="#2C8A82"
                         maximumTrackTintColor="#E0E0E0"
@@ -161,13 +164,13 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     <Label children={convertSecondsToHMS(progress.duration || 0)} style={style.durationText}/>
                 </View>
                 <View style={style.controls} >
-                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID={'playForwardIcon'} onPress={() => { seekForwardBackward('backward') }}>
+                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playForwardIcon' onPress={() => { seekForwardBackward('backward') }}>
                         {_playForwardIcon}
                     </TouchableOpacity>
-                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID={'playPause'} onPress={() => onPlayPausePress(playbackState)}>
+                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playPause' onPress={() => onPlayPausePress(playbackState)}>
                         { isPlaying || isBuffering ? _pauseIcon : _playIcon }
                     </TouchableOpacity>
-                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID={'playBackwardIcon'} onPress={() => { seekForwardBackward('forward') }}>
+                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playBackwardIcon' onPress={() => { seekForwardBackward('forward') }}>
                         {_playBackwardIcon}
                     </TouchableOpacity>
                 </View>

@@ -172,7 +172,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} backgroundColor={style.screenBackgroundColor.backgroundColor}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
       {!canGoBack && <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' },]}>
           <Label style={style.titleStyle} children={ONBOARD_KEEP_NOTIFIED_TITLE} />

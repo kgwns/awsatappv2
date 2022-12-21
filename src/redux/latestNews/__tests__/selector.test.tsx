@@ -8,9 +8,10 @@ import { getError, getHeroData, getHeroListData, getIsLoading, getOpinionData,
         getSpotlightArticleSectionData, getCoverageData, getFeaturedArticle,
         getHorizontalData, getCoverageDataLoading, getFeaturedArticleLoading,
         getHorizontalDataLoading, getOpinionDataLoading, getPodcastHomeDataLoading, 
-        getSectionComboThreeLoading, getSectionComboTwoLoading, getSectionComboOneLoading, getEditorChoiceDataLoading
+        getSectionComboThreeLoading, getSectionComboTwoLoading, getSectionComboOneLoading, getEditorChoiceDataLoading,getInfoGraphicBlockData,
+        getInfoGraphicBlockDataLoading,getArchivedArticleSectionData, getSectionComboEightData
     } from "../selectors"
-import { EditorsChoiceDataType, LatestArticleDataType, LatestPodcastDataType, MainSectionBlockType, SpotlightDataType } from "../types"
+import { ArchivedArticleDataType, EditorsChoiceDataType, InfoGraphicBlockType, LatestArticleDataType, LatestPodcastDataType, MainSectionBlockType, SpotlightDataType } from "../types"
 
 describe('LatestNewsTab Selector', () => {
     const storeData = storeInfo[0]
@@ -83,6 +84,11 @@ describe('LatestNewsTab Selector', () => {
     test('Get getSectionComboSevenData state', () => {
         const comboSeven: LatestArticleDataType[] = getSectionComboSevenData(storeData)
         expect(comboSeven).toEqual([])
+    })
+
+    test('Get getSectionComboEightData state', () => {
+        const comboEight: LatestArticleDataType[] = getSectionComboEightData(storeData)
+        expect(comboEight).toEqual()
     })
 
     test('Get getPodcastHomeData state', () => {
@@ -163,5 +169,17 @@ describe('LatestNewsTab Selector', () => {
     test('Get getSectionComboThreeLoading state', () => {
         const spotlight: boolean = getSectionComboThreeLoading(storeData)
         expect(spotlight).toEqual(false)
+    })
+    test('Get getInfoGraphicBlockData state', () => {
+        const spotlight: InfoGraphicBlockType[] = getInfoGraphicBlockData(storeData)
+        expect(spotlight).toEqual()
+    })
+    test('Get getInfoGraphicBlockDataLoading state', () => {
+        const spotlight: boolean = getInfoGraphicBlockDataLoading(storeData)
+        expect(spotlight).toEqual()
+    })
+    test('Get getArchivedArticleSectionData state', () => {
+        const spotlight: ArchivedArticleDataType[] = getArchivedArticleSectionData(storeData)
+        expect(spotlight).toEqual()
     })
 })

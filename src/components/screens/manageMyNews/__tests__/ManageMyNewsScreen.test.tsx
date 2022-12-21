@@ -12,18 +12,18 @@ import { useAllSiteCategories, useAllWriters } from 'src/hooks';
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
-  }));
+}));
 
-  jest.mock('src/hooks/useAllSiteCategories', () => ({useAllSiteCategories: jest.fn()}));
-  jest.mock('src/hooks/useAllWriters', () => ({useAllWriters: jest.fn()}));
+jest.mock('src/hooks/useAllSiteCategories', () => ({ useAllSiteCategories: jest.fn() }));
+jest.mock('src/hooks/useAllWriters', () => ({ useAllWriters: jest.fn() }));
 
 const sampleAllSiteCategoriesItemTypeData: AllSiteCategoriesItemType[] = [
     {
-      name: 'abc',
-      view_taxonomy_term: 'example',
-      tid: 'qw',
-      field_opinion_writer_photo_export: 'example',
-      parent_target_id_export: {}
+        name: 'abc',
+        view_taxonomy_term: 'example',
+        tid: 'qw',
+        field_opinion_writer_photo_export: 'example',
+        parent_target_id_export: {}
     },
     {
         name: 'abc',
@@ -36,18 +36,18 @@ const sampleAllSiteCategoriesItemTypeData: AllSiteCategoriesItemType[] = [
 
 const sampleData: AllWritersItemType[] = [
     {
-      name: 'example',
-      view_taxonomy_term: 'example',
-      tid: '1',
-      field_opinion_writer_photo_export: 'example'
+        name: 'example',
+        view_taxonomy_term: 'example',
+        tid: '1',
+        field_opinion_writer_photo_export: 'example'
     },
     {
-      name: 'example',
-      view_taxonomy_term: 'example',
-      tid: '2',
-      field_opinion_writer_photo_export: 'example'
+        name: 'example',
+        view_taxonomy_term: 'example',
+        tid: '2',
+        field_opinion_writer_photo_export: 'example'
     },
-  ]
+]
 
 describe('<ManageMyNews Component>', () => {
     let instance: RenderAPI;
@@ -59,7 +59,7 @@ describe('<ManageMyNews Component>', () => {
     const filteredSelectedTopic = mockFunction;
     const useAllSiteCategoriesMock = jest.fn();
     const useAllWritersMock = jest.fn();
-    
+
     beforeEach(() => {
         (useState as jest.Mock).mockImplementation(() => [sampleData, selectedWriters]);
         (useState as jest.Mock).mockImplementation(() => ['Remove_Author', popupType]);
@@ -70,7 +70,7 @@ describe('<ManageMyNews Component>', () => {
         (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
         useAllSiteCategoriesMock.mockReturnValue({
             isLoading: false,
-            getSelectedTopicsData: () => {},
+            getSelectedTopicsData: () => { },
             selectedTopicsData: {
                 code: 200,
                 message: "string",
@@ -118,11 +118,11 @@ describe('<ManageMyNews Component>', () => {
             sendSelectedTopicInfo: () => { return [] },
             fetchAllSiteCategoriesRequest: () => { return [] },
             updateAllSiteCategoriesData: () => { return [] },
-            emptySendTopicsInfoData: () => {return [] }
+            emptySendTopicsInfoData: () => { return [] }
         });
         useAllWritersMock.mockReturnValue({
             isLoading: false,
-            requestAllSelectedWritersDetailsData: () => {},
+            requestAllSelectedWritersDetailsData: () => { },
             selectedAuthorLoadingState: false,
             error: '',
             sendAuthorInfo: {},
@@ -133,34 +133,34 @@ describe('<ManageMyNews Component>', () => {
             getSelectedAuthorsData: () => [],
             allSelectedWritersDetailList: [
                 {
-                    name:'example',
+                    name: 'example',
                     description__value_export: {},
                     field_opinion_writer_path_export: {},
-                    view_taxonomy_term:'example',
-                    tid:'12',
+                    view_taxonomy_term: 'example',
+                    tid: '12',
                     vid_export: {},
                     field_description_export: {},
                     field_opinion_writer_path_export_1: {},
-                    field_opinion_writer_photo_export:'example',
+                    field_opinion_writer_photo_export: 'example',
                     isSelected: true,
                 },
                 {
-                    name:'example',
+                    name: 'example',
                     description__value_export: {},
                     field_opinion_writer_path_export: {},
-                    view_taxonomy_term:'example',
-                    tid:'13',
+                    view_taxonomy_term: 'example',
+                    tid: '13',
                     vid_export: {},
                     field_description_export: {},
                     field_opinion_writer_path_export_1: {},
-                    field_opinion_writer_photo_export:'example',
+                    field_opinion_writer_photo_export: 'example',
                     isSelected: true,
                 },
             ],
             emptySendAuthorInfoData: () => [],
-            sentAuthorInfoData: { 
-              code: 2,
-              message: 'string'
+            sentAuthorInfoData: {
+                code: 2,
+                message: 'string'
             },
             selectedAuthorsData: {
                 code: 2,
@@ -206,7 +206,7 @@ describe('<ManageMyNews Component>', () => {
 
     test('Should call FlatList renderItem', () => {
         const element = instance.container.findByType(FlatList)
-        fireEvent(element, 'renderItem', {item: sampleData[0], index: 0});
+        fireEvent(element, 'renderItem', { item: sampleData[0], index: 0 });
         expect(mockFunction).toBeTruthy()
     });
 
@@ -237,18 +237,18 @@ describe('<ManageMyNews Component>', () => {
         (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
         useAllSiteCategoriesMock.mockReturnValue({
             isLoading: false,
-            getSelectedTopicsData: () => {},
+            getSelectedTopicsData: () => { },
             selectedTopicsData: {},
             allSiteCategoriesData: [],
             sentTopicsData: {},
             sendSelectedTopicInfo: () => { return [] },
             fetchAllSiteCategoriesRequest: () => { return [] },
             updateAllSiteCategoriesData: () => { return [] },
-            emptySendTopicsInfoData: () => {return [] }
+            emptySendTopicsInfoData: () => { return [] }
         });
         useAllWritersMock.mockReturnValue({
             isLoading: false,
-            requestAllSelectedWritersDetailsData: () => {},
+            requestAllSelectedWritersDetailsData: () => { },
             selectedAuthorLoadingState: false,
             error: '',
             sendAuthorInfo: {},
@@ -259,9 +259,9 @@ describe('<ManageMyNews Component>', () => {
             getSelectedAuthorsData: () => [],
             allSelectedWritersDetailList: [],
             emptySendAuthorInfoData: () => [],
-            sentAuthorInfoData: { 
-              code: 2,
-              message: 'string'
+            sentAuthorInfoData: {
+                code: 2,
+                message: 'string'
             },
             selectedAuthorsData: {},
         });
@@ -296,7 +296,7 @@ describe('<ManageMyNews Component>', () => {
 
     test('Should call FlatList renderItem', () => {
         const element = instance.container.findByType(FlatList)
-        fireEvent(element, 'renderItem', {item: sampleData[0], index: 0});
+        fireEvent(element, 'renderItem', { item: sampleData[0], index: 0 });
         expect(mockFunction).toBeTruthy()
     });
 
@@ -327,7 +327,7 @@ describe('<ManageMyNews Component>', () => {
         (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
         useAllSiteCategoriesMock.mockReturnValue({
             isLoading: false,
-            getSelectedTopicsData: () => {},
+            getSelectedTopicsData: () => { },
             selectedTopicsData: {
                 code: 200,
                 message: "string",
@@ -368,11 +368,11 @@ describe('<ManageMyNews Component>', () => {
             sendSelectedTopicInfo: () => { return [] },
             fetchAllSiteCategoriesRequest: () => { return [] },
             updateAllSiteCategoriesData: () => { return [] },
-            emptySendTopicsInfoData: () => {return [] }
+            emptySendTopicsInfoData: () => { return [] }
         });
         useAllWritersMock.mockReturnValue({
             isLoading: false,
-            requestAllSelectedWritersDetailsData: () => {},
+            requestAllSelectedWritersDetailsData: () => { },
             selectedAuthorLoadingState: false,
             error: '',
             sendAuthorInfo: {},
@@ -383,34 +383,34 @@ describe('<ManageMyNews Component>', () => {
             getSelectedAuthorsData: () => [],
             allSelectedWritersDetailList: [
                 {
-                    name:'example',
+                    name: 'example',
                     description__value_export: {},
                     field_opinion_writer_path_export: {},
-                    view_taxonomy_term:'example',
-                    tid:'12',
+                    view_taxonomy_term: 'example',
+                    tid: '12',
                     vid_export: {},
                     field_description_export: {},
                     field_opinion_writer_path_export_1: {},
-                    field_opinion_writer_photo_export:'example',
+                    field_opinion_writer_photo_export: 'example',
                     isSelected: true,
                 },
                 {
-                    name:'example',
+                    name: 'example',
                     description__value_export: {},
                     field_opinion_writer_path_export: {},
-                    view_taxonomy_term:'example',
-                    tid:'13',
+                    view_taxonomy_term: 'example',
+                    tid: '13',
                     vid_export: {},
                     field_description_export: {},
                     field_opinion_writer_path_export_1: {},
-                    field_opinion_writer_photo_export:'example',
+                    field_opinion_writer_photo_export: 'example',
                     isSelected: true,
                 },
             ],
             emptySendAuthorInfoData: () => [],
-            sentAuthorInfoData: { 
-              code: 2,
-              message: 'string'
+            sentAuthorInfoData: {
+                code: 2,
+                message: 'string'
             },
             selectedAuthorsData: {
                 code: 2,
@@ -460,18 +460,6 @@ describe('<ManageMyNews Component>', () => {
         expect(mockFunction).toBeTruthy()
     });
 
-    test('Should call FlatList renderItem', () => {
-        const element = instance.container.findByType(FlatList)
-        fireEvent(element, 'renderItem', {item: sampleData[0], index: 0});
-        expect(mockFunction).toBeTruthy()
-    });
-
-    test('Should call FlatList keyExtractor', () => {
-        const element = instance.container.findByType(FlatList)
-        fireEvent(element, 'keyExtractor', '', 2);
-        expect(mockFunction).toBeTruthy()
-    });
-
 });
 
 describe('<ManageMyNews Component>', () => {
@@ -493,7 +481,7 @@ describe('<ManageMyNews Component>', () => {
         (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
         useAllSiteCategoriesMock.mockReturnValue({
             isLoading: false,
-            getSelectedTopicsData: () => {},
+            getSelectedTopicsData: () => { },
             selectedTopicsData: {
                 code: 200,
                 message: "string",
@@ -534,11 +522,11 @@ describe('<ManageMyNews Component>', () => {
             sendSelectedTopicInfo: () => { return [] },
             fetchAllSiteCategoriesRequest: () => { return [] },
             updateAllSiteCategoriesData: () => { return [] },
-            emptySendTopicsInfoData: () => {return [] }
+            emptySendTopicsInfoData: () => { return [] }
         });
         useAllWritersMock.mockReturnValue({
             isLoading: false,
-            requestAllSelectedWritersDetailsData: () => {},
+            requestAllSelectedWritersDetailsData: () => { },
             selectedAuthorLoadingState: false,
             error: '',
             sendAuthorInfo: {},
@@ -549,34 +537,34 @@ describe('<ManageMyNews Component>', () => {
             getSelectedAuthorsData: () => [],
             allSelectedWritersDetailList: [
                 {
-                    name:'example',
+                    name: 'example',
                     description__value_export: {},
                     field_opinion_writer_path_export: {},
-                    view_taxonomy_term:'example',
-                    tid:'12',
+                    view_taxonomy_term: 'example',
+                    tid: '12',
                     vid_export: {},
                     field_description_export: {},
                     field_opinion_writer_path_export_1: {},
-                    field_opinion_writer_photo_export:'example',
+                    field_opinion_writer_photo_export: 'example',
                     isSelected: true,
                 },
                 {
-                    name:'example',
+                    name: 'example',
                     description__value_export: {},
                     field_opinion_writer_path_export: {},
-                    view_taxonomy_term:'example',
-                    tid:'13',
+                    view_taxonomy_term: 'example',
+                    tid: '13',
                     vid_export: {},
                     field_description_export: {},
                     field_opinion_writer_path_export_1: {},
-                    field_opinion_writer_photo_export:'example',
+                    field_opinion_writer_photo_export: 'example',
                     isSelected: true,
                 },
             ],
             emptySendAuthorInfoData: () => [],
-            sentAuthorInfoData: { 
-              code: 2,
-              message: 'string'
+            sentAuthorInfoData: {
+                code: 2,
+                message: 'string'
             },
             selectedAuthorsData: {
                 code: 2,
@@ -610,18 +598,6 @@ describe('<ManageMyNews Component>', () => {
     test('Should call ScreenContainer setIsAlertVisible', () => {
         const element = instance.container.findByType(ScreenContainer)
         fireEvent(element, 'setIsAlertVisible');
-        expect(mockFunction).toBeTruthy()
-    });
-
-    test('Should call FlatList renderItem', () => {
-        const element = instance.container.findByType(FlatList)
-        fireEvent(element, 'renderItem', {item: sampleData[0], index: 0});
-        expect(mockFunction).toBeTruthy()
-    });
-
-    test('Should call FlatList keyExtractor', () => {
-        const element = instance.container.findByType(FlatList)
-        fireEvent(element, 'keyExtractor', '', 2);
         expect(mockFunction).toBeTruthy()
     });
 

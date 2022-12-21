@@ -15,8 +15,10 @@ describe('<TabBarComponent>', () => {
         tabItem.isSelected = !tabItem.isSelected
     })
 
+    const onPressmock = jest.fn()
+
     beforeEach(() => {
-        const component = <TabWithBarItem {...tabItem} index={0} onPress={mockOnPress} />
+        const component = <TabWithBarItem {...tabItem} index={0} onPress={onPressmock} />
         instance = render(component)
     })
 
@@ -30,15 +32,16 @@ describe('<TabBarComponent>', () => {
     })
 
     describe('onPress action in item', () => {
+        const onPressmock = jest.fn()
         beforeEach(() => {
-            const component = <TabWithBarItem {...tabItem} index={0} onPress={mockOnPress} />
+            const component = <TabWithBarItem {...tabItem} index={0} onPress={onPressmock} />
             instance = render(component)
         })
 
         test('Should check bar getting render when select', () => {
             const element = instance.getByTestId(moleculesTestID.tabItemBtn)
             fireEvent.press(element, 'onPress')
-            expect(instance).toBeDefined()
+            expect(onPressmock).toHaveBeenCalledTimes(1);
         })
     })
 })

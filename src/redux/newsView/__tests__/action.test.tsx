@@ -7,7 +7,8 @@ import {
     fetchTopList,
     fetchBottomListSuccess,
     fetchBottomListFailed,
-    fetchBottomList
+    fetchBottomList,
+    emptyAllList
 } from '../action';
 import {
     REQUEST_HERO_LIST_DATA,
@@ -19,6 +20,7 @@ import {
     REQUEST_BOTTOM_LIST_DATA,
     REQUEST_BOTTOM_LIST_SUCCESS,
     REQUEST_BOTTOM_LIST_FAILED,
+    EMPTY_ALL_LIST,
 } from '../actionTypes';
 import { NewsViewBodyGet } from 'src/redux/newsView/types';
 
@@ -81,4 +83,8 @@ describe('<NewsViewAction', () => {
         expect(result.payload.error).toEqual(errorMessage)
     })
 
+    it('empty all list', () => {
+        const result = emptyAllList()
+        expect(result.type).toEqual(EMPTY_ALL_LIST)
+    })
 })

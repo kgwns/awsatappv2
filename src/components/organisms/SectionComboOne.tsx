@@ -65,7 +65,7 @@ const SectionComboOne = ({
       <TouchableOpacity
         style={sectionComboOneStyle.container}
         activeOpacity={0.9}
-        onPress={() => onPress(sectionComboOneData[0].nid)}>
+        onPress={() => onPress(sectionComboOneData[0].nid)} testID = "mainArticleImageId">
         <Image
           url={sectionComboOneData[0].image}
           style={

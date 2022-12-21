@@ -116,7 +116,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   }
 
   return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} showPlayer={false} backgroundColor={style.screenBackgroundColor.backgroundColor}>
+    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} showPlayer={false} backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
         <View
           style={[

@@ -4,6 +4,12 @@ import { MyTopicsHorizontalSlider } from '..';
 import { ScrollView, TouchableOpacity } from 'react-native';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false
+}));
+
 describe('<MyTopicsHorizontalSlider>', () => {
   let instance: RenderAPI;
   const mockData: AllSiteCategoriesItemType[] = [
@@ -72,6 +78,8 @@ describe('<MyTopicsHorizontalSlider>', () => {
   const mockFn = jest.fn();
 
   beforeEach(() => {
+    DeviceTypeUtilsMock.isIOS = true
+
     const component = (
       <MyTopicsHorizontalSlider
         selectedIndex={0}

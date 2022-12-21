@@ -4,20 +4,50 @@ import { PopulateWidget, PopulateWidgetType } from 'src/components/molecules/pop
 import { moleculesTestID } from 'src/constants/Constants';
 import { VideoItem } from '../../video-item/VideoItem';
 import {useNavigation} from '@react-navigation/native';
-import { ArticlePodCastWidget } from 'src/components/organisms';
+import { PhotoGalleryItem } from '../../photogallery/PhotoGalleryItem';
+import ArticlePodCastWidget from 'src/components/organisms/FavoritePodCastWidget';
+
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
   useNavigationState: () => ([]),
 }));
+
+jest.mock('react-native-safe-area-context', () => ({
+  ...jest.requireActual('react-native-safe-area-context'),
+  useSafeAreaInsets: () => ({
+    top: 10,
+    bottom: 10
+  })
+}));
+
+jest.mock("src/hooks/usePodcast", () => ({
+  usePodcast: () => {
+    return {
+      isLoading: true,
+      podcastEpisodeData: [],
+      fetchPodcastEpisodeRequest: () => {
+        return []
+      }
+    }
+  },
+}));
+
+jest.mock("react-native-safe-area-context", () => {
+  const insets = { top: 0 }
+  return {
+      useSafeAreaInsets: jest.fn().mockImplementation(() => insets)
+  }
+})
 
 describe('<PopulateWidget/>', () => {
   let instance: RenderAPI;
 
   const sampleArticleData: any = {
     image: 'image',
-    nid: 'nid',
+    nid: 1,
     author: 'author',
     created: 'created'
   }
@@ -38,7 +68,7 @@ describe('<PopulateWidget/>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    it('Should render SectionVideoFooter', () => {
+    it('Should render widget', () => {
       expect(instance).toBeDefined();
     });
 
@@ -59,7 +89,7 @@ describe('<PopulateWidget/>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    it('Should render SectionVideoFooter', () => {
+    it('Should render widget', () => {
       expect(instance).toBeDefined();
     });
   });
@@ -83,7 +113,7 @@ describe('<PopulateWidget/>', () => {
   describe('when podcast data only', () => {
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      const component = <PopulateWidget type={PopulateWidgetType.PODCAST} props={sampleArticleData}
+      const component = <PopulateWidget type={PopulateWidgetType.PODCAST} {...sampleArticleData}
         onPressBookmark={mockOnPressBookmark} />;
       instance = render(component);
     });
@@ -94,11 +124,6 @@ describe('<PopulateWidget/>', () => {
     });
     it('Should render widget', () => {
       expect(instance).toBeDefined();
-    });
-    it('Should call ArticlePodCastWidget onPress', () => {
-      const element = instance.container.findAllByType(ArticlePodCastWidget)[0];
-      fireEvent(element, 'onPress');
-      expect(navigation.navigate).toBeTruthy();
     });
   });
 
@@ -119,6 +144,28 @@ describe('<PopulateWidget/>', () => {
     });
     it('Should call VideoItem onPress', () => {
       const element = instance.container.findAllByType(VideoItem)[0];
+      fireEvent(element, 'onPress');
+      expect(navigation.navigate).toBeTruthy();
+    });
+  });
+
+  describe('when Album data only', () => {
+    beforeEach(() => {
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      const component = <PopulateWidget type={PopulateWidgetType.ALBUM} props={sampleArticleData}
+        onPressBookmark={mockOnPressBookmark} />;
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render widget', () => {
+      expect(instance).toBeDefined();
+    });
+    it('Should call Album onPress', () => {
+      const element = instance.container.findAllByType(PhotoGalleryItem)[0];
       fireEvent(element, 'onPress');
       expect(navigation.navigate).toBeTruthy();
     });

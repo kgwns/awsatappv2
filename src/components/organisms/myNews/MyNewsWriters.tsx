@@ -265,7 +265,7 @@ export const MyNewsWriters = () => {
   );
 
   return (
-    <ScreenContainer edge={horizontalEdge} backgroundColor={styles.screenBackgroundColor.backgroundColor}>
+    <ScreenContainer edge={horizontalEdge} backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
       <View style={styles.container}>
         <AuthorsHorizontalSlider
           authorsList={authorsList}

@@ -696,7 +696,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         setIsAlertVisible={setIsAlertVisible}
         alertOnPress={onAlertOkPressed}
         alertPayload={alertPayload}
-        backgroundColor={styles.screenBackgroundColor.backgroundColor}>
+        backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
           {showupUp && <AlertModal
           title={DEFAULT_ALERT_TITLE}
           message={CONST_PLEASE_ENTER_THE_NAME}

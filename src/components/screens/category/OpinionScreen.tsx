@@ -168,7 +168,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
 
   return (
     <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)} showPlayer={isShowPlayer}
-      backgroundColor={style.screenBackgroundColor.backgroundColor}>
+      backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
       <AnimatedFlatList
         ref={ref}

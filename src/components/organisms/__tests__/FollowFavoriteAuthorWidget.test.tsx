@@ -1,8 +1,15 @@
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import { FlatList, ScrollView } from 'react-native';
-import {FollowFavoriteAuthorWidget} from 'src/components/organisms';
+import { FollowFavoriteAuthorWidget } from 'src/components/organisms';
 import { FollowFavoriteAuthor } from 'src/components/molecules';
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false,
+  isTab: false
+}));
 
 describe('<FollowFavoriteAuthorWidget>', () => {
   let instance: RenderAPI;
@@ -17,7 +24,9 @@ describe('<FollowFavoriteAuthorWidget>', () => {
   ];
 
   beforeEach(() => {
-    const component = <FollowFavoriteAuthorWidget writersData={sampleData} changeSelectedStatus={mockFunction}/>;
+    DeviceTypeUtilsMock.isTab = true
+    DeviceTypeUtilsMock.isIOS = true
+    const component = <FollowFavoriteAuthorWidget writersData={sampleData} changeSelectedStatus={mockFunction} />;
     instance = render(component);
   });
 
@@ -38,7 +47,7 @@ describe('<FollowFavoriteAuthorWidget>', () => {
 
   test('Should call FlatList onPress', () => {
     const element = instance.container.findByType(FlatList)
-    fireEvent(element, 'renderItem', {item: sampleData[0]});
+    fireEvent(element, 'renderItem', { item: sampleData[0] });
     expect(mockFunction).toBeTruthy()
   });
 
@@ -69,6 +78,9 @@ describe('<FollowFavoriteAuthorWidget>', () => {
   ];
 
   beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = false;
+    DeviceTypeUtilsMock.isIOS = false;
+    
     const component = <FollowFavoriteAuthorWidget />;
     instance = render(component);
   });
@@ -90,7 +102,7 @@ describe('<FollowFavoriteAuthorWidget>', () => {
 
   test('Should call FlatList onPress', () => {
     const element = instance.container.findByType(FlatList)
-    fireEvent(element, 'renderItem', {item: sampleData[0]});
+    fireEvent(element, 'renderItem', { item: sampleData[0] });
     expect(mockFunction).toBeTruthy()
   });
 

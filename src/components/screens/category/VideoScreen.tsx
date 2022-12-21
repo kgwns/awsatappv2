@@ -195,7 +195,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading || isVideoLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}
-      backgroundColor={styles.screenBackgroundColor.backgroundColor} >
+      backgroundColor={styles.screenBackgroundColor?.backgroundColor} >
       <View style={styles.container}>
         <AnimatedFlatList
            ref={ref}

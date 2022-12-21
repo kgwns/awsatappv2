@@ -23,7 +23,7 @@ describe('App Common Selector', () => {
 
   test('Get isAppFirstSession state', () => {
     const articleFontSize: number = getArticleFontSize(storeData);
-    expect(articleFontSize).toEqual(16);
+    expect(articleFontSize).toEqual(18);
   });
 
 });

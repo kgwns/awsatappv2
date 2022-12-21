@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { ScreenContainer } from '..';
 import { PodcastProgramHeader } from 'src/components/molecules';
 import Share from 'react-native-share';
@@ -12,10 +12,9 @@ import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
 import { useIsFocused } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
-import { getPodcastUrl, horizontalEdge, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getPodcastUrl, horizontalEdge, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Styles } from 'src/shared/styles';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
-import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 import { PodcastEpisodeModalInfo } from 'src/components/organisms/podcast/PodcastEpisodeModalInfo';
 
 export interface PodcastEpisodeModalProps {
@@ -74,7 +73,6 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const styles = useThemeAwareObject(createStyles);
     const insets = useSafeAreaInsets();
     const isFocused = useIsFocused();
-    const flatListRef = useRef<FlatList>(null);
     const initialRef = useRef(0);
     const playbackState = usePlaybackState();
 

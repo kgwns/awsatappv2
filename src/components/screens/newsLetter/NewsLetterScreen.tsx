@@ -209,7 +209,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
 
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}
-      backgroundColor={style.screenBackgroundColor.backgroundColor}>
+      backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
         <View style={style.textContainer}>
           {!canGoBack && <Label style={style.titleStyle}>
