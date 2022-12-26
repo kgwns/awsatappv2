@@ -3,10 +3,17 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { storeSampleData } from 'src/constants/Constants'
 import { LatestNewsScreen } from '../LatestNewsScreen'
-import { ArticleSection, BannerArticleSection, CarouselSlider, SectionComboOne, ShortArticle } from 'src/components/organisms'
+import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget, SectionComboOne, ShortArticle } from 'src/components/organisms'
 import { LatestArticleDataType, LatestOpinionDataType, LatestPodcastDataType } from 'src/redux/latestNews/types'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { useBookmark, useLatestNewsTab, useLogin } from 'src/hooks'
+import { RefreshControl } from 'react-native'
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false
+}));
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -415,6 +422,7 @@ describe('<LatestNewsScreen>', () => {
     const useBookmarkMock = jest.fn();
 
     beforeEach(() => {
+        DeviceTypeUtilsMock.isTab = true;
         (useState as jest.Mock).mockImplementation(() => [[], heroInfo]);
         (useState as jest.Mock).mockImplementation(() => [[], sectionComboThreeInfo]);
         (useState as jest.Mock).mockImplementation(() => [[], sectionComboOneInfo]);
@@ -434,7 +442,7 @@ describe('<LatestNewsScreen>', () => {
             sectionComboTwo: [],
             sectionComboThree: [],
             sectionComboFour: [],
-            podcastHome: [],
+            podcastHome: [{result:true}],
             fetchTickerAndHeroArticle: () => {
                 return []
             },
@@ -531,4 +539,11 @@ describe('<LatestNewsScreen>', () => {
         fireEvent(element, 'onPress', '2');
         expect(mockFunction).toBeTruthy()
     });
+
+    test('Should call PodcastWidget onPress', () => {
+        const element = instance.container.findAllByType(PodcastWidget)[0]
+        fireEvent(element, 'onPress');
+        expect(mockFunction).toBeTruthy()
+    });
+
 })

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Linking } from "react-native";
 import * as PodcastService from 'src/services/podcastService';
 import {fetchSingleEpisodeSpreakerApi} from 'src/services/podcastService';
-import { ButtonOutline } from "src/components/atoms";
+import { ButtonOutline } from "src/components/atoms/button-outline/ButtonOutline";
 jest.mock("react-native-safe-area-context", () => {
     const insets = { bottom: 0 }
     return {

@@ -6,6 +6,13 @@ import { storeSampleData } from 'src/constants/Constants'
 import { PopUp } from 'src/components/organisms'
 import {useNavigation} from '@react-navigation/native';
 import { FlatList } from 'react-native'
+import { FilterComponent } from 'src/components/molecules'
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+    ...jest.requireActual('src/shared/utils/dimensions'),
+    isTab: false,
+}));
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -43,6 +50,28 @@ jest.mock("src/hooks/useLogin", () => ({
       }
     },
 }));
+
+const childInfoData = [
+    {
+        tabName: 'tabName',
+        isSelected: false,
+        child:[
+            {
+                isSelected:true
+            }
+        ]  
+    },
+    {
+        tabName: 'tabName',
+        isSelected: true,
+        child:[
+            {
+                isSelected:false
+            }
+        ]
+    },
+
+]
 
 describe('<SectionStoryScreen>', () => {
     let instance: RenderAPI
@@ -90,6 +119,11 @@ describe('<SectionStoryScreen>', () => {
         expect(instance).toBeDefined()
     })
 
+    it('Should render SectionStoryScreen in Tab', () => {
+        DeviceTypeUtilsMock.isTab = true;
+        expect(instance).toBeDefined()
+    })
+
 
     test('Should call onPressButton', () => {
         const element = instance.container.findByType(PopUp)
@@ -120,5 +154,125 @@ describe('<SectionStoryScreen>', () => {
         fireEvent(element, 'onScrollBeginDrag');
         expect(global.refFlatList).toBeTruthy()
     });
+
+})
+
+
+
+describe('<SectionStoryScreen> with childInfo data props', () => {
+    let instance: RenderAPI
+
+    const mockFunction = jest.fn()
+    const setHeroListDataInfo = mockFunction;
+    const setBottomListDataInfo = mockFunction;
+    const setTopListDataInfo = mockFunction;
+    const setVideoListData = mockFunction;
+    const setShowPopUp = mockFunction;
+    const setIsBottomListLoading = mockFunction;
+    const setCurrentSectionId = mockFunction;
+    const setChildSection = mockFunction;
+    const initialLoading = mockFunction;
+
+    const navigation = {
+        reset: jest.fn(),
+        navigate: jest.fn(),
+    }
+    
+    beforeEach(() => {
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setBottomListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setTopListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setVideoListData]);
+        (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
+        (useState as jest.Mock).mockImplementation(() => [true, initialLoading]);
+        (useState as jest.Mock).mockImplementation(() => [false, setIsBottomListLoading]);
+        (useState as jest.Mock).mockImplementation(() => ['1', setCurrentSectionId]);
+        (useState as jest.Mock).mockImplementation(() => [childInfoData, setChildSection]);
+        
+        const component = <Provider store={storeSampleData}>
+            <SectionStoryScreen sectionId={'1'} childInfo={childInfoData} onUpdateChildSection={mockFunction} />
+        </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render SectionStoryScreen', () => {
+        expect(instance).toBeDefined()
+    })
+
+})
+
+
+
+
+
+describe('should render FilterComponent', () => {
+    let instance: RenderAPI
+
+    const mockFunction = jest.fn()
+    const setHeroListDataInfo = mockFunction;
+    const setBottomListDataInfo = mockFunction;
+    const setTopListDataInfo = mockFunction;
+    const setVideoListData = mockFunction;
+    const setShowPopUp = mockFunction;
+    const setIsBottomListLoading = mockFunction;
+    const setCurrentSectionId = mockFunction;
+    const setChildSection = mockFunction;
+    const initialLoading = mockFunction;
+    
+    const navigation = {
+        reset: jest.fn(),
+        navigate: jest.fn(),
+    }
+    
+    beforeEach(() => {
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setBottomListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setTopListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setVideoListData]);
+        (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
+        (useState as jest.Mock).mockImplementation(() => [false, initialLoading]);
+        (useState as jest.Mock).mockImplementation(() => [false, setIsBottomListLoading]);
+        (useState as jest.Mock).mockImplementation(() => ['1', setCurrentSectionId]);
+        (useState as jest.Mock).mockImplementation(() => [childInfoData, setChildSection]);
+        
+        const component = <Provider store={storeSampleData}>
+            <SectionStoryScreen sectionId={'1'} childInfo={childInfoData} onUpdateChildSection={mockFunction} />
+        </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render SectionStoryScreen', () => {
+        expect(instance).toBeDefined()
+    })
+
+    it('should call FilterComponent onPress',() => {
+        const element = instance.container.findByType(FilterComponent);
+        fireEvent(element,'onPress',1);
+        expect(mockFunction).toBeTruthy();
+    })
+
+    it('should call FilterComponent onPressSubChild',() => {
+        const element = instance.container.findByType(FilterComponent);
+        fireEvent(element,'onPressSubChild',1,0);
+        expect(mockFunction).toBeTruthy();
+    })
+
+    it('should call FilterComponent onPressSubChild',() => {
+        const element = instance.container.findByType(FilterComponent);
+        fireEvent(element,'onPressSubChild',0,0);
+        expect(mockFunction).toBeTruthy();
+    })
 
 })

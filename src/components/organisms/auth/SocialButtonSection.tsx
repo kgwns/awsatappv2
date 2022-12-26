@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleProp, ViewStyle, StyleSheet, Alert, Platform } from 'react-native';
-import { SocialLoginButton } from '../../atoms';
+// import { SocialLoginButton } from '../../atoms';
+import { SocialLoginButton } from '../../atoms/social-login-button/SocialLoginButton';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
 import DeviceInfo from 'react-native-device-info';
-
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';

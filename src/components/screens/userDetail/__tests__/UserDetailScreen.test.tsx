@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/Constants'
@@ -6,6 +6,12 @@ import { UserDetailScreen } from '../UserDetailScreen'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { Modal } from 'react-native'
 import { useUserProfileData } from 'src/hooks';
+import { TabBarDataProps } from 'src/components/molecules/tabWithBarItem/TabWithBarItem'
+
+jest.mock('react',() => ({
+  ...jest.requireActual('react'),
+  useState:jest.fn()
+}));
 
 jest.mock('src/hooks/useUserProfileData', () => ({useUserProfileData: jest.fn()}));
 
@@ -34,13 +40,17 @@ jest.mock("src/hooks/useNewPassword", () => ({
     }
   },
 }));
-
+const tabItemData =  {tabName:'tabName',isSelected:true};
 describe('<UserDetailScreen>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
     const useUserProfileDataMock = mockFunction;
+    const setSelectedDate = mockFunction;
+    const setTabItemData = mockFunction;
 
     beforeEach(() => {
+      (useState as jest.Mock).mockImplementation(() => (['selectBirthdayDate',setSelectedDate]));
+      (useState as jest.Mock).mockImplementation(() => [[tabItemData],setTabItemData]);
       (useUserProfileData as jest.Mock).mockImplementation(useUserProfileDataMock);
         useUserProfileDataMock.mockReturnValue({
           isLoading: false,
@@ -136,8 +146,12 @@ describe('<UserDetailScreen>', () => {
   let instance: RenderAPI
   const mockFunction = jest.fn();
   const useUserProfileDataMock = mockFunction;
+  const setSelectedDate = mockFunction;
+  const setTabItemData = mockFunction;
 
   beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => (['selectBirthdayDate',setSelectedDate]));
+    (useState as jest.Mock).mockImplementation(() => [[tabItemData],setTabItemData]);
     (useUserProfileData as jest.Mock).mockImplementation(useUserProfileDataMock);
       useUserProfileDataMock.mockReturnValue({
         isLoading: false,
@@ -233,8 +247,12 @@ describe('<UserDetailScreen>', () => {
   let instance: RenderAPI
   const mockFunction = jest.fn();
   const useUserProfileDataMock = mockFunction;
+  const setName = mockFunction;
+  const setTabItem = mockFunction;
 
   beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => ['name',setName]);
+    (useState as jest.Mock).mockImplementation(() => [[tabItemData],setTabItem]);
     (useUserProfileData as jest.Mock).mockImplementation(useUserProfileDataMock);
       useUserProfileDataMock.mockReturnValue({
         isLoading: false,

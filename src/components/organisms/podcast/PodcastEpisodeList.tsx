@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { View, FlatList, ListRenderItem, StyleSheet} from 'react-native';
-import { Label } from 'src/components/atoms/';
+import { Label } from 'src/components/atoms/label/Label';
 import { PodcastVerticalList, PodcastVerticalListProps } from 'src/components/molecules/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';

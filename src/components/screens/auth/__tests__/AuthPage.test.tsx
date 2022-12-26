@@ -2,7 +2,7 @@ import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
 import React, { useState }  from 'react';
 import {AuthPage} from '../AuthPage';
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/Constants';
+import { ScreensConstants, storeSampleData } from '../../../../constants/Constants';
 import { AuthScreenInputSection, SocialButtonSection } from '../../../organisms/';
 import {useNavigation} from '@react-navigation/native';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
@@ -176,6 +176,7 @@ describe('<AuthPage>', () => {
   describe('when AuthPage only', () => {
     beforeEach(() => {
       (useState as jest.Mock).mockImplementation(() => ['', email]);
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useEmailCheck as jest.Mock).mockImplementation(useEmailCheckMock);
       useEmailCheckMock.mockReturnValue({
         emptyEmailCheckInfo:()=>{},
@@ -274,5 +275,127 @@ describe('<AuthPage>', () => {
       fireEvent(element, 'navigateToSection', "SIGNINPAGE");
       expect(element).toBeTruthy()
     });
+  });
+});
+
+describe('Should navigate Signin Page', () => {
+  const navigation = {
+    navigate:jest.fn()
+  }
+  const mockFunction = jest.fn();
+  const email = mockFunction;
+  const useEmailCheckMock = jest.fn();
+  const useRegisterMock = mockFunction;
+  let instance:RenderAPI;
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => ['', email]);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useEmailCheck as jest.Mock).mockImplementation(useEmailCheckMock);
+    useEmailCheckMock.mockReturnValue({
+      emptyEmailCheckInfo:()=>{},
+      fetchEmailCheckRequest:()=>{},
+      isLoading: false, 
+      emailCheckData: {
+        message:{
+          code:200
+        }
+      }, 
+      emailCheckError: 'Network Error',
+    });
+    (useRegister as jest.Mock).mockImplementation(useRegisterMock);
+    useRegisterMock.mockReturnValue({
+      socialLoginEnded:()=>jest.fn(),
+      emptyUserInfo:()=>jest.fn(),
+      createUserRequest:()=> jest.fn(),
+      socialLoginStarted:()=> jest.fn(),
+      socialLoginInProgress: true,
+      registerUserInfo: {
+        user: {
+          email: "abc@gmail.com",
+          id: '2',
+        },
+        message: {
+          message: {
+            code: 200
+          }
+        },
+      },
+      isRegisterLoading: true,
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <AuthPage  />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+  it('should navigate to signIn page',() => {
+    expect(navigation.navigate).toHaveBeenCalledWith(ScreensConstants.SignInPage,{email:""});
+  });
+});
+
+describe('Should navigate SignUp Page', () => {
+  const navigation = {
+    navigate:jest.fn()
+  }
+  const mockFunction = jest.fn();
+  const email = mockFunction;
+  const useEmailCheckMock = jest.fn();
+  const useRegisterMock = mockFunction;
+  let instance:RenderAPI;
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => ['', email]);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useEmailCheck as jest.Mock).mockImplementation(useEmailCheckMock);
+    useEmailCheckMock.mockReturnValue({
+      emptyEmailCheckInfo:()=>{},
+      fetchEmailCheckRequest:()=>{},
+      isLoading: false, 
+      emailCheckData: {
+        message:{
+          code:404
+        }
+      }, 
+      emailCheckError: 'Network Error',
+    });
+    (useRegister as jest.Mock).mockImplementation(useRegisterMock);
+    useRegisterMock.mockReturnValue({
+      socialLoginEnded:()=>jest.fn(),
+      emptyUserInfo:()=>jest.fn(),
+      createUserRequest:()=> jest.fn(),
+      socialLoginStarted:()=> jest.fn(),
+      socialLoginInProgress: true,
+      registerUserInfo: {
+        user: {
+          email: "abc@gmail.com",
+          id: '2',
+        },
+        message: {
+          message: {
+            code: 200
+          }
+        },
+      },
+      isRegisterLoading: true,
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <AuthPage  />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+  it('should navigate to signUp page',() => {
+    expect(navigation.navigate).toHaveBeenCalledWith(ScreensConstants.SignUpPage,{email:""});
   });
 });

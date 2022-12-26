@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleSheet, Linking } from 'react-native';
-import { Label, Image, ButtonOutline, LabelTypeProp } from 'src/components/atoms/';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
+import { Image } from 'src/components/atoms/image/Image'
+import { ButtonOutline } from "src/components/atoms/button-outline/ButtonOutline";
 import { PodcastVerticalListProps } from 'src/components/molecules/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';

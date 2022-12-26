@@ -1,6 +1,9 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet} from 'react-native';
-import { Label, Image, ButtonOutline, LabelTypeProp, HtmlRenderer} from 'src/components/atoms/';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
+import { ButtonOutline } from 'src/components/atoms/button-outline/ButtonOutline';
+import { Image } from 'src/components/atoms/image/Image';
+import { HtmlRenderer } from 'src/components/atoms/htmlRenderer/HtmlRenderer';
 import { normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType,colors} from 'src/shared/styles/colors';

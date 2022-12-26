@@ -506,5 +506,8 @@ describe('<SignInPage>', () => {
     it('Should render SignInPage', () => {
       expect(instance).toBeDefined();
     });
+    it("should reset navigation",() => {
+      expect(navigation.reset).toHaveBeenCalled();
+    })
   });
 });

@@ -1,6 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View, StyleSheet, Linking} from 'react-native';
-import { Label, Image } from 'src/components/atoms/';
+import { Label } from 'src/components/atoms/label/Label';
+import { Image } from 'src/components/atoms/image/Image';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType,colors} from 'src/shared/styles/colors';

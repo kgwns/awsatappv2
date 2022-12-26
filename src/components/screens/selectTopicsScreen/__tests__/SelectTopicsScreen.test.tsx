@@ -6,10 +6,17 @@ import {SelectTopicsScreen} from '../SelectTopicsScreen';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { InterestedTopics } from 'src/components/organisms';
 import { useAllSiteCategories } from 'src/hooks';
+import { useNavigation } from '@react-navigation/native';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+}));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
 jest.mock("src/hooks/useUserProfileData", () => ({
@@ -58,11 +65,15 @@ describe('<SelectTopicsScreen>', () => {
   const categoriesInfo = mockFunction;
   const updatedTopics = mockFunction;
   const useAllSiteCategoriesMock = jest.fn();
+  const navigation = {
+    navigate:jest.fn()
+  }
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
     (useState as jest.Mock).mockImplementation(() => [sampleData, categoriesInfo]);
     (useState as jest.Mock).mockImplementation(() => [sampleData, updatedTopics]);
+    (useNavigation as jest.Mock).mockReturnValue(navigation);
     (useAllSiteCategories as jest.Mock).mockImplementation(useAllSiteCategoriesMock);
     useAllSiteCategoriesMock.mockReturnValue({
       isLoading: false,
@@ -95,7 +106,7 @@ describe('<SelectTopicsScreen>', () => {
         },
       ],
       sentTopicsData: {
-        code: 400,
+        code: 500,
         message: "example"
       },
       sendSelectedTopicInfo: () => { return [] },
@@ -137,11 +148,15 @@ describe('<SelectTopicsScreen>', () => {
   const categoriesInfo = mockFunction;
   const updatedTopics = mockFunction;
   const useAllSiteCategoriesMock = jest.fn();
+  const navigation = {
+    navigate:jest.fn()
+  }
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
     (useState as jest.Mock).mockImplementation(() => [sampleData1, categoriesInfo]);
     (useState as jest.Mock).mockImplementation(() => [sampleData1, updatedTopics]);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useAllSiteCategories as jest.Mock).mockImplementation(useAllSiteCategoriesMock);
     useAllSiteCategoriesMock.mockReturnValue({
       isLoading: false,
@@ -188,8 +203,12 @@ describe('<SelectTopicsScreen>', () => {
   const categoriesInfo = mockFunction;
   const updatedTopics = mockFunction;
   const useAllSiteCategoriesMock = jest.fn();
+  const navigation = {
+    navigate:jest.fn()
+  }
 
   beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [true, disableNext]);
     (useState as jest.Mock).mockImplementation(() => [[], categoriesInfo]);
     (useState as jest.Mock).mockImplementation(() => [[], updatedTopics]);

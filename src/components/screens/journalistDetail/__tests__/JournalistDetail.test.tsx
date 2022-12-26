@@ -134,7 +134,7 @@ jest.mock('src/hooks/useWriterDetail', () => ({
 }))
 
 const showupUp = false;
-const page = 0;
+const page = 2;
 const isFollowed = false;
 const scrollY = new Animated.Value(60);
 const articleState = [sampleArticleData];

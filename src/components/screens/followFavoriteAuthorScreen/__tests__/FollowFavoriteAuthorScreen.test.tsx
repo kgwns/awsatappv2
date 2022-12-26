@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import {render, RenderAPI} from '@testing-library/react-native';
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import {storeSampleData} from 'src/constants/Constants';
 import {FollowFavoriteAuthorScreen} from '../FollowFavoriteAuthorScreen';
 import { AllWritersItemType } from 'src/redux/allWriters/types';
 import { useAllWriters } from 'src/hooks';
+import { NextButton } from 'src/components/atoms/NextButton/NextButton';
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
@@ -35,13 +41,15 @@ const sampleData: AllWritersItemType[] = [
     name: 'example',
     view_taxonomy_term: 'example',
     tid: '1',
-    field_opinion_writer_photo_export: 'example'
+    field_opinion_writer_photo_export: 'example',
+    isSelected:true,
   },
   {
     name: 'example',
     view_taxonomy_term: 'example',
     tid: '2',
-    field_opinion_writer_photo_export: 'example'
+    field_opinion_writer_photo_export: 'example',
+    isSelected:true,
   },
 ]
 describe('<FollowFavoriteAuthorScreen>', () => {
@@ -98,6 +106,7 @@ describe('<FollowFavoriteAuthorScreen>', () => {
         message: 'string'
       }
     });
+    DeviceTypeUtilsMock.isTab = true;
     const component = (
       <Provider store={storeSampleData}>
         <FollowFavoriteAuthorScreen />
@@ -115,6 +124,11 @@ describe('<FollowFavoriteAuthorScreen>', () => {
     expect(instance).toBeDefined();
   });
 
+  test("should call NextButton onPress",() => {
+    const element = instance.container.findByType(NextButton)
+    fireEvent(element,'onPress');
+  })  
+  
 });
 
 describe('<FollowFavoriteAuthorScreen>', () => {
@@ -171,6 +185,7 @@ describe('<FollowFavoriteAuthorScreen>', () => {
         message: 'string'
       }
     });
+    DeviceTypeUtilsMock.isTab = false;
     const component = (
       <Provider store={storeSampleData}>
         <FollowFavoriteAuthorScreen />

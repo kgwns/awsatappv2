@@ -1,10 +1,11 @@
-import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
-import React, {useState} from 'react';
+import { render, RenderAPI, fireEvent } from '@testing-library/react-native';
+import React, { useState } from 'react';
 import { SearchScreen } from '../SearchScreen';
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/Constants';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { SearchItemType } from 'src/redux/search/types';
+import { useSearch } from 'src/hooks';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -55,21 +56,14 @@ const mockData2: SearchItemType[] = [{
 ]
 
 jest.mock("src/hooks/useSearch", () => ({
-  useSearch: () => {
-    return {
-      fetchSearchRequest: () => {},
-      isLoading: false,
-      searchData: mockData, 
-      setSearchHistory: () => {}, 
-      searchHistory: ['abc', 'def', 'abc','abc', 'def', 'abc','abc', 'def', 'abc','abc', 'def', 'abc','abc', 'def', 'abc','abc', 'def', 'abc']
-    }
-  },
+  useSearch: jest.fn(),
 }));
 
 describe('<SearchScreen>', () => {
   let instance: RenderAPI;
   const setSearchText = jest.fn()
   const mockFunction = jest.fn()
+  const useSearchMock = jest.fn();
   const navigation = {
     goBack: mockFunction,
     navigate: mockFunction,
@@ -78,6 +72,14 @@ describe('<SearchScreen>', () => {
     beforeEach(() => {
       (useState as jest.Mock).mockImplementation(() => ['example', setSearchText]);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useSearch as jest.Mock).mockImplementation(useSearchMock);
+      (useSearchMock).mockReturnValue({
+        fetchSearchRequest: () => { },
+        isLoading: false,
+        searchData: mockData,
+        setSearchHistory: () => { },
+        searchHistory: ['abc', 'def', 'abc', 'abc', 'def', 'abc', 'abc', 'def', 'abc', 'abc', 'def', 'abc', 'abc', 'def', 'abc', 'abc', 'def', 'abc']
+      });
       const component = (
         <Provider store={storeSampleData}>
           <SearchScreen />
@@ -124,4 +126,42 @@ describe('<SearchScreen>', () => {
       expect(navigation.navigate).toBeTruthy();
     });
   });
+});
+
+describe('rendering with empty search data and history', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const setSearchText = jest.fn();
+  const useSearchMock = jest.fn();  
+  const navigation = {
+    goBack: mockFunction,
+    navigate: mockFunction,
+  }
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => ['example', setSearchText]);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useSearch as jest.Mock).mockImplementation(useSearchMock);
+    (useSearchMock).mockReturnValue({
+      fetchSearchRequest: () => { },
+      isLoading: false,
+      searchData: [],
+      setSearchHistory: () => { },
+      searchHistory: []
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <SearchScreen />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+  it('Should render SearchScreen', () => {
+    expect(instance).toBeDefined();
+  });
+
 });

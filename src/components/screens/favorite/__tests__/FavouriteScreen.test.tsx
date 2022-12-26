@@ -14,6 +14,11 @@ jest.mock('@react-navigation/native', () => ({
     useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
 }));
 
+jest.mock('react',() => ({
+    ...jest.requireActual('react'),
+    useCallBack:jest.fn()
+}))
+
 describe('<FavoriteScreen>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
@@ -22,16 +27,16 @@ describe('<FavoriteScreen>', () => {
         navigate: jest.fn(),
     }
 
-    jest.mock("src/hooks/useLogin", () => ({
-        useLogin: () => {
-          return {
-            isLoggedIn: true,
-          }
-        },
-    }));
-
+    
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        jest.mock("src/hooks/useLogin", () => ({
+            useLogin: () => {
+              return {
+                isLoggedIn: true,
+              }
+            },
+        }));
         const component =
             <Provider store={storeSampleData}>
                 <FavoriteScreen />

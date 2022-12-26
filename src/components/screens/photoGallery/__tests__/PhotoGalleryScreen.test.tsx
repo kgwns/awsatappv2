@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import {PhotoGalleryScreen} from '../PhotoGalleryScreen';
-import {Provider} from 'react-redux';
-import {storeSampleData} from 'src/constants/Constants';
-import {PopUp} from 'src/components/organisms';
-import {useNavigation} from '@react-navigation/native';
-import {FlatList} from 'react-native';
-import {PhotoGalleryItem} from 'src/components/molecules';
+import React, { useState } from 'react';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
+import { PhotoGalleryScreen } from '../PhotoGalleryScreen';
+import { Provider } from 'react-redux';
+import { storeSampleData } from 'src/constants/Constants';
+import { PopUp } from 'src/components/organisms';
+import { useNavigation } from '@react-navigation/native';
+import { FlatList } from 'react-native';
+import { PhotoGalleryItem } from 'src/components/molecules';
+import { fetchAlbumListApi } from 'src/services/photoGalleryService';
+import * as serviceApi from 'src/services/photoGalleryService';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -16,6 +18,10 @@ jest.mock('@react-navigation/native', () => ({
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+}));
+
+jest.mock('src/services/photoGalleryService', () => ({
+  fetchAlbumListApi: jest.fn()
 }));
 
 jest.mock('src/hooks/useBookmark', () => ({
@@ -45,30 +51,25 @@ jest.mock('src/hooks/useLogin', () => ({
   },
 }));
 
-  let instance: RenderAPI;
+let instance: RenderAPI;
 
-  const mockFunction = jest.fn();
-  const setShowPopUp = mockFunction;
-  const setIsLoading = mockFunction;
-  const setPage = mockFunction;
-  const setAlbumData = mockFunction;
-  const setAlbumDataInfo = mockFunction;
-  const mockData = [{nid: '1'}]
-
-  const navigation = {
-    reset: jest.fn(),
-    navigate: jest.fn(),
-  };
+const mockFunction = jest.fn();
+const setShowPopUp = mockFunction;
+const setIsLoading = mockFunction;
+const setPage = mockFunction;
+const setAlbumData = mockFunction;
+const setAlbumDataInfo = mockFunction;
+const mockData = [{ nid: '1' }]
 
 describe('<PhotoGalleryScreen>', () => {
-  
+
   beforeEach(() => {
-    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [false, setIsLoading]);
     (useState as jest.Mock).mockImplementation(() => [0, setPage]);
     (useState as jest.Mock).mockImplementation(() => [[], setAlbumData]);
     (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
     (useState as jest.Mock).mockImplementation(() => [mockData, setAlbumDataInfo]);
+    (fetchAlbumListApi as jest.Mock).mockReturnValue({ rows: [{ data: 'data' }], pager: 'pager' });
 
     const component = (
       <Provider store={storeSampleData}>
@@ -87,6 +88,29 @@ describe('<PhotoGalleryScreen>', () => {
     expect(instance).toBeDefined();
   });
 
+  it('test fetchAlbumListApi is called ', () => {
+    const spy = jest.spyOn(serviceApi, 'fetchAlbumListApi').mockResolvedValue({
+      rows: [{
+        nid: '43',
+        title: 'title',
+        published_at_export: '3 jan 2022',
+        created: 'date',
+        field_publication_date_export:'date',
+        type: 'photo',
+        field_album_img_export: 'string',
+        field_album_source_export: 'string',
+        isBookmarked: true,
+      }],
+      pager: {
+        current_page: 2,
+        total_pages: 4,
+        items_per_page: '1',
+      }
+    });
+    serviceApi.fetchAlbumListApi({ page: 10 });
+    expect(spy).toHaveBeenCalledTimes(1);
+  })
+
   test('Should call onPressButton', () => {
     const element = instance.container.findByType(PopUp);
     fireEvent(element, 'onPressButton');
@@ -101,7 +125,7 @@ describe('<PhotoGalleryScreen>', () => {
 
   test('Should call FlatList onPress', () => {
     const element = instance.container.findByType(FlatList as any);
-    fireEvent(element, 'renderItem', {item: [{}], index: 0});
+    fireEvent(element, 'renderItem', { item: [{}], index: 0 });
     expect(mockFunction).toBeTruthy();
   });
 
@@ -125,7 +149,7 @@ describe('<PhotoGalleryScreen>', () => {
 
   test('Should call PhotoGalleryItem onPress', () => {
     const element = instance.container.findByType(PhotoGalleryItem);
-    fireEvent(element, 'onPress', { nid: 1});
+    fireEvent(element, 'onPress', { nid: 1 });
     expect(navigation.navigate).toBeTruthy();
   });
 
@@ -137,7 +161,7 @@ describe('<PhotoGalleryScreen>', () => {
 });
 
 describe('<PhotoGalleryScreen> with isLoading true', () => {
-  
+
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [true, setIsLoading]);

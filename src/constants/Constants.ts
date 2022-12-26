@@ -276,7 +276,7 @@ const TranslateConstants = ({
     const arabic = useSelector(getArabicData);
     switch (key) {
         case TranslateKey.RETURN:
-            return arabic.return;
+            return arabic?.return;
         case TranslateKey.NOT_SUBSCRIBED:
             return arabic?.signUpAlert?.notSubscribed;
         case TranslateKey.DESCRIPTION:
@@ -678,7 +678,7 @@ const TranslateConstants = ({
         case TranslateKey.USER_DETAIL_YOUR_DETAILS:
             return arabic?.profile?.userDetail?.yourDetails;
         case TranslateKey.USER_DETAIL_PASSWORD_TITLE:
-            return arabic?.profile.userDetail?.passwordTitle;
+            return arabic?.profile?.userDetail?.passwordTitle;
         case TranslateKey.USER_DETAIL_USER_NAME_TITLE:
             return arabic?.profile?.userDetail?.userNameTitle;
         case TranslateKey.USER_DETAIL_BIRTHDAY_TITLE:

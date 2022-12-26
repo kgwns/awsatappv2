@@ -5,7 +5,7 @@ import  ArticleItem  from 'src/components/molecules/ArticleItem'
 import  ArticleWithOutImage  from 'src/components/molecules/ArticleWithOutImage'
 
 import {useNavigation} from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants/Constants'
+import { ScreensConstants } from 'src/constants/Constants';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),

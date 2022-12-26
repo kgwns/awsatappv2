@@ -1,13 +1,11 @@
 import React from 'react';
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
+import { render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
 import ArticlePodCastWidget, { ArticlePodCastWidgetProps } from 'src/components/organisms/FavoritePodCastWidget';
-import { storeSampleData } from 'src/constants/SampleData';
-import { TouchableOpacity } from 'react-native';
+import { storeSampleData } from 'src/constants/Constants';
 
 describe('<ArticlePodCastWidgetSection>', () => {
     let instance: RenderAPI;
-    const mockFunction = jest.fn();
     const sampleData: ArticlePodCastWidgetProps= {
         imageUrl: '',
         title: '',

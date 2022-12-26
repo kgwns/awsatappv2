@@ -6,6 +6,7 @@ import {NewsLetterScreen} from '../NewsLetterScreen';
 import { useNewsLetters } from 'src/hooks';
 import { NewsLetterItemType } from 'src/redux/newsLetter/types';
 import { NewsLettersWidget } from 'src/components/organisms';
+import { NextButton } from 'src/components/atoms/NextButton/NextButton';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -58,7 +59,7 @@ describe('<NewsLettersScreen>', () => {
         message: "string"
       },
       selectedNewsLettersData: {
-        code: 2,
+        code: 200,
         message: "string",
         data: sampleData,
       },
@@ -124,10 +125,13 @@ describe('<NewsLettersScreen>', () => {
     useNewsLettersMock.mockReturnValue({
       isLoading: false,
       sentNewsLettersInfoData: {
-        code: 2,
+        code: 200,
         message: "string"
       },
-      selectedNewsLettersData: {},
+      selectedNewsLettersData: {
+        code:200,
+        message:'message'
+      },
       isMyNewsLoading: false,
       myNewsLetters: {},
       selectedNewsLetterDataOnboard: {},
@@ -154,5 +158,5 @@ describe('<NewsLettersScreen>', () => {
   it('Should render NewsLettersScreen component', () => {
     expect(instance).toBeDefined();
   });
-  
+
 });

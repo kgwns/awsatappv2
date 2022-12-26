@@ -130,11 +130,11 @@ describe('<WeatherDetailScreen>', () => {
 
     test('Should render component WithOut country Name', () => {
         const weatherDetailData = { ...sampleWeatherDetailData }
-        weatherDetailData.fetchWeatherDetailsSuccessInfo.city.name = '';
+        weatherDetailData.fetchWeatherDetailsSuccessInfo.city.country = '';
         useWeatherDetailsMock.mockReturnValue({
             ...weatherDetailData,
         })
-        expect(instance).toBeDefined()
+        expect(instance).toBeDefined();
     })
 
     test('Should call ALL onPress', () => {
@@ -153,4 +153,5 @@ describe('<WeatherDetailScreen>', () => {
         fireEvent(element, 'onPress', 0);
         expect(instance).toBeDefined()
     })
+
 })

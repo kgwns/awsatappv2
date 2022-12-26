@@ -1,6 +1,6 @@
+import {SocialLoginButton} from 'src/components/atoms/social-login-button/SocialLoginButton';
 import { render, RenderAPI, fireEvent } from '@testing-library/react-native';
 import React from 'react';
-import { SocialLoginButton } from 'src/components/atoms';
 import { appleSignin } from 'src/shared/utils/appleSignin';
 import { SocialButtonSection } from '../SocialButtonSection';
 import { useNavigation } from '@react-navigation/native';

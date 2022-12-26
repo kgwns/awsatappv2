@@ -1,6 +1,8 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { Image, Label, LabelTypeProp, TitleWithUnderLine } from 'src/components/atoms';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
+import { TitleWithUnderLine } from 'src/components/atoms/titleWithUnderLine/TitleWithUnderLine';
+import { Image } from 'src/components/atoms/image/Image';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { decodeHTMLTags, isObjectNonEmpty, normalize, screenWidth } from 'src/shared/utils';

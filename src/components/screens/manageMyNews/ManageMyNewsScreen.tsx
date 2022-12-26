@@ -21,7 +21,7 @@ import { FLEX_START } from 'src/shared/styles/item-alignment';
 const ContinueLabel = ({ label, goToScreen, writer, onPressContinue }: { label: any, goToScreen: any, writer: boolean, onPressContinue: (writer: boolean, goToScreen: any) => void; }) => {
   const style = useThemeAwareObject(customStyle);
   return (
-    <TouchableWithoutFeedback onPress={() => onPressContinue(writer, goToScreen)}>
+    <TouchableWithoutFeedback testID='continueId' onPress={() => onPressContinue(writer, goToScreen)}>
       <View style={style.continueLabelView}>
         {getSvgImages({
           name: ImagesName.plusSvg,

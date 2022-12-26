@@ -4,11 +4,18 @@ import { VideoPlayerScreen } from '../VideoPlayerScreen'
 import {useNavigation} from '@react-navigation/native';
 import { VideoPlayerComponent } from 'src/components/molecules';
 import { useAppPlayer } from 'src/hooks';
+// import { fetchVideoDetailInfo } from 'src/services/VideoServices';
+import {fetchVideoDetailInfo} from '../../../../services/VideoServices';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
+
+jest.mock('../../../../services/VideoServices',() =>( {
+  // ...jest.requireActual('../../../../services/VideoServices'),
+  fetchVideoDetailInfo:jest.fn(),
+}))
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -38,10 +45,15 @@ describe('<VideoPlayerScreen>', () => {
     const useAppPlayerMock = jest.fn();
     const setShowMiniPlayerMock = jest.fn();
     const setPlayerTrackMock = jest.fn();
+    const fetchVideoDetailInfoMock = jest.fn();
 
     beforeEach(() => {
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => [route.params.videoUrl, playerUrl]);
+      (fetchVideoDetailInfo as jest.Mock).mockImplementation(fetchVideoDetailInfoMock);
+      (fetchVideoDetailInfoMock).mockReturnValueOnce({
+        playlist:[{sources:[{file:'file',label:'label',type:'type',height:'height'}]}]
+      });
       (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
       useAppPlayerMock.mockReturnValue({
         setShowMiniPlayer: setShowMiniPlayerMock,
@@ -56,10 +68,15 @@ describe('<VideoPlayerScreen>', () => {
         instance.unmount()
     })
 
-    it('Should render VideoPlayerScreen', () => {
-        expect(instance).toBeDefined()
+    it('Should render VideoPlayerScreen',() => {
+        expect(instance).toBeDefined();
     })
 
+    it("should call fetchVideoDetailInfo",() =>{
+      expect(fetchVideoDetailInfo).toHaveBeenCalledTimes(1);
+      expect(fetchVideoDetailInfo).toHaveBeenCalledWith({mediaID:route.params.mediaID});
+    });
+  
     it('Should call setShowMiniPlayer', () => {
       const prop = {
         setShowMiniPlayer: jest.fn()      
@@ -105,14 +122,14 @@ describe('<VideoPlayerScreen>', () => {
     const component = <VideoPlayerScreen route={route} />
     instance = render(component)
   })
-
+  
   afterEach(() => {
-      jest.clearAllMocks()
-      instance.unmount()
+    jest.clearAllMocks()
+    instance.unmount();
   })
-
+  
   it('Should render VideoPlayerScreen', () => {
-      expect(instance).toBeDefined()
+    expect(instance).toBeDefined()
   })
 
   it('Should call setShowMiniPlayer', () => {
@@ -121,4 +138,4 @@ describe('<VideoPlayerScreen>', () => {
     }
     expect(prop.setShowMiniPlayer).toHaveBeenCalled;
   })
-})
+});

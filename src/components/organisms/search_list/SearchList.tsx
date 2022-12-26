@@ -1,6 +1,12 @@
 import React, {useState, FunctionComponent} from 'react';
 import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet, ScrollView, Text} from 'react-native';
-import { ButtonList, Label, LoadingState, SocialLoginButton, Image, Divider, FooterCaptionWithImage } from 'src/components/atoms/';
+import { Label } from 'src/components/atoms/label/Label';
+import { ButtonList } from 'src/components/atoms/button-list/ButtonList';
+import { LoadingState } from 'src/components/atoms/loading/LoadingState';
+import { SocialLoginButton } from 'src/components/atoms/social-login-button/SocialLoginButton';
+import { Image } from 'src/components/atoms/image/Image';
+import { Divider } from 'src/components/atoms/divider/Divider';
+import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage';
 import { SearchBar } from 'src/components/molecules/';
 import { isIOS, isTab, normalize, recordLogEvent } from 'src/shared/utils';
 import { SearchItemType } from 'src/redux/search/types';

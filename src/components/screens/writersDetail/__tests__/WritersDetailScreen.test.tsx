@@ -200,7 +200,8 @@ describe('< Writer Detail >', () => {
     const scrollY = mockFunction;
     const isFollowed = mockFunction;
     const opinionsDataInfo = mockFunction;
-    
+    const isWriterOpinionLoading = mockFunction;
+    const allOpinionLoaded = mockFunction;
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
@@ -212,6 +213,9 @@ describe('< Writer Detail >', () => {
         (useState as jest.Mock).mockImplementation(() => [0, scrollY]);
         (useState as jest.Mock).mockImplementation(() => [false, isFollowed]);
         (useState as jest.Mock).mockImplementation(() => [writerData, opinionsDataInfo]);
+        // (useState as jest.Mock).mockImplementation(() => [true, isWriterOpinionLoading]);
+        // (useState as jest.Mock).mockImplementation(() => [true, allOpinionLoaded]);
+
         useLoginMock.mockReturnValue({
             isLoggedIn: true,
         });
