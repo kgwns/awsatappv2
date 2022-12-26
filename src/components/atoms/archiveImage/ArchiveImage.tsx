@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ImageResize } from '../../../shared/styles/text-styles';
-import { Image, RenderPhotoIcon } from '..';
+import { Image } from 'src/components/atoms/image/Image';
+import {RenderPhotoIcon} from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 import { Grayscale } from 'react-native-color-matrix-image-filters';
 import { screenWidth } from 'src/shared/utils';
 

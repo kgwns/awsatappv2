@@ -1,6 +1,6 @@
 import { render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
-import { HomeButton } from 'src/components/atoms';
+import { HomeButton } from 'src/components/atoms/homeButton/HomeButton';
 
 describe('<HomeButton/>', () => {
   let instance: RenderAPI;

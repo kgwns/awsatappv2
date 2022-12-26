@@ -1,6 +1,6 @@
 import {render, RenderAPI} from '@testing-library/react-native'
 import React from 'react'
-import  {GameIntroCard} from '../GameIntroCard'
+import  {GameIntroCard} from 'src/components/molecules/gameIntroCard/GameIntroCard'
 import { GameType } from 'src/components/screens/games/GameScreen'
 
 describe('<GameIntroCard />', () => {

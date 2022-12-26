@@ -1,7 +1,9 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { normalize, screenWidth } from 'src/shared/utils'
-import { Label, LabelTypeProp, ButtonImage, Image } from 'src/components/atoms'
+import { ButtonImage} from 'src/components/atoms/button-image/ButtonImage'
+import { Image } from 'src/components/atoms/image/Image'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'

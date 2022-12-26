@@ -2,6 +2,7 @@ import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import { TouchableOpacity } from 'react-native';
 import  {PodCastMiniPlayer} from '../PodCastMiniPlayer';
+import RBSheet from 'react-native-raw-bottom-sheet'
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -49,15 +50,14 @@ describe('<PodCastMiniPlayer />', () => {
     fireEvent(testID, 'onPress')
     expect(mockFunction).toHaveBeenCalled;
   });
-  it('When Press playPause', () => {
+  it('When Press playingState', () => {
     const testID = instance.getByTestId('playingState');
     fireEvent(testID, 'onPress')
     expect(mockFunction).toHaveBeenCalled;
   });
-
   it('When Press onPress', () => {
     const testID = instance.container.findAllByType(TouchableOpacity)[0];
-    fireEvent(testID, 'onPress', {type: 'backward'})
+    fireEvent(testID, 'onPress', 'forward')
     expect(mockFunction).toHaveBeenCalled;
   });
 
@@ -72,5 +72,4 @@ describe('<PodCastMiniPlayer />', () => {
     fireEvent(testID, 'onPress')
     expect(mockFunction).toHaveBeenCalled;
   });
-
 })

@@ -1,6 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View, TouchableOpacity} from 'react-native';
-import {Image, Label} from 'src/components/atoms';
+import {Image} from 'src/components/atoms/image/Image';
+import {Label} from 'src/components/atoms/label/Label'
 import {ImageName} from 'src/components/atoms/image/Image';
 import {normalize} from 'src/shared/utils/dimensions';
 import {menuButtonStyle} from 'src/components/atoms/menu-Button/MenuButton.style';
@@ -22,7 +23,7 @@ export const MenuButton: FunctionComponent<MenuButtonProps> = ({
   screenName,
 }) => {
   return (
-    <TouchableOpacity onPress={() => onPress(screenName)}>
+    <TouchableOpacity testID='menuArticleId' onPress={() => onPress(screenName)}>
       <View style={container}>
         <Image style={iconStyle} name={icon} size={normalize(24)} />
         <Label labelType="caption9" style={titleStyle}>

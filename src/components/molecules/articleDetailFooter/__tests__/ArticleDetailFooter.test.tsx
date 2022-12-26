@@ -1,8 +1,8 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
-import { ButtonImage } from 'src/components/atoms';
+import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
-import { ArticleDetailFooter } from '../ArticleDetailFooter';
+import { ArticleDetailFooter } from 'src/components/molecules/articleDetailFooter/ArticleDetailFooter';
 
 let instance: RenderAPI;
 

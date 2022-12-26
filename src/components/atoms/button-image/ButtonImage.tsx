@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {TouchableOpacity, ViewStyle, StyleProp, Insets} from 'react-native';
-import {Image, ImageName} from 'src/components/atoms';
+import {Image, ImageName} from 'src/components/atoms/image/Image';
 import {DEFAULT_HIT_SLOP, normalize} from 'src/shared/utils';
 
 interface ButtonImageProps {

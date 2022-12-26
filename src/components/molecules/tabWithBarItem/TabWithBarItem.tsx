@@ -1,6 +1,6 @@
 import { TouchableWithoutFeedback, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import React, { FunctionComponent } from 'react'
-import { Label } from 'src/components/atoms'
+import { Label } from 'src/components/atoms/label/Label'
 import { isAndroid, isIOS, isTab, normalize, normalizeBy320, screenWidth, testProps } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { moleculesTestID } from 'src/constants/Constants'

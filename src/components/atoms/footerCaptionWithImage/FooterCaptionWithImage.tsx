@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, StyleProp, TextStyle } from 'react-native'
 import { fonts } from 'src/shared/styles/fonts'
-import { Label, LabelTypeProp } from '..'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { normalize } from '../../../shared/utils'
 
 interface footerCaptionWithImageProps {

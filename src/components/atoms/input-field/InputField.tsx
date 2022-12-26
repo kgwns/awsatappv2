@@ -7,7 +7,8 @@ import {
   ViewStyle,
   StyleProp,
 } from 'react-native';
-import {Label, Image, ImageName} from 'src/components/atoms';
+import {Label} from 'src/components/atoms/label/Label';
+import { Image, ImageName} from 'src/components/atoms/image/Image';
 import {normalize} from 'src/shared/utils';
 import {inputFieldStyle} from 'src/components/atoms/input-field/InputField.style';
 

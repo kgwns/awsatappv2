@@ -1,6 +1,6 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
-import {ButtonImage} from 'src/components/atoms';
+import {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
 import { OpinionArticleDetailItemType } from 'src/redux/opinionArticleDetail/types';
 import {OpinionArticleDetailFooter} from '../OpinionArticleDetailFooter';
 

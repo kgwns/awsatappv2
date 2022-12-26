@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { View, StyleSheet, AppState } from 'react-native'
 import { Styles } from 'src/shared/styles'
-import { Label } from 'src/components/atoms'
+import { Label } from 'src/components/atoms/label/Label'
 import { normalize } from 'src/shared/utils'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'

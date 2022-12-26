@@ -5,7 +5,9 @@ import {
   ImageStyle,
 } from 'react-native';
 import React from 'react';
-import {ButtonImage, ImageWithLabel, Label, LabelTypeProp} from 'src/components/atoms';
+import {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
+import { ImageWithLabel} from 'src/components/atoms/imageWithLabel/ImageWithLabel';
+import { Label, LabelTypeProp} from 'src/components/atoms/label/Label';
 import {isNotEmpty, isTab, normalize} from 'src/shared/utils';
 import {moleculesTestID, ScreensConstants} from '../../../constants/Constants';
 import {Styles} from '../../../shared/styles';

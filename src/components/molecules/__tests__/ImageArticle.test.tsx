@@ -1,8 +1,9 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
-import { BannerImageWithOverlay } from 'src/components/atoms'
+import { BannerImageWithOverlay } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
-import { ArticleFooter, ImageArticle } from '..'
+import  ArticleFooter  from 'src/components/molecules/articleFooter/ArticleFooter'
+import  ImageArticle  from 'src/components/molecules/ImageArticle'
 
 describe('<ImageArticle>', () => {
     let instance: RenderAPI;

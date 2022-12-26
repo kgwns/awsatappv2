@@ -1,6 +1,6 @@
 import React from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
-import { CustomTabBarItem } from '../CustomTabBarItem'
+import { CustomTabBarItem } from 'src/components/molecules/customTabBarItem/CustomTabBarItem'
 import { moleculesTestID } from 'src/constants/Constants'
 import { TouchableOpacity } from 'react-native'
 

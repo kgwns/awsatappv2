@@ -1,9 +1,11 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
-import { ArticleItem, ArticleWithOutImage } from '..'
+import  ArticleItem  from 'src/components/molecules/ArticleItem'
+import  ArticleWithOutImage  from 'src/components/molecules/ArticleWithOutImage'
+
 import {useNavigation} from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants'
+import { ScreensConstants } from 'src/constants/Constants'
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),

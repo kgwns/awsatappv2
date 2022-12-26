@@ -1,6 +1,6 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Label } from 'src/components/atoms';
+import { Label } from 'src/components/atoms/label/Label';
 import { isIOS, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';

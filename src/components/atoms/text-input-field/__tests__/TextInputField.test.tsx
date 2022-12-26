@@ -1,7 +1,7 @@
 import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import {TouchableOpacity,TextInput} from 'react-native';
-import { TextInputField } from '../TextInputField';
+import { TextInputField } from 'src/components/atoms/text-input-field/TextInputField';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),

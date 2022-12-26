@@ -1,6 +1,8 @@
 import React, {FunctionComponent} from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
-import {Image, Label, ButtonImage, LabelTypeProp} from 'src/components/atoms';
+import {Image} from 'src/components/atoms';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
+import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
@@ -10,7 +12,7 @@ import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import { fonts } from 'src/shared/styles/fonts';
-import { TranslateConstants,TranslateKey } from '../../../constants/Constants';
+import { TranslateConstants,TranslateKey } from 'src/constants/Constants';
 
 export interface PodcastProgramHeaderProps {
   headerBackIconTestId?: string;

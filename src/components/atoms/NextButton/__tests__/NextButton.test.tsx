@@ -1,6 +1,6 @@
 import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
-import {NextButton} from 'src/components/atoms';
+import {NextButton} from 'src/components/atoms/NextButton/NextButton';
 
 describe('<NextButton/>', () => {
   let instance: RenderAPI;

@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { ImageResize } from '../../../shared/styles/text-styles'
-import { Image, LiveBlogTag, Overlay } from '..'
+import { Image } from 'src/components/atoms/image/Image'
+import {  LiveBlogTag } from 'src/components/atoms/liveBlogTag/LiveBlogTag'
+import {  Overlay } from 'src/components/atoms/overlay/Overlay'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ImagesName } from 'src/shared/styles'
 

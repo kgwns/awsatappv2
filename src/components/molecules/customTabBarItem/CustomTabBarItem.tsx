@@ -1,12 +1,12 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { FunctionComponent } from 'react'
-import { Label } from 'src/components/atoms'
+import { Label } from 'src/components/atoms/label/Label'
 import { isAndroid, isTab, normalize, normalizeBy320, screenWidth, testProps } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { moleculesTestID, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { TabBarItemProps } from '../tabWithBarItem/TabWithBarItem'
+import { TabBarItemProps } from 'src/components/molecules/tabWithBarItem/TabWithBarItem'
 
 export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
   tabName,

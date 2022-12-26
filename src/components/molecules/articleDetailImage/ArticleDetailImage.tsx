@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { View, StyleSheet, ViewStyle, AppState } from 'react-native'
 import { Styles } from 'src/shared/styles'
-import { BannerImageWithOverlay, Label, LabelTypeProp, BannerImageWithOverlayProps, LiveBlogTag } from 'src/components/atoms'
+import { BannerImageWithOverlay, BannerImageWithOverlayProps} from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
+import { LiveBlogTag } from 'src/components/atoms'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
+import { ArticleOverlayContent } from 'src/components/molecules/articleOverlayContent/ArticleOverlayContent'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import ArticleDetailVideo from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo'
 import { decode } from 'html-entities'
 import { displayTypes } from 'src/constants/Constants'
-import LiveArticleDetailHeader from '../liveArticleDetailHeader/LiveArticleDetailHeader'
+import LiveArticleDetailHeader from 'src/components/molecules/liveArticleDetailHeader/LiveArticleDetailHeader'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,

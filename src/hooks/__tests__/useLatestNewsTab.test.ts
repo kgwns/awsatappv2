@@ -323,4 +323,55 @@ describe('useLatestNewsTabReactHook', () => {
     });
   });
 
+  describe('#fetchInfoGraphicBlockData', () => {
+    it('should call dispatch with fetchInfoGraphicBlockData', () => {
+      const {
+        result: {
+          current: {fetchInfoGraphicBlockData},
+        },
+      } = result;
+
+      act(() => {
+        fetchInfoGraphicBlockData();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#fetchArchivedArticleSection', () => {
+    it('should call dispatch with fetchArchivedArticleSection', () => {
+      const {
+        result: {
+          current: {fetchArchivedArticleSection},
+        },
+      } = result;
+
+      act(() => {
+        fetchArchivedArticleSection();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+  describe('#fetchSectionComboEight', () => {
+    it('should call dispatch with fetchSectionComboEight', () => {
+      const {
+        result: {
+          current: {fetchSectionComboEight},
+        },
+      } = result;
+
+      act(() => {
+        fetchSectionComboEight({
+          id: 3,
+          items_per_page: 3,
+          page: 3,
+        });
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
 });

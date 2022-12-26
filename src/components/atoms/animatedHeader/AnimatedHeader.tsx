@@ -39,7 +39,8 @@ export const AnimatedHeader: FunctionComponent<HeaderProps> = ({
 
     const renderLeftComponent = () => {
         return (
-            <TouchableOpacity onPress={onPressLeftIcon}>
+            <TouchableOpacity     testID="animatedHeaderID"
+            onPress={onPressLeftIcon}>
                 <View style={styles.itemContainer}>
                     {getSvgImages({
                         name: ImagesName.searchIcon,

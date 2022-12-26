@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, StyleProp, TextStyle, ViewStyle } from 'react-native'
-import { Label, LabelTypeProp } from '..'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { decodeHTMLTags, normalize, screenWidth } from 'src/shared/utils'
 import { decode } from 'html-entities'
 

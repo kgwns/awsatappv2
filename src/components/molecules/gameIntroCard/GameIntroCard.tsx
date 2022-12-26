@@ -1,6 +1,7 @@
 import { View, StyleSheet, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Image, ImageName, Label, LabelTypeProp } from 'src/components/atoms'
+import { Image, ImageName} from 'src/components/atoms/image/Image'
+import {  Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { normalize } from 'src/shared/utils'

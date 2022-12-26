@@ -1,6 +1,6 @@
 import { StyleProp, StyleSheet, TextStyle, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Label, LabelTypeProp } from '..'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { ImagesName } from 'src/shared/styles'
 import { isIOS, normalize } from 'src/shared/utils'
 import { getSvgImages } from 'src/shared/styles/svgImages'

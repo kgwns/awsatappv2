@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleProp, StyleSheet, Text, TextStyle, ViewStyle } from 'react-native'
-import { Label, LabelTypeProp } from '..'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { isIOS, isNotEmpty, normalize, decodeHTMLTags } from 'src/shared/utils'
 import { decode } from 'html-entities';
 

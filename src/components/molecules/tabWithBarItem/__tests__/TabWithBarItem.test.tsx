@@ -1,6 +1,6 @@
 import React from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
-import { TabWithBarItem } from '../TabWithBarItem'
+import { TabWithBarItem } from 'src/components/molecules/tabWithBarItem/TabWithBarItem'
 import { moleculesTestID } from 'src/constants/Constants'
 
 describe('<TabBarComponent>', () => {

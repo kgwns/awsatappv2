@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { ButtonIconWithLabel, Label } from 'src/components/atoms'
+import { ButtonIconWithLabel} from 'src/components/atoms/buttonIconWithLabel/ButtonIconWithLabel'
+import { Label } from 'src/components/atoms/label/Label'
 import { isIOS, normalize, screenWidth } from 'src/shared/utils'
 import { ImagesName } from 'src/shared/styles'
 import { CustomThemeType } from 'src/shared/styles/colors'

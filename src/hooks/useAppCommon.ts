@@ -11,7 +11,7 @@ export interface UseAppCommonReturn {
     storeServerEnvironmentInfo(type: ServerEnvironment): void;
     articleFontSize: number
     storeArticleFontSizeInfo(): void
-    resetFontSizeInfo(): void;
+     resetFontSizeInfo(): void;
 }
 
 export const useAppCommon = (): UseAppCommonReturn => {

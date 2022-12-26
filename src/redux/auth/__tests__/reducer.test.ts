@@ -80,4 +80,11 @@ describe('auth reducer', () => {
         });
         expect(nextState.isLoading).toBe(false);
     });
+
+    test('Default State', () => {
+        const nextState = auth(
+          initialState, { type:'EMPTY_EMAIL_CHECK_DATA' }
+        )
+        expect(nextState.isLoading).toBe(false)
+      })
 });

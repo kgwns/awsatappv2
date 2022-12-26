@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, RenderAPI } from "@testing-library/react-native"
-import { FilterComponent, FilterDataType } from "../FilterComponent"
+import { FilterComponent, FilterDataType } from "src/components/molecules/filterComponent/FilterComponent"
 import { TouchableOpacity } from 'react-native';
 
 describe('< Filter Component >', () => {

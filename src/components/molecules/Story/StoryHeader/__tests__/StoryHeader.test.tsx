@@ -1,6 +1,6 @@
 import { render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
-import StoryHeader from '../StoryHeader'
+import StoryHeader from 'src/components/molecules/Story/StoryHeader/StoryHeader'
 
 describe('<StoryHeader />', () => {
     let instance: RenderAPI

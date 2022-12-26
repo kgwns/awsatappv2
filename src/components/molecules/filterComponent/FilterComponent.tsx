@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity, ScrollView, View } from 'react-native'
 import React from 'react'
-import { Label } from 'src/components/atoms'
+import { Label } from 'src/components/atoms/label/Label'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { isIOS, isNonEmptyArray, normalize, normalizeBy320 } from 'src/shared/utils'

@@ -1,6 +1,6 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
-import { ButtonImage } from 'src/components/atoms';
+import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
 import { AlbumDetailType } from 'src/redux/photoGallery/types';
 import { PhotoGalleryDetailFooter } from '../PhotoGalleryDetailFooter';
 

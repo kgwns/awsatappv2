@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View, StyleSheet, TouchableOpacity, StyleProp, TextStyle, ViewStyle, Insets} from 'react-native';
 import { ImagesName } from 'src/shared/styles';
-import {Label} from '../';
+import {Label} from 'src/components/atoms/label/Label';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { normalize } from 'src/shared/utils';
 

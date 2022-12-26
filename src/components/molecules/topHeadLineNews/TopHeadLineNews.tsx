@@ -1,6 +1,6 @@
 import { View, FlatList, ListRenderItem, StyleSheet } from 'react-native'
 import React from 'react'
-import { Label } from 'src/components/atoms'
+import { Label } from 'src/components/atoms/label/Label'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { isIOS, isNotEmpty, isTab, normalize } from 'src/shared/utils'

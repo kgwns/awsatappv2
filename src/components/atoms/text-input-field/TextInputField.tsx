@@ -4,7 +4,7 @@ import { normalize } from 'src/shared/utils/dimensions';
 import { Styles } from 'src/shared/styles';
 import EyeIcon from 'src/assets/images/icons/eye_icon.svg';
 import LockIcon from 'src/assets/images/icons/lock_icon.svg';
-import { Label } from 'src/components/atoms';
+import { Label } from 'src/components/atoms/label/Label';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';

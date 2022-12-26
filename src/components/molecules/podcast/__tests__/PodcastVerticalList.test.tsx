@@ -1,7 +1,7 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
-import { ButtonImage } from 'src/components/atoms';
-import { PodcastVerticalList } from '../PodcastVerticalList';
+import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
+import { PodcastVerticalList } from 'src/components/molecules/podcast/PodcastVerticalList';
 
 const mockData= {
   imageUrl: 'https://picsum.photos/200',

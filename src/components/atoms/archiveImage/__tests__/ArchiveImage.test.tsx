@@ -2,7 +2,7 @@ import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 
 
-import { ArchiveImage } from '../ArchiveImage';
+import { ArchiveImage } from 'src/components/atoms/archiveImage/ArchiveImage';
 
 
 describe('<ArchiveImage>', () => {

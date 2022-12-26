@@ -37,4 +37,11 @@ describe('VideoList Reducer', () => {
         })
         expect(nextState.isLoading).toBe(false)
     })
+
+    test('Default State', () => {
+        const nextState = videoList(
+          initialState, { type:'' }
+        )
+        expect(nextState.isLoading).toBe(false)
+      })
 })

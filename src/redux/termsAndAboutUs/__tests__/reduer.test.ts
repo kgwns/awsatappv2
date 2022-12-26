@@ -39,4 +39,11 @@ describe('ArticleDetail Reducer', () => {
         })
         expect(nextState.isLoading).toBe(false)
     })
+
+    test('Default State', () => {
+        const nextState = termsAndAboutUsReducer(
+          initialState, { type:'' }
+        )
+        expect(nextState.isLoading).toBe(false)
+      })
 })

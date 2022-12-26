@@ -1,7 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
-import { Label, Image, LabelTypeProp, LiveBlogTag, RenderPhotoIcon } from 'src/components/atoms';
+import {  Image} from 'src/components/atoms/image/Image';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
+import { LiveBlogTag } from 'src/components/atoms/liveBlogTag/LiveBlogTag';
+import { RenderPhotoIcon } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ImageResize } from 'src/shared/styles/text-styles';

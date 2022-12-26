@@ -157,6 +157,12 @@ describe('<VideoPlayerControl>', () => {
       fireEvent(element, 'onSlidingComplete', 'seek');
       expect(element).toBeTruthy();
     });
+
+    it('When renderPlaypauseID is pressed', () => {
+      const testItemId = instance.getByTestId('renderPlaypauseID');
+      fireEvent(testItemId, 'onPress',{});
+      expect(mockFunction).toBeTruthy();
+    });
   })
 
   describe('<VideoPlayerControl> with fullScreenPlayer true', () => {

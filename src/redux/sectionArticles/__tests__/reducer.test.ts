@@ -65,4 +65,11 @@ describe('sectionArticles reducer', () => {
     expect(nextState.isLoading).toBeFalsy();
     expect(nextState.error).toEqual(testError);
   });
+
+  it('Default State', () => {
+    const nextState = sectionArticlesReducer(
+      initialState, { type:'' }
+    )
+    expect(nextState.isLoading).toBe(false)
+  })
 });

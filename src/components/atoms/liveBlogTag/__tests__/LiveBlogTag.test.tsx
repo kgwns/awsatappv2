@@ -1,7 +1,7 @@
 import React, { useState , useRef} from 'react';
 import { render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import { LiveBlogTag } from '../LiveBlogTag';
 import LottieView from 'lottie-react-native';
 import {AppState} from 'react-native'

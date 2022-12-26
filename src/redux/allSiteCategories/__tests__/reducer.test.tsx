@@ -268,4 +268,10 @@ describe('allSiteCategories reducer', () => {
     expect(nextState.isLoading).toBe(false);
   });
 
+  test('Default State', () => {
+    const nextState = allSiteCategories(
+      initialState, { type:'' }
+    )
+    expect(nextState.isLoading).toBe(false)
+  })
 });

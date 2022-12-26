@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Styles } from '../../../shared/styles'
-import { ButtonImage } from '../../atoms'
+import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage'
 import { ImagesName } from '../../../shared/styles/images'
 import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
 import { getSvgImages } from 'src/shared/styles/svgImages'

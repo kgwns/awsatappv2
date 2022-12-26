@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Label, LabelTypeProp } from '..'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { normalize } from '../../../shared/utils'
 import { HeaderElementProps } from './WidgetHeader'
 import { atomTestID } from '../../../constants/Constants'

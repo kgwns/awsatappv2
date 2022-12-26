@@ -1,7 +1,7 @@
 import { NativeSyntheticEvent, StyleProp, StyleSheet, TextLayoutEventData, View, ViewStyle } from 'react-native'
 import React, { useState } from 'react'
 import { Styles } from 'src/shared/styles'
-import { Label, LabelTypeProp } from '../label/Label'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { isNonEmptyArray, isNotEmpty, screenWidth } from 'src/shared/utils'

@@ -207,4 +207,10 @@ describe('allWriters reducer', () => {
     expect(nextState.isLoading).toBe(false);
   });
 
+  test('Default State', () => {
+    const nextState = allWriters(
+      initialState, { type:'' }
+    )
+    expect(nextState.isLoading).toBe(false)
+  })
 });
