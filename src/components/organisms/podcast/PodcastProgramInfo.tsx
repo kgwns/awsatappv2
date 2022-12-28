@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {View, StyleSheet, Linking} from 'react-native';
+import {View, StyleSheet, Linking, TouchableOpacity} from 'react-native';
 import { Label, Image } from 'src/components/atoms/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -9,7 +9,6 @@ import {ImagesName} from 'src/shared/styles';
 import {PodcastListItemType} from 'src/redux/podcast/types'
 import { fonts } from 'src/shared/styles/fonts';
 import { decodeHTMLTags, isNotEmpty } from 'src/shared/utils/utilities';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { podcastServices } from 'src/constants/SharedConstants';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 

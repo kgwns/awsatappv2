@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleSheet, Linking } from 'react-native';
+import { View, StyleSheet, Linking, TouchableOpacity } from 'react-native';
 import { Label, Image, ButtonOutline, LabelTypeProp } from 'src/components/atoms/';
 import { PodcastVerticalListProps } from 'src/components/molecules/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -16,7 +16,6 @@ import { decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getD
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { podcastServices } from 'src/constants/SharedConstants';
 import { usePlaybackState, State } from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
