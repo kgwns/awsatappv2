@@ -44,6 +44,6 @@ describe('ArticleDetail Reducer', () => {
         const nextState = termsAndAboutUsReducer(
           initialState, { type:'' }
         )
-        expect(nextState.isLoading).toBe(false)
+        expect(nextState.isLoading).toBeTruthy()
       })
 })

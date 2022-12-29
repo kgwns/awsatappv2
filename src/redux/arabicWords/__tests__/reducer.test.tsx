@@ -10,6 +10,6 @@ describe('arabic Word reducer', () => {
             type: FETCH_ARABIC_DATA,
             payload:  {arabic:''}
         });
-        expect(nextState).toBe("");
+        expect(nextState).toHaveProperty("arabic","");
       });
 })

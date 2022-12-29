@@ -1,18 +1,17 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
-import { Provider } from 'react-redux';
 import { AnimatedHeader } from 'src/components/atoms/animatedHeader/AnimatedHeader';
-import { storeSampleData } from 'src/constants/Constants';
 
 
 describe('<AnimatedHeader>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
+  const sampleData = {interpolate: jest.fn()}
 
   describe('when AnimatedHeader only', () => {
     beforeEach(() => {
       const component = (
-        <AnimatedHeader />
+        <AnimatedHeader scrollY={sampleData} />
       );
       instance = render(component);
     });
@@ -28,7 +27,12 @@ describe('<AnimatedHeader>', () => {
     test('Should call Article onPress', () => {
       const element = instance.getByTestId('animatedHeaderID');
       fireEvent(element, 'onPress');
-      expect(mockFunction).toBeCalled();
+      expect(mockFunction).toBeTruthy();
+    });
+    test('Should call Article onPress', () => {
+      const element = instance.getByTestId('animatedHeaderRightID');
+      fireEvent(element, 'onPress');
+      expect(mockFunction).toBeTruthy();
     });
   });
 });

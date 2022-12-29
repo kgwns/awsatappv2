@@ -1,7 +1,7 @@
 import { StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native'
 import React from 'react'
 import { LabelTypeProp } from 'src/components/atoms/label/Label'
-import { WidgetHeaderElement } from '../index'
+import { WidgetHeaderElement } from 'src/components/atoms/widgetHeader/WidgetHeaderElement'
 import { fonts } from 'src/shared/styles/fonts'
 
 export interface HeaderElementProps {

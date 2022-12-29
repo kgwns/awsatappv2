@@ -54,7 +54,7 @@ export const AnimatedHeader: FunctionComponent<HeaderProps> = ({
 
     const renderRightComponent = () => {
         return (
-            <TouchableOpacity onPress={onPressRightIcon}>
+            <TouchableOpacity onPress={onPressRightIcon} testID="animatedHeaderRightID">
                 <View style={styles.rightItemContainer}>
                     {getSvgImages({
                         name: ImagesName.menuIcon,

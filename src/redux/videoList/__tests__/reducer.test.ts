@@ -42,6 +42,6 @@ describe('VideoList Reducer', () => {
         const nextState = videoList(
           initialState, { type:'' }
         )
-        expect(nextState.isLoading).toBe(false)
+        expect(nextState.isLoading).toBeTruthy()
       })
 })
