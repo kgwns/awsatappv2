@@ -23,11 +23,14 @@ describe('<SectionsScreen>', () => {
 
     const useTopMenuMock = jest.fn();
     const fetchTopMenuRequestMock = jest.fn();
+    const scrollY = jest.fn();
 
     beforeEach(() => {
         (useState as jest.Mock).mockImplementation(() => [0, index]);
         (useState as jest.Mock).mockImplementation(() => [[{child: {tabName: 'example', isSelected: true}}], routes]);
         (useState as jest.Mock).mockImplementation(() => [false, hidePlayerVisibility]);
+        (useState as jest.Mock).mockImplementation(() => [[], scrollY]);
+
         (useTopMenu as jest.Mock).mockImplementation(useTopMenuMock);
         
         useTopMenuMock.mockReturnValue({
@@ -62,12 +65,15 @@ describe('<SectionsScreen>', () => {
     const hidePlayerVisibility = jest.fn()
     const useTopMenuMock = jest.fn();
     const fetchTopMenuRequestMock = jest.fn();
+    const scrollY = jest.fn();
+
     
     beforeEach(() => {
         (useState as jest.Mock).mockImplementation(() => [1, index]);
         (useState as jest.Mock).mockImplementation(() => [[{child: {tabName: 'example', isSelected: true}}], routes]);
         (useState as jest.Mock).mockImplementation(() => [true, hidePlayerVisibility]);
         (useTopMenu as jest.Mock).mockImplementation(useTopMenuMock);
+        (useState as jest.Mock).mockImplementation(() => [[], scrollY]);
 
         useTopMenuMock.mockReturnValue({
             isLoading: true,

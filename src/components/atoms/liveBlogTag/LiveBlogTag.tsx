@@ -32,13 +32,13 @@ export const LiveBlogTag = ({ isImageTag = false, enableTopMargin = false, isTex
         return () => { subscription.remove(); };
     }, [animationRef]);
 
-    const renderLiveIcon = () => {
-        return getSvgImages({
-            name: ImagesName.liveIcon,
-            width: 17,
-            height: 13,
-        });
-    }
+    // const renderLiveIcon = () => {
+    //     return getSvgImages({
+    //         name: ImagesName.liveIcon,
+    //         width: 17,
+    //         height: 13,
+    //     });
+    // }
 
     return (
         <View style={[isImageTag ? liveBlogTagStyle.imageLiveTagContainer : liveBlogTagStyle.liveTagContainer,

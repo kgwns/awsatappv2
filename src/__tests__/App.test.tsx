@@ -14,6 +14,15 @@ jest.mock('@react-native-firebase/app', () => {
     }),
   };
 });
+
+jest.mock('@react-native-firebase/remote-config', () =>({
+  firebase: {
+    remoteConfig: jest.fn(() => ({
+      setDefaults: jest.fn().mockReturnValue(Promise.resolve('MockResponse'))
+    }))
+  }
+}))
+
 describe('<App>', () => {
   let instance: RenderAPI;
 

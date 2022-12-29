@@ -14,7 +14,7 @@ jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
 }));
-}));
+
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
@@ -33,6 +33,9 @@ const sampleAllSiteCategoriesItemTypeData: AllSiteCategoriesItemType[] = [
         tid: 'qw',
         field_opinion_writer_photo_export: 'example',
         parent_target_id_export: {}
+    },
+    
+    {
         name: 'abc',
         view_taxonomy_term: 'example',
         tid: 'qw',
@@ -749,6 +752,7 @@ describe('Test MyFavoriteBooks', () => {
                 ],
             },
         });
+        DeviceTypeUtilsMock.isIOS = true
         const component = (
             <Provider store={storeSampleData}>
                 <ManageMyNewsScreen />
@@ -761,6 +765,10 @@ describe('Test MyFavoriteBooks', () => {
         jest.clearAllMocks();
         instance.unmount();
     });
+
+    it('should render ManageMyNewsScreen', () => {
+        expect(instance).toBeDefined();
+    })
 
     it("should call ManageMyNewsScreenID01 onPress",() => {
         const testId = instance.getAllByTestId('ManageMyNewsScreenID01')[0];
@@ -908,6 +916,10 @@ describe('Test MyFavoriteTopics', () => {
     afterEach(() => {
         jest.clearAllMocks();
         instance.unmount();
+    });
+
+    test('Should render MyFavoriteTopics component', () => {
+        expect(instance).toBeDefined();
     });
 
     it("should call BorderLabel onPress",() => {
