@@ -403,9 +403,9 @@ const TranslateConstants = ({
             return arabic?.latestNewsTab?.archivedArticle?.headerTitle;
         case TranslateKey.LIVE_TAG_TITLE:
             return arabic?.displayTag?.liveTagTitle;
-        case TranslateKey.LIVE_TAG_TITLE:
+        case TranslateKey.SPECIAL_TAG_TITLE:
             return arabic?.displayTag?.specialTagTitle;
-        case TranslateKey.LIVE_TAG_TITLE:
+        case TranslateKey.ANALYSIS_TAG_TITLE:
             return arabic?.displayTag?.analysisTagTitle;
         case TranslateKey.CREATE_ACCOUNT_DESCRIPTION:
             return arabic?.notRegisteredPopUp?.createAccountDescription;

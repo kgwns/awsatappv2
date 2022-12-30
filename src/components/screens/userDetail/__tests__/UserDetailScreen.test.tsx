@@ -26,6 +26,11 @@ jest.mock("src/hooks/useAppCommon", () => ({
     },
 }));
 
+jest.mock('react-native-date-picker', () => {
+  const mockComponent = require('react-native/jest/mockComponent')
+  return mockComponent('react-native-date-picker')
+})
+
 jest.mock("src/hooks/useNewPassword", () => ({
   useNewPassword: () => {
     return {
@@ -40,7 +45,7 @@ jest.mock("src/hooks/useNewPassword", () => ({
     }
   },
 }));
-const tabItemData =  {tabName:'tabName',isSelected:true};
+const tabItemData: TabBarDataProps[]=  [];
 describe('<UserDetailScreen>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
@@ -107,37 +112,37 @@ describe('<UserDetailScreen>', () => {
     test('Should call ScreenContainer setIsAlertVisible', () => {
         const element = instance.container.findByType(ScreenContainer)
         fireEvent(element, 'setIsAlertVisible');
-        expect(mockFunction).toBeTruthy()
+        expect(mockFunction).toHaveBeenCalled()
     });
     
     test('Should call ScreenContainer alertOnPress', () => {
         const element = instance.container.findByType(ScreenContainer)
         fireEvent(element, 'alertOnPress');
-        expect(mockFunction).toBeTruthy()
+        expect(mockFunction).toHaveBeenCalled()
     });
 
-    test('Should call Modal onRequestClose', () => {
-        const element = instance.container.findByType(Modal)
-        fireEvent(element, 'onRequestClose');
-        expect(mockFunction).toBeTruthy()
+    test('Should call Modal onRequestClose1', () => {
+        const element = instance.container.findAllByType(Modal)
+        fireEvent(element[0], 'onRequestClose');
+        expect(mockFunction).toHaveBeenCalled()
     });
 
     test('Should call TouchableOpacity camera_option', () => {
         const element = instance.getByTestId('camera_option');
         fireEvent(element, 'onPress');
-        expect(mockFunction).toBeTruthy()
+        expect(mockFunction).toHaveBeenCalled()
     });
 
     test('Should call TouchableOpacity modal_Visible', () => {
         const element = instance.getByTestId('modal_Visible');
         fireEvent(element, 'onPress');
-        expect(mockFunction).toBeTruthy()
+        expect(mockFunction).toHaveBeenCalled()
     });
 
     test('Should call TextInputField profile_name', () => {
         const element = instance.getByTestId('profile_name');
         fireEvent(element, 'onChangeText');
-        expect(mockFunction).toBeTruthy()
+        expect(mockFunction).toHaveBeenCalled()
     });
 
 })
@@ -151,7 +156,7 @@ describe('<UserDetailScreen>', () => {
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => (['selectBirthdayDate',setSelectedDate]));
-    (useState as jest.Mock).mockImplementation(() => [[tabItemData],setTabItemData]);
+    (useState as jest.Mock).mockImplementation(() => [[],setTabItemData]);
     (useUserProfileData as jest.Mock).mockImplementation(useUserProfileDataMock);
       useUserProfileDataMock.mockReturnValue({
         isLoading: false,
@@ -217,9 +222,9 @@ describe('<UserDetailScreen>', () => {
       expect(mockFunction).toBeTruthy()
   });
 
-  test('Should call Modal onRequestClose', () => {
-      const element = instance.container.findByType(Modal)
-      fireEvent(element, 'onRequestClose');
+  test('Should call Modal onRequestClose2', () => {
+      const element = instance.container.findAllByType(Modal)
+      fireEvent(element[0], 'onRequestClose');
       expect(mockFunction).toBeTruthy()
   });
 
@@ -252,7 +257,7 @@ describe('<UserDetailScreen>', () => {
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => ['name',setName]);
-    (useState as jest.Mock).mockImplementation(() => [[tabItemData],setTabItem]);
+    (useState as jest.Mock).mockImplementation(() => [[],setTabItem]);
     (useUserProfileData as jest.Mock).mockImplementation(useUserProfileDataMock);
       useUserProfileDataMock.mockReturnValue({
         isLoading: false,
@@ -316,9 +321,9 @@ describe('<UserDetailScreen>', () => {
       expect(mockFunction).toBeTruthy()
   });
 
-  test('Should call Modal onRequestClose', () => {
-      const element = instance.container.findByType(Modal)
-      fireEvent(element, 'onRequestClose');
+  test('Should call Modal onRequestClose3', () => {
+      const element = instance.container.findAllByType(Modal)
+      fireEvent(element[0], 'onRequestClose');
       expect(mockFunction).toBeTruthy()
   });
 
