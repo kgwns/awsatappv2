@@ -31,6 +31,7 @@ target 'Awsatapp' do
   use_react_native!(
     :path => config[:reactNativePath],
     # to enable hermes on iOS, change `false` to `true` and then install pods
+    :flipper_configuration => ENV['CI'] ? FlipperConfiguration.disabled : FlipperConfiguration.enabled,
     :hermes_enabled => false
   )
 
