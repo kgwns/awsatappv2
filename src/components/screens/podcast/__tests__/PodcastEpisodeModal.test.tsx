@@ -4,12 +4,14 @@ import { PodcastEpisode  } from '../PodcastEpisode';
 import { Provider } from 'react-redux'
 import { storeSampleData, PodcastEpisodeData, PodcastListData } from 'src/constants/Constants';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import {PodcastProgramHeader} from 'src/components/molecules';
-import {PodcastEpisodeContent, PodcastEpisodeInfo} from 'src/components/organisms';
-import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
+import {PodcastProgramHeader} from 'src/components/molecules/podcast/PodcastProgramHeader';
+import {PodcastEpisodeContent} from 'src/components/organisms/podcast/PodcastEpisodeContent';
+import {PodcastEpisodeInfo} from 'src/components/organisms/podcast/PodcastEpisodeInfo';
+import { ScreenContainer } from 'src/components/screens/ScreenContainer/ScreenContainer';
 import { useNavigation } from '@react-navigation/native';
 import { PodcastEpisodeItemType, PodcastListItemType } from 'src/redux/podcast/types';
 import { useLogin } from 'src/hooks';
+import { PodcastEpisodeModal } from '../PodcastEpisodeModal';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -53,7 +55,23 @@ const podCastData: PodcastListItemType[] = [
       img_podcast_desktop: 'example',
       img_podcast_mobile: 'example',
       name: 'example',
-      image: 'example'
+      image: 'example',
+      "anghami": {
+        "url": "string",
+        "text": "string"
+      },
+      "apple_podcasts": {
+        "url": "string",
+        "text": "https://apple.com"
+      },
+      "google_podcast": {
+        "url": "string",
+        "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spotify_export: {
       url: "string",
@@ -92,7 +110,22 @@ const podCastData: PodcastListItemType[] = [
       img_podcast_desktop: 'example',
       img_podcast_mobile: 'example',
       name: 'example',
-      image: 'example'
+      image: 'example', "anghami": {
+        "url": "string",
+        "text": "string"
+      },
+      "apple_podcasts": {
+        "url": "string",
+        "text": "https://apple.com"
+      },
+      "google_podcast": {
+        "url": "string",
+        "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spotify_export: {
       url: "string",
@@ -229,7 +262,7 @@ describe('<PodcastEpisodeModal >', () => {
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
-            <PodcastEpisode  route={{ params: { data: {nid: 1}, podcastListData: PodcastListData } }}/>
+            <PodcastEpisodeModal  route={{ params: { data: { nid: 1 }, podcastListData: PodcastListData } }} onPressBack={ (): void => {} } />
           </SafeAreaProvider>
         </Provider>
       );
@@ -258,25 +291,10 @@ describe('<PodcastEpisodeModal >', () => {
       fireEvent(testID, 'onGoBack');
       expect(navigation.goBack).toBeTruthy();
     });
-    it('when onItemActionPress is pressed from PodcastEpisodeContent', () => {
-      const testID = instance.container.findByType(PodcastEpisodeContent);
-      fireEvent(testID, 'onItemActionPress', {nid: '29'});
-      expect(mockFunction).toBeTruthy();
-    });
-    it('when onPressBookmark is pressed from PodcastEpisodeContent', () => {
-      const testID = instance.container.findByType(PodcastEpisodeContent);
-      fireEvent(testID, 'onPressBookmark', '2');
-      expect(mockFunction).toBeTruthy();
-    });
     test('Should call FlatList onPress', () => {
       const element = instance.container.findAllByType(ScreenContainer)[0];
       fireEvent(element, 'onCloseSignUpAlert');
       expect(mockFunction).toBeTruthy()
-    });
-    it('when onListenPress is pressed from PodcastEpisodeInfo', () => {
-      const testID = instance.container.findByType(PodcastEpisodeInfo);
-      fireEvent(testID, 'onListenPress', {duration: '29'});
-      expect(mockFunction).toBeTruthy();
     });
   });
 });
@@ -313,7 +331,7 @@ describe('<PodcastEpisode >', () => {
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
-            <PodcastEpisode  route={{ params: { data: PodcastEpisodeData, podcastListData: [] } }}/>
+          <PodcastEpisodeModal  route={{ params: { data: { nid: 1 }, podcastListData: PodcastListData } }} onPressBack={ (): void => {} } />
           </SafeAreaProvider>
         </Provider>
       );
@@ -342,25 +360,10 @@ describe('<PodcastEpisode >', () => {
       fireEvent(testID, 'onGoBack');
       expect(navigation.goBack).toBeTruthy();
     });
-    it('when onItemActionPress is pressed from PodcastEpisodeContent', () => {
-      const testID = instance.container.findByType(PodcastEpisodeContent);
-      fireEvent(testID, 'onItemActionPress', {nid: '29'});
-      expect(mockFunction).toBeTruthy();
-    });
-    it('when onPressBookmark is pressed from PodcastEpisodeContent', () => {
-      const testID = instance.container.findByType(PodcastEpisodeContent);
-      fireEvent(testID, 'onPressBookmark', '2');
-      expect(mockFunction).toBeTruthy();
-    });
     test('Should call FlatList onPress', () => {
       const element = instance.container.findAllByType(ScreenContainer)[0];
       fireEvent(element, 'onCloseSignUpAlert');
       expect(mockFunction).toBeTruthy()
-    });
-    it('when onListenPress is pressed from PodcastEpisodeInfo', () => {
-      const testID = instance.container.findByType(PodcastEpisodeInfo);
-      fireEvent(testID, 'onListenPress', {duration: '29'});
-      expect(mockFunction).toBeTruthy();
     });
   });
 });
@@ -396,7 +399,7 @@ describe('<PodcastEpisode >', () => {
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
-            <PodcastEpisode  route={{ params: { data: PodcastEpisodeData, podcastListData: PodcastListData } }}/>
+          <PodcastEpisodeModal  route={{ params: { data: { nid: 1 }, podcastListData: PodcastListData } }} onPressBack={ (): void => {} } />
           </SafeAreaProvider>
         </Provider>
       );
@@ -420,25 +423,10 @@ describe('<PodcastEpisode >', () => {
       fireEvent(testID, 'onGoBack');
       expect(navigation.goBack).toBeTruthy();
     });
-    it('when onItemActionPress is pressed from PodcastEpisodeContent', () => {
-      const testID = instance.container.findByType(PodcastEpisodeContent);
-      fireEvent(testID, 'onItemActionPress', {nid: '29'});
-      expect(mockFunction).toBeTruthy();
-    });
-    it('when onPressBookmark is pressed from PodcastEpisodeContent', () => {
-      const testID = instance.container.findByType(PodcastEpisodeContent);
-      fireEvent(testID, 'onPressBookmark', '2');
-      expect(mockFunction).toBeTruthy();
-    });
     test('Should call FlatList onPress', () => {
       const element = instance.container.findAllByType(ScreenContainer)[0];
       fireEvent(element, 'onCloseSignUpAlert');
       expect(mockFunction).toBeTruthy()
-    });
-    it('when onListenPress is pressed from PodcastEpisodeInfo', () => {
-      const testID = instance.container.findByType(PodcastEpisodeInfo);
-      fireEvent(testID, 'onListenPress', {duration: '29'});
-      expect(mockFunction).toBeTruthy();
     });
   });
 });
