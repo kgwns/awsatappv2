@@ -177,7 +177,7 @@ const AuthorItem = ({
             );
           case LabelsType.title:
             return (
-              <TouchableOpacity key={index} onPress={onPress}>
+              <TouchableOpacity key={index} onPress={onPress} testID = "titleId">
                 <Label
                   children={body}
                   labelType={LabelTypeProp.h3}

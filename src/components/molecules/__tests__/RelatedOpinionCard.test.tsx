@@ -3,10 +3,17 @@ import { RelatedOpinionCard } from '..';
 import {useNavigation} from '@react-navigation/native';
 import { useAppPlayer } from 'src/hooks';
 import React, {useState} from 'react';
+import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
+import { AxiosError } from 'axios';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+}));
+
+
+jest.mock('src/services/narratedOpinionArticleService', () => ({
+  fetchNarratedOpinionArticleApi: jest.fn()
 }));
 
 jest.mock('@react-navigation/native', () => ({
@@ -74,6 +81,7 @@ describe('<RelatedOpinionCard>', () => {
     const setPlayerTrackMock = jest.fn();
 
   beforeEach(() => {
+    jest.useFakeTimers('legacy');
     (useState as jest.Mock).mockImplementation(() => [{
       playlist: [
         {
@@ -149,6 +157,29 @@ describe('<RelatedOpinionCard>', () => {
     fireEvent(testItemId, 'onPress', '');
     expect(navigation.push).toBeTruthy();
   });
+
+  it("test fetchNarratedOpinionArticleApi return response", async () => {
+    (fetchNarratedOpinionArticleApi as jest.Mock).mockReturnValue({playList:{duration:'duration'}});
+    try{
+        const res = await fetchNarratedOpinionArticleApi({jwPlayerID:'2'});
+        expect(res).toEqual({playList:{duration:'duration'}});
+    }
+    catch(error) {
+        const errormes = error as AxiosError;
+        expect(errormes?.response?.data).toBeDefined();
+    }
+  })
+
+  it("test fetchNarratedOpinionArticleApi throws error", async () => {
+    (fetchNarratedOpinionArticleApi as jest.Mock).mockRejectedValue({response:{data:"error"}});
+    try{
+        await fetchNarratedOpinionArticleApi({jwPlayerID:'2'});
+    }
+    catch(error) {
+        const errormes = error as AxiosError;
+        expect(errormes?.response?.data).toBeDefined();
+    }
+  })
 
 });
 
