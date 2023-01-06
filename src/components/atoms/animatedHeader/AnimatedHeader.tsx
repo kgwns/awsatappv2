@@ -39,7 +39,7 @@ export const AnimatedHeader: FunctionComponent<HeaderProps> = ({
 
     const renderLeftComponent = () => {
         return (
-            <TouchableOpacity     testID="animatedHeaderID"
+            <TouchableOpacity     testID="onPressLeftIconId"
             onPress={onPressLeftIcon}>
                 <View style={styles.itemContainer}>
                     {getSvgImages({
@@ -54,7 +54,7 @@ export const AnimatedHeader: FunctionComponent<HeaderProps> = ({
 
     const renderRightComponent = () => {
         return (
-            <TouchableOpacity onPress={onPressRightIcon} testID="animatedHeaderRightID">
+            <TouchableOpacity onPress={onPressRightIcon} testID="onPressRightIconId">
                 <View style={styles.rightItemContainer}>
                     {getSvgImages({
                         name: ImagesName.menuIcon,

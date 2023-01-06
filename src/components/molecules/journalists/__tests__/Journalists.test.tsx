@@ -3,12 +3,18 @@ import React from 'react'
 import { Journalist } from 'src/components/molecules/journalists/Journalists'
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { requestJournalistDetail } from 'src/services/articleDetailService';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
   useNavigationState: () => ([]),
 }));
+
+jest.mock('src/services/articleDetailService', () => ({
+  requestJournalistDetail: jest.fn(),
+}));
+
 
 describe('<Journalist />', () => {
 
@@ -22,7 +28,10 @@ describe('<Journalist />', () => {
 
   }
   beforeEach(() => {
+
+    jest.useFakeTimers('legacy');
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (requestJournalistDetail as jest.Mock).mockImplementation(() =>Promise.resolve({rows:[{not_clickable: '1'}]}));
     const component = <Journalist
       journalistId={['106611']}
       journalistName={["«الشرق الأوسط»"]}
