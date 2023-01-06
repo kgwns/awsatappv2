@@ -262,7 +262,7 @@ describe('<PodcastEpisodeModal >', () => {
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
-            <PodcastEpisodeModal  route={{ params: { data: { nid: 1 }, podcastListData: PodcastListData } }} onPressBack={ (): void => {} } />
+          <PodcastEpisodeModal  route={{ params: { data: { nid: 1 }, podcastListData: PodcastListData } }} onPressBack = { jest.fn() }/>
           </SafeAreaProvider>
         </Provider>
       );
@@ -331,7 +331,7 @@ describe('<PodcastEpisode >', () => {
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
-          <PodcastEpisodeModal  route={{ params: { data: { nid: 1 }, podcastListData: PodcastListData } }} onPressBack={ (): void => {} } />
+          <PodcastEpisodeModal  route={{ params: { data: { nid: 1 }, podcastListData: PodcastListData } }} onPressBack = { jest.fn() }/>
           </SafeAreaProvider>
         </Provider>
       );
@@ -385,7 +385,7 @@ describe('<PodcastEpisode >', () => {
 
   describe('when PodcastEpisode only', () => {
     const useLoginMock = mockFunction;
-
+ 
     beforeEach(() => {
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
@@ -399,7 +399,7 @@ describe('<PodcastEpisode >', () => {
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
-          <PodcastEpisodeModal  route={{ params: { data: { nid: 1 }, podcastListData: PodcastListData } }} onPressBack={ (): void => {} } />
+          <PodcastEpisodeModal  route={{ params: { data: { nid: 1 }, podcastListData: PodcastListData } }} onPressBack = { jest.fn() }/>
           </SafeAreaProvider>
         </Provider>
       );
