@@ -8,10 +8,10 @@ describe('<AnimatedHeader>', () => {
   const mockFunction = jest.fn();
   const sampleData = {interpolate: jest.fn()}
 
-  describe('when AnimatedHeader only', () => {
+  describe('AnimatedHeader renders when animated is true', () => {
     beforeEach(() => {
       const component = (
-        <AnimatedHeader scrollY={sampleData} />
+        <AnimatedHeader scrollY={sampleData} animated={true}/>
       );
       instance = render(component);
     });
@@ -25,12 +25,40 @@ describe('<AnimatedHeader>', () => {
     });
 
     test('Should call Article onPress', () => {
-      const element = instance.getByTestId('animatedHeaderID');
+      const element = instance.getByTestId('onPressLeftIconId');
       fireEvent(element, 'onPress');
       expect(mockFunction).toBeTruthy();
     });
     test('Should call Article onPress', () => {
-      const element = instance.getByTestId('animatedHeaderRightID');
+      const element = instance.getByTestId('onPressRightIconId');
+      fireEvent(element, 'onPress');
+      expect(mockFunction).toBeTruthy();
+    });
+  });
+
+  describe('AnimatedHeader renders when animated is false', () => {
+    beforeEach(() => {
+      const component = (
+        <AnimatedHeader scrollY={sampleData} animated={false}/>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount;
+    });
+    it('Should render AnimatedHeader', () => {
+      expect(instance).toBeDefined();
+    });
+
+    test('Should call Article onPress', () => {
+      const element = instance.getByTestId('onPressLeftIconId');
+      fireEvent(element, 'onPress');
+      expect(mockFunction).toBeTruthy();
+    });
+    test('Should call Article onPress', () => {
+      const element = instance.getByTestId('onPressRightIconId');
       fireEvent(element, 'onPress');
       expect(mockFunction).toBeTruthy();
     });

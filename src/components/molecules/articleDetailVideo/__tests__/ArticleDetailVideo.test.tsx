@@ -42,10 +42,10 @@ describe('<ArticleDetailVideo />', () => {
   const mockVideodetailinfo = fetchVideoDetailInfo as jest.Mock<any>;
 
   beforeEach(() => {
+    jest.useFakeTimers('legacy');
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     (useRef as jest.Mock).mockReturnValueOnce(videoRefs);
     (useState as jest.Mock).mockImplementation(() => ['https://cdn.jwplayer.com/videos/DscUrCZ5-9mPGCDe7.mp4', setPlayerUrl]);
-    mockVideodetailinfo.mockImplementation(() => sampleData );
     const component = <ArticleDetailVideo paused={false} mediaId={'DscUrCZ5'} currentTime={'10:00:56'} playerVisible={true} isFullScreen={true} videoRefs={videoRefs} />
     instance = render(component)
     jest.useFakeTimers();
@@ -59,8 +59,17 @@ describe('<ArticleDetailVideo />', () => {
   it('should render component', () => {
     expect(instance).toBeDefined()
   })
-  it('should call mockVideodetailinfo', () => {
-    expect(mockVideodetailinfo({mediaID: 'DscUrCZ5'})).toBe(sampleData)
+  it('should call mockVideodetailinfo',async () => {
+    mockVideodetailinfo.mockImplementation(() => sampleData );
+    expect(mockVideodetailinfo({mediaID: 'DscUrCZ5'})).toBe(sampleData);
+  })
+  it('should call mockVideodetailinfo throw error',async () => {
+    mockVideodetailinfo.mockImplementation(() => { throw new Error('error Message')});
+    try{
+      await fetchVideoDetailInfo({mediaID:'23'});
+    } catch(err: any) {
+      expect(err.message).toEqual("error Message");
+    }
   })
 })
 

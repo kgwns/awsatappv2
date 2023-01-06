@@ -26,6 +26,15 @@ jest.mock('@react-navigation/native', () => ({
     useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false,
+  isTab: false,
+  isNotchDevice: false
+}));
+
+
 jest.mock("src/hooks/useBookmark", () => ({
     useBookmark: () => {
       return {
@@ -205,6 +214,7 @@ describe('< Writer Detail >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [sampleData, writerDetailInfo]);
@@ -232,6 +242,9 @@ describe('< Writer Detail >', () => {
     })
 
     test('Should render component', () => {
+        DeviceTypeUtilsMock.isIOS = true;
+        DeviceTypeUtilsMock.isTab = true;
+        DeviceTypeUtilsMock.isNotchDevice = true;
         expect(instance).toBeDefined()
     })
 
@@ -309,6 +322,7 @@ describe('< Writer Detail >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [[], writerDetailInfo]);
@@ -386,6 +400,7 @@ describe('< Writer Detail >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [sampleData, writerDetailInfo]);
