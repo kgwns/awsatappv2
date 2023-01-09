@@ -17,6 +17,8 @@
 #import <RNCPushNotificationIOS.h>
 #import "Awsatapp-Swift.h"
 
+// uncomment below lines to enable Flipper if required
+
 // #ifdef FB_SONARKIT_ENABLED
 // #import <FlipperKit/FlipperClient.h>
 // #import <FlipperKitLayoutPlugin/FlipperKitLayoutPlugin.h>
