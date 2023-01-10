@@ -310,8 +310,9 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                                     title = "";
                                 }
                             }
-
-                            startActivity(PdfActivity.newInstance(mContext, path, title));
+                            if (isVisible()) {
+                                startActivity(PdfActivity.newInstance(mContext, path, title));
+                            }
                         }
 
                         @Override
