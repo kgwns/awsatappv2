@@ -119,7 +119,7 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex }: { tabIndex
   }
 
   const episodeModal = () => (
-    <Modal visible={true} animationType={'slide'}>
+    <Modal visible={true} animationType={'slide'} onRequestClose = {() => setShowModal(false)}>
       <View style={{ height: screenHeight - insets.top }}>
         <PodcastEpisodeModal
           route={{ params: { data: selectedItem.current, podcastListData: podcastEpisodeListInfo } }}
