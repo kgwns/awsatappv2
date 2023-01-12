@@ -12,6 +12,8 @@ import { FlatList } from 'react-native'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms'
 import { ArticleDetailFooter } from 'src/components/molecules'
 import * as ArticleDetailSaga from 'src/redux/articleDetail/sagas';
+import { requestArticleDetail } from 'src/services/articleDetailService'
+import { AxiosError } from 'axios'
 
 const sampleData = { params: { nid: '123', isRelatedArticle: true } };
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');

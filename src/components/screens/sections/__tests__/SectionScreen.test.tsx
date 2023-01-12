@@ -1,14 +1,50 @@
 import React, { useState } from 'react'
-import {render, RenderAPI } from '@testing-library/react-native'
+import {fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/Constants'
 import { SectionsScreen } from '../SectionsScreen'
 import { useTopMenu } from 'src/hooks';
+import { TabWithBarItem } from 'src/components/molecules/tabWithBarItem/TabWithBarItem';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
 }));
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false
+}));
+jest.mock("react-native-tab-view", () => {
+    const real = jest.requireActual("react-native-tab-view");
+    return {
+      ...real,
+      TabView: ({ navigationState, renderTabBar,renderScene }:any) => (
+        <>
+          {renderTabBar({
+            navigationState,
+          })}
+
+          {renderScene({
+            route:{key:{match:jest.fn()},child:{isSelected:false,findIndex:jest.fn()}},
+          })}
+           
+        </>
+        
+      ),
+
+      TabBar: ({ renderTabBarItem }:any) => (
+        <>
+          {renderTabBarItem({
+            key:'key',route:{title:'title'},navigationState:{index:0}
+          })}
+           
+        </>
+        
+      ),
+    };
+  });
 
 jest.mock('src/hooks/useTopMenu', () => ({useTopMenu: jest.fn()}));
 
@@ -27,10 +63,9 @@ describe('<SectionsScreen>', () => {
 
     beforeEach(() => {
         (useState as jest.Mock).mockImplementation(() => [0, index]);
-        (useState as jest.Mock).mockImplementation(() => [[{child: {tabName: 'example', isSelected: true}}], routes]);
         (useState as jest.Mock).mockImplementation(() => [false, hidePlayerVisibility]);
-        (useState as jest.Mock).mockImplementation(() => [[], scrollY]);
-
+        (useState as jest.Mock).mockImplementation(() => [[],scrollY]);
+        
         (useTopMenu as jest.Mock).mockImplementation(useTopMenuMock);
         
         useTopMenuMock.mockReturnValue({
@@ -55,6 +90,36 @@ describe('<SectionsScreen>', () => {
     test('Should render component', () => {
         expect(instance).toBeDefined()
     })  
+
+    test('Should render component in iOS', () => {
+        DeviceTypeUtilsMock.isIOS = true;
+        expect(instance).toBeDefined()
+    })  
+})
+
+describe('<SectionsScreen>', () => {
+    let instance: RenderAPI
+
+    const scrollY = jest.fn();
+    
+    beforeEach(() => {
+        (useState as jest.Mock).mockImplementation(() => [[{result:true},{result:false}],scrollY]);
+
+        const component =
+            <Provider store={storeSampleData}>
+                <SectionsScreen />
+            </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    test('Should render component', () => {
+        expect(instance).toBeDefined()
+    })  
 })
 
 describe('<SectionsScreen>', () => {
@@ -62,21 +127,20 @@ describe('<SectionsScreen>', () => {
     
     const index = jest.fn();
     const routes = jest.fn();
-    const hidePlayerVisibility = jest.fn()
     const useTopMenuMock = jest.fn();
     const fetchTopMenuRequestMock = jest.fn();
     const scrollY = jest.fn();
-
     
     beforeEach(() => {
+        (useState as jest.Mock).mockImplementation(() => [[{child:[{tabName: 'example', isSelected: true},{tabName: 'example2', isSelected: false}]},{child:[{tabName: 'example1', isSelected: false},{tabName: 'example3', isSelected: true}]}],routes]);
         (useState as jest.Mock).mockImplementation(() => [1, index]);
-        (useState as jest.Mock).mockImplementation(() => [[{child: {tabName: 'example', isSelected: true}}], routes]);
-        (useState as jest.Mock).mockImplementation(() => [true, hidePlayerVisibility]);
+        (useState as jest.Mock).mockImplementation(() => [[{result:true},{result:false}],scrollY]);
+
+
         (useTopMenu as jest.Mock).mockImplementation(useTopMenuMock);
-        (useState as jest.Mock).mockImplementation(() => [[], scrollY]);
 
         useTopMenuMock.mockReturnValue({
-            isLoading: true,
+            isLoading: false,
             topMenuData: [],
             topMenuError: 'error',
             fetchTopMenuRequest: fetchTopMenuRequestMock,
@@ -97,4 +161,11 @@ describe('<SectionsScreen>', () => {
     test('Should render component', () => {
         expect(instance).toBeDefined()
     })  
+
+    test("test TabWithbarItem",() => {
+        const element = instance.container.findByType(TabWithBarItem);
+        fireEvent(element,'onPress',0);
+        expect(element).toBeTruthy();
+    })
+
 })

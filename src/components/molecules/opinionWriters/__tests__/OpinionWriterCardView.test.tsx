@@ -35,6 +35,9 @@ jest.mock("src/hooks/useAppPlayer", () => ({
       setShowMiniPlayer: () => [],
       setPlay: () => [],
       setPlayerTrack: () => [],
+      trackData:{
+        id:23
+      }
     }
   },
 }));
