@@ -34,11 +34,13 @@ jest.mock("react-native-tab-view", () => {
         
       ),
 
-      TabBar: ({ renderTabBarItem }:any) => (
+      TabBar: ({ renderTabBarItem,renderIndicator }:any) => (
         <>
           {renderTabBarItem({
             key:'key',route:{title:'title'},navigationState:{index:0}
           })}
+
+          {renderIndicator()}
            
         </>
         
