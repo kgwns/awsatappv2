@@ -30,7 +30,6 @@ describe('<VideoPlayer>', () => {
 
     beforeEach(() => {
       jest.useFakeTimers('legacy');
-      jest.runAllTimers();
       (useState as jest.Mock).mockImplementation(() => [false, isLoading]);
       (useState as jest.Mock).mockImplementation(() => [0, setCurrentTime]);
       (useState as jest.Mock).mockImplementation(() => [0, setDuration]);
@@ -82,10 +81,8 @@ describe('<VideoPlayer>', () => {
     });
 
     it('Should call onEnd', () => {
-      // jest.spyOn(global, 'setTimeout');
       const element = instance.container.findAllByType(Video)[0];
       fireEvent(element, 'onEnd');
-      // expect(setTimeout).toHaveBeenCalled();
       expect(element).toBeTruthy();
     });
 

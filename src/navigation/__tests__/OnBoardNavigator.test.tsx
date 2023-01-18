@@ -11,15 +11,6 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
 }));
 
-// jest.mock('@react-navigation/stack',() => {
-//   return {
-//     ...jest.requireActual('@react-navigation/stack'),
-//     createStackNavigator: jest.fn().mockReturnValue({
-//       Navigator:<></>
-//     })
-//   }
-// })
-
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
