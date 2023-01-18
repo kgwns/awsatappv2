@@ -15,6 +15,12 @@ jest.mock('@react-navigation/native', () => ({
   useNavigationState: () => ([]),
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false
+}));
+
 jest.mock('react-native-safe-area-context', () => ({
   ...jest.requireActual('react-native-safe-area-context'),
   useSafeAreaInsets: () => ({
@@ -69,6 +75,11 @@ describe('<PopulateWidget/>', () => {
       instance.unmount();
     });
     it('Should render widget', () => {
+      expect(instance).toBeDefined();
+    });
+
+    it('Should render widget in Tab', () => {
+      DeviceTypeUtilsMock.isTab = true;
       expect(instance).toBeDefined();
     });
 

@@ -1,17 +1,16 @@
 import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
 import React, {useState} from 'react';
-import { PodcastEpisode  } from '../PodcastEpisode';
 import { Provider } from 'react-redux'
-import { storeSampleData, PodcastEpisodeData, PodcastListData } from 'src/constants/Constants';
+import { storeSampleData, PodcastListData } from 'src/constants/Constants';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {PodcastProgramHeader} from 'src/components/molecules/podcast/PodcastProgramHeader';
-import {PodcastEpisodeContent} from 'src/components/organisms/podcast/PodcastEpisodeContent';
-import {PodcastEpisodeInfo} from 'src/components/organisms/podcast/PodcastEpisodeInfo';
 import { ScreenContainer } from 'src/components/screens/ScreenContainer/ScreenContainer';
 import { useNavigation } from '@react-navigation/native';
 import { PodcastEpisodeItemType, PodcastListItemType } from 'src/redux/podcast/types';
-import { useLogin } from 'src/hooks';
+import { useLogin, usePodcast } from 'src/hooks';
 import { PodcastEpisodeModal } from '../PodcastEpisodeModal';
+import Share from 'react-native-share';
+import { PodcastEpisodeModalInfo } from 'src/components/organisms/podcast/PodcastEpisodeModalInfo';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -24,11 +23,18 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false
+}));
+
+
 jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
 
 const podCastData: PodcastListItemType[] = [
   {
-    nid: '29',
+    nid: '1',
     type: 'podcasr',
     view_node: 'example',
     field_new_sub_title_export: "abc",
@@ -198,15 +204,7 @@ const podcastEpisodeData: PodcastEpisodeItemType[] =[
 ]
 
 jest.mock("src/hooks/usePodcast", () => ({
-  usePodcast: () => {
-    return {
-      isLoading: true,
-      podcastEpisodeData: podcastEpisodeData,
-      fetchPodcastEpisodeRequest: () => {
-        return []
-      }
-    }
-  },
+  usePodcast: jest.fn()
 }));
 
 jest.mock("src/hooks/useBookmark", () => ({
@@ -231,8 +229,8 @@ jest.mock("src/hooks/useBookmark", () => ({
 jest.mock("src/hooks/useAppPlayer", () => ({
   useAppPlayer: () => {
     return {
-      showMiniPlayer: true,
-      selectedTrack: {id: 1},
+      showMiniPlayer: false,
+      selectedTrack: {id: '12'},
       setShowMiniPlayer: () => [],
       setPlayerTrack: () => [],
     }
@@ -251,14 +249,23 @@ describe('<PodcastEpisodeModal >', () => {
 
   describe('when PodcastEpisode only', () => {
     const useLoginMock = mockFunction;
+    const usePodcastMock = mockFunction;
 
     beforeEach(() => {
+      (usePodcast as jest.Mock).mockImplementation(usePodcastMock);
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => [podCastData, mockFunction]);
       useLoginMock.mockReturnValue({
         isLoggedIn: false,
       });
+      usePodcastMock.mockReturnValue({
+            isLoading: true,
+            podcastEpisodeData: podcastEpisodeData,
+            fetchPodcastEpisodeRequest: () => {
+              return []
+            }
+      })
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
@@ -274,6 +281,10 @@ describe('<PodcastEpisodeModal >', () => {
       instance.unmount();
     });
     it('Should render PodcastEpisode ', () => {
+      expect(instance).toBeDefined();
+    });
+    it('Should render PodcastEpisode in tab', () => {
+      DeviceTypeUtilsMock.isTab = true;
       expect(instance).toBeDefined();
     });
     it('when onPressSave is pressed from PodcastHeader', () => {
@@ -317,17 +328,26 @@ describe('<PodcastEpisode >', () => {
 
   describe('when PodcastEpisode only', () => {
     const useLoginMock = mockFunction;
-
+    const usePodcastMock = mockFunction;
     beforeEach(() => {
+      jest.useFakeTimers('legacy');
+      jest.spyOn(Share,'open').mockResolvedValueOnce({response:true} as any);
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      (useState as jest.Mock).mockImplementation(() => ["29", nid]);
+      // (useState as jest.Mock).mockImplementation(() => ["29", nid]);
       (useState as jest.Mock).mockImplementation(() => [true, showupUp]);
       (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeDetailInfo]);
       (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeListInfo]);
       useLoginMock.mockReturnValue({
         isLoggedIn: false,
       });
+      usePodcastMock.mockReturnValue({
+        isLoading: true,
+        podcastEpisodeData: [],
+        fetchPodcastEpisodeRequest: () => {
+          return []
+        }
+  })
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
@@ -387,9 +407,11 @@ describe('<PodcastEpisode >', () => {
     const useLoginMock = mockFunction;
  
     beforeEach(() => {
+      jest.useFakeTimers('legacy');
+      jest.spyOn(Share,'open').mockRejectedValueOnce({error:'error'});
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      (useState as jest.Mock).mockImplementation(() => ["29", nid]);
+      // (useState as jest.Mock).mockImplementation(() => ["29", nid]);
       (useState as jest.Mock).mockImplementation(() => [true, showupUp]);
       (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeDetailInfo]);
       (useState as jest.Mock).mockImplementation(() => [podCastData, podcastEpisodeListInfo]);
@@ -399,7 +421,7 @@ describe('<PodcastEpisode >', () => {
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
-          <PodcastEpisodeModal  route={{ params: { data: { nid: 1 }, podcastListData: PodcastListData } }} onPressBack = { jest.fn() }/>
+          <PodcastEpisodeModal  route={{ params: { data: { nid: '1' }, podcastListData: PodcastListData } }} onPressBack = { jest.fn() }/>
           </SafeAreaProvider>
         </Provider>
       );
@@ -418,6 +440,11 @@ describe('<PodcastEpisode >', () => {
       fireEvent(testID, 'onPressShare');
       expect(mockFunction).toBeTruthy();
     });
+    it('when onPressSave is pressed from PodcastHeader', () => {
+      const testID = instance.container.findByType(PodcastProgramHeader);
+      fireEvent(testID, 'onPressSave');
+      expect(mockFunction).toBeTruthy();
+    });
     it('when onGoBack is pressed from PodcastHeader', () => {
       const testID = instance.container.findByType(PodcastProgramHeader);
       fireEvent(testID, 'onGoBack');
@@ -426,6 +453,12 @@ describe('<PodcastEpisode >', () => {
     test('Should call FlatList onPress', () => {
       const element = instance.container.findAllByType(ScreenContainer)[0];
       fireEvent(element, 'onCloseSignUpAlert');
+      expect(mockFunction).toBeTruthy()
+    });
+
+    test('Should call PodcastEpisodeModalInfo onPress', () => {
+      const element = instance.container.findAllByType(PodcastEpisodeModalInfo)[0];
+      fireEvent(element, 'onListenPress');
       expect(mockFunction).toBeTruthy()
     });
   });
