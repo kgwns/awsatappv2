@@ -13,6 +13,13 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+  isIOS: false
+}));
+
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
@@ -132,6 +139,16 @@ describe('<SelectTopicsScreen>', () => {
     expect(instance).toBeDefined();
   });
 
+  test('Should render SelectTopicScreen in tab', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    expect(instance).toBeDefined();
+  });
+
+  test('Should render SelectTopicScreen in iOS', () => {
+    DeviceTypeUtilsMock.isIOS = true;
+    expect(instance).toBeDefined();
+  });
+
   test('Should call InterestedTopics onTopicsChanged', () => {
     const element = instance.container.findByType(InterestedTopics)
     fireEvent(element, 'onTopicsChanged', sampleData[0], true);
@@ -241,3 +258,4 @@ describe('<SelectTopicsScreen>', () => {
   });
 
 });
+

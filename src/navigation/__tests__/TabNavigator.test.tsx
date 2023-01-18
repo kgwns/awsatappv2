@@ -12,6 +12,14 @@ jest.mock('@react-navigation/native', () => ({
   useNavigationState: () => ([]),
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+  isIOS: false
+}));
+
+
 describe('<TabNavigator>', () => {
   let instance: RenderAPI;
   const mockFn = jest.fn();
@@ -33,6 +41,14 @@ describe('<TabNavigator>', () => {
       instance.unmount();
     });
     it('Should render TabNavigator', () => {
+      expect(instance).toBeDefined();
+    });
+    it('Should render TabNavigator in Tab', () => {
+      DeviceTypeUtilsMock.isTab = true;
+      expect(instance).toBeDefined();
+    });
+    it('Should render TabNavigator in iOS', () => {
+      DeviceTypeUtilsMock.isIOS = true;
       expect(instance).toBeDefined();
     });
     test('Should call TouchableOpacity onPress', () => {

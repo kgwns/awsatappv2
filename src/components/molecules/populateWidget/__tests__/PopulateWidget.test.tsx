@@ -1,5 +1,5 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { PopulateWidget, PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { moleculesTestID } from 'src/constants/Constants';
 import { VideoItem } from '../../video-item/VideoItem';

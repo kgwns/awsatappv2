@@ -46,6 +46,7 @@ const OnBoardNavigator = () => {
 
   const onBoardSkip = (routesName: any) => (
     <TouchableOpacity
+      testID='skipId'
       style={style.skipContainer}
       onPress={() => {
         switch (routesName) {

@@ -46,5 +46,10 @@ describe('<OnBoardNavigator>', () => {
       fireEvent(listButton, 'onPress');
       expect(navigation.goBack).toHaveBeenCalled;
     });
+    it("when skip button is clicked",() => {
+      const element = instance.getByTestId('skipId');
+      fireEvent(element,'onPress','FOLLOW_FAVORITE_AUTHOR_SCREEN');
+      expect(navigation.navigate).toHaveBeenCalled();
+    });
   });
 });
