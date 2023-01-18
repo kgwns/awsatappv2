@@ -29,16 +29,17 @@ describe('<VideoPlayer>', () => {
     const setScreenType = mockFunction;
 
     beforeEach(() => {
+      jest.useFakeTimers('legacy');
+      jest.runAllTimers();
+      (useState as jest.Mock).mockImplementation(() => [false, isLoading]);
       (useState as jest.Mock).mockImplementation(() => [0, setCurrentTime]);
       (useState as jest.Mock).mockImplementation(() => [0, setDuration]);
-      (useState as jest.Mock).mockImplementation(() => [false, isLoading]);
       (useState as jest.Mock).mockImplementation(() => [true, setPaused]);
       (useState as jest.Mock).mockImplementation(() => ['20', tapActionTimeout]);
       (useState as jest.Mock).mockImplementation(() => [false, setShowControls]);
       (useState as jest.Mock).mockImplementation(() => ['contain', setScreenType]);
       const component = <VideoPlayerFullScreen url={url} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
       instance = render(component)
-      jest.useFakeTimers();
     })
 
     afterEach(() => {
@@ -81,8 +82,10 @@ describe('<VideoPlayer>', () => {
     });
 
     it('Should call onEnd', () => {
+      // jest.spyOn(global, 'setTimeout');
       const element = instance.container.findAllByType(Video)[0];
       fireEvent(element, 'onEnd');
+      // expect(setTimeout).toHaveBeenCalled();
       expect(element).toBeTruthy();
     });
 
@@ -113,5 +116,5 @@ describe('<VideoPlayer>', () => {
     test('waits 1 second before ending the game', () => {
       expect(setTimeout).toBeTruthy();
     }); 
-    
+
 })
