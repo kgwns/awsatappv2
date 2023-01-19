@@ -53,7 +53,23 @@ const podCastData: PodcastListItemType[] = [
       img_podcast_desktop: 'example',
       img_podcast_mobile: 'example',
       name: 'example',
-      image: 'example'
+      image: 'example',
+      "anghami": {
+        "url": "string",
+        "text": "string"
+      },
+      "apple_podcasts": {
+        "url": "string",
+        "text": "https://apple.com"
+      },
+      "google_podcast": {
+        "url": "string",
+        "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spotify_export: {
       url: "string",
@@ -92,7 +108,23 @@ const podCastData: PodcastListItemType[] = [
       img_podcast_desktop: 'example',
       img_podcast_mobile: 'example',
       name: 'example',
-      image: 'example'
+      image: 'example',
+      "anghami": {
+        "url": "string",
+        "text": "string"
+      },
+      "apple_podcasts": {
+        "url": "string",
+        "text": "https://apple.com"
+      },
+      "google_podcast": {
+        "url": "string",
+        "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spotify_export: {
       url: "string",
@@ -135,7 +167,23 @@ const podcastEpisodeData: PodcastEpisodeItemType[] =[
       img_podcast_desktop: "abc",
       img_podcast_mobile: "abc",
       name: "abc",
-      image: "abc"
+      image: "abc",
+      "anghami": {
+        "url": "string",
+        "text": "string"
+      },
+      "apple_podcasts": {
+        "url": "string",
+        "text": "https://apple.com"
+      },
+      "google_podcast": {
+        "url": "string",
+        "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spotify_export: {
       url: "string",

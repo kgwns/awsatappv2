@@ -12,8 +12,16 @@ import { FlatList } from 'react-native'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms'
 import { ArticleDetailFooter } from 'src/components/molecules'
 import * as ArticleDetailSaga from 'src/redux/articleDetail/sagas';
+import { requestArticleDetail } from 'src/services/articleDetailService'
+import { AxiosError } from 'axios'
 
 const sampleData = { params: { nid: '123', isRelatedArticle: true } };
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false,
+  isTab: false
+}));
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -180,6 +188,7 @@ describe('<ArticleDetailScreen>', () => {
   const isLoading = mockFunction
 
   beforeEach(() => {
+    jest.useFakeTimers('legacy');
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
     (useState as jest.Mock).mockImplementation(() => [true, isLoading]);
@@ -199,6 +208,8 @@ describe('<ArticleDetailScreen>', () => {
   })
 
   test('Should render component', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    DeviceTypeUtilsMock.isIOS = true;
     expect(instance).toBeDefined()
   })
 
@@ -237,6 +248,7 @@ describe('<< With Valid Article Detail >>', () => {
   const mockFunction = jest.fn();
   const articleDetailState = mockFunction;
   beforeEach(() => {
+    jest.useFakeTimers('legacy');
     (useState as jest.Mock).mockImplementation(() => [sampleData1, articleDetailState]);
 
     const component =

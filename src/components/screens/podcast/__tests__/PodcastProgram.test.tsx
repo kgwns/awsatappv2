@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { PodcastProgram } from '../PodcastProgram';
-import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/Constants';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { usePodcast } from 'src/hooks';
 import { PodcastListItemType } from 'src/redux/podcast/types';

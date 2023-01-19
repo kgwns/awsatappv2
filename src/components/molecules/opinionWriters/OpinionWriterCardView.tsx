@@ -188,7 +188,7 @@ const onPressPlay = () => {
       <View style={[style.footerContainer, mediaVisibility && style.footerContainerMedia]}>
         <View style={style.listenArticleContainer}>
           {mediaVisibility && <>
-            <TouchableOpacity onPress={onPressPlay} style={style.listenArticleContainer}>
+            <TouchableOpacity onPress={onPressPlay} testID = "onPressPlayTestId" style={style.listenArticleContainer}>
               <ButtonImage
                 icon={() =>
                   trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing || isBuffering   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :

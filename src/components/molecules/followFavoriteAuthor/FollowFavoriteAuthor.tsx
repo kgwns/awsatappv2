@@ -28,7 +28,6 @@ const FollowFavoriteAuthor = ({
   isSelected,
   onPress,
   testId,
-  clickable = true,
   imageSize = 0.099 * screenHeight,
   containerStyle,
 }: FollowFavoriteAuthorProps) => {

@@ -202,7 +202,7 @@ describe('<ManageMyFavoriteTopicsScreen>', () => {
         },
       ],
       sentTopicsData: {
-        code: '200',
+        code: 200,
       },
       selectedTopicsData: {
         code: 200,
@@ -224,7 +224,7 @@ describe('<ManageMyFavoriteTopicsScreen>', () => {
     });
     const component = (
       <Provider store={storeSampleData}>
-        <ManageMyFavoriteTopicsScreen />
+        <ManageMyFavoriteTopicsScreen navigation = {{goBack:jest.fn()}} />
       </Provider>
     );
     instance = render(component);
