@@ -4,11 +4,12 @@ import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/Constants'
 import { UserDetailScreen } from '../UserDetailScreen'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
-import { Modal } from 'react-native'
+import { ActionSheetIOS, Modal } from 'react-native'
 import { useUserProfileData } from 'src/hooks';
 import { TabBarDataProps } from 'src/components/molecules/tabWithBarItem/TabWithBarItem'
 import { AlertModal } from 'src/components/organisms'
 import { ButtonOutline } from 'src/components/atoms'
+import DatePicker from 'react-native-date-picker'
 
 jest.mock('react',() => ({
   ...jest.requireActual('react'),
@@ -46,6 +47,11 @@ jest.mock('react-native-date-picker', () => {
   const mockComponent = require('react-native/jest/mockComponent')
   return mockComponent('react-native-date-picker')
 })
+
+jest.mock('src/shared/utils/utilities',() => ({
+  ...jest.requireActual('src/shared/utils/utilities'),
+  getFullDate: () => {}
+}))
 
 jest.mock("src/hooks/useNewPassword", () => ({
   useNewPassword: () => {
@@ -144,16 +150,24 @@ describe('<UserDetailScreen>', () => {
     });
 
     test('Should call Modal onRequestClose1', () => {
-        const element = instance.container.findAllByType(Modal)[0]
+        const element = instance.container.findAllByType(Modal)[1]
         fireEvent(element, 'onRequestClose');
         expect(mockFunction).toHaveBeenCalled()
     });
 
-    test('Should call TouchableOpacity camera_option', () => {
+    test('Should call TouchableOpacity camera_option',async () => {
+        DeviceTypeUtilsMock.isIOS = false;
         const element = instance.getByTestId('camera_option');
         fireEvent(element, 'onPress');
         expect(mockFunction).toHaveBeenCalled()
     });
+
+    test('Should call TouchableOpacity camera_option in iOS', () => {
+      DeviceTypeUtilsMock.isIOS = true;
+      const element = instance.getByTestId('camera_option');
+      fireEvent(element, 'onPress');
+      expect(mockFunction).toHaveBeenCalled()
+  });
 
     test('Should call TouchableOpacity modal_Visible', () => {
         const element = instance.getByTestId('modal_Visible');
@@ -358,6 +372,7 @@ describe('<UserDetailScreen>', () => {
   });
 
   test('Should call TouchableOpacity camera_option', () => {
+      DeviceTypeUtilsMock.isIOS = true;
       const element = instance.getByTestId('camera_option');
       fireEvent(element, 'onPress');
       expect(mockFunction).toBeTruthy()
@@ -510,10 +525,36 @@ describe('should renderUserDetails', () => {
     expect(mockFunction).toHaveBeenCalled();
   })
 
+  test('test render_Option_Modal onPress in iOS',() =>{
+    DeviceTypeUtilsMock.isIOS = true;
+    ActionSheetIOS.showActionSheetWithOptions =  jest.fn();
+    const element = instance.getByTestId('render_Option_Modal');
+    fireEvent(element,'onPress');
+    expect(mockFunction).toHaveBeenCalled();
+  })
+
   test('test ButtonOutline onPress',() =>{
     DeviceTypeUtilsMock.isIOS = false;
     const element = instance.container.findByType(ButtonOutline);
     fireEvent(element,'onPress');
+    expect(mockFunction).toHaveBeenCalled();
+  })
+
+  test("test set_Open onPress",() => {
+    const testId = instance.getByTestId('set_Open');
+    fireEvent(testId,'onPress');
+    expect(mockFunction).toHaveBeenCalled();
+  })
+
+  test("test datePicker onConfirm",() => {
+    const element = instance.container.findByType(DatePicker);
+    fireEvent(element,'onConfirm');
+    expect(mockFunction).toHaveBeenCalled();
+  })
+
+  test("test datePicker onCancel",() => {
+    const element = instance.container.findByType(DatePicker);
+    fireEvent(element,'onCancel');
     expect(mockFunction).toHaveBeenCalled();
   })
 
