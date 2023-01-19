@@ -3,7 +3,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 're
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
-import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
+import { Divider, HeaderElementProps, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
@@ -585,6 +585,9 @@ export const ArticleDetailScreen = ({
           />
         } */}
         { !isFullScreen && <View style={style.bottom} />}
+        {!isArticleSectionLoaded && <View style={style.bottomSpinner}>
+          <LoadingState />
+        </View>}
         {!isFullScreen && <View style={[style.footer, style.shadowEffect]}>
           <ArticleDetailFooter articleDetailData={articleDetailState[bookmarkIndex]}
             isBookmarked={isBookmarked}
@@ -659,6 +662,13 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   containerStyle: {
     flex: 1,
     height: '100%'
+  },
+  bottomSpinner: {
+    width: '100%',
+    height: normalize(45),
+    backgroundColor: colors.transparent,
+    position: 'absolute', 
+    bottom: isIOS ? normalize(70) : normalize(60)
   }
 })
 
