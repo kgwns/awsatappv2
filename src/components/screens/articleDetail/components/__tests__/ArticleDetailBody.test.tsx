@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { ArticleDetailBody} from 'src/components/screens/articleDetail/components/ArticleDetailBody';
 import { storeSampleData } from 'src/constants/Constants';
 import AutoHeightWebView from 'react-native-autoheight-webview';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -126,6 +125,7 @@ describe('<ArticleDetailBody> renders in IOS', () => {
     const webViewHeight = mockFunction;
 
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
         DeviceTypeUtilsMock.isIOS = true;
         (useRef as jest.Mock).mockImplementation(() => [sampleData, myTimeOutReference]);
         (useState as jest.Mock).mockImplementation(() => [20, dynamicHeight]);

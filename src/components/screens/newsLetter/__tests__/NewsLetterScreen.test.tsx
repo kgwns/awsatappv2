@@ -12,6 +12,12 @@ jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false
+}));
+
 
 jest.mock('src/hooks/useNewsLetters', () => ({useNewsLetters: jest.fn()}));
 
@@ -91,6 +97,11 @@ describe('<NewsLettersScreen>', () => {
   });
 
   it('Should render NewsLettersScreen component', () => {
+    expect(instance).toBeDefined();
+  });
+
+  it('Should render NewsLettersScreen component in Tab', () => {
+    DeviceTypeUtilsMock.isTab = true;
     expect(instance).toBeDefined();
   });
 
