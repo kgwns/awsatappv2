@@ -76,7 +76,6 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       setEpisodeData(podcastData)
     }
   }
-  /* const navigation = useNavigation<StackNavigationProp<any>>(); */
 
   const widgetHeaderData: WidgetHeaderProps = {
     headerLeft: {
@@ -101,10 +100,6 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     },
   };
 
-  /*const navigateToPodcast = () => {
-    const params = { sectionId: null, title: "بودكاست", keyName: "podcast" }
-    navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
-  } */
 
   const ListenToPodcast = ({ podcastData, index }: podCastType) => (
     <TouchableOpacity style={style.listenContainer}
@@ -159,7 +154,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
 
   const playPauseIcon = (podcastData: any) => (
     <View style={style.rightIconStyle}>
-      {selectedTrack && selectedTrack.id == podcastData.nid && playbackState === State.Playing || isBuffering ?
+      {selectedTrack && selectedTrack.id === podcastData.nid && playbackState === State.Playing || isBuffering ?
         <RNImage source={images.pauseIconWhite} /> :
         <PlayIcon fill={colors.white} />
       }
@@ -170,7 +165,10 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     if (!isObjectNonEmpty(podcastData)) {
       return null;
     }
-    const bodyInfo = isNotEmpty(podcastData?.body_export) ? podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? podcastData.field_podcast_sect_export.description : ''
+    const bodyInfo = isNotEmpty(podcastData?.body_export) ? 
+      podcastData?.body_export : 
+      isNotEmpty(podcastData.field_podcast_sect_export.description) ? 
+      podcastData.field_podcast_sect_export.description : ''
     const description = decodeHTMLTags(bodyInfo)
     return (
       <>

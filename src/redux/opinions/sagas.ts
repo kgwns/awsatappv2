@@ -16,7 +16,6 @@ const filterNidInfo = (data: any[]) => {
 }
 
 export function* fetchOpinions(action: FetchOpinionsType) {
-  // console.log("saga fetchOpinionWriter");
 
   try {
     const payload: FetchOpinionsSuccessPayloadType = yield call(

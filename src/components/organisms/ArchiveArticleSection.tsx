@@ -28,7 +28,7 @@ interface ArchiveArticleSectionProps {
 }
 
 const ArchiveArticleSection = (props: ArchiveArticleSectionProps) => {
-    const { data, onPress } = props;
+    const { data } = props;
 
     const { theme } = useAppCommon()
     const isDarkMode = isDarkTheme(theme)

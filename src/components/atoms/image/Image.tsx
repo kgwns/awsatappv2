@@ -76,7 +76,7 @@ export const Image: FunctionComponent<ImageProps> = ({
 
   return (
     <>
-      {!isLoadEnd && fallback && fallbackName == ImagesName.placeholderImg && <DefaultImage
+      {!isLoadEnd && fallback && fallbackName === ImagesName.placeholderImg && <DefaultImage
         source={images.placeholderImg}
         style={[imageStyle, borderStyle,styles.defaultImage, defaultImageStyle]}
       />}

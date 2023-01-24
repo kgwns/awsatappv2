@@ -25,7 +25,15 @@ import SystemNavigationBar from 'react-native-system-navigation-bar'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { ArticleDetailBody } from './components/ArticleDetailBody'
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService'
-import { parseArticleDetailSuccess, parseArticleSectionSuccess, parseOpinionBundleSuccess, parseRelatedArticleSuccess, parseRichArticleContentBundleSuccess, parseRichArticleReadAlso, updatedContentBundleContent, updatedOpinionBundle, updatedReadAlsoContent } from 'src/redux/articleDetail/sagas'
+import { parseArticleDetailSuccess, 
+  parseArticleSectionSuccess, 
+  parseOpinionBundleSuccess, 
+  parseRelatedArticleSuccess, 
+  parseRichArticleContentBundleSuccess, 
+  parseRichArticleReadAlso, 
+  updatedContentBundleContent, 
+  updatedOpinionBundle, 
+  updatedReadAlsoContent } from 'src/redux/articleDetail/sagas'
 import { getBookMarkDetailInfoService } from 'src/services/bookmarkService'
 import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService'
 import { AxiosError } from 'axios'
@@ -88,9 +96,9 @@ export const ArticleDetailScreen = ({
   const { showMiniPlayer } = useAppPlayer()
   
   const detailRoutes = useMemo(() => routes.filter((routes) => 
-    routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN || 
-    routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN || 
-    routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+    routes.name === ScreensConstants.ARTICLE_DETAIL_SCREEN || 
+    routes.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN || 
+    routes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfDetailRoutes = detailRoutes.length
 
   const videoRefs = useRef<any[]>([]);
@@ -113,7 +121,7 @@ export const ArticleDetailScreen = ({
   }
 
   useEffect(() => {
-    if (isNonEmptyArray(articleDetailState) && articleDetailState.length == 1 && isLoading) {
+    if (isNonEmptyArray(articleDetailState) && articleDetailState.length === 1 && isLoading) {
       const firstArticleData = articleDetailState[0];
       setIsLoading(false)
       getVideoUrlInfo(firstArticleData);
@@ -152,7 +160,7 @@ export const ArticleDetailScreen = ({
   }
 
   const getArticleSection = async (articleData: ArticleDetailDataType) => {
-    let allArticleDetail = [...articleDetailState]
+    const allArticleDetail = [...articleDetailState]
     if (isObjectNonEmpty(articleData)
       && isObjectNonEmpty(articleData.news_categories)
       && isNotEmpty(articleData.news_categories.id)) {
@@ -172,7 +180,7 @@ export const ArticleDetailScreen = ({
   const getRichContentDetail = async (articleData: ArticleDetailDataType) => {
     if (isNonEmptyArray(articleData.richHTML)) {
       //Read Also Bundle
-      const readAlsoElement: any = articleData.richHTML?.filter((item) => item.type == RichHTMLType.READ_ALSO)
+      const readAlsoElement: any = articleData.richHTML?.filter((item) => item.type === RichHTMLType.READ_ALSO)
       if (isNonEmptyArray(readAlsoElement) && isNonEmptyArray(readAlsoElement[0].data.related_content)) {
         const nidList = joinArray(readAlsoElement[0].data.related_content, '+')
         try {
@@ -186,7 +194,7 @@ export const ArticleDetailScreen = ({
       }
 
       // Content Also Bundle
-      const contentElement: any = articleData.richHTML?.filter((item) => item.type == RichHTMLType.CONTENT)
+      const contentElement: any = articleData.richHTML?.filter((item) => item.type === RichHTMLType.CONTENT)
       if (isNonEmptyArray(contentElement) && contentElement[0].data.content) {
         try {
           const contentResponse = await requestArticleDetail({ nid: contentElement[0].data.content })
@@ -199,7 +207,7 @@ export const ArticleDetailScreen = ({
       }
 
       //Opinion Bundle
-      const opinionElement: any = articleData.richHTML?.filter((item) => item.type == RichHTMLType.OPINION)
+      const opinionElement: any = articleData.richHTML?.filter((item) => item.type === RichHTMLType.OPINION)
       if (isNonEmptyArray(opinionElement)) {
         opinionElement.forEach(async (_: any, index: number) => {
           try {
@@ -245,7 +253,7 @@ export const ArticleDetailScreen = ({
   }, [isArticleSectionLoaded])
 
   useEffect(() => {
-    if (fontSize != articleFontSize) {
+    if (fontSize !== articleFontSize) {
       setFontSize(articleFontSize)
     }
   }, [articleFontSize])
@@ -305,7 +313,7 @@ export const ArticleDetailScreen = ({
   }
 
   useLayoutEffect(() => {
-    if(isDefaultDimension != dimensions.width && !isDimensionChanged){
+    if(isDefaultDimension !== dimensions.width && !isDimensionChanged){
       setIsDimensionChanged(true)
     } else if(!isEdgeUpdated && isEdgePortrait){
       setIsDimensionChanged(true)
@@ -314,7 +322,7 @@ export const ArticleDetailScreen = ({
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     setOrientation(deviceOrientation);
-    if(!isEdgeUpdated && (deviceOrientation == 'LANDSCAPE-RIGHT' || deviceOrientation == 'LANDSCAPE-LEFT') && !isEdgePortrait){
+    if(!isEdgeUpdated && (deviceOrientation === 'LANDSCAPE-RIGHT' || deviceOrientation === 'LANDSCAPE-LEFT') && !isEdgePortrait){
       setIsEdgeUpdated(true)
    } else{
      setIsEdgePortrait(true)

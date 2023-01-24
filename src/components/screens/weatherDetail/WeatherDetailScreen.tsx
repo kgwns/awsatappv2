@@ -24,7 +24,14 @@ import WeatherIcon5 from 'src/assets/images/icons/weather/weather_Icon5.svg'
 import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon6.svg'
 import WeatherDayIcon from 'src/assets/images/icons/weather/weather_Day_Icon.svg'
 import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon.svg'
-import { calculateDateNumber, calculateMonth, calculateNonUtcDateNumber, calculateNonUtcMonth, calculateNonUtcYear, calculateYear, getConvertedTime, getCountryNameFromCode, isNonEmptyArray, isObjectNonEmpty, isStringIncludes } from 'src/shared/utils/utilities';
+import { calculateNonUtcDateNumber, 
+  calculateNonUtcMonth, 
+  calculateNonUtcYear, 
+  getConvertedTime, 
+  getCountryNameFromCode, 
+  isNonEmptyArray, 
+  isObjectNonEmpty, 
+  isStringIncludes } from 'src/shared/utils/utilities';
 import { arabic } from 'src/assets/locales/ar/common-ar';
 import moment from 'moment';
 import { useWeatherDetails } from 'src/hooks';
@@ -79,10 +86,22 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   currentDate.setDate(currentDate.getDate());
 
-  data.push({ date: (calculateNonUtcDateNumber(currentDate).toString()), month: calculateNonUtcMonth(currentDate), day: arabic.day[moment(currentDate).get('day')], year: calculateNonUtcYear(currentDate), selected: true });
+  data.push({ 
+    date: (calculateNonUtcDateNumber(currentDate).toString()), 
+    month: calculateNonUtcMonth(currentDate), 
+    day: arabic.day[moment(currentDate).get('day')],
+    year: calculateNonUtcYear(currentDate), 
+    selected: true 
+  });
   for (let i = 1; i < 7; i++) {
     currentDate.setDate(currentDate.getDate() + 1);
-    data.push({ date: (calculateNonUtcDateNumber(currentDate)).toString(), month: calculateNonUtcMonth(currentDate), day: arabic.day[moment(currentDate).get('day')], year: calculateNonUtcYear(currentDate), selected: false });
+    data.push({ 
+      date: (calculateNonUtcDateNumber(currentDate)).toString(), 
+      month: calculateNonUtcMonth(currentDate), 
+      day: arabic.day[moment(currentDate).get('day')], 
+      year: calculateNonUtcYear(currentDate), 
+      selected: false 
+    });
   }
 
   const getCountryName = () => {
@@ -140,8 +159,8 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   const getImageIcon = () => {
     const mainData = getMainData();
-    let width = 160;
-    let height = 160;
+    const width = 160;
+    const height = 160;
     if (isStringIncludes(mainData, weatherType.rain)) {
       return <RainImageIcon height={height} width={width} />
     } else if (isStringIncludes(mainData, weatherType.clouds)) {

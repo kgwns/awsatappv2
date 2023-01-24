@@ -68,13 +68,13 @@ export const AuthorsHorizontalSlider = ({
         testID='onAllPress'
         style={[
           styles.filterItem,
-          selectedIndex == -1 && styles.filterActive,
+          selectedIndex === -1 && styles.filterActive,
         ]}>
         <Label
           children={allTitle}
           style={styles.label}
           color={
-            selectedIndex == -1
+            selectedIndex === -1
               ? colors.white
               : Styles.color.grayishGreen
           }
@@ -98,7 +98,7 @@ export const AuthorsHorizontalSlider = ({
               styles.allContainerStyle,
               styles.borderStyle,
               isLast && styles.spaceEndStyle,
-              selectedIndex == index
+              selectedIndex === index
                 ? styles.containerbackgroundStyle
                 : {borderColor: colors.transparent},
             ]}>
@@ -112,7 +112,7 @@ export const AuthorsHorizontalSlider = ({
               children={item.name}
               style={styles.labelStyle}
               color={
-                selectedIndex == index
+                selectedIndex === index
                   ? colors.white
                   : themeData.secondarySpanishGray
               }

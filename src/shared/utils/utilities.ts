@@ -46,7 +46,7 @@ export const CustomAlert = ({
 
 
 export const isDarkTheme = (colorScheme: ColorSchemeName) => {
-  return colorScheme == Theme.DARK;
+  return colorScheme === Theme.DARK;
 };
 
 export const testProps = (testID: string | undefined) => {
@@ -87,7 +87,7 @@ export const isNonEmptyArray = (data: any): boolean => {
 };
 
 export const isInvalidOrEmptyArray = (data: any): boolean => {
-  return !data || !Array.isArray(data) || data.length == 0;
+  return !data || !Array.isArray(data) || data.length === 0;
 };
 
 export const isObjectNonEmpty = (data: any): boolean => {
@@ -124,9 +124,8 @@ export const isStringIncludes = (data: any, searchText: string): boolean => {
 export const timeAgo = (time: any) => {
   var date = new Date(time);
   var today = new Date();
-  var yesterday = new Date(today.valueOf() - 1000 * 60 * 60 * 24);
-  var threeHoursBefore = new Date(today.valueOf() - 1000 * 60 * 60 * 3);
-  const isToday =   date.getDate() == today.getDate() &&  date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear();
+  const threeHoursBefore = new Date(today.valueOf() - 1000 * 60 * 60 * 3);
+  const isToday =   date.getDate() === today.getDate() &&  date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
   const isThreeHoursAgo = date.getHours() - threeHoursBefore.getHours() >= 3;
   const fullDateFormat =  arabic.months[moment(time).get('month')] + ' ' + calculateDate(time) + ', ' + calculateYear(time);
   const recentHoursFormat = arabic.timeSince.since + moment().fromNow(true);
@@ -194,7 +193,7 @@ export const calculateTimeSince = (time: any) => {
     default:
       time = +new Date();
   }
-  var time_formats = [
+  const time_formats = [
     [60, 'timeSince.seconds', 1], // 60
     [120, 'timeSince.one_minute', 'timeSince.minute_from_now'], // 60*2
     [3600, 'timeSince.minutes', 60], // 60*60, 60
@@ -219,12 +218,15 @@ export const calculateTimeSince = (time: any) => {
   }
   var i = 0,
     format;
-  while ((format = time_formats[i++]))
+  while ((format = time_formats[i++])){
     if (seconds < format[0]) {
-      if (typeof format[2] == 'string') return format[list_choice];
+      if (typeof format[2] == 'string') {
+        return format[list_choice];
+      }
       else
         return Math.floor(seconds / format[2]) + ' ' + format[1];
     }
+  }
   return time;
 };
 
@@ -312,13 +314,13 @@ export const getDay = (time:any) => {
 
 export const  getSecondsToHms = (time:any): string => {
   time = Number(time);
-  var h = Math.floor(time / 3600);
-  var m = Math.floor(time % 3600 / 60);
-  var s = Math.floor(time % 3600 % 60);
+  const h = Math.floor(time / 3600);
+  const m = Math.floor(time % 3600 / 60);
+  const s = Math.floor(time % 3600 % 60);
 
-  var secondsDisplay = s > 0 ? s  : "";
-  var minutesDisplay = (m > 0) ? (secondsDisplay > 0) ? m < 10 ? '0' + m.toString() + ":" :  m.toString() +  ":"  : m.toString() : "";
-  var hoursDisplay = h > 0 ? m > 0 ? h.toString() + ":" : h.toString() : ""; 
+  const secondsDisplay = s > 0 ? s  : "";
+  const minutesDisplay = (m > 0) ? (secondsDisplay > 0) ? m < 10 ? '0' + m.toString() + ":" :  m.toString() +  ":"  : m.toString() : "";
+  const hoursDisplay = h > 0 ? m > 0 ? h.toString() + ":" : h.toString() : ""; 
   return hoursDisplay + minutesDisplay + secondsDisplay; 
 }
 

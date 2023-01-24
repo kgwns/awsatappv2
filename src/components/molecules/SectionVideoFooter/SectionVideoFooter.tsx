@@ -52,7 +52,15 @@ const SectionVideoFooter = ({
           labelStyle={SectionVideoFooterStyle.leftStyle}
         /></View>}
         {(leftTitle || leftViews) && (rightDate || rightTitle) && <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />}
-        {(rightDate || rightTitle) && <FooterCaptionWithImage labelStyle={SectionVideoFooterStyle.rightTitleStyle} title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
+        {(rightDate || rightTitle) && 
+        <FooterCaptionWithImage 
+          labelStyle={SectionVideoFooterStyle.rightTitleStyle} 
+          title={rightTitle} 
+          icon={rightIcon} 
+          color={rightTitleColor} 
+          subTitle={rightDate} 
+          subTitleColor={rightDateColor} 
+        />}
       </View>
     {addBookMark && 
       <ButtonImage

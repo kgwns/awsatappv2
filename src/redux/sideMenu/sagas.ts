@@ -6,7 +6,6 @@ import { FETCH_SIDE_MENU } from './actionTypes';
 import { fetchSideMenuApi } from 'src/services/sideMenuService';
 
 export function* fetchSideMenu() {
-  //console.log("saga fetchMostRead");
 
   try {
     const payload: FetchSideMenuSuccessPayloadType = yield call(

@@ -92,7 +92,7 @@ export const Archives = () => {
             selectedDataRef.current = false;
         } else {
             const dataSelected = returnItems(bookmarkDetail.data)
-            if( JSON.stringify(dataSelected) != JSON.stringify(filteredData)){
+            if( JSON.stringify(dataSelected) !== JSON.stringify(filteredData)){
                 if (!isNonEmptyArray(bookmarkDetail.data)) {
                     setInitialLoading(false)
                 }             
@@ -180,7 +180,7 @@ export const Archives = () => {
             case 4:
                 return data.filter((item: any) => item.type == PopulateWidgetType.PODCAST)
             case 5:
-                return data.filter((item: any) => item.type == PopulateWidgetType.ALBUM)
+                return data.filter((item: any) => item.type === PopulateWidgetType.ALBUM)
             default: return null
         }
     }

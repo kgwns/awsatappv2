@@ -114,7 +114,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   const _sectionComboSevenTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SEVEN})
   const _sectionComboEightTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_EIGHT})
   const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
-  const EDITORS_PICK_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITORS_PICK_HEADER_TITLE})
+  // const EDITORS_PICK_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITORS_PICK_HEADER_TITLE})
   const _archivedArticleTitle = TranslateConstants({key: TranslateKey.ARCHIVED_ARTICLE_SECTION_TITLE})
 
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
@@ -340,7 +340,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboEightInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboEightInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboSevenInfo, index)
     setSectionComboEightInfo(updatedData)
   }
@@ -378,16 +378,16 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     setSectionComboTwoInfo(updatedData)
   }
 
-  const updatedEditorsChoiceBookmark = (article: EditorsChoiceDataType) => {
-    if (!isLoggedIn) {
-      setShowPopUp(true)
-      return
-    }
+  // const updatedEditorsChoiceBookmark = (article: EditorsChoiceDataType) => {
+  //   if (!isLoggedIn) {
+  //     setShowPopUp(true)
+  //     return
+  //   }
 
-    const index = editorsChoiceInfo.findIndex((item) => item.nid == article.nid)
-    const updatedData = updatedChangeBookmark(editorsChoiceInfo, index)
-    setEditorsChoiceInfo(updatedData)
-  }
+  //   const index = editorsChoiceInfo.findIndex((item) => item.nid == article.nid)
+  //   const updatedData = updatedChangeBookmark(editorsChoiceInfo, index)
+  //   setEditorsChoiceInfo(updatedData)
+  // }
 
   useEffect(() => {
     if (isNonEmptyArray(sectionComboThree)) {
@@ -799,7 +799,12 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         htmlContent={infoGraphicBlock[0].body}
       />}
       <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} />
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
+      {isNonEmptyArray(opinionListData) && 
+      <AuthorSlider data={opinionListData} 
+      selectedType={selectedType} 
+      getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
+      onClose={onClose} 
+      />}
       {isNonEmptyArray(podcastHome) &&
         <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast} />
       }

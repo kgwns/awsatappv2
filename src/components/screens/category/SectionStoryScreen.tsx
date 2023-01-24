@@ -26,9 +26,6 @@ import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { fetchNewsViewApi, fetchSubArticleSectionApi } from 'src/services/newsViewService';
 import { AxiosError } from 'axios';
 import { formatTopListToLatestArticleType } from 'src/redux/newsView/sagas';
-// import { fetchVideoListApi } from 'src/services/videoListService';
-// import { formatVideoData } from 'src/redux/videoList/sagas';
-// import { VideoItemType } from 'src/redux/videoList/types';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { decode } from 'html-entities';
 import { fonts } from 'src/shared/styles/fonts';
@@ -150,7 +147,6 @@ export const SectionStoryScreen = React.memo(({
 
     getHeroListData();
     getTopListData();
-    // getVideoListData();
   }
 
   const getHeroListData = async() => {
@@ -315,7 +311,7 @@ export const SectionStoryScreen = React.memo(({
   }
 
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
@@ -369,11 +365,6 @@ export const SectionStoryScreen = React.memo(({
     const updatedData: any = updatedChangeBookmark(bottomListDataInfo, index)
     setBottomListDataInfo(updatedData)
   }
-
-  // const onVideoItemPress = (item: VideoItemType) => {
-  //   navigation.navigate(ScreensConstants.VideoPlayerScreen,
-  //     { mediaID: item.mediaId, nid: item.nid })
-  // }
 
   const onClickChildSection = (clickItemIndex: number) => {
     let oldChildSection = [...childSection]

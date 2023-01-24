@@ -29,7 +29,7 @@ export const WritersDetailScreen = ({
     const navigation = useNavigation<StackNavigationProp<any>>()
     const routes = useNavigationState(state => state.routes)
     const isFocused = useIsFocused();
-
+console.log(routes,'routes')
     const style = useThemeAwareObject(customStyle);
 
     const { isLoading, writerDetailData,
@@ -60,9 +60,9 @@ export const WritersDetailScreen = ({
     const [allOpinionLoaded, setAllOpinionLoaded] = useState<boolean>(false)
 
     const detailRoutes = useMemo(() => routes.filter((routes) =>
-        routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
-        routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-        routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+        routes.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+        routes.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+        routes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
     const noOfDetailRoutes = detailRoutes.length
 
     useEffect(() => {

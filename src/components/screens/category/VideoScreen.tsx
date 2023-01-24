@@ -83,7 +83,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
     ))
   }
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
   }
   const updatedChangeBookmark = (data: VideoItemType[], index: number) => {
     const updatedData = [...data]
@@ -112,7 +112,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
     }
     
     const updatedData = updatedChangeBookmark(data, index)
-    if(data == videoDataInfo){
+    if(data === videoDataInfo){
       setVideoDataInfo(updatedData)
     }else{
       setVideoDocumentaryInfo(updatedData);

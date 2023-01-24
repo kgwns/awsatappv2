@@ -29,7 +29,9 @@ export const LiveBlogTag = ({ isImageTag = false, enableTopMargin = false, isTex
             }
             appState.current = nextAppState;
         });
-        return () => { subscription.remove(); };
+        return () => { 
+            subscription.remove(); 
+        };
     }, [animationRef]);
 
     // const renderLiveIcon = () => {

@@ -152,7 +152,7 @@ export const LatestNewsScreen = () => {
       return
     }
     
-    const index = sectionComboOneInfo.findIndex((item) => item.nid == nid)
+    const index = sectionComboOneInfo.findIndex((item) => item.nid === nid)
     const updatedData = updatedChangeBookmark(sectionComboOneInfo, index)
     setSectionComboOneInfo(updatedData)
   }
@@ -174,7 +174,7 @@ export const LatestNewsScreen = () => {
       return
     }
 
-    const index = sectionComboTwoInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboTwoInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboTwoInfo, index)
     setSectionComboTwoInfo(updatedData)
   }
@@ -196,7 +196,7 @@ export const LatestNewsScreen = () => {
       return
     }
 
-    const index = sectionComboThreeInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboThreeInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboThreeInfo, index)
     setSectionComboThreeInfo(updatedData)
   }
@@ -219,14 +219,14 @@ export const LatestNewsScreen = () => {
       return
     }
 
-    const index = sectionComboFour.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboFour.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboFour, index)
     setSectionComboFourInfo(updatedData)
   }
 
 
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
   }
 
   const heroListInfo = isTab ? heroList.slice(0, 1) : heroList

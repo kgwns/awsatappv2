@@ -7,14 +7,13 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
-import { getArticleImage, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getArticleImage, isNonEmptyArray } from 'src/shared/utils/utilities';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { NewsCategoriesType } from 'src/redux/latestNews/types';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 export interface AllContentData {
@@ -67,7 +66,6 @@ export const ContentForYou = () => {
     const selectedLoaderRef = useRef(true);
 
     const [selectedTrack, setSelectedTrack] = useState<any>(null);
-    const playbackState = usePlaybackState();
 
 
     useEffect(() => {
@@ -347,10 +345,10 @@ export const ContentForYou = () => {
                 widgetHeaderStyle={styles.authorWidgetHeader}
                 selectedTrack={selectedTrack}
                 lastIndexDivider={ !isNonEmptyArray(selectedTopics)}
-                showHeader={!isNonEmptyArray(selectedTopics) && index != 0 ? false : true}
+                showHeader={!isNonEmptyArray(selectedTopics) && index !== 0 ? false : true}
             />}
             
-            { (!isNonEmptyArray(selectedAuthors) && index != 0 && isNonEmptyArray(item.articleSectionData.data)) ? <View style={styles.articleContainer}> 
+            { (!isNonEmptyArray(selectedAuthors) && index !== 0 && isNonEmptyArray(item.articleSectionData.data)) ? <View style={styles.articleContainer}> 
                 <Divider style={styles.divider} /> 
                 </View>
             : 

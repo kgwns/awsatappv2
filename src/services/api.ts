@@ -9,7 +9,7 @@ const cache = setupCache({
     query: false
 }
 })
-
+const APPLICATION_JSON = 'application/json';
 const api = axios.create({
   adapter: cache.adapter
 })
@@ -21,8 +21,8 @@ export const getCacheApiRequest = (
   return api
     .get(url, {
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Content-Type': APPLICATION_JSON,
+        Accept: APPLICATION_JSON,
         Authorization: 'Bearer some_token',
       },
       ...config,
@@ -43,8 +43,8 @@ export const getApiRequest = (
   return axios
     .get(url, {
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Content-Type': APPLICATION_JSON,
+        Accept: APPLICATION_JSON,
         Authorization: 'Bearer some_token',
       },
       ...config,
@@ -65,8 +65,8 @@ export const getApiRequestWithoutAuth = (
   return axios
     .get(url, {
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Content-Type': APPLICATION_JSON,
+        Accept: APPLICATION_JSON,
       },
       ...config,
     })
@@ -98,8 +98,8 @@ export const postApiRequest = (
   return axios
     .post(url, data, {
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Content-Type': APPLICATION_JSON,
+        Accept: APPLICATION_JSON,
         ...header,
         ...tokenInfo
       },

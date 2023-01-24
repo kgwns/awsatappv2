@@ -12,7 +12,6 @@ import {ScreenContainer} from '..';
 import {useAllWriters, useAppCommon, useAppPlayer, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
-import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player';
 import { useFocusEffect, useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants/Constants';
@@ -45,7 +44,7 @@ export const OpinionArticleDetail = ({
   const [fontSize,setFontSize] = useState<ArticleFontSize>(articleFontSize)
   const { isLoading, opinionArticleDetailData, fetchOpinionArticleDetail,
     fetchRelatedOpinionData, relatedOpinionListData,
-    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData,fetchNarratedOpinionData } =
+    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData } =
     useOpinionArticleDetail();
     const { writerDetailData,
       getWriterDetailData, emptyWriterDetailData
@@ -73,14 +72,13 @@ export const OpinionArticleDetail = ({
   const [scrollY, setScrollY] = useState(new Animated.Value(0))
 
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
-  const playbackState = usePlaybackState();
   const relatedOpinionRef = useRef(true);
   const pageLoadingRef = useRef(false);
 
   const detailRoutes = useMemo(() => routes.filter((routes) =>
-    routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
-    routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-    routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+    routes.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+    routes.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+    routes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfDetailRoutes = detailRoutes.length
 
 
@@ -199,7 +197,7 @@ export const OpinionArticleDetail = ({
 
 
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
   }
 
   const validateFollow = (id: string): boolean => {

@@ -66,7 +66,7 @@ const MostReadList = ({
   },[data.rows,bookmarkIdInfo])
 
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
   }
 
   const updateArticleDataBookmark = () => {
@@ -124,7 +124,9 @@ const MostReadList = ({
     item.tagStyle = {marginLeft: normalize(20)};
     item.tagLabelType = LabelTypeProp.p3;
     item.image = item.image ? item.image : getArticleImage(item.field_image, item.field_new_photo);
-    if(flag) item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : '';
+    if(flag) {
+      item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : '';
+    }
     item.flagColor = Styles.color.greenishBlue;
     item.barColor = Styles.color.greenishBlue;
     return (
@@ -141,7 +143,7 @@ const MostReadList = ({
           titleContainerStyle={style.titleContainerStyle}
           articleItemStyle={style.articleItemStyle}
         />
-        {isLoading && (data.length - 1 == index) && (
+        {isLoading && (data.length - 1 === index) && (
           <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>

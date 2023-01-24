@@ -36,12 +36,12 @@ export const sendUserProfileApi = async (body: SendUserData) => {
 }
 
 export const updateProfileUserImage = async (body: UpdateUserImageBodyType) => {
-    var photo = {
+    const photo = {
       uri: body.image,
       type: 'image/jpeg',
       name: 'photo.jpg',
   };
-    var formData = new FormData();
+    const formData = new FormData();
     formData.append("image", photo);
     try {
       const response: UpdateUserImageSuccessPayloadType = await postApiRequest(

@@ -159,7 +159,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
           }
         </FixedTouchable>
         <Divider style={style.divider}/>
-        {isLoading && data.length - 1 == index && (
+        {isLoading && data.length - 1 === index && (
           <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>

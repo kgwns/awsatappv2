@@ -53,7 +53,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
             footerInfo={sectionComboArticleFooter}
             onPress={() => onPress(item.nid)}
             onPressBookmark={() => onUpdateBookmark(item)}
-            contentStyle={[style.spacingStyle, index == 0 && style.contentStyleFirst]}
+            contentStyle={[style.spacingStyle, index === 0 && style.contentStyleFirst]}
             showBody={false}
             labelType={LabelTypeProp.title4}
             titleStyle={style.articleTitleStyle}

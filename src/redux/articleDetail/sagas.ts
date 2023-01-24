@@ -44,7 +44,7 @@ export const updatedOpinionBundle = (articleInfo: ArticleDetailDataType, opinion
   let richHTML: HTMLElementParseStore[] = []
   if (isNonEmptyArray(opinionInfo)) {
     richHTML = articleInfo.richHTML ?? []
-    const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION && item.data.opinion == opinionInfo[0].nid)
+    const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION && item.data.opinion === opinionInfo[0].nid)
     if (opinionIndex > -1) {
       const filteredOpinion = richHTML[opinionIndex] as ArticleOpinionType
       filteredOpinion.data.opinionData = opinionInfo[0]

@@ -59,7 +59,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const [nid, setEpisode] = useState(route.params.data.nid)
   const podcastListData = route.params.podcastListData
   const { isLoading, podcastEpisodeData, fetchPodcastEpisodeRequest } = usePodcast()
-  const [isPlayerVisible, setPlayerVisibility] = useState(false)
+
   const playbackState = usePlaybackState();
   const payload: PodcastEpisodeBodyGet = {
     nid: nid
@@ -236,7 +236,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
       }
       recordLogEvent('Played_Podcast', {podcastid: podcastEpisodeInfo.nid });
-      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) {
+      if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ) {
         setPlayerTrack(trackPlayerData);
       }
       !showMiniPlayer && setShowMiniPlayer(true);

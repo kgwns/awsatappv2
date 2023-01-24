@@ -77,7 +77,9 @@ const ArticleDetailImage = ({
     }
 
     const renderTagName = () => {
-        if (!isNotEmpty(category) || isLive) return null
+        if (!isNotEmpty(category) || isLive) {
+            return null
+        }
 
         return (
             <View style={imageArticleStyle.tagNameViewStyle}>

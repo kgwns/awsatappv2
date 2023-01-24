@@ -48,7 +48,7 @@ export const PhotoGalleryScreen = React.memo(
     }, []);
 
     useEffect(() => {
-      if (page != 0) {
+      if (page !== 0) {
         fetchPhotoList(page);
       }
     }, [page]);
@@ -79,7 +79,7 @@ export const PhotoGalleryScreen = React.memo(
 
     const validateBookmark = (nid: string): boolean => {
       return isNonEmptyArray(bookmarkIdInfo)
-        ? bookmarkIdInfo.some(value => value.nid == nid)
+        ? bookmarkIdInfo.some(value => value.nid === nid)
         : false;
     };
 
@@ -93,7 +93,7 @@ export const PhotoGalleryScreen = React.memo(
         const albumList = await fetchAlbumListApi(albumBody);
         const albumListData = albumList.rows ?? [];
         setIsLoading(false);
-        if (albumData != albumListData) {
+        if (albumData !== albumListData) {
           setAlbumData((data: AlbumListItemType[]) => [
             ...data,
             ...albumListData,

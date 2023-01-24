@@ -29,7 +29,7 @@ export const ArticleDetailBody = React.memo(({
     const [dynamicHeight, setDynamicHeight] = useState<number>(0)
     const [webViewHeight, setWebViewHeight] = useState<number>(0)
 
-    var webviewRef: any =React.createRef();
+    let webviewRef: any =React.createRef();
 
     useEffect(() => {
         updateHeightValue()

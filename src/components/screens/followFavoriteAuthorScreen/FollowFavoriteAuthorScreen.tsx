@@ -26,7 +26,14 @@ export const FollowFavoriteAuthorScreen = () => {
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
-  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, updateAllWritersData, emptySendAuthorInfoData, sendSelectedFromOnboard } = useAllWriters();
+  const { isLoading, 
+    allWritersData, 
+    sentAuthorInfoData, 
+    fetchAllWritersRequest, 
+    sendSelectedWriterInfo, 
+    updateAllWritersData, 
+    emptySendAuthorInfoData, 
+    sendSelectedFromOnboard } = useAllWriters();
   const {userProfileData} = useUserProfileData();
   const [writersData, setWritersData] = useState<AllWritersItemType[]>([])
 

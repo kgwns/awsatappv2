@@ -102,7 +102,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
   }
 
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
   }
 
   const updatedChangeBookmark = (data: OpinionsListItemType[], index: number) => {

@@ -52,7 +52,7 @@ export const formatTopListToLatestArticleType = (response: any): LatestArticleDa
 }
 
 export function* fetchHeroList(action: FetchHeroListType) {
-  // console.log("saga fetchHeroList");
+
   try {
     const payload: FetchHeroListSuccessPayloadType = yield call(
       fetchNewsViewApi,
@@ -69,7 +69,7 @@ export function* fetchHeroList(action: FetchHeroListType) {
 }
 
 export function* fetchTopList(action: FetchTopListType) {
-  // console.log("saga fetchTopList");
+
   try {
     const payload: FetchTopListSuccessPayloadType = yield call(
       fetchNewsViewApi,
@@ -87,7 +87,7 @@ export function* fetchTopList(action: FetchTopListType) {
 }
 
 export function* fetchBottomList(action: FetchBottomListType) {
-  // console.log('saga fetchBottomList');
+
   try {
     const payload: FetchBottomListSuccessPayloadType = yield call(
       fetchNewsViewApi,

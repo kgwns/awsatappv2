@@ -74,7 +74,7 @@ const AuthorItem = ({
     }, [])
 
     useEffect(() => {
-      if (trackData && trackData.id == (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+      if (trackData && trackData.id === (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
         setIsBuffering(true);
       } else {
         setIsBuffering(false);
@@ -199,7 +199,9 @@ const AuthorItem = ({
                     <TouchableOpacity testID='AutherItemTO2' onPress={onPressPlay} style={style.mediaFooter}>
                         <ButtonImage
                         icon={() =>
-                            trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing || isBuffering ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                            trackData && trackData.id === (nid+'opinion') && 
+                            playbackState === State.Playing || isBuffering ? 
+                            getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                             getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                         }
                         onPress={onPressPlay} />

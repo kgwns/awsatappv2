@@ -46,15 +46,15 @@ const InfoGraphicMapWidget = ({
         </html>`;
 
     const htmlSource = { html: isNotEmpty(htmlContent) ? infoGraphicHTML({body: htmlContent}) : '<div></div>' , baseUrl:''}
-    const Flag = () =>
-        <View style={styles.flagContainer}>
-            {getSvgImages({
-                name: ImagesName.flagIcon,
-                width: styles.flag.width,
-                height: styles.flag.height,
-                style: styles.flag
-            })}
-        </View>
+    // const Flag = () =>
+    //     <View style={styles.flagContainer}>
+    //         {getSvgImages({
+    //             name: ImagesName.flagIcon,
+    //             width: styles.flag.width,
+    //             height: styles.flag.height,
+    //             style: styles.flag
+    //         })}
+    //     </View>
 
     const renderWebview = () => (
         <AutoHeightWebView

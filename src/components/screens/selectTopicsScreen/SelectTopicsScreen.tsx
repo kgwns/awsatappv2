@@ -16,7 +16,13 @@ import { fonts } from 'src/shared/styles/fonts';
 export const SelectTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
   const isFocused = useIsFocused()
-  const { isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest, updateAllSiteCategoriesData, emptySendTopicsInfoData } = useAllSiteCategories();
+  const { isLoading, 
+    allSiteCategoriesData, 
+    sentTopicsData, 
+    sendSelectedTopicInfo, 
+    fetchAllSiteCategoriesRequest, 
+    updateAllSiteCategoriesData, 
+    emptySendTopicsInfoData } = useAllSiteCategories();
   const {userProfileData} = useUserProfileData();
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [categoriesInfo, setCategoriesInfo] = useState<AllSiteCategoriesItemType[]>([])

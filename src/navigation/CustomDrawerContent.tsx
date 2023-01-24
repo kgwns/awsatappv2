@@ -121,8 +121,8 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
   const getWeatherIcon = () => {
     const mainData = getMainData(fetchWeatherDetailsSuccessInfo);
-    let width = 16;
-    let height = 16;
+    const width = 16;
+    const height = 16;
     if (isStringIncludes(mainData, weatherType.rain)) {
       return <RainIcon width={width} height={height} style={styles.weatherIcon} />
     } else if (isStringIncludes(mainData, weatherType.clouds)) {
@@ -278,7 +278,6 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           : userProfileData.user?.profile_url
             ? <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.profile_url as string) }} />
             : <UserIcon />}
-        {/* {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })} */}
       </TouchableOpacity>
       <View style={styles.logoContainer}>
         {getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height, style: styles.logo })}

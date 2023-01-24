@@ -1,7 +1,13 @@
 import { BASE_URL, UMS_BASE_URL } from 'src/services/apiUrls';
 import { getApiRequest, postApiRequest } from 'src/services/api';
 import { GET_BOOK_DETAIL_INFO_END_POINT, GET_BOOK_MARK_END_POINT, REMOVE_BOOK_MARK_END_POINT, SEND_BOOK_MARK } from './apiEndPoints';
-import { GetBookmarkDetailBodyGet, GetBookmarkDetailSuccessPayload, GetBookMarkIdSuccessMessageType, RemoveBookmarkDetailDataBody, RemoveBookmarkDetailSuccessPayload, SendBookMarkBodyGet, SendBookMarkDetailSuccessPayload } from 'src/redux/bookmark/types';
+import { GetBookmarkDetailBodyGet, 
+  GetBookmarkDetailSuccessPayload, 
+  GetBookMarkIdSuccessMessageType, 
+  RemoveBookmarkDetailDataBody, 
+  RemoveBookmarkDetailSuccessPayload, 
+  SendBookMarkBodyGet, 
+  SendBookMarkDetailSuccessPayload } from 'src/redux/bookmark/types';
 
 export const sendBookMarkInfo = async (body: SendBookMarkBodyGet) => {
   try {

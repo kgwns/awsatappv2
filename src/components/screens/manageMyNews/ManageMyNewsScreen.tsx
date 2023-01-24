@@ -128,7 +128,12 @@ const MyFavoriteTopics = (props: any) => {
           </ScrollView>
         </View>}
         <View style={style.topicsContinue}>
-          <ContinueLabel label={MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} writer={false} onPressContinue={props.onPressContinue} />
+          <ContinueLabel 
+            label={MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS} 
+            goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} 
+            writer={false} 
+            onPressContinue={props.onPressContinue} 
+          />
         </View>
       </>
     )

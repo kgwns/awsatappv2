@@ -14,7 +14,6 @@ export const emailValidation = (email: string): string => {
 
 export const loginPasswordValidation = (passwordText: string): string => {
   const password = passwordText.trim()
-  const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/;
   if (password === '') {
     return i18next.t('validation.passwordEmpty');
   }

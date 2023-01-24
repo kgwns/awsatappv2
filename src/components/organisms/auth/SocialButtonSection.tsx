@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleProp, ViewStyle, StyleSheet, Alert, Platform } from 'react-native';
-// import { SocialLoginButton } from '../../atoms';
 import { SocialLoginButton } from '../../atoms/social-login-button/SocialLoginButton';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {appleAuth} from '@invertase/react-native-apple-authentication';

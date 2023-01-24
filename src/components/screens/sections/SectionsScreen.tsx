@@ -198,7 +198,7 @@ export const SectionsScreen = () => {
             key={tabIndex}
             onPress={onPressTabItem}
             tabName={item.route.title || ''}
-            isSelected={tabIndex == item.navigationState.index}
+            isSelected={tabIndex === item.navigationState.index}
             labelFont={fonts.Effra_Arbc_Regular}
           />
         }}

@@ -42,7 +42,9 @@ export const useArticleDetail = (): UseArticleDetailReturn => {
   };
 
   const sendEventToServer = (articleDetailInfo: ArticleDetailDataType[]) => {
-    if (isInvalidOrEmptyArray(articleDetailInfo)) return
+    if (isInvalidOrEmptyArray(articleDetailInfo)) {
+      return
+    }
 
     const getArticleID = () => {
       return articleDetailInfo.reduce((prevValue: string[], item: ArticleDetailDataType) => {

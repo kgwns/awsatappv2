@@ -32,7 +32,7 @@ export const ListenToArticleCard = (data: any) => {
   // }
 
   useEffect(() => {
-    if (trackData && trackData.id == (data.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id === (data.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
@@ -81,14 +81,16 @@ const onPressPlay = () => {
   }
 }
 
-  return (
+return (
     <View style={style.container}>
       <TouchableOpacity testID='ListenToArticleCardTO1' onPress={onPressPlay} style={style.listenButton}>
-        <ButtonImage
+       <ButtonImage
           hitSlop={{}}
           icon={() =>
-            trackData && trackData.id == (data.nid+'opinion') && playbackState === State.Playing || isBuffering ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
-              getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
+            trackData && trackData.id === (data.nid+'opinion') && 
+            playbackState === State.Playing || isBuffering ? 
+            getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+            getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
           }
           testId='ListenToArticleCardBI1'
           onPress={onPressPlay}

@@ -1,4 +1,4 @@
 export default {
-    getIPAddress: () => {},
-    isTablet: () => {}
+    getIPAddress: () => ({}),
+    isTablet: () => ({})
 }

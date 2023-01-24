@@ -10,7 +10,8 @@ export const DEBUG_BASE_URL = 'https://devaawsatar.srpcdigital.com/';
 
 export const getBaseUrl = (): string => {
     const serverEnvironment  = store.getState().appCommon?.serverEnvironment
-    if (serverEnvironment == 'Debug') {
+    console.log(serverEnvironment,typeof serverEnvironment,'serverEnvironment')
+    if (serverEnvironment === 'Debug') {
       return DEBUG_BASE_URL
     }
 

@@ -477,8 +477,8 @@ const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload =
   const responseData: EditorsChoiceSuccessPayload = {
     editorsChoice: []
   }
-
-  const allEditorsChoiceInfo = formattedData.filter((item) => item.blockname == MainSectionBlockName.EDITORS_CHOICE)
+  
+  const allEditorsChoiceInfo = formattedData.filter((item) => item.blockname === MainSectionBlockName.EDITORS_CHOICE)
   const sortedEditorsChoiceInfo = allEditorsChoiceInfo.sort((a, b) => parseInt(a.entityqueue_relationship_position) - parseInt(b.entityqueue_relationship_position))
   const editorsChoiceInfo = sortedEditorsChoiceInfo.splice(0, 6)
 
@@ -582,16 +582,16 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
       requestSectionCombo,
       action.payload
     );
-    if (action.type == REQUEST_SECTION_COMBO_ONE) {
+    if (action.type === REQUEST_SECTION_COMBO_ONE) {
       const response = parseSectionComboOne(payload)
       yield put(requestSectionComboOneSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_TWO) {
+    } else if (action.type === REQUEST_SECTION_COMBO_TWO) {
       const response = parseSectionComboTwo(payload)
       yield put(requestSectionComboTwoSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_THREE) {
+    } else if (action.type === REQUEST_SECTION_COMBO_THREE) {
       const response = parseSectionComboThree(payload)
       yield put(requestSectionComboThreeSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_FOUR) {
+    } else if (action.type === REQUEST_SECTION_COMBO_FOUR) {
       const response = parseSectionComboFour(payload)
       yield put(requestSectionComboFourSuccess(response));
     } else if (action.type == REQUEST_SECTION_COMBO_FIVE) {
@@ -603,7 +603,7 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
     } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
       const response = parseSectionComboSeven(payload)
       yield put(requestSectionComboSevenSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_EIGHT) {
+    } else if (action.type === REQUEST_SECTION_COMBO_EIGHT) {
       const response = parseSectionComboEight(payload)
       yield put(requestSectionComboEightSuccess(response));
     }
@@ -611,13 +611,13 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
     const errorResponse: AxiosError = error as AxiosError;
     if (errorResponse.response) {
       const errorMessage: { message: string } = errorResponse.response.data;
-      if (action.type == REQUEST_SECTION_COMBO_ONE) {
+      if (action.type === REQUEST_SECTION_COMBO_ONE) {
         yield put(requestSectionComboOneFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_TWO) {
+      } else if (action.type === REQUEST_SECTION_COMBO_TWO) {
         yield put(requestSectionComboTwoFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_THREE) {
+      } else if (action.type === REQUEST_SECTION_COMBO_THREE) {
         yield put(requestSectionComboThreeFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_FOUR) {
+      } else if (action.type === REQUEST_SECTION_COMBO_FOUR) {
         yield put(requestSectionComboFourFailed({ error: errorMessage.message }));
       } else if (action.type == REQUEST_SECTION_COMBO_FIVE) {
         yield put(requestSectionComboFiveFailed({ error: errorMessage.message }));
@@ -625,7 +625,7 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
         yield put(requestSectionComboSixFailed({ error: errorMessage.message }));
       } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
         yield put(requestSectionComboSevenFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_EIGHT) {
+      } else if (action.type === REQUEST_SECTION_COMBO_EIGHT) {
         yield put(requestSectionComboEightFailed({ error: errorMessage.message }));
       }
     }

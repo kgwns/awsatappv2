@@ -70,7 +70,7 @@ export const MyNewsWriters = () => {
         tidList.push(allSelectedWritersDetailList[i].tid)
       }
     }
-    if (isAuthorTidData != tidList) {
+    if (isAuthorTidData !== tidList) {
       setIsAuthorTidData(tidList)
     }
     return writersList;
@@ -87,11 +87,13 @@ export const MyNewsWriters = () => {
   }, [selectedAuthorsData]);
 
   useEffect(() => {
-    if (JSON.stringify(isAuthorTidData) != JSON.stringify(isAuthorTid)) {
+    if (JSON.stringify(isAuthorTidData) !== JSON.stringify(isAuthorTid)) {
       setIsAuthorTid(isAuthorTidData)
       if (isAuthorTidData.includes(selectedTid)) {
         const indexValue = isAuthorTidData.indexOf(selectedTid)
-        const authorSelected = selectedAuthorsData.data.filter((item: any) => { return item.tid.toString() == selectedTid && item });
+        const authorSelected = selectedAuthorsData.data.filter((item: any) => { 
+          return item.tid.toString() == selectedTid && item 
+        });
         onPress(authorSelected[0], indexValue)
       }
       else {

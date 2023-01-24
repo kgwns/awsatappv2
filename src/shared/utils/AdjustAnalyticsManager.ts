@@ -33,48 +33,6 @@ class AdjustAnalyticsManager {
         adjustConfig.setDelayStart(0);
         adjustConfig.setNeedsCost(true);
 
-        // adjustConfig.setAttributionCallbackListener(function (attribution) {
-        //     console.log("Attribution callback received :::::::::",attribution);
-        // });
-
-        // adjustConfig.setEventTrackingSucceededCallbackListener(function (eventSuccess) {
-        //     console.log("Event tracking succeeded callback received :::::::",eventSuccess);
-        // });
-
-        // adjustConfig.setEventTrackingFailedCallbackListener(function (eventFailed) {
-        //     console.log("Event tracking failed callback received :::::",eventFailed);
-        // });
-
-        // adjustConfig.setSessionTrackingSucceededCallbackListener(function (sessionSuccess) {
-        //     console.log("Session tracking succeeded callback received :::::::",sessionSuccess);
-        // });
-
-        // adjustConfig.setSessionTrackingFailedCallbackListener(function (sessionFailed) {
-        //     console.log("Session tracking failed callback received :::::::",sessionFailed);
-        // });
-
-        // Adjust.requestTrackingAuthorizationWithCompletionHandler(function (status) {
-        //     console.log("Authorization status update");
-        //     switch (status) {
-        //         case 0:
-        //             // ATTrackingManagerAuthorizationStatusNotDetermined case
-        //             console.log("Authorization status: ATTrackingManagerAuthorizationStatusNotDetermined");
-        //             break;
-        //         case 1:
-        //             // ATTrackingManagerAuthorizationStatusRestricted case
-        //             console.log("Authorization status: ATTrackingManagerAuthorizationStatusRestricted");
-        //             break;
-        //         case 2:
-        //             // ATTrackingManagerAuthorizationStatusDenied case
-        //             console.log("Authorization status: ATTrackingManagerAuthorizationStatusDenied");
-        //             break;
-        //         case 3:
-        //             // ATTrackingManagerAuthorizationStatusAuthorized case
-        //             console.log("Authorization status: ATTrackingManagerAuthorizationStatusAuthorized");
-        //             break;
-        //     }
-        // });
-
         if (Platform.OS === "android") {
             AdjustOaid.readOaid();
         }

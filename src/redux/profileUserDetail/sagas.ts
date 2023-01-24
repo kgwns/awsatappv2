@@ -53,7 +53,7 @@ export function* UpdateUserImage(action: UpdateUserImageType) {
       updateProfileUserImage,
       action.payload,
     );
-    //Alert.alert(payload.message.message);
+
     yield put(updateUserImageSuccess(payload));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
