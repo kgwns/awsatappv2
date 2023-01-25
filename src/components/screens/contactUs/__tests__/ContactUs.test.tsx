@@ -7,7 +7,6 @@ import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { TextInputField } from 'src/components/atoms'
 import { useNavigation } from '@react-navigation/native'
 import { useContactUs } from 'src/hooks'
-
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),

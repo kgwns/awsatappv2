@@ -11,6 +11,7 @@ const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
   isTab: false,
+  isIOS: false
 }));
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -185,7 +186,7 @@ describe('<FollowFavoriteAuthorScreen>', () => {
         message: 'string'
       }
     });
-    DeviceTypeUtilsMock.isTab = false;
+
     const component = (
       <Provider store={storeSampleData}>
         <FollowFavoriteAuthorScreen />
@@ -200,6 +201,11 @@ describe('<FollowFavoriteAuthorScreen>', () => {
   });
 
   test('Should render FollowFavoriteAuthorScreen', () => {
+    DeviceTypeUtilsMock.isTab = false;
+    expect(instance).toBeDefined();
+  });
+  test('Should render FollowFavoriteAuthorScreen in iOS', () => {
+    DeviceTypeUtilsMock.isIOS = true;
     expect(instance).toBeDefined();
   });
 

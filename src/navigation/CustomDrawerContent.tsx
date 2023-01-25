@@ -137,7 +137,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const getWeatherDetail = () => {
     return <View style={styles.menuWeatherContainer}>
       <Divider style={styles.divider} />
-      <TouchableOpacity onPress={() => navigation.navigate(ScreensConstants.WEATHER_DETAIL_SCREEN)} style={styles.weather}>
+      <TouchableOpacity testID='weatherId' onPress={() => navigation.navigate(ScreensConstants.WEATHER_DETAIL_SCREEN)} style={styles.weather}>
         <Text style={styles.weatherTitle}>
         {fetchWeatherDetailsSuccessInfo?.city.name}
         {' :'}
@@ -270,7 +270,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
   const header = () => (
     <View style={styles.headerContainer}>
-      <TouchableOpacity style={styles.headerLeft} onPress={() => {
+      <TouchableOpacity style={styles.headerLeft} testID = "profileId" onPress={() => {
         navigation.navigate(ScreensConstants.PROFILE_SETTING)
       }}>
         {useLogin().isLoggedIn && userProfileData.user?.image ?
@@ -285,6 +285,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
       </View>
       <View style={styles.headerRight}>
         <TouchableOpacity
+          testID='drawerToggleId'
           onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}>
           <CloseIcon />
         </TouchableOpacity>

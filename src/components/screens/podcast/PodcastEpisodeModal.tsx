@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { ScreenContainer } from '..';
-import { PodcastProgramHeader } from 'src/components/molecules';
+import { ScreenContainer } from 'src/components/screens/ScreenContainer/ScreenContainer';
+import { PodcastProgramHeader } from 'src/components/molecules/podcast/PodcastProgramHeader';
 import Share from 'react-native-share';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';

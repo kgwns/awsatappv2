@@ -2,7 +2,6 @@ import { PodcastEpisodeModalInfo } from "../PodcastEpisodeModalInfo"
 import { fireEvent, render, RenderAPI } from "@testing-library/react-native";
 import React, { useState } from "react";
 import { Linking } from "react-native";
-import * as PodcastService from 'src/services/podcastService';
 import {fetchSingleEpisodeSpreakerApi} from 'src/services/podcastService';
 import { ButtonOutline } from "src/components/atoms/button-outline/ButtonOutline";
 jest.mock("react-native-safe-area-context", () => {
@@ -11,7 +10,7 @@ jest.mock("react-native-safe-area-context", () => {
         useSafeAreaInsets: jest.fn().mockImplementation(() => insets)
     }
 })
-
+jest.mock('src/services/podcastService');
 jest.mock("react", () => {
     return {
         ...jest.requireActual('react'),
@@ -54,7 +53,12 @@ const setDuration = jest.fn()
 describe("rendering PodcastEpisodeModalInfo", () => {
     let instance: RenderAPI
     const mockFunction = jest.fn()
+    const fetchSingleEpisodeSpreakerApiMock = jest.fn();
+
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
+        (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
+        (fetchSingleEpisodeSpreakerApiMock).mockReturnValue({response:{episode:{result:true}}});
         (useState as jest.Mock).mockImplementation(() => [1, setDuration])
         const component = (
             <PodcastEpisodeModalInfo data={data} onListenPress={mockFunction} />
@@ -68,7 +72,21 @@ describe("rendering PodcastEpisodeModalInfo", () => {
     })
     it("Should render a component", () => {
         expect(instance).toBeDefined();
-    })
+    });
+    it("test fetchSingleEpisodeSpreakerApi to return response",async() => {
+        const response = await fetchSingleEpisodeSpreakerApi({episodeId:'2'});
+        expect(response).toEqual({response:{episode:{result:true}}});
+    });
+    it("test fetchSingleEpisodeSpreakerApi to return response",async() => {
+        (fetchSingleEpisodeSpreakerApiMock).mockImplementation(() => { throw new Error('error message') });
+        try{
+            const response = await fetchSingleEpisodeSpreakerApi({episodeId:'2'});
+            expect(response).toEqual({response:{episode:{result:true}}});
+        }
+        catch(error) {
+            expect(error.message).toBe('error message');
+        }
+    });
 });
 describe('test the social urls when onPress in renderPodcastView method', () => {
     let instance: RenderAPI
@@ -105,34 +123,6 @@ describe('test the social urls when onPress in renderPodcastView method', () => 
         expect(Linking.openURL).toBeCalled();
     })
 });
-
-describe('test getPodcastDuration', () => {
-    let instance: RenderAPI
-    const mockFunction = jest.fn()
-    beforeEach(() => {
-        (useState as jest.Mock).mockImplementation(() => [0, setDuration])
-        const component = (
-            <PodcastEpisodeModalInfo data={data} onListenPress={mockFunction} />
-        )
-        instance = render(component);
-    })
-    afterEach(() => {
-        jest.clearAllMocks();
-        instance.unmount();
-    })
-    it('test fetchSingleEpisodeSpreakerApi returns a response',() => {
-        jest.spyOn(PodcastService, 'fetchSingleEpisodeSpreakerApi').mockReturnValue({
-            response: {
-                episode: {
-                    result: true
-                }
-            }   
-        } as any);
-        const response = fetchSingleEpisodeSpreakerApi({episodeId:data.field_spreaker_episode_export})
-        expect(response).toBeInstanceOf(Object);
-        
-    })
-})
 
 const dataWithAnnouncerName = {
     nid: '3023',

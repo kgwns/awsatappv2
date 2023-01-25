@@ -365,12 +365,6 @@ export default (state = initialData, action: LatestTabAction) => {
         isLoading: false,
         spotlightArticleSection: action.payload.spotlightArticleSectionData
       }
-    case REQUEST_SPOTLIGHT_COMBO_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload.error
-      }
     case REQUEST_INFO_GRAPHIC_BLOCK:
       return {
         ...state,

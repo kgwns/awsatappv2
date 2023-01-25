@@ -11,6 +11,8 @@ import { OpinionsListItemType } from 'src/redux/opinionArticleDetail/types'
 import { WriterBannerImage } from 'src/components/molecules'
 import {useNavigation} from '@react-navigation/native';
 import { useLogin } from 'src/hooks'
+import { fetchWriterOpinionsApi } from 'src/services/opinionsService'
+import { AxiosError } from 'axios'
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -25,6 +27,15 @@ jest.mock('@react-navigation/native', () => ({
     useNavigationState: () => ([]),
     useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false,
+  isTab: false,
+  isNotchDevice: false
+}));
+
 
 jest.mock("src/hooks/useBookmark", () => ({
     useBookmark: () => {
@@ -162,6 +173,10 @@ jest.mock('src/hooks/useAllWriters', () => ({
     },
 }));
 
+jest.mock('src/services/opinionsService',() => ({
+    fetchWriterOpinionsApi: jest.fn()
+}))
+
 const sampleData: WriterDetailDataType[] = [
     {
         name: 'example',
@@ -205,11 +220,12 @@ describe('< Writer Detail >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [sampleData, writerDetailInfo]);
         (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
-        (useState as jest.Mock).mockImplementation(() => [0, page]);
+        (useState as jest.Mock).mockImplementation(() => [10, page]);
         (useState as jest.Mock).mockImplementation(() => [0, scrollY]);
         (useState as jest.Mock).mockImplementation(() => [false, isFollowed]);
         (useState as jest.Mock).mockImplementation(() => [writerData, opinionsDataInfo]);
@@ -232,6 +248,9 @@ describe('< Writer Detail >', () => {
     })
 
     test('Should render component', () => {
+        DeviceTypeUtilsMock.isIOS = true;
+        DeviceTypeUtilsMock.isTab = true;
+        DeviceTypeUtilsMock.isNotchDevice = true;
         expect(instance).toBeDefined()
     })
 
@@ -288,6 +307,26 @@ describe('< Writer Detail >', () => {
         fireEvent(element, 'onPressHome');
         expect(navigation.popToTop).toBeTruthy()
     });
+
+    test("should fetchWriterOpinionsApi returns response",async() => {
+        (fetchWriterOpinionsApi as jest.Mock).mockReturnValue({rows:[{result:true}]});
+        try {
+            const response = await fetchWriterOpinionsApi({tid:'23',page:10});
+            expect(response).toEqual({rows:[{result:true}]});
+        }
+        catch(error) {}
+    })
+
+    test("should fetchWriterOpinionsApi throws error",async() => {
+        (fetchWriterOpinionsApi as jest.Mock).mockRejectedValue({response:{data:'error'}});
+        try {
+            await fetchWriterOpinionsApi({tid:'23',page:10});
+        }
+        catch(error) {
+            const errorResponse = error as AxiosError;
+            expect(errorResponse?.response?.data).toBe('error');
+        }
+    })
 })
 
 describe('< Writer Detail >', () => {
@@ -309,6 +348,7 @@ describe('< Writer Detail >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [[], writerDetailInfo]);
@@ -386,6 +426,7 @@ describe('< Writer Detail >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [sampleData, writerDetailInfo]);

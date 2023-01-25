@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleSheet, Linking } from 'react-native';
+import { View, StyleSheet, Linking, TouchableOpacity } from 'react-native';
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
 import { Image } from 'src/components/atoms/image/Image'
 import { ButtonOutline } from "src/components/atoms/button-outline/ButtonOutline";
@@ -17,7 +17,6 @@ import { decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getD
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { podcastServices, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { usePlaybackState, State } from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
@@ -69,7 +68,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
                 const response: any = await fetchSingleEpisodeSpreakerApi({ episodeId: fieldData.field_spreaker_episode_export })
                 if (isObjectNonEmpty(response.response) && isObjectNonEmpty(response.response.episode)) {
                     const episode = response.response.episode
-                    setDuration(Math.ceil(episode.duration / 1000))
+                    setDuration(Math.round(episode.duration / 1000))
                 }
             } catch (error) {
                 console.log(error)

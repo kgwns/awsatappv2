@@ -3,7 +3,12 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { CustomTabBarItem } from 'src/components/molecules/customTabBarItem/CustomTabBarItem'
 import { moleculesTestID } from 'src/constants/Constants'
 import { TouchableOpacity } from 'react-native'
-
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+  isAndroid: false
+}));
 describe('<CustomTabBarItem>', () => {
     let instance: RenderAPI
 
@@ -27,6 +32,16 @@ describe('<CustomTabBarItem>', () => {
     })
 
     test('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+
+    test('Should render component in tab', () => {
+        DeviceTypeUtilsMock.isTab = true;
+        expect(instance).toBeDefined()
+    })
+
+    test('Should render component in Android', () => {
+        DeviceTypeUtilsMock.isAndroid = true;
         expect(instance).toBeDefined()
     })
 

@@ -288,7 +288,7 @@ describe('<ManageMyFavoriteAuthorScreen>', () => {
                 message: 'string',
                 data: [
                     {
-                        tid: '12',
+                        tid: '124',
                     },
                     {
                         tid: '13',
