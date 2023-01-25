@@ -145,10 +145,6 @@ export const GetFCMToken = () => {
 
         PushNotificationIOS.addEventListener('notification', function (notification) {
             console.log("notification>>>>>>>>>>>>>>>>>>>>>>>>>>>>", notification)
-            if (!notification) {
-                onOpenNotification(notification)
-                return
-            }
             onOpenNotification(notification)
         })
         
