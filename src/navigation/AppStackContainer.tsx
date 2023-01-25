@@ -12,7 +12,7 @@ import { ScreensConstants } from 'src/constants/Constants';
 import { useAppPlayer, useLogin } from 'src/hooks';
 import { isNotEmpty, isObjectNonEmpty, recordCurrentScreen } from 'src/shared/utils';
 import TrackPlayer from 'react-native-track-player';
-
+import { navigationRefernce } from './NavigationUtils';
 const Stack = createStackNavigator<ScreenList>();
 
 const defaultScreenOptions: StackNavigationOptions = {
@@ -62,13 +62,15 @@ const AppStackContainer = () => {
   
   return (
     <NavigationContainer
-    ref={navigationRef}
+    // ref={navigationRef}
+    ref={navigationRefernce}
+
     onReady={() => {
-      routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+      routeNameRef.current = navigationRefernce.current.getCurrentRoute().name;
     }}
     onStateChange={async () => {
       const previousRouteName = routeNameRef.current;
-      const currentRouteName = navigationRef.current.getCurrentRoute().name;
+      const currentRouteName = navigationRefernce.current.getCurrentRoute().name;
 
       if (previousRouteName !== currentRouteName) {
         recordCurrentScreen(currentRouteName);
