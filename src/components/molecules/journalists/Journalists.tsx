@@ -55,7 +55,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
         <View style={style.containerStyle}>
             {isNonEmptyArray(journalistId) && isNonEmptyArray(journalistName) && isNonEmptyArray(journalistCity) && journalistId.map((item: any, index: number) => {
                 return (
-                    <View key={index} style={[style.container, index % 2 == 0 ? style.rowViewStyle : style.columnViewStyle]}>
+                    <View key={index} style={[style.container, index % 2 === 0 ? style.rowViewStyle : style.columnViewStyle]}>
                         {item[index] && <View style={style.rowViewStyle}>
                             <Label children={journalistCity[index] + ' : '} style={style.headerLabel} />
                             <TouchableOpacity onPress={() => onPressJournalist(item)} disabled={activeJournalist[index]}>

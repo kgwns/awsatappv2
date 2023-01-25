@@ -340,7 +340,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboEightInfo.findIndex((item) => item.nid === article.nid)
+    const index = sectionComboEightInfo.findIndex((item) => item.nid == article.nid)
     const updatedData = updatedChangeBookmark(sectionComboSevenInfo, index)
     setSectionComboEightInfo(updatedData)
   }
@@ -456,7 +456,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   ))
 
   const heroListInfoOne = [...featuredArticleInfo].splice(0, 2)
-  const heroListInfoTwo = [...featuredArticleInfo].splice(2, 5)
+  // const heroListInfoTwo = [...featuredArticleInfo].splice(2, 5)
   // ENABLE WHEN TOP LIST IS REQUIRED
   // const topListData = topList.map((item: LatestArticleDataType) => (
   //   {
@@ -622,7 +622,12 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       />}
       {isNonEmptyArray(infoGraphicBlock) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false}/>
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
+      {isNonEmptyArray(opinionListData) && 
+      <AuthorSlider data={opinionListData} 
+        selectedType={selectedType} 
+        getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
+        onClose={onClose} />
+      }
       {isNonEmptyArray(podcastHome) &&
         <View>
           <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast}/>

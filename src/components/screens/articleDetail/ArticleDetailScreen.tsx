@@ -297,7 +297,9 @@ export const ArticleDetailScreen = ({
 
   const updatedRelatedArticle = (relatedData: RelatedArticleDataType[]) => {
     if (isNonEmptyArray(relatedData)) {
-      const relatedArticleListData = relatedData.filter((data) => { return data.nid != currentNId})
+      const relatedArticleListData = relatedData.filter((data) => { 
+        return data.nid !== currentNId
+      })
       const relatedArticleInfo = relatedArticleListData.map((item: RelatedArticleDataType) => {
         return {
           ...item,
@@ -361,7 +363,7 @@ export const ArticleDetailScreen = ({
   }
 
   const onPressArticle = (nid: string) => {
-    if (nid && nid!=currentNId) {
+    if (nid && nid!==currentNId) {
       stopVideoPlayer(true);
       const hasHTMLContent = isNonEmptyArray(articleDetailState) && isNonEmptyArray(articleDetailState[0].richHTML)
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});

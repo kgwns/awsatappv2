@@ -212,7 +212,9 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     if (!isObjectNonEmpty(podcastData)) {
       return null;
     }
-    const bodyInfo = isNotEmpty(podcastData?.body_export) ? podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? podcastData.field_podcast_sect_export.description : ''
+    const bodyInfo = isNotEmpty(podcastData?.body_export) ? 
+      podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? 
+      podcastData.field_podcast_sect_export.description : ''
     const description = decodeHTMLTags(bodyInfo)
     return (
       <View style={style.podcastContainer}>

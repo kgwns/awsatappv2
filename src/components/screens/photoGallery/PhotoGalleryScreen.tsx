@@ -79,7 +79,7 @@ export const PhotoGalleryScreen = React.memo(
 
     const validateBookmark = (nid: string): boolean => {
       return isNonEmptyArray(bookmarkIdInfo)
-        ? bookmarkIdInfo.some(value => value.nid === nid)
+        ? bookmarkIdInfo.some(value => value.nid == nid)
         : false;
     };
 

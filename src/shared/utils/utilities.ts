@@ -122,8 +122,8 @@ export const isStringIncludes = (data: any, searchText: string): boolean => {
 }
 
 export const timeAgo = (time: any) => {
-  var date = new Date(time);
-  var today = new Date();
+  const date = new Date(time);
+  const today = new Date();
   const threeHoursBefore = new Date(today.valueOf() - 1000 * 60 * 60 * 3);
   const isToday =   date.getDate() === today.getDate() &&  date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
   const isThreeHoursAgo = date.getHours() - threeHoursBefore.getHours() >= 3;
@@ -142,13 +142,13 @@ export type DateTimeAgoType = {
 }
 
 export const dateTimeAgo = (time: any): DateTimeAgoType => {
-  var today = new Date();
+  let today = new Date();
 
-  var startTime = moment(time).format();
-  var endTime = moment(today).format();
+  let startTime = moment(time).format();
+  let endTime = moment(today).format();
 
-  var duration = moment.duration(moment(endTime).diff(startTime));
-  var minutes = Number((duration.asMinutes()).toFixed(0));
+  let duration = moment.duration(moment(endTime).diff(startTime));
+  let minutes = Number((duration.asMinutes()).toFixed(0));
 
   const isLessThanHour = minutes < 60;
   const isLessThanTwoHours = minutes < 120;
@@ -163,7 +163,9 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
     } else if (isLessThanThreeHours) {
       return { icon: DateIcon.CLOCK, time: arabic.timeSince.sinceTwoHours }
     } if (isLessThanFourHours) {
-      return { icon: DateIcon.CLOCK, time: arabic.timeSince.sinceThreeHours }
+      return { 
+        icon: DateIcon.CLOCK, time: arabic.timeSince.sinceThreeHours 
+      }
     }
   }
 
@@ -386,7 +388,7 @@ export const getConvertedTime = (time?: number, timezone?: number) => {
 
 export const getCountryNameFromCode = ( countryCode: string) : string => {
   countries.registerLocale(arabicLang);
-  let countryName = countries.getName(countryCode, "ar");
+  const countryName = countries.getName(countryCode, "ar");
   return countryName
 }
 

@@ -107,9 +107,8 @@ const ShortArticle = ({ data, headerLeft, onPress,
     shortArticleFooter.rightIcon = () => TimeIcon(timeFormat.icon)
     shortArticleFooter.leftTitle = showLeftTitle ? item.author : ''
     shortArticleFooter.leftTitleColor = style.footerTitleColor.color
-
-    const cardStyle = (numColumns > 1 && index % 2 == 0) ? {marginRight: normalize(20)} : {}
-    const showDivider = (numColumns == 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
+    const cardStyle = (numColumns > 1 && index % 2 === 0) ? {marginRight: normalize(20)} : {}
+    const showDivider = (numColumns === 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
     const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageLandscape : style.image
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageContainerLandscape : style.imageContainer
     const isAlbum = isTypeAlbum(item.type);

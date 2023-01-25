@@ -83,28 +83,28 @@ export const WriterBannerImage = ({
     return () => subscription?.remove();
   }, []);
 
-  const ReturnButton = () => {
-    if(hideBackArrow) {
-      return null
-    }
-    return (
-      <View>
-        <TouchableOpacity
-          style={style.image}
-          onPress={onPressReturn}>
-          {getSvgImages({
-            name: ImagesName.returnSvg,
-            width: normalize(12),
-            height: normalize(8.8), 
-            style: style.prevIconStyle
-          })}
-          <Label style={style.returnLabel}>
-            {OPINION_ARTICLE_RETURN}
-          </Label>
-        </TouchableOpacity>
-      </View>
-    )
-  }
+  // const ReturnButton = () => {
+  //   if(hideBackArrow) {
+  //     return null
+  //   }
+  //   return (
+  //     <View>
+  //       <TouchableOpacity
+  //         style={style.image}
+  //         onPress={onPressReturn}>
+  //         {getSvgImages({
+  //           name: ImagesName.returnSvg,
+  //           width: normalize(12),
+  //           height: normalize(8.8), 
+  //           style: style.prevIconStyle
+  //         })}
+  //         <Label style={style.returnLabel}>
+  //           {OPINION_ARTICLE_RETURN}
+  //         </Label>
+  //       </TouchableOpacity>
+  //     </View>
+  //   )
+  // }
 
   const SubscribeButton = ({ isFollowed }: { isFollowed: boolean }) => (
     <TouchableWithoutFeedback testID={'subscribeButton'} style={[style.followContainer,

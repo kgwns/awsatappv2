@@ -7,7 +7,10 @@ import {
     getAllNotificationSuccessInfo,
     getIsMyNotificationLoading
 } from 'src/redux/keepNotified/selectors';
-import { GetListOfNotificationSuccessPayload, GetSelectedNotificationSuccessPayload, SendSelectedNotificationBody, SendSelectedNotificationSuccessPayload } from 'src/redux/keepNotified/types';
+import { GetListOfNotificationSuccessPayload, 
+    GetSelectedNotificationSuccessPayload, 
+    SendSelectedNotificationBody, 
+    SendSelectedNotificationSuccessPayload } from 'src/redux/keepNotified/types';
 import { sendSelectedNotification,getSelectedNotification,removeNotificationInfo, removeSelectedNotification, getListOfNotification } from 'src/redux/keepNotified/action';
 
 export interface UseKeepNotifiedReturn {

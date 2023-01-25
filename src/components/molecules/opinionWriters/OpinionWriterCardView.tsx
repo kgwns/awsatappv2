@@ -76,7 +76,7 @@ const OpinionWritersCardView = ({
   }, [])
 
   useEffect(() => {
-    if (trackData && trackData.id === (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id == (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);

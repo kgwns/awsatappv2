@@ -1,9 +1,31 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
-import { ArticleContentType, ArticleDetailDataType, ArticleDetailSuccessPayload, ArticleOpinionType, ArticleReadAlsoType, ArticleSectionSuccessPayload, FetchRichOpinionsBundleSuccessPayloadType, FetchRichOpinionsBundleType, GetRichArticleReadAlsoBody, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestArticleSectionType, RequestRelatedArticleType, RequestRichArticleContentBundleType, RichHTMLOpinionDataType, RichHTMLType } from './types';
+import { ArticleContentType, ArticleDetailDataType, 
+  ArticleDetailSuccessPayload, ArticleOpinionType, 
+  ArticleReadAlsoType, ArticleSectionSuccessPayload, 
+  FetchRichOpinionsBundleSuccessPayloadType, 
+  FetchRichOpinionsBundleType, GetRichArticleReadAlsoBody, 
+  HTMLElementParseStore, RelatedArticleBodyGet, 
+  RelatedArticleDataType, RelatedArticleSuccessPayload, 
+  RequestArticleDetailType, RequestArticleSectionType, 
+  RequestRelatedArticleType, RequestRichArticleContentBundleType,
+  RichHTMLOpinionDataType, RichHTMLType } from './types';
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService';
-import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_RICH_ARTICLE_READ_ALSO, REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION } from './actionType';
-import { requestArticleDetailFailed, requestArticleDetailSuccess, requestArticleSectionFailed, requestArticleSectionSuccess, requestRelatedArticleSuccess, requestRichArticleReadAlsoSuccessType, requestRichArticleReadAlsoFailedType, requestRichArticleContentBundleFailedType, requestRichArticleContentBundleSuccessType, fetchRichOpinionsBundleSuccess, fetchRichOpinionsBundleFailed } from './action';
+import { REQUEST_ARTICLE_DETAIL, 
+  REQUEST_RELATED_ARTICLE, EMPTY_DATA, 
+  REQUEST_ARTICLE_SECTION, REQUEST_RICH_ARTICLE_READ_ALSO, 
+  REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION } from './actionType';
+import { requestArticleDetailFailed, 
+  requestArticleDetailSuccess, 
+  requestArticleSectionFailed, 
+  requestArticleSectionSuccess, 
+  requestRelatedArticleSuccess, 
+  requestRichArticleReadAlsoSuccessType, 
+  requestRichArticleReadAlsoFailedType, 
+  requestRichArticleContentBundleFailedType, 
+  requestRichArticleContentBundleSuccessType, 
+  fetchRichOpinionsBundleSuccess, 
+  fetchRichOpinionsBundleFailed } from './action';
 import { isNonEmptyArray } from 'src/shared/utils';
 import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty, joinArray, getArticleImage } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';

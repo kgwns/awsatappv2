@@ -113,7 +113,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
   const changeSelectedStatus = (item: any, selected: boolean) => {
     const data = [...authorsData]
     for (let i = 0; i < data.length; i++) {
-      if (item.tid == data[i].tid) {
+      if (item.tid === data[i].tid) {
         authorsData[i].isSelected = !authorsData[i].isSelected
       }
     }

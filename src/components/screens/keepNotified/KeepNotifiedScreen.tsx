@@ -149,7 +149,6 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
     }
     if (canGoBack) {
       const selectedList = getSelectedData();
-      console.log('getselecteddata', getSelectedData())
       sendSelectedInfoRequest({ nid: joinArray(selectedList) })
     } else {
       updateNextButtonActive()

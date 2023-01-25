@@ -101,7 +101,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
                 {VIDEO_DETAIL_WATCH}
               </Label>}
               {data.views&&<Label color={colors.white} style={styles.textStyle}>|</Label>}
-              {timeFormat.icon == DateIcon.CALENDAR ? <CalendarIcon fill={colors.white} /> : <ClockIconWhite />}
+              {timeFormat.icon === DateIcon.CALENDAR ? <CalendarIcon fill={colors.white} /> : <ClockIconWhite />}
               <Label style={[styles.footerRightTextStyle,{color: colors.white}]} numberOfLines={1}>
                 {monthDate}
               </Label>

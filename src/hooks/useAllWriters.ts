@@ -8,8 +8,24 @@ import {
   getSelectedAllWritersDetailsData,
   getSelectedAuthorLoading
 } from 'src/redux/allWriters/selectors';
-import { fetchAllWriters, sendSelectedAuthor, getSelectedAuthors, emptySelectedAuthorsInfo, removeAuthor, getSelectedAuthorsSuccess, fetchAllSelectedWritersDetails, emptySendAuthorInfo, deselectAllWriters, setSelectedDataFromOnboard, emptySelectedWritersDataFromOnboard } from 'src/redux/allWriters/action';
-import { AllWritersItemType, AllWritersBodyGet, SendSelectedAuthorBody, ResponseMessage, SelectedAuthorDataType, RemoveAuthorBody,AllSelectedWritersDetailsBodyGet } from 'src/redux/allWriters/types';
+import { fetchAllWriters, 
+  sendSelectedAuthor, 
+  getSelectedAuthors, 
+  emptySelectedAuthorsInfo, 
+  removeAuthor, 
+  getSelectedAuthorsSuccess, 
+  fetchAllSelectedWritersDetails, 
+  emptySendAuthorInfo, 
+  deselectAllWriters, 
+  setSelectedDataFromOnboard, 
+  emptySelectedWritersDataFromOnboard } from 'src/redux/allWriters/action';
+import { AllWritersItemType, 
+  AllWritersBodyGet, 
+  SendSelectedAuthorBody, 
+  ResponseMessage, 
+  SelectedAuthorDataType, 
+  RemoveAuthorBody,
+  AllSelectedWritersDetailsBodyGet } from 'src/redux/allWriters/types';
 import { isNonEmptyArray } from 'src/shared/utils';
 
 export interface UseAllWritersReturn {

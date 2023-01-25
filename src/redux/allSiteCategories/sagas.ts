@@ -7,7 +7,12 @@ import {
   GetSelectedTopicsSuccessPayloadType,
   GetSelectedTopicsType,
 } from './types';
-import { fetchAllSiteCategoriesFailed, fetchAllSiteCategoriesSuccess, sendSelectedTopicFailed, sendSelectedTopicSuccess,getSelectedTopicsFailed, getSelectedTopicsSuccess,  } from './action';
+import { fetchAllSiteCategoriesFailed, 
+  fetchAllSiteCategoriesSuccess, 
+  sendSelectedTopicFailed, 
+  sendSelectedTopicSuccess,
+  getSelectedTopicsFailed, 
+  getSelectedTopicsSuccess,  } from './action';
 import { FETCH_ALL_SITE_CATEGORIES, SEND_SELECTED_TOPIC,GET_SELECTED_TOPICS, EMPTY_SELECTED_TOPICS_INFO } from './actionTypes';
 import { fetchAllSiteCategoriesApi, sendSelectedTopicsApi,getSelectedTopicsApi } from 'src/services/allSiteCategoriesService';
 

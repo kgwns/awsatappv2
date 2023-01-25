@@ -217,7 +217,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   const itemSeparator = () => <Divider style={style.divider} />;
 
   const renderRightElement = (item: SettingDataType) => {
-      if (item.title == CONST_APP_APPEARANCE) {
+      if (item.title === CONST_APP_APPEARANCE) {
           return (
               <ToggleWithLabel
                   title={isDarkMode ? CONST_DARK_MODE : CONST_LIGHT_MODE}
@@ -233,7 +233,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
                   onPress={onPressToggleServer}
               />
           );
-      } else if (item.title == CONST_EXIT) {
+      } else if (item.title === CONST_EXIT) {
           return null;
       }
 

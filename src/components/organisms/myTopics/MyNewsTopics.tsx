@@ -77,7 +77,7 @@ export const MyNewsTopics = () => {
     }, [pageCount]);
 
     useEffect(() => {
-        (!isNonEmptyArray(selectedTopics) && pageCount === 0) || (!isArticalLoading && !isNonEmptyArray(articleData))
+        (!isNonEmptyArray(selectedTopics) && pageCount == 0) || (!isArticalLoading && !isNonEmptyArray(articleData))
             ? setShowEmpty(true)
             : setShowEmpty(false);
     }, [articleData]);
@@ -128,10 +128,10 @@ export const MyNewsTopics = () => {
     };
 
     const onPress = (item: any, index: number) => {
-        if(index === selectedIndex) {
+        if(index == selectedIndex) {
             return;
         }
-        const payloadTopicsList = index === -1 ? getTopicsList() : [item.tid];
+        const payloadTopicsList = index == -1 ? getTopicsList() : [item.tid];
         if (payloadTopicsList !== selectedTopics) {
             setPageCount(0);
             setArticleData([]);
@@ -215,7 +215,7 @@ export const MyNewsTopics = () => {
                     onPress={onPress}
                     selectedIndex={selectedIndex}
                 />
-                {isArticalLoading && pageCount === 0 ? (
+                {isArticalLoading && pageCount == 0 ? (
                     <View style={styles.loaderContainer}>
                         <LoadingState />
                     </View>
