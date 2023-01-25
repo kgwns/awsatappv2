@@ -14,9 +14,13 @@ const SplashNavigation = () => {
     const theme = useColorScheme()
     const isDarkMode = isDarkTheme(theme)
     const subscription = useRef<NativeEventSubscription>(null).current
-    const[loading, setLoading] = useState(true)
 
-    useEffect(() => {setTimeout(()=>setLoading(false),4000)}, []);
+    // Commented for AMAR-1145 (Enable when video splash required)
+    // const[loading, setLoading] = useState(true)
+
+    // useEffect(() => {
+    //     setTimeout(() => setLoading(false), 4000)
+    // }, []);
 
     const { getBookmarkedId } = useBookmark()
     const { isLoggedIn } = useLogin()

@@ -145,7 +145,10 @@ export const ScreenContainer = ({
   const statusBarBackgroundColor = statusbarColor ||  isNotEmpty(backgroundColor) ? backgroundColor : themeData.backgroundColor;
   return (
       <SafeAreaView
-        style={[style.container, !isLandscape && {width: screenWidth, height: screenHeight}, isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor} ]} // Intensively added inline style to update screen size when rotate
+        style={[style.container,
+          !isLandscape && {width: screenWidth, height: screenHeight},
+          isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor}
+        ]} // Intensively added inline style to update screen size when rotate
         edges={edge ? edge : ['left', 'right', 'top']}>
         {showHeader && header(headerTitle)}
         <StatusBar

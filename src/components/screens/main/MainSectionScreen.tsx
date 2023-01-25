@@ -114,7 +114,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   const _sectionComboSevenTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SEVEN})
   const _sectionComboEightTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_EIGHT})
   const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
-  // const EDITORS_PICK_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITORS_PICK_HEADER_TITLE})
   const _archivedArticleTitle = TranslateConstants({key: TranslateKey.ARCHIVED_ARTICLE_SECTION_TITLE})
 
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
@@ -125,7 +124,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     // topList,  // enable when toplist is required
     opinionList,podcastHome,
     sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour, sectionComboFive, sectionComboSix, sectionComboSeven, sectionComboEight,
-    coverage, featuredArticle, horizontalArticle, editorsChoice, spotlight, spotlightArticleSection, infoGraphicBlock, archivedArticleSection,
+    coverage, featuredArticle, editorsChoice, spotlight, spotlightArticleSection, infoGraphicBlock, archivedArticleSection,
     coverageInfoLoaded, featuredArticleLoaded, horizontalArticleLoaded,
     opinionLoaded, podcastHomeLoaded, editorChoiceLoaded,
     sectionComboOneLoaded, sectionComboTwoLoaded, sectionComboThreeLoaded,

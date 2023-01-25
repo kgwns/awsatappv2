@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
-import { View, FlatList, StyleSheet} from 'react-native';
+import React, { useRef } from 'react';
+import { View, StyleSheet} from 'react-native';
 import { horizontalEdge } from 'src/shared/utils';
-import { TabBarComponent, TabBarDataProps, SignupAlertCard } from 'src/components/molecules';
+import { TabBarDataProps, SignupAlertCard } from 'src/components/molecules';
 import { ScreenContainer } from '..';
 import { Archives } from 'src/components/organisms';
 import {useLogin} from 'src/hooks';
@@ -27,8 +27,6 @@ export const FavoriteScreen = () => {
     }
   ]
 
-  const [tabItem, setTabItem] = useState<TabBarDataProps[]>(tabItemData);
-  const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
   const showupUp = useRef(!isLoggedIn)
 
   const style = useThemeAwareObject(customStyle);
@@ -40,20 +38,6 @@ export const FavoriteScreen = () => {
       global.refFlatList = ref;
     }, [])
   );
-
-
-
-  // const onPressTabItem = (index: number) => {
-  //   const tabData = tabItem
-  //   tabData[tabSelectedIndex].isSelected = false;
-  //   tabData[index].isSelected = true;
-  //   setTabItem(tabData)
-  //   setTabSelectedIndex(index);
-  // };
-
-  // const renderTabBarComponent = () => (
-  //   <TabBarComponent tabItem={tabItem} onPressTabItem={onPressTabItem} />
-  // );
 
   const renderArchives = () => (
     <View style={style.container}>

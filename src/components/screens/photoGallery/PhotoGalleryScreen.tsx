@@ -9,7 +9,6 @@ import {PopUpType} from 'src/components/organisms/popUp/PopUp';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {PhotoGalleryItem} from 'src/components/molecules';
 import {Label, LabelTypeProp, LoadingState} from 'src/components/atoms';
-// import {PHOTO_GALLERY} from 'src/constants/Constants';
 import {Styles} from 'src/shared/styles';
 import {fonts} from 'src/shared/styles/fonts';
 import {

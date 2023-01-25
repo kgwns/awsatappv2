@@ -127,7 +127,7 @@ export const OpinionArticleDetail = ({
   useEffect(() => {
     pageLoadingRef.current = false;
     if (isNonEmptyArray(relatedOpinionListData) && isFocused) {
-      const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid != currentNId})
+      const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid !== currentNId})
       setrelatedOpinioninfo(relatedOpinionData)
     }
   }, [relatedOpinionListData])

@@ -235,7 +235,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     weatherDataDetails[index].selected = true;
     setWeatherDataDetails(weatherUpdates);
     setWeatherListDetails(fetchWeatherDetailsSuccessInfo?.list[index])
-    if (index == 0 && fetchWeatherDetailsVisibilitySuccessInfo?.visibility) {
+    if (index === 0 && fetchWeatherDetailsVisibilitySuccessInfo?.visibility) {
       setWeatherDataVisibility(fetchWeatherDetailsVisibilitySuccessInfo?.visibility)
     } else {
       setWeatherDataVisibility('')

@@ -784,6 +784,28 @@ enum flatListUniqueKey {
     ARTICLE_IMAGE_VIEW = 'ArticleImageView',
 }
 
+const articleSampleImageUrl = 'https://picsum.photos/200/300'
+const mediaSampleImageUrl = 'https://picsum.photos/300/200'
+const podcastSampleTitle = 'عنوان لبرنامج البودكاست'
+const podcastSampleAnnouncer = 'مع اسم المذيع'
+const mostPlayedSampleImageUrl = 'https://picsum.photos/200'
+const mostPlayedSampleTitle = 'عنوان لملخص آخر أخبار اليوم'
+const summarySampleTitle = 'ملخص آخر أخبار اليوم'
+const summarySampleTitle2 = 'ملخص آخر أخبار الجمعة'
+const summarySampleDescription = 'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. '
+const storyWidgetSampleDescription = 'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى'
+const storyWidgetSampleButtonTitle = 'امرأ المقالة'
+const storyWidgetSampleThumbnail = 'https://picsum.photos/100'
+const sampleVideoTitle = 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات'
+const sampleVideoDescription = 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.'
+const podcastSampleViewNode = "http://srpcawsatdev.prod.acquia-sites.com/node/111"
+const podcastSampleEpisodeTitle = "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص"
+const podcastSectSampleTitle = "صباح الخير"
+const podcastSectSampleUrl = "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842"
+const podcastSectSampleDescription = "<p class=\"text-align-right\">Breifing</p>\n"
+const podcastSectSampleDesktopImageUrl = "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg"
+const podcastSectSampleMobileImageUrl = "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg"
+
 const storeInfo = [
     {
         appCommon: {
@@ -1108,7 +1130,7 @@ const sampleTextWithFlag: TextWithFlagProps = {
 
 const shortArticleData: ShortArticleProps[] = [
     {
-        image: 'https://picsum.photos/200/300',
+        image: articleSampleImageUrl,
         created: `لكن لا بد أن كل هذه الأفكار`,
         body: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
         nid: '2982411',
@@ -1117,7 +1139,7 @@ const shortArticleData: ShortArticleProps[] = [
         title: 'الأفكار'
     },
     {
-        image: 'https://picsum.photos/200/300',
+        image: articleSampleImageUrl,
         created: `لكن لا بد أن كل هذه الأفكار`,
         body: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
         nid: '2982411',
@@ -1140,7 +1162,7 @@ const heroSectionProperties = {
 }
 
 const sortArticleWithTag = {
-    image: 'https://picsum.photos/200/300',
+    image: articleSampleImageUrl,
     title: 'ميقاتي: استقالة قرداحي كانت ضرورية',
     titleColor: Styles.color.black,
     flag: 'استنكار',
@@ -1190,7 +1212,7 @@ const articleFooterSample: articleFooterProps = {
 };
 
 const mostReadItem = {
-    image: 'https://picsum.photos/200/300',
+    image: articleSampleImageUrl,
     title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
     body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
     flag: 'استنكار',
@@ -1654,46 +1676,46 @@ const opinionWritersArticlesData: any = {
 
 const podcastCardSectionData: podcastCardProps[] = [
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        podcastTitle: 'عنوان لبرنامج البودكاست',
-        announcerName: 'مع اسم المذيع',
+        imageUrl: mediaSampleImageUrl,
+        podcastTitle: podcastSampleTitle,
+        announcerName: podcastSampleAnnouncer,
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        podcastTitle: 'عنوان لبرنامج البودكاست',
-        announcerName: 'مع اسم المذيع',
+        imageUrl: mediaSampleImageUrl,
+        podcastTitle: podcastSampleTitle,
+        announcerName: podcastSampleAnnouncer,
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        podcastTitle: 'عنوان لبرنامج البودكاست',
-        announcerName: 'مع اسم المذيع',
+        imageUrl: mediaSampleImageUrl,
+        podcastTitle: podcastSampleTitle,
+        announcerName: podcastSampleAnnouncer,
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        podcastTitle: 'عنوان لبرنامج البودكاست',
-        announcerName: 'مع اسم المذيع',
+        imageUrl: mediaSampleImageUrl,
+        podcastTitle: podcastSampleTitle,
+        announcerName: podcastSampleAnnouncer,
     },
 ];
 
 const mostPlayedSectionData: ArticleRectangleCardProps[] = [
     {
         trendingNumber: 1,
-        imageUrl: 'https://picsum.photos/200',
-        title: 'عنوان لملخص آخر أخبار اليوم',
+        imageUrl: mostPlayedSampleImageUrl,
+        title: mostPlayedSampleTitle,
         footerRight: 'الخميس',
         footerLeft: '45 دقيقه',
     },
     {
         trendingNumber: 2,
-        imageUrl: 'https://picsum.photos/200',
-        title: 'عنوان لملخص آخر أخبار اليوم',
+        imageUrl: mostPlayedSampleImageUrl,
+        title: mostPlayedSampleTitle,
         footerRight: 'الخميس',
         footerLeft: '45 دقيقه',
     },
     {
         trendingNumber: 3,
-        imageUrl: 'https://picsum.photos/200',
-        title: 'عنوان لملخص آخر أخبار اليوم',
+        imageUrl: mostPlayedSampleImageUrl,
+        title: mostPlayedSampleTitle,
         footerRight: 'الخميس',
         footerLeft: '45 دقيقه',
     },
@@ -1701,50 +1723,50 @@ const mostPlayedSectionData: ArticleRectangleCardProps[] = [
 
 const LatestNewsSummarySectionData: NewsWithImageItemProps[] = [
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار اليوم',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار الجمعة',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle2,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار اليوم',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار الجمعة',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle2,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار اليوم',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار الجمعة',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle2,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
@@ -1752,7 +1774,7 @@ const LatestNewsSummarySectionData: NewsWithImageItemProps[] = [
 
 
 const editPickData: NewsWithImageItemProps = {
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: mediaSampleImageUrl,
     highlightedTitle: 'إسم البودكاست',
     title: 'عنوان حلثه البودكاست',
     footerRightLabel: 'الخميس',
@@ -1762,7 +1784,7 @@ const editPickData: NewsWithImageItemProps = {
 const EditorsPickSectionData: NewsWithImageItemProps[] = Array(5).fill(editPickData)
 
 const podcastForYouInfo = {
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: mediaSampleImageUrl,
     highlightedTitle: 'إسم البودكاست',
     title: 'قضية الطفل المغربي ريان بين أهمية القصة الإنسانية إعلامياً',
 }
@@ -1770,8 +1792,8 @@ const podcastForYouInfo = {
 const podcastForYouSection = Array(5).fill(podcastForYouInfo)
 
 const podcastOpinionData: ArticleRectangleCardProps = {
-    imageUrl: 'https://picsum.photos/200',
-    title: 'عنوان لملخص آخر أخبار اليوم',
+    imageUrl: mostPlayedSampleImageUrl,
+    title: mostPlayedSampleTitle,
     footerRight: 'الخميس',
     footerLeft: '45 دقيقه',
 }
@@ -1782,28 +1804,25 @@ const storyWidgetItemData: StoryListItemProps[] = [
         id: '1',
         imageUrl: 'https://picsum.photos/500',
         title: 'كوفيد-19',
-        description:
-            'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
+        description: storyWidgetSampleDescription,
+        buttonTitle: storyWidgetSampleButtonTitle,
+        thumbNail: storyWidgetSampleThumbnail,
     },
     {
         id: '2',
         imageUrl: 'https://picsum.photos/400',
         title: 'رحلة إلى المريخ',
-        description:
-            'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
+        description: storyWidgetSampleDescription,
+        buttonTitle: storyWidgetSampleButtonTitle,
+        thumbNail: storyWidgetSampleThumbnail,
     },
     {
         id: '3',
         imageUrl: 'https://picsum.photos/600',
         title: 'كوفيد-19',
-        description:
-            'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
+        description: storyWidgetSampleDescription,
+        buttonTitle: storyWidgetSampleButtonTitle,
+        thumbNail: storyWidgetSampleThumbnail,
     },
 ];
 
@@ -1812,10 +1831,9 @@ const storyWidgetDataInfo = {
     id: '1',
     imageUrl: 'https://picsum.photos/500',
     title: 'رحلة إلى المريخ',
-    description:
-        'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-    buttonTitle: 'امرأ المقالة',
-    thumbNail: 'https://picsum.photos/100',
+    description: storyWidgetSampleDescription,
+    buttonTitle: storyWidgetSampleButtonTitle,
+    thumbNail: storyWidgetSampleThumbnail,
 }
 
 const storyWidgetData: StoryListProps[] = [
@@ -1854,11 +1872,11 @@ const storyWidgetData: StoryListProps[] = [
 ];
 
 const videoTabInfo: VideoItemProps = {
-    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    title: sampleVideoTitle,
     imageUrl: 'https://picsum.photos/400',
     videoLabel: 'أمريكا',
     time: '05:22',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    des: sampleVideoDescription,
     date: '7 ديسمبر ',
     views: '1374',
     shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
@@ -1870,9 +1888,9 @@ const videoTabData: VideoItemProps[] = Array(5).fill(videoTabInfo)
 
 const newsFeedInfo: NewsFeedProps = {
     title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: mediaSampleImageUrl,
     videoLabel: 'أمريكا',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    des: sampleVideoDescription,
     month: 'ديسمبر',
     date: '7',
     titleColor: Styles.color.black,
@@ -1886,22 +1904,22 @@ const PodcastEpisodeData: any = [
     {
         nid: "29",
         type: "podcast",
-        view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
+        view_node: podcastSampleViewNode,
         field_new_sub_title_export: null,
-        title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",
+        title: podcastSampleEpisodeTitle,
         field_duration_export: null,
         field_episode_export: null,
         field_google_podcast_export: null,
         field_podcast_image_export: null,
         field_podcast_sect_export: {
             id: "94842",
-            title: "صباح الخير",
-            url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842",
+            title: podcastSectSampleTitle,
+            url: podcastSectSampleUrl,
             bundle: "podcast_section",
-            description: "<p class=\"text-align-right\">Breifing</p>\n",
-            img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
-            img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
-            name: "صباح الخير"
+            description: podcastSectSampleDescription,
+            img_podcast_desktop: podcastSectSampleDesktopImageUrl,
+            img_podcast_mobile: podcastSectSampleMobileImageUrl,
+            name: podcastSectSampleTitle
         },
         field_spotify_export: null,
         field_spreaker_episode_export: null,
@@ -1916,22 +1934,22 @@ const PodcastListData: any = [
     {
         nid: "29",
         type: "podcast",
-        view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
+        view_node: podcastSampleViewNode,
         field_new_sub_title_export: null,
-        title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",
+        title: podcastSampleEpisodeTitle,
         field_duration_export: null,
         field_episode_export: null,
         field_google_podcast_export: null,
         field_podcast_image_export: null,
         field_podcast_sect_export: {
             id: "94842",
-            title: "صباح الخير",
-            url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842",
+            title: podcastSectSampleTitle,
+            url: podcastSectSampleUrl,
             bundle: "podcast_section",
-            description: "<p class=\"text-align-right\">Breifing</p>\n",
-            img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
-            img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
-            name: "صباح الخير"
+            description: podcastSectSampleDescription,
+            img_podcast_desktop: podcastSectSampleDesktopImageUrl,
+            img_podcast_mobile: podcastSectSampleMobileImageUrl,
+            name: podcastSectSampleTitle
         },
         field_spotify_export: null,
         field_spreaker_episode_export: null,
@@ -1943,22 +1961,22 @@ const PodcastListData: any = [
     {
         nid: "111",
         type: "podcast",
-        view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
+        view_node: podcastSampleViewNode,
         field_new_sub_title_export: null,
-        title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",
+        title: podcastSampleEpisodeTitle,
         field_duration_export: null,
         field_episode_export: null,
         field_google_podcast_export: null,
         field_podcast_image_export: null,
         field_podcast_sect_export: {
             id: "94842",
-            title: "صباح الخير",
-            url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842",
+            title: podcastSectSampleTitle,
+            url: podcastSectSampleUrl,
             bundle: "podcast_section",
-            description: "<p class=\"text-align-right\">Breifing</p>\n",
-            img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
-            img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
-            name: "صباح الخير"
+            description: podcastSectSampleDescription,
+            img_podcast_desktop: podcastSectSampleDesktopImageUrl,
+            img_podcast_mobile: podcastSectSampleMobileImageUrl,
+            name: podcastSectSampleTitle
         },
         field_spotify_export: null,
         field_spreaker_episode_export: null,
@@ -1970,14 +1988,14 @@ const PodcastListData: any = [
 ];
 
 const PodcastProgramInfoData: PodcastProgramInfoProps = {
-    imageUrl: 'https://picsum.photos/200',
-    title: 'عنوان لبرنامج البودكاست',
-    announcer: 'مع اسم المذيع',
+    imageUrl: mostPlayedSampleImageUrl,
+    title: podcastSampleTitle,
+    announcer: podcastSampleAnnouncer,
     description: 'أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت.',
     data: PodcastEpisodeData as PodcastVerticalListProps[],
 }
 const articleSampleData = {
-    image: 'https://picsum.photos/200/300',
+    image: articleSampleImageUrl,
     title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
     body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
     tagName: 'الحكومة',
@@ -1985,20 +2003,20 @@ const articleSampleData = {
 const videoArchiveData: VideoItemProps[] = [
     {
         title:
-            'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-        imageUrl: 'https://picsum.photos/300/200',
+        sampleVideoTitle,
+        imageUrl: mediaSampleImageUrl,
         videoLabel: 'أمريكا',
-        des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+        des: sampleVideoDescription,
         isBookmarked: true,
         onPressBookmark: () => { },
     },
     {
         title:
-            'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-        imageUrl: 'https://picsum.photos/300/200',
+        sampleVideoTitle,
+        imageUrl: mediaSampleImageUrl,
         videoLabel: 'أمريكا',
         time: '05:22',
-        des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+        des: sampleVideoDescription,
         date: '7 ديسمبر ',
         views: '1374',
         toWatchTitle: 'ديسمبر',
@@ -2007,10 +2025,10 @@ const videoArchiveData: VideoItemProps[] = [
     },
     {
         title:
-            'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-        imageUrl: 'https://picsum.photos/300/200',
+        sampleVideoTitle,
+        imageUrl: mediaSampleImageUrl,
         videoLabel: 'أمريكا',
-        des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+        des: sampleVideoDescription,
         isBookmarked: true,
         onPressBookmark: () => { },
     },
@@ -2037,7 +2055,7 @@ const myNewsTopTabData = [
 ]
 
 const journalistDatum = {
-    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    title: sampleVideoTitle,
     image: 'https://static.srpcdigital.com/styles/1037xauto/public/2022-08/52858.jpg?itok=btM-vIUF',
     news_categories: [{
         title: 'أمريكا',

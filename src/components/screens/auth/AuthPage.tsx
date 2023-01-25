@@ -44,7 +44,6 @@ export const AuthPage: FunctionComponent = () => {
   const COMMON_ALERT = TranslateConstants({key:TranslateKey.COMMON_ALERT})
   const COMMON_NO_INTERNET_CONNECTION = TranslateConstants({key:TranslateKey.COMMON_NO_INTERNET_CONNECTION})
   const COMMON_OK = TranslateConstants({key:TranslateKey.COMMON_OK})
-  // const COMMON_SOMETHING_WENT_WRONG = TranslateConstants({key:TranslateKey.COMMON_SOMETHING_WENT_WRONG})
   const CONST_TERMS_AND_CONDITION = TranslateConstants({key:TranslateKey.TERMS_AND_CONDITION})
   const SIGNIN_SKIP = TranslateConstants({key:TranslateKey.SIGNIN_SKIP})
   const SIGNIN_AGREE_TO = TranslateConstants({key:TranslateKey.SIGNIN_AGREE_TO})
@@ -79,11 +78,6 @@ export const AuthPage: FunctionComponent = () => {
     message: COMMON_NO_INTERNET_CONNECTION,
     buttonTitle: COMMON_OK,
   };
-  // const somthingWentWrong: AlertPayloadType = {
-  //   title: COMMON_ALERT,
-  //   message: COMMON_SOMETHING_WENT_WRONG,
-  //   buttonTitle: COMMON_OK,
-  // };
 
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const [alertPayload, setAlertPayload] =
