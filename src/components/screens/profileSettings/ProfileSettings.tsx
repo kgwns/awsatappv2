@@ -228,7 +228,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
       } else if (item.title === CONST_CHANGE_ENVIRONMENT) {
           return (
               <ToggleWithLabel
-                  title={serverEnvironment == ServerEnvironment.DEBUG ? PROFILE_SETTING_DEBUG: PROFILE_SETTING_PRODUCTION}
+                  title={serverEnvironment === ServerEnvironment.DEBUG ? PROFILE_SETTING_DEBUG: PROFILE_SETTING_PRODUCTION}
                   isActive={serverEnvironment === ServerEnvironment.DEBUG ? true : false}
                   onPress={onPressToggleServer}
               />

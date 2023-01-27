@@ -21,7 +21,6 @@ const hideHeader = {
   headerShown: false,
 }
 
-// const USER_DETAIL_HEADER_TITLE = TranslateConstants({key:TranslateKey.USER_DETAIL_HEADER_TITLE})
 
 const AppNavigator = () => {
   const navigation = useNavigation();

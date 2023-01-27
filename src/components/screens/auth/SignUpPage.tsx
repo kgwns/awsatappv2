@@ -75,7 +75,6 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const CONST_OK = TranslateConstants({key:TranslateKey.COMMON_OK});
   const CONST_ALERT = TranslateConstants({key:TranslateKey.COMMON_ALERT});
   const COMMON_NO_INTERNET_CONNECTION = TranslateConstants({key:TranslateKey.COMMON_NO_INTERNET_CONNECTION})
-  // const COMMON_SOMETHING_WENT_WRONG = TranslateConstants({key:TranslateKey.COMMON_SOMETHING_WENT_WRONG})
   const SIGNUP_RETURN = TranslateConstants({key:TranslateKey.SIGNUP_RETURN})
   const SIGNUP = TranslateConstants({key:TranslateKey.SIGNUP})
   const SIGNUP_CREATE_ACCOUNT = TranslateConstants({key:TranslateKey.SIGNUP_CREATE_ACCOUNT})
@@ -89,11 +88,6 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
     message: COMMON_NO_INTERNET_CONNECTION,
     buttonTitle: CONST_OK,
   };
-  // const somthingWentWrong: AlertPayloadType = {
-  //   title: CONST_ALERT,
-  //   message: COMMON_SOMETHING_WENT_WRONG,
-  //   buttonTitle: CONST_OK,
-  // };
 
   const [alertPayload, setAlertPayload] =
     useState<AlertPayloadType>(noInternetConnection);

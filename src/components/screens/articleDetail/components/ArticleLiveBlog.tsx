@@ -14,7 +14,7 @@ export const ArticleLiveBlog = React.memo(({
 }: ArticleLiveBlogProps) => {
 
     const style = useThemeAwareObject(customStyle);
-    var webviewRef: any = React.createRef();
+    let webviewRef: any = React.createRef();
     const liveBlogUrl = `${LIVE_BLOG_URL}${scribbleId}`;
 
     const onNavigationStateChange = (event) => {

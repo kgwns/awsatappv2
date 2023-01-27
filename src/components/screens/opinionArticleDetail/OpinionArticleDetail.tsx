@@ -128,7 +128,7 @@ export const OpinionArticleDetail = ({
     pageLoadingRef.current = false;
     if (isNonEmptyArray(relatedOpinionListData) && isFocused) {
       const relatedOpinionData = relatedOpinionListData.filter((data) => { 
-        return data.nid != currentNId
+        return data.nid !== currentNId
       })
       setrelatedOpinioninfo(relatedOpinionData)
     }

@@ -157,10 +157,10 @@ export const SectionsScreen = () => {
       }))
 
       const previousData = routeData[index];
-      let oldChildSection = [...previousData.child]
-      const lastSelectedIndex = oldChildSection.findIndex((item) => item.isSelected == true);
+      const oldChildSection = [...previousData.child]
+      const lastSelectedIndex = oldChildSection.findIndex((item) => item.isSelected === true);
       if (lastSelectedIndex > -1 && isNonEmptyArray(oldChildSection[lastSelectedIndex].child)) {
-        let updatedLatestChild = oldChildSection[lastSelectedIndex]
+        const updatedLatestChild = oldChildSection[lastSelectedIndex]
         const updatedLatestSubChild = updatedLatestChild.child?.map((childItem: TopMenuItemType) => ({ ...childItem, isSelected: false }));
         updatedLatestChild.child = updatedLatestSubChild
         oldChildSection[lastSelectedIndex] = updatedLatestChild;

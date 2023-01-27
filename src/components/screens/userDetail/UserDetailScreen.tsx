@@ -205,13 +205,13 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   useEffect(()=>{
     if(isNotEmpty(name)){
-      setDisableName(!(userProfileData.user?.display_name == name))
+      setDisableName(!(userProfileData.user?.display_name === name))
     }
     else{
       setDisableName(false)
     }
     if(isNotEmpty(occupation)){
-      setDisableOccupation(!(userProfileData.user?.occupation == occupation))
+      setDisableOccupation(!(userProfileData.user?.occupation === occupation))
     }
     else{
       setDisableOccupation(false)
@@ -357,7 +357,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       display_name: name ?? '',
       first_name: name ?? '',
       birthday:
-        selectedDate.toString() != USER_DETAIL_SELECT_BIRTHDAY_TEXT
+        selectedDate.toString() !== USER_DETAIL_SELECT_BIRTHDAY_TEXT
           ? getFormattedDate(date)
           : userProfileData.user?.birthday
           ? getFormattedDate(userProfileData.user?.birthday)
