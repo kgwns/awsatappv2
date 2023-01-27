@@ -44,7 +44,9 @@ export const PopUp = ({
     const [height, setheight] = useState(0.85 * screenHeight)
 
     useEffect(() => {
-        if (type === PopUpType.rbSheet) { (showPopUp) ? refRBSheet.open() : refRBSheet.close() }
+        if (type === PopUpType.rbSheet) { 
+            (showPopUp) ? refRBSheet.open() : refRBSheet.close() 
+        }
     }, [showPopUp])
     
     const isPortrait = () => {

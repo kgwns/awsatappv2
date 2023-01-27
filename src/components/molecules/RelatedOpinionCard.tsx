@@ -32,7 +32,7 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
   const CONST_LISTEN_TO_ARTICLE = TranslateConstants({key:TranslateKey.LISTEN_TO_ARTICLE});
 
   useEffect(() => {
-    if (trackData && trackData.id === (item.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id == (item.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
@@ -153,7 +153,7 @@ const onPressPlay = () => {
           <TouchableOpacity testID='RelatedOpinionCardTO2' onPress={onPressPlay} style={style.footer}>
             <ButtonImage
               icon={() =>
-                trackData && trackData.id === (item.nid+'opinion') && 
+                trackData && trackData.id == (item.nid+'opinion') && 
                 playbackState === State.Playing || isBuffering ? 
                 getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                 getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})

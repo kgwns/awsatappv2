@@ -1,12 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { BookmarkDetailDataType, BookmarkIdSuccessDataFieldType, RemoveBookmarkDetailDataBody, SendBookMarkBodyGet, SendBookMarkSuccessInfoType } from 'src/redux/bookmark/types';
-import { getAllBookmark, getBookmarkedDetailSuccessInfo, getBookmarkError, getBookmarkLoading, getBookMarkSuccessInfo, getFilteredBookmarkDetailInfo, getIsLoading, getRefreshBookmarkDetail } from 'src/redux/bookmark/selectors';
-import { getBookmarked, getBookmarkedDetailInfo, getBookMarkedSuccess, removeBookmarked, sendBookMarkId, updateBookMarkedDetailInfo, updateFilteredBookMarkedInfo } from 'src/redux/bookmark/action';
+import { getAllBookmark, 
+  getBookmarkedDetailSuccessInfo, 
+  getBookmarkError, 
+  getBookmarkLoading, 
+  getBookMarkSuccessInfo, 
+  getFilteredBookmarkDetailInfo, 
+  getIsLoading, 
+  getRefreshBookmarkDetail } from 'src/redux/bookmark/selectors';
+import { getBookmarked, 
+  getBookmarkedDetailInfo, 
+  getBookMarkedSuccess, 
+  removeBookmarked, 
+  sendBookMarkId, 
+  updateBookMarkedDetailInfo, 
+  updateFilteredBookMarkedInfo } from 'src/redux/bookmark/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 import { isArray, isNonEmptyArray, joinArray, recordLogEvent } from 'src/shared/utils';
 import { getProfileUserDetails } from 'src/redux/profileUserDetail/selectors';
 import { PopulateWidgetType } from 'src/components/molecules';
-// import { filterNidInfoFromNodeList } from 'src/redux/bookmark/sagas';
 import { isNotEmpty, spliceArray } from 'src/shared/utils';
 
 const filterNidInfoFromNodeList = (data: BookmarkIdSuccessDataFieldType[]) => {

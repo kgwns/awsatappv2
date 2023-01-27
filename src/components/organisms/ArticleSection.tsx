@@ -82,7 +82,8 @@ const ArticleSection = ({
         articleFooterDataSet.leftTitleColor = style.footerTitleColor.color
         articleFooterDataSet.leftIcon = () => TimeIcon(timeFormat.icon) 
 
-        const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns == 1 && articleData.length == index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
+        const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns === 1 && 
+        articleData.length === index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
         const articleItemStyle = isTab ? numColumns > 1 && articleData.length > 1 ? (index % 2 === 0) ? style.evenStyle : style.oddStyle : {} : style.mobileArticleItem
         return <ArticleItem {...item} index={index}
             imageStyle={isTab ? style.tabImageStyle : style.mobileImageStyle}

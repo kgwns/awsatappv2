@@ -119,7 +119,7 @@ export const JournalistDetail = ({
     }
 
     const validateBookmark = (nid: string): boolean => {
-        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid.toString() === nid) : false
+        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid.toString() == nid) : false
     }
 
     const updatedChangeBookmark = (data: JournalistArticleData[], index: number) => {
@@ -156,7 +156,7 @@ export const JournalistDetail = ({
     }
 
     const gotoNextPage = () => {
-        if (!isArticleLoading && articleState.length % 10 == 0) {
+        if (!isArticleLoading && articleState.length % 10 === 0) {
             setPage(page + 1);
         }
     };

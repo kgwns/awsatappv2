@@ -98,7 +98,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }
 
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const onPressSave = (nid: string) => {

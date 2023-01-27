@@ -159,7 +159,6 @@ export const ManageMyNewsScreen = () => {
 
 
   const {
-    allWritersData,
     isLoading: authorLoading,
     getSelectedAuthorsData,
     selectedAuthorsData,
@@ -179,7 +178,6 @@ export const ManageMyNewsScreen = () => {
     allSiteCategoriesData,
     getSelectedTopicsData,
     selectedTopicsData,
-    emptySelectedTopicsInfoData,
     sendSelectedTopicInfo,
     sentTopicsData,
     emptySendTopicsInfoData

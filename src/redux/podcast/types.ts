@@ -93,7 +93,7 @@ export interface FetchPodcastEpisodeType {
 }
 
 interface PagerType {
-  current_page?: number | null,
+  current_page?: number | null | undefined,
   items_per_page?: number
 }
 

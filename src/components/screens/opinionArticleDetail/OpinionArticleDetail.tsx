@@ -47,7 +47,7 @@ export const OpinionArticleDetail = ({
     isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData } =
     useOpinionArticleDetail();
     const { writerDetailData,
-      getWriterDetailData, emptyWriterDetailData
+      getWriterDetailData
   } = useWriterDetail();
 
   const { showMiniPlayer } = useAppPlayer()
@@ -127,7 +127,9 @@ export const OpinionArticleDetail = ({
   useEffect(() => {
     pageLoadingRef.current = false;
     if (isNonEmptyArray(relatedOpinionListData) && isFocused) {
-      const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid !== currentNId})
+      const relatedOpinionData = relatedOpinionListData.filter((data) => { 
+        return data.nid !== currentNId
+      })
       setrelatedOpinioninfo(relatedOpinionData)
     }
   }, [relatedOpinionListData])
@@ -182,7 +184,7 @@ export const OpinionArticleDetail = ({
   }, [page]);
 
   useEffect(() => {
-    if (fontSize != articleFontSize) {
+    if (fontSize !== articleFontSize) {
       setFontSize(articleFontSize)
     }
   }, [articleFontSize])
@@ -190,14 +192,13 @@ export const OpinionArticleDetail = ({
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isObjectNonEmpty(selectedAuthorsData) && isFocused) {
       const isFollowed = isNonEmptyArray(opinionArticle[0].writer) && validateFollow(opinionArticle[0].writer[0].id)
-      // console.log('useeffect validate follow', opinionArticle[0].writer[0].id)
       setIsFollowed(isFollowed)
     }
   }, [isFocused, opinionArticle, selectedAuthorsData])
 
 
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const validateFollow = (id: string): boolean => {
@@ -249,7 +250,7 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressRelatedOpinion = (nid: string) => {
-    if (nid && nid!=currentNId) {
+    if (nid && nid!==currentNId) {
       emptyRelatedOpinionData()
       navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
     }

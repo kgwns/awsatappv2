@@ -24,7 +24,17 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const [newsLettersDataInfo, setNewsLettersDataInfo] = useState<NewsLetterItemType[]>([])
   const isFocused = useIsFocused();
 
-  const { getSelectedNewsLettersData, selectedNewsLettersData, sentNewsLettersInfoData, sendSelectedNewsLettersInfo, emptySelectedNewsLettersInfoData, isLoading , myNewsLetters, isMyNewsLoading, getMyNewsLettersData, sendSelectedFromNewsletterOnboard, selectedNewsLetterDataOnboard } = useNewsLetters()
+  const { getSelectedNewsLettersData, 
+    selectedNewsLettersData, 
+    sentNewsLettersInfoData, 
+    sendSelectedNewsLettersInfo,
+    emptySelectedNewsLettersInfoData, 
+    isLoading , 
+    myNewsLetters, 
+    isMyNewsLoading, 
+    getMyNewsLettersData, 
+    sendSelectedFromNewsletterOnboard, 
+    selectedNewsLetterDataOnboard } = useNewsLetters()
 
   useEffect(() => {
     getSelectedNewsLettersData();

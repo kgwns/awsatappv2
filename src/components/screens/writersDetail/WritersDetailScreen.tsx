@@ -29,7 +29,7 @@ export const WritersDetailScreen = ({
     const navigation = useNavigation<StackNavigationProp<any>>()
     const routes = useNavigationState(state => state.routes)
     const isFocused = useIsFocused();
-console.log(routes,'routes')
+    
     const style = useThemeAwareObject(customStyle);
 
     const { isLoading, writerDetailData,

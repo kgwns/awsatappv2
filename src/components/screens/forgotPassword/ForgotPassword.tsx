@@ -50,7 +50,9 @@ export const ForgotPassword: FunctionComponent = () => {
       }
       appState.current = nextAppState;
     });
-    return () => { subscription.remove(); };
+    return () => { 
+      subscription.remove(); 
+    };
   }, [animationRef]);
 
   useEffect(() => {

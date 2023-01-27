@@ -239,7 +239,10 @@ const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
     if (isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedPodcastHomeData = rows.map(
-        ({ nid, field_podcast_sect_export, title, body_export, field_total_duration_export, created_export, field_spreaker_episode_export, field_announcer_name_export, field_podcast_image_export }: any) => ({
+        ({ nid, field_podcast_sect_export, 
+          title, body_export, field_total_duration_export, 
+          created_export, field_spreaker_episode_export, 
+          field_announcer_name_export, field_podcast_image_export }: any) => ({
           nid,
           field_podcast_sect_export,
           title: isNotEmpty(title) ? decode(title) : '',
@@ -320,7 +323,11 @@ const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataTyp
   let formattedArchivedArticleSectionData: ArchivedArticleDataType[] = []
   if (response && isNonEmptyArray(response)) {
     formattedArchivedArticleSectionData = response.map(
-      ({ title, type, nid, body_export, field_image_export, field_new_photo, field_new_resource_export, field_publication_date_export, field_news_categories_export, field_display_export, changed}: any) => ({
+      ({ title, type, nid, body_export, 
+        field_image_export, field_new_photo, field_new_resource_export, 
+        field_publication_date_export, field_news_categories_export, 
+        field_display_export, changed
+      }: any) => ({
         title,
         type,
         nid,
@@ -477,7 +484,6 @@ const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload =
   const responseData: EditorsChoiceSuccessPayload = {
     editorsChoice: []
   }
-  
   const allEditorsChoiceInfo = formattedData.filter((item) => item.blockname === MainSectionBlockName.EDITORS_CHOICE)
   const sortedEditorsChoiceInfo = allEditorsChoiceInfo.sort((a, b) => parseInt(a.entityqueue_relationship_position) - parseInt(b.entityqueue_relationship_position))
   const editorsChoiceInfo = sortedEditorsChoiceInfo.splice(0, 6)

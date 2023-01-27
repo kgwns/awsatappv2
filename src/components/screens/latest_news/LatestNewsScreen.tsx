@@ -226,7 +226,7 @@ export const LatestNewsScreen = () => {
 
 
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const heroListInfo = isTab ? heroList.slice(0, 1) : heroList
@@ -256,7 +256,9 @@ export const LatestNewsScreen = () => {
   const podcastData = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
   useFocusEffect(
     React.useCallback(() => {
-      const unsubscribe = () => { TrackPlayer.stop() };
+      const unsubscribe = () => { 
+        TrackPlayer.stop() 
+      };
       return () => unsubscribe();
     }, [isPlayerVisible])
   );
@@ -321,7 +323,7 @@ export const LatestNewsScreen = () => {
 
   const onListenPodcast = async () => {
     setPlayerVisibility(true)
-    if (playbackState == State.Playing) {
+    if (playbackState === State.Playing) {
       return
     }
     await TrackPlayer.setupPlayer();

@@ -79,7 +79,7 @@ export const ContactUs = () => {
         }
     }
 
-    const isContactSuccessMessage = () => isObjectNonEmpty(sendSuccessInfo) && sendSuccessInfo.code == 200
+    const isContactSuccessMessage = () => isObjectNonEmpty(sendSuccessInfo) && sendSuccessInfo.code === 200
 
     const onPressSend = () => {
         if (validateFields()) {

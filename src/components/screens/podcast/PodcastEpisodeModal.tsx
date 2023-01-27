@@ -145,7 +145,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
 
     const onPressSaveEpisodeDetail = () => {
         const data = [...podcastEpisodeDetailInfo]
-        const index = data.findIndex((item) => item.nid == nid)
+        const index = data.findIndex((item) => item.nid === nid);
         const item = data[index]
         if (isObjectNonEmpty(item)) {
             const newBookmarked = !item.isBookmarked
@@ -199,11 +199,11 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
             }
             recordLogEvent('Played_Podcast', { podcastid: podcastEpisodeInfo.nid });
-            if ((trackData && trackData.id != trackPlayerData.id) || trackData == null) {
+            if ((trackData && trackData.id !== trackPlayerData.id) || trackData == null) {
                 setPlayerTrack(trackPlayerData);
             }
             !showMiniPlayer && setShowMiniPlayer(true);
-            showMiniPlayer && playbackState == State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
+            showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
         }
     }
 

@@ -41,7 +41,7 @@ export const EditorsPickSection = ({
     return (
       <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.EDITORS_PICK_WIDGET + index}
         onPress={() => onPress(item.nid, isAlbum)}
-        style={index == 0 && isTab && { paddingStart: 0.02 * screenWidth }}>
+        style={index === 0 && isTab && { paddingStart: 0.02 * screenWidth }}>
         <NewsWithImageItem
           imageUrl={item.image}
           title={item.title}

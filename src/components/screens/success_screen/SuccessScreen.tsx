@@ -38,7 +38,9 @@ export const SuccessScreen: FunctionComponent = () => {
       }
       appState.current = nextAppState;
     });
-    return () => { subscription.remove(); };
+    return () => { 
+      subscription.remove(); 
+    };
   }, [animationRef]);
 
   useEffect(() => {

@@ -164,7 +164,7 @@ export const ArticleDetailBody = React.memo(({
         const URL = event.url
 
         if (isIOS) {
-            if (event.navigationType == 'click') {
+            if (event.navigationType === 'click') {
                 browserOptions(URL);
                 return false
             }

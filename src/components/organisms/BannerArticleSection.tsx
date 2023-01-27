@@ -88,7 +88,8 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const listHeaderSection = () => (
             <View style={isTab && style.listHeaderstyle}>
                 {bannerData.map((item: LatestArticleDataType, index: number) => {
-                    if (index == 0) return <ImageArticle key={index} {...item}
+                    if (index === 0) {
+                        return <ImageArticle key={index} {...item}
                         onPressBookmark={() => onUpdateBookmark(item)}
                         containerStyle={isTab ? style.tabletImageStyle : {}}
                         titleStyle={style.titleStyle}
@@ -97,6 +98,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
                         showDivider={true}
                         isAlbum={isTypeAlbum(item.type)}
                         />
+                    }
                     return null
                 })}
             </View>

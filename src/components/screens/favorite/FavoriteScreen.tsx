@@ -20,12 +20,12 @@ export const FavoriteScreen = () => {
   const SIGN_UP_PH_MESSAGE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_MESSAGE})
   const SIGN_UP_PH_TITLE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_TITLE})
 
-  const tabItemData: TabBarDataProps[] = [
-    {
-      tabName: FAVORITE_TAB_ITEM_ARCHIEVES,
-      isSelected: true,
-    }
-  ]
+  // const tabItemData: TabBarDataProps[] = [
+  //   {
+  //     tabName: FAVORITE_TAB_ITEM_ARCHIEVES,
+  //     isSelected: true,
+  //   }
+  // ]
 
   const showupUp = useRef(!isLoggedIn)
 

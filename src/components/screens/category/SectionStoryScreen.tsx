@@ -137,7 +137,7 @@ export const SectionStoryScreen = React.memo(({
     }
     setCurrentSectionId(activeSectionId)
     setChildSection(childInfo)
-    if(activeSectionId != currentSectionId) {
+    if(activeSectionId !== currentSectionId) {
       clearData()
     }
   }
@@ -147,6 +147,7 @@ export const SectionStoryScreen = React.memo(({
 
     getHeroListData();
     getTopListData();
+     // getVideoListData(); 
   }
 
   const getHeroListData = async() => {
@@ -311,7 +312,7 @@ export const SectionStoryScreen = React.memo(({
   }
 
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
@@ -365,6 +366,12 @@ export const SectionStoryScreen = React.memo(({
     const updatedData: any = updatedChangeBookmark(bottomListDataInfo, index)
     setBottomListDataInfo(updatedData)
   }
+
+  // const onVideoItemPress = (item: VideoItemType) => {
+  //   navigation.navigate(ScreensConstants.VideoPlayerScreen,
+  //     { mediaID: item.mediaId, nid: item.nid })
+  // }
+
 
   const onClickChildSection = (clickItemIndex: number) => {
     const oldChildSection = [...childSection]
