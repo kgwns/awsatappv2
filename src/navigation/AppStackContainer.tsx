@@ -31,7 +31,7 @@ const AppStackContainer = () => {
   const navigationRef = React.useRef<NavigationContainerRef<any>>();
 
   useEffect(() => {
-    if(showMiniPlayer &&  isNotEmpty(selectedTrack) && selectedTrack != previousTrack){
+    if(showMiniPlayer &&  isNotEmpty(selectedTrack) && selectedTrack !== previousTrack){
         setPreviousTrack(selectedTrack);
         resetAndPlay();
     }
@@ -45,7 +45,7 @@ const AppStackContainer = () => {
   }, []);
 
   useEffect(() => {
-    if(showMiniPlayer && selectedTrack != previousTrack){
+    if(showMiniPlayer && selectedTrack !== previousTrack){
       setPreviousTrack(selectedTrack);
       resetAndPlay();
     }
@@ -78,7 +78,11 @@ const AppStackContainer = () => {
     >
       <Stack.Navigator
         screenOptions={defaultScreenOptions}
-        initialRouteName={isLoggedIn ? (loginData.message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator) : (isSkipped ? ScreensConstants.AppNavigator : ScreensConstants.AuthNavigator)}>
+        initialRouteName={isLoggedIn ? 
+          (loginData.message.newUser === 1 ? 
+          ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator) : 
+          (isSkipped ? ScreensConstants.AppNavigator : ScreensConstants.AuthNavigator)}
+      >
         <Stack.Screen
           name={ScreensConstants.AuthNavigator}
           component={Routes.AuthNavigator}

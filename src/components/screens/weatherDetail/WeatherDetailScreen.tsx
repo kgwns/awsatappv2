@@ -81,7 +81,9 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   const [weatherDataDetails, setWeatherDataDetails] = React.useState(data);
   const [weatherListDetails, setWeatherListDetails] = React.useState<any>(fetchWeatherDetailsSuccessInfo?.list[0] ? fetchWeatherDetailsSuccessInfo?.list[0] : []);
-  const [weatherDataVisibility, setWeatherDataVisibility] = React.useState(fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? fetchWeatherDetailsVisibilitySuccessInfo.visibility : '');
+  const [weatherDataVisibility, setWeatherDataVisibility] = React.useState(
+    fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? 
+    fetchWeatherDetailsVisibilitySuccessInfo.visibility : '');
 
 
   currentDate.setDate(currentDate.getDate());
@@ -274,7 +276,12 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_MAX}
           </Label>
         </View>
-        <Label style={styles.fieldDataStyle} children={(weatherListDetails?.temp.max && weatherListDetails?.temp.min) ? (weatherListDetails?.temp.max + '°/' + weatherListDetails?.temp.min + '°') : NO_INFORMATION_TEXT} />
+        <Label 
+          style={styles.fieldDataStyle} 
+          children={(weatherListDetails?.temp.max && weatherListDetails?.temp.min) 
+          ? (weatherListDetails?.temp.max + '°/' + weatherListDetails?.temp.min + '°') : 
+          NO_INFORMATION_TEXT} 
+        />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>

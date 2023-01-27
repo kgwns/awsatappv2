@@ -54,7 +54,7 @@ export const SectionStoryScreen = React.memo(({
 }: SectionStoryScreenProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
-  
+
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
   

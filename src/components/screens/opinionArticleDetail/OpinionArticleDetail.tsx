@@ -177,7 +177,7 @@ export const OpinionArticleDetail = ({
   }, [isFocused, opinionArticle])
 
   useEffect(() => {
-      if(page != 0 && !pageLoadingRef.current){
+      if(page !== 0 && !pageLoadingRef.current){
         pageLoadingRef.current = true;
         fetchRelatedOpinionData(relatedOpinionPayload);
       }

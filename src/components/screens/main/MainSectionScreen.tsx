@@ -91,7 +91,9 @@ const sectionComboEightPayload: RequestSectionComboBodyGet = {
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, currentIndex, scrollY }:{hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number; scrollY?: any; }) => {
+export const MainSectionScreen = React.memo((
+  {hidePlayerVisibility, tabIndex, currentIndex, scrollY }:
+  {hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number; scrollY?: any; }) => {
   const { themeData } = useTheme()
   const mainSectionStyle = useThemeAwareObject(customStyle);
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
@@ -295,7 +297,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboOneInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboOneInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboOneInfo, index)
     setSectionComboOneInfo(updatedData)
   }
@@ -306,7 +308,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboFiveInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboFiveInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboFiveInfo, index)
     setSectionComboFiveInfo(updatedData)
   }
@@ -317,7 +319,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboSixInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboSixInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboSixInfo, index)
     setSectionComboSixInfo(updatedData)
   }
@@ -328,7 +330,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboSevenInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboSevenInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboSevenInfo, index)
     setSectionComboSevenInfo(updatedData)
   }
@@ -573,11 +575,12 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         artist: podcastData.title,
         artwork: podcastData?.field_podcast_sect_export?.image
       }
-      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) {
+
+      if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ) {
         setPlayerTrack(trackPlayerData);
       }
       !showMiniPlayer && setShowMiniPlayer(true);
-      showMiniPlayer && playbackState == State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
+      showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }
 
     setSelectedTrack(podcastData.nid);

@@ -1,7 +1,16 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
-import { GetSelectedNewsLettersSuccessPayloadType, GetSelectedNewsLettersType, SendSelectedNewsLettersType, GetMyNewsLettersType, GetMyNewsLettersSuccessPayloadType } from "./types";
-import { getSelectedNewsLettersFailed, getSelectedNewsLettersSuccess, sendSelectedNewsLettersFailed, sendSelectedNewsLettersSuccess, getMyNewsLettersSuccess, getMyNewsLettersFailed } from './action';
+import { GetSelectedNewsLettersSuccessPayloadType, 
+    GetSelectedNewsLettersType, 
+    SendSelectedNewsLettersType, 
+    GetMyNewsLettersType, 
+    GetMyNewsLettersSuccessPayloadType } from "./types";
+import { getSelectedNewsLettersFailed, 
+    getSelectedNewsLettersSuccess, 
+    sendSelectedNewsLettersFailed, 
+    sendSelectedNewsLettersSuccess, 
+    getMyNewsLettersSuccess, 
+    getMyNewsLettersFailed } from './action';
 import { EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS, GET_MY_NEWS_LETTERS } from './actionTypes';
 import { getSelectedNewsLettersApi, sendSelectedNewsLettersApi, getMyNewsLettersApi } from 'src/services/newsLettersService';
 

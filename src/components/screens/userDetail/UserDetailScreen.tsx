@@ -451,11 +451,11 @@ export const UserDetailScreen: FunctionComponent = () => {
                 <View>
                   <Label
                     children={
-                      birthday != '' ? birthday : selectedDate.toString()
+                      birthday !== '' ? birthday : selectedDate.toString()
                     }
                     style={[
                       styles.dropDownLabel,
-                      selectedDate.toString() ==
+                      selectedDate.toString() ===
                        USER_DETAIL_SELECT_BIRTHDAY_TEXT &&
                         styles.dropDownLabelPlaceholder,
                     ]}

@@ -88,7 +88,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
     const selectedVideoId = route.params.data.nid
     const selectedVideoIndex = videoData.findIndex((item: any) => item.nid === selectedVideoId);
     const videoInfo = videoData && selectedVideoIndex != -1 ? videoData[selectedVideoIndex] : selectedVideo
-    const otherVideosList = videoData.filter((item: any) => item.nid != selectedVideoId);
+    const otherVideosList = videoData.filter((item: any) => item.nid !== selectedVideoId);
     if (isNonEmptyArray(videoData)) {
       const isBookmarked = validateBookmark(videoInfo.nid)
       setIsBookmarked(isBookmarked)
@@ -165,7 +165,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           isSaved={isBookmarked}
           isCloseIcon
         />
-        {selectedVideo!=undefined && <VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}} isDocumentary={isDocumentary} />}
+        {selectedVideo!==undefined && <VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}} isDocumentary={isDocumentary} />}
       </View>
       <View style={styles.container}>
         <VideosList data={videolistData} onItemActionPress={(item:VideoItemType)=>goToPlayer(item)} />

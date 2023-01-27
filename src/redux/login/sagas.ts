@@ -14,7 +14,6 @@ import {fetchLoginApi, fetchLogoutApi, forgotPasswordApi} from 'src/services/log
 import {Alert} from 'react-native';
 
 export function* fetchLogin(action: FetchLoginType) {
-  //console.log("saga fetchMostRead");
 
   try {
     const payload: FetchLoginSuccessPayloadType = yield call(

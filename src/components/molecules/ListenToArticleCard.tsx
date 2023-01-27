@@ -32,7 +32,7 @@ export const ListenToArticleCard = (data: any) => {
   // }
 
   useEffect(() => {
-    if (trackData && trackData.id == (data.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id === (data.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
@@ -44,7 +44,7 @@ export const ListenToArticleCard = (data: any) => {
     const state = await TrackPlayer.getState()
 
     if(trackData != null){
-        if(state == State.Paused){
+        if(state === State.Paused){
             await TrackPlayer.play()
         }else{
             await TrackPlayer.pause()
@@ -70,7 +70,7 @@ const onPressPlay = () => {
       artwork: data.authorImage
     }
 
-    if((trackData && trackData.id != trackPlayerData.id) || trackData == null ){
+    if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ){
       setPlayerTrack(trackPlayerData);
       !showMiniPlayer && setShowMiniPlayer(true);
     }else{

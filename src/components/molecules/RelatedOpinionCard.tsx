@@ -32,7 +32,7 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
   const CONST_LISTEN_TO_ARTICLE = TranslateConstants({key:TranslateKey.LISTEN_TO_ARTICLE});
 
   useEffect(() => {
-    if (trackData && trackData.id == (item.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id === (item.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
@@ -84,7 +84,7 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
     const state = await TrackPlayer.getState()
 
     if(trackData != null){
-        if(state == State.Paused){
+        if(state === State.Paused){
             await TrackPlayer.play()
         }else{
             await TrackPlayer.pause()
@@ -106,10 +106,12 @@ const onPressPlay = () => {
       title: isNotEmpty(item.title) ? item.title : '',
       duration: playList.duration? convertSecondsToHMS(playList.duration) : 0,
       artist: mediaData.title ? mediaData.title : '',
-      artwork: isNonEmptyArray(item.field_opinion_writer_node_export) ? getImageUrl(item.field_opinion_writer_node_export[0].opinion_writer_photo) : getImageUrl(item.field_opinion_writer_node_export.opinion_writer_photo)
+      artwork: isNonEmptyArray(item.field_opinion_writer_node_export) ? 
+        getImageUrl(item.field_opinion_writer_node_export[0].opinion_writer_photo) : 
+        getImageUrl(item.field_opinion_writer_node_export.opinion_writer_photo)
     }
 
-    if((trackData && trackData.id != trackPlayerData.id) || trackData == null ){
+    if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ){
       setPlayerTrack(trackPlayerData);
       !showMiniPlayer && setShowMiniPlayer(true);
     }else{

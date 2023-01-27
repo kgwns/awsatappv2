@@ -132,9 +132,6 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     const {
       user,
       email,
-      nonce,
-      identityToken,
-      realUserStatus,
       fullName,
     } = response;
     const payload: RegisterBodyType = {

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
@@ -64,7 +64,6 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const { loginData } = useLogin();
   const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
   
-  const initialRender = useRef(true);
 
   const dispatch = useDispatch();
   const {fetchProfileDataRequest} = useUserProfileData();

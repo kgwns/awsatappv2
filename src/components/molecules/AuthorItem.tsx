@@ -110,9 +110,8 @@ const AuthorItem = ({
 
     const onPlayPausePress = async (playbackState: any) => {
         const state = await TrackPlayer.getState()
-    
         if(trackData != null){
-            if(state == State.Paused){
+            if(state === State.Paused){
                 await TrackPlayer.play()
             }else{
                 await TrackPlayer.pause()
@@ -137,8 +136,7 @@ const AuthorItem = ({
           artist: mediaData.title ? mediaData.title : '',
           artwork: image
         }
-    
-        if((trackData && trackData.id != trackPlayerData.id) || trackData == null ){
+        if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ){
           setPlayerTrack(trackPlayerData);
           !showMiniPlayer && setShowMiniPlayer(true);
         }else{

@@ -32,7 +32,6 @@ const returnResponse = (response: any): FetchTopMenuSuccessPayloadType => {
 }
 
 export function* fetchTopMenu() {
-  //console.log("saga fetchMostRead");
 
   try {
     const payload: FetchTopMenuSuccessPayloadType = yield call(

@@ -553,10 +553,10 @@ export const ArticleDetailScreen = ({
     setPaused(paused)
   }
 
-  const closeMiniPlayer = (visible: boolean) => {
-    setPlayerVisible(visible);
-    setShowVideoMiniPlayer(visible)
-  }
+  // const closeMiniPlayer = (visible: boolean) => {
+  //   setPlayerVisible(visible);
+  //   setShowVideoMiniPlayer(visible)
+  // }
 
   const onViewableItemRef = useRef((viewableItems: any) => {
     setBookmarkIndex(viewableItems.changed[0].index)
@@ -565,7 +565,7 @@ export const ArticleDetailScreen = ({
 
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
-    isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
+    isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading === false}>
       {isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
         { !isFullScreen &&  renderHeader()}
         <FlatList

@@ -259,7 +259,10 @@ export const getPodcastDate = (time:any) => {
 }
 
 export const getDay = (time:any) => {
-  if(!isNotEmpty(time)) return '';
+  if(!isNotEmpty(time)) {
+    return '';
+  }
+
   const day =  calculateDay(time)
   return arabic.day[day] + ', '+ calculateDate(time)  + ' ' + calculateMonth(time) + ' ' + moment(time).get('year')
 }
@@ -277,9 +280,9 @@ export const  getSecondsToHms = (time:any): string => {
 }
 
 export const getUpdatedObject = (obj:any, key: string, val: any, newVal: any) => {
-  var newValue = newVal;
-    var objects: any = [];
-    for (var i in obj) {
+  const newValue = newVal;
+    let objects: any = [];
+    for (const i in obj) {
         if (!obj.hasOwnProperty(i)) {
           continue;
         }

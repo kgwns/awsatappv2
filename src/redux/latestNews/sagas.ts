@@ -600,13 +600,13 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
     } else if (action.type === REQUEST_SECTION_COMBO_FOUR) {
       const response = parseSectionComboFour(payload)
       yield put(requestSectionComboFourSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_FIVE) {
+    } else if (action.type === REQUEST_SECTION_COMBO_FIVE) {
       const response = parseSectionComboFive(payload)
       yield put(requestSectionComboFiveSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_SIX) {
+    } else if (action.type === REQUEST_SECTION_COMBO_SIX) {
       const response = parseSectionComboSix(payload)
       yield put(requestSectionComboSixSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
+    } else if (action.type === REQUEST_SECTION_COMBO_SEVEN) {
       const response = parseSectionComboSeven(payload)
       yield put(requestSectionComboSevenSuccess(response));
     } else if (action.type === REQUEST_SECTION_COMBO_EIGHT) {
@@ -625,11 +625,11 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
         yield put(requestSectionComboThreeFailed({ error: errorMessage.message }));
       } else if (action.type === REQUEST_SECTION_COMBO_FOUR) {
         yield put(requestSectionComboFourFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_FIVE) {
+      } else if (action.type === REQUEST_SECTION_COMBO_FIVE) {
         yield put(requestSectionComboFiveFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_SIX) {
+      } else if (action.type === REQUEST_SECTION_COMBO_SIX) {
         yield put(requestSectionComboSixFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
+      } else if (action.type === REQUEST_SECTION_COMBO_SEVEN) {
         yield put(requestSectionComboSevenFailed({ error: errorMessage.message }));
       } else if (action.type === REQUEST_SECTION_COMBO_EIGHT) {
         yield put(requestSectionComboEightFailed({ error: errorMessage.message }));

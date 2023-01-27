@@ -130,7 +130,9 @@ const AuthorSlider = ({
   }
 
   const onMomentumScrollEnd = ( event: any) => {
-    if (!event) return
+    if (!event) {
+      return
+    }
 
     const xOffset = event.nativeEvent.contentOffset.x + 10;
     const currentIndex = Math.floor(xOffset / screenWidth);

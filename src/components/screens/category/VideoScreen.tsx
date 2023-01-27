@@ -3,7 +3,6 @@ import {View, StyleSheet, FlatList, ListRenderItem, Animated} from 'react-native
 
 import {VideoItem, VideoItemProps} from 'src/components/molecules';
 import {horizontalEdge, isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
-// import {videoTabData} from 'src/constants/Constants';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants/Constants';

@@ -85,7 +85,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
         const state = await TrackPlayer.getState()
 
         if(selectedTrack != null){
-            if(state == State.Paused){
+            if(state === State.Paused){
                 await TrackPlayer.play()
             }else{
                 await TrackPlayer.pause()
@@ -104,7 +104,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
         const duration = progress.duration
         let seekPosition = position
         
-        if(type == 'forward'){
+        if(type === 'forward'){
             seekPosition = duration > (position + seekValue) ? (position + seekValue) : position
         }else{
             seekPosition = (position - seekValue) > 0 ? (position - seekValue) : position
@@ -160,7 +160,12 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     />
                 </View>
                 <View style={[style.durationContainer, isAndroid && {paddingHorizontal: 15} ]} >
-                    <Label children={convertSecondsToHMS(progress.duration < progress.position ? progress.duration : Math.floor(progress.position || 0))} style={style.durationText}/>
+                    <Label 
+                        children={
+                            convertSecondsToHMS(progress.duration < progress.position ? progress.duration : Math.floor(progress.position || 0))
+                        } 
+                        style={style.durationText}
+                    />
                     <Label children={convertSecondsToHMS(progress.duration || 0)} style={style.durationText}/>
                 </View>
                 <View style={style.controls} >

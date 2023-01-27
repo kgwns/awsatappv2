@@ -31,7 +31,6 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     emptySelectedNewsLettersInfoData, 
     isLoading , 
     myNewsLetters, 
-    isMyNewsLoading, 
     getMyNewsLettersData, 
     sendSelectedFromNewsletterOnboard, 
     selectedNewsLetterDataOnboard } = useNewsLetters()

@@ -228,7 +228,7 @@ export const SectionsScreen = () => {
   const renderHeader = () => {
     return(
       scrollY.map((_: any, i: number) => {
-        if(index == i){
+        if(index === i){
           return(
             <AnimatedHeader key={i} scrollY={scrollY[index]} />
           )
