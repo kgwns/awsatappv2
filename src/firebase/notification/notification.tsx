@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import messaging from '@react-native-firebase/messaging';
 import '@react-native-firebase/messaging';
-import {Platform} from 'react-native';
+import {Alert, Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import { useNotificationSaveToken } from 'src/hooks';
 import { SaveTokenBodyType } from 'src/redux/notificationSaveToken/types';
@@ -13,6 +13,7 @@ import { isAndroid, isIOS } from 'src/shared/utils';
 import { ScreensConstants } from 'src/constants/Constants';
 import { navigate, navigationRefernce } from 'src/navigation/NavigationUtils';
 import notifee, { AndroidImportance, EventType } from '@notifee/react-native';
+import { CustomAlert } from 'src/shared/utils/utilities';
 
 async function onDisplayNotification(remoteMessage: FirebaseMessagingTypes.RemoteMessage) {
     const channelId = await notifee.createChannel({
@@ -48,7 +49,11 @@ export const GetFCMToken = () => {
         messaging()
         .getToken()
         .then((x) => {
-            var requestObject: SaveTokenBodyType = {
+            CustomAlert({
+                message: 'x'
+              })  
+             console.log('token',x)       
+             var requestObject: SaveTokenBodyType = {
                 fcm_token: x,
                 platform: deviceOS,
                 device_name: deviceName

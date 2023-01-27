@@ -22,7 +22,6 @@
     "@react-native-firebase/analytics": "15.6.0",
     "@react-native-firebase/app": "15.6.0",
     "@react-native-firebase/crashlytics": "15.6.0",
-    "@react-native-firebase/dynamic-links": "^16.5.0",
     "@react-native-firebase/messaging": "15.6.0",
     "@react-native-firebase/perf": "15.6.0",
     "@react-native-firebase/remote-config": "15.6.0",
