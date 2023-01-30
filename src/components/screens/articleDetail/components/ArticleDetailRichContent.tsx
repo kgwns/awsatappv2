@@ -133,7 +133,7 @@ export const RenderDescriptionElement = ({ paragraphInfo, fontSize }: { paragrap
     const { themeData } = useTheme()
     const webviewRef = React.useRef<AutoHeightWebView>()
 
-    let injectedStyle = `
+    const injectedStyle = `
     setTimeout(function() {   
         //Description Element
         var descriptionText = document.getElementsByTagName("p");
@@ -207,7 +207,7 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
 
     const { themeData } = useTheme()
 
-    let injectedStyle = `
+    const injectedStyle = `
     setTimeout(function() {   
         //Description Element
         var descriptionText = document.getElementsByTagName("p");

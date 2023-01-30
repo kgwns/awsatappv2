@@ -41,7 +41,7 @@ class AdjustAnalyticsManager {
 
 
     trackEvent = (eventId: AdjustEventID) => {
-        let adjustEvent = new AdjustEvent(eventId);
+        const adjustEvent = new AdjustEvent(eventId);
         Adjust.trackEvent(adjustEvent);
         Adjust.updateConversionValue(6);
         Adjust.getAppTrackingAuthorizationStatus(function (status) {

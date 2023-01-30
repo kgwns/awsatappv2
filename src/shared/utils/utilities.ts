@@ -142,13 +142,13 @@ export type DateTimeAgoType = {
 }
 
 export const dateTimeAgo = (time: any): DateTimeAgoType => {
-  let today = new Date();
+  const today = new Date();
 
-  let startTime = moment(time).format();
-  let endTime = moment(today).format();
+  const startTime = moment(time).format();
+  const endTime = moment(today).format();
 
-  let duration = moment.duration(moment(endTime).diff(startTime));
-  let minutes = Number((duration.asMinutes()).toFixed(0));
+  const duration = moment.duration(moment(endTime).diff(startTime));
+  const minutes = Number((duration.asMinutes()).toFixed(0));
 
   const isLessThanHour = minutes < 60;
   const isLessThanTwoHours = minutes < 120;
