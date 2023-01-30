@@ -342,7 +342,7 @@ export const MainSectionScreen = React.memo((
     }
 
     const index = sectionComboEightInfo.findIndex((item) => item.nid == article.nid)
-    const updatedData = updatedChangeBookmark(sectionComboSevenInfo, index)
+    const updatedData = updatedChangeBookmark(sectionComboEightInfo, index)
     setSectionComboEightInfo(updatedData)
   }
 
