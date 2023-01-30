@@ -25,12 +25,6 @@ export const ArticleDetailFooter = ({
 }) => {
     const articleSaveIcon = isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark
 
-    // const onPressThemeChange = () => {
-    //     const isDark = isDarkTheme(theme)
-    //     const updateTheme = isDark ? Theme.LIGHT : Theme.DARK
-    //     dispatch(storeAppTheme(updateTheme))
-    // }
-
     const onPressShare = async () => {
         const { title, view_node, shortUrl, nid } = articleDetailData
         recordLogEvent('Share_Article', {articleId: nid});

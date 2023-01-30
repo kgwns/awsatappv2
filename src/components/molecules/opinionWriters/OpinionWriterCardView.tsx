@@ -66,7 +66,7 @@ const OpinionWritersCardView = ({
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
 
   const detailRoutes = useMemo(() =>
-    routes.filter((routes) => routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+    routes.filter((routes) => routes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfWriterRoutes = detailRoutes.length
 
   useEffect(() => {

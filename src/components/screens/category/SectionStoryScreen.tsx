@@ -110,7 +110,6 @@ export const SectionStoryScreen = React.memo(({
   }, [sectionId, currentSectionId])
 
   useEffect(() => {
-    // makeInitialDataEmpty();
     getSectionDetail()
   }, [currentSectionId]);
 
@@ -398,7 +397,7 @@ export const SectionStoryScreen = React.memo(({
     const spreadChildSection = [...childSection]
     const currentChild = spreadChildSection[childIndex];
 
-    let updatedChildSection = [...spreadChildSection];
+    const updatedChildSection = [...spreadChildSection];
     let updatedSubChildSection: TopMenuItemType[] = [];
 
     if(isNonEmptyArray(currentChild.child)) {

@@ -576,9 +576,7 @@ export const UserDetailScreen: FunctionComponent = () => {
           openCamera()
         } else if (buttonIndex === 1) {
           openGallery()
-        } else if (buttonIndex === 2) {
-          
-        }
+        } 
       }
     );
   }

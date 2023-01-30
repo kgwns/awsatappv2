@@ -31,12 +31,6 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
 import { SECTION_COMBO_SIX } from 'src/services/apiEndPoints';
 
-
-// const heroListTopListPayload: LatestArticleBodyGet = {
-//   items_per_page: 10,
-//   page: 0,
-//   offset: 6
-// }
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,
   page: 0,
@@ -341,8 +335,8 @@ export const MainSectionScreen = React.memo((
       return
     }
 
-    const index = sectionComboEightInfo.findIndex((item) => item.nid == article.nid)
-    const updatedData = updatedChangeBookmark(sectionComboEightInfo, index)
+    const index = sectionComboEightInfo.findIndex((item) => item.nid === article.nid)
+    const updatedData = updatedChangeBookmark(sectionComboSevenInfo, index)
     setSectionComboEightInfo(updatedData)
   }
 
@@ -374,7 +368,7 @@ export const MainSectionScreen = React.memo((
       return
     }
 
-    const index = sectionComboTwoInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboTwoInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboTwoInfo, index)
     setSectionComboTwoInfo(updatedData)
   }
@@ -407,7 +401,7 @@ export const MainSectionScreen = React.memo((
       return
     }
 
-    const index = sectionComboThreeInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboThreeInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboThreeInfo, index)
     setSectionComboThreeInfo(updatedData)
   }
@@ -430,7 +424,7 @@ export const MainSectionScreen = React.memo((
       return
     }
 
-    const index = sectionComboFour.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboFour.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboFour, index)
     setSectionComboFourInfo(updatedData)
   }
@@ -597,7 +591,7 @@ export const MainSectionScreen = React.memo((
   }
 
   const getSelectedTrack = (id: any, type: 'OPINION' | 'PODCAST') => {
-    if(selectedTrack != id){
+    if(selectedTrack !== id){
       setSelectedTrack(id);
       setSelectedType(type);
     }

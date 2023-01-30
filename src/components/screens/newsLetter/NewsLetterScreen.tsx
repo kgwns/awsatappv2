@@ -175,7 +175,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
 
   const changeSelectedStatus = (item: any, selected: boolean) => {
     for (let i = 0; i < newsLettersDataInfo.length; i++) {
-      if (item.tid == newsLettersDataInfo[i].tid) {
+      if (item.tid === newsLettersDataInfo[i].tid) {
         newsLettersDataInfo[i].isSelected = !newsLettersDataInfo[i].isSelected;
       }
     }

@@ -29,8 +29,7 @@ import { LatestArticleDataType } from '../latestNews/types';
 
 export const formatTopListToLatestArticleType = (response: any): LatestArticleDataType[] => {
   let formattedData: LatestArticleDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export,
@@ -47,7 +46,6 @@ export const formatTopListToLatestArticleType = (response: any): LatestArticleDa
         })
       );
     }
-  }
   return formattedData
 }
 

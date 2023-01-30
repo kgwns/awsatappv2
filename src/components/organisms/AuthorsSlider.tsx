@@ -142,7 +142,7 @@ const AuthorSlider = ({
   const renderIndicator = () => {
     const renderItem = (index: number) => {
       return (
-        <View key={`indicator-${index}`} style={[style.indicatorStyle, activeIndex == index && style.activeIndicatorStyle]} >
+        <View key={`indicator-${index}`} style={[style.indicatorStyle, activeIndex === index && style.activeIndicatorStyle]} >
         </View>
       )
     }

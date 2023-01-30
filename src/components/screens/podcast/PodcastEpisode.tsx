@@ -140,7 +140,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
 
   const onPressSaveEpisodeDetail = () => {
     const data = [...podcastEpisodeDetailInfo]
-    const index = data.findIndex((item) => item.nid == nid)
+    const index = data.findIndex((item) => item.nid === nid)
     const item = data[index]
     const newBookmarked = !item.isBookmarked
     data[index].isBookmarked = newBookmarked
@@ -177,7 +177,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
 
   const episodeIndex = podcastEpisodeDetailInfo.findIndex((item: any) => item.nid === nid);
   const podcastEpisodeInfo = podcastEpisodeDetailInfo ? podcastEpisodeDetailInfo[episodeIndex] : podcastEpisodeInitialData
-  const otherPodcast = podcastEpisodeListInfo.filter((item: any) => item.nid != nid);
+  const otherPodcast = podcastEpisodeListInfo.filter((item: any) => item.nid !== nid);
 
   const onPressShare = async () => {
     await Share.open({
@@ -240,7 +240,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         setPlayerTrack(trackPlayerData);
       }
       !showMiniPlayer && setShowMiniPlayer(true);
-      showMiniPlayer && playbackState == State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
+      showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }
   } 
 

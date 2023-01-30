@@ -96,8 +96,7 @@ const getArticleImage = (fieldImage: any, newPhoto: any) : String => {
 
 const formatMainSectionBlockData = (response: any) => {
   let formattedData: MainSectionBlockType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories,field_new_resource,created_export,
@@ -117,7 +116,6 @@ const formatMainSectionBlockData = (response: any) => {
         })
       );
     }
-  }
   return formattedData
 }
 
@@ -126,8 +124,7 @@ const parseCoverageDataSuccess = (response: any) => {
   const responseData: RequestCoverageBlockSuccessPayloadType = {
     coverageInfo: []
   }
-   
-  const allCoverageInfo = formattedData.filter((item) => item.blockName == MainSectionBlockName.COVERAGE)
+  const allCoverageInfo = formattedData.filter((item) => item.blockName === MainSectionBlockName.COVERAGE)
   const sortedCoverageInfo = allCoverageInfo.sort((a, b) => parseInt(a.position) - parseInt(b.position))
   const coverageInfo = sortedCoverageInfo.splice(0, 4)
 
@@ -162,7 +159,7 @@ const parseFeaturedArticleSuccess = (response: any) => {
     featureArticle: [],
   }
    
-  const allFeaturedArticleData = formattedData.filter((item) => item.blockName == MainSectionBlockName.FEATURED_ARTICLE)
+  const allFeaturedArticleData = formattedData.filter((item) => item.blockName === MainSectionBlockName.FEATURED_ARTICLE)
   const sortedFeaturedArticleData = allFeaturedArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
   const featuredArticleDataInfo = sortedFeaturedArticleData.splice(0, 15)
 
@@ -177,7 +174,7 @@ const parseHorizontalArticleSuccess = (response: any) => {
     horizontalArticle: []
   }
    
-  const allHorizontalArticleData = formattedData.filter((item) => item.blockName == MainSectionBlockName.HORIZONTAL_ARTICLE)
+  const allHorizontalArticleData = formattedData.filter((item) => item.blockName === MainSectionBlockName.HORIZONTAL_ARTICLE)
   const sortedHorizontalArticleData = allHorizontalArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
   const horizontalArticleData = sortedHorizontalArticleData.splice(0, 5)
 
@@ -189,8 +186,7 @@ const parseHorizontalArticleSuccess = (response: any) => {
 
 const formatLatestArticle = (response: any): LatestArticleDataType[] => {
   let formattedData: LatestArticleDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories_export,
@@ -209,14 +205,12 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
         })
       );
     }
-  }
   return formattedData
 }
 
 const formatOpinion = (response: any): LatestOpinionDataType[] => {
   let formattedOpinionData: LatestOpinionDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedOpinionData = rows.map(
         ({ title, body, nid, field_opinion_writer_node_export, jwplayer, jwplayer_info }: any) => ({
@@ -228,15 +222,13 @@ const formatOpinion = (response: any): LatestOpinionDataType[] => {
           jwplayer_info: jwplayer_info
         })
       );
-    }
   }
   return formattedOpinionData
 }
 
 const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
   let formattedPodcastHomeData: LatestPodcastDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedPodcastHomeData = rows.map(
         ({ nid, field_podcast_sect_export, 
@@ -254,15 +246,13 @@ const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
           field_podcast_image_export
         })
       );
-    }
   }
   return formattedPodcastHomeData;
 }
 
 const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
   let formattedEditorsChoiceData: EditorsChoiceDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedEditorsChoiceData = rows.map(
         ({ title, body, nid, field_image, field_news_categories_export, field_news_categories, field_publication_date,type, blockname, entityqueue_relationship_position,
@@ -284,15 +274,13 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
           displayType: field_display_export,
         })
       );
-    }
   }
   return formattedEditorsChoiceData;
 }
 
 const formatSpotlight = (response: any): SpotlightDataType[] => {
   let formattedSpotlightData: SpotlightDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedSpotlightData = rows.map(
         ({ title, field_tag_spotlight_export, field_image }: any) => ({
@@ -301,7 +289,6 @@ const formatSpotlight = (response: any): SpotlightDataType[] => {
           field_image: getImageUrl(field_image),
         })
       );
-    }
   }
   return formattedSpotlightData;
 }

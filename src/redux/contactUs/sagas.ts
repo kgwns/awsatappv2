@@ -8,12 +8,10 @@ import { isObjectNonEmpty } from 'src/shared/utils';
 
 const formatData = (response: any): ContactUsInfoSuccessPayload => {
   let formattedData: ContactUsInfoSuccessPayload = {}
-  if (response) {
-    if (isObjectNonEmpty(response)) {
+    if (response && isObjectNonEmpty(response)) {
       const message = response.message
       formattedData = message
     }
-  }
   return formattedData
 }
 

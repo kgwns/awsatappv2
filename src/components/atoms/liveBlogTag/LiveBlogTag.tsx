@@ -34,14 +34,6 @@ export const LiveBlogTag = ({ isImageTag = false, enableTopMargin = false, isTex
         };
     }, [animationRef]);
 
-    // const renderLiveIcon = () => {
-    //     return getSvgImages({
-    //         name: ImagesName.liveIcon,
-    //         width: 17,
-    //         height: 13,
-    //     });
-    // }
-
     return (
         <View style={[isImageTag ? liveBlogTagStyle.imageLiveTagContainer : liveBlogTagStyle.liveTagContainer,
         enableTopMargin && liveBlogTagStyle.topMargin,

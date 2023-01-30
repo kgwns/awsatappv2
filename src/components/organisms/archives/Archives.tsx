@@ -72,7 +72,7 @@ export const Archives = () => {
     const [initialLoading, setInitialLoading] = useState(true)
 
     useEffect(() => {
-        const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length == bookmarkDetail.length
+        const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length === bookmarkDetail.length
         if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
             updateFilterComponent(0) //We switch to all tab when bookmark add newly
             getBookmarkedId()

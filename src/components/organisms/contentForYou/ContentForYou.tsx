@@ -78,7 +78,7 @@ export const ContentForYou = () => {
             selectedTopicsRef.current = false;
         } else {
             const topicsSelected = returnItems(selectedTopicsData.data)
-            if( JSON.stringify(topicsSelected) != JSON.stringify(selectedTopics)){
+            if( JSON.stringify(topicsSelected) !== JSON.stringify(selectedTopics)){
                 if (isNonEmptyArray(selectedTopicsData.data)) {
                     setIsAllLoading(true);
                     setPage(0);
@@ -103,7 +103,7 @@ export const ContentForYou = () => {
             selectedAuthorsRef.current = false;
         } else {
             const authorsSelected = returnItems(selectedAuthorsData.data)
-            if(JSON.stringify(authorsSelected) != JSON.stringify(selectedAuthors)){
+            if(JSON.stringify(authorsSelected) !== JSON.stringify(selectedAuthors)){
                 if (isNonEmptyArray(selectedAuthorsData.data)) {
                     setIsAllLoading(true);
                     setPage(0);
@@ -171,13 +171,13 @@ export const ContentForYou = () => {
     }, [bookmarkIdInfo]);
 
     useEffect(() => {
-        if(!isAllLoading && page == 0 && !isNonEmptyArray(selectedTopicsData.data)){
+        if(!isAllLoading && page === 0 && !isNonEmptyArray(selectedTopicsData.data)){
             loadMoreData();
         }
         if(selectedLoaderRef.current) {
             selectedLoaderRef.current = false;
         } else {
-            if(!isAllLoading && page == 0 ){              
+            if(!isAllLoading && page === 0 ){              
                 if(isNonEmptyArray(selectedTopicsData.data) && !isNonEmptyArray(pageAllData[0]?.articleSectionData.data)){
                     fetchSelectedDataFromAllTopics();
                 }
@@ -201,7 +201,7 @@ export const ContentForYou = () => {
 
     const formatOpinionsData = () => {
         const updatedPageData = [...pageAllData];
-        if(updatedPageData[page]!=undefined){
+        if(updatedPageData[page]!==undefined){
             updatedPageData[page].opinionsData  = {data:favouriteOpinionsData, loaded: true} ;
             setPageAllData(updatedPageData);
             checkLoadData()
@@ -248,7 +248,7 @@ export const ContentForYou = () => {
             }
         }
         const pageDataUpdate = [...pageAllData];
-        if(pageDataUpdate[page]!=undefined){
+        if(pageDataUpdate[page]!==undefined){
             pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionData, loaded: true} ;
             pageDataUpdate[page].shortArticleData  = {data:formatShortArticleData, loaded:true} ;
             setPageAllData(pageDataUpdate);

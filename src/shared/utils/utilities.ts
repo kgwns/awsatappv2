@@ -162,9 +162,11 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
       return { icon: DateIcon.CLOCK, time: arabic.timeSince.sinceHour }
     } else if (isLessThanThreeHours) {
       return { icon: DateIcon.CLOCK, time: arabic.timeSince.sinceTwoHours }
-    } if (isLessThanFourHours) {
+    } 
+    if (isLessThanFourHours) {
       return { 
-        icon: DateIcon.CLOCK, time: arabic.timeSince.sinceThreeHours 
+        icon: DateIcon.CLOCK, 
+        time: arabic.timeSince.sinceThreeHours 
       }
     }
   }
@@ -288,7 +290,7 @@ export const getUpdatedObject = (obj:any, key: string, val: any, newVal: any) =>
         }
         if (typeof obj[i] == 'object') {
             objects = objects.concat(getUpdatedObject(obj[i], key, val, newValue));
-        } else if (i == key && obj[key] == val) {
+        } else if (i === key && obj[key] === val) {
             obj[key] = newValue;
         }
     }

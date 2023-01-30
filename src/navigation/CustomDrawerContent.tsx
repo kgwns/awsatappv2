@@ -55,7 +55,7 @@ export enum SocialMediaType {
 }
 
 interface CustomDrawerContentProps { }
-
+const JUSTIFY_CONTENT = 'space-between';
 const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const WEATHER_DETAILS_ENABLE_LOCATION = TranslateConstants({key:TranslateKey.WEATHER_DETAILS_ENABLE_LOCATION})
@@ -472,7 +472,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     socialContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: JUSTIFY_CONTENT,
       marginVertical: normalize(30),
       marginHorizontal: 4
     },
@@ -536,7 +536,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     weatherTempContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: JUSTIFY_CONTENT,
     },
     weatherCelsiusIcon: {
       marginTop: isAndroid ? normalize(9) : normalize(8),
@@ -594,7 +594,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     itemContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: JUSTIFY_CONTENT,
       alignItems: 'center',
       paddingVertical: normalize(15),
     },

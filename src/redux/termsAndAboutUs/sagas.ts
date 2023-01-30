@@ -8,8 +8,7 @@ import { isNonEmptyArray } from 'src/shared/utils';
 
 const formatData = (response: any): StaticDetailDataType[] => {
   let formattedData: StaticDetailDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body_export }: any) => ({
@@ -17,7 +16,6 @@ const formatData = (response: any): StaticDetailDataType[] => {
           title
         })
       );
-    }
   }
   return formattedData
 }

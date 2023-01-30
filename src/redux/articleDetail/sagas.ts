@@ -167,8 +167,7 @@ const parseImageData = (field_image: string, newPhoto: string) => {
 
 const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
   let formattedData: RelatedArticleDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_new_photo, field_news_categories_export, author_resource,created_export, changed }: any) => ({
@@ -181,7 +180,6 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
           created: changed
         })
       );
-    }
   }
   return formattedData
 }
@@ -315,7 +313,7 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
 
     if (isNonEmptyArray(response.articleDetailData) && isNonEmptyArray(response.articleDetailData[0].richHTML)) {
       //Read Also Bundle
-      const readAlsoElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type == RichHTMLType.READ_ALSO)
+      const readAlsoElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type === RichHTMLType.READ_ALSO)
       if (isNonEmptyArray(readAlsoElement) && isNonEmptyArray(readAlsoElement[0].data.related_content)) {
         const nidList = joinArray(readAlsoElement[0].data.related_content, '+')
         yield call(
@@ -326,7 +324,7 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
 
 
       //Content Also Bundle
-      const contentElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type == RichHTMLType.CONTENT)
+      const contentElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type === RichHTMLType.CONTENT)
       if (isNonEmptyArray(contentElement) && contentElement[0].data.content) {
         yield call(
           fetchRichHTMLContentBundle, {
@@ -337,7 +335,7 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
       }
 
       //Opinion Bundle
-      const opinionElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type == RichHTMLType.OPINION)
+      const opinionElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type === RichHTMLType.OPINION)
       if (isNonEmptyArray(opinionElement)) {
         yield all(opinionElement.map((_: any, index: number) =>
           call(fetchRichHTMLOpinionsBundle, {

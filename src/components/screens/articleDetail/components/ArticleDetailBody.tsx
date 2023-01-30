@@ -46,26 +46,7 @@ export const ArticleDetailBody = React.memo(({
         webviewRef && webviewRef.injectJavaScript(script());
     }, [articleFontSize])
 
-    /*
-    useEffect(() => {
-        if (webviewRef) {
-            webviewRef.forEach((_: any, index: number) => {
-                webviewRef[index].injectJavaScript(
-                    `${iFrameInjectCss()}
-                    true;  // note: this is required, or you'll sometimes get silent failures
-                `);
-            })
-        }
-    }, [orientation])
-
-    const isPortrait = () => {
-        const dim = Dimensions.get('screen');
-        return dim.height >= dim.width;
-    };
-    */
-
     const iFrameInjectCss = () => {
-        // const size = isPortrait() ? screenWidth : screenHeight
 
         return `
         //   This css to apply all the iFrame tag element

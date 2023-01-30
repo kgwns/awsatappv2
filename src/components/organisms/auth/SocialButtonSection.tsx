@@ -71,12 +71,11 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       onSuccessSocialLogin(userInfo,provider)
     }else{
       socialLoginEnded();
-      if(message){
-        if(message === 'ErrorOccured'){
-          //show Alert
-          showAlertNoInternet && showAlertNoInternet()
-        }
+      if(message && message === 'ErrorOccured'){
+        //show Alert
+        showAlertNoInternet && showAlertNoInternet()
       }
+      
     }
   }
 

@@ -68,7 +68,7 @@ export const FollowFavoriteAuthorScreen = () => {
   const changeSelectedStatus = (item: any, selected: boolean) => {
     const data = [...writersData]
     for (let i = 0; i < data.length; i++) {
-      if (item.tid == data[i].tid) {
+      if (item.tid === data[i].tid) {
         data[i].isSelected = selected;
       }
     }

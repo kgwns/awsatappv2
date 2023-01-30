@@ -54,9 +54,9 @@ export const JournalistDetail = ({
     const [journalistDetail, setJournalistDetail] = useState<JournalistDetailDataType[]>([])
 
     const detailRoutes = useMemo(() => routes.filter((routes) =>
-        routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
-        routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-        routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+        routes.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+        routes.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+        routes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
     const noOfDetailRoutes = detailRoutes.length
 
     const jId = route.params.tid
