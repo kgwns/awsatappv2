@@ -181,9 +181,6 @@ export const ArticleDetailBody = React.memo(({
             originWhitelist={["*"]}
             nestedScrollEnabled={false}
             scalesPageToFit={false}
-            onMessage={(event) => {
-                // console.log(event.nativeEvent.data);
-            }}
             onLoadEnd={updateWebViewStyle}
             onLoadProgress={updateWebViewStyle}
             injectedJavaScript={script()}

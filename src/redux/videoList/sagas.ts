@@ -9,8 +9,7 @@ import { decode } from 'html-entities';
 
 export const formatVideoData = (response: any): VideoItemType[] => {
   let formattedData: VideoItemType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ nid,title,created_export,field_image_upload_export,
@@ -33,7 +32,6 @@ export const formatVideoData = (response: any): VideoItemType[] => {
         })
       );
     }
-  }
   return formattedData
 }
 
