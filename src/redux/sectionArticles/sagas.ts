@@ -29,7 +29,7 @@ export function* fetchSectionArticles(action: FetchSectionArticlesType) {
 }
 
 export function* emptySectionArticlesData() {
-  emptySectionArticlesData();
+  yield emptySectionArticlesData();
 }
 
 function* sectionArticlesSaga() {

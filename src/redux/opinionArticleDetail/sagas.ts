@@ -67,11 +67,11 @@ export function* fetchRelatedOpinion(
 }
 
 export function* emptyRelatedOpinionDataList() {
-  emptyRelatedOpinionDataList();
+  yield emptyRelatedOpinionDataList();
 }
 
 export function* emptyOpinionArticleDetailData() {
-  emptyOpinionArticleDetailData();
+  yield emptyOpinionArticleDetailData();
 }
 
 export function* fetchNarratedOpinion(

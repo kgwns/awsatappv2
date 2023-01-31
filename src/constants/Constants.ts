@@ -1,8 +1,7 @@
 import { WidgetHeaderProps } from 'src/components/atoms/widgetHeader/WidgetHeader';
-import { LabelTypeProp, TextWithFlagProps } from 'src/components/atoms';
+import { LabelTypeProp, TextWithFlagProps, ImageName } from 'src/components/atoms';
 import { ImagesName, Styles } from 'src/shared/styles';
 import {
-    AuthorItemProps,
     articleFooterProps,
     TabBarDataProps,
     VideoItemProps,
@@ -18,14 +17,12 @@ import {
     StoryListProps,
     PodcastProgramInfoProps,
 } from 'src/components/organisms';
-import { normalize } from 'src/shared/utils';
+import { normalize, isIOS } from 'src/shared/utils';
 import { podcastCardProps } from 'src/components/organisms/PodcastCardSection';
 import { NewsWithImageItemProps } from 'src/components/molecules/podcast/NewsWithImageItem';
 import { ArticleRectangleCardProps } from 'src/components/molecules/podcast/ArticleRectangleCard';
 import { NewsFeedProps } from 'src/components/organisms/NewsFeed';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { isIOS } from "src/shared/utils";
-import { ImageName } from "src/components/atoms";
 import { useSelector } from 'react-redux';
 import { getArabicData } from '../redux/arabicWords/selectors';
 
@@ -2186,8 +2183,8 @@ const DURATION = ''
 const CONST_OK = 'نعم'
 
 //Permission
-const REQUIRE_ACCESS = 'تتطلب الوصول'
-const REQUEST_CAMERA_ACCESS_MESSAGE = 'يرجى تقديم إذن للوصول إلى كاميرا الجهاز'
+const PERMISSION_REQUIRE_ACCESS = 'تتطلب الوصول'
+const PERMISSION_REQUEST_CAMERA_ACCESS_MESSAGE = 'يرجى تقديم إذن للوصول إلى كاميرا الجهاز'
 
 //Podcast Spreaker
 const PODCAST_URL_SUFFIX = '/play.mp3'
@@ -2319,8 +2316,8 @@ export {
     VALID_URL_REGEX,
     PROFILE,
     DURATION,
-    REQUIRE_ACCESS,
-    REQUEST_CAMERA_ACCESS_MESSAGE,
+    PERMISSION_REQUIRE_ACCESS,
+    PERMISSION_REQUEST_CAMERA_ACCESS_MESSAGE,
     PODCAST_URL_SUFFIX,
     DEFAULT_MINIMUM_DATE,
     CONST_OK,

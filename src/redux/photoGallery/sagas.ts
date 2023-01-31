@@ -38,7 +38,7 @@ export function* fetchAlbumDetail(action: FetchAlbumDetailType) {
 }
 
 export function* emptyAllData() {
-  emptyAllData();
+  yield emptyAllData();
 }
 
 function* albumListSaga() {

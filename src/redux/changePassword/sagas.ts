@@ -28,7 +28,7 @@ export function* postNewPassword(action: SendChangePasswordType) {
 }
 
 export function* emptyPasswordResponse() {
-  emptyPasswordResponse();
+  yield emptyPasswordResponse();
 }
 
 function* newPasswordSaga() {

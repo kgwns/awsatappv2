@@ -1,5 +1,4 @@
 import { store } from "src/redux/store"
-import { ServerEnvironment } from "src/redux/appCommon/types";
 
 
 //PRODUCTION ENVIRONMENT
@@ -46,4 +45,5 @@ export const SCRIBBLE_LIVE_EVENT_URL = 'https://client.scribblelive.com/api/rest
 export const SCRIBBLE_LIVE_TOKEN_PARAM = '/?Token='
 export const SCRIBBLE_LIVE_JSON_PARAM = '&format=Json'
 //Scribble auth_token
-export const SCRIBBLE_TOKEN = '0ROZff5O' // Shared by the SRMG team. Need to replace if required. 
+export const SCRIBBLE_TOKEN = '0ROZff5O' // Shared by the SRMG team. Need to replace if required.
+

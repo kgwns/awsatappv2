@@ -63,7 +63,7 @@ export function* UpdateUserImage(action: UpdateUserImageType) {
 }
 
 export function* emptyUserProfileDataInfo() {
-  emptyUserProfileDataInfo();
+  yield emptyUserProfileDataInfo();
 }
 
 function* userProfileSaga() {

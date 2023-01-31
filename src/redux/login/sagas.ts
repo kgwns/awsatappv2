@@ -68,11 +68,11 @@ export function* requestForgotPassword(action: ForgotPasswordRequestType) {
 }
 
 export function* emptyForgotPasswordResponseInfo() {
-  emptyForgotPasswordResponseInfo();
+  yield emptyForgotPasswordResponseInfo();
 }
 
 export function* emptyLoginDataInfo() {
-  emptyLoginDataInfo();
+  yield emptyLoginDataInfo();
 }
 
 function* loginSaga() {

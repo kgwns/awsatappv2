@@ -65,7 +65,7 @@ export function* getSelectedtTopics(action:GetSelectedTopicsType) {
 }
 
 export function* emptySelectedTopicsInfo() {
-  emptySelectedTopicsInfo();
+  yield emptySelectedTopicsInfo();
 }
 
 function* allSiteCategoriesSaga() {

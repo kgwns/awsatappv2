@@ -50,7 +50,7 @@ export function* fetchFavouriteArticles(action: FetchFavouriteArticlesType) {
 }
 
 export function* emptyAllData() {
-  emptyAllData();
+  yield emptyAllData();
 }
 
 function* contentForYouSaga() {

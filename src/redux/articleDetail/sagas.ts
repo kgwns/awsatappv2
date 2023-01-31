@@ -428,7 +428,7 @@ export function* fetchArticleSection(action: RequestArticleSectionType) {
 }
 
 export function* emptyData() {
-  emptyData();
+  yield emptyData();
 }
 
 export function* getRichReadAlsoInfo(action: any) {

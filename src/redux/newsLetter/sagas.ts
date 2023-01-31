@@ -61,7 +61,7 @@ export function* getMyNewsLetters(action: GetMyNewsLettersType) {
 }
 
 export function* emptySelectedNewsLettersInfo() {
-    emptySelectedNewsLettersInfo();
+    yield emptySelectedNewsLettersInfo();
 }
 
 function* newsLettersSaga() {

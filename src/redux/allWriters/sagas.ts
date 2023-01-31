@@ -91,7 +91,7 @@ export function* removeSelectedWriters(action: RemoveAuthorType) {
 }
 
 export function* emptySelectedAuthorInfo() {
-  emptySelectedAuthorInfo();
+  yield emptySelectedAuthorInfo();
 }
 
 export function* fetchAllSelectedWritersDetailsData(action: FetchAllSelectedWritersDetailsType) {

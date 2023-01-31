@@ -30,7 +30,7 @@ export function* createUser(action: UserRegisterType) {
 }
 
 export function* emptyUserInfo() {
-  emptyUserInfo();
+  yield emptyUserInfo();
 }
 
 function* registerSaga() {

@@ -102,7 +102,7 @@ export function* fetchBottomList(action: FetchBottomListType) {
 }
 
 export function* emptyAllList() {
-  emptyAllList();
+  yield emptyAllList();
 }
 
 function* newsViewSaga() {
