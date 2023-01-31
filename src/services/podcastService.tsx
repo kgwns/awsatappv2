@@ -1,8 +1,7 @@
 import { BASE_URL, PODCAST_SPREAKER_URL} from 'src/services/apiUrls';
 import { getCacheApiRequest } from 'src/services/api';
 import { PODCAST_LIST_ENDPOINT, PODCAST_NODE_ENDPOINT } from './apiEndPoints';
-import { PodcastListBodyGet, PodcastEpisodeBodyGet } from 'src/redux/podcast/types';
-import { FetchPodcastListSuccessPayloadtype, FetchPodcastEpisodeSuccessPayloadtype } from 'src/redux/podcast/types';
+import { FetchPodcastListSuccessPayloadtype, FetchPodcastEpisodeSuccessPayloadtype, PodcastListBodyGet, PodcastEpisodeBodyGet } from 'src/redux/podcast/types';
 
 export const fetchPodcastListApi = async (body: PodcastListBodyGet) => {
   try {

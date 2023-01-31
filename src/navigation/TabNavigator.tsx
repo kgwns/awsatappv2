@@ -4,7 +4,7 @@ import {
     createBottomTabNavigator,
     BottomTabBarProps,
 } from '@react-navigation/bottom-tabs';
-import analytics from '@react-native-firebase/analytics';
+
 import { TabConstants } from '../constants/Constants';
 import { Label } from '../components/atoms';
 import { Routes, ScreenName } from '../navigation/';

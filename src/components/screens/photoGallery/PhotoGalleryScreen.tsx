@@ -7,7 +7,7 @@ import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/
 import {PopUp} from 'src/components/organisms';
 import {PopUpType} from 'src/components/organisms/popUp/PopUp';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {PhotoGalleryItem} from 'src/components/molecules';
+import {PhotoGalleryItem, PopulateWidgetType} from 'src/components/molecules';
 import {Label, LabelTypeProp, LoadingState} from 'src/components/atoms';
 import {Styles} from 'src/shared/styles';
 import {fonts} from 'src/shared/styles/fonts';
@@ -17,7 +17,6 @@ import {
 } from 'src/redux/photoGallery/types';
 import {fetchAlbumListApi} from 'src/services/photoGalleryService';
 import {AxiosError} from 'axios';
-import {PopulateWidgetType} from 'src/components/molecules';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 

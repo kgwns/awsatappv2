@@ -4,7 +4,6 @@ import {
   FetchLoginSuccessPayloadType,
   FetchLoginType,
   FetchLogoutSuccessPayloadType,
-  FetchUserLogoutPayloadType,
   ForgotPasswordRequestType,
   ForgotPasswordSuccessPayloadType,
 } from './types';

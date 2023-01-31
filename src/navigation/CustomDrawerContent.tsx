@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Linking, Text } from 'react-
 import { ImagesName } from '../shared/styles/images';
 import { ButtonImage, ButtonOutline, Label, LabelTypeProp } from '../components/atoms';
 import { ButtonList, Divider } from 'src/components/atoms';
-import { isIOS, normalize, isTab, isAndroid } from 'src/shared/utils';
+import { isIOS, normalize, isTab, isAndroid, recordLogEvent } from 'src/shared/utils';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
 import InstagramIcon from 'src/assets/images/icons/instagram.svg';
 import TwitterIcon from 'src/assets/images/icons/twitter.svg';
@@ -30,7 +30,6 @@ import {
   LINKEDIN_URL,
   TWITTER_URL,
 } from 'src/constants/Constants';
-import { recordLogEvent } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
 import {

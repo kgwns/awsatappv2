@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {View, StyleSheet, ViewStyle, Animated} from 'react-native';
+import {View, StyleSheet, ViewStyle, Animated,StyleProp} from 'react-native';
 import { ShortArticle, NewsFeed } from '../../organisms';
 import {isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle, FilterComponent, FilterDataType} from 'src/components/molecules';
@@ -31,7 +31,6 @@ import { decode } from 'html-entities';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { TopMenuItemType } from 'src/redux/topMenu/types';
-import { StyleProp } from 'react-native';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 

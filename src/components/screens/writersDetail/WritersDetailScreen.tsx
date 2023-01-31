@@ -4,10 +4,9 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isIOS, isNonEmptyArray, isNotchDevice, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
 import { ScreenContainer } from '..';
-import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
+import { useAllWriters, useBookmark, useLogin, useWriterDetail } from 'src/hooks';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useWriterDetail } from 'src/hooks';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
 import { WriterBannerImage, DetailHeader } from 'src/components/molecules'
 import { OpinionWritersArticlesSection } from 'src/components/organisms';

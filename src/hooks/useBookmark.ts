@@ -16,10 +16,9 @@ import { getBookmarked,
   updateBookMarkedDetailInfo, 
   updateFilteredBookMarkedInfo } from 'src/redux/bookmark/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
-import { isArray, isNonEmptyArray, joinArray, recordLogEvent } from 'src/shared/utils';
+import { isArray, isNonEmptyArray, joinArray, recordLogEvent,isNotEmpty, spliceArray } from 'src/shared/utils';
 import { getProfileUserDetails } from 'src/redux/profileUserDetail/selectors';
 import { PopulateWidgetType } from 'src/components/molecules';
-import { isNotEmpty, spliceArray } from 'src/shared/utils';
 
 const filterNidInfoFromNodeList = (data: BookmarkIdSuccessDataFieldType[]) => {
   return data.reduce((prevValue: string[], item: BookmarkIdSuccessDataFieldType) => {

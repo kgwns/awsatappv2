@@ -4,7 +4,6 @@ import {
     FetchLoginSuccessType,
     FetchLoginFailedType,
     FetchLoginPayloadType,
-    FetchUserLogoutPayloadType,
     UserLogoutType,
     UserLogoutSuccessType,
     LoginSkippedType,

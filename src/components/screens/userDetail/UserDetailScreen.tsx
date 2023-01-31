@@ -45,9 +45,8 @@ import {
 import {useUserProfileData} from 'src/hooks/useUserProfileData';
 import ImagePicker from 'react-native-image-crop-picker';
 import {UpdateUserImageBodyType} from 'src/redux/profileUserDetail/types';
-import {isDarkTheme} from 'src/shared/utils';
+import {isDarkTheme,SystemPermissions} from 'src/shared/utils';
 import {useAppCommon, useLogin} from 'src/hooks';
-import {SystemPermissions} from 'src/shared/utils';
 import {
   DEFAULT_MINIMUM_DATE,
   DEFAULT_ALERT_TITLE,

@@ -19,3 +19,4 @@ export const getSelectedTopicsDataList: Selector<SelectedTopicsDataType> = (
 
 export const getAllSiteCategoriesError: Selector<string> = (state: AppState) =>
   state.allSiteCategories.error;
+  

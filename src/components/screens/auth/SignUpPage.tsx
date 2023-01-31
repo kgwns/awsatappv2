@@ -11,12 +11,11 @@ import {
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {isIOS, normalize, recordLogEvent} from 'src/shared/utils';
-import {Label} from '../../atoms';
 import {ScreensConstants} from 'src/constants/Constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import {SocialLoginButton, TextInputField} from '../../atoms';
+import {SocialLoginButton, TextInputField, Label} from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {

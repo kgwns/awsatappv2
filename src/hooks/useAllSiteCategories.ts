@@ -12,8 +12,7 @@ import { fetchAllSiteCategories,
     emptySelectedTopicsInfo, 
     emptySendTopicsInfo, 
     deselectAllTopicsInfo } from 'src/redux/allSiteCategories/action';
-import { AllSiteCategoriesItemType, AllSiteCategoriesBodyGet,SelectedTopicsDataType } from 'src/redux/allSiteCategories/types';
-import { ResponseMessage, SendSelectedTopicBody } from 'src/redux/allSiteCategories/types';
+import { AllSiteCategoriesItemType, AllSiteCategoriesBodyGet,SelectedTopicsDataType,ResponseMessage, SendSelectedTopicBody } from 'src/redux/allSiteCategories/types';
 
 export interface UseAllSiteCategoriesReturn {
     isLoading: boolean;

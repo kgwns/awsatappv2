@@ -2,11 +2,10 @@ import { Alert, ColorSchemeName, Insets } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
 import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX, PODCAST_URL_SUFFIX, CONST_OK } from "src/constants/Constants"
 import { Edge } from "react-native-safe-area-context";
-import { BASE_URL, PODCAST_SPREAKER_URL } from "src/services/apiUrls";
+import { BASE_URL, PODCAST_SPREAKER_URL, PROFILE_IMAGE_URL } from "src/services/apiUrls";
 import { arabic } from "src/assets/locales/ar/common-ar";
 import moment from "moment";
 import 'moment/locale/ar';
-import { PROFILE_IMAGE_URL } from "src/services/apiUrls";
 import { getSvgImages } from "../styles/svgImages";
 import { normalize } from 'src/shared/utils';
 import { ImagesName } from "../styles";

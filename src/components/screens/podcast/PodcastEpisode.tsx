@@ -4,10 +4,9 @@ import { ScreenContainer } from '..';
 import { PodCastMiniPlayer, PodcastProgramHeader } from 'src/components/molecules';
 import Share from 'react-native-share';
 import { PodcastEpisodeContent, PodcastEpisodeInfo } from 'src/components/organisms';
-import { CustomThemeType } from 'src/shared/styles/colors';
+import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray, recordLogEvent, isTab, screenWidth } from 'src/shared/utils';
-import { colors } from 'src/shared/styles/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
@@ -316,3 +315,4 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: isIOS ? 50 : 70
     }
   })
+  

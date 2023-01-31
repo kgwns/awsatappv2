@@ -10,8 +10,7 @@ import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
   INFO_GRAPHIC_BLOCK,
   ARCHIVED_ARTICLE_ENDPOINT,
 } from './apiEndPoints';
-import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
-import { payloadType } from 'src/redux/latestNews/types';
+import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet, payloadType } from 'src/redux/latestNews/types';
 import { isArray, isIOS, joinArray } from 'src/shared/utils';
 import { NativeModules } from 'react-native';
 

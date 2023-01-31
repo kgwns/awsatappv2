@@ -2,10 +2,7 @@ import {UMS_BASE_URL} from 'src/services/apiUrls';
 import {postApiRequest} from 'src/services/api';
 import {USER_PROFILE_DETAIL, SEND_PROFILE_DETAIL, UPDATE_PROFILE_USER_IMAGE} from './apiEndPoints';
 import {
-  FetchProfileUserDetailsSuccessPayloadType, SendUserData,
-} from 'src/redux/profileUserDetail/types';
-import {
-  UpdateUserImageBodyType,
+  FetchProfileUserDetailsSuccessPayloadType, SendUserData,  UpdateUserImageBodyType,
   UpdateUserImageSuccessPayloadType,
 } from 'src/redux/profileUserDetail/types';
 import { AxiosError} from 'axios';
@@ -54,3 +51,4 @@ export const updateProfileUserImage = async (body: UpdateUserImageBodyType) => {
       throw errorResponse;
     }
   };
+  

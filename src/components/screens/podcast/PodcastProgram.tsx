@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, FlatList, Modal, StyleSheet, View } from 'react-native';
 import { PodcastEpisodeModal, ScreenContainer } from '..';
-import { PodcastProgramInfo } from 'src/components/organisms';
+import { PodcastProgramInfo, PodcastEpisodeList } from 'src/components/organisms';
 import { horizontalEdge, isIOS, isNonEmptyArray, screenHeight } from 'src/shared/utils';
-import { useBookmark, usePodcast, useAppPlayer } from 'src/hooks';
+import { useBookmark, usePodcast, useAppPlayer, useLogin } from 'src/hooks';
 import { PodcastListBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
-import { PodcastEpisodeList } from 'src/components/organisms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useLogin } from 'src/hooks';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 

@@ -112,3 +112,4 @@ state.latestNewsTab.infoGraphicBlockInfoLoaded;
 
 export const getArchivedArticleSectionData: Selector<ArchivedArticleDataType[]> = (state: AppState) =>
 state.latestNewsTab.archivedArticleSection;
+

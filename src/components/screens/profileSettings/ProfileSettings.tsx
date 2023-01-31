@@ -4,7 +4,6 @@ import {
   FlatList,
   ListRenderItem,
   TouchableOpacity,
-  Text,
   NativeModules
 } from 'react-native';
 import React, { useState } from 'react';

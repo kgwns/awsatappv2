@@ -4,13 +4,12 @@ import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, LoadingState, NextButton } from 'src/components/atoms';
 import { CustomAlert, horizontalEdge, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenHeight, screenWidth } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useAllWriters, useUserProfileData } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
-import { useIsFocused } from '@react-navigation/native';
 import { fonts } from 'src/shared/styles/fonts';
 
 export const FollowFavoriteAuthorScreen = () => {

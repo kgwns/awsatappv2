@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 
-import {NavigationContainer, NavigationContainerProps, NavigationContainerRef} from '@react-navigation/native';
+import {NavigationContainer, NavigationContainerRef} from '@react-navigation/native';
 import {
   CardStyleInterpolators,
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import analytics from '@react-native-firebase/analytics';
+
 import {ScreenList, Routes} from 'src/navigation';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useAppPlayer, useLogin } from 'src/hooks';
