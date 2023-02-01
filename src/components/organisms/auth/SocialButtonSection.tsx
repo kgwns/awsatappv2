@@ -153,6 +153,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
         const googleSignIn = LoginFactory.getInstance(Connection.Google,onResult);
         googleSignIn?.login();
         onPressButton(type);
+        break;
       case NavigateTypes.apple:
         onPressButton(type);
         return;
@@ -160,6 +161,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
         const facebookSignIn = LoginFactory.getInstance(Connection.Facebook,onResult);
         facebookSignIn?.login();
         onPressButton(type);
+        break;
     }
   };
   const socialButtonLabelStyle = socialButtonBoldStyle ? styles.socialLoginButtonBoldLabel : styles.socialLoginButtonLabel
