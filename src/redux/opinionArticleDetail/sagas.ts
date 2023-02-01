@@ -66,14 +66,6 @@ export function* fetchRelatedOpinion(
   }
 }
 
-export function* emptyRelatedOpinionDataList() {
-  yield emptyRelatedOpinionDataList();
-}
-
-export function* emptyOpinionArticleDetailData() {
-  yield emptyOpinionArticleDetailData();
-}
-
 export function* fetchNarratedOpinion(
   action: FetchNarratedOpinionType,
 ) {
@@ -100,8 +92,6 @@ export function* fetchNarratedOpinion(
 function* opinionArticleDetailSaga() {
   yield all([takeLatest(REQUEST_OPINION_ARTICLE_DETAIL, fetchOpinionArticleDetail)]);
   yield all([takeLatest(REQUEST_RELATED_OPINION, fetchRelatedOpinion)]);
-  yield all([takeLatest(EMPTY_RELATED_OPINION_DATA, emptyRelatedOpinionDataList)]);
-  yield all([takeLatest(EMPTY_OPINION_ARTICLE_DETAIL, emptyOpinionArticleDetailData)]);
   yield all([takeLatest(REQUEST_NARRATED_OPINION_ARTICLE, fetchNarratedOpinion)]);
 }
 

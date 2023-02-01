@@ -67,21 +67,13 @@ export function* requestForgotPassword(action: ForgotPasswordRequestType) {
   }
 }
 
-export function* emptyForgotPasswordResponseInfo() {
-  yield emptyForgotPasswordResponseInfo();
-}
 
-export function* emptyLoginDataInfo() {
-  yield emptyLoginDataInfo();
-}
 
 function* loginSaga() {
   yield all([
     takeLatest(FETCH_LOGIN, fetchLogin),
     takeLatest(FETCH_USER_LOGOUT, fetchLogout),
     takeLatest(FORGOT_PASSWORD_REQUEST,requestForgotPassword),
-    takeLatest(EMPTY_FORGOT_PASSWORD_RESPONSE,emptyForgotPasswordResponseInfo),
-    takeLatest(EMPTY_LOGIN_DATA,emptyLoginDataInfo),
   ]);
 }
 

@@ -64,15 +64,11 @@ export function* getSelectedtTopics(action:GetSelectedTopicsType) {
   }
 }
 
-export function* emptySelectedTopicsInfo() {
-  yield emptySelectedTopicsInfo();
-}
 
 function* allSiteCategoriesSaga() {
   yield all([takeLatest(FETCH_ALL_SITE_CATEGORIES, fetchAllSiteCategories)]);
   yield all([takeLatest(SEND_SELECTED_TOPIC, postSelectedTopics)]);
   yield all([takeLatest(GET_SELECTED_TOPICS, getSelectedtTopics)]);
-  yield all([takeLatest(EMPTY_SELECTED_TOPICS_INFO, emptySelectedTopicsInfo)]);
 }
 
 export default allSiteCategoriesSaga;

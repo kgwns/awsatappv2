@@ -28,13 +28,8 @@ export function* fetchSectionArticles(action: FetchSectionArticlesType) {
   }
 }
 
-export function* emptySectionArticlesData() {
-  yield emptySectionArticlesData();
-}
-
 function* sectionArticlesSaga() {
   yield all([takeLatest(FETCH_SECTION_ARTICLES, fetchSectionArticles)]);
-  yield all([takeLatest(EMPTY_SECTION_ARTICLES, emptySectionArticlesData)]);
 }
 
 export default sectionArticlesSaga;

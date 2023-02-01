@@ -90,9 +90,6 @@ export function* removeSelectedWriters(action: RemoveAuthorType) {
   }
 }
 
-export function* emptySelectedAuthorInfo() {
-  yield emptySelectedAuthorInfo();
-}
 
 export function* fetchAllSelectedWritersDetailsData(action: FetchAllSelectedWritersDetailsType) {
   try {
@@ -114,7 +111,6 @@ function* allWritersSaga() {
   yield all([takeLatest(FETCH_ALL_WRITERS, fetchAllWriters)]);
   yield all([takeLatest(SEND_SELECTED_AUTHOR, postSelectedWriters)]);
   yield all([takeLatest(GET_SELECTED_AUTHOR, getSelectedtAuthors)]);
-  yield all([takeLatest(EMPTY_SELECTED_AUTHORS_INFO, emptySelectedAuthorInfo)]);
   yield all([takeLatest(REMOVE_AUTHOR, removeSelectedWriters)]);
   yield all([takeLatest(FETCH_ALL_SELECTED_WRITERS_DETAILS, fetchAllSelectedWritersDetailsData)]);
 }

@@ -29,13 +29,9 @@ export function* createUser(action: UserRegisterType) {
   }
 }
 
-export function* emptyUserInfo() {
-  yield emptyUserInfo();
-}
 
 function* registerSaga() {
   yield all([takeLatest(REGISTER_USER, createUser)]);
-  yield all([takeLatest(EMPTY_USER_INFO, emptyUserInfo)]);
 }
 
 export default registerSaga;

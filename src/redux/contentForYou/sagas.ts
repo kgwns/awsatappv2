@@ -49,14 +49,10 @@ export function* fetchFavouriteArticles(action: FetchFavouriteArticlesType) {
   }
 }
 
-export function* emptyAllData() {
-  yield emptyAllData();
-}
 
 function* contentForYouSaga() {
   yield all([takeLatest(FETCH_FAVOURITE_OPINIONS, fetchFavouriteOpinions)]);
   yield all([takeLatest(FETCH_FAVOURITE_ARTICLES, fetchFavouriteArticles)]);
-  yield all([takeLatest(EMPTY_ALL_DATA, emptyAllData)]);
 }
 
 export default contentForYouSaga;

@@ -427,9 +427,6 @@ export function* fetchArticleSection(action: RequestArticleSectionType) {
   }
 }
 
-export function* emptyData() {
-  yield emptyData();
-}
 
 export function* getRichReadAlsoInfo(action: any) {
   try {
@@ -488,7 +485,6 @@ export function* articleDetailSaga() {
     takeLatest(REQUEST_ARTICLE_DETAIL, fetchArticleDetail),
     takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle),
     takeLatest(REQUEST_ARTICLE_SECTION,fetchArticleSection),
-    takeLatest(EMPTY_DATA, emptyData),
     takeLatest(REQUEST_RICH_ARTICLE_READ_ALSO, getRichReadAlsoInfo),
   ]);
 }

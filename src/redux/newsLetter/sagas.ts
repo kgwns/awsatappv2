@@ -60,15 +60,11 @@ export function* getMyNewsLetters(action: GetMyNewsLettersType) {
     }
 }
 
-export function* emptySelectedNewsLettersInfo() {
-    yield emptySelectedNewsLettersInfo();
-}
 
 function* newsLettersSaga() {
     yield all([takeLatest(SEND_SELECTED_NEWS_LETTERS, postSelectedNewsLetters)]);
     yield all([takeLatest(GET_SELECTED_NEWS_LETTERS, getSelectedNewsLetters)]);
     yield all([takeLatest(GET_MY_NEWS_LETTERS, getMyNewsLetters)]);
-    yield all([takeLatest(EMPTY_SELECTED_NEWS_LETTERS_INFO, emptySelectedNewsLettersInfo)]);
 }
 
 export default newsLettersSaga;

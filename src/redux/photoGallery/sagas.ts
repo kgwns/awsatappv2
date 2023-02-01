@@ -37,14 +37,9 @@ export function* fetchAlbumDetail(action: FetchAlbumDetailType) {
   }
 }
 
-export function* emptyAllData() {
-  yield emptyAllData();
-}
-
 function* albumListSaga() {
   yield all([takeLatest(FETCH_ALBUM_LIST, fetchAlbumList)]);
   yield all([takeLatest(FETCH_ALBUM_DETAIL, fetchAlbumDetail)]);
-  yield all([takeLatest(EMPTY_ALL_DATA, emptyAllData)]);
 }
 
 export default albumListSaga;
