@@ -269,6 +269,14 @@ dependencies {
     implementation project(':react-native-inappbrowser-reborn')
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
     implementation project(':react-native-screens')
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
+            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+        }
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
+            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
 }
 
 // Run this once to be able to run the application with BUCK

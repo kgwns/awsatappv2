@@ -341,7 +341,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     }
 
     const index = sectionComboEightInfo.findIndex((item) => item.nid == article.nid)
-    const updatedData = updatedChangeBookmark(sectionComboSevenInfo, index)
+    const updatedData = updatedChangeBookmark(sectionComboEightInfo, index)
     setSectionComboEightInfo(updatedData)
   }
 
