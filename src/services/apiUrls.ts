@@ -21,7 +21,7 @@ export const BASE_URL = getBaseUrl();
 
 
 export const UMS_BASE_URL = 'https://awsatapi.srpcdigital.com/';
-export const PROFILE_IMAGE_URL = 'http://awsatapi.srpcdigital.com/storage/'
+export const PROFILE_IMAGE_URL = 'https://awsatapi.srpcdigital.com/storage/'
 export const PODCAST_SPREAKER_URL = 'https://api.spreaker.com/v2/episodes/';
 export const GET_JW_MEDIA_PLAYER_URL = 'https://cdn.jwplayer.com/v2/media/';
 export const TODOS = 'todos';

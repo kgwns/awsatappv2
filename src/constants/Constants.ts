@@ -795,13 +795,13 @@ const storyWidgetSampleButtonTitle = 'امرأ المقالة'
 const storyWidgetSampleThumbnail = 'https://picsum.photos/100'
 const sampleVideoTitle = 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات'
 const sampleVideoDescription = 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.'
-const podcastSampleViewNode = "http://srpcawsatdev.prod.acquia-sites.com/node/111"
+const podcastSampleViewNode = "https://aawsat.news/8bsy8"
 const podcastSampleEpisodeTitle = "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص"
 const podcastSectSampleTitle = "صباح الخير"
-const podcastSectSampleUrl = "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842"
+const podcastSectSampleUrl = "https://aawsat.srpcdigital.com/taxonomy/term/94841"
 const podcastSectSampleDescription = "<p class=\"text-align-right\">Breifing</p>\n"
-const podcastSectSampleDesktopImageUrl = "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg"
-const podcastSectSampleMobileImageUrl = "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg"
+const podcastSectSampleDesktopImageUrl = "https://static.srpcdigital.com/2022-05/podcast.jpg"
+const podcastSectSampleMobileImageUrl = "https://static.srpcdigital.com/2022-08/spb1.jpg"
 
 const storeInfo = [
     {
@@ -1385,13 +1385,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
         tid: '92570',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
         parent_target_id_export: [],
     },
     {
@@ -1399,13 +1399,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
         tid: '92571',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
         parent_target_id_export: [],
     },
     {
@@ -1413,13 +1413,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
         tid: '92572',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
         parent_target_id_export: [],
     },
     {
@@ -1427,13 +1427,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
         tid: '92573',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
         parent_target_id_export: [],
     },
     {
@@ -1441,13 +1441,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
         tid: '92574',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
         parent_target_id_export: [],
     },
     {
@@ -1455,13 +1455,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
         tid: '92575',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
         parent_target_id_export: [],
     },
     {
@@ -1469,13 +1469,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
         tid: '92576',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
         parent_target_id_export: [],
     },
     {
@@ -1483,13 +1483,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
         tid: '92577',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
         parent_target_id_export: [],
     },
     {
@@ -1497,13 +1497,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
         tid: '92578',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
         parent_target_id_export: [],
     },
     {
@@ -1511,13 +1511,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
         tid: '92579',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
         parent_target_id_export: [],
     },
 ];
@@ -1529,13 +1529,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
             tid: '92570',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
             parent_target_id_export: [],
         },
         {
@@ -1543,13 +1543,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
             tid: '92571',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
             parent_target_id_export: [],
         },
         {
@@ -1557,13 +1557,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
             tid: '92572',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
             parent_target_id_export: [],
         },
         {
@@ -1571,13 +1571,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
             tid: '92573',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
             parent_target_id_export: [],
         },
         {
@@ -1585,13 +1585,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
             tid: '92574',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
             parent_target_id_export: [],
         },
         {
@@ -1599,13 +1599,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
             tid: '92575',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
             parent_target_id_export: [],
         },
         {
@@ -1613,13 +1613,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
             tid: '92576',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
             parent_target_id_export: [],
         },
         {
@@ -1627,13 +1627,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
             tid: '92577',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
             parent_target_id_export: [],
         },
         {
@@ -1641,13 +1641,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
             tid: '92578',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
             parent_target_id_export: [],
         },
         {
@@ -1655,13 +1655,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
             tid: '92579',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
             parent_target_id_export: [],
         },
     ],
