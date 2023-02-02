@@ -148,7 +148,6 @@ export const GetFCMToken = () => {
       );
     });
     PushNotificationIOS.addEventListener('register', token => {
-      console.log('Token>>>>>>>>>>>>>>>>>>>>>>>>>>>>', token);
       getToken();
     });
 
