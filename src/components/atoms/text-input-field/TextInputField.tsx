@@ -87,7 +87,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   placeholder,
   value = '',
   onChangeText,
-  onSubmitEditing = () => {},
+  onSubmitEditing = () => ({}),
   keyboardType = 'default',
   error = '',
   isPassword = false,

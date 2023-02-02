@@ -75,10 +75,10 @@ export const OpinionArticleDetail = ({
   const relatedOpinionRef = useRef(true);
   const pageLoadingRef = useRef(false);
 
-  const detailRoutes = useMemo(() => routes.filter((routes) =>
-    routes.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
-    routes.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-    routes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+  const detailRoutes = useMemo(() => routes.filter((detailRoute) =>
+    detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+    detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+    detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfDetailRoutes = detailRoutes.length
 
 
@@ -153,8 +153,10 @@ export const OpinionArticleDetail = ({
       if(route.params && route.params.nid && isFocused){
         setOpinionArticle(opinionArticleDetailData)
         const isBookmarked = validateBookmark(opinionArticleDetailData[0].nid_export)
+        console.log(isBookmarked,'isBookmarked useEffect')
         setIsBookmarked(isBookmarked)
       }
+      console.log(isBookmarked,'outside')
 
       if (isNonEmptyArray(opinionArticleDetailData[0].writer) && isNotEmpty(opinionArticleDetailData[0].writer[0]?.id)) {
         getWriterDetailData({ tid: opinionArticleDetailData[0].writer[0].id })

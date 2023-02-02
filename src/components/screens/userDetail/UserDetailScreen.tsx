@@ -430,11 +430,11 @@ export const UserDetailScreen: FunctionComponent = () => {
               modal
               open={open}
               date={date}
-              onConfirm={date => {
+              onConfirm={pickerDate => {
                 setOpen(false);
-                setDate(date);
+                setDate(pickerDate);
                 setDisableDate(true);
-                setSelectedDate(getFullDate(date));
+                setSelectedDate(getFullDate(pickerDate));
                 setBirthday('');
               }}
               onCancel={() => {

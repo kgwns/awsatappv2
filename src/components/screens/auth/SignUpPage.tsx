@@ -146,8 +146,8 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   }, [registerUserInfo]);
 
   const getDeviceName = async () => {
-    const deviceName = await DeviceInfo.getDeviceName();
-    setDeviceName(deviceName);
+    const deviceNameInfo = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceNameInfo);
   };
 
   const onPressSignIn = () => {

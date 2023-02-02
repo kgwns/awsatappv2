@@ -95,10 +95,10 @@ export const ArticleDetailScreen = ({
   const [richHTML, setRichHTML] = useState<HTMLElementParseStore[]>([])
   const { showMiniPlayer } = useAppPlayer()
   
-  const detailRoutes = useMemo(() => routes.filter((routes) => 
-    routes.name === ScreensConstants.ARTICLE_DETAIL_SCREEN || 
-    routes.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN || 
-    routes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+  const detailRoutes = useMemo(() => routes.filter((detailRoute) => 
+    detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN || 
+    detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN || 
+    detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfDetailRoutes = detailRoutes.length
 
   const videoRefs = useRef<any[]>([]);
@@ -344,7 +344,7 @@ export const ArticleDetailScreen = ({
     }
   }
 
-  const stopVideoPlayer = (showReplay: boolean = false) => {
+  const stopVideoPlayer = (showReplayProps: boolean = false) => {
     try {
       if (videoRefs) {
         videoRefs?.current[0]?.setNativeProps({
@@ -356,7 +356,7 @@ export const ArticleDetailScreen = ({
         videoRefs?.current[2]?.setNativeProps({
           paused: true
         })
-        setShowReplay(showReplay);
+        setShowReplay(showReplayProps);
       }
     } catch (e) {
     }
@@ -548,9 +548,9 @@ export const ArticleDetailScreen = ({
       </View>
   )}
 
-  const setPlayerDetails = (time: any , paused: boolean) => {
+  const setPlayerDetails = (time: any , pausedProps: boolean) => {
     setCurrentTime(time)
-    setPaused(paused)
+    setPaused(pausedProps)
   }
 
   // const closeMiniPlayer = (visible: boolean) => {
@@ -607,6 +607,7 @@ export const ArticleDetailScreen = ({
         </View>}
       </View>
       }
+      {console.log(playerUrl,'player')}
       {playerUrl && <View style={[{display: isFullScreen ? 'flex' : 'none', flex: isFullScreen ? 1 : 0}, style.fullScreenContainer]}>
         <VideoPlayerControl
           url={playerUrl}

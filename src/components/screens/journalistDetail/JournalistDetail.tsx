@@ -52,10 +52,10 @@ export const JournalistDetail = ({
     const [articleState, setArticleState] = useState<JournalistArticleData[]>([])
     const [journalistDetail, setJournalistDetail] = useState<JournalistDetailDataType[]>([])
 
-    const detailRoutes = useMemo(() => routes.filter((routes) =>
-        routes.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
-        routes.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-        routes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+    const detailRoutes = useMemo(() => routes.filter((detailRoute) =>
+        detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+        detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+        detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
     const noOfDetailRoutes = detailRoutes.length
 
     const jId = route.params.tid

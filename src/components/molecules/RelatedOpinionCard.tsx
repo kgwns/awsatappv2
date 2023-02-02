@@ -40,10 +40,10 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
     setPrevPlayBackState(playbackState);
   }, [playbackState])
 
-  const renderTitle = (item: any) => {
+  const renderTitle = (itemProps: any) => {
     return (
       <View >
-        <Text children={item.title} style={style.contentTitle} />
+        <Text children={itemProps.title} style={style.contentTitle} />
       </View>
     )
   }
@@ -69,6 +69,7 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
         const errorResponse: AxiosError = error as AxiosError;
         if (errorResponse.response) {
           const errorMessage: { message: string } = errorResponse.response.data;
+          console.log(errorMessage,'errorMessage');
         }
       }
   }
@@ -80,7 +81,7 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
     }
   }
 
-  const onPlayPausePress = async (playbackState: any) => {
+  const onPlayPausePress = async () => {
     const state = await TrackPlayer.getState()
 
     if(trackData != null){
@@ -115,7 +116,7 @@ const onPressPlay = () => {
       setPlayerTrack(trackPlayerData);
       !showMiniPlayer && setShowMiniPlayer(true);
     }else{
-      showMiniPlayer ? onPlayPausePress(playbackState) : setShowMiniPlayer(true);
+      showMiniPlayer ? onPlayPausePress() : setShowMiniPlayer(true);
       
     }
     

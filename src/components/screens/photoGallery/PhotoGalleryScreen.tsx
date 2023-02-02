@@ -81,10 +81,10 @@ export const PhotoGalleryScreen = React.memo(
         : false;
     };
 
-    const fetchPhotoList = async (page: number) => {
+    const fetchPhotoList = async (pageProps: number) => {
       setIsLoading(true);
       const albumBody: AlbumListBodyGet = {
-        page: page,
+        page: pageProps,
         items_per_page: isTab ? 12 : 10,
       };
       try {

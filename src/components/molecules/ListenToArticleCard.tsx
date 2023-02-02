@@ -40,7 +40,7 @@ export const ListenToArticleCard = (data: any) => {
     setPrevPlayBackState(playbackState);
   }, [playbackState])
 
-  const onPlayPausePress = async (playbackState: any) => {
+  const onPlayPausePress = async () => {
     const state = await TrackPlayer.getState()
 
     if(trackData != null){
@@ -74,7 +74,7 @@ const onPressPlay = () => {
       setPlayerTrack(trackPlayerData);
       !showMiniPlayer && setShowMiniPlayer(true);
     }else{
-      showMiniPlayer ? onPlayPausePress(playbackState) : setShowMiniPlayer(true);
+      showMiniPlayer ? onPlayPausePress() : setShowMiniPlayer(true);
       
     }
     

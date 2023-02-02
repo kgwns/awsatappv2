@@ -174,7 +174,7 @@ const MostReadList = ({
         data={articleData}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => renderItem(item, index)}
-        onEndReached={onScroll ? onScroll : () => {}}
+        onEndReached={onScroll ? onScroll : () => ({})}
         onEndReachedThreshold={0.3}
         contentContainerStyle={showMiniPlayer && style.contentContainer}
       />

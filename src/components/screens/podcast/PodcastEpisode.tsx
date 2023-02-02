@@ -147,9 +147,9 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     updateBookmarkInfo(item.nid, newBookmarked)
   }
 
-  const onPressSaveEpisodeList = (nid: string) => {
+  const onPressSaveEpisodeList = (nidProps: string) => {
     const data = [...podcastEpisodeListInfo]
-    const index = data.findIndex((item)=>item.nid===nid)
+    const index = data.findIndex((item)=>item.nid===nidProps)
     if(index>-1){
     const item = data[index]
     const newBookmarked = !item.isBookmarked
@@ -158,8 +158,8 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     updateBookmarkInfo(item.nid, newBookmarked)}
   }
 
-  const onPressEpisodeListBookmark = (nid: string) => {
-    isLoggedIn ? onPressSaveEpisodeList(nid) : makeSignUpAlert()
+  const onPressEpisodeListBookmark = (nidProps: string) => {
+    isLoggedIn ? onPressSaveEpisodeList(nidProps) : makeSignUpAlert()
   }
 
   const onPressEpisodeBookmark = () => {

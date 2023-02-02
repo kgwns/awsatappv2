@@ -21,8 +21,8 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
   const CONST_MY_NEWS_TAB_MEDIA = TranslateConstants({key:TranslateKey.MY_NEWS_TAB_MEDIA})
   const CONST_MY_NEWs_TAB_TOPICS= TranslateConstants({key:TranslateKey.MY_NEWS_TAB_TOPICS})
 
-  const renderStyle = (tabName: String) => {
-    switch (tabName) {
+  const renderStyle = (tabNameProps: String) => {
+    switch (tabNameProps) {
       case CONST_MY_NEWS_TAB_WRITERS:
         return customStyle.containerWriters
       case CONST_MY_NEWS_TAB_MEDIA:

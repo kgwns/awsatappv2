@@ -143,6 +143,7 @@ export const ScreenContainer = ({
   };
 
   const statusBarBackgroundColor = statusbarColor ||  isNotEmpty(backgroundColor) ? backgroundColor : themeData.backgroundColor;
+  const contentStyle =  isDarkMode ? 'light-content' : 'dark-content';
   return (
       <SafeAreaView
         style={[style.container,
@@ -154,7 +155,7 @@ export const ScreenContainer = ({
         <StatusBar
           backgroundColor={statusBarBackgroundColor}
           barStyle={
-            barStyle ? barStyle : isDarkMode ? 'light-content' : 'dark-content'
+            barStyle ? barStyle : contentStyle
           }
         />
         {children}

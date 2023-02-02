@@ -59,8 +59,8 @@ export const MyNewsTopics = () => {
 
     useEffect(() => {
         if (articleData !== favouriteArticlesData) {
-            setArticleData((articleData: any) => [
-                ...articleData,
+            setArticleData((prevArticleData: any) => [
+                ...prevArticleData,
                 ...favouriteArticlesData,
             ]);
         }

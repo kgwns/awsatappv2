@@ -218,7 +218,7 @@ export const calculateYear = (time: any) => {
 };
 
 export const getFullDate = (time: any) => {
-  return calculateDate(time) + ' ' + calculateMonth(time) + ' ' + moment(time).get('year');
+  return calculateNonUtcDate(time) + ' ' + calculateNonUtcMonth(time) + ' ' + moment(time).get('year');
 }
 
 export const calculateNonUtcDateNumber = (time: any) => {

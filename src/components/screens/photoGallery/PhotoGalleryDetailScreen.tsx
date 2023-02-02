@@ -92,8 +92,8 @@ export const PhotoGalleryDetailScreen = ({
   }, [albumData]);
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
-    const edge = getScreenEdge(deviceOrientation);
-    isNonEmptyArray(edge) && setEdge(edge);
+    const screenEdge = getScreenEdge(deviceOrientation);
+    isNonEmptyArray(screenEdge) && setEdge(screenEdge);
   };
 
   const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {

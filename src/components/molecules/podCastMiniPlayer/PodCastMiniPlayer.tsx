@@ -81,7 +81,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
         </>
     )
 
-    const onPlayPausePress = async (playbackState: any) => {
+    const onPlayPausePress = async () => {
         const state = await TrackPlayer.getState()
 
         if(selectedTrack != null){
@@ -172,7 +172,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playForwardIcon' onPress={() => { seekForwardBackward('backward') }}>
                         {_playForwardIcon}
                     </TouchableOpacity>
-                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playPause' onPress={() => onPlayPausePress(playbackState)}>
+                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playPause' onPress={() => onPlayPausePress()}>
                         { isPlaying || isBuffering ? _pauseIcon : _playIcon }
                     </TouchableOpacity>
                     <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playBackwardIcon' onPress={() => { seekForwardBackward('forward') }}>
@@ -206,7 +206,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                             />
                         </View>
                         <View style={style.buttonBackground}>
-                            <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
+                            <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress()}>
                                 <View style={style.buttonContainer}>
                                     {isLoading ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play />}
                                 </View>

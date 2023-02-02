@@ -38,7 +38,7 @@ export const ArchivesPodcast = () => {
                             size: normalize(16),
                             fill: themeData.primaryBlack
                         });
-                    }} onPress={() => { }}
+                    }} onPress={() => ({ })}
                     />
                     <Label children={archivesPodCastData.allEpisodes}
                         color={Styles.color.greenishBlue}
@@ -52,7 +52,7 @@ export const ArchivesPodcast = () => {
                     size: normalize(14),
                     fill: themeData.primaryBlack
                 });
-            }} onPress={() => { }}
+            }} onPress={() => ({ })}
             />
         </View>
     )

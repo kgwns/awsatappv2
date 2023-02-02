@@ -97,6 +97,7 @@ const AuthorItem = ({
           const errorResponse: AxiosError = error as AxiosError;
           if (errorResponse.response) {
             const errorMessage: { message: string } = errorResponse.response.data;
+            console.log(errorMessage,'errorMessage');
           }
         }
       }
@@ -108,7 +109,7 @@ const AuthorItem = ({
         }
     }
 
-    const onPlayPausePress = async (playbackState: any) => {
+    const onPlayPausePress = async () => {
         const state = await TrackPlayer.getState()
         if(trackData != null){
             if(state === State.Paused){
@@ -140,7 +141,7 @@ const AuthorItem = ({
           setPlayerTrack(trackPlayerData);
           !showMiniPlayer && setShowMiniPlayer(true);
         }else{
-          showMiniPlayer ? onPlayPausePress(playbackState) : setShowMiniPlayer(true);
+          showMiniPlayer ? onPlayPausePress() : setShowMiniPlayer(true);
           
         }
         

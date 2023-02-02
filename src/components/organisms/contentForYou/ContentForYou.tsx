@@ -258,11 +258,11 @@ export const ContentForYou = () => {
 
     const fetchSelectedDataFromAllAuthors = () => {
         if (isNonEmptyArray(selectedAuthorsData.data)) {
-            const selectedAuthors = selectedAuthorsData.data.map((item:any)=>{
+            const selectedAuthorsTid = selectedAuthorsData.data.map((item:any)=>{
                 return item.tid
             });
-            setSelectedAuthors(selectedAuthors);
-            fetchOpinionData(selectedAuthors,0);
+            setSelectedAuthors(selectedAuthorsTid);
+            fetchOpinionData(selectedAuthorsTid,0);
         }else{
             setSelectedAuthors([]);
         }
@@ -270,11 +270,11 @@ export const ContentForYou = () => {
 
     const fetchSelectedDataFromAllTopics = () => {
         if (isNonEmptyArray(selectedTopicsData.data)) {
-            const selectedTopics = selectedTopicsData.data.map((item:any)=>{
+            const selectedTopicsTid = selectedTopicsData.data.map((item:any)=>{
                 return item.tid
             });
-            setSelectedTopics(selectedTopics);
-            fetchArticleData(selectedTopics,0);
+            setSelectedTopics(selectedTopicsTid);
+            fetchArticleData(selectedTopicsTid,0);
         }else{
             setSelectedTopics([]);
         }
@@ -374,7 +374,7 @@ export const ContentForYou = () => {
                 data={item.shortArticleData.data}
                 onPress={onPressArticle}
                 onUpdateBookmark={updateBookmarkInfo}
-                showSignUpPopUp={() => {}}
+                showSignUpPopUp={() => ({})}
                 addStyle={styles.topArticleContainer}
                 showBody={isTab ? true : false}
                 leftContainerStyle={isTab ? {flex: 1} : {}}

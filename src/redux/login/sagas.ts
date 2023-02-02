@@ -44,6 +44,7 @@ export function* fetchLogout() {
     const errorResponse: AxiosError = error as AxiosError;
     if (errorResponse.response) {
       const errorMessage: {message: string} = errorResponse.response.data;
+      console.log(errorMessage,'errorMessage');
       //Alert.alert(errorMessage.message);
       //yield put(fetchLoginFailed({error: errorMessage.message}));
     }
