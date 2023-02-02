@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import messaging from '@react-native-firebase/messaging';
 import '@react-native-firebase/messaging';
-import {Alert, Platform} from 'react-native';
+import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {useNotificationSaveToken} from 'src/hooks';
 import {SaveTokenBodyType} from 'src/redux/notificationSaveToken/types';
@@ -11,7 +11,7 @@ import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import {isAndroid, isIOS} from 'src/shared/utils';
 import {ScreensConstants} from 'src/constants/Constants';
-import {navigate, navigationRefernce} from 'src/navigation/NavigationUtils';
+import {navigate} from 'src/navigation/NavigationUtils';
 import notifee, {AndroidImportance, EventType} from '@notifee/react-native';
 
 async function onDisplayNotification(
@@ -97,7 +97,6 @@ export const GetFCMToken = () => {
     });
 
     getToken();
-
     messaging()
       //When Application open from quit state
       .getInitialNotification()
@@ -147,6 +146,10 @@ export const GetFCMToken = () => {
         () => showNotification(response.notification!),
         // onDisplayNotification(response.data!)
       );
+    });
+    PushNotificationIOS.addEventListener('register', token => {
+      console.log('Token>>>>>>>>>>>>>>>>>>>>>>>>>>>>', token);
+      getToken();
     });
 
     PushNotificationIOS.addEventListener('localNotification', notification => {
