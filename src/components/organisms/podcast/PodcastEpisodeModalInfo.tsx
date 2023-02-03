@@ -4,7 +4,7 @@ import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
 import { Image } from 'src/components/atoms/image/Image'
 import { ButtonOutline } from "src/components/atoms/button-outline/ButtonOutline";
 import { PodcastVerticalListProps } from 'src/components/molecules/';
-import { isTab, normalize, screenWidth } from 'src/shared/utils';
+import { isAndroid, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors } from 'src/shared/styles/colors';
 import ApplePodcastIcon from 'src/assets/images/icons/apple_podcast_icon.svg';
@@ -241,6 +241,7 @@ const createStyles = () => StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         width: 0.76 * screenWidth,
+        paddingBottom:  isAndroid ? normalize(30) : normalize(0)
     },
     buttonStyle: {
         backgroundColor: colors.white,
