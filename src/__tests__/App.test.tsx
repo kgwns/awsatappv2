@@ -32,6 +32,7 @@ jest.mock('@react-native-firebase/messaging', () => {
     setBackgroundMessageHandler: jest.fn(),
     getInitialNotification: jest.fn().mockResolvedValue(''),
     onNotificationOpenedApp: jest.fn(),
+    onMessage: jest.fn()
   });
 });
 
