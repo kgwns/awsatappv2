@@ -1,7 +1,7 @@
 import { all, takeLatest } from "redux-saga/effects";
 import { OpinionArticleDetailItemType } from "src/redux/opinionArticleDetail/types";
-import { EMPTY_DATA, REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_SECTION, REQUEST_RELATED_ARTICLE, REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION, REQUEST_RICH_ARTICLE_READ_ALSO } from "../actionType";
-import articleDetailSaga, { fetchArticleDetail, fetchRelatedArticle, emptyData, fetchArticleSection, getRichReadAlsoInfo, fetchRichHTMLContentBundle, fetchRichHTMLOpinionsBundle, updatedReadAlsoContent, updatedContentBundleContent, updatedOpinionBundle, parseRichArticleReadAlso } from "../sagas";
+import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_SECTION, REQUEST_RELATED_ARTICLE, REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION, REQUEST_RICH_ARTICLE_READ_ALSO } from "../actionType";
+import articleDetailSaga, { fetchArticleDetail, fetchRelatedArticle, fetchArticleSection, getRichReadAlsoInfo, fetchRichHTMLContentBundle, fetchRichHTMLOpinionsBundle, updatedReadAlsoContent, updatedContentBundleContent, updatedOpinionBundle, parseRichArticleReadAlso } from "../sagas";
 import { ArticleDetailDataType, RichHTMLOpinionDataType, RichHTMLType } from "../types";
 
 const data: ArticleDetailDataType = {
@@ -340,7 +340,6 @@ describe('<Article Detail Saga >', () => {
                     takeLatest(REQUEST_ARTICLE_DETAIL, fetchArticleDetail),
                     takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle),
                     takeLatest(REQUEST_ARTICLE_SECTION,fetchArticleSection),
-                    takeLatest(EMPTY_DATA, emptyData),
                     takeLatest(REQUEST_RICH_ARTICLE_READ_ALSO, getRichReadAlsoInfo),
                 ])
             );
@@ -723,14 +722,6 @@ describe('<Article Detail Saga >', () => {
             genObject.throw({})
         })
     })
-
-    describe('Test emptyData', () => {
-        it('check emptyData success', () => {
-          const genObject = emptyData();
-          genObject.next();
-          genObject.next();
-        });
-    });
 
     describe('Test exported functions', () => {
         it('Test updatedReadAlsoContent', () => {

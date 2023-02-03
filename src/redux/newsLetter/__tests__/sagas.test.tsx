@@ -1,6 +1,6 @@
 
-import newsLettersSaga, { getSelectedNewsLetters, postSelectedNewsLetters, getMyNewsLetters, emptySelectedNewsLettersInfo } from '../sagas';
-import { GET_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS, GET_MY_NEWS_LETTERS, EMPTY_SELECTED_NEWS_LETTERS_INFO } from '../actionTypes';
+import newsLettersSaga, { getSelectedNewsLetters, postSelectedNewsLetters, getMyNewsLetters } from '../sagas';
+import { GET_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS, GET_MY_NEWS_LETTERS } from '../actionTypes';
 import { takeLatest } from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
 
@@ -17,8 +17,6 @@ describe('Test newsLettersSaga  saga', () => {
         .all([takeLatest(GET_SELECTED_NEWS_LETTERS, getSelectedNewsLetters)])
         .next()
         .all([takeLatest(GET_MY_NEWS_LETTERS, getMyNewsLetters)])
-        .next()
-        .all([takeLatest(EMPTY_SELECTED_NEWS_LETTERS_INFO, emptySelectedNewsLettersInfo)])
         .finish()
         .isDone();
     });
@@ -92,14 +90,4 @@ describe('Test newsletters  success', () => {
         genObject.next();
         genObject.next();
     });
-});
-
-describe('Test emptySelectedNewsLettersInfo ', () => {
-
-    it('check emptySelectedNewsLettersInfo success', () => {
-      const genObject = emptySelectedNewsLettersInfo();
-      genObject.next();
-      genObject.next();
-    });
-
 });

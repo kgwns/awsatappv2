@@ -4,13 +4,11 @@ import {
   REQUEST_BOTTOM_LIST_DATA,
   REQUEST_HERO_LIST_DATA,
   REQUEST_TOP_LIST_DATA,
-  EMPTY_ALL_LIST,
 } from '../actionTypes';
 import newsViewSaga, {
   fetchTopList,
   fetchHeroList,
   fetchBottomList,
-  emptyAllList,
 } from '../sagas';
 import {
   fetchBottomListSuccess,
@@ -100,13 +98,6 @@ describe('<NewsViewSaga>', () => {
       const generator = genObject.next();
       expect(generator.value).toEqual(
         all([takeLatest(REQUEST_BOTTOM_LIST_DATA, fetchBottomList)]),
-      );
-    });
-
-    it('should wait for empty all list', () => {
-      const generator = genObject.next();
-      expect(generator.value).toEqual(
-        all([takeLatest(EMPTY_ALL_LIST, emptyAllList)]),
       );
     });
 
@@ -275,14 +266,5 @@ describe('Test HeroList  error', () => {
     });
     genObject.next();
     genObject.throw({});
-  });
-});
-
-describe('Empty All List', () => {
-  it('check empty all list', () => {
-    testSaga(emptyAllList)
-    .next()
-    .finish()
-    .isDone();
   });
 });

@@ -1,7 +1,7 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
-import registerSaga, {createUser, emptyUserInfo} from '../sagas';
-import {REGISTER_USER, EMPTY_USER_INFO} from '../actionTypes';
+import registerSaga, {createUser} from '../sagas';
+import {REGISTER_USER} from '../actionTypes';
 
 const mockString = 'mockString';
 
@@ -23,8 +23,6 @@ describe('test registerSaga  saga', () => {
     testSaga(registerSaga)
       .next()
       .all([takeLatest(REGISTER_USER, createUser)])
-      .next()
-      .all([takeLatest(EMPTY_USER_INFO, emptyUserInfo)])
       .finish()
       .isDone();
   });
@@ -85,13 +83,5 @@ describe('Test createUser', () => {
     });
     genObject.next();
     genObject.throw(errorResponse2);
-  });
-});
-
-describe('Test emptyUserInfo', () => {
-  it('check emptyUserInfo success', () => {
-    const genObject = emptyUserInfo();
-    genObject.next();
-    genObject.next();
   });
 });

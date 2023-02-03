@@ -1,7 +1,7 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
-import {EMPTY_SELECTED_AUTHORS_INFO, FETCH_ALL_SELECTED_WRITERS_DETAILS, FETCH_ALL_WRITERS, GET_SELECTED_AUTHOR, REMOVE_AUTHOR, SEND_SELECTED_AUTHOR} from '../actionTypes';
-import allWritersSaga, {emptySelectedAuthorInfo, fetchAllSelectedWritersDetailsData, fetchAllWriters, getSelectedtAuthors, postSelectedWriters, removeSelectedWriters} from '../sagas';
+import { FETCH_ALL_SELECTED_WRITERS_DETAILS, FETCH_ALL_WRITERS, GET_SELECTED_AUTHOR, REMOVE_AUTHOR, SEND_SELECTED_AUTHOR} from '../actionTypes';
+import allWritersSaga, { fetchAllSelectedWritersDetailsData, fetchAllWriters, getSelectedtAuthors, postSelectedWriters, removeSelectedWriters} from '../sagas';
 import {fetchAllWritersSuccess} from '../action';
 import {fetchAllWritersApi} from 'src/services/allWritersService';
 
@@ -53,8 +53,6 @@ describe('Test allWritersSaga  saga', () => {
       .all([takeLatest(SEND_SELECTED_AUTHOR, postSelectedWriters)])
       .next()
       .all([takeLatest(GET_SELECTED_AUTHOR, getSelectedtAuthors)])
-      .next()
-      .all([takeLatest(EMPTY_SELECTED_AUTHORS_INFO, emptySelectedAuthorInfo)])
       .next()
       .all([takeLatest(REMOVE_AUTHOR, removeSelectedWriters)])
       .next()
@@ -216,13 +214,5 @@ describe('Test allWriter', () => {
       genObject.throw({});
     });
 
-  });
-});
-
-describe('Test emptySelectedAuthorInfo', () => {
-  it('check emptySelectedAuthorInfo success', () => {
-    const genObject = emptySelectedAuthorInfo();
-    genObject.next();
-    genObject.next();
   });
 });

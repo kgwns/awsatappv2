@@ -1,7 +1,7 @@
 import {testSaga} from 'redux-saga-test-plan';
 import { takeLatest } from 'redux-saga/effects';
-import {FETCH_ALL_SITE_CATEGORIES, GET_SELECTED_TOPICS, SEND_SELECTED_TOPIC, EMPTY_SELECTED_TOPICS_INFO} from '../actionTypes';
-import allSiteCategoriesSaga, {fetchAllSiteCategories,getSelectedtTopics,postSelectedTopics, emptySelectedTopicsInfo} from '../sagas';
+import {FETCH_ALL_SITE_CATEGORIES, GET_SELECTED_TOPICS, SEND_SELECTED_TOPIC} from '../actionTypes';
+import allSiteCategoriesSaga, {fetchAllSiteCategories,getSelectedtTopics,postSelectedTopics} from '../sagas';
 import {fetchAllSiteCategoriesSuccess} from '../action';
 import {fetchAllSiteCategoriesApi} from 'src/services/allSiteCategoriesService';
 import {
@@ -47,8 +47,6 @@ describe('Test allSiteCategoriesSaga  saga', () => {
       .all([takeLatest(SEND_SELECTED_TOPIC, postSelectedTopics)])
       .next()
       .all([takeLatest(GET_SELECTED_TOPICS, getSelectedtTopics)])
-      .next()
-      .all([takeLatest(EMPTY_SELECTED_TOPICS_INFO, emptySelectedTopicsInfo)])
       .finish()
       .isDone();
   });
@@ -137,13 +135,5 @@ describe('Test allSiteCategories', () => {
     });
     genObject.next();
     genObject.throw({});
-  });
-});
-
-describe('Test emptySelectedTopicsInfo', () => {
-  it('check emptySelectedTopicsInfo success', () => {
-    const genObject = emptySelectedTopicsInfo();
-    genObject.next();
-    genObject.next();
   });
 });

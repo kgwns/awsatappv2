@@ -1,7 +1,7 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
 import {FETCH_FAVOURITE_OPINIONS, FETCH_FAVOURITE_ARTICLES, EMPTY_ALL_DATA} from '../actionTypes';
-import contentForYouSaga, {fetchFavouriteOpinions, fetchFavouriteArticles, emptyAllData} from '../sagas';
+import contentForYouSaga, {fetchFavouriteOpinions, fetchFavouriteArticles} from '../sagas';
 import {fetchFavouriteOpinionsSuccess, fetchFavouriteArticlesSuccess} from '../action';
 import {fetchFavouriteOpinionsApi, fetchFavouriteArticleApi} from 'src/services/contentForYouService';
 
@@ -57,8 +57,6 @@ describe('Test contentForYou  saga', () => {
       .all([takeLatest(FETCH_FAVOURITE_OPINIONS, fetchFavouriteOpinions)])
       .next()
       .all([takeLatest(FETCH_FAVOURITE_ARTICLES, fetchFavouriteArticles)])
-      .next()
-      .all([takeLatest(EMPTY_ALL_DATA, emptyAllData)])
       .finish()
       .isDone();
   });
@@ -123,14 +121,5 @@ describe('Test Articles  error', () => {
     });
     genObject.next();
     genObject.throw({});
-  });
-});
-
-describe('Empty All List', () => {
-  it('check empty all list', () => {
-    testSaga(emptyAllData)
-    .next()
-    .finish()
-    .isDone();
   });
 });
