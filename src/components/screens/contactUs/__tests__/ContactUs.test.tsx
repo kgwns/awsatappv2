@@ -12,10 +12,10 @@ jest.mock('react', () => ({
     useState: jest.fn(),
 }));
 
-jest.mock('@react-navigation/native', () => ({
-    ...jest.requireActual('@react-navigation/native'),
-    useNavigation: jest.fn(),
-}));
+jest.mock('src/shared/validators',() => ({
+    ...jest.requireActual('src/shared/validators'),
+    emailValidation: jest.fn()
+}))
 
 jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'),
