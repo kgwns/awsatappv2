@@ -85,8 +85,8 @@ export const PhotoGalleryDetailScreen = ({
   useEffect(() => {
     if (isNonEmptyArray(albumData)) {
       if (route.params && route.params.nid && isFocused) {
-        const isBookmarked = validateBookmark(albumData[0].nid);
-        setIsBookmarked(isBookmarked);
+        const isBookmark = validateBookmark(albumData[0].nid);
+        setIsBookmarked(isBookmark);
       }
     }
   }, [albumData]);

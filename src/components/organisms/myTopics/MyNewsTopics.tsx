@@ -83,23 +83,23 @@ export const MyNewsTopics = () => {
     }, [articleData]);
 
     const topicsList = useMemo(() => {
-        const topicsList = [];
+        const topicsListArray = [];
         if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
             const authorsIdList = selectedTopicsData.data.map((item: any) => item.tid.toString());
             for (let i = 0; i < allSiteCategoriesData.length; i++) {
                 if (authorsIdList.includes(allSiteCategoriesData[i].tid)) {
-                    topicsList.push(allSiteCategoriesData[i]);
+                    topicsListArray.push(allSiteCategoriesData[i]);
                 }
             }
         }
-        return topicsList;
+        return topicsListArray;
     }, [selectedTopicsData, allSiteCategoriesData]);
 
-    const fetchArticleData = (topicsList: any, pageCount: any) => {
+    const fetchArticleData = (topicsListProps: any, pageCountProps: any) => {
         const articleBody: FavouriteArticlesBodyGet = {
-            page: pageCount,
+            page: pageCountProps,
             items_per_page: 10,
-            topicsList: topicsList
+            topicsList: topicsListProps
         }
         fetchFavouriteArticlesRequest(articleBody)
     }

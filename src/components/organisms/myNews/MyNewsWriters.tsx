@@ -116,8 +116,8 @@ export const MyNewsWriters = () => {
 
   useEffect(() => {
     if (opinionData !== favouriteOpinionsData) {
-      setOpinionData((opinionData: any) => [
-        ...opinionData,
+      setOpinionData((prevOpinionData: any) => [
+        ...prevOpinionData,
         ...favouriteOpinionsData,
       ]);
     }

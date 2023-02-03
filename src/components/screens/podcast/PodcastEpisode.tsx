@@ -84,8 +84,8 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const { isLoggedIn } = useLogin()
 
 
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+  const validateBookmark = (nidProps: string): boolean => {
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nidProps) : false
   }
 
   useEffect(() => {

@@ -110,28 +110,28 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                 }
 
                 const getIconStyle = () : any  => {
-                    let iconStyle:any = style.tabIcon ;
+                    let tabIconStyle:any = style.tabIcon ;
                     switch (route.name) {
                         case TabConstants.LATEST_NEWS:
-                            iconStyle = style.latestNewsIcon
+                            tabIconStyle = style.latestNewsIcon
                             break;
                         case TabConstants.SECTIONS:
-                            iconStyle = style.sectionsIcon
+                            tabIconStyle = style.sectionsIcon
                             break;
                         case TabConstants.MOST_READ:
-                            iconStyle = style.mostReadIcon
+                            tabIconStyle = style.mostReadIcon
                             break;
                         case TabConstants.FAVORITE:
-                            iconStyle = style.favoriteIcon
+                            tabIconStyle = style.favoriteIcon
                             break;
                         case TabConstants.DOWNLOAD_NEWS:
-                            iconStyle = style.newsIcon
+                            tabIconStyle = style.newsIcon
                             break;
                         case TabConstants.MY_NEWS:
-                            iconStyle = style.myNewsIconStyle
+                            tabIconStyle = style.myNewsIconStyle
                             break;
                     }
-                    return iconStyle;
+                    return tabIconStyle;
                 }
 
                 const iconStyle = getIconStyle();

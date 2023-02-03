@@ -135,8 +135,8 @@ export const OpinionArticleDetail = ({
   }, [relatedOpinionListData])
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
-    const edge = getScreenEdge(deviceOrientation)
-    setEdge(edge)
+    const screenEdge = getScreenEdge(deviceOrientation)
+    setEdge(screenEdge)
   }
 
   const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
@@ -152,11 +152,9 @@ export const OpinionArticleDetail = ({
     if (isNonEmptyArray(opinionArticleDetailData)) {
       if(route.params && route.params.nid && isFocused){
         setOpinionArticle(opinionArticleDetailData)
-        const isBookmarked = validateBookmark(opinionArticleDetailData[0].nid_export)
-        console.log(isBookmarked,'isBookmarked useEffect')
-        setIsBookmarked(isBookmarked)
+        const isBookmark = validateBookmark(opinionArticleDetailData[0].nid_export)
+        setIsBookmarked(isBookmark)
       }
-      console.log(isBookmarked,'outside')
 
       if (isNonEmptyArray(opinionArticleDetailData[0].writer) && isNotEmpty(opinionArticleDetailData[0].writer[0]?.id)) {
         getWriterDetailData({ tid: opinionArticleDetailData[0].writer[0].id })
@@ -193,8 +191,8 @@ export const OpinionArticleDetail = ({
 
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isObjectNonEmpty(selectedAuthorsData) && isFocused) {
-      const isFollowed = isNonEmptyArray(opinionArticle[0].writer) && validateFollow(opinionArticle[0].writer[0].id)
-      setIsFollowed(isFollowed)
+      const isFollow = isNonEmptyArray(opinionArticle[0].writer) && validateFollow(opinionArticle[0].writer[0].id)
+      setIsFollowed(isFollow)
     }
   }, [isFocused, opinionArticle, selectedAuthorsData])
 

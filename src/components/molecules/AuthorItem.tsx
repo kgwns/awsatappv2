@@ -158,12 +158,12 @@ const AuthorItem = ({
     }
 
     const renderLabels = () => {
-      return renderLabelsOrder.map((item: LabelsType, index: number) => {
+      return renderLabelsOrder.map((item: LabelsType, indexKey: number) => {
         switch (item) {
           case LabelsType.authorName:
             return (
                 <Label 
-                  key={index}
+                  key={indexKey}
                   children={author}
                   labelType={LabelTypeProp.p4}
                   style={style.authorTitle}
@@ -176,7 +176,7 @@ const AuthorItem = ({
             );
           case LabelsType.title:
             return (
-              <TouchableOpacity key={index} onPress={onPress} testID = "titleId">
+              <TouchableOpacity key={indexKey} onPress={onPress} testID = "titleId">
                 <Label
                   children={body}
                   labelType={LabelTypeProp.h3}

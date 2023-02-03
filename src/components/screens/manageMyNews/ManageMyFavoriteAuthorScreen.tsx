@@ -123,8 +123,8 @@ export const ManageMyFavoriteAuthorScreen = () => {
 
   const updateNextButton = () => {
     const selectedTIDData = getSelectedData()
-    const disableNext = isNonEmptyArray(selectedTIDData) ? false : true
-    setDisableNext(disableNext)
+    const disableNextBtn = isNonEmptyArray(selectedTIDData) ? false : true
+    setDisableNext(disableNextBtn)
   }
 
   const onPressNext = () => {

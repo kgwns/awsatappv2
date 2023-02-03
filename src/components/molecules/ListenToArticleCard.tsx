@@ -55,17 +55,17 @@ export const ListenToArticleCard = (data: any) => {
 const onPressPlay = () => {
   console.log('onPressPlay');
   if (data.nid && isObjectNonEmpty(mediaData)) {
-    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playListData = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
-    if (!isObjectNonEmpty(playList)) {
+    if (!isObjectNonEmpty(playListData)) {
       return
     }
 
     const trackPlayerData = {
       id: data.nid + 'opinion',
-      url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
+      url: playListData.sources[0]?.file ? playListData.sources[0]?.file : '',
       title: data.title,
-      duration: playList.duration? convertSecondsToHMS(playList.duration) : 0,
+      duration: playListData.duration? convertSecondsToHMS(playListData.duration) : 0,
       artist: mediaData.title ? mediaData.title : '',
       artwork: data.authorImage
     }

@@ -79,8 +79,8 @@ export const JournalistDetail = ({
 
     useEffect(() => {
         if (isNonEmptyArray(journalistDetailData) && isObjectNonEmpty(selectedAuthorsData)) {
-            const isFollowed = validateFollow(jId)
-            setIsFollowed(isFollowed)
+            const isFollow = validateFollow(jId)
+            setIsFollowed(isFollow)
         }
     }, [journalistDetailData, selectedAuthorsData])
 

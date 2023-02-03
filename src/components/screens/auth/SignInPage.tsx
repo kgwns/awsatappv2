@@ -159,8 +159,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
   }, [loginError]);
 
   const getDeviceName = async () => {
-    const deviceName = await DeviceInfo.getDeviceName();
-    setDeviceName(deviceName);
+    const deviceNameInfo = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceNameInfo);
   };
 
   const {getBookmarkedId} = useBookmark();

@@ -152,8 +152,8 @@ export const SectionStoryScreen = React.memo(({
     try {
       const heroDataInfo = isParentSection ? await fetchNewsViewApi(heroListPayload)
         : await fetchSubArticleSectionApi(heroListPayload)
-      const heroData = heroDataInfo.rows ?? []
-      setHeroData(heroData)
+      const heroDataInfoRows = heroDataInfo.rows ?? []
+      setHeroData(heroDataInfoRows)
     } catch (error) {
       const errorResponse: AxiosError = error as AxiosError;
       if (errorResponse.response) {
@@ -211,16 +211,16 @@ export const SectionStoryScreen = React.memo(({
   } */
 
   const formatFilterChildData = (childItem: TopMenuItemType[] | undefined): FilterDataType[] => {
-    let childInfo: FilterDataType[] = [];
+    let childInfoData: FilterDataType[] = [];
     if (isNonEmptyArray(childItem)) {
-      childInfo = childItem!.map((item) => {
+      childInfoData = childItem!.map((item) => {
         return {
           name: item.tabName,
           isSelected: item.isSelected,
         }
       })
     }
-    return childInfo
+    return childInfoData
   }
 
   const childFilterData: FilterDataType[] = React.useMemo(() => childSection.map((item) => {

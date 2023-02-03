@@ -39,9 +39,9 @@ export const MyNewsScreen = () => {
   }, [])
 
   const configData = () => {
-    const newRoutesArray = myNewsTopTabData.map((item, index) => {
+    const newRoutesArray = myNewsTopTabData.map((item, indexValue) => {
       return {
-        key: `${index}${item.keyName}`,
+        key: `${indexValue}${item.keyName}`,
         title: item.tabName,
         keyName: item.keyName,
       };

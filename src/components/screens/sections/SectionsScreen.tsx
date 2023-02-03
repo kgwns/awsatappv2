@@ -89,9 +89,9 @@ export const SectionsScreen = () => {
     if (isNonEmptyArray(topMenuData)) {
       const data = formateChildMenuData(topMenuData)
       if (isNonEmptyArray(data)) {
-        const newRoutesArray = data.map((item, index) => {
+        const newRoutesArray = data.map((item, indexKey) => {
           return {
-            key: `${index}${item.keyName}`,
+            key: `${indexKey}${item.keyName}`,
             title: item.tabName,
             sectionId: item.sectionId,
             keyName: item.keyName,
@@ -99,8 +99,8 @@ export const SectionsScreen = () => {
             field_sections: item.field_sections
           };
         })
-        const scrollY = newRoutesArray.map(()=>  new Animated.Value(0) );
-        setScrollY(scrollY);
+        const scrollYArray = newRoutesArray.map(()=>  new Animated.Value(0) );
+        setScrollY(scrollYArray);
         setNewRoutes(newRoutesArray);
       }
     }
@@ -136,9 +136,9 @@ export const SectionsScreen = () => {
     return allMenuData
   }
 
-  const onUpdateChildSection = (data: TopMenuItemType[], index: number) => {
+  const onUpdateChildSection = (data: TopMenuItemType[], indexKey: number) => {
     const routeData = [...routes]
-    const selectedRoute = routeData[index]
+    const selectedRoute = routeData[indexKey]
     if(selectedRoute && selectedRoute.child) {
       selectedRoute.child = data
     }

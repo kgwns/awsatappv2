@@ -74,8 +74,8 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
       }
   }
 
-  const onPressWriter = (item: any) => {
-    const tid = isNonEmptyArray(item.field_opinion_writer_node_export) && item.field_opinion_writer_node_export[0].id
+  const onPressWriter = (itemProps: any) => {
+    const tid = isNonEmptyArray(itemProps.field_opinion_writer_node_export) && itemProps.field_opinion_writer_node_export[0].id
     if (isNotEmpty(tid)) {
       navigation.push(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
     }

@@ -58,10 +58,10 @@ export const WritersDetailScreen = ({
     const [isWriterOpinionLoading, setIsWriterOpinionLoading] = useState(true)
     const [allOpinionLoaded, setAllOpinionLoaded] = useState<boolean>(false)
 
-    const detailRoutes = useMemo(() => routes.filter((routes) =>
-        routes.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
-        routes.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-        routes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+    const detailRoutes = useMemo(() => routes.filter((detailRoute) =>
+        detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+        detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+        detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
     const noOfDetailRoutes = detailRoutes.length
 
     useEffect(() => {
@@ -83,8 +83,8 @@ export const WritersDetailScreen = ({
 
     useEffect(() => {
         if (isNonEmptyArray(writerDetailData) && isObjectNonEmpty(selectedAuthorsData) ) {
-            const isFollowed = validateFollow(writerDetailData[0].tid)
-            setIsFollowed(isFollowed)
+            const isFollow = validateFollow(writerDetailData[0].tid)
+            setIsFollowed(isFollow)
         }
     }, [ writerDetailData, selectedAuthorsData])
 

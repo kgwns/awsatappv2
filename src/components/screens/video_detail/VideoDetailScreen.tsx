@@ -89,8 +89,8 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
     const videoInfo = videoData && selectedVideoIndex != -1 ? videoData[selectedVideoIndex] : selectedVideo
     const otherVideosList = videoData.filter((item: any) => item.nid !== selectedVideoId);
     if (isNonEmptyArray(videoData)) {
-      const isBookmarked = validateBookmark(videoInfo.nid)
-      setIsBookmarked(isBookmarked)
+      const isBookmark = validateBookmark(videoInfo.nid)
+      setIsBookmarked(isBookmark)
     }
     setSelectedVideo(videoInfo)
     setVideolistData(otherVideosList)

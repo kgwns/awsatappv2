@@ -283,8 +283,8 @@ export const ArticleDetailScreen = ({
 
   useEffect(() => {
     if (isNonEmptyArray(articleDetailState) && articleDetailState[bookmarkIndex] && articleDetailState[bookmarkIndex].nid) {
-      const isBookmarked = validateBookmark(articleDetailState[bookmarkIndex].nid)
-      setIsBookmarked(isBookmarked)
+      const isBookmark = validateBookmark(articleDetailState[bookmarkIndex].nid)
+      setIsBookmarked(isBookmark)
     }
   }, [articleDetailState, bookmarkIndex, bookmarkIdInfo])
 
@@ -329,8 +329,8 @@ export const ArticleDetailScreen = ({
    } else{
      setIsEdgePortrait(true)
    }
-    const edge = getScreenEdge(deviceOrientation)
-    isNonEmptyArray(edge) && setEdge(edge);
+    const screenEdge = getScreenEdge(deviceOrientation)
+    isNonEmptyArray(screenEdge) && setEdge(screenEdge);
   }
 
 
@@ -607,7 +607,6 @@ export const ArticleDetailScreen = ({
         </View>}
       </View>
       }
-      {console.log(playerUrl,'player')}
       {playerUrl && <View style={[{display: isFullScreen ? 'flex' : 'none', flex: isFullScreen ? 1 : 0}, style.fullScreenContainer]}>
         <VideoPlayerControl
           url={playerUrl}

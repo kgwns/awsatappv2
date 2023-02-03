@@ -109,10 +109,10 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     }
   }, [sideMenuData])
 
-  const getMainData = (fetchWeatherDetailsSuccessInfo: any): string => {
+  const getMainData = (fetchWeatherDetailsSuccessInfoProps: any): string => {
     let mainData = ''
-    if (isObjectNonEmpty(fetchWeatherDetailsSuccessInfo) && isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list[0].weather)) {
-      mainData = fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase();
+    if (isObjectNonEmpty(fetchWeatherDetailsSuccessInfoProps) && isNonEmptyArray(fetchWeatherDetailsSuccessInfoProps?.list[0].weather)) {
+      mainData = fetchWeatherDetailsSuccessInfoProps?.list[0].weather[0].main.toLowerCase();
     }
     return mainData
   }

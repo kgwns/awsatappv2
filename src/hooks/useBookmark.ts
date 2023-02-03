@@ -101,9 +101,9 @@ export const useBookmark = (): UseBookMarkReturn => {
     recordLogEvent('Remove_Bookmark', { id: nid });
   }
 
-  const updateBookDetailInfo = (bookmarkDetail: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[], filteredBookmarkDetail: any[]) => {
+  const updateBookDetailInfo = (bookmarkDetailData: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[], filteredBookmarkDetail: any[]) => {
     dispatch(getBookMarkedSuccess({ bookmarkedInfo: bookmarkIDDetail }))
-    dispatch(updateBookMarkedDetailInfo({ bookmarkedDetailInfo: bookmarkDetail, page: 0 }))
+    dispatch(updateBookMarkedDetailInfo({ bookmarkedDetailInfo: bookmarkDetailData, page: 0 }))
     dispatch(updateFilteredBookMarkedInfo({ filteredData: filteredBookmarkDetail }))
   }
 

@@ -80,11 +80,11 @@ const MostReadList = ({
   }
 
   const onPressBookmark = (index: number) => {
-    const data = [...articleData]
-    const isBookmarked = !data[index].isBookmarked ?? true
-    data[index].isBookmarked = isBookmarked
-    updateBookmarkInfo(data[index].nid, isBookmarked)
-    setArticleData(data)
+    const articleDetailData = [...articleData]
+    const isBookmarked = !articleDetailData[index].isBookmarked ?? true
+    articleDetailData[index].isBookmarked = isBookmarked
+    updateBookmarkInfo(articleDetailData[index].nid, isBookmarked)
+    setArticleData(articleDetailData)
   }
 
   const checkAndUpdateBookmark = (index: number) => {

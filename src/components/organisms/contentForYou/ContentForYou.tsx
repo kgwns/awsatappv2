@@ -218,7 +218,7 @@ export const ContentForYou = () => {
     }
 
     const formatArticleSectionData = () => {
-        const formatArticleSectionData = []
+        const formatArticleSectionDataArray = []
         const formatShortArticleData = []
         for(let i = 0; i < favouriteArticlesData.length; i++){
             const item = favouriteArticlesData[i]
@@ -238,7 +238,7 @@ export const ContentForYou = () => {
                 flag: newsCategory?.title
             }
             if(i<2){
-                formatArticleSectionData.push(formattedData)
+                formatArticleSectionDataArray.push(formattedData)
             }else{
                 const newsCategory = isNonEmptyArray(favouriteArticlesData[i].field_news_categories_export) ? 
                     favouriteArticlesData[i].field_news_categories_export[0] : {} as NewsCategoriesType
@@ -249,7 +249,7 @@ export const ContentForYou = () => {
         }
         const pageDataUpdate = [...pageAllData];
         if(pageDataUpdate[page]!==undefined){
-            pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionData, loaded: true} ;
+            pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionDataArray, loaded: true} ;
             pageDataUpdate[page].shortArticleData  = {data:formatShortArticleData, loaded:true} ;
             setPageAllData(pageDataUpdate);
             checkLoadData()
