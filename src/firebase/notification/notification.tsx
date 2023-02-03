@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import messaging from '@react-native-firebase/messaging';
 import '@react-native-firebase/messaging';
 import {Platform} from 'react-native';
@@ -8,7 +8,7 @@ import {SaveTokenBodyType} from 'src/redux/notificationSaveToken/types';
 import {FirebaseMessagingTypes} from '@react-native-firebase/messaging';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import {isAndroid, isIOS} from 'src/shared/utils';
+import {isIOS} from 'src/shared/utils';
 import {notification, ScreensConstants} from 'src/constants/Constants';
 import {navigate} from 'src/navigation/NavigationUtils';
 import notifee, {AndroidImportance, EventType} from '@notifee/react-native';
