@@ -10,11 +10,17 @@ import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { PodcastEpisodeItemType, PodcastListItemType } from 'src/redux/podcast/types';
 import { useLogin } from 'src/hooks';
-
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
   useIsFocused: jest.fn(),
+}));
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+  isIOS: false
 }));
 
 jest.mock('react', () => ({
@@ -258,6 +264,7 @@ describe('<PodcastEpisode >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
+      jest.useFakeTimers('legacy');
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => ["29", nid]);
@@ -282,6 +289,14 @@ describe('<PodcastEpisode >', () => {
       instance.unmount();
     });
     it('Should render PodcastEpisode ', () => {
+      expect(instance).toBeDefined();
+    });
+    it('Should render PodcastEpisode in Tab', () => {
+      DeviceTypeUtilsMock.isTab = true;
+      expect(instance).toBeDefined();
+    });
+    it('Should render PodcastEpisode in iOS', () => {
+      DeviceTypeUtilsMock.isIOS = true;
       expect(instance).toBeDefined();
     });
     it('when onPressSave is pressed from PodcastHeader', () => {

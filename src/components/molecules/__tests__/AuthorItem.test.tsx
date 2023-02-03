@@ -325,6 +325,3 @@ describe('<Author Item> should call fetchNarratedOpinionArticleApi', () => {
         }
     })
 })
-
-
-

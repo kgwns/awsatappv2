@@ -3,7 +3,12 @@ import React from 'react';
 import BottomSheetView from '../BottomSheetView';
 import { Image } from 'src/components/atoms';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+  isIOS: false
+}));
 describe('BottomSheetView', () => {
 
   let instance: RenderAPI;
@@ -23,6 +28,16 @@ describe('BottomSheetView', () => {
   });
 
   it('should render BottomSheetView component', () => {
+    expect(instance).toBeDefined();
+  });
+
+  it('should render BottomSheetView component in Tab', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    expect(instance).toBeDefined();
+  });
+
+  it('should render BottomSheetView component in iOS', () => {
+    DeviceTypeUtilsMock.isIOS = true;
     expect(instance).toBeDefined();
   });
 

@@ -2,7 +2,7 @@ import {GetFCMToken} from '../notification';
 import {useNotificationSaveToken} from 'src/hooks';
 import React from 'react';
 import {render} from '@testing-library/react-native';
-import {fireEvent, RenderAPI} from '@testing-library/react-native';
+import {RenderAPI} from '@testing-library/react-native'
 
 jest.mock('src/hooks/useNotificationSaveToken', () => ({
   useNotificationSaveToken: jest.fn(),
