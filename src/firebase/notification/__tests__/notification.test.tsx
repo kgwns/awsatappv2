@@ -1,6 +1,5 @@
 import {GetFCMToken} from '../notification';
 import {useNotificationSaveToken} from 'src/hooks';
-import DeviceInfo from 'react-native-device-info';
 import React from 'react';
 import {render} from '@testing-library/react-native';
 import {fireEvent, RenderAPI} from '@testing-library/react-native';
@@ -8,9 +7,11 @@ import {fireEvent, RenderAPI} from '@testing-library/react-native';
 jest.mock('src/hooks/useNotificationSaveToken', () => ({
   useNotificationSaveToken: jest.fn(),
 }));
+
 jest.mock('src/navigation/NavigationUtils', () => ({
   navigate: jest.fn(),
 }));
+
 jest.mock('@react-native-firebase/messaging', () => {
   return jest.fn().mockReturnValue({
     getToken: jest.fn().mockResolvedValue(''),
@@ -23,6 +24,7 @@ jest.mock('@react-native-firebase/messaging', () => {
     onMessage: jest.fn(),
   });
 });
+
 jest.mock('@react-native-firebase/app', () => {
   return {
     messaging: jest.fn(() => {
@@ -33,6 +35,7 @@ jest.mock('@react-native-firebase/app', () => {
     }),
   };
 });
+
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
   isAndroid: true,
@@ -42,6 +45,7 @@ describe('<GetFCMToken>', () => {
   const useNotificationSaveTokenMock = jest.fn();
   let instance: RenderAPI;
   const navigate = jest.fn();
+
   beforeEach(() => {
     (useNotificationSaveToken as jest.Mock).mockImplementation(
       useNotificationSaveTokenMock,

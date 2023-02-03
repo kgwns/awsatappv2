@@ -2159,11 +2159,11 @@ const ScreensConstants = {
     JOURNALIST_DETAIL_SCREEN,
     PODCAST_EPISODE_MODAL,
 };
-const notification={
-    ARTICLE: 'article',
-    OPINION:  'opinion',
-    DYNAMIC_SECTION: 'dynamic-section',
-    KEYNAME: 'section'
+enum notification {
+    ARTICLE = 'article',
+    OPINION = 'opinion',
+    DYNAMIC_SECTION = 'dynamic-section',
+    KEYNAME = 'section',
 }
 const DEFAULT_ALERT_TITLE = '';
 const DEFAULT_ALERT_MESSAGE = 'Need to implement';

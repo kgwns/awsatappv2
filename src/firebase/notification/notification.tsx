@@ -11,7 +11,7 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import {isIOS} from 'src/shared/utils';
 import {notification, ScreensConstants} from 'src/constants/Constants';
 import {navigate} from 'src/navigation/NavigationUtils';
-import notifee, {AndroidImportance, EventType} from '@notifee/react-native';
+import notifee, {AndroidImportance, EventDetail, EventType} from '@notifee/react-native';
 import { firebase } from '@react-native-firebase/remote-config'
 
 async function onDisplayNotification(
@@ -71,72 +71,69 @@ export const GetFCMToken = () => {
     return found.title;
   };
 
-      const onOpenNotification = (
+  const onOpenNotification = (
     remoteMessage: FirebaseMessagingTypes.RemoteMessage,
   ) => {
-    if (
-      remoteMessage &&
-      remoteMessage.data &&
-      remoteMessage.data?.type == notification.ARTICLE
-    ) {
-      navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {
-        nid: remoteMessage.data.id,
-      });
-    } else if (
-      remoteMessage &&
-      remoteMessage.data &&
-      remoteMessage.data?.type == notification.OPINION
-    ) {
-      navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, {
-        nid: remoteMessage.data.id,
-      });
-    } else if (
-      remoteMessage &&
-      remoteMessage.data &&
-      remoteMessage.data?.type == notification.DYNAMIC_SECTION
-    ) {
-      dynamicSection(remoteMessage);
-      navigate(ScreensConstants.SectionArticlesParentScreen, {
-        title: dynamicSection(remoteMessage),
-        keyName: notification.KEYNAME,
-        sectionId: remoteMessage.data.id,
-      });
+    if ((!remoteMessage) || (!remoteMessage?.data)) {
+      return
     }
-  };
+    switch (remoteMessage.data?.type) {
+      case notification.ARTICLE:
+        navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {
+          nid: remoteMessage.data.id,
+        });
+        break
+      case notification.OPINION:
+        navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, {
+          nid: remoteMessage.data.id,
+        });
+        break
+      case notification.DYNAMIC_SECTION:
+        dynamicSection(remoteMessage);
+        navigate(ScreensConstants.SectionArticlesParentScreen, {
+          title: dynamicSection(remoteMessage),
+          keyName: notification.KEYNAME,
+          sectionId: remoteMessage.data.id,
+        });
+        break
+      default:
+        return
+    };
+  }
 
+  const notifeeEvents = (type: EventType, detail: EventDetail) => {
+    const { notification, pressAction } = detail;
+    switch (type) {
+      case EventType.DISMISSED:
+        break;
+      case EventType.PRESS:
+        onOpenNotification(notification);
+        break;
+    }
+  }
+  
   useEffect(() => {
     messaging().setBackgroundMessageHandler(async remoteMessage => {
       onOpenNotification(remoteMessage);
     });
 
     getToken();
+
     messaging()
       //When Application open from quit state
       .getInitialNotification()
       .then(remoteMessage => {
         onOpenNotification(remoteMessage!);
       });
-    notifee.onForegroundEvent(async ({type, detail}) => {
-      const {notification, pressAction} = detail;
-      switch (type) {
-        case EventType.DISMISSED:
-          break;
-        case EventType.PRESS:
-          onOpenNotification(notification);
-          break;
-      }
+
+    notifee.onForegroundEvent(async ({ type, detail }) => {
+      notifeeEvents(type, detail)
     });
 
-    notifee.onBackgroundEvent(async ({type, detail}) => {
-      const {notification, pressAction} = detail;
-      switch (type) {
-        case EventType.DISMISSED:
-          break;
-        case EventType.PRESS:
-          onOpenNotification(notification);
-          break;
-      }
+    notifee.onBackgroundEvent(async ({ type, detail }) => {
+      notifeeEvents(type, detail)
     });
+
     messaging().onNotificationOpenedApp(remoteMessage => {
       console.log('onNotificationOpenedApp***',remoteMessage)
     });
@@ -188,6 +185,7 @@ export const GetFCMToken = () => {
       channelId: notification.android?.channelId,
     });
   };
+  
   return <></>;
 };
 
