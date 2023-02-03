@@ -241,6 +241,7 @@ const createStyles = () => StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         width: 0.76 * screenWidth,
+        paddingBottom: normalize(30)
     },
     buttonStyle: {
         backgroundColor: colors.white,
