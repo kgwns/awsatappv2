@@ -2162,7 +2162,8 @@ const ScreensConstants = {
 const notification={
     ARTICLE: 'article',
     OPINION:  'opinion',
-    DYNAMICSECTION: 'dynamic-section'
+    DYNAMIC_SECTION: 'dynamic-section',
+    KEYNAME: 'section'
 }
 const DEFAULT_ALERT_TITLE = '';
 const DEFAULT_ALERT_MESSAGE = 'Need to implement';

@@ -93,12 +93,12 @@ export const GetFCMToken = () => {
     } else if (
       remoteMessage &&
       remoteMessage.data &&
-      remoteMessage.data?.type == notification.DYNAMICSECTION
+      remoteMessage.data?.type == notification.DYNAMIC_SECTION
     ) {
       dynamicSection(remoteMessage);
       navigate(ScreensConstants.SectionArticlesParentScreen, {
         title: dynamicSection(remoteMessage),
-        keyName: 'section',
+        keyName: notification.KEYNAME,
         sectionId: remoteMessage.data.id,
       });
     }
