@@ -2159,7 +2159,11 @@ const ScreensConstants = {
     JOURNALIST_DETAIL_SCREEN,
     PODCAST_EPISODE_MODAL,
 };
-
+const notification={
+    ARTICLE: 'article',
+    OPINION:  'opinion',
+    DYNAMICSECTION: 'dynamic-section'
+}
 const DEFAULT_ALERT_TITLE = '';
 const DEFAULT_ALERT_MESSAGE = 'Need to implement';
 const VALID_URL_REGEX = "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
@@ -2263,6 +2267,7 @@ export {
     moleculesTestID,
     TranslateConstants,
     TranslateKey,
+    notification,
     storeInfo,
     storeSampleData,
     sampleTextWithFlag,

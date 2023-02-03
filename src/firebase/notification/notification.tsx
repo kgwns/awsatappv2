@@ -5,14 +5,14 @@ import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {useNotificationSaveToken} from 'src/hooks';
 import {SaveTokenBodyType} from 'src/redux/notificationSaveToken/types';
-import firebase from '@react-native-firebase/app';
 import {FirebaseMessagingTypes} from '@react-native-firebase/messaging';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import {isAndroid, isIOS} from 'src/shared/utils';
-import {ScreensConstants} from 'src/constants/Constants';
+import {notification, ScreensConstants} from 'src/constants/Constants';
 import {navigate} from 'src/navigation/NavigationUtils';
 import notifee, {AndroidImportance, EventType} from '@notifee/react-native';
+import { firebase } from '@react-native-firebase/remote-config'
 
 async function onDisplayNotification(
   remoteMessage: FirebaseMessagingTypes.RemoteMessage,
@@ -59,13 +59,25 @@ export const GetFCMToken = () => {
       .catch(e => console.log(e));
   };
 
-  const onOpenNotification = (
+  const dynamicSection = (
+    remoteMessage: FirebaseMessagingTypes.RemoteMessage,
+  ) => {
+    const result = firebase.remoteConfig().getValue('arabic')._value;
+    const arabic = JSON.parse(result || '');
+    const displayId = arabic.notification;
+    const found = displayId.find(
+      (obj: any) => obj.id.toString() === remoteMessage?.data?.id,
+    );
+    return found.title;
+  };
+
+      const onOpenNotification = (
     remoteMessage: FirebaseMessagingTypes.RemoteMessage,
   ) => {
     if (
       remoteMessage &&
       remoteMessage.data &&
-      remoteMessage.data?.type == 'article'
+      remoteMessage.data?.type == notification.ARTICLE
     ) {
       navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {
         nid: remoteMessage.data.id,
@@ -73,7 +85,7 @@ export const GetFCMToken = () => {
     } else if (
       remoteMessage &&
       remoteMessage.data &&
-      remoteMessage.data?.type == 'opinion'
+      remoteMessage.data?.type == notification.OPINION
     ) {
       navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, {
         nid: remoteMessage.data.id,
@@ -81,12 +93,13 @@ export const GetFCMToken = () => {
     } else if (
       remoteMessage &&
       remoteMessage.data &&
-      remoteMessage.data?.type == 'dynamic-section'
+      remoteMessage.data?.type == notification.DYNAMICSECTION
     ) {
+      dynamicSection(remoteMessage);
       navigate(ScreensConstants.SectionArticlesParentScreen, {
-        title: remoteMessage.data.title,
-        keyName: remoteMessage.data.keyName,
-        sectionId: remoteMessage.data.sectionId,
+        title: dynamicSection(remoteMessage),
+        keyName: 'section',
+        sectionId: remoteMessage.data.id,
       });
     }
   };
@@ -107,7 +120,6 @@ export const GetFCMToken = () => {
       const {notification, pressAction} = detail;
       switch (type) {
         case EventType.DISMISSED:
-          console.log('User dismissed notification', notification?.data!);
           break;
         case EventType.PRESS:
           onOpenNotification(notification);
@@ -119,7 +131,6 @@ export const GetFCMToken = () => {
       const {notification, pressAction} = detail;
       switch (type) {
         case EventType.DISMISSED:
-          console.log('User dismissed notification', notification?.data!);
           break;
         case EventType.PRESS:
           onOpenNotification(notification);
@@ -127,7 +138,7 @@ export const GetFCMToken = () => {
       }
     });
     messaging().onNotificationOpenedApp(remoteMessage => {
-      console.log('notifeeeeee', 'onNotificationOpenedApp');
+      console.log('onNotificationOpenedApp***',remoteMessage)
     });
 
     const unsubscribe = messaging().onMessage(async remoteMessage => {
@@ -144,7 +155,6 @@ export const GetFCMToken = () => {
     messaging().onMessage(response => {
       PushNotificationIOS.requestPermissions().then(
         () => showNotification(response.notification!),
-        // onDisplayNotification(response.data!)
       );
     });
     PushNotificationIOS.addEventListener('register', token => {
