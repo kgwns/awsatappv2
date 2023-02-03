@@ -1878,7 +1878,7 @@ const videoTabInfo: VideoItemProps = {
     views: '1374',
     shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
     isBookmarked: false,
-    onPressBookmark: () => { }
+    onPressBookmark: () => ({})
 }
 
 const videoTabData: VideoItemProps[] = Array(5).fill(videoTabInfo)
@@ -2005,7 +2005,7 @@ const videoArchiveData: VideoItemProps[] = [
         videoLabel: 'أمريكا',
         des: sampleVideoDescription,
         isBookmarked: true,
-        onPressBookmark: () => { },
+        onPressBookmark: () => ({}),
     },
     {
         title:
@@ -2018,7 +2018,7 @@ const videoArchiveData: VideoItemProps[] = [
         views: '1374',
         toWatchTitle: 'ديسمبر',
         isBookmarked: true,
-        onPressBookmark: () => { },
+        onPressBookmark: () => ({}),
     },
     {
         title:
@@ -2027,7 +2027,7 @@ const videoArchiveData: VideoItemProps[] = [
         videoLabel: 'أمريكا',
         des: sampleVideoDescription,
         isBookmarked: true,
-        onPressBookmark: () => { },
+        onPressBookmark: () => ({}),
     },
 ];
 
