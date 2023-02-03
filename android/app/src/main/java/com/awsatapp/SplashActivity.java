@@ -10,7 +10,13 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtras(this.getIntent());
         startActivity(intent);
         finish();
     }
+    @Override
+public void onNewIntent(Intent intent) {
+    setIntent(intent);
+    super.onNewIntent(intent);
+}
 }

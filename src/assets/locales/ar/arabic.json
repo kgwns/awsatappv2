@@ -476,5 +476,15 @@
     },
     "contentForYou": {
         "emptyDataLabel": "لم يتم حفظ أي شيء حتى الآن"
-    }
+    },
+    "notification": [
+        {
+          "id": 29,
+          "title": "ثقافة وفنون"
+        },
+        {
+          "id": 66,
+          "title": "يوميات الشرق​"
+        }
+      ]
 }
