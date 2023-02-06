@@ -1,12 +1,12 @@
-import { View, StyleSheet, AppState } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import { View, StyleSheet } from 'react-native'
+import React from 'react'
 import { Label } from '..'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { fonts } from 'src/shared/styles/fonts'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
-import LottieView from 'lottie-react-native';
 import LiveAnimation from '../../../assets/lottie-animation/live-icon.json';
+import { LottieViewAnimation } from 'src/shared/utils/LottieViewAnimation';
 
 interface LiveBlogTagProps {
     isImageTag?: boolean;
@@ -16,21 +16,6 @@ interface LiveBlogTagProps {
 }
 
 export const LiveBlogTag = ({ isImageTag = false, enableTopMargin = false, isTextTag = false, enableBottomMargin = false }: LiveBlogTagProps) => {
-
-    const [animationRef, setAnimationRef] = useState<LottieView>()
-    const appState = useRef(AppState.currentState);
-
-    useEffect(() => {
-        const subscription = AppState.addEventListener("change", nextAppState => {
-            if (appState?.current?.match(/inactive|background/) && nextAppState === "active") {
-                if (animationRef) {
-                    animationRef?.resume();
-                }
-            }
-            appState.current = nextAppState;
-        });
-        return () => { subscription.remove(); };
-    }, [animationRef]);
 
     // const renderLiveIcon = () => {
     //     return getSvgImages({
@@ -45,12 +30,9 @@ export const LiveBlogTag = ({ isImageTag = false, enableTopMargin = false, isTex
         enableTopMargin && liveBlogTagStyle.topMargin,
         enableBottomMargin && liveBlogTagStyle.bottomMargin,]}>
             <View style={liveBlogTagStyle.liveTagRowContainer}>
-                < LottieView
-                    source={LiveAnimation}
-                    autoPlay
-                    style={liveBlogTagStyle.lottieViewStyle}
-                    ref={ref => setAnimationRef(ref)}
-                />
+                <LottieViewAnimation 
+                    source={LiveAnimation} 
+                    style = {liveBlogTagStyle.lottieViewStyle} />
                 <Label children={TranslateConstants({ key: TranslateKey.LIVE_TAG_TITLE })}
                     style={liveBlogTagStyle.liveTagText}
                 />
