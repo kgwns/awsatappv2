@@ -7,10 +7,8 @@ export const LottieViewAnimation = ({source,style}:any) => {
     const appState = useRef(AppState.currentState);
     useEffect(() => {
         const subscription = AppState.addEventListener("change", nextAppState => {
-            if (appState?.current?.match(/inactive|background/) && nextAppState === "active") {
-                if (animationRef) {
-                    animationRef?.resume();
-                }
+            if (appState?.current?.match(/inactive|background/) && nextAppState === "active" && animationRef) {
+                animationRef?.resume();
             }
             appState.current = nextAppState;
         });
