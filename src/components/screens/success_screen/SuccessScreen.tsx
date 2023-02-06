@@ -1,7 +1,7 @@
-import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
+import React, {FunctionComponent, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
-import {View, StyleSheet, AppState} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {normalize, recordLogEvent} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -9,7 +9,6 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles/images';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ButtonOnboard, Label} from 'src/components/atoms';
-import LottieView from 'lottie-react-native';
 import TickAnimation from '../../../assets/lottie-animation/tick.json';
 import {ScreensConstants} from 'src/constants/Constants';
 import { useDispatch } from 'react-redux';
@@ -18,30 +17,15 @@ import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAn
 import { useAllWriters, useNewsLetters } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
+import { LottieViewAnimation } from 'src/shared/utils/LottieViewAnimation';
 
 export const SuccessScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const styles = useThemeAwareObject(createStyles);
   const dispatch = useDispatch();
-  const appState = useRef(AppState.currentState);
-  const [animationRef,setAnimationRef] = useState<LottieView>()
 
   const { emptySelectedWritersDataOnboard } = useAllWriters();
   const { emptySelectedNewsletterDataOnboard } = useNewsLetters();
-
-  useEffect(() => {
-    const subscription = AppState.addEventListener("change", nextAppState => {
-      if (appState.current.match(/inactive|background/) && nextAppState === "active") {
-        if (animationRef) {
-          animationRef?.resume();
-        }
-      }
-      appState.current = nextAppState;
-    });
-    return () => { 
-      subscription.remove(); 
-    };
-  }, [animationRef]);
 
   useEffect(() => {
     emptySelectedWritersDataOnboard()
@@ -59,12 +43,9 @@ export const SuccessScreen: FunctionComponent = () => {
             height: styles.logo.height,
           })}
         </View>
-        <LottieView
-          source={TickAnimation}
-          autoPlay
-          style={styles.tickContainer}
-          ref={ref => setAnimationRef(ref)}
-        />
+        <LottieViewAnimation 
+          source={TickAnimation} 
+          style={styles.tickContainer}/>
         <View style={styles.messageContainer}>
           <Label style={styles.titleStyle} labelType="h1" children={TranslateConstants({key: TranslateKey.ONBOARD_SUCCESS_MESSAGE})} />
           <Label

@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
-import { View, StyleSheet, TouchableOpacity, AppState } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
 import { CustomAlert, isIOS, isTab, normalize } from '../../../shared/utils';
 import { Label } from '../../atoms';
@@ -11,7 +11,6 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { StackNavigationProp } from '@react-navigation/stack';
 import MailAnimation from '../../../assets/lottie-animation/mail.json';
-import LottieView from 'lottie-react-native';
 import { NavigateTypes } from '../auth/AuthPage';
 import { useLogin } from 'src/hooks';
 import { openInbox } from "react-native-email-link";
@@ -20,6 +19,7 @@ import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
+import { LottieViewAnimation } from 'src/shared/utils/LottieViewAnimation'
 
 
 export const ForgotPassword: FunctionComponent = () => {
@@ -36,24 +36,8 @@ export const ForgotPassword: FunctionComponent = () => {
 
 
   const styles = useThemeAwareObject(createStyles);
-  const appState = useRef(AppState.currentState);
-  const [animationRef,setAnimationRef] = useState<LottieView>()
   const {emptyforgotPassworResponseInfo} = useLogin();
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
-  
-  useEffect(() => {
-    const subscription = AppState.addEventListener("change", nextAppState => {
-      if (appState.current.match(/inactive|background/) && nextAppState === "active") {
-        if (animationRef) {
-          animationRef?.resume();
-        }
-      }
-      appState.current = nextAppState;
-    });
-    return () => { 
-      subscription.remove(); 
-    };
-  }, [animationRef]);
 
   useEffect(() => {
     emptyforgotPassworResponseInfo()
@@ -112,9 +96,9 @@ export const ForgotPassword: FunctionComponent = () => {
         </View>
         <View style={styles.containerStyle}>
           <View style={styles.topContainerStyle}>
-            <LottieView source={MailAnimation} autoPlay style={styles.tickContainer} 
-            ref={ref=>setAnimationRef(ref)}
-            />
+            <LottieViewAnimation 
+              source = {MailAnimation} 
+              style={styles.tickContainer}/> 
             <Label
               children={FORGOT_PASSWORD_CHECK_YOUR_MAIL}
               style={styles.checkMailTextStyle}
