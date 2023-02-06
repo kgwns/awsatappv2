@@ -78,7 +78,7 @@ const ImageArticle = ({
   const [isImageLoaded, setImageLoaded] = useState(false)
   const { themeData } = useTheme();
   const isDark = themeData?.id === DARK_THEME_ID
-  const isLive = isNotEmpty(displayType) && displayType == displayTypes.liveCoverage;
+  const isLive = isNotEmpty(displayType) && displayType === displayTypes.liveCoverage;
 
   const onImageLoadEnd = (isSuccess: boolean) => {
     setImageLoaded(isSuccess)

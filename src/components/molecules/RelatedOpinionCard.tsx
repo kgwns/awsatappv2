@@ -156,7 +156,7 @@ const onPressPlay = () => {
           <TouchableOpacity testID='RelatedOpinionCardTO2' onPress={onPressPlay} style={style.footer}>
             <ButtonImage
               icon={() =>
-                trackData && trackData.id == (item.nid+'opinion') && 
+                trackData && trackData.id === (item.nid+'opinion') && 
                 playbackState === State.Playing || isBuffering ? 
                 getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                 getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
@@ -193,7 +193,7 @@ const customStyle = (theme: CustomThemeType) => {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: 'yellow' //theme.backgroundColor,
     },
     contentView: {
       flex: 1,

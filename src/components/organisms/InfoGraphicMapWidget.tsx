@@ -2,8 +2,6 @@ import React from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { isIOS, isNotEmpty } from 'src/shared/utils'
 import { fonts } from 'src/shared/styles/fonts'
-import { getSvgImages } from 'src/shared/styles/svgImages'
-import { ImagesName } from 'src/shared/styles'
 import { Label } from '../atoms'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import { colors } from 'src/shared/styles/colors'
@@ -46,15 +44,6 @@ const InfoGraphicMapWidget = ({
         </html>`;
 
     const htmlSource = { html: isNotEmpty(htmlContent) ? infoGraphicHTML({body: htmlContent}) : '<div></div>' , baseUrl:''}
-    // const Flag = () =>
-    //     <View style={styles.flagContainer}>
-    //         {getSvgImages({
-    //             name: ImagesName.flagIcon,
-    //             width: styles.flag.width,
-    //             height: styles.flag.height,
-    //             style: styles.flag
-    //         })}
-    //     </View>
 
     const renderWebview = () => (
         <AutoHeightWebView
@@ -70,8 +59,6 @@ const InfoGraphicMapWidget = ({
     return (
         <View style={styles.widgetContainer}>
             <View style={styles.headerContainer}>
-                {/* Commented as per the ticket AMAR-1075 
-                <Flag /> */}
                 <Label
                     children={title}
                     style={styles.titleStyle}
@@ -89,22 +76,11 @@ export default InfoGraphicMapWidget
 
 const styles = StyleSheet.create({
 
-    flagContainer: {
-        justifyContent: 'center',
-        alignItems: 'flex-start'
-    },
-    flag: {
-        width: 16,
-        height: 16,
-        marginTop: 5,
-        marginRight: 10
-    },
     widgetContainer: {
         width: '100%',
         backgroundColor: colors.aliceDimBlue
     },
     headerContainer: {
-        flexDirection: 'row',
         width: '100%',
         marginLeft: 15
     },

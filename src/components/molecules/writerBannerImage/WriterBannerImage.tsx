@@ -56,7 +56,6 @@ export const WriterBannerImage = ({
 }: WriterBannerImageProps) => {
   const style = useThemeAwareObject(customStyle)
   
-  const OPINION_ARTICLE_RETURN = TranslateConstants({key:TranslateKey.OPINION_ARTICLE_RETURN})
   const FOLLOW = TranslateConstants({key:TranslateKey.FOLLOW})
   const FOLLOWER = TranslateConstants({key:TranslateKey.FOLLOWER})
 
@@ -82,29 +81,6 @@ export const WriterBannerImage = ({
     const subscription =  Dimensions.addEventListener('change', callback);
     return () => subscription?.remove();
   }, []);
-
-  // const ReturnButton = () => {
-  //   if(hideBackArrow) {
-  //     return null
-  //   }
-  //   return (
-  //     <View>
-  //       <TouchableOpacity
-  //         style={style.image}
-  //         onPress={onPressReturn}>
-  //         {getSvgImages({
-  //           name: ImagesName.returnSvg,
-  //           width: normalize(12),
-  //           height: normalize(8.8), 
-  //           style: style.prevIconStyle
-  //         })}
-  //         <Label style={style.returnLabel}>
-  //           {OPINION_ARTICLE_RETURN}
-  //         </Label>
-  //       </TouchableOpacity>
-  //     </View>
-  //   )
-  // }
 
   const SubscribeButton = ({ isFollow }: { isFollow: boolean }) => (
     <TouchableWithoutFeedback testID={'subscribeButton'} style={[style.followContainer,

@@ -31,7 +31,6 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
     const UPDATED =  TranslateConstants({key:TranslateKey.ARTICLE_DETAIL_WIDGET_UPDATED})
     const [scribbleLiveData, setScribbleLiveData] = useState<any>({})
     moment.locale('ar')
-    // const timeAgo = isObjectNonEmpty(scribbleLiveData) ? `محدث  ${moment(scribbleLiveData.LastModified).fromNow()}` : '';
     const timeAgo = isObjectNonEmpty(scribbleLiveData) ? `${UPDATED}  ${moment(scribbleLiveData.LastModified).fromNow()}` : '';
 
 

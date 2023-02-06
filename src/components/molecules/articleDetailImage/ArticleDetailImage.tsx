@@ -55,7 +55,7 @@ const ArticleDetailImage = ({
 
     const [imageLoaded, setImageLoaded] = useState<boolean>(false)
 
-    const isLive = isNotEmpty(displayType) && displayType == displayTypes.liveCoverage;
+    const isLive = isNotEmpty(displayType) && displayType === displayTypes.liveCoverage;
 
     const onImageLoaded = () => {
         setImageLoaded(true)
