@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useState, useEffect, useRef} from 'react';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
   View,
@@ -7,27 +7,34 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
+  Alert,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {isObjectNonEmpty, normalize, } from '../../../shared/utils';
+import {isObjectNonEmpty, normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from '../../../components/organisms/';
-import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
+import {
+  ScreensConstants,
+  TranslateConstants,
+  TranslateKey,
+} from 'src/constants/Constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {emailValidation} from 'src/shared/validators';
 import {StackNavigationProp} from '@react-navigation/stack';
-import { useEmailCheck, useRegister, useLogin, useBookmark } from 'src/hooks';
+import {useEmailCheck, useRegister, useLogin, useBookmark} from 'src/hooks';
 import {FetchEmailCheckPayloadType} from 'src/redux/auth/types';
 import {TERMS_AND_CONDITION} from 'src/services/apiEndPoints';
 import {AlertPayloadType} from 'src/components/screens/ScreenContainer/ScreenContainer';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import { ImagesName } from 'src/shared/styles/images';
-import { fonts } from 'src/shared/styles/fonts';
-import { Connection, LoginFactory } from 'src/shared/utils/loginFactory';
-import { SocialProviders, onSuccessSocialLogin } from './SignInPage';
+import {ImagesName} from 'src/shared/styles/images';
+import {fonts} from 'src/shared/styles/fonts';
+import {Connection, LoginFactory} from 'src/shared/utils/loginFactory';
+import {SocialProviders, onSuccessSocialLogin} from './SignInPage';
+import Clipboard from '@react-native-clipboard/clipboard';
+import messaging from '@react-native-firebase/messaging';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -51,6 +58,7 @@ export const AuthPage: FunctionComponent = () => {
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+
   const {
     registerUserInfo,
     isRegisterLoading,
@@ -58,19 +66,27 @@ export const AuthPage: FunctionComponent = () => {
     socialLoginStarted,
     socialLoginEnded,
     emptyUserInfo,
-    createUserRequest
+    createUserRequest,
   } = useRegister();
 
   const {loginSkipped, emptyforgotPassworResponseInfo} = useLogin();
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
   const fbLoginRef = useRef(true);
-  const { getBookmarkedId } = useBookmark();
-  
-  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
+  const {getBookmarkedId} = useBookmark();
 
-  const { fetchEmailCheckRequest,
-    isLoading, emailCheckData, emailCheckError,
-    emptyEmailCheckInfo
+  const HeaderLogo = () =>
+    getSvgImages({
+      name: ImagesName.headerLogo,
+      width: styles.logo.width,
+      height: styles.logo.height,
+    });
+
+  const {
+    fetchEmailCheckRequest,
+    isLoading,
+    emailCheckData,
+    emailCheckError,
+    emptyEmailCheckInfo,
   } = useEmailCheck();
 
   const noInternetConnection: AlertPayloadType = {
@@ -88,28 +104,40 @@ export const AuthPage: FunctionComponent = () => {
     emptyUserInfo();
   }, []);
 
-  const onResult = async (userInfo:any,success:boolean, provider: SocialProviders, message?:String) => {
-    if(success){
-      fbLoginRef.current = false
-      const payload = await onSuccessSocialLogin(userInfo,provider)
+  const onResult = async (
+    userInfo: any,
+    success: boolean,
+    provider: SocialProviders,
+    message?: String,
+  ) => {
+    if (success) {
+      fbLoginRef.current = false;
+      const payload = await onSuccessSocialLogin(userInfo, provider);
       createUserRequest(payload);
     }
-  }
+  };
 
   const checkFacebookLogin = () => {
-    const facebookSignIn = LoginFactory.getInstance(Connection.Facebook,onResult);
+    const facebookSignIn = LoginFactory.getInstance(
+      Connection.Facebook,
+      onResult,
+    );
     facebookSignIn?.initialLogin();
-  }
+  };
 
   useEffect(() => {
-    if(isFocused && fbLoginRef.current){
+    if (isFocused && fbLoginRef.current) {
       checkFacebookLogin();
     }
-  }, [isFocused])
+  }, [isFocused]);
 
   useEffect(() => {
     socialLoginEnded();
-    if (isObjectNonEmpty(registerUserInfo) && isObjectNonEmpty(registerUserInfo?.message) && registerUserInfo?.message.code === 200) {
+    if (
+      isObjectNonEmpty(registerUserInfo) &&
+      isObjectNonEmpty(registerUserInfo?.message) &&
+      registerUserInfo?.message.code === 200
+    ) {
       getBookmarkedId();
     }
   }, [registerUserInfo]);
@@ -152,7 +180,7 @@ export const AuthPage: FunctionComponent = () => {
         return;
       case NavigateTypes.termsAndConditions:
         navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US, {
-          title:CONST_TERMS_AND_CONDITION,
+          title: CONST_TERMS_AND_CONDITION,
           id: TERMS_AND_CONDITION,
         });
         return;
@@ -160,7 +188,7 @@ export const AuthPage: FunctionComponent = () => {
         return;
       default:
         loginSkipped();
-        emptyEmailCheckInfo()
+        emptyEmailCheckInfo();
         navigation.reset({
           index: 0,
           routes: [{name: ScreensConstants.AppNavigator}],
@@ -179,6 +207,26 @@ export const AuthPage: FunctionComponent = () => {
       fetchEmailCheckRequest(payload);
     }
   };
+
+  // Showing token as Alert
+  const copyAlertMessage = async (x: string) => {
+    Clipboard.setString(x);
+  };
+  const getDisplayToken = async () => {
+    messaging()
+      .getToken()
+      .then(async x => {
+        Alert.alert(
+          x,
+          undefined,
+          [{text: 'Copy token', onPress: () => copyAlertMessage(x)}],
+          {cancelable: true},
+        );
+      });
+  };
+  useEffect(() => {
+    getDisplayToken();
+  }, []);
 
   return (
     <ScreenContainer
@@ -202,10 +250,7 @@ export const AuthPage: FunctionComponent = () => {
                 testID="signin_skip"
                 accessibilityLabel="signin_skip"
                 onPress={() => navigateToSection('')}>
-                <Label
-                  children={SIGNIN_SKIP}
-                  style={styles.headerLabelStyle}
-                />
+                <Label children={SIGNIN_SKIP} style={styles.headerLabelStyle} />
               </TouchableOpacity>
             </View>
 
@@ -311,13 +356,13 @@ const createStyles = (theme: CustomThemeType) =>
       marginHorizontal: normalize(5),
     },
     rightsStyle: {
-      marginTop: 5
+      marginTop: 5,
     },
     screenBackgroundColor: {
-      backgroundColor: theme.onBoardBackground
+      backgroundColor: theme.onBoardBackground,
     },
     headerContainerStyle: {
       borderBottomWidth: 1,
       borderBottomColor: colors.greenishBlue,
-    }
+    },
   });

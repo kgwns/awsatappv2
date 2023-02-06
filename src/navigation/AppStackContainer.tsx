@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {NavigationContainer, NavigationContainerRef} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -12,7 +12,7 @@ import { ScreensConstants } from 'src/constants/Constants';
 import { useAppPlayer, useLogin } from 'src/hooks';
 import { isNotEmpty, isObjectNonEmpty, recordCurrentScreen } from 'src/shared/utils';
 import TrackPlayer from 'react-native-track-player';
-
+import { navigationReference } from './NavigationUtils';
 const Stack = createStackNavigator<ScreenList>();
 
 const defaultScreenOptions: StackNavigationOptions = {
@@ -28,7 +28,6 @@ const AppStackContainer = () => {
   const [previousTrack, setPreviousTrack] = useState<any>(null)
 
   const routeNameRef = React.useRef();
-  const navigationRef = React.useRef<NavigationContainerRef<any>>();
 
   useEffect(() => {
     if(showMiniPlayer &&  isNotEmpty(selectedTrack) && selectedTrack !== previousTrack){
@@ -62,13 +61,14 @@ const AppStackContainer = () => {
   
   return (
     <NavigationContainer
-    ref={navigationRef}
+    ref={navigationReference}
+
     onReady={() => {
-      routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+      routeNameRef.current = navigationReference.current.getCurrentRoute().name;
     }}
     onStateChange={async () => {
       const previousRouteName = routeNameRef.current;
-      const currentRouteName = navigationRef.current.getCurrentRoute().name;
+      const currentRouteName = navigationReference.current.getCurrentRoute().name;
 
       if (previousRouteName !== currentRouteName) {
         recordCurrentScreen(currentRouteName);
