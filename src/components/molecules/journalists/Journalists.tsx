@@ -31,18 +31,18 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
         setActiveJournalist(activeJournalist);
     },[activeJournalist])
 
-    const getActiveJournalist = async (journalistId: string[]) => {
-        const activeJournalist: boolean[] = [];
+    const getActiveJournalist = async (journalistIdProps: string[]) => {
+        const activeJournalistArray: boolean[] = [];
         await Promise.all(
-            journalistId.map(async jor_id => {
+            journalistIdProps.map(async jor_id => {
                 const response = await requestJournalistDetail({
                 jor_id,
                 });
                 const flag = response.rows[0].not_clickable === '1';
-                    activeJournalist.push(flag);
+                    activeJournalistArray.push(flag);
                 }),
         );
-        setActiveJournalist(activeJournalist);
+        setActiveJournalist(activeJournalistArray);
     };
 
     const onPressJournalist = (id: string) => {

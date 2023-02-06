@@ -106,18 +106,18 @@ export const WriterBannerImage = ({
   //   )
   // }
 
-  const SubscribeButton = ({ isFollowed }: { isFollowed: boolean }) => (
+  const SubscribeButton = ({ isFollow }: { isFollow: boolean }) => (
     <TouchableWithoutFeedback testID={'subscribeButton'} style={[style.followContainer,
-      { backgroundColor: isFollowed ? Styles.color.greenishBlue : Styles.color.aquaHaze, }]}
+      { backgroundColor: isFollow ? Styles.color.greenishBlue : Styles.color.aquaHaze, }]}
       onPress={onPressFollow}>
       {
         getSvgImages({
-          name: isFollowed ? ImagesName.tickIcon : ImagesName.plusGreen,
-          size: isFollowed ? 16 : 10
+          name: isFollow ? ImagesName.tickIcon : ImagesName.plusGreen,
+          size: isFollow ? 16 : 10
         })
       }
-      <Label style={[style.followLabel, { color: isFollowed ? Styles.color.white : Styles.color.greenishBlue, }]}>
-        {isFollowed ? FOLLOWER : FOLLOW}</Label>
+      <Label style={[style.followLabel, { color: isFollow ? Styles.color.white : Styles.color.greenishBlue, }]}>
+        {isFollow ? FOLLOWER : FOLLOW}</Label>
     </TouchableWithoutFeedback>
   );
 
@@ -177,7 +177,7 @@ export const WriterBannerImage = ({
             
 
             {showIsFollowed && <View style={style.subscribeView}>
-              <SubscribeButton isFollowed={isFollowed} />
+              <SubscribeButton isFollow={isFollowed} />
             </View>}
           </View>
           <Label style={style.authorDescription}>{decode(decodeHTMLTags(data.authorDescription))}</Label>

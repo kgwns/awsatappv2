@@ -140,7 +140,7 @@ const AuthorSlider = ({
   }
 
   const renderIndicator = () => {
-    const renderItem = (index: number) => {
+    const renderItemIndicator = (index: number) => {
       return (
         <View key={`indicator-${index}`} style={[style.indicatorStyle, activeIndex === index && style.activeIndicatorStyle]} >
         </View>
@@ -150,10 +150,10 @@ const AuthorSlider = ({
     return (
       <View style={style.containerStyle}>
         {isIOS ? data.map((_: any, index: number) => {
-          return renderItem(index);
+          return renderItemIndicator(index);
         }) :
           data.map((_: any, index: number) => {
-            return renderItem(index);
+            return renderItemIndicator(index);
           }).reverse()
         }
       </View>
