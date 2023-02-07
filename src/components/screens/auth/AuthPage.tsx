@@ -33,8 +33,6 @@ import {ImagesName} from 'src/shared/styles/images';
 import {fonts} from 'src/shared/styles/fonts';
 import {Connection, LoginFactory} from 'src/shared/utils/loginFactory';
 import {SocialProviders, onSuccessSocialLogin} from './SignInPage';
-import Clipboard from '@react-native-clipboard/clipboard';
-import messaging from '@react-native-firebase/messaging';
 
 export enum NavigateTypes {
   google = 'GOOGLE',
@@ -207,26 +205,6 @@ export const AuthPage: FunctionComponent = () => {
       fetchEmailCheckRequest(payload);
     }
   };
-
-  // Showing token as Alert
-  const copyAlertMessage = async (x: string) => {
-    Clipboard.setString(x);
-  };
-  const getDisplayToken = async () => {
-    messaging()
-      .getToken()
-      .then(async x => {
-        Alert.alert(
-          x,
-          undefined,
-          [{text: 'Copy token', onPress: () => copyAlertMessage(x)}],
-          {cancelable: true},
-        );
-      });
-  };
-  useEffect(() => {
-    getDisplayToken();
-  }, []);
 
   return (
     <ScreenContainer
