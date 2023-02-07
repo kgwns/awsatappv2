@@ -75,7 +75,7 @@ export const StoryListView: FunctionComponent<StoryListDataProps> = ({
         const imagesList = item.data.map((list:StoryListItemProps)=>{
           return list.imageUrl
         })
-        if(selectedItemIndex!=index) {
+        if(selectedItemIndex!==index) {
           return null;
         }
         return (

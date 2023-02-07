@@ -89,9 +89,9 @@ export const SectionsScreen = () => {
     if (isNonEmptyArray(topMenuData)) {
       const data = formateChildMenuData(topMenuData)
       if (isNonEmptyArray(data)) {
-        const newRoutesArray = data.map((item, index) => {
+        const newRoutesArray = data.map((item, indexKey) => {
           return {
-            key: `${index}${item.keyName}`,
+            key: `${indexKey}${item.keyName}`,
             title: item.tabName,
             sectionId: item.sectionId,
             keyName: item.keyName,
@@ -99,8 +99,8 @@ export const SectionsScreen = () => {
             field_sections: item.field_sections
           };
         })
-        const scrollY = newRoutesArray.map(()=>  new Animated.Value(0) );
-        setScrollY(scrollY);
+        const scrollYArray = newRoutesArray.map(()=>  new Animated.Value(0) );
+        setScrollY(scrollYArray);
         setNewRoutes(newRoutesArray);
       }
     }
@@ -136,9 +136,9 @@ export const SectionsScreen = () => {
     return allMenuData
   }
 
-  const onUpdateChildSection = (data: TopMenuItemType[], index: number) => {
+  const onUpdateChildSection = (data: TopMenuItemType[], indexKey: number) => {
     const routeData = [...routes]
-    const selectedRoute = routeData[index]
+    const selectedRoute = routeData[indexKey]
     if(selectedRoute && selectedRoute.child) {
       selectedRoute.child = data
     }
@@ -157,10 +157,10 @@ export const SectionsScreen = () => {
       }))
 
       const previousData = routeData[index];
-      let oldChildSection = [...previousData.child]
-      const lastSelectedIndex = oldChildSection.findIndex((item) => item.isSelected == true);
+      const oldChildSection = [...previousData.child]
+      const lastSelectedIndex = oldChildSection.findIndex((item) => item.isSelected === true);
       if (lastSelectedIndex > -1 && isNonEmptyArray(oldChildSection[lastSelectedIndex].child)) {
-        let updatedLatestChild = oldChildSection[lastSelectedIndex]
+        const updatedLatestChild = oldChildSection[lastSelectedIndex]
         const updatedLatestSubChild = updatedLatestChild.child?.map((childItem: TopMenuItemType) => ({ ...childItem, isSelected: false }));
         updatedLatestChild.child = updatedLatestSubChild
         oldChildSection[lastSelectedIndex] = updatedLatestChild;
@@ -198,7 +198,7 @@ export const SectionsScreen = () => {
             key={tabIndex}
             onPress={onPressTabItem}
             tabName={item.route.title || ''}
-            isSelected={tabIndex == item.navigationState.index}
+            isSelected={tabIndex === item.navigationState.index}
             labelFont={fonts.Effra_Arbc_Regular}
           />
         }}
@@ -228,7 +228,7 @@ export const SectionsScreen = () => {
   const renderHeader = () => {
     return(
       scrollY.map((_: any, i: number) => {
-        if(index == i){
+        if(index === i){
           return(
             <AnimatedHeader key={i} scrollY={scrollY[index]} />
           )

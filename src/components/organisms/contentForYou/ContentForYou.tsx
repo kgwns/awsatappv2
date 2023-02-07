@@ -7,14 +7,13 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
-import { getArticleImage, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getArticleImage, isNonEmptyArray } from 'src/shared/utils/utilities';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { NewsCategoriesType } from 'src/redux/latestNews/types';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 export interface AllContentData {
@@ -67,7 +66,6 @@ export const ContentForYou = () => {
     const selectedLoaderRef = useRef(true);
 
     const [selectedTrack, setSelectedTrack] = useState<any>(null);
-    const playbackState = usePlaybackState();
 
 
     useEffect(() => {
@@ -80,7 +78,7 @@ export const ContentForYou = () => {
             selectedTopicsRef.current = false;
         } else {
             const topicsSelected = returnItems(selectedTopicsData.data)
-            if( JSON.stringify(topicsSelected) != JSON.stringify(selectedTopics)){
+            if( JSON.stringify(topicsSelected) !== JSON.stringify(selectedTopics)){
                 if (isNonEmptyArray(selectedTopicsData.data)) {
                     setIsAllLoading(true);
                     setPage(0);
@@ -105,7 +103,7 @@ export const ContentForYou = () => {
             selectedAuthorsRef.current = false;
         } else {
             const authorsSelected = returnItems(selectedAuthorsData.data)
-            if(JSON.stringify(authorsSelected) != JSON.stringify(selectedAuthors)){
+            if(JSON.stringify(authorsSelected) !== JSON.stringify(selectedAuthors)){
                 if (isNonEmptyArray(selectedAuthorsData.data)) {
                     setIsAllLoading(true);
                     setPage(0);
@@ -173,13 +171,13 @@ export const ContentForYou = () => {
     }, [bookmarkIdInfo]);
 
     useEffect(() => {
-        if(!isAllLoading && page == 0 && !isNonEmptyArray(selectedTopicsData.data)){
+        if(!isAllLoading && page === 0 && !isNonEmptyArray(selectedTopicsData.data)){
             loadMoreData();
         }
         if(selectedLoaderRef.current) {
             selectedLoaderRef.current = false;
         } else {
-            if(!isAllLoading && page == 0 ){              
+            if(!isAllLoading && page === 0 ){              
                 if(isNonEmptyArray(selectedTopicsData.data) && !isNonEmptyArray(pageAllData[0]?.articleSectionData.data)){
                     fetchSelectedDataFromAllTopics();
                 }
@@ -203,7 +201,7 @@ export const ContentForYou = () => {
 
     const formatOpinionsData = () => {
         const updatedPageData = [...pageAllData];
-        if(updatedPageData[page]!=undefined){
+        if(updatedPageData[page]!==undefined){
             updatedPageData[page].opinionsData  = {data:favouriteOpinionsData, loaded: true} ;
             setPageAllData(updatedPageData);
             checkLoadData()
@@ -220,7 +218,7 @@ export const ContentForYou = () => {
     }
 
     const formatArticleSectionData = () => {
-        const formatArticleSectionData = []
+        const formatArticleSectionDataArray = []
         const formatShortArticleData = []
         for(let i = 0; i < favouriteArticlesData.length; i++){
             const item = favouriteArticlesData[i]
@@ -240,17 +238,18 @@ export const ContentForYou = () => {
                 flag: newsCategory?.title
             }
             if(i<2){
-                formatArticleSectionData.push(formattedData)
+                formatArticleSectionDataArray.push(formattedData)
             }else{
-                const newsCategory = isNonEmptyArray(favouriteArticlesData[i].field_news_categories_export) ? favouriteArticlesData[i].field_news_categories_export[0] : {} as NewsCategoriesType
+                const newsCategoryData = isNonEmptyArray(favouriteArticlesData[i].field_news_categories_export) ? 
+                    favouriteArticlesData[i].field_news_categories_export[0] : {} as NewsCategoriesType
                 formattedData.image = getArticleImage(favouriteArticlesData[i].field_image, favouriteArticlesData[i].field_new_photo);
-                formattedData.tagName= newsCategory?.title;
+                formattedData.tagName= newsCategoryData?.title;
                 formatShortArticleData.push(formattedData)
             }
         }
         const pageDataUpdate = [...pageAllData];
-        if(pageDataUpdate[page]!=undefined){
-            pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionData, loaded: true} ;
+        if(pageDataUpdate[page]!==undefined){
+            pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionDataArray, loaded: true} ;
             pageDataUpdate[page].shortArticleData  = {data:formatShortArticleData, loaded:true} ;
             setPageAllData(pageDataUpdate);
             checkLoadData()
@@ -259,11 +258,11 @@ export const ContentForYou = () => {
 
     const fetchSelectedDataFromAllAuthors = () => {
         if (isNonEmptyArray(selectedAuthorsData.data)) {
-            const selectedAuthors = selectedAuthorsData.data.map((item:any)=>{
+            const selectedAuthorsTid = selectedAuthorsData.data.map((item:any)=>{
                 return item.tid
             });
-            setSelectedAuthors(selectedAuthors);
-            fetchOpinionData(selectedAuthors,0);
+            setSelectedAuthors(selectedAuthorsTid);
+            fetchOpinionData(selectedAuthorsTid,0);
         }else{
             setSelectedAuthors([]);
         }
@@ -271,11 +270,11 @@ export const ContentForYou = () => {
 
     const fetchSelectedDataFromAllTopics = () => {
         if (isNonEmptyArray(selectedTopicsData.data)) {
-            const selectedTopics = selectedTopicsData.data.map((item:any)=>{
+            const selectedTopicsTid = selectedTopicsData.data.map((item:any)=>{
                 return item.tid
             });
-            setSelectedTopics(selectedTopics);
-            fetchArticleData(selectedTopics,0);
+            setSelectedTopics(selectedTopicsTid);
+            fetchArticleData(selectedTopicsTid,0);
         }else{
             setSelectedTopics([]);
         }
@@ -347,10 +346,10 @@ export const ContentForYou = () => {
                 widgetHeaderStyle={styles.authorWidgetHeader}
                 selectedTrack={selectedTrack}
                 lastIndexDivider={ !isNonEmptyArray(selectedTopics)}
-                showHeader={!isNonEmptyArray(selectedTopics) && index != 0 ? false : true}
+                showHeader={!isNonEmptyArray(selectedTopics) && index !== 0 ? false : true}
             />}
             
-            { (!isNonEmptyArray(selectedAuthors) && index != 0 && isNonEmptyArray(item.articleSectionData.data)) ? <View style={styles.articleContainer}> 
+            { (!isNonEmptyArray(selectedAuthors) && index !== 0 && isNonEmptyArray(item.articleSectionData.data)) ? <View style={styles.articleContainer}> 
                 <Divider style={styles.divider} /> 
                 </View>
             : 
@@ -375,7 +374,7 @@ export const ContentForYou = () => {
                 data={item.shortArticleData.data}
                 onPress={onPressArticle}
                 onUpdateBookmark={updateBookmarkInfo}
-                showSignUpPopUp={() => {}}
+                showSignUpPopUp={() => ({})}
                 addStyle={styles.topArticleContainer}
                 showBody={isTab ? true : false}
                 leftContainerStyle={isTab ? {flex: 1} : {}}

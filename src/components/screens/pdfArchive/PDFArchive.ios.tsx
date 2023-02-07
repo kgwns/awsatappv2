@@ -7,7 +7,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants/Constants';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 import { ImagesName, Styles } from 'src/shared/styles';
-import { useAppCommon } from 'src/hooks';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { getRequiredNativeComponent } from 'src/shared/utils/NativeComponent';
 
@@ -20,7 +19,6 @@ enum ArchiveLayoutType {
 
 export const PDFArchiveIOS = () => {
   const navigation = useNavigation<StackNavigationProp<any>>()
-  const { theme } = useAppCommon()
 
   const [layoutSelectedType, setLayoutSelectedType] = useState(ArchiveLayoutType.grid)
 
@@ -31,7 +29,7 @@ export const PDFArchiveIOS = () => {
   const headerTitle = TranslateConstants({ key: TranslateKey.DRAWER_PDF_ARCHIVE })
 
   const onPressChangeLayout = () => {
-    const newLayout = layoutSelectedType == ArchiveLayoutType.grid ? ArchiveLayoutType.list : ArchiveLayoutType.grid
+    const newLayout = layoutSelectedType === ArchiveLayoutType.grid ? ArchiveLayoutType.list : ArchiveLayoutType.grid
     setLayoutSelectedType(newLayout)
   }
 
@@ -48,7 +46,7 @@ export const PDFArchiveIOS = () => {
   }
 
   const headerLeftElement = () => {
-    const iconName = layoutSelectedType == ArchiveLayoutType.grid ? ImagesName.listToggleIcon : ImagesName.gridToggleIcon
+    const iconName = layoutSelectedType === ArchiveLayoutType.grid ? ImagesName.listToggleIcon : ImagesName.gridToggleIcon
     return (
       <TouchableOpacity style={style.iconContainer} onPress={onPressChangeLayout}>
         <ToggleSVG iconName={iconName} />

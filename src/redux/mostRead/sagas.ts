@@ -6,7 +6,6 @@ import { FETCH_MOST_READ } from './actionTypes';
 import { fetchMostReadApi } from 'src/services/mostReadService';
 
 export function* fetchMostRead() {
-  //console.log("saga fetchMostRead");
 
   try {
     const payload: FetchMostReadSuccessPayloadType = yield call(

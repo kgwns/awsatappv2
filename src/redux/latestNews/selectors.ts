@@ -1,5 +1,15 @@
 import { AppState, Selector } from 'src/redux/rootReducer';
-import { ArchivedArticleDataType, EditorsChoiceDataType, InfoGraphicBlockType, LatestArticleDataType, LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, RequestSpotlightArticleSectionType, SpotlightDataType } from './types';
+import {
+  ArchivedArticleDataType,
+  EditorsChoiceDataType,
+  InfoGraphicBlockType,
+  LatestArticleDataType,
+  LatestOpinionDataType,
+  LatestPodcastDataType,
+  MainSectionBlockType,
+  RequestSpotlightArticleSectionType,
+  SpotlightDataType
+} from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
   state.latestNewsTab.isLoading;
@@ -102,3 +112,4 @@ state.latestNewsTab.infoGraphicBlockInfoLoaded;
 
 export const getArchivedArticleSectionData: Selector<ArchivedArticleDataType[]> = (state: AppState) =>
 state.latestNewsTab.archivedArticleSection;
+

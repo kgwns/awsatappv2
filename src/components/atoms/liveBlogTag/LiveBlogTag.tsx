@@ -1,9 +1,8 @@
 import { View, StyleSheet } from 'react-native'
 import React from 'react'
 import { Label } from '..'
-import { ImagesName, Styles } from 'src/shared/styles'
+import { Styles } from 'src/shared/styles'
 import { fonts } from 'src/shared/styles/fonts'
-import { getSvgImages } from 'src/shared/styles/svgImages'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import LiveAnimation from '../../../assets/lottie-animation/live-icon.json';
 import { LottieViewAnimation } from 'src/shared/utils/LottieViewAnimation';
@@ -16,14 +15,6 @@ interface LiveBlogTagProps {
 }
 
 export const LiveBlogTag = ({ isImageTag = false, enableTopMargin = false, isTextTag = false, enableBottomMargin = false }: LiveBlogTagProps) => {
-
-    // const renderLiveIcon = () => {
-    //     return getSvgImages({
-    //         name: ImagesName.liveIcon,
-    //         width: 17,
-    //         height: 13,
-    //     });
-    // }
 
     return (
         <View style={[isImageTag ? liveBlogTagStyle.imageLiveTagContainer : liveBlogTagStyle.liveTagContainer,

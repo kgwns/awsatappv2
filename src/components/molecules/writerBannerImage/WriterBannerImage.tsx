@@ -56,7 +56,6 @@ export const WriterBannerImage = ({
 }: WriterBannerImageProps) => {
   const style = useThemeAwareObject(customStyle)
   
-  const OPINION_ARTICLE_RETURN = TranslateConstants({key:TranslateKey.OPINION_ARTICLE_RETURN})
   const FOLLOW = TranslateConstants({key:TranslateKey.FOLLOW})
   const FOLLOWER = TranslateConstants({key:TranslateKey.FOLLOWER})
 
@@ -83,41 +82,18 @@ export const WriterBannerImage = ({
     return () => subscription?.remove();
   }, []);
 
-  const ReturnButton = () => {
-    if(hideBackArrow) {
-      return null
-    }
-    return (
-      <View>
-        <TouchableOpacity
-          style={style.image}
-          onPress={onPressReturn}>
-          {getSvgImages({
-            name: ImagesName.returnSvg,
-            width: normalize(12),
-            height: normalize(8.8), 
-            style: style.prevIconStyle
-          })}
-          <Label style={style.returnLabel}>
-            {OPINION_ARTICLE_RETURN}
-          </Label>
-        </TouchableOpacity>
-      </View>
-    )
-  }
-
-  const SubscribeButton = ({ isFollowed }: { isFollowed: boolean }) => (
+  const SubscribeButton = ({ isFollow }: { isFollow: boolean }) => (
     <TouchableWithoutFeedback testID={'subscribeButton'} style={[style.followContainer,
-      { backgroundColor: isFollowed ? Styles.color.greenishBlue : Styles.color.aquaHaze, }]}
+      { backgroundColor: isFollow ? Styles.color.greenishBlue : Styles.color.aquaHaze, }]}
       onPress={onPressFollow}>
       {
         getSvgImages({
-          name: isFollowed ? ImagesName.tickIcon : ImagesName.plusGreen,
-          size: isFollowed ? 16 : 10
+          name: isFollow ? ImagesName.tickIcon : ImagesName.plusGreen,
+          size: isFollow ? 16 : 10
         })
       }
-      <Label style={[style.followLabel, { color: isFollowed ? Styles.color.white : Styles.color.greenishBlue, }]}>
-        {isFollowed ? FOLLOWER : FOLLOW}</Label>
+      <Label style={[style.followLabel, { color: isFollow ? Styles.color.white : Styles.color.greenishBlue, }]}>
+        {isFollow ? FOLLOWER : FOLLOW}</Label>
     </TouchableWithoutFeedback>
   );
 
@@ -151,7 +127,7 @@ export const WriterBannerImage = ({
         <ReturnButton />
       </View> */}
       <View style={style.contentContainer}>
-        <View style={{ flex: isTab ? isWriter ? 0.15 : currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : isWriter ? 0.33 : currentOrientation == 'PORTRAIT' ? 0.33 : 0.15 }}>
+        <View style={{ flex: isTab ? isWriter ? 0.15 : currentOrientation === 'PORTRAIT' ? 0.15 : 0.10 : isWriter ? 0.33 : currentOrientation === 'PORTRAIT' ? 0.33 : 0.15 }}>
           <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
             <View style={style.imageContainer}>
               <Image url={getImageUrl(data.authorImage)}
@@ -164,7 +140,10 @@ export const WriterBannerImage = ({
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <View style={{ flex: isTab ? isWriter ? 0.85 : currentOrientation == 'PORTRAIT' ? 0.85 : 0.90 : isWriter ? 0.67 :currentOrientation == 'PORTRAIT' ? 0.67 : 0.85, paddingStart: normalize(10) }}>
+        <View style={{ 
+          flex: isTab ? 
+          isWriter ? 0.85 : currentOrientation === 'PORTRAIT' ? 0.85 : 0.90 : 
+          isWriter ? 0.67 :currentOrientation === 'PORTRAIT' ? 0.67 : 0.85, paddingStart: normalize(10) }}>
           <View style={style.authorSubscribeView}>
               <View style={style.authorNameView}>
                 <TouchableWithoutFeedback testID={'touchableLabel'} onPress={onPressWriter}>
@@ -174,7 +153,7 @@ export const WriterBannerImage = ({
             
 
             {showIsFollowed && <View style={style.subscribeView}>
-              <SubscribeButton isFollowed={isFollowed} />
+              <SubscribeButton isFollow={isFollowed} />
             </View>}
           </View>
           <Label style={style.authorDescription}>{decode(decodeHTMLTags(data.authorDescription))}</Label>

@@ -72,7 +72,7 @@ export const Archives = () => {
     const [initialLoading, setInitialLoading] = useState(true)
 
     useEffect(() => {
-        const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length == bookmarkDetail.length
+        const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length === bookmarkDetail.length
         if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
             updateFilterComponent(0) //We switch to all tab when bookmark add newly
             getBookmarkedId()
@@ -92,7 +92,7 @@ export const Archives = () => {
             selectedDataRef.current = false;
         } else {
             const dataSelected = returnItems(bookmarkDetail.data)
-            if( JSON.stringify(dataSelected) != JSON.stringify(filteredData)){
+            if( JSON.stringify(dataSelected) !== JSON.stringify(filteredData)){
                 if (!isNonEmptyArray(bookmarkDetail.data)) {
                     setInitialLoading(false)
                 }             
@@ -107,7 +107,7 @@ export const Archives = () => {
     }, [filterBookmarkDetailInfo])
 
     const updatedBundleFilterBookmarkDetail = () => {
-        if (!bookmarkLoading && isArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0 && !isAllBookmarkFetched) {
+        if (!bookmarkLoading && isArray(filterBookmarkDetailInfo) && tabSelectedIndex !== 0 && !isAllBookmarkFetched) {
             setFilteredData(filterBookmarkDetailInfo)
             setInitialLoading(false)
         }
@@ -156,7 +156,7 @@ export const Archives = () => {
 
     const removeBookmarkItem = (removeItem: any) => {
         const data = (tabSelectedIndex === 0 || isAllBookmarkFetched) ? [...bookmarkDetail] : [...filterBookmarkDetailInfo]
-        const removeIndex = data.findIndex((item) => item.nid == removeItem.nid)
+        const removeIndex = data.findIndex((item) => item.nid === removeItem.nid)
         if (removeIndex >= 0) {
             removeBookmarkedInfo({ nid: removeItem.nid })
         }
@@ -172,15 +172,15 @@ export const Archives = () => {
             case 0:
                 return data
             case 1:
-                return data.filter((item: any) => item.type == PopulateWidgetType.ARTICLE)
+                return data.filter((item: any) => item.type === PopulateWidgetType.ARTICLE)
             case 2:
-                return data.filter((item: any) => item.type == PopulateWidgetType.VIDEO)
+                return data.filter((item: any) => item.type === PopulateWidgetType.VIDEO)
             case 3:
-                return data.filter((item: any) => item.type == PopulateWidgetType.OPINION)
+                return data.filter((item: any) => item.type === PopulateWidgetType.OPINION)
             case 4:
-                return data.filter((item: any) => item.type == PopulateWidgetType.PODCAST)
+                return data.filter((item: any) => item.type === PopulateWidgetType.PODCAST)
             case 5:
-                return data.filter((item: any) => item.type == PopulateWidgetType.ALBUM)
+                return data.filter((item: any) => item.type === PopulateWidgetType.ALBUM)
             default: return null
         }
     }

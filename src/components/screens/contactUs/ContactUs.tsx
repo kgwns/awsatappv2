@@ -5,7 +5,6 @@ import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, normalize
 import { StaticPageHeader } from 'src/components/molecules'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { Label, TextInputField } from 'src/components/atoms'
-// import { CONST_CONTACT_US_DESCRIPTION, CONST_DO_YOU_HAVE_QUESTION } from 'src/constants/Constants'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
@@ -80,7 +79,7 @@ export const ContactUs = () => {
         }
     }
 
-    const isContactSuccessMessage = () => isObjectNonEmpty(sendSuccessInfo) && sendSuccessInfo.code == 200
+    const isContactSuccessMessage = () => isObjectNonEmpty(sendSuccessInfo) && sendSuccessInfo.code === 200
 
     const onPressSend = () => {
         if (validateFields()) {

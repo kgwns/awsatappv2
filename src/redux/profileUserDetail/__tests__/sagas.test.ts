@@ -1,6 +1,6 @@
 import { testSaga } from 'redux-saga-test-plan';
-import { FETCH_PROFILE_USER_DETAILS, SEND_USER_DETAILS, UPDATE_PROFILE_USER_IMAGE, EMPTY_USER_PROFILE_DATA } from '../actionTypes';
-import userProfileSaga, { fetchUserProfileDetail, postUserData, UpdateUserImage, emptyUserProfileDataInfo } from '../sagas';
+import { FETCH_PROFILE_USER_DETAILS, SEND_USER_DETAILS, UPDATE_PROFILE_USER_IMAGE } from '../actionTypes';
+import userProfileSaga, { fetchUserProfileDetail, postUserData, UpdateUserImage } from '../sagas';
 import { sendUserDataSuccess, fetchUserProfileDetailsSuccess } from '../action';
 import { sendUserProfileApi, fetchUserProfileApi } from 'src/services/profileUserService';
 import {
@@ -132,20 +132,7 @@ describe('Test userProfileSaga  saga', () => {
         .all([takeLatest(SEND_USER_DETAILS, postUserData)])
         .next()
         .all([takeLatest(UPDATE_PROFILE_USER_IMAGE, UpdateUserImage)])
-        .next()
-        .all([takeLatest(EMPTY_USER_PROFILE_DATA, emptyUserProfileDataInfo)])
         .finish()
         .isDone();
     });
 });
-
-describe('Test emptyUserProfileDataInfo', () => {
-    it('check emptyUserProfileDataInfo success', () => {
-      const genObject = emptyUserProfileDataInfo();
-      genObject.next();
-      genObject.next();
-    });
-});
-
-
-

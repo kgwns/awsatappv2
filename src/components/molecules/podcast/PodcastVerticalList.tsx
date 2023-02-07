@@ -9,7 +9,6 @@ import {CustomThemeType, colors} from 'src/shared/styles/colors';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay} from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
@@ -46,7 +45,6 @@ export const PodcastVerticalList = ({
   onPressBookmark
 }: PodcastVerticalListProps) => {
   const style = useThemeAwareObject(customStyle);
-  const theme = useTheme();
   const [duration, setDuration] = useState<any>(null)
   const [isTitleLineCount, setIsTitleLineCount] = useState(1)
 

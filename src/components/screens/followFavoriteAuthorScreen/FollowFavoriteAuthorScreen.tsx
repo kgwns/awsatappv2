@@ -4,13 +4,12 @@ import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, LoadingState, NextButton } from 'src/components/atoms';
 import { CustomAlert, horizontalEdge, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenHeight, screenWidth } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useAllWriters, useUserProfileData } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
-import { useIsFocused } from '@react-navigation/native';
 import { fonts } from 'src/shared/styles/fonts';
 
 export const FollowFavoriteAuthorScreen = () => {
@@ -26,7 +25,14 @@ export const FollowFavoriteAuthorScreen = () => {
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
   };
-  const { isLoading, allWritersData, sentAuthorInfoData, fetchAllWritersRequest, sendSelectedWriterInfo, updateAllWritersData, emptySendAuthorInfoData, sendSelectedFromOnboard } = useAllWriters();
+  const { isLoading, 
+    allWritersData, 
+    sentAuthorInfoData, 
+    fetchAllWritersRequest, 
+    sendSelectedWriterInfo, 
+    updateAllWritersData, 
+    emptySendAuthorInfoData, 
+    sendSelectedFromOnboard } = useAllWriters();
   const {userProfileData} = useUserProfileData();
   const [writersData, setWritersData] = useState<AllWritersItemType[]>([])
 
@@ -61,7 +67,7 @@ export const FollowFavoriteAuthorScreen = () => {
   const changeSelectedStatus = (item: any, selected: boolean) => {
     const data = [...writersData]
     for (let i = 0; i < data.length; i++) {
-      if (item.tid == data[i].tid) {
+      if (item.tid === data[i].tid) {
         data[i].isSelected = selected;
       }
     }
@@ -71,8 +77,8 @@ export const FollowFavoriteAuthorScreen = () => {
 
   const updateNextButton = () => {
     const selectedTIDData = getSelectedData()
-    const disableNext = isNonEmptyArray(selectedTIDData) ? false : true
-    setDisableNext(disableNext)
+    const disableNextBtn = isNonEmptyArray(selectedTIDData) ? false : true
+    setDisableNext(disableNextBtn)
   }
 
   const onPressNext = () => {

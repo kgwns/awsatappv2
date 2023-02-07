@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
-import { CustomAlert, isIOS, isTab, normalize, screenWidth } from '../../../shared/utils';
+import { CustomAlert, isIOS, isTab, normalize } from '../../../shared/utils';
 import { Label } from '../../atoms';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';

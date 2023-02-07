@@ -5,7 +5,7 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {AuthorItem} from 'src/components/molecules';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
-import { getImageUrl, isNonEmptyArray, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getImageUrl, isNonEmptyArray, isNotEmpty } from 'src/shared/utils/utilities';
 import { Divider, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { ImagesName } from 'src/shared/styles';
@@ -13,7 +13,6 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants/Constants';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 const AuthorSlider = ({
@@ -48,8 +47,6 @@ const AuthorSlider = ({
 
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [activeIndex, setActiveIndex] = useState<any>(isIOS ? 0 : data.length - 1);
-  const playbackState = usePlaybackState();
-
 
   const renderItem = (item: any, index: number) => {
     return (
@@ -133,7 +130,9 @@ const AuthorSlider = ({
   }
 
   const onMomentumScrollEnd = ( event: any) => {
-    if (!event) return
+    if (!event) {
+      return
+    }
 
     const xOffset = event.nativeEvent.contentOffset.x + 10;
     const currentIndex = Math.floor(xOffset / screenWidth);
@@ -141,9 +140,9 @@ const AuthorSlider = ({
   }
 
   const renderIndicator = () => {
-    const renderItem = (index: number) => {
+    const renderItemIndicator = (index: number) => {
       return (
-        <View key={`indicator-${index}`} style={[style.indicatorStyle, activeIndex == index && style.activeIndicatorStyle]} >
+        <View key={`indicator-${index}`} style={[style.indicatorStyle, activeIndex === index && style.activeIndicatorStyle]} >
         </View>
       )
     }
@@ -151,10 +150,10 @@ const AuthorSlider = ({
     return (
       <View style={style.containerStyle}>
         {isIOS ? data.map((_: any, index: number) => {
-          return renderItem(index);
+          return renderItemIndicator(index);
         }) :
           data.map((_: any, index: number) => {
-            return renderItem(index);
+            return renderItemIndicator(index);
           }).reverse()
         }
       </View>

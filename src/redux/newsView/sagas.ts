@@ -29,8 +29,7 @@ import { LatestArticleDataType } from '../latestNews/types';
 
 export const formatTopListToLatestArticleType = (response: any): LatestArticleDataType[] => {
   let formattedData: LatestArticleDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export,
@@ -47,12 +46,11 @@ export const formatTopListToLatestArticleType = (response: any): LatestArticleDa
         })
       );
     }
-  }
   return formattedData
 }
 
 export function* fetchHeroList(action: FetchHeroListType) {
-  // console.log("saga fetchHeroList");
+
   try {
     const payload: FetchHeroListSuccessPayloadType = yield call(
       fetchNewsViewApi,
@@ -69,7 +67,7 @@ export function* fetchHeroList(action: FetchHeroListType) {
 }
 
 export function* fetchTopList(action: FetchTopListType) {
-  // console.log("saga fetchTopList");
+
   try {
     const payload: FetchTopListSuccessPayloadType = yield call(
       fetchNewsViewApi,
@@ -87,7 +85,7 @@ export function* fetchTopList(action: FetchTopListType) {
 }
 
 export function* fetchBottomList(action: FetchBottomListType) {
-  // console.log('saga fetchBottomList');
+
   try {
     const payload: FetchBottomListSuccessPayloadType = yield call(
       fetchNewsViewApi,
@@ -103,15 +101,11 @@ export function* fetchBottomList(action: FetchBottomListType) {
   }
 }
 
-export function* emptyAllList() {
-  emptyAllList();
-}
 
 function* newsViewSaga() {
   yield all([takeLatest(REQUEST_HERO_LIST_DATA, fetchHeroList)]);
   yield all([takeLatest(REQUEST_TOP_LIST_DATA, fetchTopList)]);
   yield all([takeLatest(REQUEST_BOTTOM_LIST_DATA, fetchBottomList)]);
-  yield all([takeLatest(EMPTY_ALL_LIST, emptyAllList)]);
 }
 
 export default newsViewSaga;

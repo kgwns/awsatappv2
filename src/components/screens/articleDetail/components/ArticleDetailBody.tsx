@@ -29,7 +29,7 @@ export const ArticleDetailBody = React.memo(({
     const [dynamicHeight, setDynamicHeight] = useState<number>(0)
     const [webViewHeight, setWebViewHeight] = useState<number>(0)
 
-    var webviewRef: any =React.createRef();
+    let webviewRef: any =React.createRef();
 
     useEffect(() => {
         updateHeightValue()
@@ -46,26 +46,7 @@ export const ArticleDetailBody = React.memo(({
         webviewRef && webviewRef.injectJavaScript(script());
     }, [articleFontSize])
 
-    /*
-    useEffect(() => {
-        if (webviewRef) {
-            webviewRef.forEach((_: any, index: number) => {
-                webviewRef[index].injectJavaScript(
-                    `${iFrameInjectCss()}
-                    true;  // note: this is required, or you'll sometimes get silent failures
-                `);
-            })
-        }
-    }, [orientation])
-
-    const isPortrait = () => {
-        const dim = Dimensions.get('screen');
-        return dim.height >= dim.width;
-    };
-    */
-
     const iFrameInjectCss = () => {
-        // const size = isPortrait() ? screenWidth : screenHeight
 
         return `
         //   This css to apply all the iFrame tag element
@@ -164,7 +145,7 @@ export const ArticleDetailBody = React.memo(({
         const URL = event.url
 
         if (isIOS) {
-            if (event.navigationType == 'click') {
+            if (event.navigationType === 'click') {
                 browserOptions(URL);
                 return false
             }
@@ -200,9 +181,6 @@ export const ArticleDetailBody = React.memo(({
             originWhitelist={["*"]}
             nestedScrollEnabled={false}
             scalesPageToFit={false}
-            onMessage={(event) => {
-                // console.log(event.nativeEvent.data);
-            }}
             onLoadEnd={updateWebViewStyle}
             onLoadProgress={updateWebViewStyle}
             injectedJavaScript={script()}

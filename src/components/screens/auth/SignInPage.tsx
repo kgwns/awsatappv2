@@ -108,17 +108,11 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const CONST_OK = TranslateConstants({key:TranslateKey.COMMON_OK});
   const CONST_ALERT = TranslateConstants({key:TranslateKey.COMMON_ALERT});
   const COMMON_NO_INTERNET_CONNECTION = TranslateConstants({key:TranslateKey.COMMON_NO_INTERNET_CONNECTION})
-  const COMMON_SOMETHING_WENT_WRONG = TranslateConstants({key:TranslateKey.COMMON_SOMETHING_WENT_WRONG})
   const SIGNIN_RETURN = TranslateConstants({key:TranslateKey.SIGNIN_RETURN})
 
   const noInternetConnection: AlertPayloadType = {
     title: CONST_ALERT,
     message: COMMON_NO_INTERNET_CONNECTION,
-    buttonTitle: CONST_OK,
-  };
-  const somthingWentWrong: AlertPayloadType = {
-    title: CONST_ALERT,
-    message: COMMON_SOMETHING_WENT_WRONG,
     buttonTitle: CONST_OK,
   };
 
@@ -165,8 +159,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
   }, [loginError]);
 
   const getDeviceName = async () => {
-    const deviceName = await DeviceInfo.getDeviceName();
-    setDeviceName(deviceName);
+    const deviceNameInfo = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceNameInfo);
   };
 
   const {getBookmarkedId} = useBookmark();

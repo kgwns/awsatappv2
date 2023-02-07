@@ -5,7 +5,6 @@ import { isAndroid, isTab, normalize, normalizeBy320, screenWidth, testProps } f
 import { Styles } from 'src/shared/styles'
 import { moleculesTestID, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'
-import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { TabBarItemProps } from 'src/components/molecules/tabWithBarItem/TabWithBarItem'
 
 export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
@@ -15,15 +14,15 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
   onPress,
   labelFont,
 }) => {
-  const theme = useTheme();
+
   const color = isSelected ? Styles.color.greenishBlue : Styles.color.doveGray
   const barColor = { backgroundColor: color }
   const CONST_MY_NEWS_TAB_WRITERS = TranslateConstants({key:TranslateKey.MY_NEWS_TAB_WRITERS})
   const CONST_MY_NEWS_TAB_MEDIA = TranslateConstants({key:TranslateKey.MY_NEWS_TAB_MEDIA})
   const CONST_MY_NEWs_TAB_TOPICS= TranslateConstants({key:TranslateKey.MY_NEWS_TAB_TOPICS})
 
-  const renderStyle = (tabName: String) => {
-    switch (tabName) {
+  const renderStyle = (tabNameProps: String) => {
+    switch (tabNameProps) {
       case CONST_MY_NEWS_TAB_WRITERS:
         return customStyle.containerWriters
       case CONST_MY_NEWS_TAB_MEDIA:

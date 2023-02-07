@@ -10,8 +10,7 @@ const returnResponse = (response: any): FetchTopMenuSuccessPayloadType => {
   const responseData: FetchTopMenuSuccessPayloadType = {
     topMenuData: []
   }
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const results: TopMenuItemType[] = [];
       for (const [index,item] of response.rows.entries()) {
         const topMenuItem: TopMenuItemType = {
@@ -27,12 +26,11 @@ const returnResponse = (response: any): FetchTopMenuSuccessPayloadType => {
       }
       responseData.topMenuData = results
     }
-  }
+
   return responseData
 }
 
 export function* fetchTopMenu() {
-  //console.log("saga fetchMostRead");
 
   try {
     const payload: FetchTopMenuSuccessPayloadType = yield call(

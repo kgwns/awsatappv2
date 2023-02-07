@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleProp, ViewStyle, StyleSheet, Alert, Platform } from 'react-native';
-// import { SocialLoginButton } from '../../atoms';
 import { SocialLoginButton } from '../../atoms/social-login-button/SocialLoginButton';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
@@ -72,12 +71,11 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       onSuccessSocialLogin(userInfo,provider)
     }else{
       socialLoginEnded();
-      if(message){
-        if(message === 'ErrorOccured'){
-          //show Alert
-          showAlertNoInternet && showAlertNoInternet()
-        }
+      if(message && message === 'ErrorOccured'){
+        //show Alert
+        showAlertNoInternet && showAlertNoInternet()
       }
+      
     }
   }
 
@@ -107,8 +105,8 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   //--AppleSignin---------
 
   const getDeviceName = async () => {
-    const deviceName = await DeviceInfo.getDeviceName();
-    setDeviceName(deviceName);
+    const deviceNameInfo = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceNameInfo);
   };
 
   const dispatch = useDispatch();
@@ -133,9 +131,6 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     const {
       user,
       email,
-      nonce,
-      identityToken,
-      realUserStatus,
       fullName,
     } = response;
     const payload: RegisterBodyType = {
@@ -158,6 +153,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
         const googleSignIn = LoginFactory.getInstance(Connection.Google,onResult);
         googleSignIn?.login();
         onPressButton(type);
+        break;
       case NavigateTypes.apple:
         onPressButton(type);
         return;
@@ -165,6 +161,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
         const facebookSignIn = LoginFactory.getInstance(Connection.Facebook,onResult);
         facebookSignIn?.login();
         onPressButton(type);
+        break;
     }
   };
   const socialButtonLabelStyle = socialButtonBoldStyle ? styles.socialLoginButtonBoldLabel : styles.socialLoginButtonLabel

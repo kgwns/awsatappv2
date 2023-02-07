@@ -143,15 +143,19 @@ export const ScreenContainer = ({
   };
 
   const statusBarBackgroundColor = statusbarColor ||  isNotEmpty(backgroundColor) ? backgroundColor : themeData.backgroundColor;
+  const contentStyle =  isDarkMode ? 'light-content' : 'dark-content';
   return (
       <SafeAreaView
-        style={[style.container, !isLandscape && {width: screenWidth, height: screenHeight}, isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor} ]} // Intensively added inline style to update screen size when rotate
+        style={[style.container,
+          !isLandscape && {width: screenWidth, height: screenHeight},
+          isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor}
+        ]} // Intensively added inline style to update screen size when rotate
         edges={edge ? edge : ['left', 'right', 'top']}>
         {showHeader && header(headerTitle)}
         <StatusBar
           backgroundColor={statusBarBackgroundColor}
           barStyle={
-            barStyle ? barStyle : isDarkMode ? 'light-content' : 'dark-content'
+            barStyle ? barStyle : contentStyle
           }
         />
         {children}
@@ -187,7 +191,14 @@ export const ScreenContainer = ({
           />
         )}
 
-        { showPlayer && showMiniPlayer && !isLoading && <PodCastMiniPlayer onClose={onClose} toggleControl={() => { setShowPlayerControls(!showPlayerControls)}} playerPosition={playerPosition} />}
+        { showPlayer && showMiniPlayer && !isLoading && 
+        <PodCastMiniPlayer 
+          onClose={onClose} 
+          toggleControl={() => { setShowPlayerControls(!showPlayerControls)}} 
+          playerPosition={playerPosition} 
+        />
+        }
+
       </SafeAreaView>
   );
 };

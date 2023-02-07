@@ -1,6 +1,6 @@
 import {testSaga} from 'redux-saga-test-plan';
-import {CHANGE_PASSWORD, EMPTY_PASSWORD_RESPONSE_INFO} from '../actionTypes';
-import newPasswordSaga, {postNewPassword, emptyPasswordResponse} from '../sagas';
+import {CHANGE_PASSWORD} from '../actionTypes';
+import newPasswordSaga, {postNewPassword} from '../sagas';
 import {changePasswordSuccess} from '../action';
 import {changePasswordApi} from 'src/services/changePasswordService';
 import {
@@ -40,8 +40,6 @@ describe('<Change Password Saga>', () => {
       testSaga(newPasswordSaga)
         .next()
         .all([takeLatest(CHANGE_PASSWORD, postNewPassword)])
-        .next()
-        .all([takeLatest(EMPTY_PASSWORD_RESPONSE_INFO, emptyPasswordResponse)])
         .finish()
         .isDone();
     });
@@ -80,12 +78,5 @@ describe('<Change Password Saga>', () => {
     });
   });
 
-  describe('Test emptyPasswordResponse', () => {
-    it('check emptyPasswordResponse success', () => {
-      const genObject = emptyPasswordResponse();
-      genObject.next();
-      genObject.next();
-    });
-  });
 });
 

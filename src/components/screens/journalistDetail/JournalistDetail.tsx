@@ -4,10 +4,9 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isIOS, isNonEmptyArray, isNotchDevice, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
 import { ScreenContainer } from '..';
-import { useAllWriters, useBookmark, useLogin, useWriterDetail } from 'src/hooks';
+import { useAllWriters, useBookmark, useLogin, useWriterDetail, useJournalist } from 'src/hooks';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useJournalist } from 'src/hooks';
 import { WriterBannerImage, DetailHeader } from 'src/components/molecules';
 import { JournalistSection } from 'src/components/organisms';
 import { horizontalEdge, isNotEmpty } from 'src/shared/utils/utilities';
@@ -53,10 +52,10 @@ export const JournalistDetail = ({
     const [articleState, setArticleState] = useState<JournalistArticleData[]>([])
     const [journalistDetail, setJournalistDetail] = useState<JournalistDetailDataType[]>([])
 
-    const detailRoutes = useMemo(() => routes.filter((routes) =>
-        routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
-        routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-        routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+    const detailRoutes = useMemo(() => routes.filter((detailRoute) =>
+        detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+        detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+        detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
     const noOfDetailRoutes = detailRoutes.length
 
     const jId = route.params.tid
@@ -80,8 +79,8 @@ export const JournalistDetail = ({
 
     useEffect(() => {
         if (isNonEmptyArray(journalistDetailData) && isObjectNonEmpty(selectedAuthorsData)) {
-            const isFollowed = validateFollow(jId)
-            setIsFollowed(isFollowed)
+            const isFollow = validateFollow(jId)
+            setIsFollowed(isFollow)
         }
     }, [journalistDetailData, selectedAuthorsData])
 
@@ -119,7 +118,7 @@ export const JournalistDetail = ({
     }
 
     const validateBookmark = (nid: string): boolean => {
-        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid.toString() === nid) : false
+        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid.toString() == nid) : false
     }
 
     const updatedChangeBookmark = (data: JournalistArticleData[], index: number) => {
@@ -156,7 +155,7 @@ export const JournalistDetail = ({
     }
 
     const gotoNextPage = () => {
-        if (!isArticleLoading && articleState.length % 10 == 0) {
+        if (!isArticleLoading && articleState.length % 10 === 0) {
             setPage(page + 1);
         }
     };

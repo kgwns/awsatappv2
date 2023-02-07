@@ -9,3 +9,4 @@ export const getSideMenuData: Selector<SideMenuItemType[]> = (state: AppState) =
 
 export const getSideMenuError: Selector<string> = (state: AppState) =>
   state.sideMenu.error;
+  

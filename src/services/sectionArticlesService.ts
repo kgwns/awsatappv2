@@ -13,4 +13,4 @@ export const fetchSectionArticlesApi = async (body:SectionArticlesBodyGet) => {
   } catch (error) {
     throw error;
   }
-};
+}

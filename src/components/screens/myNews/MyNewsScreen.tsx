@@ -39,9 +39,9 @@ export const MyNewsScreen = () => {
   }, [])
 
   const configData = () => {
-    const newRoutesArray = myNewsTopTabData.map((item, index) => {
+    const newRoutesArray = myNewsTopTabData.map((item, indexValue) => {
       return {
-        key: `${index}${item.keyName}`,
+        key: `${indexValue}${item.keyName}`,
         title: item.tabName,
         keyName: item.keyName,
       };
@@ -124,7 +124,7 @@ export const MyNewsScreen = () => {
               key={tabIndex}
               onPress={setIndex}
               tabName={item.route.title || ''}
-              isSelected={tabIndex == item.navigationState.index}
+              isSelected={tabIndex === item.navigationState.index}
               labelFont={fonts.Effra_Arbc_Regular}
             />
             <View style={styles.tabBarBottomView} />

@@ -28,13 +28,13 @@ export const SearchScreen = () => {
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: item.nid})
     }
   }
-  const onSearchTextChange = (searchText: string) => {
-    setSearchText(searchText);
+  const onSearchTextChange = (searchTextProps: string) => {
+    setSearchText(searchTextProps);
 
     {/* User Need to type minimum four char to enable search*/}
-    if (searchText && isNotEmpty(searchText.toString()) && searchText.trim().length >= 4) {
+    if (searchTextProps && isNotEmpty(searchTextProps.toString()) && searchTextProps.trim().length >= 4) {
       fetchSearchRequest({
-        searchText: searchText,
+        searchText: searchTextProps,
       });
     }
   };

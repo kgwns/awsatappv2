@@ -1,5 +1,5 @@
 import { Theme } from "../../../redux/appCommon/types"
-import { calculateDate, calculateMonth, calculateTimeSince, CustomAlert, isDarkTheme, isNonEmptyArray, isObjectNonEmpty } from ".."
+import { calculateDate, calculateMonth, CustomAlert, isDarkTheme, isNonEmptyArray, isObjectNonEmpty } from ".."
 import { arabic } from "src/assets/locales/ar/common-ar"
 import { Alert } from "react-native"
 import { calculateDateNumber, calculateDay, calculateHour, calculateMinutes, calculateMothNumber, calculateNonUtcDate, calculateNonUtcDateNumber, calculateNonUtcMonth, calculateNonUtcYear, convertSecondsToHMS, DateIcon, dateTimeAgo, decodeHTMLTags, getArticleImage, getConvertedTime, getCountryNameFromCode, getDay, getDeviceName, getFormattedDate, getFullDate, getImageUrl, getPodcastDate, getPodcastUrl, getProfileImageUrl, getSecondsToHms, getShareUrl, getUpdatedObject, isArray, isInvalidOrEmptyArray, isNonNegativeNumber, isNotEmpty, isStringIncludes, isTypeAlbum, isValidDate, isValidHttpUrl, joinArray, removeWhiteSpace, spliceArray, testProps, timeAgo, TimeIcon } from "../utilities"
@@ -68,24 +68,6 @@ describe('<Utilities>', () => {
     })
 
     describe('<<< Time Ago >>>', () => {
-        it('Check calculate time since', () => {
-            const date = "2021-05-20T21:05:00+0000"
-            const result = calculateTimeSince(date)
-            expect(result).toBe('timeSince.just_now')
-        })
-
-        it('Check calculate time with current time', () => {
-            const date =new Date().getTime()
-            const result = calculateTimeSince(date)
-            expect(result).toBe('0 timeSince.seconds')
-        })
-
-        it('Check calculate time for from now', () => {
-            const date =new Date().getTime() + 100
-            const result = calculateTimeSince(date)
-            expect(result).toBe('0 timeSince.seconds')
-        })
-
 
         it('Check month is return correctly', () => {
             const date = "2021-05-20T21:05:00+0000"

@@ -3,10 +3,9 @@ import { View, StyleSheet } from 'react-native';
 import { ScreenContainer } from 'src/components/screens/ScreenContainer/ScreenContainer';
 import { PodcastProgramHeader } from 'src/components/molecules/podcast/PodcastProgramHeader';
 import Share from 'react-native-share';
-import { CustomThemeType } from 'src/shared/styles/colors';
+import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { normalize, isNonEmptyArray, recordLogEvent, isTab, screenWidth } from 'src/shared/utils';
-import { colors } from 'src/shared/styles/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
@@ -114,8 +113,8 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     }, [isFocused])
 
 
-    const validateBookmark = (nid: string): boolean => {
-        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+    const validateBookmark = (nidProps: string): boolean => {
+        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nidProps) : false
     }
 
     useEffect(() => {
@@ -145,13 +144,13 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
 
     const onPressSaveEpisodeDetail = () => {
         const data = [...podcastEpisodeDetailInfo]
-        const index = data.findIndex((item) => item.nid == nid)
-        const item = data[index]
-        if (isObjectNonEmpty(item)) {
-            const newBookmarked = !item.isBookmarked
+        const index = data.findIndex((podcastData) => podcastData.nid === nid);
+        const podcastItem = data[index]
+        if (isObjectNonEmpty(podcastItem)) {
+            const newBookmarked = !podcastItem.isBookmarked
             data[index].isBookmarked = newBookmarked
             setPodcastEpisodeDetailInfo(data)
-            updateBookmarkInfo(item.nid, newBookmarked)
+            updateBookmarkInfo(podcastItem.nid, newBookmarked)
         }
     }
 
@@ -199,11 +198,11 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
             }
             recordLogEvent('Played_Podcast', { podcastid: podcastEpisodeInfo.nid });
-            if ((trackData && trackData.id != trackPlayerData.id) || trackData == null) {
+            if ((trackData && trackData.id !== trackPlayerData.id) || trackData == null) {
                 setPlayerTrack(trackPlayerData);
             }
             !showMiniPlayer && setShowMiniPlayer(true);
-            showMiniPlayer && playbackState == State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
+            showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
         }
     }
 

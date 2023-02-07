@@ -44,7 +44,7 @@ export const InputField: FunctionComponent<InputFieldProps> = ({
   value = '',
   onChangeText,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onSubmitEditing = () => {},
+  onSubmitEditing = () => ({}),
   keyboardType = 'default',
   error = '',
   icon,

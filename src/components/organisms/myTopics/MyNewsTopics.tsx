@@ -58,9 +58,9 @@ export const MyNewsTopics = () => {
     }, []);
 
     useEffect(() => {
-        if (articleData != favouriteArticlesData) {
-            setArticleData((articleData: any) => [
-                ...articleData,
+        if (articleData !== favouriteArticlesData) {
+            setArticleData((prevArticleData: any) => [
+                ...prevArticleData,
                 ...favouriteArticlesData,
             ]);
         }
@@ -71,35 +71,35 @@ export const MyNewsTopics = () => {
     }, [selectedTopicsData]);
 
     useEffect(() => {
-        if (pageCount != 0) {
+        if (pageCount !== 0) {
             fetchArticleData(selectedTopics, pageCount);
         }
     }, [pageCount]);
 
     useEffect(() => {
-        (!isNonEmptyArray(selectedTopics) && pageCount == 0) || (!isArticalLoading && !isNonEmptyArray(articleData))
+        (!isNonEmptyArray(selectedTopics) && pageCount === 0) || (!isArticalLoading && !isNonEmptyArray(articleData))
             ? setShowEmpty(true)
             : setShowEmpty(false);
     }, [articleData]);
 
     const topicsList = useMemo(() => {
-        const topicsList = [];
+        const topicsListArray = [];
         if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
             const authorsIdList = selectedTopicsData.data.map((item: any) => item.tid.toString());
             for (let i = 0; i < allSiteCategoriesData.length; i++) {
                 if (authorsIdList.includes(allSiteCategoriesData[i].tid)) {
-                    topicsList.push(allSiteCategoriesData[i]);
+                    topicsListArray.push(allSiteCategoriesData[i]);
                 }
             }
         }
-        return topicsList;
+        return topicsListArray;
     }, [selectedTopicsData, allSiteCategoriesData]);
 
-    const fetchArticleData = (topicsList: any, pageCount: any) => {
+    const fetchArticleData = (topicsListProps: any, pageCountProps: any) => {
         const articleBody: FavouriteArticlesBodyGet = {
-            page: pageCount,
+            page: pageCountProps,
             items_per_page: 10,
-            topicsList: topicsList
+            topicsList: topicsListProps
         }
         fetchFavouriteArticlesRequest(articleBody)
     }
@@ -128,11 +128,11 @@ export const MyNewsTopics = () => {
     };
 
     const onPress = (item: any, index: number) => {
-        if(index == selectedIndex) {
+        if(index === selectedIndex) {
             return;
         }
-        const payloadTopicsList = index == -1 ? getTopicsList() : [item.tid];
-        if (payloadTopicsList != selectedTopics) {
+        const payloadTopicsList = index === -1 ? getTopicsList() : [item.tid];
+        if (payloadTopicsList !== selectedTopics) {
             setPageCount(0);
             setArticleData([]);
             setSelectedIndex(index);
@@ -215,7 +215,7 @@ export const MyNewsTopics = () => {
                     onPress={onPress}
                     selectedIndex={selectedIndex}
                 />
-                {isArticalLoading && pageCount == 0 ? (
+                {isArticalLoading && pageCount === 0 ? (
                     <View style={styles.loaderContainer}>
                         <LoadingState />
                     </View>

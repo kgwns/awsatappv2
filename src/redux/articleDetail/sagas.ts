@@ -1,9 +1,31 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
-import { ArticleContentType, ArticleDetailDataType, ArticleDetailSuccessPayload, ArticleOpinionType, ArticleReadAlsoType, ArticleSectionSuccessPayload, FetchRichOpinionsBundleSuccessPayloadType, FetchRichOpinionsBundleType, GetRichArticleReadAlsoBody, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RelatedArticleSuccessPayload, RequestArticleDetailType, RequestArticleSectionType, RequestRelatedArticleType, RequestRichArticleContentBundleType, RichHTMLOpinionDataType, RichHTMLType } from './types';
+import { ArticleContentType, ArticleDetailDataType, 
+  ArticleDetailSuccessPayload, ArticleOpinionType, 
+  ArticleReadAlsoType, ArticleSectionSuccessPayload, 
+  FetchRichOpinionsBundleSuccessPayloadType, 
+  FetchRichOpinionsBundleType, GetRichArticleReadAlsoBody, 
+  HTMLElementParseStore, RelatedArticleBodyGet, 
+  RelatedArticleDataType, RelatedArticleSuccessPayload, 
+  RequestArticleDetailType, RequestArticleSectionType, 
+  RequestRelatedArticleType, RequestRichArticleContentBundleType,
+  RichHTMLOpinionDataType, RichHTMLType } from './types';
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService';
-import { REQUEST_ARTICLE_DETAIL, REQUEST_RELATED_ARTICLE, EMPTY_DATA, REQUEST_ARTICLE_SECTION, REQUEST_RICH_ARTICLE_READ_ALSO, REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION } from './actionType';
-import { requestArticleDetailFailed, requestArticleDetailSuccess, requestArticleSectionFailed, requestArticleSectionSuccess, requestRelatedArticleSuccess, requestRichArticleReadAlsoSuccessType, requestRichArticleReadAlsoFailedType, requestRichArticleContentBundleFailedType, requestRichArticleContentBundleSuccessType, fetchRichOpinionsBundleSuccess, fetchRichOpinionsBundleFailed } from './action';
+import { REQUEST_ARTICLE_DETAIL, 
+  REQUEST_RELATED_ARTICLE, EMPTY_DATA, 
+  REQUEST_ARTICLE_SECTION, REQUEST_RICH_ARTICLE_READ_ALSO, 
+  REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION } from './actionType';
+import { requestArticleDetailFailed, 
+  requestArticleDetailSuccess, 
+  requestArticleSectionFailed, 
+  requestArticleSectionSuccess, 
+  requestRelatedArticleSuccess, 
+  requestRichArticleReadAlsoSuccessType, 
+  requestRichArticleReadAlsoFailedType, 
+  requestRichArticleContentBundleFailedType, 
+  requestRichArticleContentBundleSuccessType, 
+  fetchRichOpinionsBundleSuccess, 
+  fetchRichOpinionsBundleFailed } from './action';
 import { isNonEmptyArray } from 'src/shared/utils';
 import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty, joinArray, getArticleImage } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
@@ -44,7 +66,7 @@ export const updatedOpinionBundle = (articleInfo: ArticleDetailDataType, opinion
   let richHTML: HTMLElementParseStore[] = []
   if (isNonEmptyArray(opinionInfo)) {
     richHTML = articleInfo.richHTML ?? []
-    const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION && item.data.opinion == opinionInfo[0].nid)
+    const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION && item.data.opinion === opinionInfo[0].nid)
     if (opinionIndex > -1) {
       const filteredOpinion = richHTML[opinionIndex] as ArticleOpinionType
       filteredOpinion.data.opinionData = opinionInfo[0]
@@ -145,8 +167,7 @@ const parseImageData = (field_image: string, newPhoto: string) => {
 
 const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
   let formattedData: RelatedArticleDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_new_photo, field_news_categories_export, author_resource,created_export, changed }: any) => ({
@@ -159,7 +180,6 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
           created: changed
         })
       );
-    }
   }
   return formattedData
 }
@@ -293,7 +313,7 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
 
     if (isNonEmptyArray(response.articleDetailData) && isNonEmptyArray(response.articleDetailData[0].richHTML)) {
       //Read Also Bundle
-      const readAlsoElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type == RichHTMLType.READ_ALSO)
+      const readAlsoElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type === RichHTMLType.READ_ALSO)
       if (isNonEmptyArray(readAlsoElement) && isNonEmptyArray(readAlsoElement[0].data.related_content)) {
         const nidList = joinArray(readAlsoElement[0].data.related_content, '+')
         yield call(
@@ -304,7 +324,7 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
 
 
       //Content Also Bundle
-      const contentElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type == RichHTMLType.CONTENT)
+      const contentElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type === RichHTMLType.CONTENT)
       if (isNonEmptyArray(contentElement) && contentElement[0].data.content) {
         yield call(
           fetchRichHTMLContentBundle, {
@@ -315,7 +335,7 @@ export function* fetchArticleDetail(action: RequestArticleDetailType) {
       }
 
       //Opinion Bundle
-      const opinionElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type == RichHTMLType.OPINION)
+      const opinionElement: any = response.articleDetailData[0].richHTML?.filter((item) => item.type === RichHTMLType.OPINION)
       if (isNonEmptyArray(opinionElement)) {
         yield all(opinionElement.map((_: any, index: number) =>
           call(fetchRichHTMLOpinionsBundle, {
@@ -407,9 +427,6 @@ export function* fetchArticleSection(action: RequestArticleSectionType) {
   }
 }
 
-export function* emptyData() {
-  emptyData();
-}
 
 export function* getRichReadAlsoInfo(action: any) {
   try {
@@ -468,7 +485,6 @@ export function* articleDetailSaga() {
     takeLatest(REQUEST_ARTICLE_DETAIL, fetchArticleDetail),
     takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle),
     takeLatest(REQUEST_ARTICLE_SECTION,fetchArticleSection),
-    takeLatest(EMPTY_DATA, emptyData),
     takeLatest(REQUEST_RICH_ARTICLE_READ_ALSO, getRichReadAlsoInfo),
   ]);
 }

@@ -52,7 +52,7 @@ export const ArticleRectangleCard = ({
                 url={imageUrl}
                 size={imageSize}
                 style={style.image}
-                type={imageType == 'round' ? 'round' : 'standard'}
+                type={imageType === 'round' ? 'round' : 'standard'}
               />
             </View>
           )}

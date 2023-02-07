@@ -1,9 +1,8 @@
 import * as React from 'react';
 import {horizontalAndTop} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
-import { ScrollView, View , StyleSheet} from 'react-native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { UIManager, findNodeHandle, PixelRatio, Dimensions } from 'react-native';
+import { UIManager, findNodeHandle, PixelRatio, Dimensions, ScrollView, View , StyleSheet } from 'react-native';
 import { DownloadNewsViewManager } from './DownloadNewsViewManager';
 import { useAppCommon } from 'src/hooks';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';

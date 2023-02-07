@@ -55,7 +55,7 @@ const ArticleDetailImage = ({
 
     const [imageLoaded, setImageLoaded] = useState<boolean>(false)
 
-    const isLive = isNotEmpty(displayType) && displayType == displayTypes.liveCoverage;
+    const isLive = isNotEmpty(displayType) && displayType === displayTypes.liveCoverage;
 
     const onImageLoaded = () => {
         setImageLoaded(true)
@@ -77,7 +77,9 @@ const ArticleDetailImage = ({
     }
 
     const renderTagName = () => {
-        if (!isNotEmpty(category) || isLive) return null
+        if (!isNotEmpty(category) || isLive) {
+            return null
+        }
 
         return (
             <View style={imageArticleStyle.tagNameViewStyle}>

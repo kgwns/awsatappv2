@@ -4,10 +4,9 @@ import { ScreenContainer } from '..';
 import { PodCastMiniPlayer, PodcastProgramHeader } from 'src/components/molecules';
 import Share from 'react-native-share';
 import { PodcastEpisodeContent, PodcastEpisodeInfo } from 'src/components/organisms';
-import { CustomThemeType } from 'src/shared/styles/colors';
+import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray, recordLogEvent, isTab, screenWidth } from 'src/shared/utils';
-import { colors } from 'src/shared/styles/colors';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
@@ -59,7 +58,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const [nid, setEpisode] = useState(route.params.data.nid)
   const podcastListData = route.params.podcastListData
   const { isLoading, podcastEpisodeData, fetchPodcastEpisodeRequest } = usePodcast()
-  const [isPlayerVisible, setPlayerVisibility] = useState(false)
+
   const playbackState = usePlaybackState();
   const payload: PodcastEpisodeBodyGet = {
     nid: nid
@@ -85,8 +84,8 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const { isLoggedIn } = useLogin()
 
 
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+  const validateBookmark = (nidProps: string): boolean => {
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nidProps) : false
   }
 
   useEffect(() => {
@@ -140,17 +139,17 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
 
   const onPressSaveEpisodeDetail = () => {
     const data = [...podcastEpisodeDetailInfo]
-    const index = data.findIndex((item) => item.nid == nid)
-    const item = data[index]
-    const newBookmarked = !item.isBookmarked
+    const index = data.findIndex((podcastData) => podcastData.nid === nid)
+    const podcastItem = data[index]
+    const newBookmarked = !podcastItem.isBookmarked
     data[index].isBookmarked = newBookmarked
     setPodcastEpisodeDetailInfo(data)
-    updateBookmarkInfo(item.nid, newBookmarked)
+    updateBookmarkInfo(podcastItem.nid, newBookmarked)
   }
 
-  const onPressSaveEpisodeList = (nid: string) => {
+  const onPressSaveEpisodeList = (nidProps: string) => {
     const data = [...podcastEpisodeListInfo]
-    const index = data.findIndex((item)=>item.nid===nid)
+    const index = data.findIndex((item)=>item.nid===nidProps)
     if(index>-1){
     const item = data[index]
     const newBookmarked = !item.isBookmarked
@@ -159,8 +158,8 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     updateBookmarkInfo(item.nid, newBookmarked)}
   }
 
-  const onPressEpisodeListBookmark = (nid: string) => {
-    isLoggedIn ? onPressSaveEpisodeList(nid) : makeSignUpAlert()
+  const onPressEpisodeListBookmark = (nidProps: string) => {
+    isLoggedIn ? onPressSaveEpisodeList(nidProps) : makeSignUpAlert()
   }
 
   const onPressEpisodeBookmark = () => {
@@ -177,7 +176,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
 
   const episodeIndex = podcastEpisodeDetailInfo.findIndex((item: any) => item.nid === nid);
   const podcastEpisodeInfo = podcastEpisodeDetailInfo ? podcastEpisodeDetailInfo[episodeIndex] : podcastEpisodeInitialData
-  const otherPodcast = podcastEpisodeListInfo.filter((item: any) => item.nid != nid);
+  const otherPodcast = podcastEpisodeListInfo.filter((item: any) => item.nid !== nid);
 
   const onPressShare = async () => {
     await Share.open({
@@ -236,11 +235,11 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
       }
       recordLogEvent('Played_Podcast', {podcastid: podcastEpisodeInfo.nid });
-      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) {
+      if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ) {
         setPlayerTrack(trackPlayerData);
       }
       !showMiniPlayer && setShowMiniPlayer(true);
-      showMiniPlayer && playbackState == State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
+      showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }
   } 
 
@@ -316,3 +315,4 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: isIOS ? 50 : 70
     }
   })
+  

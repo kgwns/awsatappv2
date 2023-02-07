@@ -1,5 +1,4 @@
 import { store } from "src/redux/store"
-import { ServerEnvironment } from "src/redux/appCommon/types";
 
 
 //PRODUCTION ENVIRONMENT
@@ -10,7 +9,8 @@ export const DEBUG_BASE_URL = 'https://devaawsatar.srpcdigital.com/';
 
 export const getBaseUrl = (): string => {
     const serverEnvironment  = store.getState().appCommon?.serverEnvironment
-    if (serverEnvironment == 'Debug') {
+    console.log(serverEnvironment,typeof serverEnvironment,'serverEnvironment')
+    if (serverEnvironment === 'Debug') {
       return DEBUG_BASE_URL
     }
 
@@ -21,7 +21,7 @@ export const BASE_URL = getBaseUrl();
 
 
 export const UMS_BASE_URL = 'https://awsatapi.srpcdigital.com/';
-export const PROFILE_IMAGE_URL = 'http://awsatapi.srpcdigital.com/storage/'
+export const PROFILE_IMAGE_URL = 'https://awsatapi.srpcdigital.com/storage/'
 export const PODCAST_SPREAKER_URL = 'https://api.spreaker.com/v2/episodes/';
 export const GET_JW_MEDIA_PLAYER_URL = 'https://cdn.jwplayer.com/v2/media/';
 export const TODOS = 'todos';
@@ -45,4 +45,5 @@ export const SCRIBBLE_LIVE_EVENT_URL = 'https://client.scribblelive.com/api/rest
 export const SCRIBBLE_LIVE_TOKEN_PARAM = '/?Token='
 export const SCRIBBLE_LIVE_JSON_PARAM = '&format=Json'
 //Scribble auth_token
-export const SCRIBBLE_TOKEN = '0ROZff5O' // Shared by the SRMG team. Need to replace if required. 
+export const SCRIBBLE_TOKEN = '0ROZff5O' // Shared by the SRMG team. Need to replace if required.
+

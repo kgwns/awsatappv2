@@ -14,7 +14,6 @@ const initialAuthState: EmailCheckState = {
 };
 
 export default (state = initialAuthState, action: EmailCheckActions) => {
-  //console.log('emailCheckData', action.payload.emailCheckData);
   switch (action.type) {
     case FETCH_EMAIL_CHECK_SUCCESS:
       return {

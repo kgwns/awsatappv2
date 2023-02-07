@@ -19,8 +19,7 @@ import { decode } from 'html-entities';
 
 const formatData = (response: any): FetchPodcastEpisodeType[] => {
   let formattedData: FetchPodcastEpisodeType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ nid,
@@ -60,7 +59,6 @@ const formatData = (response: any): FetchPodcastEpisodeType[] => {
           })
       );
     }
-  }
   return formattedData
 }
 

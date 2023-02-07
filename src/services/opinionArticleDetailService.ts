@@ -15,7 +15,7 @@ export const requestOpinionArticleDetailAPI = async (
     const response: OpinionArticleDetailSuccessPayload = await getCacheApiRequest(
       `${BASE_URL}${OPINION_ARTICLE_DETAIL}${body.nid}`,
     );
-    // console.log(`opinionArticleresponse: ${BASE_URL}${OPINION_ARTICLE_DETAIL}${body.nid}`,response);
+    
     return response;
   } catch (error) {
     throw error;
@@ -29,7 +29,7 @@ export const fetchRelatedOpinionAPI = async (
     const response:FetchRelatedOpinionSuccessPayloadType  = await getCacheApiRequest(
       `${BASE_URL}${GET_RELATED_OPINION_ENDPOINT}?page=${body.page}`,
     );
-    // console.log(`requestRelatedOpinionResponse: ${BASE_URL}${OPINION_ARTICLE_DETAIL}?page=${body.page}`,response);
+    
     return response;
   } catch (error) {
     throw error;

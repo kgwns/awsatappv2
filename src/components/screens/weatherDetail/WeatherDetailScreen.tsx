@@ -24,7 +24,14 @@ import WeatherIcon5 from 'src/assets/images/icons/weather/weather_Icon5.svg'
 import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon6.svg'
 import WeatherDayIcon from 'src/assets/images/icons/weather/weather_Day_Icon.svg'
 import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon.svg'
-import { calculateDateNumber, calculateMonth, calculateNonUtcDateNumber, calculateNonUtcMonth, calculateNonUtcYear, calculateYear, getConvertedTime, getCountryNameFromCode, isNonEmptyArray, isObjectNonEmpty, isStringIncludes } from 'src/shared/utils/utilities';
+import { calculateNonUtcDateNumber, 
+  calculateNonUtcMonth, 
+  calculateNonUtcYear, 
+  getConvertedTime, 
+  getCountryNameFromCode, 
+  isNonEmptyArray, 
+  isObjectNonEmpty, 
+  isStringIncludes } from 'src/shared/utils/utilities';
 import { arabic } from 'src/assets/locales/ar/common-ar';
 import moment from 'moment';
 import { useWeatherDetails } from 'src/hooks';
@@ -74,15 +81,29 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   const [weatherDataDetails, setWeatherDataDetails] = React.useState(data);
   const [weatherListDetails, setWeatherListDetails] = React.useState<any>(fetchWeatherDetailsSuccessInfo?.list[0] ? fetchWeatherDetailsSuccessInfo?.list[0] : []);
-  const [weatherDataVisibility, setWeatherDataVisibility] = React.useState(fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? fetchWeatherDetailsVisibilitySuccessInfo.visibility : '');
+  const [weatherDataVisibility, setWeatherDataVisibility] = React.useState(
+    fetchWeatherDetailsVisibilitySuccessInfo?.visibility ? 
+    fetchWeatherDetailsVisibilitySuccessInfo.visibility : '');
 
 
   currentDate.setDate(currentDate.getDate());
 
-  data.push({ date: (calculateNonUtcDateNumber(currentDate).toString()), month: calculateNonUtcMonth(currentDate), day: arabic.day[moment(currentDate).get('day')], year: calculateNonUtcYear(currentDate), selected: true });
+  data.push({ 
+    date: (calculateNonUtcDateNumber(currentDate).toString()), 
+    month: calculateNonUtcMonth(currentDate), 
+    day: arabic.day[moment(currentDate).get('day')],
+    year: calculateNonUtcYear(currentDate), 
+    selected: true 
+  });
   for (let i = 1; i < 7; i++) {
     currentDate.setDate(currentDate.getDate() + 1);
-    data.push({ date: (calculateNonUtcDateNumber(currentDate)).toString(), month: calculateNonUtcMonth(currentDate), day: arabic.day[moment(currentDate).get('day')], year: calculateNonUtcYear(currentDate), selected: false });
+    data.push({ 
+      date: (calculateNonUtcDateNumber(currentDate)).toString(), 
+      month: calculateNonUtcMonth(currentDate), 
+      day: arabic.day[moment(currentDate).get('day')], 
+      year: calculateNonUtcYear(currentDate), 
+      selected: false 
+    });
   }
 
   const getCountryName = () => {
@@ -140,8 +161,8 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   const getImageIcon = () => {
     const mainData = getMainData();
-    let width = 160;
-    let height = 160;
+    const width = 160;
+    const height = 160;
     if (isStringIncludes(mainData, weatherType.rain)) {
       return <RainImageIcon height={height} width={width} />
     } else if (isStringIncludes(mainData, weatherType.clouds)) {
@@ -216,7 +237,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     weatherDataDetails[index].selected = true;
     setWeatherDataDetails(weatherUpdates);
     setWeatherListDetails(fetchWeatherDetailsSuccessInfo?.list[index])
-    if (index == 0 && fetchWeatherDetailsVisibilitySuccessInfo?.visibility) {
+    if (index === 0 && fetchWeatherDetailsVisibilitySuccessInfo?.visibility) {
       setWeatherDataVisibility(fetchWeatherDetailsVisibilitySuccessInfo?.visibility)
     } else {
       setWeatherDataVisibility('')
@@ -255,7 +276,12 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_MAX}
           </Label>
         </View>
-        <Label style={styles.fieldDataStyle} children={(weatherListDetails?.temp.max && weatherListDetails?.temp.min) ? (weatherListDetails?.temp.max + '°/' + weatherListDetails?.temp.min + '°') : NO_INFORMATION_TEXT} />
+        <Label 
+          style={styles.fieldDataStyle} 
+          children={(weatherListDetails?.temp.max && weatherListDetails?.temp.min) 
+          ? (weatherListDetails?.temp.max + '°/' + weatherListDetails?.temp.min + '°') : 
+          NO_INFORMATION_TEXT} 
+        />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>

@@ -74,7 +74,7 @@ const AuthorItem = ({
     }, [])
 
     useEffect(() => {
-      if (trackData && trackData.id == (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+      if (trackData && trackData.id === (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
         setIsBuffering(true);
       } else {
         setIsBuffering(false);
@@ -97,6 +97,7 @@ const AuthorItem = ({
           const errorResponse: AxiosError = error as AxiosError;
           if (errorResponse.response) {
             const errorMessage: { message: string } = errorResponse.response.data;
+            console.log(errorMessage,'errorMessage');
           }
         }
       }
@@ -108,11 +109,10 @@ const AuthorItem = ({
         }
     }
 
-    const onPlayPausePress = async (playbackState: any) => {
+    const onPlayPausePress = async () => {
         const state = await TrackPlayer.getState()
-    
         if(trackData != null){
-            if(state == State.Paused){
+            if(state === State.Paused){
                 await TrackPlayer.play()
             }else{
                 await TrackPlayer.pause()
@@ -137,12 +137,11 @@ const AuthorItem = ({
           artist: mediaData.title ? mediaData.title : '',
           artwork: image
         }
-    
-        if((trackData && trackData.id != trackPlayerData.id) || trackData == null ){
+        if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ){
           setPlayerTrack(trackPlayerData);
           !showMiniPlayer && setShowMiniPlayer(true);
         }else{
-          showMiniPlayer ? onPlayPausePress(playbackState) : setShowMiniPlayer(true);
+          showMiniPlayer ? onPlayPausePress() : setShowMiniPlayer(true);
           
         }
         
@@ -159,12 +158,12 @@ const AuthorItem = ({
     }
 
     const renderLabels = () => {
-      return renderLabelsOrder.map((item: LabelsType, index: number) => {
+      return renderLabelsOrder.map((item: LabelsType, indexKey: number) => {
         switch (item) {
           case LabelsType.authorName:
             return (
                 <Label 
-                  key={index}
+                  key={indexKey}
                   children={author}
                   labelType={LabelTypeProp.p4}
                   style={style.authorTitle}
@@ -177,7 +176,7 @@ const AuthorItem = ({
             );
           case LabelsType.title:
             return (
-              <TouchableOpacity key={index} onPress={onPress} testID = "titleId">
+              <TouchableOpacity key={indexKey} onPress={onPress} testID = "titleId">
                 <Label
                   children={body}
                   labelType={LabelTypeProp.h3}
@@ -199,7 +198,9 @@ const AuthorItem = ({
                     <TouchableOpacity testID='AutherItemTO2' onPress={onPressPlay} style={style.mediaFooter}>
                         <ButtonImage
                         icon={() =>
-                            trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing || isBuffering ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                            trackData && trackData.id === (nid+'opinion') && 
+                            playbackState === State.Playing || isBuffering ? 
+                            getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                             getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                         }
                         onPress={onPressPlay} />

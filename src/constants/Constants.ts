@@ -1,8 +1,7 @@
 import { WidgetHeaderProps } from 'src/components/atoms/widgetHeader/WidgetHeader';
-import { LabelTypeProp, TextWithFlagProps } from 'src/components/atoms';
+import { LabelTypeProp, TextWithFlagProps, ImageName } from 'src/components/atoms';
 import { ImagesName, Styles } from 'src/shared/styles';
 import {
-    AuthorItemProps,
     articleFooterProps,
     TabBarDataProps,
     VideoItemProps,
@@ -18,14 +17,12 @@ import {
     StoryListProps,
     PodcastProgramInfoProps,
 } from 'src/components/organisms';
-import { normalize } from 'src/shared/utils';
+import { normalize, isIOS } from 'src/shared/utils';
 import { podcastCardProps } from 'src/components/organisms/PodcastCardSection';
 import { NewsWithImageItemProps } from 'src/components/molecules/podcast/NewsWithImageItem';
 import { ArticleRectangleCardProps } from 'src/components/molecules/podcast/ArticleRectangleCard';
 import { NewsFeedProps } from 'src/components/organisms/NewsFeed';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { isIOS } from "src/shared/utils";
-import { ImageName } from "src/components/atoms";
 import { useSelector } from 'react-redux';
 import { getArabicData } from '../redux/arabicWords/selectors';
 
@@ -784,6 +781,28 @@ enum flatListUniqueKey {
     ARTICLE_IMAGE_VIEW = 'ArticleImageView',
 }
 
+const articleSampleImageUrl = 'https://picsum.photos/200/300'
+const mediaSampleImageUrl = 'https://picsum.photos/300/200'
+const podcastSampleTitle = 'عنوان لبرنامج البودكاست'
+const podcastSampleAnnouncer = 'مع اسم المذيع'
+const mostPlayedSampleImageUrl = 'https://picsum.photos/200'
+const mostPlayedSampleTitle = 'عنوان لملخص آخر أخبار اليوم'
+const summarySampleTitle = 'ملخص آخر أخبار اليوم'
+const summarySampleTitle2 = 'ملخص آخر أخبار الجمعة'
+const summarySampleDescription = 'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة'
+const storyWidgetSampleDescription = 'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى'
+const storyWidgetSampleButtonTitle = 'امرأ المقالة'
+const storyWidgetSampleThumbnail = 'https://picsum.photos/100'
+const sampleVideoTitle = 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات'
+const sampleVideoDescription = 'تهليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.'
+const podcastSampleViewNode = "https://aawsat.news/8bsy8"
+const podcastSampleEpisodeTitle = "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص"
+const podcastSectSampleTitle = "صباح الخير"
+const podcastSectSampleUrl = "https://aawsat.srpcdigital.com/taxonomy/term/94841"
+const podcastSectSampleDescription = "<p class=\"text-align-right\">Breifing</p>\n"
+const podcastSectSampleDesktopImageUrl = "https://static.srpcdigital.com/2022-05/podcast.jpg"
+const podcastSectSampleMobileImageUrl = "https://static.srpcdigital.com/2022-08/spb1.jpg"
+
 const storeInfo = [
     {
         appCommon: {
@@ -1108,7 +1127,7 @@ const sampleTextWithFlag: TextWithFlagProps = {
 
 const shortArticleData: ShortArticleProps[] = [
     {
-        image: 'https://picsum.photos/200/300',
+        image: articleSampleImageUrl,
         created: `لكن لا بد أن كل هذه الأفكار`,
         body: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
         nid: '2982411',
@@ -1117,7 +1136,7 @@ const shortArticleData: ShortArticleProps[] = [
         title: 'الأفكار'
     },
     {
-        image: 'https://picsum.photos/200/300',
+        image: articleSampleImageUrl,
         created: `لكن لا بد أن كل هذه الأفكار`,
         body: `لكن لا بد أن أوضح لك أن كل هذه الأفكار المغلوطة حول استنكار `,
         nid: '2982411',
@@ -1140,7 +1159,7 @@ const heroSectionProperties = {
 }
 
 const sortArticleWithTag = {
-    image: 'https://picsum.photos/200/300',
+    image: articleSampleImageUrl,
     title: 'ميقاتي: استقالة قرداحي كانت ضرورية',
     titleColor: Styles.color.black,
     flag: 'استنكار',
@@ -1190,7 +1209,7 @@ const articleFooterSample: articleFooterProps = {
 };
 
 const mostReadItem = {
-    image: 'https://picsum.photos/200/300',
+    image: articleSampleImageUrl,
     title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
     body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
     flag: 'استنكار',
@@ -1366,13 +1385,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
         tid: '92570',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
         parent_target_id_export: [],
     },
     {
@@ -1380,13 +1399,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
         tid: '92571',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
         parent_target_id_export: [],
     },
     {
@@ -1394,13 +1413,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
         tid: '92572',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
         parent_target_id_export: [],
     },
     {
@@ -1408,13 +1427,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
         tid: '92573',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
         parent_target_id_export: [],
     },
     {
@@ -1422,13 +1441,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
         tid: '92574',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
         parent_target_id_export: [],
     },
     {
@@ -1436,13 +1455,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
         tid: '92575',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
         parent_target_id_export: [],
     },
     {
@@ -1450,13 +1469,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
         tid: '92576',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
         parent_target_id_export: [],
     },
     {
@@ -1464,13 +1483,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
         tid: '92577',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
         parent_target_id_export: [],
     },
     {
@@ -1478,13 +1497,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
         tid: '92578',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
         parent_target_id_export: [],
     },
     {
@@ -1492,13 +1511,13 @@ const opinionWritersData: any = [
         description__value_export: null,
         field_opinion_writer_path_export: null,
         view_taxonomy_term:
-            'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
+            'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
         tid: '92579',
         vid_export: null,
         field_description_export: null,
         field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
-            'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
+            'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
         parent_target_id_export: [],
     },
 ];
@@ -1510,13 +1529,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
             tid: '92570',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
             parent_target_id_export: [],
         },
         {
@@ -1524,13 +1543,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
             tid: '92571',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
             parent_target_id_export: [],
         },
         {
@@ -1538,13 +1557,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
             tid: '92572',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
             parent_target_id_export: [],
         },
         {
@@ -1552,13 +1571,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
             tid: '92573',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
             parent_target_id_export: [],
         },
         {
@@ -1566,13 +1585,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
             tid: '92574',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
             parent_target_id_export: [],
         },
         {
@@ -1580,13 +1599,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
             tid: '92575',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
             parent_target_id_export: [],
         },
         {
@@ -1594,13 +1613,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
             tid: '92576',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
             parent_target_id_export: [],
         },
         {
@@ -1608,13 +1627,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
             tid: '92577',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
             parent_target_id_export: [],
         },
         {
@@ -1622,13 +1641,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
             tid: '92578',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
             parent_target_id_export: [],
         },
         {
@@ -1636,13 +1655,13 @@ const opinionWritersArticlesData: any = {
             description__value_export: null,
             field_opinion_writer_path_export: null,
             view_taxonomy_term:
-                'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
+                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
             tid: '92579',
             vid_export: null,
             field_description_export: null,
             field_opinion_writer_path_export_1: null,
             field_opinion_writer_photo_export:
-                'http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
+                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
             parent_target_id_export: [],
         },
     ],
@@ -1654,46 +1673,46 @@ const opinionWritersArticlesData: any = {
 
 const podcastCardSectionData: podcastCardProps[] = [
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        podcastTitle: 'عنوان لبرنامج البودكاست',
-        announcerName: 'مع اسم المذيع',
+        imageUrl: mediaSampleImageUrl,
+        podcastTitle: podcastSampleTitle,
+        announcerName: podcastSampleAnnouncer,
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        podcastTitle: 'عنوان لبرنامج البودكاست',
-        announcerName: 'مع اسم المذيع',
+        imageUrl: mediaSampleImageUrl,
+        podcastTitle: podcastSampleTitle,
+        announcerName: podcastSampleAnnouncer,
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        podcastTitle: 'عنوان لبرنامج البودكاست',
-        announcerName: 'مع اسم المذيع',
+        imageUrl: mediaSampleImageUrl,
+        podcastTitle: podcastSampleTitle,
+        announcerName: podcastSampleAnnouncer,
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        podcastTitle: 'عنوان لبرنامج البودكاست',
-        announcerName: 'مع اسم المذيع',
+        imageUrl: mediaSampleImageUrl,
+        podcastTitle: podcastSampleTitle,
+        announcerName: podcastSampleAnnouncer,
     },
 ];
 
 const mostPlayedSectionData: ArticleRectangleCardProps[] = [
     {
         trendingNumber: 1,
-        imageUrl: 'https://picsum.photos/200',
-        title: 'عنوان لملخص آخر أخبار اليوم',
+        imageUrl: mostPlayedSampleImageUrl,
+        title: mostPlayedSampleTitle,
         footerRight: 'الخميس',
         footerLeft: '45 دقيقه',
     },
     {
         trendingNumber: 2,
-        imageUrl: 'https://picsum.photos/200',
-        title: 'عنوان لملخص آخر أخبار اليوم',
+        imageUrl: mostPlayedSampleImageUrl,
+        title: mostPlayedSampleTitle,
         footerRight: 'الخميس',
         footerLeft: '45 دقيقه',
     },
     {
         trendingNumber: 3,
-        imageUrl: 'https://picsum.photos/200',
-        title: 'عنوان لملخص آخر أخبار اليوم',
+        imageUrl: mostPlayedSampleImageUrl,
+        title: mostPlayedSampleTitle,
         footerRight: 'الخميس',
         footerLeft: '45 دقيقه',
     },
@@ -1701,50 +1720,50 @@ const mostPlayedSectionData: ArticleRectangleCardProps[] = [
 
 const LatestNewsSummarySectionData: NewsWithImageItemProps[] = [
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار اليوم',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار الجمعة',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle2,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار اليوم',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار الجمعة',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle2,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار اليوم',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: 'https://picsum.photos/300/200',
-        title: 'ملخص آخر أخبار الجمعة',
+        imageUrl: mediaSampleImageUrl,
+        title: summarySampleTitle2,
         description:
-            'استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين. ',
+        summarySampleDescription,
         footerRightLabel: 'الخميس',
         footerLeftLabel: '45 دقيقه',
     },
@@ -1752,7 +1771,7 @@ const LatestNewsSummarySectionData: NewsWithImageItemProps[] = [
 
 
 const editPickData: NewsWithImageItemProps = {
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: mediaSampleImageUrl,
     highlightedTitle: 'إسم البودكاست',
     title: 'عنوان حلثه البودكاست',
     footerRightLabel: 'الخميس',
@@ -1762,7 +1781,7 @@ const editPickData: NewsWithImageItemProps = {
 const EditorsPickSectionData: NewsWithImageItemProps[] = Array(5).fill(editPickData)
 
 const podcastForYouInfo = {
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: mediaSampleImageUrl,
     highlightedTitle: 'إسم البودكاست',
     title: 'قضية الطفل المغربي ريان بين أهمية القصة الإنسانية إعلامياً',
 }
@@ -1770,8 +1789,8 @@ const podcastForYouInfo = {
 const podcastForYouSection = Array(5).fill(podcastForYouInfo)
 
 const podcastOpinionData: ArticleRectangleCardProps = {
-    imageUrl: 'https://picsum.photos/200',
-    title: 'عنوان لملخص آخر أخبار اليوم',
+    imageUrl: mostPlayedSampleImageUrl,
+    title: mostPlayedSampleTitle,
     footerRight: 'الخميس',
     footerLeft: '45 دقيقه',
 }
@@ -1782,28 +1801,25 @@ const storyWidgetItemData: StoryListItemProps[] = [
         id: '1',
         imageUrl: 'https://picsum.photos/500',
         title: 'كوفيد-19',
-        description:
-            'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
+        description: storyWidgetSampleDescription,
+        buttonTitle: storyWidgetSampleButtonTitle,
+        thumbNail: storyWidgetSampleThumbnail,
     },
     {
         id: '2',
         imageUrl: 'https://picsum.photos/400',
         title: 'رحلة إلى المريخ',
-        description:
-            'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
+        description: storyWidgetSampleDescription,
+        buttonTitle: storyWidgetSampleButtonTitle,
+        thumbNail: storyWidgetSampleThumbnail,
     },
     {
         id: '3',
         imageUrl: 'https://picsum.photos/600',
         title: 'كوفيد-19',
-        description:
-            'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-        buttonTitle: 'امرأ المقالة',
-        thumbNail: 'https://picsum.photos/100',
+        description: storyWidgetSampleDescription,
+        buttonTitle: storyWidgetSampleButtonTitle,
+        thumbNail: storyWidgetSampleThumbnail,
     },
 ];
 
@@ -1812,10 +1828,9 @@ const storyWidgetDataInfo = {
     id: '1',
     imageUrl: 'https://picsum.photos/500',
     title: 'رحلة إلى المريخ',
-    description:
-        'دراسة تؤكد: تلقي جرعتين مختلفتين من لقاحات «كورونا» يعطي مناعة أقوى',
-    buttonTitle: 'امرأ المقالة',
-    thumbNail: 'https://picsum.photos/100',
+    description: storyWidgetSampleDescription,
+    buttonTitle: storyWidgetSampleButtonTitle,
+    thumbNail: storyWidgetSampleThumbnail,
 }
 
 const storyWidgetData: StoryListProps[] = [
@@ -1854,25 +1869,25 @@ const storyWidgetData: StoryListProps[] = [
 ];
 
 const videoTabInfo: VideoItemProps = {
-    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    title: sampleVideoTitle,
     imageUrl: 'https://picsum.photos/400',
     videoLabel: 'أمريكا',
     time: '05:22',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    des: sampleVideoDescription,
     date: '7 ديسمبر ',
     views: '1374',
     shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
     isBookmarked: false,
-    onPressBookmark: () => { }
+    onPressBookmark: () => ({})
 }
 
 const videoTabData: VideoItemProps[] = Array(5).fill(videoTabInfo)
 
 const newsFeedInfo: NewsFeedProps = {
     title: ' بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات',
-    imageUrl: 'https://picsum.photos/300/200',
+    imageUrl: mediaSampleImageUrl,
     videoLabel: 'أمريكا',
-    des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+    des: sampleVideoDescription,
     month: 'ديسمبر',
     date: '7',
     titleColor: Styles.color.black,
@@ -1886,22 +1901,22 @@ const PodcastEpisodeData: any = [
     {
         nid: "29",
         type: "podcast",
-        view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
+        view_node: podcastSampleViewNode,
         field_new_sub_title_export: null,
-        title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",
+        title: podcastSampleEpisodeTitle,
         field_duration_export: null,
         field_episode_export: null,
         field_google_podcast_export: null,
         field_podcast_image_export: null,
         field_podcast_sect_export: {
             id: "94842",
-            title: "صباح الخير",
-            url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842",
+            title: podcastSectSampleTitle,
+            url: podcastSectSampleUrl,
             bundle: "podcast_section",
-            description: "<p class=\"text-align-right\">Breifing</p>\n",
-            img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
-            img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
-            name: "صباح الخير"
+            description: podcastSectSampleDescription,
+            img_podcast_desktop: podcastSectSampleDesktopImageUrl,
+            img_podcast_mobile: podcastSectSampleMobileImageUrl,
+            name: podcastSectSampleTitle
         },
         field_spotify_export: null,
         field_spreaker_episode_export: null,
@@ -1916,22 +1931,22 @@ const PodcastListData: any = [
     {
         nid: "29",
         type: "podcast",
-        view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
+        view_node: podcastSampleViewNode,
         field_new_sub_title_export: null,
-        title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",
+        title: podcastSampleEpisodeTitle,
         field_duration_export: null,
         field_episode_export: null,
         field_google_podcast_export: null,
         field_podcast_image_export: null,
         field_podcast_sect_export: {
             id: "94842",
-            title: "صباح الخير",
-            url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842",
+            title: podcastSectSampleTitle,
+            url: podcastSectSampleUrl,
             bundle: "podcast_section",
-            description: "<p class=\"text-align-right\">Breifing</p>\n",
-            img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
-            img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
-            name: "صباح الخير"
+            description: podcastSectSampleDescription,
+            img_podcast_desktop: podcastSectSampleDesktopImageUrl,
+            img_podcast_mobile: podcastSectSampleMobileImageUrl,
+            name: podcastSectSampleTitle
         },
         field_spotify_export: null,
         field_spreaker_episode_export: null,
@@ -1943,22 +1958,22 @@ const PodcastListData: any = [
     {
         nid: "111",
         type: "podcast",
-        view_node: "http://srpcawsatdev.prod.acquia-sites.com/node/111",
+        view_node: podcastSampleViewNode,
         field_new_sub_title_export: null,
-        title: "أول شحنة عسكرية أميركية لـ«الحر» وغرفة عمليات إيرانية في حمص",
+        title: podcastSampleEpisodeTitle,
         field_duration_export: null,
         field_episode_export: null,
         field_google_podcast_export: null,
         field_podcast_image_export: null,
         field_podcast_sect_export: {
             id: "94842",
-            title: "صباح الخير",
-            url: "http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842",
+            title: podcastSectSampleTitle,
+            url: podcastSectSampleUrl,
             bundle: "podcast_section",
-            description: "<p class=\"text-align-right\">Breifing</p>\n",
-            img_podcast_desktop: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast-banner2.jpg",
-            img_podcast_mobile: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/2022-02/podcast2_0.jpg",
-            name: "صباح الخير"
+            description: podcastSectSampleDescription,
+            img_podcast_desktop: podcastSectSampleDesktopImageUrl,
+            img_podcast_mobile: podcastSectSampleMobileImageUrl,
+            name: podcastSectSampleTitle
         },
         field_spotify_export: null,
         field_spreaker_episode_export: null,
@@ -1970,14 +1985,14 @@ const PodcastListData: any = [
 ];
 
 const PodcastProgramInfoData: PodcastProgramInfoProps = {
-    imageUrl: 'https://picsum.photos/200',
-    title: 'عنوان لبرنامج البودكاست',
-    announcer: 'مع اسم المذيع',
+    imageUrl: mostPlayedSampleImageUrl,
+    title: podcastSampleTitle,
+    announcer: podcastSampleAnnouncer,
     description: 'أعلنت الشركة المسؤولة عن تأسيس شبكة تواصل اجتماعي مستقبلية للرئيس الأميركي السابق دونالد ترمب والشركة التي ستندمج معها للإدراج في البورصة، السبت.',
     data: PodcastEpisodeData as PodcastVerticalListProps[],
 }
 const articleSampleData = {
-    image: 'https://picsum.photos/200/300',
+    image: articleSampleImageUrl,
     title: `غرق عشرات المهاجرين بالقنال الإنجليزي لندن وباريس يتبادلات الاتهامات`,
     body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
     tagName: 'الحكومة',
@@ -1985,34 +2000,34 @@ const articleSampleData = {
 const videoArchiveData: VideoItemProps[] = [
     {
         title:
-            'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-        imageUrl: 'https://picsum.photos/300/200',
+        sampleVideoTitle,
+        imageUrl: mediaSampleImageUrl,
         videoLabel: 'أمريكا',
-        des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+        des: sampleVideoDescription,
         isBookmarked: true,
-        onPressBookmark: () => { },
+        onPressBookmark: () => ({}),
     },
     {
         title:
-            'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-        imageUrl: 'https://picsum.photos/300/200',
+        sampleVideoTitle,
+        imageUrl: mediaSampleImageUrl,
         videoLabel: 'أمريكا',
         time: '05:22',
-        des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+        des: sampleVideoDescription,
         date: '7 ديسمبر ',
         views: '1374',
         toWatchTitle: 'ديسمبر',
         isBookmarked: true,
-        onPressBookmark: () => { },
+        onPressBookmark: () => ({}),
     },
     {
         title:
-            'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-        imageUrl: 'https://picsum.photos/300/200',
+        sampleVideoTitle,
+        imageUrl: mediaSampleImageUrl,
         videoLabel: 'أمريكا',
-        des: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
+        des: sampleVideoDescription,
         isBookmarked: true,
-        onPressBookmark: () => { },
+        onPressBookmark: () => ({}),
     },
 ];
 
@@ -2037,7 +2052,7 @@ const myNewsTopTabData = [
 ]
 
 const journalistDatum = {
-    title: 'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
+    title: sampleVideoTitle,
     image: 'https://static.srpcdigital.com/styles/1037xauto/public/2022-08/52858.jpg?itok=btM-vIUF',
     news_categories: [{
         title: 'أمريكا',
@@ -2173,8 +2188,8 @@ const DURATION = ''
 const CONST_OK = 'نعم'
 
 //Permission
-const REQUIRE_ACCESS = 'تتطلب الوصول'
-const REQUEST_CAMERA_ACCESS_MESSAGE = 'يرجى تقديم إذن للوصول إلى كاميرا الجهاز'
+const PERMISSION_REQUIRE_ACCESS = 'تتطلب الوصول'
+const PERMISSION_REQUEST_CAMERA_ACCESS_MESSAGE = 'يرجى تقديم إذن للوصول إلى كاميرا الجهاز'
 
 //Podcast Spreaker
 const PODCAST_URL_SUFFIX = '/play.mp3'
@@ -2307,8 +2322,8 @@ export {
     VALID_URL_REGEX,
     PROFILE,
     DURATION,
-    REQUIRE_ACCESS,
-    REQUEST_CAMERA_ACCESS_MESSAGE,
+    PERMISSION_REQUIRE_ACCESS,
+    PERMISSION_REQUEST_CAMERA_ACCESS_MESSAGE,
     PODCAST_URL_SUFFIX,
     DEFAULT_MINIMUM_DATE,
     CONST_OK,

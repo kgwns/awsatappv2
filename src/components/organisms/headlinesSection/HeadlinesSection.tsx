@@ -55,7 +55,7 @@ const HeadlinesSection = ({
         setHeadNews(tickerData[0].title as any ?? '')
         setHeaderNews(title)
         setIndexValue(1)
-        return () => { }
+        return
     }, [])
 
     const getTitle = (data: LatestArticleDataType[], index: number): string => {
@@ -90,6 +90,7 @@ const HeadlinesSection = ({
             }, duration);
             return <View/>;
         }
+        return null;
     }
     const onPress = () => {
         if (tickerData[indexValue].nid) {
@@ -100,7 +101,12 @@ const HeadlinesSection = ({
         return (
             <TouchableWithoutFeedback onPress={onPress}>
                 <View style={HeadlinesSectionStyle.contentContainer}>
-                    <Label testID='HeadlinesSectionLabel01' color={titleColor} children={headerNews} labelType={LabelTypeProp.h5} onLayout={e => { setTitleWidth(e.nativeEvent.layout.width) }} />
+                    <Label testID='HeadlinesSectionLabel01'
+                        color={titleColor}
+                        children={headerNews}
+                        labelType={LabelTypeProp.h5}
+                        onLayout={e => { setTitleWidth(e.nativeEvent.layout.width) }}
+                    />
                     {isNotEmpty(headerNews) && <View style={[HeadlinesSectionStyle.separator, { backgroundColor: separatorColor }]} />}
                     <View testID='HeadlinesSectionView01' onLayout={e => { setTextWidth(e.nativeEvent.layout.width) }}>
                         <TextTicker

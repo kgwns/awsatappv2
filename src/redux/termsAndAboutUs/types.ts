@@ -46,3 +46,4 @@ export type StaticDetailAction =
   RequestStaticDetailType
   | StaticDetailSuccessType
   | StaticDetailFailedType
+  

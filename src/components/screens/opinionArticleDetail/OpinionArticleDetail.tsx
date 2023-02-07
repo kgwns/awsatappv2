@@ -12,7 +12,6 @@ import {ScreenContainer} from '..';
 import {useAllWriters, useAppCommon, useAppPlayer, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
-import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player';
 import { useFocusEffect, useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants/Constants';
@@ -45,10 +44,10 @@ export const OpinionArticleDetail = ({
   const [fontSize,setFontSize] = useState<ArticleFontSize>(articleFontSize)
   const { isLoading, opinionArticleDetailData, fetchOpinionArticleDetail,
     fetchRelatedOpinionData, relatedOpinionListData,
-    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData,fetchNarratedOpinionData } =
+    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData } =
     useOpinionArticleDetail();
     const { writerDetailData,
-      getWriterDetailData, emptyWriterDetailData
+      getWriterDetailData
   } = useWriterDetail();
 
   const { showMiniPlayer } = useAppPlayer()
@@ -73,14 +72,13 @@ export const OpinionArticleDetail = ({
   const [scrollY, setScrollY] = useState(new Animated.Value(0))
 
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
-  const playbackState = usePlaybackState();
   const relatedOpinionRef = useRef(true);
   const pageLoadingRef = useRef(false);
 
-  const detailRoutes = useMemo(() => routes.filter((routes) =>
-    routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
-    routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-    routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+  const detailRoutes = useMemo(() => routes.filter((detailRoute) =>
+    detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+    detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+    detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfDetailRoutes = detailRoutes.length
 
 
@@ -129,14 +127,16 @@ export const OpinionArticleDetail = ({
   useEffect(() => {
     pageLoadingRef.current = false;
     if (isNonEmptyArray(relatedOpinionListData) && isFocused) {
-      const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid != currentNId})
+      const relatedOpinionData = relatedOpinionListData.filter((data) => { 
+        return data.nid !== currentNId
+      })
       setrelatedOpinioninfo(relatedOpinionData)
     }
   }, [relatedOpinionListData])
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
-    const edge = getScreenEdge(deviceOrientation)
-    setEdge(edge)
+    const screenEdge = getScreenEdge(deviceOrientation)
+    setEdge(screenEdge)
   }
 
   const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
@@ -152,8 +152,8 @@ export const OpinionArticleDetail = ({
     if (isNonEmptyArray(opinionArticleDetailData)) {
       if(route.params && route.params.nid && isFocused){
         setOpinionArticle(opinionArticleDetailData)
-        const isBookmarked = validateBookmark(opinionArticleDetailData[0].nid_export)
-        setIsBookmarked(isBookmarked)
+        const isBookmark = validateBookmark(opinionArticleDetailData[0].nid_export)
+        setIsBookmarked(isBookmark)
       }
 
       if (isNonEmptyArray(opinionArticleDetailData[0].writer) && isNotEmpty(opinionArticleDetailData[0].writer[0]?.id)) {
@@ -177,23 +177,22 @@ export const OpinionArticleDetail = ({
   }, [isFocused, opinionArticle])
 
   useEffect(() => {
-      if(page != 0 && !pageLoadingRef.current){
+      if(page !== 0 && !pageLoadingRef.current){
         pageLoadingRef.current = true;
         fetchRelatedOpinionData(relatedOpinionPayload);
       }
   }, [page]);
 
   useEffect(() => {
-    if (fontSize != articleFontSize) {
+    if (fontSize !== articleFontSize) {
       setFontSize(articleFontSize)
     }
   }, [articleFontSize])
 
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isObjectNonEmpty(selectedAuthorsData) && isFocused) {
-      const isFollowed = isNonEmptyArray(opinionArticle[0].writer) && validateFollow(opinionArticle[0].writer[0].id)
-      // console.log('useeffect validate follow', opinionArticle[0].writer[0].id)
-      setIsFollowed(isFollowed)
+      const isFollow = isNonEmptyArray(opinionArticle[0].writer) && validateFollow(opinionArticle[0].writer[0].id)
+      setIsFollowed(isFollow)
     }
   }, [isFocused, opinionArticle, selectedAuthorsData])
 
@@ -251,7 +250,7 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressRelatedOpinion = (nid: string) => {
-    if (nid && nid!=currentNId) {
+    if (nid && nid!==currentNId) {
       emptyRelatedOpinionData()
       navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
     }

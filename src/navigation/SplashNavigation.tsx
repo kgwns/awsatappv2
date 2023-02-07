@@ -5,18 +5,17 @@ import { useDispatch } from 'react-redux'
 import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'
 import { Theme } from 'src/redux/appCommon/types'
 import { useAppCommon, useBookmark, useLogin, useUserProfileData } from 'src/hooks'
-import { isDarkTheme } from '../shared/utils'
 import AppStackContainer from './AppStackContainer'
-import Video from 'react-native-video';
 
 const SplashNavigation = () => {
     const dispatch = useDispatch()
-    const theme = useColorScheme()
-    const isDarkMode = isDarkTheme(theme)
     const subscription = useRef<NativeEventSubscription>(null).current
-    const[loading, setLoading] = useState(true)
 
-    useEffect(() => {setTimeout(()=>setLoading(false),4000)}, []);
+    // Commented for AMAR-1145 (Enable when video splash required)
+    // const[loading, setLoading] = useState(true)
+    // useEffect(() => {
+    //     setTimeout(() => setLoading(false), 4000)
+    // }, []);
 
     const { getBookmarkedId } = useBookmark()
     const { isLoggedIn } = useLogin()

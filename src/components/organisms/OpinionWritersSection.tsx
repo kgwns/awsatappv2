@@ -30,7 +30,9 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
       <TouchableWithoutFeedback
         testID='opinionWriterId'
         onPress={() => isObjectNonEmpty(item) && item.tid && onPressWriter(item.tid)}
-        style={[style.writerContainer, { paddingEnd: (data.length - 1 === index) ? normalize(isTab ? 0.02 * screenWidth : 0.04 * screenWidth) : 0 }, { paddingStart: index === 0 ? normalize(isTab ? 0.02 * screenWidth : 0.04 * screenWidth) : 0 }]}
+        style={[style.writerContainer, { paddingEnd: (data.length - 1 === index) ? 
+          normalize(isTab ? 0.02 * screenWidth : 0.04 * screenWidth) : 0 }, 
+          { paddingStart: index === 0 ? normalize(isTab ? 0.02 * screenWidth : 0.04 * screenWidth) : 0 }]}
         key={flatListUniqueKey.OPINION_WRITER_SECTION + index}>
         <View style={style.itemContainer}>
           <View style={style.imageContainer}>

@@ -80,11 +80,11 @@ const MostReadList = ({
   }
 
   const onPressBookmark = (index: number) => {
-    const data = [...articleData]
-    const isBookmarked = !data[index].isBookmarked ?? true
-    data[index].isBookmarked = isBookmarked
-    updateBookmarkInfo(data[index].nid, isBookmarked)
-    setArticleData(data)
+    const articleDetailData = [...articleData]
+    const isBookmarked = !articleDetailData[index].isBookmarked ?? true
+    articleDetailData[index].isBookmarked = isBookmarked
+    updateBookmarkInfo(articleDetailData[index].nid, isBookmarked)
+    setArticleData(articleDetailData)
   }
 
   const checkAndUpdateBookmark = (index: number) => {
@@ -124,7 +124,9 @@ const MostReadList = ({
     item.tagStyle = {marginLeft: normalize(20)};
     item.tagLabelType = LabelTypeProp.p3;
     item.image = item.image ? item.image : getArticleImage(item.field_image, item.field_new_photo);
-    if(flag) item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : '';
+    if(flag) {
+      item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : '';
+    }
     item.flagColor = Styles.color.greenishBlue;
     item.barColor = Styles.color.greenishBlue;
     return (
@@ -141,7 +143,7 @@ const MostReadList = ({
           titleContainerStyle={style.titleContainerStyle}
           articleItemStyle={style.articleItemStyle}
         />
-        {isLoading && (data.length - 1 == index) && (
+        {isLoading && (data.length - 1 === index) && (
           <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>
@@ -172,7 +174,7 @@ const MostReadList = ({
         data={articleData}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => renderItem(item, index)}
-        onEndReached={onScroll ? onScroll : () => {}}
+        onEndReached={onScroll ? onScroll : () => ({})}
         onEndReachedThreshold={0.3}
         contentContainerStyle={showMiniPlayer && style.contentContainer}
       />

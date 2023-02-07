@@ -4,10 +4,9 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isIOS, isNonEmptyArray, isNotchDevice, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
 import { ScreenContainer } from '..';
-import { useAllWriters, useBookmark, useLogin } from 'src/hooks';
+import { useAllWriters, useBookmark, useLogin, useWriterDetail } from 'src/hooks';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useWriterDetail } from 'src/hooks';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
 import { WriterBannerImage, DetailHeader } from 'src/components/molecules'
 import { OpinionWritersArticlesSection } from 'src/components/organisms';
@@ -29,7 +28,7 @@ export const WritersDetailScreen = ({
     const navigation = useNavigation<StackNavigationProp<any>>()
     const routes = useNavigationState(state => state.routes)
     const isFocused = useIsFocused();
-
+    
     const style = useThemeAwareObject(customStyle);
 
     const { isLoading, writerDetailData,
@@ -59,10 +58,10 @@ export const WritersDetailScreen = ({
     const [isWriterOpinionLoading, setIsWriterOpinionLoading] = useState(true)
     const [allOpinionLoaded, setAllOpinionLoaded] = useState<boolean>(false)
 
-    const detailRoutes = useMemo(() => routes.filter((routes) =>
-        routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
-        routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-        routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+    const detailRoutes = useMemo(() => routes.filter((detailRoute) =>
+        detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+        detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+        detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
     const noOfDetailRoutes = detailRoutes.length
 
     useEffect(() => {
@@ -84,8 +83,8 @@ export const WritersDetailScreen = ({
 
     useEffect(() => {
         if (isNonEmptyArray(writerDetailData) && isObjectNonEmpty(selectedAuthorsData) ) {
-            const isFollowed = validateFollow(writerDetailData[0].tid)
-            setIsFollowed(isFollowed)
+            const isFollow = validateFollow(writerDetailData[0].tid)
+            setIsFollowed(isFollow)
         }
     }, [ writerDetailData, selectedAuthorsData])
 

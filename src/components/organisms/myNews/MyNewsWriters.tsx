@@ -70,7 +70,7 @@ export const MyNewsWriters = () => {
         tidList.push(allSelectedWritersDetailList[i].tid)
       }
     }
-    if (isAuthorTidData != tidList) {
+    if (isAuthorTidData !== tidList) {
       setIsAuthorTidData(tidList)
     }
     return writersList;
@@ -87,11 +87,13 @@ export const MyNewsWriters = () => {
   }, [selectedAuthorsData]);
 
   useEffect(() => {
-    if (JSON.stringify(isAuthorTidData) != JSON.stringify(isAuthorTid)) {
+    if (JSON.stringify(isAuthorTidData) !== JSON.stringify(isAuthorTid)) {
       setIsAuthorTid(isAuthorTidData)
       if (isAuthorTidData.includes(selectedTid)) {
         const indexValue = isAuthorTidData.indexOf(selectedTid)
-        const authorSelected = selectedAuthorsData.data.filter((item: any) => { return item.tid.toString() == selectedTid && item });
+        const authorSelected = selectedAuthorsData.data.filter((item: any) => { 
+          return item.tid.toString() == selectedTid && item 
+        });
         onPress(authorSelected[0], indexValue)
       }
       else {
@@ -101,21 +103,21 @@ export const MyNewsWriters = () => {
   }, [isAuthorTidData]);
 
   useEffect(() => {
-    if (pageCount != 0) {
+    if (pageCount !== 0) {
       fetchOpinionData(selectedAuthors, pageCount);
     }
   }, [pageCount]);
 
   useEffect(() => {
-    !opinionLoading && !isNonEmptyArray(opinionData) && pageCount == 0
+    !opinionLoading && !isNonEmptyArray(opinionData) && pageCount === 0
       ? setShowEmpty(true)
       : setShowEmpty(false);
   }, [opinionData]);
 
   useEffect(() => {
-    if (opinionData != favouriteOpinionsData) {
-      setOpinionData((opinionData: any) => [
-        ...opinionData,
+    if (opinionData !== favouriteOpinionsData) {
+      setOpinionData((prevOpinionData: any) => [
+        ...prevOpinionData,
         ...favouriteOpinionsData,
       ]);
     }
@@ -166,12 +168,12 @@ export const MyNewsWriters = () => {
   };
 
   const onPress = (item: any, index: number) => {
-    if (index == selectedIndex) {
+    if (index === selectedIndex) {
       return;
     }
-    setSelectedTid(index == -1 ? -1 : item.tid)
-    const payloadAuthorsList = index == -1 ? getAuthorsList() : [item.tid];
-    if (payloadAuthorsList != selectedAuthors) {
+    setSelectedTid(index === -1 ? -1 : item.tid)
+    const payloadAuthorsList = index === -1 ? getAuthorsList() : [item.tid];
+    if (payloadAuthorsList !== selectedAuthors) {
       setPageCount(0);
       setOpinionData([]);
       setSelectedIndex(index);
@@ -272,7 +274,7 @@ export const MyNewsWriters = () => {
           onPress={onPress}
           selectedIndex={selectedIndex}
         />
-        {(opinionLoading || isLoading )&& pageCount == 0 ? (
+        {(opinionLoading || isLoading )&& pageCount === 0 ? (
           <View style={styles.centeredStyle}>
             <LoadingState />
           </View>

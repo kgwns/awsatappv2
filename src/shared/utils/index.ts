@@ -21,7 +21,6 @@ export {
   timeAgo,
   dateTimeAgo,
   calculateDate,
-  calculateTimeSince,
   calculateMonth,
   joinArray,
   isNotEmpty,

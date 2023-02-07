@@ -1,5 +1,26 @@
-import { EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_SELECTED_NEWS_LETTERS, GET_SELECTED_NEWS_LETTERS_ERROR, GET_SELECTED_NEWS_LETTERS_SUCCESS, SEND_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS_ERROR, SEND_SELECTED_NEWS_LETTERS_SUCCESS, GET_MY_NEWS_LETTERS, GET_MY_NEWS_LETTERS_SUCCESS, GET_MY_NEWS_LETTERS_ERROR, EMPTY_SELECTED_NEWSLETTER_DATA_FROM_ONBOARD, SELECTED_DATA_FROM_NEWSLETTER_ONBOARD  } from "./actionTypes";
-import { GetSelectedNewsLettersFailedPayloadtype, GetSelectedNewsLettersFailedType, GetSelectedNewsLettersSuccessPayloadType, GetSelectedNewsLettersSuccessType, SendSelectedNewsLettersBody, SendSelectedNewsLettersFailedPayloadtype, SendSelectedNewsLettersFailedType, SendSelectedNewsLettersSuccessType, SendSelectedNewsLettesrsSuccessPayloadType, GetMyNewsLettersSuccessType, GetMyNewsLettersSuccessPayloadType, GetMyNewsLettersFailedType, GetMyNewsLettersFailedPayloadtype, SelectedDataFromNewsLetterOnboardPayload,  } from "./types";
+import { EMPTY_SELECTED_NEWS_LETTERS_INFO, 
+    GET_SELECTED_NEWS_LETTERS, 
+    GET_SELECTED_NEWS_LETTERS_ERROR, 
+    GET_SELECTED_NEWS_LETTERS_SUCCESS, 
+    SEND_SELECTED_NEWS_LETTERS, 
+    SEND_SELECTED_NEWS_LETTERS_ERROR, 
+    SEND_SELECTED_NEWS_LETTERS_SUCCESS, 
+    GET_MY_NEWS_LETTERS, GET_MY_NEWS_LETTERS_SUCCESS, 
+    GET_MY_NEWS_LETTERS_ERROR, 
+    EMPTY_SELECTED_NEWSLETTER_DATA_FROM_ONBOARD, 
+    SELECTED_DATA_FROM_NEWSLETTER_ONBOARD  } from "./actionTypes";
+import { GetSelectedNewsLettersFailedPayloadtype, 
+    GetSelectedNewsLettersFailedType, 
+    GetSelectedNewsLettersSuccessPayloadType, 
+    GetSelectedNewsLettersSuccessType, 
+    SendSelectedNewsLettersBody, 
+    SendSelectedNewsLettersFailedPayloadtype, 
+    SendSelectedNewsLettersFailedType, 
+    SendSelectedNewsLettersSuccessType, 
+    SendSelectedNewsLettesrsSuccessPayloadType, 
+    GetMyNewsLettersSuccessType, GetMyNewsLettersSuccessPayloadType, 
+    GetMyNewsLettersFailedType, GetMyNewsLettersFailedPayloadtype, 
+    SelectedDataFromNewsLetterOnboardPayload,  } from "./types";
 
 export const sendSelectedNewsLetters = (payload: SendSelectedNewsLettersBody) => {
     return {

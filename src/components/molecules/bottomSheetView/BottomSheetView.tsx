@@ -40,10 +40,16 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
                 {description}
             </Label>
             <View style={style.buttonContainer}>
-                <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.black }])} onPress={onPressSignUp} >
+                <TouchableOpacity
+                    style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.black }])}
+                    onPress={onPressSignUp}
+                >
                     <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.white }])}>{signUpLabel}</Label>
                 </TouchableOpacity>
-                <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.alabaster }])} onPress={onPressSignUp} >
+                <TouchableOpacity
+                    style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.alabaster }])}
+                    onPress={onPressSignUp}
+                >
                     <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.black }])}>{logInLabel}</Label>
                 </TouchableOpacity>
             </View>

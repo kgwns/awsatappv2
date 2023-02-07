@@ -12,7 +12,6 @@ import {EMPTY_SECTION_ARTICLES, FETCH_SECTION_ARTICLES} from './actionTypes';
 import {fetchSectionArticlesApi} from 'src/services/sectionArticlesService';
 
 export function* fetchSectionArticles(action: FetchSectionArticlesType) {
-  //console.log("saga fetchMostRead");
 
   try {
     const payload: FetchSectionArticlesSuccessPayloadType = yield call(
@@ -29,13 +28,8 @@ export function* fetchSectionArticles(action: FetchSectionArticlesType) {
   }
 }
 
-export function* emptySectionArticlesData() {
-  emptySectionArticlesData();
-}
-
 function* sectionArticlesSaga() {
   yield all([takeLatest(FETCH_SECTION_ARTICLES, fetchSectionArticles)]);
-  yield all([takeLatest(EMPTY_SECTION_ARTICLES, emptySectionArticlesData)]);
 }
 
 export default sectionArticlesSaga;

@@ -12,7 +12,6 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label } from 'src/components/atoms';
 import { fonts } from 'src/shared/styles/fonts';
-import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { Styles } from 'src/shared/styles';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { TranslateConstants, TranslateKey } from '../../constants/Constants';
@@ -33,7 +32,6 @@ export const MyTopicsHorizontalSlider = ({
     selectedIndex,
 }: myTopicsHorizontalSliderProps) => {
     const CONST_FAVORITE_FILTERS_EVERYONE = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_EVERYONE})
-    const { themeData } = useTheme();
     const styles = useThemeAwareObject(customStyle);
     const scrollRef = useRef<ScrollView>(null);
     const scrollToEnd = () => {
@@ -54,13 +52,13 @@ export const MyTopicsHorizontalSlider = ({
             <TouchableOpacity onPress={onAllPress}
                 style={[
                     styles.filterItem,
-                    selectedIndex == -1 && styles.filterActive,
+                    selectedIndex === -1 && styles.filterActive,
                 ]}>
                 <Label
                     children={CONST_FAVORITE_FILTERS_EVERYONE}
                     style={styles.label}
                     color={
-                        selectedIndex == -1
+                        selectedIndex === -1
                             ? colors.white
                             : Styles.color.grayishGreen
                     }
@@ -75,9 +73,9 @@ export const MyTopicsHorizontalSlider = ({
             return (
                 <View style={styles.itemStyle}>
                     <TouchableOpacity testID={`MyNewsTopics_${index}`} key={index} activeOpacity={0.8} onPress={() => onItemPress(item, index)}
-                        style={[styles.filterItem, selectedIndex == index && styles.filterActive]}>
+                        style={[styles.filterItem, selectedIndex === index && styles.filterActive]}>
                         <Label children={name} style={styles.label}
-                            color={selectedIndex == index ? Styles.color.white : Styles.color.grayishGreen}
+                            color={selectedIndex === index ? Styles.color.white : Styles.color.grayishGreen}
                         />
                     </TouchableOpacity>
                 </View>

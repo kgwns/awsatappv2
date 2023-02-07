@@ -1,7 +1,14 @@
 import { View, StyleSheet, ScrollView, Platform } from 'react-native'
 import React, { useEffect } from 'react'
 import { decodeHTMLTags, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab, screenWidth } from 'src/shared/utils'
-import { ArticleContentDataType, ArticleDescriptionDataType, ArticleDetailDataType, ArticleNumberDataType, ArticleOpinionDataType, ArticleQuoteDataType, ArticleReadAlsoDataType, RichHTMLType } from 'src/redux/articleDetail/types'
+import { ArticleContentDataType, 
+    ArticleDescriptionDataType, 
+    ArticleDetailDataType, 
+    ArticleNumberDataType, 
+    ArticleOpinionDataType, 
+    ArticleQuoteDataType, 
+    ArticleReadAlsoDataType, 
+    RichHTMLType } from 'src/redux/articleDetail/types'
 import { Styles } from 'src/shared/styles'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import { Label, TitleWithUnderLine } from 'src/components/atoms'
@@ -126,7 +133,7 @@ export const RenderDescriptionElement = ({ paragraphInfo, fontSize }: { paragrap
     const { themeData } = useTheme()
     const webviewRef = React.useRef<AutoHeightWebView>()
 
-    var injectedStyle = `
+    const injectedStyle = `
     setTimeout(function() {   
         //Description Element
         var descriptionText = document.getElementsByTagName("p");
@@ -200,7 +207,7 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
 
     const { themeData } = useTheme()
 
-    var injectedStyle = `
+    const injectedStyle = `
     setTimeout(function() {   
         //Description Element
         var descriptionText = document.getElementsByTagName("p");
@@ -247,7 +254,16 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
 export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewRef?: React.MutableRefObject<AutoHeightWebView | undefined | null>) => {
     const style = useThemeAwareObject(customStyle)
 
-    const updateWebViewRef = (ref: any) => webViewRef ? webViewRef.current = ref : ref;
+    const updateWebViewRef = (ref: any) => {
+        if(webViewRef){
+            webViewRef.current = ref
+            return webViewRef.current;
+        }
+        else{
+            return ref
+        }
+         
+    }
 
     return (
         <ScrollView scrollEnabled={false} style={style.webViewContainer}>

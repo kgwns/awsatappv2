@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle, StyleProp, TextStyle } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
-import  ArticleFooter  from 'src/components/molecules/articleFooter/ArticleFooter'
+import  ArticleFooter,{ articleFooterProps, BookMarkColorType }  from 'src/components/molecules/articleFooter/ArticleFooter'
 import { BannerImageWithOverlay, BannerImageWithOverlayProps } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { Divider } from 'src/components/atoms/divider/Divider'
-import { articleFooterProps, BookMarkColorType } from 'src/components/molecules/articleFooter/ArticleFooter'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -79,7 +78,7 @@ const ImageArticle = ({
   const [isImageLoaded, setImageLoaded] = useState(false)
   const { themeData } = useTheme();
   const isDark = themeData?.id === DARK_THEME_ID
-  const isLive = isNotEmpty(displayType) && displayType == displayTypes.liveCoverage;
+  const isLive = isNotEmpty(displayType) && displayType === displayTypes.liveCoverage;
 
   const onImageLoadEnd = (isSuccess: boolean) => {
     setImageLoaded(isSuccess)

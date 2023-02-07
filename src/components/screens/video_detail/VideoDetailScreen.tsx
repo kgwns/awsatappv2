@@ -4,10 +4,9 @@ import { ScreenContainer } from '..';
 import {PodcastProgramHeader} from 'src/components/molecules';
 import Share from 'react-native-share';
 import {VideosList, VideoInfo} from 'src/components/organisms';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { normalize, horizontalAndBottomEdge, isNonEmptyArray, isObjectNonEmpty, isNotEmpty } from 'src/shared/utils';
-import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { RequestVideoUrlSuccessResponse, VideoItemType } from 'src/redux/videoList/types';
@@ -87,11 +86,11 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const formatVideoListData = () => {
     const selectedVideoId = route.params.data.nid
     const selectedVideoIndex = videoData.findIndex((item: any) => item.nid === selectedVideoId);
-    const videoInfo = videoData && selectedVideoIndex != -1 ? videoData[selectedVideoIndex] : selectedVideo
-    const otherVideosList = videoData.filter((item: any) => item.nid != selectedVideoId);
+    const videoInfo = videoData && selectedVideoIndex !== -1 ? videoData[selectedVideoIndex] : selectedVideo
+    const otherVideosList = videoData.filter((item: any) => item.nid !== selectedVideoId);
     if (isNonEmptyArray(videoData)) {
-      const isBookmarked = validateBookmark(videoInfo.nid)
-      setIsBookmarked(isBookmarked)
+      const isBookmark = validateBookmark(videoInfo.nid)
+      setIsBookmarked(isBookmark)
     }
     setSelectedVideo(videoInfo)
     setVideolistData(otherVideosList)
@@ -165,7 +164,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           isSaved={isBookmarked}
           isCloseIcon
         />
-        {selectedVideo!=undefined && <VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}} isDocumentary={isDocumentary} />}
+        {selectedVideo!==undefined && <VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}} isDocumentary={isDocumentary} />}
       </View>
       <View style={styles.container}>
         <VideosList data={videolistData} onItemActionPress={(item:VideoItemType)=>goToPlayer(item)} />

@@ -24,7 +24,16 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const [newsLettersDataInfo, setNewsLettersDataInfo] = useState<NewsLetterItemType[]>([])
   const isFocused = useIsFocused();
 
-  const { getSelectedNewsLettersData, selectedNewsLettersData, sentNewsLettersInfoData, sendSelectedNewsLettersInfo, emptySelectedNewsLettersInfoData, isLoading , myNewsLetters, isMyNewsLoading, getMyNewsLettersData, sendSelectedFromNewsletterOnboard, selectedNewsLetterDataOnboard } = useNewsLetters()
+  const { getSelectedNewsLettersData, 
+    selectedNewsLettersData, 
+    sentNewsLettersInfoData, 
+    sendSelectedNewsLettersInfo,
+    emptySelectedNewsLettersInfoData, 
+    isLoading , 
+    myNewsLetters, 
+    getMyNewsLettersData, 
+    sendSelectedFromNewsletterOnboard, 
+    selectedNewsLetterDataOnboard } = useNewsLetters()
 
   useEffect(() => {
     getSelectedNewsLettersData();
@@ -166,7 +175,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
 
   const changeSelectedStatus = (item: any, selected: boolean) => {
     for (let i = 0; i < newsLettersDataInfo.length; i++) {
-      if (item.tid == newsLettersDataInfo[i].tid) {
+      if (item.tid === newsLettersDataInfo[i].tid) {
         newsLettersDataInfo[i].isSelected = !newsLettersDataInfo[i].isSelected;
       }
     }
@@ -180,8 +189,8 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
 
   const updateNextButton = () => {
     const selectedTIDData = getSelectedData()
-    const disableNext = isNonEmptyArray(selectedTIDData) ? false : true
-    setDisableNext(disableNext)
+    const disableNextBtn = isNonEmptyArray(selectedTIDData) ? false : true
+    setDisableNext(disableNextBtn)
   }
 
   const getSelectedData = () => {

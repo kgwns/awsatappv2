@@ -11,10 +11,8 @@ import {
   getImageUrl,
   isNonEmptyArray,
   isNotEmpty,
-  isObjectNonEmpty,
 } from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { fonts } from 'src/shared/styles/fonts';
 import { Label } from '../atoms';
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
@@ -41,7 +39,6 @@ const OpinionWritersArticlesSection = ({
 
   const slice = screenWidth * 0.80;
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
-  const playbackState = usePlaybackState();
 
   const CONST_OPINION_ARTICLE_TITLE = TranslateConstants({key: TranslateKey.OPINION_ARTICLE_TITLE})
 
@@ -79,7 +76,7 @@ const OpinionWritersArticlesSection = ({
           audioLabel={audioLabel}
           hideImageView={hideImageView}
         />
-        {isLoading && data.length - 1 == index && (
+        {isLoading && data.length - 1 === index && (
           <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>

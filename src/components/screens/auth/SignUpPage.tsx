@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
@@ -11,12 +11,11 @@ import {
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {isIOS, normalize, recordLogEvent} from 'src/shared/utils';
-import {Label} from '../../atoms';
 import {ScreensConstants} from 'src/constants/Constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import {SocialLoginButton, TextInputField} from '../../atoms';
+import {SocialLoginButton, TextInputField, Label} from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {
@@ -64,7 +63,6 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const { loginData } = useLogin();
   const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
   
-  const initialRender = useRef(true);
 
   const dispatch = useDispatch();
   const {fetchProfileDataRequest} = useUserProfileData();
@@ -75,7 +73,6 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const CONST_OK = TranslateConstants({key:TranslateKey.COMMON_OK});
   const CONST_ALERT = TranslateConstants({key:TranslateKey.COMMON_ALERT});
   const COMMON_NO_INTERNET_CONNECTION = TranslateConstants({key:TranslateKey.COMMON_NO_INTERNET_CONNECTION})
-  const COMMON_SOMETHING_WENT_WRONG = TranslateConstants({key:TranslateKey.COMMON_SOMETHING_WENT_WRONG})
   const SIGNUP_RETURN = TranslateConstants({key:TranslateKey.SIGNUP_RETURN})
   const SIGNUP = TranslateConstants({key:TranslateKey.SIGNUP})
   const SIGNUP_CREATE_ACCOUNT = TranslateConstants({key:TranslateKey.SIGNUP_CREATE_ACCOUNT})
@@ -87,11 +84,6 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   const noInternetConnection: AlertPayloadType = {
     title: CONST_ALERT,
     message: COMMON_NO_INTERNET_CONNECTION,
-    buttonTitle: CONST_OK,
-  };
-  const somthingWentWrong: AlertPayloadType = {
-    title: CONST_ALERT,
-    message: COMMON_SOMETHING_WENT_WRONG,
     buttonTitle: CONST_OK,
   };
 
@@ -154,8 +146,8 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   }, [registerUserInfo]);
 
   const getDeviceName = async () => {
-    const deviceName = await DeviceInfo.getDeviceName();
-    setDeviceName(deviceName);
+    const deviceNameInfo = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceNameInfo);
   };
 
   const onPressSignIn = () => {

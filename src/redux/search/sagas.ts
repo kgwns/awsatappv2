@@ -7,7 +7,6 @@ import { fetchSearchApi } from 'src/services/searchService';
 import {Alert} from 'react-native';
 
 export function* fetchSearch(action: FetchSearchRequestType) {
-  //console.log("saga fetchSearch");
 
   try {
     const payload: FetchSearchSuccessPayloadType = yield call(

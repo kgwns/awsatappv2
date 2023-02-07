@@ -45,9 +45,8 @@ import {
 import {useUserProfileData} from 'src/hooks/useUserProfileData';
 import ImagePicker from 'react-native-image-crop-picker';
 import {UpdateUserImageBodyType} from 'src/redux/profileUserDetail/types';
-import {isDarkTheme} from 'src/shared/utils';
+import {isDarkTheme,SystemPermissions} from 'src/shared/utils';
 import {useAppCommon, useLogin} from 'src/hooks';
-import {SystemPermissions} from 'src/shared/utils';
 import {
   DEFAULT_MINIMUM_DATE,
   DEFAULT_ALERT_TITLE,
@@ -205,13 +204,13 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   useEffect(()=>{
     if(isNotEmpty(name)){
-      setDisableName(!(userProfileData.user?.display_name == name))
+      setDisableName(!(userProfileData.user?.display_name === name))
     }
     else{
       setDisableName(false)
     }
     if(isNotEmpty(occupation)){
-      setDisableOccupation(!(userProfileData.user?.occupation == occupation))
+      setDisableOccupation(!(userProfileData.user?.occupation === occupation))
     }
     else{
       setDisableOccupation(false)
@@ -357,7 +356,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       display_name: name ?? '',
       first_name: name ?? '',
       birthday:
-        selectedDate.toString() != USER_DETAIL_SELECT_BIRTHDAY_TEXT
+        selectedDate.toString() !== USER_DETAIL_SELECT_BIRTHDAY_TEXT
           ? getFormattedDate(date)
           : userProfileData.user?.birthday
           ? getFormattedDate(userProfileData.user?.birthday)
@@ -431,11 +430,11 @@ export const UserDetailScreen: FunctionComponent = () => {
               modal
               open={open}
               date={date}
-              onConfirm={date => {
+              onConfirm={pickerDate => {
                 setOpen(false);
-                setDate(date);
+                setDate(pickerDate);
                 setDisableDate(true);
-                setSelectedDate(getFullDate(date));
+                setSelectedDate(getFullDate(pickerDate));
                 setBirthday('');
               }}
               onCancel={() => {
@@ -451,11 +450,11 @@ export const UserDetailScreen: FunctionComponent = () => {
                 <View>
                   <Label
                     children={
-                      birthday != '' ? birthday : selectedDate.toString()
+                      birthday !== '' ? birthday : selectedDate.toString()
                     }
                     style={[
                       styles.dropDownLabel,
-                      selectedDate.toString() ==
+                      selectedDate.toString() ===
                        USER_DETAIL_SELECT_BIRTHDAY_TEXT &&
                         styles.dropDownLabelPlaceholder,
                     ]}
@@ -576,9 +575,7 @@ export const UserDetailScreen: FunctionComponent = () => {
           openCamera()
         } else if (buttonIndex === 1) {
           openGallery()
-        } else if (buttonIndex === 2) {
-          
-        }
+        } 
       }
     );
   }

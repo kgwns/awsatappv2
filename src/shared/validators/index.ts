@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-
+const PASSWORD_EMPTY = i18next.t('validation.passwordEmpty');
 export const emailValidation = (email: string): string => {
   const regex = /^\w+([\.-]?\w+)*@[a-zA-Z_]+\.[a-zA-z]{2,4}$/;
 
@@ -14,9 +14,8 @@ export const emailValidation = (email: string): string => {
 
 export const loginPasswordValidation = (passwordText: string): string => {
   const password = passwordText.trim()
-  const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/;
   if (password === '') {
-    return i18next.t('validation.passwordEmpty');
+    return PASSWORD_EMPTY;
   }
   if (password.length < 5) {
     return i18next.t('validation.minLengthPassword');
@@ -26,7 +25,7 @@ export const loginPasswordValidation = (passwordText: string): string => {
 
 export const emptyPasswordValidation = (password: string): string => { 
   if (password === '') {
-    return i18next.t('validation.passwordEmpty');
+    return PASSWORD_EMPTY;
   }
   return '';
 }
@@ -37,7 +36,7 @@ export const reTypePasswordValidation = (
 ): string => {
   const password = passwordText.trim()
   if (password === '') {
-    return i18next.t('validation.passwordEmpty');
+    return PASSWORD_EMPTY;
   }
   if (password.length < 5) {
     return i18next.t('validation.minLengthPassword');
@@ -52,7 +51,7 @@ export const oldPasswordValidation = (
   password: string,
 ): string => {
   if (password === '') {
-    return i18next.t('validation.passwordEmpty');
+    return PASSWORD_EMPTY;
   }
   return '';
 };

@@ -31,18 +31,18 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
         setActiveJournalist(activeJournalist);
     },[activeJournalist])
 
-    const getActiveJournalist = async (journalistId: string[]) => {
-        const activeJournalist: boolean[] = [];
+    const getActiveJournalist = async (journalistIdProps: string[]) => {
+        const activeJournalistArray: boolean[] = [];
         await Promise.all(
-            journalistId.map(async jor_id => {
+            journalistIdProps.map(async jor_id => {
                 const response = await requestJournalistDetail({
                 jor_id,
                 });
                 const flag = response.rows[0].not_clickable === '1';
-                    activeJournalist.push(flag);
+                    activeJournalistArray.push(flag);
                 }),
         );
-        setActiveJournalist(activeJournalist);
+        setActiveJournalist(activeJournalistArray);
     };
 
     const onPressJournalist = (id: string) => {
@@ -55,13 +55,13 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
         <View style={style.containerStyle}>
             {isNonEmptyArray(journalistId) && isNonEmptyArray(journalistName) && isNonEmptyArray(journalistCity) && journalistId.map((item: any, index: number) => {
                 return (
-                    <View key={index} style={[style.container, index % 2 == 0 ? style.rowViewStyle : style.columnViewStyle]}>
+                    <View key={index} style={[style.container, index % 2 === 0 ? style.rowViewStyle : style.columnViewStyle]}>
                         {item[index] && <View style={style.rowViewStyle}>
                             <Label children={journalistCity[index] + ' : '} style={style.headerLabel} />
                             <TouchableOpacity onPress={() => onPressJournalist(item)} disabled={activeJournalist[index]}>
                                 <Label children={journalistName[index]} style={style.authorLabel} />
                             </TouchableOpacity>
-                            {index != journalistLength - 1 && <Label children={'|'} style={style.separatorStyle} />}
+                            {index !== journalistLength - 1 && <Label children={'|'} style={style.separatorStyle} />}
                         </View>}
                     </View>
                 );

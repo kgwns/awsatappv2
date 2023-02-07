@@ -29,9 +29,9 @@ export const ThemeProvider = React.memo<Props>((props) => {
   const [themeData, setTheme] = React.useState<CustomThemeType>(props.initial)
 
   useEffect(() => {
-    if (theme == Theme.DARK) {
+    if (theme === Theme.DARK) {
       setTheme(DEFAULT_DARK_THEME)
-    } else if (theme == Theme.LIGHT) {
+    } else if (theme === Theme.LIGHT) {
       setTheme(DEFAULT_LIGHT_THEME)
     }
     if (isAndroid) {

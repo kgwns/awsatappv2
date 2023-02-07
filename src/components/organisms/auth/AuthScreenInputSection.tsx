@@ -89,10 +89,12 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
         if (setChangeText) {
           setChangeText(text);
         }
+        break;
       case 'password':
         if (setChangePassword) {
           setChangePassword(text);
         }
+        break;
       default:
         return
     }

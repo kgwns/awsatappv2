@@ -4,7 +4,6 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
 import { Label, Image } from 'src/components/atoms';
 import {Styles} from 'src/shared/styles';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {
   decodeHTMLTags,
@@ -32,9 +31,8 @@ export const PhotoGalleryDetailWidget = ({
   data,
   fontSize,
 }: PhotoGalleryDetailWidgetProps) => {
-  const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
-  var webviewRef: any[] = [React.createRef()];
+  const webviewRef: any[] = [React.createRef()];
 
   useEffect(() => {
     if (webviewRef) {

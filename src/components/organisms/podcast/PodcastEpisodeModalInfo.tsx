@@ -117,7 +117,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
 
     const playPauseIcon = () => (
         <View style={styles.rightIconStyle}>
-            {selectedTrack && selectedTrack.id == fieldData.nid && playbackState === State.Playing || isBuffering ?
+            {selectedTrack && selectedTrack.id === fieldData.nid && playbackState === State.Playing || isBuffering ?
                 <PauseIcon fill={colors.black} width={13} height={13} /> :
                 <PlayIcon fill={colors.black} />
             }

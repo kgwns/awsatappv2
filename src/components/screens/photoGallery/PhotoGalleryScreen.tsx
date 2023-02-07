@@ -7,9 +7,8 @@ import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/
 import {PopUp} from 'src/components/organisms';
 import {PopUpType} from 'src/components/organisms/popUp/PopUp';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {PhotoGalleryItem} from 'src/components/molecules';
+import {PhotoGalleryItem, PopulateWidgetType} from 'src/components/molecules';
 import {Label, LabelTypeProp, LoadingState} from 'src/components/atoms';
-// import {PHOTO_GALLERY} from 'src/constants/Constants';
 import {Styles} from 'src/shared/styles';
 import {fonts} from 'src/shared/styles/fonts';
 import {
@@ -18,7 +17,6 @@ import {
 } from 'src/redux/photoGallery/types';
 import {fetchAlbumListApi} from 'src/services/photoGalleryService';
 import {AxiosError} from 'axios';
-import {PopulateWidgetType} from 'src/components/molecules';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 
@@ -48,7 +46,7 @@ export const PhotoGalleryScreen = React.memo(
     }, []);
 
     useEffect(() => {
-      if (page != 0) {
+      if (page !== 0) {
         fetchPhotoList(page);
       }
     }, [page]);
@@ -83,17 +81,17 @@ export const PhotoGalleryScreen = React.memo(
         : false;
     };
 
-    const fetchPhotoList = async (page: number) => {
+    const fetchPhotoList = async (pageProps: number) => {
       setIsLoading(true);
       const albumBody: AlbumListBodyGet = {
-        page: page,
+        page: pageProps,
         items_per_page: isTab ? 12 : 10,
       };
       try {
         const albumList = await fetchAlbumListApi(albumBody);
         const albumListData = albumList.rows ?? [];
         setIsLoading(false);
-        if (albumData != albumListData) {
+        if (albumData !== albumListData) {
           setAlbumData((data: AlbumListItemType[]) => [
             ...data,
             ...albumListData,

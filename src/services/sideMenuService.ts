@@ -8,7 +8,7 @@ export const fetchSideMenuApi = async () => {
     const response: FetchSideMenuSuccessPayloadType = await getCacheApiRequest(
       `${BASE_URL}${SIDE_MENU_ENDPOINT}`,
     );
-    //console.log( `MostReadService url: ${BASE_URL}${MOST_READ_ENDPOINT} response: ${JSON.stringify(response)}`, );
+   
     return response;
   } catch (error) {
     throw error;

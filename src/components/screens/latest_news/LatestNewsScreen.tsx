@@ -152,7 +152,7 @@ export const LatestNewsScreen = () => {
       return
     }
     
-    const index = sectionComboOneInfo.findIndex((item) => item.nid == nid)
+    const index = sectionComboOneInfo.findIndex((item) => item.nid === nid)
     const updatedData = updatedChangeBookmark(sectionComboOneInfo, index)
     setSectionComboOneInfo(updatedData)
   }
@@ -174,7 +174,7 @@ export const LatestNewsScreen = () => {
       return
     }
 
-    const index = sectionComboTwoInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboTwoInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboTwoInfo, index)
     setSectionComboTwoInfo(updatedData)
   }
@@ -196,7 +196,7 @@ export const LatestNewsScreen = () => {
       return
     }
 
-    const index = sectionComboThreeInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboThreeInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboThreeInfo, index)
     setSectionComboThreeInfo(updatedData)
   }
@@ -219,7 +219,7 @@ export const LatestNewsScreen = () => {
       return
     }
 
-    const index = sectionComboFour.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboFour.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboFour, index)
     setSectionComboFourInfo(updatedData)
   }
@@ -256,7 +256,9 @@ export const LatestNewsScreen = () => {
   const podcastData = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
   useFocusEffect(
     React.useCallback(() => {
-      const unsubscribe = () => { TrackPlayer.stop() };
+      const unsubscribe = () => { 
+        TrackPlayer.stop() 
+      };
       return () => unsubscribe();
     }, [isPlayerVisible])
   );
@@ -321,7 +323,7 @@ export const LatestNewsScreen = () => {
 
   const onListenPodcast = async () => {
     setPlayerVisibility(true)
-    if (playbackState == State.Playing) {
+    if (playbackState === State.Playing) {
       return
     }
     await TrackPlayer.setupPlayer();

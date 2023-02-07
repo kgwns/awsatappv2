@@ -33,7 +33,7 @@ export const ArticleGridView = ({
 
     const renderItem = (item: MainSectionBlockType, index: number) => {
         const highlightTitle = item.news_categories?.title || ''
-        const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
+        const isLive = isNotEmpty(item.displayType) && item.displayType === displayTypes.liveCoverage;
         const isAlbum = isTypeAlbum(item.type);
 
         return (

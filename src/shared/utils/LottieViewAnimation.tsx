@@ -12,7 +12,9 @@ export const LottieViewAnimation = ({source,style}:any) => {
             }
             appState.current = nextAppState;
         });
-        return () => { subscription.remove(); };
+        return () => { 
+            subscription.remove(); 
+        };
     }, [animationRef]);
     return (
         <LottieView

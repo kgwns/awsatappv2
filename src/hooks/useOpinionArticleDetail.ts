@@ -6,7 +6,11 @@ import {
   OpinionsListItemType,
   NarratedOpinionBodyGet
 } from 'src/redux/opinionArticleDetail/types';
-import {requestOpinionArticleDetail,fetchRelatedOpinion,emptyRelatedOpinionDataList,emptyOpinionArticleDetailData, fetchNarratedOpinion} from 'src/redux/opinionArticleDetail/action';
+import {requestOpinionArticleDetail,
+  fetchRelatedOpinion,
+  emptyRelatedOpinionDataList,
+  emptyOpinionArticleDetailData, 
+  fetchNarratedOpinion} from 'src/redux/opinionArticleDetail/action';
 import {
   getOpinionArticleData,
   getIsLoading,

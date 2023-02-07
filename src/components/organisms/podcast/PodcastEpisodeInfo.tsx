@@ -81,7 +81,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
 
   const playPauseIcon = () => (
     <View style={styles.rightIconStyle}>
-      {selectedTrack && selectedTrack.id == fieldData.nid && playbackState === State.Playing ?
+      {selectedTrack && selectedTrack.id === fieldData.nid && playbackState === State.Playing ?
         <PauseIcon fill={colors.black} width={13} height={13} />:
         <PlayIcon fill={colors.black}/>
       }

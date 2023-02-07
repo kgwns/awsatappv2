@@ -37,6 +37,7 @@ export interface VideoPlayerControlProp {
   videoRefs?: any;
   showReplay?: boolean;
 }
+const JUSTIFY_CONTENT = 'space-between';
 const VideoPlayerControl = ({
   url,
   currentTime: time,
@@ -418,7 +419,7 @@ const customStyle = (theme: CustomThemeType) =>
       flexDirection: 'row',
       alignSelf: 'stretch',
       alignItems: 'flex-end',
-      justifyContent: 'space-between',
+      justifyContent: JUSTIFY_CONTENT,
     },
     timerText: {
       backgroundColor: 'transparent',
@@ -450,7 +451,7 @@ const customStyle = (theme: CustomThemeType) =>
       flexDirection: 'row',
       alignSelf: 'stretch',
       alignItems: 'flex-end',
-      justifyContent: 'space-between',
+      justifyContent: JUSTIFY_CONTENT,
     },
     progrsBarSection: {
       width: '100%',
@@ -476,7 +477,7 @@ const customStyle = (theme: CustomThemeType) =>
       flexDirection: 'row',
       alignSelf: 'stretch',
       alignItems: 'flex-end',
-      justifyContent: 'space-between',
+      justifyContent: JUSTIFY_CONTENT,
     },
     sliderContainer: {
       transform: [{ scaleX: isIOS ? 0.5:1 }, { scaleY: isIOS ? 0.5:1 }]

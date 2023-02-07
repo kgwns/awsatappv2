@@ -4,7 +4,6 @@ import {
   FlatList,
   ListRenderItem,
   TouchableOpacity,
-  Text,
   NativeModules
 } from 'react-native';
 import React, { useState } from 'react';
@@ -141,7 +140,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   };
 
     const onPressToggleServer = () => {
-        const newServerType = serverEnvironment == ServerEnvironment.DEBUG ? ServerEnvironment.PRODUCTION : ServerEnvironment.DEBUG
+        const newServerType = serverEnvironment === ServerEnvironment.DEBUG ? ServerEnvironment.PRODUCTION : ServerEnvironment.DEBUG
         storeServerEnvironmentInfo(newServerType)
         setTimeout(() => {
             RNRestart.Restart()
@@ -169,7 +168,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
     
   const logoutFromfacebook = () => {
     try {
-      if (userProfileData?.user?.provider == 'facebook') {
+      if (userProfileData?.user?.provider === 'facebook') {
         LoginManager.logOut();
       }
     } catch {
@@ -217,7 +216,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   const itemSeparator = () => <Divider style={style.divider} />;
 
   const renderRightElement = (item: SettingDataType) => {
-      if (item.title == CONST_APP_APPEARANCE) {
+      if (item.title === CONST_APP_APPEARANCE) {
           return (
               <ToggleWithLabel
                   title={isDarkMode ? CONST_DARK_MODE : CONST_LIGHT_MODE}
@@ -225,15 +224,15 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
                   onPress={onPressToggle}
               />
           );
-      } else if (item.title == CONST_CHANGE_ENVIRONMENT) {
+      } else if (item.title === CONST_CHANGE_ENVIRONMENT) {
           return (
               <ToggleWithLabel
-                  title={serverEnvironment == ServerEnvironment.DEBUG ? PROFILE_SETTING_DEBUG: PROFILE_SETTING_PRODUCTION}
-                  isActive={serverEnvironment == ServerEnvironment.DEBUG ? true : false}
+                  title={serverEnvironment === ServerEnvironment.DEBUG ? PROFILE_SETTING_DEBUG: PROFILE_SETTING_PRODUCTION}
+                  isActive={serverEnvironment === ServerEnvironment.DEBUG ? true : false}
                   onPress={onPressToggleServer}
               />
           );
-      } else if (item.title == CONST_EXIT) {
+      } else if (item.title === CONST_EXIT) {
           return null;
       }
 

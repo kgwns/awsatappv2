@@ -83,7 +83,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const onTopicsChanged = (item: any, selected: boolean) => {
     const data = [...topicsData]
     for (let i = 0; i < data.length; i++) {
-      if (item.tid == data[i].tid) {
+      if (item.tid === data[i].tid) {
         topicsData[i].isSelected = !topicsData[i].isSelected;
       }
     }
@@ -98,8 +98,8 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
 
   const updateNextButton = () => {
     const selectedTIDData = getSelectedData()
-    const disableNext = isNonEmptyArray(selectedTIDData) ? false : true
-    setDisableNext(disableNext)
+    const disableNextBtn = isNonEmptyArray(selectedTIDData) ? false : true
+    setDisableNext(disableNextBtn)
   }
   
   const getSelectedData = () => {

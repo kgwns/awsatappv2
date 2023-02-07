@@ -32,7 +32,7 @@ export const DynamicGameScreen = ({
     const onShouldStartLoadWithRequest = (request: any) => {
         const { url } = request
 
-        if (url && (url.includes(SUDOKU_GAME_BASE_ID_URL) || url.includes(CROSS_WORD_GAME_BASE_ID_URL)) && currentUrl != url) {
+        if (url && (url.includes(SUDOKU_GAME_BASE_ID_URL) || url.includes(CROSS_WORD_GAME_BASE_ID_URL)) && currentUrl !== url) {
             navigation.push(ScreensConstants.DYNAMIC_GAME_SCREEN, { gameData: { url: url }, showIntro: false })
             webviewRef?.stopLoading()
             return false

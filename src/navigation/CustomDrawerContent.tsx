@@ -3,8 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Linking, Text } from 'react-
 import { ImagesName } from '../shared/styles/images';
 import { ButtonImage, ButtonOutline, Label, LabelTypeProp } from '../components/atoms';
 import { ButtonList, Divider } from 'src/components/atoms';
-import { isIOS, normalize, isTab, isAndroid } from 'src/shared/utils';
-// import CloseIcon from 'src/assets/images/icons/close.svg';
+import { isIOS, normalize, isTab, isAndroid, recordLogEvent } from 'src/shared/utils';
 import FacebookIcon from 'src/assets/images/icons/facebook.svg';
 import InstagramIcon from 'src/assets/images/icons/instagram.svg';
 import TwitterIcon from 'src/assets/images/icons/twitter.svg';
@@ -31,7 +30,6 @@ import {
   LINKEDIN_URL,
   TWITTER_URL,
 } from 'src/constants/Constants';
-import { recordLogEvent } from 'src/shared/utils';
 import { ScreenContainer } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
 import {
@@ -56,7 +54,7 @@ export enum SocialMediaType {
 }
 
 interface CustomDrawerContentProps { }
-
+const JUSTIFY_CONTENT = 'space-between';
 const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const WEATHER_DETAILS_ENABLE_LOCATION = TranslateConstants({key:TranslateKey.WEATHER_DETAILS_ENABLE_LOCATION})
@@ -111,18 +109,18 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
     }
   }, [sideMenuData])
 
-  const getMainData = (fetchWeatherDetailsSuccessInfo: any): string => {
+  const getMainData = (fetchWeatherDetailsSuccessInfoProps: any): string => {
     let mainData = ''
-    if (isObjectNonEmpty(fetchWeatherDetailsSuccessInfo) && isNonEmptyArray(fetchWeatherDetailsSuccessInfo?.list[0].weather)) {
-      mainData = fetchWeatherDetailsSuccessInfo?.list[0].weather[0].main.toLowerCase();
+    if (isObjectNonEmpty(fetchWeatherDetailsSuccessInfoProps) && isNonEmptyArray(fetchWeatherDetailsSuccessInfoProps?.list[0].weather)) {
+      mainData = fetchWeatherDetailsSuccessInfoProps?.list[0].weather[0].main.toLowerCase();
     }
     return mainData
   }
 
   const getWeatherIcon = () => {
     const mainData = getMainData(fetchWeatherDetailsSuccessInfo);
-    let width = 16;
-    let height = 16;
+    const width = 16;
+    const height = 16;
     if (isStringIncludes(mainData, weatherType.rain)) {
       return <RainIcon width={width} height={height} style={styles.weatherIcon} />
     } else if (isStringIncludes(mainData, weatherType.clouds)) {
@@ -278,7 +276,6 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
           : userProfileData.user?.profile_url
             ? <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.profile_url as string) }} />
             : <UserIcon />}
-        {/* {getSvgImages({ name: ImagesName.userDefaultIcon, width: styles.user.width, height: styles.user.height, style: styles.user })} */}
       </TouchableOpacity>
       <View style={styles.logoContainer}>
         {getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height, style: styles.logo })}
@@ -474,7 +471,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     socialContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: JUSTIFY_CONTENT,
       marginVertical: normalize(30),
       marginHorizontal: 4
     },
@@ -538,7 +535,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     weatherTempContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: JUSTIFY_CONTENT,
     },
     weatherCelsiusIcon: {
       marginTop: isAndroid ? normalize(9) : normalize(8),
@@ -596,7 +593,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     itemContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: JUSTIFY_CONTENT,
       alignItems: 'center',
       paddingVertical: normalize(15),
     },

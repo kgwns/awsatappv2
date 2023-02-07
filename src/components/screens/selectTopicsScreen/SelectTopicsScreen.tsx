@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
-import { colors } from 'src/shared/styles/colors';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
 import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight } from 'src/shared/utils';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { CustomThemeType } from 'src/shared/styles/colors';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
@@ -16,7 +15,13 @@ import { fonts } from 'src/shared/styles/fonts';
 export const SelectTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
   const isFocused = useIsFocused()
-  const { isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest, updateAllSiteCategoriesData, emptySendTopicsInfoData } = useAllSiteCategories();
+  const { isLoading, 
+    allSiteCategoriesData, 
+    sentTopicsData, 
+    sendSelectedTopicInfo, 
+    fetchAllSiteCategoriesRequest, 
+    updateAllSiteCategoriesData, 
+    emptySendTopicsInfoData } = useAllSiteCategories();
   const {userProfileData} = useUserProfileData();
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [categoriesInfo, setCategoriesInfo] = useState<AllSiteCategoriesItemType[]>([])
@@ -62,7 +67,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   const onTopicsChanged = (item: any, selected: boolean) => {
     const data = [...categoriesInfo]
     for (let i = 0; i < data.length; i++) {
-      if (item.tid == data[i].tid) {
+      if (item.tid === data[i].tid) {
         data[i].isSelected = selected;
       }
     }
@@ -79,8 +84,8 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
 
   const updateNextButton = () => {
     const selectedTIDData = getSelectedData()
-    const disableNext = isNonEmptyArray(selectedTIDData) ? false : true
-    setDisableNext(disableNext)
+    const disableNextBtn = isNonEmptyArray(selectedTIDData) ? false : true
+    setDisableNext(disableNextBtn)
   }
   
   const getSelectedData = () => {

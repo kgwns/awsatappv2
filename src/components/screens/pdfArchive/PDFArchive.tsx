@@ -1,8 +1,7 @@
 import * as React from 'react';
-import {View,StyleSheet} from 'react-native';
 import {horizontalAndTop} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
-import { UIManager, findNodeHandle, PixelRatio, Dimensions } from 'react-native';
+import { UIManager, findNodeHandle, PixelRatio, Dimensions,View,StyleSheet } from 'react-native';
 import { PDFViewManager } from './PDFArchiveViewManager';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 

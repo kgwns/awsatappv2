@@ -1,6 +1,8 @@
 //MostRead
 export const MOST_READ_ENDPOINT = 'api/v2/view/mostread';
 
+//articleSection
+const ARTICLE_SECTION_ENDPOINT = 'api/v2/articlesection';
 //Search
 export const SEARCH_ENDPOINT = 'api/v2/search';
 
@@ -15,7 +17,7 @@ export const ARTICLE_NEXT_GET = '/api/v2/articlenext/';
 //page start from 0
 //offset is about from which position need to get the data
 export const LATEST_ARTICLE_GET = 'api/v2/latestarticles';
-export const SECTION_COMBO = 'api/v2/articlesection';
+export const SECTION_COMBO = ARTICLE_SECTION_ENDPOINT;
 export const PODCAST_HOME = 'api/v2/podcasthome';
 export const COVERAGE_ARTICLE_END_POINT = 'api/v2/home/topview/coverage'
 export const FEATURED_ARTICLE_ENDPOINT = 'api/v2/home/topview/almqalat_alryysyt_'
@@ -42,14 +44,14 @@ export const NEWS_CATEGORIES_ENDPOINT = 'api/v2/sections/news_categories';
 
 export const SIDE_MENU_ENDPOINT = 'api/v2/sidemenu';
 
-export const SECTION_ARTICLES = 'api/v2/articlesection'
+export const SECTION_ARTICLES = ARTICLE_SECTION_ENDPOINT;
 
 
 //news View tab in category section
 //items_per_page is 10
 //page start from 0
 //offset is about from which position need to get the data
-export const NEWS_VIEW_ENDPOINT = 'api/v2/articlesection';
+export const NEWS_VIEW_ENDPOINT = ARTICLE_SECTION_ENDPOINT;
 export const ARTICLE_SUB_SECTION_ENDPOINT = 'api/v2/articlesubsection';
 
 //all writers list

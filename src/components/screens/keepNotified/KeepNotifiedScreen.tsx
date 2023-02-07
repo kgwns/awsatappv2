@@ -128,8 +128,8 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const onPressNext = () => {
     const selectedData = getSelectedData()
     if (isNonEmptyArray(selectedData)) {
-      const selectedData = getSelectedData()
-      sendSelectedInfoRequest({ nid: joinArray(selectedData) })
+      const selectedDataArray = getSelectedData()
+      sendSelectedInfoRequest({ nid: joinArray(selectedDataArray) })
     }
   }
 
@@ -149,7 +149,6 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
     }
     if (canGoBack) {
       const selectedList = getSelectedData();
-      console.log('getselecteddata', getSelectedData())
       sendSelectedInfoRequest({ nid: joinArray(selectedList) })
     } else {
       updateNextButtonActive()
@@ -158,8 +157,8 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
 
   const updateNextButtonActive = () => {
     const selectedNotificationData = getSelectedData()
-    const disableNext = isNonEmptyArray(selectedNotificationData) ? false : true
-    setDisableNext(disableNext)
+    const disableNextBtn = isNonEmptyArray(selectedNotificationData) ? false : true
+    setDisableNext(disableNextBtn)
   }
 
   const getSelectedData = () => {

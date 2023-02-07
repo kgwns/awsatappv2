@@ -32,8 +32,8 @@ export const RelatedOpinionArticlesWidget = ({ data, onScroll, isLoading, onPres
         jwPlayerID={isNotEmpty(item.field_jwplayer_id_opinion_export) ? item.field_jwplayer_id_opinion_export : (isNotEmpty(item.jwplayer) ? item.jwplayer : null)}
         onPress={() => onPress(item.nid)} 
       />
-      {data.length - 1 != index && <Divider style={style.itemDivider} />}
-      {isLoading && data.length - 1 == index && (
+      {data.length - 1 !== index && <Divider style={style.itemDivider} />}
+      {isLoading && data.length - 1 === index && (
         <View style={style.loaderStyle}>
           <ActivityIndicator size={'small'} color={theme.themeData.primary} />
         </View>

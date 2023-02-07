@@ -1,8 +1,7 @@
 import { ActivityIndicator, FlatList, ListRenderItem, View, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { PopulateWidget } from 'src/components/molecules'
-import { isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils'
-import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player'
+import { isNonEmptyArray, normalize } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useAppPlayer } from 'src/hooks'
 
@@ -22,7 +21,6 @@ export const DynamicWidget = ({
     const { themeData } = useTheme()
 
     const [selectedTrack, setSelectedTrack] = useState<any>(null);
-    const playbackState = usePlaybackState();
     const { showMiniPlayer } = useAppPlayer()
 
     const listFooterComponent = () => {

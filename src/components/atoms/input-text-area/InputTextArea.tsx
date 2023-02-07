@@ -37,7 +37,7 @@ export const InputTextArea: FunctionComponent<InputTextAreaProps> = ({
   onChangeText,
   testID,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onSubmitEditing = () => {},
+  onSubmitEditing = () => ({}),
   keyboardType = 'default',
   error = '',
   style,

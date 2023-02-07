@@ -11,7 +11,7 @@ export function* createUser(action: UserRegisterType) {
       registerUser,
       action.payload,
     );
-    //Alert.alert(payload.message.message);
+
     yield put(registerSuccess(payload));
   } catch (error) {
       const errorResponse: AxiosError = error as AxiosError;
@@ -29,13 +29,9 @@ export function* createUser(action: UserRegisterType) {
   }
 }
 
-export function* emptyUserInfo() {
-  emptyUserInfo();
-}
 
 function* registerSaga() {
   yield all([takeLatest(REGISTER_USER, createUser)]);
-  yield all([takeLatest(EMPTY_USER_INFO, emptyUserInfo)]);
 }
 
 export default registerSaga;

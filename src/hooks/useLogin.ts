@@ -8,7 +8,6 @@ import {
 } from 'src/redux/login/selectors';
 import { fetchLogin, userLoginSkipped, userLogout,requestForgotPassword,emptyForgotPasswordResponse,emptyLoginData } from 'src/redux/login/action';
 import { FetchLoginPayloadType, ForgotPasswordRequestPayloadType } from 'src/redux/login/types';
-import { useEffect } from 'react';
 
 export interface UseLoginReturn {
   isLoading: boolean;

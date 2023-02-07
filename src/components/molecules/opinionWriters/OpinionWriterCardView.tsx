@@ -66,7 +66,7 @@ const OpinionWritersCardView = ({
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
 
   const detailRoutes = useMemo(() =>
-    routes.filter((routes) => routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+    routes.filter((filteredRoutes) => filteredRoutes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfWriterRoutes = detailRoutes.length
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const OpinionWritersCardView = ({
   }, [])
 
   useEffect(() => {
-    if (trackData && trackData.id == (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id === (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
@@ -99,6 +99,7 @@ const OpinionWritersCardView = ({
         const errorResponse: AxiosError = error as AxiosError;
         if (errorResponse.response) {
           const errorMessage: { message: string } = errorResponse.response.data;
+          console.log(errorMessage,'errorMessage');
         }
       }
   }
@@ -117,11 +118,11 @@ const OpinionWritersCardView = ({
     }
   }
 
-  const onPlayPausePress = async (playbackState: any) => {
+  const onPlayPausePress = async () => {
     const state = await TrackPlayer.getState()
 
     if(trackData != null){
-        if(state == State.Paused){
+        if(state === State.Paused){
             await TrackPlayer.play()
         }else{
             await TrackPlayer.pause()
@@ -147,11 +148,11 @@ const onPressPlay = () => {
       artwork: imageUrl
     }
 
-    if((trackData && trackData.id != trackPlayerData.id) || trackData == null ){
+    if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ){
       setPlayerTrack(trackPlayerData);
       !showMiniPlayer && setShowMiniPlayer(true);
     }else{
-      showMiniPlayer ? onPlayPausePress(playbackState) : setShowMiniPlayer(true);
+      showMiniPlayer ? onPlayPausePress() : setShowMiniPlayer(true);
       
     }
     
@@ -191,7 +192,9 @@ const onPressPlay = () => {
             <TouchableOpacity onPress={onPressPlay} testID = "onPressPlayTestId" style={style.listenArticleContainer}>
               <ButtonImage
                 icon={() =>
-                  trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing || isBuffering   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                  trackData && trackData.id === (nid+'opinion') && 
+                  playbackState === State.Playing || isBuffering   ? 
+                  getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                   getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                 }
                 style={style.playIcon}

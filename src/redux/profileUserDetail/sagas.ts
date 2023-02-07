@@ -53,7 +53,7 @@ export function* UpdateUserImage(action: UpdateUserImageType) {
       updateProfileUserImage,
       action.payload,
     );
-    //Alert.alert(payload.message.message);
+
     yield put(updateUserImageSuccess(payload));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
@@ -62,15 +62,10 @@ export function* UpdateUserImage(action: UpdateUserImageType) {
   }
 }
 
-export function* emptyUserProfileDataInfo() {
-  emptyUserProfileDataInfo();
-}
-
 function* userProfileSaga() {
   yield all([takeLatest(FETCH_PROFILE_USER_DETAILS, fetchUserProfileDetail)]);
   yield all([takeLatest(SEND_USER_DETAILS, postUserData)]);
   yield all([takeLatest(UPDATE_PROFILE_USER_IMAGE, UpdateUserImage)]);
-  yield all([takeLatest(EMPTY_USER_PROFILE_DATA, emptyUserProfileDataInfo)]);
 }
 
 export default userProfileSaga;
