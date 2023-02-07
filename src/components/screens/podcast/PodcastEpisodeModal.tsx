@@ -144,13 +144,13 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
 
     const onPressSaveEpisodeDetail = () => {
         const data = [...podcastEpisodeDetailInfo]
-        const index = data.findIndex((item) => item.nid === nid);
-        const item = data[index]
-        if (isObjectNonEmpty(item)) {
-            const newBookmarked = !item.isBookmarked
+        const index = data.findIndex((podcastData) => podcastData.nid === nid);
+        const podcastItem = data[index]
+        if (isObjectNonEmpty(podcastItem)) {
+            const newBookmarked = !podcastItem.isBookmarked
             data[index].isBookmarked = newBookmarked
             setPodcastEpisodeDetailInfo(data)
-            updateBookmarkInfo(item.nid, newBookmarked)
+            updateBookmarkInfo(podcastItem.nid, newBookmarked)
         }
     }
 

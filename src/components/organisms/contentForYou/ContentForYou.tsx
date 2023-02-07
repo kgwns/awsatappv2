@@ -240,10 +240,10 @@ export const ContentForYou = () => {
             if(i<2){
                 formatArticleSectionDataArray.push(formattedData)
             }else{
-                const newsCategory = isNonEmptyArray(favouriteArticlesData[i].field_news_categories_export) ? 
+                const newsCategoryData = isNonEmptyArray(favouriteArticlesData[i].field_news_categories_export) ? 
                     favouriteArticlesData[i].field_news_categories_export[0] : {} as NewsCategoriesType
                 formattedData.image = getArticleImage(favouriteArticlesData[i].field_image, favouriteArticlesData[i].field_new_photo);
-                formattedData.tagName= newsCategory?.title;
+                formattedData.tagName= newsCategoryData?.title;
                 formatShortArticleData.push(formattedData)
             }
         }

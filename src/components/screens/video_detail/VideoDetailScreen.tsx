@@ -86,7 +86,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const formatVideoListData = () => {
     const selectedVideoId = route.params.data.nid
     const selectedVideoIndex = videoData.findIndex((item: any) => item.nid === selectedVideoId);
-    const videoInfo = videoData && selectedVideoIndex != -1 ? videoData[selectedVideoIndex] : selectedVideo
+    const videoInfo = videoData && selectedVideoIndex !== -1 ? videoData[selectedVideoIndex] : selectedVideo
     const otherVideosList = videoData.filter((item: any) => item.nid !== selectedVideoId);
     if (isNonEmptyArray(videoData)) {
       const isBookmark = validateBookmark(videoInfo.nid)

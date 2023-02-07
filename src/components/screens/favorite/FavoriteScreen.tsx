@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { View, StyleSheet} from 'react-native';
 import { horizontalEdge } from 'src/shared/utils';
-import { TabBarDataProps, SignupAlertCard } from 'src/components/molecules';
+import { SignupAlertCard } from 'src/components/molecules';
 import { ScreenContainer } from '..';
 import { Archives } from 'src/components/organisms';
 import {useLogin} from 'src/hooks';
@@ -15,17 +15,9 @@ export const FavoriteScreen = () => {
   const navigation = useNavigation();
 
   const {isLoggedIn} = useLogin();
-  const FAVORITE_TAB_ITEM_ARCHIEVES = TranslateConstants({key:TranslateKey.FAVORITE_TAB_ITEM_ARCHIEVES})
   const SIGN_UP_PH_SIGNUP = TranslateConstants({key:TranslateKey.SIGN_UP_PH_SIGNUP})
   const SIGN_UP_PH_MESSAGE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_MESSAGE})
   const SIGN_UP_PH_TITLE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_TITLE})
-
-  // const tabItemData: TabBarDataProps[] = [
-  //   {
-  //     tabName: FAVORITE_TAB_ITEM_ARCHIEVES,
-  //     isSelected: true,
-  //   }
-  // ]
 
   const showupUp = useRef(!isLoggedIn)
 

@@ -162,11 +162,9 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
     } else if (isLessThanThreeHours) {
       return { icon: DateIcon.CLOCK, time: arabic.timeSince.sinceTwoHours }
     } 
-    if (isLessThanFourHours) {
-      return { 
-        icon: DateIcon.CLOCK, 
-        time: arabic.timeSince.sinceThreeHours 
-      }
+    return {
+      icon: DateIcon.CLOCK,
+      time: arabic.timeSince.sinceThreeHours
     }
   }
 

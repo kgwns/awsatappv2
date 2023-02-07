@@ -552,7 +552,7 @@ export const ArticleDetailScreen = ({
     setCurrentTime(time)
     setPaused(pausedProps)
   }
-
+  // As per ticket AMAR-1044 we dont show the PIP
   // const closeMiniPlayer = (visible: boolean) => {
   //   setPlayerVisible(visible);
   //   setShowVideoMiniPlayer(visible)

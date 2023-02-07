@@ -59,7 +59,7 @@ const ArchiveArticleSection = (props: ArchiveArticleSectionProps) => {
     const ArchiveHeader = () => (
         <View style={style.headerView}>
             <View style={style.headerLogoContainer}>
-                <Image name={isDarkMode ? ImagesName.archiveIconDark : ImagesName.archiveIconLight} style={style.headerLogo} />
+                <Image name={isDarkMode ? ImagesName.archiveIconDarkImage : ImagesName.archiveIconLightImage} style={style.headerLogo} />
             </View>
             <Label children={props.title} style={style.headerTitle} />
         </View>

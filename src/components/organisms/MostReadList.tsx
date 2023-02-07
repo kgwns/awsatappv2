@@ -143,7 +143,7 @@ const MostReadList = ({
           titleContainerStyle={style.titleContainerStyle}
           articleItemStyle={style.articleItemStyle}
         />
-        {isLoading && (data.length - 1 == index) && (
+        {isLoading && (data.length - 1 === index) && (
           <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>

@@ -56,7 +56,7 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
     if (mediaID) {
       try {
         const response: RequestVideoUrlSuccessResponse = await fetchVideoDetailInfo({ mediaID: mediaID })
-        if (isNonEmptyArray(response.playlist) && isNonEmptyArray(response.playlist[0].sources)) {
+        if (isNonEmptyArray(response.playlist) && isNonEmptyArray(response.playlist[0].sources)){ 
           const sources = response.playlist[0].sources
           const videoFiles = sources.filter((item)=>{
             if(item.type && item.type.includes('video/mp4')){
@@ -69,6 +69,7 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
           const selectedItem = getDeviceResolutionVideo(screenHeight, videoResolutions)
           const videoItem = sources.find((item) => item.height === selectedItem)
           videoItem && isObjectNonEmpty(videoItem) && setPlayerUrl(videoItem.file)
+          return;
         }
       } catch (error) {
         goBack()

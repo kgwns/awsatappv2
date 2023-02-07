@@ -42,7 +42,7 @@ const InterestedTopics = (props:any) => {
       previousIndex = i
       lengthOfElementsInRow = 0
     }
-    else if (i == arrayOfLengths.length - 1) {
+    else if (i === arrayOfLengths.length - 1) {
       for (let j = previousIndex; j <= i; j++) {
         individualSpliceArray.push(data[j])
       }
@@ -74,7 +74,7 @@ const InterestedTopics = (props:any) => {
           inverted={Platform.OS==='android'}
           scrollEnabled={false}
           horizontal
-          keyExtractor={(_, index) => index.toString()}
+          keyExtractor={(_, mobIndex) => mobIndex.toString()}
           listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
           data={ isAndroid ? item.reverse() : item}
           showsHorizontalScrollIndicator={false}
@@ -90,7 +90,7 @@ const InterestedTopics = (props:any) => {
         <FlatList
           scrollEnabled={false}
           numColumns={6}
-          keyExtractor={(_, index) => index.toString()}
+          keyExtractor={(_, tabIndex) => tabIndex.toString()}
           listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
           data={props.allSiteCategoriesData }
           showsHorizontalScrollIndicator={false}

@@ -64,7 +64,7 @@ const ArticleFooter = ({
         })
   }
   
-  if(bookMarkColorType == BookMarkColorType.WHITE) {
+  if(bookMarkColorType === BookMarkColorType.WHITE) {
     storySaveIcon = () => {
       return getSvgImages({
         name: isBookmarked ? ImagesName.bookMarkWhiteActive : ImagesName.bookMarkWhite,

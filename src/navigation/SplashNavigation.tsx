@@ -13,7 +13,6 @@ const SplashNavigation = () => {
 
     // Commented for AMAR-1145 (Enable when video splash required)
     // const[loading, setLoading] = useState(true)
-
     // useEffect(() => {
     //     setTimeout(() => setLoading(false), 4000)
     // }, []);

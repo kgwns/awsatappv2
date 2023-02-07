@@ -128,7 +128,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   )
 
   const renderItem = (item: NewsViewListItemType, index: number) => {
-    const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
+    const isLive = isNotEmpty(item.displayType) && item.displayType === displayTypes.liveCoverage;
     return (
       <View key={flatListUniqueKey.NEWS_FEED + index}>
         <FixedTouchable activeOpacity={0.8} onPress={() => onPress(item.nid)}>
