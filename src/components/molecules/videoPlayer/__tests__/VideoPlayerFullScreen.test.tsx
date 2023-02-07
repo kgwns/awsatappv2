@@ -9,6 +9,12 @@ jest.mock('react', () => ({
     useState: jest.fn(),
   }));
 
+  const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false
+}));
+
   jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'),
     useNavigation: jest.fn(),
@@ -47,6 +53,7 @@ describe('<VideoPlayer>', () => {
     })
 
     it('Should render VideoPlayer', () => {
+      DeviceTypeUtilsMock.isIOS = true;
         expect(instance).toBeDefined()
     })  
 
