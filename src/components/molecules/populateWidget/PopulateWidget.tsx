@@ -74,7 +74,7 @@ export const PopulateWidget = ({
       };
 
     const episodeModal = () => (
-        <Modal visible={true} animationType={'slide'}>
+        <Modal visible={true} animationType={'slide'} onRequestClose = {() => setShowModal(false)}>
             <View style={{ height: screenHeight - insets.top }}>
                 <PodcastEpisodeModal
                     route={{ params: { data: { ...props } } }}
