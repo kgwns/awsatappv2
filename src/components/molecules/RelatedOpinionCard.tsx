@@ -193,7 +193,7 @@ const customStyle = (theme: CustomThemeType) => {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
-      backgroundColor: 'yellow' //theme.backgroundColor,
+      backgroundColor: theme.backgroundColor,
     },
     contentView: {
       flex: 1,
