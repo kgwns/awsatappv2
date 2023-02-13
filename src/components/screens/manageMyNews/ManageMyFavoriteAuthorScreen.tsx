@@ -48,7 +48,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
       setAllAuthorsData();
       checkSelectedAuthorCondition();
     }
-    else{
+    else if (isNonEmptyArray(allWritersData)) {
       setAuthorsData(allWritersData)
       checkSelectedAuthorCondition();
     }
