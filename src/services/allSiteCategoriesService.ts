@@ -17,6 +17,7 @@ export const fetchAllSiteCategoriesApi = async (body: AllSiteCategoriesBodyGet) 
             );
         return response;
     } catch (error) {
+        console.log('allSiteCategoriesService - fetchAllSiteCategoriesApi - error', error)
         throw error;
     }
 };
@@ -29,6 +30,7 @@ export const sendSelectedTopicsApi = async (body: SendSelectedTopicBody) => {
             );
         return response;
     } catch (error) {
+        console.log('allSiteCategoriesService - sendSelectedTopicsApi - error', error)
         throw error;
     }
 };
@@ -41,6 +43,7 @@ export const getSelectedTopicsApi = async () => {
             );
         return response;
     } catch (error) {
+        console.log('allSiteCategoriesService - getSelectedTopicsApi - error', error)
         throw error;
     }
 };

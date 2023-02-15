@@ -5,13 +5,18 @@ import {
   ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne, StoryListProps, AlertModal
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties, storyWidgetData, TranslateConstants, TranslateKey } from 'src/constants/Constants';
+import {
+  shortArticleWithTagProperties,
+  //storyWidgetData, // Will enable the Stories once required and remove the above Divider
+  TranslateConstants,
+  TranslateKey,
+  ScreensConstants
+} from 'src/constants/Constants';
 import { horizontalEdge, isNonEmptyArray, isTab, normalize, isIOS } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import { ScreensConstants } from 'src/constants/Constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { Styles } from 'src/shared/styles';

@@ -42,7 +42,7 @@ import RainImageIcon from 'src/assets/images/icons/weather/Images/Rain.svg'
 import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds.svg'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
-interface weatherDate {
+interface WeatherDate {
   date: string,
   month: string,
   day: string,
@@ -77,7 +77,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   const styles = useThemeAwareObject(createStyles);
 
   const currentDate = new Date();
-  const data: weatherDate[] = [];
+  const data: WeatherDate[] = [];
 
   const [weatherDataDetails, setWeatherDataDetails] = React.useState(data);
   const [weatherListDetails, setWeatherListDetails] = React.useState<any>(fetchWeatherDetailsSuccessInfo?.list[0] ? fetchWeatherDetailsSuccessInfo?.list[0] : []);
@@ -230,7 +230,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   );
 
   const updateOnPress = (index: number) => {
-    const weatherUpdates = weatherDataDetails.map((item: weatherDate) => {
+    const weatherUpdates = weatherDataDetails.map((item: WeatherDate) => {
       item.selected = false;
       return item;
     });
@@ -244,7 +244,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     }
   };
 
-  const renderItem = (item: weatherDate, index: number) => {
+  const renderItem = (item: WeatherDate, index: number) => {
     console.log('ITEM', item)
     return (
       <TouchableWithoutFeedback onPress={() => updateOnPress(index)}>
@@ -279,7 +279,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
         <Label 
           style={styles.fieldDataStyle} 
           children={(weatherListDetails?.temp.max && weatherListDetails?.temp.min) 
-          ? (weatherListDetails?.temp.max + '°/' + weatherListDetails?.temp.min + '°') : 
+          ? `${weatherListDetails?.temp.max}°/${weatherListDetails?.temp.min}°`:
           NO_INFORMATION_TEXT} 
         />
       </View>
@@ -303,7 +303,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_SPEED}
           </Label>
         </View>
-        <Label style={styles.fieldDataStyle} children={weatherListDetails?.speed ? weatherListDetails?.speed + ' ' + CONST_KMH : NO_INFORMATION_TEXT} />
+        <Label style={styles.fieldDataStyle} children={weatherListDetails?.speed ? `${weatherListDetails?.speed} ${CONST_KMH}` : NO_INFORMATION_TEXT} />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
@@ -314,7 +314,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_VISIBILITY}
           </Label>
         </View>
-        <Label style={styles.fieldDataStyle} children={weatherDataVisibility ? weatherDataVisibility + ' ' + CONST_KM : NO_INFORMATION_TEXT} />
+        <Label style={styles.fieldDataStyle} children={weatherDataVisibility ? `${weatherDataVisibility} ${CONST_KM}` : NO_INFORMATION_TEXT} />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>
@@ -325,7 +325,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             {CONST_PRESSURE}
           </Label>
         </View>
-        <Label style={styles.fieldDataStyle} children={weatherListDetails?.pressure ? weatherListDetails?.pressure + ' ' + CONST_MBAR : NO_INFORMATION_TEXT} />
+        <Label style={styles.fieldDataStyle} children={weatherListDetails?.pressure ? `${weatherListDetails?.pressure} ${CONST_MBAR}` : NO_INFORMATION_TEXT} />
       </View>
       <Divider style={styles.divider} />
       <View style={styles.weatherDescriptionView}>

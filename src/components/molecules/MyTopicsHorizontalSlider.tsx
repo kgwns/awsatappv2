@@ -138,4 +138,3 @@ const customStyle = (theme: CustomThemeType) =>
             paddingRight: normalize(5)
         }
     });
-    

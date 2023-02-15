@@ -12,6 +12,7 @@ import {
   mostPlayedSectionData,
   podcastCardSectionData,
   PodcastOpinionArticleSectionData,
+  ScreensConstants,
 } from 'src/constants/Constants';
 import MostPlayedSection from 'src/components/organisms/MostPlayedSection';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -19,7 +20,6 @@ import {FlatList} from 'react-native-gesture-handler';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {PodcastOpinionArticleSection} from 'src/components/organisms/PodcastOpinionArticleSection';
 import {useNavigation} from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants/Constants';
 
 export const PodcastScreen = () => {
   const style = useThemeAwareObject(customStyle);

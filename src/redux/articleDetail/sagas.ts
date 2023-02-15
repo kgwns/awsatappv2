@@ -4,7 +4,7 @@ import { ArticleContentType, ArticleDetailDataType,
   ArticleDetailSuccessPayload, ArticleOpinionType, 
   ArticleReadAlsoType, ArticleSectionSuccessPayload, 
   FetchRichOpinionsBundleSuccessPayloadType, 
-  FetchRichOpinionsBundleType, GetRichArticleReadAlsoBody, 
+  FetchRichOpinionsBundleType, 
   HTMLElementParseStore, RelatedArticleBodyGet, 
   RelatedArticleDataType, RelatedArticleSuccessPayload, 
   RequestArticleDetailType, RequestArticleSectionType, 
@@ -12,7 +12,7 @@ import { ArticleContentType, ArticleDetailDataType,
   RichHTMLOpinionDataType, RichHTMLType } from './types';
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService';
 import { REQUEST_ARTICLE_DETAIL, 
-  REQUEST_RELATED_ARTICLE, EMPTY_DATA, 
+  REQUEST_RELATED_ARTICLE, 
   REQUEST_ARTICLE_SECTION, REQUEST_RICH_ARTICLE_READ_ALSO, 
   REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION } from './actionType';
 import { requestArticleDetailFailed, 

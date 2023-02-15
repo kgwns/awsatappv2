@@ -17,4 +17,3 @@ export const getProfileUserDetailsError: Selector<string> = (state: AppState) =>
 
 export const getUserInfo: Selector<UpdateUserImageSuccessPayloadType | null> =
   (state: AppState) => state.userDetails.userDetail;
-  

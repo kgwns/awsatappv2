@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import { horizontalAndTop, screenWidth } from 'src/shared/utils';
-import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
+import { TranslateConstants, TranslateKey, ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensConstants } from 'src/constants/Constants';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
-import { ImagesName, Styles } from 'src/shared/styles';
+import { ImagesName } from 'src/shared/styles';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { getRequiredNativeComponent } from 'src/shared/utils/NativeComponent';
 

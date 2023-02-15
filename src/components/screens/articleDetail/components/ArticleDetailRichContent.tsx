@@ -255,14 +255,13 @@ export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewR
     const style = useThemeAwareObject(customStyle)
 
     const updateWebViewRef = (ref: any) => {
-        if(webViewRef){
+        if (webViewRef) {
             webViewRef.current = ref
             return webViewRef.current;
-        }
-        else{
+        } else {
             return ref
         }
-         
+
     }
 
     return (

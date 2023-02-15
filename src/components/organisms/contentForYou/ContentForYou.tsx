@@ -2,13 +2,12 @@ import { View, FlatList, StyleSheet } from 'react-native'
 import React, {useState, useEffect, useRef} from 'react'
 import { AuthorWidget, ShortArticle, ArticleSection } from 'src/components/organisms';
 import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label, Divider } from 'src/components/atoms';
-import { shortArticleWithTagProperties, TranslateConstants, TranslateKey } from 'src/constants/Constants';
+import { shortArticleWithTagProperties, TranslateConstants, TranslateKey, flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
 import { getArticleImage, isNonEmptyArray } from 'src/shared/utils/utilities';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CustomThemeType } from 'src/shared/styles/colors';

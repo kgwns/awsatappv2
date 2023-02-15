@@ -12,7 +12,6 @@ import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { ScreensConstants } from 'src/constants/Constants';
 import { useLogin, useSideMenu, useWeatherDetails } from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ABOUT_US, ADVERTISE_INFO_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
@@ -21,6 +20,7 @@ import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
 import { getProfileImageUrl, isNonEmptyArray, isObjectNonEmpty, isStringIncludes } from 'src/shared/utils/utilities';
 import {
+  ScreensConstants,
   FACEBOOK_APP_URL,
   INSTAGRAM_APP_URL,
   LINKEDIN_APP_URL,
@@ -29,13 +29,11 @@ import {
   INSTAGRAM_URL,
   LINKEDIN_URL,
   TWITTER_URL,
-} from 'src/constants/Constants';
-import { ScreenContainer } from 'src/components/screens';
-import { fonts } from 'src/shared/styles/fonts';
-import {
   TranslateConstants,
   TranslateKey,
 } from 'src/constants/Constants';
+import { ScreenContainer } from 'src/components/screens';
+import { fonts } from 'src/shared/styles/fonts';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
 import Geolocation from 'react-native-geolocation-service';
 import CelsiusIcon from 'src/assets/images/icons/weather/Celsius.svg'

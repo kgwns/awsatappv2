@@ -19,7 +19,7 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
   const barColor = { backgroundColor: color }
   const CONST_MY_NEWS_TAB_WRITERS = TranslateConstants({key:TranslateKey.MY_NEWS_TAB_WRITERS})
   const CONST_MY_NEWS_TAB_MEDIA = TranslateConstants({key:TranslateKey.MY_NEWS_TAB_MEDIA})
-  const CONST_MY_NEWs_TAB_TOPICS= TranslateConstants({key:TranslateKey.MY_NEWS_TAB_TOPICS})
+  const CONST_MY_NEWS_TAB_TOPICS= TranslateConstants({key:TranslateKey.MY_NEWS_TAB_TOPICS})
 
   const renderStyle = (tabNameProps: String) => {
     switch (tabNameProps) {
@@ -27,7 +27,7 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
         return customStyle.containerWriters
       case CONST_MY_NEWS_TAB_MEDIA:
         return customStyle.containerMedia
-      case CONST_MY_NEWs_TAB_TOPICS:
+      case CONST_MY_NEWS_TAB_TOPICS:
         return customStyle.containerTopics
       default:
         return null

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
+import { flatListUniqueKey, ScreensConstants, displayTypes } from 'src/constants/Constants';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isNonEmptyArray, isNotEmpty, isTab, isTypeAlbum, screenWidth } from 'src/shared/utils';
@@ -11,7 +11,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { fonts } from 'src/shared/styles/fonts';
-import { displayTypes } from 'src/constants/Constants';
 
 interface ArticleImageViewProps {
     data: MainSectionBlockType[];

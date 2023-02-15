@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
-import { Label, LoadingState, NextButton } from 'src/components/atoms';
+import { Label, NextButton } from 'src/components/atoms';
 import { CustomAlert, horizontalEdge, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenHeight, screenWidth } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation, useIsFocused } from '@react-navigation/native';

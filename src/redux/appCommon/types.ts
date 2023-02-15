@@ -70,4 +70,3 @@ export type AppCommonAction = StoreAppThemeType
   | StoreServerEnvironmentType
   | StoreArticleFontType
   | ResetArticleFontSizeType
-  

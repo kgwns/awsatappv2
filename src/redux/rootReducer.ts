@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import homeReducer from 'src/redux/home/reducer';
-import appCommon from 'src/redux/appCommon/reducer';
+import appCommonReducer from 'src/redux/appCommon/reducer';
 import mostReadReducer from 'src/redux/mostRead/reducer';
 import searchReducer from 'src/redux/search/reducer';
 import articleDetail from 'src/redux/articleDetail/reducer';
@@ -10,8 +10,8 @@ import opinionsReducer from 'src/redux/opinions/reducer';
 import sideMenu from './sideMenu/reducer';
 import sectionArticles from './sectionArticles/reducer';
 import newsViewReducer from 'src/redux/newsView/reducer';
-import allWriters from 'src/redux/allWriters/reducer';
-import allSiteCategories from 'src/redux/allSiteCategories/reducer';
+import allWritersReducer from 'src/redux/allWriters/reducer';
+import allSiteCategoriesReducer from 'src/redux/allSiteCategories/reducer';
 import termsAndAboutUs from 'src/redux/termsAndAboutUs/reducer';
 import registerUser from 'src/redux/register/reducer';
 import loginReducer from './login/reducer';
@@ -21,7 +21,7 @@ import topMenu from 'src/redux/topMenu/reducer';
 import opinionArticleDetail from 'src/redux/opinionArticleDetail/reducer';
 import bookmark from 'src/redux/bookmark/reducer';
 import userDetails from 'src/redux/profileUserDetail/reducer';
-import changePassword from 'src/redux/changePassword/reducer';
+import changePasswordReducer from 'src/redux/changePassword/reducer';
 import newsLetters from 'src/redux/newsLetter/reducer';
 import keepNotified from 'src/redux/keepNotified/reducer';
 import podcastReducer from 'src/redux/podcast/reducer';
@@ -34,13 +34,13 @@ import weatherDetails from 'src/redux/weatherDetails/reducer';
 import contactUsInfo from 'src/redux/contactUs/reducer';
 import albumList from 'src/redux/photoGallery/reducer';
 import journalist from 'src/redux/journalist/reducer';
-import arabicWords from 'src/redux/arabicWords/reducer';
+import arabicWordsReducer from 'src/redux/arabicWords/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
 const rootReducer = combineReducers({
   home: homeReducer,
-  appCommon: appCommon,
+  appCommon: appCommonReducer,
   mostRead: mostReadReducer,
   search: searchReducer,
   articleDetail: articleDetail,
@@ -50,8 +50,8 @@ const rootReducer = combineReducers({
   sideMenu: sideMenu,
   sectionArticles: sectionArticles,
   newsViewReducer: newsViewReducer,
-  allWriters: allWriters,
-  allSiteCategories: allSiteCategories,
+  allWriters: allWritersReducer,
+  allSiteCategories: allSiteCategoriesReducer,
   termsAndAboutUs: termsAndAboutUs,
   register: registerUser,
   login: loginReducer, 
@@ -61,7 +61,7 @@ const rootReducer = combineReducers({
   opinionArticleDetail: opinionArticleDetail,
   bookmark: bookmark,
   userDetails: userDetails,
-  changePassword: changePassword,
+  changePassword: changePasswordReducer,
   newsLetters: newsLetters,
   keepNotified: keepNotified,
   podcast: podcastReducer,
@@ -74,7 +74,7 @@ const rootReducer = combineReducers({
   contactUsInfo: contactUsInfo,
   albumList: albumList,
   journalist: journalist,
-  arabicWords:arabicWords,
+  arabicWords:arabicWordsReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

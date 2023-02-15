@@ -1,11 +1,10 @@
 import React, {useEffect} from 'react';
-import messaging from '@react-native-firebase/messaging';
+import messaging, {FirebaseMessagingTypes} from '@react-native-firebase/messaging';
 import '@react-native-firebase/messaging';
 import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {useNotificationSaveToken} from 'src/hooks';
 import {SaveTokenBodyType} from 'src/redux/notificationSaveToken/types';
-import {FirebaseMessagingTypes} from '@react-native-firebase/messaging';
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import {isIOS} from 'src/shared/utils';
@@ -98,7 +97,7 @@ export const GetFCMToken = () => {
         break
       default:
         return
-    };
+    }
   }
 
   const notifeeEvents = (type: EventType, detail: EventDetail) => {

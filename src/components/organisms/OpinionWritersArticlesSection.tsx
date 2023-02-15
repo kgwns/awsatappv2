@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {ActivityIndicator, FlatList, Platform, StyleSheet, View} from 'react-native';
-import {flatListUniqueKey} from 'src/constants/Constants';
+import {flatListUniqueKey, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import OpinionWritersCardView from 'src/components/molecules/opinionWriters/OpinionWriterCardView';
@@ -15,7 +15,6 @@ import {
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { fonts } from 'src/shared/styles/fonts';
 import { Label } from '../atoms';
-import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 interface OpinionWritersArticlesSectionProps {
   data: OpinionsListItemType[];

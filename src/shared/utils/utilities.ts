@@ -216,7 +216,7 @@ export const calculateYear = (time: any) => {
 };
 
 export const getFullDate = (time: any) => {
-  return calculateNonUtcDate(time) + ' ' + calculateNonUtcMonth(time) + ' ' + moment(time).get('year');
+  return `${calculateNonUtcDate(time)} ${calculateNonUtcMonth(time)} ${moment(time).get('year')}`;
 }
 
 export const calculateNonUtcDateNumber = (time: any) => {
@@ -273,7 +273,7 @@ export const  getSecondsToHms = (time:any): string => {
   const s = Math.floor(time % 3600 % 60);
 
   const secondsDisplay = s > 0 ? s  : "";
-  const minutesDisplay = (m > 0) ? (secondsDisplay > 0) ? m < 10 ? '0' + m.toString() + ":" :  m.toString() +  ":"  : m.toString() : "";
+  const minutesDisplay = (m > 0) ? (secondsDisplay > 0) ? m < 10 ? `0${m.toString()}:` :  m.toString() +  ":"  : m.toString() : "";
   const hoursDisplay = h > 0 ? m > 0 ? h.toString() + ":" : h.toString() : ""; 
   return hoursDisplay + minutesDisplay + secondsDisplay; 
 }
@@ -340,8 +340,7 @@ export const getConvertedTime = (time?: number, timezone?: number) => {
 
 export const getCountryNameFromCode = ( countryCode: string) : string => {
   countries.registerLocale(arabicLang);
-  const countryName = countries.getName(countryCode, "ar");
-  return countryName
+  return countries.getName(countryCode, "ar");
 }
 
 export const isValidDate = (dateObject: any): boolean => {

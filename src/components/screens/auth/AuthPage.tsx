@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
-  Alert,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {isObjectNonEmpty, normalize} from '../../../shared/utils';
@@ -106,7 +105,7 @@ export const AuthPage: FunctionComponent = () => {
     userInfo: any,
     success: boolean,
     provider: SocialProviders,
-    message?: String,
+    message?: string,
   ) => {
     if (success) {
       fbLoginRef.current = false;

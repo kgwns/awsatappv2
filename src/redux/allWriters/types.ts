@@ -237,4 +237,3 @@ export type AllWritersActions =
   | DeselectAllWriters
   | SetSelectedDataFromOnboard
   | EmptySelectedWritersDataFromOnboard
-  

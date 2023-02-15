@@ -1,5 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { I18nManager, NativeEventSubscription, useColorScheme, AppState, Platform } from 'react-native'
+import React, {
+    useEffect,
+    useRef,
+    // Commented for AMAR-1145 (Enable when video splash required)
+    //useState
+} from 'react'
+import {
+    I18nManager,
+    NativeEventSubscription,
+    // Commented for AMAR-1145 (Enable when video splash required)
+    //AppState,
+    //Platform,
+} from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { useDispatch } from 'react-redux'
 import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'

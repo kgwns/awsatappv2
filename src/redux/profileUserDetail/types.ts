@@ -12,7 +12,7 @@ export type payloadType = { rows: any[]; pager: object };
 
 export interface ProfileUserDataType {
   user?: UserDataType;
-  message?: messageDataType
+  message?: MessageDataType
 }
 
 export interface UserDataType {
@@ -38,7 +38,7 @@ export interface UserDataType {
   display_name?: any;
 }
 
-export interface messageDataType {
+export interface MessageDataType {
   code?: number;
   message?: string;
 }
@@ -73,7 +73,7 @@ export interface UpdateUserImageBodyType {
 
 export interface UpdateUserImageSuccessPayloadType {
   user: UserDataType | null,
-  message: messageDataType,
+  message: MessageDataType,
 }
 
 export interface UserState {

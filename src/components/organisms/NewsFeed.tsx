@@ -3,7 +3,7 @@ import React from 'react';
 import {Image} from '../atoms/image/Image';
 import { isTab, normalize, screenWidth} from '../../shared/utils';
 import { Styles} from '../../shared/styles';
-import {TextWithFlag, Divider, Label, LabelTypeProp, LiveBlogTag} from '../atoms';
+import { Divider, Label, LabelTypeProp, LiveBlogTag} from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
 import {flatListUniqueKey, ScreensConstants} from '../../constants/Constants';
 import {SectionVideoFooter} from '../molecules';

@@ -19,15 +19,13 @@ import {useNavigation} from '@react-navigation/native';
 import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {AlertModal, PopUp} from 'src/components/organisms';
-import {ScreensConstants} from 'src/constants/Constants';
+import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import TrackPlayer from 'react-native-track-player';
 import { PodCastMiniPlayer } from 'src/components/molecules';
 import  { useAppPlayer } from 'src/hooks/useAppPlayer';
 import { fonts } from 'src/shared/styles/fonts';
-import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
-
 
 export interface AlertPayloadType {
   title: string;

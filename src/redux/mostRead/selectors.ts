@@ -9,4 +9,3 @@ export const getMostReadData: Selector<MostReadItemType[]> = (state: AppState) =
 
 export const getMostReadError: Selector<string> = (state: AppState) =>
   state.mostRead.error;
-  

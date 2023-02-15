@@ -2,7 +2,7 @@ import * as React from 'react';
 import {horizontalAndTop} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { UIManager, findNodeHandle, PixelRatio, Dimensions, ScrollView, View , StyleSheet } from 'react-native';
+import { UIManager, findNodeHandle, PixelRatio, Dimensions, StyleSheet } from 'react-native';
 import { DownloadNewsViewManager } from './DownloadNewsViewManager';
 import { useAppCommon } from 'src/hooks';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
@@ -25,7 +25,7 @@ export const DownloadNews = (props: DownloadNewsProps) => {
   const DRAWER_PDF_ARCHIVE = TranslateConstants({key:TranslateKey.DRAWER_PDF_ARCHIVE})
   const theme = useAppCommon()
   const ref = React.useRef(null);
-  const [userTheme,setUserTheme] = React.useState<String>(theme.theme)
+  const [userTheme,setUserTheme] = React.useState<string>(theme.theme)
 
   const style = useThemeAwareObject(customStyle);
   

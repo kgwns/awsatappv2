@@ -12,8 +12,7 @@ import { ImagesName } from 'src/shared/styles';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants/Constants';
-import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 const AuthorSlider = ({
     data,

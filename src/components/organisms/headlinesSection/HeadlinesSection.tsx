@@ -55,7 +55,6 @@ const HeadlinesSection = ({
         setHeadNews(tickerData[0].title as any ?? '')
         setHeaderNews(title)
         setIndexValue(1)
-        return
     }, [])
 
     const getTitle = (data: LatestArticleDataType[], index: number): string => {

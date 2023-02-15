@@ -8,7 +8,7 @@ import { changePassword, emptyPasswordResponse } from 'src/redux/changePassword/
 import {SendNewPasswordSuccessPayloadType, SendNewPassword
 } from 'src/redux/changePassword/types';
 
-export interface useChangePassword {
+export interface UseChangePassword {
   isLoading: boolean;
   changePasswordData: SendNewPasswordSuccessPayloadType | null;
   changePasswordError: string;
@@ -16,7 +16,7 @@ export interface useChangePassword {
   emptyPasswordResponseInfo(): void
 }
 
-export const useNewPassword = (): useChangePassword => {
+export const useNewPassword = (): UseChangePassword => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   const changePasswordData = useSelector(getNewPassword);

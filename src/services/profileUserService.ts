@@ -51,4 +51,3 @@ export const updateProfileUserImage = async (body: UpdateUserImageBodyType) => {
       throw errorResponse;
     }
   };
-  

@@ -9,4 +9,3 @@ export const getDocumentaryVideo: Selector<VideoItemType[]> = (state: AppState) 
 
 export const getDocumentaryVideoError: Selector<string> = (state: AppState) =>
   state.documentaryVideo.videoDocumentaryError;
-  

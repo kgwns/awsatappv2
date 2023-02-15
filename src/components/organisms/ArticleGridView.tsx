@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
+import { flatListUniqueKey, ScreensConstants, displayTypes } from 'src/constants/Constants';
 import { GridViewItem } from '../molecules';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -10,7 +10,6 @@ import { Divider } from '../atoms';
 import { MainSectionBlockType } from 'src/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { displayTypes } from 'src/constants/Constants';
 
 interface ArticleGridViewProps {
     data: MainSectionBlockType[];

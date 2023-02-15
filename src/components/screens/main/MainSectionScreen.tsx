@@ -7,13 +7,19 @@ import {
   ArchiveArticleSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/Constants';
+import {
+  heroSectionProperties,
+  shortArticleWithTagProperties,
+  flatListUniqueKey,
+  ScreensConstants,
+  TranslateConstants,
+  TranslateKey,
+} from 'src/constants/Constants';
 import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer } from 'src/hooks';
 import { EditorsChoiceDataType, LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Styles } from 'src/shared/styles';
@@ -25,7 +31,6 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { Label } from 'src/components/atoms';
 import { getPodcastUrl, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
-import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';

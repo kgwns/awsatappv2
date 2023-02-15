@@ -46,7 +46,7 @@ import {useUserProfileData} from 'src/hooks/useUserProfileData';
 import ImagePicker from 'react-native-image-crop-picker';
 import {UpdateUserImageBodyType} from 'src/redux/profileUserDetail/types';
 import {isDarkTheme,SystemPermissions} from 'src/shared/utils';
-import {useAppCommon, useLogin} from 'src/hooks';
+import {useAppCommon} from 'src/hooks';
 import {
   DEFAULT_MINIMUM_DATE,
   DEFAULT_ALERT_TITLE,
@@ -203,16 +203,14 @@ export const UserDetailScreen: FunctionComponent = () => {
   }, []);
 
   useEffect(()=>{
-    if(isNotEmpty(name)){
+    if (isNotEmpty(name)) {
       setDisableName(!(userProfileData.user?.display_name === name))
-    }
-    else{
+    } else {
       setDisableName(false)
     }
-    if(isNotEmpty(occupation)){
+    if (isNotEmpty(occupation)) {
       setDisableOccupation(!(userProfileData.user?.occupation === occupation))
-    }
-    else{
+    } else {
       setDisableOccupation(false)
     }
 
