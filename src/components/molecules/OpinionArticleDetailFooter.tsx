@@ -7,9 +7,8 @@ import {isIOS, normalize} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import Share from 'react-native-share';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
-import { getShareUrl } from 'src/shared/utils/utilities';
+import { onPressShare } from 'src/shared/utils/onPressShare';
 
 export const OpinionArticleDetailFooter = ({
   opinionArticleDetailData,
@@ -25,23 +24,6 @@ export const OpinionArticleDetailFooter = ({
   const articleSaveIcon = isBookmarked
     ? ImagesName.bookMarkActiveSVG
     : ImagesName.bookmarkGray;
-
-
-  const onPressShare = async () => {
-    const {title, view_node, field_shorturl} = opinionArticleDetailData;
-    await Share.open({
-      title,
-      url: getShareUrl(field_shorturl,view_node),
-      failOnCancel: true,
-      subject: title,
-    })
-      .then(response => {
-        console.log('Shared successfully :::', response);
-      })
-      .catch(error => {
-        console.log('Cancelled share request :::', error);
-      });
-  };
 
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
@@ -64,7 +46,7 @@ export const OpinionArticleDetailFooter = ({
             size: normalize(18),
           });
         }}
-        onPress={onPressShare}
+        onPress = {() => onPressShare(opinionArticleDetailData)}
       />
       <ButtonImage
         icon={() => {
