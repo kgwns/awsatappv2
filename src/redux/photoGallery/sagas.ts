@@ -2,7 +2,7 @@ import {all, call, put, takeLatest} from 'redux-saga/effects';
 import {AxiosError} from 'axios';
 import {FetchAlbumDetailType, FetchAlbumDetailSuccessPayloadType, FetchAlbumListSuccessPayloadType, FetchAlbumListType} from './types';
 import {fetchAlbumListSuccess, fetchAlbumListFailed, fetchAlbumDetailuccess, fetchAlbumDetailFailed} from './action';
-import {FETCH_ALBUM_LIST, FETCH_ALBUM_DETAIL , EMPTY_ALL_DATA} from './actionTypes';
+import {FETCH_ALBUM_LIST, FETCH_ALBUM_DETAIL} from './actionTypes';
 import {fetchAlbumListApi, fetchAlbumDetailApi} from 'src/services/photoGalleryService';
 
 export function* fetchAlbumList(action: FetchAlbumListType) {

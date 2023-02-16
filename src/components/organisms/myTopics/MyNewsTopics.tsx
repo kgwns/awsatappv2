@@ -1,7 +1,7 @@
 import { View, StyleSheet, FlatList } from 'react-native'
 import React, { useEffect, useMemo, useState } from 'react'
 import { MyTopicsHorizontalSlider, ArticleItem } from 'src/components/molecules'
-import { isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useAllSiteCategories, useContentForYou } from 'src/hooks'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'

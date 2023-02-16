@@ -9,6 +9,7 @@ export const fetchNarratedOpinionArticleApi = async (body: NarratedOpinionBodyGe
     );
     return response;
   } catch (error) {
+    console.log('narratedOpinionArticleService - fetchNarratedOpinionArticleApi - error', error)
     throw error;
   }
 };

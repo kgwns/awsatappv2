@@ -8,7 +8,7 @@ import { ImagesName } from 'src/shared/styles'
 import { DEFAULT_HIT_SLOP } from 'src/shared/utils'
 import { fonts } from 'src/shared/styles/fonts'
 
-export interface detailPodCastFooterProps {
+export interface DetailPodCastFooterProps {
     leftTitle?: string,
     leftIcon?: ImageName,
     leftTitleColor?: string,
@@ -31,7 +31,7 @@ const DetailPodCastFooter = ({
     isBookmarked,
     onPressBookmark,
     onPress
-}: detailPodCastFooterProps) => {
+}: DetailPodCastFooterProps) => {
     const storySaveIcon =() => {
         return isBookmarked
           ? getSvgImages({

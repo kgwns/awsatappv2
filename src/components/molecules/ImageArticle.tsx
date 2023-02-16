@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle, StyleProp, TextStyle } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
-import  ArticleFooter,{ articleFooterProps, BookMarkColorType }  from 'src/components/molecules/articleFooter/ArticleFooter'
+import  ArticleFooter,{ ArticleFooterProps, BookMarkColorType }  from 'src/components/molecules/articleFooter/ArticleFooter'
 import { BannerImageWithOverlay, BannerImageWithOverlayProps } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { Divider } from 'src/components/atoms/divider/Divider'
@@ -16,7 +16,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { DARK_THEME_ID } from '../../shared/styles/colors'
 
-const carouselFooterSample: articleFooterProps = {
+const carouselFooterSample: ArticleFooterProps = {
   leftTitleColor: Styles.color.white,
   rightIcon: () => {
     return getSvgImages({

@@ -24,6 +24,7 @@ export const fetchAlbumListApi = async (body: AlbumListBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('photoGalleryService - fetchAlbumListApi - error', error)
     throw error;
   }
 };
@@ -35,6 +36,7 @@ export const fetchAlbumDetailApi = async (body: AlbumDetailBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('photoGalleryService - fetchAlbumDetailApi - error', error)
     throw error;
   }
 };

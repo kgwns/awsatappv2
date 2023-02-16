@@ -19,10 +19,10 @@ import {
   FETCH_PODCAST_EPISODE_FAILED,
 } from './actionTypes';
 
-export const fetchPodcastList = (payload: PodcastListBodyGet) => {
+export const fetchPodcastList = (podcastListPayload: PodcastListBodyGet) => {
   return {
     type: FETCH_PODCAST_LIST,
-    payload: payload
+    payload: podcastListPayload
   };
 };
 
@@ -44,10 +44,10 @@ export const fetchPodcastListFailed = (
   };
 };
 
-export const fetchPodcastEpisode = (payload: PodcastEpisodeBodyGet) => {
+export const fetchPodcastEpisode = (podcastEpisodePayload: PodcastEpisodeBodyGet) => {
   return {
     type: FETCH_PODCAST_EPISODE,
-    payload: payload
+    payload: podcastEpisodePayload
   };
 };
 

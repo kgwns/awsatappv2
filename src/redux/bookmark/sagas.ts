@@ -81,8 +81,7 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
           field_jwplayer_id_opinion_export: item.field_jwplayer_id_opinion_export ? item.field_jwplayer_id_opinion_export : item.jwplayer,
         }
         return prevValue.concat(opinionData)
-      }
-      else if (item.type === PopulateWidgetType.VIDEO) {
+      } else if (item.type === PopulateWidgetType.VIDEO) {
         const videoData = {
           ...item,
           imageUrl:item.field_thumbnil_multimedia_export,

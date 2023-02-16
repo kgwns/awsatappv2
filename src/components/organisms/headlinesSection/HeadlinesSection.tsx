@@ -69,8 +69,7 @@ const HeadlinesSection = ({
         nextIndex = indexValue + 1
         if (nextIndex === tickerData.length) {
             { setIndexValue(0) }
-        }
-        else {
+        } else {
             setIndexValue(nextIndex)
         }
         const title = getTitle(tickerData, indexValue)

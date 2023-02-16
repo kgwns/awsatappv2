@@ -1,4 +1,4 @@
-export {default as ArticleSection, articleProps} from './ArticleSection';
+export {default as ArticleSection, ArticleProps} from './ArticleSection';
 export {default as ShortArticle, ShortArticleProps} from './ShortArticle';
 export {default as CarouselSlider} from './CarouselSlider';
 export {default as PodcastWidget} from './PodcastWidget';
@@ -26,7 +26,7 @@ export {StoryListView, StoryListProps, StoryListItemProps} from './story_list_vi
 export { default as VideoContent } from 'src/components/organisms/VideoContent';
 export { default as NewsFeed} from 'src/components/organisms/NewsFeed';
 export { default as HeadlinesSection } from 'src/components/organisms/headlinesSection/HeadlinesSection';
-export {default as PodcastCardSection, podcastCardProps} from 'src/components/organisms/PodcastCardSection';
+export {default as PodcastCardSection, PodcastCardProps} from 'src/components/organisms/PodcastCardSection';
 export {default as MostPlayedSection} from 'src/components/organisms/MostPlayedSection';
 export {default as LatestNewsSummarySection} from 'src/components/organisms/LatestNewsSummarySection';
 export {default as EditorsPickSection} from 'src/components/organisms/EditorsPickSection';

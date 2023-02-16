@@ -144,7 +144,7 @@ const OnBoardNavigator = () => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const headerStyles = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.onBoardBackground,
       shadowColor: colors.transparent,
@@ -194,7 +194,6 @@ const customStyle = (theme: CustomThemeType) => {
       borderBottomWidth: 1,
     },
   });
-  return headerStyles;
 };
 
 export default OnBoardNavigator;

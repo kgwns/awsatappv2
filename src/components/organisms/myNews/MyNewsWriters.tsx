@@ -95,8 +95,7 @@ export const MyNewsWriters = () => {
           return item.tid.toString() == selectedTid && item 
         });
         onPress(authorSelected[0], indexValue)
-      }
-      else {
+      } else {
         setInitialData()
       }
     }

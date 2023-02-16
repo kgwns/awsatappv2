@@ -71,7 +71,7 @@ export const PodcastOpinionArticleSection = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const PosdcasOpinionArticleSectionStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
       width: '100%',
@@ -81,5 +81,4 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.dividerColor
   },
   });
-  return PosdcasOpinionArticleSectionStyle;
 };

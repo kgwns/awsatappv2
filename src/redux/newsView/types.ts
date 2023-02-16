@@ -41,7 +41,7 @@ export interface Pager {
   items_per_page: string;
 }
 
-export interface payloadType {
+export interface PayloadType {
   rows: NewsViewListItemType[];
   pager: Pager;
 }
@@ -86,9 +86,9 @@ export interface FetchBottomListFailedPayloadtype {
 }
 
 export type NewsViewtState = {
-  heroListData: payloadType;
+  heroListData: PayloadType;
   topListData: LatestArticleDataType[];
-  bottomListData: payloadType;
+  bottomListData: PayloadType;
   error: string;
   isLoading: boolean;
 };

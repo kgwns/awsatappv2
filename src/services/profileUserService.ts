@@ -15,6 +15,7 @@ export const fetchUserProfileApi = async () => {
             );
         return response;
     } catch (error) {
+        console.log('profileUserService - fetchUserProfileApi - error', error)
         throw error;
     }
 };
@@ -28,6 +29,7 @@ export const sendUserProfileApi = async (body: SendUserData) => {
             );
         return response;
     } catch (error) {
+        console.log('profileUserService - sendUserProfileApi - error', error)
         throw error;
     }
 }
@@ -47,7 +49,7 @@ export const updateProfileUserImage = async (body: UpdateUserImageBodyType) => {
       );
       return response;
     } catch (error) {
-      const errorResponse = error as AxiosError;
-      throw errorResponse;
+      console.log('profileUserService - updateProfileUserImage - error', error)
+      throw error as AxiosError;
     }
   };

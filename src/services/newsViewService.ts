@@ -13,6 +13,7 @@ export const fetchNewsViewApi = async (body: NewsViewBodyGet) => {
 
     return response;
   } catch (error) {
+    console.log('newsViewService - fetchNewsViewApi - error', error)
     throw error;
   }
 };
@@ -24,6 +25,7 @@ export const fetchSubArticleSectionApi = async (body: NewsViewBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('newsViewService - fetchSubArticleSectionApi - error', error)
     throw error;
   }
 };

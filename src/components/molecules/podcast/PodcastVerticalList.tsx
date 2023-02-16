@@ -121,7 +121,7 @@ export const PodcastVerticalList = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const PodcastCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     cardContainer: {
       flex:1,
       backgroundColor: theme.podcastEpisodeCardColor,
@@ -188,7 +188,6 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize:12
     }
   });
-  return PodcastCardStyle;
 };
 
 export default PodcastVerticalList;

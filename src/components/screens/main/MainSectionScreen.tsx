@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator, Animated
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
-  EditorsPickSection, articleProps, VideoContent, PodcastWidget, ArticleGridView, ArticleImageView,
+  EditorsPickSection, ArticleProps, VideoContent, PodcastWidget, ArticleGridView, ArticleImageView,
   ArchiveArticleSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
@@ -19,7 +19,7 @@ import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth }
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer } from 'src/hooks';
-import { EditorsChoiceDataType, LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
+import { LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Styles } from 'src/shared/styles';
@@ -439,7 +439,7 @@ export const MainSectionScreen = React.memo((
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
-  const featuredArticleInfo: articleProps[] = topViewSectionData.map((item: MainSectionBlockType, index: number) => (
+  const featuredArticleInfo: ArticleProps[] = topViewSectionData.map((item: MainSectionBlockType, index: number) => (
     {
       ...item,
       ...heroSectionProperties,
@@ -538,7 +538,7 @@ export const MainSectionScreen = React.memo((
   }, [opinionLoaded, podcastHomeLoaded, editorChoiceLoaded])
 
 
-  const onPressArticle = (nid: string, isAlbum: boolean = false) => {
+  const onPressArticle = (nid: string, isAlbum = false) => {
     const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
     nid && navigation.navigate(screenName, { nid: nid })
   }

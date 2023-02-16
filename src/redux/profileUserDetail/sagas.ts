@@ -12,7 +12,7 @@ import {
   sendUserDataFailed, sendUserDataSuccess,
   updateUserImageSuccess, updateUserImageFailed
 } from './action';
-import { FETCH_PROFILE_USER_DETAILS, SEND_USER_DETAILS, UPDATE_PROFILE_USER_IMAGE,EMPTY_USER_PROFILE_DATA } from './actionTypes';
+import { FETCH_PROFILE_USER_DETAILS, SEND_USER_DETAILS, UPDATE_PROFILE_USER_IMAGE, } from './actionTypes';
 import { fetchUserProfileApi, sendUserProfileApi, updateProfileUserImage  } from 'src/services/profileUserService'
 import { Alert } from 'react-native';
 

@@ -1,6 +1,5 @@
 import React, {FunctionComponent} from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
-import {Image} from 'src/components/atoms';
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';

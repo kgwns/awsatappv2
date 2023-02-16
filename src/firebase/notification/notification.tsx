@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import messaging, {FirebaseMessagingTypes} from '@react-native-firebase/messaging';
-import '@react-native-firebase/messaging';
 import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {useNotificationSaveToken} from 'src/hooks';
@@ -137,11 +136,9 @@ export const GetFCMToken = () => {
       console.log('onNotificationOpenedApp***',remoteMessage)
     });
 
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
+    return messaging().onMessage(async remoteMessage => {
       onDisplayNotification(remoteMessage);
     });
-
-    return unsubscribe;
   }, []);
 
   useEffect(() => {

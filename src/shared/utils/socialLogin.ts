@@ -1,5 +1,3 @@
-import {Alert} from 'react-native'
-
 export default abstract class SocialLogin {
 
     private _callBack: Function;

@@ -14,7 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 
-export interface videoProps {
+export interface VideoProps {
     storyImage: string,
     storyTitle: string,
     toWatch: string,
@@ -105,7 +105,7 @@ export const VideoContent = ({
 export default VideoContent;
 
 const customStyle = (theme: CustomThemeType) => {
-    const videoContentStyle = StyleSheet.create({
+    return StyleSheet.create({
         container: {
             height: 'auto',
             backgroundColor: theme.secondaryWhite,
@@ -162,5 +162,4 @@ const customStyle = (theme: CustomThemeType) => {
             color: theme.footerTextColor
         },
     })
-    return videoContentStyle
 }

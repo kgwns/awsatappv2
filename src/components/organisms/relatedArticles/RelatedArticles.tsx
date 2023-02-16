@@ -3,7 +3,7 @@ import React from 'react';
 import { normalize, screenWidth } from 'src/shared/utils'
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { ArticleItem } from 'src/components/molecules'
-import { articleProps } from '..';
+import { ArticleProps } from '..';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { HeaderElementProps, LabelTypeProp, WidgetHeader } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -18,7 +18,7 @@ const RelatedArticles = () => {
   const RELATED_ARTICLE_LEFT_TITLE = TranslateConstants({ key: TranslateKey.RELATED_ARTICLE_LEFT_TITLE });
   const RELATED_ARTICLE_FLAG = TranslateConstants({ key: TranslateKey.RELATED_ARTICLE_FLAG });
 
-  const sampleRelatedArticle: articleProps = {
+  const sampleRelatedArticle: ArticleProps = {
     image: 'https://picsum.photos/200/300',
     title: RELATED_ARTICLE_TITLE,
     footerInfo: {
@@ -46,8 +46,8 @@ const RelatedArticles = () => {
     labelType: LabelTypeProp.h2,
     color: Styles.color.greenishBlue
   }
-  const data: articleProps[] = Array(5).fill(sampleRelatedArticle)
-  const renderItem = (item: articleProps, index: number) => {
+  const data: ArticleProps[] = Array(5).fill(sampleRelatedArticle)
+  const renderItem = (item: ArticleProps, index: number) => {
     return <ArticleItem {...item} showDivider={false} index={index}
       articleItemStyle={style.itemStyle}
       imageStyle={style.itemImage}
