@@ -109,7 +109,6 @@ export const GetFCMToken = () => {
         break;
     }
   }
-  
   useEffect(() => {
     messaging().setBackgroundMessageHandler(async remoteMessage => {
       onOpenNotification(remoteMessage);
@@ -120,8 +119,8 @@ export const GetFCMToken = () => {
     messaging()
       //When Application open from quit state
       .getInitialNotification()
-      .then(remoteMessage => {
-        onOpenNotification(remoteMessage!);
+      .then( async remoteMessage => {
+        onOpenNotification(remoteMessage);
       });
 
     notifee.onForegroundEvent(async ({ type, detail }) => {
@@ -147,7 +146,7 @@ export const GetFCMToken = () => {
     }
     messaging().onMessage(response => {
       PushNotificationIOS.requestPermissions().then(
-        () => showNotification(response.notification!),
+        () => showNotification(response.notification),
       );
     });
     PushNotificationIOS.addEventListener('register', token => {

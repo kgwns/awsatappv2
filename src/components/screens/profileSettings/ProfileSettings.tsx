@@ -257,8 +257,9 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
         </>
     )
 
-  const email = isObjectNonEmpty(userProfileData) && isObjectNonEmpty(userProfileData.user) && isNotEmpty(userProfileData.user?.email) ? userProfileData.user?.email : ''
-  const usernameStyle = isNotEmpty(email) && email!.length > 24 && {width: '100%'}  
+  const _email = isObjectNonEmpty(userProfileData) && isObjectNonEmpty(userProfileData.user) && isNotEmpty(userProfileData.user?.email) ? userProfileData.user?.email : ''
+  const email = _email !== undefined ? _email : '';
+  const usernameStyle = isNotEmpty(email) && email.length > 24 && {width: '100%'}  
   const welcomeView = () => (
       <View style={style.title}>
           <Label

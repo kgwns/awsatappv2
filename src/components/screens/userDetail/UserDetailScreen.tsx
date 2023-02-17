@@ -160,19 +160,19 @@ export const UserDetailScreen: FunctionComponent = () => {
     {
       setOccupation(
         userProfileData.user?.occupation
-          ? (userProfileData.user?.occupation as string)
+          ? ((userProfileData.user?.occupation).toString())
           : occupation,
       );
     }
     {
       userProfileData.user?.display_name && userProfileData.user?.display_name !== ' ' ?  setName(userProfileData.user?.display_name as string) : userProfileData.user?.name &&
         userProfileData.user?.name !== ' ' &&
-        setName(userProfileData.user?.name as string);
+        setName((userProfileData.user?.name).toString());
     }
     {
       userProfileData.user?.image &&
         setUserProfileImage(
-          getProfileImageUrl(userProfileData.user?.image as string),
+          getProfileImageUrl((userProfileData.user?.image).toString()),
         );
     }
     if (userProfileData.user?.birthday) {
@@ -186,7 +186,7 @@ export const UserDetailScreen: FunctionComponent = () => {
     {
       userProfileData.user?.display_name && userProfileData.user?.display_name !== ' ' ?  setUserName(userProfileData.user?.display_name as string) : userProfileData.user?.name &&
         userProfileData.user?.name !== ' ' &&
-        setUserName(userProfileData.user?.name as string);
+        setUserName((userProfileData.user?.name).toString());
     }
     if(userProfileData.user?.image == null){
       userProfileData.user?.profile_url &&
