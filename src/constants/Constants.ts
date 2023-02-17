@@ -876,7 +876,7 @@ const storeInfo = [
             error: '',
             isLoading: false
         },
-        opinionsReducer: {
+        opinions: {
             opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
             error: '',
             isLoading: false,
@@ -922,7 +922,7 @@ const storeInfo = [
             error: '',
             isLoading: false
         },
-        newsViewReducer: {
+        newsView: {
             heroListData: {
                 rows: [],
                 pager: { current_page: 0, items_per_page: '' }

@@ -28,7 +28,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { TopHeadLineNews } from 'src/components/molecules';
 import { VideoItemType } from 'src/redux/videoList/types';
-import AuthorSlider from 'src/components/organisms/AuthorsSlider';
+import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { Label } from 'src/components/atoms';
 import { getPodcastUrl, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';

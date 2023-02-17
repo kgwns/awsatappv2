@@ -47,7 +47,7 @@ export const GetFCMToken = () => {
     messaging()
       .getToken()
       .then(x => {
-        var requestObject: SaveTokenBodyType = {
+        const requestObject: SaveTokenBodyType = {
           fcm_token: x,
           platform: deviceOS,
           device_name: deviceName,
