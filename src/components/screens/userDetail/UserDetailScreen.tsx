@@ -209,7 +209,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       setDisableName(false)
     }
     if (isNotEmpty(occupation)) {
-      setDisableOccupation(!(userProfileData.user?.occupation === occupation))
+      setDisableOccupation((userProfileData.user?.occupation !== occupation))
     } else {
       setDisableOccupation(false)
     }
@@ -911,4 +911,5 @@ const createStyles = (theme: CustomThemeType) =>
     screenBackgroundColor: {
       backgroundColor: theme.profileBackground
     }
-  });
+  }
+  );

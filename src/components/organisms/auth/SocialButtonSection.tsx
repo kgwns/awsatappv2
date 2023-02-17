@@ -66,7 +66,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     createUserRequest(payload);
   }
 
-  const onResult = (userInfo:any,success:boolean, provider:string, message?:String)=>{
+  const onResult = (userInfo:any,success:boolean, provider:string, message?:string)=>{
     if(success){
       onSuccessSocialLogin(userInfo,provider)
     }else{
@@ -134,7 +134,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       fullName,
     } = response;
     const payload: RegisterBodyType = {
-      email: email ,
+      email,
       provider_id: user,
       provider: 'apple',
       device_name: deviceName,

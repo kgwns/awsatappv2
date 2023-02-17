@@ -11,6 +11,7 @@ export const fetchLoginApi = async (body: FetchLoginPayloadType) => {
     );
     return response;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };
@@ -22,6 +23,7 @@ export const fetchLogoutApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };

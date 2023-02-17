@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Alert,
   Keyboard,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {isIOS, normalize, recordLogEvent} from 'src/shared/utils';

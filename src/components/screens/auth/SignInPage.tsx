@@ -294,8 +294,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
     recordLogEvent('Login');
 
     const payload: FetchLoginPayloadType = {
-      email: email,
-      password: password,
+      email,
+      password,
       device_name: deviceName,
     };
 
@@ -351,7 +351,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
               setChangeText={setEmail}
               setChangePassword={setPassword}
               navigateToSection={navigateToSection}
-              goToPasswordScreen={() => forgotPassworRequest({email: email})}
+              goToPasswordScreen={() => forgotPassworRequest({email})}
               onPressSignup={onPressSignIn}
               socialButtonBoldStyle={true}
               isSignInScreen={true}
