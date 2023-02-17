@@ -99,7 +99,7 @@ const OpinionWritersArticlesSection = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionWritersArticlesSectionStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
       paddingTop: normalize(15),
@@ -123,7 +123,6 @@ const customStyle = (theme: CustomThemeType) => {
       margin: normalize(28)
     }
   });
-  return OpinionWritersArticlesSectionStyle;
 };
 
 export default OpinionWritersArticlesSection;

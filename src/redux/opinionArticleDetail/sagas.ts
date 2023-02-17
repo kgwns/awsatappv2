@@ -17,7 +17,7 @@ import {
   requestOpinionArticleDetailSuccess,
 } from './action';
 import {requestOpinionArticleDetailAPI,fetchRelatedOpinionAPI} from 'src/services/opinionArticleDetailService';
-import { EMPTY_OPINION_ARTICLE_DETAIL, EMPTY_RELATED_OPINION_DATA, REQUEST_NARRATED_OPINION_ARTICLE, REQUEST_OPINION_ARTICLE_DETAIL,REQUEST_RELATED_OPINION } from './actionTypes';
+import { REQUEST_NARRATED_OPINION_ARTICLE, REQUEST_OPINION_ARTICLE_DETAIL,REQUEST_RELATED_OPINION } from './actionTypes';
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
 
 export function* fetchOpinionArticleDetail(

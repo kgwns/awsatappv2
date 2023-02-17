@@ -351,7 +351,7 @@ const CustomDrawerContent = () => {
 
     return (
       <View>
-        {buttonListItem({ isChild: true, item: item, index: index, icon, isSubChild: false, parentIndex })}
+        {buttonListItem({ isChild: true, item, index, icon, isSubChild: false, parentIndex })}
         {isNonEmptyArray(item.child) && item.showDropDown && <View>
           {item.child.map((subChildItem: any, subChildIndex: number) => {
             return buttonListItem({ isChild: false, item: subChildItem, index: subChildIndex, icon: null, isSubChild: true, parentIndex })

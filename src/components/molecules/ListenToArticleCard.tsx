@@ -104,7 +104,7 @@ return (
 };
 export default ListenToArticleCard;
 const customStyle = (theme: CustomThemeType) => {
-  const ListenToArticleCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flexWrap: 'wrap',
       alignSelf: 'flex-start',
@@ -140,5 +140,4 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems:'center',
     },
   });
-  return ListenToArticleCardStyle;
 };

@@ -53,7 +53,7 @@ const AuthorSlider = ({
         data={item}
         keyExtractor={(_, index) => index.toString()}
         showsVerticalScrollIndicator={false}
-        listKey={'AuthorSlider' + index + new Date().getTime().toString()}
+        listKey={`AuthorSlider${index}${new Date().getTime().toString()}`}
         renderItem={({ item, index }) => renderAuthorList(item, index)}
         style={[style.itemListContainer, isTab && index === 2 && { marginLeft: 0 }]}
         ItemSeparatorComponent={() => <Divider style={style.divider} />}
@@ -193,7 +193,7 @@ const AuthorSlider = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const AuthorSliderStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.secondaryWhite,
       alignContent: 'center',
@@ -247,6 +247,5 @@ const customStyle = (theme: CustomThemeType) => {
       flexDirection: 'row'
     }
   });
-  return AuthorSliderStyle;
 };
 export default AuthorSlider;

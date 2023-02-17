@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef, useMemo} from 'react';
-import { StyleSheet, View, FlatList, BackHandler, Animated } from 'react-native';
+import { StyleSheet, View, FlatList, Animated } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
@@ -20,7 +20,6 @@ import { TrackingEventType } from 'src/services/eventTrackService'
 import { ArticleFontSize } from 'src/redux/appCommon/types';
 import { Edge } from 'react-native-safe-area-context';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
-import { BackIcon } from 'src/components/atoms';
 import { Styles } from 'src/shared/styles';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
@@ -249,10 +248,10 @@ export const OpinionArticleDetail = ({
     setShowPopUp(false)
   }
 
-  const onPressRelatedOpinion = (nid: string) => {
-    if (nid && nid!==currentNId) {
+  const onPressRelatedOpinion = (nidProps: string) => {
+    if (nidProps && nidProps!==currentNId) {
       emptyRelatedOpinionData()
-      navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
+      navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nidProps, isRelatedArticle: true })
     }
   }
 
@@ -353,7 +352,7 @@ export const OpinionArticleDetail = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionArticleDetailStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       marginBottom: normalize(80),
@@ -379,5 +378,4 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
     }
   });
-  return OpinionArticleDetailStyle;
 };

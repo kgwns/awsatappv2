@@ -10,6 +10,7 @@ export const getJournalistArticleService = async (body: GetJournalistInfoPayload
         );
         return response;
     } catch (error) {
+        console.log('journalistService - getJournalistArticleService - error', error)
         throw error;
     }
 };

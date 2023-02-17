@@ -10,6 +10,7 @@ export const fetchWriterDetailInfo = async (payload: WritersDetailBodyGet) => {
         );
         return response;
     } catch (error) {
+        console.log('writerDetailService - fetchWriterDetailInfo - error', error)
         throw error;
     }
 };

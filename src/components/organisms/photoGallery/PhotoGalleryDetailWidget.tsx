@@ -111,7 +111,7 @@ export const PhotoGalleryDetailWidget = ({
   };
 
   const labelStyle ={ 
-    fontSize: fontSize,
+    fontSize,
     lineHeight: 1.8 * fontSize
   }
 

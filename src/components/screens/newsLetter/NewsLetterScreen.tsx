@@ -113,8 +113,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
         }
       }
       return false
-    }
-    else {
+    } else {
       return false
     }
   }

@@ -5,7 +5,6 @@ import {ImagesName} from 'src/shared/styles';
 import {normalize} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';
 
@@ -47,7 +46,7 @@ const KeepNotifiedCard = ({
   );
 };
 const customStyle = (theme: CustomThemeType) => {
-  const KeepNotifiedCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       flexDirection: 'row-reverse',
@@ -67,7 +66,6 @@ const customStyle = (theme: CustomThemeType) => {
       width: normalize(46),
     },
   });
-  return KeepNotifiedCardStyle;
 };
 
 export default KeepNotifiedCard;

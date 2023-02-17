@@ -22,7 +22,7 @@ export const PDFArchiveIOS = () => {
   const [layoutSelectedType, setLayoutSelectedType] = useState(ArchiveLayoutType.grid)
 
   const onClickOpenPDF = (selectedPDF: any) => {
-    navigation.navigate(ScreensConstants.PDF_EDITOR_VIEW, { selectedPDF: selectedPDF })
+    navigation.navigate(ScreensConstants.PDF_EDITOR_VIEW, { selectedPDF })
   }
 
   const headerTitle = TranslateConstants({ key: TranslateKey.DRAWER_PDF_ARCHIVE })

@@ -117,8 +117,7 @@ export const SectionsScreen = () => {
         }
         return data
       }, [])
-    }
-    else {
+    } else {
       filterMenuData = menuData.filter((item: TopMenuItemType) => isStringIncludes(item.parentId, parentId))
     }
 

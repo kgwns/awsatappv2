@@ -4,7 +4,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty, isIOS} from 'src/shared/utils';
-import {ImagesName, Styles} from 'src/shared/styles';
+import {ImagesName} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
@@ -86,7 +86,7 @@ const OpinionWritersCardView = ({
 
   const getNarratedOpinion = async() => {
       try {
-        const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
+        const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID})
         if(isObjectNonEmpty(opinionData)){
           setMediaData(opinionData);
           const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
@@ -232,7 +232,7 @@ const onPressPlay = () => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionWritersCardViewStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       width: '100%',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
@@ -306,7 +306,6 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.dividerColor
     }
   });
-  return OpinionWritersCardViewStyle;
 };
 
 export default OpinionWritersCardView;

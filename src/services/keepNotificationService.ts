@@ -10,6 +10,7 @@ export const sendSelectedNotificationService = async (body: SendSelectedNotifica
     );
     return response;
   } catch (error) {
+    console.log('keepNotificationService - sendSelectedNotificationService - error', error)
     throw error;
   }
 };
@@ -21,6 +22,7 @@ export const getSelectedNotificationService = async () => {
     );
     return response;
   } catch (error) {
+    console.log('keepNotificationService - getSelectedNotificationService - error', error)
     throw error;
   }
 };
@@ -32,6 +34,7 @@ export const getListOfNotificationService = async () => {
     );
     return response;
   } catch (error) {
+    console.log('keepNotificationService - getListOfNotificationService - error', error)
     throw error;
   }
 };

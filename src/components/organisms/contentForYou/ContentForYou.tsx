@@ -90,8 +90,7 @@ export const ContentForYou = () => {
                 } else {
                     checkDataLoaded()
                 }               
-            }
-            else{
+            } else{
                 checkDataLoaded()
             }
         }
@@ -283,7 +282,7 @@ export const ContentForYou = () => {
         const opinionBody : FavouriteOpinionsBodyGet = {
             page: pageCount,
             items_per_page: isTab ? 4 : 3,
-            authorsList: authorsList
+            authorsList
         }
         fetchFavouriteOpinionsRequest(opinionBody)
     }
@@ -292,7 +291,7 @@ export const ContentForYou = () => {
         const opinionBody : FavouriteArticlesBodyGet = {
             page: pageCount,
             items_per_page: 10,
-            topicsList: topicsList
+            topicsList
         }
         fetchFavouriteArticlesRequest(opinionBody)
     }
@@ -313,7 +312,7 @@ export const ContentForYou = () => {
     }
 
     const onPressArticle = (nid: string) => {
-        nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+        nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid })
     }
 
     const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
@@ -338,7 +337,7 @@ export const ContentForYou = () => {
             {/* <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} /> */}
             {isNonEmptyArray(item.opinionsData.data) && <AuthorWidget
                 widgetHeader={FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS}
-                listKey={flatListUniqueKey.CONTENT_FOR_YOU + 'authorWidget' + index}
+                listKey={`${flatListUniqueKey.CONTENT_FOR_YOU}authorWidget${index}`}
                 data={item.opinionsData.data}
                 containerStyle={[styles.itemContainer, !isNonEmptyArray(selectedTopics) && {paddingVertical: 0}]}
                 widgetHeaderContainerStyle={styles.authorWidgetContainer}
@@ -361,7 +360,7 @@ export const ContentForYou = () => {
                 <FavoriteVideo data={videoArchiveData} />
             </View> */}
             {isNonEmptyArray(item.articleSectionData.data) && <ArticleSection
-                listKey={flatListUniqueKey.CONTENT_FOR_YOU+'articleSection'+index}
+                listKey={`${flatListUniqueKey.CONTENT_FOR_YOU}articleSection${index}`}
                 data={item.articleSectionData.data}
                 isFromFavorites={true}
                 onUpdateBookmark={updateBookmarkInfo}
@@ -369,7 +368,7 @@ export const ContentForYou = () => {
                 addStyle={styles.articleContainer}
             />}
             {isNonEmptyArray(item.shortArticleData.data)&& <ShortArticle
-                listKey={flatListUniqueKey.CONTENT_FOR_YOU+'shortArticle'+index}
+                listKey={`${flatListUniqueKey.CONTENT_FOR_YOU}shortArticle${index}`}
                 data={item.shortArticleData.data}
                 onPress={onPressArticle}
                 onUpdateBookmark={updateBookmarkInfo}
