@@ -5,7 +5,7 @@ import { ArchiveImage} from 'src/components/atoms/archiveImage/ArchiveImage'
 import { Divider } from 'src/components/atoms/divider/Divider'
 import { BannerImageWithOverlayProps } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
-import ArticleFooter, { articleFooterProps, BookMarkColorType } from 'src/components/molecules/articleFooter/ArticleFooter'
+import ArticleFooter, { ArticleFooterProps, BookMarkColorType } from 'src/components/molecules/articleFooter/ArticleFooter'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -17,7 +17,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { DARK_THEME_ID } from '../../shared/styles/colors'
 
-const archiveFooterSample: articleFooterProps = {
+const archiveFooterSample: ArticleFooterProps = {
   leftTitleColor: Styles.color.white,
   rightIcon: () => {
     return getSvgImages({

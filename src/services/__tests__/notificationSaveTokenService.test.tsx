@@ -1,9 +1,9 @@
 import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { notificationSaveTokenAfterRegistraionReuqest, notificationSaveTokenReuqest } from 'src/services/notificationSaveTokenService';
+import { notificationSaveTokenAfterRegistrationRequest, notificationSaveTokenRequest } from 'src/services/notificationSaveTokenService';
 import { SaveTokenAfterRegistraionBodyType, SaveTokenBodyType } from 'src/redux/notificationSaveToken/types';
 
-describe('Test notificationSaveTokenReuqest Services', () => {
+describe('Test notificationSaveTokenRequest Services', () => {
 
     const mock = new MockAdapter(axios);
 
@@ -31,7 +31,7 @@ describe('Test notificationSaveTokenReuqest Services', () => {
             result: true,
         });
 
-        return notificationSaveTokenReuqest(bodyPayload1).then(response => {
+        return notificationSaveTokenRequest(bodyPayload1).then(response => {
             expect(response).toBeInstanceOf(Object);
         });
     });
@@ -41,7 +41,7 @@ describe('Test notificationSaveTokenReuqest Services', () => {
             error: 'Something Went Wrong',
         });
 
-        return notificationSaveTokenReuqest(bodyPayload1).catch((error: unknown) => {
+        return notificationSaveTokenRequest(bodyPayload1).catch((error: unknown) => {
             const errorResponse = error as AxiosError;
             expect(errorResponse.response?.status).toEqual(404);
         });
@@ -52,7 +52,7 @@ describe('Test notificationSaveTokenReuqest Services', () => {
             result: true,
         });
 
-        return notificationSaveTokenAfterRegistraionReuqest(bodyPayload2).then(response => {
+        return notificationSaveTokenAfterRegistrationRequest(bodyPayload2).then(response => {
             expect(response).toBeInstanceOf(Object);
         });
     });
@@ -62,7 +62,7 @@ describe('Test notificationSaveTokenReuqest Services', () => {
             error: 'Something Went Wrong',
         });
 
-        return notificationSaveTokenAfterRegistraionReuqest(bodyPayload2).catch((error: unknown) => {
+        return notificationSaveTokenAfterRegistrationRequest(bodyPayload2).catch((error: unknown) => {
             const errorResponse = error as AxiosError;
             expect(errorResponse.response?.status).toEqual(404);
         });

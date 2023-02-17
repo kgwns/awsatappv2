@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { ArchiveArticle, articleFooterProps } from 'src/components/molecules'
+import { ArchiveArticle, ArticleFooterProps } from 'src/components/molecules'
 import { ArchivedArticleDataType } from 'src/redux/latestNews/types'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { Label, Image } from '../atoms';
@@ -11,7 +11,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import { dateTimeAgo, isDarkTheme, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities'
 import { useAppCommon } from 'src/hooks'
 
-export const archiveArticleFooter: articleFooterProps = {
+export const archiveArticleFooter: ArticleFooterProps = {
     leftTitleColor: Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
     leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }

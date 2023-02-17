@@ -221,7 +221,7 @@ export const PhotoGalleryDetailScreen = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const styles = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       marginBottom: normalize(80),
@@ -260,5 +260,4 @@ const customStyle = (theme: CustomThemeType) => {
       paddingBottom: normalize(80)
     }
   });
-  return styles;
 };

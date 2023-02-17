@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label, RenderPhotoIcon } from '../atoms'
-import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
+import { ArticleFooter, ArticleFooterProps } from 'src/components/molecules'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants/Constants';
 import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities';
@@ -51,7 +51,7 @@ export interface ArticleSectionProps {
   containerStyle?: StyleProp<ViewStyle>
 }
 
-export const shortArticleFooter: articleFooterProps = {
+export const shortArticleFooter: ArticleFooterProps = {
   leftTitleColor: Styles.color.silverChalice,
   rightTitleColor: Styles.color.silverChalice,
   leftTitleStyle: { fontSize: 13, lineHeight: 18, fontFamily: fonts.IBMPlexSansArabic_Regular },

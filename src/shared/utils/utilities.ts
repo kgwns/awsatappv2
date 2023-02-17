@@ -48,8 +48,8 @@ export const isDarkTheme = (colorScheme: ColorSchemeName) => {
   return colorScheme === Theme.DARK;
 };
 
-export const testProps = (testID: string | undefined) => {
-  return { testID: testID, accessibilityLabel: testID };
+export const testProps = (testId: string | undefined) => {
+  return { testID: testId, accessibilityLabel: testId };
 };
 
 export const horizontalEdge: Edge[] = ['left', 'right'];
@@ -97,7 +97,7 @@ export const isNotEmpty = (value: string | null | undefined): boolean => {
   return typeof value === 'string' && value.trim().length > 0;
 };
 
-export const joinArray = (data: any, joinKey: string = ','): string => {
+export const joinArray = (data: any, joinKey = ','): string => {
   return isNonEmptyArray(data) ? data.join(joinKey) : ''
 }
 
@@ -126,7 +126,7 @@ export const timeAgo = (time: any) => {
   const threeHoursBefore = new Date(today.valueOf() - 1000 * 60 * 60 * 3);
   const isToday =   date.getDate() === today.getDate() &&  date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
   const isThreeHoursAgo = date.getHours() - threeHoursBefore.getHours() >= 3;
-  const fullDateFormat =  arabic.months[moment(time).get('month')] + ' ' + calculateDate(time) + ', ' + calculateYear(time);
+  const fullDateFormat =  `${arabic.months[moment(time).get('month')]} ${calculateDate(time)}, ${calculateYear(time)}`;
   const recentHoursFormat = arabic.timeSince.since + moment().fromNow(true);
   if (isToday && isThreeHoursAgo) {
     return recentHoursFormat;
@@ -229,7 +229,7 @@ export const calculateNonUtcDate = (time: any) => {
 };
 
 export const calculateNonUtcMonth = (time: any) => {
-  return arabic.months[moment(time).get('month')];;
+  return arabic.months[moment(time).get('month')];
 };
 
 export const calculateNonUtcYear = (time: any) => {
@@ -249,12 +249,12 @@ export const getProfileImageUrl = (imageURL: string) => {
   return isValidHttpUrl(imageURL) ? imageURL : PROFILE_IMAGE_URL + imageURL;
 };
 
-export const getPodcastUrl = (episode_id: string) => {
-  return PODCAST_SPREAKER_URL + episode_id +PODCAST_URL_SUFFIX
+export const getPodcastUrl = (episodeId: string) => {
+  return PODCAST_SPREAKER_URL + episodeId +PODCAST_URL_SUFFIX
 }
 
 export const getPodcastDate = (time:any) => {
-  return isNotEmpty(time) ? calculateMonth(time) + ', ' + calculateDate(time) + ' ' + calculateMonth(time) : " "
+  return isNotEmpty(time) ? `${calculateMonth(time)}, ${calculateDate(time)} ${calculateMonth(time)}` : " "
 }
 
 export const getDay = (time:any) => {
@@ -321,8 +321,7 @@ export const removeWhiteSpace = ( value: string) : string | any => {
 
 
 export const getDeviceName = async () => {
-  const deviceName = await DeviceInfo.getDeviceName();
-  return deviceName
+  return await DeviceInfo.getDeviceName();
 };
 
 export const getConvertedTime = (time?: number, timezone?: number) => {

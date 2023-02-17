@@ -92,7 +92,7 @@ export const NewsWithImageItem = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const NewsWithImageItemStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       width: ((isTab ? 0.5  : 0.92) * screenWidth - 15),
       alignItems: 'flex-start',
@@ -146,7 +146,6 @@ const customStyle = (theme: CustomThemeType) => {
        height: '100%' 
     }
   });
-  return NewsWithImageItemStyle;
 };
 
 export default NewsWithImageItem;

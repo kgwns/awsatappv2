@@ -4,8 +4,7 @@ import { PERMISSION_REQUEST_CAMERA_ACCESS_MESSAGE, PERMISSION_REQUIRE_ACCESS } f
 
 export const SystemPermissions = {
     hasCameraPermission: async () => {
-        const hasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA)
-        return hasPermission
+        return await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA)
     },
     requestCameraPermission: async () => {
         try {

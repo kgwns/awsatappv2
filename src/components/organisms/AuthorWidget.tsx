@@ -116,7 +116,7 @@ const AuthorWidget = ({
 export default AuthorWidget
 
 const customStyle = (theme: CustomThemeType) => {
-    const authorWidgetStyle = StyleSheet.create({
+    return StyleSheet.create({
         container: {
             paddingVertical: normalize(20),
             backgroundColor: isTab ?  theme.backgroundColor : theme.secondaryWhite
@@ -146,5 +146,4 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: theme.dividerColor
         }
     })
-    return authorWidgetStyle
 }

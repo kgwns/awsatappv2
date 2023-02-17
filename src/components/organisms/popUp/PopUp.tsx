@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { BottomSheetView } from 'src/components/molecules';
 import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
-import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { AlertModal } from '../AlertModal/AlertModal';
 import { TranslateConstants,TranslateKey } from 'src/constants/Constants'

@@ -2,7 +2,6 @@ import { View, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import React from 'react';
 import {Image} from '../atoms/image/Image';
 import { isTab, normalize, screenWidth} from '../../shared/utils';
-import { Styles} from '../../shared/styles';
 import { Divider, Label, LabelTypeProp, LiveBlogTag} from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
 import {flatListUniqueKey, ScreensConstants} from '../../constants/Constants';
@@ -18,7 +17,7 @@ import {
 } from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';

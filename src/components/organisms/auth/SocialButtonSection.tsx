@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleProp, ViewStyle, StyleSheet, Alert, Platform } from 'react-native';
+import { View, StyleProp, ViewStyle, StyleSheet, Alert, } from 'react-native';
 import { SocialLoginButton } from '../../atoms/social-login-button/SocialLoginButton';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
@@ -20,7 +20,6 @@ import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constant
 import { appleSignin } from 'src/shared/utils/appleSignin';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
-import { AccessToken } from 'react-native-fbsdk-next';
 
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
@@ -46,20 +45,20 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
 
   const { emptySearchHistory } = useSearch();
 
-  const onSuccessSocialLogin = (userInfo:any,provider='google')=>{
+  const onSuccessSocialLogin = (userInfo:any,loginProvider='google')=>{
     const userDetails = userInfo.user
     const payload: RegisterBodyType = {
       email: userDetails.email,
       device_name:deviceName,
       first_name:userDetails.givenName,
       last_name:userDetails.familyName,
-      provider: provider,
+      provider: loginProvider,
       provider_id:userDetails.id,
     };
-    if(provider === 'facebook' && userDetails.profile_url){
+    if(loginProvider === 'facebook' && userDetails.profile_url){
       payload.profile_url = userDetails.profile_url
     }   
-    if (provider === 'google' && userInfo) {
+    if (loginProvider === 'google' && userInfo) {
       payload.profile_url = userInfo.user.photo
     }
     console.log(payload, userInfo);

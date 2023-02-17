@@ -251,7 +251,7 @@ const getArticleImageAndType = (fieldImage: any, detailPhotoList: any, detailPho
 }
 
 
-export const parseArticleSectionSuccess = (response: any, current_nid: number): ArticleSectionSuccessPayload => {
+export const parseArticleSectionSuccess = (response: any, currentNid: number): ArticleSectionSuccessPayload => {
   const responseData: ArticleSectionSuccessPayload = {
     articleSectionData: [],
     pager: {}
@@ -281,7 +281,7 @@ export const parseArticleSectionSuccess = (response: any, current_nid: number): 
                 displayType: field_display_export,
               })
           );
-       responseData.articleSectionData=responseData.articleSectionData.filter((item)=> parseInt(item.nid) !== current_nid)
+       responseData.articleSectionData=responseData.articleSectionData.filter((item)=> parseInt(item.nid) !== currentNid)
        responseData.articleSectionData = responseData.articleSectionData.splice(0,4)
     }
 

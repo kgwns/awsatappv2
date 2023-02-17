@@ -51,9 +51,8 @@ export enum SocialMediaType {
   linkedIn = 'LinkedIn',
 }
 
-interface CustomDrawerContentProps { }
 const JUSTIFY_CONTENT = 'space-between';
-const CustomDrawerContent = (props: CustomDrawerContentProps) => {
+const CustomDrawerContent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const WEATHER_DETAILS_ENABLE_LOCATION = TranslateConstants({key:TranslateKey.WEATHER_DETAILS_ENABLE_LOCATION})
 

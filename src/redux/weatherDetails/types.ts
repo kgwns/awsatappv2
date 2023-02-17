@@ -13,31 +13,31 @@ export interface WeatherDetailBodyType {
 }
 
 export interface WeatherDetailSuccessPayloadType {
-  city: city;
+  city: City;
   cod: string,
   cnt: number,
-  list: list[];
+  list: WeatherDetailList[];
 }
 
 export interface WeatherDetailVisibilitySuccessPayloadType {
   visibility: number,
 }
 
-export interface city {
+export interface City {
   id: number,
   name: string,
   country: string,
   timezone: number,
 }
 
-export interface weather {
+export interface Weather {
   id: number,
   main: string,
   description: string,
   icon: string
 }
 
-export interface list {
+export interface WeatherDetailList {
     dt: number,
     sunrise: number,
     sunset: number,
@@ -57,7 +57,7 @@ export interface list {
     },
     pressure: number,
     humidity: number,
-    weather: weather[],
+    weather: Weather[],
     speed: number,
     deg: number,
     gust: number,

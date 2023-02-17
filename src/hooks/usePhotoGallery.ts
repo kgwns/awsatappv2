@@ -15,7 +15,7 @@ import {
   AlbumListItemType,
 } from 'src/redux/photoGallery/types';
 
-export interface usePhotoGalleryReturn {
+export interface UsePhotoGalleryReturn {
   isLoading: boolean;
   albumListData: AlbumListItemType[];
   albumListDataError: string;
@@ -27,7 +27,7 @@ export interface usePhotoGalleryReturn {
   emptyAllData(): void;
 }
 
-export const usePhotoGallery = (): usePhotoGalleryReturn => {
+export const usePhotoGallery = (): UsePhotoGalleryReturn => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   const albumListData = useSelector(getAlbumListData);

@@ -3,7 +3,7 @@ import { View, StyleSheet, ViewStyle } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from 'src/components/molecules'
 import { Label, LabelTypeProp } from 'src/components/atoms'
-import { articleFooterProps } from 'src/components/molecules/articleFooter/ArticleFooter'
+import { ArticleFooterProps } from 'src/components/molecules/articleFooter/ArticleFooter'
 import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
@@ -13,7 +13,7 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilities'
 import { decode } from 'html-entities'
 
-const articleDetailFooterData: articleFooterProps = {
+const articleDetailFooterData: ArticleFooterProps = {
     leftTitleColor: Styles.color.white,
     leftIcon: () => {
         return getSvgImages({

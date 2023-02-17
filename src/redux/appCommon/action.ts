@@ -5,10 +5,10 @@ import { ServerEnvironment, StoreAppFirstSessionType,
 import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE, RESET_ARTICLE_FONT_SIZE } from "./actionType"
 import { StoreAppThemeType } from "./types"
 
-export const storeAppTheme = (theme: Theme): StoreAppThemeType => {
+export const storeAppTheme = (appTheme: Theme): StoreAppThemeType => {
     return {
         type: STORE_APP_THEME,
-        payload: { theme: theme }
+        payload: { theme: appTheme }
     }
 }
 

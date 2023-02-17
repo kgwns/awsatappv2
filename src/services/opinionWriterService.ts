@@ -14,6 +14,7 @@ export const fetchOpinionWriterApi = async (body: WritersBodyGet) => {
       );
     return response;
   } catch (error) {
+    console.log('opinionWriterService - fetchOpinionWriterApi - error', error)
     throw error;
   }
 };

@@ -12,7 +12,7 @@ import {ScreenContainer} from '..';
 import {useAllWriters, useAppCommon, useAppPlayer, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
-import { useFocusEffect, useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants/Constants';
 import { sendUserEventTracking } from 'src/services'

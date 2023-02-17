@@ -2,7 +2,7 @@ import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
 import {useDispatch} from 'react-redux';
 import {
   useNotificationSaveToken,
-  useSaveTokenReturn,
+  UseSaveTokenReturn,
 } from '../useNotificationSaveToken';
 
 jest.mock('react-redux', () => ({
@@ -11,14 +11,14 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('#useNotificationSaveToken', () => {
-  let result: RenderHookResult<undefined, useSaveTokenReturn>;
+  let result: RenderHookResult<undefined, UseSaveTokenReturn>;
 
   const dispatchMock = jest.fn();
 
   beforeAll(() => {
     (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
 
-    result = renderHook<undefined, useSaveTokenReturn>(() =>
+    result = renderHook<undefined, UseSaveTokenReturn>(() =>
       useNotificationSaveToken(),
     );
   });

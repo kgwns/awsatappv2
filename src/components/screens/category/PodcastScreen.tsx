@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {
   EditorsPickSection,
   LatestNewsSummarySection,
-  podcastCardProps,
+  PodcastCardProps,
   PodcastCardSection,
 } from 'src/components/organisms';
 import {
@@ -24,12 +24,12 @@ import {useNavigation} from '@react-navigation/native';
 export const PodcastScreen = () => {
   const style = useThemeAwareObject(customStyle);
   const navigation = useNavigation();
-  const onPressItem = (item:podcastCardProps)=>{
+  const onPressItem = (item:PodcastCardProps)=>{
     navigation.navigate(ScreensConstants.PodcastProgram)
   }
   const renderItem = () => (
     <View>
-      <PodcastCardSection onPress={(item:podcastCardProps)=>onPressItem(item)} data={podcastCardSectionData} />
+      <PodcastCardSection onPress={(item:PodcastCardProps)=>onPressItem(item)} data={podcastCardSectionData} />
       <MostPlayedSection data={mostPlayedSectionData} />
       <LatestNewsSummarySection data={LatestNewsSummarySectionData} />
       <EditorsPickSection data={EditorsPickSectionData} />
@@ -49,10 +49,9 @@ export const PodcastScreen = () => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionScreenStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
     },
   });
-  return OpinionScreenStyle;
 };

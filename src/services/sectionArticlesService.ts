@@ -11,6 +11,7 @@ export const fetchSectionArticlesApi = async (body:SectionArticlesBodyGet) => {
     console.log( `SectionArticlesApi url: ${BASE_URL}${SECTION_ARTICLES}/${body.sectionId}?page=${body.page} response: ${JSON.stringify(response)}`, );
     return response;
   } catch (error) {
+    console.log('sectionArticleService - fetchSectionArticlesApi - error', error)
     throw error;
   }
 }

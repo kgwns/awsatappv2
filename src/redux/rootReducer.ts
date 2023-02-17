@@ -5,10 +5,10 @@ import mostReadReducer from 'src/redux/mostRead/reducer';
 import searchReducer from 'src/redux/search/reducer';
 import articleDetail from 'src/redux/articleDetail/reducer';
 import latestNewsTab from 'src/redux/latestNews/reducer';
-import opinionWriter from 'src/redux/writers/reducer';
+import opinionWriterReducer from 'src/redux/writers/reducer';
 import opinionsReducer from 'src/redux/opinions/reducer';
-import sideMenu from './sideMenu/reducer';
-import sectionArticles from './sectionArticles/reducer';
+import sideMenuReducer from './sideMenu/reducer';
+import sectionArticlesReducer from './sectionArticles/reducer';
 import newsViewReducer from 'src/redux/newsView/reducer';
 import allWritersReducer from 'src/redux/allWriters/reducer';
 import allSiteCategoriesReducer from 'src/redux/allSiteCategories/reducer';
@@ -19,20 +19,20 @@ import emailCheckReducer from './auth/reducer';
 import videoList from 'src/redux/videoList/reducer';
 import topMenu from 'src/redux/topMenu/reducer';
 import opinionArticleDetail from 'src/redux/opinionArticleDetail/reducer';
-import bookmark from 'src/redux/bookmark/reducer';
-import userDetails from 'src/redux/profileUserDetail/reducer';
+import bookmarkReducer from 'src/redux/bookmark/reducer';
+import userDetailsReducer from 'src/redux/profileUserDetail/reducer';
 import changePasswordReducer from 'src/redux/changePassword/reducer';
 import newsLetters from 'src/redux/newsLetter/reducer';
-import keepNotified from 'src/redux/keepNotified/reducer';
+import keepNotifiedReducer from 'src/redux/keepNotified/reducer';
 import podcastReducer from 'src/redux/podcast/reducer';
 import contentForYouReducer from 'src/redux/contentForYou/reducer';
 import writerDetailReducer from 'src/redux/writersDetail/reducer';
 import documentaryVideoReducer from 'src/redux/documentaryVideo/reducer';
 import appPlayerReducer from 'src/redux/appPlayer/reducer';
 import notificationSaveTokenReducer from 'src/redux/notificationSaveToken/reducer';
-import weatherDetails from 'src/redux/weatherDetails/reducer';
+import weatherDetailsReducer from 'src/redux/weatherDetails/reducer';
 import contactUsInfo from 'src/redux/contactUs/reducer';
-import albumList from 'src/redux/photoGallery/reducer';
+import albumListReducer from 'src/redux/photoGallery/reducer';
 import journalist from 'src/redux/journalist/reducer';
 import arabicWordsReducer from 'src/redux/arabicWords/reducer';
 
@@ -45,10 +45,10 @@ const rootReducer = combineReducers({
   search: searchReducer,
   articleDetail: articleDetail,
   latestNewsTab,
-  opinionWriter: opinionWriter,
+  opinionWriter: opinionWriterReducer,
   opinionsReducer: opinionsReducer,
-  sideMenu: sideMenu,
-  sectionArticles: sectionArticles,
+  sideMenu: sideMenuReducer,
+  sectionArticles: sectionArticlesReducer,
   newsViewReducer: newsViewReducer,
   allWriters: allWritersReducer,
   allSiteCategories: allSiteCategoriesReducer,
@@ -59,20 +59,20 @@ const rootReducer = combineReducers({
   videoList: videoList,
   topMenu: topMenu,
   opinionArticleDetail: opinionArticleDetail,
-  bookmark: bookmark,
-  userDetails: userDetails,
+  bookmark: bookmarkReducer,
+  userDetails: userDetailsReducer,
   changePassword: changePasswordReducer,
   newsLetters: newsLetters,
-  keepNotified: keepNotified,
+  keepNotified: keepNotifiedReducer,
   podcast: podcastReducer,
   contentForYou: contentForYouReducer,
   writerDetail: writerDetailReducer,
   documentaryVideo: documentaryVideoReducer,
   appPlayer: appPlayerReducer,
   notificationSaveToken: notificationSaveTokenReducer,
-  weatherDetails: weatherDetails,
+  weatherDetails: weatherDetailsReducer,
   contactUsInfo: contactUsInfo,
-  albumList: albumList,
+  albumList: albumListReducer,
   journalist: journalist,
   arabicWords:arabicWordsReducer,
 });

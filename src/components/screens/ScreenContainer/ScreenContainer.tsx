@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   StyleProp,
   ViewStyle,
-  Dimensions,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
 import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
@@ -202,7 +201,7 @@ export const ScreenContainer = ({
 };
 
 const createStyles = (theme: CustomThemeType) => {
-  const styles = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
@@ -258,5 +257,4 @@ const createStyles = (theme: CustomThemeType) => {
       right: 15
     }
   });
-  return styles;
 };

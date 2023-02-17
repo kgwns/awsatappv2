@@ -3,7 +3,7 @@ import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {Image, Label} from 'src/components/atoms';
-import {isIOS, normalize, screenWidth} from 'src/shared/utils';
+import {isIOS, normalize,} from 'src/shared/utils';
 import {ImagesName} from 'src/shared/styles/images';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';

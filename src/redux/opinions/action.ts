@@ -3,7 +3,6 @@ import {
   FetchOpinionsFailedPayloadtype,
   FetchOpinionsSuccessType,
   FetchOpinionsFailedType,
-  OpinionsBodyGet,
   WriterOpinionsBodyGet,
   FetchWriterOpinionsFailedPayloadtype,
   FetchWriterOpinionsFailedType,
