@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity, ScrollView, Keyboard } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Keyboard } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { AlertPayloadType, ScreenContainer } from '../ScreenContainer/ScreenContainer'
 import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, normalize, screenWidth, testProps } from 'src/shared/utils'

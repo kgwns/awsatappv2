@@ -99,7 +99,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const [podcastEpisodeDetailInfo, setPodcastEpisodeDetailInfo] = useState<PodcastListItemType[]>(podcastEpisodeData)
 
     const payload: PodcastEpisodeBodyGet = {
-        nid: nid
+        nid
     }
 
     useEffect(() => {
@@ -193,7 +193,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 id: podcastEpisodeInfo.nid,
                 url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export!),
                 title: podcastEpisodeInfo.title,
-                duration: duration,
+                duration,
                 artist: podcastEpisodeInfo.title,
                 artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
             }

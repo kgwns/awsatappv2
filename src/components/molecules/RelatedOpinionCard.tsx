@@ -56,7 +56,7 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
 
   const getNarratedOpinion = async() => {
       try {
-        const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
+        const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID})
         if(isObjectNonEmpty(opinionData)){
           setMediaData(opinionData);
           const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
@@ -188,7 +188,7 @@ const onPressPlay = () => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const RelatedOpinionCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       flexDirection: 'row',
@@ -242,5 +242,4 @@ const customStyle = (theme: CustomThemeType) => {
       paddingRight: normalize(5),
     }
   });
-  return RelatedOpinionCardStyle;
 };

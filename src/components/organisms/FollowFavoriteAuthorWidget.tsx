@@ -57,12 +57,11 @@ const FollowFavoriteAuthorWidget = (props: any) => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const FollowFavoriteAuthorWidgetStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.onBoardBackground,
       alignContent: 'center',
     },
   });
-  return FollowFavoriteAuthorWidgetStyle;
 };
 export default FollowFavoriteAuthorWidget;

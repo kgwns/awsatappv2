@@ -34,7 +34,8 @@ export interface ArticleSectionProps {
 
 export const articleFooterDataSet: ArticleFooterProps = {
     leftTitleColor: Styles.color.silverChalice,
-    leftIcon: () => { return getSvgImages({
+    leftIcon: () => { 
+        return getSvgImages({
         name: ImagesName.clock,
         size: normalize(12),
         style: { marginRight: normalize(7) }

@@ -79,7 +79,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionWritersSectionStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       width: '100%',
       backgroundColor: theme.mainBackground,
@@ -121,6 +121,5 @@ const customStyle = (theme: CustomThemeType) => {
       overflow: 'hidden'
     }
   });
-  return OpinionWritersSectionStyle;
 };
 export default OpinionWritersSection;

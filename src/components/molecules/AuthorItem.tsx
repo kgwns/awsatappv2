@@ -84,7 +84,7 @@ const AuthorItem = ({
 
     const getNarratedOpinion = async() => {
         try {
-          const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
+          const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID})
           if(isObjectNonEmpty(opinionData)){
             setMediaData(opinionData);
             const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;

@@ -16,10 +16,10 @@ export const setSelectedTrack = (track: any): SelectedTrackType => {
     }
 }
 
-export const setIsPlaying = (isPlaying: boolean): SelectedTrackPlayingType => {
+export const setIsPlaying = (isPlayingProps: boolean): SelectedTrackPlayingType => {
     return {
         type: IS_PLAYING,
-        payload: { isPlaying: isPlaying }
+        payload: { isPlaying: isPlayingProps }
     }
 }
 

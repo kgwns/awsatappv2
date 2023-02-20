@@ -47,8 +47,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
     if (isNonEmptyArray(allWritersData) && isNonEmptyArray(selectedAuthorsData.data)) {
       setAllAuthorsData();
       checkSelectedAuthorCondition();
-    }
-    else if (isNonEmptyArray(allWritersData)) {
+    } else if (isNonEmptyArray(allWritersData)) {
       setAuthorsData(allWritersData)
       checkSelectedAuthorCondition();
     }
@@ -192,7 +191,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const FollowFavoriteAuthorScreenStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       width: '100%',
@@ -253,5 +252,4 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.onBoardBackground
     }
   });
-  return FollowFavoriteAuthorScreenStyle;
 };

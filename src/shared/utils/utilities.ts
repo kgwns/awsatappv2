@@ -208,7 +208,7 @@ export const calculateDate = (time: any) => {
 };
 
 export const calculateMonth = (time: any) => {
-  return arabic.months[moment(time).utcOffset(time).get('month')];;
+  return arabic.months[moment(time).utcOffset(time).get('month')];
 };
 
 export const calculateYear = (time: any) => {
@@ -242,7 +242,7 @@ export const getFormattedDate = (time: any) => {
   const month = monthValue < 10 ? '0' + monthValue : monthValue
   const dateValue = calculateNonUtcDate(time);
   const date = dateValue < 10 ? '0' + dateValue : dateValue
-  return year + '-' + month + '-' + date
+  return `${year}-${month}-${date}`
 }
 
 export const getProfileImageUrl = (imageURL: string) => {
@@ -263,7 +263,7 @@ export const getDay = (time:any) => {
   }
 
   const day =  calculateDay(time)
-  return arabic.day[day] + ', '+ calculateDate(time)  + ' ' + calculateMonth(time) + ' ' + moment(time).get('year')
+  return `${arabic.day[day]}, ${calculateDate(time)} ${calculateMonth(time)} ${moment(time).get('year')}`
 }
 
 export const  getSecondsToHms = (time:any): string => {
@@ -330,8 +330,7 @@ export const getConvertedTime = (time?: number, timezone?: number) => {
     const offsetTimezone = (timezone).toString();
     const timeWeatherSunriseData = new Date(time * 1000);
     const countrySpecificTimeSunrise = moment(new Date(timeWeatherSunriseData)).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
-    const convertedCountrySpecificTime = moment(new Date(countrySpecificTimeSunrise)).format('HH:mm:ss')
-    return convertedCountrySpecificTime
+    return moment(new Date(countrySpecificTimeSunrise)).format('HH:mm:ss')
   } else {
     return ''
   }

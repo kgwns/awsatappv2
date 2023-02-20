@@ -160,8 +160,8 @@ const parseRichHTML = (htmlContent: []): any[] => {
   return element
 }
 
-const parseImageData = (field_image: string, newPhoto: string) => {
-  const image = isNonEmptyArray(field_image) ? field_image[0] : isNotEmpty(field_image) ? field_image : ''
+const parseImageData = (fieldImage: string, newPhoto: string) => {
+  const image = isNonEmptyArray(fieldImage) ? fieldImage[0] : isNotEmpty(fieldImage) ? fieldImage : ''
   return getArticleImage(image, newPhoto)
 }
 

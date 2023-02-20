@@ -18,7 +18,6 @@ import {
   LabelTypeProp,
   LoadingState,
 } from 'src/components/atoms';
-import {AllWritersBodyGet} from 'src/redux/allWriters/types';
 import {FavouriteOpinionsBodyGet} from 'src/redux/contentForYou/types';
 import {getImageUrl} from 'src/shared/utils/utilities';
 import {

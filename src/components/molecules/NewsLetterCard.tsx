@@ -67,7 +67,7 @@ export const NewsLetterCard = ({
   );
 };
 const customStyle = (theme: CustomThemeType) => {
-  const NewsLetterCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       width: '100%',
@@ -163,5 +163,4 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center'
     }
   });
-  return NewsLetterCardStyle;
 };

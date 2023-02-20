@@ -3,7 +3,6 @@ import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
 import {Divider, HtmlRenderer, Label} from '../atoms';
-import { Styles} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {
   ArticleFooter,

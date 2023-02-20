@@ -131,7 +131,7 @@ export const PopUp = ({
 }
 
 const customStyle = (theme: CustomThemeType) => {
-    const popUpStyle = StyleSheet.create({
+    return StyleSheet.create({
         container: {
             flex: 1,
         },
@@ -152,7 +152,6 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: theme.popupBackground
         }
     });
-    return popUpStyle
 }
 
 export default PopUp;

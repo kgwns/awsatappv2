@@ -25,8 +25,7 @@ const initialData: JournalistArticleState = {
 export default (state = initialData, action: JournalistInfoAction) => {
   const combineJournalistArticleData = (data: any) => {
     const journalist = [...state.journalistArticle]
-    const updatedData = journalist.concat(data)
-    return updatedData
+    return journalist.concat(data);
   }
 
   switch (action.type) {

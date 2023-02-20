@@ -20,7 +20,6 @@ import {
   REQUEST_BOTTOM_LIST_DATA,
   REQUEST_HERO_LIST_DATA,
   REQUEST_TOP_LIST_DATA,
-  EMPTY_ALL_LIST,
 } from './actionTypes';
 import {fetchNewsViewApi} from 'src/services/newsViewService';
 import { isNonEmptyArray } from 'src/shared/utils';

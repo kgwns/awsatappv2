@@ -379,7 +379,7 @@ export const ManageMyNewsScreen = () => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const ManageMyNewsScreenStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       paddingLeft: normalize(3)
@@ -451,5 +451,4 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.profileBackground
     }
   });
-  return ManageMyNewsScreenStyle;
 };
