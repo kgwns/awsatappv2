@@ -38,6 +38,7 @@ export const fetchFavouriteOpinionsApi = async (body: FavouriteOpinionsBodyGet) 
     );
     return response;
   } catch (error) {
+    console.log('contentForYouService - fetchFavouriteOpinionsApi - error', error)
     throw error;
   }
 };
@@ -55,6 +56,7 @@ export const fetchFavouriteArticleApi = async (body: FavouriteArticlesBodyGet) =
     );
     return response;
   } catch (error) {
+    console.log('contentForYouService - fetchFavouriteArticleApi - error', error)
     throw error;
   }
 };

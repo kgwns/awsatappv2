@@ -343,7 +343,7 @@ export const ArticleDetailScreen = ({
     }
   }
 
-  const stopVideoPlayer = (showReplayProps: boolean = false) => {
+  const stopVideoPlayer = (showReplayProps = false) => {
     try {
       if (videoRefs) {
         videoRefs?.current[0]?.setNativeProps({
@@ -361,12 +361,12 @@ export const ArticleDetailScreen = ({
     }
   }
 
-  const onPressArticle = (nid: string) => {
-    if (nid && nid!==currentNId) {
+  const onPressArticle = (nidProps: string) => {
+    if (nidProps && nidProps!==currentNId) {
       stopVideoPlayer(true);
       const hasHTMLContent = isNonEmptyArray(articleDetailState) && isNonEmptyArray(articleDetailState[0].richHTML)
-      recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
-      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true, hasHTMLContent })
+      recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nidProps});
+      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nidProps, isRelatedArticle: true, hasHTMLContent })
     }
   }
 
@@ -545,7 +545,8 @@ export const ArticleDetailScreen = ({
             leftContainerStyle={isTab && style.leftContainerStyle}
           />}
       </View>
-  )}
+  )
+}
 
   const setPlayerDetails = (time: any , pausedProps: boolean) => {
     setCurrentTime(time)

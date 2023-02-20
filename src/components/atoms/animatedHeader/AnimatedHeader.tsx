@@ -69,19 +69,19 @@ export const AnimatedHeader: FunctionComponent<HeaderProps> = ({
     const renderHeaderLogo = () => {
         if (animated) {
             const inputRange = [-100, 0, 100]
-            const width = scrollY.interpolate({
+            const widthStyle = scrollY.interpolate({
                 inputRange,
                 outputRange: [ANIMATE_IMAGE_WIDTH, ANIMATE_IMAGE_WIDTH, 130],
                 extrapolate: 'clamp'
             })
-            const height = scrollY.interpolate({
+            const heightStyle = scrollY.interpolate({
                 inputRange,
                 outputRange: [ANIMATE_IMAGE_HEIGHT, ANIMATE_IMAGE_HEIGHT, 32],
                 extrapolate: 'clamp'
             })
 
             return (
-                <Animated.View style={{ width: width, height: height }}>
+                <Animated.View style={{ width: widthStyle, height: heightStyle }}>
                     {isDarkMode ? <HeaderDarkLogoSvg /> : <HeaderLogoSvg />}
                 </Animated.View>
             )

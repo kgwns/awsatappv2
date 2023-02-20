@@ -94,7 +94,7 @@ export const JournalistDetail = ({
     }
 
     useEffect(() => {
-        getJournalistArticleInfo({ nid: jId, page: page });
+        getJournalistArticleInfo({ nid: jId, page });
     }, [page]);
 
     useEffect(() => {

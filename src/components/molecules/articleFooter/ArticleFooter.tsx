@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, StyleSheet, TouchableOpacity, StyleProp, TextStyle, ViewStyle } from 'react-native'
 import { normalize } from 'src/shared/utils/dimensions'
 import { moleculesTestID } from 'src/constants/Constants'

@@ -10,6 +10,7 @@ export const fetchTopMenuApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log('topMenuService - fetchTopMenuApi - error', error)
     throw error;
   }
 };

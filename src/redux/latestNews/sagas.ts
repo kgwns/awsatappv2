@@ -84,7 +84,7 @@ import {
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
-const getArticleImage = (fieldImage: any, newPhoto: any) : String => {
+const getArticleImage = (fieldImage: any, newPhoto: any) : string => {
   let image = fieldImage ?? ''
 
   if(!isNotEmpty(fieldImage) && isNotEmpty(newPhoto)) {
