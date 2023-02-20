@@ -12,10 +12,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
-import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
-import { AxiosError } from 'axios';
 import { useAppPlayer } from 'src/hooks';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
+import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion';
 
 
 export interface OpinionWritersCardViewProps {
@@ -71,7 +70,7 @@ const OpinionWritersCardView = ({
 
   useEffect(() => {
     if(jwPlayerID){
-      getNarratedOpinion()
+      getNarratedOpinion(jwPlayerID,setMediaData,setTimeDuration);
     }
   }, [])
 
@@ -83,26 +82,6 @@ const OpinionWritersCardView = ({
     }
     setPrevPlayBackState(playbackState);
   }, [playbackState])
-
-  const getNarratedOpinion = async() => {
-      try {
-        const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID})
-        if(isObjectNonEmpty(opinionData)){
-          setMediaData(opinionData);
-          const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
-          if(playList){
-            const time = playList.duration? convertSecondsToHMS(playList.duration) : null;
-            setTimeDuration(time)
-          } 
-        }
-      } catch (error) {
-        const errorResponse: AxiosError = error as AxiosError;
-        if (errorResponse.response) {
-          const errorMessage: { message: string } = errorResponse.response.data;
-          console.log(errorMessage,'errorMessage');
-        }
-      }
-  }
 
   const onPress = () => {
     if (nid) {
