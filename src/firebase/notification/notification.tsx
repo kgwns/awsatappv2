@@ -40,8 +40,8 @@ async function onDisplayNotification(
 
 export const GetFCMToken = () => {
   const {saveTokenRequest} = useNotificationSaveToken();
-  var deviceOS = Platform.OS;
-  var deviceName = DeviceInfo.getDeviceId();
+  const deviceOS = Platform.OS;
+  const deviceName = DeviceInfo.getDeviceId();
 
   const getToken = () => {
     messaging()
