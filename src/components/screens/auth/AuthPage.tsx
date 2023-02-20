@@ -150,9 +150,9 @@ export const AuthPage: FunctionComponent = () => {
     const message = emailCheckData?.message;
     if (message) {
       if (message.code === 200) {
-        navigation.navigate(ScreensConstants.SignInPage, {email: email});
+        navigation.navigate(ScreensConstants.SignInPage, {email});
       } else {
-        navigation.navigate(ScreensConstants.SignUpPage, {email: email});
+        navigation.navigate(ScreensConstants.SignUpPage, {email});
       }
     }
     emptyEmailCheckInfo();
@@ -198,7 +198,7 @@ export const AuthPage: FunctionComponent = () => {
 
     if (emailValidation(email) === '') {
       const payload: FetchEmailCheckPayloadType = {
-        email: email,
+       email,
       };
       Keyboard.dismiss();
       fetchEmailCheckRequest(payload);

@@ -129,9 +129,11 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
     }
     const videoDetailData = detailData[0];
     const { title, field_shorturl_export, view_node } = videoDetailData
+    const fieldUrl = field_shorturl_export !== undefined ? field_shorturl_export : ' '
+    const viewNode = view_node !== undefined ? view_node : ' '
     await Share.open({
         title,
-        url: getShareUrl(field_shorturl_export!, view_node!),
+        url: getShareUrl(fieldUrl, viewNode),
         failOnCancel: true,
         subject: title
     }).then(response => {

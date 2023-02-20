@@ -179,8 +179,8 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   };
 
   const renderSunRiseAndSunSet = () => {
-    const timeZone = isObjectNonEmpty(fetchWeatherDetailsSuccessInfo?.city) ? fetchWeatherDetailsSuccessInfo?.city?.timezone : undefined
-
+    const _timeZone = isObjectNonEmpty(fetchWeatherDetailsSuccessInfo?.city) ? fetchWeatherDetailsSuccessInfo?.city?.timezone : undefined
+    const timeZone = _timeZone !== undefined ? _timeZone : '';
     if (!isNonEmptyArray(weatherListData) || !timeZone) {
       return null
     }
@@ -193,7 +193,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             <WeatherDayIcon style={styles.weatherSunIcon} width={25} height={20} />
             <View style={styles.timeZoneLabelStyle}>
               <Label style={styles.sunStateLabelStyle} children={CONST_SUNRISE} />
-              <Label style={styles.sunStateDurationStyle} children={getConvertedTime(todayWeatherData.sunrise, timeZone!)} />
+              <Label style={styles.sunStateDurationStyle} children={getConvertedTime(todayWeatherData.sunrise, timeZone)} />
             </View>
           </View>
         }

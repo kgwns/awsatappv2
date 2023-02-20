@@ -7,7 +7,6 @@ import { DownloadNewsViewManager } from './DownloadNewsViewManager';
 import { useAppCommon } from 'src/hooks';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
-interface DownloadNewsProps {}
 
 const createFragment = (viewId:number|null) =>{
   UIManager.dispatchViewManagerCommand(
@@ -21,7 +20,7 @@ const createFragment = (viewId:number|null) =>{
 const WINDOW_HEIGHT = Dimensions.get('window').height; // device height
 const WINDOW_WIDTH = Dimensions.get('window').width; // device height
 
-export const DownloadNews = (props: DownloadNewsProps) => {
+export const DownloadNews = () => {
   const DRAWER_PDF_ARCHIVE = TranslateConstants({key:TranslateKey.DRAWER_PDF_ARCHIVE})
   const theme = useAppCommon()
   const ref = React.useRef(null);
