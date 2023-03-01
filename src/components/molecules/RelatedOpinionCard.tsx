@@ -13,9 +13,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
-import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
-import { AxiosError } from 'axios';
 import { useAppPlayer } from 'src/hooks';
+import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion';
 
 
 export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayback, selectedTrack, jwPlayerID}:any) => {
@@ -50,29 +49,9 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
 
   useEffect(() => {
     if(jwPlayerID){
-      getNarratedOpinion()
+      getNarratedOpinion(jwPlayerID,setMediaData,setTimeDuration)
     }
   }, [])
-
-  const getNarratedOpinion = async() => {
-      try {
-        const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID})
-        if(isObjectNonEmpty(opinionData)){
-          setMediaData(opinionData);
-          const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
-            if(playList){
-            const time = playList.duration? convertSecondsToHMS(playList.duration) : null;
-            setTimeDuration(time)
-            } 
-        }
-      } catch (error) {
-        const errorResponse: AxiosError = error as AxiosError;
-        if (errorResponse.response) {
-          const errorMessage: { message: string } = errorResponse.response.data;
-          console.log(errorMessage,'errorMessage');
-        }
-      }
-  }
 
   const onPressWriter = (itemProps: any) => {
     const tid = isNonEmptyArray(itemProps.field_opinion_writer_node_export) && itemProps.field_opinion_writer_node_export[0].id
