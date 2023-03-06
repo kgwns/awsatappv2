@@ -122,8 +122,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
     fetchVideoRequest();
    }, []);
 
-  const onPressItem = (item:VideoItemType, isDocumentary:boolean)=>{
-    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isDocumentary})
+  const onPressItem = (item:VideoItemType, isVideoDocumentary:boolean)=>{
+    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isVideoDocumentary})
   }
 
   const [videoDataInfo, setVideoDataInfo] = useState(videoData)

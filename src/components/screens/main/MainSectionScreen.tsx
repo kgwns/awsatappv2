@@ -540,7 +540,7 @@ export const MainSectionScreen = React.memo((
 
   const onPressArticle = (nid: string, isAlbum = false) => {
     const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
-    nid && navigation.navigate(screenName, { nid: nid })
+    nid && navigation.navigate(screenName, { nid })
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {

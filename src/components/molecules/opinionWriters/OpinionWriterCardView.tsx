@@ -86,7 +86,7 @@ const OpinionWritersCardView = ({
   const onPress = () => {
     if (nid) {
       const screenName = ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN
-      const params = { nid: nid }
+      const params = { nid }
       noOfWriterRoutes > 0 ? navigation.push(screenName, params) : navigation.navigate(screenName, params)
     }
   }

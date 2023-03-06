@@ -243,7 +243,7 @@ export const SectionStoryScreen = React.memo(({
 
   const onPressArticle = (nid: string) => {
     nid &&
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
+      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid});
   };
 
   useEffect(() => {

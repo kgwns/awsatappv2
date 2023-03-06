@@ -65,7 +65,7 @@ const SectionArticleItem = ({
 
   const onPress = () => {
     if (nid) {
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
+      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid});
     }
   };
   const style = useThemeAwareObject(customStyle);

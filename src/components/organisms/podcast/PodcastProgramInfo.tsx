@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {View, StyleSheet, TouchableOpacity, Share} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import { Label } from 'src/components/atoms/label/Label';
 import { Image } from 'src/components/atoms/image/Image';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';

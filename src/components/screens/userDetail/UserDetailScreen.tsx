@@ -295,11 +295,10 @@ export const UserDetailScreen: FunctionComponent = () => {
   );
 
   const tabContent = () => {
-    switch (tabSelectedIndex) {
-      case 1:
-        return renderPassword();
-      default:
-        return renderUserDetails();
+    if (tabSelectedIndex === 1) {
+      return renderPassword();
+    } else {
+      return renderUserDetails();
     }
   };
 

@@ -306,8 +306,8 @@ export const LatestNewsScreen = () => {
   }
 
 
-  const onPressArticle = (nid: string) => {
-    nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+  const onPressArticle = (Nid: string) => {
+    Nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: Nid })
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {

@@ -66,10 +66,10 @@ export const PopulateWidget = ({
 
     const [showModal, setShowModal] = useState(false);
     
-    const onPressAlbum = (nid: string) => {
-        nid &&
+    const onPressAlbum = (Nid: string) => {
+        Nid &&
           navigation.navigate(ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN, {
-            nid: nid,
+            nid: Nid,
           });
       };
 

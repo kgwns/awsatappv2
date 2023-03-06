@@ -156,9 +156,9 @@ export const MyNewsWriters = () => {
     isNonEmptyArray(authorsIdList) && fetchOpinionData(authorsIdList, 0);
   };
 
-  const fetchOpinionData = (authorsData: any, page: number) => {
+  const fetchOpinionData = (authorsData: any, Page: number) => {
     const opinionBody: FavouriteOpinionsBodyGet = {
-      page: page,
+      page: Page,
       items_per_page: isTab ? 12 : 10,
       authorsList: authorsData,
     };

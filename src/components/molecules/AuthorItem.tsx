@@ -83,7 +83,7 @@ const AuthorItem = ({
  
     const onPress = () => {
         if (nid) {
-            navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid:nid})
+            navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid})
         }
     }
 

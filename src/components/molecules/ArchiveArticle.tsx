@@ -71,7 +71,7 @@ const ArchiveArticle = ({
   const onPress = () => {
     if (nid) {
       const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
-      navigation.navigate(screenName, { nid: nid })
+      navigation.navigate(screenName, { nid })
     }
   }
 

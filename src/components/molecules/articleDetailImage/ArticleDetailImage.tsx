@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, ViewStyle, AppState } from 'react-native'
+import { View, StyleSheet, ViewStyle } from 'react-native'
 import { Styles } from 'src/shared/styles'
 import { BannerImageWithOverlay, BannerImageWithOverlayProps} from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
