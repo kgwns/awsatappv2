@@ -655,7 +655,7 @@ const customStyle = (theme: CustomThemeType) => {
     titleStyle:{
       textAlign:'center',
       fontSize: isTab ? 33 : 24,
-      lineHeight: isTab ? 46 :42,
+      lineHeight: isTab ? 46 : 40,
       fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{
