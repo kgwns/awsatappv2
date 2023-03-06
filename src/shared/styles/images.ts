@@ -9,7 +9,7 @@ import returnIcon from 'src/assets/images/icons/return_arrow/returnArrow.png';
 import earlyEditionImg from 'src/assets/images/earlyEditionImg.png'
 import moneyAndBusinessImg from 'src/assets/images/moneyAndBusinessImg.png'
 import technologyImg from 'src/assets/images/technologyImg.png'
-import placeholderImg from 'src/assets/images/icons/placeholderImage.png'
+import placeholderImg from 'src/assets/images/icons/newPlaceHolderImage.png'
 import sudoku from 'src/assets/images/sudoku.png'
 import pdfIcon from 'src/assets/images/pdf_icon.png'
 import archiveIconLight from 'src/assets/images/icons/archiveIconLight.png'
