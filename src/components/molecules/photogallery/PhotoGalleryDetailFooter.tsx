@@ -27,10 +27,10 @@ export const PhotoGalleryDetailFooter = ({
     : ImagesName.bookmark;
 
   const onPressShare = async () => {
-    const {title, view_node, field_shorturl} = albumData;
+    const {title, link_node, field_shorturl} = albumData;
     await Share.open({
       title,
-      url: getShareUrl(field_shorturl,view_node),
+      url: getShareUrl(field_shorturl,link_node),
       failOnCancel: true,
       subject: title,
     })

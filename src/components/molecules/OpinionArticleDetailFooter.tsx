@@ -28,10 +28,10 @@ export const OpinionArticleDetailFooter = ({
 
 
   const onPressShare = async () => {
-    const {title, view_node, field_shorturl} = opinionArticleDetailData;
+    const {title, link_node, field_shorturl} = opinionArticleDetailData;
     await Share.open({
       title,
-      url: getShareUrl(field_shorturl,view_node),
+      url: getShareUrl(field_shorturl,link_node),
       failOnCancel: true,
       subject: title,
     })

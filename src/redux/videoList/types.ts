@@ -21,6 +21,7 @@ export interface VideoItemType {
   mediaId?: string;
   field_shorturl_export?: string;
   view_node?: string;
+  link_node?: string;
 }
 
 export interface FetchVideoSuccessPayloadType {

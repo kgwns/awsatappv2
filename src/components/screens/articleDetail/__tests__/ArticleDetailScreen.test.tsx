@@ -431,7 +431,8 @@ describe('should call parseArticleDetailSuccess', () => {
       journalistCity: ['journalistCity'],
       shortUrl: 'shortURL',
       scribbleLiveId: 'scribbleLiveId',
-      created:'created'
+      created:'created',
+      link_node: 'linkNode'
     }],
     pager:{
       current_page: 34,

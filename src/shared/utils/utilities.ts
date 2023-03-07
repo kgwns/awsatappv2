@@ -348,8 +348,8 @@ export const isValidDate = (dateObject: any): boolean => {
   return dateObject && new Date(dateObject).toString() !== 'Invalid Date';
 }
 
-export const getShareUrl = (shortUrl: string, viewNodeUrl:string): string => {
-  return  isNotEmpty(shortUrl) ? shortUrl : viewNodeUrl;
+export const getShareUrl = (shortUrl: string, linkNodeUrl:string): string => {
+  return  isNotEmpty(shortUrl) ? shortUrl : linkNodeUrl;
 }
 
 export const isTypeAlbum = (type: HomePageArticleType): boolean => {
