@@ -4,7 +4,7 @@ import { ArticleContentType, ArticleDetailDataType,
   ArticleDetailSuccessPayload, ArticleOpinionType, 
   ArticleReadAlsoType, ArticleSectionSuccessPayload, 
   FetchRichOpinionsBundleSuccessPayloadType, 
-  FetchRichOpinionsBundleType, GetRichArticleReadAlsoBody, 
+  FetchRichOpinionsBundleType, 
   HTMLElementParseStore, RelatedArticleBodyGet, 
   RelatedArticleDataType, RelatedArticleSuccessPayload, 
   RequestArticleDetailType, RequestArticleSectionType, 
@@ -12,7 +12,7 @@ import { ArticleContentType, ArticleDetailDataType,
   RichHTMLOpinionDataType, RichHTMLType } from './types';
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService';
 import { REQUEST_ARTICLE_DETAIL, 
-  REQUEST_RELATED_ARTICLE, EMPTY_DATA, 
+  REQUEST_RELATED_ARTICLE, 
   REQUEST_ARTICLE_SECTION, REQUEST_RICH_ARTICLE_READ_ALSO, 
   REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION } from './actionType';
 import { requestArticleDetailFailed, 
@@ -36,8 +36,9 @@ export const updatedReadAlsoContent = (articleInfo: ArticleDetailDataType, readA
   let richHTML: HTMLElementParseStore[] = []
   if (isNonEmptyArray(readAlsoInfo)) {
     richHTML = articleInfo.richHTML ?? []
-    const readAlsoIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.READ_ALSO)
-    if (readAlsoIndex > -1) {
+    const readAlsoIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => (item.type === RichHTMLType.READ_ALSO &&
+      readAlsoInfo.findIndex((itemDetail: any) => item.data.related_content.includes(itemDetail.nid))));
+      if (readAlsoIndex > -1) {
       const filteredReadAlso = richHTML[readAlsoIndex] as ArticleReadAlsoType
       filteredReadAlso.data.readAlsoData = readAlsoInfo
       richHTML[readAlsoIndex] = filteredReadAlso
@@ -66,10 +67,12 @@ export const updatedOpinionBundle = (articleInfo: ArticleDetailDataType, opinion
   let richHTML: HTMLElementParseStore[] = []
   if (isNonEmptyArray(opinionInfo)) {
     richHTML = articleInfo.richHTML ?? []
-    const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION && item.data.opinion === opinionInfo[0].nid)
+    const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION &&
+      ((isNonEmptyArray(item.data.opinion) ? item.data.opinion[0] : item.data.opinion) === opinionInfo[0].nid))
     if (opinionIndex > -1) {
       const filteredOpinion = richHTML[opinionIndex] as ArticleOpinionType
       filteredOpinion.data.opinionData = opinionInfo[0]
+      richHTML[opinionIndex] = filteredOpinion
     }
   }
 
@@ -81,10 +84,11 @@ export const parseRichArticleReadAlso = (response: any) => {
 
   if (isNonEmptyArray(response)) {
     readAlsoData = response.map(
-      ({ title, nid
+      ({ title, nid, field_image_export, field_new_photo,
       }: any) => ({
         title,
-        nid
+        nid,
+        image: getArticleImage(field_image_export, field_new_photo),
       })
     )
   }
@@ -170,7 +174,7 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
     if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_new_photo, field_news_categories_export, author_resource,created_export, changed }: any) => ({
+        ({ title, body, nid, field_image, field_new_photo, field_news_categories_export, author_resource, changed }: any) => ({
           body,
           title: isNotEmpty(title) ? decode(title) : '',
           nid,
@@ -197,7 +201,7 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
       const rows = response.rows
       responseData.articleDetailData = rows.map(
         ({ title, body_export, nid_export, field_image_export, view_node,
-          field_news_categories_export, author_resource, field_tags_topics_export,created_export, field_new_sub_title_export,
+          field_news_categories_export, author_resource, field_tags_topics_export, field_new_sub_title_export,
           field_new_photo_export, field_new_photo_titles, field_jwplayer_id_export,
           field_paragraph_export, jor_city, jor_id, jor_name, field_shorturl, field_scribblelive_id, field_display_export,changed
          }: any) => ({
