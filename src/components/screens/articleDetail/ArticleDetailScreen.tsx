@@ -2,13 +2,13 @@ import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWind
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties, TranslateConstants, TranslateKey } from 'src/constants/Constants'
-import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
+import { ArticleDetailFooter, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
-import { ArticleDetailDataType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
+import { ArticleDetailDataType, ArticleReadAlsoType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useAppCommon, useAppPlayer, useBookmark, useLogin } from 'src/hooks'
@@ -181,16 +181,21 @@ export const ArticleDetailScreen = ({
     if (isNonEmptyArray(articleData.richHTML)) {
       //Read Also Bundle
       const readAlsoElement: any = articleData.richHTML?.filter((item) => item.type === RichHTMLType.READ_ALSO)
-      if (isNonEmptyArray(readAlsoElement) && isNonEmptyArray(readAlsoElement[0].data.related_content)) {
-        const nidList = joinArray(readAlsoElement[0].data.related_content, '+')
-        try {
-          const readAlsoResponse = await getBookMarkDetailInfoService({ nid: nidList, page: 0 })
-          const readAlsoResult = parseRichArticleReadAlso(readAlsoResponse)
-          const richHtmlInfo = updatedReadAlsoContent(articleData, readAlsoResult)
-          setRichHTML(richHtmlInfo)
-        } catch (error) {
-          handleAxiosError(error)
-        }
+      if (isNonEmptyArray(readAlsoElement)) {
+        readAlsoElement.forEach(async (element: ArticleReadAlsoType) => {
+          const content = element.data.related_content;
+          if (isNonEmptyArray(content)) {
+            const nidList = joinArray(content, '+');
+            try {
+              const readAlsoResponse = await getBookMarkDetailInfoService({ nid: nidList, page: 0 })
+              const readAlsoResult = parseRichArticleReadAlso(readAlsoResponse)
+              const richHtmlInfo = updatedReadAlsoContent(articleData, readAlsoResult)
+              setRichHTML(richHtmlInfo)
+            } catch (error) {
+              handleAxiosError(error)
+            }
+          }
+        });
       }
 
       // Content Also Bundle
@@ -210,8 +215,10 @@ export const ArticleDetailScreen = ({
       const opinionElement: any = articleData.richHTML?.filter((item) => item.type === RichHTMLType.OPINION)
       if (isNonEmptyArray(opinionElement)) {
         opinionElement.forEach(async (_: any, index: number) => {
+          const opinionId = opinionElement[index].data.opinion;
+          const id = isNonEmptyArray(opinionId) ? opinionId[0] : opinionId;
           try {
-            const opinionResponse = await requestOpinionArticleDetailAPI({ nid: parseInt(opinionElement[index].data.opinion) })
+            const opinionResponse = await requestOpinionArticleDetailAPI({ nid: parseInt(id) })
             const opinionResult = parseOpinionBundleSuccess(opinionResponse)
             const richHtmlInfo = updatedOpinionBundle(articleData, opinionResult)
             setRichHTML(richHtmlInfo)
