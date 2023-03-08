@@ -52,7 +52,7 @@ export const PhotoGalleryDetailScreen = ({
   const currentNId = route.params.nid;
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && isTab) {
       Orientation.unlockAllOrientations();
       Orientation.getDeviceOrientation(updateScreenEdge);
       Orientation.addDeviceOrientationListener(updateScreenEdge);

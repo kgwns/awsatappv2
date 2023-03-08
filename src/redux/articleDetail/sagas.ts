@@ -36,9 +36,16 @@ export const updatedReadAlsoContent = (articleInfo: ArticleDetailDataType, readA
   let richHTML: HTMLElementParseStore[] = []
   if (isNonEmptyArray(readAlsoInfo)) {
     richHTML = articleInfo.richHTML ?? []
-    const readAlsoIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => (item.type === RichHTMLType.READ_ALSO &&
-      readAlsoInfo.findIndex((itemDetail: any) => item.data.related_content.includes(itemDetail.nid))));
-      if (readAlsoIndex > -1) {
+    const readAlsoIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => {
+      const isReadAlso = item.type === RichHTMLType.READ_ALSO
+      if (isReadAlso) {
+        const index = readAlsoInfo.findIndex((itemDetail: any) => item.data.related_content.includes(itemDetail.nid))
+        return index > -1;
+      } else {
+        return false;
+      }
+    });
+    if (readAlsoIndex > -1) {
       const filteredReadAlso = richHTML[readAlsoIndex] as ArticleReadAlsoType
       filteredReadAlso.data.readAlsoData = readAlsoInfo
       richHTML[readAlsoIndex] = filteredReadAlso
