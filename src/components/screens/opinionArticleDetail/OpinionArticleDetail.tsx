@@ -96,9 +96,11 @@ export const OpinionArticleDetail = ({
 
     getSelectedAuthorsData()
     emptyRelatedOpinionData()
-    Orientation.unlockAllOrientations();
-    Orientation.getDeviceOrientation(updateScreenEdge);
-    Orientation.addDeviceOrientationListener(updateScreenEdge);
+    if (isTab) {
+      Orientation.unlockAllOrientations();
+      Orientation.getDeviceOrientation(updateScreenEdge);
+      Orientation.addDeviceOrientationListener(updateScreenEdge);
+    }
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
       setOpinionArticle([]);
@@ -114,7 +116,7 @@ export const OpinionArticleDetail = ({
   }, []);
 
   useEffect(() => {
-    isFocused && Orientation.unlockAllOrientations();
+    isFocused && isTab && Orientation.unlockAllOrientations();
     setScrollY(new Animated.Value(0))
   }, [isFocused])
 
@@ -277,7 +279,7 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressBack = async () => {
-    if (!route.params.isRelatedArticle) {
+    if (!route.params.isRelatedArticle && isTab) {
       Orientation.unlockAllOrientations()
       Orientation.lockToPortrait()
     }

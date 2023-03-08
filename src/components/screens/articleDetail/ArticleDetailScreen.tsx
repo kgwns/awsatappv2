@@ -94,6 +94,7 @@ export const ArticleDetailScreen = ({
   const [isArticleSectionLoaded, setIsArticleSectionLoaded] = useState(false)
   const [richHTML, setRichHTML] = useState<HTMLElementParseStore[]>([])
   const { showMiniPlayer } = useAppPlayer()
+  const fullScreenBackgroundColor = isFullScreen ? style.fullScreenBackground.backgroundColor : ''
   
   const detailRoutes = useMemo(() => routes.filter((detailRoute) => 
     detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN || 
@@ -239,7 +240,7 @@ export const ArticleDetailScreen = ({
   }
   
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && isTab ) {
       Orientation.unlockAllOrientations();
       Orientation.getDeviceOrientation(updateScreenEdge);
       Orientation.addDeviceOrientationListener(updateScreenEdge);
@@ -419,7 +420,7 @@ export const ArticleDetailScreen = ({
       StatusBar.setHidden(false)
       SystemNavigationBar.navigationShow();
       Orientation.lockToPortrait();
-      Orientation.unlockAllOrientations();
+      isTab && Orientation.unlockAllOrientations();
     }
     setIsFullScreen(isFullscreen)
   }
@@ -451,7 +452,7 @@ export const ArticleDetailScreen = ({
   const onPressBack = () => {
     requestAnimationFrame(() => {
       stopVideoPlayer()
-      if (!route.params.isRelatedArticle) {
+      if (!route.params.isRelatedArticle && isTab) {
         Orientation.unlockAllOrientations()
         Orientation.lockToPortrait()
       }
@@ -572,6 +573,7 @@ export const ArticleDetailScreen = ({
 
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
+    backgroundColor={fullScreenBackgroundColor}
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading === false}>
       {isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
         { !isFullScreen &&  renderHeader()}
@@ -686,6 +688,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     backgroundColor: colors.transparent,
     position: 'absolute', 
     bottom: isIOS ? normalize(70) : normalize(60)
+  },
+  fullScreenBackground: {
+    backgroundColor: colors.black
   }
 })
 
