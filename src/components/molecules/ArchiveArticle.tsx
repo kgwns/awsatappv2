@@ -16,6 +16,7 @@ import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilitie
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { DARK_THEME_ID } from '../../shared/styles/colors'
+import { ArticleLabel } from './articleLabel/ArticleLabel'
 
 const archiveFooterSample: articleFooterProps = {
   leftTitleColor: Styles.color.white,
@@ -61,6 +62,7 @@ const ArchiveArticle = ({
   showDivider = false,
   contentStyle,
   isAlbum,
+  displayType,
 }: ArchiveArticleProps) => {
 
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -82,6 +84,7 @@ const ArchiveArticle = ({
           <ArchiveImage image={image} isAlbum={isAlbum} />
         </View>
         <View style={isTab ? [ArchiveArticleStyle.tabArticleContent, contentStyle] : ArchiveArticleStyle.articleContent}>
+          <ArticleLabel displayType={displayType} enableBottomMargin />
           {isNotEmpty(title) &&
             <View style={ArchiveArticleStyle.titleContainer}>
               <Label labelType={LabelTypeProp.title1}

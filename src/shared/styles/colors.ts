@@ -96,6 +96,8 @@ export const colors = {
   chineWhite80: '#E0E0E080',
   charcoalGray: '#343434',
   darkWineRed: '#BD3C2F',
+  seaTurtleGreen: '#2c8a82',
+  richBlack: '#0e4540',
 };
 
 export interface CustomThemeType {

@@ -84,6 +84,10 @@ import {
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
+const getDisplayName = (text: string) => {
+  return isNotEmpty(text) ? text.toLowerCase() : undefined;
+};
+
 const getArticleImage = (fieldImage: any, newPhoto: any) : String => {
   let image = fieldImage ?? ''
 
@@ -112,7 +116,7 @@ const formatMainSectionBlockData = (response: any) => {
           type,
           blockName: blockname,
           position: entityqueue_relationship_position,
-          displayType: field_display_export
+          displayType: getDisplayName(field_display_export),
         })
       );
     }
@@ -200,7 +204,7 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
           author: '', //Need to hide author name in UI
           created: changed,
           isBookmarked: false,
-          displayType: field_display_export,
+          displayType: getDisplayName(field_display_export),
           type,
         })
       );
@@ -271,7 +275,7 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
           type: type,
           blockname: blockname,
           entityqueue_relationship_position: entityqueue_relationship_position,
-          displayType: field_display_export,
+          displayType: getDisplayName(field_display_export),
         })
       );
   }
@@ -324,7 +328,7 @@ const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataTyp
         author: field_new_resource_export,
         publication_date: field_publication_date_export,
         news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
-        displayType:field_display_export,
+        displayType: getDisplayName(field_display_export),
       })
     );
   }
@@ -506,7 +510,7 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
             news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             created: changed,
             author: author_resource,
-            displayType: field_display_export,
+            displayType: getDisplayName(field_display_export),
           })
       );
       responseData.spotlightArticleSectionData = responseData.spotlightArticleSectionData.splice(0, 4)
