@@ -19,6 +19,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { HomePageArticleType } from 'src/redux/latestNews/types';
+import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -28,6 +29,7 @@ export interface ShortArticleProps extends TextWithFlagProps {
   isBookmarked: boolean;
   body: string
   type: HomePageArticleType;
+  displayType?: string;
 }
 
 export interface ArticleSectionProps {
@@ -118,6 +120,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
         style={StyleSheet.flatten([!hideImage && isTab ? style.cardContainer : style.cardContainerStyle, cardStyle, containerStyle])}>
         <View style={style.containerStyle}>
           <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
+            <ArticleLabel displayType={item.displayType} enableBottomMargin />
             <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
               <TextWithFlag {...item} numberOfLines={0} labelType={labelType} />
             </View>

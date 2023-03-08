@@ -15,7 +15,6 @@ import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilitie
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { DARK_THEME_ID } from '../../shared/styles/colors'
-import { displayTypes } from 'src/constants/Constants'
 
 const carouselFooterSample: articleFooterProps = {
   leftTitleColor: Styles.color.white,
@@ -78,7 +77,6 @@ const ImageArticle = ({
   const [isImageLoaded, setImageLoaded] = useState(false)
   const { themeData } = useTheme();
   const isDark = themeData?.id === DARK_THEME_ID
-  const isLive = isNotEmpty(displayType) && displayType === displayTypes.liveCoverage;
 
   const onImageLoadEnd = (isSuccess: boolean) => {
     setImageLoaded(isSuccess)
@@ -98,7 +96,7 @@ const ImageArticle = ({
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
           <BannerImageWithOverlay image={image}
             onImageLoadEnd={onImageLoadEnd}
-            isLive={isLive}
+            displayType={displayType}
             isImageLoaded={isImageLoaded}
             isAlbum={isAlbum}
           />

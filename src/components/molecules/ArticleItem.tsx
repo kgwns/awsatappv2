@@ -50,6 +50,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
                 <View style={StyleSheet.flatten([style.contentContainer, containerStyle])}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
                         onPressBookmark={onPressBookmark} titleStyle={props.titleStyle} bodyStyle={props.bodyStyle}
+                        displayType={undefined} //DisplayType with display in ImageWithLabel itself
                     />
                 </View>
             </View>

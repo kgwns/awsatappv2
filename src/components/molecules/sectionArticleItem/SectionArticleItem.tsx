@@ -41,6 +41,7 @@ export interface SectionArticleItemProps {
   isBookmarked: boolean
   onPressBookmark: () => void
   showDivider?: boolean
+  displayType?: string;
 }
 const SectionArticleItem = ({
     headerTitle,
@@ -59,7 +60,8 @@ const SectionArticleItem = ({
     nid,
     isBookmarked,
     onPressBookmark,
-    showDivider = true
+    showDivider = true,
+    displayType,
 }: SectionArticleItemProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
@@ -73,7 +75,7 @@ const SectionArticleItem = ({
   return (
     <View style={style.sectionArticleItem}>
       <TouchableWithoutFeedback testID={'onPressTestID'} onPress={onPress}>
-        {image && <ImageWithLabel url={image} imageStyle={imageStyle} />}
+        {image && <ImageWithLabel url={image} imageStyle={imageStyle} displayType={displayType}/>}
         <View style={style.sectionContent}>
           <Label
             labelType={LabelTypeProp.h2}

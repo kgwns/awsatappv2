@@ -230,7 +230,7 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
             journalistName: jor_name,
             shortUrl: field_shorturl,
             scribbleLiveId: field_scribblelive_id,
-            displayType: field_display_export,
+            displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
             link_node: link_node
           })
       );
@@ -290,7 +290,7 @@ export const parseArticleSectionSuccess = (response: any, current_nid: number): 
                 journalistId: jor_id,
                 journalistCity: jor_city,
                 journalistName: jor_name,
-                displayType: field_display_export,
+                displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
               })
           );
        responseData.articleSectionData=responseData.articleSectionData.filter((item)=> parseInt(item.nid) !== current_nid)

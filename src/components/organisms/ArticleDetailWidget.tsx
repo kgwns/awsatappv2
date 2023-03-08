@@ -6,7 +6,7 @@ import { ArticleDetailImage } from 'src/components/molecules'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types'
 import { SCRIBBLE_LIVE_EVENT_URL, SCRIBBLE_LIVE_JSON_PARAM, SCRIBBLE_LIVE_TOKEN_PARAM, SCRIBBLE_TOKEN } from 'src/services/apiUrls';
 import { isNotEmpty, isObjectNonEmpty } from 'src/shared/utils';
-import { displayTypes, TranslateConstants, TranslateKey } from 'src/constants/Constants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 interface ArticleDetailWidgetProps {
     articleData: ArticleDetailDataType,
