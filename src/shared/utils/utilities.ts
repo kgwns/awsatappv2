@@ -120,6 +120,10 @@ export const isStringIncludes = (data: any, searchText: string): boolean => {
   return isNotEmpty(data) && data.includes(searchText) ? true : false
 }
 
+export const getString = (value: any): string => {
+  return isNotEmpty(value) ? decodeHTMLTags(value) : ' '
+};
+
 export const timeAgo = (time: any) => {
   const date = new Date(time);
   const today = new Date();
