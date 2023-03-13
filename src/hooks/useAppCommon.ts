@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { storeServerEnvironment, storeArticleFontSize, resetArticleFontSize, storeBaseUrlConfig } from "src/redux/appCommon/action";
 import { getIsFirstSession, getThemeState, getServerEnvironment, getArticleFontSize, getBaseUrlConfig } from "../redux/appCommon/selectors"
-import { ServerEnvironment, Theme } from "../redux/appCommon/types"
+import { BaseUrlConfigType, ServerEnvironment, Theme } from "../redux/appCommon/types"
 import { ArticleFontSize } from "src/redux/appCommon/types"
 
 export interface UseAppCommonReturn {
@@ -12,8 +12,8 @@ export interface UseAppCommonReturn {
     articleFontSize: number
     storeArticleFontSizeInfo(): void
     resetFontSizeInfo(): void;
-    baseUrlConfig: string;
-    storeBaseUrlConfigInfo: (url: string) => void;
+    baseUrlConfig: BaseUrlConfigType;
+    storeBaseUrlConfigInfo: (baseUrlConfigs: BaseUrlConfigType) => void;
 }
 
 export const useAppCommon = (): UseAppCommonReturn => {
@@ -30,8 +30,8 @@ export const useAppCommon = (): UseAppCommonReturn => {
         dispatch(storeServerEnvironment(type))
     }
 
-    const storeBaseUrlConfigInfo = (url: string) => {
-        dispatch(storeBaseUrlConfig({baseUrlConfig: url}));
+    const storeBaseUrlConfigInfo = (baseUrlConfigs: BaseUrlConfigType) => {
+        dispatch(storeBaseUrlConfig({baseUrlConfig: baseUrlConfigs}));
     }
 
     const storeArticleFontSizeInfo = () => {

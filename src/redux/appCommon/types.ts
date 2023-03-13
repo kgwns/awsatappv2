@@ -22,7 +22,7 @@ export type AppCommonState = {
   isAppFirstSession: boolean,
   serverEnvironment: ServerEnvironment
   articleFontSize: number
-  baseUrlConfig: string
+  baseUrlConfig: BaseUrlConfigType
 }
 
 export type AppThemeType = {
@@ -65,8 +65,16 @@ export type ResetArticleFontSizeType = {
   type: typeof RESET_ARTICLE_FONT_SIZE
 }
 
+export type BaseUrlConfigType = {
+  baseUrl: string,
+  umsUrl: string,
+  imageUrl: string,
+  profileImageUrl: string,
+  liveBlogUrl: string,
+}
+
 export type StoreBaseUrlConfigPayload = {
-  baseUrlConfig: string
+  baseUrlConfig: BaseUrlConfigType
 }
 
 export type StoreBaseUrlConfigType = {

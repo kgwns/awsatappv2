@@ -1,5 +1,5 @@
 import {AppState, Selector} from 'src/redux/rootReducer';
-import { ServerEnvironment, Theme } from 'src/redux/appCommon/types';
+import { BaseUrlConfigType, ServerEnvironment, Theme } from 'src/redux/appCommon/types';
 
 export const getThemeState: Selector<Theme> = (state: AppState) => state.appCommon.theme
 
@@ -9,4 +9,4 @@ export const getServerEnvironment: Selector<ServerEnvironment> = (state: AppStat
 
 export const getArticleFontSize: Selector<number> = (state: AppState) => state.appCommon.articleFontSize
 
-export const getBaseUrlConfig: Selector<string> = (state: AppState) => state.appCommon.baseUrlConfig;
+export const getBaseUrlConfig: Selector<BaseUrlConfigType> = (state: AppState) => state.appCommon.baseUrlConfig;

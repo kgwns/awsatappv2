@@ -7,7 +7,13 @@ const initialAuthState: AppCommonState = {
   isAppFirstSession: true,
   serverEnvironment: ServerEnvironment.PRODUCTION,
   articleFontSize: ArticleFontSize.normal,
-  baseUrlConfig: '',
+  baseUrlConfig: {
+    baseUrl: '',
+    umsUrl: '',
+    imageUrl: '',
+    profileImageUrl: '',
+    liveBlogUrl: '',
+  },
 };
 
 export default (state = initialAuthState, action: AppCommonAction) => {
