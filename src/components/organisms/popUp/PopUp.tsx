@@ -141,7 +141,8 @@ const customStyle = (theme: CustomThemeType) => {
         },
         rbSheetContainer: {
             alignItems: "center",
-            borderRadius: normalize(20),
+            borderTopLeftRadius: normalize(20),
+            borderTopRightRadius: normalize(20),
             backgroundColor: theme.bottomSheetBackground
         },
         rbDraggableIcon: {
