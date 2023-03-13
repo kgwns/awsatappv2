@@ -44,10 +44,11 @@ describe('<VideoContent>', () => {
   ];
   const mockFunction = jest.fn();
   const setIsTwoLine = jest.fn();
+  const setState = jest.fn();
 
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = true;
-    (useState as jest.Mock).mockImplementation(() => [false,setIsTwoLine])
+    (useState as jest.Mock).mockImplementation(() => [false,setState])
     const component = (
       <Provider store={storeSampleData}>
         <VideoContent data={sampleData} onPress={mockFunction} isTabDesign={true} />
@@ -93,7 +94,13 @@ describe('<VideoContent>', () => {
     fireEvent(element, 'onPress',props)
     expect(mockFunction).toHaveBeenCalled();
   })
-
+  it("should render label onTextLayout with event", () => {
+    const element = instance.container.findAllByType(Label)[1];
+    fireEvent(element,'onTextLayout',{nativeEvent:{lines:'event'}});
+    expect(setState).toHaveBeenCalled();
+    expect(setState).toHaveBeenCalledWith(true)
+    expect(setState).toHaveBeenCalledWith(5)
+  })
 });
 
 describe('<VideoContent>', () => {
@@ -137,5 +144,4 @@ describe('<VideoContent>', () => {
   test('Should render VideoContent component', () => {
     expect(instance).toBeDefined();
   });
-
 });

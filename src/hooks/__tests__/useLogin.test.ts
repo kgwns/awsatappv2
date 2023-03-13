@@ -1,5 +1,5 @@
 import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { EMPTY_FORGOT_PASSWORD_RESPONSE, EMPTY_LOGIN_DATA, FETCH_USER_LOGOUT, LOGIN_SKIPPED } from 'src/redux/login/actionTypes';
 import {
   useLogin,
@@ -15,9 +15,11 @@ describe('#useLogin', () => {
   let result: RenderHookResult<undefined, UseLoginReturn>;
 
   const dispatchMock = jest.fn();
+  const selectorMock = jest.fn();
 
   beforeAll(() => {
     (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
+    (useSelector as jest.Mock).mockReturnValue({token:{access_token:'token'}});
 
     result = renderHook<undefined, UseLoginReturn>(() =>
       useLogin(),
@@ -134,6 +136,46 @@ describe('#useLogin', () => {
       });
 
       expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+
+});
+describe('#useLogin', () => {
+  let result: RenderHookResult<undefined, UseLoginReturn>;
+
+  const dispatchMock = jest.fn();
+  const selectorMock = jest.fn();
+
+  beforeAll(() => {
+    (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
+    (useSelector as jest.Mock).mockReturnValue(selectorMock);
+
+    result = renderHook<undefined, UseLoginReturn>(() =>
+      useLogin(),
+    );
+  });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+    result.unmount();
+  });
+
+  describe('#loginSkipped', () => {
+    it('should call dispatch with loginSkipped', () => {
+      const {
+        result: {
+          current: {loginSkipped},
+        },
+      } = result;
+
+      act(() => {
+        loginSkipped();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+      expect(dispatchMock).toHaveBeenCalledWith({
+        type: LOGIN_SKIPPED,
+      });
     });
   });
 

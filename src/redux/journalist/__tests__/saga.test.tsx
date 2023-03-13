@@ -1,4 +1,4 @@
-import {takeLatest} from 'redux-saga/effects';
+import { all, takeLatest } from "redux-saga/effects";
 import { FETCH_JOURNALIST_DETAIL, GET_JOURNALIST_ARTICLE_INFO } from '../actionType';
 import journalistSaga, { getJournalistArticleInfo, fetchJournalistDetails } from "../sagas";
 
@@ -60,5 +60,21 @@ describe('<JournalistSaga >', () => {
             genObject.next()
             genObject.throw(errorResponse)
         })
+    })
+
+    describe('Check journalistSaga sage method', () => {
+        const genObject = journalistSaga();
+        it('should test all journalistSaga', () => {
+            const generator = genObject.next();
+            expect(generator.value).toEqual(
+                all([
+                    takeLatest(GET_JOURNALIST_ARTICLE_INFO, getJournalistArticleInfo),
+                    takeLatest(FETCH_JOURNALIST_DETAIL, fetchJournalistDetails)
+                ])
+            );
+        });
+        it('should be done on next iteration', () => {
+            expect(genObject.next().done).toBeTruthy();
+        });
     })
 })

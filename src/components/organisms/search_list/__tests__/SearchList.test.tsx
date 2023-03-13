@@ -149,7 +149,67 @@ describe('<SearchList>', () => {
       fireEvent(searchBarId, 'onPress');
       expect(mockFunction).toBeTruthy();
     });
-    
   });
 });
 
+describe('<SearchList>', () => {
+  let instance: RenderAPI;
+
+  const mockFunction = jest.fn();
+  const setSearchText = jest.fn();
+  const mockData: SearchItemType[] = [{
+    nid: '1',
+    title: 'qsd',
+    field_image: 'asd',
+    view_node: 'asd',
+    field_publication_date_export: 'asd',
+    created_export: 'sd',
+    field_news_categories_export: [],
+    type: 'asd',
+    body: 'asd',
+    field_new_photo: 'asd'
+  },
+  {
+    nid: '2',
+    title: 'qsd',
+    field_image: 'asd',
+    view_node: 'asd',
+    field_publication_date_export: 'asd',
+    created_export: 'sd',
+    field_news_categories_export: [],
+    type: 'asd',
+    body: 'asd',
+    field_new_photo: 'asd'
+  },
+]
+  describe('when SearchList is displayed when loading is true', () => {
+    beforeEach(() => {
+      (useState as jest.Mock).mockImplementation(() => ['search', setSearchText]);
+      instance = render(<SearchList isLoading={true} data={mockData} onItemActionPress={mockFunction} onTextChange={mockFunction} searchHistory={['abc', 'bcd']} onPressHistory={mockFunction} />);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+
+    it('Should render SearchList', () => {
+      expect(instance).toBeDefined();
+    });
+    it('when searchBar onChangeText only', () => {
+      const searchBarId = instance.container.findByType(SearchBar);
+      fireEvent(searchBarId, 'onChangeText', ['teststring']);
+      expect(setSearchText).toHaveBeenCalled();
+    });
+    it('when searchBar onClearSearchText only', () => {
+      const searchBarId = instance.container.findByType(SearchBar);
+      fireEvent(searchBarId, 'onClearSearchText');
+      expect(mockFunction).toHaveBeenCalled();
+    });
+    it('when searchBar onSubmitSearch only', () => {
+      const searchBarId = instance.container.findAllByType(SearchBar)[0];
+      fireEvent(searchBarId, 'onSubmitSearch');
+      expect(recordLogEvent).toBeTruthy();
+    });
+  });
+});

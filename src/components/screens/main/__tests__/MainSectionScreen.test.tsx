@@ -16,6 +16,11 @@ jest.mock('src/shared/utils/dimensions', () => ({
   isTab: false,
 }));
 
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
+
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
@@ -55,6 +60,10 @@ jest.mock("src/hooks/useVideoList", () => ({
     }
   },
 }));
+
+// jest.mock('src/shared/utils/utilities', () => ({ 
+//   ...jest.requireActual('react'),
+//   isNonEmptyArray: jest.fn().mockReturnValue(true) }));
 
 jest.mock("src/hooks/useUserProfileData", () => ({
   useUserProfileData: () => {
@@ -301,6 +310,7 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
       sectionComboFive: latestArticleData,
       sectionComboSix: latestArticleData,
       sectionComboSeven: latestArticleData,
+      sectionComboEight: latestArticleData,
       podcastHome: podCastData,
       infoGraphicBlock: latestArticleData,
       coverage: [],
@@ -933,7 +943,7 @@ describe('<MainSectionScreen>', () => {
   let instance: RenderAPI;
 
   const mockFunction = jest.fn();
-
+  
   const refreshing = mockFunction;
   const coverageInfo = mockFunction;
   const sectionComboOneInfo = mockFunction;
@@ -950,7 +960,6 @@ describe('<MainSectionScreen>', () => {
   const editorsChoiceInfo = mockFunction;
   const useLoginMock = mockFunction;
   const useAppPlayerMock = mockFunction;
-
   const navigation = {
     navigate: mockFunction,
   }
@@ -989,5 +998,4 @@ describe('<MainSectionScreen>', () => {
   it('should render MainSectionScreen component', () => {
     expect(instance).toBeDefined();
   });
-
 });
