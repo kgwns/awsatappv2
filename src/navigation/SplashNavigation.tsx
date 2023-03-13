@@ -3,9 +3,12 @@ import { I18nManager, NativeEventSubscription, useColorScheme, AppState, Platfor
 import SplashScreen from 'react-native-splash-screen'
 import { useDispatch } from 'react-redux'
 import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'
-import { Theme } from 'src/redux/appCommon/types'
+import { BaseUrlConfigType, Theme } from 'src/redux/appCommon/types'
 import { useAppCommon, useBookmark, useLogin, useUserProfileData } from 'src/hooks'
 import AppStackContainer from './AppStackContainer'
+import { getCacheApiRequest } from 'src/services/api'
+import { BASE_URL, BASE_URL_CONFIG, LIVE_BLOG_URL, PROFILE_IMAGE_URL, UMS_BASE_URL } from 'src/services/apiUrls'
+import { isNotEmpty, isObjectNonEmpty } from 'src/shared/utils'
 
 const SplashNavigation = () => {
     const dispatch = useDispatch()
@@ -21,18 +24,23 @@ const SplashNavigation = () => {
     const { isLoggedIn } = useLogin()
     const { fetchProfileDataRequest } = useUserProfileData();
 
-    const { isFirstSession } = useAppCommon()
+    const { isFirstSession, baseUrlConfig, storeBaseUrlConfigInfo } = useAppCommon()
+
+    useEffect(() => {
+        getBaseURL();
+    }, [])
+
     useEffect(() => {
         updateAppThemeState()
         return () => subscription?.remove()
     }, [])
 
     useEffect(() => {
-        if (isLoggedIn) {
+        if (isLoggedIn && isObjectNonEmpty(baseUrlConfig)) {
             getBookmarkedId()
             fetchProfileDataRequest()
         }
-    }, [])
+    }, [baseUrlConfig])
     
     // Enable the background mode for the trackplayer. if don't we can use this lines in future. 
     // useEffect(() => {
@@ -62,6 +70,30 @@ const SplashNavigation = () => {
         SplashScreen.hide()
     }, [])
 
+    const getBaseURL = async () => {
+        try {
+            const response = await getCacheApiRequest(
+                `${BASE_URL_CONFIG}`,
+            );
+
+            const validBaseUrlConfig: BaseUrlConfigType = {
+                baseUrl: isNotEmpty((response.base_url)) ? getValidUrl(response.base_url) : BASE_URL,
+                umsUrl: isNotEmpty(response.ums_base_url) ? getValidUrl(response.ums_base_url) : UMS_BASE_URL,
+                imageUrl: getValidUrl(response.image_url),
+                profileImageUrl: isNotEmpty(response.profile_image_url) ? getValidUrl(response.profile_image_url) : PROFILE_IMAGE_URL,
+                liveBlogUrl: isNotEmpty(response.live_blog_url) ? getValidUrl(response.live_blog_url) : LIVE_BLOG_URL,
+            }
+            storeBaseUrlConfigInfo(validBaseUrlConfig);
+        } catch (error) {
+            console.log('getBaseURL - Error', error)
+            throw error;
+        }
+    }
+
+    const getValidUrl = (url: string) => {
+        return url.charAt(url.length - 1) === '/' ? url : `${url}/`
+    };
+
     return (
     // Commented for AMAR-1145
     //     Platform.OS === 'android' ?
@@ -73,7 +105,9 @@ const SplashNavigation = () => {
     //         style={{width: "100%", height: '100%'}} />
     //    : <AppStackContainer />)
     //    : 
-       <AppStackContainer />
+        <>
+            {isObjectNonEmpty(baseUrlConfig) && <AppStackContainer />}
+        </>
     );
 }
 
