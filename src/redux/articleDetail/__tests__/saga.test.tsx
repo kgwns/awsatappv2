@@ -1,7 +1,7 @@
 import { all, takeLatest } from "redux-saga/effects";
 import { OpinionArticleDetailItemType } from "src/redux/opinionArticleDetail/types";
 import { REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_SECTION, REQUEST_RELATED_ARTICLE, REQUEST_RICH_ARTICLE_CONTENT, REQUEST_RICH_ARTICLE_OPINION, REQUEST_RICH_ARTICLE_READ_ALSO } from "../actionType";
-import articleDetailSaga, { fetchArticleDetail, fetchRelatedArticle, fetchArticleSection, getRichReadAlsoInfo, fetchRichHTMLContentBundle, fetchRichHTMLOpinionsBundle, updatedReadAlsoContent, updatedContentBundleContent, updatedOpinionBundle, parseRichArticleReadAlso } from "../sagas";
+import articleDetailSaga, { fetchArticleDetail, fetchRelatedArticle, fetchArticleSection, getRichReadAlsoInfo, fetchRichHTMLContentBundle, fetchRichHTMLOpinionsBundle, updatedReadAlsoContent, updatedContentBundleContent, updatedOpinionBundle, parseRichArticleReadAlso, parseArticleDetailSuccess } from "../sagas";
 import { ArticleDetailDataType, RichHTMLOpinionDataType, RichHTMLType } from "../types";
 
 const data: ArticleDetailDataType = {
@@ -32,14 +32,14 @@ const data: ArticleDetailDataType = {
     created: 'asxdc',
     richHTML: [
         {
-            type:  RichHTMLType.READ_ALSO,
+            type: RichHTMLType.READ_ALSO,
             data: {
                 id: 'example',
                 type: 'example',
                 bundle: 'example',
                 related_content: ['example'],
                 title: 'example',
-                readAlsoData: ['example','example','example'],
+                readAlsoData: ['example', 'example', 'example'],
             }
         },
     ],
@@ -73,7 +73,7 @@ const dataExample3: ArticleDetailDataType = {
     created: 'asxdc',
     richHTML: [
         {
-            type:  RichHTMLType.OPINION,
+            type: RichHTMLType.OPINION,
             data: {
                 id: 'example',
                 type: 'example',
@@ -119,7 +119,7 @@ const dataExample2: ArticleDetailDataType = {
     created: 'asxdc',
     richHTML: [
         {
-            type:  RichHTMLType.CONTENT,
+            type: RichHTMLType.CONTENT,
             data: {
                 id: 'example',
                 type: 'example',
@@ -318,6 +318,14 @@ const sampleResponse1 = {
     }
 }
 
+const quoteResponse = { "articleDetailData": [{ "author": "", "body": undefined, "caption": "", "created": undefined, "displayType": undefined, "image": "", "journalistCity": undefined, "journalistId": undefined, "journalistName": undefined, "jwplayerId": undefined, "news_categories": undefined, "nid": undefined, "richHTML": [{ "data": { "bundle": "quote" }, "type": "quote" }], "scribbleLiveId": undefined, "shortUrl": undefined, "subtitle": "", "tag_topics": undefined, "title": "", "view_node": undefined }], "pager": {} }
+const contentResponse = { "articleDetailData": [{ "author": "", "body": undefined, "caption": "", "created": undefined, "displayType": undefined, "image": "", "journalistCity": undefined, "journalistId": undefined, "journalistName": undefined, "jwplayerId": undefined, "news_categories": undefined, "nid": undefined, "richHTML": [{ "data": { "bundle": "content" }, "type": "content" }], "scribbleLiveId": undefined, "shortUrl": undefined, "subtitle": "", "tag_topics": undefined, "title": "", "view_node": undefined }], "pager": {} }
+const descriptionResponse = { "articleDetailData": [{ "author": "", "body": undefined, "caption": "", "created": undefined, "displayType": undefined, "image": "", "journalistCity": undefined, "journalistId": undefined, "journalistName": undefined, "jwplayerId": undefined, "news_categories": undefined, "nid": undefined, "richHTML": [{ "data": { "bundle": "description" }, "type": "description" }], "scribbleLiveId": undefined, "shortUrl": undefined, "subtitle": "", "tag_topics": undefined, "title": "", "view_node": undefined }], "pager": {} }
+const opinionResponse = { "articleDetailData": [{ "author": "", "body": undefined, "caption": "", "created": undefined, "displayType": undefined, "image": "", "journalistCity": undefined, "journalistId": undefined, "journalistName": undefined, "jwplayerId": undefined, "news_categories": undefined, "nid": undefined, "richHTML": [{ "data": { "bundle": "opinion" }, "type": "opinion" }], "scribbleLiveId": undefined, "shortUrl": undefined, "subtitle": "", "tag_topics": undefined, "title": "", "view_node": undefined }], "pager": {} }
+const readAlsoResponse = { "articleDetailData": [{ "author": "", "body": undefined, "caption": "", "created": undefined, "displayType": undefined, "image": "", "journalistCity": undefined, "journalistId": undefined, "journalistName": undefined, "jwplayerId": undefined, "news_categories": undefined, "nid": undefined, "richHTML": [{ "data": { "bundle": "read_also" }, "type": "read_also" }], "scribbleLiveId": undefined, "shortUrl": undefined, "subtitle": "", "tag_topics": undefined, "title": "", "view_node": undefined }], "pager": {} }
+const numbersResponse = { "articleDetailData": [{ "author": "", "body": undefined, "caption": "", "created": undefined, "displayType": undefined, "image": "", "journalistCity": undefined, "journalistId": undefined, "journalistName": undefined, "jwplayerId": undefined, "news_categories": undefined, "nid": undefined, "richHTML": [{ "data": { "bundle": "numbers" }, "type": "numbers" }], "scribbleLiveId": undefined, "shortUrl": undefined, "subtitle": "", "tag_topics": undefined, "title": "", "view_node": undefined }], "pager": {} }
+const defaultResponse = { "articleDetailData": [{ "author": "", "body": undefined, "caption": "", "created": undefined, "displayType": undefined, "image": "", "journalistCity": undefined, "journalistId": undefined, "journalistName": undefined, "jwplayerId": undefined, "news_categories": undefined, "nid": undefined, "richHTML": [null], "scribbleLiveId": undefined, "shortUrl": undefined, "subtitle": "", "tag_topics": undefined, "title": "", "view_node": undefined }], "pager": {} }
+
 const HTMLOpinionsData = {
     opinionData: {}
 }
@@ -339,7 +347,7 @@ describe('<Article Detail Saga >', () => {
                 all([
                     takeLatest(REQUEST_ARTICLE_DETAIL, fetchArticleDetail),
                     takeLatest(REQUEST_RELATED_ARTICLE, fetchRelatedArticle),
-                    takeLatest(REQUEST_ARTICLE_SECTION,fetchArticleSection),
+                    takeLatest(REQUEST_ARTICLE_SECTION, fetchArticleSection),
                     takeLatest(REQUEST_RICH_ARTICLE_READ_ALSO, getRichReadAlsoInfo),
                 ])
             );
@@ -381,8 +389,8 @@ describe('<Article Detail Saga >', () => {
                     nid: 12345
                 }
             })
-            genObject.next({rows: []})
-            genObject.next({rows: []})
+            genObject.next({ rows: [] })
+            genObject.next({ rows: [] })
         })
 
         it('check fetchHeroListTopListWidgetData failed', () => {
@@ -438,8 +446,8 @@ describe('<Article Detail Saga >', () => {
                     tid: 12345
                 }
             })
-            genObject.next({rows: []})
-            genObject.next({rows: []})
+            genObject.next({ rows: [] })
+            genObject.next({ rows: [] })
         })
 
         it('check fetchHeroListTopListWidgetData failed', () => {
@@ -472,7 +480,7 @@ describe('<Article Detail Saga >', () => {
                 payload: {
                     id: 12,
                     page: 1,
-                    items_per_page:10,
+                    items_per_page: 10,
                     current_nid: 1,
                 }
             })
@@ -486,7 +494,7 @@ describe('<Article Detail Saga >', () => {
                 payload: {
                     id: 12,
                     page: 1,
-                    items_per_page:10,
+                    items_per_page: 10,
                     current_nid: 1,
                 }
             })
@@ -500,7 +508,7 @@ describe('<Article Detail Saga >', () => {
                 payload: {
                     id: 12,
                     page: 1,
-                    items_per_page:10,
+                    items_per_page: 10,
                     current_nid: 1,
                 }
             })
@@ -514,12 +522,12 @@ describe('<Article Detail Saga >', () => {
                 payload: {
                     id: 12,
                     page: 1,
-                    items_per_page:10,
+                    items_per_page: 10,
                     current_nid: 1,
                 }
             })
-            genObject.next({rows: []})
-            genObject.next({rows: []})
+            genObject.next({ rows: [] })
+            genObject.next({ rows: [] })
         })
 
         it('check fetchArticleSection failed', () => {
@@ -528,7 +536,7 @@ describe('<Article Detail Saga >', () => {
                 payload: {
                     id: 12,
                     page: 1,
-                    items_per_page:10,
+                    items_per_page: 10,
                     current_nid: 1,
                 }
             })
@@ -542,7 +550,7 @@ describe('<Article Detail Saga >', () => {
                 payload: {
                     id: 12,
                     page: 1,
-                    items_per_page:10,
+                    items_per_page: 10,
                     current_nid: 1,
                 }
             })
@@ -558,7 +566,7 @@ describe('<Article Detail Saga >', () => {
                 payload: {
                     id: 12,
                     page: 1,
-                    items_per_page:10,
+                    items_per_page: 10,
                     current_nid: 1,
                 }
             })
@@ -573,7 +581,7 @@ describe('<Article Detail Saga >', () => {
                 payload: {
                     id: 12,
                     page: 1,
-                    items_per_page:10,
+                    items_per_page: 10,
                     current_nid: 1,
                 }
             })
@@ -587,7 +595,7 @@ describe('<Article Detail Saga >', () => {
                 payload: {
                     id: 12,
                     page: 1,
-                    items_per_page:10,
+                    items_per_page: 10,
                     current_nid: 1,
                 }
             })
@@ -637,8 +645,8 @@ describe('<Article Detail Saga >', () => {
                     nid: 12
                 }
             })
-            genObject.next({rows: []})
-            genObject.next({rows: []})
+            genObject.next({ rows: [] })
+            genObject.next({ rows: [] })
         })
 
 
@@ -741,7 +749,7 @@ describe('<Article Detail Saga >', () => {
         });
 
         it('Test updatedContentBundleContent', () => {
-            expect(updatedContentBundleContent(dataExample2,  [dataExample2])).toBeTruthy();
+            expect(updatedContentBundleContent(dataExample2, [dataExample2])).toBeTruthy();
         });
 
         it('Test updatedContentBundleContent', () => {
@@ -779,6 +787,83 @@ describe('<Article Detail Saga >', () => {
         it('Test parseRichArticleReadAlso', () => {
             expect(parseRichArticleReadAlso([data])).toBeTruthy();
         });
-       
+
+        it("Test parseArticleDetailSuccess passing quote type", () => {
+            const res = parseArticleDetailSuccess({
+                rows: [{
+                    field_paragraph_export: [{
+                        bundle: RichHTMLType.QUOTE
+                    }]
+                }]
+            })
+            expect(res).toEqual(quoteResponse);
+        })
+
+        it("Test parseArticleDetailSuccess passing content type", () => {
+            const res = parseArticleDetailSuccess({
+                rows: [{
+                    field_paragraph_export: [{
+                        bundle: RichHTMLType.CONTENT
+                    }]
+                }]
+            })
+            expect(res).toEqual(contentResponse);
+        })
+
+        it("Test parseArticleDetailSuccess passing description type", () => {
+            const res = parseArticleDetailSuccess({
+                rows: [{
+                    field_paragraph_export: [{
+                        bundle: RichHTMLType.DESCRIPTION
+                    }]
+                }]
+            })
+            expect(res).toEqual(descriptionResponse);
+        })
+
+        it("Test parseArticleDetailSuccess passing content type", () => {
+            const res = parseArticleDetailSuccess({
+                rows: [{
+                    field_paragraph_export: [{
+                        bundle: RichHTMLType.OPINION
+                    }]
+                }]
+            })
+            expect(res).toEqual(opinionResponse);
+        })
+
+        it("Test parseArticleDetailSuccess passing content type", () => {
+            const res = parseArticleDetailSuccess({
+                rows: [{
+                    field_paragraph_export: [{
+                        bundle: RichHTMLType.READ_ALSO
+                    }]
+                }]
+            })
+            expect(res).toEqual(readAlsoResponse);
+        })
+
+        it("Test parseArticleDetailSuccess passing content type", () => {
+            const res = parseArticleDetailSuccess({
+                rows: [{
+                    field_paragraph_export: [{
+                        bundle: RichHTMLType.NUMBERS
+                    }]
+                }]
+            })
+            expect(res).toEqual(numbersResponse);
+        })
+
+        it("Test parseArticleDetailSuccess passing content type", () => {
+            const res = parseArticleDetailSuccess({
+                rows: [{
+                    field_paragraph_export: [{
+                        bundle: 'default'
+                    }]
+                }]
+            })
+            expect(res).toEqual(defaultResponse);
+        })
+
     });
 })

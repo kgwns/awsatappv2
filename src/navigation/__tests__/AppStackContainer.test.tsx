@@ -2,7 +2,7 @@ import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import AppStackContainer from 'src/navigation/AppStackContainer';
 import {Provider} from 'react-redux';
-import {ScreensConstants, storeSampleData} from '../../constants/Constants';
+import { storeSampleData} from '../../constants/Constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { useLogin } from 'src/hooks/useLogin';
 
@@ -87,6 +87,7 @@ describe('render AppStackContainer when the user logged in and the user is not a
     let instance: RenderAPI;
     (useLogin as jest.Mock).mockReturnValueOnce({isLoggedIn:true,loginData:{message:{newUser:0}}});
     beforeEach(() => {
+      jest.useFakeTimers('legacy');
       const component = (
           <Provider store={storeSampleData}>
             <AppStackContainer />
@@ -112,6 +113,7 @@ describe('render AppStackContainer when the user logged in and the user is new u
   let instance: RenderAPI;
   (useLogin as jest.Mock).mockReturnValue({isLoggedIn:true,loginData:{message:{newUser:1}}});
   beforeEach(() => {
+    jest.useFakeTimers('legacy');
     const component = (
         <Provider store={storeSampleData}>
           <AppStackContainer />

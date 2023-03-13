@@ -11,6 +11,11 @@ jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
 }));
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false
+}));
 
 jest.mock('src/shared/validators',() => ({
     ...jest.requireActual('src/shared/validators'),
@@ -72,9 +77,13 @@ describe('<ContactUs>', () => {
     })
 
     test('Should render component', () => {
+        DeviceTypeUtilsMock.isIOS = false;
         expect(instance).toBeDefined()
     })
-
+    test('Should render component', () => {
+        DeviceTypeUtilsMock.isIOS = true;
+        expect(instance).toBeDefined()
+    })
     test('Should call ScreenContainer alertOnPress', () => {
         const element = instance.container.findByType(ScreenContainer)
         fireEvent(element, 'alertOnPress');
