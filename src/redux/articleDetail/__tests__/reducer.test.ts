@@ -1,4 +1,4 @@
-import { ArticleDetailDataType, ArticleDetailState, RelatedArticleDataType } from '../types'
+import { ArticleDetailDataType, ArticleDetailState, RelatedArticleDataType, RichHTMLType } from '../types'
 import { EMPTY_DATA, REQUEST_ARTICLE_DETAIL, REQUEST_ARTICLE_DETAIL_FAILED, REQUEST_ARTICLE_DETAIL_SUCCESS, REQUEST_ARTICLE_SECTION, REQUEST_ARTICLE_SECTION_FAILED, REQUEST_ARTICLE_SECTION_SUCCESS, REQUEST_RELATED_ARTICLE, REQUEST_RELATED_ARTICLE_FAILED, REQUEST_RELATED_ARTICLE_SUCCESS, REQUEST_RICH_ARTICLE_CONTENT_SUCCESS, REQUEST_RICH_ARTICLE_OPINION_SUCCESS, REQUEST_RICH_ARTICLE_READ_ALSO_SUCCESS } from '../actionType'
 import articleDetailReducer from '../reducer'
 
@@ -64,8 +64,114 @@ const data: ArticleDetailDataType = {
     caption: 'asd',
     subtitle: 'asdf',
     jwplayerId: '1',
-    created: 'asxdc'
+    created: 'asxdc',
+    richHTML: [
+        {
+            type: RichHTMLType.OPINION,
+            data: {
+                id: 'id',
+                type: 'type',
+                bundle: 'bundle',
+                opinion: '2312',
+                opinionData: {
+                    name: 'name',
+                    title: 'title',
+                    image: 'image',
+                    nid: 'nid',
+                    writerId: 'id',
+                }
+            }
+        }
+    ]
 }
+
+const contentData = {
+    title: 'title',
+    body: 'body',
+    nid: 'nid',
+    image: 'image',
+    view_node: 'view_node',
+    news_categories: {
+        title: 'news_categories_title',
+        id: 'news_categories_id',
+        url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
+        bundle: 'news_categories_bundle',
+        name: 'news_categories_name'
+    },
+    author: 'author',
+    tag_topics: {
+        id: '1',
+        title: 'asd',
+        url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
+        bundle: 'asd',
+        name: 'qsd'
+    },
+    isBookmarked: false,
+    caption: 'asd',
+    subtitle: 'asdf',
+    jwplayerId: '1',
+    created: 'asxdc',
+    richHTML: [
+        {
+            type: RichHTMLType.CONTENT,
+            data: {
+                id: 'id',
+                type: 'type',
+                bundle: 'bundle',
+                opinion: '2312',
+                opinionData: {
+                    name: 'name',
+                    title: 'title',
+                    image: 'image',
+                    nid: 'nid',
+                    writerId: 'id',
+                }
+            }
+        }
+    ]
+}
+
+const readAlsoData = {
+    title: 'title',
+    body: 'body',
+    nid: 'nid',
+    image: 'image',
+    view_node: 'view_node',
+    news_categories: {
+        title: 'news_categories_title',
+        id: 'news_categories_id',
+        url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
+        bundle: 'news_categories_bundle',
+        name: 'news_categories_name'
+    },
+    author: 'author',
+    tag_topics: {
+        id: '1',
+        title: 'asd',
+        url: 'http://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/94842',
+        bundle: 'asd',
+        name: 'qsd'
+    },
+    isBookmarked: false,
+    caption: 'asd',
+    subtitle: 'asdf',
+    jwplayerId: '1',
+    created: 'asxdc',
+    richHTML: [
+        {
+            type: RichHTMLType.READ_ALSO,
+            data: {
+                id: 'id',
+                type: 'type',
+                bundle: 'bundle',
+                readAlsoData:[],
+                related_content: ['string'],
+                title:'title'
+            }
+        }
+    ]
+}
+
 
 describe('ArticleDetail Reducer', () => {
     const nid: number = 123
@@ -166,17 +272,41 @@ describe('ArticleDetail Reducer', () => {
     })
 
     test('On Success of rich Article section details API', () => {
+        initialState = {
+            isLoading: true,
+            error: 'Error',
+            articleDetailData: [readAlsoData],
+            pager: {
+                current_page: null,
+                items_per_page: 1
+            },
+            relatedArticleData: sampleData3,
+            articleSectionData: [data],
+            articleSectionLoaded: true
+        }
         const nextState = articleDetailReducer(initialState, {
             type: REQUEST_RICH_ARTICLE_READ_ALSO_SUCCESS,
-            payload: { nid: '2'}
+            payload: [{name:'name',nid:'232'}] as any
         })
         expect(nextState.isLoading).toBe(true)
     })
 
     test('On Success of rich Article section details API', () => {
+        initialState = {
+            isLoading: true,
+            error: 'Error',
+            articleDetailData: [contentData],
+            pager: {
+                current_page: null,
+                items_per_page: 1
+            },
+            relatedArticleData: sampleData3,
+            articleSectionData: [data],
+            articleSectionLoaded: true
+        }
         const nextState = articleDetailReducer(initialState, {
             type: REQUEST_RICH_ARTICLE_CONTENT_SUCCESS,
-            payload: { contentBundleData: []}
+            payload: { contentBundleData: [{name:'name',title:"title",nid:"2312",image:'image',writerId:'28writer'}]}
         })
         expect(nextState.isLoading).toBe(true)
     })
@@ -184,7 +314,7 @@ describe('ArticleDetail Reducer', () => {
     test('On Success of rich Article section details API', () => {
         const nextState = articleDetailReducer(initialState, {
             type: REQUEST_RICH_ARTICLE_OPINION_SUCCESS,
-            payload: { opinionData: {}}
+            payload: { opinionData: [{name:'name',title:"title",nid:"2312",image:'image',writerId:'28writer'}]}
         })
         expect(nextState.isLoading).toBe(true)
     })

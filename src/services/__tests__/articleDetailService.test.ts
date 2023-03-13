@@ -15,6 +15,12 @@ describe('Test Article Detail Services', () => {
         mock.reset();
     });
     describe('Check requestLatestArticle method', () => {
+        beforeEach(() => {
+            jest.useFakeTimers('legacy');
+        })
+        afterEach(() => {
+            mock.reset();
+        });
         const requestObject: LatestArticleBodyGet = {
             items_per_page: 10,
             page: 0,
@@ -43,6 +49,12 @@ describe('Test Article Detail Services', () => {
     })
 
     describe('Check requestLatestArticle method', () => {
+        beforeEach(() => {
+            jest.useFakeTimers('legacy');
+        })
+        afterEach(() => {
+            mock.reset();
+        });
         const requestObject: RequestSectionComboBodyGet = {
             id: 11
         };
@@ -69,6 +81,12 @@ describe('Test Article Detail Services', () => {
     })
 
     describe('Check requestArticleDetail method', () => {
+        beforeEach(() => {
+            jest.useFakeTimers('legacy');
+        })
+        afterEach(() => {
+            mock.reset();
+        });
         const requestObject: ArticleDetailBodyGet = {
             nid: 123
         };
@@ -93,6 +111,12 @@ describe('Test Article Detail Services', () => {
     })
 
     describe('Check requestLatestArticle method', () => {
+        beforeEach(() => {
+            jest.useFakeTimers('legacy');
+        })
+        afterEach(() => {
+            mock.reset();
+        });
         const requestObject: RelatedArticleBodyGet = {
             tid: 11
         };
@@ -129,6 +153,12 @@ describe('Test Article Detail Services', () => {
     })
 
     describe('Check requestArticleSection method', () => {
+        beforeEach(() => {
+            jest.useFakeTimers('legacy');
+        })
+        afterEach(() => {
+            mock.reset();
+        });
         const requestObject: ArticleSectionBodyGet = {
             id: 11,
             page: 1,
@@ -155,6 +185,12 @@ describe('Test Article Detail Services', () => {
         });
     });
     describe('Check requestJournalistDetail method',()=>{
+        beforeEach(() => {
+            jest.useFakeTimers('legacy');
+        })
+        afterEach(() => {
+            mock.reset();
+        });
         const requestObject: JournalistDetailBodyGet = {
             jor_id: 'string',
         }
