@@ -59,4 +59,5 @@ export const SCRIBBLE_LIVE_JSON_PARAM = '&format=Json'
 //Scribble auth_token
 export const SCRIBBLE_TOKEN = '0ROZff5O' // Shared by the SRMG team. Need to replace if required.
 
+//IMAGE URL
 export const IMAGE_URL = getBaseUrlConfig().imageUrl;

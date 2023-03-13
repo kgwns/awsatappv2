@@ -17,7 +17,7 @@ import { FetchArabicData } from 'src/firebase/RemoteConfig/RemoteConfig';
 const App = () => {
 
   const permissionDelay = isIOS ? 1500 : 5500;
-
+  
   useEffect(() => {
     Orientation.lockToPortrait()
   }, [])
@@ -34,7 +34,7 @@ const App = () => {
       TrackPlayer.destroy();
     });
   }, [])
-  
+
   return (
     <Provider store={store}>
       <GetFCMToken/>
