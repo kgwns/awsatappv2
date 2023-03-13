@@ -360,13 +360,5 @@ describe("test videoPlayerControl renderPlaypauseID onPaused function",() => {
     expect(instance.container.props.setReset).toHaveBeenCalledWith(true);
   })
 
-  // it("setTimeout",() => {
-  //   jest.useFakeTimers();
-  //   // const res = jest.spyOn(global,'setTimeout');
-  //   const res = jest.fn();
-  //   setTimeout(res,100);
-  //   jest.advanceTimersByTime(100)
-  //   expect(res).toBeCalled()
-  // })
 })
 
