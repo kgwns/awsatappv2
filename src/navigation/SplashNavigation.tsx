@@ -6,6 +6,9 @@ import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'
 import { Theme } from 'src/redux/appCommon/types'
 import { useAppCommon, useBookmark, useLogin, useUserProfileData } from 'src/hooks'
 import AppStackContainer from './AppStackContainer'
+import { getCacheApiRequest } from 'src/services/api'
+import { BASE_URL, BASE_URL_CONFIG } from 'src/services/apiUrls'
+import { isNotEmpty } from 'src/shared/utils'
 
 const SplashNavigation = () => {
     const dispatch = useDispatch()
@@ -21,18 +24,23 @@ const SplashNavigation = () => {
     const { isLoggedIn } = useLogin()
     const { fetchProfileDataRequest } = useUserProfileData();
 
-    const { isFirstSession } = useAppCommon()
+    const { isFirstSession, baseUrlConfig, storeBaseUrlConfigInfo } = useAppCommon()
+
+    useEffect(() => {
+        getBaseURL();
+    }, [])
+
     useEffect(() => {
         updateAppThemeState()
         return () => subscription?.remove()
     }, [])
 
     useEffect(() => {
-        if (isLoggedIn) {
+        if (isLoggedIn && isNotEmpty(baseUrlConfig)) {
             getBookmarkedId()
             fetchProfileDataRequest()
         }
-    }, [])
+    }, [baseUrlConfig])
     
     // Enable the background mode for the trackplayer. if don't we can use this lines in future. 
     // useEffect(() => {
@@ -62,6 +70,20 @@ const SplashNavigation = () => {
         SplashScreen.hide()
     }, [])
 
+    const getBaseURL = async () => {
+        try {
+            const response = await getCacheApiRequest(
+                `${BASE_URL_CONFIG}`,
+            );
+            const url = isNotEmpty(response.baseurl) ? response.baseurl : BASE_URL
+            const validUrl = url.charAt(url.length - 1) === '/' ? url : `${url}/`;
+            storeBaseUrlConfigInfo(validUrl);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     return (
     // Commented for AMAR-1145
     //     Platform.OS === 'android' ?
@@ -73,7 +95,9 @@ const SplashNavigation = () => {
     //         style={{width: "100%", height: '100%'}} />
     //    : <AppStackContainer />)
     //    : 
-       <AppStackContainer />
+        <>
+            {isNotEmpty(baseUrlConfig) && <AppStackContainer />}
+        </>
     );
 }
 
