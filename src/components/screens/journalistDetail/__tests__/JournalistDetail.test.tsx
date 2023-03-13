@@ -108,7 +108,7 @@ jest.mock("src/hooks/useJournalist", () => ({
             journalistArticleInfo: [sampleArticleData],
             journalistArticleErrorInfo: 'error',
             getJournalistArticleInfo: () => [sampleArticleData],
-            emptyJournalistArticleInfo: () => { },
+            emptyJournalistArticleInfo: jest.fn(),
             isDetailLoading: false,
             journalistDetailData: [sampleDetailData],
             journalistDetailErrorInfo: 'error',

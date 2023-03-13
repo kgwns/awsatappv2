@@ -17,6 +17,12 @@ jest.mock('react', () => ({
     useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
   }));
 
+  const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+  jest.mock('src/shared/utils/dimensions', () => ({
+    ...jest.requireActual('src/shared/utils/dimensions'),
+    isAndroid: false
+  }));
+
 describe('<VideoPlayer>', () => {
     let instance: RenderAPI
     const mockFunction = jest.fn();
@@ -32,11 +38,12 @@ describe('<VideoPlayer>', () => {
       }
 
     beforeEach(() => {
+    DeviceTypeUtilsMock.isAndroid = true;
     (useState as jest.Mock).mockImplementation(() => [url, setvideoUrl]);
     (useState as jest.Mock).mockImplementation(() => ['', setTogglecontrol]);
     (useState as jest.Mock).mockImplementation(() => [true, setIsLoading]);
     (useState as jest.Mock).mockImplementation(() => [true, setIsPaused]);
-    (useState as jest.Mock).mockImplementation(() => [false, setFullScreen]);
+    (useState as jest.Mock).mockImplementation(() => [true, setFullScreen]);
     (useState as jest.Mock).mockImplementation(() => [[], setEdge]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       const component = <VideoPlayerComponent url={url} goBack={mockFunction} testID={'ID'} />

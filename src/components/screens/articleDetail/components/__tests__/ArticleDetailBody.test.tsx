@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { ArticleDetailBody} from 'src/components/screens/articleDetail/components/ArticleDetailBody';
 import { storeSampleData } from 'src/constants/Constants';
 import AutoHeightWebView from 'react-native-autoheight-webview';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -66,6 +67,7 @@ describe('<ArticleDetailBody> renders in Android', () => {
     const webViewHeight = mockFunction;
 
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
         DeviceTypeUtilsMock.isIOS = false;
         (useRef as jest.Mock).mockImplementation(() => [sampleData, myTimeOutReference]);
         (useState as jest.Mock).mockImplementation(() => [20, dynamicHeight]);
@@ -104,10 +106,20 @@ describe('<ArticleDetailBody> renders in Android', () => {
         expect(mockFunction).toBeTruthy();
     });
 
-    it('When AutoHeightWebView is pressed onShouldStartLoadWithRequest', () => {
+    it('When AutoHeightWebView is pressed onShouldStartLoadWithRequest returns response', async () => {
+        const spyon = jest.spyOn(InAppBrowser,'open').mockReturnValue(Promise.resolve({type:'dismiss'}));
         const testItemId = instance.container.findAllByType(AutoHeightWebView)[0];
         fireEvent(testItemId, 'onShouldStartLoadWithRequest', {url: 'file:///abc', navigationType: 'click'});
         expect(mockFunction).toBeTruthy();
+        expect(spyon).toHaveBeenCalled();
+    });
+
+    it('When AutoHeightWebView is pressed onShouldStartLoadWithRequest throws error', async () => {
+        const spyon = jest.spyOn(InAppBrowser,'open').mockReturnValue(Promise.reject({type:'cancel'}));
+        const testItemId = instance.container.findAllByType(AutoHeightWebView)[0];
+        fireEvent(testItemId, 'onShouldStartLoadWithRequest', {url: 'file:///abc', navigationType: 'click'});
+        expect(mockFunction).toBeTruthy();
+        expect(spyon).toHaveBeenCalled();
     });
 
     it('When AutoHeightWebView is pressed onMessage', () => {
