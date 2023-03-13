@@ -8,3 +8,5 @@ export const getIsFirstSession: Selector<boolean> = (state: AppState) => state.a
 export const getServerEnvironment: Selector<ServerEnvironment> = (state: AppState) => state.appCommon.serverEnvironment
 
 export const getArticleFontSize: Selector<number> = (state: AppState) => state.appCommon.articleFontSize
+
+export const getBaseUrlConfig: Selector<string> = (state: AppState) => state.appCommon.baseUrlConfig;

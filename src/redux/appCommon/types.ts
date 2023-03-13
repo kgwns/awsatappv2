@@ -1,5 +1,5 @@
 import { isAndroid } from "src/shared/utils"
-import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE, RESET_ARTICLE_FONT_SIZE } from "./actionType"
+import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE, RESET_ARTICLE_FONT_SIZE, STORE_BASE_URL_CONFIG } from "./actionType"
 
 export enum Theme {
   LIGHT = 'light',
@@ -22,6 +22,7 @@ export type AppCommonState = {
   isAppFirstSession: boolean,
   serverEnvironment: ServerEnvironment
   articleFontSize: number
+  baseUrlConfig: string
 }
 
 export type AppThemeType = {
@@ -64,10 +65,19 @@ export type ResetArticleFontSizeType = {
   type: typeof RESET_ARTICLE_FONT_SIZE
 }
 
+export type StoreBaseUrlConfigPayload = {
+  baseUrlConfig: string
+}
+
+export type StoreBaseUrlConfigType = {
+  type: typeof STORE_BASE_URL_CONFIG,
+  payload: StoreBaseUrlConfigPayload
+}
 
 export type AppCommonAction = StoreAppThemeType
   | StoreAppFirstSessionType
   | StoreServerEnvironmentType
   | StoreArticleFontType
   | ResetArticleFontSizeType
+  | StoreBaseUrlConfigType
   

@@ -11,12 +11,21 @@ import AppPlayer from 'src/shared/utils/appPlayer';
 import { GetFCMToken } from 'src/firebase/notification/notification';
 import TrackPlayer from 'react-native-track-player';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
-import { isIOS } from 'src/shared/utils';
+import { isIOS, isNotEmpty } from 'src/shared/utils';
 import { FetchArabicData } from 'src/firebase/RemoteConfig/RemoteConfig';
+import { getCacheApiRequest } from 'src/services/api';
+import { BASE_URL, BASE_URL_CONFIG } from 'src/services/apiUrls';
+import { useAppCommon } from 'src/hooks';
 
 const App = () => {
 
   const permissionDelay = isIOS ? 1500 : 5500;
+
+  const { baseUrlConfig, storeBaseUrlConfigInfo } = useAppCommon();
+
+  useEffect(() => {
+    getBaseURL();
+  }, [])
   
   useEffect(() => {
     Orientation.lockToPortrait()
@@ -35,6 +44,27 @@ const App = () => {
     });
   }, [])
 
+  const getBaseURL = async () => {
+    console.log('Called :::::::')
+    try {
+      const response = await getCacheApiRequest(
+        `${BASE_URL_CONFIG}`,
+      );
+      const url = isNotEmpty(response.baseurl) ? response : BASE_URL
+      console.log("🚀 ~ file: App.tsx:53 ~ getBaseURL ~ url:", url)
+      storeBaseUrlConfigInfo(url);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  console.log("🚀 ~ file: App.tsx:63 ~ App ~ baseUrlConfig:", baseUrlConfig)
+
+  if (!isNotEmpty(baseUrlConfig)) {
+    return null;
+  } 
+  
   return (
     <Provider store={store}>
       <GetFCMToken/>

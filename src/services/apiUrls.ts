@@ -1,6 +1,9 @@
 import { store } from "src/redux/store"
 
 
+//BaseURL Config
+export const BASE_URL_CONFIG = 'https://awsatapi.srpcdigital.com/api/ums/v1/cfg';
+
 //PRODUCTION ENVIRONMENT
 export const PROD_BASE_URL = 'https://awsatapp.srpcdigital.com/';
 
@@ -8,13 +11,16 @@ export const PROD_BASE_URL = 'https://awsatapp.srpcdigital.com/';
 export const DEBUG_BASE_URL = 'https://devaawsatar.srpcdigital.com/';
 
 export const getBaseUrl = (): string => {
-    const serverEnvironment  = store.getState().appCommon?.serverEnvironment
-    console.log(serverEnvironment,typeof serverEnvironment,'serverEnvironment')
-    if (serverEnvironment === 'Debug') {
-      return DEBUG_BASE_URL
-    }
+    // const serverEnvironment  = store.getState().appCommon?.serverEnvironment
+    // console.log(serverEnvironment,typeof serverEnvironment,'serverEnvironment')
+    // if (serverEnvironment === 'Debug') {
+    //   return DEBUG_BASE_URL
+    // }
 
-  return PROD_BASE_URL
+  // return PROD_BASE_URL
+
+  const baseUrlConfig  = store.getState().appCommon?.baseUrlConfig;
+  return baseUrlConfig;
 }
 
 export const BASE_URL = getBaseUrl();
