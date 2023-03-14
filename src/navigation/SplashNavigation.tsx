@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { I18nManager, NativeEventSubscription, useColorScheme, AppState, Platform } from 'react-native'
+import { I18nManager, NativeEventSubscription } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { useDispatch } from 'react-redux'
 import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'
@@ -7,7 +7,7 @@ import { BaseUrlConfigType, Theme } from 'src/redux/appCommon/types'
 import { useAppCommon, useBookmark, useLogin, useUserProfileData } from 'src/hooks'
 import AppStackContainer from './AppStackContainer'
 import { getCacheApiRequest } from 'src/services/api'
-import { BASE_URL, BASE_URL_CONFIG, LIVE_BLOG_URL, PROFILE_IMAGE_URL, UMS_BASE_URL } from 'src/services/apiUrls'
+import { AAA_LIVE_BLOG_URL, AAA_PROFILE_IMAGE_URL, AAA_UMS_BASE_URL, BASE_URL_CONFIG, PROD_BASE_URL } from 'src/services/apiUrls'
 import { isNotEmpty, isObjectNonEmpty } from 'src/shared/utils'
 
 const SplashNavigation = () => {
@@ -77,11 +77,11 @@ const SplashNavigation = () => {
             );
 
             const validBaseUrlConfig: BaseUrlConfigType = {
-                baseUrl: isNotEmpty((response.base_url)) ? getValidUrl(response.base_url) : BASE_URL,
-                umsUrl: isNotEmpty(response.ums_base_url) ? getValidUrl(response.ums_base_url) : UMS_BASE_URL,
+                baseUrl: isNotEmpty((response.base_url)) ? getValidUrl(response.base_url) : PROD_BASE_URL,
+                umsUrl: isNotEmpty(response.ums_base_url) ? getValidUrl(response.ums_base_url) : AAA_UMS_BASE_URL,
                 imageUrl: getValidUrl(response.image_url),
-                profileImageUrl: isNotEmpty(response.profile_image_url) ? getValidUrl(response.profile_image_url) : PROFILE_IMAGE_URL,
-                liveBlogUrl: isNotEmpty(response.live_blog_url) ? getValidUrl(response.live_blog_url) : LIVE_BLOG_URL,
+                profileImageUrl: isNotEmpty(response.profile_image_url) ? getValidUrl(response.profile_image_url) : AAA_PROFILE_IMAGE_URL,
+                liveBlogUrl: isNotEmpty(response.live_blog_url) ? getValidUrl(response.live_blog_url) : AAA_LIVE_BLOG_URL,
             }
             storeBaseUrlConfigInfo(validBaseUrlConfig);
         } catch (error) {
