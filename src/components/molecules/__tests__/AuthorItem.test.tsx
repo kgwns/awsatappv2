@@ -80,7 +80,7 @@ describe('<Author Item>', () => {
             setPlay: setPlayMock,
             setPlayerTrack: setPlayerTrackMock,
         });
-        const component = <AuthorItem index={0} togglePlayback={mockFunction} authorId={'2'} selectedType={'yes'} selectedTrack={'abc'} {...data} mediaVisibility={true} nid = "12" renderLabelsOrder = {['authorName','title']} />
+        const component = <AuthorItem index={0} togglePlayback={mockFunction} authorId={'2'} selectedType={'yes'} selectedTrack={'abc'} {...data} mediaVisibility={true} nid = "12" renderLabelsOrder = {['authorName','title','default']} />
         instance = render(component)
     })
 
