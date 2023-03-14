@@ -795,10 +795,11 @@ export const MainSectionScreen = React.memo((
       {isNonEmptyArray(gridViewSectionData) && <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />}
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
-      {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
+      {/* AMAR-1097 - Hide Infographic for iPad and Tablet */}
+      {/* {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
         title={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
-      />}
+      />} */}
       <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} />
       {isNonEmptyArray(opinionListData) && 
       <AuthorSlider data={opinionListData} 
