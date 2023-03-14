@@ -147,7 +147,15 @@ jest.mock('react-native-restart', () => {
 jest.mock('src/redux/store.ts', () => {
   return {
     store: {
-      getState: jest.fn().mockReturnValue({}),
+      getState: jest.fn().mockReturnValue({appCommon:{
+        baseUrlConfig:{
+          baseUrl: 'https://aawsat.srpcdigital.com/',
+          umsUrl:  "https://awsatapi.srpcdigital.com/",
+          imageUrl: 'https://static.srpcdigital.com/',
+          profileImageUrl: "https://awsatapi.srpcdigital.com/storage/",
+          liveBlogUrl: "https://aawsat.srpcdigital.com/livenews/",
+        }
+      }}),
       subscribe: jest.fn().mockReturnValue(() => jest.fn()),
     },
     persistor: {
