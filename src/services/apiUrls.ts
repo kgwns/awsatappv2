@@ -28,11 +28,38 @@ export const getBaseUrlConfig = (): BaseUrlConfigType => {
   return store.getState().appCommon?.baseUrlConfig;
 }
 
-export const BASE_URL = getBaseUrlConfig().baseUrl;
+export let BASE_URL = getBaseUrlConfig().baseUrl;
+export let UMS_BASE_URL = getBaseUrlConfig().umsUrl;
+export let PROFILE_IMAGE_URL = getBaseUrlConfig().profileImageUrl;
+export let LIVE_BLOG_URL = getBaseUrlConfig().liveBlogUrl;
+
+//IMAGE URL
+export let IMAGE_URL = getBaseUrlConfig().imageUrl;
+
+store.subscribe(() => {
+  const baseUrlConfig = store.getState().appCommon.baseUrlConfig
+  if (baseUrlConfig.baseUrl !== BASE_URL) {
+    BASE_URL = baseUrlConfig.baseUrl
+  }
+
+  if (baseUrlConfig.umsUrl !== UMS_BASE_URL) {
+    UMS_BASE_URL = baseUrlConfig.umsUrl
+  }
+
+  if (baseUrlConfig.profileImageUrl !== BASE_URL) {
+    PROFILE_IMAGE_URL = baseUrlConfig.profileImageUrl
+  }
+
+  if (baseUrlConfig.liveBlogUrl !== LIVE_BLOG_URL) {
+    LIVE_BLOG_URL = baseUrlConfig.liveBlogUrl
+  }
+
+  if (baseUrlConfig.imageUrl !== IMAGE_URL) {
+    IMAGE_URL = baseUrlConfig.imageUrl
+  }
+});
 
 
-export const UMS_BASE_URL = getBaseUrlConfig().umsUrl;
-export const PROFILE_IMAGE_URL = getBaseUrlConfig().profileImageUrl;
 export const PODCAST_SPREAKER_URL = 'https://api.spreaker.com/v2/episodes/';
 export const GET_JW_MEDIA_PLAYER_URL = 'https://cdn.jwplayer.com/v2/media/';
 export const TODOS = 'todos';
@@ -52,12 +79,8 @@ export const WEATHER_URL_VISIBILITY = 'https://api.openweathermap.org/data/2.5/w
 
 //LiveNews
 export const AAA_LIVE_BLOG_URL = 'https://aawsat.srpcdigital.com/livenews/';
-export const LIVE_BLOG_URL = getBaseUrlConfig().liveBlogUrl;
 export const SCRIBBLE_LIVE_EVENT_URL = 'https://client.scribblelive.com/api/rest/event/'
 export const SCRIBBLE_LIVE_TOKEN_PARAM = '/?Token='
 export const SCRIBBLE_LIVE_JSON_PARAM = '&format=Json'
 //Scribble auth_token
 export const SCRIBBLE_TOKEN = '0ROZff5O' // Shared by the SRMG team. Need to replace if required.
-
-//IMAGE URL
-export const IMAGE_URL = getBaseUrlConfig().imageUrl;
