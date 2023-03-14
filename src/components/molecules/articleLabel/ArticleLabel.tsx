@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Label, LiveBlogTag } from 'src/components/atoms';
-import { isNotEmpty, isTab, normalize } from 'src/shared/utils';
+import { isIOS, isNotEmpty, isTab, normalize } from 'src/shared/utils';
 import { DisplayTypes, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { Styles } from 'src/shared/styles';
 import { fonts } from 'src/shared/styles/fonts';
@@ -67,7 +67,7 @@ const style = StyleSheet.create({
         color: Styles.color.white,
         fontFamily: fonts.Effra_Arbc_Regular,
         fontSize: 12,
-        lineHeight: 18,
+        lineHeight: isIOS ? 18 : 22,
     },
     topMargin: {
         marginTop: isTab ? 0 : 10
