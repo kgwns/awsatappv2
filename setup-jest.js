@@ -217,3 +217,14 @@ jest.mock('@invertase/react-native-apple-authentication',()=> ({
     }
   }
 }))
+
+jest.mock('react-native-orientation-locker',() => {
+  return {
+    addDeviceOrientationListener: jest.fn(),
+    removeDeviceOrientationListener: jest.fn(),
+    lockToPortrait: jest.fn(),
+    lockToLandscape: jest.fn(),
+    unlockAllOrientations: jest.fn(),
+    getDeviceOrientation: jest.fn()
+  }
+})

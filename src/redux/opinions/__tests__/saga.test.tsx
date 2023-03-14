@@ -76,7 +76,7 @@ describe('Test opinions  error', () => {
   it('check fetchOpinions failed', () => {
     const genObject = fetchOpinionsList({
       type: FETCH_OPINIONS,
-      payload: {page: mockPage, nid: ''},
+      payload: {page: 0, nid: ''},
     });
     genObject.next();
     genObject.throw({});
