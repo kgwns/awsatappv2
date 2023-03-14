@@ -67,7 +67,7 @@ import {
   requestInfoGraphicBlockSuccess, requestInfoGraphicBlockFailed, requestArchivedArticleSectionSuccess, requestArchivedArticleSectionFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
-import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import {
   requestLatestArticle,
   requestSectionCombo,
@@ -106,7 +106,7 @@ const formatMainSectionBlockData = (response: any) => {
         ({ title, body, nid, field_image, field_news_categories,field_new_resource,created_export,
         type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export, changed }: any) => ({
           body,
-          title,
+          title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
           nid,
           image: getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories) ? field_news_categories[0] : field_news_categories,
@@ -263,7 +263,7 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
           field_new_photo, field_display_export, changed,
         }: any) => ({
           body,
-          title,
+          title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
           nid,
           image: getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
@@ -288,7 +288,7 @@ const formatSpotlight = (response: any): SpotlightDataType[] => {
       const rows = response.rows
       formattedSpotlightData = rows.map(
         ({ title, field_tag_spotlight_export, field_image }: any) => ({
-          title,
+          title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
           field_tag_spotlight_export: field_tag_spotlight_export,
           field_image: getImageUrl(field_image),
         })
@@ -319,7 +319,7 @@ const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataTyp
         field_publication_date_export, field_news_categories_export, 
         field_display_export, changed
       }: any) => ({
-        title,
+        title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
         type,
         nid,
         body: body_export,
