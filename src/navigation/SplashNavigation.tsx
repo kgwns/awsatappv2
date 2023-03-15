@@ -94,12 +94,6 @@ const SplashNavigation = () => {
         return url.charAt(url.length - 1) === '/' ? url : `${url}/`
     };
 
-    const renderAppStackContainer = () => (
-        <>
-            {isObjectNonEmpty(baseUrlConfig) && <AppStackContainer />}
-        </>
-    )
-
     return (
         Platform.OS === 'android' ?
             (loading ?
