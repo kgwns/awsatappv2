@@ -23,9 +23,9 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    // setTimeout(() => {
+    setTimeout(() => {
       checkPermission()
-    // }, permissionDelay)
+    }, permissionDelay)
   }, [])
 
   useEffect(() => {

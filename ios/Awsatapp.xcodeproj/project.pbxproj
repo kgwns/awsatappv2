@@ -17,7 +17,6 @@
 		5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CC5870F22DF4018A97C651F /* Almarai-Bold.ttf */; };
 		52B5C8CA19974215925660F6 /* Almarai-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5754958B03F4F8697391B05 /* Almarai-Light.ttf */; };
 		5357BE729B3C4A038D324F02 /* IBMPlexSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCAF97FCEBA04671A1F23140 /* IBMPlexSansArabic-Bold.ttf */; };
-		5E0693FE290C034D0081D016 /* splashscreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5E0693FD290C034D0081D016 /* splashscreen.mp4 */; };
 		5E069400290C11E90081D016 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E0693FF290C11E90081D016 /* AVFoundation.framework */; };
 		5E069402290C11F70081D016 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E069401290C11F70081D016 /* AVKit.framework */; };
 		5E069404290C11FD0081D016 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E069403290C11FD0081D016 /* UIKit.framework */; };
@@ -30,8 +29,9 @@
 		7CBB19684ACB44F8882E4025 /* Almarai-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F73EBFEE44F14FD689B8CD00 /* Almarai-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		833DA4AA2F9544EC98A8D7BA /* IBMPlexSansArabic-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 153FB4BA9DEB49FBBF9941AF /* IBMPlexSansArabic-Thin.ttf */; };
-		87FD6B99290FB40C00611F46 /* ipadvertical.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87FD6B98290FB40C00611F46 /* ipadvertical.mp4 */; };
-		87FD6B9B290FBBA000611F46 /* ipadhorizontal.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87FD6B9A290FBB9F00611F46 /* ipadhorizontal.mp4 */; };
+		87E5287E29C1BC2200298A3D /* splashscreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87E5287D29C1BC2200298A3D /* splashscreen.mp4 */; };
+		87E5288129C1C33000298A3D /* ipadhorizontal.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87E5287F29C1C33000298A3D /* ipadhorizontal.mp4 */; };
+		87E5288229C1C33000298A3D /* ipadvertical.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87E5288029C1C33000298A3D /* ipadvertical.mp4 */; };
 		8B3BA46F3B5548999CD39890 /* AwsatDigitalBetav10-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6F92F68DFA74CDC8DDDD536 /* AwsatDigitalBetav10-Bold.ttf */; };
 		8D00CD9EF80B4DB8852B9964 /* subjectivity-medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E7BE3A7CC445D8BAB40327 /* subjectivity-medium.otf */; };
 		928468CA882F4F17B52EF50A /* AwsatDigitalv2b-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E412FC49EB497C9B8E3575 /* AwsatDigitalv2b-Black.ttf */; };
@@ -225,7 +225,6 @@
 		5132FB864E194DCCB0C1B2E2 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		5437AF089D81496AB07BB20A /* Effra-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra-Regular.ttf"; path = "../src/assets/fonts/Effra-Regular.ttf"; sourceTree = "<group>"; };
 		5D3FCA19E5074AAC9164401F /* IBMPlexSansArabic-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Regular.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Regular.ttf"; sourceTree = "<group>"; };
-		5E0693FD290C034D0081D016 /* splashscreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = splashscreen.mp4; sourceTree = "<group>"; };
 		5E0693FF290C11E90081D016 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5E069401290C11F70081D016 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		5E069403290C11FD0081D016 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -236,8 +235,9 @@
 		5F35CA0AC7E842CC989B0C26 /* AwsatDigitalv2b-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Regular.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Regular.ttf"; sourceTree = "<group>"; };
 		7CC5870F22DF4018A97C651F /* Almarai-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Almarai-Bold.ttf"; path = "../src/assets/fonts/Almarai-Bold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Awsatapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		87FD6B98290FB40C00611F46 /* ipadvertical.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ipadvertical.mp4; sourceTree = "<group>"; };
-		87FD6B9A290FBB9F00611F46 /* ipadhorizontal.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ipadhorizontal.mp4; sourceTree = "<group>"; };
+		87E5287D29C1BC2200298A3D /* splashscreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = splashscreen.mp4; sourceTree = "<group>"; };
+		87E5287F29C1C33000298A3D /* ipadhorizontal.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ipadhorizontal.mp4; sourceTree = "<group>"; };
+		87E5288029C1C33000298A3D /* ipadvertical.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ipadvertical.mp4; sourceTree = "<group>"; };
 		8B308EE34314473BA9FCBF56 /* AwsatDigital-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigital-Black.otf"; path = "../src/assets/fonts/AwsatDigital-Black.otf"; sourceTree = "<group>"; };
 		8D462C8FA8AC49E886A70A96 /* AwsatDigital-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigital-Bold.otf"; path = "../src/assets/fonts/AwsatDigital-Bold.otf"; sourceTree = "<group>"; };
 		A3FDE2C970357A496A5A5514 /* Pods-Awsatapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.debug.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -490,9 +490,9 @@
 				5E3EF9CE28A62A4B00A7092F /* AwsatDigital-Regular.otf */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				87FD6B98290FB40C00611F46 /* ipadvertical.mp4 */,
-				87FD6B9A290FBB9F00611F46 /* ipadhorizontal.mp4 */,
-				5E0693FD290C034D0081D016 /* splashscreen.mp4 */,
+				87E5287F29C1C33000298A3D /* ipadhorizontal.mp4 */,
+				87E5288029C1C33000298A3D /* ipadvertical.mp4 */,
+				87E5287D29C1BC2200298A3D /* splashscreen.mp4 */,
 				AF694E6328F6831B00DAECDF /* AppDelegate+WatchDelegate.swift */,
 				AF14A18E2836D95700E6311D /* Awsatapp-Bridging-Header.h */,
 				13B07FAE1A68108700A75B9A /* Awsatapp */,
@@ -1033,14 +1033,11 @@
 				5E3EF9D228A62A4B00A7092F /* AwsatDigital-Black.otf in Resources */,
 				AF14A18B2836D71B00E6311D /* AwsatBold.otf in Resources */,
 				5E92D08527D24F7700592089 /* GoogleService-Info.plist in Resources */,
-				87FD6B9B290FBBA000611F46 /* ipadhorizontal.mp4 in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				383C0A0AB8874E17A395D2DD /* AwsatDigitalBetav10-Black.ttf in Resources */,
 				8B3BA46F3B5548999CD39890 /* AwsatDigitalBetav10-Bold.ttf in Resources */,
 				E3A1C6A163A44E35BA56387D /* AwsatDigitalBetav10-Regular.ttf in Resources */,
 				C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */,
-				5E0693FE290C034D0081D016 /* splashscreen.mp4 in Resources */,
-				87FD6B99290FB40C00611F46 /* ipadvertical.mp4 in Resources */,
 				5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */,
 				AF14A1662836D0C700E6311D /* PDFEditionHeaderCollectionViewCell.xib in Resources */,
 				FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */,
@@ -1063,10 +1060,13 @@
 				3E172E253DB7408A9818A83A /* IBMPlexSansArabic-SemiBold.ttf in Resources */,
 				833DA4AA2F9544EC98A8D7BA /* IBMPlexSansArabic-Thin.ttf in Resources */,
 				8D00CD9EF80B4DB8852B9964 /* subjectivity-medium.otf in Resources */,
+				87E5288229C1C33000298A3D /* ipadvertical.mp4 in Resources */,
+				87E5287E29C1BC2200298A3D /* splashscreen.mp4 in Resources */,
 				AF14A1672836D0C700E6311D /* PDFEditionTableViewCell.xib in Resources */,
 				AF14A1852836D3C200E6311D /* AwsatLight.otf in Resources */,
 				1BCC838D77E04AD686D4BE54 /* Beirut.ttf in Resources */,
 				7476FD19439D42338A420F44 /* Effra-Medium.ttf in Resources */,
+				87E5288129C1C33000298A3D /* ipadhorizontal.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
