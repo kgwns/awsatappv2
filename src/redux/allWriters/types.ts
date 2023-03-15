@@ -19,6 +19,7 @@ import {
   DESELECT_ALL_WRITERS,
   SELECTED_DATA_FROM_ONBOARD,
   EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD,
+  EMPTY_SELECTED_AUTHORS,
 } from './actionTypes';
 
 export type payloadType = { rows: any[]; pager: object };
@@ -155,6 +156,10 @@ export type EmptySelectedAuthorsInfo = {
   type: typeof EMPTY_SELECTED_AUTHORS_INFO;
 };
 
+export type EmptySelectedAuthors = {
+  type: typeof EMPTY_SELECTED_AUTHORS;
+};
+
 export type RemoveAuthorType = {
   type: typeof REMOVE_AUTHOR;
   payload: RemoveAuthorBody;
@@ -237,4 +242,5 @@ export type AllWritersActions =
   | DeselectAllWriters
   | SetSelectedDataFromOnboard
   | EmptySelectedWritersDataFromOnboard
+  | EmptySelectedAuthors
   
