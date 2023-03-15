@@ -1,5 +1,5 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
 import { PodcastVerticalList } from 'src/components/molecules/podcast/PodcastVerticalList';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
@@ -13,15 +13,29 @@ const mockData= {
   footerRight: 'الخسيس'
 }
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false
+}));
+
+jest.mock("react",() => ({
+  ...jest.requireActual("react"),
+  useState: jest.fn()
+}))
+
 describe('<PodcastVerticalList>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
+  const isTitleLineCount = jest.fn();
   const fetchSingleEpisodeSpreakerApiMock = jest.fn();
   describe('when PodcastVerticalList only', () => {
 
     beforeEach(() => {
       jest.useFakeTimers('legacy');
       (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
+      (fetchSingleEpisodeSpreakerApiMock).mockReturnValue({response:{episode:{result:true}}});
+      (useState as jest.Mock).mockImplementation(() => [3,isTitleLineCount]);
       const component = (
           <PodcastVerticalList 
             imageUrl={mockData.imageUrl} 
@@ -31,6 +45,8 @@ describe('<PodcastVerticalList>', () => {
             spreakerId={'2'}
             onPressBookmark={mockFunction} 
             itemOnPress={mockFunction}
+            hideDescription={true}
+            description={''}
           />
       );
       instance = render(component);
@@ -42,6 +58,12 @@ describe('<PodcastVerticalList>', () => {
     });
 
     it('Should render PodcastVerticalList', () => {
+      DeviceTypeUtilsMock.isTab = false;
+      expect(instance).toBeDefined();
+    });
+
+    it('Should render PodcastVerticalList in Tab', () => {
+      DeviceTypeUtilsMock.isTab = true;
       expect(instance).toBeDefined();
     });
 
@@ -58,9 +80,52 @@ describe('<PodcastVerticalList>', () => {
     });
 
     it("test fetchSingleEpisodeSpreakerApi to return response",async() => {
-      (fetchSingleEpisodeSpreakerApiMock).mockReturnValue({response:{episode:{result:true}}});
       const response = await fetchSingleEpisodeSpreakerApi({episodeId:'2'});
       expect(response).toEqual({response:{episode:{result:true}}});
+    });
+
+  });
+});
+
+describe('<PodcastVerticalList>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const fetchSingleEpisodeSpreakerApiMock = jest.fn();
+  describe('when PodcastVerticalList only', () => {
+
+    beforeEach(() => {
+      jest.useFakeTimers('legacy');
+      (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
+      (fetchSingleEpisodeSpreakerApiMock).mockImplementation(() => {throw new Error('error message')})
+      
+      const component = (
+          <PodcastVerticalList 
+            imageUrl={mockData.imageUrl} 
+            title={mockData.title} 
+            nid={'2'} 
+            isBookmarked={true} 
+            spreakerId={'2'}
+            onPressBookmark={mockFunction} 
+            itemOnPress={mockFunction}
+            description={mockData.description}
+            footerRight={'footerRight'}
+          />
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+
+    it("test fetchSingleEpisodeSpreakerApi to throw error",async() => {
+      try {
+        await fetchSingleEpisodeSpreakerApi({episodeId:'2'});
+      }
+      catch(e) {
+        expect(e.message).toEqual('error message')
+      }
     });
 
   });

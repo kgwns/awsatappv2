@@ -18,7 +18,7 @@ jest.mock('@react-native-firebase/messaging', () => {
     getToken: jest.fn(() => Promise.resolve('myMockToken')),
     onMessage: jest.fn(() => Promise.resolve({notification:'notification'})),
     onNotificationOpenedApp: jest.fn(() => Promise.resolve(true)),
-    getInitialNotification: jest.fn(() => Promise.resolve({data:{type:'dynamic-section'}})),
+    getInitialNotification: jest.fn(() => Promise.resolve({data:{type:'dynamic-section',id:'2'}})),
     setBackgroundMessageHandler: jest.fn().mockImplementation(() => Promise.resolve())
   })
 });
@@ -39,9 +39,15 @@ jest.mock("@react-native-firebase/remote-config", () => ({
   firebase: {
     remoteConfig: () => ({
       getValue:() => ({
-          _value: {
-            notification: [{id:2,title:'title'},{id:1,title:'title1'}]
-          }
+          _value: JSON.stringify({
+            notification: [{
+              id: 2,
+              title: "title"
+            }, {
+              id: 1,
+              title: "title1"
+            }]
+          })
       })
       
     })

@@ -3,6 +3,7 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import VideoPlayerFullScreen from '../VideoPlayerFullScreen';
 import Slider from '@react-native-community/slider';
 import Video from 'react-native-video';
+import { AppState } from 'react-native';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -21,7 +22,6 @@ jest.mock('src/shared/utils/dimensions', () => ({
     useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
     useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
   }));
-
 describe('<VideoPlayer>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
@@ -121,4 +121,31 @@ describe('<VideoPlayer>', () => {
       expect(setTimeout).toBeTruthy();
     }); 
 
+    it('test AppState addEventListener', async () => {
+      const appStateSpy = jest.spyOn(AppState, 'addEventListener');
+      AppState.currentState = 'inactive';
+      await appStateSpy.mock.calls[0][1]('active');
+      expect(setPaused).toHaveBeenCalled();
+      expect(setPaused).toHaveBeenCalledWith(true);
+   });
+})
+
+describe("test videoPlayerFullScreen onProgress",() => {
+  const mockFunction = jest.fn();
+  const setState = mockFunction;
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [false,setState]);
+  })
+  afterEach(() => {
+    jest.clearAllMocks();
+  })
+  it("test the Video onProgress function when the loading state is false",() => {
+    const instance = render(
+      <VideoPlayerFullScreen url={'url'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+    );
+    const element = instance.container.findByType(Video);
+    fireEvent(element,'onProgress',{currentTime:'15:30'});
+    expect(setState).toHaveBeenCalled();
+    expect(setState).toHaveBeenCalledWith('15:30');
+  })
 })

@@ -150,6 +150,26 @@ describe('opinions reducer', () => {
     expect(nextState.isLoading).toBe(false);
   });
 
+  test('Check loading state when get selected news letters FETCH_WRITER_OPINIONS_SUCCESS request API', () => {
+    const nextState = opinionsReducer(initialState, {
+      type: FETCH_WRITER_OPINIONS_SUCCESS,
+      payload: {writerOpinionListData: {
+        opinionListData: {
+          rows: [
+            {
+              title: 'mockString',
+              nid: '12',
+            },
+          ],
+        },
+        pager:{
+          current_page:'10'
+        }
+      }},
+    });
+    expect(nextState.isLoading).toBe(false);
+  });
+
 });
 
 
@@ -249,6 +269,11 @@ describe('opinions reducer', () => {
       type: STORE_HOME_OPINION_NID,
       payload: {nid: '2'}
     });
+    expect(nextState.isLoading).toBe(false);
+  });
+
+  test('Check default state', () => {
+    const nextState = opinionsReducer(initialState,{})
     expect(nextState.isLoading).toBe(false);
   });
 

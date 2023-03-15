@@ -44,24 +44,28 @@ const sampleData: VideoItemType[] = [
     nid: '1',
     title: '123',
     isBookmarked: true,
-    mediaId: '11'
+    mediaId: '11',
+    field_video_media_id_export:'field_video_media_id_export'
   },
   {
     nid: '2',
     title: '124',
     isBookmarked: true,
-    mediaId: '12'
+    mediaId: '12',
+    field_video_media_id_export:'field_video_media_id_export'
   },
   {
     nid: '3',
     title: '124',
     isBookmarked: true,
-    mediaId: '13'
+    mediaId: '13',
+    field_video_media_id_export:'field_video_media_id_export'
   },
   {
     nid: '1',
     title: '123',
     isBookmarked: true,
+    field_video_media_id_export:'field_video_media_id_export'
   },
 ];
 
@@ -69,7 +73,7 @@ jest.mock("src/hooks/useVideoList", () => ({
   useVideoList: () => {
     return {
       isLoading: false,
-      videoData: [],
+      videoData: [{nid:'12'}],
       videoError: 'error',
       fetchVideoRequest: () => {
         return []
@@ -136,12 +140,13 @@ describe('<VideoDetailScreen >', () => {
       (getVideoDetail as jest.Mock).mockImplementation(getVideoDetailMock);
       getVideoDetailMock.mockReturnValue([{response:true}]);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      (useState as jest.Mock).mockImplementation(() => [[{nid:'2',title:'title'}],detailData]);
-      (useState as jest.Mock).mockImplementation(() => [{nid:'2',mediaId:3}, selectedVideo]);
+      (useState as jest.Mock).mockImplementation(() => [{nid:'2',mediaId:sampleData[0].mediaId}, selectedVideo]);
+      (useState as jest.Mock).mockImplementation(() => [[{nid:'2',title:'title',field_shorturl_export:'field_shorturl_export',view_node:'view_node'}],detailData]);
       (useState as jest.Mock).mockImplementation(() => [sampleData, videolistData]);
       (useState as jest.Mock).mockImplementation(() => [false, isBookmarked]);
       (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
       (useState as jest.Mock).mockImplementation(() => ['abc.com', videoUrl]);
+
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>

@@ -145,3 +145,52 @@ describe('<VideoContent>', () => {
     expect(instance).toBeDefined();
   });
 });
+
+describe('<VideoContent>', () => {
+  let instance: RenderAPI;
+  const sampleData: VideoItemType[] = [
+    {
+      nid: '1',
+      title: '123',
+      isBookmarked: true
+    },
+    {
+      nid: '2',
+      title: '124',
+      isBookmarked: true
+    },
+    {
+      nid: '3',
+      title: '124',
+      isBookmarked: true
+    },
+  ];
+  const mockFunction = jest.fn();
+  const setState = jest.fn();
+
+  beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = false;
+    (useState as jest.Mock).mockImplementation(() => [false,setState]);
+    const component = (
+      <Provider store={storeSampleData}>
+        <VideoContent data={sampleData} onPress={mockFunction} />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  it("should render label onTextLayout with event", () => {
+    const element = instance.container.findAllByType(Label)[1];
+    fireEvent(element,'onTextLayout',{nativeEvent:{lines:'event'}});
+    expect(setState).toHaveBeenCalled();
+    expect(setState).toHaveBeenCalledWith(true)
+    expect(setState).toHaveBeenCalledWith(5)
+  })
+
+});
+

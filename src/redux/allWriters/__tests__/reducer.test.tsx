@@ -193,6 +193,15 @@ describe('allWriters reducer', () => {
     expect(nextState.isLoading).toBe(false);
   });
 
+  test('Check if deselectAllSelectedWritersData change the isSelected status to false', () => {
+    initialState.allWritersData = {rows:[{isSelected:true}]} as any;
+    const nextState = allWriters(initialState, {
+      type: DESELECT_ALL_WRITERS,
+    });
+    expect(nextState.isLoading).toBe(false);
+    expect(nextState.allWritersData.rows[0].isSelected).toBeFalsy();
+  });
+
   test('Check loading state when selected author EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD request API', () => {
     const nextState = allWriters(initialState, {
       type: EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD,

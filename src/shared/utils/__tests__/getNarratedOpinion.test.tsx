@@ -13,10 +13,10 @@ describe("test getNarratedOpinion", () => {
         jest.clearAllMocks();
     })
     it("test fetchNarratedOpinionArticleApi return response", async () => {
-        (fetchNarratedOpinionArticleApi as jest.Mock).mockReturnValue({playList:{duration:[{time:'02:34'}]}});
+        (fetchNarratedOpinionArticleApi as jest.Mock).mockReturnValue({playList:[{duration:[{time:'02:34'}]}]});
         try{
             const res = await fetchNarratedOpinionArticleApi({jwPlayerID:'2'});
-            expect(res).toEqual({playList:{duration:[{time:'02:34'}]}});
+            expect(res).toEqual({playList:[{duration:[{time:'02:34'}]}]});
         }
         catch(error) {}
       })
