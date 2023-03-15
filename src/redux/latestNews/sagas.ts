@@ -67,7 +67,7 @@ import {
   requestInfoGraphicBlockSuccess, requestInfoGraphicBlockFailed, requestArchivedArticleSectionSuccess, requestArchivedArticleSectionFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
-import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
 import {
   requestLatestArticle,
   requestSectionCombo,
@@ -104,11 +104,11 @@ const formatMainSectionBlockData = (response: any) => {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories,field_new_resource,created_export,
-        type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export, changed }: any) => ({
+        type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export, changed, field_album_image }: any) => ({
           body,
           title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
           nid,
-          image: getArticleImage(field_image, field_new_photo),
+          image: isTypeAlbum(type) ? field_album_image : getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories) ? field_news_categories[0] : field_news_categories,
           author: field_new_resource,
           created: changed,
