@@ -14,9 +14,12 @@ jest.mock('react-redux', () => ({
 describe('#useAllWriters', () => {
   let result: RenderHookResult<undefined, UseAllWritersReturn>;
   const dispatchMock = jest.fn();
+  const selectedAuthorsDataMock = {data:[{reponse:true}]}
 
+  
   beforeAll(() => {
     (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
+    (useSelector as jest.Mock).mockReturnValue(selectedAuthorsDataMock);
 
     result = renderHook<undefined, UseAllWritersReturn>(() =>
       useAllWriters(),
@@ -35,7 +38,7 @@ describe('#useAllWriters', () => {
           current: {isLoading},
         },
       } = result;
-      expect(isLoading).toBe(undefined);
+      expect(isLoading).toBe(selectedAuthorsDataMock);
     });
   });
 
@@ -46,10 +49,9 @@ describe('#useAllWriters', () => {
           current: {allWritersError},
         },
       } = result;
-      expect(allWritersError).toBe(undefined);
+      expect(allWritersError).toBe(selectedAuthorsDataMock);
     });
   });
-
   describe('#fetchAllWritersRequest', () => {
     it('should call dispatch with get token request action', () => {
       const {
@@ -206,6 +208,20 @@ describe('#useAllWriters', () => {
       });
 
       expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+  describe('#removeAuthorRequest', () => {
+    it('should call dispatch with get token request action', () => {
+      const {
+        result: {
+          current: {removeAuthorRequest},
+        },
+      } = result;
+
+      act(() => {
+        removeAuthorRequest({tid:'12'});
+      });
+      expect(dispatchMock).toBeTruthy();
     });
   });
 });
