@@ -10,12 +10,14 @@ import Foundation
 struct RemoteStoryItem: Decodable {
   let id: String
   let title: String
-  let photo: String
+  let fieldImage: String
+  let fieldNewImage: String
   let position: String
   
   enum CodingKeys: String, CodingKey {
     case id = "nid"
-    case photo = "field_new_photo"
+    case fieldImage = "field_image"
+    case fieldNewImage = "field_new_photo"
     case title
     case position = "entityqueue_relationship_position"
   }
