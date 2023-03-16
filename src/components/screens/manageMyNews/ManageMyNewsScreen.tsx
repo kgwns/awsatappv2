@@ -238,9 +238,7 @@ export const ManageMyNewsScreen = () => {
   }, [isFocused]);
 
   useEffect(() => {
-    return () => {
       emptySelectedAuthorsInfoData();
-    }
   }, [])
 
   useEffect(() => {

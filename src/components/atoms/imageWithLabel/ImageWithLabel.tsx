@@ -2,13 +2,14 @@ import { View, StyleSheet, ImageStyle } from 'react-native'
 import React from 'react'
 import { Image } from '../image/Image'
 import { isNotEmpty, normalize } from 'src/shared/utils'
-import { ImageName, LiveBlogTag } from '..'
+import { ImageName } from '..'
 import { Label, LabelTypeProp,LabelType } from 'src/components/atoms/label/Label'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ImageResize } from 'src/shared/styles/text-styles'
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { getSvgImages } from 'src/shared/styles/svgImages'
+import { ArticleLabel } from 'src/components/molecules/articleLabel/ArticleLabel'
 
 export interface ImageLabelProps {
     name?: ImageName,
@@ -20,7 +21,7 @@ export interface ImageLabelProps {
     imageStyle?: ImageStyle,
     onPressImage?: () => void,
     isAlbum: boolean,
-    isLive?: boolean,
+    displayType?: string;
 }
 
 export const ImageWithLabel = ({ name, url, tagName,tagStyle,
@@ -28,7 +29,7 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
     imageStyle,
     onPressImage,
     isAlbum = false,
-    isLive = false,
+    displayType,
 }: ImageLabelProps) => {
 
     const renderPhotoIcon = () => {
@@ -39,6 +40,17 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
           });
     }
 
+    const renderArticleLabel = () => {
+        if (!isNotEmpty(displayType)) {
+            return null
+        }
+        return (
+            <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer])}>
+                <ArticleLabel displayType={displayType} />
+            </View>
+        );
+    }
+
     return (
         <FixedTouchable onPress={onPressImage}>
             <View style={imageWithLabelStyle.containerStyle}>
@@ -46,7 +58,7 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
                     style={[imageWithLabelStyle.articleImage, imageStyle]}
                     resizeMode={ImageResize.COVER}
                 />
-                {isNotEmpty(tagName) && !isLive &&
+                {isNotEmpty(tagName) && !isNotEmpty(displayType) &&
                     <View style={StyleSheet.flatten([imageWithLabelStyle.tagContainer, tagStyle])}>
                         <Label children={tagName}
                             style={imageWithLabelStyle.tagText}
@@ -54,9 +66,7 @@ export const ImageWithLabel = ({ name, url, tagName,tagStyle,
                         />
                     </View>
                 }
-                {isLive &&
-                    <LiveBlogTag />
-                }
+                {renderArticleLabel()}
                 {isAlbum && 
                     <View style={imageWithLabelStyle.albumContainer}>
                         {renderPhotoIcon()}

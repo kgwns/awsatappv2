@@ -405,6 +405,7 @@ export const arabic = {
     liveTagTitle: 'مباشر',
     specialTagTitle: 'خاص',
     analysisTagTitle: 'تحليل إخباري',
+    breakingNews: "الأخبار العاجلة",
   },
   mostRead: {
     mostReadTitle: 'الأكثر قراءة',

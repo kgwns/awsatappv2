@@ -65,6 +65,7 @@ const VideoPlayerControl = ({
   const [initialPlay, setInitialPlay] = useState(true);
   const [screenType, setScreenType] = useState('contain');
   const [showReplayBtn, setShowReplayBtn] = useState(false);
+  const [play, setPlay] = useState(false);
   const initialLoadRef = useRef(true);
 
   const {setShowMiniPlayer, setPlayerTrack, showMiniPlayer} = useAppPlayer();
@@ -85,13 +86,22 @@ const VideoPlayerControl = ({
   const onSeek = (seek: any) => {
     videoPlayer.current?.seek(seek);
   };
+  // Enable when required renderPlaypause
+  // const onPaused = () => {
+  //   if (!isMiniPlayer && !paused) {
+  //     setMiniPlayerVisible && setMiniPlayerVisible(false);
+  //   }
+  //   setPaused(!paused);
+  // };
 
-  const onPaused = () => {
+  const onPausedPress = () => {
     if (!isMiniPlayer && !paused) {
       setMiniPlayerVisible && setMiniPlayerVisible(false);
     }
     setPaused(!paused);
+    setPlay(true);
   };
+
 
   const onProgress = (data: any) => {
     if (!isLoading) {
@@ -133,6 +143,7 @@ const VideoPlayerControl = ({
       (!isFullScreen && isFullScreenPlayer)
     ) {
       setPaused(true);
+      setPlay(true)
       setPlayerDetails && setPlayerDetails(currentTime, paused);
     }
     if (isFullScreen && !isFullScreenPlayer) {
@@ -297,7 +308,9 @@ const VideoPlayerControl = ({
       </View>
       <View style={styles.timeContainer}>
         {renderTimer()}
-        {renderPlaypause()}
+        {/* Enable when Required 
+        {renderPlaypause()} 
+        */}
       </View>
     </ImageBackground>
   );
@@ -349,18 +362,38 @@ const VideoPlayerControl = ({
     </TouchableHighlight>
   );
 
-  const renderPlaypause = () => {
+  const onVideoPress = () => {
+    setPaused(!paused)
+    setPlay(true);
+  }
+  // Enable when required renderPlaypause function
+  // const renderPlaypause = () => {
+  //   const source = paused === true ? images.playIconWhite : images.pauseIconWhite;
+  //   return (
+  //     <TouchableHighlight
+  //     testID='renderPlaypauseID'
+  //       underlayColor="transparent"
+  //       activeOpacity={0.3}
+  //       onPress={onPaused}
+  //       hitSlop={DEFAULT_HIT_SLOP}
+  //       style={styles.playButtoncontainer}>
+  //       <Image source={source} />
+  //     </TouchableHighlight>
+  //   );
+  // };
+
+  const renderPlaypauseCenterIcon = () => {
     const source = paused === true ? images.playIconWhite : images.pauseIconWhite;
 
     return (
       <TouchableHighlight
-      testID='renderPlaypauseID'
+        testID='renderPlaypauseID'
         underlayColor="transparent"
         activeOpacity={0.3}
-        onPress={onPaused}
+        onPress={onPausedPress}
         hitSlop={DEFAULT_HIT_SLOP}
         style={styles.playButtoncontainer}>
-        <Image source={source} />
+        <Image source={source} style = {{width:30, height:50}} />
       </TouchableHighlight>
     );
   };
@@ -378,9 +411,20 @@ const VideoPlayerControl = ({
           {renderVideo()}
           <View style={styles.videoControls}>
             {isLoading && <LoadingState />}
-            {showControls && (
+            {!isLoading && !play && (
+              <TouchableWithoutFeedback onPress = {() => onVideoPress()}>
+                <ImageBackground
+                  source={images.topShadowImg}
+                  style={[styles.playcontainer]}
+                  imageStyle={[styles.vignettePlayIcon]}>
+                <View style = {styles.playPauseIconStyle}>{renderPlaypauseCenterIcon()}</View>
+                </ImageBackground>
+              </TouchableWithoutFeedback>
+            )}
+            {!isLoading && showControls && play && (
               <>
                 <View style={styles.containerStyle}>{renderTopControls()}</View>
+                <View style={styles.playPauseIconStyle}>{renderPlaypauseCenterIcon()}</View>
                 <View style={styles.containerStyle}>{renderBottomControls()}</View>
               </>
             )}
@@ -429,6 +473,9 @@ const customStyle = (theme: CustomThemeType) =>
     },
     vignette: {
       resizeMode: 'stretch',
+    },
+    vignettePlayIcon: {
+      resizeMode: 'cover',
     },
     control: {
       paddingHorizontal: isIOS ? 20 : 15,
@@ -494,5 +541,14 @@ const customStyle = (theme: CustomThemeType) =>
     },
     containerStyle: {
       flex: 1
+    },
+    playPauseIconStyle: {
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    playcontainer: {
+      flex:1,
+      alignItems: 'center',
+      justifyContent: 'center'
     }
   });

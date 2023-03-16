@@ -8,7 +8,7 @@ import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
-import { ArticleDetailDataType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
+import { ArticleDetailDataType, ArticleReadAlsoType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useAppCommon, useAppPlayer, useBookmark, useLogin } from 'src/hooks'
@@ -93,6 +93,7 @@ export const ArticleDetailScreen = ({
   const [isArticleSectionLoaded, setIsArticleSectionLoaded] = useState(false)
   const [richHTML, setRichHTML] = useState<HTMLElementParseStore[]>([])
   const { showMiniPlayer } = useAppPlayer()
+  const fullScreenBackgroundColor = isFullScreen ? style.fullScreenBackground.backgroundColor : ''
   
   const detailRoutes = useMemo(() => routes.filter((detailRoute) => 
     detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN || 
@@ -180,16 +181,21 @@ export const ArticleDetailScreen = ({
     if (isNonEmptyArray(articleData.richHTML)) {
       //Read Also Bundle
       const readAlsoElement: any = articleData.richHTML?.filter((item) => item.type === RichHTMLType.READ_ALSO)
-      if (isNonEmptyArray(readAlsoElement) && isNonEmptyArray(readAlsoElement[0].data.related_content)) {
-        const nidList = joinArray(readAlsoElement[0].data.related_content, '+')
-        try {
-          const readAlsoResponse = await getBookMarkDetailInfoService({ nid: nidList, page: 0 })
-          const readAlsoResult = parseRichArticleReadAlso(readAlsoResponse)
-          const richHtmlInfo = updatedReadAlsoContent(articleData, readAlsoResult)
-          setRichHTML(richHtmlInfo)
-        } catch (error) {
-          handleAxiosError(error)
-        }
+      if (isNonEmptyArray(readAlsoElement)) {
+        readAlsoElement.forEach(async (element: ArticleReadAlsoType) => {
+          const content = element.data.related_content;
+          if (isNonEmptyArray(content)) {
+            const nidList = joinArray(content, '+');
+            try {
+              const readAlsoResponse = await getBookMarkDetailInfoService({ nid: nidList, page: 0 })
+              const readAlsoResult = parseRichArticleReadAlso(readAlsoResponse)
+              const richHtmlInfo = updatedReadAlsoContent(articleData, readAlsoResult)
+              setRichHTML(richHtmlInfo)
+            } catch (error) {
+              handleAxiosError(error)
+            }
+          }
+        });
       }
 
       // Content Also Bundle
@@ -209,8 +215,10 @@ export const ArticleDetailScreen = ({
       const opinionElement: any = articleData.richHTML?.filter((item) => item.type === RichHTMLType.OPINION)
       if (isNonEmptyArray(opinionElement)) {
         opinionElement.forEach(async (_: any, index: number) => {
+          const opinionId = opinionElement[index].data.opinion;
+          const id = isNonEmptyArray(opinionId) ? opinionId[0] : opinionId;
           try {
-            const opinionResponse = await requestOpinionArticleDetailAPI({ nid: parseInt(opinionElement[index].data.opinion) })
+            const opinionResponse = await requestOpinionArticleDetailAPI({ nid: parseInt(id) })
             const opinionResult = parseOpinionBundleSuccess(opinionResponse)
             const richHtmlInfo = updatedOpinionBundle(articleData, opinionResult)
             setRichHTML(richHtmlInfo)
@@ -231,7 +239,7 @@ export const ArticleDetailScreen = ({
   }
   
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && isTab ) {
       Orientation.unlockAllOrientations();
       Orientation.getDeviceOrientation(updateScreenEdge);
       Orientation.addDeviceOrientationListener(updateScreenEdge);
@@ -411,7 +419,7 @@ export const ArticleDetailScreen = ({
       StatusBar.setHidden(false)
       SystemNavigationBar.navigationShow();
       Orientation.lockToPortrait();
-      Orientation.unlockAllOrientations();
+      isTab && Orientation.unlockAllOrientations();
     }
     setIsFullScreen(isFullscreen)
   }
@@ -443,7 +451,7 @@ export const ArticleDetailScreen = ({
   const onPressBack = () => {
     requestAnimationFrame(() => {
       stopVideoPlayer()
-      if (!route.params.isRelatedArticle) {
+      if (!route.params.isRelatedArticle && isTab) {
         Orientation.unlockAllOrientations()
         Orientation.lockToPortrait()
       }
@@ -565,6 +573,7 @@ export const ArticleDetailScreen = ({
 
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
+    backgroundColor={fullScreenBackgroundColor}
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading === false}>
       {isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
         { !isFullScreen &&  renderHeader()}
@@ -679,6 +688,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     backgroundColor: colors.transparent,
     position: 'absolute', 
     bottom: isIOS ? normalize(70) : normalize(60)
+  },
+  fullScreenBackground: {
+    backgroundColor: colors.black
   }
 })
 

@@ -32,7 +32,7 @@ export const formatTopListToLatestArticleType = (response: any): LatestArticleDa
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories_export,author_resource,created_export,
-          field_new_photo, changed
+          field_new_photo, changed, field_display_export
         }: any) => ({
           body,
           title,
@@ -41,7 +41,8 @@ export const formatTopListToLatestArticleType = (response: any): LatestArticleDa
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           author: author_resource,
           created: changed,
-          isBookmarked: false
+          isBookmarked: false,
+          displayType: field_display_export,
         })
       );
     }

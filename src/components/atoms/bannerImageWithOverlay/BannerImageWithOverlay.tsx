@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { ImageResize } from '../../../shared/styles/text-styles'
 import { Image } from 'src/components/atoms/image/Image'
-import {  LiveBlogTag } from 'src/components/atoms/liveBlogTag/LiveBlogTag'
 import {  Overlay } from 'src/components/atoms/overlay/Overlay'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ImagesName } from 'src/shared/styles'
+import { ArticleLabel } from 'src/components/molecules/articleLabel/ArticleLabel'
 
 export interface BannerImageWithOverlayProps {
     image?: string
     onImageLoadEnd?(isSuccess: boolean): void
     isImageLoaded?: boolean
     showOverlay?: boolean;
-    isLive?: boolean; 
     isAlbum: boolean;
+    displayType?: string;
 }
 
 export const RenderPhotoIcon = () => (
@@ -31,7 +31,7 @@ export const BannerImageWithOverlay = ({
     onImageLoadEnd,
     isImageLoaded,
     showOverlay,
-    isLive = false,
+    displayType,
     isAlbum = false,
 }: BannerImageWithOverlayProps) => {
     const [isError, setIsError] = useState(false) 
@@ -53,8 +53,8 @@ export const BannerImageWithOverlay = ({
                 onError={onError}
             />
             {isAlbum && <RenderPhotoIcon />}
-            {isLive && <View style={bannerImageWithOverlayStyle.liveTagContainer}>
-                <LiveBlogTag />
+            {displayType && <View style={bannerImageWithOverlayStyle.liveTagContainer}>
+                <ArticleLabel displayType={displayType}/>
             </View>}
             {showOverlay && isImageLoaded && <Overlay />}
         </View>

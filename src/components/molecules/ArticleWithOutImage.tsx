@@ -10,6 +10,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { decode } from 'html-entities';
+import { ArticleLabel } from './articleLabel/ArticleLabel';
 
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
     body?: string,
@@ -24,6 +25,7 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
     showBody?: boolean,
     titleStyle?: StyleProp<TextStyle>,
     bodyStyle?: StyleProp<TextStyle>
+    displayType?: string;
 }
 
 const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
@@ -44,6 +46,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     return (
     <FixedTouchable onPress={onPress}>
         <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>
+                <ArticleLabel displayType={props.displayType} enableBottomMargin/>
                 <TextWithFlag {...props} style={titleStyle}/>
                 {isNotEmpty(bodyInfo) && showBody && <Label 
                     children={bodyInfo}

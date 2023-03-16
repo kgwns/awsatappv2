@@ -26,11 +26,11 @@ export const ArticleDetailFooter = ({
     const articleSaveIcon = isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark
 
     const onPressShare = async () => {
-        const { title, view_node, shortUrl, nid } = articleDetailData
+        const { title, link_node, shortUrl, nid } = articleDetailData
         recordLogEvent('Share_Article', {articleId: nid});
         await Share.open({
             title,
-            url: getShareUrl(shortUrl,view_node),
+            url: getShareUrl(shortUrl,link_node),
             failOnCancel: true,
             subject: title
         }).then(response => {

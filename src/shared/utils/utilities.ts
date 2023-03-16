@@ -120,6 +120,10 @@ export const isStringIncludes = (data: any, searchText: string): boolean => {
   return isNotEmpty(data) && data.includes(searchText) ? true : false
 }
 
+export const getString = (value: any): string => {
+  return isNotEmpty(value) ? decodeHTMLTags(value) : ' '
+};
+
 export const timeAgo = (time: any) => {
   const date = new Date(time);
   const today = new Date();
@@ -345,8 +349,8 @@ export const isValidDate = (dateObject: any): boolean => {
   return dateObject && new Date(dateObject).toString() !== 'Invalid Date';
 }
 
-export const getShareUrl = (shortUrl: string, viewNodeUrl:string): string => {
-  return  isNotEmpty(shortUrl) ? shortUrl : viewNodeUrl;
+export const getShareUrl = (shortUrl: string, linkNodeUrl:string): string => {
+  return  isNotEmpty(shortUrl) ? shortUrl : linkNodeUrl;
 }
 
 export const isTypeAlbum = (type: HomePageArticleType): boolean => {

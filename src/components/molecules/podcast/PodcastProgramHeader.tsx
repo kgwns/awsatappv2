@@ -70,7 +70,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
           onPress={onPressSave}
         />
         <TouchableOpacity style={styles.buttonStyle} testID={headerShareIconTestId} accessibilityLabel={headerShareIconTestId} onPress={onPressShare}>
-          <ShareIcon fill={colors.white} width={normalize(15)} height={normalize(15)}/>
+          <ShareIcon fill={colors.white} width={15} height={15}/>
         </TouchableOpacity>
       </View>
     );

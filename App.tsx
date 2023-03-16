@@ -16,16 +16,16 @@ import { FetchArabicData } from 'src/firebase/RemoteConfig/RemoteConfig';
 
 const App = () => {
 
-  const permissionDelay = isIOS ? 1500 : 5500;
+  const permissionDelay = isIOS ? 4000 : 5500;
   
   useEffect(() => {
     Orientation.lockToPortrait()
   }, [])
 
   useEffect(() => {
-    // setTimeout(() => {
+    setTimeout(() => {
       checkPermission()
-    // }, permissionDelay)
+    }, permissionDelay)
   }, [])
 
   useEffect(() => {

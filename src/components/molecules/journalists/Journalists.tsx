@@ -9,6 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { fonts } from 'src/shared/styles/fonts';
 import { requestJournalistDetail } from 'src/services/articleDetailService';
+import { useJournalist } from 'src/hooks/useJournalist';
+
 
 export interface JournalistProps {
     journalistId: string[],
@@ -22,6 +24,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     const style = useThemeAwareObject(customStyle)
     const navigation = useNavigation<StackNavigationProp<any>>()
     const [activeJournalist, setActiveJournalist] = useState<boolean[]>([]);
+    const { emptyJournalistArticleInfo } = useJournalist();
 
     useEffect(() => {
         getActiveJournalist(journalistId);
@@ -46,6 +49,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     };
 
     const onPressJournalist = (id: string) => {
+        emptyJournalistArticleInfo();
         navigation.push(ScreensConstants.JOURNALIST_DETAIL_SCREEN, { tid: id, isRelatedArticle: true })
     }
 

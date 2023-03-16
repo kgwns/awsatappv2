@@ -48,6 +48,7 @@ export const EditorsPickSection = ({
           highlightedTitle={highlightTitle}
           showHighlightTitle={showHighlightTitle}
           isAlbum={isAlbum}
+          displayType={item.displayType}
         />
       </TouchableOpacity>
     );

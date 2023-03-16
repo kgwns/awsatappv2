@@ -6,6 +6,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import LiveAnimation from '../../../assets/lottie-animation/live-icon.json';
 import { LottieViewAnimation } from 'src/shared/utils/LottieViewAnimation';
+import { isTab } from 'src/shared/utils'
 
 interface LiveBlogTagProps {
     isImageTag?: boolean;
@@ -59,7 +60,7 @@ const liveBlogTagStyle = StyleSheet.create({
         alignItems: 'center'
     },
     topMargin: {
-        marginTop: 10
+        marginTop: isTab ? 0 : 10
     },
     bottomMargin: {
         marginBottom: 10
