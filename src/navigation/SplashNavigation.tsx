@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { I18nManager, NativeEventSubscription } from 'react-native'
+import { I18nManager, NativeEventSubscription, Platform } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import { useDispatch } from 'react-redux'
 import { storeAppTheme, storeAppFirstSession } from 'src/redux/appCommon/action'
@@ -9,16 +9,16 @@ import AppStackContainer from './AppStackContainer'
 import { getCacheApiRequest } from 'src/services/api'
 import { AAA_LIVE_BLOG_URL, AAA_PROFILE_IMAGE_URL, AAA_UMS_BASE_URL, BASE_URL_CONFIG, PROD_BASE_URL } from 'src/services/apiUrls'
 import { isNotEmpty, isObjectNonEmpty } from 'src/shared/utils'
+import Video from 'react-native-video'
 
 const SplashNavigation = () => {
     const dispatch = useDispatch()
     const subscription = useRef<NativeEventSubscription>(null).current
 
-    // Commented for AMAR-1145 (Enable when video splash required)
-    // const[loading, setLoading] = useState(true)
-    // useEffect(() => {
-    //     setTimeout(() => setLoading(false), 4000)
-    // }, []);
+    const[loading, setLoading] = useState(true)
+    useEffect(() => {
+        setTimeout(() => setLoading(false), 4000)
+    }, []);
 
     const { getBookmarkedId } = useBookmark()
     const { isLoggedIn } = useLogin()
@@ -95,19 +95,19 @@ const SplashNavigation = () => {
     };
 
     return (
-    // Commented for AMAR-1145
-    //     Platform.OS === 'android' ?
-    //     (loading ?
-    //     <Video 
-    //         source={require('../assets/video/splashscreen.mp4')}
-    //         resizeMode={'cover'}
-    //         controls={false}
-    //         style={{width: "100%", height: '100%'}} />
-    //    : <AppStackContainer />)
-    //    : 
-        <>
-            {isObjectNonEmpty(baseUrlConfig) && <AppStackContainer />}
-        </>
+        Platform.OS === 'android' ?
+            (loading ?
+                <Video
+                    source={require('../assets/video/splashscreen.mp4')}
+                    resizeMode={'cover'}
+                    controls={false}
+                    style={{ width: "100%", height: '100%' }} />
+                : <>
+                    {isObjectNonEmpty(baseUrlConfig) && <AppStackContainer />}
+                </>)
+            : <>
+                {isObjectNonEmpty(baseUrlConfig) && <AppStackContainer />}
+            </>
     );
 }
 

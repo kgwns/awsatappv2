@@ -22,7 +22,7 @@ class StoriesInterfaceController: WKInterfaceController {
   
   private func setImage(from urlString: String) {
       story_image.setImage(UIImage(named: "placeholder_image")!)
-      guard let imageURL = URL(string: urlString) else { return }
+      guard !urlString.isEmpty, let imageURL = URL(string: urlString) else { return }
       URLSession.shared.dataTask(with: imageURL) {  data, response, error in
           guard let data = data, error == nil else { return }
           guard let image = UIImage(data: data) else { return }

@@ -28,13 +28,13 @@ export const getBaseUrlConfig = (): BaseUrlConfigType => {
   return store.getState().appCommon?.baseUrlConfig;
 }
 
-export let BASE_URL = getBaseUrlConfig().baseUrl;
-export let UMS_BASE_URL = getBaseUrlConfig().umsUrl;
-export let PROFILE_IMAGE_URL = getBaseUrlConfig().profileImageUrl;
-export let LIVE_BLOG_URL = getBaseUrlConfig().liveBlogUrl;
+export let BASE_URL = getBaseUrlConfig()?.baseUrl;
+export let UMS_BASE_URL = getBaseUrlConfig()?.umsUrl;
+export let PROFILE_IMAGE_URL = getBaseUrlConfig()?.profileImageUrl;
+export let LIVE_BLOG_URL = getBaseUrlConfig()?.liveBlogUrl;
 
 //IMAGE URL
-export let IMAGE_URL = getBaseUrlConfig().imageUrl;
+export let IMAGE_URL = getBaseUrlConfig()?.imageUrl;
 
 store.subscribe(() => {
   const baseUrlConfig = store.getState().appCommon.baseUrlConfig

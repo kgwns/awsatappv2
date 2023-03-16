@@ -19,6 +19,7 @@ import {
   DESELECT_ALL_WRITERS,
   SELECTED_DATA_FROM_ONBOARD,
   EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD,
+  EMPTY_SELECTED_AUTHORS,
 } from './actionTypes';
 import { AllWritersActions, AllWritersState } from './types';
 import { isNonEmptyArray } from 'src/shared/utils';
@@ -94,6 +95,8 @@ export default (state = initialState, action: AllWritersActions) => {
       return { ...state, selectedDataFromOnboard: action.payload }
     case EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD:
       return { ...state, selectedDataFromOnboard: [] }
+    case EMPTY_SELECTED_AUTHORS:
+      return {...state, isLoading: false,error:'',allSelectedWritersDetailsList:[]}
     default:
       return { ...state };
   }
