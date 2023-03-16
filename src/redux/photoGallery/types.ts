@@ -40,6 +40,7 @@ export interface AlbumDetailType {
   isBookmarked: boolean;
   field_photo_album_export_1: string[] | null;
   field_shorturl: string;
+  link_node: string;
 }
 
 export type payloadType = {rows: AlbumListItemType[]; pager: Pager};

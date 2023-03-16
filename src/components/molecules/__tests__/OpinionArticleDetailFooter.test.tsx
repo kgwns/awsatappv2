@@ -28,7 +28,8 @@ describe('<OpinionArticleDetailFooter>', () => {
     writer: [],
     isBookmarked: false,
     isFollowed: false,
-    field_shorturl: ''
+    field_shorturl: '',
+    link_node: 'https://aawsat.srpcdigital.com/node/2982206'
   };
 
   beforeEach(() => {
@@ -92,7 +93,8 @@ describe('<OpinionArticleDetailFooter>', () => {
     writer: [],
     isBookmarked: false,
     isFollowed: false,
-    field_shorturl: ''
+    field_shorturl: '',
+    link_node: 'https://aawsat.srpcdigital.com/node/2982206'
   };
 
   beforeEach(() => {

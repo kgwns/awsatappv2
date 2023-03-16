@@ -24,10 +24,10 @@ import SearchIcon from 'src/assets/images/headerIcons/searchIcon.svg'
 import SearchIconDark from 'src/assets/images/headerIcons/searchIconDark.svg'
 import MenuIcon from 'src/assets/images/headerIcons/menuIcon.svg'
 import MenuIconDark from 'src/assets/images/headerIcons/menuIconDark.svg'
-import HeaderLogo from 'src/assets/images/headerIcons/newHeaderLogo.svg'
-import HeaderLogoDark from 'src/assets/images/headerIcons/newHeaderLogoDark.svg'
+import HeaderLogo from 'src/assets/images/headerIcons/aaaNewLogo.svg'
+import HeaderLogoDark from 'src/assets/images/headerIcons/aaaNewLogoDark.svg'
 import LogoBlack from 'src/assets/images/logoBlack.svg'
-import PopupLogo from 'src/assets/images/popupLogoDark.svg'
+import PopupLogo from 'src/assets/images/popupNewLogo.svg'
 
 //Tab Icons
 import NewsIcon from 'src/assets/images/tabIcons/newsIcon.svg'

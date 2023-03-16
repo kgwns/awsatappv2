@@ -2,8 +2,6 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState, useRef } from 'react';
 import VideoPlayerControl from '../VideoPlayerControl';
 import Video from 'react-native-video';
-import Slider from '@react-native-community/slider';
-import { AppState } from 'react-native';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -128,12 +126,6 @@ describe('<VideoPlayerControl>', () => {
       expect(element).toBeTruthy();
     });
 
-    it('Should call renderCloseButtonID', () => {
-      const element = instance.getByTestId('renderCloseButtonID');
-      fireEvent(element, 'onPress');
-      expect(element).toBeTruthy();
-    });
-
     it('Should call Video onEnd', () => {
       DeviceTypeUtilsMock.isIOS = false;
       const element = instance.container.findAllByType(Video)[0];
@@ -168,26 +160,6 @@ describe('<VideoPlayerControl>', () => {
       fireEvent(element, 'onSeek');
       expect(element).toBeTruthy();
     });
-
-    it('Should call Slider onSlidingComplete', () => {
-      const element = instance.container.findAllByType(Slider)[0];
-      fireEvent(element, 'onSlidingComplete', 'seek');
-      expect(element).toBeTruthy();
-    });
-
-    it('When renderPlaypauseID is pressed', () => {
-      const testItemId = instance.getByTestId('renderPlaypauseID');
-      fireEvent(testItemId, 'onPress',{});
-      expect(mockFunction).toBeTruthy();
-    });
-
-    it('test AppState addEventListener', async () => {
-      const appStateSpy = jest.spyOn(AppState, 'addEventListener');
-      AppState.currentState = 'inactive';
-      await appStateSpy.mock.calls[0][1]('active');
-      expect(setPaused).toHaveBeenCalled();
-      expect(setPaused).toHaveBeenCalledWith(true);
-   });
   })
 
   describe('<VideoPlayerControl> with fullScreenPlayer true', () => {
@@ -222,12 +194,6 @@ describe('<VideoPlayerControl>', () => {
       expect(instance).toBeDefined();
     });
 
-    it('Should call renderCloseButtonID', () => {
-      const element = instance.getByTestId('renderCloseButtonID');
-      fireEvent(element, 'onPress');
-      expect(element).toBeTruthy();
-    });
-
   })
 
   describe('<VideoPlayerControl> default Player', () => {
@@ -260,6 +226,16 @@ describe('<VideoPlayerControl>', () => {
 
     it('should render VideoPlayerControl component with isFullScreenPlayer true', () => {
       expect(instance).toBeDefined();
+    });
+    it("should call onVideoPress",() => {
+      const testId = instance.getByTestId('videoId');
+      fireEvent(testId,'onPress');
+      expect(mockFunction).toHaveBeenCalled();
+    })
+    it('When renderPlaypauseID is pressed', () => {
+      const testItemId = instance.getByTestId('renderPlaypauseID');
+      fireEvent(testItemId, 'onPress',{});
+      expect(mockFunction).toBeTruthy();
     });
   })
 

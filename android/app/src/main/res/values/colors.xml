@@ -6,6 +6,7 @@
     <color name="colorSplash">#EDF0F2</color>
     <color name="liveRed">#D23035</color>
     <color name="invertedBg">#324650</color>
+    <color name="splashBgInitial">#F7FAFA</color>
 
 
     <color name="homeTabBackground">#d41c3743</color>

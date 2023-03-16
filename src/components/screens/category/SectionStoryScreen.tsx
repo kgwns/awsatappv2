@@ -294,6 +294,7 @@ export const SectionStoryScreen = React.memo(({
       {
         ...item,
         isBookmarked: validateBookmark(item.nid),
+        displayType: item.displayType,
         author: '' //Need to hide author name in UI
       }
     ))
@@ -304,6 +305,7 @@ export const SectionStoryScreen = React.memo(({
       {
         ...item,
         isBookmarked: validateBookmark(item.nid),
+        field_display_export: item.field_display_export,
         author_resource: '' //Need to hide author name in UI
       }
     ))
@@ -452,7 +454,7 @@ export const SectionStoryScreen = React.memo(({
             textStyles={style.textStyle}
             contentStyle={style.imageArticleContentStyle}
             titleStyle={style.titleStyle}
-            displayType={bannerData.displayType}
+            displayType={bannerData.field_display_export}
           />
         )}
       </>
@@ -482,6 +484,7 @@ export const SectionStoryScreen = React.memo(({
           leftTitleColor={themeData.primary}
           rightIcon={() => TimeIcon(timeFormat.icon)}
           rightTitleColor={themeData.footerTextColor}
+          displayType={articleData.field_display_export}
         />
       </View>
     )
@@ -655,7 +658,7 @@ const customStyle = (theme: CustomThemeType) => {
     titleStyle:{
       textAlign:'center',
       fontSize: isTab ? 33 : 24,
-      lineHeight: isTab ? 46 :42,
+      lineHeight: isTab ? 46 : 40,
       fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{

@@ -201,7 +201,7 @@ describe("check methods in utilities",() => {
     it("test getImageUrl by passing a invalid url and returns a default url",() => {
         const result = getImageUrl('imageURl');
         expect(result).toBeDefined();
-        expect(result).toBe("https://awsatapp.srpcdigital.com/imageURl")
+        expect(result).toBe("https://aawsat.srpcdigital.com/imageURl")
         expect(typeof result).toBe('string');
     })
 
@@ -367,16 +367,16 @@ describe("check methods in utilities",() => {
     })
 
     it("test getShareUrl returns a short url",() => {
-        const result = getShareUrl('http://shorturl.com','http://viewnodeurl.in');
+        const result = getShareUrl('http://shorturl.com','http://linknodeurl.in');
         expect(result).toBeDefined();
         expect(result).toBe('http://shorturl.com');
         expect(typeof result).toBe('string');
     })
 
-    it("test getShareUrl returns a viewNodeUrl url",() => {
-        const result = getShareUrl('','http://viewnodeurl.in');
+    it("test getShareUrl returns a linkNodeUrl url",() => {
+        const result = getShareUrl('','http://linknodeurl.in');
         expect(result).toBeDefined();
-        expect(result).toBe('http://viewnodeurl.in');
+        expect(result).toBe('http://linknodeurl.in');
         expect(typeof result).toBe('string');
     })
 
@@ -402,13 +402,13 @@ describe("check methods in utilities",() => {
     it("check getArticleImage returns fieldImage url",() => {
         const result = getArticleImage('fieldImage','newPhoto');
         expect(result).toBeDefined();
-        expect(result).toBe("https://awsatapp.srpcdigital.com/fieldImage")
+        expect(result).toBe("https://aawsat.srpcdigital.com/fieldImage")
     })
 
     it("check getArticleImage returns newPhoto url",() => {
         const result = getArticleImage('','newPhoto');
         expect(result).toBeDefined();
-        expect(result).toBe("https://awsatapp.srpcdigital.com/newPhoto")
+        expect(result).toBe("https://aawsat.srpcdigital.com/newPhoto")
     })
 
     it("check isStringIncludes returns true",() => {

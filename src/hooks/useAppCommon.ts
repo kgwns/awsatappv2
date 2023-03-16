@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
-import { storeServerEnvironment, storeArticleFontSize, resetArticleFontSize } from "src/redux/appCommon/action";
-import { getIsFirstSession, getThemeState, getServerEnvironment, getArticleFontSize } from "../redux/appCommon/selectors"
-import { ServerEnvironment, Theme } from "../redux/appCommon/types"
+import { storeServerEnvironment, storeArticleFontSize, resetArticleFontSize, storeBaseUrlConfig } from "src/redux/appCommon/action";
+import { getIsFirstSession, getThemeState, getServerEnvironment, getArticleFontSize, getBaseUrlConfig } from "../redux/appCommon/selectors"
+import { BaseUrlConfigType, ServerEnvironment, Theme } from "../redux/appCommon/types"
 import { ArticleFontSize } from "src/redux/appCommon/types"
 
 export interface UseAppCommonReturn {
@@ -11,7 +11,9 @@ export interface UseAppCommonReturn {
     storeServerEnvironmentInfo(type: ServerEnvironment): void;
     articleFontSize: number
     storeArticleFontSizeInfo(): void
-     resetFontSizeInfo(): void;
+    resetFontSizeInfo(): void;
+    baseUrlConfig: BaseUrlConfigType;
+    storeBaseUrlConfigInfo: (baseUrlConfigs: BaseUrlConfigType) => void;
 }
 
 export const useAppCommon = (): UseAppCommonReturn => {
@@ -21,12 +23,16 @@ export const useAppCommon = (): UseAppCommonReturn => {
     const isFirstSession = useSelector(getIsFirstSession)
     const serverEnvironment = useSelector(getServerEnvironment)
     const articleFontSize = useSelector(getArticleFontSize)
+    const baseUrlConfig = useSelector(getBaseUrlConfig)
 
 
     const storeServerEnvironmentInfo = (type: ServerEnvironment) => {
         dispatch(storeServerEnvironment(type))
     }
 
+    const storeBaseUrlConfigInfo = (baseUrlConfigs: BaseUrlConfigType) => {
+        dispatch(storeBaseUrlConfig({baseUrlConfig: baseUrlConfigs}));
+    }
 
     const storeArticleFontSizeInfo = () => {
         let newFontSize = ArticleFontSize.normal;
@@ -46,9 +52,11 @@ export const useAppCommon = (): UseAppCommonReturn => {
         theme,
         isFirstSession,
         serverEnvironment,
+        baseUrlConfig,
         storeServerEnvironmentInfo,
         articleFontSize,
         storeArticleFontSizeInfo,
         resetFontSizeInfo,
+        storeBaseUrlConfigInfo,
     }
 }

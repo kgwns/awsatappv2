@@ -27,6 +27,7 @@ const albumDetailData: AlbumDetailType[] = [
     isBookmarked: false,
     field_photo_album_export_1: ['field_photo_album_export_1'],
     field_shorturl: 'string',
+    link_node: 'string'
   },
 ];
 

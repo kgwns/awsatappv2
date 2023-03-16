@@ -41,7 +41,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     titleStyle:{
         textAlign:'center',
         fontSize: isTab ? 33 : 24,
-        lineHeight: isTab ? 50 : 36,
+        lineHeight: isTab ? 50 : 40,
         fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{

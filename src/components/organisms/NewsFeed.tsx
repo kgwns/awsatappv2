@@ -2,7 +2,7 @@ import { View, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import React from 'react';
 import {Image} from '../atoms/image/Image';
 import { isTab, normalize, screenWidth} from '../../shared/utils';
-import { Divider, Label, LabelTypeProp, LiveBlogTag} from '../atoms';
+import { Divider, Label, LabelTypeProp } from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
 import {flatListUniqueKey, ScreensConstants} from '../../constants/Constants';
 import {SectionVideoFooter} from '../molecules';
@@ -23,7 +23,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { useAppPlayer } from 'src/hooks';
-import { displayTypes } from 'src/constants/Constants';
+import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 
 export interface NewsFeedProps {
   title: string;
@@ -127,7 +127,6 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   )
 
   const renderItem = (item: NewsViewListItemType, index: number) => {
-    const isLive = isNotEmpty(item.displayType) && item.displayType === displayTypes.liveCoverage;
     return (
       <View key={flatListUniqueKey.NEWS_FEED + index}>
         <FixedTouchable activeOpacity={0.8} onPress={() => onPress(item.nid)}>
@@ -135,7 +134,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
             isTab ?
               <View style={style.tabSplitter}>
                 <View style={style.tabLeftContainer}>
-                  {isLive && <LiveBlogTag enableTopMargin />}
+                  <ArticleLabel displayType={item.field_display_export} enableTopMargin />
                   {renderTitle(item.title)}
                   {renderDescription(item.body)}
                   {renderArticleFooter(item, index)}
@@ -146,7 +145,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
               <>
                 <View style={style.blogContainer}>
                   <View style={style.titleContainer}>
-                    {isLive && <LiveBlogTag enableTopMargin />}
+                    <ArticleLabel displayType={item.field_display_export} enableTopMargin />
                     {renderTitle(item.title)}
                   </View>
                   <View>

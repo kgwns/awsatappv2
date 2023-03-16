@@ -40,6 +40,7 @@ export const MyNewsWriters = () => {
     allSelectedWritersDetailList,
     getSelectedAuthorsData,
     requestAllSelectedWritersDetailsData,
+    emptySelectedAuthorsData
   } = useAllWriters();
 
   const {
@@ -125,6 +126,9 @@ export const MyNewsWriters = () => {
     if (isNonEmptyArray(selectedAuthorsData.data)) {
       const selectedAuthorsString = getSelectedData().join('+')
       requestAllSelectedWritersDetailsData({ tid: selectedAuthorsString, items_per_page: 100 })
+    }
+    else {
+      emptySelectedAuthorsData();
     }
   };
 

@@ -93,7 +93,7 @@ export const OpinionArticleDetailWidget = ({
   );
 
   const onPressReturn = async() => {
-    if (!isRelatedArticle) {
+    if (!isRelatedArticle && isTab) {
       Orientation.unlockAllOrientations();
       Orientation.lockToPortrait();
     }

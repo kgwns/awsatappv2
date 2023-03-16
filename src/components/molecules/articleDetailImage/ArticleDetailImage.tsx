@@ -10,8 +10,8 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import ArticleDetailVideo from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo'
 import { decode } from 'html-entities'
-import { displayTypes } from 'src/constants/Constants'
 import LiveArticleDetailHeader from 'src/components/molecules/liveArticleDetailHeader/LiveArticleDetailHeader'
+import { DisplayTypes } from 'src/constants/Constants'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -54,7 +54,7 @@ const ArticleDetailImage = ({
 
     const [imageLoaded, setImageLoaded] = useState<boolean>(false)
 
-    const isLive = isNotEmpty(displayType) && displayType === displayTypes.liveCoverage;
+    const isLive = isNotEmpty(displayType) && displayType === DisplayTypes.liveCoverage;
 
     const onImageLoaded = () => {
         setImageLoaded(true)

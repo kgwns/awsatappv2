@@ -267,6 +267,9 @@ describe('<MyNewsWriters>', () => {
       fetchAllWritersRequest: () => {
         return [];
       },
+      emptySelectedAuthorsData: () => {
+        return []
+      }
   })
     const component = <MyNewsWriters />;
     instance = render(component);
@@ -370,6 +373,9 @@ describe('<MyNewsWriters>', () => {
       fetchAllWritersRequest: () => {
         return [];
       },
+      emptySelectedAuthorsData: () => {
+        return []
+      }
   })
     const component = <MyNewsWriters />;
     instance = render(component);
