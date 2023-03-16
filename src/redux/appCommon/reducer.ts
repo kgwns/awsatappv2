@@ -1,5 +1,5 @@
 import { ArticleFontSize, ServerEnvironment, Theme } from '../../redux/appCommon/types'
-import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE, RESET_ARTICLE_FONT_SIZE } from './actionType';
+import { IS_APP_FIRST_SESSION, STORE_APP_THEME, STORE_SERVER_ENVIRONMENT, STORE_FONT_SIZE, RESET_ARTICLE_FONT_SIZE, STORE_BASE_URL_CONFIG } from './actionType';
 import { AppCommonAction, AppCommonState } from './types';
 
 const initialAuthState: AppCommonState = {
@@ -7,6 +7,13 @@ const initialAuthState: AppCommonState = {
   isAppFirstSession: true,
   serverEnvironment: ServerEnvironment.PRODUCTION,
   articleFontSize: ArticleFontSize.normal,
+  baseUrlConfig: {
+    baseUrl: '',
+    umsUrl: '',
+    imageUrl: '',
+    profileImageUrl: '',
+    liveBlogUrl: '',
+  },
 };
 
 export default (state = initialAuthState, action: AppCommonAction) => {
@@ -35,6 +42,11 @@ export default (state = initialAuthState, action: AppCommonAction) => {
       return {
         ...state,
         articleFontSize: ArticleFontSize.normal
+      }
+    case STORE_BASE_URL_CONFIG:
+      return {
+        ...state,
+        baseUrlConfig: action.payload.baseUrlConfig,
       }
     default:
       return state

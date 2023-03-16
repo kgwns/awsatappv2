@@ -88,6 +88,7 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   shortUrl: string,
   scribbleLiveId: string,
   displayType?: string,
+  link_node: string, 
 }
 
 export interface RelatedArticleDataType extends GeneralArticleFields { 

@@ -11,6 +11,7 @@ import { MainSectionBlockType } from 'src/redux/latestNews/types'
 import { fonts } from 'src/shared/styles/fonts'
 import { decode } from 'html-entities'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
+import { ArticleLabel } from '../articleLabel/ArticleLabel'
 
 
 export type TopHeadLineNewsProps = {
@@ -38,6 +39,9 @@ export const TopHeadLineNews = ({
                         <View style={style.circle} />
                     </View>
                     <View style={style.titleContainer}>
+                        <View style={{ paddingRight: normalize(8) }}>
+                            <ArticleLabel displayType={item.displayType} />
+                        </View>
                         <Label children={decode(item.title)} style={style.title} />
                     </View>
                 </View>
@@ -46,7 +50,7 @@ export const TopHeadLineNews = ({
 
     }
     return (
-        <View style={[style.container, isTab && {alignItems: 'center'}]}>
+        <View style={[style.container]}>
             <FlatList
                 keyExtractor={(_, index) => index.toString()}
                 data={data}
@@ -61,11 +65,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         paddingBottom: isTab ? 0 : normalize(15),
         paddingTop: isTab ? normalize(10) : 0,
-        marginHorizontal: isTab ? 15 : 0
     },
     rowItem: {
         justifyContent: 'center',
-        alignItems:'center'
     },
     circle: {
         width: 8,
@@ -79,15 +81,18 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     title: {
         fontSize: isTab ? 18 : 15,
         lineHeight: isTab ? 26 : 24,
-        textAlign: isTab ? 'center' : 'left',
+        textAlign: 'left',
         color: theme.primaryBlack,
         fontFamily: fonts.AwsatDigital_Bold,
+        flex: 1,
+        flexWrap: 'wrap',
     },
     circleContainer: {
         width: isTab ? 'auto' :'5%'
     },
     titleContainer: {
-        width:isTab ? 'auto' :'94%'
+        flex: 1,
+        flexDirection: 'row',
     },
     rowContainer: {
         flexDirection: 'row',

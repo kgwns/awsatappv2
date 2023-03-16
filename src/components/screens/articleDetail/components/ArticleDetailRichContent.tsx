@@ -188,10 +188,11 @@ export const RenderReadAlsoElement = ({ paragraphInfo }: { paragraphInfo: Articl
     if (!isNonEmptyArray(paragraphInfo.readAlsoData)) {
         return null
     }
+    const READ_ALSO_BUNDLE_TITLE = TranslateConstants({key: TranslateKey.CONTENT_BUNDLE_WIDGET_TITLE})
 
     return (
         <View>
-            <ReadAlsoArticle title={paragraphInfo.title} data={paragraphInfo.readAlsoData} />
+            <ReadAlsoArticle title={READ_ALSO_BUNDLE_TITLE} data={paragraphInfo.readAlsoData} />
         </View>
     )
 }

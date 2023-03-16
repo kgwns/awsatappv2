@@ -77,7 +77,6 @@ const ImageArticle = ({
   const [isImageLoaded, setImageLoaded] = useState(false)
   const { themeData } = useTheme();
   const isDark = themeData?.id === DARK_THEME_ID
-  const isLive = isNotEmpty(displayType) && displayType === displayTypes.liveCoverage;
 
   const onImageLoadEnd = (isSuccess: boolean) => {
     setImageLoaded(isSuccess)
@@ -97,7 +96,7 @@ const ImageArticle = ({
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
           <BannerImageWithOverlay image={image}
             onImageLoadEnd={onImageLoadEnd}
-            isLive={isLive}
+            displayType={displayType}
             isImageLoaded={isImageLoaded}
             isAlbum={isAlbum}
           />

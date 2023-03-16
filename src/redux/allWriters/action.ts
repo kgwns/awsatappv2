@@ -46,6 +46,7 @@ import {
   DESELECT_ALL_WRITERS,
   SELECTED_DATA_FROM_ONBOARD,
   EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD,
+  EMPTY_SELECTED_AUTHORS,
 } from 'src/redux/allWriters/actionTypes';
 
 export const fetchAllWriters = (payload: AllWritersBodyGet) => {
@@ -126,6 +127,12 @@ export const getSelectedAuthorsFailed = (
 export const emptySelectedAuthorsInfo = () => {
   return {
     type: EMPTY_SELECTED_AUTHORS_INFO,
+  };
+};
+
+export const emptySelectedAuthors = () => {
+  return {
+    type: EMPTY_SELECTED_AUTHORS,
   };
 };
 
@@ -215,6 +222,7 @@ export const allWritersActions = {
   getSelectedAuthorsSuccess,
   getSelectedAuthorsFailed,
   emptySelectedAuthorsInfo,
+  emptySelectedAuthors,
   removeAuthor,
   removeAuthorSuccess,
   removeAuthorFailed,

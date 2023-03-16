@@ -93,6 +93,7 @@ enum TranslateKey {
   LIVE_TAG_TITLE,
   ANALYSIS_TAG_TITLE,
   SPECIAL_TAG_TITLE,
+  BREAKING_NEWS_TAG_TITLE,
   SAVE_ARTICLE_TO_YOUR_FAVOURITES,
   CREATE_ACCOUNT_DESCRIPTION,
   NOT_SUBSCRIBED_POP_UP,
@@ -404,6 +405,8 @@ const TranslateConstants = ({
             return arabic?.displayTag?.specialTagTitle;
         case TranslateKey.ANALYSIS_TAG_TITLE:
             return arabic?.displayTag?.analysisTagTitle;
+        case TranslateKey.BREAKING_NEWS_TAG_TITLE:
+            return arabic?.displayTag?.breakingNews;
         case TranslateKey.CREATE_ACCOUNT_DESCRIPTION:
             return arabic?.notRegisteredPopUp?.createAccountDescription;
         case TranslateKey.NOT_SUBSCRIBED_POP_UP:
@@ -2221,12 +2224,13 @@ const podcastServices = {
 }
 
 //displayTypes
-const displayTypes = {
-    article: 'article',
-    liveCoverage: 'livecoverage',
-    video: 'video',
-    analysis: 'analysis',
-    special: 'special'
+enum DisplayTypes {
+    article = 'article',
+    liveCoverage = 'livecoverage',
+    video = 'video',
+    analysis = 'analysis',
+    special = 'special',
+    breakingNews = 'breaking-news',
 }
 
 const LATEST_NEWS = 'آخر الأخبار';
@@ -2338,7 +2342,7 @@ export {
     IOS_WEBVIEW_URL,
     ANDROID_WEBVIEW_URL,
     podcastServices,
-    displayTypes,
+    DisplayTypes,
     APPID,
     LANG,
     UNITS,

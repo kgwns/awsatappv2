@@ -124,16 +124,14 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }
 
   const onPressShare = async () => {
-    if(!isNonEmptyArray(detailData) && !isObjectNonEmpty(detailData[0]) && (!isNotEmpty(detailData[0].field_shorturl_export) && !isNotEmpty(detailData[0].view_node))) {
+    if(!isNonEmptyArray(detailData) && !isObjectNonEmpty(detailData[0]) && (!isNotEmpty(detailData[0].field_shorturl_export) && !isNotEmpty(detailData[0].link_node))) {
       return;
     }
     const videoDetailData = detailData[0];
-    const { title, field_shorturl_export, view_node } = videoDetailData
-    const fieldUrl = field_shorturl_export !== undefined ? field_shorturl_export : ' '
-    const viewNode = view_node !== undefined ? view_node : ' '
+    const { title, field_shorturl_export, link_node } = videoDetailData
     await Share.open({
         title,
-        url: getShareUrl(fieldUrl, viewNode),
+        url: getShareUrl(field_shorturl_export!, link_node!),
         failOnCancel: true,
         subject: title
     }).then(response => {

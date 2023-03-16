@@ -367,16 +367,16 @@ describe("check methods in utilities",() => {
     })
 
     it("test getShareUrl returns a short url",() => {
-        const result = getShareUrl('http://shorturl.com','http://viewnodeurl.in');
+        const result = getShareUrl('http://shorturl.com','http://linknodeurl.in');
         expect(result).toBeDefined();
         expect(result).toBe('http://shorturl.com');
         expect(typeof result).toBe('string');
     })
 
-    it("test getShareUrl returns a viewNodeUrl url",() => {
-        const result = getShareUrl('','http://viewnodeurl.in');
+    it("test getShareUrl returns a linkNodeUrl url",() => {
+        const result = getShareUrl('','http://linknodeurl.in');
         expect(result).toBeDefined();
-        expect(result).toBe('http://viewnodeurl.in');
+        expect(result).toBe('http://linknodeurl.in');
         expect(typeof result).toBe('string');
     })
 

@@ -36,7 +36,15 @@ export const updatedReadAlsoContent = (articleInfo: ArticleDetailDataType, readA
   let richHTML: HTMLElementParseStore[] = []
   if (isNonEmptyArray(readAlsoInfo)) {
     richHTML = articleInfo.richHTML ?? []
-    const readAlsoIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.READ_ALSO)
+    const readAlsoIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => {
+      const isReadAlso = item.type === RichHTMLType.READ_ALSO
+      if (isReadAlso) {
+        const index = readAlsoInfo.findIndex((itemDetail: any) => item.data.related_content.includes(itemDetail.nid))
+        return index > -1;
+      } else {
+        return false;
+      }
+    });
     if (readAlsoIndex > -1) {
       const filteredReadAlso = richHTML[readAlsoIndex] as ArticleReadAlsoType
       filteredReadAlso.data.readAlsoData = readAlsoInfo
@@ -66,10 +74,12 @@ export const updatedOpinionBundle = (articleInfo: ArticleDetailDataType, opinion
   let richHTML: HTMLElementParseStore[] = []
   if (isNonEmptyArray(opinionInfo)) {
     richHTML = articleInfo.richHTML ?? []
-    const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION && item.data.opinion === opinionInfo[0].nid)
+    const opinionIndex: number = richHTML.findIndex((item: HTMLElementParseStore) => item.type === RichHTMLType.OPINION &&
+      ((isNonEmptyArray(item.data.opinion) ? item.data.opinion[0] : item.data.opinion) === opinionInfo[0].nid))
     if (opinionIndex > -1) {
       const filteredOpinion = richHTML[opinionIndex] as ArticleOpinionType
       filteredOpinion.data.opinionData = opinionInfo[0]
+      richHTML[opinionIndex] = filteredOpinion
     }
   }
 
@@ -81,10 +91,11 @@ export const parseRichArticleReadAlso = (response: any) => {
 
   if (isNonEmptyArray(response)) {
     readAlsoData = response.map(
-      ({ title, nid
+      ({ title, nid, field_image_export, field_new_photo,
       }: any) => ({
         title,
-        nid
+        nid,
+        image: getArticleImage(field_image_export, field_new_photo),
       })
     )
   }
@@ -170,7 +181,7 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
     if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_new_photo, field_news_categories_export, author_resource,created_export, changed }: any) => ({
+        ({ title, body, nid, field_image, field_new_photo, field_news_categories_export, author_resource, changed }: any) => ({
           body,
           title: isNotEmpty(title) ? decode(title) : '',
           nid,
@@ -197,9 +208,9 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
       const rows = response.rows
       responseData.articleDetailData = rows.map(
         ({ title, body_export, nid_export, field_image_export, view_node,
-          field_news_categories_export, author_resource, field_tags_topics_export,created_export, field_new_sub_title_export,
+          field_news_categories_export, author_resource, field_tags_topics_export, field_new_sub_title_export,
           field_new_photo_export, field_new_photo_titles, field_jwplayer_id_export,
-          field_paragraph_export, jor_city, jor_id, jor_name, field_shorturl, field_scribblelive_id, field_display_export,changed
+          field_paragraph_export, jor_city, jor_id, jor_name, field_shorturl, field_scribblelive_id, field_display_export,changed, link_node
          }: any) => ({
             body: body_export,
             title: isNotEmpty(title) ? decode(title) : '',
@@ -219,7 +230,8 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
             journalistName: jor_name,
             shortUrl: field_shorturl,
             scribbleLiveId: field_scribblelive_id,
-            displayType: field_display_export,
+            displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
+            link_node: link_node
           })
       );
     }
@@ -278,7 +290,7 @@ export const parseArticleSectionSuccess = (response: any, currentNid: number): A
                 journalistId: jor_id,
                 journalistCity: jor_city,
                 journalistName: jor_name,
-                displayType: field_display_export,
+                displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
               })
           );
        responseData.articleSectionData=responseData.articleSectionData.filter((item)=> parseInt(item.nid) !== currentNid)

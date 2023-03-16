@@ -129,7 +129,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     )
 
     const bottomView = () => (
-        <View style={[styles.bottomContainer, { bottom: insets.bottom }]}>
+        <View style={[styles.bottomContainer, { bottom: insets.bottom + normalize(20) }]}>
             <ButtonOutline title={PODCAST_EPISODE_LISTEN_TO_EPISODE}
                 style={styles.buttonStyle}
                 labelStyle={styles.buttonLabel}
@@ -243,7 +243,6 @@ const createStyles = () => StyleSheet.create({
         fontSize: 12,
         lineHeight: 16,
         color: colors.white,
-        marginLeft: normalize(5),
         fontFamily: fonts.AwsatDigital_Regular,
     },
     buttonLabel: {
