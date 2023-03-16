@@ -34,6 +34,17 @@ describe('<JournalistSaga >', () => {
             genObject.next()
             genObject.throw(errorResponse)
         })
+
+        it('check fetchJournalist failed', () => {
+            const genObject = fetchJournalistDetails({
+                type: FETCH_JOURNALIST_DETAIL,
+                payload: {
+                    tid: '1'
+                }
+            })
+            genObject.next()
+            genObject.throw({})
+        })
     })
 
     describe('Related getJournalistArticleInfo', () => {
@@ -60,6 +71,17 @@ describe('<JournalistSaga >', () => {
             })
             genObject.next()
             genObject.throw(errorResponse)
+        })
+        it('check getJournalistArticleInfo failed', () => {
+            const genObject = getJournalistArticleInfo({
+                type: GET_JOURNALIST_ARTICLE_INFO,
+                payload: {
+                    page: 0,
+                    nid: '1'
+                }
+            })
+            genObject.next()
+            genObject.throw({})
         })
     })
 
