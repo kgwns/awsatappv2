@@ -1,6 +1,6 @@
 import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
 import {useDispatch, useSelector} from 'react-redux';
-import { DESELECT_ALL_WRITERS, EMPTY_SELECTED_AUTHORS_INFO, EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD, EMPTY_SEND_AUTHOR_INFO, GET_SELECTED_AUTHOR, REMOVE_AUTHOR } from 'src/redux/allWriters/actionTypes';
+import { DESELECT_ALL_WRITERS, EMPTY_SELECTED_AUTHORS, EMPTY_SELECTED_AUTHORS_INFO, EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD, EMPTY_SEND_AUTHOR_INFO, GET_SELECTED_AUTHOR, REMOVE_AUTHOR } from 'src/redux/allWriters/actionTypes';
 import {
   useAllWriters,
   UseAllWritersReturn,
@@ -118,6 +118,25 @@ describe('#useAllWriters', () => {
       expect(dispatchMock).toHaveBeenCalled();
       expect(dispatchMock).toHaveBeenCalledWith({
         type: EMPTY_SELECTED_AUTHORS_INFO,
+      });
+    });
+  });
+
+  describe('#emptySelectedAuthorsData', () => {
+    it('should call dispatch with get token request action', () => {
+      const {
+        result: {
+          current: {emptySelectedAuthorsData},
+        },
+      } = result;
+
+      act(() => {
+        emptySelectedAuthorsData();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+      expect(dispatchMock).toHaveBeenCalledWith({
+        type: EMPTY_SELECTED_AUTHORS,
       });
     });
   });
