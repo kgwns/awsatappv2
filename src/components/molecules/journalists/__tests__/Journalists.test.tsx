@@ -30,7 +30,7 @@ describe('<Journalist />', () => {
   beforeEach(() => {
 
     jest.useFakeTimers('legacy');
-    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useNavigation as jest.Mock).mockReturnValue(navigation);
     (requestJournalistDetail as jest.Mock).mockImplementation(() =>Promise.resolve({rows:[{not_clickable: '1'}]}));
     const component = <Journalist
       journalistId={['106611']}
