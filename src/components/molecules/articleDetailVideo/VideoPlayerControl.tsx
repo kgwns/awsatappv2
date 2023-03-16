@@ -412,7 +412,7 @@ const VideoPlayerControl = ({
           <View style={styles.videoControls}>
             {isLoading && <LoadingState />}
             {!isLoading && !play && (
-              <TouchableWithoutFeedback onPress = {() => onVideoPress()}>
+              <TouchableWithoutFeedback testID='videoId' onPress = {() => onVideoPress()}>
                 <ImageBackground
                   source={images.topShadowImg}
                   style={[styles.playcontainer]}
